@@ -11,8 +11,8 @@ import Foundation
 let HippoSDKSource = 1
 let Device_Type_iOS = 2
 var userDetailData = [String: Any]()
-let fuguAppVersion = "1.7.25"
-let versionCode = 210
+let fuguAppVersion = "1.7.26"
+let versionCode = 211
 
 /*
  201 = Bot messages
@@ -27,4 +27,5 @@ let versionCode = 210
  209 = consent Bot
  
  210 = newUser form and github repo
+ 211 = Calling issue fixed
  */
