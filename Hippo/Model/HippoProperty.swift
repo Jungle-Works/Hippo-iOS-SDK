@@ -7,12 +7,13 @@
 
 import Foundation
 
-class HippoProperty {
+class HippoProperty: NSObject {
     static var current = HippoProperty()
     
+    //Inital Form collector info
     var forms: [FormData] = []
     var formCollectorTitle: String = ""
-    var showMessageSourceIcon: Bool = false
     
-    init() { }
+    //Properties
+    var showMessageSourceIcon: Bool = false
 }

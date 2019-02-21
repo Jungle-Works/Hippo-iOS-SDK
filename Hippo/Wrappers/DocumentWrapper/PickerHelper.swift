@@ -9,7 +9,7 @@
 import UIKit
 
 protocol PickerHelperDelegate: CoreDocumentPickerDelegate, CoreMediaSelectorDelegate {
-    
+    func payOptionClicked()
 }
 
 class PickerHelper {
@@ -18,14 +18,15 @@ class PickerHelper {
     private var currentViewController: UIViewController!
     
     weak var delegate: PickerHelperDelegate?
+    var enablePayment: Bool = false
     
-    init(viewController: UIViewController) {
+    init(viewController: UIViewController, enablePayment: Bool) {
         var config = CoreFilesConfig()
         config.enableResizingImage = false
         config.maxSizeInBytes = HippoConfig.shared.maxUploadLimitForBusiness
-        
         CoreKit.shared.filesConfig = config
         
+        self.enablePayment = enablePayment
         currentViewController = viewController
     }
     
@@ -51,6 +52,11 @@ class PickerHelper {
     
     func present(sender: UIView, controller: UIViewController) {
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertController.Style.actionSheet)
+        let paymentOption = UIAlertAction(title: "Create Payment", style: .default, handler: { (alert: UIAlertAction!) -> Void in
+            controller.view.endEditing(true)
+            self.delegate?.payOptionClicked()
+        })
+        
         
         let cameraAction = UIAlertAction(title: "Camera", style: .default, handler: { (alert: UIAlertAction!) -> Void in
             controller.view.endEditing(true)
@@ -74,6 +80,10 @@ class PickerHelper {
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (alert: UIAlertAction!) -> Void in })
         
+        
+        if enablePayment {
+            actionSheet.addAction(paymentOption)
+        }
         actionSheet.addAction(photoLibraryAction)
         actionSheet.addAction(cameraAction)
         

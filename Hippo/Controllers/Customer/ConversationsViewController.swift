@@ -1808,7 +1808,7 @@ extension ConversationsViewController: HippoChannelDelegate {
         
         
     guard !isSentByMe(senderId: message.senderId) || message.type.isBotMessage  else {
-        print("Yahaa se nahi nikla")
+        HippoConfig.shared.log.debug("Yahaa se nahi nikla", level: .custom)
         return
     }
     

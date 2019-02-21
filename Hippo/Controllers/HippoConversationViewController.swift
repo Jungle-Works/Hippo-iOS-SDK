@@ -531,7 +531,7 @@ class HippoConversationViewController: UIViewController {
         return getSavedUserId == senderId
     }
     func attachmentButtonclicked() {
-        pickerHelper = PickerHelper(viewController: self)
+        pickerHelper = PickerHelper(viewController: self, enablePayment: true)
         pickerHelper?.present(sender: self.view, controller: self)
         pickerHelper?.delegate = self
     }
@@ -539,7 +539,9 @@ class HippoConversationViewController: UIViewController {
 
 
 extension HippoConversationViewController: PickerHelperDelegate {
-    
+    func payOptionClicked() {
+      showAlertWith(message: "working on it", action: nil)
+    }
     func imagePickingError(mediaSelector: CoreMediaSelector, error: Error) {
         showAlert(title: "", message: error.localizedDescription, actionComplete: nil)
     }
