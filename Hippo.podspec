@@ -2,8 +2,8 @@ Pod::Spec.new do |s|
     s.name         = 'Hippo'
     s.version      = '1.7.25'
     s.summary      = 'Now add Agent in app for quick support.'
-    s.homepage     = 'https://git.clicklabs.in/publicrepos/Hippo-SDK-iOS'
-    s.documentation_url = 'https://git.clicklabs.in/publicrepos/Hippo-SDK-iOS'
+    s.homepage     = 'https://github.com/Jungle-Works/Hippo-iOS-SDK'
+    s.documentation_url = 'https://github.com/Jungle-Works/Hippo-iOS-SDK'
     
     s.license      = { :type => 'Apache License, Version 2.0', :text => <<-LICENSE
         Licensed under the Apache License, Version 2.0 (the 'License');
@@ -20,9 +20,9 @@ Pod::Spec.new do |s|
         LICENSE
     }
     
-    s.author             = { 'Vishaljhanjhri' => 'https://git.clicklabs.in/publicrepos/Hippo-SDK-iOS.git' }
+    s.author             = { 'Vishaljhanjhri' => 'https://github.com/Jungle-Works/Hippo-iOS-SDK' }
     
-    s.source       = { :git => 'https://git.clicklabs.in/publicrepos/Hippo-SDK-iOS.git', :tag => s.version }
+    s.source       = { :git => 'https://github.com/Jungle-Works/Hippo-iOS-SDK.git', :tag => s.version }
     s.ios.deployment_target = '9.0'
     s.source_files = 'Hippo/**/*.{swift,h,m}'
     s.exclude_files = 'Classes/Exclude'
