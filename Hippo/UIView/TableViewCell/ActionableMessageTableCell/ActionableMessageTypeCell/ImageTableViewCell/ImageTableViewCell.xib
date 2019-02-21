@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="default" indentationWidth="10" rowHeight="114" id="KGk-i7-Jjw" customClass="ImageTableViewCell" customModule="SDKDemo1" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="114"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="113.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lu9-5i-by2">
+                        <rect key="frame" x="0.0" y="5" width="320" height="103.5"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="e4l-ld-Hlq" customClass="So_UIImageView" customModule="SDKDemo1" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="103.5"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="103.5" id="6o7-gP-bYm"/>
+                                </constraints>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jVN-RK-kc8">
+                                <rect key="frame" x="136" y="28.5" width="47" height="47"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="47" id="URM-qG-2Lh"/>
+                                    <constraint firstAttribute="width" constant="47" id="XuO-xs-ze9"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="e4l-ld-Hlq" secondAttribute="trailing" id="4z5-iG-lbG"/>
+                            <constraint firstItem="jVN-RK-kc8" firstAttribute="centerX" secondItem="e4l-ld-Hlq" secondAttribute="centerX" id="7ey-1X-Now"/>
+                            <constraint firstItem="jVN-RK-kc8" firstAttribute="centerY" secondItem="e4l-ld-Hlq" secondAttribute="centerY" id="Hoy-bx-0ll"/>
+                            <constraint firstItem="e4l-ld-Hlq" firstAttribute="leading" secondItem="lu9-5i-by2" secondAttribute="leading" id="RNr-W6-neZ"/>
+                            <constraint firstItem="e4l-ld-Hlq" firstAttribute="top" secondItem="lu9-5i-by2" secondAttribute="top" id="rJP-M5-voS"/>
+                            <constraint firstAttribute="bottom" secondItem="e4l-ld-Hlq" secondAttribute="bottom" id="vee-IT-lJC"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="lu9-5i-by2" secondAttribute="trailing" id="fPR-Gs-2tg"/>
+                    <constraint firstAttribute="bottom" secondItem="lu9-5i-by2" secondAttribute="bottom" constant="5" id="foC-jp-6Tc"/>
+                    <constraint firstItem="lu9-5i-by2" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="tZb-WJ-rlI"/>
+                    <constraint firstItem="lu9-5i-by2" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="uSR-lz-2kH"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="bgView" destination="lu9-5i-by2" id="muf-xW-CLX"/>
+                <outlet property="customImageView" destination="jVN-RK-kc8" id="a0y-wT-t9z"/>
+                <outlet property="messageImageView" destination="e4l-ld-Hlq" id="NrB-g9-cIm"/>
+            </connections>
+            <point key="canvasLocation" x="218" y="94"/>
+        </tableViewCell>
+    </objects>
+</document>

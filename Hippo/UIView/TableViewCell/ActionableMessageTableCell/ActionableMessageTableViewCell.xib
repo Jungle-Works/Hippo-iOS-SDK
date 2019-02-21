@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" indentationWidth="10" rowHeight="69" id="KGk-i7-Jjw" customClass="ActionableMessageTableViewCell" customModule="SDKDemo1" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="174"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="173.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tto-rP-3KJ">
+                        <rect key="frame" x="9.5" y="3.5" width="252.5" height="169.5"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K06-4p-Sud">
+                        <rect key="frame" x="11" y="5" width="249" height="166.5"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" scrollEnabled="NO" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="btA-5q-6XM">
+                                <rect key="frame" x="5" y="5" width="239" height="145"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="145" id="7lq-Hc-I0l"/>
+                                </constraints>
+                                <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="749" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3yQ-Ht-UPk" customClass="So_CustomLabel" customModule="SDKDemo1" customModuleProvider="target">
+                                <rect key="frame" x="188.5" y="155" width="55.5" height="9"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.88627450980392153" green="0.90196078431372551" blue="0.97647058823529409" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="3yQ-Ht-UPk" firstAttribute="top" secondItem="btA-5q-6XM" secondAttribute="bottom" constant="5" id="3eY-ta-kb2"/>
+                            <constraint firstAttribute="trailing" secondItem="3yQ-Ht-UPk" secondAttribute="trailing" constant="5" id="8xp-Kw-UtD"/>
+                            <constraint firstAttribute="trailing" secondItem="btA-5q-6XM" secondAttribute="trailing" constant="5" id="9FR-Sf-5mQ"/>
+                            <constraint firstAttribute="bottom" secondItem="3yQ-Ht-UPk" secondAttribute="bottom" constant="2.5" id="FD8-Ik-PtM"/>
+                            <constraint firstItem="btA-5q-6XM" firstAttribute="leading" secondItem="K06-4p-Sud" secondAttribute="leading" constant="5" id="VV8-Td-Me5"/>
+                            <constraint firstItem="btA-5q-6XM" firstAttribute="top" secondItem="K06-4p-Sud" secondAttribute="top" constant="5" id="azy-AH-BFo"/>
+                            <constraint firstItem="3yQ-Ht-UPk" firstAttribute="leading" relation="lessThanOrEqual" secondItem="K06-4p-Sud" secondAttribute="leading" constant="188.5" id="gMm-s8-ZX1"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="5"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstItem="K06-4p-Sud" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="11" id="0gY-02-8kA"/>
+                    <constraint firstItem="tto-rP-3KJ" firstAttribute="bottom" secondItem="K06-4p-Sud" secondAttribute="bottom" constant="1.5" id="46d-ok-FCO"/>
+                    <constraint firstAttribute="trailing" secondItem="K06-4p-Sud" secondAttribute="trailing" constant="60" id="Bda-8d-xvp"/>
+                    <constraint firstItem="K06-4p-Sud" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="CHc-oY-BAz"/>
+                    <constraint firstItem="tto-rP-3KJ" firstAttribute="top" secondItem="K06-4p-Sud" secondAttribute="top" constant="-1.5" id="JcT-Yv-K5v"/>
+                    <constraint firstItem="tto-rP-3KJ" firstAttribute="trailing" secondItem="K06-4p-Sud" secondAttribute="trailing" constant="1.5" id="Mbz-fE-i3y"/>
+                    <constraint firstItem="tto-rP-3KJ" firstAttribute="leading" secondItem="K06-4p-Sud" secondAttribute="leading" constant="-1.5" id="cJA-qZ-LFx"/>
+                    <constraint firstAttribute="bottom" secondItem="K06-4p-Sud" secondAttribute="bottom" constant="2" id="qVg-tK-JXA"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="actionableMessageTableView" destination="btA-5q-6XM" id="o7a-xl-U1U"/>
+                <outlet property="bgView" destination="K06-4p-Sud" id="swB-00-Hud"/>
+                <outlet property="shadowView" destination="tto-rP-3KJ" id="J2B-0I-ngl"/>
+                <outlet property="tableViewHeightConstraint" destination="7lq-Hc-I0l" id="fG5-Nu-zbA"/>
+                <outlet property="timeLabel" destination="3yQ-Ht-UPk" id="NaR-cY-hcA"/>
+            </connections>
+            <point key="canvasLocation" x="21" y="-70"/>
+        </tableViewCell>
+    </objects>
+</document>

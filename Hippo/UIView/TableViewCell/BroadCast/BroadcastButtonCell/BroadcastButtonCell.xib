@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="120" id="KGk-i7-Jjw" customClass="BroadcastButtonCell" customModule="Hippo" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="120"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="119.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="NHt-Sk-BD7">
+                        <rect key="frame" x="10" y="15" width="300" height="88"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="52D-Y3-O6O">
+                                <rect key="frame" x="0.0" y="0.0" width="300" height="40"/>
+                                <color key="backgroundColor" red="0.38431372549999998" green="0.49019607840000001" blue="0.89019607840000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="oRI-HF-1Ug"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <state key="normal" title="SEND">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="sendButtonClicked:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="iAf-7T-NGo"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JxL-qL-uO2">
+                                <rect key="frame" x="0.0" y="48" width="300" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="PfU-B9-v2U"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <state key="normal" title="See previous messages"/>
+                                <connections>
+                                    <action selector="previousMEssageButtonClicked:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="mOq-hq-jcf"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                    </stackView>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="NHt-Sk-BD7" secondAttribute="bottom" constant="10" id="L85-9z-Zn0"/>
+                    <constraint firstItem="NHt-Sk-BD7" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="UPa-ns-W97"/>
+                    <constraint firstAttribute="trailing" secondItem="NHt-Sk-BD7" secondAttribute="trailing" constant="10" id="WEm-2W-pvk"/>
+                    <constraint firstItem="NHt-Sk-BD7" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="s2D-xm-Kho"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="previousMessagesButton" destination="JxL-qL-uO2" id="qPk-w5-Qko"/>
+                <outlet property="sendButton" destination="52D-Y3-O6O" id="ad6-Cc-qev"/>
+                <outlet property="sendButtonHeightConstraint" destination="oRI-HF-1Ug" id="W3a-g6-J6b"/>
+            </connections>
+            <point key="canvasLocation" x="34" y="170"/>
+        </tableViewCell>
+    </objects>
+</document>

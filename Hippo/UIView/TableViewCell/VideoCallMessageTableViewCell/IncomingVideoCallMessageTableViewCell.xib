@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="IncomingVideoCallMessageTableViewCell" rowHeight="107" id="gHp-v5-Fq8" customClass="IncomingVideoCallMessageTableViewCell" customModule="SDKDemo1" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="621" height="107"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gHp-v5-Fq8" id="9cx-do-cRA">
+                <rect key="frame" x="0.0" y="0.0" width="621" height="106.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Yt-JO-M0w">
+                        <rect key="frame" x="10" y="5" width="202" height="88"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You missed a video call." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="auy-ee-YMf">
+                                <rect key="frame" x="10" y="5" width="182" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fJl-7C-PpI">
+                                <rect key="frame" x="118" y="28.5" width="74" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="maX-SC-9KZ">
+                                <rect key="frame" x="15" y="52" width="172" height="1"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="eCQ-34-SiJ"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qr3-sy-y90">
+                                <rect key="frame" x="15" y="53" width="172" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="1eE-YT-WxG"/>
+                                </constraints>
+                                <state key="normal" title="Call Again"/>
+                                <connections>
+                                    <action selector="callAgainButtonPressed:" destination="gHp-v5-Fq8" eventType="touchUpInside" id="O65-eh-rR0"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Call Duration" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7RD-b4-q2r">
+                                <rect key="frame" x="16" y="28.5" width="99" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="qr3-sy-y90" firstAttribute="leading" secondItem="2Yt-JO-M0w" secondAttribute="leading" constant="15" id="19f-ef-tYf"/>
+                            <constraint firstItem="maX-SC-9KZ" firstAttribute="top" secondItem="fJl-7C-PpI" secondAttribute="bottom" constant="3" id="1vF-WB-jRa"/>
+                            <constraint firstItem="auy-ee-YMf" firstAttribute="top" secondItem="2Yt-JO-M0w" secondAttribute="top" constant="5" id="2Pg-cU-T7h"/>
+                            <constraint firstAttribute="bottom" secondItem="qr3-sy-y90" secondAttribute="bottom" id="335-ot-veg"/>
+                            <constraint firstAttribute="trailing" secondItem="maX-SC-9KZ" secondAttribute="trailing" constant="15" id="4dy-sN-v6o"/>
+                            <constraint firstItem="fJl-7C-PpI" firstAttribute="trailing" secondItem="auy-ee-YMf" secondAttribute="trailing" id="HdD-zD-3hQ"/>
+                            <constraint firstItem="7RD-b4-q2r" firstAttribute="centerY" secondItem="fJl-7C-PpI" secondAttribute="centerY" id="OMF-x3-nU0"/>
+                            <constraint firstItem="fJl-7C-PpI" firstAttribute="leading" secondItem="7RD-b4-q2r" secondAttribute="trailing" constant="3" id="TWa-uX-KLs"/>
+                            <constraint firstItem="fJl-7C-PpI" firstAttribute="top" secondItem="auy-ee-YMf" secondAttribute="bottom" constant="3" id="ZLl-xo-xxy"/>
+                            <constraint firstItem="7RD-b4-q2r" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="2Yt-JO-M0w" secondAttribute="leading" constant="10" id="bsv-ZK-Nmj"/>
+                            <constraint firstItem="maX-SC-9KZ" firstAttribute="leading" secondItem="2Yt-JO-M0w" secondAttribute="leading" constant="15" id="cL8-kV-FZu"/>
+                            <constraint firstItem="auy-ee-YMf" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="2Yt-JO-M0w" secondAttribute="leading" constant="10" id="dVV-RZ-Ouv"/>
+                            <constraint firstItem="qr3-sy-y90" firstAttribute="top" secondItem="maX-SC-9KZ" secondAttribute="bottom" id="gQv-U2-As6"/>
+                            <constraint firstItem="qr3-sy-y90" firstAttribute="centerX" secondItem="2Yt-JO-M0w" secondAttribute="centerX" id="nRw-tn-xsx"/>
+                            <constraint firstAttribute="trailing" secondItem="auy-ee-YMf" secondAttribute="trailing" constant="10" id="q7w-mK-O99"/>
+                            <constraint firstAttribute="trailing" secondItem="qr3-sy-y90" secondAttribute="trailing" constant="15" id="tLq-iJ-xVd"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="2Yt-JO-M0w" secondAttribute="bottom" constant="5" id="CLT-Cn-Dph"/>
+                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="2Yt-JO-M0w" secondAttribute="trailing" constant="60" id="SSz-xV-B35"/>
+                    <constraint firstItem="2Yt-JO-M0w" firstAttribute="leading" secondItem="9cx-do-cRA" secondAttribute="leading" constant="10" id="emz-Tv-TE5"/>
+                    <constraint firstItem="2Yt-JO-M0w" firstAttribute="top" secondItem="9cx-do-cRA" secondAttribute="top" constant="5" id="shU-fv-l3U"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <connections>
+                <outlet property="callAgainButton" destination="qr3-sy-y90" id="TPg-3H-2ne"/>
+                <outlet property="callDurationLabel" destination="7RD-b4-q2r" id="JSn-h0-r09"/>
+                <outlet property="centerLineView" destination="maX-SC-9KZ" id="LbG-V5-o6L"/>
+                <outlet property="dateTimeLabel" destination="fJl-7C-PpI" id="Ju7-aj-XQW"/>
+                <outlet property="messageBackgroundView" destination="2Yt-JO-M0w" id="g1l-mw-oq0"/>
+                <outlet property="messageLabel" destination="auy-ee-YMf" id="f30-7h-TBe"/>
+                <outlet property="retryButtonHeight" destination="1eE-YT-WxG" id="8eO-U1-a31"/>
+            </connections>
+            <point key="canvasLocation" x="47.200000000000003" y="-47.226386806596707"/>
+        </tableViewCell>
+    </objects>
+</document>
