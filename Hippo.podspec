@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name         = 'Hippo'
-    s.version      = '1.7.24'
+    s.version      = '1.7.25'
     s.summary      = 'Now add Agent in app for quick support.'
     s.homepage     = 'https://git.clicklabs.in/publicrepos/Hippo-SDK-iOS'
     s.documentation_url = 'https://git.clicklabs.in/publicrepos/Hippo-SDK-iOS'
