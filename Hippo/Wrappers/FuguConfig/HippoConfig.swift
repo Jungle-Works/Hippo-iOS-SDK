@@ -172,12 +172,10 @@ public class HippoConfig : NSObject {
     }
     @available(*, deprecated, renamed: "setCustomisedHippoTheme", message: "This class will no longer be available, To Continue migrate to setCustomisedHippoTheme")
     public func setCustomisedFuguTheme(theme: HippoTheme) {
-//        log.minLevel = (baseUrl == SERVERS.devUrl) ? .info : .error
         self.theme = theme
     }
     
     public func setCustomisedHippoTheme(theme: HippoTheme) {
-//        log.minLevel = (baseUrl == SERVERS.devUrl) ? .info : .error
         self.theme = theme
     }
     
