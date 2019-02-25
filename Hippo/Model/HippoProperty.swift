@@ -16,4 +16,10 @@ class HippoProperty: NSObject {
     
     //Properties
     var showMessageSourceIcon: Bool = false
+    var isPaymentRequestEnabled: Bool = false
+    
+    
+    func updatePaymentRequestStatus(enable: Bool) {
+        isPaymentRequestEnabled = enable
+    }
 }

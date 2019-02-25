@@ -208,6 +208,13 @@ public class HippoConfig : NSObject {
         isBroadcastEnabled = false
     }
     
+    public class func enablePaymentRequest() {
+        HippoProperty.current.updatePaymentRequestStatus(enable: true)
+    }
+    public class func disablePaymentRequest() {
+        HippoProperty.current.updatePaymentRequestStatus(enable: false)
+    }
+    
     
     public func initManager(agentToken: String, app_type: String, customAttributes: [String: Any]? = nil) {
         let detail = AgentDetail(oAuthToken: agentToken.trimWhiteSpacesAndNewLine(), appType: app_type, customAttributes: customAttributes)

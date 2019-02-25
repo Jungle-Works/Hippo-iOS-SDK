@@ -52,7 +52,7 @@ class PickerHelper {
     
     func present(sender: UIView, controller: UIViewController) {
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertController.Style.actionSheet)
-        let paymentOption = UIAlertAction(title: "Create Payment", style: .default, handler: { (alert: UIAlertAction!) -> Void in
+        let paymentOption = UIAlertAction(title: "Request Payment", style: .default, handler: { (alert: UIAlertAction!) -> Void in
             controller.view.endEditing(true)
             self.delegate?.payOptionClicked()
         })

@@ -8,8 +8,9 @@
 
 import UIKit
 
-protocol BroadCastTextFieldCellDelegate: class {
-    func textFieldTextChanged(newText: String)
+@objc protocol BroadCastTextFieldCellDelegate {
+    @objc func textFieldTextChanged(newText: String)
+    @objc optional func pickerSelected(currency: PaymentCurrency)
 }
 
 class BroadCastTextFieldCell: UITableViewCell {
@@ -26,6 +27,8 @@ class BroadCastTextFieldCell: UITableViewCell {
     
     weak var delegate: BroadCastTextFieldCellDelegate?
     var form: FormData?
+    var pickerView: UIPickerView?
+    var currency: [PaymentCurrency] = []
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -65,6 +68,57 @@ class BroadCastTextFieldCell: UITableViewCell {
         setErrorMessageIfNeed()
     }
     
+    func setupCell(form: PaymentField) {
+        self.form = form
+        cellTextField.text = form.value
+        titleLabel.text = form.title
+        cellTextField.placeholder = form.placeHolder
+        
+        cellTextField.borderStyle = .roundedRect
+        
+        bottomLineView.isHidden = true
+        
+        switch form.validationType {
+        case .currency:
+            currency = PaymentCurrency.getAllCurrency()
+            setPickerView()
+        default:
+            cellTextField.inputView = nil
+        }
+        
+        cellTextField.keyboardType = form.validationType.keyBoardType
+        
+        setErrorMessageIfNeed()
+    }
+    func setPickerView() {
+        pickerView = UIPickerView()
+        pickerView?.delegate = self
+        pickerView?.dataSource = self
+        
+        
+        pickerView?.showsSelectionIndicator = true
+        
+        let toolBar = UIToolbar()
+        toolBar.barStyle = UIBarStyle.default
+        toolBar.isTranslucent = true
+        toolBar.tintColor = UIColor.black
+        toolBar.sizeToFit()
+        
+        
+        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.plain, target: self, action: #selector(prickerDoneButtonClicked))
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
+        
+        toolBar.setItems([spaceButton, doneButton], animated: false)
+        toolBar.isUserInteractionEnabled = true
+        
+        cellTextField.inputView = pickerView
+        cellTextField.inputAccessoryView = toolBar
+    }
+    
+    
+    @objc func prickerDoneButtonClicked() {
+        cellTextField.resignFirstResponder()
+    }
     func setErrorMessageIfNeed() {
         guard let form = self.form else {
             return
@@ -94,4 +148,30 @@ extension BroadCastTextFieldCell: UITextFieldDelegate {
         delegate?.textFieldTextChanged(newText: updatedString ?? "")
         return true
     }
+}
+
+extension BroadCastTextFieldCell: UIPickerViewDelegate {
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        let value = currency[row]
+        form?.value = value.displayName
+        cellTextField.text = form?.value
+        delegate?.pickerSelected?(currency: value)
+    }
+}
+
+extension BroadCastTextFieldCell: UIPickerViewDataSource {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return currency.count
+    }
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        let value = currency[row]
+        
+        return value.displayName
+    }
+    
+    
 }

@@ -1063,11 +1063,11 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HFJ-TA-Lys" customClass="So_UIView" customModule="Hippo" customModuleProvider="target">
-                                                    <rect key="frame" x="8.5" y="3.5" width="65" height="62.5"/>
+                                                    <rect key="frame" x="8.5" y="1.5" width="65" height="62.5"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wa3-Bm-Dvm">
-                                                    <rect key="frame" x="10" y="5" width="62" height="59.5"/>
+                                                    <rect key="frame" x="10" y="3" width="62" height="59.5"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8rJ-48-zcs">
                                                             <rect key="frame" x="30" y="40.5" width="27" height="12"/>
@@ -1098,7 +1098,7 @@
                                                     </constraints>
                                                 </view>
                                                 <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1gn-Nz-BQC">
-                                                    <rect key="frame" x="72" y="39.5" width="25" height="25"/>
+                                                    <rect key="frame" x="72" y="37.5" width="25" height="25"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="1gn-Nz-BQC" secondAttribute="height" multiplier="1:1" id="3RC-q8-5Bz"/>
                                                         <constraint firstAttribute="height" constant="25" id="IgA-5k-BQs"/>
@@ -1109,7 +1109,7 @@
                                             <constraints>
                                                 <constraint firstItem="Wa3-Bm-Dvm" firstAttribute="leading" secondItem="cJM-iT-1IE" secondAttribute="leading" constant="10" id="2rj-wt-9jZ"/>
                                                 <constraint firstItem="HFJ-TA-Lys" firstAttribute="trailing" secondItem="Wa3-Bm-Dvm" secondAttribute="trailing" constant="1.5" id="348-gX-DqF"/>
-                                                <constraint firstItem="Wa3-Bm-Dvm" firstAttribute="top" secondItem="cJM-iT-1IE" secondAttribute="top" constant="5" id="DGu-kV-HkP"/>
+                                                <constraint firstItem="Wa3-Bm-Dvm" firstAttribute="top" secondItem="cJM-iT-1IE" secondAttribute="top" constant="3" id="DGu-kV-HkP"/>
                                                 <constraint firstItem="HFJ-TA-Lys" firstAttribute="bottom" secondItem="Wa3-Bm-Dvm" secondAttribute="bottom" constant="1.5" id="EP8-qL-y0z"/>
                                                 <constraint firstItem="HFJ-TA-Lys" firstAttribute="leading" secondItem="Wa3-Bm-Dvm" secondAttribute="leading" constant="-1.5" id="PLl-mN-eOZ"/>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Wa3-Bm-Dvm" secondAttribute="trailing" constant="60" id="WAJ-Ay-dzR"/>

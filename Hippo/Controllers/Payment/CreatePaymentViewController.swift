@@ -7,6 +7,9 @@
 
 import UIKit
 
+protocol CreatePaymentDelegate: class {
+    func sendMessage(for store: PaymentStore)
+}
 
 
 class CreatePaymentViewController: UIViewController {
@@ -17,13 +20,20 @@ class CreatePaymentViewController: UIViewController {
     
     //MARK: Variables
     var datasource: CreatePaymentDataSource?
+    var store: PaymentStore = PaymentStore()
+    weak var delegate: CreatePaymentDelegate?
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
         self.navigationController?.setTheme()
+        HippoKeyboardManager.shared.enable = true
         setUI()
+        store.delegate = self
+    }
+    override func viewDidDisappear(_ animated: Bool) {
+        HippoKeyboardManager.shared.enable = false
     }
     
     @IBAction func backButtonAction(_ sender: Any) {
@@ -31,14 +41,14 @@ class CreatePaymentViewController: UIViewController {
     }
     
     func setUI() {
-        title = HippoProperty.current.formCollectorTitle
+        title = "Payment Request"
         if HippoConfig.shared.theme.leftBarButtonImage != nil {
             backButton.image = HippoConfig.shared.theme.leftBarButtonImage
             backButton.tintColor = HippoConfig.shared.theme.headerTextColor
         }
     }
     func setupTableView() {
-        datasource = CreatePaymentDataSource()
+        datasource = CreatePaymentDataSource(store: store)
         tableView.dataSource = datasource
         tableView.delegate = self
         
@@ -50,8 +60,8 @@ class CreatePaymentViewController: UIViewController {
         tableView.register(UINib(nibName: "BroadCastTitleCell", bundle: bundle), forCellReuseIdentifier: "BroadCastTitleCell")
         tableView.register(UINib(nibName: "BroadcastButtonCell", bundle: bundle), forCellReuseIdentifier: "BroadcastButtonCell")
         tableView.register(UINib(nibName: "BroadCastTextFieldCell", bundle: bundle), forCellReuseIdentifier: "BroadCastTextFieldCell")
-        tableView.register(UINib(nibName: "ContactNumberTableCell", bundle: bundle), forCellReuseIdentifier: "ContactNumberTableCell")
-        
+        tableView.register(UINib(nibName: "PaymentItemDescriptionCell", bundle: bundle), forCellReuseIdentifier: "PaymentItemDescriptionCell")
+        tableView.register(UINib(nibName: "ShowMoreTableViewCell", bundle: bundle), forCellReuseIdentifier: "ShowMoreTableViewCell")
         
         tableView.tableFooterView = UIView()
     }
@@ -73,6 +83,10 @@ extension CreatePaymentViewController: UITableViewDelegate {
             customCell.delegate = self
         case let customCell as BroadCastTextFieldCell:
             customCell.delegate = self
+        case let customCell  as PaymentItemDescriptionCell:
+            customCell.delegate = self
+        case let customCell  as ShowMoreTableViewCell:
+            customCell.delegate = self
         default:
             return
         }
@@ -85,6 +99,9 @@ extension CreatePaymentViewController: BroadCastTextFieldCellDelegate {
     func textFieldTextChanged(newText: String) {
         
     }
+    func pickerSelected(currency: PaymentCurrency) {
+        store.selectedCurrency = currency
+    }
 }
 extension CreatePaymentViewController: BroadcastButtonCellDelegate {
     func previousMessageButtonClicked() {
@@ -92,7 +109,36 @@ extension CreatePaymentViewController: BroadcastButtonCellDelegate {
     }
     
     func sendButtonClicked() {
-        
+        if let errorMesaage = store.validateStore() {
+            showAlertWith(message: errorMesaage, action: nil)
+            return
+        }
+        delegate?.sendMessage(for: store)
+        self.navigationController?.popViewController(animated: true)
     }
 }
 
+extension CreatePaymentViewController: PaymentItemDescriptionCellDelegate {
+    func updateHeightFor(_ cell: PaymentItemDescriptionCell) {
+        UIView.setAnimationsEnabled(false)
+        tableView.beginUpdates()
+        tableView.endUpdates()
+        UIView.setAnimationsEnabled(true)
+    }
+    func cancelButtonClicked(item: PaymentItem) {
+        store.removeIndex(for: item)
+    }
+}
+
+
+extension CreatePaymentViewController: ShowMoreTableViewCellDelegate {
+    func buttonClicked(with form: PaymentField) {
+        store.addNewItem()
+    }
+}
+
+extension CreatePaymentViewController: PaymentStoreDelegate {
+    func dataUpdate() {
+        tableView.reloadData()
+    }
+}

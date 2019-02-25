@@ -45,6 +45,13 @@ extension String {
         return result
     }
     
+    func isValidDecimalNumber() -> Bool {
+        let formatter = NumberFormatter()
+        formatter.allowsFloats = true
+        formatter.locale = Locale.current
+        return formatter.number(from: self) != nil
+    }
+    
     func isValidCountryCode() -> Bool {
         let phoneRegex = "\\+[0-9]{1,5}"
         let phoneTest = NSPredicate(format: "SELF MATCHES %@", phoneRegex)

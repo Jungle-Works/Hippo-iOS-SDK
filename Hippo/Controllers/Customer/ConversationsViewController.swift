@@ -64,8 +64,9 @@ protocol NewChatSentDelegate: class {
 
    
     deinit {
-        NotificationCenter.default.removeObserver(self)
         
+        NotificationCenter.default.removeObserver(self)
+        HippoConfig.shared.notifiyDeinit()
         print("Conversation View Controller deintialized")
     }
    
@@ -104,6 +105,7 @@ protocol NewChatSentDelegate: class {
 
       handleVideoIcon()
       handleAudioIcon()
+      HippoConfig.shared.notifyDidLoad()
    }
    
     override func viewDidAppear(_ animated: Bool) {
@@ -113,12 +115,9 @@ protocol NewChatSentDelegate: class {
             startLoaderAnimation()
         }
         reloadVisibleCellsToStartActivityIndicator()
-        
+        HippoConfig.shared.notifyDidLoad()
     }
-   
-    override func viewDidDisappear(_ animated: Bool) {
-        HippoConfig.shared.notifiyDeinit()
-    }
+
     override func closeKeyBoard() {
         if messageTextView.isFirstResponder {
             messageTextView.resignFirstResponder()
@@ -1300,7 +1299,7 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                 cell.timeLabel.text = ""
                 cell.rootViewController = self
                 cell.registerNib()
-                cell.setUpData(messageObject: message)
+                cell.setUpData(messageObject: message, isIncomingMessage: !isOutgoingMsg)
                 cell.actionableMessageTableView.reloadData()
                 cell.tableViewHeightConstraint.constant = self.getHeightOfActionableMessageAt(indexPath: indexPath, chatObject: message)
                 cell.backgroundColor = UIColor.clear

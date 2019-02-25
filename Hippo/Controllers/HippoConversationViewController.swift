@@ -64,6 +64,8 @@ class HippoConversationViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 //        checkNetworkConnection()
+         self.navigationController?.isNavigationBarHidden = true
+        
         registerFayeNotification()
         registerKeyBoardNotification()
         registerNotificationWhenAppEntersForeground()
@@ -531,16 +533,20 @@ class HippoConversationViewController: UIViewController {
         return getSavedUserId == senderId
     }
     func attachmentButtonclicked() {
-        pickerHelper = PickerHelper(viewController: self, enablePayment: true)
+        pickerHelper = PickerHelper(viewController: self, enablePayment: HippoProperty.current.isPaymentRequestEnabled)
         pickerHelper?.present(sender: self.view, controller: self)
         pickerHelper?.delegate = self
     }
+    
 }
 
 
 extension HippoConversationViewController: PickerHelperDelegate {
     func payOptionClicked() {
-      showAlertWith(message: "working on it", action: nil)
+        let vc = CreatePaymentViewController.get()
+        vc.delegate = self
+        self.navigationController?.isNavigationBarHidden = false
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     func imagePickingError(mediaSelector: CoreMediaSelector, error: Error) {
         showAlert(title: "", message: error.localizedDescription, actionComplete: nil)
@@ -1040,5 +1046,17 @@ extension HippoConversationViewController: ActionTableViewDelegate {
         }
         customMessage.selectBtnWith(btnId: selectionId)
         sendMessage(message: customMessage)
+    }
+}
+extension HippoConversationViewController: CreatePaymentDelegate {
+    func sendMessage(for store: PaymentStore) {
+        let message = HippoMessage(message: "", type: .hippoPay, uniqueID: String.generateUniqueId())
+        let custom_action = store.getJsonToSend()
+        message.actionableMessage = FuguActionableMessage(dict: custom_action)
+        message.rawJsonToSend = ["custom_action": custom_action]
+        addMessageInUnsentArray(message: message)
+        updateMessagesArrayLocallyForUIUpdation(message)
+        
+        publishMessageOnChannel(message: message)
     }
 }

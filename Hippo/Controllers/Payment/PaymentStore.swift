@@ -7,99 +7,113 @@
 
 import Foundation
 
-
-class PaymentField: FormData {
-    
-    var UId: String
-    
-    
-    override init?(json: [String : Any]) {
-        UId = UUID().uuidString
-        
-        super.init(json: json)
-    }
-    
-    class func getInitalFields() -> [PaymentField] {
-        var fields: [PaymentField] = []
-        
-        for each in initalPaymentField {
-            guard let field = PaymentField(json: each) else {
-                continue
-            }
-            fields.append(field)
-        }
-        return fields
-    }
-    
-    
-    static let initalPaymentField: [[String: Any]] = [[
-        "validation_type": "ANY",
-        "placeholder": "Title",
-        "title": "Title",
-        "is_required": true,
-        "type": "TEXTFIELD",
-        "key": "Title"
-        ], [
-            "validation_type": "ANY",
-            "placeholder": "Enter your full name",
-            "title": "Name",
-            "is_required": true,
-            "type": "TEXTFIELD",
-            "key": "full_name"
-        ]]
-}
-
-class PaymentItem: NSObject {
-    
-    var UId: String
-    
-    override init() {
-        UId = UUID().uuidString
-    }
-    
-    class func getInitalItems() -> [PaymentItem] {
-        let singleItem = PaymentItem()
-        return [singleItem]
-    }
- }
-
-class PaymentCurrency {
-    private static var currencies: [PaymentCurrency] = []
-    
-    init(json: [String: Any]) {
-        
-    }
-    
-    class func getAllCurrency() -> [PaymentCurrency] {
-        guard currencies.isEmpty else {
-            return currencies
-        }
-        var list: [PaymentCurrency] = []
-        
-        for each in currencyJson {
-            let currency = PaymentCurrency(json: each)
-            list.append(currency)
-        }
-        
-        currencies = list
-        return currencies
-    }
+protocol PaymentStoreDelegate: class {
+    func dataUpdate()
 }
 
 class PaymentStore: NSObject {
     var fields: [PaymentField] = []
-    var currencies: [PaymentCurrency] = []
+    static var currencies: [PaymentCurrency] = []
     var items: [PaymentItem] = []
+    var buttons: [PaymentField] = []
     
+    var selectedCurrency: PaymentCurrency?
+    
+    
+    weak var delegate: PaymentStoreDelegate?
     
     override init() {
         super.init()
         
         items = PaymentItem.getInitalItems()
-        currencies = PaymentCurrency.getAllCurrency()
+        PaymentStore.currencies = PaymentCurrency.getAllCurrency()
         fields = PaymentField.getInitalFields()
+        buttons = PaymentField.getStaticButtons()
+        
+        selectedCurrency = PaymentStore.currencies.first
     }
+    
+    func addNewItem() {
+        guard let newItem = PaymentItem.getDefaultForm() else {
+            return
+        }
+        items.append(newItem)
+        delegate?.dataUpdate()
+    }
+    
+    
+    func removeIndex(for item: PaymentItem) {
+        let rawIndex = items.lastIndex { (p) -> Bool in
+            return p.UId == item.UId
+        }
+        
+        guard let index = rawIndex else {
+            return
+        }
+        items.remove(at: index)
+        delegate?.dataUpdate()
+    }
+    
+    
+    func validateStore() -> String? {
+        for each in fields {
+            each.validate()
+            if !each.errorMessage.isEmpty {
+                return each.errorMessage
+            }
+        }
+        for each in items {
+            each.validate()
+            if !each.errorMessage.isEmpty {
+                return each.errorMessage
+            }
+        }
+        if selectedCurrency == nil {
+            return "Please select currency"
+        }
+        return nil
+    }
+    
+    func getJsonToSend() -> [String: Any] {
+        var json: [String: Any] = [:]
+        
+        for each in fields {
+            json += each.getRequestJson()
+        }
+        var symbol = ""
+        if let currency = selectedCurrency {
+            symbol = currency.symbol
+            json["currency_symbol"]  = currency.symbol
+        }
+        
+        var totalPrice: Double = 0.0
+        var description: [[String: Any]] = []
+        
+        
+        for each in items {
+            let price = Double(each.priceField.value) ?? 0
+            totalPrice += price
+            let dict: [String: Any] = ["header": each.descriptionField.value,
+                                       "content": "\(symbol) \(price)"]
+            description.append(dict)
+            
+        }
+        json["amount"] = "\(totalPrice)"
+        json["description"] = description
+        
+        var buttonAction: [String: Any] = [:]
+        buttonAction += json
+        buttonAction["action_type"] = "NATIVE_ACTIVITY"
+        
+        
+        var actionButton: [String: Any] = [:]
+        
+        actionButton += buttonAction
+        actionButton["button_text"] = "PAY"
+        
+        json["action_buttons"] = [actionButton]
+        
+        return json
+    }
+    
 }
-
-let currencyJson: [[String: Any]] = []
-

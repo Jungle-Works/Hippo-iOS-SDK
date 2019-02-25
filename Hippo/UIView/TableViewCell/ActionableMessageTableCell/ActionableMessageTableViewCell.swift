@@ -9,6 +9,8 @@ import UIKit
 
 class ActionableMessageTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var cellTrailingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var cellLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var bgView: UIView!
     @IBOutlet weak var shadowView: UIView!
     @IBOutlet weak var timeLabel: UILabel!
@@ -46,7 +48,7 @@ class ActionableMessageTableViewCell: UITableViewCell {
         
         actionableMessageTableView.layer.cornerRadius = self.bgView.layer.cornerRadius
         actionableMessageTableView.clipsToBounds = true
-        actionableMessageTableView.backgroundColor = HippoConfig.shared.theme.chatBoxBorderColor
+        actionableMessageTableView.backgroundColor = UIColor.white//HippoConfig.shared.theme.chatBoxBorderColor
         
         shadowView.layer.cornerRadius = self.bgView.layer.cornerRadius
         shadowView.clipsToBounds = true
@@ -63,7 +65,16 @@ class ActionableMessageTableViewCell: UITableViewCell {
     }
     
     
-    func setUpData(messageObject: HippoMessage) {
+    func setUpData(messageObject: HippoMessage, isIncomingMessage: Bool) {
+        
+        if isIncomingMessage {
+            cellLeadingConstraint.constant = 12
+            cellTrailingConstraint.constant = 60
+        } else {
+            cellLeadingConstraint.constant = 60
+            cellTrailingConstraint.constant = 12
+        }
+        
         actionableMessageTableCellHandler.chatMessageObj = messageObject
         resetPropertiesOfOutgoingCell()
         let messageType = messageObject.type.rawValue

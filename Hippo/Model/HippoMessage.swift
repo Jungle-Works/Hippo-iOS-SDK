@@ -106,6 +106,8 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
     var isFileUploading: Bool = false
     var imageWidth : Float?
     var imageHeight : Float?
+    
+    var rawJsonToSend: [String: Any]?
 
     var mimeType: String? {
         if localImagePath != nil {
@@ -172,6 +174,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
             self.status = status
         }
         
+        self.rawJsonToSend = dict["rawJsonToSend"] as? [String: Any]
         self.localImagePath = dict["image_file"] as? String
         self.imageUrl = dict["image_url"] as? String
         self.thumbnailUrl = dict["thumbnail_url"] as? String
@@ -315,6 +318,9 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
     // MARK: - Methods
     func getJsonToSendToFaye() -> [String: Any] {
         var json = [String: Any]()
+        if let parsedRawJsonToSend = rawJsonToSend {
+            json += parsedRawJsonToSend
+        }
         
         json["message"] = message
         json["user_id"] = senderId
@@ -396,6 +402,10 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
     
     func getDictToSaveInCache() -> [String: Any] {
         var dict = [String: Any]()
+        
+        if let parsedRawJsonToSend = rawJsonToSend {
+            dict["rawJsonToSend"] = parsedRawJsonToSend
+        }
         
         switch self {
         case let customMessage as HippoActionMessage:
