@@ -2,19 +2,17 @@ PODS:
   - MZFayeClient (1.0.3):
     - SocketRocket
   - SocketRocket (0.5.1)
+  - XLPagerTabStrip (8.0.0)
 
 DEPENDENCIES:
   - MZFayeClient
-
-SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
-    - MZFayeClient
-    - SocketRocket
+  - XLPagerTabStrip (~> 8.0)
 
 SPEC CHECKSUMS:
   MZFayeClient: ac3defb0026d26f025444eeb021117be9cab4642
   SocketRocket: d57c7159b83c3c6655745cd15302aa24b6bae531
+  XLPagerTabStrip: d1ab378af0923320ec0b5eab11d7b2f803d31261
 
-PODFILE CHECKSUM: 881e0a27fad7b10599a56d2427c0dae2b37f80a1
+PODFILE CHECKSUM: 794071a67a54859207b0d9702f0974f573393385
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.3.1

@@ -5,9 +5,10 @@ target 'Hippo' do
   # Comment this line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
 
-  # Pods for Fugu
+  # Pods for Hippo
   
   pod 'MZFayeClient'
+  pod 'XLPagerTabStrip', '~> 8.0'
 
     post_install do |installer|
       

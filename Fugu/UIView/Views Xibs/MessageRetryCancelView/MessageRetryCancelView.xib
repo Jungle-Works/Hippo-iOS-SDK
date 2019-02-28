@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="MessageRetryCancelView" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="351" height="72"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E7A-0z-8aG">
+                    <rect key="frame" x="0.0" y="0.0" width="351" height="72"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="VAx-iZ-9TG" customClass="So_UIImageView" customModule="SDKDemo1">
+                            <rect key="frame" x="111.5" y="5" width="21" height="21"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="VAx-iZ-9TG" secondAttribute="height" multiplier="1:1" id="lVq-BF-xKi"/>
+                            </constraints>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Couldn't send the message" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4GY-GQ-a6I" customClass="So_CustomLabel" customModule="SDKDemo1">
+                            <rect key="frame" x="137.5" y="5" width="208.5" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ihp-d4-qdS">
+                            <rect key="frame" x="242.5" y="24" width="37" height="44"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="44" id="SFG-qR-IPj"/>
+                            </constraints>
+                            <state key="normal" title="Retry"/>
+                            <connections>
+                                <action selector="retryButtonAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="83y-bf-q0e"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3u4-II-IQV">
+                            <rect key="frame" x="298" y="24" width="48" height="44"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="44" id="P1g-sS-fUY"/>
+                            </constraints>
+                            <state key="normal" title="Cancel"/>
+                            <connections>
+                                <action selector="cancelButtonAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="Nsc-Uk-Xo6"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" | " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EIh-AU-vJ0">
+                            <rect key="frame" x="281.5" y="35.5" width="14.5" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uvK-wp-FvN">
+                            <rect key="frame" x="194.5" y="31" width="43" height="30"/>
+                            <state key="normal" title="Tap to">
+                                <color key="titleColor" red="0.1215686275" green="0.12941176469999999" blue="0.14117647059999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="4GY-GQ-a6I" firstAttribute="top" secondItem="E7A-0z-8aG" secondAttribute="top" constant="5" id="4aE-EY-r2J"/>
+                        <constraint firstItem="uvK-wp-FvN" firstAttribute="top" secondItem="4GY-GQ-a6I" secondAttribute="bottom" constant="5" id="AYr-8t-7xU"/>
+                        <constraint firstItem="4GY-GQ-a6I" firstAttribute="leading" secondItem="VAx-iZ-9TG" secondAttribute="trailing" constant="5" id="BUP-Kb-qVm"/>
+                        <constraint firstItem="EIh-AU-vJ0" firstAttribute="centerY" secondItem="3u4-II-IQV" secondAttribute="centerY" id="PWx-pe-2HW"/>
+                        <constraint firstItem="VAx-iZ-9TG" firstAttribute="top" secondItem="4GY-GQ-a6I" secondAttribute="top" id="U41-Sf-X1X"/>
+                        <constraint firstItem="3u4-II-IQV" firstAttribute="trailing" secondItem="4GY-GQ-a6I" secondAttribute="trailing" id="UGP-vH-vqa"/>
+                        <constraint firstItem="3u4-II-IQV" firstAttribute="leading" secondItem="EIh-AU-vJ0" secondAttribute="trailing" constant="2" id="Vcz-ps-Ci8"/>
+                        <constraint firstItem="EIh-AU-vJ0" firstAttribute="leading" secondItem="Ihp-d4-qdS" secondAttribute="trailing" constant="2" id="ZmY-2p-og0"/>
+                        <constraint firstItem="VAx-iZ-9TG" firstAttribute="bottom" secondItem="4GY-GQ-a6I" secondAttribute="bottom" id="bLY-hl-aqr"/>
+                        <constraint firstItem="VAx-iZ-9TG" firstAttribute="height" secondItem="4GY-GQ-a6I" secondAttribute="height" id="cUy-Ts-Nbr"/>
+                        <constraint firstItem="Ihp-d4-qdS" firstAttribute="leading" secondItem="uvK-wp-FvN" secondAttribute="trailing" constant="5" id="gKq-WT-6Oz"/>
+                        <constraint firstAttribute="trailing" secondItem="4GY-GQ-a6I" secondAttribute="trailing" constant="5" id="gin-XM-JSx"/>
+                        <constraint firstItem="uvK-wp-FvN" firstAttribute="centerY" secondItem="Ihp-d4-qdS" secondAttribute="centerY" id="h98-Ky-ENj"/>
+                        <constraint firstItem="Ihp-d4-qdS" firstAttribute="centerY" secondItem="EIh-AU-vJ0" secondAttribute="centerY" id="p4k-Ap-zv4"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="E7A-0z-8aG" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="EGU-XQ-JNr"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="E7A-0z-8aG" secondAttribute="bottom" id="HuL-pS-hLu"/>
+                <constraint firstItem="E7A-0z-8aG" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="PiG-0T-4DQ"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="E7A-0z-8aG" secondAttribute="trailing" id="PxT-Aw-l6A"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="cancelButtonOutlet" destination="3u4-II-IQV" id="bPm-qA-uTH"/>
+                <outlet property="retryButtonOutlet" destination="Ihp-d4-qdS" id="5sQ-ik-YqU"/>
+                <outlet property="warningImageView" destination="VAx-iZ-9TG" id="yjD-0G-Toe"/>
+                <outlet property="warningMessageLabel" destination="4GY-GQ-a6I" id="1Pr-tG-0Wx"/>
+            </connections>
+            <point key="canvasLocation" x="6.5" y="-249"/>
+        </view>
+    </objects>
+</document>
