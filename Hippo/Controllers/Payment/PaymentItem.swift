@@ -60,7 +60,7 @@ class PaymentItem: NSObject {
     
     static let defaultDescriptionItem: [String: Any] = [
         "validation_type": "ANY",
-        "placeholder": "Item Description",
+        "placeholder": "Enter Item Description",
         "title": "Item Description",
         "is_required": true,
         "type": "TEXTFIELD",
@@ -68,7 +68,7 @@ class PaymentItem: NSObject {
     ]
     static let defaultPriceItem: [String: Any] = [
         "validation_type": "DECIMAL",
-        "placeholder": "Price",
+        "placeholder": "Enter Price",
         "title": "Price",
         "is_required": true,
         "type": "TEXTFIELD",

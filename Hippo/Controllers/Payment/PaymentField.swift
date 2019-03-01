@@ -46,7 +46,7 @@ class PaymentField: FormData {
     
     static let initalPaymentField: [[String: Any]] = [[
         "validation_type": "ANY",
-        "placeholder": "Title",
+        "placeholder": "Enter Title",
         "title": "Title",
         "is_required": true,
         "type": "TEXTFIELD",
@@ -65,7 +65,7 @@ class PaymentField: FormData {
     static let defaultButtons: [[String: Any]] = [[
         "type": "BUTTON",
         "action": "ADD_MORE",
-        "title": "+ add more",
+        "title": "+ Add an option",
         "title_color": "#000000",
         "background_color": "#ffffff"
         ], [

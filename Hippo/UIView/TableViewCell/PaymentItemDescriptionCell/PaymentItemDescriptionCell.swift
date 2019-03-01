@@ -110,6 +110,17 @@ extension PaymentItemDescriptionCell: UITextViewDelegate {
         item.descriptionField.value = textView.text
         updateHeightOf(textView: textView)
     }
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        let updatedString = (textView.text as NSString?)?.replacingCharacters(in: range, with: text)
+        let countForNewString = updatedString?.count ?? 0
+        
+        let maxCount = 250
+        
+        guard countForNewString <= maxCount else {
+            return false
+        }
+        return true
+    }
 }
 
 extension PaymentItemDescriptionCell: UITextFieldDelegate {
@@ -117,7 +128,9 @@ extension PaymentItemDescriptionCell: UITextFieldDelegate {
         let updatedString = (textField.text as NSString?)?.replacingCharacters(in: range, with: string)
         let countForNewString = updatedString?.count ?? 0
         
-        guard countForNewString < 100 else {
+        let maxCount = 10
+        
+        guard countForNewString <= maxCount else {
             return false
         }
         item.priceField.value = updatedString ?? ""
