@@ -2337,14 +2337,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="interactive" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="YUH-GA-7Yh">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <rect key="frame" x="0.0" y="74" width="375" height="593"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="YUH-GA-7Yh" secondAttribute="trailing" id="Pgk-VD-2kF"/>
-                            <constraint firstItem="YUH-GA-7Yh" firstAttribute="top" secondItem="zRa-hM-eUX" secondAttribute="bottom" id="Y9d-zf-MkH"/>
+                            <constraint firstItem="YUH-GA-7Yh" firstAttribute="top" secondItem="zRa-hM-eUX" secondAttribute="bottom" constant="10" id="Y9d-zf-MkH"/>
                             <constraint firstItem="jRZ-ig-mki" firstAttribute="top" secondItem="YUH-GA-7Yh" secondAttribute="bottom" id="qDA-YV-tjb"/>
                             <constraint firstItem="YUH-GA-7Yh" firstAttribute="leading" secondItem="weV-IB-6H3" secondAttribute="leading" id="wKA-23-R62"/>
                         </constraints>
