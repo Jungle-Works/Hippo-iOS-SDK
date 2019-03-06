@@ -12,13 +12,16 @@ protocol PaymentStoreDelegate: class {
 }
 
 class PaymentStore: NSObject {
+    
+    
+    var totalPriceUpdated: (() -> ())? = nil
     var fields: [PaymentField] = []
     static var currencies: [PaymentCurrency] = []
     var items: [PaymentItem] = []
     var buttons: [PaymentField] = []
     
     var selectedCurrency: PaymentCurrency?
-    
+    var totalCost: Double?
     
     weak var delegate: PaymentStoreDelegate?
     
@@ -86,20 +89,10 @@ class PaymentStore: NSObject {
             json["currency_symbol"]  = currency.symbol
         }
         
-        var totalPrice: Double = 0.0
-        var description: [[String: Any]] = []
+        let priceObject = getTotalPriceWithRequest(with: symbol)
         
-        
-        for each in items {
-            let price = Double(each.priceField.value) ?? 0
-            totalPrice += price
-            let dict: [String: Any] = ["header": each.descriptionField.value,
-                                       "content": "\(symbol) \(price)"]
-            description.append(dict)
-            
-        }
-        json["amount"] = "\(totalPrice)"
-        json["description"] = description
+        json["amount"] = "\(priceObject.totalPrice)"
+        json["description"] = priceObject.request
         
         var buttonAction: [String: Any] = [:]
         buttonAction += json
@@ -114,6 +107,22 @@ class PaymentStore: NSObject {
         json["action_buttons"] = [actionButton]
         
         return json
+    }
+    
+    func getTotalPriceWithRequest(with symbol: String) -> (totalPrice: Double, request: [[String: Any]]) {
+        var totalPrice: Double = 0.0
+        var description: [[String: Any]] = []
+        
+        
+        for each in items {
+            let price = Double(each.priceField.value) ?? 0
+            totalPrice += price
+            let dict: [String: Any] = ["header": each.descriptionField.value,
+                                       "content": "\(symbol) \(price)"]
+            description.append(dict)
+            
+        }
+        return (totalPrice, description)
     }
     
 }

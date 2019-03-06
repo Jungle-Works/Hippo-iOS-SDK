@@ -519,7 +519,7 @@ public class HippoConfig : NSObject {
     public func showNotification(userInfo: [String: Any]) -> Bool {
         let notificationType = Int.parse(values: userInfo, key: "notification_type") ?? -1
         
-        if notificationType == NotificationType.call.rawValue && UIApplication.shared.applicationState != .inactive{
+        if notificationType == NotificationType.call.rawValue && UIApplication.shared.applicationState != .inactive {
             return false
         }
         

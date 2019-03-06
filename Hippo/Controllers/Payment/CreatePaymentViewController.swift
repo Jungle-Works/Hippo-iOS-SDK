@@ -128,6 +128,10 @@ extension CreatePaymentViewController: PaymentItemDescriptionCellDelegate {
     func cancelButtonClicked(item: PaymentItem) {
         store.removeIndex(for: item)
     }
+    func itemPriceUpdated() {
+        store.totalCost = store.getTotalPriceWithRequest(with: "").totalPrice
+        store.totalPriceUpdated?()
+    }
 }
 
 

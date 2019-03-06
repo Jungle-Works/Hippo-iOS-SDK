@@ -61,7 +61,7 @@ extension CreatePaymentDataSource: UITableViewDataSource {
             switch value.action {
             case .addMore:
                 let customCell = tableView.dequeueReusableCell(withIdentifier: "ShowMoreTableViewCell", for: indexPath) as! ShowMoreTableViewCell
-                customCell.setupCell(form: value)
+                customCell.setupCell(form: value, store: store)
                 return customCell
             default:
                 let customCell = tableView.dequeueReusableCell(withIdentifier: "BroadcastButtonCell", for: indexPath) as! BroadcastButtonCell

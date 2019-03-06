@@ -11,10 +11,12 @@ import UIKit
 protocol PaymentItemDescriptionCellDelegate: class {
      func updateHeightFor(_ cell: PaymentItemDescriptionCell)
      func cancelButtonClicked(item: PaymentItem)
+     func itemPriceUpdated()
 }
 
 class PaymentItemDescriptionCell: UITableViewCell {
 
+    @IBOutlet weak var textviewPlaceHolderLabel: UILabel!
     @IBOutlet weak var textViewBottomLineView: UIView!
     @IBOutlet weak var cancelIcon: UIButton!
     @IBOutlet weak var bgView: UIView!
@@ -63,6 +65,8 @@ class PaymentItemDescriptionCell: UITableViewCell {
          cancelIcon.layer.masksToBounds = true
         cancelIcon.setImage(HippoConfig.shared.theme.cancelIcon, for: .normal)
         
+        textviewPlaceHolderLabel.text = ""
+        
         textViewBottomLineView.isHidden = true
     }
 
@@ -83,6 +87,10 @@ class PaymentItemDescriptionCell: UITableViewCell {
         descriptionTextView.keyboardType = item.descriptionField.validationType.keyBoardType
         descriptionTextView.text = item.descriptionField.value
         descriptionLabel.text = item.descriptionField.title
+        
+        textviewPlaceHolderLabel.text = item.descriptionField.placeHolder
+        
+        updateHeightOf(textView: self.descriptionTextView)
     }
     
     private func updateHeightOf(textView: UITextView) {
@@ -109,6 +117,7 @@ extension PaymentItemDescriptionCell: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         item.descriptionField.value = textView.text
         updateHeightOf(textView: textView)
+        textviewPlaceHolderLabel.isHidden = !textView.text.isEmpty
     }
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         let updatedString = (textView.text as NSString?)?.replacingCharacters(in: range, with: text)
@@ -134,6 +143,7 @@ extension PaymentItemDescriptionCell: UITextFieldDelegate {
             return false
         }
         item.priceField.value = updatedString ?? ""
+        delegate?.itemPriceUpdated()
         return true
     }
 }

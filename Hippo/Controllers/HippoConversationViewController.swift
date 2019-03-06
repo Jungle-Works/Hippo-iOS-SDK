@@ -19,7 +19,7 @@ class HippoConversationViewController: UIViewController {
     
     // MARK: - PROPERTIES
     var processingRequestCount = 0
-    var labelId = -1
+    var labelId = -11
     var directChatDetail: FuguNewChatAttributes?
     var agentDirectChatDetail: AgentDirectChatAttributes?
     var label = ""
@@ -640,8 +640,8 @@ extension HippoConversationViewController {
         }
     }
     func addMessageInUnsentArray(message: HippoMessage) {
-        channel.unsentMessages.append(message)
-        channel.messageHashMap[message.messageUniqueID!] = channel.messages.count - 1
+        channel?.unsentMessages.append(message)
+        channel?.messageHashMap[message.messageUniqueID!] = (channel?.messages.count ?? 1) - 1
     }
     
     func prepareMessageForUploadingFile(message: HippoMessage) {
@@ -1056,6 +1056,7 @@ extension HippoConversationViewController: CreatePaymentDelegate {
         message.rawJsonToSend = ["custom_action": custom_action]
         addMessageInUnsentArray(message: message)
         updateMessagesArrayLocallyForUIUpdation(message)
+        scrollToBottomWithIndexPath(animated: true)
         
         publishMessageOnChannel(message: message)
     }
