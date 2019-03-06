@@ -14,7 +14,6 @@ class HippoConversationViewController: UIViewController {
     //MARK: Constants
     let heightOfActionableMessageImage = 103.5
     let textViewFixedHeight = 50
-    let textViewPlaceHolder = "Send a message..."
     let heightOfDateLabel: CGFloat = 40
     
     // MARK: - PROPERTIES
