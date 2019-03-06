@@ -22,13 +22,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ipf-7M-2Vb">
-                                <rect key="frame" x="10" y="2.5" width="35.5" height="36"/>
+                                <rect key="frame" x="10" y="2.5" width="254.5" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="cd2-GZ-3Rm">
-                                <rect key="frame" x="274.5" y="7.5" width="35.5" height="17"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cd2-GZ-3Rm">
+                                <rect key="frame" x="274.5" y="12" width="35.5" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -36,12 +36,12 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="cd2-GZ-3Rm" firstAttribute="top" secondItem="Ipf-7M-2Vb" secondAttribute="top" constant="5" id="GZX-sP-B0S"/>
+                            <constraint firstItem="cd2-GZ-3Rm" firstAttribute="centerY" secondItem="Ipf-7M-2Vb" secondAttribute="centerY" id="Oyf-Cw-Bfc"/>
                             <constraint firstItem="Ipf-7M-2Vb" firstAttribute="leading" secondItem="tp4-lX-qoU" secondAttribute="leading" constant="10" id="Ta1-Ts-FA4"/>
                             <constraint firstItem="Ipf-7M-2Vb" firstAttribute="top" secondItem="tp4-lX-qoU" secondAttribute="top" constant="2.5" id="Tdk-kx-EZe"/>
                             <constraint firstAttribute="trailing" secondItem="cd2-GZ-3Rm" secondAttribute="trailing" constant="10" id="a7Y-A4-0ee"/>
+                            <constraint firstItem="cd2-GZ-3Rm" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Ipf-7M-2Vb" secondAttribute="trailing" constant="10" id="mVH-ym-RxM"/>
                             <constraint firstAttribute="bottom" secondItem="Ipf-7M-2Vb" secondAttribute="bottom" constant="5" id="nyy-UM-Eqn"/>
-                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="cd2-GZ-3Rm" secondAttribute="bottom" constant="3" id="uLU-op-tH1"/>
                         </constraints>
                     </view>
                 </subviews>

@@ -89,6 +89,7 @@ class PaymentItemDescriptionCell: UITableViewCell {
         descriptionLabel.text = item.descriptionField.title
         
         textviewPlaceHolderLabel.text = item.descriptionField.placeHolder
+        textviewPlaceHolderLabel.isHidden = !descriptionTextView.text.isEmpty
         
         updateHeightOf(textView: self.descriptionTextView)
     }
