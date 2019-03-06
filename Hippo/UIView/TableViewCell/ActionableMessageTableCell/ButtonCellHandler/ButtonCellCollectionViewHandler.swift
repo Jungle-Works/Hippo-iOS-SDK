@@ -40,6 +40,13 @@ class ButtonCellCollectionViewHandler: NSObject {
         }
         return 0
     }
+    
+    func enableButton() -> Bool {
+        
+        let isSentByMe = currentUserId() == (chatMessageObj?.senderId ?? -3)
+        
+        return !isSentByMe
+    }
     @objc func messageButtonClicked(sender: UIButton) {
         
         if let buttonActionArray = chatMessageObj?.actionableMessage?.actionButtonsArray {
@@ -110,6 +117,7 @@ extension ButtonCellCollectionViewHandler: UICollectionViewDataSource {
             }
             cell.messageButton.tag = indexPath.item
             cell.messageButton.addTarget(self, action: #selector(self.messageButtonClicked(sender:)), for: .touchUpInside)
+            cell.messageButton.isEnabled = enableButton()
             return cell
         }
         return UICollectionViewCell()

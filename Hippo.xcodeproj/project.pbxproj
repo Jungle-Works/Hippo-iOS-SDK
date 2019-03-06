@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		47B12417C887BBD208902F39 /* Pods_Hippo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C0A922564912516EF04B93F /* Pods_Hippo.framework */; };
 		99354A03CB85B6FC4E9FF864 /* Pods_SDKDemo1.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7012A5A44B87F497D213D271 /* Pods_SDKDemo1.framework */; };
+		C90E0D0F221FCA49004879A5 /* PaymentItemDescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90E0D0D221FCA49004879A5 /* PaymentItemDescriptionCell.swift */; };
+		C90E0D10221FCA49004879A5 /* PaymentItemDescriptionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C90E0D0E221FCA49004879A5 /* PaymentItemDescriptionCell.xib */; };
 		C9232D2C221D4A2E006965D5 /* BroadcastUserStatusCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9232D2A221D4A2E006965D5 /* BroadcastUserStatusCell.xib */; };
 		C9232D2D221D4A2E006965D5 /* BroadcastUserStatusCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9232D2B221D4A2E006965D5 /* BroadcastUserStatusCell.swift */; };
 		C976E6922215516300B9F79E /* FormData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C976E6912215516300B9F79E /* FormData.swift */; };
@@ -214,6 +216,8 @@
 		C9B77EDB21A01B070092848D /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C9B77E0A21A01B060092848D /* Info.plist */; };
 		C9B77EDC21A01B070092848D /* FuguUnique.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9B77E0B21A01B060092848D /* FuguUnique.storyboard */; };
 		C9B77EDD21A01B070092848D /* Montserrat-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = C9B77E0C21A01B060092848D /* Montserrat-SemiBold.otf */; };
+		C9E029EA221FF73C00B22D57 /* ShowMoreTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9E029E8221FF73C00B22D57 /* ShowMoreTableViewCell.xib */; };
+		C9E029EB221FF73C00B22D57 /* ShowMoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E029E9221FF73C00B22D57 /* ShowMoreTableViewCell.swift */; };
 		C9F6D47121C8B47100EA23E6 /* SupportTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F6D46E21C8B47100EA23E6 /* SupportTheme.swift */; };
 		C9F6D47221C8B47100EA23E6 /* HippoStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F6D46F21C8B47100EA23E6 /* HippoStrings.swift */; };
 		C9F6D47321C8B47100EA23E6 /* HippoTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F6D47021C8B47100EA23E6 /* HippoTheme.swift */; };
@@ -264,6 +268,8 @@
 		717BE1731EC1BE11003EA321 /* Hippo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hippo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		73C5DC7752C82068B4CD5EB2 /* Pods-Hippo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hippo.release.xcconfig"; path = "Pods/Target Support Files/Pods-Hippo/Pods-Hippo.release.xcconfig"; sourceTree = "<group>"; };
 		8C0A922564912516EF04B93F /* Pods_Hippo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Hippo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C90E0D0D221FCA49004879A5 /* PaymentItemDescriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentItemDescriptionCell.swift; sourceTree = "<group>"; };
+		C90E0D0E221FCA49004879A5 /* PaymentItemDescriptionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PaymentItemDescriptionCell.xib; sourceTree = "<group>"; };
 		C9232D2A221D4A2E006965D5 /* BroadcastUserStatusCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BroadcastUserStatusCell.xib; sourceTree = "<group>"; };
 		C9232D2B221D4A2E006965D5 /* BroadcastUserStatusCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BroadcastUserStatusCell.swift; sourceTree = "<group>"; };
 		C976E6912215516300B9F79E /* FormData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormData.swift; sourceTree = "<group>"; };
@@ -471,6 +477,8 @@
 		C9B77E0A21A01B060092848D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C9B77E0B21A01B060092848D /* FuguUnique.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = FuguUnique.storyboard; sourceTree = "<group>"; };
 		C9B77E0C21A01B060092848D /* Montserrat-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-SemiBold.otf"; sourceTree = "<group>"; };
+		C9E029E8221FF73C00B22D57 /* ShowMoreTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShowMoreTableViewCell.xib; sourceTree = "<group>"; };
+		C9E029E9221FF73C00B22D57 /* ShowMoreTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowMoreTableViewCell.swift; sourceTree = "<group>"; };
 		C9F6D46E21C8B47100EA23E6 /* SupportTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SupportTheme.swift; sourceTree = "<group>"; };
 		C9F6D46F21C8B47100EA23E6 /* HippoStrings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HippoStrings.swift; sourceTree = "<group>"; };
 		C9F6D47021C8B47100EA23E6 /* HippoTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HippoTheme.swift; sourceTree = "<group>"; };
@@ -569,6 +577,15 @@
 				717BE1731EC1BE11003EA321 /* Hippo.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		C90E0D0C221FCA17004879A5 /* PaymentItemDescriptionCell */ = {
+			isa = PBXGroup;
+			children = (
+				C90E0D0D221FCA49004879A5 /* PaymentItemDescriptionCell.swift */,
+				C90E0D0E221FCA49004879A5 /* PaymentItemDescriptionCell.xib */,
+			);
+			path = PaymentItemDescriptionCell;
 			sourceTree = "<group>";
 		};
 		C9232D29221D4A2E006965D5 /* BroadcastUserStatusCell */ = {
@@ -717,6 +734,8 @@
 		C9B77D1621A01B060092848D /* TableViewCell */ = {
 			isa = PBXGroup;
 			children = (
+				C9E029E7221FF73B00B22D57 /* ShowMoreTableViewCell */,
+				C90E0D0C221FCA17004879A5 /* PaymentItemDescriptionCell */,
 				C9232D29221D4A2E006965D5 /* BroadcastUserStatusCell */,
 				C976E6A12216B7E300B9F79E /* ContactNumberTableCell */,
 				C9FB6FBF21EE114600B72CEA /* AudioFileCell */,
@@ -1323,6 +1342,15 @@
 			path = Categories;
 			sourceTree = "<group>";
 		};
+		C9E029E7221FF73B00B22D57 /* ShowMoreTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				C9E029E8221FF73C00B22D57 /* ShowMoreTableViewCell.xib */,
+				C9E029E9221FF73C00B22D57 /* ShowMoreTableViewCell.swift */,
+			);
+			path = ShowMoreTableViewCell;
+			sourceTree = "<group>";
+		};
 		C9FB6F8621EE0B6400B72CEA /* DocumentWrapper */ = {
 			isa = PBXGroup;
 			children = (
@@ -1517,11 +1545,13 @@
 				C9B77E1E21A01B060092848D /* EmojiCollectionViewCell.xib in Resources */,
 				C9B77E3721A01B060092848D /* ButtonCollectionCell.xib in Resources */,
 				C9B77E6321A01B060092848D /* LaunchScreen.storyboard in Resources */,
+				C90E0D10221FCA49004879A5 /* PaymentItemDescriptionCell.xib in Resources */,
 				C9B77E2F21A01B060092848D /* AssignedAgentTableViewCell.xib in Resources */,
 				C9B77E3D21A01B060092848D /* SenderNameTableCell.xib in Resources */,
 				C9B77E4C21A01B060092848D /* OutgoingVideoCallMessageTableViewCell.xib in Resources */,
 				C9B77E6421A01B060092848D /* Montserrat-Medium.otf in Resources */,
 				C9B77E9F21A01B070092848D /* MavenPro-Bold.ttf in Resources */,
+				C9E029EA221FF73C00B22D57 /* ShowMoreTableViewCell.xib in Resources */,
 				C9FB6FCA21EE114600B72CEA /* OutgoingVideoTableViewCell.xib in Resources */,
 				C9B77E1B21A01B060092848D /* AgentHomeCollectionViewCell.xib in Resources */,
 				C9FB6FD321EE114600B72CEA /* OutgoingDocumentTableViewCell.xib in Resources */,
@@ -1679,6 +1709,7 @@
 				C9B77EAE21A01B070092848D /* TagListView.swift in Sources */,
 				C9B77EB021A01B070092848D /* ImageCache.swift in Sources */,
 				C9B77E5321A01B060092848D /* BroadcastAgentCell.swift in Sources */,
+				C90E0D0F221FCA49004879A5 /* PaymentItemDescriptionCell.swift in Sources */,
 				C9B77E1F21A01B060092848D /* EmojiCollectionViewCell.swift in Sources */,
 				C9B77E1421A01B060092848D /* PeerToPeerChat.swift in Sources */,
 				C9B77E1821A01B060092848D /* FayeConnection.swift in Sources */,
@@ -1721,6 +1752,7 @@
 				C9B77E1321A01B060092848D /* HTTPClient.swift in Sources */,
 				C9B77E6D21A01B060092848D /* Socomo+String.swift in Sources */,
 				C9FB6FAF21EE10CD00B72CEA /* CoreFilesConfig.swift in Sources */,
+				C9E029EB221FF73C00B22D57 /* ShowMoreTableViewCell.swift in Sources */,
 				C9B77E6821A01B060092848D /* UIView+Extension.swift in Sources */,
 				C9B77EB521A01B070092848D /* Image.swift in Sources */,
 				C9B77E3921A01B060092848D /* HeaderTableViewCell.swift in Sources */,

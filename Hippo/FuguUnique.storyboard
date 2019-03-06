@@ -1063,11 +1063,11 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HFJ-TA-Lys" customClass="So_UIView" customModule="Hippo" customModuleProvider="target">
-                                                    <rect key="frame" x="8.5" y="3.5" width="65" height="62.5"/>
+                                                    <rect key="frame" x="8.5" y="1.5" width="65" height="62.5"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wa3-Bm-Dvm">
-                                                    <rect key="frame" x="10" y="5" width="62" height="59.5"/>
+                                                    <rect key="frame" x="10" y="3" width="62" height="59.5"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8rJ-48-zcs">
                                                             <rect key="frame" x="30" y="40.5" width="27" height="12"/>
@@ -1098,7 +1098,7 @@
                                                     </constraints>
                                                 </view>
                                                 <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1gn-Nz-BQC">
-                                                    <rect key="frame" x="72" y="39.5" width="25" height="25"/>
+                                                    <rect key="frame" x="72" y="37.5" width="25" height="25"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="1gn-Nz-BQC" secondAttribute="height" multiplier="1:1" id="3RC-q8-5Bz"/>
                                                         <constraint firstAttribute="height" constant="25" id="IgA-5k-BQs"/>
@@ -1109,7 +1109,7 @@
                                             <constraints>
                                                 <constraint firstItem="Wa3-Bm-Dvm" firstAttribute="leading" secondItem="cJM-iT-1IE" secondAttribute="leading" constant="10" id="2rj-wt-9jZ"/>
                                                 <constraint firstItem="HFJ-TA-Lys" firstAttribute="trailing" secondItem="Wa3-Bm-Dvm" secondAttribute="trailing" constant="1.5" id="348-gX-DqF"/>
-                                                <constraint firstItem="Wa3-Bm-Dvm" firstAttribute="top" secondItem="cJM-iT-1IE" secondAttribute="top" constant="5" id="DGu-kV-HkP"/>
+                                                <constraint firstItem="Wa3-Bm-Dvm" firstAttribute="top" secondItem="cJM-iT-1IE" secondAttribute="top" constant="3" id="DGu-kV-HkP"/>
                                                 <constraint firstItem="HFJ-TA-Lys" firstAttribute="bottom" secondItem="Wa3-Bm-Dvm" secondAttribute="bottom" constant="1.5" id="EP8-qL-y0z"/>
                                                 <constraint firstItem="HFJ-TA-Lys" firstAttribute="leading" secondItem="Wa3-Bm-Dvm" secondAttribute="leading" constant="-1.5" id="PLl-mN-eOZ"/>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Wa3-Bm-Dvm" secondAttribute="trailing" constant="60" id="WAJ-Ay-dzR"/>
@@ -2323,6 +2323,48 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ftV-ge-Pvs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="444" y="-840"/>
+        </scene>
+        <!--Payement option-->
+        <scene sceneID="yAL-AA-ZXm">
+            <objects>
+                <viewController storyboardIdentifier="CreatePaymentViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="qbe-Fo-P1c" customClass="CreatePaymentViewController" customModule="Hippo" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="zRa-hM-eUX"/>
+                        <viewControllerLayoutGuide type="bottom" id="jRZ-ig-mki"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="weV-IB-6H3">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="interactive" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="YUH-GA-7Yh">
+                                <rect key="frame" x="0.0" y="74" width="375" height="593"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="YUH-GA-7Yh" secondAttribute="trailing" id="Pgk-VD-2kF"/>
+                            <constraint firstItem="YUH-GA-7Yh" firstAttribute="top" secondItem="zRa-hM-eUX" secondAttribute="bottom" constant="10" id="Y9d-zf-MkH"/>
+                            <constraint firstItem="jRZ-ig-mki" firstAttribute="top" secondItem="YUH-GA-7Yh" secondAttribute="bottom" id="qDA-YV-tjb"/>
+                            <constraint firstItem="YUH-GA-7Yh" firstAttribute="leading" secondItem="weV-IB-6H3" secondAttribute="leading" id="wKA-23-R62"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Payement option" id="mgM-kT-QZ8">
+                        <barButtonItem key="leftBarButtonItem" image="backButtonNormalStateIcon" id="lGp-gM-wyj">
+                            <connections>
+                                <action selector="backButtonAction:" destination="qbe-Fo-P1c" id="xKT-Vz-RFO"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <connections>
+                        <outlet property="backButton" destination="lGp-gM-wyj" id="YNG-Wv-iMp"/>
+                        <outlet property="tableView" destination="YUH-GA-7Yh" id="G3K-KU-d6k"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Hdz-Ho-Xym" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-402" y="3260"/>
         </scene>
     </scenes>
     <resources>

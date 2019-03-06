@@ -172,12 +172,10 @@ public class HippoConfig : NSObject {
     }
     @available(*, deprecated, renamed: "setCustomisedHippoTheme", message: "This class will no longer be available, To Continue migrate to setCustomisedHippoTheme")
     public func setCustomisedFuguTheme(theme: HippoTheme) {
-//        log.minLevel = (baseUrl == SERVERS.devUrl) ? .info : .error
         self.theme = theme
     }
     
     public func setCustomisedHippoTheme(theme: HippoTheme) {
-//        log.minLevel = (baseUrl == SERVERS.devUrl) ? .info : .error
         self.theme = theme
     }
     
@@ -206,6 +204,13 @@ public class HippoConfig : NSObject {
     }
     public func disableBroadcast() {
         isBroadcastEnabled = false
+    }
+    
+    public class func enablePaymentRequest() {
+        HippoProperty.current.updatePaymentRequestStatus(enable: true)
+    }
+    public class func disablePaymentRequest() {
+        HippoProperty.current.updatePaymentRequestStatus(enable: false)
     }
     
     
@@ -514,7 +519,7 @@ public class HippoConfig : NSObject {
     public func showNotification(userInfo: [String: Any]) -> Bool {
         let notificationType = Int.parse(values: userInfo, key: "notification_type") ?? -1
         
-        if notificationType == NotificationType.call.rawValue && UIApplication.shared.applicationState != .inactive{
+        if notificationType == NotificationType.call.rawValue && UIApplication.shared.applicationState != .inactive {
             return false
         }
         

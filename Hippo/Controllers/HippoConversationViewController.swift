@@ -19,7 +19,7 @@ class HippoConversationViewController: UIViewController {
     
     // MARK: - PROPERTIES
     var processingRequestCount = 0
-    var labelId = -1
+    var labelId = -11
     var directChatDetail: FuguNewChatAttributes?
     var agentDirectChatDetail: AgentDirectChatAttributes?
     var label = ""
@@ -64,6 +64,8 @@ class HippoConversationViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 //        checkNetworkConnection()
+         self.navigationController?.isNavigationBarHidden = true
+        
         registerFayeNotification()
         registerKeyBoardNotification()
         registerNotificationWhenAppEntersForeground()
@@ -531,15 +533,21 @@ class HippoConversationViewController: UIViewController {
         return getSavedUserId == senderId
     }
     func attachmentButtonclicked() {
-        pickerHelper = PickerHelper(viewController: self)
+        pickerHelper = PickerHelper(viewController: self, enablePayment: HippoProperty.current.isPaymentRequestEnabled)
         pickerHelper?.present(sender: self.view, controller: self)
         pickerHelper?.delegate = self
     }
+    
 }
 
 
 extension HippoConversationViewController: PickerHelperDelegate {
-    
+    func payOptionClicked() {
+        let vc = CreatePaymentViewController.get()
+        vc.delegate = self
+        self.navigationController?.isNavigationBarHidden = false
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
     func imagePickingError(mediaSelector: CoreMediaSelector, error: Error) {
         showAlert(title: "", message: error.localizedDescription, actionComplete: nil)
     }
@@ -632,8 +640,8 @@ extension HippoConversationViewController {
         }
     }
     func addMessageInUnsentArray(message: HippoMessage) {
-        channel.unsentMessages.append(message)
-        channel.messageHashMap[message.messageUniqueID!] = channel.messages.count - 1
+        channel?.unsentMessages.append(message)
+        channel?.messageHashMap[message.messageUniqueID!] = (channel?.messages.count ?? 1) - 1
     }
     
     func prepareMessageForUploadingFile(message: HippoMessage) {
@@ -1038,5 +1046,18 @@ extension HippoConversationViewController: ActionTableViewDelegate {
         }
         customMessage.selectBtnWith(btnId: selectionId)
         sendMessage(message: customMessage)
+    }
+}
+extension HippoConversationViewController: CreatePaymentDelegate {
+    func sendMessage(for store: PaymentStore) {
+        let message = HippoMessage(message: "", type: .hippoPay, uniqueID: String.generateUniqueId())
+        let custom_action = store.getJsonToSend()
+        message.actionableMessage = FuguActionableMessage(dict: custom_action)
+        message.rawJsonToSend = ["custom_action": custom_action]
+        addMessageInUnsentArray(message: message)
+        updateMessagesArrayLocallyForUIUpdation(message)
+        scrollToBottomWithIndexPath(animated: true)
+        
+        publishMessageOnChannel(message: message)
     }
 }

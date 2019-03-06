@@ -179,6 +179,8 @@ class FormData: NSObject {
             isValid = value.isValidPhoneNumber() && isValidCountryCode
         case (.contact_number, _):
             isValid = value.isValidNumberWithCountryCode()
+        case (.decimal, _):
+            isValid = value.isValidDecimalNumber()
         default:
             isValid = true
         }
@@ -215,6 +217,8 @@ class FormData: NSObject {
         case any = "ANY"
         case number = "NUMBER"
         case contact_number = "PHONE_NUMBER"
+        case currency = "CURRENCY"
+        case decimal = "DECIMAL"
         
         
         var keyBoardType: UIKeyboardType {
@@ -229,6 +233,8 @@ class FormData: NSObject {
                 return .default
             case .contact_number:
                 return .phonePad
+            case .decimal:
+                return .decimalPad
             default:
                 return .default
             }
@@ -237,6 +243,7 @@ class FormData: NSObject {
     
     enum FormAction: String {
         case submit = "SUBMIT"
+        case addMore = "ADD_MORE"
         case none = ""
     }
 }
