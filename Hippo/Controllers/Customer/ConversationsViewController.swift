@@ -102,6 +102,7 @@ protocol NewChatSentDelegate: class {
    override  func viewWillAppear(_ animated: Bool) {
       super.viewWillAppear(animated)
       messageTextView.contentInset.top = 8
+      self.navigationController?.isNavigationBarHidden = true
 
       handleVideoIcon()
       handleAudioIcon()

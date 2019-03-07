@@ -182,11 +182,9 @@ class HippoChannel {
     
     private class func createNewConversationWith(params: [String: Any], completion: @escaping HippoChannelCreationHandler) {
         
-        print("API_CREATE_CONVERSATION.....\(params)")
+        HippoConfig.shared.log.debug("API_CREATE_CONVERSATION.....\(params)", level: .request)
         HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: FuguEndPoints.API_CREATE_CONVERSATION.rawValue) { (response, error, _, statusCode) in
             
-            
-//            print("API_CREATE_CONVERSATION ... \(response ?? "")")
             guard let responseDict = response as? [String: Any],
                 let data = responseDict["data"] as? [String: Any],
                 let channelID = data["channel_id"] as? Int else {

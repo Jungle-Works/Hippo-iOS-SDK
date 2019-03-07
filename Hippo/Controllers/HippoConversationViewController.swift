@@ -63,7 +63,7 @@ class HippoConversationViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 //        checkNetworkConnection()
-         self.navigationController?.isNavigationBarHidden = true
+         
         
         registerFayeNotification()
         registerKeyBoardNotification()

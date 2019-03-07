@@ -27,7 +27,7 @@ class AgentDirectChatAttributes: NSObject {
         }
         var param = [String: Any]()
         param["other_user_unique_key"] = [otherUserUniqueKey]
-        param["initiator_agent_id"] = detail.id
+        param["en_initiator_agent_id"] = detail.enUserId
         param["access_token"] = detail.fuguToken
         param["chat_type"] = 0
         

@@ -10,6 +10,17 @@ import UIKit
 
 typealias FuguUserDetailCallback = (_ success: Bool, _ error: Error?) -> Void
 
+
+
+class User: NSObject {
+    var enUserID: String = ""
+    var userID: String = ""
+    var fullName: String = ""
+    var email: String = ""
+    var phoneNumber: String = ""
+    var userType: UserType = .customer
+}
+
 public class UserTag: NSObject {
     var tagName: String? = nil
     var teamId: Int? = nil
