@@ -77,7 +77,7 @@ class TagDetail: NSObject {
         if tagName != nil {
             json["tag_name"] = tagName!
         }
-        json["tag_type"] = colorCode
+        json["tag_type"] = tagType
         
         return json
     }
