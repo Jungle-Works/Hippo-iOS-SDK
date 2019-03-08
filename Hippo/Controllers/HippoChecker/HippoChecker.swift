@@ -14,14 +14,11 @@ class HippoChecker {
         case presentChat
     }
     
-    
     var config: HippoConfig {
         return HippoConfig.shared
     }
     
     var request: HippoCheckerRequest?
-    
-    
     
     func presentChatsViewController() {
         AgentDetail.setAgentStoredData()
@@ -33,7 +30,6 @@ class HippoChecker {
         }
     }
     
-    
     func shouldCollectDataFromUser() -> Bool {
         let form = HippoProperty.current.forms
         guard !form.isEmpty else {
@@ -41,18 +37,16 @@ class HippoChecker {
         }
         return true
     }
+    
     class func checkForAgentIntialization(completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
-        
         if let fuguUserId = HippoConfig.shared.agentDetail?.id, fuguUserId > 0 {
             completion(true, nil)
             return
         }
-        
         AgentDetail.loginViaAuth { (result) in
             completion(result.isSuccessful, result.error)
         }
     }
-    
 }
 extension HippoChecker {
     

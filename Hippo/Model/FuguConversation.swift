@@ -106,7 +106,7 @@ class FuguConversation: HippoConversation {
         var params = [String: Any]()
         
         params["app_secret_key"] = HippoConfig.shared.appSecretKey
-        params["en_user_id"] = HippoConfig.shared.userDetail?.fuguEnUserID ?? "-1"
+        params["en_user_id"] = HippoUserDetail.fuguEnUserID ?? "-1"
         
         return params
     }

@@ -57,7 +57,7 @@ public class UserTag: NSObject {
     var customRequest: [String: Any] = [:]
     
     
-    fileprivate(set) var fuguUserID: Int? {
+    class var fuguUserID: Int? {
         get {
             return UserDefaults.standard.value(forKey: FUGU_USER_ID) as? Int
         }
@@ -66,7 +66,7 @@ public class UserTag: NSObject {
         }
     }
     
-    fileprivate(set) var fuguEnUserID: String? {
+    class var fuguEnUserID: String? {
         get {
             return UserDefaults.standard.value(forKey: Fugu_en_user_id) as? String
         }
@@ -230,11 +230,11 @@ public class UserTag: NSObject {
             }
             
             if let userId = userDetailData["user_id"] as? Int {
-                HippoConfig.shared.userDetail?.fuguUserID = userId
+                HippoUserDetail.fuguUserID = userId
             }
             
             if let enUserId = userDetailData["en_user_id"] as? String {
-                HippoConfig.shared.userDetail?.fuguEnUserID = enUserId
+                HippoUserDetail.fuguEnUserID = enUserId
             }
             if let rawEmail = userDetailData["email"] as? String {
                 HippoConfig.shared.userDetail?.email = rawEmail
@@ -365,7 +365,7 @@ public class UserTag: NSObject {
             "app_secret_key": HippoConfig.shared.appSecretKey
         ]
         
-        if let savedUserId = HippoConfig.shared.userDetail?.fuguEnUserID {
+        if let savedUserId = HippoUserDetail.fuguEnUserID {
             params["en_user_id"] = savedUserId
         }
         

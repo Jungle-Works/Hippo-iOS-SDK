@@ -126,7 +126,7 @@ extension ConversationView {
       chatTextLabel.textColor = HippoConfig.shared.theme.conversationLastMsgColor.withAlphaComponent(isThisChatOpened(opened: isOpened))
       
       var messageString = ""
-      if let last_sent_by_id = conersationObj.lastMessage?.senderId, let userId = HippoConfig.shared.userDetail?.fuguUserID, last_sent_by_id == userId {
+      if let last_sent_by_id = conersationObj.lastMessage?.senderId, let userId = HippoUserDetail.fuguUserID, last_sent_by_id == userId {
          messageString = "You: "
          msgStatusWidthConstraint.constant = 17
          leadingConstraintOfLastMessage.constant = 2

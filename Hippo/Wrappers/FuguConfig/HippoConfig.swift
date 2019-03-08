@@ -40,7 +40,7 @@ public class HippoConfig : NSObject {
     
     
     // MARK: - Properties
-    internal var log = CoreLogger(formatter: Formatter.defaultFormat, theme: nil, minLevels: [.all])
+    internal var log = CoreLogger(formatter: Formatter.defaultFormat, theme: nil, minLevels: [.error])
     internal var muidList: [String] = []
     internal var pushArray = [PushInfo]()
     
@@ -151,7 +151,6 @@ public class HippoConfig : NSObject {
         HippoObservers.shared.enable = true
         FuguNetworkHandler.shared.fuguConnectionChangesStartNotifier()
         CallManager.shared.initCallClientIfPresent()
-        
     }
     
     
@@ -168,6 +167,7 @@ public class HippoConfig : NSObject {
     }
     
     public func setHippoDelegate(delegate: HippoDelegate) {
+        
         self.delegate = delegate
     }
     @available(*, deprecated, renamed: "setCustomisedHippoTheme", message: "This class will no longer be available, To Continue migrate to setCustomisedHippoTheme")
@@ -239,6 +239,7 @@ public class HippoConfig : NSObject {
     }
     // MARK: - Open Chat UI Methods
     public func presentChatsViewController() {
+        AgentDetail.setAgentStoredData()
         checker.presentChatsViewController()
     }
     public func initiateBroadcast(displayName: String = "") {
@@ -439,7 +440,7 @@ public class HippoConfig : NSObject {
     
     func checkForIntialization(completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
         
-        if let fuguUserId = userDetail?.fuguUserID, fuguUserId > 0 {
+        if let fuguUserId = HippoUserDetail.fuguUserID, fuguUserId > 0 {
             completion(true, nil)
             return
         }
@@ -471,6 +472,7 @@ public class HippoConfig : NSObject {
     }
     
     public func clearHippoUserData(completion: ((Bool) -> Void)? = nil) {
+        setAgentStoredData()
         switch appUserType {
         case .agent:
             AgentDetail.LogoutAgent(completion: completion)

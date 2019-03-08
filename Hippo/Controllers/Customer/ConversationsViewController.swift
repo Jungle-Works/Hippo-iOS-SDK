@@ -2022,7 +2022,7 @@ extension ConversationsViewController: FeedbackTableViewCellDelegate {
         mess.total_rating = 5
         mess.rating_given = data.selectedIndex
         mess.comment = data.cellTextView.text.trimWhiteSpacesAndNewLine()
-        mess.senderId = HippoConfig.shared.userDetail!.fuguUserID ?? 0
+        mess.senderId = HippoUserDetail.fuguUserID ?? 0
         
         self.channel.send(message: mess) {
             print("Feedback faye send succesfully")

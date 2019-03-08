@@ -188,7 +188,7 @@ class HippoChannel {
             guard let responseDict = response as? [String: Any],
                 let data = responseDict["data"] as? [String: Any],
                 let channelID = data["channel_id"] as? Int else {
-                    HippoConfig.shared.log.debug("API_CREATE_CONVERSATION_ ERROR.....\(error)", level: .error)
+                    HippoConfig.shared.log.debug("API_CREATE_CONVERSATION_ ERROR.....\(error?.localizedDescription ?? "")", level: .error)
                     let result = HippoChannelCreationResult(isSuccessful: false, error: error, channel: nil, isChannelAvailableLocallay: false)
                     completion(result)
                     return
@@ -224,7 +224,7 @@ class HippoChannel {
     class func getParamsToStartConversation(WithLabelId labelId: String? = nil, fuguAttributes: FuguNewChatAttributes? = nil) -> [String: Any] {
         var params = [String: Any]()
         params["app_secret_key"] = HippoConfig.shared.appSecretKey
-        params["en_user_id"] = HippoConfig.shared.userDetail?.fuguEnUserID ?? -1
+        params["en_user_id"] = HippoUserDetail.fuguEnUserID ?? -1
         
         if let unwrappedLabelId = labelId {
             params["label_id"] = unwrappedLabelId

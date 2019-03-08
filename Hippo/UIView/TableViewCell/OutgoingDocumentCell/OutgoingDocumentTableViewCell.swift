@@ -227,14 +227,13 @@ class DocumentTableViewCell: MessageTableViewCell {
     func getFileExtension() -> String {
         let fileExtension: String
         
-        if let fileUrl = message!.fileUrl,
-            let tempFileExtension = fileUrl.components(separatedBy: ".").last {
+        if let fileName = message?.fileName, let tempFileExtension = fileName.components(separatedBy: ".").last {
             fileExtension = tempFileExtension
-        } else if let tempFileExtension = message!.localImagePath?.components(separatedBy: ".").last {
+        } else if let tempFileExtension = message?.localImagePath?.components(separatedBy: ".").last {
             fileExtension = tempFileExtension
         } else {
             fileExtension = ""
         }
-        return fileExtension
+        return fileExtension.uppercased()
     }
 }

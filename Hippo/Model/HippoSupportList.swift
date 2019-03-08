@@ -147,7 +147,7 @@ class HippoSupportList: NSObject {
     
     class func getListForBusiness(completion: ((_ success: Bool, _ objectArray: [HippoSupportList]?) -> Void)? = nil) {
         
-        guard let userId = HippoConfig.shared.userDetail?.fuguEnUserID else {
+        guard let userId = HippoUserDetail.fuguEnUserID else {
             return
         }
         let params: [String: Any] = ["app_secret_key" : HippoConfig.shared.appSecretKey,

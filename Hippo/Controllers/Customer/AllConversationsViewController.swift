@@ -50,7 +50,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
    
    override func viewWillAppear(_ animated: Bool) {
       checkNetworkConnection()
-      if HippoConfig.shared.userDetail?.fuguUserID == nil {
+      if HippoUserDetail.fuguUserID == nil {
          putUserDetails()
       } else {
          getAllConversations()
@@ -60,7 +60,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
    }
    
     func handleIntialCustomerForm() -> Bool {
-        guard HippoConfig.shared.userDetail?.fuguUserID != nil else {
+        guard HippoUserDetail.fuguUserID != nil else {
             return false
         }
         guard HippoChecker().shouldCollectDataFromUser() else {
@@ -209,7 +209,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
       
          tableViewDefaultText = "Loading..."
       self.showConversationsTableView.reloadData()
-      if HippoConfig.shared.userDetail?.fuguUserID == nil {
+      if HippoUserDetail.fuguUserID == nil {
          putUserDetails()
       } else {
          getAllConversations()

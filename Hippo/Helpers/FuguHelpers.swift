@@ -609,7 +609,7 @@ func currentUserId() -> Int {
     case .agent:
         return HippoConfig.shared.agentDetail?.id ?? -1
     case .customer:
-        return HippoConfig.shared.userDetail?.fuguUserID ?? -1
+        return HippoUserDetail.fuguUserID ?? -1
     }
 }
 

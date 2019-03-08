@@ -168,7 +168,7 @@ class NLevelViewController: UIViewController {
             return
         }
         HippoUserDetail.getUserDetailsAndConversation(completion: { [weak self] (success, error) in
-            if success || HippoConfig.shared.userDetail?.fuguUserID != nil {
+            if success || HippoUserDetail.fuguUserID != nil {
                 self?.setInitialData()
             }
         })

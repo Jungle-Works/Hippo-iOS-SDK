@@ -26,7 +26,7 @@ class CheckIntializationViewController: UIViewController {
       
       configureUI()
       
-      if HippoConfig.shared.userDetail?.fuguUserID != nil {
+      if HippoUserDetail.fuguUserID != nil {
          intializationComplete()
       } else {
          tryAgainButtonPressed(tryaginButton)

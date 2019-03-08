@@ -157,7 +157,7 @@ class MessageStore {
                 return nil
             }
             params["app_secret_key"] = HippoConfig.shared.appSecretKey
-            params["en_user_id"] = HippoConfig.shared.userDetail?.fuguEnUserID ?? "-1"
+            params["en_user_id"] = HippoUserDetail.fuguEnUserID ?? "-1"
         }
         
         let endPage = requestParam.pageEnd == nil ? requestParam.pageStart + iOSPageLimit : requestParam.pageEnd!
