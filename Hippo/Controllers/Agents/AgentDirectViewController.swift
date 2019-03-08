@@ -36,7 +36,7 @@ class AgentDirectViewController: HippoHomeViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         let showLoader = !(conversationList.count > 0)
-        getData(showLoader: showLoader)
+        checkAgentAndGetData(showLoader: showLoader)
     }
     
     override func didReceiveMemoryWarning() {
@@ -76,11 +76,28 @@ class AgentDirectViewController: HippoHomeViewController {
 }
 
 extension AgentDirectViewController {
+    internal func checkAgentAndGetData(showLoader: Bool = true) {
+        if showLoader {
+            hideError()
+            startLoaderAnimation()
+        }
+        
+        HippoChecker.checkForAgentIntialization { (success, error) in
+            guard success else {
+                
+                return
+            }
+            self.getData(showLoader: showLoader)
+        }
+    }
+    
+    
     internal func getData(showLoader: Bool = true) {
         if showLoader {
             hideError()
             startLoaderAnimation()
         }
+        
         AgentConversationManager.getConversationForSearchUser() {[weak self] (result) in
             self?.stopLoaderAnimation()
             self?.refreshControl.endRefreshing()
@@ -109,7 +126,7 @@ extension AgentDirectViewController {
         if  HippoConfig.shared.agentDetail == nil || HippoConfig.shared.agentDetail!.oAuthToken.isEmpty {
             message = "Auth token is not found or found Empty"
         } else {
-            message = "Something went wrong."
+            message = "Loading chat's tap to retry."
         }
         if let error = AgentConversationManager.errorMessage {
             message = error
@@ -176,7 +193,7 @@ extension AgentDirectViewController {
         refreshControl.addTarget(self, action: #selector(reloadrefreshData(refreshCtrler:)), for: .valueChanged)
     }
     @objc func reloadrefreshData(refreshCtrler: UIRefreshControl) {
-       getData(showLoader: false)
+       checkAgentAndGetData(showLoader: false)
     }
     
     internal func setupTableView() {

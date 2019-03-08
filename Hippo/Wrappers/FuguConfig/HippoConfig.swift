@@ -40,7 +40,7 @@ public class HippoConfig : NSObject {
     
     
     // MARK: - Properties
-    internal var log = CoreLogger(formatter: Formatter.defaultFormat, theme: nil, minLevels: [.error])
+    internal var log = CoreLogger(formatter: Formatter.defaultFormat, theme: nil, minLevels: [.all])
     internal var muidList: [String] = []
     internal var pushArray = [PushInfo]()
     
@@ -414,7 +414,7 @@ public class HippoConfig : NSObject {
         }
     }
     internal func openAgentConversationWith(channelId: Int, completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
-        checkForAgentIntialization { (success, error) in
+        HippoChecker.checkForAgentIntialization { (success, error) in
             guard success else {
                 completion(false, error)
                 return
@@ -425,24 +425,14 @@ public class HippoConfig : NSObject {
             lastVC?.present(conVC, animated: true, completion: nil)
         }
     }
-    fileprivate func checkForAgentIntialization(completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
-        
-        if let fuguUserId = agentDetail?.id, fuguUserId > 0 {
-            completion(true, nil)
-            return
-        }
-        
-        AgentDetail.loginViaAuth { (result) in
-            completion(result.isSuccessful, result.error)
-        }
-    }
+    
     internal func validateLogin(completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
         
         switch HippoConfig.shared.appUserType {
         case .customer:
             checkForIntialization(completion: completion)
         case .agent:
-            checkForAgentIntialization(completion: completion)
+            HippoChecker.checkForAgentIntialization(completion: completion)
         }
         
     }
@@ -608,7 +598,7 @@ public class HippoConfig : NSObject {
             return
         }
         
-        checkForAgentIntialization { (success, error) in
+        HippoChecker.checkForAgentIntialization { (success, error) in
             guard success else {
                 return
             }

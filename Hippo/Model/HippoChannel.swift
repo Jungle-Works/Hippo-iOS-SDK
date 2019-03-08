@@ -188,7 +188,7 @@ class HippoChannel {
             guard let responseDict = response as? [String: Any],
                 let data = responseDict["data"] as? [String: Any],
                 let channelID = data["channel_id"] as? Int else {
-                    
+                    HippoConfig.shared.log.debug("API_CREATE_CONVERSATION_ ERROR.....\(error)", level: .error)
                     let result = HippoChannelCreationResult(isSuccessful: false, error: error, channel: nil, isChannelAvailableLocallay: false)
                     completion(result)
                     return

@@ -185,6 +185,7 @@ class AgentConversationManager {
             return
         }
         
+        
         guard let params = getParamsForSearchUser() else {
             let result = AgentGetConversationFromServerResult(isSuccessful: false, error: HippoError.general, conversations: nil)
             completion(result)
