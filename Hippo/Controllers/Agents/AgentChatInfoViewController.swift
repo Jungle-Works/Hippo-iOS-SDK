@@ -216,7 +216,13 @@ extension AgentChatInfoViewController: UITableViewDelegate  {
 //MARK: TableViewDataSource
 extension AgentChatInfoViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return AgentChatInfoSections.count
+        let chatType = channelDetail?.chatType ?? .other
+        switch chatType {
+        case .o2o:
+            return 1
+        default:
+            return AgentChatInfoSections.count
+        }
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let value = AgentChatInfoSections(rawValue: section) else {
