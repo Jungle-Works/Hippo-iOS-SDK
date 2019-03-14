@@ -106,23 +106,26 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
     var isFileUploading: Bool = false
     var imageWidth : Float?
     var imageHeight : Float?
+    var parsedMimeType: String?
     
     var rawJsonToSend: [String: Any]?
 
     var mimeType: String? {
+        guard parsedMimeType == nil else {
+            return parsedMimeType
+        }
+        let type: String?
         if localImagePath != nil {
-            return localImagePath?.mimeTypeForPath()
+            type = localImagePath?.mimeTypeForPath()
+        } else if fileUrl != nil {
+            type = fileUrl?.mimeTypeForPath()
+        } else if imageUrl != nil {
+            type = imageUrl!.mimeTypeForPath()
+        } else {
+            type = nil
         }
-        
-        if fileUrl != nil {
-            return fileUrl?.mimeTypeForPath()
-        }
-        
-        if imageUrl != nil {
-            return imageUrl!.mimeTypeForPath()
-        }
-        
-        return nil
+        parsedMimeType = type
+        return parsedMimeType
     }
     var concreteFileType: FileType? {
         guard documentType == nil else {
@@ -180,6 +183,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         self.thumbnailUrl = dict["thumbnail_url"] as? String
         self.senderFullName = ((dict["full_name"] as? String) ?? "").trimWhiteSpacesAndNewLine()
         self.messageUniqueID = dict["muid"] as? String
+        self.parsedMimeType = dict["mime_type"] as? String
         
         if let rawType = dict["message_type"] as? Int,
             let type = MessageType(rawValue: rawType) {
@@ -348,6 +352,9 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         }
         if let fileName = self.fileName {
             json["file_name"] = fileName
+        }
+        if let parsedMimeType = self.mimeType {
+            json["mime_type"] = parsedMimeType
         }
         if let fileSize = self.fileSize {
             json["file_size"] = fileSize
@@ -571,7 +578,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         guard let parsedType = type.last?.lowercased(), !parsedType.isEmpty else {
             return false
         }
-        let unhandledMimeType = ["vnd.adobe.photoshop", "psd", "tiff", "svg", "svg+xml", "octet-stream"]
+        let unhandledMimeType = ["vnd.adobe.photoshop", "psd", "tiff", "svg", "svg+xml"]
         return unhandledMimeType.contains(parsedType)
     }
     func isTypingMessage() -> Bool {
@@ -590,6 +597,20 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
     }
     func isReadAllNotification() -> Bool {
         return (notification ?? .none) == .readAll
+    }
+    
+    func isSelfMessage(for chatType: ChatType) -> Bool {
+        switch  HippoConfig.shared.appUserType {
+        case .agent:
+            switch chatType {
+            case .o2o:
+                return senderId == currentUserId()
+            default:
+                return userType.isMyUserType
+            }
+        case .customer:
+            return senderId == currentUserId()
+        }
     }
     
     class func createMessage(rawMessage: [String: Any]) -> HippoMessage? {

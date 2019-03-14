@@ -105,6 +105,7 @@ enum MessageType: Int {
 
 
 enum ChatType: Int {
+    case none = -1
     case other = 0
     case p2p = 1
     case o2o  = 2
@@ -260,6 +261,8 @@ enum AgentEndPoints: String {
     case sendBroadcastMessage = "api/broadcast/sendBroadcastMessage"
     case getBroadcastList = "api/broadcast/getBroadcastList"
     case broadcastStatus = "api/broadcast/broadcastStatus"
+    
+    case createOneToOneChat = "api/chat/createOneToOneChat"
 }
 enum BroadcastType: String, CaseCountable {
     case unknown = ""

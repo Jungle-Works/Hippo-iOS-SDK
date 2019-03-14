@@ -230,7 +230,7 @@ extension AgentDirectViewController {
         guard !AgentConversationManager.searchUserUniqueKeys.isEmpty else {
             return
         }
-        let attributes = AgentDirectChatAttributes(otherUserUniqueKey: AgentConversationManager.searchUserUniqueKeys[0])
+        let attributes = AgentDirectChatAttributes(otherUserUniqueKey: AgentConversationManager.searchUserUniqueKeys[0], channelName: nil)
         let vc = AgentConversationViewController.getWith(chatAttributes: attributes)
         vc.isSingleChat = true
         self.navigationController?.pushViewController(vc, animated: false)

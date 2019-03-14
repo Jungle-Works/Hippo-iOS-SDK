@@ -12,12 +12,21 @@ enum HippoError: LocalizedError {
     case general
     case networkError
     case callClientNotFound
+    case invalidInputData
+    case invalidEmail
+    case notAllowedForAgent
     case threwError(message: String)
     
     var errorDescription: String? {
         switch self {
         case .threwError(message: let errorMessage):
             return errorMessage
+        case .invalidEmail:
+            return HippoConfig.shared.strings.invalidEmail
+        case .invalidInputData:
+            return HippoConfig.shared.strings.inputDataIsInvalid
+        case .notAllowedForAgent:
+            return HippoConfig.shared.strings.notAllowedForAgent
         case .callClientNotFound:
             return HippoConfig.shared.strings.callClientNotFound
         case .networkError:

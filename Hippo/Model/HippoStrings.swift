@@ -38,7 +38,9 @@ public class HippoStrings {
     var videoCallDisabledFromHippo = "Please contact your Admin to enable video call."
     
     var callClientNotFound = "CallClient is not installed, please add pod Hippo/Call in pod file and run pod install and then try again"
-    var messageNotSuppported = ""
+    var invalidEmail = "Invalid email address"
+    var inputDataIsInvalid = "Input data is invalid"
+    var notAllowedForAgent = "This function/method is not allowed for agent."
     
     public init() {
         

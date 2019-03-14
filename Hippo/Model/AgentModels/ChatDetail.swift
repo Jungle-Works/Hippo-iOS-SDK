@@ -21,8 +21,9 @@ class ChatDetail: NSObject {
     var channelTags: [TagDetail] = []
     var channelStatus = ChannelStatus.open
     
+    var chatType: ChatType = .none
+    
     var peerDetail: [String: Any]?
-    var type: ChatType = .other
     var peerName: String = ""
     var allowVideoCall = false
     var allowAudioCall = false
@@ -38,12 +39,14 @@ class ChatDetail: NSObject {
         customerEmail = json["customer_email"] as? String ?? ""
         customerContactNumber = json["customer_phone"] as? String ?? ""
         
+        
         if let channel_status = json["channel_status"] as? Int, let status = ChannelStatus(rawValue: channel_status) {
             channelStatus = status
         }
         
+        
         if let chat_type = json["chat_type"] as? Int, let parsedChatType = ChatType(rawValue: chat_type) {
-            type = parsedChatType
+            chatType = parsedChatType
         }
         
         if let tags = json["tags"] as? [[String: Any]] {

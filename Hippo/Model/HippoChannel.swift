@@ -161,7 +161,35 @@ class HippoChannel {
             completion(result)
             return
         }
-        createNewConversationWith(params: params, completion: completion)
+        switch attributes.chatType {
+        case .o2o:
+            createOneToOneConversation(params: params, completion: completion)
+        default:
+            createNewConversationWith(params: params, completion: completion)
+        }
+        
+    }
+    
+    private class func createOneToOneConversation(params: [String: Any], completion: @escaping HippoChannelCreationHandler) {
+        HippoConfig.shared.log.debug("API_CREATE_O2O_CONVERSATION.....\(params)", level: .request)
+        HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: AgentEndPoints.createOneToOneChat.rawValue) { (response, error, _, statusCode) in
+            
+            guard let responseDict = response as? [String: Any],
+                let data = responseDict["data"] as? [String: Any],
+                let channelID = data["channel_id"] as? Int else {
+                    HippoConfig.shared.log.debug("API_CREATE_CONVERSATION_ ERROR.....\(error?.localizedDescription ?? "")", level: .error)
+                    let result = HippoChannelCreationResult(isSuccessful: false, error: error, channel: nil, isChannelAvailableLocallay: false)
+                    completion(result)
+                    return
+            }
+            
+            let channel = FuguChannelPersistancyManager.shared.getChannelBy(id: channelID)
+            let result = HippoChannelCreationResult(isSuccessful: true, error: HippoError.general, channel: channel, isChannelAvailableLocallay: false)
+            if let transactionID = params["transaction_id"] as? String {
+                hashmapTransactionIdToChannelID[transactionID] = channelID
+            }
+            completion(result)
+        }
     }
     
     class func get(withFuguChatAttributes attributes: FuguNewChatAttributes, completion: @escaping HippoChannelCreationHandler) {

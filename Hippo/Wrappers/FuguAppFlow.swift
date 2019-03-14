@@ -23,7 +23,21 @@ class FuguFlowManager: NSObject {
     
     fileprivate let storyboard = UIStoryboard(name: "FuguUnique", bundle: bundle)
    
-   
+    //MARK: AgentNavigation methods
+    func pushAgentConversationViewController(channelId: Int, channelName: String) {
+        let conVC = AgentConversationViewController.getWith(channelID: channelId, channelName: channelName)
+        let navVc = UINavigationController(rootViewController: conVC)
+        navVc.setTheme()
+        getLastVisibleController()?.present(navVc, animated: true, completion: nil)
+    }
+    func pushAgentConversationViewController(chatAttributes: AgentDirectChatAttributes) {
+        let conVC = AgentConversationViewController.getWith(chatAttributes: chatAttributes)
+        let navVc = UINavigationController(rootViewController: conVC)
+        navVc.setTheme()
+        getLastVisibleController()?.present(navVc, animated: true, completion: nil)
+    }
+    
+    
    // MARK: - Navigation Methods
    func presentCustomerConversations(animation: Bool = true) {
       guard let navigationController = storyboard.instantiateViewController(withIdentifier: "FuguCustomerNavigationController") as? UINavigationController else {

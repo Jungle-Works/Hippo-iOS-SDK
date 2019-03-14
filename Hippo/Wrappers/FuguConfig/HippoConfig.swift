@@ -38,7 +38,7 @@ public class HippoConfig : NSObject {
     
     public static let shared = HippoConfig()
     
-    
+    public typealias commonHippoCallback = ((_ success: Bool, _ error: Error?) -> ())
     // MARK: - Properties
     internal var log = CoreLogger(formatter: Formatter.defaultFormat, theme: nil, minLevels: [.error])
     internal var muidList: [String] = []
@@ -191,6 +191,25 @@ public class HippoConfig : NSObject {
         self.resellerToken = token
         self.referenceId = referenceId
         self.appType = appType
+    }
+    public func startOneToOneChat(otherUserEmail: String, completion: @escaping commonHippoCallback) {
+        let email = otherUserEmail.trimWhiteSpacesAndNewLine()
+        guard email.isValidEmail() else {
+            completion(false, HippoError.invalidEmail)
+            return
+        }
+        HippoChecker.checkForAgentIntialization { (success, error) in
+            guard success else {
+                completion(false, error)
+                return
+            }
+            guard let attributes = AgentDirectChatAttributes(otherUserEmail: email) else {
+                completion(false, HippoError.general)
+                return
+            }
+            FuguFlowManager.shared.pushAgentConversationViewController(chatAttributes: attributes)
+        }
+        
     }
     
     public func updateUserDetail(userDetail: HippoUserDetail) {
@@ -415,16 +434,17 @@ public class HippoConfig : NSObject {
         }
     }
     internal func openAgentConversationWith(channelId: Int, completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
-        HippoChecker.checkForAgentIntialization { (success, error) in
-            guard success else {
-                completion(false, error)
-                return
-            }
-            
-            let conVC = AgentConversationViewController.getWith(channelID: channelId, channelName: "Channel")
-            let lastVC = getLastVisibleController()
-            lastVC?.present(conVC, animated: true, completion: nil)
-        }
+        completion(false, HippoError.notAllowedForAgent)
+//        HippoChecker.checkForAgentIntialization { (success, error) in
+//            guard success else {
+//                completion(false, error)
+//                return
+//            }
+//
+//            let conVC = AgentConversationViewController.getWith(channelID: channelId, channelName: "Channel")
+//            let lastVC = getLastVisibleController()
+//            lastVC?.present(conVC, animated: true, completion: nil)
+//        }
     }
     
     internal func validateLogin(completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
@@ -527,7 +547,7 @@ public class HippoConfig : NSObject {
         }
         handleVoipNotification(payloadDict: json)
     }
-    private func handleVoipNotification(payloadDict: [String: Any]) {
+    public func handleVoipNotification(payloadDict: [String: Any]) {
         CallManager.shared.voipNotificationRecieved(payloadDict: payloadDict)
     }
     
@@ -593,9 +613,7 @@ public class HippoConfig : NSObject {
         
         if let allConVC = visibleController as? AgentHomeViewController {
             if channelId > 0 {
-                let conVC = AgentConversationViewController.getWith(channelID: channelId, channelName: channelName)
-                conVC.agentConversationDelegate = allConVC
-                allConVC.navigationController?.pushViewController(conVC, animated: true)
+                FuguFlowManager.shared.pushAgentConversationViewController(channelId: channelId, channelName: channelName)
             }
             return
         }
@@ -604,10 +622,7 @@ public class HippoConfig : NSObject {
             guard success else {
                 return
             }
-            let conVC = AgentConversationViewController.getWith(channelID: channelId, channelName: channelName)
-            let navVc = UINavigationController(rootViewController: conVC)
-            navVc.setTheme()
-            visibleController?.present(navVc, animated: true, completion: nil)
+            FuguFlowManager.shared.pushAgentConversationViewController(channelId: channelId, channelName: channelName)
         }
     }
     

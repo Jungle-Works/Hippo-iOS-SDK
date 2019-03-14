@@ -368,9 +368,8 @@ class HippoConversationViewController: UIViewController {
         
         let color = HippoConfig.shared.theme.headerTextColor
         let button =  UIButton(type: .custom)
-        button.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 44)
+//        button.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 44)
         button.backgroundColor = UIColor.clear
-        button.contentHorizontalAlignment = .center
         button.setTitleColor(color, for: .normal)
         button.addTarget(self, action: #selector(self.titleButtonclicked), for: .touchUpInside)
 
@@ -730,6 +729,7 @@ extension HippoConversationViewController {
     
     func imageSelectedToSendWith(localPath: String, imageSize: CGSize) {
         let message = HippoMessage(message: "", type: .imageFile, uniqueID: generateUniqueId(), localFilePath: localPath)
+        message.fileName = localPath.fileName()
         message.imageWidth = Float(imageSize.width)
         message.imageHeight = Float(imageSize.height)
         PrepareUploadAndSendImage(message: message)

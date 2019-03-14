@@ -954,7 +954,8 @@ extension AgentConversationViewController: UITableViewDelegate, UITableViewDataS
             if messagesArray.count > indexPath.row {
                 let message = messagesArray[indexPath.row]
                 let messageType = message.type
-                let isOutgoingMsg = message.userType == .agent || message.userType == .system //isSentByMe(senderId: chatMessageObject.senderId)
+                let chatType = channel?.chatDetail?.chatType ?? .other
+                let isOutgoingMsg = message.isSelfMessage(for: chatType) //isSentByMe(senderId: chatMessageObject.senderId)
                 
                 guard messageType.isMessageTypeHandled() else {
                     return getNormalMessageTableViewCell(tableView: tableView, isOutgoingMessage: isOutgoingMsg, message: message, indexPath: indexPath)
