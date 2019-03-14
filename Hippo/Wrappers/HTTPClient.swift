@@ -202,8 +202,10 @@ class HTTPClient {
             "app_version": versionCode,
             "device_type": Device_Type_iOS,
             "source_type": SourceType.SDK.rawValue,
-            "device_id" :  UIDevice.current.identifierForVendor?.uuidString ?? 0
+            "device_id":  UIDevice.current.identifierForVendor?.uuidString ?? 0,
+            "device_details": AgentDetail.getDeviceDetails()
         ]
+        
         //appending parameters
         additionalParams += para ?? [:]
         

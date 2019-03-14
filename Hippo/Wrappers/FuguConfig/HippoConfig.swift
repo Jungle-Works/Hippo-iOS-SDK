@@ -13,6 +13,33 @@ import UIKit
 #endif
 
 
+class RideDetail: NSObject {
+    static var current: RideDetail?
+    
+    var estimatedTime: UInt = 0
+    var startTime: Date = Date()
+    
+    init(estimatedTime: UInt) {
+        self.estimatedTime = estimatedTime
+    }
+    
+    func getRemaningTime() -> UInt? {
+        let interval = Date().timeIntervalSince(startTime)
+        let parsedInterval = UInt(interval)
+        let diff: UInt
+        if estimatedTime > parsedInterval {
+            diff = estimatedTime - parsedInterval
+        } else {
+            diff = 0
+        }
+        guard diff > 0 else {
+            RideDetail.current = nil
+            return nil
+        }
+        return diff
+    }
+}
+
 public protocol HippoMessageRecievedDelegate: class {
     func hippoMessageRecievedWith(response: [String: Any], viewController: UIViewController)
 }
@@ -144,6 +171,7 @@ public class HippoConfig : NSObject {
     internal let poweredByFont: UIFont = UIFont.systemFont(ofSize: 10.0)
     internal let FuguStringFont: UIFont = UIFont.systemFont(ofSize: 10.0)
     
+    
     public let navigationTitleTextAlignMent: NSTextAlignment? = .center
     
     // MARK: - Intialization
@@ -215,6 +243,7 @@ public class HippoConfig : NSObject {
         
     }
     
+    
     public func updateUserDetail(userDetail: HippoUserDetail) {
         self.userDetail = userDetail
         self.appUserType = .customer
@@ -277,6 +306,15 @@ public class HippoConfig : NSObject {
             return
         }
         FuguFlowManager.shared.openChatViewController(labelId: labelId)
+    }
+    
+    public func setRideTime(estimatedTimeInSec: UInt) {
+       let detail = RideDetail(estimatedTime: estimatedTimeInSec)
+       RideDetail.current = detail
+    }
+    
+    public func discardRide() {
+        RideDetail.current = nil
     }
     
     public func openChatScreen(withTransactionId transactionId: String, tags: [String]? = nil, channelName: String, message: String = "", userUniqueKey: String? = nil, isInAppMessage: Bool = false, completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {

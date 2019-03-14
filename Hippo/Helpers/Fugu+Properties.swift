@@ -31,4 +31,5 @@ let versionCode = 214
  212 = can create payment request
  
  214 *** 1.7.29 = o2o chat
+
  */
