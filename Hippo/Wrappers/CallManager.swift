@@ -146,7 +146,7 @@ class CallManager {
                 return nil
             }
             let name = user.fullName ?? ""
-            let userID = user.fuguUserID ?? -1
+            let userID = HippoUserDetail.fuguUserID ?? -1
            
             return HippoUser(name: name, userID: userID, imageURL: nil)
         case .agent:

@@ -369,7 +369,7 @@
                                     </constraints>
                                 </view>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O85-vA-btN">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="O85-vA-btN">
                                 <rect key="frame" x="0.0" y="241.5" width="375" height="120"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="120" id="Azy-gv-Wla"/>
@@ -911,14 +911,14 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fH3-Dh-mo5">
                                                     <rect key="frame" x="0.0" y="67.5" width="375" height="45"/>
                                                     <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="warningIcon" translatesAutoresizingMaskIntoConstraints="NO" id="qOd-5w-qLB" customClass="So_UIImageView" customModule="SDKDemo1">
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="warningIcon" translatesAutoresizingMaskIntoConstraints="NO" id="qOd-5w-qLB" customClass="So_UIImageView" customModule="Hippo" customModuleProvider="target">
                                                             <rect key="frame" x="176" y="3" width="16" height="16"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" secondItem="qOd-5w-qLB" secondAttribute="height" multiplier="1:1" id="H9L-b2-1tA"/>
                                                                 <constraint firstAttribute="height" constant="16" id="hVS-oG-xWJ"/>
                                                             </constraints>
                                                         </imageView>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Couldn't send the message" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8v9-gL-3Z4" customClass="So_CustomLabel" customModule="SDKDemo1">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Couldn't send the message" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8v9-gL-3Z4" customClass="So_CustomLabel" customModule="Hippo" customModuleProvider="target">
                                                             <rect key="frame" x="194" y="3" width="176" height="16"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -1518,14 +1518,14 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rhb-4a-DFk">
                                                     <rect key="frame" x="0.0" y="67.5" width="375" height="45"/>
                                                     <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="warningIcon" translatesAutoresizingMaskIntoConstraints="NO" id="PUL-qI-43n" customClass="So_UIImageView" customModule="SDKDemo1">
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="warningIcon" translatesAutoresizingMaskIntoConstraints="NO" id="PUL-qI-43n" customClass="So_UIImageView" customModule="Hippo" customModuleProvider="target">
                                                             <rect key="frame" x="176" y="3" width="16" height="16"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" secondItem="PUL-qI-43n" secondAttribute="height" multiplier="1:1" id="HEs-yZ-QRV"/>
                                                                 <constraint firstAttribute="height" constant="16" id="XB9-vv-9PR"/>
                                                             </constraints>
                                                         </imageView>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Couldn't send the message" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m2e-z1-mnJ" customClass="So_CustomLabel" customModule="SDKDemo1">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Couldn't send the message" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m2e-z1-mnJ" customClass="So_CustomLabel" customModule="Hippo" customModuleProvider="target">
                                                             <rect key="frame" x="194" y="3" width="176" height="16"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>

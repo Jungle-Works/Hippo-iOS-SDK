@@ -27,7 +27,7 @@ struct GetConversationRequestParam {
     let pageStart: Int
     let pageEnd: Int?
     let showLoader: Bool
-    let type: ConversationType
+    let type: RequestType
     let identifier: String
     
     static var allChatDefaultRequest: GetConversationRequestParam {
@@ -43,7 +43,14 @@ struct GetConversationRequestParam {
             return RequestIdenfier.getAllConversationIdentfier
         case .myChat:
             return RequestIdenfier.getMyConversationIdentfier
+        case .searchUser:
+            return RequestIdenfier.getAllConversationIdentfier
         }
+    }
+    enum RequestType {
+        case myChat
+        case allChat
+        case searchUser
     }
     
 }
@@ -164,6 +171,8 @@ class AgentConversationManager {
             } else {
                 ConversationStore.shared.myChats.append(contentsOf: conversations)
             }
+        case .searchUser:
+            break
         }
         resetPushCount()
         pushTotalUnreadCount()
@@ -278,6 +287,8 @@ extension AgentConversationManager {
             params["type"] = [10]
         case .myChat:
             params["type"] = [0]
+        case .searchUser:
+            params["type"] = [0, 3]
         }
         
         return params

@@ -146,7 +146,7 @@ extension AgentHomeConversationCell {
     }
     func setTagView() {
         setTagViewDefault()
-        guard !arrayTagList.isEmpty else {
+        guard !arrayTagList.isEmpty, cellData?.chatType != .o2o else {
             return
         }
         heightOfLeftContainer.constant = tagViewHeight

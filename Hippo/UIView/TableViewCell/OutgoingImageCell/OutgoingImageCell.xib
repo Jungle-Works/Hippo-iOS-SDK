@@ -39,7 +39,7 @@
                                     <action selector="imageTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="1ee-IX-10U"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xHO-Tl-t6y" customClass="So_UIImageView" customModule="Fugu">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xHO-Tl-t6y" customClass="So_UIImageView" customModule="Hippo" customModuleProvider="target">
                                 <rect key="frame" x="79.5" y="116" width="47" height="47"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>

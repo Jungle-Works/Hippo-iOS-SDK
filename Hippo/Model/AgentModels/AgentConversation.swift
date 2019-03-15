@@ -35,6 +35,7 @@ class AgentConversation: HippoConversation {
     var assigned_to: Int?
     var assigned_by_name: String?
     var assigned_to_name: String?
+    var chatType: ChatType = .none
     
     
     init?(channelId: Int, unreadCount: Int, lastMessage: HippoMessage) {
@@ -90,6 +91,9 @@ class AgentConversation: HippoConversation {
         
         if let notification_type = json["notification_type"] as? Int, let type = NotificationType(rawValue: notification_type) {
             notificationType = type
+        }
+        if let chat_type = Int.parse(values: json, key: "chat_type"), let type = ChatType(rawValue: chat_type) {
+            chatType = type
         }
         
         if let message = HippoMessage(convoDict: json) {

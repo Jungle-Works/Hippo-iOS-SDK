@@ -328,6 +328,7 @@ extension AgentDetail {
         if !HippoConfig.shared.voipToken.isEmpty {
             params["voip_token"] = HippoConfig.shared.voipToken
         }
+        params["app_version_code"] = "\(versionCode)"
         return params
     }
     internal static func getParamsForAuthLogin() -> [String: Any] {

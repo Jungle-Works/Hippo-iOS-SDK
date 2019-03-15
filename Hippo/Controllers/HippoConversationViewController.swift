@@ -434,18 +434,28 @@ class HippoConversationViewController: UIViewController {
             }
         }
     }
+    func canMakeAnyCall() -> Bool {
+        guard channel?.chatDetail?.peerDetail != nil else {
+            return false
+        }
+        let assignemdAgentID = channel?.chatDetail?.assignedAgentID ?? -1000
+        
+        switch HippoConfig.shared.appUserType {
+        case .agent:
+            return assignemdAgentID == currentUserId() || channel?.chatDetail?.chatType == .o2o
+        case .customer:
+            return true
+        }
+    }
+    
     func canStartAudioCall() -> Bool {
+        guard canMakeAnyCall() else {
+            return false
+        }
         guard HippoConfig.shared.isAudioCallEnabled else {
             return false
         }
         guard let allowAudioCall = channel?.chatDetail?.allowAudioCall, allowAudioCall  else {
-            return false
-        }
-        guard channel?.chatDetail?.peerDetail != nil else {
-            return false
-        }
-        let assignemdAgentID = channel?.chatDetail?.assignedAgentID ?? -1
-        if HippoConfig.shared.appUserType == .agent && assignemdAgentID != currentUserId()  {
             return false
         }
         return true
@@ -453,17 +463,13 @@ class HippoConversationViewController: UIViewController {
     }
     
     func canStartVideoCall() -> Bool {
+        guard canMakeAnyCall() else {
+            return false
+        }
         guard HippoConfig.shared.isVideoCallEnabled else {
             return false
         }
         guard let allowVideoCall = channel?.chatDetail?.allowVideoCall, allowVideoCall  else {
-            return false
-        }
-        guard channel?.chatDetail?.peerDetail != nil else {
-            return false
-        }
-        let assignemdAgentID = channel?.chatDetail?.assignedAgentID ?? -1
-        if HippoConfig.shared.appUserType == .agent && assignemdAgentID != currentUserId()  {
             return false
         }
         return true
