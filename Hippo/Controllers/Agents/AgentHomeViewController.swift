@@ -296,7 +296,8 @@ extension AgentHomeViewController {
             refreshControl.endRefreshing()
             return
         }
-        let request = GetConversationRequestParam.init(pageStart: 1, pageEnd: nil, showLoader: false, type: conversationType, identifier: String.generateUniqueId())
+        let type = GetConversationRequestParam.RequestType(conversationType: conversationType)
+        let request = GetConversationRequestParam.init(pageStart: 1, pageEnd: nil, showLoader: false, type: type, identifier: String.generateUniqueId())
         AgentConversationManager.getConversations(with: request) {[weak self] (result) in
             self?.refreshControl.endRefreshing()
             self?.setData()
@@ -409,7 +410,9 @@ extension AgentHomeViewController: UIScrollViewDelegate {
         startLoadingMore()
         print(">>>>>>>>>\(currentBottom)")
         let count = conversationList.count + 1
-        let request = GetConversationRequestParam(pageStart: count, pageEnd: nil, showLoader: false, type: conversationType, identifier: String.generateUniqueId())
+        let type = GetConversationRequestParam.RequestType(conversationType: conversationType)
+        
+        let request = GetConversationRequestParam(pageStart: count, pageEnd: nil, showLoader: false, type: type, identifier: String.generateUniqueId())
         
         AgentConversationManager.getConversations(with: request) {[weak self] (result) in
             guard self != nil else {

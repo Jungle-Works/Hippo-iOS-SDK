@@ -51,6 +51,16 @@ struct GetConversationRequestParam {
         case myChat
         case allChat
         case searchUser
+        
+        
+        init(conversationType: ConversationType) {
+            switch conversationType{
+            case .allChat:
+                self = .allChat
+            case .myChat:
+                self = .myChat
+            }
+        }
     }
     
 }
