@@ -22,8 +22,8 @@ class AgentConversationViewController: HippoConversationViewController {
     @IBOutlet var backButton: UIButton!
     @IBOutlet var sendMessageButton: UIButton!
     @IBOutlet var messageTextView: UITextView!
-    @IBOutlet weak var errorContentView: UIView!
-    @IBOutlet var errorLabel: UILabel!
+//    @IBOutlet weak var errorContentView: UIView!
+//    @IBOutlet var errorLabel: UILabel!
     @IBOutlet var textViewBgView: UIView!
     @IBOutlet var placeHolderLabel: UILabel!
     @IBOutlet var addFileButtonAction: UIButton!
@@ -33,7 +33,7 @@ class AgentConversationViewController: HippoConversationViewController {
     
     @IBOutlet weak var videoButton: UIBarButtonItem!
     @IBOutlet var textViewBottomConstraint: NSLayoutConstraint!
-    @IBOutlet var errorLabelTopConstraint: NSLayoutConstraint!
+    
     //    @IBOutlet weak var hieghtOfNavigationBar: NSLayoutConstraint!
     @IBOutlet weak var loadMoreActivityTopContraint: NSLayoutConstraint!
     @IBOutlet weak var loadMoreActivityIndicator: UIActivityIndicatorView!
@@ -62,8 +62,6 @@ class AgentConversationViewController: HippoConversationViewController {
     
     deinit {
         NotificationCenter.default.removeObserver(self)
-        
-        print("Conversation View Controller deintialized")
     }
     
     // MARK: - LIFECYCLE
@@ -355,25 +353,12 @@ class AgentConversationViewController: HippoConversationViewController {
     
     
     override func checkNetworkConnection() {
-        errorLabel.backgroundColor = UIColor.red
         if FuguNetworkHandler.shared.isNetworkConnected {
-            errorLabelTopConstraint.constant = -20
-            updateErrorLabelView(isHiding: true)
+            hideErrorMessage()
         } else {
-            errorLabelTopConstraint.constant = -20
-            errorLabel.text = "No internet connection"
-            updateErrorLabelView(isHiding: false)
+            errorMessage = HippoConfig.shared.strings.noNetworkConnection
+            showErrorMessage()
         }
-    }
-    
-    override func startGettingNewMessages() {
-        errorLabel.text = HippoConfig.shared.strings.checkingNewMessages
-        errorLabel.backgroundColor = HippoConfig.shared.theme.processingGreenColor
-        updateErrorLabelView(isHiding: false)
-    }
-    override func finishGettingNewMessages() {
-        //        errorLabel.text = ""
-        updateErrorLabelView(isHiding: true, delay: 0)
     }
     
     func isPaginationInProgress() -> Bool {
@@ -387,10 +372,8 @@ class AgentConversationViewController: HippoConversationViewController {
             return
         }
         if FuguNetworkHandler.shared.isNetworkConnected == false {
-//            if self.messagesGroupedByDate.isEmpty {
-                self.errorLabel.text = "No Internet Connection"
-                self.updateErrorLabelView(isHiding: false)
-//            }
+            let message = HippoConfig.shared.strings.noNetworkConnection
+            showErrorMessage(messageString: message, bgColor: UIColor.red)
             completion?()
             return
         }
@@ -417,7 +400,7 @@ class AgentConversationViewController: HippoConversationViewController {
             self?.processingRequestCount -= 1
             
             if self!.processingRequestCount < 1 {
-                self?.finishGettingNewMessages()
+                self?.hideErrorMessage()
             }
             self?.enableSendingNewMessages()
             self?.stopLoaderAnimation()
@@ -492,8 +475,8 @@ class AgentConversationViewController: HippoConversationViewController {
         
         disableSendingNewMessages()
         if FuguNetworkHandler.shared.isNetworkConnected == false {
-            self.errorLabel.text = "No Internet Connection"
-            self.updateErrorLabelView(isHiding: false)
+            errorMessage = HippoConfig.shared.strings.noNetworkConnection
+            showErrorMessage()
             disableSendingNewMessages()
             return
         }
@@ -531,6 +514,11 @@ class AgentConversationViewController: HippoConversationViewController {
     }
     
     func channelCreatedSuccessfullyWith(result: HippoChannelCreationResult) {
+        if let error = result.error {
+            errorMessage = error.localizedDescription
+            showErrorMessage()
+            updateErrorLabelView(isHiding: true)
+        }
         guard result.isSuccessful else {
             stopLoaderAnimation()
             return
@@ -632,14 +620,8 @@ extension AgentConversationViewController {
         self.messageTextView.font = HippoConfig.shared.theme.typingTextFont
         self.messageTextView.textColor = HippoConfig.shared.theme.typingTextColor
         self.messageTextView.backgroundColor = .clear
-        
         placeHolderLabel.text = HippoConfig.shared.strings.messagePlaceHolderText
-        
-        errorLabel.text = ""
-        if errorLabelTopConstraint != nil {
-            errorLabelTopConstraint.constant = -20
-        }
-        
+        hideErrorMessage()
         sendMessageButton.isEnabled = false
         
         if channel != nil, channel.isSendingDisabled == true {
@@ -795,25 +777,6 @@ extension AgentConversationViewController {
         }
     }
     
-    func updateErrorLabelView(isHiding: Bool, delay: Double = 3) {
-        if isHiding {
-            if self.errorLabelTopConstraint.constant == 0 {
-                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delay) {
-                    self.errorLabelTopConstraint.constant = -20
-                    self.errorLabel.text = ""
-                    self.view.layoutIfNeeded()
-                    self.errorLabel.backgroundColor = UIColor.red
-                }
-            }
-            return
-        }
-        
-        if errorLabelTopConstraint != nil && errorLabelTopConstraint.constant != 0 {
-            self.errorLabelTopConstraint.constant = 0
-            self.view.layoutIfNeeded()
-        }
-    }
-    
     func showHideActivityIndicator(hide: Bool = true) {
         if hide {
             if self.loadMoreActivityTopContraint.constant == 10 {
@@ -844,22 +807,6 @@ extension AgentConversationViewController {
                 }
             }
         }
-    }
-    
-    func isMessageInvalid(messageText: String) -> Bool {
-        if messageText.replacingOccurrences(of: " ", with: "").count == 0 ||
-            messageText.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).count == 0 {
-            
-            if FuguNetworkHandler.shared.isNetworkConnected == false {
-                return true
-            }
-            
-            self.updateErrorLabelView(isHiding: false)
-            self.errorLabel.text = "Please enter some text."
-            self.updateErrorLabelView(isHiding: true)
-            return true
-        }
-        return false
     }
     
     func expectedHeight(OfMessageObject chatMessageObject: HippoMessage) -> CGFloat {
@@ -1451,6 +1398,15 @@ extension AgentConversationViewController: ImageCellDelegate {
 }
 
 extension AgentConversationViewController: HippoChannelDelegate {
+    func cancelSendingMessage(message: HippoMessage, errorMessage: String?) {
+        self.cancelMessage(message: message)
+        
+        if let message = errorMessage {
+            showErrorMessage(messageString: message)
+            updateErrorLabelView(isHiding: true)
+        }
+    }
+    
     func typingMessageReceived(newMessage: HippoMessage) {
         guard !newMessage.isSentByMe() else {
             return
@@ -1469,27 +1425,19 @@ extension AgentConversationViewController: HippoChannelDelegate {
     }
     
     func newMessageReceived(newMessage message: HippoMessage) {
-//        guard !isSentByMe(senderId: message.senderId) else {
-//            return
-//        }
-        
         message.status = .read
         message.wasMessageSendingFailed = false
         
         tableViewChat.reloadData()
         
-        
-        
         guard !message.isANotification() else {
             return
         }
-        
         updateMessagesArrayLocallyForUIUpdation(message)
         newScrollToBottom(animated: true)
         //TODO: - Scrolling Logic
         
         // NOTE: Keep "shouldScroll" method and action different, should scroll method should only detect whether to scroll or not
-        
         sendNotificaionAfterReceivingMsg(senderUserId: message.senderId)
     }
     

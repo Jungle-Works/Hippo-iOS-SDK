@@ -72,7 +72,7 @@ class ListDescriptionViewController: UIViewController {
         if FuguNetworkHandler.shared.isNetworkConnected {
             handleErrorLabel(with: "", isForceShow: false)
         } else {
-            handleErrorLabel(with: "No Internet Connection", isForceShow: true)
+            handleErrorLabel(with: HippoConfig.shared.strings.noNetworkConnection, isForceShow: true)
         }
     }
     func handleErrorLabel(with errorMessage: String, isForceShow: Bool) {

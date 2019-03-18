@@ -57,6 +57,10 @@ public class HippoConfig : NSObject {
     internal var agentDetail: AgentDetail?
     internal var strings = HippoStrings()
     
+    open var isPaymentRequestEnabled: Bool {
+        return HippoProperty.current.isPaymentRequestEnabled
+    }
+    
     internal var isVideoCallEnabled: Bool {
         get {
             guard CallManager.shared.isCallClientAvailable() else {
@@ -166,10 +170,10 @@ public class HippoConfig : NSObject {
         }
     }
     
-    public func setHippoDelegate(delegate: HippoDelegate) {
-        
+    public func setHippoDelegate(delegate: HippoDelegate?) {
         self.delegate = delegate
     }
+    
     @available(*, deprecated, renamed: "setCustomisedHippoTheme", message: "This class will no longer be available, To Continue migrate to setCustomisedHippoTheme")
     public func setCustomisedFuguTheme(theme: HippoTheme) {
         self.theme = theme
@@ -611,7 +615,7 @@ public class HippoConfig : NSObject {
             return
         }
         
-        if let allConVC = visibleController as? AgentHomeViewController {
+        if let _ = visibleController as? AgentHomeViewController {
             if channelId > 0 {
                 FuguFlowManager.shared.pushAgentConversationViewController(channelId: channelId, channelName: channelName)
             }

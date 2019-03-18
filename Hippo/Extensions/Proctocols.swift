@@ -48,6 +48,26 @@ public protocol HippoDelegate: class {
     #endif
 }
 
+extension HippoDelegate {
+    func hippoUnreadCount(_ totalCount: Int) {
+        
+    }
+    func hippoUserUnreadCount(_ usersCount: [String: Int]) {
+        
+    }
+    
+    func hippoDeinit() {
+        
+    }
+    func hippoDidLoad() {
+        
+    }
+    
+    func hippoMessageRecievedWith(response: [String: Any], viewController: UIViewController) {
+        
+    }
+}
+
 protocol RetryMessageUploadingDelegate: class {
     func retryUploadFor(message: HippoMessage)
     func cancelImageUploadFor(message: HippoMessage)

@@ -34,8 +34,8 @@ protocol NewChatSentDelegate: class {
    
    @IBOutlet var sendMessageButton: UIButton!
    @IBOutlet var messageTextView: UITextView!
-   @IBOutlet weak var errorContentView: UIView!
-   @IBOutlet var errorLabel: UILabel!
+//   @IBOutlet weak var errorContentView: UIView!
+//   @IBOutlet var errorLabel: UILabel!
    @IBOutlet var textViewBgView: UIView!
    @IBOutlet var placeHolderLabel: UILabel!
    @IBOutlet var addFileButtonAction: UIButton!
@@ -45,7 +45,6 @@ protocol NewChatSentDelegate: class {
     @IBOutlet weak var audioCallButton: UIButton!
     @IBOutlet weak var videoButton: UIButton!
    @IBOutlet var textViewBottomConstraint: NSLayoutConstraint!
-   @IBOutlet var errorLabelTopConstraint: NSLayoutConstraint!
    @IBOutlet weak var hieghtOfNavigationBar: NSLayoutConstraint!
    @IBOutlet weak var loadMoreActivityTopContraint: NSLayoutConstraint!
    @IBOutlet weak var loadMoreActivityIndicator: UIActivityIndicatorView!
@@ -67,7 +66,6 @@ protocol NewChatSentDelegate: class {
         
         NotificationCenter.default.removeObserver(self)
         HippoConfig.shared.notifiyDeinit()
-        print("Conversation View Controller deintialized")
     }
    
    // MARK: - LIFECYCLE
@@ -454,17 +452,17 @@ protocol NewChatSentDelegate: class {
         tableViewChat.setContentOffset(newOffSet, animated: false)
     }
     
-    override func checkNetworkConnection() {
-        errorLabel.backgroundColor = UIColor.red
-        if FuguNetworkHandler.shared.isNetworkConnected {
-            errorLabelTopConstraint.constant = -20
-            updateErrorLabelView(isHiding: true)
-        } else {
-            errorLabelTopConstraint.constant = -20
-            errorLabel.text = "No internet connection"
-            updateErrorLabelView(isHiding: false)
-        }
-    }
+//    override func checkNetworkConnection() {
+//        errorLabel.backgroundColor = UIColor.red
+//        if FuguNetworkHandler.shared.isNetworkConnected {
+//            errorLabelTopConstraint.constant = -20
+//            updateErrorLabelView(isHiding: true)
+//        } else {
+//            errorLabelTopConstraint.constant = -20
+//            errorLabel.text = HippoConfig.shared.strings.noNetworkConnection
+//            updateErrorLabelView(isHiding: false)
+//        }
+//    }
    
     func isPaginationInProgress() -> Bool {
         return loadMoreActivityTopContraint.constant == 10
@@ -479,10 +477,7 @@ protocol NewChatSentDelegate: class {
       }
       
       if FuguNetworkHandler.shared.isNetworkConnected == false {
-//         if self.messagesGroupedByDate.isEmpty {
-            self.errorLabel.text = "No Internet Connection"
-            self.updateErrorLabelView(isHiding: false)
-//         }
+         checkNetworkConnection()
          completion?()
          return
       }
@@ -503,7 +498,7 @@ protocol NewChatSentDelegate: class {
         
         MessageStore.getMessages(requestParam: request, ignoreIfInProgress: false) {[weak self] (response, isCreateConversationRequired)  in
             
-            self?.finishGettingNewMessages()
+            self?.hideErrorMessage()
             self?.enableSendingNewMessages()
             self?.stopLoaderAnimation()
             self?.showHideActivityIndicator(hide: true)
@@ -647,21 +642,11 @@ protocol NewChatSentDelegate: class {
             }
         })
     }
-    override func startGettingNewMessages() {
-        errorLabel.text = HippoConfig.shared.strings.checkingNewMessages
-        errorLabel.backgroundColor = HippoConfig.shared.theme.processingGreenColor
-        updateErrorLabelView(isHiding: false)
-    }
-    override func finishGettingNewMessages() {
-//        errorLabel.text = ""
-        updateErrorLabelView(isHiding: true, delay: 0)
-    }
     
     override func getMessagesWith(labelId: Int, completion: (() -> Void)?) {
       
       if FuguNetworkHandler.shared.isNetworkConnected == false {
-         self.errorLabel.text = "No Internet Connection"
-         self.updateErrorLabelView(isHiding: false)
+         checkNetworkConnection()
          completion?()
          return
       }
@@ -689,7 +674,7 @@ protocol NewChatSentDelegate: class {
      MessageStore.getMessagesByLabelID(requestParam: request, ignoreIfInProgress: false) {[weak self] (response, error)  in
         
         self?.stopLoaderAnimation()
-        self?.finishGettingNewMessages()
+        self?.hideErrorMessage()
         
         guard error == nil else {
             self?.handleRequestForCreateConersationForGetMessages(error: error, completion: completion)
@@ -717,8 +702,8 @@ protocol NewChatSentDelegate: class {
       
       disableSendingNewMessages()
       if FuguNetworkHandler.shared.isNetworkConnected == false {
-         self.errorLabel.text = "No Internet Connection"
-         self.updateErrorLabelView(isHiding: false)
+         errorMessage = HippoConfig.shared.strings.noNetworkConnection
+         showErrorMessage()
          disableSendingNewMessages()
          return
       }
@@ -760,6 +745,12 @@ protocol NewChatSentDelegate: class {
    }
       
    func channelCreatedSuccessfullyWith(result: HippoChannelCreationResult) {
+    if let error = result.error {
+        errorMessage = error.localizedDescription
+        showErrorMessage()
+        updateErrorLabelView(isHiding: true)
+    }
+    
       guard result.isSuccessful else {
          stopLoaderAnimation()
          return
@@ -1000,31 +991,7 @@ extension ConversationsViewController {
          textInTextField = messageTextView.text
       }
    }
-   
-    func updateErrorLabelView(isHiding: Bool, delay: Double = 3) {
-        if isHiding {
-            if self.errorLabelTopConstraint.constant == 0 {
-                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delay) {
-                    self.errorLabelTopConstraint.constant = -20
-                    //               UIView.animate(withDuration: 0.5, animations: {
-                    self.errorLabel.text = ""
-                    self.view.layoutIfNeeded()
-                    //               }, completion: {_ in
-                    self.errorLabel.backgroundColor = UIColor.red
-                    //               })
-                }
-            }
-            return
-        }
-      
-        if errorLabelTopConstraint != nil && errorLabelTopConstraint.constant != 0 {
-            self.errorLabelTopConstraint.constant = 0
-            //         UIView.animate(withDuration: 0.5, animations: {
-            self.view.layoutIfNeeded()
-            //         })
-        }
-    }
-   
+    
     func showHideActivityIndicator(hide: Bool = true) {
         if hide {
             if self.loadMoreActivityTopContraint.constant == 10 {
@@ -1065,21 +1032,20 @@ extension ConversationsViewController {
       }
    }
    
-   func isMessageInvalid(messageText: String) -> Bool {
-      if messageText.replacingOccurrences(of: " ", with: "").count == 0 ||
-         messageText.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).count == 0 {
-         
-         if FuguNetworkHandler.shared.isNetworkConnected == false {
-            return true
-         }
-         
-         self.updateErrorLabelView(isHiding: false)
-         self.errorLabel.text = "Please enter some text."
-         self.updateErrorLabelView(isHiding: true)
-         return true
-      }
-      return false
-   }
+//   func isMessageInvalid(messageText: String) -> Bool {
+//      if messageText.replacingOccurrences(of: " ", with: "").count == 0 ||
+//         messageText.trimWhiteSpacesAndNewLine().count == 0 {
+//
+//         if FuguNetworkHandler.shared.isNetworkConnected == false {
+//            return true
+//         }
+//         errorMessage = HippoConfig.shared.strings.enterSomeText
+//         showErrorMessage()
+//         self.updateErrorLabelView(isHiding: true)
+//         return true
+//      }
+//      return false
+//   }
    
    func internetIsBack() {
 //      getMessagesBasedOnChannel(fromMessage: 1, completion: nil)
@@ -1787,6 +1753,15 @@ extension ConversationsViewController: ImageCellDelegate {
 
 
 extension ConversationsViewController: HippoChannelDelegate {
+    func cancelSendingMessage(message: HippoMessage, errorMessage: String?) {
+        self.cancelMessage(message: message)
+        
+        if let message = errorMessage {
+            showErrorMessage(messageString: message)
+            updateErrorLabelView(isHiding: true)
+        }
+    }
+    
     func typingMessageReceived(newMessage: HippoMessage) {
         guard !newMessage.isSentByMe() else {
             return
@@ -1805,42 +1780,40 @@ extension ConversationsViewController: HippoChannelDelegate {
     }
     
     func newMessageReceived(newMessage message: HippoMessage) {
+        guard !isSentByMe(senderId: message.senderId) || message.type.isBotMessage  else {
+            HippoConfig.shared.log.debug("Yahaa se nahi nikla", level: .custom)
+            return
+        }
         
+        isTypingLabelHidden = message.typingStatus != .startTyping
+        if isTypingLabelHidden {
+            deleteTypingLabelSection()
+        } else {
+            insertTypingLabelSection()
+            return
+        }
         
-    guard !isSentByMe(senderId: message.senderId) || message.type.isBotMessage  else {
-        HippoConfig.shared.log.debug("Yahaa se nahi nikla", level: .custom)
-        return
+        guard !message.isANotification() else {
+            return
+        }
+        
+        if !message.is_rating_given || message.type == .hippoPay {
+            updateMessagesArrayLocallyForUIUpdation(message)
+            newScrollToBottom(animated: true)
+        }
+        //TODO: - Scrolling Logic
+        
+        // NOTE: Keep "shouldScroll" method and action different, should scroll method should only detect whether to scroll or not
+        sendNotificaionAfterReceivingMsg(senderUserId: message.senderId)
+        
+        if (message.type == MessageType.normal || message.type == .imageFile) &&  message.typingStatus == .messageRecieved {
+            sendQuickReplyReposeIfRequired()
+        }
+        
+        if message.type == MessageType.botFormMessage {
+            self.replaceLastQuickReplyIncaseofBotForm()
+        }
     }
-    
-    isTypingLabelHidden = message.typingStatus != .startTyping
-    if isTypingLabelHidden {
-        deleteTypingLabelSection()
-    } else {
-        insertTypingLabelSection()
-        return
-    }
-    
-    guard !message.isANotification() else {
-        return
-    }
-    
-    if !message.is_rating_given || message.type == .hippoPay {
-        updateMessagesArrayLocallyForUIUpdation(message)
-        newScrollToBottom(animated: true)
-    }
-    //TODO: - Scrolling Logic
-    
-    // NOTE: Keep "shouldScroll" method and action different, should scroll method should only detect whether to scroll or not
-    sendNotificaionAfterReceivingMsg(senderUserId: message.senderId)
-    
-    if (message.type == MessageType.normal || message.type == .imageFile) &&  message.typingStatus == .messageRecieved {
-        sendQuickReplyReposeIfRequired()
-    }
-    
-    if message.type == MessageType.botFormMessage {
-        self.replaceLastQuickReplyIncaseofBotForm()
-    }
-   }
     func getMessageForQuickReply(messages: [HippoMessage]) -> HippoMessage? {
         var quickReplyMessage: HippoMessage?
         for message in messages.reversed() {
@@ -2025,12 +1998,10 @@ extension ConversationsViewController: FeedbackTableViewCellDelegate {
         mess.senderId = HippoUserDetail.fuguUserID ?? 0
         
         self.channel.send(message: mess) {
-            print("Feedback faye send succesfully")
             self.channel.upateFeedbackStatus(newMessage: mess)
             DispatchQueue.main.async {
                 self.tableViewChat.reloadData()
             }
-            
         }
     }
     
@@ -2038,32 +2009,5 @@ extension ConversationsViewController: FeedbackTableViewCellDelegate {
         tableViewChat.beginUpdates()
         tableViewChat.cellForRow(at: data.indexPath!)?.updateConstraintsIfNeeded()
         tableViewChat.endUpdates()
-    }
-}
-
-
-// Helper function inserted by Swift 4.2 migrator.
-fileprivate func convertFromUIImagePickerControllerInfoKeyDictionary(_ input: [UIImagePickerController.InfoKey: Any]) -> [String: Any] {
-	return Dictionary(uniqueKeysWithValues: input.map {key, value in (key.rawValue, value)})
-}
-
-// Helper function inserted by Swift 4.2 migrator.
-fileprivate func convertFromUIImagePickerControllerInfoKey(_ input: UIImagePickerController.InfoKey) -> String {
-	return input.rawValue
-}
-
-
-extension HippoConversationViewController {
-    func getNormalMessageTableViewCell(tableView: UITableView, isOutgoingMessage: Bool, message: HippoMessage, indexPath: IndexPath) -> UITableViewCell {
-        switch isOutgoingMessage {
-        case false:
-             let cell = tableView.dequeueReusableCell(withIdentifier: "SupportMessageTableViewCell", for: indexPath) as! SupportMessageTableViewCell
-            let incomingAttributedString = getIncomingAttributedString(chatMessageObject: message)
-            return cell.configureCellOfSupportIncomingCell(resetProperties: true, attributedString: incomingAttributedString, channelId: channel?.id ?? labelId, chatMessageObject: message)
-        case true:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "SelfMessageTableViewCell", for: indexPath) as! SelfMessageTableViewCell
-            cell.delegate = self
-            return cell.configureIncomingMessageCell(resetProperties: true, chatMessageObject: message, indexPath: indexPath)
-        }
     }
 }

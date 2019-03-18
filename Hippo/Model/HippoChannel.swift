@@ -19,7 +19,7 @@ protocol HippoChannelDelegate: class {
     func newMessageReceived(newMessage: HippoMessage)
     func typingMessageReceived(newMessage: HippoMessage)
     func sendingFailedFor(message: HippoMessage)
-//    func newMessageReceived(message: HippoMessage)
+    func cancelSendingMessage(message: HippoMessage, errorMessage: String?)
 }
 
 //TODO: - Subscribe Fail-safe -> subscribe channel again if it is disconnected
@@ -565,7 +565,7 @@ class HippoChannel {
         json["channel_id"] = id.description
         
         FayeConnection.shared.send(messageDict: json, toChannelID: id.description) { (result) in
-            completion(result.success, result.error as NSError?)
+            completion(result.success, result.error?.error as NSError?)
         }
     }
     func send(publishable: FuguPublishable, completion: @escaping  (Bool, NSError?) -> Void) {
@@ -573,7 +573,7 @@ class HippoChannel {
         json["channel_id"] = id.description
         
         FayeConnection.shared.send(messageDict: json, toChannelID: id.description) { (result) in
-            completion(result.success, result.error as NSError?)
+            completion(result.success, result.error?.error as NSError?)
         }
     }
     
@@ -628,6 +628,15 @@ extension HippoChannel: MessageSenderDelegate {
         let value = messageHashMap.removeValue(forKey: message.messageUniqueID!) ?? (messages.count - 1)
         message.messageUniqueID = newUniqueID
         set(message: message, positionInHashMap: value)
+    }
+    func messageSendingFailed(message: HippoMessage, result: FayeConnection.FayeResult) {
+        guard let _ = result.error?.error else {
+            return
+        }
+        message.wasMessageSendingFailed = true
+        let showErrorMessage = result.error?.showError ?? false
+        let messageToShow: String? = showErrorMessage ? result.error?.message : nil
+        delegate?.cancelSendingMessage(message: message, errorMessage: messageToShow)
     }
     
 }

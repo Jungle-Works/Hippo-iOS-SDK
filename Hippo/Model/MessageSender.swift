@@ -13,6 +13,7 @@ protocol MessageSenderDelegate: class {
     func messageExpired(message: HippoMessage)
     func duplicateMuidOf(message: HippoMessage)
     func subscribeChannel(completion: @escaping (_ success: Bool) -> Void)
+    func messageSendingFailed(message: HippoMessage, result: FayeConnection.FayeResult)
 }
 
 class MessageSender {
@@ -109,8 +110,7 @@ class MessageSender {
                 self?.messagesToBeSent.removeFirst()
                 self?.startSending()
             } else {
-                
-                guard let errorType = result.error else {
+                guard let errorType = result.error?.error else {
                     self?.retryWithDelay()
                     return
                 }
@@ -125,6 +125,8 @@ class MessageSender {
                         self?.retryWithDelay(0)
                     })
                     return
+                case .invalidSending:
+                    self?.messageSendingFailed(result: result)
                 default:
                     break
                 }
@@ -152,7 +154,19 @@ class MessageSender {
             self.delegate?.messageExpired(message: message)
         }
     }
-    
+    private func messageSendingFailed(result: FayeConnection.FayeResult) {
+        guard let message = messagesToBeSent.first else {
+            return
+        }
+        
+        message.wasMessageSendingFailed = true
+        message.status = .none
+        
+        messagesToBeSent.removeFirst()
+        DispatchQueue.main.async {
+            self.delegate?.messageSendingFailed(message: message, result: result)
+        }
+    }
     private func retryWithDelay(_ delay: TimeInterval = 2) {
         // delay to wait before retrying
         fuguDelay(delay, completion: { [weak self] in

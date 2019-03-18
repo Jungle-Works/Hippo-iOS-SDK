@@ -216,7 +216,7 @@ extension AgentHomeViewController {
             errorLabel.text = ""
             hideErrorLabelView()
         } else {
-            errorLabel.text = "No internet connection"
+            errorLabel.text = HippoConfig.shared.strings.noNetworkConnection
             showErrorLabelView()
         }
     }

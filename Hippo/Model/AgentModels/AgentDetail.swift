@@ -254,6 +254,7 @@ extension AgentDetail {
     class func LogoutAgent(completion: ((Bool) -> Void)? = nil) {
         guard HippoConfig.shared.appUserType == .agent && HippoConfig.shared.agentDetail != nil else {
             HippoUserDetail.clearAllData()
+            completion?(true)
             return
         }
         let params = getParamsForLogout()
@@ -328,7 +329,7 @@ extension AgentDetail {
         if !HippoConfig.shared.voipToken.isEmpty {
             params["voip_token"] = HippoConfig.shared.voipToken
         }
-        params["app_version_code"] = "\(versionCode)"
+//        params["app_version_code"] = "\(versionCode)"
         return params
     }
     internal static func getParamsForAuthLogin() -> [String: Any] {
@@ -339,7 +340,6 @@ extension AgentDetail {
         
         if agentDetail.isForking {
             params["agent_secret_key"] = agentDetail.oAuthToken
-            
         } else {
             params["auth_token"] = agentDetail.oAuthToken
         }

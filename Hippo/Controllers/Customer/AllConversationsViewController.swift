@@ -177,7 +177,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
          updateErrorLabelView(isHiding: true)
       } else {
          errorLabelTopConstraint.constant = -20
-         errorLabel.text = "No internet connection"
+         errorLabel.text = HippoConfig.shared.strings.noNetworkConnection
          updateErrorLabelView(isHiding: false)
       }
    }

@@ -31,7 +31,7 @@ enum APIErrors: LocalizedError {
 
 struct NetworkError: LocalizedError {
     var errorDescription: String? {
-        return "No Internet Connection"
+        return HippoConfig.shared.strings.noNetworkConnection
     }
 }
 

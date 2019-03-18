@@ -46,9 +46,14 @@ class HippoConversationViewController: UIViewController {
     
     var qldataSource: HippoQLDataSource?
     var pickerHelper: PickerHelper?
+    var errorMessage: String = ""
     
     //MARK: 
     @IBOutlet var tableViewChat: UITableView!
+    
+    @IBOutlet weak var errorContentView: UIView!
+    @IBOutlet var errorLabel: UILabel!
+    @IBOutlet var errorLabelTopConstraint: NSLayoutConstraint!
     
     
     override func viewDidLoad() {
@@ -88,20 +93,27 @@ class HippoConversationViewController: UIViewController {
     func didSetChannel() { }
     func getMessagesBasedOnChannel(fromMessage pageStart: Int, pageEnd: Int?, completion: (() -> Void)?) { }
     func getMessagesWith(labelId: Int, completion: (() -> Void)?) { }
-    func checkNetworkConnection() { }
     func closeKeyBoard() { }
     func reloadVisibleCellsToStartActivityIndicator() { }
     func adjustChatWhenKeyboardIsOpened(withHeight keyboardHeight: CGFloat) { }
     func addRemoveShadowInTextView(toAdd: Bool) { }
     func startNewConversation(completion: ((_ success: Bool) -> Void)?) { }
     
-    func startGettingNewMessages() { }
-    func finishGettingNewMessages() { }
+    
     func clearUnreadCountForChannel(id: Int) { }
     @objc func titleButtonclicked() { }
     func addMessageToUIBeforeSending(message: HippoMessage) { }
     
 
+    func checkNetworkConnection() {
+        if FuguNetworkHandler.shared.isNetworkConnected {
+            hideErrorMessage()
+        } else {
+            errorMessage = HippoConfig.shared.strings.noNetworkConnection
+            showErrorMessage()
+        }
+    }
+    
     func fetchMessagesFrom1stPage() {
         if isDefaultChannel() {
             getMessagesWith(labelId: labelId, completion: nil)
@@ -111,6 +123,74 @@ class HippoConversationViewController: UIViewController {
     }
     func isDefaultChannel() -> Bool {
         return labelId > -1
+    }
+    
+    func startGettingNewMessages() {
+        let color = HippoConfig.shared.theme.processingGreenColor
+        showErrorMessage(messageString: HippoConfig.shared.strings.checkingNewMessages, bgColor: color)
+    }
+    
+    func isMessageInvalid(messageText: String) -> Bool {
+        if messageText.replacingOccurrences(of: " ", with: "").count == 0 ||
+            messageText.trimWhiteSpacesAndNewLine().count == 0 {
+            
+            if FuguNetworkHandler.shared.isNetworkConnected == false {
+                return true
+            }
+            errorMessage = HippoConfig.shared.strings.enterSomeText
+            showErrorMessage()
+            updateErrorLabelView(isHiding: true)
+            return true
+        }
+        return false
+    }
+    
+    func showErrorMessage(messageString: String = "", bgColor: UIColor = UIColor.red) {
+        var message = messageString.trimWhiteSpacesAndNewLine()
+        message = message.isEmpty ? errorMessage  : messageString
+        
+        guard !message.isEmpty else {
+            hideErrorMessage()
+            return
+        }
+        errorLabel.text = message
+        errorLabel.backgroundColor = bgColor
+        
+        if errorLabelTopConstraint != nil && errorLabelTopConstraint.constant != 0 {
+            errorLabelTopConstraint.constant = 0
+            view.layoutIfNeeded()
+        }
+    }
+    
+    func hideErrorMessage() {
+        let negativeheight: CGFloat = -20
+        guard errorLabelTopConstraint.constant != negativeheight else {
+            return
+        }
+        DispatchQueue.main.async {
+            self.errorLabelTopConstraint.constant = negativeheight
+            self.errorLabel.text = ""
+            self.errorMessage = ""
+            self.view.layoutIfNeeded()
+            self.errorLabel.backgroundColor = UIColor.red
+        }
+    }
+    
+    func updateErrorLabelView(isHiding: Bool, delay: Double = 3) {
+        if isHiding {
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delay) {
+                self.errorLabelTopConstraint.constant = -20
+                self.errorLabel.text = ""
+                self.view.layoutIfNeeded()
+                self.errorLabel.backgroundColor = UIColor.red
+            }
+            return
+        }
+        
+        if errorLabelTopConstraint != nil && errorLabelTopConstraint.constant != 0 {
+            self.errorLabelTopConstraint.constant = 0
+            self.view.layoutIfNeeded()
+        }
     }
     
     func populateTableViewWithChannelData() {
@@ -148,6 +228,7 @@ class HippoConversationViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
+
     func tableViewSetUp() {
         automaticallyAdjustsScrollViewInsets = false
         tableViewChat.contentInset.bottom = 3
@@ -796,15 +877,6 @@ extension HippoConversationViewController {
         }
     }
     
-//    func updateChatInfoWith(chatObj: ConversationObject) {
-//        if let channelId = chatObj.channel_id, channelId > 0 {
-//            self.channel = AgentChannelPersistancyManager.shared.getChannelBy(id: channelId)
-//        }
-//        channel?.channelInfo?.assignedAgentID = chatObj.agent_id ?? -1
-//        channel?.channelInfo?.assignedAgentName = chatObj.agent_name ?? ""
-//
-//        self.channelTitle = chatObj.label ?? "User"
-//    }
     func getCacheDirectoryUrlForFileWith(name: String) -> URL {
         let cacheDirectoryPath = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first!.path
         var fileUrl = URL.init(fileURLWithPath: cacheDirectoryPath)
@@ -1064,5 +1136,20 @@ extension HippoConversationViewController: CreatePaymentDelegate {
         scrollToBottomWithIndexPath(animated: true)
         
         publishMessageOnChannel(message: message)
+    }
+}
+
+extension HippoConversationViewController {
+    func getNormalMessageTableViewCell(tableView: UITableView, isOutgoingMessage: Bool, message: HippoMessage, indexPath: IndexPath) -> UITableViewCell {
+        switch isOutgoingMessage {
+        case false:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "SupportMessageTableViewCell", for: indexPath) as! SupportMessageTableViewCell
+            let incomingAttributedString = getIncomingAttributedString(chatMessageObject: message)
+            return cell.configureCellOfSupportIncomingCell(resetProperties: true, attributedString: incomingAttributedString, channelId: channel?.id ?? labelId, chatMessageObject: message)
+        case true:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "SelfMessageTableViewCell", for: indexPath) as! SelfMessageTableViewCell
+            cell.delegate = self
+            return cell.configureIncomingMessageCell(resetProperties: true, chatMessageObject: message, indexPath: indexPath)
+        }
     }
 }

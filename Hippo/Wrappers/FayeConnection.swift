@@ -47,7 +47,6 @@ class FayeConnection: NSObject {
         super.init()
         setConnectionRetryAttemptConfig()
         setupFayeClient()
-        //      NotificationCenter.default.addObserver(self, selector: #selector(startTimer), name: .internetDisconnected, object: nil)
     }
     
     private func setConnectionRetryAttemptConfig() {
@@ -65,10 +64,6 @@ class FayeConnection: NSObject {
         if webSocketState != .CONNECTING && webSocketState != .OPEN {
             localFaye?.connect({}, failure: {_ in })
         }
-        
-        //      if isConnected {
-        //         stopRetryTimer()
-        //      }
     }
     
     // MARK: - Methods
@@ -109,7 +104,7 @@ class FayeConnection: NSObject {
             completion?(true)
         }, failure: { (error) in
             completion?(false)
-            print("error==>\(error?.localizedDescription ?? "")")
+            HippoConfig.shared.log.debug("error==>\(error?.localizedDescription ?? "")", level: .info)
         }, receivedMessage: { (messageInfo) in
             if let messageDict = messageInfo as? [String: Any] {
                 messageReceived?(messageDict)
@@ -123,7 +118,7 @@ class FayeConnection: NSObject {
         validate(channelID: &channelIdForValidation)
         
         guard isConnected else {
-            completion((false, FayeError.fayeNotConnected ))
+            completion((false, FayeResponseError.fayeNotConnected() ))
             //         startTimer()
             return
         }
@@ -131,527 +126,20 @@ class FayeConnection: NSObject {
         // if channel is not subscribed MZFayeClient does not give callback
         if !isChannelSubscribed(channelID: channelIdForValidation) {
             //TODO: Send notifications typing read all, etc. without subscription check
-            completion((false, .channelNotSubscribed))
+            completion((false, FayeResponseError.channelNotSubscribed()))
             return
         }
-//        print("++++++++\(messageDict)")
-        var temp = messageDict
-        temp["user_id"] =
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
         localFaye.sendMessage(messageDict, toChannel: channelIdForValidation, success: {
             completion((true, nil))
         }) { (error) in
             guard let objcError = error as NSError?, let reasonInfo = objcError.userInfo[NSLocalizedFailureReasonErrorKey] as? [String: Any] else {
-                completion((false, FayeError.fayeNotConnected))
+                completion((false, FayeResponseError.fayeNotConnected()))
                 return
             }
-            print("Sending of message failed due to \(error?.localizedDescription ?? "")")
-            let failureReason = FayeError(reasonInfo: reasonInfo) ?? .fayeNotConnected
-            completion((false, failureReason))
+            let message = "Sending of message failed due to \(error?.localizedDescription ?? "")"
+            HippoConfig.shared.log.debug(message, level: .error)
+            let reason = FayeResponseError(reasonInfo: reasonInfo)
+            completion((false, reason))
         }
         
     }
@@ -680,61 +168,38 @@ class FayeConnection: NSObject {
 
 extension FayeConnection: MZFayeClientDelegate {
     func fayeClient(_ client: MZFayeClient!, didConnectTo url: URL!) {
-        print("didConnectTo==>\(url.absoluteString)")
+        HippoConfig.shared.log.debug("didConnectTo==>\(url.absoluteString)", level: .info)
         NotificationCenter.default.post(name: .fayeConnected, object: nil)
-        //      stopRetryTimer()
     }
     
     func fayeClient(_ client: MZFayeClient!, didDisconnectWithError error: Error!) {
         let errorMessage = error?.localizedDescription ?? ""
-        print("didDisconnectWithError==>\(errorMessage)")
+        HippoConfig.shared.log.debug("didDisconnectWithError==>\(errorMessage)", level: .info)
         NotificationCenter.default.post(name: .fayeDisconnected, object: nil)
-        //      startTimer()
-        
     }
     
     func fayeClient(_ client: MZFayeClient!, didUnsubscribeFromChannel channel: String!) {
-        print("didUnsubscribeFromChannel==>\(channel ?? "")")
+        HippoConfig.shared.log.debug("didUnsubscribeFromChannel==>\(channel ?? "")", level: .info)
     }
     
     func fayeClient(_ client: MZFayeClient!, didSubscribeToChannel channel: String!) {
-        print("didSubscribeToChannel==>\(channel ?? "")")
+        HippoConfig.shared.log.debug("didSubscribeToChannel==>\(channel ?? "")", level: .info)
         NotificationCenter.default.post(name: .channelSubscribed, object: nil)
     }
     
     func fayeClient(_ client: MZFayeClient!, didFailWithError error: Error!) {
         let errorMessage = error?.localizedDescription ?? ""
-        print("didFailWithError==>\(errorMessage)")
+        HippoConfig.shared.log.debug("didFailWithError==>\(errorMessage)", level: .info)
         NotificationCenter.default.post(name: .fayeDisconnected, object: nil)
-        //      startTimer()
     }
     
     func fayeClient(_ client: MZFayeClient!, didFailDeserializeMessage message: [AnyHashable : Any]!, withError error: Error!) {
         let errorMessage = error?.localizedDescription ?? ""
-        print("didFailDeserializeMessage==>\(message ?? [:]) \n and error==>\(errorMessage)")
+        HippoConfig.shared.log.debug("didFailDeserializeMessage==>\(message ?? [:]) \n and error==>\(errorMessage)", level: .info)
     }
     
     func fayeClient(_ client: MZFayeClient!, didReceiveMessage messageData: [AnyHashable : Any]!, fromChannel channel: String!) {
-        //        print("didReceiveMessage==>\(messageData ?? [:])")
     }
-    
-    //   @objc fileprivate func startTimer() {
-    //      guard retryTimer == nil || retryTimer?.isValid == false else {
-    //         return
-    //      }
-    //
-    //      setupFayeClient()
-    //      stopRetryTimer()
-    //      DispatchQueue.main.async {
-    //         self.retryTimer = Timer.scheduledTimer(timeInterval: self.retryTime, target: self, selector: #selector(self.setupFayeClient), userInfo: nil, repeats: true)
-    //
-    //      }
-    //   }
-    //
-    //   fileprivate func stopRetryTimer() {
-    //      retryTimer?.invalidate()
-    //      retryTimer = nil
-    //   }
 }
 
 extension FayeConnection {
@@ -747,6 +212,7 @@ extension FayeConnection {
         case messageDeleted = 410
         case invalidMuid = 411
         case duplicateMuid = 412
+        case invalidSending = 413
         case channelNotSubscribed = 4000
         
         init?(reasonInfo: [String: Any]) {
@@ -760,8 +226,30 @@ extension FayeConnection {
             self = reason
         }
     }
+    struct FayeResponseError {
+        var message: String?
+        var error: FayeError?
+        var showError: Bool = false
+        
+        init(reasonInfo: [String: Any]) {
+            error =  FayeError(reasonInfo: reasonInfo) ?? .fayeNotConnected
+            message = reasonInfo["customMessage"] as? String
+            showError = Bool.parse(key: "showError", json: reasonInfo, defaultValue: false)
+        }
+        
+        static func fayeNotConnected() -> FayeResponseError {
+            return FayeResponseError(reasonInfo: [:])
+        }
+        
+        static func channelNotSubscribed() -> FayeResponseError {
+            var response =  FayeResponseError(reasonInfo: [:])
+            response.error = .channelNotSubscribed
+            return response
+        }
+        
+    }
     
-    typealias FayeResult = (success: Bool, error: FayeError?)
+    typealias FayeResult = (success: Bool, error: FayeResponseError?)
 }
 
 extension Notification.Name {

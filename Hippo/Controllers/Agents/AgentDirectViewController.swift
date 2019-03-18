@@ -84,7 +84,8 @@ extension AgentDirectViewController {
         
         HippoChecker.checkForAgentIntialization { (success, error) in
             guard success else {
-                
+                self.showError()
+                self.stopLoaderAnimation()
                 return
             }
             self.getData(showLoader: showLoader)

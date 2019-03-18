@@ -30,6 +30,5 @@ let versionCode = 214
  211 = Calling issue fixed
  212 = can create payment request
  
- 
  214 *** 1.7.29 = o2o chat
  */

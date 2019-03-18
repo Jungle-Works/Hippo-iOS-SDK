@@ -13,8 +13,8 @@ public class HippoStrings {
     open var photoLibrary = "Photo Library"
     open var attachmentCancel = "Cancel"
     open var messagePlaceHolderText = "Send a message...."
-    
-    open var noNetworkConnection = "No network found"
+    open var enterSomeText = "Please enter some text."
+    open var noNetworkConnection = "No internet connection"
     
     open var somethingWentWrong = "Something went wrong."
     open var displayNameForCustomers = "Fleet"
