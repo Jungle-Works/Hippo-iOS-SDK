@@ -46,7 +46,7 @@ public class HippoConfig : NSObject {
     
     internal var checker: HippoChecker = HippoChecker()
     
-    internal var isBroadcastEnabled: Bool = false
+    private(set)  open var isBroadcastEnabled: Bool = false
     open weak var messageDelegate: HippoMessageRecievedDelegate?
     internal weak var delegate: HippoDelegate?
     internal var deviceToken = ""
@@ -60,7 +60,6 @@ public class HippoConfig : NSObject {
     open var isPaymentRequestEnabled: Bool {
         return HippoProperty.current.isPaymentRequestEnabled
     }
-    
     internal var isVideoCallEnabled: Bool {
         get {
             guard CallManager.shared.isCallClientAvailable() else {
