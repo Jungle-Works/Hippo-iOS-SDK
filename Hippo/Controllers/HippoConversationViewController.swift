@@ -449,6 +449,7 @@ class HippoConversationViewController: UIViewController {
         
         let color = HippoConfig.shared.theme.headerTextColor
         let button =  UIButton(type: .custom)
+        button.sizeToFit()
 //        button.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 44)
         button.backgroundColor = UIColor.clear
         button.setTitleColor(color, for: .normal)
@@ -478,6 +479,7 @@ class HippoConversationViewController: UIViewController {
         navigationTitleButton?.setTitle(title, for: .normal)
         navigationTitleButton?.titleLabel?.lineBreakMode = .byTruncatingTail
 //        navigationTitleButton?.setAttributedTitle(myString, for: .normal)
+        navigationTitleButton?.sizeToFit()
     }
     func startAudioCall() {
         guard canStartAudioCall() else {
@@ -618,7 +620,8 @@ class HippoConversationViewController: UIViewController {
         return getSavedUserId == senderId
     }
     func attachmentButtonclicked() {
-        pickerHelper = PickerHelper(viewController: self, enablePayment: HippoProperty.current.isPaymentRequestEnabled)
+        let showPaymentOption = channel == nil ? false : HippoProperty.current.isPaymentRequestEnabled
+        pickerHelper = PickerHelper(viewController: self, enablePayment: showPaymentOption)
         pickerHelper?.present(sender: self.view, controller: self)
         pickerHelper?.delegate = self
     }
