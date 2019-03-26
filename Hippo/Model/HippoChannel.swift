@@ -184,7 +184,7 @@ class HippoChannel {
             }
             
             let channel = FuguChannelPersistancyManager.shared.getChannelBy(id: channelID)
-            let result = HippoChannelCreationResult(isSuccessful: true, error: HippoError.general, channel: channel, isChannelAvailableLocallay: false)
+            let result = HippoChannelCreationResult(isSuccessful: true, error: nil, channel: channel, isChannelAvailableLocallay: false)
             if let transactionID = params["transaction_id"] as? String {
                 hashmapTransactionIdToChannelID[transactionID] = channelID
             }
@@ -199,7 +199,7 @@ class HippoChannel {
             let channelID = hashmapTransactionIdToChannelID[transactionID] {
             
             let channel = FuguChannelPersistancyManager.shared.getChannelBy(id: channelID)
-            let result = HippoChannelCreationResult(isSuccessful: true, error: HippoError.general, channel: channel, isChannelAvailableLocallay: true)
+            let result = HippoChannelCreationResult(isSuccessful: true, error: nil, channel: channel, isChannelAvailableLocallay: true)
             completion(result)
             return
         }
@@ -223,7 +223,7 @@ class HippoChannel {
             }
             
             let channel = FuguChannelPersistancyManager.shared.getChannelBy(id: channelID)
-            let result = HippoChannelCreationResult(isSuccessful: true, error: HippoError.general, channel: channel, isChannelAvailableLocallay: false)
+            let result = HippoChannelCreationResult(isSuccessful: true, error: nil, channel: channel, isChannelAvailableLocallay: false)
             if let transactionID = params["transaction_id"] as? String {
                 hashmapTransactionIdToChannelID[transactionID] = channelID
             }
@@ -243,7 +243,7 @@ class HippoChannel {
                 completion(result)
                 return
             }
-            let result = HippoChannelCreationResult(isSuccessful: true, error: HippoError.general, channel: nil, isChannelAvailableLocallay: false)
+            let result = HippoChannelCreationResult(isSuccessful: true, error: nil, channel: nil, isChannelAvailableLocallay: false)
             completion(result)
         }
     }

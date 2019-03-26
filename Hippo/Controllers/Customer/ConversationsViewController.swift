@@ -745,7 +745,7 @@ protocol NewChatSentDelegate: class {
    }
       
    func channelCreatedSuccessfullyWith(result: HippoChannelCreationResult) {
-    if let error = result.error {
+    if let error = result.error, !result.isSuccessful {
         errorMessage = error.localizedDescription
         showErrorMessage()
         updateErrorLabelView(isHiding: true)

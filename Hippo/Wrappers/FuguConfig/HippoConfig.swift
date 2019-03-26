@@ -67,7 +67,7 @@ public class HippoConfig : NSObject {
     
     public typealias commonHippoCallback = ((_ success: Bool, _ error: Error?) -> ())
     // MARK: - Properties
-    internal var log = CoreLogger(formatter: Formatter.defaultFormat, theme: nil, minLevels: [.error])
+    internal var log = CoreLogger(formatter: Formatter.defaultFormat, theme: nil, minLevels: [.all])
     internal var muidList: [String] = []
     internal var pushArray = [PushInfo]()
     

@@ -374,18 +374,8 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         
         let notificationType = notification ?? .message
         if let rideDetail = RideDetail.current, let time = rideDetail.getRemaningTime(), typingStatus == .messageRecieved, notificationType == .message  {
-            json["remaning_ride_time"] = time
+            json["estimated_inride_secs"] = time
         }
-//        let notificationType = notification ?? .message
-//        if let rideDetail = RideDetail.current, let time = rideDetail.getRemaningTime(), typingStatus == .messageRecieved, notificationType == .message {
-//            if time > 0 {
-//                json["remaning_ride_time"] = time
-//            } else {
-//                RideDetail.current = nil
-//            }
-//            
-//        }
-        
         if type == .feedback {
             json["is_rating_given"] = self.is_rating_given.intValue()
             json["total_rating"] = 5
