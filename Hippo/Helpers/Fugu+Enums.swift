@@ -243,6 +243,7 @@ enum FuguEndPoints: String {
     case API_UPLOAD_FILE = "api/conversation/uploadFile"
     case API_CREATE_TICKET = "api/support/createConversation"
     case API_FEEDBACK = "api/deal/feedback"
+    case updateRideStatus = "api/users/inRideStatus"
 }
 
 enum AgentEndPoints: String {

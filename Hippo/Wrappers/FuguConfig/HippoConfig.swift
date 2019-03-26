@@ -12,34 +12,6 @@ import UIKit
   import HippoCallClient
 #endif
 
-
-class RideDetail: NSObject {
-    static var current: RideDetail?
-    
-    var estimatedTime: UInt = 0
-    var startTime: Date = Date()
-    
-    init(estimatedTime: UInt) {
-        self.estimatedTime = estimatedTime
-    }
-    
-    func getRemaningTime() -> UInt? {
-        let interval = Date().timeIntervalSince(startTime)
-        let parsedInterval = UInt(interval)
-        let diff: UInt
-        if estimatedTime > parsedInterval {
-            diff = estimatedTime - parsedInterval
-        } else {
-            diff = 0
-        }
-        guard diff > 0 else {
-            RideDetail.current = nil
-            return nil
-        }
-        return diff
-    }
-}
-
 public protocol HippoMessageRecievedDelegate: class {
     func hippoMessageRecievedWith(response: [String: Any], viewController: UIViewController)
 }
@@ -313,8 +285,16 @@ public class HippoConfig : NSObject {
        RideDetail.current = detail
     }
     
-    public func discardRide() {
+    public func endRide() {
         RideDetail.current = nil
+        
+        RideDetail.sendRideEndStatus { (success, error) in
+            
+            if let errorMessage = error?.localizedDescription {
+                self.log.error("Hippo SDK ride status cannot be updated on server for error:  \(errorMessage)", level: .error)
+            }
+        }
+        
     }
     
     public func openChatScreen(withTransactionId transactionId: String, tags: [String]? = nil, channelName: String, message: String = "", userUniqueKey: String? = nil, isInAppMessage: Bool = false, completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {

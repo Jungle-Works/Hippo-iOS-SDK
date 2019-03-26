@@ -21,6 +21,7 @@ class LeadDataTableViewCell: UITableViewCell {
         case string = "string"
         case phone = "phone"
         case email = "email"
+        case name = "name"
     }
     
     fileprivate var dataType: String = ""
@@ -110,6 +111,8 @@ class LeadDataTableViewCell: UITableViewCell {
         switch type {
         case .string:
             self.valueTextfield.keyboardType = .default
+        case .name:
+            self.valueTextfield.keyboardType = .default
         case .phone:
             self.valueTextfield.keyboardType = .phonePad
         case .email:
@@ -125,6 +128,8 @@ class LeadDataTableViewCell: UITableViewCell {
         case .string:
             return true
         case .phone:
+            return true
+        case .name:
             return true
         case .email:
             if let error = isValidEmail(string: data) {
@@ -174,9 +179,8 @@ extension LeadDataTableViewCell: UITextFieldDelegate {
         return true
     }
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        guard let type = TextfieldType(rawValue: dataType) else {
-            return false
-        }
+        
+        let type = TextfieldType(rawValue: dataType)  ?? .string
         switch type {
         case .phone:
             let allowedCharacters = CharacterSet(charactersIn: "0123456789+")

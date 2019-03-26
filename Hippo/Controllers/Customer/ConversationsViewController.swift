@@ -1919,11 +1919,15 @@ extension ConversationsViewController: LeadTableViewCellDelegate {
         guard let indexPath = self.tableViewChat.indexPath(for: cell) else {
             return
         }
-        if indexPath.section < self.messagesGroupedByDate.count {
-            let message = messagesGroupedByDate[indexPath.section][indexPath.row]
-            message.leadsDataArray = data
-            self.channel.sendFormValues(message: message, completion: {
-                self.cellUpdated(for: cell, data: data)
+        guard indexPath.section < self.messagesGroupedByDate.count else {
+            return
+        }
+        let message = messagesGroupedByDate[indexPath.section][indexPath.row]
+        message.leadsDataArray = data
+        
+        createChannelIfRequiredAndContinue {[weak self] (success) in
+            self?.channel?.sendFormValues(message: message, completion: {
+                self?.cellUpdated(for: cell, data: data)
             })
         }
     }
@@ -1950,20 +1954,30 @@ extension ConversationsViewController: BotOtgoingMessageCellDelegate {
     }
     
     func sendQuickMessage(shouldSendButtonTitle: Bool, chat: HippoMessage, buttonIndex: Int) {
-        if shouldSendButtonTitle {
-            self.sendQuickReplyMessage(with: chat.content.buttonTitles[buttonIndex])
-            fuguDelay(0.2, completion: {
-                self.channel.sendFormValues(message: chat, completion: {
-                    chat.isQuickReplyEnabled = false
-                    self.tableViewChat.reloadData()
+        createChannelIfRequiredAndContinue {[weak self] (success) in
+            if shouldSendButtonTitle {
+                self?.sendQuickReplyMessage(with: chat.content.buttonTitles[buttonIndex])
+                fuguDelay(0.2, completion: {
+                    self?.channel?.sendFormValues(message: chat, completion: {
+                        chat.isQuickReplyEnabled = false
+                        self?.tableViewChat.reloadData()
+                    })
                 })
-            })
+            } else {
+                self?.channel?.sendFormValues(message: chat, completion: {
+                    chat.isQuickReplyEnabled = false
+                    self?.tableViewChat.reloadData()
+                    
+                })
+            }
+        }
+        
+    }
+    func createChannelIfRequiredAndContinue(completion: @escaping ((_ success: Bool) -> ())) {
+        if channel != nil {
+            completion(true)
         } else {
-            self.channel.sendFormValues(message: chat, completion: {
-                chat.isQuickReplyEnabled = false
-                self.tableViewChat.reloadData()
-                
-            })
+            startNewConversation(completion: completion)
         }
     }
     
