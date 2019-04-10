@@ -240,7 +240,7 @@ extension AgentDirectViewController {
 
 extension AgentDirectViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
+        return UIView.tableAutoDimensionHeight
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         

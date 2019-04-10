@@ -33,7 +33,7 @@ class ActionableMessageTableViewCell: UITableViewCell {
         super.layoutSubviews()
         adjustShadow()
         actionableMessageTableView.estimatedRowHeight = 300
-        actionableMessageTableView.rowHeight = UITableView.automaticDimension
+        actionableMessageTableView.rowHeight = UIView.tableAutoDimensionHeight
     }
     
     func setupBoxBackground(messageType: Int) {

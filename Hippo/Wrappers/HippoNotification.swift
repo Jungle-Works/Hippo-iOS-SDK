@@ -151,10 +151,16 @@ class HippoObservers {
     }
     func registerApplicationObservers() {
         let center = NotificationCenter.default
+        
+        #if swift(>=4.2)
         center.addObserver(self, selector: #selector(appBecomeActive), name: UIApplication.didFinishLaunchingNotification, object: nil)
         center.addObserver(self, selector: #selector(appEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
         center.addObserver(self, selector: #selector(appEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
-
+        #else
+        center.addObserver(self, selector: #selector(appBecomeActive), name: NSNotification.Name.UIApplicationDidFinishLaunching, object: nil)
+        center.addObserver(self, selector: #selector(appEnterForeground), name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
+        center.addObserver(self, selector: #selector(appEnterBackground), name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
+        #endif
         
     }
     @objc func appBecomeActive() {

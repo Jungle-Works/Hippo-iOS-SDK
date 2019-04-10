@@ -30,7 +30,7 @@ class AudioPlayerManager {
     func addObserver() {
         NotificationCenter.default.removeObserver(self)
         NotificationCenter.default.addObserver(self, selector: #selector(AudioPlayerManager.shared.updateStatusForDelegate), name: .ConversationScreenDisappear, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(AudioPlayerManager.appMovedToBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(AudioPlayerManager.appMovedToBackground), name: HippoVariable.didEnterBackgroundNotification, object: nil)
     }
     
     @objc func appMovedToBackground() {

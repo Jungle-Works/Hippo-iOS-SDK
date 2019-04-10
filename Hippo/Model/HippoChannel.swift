@@ -66,8 +66,8 @@ class HippoChannel {
     }
     
     func addObserverIfAppIsKilled() {
-        NotificationCenter.default.addObserver(self, selector: #selector(HippoChannel.saveMessagesInCache), name: UIApplication.willTerminateNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(HippoChannel.saveMessagesInCache), name: UIApplication.willResignActiveNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(HippoChannel.saveMessagesInCache), name: HippoVariable.willTerminateNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(HippoChannel.saveMessagesInCache), name: HippoVariable.willResignActiveNotification, object: nil)
     }
     func addObserver() {
         NotificationCenter.default.addObserver(self, selector: #selector(checkForReconnection), name: .fayeConnected, object: nil)

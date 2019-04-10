@@ -20,8 +20,8 @@ class DownloadManager {
         if let urlWRTFileName = FuguDefaults.object(forKey: "DownloadManager.urlWRTFileName") as? [String: String] {
             self.urlWRTFileName = urlWRTFileName
         }
-        NotificationCenter.default.addObserver(self, selector: #selector(appEnteredBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(appEnteredBackground), name: UIApplication.willTerminateNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(appEnteredBackground), name: HippoVariable.didEnterBackgroundNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(appEnteredBackground), name: HippoVariable.willTerminateNotification, object: nil)
     }
     
     @objc private func appEnteredBackground() {

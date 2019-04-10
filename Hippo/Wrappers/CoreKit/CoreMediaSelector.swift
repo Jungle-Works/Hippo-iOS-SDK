@@ -42,7 +42,12 @@ public class CoreMediaSelector: NSObject, UINavigationControllerDelegate, UIImag
     public struct Result {
         public let isSuccessful: Bool
         public let error: Error?
+        #if swift(>=4.2)
         public let info: [UIImagePickerController.InfoKey : Any]?
+        #else
+        public let info: [String : Any]?
+        #endif
+        
         public let filePath: String?
         public let mediaType: MediaType?
         public let soucreType: UIImagePickerController.SourceType?
@@ -196,21 +201,30 @@ public class CoreMediaSelector: NSObject, UINavigationControllerDelegate, UIImag
         guard CoreKit.shared.filesConfig.enableResizingImage else {
             return (originalImage, nil)
         }
-        let size = originalImage.jpegData(compressionQuality: 1.0)!.count
+        
+        #if swift(>=4.2)
+            let size = originalImage.jpegData(compressionQuality: 1.0)!.count
+        #else
+            let size =  UIImageJPEGRepresentation(originalImage, 1.0)!.count
+        #endif
+        let compressionQuality: CGFloat
         
         if size > 2048 {
-            do {
-                try originalImage.jpegData(compressionQuality: 0.05)?.write(to: URL(fileURLWithPath: filePath), options: .atomic)
-            } catch {
-                return (originalImage, error)
-            }
+            compressionQuality = 0.05
         } else {
-            do {
-                try originalImage.jpegData(compressionQuality: 0.55)?.write(to: URL(fileURLWithPath: filePath), options: .atomic)
-            }catch {
-                return (originalImage, error)
-            }
+            compressionQuality = 0.55
         }
+    
+        do {
+            #if swift(>=4.2)
+            try originalImage.jpegData(compressionQuality: compressionQuality)?.write(to: URL(fileURLWithPath: filePath), options: .atomic)
+            #else
+            try  UIImageJPEGRepresentation(originalImage, compressionQuality)?.write(to: URL(fileURLWithPath: filePath), options: .atomic)
+            #endif
+        } catch {
+            return (originalImage, error)
+        }
+        
         return (originalImage, nil)
     }
     private func rotateAndCompressImageIfRequired(originalImage: UIImage) -> UIImage? {
@@ -230,9 +244,10 @@ public class CoreMediaSelector: NSObject, UINavigationControllerDelegate, UIImag
         return imageInfoWithError.0
     }
     // MARK: Image Picker Delegates
+    #if swift(>=4.2)
     public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
-        guard let mediaType = info[UIImagePickerController.InfoKey.mediaType] as? String else {
+        guard let mediaType = info[HippoVariable.pickerInfoMediaType] as? String else {
             return
         }
         
@@ -244,7 +259,7 @@ public class CoreMediaSelector: NSObject, UINavigationControllerDelegate, UIImag
         
         switch mediaType {
         case imageType, gifType:
-            guard let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else {
+            guard let pickedImage = info[HippoVariable.pickerInfoOriginalImage] as? UIImage else {
                 picker.dismiss(animated: true, completion: nil)
                 return
             }
@@ -258,7 +273,7 @@ public class CoreMediaSelector: NSObject, UINavigationControllerDelegate, UIImag
             result = Result(isSuccessful: true, error: nil, info: info, filePath: filePath, mediaType: type, soucreType: picker.sourceType, image: formattedImage)
             
         case movieType:
-            guard let parsedUrl = info[UIImagePickerController.InfoKey.mediaURL] as? URL else {
+            guard let parsedUrl = info[HippoVariable.pickerInfoMediaURL] as? URL else {
                 picker.dismiss(animated: true, completion: nil)
                 return
             }
@@ -280,6 +295,58 @@ public class CoreMediaSelector: NSObject, UINavigationControllerDelegate, UIImag
         }
         
     }
+    #else
+    public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        
+        guard let mediaType = info[HippoVariable.pickerInfoMediaType] as? String else {
+            return
+        }
+        
+        let imageType = kUTTypeImage as String
+        let gifType = kUTTypeGIF as String
+        let movieType = kUTTypeMovie as String
+        
+        var result: Result?
+        
+        switch mediaType {
+        case imageType, gifType:
+            guard let pickedImage = info[HippoVariable.pickerInfoOriginalImage] as? UIImage else {
+                picker.dismiss(animated: true, completion: nil)
+                return
+            }
+            let type = mediaType == gifType ? Result.MediaType.gifType : Result.MediaType.imageType
+            setFilePathWith(fileName: self.fileName, mediaType: type)
+            
+            guard let formattedImage = rotateAndCompressImageIfRequired(originalImage: pickedImage) else {
+                picker.dismiss(animated: true, completion: nil)
+                return
+            }
+            result = Result(isSuccessful: true, error: nil, info: info, filePath: filePath, mediaType: type, soucreType: picker.sourceType, image: formattedImage)
+            
+        case movieType:
+            guard let parsedUrl = info[HippoVariable.pickerInfoMediaURL] as? URL else {
+                picker.dismiss(animated: true, completion: nil)
+                return
+            }
+            guard CoreKit.shared.filesConfig.checkForDataSelectionLimit(url: parsedUrl) == true else {
+                
+                picker.dismiss(animated: true) {
+                    self.delegate?.imagePickingError(mediaSelector: self, error: SelectImageError.fileSizeExceeds(size: CoreFilesConfig.maxSizeAllowedToUploadInMB))
+                }
+                return
+            }
+            let type = Result.MediaType.movieType
+            result = Result(isSuccessful: true, error: nil, info: info, filePath: parsedUrl.path, mediaType: type, soucreType: picker.sourceType, image: nil)
+            
+        default:
+            result = Result(isSuccessful: false, error: SelectImageError.unsupportedFileType, info: nil, filePath: nil, mediaType: nil, soucreType: picker.sourceType, image: nil)
+        }
+        picker.dismiss(animated: true) {
+            self.delegate?.imageViewPickerDidFinish(mediaSelector: self, with: result!)
+        }
+        
+    }
+    #endif
     
     private func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)

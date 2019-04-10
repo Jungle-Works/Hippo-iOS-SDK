@@ -33,7 +33,7 @@ internal class IQTextView : UITextView {
         #if swift(>=4.2)
         let UITextViewTextDidChange = UITextView.textDidChangeNotification
         #else
-        let UITextViewTextDidChange = UITextView.textDidChangeNotification
+        let UITextViewTextDidChange = NSNotification.Name.UITextViewTextDidChange
         #endif
 
         NotificationCenter.default.addObserver(self, selector: #selector(self.refreshPlaceholder), name:UITextViewTextDidChange, object: self)
@@ -45,7 +45,7 @@ internal class IQTextView : UITextView {
         #if swift(>=4.2)
         let notificationName = UITextView.textDidChangeNotification
         #else
-        let notificationName = UITextView.textDidChangeNotification
+        let notificationName = NSNotification.Name.UITextViewTextDidChange
         #endif
 
         NotificationCenter.default.addObserver(self, selector: #selector(self.refreshPlaceholder), name: notificationName, object: self)
@@ -53,13 +53,8 @@ internal class IQTextView : UITextView {
     
     @objc override func awakeFromNib() {
         super.awakeFromNib()
-        
-        #if swift(>=4.2)
-        let UITextViewTextDidChange = UITextView.textDidChangeNotification
-        #else
-        let UITextViewTextDidChange = UITextView.textDidChangeNotification
-        #endif
 
+        let UITextViewTextDidChange = HippoVariable.UITextViewTextDidChange
         NotificationCenter.default.addObserver(self, selector: #selector(self.refreshPlaceholder), name: UITextViewTextDidChange, object: self)
     }
     

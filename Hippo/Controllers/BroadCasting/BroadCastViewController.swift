@@ -39,8 +39,14 @@ class BroadCastViewController: UIViewController {
         setupTableView()
         checkForInitalization()
         NotificationCenter.default.addObserver(self, selector: #selector(loginDataUpdated), name: .agentLoginDataUpated, object: nil)
+        
+        #if swift(>=4.2)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(sender:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(sender:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        #else
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(sender:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(sender:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        #endif
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -76,8 +82,13 @@ class BroadCastViewController: UIViewController {
 
 extension BroadCastViewController {
     @objc func keyboardWillShow(sender: NSNotification) {
+        #if swift(>=4.2)
+        let key = UIResponder.keyboardFrameEndUserInfoKey
+        #else
+        let key = UIKeyboardFrameEndUserInfoKey
+        #endif
         if let userInfo = sender.userInfo {
-            if let keyboardSize = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            if let keyboardSize = (userInfo[key] as? NSValue)?.cgRectValue {
                 tableView.contentInset.bottom = keyboardSize.height
             }
         }
@@ -182,7 +193,7 @@ extension BroadCastViewController: BroadcastListViewDelegate {
 }
 extension BroadCastViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
+        return UIView.tableAutoDimensionHeight
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         

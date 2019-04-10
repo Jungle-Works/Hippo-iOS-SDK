@@ -219,14 +219,27 @@ class HippoConversationViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(self.fayeDisconnected), name: .fayeDisconnected, object: nil)
     }
     func registerNotificationToKnowWhenAppIsKilledOrMovedToBackground() {
+        #if swift(>=4.2)
         NotificationCenter.default.addObserver(self, selector: #selector(self.appMovedToBackground), name: UIApplication.willTerminateNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.appMovedToBackground), name: UIApplication.willResignActiveNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.appMovedToBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
+        #else
+        NotificationCenter.default.addObserver(self, selector: #selector(self.appMovedToBackground), name: NSNotification.Name.UIApplicationWillTerminate, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.appMovedToBackground), name: NSNotification.Name.UIApplicationWillResignActive, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.appMovedToBackground), name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
+        #endif
+        
         
     }
     func registerKeyBoardNotification() {
+        
+        #if swift(>=4.2)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        #else
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        #endif
     }
 
     func tableViewSetUp() {
@@ -261,11 +274,13 @@ class HippoConversationViewController: UIViewController {
     }
     
     func registerNotificationWhenAppEntersForeground() {
-        NotificationCenter.default.addObserver(self, selector: #selector(willEnterForeground(_:)), name: UIApplication.didBecomeActiveNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(willEnterForeground(_:)), name: HippoVariable.didBecomeActiveNotification, object: nil)
     }
     
     @objc func keyboardWillShow(_ notification: Notification) {
-        guard let keyBoardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect, UIApplication.shared.applicationState == .active else {
+        let key = HippoVariable.keyboardFrameEndUserInfoKey
+        
+        guard let keyBoardFrame = notification.userInfo?[key] as? CGRect, UIApplication.shared.applicationState == .active else {
             return
         }
         self.adjustChatWhenKeyboardIsOpened(withHeight: keyBoardFrame.height)
@@ -781,7 +796,12 @@ extension HippoConversationViewController {
         var imageExtention: String = ".jpg"
         let imageData: Data?
         
-        let imageSize =  confirmedImage.jpegData(compressionQuality: 1)!.count
+        #if swift(>=4.2)
+        let imageSize = confirmedImage.jpegData(compressionQuality: 1)!.count
+        #else
+        let imageSize = UIImageJPEGRepresentation(confirmedImage, 1)!.count
+        #endif
+        
         print(imageSize)
         
         let compressionRate = getCompressonRateForImageWith(size: imageSize)
@@ -792,7 +812,12 @@ extension HippoConversationViewController {
             imageData = confirmedImage.kf.gifRepresentation() ?? confirmedImage.kf.jpegRepresentation(compressionQuality: 1)
         default:
             imageExtention = ".jpg"
+            
+            #if swift(>=4.2)
             imageData = confirmedImage.jpegData(compressionQuality: compressionRate)
+            #else
+            imageData = UIImageJPEGRepresentation(confirmedImage, compressionRate)
+            #endif
         }
         
         let imageName = Date.timeIntervalSinceReferenceDate.description + imageExtention

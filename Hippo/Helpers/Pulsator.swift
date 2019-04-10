@@ -9,11 +9,16 @@
 //  Objective-C version: https://github.com/shu223/PulsingHalo
 #if os(iOS)
 import UIKit
-
-
 internal let screenScale = UIScreen.main.scale
+
+#if swift(>=4.2)
 internal let applicationWillBecomeActiveNotfication = UIApplication.willEnterForegroundNotification
 internal let applicationDidResignActiveNotification = UIApplication.didEnterBackgroundNotification
+#else
+internal let applicationWillBecomeActiveNotfication = NSNotification.Name.UIApplicationWillEnterForeground
+internal let applicationDidResignActiveNotification = NSNotification.Name.UIApplicationDidEnterBackground
+#endif
+
 #elseif os(macOS)
 import Cocoa
 
@@ -111,6 +116,7 @@ open class Pulsator: CAReplicatorLayer, CAAnimationDelegate {
     @objc open var pulseInterval: TimeInterval = 0
     
     /// A function describing a timing curve of the animation.
+    #if swift(>=4.2)
     @objc open var timingFunction: CAMediaTimingFunction? = CAMediaTimingFunction(name: CAMediaTimingFunctionName.default) {
         didSet {
             if let animationGroup = animationGroup {
@@ -118,6 +124,17 @@ open class Pulsator: CAReplicatorLayer, CAAnimationDelegate {
             }
         }
     }
+    #else
+    
+    @objc open var timingFunction: CAMediaTimingFunction? = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear) {
+        didSet {
+            if let animationGroup = animationGroup {
+                animationGroup.timingFunction = timingFunction
+            }
+        }
+    }
+    
+    #endif
     
     /// The value of this property showed a pulse is started
     @objc open var isPulsating: Bool {

@@ -307,8 +307,14 @@ extension AgentHomeViewController {
     
     func addObservers() {
         NotificationCenter.default.removeObserver(self)
+        #if swift(>=4.2)
         NotificationCenter.default.addObserver(self, selector: #selector(appMovedToBackground), name: UIApplication.willResignActiveNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(appMovedToForground), name: UIApplication.willEnterForegroundNotification, object: nil)
+        #else
+        NotificationCenter.default.addObserver(self, selector: #selector(appMovedToBackground), name: NSNotification.Name.UIApplicationWillResignActive, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(appMovedToForground), name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
+        #endif
+        
         NotificationCenter.default.addObserver(self, selector: #selector(allChatDataUpdated), name: .allChatDataUpdated, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(myChatDataUpated), name: .myChatDataUpdated, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(reloadCollectionView), name: .allAndMyChatDataUpdated, object: nil)
@@ -449,7 +455,7 @@ extension AgentHomeViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
+        return UIView.tableAutoDimensionHeight
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)

@@ -64,7 +64,7 @@ extension ActionableMessageCellHandler: UITableViewDelegate {
 //            return getHeighOfButtonCollectionView()
 //        }
         
-        return UITableView.automaticDimension
+        return UIView.tableAutoDimensionHeight
     }
     
 }

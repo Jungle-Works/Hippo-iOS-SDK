@@ -1391,7 +1391,7 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                 case .consent:
                     return message.cellDetail?.cellHeight ?? 0.01
                 case MessageType.call:
-                    return UITableView.automaticDimension
+                    return UIView.tableAutoDimensionHeight
                 default:
                     return 0.01
                     
@@ -1399,7 +1399,7 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
             }
         default: break
         }
-        return UITableView.automaticDimension
+        return UIView.tableAutoDimensionHeight
     }
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {

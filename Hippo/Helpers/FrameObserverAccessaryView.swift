@@ -31,9 +31,9 @@ class KeyBoard {
         NotificationCenter.default.addObserver(self, selector: #selector(keyBoardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyBoardDidChangeHeight(_:)), name: UIResponder.keyboardDidChangeFrameNotification, object: nil)
         #else
-        NotificationCenter.default.addObserver(self, selector: #selector(KeyBoard.keyBoardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(KeyBoard.keyBoardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyBoardDidChangeHeight(_:)), name: UIResponder.keyboardDidChangeFrameNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(KeyBoard.keyBoardWillShow(_:)), name: HippoVariable.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(KeyBoard.keyBoardWillHide(_:)), name: HippoVariable.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyBoardDidChangeHeight(_:)), name: HippoVariable.keyboardDidChangeFrameNotification, object: nil)
         #endif
     }
     
@@ -51,7 +51,7 @@ class KeyBoard {
         #if swift(>=4.2)
         let key = UIResponder.keyboardFrameEndUserInfoKey
         #else
-        let key = UIResponder.keyboardFrameEndUserInfoKey
+        let key = UIKeyboardFrameEndUserInfoKey
         #endif
         guard let keyboardFrame = notification.userInfo?[key] as? CGRect, KeyBoard.height != 0 else {
             return
@@ -65,7 +65,7 @@ class KeyBoard {
         #if swift(>=4.2)
         let key = UIResponder.keyboardFrameEndUserInfoKey
         #else
-        let key = UIResponder.keyboardFrameEndUserInfoKey
+        let key = UIKeyboardFrameEndUserInfoKey
         #endif
         let keyboardFrame = notification.userInfo?[key] as? CGRect
         KeyBoard.height = keyboardFrame?.height ?? 0

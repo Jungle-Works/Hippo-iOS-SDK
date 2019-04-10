@@ -24,7 +24,7 @@ extension UIView {
         #if swift(>=4.2)
         return UITableView.automaticDimension
         #else
-         return UITableView.automaticDimension
+        return UITableViewAutomaticDimension
         #endif
     }
     class var safeAreaInsetsForAllOS: UIEdgeInsets {
@@ -163,18 +163,34 @@ extension UIViewController {
         HippoNotification.removeAllnotificationFor(channelId: channelId)
     }
     func removeKeyboardNotificationObserver() {
+        #if swift(>=4.2)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+        #else
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        #endif
     }
     
     func removeAppDidEnterForegroundObserver() {
+        #if swift(>=4.2)
         NotificationCenter.default.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
+        #else
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
+        #endif
+        
     }
     
     func removeNotificationObserverToKnowWhenAppIsKilledOrMovedToBackground() {
+        #if swift(>=4.2)
         NotificationCenter.default.removeObserver(self, name: UIApplication.willTerminateNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIApplication.willResignActiveNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIApplication.didEnterBackgroundNotification, object: nil)
+        #else
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIApplicationWillTerminate, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIApplicationWillResignActive, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
+        #endif
     }
 }
 

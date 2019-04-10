@@ -85,7 +85,7 @@ class BroadcastDetailViewController: UIViewController {
 }
 extension BroadcastDetailViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
+        return UIView.tableAutoDimensionHeight
     }
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         switch cell {

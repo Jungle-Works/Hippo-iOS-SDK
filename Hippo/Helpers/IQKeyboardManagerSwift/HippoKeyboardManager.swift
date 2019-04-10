@@ -1371,9 +1371,9 @@ internal class HippoKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             let durationUserInfoKey = UIResponder.keyboardAnimationDurationUserInfoKey
             let frameEndUserInfoKey = UIResponder.keyboardFrameEndUserInfoKey
             #else
-            let curveUserInfoKey    = UIResponder.keyboardAnimationCurveUserInfoKey
-            let durationUserInfoKey = UIResponder.keyboardAnimationDurationUserInfoKey
-            let frameEndUserInfoKey = UIResponder.keyboardFrameEndUserInfoKey
+            let curveUserInfoKey    = UIKeyboardAnimationCurveUserInfoKey
+            let durationUserInfoKey = UIKeyboardAnimationDurationUserInfoKey
+            let frameEndUserInfoKey = UIKeyboardFrameEndUserInfoKey
             #endif
 
             //  Getting keyboard animation.
@@ -1494,7 +1494,7 @@ internal class HippoKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             #if swift(>=4.2)
             let durationUserInfoKey = UIResponder.keyboardAnimationDurationUserInfoKey
             #else
-            let durationUserInfoKey = UIResponder.keyboardAnimationDurationUserInfoKey
+            let durationUserInfoKey = UIKeyboardAnimationDurationUserInfoKey
             #endif
 
             //  Getting keyboard animation duration
@@ -2027,18 +2027,18 @@ internal class HippoKeyboardManager: NSObject, UIGestureRecognizerDelegate {
 
         let UIApplicationWillChangeStatusBarOrientation = UIApplication.willChangeStatusBarOrientationNotification
         #else
-        let UIKeyboardWillShow  = UIResponder.keyboardWillShowNotification
-        let UIKeyboardDidShow   = UIResponder.keyboardDidShowNotification
-        let UIKeyboardWillHide  = UIResponder.keyboardWillHideNotification
-        let UIKeyboardDidHide   = UIResponder.keyboardDidHideNotification
+        let UIKeyboardWillShow  = NSNotification.Name.UIKeyboardWillShow
+        let UIKeyboardDidShow   = NSNotification.Name.UIKeyboardDidShow
+        let UIKeyboardWillHide  = NSNotification.Name.UIKeyboardWillHide
+        let UIKeyboardDidHide   = NSNotification.Name.UIKeyboardDidHide
 
-        let UITextFieldTextDidBeginEditing  = UITextField.textDidBeginEditingNotification
-        let UITextFieldTextDidEndEditing    = UITextField.textDidEndEditingNotification
+        let UITextFieldTextDidBeginEditing  = NSNotification.Name.UITextFieldTextDidBeginEditing
+        let UITextFieldTextDidEndEditing    = NSNotification.Name.UITextFieldTextDidEndEditing
 
-        let UITextViewTextDidBeginEditing   = UITextView.textDidBeginEditingNotification
-        let UITextViewTextDidEndEditing     = UITextView.textDidEndEditingNotification
+        let UITextViewTextDidBeginEditing   = NSNotification.Name.UITextViewTextDidBeginEditing
+        let UITextViewTextDidEndEditing     = NSNotification.Name.UITextViewTextDidEndEditing
 
-        let UIApplicationWillChangeStatusBarOrientation = UIApplication.willChangeStatusBarOrientationNotification
+        let UIApplicationWillChangeStatusBarOrientation = NSNotification.Name.UIApplicationWillChangeStatusBarOrientation
         #endif
 
         //  Registering for keyboard notification.
@@ -2073,18 +2073,18 @@ internal class HippoKeyboardManager: NSObject, UIGestureRecognizerDelegate {
 
         let UIApplicationWillChangeStatusBarOrientation = UIApplication.willChangeStatusBarOrientationNotification
         #else
-        let UIKeyboardWillShow  = UIResponder.keyboardWillShowNotification
-        let UIKeyboardDidShow   = UIResponder.keyboardDidShowNotification
-        let UIKeyboardWillHide  = UIResponder.keyboardWillHideNotification
-        let UIKeyboardDidHide   = UIResponder.keyboardDidHideNotification
+        let UIKeyboardWillShow  = NSNotification.Name.UIKeyboardWillShow
+        let UIKeyboardDidShow   = NSNotification.Name.UIKeyboardDidShow
+        let UIKeyboardWillHide  = NSNotification.Name.UIKeyboardWillHide
+        let UIKeyboardDidHide   = NSNotification.Name.UIKeyboardDidHide
 
-        let UITextFieldTextDidBeginEditing  = UITextField.textDidBeginEditingNotification
-        let UITextFieldTextDidEndEditing    = UITextField.textDidEndEditingNotification
+        let UITextFieldTextDidBeginEditing  = NSNotification.Name.UITextFieldTextDidBeginEditing
+        let UITextFieldTextDidEndEditing    = NSNotification.Name.UITextFieldTextDidEndEditing
 
-        let UITextViewTextDidBeginEditing   = UITextView.textDidBeginEditingNotification
-        let UITextViewTextDidEndEditing     = UITextView.textDidEndEditingNotification
+        let UITextViewTextDidBeginEditing   = NSNotification.Name.UITextViewTextDidBeginEditing
+        let UITextViewTextDidEndEditing     = NSNotification.Name.UITextViewTextDidEndEditing
 
-        let UIApplicationWillChangeStatusBarOrientation = UIApplication.willChangeStatusBarOrientationNotification
+        let UIApplicationWillChangeStatusBarOrientation = NSNotification.Name.UIApplicationWillChangeStatusBarOrientation
         #endif
 
         //  Unregistering for keyboard notification.

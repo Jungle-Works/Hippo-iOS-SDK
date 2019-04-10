@@ -87,7 +87,7 @@ extension HippoDataCollectorController: UITableViewDelegate {
         case .none:
             return 0.01
         default:
-            return UITableView.automaticDimension
+            return UIView.tableAutoDimensionHeight
         }
     }
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {

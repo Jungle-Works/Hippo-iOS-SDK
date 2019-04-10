@@ -151,11 +151,11 @@ Cache type of a cached image.
         
 #if !os(macOS) && !os(watchOS)
         NotificationCenter.default.addObserver(
-            self, selector: #selector(clearMemoryCache), name: UIApplication.didReceiveMemoryWarningNotification, object: nil)
+            self, selector: #selector(clearMemoryCache), name: HippoVariable.didReceiveMemoryWarningNotification, object: nil)
         NotificationCenter.default.addObserver(
-            self, selector: #selector(cleanExpiredDiskCache), name: UIApplication.willTerminateNotification, object: nil)
+            self, selector: #selector(cleanExpiredDiskCache), name: HippoVariable.willTerminateNotification, object: nil)
         NotificationCenter.default.addObserver(
-            self, selector: #selector(backgroundCleanExpiredDiskCache), name: UIApplication.didEnterBackgroundNotification, object: nil)
+            self, selector: #selector(backgroundCleanExpiredDiskCache), name: HippoVariable.didEnterBackgroundNotification, object: nil)
 #endif
     }
     
@@ -523,8 +523,13 @@ Cache type of a cached image.
         guard let sharedApplication = Kingfisher<UIApplication>.shared else { return }
 
         func endBackgroundTask(_ task: inout UIBackgroundTaskIdentifier) {
-            sharedApplication.endBackgroundTask(convertToUIBackgroundTaskIdentifier(task.rawValue))
+            #if swift(>=4.2)
+            sharedApplication.endBackgroundTask(convertToUIBackgroundTaskIdentifier(task.hashValue))
             task = UIBackgroundTaskIdentifier.invalid
+            #else
+            sharedApplication.endBackgroundTask(task)
+            task = UIBackgroundTaskInvalid
+            #endif
         }
         
         var backgroundTask: UIBackgroundTaskIdentifier!
@@ -688,6 +693,8 @@ extension String {
 }
 
 // Helper function inserted by Swift 4.2 migrator.
+#if swift(>=4.2)
 fileprivate func convertToUIBackgroundTaskIdentifier(_ input: Int) -> UIBackgroundTaskIdentifier {
 	return UIBackgroundTaskIdentifier(rawValue: input)
 }
+#endif

@@ -1043,9 +1043,9 @@ extension AgentConversationViewController: UITableViewDelegate, UITableViewDataS
                 case MessageType.actionableMessage:
                     return 0.01
                 case MessageType.assignAgent:
-                    return UITableView.automaticDimension
+                    return UIView.tableAutoDimensionHeight
                 case MessageType.call:
-                    return UITableView.automaticDimension
+                    return UIView.tableAutoDimensionHeight
                 default:
                     return 0.01//UITableViewAutomaticDimension
                     
@@ -1053,7 +1053,7 @@ extension AgentConversationViewController: UITableViewDelegate, UITableViewDataS
             }
         default: break
         }
-        return UITableView.automaticDimension
+        return UIView.tableAutoDimensionHeight
     }
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -1317,28 +1317,31 @@ extension AgentConversationViewController: UITextViewDelegate {
 
 // MARK: - UIImagePicker Delegates
 extension AgentConversationViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-// Local variable inserted by Swift 4.2 migrator.
-let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
-
-        guard let pickedImage = info[convertFromUIImagePickerControllerInfoKey(UIImagePickerController.InfoKey.originalImage)] as? UIImage
-            else {
-                picker.dismiss(animated: true, completion: nil)
-                return
-        }
-        
-        let formattedImage = rotateCameraImageToProperOrientation(imageSource: pickedImage)
-        
-        if picker.sourceType == .camera {
-            sendConfirmedImage(image: formattedImage, mediaType: .imageType)
-            picker.dismiss(animated: true, completion: nil)
-        } else if let destinationVC = self.storyboard?.instantiateViewController(withIdentifier: "SelectImageViewController") as? SelectImageViewController {
-            destinationVC.pickedImage = formattedImage
-            destinationVC.delegate = self
-            picker.modalPresentationStyle = .overCurrentContext
-            self.imagePicker.present(destinationVC, animated: true, completion: nil)
-        }
-    }
+    
+    
+//    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+//// Local variable inserted by Swift 4.2 migrator.
+//        
+//         let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
+//
+//        guard let pickedImage = info[convertFromUIImagePickerControllerInfoKey(UIImagePickerController.InfoKey.originalImage)] as? UIImage
+//            else {
+//                picker.dismiss(animated: true, completion: nil)
+//                return
+//        }
+//        
+//        let formattedImage = rotateCameraImageToProperOrientation(imageSource: pickedImage)
+//        
+//        if picker.sourceType == .camera {
+//            sendConfirmedImage(image: formattedImage, mediaType: .imageType)
+//            picker.dismiss(animated: true, completion: nil)
+//        } else if let destinationVC = self.storyboard?.instantiateViewController(withIdentifier: "SelectImageViewController") as? SelectImageViewController {
+//            destinationVC.pickedImage = formattedImage
+//            destinationVC.delegate = self
+//            picker.modalPresentationStyle = .overCurrentContext
+//            self.imagePicker.present(destinationVC, animated: true, completion: nil)
+//        }
+//    }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
@@ -1474,6 +1477,7 @@ extension AgentConversationViewController: HippoChannelDelegate {
     
 }
 // Helper function inserted by Swift 4.2 migrator.
+#if swift(>=4.2)
 fileprivate func convertFromUIImagePickerControllerInfoKeyDictionary(_ input: [UIImagePickerController.InfoKey: Any]) -> [String: Any] {
 	return Dictionary(uniqueKeysWithValues: input.map {key, value in (key.rawValue, value)})
 }
@@ -1482,3 +1486,4 @@ fileprivate func convertFromUIImagePickerControllerInfoKeyDictionary(_ input: [U
 fileprivate func convertFromUIImagePickerControllerInfoKey(_ input: UIImagePickerController.InfoKey) -> String {
 	return input.rawValue
 }
+#endif
