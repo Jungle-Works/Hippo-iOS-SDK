@@ -34,8 +34,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
    // MARK: - LIFECYCLE
    override func viewDidLoad() {
       super.viewDidLoad()
-      
-      addObservers()
+    
       let topInset = UIView.safeAreaInsetOfKeyWindow.top == 0 ? 20 : UIView.safeAreaInsetOfKeyWindow.top
       heightofNavigationBar.constant = 44 + topInset
       

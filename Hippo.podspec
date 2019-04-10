@@ -15,7 +15,7 @@ Pod::Spec.new do |s|
     s.exclude_files = 'Classes/Exclude'
     s.static_framework = false
     
-    s.swift_version = '4.0'
+    s.swift_version = '4.2'
     
     s.resource_bundles = {
         'Hippo' => ['Hippo/*.{lproj,storyboard,xcassets,gif}','Hippo/Assets/**/*.imageset','Hippo/UIView/TableViewCell/**/*.xib','Hippo/UIView/CollectionViewCells/**/*.xib','Hippo/UIView/CustomViews/**/*.xib', 'Hippo/**/*.gif', 'README.md']
@@ -25,7 +25,6 @@ Pod::Spec.new do |s|
     
     s.dependency 'MZFayeClient'
     s.default_subspec = 'Chat'
-   
     
     s.subspec 'Chat' do |chat|
         
