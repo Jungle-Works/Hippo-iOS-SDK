@@ -463,7 +463,7 @@ class HippoChannel {
         if let index = messageHashMap[parsedMuid], index > 0, messages.count > index, messages[index].messageUniqueID == muid {
             return messages[index]
         }
-        let index = messages.index(where: { (mes) -> Bool in
+        let index = messages.firstIndex(where: { (mes) -> Bool in
             return mes.messageUniqueID == parsedMuid
         })
         return index == nil ? nil : messages[index!]

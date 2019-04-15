@@ -273,7 +273,7 @@ extension AgentConversation {
         return true
     }
     class func getIndex(in conversationList: [AgentConversation], for channelId: Int) -> Int? {
-        let index = conversationList.index { (ac) -> Bool in
+        let index = conversationList.firstIndex { (ac) -> Bool in
             return ac.channel_id == channelId
         }
         return index

@@ -350,7 +350,7 @@ protocol NewChatSentDelegate: class {
             selectedActionId = quickReplyMessage.content.actionId[0]
         }
         quickReplyMessage.selectedActionId = selectedActionId
-        let index = quickReplyMessage.content.actionId.index(of: selectedActionId) ?? 0
+        let index = quickReplyMessage.content.actionId.firstIndex(of: selectedActionId) ?? 0
         self.sendQuickMessage(shouldSendButtonTitle: false, chat: quickReplyMessage, buttonIndex: index)
     }
     
@@ -393,7 +393,7 @@ protocol NewChatSentDelegate: class {
         resetForChannel(pushInfo: channelRaw)
         
         var chats = FuguDefaults.object(forKey: DefaultName.conversationData.rawValue) as? [[String: Any]] ?? [[:]]
-        let index = chats.index { (o) -> Bool in
+        let index = chats.firstIndex { (o) -> Bool in
             return (o["channel_id"] as? Int) ?? -2 == id
         }
         

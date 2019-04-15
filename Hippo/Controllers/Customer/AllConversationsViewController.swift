@@ -376,12 +376,12 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         var labelIdIndex: Int?
         
         if pushChannelId > 0 {
-            channelIdIndex = arrayOfConversation.index { (f) -> Bool in
+            channelIdIndex = arrayOfConversation.firstIndex { (f) -> Bool in
                 return f.channelId ?? -1 == pushChannelId
             }
         }
         if pushLabelId > 0 {
-            labelIdIndex = arrayOfConversation.index { (f) -> Bool in
+            labelIdIndex = arrayOfConversation.firstIndex { (f) -> Bool in
                 return f.labelId ?? -1 == pushLabelId
             }
         }

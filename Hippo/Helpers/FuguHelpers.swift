@@ -484,7 +484,7 @@ func updatePushCount(pushInfo: [String: Any]) {
     guard channelId > 0 else {
         return
     }
-    let index = HippoConfig.shared.pushArray.index { (p) -> Bool in
+    let index = HippoConfig.shared.pushArray.firstIndex { (p) -> Bool in
         return p.channelId == channelId
     }
     var newObj = PushInfo(json: pushInfo)
@@ -508,7 +508,7 @@ func resetForChannel(pushInfo: [String: Any]) {
 }
 
 func resetForChannel(channelId: Int) {
-    let index = HippoConfig.shared.pushArray.index { (p) -> Bool in
+    let index = HippoConfig.shared.pushArray.firstIndex { (p) -> Bool in
         return p.channelId == channelId
     }
     

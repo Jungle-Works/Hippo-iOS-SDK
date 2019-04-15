@@ -388,7 +388,7 @@ public class TagListView: UIView {
     
     func removeTagView(_ tagView: TagView) {
         tagView.removeFromSuperview()
-        if let index = tagViews.index(of: tagView) {
+        if let index = tagViews.firstIndex(of: tagView) {
             tagViews.remove(at: index)
             tagBackgroundViews.remove(at: index)
         }

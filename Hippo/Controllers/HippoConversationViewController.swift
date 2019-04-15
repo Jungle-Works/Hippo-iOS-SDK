@@ -823,7 +823,7 @@ extension HippoConversationViewController {
         let imageName = Date.timeIntervalSinceReferenceDate.description + imageExtention
         let imageFilePath = getCacheDirectoryUrlForFileWith(name: imageName).path
         
-        try? imageData?.write(to: URL(fileURLWithPath: imageFilePath), options: [.atomic])
+        ((try? imageData?.write(to: URL(fileURLWithPath: imageFilePath), options: [.atomic])) as ()??)
         
         if imageFilePath.isEmpty == false {
             self.imageSelectedToSendWith(localPath: imageFilePath, imageSize: confirmedImage.size)

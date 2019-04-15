@@ -68,7 +68,7 @@ class NLevelViewController: UIViewController {
         _ = self.navigationController?.popViewController(animated: true)
     }
     func removeObjFromPath(with id: Int) {
-        let index = HippoSupportList.currentPathArray.index { (item) -> Bool in
+        let index = HippoSupportList.currentPathArray.firstIndex { (item) -> Bool in
             return item.id == id
         }
         guard index != nil else {
