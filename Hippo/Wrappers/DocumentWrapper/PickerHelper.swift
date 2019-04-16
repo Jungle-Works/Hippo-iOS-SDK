@@ -86,6 +86,7 @@ class PickerHelper {
         actionSheet.addAction(photoLibraryAction)
         actionSheet.addAction(cameraAction)
         
+        //Check if iCloud is enabled in capablities
         if FileManager.default.ubiquityIdentityToken != nil {
             if CoreKit.shared.filesConfig.enabledFileTypes.contains(.document) || CoreKit.shared.filesConfig.enabledFileTypes.contains(.other) {            actionSheet.addAction(documentAction)
             }
