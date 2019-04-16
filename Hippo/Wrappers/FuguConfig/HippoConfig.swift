@@ -29,8 +29,8 @@ struct SERVERS {
     static let betaUrl = "https://api.fuguchat.com:3010/"
     static let betaFaye = "https://api.fuguchat.com:3010/faye"
     
-    static let devUrl = "https://hippo-api-dev.fuguchat.com:3002/"
-    static let devFaye = "https://hippo-api-dev.fuguchat.com:3002/faye"
+    static let devUrl = "https://hippo-api-dev.fuguchat.com:3011/"
+    static let devFaye = "https://hippo-api-dev.fuguchat.com:3011/faye"
 }
 
 public class HippoConfig : NSObject {
@@ -39,7 +39,7 @@ public class HippoConfig : NSObject {
     
     public typealias commonHippoCallback = ((_ success: Bool, _ error: Error?) -> ())
     // MARK: - Properties
-    internal var log = CoreLogger(formatter: Formatter.defaultFormat, theme: nil, minLevels: [.all])
+    internal var log = CoreLogger(formatter: Formatter.defaultFormat, theme: nil, minLevels: [.error])
     internal var muidList: [String] = []
     internal var pushArray = [PushInfo]()
     

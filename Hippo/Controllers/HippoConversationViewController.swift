@@ -494,7 +494,9 @@ class HippoConversationViewController: UIViewController {
         navigationTitleButton?.setTitle(title, for: .normal)
         navigationTitleButton?.titleLabel?.lineBreakMode = .byTruncatingTail
 //        navigationTitleButton?.setAttributedTitle(myString, for: .normal)
-        navigationTitleButton?.sizeToFit()
+        DispatchQueue.main.async {
+            self.navigationTitleButton?.sizeToFit()
+        }
     }
     func startAudioCall() {
         guard canStartAudioCall() else {

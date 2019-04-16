@@ -102,6 +102,7 @@ class AgentConversationViewController: HippoConversationViewController {
         handleInfoIcon()
         handleVideoIcon()
         handleAudioIcon()
+        setNavigationTitle(title: label)
     }
     
     override func viewDidAppear(_ animated: Bool) {
