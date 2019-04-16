@@ -70,7 +70,6 @@ class PickerHelper {
             self.performActionBasedOnGalleryPermission()
         })
         
-        
         let documentAction = UIAlertAction(title: "Document", style: .default) { (_) in
             controller.view.endEditing(true)
             self.documentPicker = CoreDocumentPicker(controller: self.currentViewController)
@@ -87,7 +86,9 @@ class PickerHelper {
         actionSheet.addAction(photoLibraryAction)
         actionSheet.addAction(cameraAction)
         
-        if CoreKit.shared.filesConfig.enabledFileTypes.contains(.document) || CoreKit.shared.filesConfig.enabledFileTypes.contains(.other) {            actionSheet.addAction(documentAction)
+        if FileManager.default.ubiquityIdentityToken != nil {
+            if CoreKit.shared.filesConfig.enabledFileTypes.contains(.document) || CoreKit.shared.filesConfig.enabledFileTypes.contains(.other) {            actionSheet.addAction(documentAction)
+            }
         }
         
         actionSheet.addAction(cancelAction)
