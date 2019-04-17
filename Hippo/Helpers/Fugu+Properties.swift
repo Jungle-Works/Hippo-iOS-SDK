@@ -11,7 +11,7 @@ import Foundation
 let HippoSDKSource = 1
 let Device_Type_iOS = 2
 var userDetailData = [String: Any]()
-let fuguAppVersion = "1.7.30"
+let fuguAppVersion = "1.7.31"
 let versionCode = 215
 
 /*
@@ -33,5 +33,5 @@ let versionCode = 215
  214 *** 1.7.29 = o2o chat
  215 *** 1.7.30 = ride status
  
-
+ 216 *** 1.7.31 = Swift conversation to 5.0
  */
