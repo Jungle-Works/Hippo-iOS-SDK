@@ -81,6 +81,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
     var rating_given = 0
     var comment = ""
     var messageId: Int?
+    var botFormMessageUniqueID: String?
     var values: [String] = []
     var contentValues: [[String: Any]] = []
     var selectedActionId: String = ""
@@ -334,6 +335,9 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         json["message_type"] = type.rawValue
         json["user_type"] = currentUserType().rawValue
         
+        if let parsedBotFormMUID = self.botFormMessageUniqueID {
+            json["bot_form_muid"] = parsedBotFormMUID
+        }
         if let unwrappedNotification = notification {
             json["notification_type"] = unwrappedNotification.rawValue
         }
@@ -370,6 +374,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         
         if let id = messageId {
             json["message_id"] = id
+            json["id"] = id
         }
         
         let notificationType = notification ?? .message

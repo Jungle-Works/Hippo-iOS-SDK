@@ -19,6 +19,7 @@ class HippoConversationViewController: UIViewController {
     // MARK: - PROPERTIES
     var processingRequestCount = 0
     var labelId = -11
+    
     var directChatDetail: FuguNewChatAttributes?
     var agentDirectChatDetail: AgentDirectChatAttributes?
     var label = ""
@@ -97,7 +98,7 @@ class HippoConversationViewController: UIViewController {
     func reloadVisibleCellsToStartActivityIndicator() { }
     func adjustChatWhenKeyboardIsOpened(withHeight keyboardHeight: CGFloat) { }
     func addRemoveShadowInTextView(toAdd: Bool) { }
-    func startNewConversation(completion: ((_ success: Bool) -> Void)?) { }
+    func startNewConversation(completion: ((_ success: Bool, _ result: HippoChannelCreationResult?) -> Void)?) { }
     
     
     func clearUnreadCountForChannel(id: Int) { }
@@ -197,7 +198,8 @@ class HippoConversationViewController: UIViewController {
         guard channel != nil else {
             return
         }
-        self.updateMessagesGroupedByDate(self.channel.messages)
+        self.updateMessagesInLocalArrays(messages: [])
+//        self.updateMessagesGroupedByDate(self.channel.messages)
 //        if tableViewChat.numberOfSections == 0 {
 //            self.tableViewChat.isHidden = true
 //            self.tableViewChat.alpha = 0
@@ -549,29 +551,29 @@ class HippoConversationViewController: UIViewController {
     }
     
     func canStartAudioCall() -> Bool {
-        guard canMakeAnyCall() else {
-            return false
-        }
-        guard HippoConfig.shared.isAudioCallEnabled else {
-            return false
-        }
-        guard let allowAudioCall = channel?.chatDetail?.allowAudioCall, allowAudioCall  else {
-            return false
-        }
+//        guard canMakeAnyCall() else {
+//            return false
+//        }
+//        guard HippoConfig.shared.isAudioCallEnabled else {
+//            return false
+//        }
+//        guard let allowAudioCall = channel?.chatDetail?.allowAudioCall, allowAudioCall  else {
+//            return false
+//        }
         return true
         
     }
     
     func canStartVideoCall() -> Bool {
-        guard canMakeAnyCall() else {
-            return false
-        }
-        guard HippoConfig.shared.isVideoCallEnabled else {
-            return false
-        }
-        guard let allowVideoCall = channel?.chatDetail?.allowVideoCall, allowVideoCall  else {
-            return false
-        }
+//        guard canMakeAnyCall() else {
+//            return false
+//        }
+//        guard HippoConfig.shared.isVideoCallEnabled else {
+//            return false
+//        }
+//        guard let allowVideoCall = channel?.chatDetail?.allowVideoCall, allowVideoCall  else {
+//            return false
+//        }
         return true
         
     }
@@ -721,7 +723,7 @@ extension HippoConversationViewController {
         if channel != nil {
             self.UploadAndSendMessage(message: message)
         } else {
-            startNewConversation { (success) in
+            startNewConversation { (success, result) in
                 guard success else {
                     return
                 }
@@ -899,7 +901,7 @@ extension HippoConversationViewController {
     }
     func publishMessageOnChannel(message: HippoMessage) {
         if channelId == -1 {
-            self.startNewConversation() {[weak self] (result) in
+            self.startNewConversation() {[weak self] (success, result) in
                 self?.channel?.send(message: message, completion: {})
             }
         } else {

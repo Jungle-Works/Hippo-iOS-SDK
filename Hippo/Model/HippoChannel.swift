@@ -13,6 +13,7 @@ struct HippoChannelCreationResult {
     let error: Error?
     let channel: HippoChannel?
     let isChannelAvailableLocallay: Bool
+    let botMessageID: String?
 }
 
 protocol HippoChannelDelegate: class {
@@ -28,6 +29,10 @@ class HippoChannel {
     typealias HippoChannelCreationHandler = (_ result: HippoChannelCreationResult) -> Void
     typealias HippoChannelHandler = (_ success: Bool, _ error: Error?) -> Void
     typealias MessagesAndHashMap = (messages: [HippoMessage], hashmap: [String: Int])
+    
+    
+    //MARK: Class variable
+    static var botMessageMUID: String?
     
     var chatDetail: ChatDetail?
 //    var tags = [TagDetail]()
@@ -157,7 +162,7 @@ class HippoChannel {
     
     class func get(withFuguChatAttributes attributes: AgentDirectChatAttributes, completion: @escaping HippoChannelCreationHandler) {
         guard let params = attributes.getParamsToStartNewChat() else {
-            let result = HippoChannelCreationResult(isSuccessful: false, error: HippoError.general, channel: nil, isChannelAvailableLocallay: false)
+            let result = HippoChannelCreationResult(isSuccessful: false, error: HippoError.general, channel: nil, isChannelAvailableLocallay: false, botMessageID: nil)
             completion(result)
             return
         }
@@ -178,13 +183,14 @@ class HippoChannel {
                 let data = responseDict["data"] as? [String: Any],
                 let channelID = data["channel_id"] as? Int else {
                     HippoConfig.shared.log.debug("API_CREATE_CONVERSATION_ ERROR.....\(error?.localizedDescription ?? "")", level: .error)
-                    let result = HippoChannelCreationResult(isSuccessful: false, error: error, channel: nil, isChannelAvailableLocallay: false)
+                    let result = HippoChannelCreationResult(isSuccessful: false, error: error, channel: nil, isChannelAvailableLocallay: false, botMessageID: nil)
                     completion(result)
                     return
             }
             
             let channel = FuguChannelPersistancyManager.shared.getChannelBy(id: channelID)
-            let result = HippoChannelCreationResult(isSuccessful: true, error: nil, channel: channel, isChannelAvailableLocallay: false)
+            let botMessageID: String? = String.parse(values: data, key: "bot_message_id")
+            let result = HippoChannelCreationResult(isSuccessful: true, error: nil, channel: channel, isChannelAvailableLocallay: false, botMessageID: botMessageID)
             if let transactionID = params["transaction_id"] as? String {
                 hashmapTransactionIdToChannelID[transactionID] = channelID
             }
@@ -199,7 +205,7 @@ class HippoChannel {
             let channelID = hashmapTransactionIdToChannelID[transactionID] {
             
             let channel = FuguChannelPersistancyManager.shared.getChannelBy(id: channelID)
-            let result = HippoChannelCreationResult(isSuccessful: true, error: nil, channel: channel, isChannelAvailableLocallay: true)
+            let result = HippoChannelCreationResult(isSuccessful: true, error: nil, channel: channel, isChannelAvailableLocallay: true, botMessageID: nil)
             completion(result)
             return
         }
@@ -209,21 +215,26 @@ class HippoChannel {
     }
     
     private class func createNewConversationWith(params: [String: Any], completion: @escaping HippoChannelCreationHandler) {
+        var requestParam = params
+        if let parsedBotMessageMUID = botMessageMUID {
+            requestParam["bot_form_muid"] = parsedBotMessageMUID
+        }
         
-        HippoConfig.shared.log.debug("API_CREATE_CONVERSATION.....\(params)", level: .request)
-        HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: FuguEndPoints.API_CREATE_CONVERSATION.rawValue) { (response, error, _, statusCode) in
+        HippoConfig.shared.log.debug("API_CREATE_CONVERSATION.....\(requestParam)", level: .request)
+        HTTPClient.makeConcurrentConnectionWith(method: .POST, para: requestParam, extendedUrl: FuguEndPoints.API_CREATE_CONVERSATION.rawValue) { (response, error, _, statusCode) in
             
             guard let responseDict = response as? [String: Any],
                 let data = responseDict["data"] as? [String: Any],
                 let channelID = data["channel_id"] as? Int else {
                     HippoConfig.shared.log.debug("API_CREATE_CONVERSATION_ ERROR.....\(error?.localizedDescription ?? "")", level: .error)
-                    let result = HippoChannelCreationResult(isSuccessful: false, error: error, channel: nil, isChannelAvailableLocallay: false)
+                    let result = HippoChannelCreationResult(isSuccessful: false, error: error, channel: nil, isChannelAvailableLocallay: false, botMessageID: nil)
                     completion(result)
                     return
             }
             
             let channel = FuguChannelPersistancyManager.shared.getChannelBy(id: channelID)
-            let result = HippoChannelCreationResult(isSuccessful: true, error: nil, channel: channel, isChannelAvailableLocallay: false)
+            let botMessageID: String? = String.parse(values: data, key: "bot_message_id")
+            let result = HippoChannelCreationResult(isSuccessful: true, error: nil, channel: channel, isChannelAvailableLocallay: false, botMessageID: botMessageID)
             if let transactionID = params["transaction_id"] as? String {
                 hashmapTransactionIdToChannelID[transactionID] = channelID
             }
@@ -238,12 +249,13 @@ class HippoChannel {
     ///   - completion: Callback for new channel creation.
     class func createNewConversationForTicket(params: [String: Any], completion: @escaping HippoChannelCreationHandler) {
         HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: FuguEndPoints.API_CREATE_TICKET.rawValue) { (response, error, _, statusCode) in
-            guard let responseDict = response as? [String: Any], let _ = responseDict["data"] else {
-                let result = HippoChannelCreationResult(isSuccessful: false, error: error, channel: nil, isChannelAvailableLocallay: false)
+            guard let responseDict = response as? [String: Any], let data = responseDict["data"] as? [String: Any] else {
+                let result = HippoChannelCreationResult(isSuccessful: false, error: error, channel: nil, isChannelAvailableLocallay: false, botMessageID: nil)
                 completion(result)
                 return
             }
-            let result = HippoChannelCreationResult(isSuccessful: true, error: nil, channel: nil, isChannelAvailableLocallay: false)
+            let botMessageID: String? = String.parse(values: data, key: "bot_message_id")
+            let result = HippoChannelCreationResult(isSuccessful: true, error: nil, channel: nil, isChannelAvailableLocallay: false, botMessageID: botMessageID)
             completion(result)
         }
     }
@@ -379,10 +391,13 @@ class HippoChannel {
         if !isSubscribed()  {
             subscribe()
         }
+        if message.messageUniqueID == nil {
+            message.messageUniqueID = String.generateUniqueId()
+        }
+        refreshHashMap()
         let messageDict = message.getJsonToSendToFaye()
         
-//        print("@@@@@@@@@@\(messageDict)")
-        
+        HippoConfig.shared.log.debug("sendFormValues \(messageDict)", level: .socket)
         FayeConnection.shared.send(messageDict: messageDict, toChannelID: id.description) { (result) in
             if result.success {
                 message.status = ReadUnReadStatus.sent
@@ -399,7 +414,7 @@ class HippoChannel {
         FayeConnection.shared.subscribeTo(channelId: id.description, completion: {(success) in
             completion?(success, nil)
         }) {[weak self] (messageDict) in
-            HippoConfig.shared.log.trace("Active channel -\(self?.id ?? 0000) >>>>> \(messageDict)", level: .socket)
+            HippoConfig.shared.log.trace("Active channel Recieveddddd -\(self?.id ?? 0000) >>>>> \(messageDict)", level: .socket)
             guard let message = HippoMessage.createMessage(rawMessage: messageDict) else {
                 return
             }
@@ -429,8 +444,7 @@ class HippoChannel {
         guard message.type.isMessageTypeHandled() else {
             return
         }
-        let muid = message.messageUniqueID
-        let messageReference = getMessageWith(muid: muid)
+        let messageReference = findAnyReferenceOf(message: message)
         
         if message.isSentByMe(), let refernece = messageReference {
             refernece.status = .sent
@@ -456,6 +470,21 @@ class HippoChannel {
         }
     }
     
+    func findAnyReferenceOf(message: HippoMessage) -> HippoMessage? {
+        let muid = message.messageUniqueID
+        let messageID = message.messageId
+        
+        return getMessageWith(muid: muid) ?? getMessageWith(messageId: messageID)
+    }
+    func getMessageWith(messageId: Int?) -> HippoMessage? {
+        guard let parsedMessageId = messageId, parsedMessageId > 0 else {
+            return nil
+        }
+        let index = messages.firstIndex(where: { (mes) -> Bool in
+            return mes.messageId == parsedMessageId
+        })
+        return index == nil ? nil : messages[index!]
+    }
     func getMessageWith(muid: String?) -> HippoMessage? {
         guard let parsedMuid = muid else {
             return nil

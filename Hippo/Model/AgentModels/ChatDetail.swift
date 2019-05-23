@@ -28,6 +28,9 @@ class ChatDetail: NSObject {
     var allowVideoCall = false
     var allowAudioCall = false
     
+    var botMessageMUID: String = ""
+    var botMessageID: String = ""
+    
     
     
     init(json: [String: Any]) {

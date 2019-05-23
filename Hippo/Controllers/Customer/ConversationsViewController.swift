@@ -63,7 +63,7 @@ protocol NewChatSentDelegate: class {
 
    
     deinit {
-        
+        HippoChannel.botMessageMUID = nil
         NotificationCenter.default.removeObserver(self)
         HippoConfig.shared.notifiyDeinit()
     }
@@ -77,7 +77,7 @@ protocol NewChatSentDelegate: class {
     
         guard channel != nil else {
         if createConversationOnStart {
-            startNewConversation(completion: { [weak self] (success) in
+            startNewConversation(completion: { [weak self] (success, result) in
                 guard success else {
                     return
                 }
@@ -317,16 +317,17 @@ protocol NewChatSentDelegate: class {
       let trimmedMessage = messageTextView.text.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
       
       let message = HippoMessage(message: trimmedMessage, type: .normal, uniqueID: String.generateUniqueId())
-      channel?.unsentMessages.append(message)
+    
     // Check if we have quick reply pending action
        sendQuickReplyReposeIfRequired()
-      
+    
+    channel?.unsentMessages.append(message)
       if channel != nil {
          addMessageToUIBeforeSending(message: message)
          self.sendMessage(message: message)
       } else {
          //TODO: - Loader animation
-         startNewConversation(completion: { [weak self] (success) in
+         startNewConversation(completion: { [weak self] (success, result) in
             if success {
                self?.populateTableViewWithChannelData()
                self?.addMessageToUIBeforeSending(message: message)
@@ -635,7 +636,7 @@ protocol NewChatSentDelegate: class {
         directChatDetail = FuguNewChatAttributes.defaultChat
         navigationTitleLabel.text = (userDetailData["business_name"] as? String) ?? "Support"
         completion?()
-        startNewConversation(completion: { [weak self] (success) in
+        startNewConversation(completion: { [weak self] (success, result) in
             if success {
                 self?.populateTableViewWithChannelData()
                 self?.fetchMessagesFrom1stPage()
@@ -655,14 +656,7 @@ protocol NewChatSentDelegate: class {
          completion?()
          return
       }
-//
-//      let params: [String: Any] = [
-//         "app_secret_key" : FuguConfig.shared.appSecretKey,
-//         "label_id" : labelId,
-//         "en_user_id" : FuguConfig.shared.userDetail?.fuguEnUserID ?? "-1",
-//         "page_start": 1
-//      ]
-//
+        
       if channel?.messages.count == 0  || channel == nil {
          startLoaderAnimation()
       } else if !isPaginationInProgress() {
@@ -698,7 +692,7 @@ protocol NewChatSentDelegate: class {
     
     }
    
-    override func startNewConversation(completion: ((_ success: Bool) -> Void)?) {
+    override func startNewConversation(completion: ((_ success: Bool, _ result: HippoChannelCreationResult?) -> Void)?) {
       
       disableSendingNewMessages()
       if FuguNetworkHandler.shared.isNetworkConnected == false {
@@ -718,20 +712,39 @@ protocol NewChatSentDelegate: class {
          HippoChannel.get(withLabelId: labelId.description) { [weak self] (result) in
             self?.enableSendingNewMessages()
             self?.channelCreatedSuccessfullyWith(result: result)
-            completion?(result.isSuccessful)
+            self?.getMessagesAfterCreateConversation(callback: { (sucess) in
+                completion?(result.isSuccessful, result)
+            })
          }
       } else if directChatDetail != nil {
          HippoChannel.get(withFuguChatAttributes: directChatDetail!) { [weak self] (result) in
             self?.enableSendingNewMessages()
             self?.channelCreatedSuccessfullyWith(result: result)
-            completion?(result.isSuccessful)
+            completion?(result.isSuccessful, result)
          }
       } else {
          enableSendingNewMessages()
          stopLoaderAnimation()
       }
    }
-   
+    func getMessagesAfterCreateConversation(callback: @escaping ((_ success: Bool) -> Void)) {
+        guard shouldHitGetMessagesAfterCreateConversation() else {
+            callback(false)
+            return
+        }
+        getMessagesBasedOnChannel(fromMessage: 1, pageEnd: nil) {
+            callback(true)
+        }
+    }
+    func shouldHitGetMessagesAfterCreateConversation() -> Bool {
+        let formCount = channel?.messages.filter({ (h) -> Bool in
+            return h.type == MessageType.botFormMessage
+        }).count ?? 0
+        
+        let isFormPresent = formCount > 0 ? true : false
+        let botMessageMUID = HippoChannel.botMessageMUID ?? ""
+        return isFormPresent && botMessageMUID.isEmpty
+    }
    func enableSendingNewMessages() {
       addFileButtonAction.isUserInteractionEnabled = true
       messageTextView.isEditable = true
@@ -744,22 +757,30 @@ protocol NewChatSentDelegate: class {
       sendMessageButton.isEnabled = false
    }
       
-   func channelCreatedSuccessfullyWith(result: HippoChannelCreationResult) {
-    if let error = result.error, !result.isSuccessful {
-        errorMessage = error.localizedDescription
-        showErrorMessage()
-        updateErrorLabelView(isHiding: true)
+    func channelCreatedSuccessfullyWith(result: HippoChannelCreationResult) {
+        if let error = result.error, !result.isSuccessful {
+            errorMessage = error.localizedDescription
+            showErrorMessage()
+            updateErrorLabelView(isHiding: true)
+        }
+        
+        guard result.isSuccessful else {
+            stopLoaderAnimation()
+            return
+        }
+        channel = result.channel
+        channel.delegate = self
+        
+        let (sentMessage, unsentMessage) = getMessageFromGrouped(messages: messagesGroupedByDate)
+        channel?.sentMessages = sentMessage
+        channel?.unsentMessages = unsentMessage
+        self.updateMessagesInLocalArrays(messages: [])
+        tableViewChat.reloadData()
+        
+        sendReadAllNotification()
+        
+        stopLoaderAnimation()
     }
-    
-      guard result.isSuccessful else {
-         stopLoaderAnimation()
-         return
-      }
-      channel = result.channel
-      channel.delegate = self
-      sendReadAllNotification()
-      stopLoaderAnimation()
-   }
    
    func updateChatInfoWith(chatObj: FuguConversation) {
       
@@ -1031,21 +1052,23 @@ extension ConversationsViewController {
          }
       }
    }
-   
-//   func isMessageInvalid(messageText: String) -> Bool {
-//      if messageText.replacingOccurrences(of: " ", with: "").count == 0 ||
-//         messageText.trimWhiteSpacesAndNewLine().count == 0 {
-//
-//         if FuguNetworkHandler.shared.isNetworkConnected == false {
-//            return true
-//         }
-//         errorMessage = HippoConfig.shared.strings.enterSomeText
-//         showErrorMessage()
-//         self.updateErrorLabelView(isHiding: true)
-//         return true
-//      }
-//      return false
-//   }
+
+    func getMessageFromGrouped(messages: [[HippoMessage]]) -> (sentMessage: [HippoMessage], unsentMessages: [HippoMessage]) {
+        var sentMessages: [HippoMessage] = []
+        var unSentMessages: [HippoMessage] = []
+        
+        for messageArray in messages {
+            for message in messageArray {
+                switch message.status {
+                case .none:
+                    unSentMessages.append(message)
+                default:
+                    sentMessages.append(message)
+                }
+            }
+        }
+        return (sentMessages, unSentMessages)
+    }
    
    func internetIsBack() {
 //      getMessagesBasedOnChannel(fromMessage: 1, completion: nil)
@@ -1924,9 +1947,18 @@ extension ConversationsViewController: LeadTableViewCellDelegate {
         }
         let message = messagesGroupedByDate[indexPath.section][indexPath.row]
         message.leadsDataArray = data
+        HippoChannel.botMessageMUID = String.generateUniqueId()
         
-        createChannelIfRequiredAndContinue {[weak self] (success) in
+        createChannelIfRequiredAndContinue {[weak self] (success, result) in
+            if let botMessageID = result?.botMessageID {
+               message.messageId = Int(botMessageID)
+            }
+            message.messageUniqueID = HippoChannel.botMessageMUID
+            message.botFormMessageUniqueID = HippoChannel.botMessageMUID
+            HippoChannel.botMessageMUID = nil
+            
             self?.channel?.sendFormValues(message: message, completion: {
+                message.botFormMessageUniqueID =  nil
                 self?.cellUpdated(for: cell, data: data)
             })
         }
@@ -1954,7 +1986,7 @@ extension ConversationsViewController: BotOtgoingMessageCellDelegate {
     }
     
     func sendQuickMessage(shouldSendButtonTitle: Bool, chat: HippoMessage, buttonIndex: Int) {
-        createChannelIfRequiredAndContinue {[weak self] (success) in
+        createChannelIfRequiredAndContinue {[weak self] (success, result) in
             if shouldSendButtonTitle {
                 self?.sendQuickReplyMessage(with: chat.content.buttonTitles[buttonIndex])
                 fuguDelay(0.2, completion: {
@@ -1973,9 +2005,9 @@ extension ConversationsViewController: BotOtgoingMessageCellDelegate {
         }
         
     }
-    func createChannelIfRequiredAndContinue(completion: @escaping ((_ success: Bool) -> ())) {
+    func createChannelIfRequiredAndContinue(completion: @escaping ((_ success: Bool, _ result: HippoChannelCreationResult?) -> ())) {
         if channel != nil {
-            completion(true)
+            completion(true, nil)
         } else {
             startNewConversation(completion: completion)
         }

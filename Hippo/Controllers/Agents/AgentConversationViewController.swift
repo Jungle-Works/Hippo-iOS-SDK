@@ -72,7 +72,7 @@ class AgentConversationViewController: HippoConversationViewController {
         configureChatScreen()
         
         guard channel != nil else {
-            startNewConversation(completion: { [weak self] (success) in
+            startNewConversation(completion: { [weak self] (success, result) in
                 if success {
                     self?.populateTableViewWithChannelData()
                     self?.fetchMessagesFrom1stPage()
@@ -243,7 +243,7 @@ class AgentConversationViewController: HippoConversationViewController {
             self.sendMessage(message: message)
         } else {
             //TODO: - Loader animation
-            startNewConversation(completion: { [weak self] (success) in
+            startNewConversation(completion: { [weak self] (success, result) in
                 if success {
                     self?.populateTableViewWithChannelData()
                     self?.addMessageToUIBeforeSending(message: message)
@@ -366,7 +366,8 @@ class AgentConversationViewController: HippoConversationViewController {
         return loadMoreActivityTopContraint.constant == 10
     }
     
-    override func getMessagesBasedOnChannel(fromMessage pageStart: Int, pageEnd: Int?, completion: (() -> Void)?) {
+    override func
+        getMessagesBasedOnChannel(fromMessage pageStart: Int, pageEnd: Int?, completion: (() -> Void)?) {
         
         guard channel != nil else {
             completion?()
@@ -472,7 +473,7 @@ class AgentConversationViewController: HippoConversationViewController {
     }
     
     
-    override func startNewConversation(completion: ((_ success: Bool) -> Void)?) {
+    override func startNewConversation(completion: ((_ success: Bool, _ result: HippoChannelCreationResult) -> Void)?) {
         
         disableSendingNewMessages()
         if FuguNetworkHandler.shared.isNetworkConnected == false {
@@ -496,7 +497,7 @@ class AgentConversationViewController: HippoConversationViewController {
             HippoChannel.get(withFuguChatAttributes: agentDirectChatDetail!) { [weak self] (result) in
                 self?.enableSendingNewMessages()
                 self?.channelCreatedSuccessfullyWith(result: result)
-                completion?(result.isSuccessful)
+                completion?(result.isSuccessful, result)
             }
         } else {
             enableSendingNewMessages()

@@ -10,6 +10,22 @@ import UIKit
 import MobileCoreServices
 
 extension String {
+    
+    static func parse(values: [String :Any], key: String, defaultValue: String = "") -> String {
+        if let rawKey = values[key] as? String {
+            return rawKey
+        } else if let rawKey = values[key] as? Int {
+            return String(rawKey)
+        }  else if let rawKey = values[key] as? UInt {
+            return String(rawKey)
+        } else if let rawKey = values[key] as? NSNumber {
+            return "\(rawKey)"
+        }  else if let rawKey = values[key] as? Double {
+            return String(rawKey)
+        }
+        return defaultValue
+    }
+    
     func stringByReplacingFirstOccurrenceOfString(target: String, withString replaceString: String) -> String {
         if let range = self.range(of: target) {
             return self.replacingCharacters(in: range, with: replaceString)

@@ -13,7 +13,7 @@ class FuguChannelPersistancyManager {
    static let shared = FuguChannelPersistancyManager()
    
    private var channels = [HippoChannel]()
-   let maxChannelCount = 5
+   let maxChannelCount = 1
    
    
    private init() {
