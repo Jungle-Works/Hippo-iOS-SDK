@@ -32,6 +32,9 @@ class ChatDetail: NSObject {
     var botMessageID: String = ""
     
     
+    init(channelID: Int) {
+        self.channelId = channelID
+    }
     
     init(json: [String: Any]) {
         channelId = json["channel_id"] as? Int ?? -1
@@ -122,5 +125,18 @@ class ChatDetail: NSObject {
         dict["allow_video_call"] = allowVideoCall
         dict["allow_audio_call"] = allowAudioCall
         return dict
+    }
+    
+    
+    func updatePeerData(users: [User]) {
+        let filterUser = users.filter { (u) -> Bool in
+            return u.userID != currentUserId()
+        }
+        guard let user  = filterUser.first else {
+            return
+        }
+        peerDetail = ["user_id": user.userID,
+                      "full_name": user.fullName,
+                      "user_image": user.image]
     }
 }

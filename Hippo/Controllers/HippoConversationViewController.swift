@@ -551,29 +551,29 @@ class HippoConversationViewController: UIViewController {
     }
     
     func canStartAudioCall() -> Bool {
-//        guard canMakeAnyCall() else {
-//            return false
-//        }
-//        guard HippoConfig.shared.isAudioCallEnabled else {
-//            return false
-//        }
-//        guard let allowAudioCall = channel?.chatDetail?.allowAudioCall, allowAudioCall  else {
-//            return false
-//        }
+        guard canMakeAnyCall() else {
+            return false
+        }
+        guard HippoConfig.shared.isAudioCallEnabled else {
+            return false
+        }
+        guard let allowAudioCall = channel?.chatDetail?.allowAudioCall, allowAudioCall  else {
+            return false
+        }
         return true
         
     }
     
     func canStartVideoCall() -> Bool {
-//        guard canMakeAnyCall() else {
-//            return false
-//        }
-//        guard HippoConfig.shared.isVideoCallEnabled else {
-//            return false
-//        }
-//        guard let allowVideoCall = channel?.chatDetail?.allowVideoCall, allowVideoCall  else {
-//            return false
-//        }
+        guard canMakeAnyCall() else {
+            return false
+        }
+        guard HippoConfig.shared.isVideoCallEnabled else {
+            return false
+        }
+        guard let allowVideoCall = channel?.chatDetail?.allowVideoCall, allowVideoCall  else {
+            return false
+        }
         return true
         
     }

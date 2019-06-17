@@ -21,6 +21,7 @@ protocol HippoChannelDelegate: class {
     func typingMessageReceived(newMessage: HippoMessage)
     func sendingFailedFor(message: HippoMessage)
     func cancelSendingMessage(message: HippoMessage, errorMessage: String?)
+    func channelDataRefreshed()
 }
 
 //TODO: - Subscribe Fail-safe -> subscribe channel again if it is disconnected
@@ -233,6 +234,9 @@ class HippoChannel {
             }
             
             let channel = FuguChannelPersistancyManager.shared.getChannelBy(id: channelID)
+            if channel.chatDetail == nil {
+                channel.chatDetail = ChatDetail(channelID: channelID)
+            }
             let botMessageID: String? = String.parse(values: data, key: "bot_message_id")
             let result = HippoChannelCreationResult(isSuccessful: true, error: nil, channel: channel, isChannelAvailableLocallay: false, botMessageID: botMessageID)
             if let transactionID = params["transaction_id"] as? String {
@@ -415,6 +419,9 @@ class HippoChannel {
             completion?(success, nil)
         }) {[weak self] (messageDict) in
             HippoConfig.shared.log.trace("Active channel Recieveddddd -\(self?.id ?? 0000) >>>>> \(messageDict)", level: .socket)
+            guard let weakSelf = self, weakSelf.handleByNotification(dict: messageDict) else {
+                return
+            }
             guard let message = HippoMessage.createMessage(rawMessage: messageDict) else {
                 return
             }
@@ -429,6 +436,41 @@ class HippoChannel {
             self?.messageReceived(message: message)
         }
     }
+    //should Continue after handling NotificationType
+    func handleByNotification(dict: [String: Any]) -> Bool {
+        guard let rawNotificationType = Int.parse(values: dict, key: "notification_type"), let notificationType = NotificationType(rawValue: rawNotificationType) else {
+            return true
+        }
+        switch notificationType {
+        case .channelRefreshed:
+            channelRefreshed(dict: dict)
+            return false
+        default:
+            break
+        }
+        return true
+    }
+    
+    func channelRefreshed(dict: [String: Any]) {
+        //ChannelId should be same as current channelId
+        guard let channelId = Int.parse(values: dict, key: "channel_id"), id == channelId else {
+            return
+        }
+        let shouldShowToCustomer = Bool.parse(key: "is_customer_allowed_to_initiate_video_call", json: dict, defaultValue: false)
+        guard let allUsers = dict["all_users"] as? [[String: Any]], !allUsers.isEmpty else {
+            return
+        }
+        let users = User.parseArray(list: allUsers)
+        guard let (_, _) = User.find(userId: currentUserId(), from: users), (shouldShowToCustomer || HippoConfig.shared.appUserType == .agent) else {
+            return
+        }
+        chatDetail?.allowAudioCall = Bool.parse(key: "allow_audio_call", json: dict) ?? chatDetail?.allowAudioCall ?? false
+        chatDetail?.allowVideoCall = Bool.parse(key: "allow_video_call", json: dict) ?? chatDetail?.allowVideoCall ?? false
+        chatDetail?.updatePeerData(users: users)
+        delegate?.channelDataRefreshed()
+    }
+    
+    
     func messageReceived(message: HippoMessage) {
         
         if message.isANotification() && canChangeStatusOfMessagesToReadAllIf(messageReceived: message) {

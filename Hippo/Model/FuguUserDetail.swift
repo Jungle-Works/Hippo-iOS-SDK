@@ -14,11 +14,43 @@ typealias FuguUserDetailCallback = (_ success: Bool, _ error: Error?) -> Void
 
 class User: NSObject {
     var enUserID: String = ""
-    var userID: String = ""
+    var userID: Int
     var fullName: String = ""
     var email: String = ""
     var phoneNumber: String = ""
     var userType: UserType = .customer
+    var image: String = ""
+    
+    init?(dict: [String: Any]) {
+        guard let rawUserId = Int.parse(values: dict, key: "user_id") else {
+            return nil
+        }
+        self.userID = rawUserId
+        self.fullName = dict["full_name"] as? String ?? ""
+        self.image = dict["user_image"] as? String ?? ""
+    }
+    
+    class func parseArray(list: [[String: Any]]) -> [User] {
+        var users: [User] = []
+        
+        for each in list {
+            guard let user = User(dict: each) else {
+                continue
+            }
+            users.append(user)
+        }
+        return users
+    }
+    class func find(userId: Int, from list: [User]) -> (User, Int)? {
+        let userIndex = list.firstIndex { (u) -> Bool in
+            return u.userID == userId
+        }
+        guard let parsedUserIndex = userIndex else {
+            return nil
+        }
+        return (list[parsedUserIndex], parsedUserIndex)
+    }
+    
 }
 
 public class UserTag: NSObject {

@@ -169,6 +169,7 @@ enum NotificationType: Int {
     case agentsRefresh = 10
     case agentRefresh = 11
     case markConversation = 12
+    case channelRefreshed = 13
     
     case call = 14
     

@@ -1403,6 +1403,13 @@ extension AgentConversationViewController: ImageCellDelegate {
 }
 
 extension AgentConversationViewController: HippoChannelDelegate {
+    func channelDataRefreshed() {
+        handleAudioIcon()
+        handleVideoIcon()
+        tableViewChat.reloadData()
+    }
+    
+    
     func cancelSendingMessage(message: HippoMessage, errorMessage: String?) {
         self.cancelMessage(message: message)
         

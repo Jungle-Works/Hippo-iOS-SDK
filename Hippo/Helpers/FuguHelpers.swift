@@ -55,6 +55,16 @@ extension Bool {
         }
         return defaultValue
     }
+    static func parse(key: String, json: [String: Any]) -> Bool? {
+        if let raw = json[key] as? Int {
+            return raw == 1
+        } else if let raw = json[key] as? Bool {
+            return raw
+        } else if let raw = json[key] as? String {
+            return raw == "1"
+        }
+        return nil
+    }
     
     func intValue() -> Int {
         return self ? 1 : 0
