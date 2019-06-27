@@ -194,7 +194,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
             isDeleted = state == 0
             isMissedCall = state == 2
         }
-        if let rawCallType = dict["call_type"] as? String, let callType = CallType(rawValue: rawCallType) {
+        if let rawCallType = dict["call_type"] as? String, let callType = CallType(rawValue: rawCallType.uppercased()) {
             self.callType = callType
         }
 
@@ -286,7 +286,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         let senderFullName = (convoDict["last_sent_by_full_name"] as? String) ?? ""
         self.senderFullName = senderFullName.formatName()
         self.callDurationInSeconds = convoDict["video_call_duration"] as? Double
-        if let rawCallType = convoDict["call_type"] as? String, let callType = CallType(rawValue: rawCallType) {
+        if let rawCallType = convoDict["call_type"] as? String, let callType = CallType(rawValue: rawCallType.uppercased()) {
             self.callType = callType
         }
         
