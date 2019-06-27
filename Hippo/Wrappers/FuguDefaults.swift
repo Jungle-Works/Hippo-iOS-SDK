@@ -70,7 +70,7 @@ class FuguDefaults: NSObject {
             } catch let error as NSError { HippoConfig.shared.log.trace(error, level: .customError) }
         }
     }
-    /// This method is used to get the URL of Fugu content and create if doesnot exist
+    /// This method is used to get the URL of Hippocontent and create if doesnot exist
     ///
     /// - Returns: It returns the URL of 'FuguContent' folder, return value could be nil in case of any exception
     class func fuguContentDirectoryURL() -> URL? {

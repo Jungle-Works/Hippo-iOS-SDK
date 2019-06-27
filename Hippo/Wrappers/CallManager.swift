@@ -43,10 +43,10 @@ class CallManager {
             return
         }
         let type = getCallTypeWith(localType: callType)
-        let request = PresentCallRequest.init(peer: peer, callType: type)
-        if callType == .video {
+        let request = PresentCallRequest.init(peer: peer, callType: type, callUUID: muid)
+//        if callType == .video {
             HippoCallClient.shared.startConnecting(call: request, uuid: muid)
-        }
+//        }
         #endif
     }
     
