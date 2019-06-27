@@ -11,8 +11,8 @@ import UIKit
 
 
 internal let screenScale = UIScreen.main.scale
-internal let applicationWillBecomeActiveNotfication = NSNotification.Name.UIApplicationWillEnterForeground
-internal let applicationDidResignActiveNotification = NSNotification.Name.UIApplicationDidEnterBackground
+internal let applicationWillBecomeActiveNotfication = UIApplication.willEnterForegroundNotification
+internal let applicationDidResignActiveNotification = UIApplication.didEnterBackgroundNotification
 #elseif os(macOS)
 import Cocoa
 
@@ -110,7 +110,7 @@ open class CallPulsator: CAReplicatorLayer, CAAnimationDelegate {
     @objc open var pulseInterval: TimeInterval = 0
     
     /// A function describing a timing curve of the animation.
-    @objc open var timingFunction: CAMediaTimingFunction? = CAMediaTimingFunction(name: kCAMediaTimingFunctionDefault) {
+    @objc open var timingFunction: CAMediaTimingFunction? = CAMediaTimingFunction(name: CAMediaTimingFunctionName.default) {
         didSet {
             if let animationGroup = animationGroup {
                 animationGroup.timingFunction = timingFunction
