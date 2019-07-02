@@ -27,7 +27,9 @@ class CallManager {
     func startCall(call: CallData, completion: @escaping (Bool) -> Void) {
         #if canImport(HippoCallClient)
         let peerUser = call.peerData
-        let peer = HippoUser(name: peerUser.fullName, userID: peerUser.userID, imageURL: peerUser.image)
+        guard let peer = HippoUser(name: peerUser.fullName, userID: peerUser.userID, imageURL: peerUser.image) else {
+            return
+        }
         guard let currentUser = getCurrentUser() else {
             return
         }
@@ -40,7 +42,9 @@ class CallManager {
     
     func startConnection(peerUser: User, muid: String, callType: CallType, completion: (Bool) -> Void) {
         #if canImport(HippoCallClient)
-        let peer = HippoUser(name: peerUser.fullName, userID: peerUser.userID, imageURL: peerUser.image)
+        guard let peer = HippoUser(name: peerUser.fullName, userID: peerUser.userID, imageURL: peerUser.image) else {
+            return
+        }
         let type = getCallTypeWith(localType: callType)
         let request = PresentCallRequest.init(peer: peer, callType: type, callUUID: muid)
         HippoCallClient.shared.startConnecting(call: request, uuid: muid)

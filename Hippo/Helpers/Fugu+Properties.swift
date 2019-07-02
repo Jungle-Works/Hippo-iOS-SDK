@@ -11,8 +11,8 @@ import Foundation
 let HippoSDKSource = 1
 let Device_Type_iOS = 2
 var userDetailData = [String: Any]()
-let fuguAppVersion = "1.7.37"
-let versionCode = 221
+let fuguAppVersion = "1.7.38"
+let versionCode = 222
 
 /*
  201 = Bot messages
@@ -38,4 +38,5 @@ let versionCode = 221
  219 *** 1.7.35 = Vidoe call changes, handled audio call connecting state
  220 *** 1.7.36 = handled lowercase CallType
  221 *** 1.7.37 = userImage changes
+ 222 *** 1.7.38 = hot fix for HippoUser
  */
