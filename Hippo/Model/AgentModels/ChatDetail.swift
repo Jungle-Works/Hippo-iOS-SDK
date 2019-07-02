@@ -23,7 +23,7 @@ class ChatDetail: NSObject {
     
     var chatType: ChatType = .none
     
-    var peerDetail: [String: Any]?
+    var peerDetail: User?
     var peerName: String = ""
     var allowVideoCall = false
     var allowAudioCall = false
@@ -64,9 +64,7 @@ class ChatDetail: NSObject {
             assignedAgentName = "Unassigned"
         }
         
-        var tempPeerId: Int = -1
-        var tempPeerName: String = ""
-        var tempPeerImage: String = ""
+       var tempPeerDetail: User?
         
         let otherUsers = json["other_users"] as? [[String: Any]] ?? []
         
@@ -75,26 +73,18 @@ class ChatDetail: NSObject {
         
         switch (HippoConfig.shared.appUserType, otherUsers.count > 0) {
         case (.agent, _):
-            tempPeerId = customerID
-            tempPeerName = customerName
+            tempPeerDetail = User(name: customerName, imageURL: nil, userId: customerID)
         case (.customer, true):
             let user = otherUsers[0]
-            tempPeerName = user["full_name"] as? String ?? ""
-            tempPeerId = Int.parse(values: user, key: "user_id") ?? -1
-            tempPeerImage = user["user_image"] as? String ?? ""
+            tempPeerDetail = User(dict: user)
         case (.customer, false):
-            tempPeerName = assignedAgentName
-            tempPeerId = assignedAgentID
+            tempPeerDetail = User(name: assignedAgentName, imageURL: nil, userId: assignedAgentID)
         }
         
-        if tempPeerId > 0  {
-            peerName = tempPeerName.trimWhiteSpacesAndNewLine()
-            peerDetail = ["user_id": tempPeerId,
-                          "full_name": tempPeerName,
-                          "user_image": tempPeerImage]
+        if let id = tempPeerDetail?.userID, id > 0  {
+            peerDetail = tempPeerDetail
         } else if let peerDetail = json["peerDetail"] as? [ String: Any] {
-            self.peerName = (peerDetail["full_name"] as? String ?? "").trimWhiteSpacesAndNewLine()
-            self.peerDetail = peerDetail
+            self.peerDetail = User(dict: peerDetail)
         }
     }
     
@@ -119,8 +109,8 @@ class ChatDetail: NSObject {
         
         dict["tags"] = TagDetail.getObjectToStore(tags: channelTags)
         
-        if peerDetail != nil {
-            dict["peerDetail"] = peerDetail
+        if let parsedPeerData = peerDetail {
+            dict["peerDetail"] = parsedPeerData.toJson()
         }
         dict["allow_video_call"] = allowVideoCall
         dict["allow_audio_call"] = allowAudioCall
@@ -135,8 +125,6 @@ class ChatDetail: NSObject {
         guard let user  = filterUser.first else {
             return
         }
-        peerDetail = ["user_id": user.userID,
-                      "full_name": user.fullName,
-                      "user_image": user.image]
+        peerDetail = user
     }
 }

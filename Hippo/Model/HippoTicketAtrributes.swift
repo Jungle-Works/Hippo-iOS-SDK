@@ -8,7 +8,7 @@
 
 import Foundation
 
-@objc public class HippoTicketAtrributes: NSObject {
+public class HippoTicketAtrributes: NSObject {
     var FAQName = ""
     var transactionId: String? = nil
     

@@ -19,7 +19,7 @@ class User: NSObject {
     var email: String = ""
     var phoneNumber: String = ""
     var userType: UserType = .customer
-    var image: String = ""
+    var image: String?
     
     init?(dict: [String: Any]) {
         guard let rawUserId = Int.parse(values: dict, key: "user_id") else {
@@ -27,7 +27,26 @@ class User: NSObject {
         }
         self.userID = rawUserId
         self.fullName = dict["full_name"] as? String ?? ""
-        self.image = dict["user_image"] as? String ?? ""
+        self.image = dict["user_image"] as? String
+    }
+    init(name: String, imageURL: String?, userId: Int) {
+        self.fullName = name
+        self.image = imageURL
+        self.userID = userId
+    }
+    
+    func toJson() -> [String: Any] {
+        var json: [String: Any] = ["full_name": self.fullName]
+        
+        if userID > 0 {
+            json["user_id"] = userID
+        }
+        
+        if let parsedURL = image {
+            json["user_image"] = parsedURL
+        }
+        
+        return json
     }
     
     class func parseArray(list: [[String: Any]]) -> [User] {
@@ -87,6 +106,7 @@ public class UserTag: NSObject {
     var customAttributes: [String: Any]?
     var userTags: [UserTag] = []
     var customRequest: [String: Any] = [:]
+    var userImage: URL?
     
     
     class var fuguUserID: Int? {
@@ -110,7 +130,7 @@ public class UserTag: NSObject {
     // MARK: - Intializer
     override init() {}
     
-    public init(fullName: String, email: String, phoneNumber: String, userUniqueKey: String, addressAttribute: HippoAttributes? = nil, customAttributes: [String: Any]? = nil, userTags: [UserTag]? = nil) {
+    public init(fullName: String, email: String, phoneNumber: String, userUniqueKey: String, addressAttribute: HippoAttributes? = nil, customAttributes: [String: Any]? = nil, userTags: [UserTag]? = nil, userImage: String? = nil) {
         super.init()
         
         self.fullName = fullName
@@ -121,6 +141,10 @@ public class UserTag: NSObject {
         self.customAttributes = customAttributes
         
         self.userTags = userTags ?? []
+        
+        if let parsedUserImage = userImage, let url = URL(string: parsedUserImage) {
+            self.userImage = url
+        }
     }
     
     func getUserTagsJSON() -> [[String: Any]] {
@@ -214,6 +238,10 @@ public class UserTag: NSObject {
         }
         if HippoConfig.shared.voipToken.isEmpty == false {
             params["voip_token"] = HippoConfig.shared.voipToken
+        }
+        
+        if let image = userImage {
+            params["user_image"] = image.absoluteString
         }
         
         params["device_details"] = AgentDetail.getDeviceDetails()

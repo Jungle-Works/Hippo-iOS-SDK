@@ -21,6 +21,9 @@ public struct PeerToPeerChat {
    
    /// Name you want to give your chat
    public var channelName: String
+    
+   //Other userImage to show
+    public var otherUserImage: URL?
    
     
   // Name Of Peer
@@ -30,19 +33,23 @@ public struct PeerToPeerChat {
     - parameter idsOfPeers: Unique IDs of peers with whom you want to start chat.
     - parameter channelName: Name you want to give your chat
     */
-    public init?(uniqueChatId: String?, myUniqueId: String, idsOfPeers: [String], channelName: String, peerName: String = "") {
-      
-      guard idsOfPeers.count > 0 else {
-         //NSLog("Ids of peers not found")
-         return nil
-      }
-      
-      self.userUniqueId = myUniqueId
-      self.uniqueChatId = uniqueChatId
-      self.idsOfPeers = idsOfPeers
-      self.channelName = channelName
+    public init?(uniqueChatId: String?, myUniqueId: String, idsOfPeers: [String], channelName: String, peerName: String = "", otherUserImage: String? = nil) {
         
-      self.peerName = peerName
-   }
+        guard idsOfPeers.count > 0 else {
+            //NSLog("Ids of peers not found")
+            return nil
+        }
+        
+        self.userUniqueId = myUniqueId
+        self.uniqueChatId = uniqueChatId
+        self.idsOfPeers = idsOfPeers
+        self.channelName = channelName
+        
+        self.peerName = peerName
+        
+        if let parsedImage = otherUserImage, let parsedURL = URL(string: parsedImage) {
+            self.otherUserImage = parsedURL
+        }
+    }
    
 }

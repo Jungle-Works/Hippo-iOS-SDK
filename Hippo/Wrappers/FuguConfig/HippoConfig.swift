@@ -418,10 +418,8 @@ public class HippoConfig : NSObject {
     }
     private func findChannelAndStartCall(data: PeerToPeerChat, callType: CallType, completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
         let uuid: String = String.uuid()
-        let json: [String: Any] = ["user_id": -222,
-                                   "full_name": data.peerName]
-        
-        CallManager.shared.startConnection(peerJson: json, muid: uuid, callType: callType, completion: { success in })
+        let peer = User(name: data.peerName, imageURL: data.otherUserImage?.absoluteString, userId: -222)
+        CallManager.shared.startConnection(peerUser: peer, muid: uuid, callType: callType, completion: { success in })
         
         let attributes = FuguNewChatAttributes(transactionId: data.uniqueChatId ?? "", userUniqueKey: data.userUniqueId, otherUniqueKey: data.idsOfPeers, tags: nil, channelName: data.channelName, preMessage: "", groupingTag: nil)
         
@@ -431,7 +429,7 @@ public class HippoConfig : NSObject {
                 completion(false, HippoError.threwError(message: "Something went wrong while creating channel."))
                 return
             }
-            let call = CallData.init(peerData: json, callType: callType, muid: uuid, signallingClient: channel)
+            let call = CallData.init(peerData: peer, callType: callType, muid: uuid, signallingClient: channel)
             
             CallManager.shared.startCall(call: call, completion: { (success) in
                 if !success {

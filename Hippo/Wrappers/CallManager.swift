@@ -9,12 +9,11 @@ import Foundation
 
 
 struct CallData {
-    var peerData: [String: Any]
+    var peerData: User
     var callType: CallType
     var muid: String
     var signallingClient: HippoChannel
 }
-
 
 #if canImport(HippoCallClient)
 import HippoCallClient
@@ -27,7 +26,9 @@ class CallManager {
     
     func startCall(call: CallData, completion: @escaping (Bool) -> Void) {
         #if canImport(HippoCallClient)
-        guard let peer = HippoUser(json: call.peerData), let currentUser = getCurrentUser() else {
+        let peerUser = call.peerData
+        let peer = HippoUser(name: peerUser.fullName, userID: peerUser.userID, imageURL: peerUser.image)
+        guard let currentUser = getCurrentUser() else {
             return
         }
         let callToMake = Call(peer: peer, signalingClient: call.signallingClient, uID: call.muid, currentUser: currentUser, type: getCallTypeWith(localType: call.callType))
@@ -37,16 +38,12 @@ class CallManager {
         #endif
     }
     
-    func startConnection(peerJson: [String: Any], muid: String, callType: CallType, completion: (Bool) -> Void) {
+    func startConnection(peerUser: User, muid: String, callType: CallType, completion: (Bool) -> Void) {
         #if canImport(HippoCallClient)
-        guard let peer = HippoUser(json: peerJson) else {
-            return
-        }
+        let peer = HippoUser(name: peerUser.fullName, userID: peerUser.userID, imageURL: peerUser.image)
         let type = getCallTypeWith(localType: callType)
         let request = PresentCallRequest.init(peer: peer, callType: type, callUUID: muid)
-//        if callType == .video {
-            HippoCallClient.shared.startConnecting(call: request, uuid: muid)
-//        }
+        HippoCallClient.shared.startConnecting(call: request, uuid: muid)
         #endif
     }
     
@@ -80,8 +77,8 @@ class CallManager {
     
     func initCallClientIfPresent() {
         #if canImport(HippoCallClient)
-         setCredentials()
-         setCallClientDelegate()
+        setCredentials()
+        setCallClientDelegate()
         #endif
     }
     
@@ -119,6 +116,8 @@ class CallManager {
             return
         }
         HippoCallClient.shared.voipNotificationRecieved(dictionary: payloadDict, peer: peer, signalingClient: channel, currentUser: currentUser)
+        #else
+        print("cannot import HippoCallClient")
         #endif
     }
     
@@ -147,7 +146,7 @@ class CallManager {
             }
             let name = user.fullName ?? ""
             let userID = HippoUserDetail.fuguUserID ?? -1
-           
+            
             return HippoUser(name: name, userID: userID, imageURL: nil)
         case .agent:
             guard let agentDetail = HippoConfig.shared.agentDetail else {
@@ -162,7 +161,7 @@ class CallManager {
 #if canImport(HippoCallClient)
 extension CallManager: HippoCallClientDelegate {
     func loadCallPresenterView(request: CallPresenterRequest) -> CallPresenter? {
-       return HippoConfig.shared.notifyCallRequest(request)
+        return HippoConfig.shared.notifyCallRequest(request)
     }
 }
 #endif
