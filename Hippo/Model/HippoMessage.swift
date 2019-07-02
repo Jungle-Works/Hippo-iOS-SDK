@@ -165,7 +165,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         }
         self.senderId = senderId
         
-        message = (dict["message"] as? String) ?? ""
+        message = (dict["message"] as? String ?? "").trimWhiteSpacesAndNewLine().removeHtmlEntities()
         
         if let dateTimeString = dict["date_time"] as? String, let dateTime = dateTimeString.toDate {
             creationDateTime = dateTime
@@ -275,9 +275,9 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         self.senderId = sender_id
 
         if let tempMessage = convoDict["message"] as? String {
-            message = tempMessage
+            message = tempMessage.trimWhiteSpacesAndNewLine().removeHtmlEntities()
         } else if let tempMessage = convoDict["new_message"] as? String {
-            message = tempMessage
+            message = tempMessage.trimWhiteSpacesAndNewLine().removeHtmlEntities()
         } else {
             message = ""
         }
@@ -327,7 +327,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
             json += parsedRawJsonToSend
         }
         
-        json["message"] = message
+        json["message"] = message.addHTMLEntities()
         json["user_id"] = senderId
         json["full_name"] = senderFullName.formatName()
         json["date_time"] = creationDateTime.toUTCFormatString
@@ -429,7 +429,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         default:
             dict = getJsonToSendToFaye()
         }
-        
+        dict["message"] = message
         
         dict["wasMessageSendingFailed"] = getMessageSendingFailedWhenSavingInCache() 
         dict["message_status"] = status.rawValue
