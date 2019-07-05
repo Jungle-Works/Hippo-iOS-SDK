@@ -716,10 +716,14 @@ public class HippoConfig : NSObject {
             
             if channelId > 0 {
                 let conVC = ConversationsViewController.getWith(channelID: channelId, channelName: channelName)
-                visibleController?.present(conVC, animated: true, completion: nil)
+                let navVC = UINavigationController(rootViewController: conVC)
+                navVC.isNavigationBarHidden = true
+                visibleController?.present(navVC, animated: true, completion: nil)
             } else if labelId > 0 {
                 let conVC = ConversationsViewController.getWith(labelId: "\(labelId)")
-                visibleController?.present(conVC, animated: true, completion: nil)
+                let navVC = UINavigationController(rootViewController: conVC)
+                navVC.isNavigationBarHidden = true
+                visibleController?.present(navVC, animated: true, completion: nil)
             }
         }
     }
