@@ -12,7 +12,10 @@ class UnreadCountInteracter {
     
 }
 
+public typealias P2PUnreadCountCompletion = ((_ response: HippoError?, _ unreadCount: Int?) -> ())
+
 class UnreadCount {
+    
     static var unreadCountList = [String: UnreadCount]()
     static var channelUniqueKeyMapping = [Int: [String]]()
     static var userUniqueKeyList = [String]()
@@ -104,8 +107,35 @@ class UnreadCount {
         return array
     }
     
+}
+extension UnreadCount {
+    class func fetchP2PUnreadCount(request: PeerToPeerChat, callback: @escaping P2PUnreadCountCompletion) {
+        let params: [String: Any]
+        
+        do {
+          params = try request.generateParamForUnreadCount()
+        } catch {
+            callback(error as? HippoError, nil)
+            return
+        }
+        HippoConfig.shared.log.trace(params, level: .request)
+        HTTPClient.makeConcurrentConnectionWith(method: .POST, enCodingType: .json, para: params, extendedUrl: FuguEndPoints.fetchP2PUnreadCount.rawValue) { (responseObject, error, tag, statusCode) in
+            
+            guard let unwrappedStatusCode = statusCode, error == nil, unwrappedStatusCode == STATUS_CODE_SUCCESS, error == nil  else {
+                HippoConfig.shared.log.error(error ?? "Something went Wrong!!", level: .error)
+                callback(HippoError.general, nil)
+                return
+            }
+            guard let response = responseObject as? [String: Any], let data = response["data"] as? [String: Any], let unreadCount = Int.parse(values: data, key: "unread_count") else {
+                HippoConfig.shared.log.error(error ?? "Something went Wrong!!", level: .error)
+                callback(HippoError.general, nil)
+                return
+            }
+            HippoConfig.shared.log.debug("\(responseObject ?? [:])", level: .response)
+            callback(nil, unreadCount)
     
-    
+        }
+    }
 }
 
 extension UnreadCount {

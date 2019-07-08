@@ -8,16 +8,18 @@
 
 import UIKit
 
-enum HippoError: LocalizedError {
+public enum HippoError: LocalizedError {
     case general
     case networkError
     case callClientNotFound
     case invalidInputData
     case invalidEmail
     case notAllowedForAgent
+    case invalidAppSecretKey
+    case updateUserDetail
     case threwError(message: String)
     
-    var errorDescription: String? {
+    public var errorDescription: String? {
         switch self {
         case .threwError(message: let errorMessage):
             return errorMessage
@@ -29,6 +31,10 @@ enum HippoError: LocalizedError {
             return HippoConfig.shared.strings.notAllowedForAgent
         case .callClientNotFound:
             return HippoConfig.shared.strings.callClientNotFound
+        case .updateUserDetail:
+            return  "Something went wrong., please updateUserDetail again!!!"
+        case .invalidAppSecretKey:
+            return "Invalid appsecret key"
         case .networkError:
             return HippoConfig.shared.strings.noNetworkConnection
         default:

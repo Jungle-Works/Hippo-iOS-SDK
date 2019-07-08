@@ -32,8 +32,8 @@ public struct GeneralChat {
      */
     public init(uniqueChatId: String, myUniqueId: String, groupingTags: [String]?, channelName: String, tags: [String]?) {
         
-        self.userUniqueId = myUniqueId
-        self.uniqueChatId = uniqueChatId
+        self.userUniqueId = myUniqueId.trimWhiteSpacesAndNewLine()
+        self.uniqueChatId = uniqueChatId.trimWhiteSpacesAndNewLine()
         self.groupingTags = groupingTags
         self.tags = tags
         self.channelName = channelName

@@ -245,6 +245,7 @@ enum FuguEndPoints: String {
     case API_CREATE_TICKET = "api/support/createConversation"
     case API_FEEDBACK = "api/deal/feedback"
     case updateRideStatus = "api/users/inRideStatus"
+    case fetchP2PUnreadCount = "api/conversation/fetchP2PUnreadCount"
 }
 
 enum AgentEndPoints: String {

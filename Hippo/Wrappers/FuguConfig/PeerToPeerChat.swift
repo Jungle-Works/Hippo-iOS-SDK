@@ -35,21 +35,64 @@ public struct PeerToPeerChat {
     */
     public init?(uniqueChatId: String?, myUniqueId: String, idsOfPeers: [String], channelName: String, peerName: String = "", otherUserImage: String? = nil) {
         
-        guard idsOfPeers.count > 0 else {
-            //NSLog("Ids of peers not found")
+        
+        
+        var parsedPeers = [String]()
+        
+        for each in idsOfPeers {
+            let newPeer = each.trimWhiteSpacesAndNewLine()
+            if !newPeer.isEmpty {
+                parsedPeers.append(newPeer)
+            }
+        }
+        guard parsedPeers.count > 0 else {
+            HippoConfig.shared.log.error("id of peers are nil", level: .error)
             return nil
         }
         
-        self.userUniqueId = myUniqueId
-        self.uniqueChatId = uniqueChatId
-        self.idsOfPeers = idsOfPeers
-        self.channelName = channelName
+        self.userUniqueId = myUniqueId.trimWhiteSpacesAndNewLine()
+        self.uniqueChatId = uniqueChatId?.trimWhiteSpacesAndNewLine()
+        self.idsOfPeers = parsedPeers
+        self.channelName = channelName.trimWhiteSpacesAndNewLine()
         
-        self.peerName = peerName
+        self.peerName = peerName.trimWhiteSpacesAndNewLine()
         
-        if let parsedImage = otherUserImage, let parsedURL = URL(string: parsedImage) {
+        if let parsedImage = otherUserImage?.trimWhiteSpacesAndNewLine(), let parsedURL = URL(string: parsedImage) {
             self.otherUserImage = parsedURL
         }
+    }
+    
+    func generateParamForUnreadCount() throws -> [String: Any] {
+        var json: [String: Any] = [:]
+        
+        let appSecretKey = HippoConfig.shared.appSecretKey
+        
+        guard HippoConfig.shared.appUserType == .customer else {
+            HippoConfig.shared.log.trace("notAllowedForAgent", level: .error)
+            throw HippoError.notAllowedForAgent
+        }
+        
+        guard !appSecretKey.isEmpty else {
+            HippoConfig.shared.log.trace("appSecret key found empty", level: .error)
+            throw HippoError.invalidAppSecretKey
+        }
+        json["app_secret_key"] = appSecretKey
+        
+        let enUserId: String = currentEnUserId()
+        
+        guard !enUserId.isEmpty else {
+            HippoConfig.shared.log.trace("updateUserDetail", level: .error)
+            throw HippoError.updateUserDetail
+        }
+        json["en_user_id"] = enUserId
+        
+        json["user_unique_key"] = HippoConfig.shared.userDetail?.userUniqueKey ?? userUniqueId
+        json["other_user_unique_key"] = idsOfPeers
+        json["transaction_id"] = uniqueChatId
+        
+        return json
+        
+        
     }
    
 }

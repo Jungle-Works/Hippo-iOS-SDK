@@ -380,6 +380,9 @@ public class HippoConfig : NSObject {
         }
         
     }
+    public func fetchUnreadCountFor(request: PeerToPeerChat, completion: @escaping P2PUnreadCountCompletion) {
+        UnreadCount.fetchP2PUnreadCount(request: request, callback: completion)
+    }
     
     public func openChatWith(channelId: Int, completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
         switch appUserType {

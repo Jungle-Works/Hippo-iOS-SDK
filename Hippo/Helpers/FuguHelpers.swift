@@ -623,6 +623,14 @@ func currentUserId() -> Int {
     }
 }
 
+func currentEnUserId() -> String {
+    switch HippoConfig.shared.appUserType {
+    case .agent:
+        return HippoConfig.shared.agentDetail?.enUserId ?? ""
+    case .customer:
+        return HippoUserDetail.fuguEnUserID ?? ""
+    }
+}
 
 func currentUserName() -> String {
     switch HippoConfig.shared.appUserType {
