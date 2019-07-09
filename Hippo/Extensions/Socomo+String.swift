@@ -176,6 +176,17 @@ extension String {
       _name = _name.capitalized
       return _name
    }
+    func addHTMLEntities() -> String {
+        var tempString = self
+        tempString = tempString.htmlEscapeTagOnly()
+        return tempString
+    }
+    func removeHtmlEntities() -> String {
+        var tempString = self
+        tempString = tempString.htmlUnescape()
+        return tempString
+    }
+
 }
 private extension String {
     func changeDateFormat(sourceFormat: String? = "yyyy-MM-dd HH:mm:ss",

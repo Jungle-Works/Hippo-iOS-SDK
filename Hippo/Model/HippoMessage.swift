@@ -164,8 +164,8 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
             return nil
         }
         self.senderId = senderId
-        
-        message = (dict["message"] as? String) ?? ""
+        let parsedMessage = (dict["message"] as? String ?? "").trimWhiteSpacesAndNewLine()
+        message = parsedMessage.removeHtmlEntities()
         
         if let dateTimeString = dict["date_time"] as? String, let dateTime = dateTimeString.toDate {
             creationDateTime = dateTime
@@ -281,6 +281,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         } else {
             message = ""
         }
+        message = message.trimWhiteSpacesAndNewLine().removeHtmlEntities()
         
 //        self.type = self.message.isEmpty ? MessageType.imageFile : MessageType.normal
         let senderFullName = (convoDict["last_sent_by_full_name"] as? String) ?? ""
@@ -327,7 +328,12 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
             json += parsedRawJsonToSend
         }
         
-        json["message"] = message
+        if HippoConfig.shared.encodeToHTMLEntities {
+            json["message"] = message.addHTMLEntities()
+        } else {
+            json["message"] = message
+        }
+        
         json["user_id"] = senderId
         json["full_name"] = senderFullName.formatName()
         json["date_time"] = creationDateTime.toUTCFormatString
@@ -430,7 +436,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
             dict = getJsonToSendToFaye()
         }
         
-        
+        dict["message"] = message
         dict["wasMessageSendingFailed"] = getMessageSendingFailedWhenSavingInCache() 
         dict["message_status"] = status.rawValue
         
@@ -453,7 +459,11 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
     func getJsonForConversationDict() -> [String: Any] {
         var json = [String: Any]()
         
-        json["message"] = message
+        if HippoConfig.shared.encodeToHTMLEntities {
+            json["message"] = message.addHTMLEntities()
+        } else {
+            json["message"] = message
+        }
         json["date_time"] = creationDateTime.toUTCFormatString
         json["last_sent_by_id"] = senderId
         json["last_sent_by_full_name"] = senderFullName.formatName()

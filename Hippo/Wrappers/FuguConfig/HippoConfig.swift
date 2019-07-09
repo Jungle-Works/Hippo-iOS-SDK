@@ -74,6 +74,17 @@ public class HippoConfig : NSObject {
             UserDefaults.standard.set(newValue, forKey: UserDefaultkeys.videoCallStatus)
         }
     }
+    internal var encodeToHTMLEntities: Bool {
+        get {
+            guard let value = UserDefaults.standard.value(forKey: UserDefaultkeys.encodeToHtmlEntities) as? Bool else {
+                return false
+            }
+            return value
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: UserDefaultkeys.encodeToHtmlEntities)
+        }
+    }
     internal var isAudioCallEnabled: Bool {
         get {
             guard CallManager.shared.isCallClientAvailable() else {
@@ -219,6 +230,7 @@ public class HippoConfig : NSObject {
     public func updateUserDetail(userDetail: HippoUserDetail) {
         self.userDetail = userDetail
         self.appUserType = .customer
+        AgentDetail.agentLoginData = nil
         HippoUserDetail.getUserDetailsAndConversation()
     }
     

@@ -238,6 +238,11 @@ extension AgentDetail {
             
             HippoConfig.shared.isVideoCallEnabled = Bool.parse(key: "is_video_call_enabled", json: data)
             HippoConfig.shared.isAudioCallEnabled = Bool.parse(key: "is_audio_call_enabled", json: data)
+            
+            if let businessProperty = data["business_property"] as? [String: Any] {
+                HippoConfig.shared.encodeToHTMLEntities = Bool.parse(key: "encode_to_html_entites", json: businessProperty)
+            }
+            
             HippoConfig.shared.unsupportedMessageString = data["unsupported_message"] as? String ?? ""
             HippoConfig.shared.maxUploadLimitForBusiness = data["max_file_size"] as? UInt ?? 10
             

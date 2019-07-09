@@ -323,6 +323,8 @@ public class UserTag: NSObject {
             
             HippoConfig.shared.isVideoCallEnabled = Bool.parse(key: "is_video_call_enabled", json: userDetailData)
             HippoConfig.shared.isAudioCallEnabled = Bool.parse(key: "is_audio_call_enabled", json: userDetailData, defaultValue: false)
+            HippoConfig.shared.encodeToHTMLEntities = Bool.parse(key: "encode_to_html_entites", json: userDetailData)
+
             HippoConfig.shared.unsupportedMessageString = userDetailData["unsupported_message"] as? String ?? ""
             HippoConfig.shared.maxUploadLimitForBusiness = userDetailData["max_file_size"] as? UInt ?? 10
             
@@ -376,7 +378,7 @@ public class UserTag: NSObject {
         AgentConversationManager.errorMessage = nil
         AgentChannelPersistancyManager.shared.clearChannels()
         HippoChannel.hashmapTransactionIdToChannelID = [:]
-        resetPushCount()
+        
         AgentDetail.agentLoginData = nil
         UnreadCount.clearAllStoredUnreadCount()
         AgentConversationManager.searchUserUniqueKeys.removeAll()
@@ -397,6 +399,7 @@ public class UserTag: NSObject {
         HippoConfig.shared.appType = nil
         HippoConfig.shared.userDetail = nil
         HippoConfig.shared.muidList = []
+        resetPushCount()
         
         userDetailData = [String: Any]()
         FuguChannelPersistancyManager.shared.clearChannels()

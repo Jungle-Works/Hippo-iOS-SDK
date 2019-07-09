@@ -76,6 +76,7 @@ struct UserDefaultkeys {
     static let agentData = "Hippo_Agent_data_login"
     static let videoCallStatus = "Hippo_is_video_call_enabled"
     static let audioCallStatus = "Hippo_is_audio_call_enabled"
+    static let encodeToHtmlEntities = "Hippo_encode_to_html_entities"
     static let maxFileUploadSize = "Max_file_upload_size"
     static let unsupportedMessageString = "unsupported_message"
     static let TicketsKey = "HippoDefaultKey"
