@@ -36,6 +36,9 @@ struct GetConversationRequestParam {
     static var myChatDefaultRequest: GetConversationRequestParam {
         return GetConversationRequestParam(pageStart: 1, pageEnd: nil, showLoader: false, type: .myChat, identifier: String.generateUniqueId())
     }
+    static var searchUserDefaultRequest: GetConversationRequestParam {
+        return GetConversationRequestParam(pageStart: 1, pageEnd: nil, showLoader: false, type: .searchUser, identifier: String.generateUniqueId())
+    }
     
     var apiRequestIdentifier: String {
         switch type {
@@ -304,7 +307,7 @@ extension AgentConversationManager {
         return params
     }
     fileprivate static func getParamsForSearchUser() -> [String: Any]? {
-        guard let conversationParam = getParamsToGetConversation(with: GetConversationRequestParam.allChatDefaultRequest) else {
+        guard let conversationParam = getParamsToGetConversation(with: GetConversationRequestParam.searchUserDefaultRequest) else {
             return nil
         }
         
