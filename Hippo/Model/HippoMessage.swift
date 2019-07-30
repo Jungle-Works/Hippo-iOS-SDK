@@ -6,9 +6,7 @@
 //  Copyright © 2017 CL-macmini-88. All rights reserved.
 //
 
-import Foundation
-
-
+import UIKit
 
 class MessageCallbacks {
     var statusChanged: (() -> Void)? = nil
@@ -41,7 +39,6 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
     
     // MARK: - Properties
     var cellDetail: HippoCellDetail?
-    
     var message: String
     var senderId: Int
     var senderFullName: String
@@ -177,7 +174,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
             let status = ReadUnReadStatus(rawValue: rawStatus) {
             self.status = status
         }
-        
+//        channelId = UIInt.parse
         self.rawJsonToSend = dict["rawJsonToSend"] as? [String: Any]
         self.localImagePath = dict["image_file"] as? String
         self.imageUrl = dict["image_url"] as? String

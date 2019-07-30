@@ -55,7 +55,7 @@ class ActionTableView: MessageTableViewCell {
         guard let actionMessage = message as? HippoActionMessage else {
             return
         }
-        self.dataSource = ActionTableDataSource(message: actionMessage)
+        self.dataSource = ActionTableDataSource(message: actionMessage, delegate: self)
         tableView.dataSource = dataSource
         tableView.delegate = self
         tableView.isScrollEnabled = false
@@ -65,11 +65,17 @@ class ActionTableView: MessageTableViewCell {
         
         tableView.register(UINib(nibName: "ActionLabelViewCell", bundle: FuguFlowManager.bundle), forCellReuseIdentifier: "ActionLabelViewCell")
         tableView.register(UINib(nibName: "ActionButtonViewCell", bundle: FuguFlowManager.bundle), forCellReuseIdentifier: "ActionButtonViewCell")
+        tableView.register(UINib(nibName: "ActionTagTableViewCell", bundle: FuguFlowManager.bundle), forCellReuseIdentifier: "ActionTagTableViewCell")
+        
+        
+        tableView.register(UINib(nibName: "SelfMessageTableViewCell", bundle: FuguFlowManager.bundle), forCellReuseIdentifier: "SelfMessageTableViewCell")
+        tableView.register(UINib(nibName: "SupportMessageTableViewCell", bundle: FuguFlowManager.bundle), forCellReuseIdentifier: "SupportMessageTableViewCell")
+        
     }
     private func setUIData() {
-        guard let actionMessage = message as? HippoActionMessage else {
-            return
-        }
+//        guard let actionMessage = message as? HippoActionMessage else {
+//            return
+//        }
         if tableView.dataSource == nil {
             setupTableView()
         }
@@ -77,7 +83,7 @@ class ActionTableView: MessageTableViewCell {
         setTime()
         setMessageStatus()
         
-        tableView.isUserInteractionEnabled = actionMessage.isUserInteractionEnbled
+//        tableView.isUserInteractionEnabled = actionMessage.isUserInteractionEnbled
         
         tableView.reloadData()
     }
@@ -86,9 +92,9 @@ class ActionTableView: MessageTableViewCell {
     }
     private func setDefaultConfig() {
         setupBoxBackground()
-        adjustShadow()
+//        adjustShadow()
         
-        bgView.layer.cornerRadius = HippoConfig.shared.theme.chatBoxCornerRadius
+//        bgView.layer.cornerRadius = HippoConfig.shared.theme.chatBoxCornerRadius
         
         selectionStyle = .none
         
@@ -102,7 +108,7 @@ class ActionTableView: MessageTableViewCell {
         timeLabel.textColor = HippoConfig.shared.theme.incomingMsgDateTextColor
     }
     private func setupBoxBackground() {
-        bgView.backgroundColor = UIColor.outGoingMessageBoxColor
+//        bgView.backgroundColor = UIColor.outGoingMessageBoxColor
     }
     
     
@@ -124,9 +130,9 @@ extension ActionTableView: UITableViewDelegate {
         }
         switch sectionValue {
         case .headerMessage:
-            return message.cellDetail?.messageHeight ?? 0.01
+            return message.cellDetail?.headerHeight ?? 0.01
         case .buttons:
-            return 50
+            return message.cellDetail?.actionHeight ?? message.cellDetail?.responseHeight ?? 0.01
         }
     }
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -144,4 +150,11 @@ extension ActionTableView: ActionButtonViewCellDelegate {
         delegate?.performActionFor(selectionId: buttonInfo.id, message: message!)
     }
 }
-
+extension ActionTableView: ActionTagProtocol {
+    func tagClicked(_ title: String, tagView: TagView, sender: TagListView) {
+        guard let message = self.message, let buttonInfo = tagView.detail as? HippoActionButton else {
+            return
+        }
+        delegate?.performActionFor(selectionId: buttonInfo.id, message: message)
+    }
+}

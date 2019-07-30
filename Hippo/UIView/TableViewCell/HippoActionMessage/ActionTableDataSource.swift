@@ -9,32 +9,36 @@
 import UIKit
 
 class ActionTableDataSource: NSObject, UITableViewDataSource {
-    
+    typealias ActionTableProtocol = ActionTagProtocol
     
     enum ActionTableSections: Int, CaseCountable {
         case headerMessage = 0
         case buttons = 1
     }
-    
+    var delegate: ActionTableProtocol?
     var message: HippoActionMessage?
     
-    init(message: HippoActionMessage) {
+    init(message: HippoActionMessage, delegate: ActionTableProtocol) {
         self.message = message
+        self.delegate = delegate
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
+        guard message != nil else {
+            return 0
+        }
         return ActionTableSections.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let sectionValue = ActionTableSections(rawValue: section), let message = self.message else {
+        guard let sectionValue = ActionTableSections(rawValue: section) else {
             return 0
         }
         switch sectionValue {
         case .headerMessage:
             return 1
         case .buttons:
-            return message.buttons?.count ?? 0
+            return 1 //message.buttons?.count ?? 0
         }
     }
     
@@ -42,21 +46,46 @@ class ActionTableDataSource: NSObject, UITableViewDataSource {
         guard let sectionValue = ActionTableSections(rawValue: indexPath.section), let message = self.message else {
             return UITableView.defaultCell()
         }
-        let cell: ActionViewCell
+        let cell: UITableViewCell
         switch  sectionValue {
         case .headerMessage:
-            let cellForIndex = tableView.dequeueReusableCell(withIdentifier: "ActionLabelViewCell", for: indexPath) as! ActionLabelViewCell
-            cellForIndex.setUpCell(message: message.message)
-            
-            cell = cellForIndex
+//            let cellForIndex = tableView.dequeueReusableCell(withIdentifier: "ActionLabelViewCell", for: indexPath) as! ActionLabelViewCell
+//            cellForIndex.setUpCell(message: message.message)
+//
+//            cell = cellForIndex
+            let isOutgoingMessage = HippoConfig.shared.appUserType == .agent
+            cell = getNormalMessageTableViewCell(tableView: tableView, isOutgoingMessage: isOutgoingMessage, message: message, indexPath: indexPath)
         case .buttons:
-            let cellForIndex = tableView.dequeueReusableCell(withIdentifier: "ActionButtonViewCell", for: indexPath) as! ActionButtonViewCell
-            let buttons = message.buttons!
-            
-            cellForIndex.setupCell(buttonInfo: buttons[indexPath.row])
-            cellForIndex.setButtonState(active: message.isUserInteractionEnbled)
-            cell = cellForIndex
+            if let responseMessage = message.responseMessage {
+                let isOutgoingMessage = HippoConfig.shared.appUserType != .agent
+                cell = getNormalMessageTableViewCell(tableView: tableView, isOutgoingMessage: isOutgoingMessage, message: responseMessage, indexPath: indexPath)
+            } else {
+                let cellForIndex = tableView.dequeueReusableCell(withIdentifier: "ActionTagTableViewCell", for: indexPath) as! ActionTagTableViewCell
+                cellForIndex.setupCell(message: message)
+                cellForIndex.delegate = delegate
+                cell = cellForIndex
+            }
         }
         return cell
+    }
+    
+    func getNormalMessageTableViewCell(tableView: UITableView, isOutgoingMessage: Bool, message: HippoMessage, indexPath: IndexPath) -> UITableViewCell {
+        switch isOutgoingMessage {
+        case false:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "SupportMessageTableViewCell", for: indexPath) as! SupportMessageTableViewCell
+            let incomingAttributedString = getIncomingAttributedString(chatMessageObject: message)
+            return cell.configureCellOfSupportIncomingCell(resetProperties: true, attributedString: incomingAttributedString, channelId: -1, chatMessageObject: message)
+        case true:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "SelfMessageTableViewCell", for: indexPath) as! SelfMessageTableViewCell
+//            cell.delegate = self
+            return cell.configureIncomingMessageCell(resetProperties: true, chatMessageObject: message, indexPath: indexPath)
+        }
+    }
+    func getIncomingAttributedString(chatMessageObject: HippoMessage) -> NSMutableAttributedString {
+        let messageString = chatMessageObject.message
+        let userNameString = chatMessageObject.senderFullName
+        
+        
+        return attributedStringForLabel(userNameString, secondString: "\n" + messageString, thirdString: "", colorOfFirstString: HippoConfig.shared.theme.senderNameColor, colorOfSecondString: HippoConfig.shared.theme.incomingMsgColor, colorOfThirdString: UIColor.black.withAlphaComponent(0.5), fontOfFirstString: HippoConfig.shared.theme.senderNameFont, fontOfSecondString:  HippoConfig.shared.theme.incomingMsgFont, fontOfThirdString: UIFont.systemFont(ofSize: 11.0), textAlighnment: .left, dateAlignment: .right)
     }
 }

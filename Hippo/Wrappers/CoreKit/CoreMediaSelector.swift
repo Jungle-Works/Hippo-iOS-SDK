@@ -354,7 +354,7 @@ public class CoreMediaSelector: NSObject, UINavigationControllerDelegate, UIImag
     
 }
 public extension UInt {
-    public func getFormattedSize() -> String {
+    func getFormattedSize() -> String {
         let bytes = Int64(self)
         let formatter = ByteCountFormatter()
         formatter.allowedUnits = [.useKB, .useMB, .useBytes]

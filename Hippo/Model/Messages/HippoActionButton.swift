@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct HippoActionButton {
+class HippoActionButton {
     var id: String
     var title: String = ""
     var isSelected: Bool = false
@@ -18,7 +18,7 @@ struct HippoActionButton {
     private var normalTitleHexColor: String  = "#000000"
     private var selectedTitleHexColor: String = "#000000"
     
-    var color: UIColor?
+    var color: UIColor
     var selectedColor: UIColor?
     var selectedTitleColor: UIColor?
     var normalTitleColor: UIColor?
@@ -41,7 +41,9 @@ struct HippoActionButton {
         self.selectedTitleHexColor = json["btn_title_selected_color"] as? String ?? ""
         
         
-        self.color = UIColor.hexStringToUIColor(hex: colorHex)
+        self.color = UIColor.clear //HippoConfig.shared.theme.headerBackgroundColor
+        
+//        self.color = UIColor.hexStringToUIColor(hex: colorHex)
         self.selectedColor = UIColor.hexStringToUIColor(hex: selectedColorHex)
         self.selectedTitleColor = UIColor.hexStringToUIColor(hex: selectedTitleHexColor)
         self.normalTitleColor = UIColor.hexStringToUIColor(hex: normalTitleHexColor)
@@ -52,19 +54,40 @@ struct HippoActionButton {
         isSelected = selectedId == id
     }
     
-    static func getArray(array: [[String: Any]], selectedId: String?) -> [HippoActionButton]? {
+    static func getArray(array: [[String: Any]], selectedId: String?) -> ([HippoActionButton]?, HippoActionButton?) {
         var list: [HippoActionButton] = []
+        var selectedButton: HippoActionButton?
         
         for json in array {
             guard let action = HippoActionButton(json: json, selectedId: selectedId) else {
                 continue
             }
+            if action.isSelected {
+                selectedButton = action
+            }
+             
             list.append(action)
         }
-        return list.isEmpty ? nil : list
+        let parsedList = list.isEmpty ? nil : list
+        return (parsedList, selectedButton)
     }
     
     func getJson() -> [String : Any] {
         return self.json
+    }
+}
+
+extension HippoActionButton: TagViewCreation {
+    var name: String {
+        return title
+    }
+    var circlularCorner: Bool {
+        return false
+    }
+    var tagViewId: Any? {
+        return id
+    }
+    var tagViewTextColor: UIColor {
+        return HippoConfig.shared.theme.headerBackgroundColor
     }
 }

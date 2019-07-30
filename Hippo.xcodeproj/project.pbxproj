@@ -9,13 +9,103 @@
 /* Begin PBXBuildFile section */
 		47B12417C887BBD208902F39 /* Pods_Hippo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C0A922564912516EF04B93F /* Pods_Hippo.framework */; };
 		99354A03CB85B6FC4E9FF864 /* Pods_SDKDemo1.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7012A5A44B87F497D213D271 /* Pods_SDKDemo1.framework */; };
-		C90E0D0F221FCA49004879A5 /* PaymentItemDescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90E0D0D221FCA49004879A5 /* PaymentItemDescriptionCell.swift */; };
-		C90E0D10221FCA49004879A5 /* PaymentItemDescriptionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C90E0D0E221FCA49004879A5 /* PaymentItemDescriptionCell.xib */; };
-		C9232D2C221D4A2E006965D5 /* BroadcastUserStatusCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9232D2A221D4A2E006965D5 /* BroadcastUserStatusCell.xib */; };
-		C9232D2D221D4A2E006965D5 /* BroadcastUserStatusCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9232D2B221D4A2E006965D5 /* BroadcastUserStatusCell.swift */; };
+		C93600F222EEC5EA00A6C291 /* OutgoingImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C936006922EEC5EA00A6C291 /* OutgoingImageCell.xib */; };
+		C93600F322EEC5EA00A6C291 /* OutgoingImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C936006A22EEC5EA00A6C291 /* OutgoingImageCell.swift */; };
+		C93600F422EEC5EA00A6C291 /* CategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C936006C22EEC5EA00A6C291 /* CategoryTableViewCell.swift */; };
+		C93600F522EEC5EA00A6C291 /* CategoryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C936006D22EEC5EA00A6C291 /* CategoryTableViewCell.xib */; };
+		C93600F622EEC5EA00A6C291 /* ActionTableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C936006F22EEC5EA00A6C291 /* ActionTableDataSource.swift */; };
+		C93600F722EEC5EA00A6C291 /* ActionTableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C936007022EEC5EA00A6C291 /* ActionTableView.xib */; };
+		C93600F822EEC5EA00A6C291 /* ActionTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C936007122EEC5EA00A6C291 /* ActionTableView.swift */; };
+		C93600F922EEC5EA00A6C291 /* ActionButtonViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C936007322EEC5EA00A6C291 /* ActionButtonViewCell.swift */; };
+		C93600FA22EEC5EA00A6C291 /* ActionLabelViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C936007422EEC5EA00A6C291 /* ActionLabelViewCell.xib */; };
+		C93600FB22EEC5EA00A6C291 /* ActionLabelViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C936007522EEC5EA00A6C291 /* ActionLabelViewCell.swift */; };
+		C93600FC22EEC5EA00A6C291 /* ActionButtonViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C936007622EEC5EA00A6C291 /* ActionButtonViewCell.xib */; };
+		C93600FD22EEC5EA00A6C291 /* ActionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C936007722EEC5EA00A6C291 /* ActionViewCell.swift */; };
+		C93600FE22EEC5EA00A6C291 /* ContactNumberTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C936007922EEC5EA00A6C291 /* ContactNumberTableCell.xib */; };
+		C93600FF22EEC5EA00A6C291 /* ContactNumberTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C936007A22EEC5EA00A6C291 /* ContactNumberTableCell.swift */; };
+		C936010022EEC5EA00A6C291 /* IncomingImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C936007C22EEC5EA00A6C291 /* IncomingImageCell.xib */; };
+		C936010122EEC5EA00A6C291 /* IncomingImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C936007D22EEC5EA00A6C291 /* IncomingImageCell.swift */; };
+		C936010222EEC5EA00A6C291 /* BroadcastUserStatusCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C936007F22EEC5EA00A6C291 /* BroadcastUserStatusCell.xib */; };
+		C936010322EEC5EA00A6C291 /* BroadcastUserStatusCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C936008022EEC5EA00A6C291 /* BroadcastUserStatusCell.swift */; };
+		C936010422EEC5EA00A6C291 /* BotOutgoingMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C936008222EEC5EA00A6C291 /* BotOutgoingMessageTableViewCell.xib */; };
+		C936010522EEC5EA00A6C291 /* BotOutgoingMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C936008322EEC5EA00A6C291 /* BotOutgoingMessageTableViewCell.swift */; };
+		C936010622EEC5EA00A6C291 /* IncomingDocumentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C936008522EEC5EA00A6C291 /* IncomingDocumentTableViewCell.xib */; };
+		C936010722EEC5EA00A6C291 /* IncomingDocumentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C936008622EEC5EA00A6C291 /* IncomingDocumentTableViewCell.swift */; };
+		C936010822EEC5EA00A6C291 /* PaymentItemDescriptionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C936008822EEC5EA00A6C291 /* PaymentItemDescriptionCell.xib */; };
+		C936010922EEC5EA00A6C291 /* PaymentItemDescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C936008922EEC5EA00A6C291 /* PaymentItemDescriptionCell.swift */; };
+		C936010A22EEC5EA00A6C291 /* LeadTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C936008B22EEC5EA00A6C291 /* LeadTableViewCell.swift */; };
+		C936010B22EEC5EA00A6C291 /* LeadTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C936008C22EEC5EA00A6C291 /* LeadTableViewCell.xib */; };
+		C936010C22EEC5EA00A6C291 /* ConversationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C936008E22EEC5EA00A6C291 /* ConversationView.swift */; };
+		C936010D22EEC5EA00A6C291 /* ChatInfoTagViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C936009022EEC5EA00A6C291 /* ChatInfoTagViewCell.swift */; };
+		C936010E22EEC5EA00A6C291 /* ChatInfoTagViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C936009122EEC5EA00A6C291 /* ChatInfoTagViewCell.xib */; };
+		C936010F22EEC5EA00A6C291 /* AssignedAgentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C936009322EEC5EA00A6C291 /* AssignedAgentTableViewCell.xib */; };
+		C936011022EEC5EA00A6C291 /* AssignedAgentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C936009422EEC5EA00A6C291 /* AssignedAgentTableViewCell.swift */; };
+		C936011122EEC5EA00A6C291 /* SupportMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C936009622EEC5EA00A6C291 /* SupportMessageTableViewCell.swift */; };
+		C936011222EEC5EA00A6C291 /* ButtonCellCollectionViewHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C936009922EEC5EA00A6C291 /* ButtonCellCollectionViewHandler.swift */; };
+		C936011322EEC5EA00A6C291 /* ActionableMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C936009A22EEC5EA00A6C291 /* ActionableMessageTableViewCell.xib */; };
+		C936011422EEC5EA00A6C291 /* ButtonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C936009D22EEC5EA00A6C291 /* ButtonTableViewCell.xib */; };
+		C936011522EEC5EA00A6C291 /* ButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C936009E22EEC5EA00A6C291 /* ButtonTableViewCell.swift */; };
+		C936011622EEC5EA00A6C291 /* ButtonCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93600A022EEC5EA00A6C291 /* ButtonCollectionCell.swift */; };
+		C936011722EEC5EA00A6C291 /* ButtonCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C93600A122EEC5EA00A6C291 /* ButtonCollectionCell.xib */; };
+		C936011822EEC5EA00A6C291 /* HeaderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C93600A322EEC5EA00A6C291 /* HeaderTableViewCell.xib */; };
+		C936011922EEC5EA00A6C291 /* HeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93600A422EEC5EA00A6C291 /* HeaderTableViewCell.swift */; };
+		C936011A22EEC5EA00A6C291 /* ItemTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C93600A622EEC5EA00A6C291 /* ItemTableViewCell.xib */; };
+		C936011B22EEC5EA00A6C291 /* ItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93600A722EEC5EA00A6C291 /* ItemTableViewCell.swift */; };
+		C936011C22EEC5EA00A6C291 /* SenderNameTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93600A922EEC5EA00A6C291 /* SenderNameTableCell.swift */; };
+		C936011D22EEC5EA00A6C291 /* SenderNameTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C93600AA22EEC5EA00A6C291 /* SenderNameTableCell.xib */; };
+		C936011E22EEC5EA00A6C291 /* ImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93600AC22EEC5EA00A6C291 /* ImageTableViewCell.swift */; };
+		C936011F22EEC5EA00A6C291 /* ImageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C93600AD22EEC5EA00A6C291 /* ImageTableViewCell.xib */; };
+		C936012022EEC5EA00A6C291 /* ActionableMessageCellHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93600AF22EEC5EA00A6C291 /* ActionableMessageCellHandler.swift */; };
+		C936012122EEC5EA00A6C291 /* ActionableMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93600B022EEC5EA00A6C291 /* ActionableMessageTableViewCell.swift */; };
+		C936012222EEC5EA00A6C291 /* IncomingAudioTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C93600B222EEC5EA00A6C291 /* IncomingAudioTableViewCell.xib */; };
+		C936012322EEC5EA00A6C291 /* OutgoingAudioTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C93600B322EEC5EA00A6C291 /* OutgoingAudioTableViewCell.xib */; };
+		C936012422EEC5EA00A6C291 /* IncomingAudioTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93600B422EEC5EA00A6C291 /* IncomingAudioTableViewCell.swift */; };
+		C936012522EEC5EA00A6C291 /* OutgoingAudioTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93600B522EEC5EA00A6C291 /* OutgoingAudioTableViewCell.swift */; };
+		C936012622EEC5EA00A6C291 /* TypingViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93600B722EEC5EA00A6C291 /* TypingViewTableViewCell.swift */; };
+		C936012722EEC5EA00A6C291 /* OutgoingVideoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C93600B922EEC5EA00A6C291 /* OutgoingVideoTableViewCell.xib */; };
+		C936012822EEC5EA00A6C291 /* VideoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93600BA22EEC5EA00A6C291 /* VideoTableViewCell.swift */; };
+		C936012922EEC5EA00A6C291 /* IncomingVideoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C93600BB22EEC5EA00A6C291 /* IncomingVideoTableViewCell.xib */; };
+		C936012A22EEC5EA00A6C291 /* IncomingVideoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93600BC22EEC5EA00A6C291 /* IncomingVideoTableViewCell.swift */; };
+		C936012B22EEC5EA00A6C291 /* OutgoingVideoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93600BD22EEC5EA00A6C291 /* OutgoingVideoTableViewCell.swift */; };
+		C936012C22EEC5EA00A6C291 /* OutgoingDocumentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C93600BF22EEC5EA00A6C291 /* OutgoingDocumentTableViewCell.xib */; };
+		C936012D22EEC5EA00A6C291 /* OutgoingDocumentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93600C022EEC5EA00A6C291 /* OutgoingDocumentTableViewCell.swift */; };
+		C936012E22EEC5EA00A6C291 /* AgentHomeConversationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93600C222EEC5EA00A6C291 /* AgentHomeConversationCell.swift */; };
+		C936012F22EEC5EA00A6C291 /* AgentHomeConversationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C93600C322EEC5EA00A6C291 /* AgentHomeConversationCell.xib */; };
+		C936013022EEC5EA00A6C291 /* SelfMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93600C522EEC5EA00A6C291 /* SelfMessageTableViewCell.swift */; };
+		C936013122EEC5EA00A6C291 /* LeadDataTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C93600C722EEC5EA00A6C291 /* LeadDataTableViewCell.xib */; };
+		C936013222EEC5EA00A6C291 /* LeadDataTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93600C822EEC5EA00A6C291 /* LeadDataTableViewCell.swift */; };
+		C936013322EEC5EA00A6C291 /* ChatInfoActionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93600CA22EEC5EA00A6C291 /* ChatInfoActionCell.swift */; };
+		C936013422EEC5EA00A6C291 /* ChatInfoActionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C93600CB22EEC5EA00A6C291 /* ChatInfoActionCell.xib */; };
+		C936013522EEC5EA00A6C291 /* ChatProfileTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C93600CD22EEC5EA00A6C291 /* ChatProfileTableViewCell.xib */; };
+		C936013622EEC5EA00A6C291 /* ChatProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93600CE22EEC5EA00A6C291 /* ChatProfileTableViewCell.swift */; };
+		C936013722EEC5EA00A6C291 /* OutgoingVideoCallMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C93600D022EEC5EA00A6C291 /* OutgoingVideoCallMessageTableViewCell.xib */; };
+		C936013822EEC5EA00A6C291 /* VideoCallMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93600D122EEC5EA00A6C291 /* VideoCallMessageTableViewCell.swift */; };
+		C936013922EEC5EA00A6C291 /* IncomingVideoCallMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C93600D222EEC5EA00A6C291 /* IncomingVideoCallMessageTableViewCell.xib */; };
+		C936013A22EEC5EA00A6C291 /* ShowMoreTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C93600D422EEC5EA00A6C291 /* ShowMoreTableViewCell.xib */; };
+		C936013B22EEC5EA00A6C291 /* ShowMoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93600D522EEC5EA00A6C291 /* ShowMoreTableViewCell.swift */; };
+		C936013C22EEC5EA00A6C291 /* ChatInfoAgentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C93600D722EEC5EA00A6C291 /* ChatInfoAgentTableViewCell.xib */; };
+		C936013D22EEC5EA00A6C291 /* ChatInfoAgentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93600D822EEC5EA00A6C291 /* ChatInfoAgentTableViewCell.swift */; };
+		C936013E22EEC5EA00A6C291 /* BroadcastButtonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C93600DB22EEC5EA00A6C291 /* BroadcastButtonCell.xib */; };
+		C936013F22EEC5EA00A6C291 /* BroadcastButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93600DC22EEC5EA00A6C291 /* BroadcastButtonCell.swift */; };
+		C936014022EEC5EA00A6C291 /* BroadcastAgentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93600DE22EEC5EA00A6C291 /* BroadcastAgentCell.swift */; };
+		C936014122EEC5EA00A6C291 /* BroadcastAgentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C93600DF22EEC5EA00A6C291 /* BroadcastAgentCell.xib */; };
+		C936014222EEC5EA00A6C291 /* BroadCastTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93600E122EEC5EA00A6C291 /* BroadCastTitleCell.swift */; };
+		C936014322EEC5EA00A6C291 /* BroadCastTitleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C93600E222EEC5EA00A6C291 /* BroadCastTitleCell.xib */; };
+		C936014422EEC5EA00A6C291 /* BroadCastTextViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93600E422EEC5EA00A6C291 /* BroadCastTextViewCell.swift */; };
+		C936014522EEC5EA00A6C291 /* BroadCastTextViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C93600E522EEC5EA00A6C291 /* BroadCastTextViewCell.xib */; };
+		C936014622EEC5EA00A6C291 /* BroadCastTextFieldCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C93600E722EEC5EA00A6C291 /* BroadCastTextFieldCell.xib */; };
+		C936014722EEC5EA00A6C291 /* BroadCastTextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93600E822EEC5EA00A6C291 /* BroadCastTextFieldCell.swift */; };
+		C936014822EEC5EA00A6C291 /* BroadcastListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93600EA22EEC5EA00A6C291 /* BroadcastListTableViewCell.swift */; };
+		C936014922EEC5EA00A6C291 /* BroadcastListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C93600EB22EEC5EA00A6C291 /* BroadcastListTableViewCell.xib */; };
+		C936014A22EEC5EA00A6C291 /* BoardCastSelectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C93600ED22EEC5EA00A6C291 /* BoardCastSelectionCell.xib */; };
+		C936014B22EEC5EA00A6C291 /* BoardCastSelectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93600EE22EEC5EA00A6C291 /* BoardCastSelectionCell.swift */; };
+		C936014C22EEC5EA00A6C291 /* FeedbackTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C93600F022EEC5EA00A6C291 /* FeedbackTableViewCell.xib */; };
+		C936014D22EEC5EA00A6C291 /* FeedbackTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93600F122EEC5EA00A6C291 /* FeedbackTableViewCell.swift */; };
+		C936015022EEC7DB00A6C291 /* SelfMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C936014F22EEC7DB00A6C291 /* SelfMessageTableViewCell.xib */; };
+		C936015222EEC87300A6C291 /* SupportMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C936015122EEC87300A6C291 /* SupportMessageTableViewCell.xib */; };
+		C936015A22EED3CC00A6C291 /* ActionTagTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C936015822EED3CC00A6C291 /* ActionTagTableViewCell.swift */; };
+		C936015B22EED3CC00A6C291 /* ActionTagTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C936015922EED3CC00A6C291 /* ActionTagTableViewCell.xib */; };
 		C976E6922215516300B9F79E /* FormData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C976E6912215516300B9F79E /* FormData.swift */; };
-		C976E6A42216B80800B9F79E /* ContactNumberTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C976E6A22216B80800B9F79E /* ContactNumberTableCell.swift */; };
-		C976E6A52216B80800B9F79E /* ContactNumberTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C976E6A32216B80800B9F79E /* ContactNumberTableCell.xib */; };
 		C9B77E0D21A01B060092848D /* ConversationPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77CF821A01B050092848D /* ConversationPresenter.swift */; };
 		C9B77E0E21A01B060092848D /* ConversationStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77CF921A01B050092848D /* ConversationStore.swift */; };
 		C9B77E0F21A01B060092848D /* AgentConversationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77CFA21A01B050092848D /* AgentConversationManager.swift */; };
@@ -37,69 +127,6 @@
 		C9B77E1F21A01B060092848D /* EmojiCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77D1121A01B060092848D /* EmojiCollectionViewCell.swift */; };
 		C9B77E2021A01B060092848D /* ChatInfoHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77D1421A01B060092848D /* ChatInfoHeader.swift */; };
 		C9B77E2121A01B060092848D /* ChatInfoHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9B77D1521A01B060092848D /* ChatInfoHeader.xib */; };
-		C9B77E2221A01B060092848D /* OutgoingImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9B77D1821A01B060092848D /* OutgoingImageCell.xib */; };
-		C9B77E2321A01B060092848D /* OutgoingImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77D1921A01B060092848D /* OutgoingImageCell.swift */; };
-		C9B77E2421A01B060092848D /* CategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77D1B21A01B060092848D /* CategoryTableViewCell.swift */; };
-		C9B77E2521A01B060092848D /* CategoryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9B77D1C21A01B060092848D /* CategoryTableViewCell.xib */; };
-		C9B77E2621A01B060092848D /* IncomingImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9B77D1E21A01B060092848D /* IncomingImageCell.xib */; };
-		C9B77E2721A01B060092848D /* IncomingImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77D1F21A01B060092848D /* IncomingImageCell.swift */; };
-		C9B77E2821A01B060092848D /* BotOutgoingMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9B77D2121A01B060092848D /* BotOutgoingMessageTableViewCell.xib */; };
-		C9B77E2921A01B060092848D /* BotOutgoingMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77D2221A01B060092848D /* BotOutgoingMessageTableViewCell.swift */; };
-		C9B77E2A21A01B060092848D /* LeadTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77D2421A01B060092848D /* LeadTableViewCell.swift */; };
-		C9B77E2B21A01B060092848D /* LeadTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9B77D2521A01B060092848D /* LeadTableViewCell.xib */; };
-		C9B77E2C21A01B060092848D /* ConversationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77D2721A01B060092848D /* ConversationView.swift */; };
-		C9B77E2D21A01B060092848D /* ChatInfoTagViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77D2921A01B060092848D /* ChatInfoTagViewCell.swift */; };
-		C9B77E2E21A01B060092848D /* ChatInfoTagViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9B77D2A21A01B060092848D /* ChatInfoTagViewCell.xib */; };
-		C9B77E2F21A01B060092848D /* AssignedAgentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9B77D2C21A01B060092848D /* AssignedAgentTableViewCell.xib */; };
-		C9B77E3021A01B060092848D /* AssignedAgentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77D2D21A01B060092848D /* AssignedAgentTableViewCell.swift */; };
-		C9B77E3121A01B060092848D /* SupportMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77D2F21A01B060092848D /* SupportMessageTableViewCell.swift */; };
-		C9B77E3221A01B060092848D /* ButtonCellCollectionViewHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77D3221A01B060092848D /* ButtonCellCollectionViewHandler.swift */; };
-		C9B77E3321A01B060092848D /* ActionableMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9B77D3321A01B060092848D /* ActionableMessageTableViewCell.xib */; };
-		C9B77E3421A01B060092848D /* ButtonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9B77D3621A01B060092848D /* ButtonTableViewCell.xib */; };
-		C9B77E3521A01B060092848D /* ButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77D3721A01B060092848D /* ButtonTableViewCell.swift */; };
-		C9B77E3621A01B060092848D /* ButtonCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77D3921A01B060092848D /* ButtonCollectionCell.swift */; };
-		C9B77E3721A01B060092848D /* ButtonCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9B77D3A21A01B060092848D /* ButtonCollectionCell.xib */; };
-		C9B77E3821A01B060092848D /* HeaderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9B77D3C21A01B060092848D /* HeaderTableViewCell.xib */; };
-		C9B77E3921A01B060092848D /* HeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77D3D21A01B060092848D /* HeaderTableViewCell.swift */; };
-		C9B77E3A21A01B060092848D /* ItemTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9B77D3F21A01B060092848D /* ItemTableViewCell.xib */; };
-		C9B77E3B21A01B060092848D /* ItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77D4021A01B060092848D /* ItemTableViewCell.swift */; };
-		C9B77E3C21A01B060092848D /* SenderNameTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77D4221A01B060092848D /* SenderNameTableCell.swift */; };
-		C9B77E3D21A01B060092848D /* SenderNameTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9B77D4321A01B060092848D /* SenderNameTableCell.xib */; };
-		C9B77E3E21A01B060092848D /* ImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77D4521A01B060092848D /* ImageTableViewCell.swift */; };
-		C9B77E3F21A01B060092848D /* ImageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9B77D4621A01B060092848D /* ImageTableViewCell.xib */; };
-		C9B77E4021A01B060092848D /* ActionableMessageCellHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77D4821A01B060092848D /* ActionableMessageCellHandler.swift */; };
-		C9B77E4121A01B060092848D /* ActionableMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77D4921A01B060092848D /* ActionableMessageTableViewCell.swift */; };
-		C9B77E4221A01B060092848D /* TypingViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77D4B21A01B060092848D /* TypingViewTableViewCell.swift */; };
-		C9B77E4321A01B060092848D /* AgentHomeConversationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77D4D21A01B060092848D /* AgentHomeConversationCell.swift */; };
-		C9B77E4421A01B060092848D /* AgentHomeConversationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9B77D4E21A01B060092848D /* AgentHomeConversationCell.xib */; };
-		C9B77E4521A01B060092848D /* SelfMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77D5021A01B060092848D /* SelfMessageTableViewCell.swift */; };
-		C9B77E4621A01B060092848D /* LeadDataTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9B77D5221A01B060092848D /* LeadDataTableViewCell.xib */; };
-		C9B77E4721A01B060092848D /* LeadDataTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77D5321A01B060092848D /* LeadDataTableViewCell.swift */; };
-		C9B77E4821A01B060092848D /* ChatInfoActionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77D5521A01B060092848D /* ChatInfoActionCell.swift */; };
-		C9B77E4921A01B060092848D /* ChatInfoActionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9B77D5621A01B060092848D /* ChatInfoActionCell.xib */; };
-		C9B77E4A21A01B060092848D /* ChatProfileTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9B77D5821A01B060092848D /* ChatProfileTableViewCell.xib */; };
-		C9B77E4B21A01B060092848D /* ChatProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77D5921A01B060092848D /* ChatProfileTableViewCell.swift */; };
-		C9B77E4C21A01B060092848D /* OutgoingVideoCallMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9B77D5B21A01B060092848D /* OutgoingVideoCallMessageTableViewCell.xib */; };
-		C9B77E4D21A01B060092848D /* VideoCallMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77D5C21A01B060092848D /* VideoCallMessageTableViewCell.swift */; };
-		C9B77E4E21A01B060092848D /* IncomingVideoCallMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9B77D5D21A01B060092848D /* IncomingVideoCallMessageTableViewCell.xib */; };
-		C9B77E4F21A01B060092848D /* ChatInfoAgentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9B77D5F21A01B060092848D /* ChatInfoAgentTableViewCell.xib */; };
-		C9B77E5021A01B060092848D /* ChatInfoAgentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77D6021A01B060092848D /* ChatInfoAgentTableViewCell.swift */; };
-		C9B77E5121A01B060092848D /* BroadcastButtonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9B77D6321A01B060092848D /* BroadcastButtonCell.xib */; };
-		C9B77E5221A01B060092848D /* BroadcastButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77D6421A01B060092848D /* BroadcastButtonCell.swift */; };
-		C9B77E5321A01B060092848D /* BroadcastAgentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77D6621A01B060092848D /* BroadcastAgentCell.swift */; };
-		C9B77E5421A01B060092848D /* BroadcastAgentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9B77D6721A01B060092848D /* BroadcastAgentCell.xib */; };
-		C9B77E5521A01B060092848D /* BroadCastTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77D6921A01B060092848D /* BroadCastTitleCell.swift */; };
-		C9B77E5621A01B060092848D /* BroadCastTitleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9B77D6A21A01B060092848D /* BroadCastTitleCell.xib */; };
-		C9B77E5721A01B060092848D /* BroadCastTextViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77D6C21A01B060092848D /* BroadCastTextViewCell.swift */; };
-		C9B77E5821A01B060092848D /* BroadCastTextViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9B77D6D21A01B060092848D /* BroadCastTextViewCell.xib */; };
-		C9B77E5921A01B060092848D /* BroadCastTextFieldCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9B77D6F21A01B060092848D /* BroadCastTextFieldCell.xib */; };
-		C9B77E5A21A01B060092848D /* BroadCastTextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77D7021A01B060092848D /* BroadCastTextFieldCell.swift */; };
-		C9B77E5B21A01B060092848D /* BroadcastListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77D7221A01B060092848D /* BroadcastListTableViewCell.swift */; };
-		C9B77E5C21A01B060092848D /* BroadcastListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9B77D7321A01B060092848D /* BroadcastListTableViewCell.xib */; };
-		C9B77E5D21A01B060092848D /* BoardCastSelectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9B77D7521A01B060092848D /* BoardCastSelectionCell.xib */; };
-		C9B77E5E21A01B060092848D /* BoardCastSelectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77D7621A01B060092848D /* BoardCastSelectionCell.swift */; };
-		C9B77E5F21A01B060092848D /* FeedbackTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9B77D7821A01B060092848D /* FeedbackTableViewCell.xib */; };
-		C9B77E6021A01B060092848D /* FeedbackTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77D7921A01B060092848D /* FeedbackTableViewCell.swift */; };
 		C9B77E6121A01B060092848D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9B77D7A21A01B060092848D /* Assets.xcassets */; };
 		C9B77E6221A01B060092848D /* HippoBroadCast.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9B77D7B21A01B060092848D /* HippoBroadCast.storyboard */; };
 		C9B77E6321A01B060092848D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9B77D7C21A01B060092848D /* LaunchScreen.storyboard */; };
@@ -216,8 +243,6 @@
 		C9B77EDB21A01B070092848D /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C9B77E0A21A01B060092848D /* Info.plist */; };
 		C9B77EDC21A01B070092848D /* FuguUnique.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9B77E0B21A01B060092848D /* FuguUnique.storyboard */; };
 		C9B77EDD21A01B070092848D /* Montserrat-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = C9B77E0C21A01B060092848D /* Montserrat-SemiBold.otf */; };
-		C9E029EA221FF73C00B22D57 /* ShowMoreTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9E029E8221FF73C00B22D57 /* ShowMoreTableViewCell.xib */; };
-		C9E029EB221FF73C00B22D57 /* ShowMoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E029E9221FF73C00B22D57 /* ShowMoreTableViewCell.swift */; };
 		C9F6D47121C8B47100EA23E6 /* SupportTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F6D46E21C8B47100EA23E6 /* SupportTheme.swift */; };
 		C9F6D47221C8B47100EA23E6 /* HippoStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F6D46F21C8B47100EA23E6 /* HippoStrings.swift */; };
 		C9F6D47321C8B47100EA23E6 /* HippoTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F6D47021C8B47100EA23E6 /* HippoTheme.swift */; };
@@ -245,19 +270,6 @@
 		C9FB6FB621EE10CD00B72CEA /* LoggerConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FB6FA421EE10CD00B72CEA /* LoggerConfig.swift */; };
 		C9FB6FB721EE10CD00B72CEA /* Formatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FB6FA521EE10CD00B72CEA /* Formatter.swift */; };
 		C9FB6FB821EE10CD00B72CEA /* Benchmarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FB6FA621EE10CD00B72CEA /* Benchmarker.swift */; };
-		C9FB6FCA21EE114600B72CEA /* OutgoingVideoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9FB6FBA21EE114600B72CEA /* OutgoingVideoTableViewCell.xib */; };
-		C9FB6FCB21EE114600B72CEA /* VideoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FB6FBB21EE114600B72CEA /* VideoTableViewCell.swift */; };
-		C9FB6FCC21EE114600B72CEA /* IncomingVideoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9FB6FBC21EE114600B72CEA /* IncomingVideoTableViewCell.xib */; };
-		C9FB6FCD21EE114600B72CEA /* IncomingVideoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FB6FBD21EE114600B72CEA /* IncomingVideoTableViewCell.swift */; };
-		C9FB6FCE21EE114600B72CEA /* OutgoingVideoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FB6FBE21EE114600B72CEA /* OutgoingVideoTableViewCell.swift */; };
-		C9FB6FCF21EE114600B72CEA /* IncomingAudioTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9FB6FC021EE114600B72CEA /* IncomingAudioTableViewCell.xib */; };
-		C9FB6FD021EE114600B72CEA /* OutgoingAudioTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9FB6FC121EE114600B72CEA /* OutgoingAudioTableViewCell.xib */; };
-		C9FB6FD121EE114600B72CEA /* IncomingAudioTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FB6FC221EE114600B72CEA /* IncomingAudioTableViewCell.swift */; };
-		C9FB6FD221EE114600B72CEA /* OutgoingAudioTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FB6FC321EE114600B72CEA /* OutgoingAudioTableViewCell.swift */; };
-		C9FB6FD321EE114600B72CEA /* OutgoingDocumentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9FB6FC521EE114600B72CEA /* OutgoingDocumentTableViewCell.xib */; };
-		C9FB6FD421EE114600B72CEA /* OutgoingDocumentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FB6FC621EE114600B72CEA /* OutgoingDocumentTableViewCell.swift */; };
-		C9FB6FD521EE114600B72CEA /* IncomingDocumentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9FB6FC821EE114600B72CEA /* IncomingDocumentTableViewCell.xib */; };
-		C9FB6FD621EE114600B72CEA /* IncomingDocumentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FB6FC921EE114600B72CEA /* IncomingDocumentTableViewCell.swift */; };
 		C9FB6FDC21EEF04900B72CEA /* TWRDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FB6FD921EEF04800B72CEA /* TWRDownloadManager.m */; };
 		C9FB6FDD21EEF04900B72CEA /* TWRDownloadObject.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FB6FDA21EEF04800B72CEA /* TWRDownloadObject.m */; };
 /* End PBXBuildFile section */
@@ -268,13 +280,103 @@
 		717BE1731EC1BE11003EA321 /* Hippo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hippo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		73C5DC7752C82068B4CD5EB2 /* Pods-Hippo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hippo.release.xcconfig"; path = "Pods/Target Support Files/Pods-Hippo/Pods-Hippo.release.xcconfig"; sourceTree = "<group>"; };
 		8C0A922564912516EF04B93F /* Pods_Hippo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Hippo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		C90E0D0D221FCA49004879A5 /* PaymentItemDescriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentItemDescriptionCell.swift; sourceTree = "<group>"; };
-		C90E0D0E221FCA49004879A5 /* PaymentItemDescriptionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PaymentItemDescriptionCell.xib; sourceTree = "<group>"; };
-		C9232D2A221D4A2E006965D5 /* BroadcastUserStatusCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BroadcastUserStatusCell.xib; sourceTree = "<group>"; };
-		C9232D2B221D4A2E006965D5 /* BroadcastUserStatusCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BroadcastUserStatusCell.swift; sourceTree = "<group>"; };
+		C936006922EEC5EA00A6C291 /* OutgoingImageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OutgoingImageCell.xib; sourceTree = "<group>"; };
+		C936006A22EEC5EA00A6C291 /* OutgoingImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutgoingImageCell.swift; sourceTree = "<group>"; };
+		C936006C22EEC5EA00A6C291 /* CategoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryTableViewCell.swift; sourceTree = "<group>"; };
+		C936006D22EEC5EA00A6C291 /* CategoryTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CategoryTableViewCell.xib; sourceTree = "<group>"; };
+		C936006F22EEC5EA00A6C291 /* ActionTableDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionTableDataSource.swift; sourceTree = "<group>"; };
+		C936007022EEC5EA00A6C291 /* ActionTableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActionTableView.xib; sourceTree = "<group>"; };
+		C936007122EEC5EA00A6C291 /* ActionTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionTableView.swift; sourceTree = "<group>"; };
+		C936007322EEC5EA00A6C291 /* ActionButtonViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionButtonViewCell.swift; sourceTree = "<group>"; };
+		C936007422EEC5EA00A6C291 /* ActionLabelViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActionLabelViewCell.xib; sourceTree = "<group>"; };
+		C936007522EEC5EA00A6C291 /* ActionLabelViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionLabelViewCell.swift; sourceTree = "<group>"; };
+		C936007622EEC5EA00A6C291 /* ActionButtonViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActionButtonViewCell.xib; sourceTree = "<group>"; };
+		C936007722EEC5EA00A6C291 /* ActionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionViewCell.swift; sourceTree = "<group>"; };
+		C936007922EEC5EA00A6C291 /* ContactNumberTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactNumberTableCell.xib; sourceTree = "<group>"; };
+		C936007A22EEC5EA00A6C291 /* ContactNumberTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactNumberTableCell.swift; sourceTree = "<group>"; };
+		C936007C22EEC5EA00A6C291 /* IncomingImageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IncomingImageCell.xib; sourceTree = "<group>"; };
+		C936007D22EEC5EA00A6C291 /* IncomingImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IncomingImageCell.swift; sourceTree = "<group>"; };
+		C936007F22EEC5EA00A6C291 /* BroadcastUserStatusCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BroadcastUserStatusCell.xib; sourceTree = "<group>"; };
+		C936008022EEC5EA00A6C291 /* BroadcastUserStatusCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BroadcastUserStatusCell.swift; sourceTree = "<group>"; };
+		C936008222EEC5EA00A6C291 /* BotOutgoingMessageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BotOutgoingMessageTableViewCell.xib; sourceTree = "<group>"; };
+		C936008322EEC5EA00A6C291 /* BotOutgoingMessageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BotOutgoingMessageTableViewCell.swift; sourceTree = "<group>"; };
+		C936008522EEC5EA00A6C291 /* IncomingDocumentTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IncomingDocumentTableViewCell.xib; sourceTree = "<group>"; };
+		C936008622EEC5EA00A6C291 /* IncomingDocumentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IncomingDocumentTableViewCell.swift; sourceTree = "<group>"; };
+		C936008822EEC5EA00A6C291 /* PaymentItemDescriptionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PaymentItemDescriptionCell.xib; sourceTree = "<group>"; };
+		C936008922EEC5EA00A6C291 /* PaymentItemDescriptionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentItemDescriptionCell.swift; sourceTree = "<group>"; };
+		C936008B22EEC5EA00A6C291 /* LeadTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeadTableViewCell.swift; sourceTree = "<group>"; };
+		C936008C22EEC5EA00A6C291 /* LeadTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LeadTableViewCell.xib; sourceTree = "<group>"; };
+		C936008E22EEC5EA00A6C291 /* ConversationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationView.swift; sourceTree = "<group>"; };
+		C936009022EEC5EA00A6C291 /* ChatInfoTagViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatInfoTagViewCell.swift; sourceTree = "<group>"; };
+		C936009122EEC5EA00A6C291 /* ChatInfoTagViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatInfoTagViewCell.xib; sourceTree = "<group>"; };
+		C936009322EEC5EA00A6C291 /* AssignedAgentTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AssignedAgentTableViewCell.xib; sourceTree = "<group>"; };
+		C936009422EEC5EA00A6C291 /* AssignedAgentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssignedAgentTableViewCell.swift; sourceTree = "<group>"; };
+		C936009622EEC5EA00A6C291 /* SupportMessageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SupportMessageTableViewCell.swift; sourceTree = "<group>"; };
+		C936009922EEC5EA00A6C291 /* ButtonCellCollectionViewHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonCellCollectionViewHandler.swift; sourceTree = "<group>"; };
+		C936009A22EEC5EA00A6C291 /* ActionableMessageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActionableMessageTableViewCell.xib; sourceTree = "<group>"; };
+		C936009D22EEC5EA00A6C291 /* ButtonTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ButtonTableViewCell.xib; sourceTree = "<group>"; };
+		C936009E22EEC5EA00A6C291 /* ButtonTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonTableViewCell.swift; sourceTree = "<group>"; };
+		C93600A022EEC5EA00A6C291 /* ButtonCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonCollectionCell.swift; sourceTree = "<group>"; };
+		C93600A122EEC5EA00A6C291 /* ButtonCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ButtonCollectionCell.xib; sourceTree = "<group>"; };
+		C93600A322EEC5EA00A6C291 /* HeaderTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HeaderTableViewCell.xib; sourceTree = "<group>"; };
+		C93600A422EEC5EA00A6C291 /* HeaderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderTableViewCell.swift; sourceTree = "<group>"; };
+		C93600A622EEC5EA00A6C291 /* ItemTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ItemTableViewCell.xib; sourceTree = "<group>"; };
+		C93600A722EEC5EA00A6C291 /* ItemTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemTableViewCell.swift; sourceTree = "<group>"; };
+		C93600A922EEC5EA00A6C291 /* SenderNameTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SenderNameTableCell.swift; sourceTree = "<group>"; };
+		C93600AA22EEC5EA00A6C291 /* SenderNameTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SenderNameTableCell.xib; sourceTree = "<group>"; };
+		C93600AC22EEC5EA00A6C291 /* ImageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageTableViewCell.swift; sourceTree = "<group>"; };
+		C93600AD22EEC5EA00A6C291 /* ImageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageTableViewCell.xib; sourceTree = "<group>"; };
+		C93600AF22EEC5EA00A6C291 /* ActionableMessageCellHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionableMessageCellHandler.swift; sourceTree = "<group>"; };
+		C93600B022EEC5EA00A6C291 /* ActionableMessageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionableMessageTableViewCell.swift; sourceTree = "<group>"; };
+		C93600B222EEC5EA00A6C291 /* IncomingAudioTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IncomingAudioTableViewCell.xib; sourceTree = "<group>"; };
+		C93600B322EEC5EA00A6C291 /* OutgoingAudioTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OutgoingAudioTableViewCell.xib; sourceTree = "<group>"; };
+		C93600B422EEC5EA00A6C291 /* IncomingAudioTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IncomingAudioTableViewCell.swift; sourceTree = "<group>"; };
+		C93600B522EEC5EA00A6C291 /* OutgoingAudioTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutgoingAudioTableViewCell.swift; sourceTree = "<group>"; };
+		C93600B722EEC5EA00A6C291 /* TypingViewTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypingViewTableViewCell.swift; sourceTree = "<group>"; };
+		C93600B922EEC5EA00A6C291 /* OutgoingVideoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OutgoingVideoTableViewCell.xib; sourceTree = "<group>"; };
+		C93600BA22EEC5EA00A6C291 /* VideoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoTableViewCell.swift; sourceTree = "<group>"; };
+		C93600BB22EEC5EA00A6C291 /* IncomingVideoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IncomingVideoTableViewCell.xib; sourceTree = "<group>"; };
+		C93600BC22EEC5EA00A6C291 /* IncomingVideoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IncomingVideoTableViewCell.swift; sourceTree = "<group>"; };
+		C93600BD22EEC5EA00A6C291 /* OutgoingVideoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutgoingVideoTableViewCell.swift; sourceTree = "<group>"; };
+		C93600BF22EEC5EA00A6C291 /* OutgoingDocumentTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OutgoingDocumentTableViewCell.xib; sourceTree = "<group>"; };
+		C93600C022EEC5EA00A6C291 /* OutgoingDocumentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutgoingDocumentTableViewCell.swift; sourceTree = "<group>"; };
+		C93600C222EEC5EA00A6C291 /* AgentHomeConversationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgentHomeConversationCell.swift; sourceTree = "<group>"; };
+		C93600C322EEC5EA00A6C291 /* AgentHomeConversationCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AgentHomeConversationCell.xib; sourceTree = "<group>"; };
+		C93600C522EEC5EA00A6C291 /* SelfMessageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelfMessageTableViewCell.swift; sourceTree = "<group>"; };
+		C93600C722EEC5EA00A6C291 /* LeadDataTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LeadDataTableViewCell.xib; sourceTree = "<group>"; };
+		C93600C822EEC5EA00A6C291 /* LeadDataTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeadDataTableViewCell.swift; sourceTree = "<group>"; };
+		C93600CA22EEC5EA00A6C291 /* ChatInfoActionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatInfoActionCell.swift; sourceTree = "<group>"; };
+		C93600CB22EEC5EA00A6C291 /* ChatInfoActionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatInfoActionCell.xib; sourceTree = "<group>"; };
+		C93600CD22EEC5EA00A6C291 /* ChatProfileTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatProfileTableViewCell.xib; sourceTree = "<group>"; };
+		C93600CE22EEC5EA00A6C291 /* ChatProfileTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatProfileTableViewCell.swift; sourceTree = "<group>"; };
+		C93600D022EEC5EA00A6C291 /* OutgoingVideoCallMessageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OutgoingVideoCallMessageTableViewCell.xib; sourceTree = "<group>"; };
+		C93600D122EEC5EA00A6C291 /* VideoCallMessageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoCallMessageTableViewCell.swift; sourceTree = "<group>"; };
+		C93600D222EEC5EA00A6C291 /* IncomingVideoCallMessageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IncomingVideoCallMessageTableViewCell.xib; sourceTree = "<group>"; };
+		C93600D422EEC5EA00A6C291 /* ShowMoreTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShowMoreTableViewCell.xib; sourceTree = "<group>"; };
+		C93600D522EEC5EA00A6C291 /* ShowMoreTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowMoreTableViewCell.swift; sourceTree = "<group>"; };
+		C93600D722EEC5EA00A6C291 /* ChatInfoAgentTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatInfoAgentTableViewCell.xib; sourceTree = "<group>"; };
+		C93600D822EEC5EA00A6C291 /* ChatInfoAgentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatInfoAgentTableViewCell.swift; sourceTree = "<group>"; };
+		C93600DB22EEC5EA00A6C291 /* BroadcastButtonCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BroadcastButtonCell.xib; sourceTree = "<group>"; };
+		C93600DC22EEC5EA00A6C291 /* BroadcastButtonCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BroadcastButtonCell.swift; sourceTree = "<group>"; };
+		C93600DE22EEC5EA00A6C291 /* BroadcastAgentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BroadcastAgentCell.swift; sourceTree = "<group>"; };
+		C93600DF22EEC5EA00A6C291 /* BroadcastAgentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BroadcastAgentCell.xib; sourceTree = "<group>"; };
+		C93600E122EEC5EA00A6C291 /* BroadCastTitleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BroadCastTitleCell.swift; sourceTree = "<group>"; };
+		C93600E222EEC5EA00A6C291 /* BroadCastTitleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BroadCastTitleCell.xib; sourceTree = "<group>"; };
+		C93600E422EEC5EA00A6C291 /* BroadCastTextViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BroadCastTextViewCell.swift; sourceTree = "<group>"; };
+		C93600E522EEC5EA00A6C291 /* BroadCastTextViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BroadCastTextViewCell.xib; sourceTree = "<group>"; };
+		C93600E722EEC5EA00A6C291 /* BroadCastTextFieldCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BroadCastTextFieldCell.xib; sourceTree = "<group>"; };
+		C93600E822EEC5EA00A6C291 /* BroadCastTextFieldCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BroadCastTextFieldCell.swift; sourceTree = "<group>"; };
+		C93600EA22EEC5EA00A6C291 /* BroadcastListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BroadcastListTableViewCell.swift; sourceTree = "<group>"; };
+		C93600EB22EEC5EA00A6C291 /* BroadcastListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BroadcastListTableViewCell.xib; sourceTree = "<group>"; };
+		C93600ED22EEC5EA00A6C291 /* BoardCastSelectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BoardCastSelectionCell.xib; sourceTree = "<group>"; };
+		C93600EE22EEC5EA00A6C291 /* BoardCastSelectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardCastSelectionCell.swift; sourceTree = "<group>"; };
+		C93600F022EEC5EA00A6C291 /* FeedbackTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FeedbackTableViewCell.xib; sourceTree = "<group>"; };
+		C93600F122EEC5EA00A6C291 /* FeedbackTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedbackTableViewCell.swift; sourceTree = "<group>"; };
+		C936014F22EEC7DB00A6C291 /* SelfMessageTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelfMessageTableViewCell.xib; sourceTree = "<group>"; };
+		C936015122EEC87300A6C291 /* SupportMessageTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SupportMessageTableViewCell.xib; sourceTree = "<group>"; };
+		C936015822EED3CC00A6C291 /* ActionTagTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionTagTableViewCell.swift; sourceTree = "<group>"; };
+		C936015922EED3CC00A6C291 /* ActionTagTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActionTagTableViewCell.xib; sourceTree = "<group>"; };
 		C976E6912215516300B9F79E /* FormData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormData.swift; sourceTree = "<group>"; };
-		C976E6A22216B80800B9F79E /* ContactNumberTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactNumberTableCell.swift; sourceTree = "<group>"; };
-		C976E6A32216B80800B9F79E /* ContactNumberTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContactNumberTableCell.xib; sourceTree = "<group>"; };
 		C9B77CF821A01B050092848D /* ConversationPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationPresenter.swift; sourceTree = "<group>"; };
 		C9B77CF921A01B050092848D /* ConversationStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationStore.swift; sourceTree = "<group>"; };
 		C9B77CFA21A01B050092848D /* AgentConversationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgentConversationManager.swift; sourceTree = "<group>"; };
@@ -296,69 +398,6 @@
 		C9B77D1121A01B060092848D /* EmojiCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmojiCollectionViewCell.swift; sourceTree = "<group>"; };
 		C9B77D1421A01B060092848D /* ChatInfoHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatInfoHeader.swift; sourceTree = "<group>"; };
 		C9B77D1521A01B060092848D /* ChatInfoHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatInfoHeader.xib; sourceTree = "<group>"; };
-		C9B77D1821A01B060092848D /* OutgoingImageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OutgoingImageCell.xib; sourceTree = "<group>"; };
-		C9B77D1921A01B060092848D /* OutgoingImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutgoingImageCell.swift; sourceTree = "<group>"; };
-		C9B77D1B21A01B060092848D /* CategoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryTableViewCell.swift; sourceTree = "<group>"; };
-		C9B77D1C21A01B060092848D /* CategoryTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CategoryTableViewCell.xib; sourceTree = "<group>"; };
-		C9B77D1E21A01B060092848D /* IncomingImageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IncomingImageCell.xib; sourceTree = "<group>"; };
-		C9B77D1F21A01B060092848D /* IncomingImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IncomingImageCell.swift; sourceTree = "<group>"; };
-		C9B77D2121A01B060092848D /* BotOutgoingMessageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BotOutgoingMessageTableViewCell.xib; sourceTree = "<group>"; };
-		C9B77D2221A01B060092848D /* BotOutgoingMessageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BotOutgoingMessageTableViewCell.swift; sourceTree = "<group>"; };
-		C9B77D2421A01B060092848D /* LeadTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeadTableViewCell.swift; sourceTree = "<group>"; };
-		C9B77D2521A01B060092848D /* LeadTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LeadTableViewCell.xib; sourceTree = "<group>"; };
-		C9B77D2721A01B060092848D /* ConversationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationView.swift; sourceTree = "<group>"; };
-		C9B77D2921A01B060092848D /* ChatInfoTagViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatInfoTagViewCell.swift; sourceTree = "<group>"; };
-		C9B77D2A21A01B060092848D /* ChatInfoTagViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatInfoTagViewCell.xib; sourceTree = "<group>"; };
-		C9B77D2C21A01B060092848D /* AssignedAgentTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AssignedAgentTableViewCell.xib; sourceTree = "<group>"; };
-		C9B77D2D21A01B060092848D /* AssignedAgentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssignedAgentTableViewCell.swift; sourceTree = "<group>"; };
-		C9B77D2F21A01B060092848D /* SupportMessageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SupportMessageTableViewCell.swift; sourceTree = "<group>"; };
-		C9B77D3221A01B060092848D /* ButtonCellCollectionViewHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonCellCollectionViewHandler.swift; sourceTree = "<group>"; };
-		C9B77D3321A01B060092848D /* ActionableMessageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActionableMessageTableViewCell.xib; sourceTree = "<group>"; };
-		C9B77D3621A01B060092848D /* ButtonTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ButtonTableViewCell.xib; sourceTree = "<group>"; };
-		C9B77D3721A01B060092848D /* ButtonTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonTableViewCell.swift; sourceTree = "<group>"; };
-		C9B77D3921A01B060092848D /* ButtonCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonCollectionCell.swift; sourceTree = "<group>"; };
-		C9B77D3A21A01B060092848D /* ButtonCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ButtonCollectionCell.xib; sourceTree = "<group>"; };
-		C9B77D3C21A01B060092848D /* HeaderTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HeaderTableViewCell.xib; sourceTree = "<group>"; };
-		C9B77D3D21A01B060092848D /* HeaderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderTableViewCell.swift; sourceTree = "<group>"; };
-		C9B77D3F21A01B060092848D /* ItemTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ItemTableViewCell.xib; sourceTree = "<group>"; };
-		C9B77D4021A01B060092848D /* ItemTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemTableViewCell.swift; sourceTree = "<group>"; };
-		C9B77D4221A01B060092848D /* SenderNameTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SenderNameTableCell.swift; sourceTree = "<group>"; };
-		C9B77D4321A01B060092848D /* SenderNameTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SenderNameTableCell.xib; sourceTree = "<group>"; };
-		C9B77D4521A01B060092848D /* ImageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageTableViewCell.swift; sourceTree = "<group>"; };
-		C9B77D4621A01B060092848D /* ImageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageTableViewCell.xib; sourceTree = "<group>"; };
-		C9B77D4821A01B060092848D /* ActionableMessageCellHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionableMessageCellHandler.swift; sourceTree = "<group>"; };
-		C9B77D4921A01B060092848D /* ActionableMessageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionableMessageTableViewCell.swift; sourceTree = "<group>"; };
-		C9B77D4B21A01B060092848D /* TypingViewTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypingViewTableViewCell.swift; sourceTree = "<group>"; };
-		C9B77D4D21A01B060092848D /* AgentHomeConversationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgentHomeConversationCell.swift; sourceTree = "<group>"; };
-		C9B77D4E21A01B060092848D /* AgentHomeConversationCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AgentHomeConversationCell.xib; sourceTree = "<group>"; };
-		C9B77D5021A01B060092848D /* SelfMessageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelfMessageTableViewCell.swift; sourceTree = "<group>"; };
-		C9B77D5221A01B060092848D /* LeadDataTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LeadDataTableViewCell.xib; sourceTree = "<group>"; };
-		C9B77D5321A01B060092848D /* LeadDataTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeadDataTableViewCell.swift; sourceTree = "<group>"; };
-		C9B77D5521A01B060092848D /* ChatInfoActionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatInfoActionCell.swift; sourceTree = "<group>"; };
-		C9B77D5621A01B060092848D /* ChatInfoActionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatInfoActionCell.xib; sourceTree = "<group>"; };
-		C9B77D5821A01B060092848D /* ChatProfileTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatProfileTableViewCell.xib; sourceTree = "<group>"; };
-		C9B77D5921A01B060092848D /* ChatProfileTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatProfileTableViewCell.swift; sourceTree = "<group>"; };
-		C9B77D5B21A01B060092848D /* OutgoingVideoCallMessageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OutgoingVideoCallMessageTableViewCell.xib; sourceTree = "<group>"; };
-		C9B77D5C21A01B060092848D /* VideoCallMessageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoCallMessageTableViewCell.swift; sourceTree = "<group>"; };
-		C9B77D5D21A01B060092848D /* IncomingVideoCallMessageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IncomingVideoCallMessageTableViewCell.xib; sourceTree = "<group>"; };
-		C9B77D5F21A01B060092848D /* ChatInfoAgentTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatInfoAgentTableViewCell.xib; sourceTree = "<group>"; };
-		C9B77D6021A01B060092848D /* ChatInfoAgentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatInfoAgentTableViewCell.swift; sourceTree = "<group>"; };
-		C9B77D6321A01B060092848D /* BroadcastButtonCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BroadcastButtonCell.xib; sourceTree = "<group>"; };
-		C9B77D6421A01B060092848D /* BroadcastButtonCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BroadcastButtonCell.swift; sourceTree = "<group>"; };
-		C9B77D6621A01B060092848D /* BroadcastAgentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BroadcastAgentCell.swift; sourceTree = "<group>"; };
-		C9B77D6721A01B060092848D /* BroadcastAgentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BroadcastAgentCell.xib; sourceTree = "<group>"; };
-		C9B77D6921A01B060092848D /* BroadCastTitleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BroadCastTitleCell.swift; sourceTree = "<group>"; };
-		C9B77D6A21A01B060092848D /* BroadCastTitleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BroadCastTitleCell.xib; sourceTree = "<group>"; };
-		C9B77D6C21A01B060092848D /* BroadCastTextViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BroadCastTextViewCell.swift; sourceTree = "<group>"; };
-		C9B77D6D21A01B060092848D /* BroadCastTextViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BroadCastTextViewCell.xib; sourceTree = "<group>"; };
-		C9B77D6F21A01B060092848D /* BroadCastTextFieldCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BroadCastTextFieldCell.xib; sourceTree = "<group>"; };
-		C9B77D7021A01B060092848D /* BroadCastTextFieldCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BroadCastTextFieldCell.swift; sourceTree = "<group>"; };
-		C9B77D7221A01B060092848D /* BroadcastListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BroadcastListTableViewCell.swift; sourceTree = "<group>"; };
-		C9B77D7321A01B060092848D /* BroadcastListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BroadcastListTableViewCell.xib; sourceTree = "<group>"; };
-		C9B77D7521A01B060092848D /* BoardCastSelectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BoardCastSelectionCell.xib; sourceTree = "<group>"; };
-		C9B77D7621A01B060092848D /* BoardCastSelectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardCastSelectionCell.swift; sourceTree = "<group>"; };
-		C9B77D7821A01B060092848D /* FeedbackTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FeedbackTableViewCell.xib; sourceTree = "<group>"; };
-		C9B77D7921A01B060092848D /* FeedbackTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedbackTableViewCell.swift; sourceTree = "<group>"; };
 		C9B77D7A21A01B060092848D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C9B77D7B21A01B060092848D /* HippoBroadCast.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = HippoBroadCast.storyboard; sourceTree = "<group>"; };
 		C9B77D7D21A01B060092848D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -477,8 +516,6 @@
 		C9B77E0A21A01B060092848D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C9B77E0B21A01B060092848D /* FuguUnique.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = FuguUnique.storyboard; sourceTree = "<group>"; };
 		C9B77E0C21A01B060092848D /* Montserrat-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-SemiBold.otf"; sourceTree = "<group>"; };
-		C9E029E8221FF73C00B22D57 /* ShowMoreTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShowMoreTableViewCell.xib; sourceTree = "<group>"; };
-		C9E029E9221FF73C00B22D57 /* ShowMoreTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowMoreTableViewCell.swift; sourceTree = "<group>"; };
 		C9F6D46E21C8B47100EA23E6 /* SupportTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SupportTheme.swift; sourceTree = "<group>"; };
 		C9F6D46F21C8B47100EA23E6 /* HippoStrings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HippoStrings.swift; sourceTree = "<group>"; };
 		C9F6D47021C8B47100EA23E6 /* HippoTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HippoTheme.swift; sourceTree = "<group>"; };
@@ -507,19 +544,6 @@
 		C9FB6FA421EE10CD00B72CEA /* LoggerConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoggerConfig.swift; sourceTree = "<group>"; };
 		C9FB6FA521EE10CD00B72CEA /* Formatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Formatter.swift; sourceTree = "<group>"; };
 		C9FB6FA621EE10CD00B72CEA /* Benchmarker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Benchmarker.swift; sourceTree = "<group>"; };
-		C9FB6FBA21EE114600B72CEA /* OutgoingVideoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OutgoingVideoTableViewCell.xib; sourceTree = "<group>"; };
-		C9FB6FBB21EE114600B72CEA /* VideoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoTableViewCell.swift; sourceTree = "<group>"; };
-		C9FB6FBC21EE114600B72CEA /* IncomingVideoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IncomingVideoTableViewCell.xib; sourceTree = "<group>"; };
-		C9FB6FBD21EE114600B72CEA /* IncomingVideoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IncomingVideoTableViewCell.swift; sourceTree = "<group>"; };
-		C9FB6FBE21EE114600B72CEA /* OutgoingVideoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutgoingVideoTableViewCell.swift; sourceTree = "<group>"; };
-		C9FB6FC021EE114600B72CEA /* IncomingAudioTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IncomingAudioTableViewCell.xib; sourceTree = "<group>"; };
-		C9FB6FC121EE114600B72CEA /* OutgoingAudioTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OutgoingAudioTableViewCell.xib; sourceTree = "<group>"; };
-		C9FB6FC221EE114600B72CEA /* IncomingAudioTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IncomingAudioTableViewCell.swift; sourceTree = "<group>"; };
-		C9FB6FC321EE114600B72CEA /* OutgoingAudioTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutgoingAudioTableViewCell.swift; sourceTree = "<group>"; };
-		C9FB6FC521EE114600B72CEA /* OutgoingDocumentTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OutgoingDocumentTableViewCell.xib; sourceTree = "<group>"; };
-		C9FB6FC621EE114600B72CEA /* OutgoingDocumentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutgoingDocumentTableViewCell.swift; sourceTree = "<group>"; };
-		C9FB6FC821EE114600B72CEA /* IncomingDocumentTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IncomingDocumentTableViewCell.xib; sourceTree = "<group>"; };
-		C9FB6FC921EE114600B72CEA /* IncomingDocumentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IncomingDocumentTableViewCell.swift; sourceTree = "<group>"; };
 		C9FB6FD821EEF04800B72CEA /* TWRDownloadObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWRDownloadObject.h; sourceTree = "<group>"; };
 		C9FB6FD921EEF04800B72CEA /* TWRDownloadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWRDownloadManager.m; sourceTree = "<group>"; };
 		C9FB6FDA21EEF04800B72CEA /* TWRDownloadObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWRDownloadObject.m; sourceTree = "<group>"; };
@@ -579,31 +603,475 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		C90E0D0C221FCA17004879A5 /* PaymentItemDescriptionCell */ = {
+		C936006722EEC5EA00A6C291 /* TableViewCell */ = {
 			isa = PBXGroup;
 			children = (
-				C90E0D0D221FCA49004879A5 /* PaymentItemDescriptionCell.swift */,
-				C90E0D0E221FCA49004879A5 /* PaymentItemDescriptionCell.xib */,
+				C936006822EEC5EA00A6C291 /* OutgoingImageCell */,
+				C936006B22EEC5EA00A6C291 /* InAppCategoryCell */,
+				C936006E22EEC5EA00A6C291 /* HippoActionMessage */,
+				C936007822EEC5EA00A6C291 /* ContactNumberTableCell */,
+				C936007B22EEC5EA00A6C291 /* IncomingImageCell */,
+				C936007E22EEC5EA00A6C291 /* BroadcastUserStatusCell */,
+				C936008122EEC5EA00A6C291 /* BotOutgoingMessageTableViewCell */,
+				C936008422EEC5EA00A6C291 /* IncomingDocumentCell */,
+				C936008722EEC5EA00A6C291 /* PaymentItemDescriptionCell */,
+				C936008A22EEC5EA00A6C291 /* BotFormTableViewCell */,
+				C936008D22EEC5EA00A6C291 /* ConversationView */,
+				C936008F22EEC5EA00A6C291 /* ChatInfoTagView */,
+				C936009222EEC5EA00A6C291 /* AssignedAgentTableViewCell */,
+				C936009522EEC5EA00A6C291 /* SupportMessageTableViewCell */,
+				C936009722EEC5EA00A6C291 /* ActionableMessageTableCell */,
+				C93600B122EEC5EA00A6C291 /* AudioFileCell */,
+				C93600B622EEC5EA00A6C291 /* TypingViewTableViewCell */,
+				C93600B822EEC5EA00A6C291 /* VideoTableViewCell */,
+				C93600BE22EEC5EA00A6C291 /* OutgoingDocumentCell */,
+				C93600C122EEC5EA00A6C291 /* AgentHomeConversationCell */,
+				C93600C422EEC5EA00A6C291 /* SelfMessageTableViewCell */,
+				C93600C622EEC5EA00A6C291 /* LeadDataCell */,
+				C93600C922EEC5EA00A6C291 /* ChatInfoActionCell */,
+				C93600CC22EEC5EA00A6C291 /* ChatInfoProfileCell */,
+				C93600CF22EEC5EA00A6C291 /* VideoCallMessageTableViewCell */,
+				C93600D322EEC5EA00A6C291 /* ShowMoreTableViewCell */,
+				C93600D622EEC5EA00A6C291 /* AgentProfileTableViewCell */,
+				C93600D922EEC5EA00A6C291 /* BroadCast */,
+				C93600EF22EEC5EA00A6C291 /* FeedbackTableCell */,
 			);
-			path = PaymentItemDescriptionCell;
+			path = TableViewCell;
 			sourceTree = "<group>";
 		};
-		C9232D29221D4A2E006965D5 /* BroadcastUserStatusCell */ = {
+		C936006822EEC5EA00A6C291 /* OutgoingImageCell */ = {
 			isa = PBXGroup;
 			children = (
-				C9232D2A221D4A2E006965D5 /* BroadcastUserStatusCell.xib */,
-				C9232D2B221D4A2E006965D5 /* BroadcastUserStatusCell.swift */,
+				C936006922EEC5EA00A6C291 /* OutgoingImageCell.xib */,
+				C936006A22EEC5EA00A6C291 /* OutgoingImageCell.swift */,
+			);
+			path = OutgoingImageCell;
+			sourceTree = "<group>";
+		};
+		C936006B22EEC5EA00A6C291 /* InAppCategoryCell */ = {
+			isa = PBXGroup;
+			children = (
+				C936006C22EEC5EA00A6C291 /* CategoryTableViewCell.swift */,
+				C936006D22EEC5EA00A6C291 /* CategoryTableViewCell.xib */,
+			);
+			path = InAppCategoryCell;
+			sourceTree = "<group>";
+		};
+		C936006E22EEC5EA00A6C291 /* HippoActionMessage */ = {
+			isa = PBXGroup;
+			children = (
+				C936006F22EEC5EA00A6C291 /* ActionTableDataSource.swift */,
+				C936007022EEC5EA00A6C291 /* ActionTableView.xib */,
+				C936007122EEC5EA00A6C291 /* ActionTableView.swift */,
+				C936007222EEC5EA00A6C291 /* SubCell */,
+			);
+			path = HippoActionMessage;
+			sourceTree = "<group>";
+		};
+		C936007222EEC5EA00A6C291 /* SubCell */ = {
+			isa = PBXGroup;
+			children = (
+				C936007322EEC5EA00A6C291 /* ActionButtonViewCell.swift */,
+				C936007422EEC5EA00A6C291 /* ActionLabelViewCell.xib */,
+				C936007522EEC5EA00A6C291 /* ActionLabelViewCell.swift */,
+				C936007622EEC5EA00A6C291 /* ActionButtonViewCell.xib */,
+				C936007722EEC5EA00A6C291 /* ActionViewCell.swift */,
+				C936015822EED3CC00A6C291 /* ActionTagTableViewCell.swift */,
+				C936015922EED3CC00A6C291 /* ActionTagTableViewCell.xib */,
+			);
+			path = SubCell;
+			sourceTree = "<group>";
+		};
+		C936007822EEC5EA00A6C291 /* ContactNumberTableCell */ = {
+			isa = PBXGroup;
+			children = (
+				C936007922EEC5EA00A6C291 /* ContactNumberTableCell.xib */,
+				C936007A22EEC5EA00A6C291 /* ContactNumberTableCell.swift */,
+			);
+			path = ContactNumberTableCell;
+			sourceTree = "<group>";
+		};
+		C936007B22EEC5EA00A6C291 /* IncomingImageCell */ = {
+			isa = PBXGroup;
+			children = (
+				C936007C22EEC5EA00A6C291 /* IncomingImageCell.xib */,
+				C936007D22EEC5EA00A6C291 /* IncomingImageCell.swift */,
+			);
+			path = IncomingImageCell;
+			sourceTree = "<group>";
+		};
+		C936007E22EEC5EA00A6C291 /* BroadcastUserStatusCell */ = {
+			isa = PBXGroup;
+			children = (
+				C936007F22EEC5EA00A6C291 /* BroadcastUserStatusCell.xib */,
+				C936008022EEC5EA00A6C291 /* BroadcastUserStatusCell.swift */,
 			);
 			path = BroadcastUserStatusCell;
 			sourceTree = "<group>";
 		};
-		C976E6A12216B7E300B9F79E /* ContactNumberTableCell */ = {
+		C936008122EEC5EA00A6C291 /* BotOutgoingMessageTableViewCell */ = {
 			isa = PBXGroup;
 			children = (
-				C976E6A22216B80800B9F79E /* ContactNumberTableCell.swift */,
-				C976E6A32216B80800B9F79E /* ContactNumberTableCell.xib */,
+				C936008222EEC5EA00A6C291 /* BotOutgoingMessageTableViewCell.xib */,
+				C936008322EEC5EA00A6C291 /* BotOutgoingMessageTableViewCell.swift */,
 			);
-			path = ContactNumberTableCell;
+			path = BotOutgoingMessageTableViewCell;
+			sourceTree = "<group>";
+		};
+		C936008422EEC5EA00A6C291 /* IncomingDocumentCell */ = {
+			isa = PBXGroup;
+			children = (
+				C936008522EEC5EA00A6C291 /* IncomingDocumentTableViewCell.xib */,
+				C936008622EEC5EA00A6C291 /* IncomingDocumentTableViewCell.swift */,
+			);
+			path = IncomingDocumentCell;
+			sourceTree = "<group>";
+		};
+		C936008722EEC5EA00A6C291 /* PaymentItemDescriptionCell */ = {
+			isa = PBXGroup;
+			children = (
+				C936008822EEC5EA00A6C291 /* PaymentItemDescriptionCell.xib */,
+				C936008922EEC5EA00A6C291 /* PaymentItemDescriptionCell.swift */,
+			);
+			path = PaymentItemDescriptionCell;
+			sourceTree = "<group>";
+		};
+		C936008A22EEC5EA00A6C291 /* BotFormTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				C936008B22EEC5EA00A6C291 /* LeadTableViewCell.swift */,
+				C936008C22EEC5EA00A6C291 /* LeadTableViewCell.xib */,
+			);
+			path = BotFormTableViewCell;
+			sourceTree = "<group>";
+		};
+		C936008D22EEC5EA00A6C291 /* ConversationView */ = {
+			isa = PBXGroup;
+			children = (
+				C936008E22EEC5EA00A6C291 /* ConversationView.swift */,
+			);
+			path = ConversationView;
+			sourceTree = "<group>";
+		};
+		C936008F22EEC5EA00A6C291 /* ChatInfoTagView */ = {
+			isa = PBXGroup;
+			children = (
+				C936009022EEC5EA00A6C291 /* ChatInfoTagViewCell.swift */,
+				C936009122EEC5EA00A6C291 /* ChatInfoTagViewCell.xib */,
+			);
+			path = ChatInfoTagView;
+			sourceTree = "<group>";
+		};
+		C936009222EEC5EA00A6C291 /* AssignedAgentTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				C936009322EEC5EA00A6C291 /* AssignedAgentTableViewCell.xib */,
+				C936009422EEC5EA00A6C291 /* AssignedAgentTableViewCell.swift */,
+			);
+			path = AssignedAgentTableViewCell;
+			sourceTree = "<group>";
+		};
+		C936009522EEC5EA00A6C291 /* SupportMessageTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				C936009622EEC5EA00A6C291 /* SupportMessageTableViewCell.swift */,
+				C936015122EEC87300A6C291 /* SupportMessageTableViewCell.xib */,
+			);
+			path = SupportMessageTableViewCell;
+			sourceTree = "<group>";
+		};
+		C936009722EEC5EA00A6C291 /* ActionableMessageTableCell */ = {
+			isa = PBXGroup;
+			children = (
+				C936009822EEC5EA00A6C291 /* ButtonCellHandler */,
+				C936009A22EEC5EA00A6C291 /* ActionableMessageTableViewCell.xib */,
+				C936009B22EEC5EA00A6C291 /* ActionableMessageTypeCell */,
+				C93600AE22EEC5EA00A6C291 /* ActionableMessageCellHandler */,
+				C93600B022EEC5EA00A6C291 /* ActionableMessageTableViewCell.swift */,
+			);
+			path = ActionableMessageTableCell;
+			sourceTree = "<group>";
+		};
+		C936009822EEC5EA00A6C291 /* ButtonCellHandler */ = {
+			isa = PBXGroup;
+			children = (
+				C936009922EEC5EA00A6C291 /* ButtonCellCollectionViewHandler.swift */,
+			);
+			path = ButtonCellHandler;
+			sourceTree = "<group>";
+		};
+		C936009B22EEC5EA00A6C291 /* ActionableMessageTypeCell */ = {
+			isa = PBXGroup;
+			children = (
+				C936009C22EEC5EA00A6C291 /* ButtonTableViewCell */,
+				C936009F22EEC5EA00A6C291 /* ButtonCollectionViewCell */,
+				C93600A222EEC5EA00A6C291 /* HeaderTableViewCell */,
+				C93600A522EEC5EA00A6C291 /* ItemTableViewCell */,
+				C93600A822EEC5EA00A6C291 /* SenderNameTableCell */,
+				C93600AB22EEC5EA00A6C291 /* ImageTableViewCell */,
+			);
+			path = ActionableMessageTypeCell;
+			sourceTree = "<group>";
+		};
+		C936009C22EEC5EA00A6C291 /* ButtonTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				C936009D22EEC5EA00A6C291 /* ButtonTableViewCell.xib */,
+				C936009E22EEC5EA00A6C291 /* ButtonTableViewCell.swift */,
+			);
+			path = ButtonTableViewCell;
+			sourceTree = "<group>";
+		};
+		C936009F22EEC5EA00A6C291 /* ButtonCollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				C93600A022EEC5EA00A6C291 /* ButtonCollectionCell.swift */,
+				C93600A122EEC5EA00A6C291 /* ButtonCollectionCell.xib */,
+			);
+			path = ButtonCollectionViewCell;
+			sourceTree = "<group>";
+		};
+		C93600A222EEC5EA00A6C291 /* HeaderTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				C93600A322EEC5EA00A6C291 /* HeaderTableViewCell.xib */,
+				C93600A422EEC5EA00A6C291 /* HeaderTableViewCell.swift */,
+			);
+			path = HeaderTableViewCell;
+			sourceTree = "<group>";
+		};
+		C93600A522EEC5EA00A6C291 /* ItemTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				C93600A622EEC5EA00A6C291 /* ItemTableViewCell.xib */,
+				C93600A722EEC5EA00A6C291 /* ItemTableViewCell.swift */,
+			);
+			path = ItemTableViewCell;
+			sourceTree = "<group>";
+		};
+		C93600A822EEC5EA00A6C291 /* SenderNameTableCell */ = {
+			isa = PBXGroup;
+			children = (
+				C93600A922EEC5EA00A6C291 /* SenderNameTableCell.swift */,
+				C93600AA22EEC5EA00A6C291 /* SenderNameTableCell.xib */,
+			);
+			path = SenderNameTableCell;
+			sourceTree = "<group>";
+		};
+		C93600AB22EEC5EA00A6C291 /* ImageTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				C93600AC22EEC5EA00A6C291 /* ImageTableViewCell.swift */,
+				C93600AD22EEC5EA00A6C291 /* ImageTableViewCell.xib */,
+			);
+			path = ImageTableViewCell;
+			sourceTree = "<group>";
+		};
+		C93600AE22EEC5EA00A6C291 /* ActionableMessageCellHandler */ = {
+			isa = PBXGroup;
+			children = (
+				C93600AF22EEC5EA00A6C291 /* ActionableMessageCellHandler.swift */,
+			);
+			path = ActionableMessageCellHandler;
+			sourceTree = "<group>";
+		};
+		C93600B122EEC5EA00A6C291 /* AudioFileCell */ = {
+			isa = PBXGroup;
+			children = (
+				C93600B222EEC5EA00A6C291 /* IncomingAudioTableViewCell.xib */,
+				C93600B322EEC5EA00A6C291 /* OutgoingAudioTableViewCell.xib */,
+				C93600B422EEC5EA00A6C291 /* IncomingAudioTableViewCell.swift */,
+				C93600B522EEC5EA00A6C291 /* OutgoingAudioTableViewCell.swift */,
+			);
+			path = AudioFileCell;
+			sourceTree = "<group>";
+		};
+		C93600B622EEC5EA00A6C291 /* TypingViewTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				C93600B722EEC5EA00A6C291 /* TypingViewTableViewCell.swift */,
+			);
+			path = TypingViewTableViewCell;
+			sourceTree = "<group>";
+		};
+		C93600B822EEC5EA00A6C291 /* VideoTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				C93600B922EEC5EA00A6C291 /* OutgoingVideoTableViewCell.xib */,
+				C93600BA22EEC5EA00A6C291 /* VideoTableViewCell.swift */,
+				C93600BB22EEC5EA00A6C291 /* IncomingVideoTableViewCell.xib */,
+				C93600BC22EEC5EA00A6C291 /* IncomingVideoTableViewCell.swift */,
+				C93600BD22EEC5EA00A6C291 /* OutgoingVideoTableViewCell.swift */,
+			);
+			path = VideoTableViewCell;
+			sourceTree = "<group>";
+		};
+		C93600BE22EEC5EA00A6C291 /* OutgoingDocumentCell */ = {
+			isa = PBXGroup;
+			children = (
+				C93600BF22EEC5EA00A6C291 /* OutgoingDocumentTableViewCell.xib */,
+				C93600C022EEC5EA00A6C291 /* OutgoingDocumentTableViewCell.swift */,
+			);
+			path = OutgoingDocumentCell;
+			sourceTree = "<group>";
+		};
+		C93600C122EEC5EA00A6C291 /* AgentHomeConversationCell */ = {
+			isa = PBXGroup;
+			children = (
+				C93600C222EEC5EA00A6C291 /* AgentHomeConversationCell.swift */,
+				C93600C322EEC5EA00A6C291 /* AgentHomeConversationCell.xib */,
+			);
+			path = AgentHomeConversationCell;
+			sourceTree = "<group>";
+		};
+		C93600C422EEC5EA00A6C291 /* SelfMessageTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				C93600C522EEC5EA00A6C291 /* SelfMessageTableViewCell.swift */,
+				C936014F22EEC7DB00A6C291 /* SelfMessageTableViewCell.xib */,
+			);
+			path = SelfMessageTableViewCell;
+			sourceTree = "<group>";
+		};
+		C93600C622EEC5EA00A6C291 /* LeadDataCell */ = {
+			isa = PBXGroup;
+			children = (
+				C93600C722EEC5EA00A6C291 /* LeadDataTableViewCell.xib */,
+				C93600C822EEC5EA00A6C291 /* LeadDataTableViewCell.swift */,
+			);
+			path = LeadDataCell;
+			sourceTree = "<group>";
+		};
+		C93600C922EEC5EA00A6C291 /* ChatInfoActionCell */ = {
+			isa = PBXGroup;
+			children = (
+				C93600CA22EEC5EA00A6C291 /* ChatInfoActionCell.swift */,
+				C93600CB22EEC5EA00A6C291 /* ChatInfoActionCell.xib */,
+			);
+			path = ChatInfoActionCell;
+			sourceTree = "<group>";
+		};
+		C93600CC22EEC5EA00A6C291 /* ChatInfoProfileCell */ = {
+			isa = PBXGroup;
+			children = (
+				C93600CD22EEC5EA00A6C291 /* ChatProfileTableViewCell.xib */,
+				C93600CE22EEC5EA00A6C291 /* ChatProfileTableViewCell.swift */,
+			);
+			path = ChatInfoProfileCell;
+			sourceTree = "<group>";
+		};
+		C93600CF22EEC5EA00A6C291 /* VideoCallMessageTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				C93600D022EEC5EA00A6C291 /* OutgoingVideoCallMessageTableViewCell.xib */,
+				C93600D122EEC5EA00A6C291 /* VideoCallMessageTableViewCell.swift */,
+				C93600D222EEC5EA00A6C291 /* IncomingVideoCallMessageTableViewCell.xib */,
+			);
+			path = VideoCallMessageTableViewCell;
+			sourceTree = "<group>";
+		};
+		C93600D322EEC5EA00A6C291 /* ShowMoreTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				C93600D422EEC5EA00A6C291 /* ShowMoreTableViewCell.xib */,
+				C93600D522EEC5EA00A6C291 /* ShowMoreTableViewCell.swift */,
+			);
+			path = ShowMoreTableViewCell;
+			sourceTree = "<group>";
+		};
+		C93600D622EEC5EA00A6C291 /* AgentProfileTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				C93600D722EEC5EA00A6C291 /* ChatInfoAgentTableViewCell.xib */,
+				C93600D822EEC5EA00A6C291 /* ChatInfoAgentTableViewCell.swift */,
+			);
+			path = AgentProfileTableViewCell;
+			sourceTree = "<group>";
+		};
+		C93600D922EEC5EA00A6C291 /* BroadCast */ = {
+			isa = PBXGroup;
+			children = (
+				C93600DA22EEC5EA00A6C291 /* BroadcastButtonCell */,
+				C93600DD22EEC5EA00A6C291 /* BroadcastAgentCell */,
+				C93600E022EEC5EA00A6C291 /* BroadCastTitleCell */,
+				C93600E322EEC5EA00A6C291 /* BroadCastTextViewCell */,
+				C93600E622EEC5EA00A6C291 /* BroadCastTextFieldCell */,
+				C93600E922EEC5EA00A6C291 /* BroadcastListTableViewCell */,
+				C93600EC22EEC5EA00A6C291 /* BroadCastSelectionCell */,
+			);
+			path = BroadCast;
+			sourceTree = "<group>";
+		};
+		C93600DA22EEC5EA00A6C291 /* BroadcastButtonCell */ = {
+			isa = PBXGroup;
+			children = (
+				C93600DB22EEC5EA00A6C291 /* BroadcastButtonCell.xib */,
+				C93600DC22EEC5EA00A6C291 /* BroadcastButtonCell.swift */,
+			);
+			path = BroadcastButtonCell;
+			sourceTree = "<group>";
+		};
+		C93600DD22EEC5EA00A6C291 /* BroadcastAgentCell */ = {
+			isa = PBXGroup;
+			children = (
+				C93600DE22EEC5EA00A6C291 /* BroadcastAgentCell.swift */,
+				C93600DF22EEC5EA00A6C291 /* BroadcastAgentCell.xib */,
+			);
+			path = BroadcastAgentCell;
+			sourceTree = "<group>";
+		};
+		C93600E022EEC5EA00A6C291 /* BroadCastTitleCell */ = {
+			isa = PBXGroup;
+			children = (
+				C93600E122EEC5EA00A6C291 /* BroadCastTitleCell.swift */,
+				C93600E222EEC5EA00A6C291 /* BroadCastTitleCell.xib */,
+			);
+			path = BroadCastTitleCell;
+			sourceTree = "<group>";
+		};
+		C93600E322EEC5EA00A6C291 /* BroadCastTextViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				C93600E422EEC5EA00A6C291 /* BroadCastTextViewCell.swift */,
+				C93600E522EEC5EA00A6C291 /* BroadCastTextViewCell.xib */,
+			);
+			path = BroadCastTextViewCell;
+			sourceTree = "<group>";
+		};
+		C93600E622EEC5EA00A6C291 /* BroadCastTextFieldCell */ = {
+			isa = PBXGroup;
+			children = (
+				C93600E722EEC5EA00A6C291 /* BroadCastTextFieldCell.xib */,
+				C93600E822EEC5EA00A6C291 /* BroadCastTextFieldCell.swift */,
+			);
+			path = BroadCastTextFieldCell;
+			sourceTree = "<group>";
+		};
+		C93600E922EEC5EA00A6C291 /* BroadcastListTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				C93600EA22EEC5EA00A6C291 /* BroadcastListTableViewCell.swift */,
+				C93600EB22EEC5EA00A6C291 /* BroadcastListTableViewCell.xib */,
+			);
+			path = BroadcastListTableViewCell;
+			sourceTree = "<group>";
+		};
+		C93600EC22EEC5EA00A6C291 /* BroadCastSelectionCell */ = {
+			isa = PBXGroup;
+			children = (
+				C93600ED22EEC5EA00A6C291 /* BoardCastSelectionCell.xib */,
+				C93600EE22EEC5EA00A6C291 /* BoardCastSelectionCell.swift */,
+			);
+			path = BroadCastSelectionCell;
+			sourceTree = "<group>";
+		};
+		C93600EF22EEC5EA00A6C291 /* FeedbackTableCell */ = {
+			isa = PBXGroup;
+			children = (
+				C93600F022EEC5EA00A6C291 /* FeedbackTableViewCell.xib */,
+				C93600F122EEC5EA00A6C291 /* FeedbackTableViewCell.swift */,
+			);
+			path = FeedbackTableCell;
 			sourceTree = "<group>";
 		};
 		C9B77CF521A01B050092848D /* Hippo */ = {
@@ -670,9 +1138,9 @@
 		C9B77D0721A01B060092848D /* UIView */ = {
 			isa = PBXGroup;
 			children = (
+				C936006722EEC5EA00A6C291 /* TableViewCell */,
 				C9B77D0821A01B060092848D /* CollectionViewCells */,
 				C9B77D1221A01B060092848D /* CustomViews */,
-				C9B77D1621A01B060092848D /* TableViewCell */,
 			);
 			path = UIView;
 			sourceTree = "<group>";
@@ -729,372 +1197,6 @@
 				C9B77D1521A01B060092848D /* ChatInfoHeader.xib */,
 			);
 			path = ChatInfoHeader;
-			sourceTree = "<group>";
-		};
-		C9B77D1621A01B060092848D /* TableViewCell */ = {
-			isa = PBXGroup;
-			children = (
-				C9E029E7221FF73B00B22D57 /* ShowMoreTableViewCell */,
-				C90E0D0C221FCA17004879A5 /* PaymentItemDescriptionCell */,
-				C9232D29221D4A2E006965D5 /* BroadcastUserStatusCell */,
-				C976E6A12216B7E300B9F79E /* ContactNumberTableCell */,
-				C9FB6FBF21EE114600B72CEA /* AudioFileCell */,
-				C9FB6FC721EE114600B72CEA /* IncomingDocumentCell */,
-				C9FB6FC421EE114600B72CEA /* OutgoingDocumentCell */,
-				C9FB6FB921EE114600B72CEA /* VideoTableViewCell */,
-				C9B77D1721A01B060092848D /* OutgoingImageCell */,
-				C9B77D1A21A01B060092848D /* InAppCategoryCell */,
-				C9B77D1D21A01B060092848D /* IncomingImageCell */,
-				C9B77D2021A01B060092848D /* BotOutgoingMessageTableViewCell */,
-				C9B77D2321A01B060092848D /* BotFormTableViewCell */,
-				C9B77D2621A01B060092848D /* ConversationView */,
-				C9B77D2821A01B060092848D /* ChatInfoTagView */,
-				C9B77D2B21A01B060092848D /* AssignedAgentTableViewCell */,
-				C9B77D2E21A01B060092848D /* SupportMessageTableViewCell */,
-				C9B77D3021A01B060092848D /* ActionableMessageTableCell */,
-				C9B77D4A21A01B060092848D /* TypingViewTableViewCell */,
-				C9B77D4C21A01B060092848D /* AgentHomeConversationCell */,
-				C9B77D4F21A01B060092848D /* SelfMessageTableViewCell */,
-				C9B77D5121A01B060092848D /* LeadDataCell */,
-				C9B77D5421A01B060092848D /* ChatInfoActionCell */,
-				C9B77D5721A01B060092848D /* ChatInfoProfileCell */,
-				C9B77D5A21A01B060092848D /* VideoCallMessageTableViewCell */,
-				C9B77D5E21A01B060092848D /* AgentProfileTableViewCell */,
-				C9B77D6121A01B060092848D /* BroadCast */,
-				C9B77D7721A01B060092848D /* FeedbackTableCell */,
-			);
-			path = TableViewCell;
-			sourceTree = "<group>";
-		};
-		C9B77D1721A01B060092848D /* OutgoingImageCell */ = {
-			isa = PBXGroup;
-			children = (
-				C9B77D1821A01B060092848D /* OutgoingImageCell.xib */,
-				C9B77D1921A01B060092848D /* OutgoingImageCell.swift */,
-			);
-			path = OutgoingImageCell;
-			sourceTree = "<group>";
-		};
-		C9B77D1A21A01B060092848D /* InAppCategoryCell */ = {
-			isa = PBXGroup;
-			children = (
-				C9B77D1B21A01B060092848D /* CategoryTableViewCell.swift */,
-				C9B77D1C21A01B060092848D /* CategoryTableViewCell.xib */,
-			);
-			path = InAppCategoryCell;
-			sourceTree = "<group>";
-		};
-		C9B77D1D21A01B060092848D /* IncomingImageCell */ = {
-			isa = PBXGroup;
-			children = (
-				C9B77D1E21A01B060092848D /* IncomingImageCell.xib */,
-				C9B77D1F21A01B060092848D /* IncomingImageCell.swift */,
-			);
-			path = IncomingImageCell;
-			sourceTree = "<group>";
-		};
-		C9B77D2021A01B060092848D /* BotOutgoingMessageTableViewCell */ = {
-			isa = PBXGroup;
-			children = (
-				C9B77D2121A01B060092848D /* BotOutgoingMessageTableViewCell.xib */,
-				C9B77D2221A01B060092848D /* BotOutgoingMessageTableViewCell.swift */,
-			);
-			path = BotOutgoingMessageTableViewCell;
-			sourceTree = "<group>";
-		};
-		C9B77D2321A01B060092848D /* BotFormTableViewCell */ = {
-			isa = PBXGroup;
-			children = (
-				C9B77D2421A01B060092848D /* LeadTableViewCell.swift */,
-				C9B77D2521A01B060092848D /* LeadTableViewCell.xib */,
-			);
-			path = BotFormTableViewCell;
-			sourceTree = "<group>";
-		};
-		C9B77D2621A01B060092848D /* ConversationView */ = {
-			isa = PBXGroup;
-			children = (
-				C9B77D2721A01B060092848D /* ConversationView.swift */,
-			);
-			path = ConversationView;
-			sourceTree = "<group>";
-		};
-		C9B77D2821A01B060092848D /* ChatInfoTagView */ = {
-			isa = PBXGroup;
-			children = (
-				C9B77D2921A01B060092848D /* ChatInfoTagViewCell.swift */,
-				C9B77D2A21A01B060092848D /* ChatInfoTagViewCell.xib */,
-			);
-			path = ChatInfoTagView;
-			sourceTree = "<group>";
-		};
-		C9B77D2B21A01B060092848D /* AssignedAgentTableViewCell */ = {
-			isa = PBXGroup;
-			children = (
-				C9B77D2C21A01B060092848D /* AssignedAgentTableViewCell.xib */,
-				C9B77D2D21A01B060092848D /* AssignedAgentTableViewCell.swift */,
-			);
-			path = AssignedAgentTableViewCell;
-			sourceTree = "<group>";
-		};
-		C9B77D2E21A01B060092848D /* SupportMessageTableViewCell */ = {
-			isa = PBXGroup;
-			children = (
-				C9B77D2F21A01B060092848D /* SupportMessageTableViewCell.swift */,
-			);
-			path = SupportMessageTableViewCell;
-			sourceTree = "<group>";
-		};
-		C9B77D3021A01B060092848D /* ActionableMessageTableCell */ = {
-			isa = PBXGroup;
-			children = (
-				C9B77D3121A01B060092848D /* ButtonCellHandler */,
-				C9B77D3321A01B060092848D /* ActionableMessageTableViewCell.xib */,
-				C9B77D3421A01B060092848D /* ActionableMessageTypeCell */,
-				C9B77D4721A01B060092848D /* ActionableMessageCellHandler */,
-				C9B77D4921A01B060092848D /* ActionableMessageTableViewCell.swift */,
-			);
-			path = ActionableMessageTableCell;
-			sourceTree = "<group>";
-		};
-		C9B77D3121A01B060092848D /* ButtonCellHandler */ = {
-			isa = PBXGroup;
-			children = (
-				C9B77D3221A01B060092848D /* ButtonCellCollectionViewHandler.swift */,
-			);
-			path = ButtonCellHandler;
-			sourceTree = "<group>";
-		};
-		C9B77D3421A01B060092848D /* ActionableMessageTypeCell */ = {
-			isa = PBXGroup;
-			children = (
-				C9B77D3521A01B060092848D /* ButtonTableViewCell */,
-				C9B77D3821A01B060092848D /* ButtonCollectionViewCell */,
-				C9B77D3B21A01B060092848D /* HeaderTableViewCell */,
-				C9B77D3E21A01B060092848D /* ItemTableViewCell */,
-				C9B77D4121A01B060092848D /* SenderNameTableCell */,
-				C9B77D4421A01B060092848D /* ImageTableViewCell */,
-			);
-			path = ActionableMessageTypeCell;
-			sourceTree = "<group>";
-		};
-		C9B77D3521A01B060092848D /* ButtonTableViewCell */ = {
-			isa = PBXGroup;
-			children = (
-				C9B77D3621A01B060092848D /* ButtonTableViewCell.xib */,
-				C9B77D3721A01B060092848D /* ButtonTableViewCell.swift */,
-			);
-			path = ButtonTableViewCell;
-			sourceTree = "<group>";
-		};
-		C9B77D3821A01B060092848D /* ButtonCollectionViewCell */ = {
-			isa = PBXGroup;
-			children = (
-				C9B77D3921A01B060092848D /* ButtonCollectionCell.swift */,
-				C9B77D3A21A01B060092848D /* ButtonCollectionCell.xib */,
-			);
-			path = ButtonCollectionViewCell;
-			sourceTree = "<group>";
-		};
-		C9B77D3B21A01B060092848D /* HeaderTableViewCell */ = {
-			isa = PBXGroup;
-			children = (
-				C9B77D3C21A01B060092848D /* HeaderTableViewCell.xib */,
-				C9B77D3D21A01B060092848D /* HeaderTableViewCell.swift */,
-			);
-			path = HeaderTableViewCell;
-			sourceTree = "<group>";
-		};
-		C9B77D3E21A01B060092848D /* ItemTableViewCell */ = {
-			isa = PBXGroup;
-			children = (
-				C9B77D3F21A01B060092848D /* ItemTableViewCell.xib */,
-				C9B77D4021A01B060092848D /* ItemTableViewCell.swift */,
-			);
-			path = ItemTableViewCell;
-			sourceTree = "<group>";
-		};
-		C9B77D4121A01B060092848D /* SenderNameTableCell */ = {
-			isa = PBXGroup;
-			children = (
-				C9B77D4221A01B060092848D /* SenderNameTableCell.swift */,
-				C9B77D4321A01B060092848D /* SenderNameTableCell.xib */,
-			);
-			path = SenderNameTableCell;
-			sourceTree = "<group>";
-		};
-		C9B77D4421A01B060092848D /* ImageTableViewCell */ = {
-			isa = PBXGroup;
-			children = (
-				C9B77D4521A01B060092848D /* ImageTableViewCell.swift */,
-				C9B77D4621A01B060092848D /* ImageTableViewCell.xib */,
-			);
-			path = ImageTableViewCell;
-			sourceTree = "<group>";
-		};
-		C9B77D4721A01B060092848D /* ActionableMessageCellHandler */ = {
-			isa = PBXGroup;
-			children = (
-				C9B77D4821A01B060092848D /* ActionableMessageCellHandler.swift */,
-			);
-			path = ActionableMessageCellHandler;
-			sourceTree = "<group>";
-		};
-		C9B77D4A21A01B060092848D /* TypingViewTableViewCell */ = {
-			isa = PBXGroup;
-			children = (
-				C9B77D4B21A01B060092848D /* TypingViewTableViewCell.swift */,
-			);
-			path = TypingViewTableViewCell;
-			sourceTree = "<group>";
-		};
-		C9B77D4C21A01B060092848D /* AgentHomeConversationCell */ = {
-			isa = PBXGroup;
-			children = (
-				C9B77D4D21A01B060092848D /* AgentHomeConversationCell.swift */,
-				C9B77D4E21A01B060092848D /* AgentHomeConversationCell.xib */,
-			);
-			path = AgentHomeConversationCell;
-			sourceTree = "<group>";
-		};
-		C9B77D4F21A01B060092848D /* SelfMessageTableViewCell */ = {
-			isa = PBXGroup;
-			children = (
-				C9B77D5021A01B060092848D /* SelfMessageTableViewCell.swift */,
-			);
-			path = SelfMessageTableViewCell;
-			sourceTree = "<group>";
-		};
-		C9B77D5121A01B060092848D /* LeadDataCell */ = {
-			isa = PBXGroup;
-			children = (
-				C9B77D5221A01B060092848D /* LeadDataTableViewCell.xib */,
-				C9B77D5321A01B060092848D /* LeadDataTableViewCell.swift */,
-			);
-			path = LeadDataCell;
-			sourceTree = "<group>";
-		};
-		C9B77D5421A01B060092848D /* ChatInfoActionCell */ = {
-			isa = PBXGroup;
-			children = (
-				C9B77D5521A01B060092848D /* ChatInfoActionCell.swift */,
-				C9B77D5621A01B060092848D /* ChatInfoActionCell.xib */,
-			);
-			path = ChatInfoActionCell;
-			sourceTree = "<group>";
-		};
-		C9B77D5721A01B060092848D /* ChatInfoProfileCell */ = {
-			isa = PBXGroup;
-			children = (
-				C9B77D5821A01B060092848D /* ChatProfileTableViewCell.xib */,
-				C9B77D5921A01B060092848D /* ChatProfileTableViewCell.swift */,
-			);
-			path = ChatInfoProfileCell;
-			sourceTree = "<group>";
-		};
-		C9B77D5A21A01B060092848D /* VideoCallMessageTableViewCell */ = {
-			isa = PBXGroup;
-			children = (
-				C9B77D5B21A01B060092848D /* OutgoingVideoCallMessageTableViewCell.xib */,
-				C9B77D5C21A01B060092848D /* VideoCallMessageTableViewCell.swift */,
-				C9B77D5D21A01B060092848D /* IncomingVideoCallMessageTableViewCell.xib */,
-			);
-			path = VideoCallMessageTableViewCell;
-			sourceTree = "<group>";
-		};
-		C9B77D5E21A01B060092848D /* AgentProfileTableViewCell */ = {
-			isa = PBXGroup;
-			children = (
-				C9B77D5F21A01B060092848D /* ChatInfoAgentTableViewCell.xib */,
-				C9B77D6021A01B060092848D /* ChatInfoAgentTableViewCell.swift */,
-			);
-			path = AgentProfileTableViewCell;
-			sourceTree = "<group>";
-		};
-		C9B77D6121A01B060092848D /* BroadCast */ = {
-			isa = PBXGroup;
-			children = (
-				C9B77D6221A01B060092848D /* BroadcastButtonCell */,
-				C9B77D6521A01B060092848D /* BroadcastAgentCell */,
-				C9B77D6821A01B060092848D /* BroadCastTitleCell */,
-				C9B77D6B21A01B060092848D /* BroadCastTextViewCell */,
-				C9B77D6E21A01B060092848D /* BroadCastTextFieldCell */,
-				C9B77D7121A01B060092848D /* BroadcastListTableViewCell */,
-				C9B77D7421A01B060092848D /* BroadCastSelectionCell */,
-			);
-			path = BroadCast;
-			sourceTree = "<group>";
-		};
-		C9B77D6221A01B060092848D /* BroadcastButtonCell */ = {
-			isa = PBXGroup;
-			children = (
-				C9B77D6321A01B060092848D /* BroadcastButtonCell.xib */,
-				C9B77D6421A01B060092848D /* BroadcastButtonCell.swift */,
-			);
-			path = BroadcastButtonCell;
-			sourceTree = "<group>";
-		};
-		C9B77D6521A01B060092848D /* BroadcastAgentCell */ = {
-			isa = PBXGroup;
-			children = (
-				C9B77D6621A01B060092848D /* BroadcastAgentCell.swift */,
-				C9B77D6721A01B060092848D /* BroadcastAgentCell.xib */,
-			);
-			path = BroadcastAgentCell;
-			sourceTree = "<group>";
-		};
-		C9B77D6821A01B060092848D /* BroadCastTitleCell */ = {
-			isa = PBXGroup;
-			children = (
-				C9B77D6921A01B060092848D /* BroadCastTitleCell.swift */,
-				C9B77D6A21A01B060092848D /* BroadCastTitleCell.xib */,
-			);
-			path = BroadCastTitleCell;
-			sourceTree = "<group>";
-		};
-		C9B77D6B21A01B060092848D /* BroadCastTextViewCell */ = {
-			isa = PBXGroup;
-			children = (
-				C9B77D6C21A01B060092848D /* BroadCastTextViewCell.swift */,
-				C9B77D6D21A01B060092848D /* BroadCastTextViewCell.xib */,
-			);
-			path = BroadCastTextViewCell;
-			sourceTree = "<group>";
-		};
-		C9B77D6E21A01B060092848D /* BroadCastTextFieldCell */ = {
-			isa = PBXGroup;
-			children = (
-				C9B77D6F21A01B060092848D /* BroadCastTextFieldCell.xib */,
-				C9B77D7021A01B060092848D /* BroadCastTextFieldCell.swift */,
-			);
-			path = BroadCastTextFieldCell;
-			sourceTree = "<group>";
-		};
-		C9B77D7121A01B060092848D /* BroadcastListTableViewCell */ = {
-			isa = PBXGroup;
-			children = (
-				C9B77D7221A01B060092848D /* BroadcastListTableViewCell.swift */,
-				C9B77D7321A01B060092848D /* BroadcastListTableViewCell.xib */,
-			);
-			path = BroadcastListTableViewCell;
-			sourceTree = "<group>";
-		};
-		C9B77D7421A01B060092848D /* BroadCastSelectionCell */ = {
-			isa = PBXGroup;
-			children = (
-				C9B77D7521A01B060092848D /* BoardCastSelectionCell.xib */,
-				C9B77D7621A01B060092848D /* BoardCastSelectionCell.swift */,
-			);
-			path = BroadCastSelectionCell;
-			sourceTree = "<group>";
-		};
-		C9B77D7721A01B060092848D /* FeedbackTableCell */ = {
-			isa = PBXGroup;
-			children = (
-				C9B77D7821A01B060092848D /* FeedbackTableViewCell.xib */,
-				C9B77D7921A01B060092848D /* FeedbackTableViewCell.swift */,
-			);
-			path = FeedbackTableCell;
 			sourceTree = "<group>";
 		};
 		C9B77D7F21A01B060092848D /* Extensions */ = {
@@ -1342,15 +1444,6 @@
 			path = Categories;
 			sourceTree = "<group>";
 		};
-		C9E029E7221FF73B00B22D57 /* ShowMoreTableViewCell */ = {
-			isa = PBXGroup;
-			children = (
-				C9E029E8221FF73C00B22D57 /* ShowMoreTableViewCell.xib */,
-				C9E029E9221FF73C00B22D57 /* ShowMoreTableViewCell.swift */,
-			);
-			path = ShowMoreTableViewCell;
-			sourceTree = "<group>";
-		};
 		C9FB6F8621EE0B6400B72CEA /* DocumentWrapper */ = {
 			isa = PBXGroup;
 			children = (
@@ -1412,47 +1505,6 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		C9FB6FB921EE114600B72CEA /* VideoTableViewCell */ = {
-			isa = PBXGroup;
-			children = (
-				C9FB6FBA21EE114600B72CEA /* OutgoingVideoTableViewCell.xib */,
-				C9FB6FBB21EE114600B72CEA /* VideoTableViewCell.swift */,
-				C9FB6FBC21EE114600B72CEA /* IncomingVideoTableViewCell.xib */,
-				C9FB6FBD21EE114600B72CEA /* IncomingVideoTableViewCell.swift */,
-				C9FB6FBE21EE114600B72CEA /* OutgoingVideoTableViewCell.swift */,
-			);
-			path = VideoTableViewCell;
-			sourceTree = "<group>";
-		};
-		C9FB6FBF21EE114600B72CEA /* AudioFileCell */ = {
-			isa = PBXGroup;
-			children = (
-				C9FB6FC021EE114600B72CEA /* IncomingAudioTableViewCell.xib */,
-				C9FB6FC121EE114600B72CEA /* OutgoingAudioTableViewCell.xib */,
-				C9FB6FC221EE114600B72CEA /* IncomingAudioTableViewCell.swift */,
-				C9FB6FC321EE114600B72CEA /* OutgoingAudioTableViewCell.swift */,
-			);
-			path = AudioFileCell;
-			sourceTree = "<group>";
-		};
-		C9FB6FC421EE114600B72CEA /* OutgoingDocumentCell */ = {
-			isa = PBXGroup;
-			children = (
-				C9FB6FC521EE114600B72CEA /* OutgoingDocumentTableViewCell.xib */,
-				C9FB6FC621EE114600B72CEA /* OutgoingDocumentTableViewCell.swift */,
-			);
-			path = OutgoingDocumentCell;
-			sourceTree = "<group>";
-		};
-		C9FB6FC721EE114600B72CEA /* IncomingDocumentCell */ = {
-			isa = PBXGroup;
-			children = (
-				C9FB6FC821EE114600B72CEA /* IncomingDocumentTableViewCell.xib */,
-				C9FB6FC921EE114600B72CEA /* IncomingDocumentTableViewCell.swift */,
-			);
-			path = IncomingDocumentCell;
-			sourceTree = "<group>";
-		};
 		C9FB6FD721EEF04800B72CEA /* TRWDownloadManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -1508,6 +1560,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -1526,66 +1579,72 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C936010822EEC5EA00A6C291 /* PaymentItemDescriptionCell.xib in Resources */,
+				C936013522EEC5EA00A6C291 /* ChatProfileTableViewCell.xib in Resources */,
+				C936012F22EEC5EA00A6C291 /* AgentHomeConversationCell.xib in Resources */,
+				C936014C22EEC5EA00A6C291 /* FeedbackTableViewCell.xib in Resources */,
 				C9B77ED121A01B070092848D /* IQKeyboardManager.bundle in Resources */,
+				C936014322EEC5EA00A6C291 /* BroadCastTitleCell.xib in Resources */,
+				C936010022EEC5EA00A6C291 /* IncomingImageCell.xib in Resources */,
+				C936014122EEC5EA00A6C291 /* BroadcastAgentCell.xib in Resources */,
+				C936015B22EED3CC00A6C291 /* ActionTagTableViewCell.xib in Resources */,
+				C936010E22EEC5EA00A6C291 /* ChatInfoTagViewCell.xib in Resources */,
+				C936011422EEC5EA00A6C291 /* ButtonTableViewCell.xib in Resources */,
 				C9B77E2121A01B060092848D /* ChatInfoHeader.xib in Resources */,
+				C93600FC22EEC5EA00A6C291 /* ActionButtonViewCell.xib in Resources */,
+				C936013722EEC5EA00A6C291 /* OutgoingVideoCallMessageTableViewCell.xib in Resources */,
+				C936012722EEC5EA00A6C291 /* OutgoingVideoTableViewCell.xib in Resources */,
+				C936011822EEC5EA00A6C291 /* HeaderTableViewCell.xib in Resources */,
+				C936015222EEC87300A6C291 /* SupportMessageTableViewCell.xib in Resources */,
+				C936014522EEC5EA00A6C291 /* BroadCastTextViewCell.xib in Resources */,
+				C936011A22EEC5EA00A6C291 /* ItemTableViewCell.xib in Resources */,
 				C9B77EA021A01B070092848D /* ProximaNova-Regular.otf in Resources */,
-				C9B77E4E21A01B060092848D /* IncomingVideoCallMessageTableViewCell.xib in Resources */,
-				C9B77E2621A01B060092848D /* IncomingImageCell.xib in Resources */,
-				C9FB6FCC21EE114600B72CEA /* IncomingVideoTableViewCell.xib in Resources */,
 				C9B77E8E21A01B070092848D /* MavenPro-Medium.ttf in Resources */,
-				C9B77E5121A01B060092848D /* BroadcastButtonCell.xib in Resources */,
-				C9B77E5D21A01B060092848D /* BoardCastSelectionCell.xib in Resources */,
+				C936014922EEC5EA00A6C291 /* BroadcastListTableViewCell.xib in Resources */,
+				C936013E22EEC5EA00A6C291 /* BroadcastButtonCell.xib in Resources */,
+				C936014A22EEC5EA00A6C291 /* BoardCastSelectionCell.xib in Resources */,
+				C936011722EEC5EA00A6C291 /* ButtonCollectionCell.xib in Resources */,
 				C9B77EDB21A01B070092848D /* Info.plist in Resources */,
+				C936011322EEC5EA00A6C291 /* ActionableMessageTableViewCell.xib in Resources */,
+				C93600F222EEC5EA00A6C291 /* OutgoingImageCell.xib in Resources */,
 				C9F6D49221C8B81100EA23E6 /* Hippo.podspec in Resources */,
-				C9B77E5621A01B060092848D /* BroadCastTitleCell.xib in Resources */,
 				C9FB6FAA21EE10CD00B72CEA /* LaunchScreen.storyboard in Resources */,
+				C936012222EEC5EA00A6C291 /* IncomingAudioTableViewCell.xib in Resources */,
+				C936010B22EEC5EA00A6C291 /* LeadTableViewCell.xib in Resources */,
+				C936013C22EEC5EA00A6C291 /* ChatInfoAgentTableViewCell.xib in Resources */,
+				C936015022EEC7DB00A6C291 /* SelfMessageTableViewCell.xib in Resources */,
 				C9B77E6121A01B060092848D /* Assets.xcassets in Resources */,
-				C9FB6FD021EE114600B72CEA /* OutgoingAudioTableViewCell.xib in Resources */,
 				C9F6D49021C8B71B00EA23E6 /* README.md in Resources */,
 				C9B77E1E21A01B060092848D /* EmojiCollectionViewCell.xib in Resources */,
-				C9B77E3721A01B060092848D /* ButtonCollectionCell.xib in Resources */,
+				C936011F22EEC5EA00A6C291 /* ImageTableViewCell.xib in Resources */,
+				C936013922EEC5EA00A6C291 /* IncomingVideoCallMessageTableViewCell.xib in Resources */,
 				C9B77E6321A01B060092848D /* LaunchScreen.storyboard in Resources */,
-				C90E0D10221FCA49004879A5 /* PaymentItemDescriptionCell.xib in Resources */,
-				C9B77E2F21A01B060092848D /* AssignedAgentTableViewCell.xib in Resources */,
-				C9B77E3D21A01B060092848D /* SenderNameTableCell.xib in Resources */,
-				C9B77E4C21A01B060092848D /* OutgoingVideoCallMessageTableViewCell.xib in Resources */,
+				C936010F22EEC5EA00A6C291 /* AssignedAgentTableViewCell.xib in Resources */,
 				C9B77E6421A01B060092848D /* Montserrat-Medium.otf in Resources */,
+				C93600F722EEC5EA00A6C291 /* ActionTableView.xib in Resources */,
+				C936013422EEC5EA00A6C291 /* ChatInfoActionCell.xib in Resources */,
 				C9B77E9F21A01B070092848D /* MavenPro-Bold.ttf in Resources */,
-				C9E029EA221FF73C00B22D57 /* ShowMoreTableViewCell.xib in Resources */,
-				C9FB6FCA21EE114600B72CEA /* OutgoingVideoTableViewCell.xib in Resources */,
+				C936012322EEC5EA00A6C291 /* OutgoingAudioTableViewCell.xib in Resources */,
 				C9B77E1B21A01B060092848D /* AgentHomeCollectionViewCell.xib in Resources */,
-				C9FB6FD321EE114600B72CEA /* OutgoingDocumentTableViewCell.xib in Resources */,
-				C9B77E4421A01B060092848D /* AgentHomeConversationCell.xib in Resources */,
 				C9B77EDC21A01B070092848D /* FuguUnique.storyboard in Resources */,
-				C976E6A52216B80800B9F79E /* ContactNumberTableCell.xib in Resources */,
-				C9B77E5421A01B060092848D /* BroadcastAgentCell.xib in Resources */,
-				C9B77E2521A01B060092848D /* CategoryTableViewCell.xib in Resources */,
+				C936010222EEC5EA00A6C291 /* BroadcastUserStatusCell.xib in Resources */,
 				C9B77EAB21A01B070092848D /* typingImage.gif in Resources */,
-				C9B77E3421A01B060092848D /* ButtonTableViewCell.xib in Resources */,
-				C9B77E3F21A01B060092848D /* ImageTableViewCell.xib in Resources */,
-				C9B77E3A21A01B060092848D /* ItemTableViewCell.xib in Resources */,
-				C9B77E5921A01B060092848D /* BroadCastTextFieldCell.xib in Resources */,
-				C9B77E2E21A01B060092848D /* ChatInfoTagViewCell.xib in Resources */,
-				C9B77E2821A01B060092848D /* BotOutgoingMessageTableViewCell.xib in Resources */,
-				C9B77E2221A01B060092848D /* OutgoingImageCell.xib in Resources */,
-				C9FB6FCF21EE114600B72CEA /* IncomingAudioTableViewCell.xib in Resources */,
-				C9FB6FD521EE114600B72CEA /* IncomingDocumentTableViewCell.xib in Resources */,
+				C93600F522EEC5EA00A6C291 /* CategoryTableViewCell.xib in Resources */,
 				C9B77EDD21A01B070092848D /* Montserrat-SemiBold.otf in Resources */,
-				C9B77E4921A01B060092848D /* ChatInfoActionCell.xib in Resources */,
-				C9B77E5C21A01B060092848D /* BroadcastListTableViewCell.xib in Resources */,
-				C9B77E3321A01B060092848D /* ActionableMessageTableViewCell.xib in Resources */,
 				C9B77E1D21A01B060092848D /* QuickReplyButtonCollectionViewCell.xib in Resources */,
-				C9B77E4621A01B060092848D /* LeadDataTableViewCell.xib in Resources */,
-				C9232D2C221D4A2E006965D5 /* BroadcastUserStatusCell.xib in Resources */,
-				C9B77E3821A01B060092848D /* HeaderTableViewCell.xib in Resources */,
+				C936014622EEC5EA00A6C291 /* BroadCastTextFieldCell.xib in Resources */,
+				C936012C22EEC5EA00A6C291 /* OutgoingDocumentTableViewCell.xib in Resources */,
+				C936013A22EEC5EA00A6C291 /* ShowMoreTableViewCell.xib in Resources */,
+				C936010622EEC5EA00A6C291 /* IncomingDocumentTableViewCell.xib in Resources */,
 				C9B77E6221A01B060092848D /* HippoBroadCast.storyboard in Resources */,
-				C9B77E5821A01B060092848D /* BroadCastTextViewCell.xib in Resources */,
-				C9B77E2B21A01B060092848D /* LeadTableViewCell.xib in Resources */,
-				C9B77E5F21A01B060092848D /* FeedbackTableViewCell.xib in Resources */,
-				C9B77E4F21A01B060092848D /* ChatInfoAgentTableViewCell.xib in Resources */,
+				C936010422EEC5EA00A6C291 /* BotOutgoingMessageTableViewCell.xib in Resources */,
+				C93600FE22EEC5EA00A6C291 /* ContactNumberTableCell.xib in Resources */,
+				C936012922EEC5EA00A6C291 /* IncomingVideoTableViewCell.xib in Resources */,
 				C9FB6FA921EE10CD00B72CEA /* Assets.xcassets in Resources */,
+				C936011D22EEC5EA00A6C291 /* SenderNameTableCell.xib in Resources */,
+				C936013122EEC5EA00A6C291 /* LeadDataTableViewCell.xib in Resources */,
+				C93600FA22EEC5EA00A6C291 /* ActionLabelViewCell.xib in Resources */,
 				C9FB6FAE21EE10CD00B72CEA /* Info.plist in Resources */,
-				C9B77E4A21A01B060092848D /* ChatProfileTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1637,107 +1696,116 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C9B77E4121A01B060092848D /* ActionableMessageTableViewCell.swift in Sources */,
 				C9B77E1521A01B060092848D /* HippoConfig.swift in Sources */,
 				C9FB6F8B21EE0DE400B72CEA /* PickerHelper.swift in Sources */,
+				C936013D22EEC5EA00A6C291 /* ChatInfoAgentTableViewCell.swift in Sources */,
 				C9B77E8021A01B060092848D /* AgentUserChannel.swift in Sources */,
 				C9B77EBD21A01B070092848D /* FormatIndicatedCacheSerializer.swift in Sources */,
-				C9B77E3621A01B060092848D /* ButtonCollectionCell.swift in Sources */,
 				C9F6D47121C8B47100EA23E6 /* SupportTheme.swift in Sources */,
+				C93600FB22EEC5EA00A6C291 /* ActionLabelViewCell.swift in Sources */,
+				C936011B22EEC5EA00A6C291 /* ItemTableViewCell.swift in Sources */,
 				C9FB6FB421EE10CD00B72CEA /* Formatters.swift in Sources */,
-				C9FB6FD121EE114600B72CEA /* IncomingAudioTableViewCell.swift in Sources */,
 				C9B77E9421A01B070092848D /* HippoHomeViewController.swift in Sources */,
-				C9B77E5A21A01B060092848D /* BroadCastTextFieldCell.swift in Sources */,
-				C9FB6FD421EE114600B72CEA /* OutgoingDocumentTableViewCell.swift in Sources */,
 				C9B77ED621A01B070092848D /* IQUIView+Hierarchy.swift in Sources */,
+				C936011C22EEC5EA00A6C291 /* SenderNameTableCell.swift in Sources */,
 				C9B77E8921A01B060092848D /* FuguAttributes.swift in Sources */,
+				C936011E22EEC5EA00A6C291 /* ImageTableViewCell.swift in Sources */,
 				C9FB6FB221EE10CD00B72CEA /* CoreLogger.swift in Sources */,
 				C9FB6FB621EE10CD00B72CEA /* LoggerConfig.swift in Sources */,
 				C9FB6FB321EE10CD00B72CEA /* Themes.swift in Sources */,
-				C9B77E5221A01B060092848D /* BroadcastButtonCell.swift in Sources */,
 				C9B77E6B21A01B060092848D /* NotificationCenter+Extension.swift in Sources */,
 				C9FB6FAD21EE10CD00B72CEA /* CoreKit.swift in Sources */,
+				C936011222EEC5EA00A6C291 /* ButtonCellCollectionViewHandler.swift in Sources */,
 				C9B77E7621A01B060092848D /* FuguTheme.swift in Sources */,
-				C9B77E5021A01B060092848D /* ChatInfoAgentTableViewCell.swift in Sources */,
 				C9B77E7E21A01B060092848D /* AgentChannelPersistancyManager.swift in Sources */,
 				C9B77EAF21A01B070092848D /* Pulsator.swift in Sources */,
 				C9FB6FAC21EE10CD00B72CEA /* CoreMediaSelector.swift in Sources */,
 				C9B77E0F21A01B060092848D /* AgentConversationManager.swift in Sources */,
 				C9B77E6A21A01B060092848D /* Proctocols.swift in Sources */,
-				C9B77E3E21A01B060092848D /* ImageTableViewCell.swift in Sources */,
 				C9FB6FB821EE10CD00B72CEA /* Benchmarker.swift in Sources */,
-				C9B77E4221A01B060092848D /* TypingViewTableViewCell.swift in Sources */,
 				C9B77E6621A01B060092848D /* Socomo+Customs.swift in Sources */,
-				C9B77E5521A01B060092848D /* BroadCastTitleCell.swift in Sources */,
 				C9B77E7B21A01B060092848D /* AgentConversation.swift in Sources */,
 				C9B77E8621A01B060092848D /* HippoChannel.swift in Sources */,
 				C9B77E7321A01B060092848D /* BroadcastInfo.swift in Sources */,
+				C936014B22EEC5EA00A6C291 /* BoardCastSelectionCell.swift in Sources */,
 				C9B77E9021A01B070092848D /* HippoConversationViewController.swift in Sources */,
+				C93600F622EEC5EA00A6C291 /* ActionTableDataSource.swift in Sources */,
+				C936010122EEC5EA00A6C291 /* IncomingImageCell.swift in Sources */,
 				C9B77ECE21A01B070092848D /* HippoKeyboardManager.swift in Sources */,
 				C9B77EDA21A01B070092848D /* FuguHelpers.swift in Sources */,
 				C9B77EB421A01B070092848D /* ImageView+Kingfisher.swift in Sources */,
-				C9B77E4721A01B060092848D /* LeadDataTableViewCell.swift in Sources */,
 				C9B77E9521A01B070092848D /* SelectImageViewController.swift in Sources */,
 				C9B77E9B21A01B070092848D /* ListDescriptionViewController.swift in Sources */,
-				C9B77E6021A01B060092848D /* FeedbackTableViewCell.swift in Sources */,
+				C936012422EEC5EA00A6C291 /* IncomingAudioTableViewCell.swift in Sources */,
 				C9FB6FDC21EEF04900B72CEA /* TWRDownloadManager.m in Sources */,
-				C9B77E4D21A01B060092848D /* VideoCallMessageTableViewCell.swift in Sources */,
+				C936014422EEC5EA00A6C291 /* BroadCastTextViewCell.swift in Sources */,
 				C9B77ED521A01B070092848D /* IQUITextFieldView+Additions.swift in Sources */,
-				C9B77E4021A01B060092848D /* ActionableMessageCellHandler.swift in Sources */,
 				C9B77E8C21A01B060092848D /* HippoDescriptionContent.swift in Sources */,
 				C9B77EC321A01B070092848D /* Placeholder.swift in Sources */,
+				C936012022EEC5EA00A6C291 /* ActionableMessageCellHandler.swift in Sources */,
 				C9FB6FB121EE10CD00B72CEA /* Utilities.swift in Sources */,
-				C9B77E4321A01B060092848D /* AgentHomeConversationCell.swift in Sources */,
 				C9B77E7C21A01B060092848D /* UnreadCount.swift in Sources */,
 				C9B77EC421A01B070092848D /* KingfisherOptionsInfo.swift in Sources */,
-				C9FB6FCD21EE114600B72CEA /* IncomingVideoTableViewCell.swift in Sources */,
-				C9B77E3021A01B060092848D /* AssignedAgentTableViewCell.swift in Sources */,
-				C9B77E3121A01B060092848D /* SupportMessageTableViewCell.swift in Sources */,
+				C936010D22EEC5EA00A6C291 /* ChatInfoTagViewCell.swift in Sources */,
+				C936013F22EEC5EA00A6C291 /* BroadcastButtonCell.swift in Sources */,
+				C936012B22EEC5EA00A6C291 /* OutgoingVideoTableViewCell.swift in Sources */,
+				C936011022EEC5EA00A6C291 /* AssignedAgentTableViewCell.swift in Sources */,
 				C9B77E9C21A01B070092848D /* CheckIntializationViewController.swift in Sources */,
+				C936012522EEC5EA00A6C291 /* OutgoingAudioTableViewCell.swift in Sources */,
 				C9B77EB121A01B070092848D /* ThreadHelper.swift in Sources */,
+				C936014822EEC5EA00A6C291 /* BroadcastListTableViewCell.swift in Sources */,
+				C936010A22EEC5EA00A6C291 /* LeadTableViewCell.swift in Sources */,
 				C9B77EC821A01B070092848D /* IQPreviousNextView.swift in Sources */,
 				C9B77E9721A01B070092848D /* AgentChatInfoViewController.swift in Sources */,
+				C936010922EEC5EA00A6C291 /* PaymentItemDescriptionCell.swift in Sources */,
 				C9B77E0E21A01B060092848D /* ConversationStore.swift in Sources */,
 				C9B77E8A21A01B060092848D /* HippoChannel+Extension.swift in Sources */,
 				C9B77ECA21A01B070092848D /* IQBarButtonItem.swift in Sources */,
 				C9B77E7A21A01B060092848D /* GeneralChat.swift in Sources */,
-				C9232D2D221D4A2E006965D5 /* BroadcastUserStatusCell.swift in Sources */,
 				C9B77EBC21A01B070092848D /* KingfisherManager.swift in Sources */,
+				C936010722EEC5EA00A6C291 /* IncomingDocumentTableViewCell.swift in Sources */,
 				C9FB6FA721EE10CD00B72CEA /* CoreKit+UIImage.swift in Sources */,
+				C936012D22EEC5EA00A6C291 /* OutgoingDocumentTableViewCell.swift in Sources */,
 				C9FB6F8D21EE0DE400B72CEA /* HippoQLDataSource.swift in Sources */,
 				C976E6922215516300B9F79E /* FormData.swift in Sources */,
+				C936013822EEC5EA00A6C291 /* VideoCallMessageTableViewCell.swift in Sources */,
+				C93600FF22EEC5EA00A6C291 /* ContactNumberTableCell.swift in Sources */,
 				C9B77EAE21A01B070092848D /* TagListView.swift in Sources */,
 				C9B77EB021A01B070092848D /* ImageCache.swift in Sources */,
-				C9B77E5321A01B060092848D /* BroadcastAgentCell.swift in Sources */,
-				C90E0D0F221FCA49004879A5 /* PaymentItemDescriptionCell.swift in Sources */,
+				C936012A22EEC5EA00A6C291 /* IncomingVideoTableViewCell.swift in Sources */,
+				C936014222EEC5EA00A6C291 /* BroadCastTitleCell.swift in Sources */,
 				C9B77E1F21A01B060092848D /* EmojiCollectionViewCell.swift in Sources */,
 				C9B77E1421A01B060092848D /* PeerToPeerChat.swift in Sources */,
+				C936010322EEC5EA00A6C291 /* BroadcastUserStatusCell.swift in Sources */,
 				C9B77E1821A01B060092848D /* FayeConnection.swift in Sources */,
 				C9B77E1C21A01B060092848D /* QuickReplyButtonCollectionViewCell.swift in Sources */,
 				C9B77EA121A01B070092848D /* FuguNetworkHandler.swift in Sources */,
+				C936015A22EED3CC00A6C291 /* ActionTagTableViewCell.swift in Sources */,
 				C9FB6FDD21EEF04900B72CEA /* TWRDownloadObject.m in Sources */,
-				C9FB6FCE21EE114600B72CEA /* OutgoingVideoTableViewCell.swift in Sources */,
 				C9B77E8B21A01B060092848D /* HippoSupportList.swift in Sources */,
 				C9B77E6521A01B060092848D /* UIColor+Extension.swift in Sources */,
 				C9F6D47221C8B47100EA23E6 /* HippoStrings.swift in Sources */,
-				C9B77E4B21A01B060092848D /* ChatProfileTableViewCell.swift in Sources */,
+				C93600F322EEC5EA00A6C291 /* OutgoingImageCell.swift in Sources */,
 				C9B77E8421A01B060092848D /* FuguAddress.swift in Sources */,
-				C9B77E4521A01B060092848D /* SelfMessageTableViewCell.swift in Sources */,
+				C936012822EEC5EA00A6C291 /* VideoTableViewCell.swift in Sources */,
 				C9FB6FB721EE10CD00B72CEA /* Formatter.swift in Sources */,
 				C9B77E7121A01B060092848D /* UserDetail.swift in Sources */,
 				C9B77E9A21A01B070092848D /* AgentHomeViewController.swift in Sources */,
-				C9B77E2321A01B060092848D /* OutgoingImageCell.swift in Sources */,
+				C936012E22EEC5EA00A6C291 /* AgentHomeConversationCell.swift in Sources */,
+				C936013622EEC5EA00A6C291 /* ChatProfileTableViewCell.swift in Sources */,
 				C9FB6FB021EE10CD00B72CEA /* LoggerEnum.swift in Sources */,
 				C9B77ED221A01B070092848D /* IQKeyboardReturnKeyHandler.swift in Sources */,
+				C93600F822EEC5EA00A6C291 /* ActionTableView.swift in Sources */,
 				C9B77E9E21A01B070092848D /* ConversationsViewController.swift in Sources */,
-				C9B77E2921A01B060092848D /* BotOutgoingMessageTableViewCell.swift in Sources */,
-				C976E6A42216B80800B9F79E /* ContactNumberTableCell.swift in Sources */,
-				C9B77E2A21A01B060092848D /* LeadTableViewCell.swift in Sources */,
 				C9B77EB821A01B070092848D /* UIButton+Kingfisher.swift in Sources */,
+				C93600F922EEC5EA00A6C291 /* ActionButtonViewCell.swift in Sources */,
 				C9B77EBF21A01B070092848D /* AnimatedImageView.swift in Sources */,
 				C9B77E6C21A01B060092848D /* OperatorOverloading.swift in Sources */,
+				C936012122EEC5EA00A6C291 /* ActionableMessageTableViewCell.swift in Sources */,
 				C9B77E7F21A01B060092848D /* ChatDetail.swift in Sources */,
+				C936014D22EEC5EA00A6C291 /* FeedbackTableViewCell.swift in Sources */,
 				C9B77EBA21A01B070092848D /* ImageDownloader.swift in Sources */,
+				C936010C22EEC5EA00A6C291 /* ConversationView.swift in Sources */,
 				C9B77EA921A01B070092848D /* FrameObserverAccessaryView.swift in Sources */,
 				C9B77E7921A01B060092848D /* FuguActionableMessage.swift in Sources */,
 				C9B77ECB21A01B070092848D /* IQToolbar.swift in Sources */,
@@ -1746,16 +1814,16 @@
 				C9B77E8F21A01B070092848D /* NLevelViewController.swift in Sources */,
 				C9FB6FA821EE10CD00B72CEA /* CoreDocumentPicker.swift in Sources */,
 				C9B77EB921A01B070092848D /* Resource.swift in Sources */,
+				C936013B22EEC5EA00A6C291 /* ShowMoreTableViewCell.swift in Sources */,
 				C9B77E1A21A01B060092848D /* AgentHomeCollectionViewCell.swift in Sources */,
 				C9B77ED921A01B070092848D /* Fugu+Enums.swift in Sources */,
 				C9B77E0D21A01B060092848D /* ConversationPresenter.swift in Sources */,
 				C9B77E1321A01B060092848D /* HTTPClient.swift in Sources */,
 				C9B77E6D21A01B060092848D /* Socomo+String.swift in Sources */,
+				C936010522EEC5EA00A6C291 /* BotOutgoingMessageTableViewCell.swift in Sources */,
 				C9FB6FAF21EE10CD00B72CEA /* CoreFilesConfig.swift in Sources */,
-				C9E029EB221FF73C00B22D57 /* ShowMoreTableViewCell.swift in Sources */,
 				C9B77E6821A01B060092848D /* UIView+Extension.swift in Sources */,
 				C9B77EB521A01B070092848D /* Image.swift in Sources */,
-				C9B77E3921A01B060092848D /* HeaderTableViewCell.swift in Sources */,
 				C9B77ED321A01B070092848D /* IQUIScrollView+Additions.swift in Sources */,
 				C9B77E7D21A01B060092848D /* AgentDirectChatAttributes.swift in Sources */,
 				C9B77E2021A01B060092848D /* ChatInfoHeader.swift in Sources */,
@@ -1768,66 +1836,63 @@
 				C9F6D47321C8B47100EA23E6 /* HippoTheme.swift in Sources */,
 				C9B77ED421A01B070092848D /* IQUIViewController+Additions.swift in Sources */,
 				C9B77EC621A01B070092848D /* ImagePrefetcher.swift in Sources */,
-				C9B77E2C21A01B060092848D /* ConversationView.swift in Sources */,
 				C9B77E6E21A01B060092848D /* FuguChannelPersistancyManager.swift in Sources */,
+				C93600F422EEC5EA00A6C291 /* CategoryTableViewCell.swift in Sources */,
 				C9B77E8321A01B060092848D /* FuguImageUploader.swift in Sources */,
 				C9FB6FAB21EE10CD00B72CEA /* CoreEnum.swift in Sources */,
 				C9B77E8521A01B060092848D /* HippoMessage.swift in Sources */,
 				C9B77ECF21A01B070092848D /* IQKeyboardManagerConstantsInternal.swift in Sources */,
-				C9B77E3221A01B060092848D /* ButtonCellCollectionViewHandler.swift in Sources */,
 				C9B77EC221A01B070092848D /* Filter.swift in Sources */,
-				C9B77E3521A01B060092848D /* ButtonTableViewCell.swift in Sources */,
-				C9B77E2721A01B060092848D /* IncomingImageCell.swift in Sources */,
-				C9B77E5721A01B060092848D /* BroadCastTextViewCell.swift in Sources */,
 				C9B77EB221A01B070092848D /* Kingfisher.swift in Sources */,
 				C9B77E1621A01B060092848D /* FuguConfig.swift in Sources */,
 				C9B77E9921A01B070092848D /* AgentConversationViewController.swift in Sources */,
 				C9B77E7521A01B060092848D /* FuguConversation.swift in Sources */,
 				C9B77EC121A01B070092848D /* ImageProcessor.swift in Sources */,
-				C9B77E2421A01B060092848D /* CategoryTableViewCell.swift in Sources */,
 				C9B77E1221A01B060092848D /* MessageStore.swift in Sources */,
-				C9FB6FCB21EE114600B72CEA /* VideoTableViewCell.swift in Sources */,
-				C9FB6FD621EE114600B72CEA /* IncomingDocumentTableViewCell.swift in Sources */,
 				C9B77E6F21A01B060092848D /* MessageSender.swift in Sources */,
 				C9B77EC721A01B070092848D /* IQTextView.swift in Sources */,
 				C9B77E6921A01B060092848D /* Socomo+Date.swift in Sources */,
 				C9B77EAA21A01B070092848D /* Fugu+Properties.swift in Sources */,
 				C9B77E1921A01B060092848D /* FuguAppFlow.swift in Sources */,
 				C9B77E9621A01B070092848D /* ShowImageViewController.swift in Sources */,
+				C936011922EEC5EA00A6C291 /* HeaderTableViewCell.swift in Sources */,
 				C9B77E9321A01B070092848D /* BroadCastViewController.swift in Sources */,
+				C93600FD22EEC5EA00A6C291 /* ActionViewCell.swift in Sources */,
 				C9B77EBE21A01B070092848D /* ImageTransition.swift in Sources */,
 				C9B77E9821A01B070092848D /* AgentDirectViewController.swift in Sources */,
-				C9B77E5B21A01B060092848D /* BroadcastListTableViewCell.swift in Sources */,
 				C9B77E1121A01B060092848D /* FuguDefaults.swift in Sources */,
 				C9FB6F8C21EE0DE400B72CEA /* DownloadManager.swift in Sources */,
 				C9B77E9D21A01B070092848D /* AllConversationsViewController.swift in Sources */,
 				C9B77E1021A01B060092848D /* CallManager.swift in Sources */,
+				C936011622EEC5EA00A6C291 /* ButtonCollectionCell.swift in Sources */,
 				C9B77E8721A01B060092848D /* FuguNewChatAttributes.swift in Sources */,
 				C9B77EBB21A01B070092848D /* Box.swift in Sources */,
 				C9B77EB721A01B070092848D /* CacheSerializer.swift in Sources */,
 				C9B77E7821A01B060092848D /* ConversationState.swift in Sources */,
+				C936013222EEC5EA00A6C291 /* LeadDataTableViewCell.swift in Sources */,
 				C9B77E6721A01B060092848D /* UIImage+Gif.swift in Sources */,
-				C9B77E3B21A01B060092848D /* ItemTableViewCell.swift in Sources */,
-				C9B77E5E21A01B060092848D /* BoardCastSelectionCell.swift in Sources */,
-				C9FB6FD221EE114600B72CEA /* OutgoingAudioTableViewCell.swift in Sources */,
+				C936013022EEC5EA00A6C291 /* SelfMessageTableViewCell.swift in Sources */,
+				C936013322EEC5EA00A6C291 /* ChatInfoActionCell.swift in Sources */,
 				C9FB6FB521EE10CD00B72CEA /* LoggerTheme.swift in Sources */,
 				C9B77EC921A01B070092848D /* IQTitleBarButtonItem.swift in Sources */,
 				C9B77EB321A01B070092848D /* RequestModifier.swift in Sources */,
-				C9B77E4821A01B060092848D /* ChatInfoActionCell.swift in Sources */,
+				C936012622EEC5EA00A6C291 /* TypingViewTableViewCell.swift in Sources */,
+				C936014022EEC5EA00A6C291 /* BroadcastAgentCell.swift in Sources */,
 				C9B77ECC21A01B070092848D /* IQUIView+IQKeyboardToolbar.swift in Sources */,
 				C9B77E8221A01B060092848D /* FuguChannelTag.swift in Sources */,
 				C9B77E7221A01B060092848D /* HippoBroadcaster.swift in Sources */,
 				C9B77EB621A01B070092848D /* Indicator.swift in Sources */,
-				C9B77E3C21A01B060092848D /* SenderNameTableCell.swift in Sources */,
 				C9B77ED821A01B070092848D /* FuguConnection.swift in Sources */,
+				C936011522EEC5EA00A6C291 /* ButtonTableViewCell.swift in Sources */,
 				C9B77E8D21A01B060092848D /* FuguUserDetail.swift in Sources */,
+				C936014722EEC5EA00A6C291 /* BroadCastTextFieldCell.swift in Sources */,
 				C9B77EC021A01B070092848D /* String+MD5.swift in Sources */,
 				C9B77E9121A01B070092848D /* BroadcastSelectionViewController.swift in Sources */,
+				C936011122EEC5EA00A6C291 /* SupportMessageTableViewCell.swift in Sources */,
 				C9B77E7421A01B060092848D /* MessageContent.swift in Sources */,
 				C9B77ED721A01B070092848D /* IQNSArray+Sort.swift in Sources */,
 				C9B77E8121A01B060092848D /* AgentDetail.swift in Sources */,
 				C9B77E9221A01B070092848D /* BroadcastListViewController.swift in Sources */,
-				C9B77E2D21A01B060092848D /* ChatInfoTagViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

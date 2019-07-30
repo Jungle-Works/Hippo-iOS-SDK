@@ -8,6 +8,8 @@
 
 import UIKit
 
+
+
 @objc public protocol TagListViewDelegate {
     @objc optional func tagPressed(_ title: String, tagView: TagView, sender: TagListView) -> Void
     @objc optional func tagRemoveButtonPressed(_ title: String, tagView: TagView, sender: TagListView) -> Void
@@ -111,7 +113,7 @@ public class TagListView: UIView {
             rearrangeViews()
         }
     }
-    @IBInspectable  dynamic var marginY: CGFloat = 2 {
+    @IBInspectable  dynamic var marginY: CGFloat = 5 {
         didSet {
             rearrangeViews()
         }
@@ -292,6 +294,46 @@ public class TagListView: UIView {
         }
         return CGSize(width: frame.width, height: height)
     }
+    private func createNewTagView(_ object: TagViewCreation) -> TagView {
+        
+        let tagView = TagView(title: object.name)
+        
+        tagView.textColor = object.tagViewTextColor
+        tagView.detail = object
+        tagView.selectedTextColor = selectedTextColor
+        tagView.tagBackgroundColor = object.color
+        tagView.highlightedBackgroundColor = tagHighlightedBackgroundColor
+        tagView.selectedBackgroundColor = tagSelectedBackgroundColor
+        tagView.titleLineBreakMode = tagLineBreakMode
+        tagView.cornerRadius = 10//cornerRadius
+        tagView.borderWidth = borderWidth
+        tagView.borderColor = borderColo
+        tagView.selectedBorderColor = selectedBorderColor
+        tagView.paddingX = paddingX
+        tagView.paddingY = paddingY
+        tagView.textFont = textFont
+        tagView.removeIconLineWidth = removeIconLineWidth
+        tagView.removeButtonIconSize = removeButtonIconSize
+        tagView.enableRemoveButton = enableRemoveButton
+        tagView.removeIconLineColor = removeIconLineColor
+        
+        tagView.addTarget(self, action: #selector(tagPressed(_:)), for: .touchUpInside)
+        tagView.removeButton.addTarget(self, action: #selector(removeButtonPressed(_:)), for: .touchUpInside)
+        tagView.frame = CGRect(x: tagView.frame.origin.x, y: tagView.frame.origin.y, width: tagView.frame.width + 50, height: tagView.frame.height)
+        
+        if object.circlularCorner {
+            tagView.cornerRadius = tagView.intrinsicContentSize.height / 2
+        }
+        // On long press, deselect all tags except this one
+        tagView.onLongPress = { [unowned self] this in
+            for tag in self.tagViews {
+                tag.isSelected = (tag == this)
+            }
+        }
+        
+        return tagView
+    }
+    
     
     private func createNewTagView(_ object: TagDetail) -> TagView {
         
@@ -340,6 +382,19 @@ public class TagListView: UIView {
         }
         return addTagViews(tagViews)
     }
+    func addTag(_ object: TagViewCreation) -> TagView {
+        return addTagView(createNewTagView(object))
+    }
+    
+    @discardableResult
+    func addTags(_ objects: [TagViewCreation]) -> [TagView] {
+        var tagViews: [TagView] = []
+        for object in objects {
+            tagViews.append(createNewTagView(object))
+        }
+        return addTagViews(tagViews)
+    }
+    
     
     func addTagViews(_ tagViews: [TagView]) -> [TagView] {
         for tagView in tagViews {

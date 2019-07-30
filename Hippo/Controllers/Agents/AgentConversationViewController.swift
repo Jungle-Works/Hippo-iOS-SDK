@@ -1168,7 +1168,7 @@ extension AgentConversationViewController: UITableViewDelegate, UITableViewDataS
         
         if chatMessageObject.senderFullName.isEmpty == false {
             let titleText = chatMessageObject.senderFullName
-            let heightOfContent = (titleText.height(withConstrainedWidth: (FUGU_SCREEN_WIDTH - actionableMessageRightMargin - 20), font: senderNameFont!)) + bottomSpace + margin
+            let heightOfContent = (titleText.height(withConstrainedWidth: (FUGU_SCREEN_WIDTH - actionableMessageRightMargin - 20), font: senderNameFont)) + bottomSpace + margin
             cellHeight += heightOfContent
         }
         

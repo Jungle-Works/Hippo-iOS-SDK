@@ -251,6 +251,10 @@ class HippoConversationViewController: UIViewController {
         tableViewChat.backgroundColor = HippoConfig.shared.theme.backgroundColor
         
         let bundle = FuguFlowManager.bundle
+        
+        tableViewChat.register(UINib(nibName: "SelfMessageTableViewCell", bundle: bundle), forCellReuseIdentifier: "SelfMessageTableViewCell")
+        tableViewChat.register(UINib(nibName: "SupportMessageTableViewCell", bundle: bundle), forCellReuseIdentifier: "SupportMessageTableViewCell")
+        
         tableViewChat.register(UINib(nibName: "OutgoingImageCell", bundle: bundle), forCellReuseIdentifier: "OutgoingImageCell")
         tableViewChat.register(UINib(nibName: "IncomingImageCell", bundle: bundle), forCellReuseIdentifier: "IncomingImageCell")
         tableViewChat.register(UINib(nibName: "ActionableMessageTableViewCell", bundle: bundle), forCellReuseIdentifier: "ActionableMessageTableViewCell")
@@ -1154,6 +1158,7 @@ extension HippoConversationViewController: ActionTableViewDelegate {
             return
         }
         customMessage.selectBtnWith(btnId: selectionId)
+        tableViewChat.reloadData()
         sendMessage(message: customMessage)
     }
 }

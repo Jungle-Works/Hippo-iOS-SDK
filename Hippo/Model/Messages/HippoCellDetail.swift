@@ -18,6 +18,11 @@ class HippoCellDetail: NSObject {
     var additionalContentHeight: CGFloat = 0
     var padding: CGFloat = 0
     
+    var headerHeight: CGFloat = 0
+    var actionHeight: CGFloat?
+    var responseHeight: CGFloat = 0
+    
+    
     private var totalHeight: CGFloat? = nil
     
     var cellHeight: CGFloat {
@@ -39,6 +44,8 @@ class HippoCellDetail: NSObject {
         height += footerHeight
         height += additionalContentHeight
         height += padding
+        height += headerHeight
+        height += actionHeight ?? responseHeight
         
         return height
     }

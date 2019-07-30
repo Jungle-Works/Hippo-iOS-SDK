@@ -93,7 +93,7 @@ extension UIView {
     
     @IBInspectable var borderColor: UIColor? {
         get {
-            return UIColor(cgColor: layer.borderColor!)
+            return  layer.borderColor == nil ? nil : UIColor(cgColor: layer.borderColor!)
         }
         set {
             layer.borderColor = newValue?.cgColor
@@ -108,6 +108,19 @@ extension UIView {
             layer.cornerRadius = newValue
             layer.masksToBounds = newValue > 0
         }
+    }
+}
+
+extension TagListView {
+    func setTagListViewProperty() {
+        alignment = HippoConfig.shared.appUserType == .agent ? .left : .right
+        borderColo = HippoConfig.shared.theme.headerBackgroundColor
+        paddingY = 10
+        paddingX = 20
+        borderWidth = 1
+        textColor =  HippoConfig.shared.theme.headerBackgroundColor
+        selectedTextColor =  HippoConfig.shared.theme.headerBackgroundColor
+        textFont = HippoConfig.shared.theme.incomingMsgFont ?? UIFont.systemFont(ofSize: 15)
     }
 }
 extension UINavigationController {

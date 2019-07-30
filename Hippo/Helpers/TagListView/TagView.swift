@@ -8,9 +8,19 @@
 
 import UIKit
 
+protocol TagViewCreation {
+    var name: String { get }
+    var color: UIColor { get }
+    var circlularCorner: Bool { get }
+    var tagViewId: Any? { get }
+    var tagViewTextColor: UIColor { get }
+}
+
 @IBDesignable
 open class TagView: UIButton {
 
+    var detail: TagViewCreation?
+    
     @IBInspectable open var cornerRadiu: CGFloat = 0 {
         didSet {
             layer.cornerRadius = cornerRadius

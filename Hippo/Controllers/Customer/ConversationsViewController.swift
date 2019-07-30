@@ -1095,9 +1095,7 @@ extension ConversationsViewController {
         
         #if swift(>=4.0)
          var attributes: [NSAttributedString.Key: Any]?
-         if let applicableFont = HippoConfig.shared.theme.inOutChatTextFont {
-        attributes = [NSAttributedString.Key.font: applicableFont]
-        }
+        attributes = [NSAttributedString.Key.font: HippoConfig.shared.theme.inOutChatTextFont]
         
         if messageString.isEmpty == false {
         cellTotalHeight += messageString.boundingRect(with: availableBoxSize, options: .usesLineFragmentOrigin, attributes: attributes, context: nil).size.height
@@ -1566,7 +1564,7 @@ func getHeighOfButtonCollectionView(actionableMessage: FuguActionableMessage) ->
         
         if chatMessageObject.senderFullName.isEmpty == false {
             let titleText = chatMessageObject.senderFullName
-            let heightOfContent = (titleText.height(withConstrainedWidth: (FUGU_SCREEN_WIDTH - actionableMessageRightMargin - 20), font: senderNameFont!)) + bottomSpace + margin
+            let heightOfContent = (titleText.height(withConstrainedWidth: (FUGU_SCREEN_WIDTH - actionableMessageRightMargin - 20), font: senderNameFont)) + bottomSpace + margin
             cellHeight += heightOfContent
         }
         

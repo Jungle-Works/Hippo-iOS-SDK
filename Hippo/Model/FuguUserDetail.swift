@@ -133,16 +133,16 @@ public class UserTag: NSObject {
     public init(fullName: String, email: String, phoneNumber: String, userUniqueKey: String, addressAttribute: HippoAttributes? = nil, customAttributes: [String: Any]? = nil, userTags: [UserTag]? = nil, userImage: String? = nil) {
         super.init()
         
-        self.fullName = fullName
-        self.email = email
-        self.phoneNumber = phoneNumber
-        self.userUniqueKey = userUniqueKey
+        self.fullName = fullName.trimWhiteSpacesAndNewLine()
+        self.email = email.trimWhiteSpacesAndNewLine()
+        self.phoneNumber = phoneNumber.trimWhiteSpacesAndNewLine()
+        self.userUniqueKey = userUniqueKey.trimWhiteSpacesAndNewLine()
         self.addressAttribute = addressAttribute ?? HippoAttributes()
         self.customAttributes = customAttributes
         
         self.userTags = userTags ?? []
         
-        if let parsedUserImage = userImage, let url = URL(string: parsedUserImage) {
+        if let parsedUserImage = userImage?.trimWhiteSpacesAndNewLine(), let url = URL(string: parsedUserImage) {
             self.userImage = url
         }
     }

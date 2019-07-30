@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="166" id="KGk-i7-Jjw" customClass="ActionTagTableViewCell" customModule="Hippo" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="166"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="165.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a9a-8C-gxx">
+                        <rect key="frame" x="10" y="5" width="300" height="155.5"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ah8-Sd-pYM" customClass="TagListView" customModule="Hippo" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="300" height="143.5"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HS8-Rg-fOQ">
+                                <rect key="frame" x="273.5" y="143.5" width="26.5" height="12"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="12" id="jyE-hl-W7R"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                <color key="textColor" red="0.66666666666666663" green="0.66666668653488159" blue="0.66666668653488159" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="HS8-Rg-fOQ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="a9a-8C-gxx" secondAttribute="leading" id="EZK-ol-nYe"/>
+                            <constraint firstItem="ah8-Sd-pYM" firstAttribute="leading" secondItem="a9a-8C-gxx" secondAttribute="leading" id="JWM-u6-GUP"/>
+                            <constraint firstAttribute="bottom" secondItem="HS8-Rg-fOQ" secondAttribute="bottom" id="VdR-tL-XuK"/>
+                            <constraint firstItem="ah8-Sd-pYM" firstAttribute="top" secondItem="a9a-8C-gxx" secondAttribute="top" id="YBa-UR-5gX"/>
+                            <constraint firstItem="HS8-Rg-fOQ" firstAttribute="top" secondItem="ah8-Sd-pYM" secondAttribute="bottom" id="ZgP-Oo-GDp"/>
+                            <constraint firstAttribute="trailing" secondItem="ah8-Sd-pYM" secondAttribute="trailing" id="dxj-xb-1pN"/>
+                            <constraint firstAttribute="trailing" secondItem="HS8-Rg-fOQ" secondAttribute="trailing" id="zOZ-HI-NXH"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="a9a-8C-gxx" secondAttribute="trailing" constant="10" id="BiU-91-Kbd"/>
+                    <constraint firstItem="a9a-8C-gxx" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="KXI-MG-EYo"/>
+                    <constraint firstAttribute="bottom" secondItem="a9a-8C-gxx" secondAttribute="bottom" constant="5" id="OUt-1N-Fab"/>
+                    <constraint firstItem="a9a-8C-gxx" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="lg3-LO-o7e"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="buttonTagView" destination="ah8-Sd-pYM" id="Dux-2f-MDa"/>
+                <outlet property="timeLabel" destination="HS8-Rg-fOQ" id="4LJ-dK-UIr"/>
+            </connections>
+            <point key="canvasLocation" x="137.68115942028987" y="181.47321428571428"/>
+        </tableViewCell>
+    </objects>
+</document>

@@ -99,7 +99,7 @@ struct FileUploader {
         return params
     }
     static func saveImageInKingfisherCacheFor(thumbnailUrl: String, originalUrl: String, localPath: String) {
-        let pathURL = URL.init(fileURLWithPath: localPath)
+        let _ = URL.init(fileURLWithPath: localPath)
         
 //        guard let cachedImageData = try? Data.init(contentsOf: pathURL, options: []) else {
 //            return

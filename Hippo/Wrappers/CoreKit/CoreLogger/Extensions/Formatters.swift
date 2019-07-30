@@ -23,20 +23,20 @@
 //
 
 public extension Formatters {
-     public static let defaultFormat = Formatter("[%@] %@ %@: %@", [
+    static let defaultFormat = Formatter("[%@] %@ %@: %@", [
         .date("yyyy-MM-dd HH:mm:ss.SSS"),
         .location,
         .level,
         .message
     ])
     
-     public static let minimal = Formatter("%@ %@: %@", [
+    static let minimal = Formatter("%@ %@: %@", [
         .location,
         .level,
         .message
     ])
     
-     public static let detailed = Formatter("[%@] %@.%@:%@ %@: %@", [
+    static let detailed = Formatter("[%@] %@.%@:%@ %@: %@", [
         .date("yyyy-MM-dd HH:mm:ss.SSS"),
         .file(fullPath: false, fileExtension: false),
         .function,

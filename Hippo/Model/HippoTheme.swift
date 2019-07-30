@@ -72,10 +72,10 @@ import Foundation
     open var dateTimeFontSize: UIFont? = UIFont.systemFont(ofSize: 12.0)
     
     open var senderNameColor = #colorLiteral(red: 0.5568627451, green: 0.5568627451, blue: 0.5568627451, alpha: 1)
-    open var senderNameFont: UIFont? = UIFont.systemFont(ofSize: 12.0)
+    open var senderNameFont: UIFont = UIFont.systemFont(ofSize: 12.0)
     open var itmDescriptionNameFont: UIFont? = UIFont.systemFont(ofSize: 14.0)
     open var incomingMsgColor = #colorLiteral(red: 0.1725490196, green: 0.137254902, blue: 0.2, alpha: 1)
-    open var incomingMsgFont: UIFont? = UIFont.systemFont(ofSize: 15.0)
+    open var incomingMsgFont: UIFont = UIFont.systemFont(ofSize: 15.0)
     open var incomingChatBoxColor = #colorLiteral(red: 0.9098039216, green: 0.9176470588, blue: 0.9882352941, alpha: 1)
     open var incomingMsgDateTextColor = #colorLiteral(red: 0.5568627451, green: 0.5568627451, blue: 0.5568627451, alpha: 1)
     
@@ -96,7 +96,7 @@ import Foundation
     open var chatBoxBorderWidth = CGFloat(0.5)
     open var chatBoxBorderColor = #colorLiteral(red: 0.862745098, green: 0.8784313725, blue: 0.9019607843, alpha: 1)
     
-    open var inOutChatTextFont: UIFont? = UIFont.systemFont(ofSize: 15.0)
+    open var inOutChatTextFont: UIFont = UIFont.systemFont(ofSize: 15.0)
     
     open var timeTextColor = #colorLiteral(red: 0.1725490196, green: 0.137254902, blue: 0.2, alpha: 1)
     
