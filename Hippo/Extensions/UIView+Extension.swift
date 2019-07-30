@@ -120,7 +120,7 @@ extension TagListView {
         borderWidth = 1
         textColor =  HippoConfig.shared.theme.headerBackgroundColor
         selectedTextColor =  HippoConfig.shared.theme.headerBackgroundColor
-        textFont = HippoConfig.shared.theme.incomingMsgFont ?? UIFont.systemFont(ofSize: 15)
+        textFont = HippoConfig.shared.theme.incomingMsgFont
     }
 }
 extension UINavigationController {

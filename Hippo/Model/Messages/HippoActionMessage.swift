@@ -12,6 +12,7 @@ class HippoActionMessage: HippoMessage {
     
     var isActive: Bool = false
     var selectedBtnId: String = ""
+    
     var isUserInteractionEnbled: Bool = false
     var buttons: [HippoActionButton]?
     var responseMessage: HippoMessage?
@@ -52,16 +53,17 @@ class HippoActionMessage: HippoMessage {
         cellDetail?.showSenderName = false
         
         
-        let buttonHeight = buttonsHeight() //(buttons?.count ?? 0) * 50
         
-        cellDetail?.actionHeight = CGFloat(buttonHeight) + attributtedMessage.timeHeight + 8
         
         if let attributtedMessage = responseMessage?.attributtedMessage {
             cellDetail?.responseHeight = attributtedMessage.messageHeight + attributtedMessage.timeHeight
             cellDetail?.actionHeight = nil
+        } else {
+            let buttonHeight = buttonsHeight() //(buttons?.count ?? 0) * 50
+            cellDetail?.actionHeight = CGFloat(buttonHeight) + 15 + 10 //Button Height + (timeLabelHeight + time gap from top) + padding
         }
         
-        cellDetail?.padding = 12
+        cellDetail?.padding = 10
     }
     
     
@@ -70,31 +72,32 @@ class HippoActionMessage: HippoMessage {
             return 0
         }
         
-        let maxWidth = windowScreenWidth - 35
+        let maxWidth = windowScreenWidth - 27
         var buttonCount: Int = 0
         var remaningWidth: CGFloat = maxWidth
         
         for each in buttons {
-            let w: CGFloat = findButtonWidth(each.title) + 20
-            let widthRemaningAfterInsertion = remaningWidth - w
+            let w: CGFloat = findButtonWidth(each.title) + 40
+            let widthRemaningAfterInsertion = remaningWidth - w - 5
             
             if remaningWidth == maxWidth {
                 buttonCount += 1
-                remaningWidth = widthRemaningAfterInsertion - 5
-            } else if widthRemaningAfterInsertion < 0 {
+                remaningWidth = widthRemaningAfterInsertion
+            } else if widthRemaningAfterInsertion <= -5 {
                 buttonCount += 1
-                remaningWidth = maxWidth - w
+                remaningWidth = maxWidth - w - 5
             } else {
-                remaningWidth = widthRemaningAfterInsertion - 5
+                remaningWidth = widthRemaningAfterInsertion
             }
+            print("===\(each.title)--w=\(w)--widthRemaningAfterInsertion=\(widthRemaningAfterInsertion)--b=\(buttonCount)--remaning=\(remaningWidth) \n")
         }
         
-        return CGFloat(buttonCount * 35)
+        return CGFloat(buttonCount * 35) + CGFloat(5 * (buttonCount - 1))
     }
     private func findButtonWidth(_ text: String) -> CGFloat {
         let attributedText = NSMutableAttributedString(string: text)
         let range = (text as NSString).range(of: text)
-        attributedText.addAttribute(.font, value: HippoConfig.shared.theme.incomingMsgFont ?? UIFont.systemFont(ofSize: 16), range: range)
+        attributedText.addAttribute(.font, value: HippoConfig.shared.theme.incomingMsgFont, range: range)
         let boxSize: CGSize = CGSize(width: windowScreenWidth - 30, height: CGFloat.greatestFiniteMagnitude)
         return sizeOf(attributedString: attributedText, availableBoxSize: boxSize).width
     }
