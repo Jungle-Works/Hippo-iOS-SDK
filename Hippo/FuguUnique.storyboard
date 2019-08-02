@@ -27,7 +27,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="91" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="yfp-HZ-0Gy">
-                                <rect key="frame" x="0.0" y="66" width="375" height="581"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                                 <color key="backgroundColor" red="0.97254901960784312" green="0.97647058823529409" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ConversationView" rowHeight="75" id="Vlp-IF-cmU" customClass="ConversationView" customModule="Hippo" customModuleProvider="target">
@@ -173,7 +173,7 @@
                                 </connections>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oIt-un-3Xr" userLabel="errorContentView">
-                                <rect key="frame" x="0.0" y="66" width="375" height="0.0"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="0.0"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HYS-6n-0cY">
                                         <rect key="frame" x="0.0" y="-20" width="375" height="20"/>
@@ -196,23 +196,20 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fN8-67-65O" userLabel="HeaderView">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="66"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="0.0"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mcJ-zb-df3">
-                                        <rect key="frame" x="46" y="20" width="283" height="46"/>
+                                        <rect key="frame" x="46" y="-46" width="283" height="46"/>
                                         <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
                                         <color key="textColor" red="0.26274509800000001" green="0.35686274509999999" blue="0.50196078430000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WF4-KC-69p">
-                                        <rect key="frame" x="0.0" y="20" width="46" height="46"/>
+                                        <rect key="frame" x="0.0" y="-46" width="46" height="46"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="46" id="JKf-r9-YmE"/>
                                             <constraint firstAttribute="height" constant="46" id="KrB-ym-Qfs"/>
                                         </constraints>
-                                        <connections>
-                                            <action selector="backButtonAction:" destination="NiB-L4-OyJ" eventType="touchUpInside" id="5mI-sr-hCM"/>
-                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -223,7 +220,7 @@
                                     <constraint firstAttribute="bottom" secondItem="mcJ-zb-df3" secondAttribute="bottom" id="bPR-Y6-cSt"/>
                                     <constraint firstItem="mcJ-zb-df3" firstAttribute="height" secondItem="WF4-KC-69p" secondAttribute="height" id="eXM-a3-Mdx"/>
                                     <constraint firstAttribute="trailing" secondItem="mcJ-zb-df3" secondAttribute="trailing" constant="46" id="g2r-hn-8mz"/>
-                                    <constraint firstAttribute="height" constant="66" id="wDT-y5-wgY"/>
+                                    <constraint firstAttribute="height" id="wDT-y5-wgY"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" clipsSubviews="YES" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Runs on Hippo" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eYt-4i-gIl">
@@ -260,16 +257,21 @@
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" id="Not-qk-eWR"/>
+                    <navigationItem key="navigationItem" id="whR-ib-aKi">
+                        <barButtonItem key="leftBarButtonItem" image="BackWhite" id="5kj-Pg-SUf">
+                            <connections>
+                                <action selector="backButtonClicked:" destination="NiB-L4-OyJ" id="iel-XB-8OT"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
-                        <outlet property="backButton" destination="WF4-KC-69p" id="fIV-Ah-28I"/>
+                        <outlet property="backButton" destination="5kj-Pg-SUf" id="k6J-IE-dAK"/>
                         <outlet property="errorContentView" destination="oIt-un-3Xr" id="p27-D5-QAg"/>
                         <outlet property="errorLabel" destination="HYS-6n-0cY" id="xcI-H9-7hp"/>
                         <outlet property="errorLabelTopConstraint" destination="9kC-X7-IfK" id="hpq-Md-FYs"/>
                         <outlet property="heightOfBottomLabel" destination="0lv-kZ-vjJ" id="mvb-LE-nUG"/>
-                        <outlet property="heightofNavigationBar" destination="wDT-y5-wgY" id="bmY-2y-TSs"/>
                         <outlet property="navigationBackgroundView" destination="fN8-67-65O" id="3Je-Zc-afX"/>
-                        <outlet property="navigationTitleLabel" destination="mcJ-zb-df3" id="uQb-ee-hsO"/>
                         <outlet property="poweredByFuguLabel" destination="eYt-4i-gIl" id="Dsh-XD-fWo"/>
                         <outlet property="showConversationsTableView" destination="yfp-HZ-0Gy" id="1wj-zE-lao"/>
                     </connections>
@@ -856,7 +858,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="interactive" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="qnv-or-clc">
-                                <rect key="frame" x="0.0" y="66" width="375" height="545"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="611"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TypingViewTableViewCell" id="wBs-yQ-I61" customClass="TypingViewTableViewCell" customModule="Hippo" customModuleProvider="target">
@@ -989,7 +991,7 @@
                                 </constraints>
                             </view>
                             <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="85d-HF-bp8" userLabel="errorContentView">
-                                <rect key="frame" x="0.0" y="66" width="375" height="0.0"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="0.0"/>
                                 <subviews>
                                     <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="c1u-IU-iwY">
                                         <rect key="frame" x="177.5" y="-30" width="20" height="30"/>
@@ -1021,45 +1023,36 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kox-UA-NRB" userLabel="HeaderView">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="66"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="0.0"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1dR-aa-0fh">
-                                        <rect key="frame" x="46" y="18" width="237" height="48"/>
+                                        <rect key="frame" x="46" y="-48" width="237" height="48"/>
                                         <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
                                         <color key="textColor" red="0.26274509800000001" green="0.35686274509999999" blue="0.50196078430000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LO5-xf-WBz">
-                                        <rect key="frame" x="0.0" y="18" width="46" height="48"/>
+                                        <rect key="frame" x="0.0" y="-48" width="46" height="48"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="46" id="4xg-Ng-YcF"/>
                                             <constraint firstAttribute="height" constant="48" id="efK-pR-Os8"/>
                                         </constraints>
-                                        <connections>
-                                            <action selector="backButtonAction:" destination="Zql-KC-mKa" eventType="touchUpInside" id="wkM-31-oaf"/>
-                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Re0-dP-1cC">
-                                        <rect key="frame" x="283" y="18" width="46" height="48"/>
+                                        <rect key="frame" x="283" y="-48" width="46" height="48"/>
                                         <state key="normal" image="tiny-video-symbol"/>
-                                        <connections>
-                                            <action selector="videoButtonClicked:" destination="Zql-KC-mKa" eventType="touchUpInside" id="Co2-Ba-sn6"/>
-                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q89-dO-p90">
-                                        <rect key="frame" x="329" y="18" width="46" height="48"/>
+                                        <rect key="frame" x="329" y="-48" width="46" height="48"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="46" id="6Lm-CX-ZS7"/>
                                         </constraints>
                                         <state key="normal" image="audioCallIcon"/>
-                                        <connections>
-                                            <action selector="audiCallButtonClicked:" destination="Zql-KC-mKa" eventType="touchUpInside" id="hia-6d-laH"/>
-                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="66" id="3TD-YH-q2u"/>
+                                    <constraint firstAttribute="height" id="3TD-YH-q2u"/>
                                     <constraint firstItem="q89-dO-p90" firstAttribute="height" secondItem="Re0-dP-1cC" secondAttribute="height" id="4pW-21-eQp"/>
                                     <constraint firstAttribute="bottom" secondItem="Re0-dP-1cC" secondAttribute="bottom" id="H4Y-Ox-oP8"/>
                                     <constraint firstAttribute="trailing" secondItem="q89-dO-p90" secondAttribute="trailing" id="IJh-ft-ewX"/>
@@ -1101,29 +1094,41 @@
                         </constraints>
                     </view>
                     <toolbarItems/>
+                    <navigationItem key="navigationItem" id="tRo-q9-CQF">
+                        <rightBarButtonItems>
+                            <barButtonItem image="audioCallIcon" id="3A0-f7-de1">
+                                <connections>
+                                    <action selector="audiCallButtonClicked:" destination="Zql-KC-mKa" id="V0r-B7-nlo"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem image="tiny-video-symbol" id="dhl-Y4-tPK">
+                                <connections>
+                                    <action selector="videoButtonClicked:" destination="Zql-KC-mKa" id="wU5-uy-AqE"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="addFileButtonAction" destination="DWe-mS-Xbm" id="ciB-Hr-rYv"/>
                         <outlet property="audioCAllButtonWidthConstraint" destination="6Lm-CX-ZS7" id="K7g-aU-Scg"/>
-                        <outlet property="audioCallButton" destination="q89-dO-p90" id="XPl-2g-YXi"/>
-                        <outlet property="backButton" destination="LO5-xf-WBz" id="tIQ-ds-Cwn"/>
+                        <outlet property="audioCallButton" destination="3A0-f7-de1" id="02i-Qv-RRY"/>
                         <outlet property="backgroundView" destination="ofr-Y0-GIn" id="3BR-1r-dwm"/>
                         <outlet property="errorContentView" destination="85d-HF-bp8" id="KCD-yX-dOL"/>
                         <outlet property="errorLabel" destination="CuY-FO-VFT" id="xwM-4e-kUK"/>
                         <outlet property="errorLabelTopConstraint" destination="Mck-dn-hlZ" id="sCg-1v-2kq"/>
-                        <outlet property="hieghtOfNavigationBar" destination="3TD-YH-q2u" id="0hK-l2-g7o"/>
                         <outlet property="loadMoreActivityIndicator" destination="c1u-IU-iwY" id="JJB-P7-Qgs"/>
                         <outlet property="loadMoreActivityTopContraint" destination="uKb-30-sIc" id="Nli-fv-f4d"/>
                         <outlet property="loaderView" destination="yXi-kz-HoV" id="NTR-yh-rnf"/>
                         <outlet property="messageTextView" destination="wgK-4e-znX" id="HcB-2o-dIZ"/>
                         <outlet property="navigationBackgroundView" destination="Kox-UA-NRB" id="M7c-48-3pP"/>
-                        <outlet property="navigationTitleLabel" destination="1dR-aa-0fh" id="nKD-DC-b7f"/>
                         <outlet property="placeHolderLabel" destination="EE4-xz-Z1Q" id="sWm-S8-QVb"/>
                         <outlet property="sendMessageButton" destination="qNk-pG-Dkt" id="clb-OM-eCq"/>
                         <outlet property="seperatorView" destination="i5f-Ma-L0R" id="w3m-bS-D5M"/>
                         <outlet property="tableViewChat" destination="qnv-or-clc" id="073-yf-d4s"/>
                         <outlet property="textViewBgView" destination="3pN-rq-23Q" id="VFr-dn-D18"/>
                         <outlet property="textViewBottomConstraint" destination="6Wm-8E-PPg" id="DWW-bX-IeR"/>
-                        <outlet property="videoButton" destination="Re0-dP-1cC" id="AAM-zf-sCZ"/>
+                        <outlet property="videoButton" destination="dhl-Y4-tPK" id="7hO-VX-tmg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tb4-SD-PFs" sceneMemberID="firstResponder"/>
@@ -1910,6 +1915,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="BackWhite" width="22" height="14"/>
         <image name="app_loader_shape" width="40" height="40"/>
         <image name="audioCallIcon" width="20" height="20"/>
         <image name="backButtonNormalStateIcon" width="16" height="14"/>

@@ -16,6 +16,7 @@ class SupportMessageTableViewCell: MessageTableViewCell {
     @IBOutlet weak var topConstraint: NSLayoutConstraint!
     @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     
+    
     override func awakeFromNib() {
         supportMessageTextView.backgroundColor = .clear
         supportMessageTextView.textContainer.lineFragmentPadding = 0
@@ -68,14 +69,23 @@ class SupportMessageTableViewCell: MessageTableViewCell {
                                             chatMessageObject: HippoMessage) -> SupportMessageTableViewCell {
         if resetProperties { resetPropertiesOfSupportCell() }
         
-        super.intalizeCell(with: chatMessageObject)
+        message?.messageRefresed = nil
+        
+        super.intalizeCell(with: chatMessageObject, isIncomingView: true)
         let messageType = chatMessageObject.type
+        
+        message?.messageRefresed = {
+            DispatchQueue.main.async {
+                self.setSenderImageView()
+            }
+        }
+        
         setupBoxBackground(messageType: messageType)
         
         setTime()
         
         supportMessageTextView.attributedText = attributedString
-        
+        setSenderImageView()
         return self
     }
 }

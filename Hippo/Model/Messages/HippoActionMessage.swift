@@ -12,10 +12,11 @@ class HippoActionMessage: HippoMessage {
     
     var isActive: Bool = false
     var selectedBtnId: String = ""
-    
     var isUserInteractionEnbled: Bool = false
     var buttons: [HippoActionButton]?
     var responseMessage: HippoMessage?
+    var repliedBy: String?
+    var repliedById: Int?
     
     
     override init?(dict: [String : Any]) {
@@ -23,7 +24,8 @@ class HippoActionMessage: HippoMessage {
         
         isActive = Bool.parse(key: "is_active", json: dict)
         selectedBtnId = dict["selected_btn_id"] as? String ?? ""
-        
+        repliedBy = dict["replied_by"] as? String
+        repliedById = Int.parse(values: dict, key: "replied_by_id")
         
         
         if let content_value = dict["content_value"] as? [[String: Any]] {
@@ -41,7 +43,7 @@ class HippoActionMessage: HippoMessage {
         guard let parsedSelectedButton = selectedButton else {
             return
         }
-        responseMessage = HippoMessage(message: parsedSelectedButton.title, type: .normal)
+        responseMessage = HippoMessage(message: parsedSelectedButton.title, type: .normal, senderName: repliedBy, senderId: repliedById, chatType: chatType)
         responseMessage?.userType = .customer
         responseMessage?.creationDateTime = self.creationDateTime
         responseMessage?.status = status
@@ -52,18 +54,17 @@ class HippoActionMessage: HippoMessage {
         cellDetail?.headerHeight = attributtedMessage.messageHeight + attributtedMessage.nameHeight + attributtedMessage.timeHeight
         cellDetail?.showSenderName = false
         
-        
-        
-        
         if let attributtedMessage = responseMessage?.attributtedMessage {
-            cellDetail?.responseHeight = attributtedMessage.messageHeight + attributtedMessage.timeHeight
+            let nameHeight: CGFloat = HippoConfig.shared.appUserType == .agent ? attributtedMessage.nameHeight : 0
+            cellDetail?.responseHeight = attributtedMessage.messageHeight + attributtedMessage.timeHeight + nameHeight + 10
             cellDetail?.actionHeight = nil
         } else {
             let buttonHeight = buttonsHeight() //(buttons?.count ?? 0) * 50
             cellDetail?.actionHeight = CGFloat(buttonHeight) + 15 + 10 //Button Height + (timeLabelHeight + time gap from top) + padding
         }
         
-        cellDetail?.padding = 10
+        cellDetail?.padding = 1
+        
     }
     
     
@@ -114,6 +115,9 @@ class HippoActionMessage: HippoMessage {
         json["content_value"] = contentValues
         json["user_id"] = currentUserId()
         
+        json["replied_by"] = currentUserName()
+        json["replied_by_id"] = currentUserId()
+        
         return json
     }
     
@@ -121,6 +125,8 @@ class HippoActionMessage: HippoMessage {
         selectedBtnId = btnId
         isActive = false
         isUserInteractionEnbled = false
+        repliedById = currentUserId()
+        repliedBy = currentUserName()
         
         let selectedId = selectedBtnId.isEmpty ? nil : selectedBtnId
         if !contentValues.isEmpty {
@@ -132,9 +138,12 @@ class HippoActionMessage: HippoMessage {
     }
     
     func updateObject(with newObject: HippoActionMessage) {
+        super.updateObject(with: newObject)
         self.selectedBtnId = newObject.selectedBtnId
         self.isActive = newObject.isActive
         self.isUserInteractionEnbled = newObject.isUserInteractionEnbled
+        self.repliedById = newObject.repliedById
+        self.repliedBy = newObject.repliedBy
         
         let selectedId = selectedBtnId.isEmpty ? nil : selectedBtnId
         if !contentValues.isEmpty {
@@ -145,6 +154,7 @@ class HippoActionMessage: HippoMessage {
         setHeight()
         
         self.status = .sent
+        messageRefresed?()
         
     }
 }

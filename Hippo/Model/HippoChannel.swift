@@ -140,14 +140,14 @@ class HippoChannel {
     class func getUnsentCachedMessagesFor(channelID: Int) -> MessagesAndHashMap {
         let thisChannelCache = getChannelUnsentMessageCacheFrom(withID: channelID)
         
-        let (messages, hashMap) = HippoMessage.getArrayFrom(json: thisChannelCache)
+        let (messages, hashMap) = HippoMessage.getArrayFrom(json: thisChannelCache, chatType: nil)
         return (messages, hashMap)
     }
     
     class func getSentCachedMessagesFor(channelID: Int) -> MessagesAndHashMap {
         let thisChannelCache = getChannelSentMessageCacheFrom(withID: channelID)
         
-        let (messages, hashMap) = HippoMessage.getArrayFrom(json: thisChannelCache)
+        let (messages, hashMap) = HippoMessage.getArrayFrom(json: thisChannelCache, chatType: nil)
         return (messages, hashMap)
         
     }
@@ -158,7 +158,7 @@ class HippoChannel {
     class func get(withLabelId labelId: String, completion: @escaping HippoChannelCreationHandler) {
         
         let params = getParamsToStartConversation(WithLabelId: labelId)
-        createNewConversationWith(params: params, completion: completion)
+        createNewConversationWith(params: params, chatType: .other, completion: completion)
     }
     
     class func get(withFuguChatAttributes attributes: AgentDirectChatAttributes, completion: @escaping HippoChannelCreationHandler) {
@@ -215,7 +215,7 @@ class HippoChannel {
         createNewConversationWith(params: params, completion: completion)
     }
     
-    private class func createNewConversationWith(params: [String: Any], completion: @escaping HippoChannelCreationHandler) {
+    private class func createNewConversationWith(params: [String: Any], chatType: ChatType? = nil, completion: @escaping HippoChannelCreationHandler) {
         var requestParam = params
         if let parsedBotMessageMUID = botMessageMUID {
             requestParam["bot_form_muid"] = parsedBotMessageMUID
@@ -234,9 +234,17 @@ class HippoChannel {
             }
             
             let channel = FuguChannelPersistancyManager.shared.getChannelBy(id: channelID)
+            
             if channel.chatDetail == nil {
-                channel.chatDetail = ChatDetail(channelID: channelID)
+                channel.chatDetail = ChatDetail(json: data)
+            } else if channel.chatDetail?.channelId == nil {
+                channel.chatDetail?.channelId = channelID
             }
+            
+//            if let parsedChatType = chatType {
+//                channel.chatDetail?.chatType = parsedChatType
+//            }
+            
             let botMessageID: String? = String.parse(values: data, key: "bot_message_id")
             let result = HippoChannelCreationResult(isSuccessful: true, error: nil, channel: channel, isChannelAvailableLocallay: false, botMessageID: botMessageID)
             if let transactionID = params["transaction_id"] as? String {
@@ -422,7 +430,8 @@ class HippoChannel {
             guard let weakSelf = self, weakSelf.handleByNotification(dict: messageDict) else {
                 return
             }
-            guard let message = HippoMessage.createMessage(rawMessage: messageDict) else {
+            let chatType = self?.chatDetail?.chatType
+            guard let message = HippoMessage.createMessage(rawMessage: messageDict, chatType: chatType) else {
                 return
             }
             if message.type == .call {
@@ -456,6 +465,13 @@ class HippoChannel {
         guard let channelId = Int.parse(values: dict, key: "channel_id"), id == channelId else {
             return
         }
+        
+        if HippoConfig.shared.appUserType == .customer {
+            chatDetail?.channelImageUrl = dict["channel_image_url"] as? String ?? chatDetail?.channelImageUrl
+            chatDetail?.channelName = dict["label"] as? String
+            delegate?.channelDataRefreshed()
+        }
+        
         let shouldShowToCustomer = Bool.parse(key: "is_customer_allowed_to_initiate_video_call", json: dict, defaultValue: false)
         guard let allUsers = dict["all_users"] as? [[String: Any]], !allUsers.isEmpty else {
             return
@@ -505,7 +521,7 @@ class HippoChannel {
             if let oldActionMessage = oldMessage as? HippoActionMessage, let newActionMessage = newMessage as? HippoActionMessage {
                 oldActionMessage.updateObject(with: newActionMessage)
             }
-        case .feedback:
+        case .feedback, .botFormMessage:
             oldMessage.updateObject(with: newMessage)
         default:
             break

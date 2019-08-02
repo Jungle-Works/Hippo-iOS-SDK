@@ -43,6 +43,13 @@ class FuguConversation: HippoConversation {
             self.channelId = nil
         }
         
+        if let rawChatType = Int.parse(values: conversationDict, key: "chat_type"), let parsedChatType = ChatType(rawValue: rawChatType) {
+            self.chatType = parsedChatType
+        }
+        
+        if let channel_image_url = conversationDict["channel_image_url"] as? String {
+            channelImageUrl = channel_image_url
+        }
         if let label = conversationDict["label"] as? String {
             self.label = label
         }

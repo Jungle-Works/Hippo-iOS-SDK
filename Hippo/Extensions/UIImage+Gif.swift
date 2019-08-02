@@ -166,7 +166,6 @@ extension UIImage {
         
         return animation
     }
-    
 }
 
 extension UIImageView {

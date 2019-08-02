@@ -72,6 +72,7 @@ class AgentDetail: NSObject {
     var businessId = -1
     var businessName = ""
     var number = ""
+    var userImage: String?
     
     var status = AgentStatus.offline
     
@@ -104,7 +105,8 @@ class AgentDetail: NSObject {
         businessId = dict["business_id"] as? Int ?? -1
         businessName = dict["business_name"] as? String ?? ""
         number = dict["phone_number"] as? String ?? ""
-        
+        userImage = dict["user_image"] as? String
+ 
         if let online_status = dict["online_status"] as? String, let status = AgentStatus.init(rawValue: online_status) {
             self.status = status
         }
@@ -236,15 +238,15 @@ extension AgentDetail {
             detail.customAttributes = attributes
             HippoConfig.shared.agentDetail = detail
             
-            HippoConfig.shared.isVideoCallEnabled = Bool.parse(key: "is_video_call_enabled", json: data)
-            HippoConfig.shared.isAudioCallEnabled = Bool.parse(key: "is_audio_call_enabled", json: data)
+            BussinessProperty.current.isVideoCallEnabled = Bool.parse(key: "is_video_call_enabled", json: data)
+            BussinessProperty.current.isAudioCallEnabled = Bool.parse(key: "is_audio_call_enabled", json: data)
             
             if let businessProperty = data["business_property"] as? [String: Any] {
-                HippoConfig.shared.encodeToHTMLEntities = Bool.parse(key: "encode_to_html_entites", json: businessProperty)
+                BussinessProperty.current.encodeToHTMLEntities = Bool.parse(key: "encode_to_html_entites", json: businessProperty)
             }
             
-            HippoConfig.shared.unsupportedMessageString = data["unsupported_message"] as? String ?? ""
-            HippoConfig.shared.maxUploadLimitForBusiness = data["max_file_size"] as? UInt ?? 10
+            BussinessProperty.current.unsupportedMessageString = data["unsupported_message"] as? String ?? ""
+            BussinessProperty.current.maxUploadLimitForBusiness = data["max_file_size"] as? UInt ?? 10
             
             AgentDetail.agentLoginData = detail.toJson()
             

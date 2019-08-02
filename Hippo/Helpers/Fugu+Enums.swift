@@ -90,7 +90,7 @@ enum MessageType: Int {
         return [.normal, .imageFile, .feedback, .actionableMessage, .botFormMessage, .quickReply, .botText, .call, .hippoPay, .attachment, .consent]
     }
     var agentHandledMessages: [MessageType] {
-        return [.normal, .imageFile, .privateNote, .assignAgent, .botText, .call, .attachment]
+        return [.normal, .imageFile, .privateNote, .assignAgent, .botText, .call, .attachment, .consent]
     }
    
     func isMessageTypeHandled() -> Bool {
@@ -112,6 +112,15 @@ enum ChatType: Int {
     case privateGroup = 3
     case publicGroup  = 4
     case generalChat = 5
+    
+    var isImageViewAllowed: Bool {
+        guard HippoConfig.shared.appUserType == .customer else {
+            return false
+        }
+        return ChatType.allowedImageViewFor.contains(self)
+    }
+    
+    private static let allowedImageViewFor: [ChatType] = [.other]
 }
 
 enum FuguUserIntializationError: LocalizedError {

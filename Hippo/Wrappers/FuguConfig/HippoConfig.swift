@@ -59,68 +59,6 @@ public class HippoConfig : NSObject {
     open var isPaymentRequestEnabled: Bool {
         return HippoProperty.current.isPaymentRequestEnabled
     }
-    internal var isVideoCallEnabled: Bool {
-        get {
-            guard CallManager.shared.isCallClientAvailable() else {
-                return false
-            }
-            
-            guard let videoCallStatus = UserDefaults.standard.value(forKey: UserDefaultkeys.videoCallStatus) as? Bool else {
-                return false
-            }
-            return videoCallStatus
-        }
-        set {
-            UserDefaults.standard.set(newValue, forKey: UserDefaultkeys.videoCallStatus)
-        }
-    }
-    internal var encodeToHTMLEntities: Bool {
-        get {
-            guard let value = UserDefaults.standard.value(forKey: UserDefaultkeys.encodeToHtmlEntities) as? Bool else {
-                return false
-            }
-            return value
-        }
-        set {
-            UserDefaults.standard.set(newValue, forKey: UserDefaultkeys.encodeToHtmlEntities)
-        }
-    }
-    internal var isAudioCallEnabled: Bool {
-        get {
-            guard CallManager.shared.isCallClientAvailable() else {
-                return false
-            }
-            guard let videoCallStatus = UserDefaults.standard.value(forKey: UserDefaultkeys.audioCallStatus) as? Bool else {
-                return false
-            }
-            return videoCallStatus
-        }
-        set {
-            UserDefaults.standard.set(newValue, forKey: UserDefaultkeys.audioCallStatus)
-        }
-    }
-    internal var maxUploadLimitForBusiness: UInt {
-        get {
-            guard let value = UserDefaults.standard.value(forKey: UserDefaultkeys.maxFileUploadSize) as? UInt else {
-                return 10
-            }
-            return value
-        }
-        set {
-            UserDefaults.standard.set(newValue, forKey: UserDefaultkeys.maxFileUploadSize)
-        }
-    }
-    internal var unsupportedMessageString: String {
-        get {
-            guard let appSecretKey = UserDefaults.standard.value(forKey: UserDefaultkeys.unsupportedMessageString) as? String, !appSecretKey.isEmpty else {
-                return "This message doesn't support in your current app."
-            }
-            return appSecretKey
-        }
-        set {
-            UserDefaults.standard.set(newValue, forKey: UserDefaultkeys.unsupportedMessageString)
-        }
-    }
     
     internal var appSecretKey: String {
         get {
@@ -418,7 +356,7 @@ public class HippoConfig : NSObject {
             completion(false, HippoError.threwError(message: "Not Allowed For Hippo Agent"))
             return
         }
-        guard (isVideoCallEnabled && callType == .video) || (isAudioCallEnabled && callType == .audio) else {
+        guard ((BussinessProperty.current.isVideoCallEnabled && callType == .video) || (BussinessProperty.current.isAudioCallEnabled && callType == .audio)) else {
             completion(false, HippoError.threwError(message: strings.videoCallDisabledFromHippo))
             return
         }
@@ -751,7 +689,7 @@ public extension HippoConfig {
     /// Opens Ticket Support.
     ///
     /// - Parameter param: HippoTicketAttributes Object.
-    public func showTicketSupport(with param: HippoTicketAtrributes) {
+    func showTicketSupport(with param: HippoTicketAtrributes) {
         guard appUserType == .customer else {
             return
         }

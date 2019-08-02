@@ -118,8 +118,8 @@ extension TagListView {
         paddingY = 10
         paddingX = 20
         borderWidth = 1
-        textColor =  HippoConfig.shared.theme.headerBackgroundColor
-        selectedTextColor =  HippoConfig.shared.theme.headerBackgroundColor
+        textColor = HippoConfig.shared.appUserType == .customer ? HippoConfig.shared.theme.headerBackgroundColor : HippoConfig.shared.theme.incomingChatBoxColor
+        selectedTextColor = HippoConfig.shared.appUserType == .customer ? HippoConfig.shared.theme.headerBackgroundColor : HippoConfig.shared.theme.incomingChatBoxColor
         textFont = HippoConfig.shared.theme.incomingMsgFont
     }
 }

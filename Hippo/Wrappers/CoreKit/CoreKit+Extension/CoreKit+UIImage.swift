@@ -10,7 +10,7 @@ import UIKit
 
 
 public extension UIImage {
-    public func rotateCameraImageToProperOrientation(maxResolution: CGFloat) -> UIImage {
+    func rotateCameraImageToProperOrientation(maxResolution: CGFloat) -> UIImage {
         let imgRef = self.cgImage
         
         let width = CGFloat(imgRef!.width)

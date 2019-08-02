@@ -108,7 +108,7 @@ extension ConversationView {
       channelImageView.image = nil
       channelImageView.alpha = isThisChatOpened(opened: isOpened)
       
-      if let channelImage = conersationObj.channelImage,
+      if let channelImage = conersationObj.channelImageUrl,
          channelImage.isEmpty == false,
          let url = URL(string: channelImage) {
          channelImageView.kf.setImage(with: url)

@@ -23,6 +23,11 @@ class ActionTableDataSource: NSObject, UITableViewDataSource {
         self.delegate = delegate
     }
     
+    func update(message: HippoActionMessage, delegate: ActionTableProtocol) {
+        self.message = message
+        self.delegate = delegate
+    }
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         guard message != nil else {
             return 0
@@ -73,19 +78,12 @@ class ActionTableDataSource: NSObject, UITableViewDataSource {
         switch isOutgoingMessage {
         case false:
             let cell = tableView.dequeueReusableCell(withIdentifier: "SupportMessageTableViewCell", for: indexPath) as! SupportMessageTableViewCell
-            let incomingAttributedString = getIncomingAttributedString(chatMessageObject: message)
+            let incomingAttributedString = Helper.getIncomingAttributedStringWithLastUserCheck(chatMessageObject: message)
             return cell.configureCellOfSupportIncomingCell(resetProperties: true, attributedString: incomingAttributedString, channelId: -1, chatMessageObject: message)
         case true:
             let cell = tableView.dequeueReusableCell(withIdentifier: "SelfMessageTableViewCell", for: indexPath) as! SelfMessageTableViewCell
 //            cell.delegate = self
             return cell.configureIncomingMessageCell(resetProperties: true, chatMessageObject: message, indexPath: indexPath)
         }
-    }
-    func getIncomingAttributedString(chatMessageObject: HippoMessage) -> NSMutableAttributedString {
-        let messageString = chatMessageObject.message
-        let userNameString = chatMessageObject.senderFullName
-        
-        
-        return attributedStringForLabel(userNameString, secondString: "\n" + messageString, thirdString: "", colorOfFirstString: HippoConfig.shared.theme.senderNameColor, colorOfSecondString: HippoConfig.shared.theme.incomingMsgColor, colorOfThirdString: UIColor.black.withAlphaComponent(0.5), fontOfFirstString: HippoConfig.shared.theme.senderNameFont, fontOfSecondString:  HippoConfig.shared.theme.incomingMsgFont, fontOfThirdString: UIFont.systemFont(ofSize: 11.0), textAlighnment: .left, dateAlignment: .right)
     }
 }

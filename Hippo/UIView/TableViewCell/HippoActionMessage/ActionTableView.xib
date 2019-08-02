@@ -20,14 +20,14 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Ro-fo-179">
-                        <rect key="frame" x="-1.5" y="1.5" width="398" height="242.5"/>
+                        <rect key="frame" x="-1.5" y="-1.5" width="398" height="248.5"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
                     <view contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="URa-8c-U0v">
-                        <rect key="frame" x="0.0" y="3" width="395" height="239.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="395" height="245.5"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="dSH-ON-OGt">
-                                <rect key="frame" x="5" y="2" width="388" height="235.5"/>
+                                <rect key="frame" x="5" y="0.0" width="388" height="243.5"/>
                                 <subviews>
                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Reo-2Q-haK">
                                         <rect key="frame" x="0.0" y="-14" width="388" height="14"/>
@@ -39,11 +39,11 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="zsx-tN-afG">
-                                        <rect key="frame" x="0.0" y="0.0" width="388" height="235.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="388" height="243.5"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableView>
                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bo2-Ah-On8">
-                                        <rect key="frame" x="0.0" y="235.5" width="388" height="15"/>
+                                        <rect key="frame" x="0.0" y="243.5" width="388" height="15"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="1os-du-2P9">
                                                 <rect key="frame" x="0.0" y="0.0" width="386" height="15"/>
@@ -78,7 +78,7 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="dSH-ON-OGt" firstAttribute="top" secondItem="URa-8c-U0v" secondAttribute="top" constant="2" id="Pcy-Yy-tnL"/>
+                            <constraint firstItem="dSH-ON-OGt" firstAttribute="top" secondItem="URa-8c-U0v" secondAttribute="top" id="Pcy-Yy-tnL"/>
                             <constraint firstAttribute="trailing" secondItem="dSH-ON-OGt" secondAttribute="trailing" constant="2" id="UG6-u9-7fL"/>
                             <constraint firstAttribute="bottom" secondItem="dSH-ON-OGt" secondAttribute="bottom" constant="2" id="ZgU-Ff-mZm"/>
                             <constraint firstItem="dSH-ON-OGt" firstAttribute="leading" secondItem="URa-8c-U0v" secondAttribute="leading" constant="5" id="gBb-Lp-2JI"/>
@@ -87,9 +87,9 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="4Ro-fo-179" firstAttribute="trailing" secondItem="URa-8c-U0v" secondAttribute="trailing" constant="1.5" id="2m6-2C-azh"/>
-                    <constraint firstAttribute="bottom" secondItem="URa-8c-U0v" secondAttribute="bottom" constant="3" id="Jae-yx-VdD"/>
+                    <constraint firstAttribute="bottom" secondItem="URa-8c-U0v" secondAttribute="bottom" id="Jae-yx-VdD"/>
                     <constraint firstItem="URa-8c-U0v" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="MNp-LJ-wbU"/>
-                    <constraint firstItem="URa-8c-U0v" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="3" id="UX3-v2-KeI"/>
+                    <constraint firstItem="URa-8c-U0v" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="UX3-v2-KeI"/>
                     <constraint firstItem="4Ro-fo-179" firstAttribute="top" secondItem="URa-8c-U0v" secondAttribute="top" constant="-1.5" id="Wap-oE-jjb"/>
                     <constraint firstItem="4Ro-fo-179" firstAttribute="bottom" secondItem="URa-8c-U0v" secondAttribute="bottom" constant="1.5" id="fqz-mE-Liv"/>
                     <constraint firstItem="4Ro-fo-179" firstAttribute="leading" secondItem="URa-8c-U0v" secondAttribute="leading" constant="-1.5" id="sjO-jI-7dM"/>

@@ -234,9 +234,8 @@ class AgentConversationViewController: HippoConversationViewController {
         }
         let trimmedMessage = messageTextView.text.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
         
-        let message = HippoMessage(message: trimmedMessage, type: .normal, uniqueID: String.generateUniqueId())
+        let message = HippoMessage(message: trimmedMessage, type: .normal, uniqueID: String.generateUniqueId(), chatType: channel?.chatDetail?.chatType)
         channel?.unsentMessages.append(message)
-        
         
         if channel != nil {
             addMessageToUIBeforeSending(message: message)
@@ -591,7 +590,6 @@ extension AgentConversationViewController {
             videoButton.title = ""
             videoButton.image = nil
             videoButton.isEnabled = false
-            
         }
     }
     func handleAudioIcon() {
@@ -813,13 +811,16 @@ extension AgentConversationViewController {
     
     func expectedHeight(OfMessageObject chatMessageObject: HippoMessage) -> CGFloat {
         
+//        let isProfileImageEnabled: Bool = channel?.chatDetail?.chatType.isImageViewAllowed ?? false
+//        let isOutgoingMsg = isSentByMe(senderId: chatMessageObject.senderId)
+        
         let availableWidthSpace = FUGU_SCREEN_WIDTH - CGFloat(60 + 10) - CGFloat(10 + 5)
         let availableBoxSize = CGSize(width: availableWidthSpace,
                                       height: CGFloat.greatestFiniteMagnitude)
         
         var cellTotalHeight: CGFloat = 5 + 2.5 + 3.5 + 12 + 7
         
-        let incomingAttributedString = getIncomingAttributedString(chatMessageObject: chatMessageObject)
+        let incomingAttributedString = Helper.getIncomingAttributedStringWithLastUserCheck(chatMessageObject: chatMessageObject)
         cellTotalHeight += incomingAttributedString.boundingRect(with: availableBoxSize, options: .usesLineFragmentOrigin, context: nil).size.height
         
         return cellTotalHeight
@@ -991,6 +992,12 @@ extension AgentConversationViewController: UITableViewDelegate, UITableViewDataS
                             return cell
                         }
                     }
+                case .consent:
+                    guard let cell = tableView.dequeueReusableCell(withIdentifier: "ActionTableView", for: indexPath) as? ActionTableView, let actionMessage = message as? HippoActionMessage else {
+                        return UITableView.defaultCell()
+                    }
+                    cell.setCellData(message: actionMessage)
+                    return cell
                 default:
                     return getDefaultCell()
                 }
@@ -1048,6 +1055,8 @@ extension AgentConversationViewController: UITableViewDelegate, UITableViewDataS
                     return UIView.tableAutoDimensionHeight
                 case MessageType.call:
                     return UIView.tableAutoDimensionHeight
+                case .consent:
+                    return message.cellDetail?.cellHeight ?? 0.01
                 default:
                     return 0.01//UITableViewAutomaticDimension
                     

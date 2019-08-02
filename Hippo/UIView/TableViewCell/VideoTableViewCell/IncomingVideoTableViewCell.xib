@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -24,7 +24,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kJc-U5-IYq">
-                        <rect key="frame" x="10" y="3" width="240" height="243"/>
+                        <rect key="frame" x="46" y="3" width="240" height="243"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="260" verticalCompressionResistancePriority="740" translatesAutoresizingMaskIntoConstraints="NO" id="bQf-U8-ZQB">
                                 <rect key="frame" x="5" y="26.5" width="230" height="184"/>
@@ -136,7 +136,7 @@
                         </constraints>
                     </view>
                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="05m-FY-bAP">
-                        <rect key="frame" x="250" y="102.5" width="44" height="44"/>
+                        <rect key="frame" x="286" y="102.5" width="44" height="44"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="13n-sQ-tE3">
                                 <rect key="frame" x="7" y="7" width="30" height="30"/>
@@ -170,10 +170,17 @@
                         </constraints>
                     </view>
                     <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5Tk-pp-FCm">
-                        <rect key="frame" x="250" y="221" width="25" height="25"/>
+                        <rect key="frame" x="286" y="221" width="25" height="25"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="25" id="bwR-Cm-9Oc"/>
                             <constraint firstAttribute="width" secondItem="5Tk-pp-FCm" secondAttribute="height" multiplier="1:1" id="qdt-cj-6Ec"/>
+                        </constraints>
+                    </imageView>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jwU-0l-hrM">
+                        <rect key="frame" x="10" y="216" width="31" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="jwU-0l-hrM" secondAttribute="height" multiplier="1:1" constant="1" id="rYY-1u-7Yn"/>
+                            <constraint firstAttribute="height" constant="30" id="zbE-bk-XKv"/>
                         </constraints>
                     </imageView>
                 </subviews>
@@ -181,12 +188,14 @@
                 <constraints>
                     <constraint firstItem="kJc-U5-IYq" firstAttribute="top" secondItem="3aX-oP-ClI" secondAttribute="top" constant="3" id="26y-IY-thc"/>
                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="kJc-U5-IYq" secondAttribute="trailing" constant="60" id="3Md-Zq-fCS"/>
+                    <constraint firstItem="jwU-0l-hrM" firstAttribute="leading" secondItem="3aX-oP-ClI" secondAttribute="leading" constant="10" id="7Z2-hp-gbw"/>
                     <constraint firstItem="5Tk-pp-FCm" firstAttribute="leading" secondItem="kJc-U5-IYq" secondAttribute="trailing" id="Jhq-nB-c8Z"/>
                     <constraint firstItem="05m-FY-bAP" firstAttribute="centerY" secondItem="kJc-U5-IYq" secondAttribute="centerY" id="V8a-Gc-e0h"/>
                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="kJc-U5-IYq" secondAttribute="bottom" constant="2" id="bmh-18-pev"/>
-                    <constraint firstItem="kJc-U5-IYq" firstAttribute="leading" secondItem="3aX-oP-ClI" secondAttribute="leading" constant="10" id="h4Z-FT-3Be"/>
                     <constraint firstItem="05m-FY-bAP" firstAttribute="leading" secondItem="kJc-U5-IYq" secondAttribute="trailing" id="hJg-Yr-hUs"/>
                     <constraint firstItem="5Tk-pp-FCm" firstAttribute="bottom" secondItem="kJc-U5-IYq" secondAttribute="bottom" id="mdy-Pe-laF"/>
+                    <constraint firstItem="kJc-U5-IYq" firstAttribute="leading" secondItem="jwU-0l-hrM" secondAttribute="trailing" constant="5" id="mhW-JD-fZr"/>
+                    <constraint firstItem="jwU-0l-hrM" firstAttribute="bottom" secondItem="kJc-U5-IYq" secondAttribute="bottom" id="qti-qg-TFH"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -196,6 +205,9 @@
                 <outlet property="downloadButton" destination="Yz2-4j-7UK" id="shF-s6-uUX"/>
                 <outlet property="messageBackgroundView" destination="kJc-U5-IYq" id="TUN-HI-WLt"/>
                 <outlet property="playButton" destination="Mr2-8S-RtL" id="7k4-fB-t4y"/>
+                <outlet property="senderImageTraillingConstaints" destination="mhW-JD-fZr" id="j07-Ev-8YW"/>
+                <outlet property="senderImageView" destination="jwU-0l-hrM" id="AuL-Y6-LrA"/>
+                <outlet property="senderImageWidthConstraint" destination="zbE-bk-XKv" id="skO-MF-Law"/>
                 <outlet property="senderNameLabel" destination="wpM-XA-DRK" id="5vg-lz-zJ3"/>
                 <outlet property="sizeLabel" destination="5Cl-fY-QOf" id="rKh-Ff-wih"/>
                 <outlet property="sourceIcon" destination="5Tk-pp-FCm" id="hKy-rE-FLt"/>

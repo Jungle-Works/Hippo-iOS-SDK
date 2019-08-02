@@ -15,7 +15,7 @@ protocol LeadTableViewCellDelegate: class {
     func textfieldShouldEndEditing(textfield: UITextField)
 }
 
-class LeadTableViewCell: UITableViewCell {
+class LeadTableViewCell: MessageTableViewCell {
     // MARK: Properties
     lazy var leadCellIdentifier: String = String(describing: LeadDataTableViewCell.self)
     
@@ -57,11 +57,13 @@ class LeadTableViewCell: UITableViewCell {
         self.tableView.delegate = self
     }
     
-    func setData(indexPath: IndexPath, arr: [FormData]) {
+    func setData(indexPath: IndexPath, arr: [FormData], message: HippoMessage) {
         filterFileArray = arr
         self.indexPath = indexPath
         self.tableView.reloadData()
        // delegate?.cellUpdated(for: indexPath)
+        
+        super.intalizeCell(with: message, isIncomingView: true)
     }
 }
 

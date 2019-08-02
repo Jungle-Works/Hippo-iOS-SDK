@@ -13,6 +13,7 @@ class MessageCallbacks {
     var feedbackUpdated: (() -> Void)? = nil
     var leadFormUpdated: (() -> Void)? = nil
     var sendingStatusUpdated: (() -> Void)? = nil
+    var messageRefresed: (() -> Void)? = nil
 }
 
 
@@ -30,7 +31,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         return HippoMessage(typingStatus: .stopTyping)
     }
     static var readAllNotification: HippoMessage {
-        let message = HippoMessage(message: "", type: .normal)
+        let message = HippoMessage(message: "", type: .normal, chatType: nil)
         message.notification = NotificationType.readAll
         return message
     }
@@ -42,11 +43,13 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
     var message: String
     var senderId: Int
     var senderFullName: String
+    
     var status: ReadUnReadStatus = .none {
         didSet {
             statusChanged?()
         }
     }
+    var senderImage: String?
     var creationDateTime: Date
     var type: MessageType = .none
     var messageUniqueID: String?
@@ -58,6 +61,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
     var actionableMessage: FuguActionableMessage?
     var userType: UserType = currentUserType()
     var attributtedMessage = MessageUIAttributes(message: "", senderName: "", isSelfMessage: false)
+    var chatType: ChatType = .other
     
     var wasMessageSendingFailed = false {
         didSet {
@@ -107,6 +111,13 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
     var parsedMimeType: String?
     
     var rawJsonToSend: [String: Any]?
+    
+    //MARK: Referncing detail
+    var aboveMessageMuid: String?
+    var belowMessageMuid: String?
+    var aboveMessageUserId: Int?
+    var belowMessageUserId: Int?
+    var aboveMessageType: MessageType?
 
     var mimeType: String? {
         guard parsedMimeType == nil else {
@@ -169,6 +180,9 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         } else {
             creationDateTime = Date()
         }
+        if let rawChatType = Int.parse(values: dict, key: "chat_type"), let parsedChatType = ChatType(rawValue: rawChatType) {
+            self.chatType = parsedChatType
+        }
         
         if let rawStatus = dict["message_status"] as? Int,
             let status = ReadUnReadStatus(rawValue: rawStatus) {
@@ -183,10 +197,19 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         self.messageUniqueID = dict["muid"] as? String
         self.parsedMimeType = dict["mime_type"] as? String
         
-        if let rawType = dict["message_type"] as? Int,
-            let type = MessageType(rawValue: rawType) {
+        var senderImage: String? = dict["user_image"] as? String ?? ""
+        var type: MessageType = .none
+        if let rawType = dict["message_type"] as? Int {
+            type = MessageType(rawValue: rawType) ?? .none
             self.type = type
         }
+        
+        if (senderImage ?? "").isEmpty, (senderId <= 0  || type.isBotMessage) {
+            senderImage = BussinessProperty.current.botImageUrl
+        }
+        
+        self.senderImage = senderImage
+        
         if let state = dict["message_state"] as? Int {
             isDeleted = state == 0
             isMissedCall = state == 2
@@ -295,10 +318,12 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         attributtedMessage = MessageUIAttributes(message: message, senderName: senderFullName, isSelfMessage: userType.isMyUserType)
     }
     
-    init(message: String, type: MessageType, uniqueID: String? = nil, imageUrl: String? = nil, thumbnailUrl: String? = nil, localFilePath: String? = nil) {
+    init(message: String, type: MessageType, uniqueID: String? = nil, imageUrl: String? = nil, thumbnailUrl: String? = nil, localFilePath: String? = nil, senderName: String? = nil, senderId: Int? = nil, chatType: ChatType?) {
         self.message = message
-        senderId = currentUserId()
-        self.senderFullName = currentUserName().formatName()
+        self.senderId = senderId ?? currentUserId()
+        self.senderFullName = senderName ?? currentUserName().formatName()
+        self.senderImage = currentUserImage()
+        self.chatType = chatType ?? .none
         
         creationDateTime = Date()
         self.type = type
@@ -313,7 +338,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
     }
     
     private convenience init(typingStatus: TypingMessage) {
-        self.init(message: "", type: .normal)
+        self.init(message: "", type: .normal, chatType: nil)
         self.userType = currentUserType()
         self.typingStatus = typingStatus
     }
@@ -325,7 +350,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
             json += parsedRawJsonToSend
         }
         
-        if HippoConfig.shared.encodeToHTMLEntities {
+        if BussinessProperty.current.encodeToHTMLEntities {
             json["message"] = message.addHTMLEntities()
         } else {
             json["message"] = message
@@ -337,6 +362,12 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         json["is_typing"] = typingStatus.rawValue
         json["message_type"] = type.rawValue
         json["user_type"] = currentUserType().rawValue
+        
+        json["user_image"] = senderImage ?? ""
+        
+        
+        json["source"] = SourceType.SDK.rawValue
+        json["device_type"] = Device_Type_iOS
         
         if let parsedBotFormMUID = self.botFormMessageUniqueID {
             json["bot_form_muid"] = parsedBotFormMUID
@@ -456,7 +487,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
     func getJsonForConversationDict() -> [String: Any] {
         var json = [String: Any]()
         
-        if HippoConfig.shared.encodeToHTMLEntities {
+        if BussinessProperty.current.encodeToHTMLEntities {
             json["message"] = message.addHTMLEntities()
         } else {
             json["message"] = message
@@ -491,14 +522,14 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
     
     
     // MARK: - Type Methods
-    static func getArrayFrom(json: [[String: Any]]) -> (messages: [HippoMessage], hashmap: [String: Int]) {
+    static func getArrayFrom(json: [[String: Any]], chatType: ChatType?) -> (messages: [HippoMessage], hashmap: [String: Int]) {
         
         var arrayOfMessages = [HippoMessage]()
         var messageHashMap = [String: Int]()
         
         for rawMessage in json {
 
-            guard let message = HippoMessage.createMessage(rawMessage: rawMessage) else {
+            guard let message = HippoMessage.createMessage(rawMessage: rawMessage, chatType: chatType) else {
                 continue
             }
             
@@ -545,6 +576,9 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         leadsDataArray = newObject.leadsDataArray
         contentValues = newObject.contentValues
         content = newObject.content
+        senderImage = newObject.senderImage
+        senderFullName = newObject.senderFullName
+        messageRefresed?()
     }
     func updateFileNameIfEmpty() {
         let name = fileName ?? ""
@@ -566,7 +600,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         guard !self.type.isMessageTypeHandled() else {
             return
         }
-        let unsuppportedMessage = HippoConfig.shared.unsupportedMessageString
+        let unsuppportedMessage = BussinessProperty.current.unsupportedMessageString
         message = unsuppportedMessage
     }
     func changeMessageTypeIfReuired() {
@@ -629,17 +663,22 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         }
     }
     
-    class func createMessage(rawMessage: [String: Any]) -> HippoMessage? {
-        let message_type = rawMessage["message_type"] as? Int ?? 0
+    class func createMessage(rawMessage: [String: Any], chatType: ChatType?) -> HippoMessage? {
+        var messageJson = rawMessage
+        if let parsedChatType = chatType {
+            messageJson["chat_type"] = parsedChatType.rawValue
+        }
+        
+        let message_type = messageJson["message_type"] as? Int ?? 0
         let type = MessageType(rawValue: message_type) ?? .none
         
         let tempMessage: HippoMessage?
         
         switch type {
         case .consent:
-            tempMessage = HippoActionMessage(dict: rawMessage)
+            tempMessage = HippoActionMessage(dict: messageJson)
         default:
-            tempMessage = HippoMessage(dict: rawMessage)
+            tempMessage = HippoMessage(dict: messageJson)
         }
         return tempMessage
     }

@@ -82,6 +82,7 @@ struct UserDefaultkeys {
     static let TicketsKey = "HippoDefaultKey"
     static let currentFAQVersion = "HippoCurrentFAQVersion"
     static let countryInfo = "HippoCountryInfo"
+    static let botImageUrl = "HippoBotImageUrl"
 }
 
 var FUGU_SCREEN_WIDTH: CGFloat {
@@ -621,6 +622,15 @@ func currentUserId() -> Int {
         return HippoConfig.shared.agentDetail?.id ?? -1
     case .customer:
         return HippoUserDetail.fuguUserID ?? -1
+    }
+}
+
+func currentUserImage() -> String? {
+    switch HippoConfig.shared.appUserType {
+    case .agent:
+        return HippoConfig.shared.agentDetail?.userImage
+    case .customer:
+        return HippoConfig.shared.userDetail?.userImage?.absoluteString
     }
 }
 

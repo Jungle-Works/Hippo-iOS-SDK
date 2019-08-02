@@ -19,7 +19,7 @@ class OutgoingDocumentTableViewCell: DocumentTableViewCell {
         self.message?.statusChanged = nil
         self.message = nil
         
-        intalizeCell(with: message)
+        intalizeCell(with: message, isIncomingView: false)
         self.message = message
         
         message.statusChanged = { [weak self] in
@@ -167,9 +167,9 @@ class DocumentTableViewCell: MessageTableViewCell {
         nameLabel.text = message?.senderFullName
         setTime()
     }
-    override func intalizeCell(with message: HippoMessage) {
+    override func intalizeCell(with message: HippoMessage, isIncomingView: Bool) {
         self.addGestureToContainer()
-        super.intalizeCell(with: message)
+        super.intalizeCell(with: message, isIncomingView: isIncomingView)
     }
     
     func updateUIAccordingToFileDownloadStatus() {

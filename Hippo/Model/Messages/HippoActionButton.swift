@@ -6,7 +6,7 @@
 //  Copyright © 2019 Socomo Technologies Private Limited. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 class HippoActionButton {
     var id: String
@@ -88,6 +88,6 @@ extension HippoActionButton: TagViewCreation {
         return id
     }
     var tagViewTextColor: UIColor {
-        return HippoConfig.shared.theme.headerBackgroundColor
+        return HippoConfig.shared.appUserType == .customer ? HippoConfig.shared.theme.headerBackgroundColor : HippoConfig.shared.theme.incomingChatBoxColor
     }
 }

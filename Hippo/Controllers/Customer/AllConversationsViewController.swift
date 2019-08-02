@@ -14,14 +14,14 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
    // MARK: - IBOutlets
    @IBOutlet var showConversationsTableView: UITableView!
    @IBOutlet var navigationBackgroundView: UIView!
-   @IBOutlet var navigationTitleLabel: UILabel!
-   @IBOutlet var backButton: UIButton!
+//   @IBOutlet var navigationTitleLabel: UILabel!
+   @IBOutlet var backButton: UIBarButtonItem!
    @IBOutlet weak var errorContentView: UIView!
    @IBOutlet var errorLabel: UILabel!
    @IBOutlet var errorLabelTopConstraint: NSLayoutConstraint!
    @IBOutlet var poweredByFuguLabel: UILabel!
    @IBOutlet weak var heightOfBottomLabel: NSLayoutConstraint!
-   @IBOutlet weak var heightofNavigationBar: NSLayoutConstraint!
+//   @IBOutlet weak var heightofNavigationBar: NSLayoutConstraint!
    
    // MARK: - PROPERTIES
    let refreshControl = UIRefreshControl()
@@ -35,9 +35,9 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
    override func viewDidLoad() {
       super.viewDidLoad()
     
-      let topInset = UIView.safeAreaInsetOfKeyWindow.top == 0 ? 20 : UIView.safeAreaInsetOfKeyWindow.top
-      heightofNavigationBar.constant = 44 + topInset
-      
+//      let topInset = UIView.safeAreaInsetOfKeyWindow.top == 0 ? 20 : UIView.safeAreaInsetOfKeyWindow.top
+//      heightofNavigationBar.constant = 44 + topInset
+    
       self.automaticallyAdjustsScrollViewInsets = false
       navigationSetUp()
       uiSetup()
@@ -47,16 +47,16 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
       self.arrayOfConversation = fetchAllConversationCache()
    }
    
-   override func viewWillAppear(_ animated: Bool) {
-      checkNetworkConnection()
-      if HippoUserDetail.fuguUserID == nil {
-         putUserDetails()
-      } else {
-         getAllConversations()
-      }
-    self.navigationController?.setTheme()
-    self.navigationController?.isNavigationBarHidden = true
-   }
+    override func viewWillAppear(_ animated: Bool) {
+        checkNetworkConnection()
+        if HippoUserDetail.fuguUserID == nil {
+            putUserDetails()
+        } else {
+            getAllConversations()
+        }
+        self.navigationController?.setTheme()
+        self.navigationController?.isNavigationBarHidden = false
+    }
    
     func handleIntialCustomerForm() -> Bool {
         guard HippoUserDetail.fuguUserID != nil else {
@@ -109,50 +109,37 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
       updateBottomLabel()
    }
    
-   func navigationSetUp() {
-      
-      navigationBackgroundView.layer.shadowColor = UIColor.black.cgColor
-      navigationBackgroundView.layer.shadowOpacity = 0.25
-      navigationBackgroundView.layer.shadowOffset = CGSize(width: 0, height: 1.0)
-      navigationBackgroundView.layer.shadowRadius = 4
-      
-      
-      navigationBackgroundView.backgroundColor = HippoConfig.shared.theme.headerBackgroundColor
-      
-      navigationTitleLabel.textColor =  HippoConfig.shared.theme.headerTextColor
-    
-    
-    
-      backButton.tintColor = HippoConfig.shared.theme.headerTextColor
-      if HippoConfig.shared.theme.leftBarButtonText.count > 0 {
-         backButton.setTitle((" " + HippoConfig.shared.theme.leftBarButtonText), for: .normal)
-         
-         if HippoConfig.shared.theme.leftBarButtonFont != nil {
-            backButton.titleLabel?.font = HippoConfig.shared.theme.leftBarButtonFont
-         }
-         
-         
-         backButton.setTitleColor(HippoConfig.shared.theme.leftBarButtonTextColor, for: .normal)
-         
-      } else {
-         if HippoConfig.shared.theme.leftBarButtonImage != nil {
-            backButton.setImage(HippoConfig.shared.theme.leftBarButtonImage, for: .normal)
+    func navigationSetUp() {
+        
+        navigationBackgroundView.layer.shadowColor = UIColor.black.cgColor
+        navigationBackgroundView.layer.shadowOpacity = 0.25
+        navigationBackgroundView.layer.shadowOffset = CGSize(width: 0, height: 1.0)
+        navigationBackgroundView.layer.shadowRadius = 4
+        
+        navigationBackgroundView.backgroundColor = HippoConfig.shared.theme.headerBackgroundColor
+        
+        //      navigationTitleLabel.textColor =  HippoConfig.shared.theme.headerTextColor
+        
+        backButton.tintColor = HippoConfig.shared.theme.headerTextColor
+        
+        if HippoConfig.shared.theme.leftBarButtonImage != nil {
+            backButton.image = HippoConfig.shared.theme.leftBarButtonImage
             backButton.tintColor = HippoConfig.shared.theme.headerTextColor
-         }
-      }
-      
-      navigationTitleLabel.text = HippoConfig.shared.theme.headerText
-      
-      if HippoConfig.shared.theme.headerTextFont  != nil {
-         navigationTitleLabel.font = HippoConfig.shared.theme.headerTextFont
-      }
-      
-      
-      if HippoConfig.shared.navigationTitleTextAlignMent != nil {
-         navigationTitleLabel.textAlignment = HippoConfig.shared.navigationTitleTextAlignMent!
-      }
-      
-   }
+        }
+        
+        title = HippoConfig.shared.theme.headerText
+        //      navigationTitleLabel.text = HippoConfig.shared.theme.headerText
+        //
+        //      if HippoConfig.shared.theme.headerTextFont  != nil {
+        //         navigationTitleLabel.font = HippoConfig.shared.theme.headerTextFont
+        //      }
+        //
+        //
+        //      if HippoConfig.shared.navigationTitleTextAlignMent != nil {
+        //         navigationTitleLabel.textAlignment = HippoConfig.shared.navigationTitleTextAlignMent!
+        //      }
+        
+    }
    
    func addObservers() {
       let notificationCenter = NotificationCenter.default
@@ -193,6 +180,11 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
    
    // MARK: - UIButton Actions
    
+    @IBAction func backButtonClicked(_ sender: Any) {
+        saveConversationsInCache()
+        HippoConfig.shared.notifiyDeinit()
+        _ = self.navigationController?.dismiss(animated: true, completion: nil)
+    }
     @IBAction func backButtonAction(_ sender: UIButton) {
         saveConversationsInCache()
         HippoConfig.shared.notifiyDeinit()

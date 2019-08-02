@@ -23,7 +23,7 @@ class PickerHelper {
     init(viewController: UIViewController, enablePayment: Bool) {
         var config = CoreFilesConfig()
         config.enableResizingImage = false
-        config.maxSizeInBytes = HippoConfig.shared.maxUploadLimitForBusiness
+        config.maxSizeInBytes = BussinessProperty.current.maxUploadLimitForBusiness
         CoreKit.shared.filesConfig = config
         
         self.enablePayment = enablePayment

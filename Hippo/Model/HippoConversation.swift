@@ -17,7 +17,8 @@ class HippoConversation: HippoConversationCallBack {
     var channelStatus: ChannelStatus = ChannelStatus.open
     var label: String?
     var labelId: Int?
-    
+    var channelImageUrl: String?
+    var chatType: ChatType = .none
     
     
     var lastMessage: HippoMessage? {
@@ -44,7 +45,10 @@ class HippoConversation: HippoConversationCallBack {
         params["unread_count"] = unreadCount ?? 0
         params["channel_id"] = channelId ?? "-1"
         params["label"] = label ?? ""
-        
+        params["chat_type"] = chatType.rawValue
+        if let channel_image_url = channelImageUrl {
+          params["channel_image_url"] = channel_image_url
+        }
         if let messageJson = lastMessage?.getDictToSaveInCache() {
             params += messageJson
         }

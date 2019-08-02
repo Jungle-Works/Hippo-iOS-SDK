@@ -89,12 +89,6 @@ public class UserTag: NSObject {
     }
 }
 
-@available(*, deprecated, renamed: "HippoUserDetail", message: "This class will no longer be available, To Continue migrate to HippoUserDetail")
-@objc public class FuguUserDetail: NSObject {
-    
-}
-
-
 @objc public class HippoUserDetail: NSObject {
     
     // MARK: - Properties
@@ -107,6 +101,7 @@ public class UserTag: NSObject {
     var userTags: [UserTag] = []
     var customRequest: [String: Any] = [:]
     var userImage: URL?
+    
     
     
     class var fuguUserID: Int? {
@@ -321,12 +316,13 @@ public class UserTag: NSObject {
             }
             HippoConfig.shared.log.trace("User Login Data\(userDetailData)", level: .response)
             
-            HippoConfig.shared.isVideoCallEnabled = Bool.parse(key: "is_video_call_enabled", json: userDetailData)
-            HippoConfig.shared.isAudioCallEnabled = Bool.parse(key: "is_audio_call_enabled", json: userDetailData, defaultValue: false)
-            HippoConfig.shared.encodeToHTMLEntities = Bool.parse(key: "encode_to_html_entites", json: userDetailData)
+            BussinessProperty.current.isVideoCallEnabled = Bool.parse(key: "is_video_call_enabled", json: userDetailData)
+            BussinessProperty.current.isAudioCallEnabled = Bool.parse(key: "is_audio_call_enabled", json: userDetailData, defaultValue: false)
+            BussinessProperty.current.encodeToHTMLEntities = Bool.parse(key: "encode_to_html_entites", json: userDetailData)
+            BussinessProperty.current.botImageUrl = String.parse(values: userDetailData, key: "bot_image_url")
 
-            HippoConfig.shared.unsupportedMessageString = userDetailData["unsupported_message"] as? String ?? ""
-            HippoConfig.shared.maxUploadLimitForBusiness = userDetailData["max_file_size"] as? UInt ?? 10
+            BussinessProperty.current.unsupportedMessageString = userDetailData["unsupported_message"] as? String ?? ""
+            BussinessProperty.current.maxUploadLimitForBusiness = userDetailData["max_file_size"] as? UInt ?? 10
             
             if let in_app_support_panel_version = userDetailData["in_app_support_panel_version"] as? Int, in_app_support_panel_version > HippoSupportList.currentFAQVersion, isFaqEnabled {
                 HippoSupportList.getListForBusiness(completion: { (success, list) in

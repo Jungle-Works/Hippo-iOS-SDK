@@ -42,12 +42,16 @@ protocol NewChatSentDelegate: class {
    @IBOutlet var seperatorView: UIView!
    @IBOutlet weak var loaderView: So_UIImageView!
    
-    @IBOutlet weak var audioCallButton: UIButton!
-    @IBOutlet weak var videoButton: UIButton!
+    @IBOutlet weak var audioCallButton: UIBarButtonItem!
+    @IBOutlet weak var videoButton: UIBarButtonItem!
    @IBOutlet var textViewBottomConstraint: NSLayoutConstraint!
-   @IBOutlet weak var hieghtOfNavigationBar: NSLayoutConstraint!
+    
+//   @IBOutlet weak var hieghtOfNavigationBar: NSLayoutConstraint!
+    
    @IBOutlet weak var loadMoreActivityTopContraint: NSLayoutConstraint!
    @IBOutlet weak var loadMoreActivityIndicator: UIActivityIndicatorView!
+    
+    var hieghtOfNavigationBar: CGFloat = 0
     
    // MARK: - Computed Properties
    var localFilePath: String {
@@ -70,6 +74,7 @@ protocol NewChatSentDelegate: class {
    
    // MARK: - LIFECYCLE
    override func viewDidLoad() {
+      self.setTitleForCustomNavigationBar()
       super.viewDidLoad()
       
       setNavBarHeightAccordingtoSafeArea()
@@ -100,7 +105,7 @@ protocol NewChatSentDelegate: class {
    override  func viewWillAppear(_ animated: Bool) {
       super.viewWillAppear(animated)
       messageTextView.contentInset.top = 8
-      self.navigationController?.isNavigationBarHidden = true
+      self.navigationController?.isNavigationBarHidden = false
 
       handleVideoIcon()
       handleAudioIcon()
@@ -165,13 +170,12 @@ protocol NewChatSentDelegate: class {
       navigationBackgroundView.layer.shadowRadius = 4
       
       navigationBackgroundView.backgroundColor = HippoConfig.shared.theme.headerBackgroundColor
-      
-      navigationTitleLabel.textColor = HippoConfig.shared.theme.headerTextColor
-      
-      if HippoConfig.shared.theme.headerTextFont  != nil {
-         navigationTitleLabel.font = HippoConfig.shared.theme.headerTextFont
-      }
-      
+//      navigationTitleLabel.textColor = HippoConfig.shared.theme.headerTextColor
+//
+//      if HippoConfig.shared.theme.headerTextFont  != nil {
+//         navigationTitleLabel.font = HippoConfig.shared.theme.headerTextFont
+//      }
+    
       if HippoConfig.shared.theme.sendBtnIcon != nil {
          sendMessageButton.setImage(HippoConfig.shared.theme.sendBtnIcon, for: .normal)
          
@@ -193,41 +197,37 @@ protocol NewChatSentDelegate: class {
       } else { addFileButtonAction.setTitle("ADD", for: .normal) }
     
     
-      backButton.tintColor = HippoConfig.shared.theme.headerTextColor
-      if HippoConfig.shared.theme.leftBarButtonText.count > 0 {
-         backButton.setTitle((" " + HippoConfig.shared.theme.leftBarButtonText), for: .normal)
-         
-         if HippoConfig.shared.theme.leftBarButtonFont != nil {
-            backButton.titleLabel?.font = HippoConfig.shared.theme.leftBarButtonFont
+//      backButton.tintColor = HippoConfig.shared.theme.headerTextColor
+//      if HippoConfig.shared.theme.leftBarButtonText.count > 0 {
+//         backButton.setTitle((" " + HippoConfig.shared.theme.leftBarButtonText), for: .normal)
+//
+//         if HippoConfig.shared.theme.leftBarButtonFont != nil {
+//            backButton.titleLabel?.font = HippoConfig.shared.theme.leftBarButtonFont
+//         }
+//
+//
+//         backButton.setTitleColor(HippoConfig.shared.theme.leftBarButtonTextColor, for: .normal)
+//
+//      } else {
+//         if HippoConfig.shared.theme.leftBarButtonImage != nil {
+//            backButton.setImage(HippoConfig.shared.theme.leftBarButtonImage, for: .normal)
+//            backButton.tintColor = HippoConfig.shared.theme.headerTextColor
+//         }
+//      }
+    
+//      if HippoConfig.shared.theme.headerTextFont  != nil {
+//         navigationTitleLabel.font = HippoConfig.shared.theme.headerTextFont
+//      }
+    
+//      if HippoConfig.shared.navigationTitleTextAlignMent != nil {
+//         navigationTitleLabel.textAlignment = HippoConfig.shared.navigationTitleTextAlignMent!
+//      }
+    
+         if let businessName = userDetailData["business_name"] as? String, label.isEmpty {
+            label = businessName
          }
-         
-         
-         backButton.setTitleColor(HippoConfig.shared.theme.leftBarButtonTextColor, for: .normal)
-
-      } else {
-         if HippoConfig.shared.theme.leftBarButtonImage != nil {
-            backButton.setImage(HippoConfig.shared.theme.leftBarButtonImage, for: .normal)
-            backButton.tintColor = HippoConfig.shared.theme.headerTextColor
-         }
-      }
-      
-      if HippoConfig.shared.theme.headerTextFont  != nil {
-         navigationTitleLabel.font = HippoConfig.shared.theme.headerTextFont
-      }
-      
-      if HippoConfig.shared.navigationTitleTextAlignMent != nil {
-         navigationTitleLabel.textAlignment = HippoConfig.shared.navigationTitleTextAlignMent!
-      }
-      
-
-      
-      if !label.isEmpty {
-         navigationTitleLabel.text = label
-      } else {
-         if let businessName = userDetailData["business_name"] as? String {
-            navigationTitleLabel.text = businessName
-         }
-      }
+        setTitleForCustomNavigationBar()
+//      }
 
    }
    
@@ -316,7 +316,7 @@ protocol NewChatSentDelegate: class {
       }
       let trimmedMessage = messageTextView.text.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
       
-      let message = HippoMessage(message: trimmedMessage, type: .normal, uniqueID: String.generateUniqueId())
+    let message = HippoMessage(message: trimmedMessage, type: .normal, uniqueID: String.generateUniqueId(), chatType: channel?.chatDetail?.chatType)
     
     // Check if we have quick reply pending action
        sendQuickReplyReposeIfRequired()
@@ -364,29 +364,34 @@ protocol NewChatSentDelegate: class {
    
    
    @IBAction func backButtonAction(_ sender: UIButton) {
-      messageTextView.resignFirstResponder()
-      
-      channel?.send(message: HippoMessage.stopTyping, completion: {})
-      let rawLabelID = self.labelId == -1 ? nil : self.labelId
-      let channelID = self.channel?.id ?? -1
+       backButtonClicked()
+   }
     
-     clearUnreadCountForChannel(id: channelID)
-    if let lastMessage = getLastMessage(), let conversationInfo = FuguConversation(channelId: channelID, unreadCount: 0, lastMessage: lastMessage, labelID: rawLabelID) {
+   override func backButtonClicked() {
+        super.backButtonClicked()
+        messageTextView.resignFirstResponder()
+    
+        channel?.send(message: HippoMessage.stopTyping, completion: {})
+        let rawLabelID = self.labelId == -1 ? nil : self.labelId
+        let channelID = self.channel?.id ?? -1
         
-         delegate?.updateConversationWith(conversationObj: conversationInfo)
-      }
-      
-      if self.navigationController == nil {
-         HippoConfig.shared.notifiyDeinit()
-         dismiss(animated: true, completion: nil)
-      } else {
-         if self.navigationController!.viewControllers.count > 1 {
-            _ = self.navigationController?.popViewController(animated: true)
-         } else {
+        clearUnreadCountForChannel(id: channelID)
+        if let lastMessage = getLastMessage(), let conversationInfo = FuguConversation(channelId: channelID, unreadCount: 0, lastMessage: lastMessage, labelID: rawLabelID) {
+            
+            delegate?.updateConversationWith(conversationObj: conversationInfo)
+        }
+        
+        if self.navigationController == nil {
             HippoConfig.shared.notifiyDeinit()
-            self.navigationController?.dismiss(animated: true, completion: nil)
-         }
-      }
+            dismiss(animated: true, completion: nil)
+        } else {
+            if self.navigationController!.viewControllers.count > 1 {
+                _ = self.navigationController?.popViewController(animated: true)
+            } else {
+                HippoConfig.shared.notifiyDeinit()
+                self.navigationController?.dismiss(animated: true, completion: nil)
+            }
+        }
    }
  override func clearUnreadCountForChannel(id: Int) {
         
@@ -434,11 +439,11 @@ protocol NewChatSentDelegate: class {
    
     override func adjustChatWhenKeyboardIsOpened(withHeight keyboardHeight: CGFloat) {
         // TODO: - Refactor
-        guard tableViewChat.contentSize.height + keyboardHeight > UIScreen.main.bounds.height - hieghtOfNavigationBar.constant else {
+        guard tableViewChat.contentSize.height + keyboardHeight > UIScreen.main.bounds.height - hieghtOfNavigationBar else {
             return
         }
         
-        let diff = ((tableViewChat.contentSize.height + keyboardHeight) - (UIScreen.main.bounds.height - hieghtOfNavigationBar.constant))
+        let diff = ((tableViewChat.contentSize.height + keyboardHeight) - (UIScreen.main.bounds.height - hieghtOfNavigationBar))
         
         let keyboardHeightNew = keyboardHeight - textViewBgView.frame.height - UIView.safeAreaInsetOfKeyWindow.bottom
         
@@ -522,8 +527,10 @@ protocol NewChatSentDelegate: class {
         
         
         label = result.channelName
-        navigationTitleLabel.text = result.channelName
+        userImage = result.chatDetail?.channelImageUrl
         channel?.chatDetail = result.chatDetail
+        
+        setTitleForCustomNavigationBar()
         
         handleVideoIcon()
         handleAudioIcon()
@@ -556,18 +563,29 @@ protocol NewChatSentDelegate: class {
         
         completion?()
     }
-    
     func handleVideoIcon() {
-        videoButton.isHidden = !canStartVideoCall()
-        videoButton.setImage(HippoConfig.shared.theme.videoCallIcon, for: .normal)
-        videoButton.tintColor = HippoConfig.shared.theme.headerTextColor
+        setTitleButton()
+        if canStartVideoCall() {
+            videoButton.image = HippoConfig.shared.theme.videoCallIcon
+            videoButton.tintColor = HippoConfig.shared.theme.headerTextColor
+            videoButton.isEnabled = true
+            videoButton.title = nil
+        } else {
+            videoButton.title = ""
+            videoButton.image = nil
+            videoButton.isEnabled = false
+        }
     }
     func handleAudioIcon() {
-        let enableAudioCall: Bool = canStartAudioCall()
-        audioCallButton.isHidden = !enableAudioCall
-        audioCallButton.setImage(HippoConfig.shared.theme.audioCallIcon, for: .normal)
-        audioCallButton.tintColor = HippoConfig.shared.theme.headerTextColor
-        audioCAllButtonWidthConstraint.constant = enableAudioCall ? 46 : 0
+        setTitleButton()
+        if canStartAudioCall() {
+            audioCallButton.image = HippoConfig.shared.theme.audioCallIcon
+            audioCallButton.tintColor = HippoConfig.shared.theme.headerTextColor
+            audioCallButton.isEnabled = true
+        } else {
+            audioCallButton.image = nil
+            audioCallButton.isEnabled = false
+        }
     }
    
    func keepTableViewWhereItWasBeforeReload(oldContentHeight: CGFloat, oldYOffset: CGFloat) {
@@ -634,7 +652,10 @@ protocol NewChatSentDelegate: class {
         tableViewChat.reloadData()
         
         directChatDetail = FuguNewChatAttributes.defaultChat
-        navigationTitleLabel.text = (userDetailData["business_name"] as? String) ?? "Support"
+        label = (userDetailData["business_name"] as? String) ?? "Support"
+        userImage = nil
+        setTitleForCustomNavigationBar()
+        
         completion?()
         startNewConversation(completion: { [weak self] (success, result) in
             if success {
@@ -768,8 +789,11 @@ protocol NewChatSentDelegate: class {
             stopLoaderAnimation()
             return
         }
+        userImage = result.channel?.chatDetail?.channelImageUrl
         channel = result.channel
         channel.delegate = self
+        
+        setTitleForCustomNavigationBar()
         
         let (sentMessage, unsentMessage) = getMessageFromGrouped(messages: messagesGroupedByDate)
         channel?.sentMessages = sentMessage
@@ -787,11 +811,10 @@ protocol NewChatSentDelegate: class {
       if let channelId = chatObj.channelId, channelId > 0 {
          self.channel = FuguChannelPersistancyManager.shared.getChannelBy(id: channelId)
       }
-
+      channel?.chatDetail?.chatType = chatObj.chatType
       self.labelId = chatObj.labelId ?? -1
       self.label = chatObj.label ?? ""
-      
-    
+      self.userImage = chatObj.channelImageUrl
    }
    
    // MARK: - Type Methods
@@ -912,7 +935,7 @@ extension ConversationsViewController {
    
    func setNavBarHeightAccordingtoSafeArea() {
       let topInset = UIView.safeAreaInsetOfKeyWindow.top == 0 ? 20 : UIView.safeAreaInsetOfKeyWindow.top
-      hieghtOfNavigationBar.constant = 44 + topInset
+      hieghtOfNavigationBar = 44 + topInset
    }
    
    func configureFooterView() {
@@ -1075,16 +1098,20 @@ extension ConversationsViewController {
    }
    
    func expectedHeight(OfMessageObject chatMessageObject: HippoMessage) -> CGFloat {
+      let isProfileImageEnabled: Bool = channel?.chatDetail?.chatType.isImageViewAllowed ?? false
+      let isOutgoingMsg = isSentByMe(senderId: chatMessageObject.senderId)
     
-      let availableWidthSpace = FUGU_SCREEN_WIDTH - CGFloat(60 + 10) - CGFloat(10 + 5)
+      var availableWidthSpace = FUGU_SCREEN_WIDTH - CGFloat(60 + 10) - CGFloat(10 + 5)
+      availableWidthSpace -= (isProfileImageEnabled && !isOutgoingMsg) ? 35 : 0
+    
       let availableBoxSize = CGSize(width: availableWidthSpace,
                                     height: CGFloat.greatestFiniteMagnitude)
     
-      let isOutgoingMsg = isSentByMe(senderId: chatMessageObject.senderId)
+    
     
       var cellTotalHeight: CGFloat = 5 + 2.5 + 3.5 + 12 + 7
       if chatMessageObject.type == MessageType.botText {
-        let incomingAttributedString = getIncomingAttributedString(chatMessageObject: chatMessageObject)
+        let incomingAttributedString = Helper.getIncomingAttributedStringWithLastUserCheck(chatMessageObject: chatMessageObject)
         cellTotalHeight += incomingAttributedString.boundingRect(with: availableBoxSize, options: .usesLineFragmentOrigin, context: nil).size.height
         return cellTotalHeight
        }
@@ -1113,7 +1140,7 @@ extension ConversationsViewController {
         #endif
         
     } else {
-         let incomingAttributedString = getIncomingAttributedString(chatMessageObject: chatMessageObject)
+         let incomingAttributedString = Helper.getIncomingAttributedStringWithLastUserCheck(chatMessageObject: chatMessageObject)
          cellTotalHeight += incomingAttributedString.boundingRect(with: availableBoxSize, options: .usesLineFragmentOrigin, context: nil).size.height
       }
       
@@ -1234,14 +1261,14 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                         cell.backgroundColor = .clear
                         return cell
                 }
-                let incomingAttributedString = getIncomingAttributedString(chatMessageObject: message)
+                let incomingAttributedString = Helper.getIncomingAttributedStringWithLastUserCheck(chatMessageObject: message)
                 return cell.configureCellOfSupportIncomingCell(resetProperties: true, attributedString: incomingAttributedString, channelId: channel?.id ?? labelId, chatMessageObject: message)
             case .botFormMessage:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "LeadTableViewCell", for: indexPath) as? LeadTableViewCell else {
                     return UITableViewCell()
                 }
                 cell.delegate = self
-                cell.setData(indexPath: indexPath, arr: message.leadsDataArray)
+                cell.setData(indexPath: indexPath, arr: message.leadsDataArray, message: message)
                 return cell
             case .quickReply:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "BotOutgoingMessageTableViewCell", for: indexPath) as? BotOutgoingMessageTableViewCell
@@ -1251,7 +1278,7 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                         return cell
                 }
                 cell.delegate = self
-                let incomingAttributedString = getIncomingAttributedString(chatMessageObject: message)
+                let incomingAttributedString = Helper.getIncomingAttributedStringWithLastUserCheck(chatMessageObject: message)
                 return cell.configureCellOfSupportIncomingCell(resetProperties: true, attributedString: incomingAttributedString, channelId: channel.id, chatMessageObject: message)
             case .call:
                 if isOutgoingMsg {
@@ -1775,6 +1802,10 @@ extension ConversationsViewController: ImageCellDelegate {
 
 extension ConversationsViewController: HippoChannelDelegate {
     func channelDataRefreshed() {
+        label = channel?.chatDetail?.channelName ?? label
+        userImage = channel?.chatDetail?.channelImageUrl
+        
+        setTitleForCustomNavigationBar()
         handleAudioIcon()
         handleVideoIcon()
         tableViewChat.reloadData()
@@ -2018,7 +2049,7 @@ extension ConversationsViewController: BotOtgoingMessageCellDelegate {
     }
     
     func sendQuickReplyMessage(with message: String) {
-        let message = HippoMessage(message: message, type: .normal, uniqueID: String.generateUniqueId())
+        let message = HippoMessage(message: message, type: .normal, uniqueID: String.generateUniqueId(), chatType: channel?.chatDetail?.chatType)
         channel?.unsentMessages.append(message)
         if channel != nil {
             addMessageToUIBeforeSending(message: message)

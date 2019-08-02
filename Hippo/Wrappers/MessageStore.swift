@@ -178,7 +178,7 @@ class MessageStore {
         let rawMessages = data["messages"] as? [[String: Any]] ?? []
         
         HippoConfig.shared.log.trace(data, level: .response)
-        let (newMessages, newHashmap) = HippoMessage.getArrayFrom(json: rawMessages)
+        let (newMessages, newHashmap) = HippoMessage.getArrayFrom(json: rawMessages, chatType: result.chatDetail?.chatType)
         result.newMessageHashmap = newHashmap
         result.newMessages = newMessages
         

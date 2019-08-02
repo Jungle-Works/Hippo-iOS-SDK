@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -19,19 +19,31 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="PI9-m4-bqj">
-                        <rect key="frame" x="10" y="3" width="374" height="297.5"/>
+                        <rect key="frame" x="45" y="3" width="339" height="297.5"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tableView>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Jwe-7r-Zmn">
+                        <rect key="frame" x="10" y="270.5" width="30" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="30" id="MjD-8Y-syq"/>
+                            <constraint firstAttribute="width" secondItem="Jwe-7r-Zmn" secondAttribute="height" multiplier="1:1" id="rJ5-UX-eny"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="PI9-m4-bqj" firstAttribute="leading" secondItem="Jwe-7r-Zmn" secondAttribute="trailing" constant="5" id="7f1-XW-BAV"/>
+                    <constraint firstItem="Jwe-7r-Zmn" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="FFg-vL-hHd"/>
                     <constraint firstAttribute="trailing" secondItem="PI9-m4-bqj" secondAttribute="trailing" constant="80" id="JgR-bx-p6s"/>
                     <constraint firstItem="PI9-m4-bqj" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="3" id="Xfa-ao-jyG"/>
-                    <constraint firstItem="PI9-m4-bqj" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="kzf-8e-HIM"/>
+                    <constraint firstItem="Jwe-7r-Zmn" firstAttribute="bottom" secondItem="PI9-m4-bqj" secondAttribute="bottom" id="dFX-8r-ArA"/>
                     <constraint firstAttribute="bottom" secondItem="PI9-m4-bqj" secondAttribute="bottom" constant="3" id="z0f-Xq-jlP"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
+                <outlet property="senderImageTraillingConstaints" destination="7f1-XW-BAV" id="K01-vo-ANI"/>
+                <outlet property="senderImageView" destination="Jwe-7r-Zmn" id="BL3-w1-E83"/>
+                <outlet property="senderImageWidthConstraint" destination="MjD-8Y-syq" id="8uK-kl-UeK"/>
                 <outlet property="tableView" destination="PI9-m4-bqj" id="RbO-DD-cZy"/>
             </connections>
             <point key="canvasLocation" x="-7" y="-22"/>

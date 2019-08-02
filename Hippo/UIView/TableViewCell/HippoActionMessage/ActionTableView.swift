@@ -40,7 +40,7 @@ class ActionTableView: MessageTableViewCell {
         self.message = nil
         
         
-        intalizeCell(with: message)
+        intalizeCell(with: message, isIncomingView: false)
         
         self.message?.statusChanged = {
             DispatchQueue.main.async {
@@ -48,6 +48,7 @@ class ActionTableView: MessageTableViewCell {
             }
         }
         setupTableView()
+        dataSource?.update(message: message, delegate: self)
         setUIData()
     }
     
@@ -83,7 +84,7 @@ class ActionTableView: MessageTableViewCell {
         setTime()
         setMessageStatus()
         
-//        tableView.isUserInteractionEnabled = actionMessage.isUserInteractionEnbled
+        tableView.isUserInteractionEnabled = HippoConfig.shared.appUserType == .customer
         
         tableView.reloadData()
     }

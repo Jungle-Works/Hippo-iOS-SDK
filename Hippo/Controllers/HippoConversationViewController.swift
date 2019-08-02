@@ -23,6 +23,7 @@ class HippoConversationViewController: UIViewController {
     var directChatDetail: FuguNewChatAttributes?
     var agentDirectChatDetail: AgentDirectChatAttributes?
     var label = ""
+    var userImage: String?
     var imagePicker = UIImagePickerController()
     var keyBoard: KeyBoard?
     weak var delegate: NewChatSentDelegate?
@@ -47,6 +48,8 @@ class HippoConversationViewController: UIViewController {
     
     var qldataSource: HippoQLDataSource?
     var pickerHelper: PickerHelper?
+    var titleForNavigation: NavigationTitleView?
+    
     var errorMessage: String = ""
     
     //MARK: 
@@ -464,14 +467,9 @@ class HippoConversationViewController: UIViewController {
         return customerId > 0
     }
     func setTitleButton() {
-//        let container = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 44))
-//        container.isUserInteractionEnabled = true
-//        container.backgroundColor = UIColor.clear
-        
         let color = HippoConfig.shared.theme.headerTextColor
         let button =  UIButton(type: .custom)
         button.sizeToFit()
-//        button.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 44)
         button.backgroundColor = UIColor.clear
         button.setTitleColor(color, for: .normal)
         button.addTarget(self, action: #selector(self.titleButtonclicked), for: .touchUpInside)
@@ -482,8 +480,40 @@ class HippoConversationViewController: UIViewController {
         setNavigationTitle(title: label)
     }
     
+    func setTitleForCustomNavigationBar() {
+        guard HippoConfig.shared.appUserType == .customer else {
+            return
+        }
+        let rectForNavigationTitle: CGRect = CGRect(x: 0, y: 0, width: 500, height: 100)
+        let navigationView: NavigationTitleView
+        if let parsedTitleForNavigation = titleForNavigation {
+            navigationView = parsedTitleForNavigation
+        } else {
+            navigationView = NavigationTitleView.loadView(rectForNavigationTitle, delegate: self)
+            titleForNavigation = navigationView
+        }
+        if let chatType = channel?.chatDetail?.chatType, chatType == .other {
+            let title: String? = (channel?.chatDetail?.assignedAgentID ?? -1) > 0 ? channel?.chatDetail?.assignedAgentName : label
+             navigationView.setData(imageUrl: userImage, name: title)
+        } else if labelId > 0, channel == nil {
+             navigationView.setData(imageUrl: userImage, name: label)
+        } else {
+             navigationView.hideProfileImage()
+        }
+        navigationView.removeFromSuperview()
+        navigationView.setTitle(title: label)
+        title = nil
+        let button = UIBarButtonItem(customView: navigationView)
+    
+        navigationItem.leftBarButtonItem = button
+    }
+    
     
     func setNavigationTitle(title: String) {
+        guard titleForNavigation == nil else {
+            setTitleForCustomNavigationBar()
+            return
+        }
         let info_icon = UIImage(named: "info_button_icon_on_navigation_bar", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
         
         let attachment: NSTextAttachment = NSTextAttachment()
@@ -558,7 +588,7 @@ class HippoConversationViewController: UIViewController {
         guard canMakeAnyCall() else {
             return false
         }
-        guard HippoConfig.shared.isAudioCallEnabled else {
+        guard BussinessProperty.current.isAudioCallEnabled else {
             return false
         }
         guard let allowAudioCall = channel?.chatDetail?.allowAudioCall, allowAudioCall  else {
@@ -572,7 +602,7 @@ class HippoConversationViewController: UIViewController {
         guard canMakeAnyCall() else {
             return false
         }
-        guard HippoConfig.shared.isVideoCallEnabled else {
+        guard BussinessProperty.current.isVideoCallEnabled else {
             return false
         }
         guard let allowVideoCall = channel?.chatDetail?.allowVideoCall, allowVideoCall  else {
@@ -617,6 +647,8 @@ class HippoConversationViewController: UIViewController {
             switch comparisonResult {
             case .orderedSame:
                 var latestMessageGroup = messagesGroupedByDate.last ?? []
+                let lastMessage: HippoMessage? = latestMessageGroup.last
+                self.setDataFor(belowMessage: message, aboveMessage: lastMessage)
                 latestMessageGroup.append(message)
                 messagesGroupedByDate[messagesGroupedByDate.count - 1] = latestMessageGroup
             default:
@@ -624,6 +656,19 @@ class HippoConversationViewController: UIViewController {
             }
         }
     }
+    
+    func setDataFor(belowMessage: HippoMessage?, aboveMessage: HippoMessage?) {
+        aboveMessage?.belowMessageMuid = belowMessage?.messageUniqueID
+        aboveMessage?.belowMessageUserId = belowMessage?.senderId
+        
+        belowMessage?.aboveMessageMuid = aboveMessage?.messageUniqueID
+        belowMessage?.aboveMessageUserId = aboveMessage?.senderId
+        belowMessage?.aboveMessageType = aboveMessage?.type
+        
+        
+        aboveMessage?.messageRefresed?()
+    }
+    
     func addMessageToNewGroup(message: HippoMessage) {
         self.messagesGroupedByDate.append([message])
     }
@@ -705,7 +750,7 @@ extension HippoConversationViewController {
         let uniqueName = DownloadManager.generateNameWhichDoestNotExistInCacheDirectoryWith(name: fileName)
         saveDocumentInCacheDirectoryWith(name: uniqueName, orignalFilePath: filePath)
         
-        let message = HippoMessage(message: "", type: messageType, uniqueID: generateUniqueId(), imageUrl: nil, thumbnailUrl: nil, localFilePath: filePath)
+        let message = HippoMessage(message: "", type: messageType, uniqueID: generateUniqueId(), imageUrl: nil, thumbnailUrl: nil, localFilePath: filePath, chatType: channel?.chatDetail?.chatType)
         
         message.fileName = uniqueName
         message.localImagePath = getCacheDirectoryUrlForFileWith(name: uniqueName).path
@@ -851,7 +896,7 @@ extension HippoConversationViewController {
     }
     
     func imageSelectedToSendWith(localPath: String, imageSize: CGSize) {
-        let message = HippoMessage(message: "", type: .imageFile, uniqueID: generateUniqueId(), localFilePath: localPath)
+        let message = HippoMessage(message: "", type: .imageFile, uniqueID: generateUniqueId(), localFilePath: localPath, chatType: channel?.chatDetail?.chatType)
         message.fileName = localPath.fileName()
         message.imageWidth = Float(imageSize.width)
         message.imageHeight = Float(imageSize.height)
@@ -1019,13 +1064,6 @@ extension HippoConversationViewController {
         
         return messagesGroupedByDate[indexPath.section][indexPath.row]
     }
-    func getIncomingAttributedString(chatMessageObject: HippoMessage) -> NSMutableAttributedString {
-        let messageString = chatMessageObject.message
-        let userNameString = chatMessageObject.senderFullName
-        
-        
-        return attributedStringForLabel(userNameString, secondString: "\n" + messageString, thirdString: "", colorOfFirstString: HippoConfig.shared.theme.senderNameColor, colorOfSecondString: HippoConfig.shared.theme.incomingMsgColor, colorOfThirdString: UIColor.black.withAlphaComponent(0.5), fontOfFirstString: HippoConfig.shared.theme.senderNameFont, fontOfSecondString:  HippoConfig.shared.theme.incomingMsgFont, fontOfThirdString: UIFont.systemFont(ofSize: 11.0), textAlighnment: .left, dateAlignment: .right)
-    }
     
     func isLastMessageVisible() -> Bool {
         guard let indexPath = getLastMessageIndexPath() else {
@@ -1164,7 +1202,7 @@ extension HippoConversationViewController: ActionTableViewDelegate {
 }
 extension HippoConversationViewController: CreatePaymentDelegate {
     func sendMessage(for store: PaymentStore) {
-        let message = HippoMessage(message: "", type: .hippoPay, uniqueID: String.generateUniqueId())
+        let message = HippoMessage(message: "", type: .hippoPay, uniqueID: String.generateUniqueId(), chatType: channel?.chatDetail?.chatType)
         let custom_action = store.getJsonToSend()
         message.actionableMessage = FuguActionableMessage(dict: custom_action)
         message.rawJsonToSend = ["custom_action": custom_action]
@@ -1181,12 +1219,23 @@ extension HippoConversationViewController {
         switch isOutgoingMessage {
         case false:
             let cell = tableView.dequeueReusableCell(withIdentifier: "SupportMessageTableViewCell", for: indexPath) as! SupportMessageTableViewCell
-            let incomingAttributedString = getIncomingAttributedString(chatMessageObject: message)
+            let incomingAttributedString = Helper.getIncomingAttributedStringWithLastUserCheck(chatMessageObject: message)
             return cell.configureCellOfSupportIncomingCell(resetProperties: true, attributedString: incomingAttributedString, channelId: channel?.id ?? labelId, chatMessageObject: message)
         case true:
             let cell = tableView.dequeueReusableCell(withIdentifier: "SelfMessageTableViewCell", for: indexPath) as! SelfMessageTableViewCell
             cell.delegate = self
             return cell.configureIncomingMessageCell(resetProperties: true, chatMessageObject: message, indexPath: indexPath)
         }
+    }
+}
+
+
+extension HippoConversationViewController: NavigationTitleViewDelegate {
+    func backButtonClicked() {
+        
+    }
+    
+    func imageIconClicked() {
+        self.backButtonClicked()
     }
 }

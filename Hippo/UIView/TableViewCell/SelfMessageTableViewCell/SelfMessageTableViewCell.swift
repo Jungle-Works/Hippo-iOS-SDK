@@ -112,7 +112,7 @@ class SelfMessageTableViewCell: MessageTableViewCell {
         }
         message?.statusChanged = nil
         
-        super.intalizeCell(with: chatMessageObject)
+        super.intalizeCell(with: chatMessageObject, isIncomingView: false)
         
         message = chatMessageObject
         
@@ -132,7 +132,7 @@ class SelfMessageTableViewCell: MessageTableViewCell {
         switch HippoConfig.shared.appUserType {
         case .agent:
             selfMessageTextView.text = ""
-            selfMessageTextView.attributedText = getIncomingAttributedString(chatMessageObject: chatMessageObject)
+            selfMessageTextView.attributedText = Helper.getIncomingAttributedStringWithLastUserCheck(chatMessageObject: chatMessageObject)
         case .customer:
             selfMessageTextView.attributedText = nil
             selfMessageTextView.text =  chatMessageObject.message

@@ -93,7 +93,7 @@ extension OutgoingImageCell {
         
         message?.statusChanged = nil
         
-        super.intalizeCell(with: chatMessageObject)
+        super.intalizeCell(with: chatMessageObject, isIncomingView: false)
         self.message = chatMessageObject
         self.indexPath = indexPath
         

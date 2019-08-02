@@ -85,7 +85,7 @@ extension IncomingImageCell {
     func configureIncomingCell(resetProperties: Bool, channelId: Int, chatMessageObject: HippoMessage, indexPath: IndexPath) -> IncomingImageCell {
         if resetProperties { resetPropertiesOfIncomingCell() }
         
-        super.intalizeCell(with: chatMessageObject)
+        super.intalizeCell(with: chatMessageObject, isIncomingView: true)
         
         self.message = chatMessageObject
         
@@ -94,8 +94,10 @@ extension IncomingImageCell {
         let messageType = chatMessageObject.type.rawValue
         setupBoxBackground(messageType: messageType)
         
-        if channelId <= 0 {}
-        else {
+        
+        if channelId <= 0 {
+            
+        } else {
             let timeOfMessage = changeDateToParticularFormat(chatMessageObject.creationDateTime, dateFormat: "h:mm a", showInFormat: true)
             timeLabel.text = "\t" + "\(timeOfMessage)"
         }

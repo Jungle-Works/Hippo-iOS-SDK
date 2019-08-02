@@ -20,8 +20,11 @@ class ChatDetail: NSObject {
     var customerContactNumber: String = ""
     var channelTags: [TagDetail] = []
     var channelStatus = ChannelStatus.open
+    var otherUserImage: String?
     
     var chatType: ChatType = .none
+    var channelImageUrl: String?
+    var channelName: String?
     
     var peerDetail: User?
     var peerName: String = ""
@@ -37,14 +40,14 @@ class ChatDetail: NSObject {
     }
     
     init(json: [String: Any]) {
-        channelId = json["channel_id"] as? Int ?? -1
+        channelId = Int.parse(values: json, key: "channel_id") ?? -1
         assignedAgentID = json["user_id"] as? Int ?? -1
         assignedAgentName = json["agent_name"] as? String ?? ""
         customerID = json["owner_id"] as? Int ?? -1
         customerName = json["customer_name"] as? String ?? ""
         customerEmail = json["customer_email"] as? String ?? ""
         customerContactNumber = json["customer_phone"] as? String ?? ""
-        
+        otherUserImage = json["other_user_image"] as? String
         
         if let channel_status = json["channel_status"] as? Int, let status = ChannelStatus(rawValue: channel_status) {
             channelStatus = status
@@ -54,6 +57,7 @@ class ChatDetail: NSObject {
         if let chat_type = json["chat_type"] as? Int, let parsedChatType = ChatType(rawValue: chat_type) {
             chatType = parsedChatType
         }
+        channelImageUrl = json["channel_image_url"] as? String
         
         if let tags = json["tags"] as? [[String: Any]] {
             let tagsObject = TagDetail.parseTagDetail(data: tags)
@@ -111,6 +115,10 @@ class ChatDetail: NSObject {
         
         if let parsedPeerData = peerDetail {
             dict["peerDetail"] = parsedPeerData.toJson()
+        }
+        dict["chat_type"] = chatType.rawValue
+        if let channel_image_url = channelImageUrl {
+            dict["channel_image_url"] = channel_image_url
         }
         dict["allow_video_call"] = allowVideoCall
         dict["allow_audio_call"] = allowAudioCall

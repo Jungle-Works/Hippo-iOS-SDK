@@ -17,7 +17,7 @@ protocol FeedbackTableViewCellDelegate: class {
     func cellTextViewEndEditing(data: FeedbackParams)
 }
 
-class FeedbackTableViewCell: UITableViewCell {
+class FeedbackTableViewCell: MessageTableViewCell {
     
     static let submitButtonHeight: CGFloat = 35
     
@@ -29,6 +29,7 @@ class FeedbackTableViewCell: UITableViewCell {
     let availabelWidthOfCollectionView = FUGU_SCREEN_WIDTH - 106
     
     
+    @IBOutlet weak var feedbackTrailingconstraint: NSLayoutConstraint!
     @IBOutlet weak var collectionViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet var constraintSubmitHeight: NSLayoutConstraint!
     @IBOutlet weak var feedbackDescLabel: UILabel!
@@ -58,6 +59,9 @@ class FeedbackTableViewCell: UITableViewCell {
     
     func setData(params: FeedbackParams) {
         self.data = params
+        if let message = params.messageObject {
+            super.intalizeCell(with: message, isIncomingView: true)
+        }
         
         data.cellTextView = cellTextView
         titleLabel.text = data.messageObject!.feedbackMessages.line_before_feedback
@@ -127,6 +131,18 @@ class FeedbackTableViewCell: UITableViewCell {
     
     @objc func viewTapped() {
         self.removeFromSuperview()
+    }
+    
+    override func hideSenderImageView() {
+        super.hideSenderImageView()
+        feedbackTrailingconstraint.constant = 80
+        layoutIfNeeded()
+    }
+    
+    override func showSenderImageView() {
+        super.showSenderImageView()
+        feedbackTrailingconstraint.constant = 45
+        layoutIfNeeded()
     }
 }
 extension FeedbackTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {

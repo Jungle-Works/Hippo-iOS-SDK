@@ -13,6 +13,8 @@ import Foundation
     
     var chatBoxCornerRadius: CGFloat = 5
     
+    var shouldEnableDisplayUserImage: Bool = true
+    
     open var backgroundColor = #colorLiteral(red: 0.9725490196, green: 0.9764705882, blue: 1, alpha: 1)
     open var infoIconTintColor = #colorLiteral(red: 0.3843137255, green: 0.4901960784, blue: 0.8823529412, alpha: 1)
     open var headerBackgroundColor = #colorLiteral(red: 0.3843137255, green: 0.4901960784, blue: 0.8823529412, alpha: 1)
@@ -68,16 +70,16 @@ import Foundation
     open var unsentMessageIcon: UIImage? = UIImage(named: "unsent_watch_icon", in: FuguFlowManager.bundle, compatibleWith: nil)
     open var unsentMessageTintColor: UIColor?
     
-    open var dateTimeTextColor = #colorLiteral(red: 0.5568627451, green: 0.5568627451, blue: 0.5568627451, alpha: 1)
+    open var dateTimeTextColor = UIColor.black40
     open var dateTimeFontSize: UIFont? = UIFont.systemFont(ofSize: 12.0)
     
-    open var senderNameColor = #colorLiteral(red: 0.5568627451, green: 0.5568627451, blue: 0.5568627451, alpha: 1)
+    open var senderNameColor = UIColor.black40
     open var senderNameFont: UIFont = UIFont.systemFont(ofSize: 12.0)
     open var itmDescriptionNameFont: UIFont? = UIFont.systemFont(ofSize: 14.0)
-    open var incomingMsgColor = #colorLiteral(red: 0.1725490196, green: 0.137254902, blue: 0.2, alpha: 1)
+    open var incomingMsgColor = UIColor.black
     open var incomingMsgFont: UIFont = UIFont.systemFont(ofSize: 15.0)
-    open var incomingChatBoxColor = #colorLiteral(red: 0.9098039216, green: 0.9176470588, blue: 0.9882352941, alpha: 1)
-    open var incomingMsgDateTextColor = #colorLiteral(red: 0.5568627451, green: 0.5568627451, blue: 0.5568627451, alpha: 1)
+    open var incomingChatBoxColor = UIColor(red: 237/255, green: 237/255, blue: 237/255, alpha: 1)
+    open var incomingMsgDateTextColor = UIColor.black40
     
     open var privateNoteMsgColor = #colorLiteral(red: 0.1725490196, green: 0.137254902, blue: 0.2, alpha: 1)
     open var privateNoteMsgFont: UIFont? = UIFont.systemFont(ofSize: 15.0)
@@ -89,9 +91,9 @@ import Foundation
     open var actionableMessageButtonColor = #colorLiteral(red: 0.3490196078, green: 0.3490196078, blue: 0.4078431373, alpha: 1)
     open var actionableMessageButtonHighlightedColor = #colorLiteral(red: 0.3490196078, green: 0.3490196078, blue: 0.4078431373, alpha: 0.8)
     
-    open var outgoingMsgColor = #colorLiteral(red: 0.1725490196, green: 0.137254902, blue: 0.2, alpha: 1)
-    open var outgoingChatBoxColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-    open var outgoingMsgDateTextColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
+    open var outgoingMsgColor = UIColor.black
+    open var outgoingChatBoxColor = UIColor(red: 233/255, green: 239/255, blue: 253/255, alpha: 1)
+    open var outgoingMsgDateTextColor = UIColor.black40
     
     open var chatBoxBorderWidth = CGFloat(0.5)
     open var chatBoxBorderColor = #colorLiteral(red: 0.862745098, green: 0.8784313725, blue: 0.9019607843, alpha: 1)

@@ -19,10 +19,9 @@ class IncomingDocumentTableViewCell: DocumentTableViewCell {
     func setCellWith(message: HippoMessage) {
         
         setUIAccordingToTheme()
-        intalizeCell(with: message)
+        intalizeCell(with: message, isIncomingView: true)
         self.message = message
         
-//        nameLabel.isHidden = chatType.isNotGroup()
         
         updateUI()
     }

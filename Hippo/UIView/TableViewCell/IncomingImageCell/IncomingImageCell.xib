@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -19,24 +19,24 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OXQ-z8-zBV" customClass="So_UIView" customModule="Hippo" customModuleProvider="target">
-                        <rect key="frame" x="8.5" y="3.5" width="366.5" height="448.5"/>
+                        <rect key="frame" x="46" y="3.5" width="329" height="448.5"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </view>
                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GXK-iW-0ll" userLabel="MainContentView" customClass="So_UIView" customModule="Hippo" customModuleProvider="target">
-                        <rect key="frame" x="10" y="5" width="363.5" height="445.5"/>
+                        <rect key="frame" x="47.5" y="5" width="326" height="445.5"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholderImg" translatesAutoresizingMaskIntoConstraints="NO" id="RBB-P6-fLK" customClass="So_UIImageView" customModule="Hippo" customModuleProvider="target">
-                                <rect key="frame" x="5" y="5" width="353.5" height="421"/>
+                                <rect key="frame" x="5" y="5" width="316" height="421"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hmd-BQ-3pI">
-                                <rect key="frame" x="5" y="5" width="353.5" height="421"/>
+                                <rect key="frame" x="5" y="5" width="316" height="421"/>
                                 <connections>
                                     <action selector="imageTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="ipu-43-eHU"/>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="L9Y-BK-8bO" customClass="So_UIImageView" customModule="Hippo" customModuleProvider="target">
-                                <rect key="frame" x="158" y="199.5" width="47" height="47"/>
+                                <rect key="frame" x="139.5" y="199.5" width="47" height="47"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="47" id="BZI-Ff-Chr"/>
@@ -44,7 +44,7 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="749" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gk0-zx-Kg9">
-                                <rect key="frame" x="332" y="428.5" width="26.5" height="12"/>
+                                <rect key="frame" x="294.5" y="428.5" width="26.5" height="12"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="12" id="0Rj-i7-FOF"/>
@@ -54,7 +54,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W0z-54-U05">
-                                <rect key="frame" x="131.5" y="195.5" width="100" height="40"/>
+                                <rect key="frame" x="113" y="195.5" width="100" height="40"/>
                                 <color key="backgroundColor" red="0.31764705879999999" green="0.2666666667" blue="0.36078431370000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="28d-tM-jmg"/>
@@ -105,10 +105,18 @@
                             <constraint firstAttribute="width" secondItem="Z8x-Ix-NYt" secondAttribute="height" multiplier="1:1" id="fZ4-My-ipf"/>
                         </constraints>
                     </imageView>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2Av-KR-FJQ">
+                        <rect key="frame" x="10" y="420.5" width="31" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="2Av-KR-FJQ" secondAttribute="height" multiplier="1:1" constant="1" id="qcw-nY-DJV"/>
+                            <constraint firstAttribute="height" constant="30" id="xe2-5R-CR5"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="XiW-Yp-hld" secondAttribute="trailing" id="0j8-a6-qkf"/>
-                    <constraint firstItem="GXK-iW-0ll" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="9qT-O2-TsM"/>
+                    <constraint firstItem="2Av-KR-FJQ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="3fz-GK-auS"/>
+                    <constraint firstItem="2Av-KR-FJQ" firstAttribute="bottom" secondItem="GXK-iW-0ll" secondAttribute="bottom" id="3kl-eO-AVC"/>
                     <constraint firstAttribute="bottom" secondItem="GXK-iW-0ll" secondAttribute="bottom" constant="2" id="Qcv-1x-unJ"/>
                     <constraint firstItem="Z8x-Ix-NYt" firstAttribute="leading" secondItem="GXK-iW-0ll" secondAttribute="trailing" id="Yv1-IV-Yf5"/>
                     <constraint firstItem="XiW-Yp-hld" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" multiplier="1:3" id="aHP-DD-iLx"/>
@@ -118,15 +126,20 @@
                     <constraint firstItem="OXQ-z8-zBV" firstAttribute="trailing" secondItem="GXK-iW-0ll" secondAttribute="trailing" constant="1.5" id="jyy-pB-PzB"/>
                     <constraint firstItem="OXQ-z8-zBV" firstAttribute="leading" secondItem="GXK-iW-0ll" secondAttribute="leading" constant="-1.5" id="n5j-iO-BPw"/>
                     <constraint firstItem="GXK-iW-0ll" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="pmf-4I-rcB"/>
+                    <constraint firstItem="OXQ-z8-zBV" firstAttribute="leading" secondItem="2Av-KR-FJQ" secondAttribute="trailing" constant="5" id="t6T-mK-qUA"/>
                     <constraint firstItem="XiW-Yp-hld" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="vP3-FB-rHs"/>
                     <constraint firstItem="Z8x-Ix-NYt" firstAttribute="bottom" secondItem="GXK-iW-0ll" secondAttribute="bottom" id="w7m-6W-HNz"/>
                 </constraints>
             </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
                 <outlet property="bottomConstraint" destination="Qcv-1x-unJ" id="XPS-BD-KHC"/>
                 <outlet property="customIndicator" destination="L9Y-BK-8bO" id="6gP-9r-gpA"/>
                 <outlet property="mainContentView" destination="GXK-iW-0ll" id="5Eu-Ik-pEE"/>
                 <outlet property="retryButton" destination="W0z-54-U05" id="Vcn-gq-PEm"/>
+                <outlet property="senderImageTraillingConstaints" destination="t6T-mK-qUA" id="yZ0-We-dOZ"/>
+                <outlet property="senderImageView" destination="2Av-KR-FJQ" id="eJd-yp-fJl"/>
+                <outlet property="senderImageWidthConstraint" destination="xe2-5R-CR5" id="PGF-Tm-Dwo"/>
                 <outlet property="shadowView" destination="OXQ-z8-zBV" id="mhb-gY-r0C"/>
                 <outlet property="sourceIcon" destination="Z8x-Ix-NYt" id="fhj-wo-QlI"/>
                 <outlet property="thumbnailImageView" destination="RBB-P6-fLK" id="xQl-wY-ZNQ"/>

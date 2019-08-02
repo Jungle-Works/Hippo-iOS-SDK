@@ -35,7 +35,6 @@ class AgentConversation: HippoConversation {
     var assigned_to: Int?
     var assigned_by_name: String?
     var assigned_to_name: String?
-    var chatType: ChatType = .none
     
     
     init?(channelId: Int, unreadCount: Int, lastMessage: HippoMessage) {
