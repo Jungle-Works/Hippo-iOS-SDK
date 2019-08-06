@@ -1101,7 +1101,7 @@ extension ConversationsViewController {
       let isProfileImageEnabled: Bool = channel?.chatDetail?.chatType.isImageViewAllowed ?? false
       let isOutgoingMsg = isSentByMe(senderId: chatMessageObject.senderId)
     
-      var availableWidthSpace = FUGU_SCREEN_WIDTH - CGFloat(60 + 10) - CGFloat(10 + 5)
+      var availableWidthSpace = FUGU_SCREEN_WIDTH - CGFloat(60 + 10) - CGFloat(10 + 5) - 1
       availableWidthSpace -= (isProfileImageEnabled && !isOutgoingMsg) ? 35 : 0
     
       let availableBoxSize = CGSize(width: availableWidthSpace,
