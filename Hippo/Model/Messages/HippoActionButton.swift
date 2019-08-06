@@ -88,6 +88,6 @@ extension HippoActionButton: TagViewCreation {
         return id
     }
     var tagViewTextColor: UIColor {
-        return HippoConfig.shared.appUserType == .customer ? HippoConfig.shared.theme.headerBackgroundColor : HippoConfig.shared.theme.incomingChatBoxColor
+        return HippoConfig.shared.appUserType == .customer ? HippoConfig.shared.theme.headerBackgroundColor : UIColor.lightGray
     }
 }
