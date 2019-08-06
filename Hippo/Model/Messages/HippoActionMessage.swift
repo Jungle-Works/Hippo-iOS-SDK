@@ -90,7 +90,9 @@ class HippoActionMessage: HippoMessage {
             } else {
                 remaningWidth = widthRemaningAfterInsertion
             }
-            print("===\(each.title)--w=\(w)--widthRemaningAfterInsertion=\(widthRemaningAfterInsertion)--b=\(buttonCount)--remaning=\(remaningWidth) \n")
+            let message = "===\(each.title)--w=\(w)--widthRemaningAfterInsertion=\(widthRemaningAfterInsertion)--b=\(buttonCount)--remaning=\(remaningWidth) \n"
+            HippoConfig.shared.log.debug(message, level: .custom)
+
         }
         
         return CGFloat(buttonCount * 35) + CGFloat(5 * (buttonCount - 1))

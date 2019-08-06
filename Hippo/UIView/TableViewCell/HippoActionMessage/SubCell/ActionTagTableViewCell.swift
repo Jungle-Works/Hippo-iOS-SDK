@@ -51,6 +51,6 @@ extension ActionTagTableViewCell: TagListViewDelegate {
             return
         }
         delegate?.tagClicked(title, tagView: tagView, sender: sender)
-        print("=======\(buttonInfo.getJson())")
+        HippoConfig.shared.log.debug(buttonInfo.getJson(), level: .info)
     }
 }
