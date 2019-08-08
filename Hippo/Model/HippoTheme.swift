@@ -95,6 +95,8 @@ import Foundation
     open var outgoingChatBoxColor = UIColor(red: 233/255, green: 239/255, blue: 253/255, alpha: 1)
     open var outgoingMsgDateTextColor = UIColor.black40
     
+    open var botTextAndBorderColor = UIColor.black
+    
     open var chatBoxBorderWidth = CGFloat(0.5)
     open var chatBoxBorderColor = #colorLiteral(red: 0.862745098, green: 0.8784313725, blue: 0.9019607843, alpha: 1)
     

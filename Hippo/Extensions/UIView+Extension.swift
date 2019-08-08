@@ -114,12 +114,12 @@ extension UIView {
 extension TagListView {
     func setTagListViewProperty() {
         alignment = HippoConfig.shared.appUserType == .agent ? .left : .right
-        borderColo = HippoConfig.shared.appUserType == .customer ? HippoConfig.shared.theme.headerBackgroundColor : UIColor.lightGray
+        borderColo = HippoConfig.shared.appUserType == .customer ? HippoConfig.shared.theme.botTextAndBorderColor : UIColor.lightGray
         paddingY = 10
         paddingX = 20
         borderWidth = 1
-        textColor = HippoConfig.shared.appUserType == .customer ? HippoConfig.shared.theme.headerBackgroundColor : UIColor.lightGray
-        selectedTextColor = HippoConfig.shared.appUserType == .customer ? HippoConfig.shared.theme.headerBackgroundColor : UIColor.lightGray
+        textColor = HippoConfig.shared.appUserType == .customer ? HippoConfig.shared.theme.botTextAndBorderColor : UIColor.lightGray
+        selectedTextColor = HippoConfig.shared.appUserType == .customer ? HippoConfig.shared.theme.botTextAndBorderColor : UIColor.lightGray
         textFont = HippoConfig.shared.theme.incomingMsgFont
     }
 }

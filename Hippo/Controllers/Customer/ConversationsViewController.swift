@@ -1914,7 +1914,6 @@ extension ConversationsViewController: HippoChannelDelegate {
       guard !isTypingLabelHidden, !isTypingSectionPresent() else {
          return
       }
-      
       let typingSectionIndex = IndexSet([tableViewChat.numberOfSections])
       tableViewChat.insertSections(typingSectionIndex, with: .none)
       

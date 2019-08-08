@@ -53,6 +53,12 @@ class NavigationTitleView: UIView {
         titleLabel.font = HippoConfig.shared.theme.headerTextFont
         titleLabel.textColor = HippoConfig.shared.theme.headerTextColor
         
+        if HippoConfig.shared.theme.leftBarButtonImage != nil {
+            backButton.setImage(HippoConfig.shared.theme.leftBarButtonImage, for: .normal)
+        }
+    
+        backButton.tintColor = HippoConfig.shared.theme.headerTextColor
+        
         hideProfileImage()
         
         hideDescription()
