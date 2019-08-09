@@ -11,8 +11,8 @@ import Foundation
 let HippoSDKSource = 1
 let Device_Type_iOS = 2
 var userDetailData = [String: Any]()
-let fuguAppVersion = "1.7.43"
-let versionCode = 227
+let fuguAppVersion = "1.7.44"
+let versionCode = 228
 
 /*
  201 = Bot messages
@@ -44,4 +44,5 @@ let versionCode = 227
  225 *** 1.7.41 = handled HTML entities and removed agent data on updateUserDetail
  226 *** 1.7.42 = updated UI of SDK
  227 *** 1.7.43 = UI Changes
+ 228 *** 1.7.44 = Time issue fixes and UI improvement
  */
