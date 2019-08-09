@@ -175,8 +175,8 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         let parsedMessage = (dict["message"] as? String ?? "").trimWhiteSpacesAndNewLine()
         message = parsedMessage.removeHtmlEntities()
         
-        if let dateTimeString = dict["date_time"] as? String, let dateTime = dateTimeString.toDate {
-            creationDateTime = dateTime
+        if let dateTimeString = dict["date_time"] as? String {
+            creationDateTime = dateTimeString.toDate ?? dateTimeString.toDateWithLinent
         } else {
             creationDateTime = Date()
         }
@@ -281,7 +281,8 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         changeMessageTypeIfReuired()
         changeMessageIfMessageTypeNotSupported()
         
-        attributtedMessage = MessageUIAttributes(message: message, senderName: senderFullName, isSelfMessage: userType.isMyUserType)
+        let isCellHavingImage = chatType.isImageViewAllowed && !userType.isMyUserType && HippoConfig.shared.appUserType != .agent
+        attributtedMessage = MessageUIAttributes(message: message, senderName: senderFullName, isSelfMessage: userType.isMyUserType, isShowingImage: isCellHavingImage)
     }
     
     convenience init?(convoDict: [String: Any]) {

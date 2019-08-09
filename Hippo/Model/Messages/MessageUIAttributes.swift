@@ -19,11 +19,13 @@ struct MessageUIAttributes {
     private(set) var senderNameAttributedString = NSMutableAttributedString()
     private(set) var timeHeight: CGFloat = 30
     
+    private(set) var isShowingImage: Bool = false
     
     private(set) var messageWithName = NSMutableAttributedString()
     
-    init(message: String, senderName: String, isSelfMessage: Bool) {
+    init(message: String, senderName: String, isSelfMessage: Bool, isShowingImage: Bool = false) {
         
+        self.isShowingImage = isShowingImage
         self.isSelfMessage = isSelfMessage
         //        let temp = message.replacingOccurrences(of: "\n", with: "<br>")
         //        var attributedMessageString = temp.stringFromHtml()
@@ -48,7 +50,8 @@ struct MessageUIAttributes {
     }
     
     private func heightOf(attributedString: NSMutableAttributedString) -> CGFloat {
-        let availableWidthSpace = windowScreenWidth - CGFloat(60 + 10) - CGFloat(10 + 5)
+        var availableWidthSpace = windowScreenWidth - CGFloat(60 + 10) - CGFloat(10 + 5) - 1
+        availableWidthSpace -= isShowingImage ? 35 : 0
         let availableBoxSize = CGSize(width: availableWidthSpace, height: CGFloat.greatestFiniteMagnitude)
         
         return attributedString.boundingRect(with: availableBoxSize, options: .usesLineFragmentOrigin, context: nil).size.height
@@ -87,7 +90,7 @@ struct MessageUIAttributes {
         let range = NSRange.init(location: 0, length: aString.length)
         let style = NSMutableParagraphStyle()
         style.alignment = .left
-        style.lineBreakMode = .byWordWrapping
+//        style.lineBreakMode = .byWordWrapping
         
         if isSelfMessage {
             let font = HippoConfig.shared.theme.inOutChatTextFont

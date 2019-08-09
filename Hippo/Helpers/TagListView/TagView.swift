@@ -20,6 +20,7 @@ protocol TagViewCreation {
 open class TagView: UIButton {
 
     var detail: TagViewCreation?
+    var maxWidthPerecentage: CGFloat = 0.7
     
     @IBInspectable open var cornerRadiu: CGFloat = 0 {
         didSet {
@@ -67,7 +68,7 @@ open class TagView: UIButton {
             updateRightInsets()
         }
     }
-
+    
     @IBInspectable open var tagBackgroundColor: UIColor = UIColor.gray {
         didSet {
             reloadStyles()
@@ -215,7 +216,7 @@ open class TagView: UIButton {
         if enableRemoveButton {
             size.width += removeButtonIconSize + paddingX
         }
-        size.width = min(size.width, UIScreen.main.bounds.width * 0.7)
+        size.width = min(size.width, UIScreen.main.bounds.width * maxWidthPerecentage)
         return size
     }
     

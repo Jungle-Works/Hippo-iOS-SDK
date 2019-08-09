@@ -18,6 +18,8 @@ import UIKit
 @IBDesignable
 public class TagListView: UIView {
     
+    var maxWidthPerecentage: CGFloat = 0.7
+    
     @IBInspectable  dynamic var textColor: UIColor = UIColor.white {
         didSet {
             for tagView in tagViews {
@@ -297,7 +299,7 @@ public class TagListView: UIView {
     private func createNewTagView(_ object: TagViewCreation) -> TagView {
         
         let tagView = TagView(title: object.name)
-        
+        tagView.maxWidthPerecentage = maxWidthPerecentage
         tagView.textColor = object.tagViewTextColor
         tagView.detail = object
         tagView.selectedTextColor = selectedTextColor
@@ -316,6 +318,7 @@ public class TagListView: UIView {
         tagView.removeButtonIconSize = removeButtonIconSize
         tagView.enableRemoveButton = enableRemoveButton
         tagView.removeIconLineColor = removeIconLineColor
+        
         
         tagView.addTarget(self, action: #selector(tagPressed(_:)), for: .touchUpInside)
         tagView.removeButton.addTarget(self, action: #selector(removeButtonPressed(_:)), for: .touchUpInside)

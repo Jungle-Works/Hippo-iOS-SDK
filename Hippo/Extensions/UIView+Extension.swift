@@ -113,6 +113,7 @@ extension UIView {
 
 extension TagListView {
     func setTagListViewProperty() {
+        maxWidthPerecentage = 0.9
         alignment = HippoConfig.shared.appUserType == .agent ? .left : .right
         borderColo = HippoConfig.shared.appUserType == .customer ? HippoConfig.shared.theme.botTextAndBorderColor : UIColor.lightGray
         paddingY = 10
