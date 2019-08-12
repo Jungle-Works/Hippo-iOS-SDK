@@ -19,24 +19,24 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OXQ-z8-zBV" customClass="So_UIView" customModule="Hippo" customModuleProvider="target">
-                        <rect key="frame" x="46" y="3.5" width="329" height="448.5"/>
+                        <rect key="frame" x="45" y="3.5" width="330" height="448.5"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </view>
                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GXK-iW-0ll" userLabel="MainContentView" customClass="So_UIView" customModule="Hippo" customModuleProvider="target">
-                        <rect key="frame" x="47.5" y="5" width="326" height="445.5"/>
+                        <rect key="frame" x="46.5" y="5" width="327" height="445.5"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholderImg" translatesAutoresizingMaskIntoConstraints="NO" id="RBB-P6-fLK" customClass="So_UIImageView" customModule="Hippo" customModuleProvider="target">
-                                <rect key="frame" x="5" y="5" width="316" height="421"/>
+                                <rect key="frame" x="5" y="5" width="317" height="421"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hmd-BQ-3pI">
-                                <rect key="frame" x="5" y="5" width="316" height="421"/>
+                                <rect key="frame" x="5" y="5" width="317" height="421"/>
                                 <connections>
                                     <action selector="imageTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="ipu-43-eHU"/>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="L9Y-BK-8bO" customClass="So_UIImageView" customModule="Hippo" customModuleProvider="target">
-                                <rect key="frame" x="139.5" y="199.5" width="47" height="47"/>
+                                <rect key="frame" x="140" y="199.5" width="47" height="47"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="47" id="BZI-Ff-Chr"/>
@@ -44,7 +44,7 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="749" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gk0-zx-Kg9">
-                                <rect key="frame" x="294.5" y="428.5" width="26.5" height="12"/>
+                                <rect key="frame" x="295.5" y="428.5" width="26.5" height="12"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="12" id="0Rj-i7-FOF"/>
@@ -54,7 +54,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W0z-54-U05">
-                                <rect key="frame" x="113" y="195.5" width="100" height="40"/>
+                                <rect key="frame" x="113.5" y="195.5" width="100" height="40"/>
                                 <color key="backgroundColor" red="0.31764705879999999" green="0.2666666667" blue="0.36078431370000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="28d-tM-jmg"/>
@@ -106,9 +106,9 @@
                         </constraints>
                     </imageView>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2Av-KR-FJQ">
-                        <rect key="frame" x="10" y="420.5" width="31" height="30"/>
+                        <rect key="frame" x="10" y="420.5" width="30" height="30"/>
                         <constraints>
-                            <constraint firstAttribute="width" secondItem="2Av-KR-FJQ" secondAttribute="height" multiplier="1:1" constant="1" id="qcw-nY-DJV"/>
+                            <constraint firstAttribute="width" secondItem="2Av-KR-FJQ" secondAttribute="height" multiplier="1:1" id="qcw-nY-DJV"/>
                             <constraint firstAttribute="height" constant="30" id="xe2-5R-CR5"/>
                         </constraints>
                     </imageView>

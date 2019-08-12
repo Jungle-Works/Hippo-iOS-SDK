@@ -39,7 +39,7 @@ public class HippoConfig : NSObject {
     
     public typealias commonHippoCallback = ((_ success: Bool, _ error: Error?) -> ())
     // MARK: - Properties
-    internal var log = CoreLogger(formatter: Formatter.defaultFormat, theme: nil, minLevels: [.error])
+    internal var log = CoreLogger(formatter: Formatter.defaultFormat, theme: nil, minLevels: [.error, .all])
     internal var muidList: [String] = []
     internal var pushArray = [PushInfo]()
     
@@ -458,6 +458,7 @@ public class HippoConfig : NSObject {
         FayeConnection.shared.enviromentSwitchedWith(urlString: fayeBaseURLString)
     }
     
+    
     @available(*, deprecated, renamed: "clearHippoUserData", message: "This Function is renamed to clearHippoUserData")
     public func clearFuguUserData(completion: ((Bool) -> Void)? = nil) {
         clearHippoUserData(completion: completion)
@@ -471,7 +472,14 @@ public class HippoConfig : NSObject {
         case .customer:
             HippoUserDetail.logoutFromFugu(completion: completion)
         }
-        
+    }
+    
+    public static func setBotGroupID(id: Int) {
+        guard  id >= 0  else {
+            HippoConfig.shared.log.error("Bot Id Should be greater then zero!!!!", level: .error)
+            return
+        }
+        HippoProperty.setBotGroupID(id: id)
     }
     
     // MARK: - Push Notification

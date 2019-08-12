@@ -61,10 +61,10 @@
                         </constraints>
                     </imageView>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="yCk-vg-WaF">
-                        <rect key="frame" x="10" y="33.5" width="30" height="29"/>
+                        <rect key="frame" x="10" y="32.5" width="30" height="30"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="30" id="KcF-sD-6Ms"/>
-                            <constraint firstAttribute="width" secondItem="yCk-vg-WaF" secondAttribute="height" multiplier="1:1" constant="1" id="nZB-TO-IzL"/>
+                            <constraint firstAttribute="width" secondItem="yCk-vg-WaF" secondAttribute="height" multiplier="1:1" id="nZB-TO-IzL"/>
                         </constraints>
                     </imageView>
                 </subviews>

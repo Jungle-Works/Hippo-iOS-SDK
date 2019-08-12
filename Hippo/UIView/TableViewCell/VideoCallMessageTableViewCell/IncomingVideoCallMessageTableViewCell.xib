@@ -19,7 +19,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Yt-JO-M0w">
-                        <rect key="frame" x="46" y="5" width="202" height="88"/>
+                        <rect key="frame" x="45" y="5" width="202" height="88"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You missed a video call." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="auy-ee-YMf">
                                 <rect key="frame" x="10" y="5" width="182" height="20.5"/>
@@ -78,7 +78,7 @@
                         </constraints>
                     </view>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="e98-kr-4uI">
-                        <rect key="frame" x="10" y="63" width="31" height="30"/>
+                        <rect key="frame" x="10" y="63" width="30" height="30"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="30" id="Wbu-zI-Ahq"/>
                         </constraints>
@@ -91,7 +91,7 @@
                     <constraint firstItem="e98-kr-4uI" firstAttribute="leading" secondItem="9cx-do-cRA" secondAttribute="leading" constant="10" id="IhK-BY-0S4"/>
                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="2Yt-JO-M0w" secondAttribute="trailing" constant="60" id="SSz-xV-B35"/>
                     <constraint firstItem="e98-kr-4uI" firstAttribute="bottom" secondItem="2Yt-JO-M0w" secondAttribute="bottom" id="VHv-ub-jfp"/>
-                    <constraint firstItem="e98-kr-4uI" firstAttribute="width" secondItem="e98-kr-4uI" secondAttribute="height" multiplier="1:1" constant="1" id="Vzi-Kd-e5z"/>
+                    <constraint firstItem="e98-kr-4uI" firstAttribute="width" secondItem="e98-kr-4uI" secondAttribute="height" multiplier="1:1" id="Vzi-Kd-e5z"/>
                     <constraint firstItem="2Yt-JO-M0w" firstAttribute="top" secondItem="9cx-do-cRA" secondAttribute="top" constant="5" id="shU-fv-l3U"/>
                 </constraints>
             </tableViewCellContentView>

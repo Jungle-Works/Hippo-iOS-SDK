@@ -412,6 +412,10 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
             json["id"] = id
         }
         
+        if HippoProperty.current.shouldSendBotGroupId() {
+            json["bot_group_id"] = HippoProperty.current.botGroupId
+        }
+        
         let notificationType = notification ?? .message
         if let rideDetail = RideDetail.current, let time = rideDetail.getRemaningTime(), typingStatus == .messageRecieved, notificationType == .message  {
             json["estimated_inride_secs"] = time
