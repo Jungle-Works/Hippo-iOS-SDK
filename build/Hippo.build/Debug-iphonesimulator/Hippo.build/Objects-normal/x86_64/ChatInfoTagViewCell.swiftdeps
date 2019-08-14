@@ -1,0 +1,637 @@
+### Swift dependencies file v0 ###
+provides-top-level:
+- "ChatInfoTagViewCell"
+provides-nominal:
+- "5Hippo19ChatInfoTagViewCellC"
+provides-member:
+- ["5Hippo19ChatInfoTagViewCellC", ""]
+provides-dynamic-lookup:
+- "awakeFromNib"
+- "collectionViewOutlet"
+- "heightConstraint"
+- "setSelected"
+- "tagViewOutlet"
+depends-top-level:
+- !private "<"
+- !private "??"
+- "AssignmentPrecedence"
+- "Bool"
+- "ChatInfoTagViewCell"
+- "NSLayoutConstraint"
+- "TagDetail"
+- "TagListView"
+- "UICollectionView"
+- !private "UIFont"
+- "UITableViewCell"
+depends-member:
+- ["Sa", "init"]
+- !private ["Sa", "sort"]
+- ["SK", "init"]
+- !private ["SK", "lowercased"]
+- !private ["SK", "sort"]
+- ["So15CALayerDelegateP", "TagDetail"]
+- !private ["So15CALayerDelegateP", "UIFont"]
+- ["So15CALayerDelegateP", ""]
+- !private ["So15CALayerDelegateP", "addTags"]
+- !private ["So15CALayerDelegateP", "awakeFromNib"]
+- !private ["So15CALayerDelegateP", "init"]
+- !private ["So15CALayerDelegateP", "layoutIfNeeded"]
+- !private ["So15CALayerDelegateP", "removeAllTags"]
+- !private ["So15CALayerDelegateP", "setSelected"]
+- !private ["So15CALayerDelegateP", "tagDetailArray"]
+- !private ["So15CALayerDelegateP", "tagViewOutlet"]
+- !private ["So15CALayerDelegateP", "textFont"]
+- ["s7CVarArgP", "TagDetail"]
+- !private ["s7CVarArgP", "UIFont"]
+- ["s7CVarArgP", ""]
+- !private ["s7CVarArgP", "addTags"]
+- !private ["s7CVarArgP", "awakeFromNib"]
+- ["s7CVarArgP", "init"]
+- !private ["s7CVarArgP", "layoutIfNeeded"]
+- !private ["s7CVarArgP", "lowercased"]
+- !private ["s7CVarArgP", "removeAllTags"]
+- !private ["s7CVarArgP", "setSelected"]
+- !private ["s7CVarArgP", "sort"]
+- !private ["s7CVarArgP", "systemFont"]
+- !private ["s7CVarArgP", "tagDetailArray"]
+- !private ["s7CVarArgP", "tagName"]
+- !private ["s7CVarArgP", "tagViewOutlet"]
+- !private ["s7CVarArgP", "textFont"]
+- ["5Hippo19ChatInfoTagViewCellC", "Bool"]
+- ["5Hippo19ChatInfoTagViewCellC", "NSLayoutConstraint"]
+- ["5Hippo19ChatInfoTagViewCellC", "TagDetail"]
+- ["5Hippo19ChatInfoTagViewCellC", "TagListView"]
+- ["5Hippo19ChatInfoTagViewCellC", "UICollectionView"]
+- !private ["5Hippo19ChatInfoTagViewCellC", "UIFont"]
+- ["5Hippo19ChatInfoTagViewCellC", "awakeFromNib"]
+- ["5Hippo19ChatInfoTagViewCellC", "collectionViewOutlet"]
+- ["5Hippo19ChatInfoTagViewCellC", "deinit"]
+- ["5Hippo19ChatInfoTagViewCellC", "heightConstraint"]
+- ["5Hippo19ChatInfoTagViewCellC", "init"]
+- !private ["5Hippo19ChatInfoTagViewCellC", "layoutIfNeeded"]
+- ["5Hippo19ChatInfoTagViewCellC", "setSelected"]
+- ["5Hippo19ChatInfoTagViewCellC", "setupCellData"]
+- ["5Hippo19ChatInfoTagViewCellC", "tagDetailArray"]
+- ["5Hippo19ChatInfoTagViewCellC", "tagViewOutlet"]
+- ["Sl", "init"]
+- !private ["Sl", "lowercased"]
+- !private ["Sl", "sort"]
+- !private ["SL", "lowercased"]
+- ["10Foundation15ContiguousBytesP", "init"]
+- !private ["10Foundation15ContiguousBytesP", "sort"]
+- ["s28CustomDebugStringConvertibleP", "TagDetail"]
+- !private ["s28CustomDebugStringConvertibleP", "UIFont"]
+- ["s28CustomDebugStringConvertibleP", ""]
+- !private ["s28CustomDebugStringConvertibleP", "addTags"]
+- !private ["s28CustomDebugStringConvertibleP", "awakeFromNib"]
+- ["s28CustomDebugStringConvertibleP", "init"]
+- !private ["s28CustomDebugStringConvertibleP", "layoutIfNeeded"]
+- !private ["s28CustomDebugStringConvertibleP", "lowercased"]
+- !private ["s28CustomDebugStringConvertibleP", "removeAllTags"]
+- !private ["s28CustomDebugStringConvertibleP", "setSelected"]
+- !private ["s28CustomDebugStringConvertibleP", "sort"]
+- !private ["s28CustomDebugStringConvertibleP", "systemFont"]
+- !private ["s28CustomDebugStringConvertibleP", "tagDetailArray"]
+- !private ["s28CustomDebugStringConvertibleP", "tagName"]
+- !private ["s28CustomDebugStringConvertibleP", "tagViewOutlet"]
+- !private ["s28CustomDebugStringConvertibleP", "textFont"]
+- !private ["s17CustomReflectableP", "addTags"]
+- ["s17CustomReflectableP", "init"]
+- !private ["s17CustomReflectableP", "lowercased"]
+- !private ["s17CustomReflectableP", "removeAllTags"]
+- !private ["s17CustomReflectableP", "sort"]
+- !private ["s17CustomReflectableP", "textFont"]
+- ["s23CustomStringConvertibleP", "TagDetail"]
+- !private ["s23CustomStringConvertibleP", "UIFont"]
+- ["s23CustomStringConvertibleP", ""]
+- !private ["s23CustomStringConvertibleP", "addTags"]
+- !private ["s23CustomStringConvertibleP", "awakeFromNib"]
+- ["s23CustomStringConvertibleP", "init"]
+- !private ["s23CustomStringConvertibleP", "layoutIfNeeded"]
+- !private ["s23CustomStringConvertibleP", "lowercased"]
+- !private ["s23CustomStringConvertibleP", "removeAllTags"]
+- !private ["s23CustomStringConvertibleP", "setSelected"]
+- !private ["s23CustomStringConvertibleP", "sort"]
+- !private ["s23CustomStringConvertibleP", "systemFont"]
+- !private ["s23CustomStringConvertibleP", "tagDetailArray"]
+- !private ["s23CustomStringConvertibleP", "tagName"]
+- !private ["s23CustomStringConvertibleP", "tagViewOutlet"]
+- !private ["s23CustomStringConvertibleP", "textFont"]
+- ["10Foundation12DataProtocolP", "init"]
+- !private ["10Foundation12DataProtocolP", "sort"]
+- !private ["Se", "addTags"]
+- ["Se", "init"]
+- !private ["Se", "lowercased"]
+- !private ["Se", "removeAllTags"]
+- !private ["Se", "sort"]
+- !private ["Se", "textFont"]
+- !private ["SE", "addTags"]
+- ["SE", "init"]
+- !private ["SE", "lowercased"]
+- !private ["SE", "removeAllTags"]
+- !private ["SE", "sort"]
+- !private ["SE", "textFont"]
+- ["SQ", "TagDetail"]
+- !private ["SQ", "UIFont"]
+- ["SQ", ""]
+- !private ["SQ", "addTags"]
+- !private ["SQ", "awakeFromNib"]
+- ["SQ", "init"]
+- !private ["SQ", "layoutIfNeeded"]
+- !private ["SQ", "lowercased"]
+- !private ["SQ", "removeAllTags"]
+- !private ["SQ", "setSelected"]
+- !private ["SQ", "sort"]
+- !private ["SQ", "systemFont"]
+- !private ["SQ", "tagDetailArray"]
+- !private ["SQ", "tagName"]
+- !private ["SQ", "tagViewOutlet"]
+- !private ["SQ", "textFont"]
+- ["s25ExpressibleByArrayLiteralP", "init"]
+- !private ["s25ExpressibleByArrayLiteralP", "sort"]
+- !private ["s43ExpressibleByExtendedGraphemeClusterLiteralP", "lowercased"]
+- !private ["s23ExpressibleByNilLiteralP", "addTags"]
+- !private ["s23ExpressibleByNilLiteralP", "removeAllTags"]
+- !private ["s23ExpressibleByNilLiteralP", "textFont"]
+- !private ["s32ExpressibleByStringInterpolationP", "lowercased"]
+- !private ["s26ExpressibleByStringLiteralP", "lowercased"]
+- !private ["s33ExpressibleByUnicodeScalarLiteralP", "lowercased"]
+- ["SH", "TagDetail"]
+- !private ["SH", "UIFont"]
+- ["SH", ""]
+- !private ["SH", "addTags"]
+- !private ["SH", "awakeFromNib"]
+- ["SH", "init"]
+- !private ["SH", "layoutIfNeeded"]
+- !private ["SH", "lowercased"]
+- !private ["SH", "removeAllTags"]
+- !private ["SH", "setSelected"]
+- !private ["SH", "sort"]
+- !private ["SH", "systemFont"]
+- !private ["SH", "tagDetailArray"]
+- !private ["SH", "tagName"]
+- !private ["SH", "tagViewOutlet"]
+- !private ["SH", "textFont"]
+- !private ["5Hippo20KingfisherCompatibleP", "lowercased"]
+- !private ["s25LosslessStringConvertibleP", "lowercased"]
+- !private ["s10MirrorPathP", "lowercased"]
+- ["SM", "init"]
+- !private ["SM", "sort"]
+- ["10Foundation19MutableDataProtocolP", "init"]
+- !private ["10Foundation19MutableDataProtocolP", "sort"]
+- ["So8NSCodingP", "TagDetail"]
+- !private ["So8NSCodingP", "UIFont"]
+- ["So8NSCodingP", ""]
+- !private ["So8NSCodingP", "addTags"]
+- !private ["So8NSCodingP", "awakeFromNib"]
+- !private ["So8NSCodingP", "init"]
+- !private ["So8NSCodingP", "layoutIfNeeded"]
+- !private ["So8NSCodingP", "lowercased"]
+- !private ["So8NSCodingP", "removeAllTags"]
+- !private ["So8NSCodingP", "setSelected"]
+- !private ["So8NSCodingP", "tagDetailArray"]
+- !private ["So8NSCodingP", "tagViewOutlet"]
+- !private ["So8NSCodingP", "textFont"]
+- !private ["So9NSCopyingP", "lowercased"]
+- !private ["So9NSCopyingP", "systemFont"]
+- !private ["So21NSItemProviderReadingP", "lowercased"]
+- !private ["So21NSItemProviderWritingP", "lowercased"]
+- !private ["So16NSMutableCopyingP", "lowercased"]
+- ["So8NSObjectC", "Bool"]
+- ["So8NSObjectC", "NSLayoutConstraint"]
+- ["So8NSObjectC", "TagDetail"]
+- ["So8NSObjectC", "TagListView"]
+- ["So8NSObjectC", "UICollectionView"]
+- !private ["So8NSObjectC", "UIFont"]
+- !private ["So8NSObjectC", "addTags"]
+- ["So8NSObjectC", "awakeFromNib"]
+- ["So8NSObjectC", "collectionViewOutlet"]
+- ["So8NSObjectC", "heightConstraint"]
+- ["So8NSObjectC", "init"]
+- !private ["So8NSObjectC", "layoutIfNeeded"]
+- !private ["So8NSObjectC", "lowercased"]
+- !private ["So8NSObjectC", "removeAllTags"]
+- ["So8NSObjectC", "setSelected"]
+- ["So8NSObjectC", "setupCellData"]
+- !private ["So8NSObjectC", "systemFont"]
+- ["So8NSObjectC", "tagDetailArray"]
+- !private ["So8NSObjectC", "tagName"]
+- ["So8NSObjectC", "tagViewOutlet"]
+- !private ["So8NSObjectC", "textFont"]
+- ["So8NSObjectP", "TagDetail"]
+- !private ["So8NSObjectP", "UIFont"]
+- ["So8NSObjectP", ""]
+- !private ["So8NSObjectP", "addTags"]
+- !private ["So8NSObjectP", "awakeFromNib"]
+- !private ["So8NSObjectP", "init"]
+- !private ["So8NSObjectP", "layoutIfNeeded"]
+- !private ["So8NSObjectP", "lowercased"]
+- !private ["So8NSObjectP", "removeAllTags"]
+- !private ["So8NSObjectP", "setSelected"]
+- !private ["So8NSObjectP", "systemFont"]
+- !private ["So8NSObjectP", "tagDetailArray"]
+- !private ["So8NSObjectP", "tagName"]
+- !private ["So8NSObjectP", "tagViewOutlet"]
+- !private ["So8NSObjectP", "textFont"]
+- !private ["So14NSSecureCodingP", "lowercased"]
+- !private ["So8NSStringC", "lowercased"]
+- !private ["Sq", "addTags"]
+- !private ["Sq", "removeAllTags"]
+- !private ["Sq", "textFont"]
+- ["Sk", "init"]
+- !private ["Sk", "sort"]
+- ["Sm", "init"]
+- !private ["Sm", "lowercased"]
+- !private ["Sm", "sort"]
+- ["ST", "init"]
+- !private ["ST", "lowercased"]
+- !private ["ST", "sort"]
+- !private ["SS", "lowercased"]
+- !private ["Sy", "lowercased"]
+- !private ["5Hippo9TagDetailC", "tagName"]
+- !private ["5Hippo11TagListViewC", "addTags"]
+- !private ["5Hippo11TagListViewC", "removeAllTags"]
+- !private ["5Hippo11TagListViewC", "textFont"]
+- !private ["s16TextOutputStreamP", "lowercased"]
+- !private ["s20TextOutputStreamableP", "lowercased"]
+- ["So29UIAccessibilityIdentificationP", "TagDetail"]
+- !private ["So29UIAccessibilityIdentificationP", "UIFont"]
+- ["So29UIAccessibilityIdentificationP", ""]
+- !private ["So29UIAccessibilityIdentificationP", "addTags"]
+- !private ["So29UIAccessibilityIdentificationP", "awakeFromNib"]
+- !private ["So29UIAccessibilityIdentificationP", "init"]
+- !private ["So29UIAccessibilityIdentificationP", "layoutIfNeeded"]
+- !private ["So29UIAccessibilityIdentificationP", "removeAllTags"]
+- !private ["So29UIAccessibilityIdentificationP", "setSelected"]
+- !private ["So29UIAccessibilityIdentificationP", "tagDetailArray"]
+- !private ["So29UIAccessibilityIdentificationP", "tagViewOutlet"]
+- !private ["So29UIAccessibilityIdentificationP", "textFont"]
+- ["So12UIAppearanceP", "TagDetail"]
+- !private ["So12UIAppearanceP", "UIFont"]
+- ["So12UIAppearanceP", ""]
+- !private ["So12UIAppearanceP", "addTags"]
+- !private ["So12UIAppearanceP", "awakeFromNib"]
+- !private ["So12UIAppearanceP", "init"]
+- !private ["So12UIAppearanceP", "layoutIfNeeded"]
+- !private ["So12UIAppearanceP", "removeAllTags"]
+- !private ["So12UIAppearanceP", "setSelected"]
+- !private ["So12UIAppearanceP", "tagDetailArray"]
+- !private ["So12UIAppearanceP", "tagViewOutlet"]
+- !private ["So12UIAppearanceP", "textFont"]
+- ["So21UIAppearanceContainerP", "TagDetail"]
+- !private ["So21UIAppearanceContainerP", "UIFont"]
+- ["So21UIAppearanceContainerP", ""]
+- !private ["So21UIAppearanceContainerP", "addTags"]
+- !private ["So21UIAppearanceContainerP", "awakeFromNib"]
+- !private ["So21UIAppearanceContainerP", "init"]
+- !private ["So21UIAppearanceContainerP", "layoutIfNeeded"]
+- !private ["So21UIAppearanceContainerP", "removeAllTags"]
+- !private ["So21UIAppearanceContainerP", "setSelected"]
+- !private ["So21UIAppearanceContainerP", "tagDetailArray"]
+- !private ["So21UIAppearanceContainerP", "tagViewOutlet"]
+- !private ["So21UIAppearanceContainerP", "textFont"]
+- ["So17UICoordinateSpaceP", "TagDetail"]
+- !private ["So17UICoordinateSpaceP", "UIFont"]
+- ["So17UICoordinateSpaceP", ""]
+- !private ["So17UICoordinateSpaceP", "addTags"]
+- !private ["So17UICoordinateSpaceP", "awakeFromNib"]
+- !private ["So17UICoordinateSpaceP", "init"]
+- !private ["So17UICoordinateSpaceP", "layoutIfNeeded"]
+- !private ["So17UICoordinateSpaceP", "removeAllTags"]
+- !private ["So17UICoordinateSpaceP", "setSelected"]
+- !private ["So17UICoordinateSpaceP", "tagDetailArray"]
+- !private ["So17UICoordinateSpaceP", "tagViewOutlet"]
+- !private ["So17UICoordinateSpaceP", "textFont"]
+- ["So13UIDynamicItemP", "TagDetail"]
+- !private ["So13UIDynamicItemP", "UIFont"]
+- ["So13UIDynamicItemP", ""]
+- !private ["So13UIDynamicItemP", "addTags"]
+- !private ["So13UIDynamicItemP", "awakeFromNib"]
+- !private ["So13UIDynamicItemP", "init"]
+- !private ["So13UIDynamicItemP", "layoutIfNeeded"]
+- !private ["So13UIDynamicItemP", "removeAllTags"]
+- !private ["So13UIDynamicItemP", "setSelected"]
+- !private ["So13UIDynamicItemP", "tagDetailArray"]
+- !private ["So13UIDynamicItemP", "tagViewOutlet"]
+- !private ["So13UIDynamicItemP", "textFont"]
+- ["So18UIFocusEnvironmentP", "TagDetail"]
+- !private ["So18UIFocusEnvironmentP", "UIFont"]
+- ["So18UIFocusEnvironmentP", ""]
+- !private ["So18UIFocusEnvironmentP", "addTags"]
+- !private ["So18UIFocusEnvironmentP", "awakeFromNib"]
+- !private ["So18UIFocusEnvironmentP", "init"]
+- !private ["So18UIFocusEnvironmentP", "layoutIfNeeded"]
+- !private ["So18UIFocusEnvironmentP", "removeAllTags"]
+- !private ["So18UIFocusEnvironmentP", "setSelected"]
+- !private ["So18UIFocusEnvironmentP", "tagDetailArray"]
+- !private ["So18UIFocusEnvironmentP", "tagViewOutlet"]
+- !private ["So18UIFocusEnvironmentP", "textFont"]
+- ["So11UIFocusItemP", "TagDetail"]
+- !private ["So11UIFocusItemP", "UIFont"]
+- ["So11UIFocusItemP", ""]
+- !private ["So11UIFocusItemP", "addTags"]
+- !private ["So11UIFocusItemP", "awakeFromNib"]
+- !private ["So11UIFocusItemP", "init"]
+- !private ["So11UIFocusItemP", "layoutIfNeeded"]
+- !private ["So11UIFocusItemP", "removeAllTags"]
+- !private ["So11UIFocusItemP", "setSelected"]
+- !private ["So11UIFocusItemP", "tagDetailArray"]
+- !private ["So11UIFocusItemP", "tagViewOutlet"]
+- !private ["So11UIFocusItemP", "textFont"]
+- ["So20UIFocusItemContainerP", "TagDetail"]
+- !private ["So20UIFocusItemContainerP", "UIFont"]
+- ["So20UIFocusItemContainerP", ""]
+- !private ["So20UIFocusItemContainerP", "addTags"]
+- !private ["So20UIFocusItemContainerP", "awakeFromNib"]
+- !private ["So20UIFocusItemContainerP", "init"]
+- !private ["So20UIFocusItemContainerP", "layoutIfNeeded"]
+- !private ["So20UIFocusItemContainerP", "removeAllTags"]
+- !private ["So20UIFocusItemContainerP", "setSelected"]
+- !private ["So20UIFocusItemContainerP", "tagDetailArray"]
+- !private ["So20UIFocusItemContainerP", "tagViewOutlet"]
+- !private ["So20UIFocusItemContainerP", "textFont"]
+- !private ["So6UIFontC", "systemFont"]
+- ["So27UIGestureRecognizerDelegateP", "TagDetail"]
+- !private ["So27UIGestureRecognizerDelegateP", "UIFont"]
+- ["So27UIGestureRecognizerDelegateP", ""]
+- !private ["So27UIGestureRecognizerDelegateP", "awakeFromNib"]
+- !private ["So27UIGestureRecognizerDelegateP", "init"]
+- !private ["So27UIGestureRecognizerDelegateP", "layoutIfNeeded"]
+- !private ["So27UIGestureRecognizerDelegateP", "setSelected"]
+- !private ["So27UIGestureRecognizerDelegateP", "tagDetailArray"]
+- !private ["So27UIGestureRecognizerDelegateP", "tagViewOutlet"]
+- ["So30UIPasteConfigurationSupportingP", "TagDetail"]
+- !private ["So30UIPasteConfigurationSupportingP", "UIFont"]
+- ["So30UIPasteConfigurationSupportingP", ""]
+- !private ["So30UIPasteConfigurationSupportingP", "addTags"]
+- !private ["So30UIPasteConfigurationSupportingP", "awakeFromNib"]
+- !private ["So30UIPasteConfigurationSupportingP", "init"]
+- !private ["So30UIPasteConfigurationSupportingP", "layoutIfNeeded"]
+- !private ["So30UIPasteConfigurationSupportingP", "removeAllTags"]
+- !private ["So30UIPasteConfigurationSupportingP", "setSelected"]
+- !private ["So30UIPasteConfigurationSupportingP", "tagDetailArray"]
+- !private ["So30UIPasteConfigurationSupportingP", "tagViewOutlet"]
+- !private ["So30UIPasteConfigurationSupportingP", "textFont"]
+- ["So11UIResponderC", "Bool"]
+- ["So11UIResponderC", "NSLayoutConstraint"]
+- ["So11UIResponderC", "TagDetail"]
+- ["So11UIResponderC", "TagListView"]
+- ["So11UIResponderC", "UICollectionView"]
+- !private ["So11UIResponderC", "UIFont"]
+- !private ["So11UIResponderC", "addTags"]
+- ["So11UIResponderC", "awakeFromNib"]
+- ["So11UIResponderC", "collectionViewOutlet"]
+- ["So11UIResponderC", "heightConstraint"]
+- ["So11UIResponderC", "init"]
+- !private ["So11UIResponderC", "layoutIfNeeded"]
+- !private ["So11UIResponderC", "removeAllTags"]
+- ["So11UIResponderC", "setSelected"]
+- ["So11UIResponderC", "setupCellData"]
+- ["So11UIResponderC", "tagDetailArray"]
+- ["So11UIResponderC", "tagViewOutlet"]
+- !private ["So11UIResponderC", "textFont"]
+- ["So30UIResponderStandardEditActionsP", "TagDetail"]
+- !private ["So30UIResponderStandardEditActionsP", "UIFont"]
+- ["So30UIResponderStandardEditActionsP", ""]
+- !private ["So30UIResponderStandardEditActionsP", "addTags"]
+- !private ["So30UIResponderStandardEditActionsP", "awakeFromNib"]
+- !private ["So30UIResponderStandardEditActionsP", "init"]
+- !private ["So30UIResponderStandardEditActionsP", "layoutIfNeeded"]
+- !private ["So30UIResponderStandardEditActionsP", "removeAllTags"]
+- !private ["So30UIResponderStandardEditActionsP", "setSelected"]
+- !private ["So30UIResponderStandardEditActionsP", "tagDetailArray"]
+- !private ["So30UIResponderStandardEditActionsP", "tagViewOutlet"]
+- !private ["So30UIResponderStandardEditActionsP", "textFont"]
+- ["So15UITableViewCellC", "Bool"]
+- ["So15UITableViewCellC", "NSLayoutConstraint"]
+- ["So15UITableViewCellC", "TagDetail"]
+- ["So15UITableViewCellC", "TagListView"]
+- ["So15UITableViewCellC", "UICollectionView"]
+- !private ["So15UITableViewCellC", "UIFont"]
+- ["So15UITableViewCellC", ""]
+- ["So15UITableViewCellC", "awakeFromNib"]
+- ["So15UITableViewCellC", "collectionViewOutlet"]
+- ["So15UITableViewCellC", "heightConstraint"]
+- ["So15UITableViewCellC", "init"]
+- !private ["So15UITableViewCellC", "layoutIfNeeded"]
+- ["So15UITableViewCellC", "setSelected"]
+- ["So15UITableViewCellC", "setupCellData"]
+- ["So15UITableViewCellC", "tagDetailArray"]
+- ["So15UITableViewCellC", "tagViewOutlet"]
+- ["So18UITraitEnvironmentP", "TagDetail"]
+- !private ["So18UITraitEnvironmentP", "UIFont"]
+- ["So18UITraitEnvironmentP", ""]
+- !private ["So18UITraitEnvironmentP", "addTags"]
+- !private ["So18UITraitEnvironmentP", "awakeFromNib"]
+- !private ["So18UITraitEnvironmentP", "init"]
+- !private ["So18UITraitEnvironmentP", "layoutIfNeeded"]
+- !private ["So18UITraitEnvironmentP", "removeAllTags"]
+- !private ["So18UITraitEnvironmentP", "setSelected"]
+- !private ["So18UITraitEnvironmentP", "tagDetailArray"]
+- !private ["So18UITraitEnvironmentP", "tagViewOutlet"]
+- !private ["So18UITraitEnvironmentP", "textFont"]
+- ["So23UIUserActivityRestoringP", "TagDetail"]
+- !private ["So23UIUserActivityRestoringP", "UIFont"]
+- ["So23UIUserActivityRestoringP", ""]
+- !private ["So23UIUserActivityRestoringP", "addTags"]
+- !private ["So23UIUserActivityRestoringP", "awakeFromNib"]
+- !private ["So23UIUserActivityRestoringP", "init"]
+- !private ["So23UIUserActivityRestoringP", "layoutIfNeeded"]
+- !private ["So23UIUserActivityRestoringP", "removeAllTags"]
+- !private ["So23UIUserActivityRestoringP", "setSelected"]
+- !private ["So23UIUserActivityRestoringP", "tagDetailArray"]
+- !private ["So23UIUserActivityRestoringP", "tagViewOutlet"]
+- !private ["So23UIUserActivityRestoringP", "textFont"]
+- ["So6UIViewC", "Bool"]
+- ["So6UIViewC", "NSLayoutConstraint"]
+- ["So6UIViewC", "TagDetail"]
+- ["So6UIViewC", "TagListView"]
+- ["So6UIViewC", "UICollectionView"]
+- !private ["So6UIViewC", "UIFont"]
+- !private ["So6UIViewC", "addTags"]
+- ["So6UIViewC", "awakeFromNib"]
+- ["So6UIViewC", "collectionViewOutlet"]
+- ["So6UIViewC", "heightConstraint"]
+- ["So6UIViewC", "init"]
+- !private ["So6UIViewC", "layoutIfNeeded"]
+- !private ["So6UIViewC", "removeAllTags"]
+- ["So6UIViewC", "setSelected"]
+- ["So6UIViewC", "setupCellData"]
+- ["So6UIViewC", "tagDetailArray"]
+- ["So6UIViewC", "tagViewOutlet"]
+- !private ["So6UIViewC", "textFont"]
+- ["s14_ArrayProtocolP", "init"]
+- !private ["s14_ArrayProtocolP", "sort"]
+- !private ["s30_CustomPlaygroundQuickLookableP", "lowercased"]
+- ["s24_DestructorSafeContainerP", "init"]
+- !private ["s24_DestructorSafeContainerP", "sort"]
+- !private ["s51_ExpressibleByBuiltinExtendedGraphemeClusterLiteralP", "lowercased"]
+- !private ["s34_ExpressibleByBuiltinStringLiteralP", "lowercased"]
+- !private ["s41_ExpressibleByBuiltinUnicodeScalarLiteralP", "lowercased"]
+- ["s19_HasContiguousBytesP", "init"]
+- !private ["s19_HasContiguousBytesP", "lowercased"]
+- !private ["s19_HasContiguousBytesP", "sort"]
+- ["s35_HasCustomAnyHashableRepresentationP", "init"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "lowercased"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "sort"]
+- ["10Foundation27_KeyValueCodingAndObservingP", "TagDetail"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "UIFont"]
+- ["10Foundation27_KeyValueCodingAndObservingP", ""]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "addTags"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "awakeFromNib"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "init"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "layoutIfNeeded"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "lowercased"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "removeAllTags"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "setSelected"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "systemFont"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "tagDetailArray"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "tagName"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "tagViewOutlet"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "textFont"]
+- !private ["s21_ObjectiveCBridgeableP", "addTags"]
+- ["s21_ObjectiveCBridgeableP", "init"]
+- !private ["s21_ObjectiveCBridgeableP", "lowercased"]
+- !private ["s21_ObjectiveCBridgeableP", "removeAllTags"]
+- !private ["s21_ObjectiveCBridgeableP", "sort"]
+- !private ["s21_ObjectiveCBridgeableP", "textFont"]
+- ["s38__DefaultCustomPlaygroundQuickLookableP", "TagDetail"]
+- !private ["s38__DefaultCustomPlaygroundQuickLookableP", "UIFont"]
+- ["s38__DefaultCustomPlaygroundQuickLookableP", ""]
+- !private ["s38__DefaultCustomPlaygroundQuickLookableP", "addTags"]
+- !private ["s38__DefaultCustomPlaygroundQuickLookableP", "awakeFromNib"]
+- !private ["s38__DefaultCustomPlaygroundQuickLookableP", "init"]
+- !private ["s38__DefaultCustomPlaygroundQuickLookableP", "layoutIfNeeded"]
+- !private ["s38__DefaultCustomPlaygroundQuickLookableP", "removeAllTags"]
+- !private ["s38__DefaultCustomPlaygroundQuickLookableP", "setSelected"]
+- !private ["s38__DefaultCustomPlaygroundQuickLookableP", "tagDetailArray"]
+- !private ["s38__DefaultCustomPlaygroundQuickLookableP", "tagViewOutlet"]
+- !private ["s38__DefaultCustomPlaygroundQuickLookableP", "textFont"]
+depends-nominal:
+- "Sa"
+- "SK"
+- "So15CALayerDelegateP"
+- "s7CVarArgP"
+- "5Hippo19ChatInfoTagViewCellC"
+- "Sl"
+- !private "SL"
+- "10Foundation15ContiguousBytesP"
+- "s28CustomDebugStringConvertibleP"
+- "s17CustomReflectableP"
+- "s23CustomStringConvertibleP"
+- "10Foundation12DataProtocolP"
+- "Se"
+- "SE"
+- "SQ"
+- "s25ExpressibleByArrayLiteralP"
+- !private "s43ExpressibleByExtendedGraphemeClusterLiteralP"
+- !private "s23ExpressibleByNilLiteralP"
+- !private "s32ExpressibleByStringInterpolationP"
+- !private "s26ExpressibleByStringLiteralP"
+- !private "s33ExpressibleByUnicodeScalarLiteralP"
+- "SH"
+- !private "5Hippo20KingfisherCompatibleP"
+- !private "s25LosslessStringConvertibleP"
+- !private "s10MirrorPathP"
+- "SM"
+- "10Foundation19MutableDataProtocolP"
+- "So8NSCodingP"
+- !private "So9NSCopyingP"
+- !private "So21NSItemProviderReadingP"
+- !private "So21NSItemProviderWritingP"
+- !private "So16NSMutableCopyingP"
+- "So8NSObjectC"
+- "So8NSObjectP"
+- !private "So14NSSecureCodingP"
+- !private "So8NSStringC"
+- !private "Sq"
+- "Sk"
+- "Sm"
+- "ST"
+- !private "SS"
+- !private "Sy"
+- !private "5Hippo9TagDetailC"
+- !private "5Hippo11TagListViewC"
+- !private "s16TextOutputStreamP"
+- !private "s20TextOutputStreamableP"
+- "So29UIAccessibilityIdentificationP"
+- "So12UIAppearanceP"
+- "So21UIAppearanceContainerP"
+- "So17UICoordinateSpaceP"
+- "So13UIDynamicItemP"
+- "So18UIFocusEnvironmentP"
+- "So11UIFocusItemP"
+- "So20UIFocusItemContainerP"
+- !private "So6UIFontC"
+- "So27UIGestureRecognizerDelegateP"
+- "So30UIPasteConfigurationSupportingP"
+- "So11UIResponderC"
+- "So30UIResponderStandardEditActionsP"
+- "So15UITableViewCellC"
+- "So18UITraitEnvironmentP"
+- "So23UIUserActivityRestoringP"
+- "So6UIViewC"
+- "s14_ArrayProtocolP"
+- !private "s30_CustomPlaygroundQuickLookableP"
+- "s24_DestructorSafeContainerP"
+- !private "s51_ExpressibleByBuiltinExtendedGraphemeClusterLiteralP"
+- !private "s34_ExpressibleByBuiltinStringLiteralP"
+- !private "s41_ExpressibleByBuiltinUnicodeScalarLiteralP"
+- "s19_HasContiguousBytesP"
+- "s35_HasCustomAnyHashableRepresentationP"
+- "10Foundation27_KeyValueCodingAndObservingP"
+- "s21_ObjectiveCBridgeableP"
+- "s38__DefaultCustomPlaygroundQuickLookableP"
+depends-dynamic-lookup:
+depends-external:
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/ObjectiveC.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreMedia.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/simd.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreImage.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/QuartzCore.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Accelerate.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Dispatch.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Metal.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Darwin.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreLocation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Foundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/AVFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreAudio.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/MediaPlayer.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreGraphics.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/os.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Photos.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Swift.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/UIKit.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/SwiftOnoneSupport.swiftmodule"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Hippo.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Helpers/TRWDownloadManager/TWRDownloadManager.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/SocketRocket/SocketRocket.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/SocketRocket/SRWebSocket.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/MZFayeClient/MZFayeClient.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/unextended-module.modulemap"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/usr/include/objc/ObjectiveC.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/OpenGLES.framework/Headers/OpenGLES.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreMedia.framework/Headers/CoreMedia.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreImage.framework/Headers/CoreImage.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/QuartzCore.framework/Headers/QuartzCore.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Accelerate.framework/Headers/Accelerate.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Dispatch.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/QuickLook.framework/Headers/QuickLook.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Metal.framework/Headers/Metal.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/usr/include/Darwin.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreLocation.framework/Headers/CoreLocation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Foundation.framework/Headers/Foundation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/AVFoundation.framework/Headers/AVFoundation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/MediaPlayer.framework/Headers/MediaPlayer.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreGraphics.framework/Headers/CoreGraphics.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/UserNotifications.framework/Headers/UserNotifications.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/os.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Photos.framework/Headers/Photos.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/UIKit.framework/Headers/UIKit.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreText.framework/Headers/CoreText.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/MediaToolbox.framework/Headers/MediaToolbox.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/AudioToolbox.framework/Headers/AudioToolbox.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Security.framework/Headers/Security.apinotes"
+interface-hash: "2a22f84c99405a05e5f17643497ba870"

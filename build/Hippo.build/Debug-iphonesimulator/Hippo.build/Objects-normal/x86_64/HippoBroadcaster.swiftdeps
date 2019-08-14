@@ -1,0 +1,639 @@
+### Swift dependencies file v0 ###
+provides-top-level:
+- "HippoBroadcaster"
+provides-nominal:
+- "5Hippo0A11BroadcasterC"
+provides-member:
+- ["5Hippo0A11BroadcasterC", ""]
+provides-dynamic-lookup:
+depends-top-level:
+- !private "!"
+- !private "&&"
+- !private "+="
+- !private ">"
+- !private "??"
+- "AgentConversationViewController"
+- !private "AgentEndPoints"
+- "AssignmentPrecedence"
+- "Bool"
+- !private "BroadcastDetailStore"
+- "BroadcastDetailViewController"
+- "BroadcastInfo"
+- "BroadcastStore"
+- !private "CastingPrecedence"
+- "CustomerInfo"
+- !private "HTTPClient"
+- "HippoBroadcaster"
+- !private "HippoConfig"
+- "Int"
+- "String"
+- "TagDetail"
+- "UserDetail"
+depends-member:
+- !private ["5Hippo23ActionTableViewDelegateP", "getWith"]
+- !private ["s18AdditiveArithmeticP", "init"]
+- !private ["5Hippo31AgentConversationViewControllerC", "getWith"]
+- !private ["5Hippo11AgentDetailC", "fuguToken"]
+- !private ["5Hippo14AgentEndPointsO", "deinit"]
+- !private ["5Hippo14AgentEndPointsO", "getGroupingTag"]
+- !private ["5Hippo14AgentEndPointsO", "rawValue"]
+- !private ["5Hippo14AgentEndPointsO", "sendBroadcastMessage"]
+- !private ["Sa", "append"]
+- !private ["Sa", "count"]
+- !private ["Sa", "enumerated"]
+- ["Sa", "init"]
+- !private ["Sa", "insert"]
+- !private ["Sa", "subscript"]
+- !private ["s10ArraySliceV", "isSelected"]
+- !private ["SK", "append"]
+- !private ["SK", "count"]
+- !private ["SK", "enumerated"]
+- ["SK", "init"]
+- !private ["SK", "insert"]
+- !private ["SK", "isEmpty"]
+- !private ["SK", "isSelected"]
+- !private ["SK", "subscript"]
+- !private ["Sz", "init"]
+- !private ["5Hippo20BroadcastDetailStoreC", "init"]
+- !private ["5Hippo28BroadcastDetailStoreDelegateP", "get"]
+- !private ["5Hippo29BroadcastDetailViewControllerC", "get"]
+- !private ["5Hippo14BroadcastStoreC", "getBroadcastFromInital"]
+- !private ["5Hippo14BroadcastStoreC", "init"]
+- !private ["5Hippo31BroadcastUserStatusCellDelegateP", "get"]
+- !private ["s7CVarArgP", "agentDetail"]
+- !private ["s7CVarArgP", "append"]
+- !private ["s7CVarArgP", "count"]
+- !private ["s7CVarArgP", "customerName"]
+- !private ["s7CVarArgP", "enumerated"]
+- !private ["s7CVarArgP", "fuguToken"]
+- !private ["s7CVarArgP", "get"]
+- !private ["s7CVarArgP", "getAllTeamObject"]
+- !private ["s7CVarArgP", "getBroadcastFromInital"]
+- !private ["s7CVarArgP", "getWith"]
+- ["s7CVarArgP", "init"]
+- !private ["s7CVarArgP", "insert"]
+- !private ["s7CVarArgP", "isEmpty"]
+- !private ["s7CVarArgP", "repliedOn"]
+- !private ["s7CVarArgP", "shared"]
+- !private ["s7CVarArgP", "strings"]
+- !private ["s7CVarArgP", "subscript"]
+- !private ["s7CVarArgP", "tagId"]
+- !private ["Sl", "append"]
+- !private ["Sl", "count"]
+- !private ["Sl", "enumerated"]
+- ["Sl", "init"]
+- !private ["Sl", "insert"]
+- !private ["Sl", "isEmpty"]
+- !private ["Sl", "isSelected"]
+- !private ["Sl", "subscript"]
+- !private ["SL", "init"]
+- !private ["SL", "isEmpty"]
+- !private ["10Foundation15ContiguousBytesP", "append"]
+- !private ["10Foundation15ContiguousBytesP", "count"]
+- !private ["10Foundation15ContiguousBytesP", "enumerated"]
+- ["10Foundation15ContiguousBytesP", "init"]
+- !private ["10Foundation15ContiguousBytesP", "insert"]
+- !private ["10Foundation15ContiguousBytesP", "isSelected"]
+- !private ["10Foundation15ContiguousBytesP", "subscript"]
+- !private ["5Hippo26CoreDocumentPickerDelegateP", "getWith"]
+- !private ["5Hippo25CoreMediaSelectorDelegateP", "getWith"]
+- !private ["5Hippo21CreatePaymentDelegateP", "getWith"]
+- !private ["s28CustomDebugStringConvertibleP", "agentDetail"]
+- !private ["s28CustomDebugStringConvertibleP", "append"]
+- !private ["s28CustomDebugStringConvertibleP", "count"]
+- !private ["s28CustomDebugStringConvertibleP", "customerName"]
+- !private ["s28CustomDebugStringConvertibleP", "enumerated"]
+- !private ["s28CustomDebugStringConvertibleP", "fuguToken"]
+- !private ["s28CustomDebugStringConvertibleP", "get"]
+- !private ["s28CustomDebugStringConvertibleP", "getAllTeamObject"]
+- !private ["s28CustomDebugStringConvertibleP", "getBroadcastFromInital"]
+- !private ["s28CustomDebugStringConvertibleP", "getWith"]
+- ["s28CustomDebugStringConvertibleP", "init"]
+- !private ["s28CustomDebugStringConvertibleP", "insert"]
+- !private ["s28CustomDebugStringConvertibleP", "isEmpty"]
+- !private ["s28CustomDebugStringConvertibleP", "isSelected"]
+- !private ["s28CustomDebugStringConvertibleP", "repliedOn"]
+- !private ["s28CustomDebugStringConvertibleP", "shared"]
+- !private ["s28CustomDebugStringConvertibleP", "strings"]
+- !private ["s28CustomDebugStringConvertibleP", "subscript"]
+- !private ["s28CustomDebugStringConvertibleP", "tagId"]
+- !private ["s17CustomReflectableP", "append"]
+- !private ["s17CustomReflectableP", "count"]
+- !private ["s17CustomReflectableP", "enumerated"]
+- ["s17CustomReflectableP", "init"]
+- !private ["s17CustomReflectableP", "insert"]
+- !private ["s17CustomReflectableP", "isEmpty"]
+- !private ["s17CustomReflectableP", "isSelected"]
+- !private ["s17CustomReflectableP", "subscript"]
+- !private ["s23CustomStringConvertibleP", "agentDetail"]
+- !private ["s23CustomStringConvertibleP", "append"]
+- !private ["s23CustomStringConvertibleP", "count"]
+- !private ["s23CustomStringConvertibleP", "customerName"]
+- !private ["s23CustomStringConvertibleP", "enumerated"]
+- !private ["s23CustomStringConvertibleP", "fuguToken"]
+- !private ["s23CustomStringConvertibleP", "get"]
+- !private ["s23CustomStringConvertibleP", "getAllTeamObject"]
+- !private ["s23CustomStringConvertibleP", "getBroadcastFromInital"]
+- !private ["s23CustomStringConvertibleP", "getWith"]
+- ["s23CustomStringConvertibleP", "init"]
+- !private ["s23CustomStringConvertibleP", "insert"]
+- !private ["s23CustomStringConvertibleP", "isEmpty"]
+- !private ["s23CustomStringConvertibleP", "isSelected"]
+- !private ["s23CustomStringConvertibleP", "repliedOn"]
+- !private ["s23CustomStringConvertibleP", "shared"]
+- !private ["s23CustomStringConvertibleP", "strings"]
+- !private ["s23CustomStringConvertibleP", "subscript"]
+- !private ["s23CustomStringConvertibleP", "tagId"]
+- !private ["5Hippo12CustomerInfoC", "customerName"]
+- !private ["5Hippo12CustomerInfoC", "repliedOn"]
+- !private ["10Foundation12DataProtocolP", "append"]
+- !private ["10Foundation12DataProtocolP", "count"]
+- !private ["10Foundation12DataProtocolP", "enumerated"]
+- ["10Foundation12DataProtocolP", "init"]
+- !private ["10Foundation12DataProtocolP", "insert"]
+- !private ["10Foundation12DataProtocolP", "isSelected"]
+- !private ["10Foundation12DataProtocolP", "subscript"]
+- !private ["Se", "append"]
+- !private ["Se", "count"]
+- !private ["Se", "enumerated"]
+- ["Se", "init"]
+- !private ["Se", "insert"]
+- !private ["Se", "isEmpty"]
+- !private ["Se", "subscript"]
+- !private ["SD", "subscript"]
+- !private ["5Hippo29DocumentTableViewCellDelegateP", "getWith"]
+- !private ["SE", "append"]
+- !private ["SE", "count"]
+- !private ["SE", "enumerated"]
+- ["SE", "init"]
+- !private ["SE", "insert"]
+- !private ["SE", "isEmpty"]
+- !private ["SE", "subscript"]
+- !private ["SQ", "POST"]
+- !private ["SQ", "agentDetail"]
+- !private ["SQ", "append"]
+- !private ["SQ", "count"]
+- !private ["SQ", "customerName"]
+- !private ["SQ", "enumerated"]
+- !private ["SQ", "fuguToken"]
+- !private ["SQ", "get"]
+- !private ["SQ", "getAllTeamObject"]
+- !private ["SQ", "getBroadcastFromInital"]
+- !private ["SQ", "getGroupingTag"]
+- !private ["SQ", "getWith"]
+- ["SQ", "init"]
+- !private ["SQ", "insert"]
+- !private ["SQ", "isEmpty"]
+- !private ["SQ", "isSelected"]
+- !private ["SQ", "rawValue"]
+- !private ["SQ", "repliedOn"]
+- !private ["SQ", "sendBroadcastMessage"]
+- !private ["SQ", "shared"]
+- !private ["SQ", "strings"]
+- !private ["SQ", "subscript"]
+- !private ["SQ", "tagId"]
+- !private ["s5ErrorP", "localizedDescription"]
+- !private ["s25ExpressibleByArrayLiteralP", "append"]
+- !private ["s25ExpressibleByArrayLiteralP", "count"]
+- !private ["s25ExpressibleByArrayLiteralP", "enumerated"]
+- ["s25ExpressibleByArrayLiteralP", "init"]
+- !private ["s25ExpressibleByArrayLiteralP", "insert"]
+- !private ["s25ExpressibleByArrayLiteralP", "isSelected"]
+- !private ["s25ExpressibleByArrayLiteralP", "subscript"]
+- !private ["s30ExpressibleByDictionaryLiteralP", "subscript"]
+- !private ["s43ExpressibleByExtendedGraphemeClusterLiteralP", "isEmpty"]
+- !private ["s27ExpressibleByIntegerLiteralP", "init"]
+- !private ["s32ExpressibleByStringInterpolationP", "isEmpty"]
+- !private ["s26ExpressibleByStringLiteralP", "isEmpty"]
+- !private ["s33ExpressibleByUnicodeScalarLiteralP", "isEmpty"]
+- !private ["s17FixedWidthIntegerP", "init"]
+- !private ["5Hippo10HTTPClientC", "makeConcurrentConnectionWith"]
+- !private ["SH", "POST"]
+- !private ["SH", "agentDetail"]
+- !private ["SH", "append"]
+- !private ["SH", "count"]
+- !private ["SH", "customerName"]
+- !private ["SH", "enumerated"]
+- !private ["SH", "fuguToken"]
+- !private ["SH", "get"]
+- !private ["SH", "getAllTeamObject"]
+- !private ["SH", "getBroadcastFromInital"]
+- !private ["SH", "getGroupingTag"]
+- !private ["SH", "getWith"]
+- ["SH", "init"]
+- !private ["SH", "insert"]
+- !private ["SH", "isEmpty"]
+- !private ["SH", "isSelected"]
+- !private ["SH", "rawValue"]
+- !private ["SH", "repliedOn"]
+- !private ["SH", "sendBroadcastMessage"]
+- !private ["SH", "shared"]
+- !private ["SH", "strings"]
+- !private ["SH", "subscript"]
+- !private ["SH", "tagId"]
+- ["5Hippo0A11BroadcasterC", "AgentConversationViewController"]
+- !private ["5Hippo0A11BroadcasterC", "AgentEndPoints"]
+- ["5Hippo0A11BroadcasterC", "Bool"]
+- !private ["5Hippo0A11BroadcasterC", "BroadcastDetailStore"]
+- ["5Hippo0A11BroadcasterC", "BroadcastDetailViewController"]
+- ["5Hippo0A11BroadcasterC", "BroadcastInfo"]
+- ["5Hippo0A11BroadcasterC", "BroadcastStore"]
+- ["5Hippo0A11BroadcasterC", "CustomerInfo"]
+- !private ["5Hippo0A11BroadcasterC", "HTTPClient"]
+- ["5Hippo0A11BroadcasterC", "HippoBroadcaster"]
+- !private ["5Hippo0A11BroadcasterC", "HippoConfig"]
+- ["5Hippo0A11BroadcasterC", "Int"]
+- ["5Hippo0A11BroadcasterC", "String"]
+- ["5Hippo0A11BroadcasterC", "TagDetail"]
+- ["5Hippo0A11BroadcasterC", "UserDetail"]
+- ["5Hippo0A11BroadcasterC", "agents"]
+- ["5Hippo0A11BroadcasterC", "copy"]
+- ["5Hippo0A11BroadcasterC", "getAgentsList"]
+- ["5Hippo0A11BroadcasterC", "getAllSelectedAgent"]
+- ["5Hippo0A11BroadcasterC", "getBroadcastCompletion"]
+- ["5Hippo0A11BroadcasterC", "getBroadcastDetailInstance"]
+- ["5Hippo0A11BroadcasterC", "getBroadcastTags"]
+- ["5Hippo0A11BroadcasterC", "getChatboxViewController"]
+- !private ["5Hippo0A11BroadcasterC", "getParamsForBroadcastMessage"]
+- !private ["5Hippo0A11BroadcasterC", "getParamsForGroupingTags"]
+- ["5Hippo0A11BroadcasterC", "getPreviousBroadcastMessage"]
+- ["5Hippo0A11BroadcasterC", "getSelectedAgentCount"]
+- ["5Hippo0A11BroadcasterC", "getSelectedAgentsIds"]
+- ["5Hippo0A11BroadcasterC", "getSelectedTeamAgent"]
+- ["5Hippo0A11BroadcasterC", "init"]
+- ["5Hippo0A11BroadcasterC", "isAllAgentSelectedForSelectedTeam"]
+- ["5Hippo0A11BroadcasterC", "previousBroadcastListCompletion"]
+- ["5Hippo0A11BroadcasterC", "selectAllAgentsForAllTeam"]
+- ["5Hippo0A11BroadcasterC", "selectAllAgentsForSelectedTeam"]
+- ["5Hippo0A11BroadcasterC", "selectedTeam"]
+- ["5Hippo0A11BroadcasterC", "sendBroadcastCompletion"]
+- ["5Hippo0A11BroadcasterC", "sendBroadcastMessage"]
+- ["5Hippo0A11BroadcasterC", "teams"]
+- ["5Hippo0A11BroadcasterC", "unselectAllAgentsForAllTeam"]
+- ["5Hippo0A11BroadcasterC", "unselectAllAgentsForSelectedTeam"]
+- ["5Hippo0A11BroadcasterC", "updateAgentsListForSelectedTeam"]
+- !private ["5Hippo0A15ChannelDelegateP", "getWith"]
+- !private ["5Hippo0A6ConfigC", "agentDetail"]
+- !private ["5Hippo0A6ConfigC", "shared"]
+- !private ["5Hippo0A6ConfigC", "strings"]
+- !private ["5Hippo0A26ConversationViewControllerC", "getWith"]
+- !private ["5Hippo0A7StringsC", "somethingWentWrong"]
+- !private ["5Hippo14HttpMethodTypeO", "POST"]
+- !private ["5Hippo17ImageCellDelegateP", "getWith"]
+- !private ["Si", "init"]
+- !private ["5Hippo20KingfisherCompatibleP", "isEmpty"]
+- !private ["s25LosslessStringConvertibleP", "init"]
+- !private ["s25LosslessStringConvertibleP", "isEmpty"]
+- !private ["s10MirrorPathP", "init"]
+- !private ["s10MirrorPathP", "isEmpty"]
+- !private ["SM", "append"]
+- !private ["SM", "count"]
+- !private ["SM", "enumerated"]
+- ["SM", "init"]
+- !private ["SM", "insert"]
+- !private ["SM", "isSelected"]
+- !private ["SM", "subscript"]
+- !private ["10Foundation19MutableDataProtocolP", "append"]
+- !private ["10Foundation19MutableDataProtocolP", "count"]
+- !private ["10Foundation19MutableDataProtocolP", "enumerated"]
+- ["10Foundation19MutableDataProtocolP", "init"]
+- !private ["10Foundation19MutableDataProtocolP", "insert"]
+- !private ["10Foundation19MutableDataProtocolP", "subscript"]
+- !private ["So8NSCodingP", "get"]
+- !private ["So8NSCodingP", "getWith"]
+- !private ["So8NSCodingP", "isEmpty"]
+- !private ["So9NSCopyingP", "isEmpty"]
+- !private ["So26NSExtensionRequestHandlingP", "get"]
+- !private ["So26NSExtensionRequestHandlingP", "getWith"]
+- !private ["So21NSItemProviderReadingP", "isEmpty"]
+- !private ["So21NSItemProviderWritingP", "isEmpty"]
+- !private ["So16NSMutableCopyingP", "isEmpty"]
+- !private ["So8NSObjectC", "agentDetail"]
+- !private ["So8NSObjectC", "customerName"]
+- !private ["So8NSObjectC", "fuguToken"]
+- !private ["So8NSObjectC", "get"]
+- !private ["So8NSObjectC", "getAllTeamObject"]
+- !private ["So8NSObjectC", "getBroadcastFromInital"]
+- !private ["So8NSObjectC", "getWith"]
+- !private ["So8NSObjectC", "init"]
+- !private ["So8NSObjectC", "isEmpty"]
+- !private ["So8NSObjectC", "repliedOn"]
+- !private ["So8NSObjectC", "shared"]
+- !private ["So8NSObjectC", "strings"]
+- !private ["So8NSObjectC", "tagId"]
+- !private ["So8NSObjectP", "agentDetail"]
+- !private ["So8NSObjectP", "customerName"]
+- !private ["So8NSObjectP", "fuguToken"]
+- !private ["So8NSObjectP", "get"]
+- !private ["So8NSObjectP", "getAllTeamObject"]
+- !private ["So8NSObjectP", "getBroadcastFromInital"]
+- !private ["So8NSObjectP", "getWith"]
+- !private ["So8NSObjectP", "init"]
+- !private ["So8NSObjectP", "isEmpty"]
+- !private ["So8NSObjectP", "repliedOn"]
+- !private ["So8NSObjectP", "shared"]
+- !private ["So8NSObjectP", "strings"]
+- !private ["So8NSObjectP", "tagId"]
+- !private ["So14NSSecureCodingP", "isEmpty"]
+- !private ["So8NSStringC", "isEmpty"]
+- !private ["5Hippo27NavigationTitleViewDelegateP", "getWith"]
+- !private ["Sj", "init"]
+- !private ["5Hippo20PickerHelperDelegateP", "getWith"]
+- !private ["Sk", "append"]
+- !private ["Sk", "count"]
+- !private ["Sk", "enumerated"]
+- ["Sk", "init"]
+- !private ["Sk", "insert"]
+- !private ["Sk", "isSelected"]
+- !private ["Sk", "subscript"]
+- !private ["Sm", "append"]
+- !private ["Sm", "count"]
+- !private ["Sm", "enumerated"]
+- ["Sm", "init"]
+- !private ["Sm", "insert"]
+- !private ["Sm", "isEmpty"]
+- !private ["Sm", "isSelected"]
+- !private ["Sm", "subscript"]
+- !private ["SY", "POST"]
+- !private ["SY", "getGroupingTag"]
+- !private ["SY", "rawValue"]
+- !private ["SY", "sendBroadcastMessage"]
+- !private ["5Hippo29RetryMessageUploadingDelegateP", "getWith"]
+- !private ["s10SIMDScalarP", "init"]
+- !private ["5Hippo33SelectImageViewControllerDelegateP", "getWith"]
+- !private ["5Hippo19SelfMessageDelegateP", "getWith"]
+- !private ["ST", "append"]
+- !private ["ST", "count"]
+- !private ["ST", "enumerated"]
+- ["ST", "init"]
+- !private ["ST", "insert"]
+- !private ["ST", "isEmpty"]
+- !private ["ST", "isSelected"]
+- !private ["ST", "subscript"]
+- !private ["SZ", "init"]
+- !private ["s13SignedNumericP", "init"]
+- !private ["Sx", "init"]
+- !private ["SS", "isEmpty"]
+- !private ["Sy", "isEmpty"]
+- !private ["5Hippo9TagDetailC", "getAllTeamObject"]
+- !private ["5Hippo9TagDetailC", "init"]
+- !private ["5Hippo9TagDetailC", "tagId"]
+- !private ["s16TextOutputStreamP", "isEmpty"]
+- !private ["s20TextOutputStreamableP", "isEmpty"]
+- !private ["So21UIAppearanceContainerP", "get"]
+- !private ["So21UIAppearanceContainerP", "getWith"]
+- !private ["So18UIContentContainerP", "get"]
+- !private ["So18UIContentContainerP", "getWith"]
+- !private ["So18UIFocusEnvironmentP", "get"]
+- !private ["So18UIFocusEnvironmentP", "getWith"]
+- !private ["So31UIImagePickerControllerDelegateP", "getWith"]
+- !private ["So30UINavigationControllerDelegateP", "getWith"]
+- !private ["So30UIPasteConfigurationSupportingP", "get"]
+- !private ["So30UIPasteConfigurationSupportingP", "getWith"]
+- !private ["So11UIResponderC", "get"]
+- !private ["So11UIResponderC", "getWith"]
+- !private ["So30UIResponderStandardEditActionsP", "get"]
+- !private ["So30UIResponderStandardEditActionsP", "getWith"]
+- !private ["So20UIScrollViewDelegateP", "get"]
+- !private ["So20UIScrollViewDelegateP", "getWith"]
+- !private ["So16UIStateRestoringP", "get"]
+- !private ["So16UIStateRestoringP", "getWith"]
+- !private ["So21UITableViewDataSourceP", "getWith"]
+- !private ["So19UITableViewDelegateP", "get"]
+- !private ["So19UITableViewDelegateP", "getWith"]
+- !private ["So18UITextViewDelegateP", "getWith"]
+- !private ["So18UITraitEnvironmentP", "get"]
+- !private ["So18UITraitEnvironmentP", "getWith"]
+- !private ["So23UIUserActivityRestoringP", "get"]
+- !private ["So23UIUserActivityRestoringP", "getWith"]
+- !private ["So16UIViewControllerC", "get"]
+- !private ["So16UIViewControllerC", "getWith"]
+- !private ["5Hippo10UserDetailC", "createCopy"]
+- !private ["5Hippo10UserDetailC", "getAllAgentsDefaultObj"]
+- !private ["5Hippo10UserDetailC", "getObjects"]
+- !private ["5Hippo10UserDetailC", "id"]
+- !private ["5Hippo10UserDetailC", "isSelected"]
+- !private ["5Hippo37VideoCallMessageTableViewCellDelegateP", "getWith"]
+- !private ["5Hippo26VideoTableViewCellDelegateP", "getWith"]
+- !private ["s14_ArrayProtocolP", "append"]
+- !private ["s14_ArrayProtocolP", "count"]
+- !private ["s14_ArrayProtocolP", "enumerated"]
+- ["s14_ArrayProtocolP", "init"]
+- !private ["s14_ArrayProtocolP", "insert"]
+- !private ["s14_ArrayProtocolP", "isSelected"]
+- !private ["s14_ArrayProtocolP", "subscript"]
+- !private ["s30_CustomPlaygroundQuickLookableP", "init"]
+- !private ["s30_CustomPlaygroundQuickLookableP", "isEmpty"]
+- !private ["s24_DestructorSafeContainerP", "append"]
+- !private ["s24_DestructorSafeContainerP", "count"]
+- !private ["s24_DestructorSafeContainerP", "enumerated"]
+- ["s24_DestructorSafeContainerP", "init"]
+- !private ["s24_DestructorSafeContainerP", "insert"]
+- !private ["s24_DestructorSafeContainerP", "isSelected"]
+- !private ["s24_DestructorSafeContainerP", "subscript"]
+- !private ["s51_ExpressibleByBuiltinExtendedGraphemeClusterLiteralP", "isEmpty"]
+- !private ["s35_ExpressibleByBuiltinIntegerLiteralP", "init"]
+- !private ["s34_ExpressibleByBuiltinStringLiteralP", "isEmpty"]
+- !private ["s41_ExpressibleByBuiltinUnicodeScalarLiteralP", "isEmpty"]
+- !private ["s19_HasContiguousBytesP", "append"]
+- !private ["s19_HasContiguousBytesP", "count"]
+- !private ["s19_HasContiguousBytesP", "enumerated"]
+- ["s19_HasContiguousBytesP", "init"]
+- !private ["s19_HasContiguousBytesP", "insert"]
+- !private ["s19_HasContiguousBytesP", "isEmpty"]
+- !private ["s19_HasContiguousBytesP", "subscript"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "append"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "count"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "enumerated"]
+- ["s35_HasCustomAnyHashableRepresentationP", "init"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "insert"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "isEmpty"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "subscript"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "agentDetail"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "customerName"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "fuguToken"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "get"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "getAllTeamObject"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "getBroadcastFromInital"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "getWith"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "init"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "isEmpty"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "repliedOn"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "shared"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "strings"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "tagId"]
+- !private ["s21_ObjectiveCBridgeableP", "append"]
+- !private ["s21_ObjectiveCBridgeableP", "count"]
+- !private ["s21_ObjectiveCBridgeableP", "enumerated"]
+- ["s21_ObjectiveCBridgeableP", "init"]
+- !private ["s21_ObjectiveCBridgeableP", "insert"]
+- !private ["s21_ObjectiveCBridgeableP", "isEmpty"]
+- !private ["s21_ObjectiveCBridgeableP", "subscript"]
+depends-nominal:
+- !private "5Hippo23ActionTableViewDelegateP"
+- !private "s18AdditiveArithmeticP"
+- !private "5Hippo31AgentConversationViewControllerC"
+- !private "5Hippo11AgentDetailC"
+- !private "5Hippo14AgentEndPointsO"
+- "Sa"
+- !private "s10ArraySliceV"
+- "SK"
+- !private "Sz"
+- !private "5Hippo20BroadcastDetailStoreC"
+- !private "5Hippo28BroadcastDetailStoreDelegateP"
+- !private "5Hippo29BroadcastDetailViewControllerC"
+- !private "5Hippo14BroadcastStoreC"
+- !private "5Hippo31BroadcastUserStatusCellDelegateP"
+- "s7CVarArgP"
+- "Sl"
+- !private "SL"
+- "10Foundation15ContiguousBytesP"
+- !private "5Hippo26CoreDocumentPickerDelegateP"
+- !private "5Hippo25CoreMediaSelectorDelegateP"
+- !private "5Hippo21CreatePaymentDelegateP"
+- "s28CustomDebugStringConvertibleP"
+- "s17CustomReflectableP"
+- "s23CustomStringConvertibleP"
+- !private "5Hippo12CustomerInfoC"
+- "10Foundation12DataProtocolP"
+- "Se"
+- !private "SD"
+- !private "5Hippo29DocumentTableViewCellDelegateP"
+- "SE"
+- "SQ"
+- !private "s5ErrorP"
+- "s25ExpressibleByArrayLiteralP"
+- !private "s30ExpressibleByDictionaryLiteralP"
+- !private "s43ExpressibleByExtendedGraphemeClusterLiteralP"
+- !private "s27ExpressibleByIntegerLiteralP"
+- !private "s32ExpressibleByStringInterpolationP"
+- !private "s26ExpressibleByStringLiteralP"
+- !private "s33ExpressibleByUnicodeScalarLiteralP"
+- !private "s17FixedWidthIntegerP"
+- !private "5Hippo10HTTPClientC"
+- "SH"
+- "5Hippo0A11BroadcasterC"
+- !private "5Hippo0A15ChannelDelegateP"
+- !private "5Hippo0A6ConfigC"
+- !private "5Hippo0A26ConversationViewControllerC"
+- !private "5Hippo0A7StringsC"
+- !private "5Hippo14HttpMethodTypeO"
+- !private "5Hippo17ImageCellDelegateP"
+- !private "Si"
+- !private "5Hippo20KingfisherCompatibleP"
+- !private "s25LosslessStringConvertibleP"
+- !private "s10MirrorPathP"
+- "SM"
+- "10Foundation19MutableDataProtocolP"
+- !private "So8NSCodingP"
+- !private "So9NSCopyingP"
+- !private "So26NSExtensionRequestHandlingP"
+- !private "So21NSItemProviderReadingP"
+- !private "So21NSItemProviderWritingP"
+- !private "So16NSMutableCopyingP"
+- !private "So8NSObjectC"
+- !private "So8NSObjectP"
+- !private "So14NSSecureCodingP"
+- !private "So8NSStringC"
+- !private "5Hippo27NavigationTitleViewDelegateP"
+- !private "Sj"
+- !private "5Hippo20PickerHelperDelegateP"
+- "Sk"
+- "Sm"
+- !private "SY"
+- !private "5Hippo29RetryMessageUploadingDelegateP"
+- !private "s10SIMDScalarP"
+- !private "5Hippo33SelectImageViewControllerDelegateP"
+- !private "5Hippo19SelfMessageDelegateP"
+- "ST"
+- !private "SZ"
+- !private "s13SignedNumericP"
+- !private "Sx"
+- !private "SS"
+- !private "Sy"
+- !private "5Hippo9TagDetailC"
+- !private "s16TextOutputStreamP"
+- !private "s20TextOutputStreamableP"
+- !private "So21UIAppearanceContainerP"
+- !private "So18UIContentContainerP"
+- !private "So18UIFocusEnvironmentP"
+- !private "So31UIImagePickerControllerDelegateP"
+- !private "So30UINavigationControllerDelegateP"
+- !private "So30UIPasteConfigurationSupportingP"
+- !private "So11UIResponderC"
+- !private "So30UIResponderStandardEditActionsP"
+- !private "So20UIScrollViewDelegateP"
+- !private "So16UIStateRestoringP"
+- !private "So21UITableViewDataSourceP"
+- !private "So19UITableViewDelegateP"
+- !private "So18UITextViewDelegateP"
+- !private "So18UITraitEnvironmentP"
+- !private "So23UIUserActivityRestoringP"
+- !private "So16UIViewControllerC"
+- !private "5Hippo10UserDetailC"
+- !private "5Hippo37VideoCallMessageTableViewCellDelegateP"
+- !private "5Hippo26VideoTableViewCellDelegateP"
+- "s14_ArrayProtocolP"
+- !private "s30_CustomPlaygroundQuickLookableP"
+- "s24_DestructorSafeContainerP"
+- !private "s51_ExpressibleByBuiltinExtendedGraphemeClusterLiteralP"
+- !private "s35_ExpressibleByBuiltinIntegerLiteralP"
+- !private "s34_ExpressibleByBuiltinStringLiteralP"
+- !private "s41_ExpressibleByBuiltinUnicodeScalarLiteralP"
+- "s19_HasContiguousBytesP"
+- "s35_HasCustomAnyHashableRepresentationP"
+- !private "10Foundation27_KeyValueCodingAndObservingP"
+- "s21_ObjectiveCBridgeableP"
+depends-dynamic-lookup:
+depends-external:
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/ObjectiveC.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreMedia.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/simd.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreImage.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/QuartzCore.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Accelerate.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Dispatch.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Metal.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Darwin.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreLocation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Foundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/AVFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreAudio.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/MediaPlayer.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreGraphics.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/os.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Photos.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Swift.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/UIKit.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/SwiftOnoneSupport.swiftmodule"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Hippo.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Helpers/TRWDownloadManager/TWRDownloadManager.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/SocketRocket/SocketRocket.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/SocketRocket/SRWebSocket.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/MZFayeClient/MZFayeClient.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/unextended-module.modulemap"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/usr/include/objc/ObjectiveC.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/OpenGLES.framework/Headers/OpenGLES.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreMedia.framework/Headers/CoreMedia.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreImage.framework/Headers/CoreImage.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/QuartzCore.framework/Headers/QuartzCore.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Accelerate.framework/Headers/Accelerate.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Dispatch.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/QuickLook.framework/Headers/QuickLook.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Metal.framework/Headers/Metal.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/usr/include/Darwin.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreLocation.framework/Headers/CoreLocation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Foundation.framework/Headers/Foundation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/AVFoundation.framework/Headers/AVFoundation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/MediaPlayer.framework/Headers/MediaPlayer.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreGraphics.framework/Headers/CoreGraphics.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/UserNotifications.framework/Headers/UserNotifications.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/os.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Photos.framework/Headers/Photos.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/UIKit.framework/Headers/UIKit.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreText.framework/Headers/CoreText.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/MediaToolbox.framework/Headers/MediaToolbox.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/AudioToolbox.framework/Headers/AudioToolbox.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Security.framework/Headers/Security.apinotes"
+interface-hash: "fbf2eb94d2154e961e2dfc032b128e6f"

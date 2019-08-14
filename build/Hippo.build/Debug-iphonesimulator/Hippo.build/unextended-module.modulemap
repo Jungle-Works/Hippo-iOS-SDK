@@ -1,0 +1,10 @@
+framework module Hippo {
+  umbrella header "Hippo.h"
+
+  export *
+  module * { export * }
+}
+
+module Hippo.__Swift {
+    exclude header "Hippo-Swift.h"
+}

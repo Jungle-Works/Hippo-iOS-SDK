@@ -1,0 +1,649 @@
+### Swift dependencies file v0 ###
+provides-top-level:
+- "CreatePaymentDataSource"
+provides-nominal:
+- "5Hippo23CreatePaymentDataSourceC"
+- "5Hippo23CreatePaymentDataSourceC0dE7SectionO"
+provides-member:
+- ["5Hippo23CreatePaymentDataSourceC", ""]
+- ["5Hippo23CreatePaymentDataSourceC0dE7SectionO", ""]
+provides-dynamic-lookup:
+- "numberOfSections"
+- "tableView"
+depends-top-level:
+- "=="
+- "AssignmentPrecedence"
+- !private "BroadCastTextFieldCell"
+- !private "BroadcastButtonCell"
+- "CaseCountable"
+- "CastingPrecedence"
+- "CreatePaymentDataSource"
+- "IndexPath"
+- "Int"
+- "NSObject"
+- !private "PaymentItemDescriptionCell"
+- "PaymentStore"
+- !private "ShowMoreTableViewCell"
+- "UITableView"
+- "UITableViewCell"
+- "UITableViewDataSource"
+- !private "~="
+depends-member:
+- !private ["Sa", "count"]
+- !private ["Sa", "subscript"]
+- !private ["SK", "count"]
+- !private ["SK", "row"]
+- !private ["SK", "section"]
+- !private ["SK", "subscript"]
+- !private ["5Hippo22BroadCastTextFieldCellC", "setupCell"]
+- !private ["5Hippo19BroadcastButtonCellC", "setupCellFor"]
+- !private ["So15CALayerDelegateP", "cancelIcon"]
+- !private ["So15CALayerDelegateP", "defaultCell"]
+- !private ["So15CALayerDelegateP", "dequeueReusableCell"]
+- !private ["So15CALayerDelegateP", "isHidden"]
+- !private ["So15CALayerDelegateP", "setupCell"]
+- !private ["So15CALayerDelegateP", "setupCellFor"]
+- !private ["s7CVarArgP", "DataSourceSection"]
+- !private ["s7CVarArgP", "UITableView"]
+- ["s7CVarArgP", ""]
+- !private ["s7CVarArgP", "action"]
+- !private ["s7CVarArgP", "buttons"]
+- !private ["s7CVarArgP", "cancelIcon"]
+- !private ["s7CVarArgP", "count"]
+- !private ["s7CVarArgP", "defaultCell"]
+- !private ["s7CVarArgP", "dequeueReusableCell"]
+- !private ["s7CVarArgP", "fields"]
+- !private ["s7CVarArgP", "init"]
+- !private ["s7CVarArgP", "isHidden"]
+- !private ["s7CVarArgP", "items"]
+- ["s7CVarArgP", "numberOfSections"]
+- ["s7CVarArgP", "numberOfSectionsInTableView"]
+- ["s7CVarArgP", "sectionIndexTitles"]
+- ["s7CVarArgP", "sectionIndexTitlesForTableView"]
+- !private ["s7CVarArgP", "setupCell"]
+- !private ["s7CVarArgP", "setupCellFor"]
+- !private ["s7CVarArgP", "store"]
+- !private ["s7CVarArgP", "subscript"]
+- ["s7CVarArgP", "tableView"]
+- ["5Hippo13CaseCountableP", "=="]
+- ["5Hippo13CaseCountableP", "RawValue"]
+- ["5Hippo13CaseCountableP", ""]
+- ["5Hippo13CaseCountableP", "_Default_RawValue"]
+- ["5Hippo13CaseCountableP", "_rawHashValue"]
+- ["5Hippo13CaseCountableP", "button"]
+- !private ["5Hippo13CaseCountableP", "count"]
+- ["5Hippo13CaseCountableP", "fields"]
+- ["5Hippo13CaseCountableP", "hash"]
+- ["5Hippo13CaseCountableP", "hashValue"]
+- ["5Hippo13CaseCountableP", "init"]
+- ["5Hippo13CaseCountableP", "items"]
+- ["5Hippo13CaseCountableP", "rawValue"]
+- !private ["Sl", "count"]
+- !private ["Sl", "row"]
+- !private ["Sl", "section"]
+- !private ["Sl", "subscript"]
+- !private ["SL", "row"]
+- !private ["SL", "section"]
+- !private ["10Foundation15ContiguousBytesP", "count"]
+- !private ["10Foundation15ContiguousBytesP", "subscript"]
+- !private ["5Hippo23CreatePaymentDataSourceC", "BroadCastTextFieldCell"]
+- !private ["5Hippo23CreatePaymentDataSourceC", "BroadcastButtonCell"]
+- ["5Hippo23CreatePaymentDataSourceC", "CaseCountable"]
+- ["5Hippo23CreatePaymentDataSourceC", "DataSourceSection"]
+- ["5Hippo23CreatePaymentDataSourceC", "IndexPath"]
+- ["5Hippo23CreatePaymentDataSourceC", "Int"]
+- !private ["5Hippo23CreatePaymentDataSourceC", "PaymentItemDescriptionCell"]
+- ["5Hippo23CreatePaymentDataSourceC", "PaymentStore"]
+- !private ["5Hippo23CreatePaymentDataSourceC", "ShowMoreTableViewCell"]
+- ["5Hippo23CreatePaymentDataSourceC", "UITableView"]
+- ["5Hippo23CreatePaymentDataSourceC", "UITableViewCell"]
+- ["5Hippo23CreatePaymentDataSourceC", "deinit"]
+- ["5Hippo23CreatePaymentDataSourceC", "init"]
+- ["5Hippo23CreatePaymentDataSourceC", "numberOfSections"]
+- ["5Hippo23CreatePaymentDataSourceC", "numberOfSectionsInTableView"]
+- ["5Hippo23CreatePaymentDataSourceC", "sectionIndexTitles"]
+- ["5Hippo23CreatePaymentDataSourceC", "sectionIndexTitlesForTableView"]
+- ["5Hippo23CreatePaymentDataSourceC", "store"]
+- ["5Hippo23CreatePaymentDataSourceC", "tableView"]
+- !private ["s28CustomDebugStringConvertibleP", "DataSourceSection"]
+- !private ["s28CustomDebugStringConvertibleP", "UITableView"]
+- ["s28CustomDebugStringConvertibleP", ""]
+- !private ["s28CustomDebugStringConvertibleP", "action"]
+- !private ["s28CustomDebugStringConvertibleP", "buttons"]
+- !private ["s28CustomDebugStringConvertibleP", "cancelIcon"]
+- !private ["s28CustomDebugStringConvertibleP", "count"]
+- !private ["s28CustomDebugStringConvertibleP", "defaultCell"]
+- !private ["s28CustomDebugStringConvertibleP", "dequeueReusableCell"]
+- !private ["s28CustomDebugStringConvertibleP", "fields"]
+- !private ["s28CustomDebugStringConvertibleP", "init"]
+- !private ["s28CustomDebugStringConvertibleP", "isHidden"]
+- !private ["s28CustomDebugStringConvertibleP", "items"]
+- ["s28CustomDebugStringConvertibleP", "numberOfSections"]
+- ["s28CustomDebugStringConvertibleP", "numberOfSectionsInTableView"]
+- !private ["s28CustomDebugStringConvertibleP", "row"]
+- !private ["s28CustomDebugStringConvertibleP", "section"]
+- ["s28CustomDebugStringConvertibleP", "sectionIndexTitles"]
+- ["s28CustomDebugStringConvertibleP", "sectionIndexTitlesForTableView"]
+- !private ["s28CustomDebugStringConvertibleP", "setupCell"]
+- !private ["s28CustomDebugStringConvertibleP", "setupCellFor"]
+- !private ["s28CustomDebugStringConvertibleP", "store"]
+- !private ["s28CustomDebugStringConvertibleP", "subscript"]
+- ["s28CustomDebugStringConvertibleP", "tableView"]
+- !private ["s17CustomReflectableP", "count"]
+- !private ["s17CustomReflectableP", "isHidden"]
+- !private ["s17CustomReflectableP", "row"]
+- !private ["s17CustomReflectableP", "section"]
+- !private ["s17CustomReflectableP", "subscript"]
+- !private ["s23CustomStringConvertibleP", "DataSourceSection"]
+- !private ["s23CustomStringConvertibleP", "UITableView"]
+- ["s23CustomStringConvertibleP", ""]
+- !private ["s23CustomStringConvertibleP", "action"]
+- !private ["s23CustomStringConvertibleP", "buttons"]
+- !private ["s23CustomStringConvertibleP", "cancelIcon"]
+- !private ["s23CustomStringConvertibleP", "count"]
+- !private ["s23CustomStringConvertibleP", "defaultCell"]
+- !private ["s23CustomStringConvertibleP", "dequeueReusableCell"]
+- !private ["s23CustomStringConvertibleP", "fields"]
+- !private ["s23CustomStringConvertibleP", "init"]
+- !private ["s23CustomStringConvertibleP", "isHidden"]
+- !private ["s23CustomStringConvertibleP", "items"]
+- ["s23CustomStringConvertibleP", "numberOfSections"]
+- ["s23CustomStringConvertibleP", "numberOfSectionsInTableView"]
+- !private ["s23CustomStringConvertibleP", "row"]
+- !private ["s23CustomStringConvertibleP", "section"]
+- ["s23CustomStringConvertibleP", "sectionIndexTitles"]
+- ["s23CustomStringConvertibleP", "sectionIndexTitlesForTableView"]
+- !private ["s23CustomStringConvertibleP", "setupCell"]
+- !private ["s23CustomStringConvertibleP", "setupCellFor"]
+- !private ["s23CustomStringConvertibleP", "store"]
+- !private ["s23CustomStringConvertibleP", "subscript"]
+- ["s23CustomStringConvertibleP", "tableView"]
+- !private ["10Foundation12DataProtocolP", "count"]
+- !private ["10Foundation12DataProtocolP", "subscript"]
+- ["5Hippo23CreatePaymentDataSourceC0dE7SectionO", "=="]
+- ["5Hippo23CreatePaymentDataSourceC0dE7SectionO", "RawValue"]
+- ["5Hippo23CreatePaymentDataSourceC0dE7SectionO", "_Default_RawValue"]
+- ["5Hippo23CreatePaymentDataSourceC0dE7SectionO", "_rawHashValue"]
+- ["5Hippo23CreatePaymentDataSourceC0dE7SectionO", "button"]
+- !private ["5Hippo23CreatePaymentDataSourceC0dE7SectionO", "count"]
+- ["5Hippo23CreatePaymentDataSourceC0dE7SectionO", "deinit"]
+- ["5Hippo23CreatePaymentDataSourceC0dE7SectionO", "fields"]
+- ["5Hippo23CreatePaymentDataSourceC0dE7SectionO", "hash"]
+- ["5Hippo23CreatePaymentDataSourceC0dE7SectionO", "hashValue"]
+- ["5Hippo23CreatePaymentDataSourceC0dE7SectionO", "init"]
+- ["5Hippo23CreatePaymentDataSourceC0dE7SectionO", "items"]
+- ["5Hippo23CreatePaymentDataSourceC0dE7SectionO", "rawValue"]
+- !private ["Se", "count"]
+- !private ["Se", "isHidden"]
+- !private ["Se", "row"]
+- !private ["Se", "section"]
+- !private ["Se", "subscript"]
+- !private ["SE", "count"]
+- !private ["SE", "isHidden"]
+- !private ["SE", "row"]
+- !private ["SE", "section"]
+- !private ["SE", "subscript"]
+- ["SQ", "=="]
+- !private ["SQ", "DataSourceSection"]
+- ["SQ", "RawValue"]
+- !private ["SQ", "UITableView"]
+- ["SQ", ""]
+- ["SQ", "_Default_RawValue"]
+- ["SQ", "_rawHashValue"]
+- !private ["SQ", "action"]
+- ["SQ", "addMore"]
+- ["SQ", "button"]
+- !private ["SQ", "buttons"]
+- !private ["SQ", "cancelIcon"]
+- !private ["SQ", "count"]
+- !private ["SQ", "defaultCell"]
+- !private ["SQ", "dequeueReusableCell"]
+- ["SQ", "fields"]
+- ["SQ", "hash"]
+- ["SQ", "hashValue"]
+- ["SQ", "init"]
+- !private ["SQ", "isHidden"]
+- ["SQ", "items"]
+- ["SQ", "numberOfSections"]
+- ["SQ", "numberOfSectionsInTableView"]
+- ["SQ", "rawValue"]
+- !private ["SQ", "row"]
+- !private ["SQ", "section"]
+- ["SQ", "sectionIndexTitles"]
+- ["SQ", "sectionIndexTitlesForTableView"]
+- !private ["SQ", "setupCell"]
+- !private ["SQ", "setupCellFor"]
+- !private ["SQ", "store"]
+- !private ["SQ", "subscript"]
+- ["SQ", "tableView"]
+- !private ["s25ExpressibleByArrayLiteralP", "count"]
+- !private ["s25ExpressibleByArrayLiteralP", "row"]
+- !private ["s25ExpressibleByArrayLiteralP", "section"]
+- !private ["s25ExpressibleByArrayLiteralP", "subscript"]
+- !private ["s23ExpressibleByNilLiteralP", "isHidden"]
+- ["5Hippo8FormDataC0B6ActionO", "addMore"]
+- !private ["5Hippo8FormDataC", "action"]
+- ["SH", "=="]
+- !private ["SH", "DataSourceSection"]
+- ["SH", "RawValue"]
+- !private ["SH", "UITableView"]
+- ["SH", ""]
+- ["SH", "_Default_RawValue"]
+- ["SH", "_rawHashValue"]
+- !private ["SH", "action"]
+- ["SH", "addMore"]
+- ["SH", "button"]
+- !private ["SH", "buttons"]
+- !private ["SH", "cancelIcon"]
+- !private ["SH", "count"]
+- !private ["SH", "defaultCell"]
+- !private ["SH", "dequeueReusableCell"]
+- ["SH", "fields"]
+- ["SH", "hash"]
+- ["SH", "hashValue"]
+- ["SH", "init"]
+- !private ["SH", "isHidden"]
+- ["SH", "items"]
+- ["SH", "numberOfSections"]
+- ["SH", "numberOfSectionsInTableView"]
+- ["SH", "rawValue"]
+- !private ["SH", "row"]
+- !private ["SH", "section"]
+- ["SH", "sectionIndexTitles"]
+- ["SH", "sectionIndexTitlesForTableView"]
+- !private ["SH", "setupCell"]
+- !private ["SH", "setupCellFor"]
+- !private ["SH", "store"]
+- !private ["SH", "subscript"]
+- ["SH", "tableView"]
+- !private ["10Foundation9IndexPathV", "row"]
+- !private ["10Foundation9IndexPathV", "section"]
+- !private ["5Hippo20KingfisherCompatibleP", "isHidden"]
+- !private ["SM", "count"]
+- !private ["SM", "row"]
+- !private ["SM", "section"]
+- !private ["SM", "subscript"]
+- !private ["10Foundation19MutableDataProtocolP", "count"]
+- !private ["10Foundation19MutableDataProtocolP", "subscript"]
+- !private ["So8NSCodingP", "cancelIcon"]
+- !private ["So8NSCodingP", "defaultCell"]
+- !private ["So8NSCodingP", "dequeueReusableCell"]
+- !private ["So8NSCodingP", "isHidden"]
+- !private ["So8NSCodingP", "setupCell"]
+- !private ["So8NSCodingP", "setupCellFor"]
+- !private ["So8NSObjectC", "BroadCastTextFieldCell"]
+- !private ["So8NSObjectC", "BroadcastButtonCell"]
+- ["So8NSObjectC", "CaseCountable"]
+- !private ["So8NSObjectC", "DataSourceSection"]
+- ["So8NSObjectC", "IndexPath"]
+- ["So8NSObjectC", "Int"]
+- !private ["So8NSObjectC", "PaymentItemDescriptionCell"]
+- ["So8NSObjectC", "PaymentStore"]
+- !private ["So8NSObjectC", "ShowMoreTableViewCell"]
+- ["So8NSObjectC", "UITableView"]
+- ["So8NSObjectC", "UITableViewCell"]
+- ["So8NSObjectC", ""]
+- !private ["So8NSObjectC", "action"]
+- !private ["So8NSObjectC", "buttons"]
+- !private ["So8NSObjectC", "cancelIcon"]
+- !private ["So8NSObjectC", "defaultCell"]
+- !private ["So8NSObjectC", "dequeueReusableCell"]
+- !private ["So8NSObjectC", "fields"]
+- ["So8NSObjectC", "init"]
+- !private ["So8NSObjectC", "isHidden"]
+- !private ["So8NSObjectC", "items"]
+- ["So8NSObjectC", "numberOfSections"]
+- ["So8NSObjectC", "numberOfSectionsInTableView"]
+- ["So8NSObjectC", "sectionIndexTitles"]
+- ["So8NSObjectC", "sectionIndexTitlesForTableView"]
+- !private ["So8NSObjectC", "setupCell"]
+- !private ["So8NSObjectC", "setupCellFor"]
+- ["So8NSObjectC", "store"]
+- ["So8NSObjectC", "tableView"]
+- !private ["So8NSObjectP", "DataSourceSection"]
+- !private ["So8NSObjectP", "UITableView"]
+- ["So8NSObjectP", ""]
+- !private ["So8NSObjectP", "action"]
+- !private ["So8NSObjectP", "buttons"]
+- !private ["So8NSObjectP", "cancelIcon"]
+- !private ["So8NSObjectP", "defaultCell"]
+- !private ["So8NSObjectP", "dequeueReusableCell"]
+- !private ["So8NSObjectP", "fields"]
+- !private ["So8NSObjectP", "init"]
+- !private ["So8NSObjectP", "isHidden"]
+- !private ["So8NSObjectP", "items"]
+- ["So8NSObjectP", "numberOfSections"]
+- ["So8NSObjectP", "numberOfSectionsInTableView"]
+- ["So8NSObjectP", "sectionIndexTitles"]
+- ["So8NSObjectP", "sectionIndexTitlesForTableView"]
+- !private ["So8NSObjectP", "setupCell"]
+- !private ["So8NSObjectP", "setupCellFor"]
+- !private ["So8NSObjectP", "store"]
+- ["So8NSObjectP", "tableView"]
+- !private ["Sq", "isHidden"]
+- !private ["5Hippo12PaymentFieldC", "action"]
+- !private ["5Hippo26PaymentItemDescriptionCellC", "cancelIcon"]
+- !private ["5Hippo26PaymentItemDescriptionCellC", "setupCellFor"]
+- !private ["5Hippo12PaymentStoreC", "buttons"]
+- !private ["5Hippo12PaymentStoreC", "fields"]
+- !private ["5Hippo12PaymentStoreC", "items"]
+- !private ["Sk", "count"]
+- !private ["Sk", "row"]
+- !private ["Sk", "section"]
+- !private ["Sk", "subscript"]
+- !private ["Sm", "count"]
+- !private ["Sm", "subscript"]
+- ["SY", "=="]
+- ["SY", "RawValue"]
+- ["SY", ""]
+- ["SY", "_Default_RawValue"]
+- ["SY", "_rawHashValue"]
+- ["SY", "addMore"]
+- ["SY", "button"]
+- !private ["SY", "count"]
+- ["SY", "fields"]
+- ["SY", "hash"]
+- ["SY", "hashValue"]
+- ["SY", "init"]
+- ["SY", "items"]
+- ["SY", "rawValue"]
+- !private ["10Foundation20ReferenceConvertibleP", "row"]
+- !private ["10Foundation20ReferenceConvertibleP", "section"]
+- !private ["ST", "count"]
+- !private ["ST", "row"]
+- !private ["ST", "section"]
+- !private ["ST", "subscript"]
+- !private ["5Hippo21ShowMoreTableViewCellC", "setupCell"]
+- !private ["So48UIAccessibilityContentSizeCategoryImageAdjustingP", "isHidden"]
+- !private ["So29UIAccessibilityIdentificationP", "cancelIcon"]
+- !private ["So29UIAccessibilityIdentificationP", "defaultCell"]
+- !private ["So29UIAccessibilityIdentificationP", "dequeueReusableCell"]
+- !private ["So29UIAccessibilityIdentificationP", "isHidden"]
+- !private ["So29UIAccessibilityIdentificationP", "setupCell"]
+- !private ["So29UIAccessibilityIdentificationP", "setupCellFor"]
+- !private ["So12UIAppearanceP", "cancelIcon"]
+- !private ["So12UIAppearanceP", "defaultCell"]
+- !private ["So12UIAppearanceP", "dequeueReusableCell"]
+- !private ["So12UIAppearanceP", "isHidden"]
+- !private ["So12UIAppearanceP", "setupCell"]
+- !private ["So12UIAppearanceP", "setupCellFor"]
+- !private ["So21UIAppearanceContainerP", "cancelIcon"]
+- !private ["So21UIAppearanceContainerP", "defaultCell"]
+- !private ["So21UIAppearanceContainerP", "dequeueReusableCell"]
+- !private ["So21UIAppearanceContainerP", "isHidden"]
+- !private ["So21UIAppearanceContainerP", "setupCell"]
+- !private ["So21UIAppearanceContainerP", "setupCellFor"]
+- !private ["So8UIButtonC", "isHidden"]
+- !private ["So9UIControlC", "isHidden"]
+- !private ["So17UICoordinateSpaceP", "cancelIcon"]
+- !private ["So17UICoordinateSpaceP", "defaultCell"]
+- !private ["So17UICoordinateSpaceP", "dequeueReusableCell"]
+- !private ["So17UICoordinateSpaceP", "isHidden"]
+- !private ["So17UICoordinateSpaceP", "setupCell"]
+- !private ["So17UICoordinateSpaceP", "setupCellFor"]
+- !private ["So23UIDataSourceTranslatingP", "defaultCell"]
+- !private ["So23UIDataSourceTranslatingP", "dequeueReusableCell"]
+- !private ["So13UIDynamicItemP", "cancelIcon"]
+- !private ["So13UIDynamicItemP", "defaultCell"]
+- !private ["So13UIDynamicItemP", "dequeueReusableCell"]
+- !private ["So13UIDynamicItemP", "isHidden"]
+- !private ["So13UIDynamicItemP", "setupCell"]
+- !private ["So13UIDynamicItemP", "setupCellFor"]
+- !private ["So18UIFocusEnvironmentP", "cancelIcon"]
+- !private ["So18UIFocusEnvironmentP", "defaultCell"]
+- !private ["So18UIFocusEnvironmentP", "dequeueReusableCell"]
+- !private ["So18UIFocusEnvironmentP", "isHidden"]
+- !private ["So18UIFocusEnvironmentP", "setupCell"]
+- !private ["So18UIFocusEnvironmentP", "setupCellFor"]
+- !private ["So11UIFocusItemP", "cancelIcon"]
+- !private ["So11UIFocusItemP", "defaultCell"]
+- !private ["So11UIFocusItemP", "dequeueReusableCell"]
+- !private ["So11UIFocusItemP", "isHidden"]
+- !private ["So11UIFocusItemP", "setupCell"]
+- !private ["So11UIFocusItemP", "setupCellFor"]
+- !private ["So20UIFocusItemContainerP", "cancelIcon"]
+- !private ["So20UIFocusItemContainerP", "defaultCell"]
+- !private ["So20UIFocusItemContainerP", "dequeueReusableCell"]
+- !private ["So20UIFocusItemContainerP", "isHidden"]
+- !private ["So20UIFocusItemContainerP", "setupCell"]
+- !private ["So20UIFocusItemContainerP", "setupCellFor"]
+- !private ["So30UIFocusItemScrollableContainerP", "defaultCell"]
+- !private ["So30UIFocusItemScrollableContainerP", "dequeueReusableCell"]
+- !private ["So27UIGestureRecognizerDelegateP", "cancelIcon"]
+- !private ["So27UIGestureRecognizerDelegateP", "setupCell"]
+- !private ["So27UIGestureRecognizerDelegateP", "setupCellFor"]
+- !private ["So30UIPasteConfigurationSupportingP", "cancelIcon"]
+- !private ["So30UIPasteConfigurationSupportingP", "defaultCell"]
+- !private ["So30UIPasteConfigurationSupportingP", "dequeueReusableCell"]
+- !private ["So30UIPasteConfigurationSupportingP", "isHidden"]
+- !private ["So30UIPasteConfigurationSupportingP", "setupCell"]
+- !private ["So30UIPasteConfigurationSupportingP", "setupCellFor"]
+- !private ["So22UIPickerViewDataSourceP", "setupCell"]
+- !private ["So20UIPickerViewDelegateP", "setupCell"]
+- !private ["So11UIResponderC", "cancelIcon"]
+- !private ["So11UIResponderC", "defaultCell"]
+- !private ["So11UIResponderC", "dequeueReusableCell"]
+- !private ["So11UIResponderC", "isHidden"]
+- !private ["So11UIResponderC", "setupCell"]
+- !private ["So11UIResponderC", "setupCellFor"]
+- !private ["So30UIResponderStandardEditActionsP", "cancelIcon"]
+- !private ["So30UIResponderStandardEditActionsP", "defaultCell"]
+- !private ["So30UIResponderStandardEditActionsP", "dequeueReusableCell"]
+- !private ["So30UIResponderStandardEditActionsP", "isHidden"]
+- !private ["So30UIResponderStandardEditActionsP", "setupCell"]
+- !private ["So30UIResponderStandardEditActionsP", "setupCellFor"]
+- !private ["So12UIScrollViewC", "defaultCell"]
+- !private ["So12UIScrollViewC", "dequeueReusableCell"]
+- !private ["So20UIScrollViewDelegateP", "cancelIcon"]
+- !private ["So20UIScrollViewDelegateP", "setupCellFor"]
+- !private ["So35UISpringLoadedInteractionSupportingP", "defaultCell"]
+- !private ["So35UISpringLoadedInteractionSupportingP", "dequeueReusableCell"]
+- !private ["So35UISpringLoadedInteractionSupportingP", "isHidden"]
+- !private ["So11UITableViewC", "defaultCell"]
+- !private ["So11UITableViewC", "dequeueReusableCell"]
+- !private ["So15UITableViewCellC", "cancelIcon"]
+- !private ["So15UITableViewCellC", "setupCell"]
+- !private ["So15UITableViewCellC", "setupCellFor"]
+- !private ["So21UITableViewDataSourceP", "DataSourceSection"]
+- !private ["So21UITableViewDataSourceP", "UITableView"]
+- ["So21UITableViewDataSourceP", ""]
+- ["So21UITableViewDataSourceP", "numberOfSections"]
+- ["So21UITableViewDataSourceP", "numberOfSectionsInTableView"]
+- ["So21UITableViewDataSourceP", "sectionIndexTitles"]
+- ["So21UITableViewDataSourceP", "sectionIndexTitlesForTableView"]
+- !private ["So21UITableViewDataSourceP", "store"]
+- ["So21UITableViewDataSourceP", "tableView"]
+- !private ["So19UITextFieldDelegateP", "cancelIcon"]
+- !private ["So19UITextFieldDelegateP", "setupCell"]
+- !private ["So19UITextFieldDelegateP", "setupCellFor"]
+- !private ["So18UITextViewDelegateP", "cancelIcon"]
+- !private ["So18UITextViewDelegateP", "setupCellFor"]
+- !private ["So18UITraitEnvironmentP", "cancelIcon"]
+- !private ["So18UITraitEnvironmentP", "defaultCell"]
+- !private ["So18UITraitEnvironmentP", "dequeueReusableCell"]
+- !private ["So18UITraitEnvironmentP", "isHidden"]
+- !private ["So18UITraitEnvironmentP", "setupCell"]
+- !private ["So18UITraitEnvironmentP", "setupCellFor"]
+- !private ["So23UIUserActivityRestoringP", "cancelIcon"]
+- !private ["So23UIUserActivityRestoringP", "defaultCell"]
+- !private ["So23UIUserActivityRestoringP", "dequeueReusableCell"]
+- !private ["So23UIUserActivityRestoringP", "isHidden"]
+- !private ["So23UIUserActivityRestoringP", "setupCell"]
+- !private ["So23UIUserActivityRestoringP", "setupCellFor"]
+- !private ["So6UIViewC", "cancelIcon"]
+- !private ["So6UIViewC", "defaultCell"]
+- !private ["So6UIViewC", "dequeueReusableCell"]
+- !private ["So6UIViewC", "isHidden"]
+- !private ["So6UIViewC", "setupCell"]
+- !private ["So6UIViewC", "setupCellFor"]
+- !private ["s14_ArrayProtocolP", "count"]
+- !private ["s14_ArrayProtocolP", "subscript"]
+- !private ["s24_DestructorSafeContainerP", "count"]
+- !private ["s24_DestructorSafeContainerP", "subscript"]
+- !private ["s19_HasContiguousBytesP", "count"]
+- !private ["s19_HasContiguousBytesP", "subscript"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "count"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "subscript"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "DataSourceSection"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "UITableView"]
+- ["10Foundation27_KeyValueCodingAndObservingP", ""]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "action"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "buttons"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "cancelIcon"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "defaultCell"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "dequeueReusableCell"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "fields"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "init"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "isHidden"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "items"]
+- ["10Foundation27_KeyValueCodingAndObservingP", "numberOfSections"]
+- ["10Foundation27_KeyValueCodingAndObservingP", "numberOfSectionsInTableView"]
+- ["10Foundation27_KeyValueCodingAndObservingP", "sectionIndexTitles"]
+- ["10Foundation27_KeyValueCodingAndObservingP", "sectionIndexTitlesForTableView"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "setupCell"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "setupCellFor"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "store"]
+- ["10Foundation27_KeyValueCodingAndObservingP", "tableView"]
+- !private ["s21_ObjectiveCBridgeableP", "count"]
+- !private ["s21_ObjectiveCBridgeableP", "isHidden"]
+- !private ["s21_ObjectiveCBridgeableP", "row"]
+- !private ["s21_ObjectiveCBridgeableP", "section"]
+- !private ["s21_ObjectiveCBridgeableP", "subscript"]
+- !private ["s38__DefaultCustomPlaygroundQuickLookableP", "cancelIcon"]
+- !private ["s38__DefaultCustomPlaygroundQuickLookableP", "defaultCell"]
+- !private ["s38__DefaultCustomPlaygroundQuickLookableP", "dequeueReusableCell"]
+- !private ["s38__DefaultCustomPlaygroundQuickLookableP", "isHidden"]
+- !private ["s38__DefaultCustomPlaygroundQuickLookableP", "setupCell"]
+- !private ["s38__DefaultCustomPlaygroundQuickLookableP", "setupCellFor"]
+depends-nominal:
+- !private "Sa"
+- !private "SK"
+- !private "5Hippo22BroadCastTextFieldCellC"
+- !private "5Hippo19BroadcastButtonCellC"
+- !private "So15CALayerDelegateP"
+- "s7CVarArgP"
+- "5Hippo13CaseCountableP"
+- !private "Sl"
+- !private "SL"
+- !private "10Foundation15ContiguousBytesP"
+- "5Hippo23CreatePaymentDataSourceC"
+- "s28CustomDebugStringConvertibleP"
+- !private "s17CustomReflectableP"
+- "s23CustomStringConvertibleP"
+- !private "10Foundation12DataProtocolP"
+- "5Hippo23CreatePaymentDataSourceC0dE7SectionO"
+- !private "Se"
+- !private "SE"
+- "SQ"
+- !private "s25ExpressibleByArrayLiteralP"
+- !private "s23ExpressibleByNilLiteralP"
+- "5Hippo8FormDataC0B6ActionO"
+- !private "5Hippo8FormDataC"
+- "SH"
+- !private "10Foundation9IndexPathV"
+- !private "5Hippo20KingfisherCompatibleP"
+- !private "SM"
+- !private "10Foundation19MutableDataProtocolP"
+- !private "So8NSCodingP"
+- "So8NSObjectC"
+- "So8NSObjectP"
+- !private "Sq"
+- !private "5Hippo12PaymentFieldC"
+- !private "5Hippo26PaymentItemDescriptionCellC"
+- !private "5Hippo12PaymentStoreC"
+- !private "Sk"
+- !private "Sm"
+- "SY"
+- !private "10Foundation20ReferenceConvertibleP"
+- !private "ST"
+- !private "5Hippo21ShowMoreTableViewCellC"
+- !private "So48UIAccessibilityContentSizeCategoryImageAdjustingP"
+- !private "So29UIAccessibilityIdentificationP"
+- !private "So12UIAppearanceP"
+- !private "So21UIAppearanceContainerP"
+- !private "So8UIButtonC"
+- !private "So9UIControlC"
+- !private "So17UICoordinateSpaceP"
+- !private "So23UIDataSourceTranslatingP"
+- !private "So13UIDynamicItemP"
+- !private "So18UIFocusEnvironmentP"
+- !private "So11UIFocusItemP"
+- !private "So20UIFocusItemContainerP"
+- !private "So30UIFocusItemScrollableContainerP"
+- !private "So27UIGestureRecognizerDelegateP"
+- !private "So30UIPasteConfigurationSupportingP"
+- !private "So22UIPickerViewDataSourceP"
+- !private "So20UIPickerViewDelegateP"
+- !private "So11UIResponderC"
+- !private "So30UIResponderStandardEditActionsP"
+- !private "So12UIScrollViewC"
+- !private "So20UIScrollViewDelegateP"
+- !private "So35UISpringLoadedInteractionSupportingP"
+- !private "So11UITableViewC"
+- !private "So15UITableViewCellC"
+- "So21UITableViewDataSourceP"
+- !private "So19UITextFieldDelegateP"
+- !private "So18UITextViewDelegateP"
+- !private "So18UITraitEnvironmentP"
+- !private "So23UIUserActivityRestoringP"
+- !private "So6UIViewC"
+- !private "s14_ArrayProtocolP"
+- !private "s24_DestructorSafeContainerP"
+- !private "s19_HasContiguousBytesP"
+- !private "s35_HasCustomAnyHashableRepresentationP"
+- "10Foundation27_KeyValueCodingAndObservingP"
+- !private "s21_ObjectiveCBridgeableP"
+- !private "s38__DefaultCustomPlaygroundQuickLookableP"
+depends-dynamic-lookup:
+depends-external:
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/ObjectiveC.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreMedia.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/simd.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreImage.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/QuartzCore.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Accelerate.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Dispatch.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Metal.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Darwin.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreLocation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Foundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/AVFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreAudio.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/MediaPlayer.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreGraphics.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/os.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Photos.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Swift.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/UIKit.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/SwiftOnoneSupport.swiftmodule"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Hippo.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Helpers/TRWDownloadManager/TWRDownloadManager.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/SocketRocket/SocketRocket.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/SocketRocket/SRWebSocket.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/MZFayeClient/MZFayeClient.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/unextended-module.modulemap"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/usr/include/objc/ObjectiveC.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/OpenGLES.framework/Headers/OpenGLES.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreMedia.framework/Headers/CoreMedia.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreImage.framework/Headers/CoreImage.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/QuartzCore.framework/Headers/QuartzCore.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Accelerate.framework/Headers/Accelerate.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Dispatch.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/QuickLook.framework/Headers/QuickLook.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Metal.framework/Headers/Metal.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/usr/include/Darwin.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreLocation.framework/Headers/CoreLocation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Foundation.framework/Headers/Foundation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/AVFoundation.framework/Headers/AVFoundation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/MediaPlayer.framework/Headers/MediaPlayer.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreGraphics.framework/Headers/CoreGraphics.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/UserNotifications.framework/Headers/UserNotifications.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/os.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Photos.framework/Headers/Photos.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/UIKit.framework/Headers/UIKit.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreText.framework/Headers/CoreText.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/MediaToolbox.framework/Headers/MediaToolbox.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/AudioToolbox.framework/Headers/AudioToolbox.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Security.framework/Headers/Security.apinotes"
+interface-hash: "cd18f352fef3b9b1dbdd7a8d4a3f2c1f"

@@ -1,0 +1,853 @@
+### Swift dependencies file v0 ###
+provides-top-level:
+- "ImageProcessItem"
+- "ImageProcessor"
+- "ProcessorImp"
+- "=="
+- "!="
+- "DefaultImageProcessor"
+- "RectCorner"
+- "RoundCornerImageProcessor"
+- "ContentMode"
+- "ResizingImageProcessor"
+- "BlurImageProcessor"
+- "OverlayImageProcessor"
+- "TintImageProcessor"
+- "ColorControlsProcessor"
+- "BlackWhiteProcessor"
+- "CroppingImageProcessor"
+- ">>"
+provides-nominal:
+- "5Hippo16ImageProcessItemO"
+- "5Hippo14ImageProcessorP"
+- "5Hippo21DefaultImageProcessorV"
+- "5Hippo10RectCornerV"
+- "5Hippo25RoundCornerImageProcessorV"
+- "5Hippo11ContentModeO"
+- "5Hippo22ResizingImageProcessorV"
+- "5Hippo18BlurImageProcessorV"
+- "5Hippo21OverlayImageProcessorV"
+- "5Hippo18TintImageProcessorV"
+- "5Hippo22ColorControlsProcessorV"
+- "5Hippo19BlackWhiteProcessorV"
+- "5Hippo22CroppingImageProcessorV"
+provides-member:
+- ["5Hippo16ImageProcessItemO", ""]
+- ["5Hippo14ImageProcessorP", ""]
+- ["5Hippo21DefaultImageProcessorV", ""]
+- ["5Hippo10RectCornerV", ""]
+- ["5Hippo25RoundCornerImageProcessorV", ""]
+- ["5Hippo11ContentModeO", ""]
+- ["5Hippo22ResizingImageProcessorV", ""]
+- ["5Hippo18BlurImageProcessorV", ""]
+- ["5Hippo21OverlayImageProcessorV", ""]
+- ["5Hippo18TintImageProcessorV", ""]
+- ["5Hippo22ColorControlsProcessorV", ""]
+- ["5Hippo19BlackWhiteProcessorV", ""]
+- ["5Hippo22CroppingImageProcessorV", ""]
+- ["5Hippo14ImageProcessorP", "append"]
+- ["5Hippo22ResizingImageProcessorV", "targetSize"]
+- ["5Hippo22ResizingImageProcessorV", "init"]
+provides-dynamic-lookup:
+depends-top-level:
+- !private "!"
+- "!="
+- !private "*"
+- !private "+="
+- "<<"
+- "=="
+- ">>"
+- !private "??"
+- "AssignmentPrecedence"
+- "BlackWhiteProcessor"
+- "BlurImageProcessor"
+- "Bool"
+- "CGFloat"
+- "CGPoint"
+- "CGSize"
+- "Color"
+- "ColorControlsProcessor"
+- "ContentMode"
+- "CroppingImageProcessor"
+- "Data"
+- "DefaultImageProcessor"
+- !private "GeneralProcessor"
+- "Image"
+- "ImageProcessItem"
+- "ImageProcessor"
+- "Int"
+- !private "Kingfisher"
+- "KingfisherOptionsInfo"
+- "OptionSet"
+- "OverlayImageProcessor"
+- "ProcessorImp"
+- "RectCorner"
+- "ResizingImageProcessor"
+- "RoundCornerImageProcessor"
+- "String"
+- "TintImageProcessor"
+- !private "|"
+depends-member:
+- !private ["s18AdditiveArithmeticP", "init"]
+- !private ["Sa", "onlyLoadFirstFrame"]
+- !private ["Sa", "preloadAllAnimationData"]
+- !private ["Sa", "scaleFactor"]
+- !private ["SK", "appending"]
+- !private ["SK", "init"]
+- !private ["SK", "onlyLoadFirstFrame"]
+- !private ["SK", "preloadAllAnimationData"]
+- !private ["SK", "scaleFactor"]
+- !private ["Sz", "init"]
+- !private ["5Hippo19BlackWhiteProcessorV", "ColorControlsProcessor"]
+- ["5Hippo19BlackWhiteProcessorV", "Image"]
+- ["5Hippo19BlackWhiteProcessorV", "ImageProcessItem"]
+- ["5Hippo19BlackWhiteProcessorV", "KingfisherOptionsInfo"]
+- ["5Hippo19BlackWhiteProcessorV", "deinit"]
+- ["5Hippo19BlackWhiteProcessorV", "identifier"]
+- ["5Hippo19BlackWhiteProcessorV", "init"]
+- ["5Hippo19BlackWhiteProcessorV", "process"]
+- ["5Hippo18BlurImageProcessorV", "CGFloat"]
+- !private ["5Hippo18BlurImageProcessorV", "DefaultImageProcessor"]
+- ["5Hippo18BlurImageProcessorV", "Image"]
+- ["5Hippo18BlurImageProcessorV", "ImageProcessItem"]
+- ["5Hippo18BlurImageProcessorV", "KingfisherOptionsInfo"]
+- ["5Hippo18BlurImageProcessorV", "String"]
+- ["5Hippo18BlurImageProcessorV", "blurRadius"]
+- ["5Hippo18BlurImageProcessorV", "deinit"]
+- ["5Hippo18BlurImageProcessorV", "identifier"]
+- ["5Hippo18BlurImageProcessorV", "init"]
+- ["5Hippo18BlurImageProcessorV", "process"]
+- !private ["So7CGPointV", "init"]
+- !private ["s7CVarArgP", "Int"]
+- !private ["s7CVarArgP", "String"]
+- !private ["s7CVarArgP", "appending"]
+- !private ["s7CVarArgP", "getRed"]
+- !private ["s7CVarArgP", "hex"]
+- !private ["s7CVarArgP", "init"]
+- !private ["s7CVarArgP", "kf"]
+- !private ["s7CVarArgP", "onlyLoadFirstFrame"]
+- !private ["s7CVarArgP", "preloadAllAnimationData"]
+- !private ["s7CVarArgP", "scaleFactor"]
+- !private ["Sl", "appending"]
+- !private ["Sl", "init"]
+- !private ["Sl", "onlyLoadFirstFrame"]
+- !private ["Sl", "preloadAllAnimationData"]
+- !private ["Sl", "scaleFactor"]
+- ["5Hippo22ColorControlsProcessorV", "CGFloat"]
+- !private ["5Hippo22ColorControlsProcessorV", "DefaultImageProcessor"]
+- ["5Hippo22ColorControlsProcessorV", "Image"]
+- ["5Hippo22ColorControlsProcessorV", "ImageProcessItem"]
+- ["5Hippo22ColorControlsProcessorV", "KingfisherOptionsInfo"]
+- ["5Hippo22ColorControlsProcessorV", "String"]
+- ["5Hippo22ColorControlsProcessorV", "brightness"]
+- ["5Hippo22ColorControlsProcessorV", "contrast"]
+- ["5Hippo22ColorControlsProcessorV", "deinit"]
+- ["5Hippo22ColorControlsProcessorV", "identifier"]
+- ["5Hippo22ColorControlsProcessorV", "init"]
+- ["5Hippo22ColorControlsProcessorV", "inputEV"]
+- ["5Hippo22ColorControlsProcessorV", "process"]
+- ["5Hippo22ColorControlsProcessorV", "saturation"]
+- !private ["SL", "appending"]
+- !private ["SL", "init"]
+- ["5Hippo11ContentModeO", "=="]
+- ["5Hippo11ContentModeO", "__derived_enum_equals"]
+- ["5Hippo11ContentModeO", "_rawHashValue"]
+- ["5Hippo11ContentModeO", "aspectFill"]
+- ["5Hippo11ContentModeO", "aspectFit"]
+- ["5Hippo11ContentModeO", "deinit"]
+- ["5Hippo11ContentModeO", "hash"]
+- ["5Hippo11ContentModeO", "hashValue"]
+- ["5Hippo11ContentModeO", "none"]
+- !private ["10Foundation15ContiguousBytesP", "onlyLoadFirstFrame"]
+- !private ["10Foundation15ContiguousBytesP", "preloadAllAnimationData"]
+- !private ["10Foundation15ContiguousBytesP", "scaleFactor"]
+- ["5Hippo22CroppingImageProcessorV", "CGPoint"]
+- ["5Hippo22CroppingImageProcessorV", "CGSize"]
+- !private ["5Hippo22CroppingImageProcessorV", "DefaultImageProcessor"]
+- ["5Hippo22CroppingImageProcessorV", "Image"]
+- ["5Hippo22CroppingImageProcessorV", "ImageProcessItem"]
+- ["5Hippo22CroppingImageProcessorV", "KingfisherOptionsInfo"]
+- ["5Hippo22CroppingImageProcessorV", "String"]
+- ["5Hippo22CroppingImageProcessorV", "anchor"]
+- ["5Hippo22CroppingImageProcessorV", "deinit"]
+- ["5Hippo22CroppingImageProcessorV", "identifier"]
+- ["5Hippo22CroppingImageProcessorV", "init"]
+- ["5Hippo22CroppingImageProcessorV", "process"]
+- ["5Hippo22CroppingImageProcessorV", "size"]
+- !private ["s28CustomDebugStringConvertibleP", "Int"]
+- !private ["s28CustomDebugStringConvertibleP", "String"]
+- !private ["s28CustomDebugStringConvertibleP", "appending"]
+- !private ["s28CustomDebugStringConvertibleP", "getRed"]
+- !private ["s28CustomDebugStringConvertibleP", "hex"]
+- !private ["s28CustomDebugStringConvertibleP", "init"]
+- !private ["s28CustomDebugStringConvertibleP", "kf"]
+- !private ["s28CustomDebugStringConvertibleP", "onlyLoadFirstFrame"]
+- !private ["s28CustomDebugStringConvertibleP", "preloadAllAnimationData"]
+- !private ["s28CustomDebugStringConvertibleP", "scaleFactor"]
+- !private ["s17CustomReflectableP", "appending"]
+- !private ["s17CustomReflectableP", "init"]
+- !private ["s17CustomReflectableP", "onlyLoadFirstFrame"]
+- !private ["s17CustomReflectableP", "preloadAllAnimationData"]
+- !private ["s17CustomReflectableP", "scaleFactor"]
+- !private ["s23CustomStringConvertibleP", "Int"]
+- !private ["s23CustomStringConvertibleP", "String"]
+- !private ["s23CustomStringConvertibleP", "appendInterpolation"]
+- !private ["s23CustomStringConvertibleP", "appendLiteral"]
+- !private ["s23CustomStringConvertibleP", "appending"]
+- !private ["s23CustomStringConvertibleP", "getRed"]
+- !private ["s23CustomStringConvertibleP", "hex"]
+- !private ["s23CustomStringConvertibleP", "init"]
+- !private ["s23CustomStringConvertibleP", "kf"]
+- !private ["s23CustomStringConvertibleP", "onlyLoadFirstFrame"]
+- !private ["s23CustomStringConvertibleP", "preloadAllAnimationData"]
+- !private ["s23CustomStringConvertibleP", "scaleFactor"]
+- !private ["10Foundation12DataProtocolP", "onlyLoadFirstFrame"]
+- !private ["10Foundation12DataProtocolP", "preloadAllAnimationData"]
+- !private ["10Foundation12DataProtocolP", "scaleFactor"]
+- !private ["Se", "appending"]
+- !private ["Se", "init"]
+- !private ["Se", "onlyLoadFirstFrame"]
+- !private ["Se", "preloadAllAnimationData"]
+- !private ["Se", "scaleFactor"]
+- ["5Hippo21DefaultImageProcessorV", "DefaultImageProcessor"]
+- ["5Hippo21DefaultImageProcessorV", "Image"]
+- ["5Hippo21DefaultImageProcessorV", "ImageProcessItem"]
+- !private ["5Hippo21DefaultImageProcessorV", "Kingfisher"]
+- ["5Hippo21DefaultImageProcessorV", "KingfisherOptionsInfo"]
+- ["5Hippo21DefaultImageProcessorV", "default"]
+- ["5Hippo21DefaultImageProcessorV", "deinit"]
+- ["5Hippo21DefaultImageProcessorV", "identifier"]
+- ["5Hippo21DefaultImageProcessorV", "init"]
+- ["5Hippo21DefaultImageProcessorV", "process"]
+- !private ["s26DefaultStringInterpolationV", "appendInterpolation"]
+- !private ["s26DefaultStringInterpolationV", "appendLiteral"]
+- !private ["SE", "appending"]
+- !private ["SE", "init"]
+- !private ["SE", "onlyLoadFirstFrame"]
+- !private ["SE", "preloadAllAnimationData"]
+- !private ["SE", "scaleFactor"]
+- ["SQ", "=="]
+- ["SQ", "ArrayLiteralElement"]
+- ["SQ", "Element"]
+- !private ["SQ", "Int"]
+- ["SQ", "RawValue"]
+- ["SQ", "RectCorner"]
+- !private ["SQ", "String"]
+- ["SQ", ""]
+- ["SQ", "_Default_ArrayLiteralElement"]
+- ["SQ", "_Default_Element"]
+- ["SQ", "_Default_RawValue"]
+- ["SQ", "_rawHashValue"]
+- !private ["SQ", "all"]
+- !private ["SQ", "appending"]
+- ["SQ", "bottomLeft"]
+- ["SQ", "bottomRight"]
+- ["SQ", "contains"]
+- !private ["SQ", "cornerIdentifier"]
+- ["SQ", "formIntersection"]
+- ["SQ", "formSymmetricDifference"]
+- ["SQ", "formUnion"]
+- !private ["SQ", "getRed"]
+- ["SQ", "hash"]
+- ["SQ", "hashValue"]
+- !private ["SQ", "hex"]
+- ["SQ", "init"]
+- ["SQ", "insert"]
+- ["SQ", "intersection"]
+- ["SQ", "isDisjoint"]
+- ["SQ", "isEmpty"]
+- ["SQ", "isSubset"]
+- ["SQ", "isSuperset"]
+- !private ["SQ", "kf"]
+- !private ["SQ", "none"]
+- !private ["SQ", "onlyLoadFirstFrame"]
+- !private ["SQ", "preloadAllAnimationData"]
+- ["SQ", "rawValue"]
+- ["SQ", "remove"]
+- !private ["SQ", "scaleFactor"]
+- ["SQ", "subtract"]
+- ["SQ", "subtracting"]
+- ["SQ", "symmetricDifference"]
+- ["SQ", "topLeft"]
+- ["SQ", "topRight"]
+- ["SQ", "union"]
+- ["SQ", "update"]
+- ["s25ExpressibleByArrayLiteralP", "=="]
+- ["s25ExpressibleByArrayLiteralP", "ArrayLiteralElement"]
+- ["s25ExpressibleByArrayLiteralP", "Element"]
+- ["s25ExpressibleByArrayLiteralP", "RawValue"]
+- ["s25ExpressibleByArrayLiteralP", "RectCorner"]
+- ["s25ExpressibleByArrayLiteralP", ""]
+- ["s25ExpressibleByArrayLiteralP", "_Default_ArrayLiteralElement"]
+- ["s25ExpressibleByArrayLiteralP", "_Default_Element"]
+- ["s25ExpressibleByArrayLiteralP", "_Default_RawValue"]
+- !private ["s25ExpressibleByArrayLiteralP", "all"]
+- ["s25ExpressibleByArrayLiteralP", "bottomLeft"]
+- ["s25ExpressibleByArrayLiteralP", "bottomRight"]
+- ["s25ExpressibleByArrayLiteralP", "contains"]
+- !private ["s25ExpressibleByArrayLiteralP", "cornerIdentifier"]
+- ["s25ExpressibleByArrayLiteralP", "formIntersection"]
+- ["s25ExpressibleByArrayLiteralP", "formSymmetricDifference"]
+- ["s25ExpressibleByArrayLiteralP", "formUnion"]
+- ["s25ExpressibleByArrayLiteralP", "init"]
+- ["s25ExpressibleByArrayLiteralP", "insert"]
+- ["s25ExpressibleByArrayLiteralP", "intersection"]
+- ["s25ExpressibleByArrayLiteralP", "isDisjoint"]
+- ["s25ExpressibleByArrayLiteralP", "isEmpty"]
+- ["s25ExpressibleByArrayLiteralP", "isSubset"]
+- ["s25ExpressibleByArrayLiteralP", "isSuperset"]
+- !private ["s25ExpressibleByArrayLiteralP", "onlyLoadFirstFrame"]
+- !private ["s25ExpressibleByArrayLiteralP", "preloadAllAnimationData"]
+- ["s25ExpressibleByArrayLiteralP", "rawValue"]
+- ["s25ExpressibleByArrayLiteralP", "remove"]
+- !private ["s25ExpressibleByArrayLiteralP", "scaleFactor"]
+- ["s25ExpressibleByArrayLiteralP", "subtract"]
+- ["s25ExpressibleByArrayLiteralP", "subtracting"]
+- ["s25ExpressibleByArrayLiteralP", "symmetricDifference"]
+- ["s25ExpressibleByArrayLiteralP", "topLeft"]
+- ["s25ExpressibleByArrayLiteralP", "topRight"]
+- ["s25ExpressibleByArrayLiteralP", "union"]
+- ["s25ExpressibleByArrayLiteralP", "update"]
+- !private ["s43ExpressibleByExtendedGraphemeClusterLiteralP", "appending"]
+- !private ["s43ExpressibleByExtendedGraphemeClusterLiteralP", "init"]
+- !private ["s27ExpressibleByIntegerLiteralP", "init"]
+- !private ["s32ExpressibleByStringInterpolationP", "appending"]
+- !private ["s32ExpressibleByStringInterpolationP", "init"]
+- !private ["s26ExpressibleByStringLiteralP", "appending"]
+- !private ["s26ExpressibleByStringLiteralP", "init"]
+- !private ["s33ExpressibleByUnicodeScalarLiteralP", "appending"]
+- !private ["s33ExpressibleByUnicodeScalarLiteralP", "init"]
+- !private ["s17FixedWidthIntegerP", "init"]
+- ["SH", "=="]
+- !private ["SH", "Int"]
+- !private ["SH", "String"]
+- ["SH", ""]
+- ["SH", "_rawHashValue"]
+- !private ["SH", "appending"]
+- !private ["SH", "getRed"]
+- ["SH", "hash"]
+- ["SH", "hashValue"]
+- !private ["SH", "hex"]
+- !private ["SH", "init"]
+- !private ["SH", "kf"]
+- !private ["SH", "none"]
+- !private ["SH", "onlyLoadFirstFrame"]
+- !private ["SH", "preloadAllAnimationData"]
+- !private ["SH", "scaleFactor"]
+- !private ["s6HasherV", "combine"]
+- ["5Hippo16ImageProcessItemO", "Data"]
+- ["5Hippo16ImageProcessItemO", "Image"]
+- ["5Hippo16ImageProcessItemO", "data"]
+- ["5Hippo16ImageProcessItemO", "image"]
+- !private ["5Hippo14ImageProcessorP", "CGPoint"]
+- !private ["5Hippo14ImageProcessorP", "ColorControlsProcessor"]
+- ["5Hippo14ImageProcessorP", "DefaultImageProcessor"]
+- !private ["5Hippo14ImageProcessorP", "GeneralProcessor"]
+- ["5Hippo14ImageProcessorP", "Image"]
+- ["5Hippo14ImageProcessorP", "ImageProcessItem"]
+- ["5Hippo14ImageProcessorP", "ImageProcessor"]
+- !private ["5Hippo14ImageProcessorP", "Kingfisher"]
+- ["5Hippo14ImageProcessorP", "KingfisherOptionsInfo"]
+- ["5Hippo14ImageProcessorP", "String"]
+- ["5Hippo14ImageProcessorP", ""]
+- !private ["5Hippo14ImageProcessorP", "anchor"]
+- ["5Hippo14ImageProcessorP", "append"]
+- !private ["5Hippo14ImageProcessorP", "backgroundColor"]
+- !private ["5Hippo14ImageProcessorP", "blurRadius"]
+- !private ["5Hippo14ImageProcessorP", "brightness"]
+- !private ["5Hippo14ImageProcessorP", "contrast"]
+- !private ["5Hippo14ImageProcessorP", "cornerRadius"]
+- !private ["5Hippo14ImageProcessorP", "default"]
+- !private ["5Hippo14ImageProcessorP", "fraction"]
+- ["5Hippo14ImageProcessorP", "identifier"]
+- ["5Hippo14ImageProcessorP", "init"]
+- !private ["5Hippo14ImageProcessorP", "inputEV"]
+- !private ["5Hippo14ImageProcessorP", "overlay"]
+- !private ["5Hippo14ImageProcessorP", "p"]
+- ["5Hippo14ImageProcessorP", "process"]
+- !private ["5Hippo14ImageProcessorP", "referenceSize"]
+- !private ["5Hippo14ImageProcessorP", "roundingCorners"]
+- !private ["5Hippo14ImageProcessorP", "saturation"]
+- !private ["5Hippo14ImageProcessorP", "size"]
+- !private ["5Hippo14ImageProcessorP", "targetContentMode"]
+- !private ["5Hippo14ImageProcessorP", "targetSize"]
+- !private ["5Hippo14ImageProcessorP", "tint"]
+- !private ["Si", "init"]
+- !private ["5Hippo10KingfisherC", "adjusted"]
+- !private ["5Hippo10KingfisherC", "blurred"]
+- !private ["5Hippo10KingfisherC", "crop"]
+- !private ["5Hippo10KingfisherC", "image"]
+- !private ["5Hippo10KingfisherC", "overlaying"]
+- !private ["5Hippo10KingfisherC", "resize"]
+- !private ["5Hippo10KingfisherC", "size"]
+- !private ["5Hippo10KingfisherC", "tinted"]
+- !private ["5Hippo20KingfisherCompatibleP", "appending"]
+- !private ["5Hippo20KingfisherCompatibleP", "init"]
+- !private ["5Hippo20KingfisherCompatibleP", "kf"]
+- !private ["s25LosslessStringConvertibleP", "appending"]
+- !private ["s25LosslessStringConvertibleP", "init"]
+- !private ["s10MirrorPathP", "appending"]
+- !private ["s10MirrorPathP", "init"]
+- !private ["SM", "onlyLoadFirstFrame"]
+- !private ["SM", "preloadAllAnimationData"]
+- !private ["SM", "scaleFactor"]
+- !private ["10Foundation19MutableDataProtocolP", "onlyLoadFirstFrame"]
+- !private ["10Foundation19MutableDataProtocolP", "preloadAllAnimationData"]
+- !private ["10Foundation19MutableDataProtocolP", "scaleFactor"]
+- !private ["So8NSCodingP", "Int"]
+- !private ["So8NSCodingP", "String"]
+- !private ["So8NSCodingP", "appending"]
+- !private ["So8NSCodingP", "getRed"]
+- !private ["So8NSCodingP", "hex"]
+- !private ["So8NSCodingP", "kf"]
+- !private ["So9NSCopyingP", "Int"]
+- !private ["So9NSCopyingP", "String"]
+- !private ["So9NSCopyingP", "appending"]
+- !private ["So9NSCopyingP", "getRed"]
+- !private ["So9NSCopyingP", "hex"]
+- !private ["So21NSItemProviderReadingP", "Int"]
+- !private ["So21NSItemProviderReadingP", "String"]
+- !private ["So21NSItemProviderReadingP", "appending"]
+- !private ["So21NSItemProviderReadingP", "getRed"]
+- !private ["So21NSItemProviderReadingP", "hex"]
+- !private ["So21NSItemProviderReadingP", "kf"]
+- !private ["So21NSItemProviderWritingP", "Int"]
+- !private ["So21NSItemProviderWritingP", "String"]
+- !private ["So21NSItemProviderWritingP", "appending"]
+- !private ["So21NSItemProviderWritingP", "getRed"]
+- !private ["So21NSItemProviderWritingP", "hex"]
+- !private ["So21NSItemProviderWritingP", "kf"]
+- !private ["So16NSMutableCopyingP", "appending"]
+- !private ["So8NSObjectC", "CGFloat"]
+- !private ["So8NSObjectC", "Int"]
+- ["So8NSObjectC", "String"]
+- !private ["So8NSObjectC", "appending"]
+- !private ["So8NSObjectC", "getRed"]
+- ["So8NSObjectC", "hex"]
+- !private ["So8NSObjectC", "kf"]
+- !private ["So8NSObjectP", "Int"]
+- !private ["So8NSObjectP", "String"]
+- !private ["So8NSObjectP", "appending"]
+- !private ["So8NSObjectP", "getRed"]
+- !private ["So8NSObjectP", "hex"]
+- !private ["So8NSObjectP", "kf"]
+- !private ["So14NSSecureCodingP", "Int"]
+- !private ["So14NSSecureCodingP", "String"]
+- !private ["So14NSSecureCodingP", "appending"]
+- !private ["So14NSSecureCodingP", "getRed"]
+- !private ["So14NSSecureCodingP", "hex"]
+- !private ["So14NSSecureCodingP", "kf"]
+- !private ["So8NSStringC", "appending"]
+- !private ["Sj", "init"]
+- ["s9OptionSetP", "=="]
+- ["s9OptionSetP", "ArrayLiteralElement"]
+- ["s9OptionSetP", "Element"]
+- ["s9OptionSetP", "RawValue"]
+- ["s9OptionSetP", "RectCorner"]
+- ["s9OptionSetP", ""]
+- ["s9OptionSetP", "_Default_ArrayLiteralElement"]
+- ["s9OptionSetP", "_Default_Element"]
+- ["s9OptionSetP", "_Default_RawValue"]
+- !private ["s9OptionSetP", "all"]
+- ["s9OptionSetP", "bottomLeft"]
+- ["s9OptionSetP", "bottomRight"]
+- ["s9OptionSetP", "contains"]
+- !private ["s9OptionSetP", "cornerIdentifier"]
+- ["s9OptionSetP", "formIntersection"]
+- ["s9OptionSetP", "formSymmetricDifference"]
+- ["s9OptionSetP", "formUnion"]
+- ["s9OptionSetP", "init"]
+- ["s9OptionSetP", "insert"]
+- ["s9OptionSetP", "intersection"]
+- ["s9OptionSetP", "isDisjoint"]
+- ["s9OptionSetP", "isEmpty"]
+- ["s9OptionSetP", "isSubset"]
+- ["s9OptionSetP", "isSuperset"]
+- ["s9OptionSetP", "rawValue"]
+- ["s9OptionSetP", "remove"]
+- ["s9OptionSetP", "subtract"]
+- ["s9OptionSetP", "subtracting"]
+- ["s9OptionSetP", "symmetricDifference"]
+- ["s9OptionSetP", "topLeft"]
+- ["s9OptionSetP", "topRight"]
+- ["s9OptionSetP", "union"]
+- ["s9OptionSetP", "update"]
+- ["5Hippo21OverlayImageProcessorV", "CGFloat"]
+- ["5Hippo21OverlayImageProcessorV", "Color"]
+- !private ["5Hippo21OverlayImageProcessorV", "DefaultImageProcessor"]
+- ["5Hippo21OverlayImageProcessorV", "Image"]
+- ["5Hippo21OverlayImageProcessorV", "ImageProcessItem"]
+- ["5Hippo21OverlayImageProcessorV", "KingfisherOptionsInfo"]
+- ["5Hippo21OverlayImageProcessorV", "String"]
+- ["5Hippo21OverlayImageProcessorV", "deinit"]
+- ["5Hippo21OverlayImageProcessorV", "fraction"]
+- ["5Hippo21OverlayImageProcessorV", "identifier"]
+- ["5Hippo21OverlayImageProcessorV", "init"]
+- ["5Hippo21OverlayImageProcessorV", "overlay"]
+- ["5Hippo21OverlayImageProcessorV", "process"]
+- !private ["5Hippo11PlaceholderP", "kf"]
+- !private ["Sk", "onlyLoadFirstFrame"]
+- !private ["Sk", "preloadAllAnimationData"]
+- !private ["Sk", "scaleFactor"]
+- !private ["Sm", "appending"]
+- !private ["Sm", "init"]
+- !private ["Sm", "onlyLoadFirstFrame"]
+- !private ["Sm", "preloadAllAnimationData"]
+- !private ["Sm", "scaleFactor"]
+- ["SY", "=="]
+- ["SY", "ArrayLiteralElement"]
+- ["SY", "Element"]
+- ["SY", "RawValue"]
+- ["SY", "RectCorner"]
+- ["SY", ""]
+- ["SY", "_Default_ArrayLiteralElement"]
+- ["SY", "_Default_Element"]
+- ["SY", "_Default_RawValue"]
+- !private ["SY", "all"]
+- ["SY", "bottomLeft"]
+- ["SY", "bottomRight"]
+- ["SY", "contains"]
+- !private ["SY", "cornerIdentifier"]
+- ["SY", "formIntersection"]
+- ["SY", "formSymmetricDifference"]
+- ["SY", "formUnion"]
+- ["SY", "init"]
+- ["SY", "insert"]
+- ["SY", "intersection"]
+- ["SY", "isDisjoint"]
+- ["SY", "isEmpty"]
+- ["SY", "isSubset"]
+- ["SY", "isSuperset"]
+- ["SY", "rawValue"]
+- ["SY", "remove"]
+- ["SY", "subtract"]
+- ["SY", "subtracting"]
+- ["SY", "symmetricDifference"]
+- ["SY", "topLeft"]
+- ["SY", "topRight"]
+- ["SY", "union"]
+- ["SY", "update"]
+- ["5Hippo10RectCornerV", "=="]
+- ["5Hippo10RectCornerV", "ArrayLiteralElement"]
+- ["5Hippo10RectCornerV", "Element"]
+- ["5Hippo10RectCornerV", "Int"]
+- ["5Hippo10RectCornerV", "RawValue"]
+- ["5Hippo10RectCornerV", "RectCorner"]
+- ["5Hippo10RectCornerV", "String"]
+- ["5Hippo10RectCornerV", "_Default_ArrayLiteralElement"]
+- ["5Hippo10RectCornerV", "_Default_Element"]
+- ["5Hippo10RectCornerV", "_Default_RawValue"]
+- ["5Hippo10RectCornerV", "all"]
+- ["5Hippo10RectCornerV", "bottomLeft"]
+- ["5Hippo10RectCornerV", "bottomRight"]
+- ["5Hippo10RectCornerV", "contains"]
+- ["5Hippo10RectCornerV", "cornerIdentifier"]
+- ["5Hippo10RectCornerV", "deinit"]
+- ["5Hippo10RectCornerV", "formIntersection"]
+- ["5Hippo10RectCornerV", "formSymmetricDifference"]
+- ["5Hippo10RectCornerV", "formUnion"]
+- ["5Hippo10RectCornerV", "init"]
+- ["5Hippo10RectCornerV", "insert"]
+- ["5Hippo10RectCornerV", "intersection"]
+- ["5Hippo10RectCornerV", "isDisjoint"]
+- ["5Hippo10RectCornerV", "isEmpty"]
+- ["5Hippo10RectCornerV", "isSubset"]
+- ["5Hippo10RectCornerV", "isSuperset"]
+- ["5Hippo10RectCornerV", "rawValue"]
+- ["5Hippo10RectCornerV", "remove"]
+- ["5Hippo10RectCornerV", "subtract"]
+- ["5Hippo10RectCornerV", "subtracting"]
+- ["5Hippo10RectCornerV", "symmetricDifference"]
+- ["5Hippo10RectCornerV", "topLeft"]
+- ["5Hippo10RectCornerV", "topRight"]
+- ["5Hippo10RectCornerV", "union"]
+- ["5Hippo10RectCornerV", "update"]
+- ["5Hippo22ResizingImageProcessorV", "CGSize"]
+- ["5Hippo22ResizingImageProcessorV", "ContentMode"]
+- !private ["5Hippo22ResizingImageProcessorV", "DefaultImageProcessor"]
+- ["5Hippo22ResizingImageProcessorV", "Image"]
+- ["5Hippo22ResizingImageProcessorV", "ImageProcessItem"]
+- ["5Hippo22ResizingImageProcessorV", "KingfisherOptionsInfo"]
+- ["5Hippo22ResizingImageProcessorV", "String"]
+- ["5Hippo22ResizingImageProcessorV", "deinit"]
+- ["5Hippo22ResizingImageProcessorV", "identifier"]
+- ["5Hippo22ResizingImageProcessorV", "init"]
+- ["5Hippo22ResizingImageProcessorV", "process"]
+- ["5Hippo22ResizingImageProcessorV", "referenceSize"]
+- ["5Hippo22ResizingImageProcessorV", "targetContentMode"]
+- ["5Hippo22ResizingImageProcessorV", "targetSize"]
+- ["5Hippo25RoundCornerImageProcessorV", "CGFloat"]
+- ["5Hippo25RoundCornerImageProcessorV", "CGSize"]
+- ["5Hippo25RoundCornerImageProcessorV", "Color"]
+- !private ["5Hippo25RoundCornerImageProcessorV", "DefaultImageProcessor"]
+- ["5Hippo25RoundCornerImageProcessorV", "Image"]
+- ["5Hippo25RoundCornerImageProcessorV", "ImageProcessItem"]
+- ["5Hippo25RoundCornerImageProcessorV", "KingfisherOptionsInfo"]
+- ["5Hippo25RoundCornerImageProcessorV", "RectCorner"]
+- ["5Hippo25RoundCornerImageProcessorV", "String"]
+- ["5Hippo25RoundCornerImageProcessorV", "backgroundColor"]
+- ["5Hippo25RoundCornerImageProcessorV", "cornerRadius"]
+- ["5Hippo25RoundCornerImageProcessorV", "deinit"]
+- ["5Hippo25RoundCornerImageProcessorV", "identifier"]
+- ["5Hippo25RoundCornerImageProcessorV", "init"]
+- ["5Hippo25RoundCornerImageProcessorV", "process"]
+- ["5Hippo25RoundCornerImageProcessorV", "roundingCorners"]
+- ["5Hippo25RoundCornerImageProcessorV", "targetSize"]
+- !private ["s10SIMDScalarP", "init"]
+- !private ["ST", "appending"]
+- !private ["ST", "init"]
+- !private ["ST", "onlyLoadFirstFrame"]
+- !private ["ST", "preloadAllAnimationData"]
+- !private ["ST", "scaleFactor"]
+- ["s10SetAlgebraP", "=="]
+- ["s10SetAlgebraP", "ArrayLiteralElement"]
+- ["s10SetAlgebraP", "Element"]
+- ["s10SetAlgebraP", "RawValue"]
+- ["s10SetAlgebraP", "RectCorner"]
+- ["s10SetAlgebraP", ""]
+- ["s10SetAlgebraP", "_Default_ArrayLiteralElement"]
+- ["s10SetAlgebraP", "_Default_Element"]
+- ["s10SetAlgebraP", "_Default_RawValue"]
+- !private ["s10SetAlgebraP", "all"]
+- ["s10SetAlgebraP", "bottomLeft"]
+- ["s10SetAlgebraP", "bottomRight"]
+- ["s10SetAlgebraP", "contains"]
+- !private ["s10SetAlgebraP", "cornerIdentifier"]
+- ["s10SetAlgebraP", "formIntersection"]
+- ["s10SetAlgebraP", "formSymmetricDifference"]
+- ["s10SetAlgebraP", "formUnion"]
+- ["s10SetAlgebraP", "init"]
+- ["s10SetAlgebraP", "insert"]
+- ["s10SetAlgebraP", "intersection"]
+- ["s10SetAlgebraP", "isDisjoint"]
+- ["s10SetAlgebraP", "isEmpty"]
+- ["s10SetAlgebraP", "isSubset"]
+- ["s10SetAlgebraP", "isSuperset"]
+- ["s10SetAlgebraP", "rawValue"]
+- ["s10SetAlgebraP", "remove"]
+- ["s10SetAlgebraP", "subtract"]
+- ["s10SetAlgebraP", "subtracting"]
+- ["s10SetAlgebraP", "symmetricDifference"]
+- ["s10SetAlgebraP", "topLeft"]
+- ["s10SetAlgebraP", "topRight"]
+- ["s10SetAlgebraP", "union"]
+- ["s10SetAlgebraP", "update"]
+- !private ["SZ", "init"]
+- !private ["s13SignedNumericP", "init"]
+- !private ["Sx", "init"]
+- !private ["SS", "appending"]
+- !private ["SS", "init"]
+- !private ["s27StringInterpolationProtocolP", "appendInterpolation"]
+- !private ["s27StringInterpolationProtocolP", "appendLiteral"]
+- !private ["Sy", "appending"]
+- !private ["Sy", "init"]
+- !private ["s16TextOutputStreamP", "appendInterpolation"]
+- !private ["s16TextOutputStreamP", "appendLiteral"]
+- !private ["s16TextOutputStreamP", "appending"]
+- !private ["s16TextOutputStreamP", "init"]
+- !private ["s20TextOutputStreamableP", "appending"]
+- !private ["s20TextOutputStreamableP", "init"]
+- ["5Hippo18TintImageProcessorV", "Color"]
+- !private ["5Hippo18TintImageProcessorV", "DefaultImageProcessor"]
+- ["5Hippo18TintImageProcessorV", "Image"]
+- ["5Hippo18TintImageProcessorV", "ImageProcessItem"]
+- ["5Hippo18TintImageProcessorV", "KingfisherOptionsInfo"]
+- ["5Hippo18TintImageProcessorV", "String"]
+- ["5Hippo18TintImageProcessorV", "deinit"]
+- ["5Hippo18TintImageProcessorV", "identifier"]
+- ["5Hippo18TintImageProcessorV", "init"]
+- ["5Hippo18TintImageProcessorV", "process"]
+- ["5Hippo18TintImageProcessorV", "tint"]
+- !private ["So29UIAccessibilityIdentificationP", "kf"]
+- !private ["So7UIColorC", "CGFloat"]
+- !private ["So7UIColorC", "Int"]
+- ["So7UIColorC", "String"]
+- !private ["So7UIColorC", "getRed"]
+- !private ["So7UIColorC", "hex"]
+- !private ["So7UIImageC", "deinit"]
+- !private ["So7UIImageC", "kf"]
+- !private ["So39UIItemProviderPresentationSizeProvidingP", "kf"]
+- !private ["s14_ArrayProtocolP", "onlyLoadFirstFrame"]
+- !private ["s14_ArrayProtocolP", "preloadAllAnimationData"]
+- !private ["s14_ArrayProtocolP", "scaleFactor"]
+- !private ["s30_CustomPlaygroundQuickLookableP", "appending"]
+- !private ["s30_CustomPlaygroundQuickLookableP", "init"]
+- !private ["s24_DestructorSafeContainerP", "onlyLoadFirstFrame"]
+- !private ["s24_DestructorSafeContainerP", "preloadAllAnimationData"]
+- !private ["s24_DestructorSafeContainerP", "scaleFactor"]
+- !private ["s51_ExpressibleByBuiltinExtendedGraphemeClusterLiteralP", "appending"]
+- !private ["s51_ExpressibleByBuiltinExtendedGraphemeClusterLiteralP", "init"]
+- !private ["s35_ExpressibleByBuiltinIntegerLiteralP", "init"]
+- !private ["s34_ExpressibleByBuiltinStringLiteralP", "appending"]
+- !private ["s34_ExpressibleByBuiltinStringLiteralP", "init"]
+- !private ["s41_ExpressibleByBuiltinUnicodeScalarLiteralP", "appending"]
+- !private ["s41_ExpressibleByBuiltinUnicodeScalarLiteralP", "init"]
+- !private ["s26_ExpressibleByColorLiteralP", "Int"]
+- !private ["s26_ExpressibleByColorLiteralP", "String"]
+- !private ["s26_ExpressibleByColorLiteralP", "getRed"]
+- !private ["s26_ExpressibleByColorLiteralP", "hex"]
+- !private ["s26_ExpressibleByImageLiteralP", "kf"]
+- !private ["s19_HasContiguousBytesP", "appending"]
+- !private ["s19_HasContiguousBytesP", "init"]
+- !private ["s19_HasContiguousBytesP", "onlyLoadFirstFrame"]
+- !private ["s19_HasContiguousBytesP", "preloadAllAnimationData"]
+- !private ["s19_HasContiguousBytesP", "scaleFactor"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "appending"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "init"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "onlyLoadFirstFrame"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "preloadAllAnimationData"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "scaleFactor"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "Int"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "String"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "appending"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "getRed"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "hex"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "kf"]
+- !private ["s21_ObjectiveCBridgeableP", "appending"]
+- !private ["s21_ObjectiveCBridgeableP", "init"]
+- !private ["s21_ObjectiveCBridgeableP", "onlyLoadFirstFrame"]
+- !private ["s21_ObjectiveCBridgeableP", "preloadAllAnimationData"]
+- !private ["s21_ObjectiveCBridgeableP", "scaleFactor"]
+depends-nominal:
+- !private "s18AdditiveArithmeticP"
+- !private "Sa"
+- !private "SK"
+- !private "Sz"
+- "5Hippo19BlackWhiteProcessorV"
+- "5Hippo18BlurImageProcessorV"
+- !private "So7CGPointV"
+- !private "s7CVarArgP"
+- !private "Sl"
+- "5Hippo22ColorControlsProcessorV"
+- !private "SL"
+- "5Hippo11ContentModeO"
+- !private "10Foundation15ContiguousBytesP"
+- "5Hippo22CroppingImageProcessorV"
+- !private "s28CustomDebugStringConvertibleP"
+- !private "s17CustomReflectableP"
+- !private "s23CustomStringConvertibleP"
+- !private "10Foundation12DataProtocolP"
+- !private "Se"
+- "5Hippo21DefaultImageProcessorV"
+- !private "s26DefaultStringInterpolationV"
+- !private "SE"
+- "SQ"
+- "s25ExpressibleByArrayLiteralP"
+- !private "s43ExpressibleByExtendedGraphemeClusterLiteralP"
+- !private "s27ExpressibleByIntegerLiteralP"
+- !private "s32ExpressibleByStringInterpolationP"
+- !private "s26ExpressibleByStringLiteralP"
+- !private "s33ExpressibleByUnicodeScalarLiteralP"
+- !private "s17FixedWidthIntegerP"
+- "SH"
+- !private "s6HasherV"
+- "5Hippo16ImageProcessItemO"
+- "5Hippo14ImageProcessorP"
+- !private "Si"
+- !private "5Hippo10KingfisherC"
+- !private "5Hippo20KingfisherCompatibleP"
+- !private "s25LosslessStringConvertibleP"
+- !private "s10MirrorPathP"
+- !private "SM"
+- !private "10Foundation19MutableDataProtocolP"
+- !private "So8NSCodingP"
+- !private "So9NSCopyingP"
+- !private "So21NSItemProviderReadingP"
+- !private "So21NSItemProviderWritingP"
+- !private "So16NSMutableCopyingP"
+- "So8NSObjectC"
+- !private "So8NSObjectP"
+- !private "So14NSSecureCodingP"
+- !private "So8NSStringC"
+- !private "Sj"
+- "s9OptionSetP"
+- "5Hippo21OverlayImageProcessorV"
+- !private "5Hippo11PlaceholderP"
+- !private "Sk"
+- !private "Sm"
+- "SY"
+- "5Hippo10RectCornerV"
+- "5Hippo22ResizingImageProcessorV"
+- "5Hippo25RoundCornerImageProcessorV"
+- !private "s10SIMDScalarP"
+- !private "ST"
+- "s10SetAlgebraP"
+- !private "SZ"
+- !private "s13SignedNumericP"
+- !private "Sx"
+- !private "SS"
+- !private "s27StringInterpolationProtocolP"
+- !private "Sy"
+- !private "s16TextOutputStreamP"
+- !private "s20TextOutputStreamableP"
+- "5Hippo18TintImageProcessorV"
+- !private "So29UIAccessibilityIdentificationP"
+- "So7UIColorC"
+- !private "So7UIImageC"
+- !private "So39UIItemProviderPresentationSizeProvidingP"
+- !private "s14_ArrayProtocolP"
+- !private "s30_CustomPlaygroundQuickLookableP"
+- !private "s24_DestructorSafeContainerP"
+- !private "s51_ExpressibleByBuiltinExtendedGraphemeClusterLiteralP"
+- !private "s35_ExpressibleByBuiltinIntegerLiteralP"
+- !private "s34_ExpressibleByBuiltinStringLiteralP"
+- !private "s41_ExpressibleByBuiltinUnicodeScalarLiteralP"
+- !private "s26_ExpressibleByColorLiteralP"
+- !private "s26_ExpressibleByImageLiteralP"
+- !private "s19_HasContiguousBytesP"
+- !private "s35_HasCustomAnyHashableRepresentationP"
+- !private "10Foundation27_KeyValueCodingAndObservingP"
+- !private "s21_ObjectiveCBridgeableP"
+depends-dynamic-lookup:
+depends-external:
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/ObjectiveC.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreMedia.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/simd.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreImage.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/QuartzCore.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Accelerate.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Dispatch.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Metal.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Darwin.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreLocation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Foundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/AVFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreAudio.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/MediaPlayer.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreGraphics.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/os.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Photos.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Swift.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/UIKit.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/SwiftOnoneSupport.swiftmodule"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Hippo.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Helpers/TRWDownloadManager/TWRDownloadManager.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/SocketRocket/SocketRocket.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/SocketRocket/SRWebSocket.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/MZFayeClient/MZFayeClient.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/unextended-module.modulemap"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/usr/include/objc/ObjectiveC.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/OpenGLES.framework/Headers/OpenGLES.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreMedia.framework/Headers/CoreMedia.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreImage.framework/Headers/CoreImage.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/QuartzCore.framework/Headers/QuartzCore.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Accelerate.framework/Headers/Accelerate.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Dispatch.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/QuickLook.framework/Headers/QuickLook.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Metal.framework/Headers/Metal.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/usr/include/Darwin.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreLocation.framework/Headers/CoreLocation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Foundation.framework/Headers/Foundation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/AVFoundation.framework/Headers/AVFoundation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/MediaPlayer.framework/Headers/MediaPlayer.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreGraphics.framework/Headers/CoreGraphics.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/UserNotifications.framework/Headers/UserNotifications.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/os.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Photos.framework/Headers/Photos.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/UIKit.framework/Headers/UIKit.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreText.framework/Headers/CoreText.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/MediaToolbox.framework/Headers/MediaToolbox.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/AudioToolbox.framework/Headers/AudioToolbox.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Security.framework/Headers/Security.apinotes"
+interface-hash: "bff872753d8debb6ae011bb18f3c1365"

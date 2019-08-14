@@ -4,20 +4,6 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>MZFayeClient.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-			<key>orderHint</key>
-			<integer>0</integer>
-		</dict>
-		<key>Pods-Hippo.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-			<key>orderHint</key>
-			<integer>1</integer>
-		</dict>
 		<key>Pods-SDKDemo1.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -28,15 +14,24 @@
 			<key>orderHint</key>
 			<integer>4</integer>
 		</dict>
-		<key>SocketRocket.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-			<key>orderHint</key>
-			<integer>2</integer>
-		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
-	<dict/>
+	<dict>
+		<key>03BD086FE1966D44A6B8D72A48AF0472</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A623B6F9D017A028020782F293A2EF0B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FFFFE1D687A0024E5AF6FEFB2622CD09</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+	</dict>
 </dict>
 </plist>

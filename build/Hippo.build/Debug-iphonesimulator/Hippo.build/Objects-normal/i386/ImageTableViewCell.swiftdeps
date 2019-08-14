@@ -1,0 +1,563 @@
+### Swift dependencies file v0 ###
+provides-top-level:
+- "ImageTableViewCell"
+provides-nominal:
+- "5Hippo18ImageTableViewCellC"
+provides-member:
+- ["5Hippo18ImageTableViewCellC", ""]
+- ["5Hippo18ImageTableViewCellC", "setupIndicatorView"]
+- ["5Hippo18ImageTableViewCellC", "startIndicatorAnimation"]
+- ["5Hippo18ImageTableViewCellC", "stopIndicatorAnimation"]
+provides-dynamic-lookup:
+- "awakeFromNib"
+- "bgView"
+- "customImageView"
+- "messageImageView"
+- "setSelected"
+depends-top-level:
+- "AssignmentPrecedence"
+- "Bool"
+- !private "FuguFlowManager"
+- "ImageTableViewCell"
+- "So_UIImageView"
+- !private "UIImage"
+- "UIImageView"
+- "UITableViewCell"
+- "UIView"
+depends-member:
+- !private ["So15CALayerDelegateP", "FuguFlowManager"]
+- !private ["So15CALayerDelegateP", "UIImage"]
+- ["So15CALayerDelegateP", ""]
+- !private ["So15CALayerDelegateP", "awakeFromNib"]
+- !private ["So15CALayerDelegateP", "customImageView"]
+- !private ["So15CALayerDelegateP", "image"]
+- !private ["So15CALayerDelegateP", "init"]
+- !private ["So15CALayerDelegateP", "isHidden"]
+- !private ["So15CALayerDelegateP", "setSelected"]
+- !private ["So15CALayerDelegateP", "startIndicatorAnimation"]
+- !private ["So15CALayerDelegateP", "startRotationAnimation"]
+- !private ["So15CALayerDelegateP", "stopIndicatorAnimation"]
+- !private ["So15CALayerDelegateP", "stopRotationAnimation"]
+- !private ["s7CVarArgP", "FuguFlowManager"]
+- !private ["s7CVarArgP", "UIImage"]
+- ["s7CVarArgP", ""]
+- !private ["s7CVarArgP", "awakeFromNib"]
+- !private ["s7CVarArgP", "bundle"]
+- !private ["s7CVarArgP", "customImageView"]
+- !private ["s7CVarArgP", "image"]
+- !private ["s7CVarArgP", "init"]
+- !private ["s7CVarArgP", "isHidden"]
+- !private ["s7CVarArgP", "setSelected"]
+- !private ["s7CVarArgP", "startIndicatorAnimation"]
+- !private ["s7CVarArgP", "startRotationAnimation"]
+- !private ["s7CVarArgP", "stopIndicatorAnimation"]
+- !private ["s7CVarArgP", "stopRotationAnimation"]
+- !private ["s28CustomDebugStringConvertibleP", "FuguFlowManager"]
+- !private ["s28CustomDebugStringConvertibleP", "UIImage"]
+- ["s28CustomDebugStringConvertibleP", ""]
+- !private ["s28CustomDebugStringConvertibleP", "awakeFromNib"]
+- !private ["s28CustomDebugStringConvertibleP", "bundle"]
+- !private ["s28CustomDebugStringConvertibleP", "customImageView"]
+- !private ["s28CustomDebugStringConvertibleP", "image"]
+- !private ["s28CustomDebugStringConvertibleP", "init"]
+- !private ["s28CustomDebugStringConvertibleP", "isHidden"]
+- !private ["s28CustomDebugStringConvertibleP", "setSelected"]
+- !private ["s28CustomDebugStringConvertibleP", "startIndicatorAnimation"]
+- !private ["s28CustomDebugStringConvertibleP", "startRotationAnimation"]
+- !private ["s28CustomDebugStringConvertibleP", "stopIndicatorAnimation"]
+- !private ["s28CustomDebugStringConvertibleP", "stopRotationAnimation"]
+- !private ["s17CustomReflectableP", "image"]
+- !private ["s17CustomReflectableP", "isHidden"]
+- !private ["s17CustomReflectableP", "startRotationAnimation"]
+- !private ["s17CustomReflectableP", "stopRotationAnimation"]
+- !private ["s23CustomStringConvertibleP", "FuguFlowManager"]
+- !private ["s23CustomStringConvertibleP", "UIImage"]
+- ["s23CustomStringConvertibleP", ""]
+- !private ["s23CustomStringConvertibleP", "awakeFromNib"]
+- !private ["s23CustomStringConvertibleP", "bundle"]
+- !private ["s23CustomStringConvertibleP", "customImageView"]
+- !private ["s23CustomStringConvertibleP", "image"]
+- !private ["s23CustomStringConvertibleP", "init"]
+- !private ["s23CustomStringConvertibleP", "isHidden"]
+- !private ["s23CustomStringConvertibleP", "setSelected"]
+- !private ["s23CustomStringConvertibleP", "startIndicatorAnimation"]
+- !private ["s23CustomStringConvertibleP", "startRotationAnimation"]
+- !private ["s23CustomStringConvertibleP", "stopIndicatorAnimation"]
+- !private ["s23CustomStringConvertibleP", "stopRotationAnimation"]
+- !private ["Se", "image"]
+- !private ["Se", "isHidden"]
+- !private ["Se", "startRotationAnimation"]
+- !private ["Se", "stopRotationAnimation"]
+- !private ["SE", "image"]
+- !private ["SE", "isHidden"]
+- !private ["SE", "startRotationAnimation"]
+- !private ["SE", "stopRotationAnimation"]
+- !private ["SQ", "FuguFlowManager"]
+- !private ["SQ", "UIImage"]
+- ["SQ", ""]
+- !private ["SQ", "awakeFromNib"]
+- !private ["SQ", "bundle"]
+- !private ["SQ", "customImageView"]
+- !private ["SQ", "image"]
+- !private ["SQ", "init"]
+- !private ["SQ", "isHidden"]
+- !private ["SQ", "setSelected"]
+- !private ["SQ", "startIndicatorAnimation"]
+- !private ["SQ", "startRotationAnimation"]
+- !private ["SQ", "stopIndicatorAnimation"]
+- !private ["SQ", "stopRotationAnimation"]
+- !private ["s23ExpressibleByNilLiteralP", "image"]
+- !private ["s23ExpressibleByNilLiteralP", "isHidden"]
+- !private ["s23ExpressibleByNilLiteralP", "startRotationAnimation"]
+- !private ["s23ExpressibleByNilLiteralP", "stopRotationAnimation"]
+- !private ["5Hippo15FuguFlowManagerC", "bundle"]
+- !private ["SH", "FuguFlowManager"]
+- !private ["SH", "UIImage"]
+- ["SH", ""]
+- !private ["SH", "awakeFromNib"]
+- !private ["SH", "bundle"]
+- !private ["SH", "customImageView"]
+- !private ["SH", "image"]
+- !private ["SH", "init"]
+- !private ["SH", "isHidden"]
+- !private ["SH", "setSelected"]
+- !private ["SH", "startIndicatorAnimation"]
+- !private ["SH", "startRotationAnimation"]
+- !private ["SH", "stopIndicatorAnimation"]
+- !private ["SH", "stopRotationAnimation"]
+- ["5Hippo18ImageTableViewCellC", "Bool"]
+- !private ["5Hippo18ImageTableViewCellC", "FuguFlowManager"]
+- ["5Hippo18ImageTableViewCellC", "So_UIImageView"]
+- !private ["5Hippo18ImageTableViewCellC", "UIImage"]
+- ["5Hippo18ImageTableViewCellC", "UIImageView"]
+- ["5Hippo18ImageTableViewCellC", "UIView"]
+- ["5Hippo18ImageTableViewCellC", "awakeFromNib"]
+- ["5Hippo18ImageTableViewCellC", "bgView"]
+- ["5Hippo18ImageTableViewCellC", "customImageView"]
+- ["5Hippo18ImageTableViewCellC", "deinit"]
+- ["5Hippo18ImageTableViewCellC", "init"]
+- ["5Hippo18ImageTableViewCellC", "messageImageView"]
+- ["5Hippo18ImageTableViewCellC", "setSelected"]
+- ["5Hippo18ImageTableViewCellC", "setupIndicatorView"]
+- ["5Hippo18ImageTableViewCellC", "startIndicatorAnimation"]
+- ["5Hippo18ImageTableViewCellC", "stopIndicatorAnimation"]
+- !private ["5Hippo20KingfisherCompatibleP", "image"]
+- !private ["5Hippo20KingfisherCompatibleP", "init"]
+- !private ["5Hippo20KingfisherCompatibleP", "isHidden"]
+- !private ["5Hippo20KingfisherCompatibleP", "startRotationAnimation"]
+- !private ["5Hippo20KingfisherCompatibleP", "stopRotationAnimation"]
+- !private ["So8NSCodingP", "FuguFlowManager"]
+- !private ["So8NSCodingP", "UIImage"]
+- ["So8NSCodingP", ""]
+- !private ["So8NSCodingP", "awakeFromNib"]
+- !private ["So8NSCodingP", "customImageView"]
+- !private ["So8NSCodingP", "image"]
+- !private ["So8NSCodingP", "init"]
+- !private ["So8NSCodingP", "isHidden"]
+- !private ["So8NSCodingP", "setSelected"]
+- !private ["So8NSCodingP", "startIndicatorAnimation"]
+- !private ["So8NSCodingP", "startRotationAnimation"]
+- !private ["So8NSCodingP", "stopIndicatorAnimation"]
+- !private ["So8NSCodingP", "stopRotationAnimation"]
+- !private ["So21NSItemProviderReadingP", "init"]
+- !private ["So21NSItemProviderWritingP", "init"]
+- ["So8NSObjectC", "Bool"]
+- !private ["So8NSObjectC", "FuguFlowManager"]
+- ["So8NSObjectC", "So_UIImageView"]
+- !private ["So8NSObjectC", "UIImage"]
+- ["So8NSObjectC", "UIImageView"]
+- ["So8NSObjectC", "UIView"]
+- ["So8NSObjectC", "awakeFromNib"]
+- ["So8NSObjectC", "bgView"]
+- !private ["So8NSObjectC", "bundle"]
+- ["So8NSObjectC", "customImageView"]
+- !private ["So8NSObjectC", "image"]
+- ["So8NSObjectC", "init"]
+- !private ["So8NSObjectC", "isHidden"]
+- ["So8NSObjectC", "messageImageView"]
+- ["So8NSObjectC", "setSelected"]
+- ["So8NSObjectC", "setupIndicatorView"]
+- ["So8NSObjectC", "startIndicatorAnimation"]
+- !private ["So8NSObjectC", "startRotationAnimation"]
+- ["So8NSObjectC", "stopIndicatorAnimation"]
+- !private ["So8NSObjectC", "stopRotationAnimation"]
+- !private ["So8NSObjectP", "FuguFlowManager"]
+- !private ["So8NSObjectP", "UIImage"]
+- ["So8NSObjectP", ""]
+- !private ["So8NSObjectP", "awakeFromNib"]
+- !private ["So8NSObjectP", "bundle"]
+- !private ["So8NSObjectP", "customImageView"]
+- !private ["So8NSObjectP", "image"]
+- !private ["So8NSObjectP", "init"]
+- !private ["So8NSObjectP", "isHidden"]
+- !private ["So8NSObjectP", "setSelected"]
+- !private ["So8NSObjectP", "startIndicatorAnimation"]
+- !private ["So8NSObjectP", "startRotationAnimation"]
+- !private ["So8NSObjectP", "stopIndicatorAnimation"]
+- !private ["So8NSObjectP", "stopRotationAnimation"]
+- !private ["So14NSSecureCodingP", "init"]
+- !private ["Sq", "image"]
+- !private ["Sq", "isHidden"]
+- !private ["Sq", "startRotationAnimation"]
+- !private ["Sq", "stopRotationAnimation"]
+- !private ["5Hippo11PlaceholderP", "init"]
+- !private ["So48UIAccessibilityContentSizeCategoryImageAdjustingP", "image"]
+- !private ["So48UIAccessibilityContentSizeCategoryImageAdjustingP", "isHidden"]
+- !private ["So48UIAccessibilityContentSizeCategoryImageAdjustingP", "startRotationAnimation"]
+- !private ["So48UIAccessibilityContentSizeCategoryImageAdjustingP", "stopRotationAnimation"]
+- !private ["So29UIAccessibilityIdentificationP", "FuguFlowManager"]
+- !private ["So29UIAccessibilityIdentificationP", "UIImage"]
+- ["So29UIAccessibilityIdentificationP", ""]
+- !private ["So29UIAccessibilityIdentificationP", "awakeFromNib"]
+- !private ["So29UIAccessibilityIdentificationP", "customImageView"]
+- !private ["So29UIAccessibilityIdentificationP", "image"]
+- !private ["So29UIAccessibilityIdentificationP", "init"]
+- !private ["So29UIAccessibilityIdentificationP", "isHidden"]
+- !private ["So29UIAccessibilityIdentificationP", "setSelected"]
+- !private ["So29UIAccessibilityIdentificationP", "startIndicatorAnimation"]
+- !private ["So29UIAccessibilityIdentificationP", "startRotationAnimation"]
+- !private ["So29UIAccessibilityIdentificationP", "stopIndicatorAnimation"]
+- !private ["So29UIAccessibilityIdentificationP", "stopRotationAnimation"]
+- !private ["So12UIAppearanceP", "FuguFlowManager"]
+- !private ["So12UIAppearanceP", "UIImage"]
+- ["So12UIAppearanceP", ""]
+- !private ["So12UIAppearanceP", "awakeFromNib"]
+- !private ["So12UIAppearanceP", "customImageView"]
+- !private ["So12UIAppearanceP", "image"]
+- !private ["So12UIAppearanceP", "init"]
+- !private ["So12UIAppearanceP", "isHidden"]
+- !private ["So12UIAppearanceP", "setSelected"]
+- !private ["So12UIAppearanceP", "startIndicatorAnimation"]
+- !private ["So12UIAppearanceP", "startRotationAnimation"]
+- !private ["So12UIAppearanceP", "stopIndicatorAnimation"]
+- !private ["So12UIAppearanceP", "stopRotationAnimation"]
+- !private ["So21UIAppearanceContainerP", "FuguFlowManager"]
+- !private ["So21UIAppearanceContainerP", "UIImage"]
+- ["So21UIAppearanceContainerP", ""]
+- !private ["So21UIAppearanceContainerP", "awakeFromNib"]
+- !private ["So21UIAppearanceContainerP", "customImageView"]
+- !private ["So21UIAppearanceContainerP", "image"]
+- !private ["So21UIAppearanceContainerP", "init"]
+- !private ["So21UIAppearanceContainerP", "isHidden"]
+- !private ["So21UIAppearanceContainerP", "setSelected"]
+- !private ["So21UIAppearanceContainerP", "startIndicatorAnimation"]
+- !private ["So21UIAppearanceContainerP", "startRotationAnimation"]
+- !private ["So21UIAppearanceContainerP", "stopIndicatorAnimation"]
+- !private ["So21UIAppearanceContainerP", "stopRotationAnimation"]
+- !private ["So17UICoordinateSpaceP", "FuguFlowManager"]
+- !private ["So17UICoordinateSpaceP", "UIImage"]
+- ["So17UICoordinateSpaceP", ""]
+- !private ["So17UICoordinateSpaceP", "awakeFromNib"]
+- !private ["So17UICoordinateSpaceP", "customImageView"]
+- !private ["So17UICoordinateSpaceP", "image"]
+- !private ["So17UICoordinateSpaceP", "init"]
+- !private ["So17UICoordinateSpaceP", "isHidden"]
+- !private ["So17UICoordinateSpaceP", "setSelected"]
+- !private ["So17UICoordinateSpaceP", "startIndicatorAnimation"]
+- !private ["So17UICoordinateSpaceP", "startRotationAnimation"]
+- !private ["So17UICoordinateSpaceP", "stopIndicatorAnimation"]
+- !private ["So17UICoordinateSpaceP", "stopRotationAnimation"]
+- !private ["So13UIDynamicItemP", "FuguFlowManager"]
+- !private ["So13UIDynamicItemP", "UIImage"]
+- ["So13UIDynamicItemP", ""]
+- !private ["So13UIDynamicItemP", "awakeFromNib"]
+- !private ["So13UIDynamicItemP", "customImageView"]
+- !private ["So13UIDynamicItemP", "image"]
+- !private ["So13UIDynamicItemP", "init"]
+- !private ["So13UIDynamicItemP", "isHidden"]
+- !private ["So13UIDynamicItemP", "setSelected"]
+- !private ["So13UIDynamicItemP", "startIndicatorAnimation"]
+- !private ["So13UIDynamicItemP", "startRotationAnimation"]
+- !private ["So13UIDynamicItemP", "stopIndicatorAnimation"]
+- !private ["So13UIDynamicItemP", "stopRotationAnimation"]
+- !private ["So18UIFocusEnvironmentP", "FuguFlowManager"]
+- !private ["So18UIFocusEnvironmentP", "UIImage"]
+- ["So18UIFocusEnvironmentP", ""]
+- !private ["So18UIFocusEnvironmentP", "awakeFromNib"]
+- !private ["So18UIFocusEnvironmentP", "customImageView"]
+- !private ["So18UIFocusEnvironmentP", "image"]
+- !private ["So18UIFocusEnvironmentP", "init"]
+- !private ["So18UIFocusEnvironmentP", "isHidden"]
+- !private ["So18UIFocusEnvironmentP", "setSelected"]
+- !private ["So18UIFocusEnvironmentP", "startIndicatorAnimation"]
+- !private ["So18UIFocusEnvironmentP", "startRotationAnimation"]
+- !private ["So18UIFocusEnvironmentP", "stopIndicatorAnimation"]
+- !private ["So18UIFocusEnvironmentP", "stopRotationAnimation"]
+- !private ["So11UIFocusItemP", "FuguFlowManager"]
+- !private ["So11UIFocusItemP", "UIImage"]
+- ["So11UIFocusItemP", ""]
+- !private ["So11UIFocusItemP", "awakeFromNib"]
+- !private ["So11UIFocusItemP", "customImageView"]
+- !private ["So11UIFocusItemP", "image"]
+- !private ["So11UIFocusItemP", "init"]
+- !private ["So11UIFocusItemP", "isHidden"]
+- !private ["So11UIFocusItemP", "setSelected"]
+- !private ["So11UIFocusItemP", "startIndicatorAnimation"]
+- !private ["So11UIFocusItemP", "startRotationAnimation"]
+- !private ["So11UIFocusItemP", "stopIndicatorAnimation"]
+- !private ["So11UIFocusItemP", "stopRotationAnimation"]
+- !private ["So20UIFocusItemContainerP", "FuguFlowManager"]
+- !private ["So20UIFocusItemContainerP", "UIImage"]
+- ["So20UIFocusItemContainerP", ""]
+- !private ["So20UIFocusItemContainerP", "awakeFromNib"]
+- !private ["So20UIFocusItemContainerP", "customImageView"]
+- !private ["So20UIFocusItemContainerP", "image"]
+- !private ["So20UIFocusItemContainerP", "init"]
+- !private ["So20UIFocusItemContainerP", "isHidden"]
+- !private ["So20UIFocusItemContainerP", "setSelected"]
+- !private ["So20UIFocusItemContainerP", "startIndicatorAnimation"]
+- !private ["So20UIFocusItemContainerP", "startRotationAnimation"]
+- !private ["So20UIFocusItemContainerP", "stopIndicatorAnimation"]
+- !private ["So20UIFocusItemContainerP", "stopRotationAnimation"]
+- !private ["So27UIGestureRecognizerDelegateP", "FuguFlowManager"]
+- !private ["So27UIGestureRecognizerDelegateP", "UIImage"]
+- ["So27UIGestureRecognizerDelegateP", ""]
+- !private ["So27UIGestureRecognizerDelegateP", "awakeFromNib"]
+- !private ["So27UIGestureRecognizerDelegateP", "customImageView"]
+- !private ["So27UIGestureRecognizerDelegateP", "init"]
+- !private ["So27UIGestureRecognizerDelegateP", "setSelected"]
+- !private ["So27UIGestureRecognizerDelegateP", "startIndicatorAnimation"]
+- !private ["So27UIGestureRecognizerDelegateP", "stopIndicatorAnimation"]
+- !private ["So7UIImageC", "init"]
+- !private ["So11UIImageViewC", "image"]
+- !private ["So11UIImageViewC", "isHidden"]
+- !private ["So11UIImageViewC", "startRotationAnimation"]
+- !private ["So11UIImageViewC", "stopRotationAnimation"]
+- !private ["So39UIItemProviderPresentationSizeProvidingP", "init"]
+- !private ["So30UIPasteConfigurationSupportingP", "FuguFlowManager"]
+- !private ["So30UIPasteConfigurationSupportingP", "UIImage"]
+- ["So30UIPasteConfigurationSupportingP", ""]
+- !private ["So30UIPasteConfigurationSupportingP", "awakeFromNib"]
+- !private ["So30UIPasteConfigurationSupportingP", "customImageView"]
+- !private ["So30UIPasteConfigurationSupportingP", "image"]
+- !private ["So30UIPasteConfigurationSupportingP", "init"]
+- !private ["So30UIPasteConfigurationSupportingP", "isHidden"]
+- !private ["So30UIPasteConfigurationSupportingP", "setSelected"]
+- !private ["So30UIPasteConfigurationSupportingP", "startIndicatorAnimation"]
+- !private ["So30UIPasteConfigurationSupportingP", "startRotationAnimation"]
+- !private ["So30UIPasteConfigurationSupportingP", "stopIndicatorAnimation"]
+- !private ["So30UIPasteConfigurationSupportingP", "stopRotationAnimation"]
+- ["So11UIResponderC", "Bool"]
+- !private ["So11UIResponderC", "FuguFlowManager"]
+- ["So11UIResponderC", "So_UIImageView"]
+- !private ["So11UIResponderC", "UIImage"]
+- ["So11UIResponderC", "UIImageView"]
+- ["So11UIResponderC", "UIView"]
+- ["So11UIResponderC", "awakeFromNib"]
+- ["So11UIResponderC", "bgView"]
+- ["So11UIResponderC", "customImageView"]
+- !private ["So11UIResponderC", "image"]
+- ["So11UIResponderC", "init"]
+- !private ["So11UIResponderC", "isHidden"]
+- ["So11UIResponderC", "messageImageView"]
+- ["So11UIResponderC", "setSelected"]
+- ["So11UIResponderC", "setupIndicatorView"]
+- ["So11UIResponderC", "startIndicatorAnimation"]
+- !private ["So11UIResponderC", "startRotationAnimation"]
+- ["So11UIResponderC", "stopIndicatorAnimation"]
+- !private ["So11UIResponderC", "stopRotationAnimation"]
+- !private ["So30UIResponderStandardEditActionsP", "FuguFlowManager"]
+- !private ["So30UIResponderStandardEditActionsP", "UIImage"]
+- ["So30UIResponderStandardEditActionsP", ""]
+- !private ["So30UIResponderStandardEditActionsP", "awakeFromNib"]
+- !private ["So30UIResponderStandardEditActionsP", "customImageView"]
+- !private ["So30UIResponderStandardEditActionsP", "image"]
+- !private ["So30UIResponderStandardEditActionsP", "init"]
+- !private ["So30UIResponderStandardEditActionsP", "isHidden"]
+- !private ["So30UIResponderStandardEditActionsP", "setSelected"]
+- !private ["So30UIResponderStandardEditActionsP", "startIndicatorAnimation"]
+- !private ["So30UIResponderStandardEditActionsP", "startRotationAnimation"]
+- !private ["So30UIResponderStandardEditActionsP", "stopIndicatorAnimation"]
+- !private ["So30UIResponderStandardEditActionsP", "stopRotationAnimation"]
+- ["So15UITableViewCellC", "Bool"]
+- !private ["So15UITableViewCellC", "FuguFlowManager"]
+- ["So15UITableViewCellC", "So_UIImageView"]
+- !private ["So15UITableViewCellC", "UIImage"]
+- ["So15UITableViewCellC", "UIImageView"]
+- ["So15UITableViewCellC", "UIView"]
+- ["So15UITableViewCellC", ""]
+- ["So15UITableViewCellC", "awakeFromNib"]
+- ["So15UITableViewCellC", "bgView"]
+- ["So15UITableViewCellC", "customImageView"]
+- ["So15UITableViewCellC", "init"]
+- ["So15UITableViewCellC", "messageImageView"]
+- ["So15UITableViewCellC", "setSelected"]
+- ["So15UITableViewCellC", "setupIndicatorView"]
+- ["So15UITableViewCellC", "startIndicatorAnimation"]
+- ["So15UITableViewCellC", "stopIndicatorAnimation"]
+- !private ["So18UITraitEnvironmentP", "FuguFlowManager"]
+- !private ["So18UITraitEnvironmentP", "UIImage"]
+- ["So18UITraitEnvironmentP", ""]
+- !private ["So18UITraitEnvironmentP", "awakeFromNib"]
+- !private ["So18UITraitEnvironmentP", "customImageView"]
+- !private ["So18UITraitEnvironmentP", "image"]
+- !private ["So18UITraitEnvironmentP", "init"]
+- !private ["So18UITraitEnvironmentP", "isHidden"]
+- !private ["So18UITraitEnvironmentP", "setSelected"]
+- !private ["So18UITraitEnvironmentP", "startIndicatorAnimation"]
+- !private ["So18UITraitEnvironmentP", "startRotationAnimation"]
+- !private ["So18UITraitEnvironmentP", "stopIndicatorAnimation"]
+- !private ["So18UITraitEnvironmentP", "stopRotationAnimation"]
+- !private ["So23UIUserActivityRestoringP", "FuguFlowManager"]
+- !private ["So23UIUserActivityRestoringP", "UIImage"]
+- ["So23UIUserActivityRestoringP", ""]
+- !private ["So23UIUserActivityRestoringP", "awakeFromNib"]
+- !private ["So23UIUserActivityRestoringP", "customImageView"]
+- !private ["So23UIUserActivityRestoringP", "image"]
+- !private ["So23UIUserActivityRestoringP", "init"]
+- !private ["So23UIUserActivityRestoringP", "isHidden"]
+- !private ["So23UIUserActivityRestoringP", "setSelected"]
+- !private ["So23UIUserActivityRestoringP", "startIndicatorAnimation"]
+- !private ["So23UIUserActivityRestoringP", "startRotationAnimation"]
+- !private ["So23UIUserActivityRestoringP", "stopIndicatorAnimation"]
+- !private ["So23UIUserActivityRestoringP", "stopRotationAnimation"]
+- ["So6UIViewC", "Bool"]
+- !private ["So6UIViewC", "FuguFlowManager"]
+- ["So6UIViewC", "So_UIImageView"]
+- !private ["So6UIViewC", "UIImage"]
+- ["So6UIViewC", "UIImageView"]
+- ["So6UIViewC", "UIView"]
+- ["So6UIViewC", "awakeFromNib"]
+- ["So6UIViewC", "bgView"]
+- ["So6UIViewC", "customImageView"]
+- !private ["So6UIViewC", "image"]
+- ["So6UIViewC", "init"]
+- !private ["So6UIViewC", "isHidden"]
+- ["So6UIViewC", "messageImageView"]
+- ["So6UIViewC", "setSelected"]
+- ["So6UIViewC", "setupIndicatorView"]
+- ["So6UIViewC", "startIndicatorAnimation"]
+- !private ["So6UIViewC", "startRotationAnimation"]
+- ["So6UIViewC", "stopIndicatorAnimation"]
+- !private ["So6UIViewC", "stopRotationAnimation"]
+- !private ["s26_ExpressibleByImageLiteralP", "init"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "FuguFlowManager"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "UIImage"]
+- ["10Foundation27_KeyValueCodingAndObservingP", ""]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "awakeFromNib"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "bundle"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "customImageView"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "image"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "init"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "isHidden"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "setSelected"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "startIndicatorAnimation"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "startRotationAnimation"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "stopIndicatorAnimation"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "stopRotationAnimation"]
+- !private ["s21_ObjectiveCBridgeableP", "image"]
+- !private ["s21_ObjectiveCBridgeableP", "isHidden"]
+- !private ["s21_ObjectiveCBridgeableP", "startRotationAnimation"]
+- !private ["s21_ObjectiveCBridgeableP", "stopRotationAnimation"]
+- !private ["s38__DefaultCustomPlaygroundQuickLookableP", "FuguFlowManager"]
+- !private ["s38__DefaultCustomPlaygroundQuickLookableP", "UIImage"]
+- ["s38__DefaultCustomPlaygroundQuickLookableP", ""]
+- !private ["s38__DefaultCustomPlaygroundQuickLookableP", "awakeFromNib"]
+- !private ["s38__DefaultCustomPlaygroundQuickLookableP", "customImageView"]
+- !private ["s38__DefaultCustomPlaygroundQuickLookableP", "image"]
+- !private ["s38__DefaultCustomPlaygroundQuickLookableP", "init"]
+- !private ["s38__DefaultCustomPlaygroundQuickLookableP", "isHidden"]
+- !private ["s38__DefaultCustomPlaygroundQuickLookableP", "setSelected"]
+- !private ["s38__DefaultCustomPlaygroundQuickLookableP", "startIndicatorAnimation"]
+- !private ["s38__DefaultCustomPlaygroundQuickLookableP", "startRotationAnimation"]
+- !private ["s38__DefaultCustomPlaygroundQuickLookableP", "stopIndicatorAnimation"]
+- !private ["s38__DefaultCustomPlaygroundQuickLookableP", "stopRotationAnimation"]
+depends-nominal:
+- "So15CALayerDelegateP"
+- "s7CVarArgP"
+- "s28CustomDebugStringConvertibleP"
+- !private "s17CustomReflectableP"
+- "s23CustomStringConvertibleP"
+- !private "Se"
+- !private "SE"
+- "SQ"
+- !private "s23ExpressibleByNilLiteralP"
+- !private "5Hippo15FuguFlowManagerC"
+- "SH"
+- "5Hippo18ImageTableViewCellC"
+- !private "5Hippo20KingfisherCompatibleP"
+- "So8NSCodingP"
+- !private "So21NSItemProviderReadingP"
+- !private "So21NSItemProviderWritingP"
+- "So8NSObjectC"
+- "So8NSObjectP"
+- !private "So14NSSecureCodingP"
+- !private "Sq"
+- !private "5Hippo11PlaceholderP"
+- !private "So48UIAccessibilityContentSizeCategoryImageAdjustingP"
+- "So29UIAccessibilityIdentificationP"
+- "So12UIAppearanceP"
+- "So21UIAppearanceContainerP"
+- "So17UICoordinateSpaceP"
+- "So13UIDynamicItemP"
+- "So18UIFocusEnvironmentP"
+- "So11UIFocusItemP"
+- "So20UIFocusItemContainerP"
+- "So27UIGestureRecognizerDelegateP"
+- !private "So7UIImageC"
+- !private "So11UIImageViewC"
+- !private "So39UIItemProviderPresentationSizeProvidingP"
+- "So30UIPasteConfigurationSupportingP"
+- "So11UIResponderC"
+- "So30UIResponderStandardEditActionsP"
+- "So15UITableViewCellC"
+- "So18UITraitEnvironmentP"
+- "So23UIUserActivityRestoringP"
+- "So6UIViewC"
+- !private "s26_ExpressibleByImageLiteralP"
+- "10Foundation27_KeyValueCodingAndObservingP"
+- !private "s21_ObjectiveCBridgeableP"
+- "s38__DefaultCustomPlaygroundQuickLookableP"
+depends-dynamic-lookup:
+depends-external:
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/ObjectiveC.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreMedia.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/simd.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreImage.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/QuartzCore.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Accelerate.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Dispatch.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Metal.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Darwin.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreLocation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Foundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/AVFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreAudio.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/MediaPlayer.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreGraphics.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/os.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Photos.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Swift.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/UIKit.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/SwiftOnoneSupport.swiftmodule"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Hippo.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Helpers/TRWDownloadManager/TWRDownloadManager.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/SocketRocket/SocketRocket.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/SocketRocket/SRWebSocket.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/MZFayeClient/MZFayeClient.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/unextended-module.modulemap"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/usr/include/objc/ObjectiveC.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/OpenGLES.framework/Headers/OpenGLES.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreMedia.framework/Headers/CoreMedia.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreImage.framework/Headers/CoreImage.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/QuartzCore.framework/Headers/QuartzCore.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Accelerate.framework/Headers/Accelerate.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Dispatch.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/QuickLook.framework/Headers/QuickLook.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Metal.framework/Headers/Metal.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/usr/include/Darwin.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreLocation.framework/Headers/CoreLocation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Foundation.framework/Headers/Foundation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/AVFoundation.framework/Headers/AVFoundation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/MediaPlayer.framework/Headers/MediaPlayer.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreGraphics.framework/Headers/CoreGraphics.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/UserNotifications.framework/Headers/UserNotifications.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/os.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Photos.framework/Headers/Photos.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/UIKit.framework/Headers/UIKit.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreText.framework/Headers/CoreText.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/MediaToolbox.framework/Headers/MediaToolbox.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/AudioToolbox.framework/Headers/AudioToolbox.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Security.framework/Headers/Security.apinotes"
+interface-hash: "9fcb4d92ac948487bb0a361dc042d6fa"

@@ -1,0 +1,563 @@
+### Swift dependencies file v0 ###
+provides-top-level:
+- "HippoTheme"
+provides-nominal:
+- "5Hippo0A5ThemeC"
+provides-member:
+- ["5Hippo0A5ThemeC", ""]
+provides-dynamic-lookup:
+depends-top-level:
+- "/"
+- "Bool"
+- "CGFloat"
+- "FuguFlowManager"
+- "HippoTheme"
+- "NSObject"
+- "String"
+- "SupportTheme"
+- "UIColor"
+- "UIFont"
+- "UIImage"
+- "_ColorLiteralType"
+depends-member:
+- ["SK", "init"]
+- ["s7CVarArgP", "CGFloat"]
+- ["s7CVarArgP", "FuguFlowManager"]
+- !private ["s7CVarArgP", "HippoTheme"]
+- ["s7CVarArgP", "String"]
+- ["s7CVarArgP", "SupportTheme"]
+- ["s7CVarArgP", "UIColor"]
+- ["s7CVarArgP", "UIFont"]
+- ["s7CVarArgP", "UIImage"]
+- ["s7CVarArgP", ""]
+- ["s7CVarArgP", "black"]
+- ["s7CVarArgP", "black40"]
+- ["s7CVarArgP", "boldSystemFont"]
+- ["s7CVarArgP", "bundle"]
+- ["s7CVarArgP", "init"]
+- ["s7CVarArgP", "red"]
+- ["s7CVarArgP", "systemFont"]
+- ["s7CVarArgP", "withRenderingMode"]
+- ["Sl", "init"]
+- ["SL", "init"]
+- ["s28CustomDebugStringConvertibleP", "CGFloat"]
+- ["s28CustomDebugStringConvertibleP", "FuguFlowManager"]
+- !private ["s28CustomDebugStringConvertibleP", "HippoTheme"]
+- ["s28CustomDebugStringConvertibleP", "String"]
+- ["s28CustomDebugStringConvertibleP", "SupportTheme"]
+- ["s28CustomDebugStringConvertibleP", "UIColor"]
+- ["s28CustomDebugStringConvertibleP", "UIFont"]
+- ["s28CustomDebugStringConvertibleP", "UIImage"]
+- ["s28CustomDebugStringConvertibleP", ""]
+- ["s28CustomDebugStringConvertibleP", "black"]
+- ["s28CustomDebugStringConvertibleP", "black40"]
+- ["s28CustomDebugStringConvertibleP", "boldSystemFont"]
+- ["s28CustomDebugStringConvertibleP", "bundle"]
+- ["s28CustomDebugStringConvertibleP", "init"]
+- ["s28CustomDebugStringConvertibleP", "red"]
+- ["s28CustomDebugStringConvertibleP", "systemFont"]
+- ["s28CustomDebugStringConvertibleP", "withRenderingMode"]
+- ["s17CustomReflectableP", "init"]
+- ["s23CustomStringConvertibleP", "CGFloat"]
+- ["s23CustomStringConvertibleP", "FuguFlowManager"]
+- !private ["s23CustomStringConvertibleP", "HippoTheme"]
+- ["s23CustomStringConvertibleP", "String"]
+- ["s23CustomStringConvertibleP", "SupportTheme"]
+- ["s23CustomStringConvertibleP", "UIColor"]
+- ["s23CustomStringConvertibleP", "UIFont"]
+- ["s23CustomStringConvertibleP", "UIImage"]
+- ["s23CustomStringConvertibleP", ""]
+- ["s23CustomStringConvertibleP", "black"]
+- ["s23CustomStringConvertibleP", "black40"]
+- ["s23CustomStringConvertibleP", "boldSystemFont"]
+- ["s23CustomStringConvertibleP", "bundle"]
+- ["s23CustomStringConvertibleP", "init"]
+- ["s23CustomStringConvertibleP", "red"]
+- ["s23CustomStringConvertibleP", "systemFont"]
+- ["s23CustomStringConvertibleP", "withRenderingMode"]
+- ["Se", "init"]
+- ["SE", "init"]
+- ["SQ", "CGFloat"]
+- ["SQ", "FuguFlowManager"]
+- !private ["SQ", "HippoTheme"]
+- ["SQ", "String"]
+- ["SQ", "SupportTheme"]
+- ["SQ", "UIColor"]
+- ["SQ", "UIFont"]
+- ["SQ", "UIImage"]
+- ["SQ", ""]
+- ["SQ", "alwaysOriginal"]
+- ["SQ", "alwaysTemplate"]
+- ["SQ", "black"]
+- ["SQ", "black40"]
+- ["SQ", "boldSystemFont"]
+- ["SQ", "bundle"]
+- ["SQ", "init"]
+- ["SQ", "red"]
+- ["SQ", "systemFont"]
+- ["SQ", "withRenderingMode"]
+- ["s43ExpressibleByExtendedGraphemeClusterLiteralP", "init"]
+- ["s32ExpressibleByStringInterpolationP", "init"]
+- ["s26ExpressibleByStringLiteralP", "init"]
+- ["s33ExpressibleByUnicodeScalarLiteralP", "init"]
+- ["5Hippo15FuguFlowManagerC", "bundle"]
+- ["SH", "CGFloat"]
+- ["SH", "FuguFlowManager"]
+- !private ["SH", "HippoTheme"]
+- ["SH", "String"]
+- ["SH", "SupportTheme"]
+- ["SH", "UIColor"]
+- ["SH", "UIFont"]
+- ["SH", "UIImage"]
+- ["SH", ""]
+- ["SH", "alwaysOriginal"]
+- ["SH", "alwaysTemplate"]
+- ["SH", "black"]
+- ["SH", "black40"]
+- ["SH", "boldSystemFont"]
+- ["SH", "bundle"]
+- ["SH", "init"]
+- ["SH", "red"]
+- ["SH", "systemFont"]
+- ["SH", "withRenderingMode"]
+- ["5Hippo0A5ThemeC", "Bool"]
+- ["5Hippo0A5ThemeC", "CGFloat"]
+- ["5Hippo0A5ThemeC", "FuguFlowManager"]
+- ["5Hippo0A5ThemeC", "HippoTheme"]
+- ["5Hippo0A5ThemeC", "String"]
+- ["5Hippo0A5ThemeC", "SupportTheme"]
+- ["5Hippo0A5ThemeC", "UIColor"]
+- ["5Hippo0A5ThemeC", "UIFont"]
+- ["5Hippo0A5ThemeC", "UIImage"]
+- ["5Hippo0A5ThemeC", "actionableMessageButtonColor"]
+- ["5Hippo0A5ThemeC", "actionableMessageButtonFont"]
+- ["5Hippo0A5ThemeC", "actionableMessageButtonHighlightedColor"]
+- ["5Hippo0A5ThemeC", "actionableMessageDescriptionFont"]
+- ["5Hippo0A5ThemeC", "actionableMessageHeaderTextFont"]
+- ["5Hippo0A5ThemeC", "actionableMessagePriceBoldFont"]
+- ["5Hippo0A5ThemeC", "addBtnTintColor"]
+- ["5Hippo0A5ThemeC", "addButtonIcon"]
+- ["5Hippo0A5ThemeC", "audioCallIcon"]
+- ["5Hippo0A5ThemeC", "audioIcon"]
+- ["5Hippo0A5ThemeC", "backgroundColor"]
+- ["5Hippo0A5ThemeC", "botTextAndBorderColor"]
+- ["5Hippo0A5ThemeC", "broadcastBarButtonFont"]
+- ["5Hippo0A5ThemeC", "broadcastBarButtonImage"]
+- ["5Hippo0A5ThemeC", "broadcastBarButtonText"]
+- ["5Hippo0A5ThemeC", "broadcastBarButtonTextColor"]
+- ["5Hippo0A5ThemeC", "broadcastHeader"]
+- ["5Hippo0A5ThemeC", "broadcastHistoryHeader"]
+- ["5Hippo0A5ThemeC", "broadcastTitleColor"]
+- ["5Hippo0A5ThemeC", "broadcastTitleFont"]
+- ["5Hippo0A5ThemeC", "broadcastTitleInfoColor"]
+- ["5Hippo0A5ThemeC", "broadcastTitleInfoFont"]
+- ["5Hippo0A5ThemeC", "cancelIcon"]
+- ["5Hippo0A5ThemeC", "chatAssignIcon"]
+- ["5Hippo0A5ThemeC", "chatBoxBorderColor"]
+- ["5Hippo0A5ThemeC", "chatBoxBorderWidth"]
+- ["5Hippo0A5ThemeC", "chatBoxCornerRadius"]
+- ["5Hippo0A5ThemeC", "chatCloseIcon"]
+- ["5Hippo0A5ThemeC", "chatReOpenIcon"]
+- ["5Hippo0A5ThemeC", "checkBoxActive"]
+- ["5Hippo0A5ThemeC", "checkBoxInActive"]
+- ["5Hippo0A5ThemeC", "conversationLastMsgColor"]
+- ["5Hippo0A5ThemeC", "conversationTitleColor"]
+- ["5Hippo0A5ThemeC", "csvIcon"]
+- ["5Hippo0A5ThemeC", "dateTimeFontSize"]
+- ["5Hippo0A5ThemeC", "dateTimeTextColor"]
+- ["5Hippo0A5ThemeC", "defaultDocIcon"]
+- ["5Hippo0A5ThemeC", "defaultTheme"]
+- ["5Hippo0A5ThemeC", "deinit"]
+- ["5Hippo0A5ThemeC", "directChatHeader"]
+- ["5Hippo0A5ThemeC", "docIcon"]
+- ["5Hippo0A5ThemeC", "downloadIcon"]
+- ["5Hippo0A5ThemeC", "emailSourceIcon"]
+- ["5Hippo0A5ThemeC", "excelIcon"]
+- ["5Hippo0A5ThemeC", "facebookSourceIcon"]
+- ["5Hippo0A5ThemeC", "forwardIcon"]
+- ["5Hippo0A5ThemeC", "forwordIconTintColor"]
+- ["5Hippo0A5ThemeC", "headerBackgroundColor"]
+- ["5Hippo0A5ThemeC", "headerText"]
+- ["5Hippo0A5ThemeC", "headerTextColor"]
+- ["5Hippo0A5ThemeC", "headerTextFont"]
+- ["5Hippo0A5ThemeC", "homeBarButtonFont"]
+- ["5Hippo0A5ThemeC", "homeBarButtonImage"]
+- ["5Hippo0A5ThemeC", "homeBarButtonText"]
+- ["5Hippo0A5ThemeC", "homeBarButtonTextColor"]
+- ["5Hippo0A5ThemeC", "inOutChatTextFont"]
+- ["5Hippo0A5ThemeC", "incomingChatBoxColor"]
+- ["5Hippo0A5ThemeC", "incomingMsgColor"]
+- ["5Hippo0A5ThemeC", "incomingMsgDateTextColor"]
+- ["5Hippo0A5ThemeC", "incomingMsgFont"]
+- ["5Hippo0A5ThemeC", "infoIconTintColor"]
+- ["5Hippo0A5ThemeC", "init"]
+- ["5Hippo0A5ThemeC", "itmDescriptionNameFont"]
+- ["5Hippo0A5ThemeC", "leftBarButtonFont"]
+- ["5Hippo0A5ThemeC", "leftBarButtonImage"]
+- ["5Hippo0A5ThemeC", "leftBarButtonText"]
+- ["5Hippo0A5ThemeC", "leftBarButtonTextColor"]
+- ["5Hippo0A5ThemeC", "missedCallMessageColor"]
+- ["5Hippo0A5ThemeC", "openChatIcon"]
+- ["5Hippo0A5ThemeC", "outgoingChatBoxColor"]
+- ["5Hippo0A5ThemeC", "outgoingMsgColor"]
+- ["5Hippo0A5ThemeC", "outgoingMsgDateTextColor"]
+- ["5Hippo0A5ThemeC", "pauseIcon"]
+- ["5Hippo0A5ThemeC", "pdfIcon"]
+- ["5Hippo0A5ThemeC", "placeHolderImage"]
+- ["5Hippo0A5ThemeC", "playIcon"]
+- ["5Hippo0A5ThemeC", "pptIcon"]
+- ["5Hippo0A5ThemeC", "privateNoteChatBoxColor"]
+- ["5Hippo0A5ThemeC", "privateNoteMsgColor"]
+- ["5Hippo0A5ThemeC", "privateNoteMsgDateTextColor"]
+- ["5Hippo0A5ThemeC", "privateNoteMsgFont"]
+- ["5Hippo0A5ThemeC", "processingGreenColor"]
+- ["5Hippo0A5ThemeC", "radioActive"]
+- ["5Hippo0A5ThemeC", "radioInActive"]
+- ["5Hippo0A5ThemeC", "readMessageTick"]
+- ["5Hippo0A5ThemeC", "readMessageTintColor"]
+- ["5Hippo0A5ThemeC", "reloadIcon"]
+- ["5Hippo0A5ThemeC", "sendBtnIcon"]
+- ["5Hippo0A5ThemeC", "sendBtnIconTintColor"]
+- ["5Hippo0A5ThemeC", "senderNameColor"]
+- ["5Hippo0A5ThemeC", "senderNameFont"]
+- ["5Hippo0A5ThemeC", "shouldEnableDisplayUserImage"]
+- ["5Hippo0A5ThemeC", "smsSourceIcon"]
+- ["5Hippo0A5ThemeC", "sourceIconColor"]
+- ["5Hippo0A5ThemeC", "supportTheme"]
+- ["5Hippo0A5ThemeC", "timeTextColor"]
+- ["5Hippo0A5ThemeC", "txtIcon"]
+- ["5Hippo0A5ThemeC", "typingTextColor"]
+- ["5Hippo0A5ThemeC", "typingTextFont"]
+- ["5Hippo0A5ThemeC", "unreadMessageTick"]
+- ["5Hippo0A5ThemeC", "unreadMessageTintColor"]
+- ["5Hippo0A5ThemeC", "unsentMessageIcon"]
+- ["5Hippo0A5ThemeC", "unsentMessageTintColor"]
+- ["5Hippo0A5ThemeC", "uploadIcon"]
+- ["5Hippo0A5ThemeC", "videoCallIcon"]
+- ["5Hippo20KingfisherCompatibleP", "init"]
+- ["5Hippo20KingfisherCompatibleP", "withRenderingMode"]
+- ["s25LosslessStringConvertibleP", "init"]
+- ["s10MirrorPathP", "init"]
+- ["So8NSCodingP", "black"]
+- ["So8NSCodingP", "black40"]
+- ["So8NSCodingP", "init"]
+- ["So8NSCodingP", "red"]
+- ["So8NSCodingP", "withRenderingMode"]
+- ["So9NSCopyingP", "black"]
+- ["So9NSCopyingP", "black40"]
+- ["So9NSCopyingP", "boldSystemFont"]
+- ["So9NSCopyingP", "init"]
+- ["So9NSCopyingP", "red"]
+- ["So9NSCopyingP", "systemFont"]
+- ["So21NSItemProviderReadingP", "black"]
+- ["So21NSItemProviderReadingP", "black40"]
+- ["So21NSItemProviderReadingP", "init"]
+- ["So21NSItemProviderReadingP", "red"]
+- ["So21NSItemProviderReadingP", "withRenderingMode"]
+- ["So21NSItemProviderWritingP", "black"]
+- ["So21NSItemProviderWritingP", "black40"]
+- ["So21NSItemProviderWritingP", "init"]
+- ["So21NSItemProviderWritingP", "red"]
+- ["So21NSItemProviderWritingP", "withRenderingMode"]
+- ["So8NSObjectC", "Bool"]
+- ["So8NSObjectC", "CGFloat"]
+- ["So8NSObjectC", "FuguFlowManager"]
+- ["So8NSObjectC", "HippoTheme"]
+- ["So8NSObjectC", "String"]
+- ["So8NSObjectC", "SupportTheme"]
+- ["So8NSObjectC", "UIColor"]
+- ["So8NSObjectC", "UIFont"]
+- ["So8NSObjectC", "UIImage"]
+- ["So8NSObjectC", ""]
+- ["So8NSObjectC", "actionableMessageButtonColor"]
+- ["So8NSObjectC", "actionableMessageButtonFont"]
+- ["So8NSObjectC", "actionableMessageButtonHighlightedColor"]
+- ["So8NSObjectC", "actionableMessageDescriptionFont"]
+- ["So8NSObjectC", "actionableMessageHeaderTextFont"]
+- ["So8NSObjectC", "actionableMessagePriceBoldFont"]
+- ["So8NSObjectC", "addBtnTintColor"]
+- ["So8NSObjectC", "addButtonIcon"]
+- ["So8NSObjectC", "audioCallIcon"]
+- ["So8NSObjectC", "audioIcon"]
+- ["So8NSObjectC", "backgroundColor"]
+- ["So8NSObjectC", "black"]
+- ["So8NSObjectC", "black40"]
+- ["So8NSObjectC", "boldSystemFont"]
+- ["So8NSObjectC", "botTextAndBorderColor"]
+- ["So8NSObjectC", "broadcastBarButtonFont"]
+- ["So8NSObjectC", "broadcastBarButtonImage"]
+- ["So8NSObjectC", "broadcastBarButtonText"]
+- ["So8NSObjectC", "broadcastBarButtonTextColor"]
+- ["So8NSObjectC", "broadcastHeader"]
+- ["So8NSObjectC", "broadcastHistoryHeader"]
+- ["So8NSObjectC", "broadcastTitleColor"]
+- ["So8NSObjectC", "broadcastTitleFont"]
+- ["So8NSObjectC", "broadcastTitleInfoColor"]
+- ["So8NSObjectC", "broadcastTitleInfoFont"]
+- ["So8NSObjectC", "bundle"]
+- ["So8NSObjectC", "cancelIcon"]
+- ["So8NSObjectC", "chatAssignIcon"]
+- ["So8NSObjectC", "chatBoxBorderColor"]
+- ["So8NSObjectC", "chatBoxBorderWidth"]
+- ["So8NSObjectC", "chatBoxCornerRadius"]
+- ["So8NSObjectC", "chatCloseIcon"]
+- ["So8NSObjectC", "chatReOpenIcon"]
+- ["So8NSObjectC", "checkBoxActive"]
+- ["So8NSObjectC", "checkBoxInActive"]
+- ["So8NSObjectC", "conversationLastMsgColor"]
+- ["So8NSObjectC", "conversationTitleColor"]
+- ["So8NSObjectC", "csvIcon"]
+- ["So8NSObjectC", "dateTimeFontSize"]
+- ["So8NSObjectC", "dateTimeTextColor"]
+- ["So8NSObjectC", "defaultDocIcon"]
+- ["So8NSObjectC", "defaultTheme"]
+- ["So8NSObjectC", "directChatHeader"]
+- ["So8NSObjectC", "docIcon"]
+- ["So8NSObjectC", "downloadIcon"]
+- ["So8NSObjectC", "emailSourceIcon"]
+- ["So8NSObjectC", "excelIcon"]
+- ["So8NSObjectC", "facebookSourceIcon"]
+- ["So8NSObjectC", "forwardIcon"]
+- ["So8NSObjectC", "forwordIconTintColor"]
+- ["So8NSObjectC", "headerBackgroundColor"]
+- ["So8NSObjectC", "headerText"]
+- ["So8NSObjectC", "headerTextColor"]
+- ["So8NSObjectC", "headerTextFont"]
+- ["So8NSObjectC", "homeBarButtonFont"]
+- ["So8NSObjectC", "homeBarButtonImage"]
+- ["So8NSObjectC", "homeBarButtonText"]
+- ["So8NSObjectC", "homeBarButtonTextColor"]
+- ["So8NSObjectC", "inOutChatTextFont"]
+- ["So8NSObjectC", "incomingChatBoxColor"]
+- ["So8NSObjectC", "incomingMsgColor"]
+- ["So8NSObjectC", "incomingMsgDateTextColor"]
+- ["So8NSObjectC", "incomingMsgFont"]
+- ["So8NSObjectC", "infoIconTintColor"]
+- ["So8NSObjectC", "init"]
+- ["So8NSObjectC", "itmDescriptionNameFont"]
+- ["So8NSObjectC", "leftBarButtonFont"]
+- ["So8NSObjectC", "leftBarButtonImage"]
+- ["So8NSObjectC", "leftBarButtonText"]
+- ["So8NSObjectC", "leftBarButtonTextColor"]
+- ["So8NSObjectC", "missedCallMessageColor"]
+- ["So8NSObjectC", "openChatIcon"]
+- ["So8NSObjectC", "outgoingChatBoxColor"]
+- ["So8NSObjectC", "outgoingMsgColor"]
+- ["So8NSObjectC", "outgoingMsgDateTextColor"]
+- ["So8NSObjectC", "pauseIcon"]
+- ["So8NSObjectC", "pdfIcon"]
+- ["So8NSObjectC", "placeHolderImage"]
+- ["So8NSObjectC", "playIcon"]
+- ["So8NSObjectC", "pptIcon"]
+- ["So8NSObjectC", "privateNoteChatBoxColor"]
+- ["So8NSObjectC", "privateNoteMsgColor"]
+- ["So8NSObjectC", "privateNoteMsgDateTextColor"]
+- ["So8NSObjectC", "privateNoteMsgFont"]
+- ["So8NSObjectC", "processingGreenColor"]
+- ["So8NSObjectC", "radioActive"]
+- ["So8NSObjectC", "radioInActive"]
+- ["So8NSObjectC", "readMessageTick"]
+- ["So8NSObjectC", "readMessageTintColor"]
+- ["So8NSObjectC", "red"]
+- ["So8NSObjectC", "reloadIcon"]
+- ["So8NSObjectC", "sendBtnIcon"]
+- ["So8NSObjectC", "sendBtnIconTintColor"]
+- ["So8NSObjectC", "senderNameColor"]
+- ["So8NSObjectC", "senderNameFont"]
+- ["So8NSObjectC", "shouldEnableDisplayUserImage"]
+- ["So8NSObjectC", "smsSourceIcon"]
+- ["So8NSObjectC", "sourceIconColor"]
+- ["So8NSObjectC", "supportTheme"]
+- ["So8NSObjectC", "systemFont"]
+- ["So8NSObjectC", "timeTextColor"]
+- ["So8NSObjectC", "txtIcon"]
+- ["So8NSObjectC", "typingTextColor"]
+- ["So8NSObjectC", "typingTextFont"]
+- ["So8NSObjectC", "unreadMessageTick"]
+- ["So8NSObjectC", "unreadMessageTintColor"]
+- ["So8NSObjectC", "unsentMessageIcon"]
+- ["So8NSObjectC", "unsentMessageTintColor"]
+- ["So8NSObjectC", "uploadIcon"]
+- ["So8NSObjectC", "videoCallIcon"]
+- ["So8NSObjectC", "withRenderingMode"]
+- ["So8NSObjectP", "CGFloat"]
+- ["So8NSObjectP", "FuguFlowManager"]
+- !private ["So8NSObjectP", "HippoTheme"]
+- ["So8NSObjectP", "String"]
+- ["So8NSObjectP", "SupportTheme"]
+- ["So8NSObjectP", "UIColor"]
+- ["So8NSObjectP", "UIFont"]
+- ["So8NSObjectP", "UIImage"]
+- ["So8NSObjectP", ""]
+- ["So8NSObjectP", "black"]
+- ["So8NSObjectP", "black40"]
+- ["So8NSObjectP", "boldSystemFont"]
+- ["So8NSObjectP", "bundle"]
+- ["So8NSObjectP", "init"]
+- ["So8NSObjectP", "red"]
+- ["So8NSObjectP", "systemFont"]
+- ["So8NSObjectP", "withRenderingMode"]
+- ["So14NSSecureCodingP", "black"]
+- ["So14NSSecureCodingP", "black40"]
+- ["So14NSSecureCodingP", "init"]
+- ["So14NSSecureCodingP", "red"]
+- ["So14NSSecureCodingP", "withRenderingMode"]
+- ["5Hippo11PlaceholderP", "init"]
+- ["5Hippo11PlaceholderP", "withRenderingMode"]
+- ["Sm", "init"]
+- ["SY", "alwaysOriginal"]
+- ["SY", "alwaysTemplate"]
+- ["So20UIImageRenderingModeV", "alwaysOriginal"]
+- ["So20UIImageRenderingModeV", "alwaysTemplate"]
+- ["ST", "init"]
+- ["SS", "init"]
+- ["Sy", "init"]
+- ["5Hippo12SupportThemeV", "init"]
+- ["s16TextOutputStreamP", "init"]
+- ["s20TextOutputStreamableP", "init"]
+- ["So29UIAccessibilityIdentificationP", "init"]
+- ["So29UIAccessibilityIdentificationP", "withRenderingMode"]
+- ["So7UIColorC", "black"]
+- ["So7UIColorC", "black40"]
+- ["So7UIColorC", "init"]
+- ["So7UIColorC", "red"]
+- ["So6UIFontC", "boldSystemFont"]
+- ["So6UIFontC", "systemFont"]
+- ["So7UIImageC", "init"]
+- ["So7UIImageC", "withRenderingMode"]
+- ["So39UIItemProviderPresentationSizeProvidingP", "init"]
+- ["So39UIItemProviderPresentationSizeProvidingP", "withRenderingMode"]
+- ["s30_CustomPlaygroundQuickLookableP", "init"]
+- ["s51_ExpressibleByBuiltinExtendedGraphemeClusterLiteralP", "init"]
+- ["s34_ExpressibleByBuiltinStringLiteralP", "init"]
+- ["s41_ExpressibleByBuiltinUnicodeScalarLiteralP", "init"]
+- ["s26_ExpressibleByColorLiteralP", "black"]
+- ["s26_ExpressibleByColorLiteralP", "black40"]
+- ["s26_ExpressibleByColorLiteralP", "init"]
+- ["s26_ExpressibleByColorLiteralP", "red"]
+- ["s26_ExpressibleByImageLiteralP", "init"]
+- ["s26_ExpressibleByImageLiteralP", "withRenderingMode"]
+- ["s19_HasContiguousBytesP", "init"]
+- ["10Foundation27_KeyValueCodingAndObservingP", "CGFloat"]
+- ["10Foundation27_KeyValueCodingAndObservingP", "FuguFlowManager"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "HippoTheme"]
+- ["10Foundation27_KeyValueCodingAndObservingP", "String"]
+- ["10Foundation27_KeyValueCodingAndObservingP", "SupportTheme"]
+- ["10Foundation27_KeyValueCodingAndObservingP", "UIColor"]
+- ["10Foundation27_KeyValueCodingAndObservingP", "UIFont"]
+- ["10Foundation27_KeyValueCodingAndObservingP", "UIImage"]
+- ["10Foundation27_KeyValueCodingAndObservingP", ""]
+- ["10Foundation27_KeyValueCodingAndObservingP", "black"]
+- ["10Foundation27_KeyValueCodingAndObservingP", "black40"]
+- ["10Foundation27_KeyValueCodingAndObservingP", "boldSystemFont"]
+- ["10Foundation27_KeyValueCodingAndObservingP", "bundle"]
+- ["10Foundation27_KeyValueCodingAndObservingP", "init"]
+- ["10Foundation27_KeyValueCodingAndObservingP", "red"]
+- ["10Foundation27_KeyValueCodingAndObservingP", "systemFont"]
+- ["10Foundation27_KeyValueCodingAndObservingP", "withRenderingMode"]
+- ["s21_ObjectiveCBridgeableP", "init"]
+depends-nominal:
+- "SK"
+- "s7CVarArgP"
+- "Sl"
+- "SL"
+- "s28CustomDebugStringConvertibleP"
+- "s17CustomReflectableP"
+- "s23CustomStringConvertibleP"
+- "Se"
+- "SE"
+- "SQ"
+- "s43ExpressibleByExtendedGraphemeClusterLiteralP"
+- "s32ExpressibleByStringInterpolationP"
+- "s26ExpressibleByStringLiteralP"
+- "s33ExpressibleByUnicodeScalarLiteralP"
+- "5Hippo15FuguFlowManagerC"
+- "SH"
+- "5Hippo0A5ThemeC"
+- "5Hippo20KingfisherCompatibleP"
+- "s25LosslessStringConvertibleP"
+- "s10MirrorPathP"
+- "So8NSCodingP"
+- "So9NSCopyingP"
+- "So21NSItemProviderReadingP"
+- "So21NSItemProviderWritingP"
+- "So8NSObjectC"
+- "So8NSObjectP"
+- "So14NSSecureCodingP"
+- "5Hippo11PlaceholderP"
+- "Sm"
+- "SY"
+- "So20UIImageRenderingModeV"
+- "ST"
+- "SS"
+- "Sy"
+- "5Hippo12SupportThemeV"
+- "s16TextOutputStreamP"
+- "s20TextOutputStreamableP"
+- "So29UIAccessibilityIdentificationP"
+- "So7UIColorC"
+- "So6UIFontC"
+- "So7UIImageC"
+- "So39UIItemProviderPresentationSizeProvidingP"
+- "s30_CustomPlaygroundQuickLookableP"
+- "s51_ExpressibleByBuiltinExtendedGraphemeClusterLiteralP"
+- "s34_ExpressibleByBuiltinStringLiteralP"
+- "s41_ExpressibleByBuiltinUnicodeScalarLiteralP"
+- "s26_ExpressibleByColorLiteralP"
+- "s26_ExpressibleByImageLiteralP"
+- "s19_HasContiguousBytesP"
+- "10Foundation27_KeyValueCodingAndObservingP"
+- "s21_ObjectiveCBridgeableP"
+depends-dynamic-lookup:
+depends-external:
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/ObjectiveC.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreMedia.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/simd.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreImage.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/QuartzCore.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Accelerate.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Dispatch.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Metal.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Darwin.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreLocation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Foundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/AVFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreAudio.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/MediaPlayer.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreGraphics.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/os.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Photos.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Swift.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/UIKit.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/SwiftOnoneSupport.swiftmodule"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Hippo.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Helpers/TRWDownloadManager/TWRDownloadManager.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/SocketRocket/SocketRocket.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/SocketRocket/SRWebSocket.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/MZFayeClient/MZFayeClient.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/unextended-module.modulemap"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/usr/include/objc/ObjectiveC.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/OpenGLES.framework/Headers/OpenGLES.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreMedia.framework/Headers/CoreMedia.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreImage.framework/Headers/CoreImage.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/QuartzCore.framework/Headers/QuartzCore.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Accelerate.framework/Headers/Accelerate.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Dispatch.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/QuickLook.framework/Headers/QuickLook.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Metal.framework/Headers/Metal.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/usr/include/Darwin.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreLocation.framework/Headers/CoreLocation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Foundation.framework/Headers/Foundation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/AVFoundation.framework/Headers/AVFoundation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/MediaPlayer.framework/Headers/MediaPlayer.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreGraphics.framework/Headers/CoreGraphics.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/UserNotifications.framework/Headers/UserNotifications.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/os.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Photos.framework/Headers/Photos.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/UIKit.framework/Headers/UIKit.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreText.framework/Headers/CoreText.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/MediaToolbox.framework/Headers/MediaToolbox.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/AudioToolbox.framework/Headers/AudioToolbox.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Security.framework/Headers/Security.apinotes"
+interface-hash: "86165c31dc12e59e3a1552197e99992a"

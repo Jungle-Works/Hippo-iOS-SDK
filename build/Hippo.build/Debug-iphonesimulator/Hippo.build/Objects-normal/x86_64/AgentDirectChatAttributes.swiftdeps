@@ -1,0 +1,378 @@
+### Swift dependencies file v0 ###
+provides-top-level:
+- "AgentDirectChatAttributes"
+provides-nominal:
+- "5Hippo25AgentDirectChatAttributesC"
+provides-member:
+- ["5Hippo25AgentDirectChatAttributesC", ""]
+provides-dynamic-lookup:
+depends-top-level:
+- "AgentDirectChatAttributes"
+- "AssignmentPrecedence"
+- "ChatType"
+- !private "HippoConfig"
+- !private "HippoError"
+- "NSObject"
+- "String"
+depends-member:
+- !private ["5Hippo11AgentDetailC", "enUserId"]
+- !private ["5Hippo11AgentDetailC", "fuguToken"]
+- ["5Hippo25AgentDirectChatAttributesC", "ChatType"]
+- !private ["5Hippo25AgentDirectChatAttributesC", "HippoConfig"]
+- !private ["5Hippo25AgentDirectChatAttributesC", "HippoError"]
+- ["5Hippo25AgentDirectChatAttributesC", "String"]
+- ["5Hippo25AgentDirectChatAttributesC", "channelName"]
+- ["5Hippo25AgentDirectChatAttributesC", "chatType"]
+- ["5Hippo25AgentDirectChatAttributesC", "deinit"]
+- ["5Hippo25AgentDirectChatAttributesC", "getParamsToStartNewChat"]
+- ["5Hippo25AgentDirectChatAttributesC", "init"]
+- ["5Hippo25AgentDirectChatAttributesC", "otherUserEmail"]
+- ["5Hippo25AgentDirectChatAttributesC", "otherUserUniqueKey"]
+- !private ["SK", "isValidEmail"]
+- !private ["SK", "trimWhiteSpacesAndNewLine"]
+- !private ["s7CVarArgP", "HippoConfig"]
+- !private ["s7CVarArgP", "HippoError"]
+- !private ["s7CVarArgP", "String"]
+- ["s7CVarArgP", ""]
+- !private ["s7CVarArgP", "agentDetail"]
+- !private ["s7CVarArgP", "channelName"]
+- !private ["s7CVarArgP", "chatType"]
+- !private ["s7CVarArgP", "enUserId"]
+- !private ["s7CVarArgP", "fuguToken"]
+- !private ["s7CVarArgP", "init"]
+- !private ["s7CVarArgP", "isValidEmail"]
+- !private ["s7CVarArgP", "log"]
+- !private ["s7CVarArgP", "otherUserEmail"]
+- !private ["s7CVarArgP", "otherUserUniqueKey"]
+- !private ["s7CVarArgP", "shared"]
+- !private ["s7CVarArgP", "subscript"]
+- !private ["s7CVarArgP", "trimWhiteSpacesAndNewLine"]
+- ["5Hippo8ChatTypeO", "o2o"]
+- ["5Hippo8ChatTypeO", "other"]
+- !private ["Sl", "init"]
+- !private ["Sl", "isValidEmail"]
+- !private ["Sl", "subscript"]
+- !private ["Sl", "trimWhiteSpacesAndNewLine"]
+- !private ["SL", "isValidEmail"]
+- !private ["SL", "trimWhiteSpacesAndNewLine"]
+- !private ["5Hippo10CoreLoggerC", "debug"]
+- !private ["s28CustomDebugStringConvertibleP", "HippoConfig"]
+- !private ["s28CustomDebugStringConvertibleP", "HippoError"]
+- !private ["s28CustomDebugStringConvertibleP", "String"]
+- ["s28CustomDebugStringConvertibleP", ""]
+- !private ["s28CustomDebugStringConvertibleP", "agentDetail"]
+- !private ["s28CustomDebugStringConvertibleP", "channelName"]
+- !private ["s28CustomDebugStringConvertibleP", "chatType"]
+- !private ["s28CustomDebugStringConvertibleP", "enUserId"]
+- !private ["s28CustomDebugStringConvertibleP", "fuguToken"]
+- !private ["s28CustomDebugStringConvertibleP", "init"]
+- !private ["s28CustomDebugStringConvertibleP", "isValidEmail"]
+- !private ["s28CustomDebugStringConvertibleP", "log"]
+- !private ["s28CustomDebugStringConvertibleP", "otherUserEmail"]
+- !private ["s28CustomDebugStringConvertibleP", "otherUserUniqueKey"]
+- !private ["s28CustomDebugStringConvertibleP", "shared"]
+- !private ["s28CustomDebugStringConvertibleP", "subscript"]
+- !private ["s28CustomDebugStringConvertibleP", "trimWhiteSpacesAndNewLine"]
+- !private ["s17CustomReflectableP", "init"]
+- !private ["s17CustomReflectableP", "isValidEmail"]
+- !private ["s17CustomReflectableP", "subscript"]
+- !private ["s17CustomReflectableP", "trimWhiteSpacesAndNewLine"]
+- !private ["s23CustomStringConvertibleP", "HippoConfig"]
+- !private ["s23CustomStringConvertibleP", "HippoError"]
+- !private ["s23CustomStringConvertibleP", "String"]
+- ["s23CustomStringConvertibleP", ""]
+- !private ["s23CustomStringConvertibleP", "agentDetail"]
+- !private ["s23CustomStringConvertibleP", "channelName"]
+- !private ["s23CustomStringConvertibleP", "chatType"]
+- !private ["s23CustomStringConvertibleP", "enUserId"]
+- !private ["s23CustomStringConvertibleP", "fuguToken"]
+- !private ["s23CustomStringConvertibleP", "init"]
+- !private ["s23CustomStringConvertibleP", "isValidEmail"]
+- !private ["s23CustomStringConvertibleP", "log"]
+- !private ["s23CustomStringConvertibleP", "otherUserEmail"]
+- !private ["s23CustomStringConvertibleP", "otherUserUniqueKey"]
+- !private ["s23CustomStringConvertibleP", "shared"]
+- !private ["s23CustomStringConvertibleP", "subscript"]
+- !private ["s23CustomStringConvertibleP", "trimWhiteSpacesAndNewLine"]
+- !private ["Se", "init"]
+- !private ["Se", "isValidEmail"]
+- !private ["Se", "subscript"]
+- !private ["Se", "trimWhiteSpacesAndNewLine"]
+- !private ["SD", "init"]
+- !private ["SD", "subscript"]
+- !private ["SE", "init"]
+- !private ["SE", "isValidEmail"]
+- !private ["SE", "subscript"]
+- !private ["SE", "trimWhiteSpacesAndNewLine"]
+- !private ["SQ", "HippoConfig"]
+- !private ["SQ", "HippoError"]
+- !private ["SQ", "String"]
+- ["SQ", ""]
+- !private ["SQ", "agentDetail"]
+- !private ["SQ", "channelName"]
+- !private ["SQ", "chatType"]
+- !private ["SQ", "enUserId"]
+- !private ["SQ", "error"]
+- !private ["SQ", "fuguToken"]
+- !private ["SQ", "init"]
+- !private ["SQ", "isValidEmail"]
+- !private ["SQ", "log"]
+- ["SQ", "o2o"]
+- ["SQ", "other"]
+- !private ["SQ", "otherUserEmail"]
+- !private ["SQ", "otherUserUniqueKey"]
+- !private ["SQ", "shared"]
+- !private ["SQ", "subscript"]
+- !private ["SQ", "trimWhiteSpacesAndNewLine"]
+- !private ["s5ErrorP", "invalidEmail"]
+- !private ["s5ErrorP", "localizedDescription"]
+- !private ["s30ExpressibleByDictionaryLiteralP", "init"]
+- !private ["s30ExpressibleByDictionaryLiteralP", "subscript"]
+- !private ["s43ExpressibleByExtendedGraphemeClusterLiteralP", "isValidEmail"]
+- !private ["s43ExpressibleByExtendedGraphemeClusterLiteralP", "trimWhiteSpacesAndNewLine"]
+- !private ["s32ExpressibleByStringInterpolationP", "isValidEmail"]
+- !private ["s32ExpressibleByStringInterpolationP", "trimWhiteSpacesAndNewLine"]
+- !private ["s26ExpressibleByStringLiteralP", "isValidEmail"]
+- !private ["s26ExpressibleByStringLiteralP", "trimWhiteSpacesAndNewLine"]
+- !private ["s33ExpressibleByUnicodeScalarLiteralP", "isValidEmail"]
+- !private ["s33ExpressibleByUnicodeScalarLiteralP", "trimWhiteSpacesAndNewLine"]
+- !private ["SH", "HippoConfig"]
+- !private ["SH", "HippoError"]
+- !private ["SH", "String"]
+- ["SH", ""]
+- !private ["SH", "agentDetail"]
+- !private ["SH", "channelName"]
+- !private ["SH", "chatType"]
+- !private ["SH", "enUserId"]
+- !private ["SH", "error"]
+- !private ["SH", "fuguToken"]
+- !private ["SH", "init"]
+- !private ["SH", "isValidEmail"]
+- !private ["SH", "log"]
+- ["SH", "o2o"]
+- ["SH", "other"]
+- !private ["SH", "otherUserEmail"]
+- !private ["SH", "otherUserUniqueKey"]
+- !private ["SH", "shared"]
+- !private ["SH", "subscript"]
+- !private ["SH", "trimWhiteSpacesAndNewLine"]
+- !private ["5Hippo0A6ConfigC", "agentDetail"]
+- !private ["5Hippo0A6ConfigC", "log"]
+- !private ["5Hippo0A6ConfigC", "shared"]
+- !private ["5Hippo0A5ErrorO", "deinit"]
+- !private ["5Hippo0A5ErrorO", "invalidEmail"]
+- !private ["5Hippo0A5ErrorO", "localizedDescription"]
+- !private ["5Hippo20KingfisherCompatibleP", "isValidEmail"]
+- !private ["5Hippo20KingfisherCompatibleP", "trimWhiteSpacesAndNewLine"]
+- !private ["5Hippo5LevelO", "error"]
+- !private ["10Foundation14LocalizedErrorP", "invalidEmail"]
+- !private ["10Foundation14LocalizedErrorP", "localizedDescription"]
+- !private ["s25LosslessStringConvertibleP", "isValidEmail"]
+- !private ["s25LosslessStringConvertibleP", "trimWhiteSpacesAndNewLine"]
+- !private ["s10MirrorPathP", "isValidEmail"]
+- !private ["s10MirrorPathP", "trimWhiteSpacesAndNewLine"]
+- !private ["So8NSCodingP", "isValidEmail"]
+- !private ["So8NSCodingP", "trimWhiteSpacesAndNewLine"]
+- !private ["So9NSCopyingP", "isValidEmail"]
+- !private ["So9NSCopyingP", "trimWhiteSpacesAndNewLine"]
+- !private ["So21NSItemProviderReadingP", "isValidEmail"]
+- !private ["So21NSItemProviderReadingP", "trimWhiteSpacesAndNewLine"]
+- !private ["So21NSItemProviderWritingP", "isValidEmail"]
+- !private ["So21NSItemProviderWritingP", "trimWhiteSpacesAndNewLine"]
+- !private ["So16NSMutableCopyingP", "isValidEmail"]
+- !private ["So16NSMutableCopyingP", "trimWhiteSpacesAndNewLine"]
+- ["So8NSObjectC", "ChatType"]
+- !private ["So8NSObjectC", "HippoConfig"]
+- !private ["So8NSObjectC", "HippoError"]
+- ["So8NSObjectC", "String"]
+- ["So8NSObjectC", ""]
+- !private ["So8NSObjectC", "agentDetail"]
+- ["So8NSObjectC", "channelName"]
+- ["So8NSObjectC", "chatType"]
+- !private ["So8NSObjectC", "enUserId"]
+- !private ["So8NSObjectC", "fuguToken"]
+- ["So8NSObjectC", "getParamsToStartNewChat"]
+- ["So8NSObjectC", "init"]
+- !private ["So8NSObjectC", "isValidEmail"]
+- !private ["So8NSObjectC", "log"]
+- ["So8NSObjectC", "otherUserEmail"]
+- ["So8NSObjectC", "otherUserUniqueKey"]
+- !private ["So8NSObjectC", "shared"]
+- !private ["So8NSObjectC", "trimWhiteSpacesAndNewLine"]
+- !private ["So8NSObjectP", "HippoConfig"]
+- !private ["So8NSObjectP", "HippoError"]
+- !private ["So8NSObjectP", "String"]
+- ["So8NSObjectP", ""]
+- !private ["So8NSObjectP", "agentDetail"]
+- !private ["So8NSObjectP", "channelName"]
+- !private ["So8NSObjectP", "chatType"]
+- !private ["So8NSObjectP", "enUserId"]
+- !private ["So8NSObjectP", "fuguToken"]
+- !private ["So8NSObjectP", "init"]
+- !private ["So8NSObjectP", "isValidEmail"]
+- !private ["So8NSObjectP", "log"]
+- !private ["So8NSObjectP", "otherUserEmail"]
+- !private ["So8NSObjectP", "otherUserUniqueKey"]
+- !private ["So8NSObjectP", "shared"]
+- !private ["So8NSObjectP", "trimWhiteSpacesAndNewLine"]
+- !private ["So14NSSecureCodingP", "isValidEmail"]
+- !private ["So14NSSecureCodingP", "trimWhiteSpacesAndNewLine"]
+- !private ["So8NSStringC", "isValidEmail"]
+- !private ["So8NSStringC", "trimWhiteSpacesAndNewLine"]
+- !private ["Sm", "isValidEmail"]
+- !private ["Sm", "trimWhiteSpacesAndNewLine"]
+- ["SY", "o2o"]
+- ["SY", "other"]
+- !private ["ST", "init"]
+- !private ["ST", "isValidEmail"]
+- !private ["ST", "subscript"]
+- !private ["ST", "trimWhiteSpacesAndNewLine"]
+- !private ["SS", "isValidEmail"]
+- !private ["SS", "trimWhiteSpacesAndNewLine"]
+- !private ["Sy", "isValidEmail"]
+- !private ["Sy", "trimWhiteSpacesAndNewLine"]
+- !private ["s16TextOutputStreamP", "isValidEmail"]
+- !private ["s16TextOutputStreamP", "trimWhiteSpacesAndNewLine"]
+- !private ["s20TextOutputStreamableP", "isValidEmail"]
+- !private ["s20TextOutputStreamableP", "trimWhiteSpacesAndNewLine"]
+- !private ["s30_CustomPlaygroundQuickLookableP", "isValidEmail"]
+- !private ["s30_CustomPlaygroundQuickLookableP", "trimWhiteSpacesAndNewLine"]
+- !private ["s51_ExpressibleByBuiltinExtendedGraphemeClusterLiteralP", "isValidEmail"]
+- !private ["s51_ExpressibleByBuiltinExtendedGraphemeClusterLiteralP", "trimWhiteSpacesAndNewLine"]
+- !private ["s34_ExpressibleByBuiltinStringLiteralP", "isValidEmail"]
+- !private ["s34_ExpressibleByBuiltinStringLiteralP", "trimWhiteSpacesAndNewLine"]
+- !private ["s41_ExpressibleByBuiltinUnicodeScalarLiteralP", "isValidEmail"]
+- !private ["s41_ExpressibleByBuiltinUnicodeScalarLiteralP", "trimWhiteSpacesAndNewLine"]
+- !private ["s19_HasContiguousBytesP", "isValidEmail"]
+- !private ["s19_HasContiguousBytesP", "trimWhiteSpacesAndNewLine"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "init"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "isValidEmail"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "subscript"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "trimWhiteSpacesAndNewLine"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "HippoConfig"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "HippoError"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "String"]
+- ["10Foundation27_KeyValueCodingAndObservingP", ""]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "agentDetail"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "channelName"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "chatType"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "enUserId"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "fuguToken"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "init"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "isValidEmail"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "log"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "otherUserEmail"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "otherUserUniqueKey"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "shared"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "trimWhiteSpacesAndNewLine"]
+- !private ["s21_ObjectiveCBridgeableP", "init"]
+- !private ["s21_ObjectiveCBridgeableP", "isValidEmail"]
+- !private ["s21_ObjectiveCBridgeableP", "subscript"]
+- !private ["s21_ObjectiveCBridgeableP", "trimWhiteSpacesAndNewLine"]
+depends-nominal:
+- !private "5Hippo11AgentDetailC"
+- "5Hippo25AgentDirectChatAttributesC"
+- !private "SK"
+- "s7CVarArgP"
+- "5Hippo8ChatTypeO"
+- !private "Sl"
+- !private "SL"
+- !private "5Hippo10CoreLoggerC"
+- "s28CustomDebugStringConvertibleP"
+- !private "s17CustomReflectableP"
+- "s23CustomStringConvertibleP"
+- !private "Se"
+- !private "SD"
+- !private "SE"
+- "SQ"
+- !private "s5ErrorP"
+- !private "s30ExpressibleByDictionaryLiteralP"
+- !private "s43ExpressibleByExtendedGraphemeClusterLiteralP"
+- !private "s32ExpressibleByStringInterpolationP"
+- !private "s26ExpressibleByStringLiteralP"
+- !private "s33ExpressibleByUnicodeScalarLiteralP"
+- "SH"
+- !private "5Hippo0A6ConfigC"
+- !private "5Hippo0A5ErrorO"
+- !private "5Hippo20KingfisherCompatibleP"
+- !private "5Hippo5LevelO"
+- !private "10Foundation14LocalizedErrorP"
+- !private "s25LosslessStringConvertibleP"
+- !private "s10MirrorPathP"
+- !private "So8NSCodingP"
+- !private "So9NSCopyingP"
+- !private "So21NSItemProviderReadingP"
+- !private "So21NSItemProviderWritingP"
+- !private "So16NSMutableCopyingP"
+- "So8NSObjectC"
+- "So8NSObjectP"
+- !private "So14NSSecureCodingP"
+- !private "So8NSStringC"
+- !private "Sm"
+- "SY"
+- !private "ST"
+- !private "SS"
+- !private "Sy"
+- !private "s16TextOutputStreamP"
+- !private "s20TextOutputStreamableP"
+- !private "s30_CustomPlaygroundQuickLookableP"
+- !private "s51_ExpressibleByBuiltinExtendedGraphemeClusterLiteralP"
+- !private "s34_ExpressibleByBuiltinStringLiteralP"
+- !private "s41_ExpressibleByBuiltinUnicodeScalarLiteralP"
+- !private "s19_HasContiguousBytesP"
+- !private "s35_HasCustomAnyHashableRepresentationP"
+- "10Foundation27_KeyValueCodingAndObservingP"
+- !private "s21_ObjectiveCBridgeableP"
+depends-dynamic-lookup:
+depends-external:
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/ObjectiveC.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreMedia.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/simd.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreImage.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/QuartzCore.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Accelerate.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Dispatch.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Metal.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Darwin.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreLocation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Foundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/AVFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreAudio.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/MediaPlayer.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreGraphics.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/os.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Photos.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Swift.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/UIKit.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/SwiftOnoneSupport.swiftmodule"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Hippo.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Helpers/TRWDownloadManager/TWRDownloadManager.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/SocketRocket/SocketRocket.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/SocketRocket/SRWebSocket.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/MZFayeClient/MZFayeClient.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/unextended-module.modulemap"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/usr/include/objc/ObjectiveC.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/OpenGLES.framework/Headers/OpenGLES.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreMedia.framework/Headers/CoreMedia.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreImage.framework/Headers/CoreImage.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/QuartzCore.framework/Headers/QuartzCore.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Accelerate.framework/Headers/Accelerate.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Dispatch.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/QuickLook.framework/Headers/QuickLook.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Metal.framework/Headers/Metal.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/usr/include/Darwin.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreLocation.framework/Headers/CoreLocation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Foundation.framework/Headers/Foundation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/AVFoundation.framework/Headers/AVFoundation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/MediaPlayer.framework/Headers/MediaPlayer.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreGraphics.framework/Headers/CoreGraphics.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/UserNotifications.framework/Headers/UserNotifications.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/os.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Photos.framework/Headers/Photos.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/UIKit.framework/Headers/UIKit.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreText.framework/Headers/CoreText.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/MediaToolbox.framework/Headers/MediaToolbox.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/AudioToolbox.framework/Headers/AudioToolbox.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Security.framework/Headers/Security.apinotes"
+interface-hash: "5ff4f3a2d6f5f07d08bf30313207ed8b"

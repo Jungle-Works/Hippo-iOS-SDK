@@ -1,0 +1,360 @@
+### Swift dependencies file v0 ###
+provides-top-level:
+- "Helper"
+provides-nominal:
+- "5Hippo6HelperC"
+provides-member:
+- ["5Hippo6HelperC", ""]
+provides-dynamic-lookup:
+depends-top-level:
+- !private "!="
+- !private "&&"
+- !private "+"
+- !private "=="
+- !private "??"
+- "AssignmentPrecedence"
+- !private "Bool"
+- "Double"
+- "Helper"
+- !private "HippoConfig"
+- "HippoMessage"
+- "NSMutableAttributedString"
+- !private "NSNumber"
+- !private "NumberFormatter"
+- "String"
+- "TernaryPrecedence"
+- !private "UIColor"
+- !private "UIFont"
+- !private "attributedStringForLabel"
+depends-member:
+- !private ["s7CVarArgP", "black"]
+- !private ["s7CVarArgP", "incomingMsgColor"]
+- !private ["s7CVarArgP", "incomingMsgFont"]
+- !private ["s7CVarArgP", "init"]
+- !private ["s7CVarArgP", "maximumFractionDigits"]
+- !private ["s7CVarArgP", "minimumFractionDigits"]
+- !private ["s7CVarArgP", "minimumIntegerDigits"]
+- !private ["s7CVarArgP", "senderNameColor"]
+- !private ["s7CVarArgP", "senderNameFont"]
+- !private ["s7CVarArgP", "shared"]
+- !private ["s7CVarArgP", "string"]
+- !private ["s7CVarArgP", "systemFont"]
+- !private ["s7CVarArgP", "theme"]
+- !private ["s7CVarArgP", "withAlphaComponent"]
+- !private ["s28CustomDebugStringConvertibleP", "assignAgent"]
+- !private ["s28CustomDebugStringConvertibleP", "black"]
+- !private ["s28CustomDebugStringConvertibleP", "consent"]
+- !private ["s28CustomDebugStringConvertibleP", "incomingMsgColor"]
+- !private ["s28CustomDebugStringConvertibleP", "incomingMsgFont"]
+- !private ["s28CustomDebugStringConvertibleP", "init"]
+- !private ["s28CustomDebugStringConvertibleP", "maximumFractionDigits"]
+- !private ["s28CustomDebugStringConvertibleP", "minimumFractionDigits"]
+- !private ["s28CustomDebugStringConvertibleP", "minimumIntegerDigits"]
+- !private ["s28CustomDebugStringConvertibleP", "senderNameColor"]
+- !private ["s28CustomDebugStringConvertibleP", "senderNameFont"]
+- !private ["s28CustomDebugStringConvertibleP", "shared"]
+- !private ["s28CustomDebugStringConvertibleP", "string"]
+- !private ["s28CustomDebugStringConvertibleP", "systemFont"]
+- !private ["s28CustomDebugStringConvertibleP", "theme"]
+- !private ["s28CustomDebugStringConvertibleP", "withAlphaComponent"]
+- !private ["s17CustomReflectableP", "assignAgent"]
+- !private ["s17CustomReflectableP", "consent"]
+- !private ["s23CustomStringConvertibleP", "appendInterpolation"]
+- !private ["s23CustomStringConvertibleP", "appendLiteral"]
+- !private ["s23CustomStringConvertibleP", "black"]
+- !private ["s23CustomStringConvertibleP", "incomingMsgColor"]
+- !private ["s23CustomStringConvertibleP", "incomingMsgFont"]
+- !private ["s23CustomStringConvertibleP", "init"]
+- !private ["s23CustomStringConvertibleP", "maximumFractionDigits"]
+- !private ["s23CustomStringConvertibleP", "minimumFractionDigits"]
+- !private ["s23CustomStringConvertibleP", "minimumIntegerDigits"]
+- !private ["s23CustomStringConvertibleP", "senderNameColor"]
+- !private ["s23CustomStringConvertibleP", "senderNameFont"]
+- !private ["s23CustomStringConvertibleP", "shared"]
+- !private ["s23CustomStringConvertibleP", "string"]
+- !private ["s23CustomStringConvertibleP", "systemFont"]
+- !private ["s23CustomStringConvertibleP", "theme"]
+- !private ["s23CustomStringConvertibleP", "withAlphaComponent"]
+- !private ["Se", "assignAgent"]
+- !private ["Se", "consent"]
+- !private ["s26DefaultStringInterpolationV", "appendInterpolation"]
+- !private ["s26DefaultStringInterpolationV", "appendLiteral"]
+- !private ["SE", "assignAgent"]
+- !private ["SE", "consent"]
+- !private ["SQ", "assignAgent"]
+- !private ["SQ", "black"]
+- !private ["SQ", "consent"]
+- !private ["SQ", "incomingMsgColor"]
+- !private ["SQ", "incomingMsgFont"]
+- !private ["SQ", "init"]
+- !private ["SQ", "left"]
+- !private ["SQ", "maximumFractionDigits"]
+- !private ["SQ", "minimumFractionDigits"]
+- !private ["SQ", "minimumIntegerDigits"]
+- !private ["SQ", "right"]
+- !private ["SQ", "senderNameColor"]
+- !private ["SQ", "senderNameFont"]
+- !private ["SQ", "shared"]
+- !private ["SQ", "string"]
+- !private ["SQ", "systemFont"]
+- !private ["SQ", "theme"]
+- !private ["SQ", "withAlphaComponent"]
+- !private ["s27ExpressibleByBooleanLiteralP", "init"]
+- !private ["s25ExpressibleByFloatLiteralP", "init"]
+- !private ["s27ExpressibleByIntegerLiteralP", "init"]
+- !private ["s23ExpressibleByNilLiteralP", "assignAgent"]
+- !private ["s23ExpressibleByNilLiteralP", "consent"]
+- !private ["So11NSFormatterC", "init"]
+- !private ["So11NSFormatterC", "maximumFractionDigits"]
+- !private ["So11NSFormatterC", "minimumFractionDigits"]
+- !private ["So11NSFormatterC", "minimumIntegerDigits"]
+- !private ["So11NSFormatterC", "string"]
+- !private ["5Hippo15FuguPublishableP", "aboveMessageType"]
+- !private ["5Hippo15FuguPublishableP", "aboveMessageUserId"]
+- !private ["5Hippo15FuguPublishableP", "message"]
+- !private ["5Hippo15FuguPublishableP", "senderFullName"]
+- !private ["5Hippo15FuguPublishableP", "senderId"]
+- !private ["5Hippo15FuguPublishableP", "type"]
+- !private ["SH", "assignAgent"]
+- !private ["SH", "black"]
+- !private ["SH", "consent"]
+- !private ["SH", "incomingMsgColor"]
+- !private ["SH", "incomingMsgFont"]
+- !private ["SH", "init"]
+- !private ["SH", "left"]
+- !private ["SH", "maximumFractionDigits"]
+- !private ["SH", "minimumFractionDigits"]
+- !private ["SH", "minimumIntegerDigits"]
+- !private ["SH", "right"]
+- !private ["SH", "senderNameColor"]
+- !private ["SH", "senderNameFont"]
+- !private ["SH", "shared"]
+- !private ["SH", "string"]
+- !private ["SH", "systemFont"]
+- !private ["SH", "theme"]
+- !private ["SH", "withAlphaComponent"]
+- !private ["5Hippo6HelperC", "Bool"]
+- ["5Hippo6HelperC", "Double"]
+- !private ["5Hippo6HelperC", "HippoConfig"]
+- ["5Hippo6HelperC", "HippoMessage"]
+- ["5Hippo6HelperC", "NSMutableAttributedString"]
+- !private ["5Hippo6HelperC", "NSNumber"]
+- !private ["5Hippo6HelperC", "NumberFormatter"]
+- ["5Hippo6HelperC", "String"]
+- !private ["5Hippo6HelperC", "UIColor"]
+- !private ["5Hippo6HelperC", "UIFont"]
+- !private ["5Hippo6HelperC", "attributedStringForLabel"]
+- ["5Hippo6HelperC", "formatNumber"]
+- ["5Hippo6HelperC", "getIncomingAttributedStringWithLastUserCheck"]
+- ["5Hippo6HelperC", "init"]
+- !private ["5Hippo0A6ConfigC", "shared"]
+- !private ["5Hippo0A6ConfigC", "theme"]
+- !private ["5Hippo0A7MessageC", "aboveMessageType"]
+- !private ["5Hippo0A7MessageC", "aboveMessageUserId"]
+- !private ["5Hippo0A7MessageC", "message"]
+- !private ["5Hippo0A7MessageC", "senderFullName"]
+- !private ["5Hippo0A7MessageC", "senderId"]
+- !private ["5Hippo0A7MessageC", "type"]
+- !private ["5Hippo0A5ThemeC", "incomingMsgColor"]
+- !private ["5Hippo0A5ThemeC", "incomingMsgFont"]
+- !private ["5Hippo0A5ThemeC", "senderNameColor"]
+- !private ["5Hippo0A5ThemeC", "senderNameFont"]
+- !private ["5Hippo16MessageCallbacksC", "aboveMessageType"]
+- !private ["5Hippo16MessageCallbacksC", "aboveMessageUserId"]
+- !private ["5Hippo16MessageCallbacksC", "message"]
+- !private ["5Hippo16MessageCallbacksC", "senderFullName"]
+- !private ["5Hippo16MessageCallbacksC", "senderId"]
+- !private ["5Hippo16MessageCallbacksC", "type"]
+- !private ["5Hippo11MessageTypeO", "assignAgent"]
+- !private ["5Hippo11MessageTypeO", "consent"]
+- !private ["5Hippo11MessageTypeO", "deinit"]
+- !private ["So8NSCodingP", "black"]
+- !private ["So8NSCodingP", "init"]
+- !private ["So8NSCodingP", "maximumFractionDigits"]
+- !private ["So8NSCodingP", "minimumFractionDigits"]
+- !private ["So8NSCodingP", "minimumIntegerDigits"]
+- !private ["So8NSCodingP", "string"]
+- !private ["So8NSCodingP", "withAlphaComponent"]
+- !private ["So9NSCopyingP", "black"]
+- !private ["So9NSCopyingP", "init"]
+- !private ["So9NSCopyingP", "maximumFractionDigits"]
+- !private ["So9NSCopyingP", "minimumFractionDigits"]
+- !private ["So9NSCopyingP", "minimumIntegerDigits"]
+- !private ["So9NSCopyingP", "string"]
+- !private ["So9NSCopyingP", "systemFont"]
+- !private ["So9NSCopyingP", "withAlphaComponent"]
+- !private ["So21NSItemProviderReadingP", "black"]
+- !private ["So21NSItemProviderReadingP", "withAlphaComponent"]
+- !private ["So21NSItemProviderWritingP", "black"]
+- !private ["So21NSItemProviderWritingP", "withAlphaComponent"]
+- !private ["So8NSNumberC", "init"]
+- !private ["So8NSObjectC", "black"]
+- !private ["So8NSObjectC", "incomingMsgColor"]
+- !private ["So8NSObjectC", "incomingMsgFont"]
+- !private ["So8NSObjectC", "init"]
+- !private ["So8NSObjectC", "maximumFractionDigits"]
+- !private ["So8NSObjectC", "minimumFractionDigits"]
+- !private ["So8NSObjectC", "minimumIntegerDigits"]
+- !private ["So8NSObjectC", "senderNameColor"]
+- !private ["So8NSObjectC", "senderNameFont"]
+- !private ["So8NSObjectC", "shared"]
+- !private ["So8NSObjectC", "string"]
+- !private ["So8NSObjectC", "systemFont"]
+- !private ["So8NSObjectC", "theme"]
+- !private ["So8NSObjectC", "withAlphaComponent"]
+- !private ["So8NSObjectP", "black"]
+- !private ["So8NSObjectP", "incomingMsgColor"]
+- !private ["So8NSObjectP", "incomingMsgFont"]
+- !private ["So8NSObjectP", "init"]
+- !private ["So8NSObjectP", "maximumFractionDigits"]
+- !private ["So8NSObjectP", "minimumFractionDigits"]
+- !private ["So8NSObjectP", "minimumIntegerDigits"]
+- !private ["So8NSObjectP", "senderNameColor"]
+- !private ["So8NSObjectP", "senderNameFont"]
+- !private ["So8NSObjectP", "shared"]
+- !private ["So8NSObjectP", "string"]
+- !private ["So8NSObjectP", "systemFont"]
+- !private ["So8NSObjectP", "theme"]
+- !private ["So8NSObjectP", "withAlphaComponent"]
+- !private ["So14NSSecureCodingP", "black"]
+- !private ["So14NSSecureCodingP", "init"]
+- !private ["So14NSSecureCodingP", "withAlphaComponent"]
+- !private ["So15NSTextAlignmentV", "left"]
+- !private ["So15NSTextAlignmentV", "right"]
+- !private ["So7NSValueC", "init"]
+- !private ["So17NSNumberFormatterC", "init"]
+- !private ["So17NSNumberFormatterC", "maximumFractionDigits"]
+- !private ["So17NSNumberFormatterC", "minimumFractionDigits"]
+- !private ["So17NSNumberFormatterC", "minimumIntegerDigits"]
+- !private ["So17NSNumberFormatterC", "string"]
+- !private ["Sq", "assignAgent"]
+- !private ["Sq", "consent"]
+- !private ["SY", "assignAgent"]
+- !private ["SY", "consent"]
+- !private ["SY", "left"]
+- !private ["SY", "right"]
+- !private ["s27StringInterpolationProtocolP", "appendInterpolation"]
+- !private ["s27StringInterpolationProtocolP", "appendLiteral"]
+- !private ["s16TextOutputStreamP", "appendInterpolation"]
+- !private ["s16TextOutputStreamP", "appendLiteral"]
+- !private ["So7UIColorC", "black"]
+- !private ["So7UIColorC", "withAlphaComponent"]
+- !private ["So6UIFontC", "systemFont"]
+- !private ["s26_ExpressibleByColorLiteralP", "black"]
+- !private ["s26_ExpressibleByColorLiteralP", "withAlphaComponent"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "init"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "black"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "incomingMsgColor"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "incomingMsgFont"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "init"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "maximumFractionDigits"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "minimumFractionDigits"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "minimumIntegerDigits"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "senderNameColor"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "senderNameFont"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "shared"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "string"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "systemFont"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "theme"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "withAlphaComponent"]
+- !private ["s21_ObjectiveCBridgeableP", "assignAgent"]
+- !private ["s21_ObjectiveCBridgeableP", "consent"]
+- !private ["s26_OptionalNilComparisonTypeV", "assignAgent"]
+- !private ["s26_OptionalNilComparisonTypeV", "consent"]
+depends-nominal:
+- !private "s7CVarArgP"
+- !private "s28CustomDebugStringConvertibleP"
+- !private "s17CustomReflectableP"
+- !private "s23CustomStringConvertibleP"
+- !private "Se"
+- !private "s26DefaultStringInterpolationV"
+- !private "SE"
+- !private "SQ"
+- !private "s27ExpressibleByBooleanLiteralP"
+- !private "s25ExpressibleByFloatLiteralP"
+- !private "s27ExpressibleByIntegerLiteralP"
+- !private "s23ExpressibleByNilLiteralP"
+- !private "So11NSFormatterC"
+- !private "5Hippo15FuguPublishableP"
+- !private "SH"
+- "5Hippo6HelperC"
+- !private "5Hippo0A6ConfigC"
+- !private "5Hippo0A7MessageC"
+- !private "5Hippo0A5ThemeC"
+- !private "5Hippo16MessageCallbacksC"
+- !private "5Hippo11MessageTypeO"
+- !private "So8NSCodingP"
+- !private "So9NSCopyingP"
+- !private "So21NSItemProviderReadingP"
+- !private "So21NSItemProviderWritingP"
+- !private "So8NSNumberC"
+- !private "So8NSObjectC"
+- !private "So8NSObjectP"
+- !private "So14NSSecureCodingP"
+- !private "So15NSTextAlignmentV"
+- !private "So7NSValueC"
+- !private "So17NSNumberFormatterC"
+- !private "Sq"
+- !private "SY"
+- !private "s27StringInterpolationProtocolP"
+- !private "s16TextOutputStreamP"
+- !private "So7UIColorC"
+- !private "So6UIFontC"
+- !private "s26_ExpressibleByColorLiteralP"
+- !private "s35_HasCustomAnyHashableRepresentationP"
+- !private "10Foundation27_KeyValueCodingAndObservingP"
+- !private "s21_ObjectiveCBridgeableP"
+- !private "s26_OptionalNilComparisonTypeV"
+depends-dynamic-lookup:
+depends-external:
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/ObjectiveC.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreMedia.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/simd.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreImage.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/QuartzCore.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Accelerate.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Dispatch.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Metal.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Darwin.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreLocation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Foundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/AVFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreAudio.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/MediaPlayer.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreGraphics.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/os.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Photos.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Swift.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/UIKit.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/SwiftOnoneSupport.swiftmodule"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Hippo.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Helpers/TRWDownloadManager/TWRDownloadManager.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/SocketRocket/SocketRocket.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/SocketRocket/SRWebSocket.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/MZFayeClient/MZFayeClient.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/unextended-module.modulemap"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/usr/include/objc/ObjectiveC.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/OpenGLES.framework/Headers/OpenGLES.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreMedia.framework/Headers/CoreMedia.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreImage.framework/Headers/CoreImage.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/QuartzCore.framework/Headers/QuartzCore.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Accelerate.framework/Headers/Accelerate.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Dispatch.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/QuickLook.framework/Headers/QuickLook.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Metal.framework/Headers/Metal.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/usr/include/Darwin.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreLocation.framework/Headers/CoreLocation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Foundation.framework/Headers/Foundation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/AVFoundation.framework/Headers/AVFoundation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/MediaPlayer.framework/Headers/MediaPlayer.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreGraphics.framework/Headers/CoreGraphics.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/UserNotifications.framework/Headers/UserNotifications.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/os.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Photos.framework/Headers/Photos.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/UIKit.framework/Headers/UIKit.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreText.framework/Headers/CoreText.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/MediaToolbox.framework/Headers/MediaToolbox.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/AudioToolbox.framework/Headers/AudioToolbox.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Security.framework/Headers/Security.apinotes"
+interface-hash: "f00f41a19af2169812ab6cbd716c6eee"

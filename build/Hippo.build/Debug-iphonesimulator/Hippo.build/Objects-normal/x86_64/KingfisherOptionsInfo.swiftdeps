@@ -1,0 +1,331 @@
+### Swift dependencies file v0 ###
+provides-top-level:
+- "KingfisherOptionsInfo"
+- "KingfisherEmptyOptionsInfo"
+- "KingfisherOptionsInfoItem"
+- "ItemComparisonPrecedence"
+- "<=="
+- "<=="
+provides-nominal:
+- "5Hippo25KingfisherOptionsInfoItemO"
+provides-member:
+- ["5Hippo25KingfisherOptionsInfoItemO", ""]
+- ["Sl", ""]
+- ["Sl", "lastMatchIgnoringAssociatedValue"]
+- ["Sl", "removeAllMatchesIgnoringAssociatedValue"]
+- ["Sl", "targetCache"]
+- ["Sl", "downloader"]
+- ["Sl", "transition"]
+- ["Sl", "downloadPriority"]
+- ["Sl", "forceRefresh"]
+- ["Sl", "forceTransition"]
+- ["Sl", "cacheMemoryOnly"]
+- ["Sl", "onlyFromCache"]
+- ["Sl", "backgroundDecode"]
+- ["Sl", "preloadAllAnimationData"]
+- ["Sl", "callbackDispatchQueue"]
+- ["Sl", "scaleFactor"]
+- ["Sl", "modifier"]
+- ["Sl", "processor"]
+- ["Sl", "cacheSerializer"]
+- ["Sl", "keepCurrentImageWhileLoading"]
+- ["Sl", "onlyLoadFirstFrame"]
+- ["Sl", "cacheOriginalImage"]
+- ["Sl", "preloadAllGIFData"]
+- ["5Hippo25KingfisherOptionsInfoItemO", "preloadAllGIFData"]
+provides-dynamic-lookup:
+depends-top-level:
+- !private "!"
+- "<=="
+- !private "??"
+- "Bool"
+- "CGFloat"
+- "CacheSerializer"
+- "Collection"
+- !private "DefaultCacheSerializer"
+- !private "DefaultImageProcessor"
+- "DispatchQueue"
+- "Float"
+- "ImageCache"
+- "ImageDownloadRequestModifier"
+- "ImageDownloader"
+- "ImageProcessor"
+- "ImageTransition"
+- "KingfisherEmptyOptionsInfo"
+- "KingfisherOptionsInfo"
+- "KingfisherOptionsInfoItem"
+- "LogicalConjunctionPrecedence"
+- !private "NoModifier"
+- !private "URLSessionTask"
+depends-member:
+- !private ["Sa", "first"]
+- ["Sa", "init"]
+- !private ["SK", "first"]
+- ["SK", "init"]
+- !private ["s7CVarArgP", "defaultPriority"]
+- !private ["s7CVarArgP", "first"]
+- ["s7CVarArgP", "init"]
+- !private ["s7CVarArgP", "main"]
+- !private ["5Hippo15CacheSerializerP", "default"]
+- ["Sl", "Bool"]
+- ["Sl", "CGFloat"]
+- ["Sl", "CacheSerializer"]
+- !private ["Sl", "DefaultCacheSerializer"]
+- !private ["Sl", "DefaultImageProcessor"]
+- ["Sl", "DispatchQueue"]
+- ["Sl", "Float"]
+- ["Sl", "ImageCache"]
+- ["Sl", "ImageDownloadRequestModifier"]
+- ["Sl", "ImageDownloader"]
+- ["Sl", "ImageProcessor"]
+- ["Sl", "ImageTransition"]
+- ["Sl", "Iterator"]
+- ["Sl", "KingfisherOptionsInfoItem"]
+- !private ["Sl", "NoModifier"]
+- !private ["Sl", "URLSessionTask"]
+- ["Sl", "backgroundDecode"]
+- ["Sl", "cacheMemoryOnly"]
+- ["Sl", "cacheOriginalImage"]
+- ["Sl", "cacheSerializer"]
+- ["Sl", "callbackDispatchQueue"]
+- !private ["Sl", "contains"]
+- ["Sl", "downloadPriority"]
+- ["Sl", "downloader"]
+- !private ["Sl", "filter"]
+- !private ["Sl", "first"]
+- ["Sl", "forceRefresh"]
+- ["Sl", "forceTransition"]
+- ["Sl", "init"]
+- ["Sl", "keepCurrentImageWhileLoading"]
+- ["Sl", "lastMatchIgnoringAssociatedValue"]
+- ["Sl", "modifier"]
+- ["Sl", "onlyFromCache"]
+- ["Sl", "onlyLoadFirstFrame"]
+- ["Sl", "preloadAllAnimationData"]
+- ["Sl", "preloadAllGIFData"]
+- ["Sl", "processor"]
+- ["Sl", "removeAllMatchesIgnoringAssociatedValue"]
+- !private ["Sl", "reversed"]
+- ["Sl", "scaleFactor"]
+- ["Sl", "targetCache"]
+- ["Sl", "transition"]
+- !private ["10Foundation15ContiguousBytesP", "first"]
+- ["10Foundation15ContiguousBytesP", "init"]
+- !private ["s28CustomDebugStringConvertibleP", "defaultPriority"]
+- !private ["s28CustomDebugStringConvertibleP", "first"]
+- ["s28CustomDebugStringConvertibleP", "init"]
+- !private ["s28CustomDebugStringConvertibleP", "main"]
+- !private ["s17CustomReflectableP", "first"]
+- ["s17CustomReflectableP", "init"]
+- !private ["s23CustomStringConvertibleP", "defaultPriority"]
+- !private ["s23CustomStringConvertibleP", "first"]
+- ["s23CustomStringConvertibleP", "init"]
+- !private ["s23CustomStringConvertibleP", "main"]
+- !private ["10Foundation12DataProtocolP", "first"]
+- ["10Foundation12DataProtocolP", "init"]
+- !private ["Se", "first"]
+- ["Se", "init"]
+- !private ["5Hippo22DefaultCacheSerializerV", "default"]
+- !private ["5Hippo22DefaultCacheSerializerV", "deinit"]
+- !private ["5Hippo21DefaultImageProcessorV", "default"]
+- !private ["5Hippo21DefaultImageProcessorV", "deinit"]
+- !private ["So18OS_dispatch_objectC", "main"]
+- !private ["So17OS_dispatch_queueC", "main"]
+- !private ["SE", "first"]
+- ["SE", "init"]
+- !private ["SQ", "defaultPriority"]
+- !private ["SQ", "first"]
+- ["SQ", "init"]
+- !private ["SQ", "main"]
+- !private ["s25ExpressibleByArrayLiteralP", "first"]
+- ["s25ExpressibleByArrayLiteralP", "init"]
+- !private ["SH", "defaultPriority"]
+- !private ["SH", "first"]
+- ["SH", "init"]
+- !private ["SH", "main"]
+- !private ["5Hippo10ImageCacheC", "default"]
+- !private ["5Hippo28ImageDownloadRequestModifierP", "default"]
+- !private ["5Hippo15ImageDownloaderC", "default"]
+- !private ["5Hippo23ImageDownloaderDelegateP", "default"]
+- !private ["5Hippo14ImageProcessorP", "default"]
+- !private ["5Hippo15ImageTransitionO", "none"]
+- ["5Hippo25KingfisherOptionsInfoItemO", "CGFloat"]
+- ["5Hippo25KingfisherOptionsInfoItemO", "CacheSerializer"]
+- ["5Hippo25KingfisherOptionsInfoItemO", "DispatchQueue"]
+- ["5Hippo25KingfisherOptionsInfoItemO", "Float"]
+- ["5Hippo25KingfisherOptionsInfoItemO", "ImageCache"]
+- ["5Hippo25KingfisherOptionsInfoItemO", "ImageDownloadRequestModifier"]
+- ["5Hippo25KingfisherOptionsInfoItemO", "ImageDownloader"]
+- ["5Hippo25KingfisherOptionsInfoItemO", "ImageProcessor"]
+- ["5Hippo25KingfisherOptionsInfoItemO", "ImageTransition"]
+- ["5Hippo25KingfisherOptionsInfoItemO", "KingfisherOptionsInfoItem"]
+- ["5Hippo25KingfisherOptionsInfoItemO", "backgroundDecode"]
+- ["5Hippo25KingfisherOptionsInfoItemO", "cacheMemoryOnly"]
+- ["5Hippo25KingfisherOptionsInfoItemO", "cacheOriginalImage"]
+- ["5Hippo25KingfisherOptionsInfoItemO", "cacheSerializer"]
+- ["5Hippo25KingfisherOptionsInfoItemO", "callbackDispatchQueue"]
+- ["5Hippo25KingfisherOptionsInfoItemO", "downloadPriority"]
+- ["5Hippo25KingfisherOptionsInfoItemO", "downloader"]
+- ["5Hippo25KingfisherOptionsInfoItemO", "forceRefresh"]
+- ["5Hippo25KingfisherOptionsInfoItemO", "forceTransition"]
+- ["5Hippo25KingfisherOptionsInfoItemO", "keepCurrentImageWhileLoading"]
+- ["5Hippo25KingfisherOptionsInfoItemO", "onlyFromCache"]
+- ["5Hippo25KingfisherOptionsInfoItemO", "onlyLoadFirstFrame"]
+- ["5Hippo25KingfisherOptionsInfoItemO", "preloadAllAnimationData"]
+- ["5Hippo25KingfisherOptionsInfoItemO", "preloadAllGIFData"]
+- ["5Hippo25KingfisherOptionsInfoItemO", "processor"]
+- ["5Hippo25KingfisherOptionsInfoItemO", "requestModifier"]
+- ["5Hippo25KingfisherOptionsInfoItemO", "scaleFactor"]
+- ["5Hippo25KingfisherOptionsInfoItemO", "targetCache"]
+- ["5Hippo25KingfisherOptionsInfoItemO", "transition"]
+- !private ["SM", "first"]
+- ["SM", "init"]
+- !private ["10Foundation19MutableDataProtocolP", "first"]
+- ["10Foundation19MutableDataProtocolP", "init"]
+- !private ["So9NSCopyingP", "defaultPriority"]
+- !private ["So8NSObjectC", "defaultPriority"]
+- !private ["So8NSObjectC", "main"]
+- !private ["So8NSObjectP", "defaultPriority"]
+- !private ["So8NSObjectP", "main"]
+- !private ["5Hippo10NoModifierV", "default"]
+- !private ["5Hippo10NoModifierV", "deinit"]
+- !private ["So9OS_objectC", "main"]
+- !private ["So19NSProgressReportingP", "defaultPriority"]
+- !private ["Sk", "first"]
+- ["Sk", "init"]
+- !private ["Sm", "first"]
+- ["Sm", "init"]
+- ["ST", "Bool"]
+- ["ST", "CGFloat"]
+- ["ST", "CacheSerializer"]
+- !private ["ST", "DefaultCacheSerializer"]
+- !private ["ST", "DefaultImageProcessor"]
+- ["ST", "DispatchQueue"]
+- ["ST", "Float"]
+- ["ST", "ImageCache"]
+- ["ST", "ImageDownloadRequestModifier"]
+- ["ST", "ImageDownloader"]
+- ["ST", "ImageProcessor"]
+- ["ST", "ImageTransition"]
+- ["ST", "Iterator"]
+- ["ST", "KingfisherOptionsInfoItem"]
+- !private ["ST", "NoModifier"]
+- !private ["ST", "URLSessionTask"]
+- !private ["ST", "contains"]
+- !private ["ST", "filter"]
+- !private ["ST", "first"]
+- ["ST", "init"]
+- !private ["ST", "lastMatchIgnoringAssociatedValue"]
+- !private ["ST", "preloadAllAnimationData"]
+- !private ["ST", "reversed"]
+- !private ["So16NSURLSessionTaskC", "defaultPriority"]
+- !private ["s14_ArrayProtocolP", "first"]
+- ["s14_ArrayProtocolP", "init"]
+- !private ["s24_DestructorSafeContainerP", "first"]
+- ["s24_DestructorSafeContainerP", "init"]
+- !private ["s19_HasContiguousBytesP", "first"]
+- ["s19_HasContiguousBytesP", "init"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "first"]
+- ["s35_HasCustomAnyHashableRepresentationP", "init"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "defaultPriority"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "main"]
+- !private ["s21_ObjectiveCBridgeableP", "first"]
+- ["s21_ObjectiveCBridgeableP", "init"]
+depends-nominal:
+- "Sa"
+- "SK"
+- "s7CVarArgP"
+- !private "5Hippo15CacheSerializerP"
+- "Sl"
+- "10Foundation15ContiguousBytesP"
+- "s28CustomDebugStringConvertibleP"
+- "s17CustomReflectableP"
+- "s23CustomStringConvertibleP"
+- "10Foundation12DataProtocolP"
+- "Se"
+- !private "5Hippo22DefaultCacheSerializerV"
+- !private "5Hippo21DefaultImageProcessorV"
+- !private "So18OS_dispatch_objectC"
+- !private "So17OS_dispatch_queueC"
+- "SE"
+- "SQ"
+- "s25ExpressibleByArrayLiteralP"
+- "SH"
+- !private "5Hippo10ImageCacheC"
+- !private "5Hippo28ImageDownloadRequestModifierP"
+- !private "5Hippo15ImageDownloaderC"
+- !private "5Hippo23ImageDownloaderDelegateP"
+- !private "5Hippo14ImageProcessorP"
+- !private "5Hippo15ImageTransitionO"
+- "5Hippo25KingfisherOptionsInfoItemO"
+- "SM"
+- "10Foundation19MutableDataProtocolP"
+- !private "So9NSCopyingP"
+- !private "So8NSObjectC"
+- !private "So8NSObjectP"
+- !private "5Hippo10NoModifierV"
+- !private "So9OS_objectC"
+- !private "So19NSProgressReportingP"
+- "Sk"
+- "Sm"
+- "ST"
+- !private "So16NSURLSessionTaskC"
+- "s14_ArrayProtocolP"
+- "s24_DestructorSafeContainerP"
+- "s19_HasContiguousBytesP"
+- "s35_HasCustomAnyHashableRepresentationP"
+- !private "10Foundation27_KeyValueCodingAndObservingP"
+- "s21_ObjectiveCBridgeableP"
+depends-dynamic-lookup:
+depends-external:
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/ObjectiveC.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreMedia.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/simd.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreImage.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/QuartzCore.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Accelerate.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Dispatch.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Metal.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Darwin.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreLocation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Foundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/AVFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreAudio.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/MediaPlayer.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreGraphics.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/os.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Photos.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Swift.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/UIKit.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/SwiftOnoneSupport.swiftmodule"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Hippo.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Helpers/TRWDownloadManager/TWRDownloadManager.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/SocketRocket/SocketRocket.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/SocketRocket/SRWebSocket.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/MZFayeClient/MZFayeClient.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/unextended-module.modulemap"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/usr/include/objc/ObjectiveC.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/OpenGLES.framework/Headers/OpenGLES.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreMedia.framework/Headers/CoreMedia.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreImage.framework/Headers/CoreImage.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/QuartzCore.framework/Headers/QuartzCore.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Accelerate.framework/Headers/Accelerate.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Dispatch.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/QuickLook.framework/Headers/QuickLook.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Metal.framework/Headers/Metal.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/usr/include/Darwin.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreLocation.framework/Headers/CoreLocation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Foundation.framework/Headers/Foundation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/AVFoundation.framework/Headers/AVFoundation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/MediaPlayer.framework/Headers/MediaPlayer.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreGraphics.framework/Headers/CoreGraphics.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/UserNotifications.framework/Headers/UserNotifications.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/os.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Photos.framework/Headers/Photos.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/UIKit.framework/Headers/UIKit.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreText.framework/Headers/CoreText.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/MediaToolbox.framework/Headers/MediaToolbox.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/AudioToolbox.framework/Headers/AudioToolbox.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Security.framework/Headers/Security.apinotes"
+interface-hash: "f4c6a61eea353b1e348d9b201fde2974"

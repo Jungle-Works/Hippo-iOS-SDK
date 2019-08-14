@@ -1,0 +1,13 @@
+{
+  'version': 0,
+  'case-sensitive': 'false',
+  'roots': [{
+    'type': 'directory',
+    'name': "/Users/vishal/Library/Developer/Xcode/DerivedData/Hippo-fdfiggirnpvdzibgwsbyvirsdbcf/Build/Products/Debug-iphonesimulator/Hippo.framework/Modules"
+    'contents': [{
+      'type': 'file',
+      'name': "module.modulemap",
+      'external-contents': "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/unextended-module.modulemap",
+    }]
+  }]
+}

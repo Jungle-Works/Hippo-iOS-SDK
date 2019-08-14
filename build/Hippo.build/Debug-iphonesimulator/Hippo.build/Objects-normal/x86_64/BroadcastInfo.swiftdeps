@@ -1,0 +1,758 @@
+### Swift dependencies file v0 ###
+provides-top-level:
+- "BroadcastStatus"
+- "BroadcastInfo"
+provides-nominal:
+- "5Hippo15BroadcastStatusO"
+- "5Hippo13BroadcastInfoC"
+provides-member:
+- ["5Hippo15BroadcastStatusO", ""]
+- ["5Hippo13BroadcastInfoC", ""]
+provides-dynamic-lookup:
+depends-top-level:
+- !private "!"
+- "=="
+- !private "??"
+- "AssignmentPrecedence"
+- "BroadcastInfo"
+- "BroadcastStatus"
+- "BroadcastType"
+- "CastingPrecedence"
+- "CodingKey"
+- "Date"
+- "Int"
+- "NSAttributedString"
+- !private "NSMutableAttributedString"
+- "NSObject"
+- !private "NSString"
+- "String"
+- !private "UIColor"
+- !private "UIFont"
+- "UInt"
+- !private "_findStringSwitchCase"
+- !private "~="
+depends-member:
+- !private ["s18AdditiveArithmeticP", "parse"]
+- !private ["Sa", "append"]
+- !private ["SK", "append"]
+- !private ["SK", "isEmpty"]
+- !private ["SK", "stringByReplacingFirstOccurrenceOfString"]
+- !private ["SK", "toDate"]
+- !private ["Sz", "parse"]
+- ["5Hippo13BroadcastInfoC", "BroadcastInfo"]
+- ["5Hippo13BroadcastInfoC", "BroadcastType"]
+- ["5Hippo13BroadcastInfoC", "CodingKey"]
+- ["5Hippo13BroadcastInfoC", "Date"]
+- !private ["5Hippo13BroadcastInfoC", "Keys"]
+- ["5Hippo13BroadcastInfoC", "NSAttributedString"]
+- !private ["5Hippo13BroadcastInfoC", "NSMutableAttributedString"]
+- !private ["5Hippo13BroadcastInfoC", "NSString"]
+- ["5Hippo13BroadcastInfoC", "String"]
+- !private ["5Hippo13BroadcastInfoC", "UIColor"]
+- !private ["5Hippo13BroadcastInfoC", "UIFont"]
+- ["5Hippo13BroadcastInfoC", "UInt"]
+- !private ["5Hippo13BroadcastInfoC", "_findStringSwitchCase"]
+- ["5Hippo13BroadcastInfoC", "agentEmail"]
+- ["5Hippo13BroadcastInfoC", "agentId"]
+- ["5Hippo13BroadcastInfoC", "agentName"]
+- ["5Hippo13BroadcastInfoC", "attributedMessage"]
+- ["5Hippo13BroadcastInfoC", "broadcastType"]
+- ["5Hippo13BroadcastInfoC", "channelId"]
+- ["5Hippo13BroadcastInfoC", "createMessageString"]
+- ["5Hippo13BroadcastInfoC", "createdAtString"]
+- ["5Hippo13BroadcastInfoC", "creationDate"]
+- ["5Hippo13BroadcastInfoC", "deinit"]
+- ["5Hippo13BroadcastInfoC", "fallbackText"]
+- ["5Hippo13BroadcastInfoC", "firstNameString"]
+- ["5Hippo13BroadcastInfoC", "init"]
+- ["5Hippo13BroadcastInfoC", "message"]
+- ["5Hippo13BroadcastInfoC", "parse"]
+- ["5Hippo13BroadcastInfoC", "title"]
+- ["5Hippo15BroadcastStatusO", "=="]
+- ["5Hippo15BroadcastStatusO", "RawValue"]
+- ["5Hippo15BroadcastStatusO", "_Default_RawValue"]
+- ["5Hippo15BroadcastStatusO", "_rawHashValue"]
+- ["5Hippo15BroadcastStatusO", "deinit"]
+- ["5Hippo15BroadcastStatusO", "hash"]
+- ["5Hippo15BroadcastStatusO", "hashValue"]
+- ["5Hippo15BroadcastStatusO", "init"]
+- ["5Hippo15BroadcastStatusO", "pending"]
+- ["5Hippo15BroadcastStatusO", "rawValue"]
+- ["5Hippo15BroadcastStatusO", "success"]
+- !private ["5Hippo13BroadcastTypeO", "deinit"]
+- !private ["5Hippo13BroadcastTypeO", "init"]
+- !private ["5Hippo13BroadcastTypeO", "none"]
+- ["5Hippo13BroadcastTypeO", "unknown"]
+- !private ["s7CVarArgP", "BroadcastInfo"]
+- ["s7CVarArgP", "BroadcastType"]
+- !private ["s7CVarArgP", "Key"]
+- !private ["s7CVarArgP", "NSAttributedString"]
+- !private ["s7CVarArgP", "NSMutableAttributedString"]
+- !private ["s7CVarArgP", "UIColor"]
+- !private ["s7CVarArgP", "UIFont"]
+- !private ["s7CVarArgP", "UInt"]
+- ["s7CVarArgP", ""]
+- !private ["s7CVarArgP", "_findStringSwitchCase"]
+- !private ["s7CVarArgP", "addAttributes"]
+- !private ["s7CVarArgP", "agentEmail"]
+- !private ["s7CVarArgP", "agentId"]
+- !private ["s7CVarArgP", "agentName"]
+- !private ["s7CVarArgP", "append"]
+- !private ["s7CVarArgP", "attributedMessage"]
+- !private ["s7CVarArgP", "boldSystemFont"]
+- !private ["s7CVarArgP", "broadcastType"]
+- !private ["s7CVarArgP", "channelId"]
+- !private ["s7CVarArgP", "createMessageString"]
+- !private ["s7CVarArgP", "createdAtString"]
+- !private ["s7CVarArgP", "creationDate"]
+- !private ["s7CVarArgP", "fallbackText"]
+- !private ["s7CVarArgP", "firstNameString"]
+- !private ["s7CVarArgP", "init"]
+- !private ["s7CVarArgP", "isEmpty"]
+- !private ["s7CVarArgP", "message"]
+- !private ["s7CVarArgP", "parse"]
+- !private ["s7CVarArgP", "range"]
+- !private ["s7CVarArgP", "stringByReplacingFirstOccurrenceOfString"]
+- !private ["s7CVarArgP", "subscript"]
+- !private ["s7CVarArgP", "themeColor"]
+- !private ["s7CVarArgP", "title"]
+- !private ["s7CVarArgP", "toDate"]
+- !private ["5Hippo13CaseCountableP", "init"]
+- !private ["5Hippo13CaseCountableP", "none"]
+- ["5Hippo13CaseCountableP", "unknown"]
+- ["s9CodingKeyP", "=="]
+- ["s9CodingKeyP", "RawValue"]
+- !private ["s9CodingKeyP", ""]
+- ["s9CodingKeyP", "_Default_RawValue"]
+- !private ["s9CodingKeyP", "_findStringSwitchCase"]
+- ["s9CodingKeyP", "_rawHashValue"]
+- ["s9CodingKeyP", "debugDescription"]
+- ["s9CodingKeyP", "description"]
+- ["s9CodingKeyP", "hash"]
+- ["s9CodingKeyP", "hashValue"]
+- ["s9CodingKeyP", "init"]
+- ["s9CodingKeyP", "intValue"]
+- ["s9CodingKeyP", "rawValue"]
+- ["s9CodingKeyP", "stringValue"]
+- !private ["Sl", "append"]
+- !private ["Sl", "isEmpty"]
+- !private ["Sl", "stringByReplacingFirstOccurrenceOfString"]
+- !private ["Sl", "subscript"]
+- !private ["Sl", "toDate"]
+- !private ["SL", "isEmpty"]
+- !private ["SL", "parse"]
+- !private ["SL", "stringByReplacingFirstOccurrenceOfString"]
+- !private ["SL", "toDate"]
+- !private ["10Foundation15ContiguousBytesP", "append"]
+- ["s28CustomDebugStringConvertibleP", "=="]
+- !private ["s28CustomDebugStringConvertibleP", "BroadcastInfo"]
+- ["s28CustomDebugStringConvertibleP", "BroadcastType"]
+- !private ["s28CustomDebugStringConvertibleP", "Key"]
+- !private ["s28CustomDebugStringConvertibleP", "NSAttributedString"]
+- !private ["s28CustomDebugStringConvertibleP", "NSMutableAttributedString"]
+- ["s28CustomDebugStringConvertibleP", "RawValue"]
+- !private ["s28CustomDebugStringConvertibleP", "UIColor"]
+- !private ["s28CustomDebugStringConvertibleP", "UIFont"]
+- !private ["s28CustomDebugStringConvertibleP", "UInt"]
+- ["s28CustomDebugStringConvertibleP", ""]
+- ["s28CustomDebugStringConvertibleP", "_Default_RawValue"]
+- !private ["s28CustomDebugStringConvertibleP", "_findStringSwitchCase"]
+- ["s28CustomDebugStringConvertibleP", "_rawHashValue"]
+- !private ["s28CustomDebugStringConvertibleP", "addAttributes"]
+- !private ["s28CustomDebugStringConvertibleP", "agentEmail"]
+- !private ["s28CustomDebugStringConvertibleP", "agentId"]
+- !private ["s28CustomDebugStringConvertibleP", "agentName"]
+- !private ["s28CustomDebugStringConvertibleP", "append"]
+- !private ["s28CustomDebugStringConvertibleP", "attributedMessage"]
+- !private ["s28CustomDebugStringConvertibleP", "boldSystemFont"]
+- !private ["s28CustomDebugStringConvertibleP", "broadcastType"]
+- !private ["s28CustomDebugStringConvertibleP", "channelId"]
+- !private ["s28CustomDebugStringConvertibleP", "createMessageString"]
+- !private ["s28CustomDebugStringConvertibleP", "createdAtString"]
+- !private ["s28CustomDebugStringConvertibleP", "creationDate"]
+- ["s28CustomDebugStringConvertibleP", "debugDescription"]
+- ["s28CustomDebugStringConvertibleP", "description"]
+- !private ["s28CustomDebugStringConvertibleP", "fallbackText"]
+- !private ["s28CustomDebugStringConvertibleP", "firstNameString"]
+- ["s28CustomDebugStringConvertibleP", "hash"]
+- ["s28CustomDebugStringConvertibleP", "hashValue"]
+- ["s28CustomDebugStringConvertibleP", "init"]
+- ["s28CustomDebugStringConvertibleP", "intValue"]
+- !private ["s28CustomDebugStringConvertibleP", "isEmpty"]
+- !private ["s28CustomDebugStringConvertibleP", "message"]
+- !private ["s28CustomDebugStringConvertibleP", "range"]
+- ["s28CustomDebugStringConvertibleP", "rawValue"]
+- !private ["s28CustomDebugStringConvertibleP", "stringByReplacingFirstOccurrenceOfString"]
+- ["s28CustomDebugStringConvertibleP", "stringValue"]
+- !private ["s28CustomDebugStringConvertibleP", "subscript"]
+- !private ["s28CustomDebugStringConvertibleP", "themeColor"]
+- !private ["s28CustomDebugStringConvertibleP", "title"]
+- !private ["s28CustomDebugStringConvertibleP", "toDate"]
+- !private ["s17CustomReflectableP", "append"]
+- !private ["s17CustomReflectableP", "isEmpty"]
+- !private ["s17CustomReflectableP", "parse"]
+- !private ["s17CustomReflectableP", "stringByReplacingFirstOccurrenceOfString"]
+- !private ["s17CustomReflectableP", "subscript"]
+- !private ["s17CustomReflectableP", "toDate"]
+- ["s23CustomStringConvertibleP", "=="]
+- !private ["s23CustomStringConvertibleP", "BroadcastInfo"]
+- ["s23CustomStringConvertibleP", "BroadcastType"]
+- !private ["s23CustomStringConvertibleP", "Key"]
+- !private ["s23CustomStringConvertibleP", "NSAttributedString"]
+- !private ["s23CustomStringConvertibleP", "NSMutableAttributedString"]
+- ["s23CustomStringConvertibleP", "RawValue"]
+- !private ["s23CustomStringConvertibleP", "UIColor"]
+- !private ["s23CustomStringConvertibleP", "UIFont"]
+- !private ["s23CustomStringConvertibleP", "UInt"]
+- ["s23CustomStringConvertibleP", ""]
+- ["s23CustomStringConvertibleP", "_Default_RawValue"]
+- !private ["s23CustomStringConvertibleP", "_findStringSwitchCase"]
+- ["s23CustomStringConvertibleP", "_rawHashValue"]
+- !private ["s23CustomStringConvertibleP", "addAttributes"]
+- !private ["s23CustomStringConvertibleP", "agentEmail"]
+- !private ["s23CustomStringConvertibleP", "agentId"]
+- !private ["s23CustomStringConvertibleP", "agentName"]
+- !private ["s23CustomStringConvertibleP", "append"]
+- !private ["s23CustomStringConvertibleP", "attributedMessage"]
+- !private ["s23CustomStringConvertibleP", "boldSystemFont"]
+- !private ["s23CustomStringConvertibleP", "broadcastType"]
+- !private ["s23CustomStringConvertibleP", "channelId"]
+- !private ["s23CustomStringConvertibleP", "createMessageString"]
+- !private ["s23CustomStringConvertibleP", "createdAtString"]
+- !private ["s23CustomStringConvertibleP", "creationDate"]
+- ["s23CustomStringConvertibleP", "debugDescription"]
+- ["s23CustomStringConvertibleP", "description"]
+- !private ["s23CustomStringConvertibleP", "fallbackText"]
+- !private ["s23CustomStringConvertibleP", "firstNameString"]
+- ["s23CustomStringConvertibleP", "hash"]
+- ["s23CustomStringConvertibleP", "hashValue"]
+- ["s23CustomStringConvertibleP", "init"]
+- ["s23CustomStringConvertibleP", "intValue"]
+- !private ["s23CustomStringConvertibleP", "isEmpty"]
+- !private ["s23CustomStringConvertibleP", "message"]
+- !private ["s23CustomStringConvertibleP", "parse"]
+- !private ["s23CustomStringConvertibleP", "range"]
+- ["s23CustomStringConvertibleP", "rawValue"]
+- !private ["s23CustomStringConvertibleP", "stringByReplacingFirstOccurrenceOfString"]
+- ["s23CustomStringConvertibleP", "stringValue"]
+- !private ["s23CustomStringConvertibleP", "subscript"]
+- !private ["s23CustomStringConvertibleP", "themeColor"]
+- !private ["s23CustomStringConvertibleP", "title"]
+- !private ["s23CustomStringConvertibleP", "toDate"]
+- !private ["10Foundation12DataProtocolP", "append"]
+- !private ["Se", "append"]
+- !private ["Se", "isEmpty"]
+- !private ["Se", "parse"]
+- !private ["Se", "stringByReplacingFirstOccurrenceOfString"]
+- !private ["Se", "subscript"]
+- !private ["Se", "toDate"]
+- !private ["SD", "subscript"]
+- !private ["SE", "append"]
+- !private ["SE", "isEmpty"]
+- !private ["SE", "parse"]
+- !private ["SE", "stringByReplacingFirstOccurrenceOfString"]
+- !private ["SE", "subscript"]
+- !private ["SE", "toDate"]
+- ["SQ", "=="]
+- !private ["SQ", "BroadcastInfo"]
+- ["SQ", "BroadcastType"]
+- !private ["SQ", "Key"]
+- !private ["SQ", "NSAttributedString"]
+- !private ["SQ", "NSMutableAttributedString"]
+- ["SQ", "RawValue"]
+- !private ["SQ", "UIColor"]
+- !private ["SQ", "UIFont"]
+- !private ["SQ", "UInt"]
+- ["SQ", ""]
+- ["SQ", "_Default_RawValue"]
+- !private ["SQ", "_findStringSwitchCase"]
+- ["SQ", "_rawHashValue"]
+- !private ["SQ", "addAttributes"]
+- !private ["SQ", "agentEmail"]
+- !private ["SQ", "agentId"]
+- !private ["SQ", "agentName"]
+- !private ["SQ", "append"]
+- !private ["SQ", "attributedMessage"]
+- !private ["SQ", "boldSystemFont"]
+- !private ["SQ", "broadcastType"]
+- !private ["SQ", "channelId"]
+- !private ["SQ", "createMessageString"]
+- !private ["SQ", "createdAtString"]
+- !private ["SQ", "creationDate"]
+- ["SQ", "debugDescription"]
+- ["SQ", "description"]
+- !private ["SQ", "fallbackText"]
+- !private ["SQ", "firstNameString"]
+- !private ["SQ", "font"]
+- !private ["SQ", "foregroundColor"]
+- ["SQ", "hash"]
+- ["SQ", "hashValue"]
+- ["SQ", "init"]
+- ["SQ", "intValue"]
+- !private ["SQ", "isEmpty"]
+- !private ["SQ", "message"]
+- !private ["SQ", "none"]
+- !private ["SQ", "parse"]
+- !private ["SQ", "range"]
+- ["SQ", "rawValue"]
+- !private ["SQ", "stringByReplacingFirstOccurrenceOfString"]
+- ["SQ", "stringValue"]
+- !private ["SQ", "subscript"]
+- !private ["SQ", "themeColor"]
+- !private ["SQ", "title"]
+- !private ["SQ", "toDate"]
+- ["SQ", "unknown"]
+- !private ["s25ExpressibleByArrayLiteralP", "append"]
+- !private ["s30ExpressibleByDictionaryLiteralP", "subscript"]
+- !private ["s43ExpressibleByExtendedGraphemeClusterLiteralP", "isEmpty"]
+- !private ["s43ExpressibleByExtendedGraphemeClusterLiteralP", "range"]
+- !private ["s43ExpressibleByExtendedGraphemeClusterLiteralP", "stringByReplacingFirstOccurrenceOfString"]
+- !private ["s43ExpressibleByExtendedGraphemeClusterLiteralP", "toDate"]
+- !private ["s27ExpressibleByIntegerLiteralP", "parse"]
+- !private ["s32ExpressibleByStringInterpolationP", "isEmpty"]
+- !private ["s32ExpressibleByStringInterpolationP", "stringByReplacingFirstOccurrenceOfString"]
+- !private ["s32ExpressibleByStringInterpolationP", "toDate"]
+- !private ["s26ExpressibleByStringLiteralP", "isEmpty"]
+- !private ["s26ExpressibleByStringLiteralP", "range"]
+- !private ["s26ExpressibleByStringLiteralP", "stringByReplacingFirstOccurrenceOfString"]
+- !private ["s26ExpressibleByStringLiteralP", "toDate"]
+- !private ["s33ExpressibleByUnicodeScalarLiteralP", "isEmpty"]
+- !private ["s33ExpressibleByUnicodeScalarLiteralP", "range"]
+- !private ["s33ExpressibleByUnicodeScalarLiteralP", "stringByReplacingFirstOccurrenceOfString"]
+- !private ["s33ExpressibleByUnicodeScalarLiteralP", "toDate"]
+- !private ["s17FixedWidthIntegerP", "parse"]
+- ["SH", "=="]
+- !private ["SH", "BroadcastInfo"]
+- ["SH", "BroadcastType"]
+- !private ["SH", "Key"]
+- !private ["SH", "NSAttributedString"]
+- !private ["SH", "NSMutableAttributedString"]
+- ["SH", "RawValue"]
+- !private ["SH", "UIColor"]
+- !private ["SH", "UIFont"]
+- !private ["SH", "UInt"]
+- ["SH", ""]
+- ["SH", "_Default_RawValue"]
+- !private ["SH", "_findStringSwitchCase"]
+- ["SH", "_rawHashValue"]
+- !private ["SH", "addAttributes"]
+- !private ["SH", "agentEmail"]
+- !private ["SH", "agentId"]
+- !private ["SH", "agentName"]
+- !private ["SH", "append"]
+- !private ["SH", "attributedMessage"]
+- !private ["SH", "boldSystemFont"]
+- !private ["SH", "broadcastType"]
+- !private ["SH", "channelId"]
+- !private ["SH", "createMessageString"]
+- !private ["SH", "createdAtString"]
+- !private ["SH", "creationDate"]
+- ["SH", "debugDescription"]
+- ["SH", "description"]
+- !private ["SH", "fallbackText"]
+- !private ["SH", "firstNameString"]
+- !private ["SH", "font"]
+- !private ["SH", "foregroundColor"]
+- ["SH", "hash"]
+- ["SH", "hashValue"]
+- ["SH", "init"]
+- ["SH", "intValue"]
+- !private ["SH", "isEmpty"]
+- !private ["SH", "message"]
+- !private ["SH", "none"]
+- !private ["SH", "parse"]
+- !private ["SH", "range"]
+- ["SH", "rawValue"]
+- !private ["SH", "stringByReplacingFirstOccurrenceOfString"]
+- ["SH", "stringValue"]
+- !private ["SH", "subscript"]
+- !private ["SH", "themeColor"]
+- !private ["SH", "title"]
+- !private ["SH", "toDate"]
+- ["SH", "unknown"]
+- !private ["So21NSAttributedStringKeya", "font"]
+- !private ["So21NSAttributedStringKeya", "foregroundColor"]
+- !private ["5Hippo20KingfisherCompatibleP", "isEmpty"]
+- !private ["5Hippo20KingfisherCompatibleP", "stringByReplacingFirstOccurrenceOfString"]
+- !private ["5Hippo20KingfisherCompatibleP", "toDate"]
+- !private ["s25LosslessStringConvertibleP", "isEmpty"]
+- !private ["s25LosslessStringConvertibleP", "parse"]
+- !private ["s25LosslessStringConvertibleP", "stringByReplacingFirstOccurrenceOfString"]
+- !private ["s25LosslessStringConvertibleP", "toDate"]
+- !private ["s10MirrorPathP", "isEmpty"]
+- !private ["s10MirrorPathP", "stringByReplacingFirstOccurrenceOfString"]
+- !private ["s10MirrorPathP", "toDate"]
+- !private ["SM", "append"]
+- !private ["10Foundation19MutableDataProtocolP", "append"]
+- !private ["So18NSAttributedStringC", "Key"]
+- !private ["So18NSAttributedStringC", "addAttributes"]
+- !private ["So18NSAttributedStringC", "init"]
+- !private ["So8NSCodingP", "Key"]
+- !private ["So8NSCodingP", "addAttributes"]
+- !private ["So8NSCodingP", "init"]
+- !private ["So8NSCodingP", "isEmpty"]
+- !private ["So8NSCodingP", "range"]
+- !private ["So8NSCodingP", "stringByReplacingFirstOccurrenceOfString"]
+- !private ["So8NSCodingP", "themeColor"]
+- !private ["So8NSCodingP", "toDate"]
+- !private ["So9NSCopyingP", "Key"]
+- !private ["So9NSCopyingP", "addAttributes"]
+- !private ["So9NSCopyingP", "boldSystemFont"]
+- !private ["So9NSCopyingP", "init"]
+- !private ["So9NSCopyingP", "isEmpty"]
+- !private ["So9NSCopyingP", "range"]
+- !private ["So9NSCopyingP", "stringByReplacingFirstOccurrenceOfString"]
+- !private ["So9NSCopyingP", "themeColor"]
+- !private ["So9NSCopyingP", "toDate"]
+- !private ["So21NSItemProviderReadingP", "Key"]
+- !private ["So21NSItemProviderReadingP", "addAttributes"]
+- !private ["So21NSItemProviderReadingP", "init"]
+- !private ["So21NSItemProviderReadingP", "isEmpty"]
+- !private ["So21NSItemProviderReadingP", "range"]
+- !private ["So21NSItemProviderReadingP", "stringByReplacingFirstOccurrenceOfString"]
+- !private ["So21NSItemProviderReadingP", "themeColor"]
+- !private ["So21NSItemProviderReadingP", "toDate"]
+- !private ["So21NSItemProviderWritingP", "Key"]
+- !private ["So21NSItemProviderWritingP", "addAttributes"]
+- !private ["So21NSItemProviderWritingP", "init"]
+- !private ["So21NSItemProviderWritingP", "isEmpty"]
+- !private ["So21NSItemProviderWritingP", "range"]
+- !private ["So21NSItemProviderWritingP", "stringByReplacingFirstOccurrenceOfString"]
+- !private ["So21NSItemProviderWritingP", "themeColor"]
+- !private ["So21NSItemProviderWritingP", "toDate"]
+- !private ["So25NSMutableAttributedStringC", "addAttributes"]
+- !private ["So25NSMutableAttributedStringC", "init"]
+- !private ["So16NSMutableCopyingP", "Key"]
+- !private ["So16NSMutableCopyingP", "addAttributes"]
+- !private ["So16NSMutableCopyingP", "init"]
+- !private ["So16NSMutableCopyingP", "isEmpty"]
+- !private ["So16NSMutableCopyingP", "range"]
+- !private ["So16NSMutableCopyingP", "stringByReplacingFirstOccurrenceOfString"]
+- !private ["So16NSMutableCopyingP", "toDate"]
+- ["So8NSObjectC", "BroadcastInfo"]
+- ["So8NSObjectC", "BroadcastType"]
+- ["So8NSObjectC", "CodingKey"]
+- ["So8NSObjectC", "Date"]
+- !private ["So8NSObjectC", "Key"]
+- ["So8NSObjectC", "NSAttributedString"]
+- !private ["So8NSObjectC", "NSMutableAttributedString"]
+- !private ["So8NSObjectC", "NSString"]
+- ["So8NSObjectC", "String"]
+- !private ["So8NSObjectC", "UIColor"]
+- !private ["So8NSObjectC", "UIFont"]
+- ["So8NSObjectC", "UInt"]
+- ["So8NSObjectC", ""]
+- !private ["So8NSObjectC", "_findStringSwitchCase"]
+- !private ["So8NSObjectC", "addAttributes"]
+- ["So8NSObjectC", "agentEmail"]
+- ["So8NSObjectC", "agentId"]
+- ["So8NSObjectC", "agentName"]
+- ["So8NSObjectC", "attributedMessage"]
+- !private ["So8NSObjectC", "boldSystemFont"]
+- ["So8NSObjectC", "broadcastType"]
+- ["So8NSObjectC", "channelId"]
+- ["So8NSObjectC", "createMessageString"]
+- ["So8NSObjectC", "createdAtString"]
+- ["So8NSObjectC", "creationDate"]
+- ["So8NSObjectC", "fallbackText"]
+- ["So8NSObjectC", "firstNameString"]
+- ["So8NSObjectC", "init"]
+- !private ["So8NSObjectC", "isEmpty"]
+- ["So8NSObjectC", "message"]
+- ["So8NSObjectC", "parse"]
+- !private ["So8NSObjectC", "range"]
+- !private ["So8NSObjectC", "stringByReplacingFirstOccurrenceOfString"]
+- !private ["So8NSObjectC", "themeColor"]
+- ["So8NSObjectC", "title"]
+- !private ["So8NSObjectC", "toDate"]
+- !private ["So8NSObjectP", "BroadcastInfo"]
+- ["So8NSObjectP", "BroadcastType"]
+- !private ["So8NSObjectP", "Key"]
+- !private ["So8NSObjectP", "NSAttributedString"]
+- !private ["So8NSObjectP", "NSMutableAttributedString"]
+- !private ["So8NSObjectP", "UIColor"]
+- !private ["So8NSObjectP", "UIFont"]
+- !private ["So8NSObjectP", "UInt"]
+- ["So8NSObjectP", ""]
+- !private ["So8NSObjectP", "_findStringSwitchCase"]
+- !private ["So8NSObjectP", "addAttributes"]
+- !private ["So8NSObjectP", "agentEmail"]
+- !private ["So8NSObjectP", "agentId"]
+- !private ["So8NSObjectP", "agentName"]
+- !private ["So8NSObjectP", "attributedMessage"]
+- !private ["So8NSObjectP", "boldSystemFont"]
+- !private ["So8NSObjectP", "broadcastType"]
+- !private ["So8NSObjectP", "channelId"]
+- !private ["So8NSObjectP", "createMessageString"]
+- !private ["So8NSObjectP", "createdAtString"]
+- !private ["So8NSObjectP", "creationDate"]
+- !private ["So8NSObjectP", "fallbackText"]
+- !private ["So8NSObjectP", "firstNameString"]
+- !private ["So8NSObjectP", "init"]
+- !private ["So8NSObjectP", "isEmpty"]
+- !private ["So8NSObjectP", "message"]
+- !private ["So8NSObjectP", "range"]
+- !private ["So8NSObjectP", "stringByReplacingFirstOccurrenceOfString"]
+- !private ["So8NSObjectP", "themeColor"]
+- !private ["So8NSObjectP", "title"]
+- !private ["So8NSObjectP", "toDate"]
+- !private ["So14NSSecureCodingP", "Key"]
+- !private ["So14NSSecureCodingP", "addAttributes"]
+- !private ["So14NSSecureCodingP", "init"]
+- !private ["So14NSSecureCodingP", "isEmpty"]
+- !private ["So14NSSecureCodingP", "range"]
+- !private ["So14NSSecureCodingP", "stringByReplacingFirstOccurrenceOfString"]
+- !private ["So14NSSecureCodingP", "themeColor"]
+- !private ["So14NSSecureCodingP", "toDate"]
+- !private ["So8NSStringC", "isEmpty"]
+- !private ["So8NSStringC", "range"]
+- !private ["So8NSStringC", "stringByReplacingFirstOccurrenceOfString"]
+- !private ["So8NSStringC", "toDate"]
+- !private ["Sj", "parse"]
+- !private ["Sk", "append"]
+- !private ["Sm", "append"]
+- !private ["Sm", "isEmpty"]
+- !private ["Sm", "stringByReplacingFirstOccurrenceOfString"]
+- !private ["Sm", "toDate"]
+- ["SY", "=="]
+- ["SY", "RawValue"]
+- ["SY", ""]
+- ["SY", "_Default_RawValue"]
+- !private ["SY", "_findStringSwitchCase"]
+- ["SY", "_rawHashValue"]
+- ["SY", "debugDescription"]
+- ["SY", "description"]
+- !private ["SY", "font"]
+- !private ["SY", "foregroundColor"]
+- ["SY", "hash"]
+- ["SY", "hashValue"]
+- ["SY", "init"]
+- ["SY", "intValue"]
+- !private ["SY", "none"]
+- ["SY", "rawValue"]
+- ["SY", "stringValue"]
+- ["SY", "unknown"]
+- !private ["s10SIMDScalarP", "parse"]
+- !private ["ST", "append"]
+- !private ["ST", "isEmpty"]
+- !private ["ST", "stringByReplacingFirstOccurrenceOfString"]
+- !private ["ST", "subscript"]
+- !private ["ST", "toDate"]
+- !private ["Sx", "parse"]
+- !private ["SS", "isEmpty"]
+- !private ["SS", "stringByReplacingFirstOccurrenceOfString"]
+- !private ["SS", "toDate"]
+- !private ["Sy", "isEmpty"]
+- !private ["Sy", "stringByReplacingFirstOccurrenceOfString"]
+- !private ["Sy", "toDate"]
+- !private ["s16TextOutputStreamP", "isEmpty"]
+- !private ["s16TextOutputStreamP", "stringByReplacingFirstOccurrenceOfString"]
+- !private ["s16TextOutputStreamP", "toDate"]
+- !private ["s20TextOutputStreamableP", "isEmpty"]
+- !private ["s20TextOutputStreamableP", "stringByReplacingFirstOccurrenceOfString"]
+- !private ["s20TextOutputStreamableP", "toDate"]
+- !private ["So7UIColorC", "themeColor"]
+- !private ["So6UIFontC", "boldSystemFont"]
+- !private ["Su", "parse"]
+- !private ["SU", "parse"]
+- !private ["s14_ArrayProtocolP", "append"]
+- !private ["s30_CustomPlaygroundQuickLookableP", "isEmpty"]
+- !private ["s30_CustomPlaygroundQuickLookableP", "parse"]
+- !private ["s30_CustomPlaygroundQuickLookableP", "range"]
+- !private ["s30_CustomPlaygroundQuickLookableP", "stringByReplacingFirstOccurrenceOfString"]
+- !private ["s30_CustomPlaygroundQuickLookableP", "toDate"]
+- !private ["s24_DestructorSafeContainerP", "append"]
+- !private ["s51_ExpressibleByBuiltinExtendedGraphemeClusterLiteralP", "isEmpty"]
+- !private ["s51_ExpressibleByBuiltinExtendedGraphemeClusterLiteralP", "stringByReplacingFirstOccurrenceOfString"]
+- !private ["s51_ExpressibleByBuiltinExtendedGraphemeClusterLiteralP", "toDate"]
+- !private ["s35_ExpressibleByBuiltinIntegerLiteralP", "parse"]
+- !private ["s34_ExpressibleByBuiltinStringLiteralP", "isEmpty"]
+- !private ["s34_ExpressibleByBuiltinStringLiteralP", "stringByReplacingFirstOccurrenceOfString"]
+- !private ["s34_ExpressibleByBuiltinStringLiteralP", "toDate"]
+- !private ["s41_ExpressibleByBuiltinUnicodeScalarLiteralP", "isEmpty"]
+- !private ["s41_ExpressibleByBuiltinUnicodeScalarLiteralP", "stringByReplacingFirstOccurrenceOfString"]
+- !private ["s41_ExpressibleByBuiltinUnicodeScalarLiteralP", "toDate"]
+- !private ["s26_ExpressibleByColorLiteralP", "themeColor"]
+- !private ["s19_HasContiguousBytesP", "append"]
+- !private ["s19_HasContiguousBytesP", "isEmpty"]
+- !private ["s19_HasContiguousBytesP", "stringByReplacingFirstOccurrenceOfString"]
+- !private ["s19_HasContiguousBytesP", "toDate"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "append"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "font"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "foregroundColor"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "isEmpty"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "parse"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "range"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "stringByReplacingFirstOccurrenceOfString"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "subscript"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "toDate"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "BroadcastInfo"]
+- ["10Foundation27_KeyValueCodingAndObservingP", "BroadcastType"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "Key"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "NSAttributedString"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "NSMutableAttributedString"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "UIColor"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "UIFont"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "UInt"]
+- ["10Foundation27_KeyValueCodingAndObservingP", ""]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "_findStringSwitchCase"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "addAttributes"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "agentEmail"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "agentId"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "agentName"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "attributedMessage"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "boldSystemFont"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "broadcastType"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "channelId"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "createMessageString"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "createdAtString"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "creationDate"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "fallbackText"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "firstNameString"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "init"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "isEmpty"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "message"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "range"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "stringByReplacingFirstOccurrenceOfString"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "themeColor"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "title"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "toDate"]
+- !private ["s21_ObjectiveCBridgeableP", "append"]
+- !private ["s21_ObjectiveCBridgeableP", "font"]
+- !private ["s21_ObjectiveCBridgeableP", "foregroundColor"]
+- !private ["s21_ObjectiveCBridgeableP", "isEmpty"]
+- !private ["s21_ObjectiveCBridgeableP", "parse"]
+- !private ["s21_ObjectiveCBridgeableP", "stringByReplacingFirstOccurrenceOfString"]
+- !private ["s21_ObjectiveCBridgeableP", "subscript"]
+- !private ["s21_ObjectiveCBridgeableP", "toDate"]
+- !private ["s20_SwiftNewtypeWrapperP", "font"]
+- !private ["s20_SwiftNewtypeWrapperP", "foregroundColor"]
+depends-nominal:
+- !private "s18AdditiveArithmeticP"
+- !private "Sa"
+- !private "SK"
+- !private "Sz"
+- "5Hippo13BroadcastInfoC"
+- "5Hippo15BroadcastStatusO"
+- "5Hippo13BroadcastTypeO"
+- "s7CVarArgP"
+- "5Hippo13CaseCountableP"
+- "s9CodingKeyP"
+- !private "Sl"
+- !private "SL"
+- !private "10Foundation15ContiguousBytesP"
+- "s28CustomDebugStringConvertibleP"
+- !private "s17CustomReflectableP"
+- "s23CustomStringConvertibleP"
+- !private "10Foundation12DataProtocolP"
+- !private "Se"
+- !private "SD"
+- !private "SE"
+- "SQ"
+- !private "s25ExpressibleByArrayLiteralP"
+- !private "s30ExpressibleByDictionaryLiteralP"
+- !private "s43ExpressibleByExtendedGraphemeClusterLiteralP"
+- !private "s27ExpressibleByIntegerLiteralP"
+- !private "s32ExpressibleByStringInterpolationP"
+- !private "s26ExpressibleByStringLiteralP"
+- !private "s33ExpressibleByUnicodeScalarLiteralP"
+- !private "s17FixedWidthIntegerP"
+- "SH"
+- !private "So21NSAttributedStringKeya"
+- !private "5Hippo20KingfisherCompatibleP"
+- !private "s25LosslessStringConvertibleP"
+- !private "s10MirrorPathP"
+- !private "SM"
+- !private "10Foundation19MutableDataProtocolP"
+- !private "So18NSAttributedStringC"
+- !private "So8NSCodingP"
+- !private "So9NSCopyingP"
+- !private "So21NSItemProviderReadingP"
+- !private "So21NSItemProviderWritingP"
+- !private "So25NSMutableAttributedStringC"
+- !private "So16NSMutableCopyingP"
+- "So8NSObjectC"
+- "So8NSObjectP"
+- !private "So14NSSecureCodingP"
+- !private "So8NSStringC"
+- !private "Sj"
+- !private "Sk"
+- !private "Sm"
+- "SY"
+- !private "s10SIMDScalarP"
+- !private "ST"
+- !private "Sx"
+- !private "SS"
+- !private "Sy"
+- !private "s16TextOutputStreamP"
+- !private "s20TextOutputStreamableP"
+- !private "So7UIColorC"
+- !private "So6UIFontC"
+- !private "Su"
+- !private "SU"
+- !private "s14_ArrayProtocolP"
+- !private "s30_CustomPlaygroundQuickLookableP"
+- !private "s24_DestructorSafeContainerP"
+- !private "s51_ExpressibleByBuiltinExtendedGraphemeClusterLiteralP"
+- !private "s35_ExpressibleByBuiltinIntegerLiteralP"
+- !private "s34_ExpressibleByBuiltinStringLiteralP"
+- !private "s41_ExpressibleByBuiltinUnicodeScalarLiteralP"
+- !private "s26_ExpressibleByColorLiteralP"
+- !private "s19_HasContiguousBytesP"
+- !private "s35_HasCustomAnyHashableRepresentationP"
+- "10Foundation27_KeyValueCodingAndObservingP"
+- !private "s21_ObjectiveCBridgeableP"
+- !private "s20_SwiftNewtypeWrapperP"
+depends-dynamic-lookup:
+depends-external:
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/ObjectiveC.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreMedia.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/simd.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreImage.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/QuartzCore.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Accelerate.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Dispatch.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Metal.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Darwin.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreLocation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Foundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/AVFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreAudio.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/MediaPlayer.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreGraphics.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/os.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Photos.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Swift.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/UIKit.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/SwiftOnoneSupport.swiftmodule"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Hippo.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Helpers/TRWDownloadManager/TWRDownloadManager.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/SocketRocket/SocketRocket.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/SocketRocket/SRWebSocket.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/MZFayeClient/MZFayeClient.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/unextended-module.modulemap"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/usr/include/objc/ObjectiveC.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/OpenGLES.framework/Headers/OpenGLES.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreMedia.framework/Headers/CoreMedia.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreImage.framework/Headers/CoreImage.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/QuartzCore.framework/Headers/QuartzCore.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Accelerate.framework/Headers/Accelerate.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Dispatch.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/QuickLook.framework/Headers/QuickLook.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Metal.framework/Headers/Metal.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/usr/include/Darwin.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreLocation.framework/Headers/CoreLocation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Foundation.framework/Headers/Foundation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/AVFoundation.framework/Headers/AVFoundation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/MediaPlayer.framework/Headers/MediaPlayer.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreGraphics.framework/Headers/CoreGraphics.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/UserNotifications.framework/Headers/UserNotifications.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/os.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Photos.framework/Headers/Photos.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/UIKit.framework/Headers/UIKit.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreText.framework/Headers/CoreText.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/MediaToolbox.framework/Headers/MediaToolbox.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/AudioToolbox.framework/Headers/AudioToolbox.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Security.framework/Headers/Security.apinotes"
+interface-hash: "e364b310d30ede263f15e394e55f98b8"

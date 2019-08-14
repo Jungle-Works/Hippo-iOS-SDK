@@ -1,0 +1,624 @@
+### Swift dependencies file v0 ###
+provides-top-level:
+- "CoreDocumentPickerDelegate"
+- "CoreDocumentPicker"
+provides-nominal:
+- "5Hippo26CoreDocumentPickerDelegateP"
+- "5Hippo18CoreDocumentPickerC"
+provides-member:
+- ["5Hippo26CoreDocumentPickerDelegateP", ""]
+- ["5Hippo18CoreDocumentPickerC", ""]
+provides-dynamic-lookup:
+- "documentPicker"
+- "documentPickerWasCancelled"
+depends-top-level:
+- !private "=="
+- "AnyObject"
+- "AssignmentPrecedence"
+- "Bool"
+- "CastingPrecedence"
+- "CoreDocumentPicker"
+- "CoreDocumentPickerDelegate"
+- !private "CoreFilesConfig"
+- !private "CoreKit"
+- !private "DispatchQueue"
+- "NSObject"
+- !private "String"
+- "UIDocumentPickerDelegate"
+- "UIDocumentPickerViewController"
+- "UIViewController"
+- "UInt"
+- "URL"
+- "Void"
+- !private "kUTTypeAppleProtectedMPEG4Audio"
+- !private "kUTTypeAudio"
+- !private "kUTTypeCommaSeparatedText"
+- !private "kUTTypeMIDIAudio"
+- !private "kUTTypeMP3"
+- !private "kUTTypeMPEG4Audio"
+- !private "kUTTypeMovie"
+- !private "kUTTypePDF"
+- !private "kUTTypePresentation"
+- !private "kUTTypeSpreadsheet"
+- !private "kUTTypeText"
+- !private "kUTTypeWaveformAudio"
+- !private "kUTTypeZipArchive"
+depends-member:
+- !private ["Sa", "append"]
+- !private ["Sa", "contains"]
+- !private ["Sa", "first"]
+- !private ["Sa", "init"]
+- !private ["SK", "append"]
+- !private ["SK", "contains"]
+- !private ["SK", "first"]
+- !private ["SK", "init"]
+- !private ["s7CVarArgP", "CoreFilesConfig"]
+- !private ["s7CVarArgP", "CoreKit"]
+- !private ["s7CVarArgP", "DispatchQueue"]
+- !private ["s7CVarArgP", "String"]
+- !private ["s7CVarArgP", "UIDocumentPickerViewController"]
+- ["s7CVarArgP", ""]
+- !private ["s7CVarArgP", "append"]
+- !private ["s7CVarArgP", "async"]
+- !private ["s7CVarArgP", "contains"]
+- !private ["s7CVarArgP", "currentController"]
+- !private ["s7CVarArgP", "delegate"]
+- !private ["s7CVarArgP", "dismiss"]
+- ["s7CVarArgP", "documentPicker"]
+- ["s7CVarArgP", "documentPickerWasCancelled"]
+- !private ["s7CVarArgP", "first"]
+- !private ["s7CVarArgP", "init"]
+- !private ["s7CVarArgP", "kUTTypeAppleProtectedMPEG4Audio"]
+- !private ["s7CVarArgP", "kUTTypeAudio"]
+- !private ["s7CVarArgP", "kUTTypeCommaSeparatedText"]
+- !private ["s7CVarArgP", "kUTTypeMIDIAudio"]
+- !private ["s7CVarArgP", "kUTTypeMP3"]
+- !private ["s7CVarArgP", "kUTTypeMPEG4Audio"]
+- !private ["s7CVarArgP", "kUTTypeMovie"]
+- !private ["s7CVarArgP", "kUTTypePDF"]
+- !private ["s7CVarArgP", "kUTTypePresentation"]
+- !private ["s7CVarArgP", "kUTTypeSpreadsheet"]
+- !private ["s7CVarArgP", "kUTTypeText"]
+- !private ["s7CVarArgP", "kUTTypeWaveformAudio"]
+- !private ["s7CVarArgP", "kUTTypeZipArchive"]
+- !private ["s7CVarArgP", "main"]
+- !private ["s7CVarArgP", "picker"]
+- !private ["s7CVarArgP", "present"]
+- !private ["Sl", "append"]
+- !private ["Sl", "contains"]
+- !private ["Sl", "first"]
+- !private ["Sl", "init"]
+- !private ["10Foundation15ContiguousBytesP", "append"]
+- !private ["10Foundation15ContiguousBytesP", "contains"]
+- !private ["10Foundation15ContiguousBytesP", "first"]
+- !private ["10Foundation15ContiguousBytesP", "init"]
+- ["5Hippo18CoreDocumentPickerC", "Bool"]
+- ["5Hippo18CoreDocumentPickerC", "CoreDocumentPickerDelegate"]
+- !private ["5Hippo18CoreDocumentPickerC", "CoreFilesConfig"]
+- !private ["5Hippo18CoreDocumentPickerC", "CoreKit"]
+- !private ["5Hippo18CoreDocumentPickerC", "DispatchQueue"]
+- !private ["5Hippo18CoreDocumentPickerC", "String"]
+- ["5Hippo18CoreDocumentPickerC", "UIDocumentPickerViewController"]
+- ["5Hippo18CoreDocumentPickerC", "UIViewController"]
+- ["5Hippo18CoreDocumentPickerC", "URL"]
+- ["5Hippo18CoreDocumentPickerC", "Void"]
+- !private ["5Hippo18CoreDocumentPickerC", "currentController"]
+- ["5Hippo18CoreDocumentPickerC", "deinit"]
+- ["5Hippo18CoreDocumentPickerC", "delegate"]
+- ["5Hippo18CoreDocumentPickerC", "dismiss"]
+- ["5Hippo18CoreDocumentPickerC", "documentPicker"]
+- ["5Hippo18CoreDocumentPickerC", "documentPickerWasCancelled"]
+- ["5Hippo18CoreDocumentPickerC", "init"]
+- !private ["5Hippo18CoreDocumentPickerC", "kUTTypeAppleProtectedMPEG4Audio"]
+- !private ["5Hippo18CoreDocumentPickerC", "kUTTypeAudio"]
+- !private ["5Hippo18CoreDocumentPickerC", "kUTTypeCommaSeparatedText"]
+- !private ["5Hippo18CoreDocumentPickerC", "kUTTypeMIDIAudio"]
+- !private ["5Hippo18CoreDocumentPickerC", "kUTTypeMP3"]
+- !private ["5Hippo18CoreDocumentPickerC", "kUTTypeMPEG4Audio"]
+- !private ["5Hippo18CoreDocumentPickerC", "kUTTypeMovie"]
+- !private ["5Hippo18CoreDocumentPickerC", "kUTTypePDF"]
+- !private ["5Hippo18CoreDocumentPickerC", "kUTTypePresentation"]
+- !private ["5Hippo18CoreDocumentPickerC", "kUTTypeSpreadsheet"]
+- !private ["5Hippo18CoreDocumentPickerC", "kUTTypeText"]
+- !private ["5Hippo18CoreDocumentPickerC", "kUTTypeWaveformAudio"]
+- !private ["5Hippo18CoreDocumentPickerC", "kUTTypeZipArchive"]
+- !private ["5Hippo18CoreDocumentPickerC", "picker"]
+- ["5Hippo18CoreDocumentPickerC", "presentIn"]
+- ["5Hippo26CoreDocumentPickerDelegateP", "UInt"]
+- ["5Hippo26CoreDocumentPickerDelegateP", "URL"]
+- ["5Hippo26CoreDocumentPickerDelegateP", "didPickDocumentWith"]
+- ["5Hippo26CoreDocumentPickerDelegateP", "fileSelectedWithBiggerSize"]
+- !private ["5Hippo15CoreFilesConfigV", "checkForDataSelectionLimit"]
+- !private ["5Hippo15CoreFilesConfigV", "enabledFileTypes"]
+- !private ["5Hippo15CoreFilesConfigV", "maxSizeAllowedToUploadInMB"]
+- !private ["5Hippo15CoreFilesConfigV", "maxSizeInBytes"]
+- !private ["5Hippo7CoreKitC", "filesConfig"]
+- !private ["5Hippo7CoreKitC", "shared"]
+- !private ["5Hippo14CoreMediaTypesO", "audio"]
+- !private ["5Hippo14CoreMediaTypesO", "deinit"]
+- !private ["5Hippo14CoreMediaTypesO", "document"]
+- !private ["5Hippo14CoreMediaTypesO", "other"]
+- !private ["5Hippo14CoreMediaTypesO", "video"]
+- !private ["s28CustomDebugStringConvertibleP", "CoreFilesConfig"]
+- !private ["s28CustomDebugStringConvertibleP", "CoreKit"]
+- !private ["s28CustomDebugStringConvertibleP", "DispatchQueue"]
+- !private ["s28CustomDebugStringConvertibleP", "String"]
+- !private ["s28CustomDebugStringConvertibleP", "UIDocumentPickerViewController"]
+- ["s28CustomDebugStringConvertibleP", ""]
+- !private ["s28CustomDebugStringConvertibleP", "append"]
+- !private ["s28CustomDebugStringConvertibleP", "async"]
+- !private ["s28CustomDebugStringConvertibleP", "contains"]
+- !private ["s28CustomDebugStringConvertibleP", "currentController"]
+- !private ["s28CustomDebugStringConvertibleP", "delegate"]
+- !private ["s28CustomDebugStringConvertibleP", "dismiss"]
+- ["s28CustomDebugStringConvertibleP", "documentPicker"]
+- ["s28CustomDebugStringConvertibleP", "documentPickerWasCancelled"]
+- !private ["s28CustomDebugStringConvertibleP", "first"]
+- !private ["s28CustomDebugStringConvertibleP", "init"]
+- !private ["s28CustomDebugStringConvertibleP", "kUTTypeAppleProtectedMPEG4Audio"]
+- !private ["s28CustomDebugStringConvertibleP", "kUTTypeAudio"]
+- !private ["s28CustomDebugStringConvertibleP", "kUTTypeCommaSeparatedText"]
+- !private ["s28CustomDebugStringConvertibleP", "kUTTypeMIDIAudio"]
+- !private ["s28CustomDebugStringConvertibleP", "kUTTypeMP3"]
+- !private ["s28CustomDebugStringConvertibleP", "kUTTypeMPEG4Audio"]
+- !private ["s28CustomDebugStringConvertibleP", "kUTTypeMovie"]
+- !private ["s28CustomDebugStringConvertibleP", "kUTTypePDF"]
+- !private ["s28CustomDebugStringConvertibleP", "kUTTypePresentation"]
+- !private ["s28CustomDebugStringConvertibleP", "kUTTypeSpreadsheet"]
+- !private ["s28CustomDebugStringConvertibleP", "kUTTypeText"]
+- !private ["s28CustomDebugStringConvertibleP", "kUTTypeWaveformAudio"]
+- !private ["s28CustomDebugStringConvertibleP", "kUTTypeZipArchive"]
+- !private ["s28CustomDebugStringConvertibleP", "main"]
+- !private ["s28CustomDebugStringConvertibleP", "picker"]
+- !private ["s28CustomDebugStringConvertibleP", "present"]
+- !private ["s17CustomReflectableP", "append"]
+- !private ["s17CustomReflectableP", "contains"]
+- !private ["s17CustomReflectableP", "first"]
+- !private ["s17CustomReflectableP", "init"]
+- !private ["s23CustomStringConvertibleP", "CoreFilesConfig"]
+- !private ["s23CustomStringConvertibleP", "CoreKit"]
+- !private ["s23CustomStringConvertibleP", "DispatchQueue"]
+- !private ["s23CustomStringConvertibleP", "String"]
+- !private ["s23CustomStringConvertibleP", "UIDocumentPickerViewController"]
+- ["s23CustomStringConvertibleP", ""]
+- !private ["s23CustomStringConvertibleP", "append"]
+- !private ["s23CustomStringConvertibleP", "async"]
+- !private ["s23CustomStringConvertibleP", "contains"]
+- !private ["s23CustomStringConvertibleP", "currentController"]
+- !private ["s23CustomStringConvertibleP", "delegate"]
+- !private ["s23CustomStringConvertibleP", "dismiss"]
+- ["s23CustomStringConvertibleP", "documentPicker"]
+- ["s23CustomStringConvertibleP", "documentPickerWasCancelled"]
+- !private ["s23CustomStringConvertibleP", "first"]
+- !private ["s23CustomStringConvertibleP", "init"]
+- !private ["s23CustomStringConvertibleP", "kUTTypeAppleProtectedMPEG4Audio"]
+- !private ["s23CustomStringConvertibleP", "kUTTypeAudio"]
+- !private ["s23CustomStringConvertibleP", "kUTTypeCommaSeparatedText"]
+- !private ["s23CustomStringConvertibleP", "kUTTypeMIDIAudio"]
+- !private ["s23CustomStringConvertibleP", "kUTTypeMP3"]
+- !private ["s23CustomStringConvertibleP", "kUTTypeMPEG4Audio"]
+- !private ["s23CustomStringConvertibleP", "kUTTypeMovie"]
+- !private ["s23CustomStringConvertibleP", "kUTTypePDF"]
+- !private ["s23CustomStringConvertibleP", "kUTTypePresentation"]
+- !private ["s23CustomStringConvertibleP", "kUTTypeSpreadsheet"]
+- !private ["s23CustomStringConvertibleP", "kUTTypeText"]
+- !private ["s23CustomStringConvertibleP", "kUTTypeWaveformAudio"]
+- !private ["s23CustomStringConvertibleP", "kUTTypeZipArchive"]
+- !private ["s23CustomStringConvertibleP", "main"]
+- !private ["s23CustomStringConvertibleP", "picker"]
+- !private ["s23CustomStringConvertibleP", "present"]
+- !private ["10Foundation12DataProtocolP", "append"]
+- !private ["10Foundation12DataProtocolP", "contains"]
+- !private ["10Foundation12DataProtocolP", "first"]
+- !private ["10Foundation12DataProtocolP", "init"]
+- !private ["Se", "append"]
+- !private ["Se", "contains"]
+- !private ["Se", "first"]
+- !private ["Se", "init"]
+- !private ["So18OS_dispatch_objectC", "async"]
+- !private ["So18OS_dispatch_objectC", "main"]
+- !private ["So17OS_dispatch_queueC", "async"]
+- !private ["So17OS_dispatch_queueC", "main"]
+- !private ["SE", "append"]
+- !private ["SE", "contains"]
+- !private ["SE", "first"]
+- !private ["SE", "init"]
+- !private ["SQ", "CoreFilesConfig"]
+- !private ["SQ", "CoreKit"]
+- !private ["SQ", "DispatchQueue"]
+- !private ["SQ", "String"]
+- !private ["SQ", "UIDocumentPickerViewController"]
+- ["SQ", ""]
+- !private ["SQ", "append"]
+- !private ["SQ", "async"]
+- !private ["SQ", "audio"]
+- !private ["SQ", "contains"]
+- !private ["SQ", "currentController"]
+- !private ["SQ", "delegate"]
+- !private ["SQ", "dismiss"]
+- !private ["SQ", "document"]
+- ["SQ", "documentPicker"]
+- ["SQ", "documentPickerWasCancelled"]
+- !private ["SQ", "first"]
+- !private ["SQ", "import"]
+- !private ["SQ", "init"]
+- !private ["SQ", "kUTTypeAppleProtectedMPEG4Audio"]
+- !private ["SQ", "kUTTypeAudio"]
+- !private ["SQ", "kUTTypeCommaSeparatedText"]
+- !private ["SQ", "kUTTypeMIDIAudio"]
+- !private ["SQ", "kUTTypeMP3"]
+- !private ["SQ", "kUTTypeMPEG4Audio"]
+- !private ["SQ", "kUTTypeMovie"]
+- !private ["SQ", "kUTTypePDF"]
+- !private ["SQ", "kUTTypePresentation"]
+- !private ["SQ", "kUTTypeSpreadsheet"]
+- !private ["SQ", "kUTTypeText"]
+- !private ["SQ", "kUTTypeWaveformAudio"]
+- !private ["SQ", "kUTTypeZipArchive"]
+- !private ["SQ", "main"]
+- !private ["SQ", "other"]
+- !private ["SQ", "picker"]
+- !private ["SQ", "present"]
+- !private ["SQ", "video"]
+- !private ["s25ExpressibleByArrayLiteralP", "append"]
+- !private ["s25ExpressibleByArrayLiteralP", "contains"]
+- !private ["s25ExpressibleByArrayLiteralP", "first"]
+- !private ["s25ExpressibleByArrayLiteralP", "init"]
+- !private ["SH", "CoreFilesConfig"]
+- !private ["SH", "CoreKit"]
+- !private ["SH", "DispatchQueue"]
+- !private ["SH", "String"]
+- !private ["SH", "UIDocumentPickerViewController"]
+- ["SH", ""]
+- !private ["SH", "append"]
+- !private ["SH", "async"]
+- !private ["SH", "audio"]
+- !private ["SH", "contains"]
+- !private ["SH", "currentController"]
+- !private ["SH", "delegate"]
+- !private ["SH", "dismiss"]
+- !private ["SH", "document"]
+- ["SH", "documentPicker"]
+- ["SH", "documentPickerWasCancelled"]
+- !private ["SH", "first"]
+- !private ["SH", "import"]
+- !private ["SH", "init"]
+- !private ["SH", "kUTTypeAppleProtectedMPEG4Audio"]
+- !private ["SH", "kUTTypeAudio"]
+- !private ["SH", "kUTTypeCommaSeparatedText"]
+- !private ["SH", "kUTTypeMIDIAudio"]
+- !private ["SH", "kUTTypeMP3"]
+- !private ["SH", "kUTTypeMPEG4Audio"]
+- !private ["SH", "kUTTypeMovie"]
+- !private ["SH", "kUTTypePDF"]
+- !private ["SH", "kUTTypePresentation"]
+- !private ["SH", "kUTTypeSpreadsheet"]
+- !private ["SH", "kUTTypeText"]
+- !private ["SH", "kUTTypeWaveformAudio"]
+- !private ["SH", "kUTTypeZipArchive"]
+- !private ["SH", "main"]
+- !private ["SH", "other"]
+- !private ["SH", "picker"]
+- !private ["SH", "present"]
+- !private ["SH", "video"]
+- !private ["SM", "append"]
+- !private ["SM", "contains"]
+- !private ["SM", "first"]
+- !private ["SM", "init"]
+- !private ["10Foundation19MutableDataProtocolP", "append"]
+- !private ["10Foundation19MutableDataProtocolP", "contains"]
+- !private ["10Foundation19MutableDataProtocolP", "first"]
+- !private ["10Foundation19MutableDataProtocolP", "init"]
+- !private ["So8NSCodingP", "delegate"]
+- !private ["So8NSCodingP", "dismiss"]
+- !private ["So8NSCodingP", "init"]
+- !private ["So8NSCodingP", "present"]
+- !private ["So26NSExtensionRequestHandlingP", "delegate"]
+- !private ["So26NSExtensionRequestHandlingP", "dismiss"]
+- !private ["So26NSExtensionRequestHandlingP", "init"]
+- !private ["So26NSExtensionRequestHandlingP", "present"]
+- ["So8NSObjectC", "Bool"]
+- ["So8NSObjectC", "CoreDocumentPickerDelegate"]
+- !private ["So8NSObjectC", "CoreFilesConfig"]
+- !private ["So8NSObjectC", "CoreKit"]
+- !private ["So8NSObjectC", "DispatchQueue"]
+- !private ["So8NSObjectC", "String"]
+- ["So8NSObjectC", "UIDocumentPickerViewController"]
+- ["So8NSObjectC", "UIViewController"]
+- ["So8NSObjectC", "URL"]
+- ["So8NSObjectC", "Void"]
+- ["So8NSObjectC", ""]
+- !private ["So8NSObjectC", "async"]
+- ["So8NSObjectC", "currentController"]
+- ["So8NSObjectC", "delegate"]
+- ["So8NSObjectC", "dismiss"]
+- ["So8NSObjectC", "documentPicker"]
+- ["So8NSObjectC", "documentPickerWasCancelled"]
+- ["So8NSObjectC", "init"]
+- !private ["So8NSObjectC", "kUTTypeAppleProtectedMPEG4Audio"]
+- !private ["So8NSObjectC", "kUTTypeAudio"]
+- !private ["So8NSObjectC", "kUTTypeCommaSeparatedText"]
+- !private ["So8NSObjectC", "kUTTypeMIDIAudio"]
+- !private ["So8NSObjectC", "kUTTypeMP3"]
+- !private ["So8NSObjectC", "kUTTypeMPEG4Audio"]
+- !private ["So8NSObjectC", "kUTTypeMovie"]
+- !private ["So8NSObjectC", "kUTTypePDF"]
+- !private ["So8NSObjectC", "kUTTypePresentation"]
+- !private ["So8NSObjectC", "kUTTypeSpreadsheet"]
+- !private ["So8NSObjectC", "kUTTypeText"]
+- !private ["So8NSObjectC", "kUTTypeWaveformAudio"]
+- !private ["So8NSObjectC", "kUTTypeZipArchive"]
+- !private ["So8NSObjectC", "main"]
+- ["So8NSObjectC", "picker"]
+- !private ["So8NSObjectC", "present"]
+- ["So8NSObjectC", "presentIn"]
+- !private ["So8NSObjectP", "CoreFilesConfig"]
+- !private ["So8NSObjectP", "CoreKit"]
+- !private ["So8NSObjectP", "DispatchQueue"]
+- !private ["So8NSObjectP", "String"]
+- !private ["So8NSObjectP", "UIDocumentPickerViewController"]
+- ["So8NSObjectP", ""]
+- !private ["So8NSObjectP", "async"]
+- !private ["So8NSObjectP", "currentController"]
+- !private ["So8NSObjectP", "delegate"]
+- !private ["So8NSObjectP", "dismiss"]
+- ["So8NSObjectP", "documentPicker"]
+- ["So8NSObjectP", "documentPickerWasCancelled"]
+- !private ["So8NSObjectP", "init"]
+- !private ["So8NSObjectP", "kUTTypeAppleProtectedMPEG4Audio"]
+- !private ["So8NSObjectP", "kUTTypeAudio"]
+- !private ["So8NSObjectP", "kUTTypeCommaSeparatedText"]
+- !private ["So8NSObjectP", "kUTTypeMIDIAudio"]
+- !private ["So8NSObjectP", "kUTTypeMP3"]
+- !private ["So8NSObjectP", "kUTTypeMPEG4Audio"]
+- !private ["So8NSObjectP", "kUTTypeMovie"]
+- !private ["So8NSObjectP", "kUTTypePDF"]
+- !private ["So8NSObjectP", "kUTTypePresentation"]
+- !private ["So8NSObjectP", "kUTTypeSpreadsheet"]
+- !private ["So8NSObjectP", "kUTTypeText"]
+- !private ["So8NSObjectP", "kUTTypeWaveformAudio"]
+- !private ["So8NSObjectP", "kUTTypeZipArchive"]
+- !private ["So8NSObjectP", "main"]
+- !private ["So8NSObjectP", "picker"]
+- !private ["So8NSObjectP", "present"]
+- !private ["So9OS_objectC", "async"]
+- !private ["So9OS_objectC", "main"]
+- !private ["Sk", "append"]
+- !private ["Sk", "contains"]
+- !private ["Sk", "first"]
+- !private ["Sk", "init"]
+- !private ["Sm", "append"]
+- !private ["Sm", "contains"]
+- !private ["Sm", "first"]
+- !private ["Sm", "init"]
+- !private ["SY", "audio"]
+- !private ["SY", "document"]
+- !private ["SY", "import"]
+- !private ["SY", "other"]
+- !private ["SY", "video"]
+- !private ["ST", "append"]
+- !private ["ST", "contains"]
+- !private ["ST", "first"]
+- !private ["ST", "init"]
+- !private ["So21UIAppearanceContainerP", "delegate"]
+- !private ["So21UIAppearanceContainerP", "dismiss"]
+- !private ["So21UIAppearanceContainerP", "init"]
+- !private ["So21UIAppearanceContainerP", "present"]
+- !private ["So18UIContentContainerP", "delegate"]
+- !private ["So18UIContentContainerP", "dismiss"]
+- !private ["So18UIContentContainerP", "init"]
+- !private ["So18UIContentContainerP", "present"]
+- !private ["So24UIDocumentPickerDelegateP", "CoreFilesConfig"]
+- !private ["So24UIDocumentPickerDelegateP", "CoreKit"]
+- !private ["So24UIDocumentPickerDelegateP", "DispatchQueue"]
+- !private ["So24UIDocumentPickerDelegateP", "String"]
+- !private ["So24UIDocumentPickerDelegateP", "UIDocumentPickerViewController"]
+- ["So24UIDocumentPickerDelegateP", ""]
+- !private ["So24UIDocumentPickerDelegateP", "currentController"]
+- !private ["So24UIDocumentPickerDelegateP", "delegate"]
+- ["So24UIDocumentPickerDelegateP", "documentPicker"]
+- ["So24UIDocumentPickerDelegateP", "documentPickerWasCancelled"]
+- !private ["So24UIDocumentPickerDelegateP", "kUTTypeAppleProtectedMPEG4Audio"]
+- !private ["So24UIDocumentPickerDelegateP", "kUTTypeAudio"]
+- !private ["So24UIDocumentPickerDelegateP", "kUTTypeCommaSeparatedText"]
+- !private ["So24UIDocumentPickerDelegateP", "kUTTypeMIDIAudio"]
+- !private ["So24UIDocumentPickerDelegateP", "kUTTypeMP3"]
+- !private ["So24UIDocumentPickerDelegateP", "kUTTypeMPEG4Audio"]
+- !private ["So24UIDocumentPickerDelegateP", "kUTTypeMovie"]
+- !private ["So24UIDocumentPickerDelegateP", "kUTTypePDF"]
+- !private ["So24UIDocumentPickerDelegateP", "kUTTypePresentation"]
+- !private ["So24UIDocumentPickerDelegateP", "kUTTypeSpreadsheet"]
+- !private ["So24UIDocumentPickerDelegateP", "kUTTypeText"]
+- !private ["So24UIDocumentPickerDelegateP", "kUTTypeWaveformAudio"]
+- !private ["So24UIDocumentPickerDelegateP", "kUTTypeZipArchive"]
+- !private ["So24UIDocumentPickerDelegateP", "picker"]
+- !private ["So20UIDocumentPickerModeV", "import"]
+- !private ["So30UIDocumentPickerViewControllerC", "delegate"]
+- !private ["So30UIDocumentPickerViewControllerC", "dismiss"]
+- !private ["So30UIDocumentPickerViewControllerC", "init"]
+- !private ["So18UIFocusEnvironmentP", "delegate"]
+- !private ["So18UIFocusEnvironmentP", "dismiss"]
+- !private ["So18UIFocusEnvironmentP", "init"]
+- !private ["So18UIFocusEnvironmentP", "present"]
+- !private ["So30UIPasteConfigurationSupportingP", "delegate"]
+- !private ["So30UIPasteConfigurationSupportingP", "dismiss"]
+- !private ["So30UIPasteConfigurationSupportingP", "init"]
+- !private ["So30UIPasteConfigurationSupportingP", "present"]
+- !private ["So11UIResponderC", "delegate"]
+- !private ["So11UIResponderC", "dismiss"]
+- !private ["So11UIResponderC", "init"]
+- !private ["So11UIResponderC", "present"]
+- !private ["So30UIResponderStandardEditActionsP", "delegate"]
+- !private ["So30UIResponderStandardEditActionsP", "dismiss"]
+- !private ["So30UIResponderStandardEditActionsP", "init"]
+- !private ["So30UIResponderStandardEditActionsP", "present"]
+- !private ["So16UIStateRestoringP", "delegate"]
+- !private ["So16UIStateRestoringP", "dismiss"]
+- !private ["So16UIStateRestoringP", "init"]
+- !private ["So16UIStateRestoringP", "present"]
+- !private ["So18UITraitEnvironmentP", "delegate"]
+- !private ["So18UITraitEnvironmentP", "dismiss"]
+- !private ["So18UITraitEnvironmentP", "init"]
+- !private ["So18UITraitEnvironmentP", "present"]
+- !private ["So23UIUserActivityRestoringP", "delegate"]
+- !private ["So23UIUserActivityRestoringP", "dismiss"]
+- !private ["So23UIUserActivityRestoringP", "init"]
+- !private ["So23UIUserActivityRestoringP", "present"]
+- !private ["So16UIViewControllerC", "delegate"]
+- !private ["So16UIViewControllerC", "dismiss"]
+- !private ["So16UIViewControllerC", "init"]
+- !private ["So16UIViewControllerC", "present"]
+- !private ["s14_ArrayProtocolP", "append"]
+- !private ["s14_ArrayProtocolP", "contains"]
+- !private ["s14_ArrayProtocolP", "first"]
+- !private ["s14_ArrayProtocolP", "init"]
+- !private ["s24_DestructorSafeContainerP", "append"]
+- !private ["s24_DestructorSafeContainerP", "contains"]
+- !private ["s24_DestructorSafeContainerP", "first"]
+- !private ["s24_DestructorSafeContainerP", "init"]
+- !private ["s19_HasContiguousBytesP", "append"]
+- !private ["s19_HasContiguousBytesP", "contains"]
+- !private ["s19_HasContiguousBytesP", "first"]
+- !private ["s19_HasContiguousBytesP", "init"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "append"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "contains"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "first"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "init"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "CoreFilesConfig"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "CoreKit"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "DispatchQueue"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "String"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "UIDocumentPickerViewController"]
+- ["10Foundation27_KeyValueCodingAndObservingP", ""]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "async"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "currentController"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "delegate"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "dismiss"]
+- ["10Foundation27_KeyValueCodingAndObservingP", "documentPicker"]
+- ["10Foundation27_KeyValueCodingAndObservingP", "documentPickerWasCancelled"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "init"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "kUTTypeAppleProtectedMPEG4Audio"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "kUTTypeAudio"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "kUTTypeCommaSeparatedText"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "kUTTypeMIDIAudio"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "kUTTypeMP3"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "kUTTypeMPEG4Audio"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "kUTTypeMovie"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "kUTTypePDF"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "kUTTypePresentation"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "kUTTypeSpreadsheet"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "kUTTypeText"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "kUTTypeWaveformAudio"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "kUTTypeZipArchive"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "main"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "picker"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "present"]
+- !private ["s21_ObjectiveCBridgeableP", "append"]
+- !private ["s21_ObjectiveCBridgeableP", "contains"]
+- !private ["s21_ObjectiveCBridgeableP", "first"]
+- !private ["s21_ObjectiveCBridgeableP", "init"]
+depends-nominal:
+- !private "Sa"
+- !private "SK"
+- "s7CVarArgP"
+- !private "Sl"
+- !private "10Foundation15ContiguousBytesP"
+- "5Hippo18CoreDocumentPickerC"
+- "5Hippo26CoreDocumentPickerDelegateP"
+- !private "5Hippo15CoreFilesConfigV"
+- !private "5Hippo7CoreKitC"
+- !private "5Hippo14CoreMediaTypesO"
+- "s28CustomDebugStringConvertibleP"
+- !private "s17CustomReflectableP"
+- "s23CustomStringConvertibleP"
+- !private "10Foundation12DataProtocolP"
+- !private "Se"
+- !private "So18OS_dispatch_objectC"
+- !private "So17OS_dispatch_queueC"
+- !private "SE"
+- "SQ"
+- !private "s25ExpressibleByArrayLiteralP"
+- "SH"
+- !private "SM"
+- !private "10Foundation19MutableDataProtocolP"
+- !private "So8NSCodingP"
+- !private "So26NSExtensionRequestHandlingP"
+- "So8NSObjectC"
+- "So8NSObjectP"
+- !private "So9OS_objectC"
+- !private "Sk"
+- !private "Sm"
+- !private "SY"
+- !private "ST"
+- !private "So21UIAppearanceContainerP"
+- !private "So18UIContentContainerP"
+- "So24UIDocumentPickerDelegateP"
+- !private "So20UIDocumentPickerModeV"
+- !private "So30UIDocumentPickerViewControllerC"
+- !private "So18UIFocusEnvironmentP"
+- !private "So30UIPasteConfigurationSupportingP"
+- !private "So11UIResponderC"
+- !private "So30UIResponderStandardEditActionsP"
+- !private "So16UIStateRestoringP"
+- !private "So18UITraitEnvironmentP"
+- !private "So23UIUserActivityRestoringP"
+- !private "So16UIViewControllerC"
+- !private "s14_ArrayProtocolP"
+- !private "s24_DestructorSafeContainerP"
+- !private "s19_HasContiguousBytesP"
+- !private "s35_HasCustomAnyHashableRepresentationP"
+- "10Foundation27_KeyValueCodingAndObservingP"
+- !private "s21_ObjectiveCBridgeableP"
+depends-dynamic-lookup:
+depends-external:
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/ObjectiveC.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreMedia.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/simd.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreImage.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/QuartzCore.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Accelerate.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Dispatch.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Metal.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Darwin.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreLocation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Foundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/AVFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreAudio.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/MediaPlayer.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreGraphics.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/os.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Photos.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Swift.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/UIKit.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/SwiftOnoneSupport.swiftmodule"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Hippo.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Helpers/TRWDownloadManager/TWRDownloadManager.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/SocketRocket/SocketRocket.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/SocketRocket/SRWebSocket.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/MZFayeClient/MZFayeClient.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/unextended-module.modulemap"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/usr/include/objc/ObjectiveC.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/OpenGLES.framework/Headers/OpenGLES.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreMedia.framework/Headers/CoreMedia.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreImage.framework/Headers/CoreImage.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/QuartzCore.framework/Headers/QuartzCore.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Accelerate.framework/Headers/Accelerate.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Dispatch.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/QuickLook.framework/Headers/QuickLook.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Metal.framework/Headers/Metal.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/usr/include/Darwin.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreLocation.framework/Headers/CoreLocation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Foundation.framework/Headers/Foundation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/AVFoundation.framework/Headers/AVFoundation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/MediaPlayer.framework/Headers/MediaPlayer.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreGraphics.framework/Headers/CoreGraphics.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/UserNotifications.framework/Headers/UserNotifications.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/os.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Photos.framework/Headers/Photos.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/UIKit.framework/Headers/UIKit.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreText.framework/Headers/CoreText.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/MediaToolbox.framework/Headers/MediaToolbox.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/AudioToolbox.framework/Headers/AudioToolbox.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Security.framework/Headers/Security.apinotes"
+interface-hash: "96b3e35c59e163a1e8a8e39ab74a8ab5"

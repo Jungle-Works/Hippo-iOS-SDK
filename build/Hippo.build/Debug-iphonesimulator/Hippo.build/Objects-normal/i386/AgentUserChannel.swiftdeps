@@ -1,0 +1,561 @@
+### Swift dependencies file v0 ###
+provides-top-level:
+- "AgentUserChannelDelegate"
+- "AgentUserChannel"
+provides-nominal:
+- "5Hippo24AgentUserChannelDelegateP"
+- "5Hippo16AgentUserChannelC"
+provides-member:
+- ["5Hippo24AgentUserChannelDelegateP", ""]
+- ["5Hippo16AgentUserChannelC", ""]
+provides-dynamic-lookup:
+- "checkForReconnection"
+- "internetConnected"
+- "internetDisConnected"
+depends-top-level:
+- !private "!"
+- !private "!="
+- !private "=="
+- !private ">"
+- "AgentConversation"
+- !private "AgentConversationViewController"
+- "AgentUserChannel"
+- "AgentUserChannelDelegate"
+- "AnyObject"
+- "AssignmentPrecedence"
+- "Bool"
+- "CastingPrecedence"
+- "ConversationStoreManager"
+- "Error"
+- !private "FayeConnection"
+- !private "HippoConfig"
+- "Int"
+- !private "NotificationCenter"
+- !private "NotificationType"
+- "String"
+- "Void"
+- !private "currentUserId"
+- !private "getLastVisibleController"
+depends-member:
+- !private ["5Hippo23ActionTableViewDelegateP", "channel"]
+- !private ["5Hippo23ActionTableViewDelegateP", "channelId"]
+- !private ["5Hippo17AgentConversationC", "channel_id"]
+- !private ["5Hippo17AgentConversationC", "init"]
+- !private ["5Hippo17AgentConversationC", "lastMessage"]
+- !private ["5Hippo17AgentConversationC", "notificationType"]
+- !private ["5Hippo17AgentConversationC", "user_id"]
+- !private ["5Hippo31AgentConversationViewControllerC", "channel"]
+- !private ["5Hippo31AgentConversationViewControllerC", "channelId"]
+- !private ["5Hippo11AgentDetailC", "userChannel"]
+- ["5Hippo16AgentUserChannelC", "AgentConversation"]
+- !private ["5Hippo16AgentUserChannelC", "AgentConversationViewController"]
+- ["5Hippo16AgentUserChannelC", "AgentUserChannel"]
+- ["5Hippo16AgentUserChannelC", "AgentUserChannelDelegate"]
+- ["5Hippo16AgentUserChannelC", "Bool"]
+- ["5Hippo16AgentUserChannelC", "ConversationStoreManager"]
+- ["5Hippo16AgentUserChannelC", "Error"]
+- !private ["5Hippo16AgentUserChannelC", "FayeConnection"]
+- !private ["5Hippo16AgentUserChannelC", "HippoConfig"]
+- ["5Hippo16AgentUserChannelC", "Int"]
+- !private ["5Hippo16AgentUserChannelC", "NotificationCenter"]
+- !private ["5Hippo16AgentUserChannelC", "NotificationType"]
+- ["5Hippo16AgentUserChannelC", "String"]
+- ["5Hippo16AgentUserChannelC", "UserChannelHandler"]
+- ["5Hippo16AgentUserChannelC", "Void"]
+- ["5Hippo16AgentUserChannelC", "addObservers"]
+- !private ["5Hippo16AgentUserChannelC", "checkForReconnection"]
+- !private ["5Hippo16AgentUserChannelC", "conversationRecieved"]
+- !private ["5Hippo16AgentUserChannelC", "currentUserId"]
+- ["5Hippo16AgentUserChannelC", "deinit"]
+- ["5Hippo16AgentUserChannelC", "delegate"]
+- !private ["5Hippo16AgentUserChannelC", "getLastVisibleController"]
+- ["5Hippo16AgentUserChannelC", "handleAssignmentNotificationForChat"]
+- ["5Hippo16AgentUserChannelC", "handleReadAllForHome"]
+- ["5Hippo16AgentUserChannelC", "id"]
+- ["5Hippo16AgentUserChannelC", "init"]
+- ["5Hippo16AgentUserChannelC", "internetConnected"]
+- ["5Hippo16AgentUserChannelC", "internetDisConnected"]
+- ["5Hippo16AgentUserChannelC", "isSubscribed"]
+- ["5Hippo16AgentUserChannelC", "reIntializeIfRequired"]
+- ["5Hippo16AgentUserChannelC", "shared"]
+- ["5Hippo16AgentUserChannelC", "storeInteracter"]
+- ["5Hippo16AgentUserChannelC", "subscribe"]
+- !private ["5Hippo16AgentUserChannelC", "unSubscribe"]
+- ["5Hippo24AgentUserChannelDelegateP", "AgentConversation"]
+- ["5Hippo24AgentUserChannelDelegateP", "Int"]
+- ["5Hippo24AgentUserChannelDelegateP", "newConversationRecieved"]
+- ["5Hippo24AgentUserChannelDelegateP", "readAllNotificationFor"]
+- !private ["5Hippo11AppUserTypeO", "agent"]
+- !private ["5Hippo11AppUserTypeO", "deinit"]
+- !private ["SK", "isEmpty"]
+- !private ["s7CVarArgP", "addObserver"]
+- !private ["s7CVarArgP", "agentDetail"]
+- !private ["s7CVarArgP", "appUserType"]
+- !private ["s7CVarArgP", "channel"]
+- !private ["s7CVarArgP", "channelId"]
+- !private ["s7CVarArgP", "default"]
+- !private ["s7CVarArgP", "isChannelSubscribed"]
+- !private ["s7CVarArgP", "isEmpty"]
+- !private ["s7CVarArgP", "log"]
+- !private ["s7CVarArgP", "post"]
+- !private ["s7CVarArgP", "removeObserver"]
+- !private ["s7CVarArgP", "shared"]
+- !private ["s7CVarArgP", "subscribeTo"]
+- !private ["s7CVarArgP", "unsubscribe"]
+- !private ["s7CVarArgP", "userChannel"]
+- !private ["Sl", "isEmpty"]
+- !private ["SL", "isEmpty"]
+- ["5Hippo24ConversationStoreManagerC", "init"]
+- !private ["5Hippo24ConversationStoreManagerC", "readAllNotificationFor"]
+- !private ["5Hippo26CoreDocumentPickerDelegateP", "channel"]
+- !private ["5Hippo26CoreDocumentPickerDelegateP", "channelId"]
+- !private ["5Hippo10CoreLoggerC", "trace"]
+- !private ["5Hippo25CoreMediaSelectorDelegateP", "channel"]
+- !private ["5Hippo25CoreMediaSelectorDelegateP", "channelId"]
+- !private ["5Hippo21CreatePaymentDelegateP", "channel"]
+- !private ["5Hippo21CreatePaymentDelegateP", "channelId"]
+- !private ["s28CustomDebugStringConvertibleP", "addObserver"]
+- !private ["s28CustomDebugStringConvertibleP", "agentDetail"]
+- !private ["s28CustomDebugStringConvertibleP", "appUserType"]
+- !private ["s28CustomDebugStringConvertibleP", "channel"]
+- !private ["s28CustomDebugStringConvertibleP", "channelId"]
+- !private ["s28CustomDebugStringConvertibleP", "default"]
+- !private ["s28CustomDebugStringConvertibleP", "fayeConnected"]
+- !private ["s28CustomDebugStringConvertibleP", "internetConnected"]
+- !private ["s28CustomDebugStringConvertibleP", "internetDisconnected"]
+- !private ["s28CustomDebugStringConvertibleP", "isChannelSubscribed"]
+- !private ["s28CustomDebugStringConvertibleP", "isEmpty"]
+- !private ["s28CustomDebugStringConvertibleP", "log"]
+- !private ["s28CustomDebugStringConvertibleP", "post"]
+- !private ["s28CustomDebugStringConvertibleP", "removeObserver"]
+- !private ["s28CustomDebugStringConvertibleP", "shared"]
+- !private ["s28CustomDebugStringConvertibleP", "subscribeTo"]
+- !private ["s28CustomDebugStringConvertibleP", "unsubscribe"]
+- !private ["s28CustomDebugStringConvertibleP", "userChannel"]
+- !private ["s17CustomReflectableP", "fayeConnected"]
+- !private ["s17CustomReflectableP", "internetConnected"]
+- !private ["s17CustomReflectableP", "internetDisconnected"]
+- !private ["s17CustomReflectableP", "isEmpty"]
+- !private ["s23CustomStringConvertibleP", "addObserver"]
+- !private ["s23CustomStringConvertibleP", "agentDetail"]
+- !private ["s23CustomStringConvertibleP", "appUserType"]
+- !private ["s23CustomStringConvertibleP", "appendInterpolation"]
+- !private ["s23CustomStringConvertibleP", "appendLiteral"]
+- !private ["s23CustomStringConvertibleP", "channel"]
+- !private ["s23CustomStringConvertibleP", "channelId"]
+- !private ["s23CustomStringConvertibleP", "default"]
+- !private ["s23CustomStringConvertibleP", "isChannelSubscribed"]
+- !private ["s23CustomStringConvertibleP", "isEmpty"]
+- !private ["s23CustomStringConvertibleP", "log"]
+- !private ["s23CustomStringConvertibleP", "post"]
+- !private ["s23CustomStringConvertibleP", "removeObserver"]
+- !private ["s23CustomStringConvertibleP", "shared"]
+- !private ["s23CustomStringConvertibleP", "subscribeTo"]
+- !private ["s23CustomStringConvertibleP", "unsubscribe"]
+- !private ["s23CustomStringConvertibleP", "userChannel"]
+- !private ["Se", "fayeConnected"]
+- !private ["Se", "internetConnected"]
+- !private ["Se", "internetDisconnected"]
+- !private ["Se", "isEmpty"]
+- !private ["s26DefaultStringInterpolationV", "appendInterpolation"]
+- !private ["s26DefaultStringInterpolationV", "appendLiteral"]
+- !private ["5Hippo29DocumentTableViewCellDelegateP", "channel"]
+- !private ["5Hippo29DocumentTableViewCellDelegateP", "channelId"]
+- !private ["SE", "fayeConnected"]
+- !private ["SE", "internetConnected"]
+- !private ["SE", "internetDisconnected"]
+- !private ["SE", "isEmpty"]
+- !private ["SQ", "addObserver"]
+- !private ["SQ", "agent"]
+- !private ["SQ", "agentDetail"]
+- !private ["SQ", "appUserType"]
+- !private ["SQ", "assigned"]
+- !private ["SQ", "channel"]
+- !private ["SQ", "channelId"]
+- !private ["SQ", "default"]
+- !private ["SQ", "fayeConnected"]
+- !private ["SQ", "internetConnected"]
+- !private ["SQ", "internetDisconnected"]
+- !private ["SQ", "isChannelSubscribed"]
+- !private ["SQ", "isEmpty"]
+- !private ["SQ", "isNotificationTypeHandled"]
+- !private ["SQ", "log"]
+- !private ["SQ", "post"]
+- !private ["SQ", "readAll"]
+- !private ["SQ", "removeObserver"]
+- !private ["SQ", "shared"]
+- !private ["SQ", "socket"]
+- !private ["SQ", "subscribeTo"]
+- !private ["SQ", "unsubscribe"]
+- !private ["SQ", "userChannel"]
+- !private ["SQ", "userChannelChanged"]
+- !private ["s43ExpressibleByExtendedGraphemeClusterLiteralP", "isEmpty"]
+- !private ["s23ExpressibleByNilLiteralP", "fayeConnected"]
+- !private ["s23ExpressibleByNilLiteralP", "internetConnected"]
+- !private ["s23ExpressibleByNilLiteralP", "internetDisconnected"]
+- !private ["s23ExpressibleByNilLiteralP", "isEmpty"]
+- !private ["s32ExpressibleByStringInterpolationP", "isEmpty"]
+- !private ["s26ExpressibleByStringLiteralP", "isEmpty"]
+- !private ["s33ExpressibleByUnicodeScalarLiteralP", "isEmpty"]
+- !private ["5Hippo14FayeConnectionC", "isChannelSubscribed"]
+- !private ["5Hippo14FayeConnectionC", "shared"]
+- !private ["5Hippo14FayeConnectionC", "subscribeTo"]
+- !private ["5Hippo14FayeConnectionC", "unsubscribe"]
+- !private ["SH", "addObserver"]
+- !private ["SH", "agent"]
+- !private ["SH", "agentDetail"]
+- !private ["SH", "appUserType"]
+- !private ["SH", "assigned"]
+- !private ["SH", "channel"]
+- !private ["SH", "channelId"]
+- !private ["SH", "default"]
+- !private ["SH", "fayeConnected"]
+- !private ["SH", "internetConnected"]
+- !private ["SH", "internetDisconnected"]
+- !private ["SH", "isChannelSubscribed"]
+- !private ["SH", "isEmpty"]
+- !private ["SH", "isNotificationTypeHandled"]
+- !private ["SH", "log"]
+- !private ["SH", "post"]
+- !private ["SH", "readAll"]
+- !private ["SH", "removeObserver"]
+- !private ["SH", "shared"]
+- !private ["SH", "socket"]
+- !private ["SH", "subscribeTo"]
+- !private ["SH", "unsubscribe"]
+- !private ["SH", "userChannel"]
+- !private ["SH", "userChannelChanged"]
+- !private ["5Hippo0A7ChannelC", "messageReceived"]
+- !private ["5Hippo0A15ChannelDelegateP", "channel"]
+- !private ["5Hippo0A15ChannelDelegateP", "channelId"]
+- !private ["5Hippo0A6ConfigC", "agentDetail"]
+- !private ["5Hippo0A6ConfigC", "appUserType"]
+- !private ["5Hippo0A6ConfigC", "log"]
+- !private ["5Hippo0A6ConfigC", "shared"]
+- !private ["5Hippo0A12ConversationC", "channel_id"]
+- !private ["5Hippo0A12ConversationC", "lastMessage"]
+- !private ["5Hippo0A12ConversationC", "notificationType"]
+- !private ["5Hippo0A12ConversationC", "user_id"]
+- !private ["5Hippo0A20ConversationCallBackC", "channel_id"]
+- !private ["5Hippo0A20ConversationCallBackC", "lastMessage"]
+- !private ["5Hippo0A20ConversationCallBackC", "notificationType"]
+- !private ["5Hippo0A20ConversationCallBackC", "user_id"]
+- !private ["5Hippo0A26ConversationViewControllerC", "channel"]
+- !private ["5Hippo0A26ConversationViewControllerC", "channelId"]
+- !private ["5Hippo17ImageCellDelegateP", "channel"]
+- !private ["5Hippo17ImageCellDelegateP", "channelId"]
+- !private ["5Hippo20KingfisherCompatibleP", "isEmpty"]
+- !private ["5Hippo5LevelO", "socket"]
+- !private ["s25LosslessStringConvertibleP", "isEmpty"]
+- !private ["So20MZFayeClientDelegateP", "isChannelSubscribed"]
+- !private ["So20MZFayeClientDelegateP", "shared"]
+- !private ["So20MZFayeClientDelegateP", "subscribeTo"]
+- !private ["So20MZFayeClientDelegateP", "unsubscribe"]
+- !private ["5Hippo21MessageSenderDelegateP", "messageReceived"]
+- !private ["s10MirrorPathP", "isEmpty"]
+- !private ["So8NSCodingP", "channel"]
+- !private ["So8NSCodingP", "channelId"]
+- !private ["So8NSCodingP", "isEmpty"]
+- !private ["So9NSCopyingP", "isEmpty"]
+- !private ["So26NSExtensionRequestHandlingP", "channel"]
+- !private ["So26NSExtensionRequestHandlingP", "channelId"]
+- !private ["So21NSItemProviderReadingP", "isEmpty"]
+- !private ["So21NSItemProviderWritingP", "isEmpty"]
+- !private ["So16NSMutableCopyingP", "isEmpty"]
+- !private ["So8NSObjectC", "addObserver"]
+- !private ["So8NSObjectC", "agentDetail"]
+- !private ["So8NSObjectC", "appUserType"]
+- !private ["So8NSObjectC", "channel"]
+- !private ["So8NSObjectC", "channelId"]
+- !private ["So8NSObjectC", "default"]
+- !private ["So8NSObjectC", "isChannelSubscribed"]
+- !private ["So8NSObjectC", "isEmpty"]
+- !private ["So8NSObjectC", "log"]
+- !private ["So8NSObjectC", "post"]
+- !private ["So8NSObjectC", "removeObserver"]
+- !private ["So8NSObjectC", "shared"]
+- !private ["So8NSObjectC", "subscribeTo"]
+- !private ["So8NSObjectC", "unsubscribe"]
+- !private ["So8NSObjectC", "userChannel"]
+- !private ["So8NSObjectP", "addObserver"]
+- !private ["So8NSObjectP", "agentDetail"]
+- !private ["So8NSObjectP", "appUserType"]
+- !private ["So8NSObjectP", "channel"]
+- !private ["So8NSObjectP", "channelId"]
+- !private ["So8NSObjectP", "default"]
+- !private ["So8NSObjectP", "isChannelSubscribed"]
+- !private ["So8NSObjectP", "isEmpty"]
+- !private ["So8NSObjectP", "log"]
+- !private ["So8NSObjectP", "post"]
+- !private ["So8NSObjectP", "removeObserver"]
+- !private ["So8NSObjectP", "shared"]
+- !private ["So8NSObjectP", "subscribeTo"]
+- !private ["So8NSObjectP", "unsubscribe"]
+- !private ["So8NSObjectP", "userChannel"]
+- !private ["So14NSSecureCodingP", "isEmpty"]
+- !private ["So8NSStringC", "isEmpty"]
+- !private ["So18NSNotificationNamea", "fayeConnected"]
+- !private ["So18NSNotificationNamea", "internetConnected"]
+- !private ["So18NSNotificationNamea", "internetDisconnected"]
+- !private ["So18NSNotificationNamea", "userChannelChanged"]
+- !private ["5Hippo27NavigationTitleViewDelegateP", "channel"]
+- !private ["5Hippo27NavigationTitleViewDelegateP", "channelId"]
+- !private ["So20NSNotificationCenterC", "addObserver"]
+- !private ["So20NSNotificationCenterC", "default"]
+- !private ["So20NSNotificationCenterC", "post"]
+- !private ["So20NSNotificationCenterC", "removeObserver"]
+- !private ["5Hippo16NotificationTypeO", "assigned"]
+- !private ["5Hippo16NotificationTypeO", "deinit"]
+- !private ["5Hippo16NotificationTypeO", "isNotificationTypeHandled"]
+- !private ["5Hippo16NotificationTypeO", "readAll"]
+- !private ["Sq", "fayeConnected"]
+- !private ["Sq", "internetConnected"]
+- !private ["Sq", "internetDisconnected"]
+- !private ["Sq", "isEmpty"]
+- !private ["5Hippo20PickerHelperDelegateP", "channel"]
+- !private ["5Hippo20PickerHelperDelegateP", "channelId"]
+- !private ["Sm", "isEmpty"]
+- !private ["SY", "assigned"]
+- !private ["SY", "fayeConnected"]
+- !private ["SY", "internetConnected"]
+- !private ["SY", "internetDisconnected"]
+- !private ["SY", "isNotificationTypeHandled"]
+- !private ["SY", "readAll"]
+- !private ["SY", "userChannelChanged"]
+- !private ["5Hippo29RetryMessageUploadingDelegateP", "channel"]
+- !private ["5Hippo29RetryMessageUploadingDelegateP", "channelId"]
+- !private ["5Hippo33SelectImageViewControllerDelegateP", "channel"]
+- !private ["5Hippo33SelectImageViewControllerDelegateP", "channelId"]
+- !private ["5Hippo19SelfMessageDelegateP", "channel"]
+- !private ["5Hippo19SelfMessageDelegateP", "channelId"]
+- !private ["ST", "isEmpty"]
+- !private ["SS", "isEmpty"]
+- !private ["s27StringInterpolationProtocolP", "appendInterpolation"]
+- !private ["s27StringInterpolationProtocolP", "appendLiteral"]
+- !private ["Sy", "isEmpty"]
+- !private ["s16TextOutputStreamP", "appendInterpolation"]
+- !private ["s16TextOutputStreamP", "appendLiteral"]
+- !private ["s16TextOutputStreamP", "isEmpty"]
+- !private ["s20TextOutputStreamableP", "isEmpty"]
+- !private ["So21UIAppearanceContainerP", "channel"]
+- !private ["So21UIAppearanceContainerP", "channelId"]
+- !private ["So18UIContentContainerP", "channel"]
+- !private ["So18UIContentContainerP", "channelId"]
+- !private ["So18UIFocusEnvironmentP", "channel"]
+- !private ["So18UIFocusEnvironmentP", "channelId"]
+- !private ["So31UIImagePickerControllerDelegateP", "channel"]
+- !private ["So31UIImagePickerControllerDelegateP", "channelId"]
+- !private ["So30UINavigationControllerDelegateP", "channel"]
+- !private ["So30UINavigationControllerDelegateP", "channelId"]
+- !private ["So30UIPasteConfigurationSupportingP", "channel"]
+- !private ["So30UIPasteConfigurationSupportingP", "channelId"]
+- !private ["So11UIResponderC", "channel"]
+- !private ["So11UIResponderC", "channelId"]
+- !private ["So30UIResponderStandardEditActionsP", "channel"]
+- !private ["So30UIResponderStandardEditActionsP", "channelId"]
+- !private ["So20UIScrollViewDelegateP", "channel"]
+- !private ["So20UIScrollViewDelegateP", "channelId"]
+- !private ["So16UIStateRestoringP", "channel"]
+- !private ["So16UIStateRestoringP", "channelId"]
+- !private ["So21UITableViewDataSourceP", "channel"]
+- !private ["So21UITableViewDataSourceP", "channelId"]
+- !private ["So19UITableViewDelegateP", "channel"]
+- !private ["So19UITableViewDelegateP", "channelId"]
+- !private ["So18UITextViewDelegateP", "channel"]
+- !private ["So18UITextViewDelegateP", "channelId"]
+- !private ["So18UITraitEnvironmentP", "channel"]
+- !private ["So18UITraitEnvironmentP", "channelId"]
+- !private ["So23UIUserActivityRestoringP", "channel"]
+- !private ["So23UIUserActivityRestoringP", "channelId"]
+- !private ["So16UIViewControllerC", "channel"]
+- !private ["So16UIViewControllerC", "channelId"]
+- !private ["5Hippo37VideoCallMessageTableViewCellDelegateP", "channel"]
+- !private ["5Hippo37VideoCallMessageTableViewCellDelegateP", "channelId"]
+- !private ["5Hippo26VideoTableViewCellDelegateP", "channel"]
+- !private ["5Hippo26VideoTableViewCellDelegateP", "channelId"]
+- !private ["s30_CustomPlaygroundQuickLookableP", "isEmpty"]
+- !private ["s51_ExpressibleByBuiltinExtendedGraphemeClusterLiteralP", "isEmpty"]
+- !private ["s34_ExpressibleByBuiltinStringLiteralP", "isEmpty"]
+- !private ["s41_ExpressibleByBuiltinUnicodeScalarLiteralP", "isEmpty"]
+- !private ["s19_HasContiguousBytesP", "isEmpty"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "fayeConnected"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "internetConnected"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "internetDisconnected"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "isEmpty"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "userChannelChanged"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "addObserver"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "agentDetail"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "appUserType"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "channel"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "channelId"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "default"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "isChannelSubscribed"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "isEmpty"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "log"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "post"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "removeObserver"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "shared"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "subscribeTo"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "unsubscribe"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "userChannel"]
+- !private ["s21_ObjectiveCBridgeableP", "fayeConnected"]
+- !private ["s21_ObjectiveCBridgeableP", "internetConnected"]
+- !private ["s21_ObjectiveCBridgeableP", "internetDisconnected"]
+- !private ["s21_ObjectiveCBridgeableP", "isEmpty"]
+- !private ["s21_ObjectiveCBridgeableP", "userChannelChanged"]
+- !private ["s20_SwiftNewtypeWrapperP", "fayeConnected"]
+- !private ["s20_SwiftNewtypeWrapperP", "internetConnected"]
+- !private ["s20_SwiftNewtypeWrapperP", "internetDisconnected"]
+- !private ["s20_SwiftNewtypeWrapperP", "userChannelChanged"]
+depends-nominal:
+- !private "5Hippo23ActionTableViewDelegateP"
+- !private "5Hippo17AgentConversationC"
+- !private "5Hippo31AgentConversationViewControllerC"
+- !private "5Hippo11AgentDetailC"
+- "5Hippo16AgentUserChannelC"
+- "5Hippo24AgentUserChannelDelegateP"
+- !private "5Hippo11AppUserTypeO"
+- !private "SK"
+- !private "s7CVarArgP"
+- !private "Sl"
+- !private "SL"
+- "5Hippo24ConversationStoreManagerC"
+- !private "5Hippo26CoreDocumentPickerDelegateP"
+- !private "5Hippo10CoreLoggerC"
+- !private "5Hippo25CoreMediaSelectorDelegateP"
+- !private "5Hippo21CreatePaymentDelegateP"
+- !private "s28CustomDebugStringConvertibleP"
+- !private "s17CustomReflectableP"
+- !private "s23CustomStringConvertibleP"
+- !private "Se"
+- !private "s26DefaultStringInterpolationV"
+- !private "5Hippo29DocumentTableViewCellDelegateP"
+- !private "SE"
+- !private "SQ"
+- !private "s43ExpressibleByExtendedGraphemeClusterLiteralP"
+- !private "s23ExpressibleByNilLiteralP"
+- !private "s32ExpressibleByStringInterpolationP"
+- !private "s26ExpressibleByStringLiteralP"
+- !private "s33ExpressibleByUnicodeScalarLiteralP"
+- !private "5Hippo14FayeConnectionC"
+- !private "SH"
+- !private "5Hippo0A7ChannelC"
+- !private "5Hippo0A15ChannelDelegateP"
+- !private "5Hippo0A6ConfigC"
+- !private "5Hippo0A12ConversationC"
+- !private "5Hippo0A20ConversationCallBackC"
+- !private "5Hippo0A26ConversationViewControllerC"
+- !private "5Hippo17ImageCellDelegateP"
+- !private "5Hippo20KingfisherCompatibleP"
+- !private "5Hippo5LevelO"
+- !private "s25LosslessStringConvertibleP"
+- !private "So20MZFayeClientDelegateP"
+- !private "5Hippo21MessageSenderDelegateP"
+- !private "s10MirrorPathP"
+- !private "So8NSCodingP"
+- !private "So9NSCopyingP"
+- !private "So26NSExtensionRequestHandlingP"
+- !private "So21NSItemProviderReadingP"
+- !private "So21NSItemProviderWritingP"
+- !private "So16NSMutableCopyingP"
+- !private "So8NSObjectC"
+- !private "So8NSObjectP"
+- !private "So14NSSecureCodingP"
+- !private "So8NSStringC"
+- !private "So18NSNotificationNamea"
+- !private "5Hippo27NavigationTitleViewDelegateP"
+- !private "So20NSNotificationCenterC"
+- !private "5Hippo16NotificationTypeO"
+- !private "Sq"
+- !private "5Hippo20PickerHelperDelegateP"
+- !private "Sm"
+- !private "SY"
+- !private "5Hippo29RetryMessageUploadingDelegateP"
+- !private "5Hippo33SelectImageViewControllerDelegateP"
+- !private "5Hippo19SelfMessageDelegateP"
+- !private "ST"
+- !private "SS"
+- !private "s27StringInterpolationProtocolP"
+- !private "Sy"
+- !private "s16TextOutputStreamP"
+- !private "s20TextOutputStreamableP"
+- !private "So21UIAppearanceContainerP"
+- !private "So18UIContentContainerP"
+- !private "So18UIFocusEnvironmentP"
+- !private "So31UIImagePickerControllerDelegateP"
+- !private "So30UINavigationControllerDelegateP"
+- !private "So30UIPasteConfigurationSupportingP"
+- !private "So11UIResponderC"
+- !private "So30UIResponderStandardEditActionsP"
+- !private "So20UIScrollViewDelegateP"
+- !private "So16UIStateRestoringP"
+- !private "So21UITableViewDataSourceP"
+- !private "So19UITableViewDelegateP"
+- !private "So18UITextViewDelegateP"
+- !private "So18UITraitEnvironmentP"
+- !private "So23UIUserActivityRestoringP"
+- !private "So16UIViewControllerC"
+- !private "5Hippo37VideoCallMessageTableViewCellDelegateP"
+- !private "5Hippo26VideoTableViewCellDelegateP"
+- !private "s30_CustomPlaygroundQuickLookableP"
+- !private "s51_ExpressibleByBuiltinExtendedGraphemeClusterLiteralP"
+- !private "s34_ExpressibleByBuiltinStringLiteralP"
+- !private "s41_ExpressibleByBuiltinUnicodeScalarLiteralP"
+- !private "s19_HasContiguousBytesP"
+- !private "s35_HasCustomAnyHashableRepresentationP"
+- !private "10Foundation27_KeyValueCodingAndObservingP"
+- !private "s21_ObjectiveCBridgeableP"
+- !private "s20_SwiftNewtypeWrapperP"
+depends-dynamic-lookup:
+depends-external:
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/ObjectiveC.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreMedia.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/simd.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreImage.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/QuartzCore.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Accelerate.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Dispatch.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Metal.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Darwin.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreLocation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Foundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/AVFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreAudio.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/MediaPlayer.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreGraphics.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/os.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Photos.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Swift.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/UIKit.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/SwiftOnoneSupport.swiftmodule"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Hippo.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Helpers/TRWDownloadManager/TWRDownloadManager.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/SocketRocket/SocketRocket.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/SocketRocket/SRWebSocket.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/MZFayeClient/MZFayeClient.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/unextended-module.modulemap"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/usr/include/objc/ObjectiveC.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/OpenGLES.framework/Headers/OpenGLES.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreMedia.framework/Headers/CoreMedia.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreImage.framework/Headers/CoreImage.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/QuartzCore.framework/Headers/QuartzCore.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Accelerate.framework/Headers/Accelerate.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Dispatch.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/QuickLook.framework/Headers/QuickLook.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Metal.framework/Headers/Metal.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/usr/include/Darwin.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreLocation.framework/Headers/CoreLocation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Foundation.framework/Headers/Foundation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/AVFoundation.framework/Headers/AVFoundation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/MediaPlayer.framework/Headers/MediaPlayer.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreGraphics.framework/Headers/CoreGraphics.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/UserNotifications.framework/Headers/UserNotifications.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/os.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Photos.framework/Headers/Photos.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/UIKit.framework/Headers/UIKit.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreText.framework/Headers/CoreText.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/MediaToolbox.framework/Headers/MediaToolbox.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/AudioToolbox.framework/Headers/AudioToolbox.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Security.framework/Headers/Security.apinotes"
+interface-hash: "b69e50a46d150aa0a477d3520624799f"

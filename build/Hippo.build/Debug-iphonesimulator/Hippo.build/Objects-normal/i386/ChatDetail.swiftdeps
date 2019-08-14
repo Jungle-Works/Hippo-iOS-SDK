@@ -1,0 +1,602 @@
+### Swift dependencies file v0 ###
+provides-top-level:
+- "ChatDetail"
+provides-nominal:
+- "5Hippo10ChatDetailC"
+provides-member:
+- ["5Hippo10ChatDetailC", ""]
+provides-dynamic-lookup:
+depends-top-level:
+- !private "!="
+- !private "<"
+- !private ">"
+- !private "??"
+- "AssignmentPrecedence"
+- !private "Bool"
+- "CastingPrecedence"
+- "ChannelStatus"
+- "ChatDetail"
+- "ChatType"
+- !private "HippoConfig"
+- "Int"
+- "NSObject"
+- "String"
+- "TagDetail"
+- "User"
+- !private "currentUserId"
+depends-member:
+- !private ["s18AdditiveArithmeticP", "parse"]
+- ["5Hippo11AppUserTypeO", "agent"]
+- ["5Hippo11AppUserTypeO", "customer"]
+- !private ["Sa", "count"]
+- !private ["Sa", "filter"]
+- !private ["Sa", "first"]
+- !private ["Sa", "subscript"]
+- !private ["SK", "count"]
+- !private ["SK", "filter"]
+- !private ["SK", "first"]
+- !private ["SK", "subscript"]
+- !private ["Sz", "parse"]
+- !private ["Sb", "parse"]
+- !private ["s7CVarArgP", "Bool"]
+- ["s7CVarArgP", "ChannelStatus"]
+- !private ["s7CVarArgP", "ChatType"]
+- !private ["s7CVarArgP", "HippoConfig"]
+- !private ["s7CVarArgP", "Int"]
+- !private ["s7CVarArgP", "String"]
+- !private ["s7CVarArgP", "TagDetail"]
+- !private ["s7CVarArgP", "User"]
+- ["s7CVarArgP", ""]
+- !private ["s7CVarArgP", "allowAudioCall"]
+- !private ["s7CVarArgP", "allowVideoCall"]
+- !private ["s7CVarArgP", "appUserType"]
+- !private ["s7CVarArgP", "assignedAgentID"]
+- !private ["s7CVarArgP", "assignedAgentName"]
+- !private ["s7CVarArgP", "channelId"]
+- !private ["s7CVarArgP", "channelImageUrl"]
+- !private ["s7CVarArgP", "channelStatus"]
+- !private ["s7CVarArgP", "channelTags"]
+- !private ["s7CVarArgP", "chatType"]
+- !private ["s7CVarArgP", "count"]
+- !private ["s7CVarArgP", "currentUserId"]
+- !private ["s7CVarArgP", "customerContactNumber"]
+- !private ["s7CVarArgP", "customerEmail"]
+- !private ["s7CVarArgP", "customerID"]
+- !private ["s7CVarArgP", "customerName"]
+- !private ["s7CVarArgP", "filter"]
+- !private ["s7CVarArgP", "first"]
+- !private ["s7CVarArgP", "getObjectToStore"]
+- !private ["s7CVarArgP", "init"]
+- !private ["s7CVarArgP", "otherUserImage"]
+- !private ["s7CVarArgP", "parse"]
+- !private ["s7CVarArgP", "parseTagDetail"]
+- !private ["s7CVarArgP", "peerDetail"]
+- !private ["s7CVarArgP", "shared"]
+- !private ["s7CVarArgP", "subscript"]
+- !private ["s7CVarArgP", "toJson"]
+- !private ["s7CVarArgP", "userID"]
+- !private ["5Hippo13ChannelStatusO", "deinit"]
+- !private ["5Hippo13ChannelStatusO", "init"]
+- ["5Hippo13ChannelStatusO", "open"]
+- !private ["5Hippo13ChannelStatusO", "rawValue"]
+- !private ["5Hippo10ChatDetailC", "Bool"]
+- ["5Hippo10ChatDetailC", "ChannelStatus"]
+- ["5Hippo10ChatDetailC", "ChatType"]
+- !private ["5Hippo10ChatDetailC", "HippoConfig"]
+- ["5Hippo10ChatDetailC", "Int"]
+- ["5Hippo10ChatDetailC", "String"]
+- ["5Hippo10ChatDetailC", "TagDetail"]
+- ["5Hippo10ChatDetailC", "User"]
+- ["5Hippo10ChatDetailC", "allowAudioCall"]
+- ["5Hippo10ChatDetailC", "allowVideoCall"]
+- ["5Hippo10ChatDetailC", "assignedAgentID"]
+- ["5Hippo10ChatDetailC", "assignedAgentName"]
+- ["5Hippo10ChatDetailC", "botMessageID"]
+- ["5Hippo10ChatDetailC", "botMessageMUID"]
+- ["5Hippo10ChatDetailC", "channelId"]
+- ["5Hippo10ChatDetailC", "channelImageUrl"]
+- ["5Hippo10ChatDetailC", "channelName"]
+- ["5Hippo10ChatDetailC", "channelStatus"]
+- ["5Hippo10ChatDetailC", "channelTags"]
+- ["5Hippo10ChatDetailC", "chatType"]
+- !private ["5Hippo10ChatDetailC", "currentUserId"]
+- ["5Hippo10ChatDetailC", "customerContactNumber"]
+- ["5Hippo10ChatDetailC", "customerEmail"]
+- ["5Hippo10ChatDetailC", "customerID"]
+- ["5Hippo10ChatDetailC", "customerName"]
+- ["5Hippo10ChatDetailC", "deinit"]
+- ["5Hippo10ChatDetailC", "getJsonToStore"]
+- ["5Hippo10ChatDetailC", "init"]
+- ["5Hippo10ChatDetailC", "otherUserImage"]
+- ["5Hippo10ChatDetailC", "peerDetail"]
+- ["5Hippo10ChatDetailC", "peerName"]
+- ["5Hippo10ChatDetailC", "toJson"]
+- ["5Hippo10ChatDetailC", "updatePeerData"]
+- !private ["5Hippo8ChatTypeO", "deinit"]
+- !private ["5Hippo8ChatTypeO", "init"]
+- ["5Hippo8ChatTypeO", "none"]
+- !private ["5Hippo8ChatTypeO", "rawValue"]
+- !private ["Sl", "count"]
+- !private ["Sl", "filter"]
+- !private ["Sl", "first"]
+- !private ["Sl", "init"]
+- !private ["Sl", "subscript"]
+- !private ["SL", "parse"]
+- !private ["10Foundation15ContiguousBytesP", "count"]
+- !private ["10Foundation15ContiguousBytesP", "filter"]
+- !private ["10Foundation15ContiguousBytesP", "first"]
+- !private ["10Foundation15ContiguousBytesP", "subscript"]
+- !private ["s28CustomDebugStringConvertibleP", "Bool"]
+- ["s28CustomDebugStringConvertibleP", "ChannelStatus"]
+- !private ["s28CustomDebugStringConvertibleP", "ChatType"]
+- !private ["s28CustomDebugStringConvertibleP", "HippoConfig"]
+- !private ["s28CustomDebugStringConvertibleP", "Int"]
+- !private ["s28CustomDebugStringConvertibleP", "String"]
+- !private ["s28CustomDebugStringConvertibleP", "TagDetail"]
+- !private ["s28CustomDebugStringConvertibleP", "User"]
+- ["s28CustomDebugStringConvertibleP", ""]
+- !private ["s28CustomDebugStringConvertibleP", "allowAudioCall"]
+- !private ["s28CustomDebugStringConvertibleP", "allowVideoCall"]
+- !private ["s28CustomDebugStringConvertibleP", "appUserType"]
+- !private ["s28CustomDebugStringConvertibleP", "assignedAgentID"]
+- !private ["s28CustomDebugStringConvertibleP", "assignedAgentName"]
+- !private ["s28CustomDebugStringConvertibleP", "channelId"]
+- !private ["s28CustomDebugStringConvertibleP", "channelImageUrl"]
+- !private ["s28CustomDebugStringConvertibleP", "channelStatus"]
+- !private ["s28CustomDebugStringConvertibleP", "channelTags"]
+- !private ["s28CustomDebugStringConvertibleP", "chatType"]
+- !private ["s28CustomDebugStringConvertibleP", "count"]
+- !private ["s28CustomDebugStringConvertibleP", "currentUserId"]
+- !private ["s28CustomDebugStringConvertibleP", "customerContactNumber"]
+- !private ["s28CustomDebugStringConvertibleP", "customerEmail"]
+- !private ["s28CustomDebugStringConvertibleP", "customerID"]
+- !private ["s28CustomDebugStringConvertibleP", "customerName"]
+- !private ["s28CustomDebugStringConvertibleP", "filter"]
+- !private ["s28CustomDebugStringConvertibleP", "first"]
+- !private ["s28CustomDebugStringConvertibleP", "getObjectToStore"]
+- !private ["s28CustomDebugStringConvertibleP", "init"]
+- !private ["s28CustomDebugStringConvertibleP", "otherUserImage"]
+- !private ["s28CustomDebugStringConvertibleP", "parseTagDetail"]
+- !private ["s28CustomDebugStringConvertibleP", "peerDetail"]
+- !private ["s28CustomDebugStringConvertibleP", "shared"]
+- !private ["s28CustomDebugStringConvertibleP", "subscript"]
+- !private ["s28CustomDebugStringConvertibleP", "toJson"]
+- !private ["s28CustomDebugStringConvertibleP", "userID"]
+- !private ["s17CustomReflectableP", "count"]
+- !private ["s17CustomReflectableP", "filter"]
+- !private ["s17CustomReflectableP", "first"]
+- !private ["s17CustomReflectableP", "init"]
+- !private ["s17CustomReflectableP", "parse"]
+- !private ["s17CustomReflectableP", "subscript"]
+- !private ["s23CustomStringConvertibleP", "Bool"]
+- ["s23CustomStringConvertibleP", "ChannelStatus"]
+- !private ["s23CustomStringConvertibleP", "ChatType"]
+- !private ["s23CustomStringConvertibleP", "HippoConfig"]
+- !private ["s23CustomStringConvertibleP", "Int"]
+- !private ["s23CustomStringConvertibleP", "String"]
+- !private ["s23CustomStringConvertibleP", "TagDetail"]
+- !private ["s23CustomStringConvertibleP", "User"]
+- ["s23CustomStringConvertibleP", ""]
+- !private ["s23CustomStringConvertibleP", "allowAudioCall"]
+- !private ["s23CustomStringConvertibleP", "allowVideoCall"]
+- !private ["s23CustomStringConvertibleP", "appUserType"]
+- !private ["s23CustomStringConvertibleP", "assignedAgentID"]
+- !private ["s23CustomStringConvertibleP", "assignedAgentName"]
+- !private ["s23CustomStringConvertibleP", "channelId"]
+- !private ["s23CustomStringConvertibleP", "channelImageUrl"]
+- !private ["s23CustomStringConvertibleP", "channelStatus"]
+- !private ["s23CustomStringConvertibleP", "channelTags"]
+- !private ["s23CustomStringConvertibleP", "chatType"]
+- !private ["s23CustomStringConvertibleP", "count"]
+- !private ["s23CustomStringConvertibleP", "currentUserId"]
+- !private ["s23CustomStringConvertibleP", "customerContactNumber"]
+- !private ["s23CustomStringConvertibleP", "customerEmail"]
+- !private ["s23CustomStringConvertibleP", "customerID"]
+- !private ["s23CustomStringConvertibleP", "customerName"]
+- !private ["s23CustomStringConvertibleP", "filter"]
+- !private ["s23CustomStringConvertibleP", "first"]
+- !private ["s23CustomStringConvertibleP", "getObjectToStore"]
+- !private ["s23CustomStringConvertibleP", "init"]
+- !private ["s23CustomStringConvertibleP", "otherUserImage"]
+- !private ["s23CustomStringConvertibleP", "parse"]
+- !private ["s23CustomStringConvertibleP", "parseTagDetail"]
+- !private ["s23CustomStringConvertibleP", "peerDetail"]
+- !private ["s23CustomStringConvertibleP", "shared"]
+- !private ["s23CustomStringConvertibleP", "subscript"]
+- !private ["s23CustomStringConvertibleP", "toJson"]
+- !private ["s23CustomStringConvertibleP", "userID"]
+- !private ["10Foundation12DataProtocolP", "count"]
+- !private ["10Foundation12DataProtocolP", "filter"]
+- !private ["10Foundation12DataProtocolP", "first"]
+- !private ["10Foundation12DataProtocolP", "subscript"]
+- !private ["Se", "count"]
+- !private ["Se", "filter"]
+- !private ["Se", "first"]
+- !private ["Se", "init"]
+- !private ["Se", "parse"]
+- !private ["Se", "subscript"]
+- !private ["SD", "init"]
+- !private ["SD", "subscript"]
+- !private ["SE", "count"]
+- !private ["SE", "filter"]
+- !private ["SE", "first"]
+- !private ["SE", "init"]
+- !private ["SE", "parse"]
+- !private ["SE", "subscript"]
+- !private ["SQ", "Bool"]
+- ["SQ", "ChannelStatus"]
+- !private ["SQ", "ChatType"]
+- !private ["SQ", "HippoConfig"]
+- !private ["SQ", "Int"]
+- !private ["SQ", "String"]
+- !private ["SQ", "TagDetail"]
+- !private ["SQ", "User"]
+- ["SQ", ""]
+- ["SQ", "agent"]
+- !private ["SQ", "allowAudioCall"]
+- !private ["SQ", "allowVideoCall"]
+- !private ["SQ", "appUserType"]
+- !private ["SQ", "assignedAgentID"]
+- !private ["SQ", "assignedAgentName"]
+- !private ["SQ", "channelId"]
+- !private ["SQ", "channelImageUrl"]
+- !private ["SQ", "channelStatus"]
+- !private ["SQ", "channelTags"]
+- !private ["SQ", "chatType"]
+- !private ["SQ", "count"]
+- !private ["SQ", "currentUserId"]
+- ["SQ", "customer"]
+- !private ["SQ", "customerContactNumber"]
+- !private ["SQ", "customerEmail"]
+- !private ["SQ", "customerID"]
+- !private ["SQ", "customerName"]
+- !private ["SQ", "filter"]
+- !private ["SQ", "first"]
+- !private ["SQ", "getObjectToStore"]
+- !private ["SQ", "init"]
+- ["SQ", "none"]
+- ["SQ", "open"]
+- !private ["SQ", "otherUserImage"]
+- !private ["SQ", "parse"]
+- !private ["SQ", "parseTagDetail"]
+- !private ["SQ", "peerDetail"]
+- !private ["SQ", "rawValue"]
+- !private ["SQ", "shared"]
+- !private ["SQ", "subscript"]
+- !private ["SQ", "toJson"]
+- !private ["SQ", "userID"]
+- !private ["s25ExpressibleByArrayLiteralP", "count"]
+- !private ["s25ExpressibleByArrayLiteralP", "filter"]
+- !private ["s25ExpressibleByArrayLiteralP", "first"]
+- !private ["s25ExpressibleByArrayLiteralP", "subscript"]
+- !private ["s27ExpressibleByBooleanLiteralP", "parse"]
+- !private ["s30ExpressibleByDictionaryLiteralP", "init"]
+- !private ["s30ExpressibleByDictionaryLiteralP", "subscript"]
+- !private ["s27ExpressibleByIntegerLiteralP", "parse"]
+- !private ["s17FixedWidthIntegerP", "parse"]
+- !private ["SH", "Bool"]
+- ["SH", "ChannelStatus"]
+- !private ["SH", "ChatType"]
+- !private ["SH", "HippoConfig"]
+- !private ["SH", "Int"]
+- !private ["SH", "String"]
+- !private ["SH", "TagDetail"]
+- !private ["SH", "User"]
+- ["SH", ""]
+- ["SH", "agent"]
+- !private ["SH", "allowAudioCall"]
+- !private ["SH", "allowVideoCall"]
+- !private ["SH", "appUserType"]
+- !private ["SH", "assignedAgentID"]
+- !private ["SH", "assignedAgentName"]
+- !private ["SH", "channelId"]
+- !private ["SH", "channelImageUrl"]
+- !private ["SH", "channelStatus"]
+- !private ["SH", "channelTags"]
+- !private ["SH", "chatType"]
+- !private ["SH", "count"]
+- !private ["SH", "currentUserId"]
+- ["SH", "customer"]
+- !private ["SH", "customerContactNumber"]
+- !private ["SH", "customerEmail"]
+- !private ["SH", "customerID"]
+- !private ["SH", "customerName"]
+- !private ["SH", "filter"]
+- !private ["SH", "first"]
+- !private ["SH", "getObjectToStore"]
+- !private ["SH", "init"]
+- ["SH", "none"]
+- ["SH", "open"]
+- !private ["SH", "otherUserImage"]
+- !private ["SH", "parse"]
+- !private ["SH", "parseTagDetail"]
+- !private ["SH", "peerDetail"]
+- !private ["SH", "rawValue"]
+- !private ["SH", "shared"]
+- !private ["SH", "subscript"]
+- !private ["SH", "toJson"]
+- !private ["SH", "userID"]
+- !private ["5Hippo0A6ConfigC", "appUserType"]
+- !private ["5Hippo0A6ConfigC", "shared"]
+- !private ["Si", "parse"]
+- !private ["s25LosslessStringConvertibleP", "parse"]
+- !private ["s10MirrorPathP", "parse"]
+- !private ["SM", "count"]
+- !private ["SM", "filter"]
+- !private ["SM", "first"]
+- !private ["SM", "subscript"]
+- !private ["10Foundation19MutableDataProtocolP", "count"]
+- !private ["10Foundation19MutableDataProtocolP", "filter"]
+- !private ["10Foundation19MutableDataProtocolP", "first"]
+- !private ["10Foundation19MutableDataProtocolP", "subscript"]
+- !private ["So8NSObjectC", "Bool"]
+- ["So8NSObjectC", "ChannelStatus"]
+- ["So8NSObjectC", "ChatType"]
+- !private ["So8NSObjectC", "HippoConfig"]
+- ["So8NSObjectC", "Int"]
+- ["So8NSObjectC", "String"]
+- ["So8NSObjectC", "TagDetail"]
+- ["So8NSObjectC", "User"]
+- ["So8NSObjectC", ""]
+- ["So8NSObjectC", "allowAudioCall"]
+- ["So8NSObjectC", "allowVideoCall"]
+- !private ["So8NSObjectC", "appUserType"]
+- ["So8NSObjectC", "assignedAgentID"]
+- ["So8NSObjectC", "assignedAgentName"]
+- ["So8NSObjectC", "botMessageID"]
+- ["So8NSObjectC", "botMessageMUID"]
+- ["So8NSObjectC", "channelId"]
+- ["So8NSObjectC", "channelImageUrl"]
+- ["So8NSObjectC", "channelName"]
+- ["So8NSObjectC", "channelStatus"]
+- ["So8NSObjectC", "channelTags"]
+- ["So8NSObjectC", "chatType"]
+- !private ["So8NSObjectC", "currentUserId"]
+- ["So8NSObjectC", "customerContactNumber"]
+- ["So8NSObjectC", "customerEmail"]
+- ["So8NSObjectC", "customerID"]
+- ["So8NSObjectC", "customerName"]
+- ["So8NSObjectC", "getJsonToStore"]
+- !private ["So8NSObjectC", "getObjectToStore"]
+- ["So8NSObjectC", "init"]
+- ["So8NSObjectC", "otherUserImage"]
+- !private ["So8NSObjectC", "parseTagDetail"]
+- ["So8NSObjectC", "peerDetail"]
+- ["So8NSObjectC", "peerName"]
+- !private ["So8NSObjectC", "shared"]
+- ["So8NSObjectC", "toJson"]
+- ["So8NSObjectC", "updatePeerData"]
+- !private ["So8NSObjectC", "userID"]
+- !private ["So8NSObjectP", "Bool"]
+- ["So8NSObjectP", "ChannelStatus"]
+- !private ["So8NSObjectP", "ChatType"]
+- !private ["So8NSObjectP", "HippoConfig"]
+- !private ["So8NSObjectP", "Int"]
+- !private ["So8NSObjectP", "String"]
+- !private ["So8NSObjectP", "TagDetail"]
+- !private ["So8NSObjectP", "User"]
+- ["So8NSObjectP", ""]
+- !private ["So8NSObjectP", "allowAudioCall"]
+- !private ["So8NSObjectP", "allowVideoCall"]
+- !private ["So8NSObjectP", "appUserType"]
+- !private ["So8NSObjectP", "assignedAgentID"]
+- !private ["So8NSObjectP", "assignedAgentName"]
+- !private ["So8NSObjectP", "channelId"]
+- !private ["So8NSObjectP", "channelImageUrl"]
+- !private ["So8NSObjectP", "channelStatus"]
+- !private ["So8NSObjectP", "channelTags"]
+- !private ["So8NSObjectP", "chatType"]
+- !private ["So8NSObjectP", "currentUserId"]
+- !private ["So8NSObjectP", "customerContactNumber"]
+- !private ["So8NSObjectP", "customerEmail"]
+- !private ["So8NSObjectP", "customerID"]
+- !private ["So8NSObjectP", "customerName"]
+- !private ["So8NSObjectP", "getObjectToStore"]
+- !private ["So8NSObjectP", "init"]
+- !private ["So8NSObjectP", "otherUserImage"]
+- !private ["So8NSObjectP", "parseTagDetail"]
+- !private ["So8NSObjectP", "peerDetail"]
+- !private ["So8NSObjectP", "shared"]
+- !private ["So8NSObjectP", "toJson"]
+- !private ["So8NSObjectP", "userID"]
+- !private ["Sj", "parse"]
+- !private ["Sk", "count"]
+- !private ["Sk", "filter"]
+- !private ["Sk", "first"]
+- !private ["Sk", "subscript"]
+- !private ["Sm", "count"]
+- !private ["Sm", "filter"]
+- !private ["Sm", "first"]
+- !private ["Sm", "subscript"]
+- !private ["SY", "init"]
+- ["SY", "none"]
+- ["SY", "open"]
+- !private ["SY", "rawValue"]
+- !private ["s10SIMDScalarP", "parse"]
+- !private ["ST", "count"]
+- !private ["ST", "filter"]
+- !private ["ST", "first"]
+- !private ["ST", "init"]
+- !private ["ST", "subscript"]
+- !private ["SZ", "parse"]
+- !private ["s13SignedNumericP", "parse"]
+- !private ["Sx", "parse"]
+- !private ["5Hippo9TagDetailC", "getObjectToStore"]
+- !private ["5Hippo9TagDetailC", "parseTagDetail"]
+- !private ["5Hippo4UserC", "init"]
+- !private ["5Hippo4UserC", "toJson"]
+- !private ["5Hippo4UserC", "userID"]
+- !private ["s14_ArrayProtocolP", "count"]
+- !private ["s14_ArrayProtocolP", "filter"]
+- !private ["s14_ArrayProtocolP", "first"]
+- !private ["s14_ArrayProtocolP", "subscript"]
+- !private ["s30_CustomPlaygroundQuickLookableP", "parse"]
+- !private ["s24_DestructorSafeContainerP", "count"]
+- !private ["s24_DestructorSafeContainerP", "filter"]
+- !private ["s24_DestructorSafeContainerP", "first"]
+- !private ["s24_DestructorSafeContainerP", "subscript"]
+- !private ["s35_ExpressibleByBuiltinBooleanLiteralP", "parse"]
+- !private ["s35_ExpressibleByBuiltinIntegerLiteralP", "parse"]
+- !private ["s19_HasContiguousBytesP", "count"]
+- !private ["s19_HasContiguousBytesP", "filter"]
+- !private ["s19_HasContiguousBytesP", "first"]
+- !private ["s19_HasContiguousBytesP", "subscript"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "count"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "filter"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "first"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "init"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "parse"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "subscript"]
+- !private ["10Foundation36_JSONStringDictionaryDecodableMarkerP", "init"]
+- !private ["10Foundation36_JSONStringDictionaryDecodableMarkerP", "subscript"]
+- !private ["10Foundation36_JSONStringDictionaryEncodableMarkerP", "init"]
+- !private ["10Foundation36_JSONStringDictionaryEncodableMarkerP", "subscript"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "Bool"]
+- ["10Foundation27_KeyValueCodingAndObservingP", "ChannelStatus"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "ChatType"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "HippoConfig"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "Int"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "String"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "TagDetail"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "User"]
+- ["10Foundation27_KeyValueCodingAndObservingP", ""]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "allowAudioCall"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "allowVideoCall"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "appUserType"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "assignedAgentID"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "assignedAgentName"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "channelId"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "channelImageUrl"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "channelStatus"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "channelTags"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "chatType"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "currentUserId"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "customerContactNumber"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "customerEmail"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "customerID"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "customerName"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "getObjectToStore"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "init"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "otherUserImage"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "parseTagDetail"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "peerDetail"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "shared"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "toJson"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "userID"]
+- !private ["s21_ObjectiveCBridgeableP", "count"]
+- !private ["s21_ObjectiveCBridgeableP", "filter"]
+- !private ["s21_ObjectiveCBridgeableP", "first"]
+- !private ["s21_ObjectiveCBridgeableP", "init"]
+- !private ["s21_ObjectiveCBridgeableP", "parse"]
+- !private ["s21_ObjectiveCBridgeableP", "subscript"]
+depends-nominal:
+- !private "s18AdditiveArithmeticP"
+- "5Hippo11AppUserTypeO"
+- !private "Sa"
+- !private "SK"
+- !private "Sz"
+- !private "Sb"
+- "s7CVarArgP"
+- "5Hippo13ChannelStatusO"
+- "5Hippo10ChatDetailC"
+- "5Hippo8ChatTypeO"
+- !private "Sl"
+- !private "SL"
+- !private "10Foundation15ContiguousBytesP"
+- "s28CustomDebugStringConvertibleP"
+- !private "s17CustomReflectableP"
+- "s23CustomStringConvertibleP"
+- !private "10Foundation12DataProtocolP"
+- !private "Se"
+- !private "SD"
+- !private "SE"
+- "SQ"
+- !private "s25ExpressibleByArrayLiteralP"
+- !private "s27ExpressibleByBooleanLiteralP"
+- !private "s30ExpressibleByDictionaryLiteralP"
+- !private "s27ExpressibleByIntegerLiteralP"
+- !private "s17FixedWidthIntegerP"
+- "SH"
+- !private "5Hippo0A6ConfigC"
+- !private "Si"
+- !private "s25LosslessStringConvertibleP"
+- !private "s10MirrorPathP"
+- !private "SM"
+- !private "10Foundation19MutableDataProtocolP"
+- "So8NSObjectC"
+- "So8NSObjectP"
+- !private "Sj"
+- !private "Sk"
+- !private "Sm"
+- "SY"
+- !private "s10SIMDScalarP"
+- !private "ST"
+- !private "SZ"
+- !private "s13SignedNumericP"
+- !private "Sx"
+- !private "5Hippo9TagDetailC"
+- !private "5Hippo4UserC"
+- !private "s14_ArrayProtocolP"
+- !private "s30_CustomPlaygroundQuickLookableP"
+- !private "s24_DestructorSafeContainerP"
+- !private "s35_ExpressibleByBuiltinBooleanLiteralP"
+- !private "s35_ExpressibleByBuiltinIntegerLiteralP"
+- !private "s19_HasContiguousBytesP"
+- !private "s35_HasCustomAnyHashableRepresentationP"
+- !private "10Foundation36_JSONStringDictionaryDecodableMarkerP"
+- !private "10Foundation36_JSONStringDictionaryEncodableMarkerP"
+- "10Foundation27_KeyValueCodingAndObservingP"
+- !private "s21_ObjectiveCBridgeableP"
+depends-dynamic-lookup:
+depends-external:
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/ObjectiveC.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreMedia.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/simd.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreImage.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/QuartzCore.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Accelerate.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Dispatch.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Metal.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Darwin.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreLocation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Foundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/AVFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreAudio.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/MediaPlayer.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreGraphics.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/os.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Photos.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Swift.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/UIKit.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/SwiftOnoneSupport.swiftmodule"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Hippo.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Helpers/TRWDownloadManager/TWRDownloadManager.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/SocketRocket/SocketRocket.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/SocketRocket/SRWebSocket.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/MZFayeClient/MZFayeClient.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/unextended-module.modulemap"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/usr/include/objc/ObjectiveC.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/OpenGLES.framework/Headers/OpenGLES.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreMedia.framework/Headers/CoreMedia.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreImage.framework/Headers/CoreImage.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/QuartzCore.framework/Headers/QuartzCore.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Accelerate.framework/Headers/Accelerate.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Dispatch.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/QuickLook.framework/Headers/QuickLook.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Metal.framework/Headers/Metal.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/usr/include/Darwin.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreLocation.framework/Headers/CoreLocation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Foundation.framework/Headers/Foundation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/AVFoundation.framework/Headers/AVFoundation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/MediaPlayer.framework/Headers/MediaPlayer.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreGraphics.framework/Headers/CoreGraphics.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/UserNotifications.framework/Headers/UserNotifications.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/os.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Photos.framework/Headers/Photos.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/UIKit.framework/Headers/UIKit.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreText.framework/Headers/CoreText.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/MediaToolbox.framework/Headers/MediaToolbox.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/AudioToolbox.framework/Headers/AudioToolbox.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Security.framework/Headers/Security.apinotes"
+interface-hash: "060743a7918bf4196469bd4fa5651883"

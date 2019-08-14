@@ -1,0 +1,566 @@
+### Swift dependencies file v0 ###
+provides-top-level:
+- "FuguConversation"
+- "GetConversationFromServerResult"
+provides-nominal:
+- "5Hippo16FuguConversationC"
+- "5Hippo31GetConversationFromServerResultV"
+provides-member:
+- ["5Hippo16FuguConversationC", ""]
+- ["5Hippo31GetConversationFromServerResultV", ""]
+provides-dynamic-lookup:
+depends-top-level:
+- !private "=="
+- !private ">"
+- !private "??"
+- "AssignmentPrecedence"
+- "Bool"
+- "CastingPrecedence"
+- !private "ChannelStatus"
+- !private "ChatType"
+- !private "ConversationsViewController"
+- !private "DefaultName"
+- "Error"
+- "FuguConversation"
+- !private "FuguDefaults"
+- !private "FuguEndPoints"
+- "GetConversationFromServerResult"
+- !private "HTTPClient"
+- !private "HippoConfig"
+- "HippoConversation"
+- !private "HippoError"
+- "HippoMessage"
+- !private "HippoUserDetail"
+- "Int"
+- !private "STATUS_CODE_SUCCESS"
+- "String"
+- "Void"
+- !private "getLastVisibleController"
+depends-member:
+- !private ["5Hippo23ActionTableViewDelegateP", "channel"]
+- !private ["5Hippo23ActionTableViewDelegateP", "clearUnreadCountForChannel"]
+- !private ["s18AdditiveArithmeticP", "parse"]
+- !private ["Sa", "append"]
+- !private ["Sa", "init"]
+- !private ["SK", "append"]
+- !private ["SK", "init"]
+- !private ["Sz", "parse"]
+- !private ["5Hippo29BotOtgoingMessageCellDelegateP", "channel"]
+- !private ["5Hippo29BotOtgoingMessageCellDelegateP", "clearUnreadCountForChannel"]
+- !private ["s7CVarArgP", "appSecretKey"]
+- !private ["s7CVarArgP", "append"]
+- !private ["s7CVarArgP", "channel"]
+- !private ["s7CVarArgP", "clearUnreadCountForChannel"]
+- !private ["s7CVarArgP", "fuguEnUserID"]
+- !private ["s7CVarArgP", "init"]
+- !private ["s7CVarArgP", "parse"]
+- !private ["s7CVarArgP", "set"]
+- !private ["s7CVarArgP", "shared"]
+- !private ["s7CVarArgP", "subscript"]
+- !private ["5Hippo13ChannelStatusO", "deinit"]
+- !private ["5Hippo13ChannelStatusO", "init"]
+- !private ["5Hippo13ChannelStatusO", "open"]
+- !private ["5Hippo8ChatTypeO", "deinit"]
+- !private ["5Hippo8ChatTypeO", "init"]
+- !private ["Sl", "append"]
+- !private ["Sl", "init"]
+- !private ["Sl", "subscript"]
+- !private ["SL", "parse"]
+- !private ["10Foundation15ContiguousBytesP", "append"]
+- !private ["10Foundation15ContiguousBytesP", "init"]
+- !private ["5Hippo27ConversationsViewControllerC", "channel"]
+- !private ["5Hippo27ConversationsViewControllerC", "clearUnreadCountForChannel"]
+- !private ["5Hippo26CoreDocumentPickerDelegateP", "channel"]
+- !private ["5Hippo26CoreDocumentPickerDelegateP", "clearUnreadCountForChannel"]
+- !private ["5Hippo25CoreMediaSelectorDelegateP", "channel"]
+- !private ["5Hippo25CoreMediaSelectorDelegateP", "clearUnreadCountForChannel"]
+- !private ["5Hippo21CreatePaymentDelegateP", "channel"]
+- !private ["5Hippo21CreatePaymentDelegateP", "clearUnreadCountForChannel"]
+- !private ["s28CustomDebugStringConvertibleP", "appSecretKey"]
+- !private ["s28CustomDebugStringConvertibleP", "append"]
+- !private ["s28CustomDebugStringConvertibleP", "channel"]
+- !private ["s28CustomDebugStringConvertibleP", "clearUnreadCountForChannel"]
+- !private ["s28CustomDebugStringConvertibleP", "fuguEnUserID"]
+- !private ["s28CustomDebugStringConvertibleP", "init"]
+- !private ["s28CustomDebugStringConvertibleP", "set"]
+- !private ["s28CustomDebugStringConvertibleP", "shared"]
+- !private ["s28CustomDebugStringConvertibleP", "subscript"]
+- !private ["s17CustomReflectableP", "append"]
+- !private ["s17CustomReflectableP", "init"]
+- !private ["s17CustomReflectableP", "parse"]
+- !private ["s17CustomReflectableP", "subscript"]
+- !private ["s23CustomStringConvertibleP", "appSecretKey"]
+- !private ["s23CustomStringConvertibleP", "append"]
+- !private ["s23CustomStringConvertibleP", "channel"]
+- !private ["s23CustomStringConvertibleP", "clearUnreadCountForChannel"]
+- !private ["s23CustomStringConvertibleP", "fuguEnUserID"]
+- !private ["s23CustomStringConvertibleP", "init"]
+- !private ["s23CustomStringConvertibleP", "parse"]
+- !private ["s23CustomStringConvertibleP", "set"]
+- !private ["s23CustomStringConvertibleP", "shared"]
+- !private ["s23CustomStringConvertibleP", "subscript"]
+- !private ["10Foundation12DataProtocolP", "append"]
+- !private ["10Foundation12DataProtocolP", "init"]
+- !private ["Se", "append"]
+- !private ["Se", "init"]
+- !private ["Se", "parse"]
+- !private ["Se", "subscript"]
+- !private ["5Hippo11DefaultNameO", "conversationData"]
+- !private ["5Hippo11DefaultNameO", "deinit"]
+- !private ["5Hippo11DefaultNameO", "rawValue"]
+- !private ["SD", "init"]
+- !private ["SD", "subscript"]
+- !private ["5Hippo29DocumentTableViewCellDelegateP", "channel"]
+- !private ["5Hippo29DocumentTableViewCellDelegateP", "clearUnreadCountForChannel"]
+- !private ["SE", "append"]
+- !private ["SE", "init"]
+- !private ["SE", "parse"]
+- !private ["SE", "subscript"]
+- !private ["SQ", "API_GET_CONVERSATIONS"]
+- !private ["SQ", "POST"]
+- !private ["SQ", "appSecretKey"]
+- !private ["SQ", "append"]
+- !private ["SQ", "channel"]
+- !private ["SQ", "clearUnreadCountForChannel"]
+- !private ["SQ", "conversationData"]
+- !private ["SQ", "fuguEnUserID"]
+- !private ["SQ", "init"]
+- !private ["SQ", "open"]
+- !private ["SQ", "parse"]
+- !private ["SQ", "rawValue"]
+- !private ["SQ", "set"]
+- !private ["SQ", "shared"]
+- !private ["SQ", "subscript"]
+- !private ["s5ErrorP", "general"]
+- !private ["s25ExpressibleByArrayLiteralP", "append"]
+- !private ["s25ExpressibleByArrayLiteralP", "init"]
+- !private ["s30ExpressibleByDictionaryLiteralP", "init"]
+- !private ["s30ExpressibleByDictionaryLiteralP", "subscript"]
+- !private ["s27ExpressibleByIntegerLiteralP", "parse"]
+- !private ["5Hippo29FeedbackTableViewCellDelegateP", "channel"]
+- !private ["5Hippo29FeedbackTableViewCellDelegateP", "clearUnreadCountForChannel"]
+- !private ["s17FixedWidthIntegerP", "parse"]
+- !private ["5Hippo16FuguConversationC", "ChannelStatus"]
+- !private ["5Hippo16FuguConversationC", "ChatType"]
+- !private ["5Hippo16FuguConversationC", "ConversationsViewController"]
+- !private ["5Hippo16FuguConversationC", "DefaultName"]
+- ["5Hippo16FuguConversationC", "FuguConversation"]
+- !private ["5Hippo16FuguConversationC", "FuguDefaults"]
+- !private ["5Hippo16FuguConversationC", "FuguEndPoints"]
+- ["5Hippo16FuguConversationC", "GetConversationFromServerResult"]
+- !private ["5Hippo16FuguConversationC", "HTTPClient"]
+- !private ["5Hippo16FuguConversationC", "HippoConfig"]
+- !private ["5Hippo16FuguConversationC", "HippoError"]
+- ["5Hippo16FuguConversationC", "HippoMessage"]
+- !private ["5Hippo16FuguConversationC", "HippoUserDetail"]
+- ["5Hippo16FuguConversationC", "Int"]
+- !private ["5Hippo16FuguConversationC", "STATUS_CODE_SUCCESS"]
+- ["5Hippo16FuguConversationC", "String"]
+- ["5Hippo16FuguConversationC", "Void"]
+- !private ["5Hippo16FuguConversationC", "channelId"]
+- ["5Hippo16FuguConversationC", "channelImage"]
+- !private ["5Hippo16FuguConversationC", "channelImageUrl"]
+- !private ["5Hippo16FuguConversationC", "channelStatus"]
+- !private ["5Hippo16FuguConversationC", "chatType"]
+- ["5Hippo16FuguConversationC", "defaultMessage"]
+- ["5Hippo16FuguConversationC", "getAllConversationFromServer"]
+- ["5Hippo16FuguConversationC", "getConversationArrayFrom"]
+- ["5Hippo16FuguConversationC", "getJsonFrom"]
+- ["5Hippo16FuguConversationC", "getJsonToStore"]
+- !private ["5Hippo16FuguConversationC", "getLastVisibleController"]
+- !private ["5Hippo16FuguConversationC", "getParamsToGetAllConversation"]
+- ["5Hippo16FuguConversationC", "init"]
+- !private ["5Hippo16FuguConversationC", "label"]
+- !private ["5Hippo16FuguConversationC", "labelId"]
+- !private ["5Hippo16FuguConversationC", "lastMessage"]
+- !private ["5Hippo16FuguConversationC", "unreadCount"]
+- !private ["5Hippo12FuguDefaultsC", "set"]
+- !private ["5Hippo13FuguEndPointsO", "API_GET_CONVERSATIONS"]
+- !private ["5Hippo13FuguEndPointsO", "deinit"]
+- !private ["5Hippo13FuguEndPointsO", "rawValue"]
+- !private ["5Hippo15FuguPublishableP", "init"]
+- !private ["5Hippo15FuguPublishableP", "message"]
+- ["5Hippo31GetConversationFromServerResultV", "Bool"]
+- ["5Hippo31GetConversationFromServerResultV", "Error"]
+- ["5Hippo31GetConversationFromServerResultV", "FuguConversation"]
+- ["5Hippo31GetConversationFromServerResultV", "conversations"]
+- ["5Hippo31GetConversationFromServerResultV", "error"]
+- ["5Hippo31GetConversationFromServerResultV", "init"]
+- ["5Hippo31GetConversationFromServerResultV", "isSuccessful"]
+- !private ["5Hippo10HTTPClientC", "makeConcurrentConnectionWith"]
+- !private ["SH", "API_GET_CONVERSATIONS"]
+- !private ["SH", "POST"]
+- !private ["SH", "appSecretKey"]
+- !private ["SH", "append"]
+- !private ["SH", "channel"]
+- !private ["SH", "clearUnreadCountForChannel"]
+- !private ["SH", "conversationData"]
+- !private ["SH", "fuguEnUserID"]
+- !private ["SH", "init"]
+- !private ["SH", "open"]
+- !private ["SH", "parse"]
+- !private ["SH", "rawValue"]
+- !private ["SH", "set"]
+- !private ["SH", "shared"]
+- !private ["SH", "subscript"]
+- !private ["5Hippo0A7ChannelC", "id"]
+- !private ["5Hippo0A15ChannelDelegateP", "channel"]
+- !private ["5Hippo0A15ChannelDelegateP", "clearUnreadCountForChannel"]
+- !private ["5Hippo0A6ConfigC", "appSecretKey"]
+- !private ["5Hippo0A6ConfigC", "shared"]
+- !private ["5Hippo0A12ConversationC", "ChannelStatus"]
+- !private ["5Hippo0A12ConversationC", "ChatType"]
+- !private ["5Hippo0A12ConversationC", "ConversationsViewController"]
+- !private ["5Hippo0A12ConversationC", "DefaultName"]
+- ["5Hippo0A12ConversationC", "FuguConversation"]
+- !private ["5Hippo0A12ConversationC", "FuguDefaults"]
+- !private ["5Hippo0A12ConversationC", "FuguEndPoints"]
+- ["5Hippo0A12ConversationC", "GetConversationFromServerResult"]
+- !private ["5Hippo0A12ConversationC", "HTTPClient"]
+- !private ["5Hippo0A12ConversationC", "HippoConfig"]
+- !private ["5Hippo0A12ConversationC", "HippoError"]
+- ["5Hippo0A12ConversationC", "HippoMessage"]
+- !private ["5Hippo0A12ConversationC", "HippoUserDetail"]
+- ["5Hippo0A12ConversationC", "Int"]
+- !private ["5Hippo0A12ConversationC", "STATUS_CODE_SUCCESS"]
+- ["5Hippo0A12ConversationC", "String"]
+- ["5Hippo0A12ConversationC", "Void"]
+- ["5Hippo0A12ConversationC", ""]
+- !private ["5Hippo0A12ConversationC", "channelId"]
+- ["5Hippo0A12ConversationC", "channelImage"]
+- !private ["5Hippo0A12ConversationC", "channelImageUrl"]
+- !private ["5Hippo0A12ConversationC", "channelStatus"]
+- !private ["5Hippo0A12ConversationC", "chatType"]
+- ["5Hippo0A12ConversationC", "defaultMessage"]
+- ["5Hippo0A12ConversationC", "getAllConversationFromServer"]
+- ["5Hippo0A12ConversationC", "getConversationArrayFrom"]
+- ["5Hippo0A12ConversationC", "getJsonFrom"]
+- ["5Hippo0A12ConversationC", "getJsonToStore"]
+- !private ["5Hippo0A12ConversationC", "getLastVisibleController"]
+- ["5Hippo0A12ConversationC", "getParamsToGetAllConversation"]
+- ["5Hippo0A12ConversationC", "init"]
+- !private ["5Hippo0A12ConversationC", "label"]
+- !private ["5Hippo0A12ConversationC", "labelId"]
+- !private ["5Hippo0A12ConversationC", "lastMessage"]
+- !private ["5Hippo0A12ConversationC", "unreadCount"]
+- !private ["5Hippo0A20ConversationCallBackC", "ChannelStatus"]
+- !private ["5Hippo0A20ConversationCallBackC", "ChatType"]
+- !private ["5Hippo0A20ConversationCallBackC", "ConversationsViewController"]
+- !private ["5Hippo0A20ConversationCallBackC", "DefaultName"]
+- ["5Hippo0A20ConversationCallBackC", "FuguConversation"]
+- !private ["5Hippo0A20ConversationCallBackC", "FuguDefaults"]
+- !private ["5Hippo0A20ConversationCallBackC", "FuguEndPoints"]
+- ["5Hippo0A20ConversationCallBackC", "GetConversationFromServerResult"]
+- !private ["5Hippo0A20ConversationCallBackC", "HTTPClient"]
+- !private ["5Hippo0A20ConversationCallBackC", "HippoConfig"]
+- !private ["5Hippo0A20ConversationCallBackC", "HippoError"]
+- ["5Hippo0A20ConversationCallBackC", "HippoMessage"]
+- !private ["5Hippo0A20ConversationCallBackC", "HippoUserDetail"]
+- ["5Hippo0A20ConversationCallBackC", "Int"]
+- !private ["5Hippo0A20ConversationCallBackC", "STATUS_CODE_SUCCESS"]
+- ["5Hippo0A20ConversationCallBackC", "String"]
+- ["5Hippo0A20ConversationCallBackC", "Void"]
+- !private ["5Hippo0A20ConversationCallBackC", "channelId"]
+- ["5Hippo0A20ConversationCallBackC", "channelImage"]
+- !private ["5Hippo0A20ConversationCallBackC", "channelImageUrl"]
+- !private ["5Hippo0A20ConversationCallBackC", "channelStatus"]
+- !private ["5Hippo0A20ConversationCallBackC", "chatType"]
+- ["5Hippo0A20ConversationCallBackC", "defaultMessage"]
+- ["5Hippo0A20ConversationCallBackC", "getAllConversationFromServer"]
+- ["5Hippo0A20ConversationCallBackC", "getConversationArrayFrom"]
+- ["5Hippo0A20ConversationCallBackC", "getJsonFrom"]
+- ["5Hippo0A20ConversationCallBackC", "getJsonToStore"]
+- !private ["5Hippo0A20ConversationCallBackC", "getLastVisibleController"]
+- ["5Hippo0A20ConversationCallBackC", "getParamsToGetAllConversation"]
+- ["5Hippo0A20ConversationCallBackC", "init"]
+- !private ["5Hippo0A20ConversationCallBackC", "label"]
+- !private ["5Hippo0A20ConversationCallBackC", "labelId"]
+- !private ["5Hippo0A20ConversationCallBackC", "lastMessage"]
+- !private ["5Hippo0A20ConversationCallBackC", "unreadCount"]
+- !private ["5Hippo0A26ConversationViewControllerC", "channel"]
+- !private ["5Hippo0A26ConversationViewControllerC", "clearUnreadCountForChannel"]
+- !private ["5Hippo0A5ErrorO", "deinit"]
+- !private ["5Hippo0A5ErrorO", "general"]
+- !private ["5Hippo0A7MessageC", "init"]
+- !private ["5Hippo0A7MessageC", "message"]
+- !private ["5Hippo0A10UserDetailC", "fuguEnUserID"]
+- !private ["5Hippo14HttpMethodTypeO", "POST"]
+- !private ["5Hippo17ImageCellDelegateP", "channel"]
+- !private ["5Hippo17ImageCellDelegateP", "clearUnreadCountForChannel"]
+- !private ["Si", "parse"]
+- !private ["5Hippo25LeadTableViewCellDelegateP", "channel"]
+- !private ["5Hippo25LeadTableViewCellDelegateP", "clearUnreadCountForChannel"]
+- !private ["10Foundation14LocalizedErrorP", "general"]
+- !private ["s25LosslessStringConvertibleP", "parse"]
+- !private ["5Hippo16MessageCallbacksC", "message"]
+- !private ["5Hippo21MessageSenderDelegateP", "id"]
+- !private ["s10MirrorPathP", "parse"]
+- !private ["SM", "append"]
+- !private ["SM", "init"]
+- !private ["10Foundation19MutableDataProtocolP", "append"]
+- !private ["10Foundation19MutableDataProtocolP", "init"]
+- !private ["So8NSCodingP", "channel"]
+- !private ["So8NSCodingP", "clearUnreadCountForChannel"]
+- !private ["So26NSExtensionRequestHandlingP", "channel"]
+- !private ["So26NSExtensionRequestHandlingP", "clearUnreadCountForChannel"]
+- !private ["So8NSObjectC", "appSecretKey"]
+- !private ["So8NSObjectC", "channel"]
+- !private ["So8NSObjectC", "clearUnreadCountForChannel"]
+- !private ["So8NSObjectC", "fuguEnUserID"]
+- !private ["So8NSObjectC", "set"]
+- !private ["So8NSObjectC", "shared"]
+- !private ["So8NSObjectP", "appSecretKey"]
+- !private ["So8NSObjectP", "channel"]
+- !private ["So8NSObjectP", "clearUnreadCountForChannel"]
+- !private ["So8NSObjectP", "fuguEnUserID"]
+- !private ["So8NSObjectP", "set"]
+- !private ["So8NSObjectP", "shared"]
+- !private ["5Hippo27NavigationTitleViewDelegateP", "channel"]
+- !private ["5Hippo27NavigationTitleViewDelegateP", "clearUnreadCountForChannel"]
+- !private ["Sj", "parse"]
+- !private ["5Hippo20PickerHelperDelegateP", "channel"]
+- !private ["5Hippo20PickerHelperDelegateP", "clearUnreadCountForChannel"]
+- !private ["Sk", "append"]
+- !private ["Sk", "init"]
+- !private ["Sm", "append"]
+- !private ["Sm", "init"]
+- !private ["SY", "API_GET_CONVERSATIONS"]
+- !private ["SY", "POST"]
+- !private ["SY", "conversationData"]
+- !private ["SY", "init"]
+- !private ["SY", "open"]
+- !private ["SY", "rawValue"]
+- !private ["5Hippo29RetryMessageUploadingDelegateP", "channel"]
+- !private ["5Hippo29RetryMessageUploadingDelegateP", "clearUnreadCountForChannel"]
+- !private ["s10SIMDScalarP", "parse"]
+- !private ["5Hippo33SelectImageViewControllerDelegateP", "channel"]
+- !private ["5Hippo33SelectImageViewControllerDelegateP", "clearUnreadCountForChannel"]
+- !private ["5Hippo19SelfMessageDelegateP", "channel"]
+- !private ["5Hippo19SelfMessageDelegateP", "clearUnreadCountForChannel"]
+- !private ["ST", "append"]
+- !private ["ST", "init"]
+- !private ["ST", "subscript"]
+- !private ["SZ", "parse"]
+- !private ["s13SignedNumericP", "parse"]
+- !private ["Sx", "parse"]
+- !private ["So21UIAppearanceContainerP", "channel"]
+- !private ["So21UIAppearanceContainerP", "clearUnreadCountForChannel"]
+- !private ["So18UIContentContainerP", "channel"]
+- !private ["So18UIContentContainerP", "clearUnreadCountForChannel"]
+- !private ["So18UIFocusEnvironmentP", "channel"]
+- !private ["So18UIFocusEnvironmentP", "clearUnreadCountForChannel"]
+- !private ["So31UIImagePickerControllerDelegateP", "channel"]
+- !private ["So31UIImagePickerControllerDelegateP", "clearUnreadCountForChannel"]
+- !private ["So30UINavigationControllerDelegateP", "channel"]
+- !private ["So30UINavigationControllerDelegateP", "clearUnreadCountForChannel"]
+- !private ["So30UIPasteConfigurationSupportingP", "channel"]
+- !private ["So30UIPasteConfigurationSupportingP", "clearUnreadCountForChannel"]
+- !private ["So11UIResponderC", "channel"]
+- !private ["So11UIResponderC", "clearUnreadCountForChannel"]
+- !private ["So30UIResponderStandardEditActionsP", "channel"]
+- !private ["So30UIResponderStandardEditActionsP", "clearUnreadCountForChannel"]
+- !private ["So20UIScrollViewDelegateP", "channel"]
+- !private ["So20UIScrollViewDelegateP", "clearUnreadCountForChannel"]
+- !private ["So16UIStateRestoringP", "channel"]
+- !private ["So16UIStateRestoringP", "clearUnreadCountForChannel"]
+- !private ["So21UITableViewDataSourceP", "channel"]
+- !private ["So21UITableViewDataSourceP", "clearUnreadCountForChannel"]
+- !private ["So19UITableViewDelegateP", "channel"]
+- !private ["So19UITableViewDelegateP", "clearUnreadCountForChannel"]
+- !private ["So18UITextViewDelegateP", "channel"]
+- !private ["So18UITextViewDelegateP", "clearUnreadCountForChannel"]
+- !private ["So18UITraitEnvironmentP", "channel"]
+- !private ["So18UITraitEnvironmentP", "clearUnreadCountForChannel"]
+- !private ["So23UIUserActivityRestoringP", "channel"]
+- !private ["So23UIUserActivityRestoringP", "clearUnreadCountForChannel"]
+- !private ["So16UIViewControllerC", "channel"]
+- !private ["So16UIViewControllerC", "clearUnreadCountForChannel"]
+- !private ["5Hippo37VideoCallMessageTableViewCellDelegateP", "channel"]
+- !private ["5Hippo37VideoCallMessageTableViewCellDelegateP", "clearUnreadCountForChannel"]
+- !private ["5Hippo26VideoTableViewCellDelegateP", "channel"]
+- !private ["5Hippo26VideoTableViewCellDelegateP", "clearUnreadCountForChannel"]
+- !private ["s14_ArrayProtocolP", "append"]
+- !private ["s14_ArrayProtocolP", "init"]
+- !private ["s30_CustomPlaygroundQuickLookableP", "parse"]
+- !private ["s24_DestructorSafeContainerP", "append"]
+- !private ["s24_DestructorSafeContainerP", "init"]
+- !private ["s35_ExpressibleByBuiltinIntegerLiteralP", "parse"]
+- !private ["s19_HasContiguousBytesP", "append"]
+- !private ["s19_HasContiguousBytesP", "init"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "append"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "init"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "parse"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "subscript"]
+- !private ["10Foundation36_JSONStringDictionaryDecodableMarkerP", "init"]
+- !private ["10Foundation36_JSONStringDictionaryDecodableMarkerP", "subscript"]
+- !private ["10Foundation36_JSONStringDictionaryEncodableMarkerP", "init"]
+- !private ["10Foundation36_JSONStringDictionaryEncodableMarkerP", "subscript"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "appSecretKey"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "channel"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "clearUnreadCountForChannel"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "fuguEnUserID"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "set"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "shared"]
+- !private ["s21_ObjectiveCBridgeableP", "append"]
+- !private ["s21_ObjectiveCBridgeableP", "init"]
+- !private ["s21_ObjectiveCBridgeableP", "parse"]
+- !private ["s21_ObjectiveCBridgeableP", "subscript"]
+depends-nominal:
+- !private "5Hippo23ActionTableViewDelegateP"
+- !private "s18AdditiveArithmeticP"
+- !private "Sa"
+- !private "SK"
+- !private "Sz"
+- !private "5Hippo29BotOtgoingMessageCellDelegateP"
+- !private "s7CVarArgP"
+- !private "5Hippo13ChannelStatusO"
+- !private "5Hippo8ChatTypeO"
+- !private "Sl"
+- !private "SL"
+- !private "10Foundation15ContiguousBytesP"
+- !private "5Hippo27ConversationsViewControllerC"
+- !private "5Hippo26CoreDocumentPickerDelegateP"
+- !private "5Hippo25CoreMediaSelectorDelegateP"
+- !private "5Hippo21CreatePaymentDelegateP"
+- !private "s28CustomDebugStringConvertibleP"
+- !private "s17CustomReflectableP"
+- !private "s23CustomStringConvertibleP"
+- !private "10Foundation12DataProtocolP"
+- !private "Se"
+- !private "5Hippo11DefaultNameO"
+- !private "SD"
+- !private "5Hippo29DocumentTableViewCellDelegateP"
+- !private "SE"
+- !private "SQ"
+- !private "s5ErrorP"
+- !private "s25ExpressibleByArrayLiteralP"
+- !private "s30ExpressibleByDictionaryLiteralP"
+- !private "s27ExpressibleByIntegerLiteralP"
+- !private "5Hippo29FeedbackTableViewCellDelegateP"
+- !private "s17FixedWidthIntegerP"
+- "5Hippo16FuguConversationC"
+- !private "5Hippo12FuguDefaultsC"
+- !private "5Hippo13FuguEndPointsO"
+- !private "5Hippo15FuguPublishableP"
+- "5Hippo31GetConversationFromServerResultV"
+- !private "5Hippo10HTTPClientC"
+- !private "SH"
+- !private "5Hippo0A7ChannelC"
+- !private "5Hippo0A15ChannelDelegateP"
+- !private "5Hippo0A6ConfigC"
+- "5Hippo0A12ConversationC"
+- "5Hippo0A20ConversationCallBackC"
+- !private "5Hippo0A26ConversationViewControllerC"
+- !private "5Hippo0A5ErrorO"
+- !private "5Hippo0A7MessageC"
+- !private "5Hippo0A10UserDetailC"
+- !private "5Hippo14HttpMethodTypeO"
+- !private "5Hippo17ImageCellDelegateP"
+- !private "Si"
+- !private "5Hippo25LeadTableViewCellDelegateP"
+- !private "10Foundation14LocalizedErrorP"
+- !private "s25LosslessStringConvertibleP"
+- !private "5Hippo16MessageCallbacksC"
+- !private "5Hippo21MessageSenderDelegateP"
+- !private "s10MirrorPathP"
+- !private "SM"
+- !private "10Foundation19MutableDataProtocolP"
+- !private "So8NSCodingP"
+- !private "So26NSExtensionRequestHandlingP"
+- !private "So8NSObjectC"
+- !private "So8NSObjectP"
+- !private "5Hippo27NavigationTitleViewDelegateP"
+- !private "Sj"
+- !private "5Hippo20PickerHelperDelegateP"
+- !private "Sk"
+- !private "Sm"
+- !private "SY"
+- !private "5Hippo29RetryMessageUploadingDelegateP"
+- !private "s10SIMDScalarP"
+- !private "5Hippo33SelectImageViewControllerDelegateP"
+- !private "5Hippo19SelfMessageDelegateP"
+- !private "ST"
+- !private "SZ"
+- !private "s13SignedNumericP"
+- !private "Sx"
+- !private "So21UIAppearanceContainerP"
+- !private "So18UIContentContainerP"
+- !private "So18UIFocusEnvironmentP"
+- !private "So31UIImagePickerControllerDelegateP"
+- !private "So30UINavigationControllerDelegateP"
+- !private "So30UIPasteConfigurationSupportingP"
+- !private "So11UIResponderC"
+- !private "So30UIResponderStandardEditActionsP"
+- !private "So20UIScrollViewDelegateP"
+- !private "So16UIStateRestoringP"
+- !private "So21UITableViewDataSourceP"
+- !private "So19UITableViewDelegateP"
+- !private "So18UITextViewDelegateP"
+- !private "So18UITraitEnvironmentP"
+- !private "So23UIUserActivityRestoringP"
+- !private "So16UIViewControllerC"
+- !private "5Hippo37VideoCallMessageTableViewCellDelegateP"
+- !private "5Hippo26VideoTableViewCellDelegateP"
+- !private "s14_ArrayProtocolP"
+- !private "s30_CustomPlaygroundQuickLookableP"
+- !private "s24_DestructorSafeContainerP"
+- !private "s35_ExpressibleByBuiltinIntegerLiteralP"
+- !private "s19_HasContiguousBytesP"
+- !private "s35_HasCustomAnyHashableRepresentationP"
+- !private "10Foundation36_JSONStringDictionaryDecodableMarkerP"
+- !private "10Foundation36_JSONStringDictionaryEncodableMarkerP"
+- !private "10Foundation27_KeyValueCodingAndObservingP"
+- !private "s21_ObjectiveCBridgeableP"
+depends-dynamic-lookup:
+depends-external:
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/ObjectiveC.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreMedia.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/simd.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreImage.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/QuartzCore.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Accelerate.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Dispatch.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Metal.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Darwin.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreLocation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Foundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/AVFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreAudio.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/MediaPlayer.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreGraphics.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/os.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Photos.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Swift.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/UIKit.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/SwiftOnoneSupport.swiftmodule"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Hippo.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Helpers/TRWDownloadManager/TWRDownloadManager.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/SocketRocket/SocketRocket.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/SocketRocket/SRWebSocket.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/MZFayeClient/MZFayeClient.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/unextended-module.modulemap"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/usr/include/objc/ObjectiveC.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/OpenGLES.framework/Headers/OpenGLES.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreMedia.framework/Headers/CoreMedia.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreImage.framework/Headers/CoreImage.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/QuartzCore.framework/Headers/QuartzCore.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Accelerate.framework/Headers/Accelerate.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Dispatch.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/QuickLook.framework/Headers/QuickLook.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Metal.framework/Headers/Metal.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/usr/include/Darwin.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreLocation.framework/Headers/CoreLocation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Foundation.framework/Headers/Foundation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/AVFoundation.framework/Headers/AVFoundation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/MediaPlayer.framework/Headers/MediaPlayer.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreGraphics.framework/Headers/CoreGraphics.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/UserNotifications.framework/Headers/UserNotifications.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/os.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Photos.framework/Headers/Photos.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/UIKit.framework/Headers/UIKit.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreText.framework/Headers/CoreText.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/MediaToolbox.framework/Headers/MediaToolbox.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/AudioToolbox.framework/Headers/AudioToolbox.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Security.framework/Headers/Security.apinotes"
+interface-hash: "19066f05855eafaa1d921464c6e1c990"

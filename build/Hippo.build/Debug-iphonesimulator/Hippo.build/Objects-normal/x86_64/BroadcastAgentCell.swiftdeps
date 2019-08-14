@@ -1,0 +1,622 @@
+### Swift dependencies file v0 ###
+provides-top-level:
+- "BroadcastAgentCell"
+provides-nominal:
+- "5Hippo18BroadcastAgentCellC"
+- "5Hippo18BroadcastAgentCellC13selectionTypeO"
+provides-member:
+- ["5Hippo18BroadcastAgentCellC", ""]
+- ["5Hippo18BroadcastAgentCellC13selectionTypeO", ""]
+provides-dynamic-lookup:
+- "awakeFromNib"
+- "cellImageView"
+- "cellLabel"
+- "imageWidthConstraint"
+- "labelLeadingConstraint"
+- "setSelected"
+depends-top-level:
+- "=="
+- !private "??"
+- "AssignmentPrecedence"
+- "Bool"
+- "BroadcastAgentCell"
+- !private "HippoConfig"
+- "NSLayoutConstraint"
+- "TagDetail"
+- "TernaryPrecedence"
+- "UIImageView"
+- "UILabel"
+- "UITableViewCell"
+- "UserDetail"
+depends-member:
+- ["5Hippo18BroadcastAgentCellC", "Bool"]
+- !private ["5Hippo18BroadcastAgentCellC", "HippoConfig"]
+- ["5Hippo18BroadcastAgentCellC", "NSLayoutConstraint"]
+- ["5Hippo18BroadcastAgentCellC", "TagDetail"]
+- ["5Hippo18BroadcastAgentCellC", "UIImageView"]
+- ["5Hippo18BroadcastAgentCellC", "UILabel"]
+- ["5Hippo18BroadcastAgentCellC", "UserDetail"]
+- ["5Hippo18BroadcastAgentCellC", "agentInfo"]
+- ["5Hippo18BroadcastAgentCellC", "awakeFromNib"]
+- ["5Hippo18BroadcastAgentCellC", "cellImageView"]
+- ["5Hippo18BroadcastAgentCellC", "cellLabel"]
+- ["5Hippo18BroadcastAgentCellC", "deinit"]
+- ["5Hippo18BroadcastAgentCellC", "imageWidthConstraint"]
+- ["5Hippo18BroadcastAgentCellC", "init"]
+- ["5Hippo18BroadcastAgentCellC", "labelLeadingConstraint"]
+- !private ["5Hippo18BroadcastAgentCellC", "selectionStyle"]
+- ["5Hippo18BroadcastAgentCellC", "selectionType"]
+- ["5Hippo18BroadcastAgentCellC", "setData"]
+- ["5Hippo18BroadcastAgentCellC", "setSelected"]
+- ["5Hippo18BroadcastAgentCellC", "teamInfo"]
+- ["5Hippo18BroadcastAgentCellC", "type"]
+- !private ["So15CALayerDelegateP", "HippoConfig"]
+- ["So15CALayerDelegateP", ""]
+- !private ["So15CALayerDelegateP", "agentInfo"]
+- !private ["So15CALayerDelegateP", "awakeFromNib"]
+- !private ["So15CALayerDelegateP", "cellImageView"]
+- !private ["So15CALayerDelegateP", "cellLabel"]
+- !private ["So15CALayerDelegateP", "image"]
+- !private ["So15CALayerDelegateP", "init"]
+- !private ["So15CALayerDelegateP", "selectionStyle"]
+- !private ["So15CALayerDelegateP", "teamInfo"]
+- !private ["So15CALayerDelegateP", "text"]
+- !private ["So15CALayerDelegateP", "type"]
+- !private ["s7CVarArgP", "HippoConfig"]
+- ["s7CVarArgP", ""]
+- !private ["s7CVarArgP", "agentInfo"]
+- !private ["s7CVarArgP", "awakeFromNib"]
+- !private ["s7CVarArgP", "cellImageView"]
+- !private ["s7CVarArgP", "cellLabel"]
+- !private ["s7CVarArgP", "checkBoxActive"]
+- !private ["s7CVarArgP", "checkBoxInActive"]
+- !private ["s7CVarArgP", "image"]
+- !private ["s7CVarArgP", "init"]
+- !private ["s7CVarArgP", "radioActive"]
+- !private ["s7CVarArgP", "radioInActive"]
+- !private ["s7CVarArgP", "selectionStyle"]
+- !private ["s7CVarArgP", "shared"]
+- !private ["s7CVarArgP", "tagName"]
+- !private ["s7CVarArgP", "teamInfo"]
+- !private ["s7CVarArgP", "text"]
+- !private ["s7CVarArgP", "theme"]
+- !private ["s7CVarArgP", "type"]
+- !private ["s28CustomDebugStringConvertibleP", "HippoConfig"]
+- ["s28CustomDebugStringConvertibleP", ""]
+- !private ["s28CustomDebugStringConvertibleP", "agentInfo"]
+- !private ["s28CustomDebugStringConvertibleP", "awakeFromNib"]
+- !private ["s28CustomDebugStringConvertibleP", "cellImageView"]
+- !private ["s28CustomDebugStringConvertibleP", "cellLabel"]
+- !private ["s28CustomDebugStringConvertibleP", "checkBoxActive"]
+- !private ["s28CustomDebugStringConvertibleP", "checkBoxInActive"]
+- !private ["s28CustomDebugStringConvertibleP", "image"]
+- !private ["s28CustomDebugStringConvertibleP", "init"]
+- !private ["s28CustomDebugStringConvertibleP", "radioActive"]
+- !private ["s28CustomDebugStringConvertibleP", "radioInActive"]
+- !private ["s28CustomDebugStringConvertibleP", "selectionStyle"]
+- !private ["s28CustomDebugStringConvertibleP", "shared"]
+- !private ["s28CustomDebugStringConvertibleP", "tagName"]
+- !private ["s28CustomDebugStringConvertibleP", "teamInfo"]
+- !private ["s28CustomDebugStringConvertibleP", "text"]
+- !private ["s28CustomDebugStringConvertibleP", "theme"]
+- !private ["s28CustomDebugStringConvertibleP", "type"]
+- !private ["s17CustomReflectableP", "image"]
+- !private ["s17CustomReflectableP", "text"]
+- !private ["s23CustomStringConvertibleP", "HippoConfig"]
+- ["s23CustomStringConvertibleP", ""]
+- !private ["s23CustomStringConvertibleP", "agentInfo"]
+- !private ["s23CustomStringConvertibleP", "awakeFromNib"]
+- !private ["s23CustomStringConvertibleP", "cellImageView"]
+- !private ["s23CustomStringConvertibleP", "cellLabel"]
+- !private ["s23CustomStringConvertibleP", "checkBoxActive"]
+- !private ["s23CustomStringConvertibleP", "checkBoxInActive"]
+- !private ["s23CustomStringConvertibleP", "image"]
+- !private ["s23CustomStringConvertibleP", "init"]
+- !private ["s23CustomStringConvertibleP", "radioActive"]
+- !private ["s23CustomStringConvertibleP", "radioInActive"]
+- !private ["s23CustomStringConvertibleP", "selectionStyle"]
+- !private ["s23CustomStringConvertibleP", "shared"]
+- !private ["s23CustomStringConvertibleP", "tagName"]
+- !private ["s23CustomStringConvertibleP", "teamInfo"]
+- !private ["s23CustomStringConvertibleP", "text"]
+- !private ["s23CustomStringConvertibleP", "theme"]
+- !private ["s23CustomStringConvertibleP", "type"]
+- !private ["Se", "image"]
+- !private ["Se", "text"]
+- !private ["SE", "image"]
+- !private ["SE", "text"]
+- ["SQ", "=="]
+- !private ["SQ", "HippoConfig"]
+- ["SQ", ""]
+- ["SQ", "_rawHashValue"]
+- !private ["SQ", "agentInfo"]
+- !private ["SQ", "awakeFromNib"]
+- !private ["SQ", "cellImageView"]
+- !private ["SQ", "cellLabel"]
+- !private ["SQ", "checkBoxActive"]
+- !private ["SQ", "checkBoxInActive"]
+- ["SQ", "hash"]
+- ["SQ", "hashValue"]
+- !private ["SQ", "image"]
+- !private ["SQ", "init"]
+- ["SQ", "multiple"]
+- ["SQ", "none"]
+- !private ["SQ", "radioActive"]
+- !private ["SQ", "radioInActive"]
+- !private ["SQ", "selectionStyle"]
+- !private ["SQ", "shared"]
+- ["SQ", "single"]
+- !private ["SQ", "tagName"]
+- !private ["SQ", "teamInfo"]
+- !private ["SQ", "text"]
+- !private ["SQ", "theme"]
+- !private ["SQ", "type"]
+- !private ["s23ExpressibleByNilLiteralP", "image"]
+- !private ["s23ExpressibleByNilLiteralP", "text"]
+- ["SH", "=="]
+- !private ["SH", "HippoConfig"]
+- ["SH", ""]
+- ["SH", "_rawHashValue"]
+- !private ["SH", "agentInfo"]
+- !private ["SH", "awakeFromNib"]
+- !private ["SH", "cellImageView"]
+- !private ["SH", "cellLabel"]
+- !private ["SH", "checkBoxActive"]
+- !private ["SH", "checkBoxInActive"]
+- ["SH", "hash"]
+- ["SH", "hashValue"]
+- !private ["SH", "image"]
+- !private ["SH", "init"]
+- ["SH", "multiple"]
+- ["SH", "none"]
+- !private ["SH", "radioActive"]
+- !private ["SH", "radioInActive"]
+- !private ["SH", "selectionStyle"]
+- !private ["SH", "shared"]
+- ["SH", "single"]
+- !private ["SH", "tagName"]
+- !private ["SH", "teamInfo"]
+- !private ["SH", "text"]
+- !private ["SH", "theme"]
+- !private ["SH", "type"]
+- !private ["s6HasherV", "combine"]
+- !private ["5Hippo0A6ConfigC", "shared"]
+- !private ["5Hippo0A6ConfigC", "theme"]
+- !private ["5Hippo0A5ThemeC", "checkBoxActive"]
+- !private ["5Hippo0A5ThemeC", "checkBoxInActive"]
+- !private ["5Hippo0A5ThemeC", "radioActive"]
+- !private ["5Hippo0A5ThemeC", "radioInActive"]
+- !private ["5Hippo20KingfisherCompatibleP", "image"]
+- !private ["So8NSCodingP", "HippoConfig"]
+- ["So8NSCodingP", ""]
+- !private ["So8NSCodingP", "agentInfo"]
+- !private ["So8NSCodingP", "awakeFromNib"]
+- !private ["So8NSCodingP", "cellImageView"]
+- !private ["So8NSCodingP", "cellLabel"]
+- !private ["So8NSCodingP", "image"]
+- !private ["So8NSCodingP", "init"]
+- !private ["So8NSCodingP", "selectionStyle"]
+- !private ["So8NSCodingP", "teamInfo"]
+- !private ["So8NSCodingP", "text"]
+- !private ["So8NSCodingP", "type"]
+- ["So8NSObjectC", "Bool"]
+- !private ["So8NSObjectC", "HippoConfig"]
+- ["So8NSObjectC", "NSLayoutConstraint"]
+- ["So8NSObjectC", "TagDetail"]
+- ["So8NSObjectC", "UIImageView"]
+- ["So8NSObjectC", "UILabel"]
+- ["So8NSObjectC", "UserDetail"]
+- ["So8NSObjectC", "agentInfo"]
+- ["So8NSObjectC", "awakeFromNib"]
+- ["So8NSObjectC", "cellImageView"]
+- ["So8NSObjectC", "cellLabel"]
+- !private ["So8NSObjectC", "checkBoxActive"]
+- !private ["So8NSObjectC", "checkBoxInActive"]
+- !private ["So8NSObjectC", "image"]
+- ["So8NSObjectC", "imageWidthConstraint"]
+- ["So8NSObjectC", "init"]
+- ["So8NSObjectC", "labelLeadingConstraint"]
+- !private ["So8NSObjectC", "radioActive"]
+- !private ["So8NSObjectC", "radioInActive"]
+- !private ["So8NSObjectC", "selectionStyle"]
+- ["So8NSObjectC", "selectionType"]
+- ["So8NSObjectC", "setData"]
+- ["So8NSObjectC", "setSelected"]
+- !private ["So8NSObjectC", "shared"]
+- !private ["So8NSObjectC", "tagName"]
+- ["So8NSObjectC", "teamInfo"]
+- !private ["So8NSObjectC", "text"]
+- !private ["So8NSObjectC", "theme"]
+- ["So8NSObjectC", "type"]
+- !private ["So8NSObjectP", "HippoConfig"]
+- ["So8NSObjectP", ""]
+- !private ["So8NSObjectP", "agentInfo"]
+- !private ["So8NSObjectP", "awakeFromNib"]
+- !private ["So8NSObjectP", "cellImageView"]
+- !private ["So8NSObjectP", "cellLabel"]
+- !private ["So8NSObjectP", "checkBoxActive"]
+- !private ["So8NSObjectP", "checkBoxInActive"]
+- !private ["So8NSObjectP", "image"]
+- !private ["So8NSObjectP", "init"]
+- !private ["So8NSObjectP", "radioActive"]
+- !private ["So8NSObjectP", "radioInActive"]
+- !private ["So8NSObjectP", "selectionStyle"]
+- !private ["So8NSObjectP", "shared"]
+- !private ["So8NSObjectP", "tagName"]
+- !private ["So8NSObjectP", "teamInfo"]
+- !private ["So8NSObjectP", "text"]
+- !private ["So8NSObjectP", "theme"]
+- !private ["So8NSObjectP", "type"]
+- !private ["Sq", "image"]
+- !private ["Sq", "text"]
+- !private ["SY", "none"]
+- !private ["So29UITableViewCellSelectionStyleV", "none"]
+- !private ["5Hippo9TagDetailC", "tagName"]
+- !private ["So48UIAccessibilityContentSizeCategoryImageAdjustingP", "image"]
+- !private ["So29UIAccessibilityIdentificationP", "HippoConfig"]
+- ["So29UIAccessibilityIdentificationP", ""]
+- !private ["So29UIAccessibilityIdentificationP", "agentInfo"]
+- !private ["So29UIAccessibilityIdentificationP", "awakeFromNib"]
+- !private ["So29UIAccessibilityIdentificationP", "cellImageView"]
+- !private ["So29UIAccessibilityIdentificationP", "cellLabel"]
+- !private ["So29UIAccessibilityIdentificationP", "image"]
+- !private ["So29UIAccessibilityIdentificationP", "init"]
+- !private ["So29UIAccessibilityIdentificationP", "selectionStyle"]
+- !private ["So29UIAccessibilityIdentificationP", "teamInfo"]
+- !private ["So29UIAccessibilityIdentificationP", "text"]
+- !private ["So29UIAccessibilityIdentificationP", "type"]
+- !private ["So12UIAppearanceP", "HippoConfig"]
+- ["So12UIAppearanceP", ""]
+- !private ["So12UIAppearanceP", "agentInfo"]
+- !private ["So12UIAppearanceP", "awakeFromNib"]
+- !private ["So12UIAppearanceP", "cellImageView"]
+- !private ["So12UIAppearanceP", "cellLabel"]
+- !private ["So12UIAppearanceP", "image"]
+- !private ["So12UIAppearanceP", "init"]
+- !private ["So12UIAppearanceP", "selectionStyle"]
+- !private ["So12UIAppearanceP", "teamInfo"]
+- !private ["So12UIAppearanceP", "text"]
+- !private ["So12UIAppearanceP", "type"]
+- !private ["So21UIAppearanceContainerP", "HippoConfig"]
+- ["So21UIAppearanceContainerP", ""]
+- !private ["So21UIAppearanceContainerP", "agentInfo"]
+- !private ["So21UIAppearanceContainerP", "awakeFromNib"]
+- !private ["So21UIAppearanceContainerP", "cellImageView"]
+- !private ["So21UIAppearanceContainerP", "cellLabel"]
+- !private ["So21UIAppearanceContainerP", "image"]
+- !private ["So21UIAppearanceContainerP", "init"]
+- !private ["So21UIAppearanceContainerP", "selectionStyle"]
+- !private ["So21UIAppearanceContainerP", "teamInfo"]
+- !private ["So21UIAppearanceContainerP", "text"]
+- !private ["So21UIAppearanceContainerP", "type"]
+- !private ["So30UIContentSizeCategoryAdjustingP", "text"]
+- !private ["So17UICoordinateSpaceP", "HippoConfig"]
+- ["So17UICoordinateSpaceP", ""]
+- !private ["So17UICoordinateSpaceP", "agentInfo"]
+- !private ["So17UICoordinateSpaceP", "awakeFromNib"]
+- !private ["So17UICoordinateSpaceP", "cellImageView"]
+- !private ["So17UICoordinateSpaceP", "cellLabel"]
+- !private ["So17UICoordinateSpaceP", "image"]
+- !private ["So17UICoordinateSpaceP", "init"]
+- !private ["So17UICoordinateSpaceP", "selectionStyle"]
+- !private ["So17UICoordinateSpaceP", "teamInfo"]
+- !private ["So17UICoordinateSpaceP", "text"]
+- !private ["So17UICoordinateSpaceP", "type"]
+- !private ["So13UIDynamicItemP", "HippoConfig"]
+- ["So13UIDynamicItemP", ""]
+- !private ["So13UIDynamicItemP", "agentInfo"]
+- !private ["So13UIDynamicItemP", "awakeFromNib"]
+- !private ["So13UIDynamicItemP", "cellImageView"]
+- !private ["So13UIDynamicItemP", "cellLabel"]
+- !private ["So13UIDynamicItemP", "image"]
+- !private ["So13UIDynamicItemP", "init"]
+- !private ["So13UIDynamicItemP", "selectionStyle"]
+- !private ["So13UIDynamicItemP", "teamInfo"]
+- !private ["So13UIDynamicItemP", "text"]
+- !private ["So13UIDynamicItemP", "type"]
+- !private ["So18UIFocusEnvironmentP", "HippoConfig"]
+- ["So18UIFocusEnvironmentP", ""]
+- !private ["So18UIFocusEnvironmentP", "agentInfo"]
+- !private ["So18UIFocusEnvironmentP", "awakeFromNib"]
+- !private ["So18UIFocusEnvironmentP", "cellImageView"]
+- !private ["So18UIFocusEnvironmentP", "cellLabel"]
+- !private ["So18UIFocusEnvironmentP", "image"]
+- !private ["So18UIFocusEnvironmentP", "init"]
+- !private ["So18UIFocusEnvironmentP", "selectionStyle"]
+- !private ["So18UIFocusEnvironmentP", "teamInfo"]
+- !private ["So18UIFocusEnvironmentP", "text"]
+- !private ["So18UIFocusEnvironmentP", "type"]
+- !private ["So11UIFocusItemP", "HippoConfig"]
+- ["So11UIFocusItemP", ""]
+- !private ["So11UIFocusItemP", "agentInfo"]
+- !private ["So11UIFocusItemP", "awakeFromNib"]
+- !private ["So11UIFocusItemP", "cellImageView"]
+- !private ["So11UIFocusItemP", "cellLabel"]
+- !private ["So11UIFocusItemP", "image"]
+- !private ["So11UIFocusItemP", "init"]
+- !private ["So11UIFocusItemP", "selectionStyle"]
+- !private ["So11UIFocusItemP", "teamInfo"]
+- !private ["So11UIFocusItemP", "text"]
+- !private ["So11UIFocusItemP", "type"]
+- !private ["So20UIFocusItemContainerP", "HippoConfig"]
+- ["So20UIFocusItemContainerP", ""]
+- !private ["So20UIFocusItemContainerP", "agentInfo"]
+- !private ["So20UIFocusItemContainerP", "awakeFromNib"]
+- !private ["So20UIFocusItemContainerP", "cellImageView"]
+- !private ["So20UIFocusItemContainerP", "cellLabel"]
+- !private ["So20UIFocusItemContainerP", "image"]
+- !private ["So20UIFocusItemContainerP", "init"]
+- !private ["So20UIFocusItemContainerP", "selectionStyle"]
+- !private ["So20UIFocusItemContainerP", "teamInfo"]
+- !private ["So20UIFocusItemContainerP", "text"]
+- !private ["So20UIFocusItemContainerP", "type"]
+- !private ["So27UIGestureRecognizerDelegateP", "HippoConfig"]
+- ["So27UIGestureRecognizerDelegateP", ""]
+- !private ["So27UIGestureRecognizerDelegateP", "agentInfo"]
+- !private ["So27UIGestureRecognizerDelegateP", "awakeFromNib"]
+- !private ["So27UIGestureRecognizerDelegateP", "cellImageView"]
+- !private ["So27UIGestureRecognizerDelegateP", "cellLabel"]
+- !private ["So27UIGestureRecognizerDelegateP", "init"]
+- !private ["So27UIGestureRecognizerDelegateP", "selectionStyle"]
+- !private ["So27UIGestureRecognizerDelegateP", "teamInfo"]
+- !private ["So27UIGestureRecognizerDelegateP", "type"]
+- !private ["So11UIImageViewC", "image"]
+- !private ["So7UILabelC", "text"]
+- !private ["So30UIPasteConfigurationSupportingP", "HippoConfig"]
+- ["So30UIPasteConfigurationSupportingP", ""]
+- !private ["So30UIPasteConfigurationSupportingP", "agentInfo"]
+- !private ["So30UIPasteConfigurationSupportingP", "awakeFromNib"]
+- !private ["So30UIPasteConfigurationSupportingP", "cellImageView"]
+- !private ["So30UIPasteConfigurationSupportingP", "cellLabel"]
+- !private ["So30UIPasteConfigurationSupportingP", "image"]
+- !private ["So30UIPasteConfigurationSupportingP", "init"]
+- !private ["So30UIPasteConfigurationSupportingP", "selectionStyle"]
+- !private ["So30UIPasteConfigurationSupportingP", "teamInfo"]
+- !private ["So30UIPasteConfigurationSupportingP", "text"]
+- !private ["So30UIPasteConfigurationSupportingP", "type"]
+- ["So11UIResponderC", "Bool"]
+- !private ["So11UIResponderC", "HippoConfig"]
+- ["So11UIResponderC", "NSLayoutConstraint"]
+- ["So11UIResponderC", "TagDetail"]
+- ["So11UIResponderC", "UIImageView"]
+- ["So11UIResponderC", "UILabel"]
+- ["So11UIResponderC", "UserDetail"]
+- ["So11UIResponderC", "agentInfo"]
+- ["So11UIResponderC", "awakeFromNib"]
+- ["So11UIResponderC", "cellImageView"]
+- ["So11UIResponderC", "cellLabel"]
+- !private ["So11UIResponderC", "image"]
+- ["So11UIResponderC", "imageWidthConstraint"]
+- ["So11UIResponderC", "init"]
+- ["So11UIResponderC", "labelLeadingConstraint"]
+- !private ["So11UIResponderC", "selectionStyle"]
+- ["So11UIResponderC", "selectionType"]
+- ["So11UIResponderC", "setData"]
+- ["So11UIResponderC", "setSelected"]
+- ["So11UIResponderC", "teamInfo"]
+- !private ["So11UIResponderC", "text"]
+- ["So11UIResponderC", "type"]
+- !private ["So30UIResponderStandardEditActionsP", "HippoConfig"]
+- ["So30UIResponderStandardEditActionsP", ""]
+- !private ["So30UIResponderStandardEditActionsP", "agentInfo"]
+- !private ["So30UIResponderStandardEditActionsP", "awakeFromNib"]
+- !private ["So30UIResponderStandardEditActionsP", "cellImageView"]
+- !private ["So30UIResponderStandardEditActionsP", "cellLabel"]
+- !private ["So30UIResponderStandardEditActionsP", "image"]
+- !private ["So30UIResponderStandardEditActionsP", "init"]
+- !private ["So30UIResponderStandardEditActionsP", "selectionStyle"]
+- !private ["So30UIResponderStandardEditActionsP", "teamInfo"]
+- !private ["So30UIResponderStandardEditActionsP", "text"]
+- !private ["So30UIResponderStandardEditActionsP", "type"]
+- ["So15UITableViewCellC", "Bool"]
+- !private ["So15UITableViewCellC", "HippoConfig"]
+- ["So15UITableViewCellC", "NSLayoutConstraint"]
+- ["So15UITableViewCellC", "TagDetail"]
+- ["So15UITableViewCellC", "UIImageView"]
+- ["So15UITableViewCellC", "UILabel"]
+- ["So15UITableViewCellC", "UserDetail"]
+- ["So15UITableViewCellC", ""]
+- ["So15UITableViewCellC", "agentInfo"]
+- ["So15UITableViewCellC", "awakeFromNib"]
+- ["So15UITableViewCellC", "cellImageView"]
+- ["So15UITableViewCellC", "cellLabel"]
+- ["So15UITableViewCellC", "imageWidthConstraint"]
+- ["So15UITableViewCellC", "init"]
+- ["So15UITableViewCellC", "labelLeadingConstraint"]
+- !private ["So15UITableViewCellC", "selectionStyle"]
+- ["So15UITableViewCellC", "selectionType"]
+- ["So15UITableViewCellC", "setData"]
+- ["So15UITableViewCellC", "setSelected"]
+- ["So15UITableViewCellC", "teamInfo"]
+- ["So15UITableViewCellC", "type"]
+- !private ["So18UITraitEnvironmentP", "HippoConfig"]
+- ["So18UITraitEnvironmentP", ""]
+- !private ["So18UITraitEnvironmentP", "agentInfo"]
+- !private ["So18UITraitEnvironmentP", "awakeFromNib"]
+- !private ["So18UITraitEnvironmentP", "cellImageView"]
+- !private ["So18UITraitEnvironmentP", "cellLabel"]
+- !private ["So18UITraitEnvironmentP", "image"]
+- !private ["So18UITraitEnvironmentP", "init"]
+- !private ["So18UITraitEnvironmentP", "selectionStyle"]
+- !private ["So18UITraitEnvironmentP", "teamInfo"]
+- !private ["So18UITraitEnvironmentP", "text"]
+- !private ["So18UITraitEnvironmentP", "type"]
+- !private ["So23UIUserActivityRestoringP", "HippoConfig"]
+- ["So23UIUserActivityRestoringP", ""]
+- !private ["So23UIUserActivityRestoringP", "agentInfo"]
+- !private ["So23UIUserActivityRestoringP", "awakeFromNib"]
+- !private ["So23UIUserActivityRestoringP", "cellImageView"]
+- !private ["So23UIUserActivityRestoringP", "cellLabel"]
+- !private ["So23UIUserActivityRestoringP", "image"]
+- !private ["So23UIUserActivityRestoringP", "init"]
+- !private ["So23UIUserActivityRestoringP", "selectionStyle"]
+- !private ["So23UIUserActivityRestoringP", "teamInfo"]
+- !private ["So23UIUserActivityRestoringP", "text"]
+- !private ["So23UIUserActivityRestoringP", "type"]
+- ["So6UIViewC", "Bool"]
+- !private ["So6UIViewC", "HippoConfig"]
+- ["So6UIViewC", "NSLayoutConstraint"]
+- ["So6UIViewC", "TagDetail"]
+- ["So6UIViewC", "UIImageView"]
+- ["So6UIViewC", "UILabel"]
+- ["So6UIViewC", "UserDetail"]
+- ["So6UIViewC", "agentInfo"]
+- ["So6UIViewC", "awakeFromNib"]
+- ["So6UIViewC", "cellImageView"]
+- ["So6UIViewC", "cellLabel"]
+- !private ["So6UIViewC", "image"]
+- ["So6UIViewC", "imageWidthConstraint"]
+- ["So6UIViewC", "init"]
+- ["So6UIViewC", "labelLeadingConstraint"]
+- !private ["So6UIViewC", "selectionStyle"]
+- ["So6UIViewC", "selectionType"]
+- ["So6UIViewC", "setData"]
+- ["So6UIViewC", "setSelected"]
+- ["So6UIViewC", "teamInfo"]
+- !private ["So6UIViewC", "text"]
+- ["So6UIViewC", "type"]
+- !private ["5Hippo10UserDetailC", "email"]
+- !private ["5Hippo10UserDetailC", "name"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "HippoConfig"]
+- ["10Foundation27_KeyValueCodingAndObservingP", ""]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "agentInfo"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "awakeFromNib"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "cellImageView"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "cellLabel"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "checkBoxActive"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "checkBoxInActive"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "image"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "init"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "radioActive"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "radioInActive"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "selectionStyle"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "shared"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "tagName"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "teamInfo"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "text"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "theme"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "type"]
+- !private ["s21_ObjectiveCBridgeableP", "image"]
+- !private ["s21_ObjectiveCBridgeableP", "text"]
+- !private ["s38__DefaultCustomPlaygroundQuickLookableP", "HippoConfig"]
+- ["s38__DefaultCustomPlaygroundQuickLookableP", ""]
+- !private ["s38__DefaultCustomPlaygroundQuickLookableP", "agentInfo"]
+- !private ["s38__DefaultCustomPlaygroundQuickLookableP", "awakeFromNib"]
+- !private ["s38__DefaultCustomPlaygroundQuickLookableP", "cellImageView"]
+- !private ["s38__DefaultCustomPlaygroundQuickLookableP", "cellLabel"]
+- !private ["s38__DefaultCustomPlaygroundQuickLookableP", "image"]
+- !private ["s38__DefaultCustomPlaygroundQuickLookableP", "init"]
+- !private ["s38__DefaultCustomPlaygroundQuickLookableP", "selectionStyle"]
+- !private ["s38__DefaultCustomPlaygroundQuickLookableP", "teamInfo"]
+- !private ["s38__DefaultCustomPlaygroundQuickLookableP", "text"]
+- !private ["s38__DefaultCustomPlaygroundQuickLookableP", "type"]
+- ["5Hippo18BroadcastAgentCellC13selectionTypeO", "=="]
+- ["5Hippo18BroadcastAgentCellC13selectionTypeO", "__derived_enum_equals"]
+- ["5Hippo18BroadcastAgentCellC13selectionTypeO", "_rawHashValue"]
+- ["5Hippo18BroadcastAgentCellC13selectionTypeO", "deinit"]
+- ["5Hippo18BroadcastAgentCellC13selectionTypeO", "hash"]
+- ["5Hippo18BroadcastAgentCellC13selectionTypeO", "hashValue"]
+- ["5Hippo18BroadcastAgentCellC13selectionTypeO", "multiple"]
+- ["5Hippo18BroadcastAgentCellC13selectionTypeO", "none"]
+- ["5Hippo18BroadcastAgentCellC13selectionTypeO", "single"]
+depends-nominal:
+- "5Hippo18BroadcastAgentCellC"
+- "So15CALayerDelegateP"
+- "s7CVarArgP"
+- "s28CustomDebugStringConvertibleP"
+- !private "s17CustomReflectableP"
+- "s23CustomStringConvertibleP"
+- !private "Se"
+- !private "SE"
+- "SQ"
+- !private "s23ExpressibleByNilLiteralP"
+- "SH"
+- !private "s6HasherV"
+- !private "5Hippo0A6ConfigC"
+- !private "5Hippo0A5ThemeC"
+- !private "5Hippo20KingfisherCompatibleP"
+- "So8NSCodingP"
+- "So8NSObjectC"
+- "So8NSObjectP"
+- !private "Sq"
+- !private "SY"
+- !private "So29UITableViewCellSelectionStyleV"
+- !private "5Hippo9TagDetailC"
+- !private "So48UIAccessibilityContentSizeCategoryImageAdjustingP"
+- "So29UIAccessibilityIdentificationP"
+- "So12UIAppearanceP"
+- "So21UIAppearanceContainerP"
+- !private "So30UIContentSizeCategoryAdjustingP"
+- "So17UICoordinateSpaceP"
+- "So13UIDynamicItemP"
+- "So18UIFocusEnvironmentP"
+- "So11UIFocusItemP"
+- "So20UIFocusItemContainerP"
+- "So27UIGestureRecognizerDelegateP"
+- !private "So11UIImageViewC"
+- !private "So7UILabelC"
+- "So30UIPasteConfigurationSupportingP"
+- "So11UIResponderC"
+- "So30UIResponderStandardEditActionsP"
+- "So15UITableViewCellC"
+- "So18UITraitEnvironmentP"
+- "So23UIUserActivityRestoringP"
+- "So6UIViewC"
+- !private "5Hippo10UserDetailC"
+- "10Foundation27_KeyValueCodingAndObservingP"
+- !private "s21_ObjectiveCBridgeableP"
+- "s38__DefaultCustomPlaygroundQuickLookableP"
+- "5Hippo18BroadcastAgentCellC13selectionTypeO"
+depends-dynamic-lookup:
+depends-external:
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/ObjectiveC.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreMedia.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/simd.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreImage.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/QuartzCore.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Accelerate.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Dispatch.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Metal.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Darwin.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreLocation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Foundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/AVFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreAudio.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/MediaPlayer.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreGraphics.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/os.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Photos.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Swift.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/UIKit.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/SwiftOnoneSupport.swiftmodule"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Hippo.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Helpers/TRWDownloadManager/TWRDownloadManager.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/SocketRocket/SocketRocket.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/SocketRocket/SRWebSocket.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/MZFayeClient/MZFayeClient.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/unextended-module.modulemap"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/usr/include/objc/ObjectiveC.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/OpenGLES.framework/Headers/OpenGLES.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreMedia.framework/Headers/CoreMedia.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreImage.framework/Headers/CoreImage.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/QuartzCore.framework/Headers/QuartzCore.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Accelerate.framework/Headers/Accelerate.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Dispatch.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/QuickLook.framework/Headers/QuickLook.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Metal.framework/Headers/Metal.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/usr/include/Darwin.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreLocation.framework/Headers/CoreLocation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Foundation.framework/Headers/Foundation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/AVFoundation.framework/Headers/AVFoundation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/MediaPlayer.framework/Headers/MediaPlayer.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreGraphics.framework/Headers/CoreGraphics.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/UserNotifications.framework/Headers/UserNotifications.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/os.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Photos.framework/Headers/Photos.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/UIKit.framework/Headers/UIKit.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreText.framework/Headers/CoreText.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/MediaToolbox.framework/Headers/MediaToolbox.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/AudioToolbox.framework/Headers/AudioToolbox.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Security.framework/Headers/Security.apinotes"
+interface-hash: "302c1e20f378cfdb0c1942d0aa706399"

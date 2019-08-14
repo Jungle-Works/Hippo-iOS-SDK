@@ -1,0 +1,212 @@
+### Swift dependencies file v0 ###
+provides-top-level:
+- "ConversationState"
+provides-nominal:
+- "5Hippo17ConversationStateV"
+provides-member:
+- ["5Hippo17ConversationStateV", ""]
+provides-dynamic-lookup:
+depends-top-level:
+- "AssignmentPrecedence"
+- "Bool"
+- "ConversationState"
+- !private "HippoConfig"
+- "Int"
+- "String"
+- "UIColor"
+- "UIImage"
+depends-member:
+- !private ["s7CVarArgP", "chatAssignIcon"]
+- !private ["s7CVarArgP", "chatCloseIcon"]
+- !private ["s7CVarArgP", "chatReOpenIcon"]
+- !private ["s7CVarArgP", "dirtyPurple"]
+- !private ["s7CVarArgP", "greenApple"]
+- !private ["s7CVarArgP", "pumpkinOrange"]
+- !private ["s7CVarArgP", "shared"]
+- !private ["s7CVarArgP", "theme"]
+- !private ["s7CVarArgP", "withAlphaComponent"]
+- ["5Hippo17ConversationStateV", "Bool"]
+- ["5Hippo17ConversationStateV", "ConversationState"]
+- !private ["5Hippo17ConversationStateV", "HippoConfig"]
+- ["5Hippo17ConversationStateV", "Int"]
+- ["5Hippo17ConversationStateV", "String"]
+- ["5Hippo17ConversationStateV", "UIColor"]
+- ["5Hippo17ConversationStateV", "UIImage"]
+- ["5Hippo17ConversationStateV", "channelId"]
+- ["5Hippo17ConversationStateV", "getClosedState"]
+- ["5Hippo17ConversationStateV", "getNewConversationState"]
+- ["5Hippo17ConversationStateV", "getReassignedState"]
+- ["5Hippo17ConversationStateV", "getReopenState"]
+- ["5Hippo17ConversationStateV", "image"]
+- ["5Hippo17ConversationStateV", "init"]
+- ["5Hippo17ConversationStateV", "isAssigned"]
+- ["5Hippo17ConversationStateV", "labelString"]
+- ["5Hippo17ConversationStateV", "transitionBckgroundColor"]
+- !private ["s28CustomDebugStringConvertibleP", "chatAssignIcon"]
+- !private ["s28CustomDebugStringConvertibleP", "chatCloseIcon"]
+- !private ["s28CustomDebugStringConvertibleP", "chatReOpenIcon"]
+- !private ["s28CustomDebugStringConvertibleP", "dirtyPurple"]
+- !private ["s28CustomDebugStringConvertibleP", "greenApple"]
+- !private ["s28CustomDebugStringConvertibleP", "pumpkinOrange"]
+- !private ["s28CustomDebugStringConvertibleP", "shared"]
+- !private ["s28CustomDebugStringConvertibleP", "theme"]
+- !private ["s28CustomDebugStringConvertibleP", "withAlphaComponent"]
+- !private ["s23CustomStringConvertibleP", "chatAssignIcon"]
+- !private ["s23CustomStringConvertibleP", "chatCloseIcon"]
+- !private ["s23CustomStringConvertibleP", "chatReOpenIcon"]
+- !private ["s23CustomStringConvertibleP", "dirtyPurple"]
+- !private ["s23CustomStringConvertibleP", "greenApple"]
+- !private ["s23CustomStringConvertibleP", "pumpkinOrange"]
+- !private ["s23CustomStringConvertibleP", "shared"]
+- !private ["s23CustomStringConvertibleP", "theme"]
+- !private ["s23CustomStringConvertibleP", "withAlphaComponent"]
+- !private ["SQ", "chatAssignIcon"]
+- !private ["SQ", "chatCloseIcon"]
+- !private ["SQ", "chatReOpenIcon"]
+- !private ["SQ", "dirtyPurple"]
+- !private ["SQ", "greenApple"]
+- !private ["SQ", "pumpkinOrange"]
+- !private ["SQ", "shared"]
+- !private ["SQ", "theme"]
+- !private ["SQ", "withAlphaComponent"]
+- !private ["SH", "chatAssignIcon"]
+- !private ["SH", "chatCloseIcon"]
+- !private ["SH", "chatReOpenIcon"]
+- !private ["SH", "dirtyPurple"]
+- !private ["SH", "greenApple"]
+- !private ["SH", "pumpkinOrange"]
+- !private ["SH", "shared"]
+- !private ["SH", "theme"]
+- !private ["SH", "withAlphaComponent"]
+- !private ["5Hippo0A6ConfigC", "shared"]
+- !private ["5Hippo0A6ConfigC", "theme"]
+- !private ["5Hippo0A5ThemeC", "chatAssignIcon"]
+- !private ["5Hippo0A5ThemeC", "chatCloseIcon"]
+- !private ["5Hippo0A5ThemeC", "chatReOpenIcon"]
+- !private ["So8NSCodingP", "dirtyPurple"]
+- !private ["So8NSCodingP", "greenApple"]
+- !private ["So8NSCodingP", "pumpkinOrange"]
+- !private ["So8NSCodingP", "withAlphaComponent"]
+- !private ["So9NSCopyingP", "dirtyPurple"]
+- !private ["So9NSCopyingP", "greenApple"]
+- !private ["So9NSCopyingP", "pumpkinOrange"]
+- !private ["So9NSCopyingP", "withAlphaComponent"]
+- !private ["So21NSItemProviderReadingP", "dirtyPurple"]
+- !private ["So21NSItemProviderReadingP", "greenApple"]
+- !private ["So21NSItemProviderReadingP", "pumpkinOrange"]
+- !private ["So21NSItemProviderReadingP", "withAlphaComponent"]
+- !private ["So21NSItemProviderWritingP", "dirtyPurple"]
+- !private ["So21NSItemProviderWritingP", "greenApple"]
+- !private ["So21NSItemProviderWritingP", "pumpkinOrange"]
+- !private ["So21NSItemProviderWritingP", "withAlphaComponent"]
+- !private ["So8NSObjectC", "chatAssignIcon"]
+- !private ["So8NSObjectC", "chatCloseIcon"]
+- !private ["So8NSObjectC", "chatReOpenIcon"]
+- !private ["So8NSObjectC", "dirtyPurple"]
+- !private ["So8NSObjectC", "greenApple"]
+- !private ["So8NSObjectC", "pumpkinOrange"]
+- !private ["So8NSObjectC", "shared"]
+- !private ["So8NSObjectC", "theme"]
+- !private ["So8NSObjectC", "withAlphaComponent"]
+- !private ["So8NSObjectP", "chatAssignIcon"]
+- !private ["So8NSObjectP", "chatCloseIcon"]
+- !private ["So8NSObjectP", "chatReOpenIcon"]
+- !private ["So8NSObjectP", "dirtyPurple"]
+- !private ["So8NSObjectP", "greenApple"]
+- !private ["So8NSObjectP", "pumpkinOrange"]
+- !private ["So8NSObjectP", "shared"]
+- !private ["So8NSObjectP", "theme"]
+- !private ["So8NSObjectP", "withAlphaComponent"]
+- !private ["So14NSSecureCodingP", "dirtyPurple"]
+- !private ["So14NSSecureCodingP", "greenApple"]
+- !private ["So14NSSecureCodingP", "pumpkinOrange"]
+- !private ["So14NSSecureCodingP", "withAlphaComponent"]
+- !private ["So7UIColorC", "dirtyPurple"]
+- !private ["So7UIColorC", "greenApple"]
+- !private ["So7UIColorC", "pumpkinOrange"]
+- !private ["So7UIColorC", "withAlphaComponent"]
+- !private ["s26_ExpressibleByColorLiteralP", "dirtyPurple"]
+- !private ["s26_ExpressibleByColorLiteralP", "greenApple"]
+- !private ["s26_ExpressibleByColorLiteralP", "pumpkinOrange"]
+- !private ["s26_ExpressibleByColorLiteralP", "withAlphaComponent"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "chatAssignIcon"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "chatCloseIcon"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "chatReOpenIcon"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "dirtyPurple"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "greenApple"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "pumpkinOrange"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "shared"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "theme"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "withAlphaComponent"]
+depends-nominal:
+- !private "s7CVarArgP"
+- "5Hippo17ConversationStateV"
+- !private "s28CustomDebugStringConvertibleP"
+- !private "s23CustomStringConvertibleP"
+- !private "SQ"
+- !private "SH"
+- !private "5Hippo0A6ConfigC"
+- !private "5Hippo0A5ThemeC"
+- !private "So8NSCodingP"
+- !private "So9NSCopyingP"
+- !private "So21NSItemProviderReadingP"
+- !private "So21NSItemProviderWritingP"
+- !private "So8NSObjectC"
+- !private "So8NSObjectP"
+- !private "So14NSSecureCodingP"
+- !private "So7UIColorC"
+- !private "s26_ExpressibleByColorLiteralP"
+- !private "10Foundation27_KeyValueCodingAndObservingP"
+depends-dynamic-lookup:
+depends-external:
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/ObjectiveC.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreMedia.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/simd.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreImage.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/QuartzCore.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Accelerate.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Dispatch.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Metal.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Darwin.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreLocation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Foundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/AVFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreAudio.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/MediaPlayer.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreGraphics.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/os.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Photos.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Swift.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/UIKit.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/SwiftOnoneSupport.swiftmodule"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Hippo.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Helpers/TRWDownloadManager/TWRDownloadManager.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/SocketRocket/SocketRocket.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/SocketRocket/SRWebSocket.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/MZFayeClient/MZFayeClient.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/unextended-module.modulemap"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/usr/include/objc/ObjectiveC.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/OpenGLES.framework/Headers/OpenGLES.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreMedia.framework/Headers/CoreMedia.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreImage.framework/Headers/CoreImage.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/QuartzCore.framework/Headers/QuartzCore.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Accelerate.framework/Headers/Accelerate.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Dispatch.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/QuickLook.framework/Headers/QuickLook.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Metal.framework/Headers/Metal.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/usr/include/Darwin.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreLocation.framework/Headers/CoreLocation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Foundation.framework/Headers/Foundation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/AVFoundation.framework/Headers/AVFoundation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/MediaPlayer.framework/Headers/MediaPlayer.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreGraphics.framework/Headers/CoreGraphics.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/UserNotifications.framework/Headers/UserNotifications.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/os.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Photos.framework/Headers/Photos.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/UIKit.framework/Headers/UIKit.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreText.framework/Headers/CoreText.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/MediaToolbox.framework/Headers/MediaToolbox.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/AudioToolbox.framework/Headers/AudioToolbox.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Security.framework/Headers/Security.apinotes"
+interface-hash: "7ec6c124d44c0548d3a16b56633f3cf7"

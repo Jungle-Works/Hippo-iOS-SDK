@@ -1,0 +1,544 @@
+### Swift dependencies file v0 ###
+provides-top-level:
+- "FuguAttributes"
+- "HippoAttributes"
+provides-nominal:
+- "5Hippo14FuguAttributesC"
+- "5Hippo0A10AttributesC"
+provides-member:
+- ["5Hippo14FuguAttributesC", ""]
+- ["5Hippo0A10AttributesC", ""]
+provides-dynamic-lookup:
+depends-top-level:
+- !private "!="
+- !private "+="
+- !private "=="
+- !private ">"
+- !private "AF_INET"
+- !private "AF_INET6"
+- "AssignmentPrecedence"
+- !private "CChar"
+- "CLLocationCoordinate2D"
+- "FuguAttributes"
+- "HippoAddress"
+- "HippoAttributes"
+- !private "Int32"
+- "NSObject"
+- !private "PF_INET"
+- !private "PF_INET6"
+- !private "PF_UNSPEC"
+- "String"
+- !private "UInt16"
+- !private "UnicodeScalarType"
+- !private "UnsafeMutablePointer"
+- !private "addrinfo"
+- !private "freeaddrinfo"
+- !private "getaddrinfo"
+- !private "gethostname"
+- !private "inet_ntop"
+- !private "sockaddr_in"
+- !private "sockaddr_in6"
+- !private "socklen_t"
+- !private "~="
+depends-member:
+- !private ["s18AdditiveArithmeticP", "init"]
+- !private ["Sa", "count"]
+- !private ["Sa", "init"]
+- !private ["SK", "count"]
+- !private ["SK", "init"]
+- !private ["Sz", "init"]
+- !private ["So22CLLocationCoordinate2DV", "latitude"]
+- !private ["So22CLLocationCoordinate2DV", "longitude"]
+- !private ["s7CVarArgP", "AF_INET"]
+- !private ["s7CVarArgP", "AF_INET6"]
+- !private ["s7CVarArgP", "CChar"]
+- !private ["s7CVarArgP", "PF_INET"]
+- !private ["s7CVarArgP", "PF_INET6"]
+- !private ["s7CVarArgP", "PF_UNSPEC"]
+- !private ["s7CVarArgP", "String"]
+- ["s7CVarArgP", ""]
+- !private ["s7CVarArgP", "address"]
+- !private ["s7CVarArgP", "addrinfo"]
+- !private ["s7CVarArgP", "count"]
+- !private ["s7CVarArgP", "freeaddrinfo"]
+- !private ["s7CVarArgP", "getaddrinfo"]
+- !private ["s7CVarArgP", "gethostname"]
+- !private ["s7CVarArgP", "inet_ntop"]
+- !private ["s7CVarArgP", "init"]
+- !private ["s7CVarArgP", "ipAddress"]
+- !private ["s7CVarArgP", "keys"]
+- !private ["s7CVarArgP", "pointee"]
+- !private ["s7CVarArgP", "sockaddr_in"]
+- !private ["s7CVarArgP", "sockaddr_in6"]
+- !private ["s7CVarArgP", "socklen_t"]
+- !private ["s7CVarArgP", "subscript"]
+- !private ["s7CVarArgP", "toJSON"]
+- !private ["s7CVarArgP", "userLocation"]
+- !private ["s7CVarArgP", "withMemoryRebound"]
+- !private ["Sl", "count"]
+- !private ["Sl", "init"]
+- !private ["Sl", "keys"]
+- !private ["Sl", "subscript"]
+- !private ["SL", "init"]
+- !private ["SL", "pointee"]
+- !private ["SL", "withMemoryRebound"]
+- !private ["10Foundation15ContiguousBytesP", "count"]
+- !private ["10Foundation15ContiguousBytesP", "init"]
+- !private ["s28CustomDebugStringConvertibleP", "AF_INET"]
+- !private ["s28CustomDebugStringConvertibleP", "AF_INET6"]
+- !private ["s28CustomDebugStringConvertibleP", "CChar"]
+- !private ["s28CustomDebugStringConvertibleP", "PF_INET"]
+- !private ["s28CustomDebugStringConvertibleP", "PF_INET6"]
+- !private ["s28CustomDebugStringConvertibleP", "PF_UNSPEC"]
+- !private ["s28CustomDebugStringConvertibleP", "String"]
+- ["s28CustomDebugStringConvertibleP", ""]
+- !private ["s28CustomDebugStringConvertibleP", "address"]
+- !private ["s28CustomDebugStringConvertibleP", "addrinfo"]
+- !private ["s28CustomDebugStringConvertibleP", "count"]
+- !private ["s28CustomDebugStringConvertibleP", "freeaddrinfo"]
+- !private ["s28CustomDebugStringConvertibleP", "getaddrinfo"]
+- !private ["s28CustomDebugStringConvertibleP", "gethostname"]
+- !private ["s28CustomDebugStringConvertibleP", "inet_ntop"]
+- !private ["s28CustomDebugStringConvertibleP", "init"]
+- !private ["s28CustomDebugStringConvertibleP", "ipAddress"]
+- !private ["s28CustomDebugStringConvertibleP", "keys"]
+- !private ["s28CustomDebugStringConvertibleP", "pointee"]
+- !private ["s28CustomDebugStringConvertibleP", "sockaddr_in"]
+- !private ["s28CustomDebugStringConvertibleP", "sockaddr_in6"]
+- !private ["s28CustomDebugStringConvertibleP", "socklen_t"]
+- !private ["s28CustomDebugStringConvertibleP", "subscript"]
+- !private ["s28CustomDebugStringConvertibleP", "toJSON"]
+- !private ["s28CustomDebugStringConvertibleP", "userLocation"]
+- !private ["s28CustomDebugStringConvertibleP", "withMemoryRebound"]
+- !private ["s17CustomReflectableP", "count"]
+- !private ["s17CustomReflectableP", "init"]
+- !private ["s17CustomReflectableP", "keys"]
+- !private ["s17CustomReflectableP", "pointee"]
+- !private ["s17CustomReflectableP", "subscript"]
+- !private ["s17CustomReflectableP", "withMemoryRebound"]
+- !private ["s23CustomStringConvertibleP", "AF_INET"]
+- !private ["s23CustomStringConvertibleP", "AF_INET6"]
+- !private ["s23CustomStringConvertibleP", "CChar"]
+- !private ["s23CustomStringConvertibleP", "PF_INET"]
+- !private ["s23CustomStringConvertibleP", "PF_INET6"]
+- !private ["s23CustomStringConvertibleP", "PF_UNSPEC"]
+- !private ["s23CustomStringConvertibleP", "String"]
+- ["s23CustomStringConvertibleP", ""]
+- !private ["s23CustomStringConvertibleP", "address"]
+- !private ["s23CustomStringConvertibleP", "addrinfo"]
+- !private ["s23CustomStringConvertibleP", "appendInterpolation"]
+- !private ["s23CustomStringConvertibleP", "appendLiteral"]
+- !private ["s23CustomStringConvertibleP", "count"]
+- !private ["s23CustomStringConvertibleP", "freeaddrinfo"]
+- !private ["s23CustomStringConvertibleP", "getaddrinfo"]
+- !private ["s23CustomStringConvertibleP", "gethostname"]
+- !private ["s23CustomStringConvertibleP", "inet_ntop"]
+- !private ["s23CustomStringConvertibleP", "init"]
+- !private ["s23CustomStringConvertibleP", "ipAddress"]
+- !private ["s23CustomStringConvertibleP", "keys"]
+- !private ["s23CustomStringConvertibleP", "sockaddr_in"]
+- !private ["s23CustomStringConvertibleP", "sockaddr_in6"]
+- !private ["s23CustomStringConvertibleP", "socklen_t"]
+- !private ["s23CustomStringConvertibleP", "subscript"]
+- !private ["s23CustomStringConvertibleP", "toJSON"]
+- !private ["s23CustomStringConvertibleP", "userLocation"]
+- !private ["10Foundation12DataProtocolP", "count"]
+- !private ["10Foundation12DataProtocolP", "init"]
+- !private ["Se", "count"]
+- !private ["Se", "init"]
+- !private ["Se", "keys"]
+- !private ["Se", "subscript"]
+- !private ["Se", "withMemoryRebound"]
+- !private ["s26DefaultStringInterpolationV", "appendInterpolation"]
+- !private ["s26DefaultStringInterpolationV", "appendLiteral"]
+- !private ["SD", "init"]
+- !private ["SD", "keys"]
+- !private ["SD", "subscript"]
+- !private ["SE", "count"]
+- !private ["SE", "init"]
+- !private ["SE", "keys"]
+- !private ["SE", "subscript"]
+- !private ["SE", "withMemoryRebound"]
+- !private ["SQ", "=="]
+- !private ["SQ", "AF_INET"]
+- !private ["SQ", "AF_INET6"]
+- !private ["SQ", "CChar"]
+- !private ["SQ", "PF_INET"]
+- !private ["SQ", "PF_INET6"]
+- !private ["SQ", "PF_UNSPEC"]
+- !private ["SQ", "RawValue"]
+- !private ["SQ", "String"]
+- ["SQ", ""]
+- !private ["SQ", "_Default_RawValue"]
+- !private ["SQ", "_rawHashValue"]
+- !private ["SQ", "address"]
+- !private ["SQ", "addrinfo"]
+- !private ["SQ", "count"]
+- !private ["SQ", "freeaddrinfo"]
+- !private ["SQ", "getaddrinfo"]
+- !private ["SQ", "gethostname"]
+- !private ["SQ", "hash"]
+- !private ["SQ", "hashValue"]
+- !private ["SQ", "inet_ntop"]
+- !private ["SQ", "init"]
+- !private ["SQ", "ipAddress"]
+- !private ["SQ", "keys"]
+- !private ["SQ", "pointee"]
+- !private ["SQ", "rawValue"]
+- !private ["SQ", "sockaddr_in"]
+- !private ["SQ", "sockaddr_in6"]
+- !private ["SQ", "socklen_t"]
+- !private ["SQ", "subscript"]
+- !private ["SQ", "toJSON"]
+- !private ["SQ", "userLocation"]
+- !private ["SQ", "withMemoryRebound"]
+- !private ["s25ExpressibleByArrayLiteralP", "count"]
+- !private ["s25ExpressibleByArrayLiteralP", "init"]
+- !private ["s30ExpressibleByDictionaryLiteralP", "init"]
+- !private ["s30ExpressibleByDictionaryLiteralP", "keys"]
+- !private ["s30ExpressibleByDictionaryLiteralP", "subscript"]
+- !private ["s43ExpressibleByExtendedGraphemeClusterLiteralP", "init"]
+- !private ["s27ExpressibleByIntegerLiteralP", "init"]
+- !private ["s23ExpressibleByNilLiteralP", "withMemoryRebound"]
+- !private ["s32ExpressibleByStringInterpolationP", "init"]
+- !private ["s26ExpressibleByStringLiteralP", "init"]
+- !private ["s33ExpressibleByUnicodeScalarLiteralP", "init"]
+- !private ["s17FixedWidthIntegerP", "init"]
+- ["5Hippo14FuguAttributesC", "deinit"]
+- ["5Hippo14FuguAttributesC", "init"]
+- !private ["SH", "=="]
+- !private ["SH", "AF_INET"]
+- !private ["SH", "AF_INET6"]
+- !private ["SH", "CChar"]
+- !private ["SH", "PF_INET"]
+- !private ["SH", "PF_INET6"]
+- !private ["SH", "PF_UNSPEC"]
+- !private ["SH", "RawValue"]
+- !private ["SH", "String"]
+- ["SH", ""]
+- !private ["SH", "_Default_RawValue"]
+- !private ["SH", "_rawHashValue"]
+- !private ["SH", "address"]
+- !private ["SH", "addrinfo"]
+- !private ["SH", "count"]
+- !private ["SH", "freeaddrinfo"]
+- !private ["SH", "getaddrinfo"]
+- !private ["SH", "gethostname"]
+- !private ["SH", "hash"]
+- !private ["SH", "hashValue"]
+- !private ["SH", "inet_ntop"]
+- !private ["SH", "init"]
+- !private ["SH", "ipAddress"]
+- !private ["SH", "keys"]
+- !private ["SH", "pointee"]
+- !private ["SH", "rawValue"]
+- !private ["SH", "sockaddr_in"]
+- !private ["SH", "sockaddr_in6"]
+- !private ["SH", "socklen_t"]
+- !private ["SH", "subscript"]
+- !private ["SH", "toJSON"]
+- !private ["SH", "userLocation"]
+- !private ["SH", "withMemoryRebound"]
+- !private ["5Hippo0A7AddressC", "toJSON"]
+- !private ["5Hippo0A10AttributesC", "AF_INET"]
+- !private ["5Hippo0A10AttributesC", "AF_INET6"]
+- !private ["5Hippo0A10AttributesC", "CChar"]
+- ["5Hippo0A10AttributesC", "CLLocationCoordinate2D"]
+- ["5Hippo0A10AttributesC", "HippoAddress"]
+- !private ["5Hippo0A10AttributesC", "Int32"]
+- !private ["5Hippo0A10AttributesC", "PF_INET"]
+- !private ["5Hippo0A10AttributesC", "PF_INET6"]
+- !private ["5Hippo0A10AttributesC", "PF_UNSPEC"]
+- ["5Hippo0A10AttributesC", "String"]
+- !private ["5Hippo0A10AttributesC", "UInt16"]
+- !private ["5Hippo0A10AttributesC", "UnsafeMutablePointer"]
+- ["5Hippo0A10AttributesC", "address"]
+- !private ["5Hippo0A10AttributesC", "addrinfo"]
+- ["5Hippo0A10AttributesC", "deinit"]
+- !private ["5Hippo0A10AttributesC", "freeaddrinfo"]
+- !private ["5Hippo0A10AttributesC", "getaddrinfo"]
+- !private ["5Hippo0A10AttributesC", "gethostname"]
+- !private ["5Hippo0A10AttributesC", "inet_ntop"]
+- ["5Hippo0A10AttributesC", "init"]
+- ["5Hippo0A10AttributesC", "ipAddress"]
+- !private ["5Hippo0A10AttributesC", "sockaddr_in"]
+- !private ["5Hippo0A10AttributesC", "sockaddr_in6"]
+- !private ["5Hippo0A10AttributesC", "socklen_t"]
+- ["5Hippo0A10AttributesC", "toJSON"]
+- ["5Hippo0A10AttributesC", "userLocation"]
+- !private ["SD4KeysV", "count"]
+- !private ["5Hippo20KingfisherCompatibleP", "init"]
+- !private ["s25LosslessStringConvertibleP", "init"]
+- !private ["s10MirrorPathP", "init"]
+- !private ["SM", "count"]
+- !private ["SM", "init"]
+- !private ["10Foundation19MutableDataProtocolP", "count"]
+- !private ["10Foundation19MutableDataProtocolP", "init"]
+- !private ["So8NSObjectC", "AF_INET"]
+- !private ["So8NSObjectC", "AF_INET6"]
+- !private ["So8NSObjectC", "CChar"]
+- ["So8NSObjectC", "CLLocationCoordinate2D"]
+- ["So8NSObjectC", "HippoAddress"]
+- !private ["So8NSObjectC", "Int32"]
+- !private ["So8NSObjectC", "PF_INET"]
+- !private ["So8NSObjectC", "PF_INET6"]
+- !private ["So8NSObjectC", "PF_UNSPEC"]
+- ["So8NSObjectC", "String"]
+- !private ["So8NSObjectC", "UInt16"]
+- !private ["So8NSObjectC", "UnsafeMutablePointer"]
+- ["So8NSObjectC", ""]
+- ["So8NSObjectC", "address"]
+- !private ["So8NSObjectC", "addrinfo"]
+- !private ["So8NSObjectC", "freeaddrinfo"]
+- !private ["So8NSObjectC", "getaddrinfo"]
+- !private ["So8NSObjectC", "gethostname"]
+- !private ["So8NSObjectC", "inet_ntop"]
+- ["So8NSObjectC", "init"]
+- ["So8NSObjectC", "ipAddress"]
+- !private ["So8NSObjectC", "sockaddr_in"]
+- !private ["So8NSObjectC", "sockaddr_in6"]
+- !private ["So8NSObjectC", "socklen_t"]
+- ["So8NSObjectC", "toJSON"]
+- ["So8NSObjectC", "userLocation"]
+- !private ["So8NSObjectP", "AF_INET"]
+- !private ["So8NSObjectP", "AF_INET6"]
+- !private ["So8NSObjectP", "CChar"]
+- !private ["So8NSObjectP", "PF_INET"]
+- !private ["So8NSObjectP", "PF_INET6"]
+- !private ["So8NSObjectP", "PF_UNSPEC"]
+- !private ["So8NSObjectP", "String"]
+- ["So8NSObjectP", ""]
+- !private ["So8NSObjectP", "address"]
+- !private ["So8NSObjectP", "addrinfo"]
+- !private ["So8NSObjectP", "freeaddrinfo"]
+- !private ["So8NSObjectP", "getaddrinfo"]
+- !private ["So8NSObjectP", "gethostname"]
+- !private ["So8NSObjectP", "inet_ntop"]
+- !private ["So8NSObjectP", "init"]
+- !private ["So8NSObjectP", "ipAddress"]
+- !private ["So8NSObjectP", "sockaddr_in"]
+- !private ["So8NSObjectP", "sockaddr_in6"]
+- !private ["So8NSObjectP", "socklen_t"]
+- !private ["So8NSObjectP", "toJSON"]
+- !private ["So8NSObjectP", "userLocation"]
+- !private ["Sj", "init"]
+- !private ["Sq", "withMemoryRebound"]
+- !private ["Sk", "count"]
+- !private ["Sk", "init"]
+- !private ["Sm", "count"]
+- !private ["Sm", "init"]
+- !private ["SY", "=="]
+- !private ["SY", "RawValue"]
+- !private ["SY", ""]
+- !private ["SY", "_Default_RawValue"]
+- !private ["SY", "_rawHashValue"]
+- !private ["SY", "hash"]
+- !private ["SY", "hashValue"]
+- !private ["SY", "init"]
+- !private ["SY", "rawValue"]
+- !private ["s10SIMDScalarP", "init"]
+- !private ["ST", "count"]
+- !private ["ST", "init"]
+- !private ["ST", "keys"]
+- !private ["ST", "subscript"]
+- !private ["Sx", "init"]
+- !private ["Sx", "pointee"]
+- !private ["Sx", "withMemoryRebound"]
+- !private ["SS", "init"]
+- !private ["s27StringInterpolationProtocolP", "appendInterpolation"]
+- !private ["s27StringInterpolationProtocolP", "appendLiteral"]
+- !private ["Sy", "init"]
+- !private ["s16TextOutputStreamP", "appendInterpolation"]
+- !private ["s16TextOutputStreamP", "appendLiteral"]
+- !private ["s16TextOutputStreamP", "init"]
+- !private ["s20TextOutputStreamableP", "init"]
+- !private ["s6UInt32V", "init"]
+- !private ["Sp", "pointee"]
+- !private ["Sp", "withMemoryRebound"]
+- !private ["SU", "init"]
+- !private ["s14_ArrayProtocolP", "count"]
+- !private ["s14_ArrayProtocolP", "init"]
+- !private ["s30_CustomPlaygroundQuickLookableP", "init"]
+- !private ["s30_CustomPlaygroundQuickLookableP", "pointee"]
+- !private ["s30_CustomPlaygroundQuickLookableP", "withMemoryRebound"]
+- !private ["s24_DestructorSafeContainerP", "count"]
+- !private ["s24_DestructorSafeContainerP", "init"]
+- !private ["s51_ExpressibleByBuiltinExtendedGraphemeClusterLiteralP", "init"]
+- !private ["s35_ExpressibleByBuiltinIntegerLiteralP", "init"]
+- !private ["s34_ExpressibleByBuiltinStringLiteralP", "init"]
+- !private ["s41_ExpressibleByBuiltinUnicodeScalarLiteralP", "init"]
+- !private ["s19_HasContiguousBytesP", "count"]
+- !private ["s19_HasContiguousBytesP", "init"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "count"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "init"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "keys"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "subscript"]
+- !private ["10Foundation36_JSONStringDictionaryDecodableMarkerP", "init"]
+- !private ["10Foundation36_JSONStringDictionaryDecodableMarkerP", "keys"]
+- !private ["10Foundation36_JSONStringDictionaryDecodableMarkerP", "subscript"]
+- !private ["10Foundation36_JSONStringDictionaryEncodableMarkerP", "init"]
+- !private ["10Foundation36_JSONStringDictionaryEncodableMarkerP", "keys"]
+- !private ["10Foundation36_JSONStringDictionaryEncodableMarkerP", "subscript"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "AF_INET"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "AF_INET6"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "CChar"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "PF_INET"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "PF_INET6"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "PF_UNSPEC"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "String"]
+- ["10Foundation27_KeyValueCodingAndObservingP", ""]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "address"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "addrinfo"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "freeaddrinfo"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "getaddrinfo"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "gethostname"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "inet_ntop"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "init"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "ipAddress"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "sockaddr_in"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "sockaddr_in6"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "socklen_t"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "toJSON"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "userLocation"]
+- !private ["s21_ObjectiveCBridgeableP", "count"]
+- !private ["s21_ObjectiveCBridgeableP", "init"]
+- !private ["s21_ObjectiveCBridgeableP", "keys"]
+- !private ["s21_ObjectiveCBridgeableP", "latitude"]
+- !private ["s21_ObjectiveCBridgeableP", "longitude"]
+- !private ["s21_ObjectiveCBridgeableP", "subscript"]
+- !private ["s21_ObjectiveCBridgeableP", "withMemoryRebound"]
+- !private ["s8_PointerP", "pointee"]
+- !private ["s8_PointerP", "withMemoryRebound"]
+- !private ["So8addrinfoV", "ai_addr"]
+- !private ["So8addrinfoV", "ai_family"]
+- !private ["So8addrinfoV", "ai_flags"]
+- !private ["So8addrinfoV", "ai_next"]
+- !private ["So8addrinfoV", "init"]
+- !private ["So11sockaddr_inV", "sin_addr"]
+- !private ["So12sockaddr_in6V", "sin6_addr"]
+depends-nominal:
+- !private "s18AdditiveArithmeticP"
+- !private "Sa"
+- !private "SK"
+- !private "Sz"
+- !private "So22CLLocationCoordinate2DV"
+- "s7CVarArgP"
+- !private "Sl"
+- !private "SL"
+- !private "10Foundation15ContiguousBytesP"
+- "s28CustomDebugStringConvertibleP"
+- !private "s17CustomReflectableP"
+- "s23CustomStringConvertibleP"
+- !private "10Foundation12DataProtocolP"
+- !private "Se"
+- !private "s26DefaultStringInterpolationV"
+- !private "SD"
+- !private "SE"
+- "SQ"
+- !private "s25ExpressibleByArrayLiteralP"
+- !private "s30ExpressibleByDictionaryLiteralP"
+- !private "s43ExpressibleByExtendedGraphemeClusterLiteralP"
+- !private "s27ExpressibleByIntegerLiteralP"
+- !private "s23ExpressibleByNilLiteralP"
+- !private "s32ExpressibleByStringInterpolationP"
+- !private "s26ExpressibleByStringLiteralP"
+- !private "s33ExpressibleByUnicodeScalarLiteralP"
+- !private "s17FixedWidthIntegerP"
+- "5Hippo14FuguAttributesC"
+- "SH"
+- !private "5Hippo0A7AddressC"
+- "5Hippo0A10AttributesC"
+- !private "SD4KeysV"
+- !private "5Hippo20KingfisherCompatibleP"
+- !private "s25LosslessStringConvertibleP"
+- !private "s10MirrorPathP"
+- !private "SM"
+- !private "10Foundation19MutableDataProtocolP"
+- "So8NSObjectC"
+- "So8NSObjectP"
+- !private "Sj"
+- !private "Sq"
+- !private "Sk"
+- !private "Sm"
+- !private "SY"
+- !private "s10SIMDScalarP"
+- !private "ST"
+- !private "Sx"
+- !private "SS"
+- !private "s27StringInterpolationProtocolP"
+- !private "Sy"
+- !private "s16TextOutputStreamP"
+- !private "s20TextOutputStreamableP"
+- !private "s6UInt32V"
+- !private "Sp"
+- !private "SU"
+- !private "s14_ArrayProtocolP"
+- !private "s30_CustomPlaygroundQuickLookableP"
+- !private "s24_DestructorSafeContainerP"
+- !private "s51_ExpressibleByBuiltinExtendedGraphemeClusterLiteralP"
+- !private "s35_ExpressibleByBuiltinIntegerLiteralP"
+- !private "s34_ExpressibleByBuiltinStringLiteralP"
+- !private "s41_ExpressibleByBuiltinUnicodeScalarLiteralP"
+- !private "s19_HasContiguousBytesP"
+- !private "s35_HasCustomAnyHashableRepresentationP"
+- !private "10Foundation36_JSONStringDictionaryDecodableMarkerP"
+- !private "10Foundation36_JSONStringDictionaryEncodableMarkerP"
+- "10Foundation27_KeyValueCodingAndObservingP"
+- !private "s21_ObjectiveCBridgeableP"
+- !private "s8_PointerP"
+- !private "So8addrinfoV"
+- !private "So11sockaddr_inV"
+- !private "So12sockaddr_in6V"
+depends-dynamic-lookup:
+depends-external:
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/ObjectiveC.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreMedia.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/simd.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreImage.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/QuartzCore.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Accelerate.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Dispatch.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Metal.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Darwin.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreLocation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Foundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/AVFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreAudio.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/MediaPlayer.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreGraphics.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/os.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Photos.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Swift.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/UIKit.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/SwiftOnoneSupport.swiftmodule"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Hippo.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Helpers/TRWDownloadManager/TWRDownloadManager.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/SocketRocket/SocketRocket.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/SocketRocket/SRWebSocket.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/MZFayeClient/MZFayeClient.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/unextended-module.modulemap"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/usr/include/objc/ObjectiveC.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/OpenGLES.framework/Headers/OpenGLES.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreMedia.framework/Headers/CoreMedia.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreImage.framework/Headers/CoreImage.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/QuartzCore.framework/Headers/QuartzCore.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Accelerate.framework/Headers/Accelerate.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Dispatch.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/QuickLook.framework/Headers/QuickLook.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Metal.framework/Headers/Metal.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/usr/include/Darwin.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreLocation.framework/Headers/CoreLocation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Foundation.framework/Headers/Foundation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/AVFoundation.framework/Headers/AVFoundation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/MediaPlayer.framework/Headers/MediaPlayer.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreGraphics.framework/Headers/CoreGraphics.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/UserNotifications.framework/Headers/UserNotifications.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/os.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Photos.framework/Headers/Photos.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/UIKit.framework/Headers/UIKit.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreText.framework/Headers/CoreText.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/MediaToolbox.framework/Headers/MediaToolbox.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/AudioToolbox.framework/Headers/AudioToolbox.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Security.framework/Headers/Security.apinotes"
+interface-hash: "7633175df8b836c49ed42e78d56180db"

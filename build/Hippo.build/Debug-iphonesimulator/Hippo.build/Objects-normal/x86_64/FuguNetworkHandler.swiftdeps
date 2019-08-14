@@ -1,0 +1,963 @@
+### Swift dependencies file v0 ###
+provides-top-level:
+- "FuguNetworkHandler"
+provides-nominal:
+- "5Hippo18FuguNetworkHandlerC"
+provides-member:
+- ["So18NSNotificationNamea", ""]
+- ["5Hippo18FuguNetworkHandlerC", ""]
+- ["So18NSNotificationNamea", "internetDisconnected"]
+- ["So18NSNotificationNamea", "internetConnected"]
+provides-dynamic-lookup:
+depends-top-level:
+- !private "!"
+- !private "&&"
+- !private "=="
+- !private "??"
+- !private "AllConversationsViewController"
+- "AssignmentPrecedence"
+- "Bool"
+- "CastingPrecedence"
+- !private "ConversationsViewController"
+- !private "DefaultName"
+- !private "FayeConnection"
+- !private "FuguDefaults"
+- "FuguNetworkHandler"
+- !private "HippoConfig"
+- "NSObject"
+- "NetworkReachabilityManager"
+- "Notification"
+- !private "NotificationCenter"
+- "String"
+- "TernaryPrecedence"
+- "UIColor"
+- !private "fuguDelay"
+- !private "getLastVisibleController"
+depends-member:
+- !private ["5Hippo23ActionTableViewDelegateP", "errorLabel"]
+- !private ["5Hippo23ActionTableViewDelegateP", "errorLabelTopConstraint"]
+- !private ["5Hippo23ActionTableViewDelegateP", "internetIsBack"]
+- !private ["5Hippo23ActionTableViewDelegateP", "isViewLoaded"]
+- !private ["5Hippo23ActionTableViewDelegateP", "updateErrorLabelView"]
+- !private ["5Hippo30AllConversationsViewControllerC", "errorLabel"]
+- !private ["5Hippo30AllConversationsViewControllerC", "errorLabelTopConstraint"]
+- !private ["5Hippo30AllConversationsViewControllerC", "getAllConversations"]
+- !private ["5Hippo30AllConversationsViewControllerC", "isViewLoaded"]
+- !private ["5Hippo30AllConversationsViewControllerC", "refreshControl"]
+- !private ["5Hippo30AllConversationsViewControllerC", "updateErrorLabelView"]
+- !private ["Sa", "isEmpty"]
+- !private ["SK", "isEmpty"]
+- !private ["5Hippo29BotOtgoingMessageCellDelegateP", "errorLabel"]
+- !private ["5Hippo29BotOtgoingMessageCellDelegateP", "errorLabelTopConstraint"]
+- !private ["5Hippo29BotOtgoingMessageCellDelegateP", "internetIsBack"]
+- !private ["5Hippo29BotOtgoingMessageCellDelegateP", "isViewLoaded"]
+- !private ["5Hippo29BotOtgoingMessageCellDelegateP", "updateErrorLabelView"]
+- !private ["So15CALayerDelegateP", "backgroundColor"]
+- !private ["So15CALayerDelegateP", "endRefreshing"]
+- !private ["So15CALayerDelegateP", "text"]
+- !private ["s7CVarArgP", "DefaultName"]
+- !private ["s7CVarArgP", "FayeConnection"]
+- !private ["s7CVarArgP", "FuguDefaults"]
+- ["s7CVarArgP", "FuguNetworkHandler"]
+- !private ["s7CVarArgP", "HippoConfig"]
+- ["s7CVarArgP", "NetworkReachabilityManager"]
+- !private ["s7CVarArgP", "NotificationCenter"]
+- !private ["s7CVarArgP", "UIColor"]
+- ["s7CVarArgP", ""]
+- !private ["s7CVarArgP", "backgroundColor"]
+- !private ["s7CVarArgP", "constant"]
+- !private ["s7CVarArgP", "default"]
+- !private ["s7CVarArgP", "endRefreshing"]
+- !private ["s7CVarArgP", "errorLabel"]
+- !private ["s7CVarArgP", "errorLabelTopConstraint"]
+- !private ["s7CVarArgP", "errorMessage"]
+- !private ["s7CVarArgP", "fuguDelay"]
+- !private ["s7CVarArgP", "getAllConversations"]
+- !private ["s7CVarArgP", "getLastVisibleController"]
+- ["s7CVarArgP", "init"]
+- !private ["s7CVarArgP", "internetIsBack"]
+- !private ["s7CVarArgP", "isConnected"]
+- !private ["s7CVarArgP", "isEmpty"]
+- !private ["s7CVarArgP", "isViewLoaded"]
+- !private ["s7CVarArgP", "object"]
+- !private ["s7CVarArgP", "orange"]
+- !private ["s7CVarArgP", "post"]
+- !private ["s7CVarArgP", "processingGreenColor"]
+- !private ["s7CVarArgP", "reachability"]
+- !private ["s7CVarArgP", "red"]
+- !private ["s7CVarArgP", "refreshControl"]
+- !private ["s7CVarArgP", "shared"]
+- !private ["s7CVarArgP", "strings"]
+- !private ["s7CVarArgP", "text"]
+- !private ["s7CVarArgP", "theme"]
+- !private ["s7CVarArgP", "updateConnectedStatus"]
+- !private ["s7CVarArgP", "updateErrorLabelView"]
+- !private ["Sl", "isEmpty"]
+- !private ["SL", "isEmpty"]
+- !private ["10Foundation15ContiguousBytesP", "isEmpty"]
+- !private ["5Hippo27ConversationsViewControllerC", "errorLabel"]
+- !private ["5Hippo27ConversationsViewControllerC", "errorLabelTopConstraint"]
+- !private ["5Hippo27ConversationsViewControllerC", "internetIsBack"]
+- !private ["5Hippo27ConversationsViewControllerC", "isViewLoaded"]
+- !private ["5Hippo27ConversationsViewControllerC", "updateErrorLabelView"]
+- !private ["5Hippo26CoreDocumentPickerDelegateP", "errorLabel"]
+- !private ["5Hippo26CoreDocumentPickerDelegateP", "errorLabelTopConstraint"]
+- !private ["5Hippo26CoreDocumentPickerDelegateP", "internetIsBack"]
+- !private ["5Hippo26CoreDocumentPickerDelegateP", "isViewLoaded"]
+- !private ["5Hippo26CoreDocumentPickerDelegateP", "updateErrorLabelView"]
+- !private ["5Hippo25CoreMediaSelectorDelegateP", "errorLabel"]
+- !private ["5Hippo25CoreMediaSelectorDelegateP", "errorLabelTopConstraint"]
+- !private ["5Hippo25CoreMediaSelectorDelegateP", "internetIsBack"]
+- !private ["5Hippo25CoreMediaSelectorDelegateP", "isViewLoaded"]
+- !private ["5Hippo25CoreMediaSelectorDelegateP", "updateErrorLabelView"]
+- !private ["5Hippo21CreatePaymentDelegateP", "errorLabel"]
+- !private ["5Hippo21CreatePaymentDelegateP", "errorLabelTopConstraint"]
+- !private ["5Hippo21CreatePaymentDelegateP", "internetIsBack"]
+- !private ["5Hippo21CreatePaymentDelegateP", "isViewLoaded"]
+- !private ["5Hippo21CreatePaymentDelegateP", "updateErrorLabelView"]
+- !private ["s28CustomDebugStringConvertibleP", "DefaultName"]
+- !private ["s28CustomDebugStringConvertibleP", "FayeConnection"]
+- !private ["s28CustomDebugStringConvertibleP", "FuguDefaults"]
+- ["s28CustomDebugStringConvertibleP", "FuguNetworkHandler"]
+- !private ["s28CustomDebugStringConvertibleP", "HippoConfig"]
+- ["s28CustomDebugStringConvertibleP", "Name"]
+- ["s28CustomDebugStringConvertibleP", "NetworkReachabilityManager"]
+- !private ["s28CustomDebugStringConvertibleP", "NotificationCenter"]
+- !private ["s28CustomDebugStringConvertibleP", "UIColor"]
+- ["s28CustomDebugStringConvertibleP", ""]
+- !private ["s28CustomDebugStringConvertibleP", "backgroundColor"]
+- !private ["s28CustomDebugStringConvertibleP", "constant"]
+- !private ["s28CustomDebugStringConvertibleP", "default"]
+- !private ["s28CustomDebugStringConvertibleP", "endRefreshing"]
+- !private ["s28CustomDebugStringConvertibleP", "errorLabel"]
+- !private ["s28CustomDebugStringConvertibleP", "errorLabelTopConstraint"]
+- !private ["s28CustomDebugStringConvertibleP", "errorMessage"]
+- !private ["s28CustomDebugStringConvertibleP", "fuguDelay"]
+- !private ["s28CustomDebugStringConvertibleP", "getAllConversations"]
+- !private ["s28CustomDebugStringConvertibleP", "getLastVisibleController"]
+- ["s28CustomDebugStringConvertibleP", "init"]
+- !private ["s28CustomDebugStringConvertibleP", "internetIsBack"]
+- !private ["s28CustomDebugStringConvertibleP", "isConnected"]
+- !private ["s28CustomDebugStringConvertibleP", "isEmpty"]
+- !private ["s28CustomDebugStringConvertibleP", "isViewLoaded"]
+- !private ["s28CustomDebugStringConvertibleP", "object"]
+- !private ["s28CustomDebugStringConvertibleP", "orange"]
+- !private ["s28CustomDebugStringConvertibleP", "post"]
+- !private ["s28CustomDebugStringConvertibleP", "processingGreenColor"]
+- !private ["s28CustomDebugStringConvertibleP", "reachability"]
+- !private ["s28CustomDebugStringConvertibleP", "red"]
+- !private ["s28CustomDebugStringConvertibleP", "refreshControl"]
+- !private ["s28CustomDebugStringConvertibleP", "shared"]
+- !private ["s28CustomDebugStringConvertibleP", "strings"]
+- !private ["s28CustomDebugStringConvertibleP", "text"]
+- !private ["s28CustomDebugStringConvertibleP", "theme"]
+- !private ["s28CustomDebugStringConvertibleP", "updateConnectedStatus"]
+- !private ["s28CustomDebugStringConvertibleP", "updateErrorLabelView"]
+- ["s17CustomReflectableP", "Name"]
+- !private ["s17CustomReflectableP", "backgroundColor"]
+- !private ["s17CustomReflectableP", "constant"]
+- !private ["s17CustomReflectableP", "isEmpty"]
+- !private ["s17CustomReflectableP", "text"]
+- !private ["s23CustomStringConvertibleP", "DefaultName"]
+- !private ["s23CustomStringConvertibleP", "FayeConnection"]
+- !private ["s23CustomStringConvertibleP", "FuguDefaults"]
+- ["s23CustomStringConvertibleP", "FuguNetworkHandler"]
+- !private ["s23CustomStringConvertibleP", "HippoConfig"]
+- ["s23CustomStringConvertibleP", "Name"]
+- ["s23CustomStringConvertibleP", "NetworkReachabilityManager"]
+- !private ["s23CustomStringConvertibleP", "NotificationCenter"]
+- !private ["s23CustomStringConvertibleP", "UIColor"]
+- ["s23CustomStringConvertibleP", ""]
+- !private ["s23CustomStringConvertibleP", "backgroundColor"]
+- !private ["s23CustomStringConvertibleP", "constant"]
+- !private ["s23CustomStringConvertibleP", "default"]
+- !private ["s23CustomStringConvertibleP", "endRefreshing"]
+- !private ["s23CustomStringConvertibleP", "errorLabel"]
+- !private ["s23CustomStringConvertibleP", "errorLabelTopConstraint"]
+- !private ["s23CustomStringConvertibleP", "errorMessage"]
+- !private ["s23CustomStringConvertibleP", "fuguDelay"]
+- !private ["s23CustomStringConvertibleP", "getAllConversations"]
+- !private ["s23CustomStringConvertibleP", "getLastVisibleController"]
+- ["s23CustomStringConvertibleP", "init"]
+- !private ["s23CustomStringConvertibleP", "internetIsBack"]
+- !private ["s23CustomStringConvertibleP", "isConnected"]
+- !private ["s23CustomStringConvertibleP", "isEmpty"]
+- !private ["s23CustomStringConvertibleP", "isViewLoaded"]
+- !private ["s23CustomStringConvertibleP", "object"]
+- !private ["s23CustomStringConvertibleP", "orange"]
+- !private ["s23CustomStringConvertibleP", "post"]
+- !private ["s23CustomStringConvertibleP", "processingGreenColor"]
+- !private ["s23CustomStringConvertibleP", "reachability"]
+- !private ["s23CustomStringConvertibleP", "red"]
+- !private ["s23CustomStringConvertibleP", "refreshControl"]
+- !private ["s23CustomStringConvertibleP", "shared"]
+- !private ["s23CustomStringConvertibleP", "strings"]
+- !private ["s23CustomStringConvertibleP", "text"]
+- !private ["s23CustomStringConvertibleP", "theme"]
+- !private ["s23CustomStringConvertibleP", "updateConnectedStatus"]
+- !private ["s23CustomStringConvertibleP", "updateErrorLabelView"]
+- !private ["10Foundation12DataProtocolP", "isEmpty"]
+- !private ["Se", "backgroundColor"]
+- !private ["Se", "constant"]
+- !private ["Se", "isEmpty"]
+- !private ["Se", "text"]
+- !private ["5Hippo11DefaultNameO", "conversationData"]
+- !private ["5Hippo11DefaultNameO", "deinit"]
+- !private ["5Hippo11DefaultNameO", "rawValue"]
+- !private ["5Hippo29DocumentTableViewCellDelegateP", "errorLabel"]
+- !private ["5Hippo29DocumentTableViewCellDelegateP", "errorLabelTopConstraint"]
+- !private ["5Hippo29DocumentTableViewCellDelegateP", "internetIsBack"]
+- !private ["5Hippo29DocumentTableViewCellDelegateP", "isViewLoaded"]
+- !private ["5Hippo29DocumentTableViewCellDelegateP", "updateErrorLabelView"]
+- !private ["SE", "backgroundColor"]
+- !private ["SE", "constant"]
+- !private ["SE", "isEmpty"]
+- !private ["SE", "text"]
+- !private ["SQ", "DefaultName"]
+- !private ["SQ", "FayeConnection"]
+- !private ["SQ", "FuguDefaults"]
+- ["SQ", "FuguNetworkHandler"]
+- !private ["SQ", "HippoConfig"]
+- ["SQ", "Name"]
+- ["SQ", "NetworkReachabilityManager"]
+- ["SQ", "Notification"]
+- !private ["SQ", "NotificationCenter"]
+- !private ["SQ", "UIColor"]
+- ["SQ", ""]
+- !private ["SQ", "backgroundColor"]
+- !private ["SQ", "constant"]
+- !private ["SQ", "conversationData"]
+- !private ["SQ", "default"]
+- !private ["SQ", "endRefreshing"]
+- !private ["SQ", "errorLabel"]
+- !private ["SQ", "errorLabelTopConstraint"]
+- !private ["SQ", "errorMessage"]
+- !private ["SQ", "fuguDelay"]
+- !private ["SQ", "getAllConversations"]
+- !private ["SQ", "getLastVisibleController"]
+- ["SQ", "init"]
+- !private ["SQ", "internetConnected"]
+- !private ["SQ", "internetDisconnected"]
+- !private ["SQ", "internetIsBack"]
+- !private ["SQ", "isConnected"]
+- !private ["SQ", "isEmpty"]
+- !private ["SQ", "isViewLoaded"]
+- !private ["SQ", "notReachable"]
+- !private ["SQ", "object"]
+- !private ["SQ", "orange"]
+- !private ["SQ", "post"]
+- !private ["SQ", "processingGreenColor"]
+- !private ["SQ", "rawValue"]
+- !private ["SQ", "reachability"]
+- !private ["SQ", "red"]
+- !private ["SQ", "refreshControl"]
+- !private ["SQ", "shared"]
+- !private ["SQ", "strings"]
+- !private ["SQ", "text"]
+- !private ["SQ", "theme"]
+- !private ["SQ", "updateConnectedStatus"]
+- !private ["SQ", "updateErrorLabelView"]
+- !private ["s25ExpressibleByArrayLiteralP", "isEmpty"]
+- !private ["s43ExpressibleByExtendedGraphemeClusterLiteralP", "isEmpty"]
+- !private ["s23ExpressibleByNilLiteralP", "backgroundColor"]
+- !private ["s23ExpressibleByNilLiteralP", "constant"]
+- !private ["s23ExpressibleByNilLiteralP", "text"]
+- !private ["s32ExpressibleByStringInterpolationP", "isEmpty"]
+- !private ["s26ExpressibleByStringLiteralP", "isEmpty"]
+- !private ["s33ExpressibleByUnicodeScalarLiteralP", "isEmpty"]
+- !private ["5Hippo14FayeConnectionC", "isConnected"]
+- !private ["5Hippo14FayeConnectionC", "shared"]
+- !private ["5Hippo29FeedbackTableViewCellDelegateP", "errorLabel"]
+- !private ["5Hippo29FeedbackTableViewCellDelegateP", "errorLabelTopConstraint"]
+- !private ["5Hippo29FeedbackTableViewCellDelegateP", "internetIsBack"]
+- !private ["5Hippo29FeedbackTableViewCellDelegateP", "isViewLoaded"]
+- !private ["5Hippo29FeedbackTableViewCellDelegateP", "updateErrorLabelView"]
+- !private ["5Hippo12FuguDefaultsC", "object"]
+- !private ["5Hippo18FuguNetworkHandlerC", "AllConversationsViewController"]
+- ["5Hippo18FuguNetworkHandlerC", "Bool"]
+- !private ["5Hippo18FuguNetworkHandlerC", "ConversationsViewController"]
+- !private ["5Hippo18FuguNetworkHandlerC", "DefaultName"]
+- !private ["5Hippo18FuguNetworkHandlerC", "FayeConnection"]
+- !private ["5Hippo18FuguNetworkHandlerC", "FuguDefaults"]
+- ["5Hippo18FuguNetworkHandlerC", "FuguNetworkHandler"]
+- !private ["5Hippo18FuguNetworkHandlerC", "HippoConfig"]
+- ["5Hippo18FuguNetworkHandlerC", "NetworkReachabilityManager"]
+- !private ["5Hippo18FuguNetworkHandlerC", "NotificationCenter"]
+- ["5Hippo18FuguNetworkHandlerC", "String"]
+- ["5Hippo18FuguNetworkHandlerC", "UIColor"]
+- ["5Hippo18FuguNetworkHandlerC", "deinit"]
+- !private ["5Hippo18FuguNetworkHandlerC", "errorMessage"]
+- ["5Hippo18FuguNetworkHandlerC", "fuguConnectionChangesStartNotifier"]
+- !private ["5Hippo18FuguNetworkHandlerC", "fuguDelay"]
+- !private ["5Hippo18FuguNetworkHandlerC", "getLastVisibleController"]
+- ["5Hippo18FuguNetworkHandlerC", "init"]
+- ["5Hippo18FuguNetworkHandlerC", "isNetworkConnected"]
+- ["5Hippo18FuguNetworkHandlerC", "reachability"]
+- ["5Hippo18FuguNetworkHandlerC", "shared"]
+- !private ["5Hippo18FuguNetworkHandlerC", "updateConnectedStatus"]
+- !private ["SH", "DefaultName"]
+- !private ["SH", "FayeConnection"]
+- !private ["SH", "FuguDefaults"]
+- ["SH", "FuguNetworkHandler"]
+- !private ["SH", "HippoConfig"]
+- ["SH", "Name"]
+- ["SH", "NetworkReachabilityManager"]
+- ["SH", "Notification"]
+- !private ["SH", "NotificationCenter"]
+- !private ["SH", "UIColor"]
+- ["SH", ""]
+- !private ["SH", "backgroundColor"]
+- !private ["SH", "constant"]
+- !private ["SH", "conversationData"]
+- !private ["SH", "default"]
+- !private ["SH", "endRefreshing"]
+- !private ["SH", "errorLabel"]
+- !private ["SH", "errorLabelTopConstraint"]
+- !private ["SH", "errorMessage"]
+- !private ["SH", "fuguDelay"]
+- !private ["SH", "getAllConversations"]
+- !private ["SH", "getLastVisibleController"]
+- ["SH", "init"]
+- !private ["SH", "internetConnected"]
+- !private ["SH", "internetDisconnected"]
+- !private ["SH", "internetIsBack"]
+- !private ["SH", "isConnected"]
+- !private ["SH", "isEmpty"]
+- !private ["SH", "isViewLoaded"]
+- !private ["SH", "object"]
+- !private ["SH", "orange"]
+- !private ["SH", "post"]
+- !private ["SH", "processingGreenColor"]
+- !private ["SH", "rawValue"]
+- !private ["SH", "reachability"]
+- !private ["SH", "red"]
+- !private ["SH", "refreshControl"]
+- !private ["SH", "shared"]
+- !private ["SH", "strings"]
+- !private ["SH", "text"]
+- !private ["SH", "theme"]
+- !private ["SH", "updateConnectedStatus"]
+- !private ["SH", "updateErrorLabelView"]
+- !private ["5Hippo0A15ChannelDelegateP", "errorLabel"]
+- !private ["5Hippo0A15ChannelDelegateP", "errorLabelTopConstraint"]
+- !private ["5Hippo0A15ChannelDelegateP", "internetIsBack"]
+- !private ["5Hippo0A15ChannelDelegateP", "isViewLoaded"]
+- !private ["5Hippo0A15ChannelDelegateP", "updateErrorLabelView"]
+- !private ["5Hippo0A6ConfigC", "shared"]
+- !private ["5Hippo0A6ConfigC", "strings"]
+- !private ["5Hippo0A6ConfigC", "theme"]
+- !private ["5Hippo0A26ConversationViewControllerC", "errorLabel"]
+- !private ["5Hippo0A26ConversationViewControllerC", "errorLabelTopConstraint"]
+- !private ["5Hippo0A26ConversationViewControllerC", "internetIsBack"]
+- !private ["5Hippo0A26ConversationViewControllerC", "isViewLoaded"]
+- !private ["5Hippo0A26ConversationViewControllerC", "updateErrorLabelView"]
+- !private ["5Hippo0A31DataCollectorControllerDelegateP", "errorLabel"]
+- !private ["5Hippo0A31DataCollectorControllerDelegateP", "errorLabelTopConstraint"]
+- !private ["5Hippo0A31DataCollectorControllerDelegateP", "getAllConversations"]
+- !private ["5Hippo0A31DataCollectorControllerDelegateP", "isViewLoaded"]
+- !private ["5Hippo0A31DataCollectorControllerDelegateP", "refreshControl"]
+- !private ["5Hippo0A31DataCollectorControllerDelegateP", "updateErrorLabelView"]
+- !private ["5Hippo0A7StringsC", "noNetworkConnection"]
+- !private ["5Hippo0A5ThemeC", "processingGreenColor"]
+- !private ["5Hippo17ImageCellDelegateP", "errorLabel"]
+- !private ["5Hippo17ImageCellDelegateP", "errorLabelTopConstraint"]
+- !private ["5Hippo17ImageCellDelegateP", "internetIsBack"]
+- !private ["5Hippo17ImageCellDelegateP", "isViewLoaded"]
+- !private ["5Hippo17ImageCellDelegateP", "updateErrorLabelView"]
+- !private ["5Hippo20KingfisherCompatibleP", "isEmpty"]
+- !private ["5Hippo25LeadTableViewCellDelegateP", "errorLabel"]
+- !private ["5Hippo25LeadTableViewCellDelegateP", "errorLabelTopConstraint"]
+- !private ["5Hippo25LeadTableViewCellDelegateP", "internetIsBack"]
+- !private ["5Hippo25LeadTableViewCellDelegateP", "isViewLoaded"]
+- !private ["5Hippo25LeadTableViewCellDelegateP", "updateErrorLabelView"]
+- !private ["s25LosslessStringConvertibleP", "isEmpty"]
+- !private ["So20MZFayeClientDelegateP", "isConnected"]
+- !private ["So20MZFayeClientDelegateP", "shared"]
+- !private ["s10MirrorPathP", "isEmpty"]
+- !private ["SM", "isEmpty"]
+- !private ["10Foundation19MutableDataProtocolP", "isEmpty"]
+- !private ["So8NSCodingP", "backgroundColor"]
+- !private ["So8NSCodingP", "endRefreshing"]
+- !private ["So8NSCodingP", "errorLabel"]
+- !private ["So8NSCodingP", "errorLabelTopConstraint"]
+- !private ["So8NSCodingP", "getAllConversations"]
+- !private ["So8NSCodingP", "internetIsBack"]
+- !private ["So8NSCodingP", "isEmpty"]
+- !private ["So8NSCodingP", "isViewLoaded"]
+- !private ["So8NSCodingP", "orange"]
+- !private ["So8NSCodingP", "red"]
+- !private ["So8NSCodingP", "refreshControl"]
+- !private ["So8NSCodingP", "text"]
+- !private ["So8NSCodingP", "updateErrorLabelView"]
+- !private ["So9NSCopyingP", "isEmpty"]
+- !private ["So9NSCopyingP", "orange"]
+- !private ["So9NSCopyingP", "red"]
+- !private ["So26NSExtensionRequestHandlingP", "errorLabel"]
+- !private ["So26NSExtensionRequestHandlingP", "errorLabelTopConstraint"]
+- !private ["So26NSExtensionRequestHandlingP", "getAllConversations"]
+- !private ["So26NSExtensionRequestHandlingP", "internetIsBack"]
+- !private ["So26NSExtensionRequestHandlingP", "isViewLoaded"]
+- !private ["So26NSExtensionRequestHandlingP", "refreshControl"]
+- !private ["So26NSExtensionRequestHandlingP", "updateErrorLabelView"]
+- !private ["So21NSItemProviderReadingP", "isEmpty"]
+- !private ["So21NSItemProviderReadingP", "orange"]
+- !private ["So21NSItemProviderReadingP", "red"]
+- !private ["So21NSItemProviderWritingP", "isEmpty"]
+- !private ["So21NSItemProviderWritingP", "orange"]
+- !private ["So21NSItemProviderWritingP", "red"]
+- !private ["So18NSLayoutConstraintC", "constant"]
+- !private ["So16NSMutableCopyingP", "isEmpty"]
+- !private ["So8NSObjectC", "AllConversationsViewController"]
+- ["So8NSObjectC", "Bool"]
+- !private ["So8NSObjectC", "ConversationsViewController"]
+- !private ["So8NSObjectC", "DefaultName"]
+- !private ["So8NSObjectC", "FayeConnection"]
+- !private ["So8NSObjectC", "FuguDefaults"]
+- ["So8NSObjectC", "FuguNetworkHandler"]
+- !private ["So8NSObjectC", "HippoConfig"]
+- ["So8NSObjectC", "NetworkReachabilityManager"]
+- !private ["So8NSObjectC", "NotificationCenter"]
+- ["So8NSObjectC", "String"]
+- ["So8NSObjectC", "UIColor"]
+- ["So8NSObjectC", ""]
+- !private ["So8NSObjectC", "backgroundColor"]
+- !private ["So8NSObjectC", "constant"]
+- !private ["So8NSObjectC", "default"]
+- !private ["So8NSObjectC", "endRefreshing"]
+- !private ["So8NSObjectC", "errorLabel"]
+- !private ["So8NSObjectC", "errorLabelTopConstraint"]
+- ["So8NSObjectC", "errorMessage"]
+- ["So8NSObjectC", "fuguConnectionChangesStartNotifier"]
+- !private ["So8NSObjectC", "fuguDelay"]
+- !private ["So8NSObjectC", "getAllConversations"]
+- !private ["So8NSObjectC", "getLastVisibleController"]
+- ["So8NSObjectC", "init"]
+- !private ["So8NSObjectC", "internetIsBack"]
+- !private ["So8NSObjectC", "isConnected"]
+- !private ["So8NSObjectC", "isEmpty"]
+- ["So8NSObjectC", "isNetworkConnected"]
+- !private ["So8NSObjectC", "isViewLoaded"]
+- !private ["So8NSObjectC", "object"]
+- !private ["So8NSObjectC", "orange"]
+- !private ["So8NSObjectC", "post"]
+- !private ["So8NSObjectC", "processingGreenColor"]
+- ["So8NSObjectC", "reachability"]
+- !private ["So8NSObjectC", "red"]
+- !private ["So8NSObjectC", "refreshControl"]
+- ["So8NSObjectC", "shared"]
+- !private ["So8NSObjectC", "strings"]
+- !private ["So8NSObjectC", "text"]
+- !private ["So8NSObjectC", "theme"]
+- ["So8NSObjectC", "updateConnectedStatus"]
+- !private ["So8NSObjectC", "updateErrorLabelView"]
+- !private ["So8NSObjectP", "DefaultName"]
+- !private ["So8NSObjectP", "FayeConnection"]
+- !private ["So8NSObjectP", "FuguDefaults"]
+- ["So8NSObjectP", "FuguNetworkHandler"]
+- !private ["So8NSObjectP", "HippoConfig"]
+- ["So8NSObjectP", "NetworkReachabilityManager"]
+- !private ["So8NSObjectP", "NotificationCenter"]
+- !private ["So8NSObjectP", "UIColor"]
+- ["So8NSObjectP", ""]
+- !private ["So8NSObjectP", "backgroundColor"]
+- !private ["So8NSObjectP", "constant"]
+- !private ["So8NSObjectP", "default"]
+- !private ["So8NSObjectP", "endRefreshing"]
+- !private ["So8NSObjectP", "errorLabel"]
+- !private ["So8NSObjectP", "errorLabelTopConstraint"]
+- !private ["So8NSObjectP", "errorMessage"]
+- !private ["So8NSObjectP", "fuguDelay"]
+- !private ["So8NSObjectP", "getAllConversations"]
+- !private ["So8NSObjectP", "getLastVisibleController"]
+- ["So8NSObjectP", "init"]
+- !private ["So8NSObjectP", "internetIsBack"]
+- !private ["So8NSObjectP", "isConnected"]
+- !private ["So8NSObjectP", "isEmpty"]
+- !private ["So8NSObjectP", "isViewLoaded"]
+- !private ["So8NSObjectP", "object"]
+- !private ["So8NSObjectP", "orange"]
+- !private ["So8NSObjectP", "post"]
+- !private ["So8NSObjectP", "processingGreenColor"]
+- !private ["So8NSObjectP", "reachability"]
+- !private ["So8NSObjectP", "red"]
+- !private ["So8NSObjectP", "refreshControl"]
+- !private ["So8NSObjectP", "shared"]
+- !private ["So8NSObjectP", "strings"]
+- !private ["So8NSObjectP", "text"]
+- !private ["So8NSObjectP", "theme"]
+- !private ["So8NSObjectP", "updateConnectedStatus"]
+- !private ["So8NSObjectP", "updateErrorLabelView"]
+- !private ["So14NSSecureCodingP", "isEmpty"]
+- !private ["So14NSSecureCodingP", "orange"]
+- !private ["So14NSSecureCodingP", "red"]
+- !private ["So8NSStringC", "isEmpty"]
+- ["So18NSNotificationNamea", "Notification"]
+- ["So18NSNotificationNamea", "init"]
+- ["So18NSNotificationNamea", "internetConnected"]
+- ["So18NSNotificationNamea", "internetDisconnected"]
+- !private ["5Hippo27NavigationTitleViewDelegateP", "errorLabel"]
+- !private ["5Hippo27NavigationTitleViewDelegateP", "errorLabelTopConstraint"]
+- !private ["5Hippo27NavigationTitleViewDelegateP", "internetIsBack"]
+- !private ["5Hippo27NavigationTitleViewDelegateP", "isViewLoaded"]
+- !private ["5Hippo27NavigationTitleViewDelegateP", "updateErrorLabelView"]
+- ["5Hippo26NetworkReachabilityManagerC", "init"]
+- !private ["5Hippo26NetworkReachabilityManagerC", "isReachable"]
+- !private ["5Hippo26NetworkReachabilityManagerC", "listener"]
+- !private ["5Hippo26NetworkReachabilityManagerC", "startListening"]
+- !private ["5Hippo26NetworkReachabilityManagerC0bC6StatusO", "notReachable"]
+- !private ["5Hippo19NewChatSentDelegateP", "errorLabel"]
+- !private ["5Hippo19NewChatSentDelegateP", "errorLabelTopConstraint"]
+- !private ["5Hippo19NewChatSentDelegateP", "getAllConversations"]
+- !private ["5Hippo19NewChatSentDelegateP", "isViewLoaded"]
+- !private ["5Hippo19NewChatSentDelegateP", "refreshControl"]
+- !private ["5Hippo19NewChatSentDelegateP", "updateErrorLabelView"]
+- ["10Foundation12NotificationV", "Name"]
+- !private ["So20NSNotificationCenterC", "default"]
+- !private ["So20NSNotificationCenterC", "post"]
+- !private ["Sq", "backgroundColor"]
+- !private ["Sq", "constant"]
+- !private ["Sq", "text"]
+- !private ["5Hippo20PickerHelperDelegateP", "errorLabel"]
+- !private ["5Hippo20PickerHelperDelegateP", "errorLabelTopConstraint"]
+- !private ["5Hippo20PickerHelperDelegateP", "internetIsBack"]
+- !private ["5Hippo20PickerHelperDelegateP", "isViewLoaded"]
+- !private ["5Hippo20PickerHelperDelegateP", "updateErrorLabelView"]
+- !private ["Sk", "isEmpty"]
+- !private ["Sm", "isEmpty"]
+- ["SY", "Notification"]
+- !private ["SY", "conversationData"]
+- ["SY", "init"]
+- !private ["SY", "internetConnected"]
+- !private ["SY", "internetDisconnected"]
+- !private ["SY", "rawValue"]
+- ["10Foundation20ReferenceConvertibleP", "Name"]
+- !private ["5Hippo29RetryMessageUploadingDelegateP", "errorLabel"]
+- !private ["5Hippo29RetryMessageUploadingDelegateP", "errorLabelTopConstraint"]
+- !private ["5Hippo29RetryMessageUploadingDelegateP", "internetIsBack"]
+- !private ["5Hippo29RetryMessageUploadingDelegateP", "isViewLoaded"]
+- !private ["5Hippo29RetryMessageUploadingDelegateP", "updateErrorLabelView"]
+- !private ["5Hippo33SelectImageViewControllerDelegateP", "errorLabel"]
+- !private ["5Hippo33SelectImageViewControllerDelegateP", "errorLabelTopConstraint"]
+- !private ["5Hippo33SelectImageViewControllerDelegateP", "internetIsBack"]
+- !private ["5Hippo33SelectImageViewControllerDelegateP", "isViewLoaded"]
+- !private ["5Hippo33SelectImageViewControllerDelegateP", "updateErrorLabelView"]
+- !private ["5Hippo19SelfMessageDelegateP", "errorLabel"]
+- !private ["5Hippo19SelfMessageDelegateP", "errorLabelTopConstraint"]
+- !private ["5Hippo19SelfMessageDelegateP", "internetIsBack"]
+- !private ["5Hippo19SelfMessageDelegateP", "isViewLoaded"]
+- !private ["5Hippo19SelfMessageDelegateP", "updateErrorLabelView"]
+- !private ["ST", "isEmpty"]
+- !private ["SS", "isEmpty"]
+- !private ["Sy", "isEmpty"]
+- !private ["s16TextOutputStreamP", "isEmpty"]
+- !private ["s20TextOutputStreamableP", "isEmpty"]
+- !private ["So29UIAccessibilityIdentificationP", "backgroundColor"]
+- !private ["So29UIAccessibilityIdentificationP", "endRefreshing"]
+- !private ["So29UIAccessibilityIdentificationP", "text"]
+- !private ["So12UIAppearanceP", "backgroundColor"]
+- !private ["So12UIAppearanceP", "endRefreshing"]
+- !private ["So12UIAppearanceP", "text"]
+- !private ["So21UIAppearanceContainerP", "backgroundColor"]
+- !private ["So21UIAppearanceContainerP", "endRefreshing"]
+- !private ["So21UIAppearanceContainerP", "errorLabel"]
+- !private ["So21UIAppearanceContainerP", "errorLabelTopConstraint"]
+- !private ["So21UIAppearanceContainerP", "getAllConversations"]
+- !private ["So21UIAppearanceContainerP", "internetIsBack"]
+- !private ["So21UIAppearanceContainerP", "isViewLoaded"]
+- !private ["So21UIAppearanceContainerP", "refreshControl"]
+- !private ["So21UIAppearanceContainerP", "text"]
+- !private ["So21UIAppearanceContainerP", "updateErrorLabelView"]
+- !private ["So7UIColorC", "orange"]
+- !private ["So7UIColorC", "red"]
+- !private ["So18UIContentContainerP", "errorLabel"]
+- !private ["So18UIContentContainerP", "errorLabelTopConstraint"]
+- !private ["So18UIContentContainerP", "getAllConversations"]
+- !private ["So18UIContentContainerP", "internetIsBack"]
+- !private ["So18UIContentContainerP", "isViewLoaded"]
+- !private ["So18UIContentContainerP", "refreshControl"]
+- !private ["So18UIContentContainerP", "updateErrorLabelView"]
+- !private ["So30UIContentSizeCategoryAdjustingP", "backgroundColor"]
+- !private ["So30UIContentSizeCategoryAdjustingP", "text"]
+- !private ["So9UIControlC", "endRefreshing"]
+- !private ["So17UICoordinateSpaceP", "backgroundColor"]
+- !private ["So17UICoordinateSpaceP", "endRefreshing"]
+- !private ["So17UICoordinateSpaceP", "text"]
+- !private ["So13UIDynamicItemP", "backgroundColor"]
+- !private ["So13UIDynamicItemP", "endRefreshing"]
+- !private ["So13UIDynamicItemP", "text"]
+- !private ["So18UIFocusEnvironmentP", "backgroundColor"]
+- !private ["So18UIFocusEnvironmentP", "endRefreshing"]
+- !private ["So18UIFocusEnvironmentP", "errorLabel"]
+- !private ["So18UIFocusEnvironmentP", "errorLabelTopConstraint"]
+- !private ["So18UIFocusEnvironmentP", "getAllConversations"]
+- !private ["So18UIFocusEnvironmentP", "internetIsBack"]
+- !private ["So18UIFocusEnvironmentP", "isViewLoaded"]
+- !private ["So18UIFocusEnvironmentP", "refreshControl"]
+- !private ["So18UIFocusEnvironmentP", "text"]
+- !private ["So18UIFocusEnvironmentP", "updateErrorLabelView"]
+- !private ["So11UIFocusItemP", "backgroundColor"]
+- !private ["So11UIFocusItemP", "endRefreshing"]
+- !private ["So11UIFocusItemP", "text"]
+- !private ["So20UIFocusItemContainerP", "backgroundColor"]
+- !private ["So20UIFocusItemContainerP", "endRefreshing"]
+- !private ["So20UIFocusItemContainerP", "text"]
+- !private ["So31UIImagePickerControllerDelegateP", "errorLabel"]
+- !private ["So31UIImagePickerControllerDelegateP", "errorLabelTopConstraint"]
+- !private ["So31UIImagePickerControllerDelegateP", "internetIsBack"]
+- !private ["So31UIImagePickerControllerDelegateP", "isViewLoaded"]
+- !private ["So31UIImagePickerControllerDelegateP", "updateErrorLabelView"]
+- !private ["So7UILabelC", "backgroundColor"]
+- !private ["So7UILabelC", "text"]
+- !private ["So30UINavigationControllerDelegateP", "errorLabel"]
+- !private ["So30UINavigationControllerDelegateP", "errorLabelTopConstraint"]
+- !private ["So30UINavigationControllerDelegateP", "internetIsBack"]
+- !private ["So30UINavigationControllerDelegateP", "isViewLoaded"]
+- !private ["So30UINavigationControllerDelegateP", "updateErrorLabelView"]
+- !private ["So30UIPasteConfigurationSupportingP", "backgroundColor"]
+- !private ["So30UIPasteConfigurationSupportingP", "endRefreshing"]
+- !private ["So30UIPasteConfigurationSupportingP", "errorLabel"]
+- !private ["So30UIPasteConfigurationSupportingP", "errorLabelTopConstraint"]
+- !private ["So30UIPasteConfigurationSupportingP", "getAllConversations"]
+- !private ["So30UIPasteConfigurationSupportingP", "internetIsBack"]
+- !private ["So30UIPasteConfigurationSupportingP", "isViewLoaded"]
+- !private ["So30UIPasteConfigurationSupportingP", "refreshControl"]
+- !private ["So30UIPasteConfigurationSupportingP", "text"]
+- !private ["So30UIPasteConfigurationSupportingP", "updateErrorLabelView"]
+- !private ["So16UIRefreshControlC", "endRefreshing"]
+- !private ["So11UIResponderC", "backgroundColor"]
+- !private ["So11UIResponderC", "endRefreshing"]
+- !private ["So11UIResponderC", "errorLabel"]
+- !private ["So11UIResponderC", "errorLabelTopConstraint"]
+- !private ["So11UIResponderC", "getAllConversations"]
+- !private ["So11UIResponderC", "internetIsBack"]
+- !private ["So11UIResponderC", "isViewLoaded"]
+- !private ["So11UIResponderC", "refreshControl"]
+- !private ["So11UIResponderC", "text"]
+- !private ["So11UIResponderC", "updateErrorLabelView"]
+- !private ["So30UIResponderStandardEditActionsP", "backgroundColor"]
+- !private ["So30UIResponderStandardEditActionsP", "endRefreshing"]
+- !private ["So30UIResponderStandardEditActionsP", "errorLabel"]
+- !private ["So30UIResponderStandardEditActionsP", "errorLabelTopConstraint"]
+- !private ["So30UIResponderStandardEditActionsP", "getAllConversations"]
+- !private ["So30UIResponderStandardEditActionsP", "internetIsBack"]
+- !private ["So30UIResponderStandardEditActionsP", "isViewLoaded"]
+- !private ["So30UIResponderStandardEditActionsP", "refreshControl"]
+- !private ["So30UIResponderStandardEditActionsP", "text"]
+- !private ["So30UIResponderStandardEditActionsP", "updateErrorLabelView"]
+- !private ["So20UIScrollViewDelegateP", "errorLabel"]
+- !private ["So20UIScrollViewDelegateP", "errorLabelTopConstraint"]
+- !private ["So20UIScrollViewDelegateP", "getAllConversations"]
+- !private ["So20UIScrollViewDelegateP", "internetIsBack"]
+- !private ["So20UIScrollViewDelegateP", "isViewLoaded"]
+- !private ["So20UIScrollViewDelegateP", "refreshControl"]
+- !private ["So20UIScrollViewDelegateP", "updateErrorLabelView"]
+- !private ["So16UIStateRestoringP", "errorLabel"]
+- !private ["So16UIStateRestoringP", "errorLabelTopConstraint"]
+- !private ["So16UIStateRestoringP", "getAllConversations"]
+- !private ["So16UIStateRestoringP", "internetIsBack"]
+- !private ["So16UIStateRestoringP", "isViewLoaded"]
+- !private ["So16UIStateRestoringP", "refreshControl"]
+- !private ["So16UIStateRestoringP", "updateErrorLabelView"]
+- !private ["So21UITableViewDataSourceP", "errorLabel"]
+- !private ["So21UITableViewDataSourceP", "errorLabelTopConstraint"]
+- !private ["So21UITableViewDataSourceP", "getAllConversations"]
+- !private ["So21UITableViewDataSourceP", "internetIsBack"]
+- !private ["So21UITableViewDataSourceP", "isViewLoaded"]
+- !private ["So21UITableViewDataSourceP", "refreshControl"]
+- !private ["So21UITableViewDataSourceP", "updateErrorLabelView"]
+- !private ["So19UITableViewDelegateP", "errorLabel"]
+- !private ["So19UITableViewDelegateP", "errorLabelTopConstraint"]
+- !private ["So19UITableViewDelegateP", "getAllConversations"]
+- !private ["So19UITableViewDelegateP", "internetIsBack"]
+- !private ["So19UITableViewDelegateP", "isViewLoaded"]
+- !private ["So19UITableViewDelegateP", "refreshControl"]
+- !private ["So19UITableViewDelegateP", "updateErrorLabelView"]
+- !private ["So18UITextViewDelegateP", "errorLabel"]
+- !private ["So18UITextViewDelegateP", "errorLabelTopConstraint"]
+- !private ["So18UITextViewDelegateP", "internetIsBack"]
+- !private ["So18UITextViewDelegateP", "isViewLoaded"]
+- !private ["So18UITextViewDelegateP", "updateErrorLabelView"]
+- !private ["So18UITraitEnvironmentP", "backgroundColor"]
+- !private ["So18UITraitEnvironmentP", "endRefreshing"]
+- !private ["So18UITraitEnvironmentP", "errorLabel"]
+- !private ["So18UITraitEnvironmentP", "errorLabelTopConstraint"]
+- !private ["So18UITraitEnvironmentP", "getAllConversations"]
+- !private ["So18UITraitEnvironmentP", "internetIsBack"]
+- !private ["So18UITraitEnvironmentP", "isViewLoaded"]
+- !private ["So18UITraitEnvironmentP", "refreshControl"]
+- !private ["So18UITraitEnvironmentP", "text"]
+- !private ["So18UITraitEnvironmentP", "updateErrorLabelView"]
+- !private ["So23UIUserActivityRestoringP", "backgroundColor"]
+- !private ["So23UIUserActivityRestoringP", "endRefreshing"]
+- !private ["So23UIUserActivityRestoringP", "errorLabel"]
+- !private ["So23UIUserActivityRestoringP", "errorLabelTopConstraint"]
+- !private ["So23UIUserActivityRestoringP", "getAllConversations"]
+- !private ["So23UIUserActivityRestoringP", "internetIsBack"]
+- !private ["So23UIUserActivityRestoringP", "isViewLoaded"]
+- !private ["So23UIUserActivityRestoringP", "refreshControl"]
+- !private ["So23UIUserActivityRestoringP", "text"]
+- !private ["So23UIUserActivityRestoringP", "updateErrorLabelView"]
+- !private ["So6UIViewC", "backgroundColor"]
+- !private ["So6UIViewC", "endRefreshing"]
+- !private ["So6UIViewC", "text"]
+- !private ["So16UIViewControllerC", "errorLabel"]
+- !private ["So16UIViewControllerC", "errorLabelTopConstraint"]
+- !private ["So16UIViewControllerC", "getAllConversations"]
+- !private ["So16UIViewControllerC", "internetIsBack"]
+- !private ["So16UIViewControllerC", "isViewLoaded"]
+- !private ["So16UIViewControllerC", "refreshControl"]
+- !private ["So16UIViewControllerC", "updateErrorLabelView"]
+- !private ["5Hippo37VideoCallMessageTableViewCellDelegateP", "errorLabel"]
+- !private ["5Hippo37VideoCallMessageTableViewCellDelegateP", "errorLabelTopConstraint"]
+- !private ["5Hippo37VideoCallMessageTableViewCellDelegateP", "internetIsBack"]
+- !private ["5Hippo37VideoCallMessageTableViewCellDelegateP", "isViewLoaded"]
+- !private ["5Hippo37VideoCallMessageTableViewCellDelegateP", "updateErrorLabelView"]
+- !private ["5Hippo26VideoTableViewCellDelegateP", "errorLabel"]
+- !private ["5Hippo26VideoTableViewCellDelegateP", "errorLabelTopConstraint"]
+- !private ["5Hippo26VideoTableViewCellDelegateP", "internetIsBack"]
+- !private ["5Hippo26VideoTableViewCellDelegateP", "isViewLoaded"]
+- !private ["5Hippo26VideoTableViewCellDelegateP", "updateErrorLabelView"]
+- !private ["s14_ArrayProtocolP", "isEmpty"]
+- !private ["s30_CustomPlaygroundQuickLookableP", "isEmpty"]
+- !private ["s24_DestructorSafeContainerP", "isEmpty"]
+- !private ["s51_ExpressibleByBuiltinExtendedGraphemeClusterLiteralP", "isEmpty"]
+- !private ["s34_ExpressibleByBuiltinStringLiteralP", "isEmpty"]
+- !private ["s41_ExpressibleByBuiltinUnicodeScalarLiteralP", "isEmpty"]
+- !private ["s26_ExpressibleByColorLiteralP", "orange"]
+- !private ["s26_ExpressibleByColorLiteralP", "red"]
+- !private ["s19_HasContiguousBytesP", "isEmpty"]
+- ["s35_HasCustomAnyHashableRepresentationP", "Notification"]
+- ["s35_HasCustomAnyHashableRepresentationP", "init"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "internetConnected"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "internetDisconnected"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "isEmpty"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "DefaultName"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "FayeConnection"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "FuguDefaults"]
+- ["10Foundation27_KeyValueCodingAndObservingP", "FuguNetworkHandler"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "HippoConfig"]
+- ["10Foundation27_KeyValueCodingAndObservingP", "NetworkReachabilityManager"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "NotificationCenter"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "UIColor"]
+- ["10Foundation27_KeyValueCodingAndObservingP", ""]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "backgroundColor"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "constant"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "default"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "endRefreshing"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "errorLabel"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "errorLabelTopConstraint"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "errorMessage"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "fuguDelay"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "getAllConversations"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "getLastVisibleController"]
+- ["10Foundation27_KeyValueCodingAndObservingP", "init"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "internetIsBack"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "isConnected"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "isEmpty"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "isViewLoaded"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "object"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "orange"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "post"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "processingGreenColor"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "reachability"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "red"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "refreshControl"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "shared"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "strings"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "text"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "theme"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "updateConnectedStatus"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "updateErrorLabelView"]
+- ["s21_ObjectiveCBridgeableP", "Name"]
+- ["s21_ObjectiveCBridgeableP", "Notification"]
+- !private ["s21_ObjectiveCBridgeableP", "backgroundColor"]
+- !private ["s21_ObjectiveCBridgeableP", "constant"]
+- ["s21_ObjectiveCBridgeableP", "init"]
+- !private ["s21_ObjectiveCBridgeableP", "internetConnected"]
+- !private ["s21_ObjectiveCBridgeableP", "internetDisconnected"]
+- !private ["s21_ObjectiveCBridgeableP", "isEmpty"]
+- !private ["s21_ObjectiveCBridgeableP", "text"]
+- ["s20_SwiftNewtypeWrapperP", "Notification"]
+- ["s20_SwiftNewtypeWrapperP", "init"]
+- !private ["s20_SwiftNewtypeWrapperP", "internetConnected"]
+- !private ["s20_SwiftNewtypeWrapperP", "internetDisconnected"]
+- !private ["s38__DefaultCustomPlaygroundQuickLookableP", "backgroundColor"]
+- !private ["s38__DefaultCustomPlaygroundQuickLookableP", "endRefreshing"]
+- !private ["s38__DefaultCustomPlaygroundQuickLookableP", "text"]
+depends-nominal:
+- !private "5Hippo23ActionTableViewDelegateP"
+- !private "5Hippo30AllConversationsViewControllerC"
+- !private "Sa"
+- !private "SK"
+- !private "5Hippo29BotOtgoingMessageCellDelegateP"
+- !private "So15CALayerDelegateP"
+- "s7CVarArgP"
+- !private "Sl"
+- !private "SL"
+- !private "10Foundation15ContiguousBytesP"
+- !private "5Hippo27ConversationsViewControllerC"
+- !private "5Hippo26CoreDocumentPickerDelegateP"
+- !private "5Hippo25CoreMediaSelectorDelegateP"
+- !private "5Hippo21CreatePaymentDelegateP"
+- "s28CustomDebugStringConvertibleP"
+- "s17CustomReflectableP"
+- "s23CustomStringConvertibleP"
+- !private "10Foundation12DataProtocolP"
+- !private "Se"
+- !private "5Hippo11DefaultNameO"
+- !private "5Hippo29DocumentTableViewCellDelegateP"
+- !private "SE"
+- "SQ"
+- !private "s25ExpressibleByArrayLiteralP"
+- !private "s43ExpressibleByExtendedGraphemeClusterLiteralP"
+- !private "s23ExpressibleByNilLiteralP"
+- !private "s32ExpressibleByStringInterpolationP"
+- !private "s26ExpressibleByStringLiteralP"
+- !private "s33ExpressibleByUnicodeScalarLiteralP"
+- !private "5Hippo14FayeConnectionC"
+- !private "5Hippo29FeedbackTableViewCellDelegateP"
+- !private "5Hippo12FuguDefaultsC"
+- "5Hippo18FuguNetworkHandlerC"
+- "SH"
+- !private "5Hippo0A15ChannelDelegateP"
+- !private "5Hippo0A6ConfigC"
+- !private "5Hippo0A26ConversationViewControllerC"
+- !private "5Hippo0A31DataCollectorControllerDelegateP"
+- !private "5Hippo0A7StringsC"
+- !private "5Hippo0A5ThemeC"
+- !private "5Hippo17ImageCellDelegateP"
+- !private "5Hippo20KingfisherCompatibleP"
+- !private "5Hippo25LeadTableViewCellDelegateP"
+- !private "s25LosslessStringConvertibleP"
+- !private "So20MZFayeClientDelegateP"
+- !private "s10MirrorPathP"
+- !private "SM"
+- !private "10Foundation19MutableDataProtocolP"
+- !private "So8NSCodingP"
+- !private "So9NSCopyingP"
+- !private "So26NSExtensionRequestHandlingP"
+- !private "So21NSItemProviderReadingP"
+- !private "So21NSItemProviderWritingP"
+- !private "So18NSLayoutConstraintC"
+- !private "So16NSMutableCopyingP"
+- "So8NSObjectC"
+- "So8NSObjectP"
+- !private "So14NSSecureCodingP"
+- !private "So8NSStringC"
+- "So18NSNotificationNamea"
+- !private "5Hippo27NavigationTitleViewDelegateP"
+- "5Hippo26NetworkReachabilityManagerC"
+- !private "5Hippo26NetworkReachabilityManagerC0bC6StatusO"
+- !private "5Hippo19NewChatSentDelegateP"
+- "10Foundation12NotificationV"
+- !private "So20NSNotificationCenterC"
+- !private "Sq"
+- !private "5Hippo20PickerHelperDelegateP"
+- !private "Sk"
+- !private "Sm"
+- "SY"
+- "10Foundation20ReferenceConvertibleP"
+- !private "5Hippo29RetryMessageUploadingDelegateP"
+- !private "5Hippo33SelectImageViewControllerDelegateP"
+- !private "5Hippo19SelfMessageDelegateP"
+- !private "ST"
+- !private "SS"
+- !private "Sy"
+- !private "s16TextOutputStreamP"
+- !private "s20TextOutputStreamableP"
+- !private "So29UIAccessibilityIdentificationP"
+- !private "So12UIAppearanceP"
+- !private "So21UIAppearanceContainerP"
+- !private "So7UIColorC"
+- !private "So18UIContentContainerP"
+- !private "So30UIContentSizeCategoryAdjustingP"
+- !private "So9UIControlC"
+- !private "So17UICoordinateSpaceP"
+- !private "So13UIDynamicItemP"
+- !private "So18UIFocusEnvironmentP"
+- !private "So11UIFocusItemP"
+- !private "So20UIFocusItemContainerP"
+- !private "So31UIImagePickerControllerDelegateP"
+- !private "So7UILabelC"
+- !private "So30UINavigationControllerDelegateP"
+- !private "So30UIPasteConfigurationSupportingP"
+- !private "So16UIRefreshControlC"
+- !private "So11UIResponderC"
+- !private "So30UIResponderStandardEditActionsP"
+- !private "So20UIScrollViewDelegateP"
+- !private "So16UIStateRestoringP"
+- !private "So21UITableViewDataSourceP"
+- !private "So19UITableViewDelegateP"
+- !private "So18UITextViewDelegateP"
+- !private "So18UITraitEnvironmentP"
+- !private "So23UIUserActivityRestoringP"
+- !private "So6UIViewC"
+- !private "So16UIViewControllerC"
+- !private "5Hippo37VideoCallMessageTableViewCellDelegateP"
+- !private "5Hippo26VideoTableViewCellDelegateP"
+- !private "s14_ArrayProtocolP"
+- !private "s30_CustomPlaygroundQuickLookableP"
+- !private "s24_DestructorSafeContainerP"
+- !private "s51_ExpressibleByBuiltinExtendedGraphemeClusterLiteralP"
+- !private "s34_ExpressibleByBuiltinStringLiteralP"
+- !private "s41_ExpressibleByBuiltinUnicodeScalarLiteralP"
+- !private "s26_ExpressibleByColorLiteralP"
+- !private "s19_HasContiguousBytesP"
+- "s35_HasCustomAnyHashableRepresentationP"
+- "10Foundation27_KeyValueCodingAndObservingP"
+- "s21_ObjectiveCBridgeableP"
+- "s20_SwiftNewtypeWrapperP"
+- !private "s38__DefaultCustomPlaygroundQuickLookableP"
+depends-dynamic-lookup:
+depends-external:
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/ObjectiveC.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreMedia.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/simd.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreImage.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/QuartzCore.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Accelerate.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Dispatch.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Metal.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Darwin.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreLocation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Foundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/AVFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreAudio.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/MediaPlayer.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreGraphics.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/os.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Photos.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Swift.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/UIKit.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/SwiftOnoneSupport.swiftmodule"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Hippo.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Helpers/TRWDownloadManager/TWRDownloadManager.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/SocketRocket/SocketRocket.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/SocketRocket/SRWebSocket.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/MZFayeClient/MZFayeClient.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/unextended-module.modulemap"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/usr/include/objc/ObjectiveC.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/OpenGLES.framework/Headers/OpenGLES.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreMedia.framework/Headers/CoreMedia.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreImage.framework/Headers/CoreImage.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/QuartzCore.framework/Headers/QuartzCore.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Accelerate.framework/Headers/Accelerate.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Dispatch.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/QuickLook.framework/Headers/QuickLook.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Metal.framework/Headers/Metal.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/usr/include/Darwin.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreLocation.framework/Headers/CoreLocation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Foundation.framework/Headers/Foundation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/AVFoundation.framework/Headers/AVFoundation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/MediaPlayer.framework/Headers/MediaPlayer.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreGraphics.framework/Headers/CoreGraphics.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/UserNotifications.framework/Headers/UserNotifications.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/os.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Photos.framework/Headers/Photos.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/UIKit.framework/Headers/UIKit.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreText.framework/Headers/CoreText.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/MediaToolbox.framework/Headers/MediaToolbox.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/AudioToolbox.framework/Headers/AudioToolbox.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Security.framework/Headers/Security.apinotes"
+interface-hash: "918494a66c38213569b04e40ef22fecd"

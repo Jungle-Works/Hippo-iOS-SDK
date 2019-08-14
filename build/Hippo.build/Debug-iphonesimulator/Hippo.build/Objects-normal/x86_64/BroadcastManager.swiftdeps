@@ -1,0 +1,295 @@
+### Swift dependencies file v0 ###
+provides-top-level:
+- "BroadcastManager"
+provides-nominal:
+- "5Hippo16BroadcastManagerC"
+- "5Hippo16BroadcastManagerC7RequestV"
+- "5Hippo16BroadcastManagerC0B8ResponseV"
+provides-member:
+- ["5Hippo16BroadcastManagerC", ""]
+- ["5Hippo16BroadcastManagerC7RequestV", ""]
+- ["5Hippo16BroadcastManagerC0B8ResponseV", ""]
+provides-dynamic-lookup:
+depends-top-level:
+- !private "-"
+- !private ">="
+- !private "??"
+- !private "AgentEndPoints"
+- "AssignmentPrecedence"
+- "Bool"
+- "BroadcastInfo"
+- "BroadcastManager"
+- !private "CastingPrecedence"
+- "CustomerInfo"
+- !private "HTTPClient"
+- !private "HippoConfig"
+- "Int"
+- "String"
+- "UInt"
+depends-member:
+- !private ["s18AdditiveArithmeticP", "parse"]
+- !private ["5Hippo11AgentDetailC", "fuguToken"]
+- !private ["5Hippo14AgentEndPointsO", "broadcastStatus"]
+- !private ["5Hippo14AgentEndPointsO", "deinit"]
+- !private ["5Hippo14AgentEndPointsO", "getBroadcastList"]
+- !private ["5Hippo14AgentEndPointsO", "rawValue"]
+- !private ["Sa", "count"]
+- !private ["SK", "count"]
+- !private ["Sz", "parse"]
+- !private ["5Hippo13BroadcastInfoC", "parse"]
+- !private ["5Hippo16BroadcastManagerC", "AgentEndPoints"]
+- ["5Hippo16BroadcastManagerC", "Bool"]
+- ["5Hippo16BroadcastManagerC", "BroadcastInfo"]
+- ["5Hippo16BroadcastManagerC", "BroadcastResponse"]
+- ["5Hippo16BroadcastManagerC", "CustomerInfo"]
+- !private ["5Hippo16BroadcastManagerC", "HTTPClient"]
+- !private ["5Hippo16BroadcastManagerC", "HippoConfig"]
+- ["5Hippo16BroadcastManagerC", "Int"]
+- ["5Hippo16BroadcastManagerC", "Request"]
+- ["5Hippo16BroadcastManagerC", "String"]
+- ["5Hippo16BroadcastManagerC", "UInt"]
+- ["5Hippo16BroadcastManagerC", "deinit"]
+- ["5Hippo16BroadcastManagerC", "getBroadcastStatus"]
+- ["5Hippo16BroadcastManagerC", "getBroadcastsFor"]
+- ["5Hippo16BroadcastManagerC", "init"]
+- ["5Hippo16BroadcastManagerC0B8ResponseV", "Bool"]
+- ["5Hippo16BroadcastManagerC0B8ResponseV", "BroadcastInfo"]
+- ["5Hippo16BroadcastManagerC0B8ResponseV", "BroadcastResponse"]
+- ["5Hippo16BroadcastManagerC0B8ResponseV", "CustomerInfo"]
+- ["5Hippo16BroadcastManagerC0B8ResponseV", "canLoadMoreData"]
+- ["5Hippo16BroadcastManagerC0B8ResponseV", "channels"]
+- ["5Hippo16BroadcastManagerC0B8ResponseV", "errorObject"]
+- ["5Hippo16BroadcastManagerC0B8ResponseV", "init"]
+- ["5Hippo16BroadcastManagerC0B8ResponseV", "sccuess"]
+- ["5Hippo16BroadcastManagerC0B8ResponseV", "users"]
+- !private ["s7CVarArgP", "agentDetail"]
+- !private ["s7CVarArgP", "count"]
+- !private ["s7CVarArgP", "fuguToken"]
+- !private ["s7CVarArgP", "parse"]
+- !private ["s7CVarArgP", "shared"]
+- !private ["s7CVarArgP", "subscript"]
+- !private ["Sl", "count"]
+- !private ["Sl", "subscript"]
+- !private ["SL", "parse"]
+- !private ["10Foundation15ContiguousBytesP", "count"]
+- !private ["s28CustomDebugStringConvertibleP", "agentDetail"]
+- !private ["s28CustomDebugStringConvertibleP", "count"]
+- !private ["s28CustomDebugStringConvertibleP", "fuguToken"]
+- !private ["s28CustomDebugStringConvertibleP", "parse"]
+- !private ["s28CustomDebugStringConvertibleP", "shared"]
+- !private ["s28CustomDebugStringConvertibleP", "subscript"]
+- !private ["s17CustomReflectableP", "count"]
+- !private ["s17CustomReflectableP", "parse"]
+- !private ["s17CustomReflectableP", "subscript"]
+- !private ["s23CustomStringConvertibleP", "agentDetail"]
+- !private ["s23CustomStringConvertibleP", "count"]
+- !private ["s23CustomStringConvertibleP", "fuguToken"]
+- !private ["s23CustomStringConvertibleP", "parse"]
+- !private ["s23CustomStringConvertibleP", "shared"]
+- !private ["s23CustomStringConvertibleP", "subscript"]
+- !private ["5Hippo12CustomerInfoC", "parse"]
+- !private ["10Foundation12DataProtocolP", "count"]
+- !private ["Se", "count"]
+- !private ["Se", "parse"]
+- !private ["Se", "subscript"]
+- !private ["SD", "subscript"]
+- !private ["SE", "count"]
+- !private ["SE", "parse"]
+- !private ["SE", "subscript"]
+- !private ["5Hippo10HTTPClientC12EncodingTypeO", "url"]
+- !private ["SQ", "GET"]
+- !private ["SQ", "POST"]
+- !private ["SQ", "agentDetail"]
+- !private ["SQ", "broadcastStatus"]
+- !private ["SQ", "count"]
+- !private ["SQ", "fuguToken"]
+- !private ["SQ", "getBroadcastList"]
+- !private ["SQ", "parse"]
+- !private ["SQ", "rawValue"]
+- !private ["SQ", "shared"]
+- !private ["SQ", "subscript"]
+- !private ["SQ", "url"]
+- !private ["s25ExpressibleByArrayLiteralP", "count"]
+- !private ["s30ExpressibleByDictionaryLiteralP", "subscript"]
+- !private ["s27ExpressibleByIntegerLiteralP", "parse"]
+- !private ["s17FixedWidthIntegerP", "parse"]
+- !private ["5Hippo10HTTPClientC", "makeConcurrentConnectionWith"]
+- !private ["SH", "GET"]
+- !private ["SH", "POST"]
+- !private ["SH", "agentDetail"]
+- !private ["SH", "broadcastStatus"]
+- !private ["SH", "count"]
+- !private ["SH", "fuguToken"]
+- !private ["SH", "getBroadcastList"]
+- !private ["SH", "parse"]
+- !private ["SH", "rawValue"]
+- !private ["SH", "shared"]
+- !private ["SH", "subscript"]
+- !private ["SH", "url"]
+- !private ["5Hippo0A6ConfigC", "agentDetail"]
+- !private ["5Hippo0A6ConfigC", "shared"]
+- !private ["5Hippo14HttpMethodTypeO", "GET"]
+- !private ["5Hippo14HttpMethodTypeO", "POST"]
+- !private ["Si", "parse"]
+- !private ["s25LosslessStringConvertibleP", "parse"]
+- !private ["s10MirrorPathP", "parse"]
+- !private ["SM", "count"]
+- !private ["10Foundation19MutableDataProtocolP", "count"]
+- !private ["So8NSObjectC", "agentDetail"]
+- !private ["So8NSObjectC", "fuguToken"]
+- !private ["So8NSObjectC", "parse"]
+- !private ["So8NSObjectC", "shared"]
+- !private ["So8NSObjectP", "agentDetail"]
+- !private ["So8NSObjectP", "fuguToken"]
+- !private ["So8NSObjectP", "parse"]
+- !private ["So8NSObjectP", "shared"]
+- !private ["Sj", "parse"]
+- !private ["Sk", "count"]
+- !private ["Sm", "count"]
+- !private ["SY", "GET"]
+- !private ["SY", "POST"]
+- !private ["SY", "broadcastStatus"]
+- !private ["SY", "getBroadcastList"]
+- !private ["SY", "rawValue"]
+- ["5Hippo16BroadcastManagerC7RequestV", "Bool"]
+- !private ["5Hippo16BroadcastManagerC7RequestV", "HippoConfig"]
+- ["5Hippo16BroadcastManagerC7RequestV", "Int"]
+- ["5Hippo16BroadcastManagerC7RequestV", "String"]
+- ["5Hippo16BroadcastManagerC7RequestV", "UInt"]
+- ["5Hippo16BroadcastManagerC7RequestV", "channelId"]
+- ["5Hippo16BroadcastManagerC7RequestV", "generateParamForBroadcastDetail"]
+- ["5Hippo16BroadcastManagerC7RequestV", "generateParamForGetBroadcast"]
+- ["5Hippo16BroadcastManagerC7RequestV", "init"]
+- ["5Hippo16BroadcastManagerC7RequestV", "pageOffset"]
+- ["5Hippo16BroadcastManagerC7RequestV", "showLoader"]
+- !private ["s10SIMDScalarP", "parse"]
+- !private ["ST", "count"]
+- !private ["ST", "subscript"]
+- !private ["SZ", "parse"]
+- !private ["s13SignedNumericP", "parse"]
+- !private ["Sx", "parse"]
+- !private ["s14_ArrayProtocolP", "count"]
+- !private ["s30_CustomPlaygroundQuickLookableP", "parse"]
+- !private ["s24_DestructorSafeContainerP", "count"]
+- !private ["s35_ExpressibleByBuiltinIntegerLiteralP", "parse"]
+- !private ["s19_HasContiguousBytesP", "count"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "count"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "parse"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "subscript"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "agentDetail"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "fuguToken"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "parse"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "shared"]
+- !private ["s21_ObjectiveCBridgeableP", "count"]
+- !private ["s21_ObjectiveCBridgeableP", "parse"]
+- !private ["s21_ObjectiveCBridgeableP", "subscript"]
+depends-nominal:
+- !private "s18AdditiveArithmeticP"
+- !private "5Hippo11AgentDetailC"
+- !private "5Hippo14AgentEndPointsO"
+- !private "Sa"
+- !private "SK"
+- !private "Sz"
+- !private "5Hippo13BroadcastInfoC"
+- "5Hippo16BroadcastManagerC"
+- "5Hippo16BroadcastManagerC0B8ResponseV"
+- !private "s7CVarArgP"
+- !private "Sl"
+- !private "SL"
+- !private "10Foundation15ContiguousBytesP"
+- !private "s28CustomDebugStringConvertibleP"
+- !private "s17CustomReflectableP"
+- !private "s23CustomStringConvertibleP"
+- !private "5Hippo12CustomerInfoC"
+- !private "10Foundation12DataProtocolP"
+- !private "Se"
+- !private "SD"
+- !private "SE"
+- !private "5Hippo10HTTPClientC12EncodingTypeO"
+- !private "SQ"
+- !private "s25ExpressibleByArrayLiteralP"
+- !private "s30ExpressibleByDictionaryLiteralP"
+- !private "s27ExpressibleByIntegerLiteralP"
+- !private "s17FixedWidthIntegerP"
+- !private "5Hippo10HTTPClientC"
+- !private "SH"
+- !private "5Hippo0A6ConfigC"
+- !private "5Hippo14HttpMethodTypeO"
+- !private "Si"
+- !private "s25LosslessStringConvertibleP"
+- !private "s10MirrorPathP"
+- !private "SM"
+- !private "10Foundation19MutableDataProtocolP"
+- !private "So8NSObjectC"
+- !private "So8NSObjectP"
+- !private "Sj"
+- !private "Sk"
+- !private "Sm"
+- !private "SY"
+- "5Hippo16BroadcastManagerC7RequestV"
+- !private "s10SIMDScalarP"
+- !private "ST"
+- !private "SZ"
+- !private "s13SignedNumericP"
+- !private "Sx"
+- !private "s14_ArrayProtocolP"
+- !private "s30_CustomPlaygroundQuickLookableP"
+- !private "s24_DestructorSafeContainerP"
+- !private "s35_ExpressibleByBuiltinIntegerLiteralP"
+- !private "s19_HasContiguousBytesP"
+- !private "s35_HasCustomAnyHashableRepresentationP"
+- !private "10Foundation27_KeyValueCodingAndObservingP"
+- !private "s21_ObjectiveCBridgeableP"
+depends-dynamic-lookup:
+depends-external:
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/ObjectiveC.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreMedia.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/simd.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreImage.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/QuartzCore.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Accelerate.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Dispatch.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Metal.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Darwin.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreLocation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Foundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/AVFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreAudio.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/MediaPlayer.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreGraphics.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/os.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Photos.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Swift.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/UIKit.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/SwiftOnoneSupport.swiftmodule"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Hippo.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Helpers/TRWDownloadManager/TWRDownloadManager.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/SocketRocket/SocketRocket.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/SocketRocket/SRWebSocket.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/MZFayeClient/MZFayeClient.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/unextended-module.modulemap"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/usr/include/objc/ObjectiveC.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/OpenGLES.framework/Headers/OpenGLES.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreMedia.framework/Headers/CoreMedia.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreImage.framework/Headers/CoreImage.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/QuartzCore.framework/Headers/QuartzCore.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Accelerate.framework/Headers/Accelerate.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Dispatch.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/QuickLook.framework/Headers/QuickLook.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Metal.framework/Headers/Metal.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/usr/include/Darwin.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreLocation.framework/Headers/CoreLocation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Foundation.framework/Headers/Foundation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/AVFoundation.framework/Headers/AVFoundation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/MediaPlayer.framework/Headers/MediaPlayer.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreGraphics.framework/Headers/CoreGraphics.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/UserNotifications.framework/Headers/UserNotifications.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/os.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Photos.framework/Headers/Photos.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/UIKit.framework/Headers/UIKit.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreText.framework/Headers/CoreText.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/MediaToolbox.framework/Headers/MediaToolbox.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/AudioToolbox.framework/Headers/AudioToolbox.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Security.framework/Headers/Security.apinotes"
+interface-hash: "43362ef35c6705d4efbc966d5a4265e1"

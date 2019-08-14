@@ -1,0 +1,614 @@
+### Swift dependencies file v0 ###
+provides-top-level:
+- "PaymentStoreDelegate"
+- "PaymentStore"
+provides-nominal:
+- "5Hippo20PaymentStoreDelegateP"
+- "5Hippo12PaymentStoreC"
+provides-member:
+- ["5Hippo20PaymentStoreDelegateP", ""]
+- ["5Hippo12PaymentStoreC", ""]
+provides-dynamic-lookup:
+depends-top-level:
+- !private "!"
+- !private "+="
+- !private "=="
+- !private "??"
+- "AnyObject"
+- "AssignmentPrecedence"
+- !private "Bool"
+- "Double"
+- "NSObject"
+- "PaymentCurrency"
+- "PaymentField"
+- "PaymentItem"
+- "PaymentStore"
+- "PaymentStoreDelegate"
+- "String"
+depends-member:
+- !private ["s18AdditiveArithmeticP", "init"]
+- !private ["Sa", "append"]
+- !private ["Sa", "first"]
+- !private ["Sa", "lastIndex"]
+- !private ["Sa", "remove"]
+- !private ["SK", "append"]
+- !private ["SK", "first"]
+- !private ["SK", "isEmpty"]
+- !private ["SK", "lastIndex"]
+- !private ["SK", "remove"]
+- !private ["SB", "init"]
+- !private ["s7CVarArgP", "Double"]
+- !private ["s7CVarArgP", "PaymentCurrency"]
+- !private ["s7CVarArgP", "PaymentField"]
+- !private ["s7CVarArgP", "PaymentItem"]
+- !private ["s7CVarArgP", "PaymentStore"]
+- !private ["s7CVarArgP", "UId"]
+- ["s7CVarArgP", ""]
+- !private ["s7CVarArgP", "append"]
+- !private ["s7CVarArgP", "buttons"]
+- !private ["s7CVarArgP", "currencies"]
+- !private ["s7CVarArgP", "delegate"]
+- !private ["s7CVarArgP", "descriptionField"]
+- !private ["s7CVarArgP", "errorMessage"]
+- !private ["s7CVarArgP", "fields"]
+- !private ["s7CVarArgP", "first"]
+- !private ["s7CVarArgP", "getAllCurrency"]
+- !private ["s7CVarArgP", "getDefaultForm"]
+- !private ["s7CVarArgP", "getInitalFields"]
+- !private ["s7CVarArgP", "getInitalItems"]
+- !private ["s7CVarArgP", "getRequestJson"]
+- !private ["s7CVarArgP", "getStaticButtons"]
+- !private ["s7CVarArgP", "getTotalPriceWithRequest"]
+- !private ["s7CVarArgP", "init"]
+- !private ["s7CVarArgP", "isEmpty"]
+- !private ["s7CVarArgP", "items"]
+- !private ["s7CVarArgP", "lastIndex"]
+- !private ["s7CVarArgP", "priceField"]
+- !private ["s7CVarArgP", "remove"]
+- !private ["s7CVarArgP", "selectedCurrency"]
+- !private ["s7CVarArgP", "subscript"]
+- !private ["s7CVarArgP", "symbol"]
+- !private ["s7CVarArgP", "validate"]
+- !private ["s7CVarArgP", "value"]
+- !private ["Sl", "append"]
+- !private ["Sl", "first"]
+- !private ["Sl", "isEmpty"]
+- !private ["Sl", "lastIndex"]
+- !private ["Sl", "remove"]
+- !private ["Sl", "subscript"]
+- !private ["SL", "init"]
+- !private ["SL", "isEmpty"]
+- !private ["10Foundation15ContiguousBytesP", "append"]
+- !private ["10Foundation15ContiguousBytesP", "first"]
+- !private ["10Foundation15ContiguousBytesP", "lastIndex"]
+- !private ["10Foundation15ContiguousBytesP", "remove"]
+- !private ["s28CustomDebugStringConvertibleP", "Double"]
+- !private ["s28CustomDebugStringConvertibleP", "PaymentCurrency"]
+- !private ["s28CustomDebugStringConvertibleP", "PaymentField"]
+- !private ["s28CustomDebugStringConvertibleP", "PaymentItem"]
+- !private ["s28CustomDebugStringConvertibleP", "PaymentStore"]
+- !private ["s28CustomDebugStringConvertibleP", "UId"]
+- ["s28CustomDebugStringConvertibleP", ""]
+- !private ["s28CustomDebugStringConvertibleP", "append"]
+- !private ["s28CustomDebugStringConvertibleP", "buttons"]
+- !private ["s28CustomDebugStringConvertibleP", "currencies"]
+- !private ["s28CustomDebugStringConvertibleP", "delegate"]
+- !private ["s28CustomDebugStringConvertibleP", "descriptionField"]
+- !private ["s28CustomDebugStringConvertibleP", "errorMessage"]
+- !private ["s28CustomDebugStringConvertibleP", "fields"]
+- !private ["s28CustomDebugStringConvertibleP", "first"]
+- !private ["s28CustomDebugStringConvertibleP", "getAllCurrency"]
+- !private ["s28CustomDebugStringConvertibleP", "getDefaultForm"]
+- !private ["s28CustomDebugStringConvertibleP", "getInitalFields"]
+- !private ["s28CustomDebugStringConvertibleP", "getInitalItems"]
+- !private ["s28CustomDebugStringConvertibleP", "getRequestJson"]
+- !private ["s28CustomDebugStringConvertibleP", "getStaticButtons"]
+- !private ["s28CustomDebugStringConvertibleP", "getTotalPriceWithRequest"]
+- !private ["s28CustomDebugStringConvertibleP", "init"]
+- !private ["s28CustomDebugStringConvertibleP", "isEmpty"]
+- !private ["s28CustomDebugStringConvertibleP", "items"]
+- !private ["s28CustomDebugStringConvertibleP", "lastIndex"]
+- !private ["s28CustomDebugStringConvertibleP", "priceField"]
+- !private ["s28CustomDebugStringConvertibleP", "remove"]
+- !private ["s28CustomDebugStringConvertibleP", "selectedCurrency"]
+- !private ["s28CustomDebugStringConvertibleP", "subscript"]
+- !private ["s28CustomDebugStringConvertibleP", "symbol"]
+- !private ["s28CustomDebugStringConvertibleP", "validate"]
+- !private ["s28CustomDebugStringConvertibleP", "value"]
+- !private ["s17CustomReflectableP", "append"]
+- !private ["s17CustomReflectableP", "first"]
+- !private ["s17CustomReflectableP", "init"]
+- !private ["s17CustomReflectableP", "isEmpty"]
+- !private ["s17CustomReflectableP", "lastIndex"]
+- !private ["s17CustomReflectableP", "remove"]
+- !private ["s17CustomReflectableP", "subscript"]
+- !private ["s23CustomStringConvertibleP", "Double"]
+- !private ["s23CustomStringConvertibleP", "PaymentCurrency"]
+- !private ["s23CustomStringConvertibleP", "PaymentField"]
+- !private ["s23CustomStringConvertibleP", "PaymentItem"]
+- !private ["s23CustomStringConvertibleP", "PaymentStore"]
+- !private ["s23CustomStringConvertibleP", "UId"]
+- ["s23CustomStringConvertibleP", ""]
+- !private ["s23CustomStringConvertibleP", "append"]
+- !private ["s23CustomStringConvertibleP", "appendInterpolation"]
+- !private ["s23CustomStringConvertibleP", "appendLiteral"]
+- !private ["s23CustomStringConvertibleP", "buttons"]
+- !private ["s23CustomStringConvertibleP", "currencies"]
+- !private ["s23CustomStringConvertibleP", "delegate"]
+- !private ["s23CustomStringConvertibleP", "descriptionField"]
+- !private ["s23CustomStringConvertibleP", "errorMessage"]
+- !private ["s23CustomStringConvertibleP", "fields"]
+- !private ["s23CustomStringConvertibleP", "first"]
+- !private ["s23CustomStringConvertibleP", "getAllCurrency"]
+- !private ["s23CustomStringConvertibleP", "getDefaultForm"]
+- !private ["s23CustomStringConvertibleP", "getInitalFields"]
+- !private ["s23CustomStringConvertibleP", "getInitalItems"]
+- !private ["s23CustomStringConvertibleP", "getRequestJson"]
+- !private ["s23CustomStringConvertibleP", "getStaticButtons"]
+- !private ["s23CustomStringConvertibleP", "getTotalPriceWithRequest"]
+- !private ["s23CustomStringConvertibleP", "init"]
+- !private ["s23CustomStringConvertibleP", "isEmpty"]
+- !private ["s23CustomStringConvertibleP", "items"]
+- !private ["s23CustomStringConvertibleP", "lastIndex"]
+- !private ["s23CustomStringConvertibleP", "priceField"]
+- !private ["s23CustomStringConvertibleP", "remove"]
+- !private ["s23CustomStringConvertibleP", "selectedCurrency"]
+- !private ["s23CustomStringConvertibleP", "subscript"]
+- !private ["s23CustomStringConvertibleP", "symbol"]
+- !private ["s23CustomStringConvertibleP", "validate"]
+- !private ["s23CustomStringConvertibleP", "value"]
+- !private ["10Foundation12DataProtocolP", "append"]
+- !private ["10Foundation12DataProtocolP", "first"]
+- !private ["10Foundation12DataProtocolP", "lastIndex"]
+- !private ["10Foundation12DataProtocolP", "remove"]
+- !private ["Se", "append"]
+- !private ["Se", "first"]
+- !private ["Se", "init"]
+- !private ["Se", "isEmpty"]
+- !private ["Se", "lastIndex"]
+- !private ["Se", "remove"]
+- !private ["Se", "subscript"]
+- !private ["s26DefaultStringInterpolationV", "appendInterpolation"]
+- !private ["s26DefaultStringInterpolationV", "appendLiteral"]
+- !private ["SD", "subscript"]
+- !private ["Sd", "init"]
+- !private ["SE", "append"]
+- !private ["SE", "first"]
+- !private ["SE", "init"]
+- !private ["SE", "isEmpty"]
+- !private ["SE", "lastIndex"]
+- !private ["SE", "remove"]
+- !private ["SE", "subscript"]
+- !private ["SQ", "Double"]
+- !private ["SQ", "PaymentCurrency"]
+- !private ["SQ", "PaymentField"]
+- !private ["SQ", "PaymentItem"]
+- !private ["SQ", "PaymentStore"]
+- !private ["SQ", "UId"]
+- ["SQ", ""]
+- !private ["SQ", "append"]
+- !private ["SQ", "buttons"]
+- !private ["SQ", "currencies"]
+- !private ["SQ", "delegate"]
+- !private ["SQ", "descriptionField"]
+- !private ["SQ", "errorMessage"]
+- !private ["SQ", "fields"]
+- !private ["SQ", "first"]
+- !private ["SQ", "getAllCurrency"]
+- !private ["SQ", "getDefaultForm"]
+- !private ["SQ", "getInitalFields"]
+- !private ["SQ", "getInitalItems"]
+- !private ["SQ", "getRequestJson"]
+- !private ["SQ", "getStaticButtons"]
+- !private ["SQ", "getTotalPriceWithRequest"]
+- !private ["SQ", "init"]
+- !private ["SQ", "isEmpty"]
+- !private ["SQ", "items"]
+- !private ["SQ", "lastIndex"]
+- !private ["SQ", "priceField"]
+- !private ["SQ", "remove"]
+- !private ["SQ", "selectedCurrency"]
+- !private ["SQ", "subscript"]
+- !private ["SQ", "symbol"]
+- !private ["SQ", "validate"]
+- !private ["SQ", "value"]
+- !private ["s25ExpressibleByArrayLiteralP", "append"]
+- !private ["s25ExpressibleByArrayLiteralP", "first"]
+- !private ["s25ExpressibleByArrayLiteralP", "lastIndex"]
+- !private ["s25ExpressibleByArrayLiteralP", "remove"]
+- !private ["s30ExpressibleByDictionaryLiteralP", "subscript"]
+- !private ["s43ExpressibleByExtendedGraphemeClusterLiteralP", "isEmpty"]
+- !private ["s25ExpressibleByFloatLiteralP", "init"]
+- !private ["s27ExpressibleByIntegerLiteralP", "init"]
+- !private ["s32ExpressibleByStringInterpolationP", "isEmpty"]
+- !private ["s26ExpressibleByStringLiteralP", "isEmpty"]
+- !private ["s33ExpressibleByUnicodeScalarLiteralP", "isEmpty"]
+- !private ["SF", "init"]
+- !private ["5Hippo8FormDataC", "errorMessage"]
+- !private ["5Hippo8FormDataC", "getInitalFields"]
+- !private ["5Hippo8FormDataC", "getRequestJson"]
+- !private ["5Hippo8FormDataC", "getStaticButtons"]
+- !private ["5Hippo8FormDataC", "validate"]
+- !private ["5Hippo8FormDataC", "value"]
+- !private ["SH", "Double"]
+- !private ["SH", "PaymentCurrency"]
+- !private ["SH", "PaymentField"]
+- !private ["SH", "PaymentItem"]
+- !private ["SH", "PaymentStore"]
+- !private ["SH", "UId"]
+- ["SH", ""]
+- !private ["SH", "append"]
+- !private ["SH", "buttons"]
+- !private ["SH", "currencies"]
+- !private ["SH", "delegate"]
+- !private ["SH", "descriptionField"]
+- !private ["SH", "errorMessage"]
+- !private ["SH", "fields"]
+- !private ["SH", "first"]
+- !private ["SH", "getAllCurrency"]
+- !private ["SH", "getDefaultForm"]
+- !private ["SH", "getInitalFields"]
+- !private ["SH", "getInitalItems"]
+- !private ["SH", "getRequestJson"]
+- !private ["SH", "getStaticButtons"]
+- !private ["SH", "getTotalPriceWithRequest"]
+- !private ["SH", "init"]
+- !private ["SH", "isEmpty"]
+- !private ["SH", "items"]
+- !private ["SH", "lastIndex"]
+- !private ["SH", "priceField"]
+- !private ["SH", "remove"]
+- !private ["SH", "selectedCurrency"]
+- !private ["SH", "subscript"]
+- !private ["SH", "symbol"]
+- !private ["SH", "validate"]
+- !private ["SH", "value"]
+- !private ["5Hippo20KingfisherCompatibleP", "isEmpty"]
+- !private ["s25LosslessStringConvertibleP", "init"]
+- !private ["s25LosslessStringConvertibleP", "isEmpty"]
+- !private ["s10MirrorPathP", "isEmpty"]
+- !private ["SM", "append"]
+- !private ["SM", "first"]
+- !private ["SM", "lastIndex"]
+- !private ["SM", "remove"]
+- !private ["10Foundation19MutableDataProtocolP", "append"]
+- !private ["10Foundation19MutableDataProtocolP", "first"]
+- !private ["10Foundation19MutableDataProtocolP", "lastIndex"]
+- !private ["10Foundation19MutableDataProtocolP", "remove"]
+- !private ["So8NSCodingP", "isEmpty"]
+- !private ["So9NSCopyingP", "isEmpty"]
+- !private ["So21NSItemProviderReadingP", "isEmpty"]
+- !private ["So21NSItemProviderWritingP", "isEmpty"]
+- !private ["So16NSMutableCopyingP", "isEmpty"]
+- !private ["So8NSObjectC", "Bool"]
+- ["So8NSObjectC", "Double"]
+- ["So8NSObjectC", "PaymentCurrency"]
+- ["So8NSObjectC", "PaymentField"]
+- ["So8NSObjectC", "PaymentItem"]
+- !private ["So8NSObjectC", "PaymentStore"]
+- ["So8NSObjectC", "PaymentStoreDelegate"]
+- ["So8NSObjectC", "String"]
+- !private ["So8NSObjectC", "UId"]
+- ["So8NSObjectC", ""]
+- ["So8NSObjectC", "addNewItem"]
+- ["So8NSObjectC", "buttons"]
+- ["So8NSObjectC", "currencies"]
+- ["So8NSObjectC", "delegate"]
+- !private ["So8NSObjectC", "descriptionField"]
+- !private ["So8NSObjectC", "errorMessage"]
+- ["So8NSObjectC", "fields"]
+- !private ["So8NSObjectC", "getAllCurrency"]
+- !private ["So8NSObjectC", "getDefaultForm"]
+- !private ["So8NSObjectC", "getInitalFields"]
+- !private ["So8NSObjectC", "getInitalItems"]
+- ["So8NSObjectC", "getJsonToSend"]
+- !private ["So8NSObjectC", "getRequestJson"]
+- !private ["So8NSObjectC", "getStaticButtons"]
+- ["So8NSObjectC", "getTotalPriceWithRequest"]
+- ["So8NSObjectC", "init"]
+- !private ["So8NSObjectC", "isEmpty"]
+- ["So8NSObjectC", "items"]
+- !private ["So8NSObjectC", "priceField"]
+- ["So8NSObjectC", "removeIndex"]
+- ["So8NSObjectC", "selectedCurrency"]
+- !private ["So8NSObjectC", "symbol"]
+- ["So8NSObjectC", "totalCost"]
+- ["So8NSObjectC", "totalPriceUpdated"]
+- !private ["So8NSObjectC", "validate"]
+- ["So8NSObjectC", "validateStore"]
+- !private ["So8NSObjectC", "value"]
+- !private ["So8NSObjectP", "Double"]
+- !private ["So8NSObjectP", "PaymentCurrency"]
+- !private ["So8NSObjectP", "PaymentField"]
+- !private ["So8NSObjectP", "PaymentItem"]
+- !private ["So8NSObjectP", "PaymentStore"]
+- !private ["So8NSObjectP", "UId"]
+- ["So8NSObjectP", ""]
+- !private ["So8NSObjectP", "buttons"]
+- !private ["So8NSObjectP", "currencies"]
+- !private ["So8NSObjectP", "delegate"]
+- !private ["So8NSObjectP", "descriptionField"]
+- !private ["So8NSObjectP", "errorMessage"]
+- !private ["So8NSObjectP", "fields"]
+- !private ["So8NSObjectP", "getAllCurrency"]
+- !private ["So8NSObjectP", "getDefaultForm"]
+- !private ["So8NSObjectP", "getInitalFields"]
+- !private ["So8NSObjectP", "getInitalItems"]
+- !private ["So8NSObjectP", "getRequestJson"]
+- !private ["So8NSObjectP", "getStaticButtons"]
+- !private ["So8NSObjectP", "getTotalPriceWithRequest"]
+- !private ["So8NSObjectP", "init"]
+- !private ["So8NSObjectP", "isEmpty"]
+- !private ["So8NSObjectP", "items"]
+- !private ["So8NSObjectP", "priceField"]
+- !private ["So8NSObjectP", "selectedCurrency"]
+- !private ["So8NSObjectP", "symbol"]
+- !private ["So8NSObjectP", "validate"]
+- !private ["So8NSObjectP", "value"]
+- !private ["So14NSSecureCodingP", "isEmpty"]
+- !private ["So8NSStringC", "isEmpty"]
+- !private ["Sj", "init"]
+- !private ["5Hippo15PaymentCurrencyC", "deinit"]
+- !private ["5Hippo15PaymentCurrencyC", "getAllCurrency"]
+- !private ["5Hippo15PaymentCurrencyC", "symbol"]
+- !private ["5Hippo12PaymentFieldC", "errorMessage"]
+- !private ["5Hippo12PaymentFieldC", "getInitalFields"]
+- !private ["5Hippo12PaymentFieldC", "getRequestJson"]
+- !private ["5Hippo12PaymentFieldC", "getStaticButtons"]
+- !private ["5Hippo12PaymentFieldC", "validate"]
+- !private ["5Hippo12PaymentFieldC", "value"]
+- !private ["5Hippo11PaymentItemC", "UId"]
+- !private ["5Hippo11PaymentItemC", "deinit"]
+- !private ["5Hippo11PaymentItemC", "descriptionField"]
+- !private ["5Hippo11PaymentItemC", "errorMessage"]
+- !private ["5Hippo11PaymentItemC", "getDefaultForm"]
+- !private ["5Hippo11PaymentItemC", "getInitalItems"]
+- !private ["5Hippo11PaymentItemC", "priceField"]
+- !private ["5Hippo11PaymentItemC", "validate"]
+- !private ["5Hippo12PaymentStoreC", "Bool"]
+- ["5Hippo12PaymentStoreC", "Double"]
+- ["5Hippo12PaymentStoreC", "PaymentCurrency"]
+- ["5Hippo12PaymentStoreC", "PaymentField"]
+- ["5Hippo12PaymentStoreC", "PaymentItem"]
+- !private ["5Hippo12PaymentStoreC", "PaymentStore"]
+- ["5Hippo12PaymentStoreC", "PaymentStoreDelegate"]
+- ["5Hippo12PaymentStoreC", "String"]
+- ["5Hippo12PaymentStoreC", "addNewItem"]
+- ["5Hippo12PaymentStoreC", "buttons"]
+- ["5Hippo12PaymentStoreC", "currencies"]
+- ["5Hippo12PaymentStoreC", "deinit"]
+- ["5Hippo12PaymentStoreC", "delegate"]
+- ["5Hippo12PaymentStoreC", "fields"]
+- ["5Hippo12PaymentStoreC", "getJsonToSend"]
+- ["5Hippo12PaymentStoreC", "getTotalPriceWithRequest"]
+- ["5Hippo12PaymentStoreC", "init"]
+- ["5Hippo12PaymentStoreC", "items"]
+- ["5Hippo12PaymentStoreC", "removeIndex"]
+- ["5Hippo12PaymentStoreC", "selectedCurrency"]
+- ["5Hippo12PaymentStoreC", "totalCost"]
+- ["5Hippo12PaymentStoreC", "totalPriceUpdated"]
+- ["5Hippo12PaymentStoreC", "validateStore"]
+- ["5Hippo20PaymentStoreDelegateP", "dataUpdate"]
+- !private ["Sk", "append"]
+- !private ["Sk", "first"]
+- !private ["Sk", "lastIndex"]
+- !private ["Sk", "remove"]
+- !private ["Sm", "append"]
+- !private ["Sm", "first"]
+- !private ["Sm", "isEmpty"]
+- !private ["Sm", "lastIndex"]
+- !private ["Sm", "remove"]
+- !private ["s10SIMDScalarP", "init"]
+- !private ["ST", "append"]
+- !private ["ST", "first"]
+- !private ["ST", "isEmpty"]
+- !private ["ST", "lastIndex"]
+- !private ["ST", "remove"]
+- !private ["ST", "subscript"]
+- !private ["s13SignedNumericP", "init"]
+- !private ["Sx", "init"]
+- !private ["SS", "isEmpty"]
+- !private ["s27StringInterpolationProtocolP", "appendInterpolation"]
+- !private ["s27StringInterpolationProtocolP", "appendLiteral"]
+- !private ["Sy", "isEmpty"]
+- !private ["s16TextOutputStreamP", "appendInterpolation"]
+- !private ["s16TextOutputStreamP", "appendLiteral"]
+- !private ["s16TextOutputStreamP", "isEmpty"]
+- !private ["s20TextOutputStreamableP", "init"]
+- !private ["s20TextOutputStreamableP", "isEmpty"]
+- !private ["s14_ArrayProtocolP", "append"]
+- !private ["s14_ArrayProtocolP", "first"]
+- !private ["s14_ArrayProtocolP", "lastIndex"]
+- !private ["s14_ArrayProtocolP", "remove"]
+- !private ["s15_CVarArgAlignedP", "init"]
+- !private ["s22_CVarArgPassedAsDoubleP", "init"]
+- !private ["s30_CustomPlaygroundQuickLookableP", "init"]
+- !private ["s30_CustomPlaygroundQuickLookableP", "isEmpty"]
+- !private ["s24_DestructorSafeContainerP", "append"]
+- !private ["s24_DestructorSafeContainerP", "first"]
+- !private ["s24_DestructorSafeContainerP", "lastIndex"]
+- !private ["s24_DestructorSafeContainerP", "remove"]
+- !private ["s51_ExpressibleByBuiltinExtendedGraphemeClusterLiteralP", "isEmpty"]
+- !private ["s33_ExpressibleByBuiltinFloatLiteralP", "init"]
+- !private ["s35_ExpressibleByBuiltinIntegerLiteralP", "init"]
+- !private ["s34_ExpressibleByBuiltinStringLiteralP", "isEmpty"]
+- !private ["s41_ExpressibleByBuiltinUnicodeScalarLiteralP", "isEmpty"]
+- !private ["s19_HasContiguousBytesP", "append"]
+- !private ["s19_HasContiguousBytesP", "first"]
+- !private ["s19_HasContiguousBytesP", "isEmpty"]
+- !private ["s19_HasContiguousBytesP", "lastIndex"]
+- !private ["s19_HasContiguousBytesP", "remove"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "append"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "first"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "init"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "isEmpty"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "lastIndex"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "remove"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "subscript"]
+- !private ["10Foundation36_JSONStringDictionaryDecodableMarkerP", "subscript"]
+- !private ["10Foundation36_JSONStringDictionaryEncodableMarkerP", "subscript"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "Double"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "PaymentCurrency"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "PaymentField"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "PaymentItem"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "PaymentStore"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "UId"]
+- ["10Foundation27_KeyValueCodingAndObservingP", ""]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "buttons"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "currencies"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "delegate"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "descriptionField"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "errorMessage"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "fields"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "getAllCurrency"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "getDefaultForm"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "getInitalFields"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "getInitalItems"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "getRequestJson"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "getStaticButtons"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "getTotalPriceWithRequest"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "init"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "isEmpty"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "items"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "priceField"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "selectedCurrency"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "symbol"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "validate"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "value"]
+- !private ["s21_ObjectiveCBridgeableP", "append"]
+- !private ["s21_ObjectiveCBridgeableP", "first"]
+- !private ["s21_ObjectiveCBridgeableP", "init"]
+- !private ["s21_ObjectiveCBridgeableP", "isEmpty"]
+- !private ["s21_ObjectiveCBridgeableP", "lastIndex"]
+- !private ["s21_ObjectiveCBridgeableP", "remove"]
+- !private ["s21_ObjectiveCBridgeableP", "subscript"]
+depends-nominal:
+- !private "s18AdditiveArithmeticP"
+- !private "Sa"
+- !private "SK"
+- !private "SB"
+- "s7CVarArgP"
+- !private "Sl"
+- !private "SL"
+- !private "10Foundation15ContiguousBytesP"
+- "s28CustomDebugStringConvertibleP"
+- !private "s17CustomReflectableP"
+- "s23CustomStringConvertibleP"
+- !private "10Foundation12DataProtocolP"
+- !private "Se"
+- !private "s26DefaultStringInterpolationV"
+- !private "SD"
+- !private "Sd"
+- !private "SE"
+- "SQ"
+- !private "s25ExpressibleByArrayLiteralP"
+- !private "s30ExpressibleByDictionaryLiteralP"
+- !private "s43ExpressibleByExtendedGraphemeClusterLiteralP"
+- !private "s25ExpressibleByFloatLiteralP"
+- !private "s27ExpressibleByIntegerLiteralP"
+- !private "s32ExpressibleByStringInterpolationP"
+- !private "s26ExpressibleByStringLiteralP"
+- !private "s33ExpressibleByUnicodeScalarLiteralP"
+- !private "SF"
+- !private "5Hippo8FormDataC"
+- "SH"
+- !private "5Hippo20KingfisherCompatibleP"
+- !private "s25LosslessStringConvertibleP"
+- !private "s10MirrorPathP"
+- !private "SM"
+- !private "10Foundation19MutableDataProtocolP"
+- !private "So8NSCodingP"
+- !private "So9NSCopyingP"
+- !private "So21NSItemProviderReadingP"
+- !private "So21NSItemProviderWritingP"
+- !private "So16NSMutableCopyingP"
+- "So8NSObjectC"
+- "So8NSObjectP"
+- !private "So14NSSecureCodingP"
+- !private "So8NSStringC"
+- !private "Sj"
+- !private "5Hippo15PaymentCurrencyC"
+- !private "5Hippo12PaymentFieldC"
+- !private "5Hippo11PaymentItemC"
+- "5Hippo12PaymentStoreC"
+- "5Hippo20PaymentStoreDelegateP"
+- !private "Sk"
+- !private "Sm"
+- !private "s10SIMDScalarP"
+- !private "ST"
+- !private "s13SignedNumericP"
+- !private "Sx"
+- !private "SS"
+- !private "s27StringInterpolationProtocolP"
+- !private "Sy"
+- !private "s16TextOutputStreamP"
+- !private "s20TextOutputStreamableP"
+- !private "s14_ArrayProtocolP"
+- !private "s15_CVarArgAlignedP"
+- !private "s22_CVarArgPassedAsDoubleP"
+- !private "s30_CustomPlaygroundQuickLookableP"
+- !private "s24_DestructorSafeContainerP"
+- !private "s51_ExpressibleByBuiltinExtendedGraphemeClusterLiteralP"
+- !private "s33_ExpressibleByBuiltinFloatLiteralP"
+- !private "s35_ExpressibleByBuiltinIntegerLiteralP"
+- !private "s34_ExpressibleByBuiltinStringLiteralP"
+- !private "s41_ExpressibleByBuiltinUnicodeScalarLiteralP"
+- !private "s19_HasContiguousBytesP"
+- !private "s35_HasCustomAnyHashableRepresentationP"
+- !private "10Foundation36_JSONStringDictionaryDecodableMarkerP"
+- !private "10Foundation36_JSONStringDictionaryEncodableMarkerP"
+- "10Foundation27_KeyValueCodingAndObservingP"
+- !private "s21_ObjectiveCBridgeableP"
+depends-dynamic-lookup:
+depends-external:
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/ObjectiveC.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreMedia.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/simd.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreImage.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/QuartzCore.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Accelerate.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Dispatch.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Metal.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Darwin.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreLocation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Foundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/AVFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreAudio.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/MediaPlayer.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreGraphics.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/os.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Photos.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Swift.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/UIKit.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/SwiftOnoneSupport.swiftmodule"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Hippo.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Helpers/TRWDownloadManager/TWRDownloadManager.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/SocketRocket/SocketRocket.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/SocketRocket/SRWebSocket.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/MZFayeClient/MZFayeClient.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/unextended-module.modulemap"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/usr/include/objc/ObjectiveC.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/OpenGLES.framework/Headers/OpenGLES.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreMedia.framework/Headers/CoreMedia.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreImage.framework/Headers/CoreImage.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/QuartzCore.framework/Headers/QuartzCore.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Accelerate.framework/Headers/Accelerate.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Dispatch.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/QuickLook.framework/Headers/QuickLook.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Metal.framework/Headers/Metal.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/usr/include/Darwin.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreLocation.framework/Headers/CoreLocation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Foundation.framework/Headers/Foundation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/AVFoundation.framework/Headers/AVFoundation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/MediaPlayer.framework/Headers/MediaPlayer.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreGraphics.framework/Headers/CoreGraphics.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/UserNotifications.framework/Headers/UserNotifications.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/os.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Photos.framework/Headers/Photos.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/UIKit.framework/Headers/UIKit.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreText.framework/Headers/CoreText.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/MediaToolbox.framework/Headers/MediaToolbox.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/AudioToolbox.framework/Headers/AudioToolbox.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Security.framework/Headers/Security.apinotes"
+interface-hash: "caf1344b111719819826e699b29007fd"

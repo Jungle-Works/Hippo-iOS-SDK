@@ -11,28 +11,30 @@ Pod::Spec.new do |s|
     
     s.source       = { :git => 'https://github.com/Jungle-Works/Hippo-iOS-SDK.git', :tag => s.version }
     s.ios.deployment_target = '9.0'
-    s.source_files = 'Hippo/**/*.{swift,h,m}'
-    s.exclude_files = 'Classes/Exclude'
-    s.static_framework = false
+
     
-    s.swift_version = '4.2'
     
-    s.resource_bundles = {
-        'Hippo' => ['Hippo/*.{lproj,storyboard,xcassets,gif}','Hippo/Assets/**/*.imageset','Hippo/UIView/TableViewCell/**/*.xib','Hippo/UIView/CollectionViewCells/**/*.xib','Hippo/UIView/CustomViews/**/*.xib', 'Hippo/**/*.gif', 'README.md']
-    }
-    s.resources = ['Hippo/*.xcassets']
-    s.preserve_paths = ['README.md']
-    
-    s.dependency 'MZFayeClient'
     s.default_subspec = 'Chat'
-    
+
     s.subspec 'Chat' do |chat|
-        
+      chat.ios.vendored_frameworks = 'Hippo.framework'
+      chat.preserve_paths = ['*.framework']
     end
     
     s.subspec 'Call' do |callClient|
-        s.pod_target_xcconfig = { "ENABLE_BITCODE" => "No" }
-        callClient.dependency 'HippoCallClient'
+      s.pod_target_xcconfig = { "ENABLE_BITCODE" => "No" }
+      callClient.ios.vendored_frameworks = 'HippoCallClient.framework'
+      callClient.preserve_paths = ['*.framework']
+      callClient.dependency 'Hippo/Chat'
+      callClient.dependency 'Hippo/RTC'
     end
+    
+    
+    
+    s.subspec 'RTC' do |rtc|
+      rtc.ios.vendored_frameworks = 'WebRTC.framework'
+      rtc.preserve_paths = ['*.framework']
+      end
+    
     
 end

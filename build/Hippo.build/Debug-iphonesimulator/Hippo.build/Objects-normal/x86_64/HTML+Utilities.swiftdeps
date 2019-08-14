@@ -1,0 +1,294 @@
+### Swift dependencies file v0 ###
+provides-top-level:
+provides-nominal:
+provides-member:
+- ["SD", ""]
+- ["s6UInt32V", ""]
+- ["SD", "updating"]
+- ["SD", "inverting"]
+- ["s6UInt32V", "isAlphaNumeric"]
+- ["s6UInt32V", "isAmpersand"]
+- ["s6UInt32V", "isASCII"]
+- ["s6UInt32V", "isAttributeSyntax"]
+- ["s6UInt32V", "isDisallowedReference"]
+- ["s6UInt32V", "isHash"]
+- ["s6UInt32V", "isHexNumeral"]
+- ["s6UInt32V", "isNumeral"]
+- ["s6UInt32V", "isReplacementCharacterEquivalent"]
+- ["s6UInt32V", "isSafeASCII"]
+- ["s6UInt32V", "isSemicolon"]
+- ["s6UInt32V", "isTagSyntax"]
+- ["s6UInt32V", "isX"]
+provides-dynamic-lookup:
+depends-top-level:
+- !private "!"
+- !private "&&"
+- !private "..."
+- !private "<"
+- !private "=="
+- "AssignmentPrecedence"
+- "Bool"
+- "Dictionary"
+- "Hashable"
+- "UInt32"
+- !private "disallowedNumericReferences"
+- !private "||"
+- !private "~="
+depends-member:
+- !private ["s18AdditiveArithmeticP", "disallowedNumericReferences"]
+- !private ["s18AdditiveArithmeticP", "isASCII"]
+- !private ["s18AdditiveArithmeticP", "isAmpersand"]
+- !private ["s18AdditiveArithmeticP", "isAttributeSyntax"]
+- !private ["s18AdditiveArithmeticP", "isNumeral"]
+- !private ["s18AdditiveArithmeticP", "isTagSyntax"]
+- !private ["Sz", "disallowedNumericReferences"]
+- !private ["Sz", "isASCII"]
+- !private ["Sz", "isAmpersand"]
+- !private ["Sz", "isAttributeSyntax"]
+- !private ["Sz", "isNumeral"]
+- !private ["Sz", "isTagSyntax"]
+- !private ["s7CVarArgP", "contains"]
+- !private ["s7CVarArgP", "disallowedNumericReferences"]
+- !private ["s7CVarArgP", "isASCII"]
+- !private ["s7CVarArgP", "isAmpersand"]
+- !private ["s7CVarArgP", "isAttributeSyntax"]
+- !private ["s7CVarArgP", "isNumeral"]
+- !private ["s7CVarArgP", "isTagSyntax"]
+- !private ["s7CVarArgP", "subscript"]
+- !private ["Sl", "contains"]
+- !private ["Sl", "subscript"]
+- !private ["SL", "disallowedNumericReferences"]
+- !private ["SL", "isASCII"]
+- !private ["SL", "isAmpersand"]
+- !private ["SL", "isAttributeSyntax"]
+- !private ["SL", "isNumeral"]
+- !private ["SL", "isTagSyntax"]
+- !private ["s28CustomDebugStringConvertibleP", "contains"]
+- !private ["s28CustomDebugStringConvertibleP", "subscript"]
+- !private ["s17CustomReflectableP", "contains"]
+- !private ["s17CustomReflectableP", "disallowedNumericReferences"]
+- !private ["s17CustomReflectableP", "isASCII"]
+- !private ["s17CustomReflectableP", "isAmpersand"]
+- !private ["s17CustomReflectableP", "isAttributeSyntax"]
+- !private ["s17CustomReflectableP", "isNumeral"]
+- !private ["s17CustomReflectableP", "isTagSyntax"]
+- !private ["s17CustomReflectableP", "subscript"]
+- !private ["s23CustomStringConvertibleP", "contains"]
+- !private ["s23CustomStringConvertibleP", "disallowedNumericReferences"]
+- !private ["s23CustomStringConvertibleP", "isASCII"]
+- !private ["s23CustomStringConvertibleP", "isAmpersand"]
+- !private ["s23CustomStringConvertibleP", "isAttributeSyntax"]
+- !private ["s23CustomStringConvertibleP", "isNumeral"]
+- !private ["s23CustomStringConvertibleP", "isTagSyntax"]
+- !private ["s23CustomStringConvertibleP", "subscript"]
+- !private ["Se", "contains"]
+- !private ["Se", "disallowedNumericReferences"]
+- !private ["Se", "isASCII"]
+- !private ["Se", "isAmpersand"]
+- !private ["Se", "isAttributeSyntax"]
+- !private ["Se", "isNumeral"]
+- !private ["Se", "isTagSyntax"]
+- !private ["Se", "subscript"]
+- ["SD", "Hashable"]
+- ["SD", "inverting"]
+- !private ["SD", "subscript"]
+- ["SD", "updating"]
+- !private ["SE", "contains"]
+- !private ["SE", "disallowedNumericReferences"]
+- !private ["SE", "isASCII"]
+- !private ["SE", "isAmpersand"]
+- !private ["SE", "isAttributeSyntax"]
+- !private ["SE", "isNumeral"]
+- !private ["SE", "isTagSyntax"]
+- !private ["SE", "subscript"]
+- !private ["SQ", "contains"]
+- !private ["SQ", "disallowedNumericReferences"]
+- !private ["SQ", "isASCII"]
+- !private ["SQ", "isAmpersand"]
+- !private ["SQ", "isAttributeSyntax"]
+- !private ["SQ", "isNumeral"]
+- !private ["SQ", "isTagSyntax"]
+- !private ["SQ", "subscript"]
+- !private ["s25ExpressibleByArrayLiteralP", "contains"]
+- !private ["s30ExpressibleByDictionaryLiteralP", "subscript"]
+- !private ["s27ExpressibleByIntegerLiteralP", "disallowedNumericReferences"]
+- !private ["s27ExpressibleByIntegerLiteralP", "isASCII"]
+- !private ["s27ExpressibleByIntegerLiteralP", "isAmpersand"]
+- !private ["s27ExpressibleByIntegerLiteralP", "isAttributeSyntax"]
+- !private ["s27ExpressibleByIntegerLiteralP", "isNumeral"]
+- !private ["s27ExpressibleByIntegerLiteralP", "isTagSyntax"]
+- !private ["s17FixedWidthIntegerP", "disallowedNumericReferences"]
+- !private ["s17FixedWidthIntegerP", "isASCII"]
+- !private ["s17FixedWidthIntegerP", "isAmpersand"]
+- !private ["s17FixedWidthIntegerP", "isAttributeSyntax"]
+- !private ["s17FixedWidthIntegerP", "isNumeral"]
+- !private ["s17FixedWidthIntegerP", "isTagSyntax"]
+- !private ["SH", "contains"]
+- !private ["SH", "disallowedNumericReferences"]
+- !private ["SH", "isASCII"]
+- !private ["SH", "isAmpersand"]
+- !private ["SH", "isAttributeSyntax"]
+- !private ["SH", "isNumeral"]
+- !private ["SH", "isTagSyntax"]
+- !private ["SH", "subscript"]
+- !private ["s25LosslessStringConvertibleP", "disallowedNumericReferences"]
+- !private ["s25LosslessStringConvertibleP", "isASCII"]
+- !private ["s25LosslessStringConvertibleP", "isAmpersand"]
+- !private ["s25LosslessStringConvertibleP", "isAttributeSyntax"]
+- !private ["s25LosslessStringConvertibleP", "isNumeral"]
+- !private ["s25LosslessStringConvertibleP", "isTagSyntax"]
+- !private ["Sj", "disallowedNumericReferences"]
+- !private ["Sj", "isASCII"]
+- !private ["Sj", "isAmpersand"]
+- !private ["Sj", "isAttributeSyntax"]
+- !private ["Sj", "isNumeral"]
+- !private ["Sj", "isTagSyntax"]
+- !private ["s10SIMDScalarP", "disallowedNumericReferences"]
+- !private ["s10SIMDScalarP", "isASCII"]
+- !private ["s10SIMDScalarP", "isAmpersand"]
+- !private ["s10SIMDScalarP", "isAttributeSyntax"]
+- !private ["s10SIMDScalarP", "isNumeral"]
+- !private ["s10SIMDScalarP", "isTagSyntax"]
+- !private ["ST", "contains"]
+- !private ["ST", "subscript"]
+- !private ["Sh", "contains"]
+- !private ["s10SetAlgebraP", "contains"]
+- !private ["Sx", "disallowedNumericReferences"]
+- !private ["Sx", "isASCII"]
+- !private ["Sx", "isAmpersand"]
+- !private ["Sx", "isAttributeSyntax"]
+- !private ["Sx", "isNumeral"]
+- !private ["Sx", "isTagSyntax"]
+- ["s6UInt32V", "Bool"]
+- !private ["s6UInt32V", "disallowedNumericReferences"]
+- ["s6UInt32V", "isASCII"]
+- ["s6UInt32V", "isAlphaNumeric"]
+- ["s6UInt32V", "isAmpersand"]
+- ["s6UInt32V", "isAttributeSyntax"]
+- ["s6UInt32V", "isDisallowedReference"]
+- ["s6UInt32V", "isHash"]
+- ["s6UInt32V", "isHexNumeral"]
+- ["s6UInt32V", "isNumeral"]
+- ["s6UInt32V", "isReplacementCharacterEquivalent"]
+- ["s6UInt32V", "isSafeASCII"]
+- ["s6UInt32V", "isSemicolon"]
+- ["s6UInt32V", "isTagSyntax"]
+- ["s6UInt32V", "isX"]
+- !private ["SU", "disallowedNumericReferences"]
+- !private ["SU", "isASCII"]
+- !private ["SU", "isAmpersand"]
+- !private ["SU", "isAttributeSyntax"]
+- !private ["SU", "isNumeral"]
+- !private ["SU", "isTagSyntax"]
+- !private ["s30_CustomPlaygroundQuickLookableP", "disallowedNumericReferences"]
+- !private ["s30_CustomPlaygroundQuickLookableP", "isASCII"]
+- !private ["s30_CustomPlaygroundQuickLookableP", "isAmpersand"]
+- !private ["s30_CustomPlaygroundQuickLookableP", "isAttributeSyntax"]
+- !private ["s30_CustomPlaygroundQuickLookableP", "isNumeral"]
+- !private ["s30_CustomPlaygroundQuickLookableP", "isTagSyntax"]
+- !private ["s35_ExpressibleByBuiltinIntegerLiteralP", "disallowedNumericReferences"]
+- !private ["s35_ExpressibleByBuiltinIntegerLiteralP", "isASCII"]
+- !private ["s35_ExpressibleByBuiltinIntegerLiteralP", "isAmpersand"]
+- !private ["s35_ExpressibleByBuiltinIntegerLiteralP", "isAttributeSyntax"]
+- !private ["s35_ExpressibleByBuiltinIntegerLiteralP", "isNumeral"]
+- !private ["s35_ExpressibleByBuiltinIntegerLiteralP", "isTagSyntax"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "contains"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "disallowedNumericReferences"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "isASCII"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "isAmpersand"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "isAttributeSyntax"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "isNumeral"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "isTagSyntax"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "subscript"]
+- !private ["s21_ObjectiveCBridgeableP", "contains"]
+- !private ["s21_ObjectiveCBridgeableP", "disallowedNumericReferences"]
+- !private ["s21_ObjectiveCBridgeableP", "isASCII"]
+- !private ["s21_ObjectiveCBridgeableP", "isAmpersand"]
+- !private ["s21_ObjectiveCBridgeableP", "isAttributeSyntax"]
+- !private ["s21_ObjectiveCBridgeableP", "isNumeral"]
+- !private ["s21_ObjectiveCBridgeableP", "isTagSyntax"]
+- !private ["s21_ObjectiveCBridgeableP", "subscript"]
+depends-nominal:
+- !private "s18AdditiveArithmeticP"
+- !private "Sz"
+- !private "s7CVarArgP"
+- !private "Sl"
+- !private "SL"
+- !private "s28CustomDebugStringConvertibleP"
+- !private "s17CustomReflectableP"
+- !private "s23CustomStringConvertibleP"
+- !private "Se"
+- "SD"
+- !private "SE"
+- !private "SQ"
+- !private "s25ExpressibleByArrayLiteralP"
+- !private "s30ExpressibleByDictionaryLiteralP"
+- !private "s27ExpressibleByIntegerLiteralP"
+- !private "s17FixedWidthIntegerP"
+- !private "SH"
+- !private "s25LosslessStringConvertibleP"
+- !private "Sj"
+- !private "s10SIMDScalarP"
+- !private "ST"
+- !private "Sh"
+- !private "s10SetAlgebraP"
+- !private "Sx"
+- "s6UInt32V"
+- !private "SU"
+- !private "s30_CustomPlaygroundQuickLookableP"
+- !private "s35_ExpressibleByBuiltinIntegerLiteralP"
+- !private "s35_HasCustomAnyHashableRepresentationP"
+- !private "s21_ObjectiveCBridgeableP"
+depends-dynamic-lookup:
+depends-external:
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/ObjectiveC.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreMedia.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/simd.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreImage.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/QuartzCore.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Accelerate.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Dispatch.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Metal.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Darwin.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreLocation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Foundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/AVFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreAudio.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/MediaPlayer.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreGraphics.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/os.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Photos.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Swift.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/UIKit.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/SwiftOnoneSupport.swiftmodule"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Hippo.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Helpers/TRWDownloadManager/TWRDownloadManager.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/SocketRocket/SocketRocket.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/SocketRocket/SRWebSocket.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/MZFayeClient/MZFayeClient.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/unextended-module.modulemap"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/usr/include/objc/ObjectiveC.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/OpenGLES.framework/Headers/OpenGLES.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreMedia.framework/Headers/CoreMedia.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreImage.framework/Headers/CoreImage.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/QuartzCore.framework/Headers/QuartzCore.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Accelerate.framework/Headers/Accelerate.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Dispatch.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/QuickLook.framework/Headers/QuickLook.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Metal.framework/Headers/Metal.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/usr/include/Darwin.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreLocation.framework/Headers/CoreLocation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Foundation.framework/Headers/Foundation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/AVFoundation.framework/Headers/AVFoundation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/MediaPlayer.framework/Headers/MediaPlayer.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreGraphics.framework/Headers/CoreGraphics.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/UserNotifications.framework/Headers/UserNotifications.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/os.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Photos.framework/Headers/Photos.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/UIKit.framework/Headers/UIKit.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreText.framework/Headers/CoreText.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/MediaToolbox.framework/Headers/MediaToolbox.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/AudioToolbox.framework/Headers/AudioToolbox.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Security.framework/Headers/Security.apinotes"
+interface-hash: "1b9e2fb4ff192467407bf52360182e56"

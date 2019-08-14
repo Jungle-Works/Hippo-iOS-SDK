@@ -1,0 +1,622 @@
+### Swift dependencies file v0 ###
+provides-top-level:
+- "ChatProfileCellDelegate"
+- "ChatProfileTableViewCell"
+provides-nominal:
+- "5Hippo23ChatProfileCellDelegateP"
+- "5Hippo24ChatProfileTableViewCellC"
+provides-member:
+- ["5Hippo23ChatProfileCellDelegateP", ""]
+- ["5Hippo24ChatProfileTableViewCellC", ""]
+provides-dynamic-lookup:
+- "addressTopConstraint"
+- "addressViewHeightConstraint"
+- "awakeFromNib"
+- "containerViewForStatus"
+- "emailTopConstraint"
+- "emailViewHeightConstraint"
+- "lastActiveTimeLabel"
+- "numberTopconstraint"
+- "numberViewHeightConstraint"
+- "statusImageView"
+- "userEmailTextView"
+- "userImage"
+- "userLocationTextView"
+- "userNameLabel"
+- "userNumberTextView"
+depends-top-level:
+- "AnyObject"
+- "AssignmentPrecedence"
+- "ChatDetail"
+- "ChatProfileCellDelegate"
+- "ChatProfileTableViewCell"
+- "NSLayoutConstraint"
+- "TernaryPrecedence"
+- "UIImageView"
+- "UILabel"
+- "UITableViewCell"
+- "UITextView"
+- "UIView"
+depends-member:
+- !private ["SK", "isEmpty"]
+- ["So15CALayerDelegateP", ""]
+- !private ["So15CALayerDelegateP", "awakeFromNib"]
+- !private ["So15CALayerDelegateP", "init"]
+- !private ["So15CALayerDelegateP", "text"]
+- !private ["So15CALayerDelegateP", "textContainer"]
+- !private ["So15CALayerDelegateP", "userEmailTextView"]
+- !private ["So15CALayerDelegateP", "userLocationTextView"]
+- !private ["So15CALayerDelegateP", "userNameLabel"]
+- !private ["So15CALayerDelegateP", "userNumberTextView"]
+- ["s7CVarArgP", ""]
+- !private ["s7CVarArgP", "awakeFromNib"]
+- !private ["s7CVarArgP", "customerContactNumber"]
+- !private ["s7CVarArgP", "customerEmail"]
+- !private ["s7CVarArgP", "customerName"]
+- !private ["s7CVarArgP", "init"]
+- !private ["s7CVarArgP", "isEmpty"]
+- !private ["s7CVarArgP", "maximumNumberOfLines"]
+- !private ["s7CVarArgP", "text"]
+- !private ["s7CVarArgP", "textContainer"]
+- !private ["s7CVarArgP", "userEmailTextView"]
+- !private ["s7CVarArgP", "userLocationTextView"]
+- !private ["s7CVarArgP", "userNameLabel"]
+- !private ["s7CVarArgP", "userNumberTextView"]
+- !private ["5Hippo10ChatDetailC", "customerContactNumber"]
+- !private ["5Hippo10ChatDetailC", "customerEmail"]
+- !private ["5Hippo10ChatDetailC", "customerName"]
+- ["5Hippo23ChatProfileCellDelegateP", "editProfileButtonClicked"]
+- ["5Hippo24ChatProfileTableViewCellC", "ChatDetail"]
+- ["5Hippo24ChatProfileTableViewCellC", "ChatProfileCellDelegate"]
+- ["5Hippo24ChatProfileTableViewCellC", "NSLayoutConstraint"]
+- ["5Hippo24ChatProfileTableViewCellC", "UIImageView"]
+- ["5Hippo24ChatProfileTableViewCellC", "UILabel"]
+- ["5Hippo24ChatProfileTableViewCellC", "UITextView"]
+- ["5Hippo24ChatProfileTableViewCellC", "UIView"]
+- ["5Hippo24ChatProfileTableViewCellC", "addressTopConstraint"]
+- ["5Hippo24ChatProfileTableViewCellC", "addressViewHeightConstraint"]
+- ["5Hippo24ChatProfileTableViewCellC", "awakeFromNib"]
+- ["5Hippo24ChatProfileTableViewCellC", "containerViewForStatus"]
+- ["5Hippo24ChatProfileTableViewCellC", "deinit"]
+- ["5Hippo24ChatProfileTableViewCellC", "delegate"]
+- ["5Hippo24ChatProfileTableViewCellC", "emailTopConstraint"]
+- ["5Hippo24ChatProfileTableViewCellC", "emailViewHeightConstraint"]
+- ["5Hippo24ChatProfileTableViewCellC", "init"]
+- ["5Hippo24ChatProfileTableViewCellC", "lastActiveTimeLabel"]
+- ["5Hippo24ChatProfileTableViewCellC", "numberTopconstraint"]
+- ["5Hippo24ChatProfileTableViewCellC", "numberViewHeightConstraint"]
+- ["5Hippo24ChatProfileTableViewCellC", "setupCell"]
+- ["5Hippo24ChatProfileTableViewCellC", "statusImageView"]
+- ["5Hippo24ChatProfileTableViewCellC", "userEmailTextView"]
+- ["5Hippo24ChatProfileTableViewCellC", "userImage"]
+- ["5Hippo24ChatProfileTableViewCellC", "userLocationTextView"]
+- ["5Hippo24ChatProfileTableViewCellC", "userNameLabel"]
+- ["5Hippo24ChatProfileTableViewCellC", "userNumberTextView"]
+- !private ["Sl", "isEmpty"]
+- !private ["SL", "isEmpty"]
+- ["s28CustomDebugStringConvertibleP", ""]
+- !private ["s28CustomDebugStringConvertibleP", "awakeFromNib"]
+- !private ["s28CustomDebugStringConvertibleP", "customerContactNumber"]
+- !private ["s28CustomDebugStringConvertibleP", "customerEmail"]
+- !private ["s28CustomDebugStringConvertibleP", "customerName"]
+- !private ["s28CustomDebugStringConvertibleP", "init"]
+- !private ["s28CustomDebugStringConvertibleP", "isEmpty"]
+- !private ["s28CustomDebugStringConvertibleP", "maximumNumberOfLines"]
+- !private ["s28CustomDebugStringConvertibleP", "text"]
+- !private ["s28CustomDebugStringConvertibleP", "textContainer"]
+- !private ["s28CustomDebugStringConvertibleP", "userEmailTextView"]
+- !private ["s28CustomDebugStringConvertibleP", "userLocationTextView"]
+- !private ["s28CustomDebugStringConvertibleP", "userNameLabel"]
+- !private ["s28CustomDebugStringConvertibleP", "userNumberTextView"]
+- !private ["s17CustomReflectableP", "isEmpty"]
+- !private ["s17CustomReflectableP", "text"]
+- !private ["s17CustomReflectableP", "textContainer"]
+- ["s23CustomStringConvertibleP", ""]
+- !private ["s23CustomStringConvertibleP", "awakeFromNib"]
+- !private ["s23CustomStringConvertibleP", "customerContactNumber"]
+- !private ["s23CustomStringConvertibleP", "customerEmail"]
+- !private ["s23CustomStringConvertibleP", "customerName"]
+- !private ["s23CustomStringConvertibleP", "init"]
+- !private ["s23CustomStringConvertibleP", "isEmpty"]
+- !private ["s23CustomStringConvertibleP", "maximumNumberOfLines"]
+- !private ["s23CustomStringConvertibleP", "text"]
+- !private ["s23CustomStringConvertibleP", "textContainer"]
+- !private ["s23CustomStringConvertibleP", "userEmailTextView"]
+- !private ["s23CustomStringConvertibleP", "userLocationTextView"]
+- !private ["s23CustomStringConvertibleP", "userNameLabel"]
+- !private ["s23CustomStringConvertibleP", "userNumberTextView"]
+- !private ["Se", "isEmpty"]
+- !private ["Se", "text"]
+- !private ["Se", "textContainer"]
+- !private ["SE", "isEmpty"]
+- !private ["SE", "text"]
+- !private ["SE", "textContainer"]
+- ["SQ", ""]
+- !private ["SQ", "awakeFromNib"]
+- !private ["SQ", "customerContactNumber"]
+- !private ["SQ", "customerEmail"]
+- !private ["SQ", "customerName"]
+- !private ["SQ", "init"]
+- !private ["SQ", "isEmpty"]
+- !private ["SQ", "maximumNumberOfLines"]
+- !private ["SQ", "text"]
+- !private ["SQ", "textContainer"]
+- !private ["SQ", "userEmailTextView"]
+- !private ["SQ", "userLocationTextView"]
+- !private ["SQ", "userNameLabel"]
+- !private ["SQ", "userNumberTextView"]
+- !private ["s43ExpressibleByExtendedGraphemeClusterLiteralP", "isEmpty"]
+- !private ["s23ExpressibleByNilLiteralP", "text"]
+- !private ["s23ExpressibleByNilLiteralP", "textContainer"]
+- !private ["s32ExpressibleByStringInterpolationP", "isEmpty"]
+- !private ["s26ExpressibleByStringLiteralP", "isEmpty"]
+- !private ["s33ExpressibleByUnicodeScalarLiteralP", "isEmpty"]
+- ["SH", ""]
+- !private ["SH", "awakeFromNib"]
+- !private ["SH", "customerContactNumber"]
+- !private ["SH", "customerEmail"]
+- !private ["SH", "customerName"]
+- !private ["SH", "init"]
+- !private ["SH", "isEmpty"]
+- !private ["SH", "maximumNumberOfLines"]
+- !private ["SH", "text"]
+- !private ["SH", "textContainer"]
+- !private ["SH", "userEmailTextView"]
+- !private ["SH", "userLocationTextView"]
+- !private ["SH", "userNameLabel"]
+- !private ["SH", "userNumberTextView"]
+- !private ["5Hippo20KingfisherCompatibleP", "isEmpty"]
+- !private ["s25LosslessStringConvertibleP", "isEmpty"]
+- !private ["s10MirrorPathP", "isEmpty"]
+- ["So8NSCodingP", ""]
+- !private ["So8NSCodingP", "awakeFromNib"]
+- !private ["So8NSCodingP", "init"]
+- !private ["So8NSCodingP", "isEmpty"]
+- !private ["So8NSCodingP", "maximumNumberOfLines"]
+- !private ["So8NSCodingP", "text"]
+- !private ["So8NSCodingP", "textContainer"]
+- !private ["So8NSCodingP", "userEmailTextView"]
+- !private ["So8NSCodingP", "userLocationTextView"]
+- !private ["So8NSCodingP", "userNameLabel"]
+- !private ["So8NSCodingP", "userNumberTextView"]
+- !private ["So9NSCopyingP", "isEmpty"]
+- !private ["So21NSItemProviderReadingP", "isEmpty"]
+- !private ["So21NSItemProviderWritingP", "isEmpty"]
+- !private ["So16NSMutableCopyingP", "isEmpty"]
+- ["So8NSObjectC", "ChatDetail"]
+- ["So8NSObjectC", "ChatProfileCellDelegate"]
+- ["So8NSObjectC", "NSLayoutConstraint"]
+- ["So8NSObjectC", "UIImageView"]
+- ["So8NSObjectC", "UILabel"]
+- ["So8NSObjectC", "UITextView"]
+- ["So8NSObjectC", "UIView"]
+- ["So8NSObjectC", "addressTopConstraint"]
+- ["So8NSObjectC", "addressViewHeightConstraint"]
+- ["So8NSObjectC", "awakeFromNib"]
+- ["So8NSObjectC", "containerViewForStatus"]
+- !private ["So8NSObjectC", "customerContactNumber"]
+- !private ["So8NSObjectC", "customerEmail"]
+- !private ["So8NSObjectC", "customerName"]
+- ["So8NSObjectC", "delegate"]
+- ["So8NSObjectC", "emailTopConstraint"]
+- ["So8NSObjectC", "emailViewHeightConstraint"]
+- ["So8NSObjectC", "init"]
+- !private ["So8NSObjectC", "isEmpty"]
+- ["So8NSObjectC", "lastActiveTimeLabel"]
+- !private ["So8NSObjectC", "maximumNumberOfLines"]
+- ["So8NSObjectC", "numberTopconstraint"]
+- ["So8NSObjectC", "numberViewHeightConstraint"]
+- ["So8NSObjectC", "setupCell"]
+- ["So8NSObjectC", "statusImageView"]
+- !private ["So8NSObjectC", "text"]
+- !private ["So8NSObjectC", "textContainer"]
+- ["So8NSObjectC", "userEmailTextView"]
+- ["So8NSObjectC", "userImage"]
+- ["So8NSObjectC", "userLocationTextView"]
+- ["So8NSObjectC", "userNameLabel"]
+- ["So8NSObjectC", "userNumberTextView"]
+- ["So8NSObjectP", ""]
+- !private ["So8NSObjectP", "awakeFromNib"]
+- !private ["So8NSObjectP", "customerContactNumber"]
+- !private ["So8NSObjectP", "customerEmail"]
+- !private ["So8NSObjectP", "customerName"]
+- !private ["So8NSObjectP", "init"]
+- !private ["So8NSObjectP", "isEmpty"]
+- !private ["So8NSObjectP", "maximumNumberOfLines"]
+- !private ["So8NSObjectP", "text"]
+- !private ["So8NSObjectP", "textContainer"]
+- !private ["So8NSObjectP", "userEmailTextView"]
+- !private ["So8NSObjectP", "userLocationTextView"]
+- !private ["So8NSObjectP", "userNameLabel"]
+- !private ["So8NSObjectP", "userNumberTextView"]
+- !private ["So14NSSecureCodingP", "isEmpty"]
+- !private ["So8NSStringC", "isEmpty"]
+- !private ["So15NSTextContainerC", "maximumNumberOfLines"]
+- !private ["So31NSTextLayoutOrientationProviderP", "maximumNumberOfLines"]
+- !private ["Sq", "text"]
+- !private ["Sq", "textContainer"]
+- !private ["Sm", "isEmpty"]
+- !private ["ST", "isEmpty"]
+- !private ["SS", "isEmpty"]
+- !private ["Sy", "isEmpty"]
+- !private ["s16TextOutputStreamP", "isEmpty"]
+- !private ["s20TextOutputStreamableP", "isEmpty"]
+- ["So29UIAccessibilityIdentificationP", ""]
+- !private ["So29UIAccessibilityIdentificationP", "awakeFromNib"]
+- !private ["So29UIAccessibilityIdentificationP", "init"]
+- !private ["So29UIAccessibilityIdentificationP", "text"]
+- !private ["So29UIAccessibilityIdentificationP", "textContainer"]
+- !private ["So29UIAccessibilityIdentificationP", "userEmailTextView"]
+- !private ["So29UIAccessibilityIdentificationP", "userLocationTextView"]
+- !private ["So29UIAccessibilityIdentificationP", "userNameLabel"]
+- !private ["So29UIAccessibilityIdentificationP", "userNumberTextView"]
+- ["So12UIAppearanceP", ""]
+- !private ["So12UIAppearanceP", "awakeFromNib"]
+- !private ["So12UIAppearanceP", "init"]
+- !private ["So12UIAppearanceP", "text"]
+- !private ["So12UIAppearanceP", "textContainer"]
+- !private ["So12UIAppearanceP", "userEmailTextView"]
+- !private ["So12UIAppearanceP", "userLocationTextView"]
+- !private ["So12UIAppearanceP", "userNameLabel"]
+- !private ["So12UIAppearanceP", "userNumberTextView"]
+- ["So21UIAppearanceContainerP", ""]
+- !private ["So21UIAppearanceContainerP", "awakeFromNib"]
+- !private ["So21UIAppearanceContainerP", "init"]
+- !private ["So21UIAppearanceContainerP", "text"]
+- !private ["So21UIAppearanceContainerP", "textContainer"]
+- !private ["So21UIAppearanceContainerP", "userEmailTextView"]
+- !private ["So21UIAppearanceContainerP", "userLocationTextView"]
+- !private ["So21UIAppearanceContainerP", "userNameLabel"]
+- !private ["So21UIAppearanceContainerP", "userNumberTextView"]
+- !private ["So30UIContentSizeCategoryAdjustingP", "text"]
+- !private ["So30UIContentSizeCategoryAdjustingP", "textContainer"]
+- ["So17UICoordinateSpaceP", ""]
+- !private ["So17UICoordinateSpaceP", "awakeFromNib"]
+- !private ["So17UICoordinateSpaceP", "init"]
+- !private ["So17UICoordinateSpaceP", "text"]
+- !private ["So17UICoordinateSpaceP", "textContainer"]
+- !private ["So17UICoordinateSpaceP", "userEmailTextView"]
+- !private ["So17UICoordinateSpaceP", "userLocationTextView"]
+- !private ["So17UICoordinateSpaceP", "userNameLabel"]
+- !private ["So17UICoordinateSpaceP", "userNumberTextView"]
+- ["So13UIDynamicItemP", ""]
+- !private ["So13UIDynamicItemP", "awakeFromNib"]
+- !private ["So13UIDynamicItemP", "init"]
+- !private ["So13UIDynamicItemP", "text"]
+- !private ["So13UIDynamicItemP", "textContainer"]
+- !private ["So13UIDynamicItemP", "userEmailTextView"]
+- !private ["So13UIDynamicItemP", "userLocationTextView"]
+- !private ["So13UIDynamicItemP", "userNameLabel"]
+- !private ["So13UIDynamicItemP", "userNumberTextView"]
+- ["So18UIFocusEnvironmentP", ""]
+- !private ["So18UIFocusEnvironmentP", "awakeFromNib"]
+- !private ["So18UIFocusEnvironmentP", "init"]
+- !private ["So18UIFocusEnvironmentP", "text"]
+- !private ["So18UIFocusEnvironmentP", "textContainer"]
+- !private ["So18UIFocusEnvironmentP", "userEmailTextView"]
+- !private ["So18UIFocusEnvironmentP", "userLocationTextView"]
+- !private ["So18UIFocusEnvironmentP", "userNameLabel"]
+- !private ["So18UIFocusEnvironmentP", "userNumberTextView"]
+- ["So11UIFocusItemP", ""]
+- !private ["So11UIFocusItemP", "awakeFromNib"]
+- !private ["So11UIFocusItemP", "init"]
+- !private ["So11UIFocusItemP", "text"]
+- !private ["So11UIFocusItemP", "textContainer"]
+- !private ["So11UIFocusItemP", "userEmailTextView"]
+- !private ["So11UIFocusItemP", "userLocationTextView"]
+- !private ["So11UIFocusItemP", "userNameLabel"]
+- !private ["So11UIFocusItemP", "userNumberTextView"]
+- ["So20UIFocusItemContainerP", ""]
+- !private ["So20UIFocusItemContainerP", "awakeFromNib"]
+- !private ["So20UIFocusItemContainerP", "init"]
+- !private ["So20UIFocusItemContainerP", "text"]
+- !private ["So20UIFocusItemContainerP", "textContainer"]
+- !private ["So20UIFocusItemContainerP", "userEmailTextView"]
+- !private ["So20UIFocusItemContainerP", "userLocationTextView"]
+- !private ["So20UIFocusItemContainerP", "userNameLabel"]
+- !private ["So20UIFocusItemContainerP", "userNumberTextView"]
+- !private ["So30UIFocusItemScrollableContainerP", "text"]
+- !private ["So30UIFocusItemScrollableContainerP", "textContainer"]
+- ["So27UIGestureRecognizerDelegateP", ""]
+- !private ["So27UIGestureRecognizerDelegateP", "awakeFromNib"]
+- !private ["So27UIGestureRecognizerDelegateP", "init"]
+- !private ["So27UIGestureRecognizerDelegateP", "userEmailTextView"]
+- !private ["So27UIGestureRecognizerDelegateP", "userLocationTextView"]
+- !private ["So27UIGestureRecognizerDelegateP", "userNameLabel"]
+- !private ["So27UIGestureRecognizerDelegateP", "userNumberTextView"]
+- !private ["So10UIKeyInputP", "text"]
+- !private ["So10UIKeyInputP", "textContainer"]
+- !private ["So7UILabelC", "text"]
+- ["So30UIPasteConfigurationSupportingP", ""]
+- !private ["So30UIPasteConfigurationSupportingP", "awakeFromNib"]
+- !private ["So30UIPasteConfigurationSupportingP", "init"]
+- !private ["So30UIPasteConfigurationSupportingP", "text"]
+- !private ["So30UIPasteConfigurationSupportingP", "textContainer"]
+- !private ["So30UIPasteConfigurationSupportingP", "userEmailTextView"]
+- !private ["So30UIPasteConfigurationSupportingP", "userLocationTextView"]
+- !private ["So30UIPasteConfigurationSupportingP", "userNameLabel"]
+- !private ["So30UIPasteConfigurationSupportingP", "userNumberTextView"]
+- ["So11UIResponderC", "ChatDetail"]
+- ["So11UIResponderC", "ChatProfileCellDelegate"]
+- ["So11UIResponderC", "NSLayoutConstraint"]
+- ["So11UIResponderC", "UIImageView"]
+- ["So11UIResponderC", "UILabel"]
+- ["So11UIResponderC", "UITextView"]
+- ["So11UIResponderC", "UIView"]
+- ["So11UIResponderC", "addressTopConstraint"]
+- ["So11UIResponderC", "addressViewHeightConstraint"]
+- ["So11UIResponderC", "awakeFromNib"]
+- ["So11UIResponderC", "containerViewForStatus"]
+- ["So11UIResponderC", "delegate"]
+- ["So11UIResponderC", "emailTopConstraint"]
+- ["So11UIResponderC", "emailViewHeightConstraint"]
+- ["So11UIResponderC", "init"]
+- ["So11UIResponderC", "lastActiveTimeLabel"]
+- ["So11UIResponderC", "numberTopconstraint"]
+- ["So11UIResponderC", "numberViewHeightConstraint"]
+- ["So11UIResponderC", "setupCell"]
+- ["So11UIResponderC", "statusImageView"]
+- !private ["So11UIResponderC", "text"]
+- !private ["So11UIResponderC", "textContainer"]
+- ["So11UIResponderC", "userEmailTextView"]
+- ["So11UIResponderC", "userImage"]
+- ["So11UIResponderC", "userLocationTextView"]
+- ["So11UIResponderC", "userNameLabel"]
+- ["So11UIResponderC", "userNumberTextView"]
+- ["So30UIResponderStandardEditActionsP", ""]
+- !private ["So30UIResponderStandardEditActionsP", "awakeFromNib"]
+- !private ["So30UIResponderStandardEditActionsP", "init"]
+- !private ["So30UIResponderStandardEditActionsP", "text"]
+- !private ["So30UIResponderStandardEditActionsP", "textContainer"]
+- !private ["So30UIResponderStandardEditActionsP", "userEmailTextView"]
+- !private ["So30UIResponderStandardEditActionsP", "userLocationTextView"]
+- !private ["So30UIResponderStandardEditActionsP", "userNameLabel"]
+- !private ["So30UIResponderStandardEditActionsP", "userNumberTextView"]
+- !private ["So12UIScrollViewC", "text"]
+- !private ["So12UIScrollViewC", "textContainer"]
+- ["So15UITableViewCellC", "ChatDetail"]
+- ["So15UITableViewCellC", "ChatProfileCellDelegate"]
+- ["So15UITableViewCellC", "NSLayoutConstraint"]
+- ["So15UITableViewCellC", "UIImageView"]
+- ["So15UITableViewCellC", "UILabel"]
+- ["So15UITableViewCellC", "UITextView"]
+- ["So15UITableViewCellC", "UIView"]
+- ["So15UITableViewCellC", ""]
+- ["So15UITableViewCellC", "addressTopConstraint"]
+- ["So15UITableViewCellC", "addressViewHeightConstraint"]
+- ["So15UITableViewCellC", "awakeFromNib"]
+- ["So15UITableViewCellC", "containerViewForStatus"]
+- ["So15UITableViewCellC", "delegate"]
+- ["So15UITableViewCellC", "emailTopConstraint"]
+- ["So15UITableViewCellC", "emailViewHeightConstraint"]
+- ["So15UITableViewCellC", "init"]
+- ["So15UITableViewCellC", "lastActiveTimeLabel"]
+- ["So15UITableViewCellC", "numberTopconstraint"]
+- ["So15UITableViewCellC", "numberViewHeightConstraint"]
+- ["So15UITableViewCellC", "setupCell"]
+- ["So15UITableViewCellC", "statusImageView"]
+- ["So15UITableViewCellC", "userEmailTextView"]
+- ["So15UITableViewCellC", "userImage"]
+- ["So15UITableViewCellC", "userLocationTextView"]
+- ["So15UITableViewCellC", "userNameLabel"]
+- ["So15UITableViewCellC", "userNumberTextView"]
+- !private ["So15UITextDraggableP", "text"]
+- !private ["So15UITextDraggableP", "textContainer"]
+- !private ["So15UITextDroppableP", "text"]
+- !private ["So15UITextDroppableP", "textContainer"]
+- !private ["So11UITextInputP", "text"]
+- !private ["So11UITextInputP", "textContainer"]
+- !private ["So17UITextInputTraitsP", "text"]
+- !private ["So17UITextInputTraitsP", "textContainer"]
+- !private ["So34UITextPasteConfigurationSupportingP", "text"]
+- !private ["So34UITextPasteConfigurationSupportingP", "textContainer"]
+- !private ["So10UITextViewC", "text"]
+- !private ["So10UITextViewC", "textContainer"]
+- ["So18UITraitEnvironmentP", ""]
+- !private ["So18UITraitEnvironmentP", "awakeFromNib"]
+- !private ["So18UITraitEnvironmentP", "init"]
+- !private ["So18UITraitEnvironmentP", "text"]
+- !private ["So18UITraitEnvironmentP", "textContainer"]
+- !private ["So18UITraitEnvironmentP", "userEmailTextView"]
+- !private ["So18UITraitEnvironmentP", "userLocationTextView"]
+- !private ["So18UITraitEnvironmentP", "userNameLabel"]
+- !private ["So18UITraitEnvironmentP", "userNumberTextView"]
+- ["So23UIUserActivityRestoringP", ""]
+- !private ["So23UIUserActivityRestoringP", "awakeFromNib"]
+- !private ["So23UIUserActivityRestoringP", "init"]
+- !private ["So23UIUserActivityRestoringP", "text"]
+- !private ["So23UIUserActivityRestoringP", "textContainer"]
+- !private ["So23UIUserActivityRestoringP", "userEmailTextView"]
+- !private ["So23UIUserActivityRestoringP", "userLocationTextView"]
+- !private ["So23UIUserActivityRestoringP", "userNameLabel"]
+- !private ["So23UIUserActivityRestoringP", "userNumberTextView"]
+- ["So6UIViewC", "ChatDetail"]
+- ["So6UIViewC", "ChatProfileCellDelegate"]
+- ["So6UIViewC", "NSLayoutConstraint"]
+- ["So6UIViewC", "UIImageView"]
+- ["So6UIViewC", "UILabel"]
+- ["So6UIViewC", "UITextView"]
+- ["So6UIViewC", "UIView"]
+- ["So6UIViewC", "addressTopConstraint"]
+- ["So6UIViewC", "addressViewHeightConstraint"]
+- ["So6UIViewC", "awakeFromNib"]
+- ["So6UIViewC", "containerViewForStatus"]
+- ["So6UIViewC", "delegate"]
+- ["So6UIViewC", "emailTopConstraint"]
+- ["So6UIViewC", "emailViewHeightConstraint"]
+- ["So6UIViewC", "init"]
+- ["So6UIViewC", "lastActiveTimeLabel"]
+- ["So6UIViewC", "numberTopconstraint"]
+- ["So6UIViewC", "numberViewHeightConstraint"]
+- ["So6UIViewC", "setupCell"]
+- ["So6UIViewC", "statusImageView"]
+- !private ["So6UIViewC", "text"]
+- !private ["So6UIViewC", "textContainer"]
+- ["So6UIViewC", "userEmailTextView"]
+- ["So6UIViewC", "userImage"]
+- ["So6UIViewC", "userLocationTextView"]
+- ["So6UIViewC", "userNameLabel"]
+- ["So6UIViewC", "userNumberTextView"]
+- !private ["s30_CustomPlaygroundQuickLookableP", "isEmpty"]
+- !private ["s51_ExpressibleByBuiltinExtendedGraphemeClusterLiteralP", "isEmpty"]
+- !private ["s34_ExpressibleByBuiltinStringLiteralP", "isEmpty"]
+- !private ["s41_ExpressibleByBuiltinUnicodeScalarLiteralP", "isEmpty"]
+- !private ["s19_HasContiguousBytesP", "isEmpty"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "isEmpty"]
+- ["10Foundation27_KeyValueCodingAndObservingP", ""]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "awakeFromNib"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "customerContactNumber"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "customerEmail"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "customerName"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "init"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "isEmpty"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "maximumNumberOfLines"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "text"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "textContainer"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "userEmailTextView"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "userLocationTextView"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "userNameLabel"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "userNumberTextView"]
+- !private ["s21_ObjectiveCBridgeableP", "isEmpty"]
+- !private ["s21_ObjectiveCBridgeableP", "text"]
+- !private ["s21_ObjectiveCBridgeableP", "textContainer"]
+- ["s38__DefaultCustomPlaygroundQuickLookableP", ""]
+- !private ["s38__DefaultCustomPlaygroundQuickLookableP", "awakeFromNib"]
+- !private ["s38__DefaultCustomPlaygroundQuickLookableP", "init"]
+- !private ["s38__DefaultCustomPlaygroundQuickLookableP", "text"]
+- !private ["s38__DefaultCustomPlaygroundQuickLookableP", "textContainer"]
+- !private ["s38__DefaultCustomPlaygroundQuickLookableP", "userEmailTextView"]
+- !private ["s38__DefaultCustomPlaygroundQuickLookableP", "userLocationTextView"]
+- !private ["s38__DefaultCustomPlaygroundQuickLookableP", "userNameLabel"]
+- !private ["s38__DefaultCustomPlaygroundQuickLookableP", "userNumberTextView"]
+depends-nominal:
+- !private "SK"
+- "So15CALayerDelegateP"
+- "s7CVarArgP"
+- !private "5Hippo10ChatDetailC"
+- "5Hippo23ChatProfileCellDelegateP"
+- "5Hippo24ChatProfileTableViewCellC"
+- !private "Sl"
+- !private "SL"
+- "s28CustomDebugStringConvertibleP"
+- !private "s17CustomReflectableP"
+- "s23CustomStringConvertibleP"
+- !private "Se"
+- !private "SE"
+- "SQ"
+- !private "s43ExpressibleByExtendedGraphemeClusterLiteralP"
+- !private "s23ExpressibleByNilLiteralP"
+- !private "s32ExpressibleByStringInterpolationP"
+- !private "s26ExpressibleByStringLiteralP"
+- !private "s33ExpressibleByUnicodeScalarLiteralP"
+- "SH"
+- !private "5Hippo20KingfisherCompatibleP"
+- !private "s25LosslessStringConvertibleP"
+- !private "s10MirrorPathP"
+- "So8NSCodingP"
+- !private "So9NSCopyingP"
+- !private "So21NSItemProviderReadingP"
+- !private "So21NSItemProviderWritingP"
+- !private "So16NSMutableCopyingP"
+- "So8NSObjectC"
+- "So8NSObjectP"
+- !private "So14NSSecureCodingP"
+- !private "So8NSStringC"
+- !private "So15NSTextContainerC"
+- !private "So31NSTextLayoutOrientationProviderP"
+- !private "Sq"
+- !private "Sm"
+- !private "ST"
+- !private "SS"
+- !private "Sy"
+- !private "s16TextOutputStreamP"
+- !private "s20TextOutputStreamableP"
+- "So29UIAccessibilityIdentificationP"
+- "So12UIAppearanceP"
+- "So21UIAppearanceContainerP"
+- !private "So30UIContentSizeCategoryAdjustingP"
+- "So17UICoordinateSpaceP"
+- "So13UIDynamicItemP"
+- "So18UIFocusEnvironmentP"
+- "So11UIFocusItemP"
+- "So20UIFocusItemContainerP"
+- !private "So30UIFocusItemScrollableContainerP"
+- "So27UIGestureRecognizerDelegateP"
+- !private "So10UIKeyInputP"
+- !private "So7UILabelC"
+- "So30UIPasteConfigurationSupportingP"
+- "So11UIResponderC"
+- "So30UIResponderStandardEditActionsP"
+- !private "So12UIScrollViewC"
+- "So15UITableViewCellC"
+- !private "So15UITextDraggableP"
+- !private "So15UITextDroppableP"
+- !private "So11UITextInputP"
+- !private "So17UITextInputTraitsP"
+- !private "So34UITextPasteConfigurationSupportingP"
+- !private "So10UITextViewC"
+- "So18UITraitEnvironmentP"
+- "So23UIUserActivityRestoringP"
+- "So6UIViewC"
+- !private "s30_CustomPlaygroundQuickLookableP"
+- !private "s51_ExpressibleByBuiltinExtendedGraphemeClusterLiteralP"
+- !private "s34_ExpressibleByBuiltinStringLiteralP"
+- !private "s41_ExpressibleByBuiltinUnicodeScalarLiteralP"
+- !private "s19_HasContiguousBytesP"
+- !private "s35_HasCustomAnyHashableRepresentationP"
+- "10Foundation27_KeyValueCodingAndObservingP"
+- !private "s21_ObjectiveCBridgeableP"
+- "s38__DefaultCustomPlaygroundQuickLookableP"
+depends-dynamic-lookup:
+depends-external:
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/ObjectiveC.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreMedia.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/simd.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreImage.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/QuartzCore.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Accelerate.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Dispatch.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Metal.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Darwin.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreLocation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Foundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/AVFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreAudio.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/MediaPlayer.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreGraphics.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/os.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Photos.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Swift.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/UIKit.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/SwiftOnoneSupport.swiftmodule"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Hippo.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Helpers/TRWDownloadManager/TWRDownloadManager.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/SocketRocket/SocketRocket.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/SocketRocket/SRWebSocket.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/MZFayeClient/MZFayeClient.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/unextended-module.modulemap"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/usr/include/objc/ObjectiveC.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/OpenGLES.framework/Headers/OpenGLES.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreMedia.framework/Headers/CoreMedia.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreImage.framework/Headers/CoreImage.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/QuartzCore.framework/Headers/QuartzCore.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Accelerate.framework/Headers/Accelerate.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Dispatch.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/QuickLook.framework/Headers/QuickLook.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Metal.framework/Headers/Metal.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/usr/include/Darwin.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreLocation.framework/Headers/CoreLocation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Foundation.framework/Headers/Foundation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/AVFoundation.framework/Headers/AVFoundation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/MediaPlayer.framework/Headers/MediaPlayer.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreGraphics.framework/Headers/CoreGraphics.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/UserNotifications.framework/Headers/UserNotifications.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/os.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Photos.framework/Headers/Photos.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/UIKit.framework/Headers/UIKit.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreText.framework/Headers/CoreText.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/MediaToolbox.framework/Headers/MediaToolbox.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/AudioToolbox.framework/Headers/AudioToolbox.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Security.framework/Headers/Security.apinotes"
+interface-hash: "5b9a90c6b3cf51f6bf33f3288368371a"

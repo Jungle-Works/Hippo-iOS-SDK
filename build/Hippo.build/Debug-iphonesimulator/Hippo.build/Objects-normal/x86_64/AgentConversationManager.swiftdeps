@@ -1,0 +1,554 @@
+### Swift dependencies file v0 ###
+provides-top-level:
+- "ServerResponse"
+- "AgentGetConversationFromServerResult"
+- "GetConversationRequestParam"
+- "AgentConversationManager"
+provides-nominal:
+- "5Hippo14ServerResponseV"
+- "5Hippo36AgentGetConversationFromServerResultV"
+- "5Hippo27GetConversationRequestParamV"
+- "5Hippo27GetConversationRequestParamV0D4TypeO"
+- "5Hippo24AgentConversationManagerC"
+provides-member:
+- ["5Hippo14ServerResponseV", ""]
+- ["5Hippo36AgentGetConversationFromServerResultV", ""]
+- ["5Hippo27GetConversationRequestParamV", ""]
+- ["5Hippo27GetConversationRequestParamV0D4TypeO", ""]
+- ["5Hippo24AgentConversationManagerC", ""]
+provides-dynamic-lookup:
+depends-top-level:
+- !private "!"
+- !private "!="
+- !private "&&"
+- !private "+"
+- !private "-"
+- "=="
+- !private ">"
+- !private "??"
+- "AgentConversation"
+- "AgentConversationManager"
+- !private "AgentDetail"
+- !private "AgentEndPoints"
+- "AgentGetConversationFromServerResult"
+- "AssignmentPrecedence"
+- "Bool"
+- "CastingPrecedence"
+- !private "ConversationStore"
+- "ConversationType"
+- "Error"
+- "GetConversationRequestParam"
+- !private "HTTPClient"
+- !private "HippoConfig"
+- !private "HippoError"
+- "Int"
+- !private "NotificationCenter"
+- !private "RequestIdenfier"
+- "ResponseResult"
+- !private "STATUS_CODE_SUCCESS"
+- "ServerResponse"
+- "String"
+- "TernaryPrecedence"
+- "URLSessionDataTask"
+- !private "UnreadCount"
+- "Void"
+- !private "pushTotalUnreadCount"
+- !private "resetPushCount"
+- !private "||"
+depends-member:
+- !private ["5Hippo17AgentConversationC", "getConversationArray"]
+- !private ["5Hippo24AgentConversationManagerC", "AgentConversation"]
+- !private ["5Hippo24AgentConversationManagerC", "AgentConversationManager"]
+- !private ["5Hippo24AgentConversationManagerC", "AgentDetail"]
+- !private ["5Hippo24AgentConversationManagerC", "AgentEndPoints"]
+- ["5Hippo24AgentConversationManagerC", "AgentGetConversationFromServerResult"]
+- ["5Hippo24AgentConversationManagerC", "Bool"]
+- !private ["5Hippo24AgentConversationManagerC", "ConversationStore"]
+- ["5Hippo24AgentConversationManagerC", "GetConversationRequestParam"]
+- !private ["5Hippo24AgentConversationManagerC", "HTTPClient"]
+- !private ["5Hippo24AgentConversationManagerC", "HippoConfig"]
+- !private ["5Hippo24AgentConversationManagerC", "HippoError"]
+- ["5Hippo24AgentConversationManagerC", "Int"]
+- !private ["5Hippo24AgentConversationManagerC", "NotificationCenter"]
+- ["5Hippo24AgentConversationManagerC", "ResponseResult"]
+- !private ["5Hippo24AgentConversationManagerC", "STATUS_CODE_SUCCESS"]
+- ["5Hippo24AgentConversationManagerC", "ServerResponse"]
+- ["5Hippo24AgentConversationManagerC", "String"]
+- ["5Hippo24AgentConversationManagerC", "URLSessionDataTask"]
+- !private ["5Hippo24AgentConversationManagerC", "UnreadCount"]
+- ["5Hippo24AgentConversationManagerC", "Void"]
+- ["5Hippo24AgentConversationManagerC", "allChatHttpRequest"]
+- ["5Hippo24AgentConversationManagerC", "errorMessage"]
+- ["5Hippo24AgentConversationManagerC", "getAllData"]
+- ["5Hippo24AgentConversationManagerC", "getConversationForSearchUser"]
+- ["5Hippo24AgentConversationManagerC", "getConversations"]
+- !private ["5Hippo24AgentConversationManagerC", "getParamsForCloseConversation"]
+- !private ["5Hippo24AgentConversationManagerC", "getParamsForSearchUser"]
+- !private ["5Hippo24AgentConversationManagerC", "getParamsToGetConversation"]
+- ["5Hippo24AgentConversationManagerC", "getUserUnreadCount"]
+- ["5Hippo24AgentConversationManagerC", "handleGetConversationSuccess"]
+- ["5Hippo24AgentConversationManagerC", "init"]
+- ["5Hippo24AgentConversationManagerC", "isAllChatInProgress"]
+- ["5Hippo24AgentConversationManagerC", "isAnyApiOnGoing"]
+- ["5Hippo24AgentConversationManagerC", "isConversationApiOnGoing"]
+- ["5Hippo24AgentConversationManagerC", "isLoginInProgess"]
+- ["5Hippo24AgentConversationManagerC", "isMyChatInProgress"]
+- ["5Hippo24AgentConversationManagerC", "isUnreadCountInProgress"]
+- ["5Hippo24AgentConversationManagerC", "maxPageSize"]
+- ["5Hippo24AgentConversationManagerC", "myChatHttpRequest"]
+- ["5Hippo24AgentConversationManagerC", "parseGetConversationData"]
+- !private ["5Hippo24AgentConversationManagerC", "pushTotalUnreadCount"]
+- !private ["5Hippo24AgentConversationManagerC", "resetPushCount"]
+- ["5Hippo24AgentConversationManagerC", "searchUserUniqueKeys"]
+- ["5Hippo24AgentConversationManagerC", "updateAgentChannel"]
+- ["5Hippo24AgentConversationManagerC", "updateChannelStatus"]
+- !private ["5Hippo11AgentDetailC", "deinit"]
+- !private ["5Hippo11AgentDetailC", "enUserId"]
+- !private ["5Hippo11AgentDetailC", "fuguToken"]
+- !private ["5Hippo11AgentDetailC", "id"]
+- !private ["5Hippo11AgentDetailC", "loginViaAuth"]
+- !private ["5Hippo14AgentEndPointsO", "deinit"]
+- !private ["5Hippo14AgentEndPointsO", "getConversation"]
+- !private ["5Hippo14AgentEndPointsO", "markConversation"]
+- !private ["5Hippo14AgentEndPointsO", "rawValue"]
+- ["5Hippo36AgentGetConversationFromServerResultV", "AgentConversation"]
+- ["5Hippo36AgentGetConversationFromServerResultV", "Bool"]
+- ["5Hippo36AgentGetConversationFromServerResultV", "Error"]
+- ["5Hippo36AgentGetConversationFromServerResultV", "conversations"]
+- ["5Hippo36AgentGetConversationFromServerResultV", "error"]
+- ["5Hippo36AgentGetConversationFromServerResultV", "init"]
+- ["5Hippo36AgentGetConversationFromServerResultV", "isSuccessful"]
+- !private ["5Hippo11AppUserTypeO", "agent"]
+- !private ["5Hippo11AppUserTypeO", "deinit"]
+- !private ["Sa", "append"]
+- !private ["Sa", "count"]
+- !private ["SK", "append"]
+- !private ["SK", "count"]
+- !private ["SK", "generateUniqueId"]
+- !private ["s7CVarArgP", "agentDetail"]
+- !private ["s7CVarArgP", "appUserType"]
+- !private ["s7CVarArgP", "append"]
+- !private ["s7CVarArgP", "count"]
+- !private ["s7CVarArgP", "default"]
+- !private ["s7CVarArgP", "enUserId"]
+- !private ["s7CVarArgP", "fuguToken"]
+- !private ["s7CVarArgP", "generateUniqueId"]
+- !private ["s7CVarArgP", "id"]
+- !private ["s7CVarArgP", "log"]
+- !private ["s7CVarArgP", "loginViaAuth"]
+- !private ["s7CVarArgP", "post"]
+- !private ["s7CVarArgP", "shared"]
+- !private ["s7CVarArgP", "subscript"]
+- !private ["Sl", "append"]
+- !private ["Sl", "count"]
+- !private ["Sl", "generateUniqueId"]
+- !private ["Sl", "subscript"]
+- !private ["SL", "generateUniqueId"]
+- !private ["10Foundation15ContiguousBytesP", "append"]
+- !private ["10Foundation15ContiguousBytesP", "count"]
+- !private ["5Hippo17ConversationStoreC", "allChats"]
+- !private ["5Hippo17ConversationStoreC", "isMoreAllChatToLoad"]
+- !private ["5Hippo17ConversationStoreC", "isMoreMyChatToLoad"]
+- !private ["5Hippo17ConversationStoreC", "myChats"]
+- !private ["5Hippo17ConversationStoreC", "shared"]
+- ["5Hippo16ConversationTypeO", "allChat"]
+- ["5Hippo16ConversationTypeO", "myChat"]
+- !private ["5Hippo10CoreLoggerC", "error"]
+- !private ["5Hippo10CoreLoggerC", "trace"]
+- !private ["s28CustomDebugStringConvertibleP", "agentDetail"]
+- !private ["s28CustomDebugStringConvertibleP", "appUserType"]
+- !private ["s28CustomDebugStringConvertibleP", "append"]
+- !private ["s28CustomDebugStringConvertibleP", "count"]
+- !private ["s28CustomDebugStringConvertibleP", "default"]
+- !private ["s28CustomDebugStringConvertibleP", "enUserId"]
+- !private ["s28CustomDebugStringConvertibleP", "fuguToken"]
+- !private ["s28CustomDebugStringConvertibleP", "generateUniqueId"]
+- !private ["s28CustomDebugStringConvertibleP", "id"]
+- !private ["s28CustomDebugStringConvertibleP", "log"]
+- !private ["s28CustomDebugStringConvertibleP", "loginViaAuth"]
+- !private ["s28CustomDebugStringConvertibleP", "post"]
+- !private ["s28CustomDebugStringConvertibleP", "shared"]
+- !private ["s28CustomDebugStringConvertibleP", "subscript"]
+- !private ["s17CustomReflectableP", "append"]
+- !private ["s17CustomReflectableP", "count"]
+- !private ["s17CustomReflectableP", "generateUniqueId"]
+- !private ["s17CustomReflectableP", "subscript"]
+- !private ["s23CustomStringConvertibleP", "agentDetail"]
+- !private ["s23CustomStringConvertibleP", "appUserType"]
+- !private ["s23CustomStringConvertibleP", "append"]
+- !private ["s23CustomStringConvertibleP", "appendInterpolation"]
+- !private ["s23CustomStringConvertibleP", "appendLiteral"]
+- !private ["s23CustomStringConvertibleP", "count"]
+- !private ["s23CustomStringConvertibleP", "default"]
+- !private ["s23CustomStringConvertibleP", "enUserId"]
+- !private ["s23CustomStringConvertibleP", "fuguToken"]
+- !private ["s23CustomStringConvertibleP", "generateUniqueId"]
+- !private ["s23CustomStringConvertibleP", "id"]
+- !private ["s23CustomStringConvertibleP", "log"]
+- !private ["s23CustomStringConvertibleP", "loginViaAuth"]
+- !private ["s23CustomStringConvertibleP", "post"]
+- !private ["s23CustomStringConvertibleP", "shared"]
+- !private ["s23CustomStringConvertibleP", "subscript"]
+- !private ["10Foundation12DataProtocolP", "append"]
+- !private ["10Foundation12DataProtocolP", "count"]
+- !private ["Se", "append"]
+- !private ["Se", "count"]
+- !private ["Se", "generateUniqueId"]
+- !private ["Se", "subscript"]
+- !private ["s26DefaultStringInterpolationV", "appendInterpolation"]
+- !private ["s26DefaultStringInterpolationV", "appendLiteral"]
+- !private ["SD", "subscript"]
+- !private ["SE", "append"]
+- !private ["SE", "count"]
+- !private ["SE", "generateUniqueId"]
+- !private ["SE", "subscript"]
+- ["SQ", "=="]
+- !private ["SQ", "POST"]
+- ["SQ", ""]
+- ["SQ", "_rawHashValue"]
+- !private ["SQ", "agent"]
+- !private ["SQ", "agentDetail"]
+- ["SQ", "allChat"]
+- !private ["SQ", "allChatDataUpdated"]
+- !private ["SQ", "appUserType"]
+- !private ["SQ", "append"]
+- !private ["SQ", "count"]
+- !private ["SQ", "default"]
+- !private ["SQ", "enUserId"]
+- !private ["SQ", "error"]
+- !private ["SQ", "fuguToken"]
+- !private ["SQ", "generateUniqueId"]
+- !private ["SQ", "getConversation"]
+- ["SQ", "hash"]
+- ["SQ", "hashValue"]
+- !private ["SQ", "id"]
+- !private ["SQ", "log"]
+- !private ["SQ", "loginViaAuth"]
+- !private ["SQ", "markConversation"]
+- ["SQ", "myChat"]
+- !private ["SQ", "myChatDataUpdated"]
+- !private ["SQ", "post"]
+- !private ["SQ", "rawValue"]
+- !private ["SQ", "request"]
+- !private ["SQ", "response"]
+- ["SQ", "searchUser"]
+- !private ["SQ", "shared"]
+- !private ["SQ", "subscript"]
+- !private ["s5ErrorP", "general"]
+- !private ["s5ErrorP", "localizedDescription"]
+- !private ["s25ExpressibleByArrayLiteralP", "append"]
+- !private ["s25ExpressibleByArrayLiteralP", "count"]
+- !private ["s30ExpressibleByDictionaryLiteralP", "subscript"]
+- !private ["s43ExpressibleByExtendedGraphemeClusterLiteralP", "generateUniqueId"]
+- !private ["s32ExpressibleByStringInterpolationP", "generateUniqueId"]
+- !private ["s26ExpressibleByStringLiteralP", "generateUniqueId"]
+- !private ["s33ExpressibleByUnicodeScalarLiteralP", "generateUniqueId"]
+- ["5Hippo27GetConversationRequestParamV", "Bool"]
+- ["5Hippo27GetConversationRequestParamV", "ConversationType"]
+- ["5Hippo27GetConversationRequestParamV", "GetConversationRequestParam"]
+- ["5Hippo27GetConversationRequestParamV", "Int"]
+- !private ["5Hippo27GetConversationRequestParamV", "RequestIdenfier"]
+- ["5Hippo27GetConversationRequestParamV", "RequestType"]
+- ["5Hippo27GetConversationRequestParamV", "String"]
+- ["5Hippo27GetConversationRequestParamV", "allChatDefaultRequest"]
+- ["5Hippo27GetConversationRequestParamV", "apiRequestIdentifier"]
+- ["5Hippo27GetConversationRequestParamV", "identifier"]
+- ["5Hippo27GetConversationRequestParamV", "init"]
+- ["5Hippo27GetConversationRequestParamV", "myChatDefaultRequest"]
+- ["5Hippo27GetConversationRequestParamV", "pageEnd"]
+- ["5Hippo27GetConversationRequestParamV", "pageStart"]
+- ["5Hippo27GetConversationRequestParamV", "searchUserDefaultRequest"]
+- ["5Hippo27GetConversationRequestParamV", "showLoader"]
+- ["5Hippo27GetConversationRequestParamV", "type"]
+- !private ["5Hippo10HTTPClientC", "makeConcurrentConnectionWith"]
+- !private ["5Hippo10HTTPClientC", "makeSingletonConnectionWith"]
+- !private ["5Hippo10HTTPClientC", "shared"]
+- ["SH", "=="]
+- !private ["SH", "POST"]
+- ["SH", ""]
+- ["SH", "_rawHashValue"]
+- !private ["SH", "agent"]
+- !private ["SH", "agentDetail"]
+- ["SH", "allChat"]
+- !private ["SH", "allChatDataUpdated"]
+- !private ["SH", "appUserType"]
+- !private ["SH", "append"]
+- !private ["SH", "count"]
+- !private ["SH", "default"]
+- !private ["SH", "enUserId"]
+- !private ["SH", "error"]
+- !private ["SH", "fuguToken"]
+- !private ["SH", "generateUniqueId"]
+- !private ["SH", "getConversation"]
+- ["SH", "hash"]
+- ["SH", "hashValue"]
+- !private ["SH", "id"]
+- !private ["SH", "log"]
+- !private ["SH", "loginViaAuth"]
+- !private ["SH", "markConversation"]
+- ["SH", "myChat"]
+- !private ["SH", "myChatDataUpdated"]
+- !private ["SH", "post"]
+- !private ["SH", "rawValue"]
+- !private ["SH", "request"]
+- !private ["SH", "response"]
+- ["SH", "searchUser"]
+- !private ["SH", "shared"]
+- !private ["SH", "subscript"]
+- !private ["s6HasherV", "combine"]
+- !private ["5Hippo0A6ConfigC", "agentDetail"]
+- !private ["5Hippo0A6ConfigC", "appUserType"]
+- !private ["5Hippo0A6ConfigC", "log"]
+- !private ["5Hippo0A6ConfigC", "shared"]
+- !private ["5Hippo0A12ConversationC", "getConversationArray"]
+- !private ["5Hippo0A20ConversationCallBackC", "getConversationArray"]
+- !private ["5Hippo0A5ErrorO", "deinit"]
+- !private ["5Hippo0A5ErrorO", "general"]
+- !private ["5Hippo14HttpMethodTypeO", "POST"]
+- !private ["5Hippo20KingfisherCompatibleP", "generateUniqueId"]
+- !private ["5Hippo5LevelO", "error"]
+- !private ["5Hippo5LevelO", "request"]
+- !private ["5Hippo5LevelO", "response"]
+- !private ["10Foundation14LocalizedErrorP", "general"]
+- !private ["s25LosslessStringConvertibleP", "generateUniqueId"]
+- !private ["s10MirrorPathP", "generateUniqueId"]
+- !private ["SM", "append"]
+- !private ["SM", "count"]
+- !private ["10Foundation19MutableDataProtocolP", "append"]
+- !private ["10Foundation19MutableDataProtocolP", "count"]
+- !private ["So8NSObjectC", "agentDetail"]
+- !private ["So8NSObjectC", "appUserType"]
+- !private ["So8NSObjectC", "default"]
+- !private ["So8NSObjectC", "enUserId"]
+- !private ["So8NSObjectC", "fuguToken"]
+- !private ["So8NSObjectC", "id"]
+- !private ["So8NSObjectC", "log"]
+- !private ["So8NSObjectC", "loginViaAuth"]
+- !private ["So8NSObjectC", "post"]
+- !private ["So8NSObjectC", "shared"]
+- !private ["So8NSObjectP", "agentDetail"]
+- !private ["So8NSObjectP", "appUserType"]
+- !private ["So8NSObjectP", "default"]
+- !private ["So8NSObjectP", "enUserId"]
+- !private ["So8NSObjectP", "fuguToken"]
+- !private ["So8NSObjectP", "id"]
+- !private ["So8NSObjectP", "log"]
+- !private ["So8NSObjectP", "loginViaAuth"]
+- !private ["So8NSObjectP", "post"]
+- !private ["So8NSObjectP", "shared"]
+- !private ["So18NSNotificationNamea", "allChatDataUpdated"]
+- !private ["So18NSNotificationNamea", "myChatDataUpdated"]
+- !private ["So20NSNotificationCenterC", "default"]
+- !private ["So20NSNotificationCenterC", "post"]
+- !private ["Sk", "append"]
+- !private ["Sk", "count"]
+- !private ["Sm", "append"]
+- !private ["Sm", "count"]
+- !private ["Sm", "generateUniqueId"]
+- !private ["SY", "POST"]
+- !private ["SY", "allChatDataUpdated"]
+- !private ["SY", "getConversation"]
+- !private ["SY", "markConversation"]
+- !private ["SY", "myChatDataUpdated"]
+- !private ["SY", "rawValue"]
+- !private ["5Hippo15RequestIdenfierV", "getAllConversationIdentfier"]
+- !private ["5Hippo15RequestIdenfierV", "getMyConversationIdentfier"]
+- ["5Hippo27GetConversationRequestParamV0D4TypeO", "=="]
+- ["5Hippo27GetConversationRequestParamV0D4TypeO", "ConversationType"]
+- ["5Hippo27GetConversationRequestParamV0D4TypeO", "__derived_enum_equals"]
+- ["5Hippo27GetConversationRequestParamV0D4TypeO", "_rawHashValue"]
+- ["5Hippo27GetConversationRequestParamV0D4TypeO", "allChat"]
+- ["5Hippo27GetConversationRequestParamV0D4TypeO", "deinit"]
+- ["5Hippo27GetConversationRequestParamV0D4TypeO", "hash"]
+- ["5Hippo27GetConversationRequestParamV0D4TypeO", "hashValue"]
+- ["5Hippo27GetConversationRequestParamV0D4TypeO", "init"]
+- ["5Hippo27GetConversationRequestParamV0D4TypeO", "myChat"]
+- ["5Hippo27GetConversationRequestParamV0D4TypeO", "searchUser"]
+- !private ["5Hippo14ResponseResultV", "init"]
+- !private ["5Hippo14ResponseResultV", "isSuccessful"]
+- !private ["ST", "append"]
+- !private ["ST", "count"]
+- !private ["ST", "generateUniqueId"]
+- !private ["ST", "subscript"]
+- ["5Hippo14ServerResponseV", "Error"]
+- ["5Hippo14ServerResponseV", "Int"]
+- ["5Hippo14ServerResponseV", "String"]
+- ["5Hippo14ServerResponseV", "error"]
+- ["5Hippo14ServerResponseV", "init"]
+- ["5Hippo14ServerResponseV", "responseObj"]
+- ["5Hippo14ServerResponseV", "statusCode"]
+- ["5Hippo14ServerResponseV", "tag"]
+- !private ["SS", "generateUniqueId"]
+- !private ["s27StringInterpolationProtocolP", "appendInterpolation"]
+- !private ["s27StringInterpolationProtocolP", "appendLiteral"]
+- !private ["Sy", "generateUniqueId"]
+- !private ["s16TextOutputStreamP", "appendInterpolation"]
+- !private ["s16TextOutputStreamP", "appendLiteral"]
+- !private ["s16TextOutputStreamP", "generateUniqueId"]
+- !private ["s20TextOutputStreamableP", "generateUniqueId"]
+- !private ["5Hippo11UnreadCountC", "clearAllStoredUnreadCount"]
+- !private ["5Hippo11UnreadCountC", "getUnreadCount"]
+- !private ["s14_ArrayProtocolP", "append"]
+- !private ["s14_ArrayProtocolP", "count"]
+- !private ["s30_CustomPlaygroundQuickLookableP", "generateUniqueId"]
+- !private ["s24_DestructorSafeContainerP", "append"]
+- !private ["s24_DestructorSafeContainerP", "count"]
+- !private ["s51_ExpressibleByBuiltinExtendedGraphemeClusterLiteralP", "generateUniqueId"]
+- !private ["s34_ExpressibleByBuiltinStringLiteralP", "generateUniqueId"]
+- !private ["s41_ExpressibleByBuiltinUnicodeScalarLiteralP", "generateUniqueId"]
+- !private ["s19_HasContiguousBytesP", "append"]
+- !private ["s19_HasContiguousBytesP", "count"]
+- !private ["s19_HasContiguousBytesP", "generateUniqueId"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "allChatDataUpdated"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "append"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "count"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "myChatDataUpdated"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "subscript"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "agentDetail"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "appUserType"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "default"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "enUserId"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "fuguToken"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "id"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "log"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "loginViaAuth"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "post"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "shared"]
+- !private ["s21_ObjectiveCBridgeableP", "allChatDataUpdated"]
+- !private ["s21_ObjectiveCBridgeableP", "append"]
+- !private ["s21_ObjectiveCBridgeableP", "count"]
+- !private ["s21_ObjectiveCBridgeableP", "generateUniqueId"]
+- !private ["s21_ObjectiveCBridgeableP", "myChatDataUpdated"]
+- !private ["s21_ObjectiveCBridgeableP", "subscript"]
+- !private ["s20_SwiftNewtypeWrapperP", "allChatDataUpdated"]
+- !private ["s20_SwiftNewtypeWrapperP", "myChatDataUpdated"]
+depends-nominal:
+- !private "5Hippo17AgentConversationC"
+- "5Hippo24AgentConversationManagerC"
+- !private "5Hippo11AgentDetailC"
+- !private "5Hippo14AgentEndPointsO"
+- "5Hippo36AgentGetConversationFromServerResultV"
+- !private "5Hippo11AppUserTypeO"
+- !private "Sa"
+- !private "SK"
+- !private "s7CVarArgP"
+- !private "Sl"
+- !private "SL"
+- !private "10Foundation15ContiguousBytesP"
+- !private "5Hippo17ConversationStoreC"
+- "5Hippo16ConversationTypeO"
+- !private "5Hippo10CoreLoggerC"
+- !private "s28CustomDebugStringConvertibleP"
+- !private "s17CustomReflectableP"
+- !private "s23CustomStringConvertibleP"
+- !private "10Foundation12DataProtocolP"
+- !private "Se"
+- !private "s26DefaultStringInterpolationV"
+- !private "SD"
+- !private "SE"
+- "SQ"
+- !private "s5ErrorP"
+- !private "s25ExpressibleByArrayLiteralP"
+- !private "s30ExpressibleByDictionaryLiteralP"
+- !private "s43ExpressibleByExtendedGraphemeClusterLiteralP"
+- !private "s32ExpressibleByStringInterpolationP"
+- !private "s26ExpressibleByStringLiteralP"
+- !private "s33ExpressibleByUnicodeScalarLiteralP"
+- "5Hippo27GetConversationRequestParamV"
+- !private "5Hippo10HTTPClientC"
+- "SH"
+- !private "s6HasherV"
+- !private "5Hippo0A6ConfigC"
+- !private "5Hippo0A12ConversationC"
+- !private "5Hippo0A20ConversationCallBackC"
+- !private "5Hippo0A5ErrorO"
+- !private "5Hippo14HttpMethodTypeO"
+- !private "5Hippo20KingfisherCompatibleP"
+- !private "5Hippo5LevelO"
+- !private "10Foundation14LocalizedErrorP"
+- !private "s25LosslessStringConvertibleP"
+- !private "s10MirrorPathP"
+- !private "SM"
+- !private "10Foundation19MutableDataProtocolP"
+- !private "So8NSObjectC"
+- !private "So8NSObjectP"
+- !private "So18NSNotificationNamea"
+- !private "So20NSNotificationCenterC"
+- !private "Sk"
+- !private "Sm"
+- !private "SY"
+- !private "5Hippo15RequestIdenfierV"
+- "5Hippo27GetConversationRequestParamV0D4TypeO"
+- !private "5Hippo14ResponseResultV"
+- !private "ST"
+- "5Hippo14ServerResponseV"
+- !private "SS"
+- !private "s27StringInterpolationProtocolP"
+- !private "Sy"
+- !private "s16TextOutputStreamP"
+- !private "s20TextOutputStreamableP"
+- !private "5Hippo11UnreadCountC"
+- !private "s14_ArrayProtocolP"
+- !private "s30_CustomPlaygroundQuickLookableP"
+- !private "s24_DestructorSafeContainerP"
+- !private "s51_ExpressibleByBuiltinExtendedGraphemeClusterLiteralP"
+- !private "s34_ExpressibleByBuiltinStringLiteralP"
+- !private "s41_ExpressibleByBuiltinUnicodeScalarLiteralP"
+- !private "s19_HasContiguousBytesP"
+- !private "s35_HasCustomAnyHashableRepresentationP"
+- !private "10Foundation27_KeyValueCodingAndObservingP"
+- !private "s21_ObjectiveCBridgeableP"
+- !private "s20_SwiftNewtypeWrapperP"
+depends-dynamic-lookup:
+depends-external:
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/ObjectiveC.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreMedia.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/simd.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreImage.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/QuartzCore.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Accelerate.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Dispatch.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Metal.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Darwin.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreLocation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Foundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/AVFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreAudio.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/MediaPlayer.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreGraphics.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/os.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Photos.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Swift.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/UIKit.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/SwiftOnoneSupport.swiftmodule"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Hippo.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Helpers/TRWDownloadManager/TWRDownloadManager.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/SocketRocket/SocketRocket.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/SocketRocket/SRWebSocket.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/MZFayeClient/MZFayeClient.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/unextended-module.modulemap"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/usr/include/objc/ObjectiveC.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/OpenGLES.framework/Headers/OpenGLES.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreMedia.framework/Headers/CoreMedia.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreImage.framework/Headers/CoreImage.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/QuartzCore.framework/Headers/QuartzCore.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Accelerate.framework/Headers/Accelerate.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Dispatch.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/QuickLook.framework/Headers/QuickLook.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Metal.framework/Headers/Metal.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/usr/include/Darwin.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreLocation.framework/Headers/CoreLocation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Foundation.framework/Headers/Foundation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/AVFoundation.framework/Headers/AVFoundation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/MediaPlayer.framework/Headers/MediaPlayer.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreGraphics.framework/Headers/CoreGraphics.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/UserNotifications.framework/Headers/UserNotifications.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/os.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Photos.framework/Headers/Photos.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/UIKit.framework/Headers/UIKit.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreText.framework/Headers/CoreText.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/MediaToolbox.framework/Headers/MediaToolbox.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/AudioToolbox.framework/Headers/AudioToolbox.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Security.framework/Headers/Security.apinotes"
+interface-hash: "7acac1834eaa1e13fd735f5b1d68f921"

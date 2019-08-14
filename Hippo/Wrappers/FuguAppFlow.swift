@@ -14,10 +14,10 @@ class FuguFlowManager: NSObject {
     class var bundle: Bundle? {
         let podBundle = Bundle(for: AllConversationsViewController.self)
         
-        guard let bundleURL = podBundle.url(forResource: "Hippo", withExtension: "bundle"), let fetchBundle = Bundle(url: bundleURL) else {
-            return nil
-        }
-        return fetchBundle
+//        guard let bundleURL = podBundle.url(forResource: "Hippo", withExtension: "bundle"), let fetchBundle = Bundle(url: bundleURL) else {
+//            return nil
+//        }
+        return podBundle
     }
     
     
@@ -30,6 +30,8 @@ class FuguFlowManager: NSObject {
         navVc.setTheme()
         getLastVisibleController()?.present(navVc, animated: true, completion: nil)
     }
+    
+    
     func pushAgentConversationViewController(chatAttributes: AgentDirectChatAttributes) {
         let conVC = AgentConversationViewController.getWith(chatAttributes: chatAttributes)
         let navVc = UINavigationController(rootViewController: conVC)

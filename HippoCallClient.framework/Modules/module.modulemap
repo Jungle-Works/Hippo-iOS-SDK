@@ -1,0 +1,11 @@
+framework module HippoCallClient {
+  umbrella header "HippoCallClient.h"
+
+  export *
+  module * { export * }
+}
+
+module HippoCallClient.Swift {
+    header "HippoCallClient-Swift.h"
+    requires objc
+}

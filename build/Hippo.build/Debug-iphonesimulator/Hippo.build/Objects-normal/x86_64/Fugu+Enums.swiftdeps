@@ -1,0 +1,1070 @@
+### Swift dependencies file v0 ###
+provides-top-level:
+- "FuguEnvironment"
+- "HippoEnvironment"
+- "ChatStatus"
+- "FuguCredentialType"
+- "TypingMessage"
+- "channelType"
+- "SourceType"
+- "IntegrationSource"
+- "MessageType"
+- "ChatType"
+- "FuguUserIntializationError"
+- "ReadUnReadStatus"
+- "StatusCodeValue"
+- "NotificationType"
+- "UserType"
+- "CallType"
+- "ActionType"
+- "ConversationType"
+- "ButtonType"
+- "ViewType"
+- "UserSubscriptionStatus"
+- "FuguEndPoints"
+- "AgentEndPoints"
+- "BroadcastType"
+- "FileType"
+provides-nominal:
+- "5Hippo15FuguEnvironmentO"
+- "5Hippo0A11EnvironmentO"
+- "5Hippo10ChatStatusO"
+- "5Hippo18FuguCredentialTypeO"
+- "5Hippo13TypingMessageO"
+- "5Hippo11channelTypeO"
+- "5Hippo10SourceTypeO"
+- "5Hippo17IntegrationSourceO"
+- "5Hippo11MessageTypeO"
+- "5Hippo8ChatTypeO"
+- "5Hippo26FuguUserIntializationErrorO"
+- "5Hippo06ReadUnB6StatusO"
+- "5Hippo15StatusCodeValueO"
+- "5Hippo16NotificationTypeO"
+- "5Hippo8UserTypeO"
+- "5Hippo8CallTypeO"
+- "5Hippo10ActionTypeO"
+- "5Hippo16ConversationTypeO"
+- "5Hippo10ButtonTypeO"
+- "5Hippo8ViewTypeO"
+- "5Hippo22UserSubscriptionStatusO"
+- "5Hippo13FuguEndPointsO"
+- "5Hippo14AgentEndPointsO"
+- "5Hippo13BroadcastTypeO"
+- "5Hippo8FileTypeO"
+provides-member:
+- ["5Hippo15FuguEnvironmentO", ""]
+- ["5Hippo0A11EnvironmentO", ""]
+- ["5Hippo10ChatStatusO", ""]
+- ["5Hippo18FuguCredentialTypeO", ""]
+- ["5Hippo13TypingMessageO", ""]
+- ["5Hippo11channelTypeO", ""]
+- ["5Hippo10SourceTypeO", ""]
+- ["5Hippo17IntegrationSourceO", ""]
+- ["5Hippo11MessageTypeO", ""]
+- ["5Hippo8ChatTypeO", ""]
+- ["5Hippo26FuguUserIntializationErrorO", ""]
+- ["5Hippo06ReadUnB6StatusO", ""]
+- ["5Hippo15StatusCodeValueO", ""]
+- ["5Hippo16NotificationTypeO", ""]
+- ["5Hippo8UserTypeO", ""]
+- ["5Hippo8CallTypeO", ""]
+- ["5Hippo10ActionTypeO", ""]
+- ["5Hippo16ConversationTypeO", ""]
+- ["5Hippo10ButtonTypeO", ""]
+- ["5Hippo8ViewTypeO", ""]
+- ["5Hippo22UserSubscriptionStatusO", ""]
+- ["5Hippo13FuguEndPointsO", ""]
+- ["5Hippo14AgentEndPointsO", ""]
+- ["5Hippo13BroadcastTypeO", ""]
+- ["5Hippo8FileTypeO", ""]
+provides-dynamic-lookup:
+depends-top-level:
+- !private "!="
+- "=="
+- !private "??"
+- "ActionType"
+- "AgentEndPoints"
+- "AssignmentPrecedence"
+- "Bool"
+- "BroadcastType"
+- "ButtonType"
+- "CallType"
+- "CaseCountable"
+- "ChatStatus"
+- "ChatType"
+- "ConversationType"
+- "FileType"
+- "FuguCredentialType"
+- "FuguEndPoints"
+- "FuguEnvironment"
+- "FuguUserIntializationError"
+- !private "HippoConfig"
+- "HippoEnvironment"
+- "Int"
+- "IntegrationSource"
+- "LocalizedError"
+- "MessageType"
+- "NotificationType"
+- "ReadUnReadStatus"
+- !private "SERVERS"
+- "SourceType"
+- "StatusCodeValue"
+- "String"
+- "TernaryPrecedence"
+- "TypingMessage"
+- "UIImage"
+- "UserSubscriptionStatus"
+- "UserType"
+- "ViewType"
+- !private "_findStringSwitchCase"
+- "channelType"
+- !private "~="
+depends-member:
+- ["5Hippo10ActionTypeO", "=="]
+- ["5Hippo10ActionTypeO", "CATEGORY"]
+- ["5Hippo10ActionTypeO", "CHAT_SUPPORT"]
+- ["5Hippo10ActionTypeO", "DESCRIPTION"]
+- ["5Hippo10ActionTypeO", "LIST"]
+- ["5Hippo10ActionTypeO", "RawValue"]
+- ["5Hippo10ActionTypeO", "SHOW_CONVERSATION"]
+- ["5Hippo10ActionTypeO", "_Default_RawValue"]
+- ["5Hippo10ActionTypeO", "_rawHashValue"]
+- ["5Hippo10ActionTypeO", "deinit"]
+- ["5Hippo10ActionTypeO", "hash"]
+- ["5Hippo10ActionTypeO", "hashValue"]
+- ["5Hippo10ActionTypeO", "init"]
+- ["5Hippo10ActionTypeO", "rawValue"]
+- ["5Hippo14AgentEndPointsO", "=="]
+- ["5Hippo14AgentEndPointsO", "RawValue"]
+- ["5Hippo14AgentEndPointsO", "_Default_RawValue"]
+- !private ["5Hippo14AgentEndPointsO", "_findStringSwitchCase"]
+- ["5Hippo14AgentEndPointsO", "_rawHashValue"]
+- ["5Hippo14AgentEndPointsO", "broadcastStatus"]
+- ["5Hippo14AgentEndPointsO", "createConversation"]
+- ["5Hippo14AgentEndPointsO", "createOneToOneChat"]
+- ["5Hippo14AgentEndPointsO", "deinit"]
+- ["5Hippo14AgentEndPointsO", "getAgentLoginInfo"]
+- ["5Hippo14AgentEndPointsO", "getBroadcastList"]
+- ["5Hippo14AgentEndPointsO", "getConversation"]
+- ["5Hippo14AgentEndPointsO", "getGroupingTag"]
+- ["5Hippo14AgentEndPointsO", "getUnreadCount"]
+- ["5Hippo14AgentEndPointsO", "hash"]
+- ["5Hippo14AgentEndPointsO", "hashValue"]
+- ["5Hippo14AgentEndPointsO", "init"]
+- ["5Hippo14AgentEndPointsO", "loginViaAuthToken"]
+- ["5Hippo14AgentEndPointsO", "loginViaToken"]
+- ["5Hippo14AgentEndPointsO", "logout"]
+- ["5Hippo14AgentEndPointsO", "markConversation"]
+- ["5Hippo14AgentEndPointsO", "rawValue"]
+- ["5Hippo14AgentEndPointsO", "sendBroadcastMessage"]
+- !private ["5Hippo11AppUserTypeO", "agent"]
+- !private ["5Hippo11AppUserTypeO", "customer"]
+- !private ["5Hippo11AppUserTypeO", "deinit"]
+- !private ["Sa", "contains"]
+- !private ["Sa", "first"]
+- !private ["SK", "components"]
+- !private ["SK", "contains"]
+- !private ["SK", "first"]
+- ["5Hippo13BroadcastTypeO", "=="]
+- ["5Hippo13BroadcastTypeO", "RawValue"]
+- ["5Hippo13BroadcastTypeO", "String"]
+- ["5Hippo13BroadcastTypeO", "_Default_RawValue"]
+- !private ["5Hippo13BroadcastTypeO", "_findStringSwitchCase"]
+- ["5Hippo13BroadcastTypeO", "_rawHashValue"]
+- ["5Hippo13BroadcastTypeO", "deinit"]
+- ["5Hippo13BroadcastTypeO", "description"]
+- ["5Hippo13BroadcastTypeO", "email"]
+- ["5Hippo13BroadcastTypeO", "hash"]
+- ["5Hippo13BroadcastTypeO", "hashValue"]
+- ["5Hippo13BroadcastTypeO", "inApp"]
+- ["5Hippo13BroadcastTypeO", "init"]
+- ["5Hippo13BroadcastTypeO", "none"]
+- ["5Hippo13BroadcastTypeO", "rawValue"]
+- ["5Hippo13BroadcastTypeO", "tookan"]
+- ["5Hippo13BroadcastTypeO", "unknown"]
+- ["5Hippo10ButtonTypeO", "=="]
+- ["5Hippo10ButtonTypeO", "RawValue"]
+- ["5Hippo10ButtonTypeO", "_Default_RawValue"]
+- !private ["5Hippo10ButtonTypeO", "_findStringSwitchCase"]
+- ["5Hippo10ButtonTypeO", "_rawHashValue"]
+- ["5Hippo10ButtonTypeO", "call"]
+- ["5Hippo10ButtonTypeO", "conversation"]
+- ["5Hippo10ButtonTypeO", "deinit"]
+- ["5Hippo10ButtonTypeO", "hash"]
+- ["5Hippo10ButtonTypeO", "hashValue"]
+- ["5Hippo10ButtonTypeO", "init"]
+- ["5Hippo10ButtonTypeO", "none"]
+- ["5Hippo10ButtonTypeO", "rawValue"]
+- ["5Hippo10ButtonTypeO", "submit"]
+- !private ["s7CVarArgP", "appUserType"]
+- !private ["s7CVarArgP", "baseUrl"]
+- !private ["s7CVarArgP", "components"]
+- !private ["s7CVarArgP", "contains"]
+- !private ["s7CVarArgP", "emailSourceIcon"]
+- !private ["s7CVarArgP", "facebookSourceIcon"]
+- !private ["s7CVarArgP", "first"]
+- !private ["s7CVarArgP", "readMessageTick"]
+- !private ["s7CVarArgP", "shared"]
+- !private ["s7CVarArgP", "smsSourceIcon"]
+- !private ["s7CVarArgP", "theme"]
+- !private ["s7CVarArgP", "unreadMessageTick"]
+- !private ["s7CVarArgP", "unsentMessageIcon"]
+- ["5Hippo8CallTypeO", "=="]
+- ["5Hippo8CallTypeO", "RawValue"]
+- ["5Hippo8CallTypeO", "_Default_RawValue"]
+- !private ["5Hippo8CallTypeO", "_findStringSwitchCase"]
+- ["5Hippo8CallTypeO", "_rawHashValue"]
+- ["5Hippo8CallTypeO", "audio"]
+- ["5Hippo8CallTypeO", "deinit"]
+- ["5Hippo8CallTypeO", "hash"]
+- ["5Hippo8CallTypeO", "hashValue"]
+- ["5Hippo8CallTypeO", "init"]
+- ["5Hippo8CallTypeO", "rawValue"]
+- ["5Hippo8CallTypeO", "video"]
+- ["5Hippo13CaseCountableP", "=="]
+- ["5Hippo13CaseCountableP", "RawValue"]
+- ["5Hippo13CaseCountableP", ""]
+- ["5Hippo13CaseCountableP", "_Default_RawValue"]
+- !private ["5Hippo13CaseCountableP", "_findStringSwitchCase"]
+- ["5Hippo13CaseCountableP", "_rawHashValue"]
+- ["5Hippo13CaseCountableP", "email"]
+- ["5Hippo13CaseCountableP", "hash"]
+- ["5Hippo13CaseCountableP", "hashValue"]
+- ["5Hippo13CaseCountableP", "init"]
+- ["5Hippo13CaseCountableP", "rawValue"]
+- ["5Hippo13CaseCountableP", "unknown"]
+- ["5Hippo10ChatStatusO", "=="]
+- ["5Hippo10ChatStatusO", "RawValue"]
+- ["5Hippo10ChatStatusO", "_Default_RawValue"]
+- ["5Hippo10ChatStatusO", "_rawHashValue"]
+- ["5Hippo10ChatStatusO", "close"]
+- ["5Hippo10ChatStatusO", "deinit"]
+- ["5Hippo10ChatStatusO", "hash"]
+- ["5Hippo10ChatStatusO", "hashValue"]
+- ["5Hippo10ChatStatusO", "init"]
+- ["5Hippo10ChatStatusO", "open"]
+- ["5Hippo10ChatStatusO", "rawValue"]
+- ["5Hippo8ChatTypeO", "=="]
+- ["5Hippo8ChatTypeO", "Bool"]
+- ["5Hippo8ChatTypeO", "ChatType"]
+- !private ["5Hippo8ChatTypeO", "HippoConfig"]
+- ["5Hippo8ChatTypeO", "RawValue"]
+- ["5Hippo8ChatTypeO", "_Default_RawValue"]
+- ["5Hippo8ChatTypeO", "_rawHashValue"]
+- !private ["5Hippo8ChatTypeO", "allowedImageViewFor"]
+- ["5Hippo8ChatTypeO", "deinit"]
+- ["5Hippo8ChatTypeO", "generalChat"]
+- ["5Hippo8ChatTypeO", "hash"]
+- ["5Hippo8ChatTypeO", "hashValue"]
+- ["5Hippo8ChatTypeO", "init"]
+- ["5Hippo8ChatTypeO", "isImageViewAllowed"]
+- ["5Hippo8ChatTypeO", "none"]
+- ["5Hippo8ChatTypeO", "o2o"]
+- ["5Hippo8ChatTypeO", "other"]
+- ["5Hippo8ChatTypeO", "p2p"]
+- ["5Hippo8ChatTypeO", "privateGroup"]
+- ["5Hippo8ChatTypeO", "publicGroup"]
+- ["5Hippo8ChatTypeO", "rawValue"]
+- !private ["Sl", "components"]
+- !private ["Sl", "contains"]
+- !private ["Sl", "first"]
+- !private ["SL", "components"]
+- !private ["10Foundation15ContiguousBytesP", "contains"]
+- !private ["10Foundation15ContiguousBytesP", "first"]
+- ["5Hippo16ConversationTypeO", "=="]
+- ["5Hippo16ConversationTypeO", "__derived_enum_equals"]
+- ["5Hippo16ConversationTypeO", "_rawHashValue"]
+- ["5Hippo16ConversationTypeO", "allChat"]
+- ["5Hippo16ConversationTypeO", "deinit"]
+- ["5Hippo16ConversationTypeO", "hash"]
+- ["5Hippo16ConversationTypeO", "hashValue"]
+- ["5Hippo16ConversationTypeO", "myChat"]
+- !private ["s28CustomDebugStringConvertibleP", "appUserType"]
+- !private ["s28CustomDebugStringConvertibleP", "baseUrl"]
+- !private ["s28CustomDebugStringConvertibleP", "components"]
+- !private ["s28CustomDebugStringConvertibleP", "contains"]
+- !private ["s28CustomDebugStringConvertibleP", "emailSourceIcon"]
+- !private ["s28CustomDebugStringConvertibleP", "facebookSourceIcon"]
+- !private ["s28CustomDebugStringConvertibleP", "first"]
+- !private ["s28CustomDebugStringConvertibleP", "readMessageTick"]
+- !private ["s28CustomDebugStringConvertibleP", "shared"]
+- !private ["s28CustomDebugStringConvertibleP", "smsSourceIcon"]
+- !private ["s28CustomDebugStringConvertibleP", "theme"]
+- !private ["s28CustomDebugStringConvertibleP", "unreadMessageTick"]
+- !private ["s28CustomDebugStringConvertibleP", "unsentMessageIcon"]
+- !private ["s17CustomReflectableP", "components"]
+- !private ["s17CustomReflectableP", "contains"]
+- !private ["s17CustomReflectableP", "first"]
+- !private ["s23CustomStringConvertibleP", "appUserType"]
+- !private ["s23CustomStringConvertibleP", "baseUrl"]
+- !private ["s23CustomStringConvertibleP", "components"]
+- !private ["s23CustomStringConvertibleP", "contains"]
+- !private ["s23CustomStringConvertibleP", "emailSourceIcon"]
+- !private ["s23CustomStringConvertibleP", "facebookSourceIcon"]
+- !private ["s23CustomStringConvertibleP", "first"]
+- !private ["s23CustomStringConvertibleP", "readMessageTick"]
+- !private ["s23CustomStringConvertibleP", "shared"]
+- !private ["s23CustomStringConvertibleP", "smsSourceIcon"]
+- !private ["s23CustomStringConvertibleP", "theme"]
+- !private ["s23CustomStringConvertibleP", "unreadMessageTick"]
+- !private ["s23CustomStringConvertibleP", "unsentMessageIcon"]
+- !private ["10Foundation12DataProtocolP", "contains"]
+- !private ["10Foundation12DataProtocolP", "first"]
+- !private ["Se", "components"]
+- !private ["Se", "contains"]
+- !private ["Se", "first"]
+- !private ["SE", "components"]
+- !private ["SE", "contains"]
+- !private ["SE", "first"]
+- ["SQ", "=="]
+- !private ["SQ", "ChatType"]
+- !private ["SQ", "FileType"]
+- !private ["SQ", "HippoConfig"]
+- ["SQ", "RawValue"]
+- !private ["SQ", "SERVERS"]
+- ["SQ", ""]
+- ["SQ", "_Default_RawValue"]
+- ["SQ", "_code"]
+- ["SQ", "_domain"]
+- !private ["SQ", "_findStringSwitchCase"]
+- ["SQ", "_getEmbeddedNSError"]
+- ["SQ", "_rawHashValue"]
+- ["SQ", "_userInfo"]
+- !private ["SQ", "actionableMessage"]
+- ["SQ", "agent"]
+- !private ["SQ", "agentHandledMessages"]
+- !private ["SQ", "allowedImageViewFor"]
+- !private ["SQ", "appUserType"]
+- !private ["SQ", "assignAgent"]
+- ["SQ", "assigned"]
+- !private ["SQ", "attachment"]
+- ["SQ", "audio"]
+- !private ["SQ", "baseUrl"]
+- !private ["SQ", "beta"]
+- !private ["SQ", "botFormMessage"]
+- !private ["SQ", "botText"]
+- !private ["SQ", "call"]
+- !private ["SQ", "components"]
+- !private ["SQ", "consent"]
+- !private ["SQ", "contains"]
+- !private ["SQ", "customer"]
+- !private ["SQ", "customerHandledMessages"]
+- ["SQ", "delivered"]
+- !private ["SQ", "dev"]
+- ["SQ", "document"]
+- ["SQ", "email"]
+- !private ["SQ", "emailSourceIcon"]
+- ["SQ", "errorDescription"]
+- ["SQ", "facebook"]
+- !private ["SQ", "facebookSourceIcon"]
+- ["SQ", "failureReason"]
+- !private ["SQ", "feedback"]
+- !private ["SQ", "first"]
+- ["SQ", "hash"]
+- ["SQ", "hashValue"]
+- ["SQ", "helpAnchor"]
+- !private ["SQ", "hippoPay"]
+- ["SQ", "image"]
+- !private ["SQ", "imageFile"]
+- ["SQ", "init"]
+- ["SQ", "invalidAppSecretKey"]
+- ["SQ", "invalidReferenceId"]
+- ["SQ", "invalidResellerToken"]
+- ["SQ", "invalidUserUniqueKey"]
+- !private ["SQ", "live"]
+- ["SQ", "message"]
+- ["SQ", "none"]
+- ["SQ", "normal"]
+- ["SQ", "other"]
+- !private ["SQ", "privateNote"]
+- !private ["SQ", "quickReply"]
+- ["SQ", "rawValue"]
+- ["SQ", "read"]
+- ["SQ", "readAll"]
+- !private ["SQ", "readMessageTick"]
+- ["SQ", "recoverySuggestion"]
+- ["SQ", "sent"]
+- !private ["SQ", "shared"]
+- ["SQ", "sms"]
+- !private ["SQ", "smsSourceIcon"]
+- ["SQ", "system"]
+- !private ["SQ", "theme"]
+- ["SQ", "unknown"]
+- !private ["SQ", "unreadMessageTick"]
+- !private ["SQ", "unsentMessageIcon"]
+- ["SQ", "video"]
+- ["s5ErrorP", "=="]
+- ["s5ErrorP", ""]
+- ["s5ErrorP", "_code"]
+- ["s5ErrorP", "_domain"]
+- ["s5ErrorP", "_getEmbeddedNSError"]
+- ["s5ErrorP", "_rawHashValue"]
+- ["s5ErrorP", "_userInfo"]
+- ["s5ErrorP", "errorDescription"]
+- ["s5ErrorP", "failureReason"]
+- ["s5ErrorP", "hash"]
+- ["s5ErrorP", "hashValue"]
+- ["s5ErrorP", "helpAnchor"]
+- ["s5ErrorP", "invalidAppSecretKey"]
+- ["s5ErrorP", "invalidReferenceId"]
+- ["s5ErrorP", "invalidResellerToken"]
+- ["s5ErrorP", "invalidUserUniqueKey"]
+- ["s5ErrorP", "recoverySuggestion"]
+- !private ["s25ExpressibleByArrayLiteralP", "contains"]
+- !private ["s25ExpressibleByArrayLiteralP", "first"]
+- !private ["s43ExpressibleByExtendedGraphemeClusterLiteralP", "components"]
+- !private ["s32ExpressibleByStringInterpolationP", "components"]
+- !private ["s26ExpressibleByStringLiteralP", "components"]
+- !private ["s33ExpressibleByUnicodeScalarLiteralP", "components"]
+- ["5Hippo8FileTypeO", "=="]
+- !private ["5Hippo8FileTypeO", "FileType"]
+- ["5Hippo8FileTypeO", "RawValue"]
+- ["5Hippo8FileTypeO", "String"]
+- ["5Hippo8FileTypeO", "_Default_RawValue"]
+- !private ["5Hippo8FileTypeO", "_findStringSwitchCase"]
+- ["5Hippo8FileTypeO", "_rawHashValue"]
+- ["5Hippo8FileTypeO", "audio"]
+- ["5Hippo8FileTypeO", "deinit"]
+- ["5Hippo8FileTypeO", "document"]
+- ["5Hippo8FileTypeO", "getTypeString"]
+- ["5Hippo8FileTypeO", "hash"]
+- ["5Hippo8FileTypeO", "hashValue"]
+- ["5Hippo8FileTypeO", "image"]
+- ["5Hippo8FileTypeO", "init"]
+- ["5Hippo8FileTypeO", "rawValue"]
+- ["5Hippo8FileTypeO", "video"]
+- ["5Hippo18FuguCredentialTypeO", "=="]
+- ["5Hippo18FuguCredentialTypeO", "RawValue"]
+- ["5Hippo18FuguCredentialTypeO", "_Default_RawValue"]
+- ["5Hippo18FuguCredentialTypeO", "_rawHashValue"]
+- ["5Hippo18FuguCredentialTypeO", "defaultType"]
+- ["5Hippo18FuguCredentialTypeO", "deinit"]
+- ["5Hippo18FuguCredentialTypeO", "hash"]
+- ["5Hippo18FuguCredentialTypeO", "hashValue"]
+- ["5Hippo18FuguCredentialTypeO", "init"]
+- ["5Hippo18FuguCredentialTypeO", "rawValue"]
+- ["5Hippo18FuguCredentialTypeO", "reseller"]
+- ["5Hippo13FuguEndPointsO", "=="]
+- ["5Hippo13FuguEndPointsO", "API_CLEAR_USER_DATA_LOGOUT"]
+- ["5Hippo13FuguEndPointsO", "API_CREATE_CONVERSATION"]
+- ["5Hippo13FuguEndPointsO", "API_CREATE_TICKET"]
+- ["5Hippo13FuguEndPointsO", "API_FEEDBACK"]
+- ["5Hippo13FuguEndPointsO", "API_GET_CONVERSATIONS"]
+- ["5Hippo13FuguEndPointsO", "API_GET_MESSAGES"]
+- ["5Hippo13FuguEndPointsO", "API_GET_MESSAGES_BASED_ON_LABEL"]
+- ["5Hippo13FuguEndPointsO", "API_PUT_USER_DETAILS"]
+- ["5Hippo13FuguEndPointsO", "API_Reseller_Put_User"]
+- ["5Hippo13FuguEndPointsO", "API_UPLOAD_FILE"]
+- ["5Hippo13FuguEndPointsO", "RawValue"]
+- ["5Hippo13FuguEndPointsO", "_Default_RawValue"]
+- !private ["5Hippo13FuguEndPointsO", "_findStringSwitchCase"]
+- ["5Hippo13FuguEndPointsO", "_rawHashValue"]
+- ["5Hippo13FuguEndPointsO", "deinit"]
+- ["5Hippo13FuguEndPointsO", "fetchP2PUnreadCount"]
+- ["5Hippo13FuguEndPointsO", "hash"]
+- ["5Hippo13FuguEndPointsO", "hashValue"]
+- ["5Hippo13FuguEndPointsO", "init"]
+- ["5Hippo13FuguEndPointsO", "rawValue"]
+- ["5Hippo13FuguEndPointsO", "updateRideStatus"]
+- ["5Hippo15FuguEnvironmentO", "=="]
+- ["5Hippo15FuguEnvironmentO", "FuguEnvironment"]
+- !private ["5Hippo15FuguEnvironmentO", "HippoConfig"]
+- ["5Hippo15FuguEnvironmentO", "RawValue"]
+- !private ["5Hippo15FuguEnvironmentO", "SERVERS"]
+- ["5Hippo15FuguEnvironmentO", "_Default_RawValue"]
+- ["5Hippo15FuguEnvironmentO", "_rawHashValue"]
+- ["5Hippo15FuguEnvironmentO", "beta"]
+- ["5Hippo15FuguEnvironmentO", "deinit"]
+- ["5Hippo15FuguEnvironmentO", "dev"]
+- ["5Hippo15FuguEnvironmentO", "hash"]
+- ["5Hippo15FuguEnvironmentO", "hashValue"]
+- ["5Hippo15FuguEnvironmentO", "init"]
+- ["5Hippo15FuguEnvironmentO", "live"]
+- ["5Hippo15FuguEnvironmentO", "rawValue"]
+- ["5Hippo15FuguEnvironmentO", "selected"]
+- ["5Hippo26FuguUserIntializationErrorO", "=="]
+- ["5Hippo26FuguUserIntializationErrorO", "String"]
+- ["5Hippo26FuguUserIntializationErrorO", "__derived_enum_equals"]
+- ["5Hippo26FuguUserIntializationErrorO", "_code"]
+- ["5Hippo26FuguUserIntializationErrorO", "_domain"]
+- ["5Hippo26FuguUserIntializationErrorO", "_getEmbeddedNSError"]
+- ["5Hippo26FuguUserIntializationErrorO", "_rawHashValue"]
+- ["5Hippo26FuguUserIntializationErrorO", "_userInfo"]
+- ["5Hippo26FuguUserIntializationErrorO", "deinit"]
+- ["5Hippo26FuguUserIntializationErrorO", "errorDescription"]
+- ["5Hippo26FuguUserIntializationErrorO", "failureReason"]
+- ["5Hippo26FuguUserIntializationErrorO", "hash"]
+- ["5Hippo26FuguUserIntializationErrorO", "hashValue"]
+- ["5Hippo26FuguUserIntializationErrorO", "helpAnchor"]
+- ["5Hippo26FuguUserIntializationErrorO", "invalidAppSecretKey"]
+- ["5Hippo26FuguUserIntializationErrorO", "invalidReferenceId"]
+- ["5Hippo26FuguUserIntializationErrorO", "invalidResellerToken"]
+- ["5Hippo26FuguUserIntializationErrorO", "invalidUserUniqueKey"]
+- ["5Hippo26FuguUserIntializationErrorO", "recoverySuggestion"]
+- ["SH", "=="]
+- !private ["SH", "ChatType"]
+- !private ["SH", "FileType"]
+- !private ["SH", "HippoConfig"]
+- ["SH", "RawValue"]
+- !private ["SH", "SERVERS"]
+- ["SH", ""]
+- ["SH", "_Default_RawValue"]
+- ["SH", "_code"]
+- ["SH", "_domain"]
+- !private ["SH", "_findStringSwitchCase"]
+- ["SH", "_getEmbeddedNSError"]
+- ["SH", "_rawHashValue"]
+- ["SH", "_userInfo"]
+- !private ["SH", "actionableMessage"]
+- ["SH", "agent"]
+- !private ["SH", "agentHandledMessages"]
+- !private ["SH", "allowedImageViewFor"]
+- !private ["SH", "appUserType"]
+- !private ["SH", "assignAgent"]
+- ["SH", "assigned"]
+- !private ["SH", "attachment"]
+- ["SH", "audio"]
+- !private ["SH", "baseUrl"]
+- !private ["SH", "beta"]
+- !private ["SH", "botFormMessage"]
+- !private ["SH", "botText"]
+- !private ["SH", "call"]
+- !private ["SH", "components"]
+- !private ["SH", "consent"]
+- !private ["SH", "contains"]
+- !private ["SH", "customer"]
+- !private ["SH", "customerHandledMessages"]
+- ["SH", "delivered"]
+- !private ["SH", "dev"]
+- ["SH", "document"]
+- ["SH", "email"]
+- !private ["SH", "emailSourceIcon"]
+- ["SH", "errorDescription"]
+- ["SH", "facebook"]
+- !private ["SH", "facebookSourceIcon"]
+- ["SH", "failureReason"]
+- !private ["SH", "feedback"]
+- !private ["SH", "first"]
+- ["SH", "hash"]
+- ["SH", "hashValue"]
+- ["SH", "helpAnchor"]
+- !private ["SH", "hippoPay"]
+- ["SH", "image"]
+- !private ["SH", "imageFile"]
+- ["SH", "init"]
+- ["SH", "invalidAppSecretKey"]
+- ["SH", "invalidReferenceId"]
+- ["SH", "invalidResellerToken"]
+- ["SH", "invalidUserUniqueKey"]
+- !private ["SH", "live"]
+- ["SH", "message"]
+- ["SH", "none"]
+- ["SH", "normal"]
+- ["SH", "other"]
+- !private ["SH", "privateNote"]
+- !private ["SH", "quickReply"]
+- ["SH", "rawValue"]
+- ["SH", "read"]
+- ["SH", "readAll"]
+- !private ["SH", "readMessageTick"]
+- ["SH", "recoverySuggestion"]
+- ["SH", "sent"]
+- !private ["SH", "shared"]
+- ["SH", "sms"]
+- !private ["SH", "smsSourceIcon"]
+- ["SH", "system"]
+- !private ["SH", "theme"]
+- ["SH", "unknown"]
+- !private ["SH", "unreadMessageTick"]
+- !private ["SH", "unsentMessageIcon"]
+- ["SH", "video"]
+- !private ["s6HasherV", "combine"]
+- !private ["5Hippo0A6ConfigC", "appUserType"]
+- !private ["5Hippo0A6ConfigC", "baseUrl"]
+- !private ["5Hippo0A6ConfigC", "shared"]
+- !private ["5Hippo0A6ConfigC", "theme"]
+- ["5Hippo0A11EnvironmentO", "=="]
+- !private ["5Hippo0A11EnvironmentO", "HippoConfig"]
+- ["5Hippo0A11EnvironmentO", "HippoEnvironment"]
+- ["5Hippo0A11EnvironmentO", "RawValue"]
+- !private ["5Hippo0A11EnvironmentO", "SERVERS"]
+- ["5Hippo0A11EnvironmentO", "_Default_RawValue"]
+- ["5Hippo0A11EnvironmentO", "_rawHashValue"]
+- ["5Hippo0A11EnvironmentO", "beta"]
+- ["5Hippo0A11EnvironmentO", "deinit"]
+- ["5Hippo0A11EnvironmentO", "dev"]
+- ["5Hippo0A11EnvironmentO", "hash"]
+- ["5Hippo0A11EnvironmentO", "hashValue"]
+- ["5Hippo0A11EnvironmentO", "init"]
+- ["5Hippo0A11EnvironmentO", "live"]
+- ["5Hippo0A11EnvironmentO", "rawValue"]
+- ["5Hippo0A11EnvironmentO", "selected"]
+- !private ["5Hippo0A5ThemeC", "emailSourceIcon"]
+- !private ["5Hippo0A5ThemeC", "facebookSourceIcon"]
+- !private ["5Hippo0A5ThemeC", "readMessageTick"]
+- !private ["5Hippo0A5ThemeC", "smsSourceIcon"]
+- !private ["5Hippo0A5ThemeC", "unreadMessageTick"]
+- !private ["5Hippo0A5ThemeC", "unsentMessageIcon"]
+- ["5Hippo17IntegrationSourceO", "=="]
+- !private ["5Hippo17IntegrationSourceO", "HippoConfig"]
+- ["5Hippo17IntegrationSourceO", "RawValue"]
+- ["5Hippo17IntegrationSourceO", "UIImage"]
+- ["5Hippo17IntegrationSourceO", "_Default_RawValue"]
+- ["5Hippo17IntegrationSourceO", "_rawHashValue"]
+- ["5Hippo17IntegrationSourceO", "deinit"]
+- ["5Hippo17IntegrationSourceO", "email"]
+- ["5Hippo17IntegrationSourceO", "facebook"]
+- ["5Hippo17IntegrationSourceO", "getIcon"]
+- ["5Hippo17IntegrationSourceO", "hash"]
+- ["5Hippo17IntegrationSourceO", "hashValue"]
+- ["5Hippo17IntegrationSourceO", "init"]
+- ["5Hippo17IntegrationSourceO", "normal"]
+- ["5Hippo17IntegrationSourceO", "rawValue"]
+- ["5Hippo17IntegrationSourceO", "sms"]
+- !private ["5Hippo20KingfisherCompatibleP", "components"]
+- ["10Foundation14LocalizedErrorP", "=="]
+- ["10Foundation14LocalizedErrorP", ""]
+- ["10Foundation14LocalizedErrorP", "_code"]
+- ["10Foundation14LocalizedErrorP", "_domain"]
+- ["10Foundation14LocalizedErrorP", "_getEmbeddedNSError"]
+- ["10Foundation14LocalizedErrorP", "_rawHashValue"]
+- ["10Foundation14LocalizedErrorP", "_userInfo"]
+- ["10Foundation14LocalizedErrorP", "errorDescription"]
+- ["10Foundation14LocalizedErrorP", "failureReason"]
+- ["10Foundation14LocalizedErrorP", "hash"]
+- ["10Foundation14LocalizedErrorP", "hashValue"]
+- ["10Foundation14LocalizedErrorP", "helpAnchor"]
+- ["10Foundation14LocalizedErrorP", "invalidAppSecretKey"]
+- ["10Foundation14LocalizedErrorP", "invalidReferenceId"]
+- ["10Foundation14LocalizedErrorP", "invalidResellerToken"]
+- ["10Foundation14LocalizedErrorP", "invalidUserUniqueKey"]
+- ["10Foundation14LocalizedErrorP", "recoverySuggestion"]
+- !private ["s25LosslessStringConvertibleP", "components"]
+- ["5Hippo11MessageTypeO", "=="]
+- ["5Hippo11MessageTypeO", "Bool"]
+- !private ["5Hippo11MessageTypeO", "HippoConfig"]
+- ["5Hippo11MessageTypeO", "MessageType"]
+- ["5Hippo11MessageTypeO", "RawValue"]
+- ["5Hippo11MessageTypeO", "_Default_RawValue"]
+- ["5Hippo11MessageTypeO", "_rawHashValue"]
+- ["5Hippo11MessageTypeO", "actionableMessage"]
+- ["5Hippo11MessageTypeO", "agentHandledMessages"]
+- ["5Hippo11MessageTypeO", "assignAgent"]
+- ["5Hippo11MessageTypeO", "attachment"]
+- ["5Hippo11MessageTypeO", "botFormMessage"]
+- ["5Hippo11MessageTypeO", "botText"]
+- ["5Hippo11MessageTypeO", "call"]
+- ["5Hippo11MessageTypeO", "consent"]
+- ["5Hippo11MessageTypeO", "customerHandledMessages"]
+- ["5Hippo11MessageTypeO", "deinit"]
+- ["5Hippo11MessageTypeO", "feedback"]
+- ["5Hippo11MessageTypeO", "hash"]
+- ["5Hippo11MessageTypeO", "hashValue"]
+- ["5Hippo11MessageTypeO", "hippoPay"]
+- ["5Hippo11MessageTypeO", "imageFile"]
+- ["5Hippo11MessageTypeO", "init"]
+- ["5Hippo11MessageTypeO", "isBotMessage"]
+- ["5Hippo11MessageTypeO", "isMessageTypeHandled"]
+- ["5Hippo11MessageTypeO", "none"]
+- ["5Hippo11MessageTypeO", "normal"]
+- ["5Hippo11MessageTypeO", "privateNote"]
+- ["5Hippo11MessageTypeO", "quickReply"]
+- ["5Hippo11MessageTypeO", "rawValue"]
+- !private ["s10MirrorPathP", "components"]
+- !private ["SM", "contains"]
+- !private ["SM", "first"]
+- !private ["10Foundation19MutableDataProtocolP", "contains"]
+- !private ["10Foundation19MutableDataProtocolP", "first"]
+- !private ["So8NSCodingP", "components"]
+- !private ["So9NSCopyingP", "components"]
+- !private ["So21NSItemProviderReadingP", "components"]
+- !private ["So21NSItemProviderWritingP", "components"]
+- !private ["So16NSMutableCopyingP", "components"]
+- !private ["So8NSObjectC", "appUserType"]
+- !private ["So8NSObjectC", "baseUrl"]
+- !private ["So8NSObjectC", "components"]
+- !private ["So8NSObjectC", "emailSourceIcon"]
+- !private ["So8NSObjectC", "facebookSourceIcon"]
+- !private ["So8NSObjectC", "readMessageTick"]
+- !private ["So8NSObjectC", "shared"]
+- !private ["So8NSObjectC", "smsSourceIcon"]
+- !private ["So8NSObjectC", "theme"]
+- !private ["So8NSObjectC", "unreadMessageTick"]
+- !private ["So8NSObjectC", "unsentMessageIcon"]
+- !private ["So8NSObjectP", "appUserType"]
+- !private ["So8NSObjectP", "baseUrl"]
+- !private ["So8NSObjectP", "components"]
+- !private ["So8NSObjectP", "emailSourceIcon"]
+- !private ["So8NSObjectP", "facebookSourceIcon"]
+- !private ["So8NSObjectP", "readMessageTick"]
+- !private ["So8NSObjectP", "shared"]
+- !private ["So8NSObjectP", "smsSourceIcon"]
+- !private ["So8NSObjectP", "theme"]
+- !private ["So8NSObjectP", "unreadMessageTick"]
+- !private ["So8NSObjectP", "unsentMessageIcon"]
+- !private ["So14NSSecureCodingP", "components"]
+- !private ["So8NSStringC", "components"]
+- ["5Hippo16NotificationTypeO", "=="]
+- ["5Hippo16NotificationTypeO", "Bool"]
+- ["5Hippo16NotificationTypeO", "RawValue"]
+- ["5Hippo16NotificationTypeO", "_Default_RawValue"]
+- ["5Hippo16NotificationTypeO", "_rawHashValue"]
+- ["5Hippo16NotificationTypeO", "agentRefresh"]
+- ["5Hippo16NotificationTypeO", "agentsRefresh"]
+- ["5Hippo16NotificationTypeO", "assigned"]
+- ["5Hippo16NotificationTypeO", "call"]
+- ["5Hippo16NotificationTypeO", "channelRefreshed"]
+- ["5Hippo16NotificationTypeO", "deinit"]
+- ["5Hippo16NotificationTypeO", "hash"]
+- ["5Hippo16NotificationTypeO", "hashValue"]
+- ["5Hippo16NotificationTypeO", "init"]
+- ["5Hippo16NotificationTypeO", "isNotificationTypeHandled"]
+- ["5Hippo16NotificationTypeO", "markConversation"]
+- ["5Hippo16NotificationTypeO", "message"]
+- ["5Hippo16NotificationTypeO", "none"]
+- ["5Hippo16NotificationTypeO", "rawValue"]
+- ["5Hippo16NotificationTypeO", "readAll"]
+- ["5Hippo16NotificationTypeO", "readUnread"]
+- ["5Hippo16NotificationTypeO", "tagged"]
+- ["5Hippo16NotificationTypeO", "userLogout"]
+- ["5Hippo16NotificationTypeO", "userMigration"]
+- !private ["Sk", "contains"]
+- !private ["Sk", "first"]
+- !private ["Sm", "components"]
+- !private ["Sm", "contains"]
+- !private ["Sm", "first"]
+- ["SY", "=="]
+- !private ["SY", "ChatType"]
+- !private ["SY", "FileType"]
+- !private ["SY", "HippoConfig"]
+- ["SY", "RawValue"]
+- !private ["SY", "SERVERS"]
+- ["SY", ""]
+- ["SY", "_Default_RawValue"]
+- !private ["SY", "_findStringSwitchCase"]
+- ["SY", "_rawHashValue"]
+- !private ["SY", "actionableMessage"]
+- ["SY", "agent"]
+- !private ["SY", "agentHandledMessages"]
+- !private ["SY", "allowedImageViewFor"]
+- !private ["SY", "assignAgent"]
+- ["SY", "assigned"]
+- !private ["SY", "attachment"]
+- ["SY", "audio"]
+- !private ["SY", "beta"]
+- !private ["SY", "botFormMessage"]
+- !private ["SY", "botText"]
+- !private ["SY", "call"]
+- !private ["SY", "consent"]
+- !private ["SY", "customerHandledMessages"]
+- ["SY", "delivered"]
+- !private ["SY", "dev"]
+- ["SY", "document"]
+- ["SY", "email"]
+- ["SY", "facebook"]
+- !private ["SY", "feedback"]
+- ["SY", "hash"]
+- ["SY", "hashValue"]
+- !private ["SY", "hippoPay"]
+- ["SY", "image"]
+- !private ["SY", "imageFile"]
+- ["SY", "init"]
+- !private ["SY", "live"]
+- ["SY", "message"]
+- ["SY", "none"]
+- ["SY", "normal"]
+- ["SY", "other"]
+- !private ["SY", "privateNote"]
+- !private ["SY", "quickReply"]
+- ["SY", "rawValue"]
+- ["SY", "read"]
+- ["SY", "readAll"]
+- ["SY", "sent"]
+- ["SY", "sms"]
+- ["SY", "system"]
+- ["SY", "unknown"]
+- ["SY", "video"]
+- ["5Hippo06ReadUnB6StatusO", "=="]
+- !private ["5Hippo06ReadUnB6StatusO", "HippoConfig"]
+- ["5Hippo06ReadUnB6StatusO", "RawValue"]
+- ["5Hippo06ReadUnB6StatusO", "UIImage"]
+- ["5Hippo06ReadUnB6StatusO", "_Default_RawValue"]
+- ["5Hippo06ReadUnB6StatusO", "_rawHashValue"]
+- ["5Hippo06ReadUnB6StatusO", "deinit"]
+- ["5Hippo06ReadUnB6StatusO", "delivered"]
+- ["5Hippo06ReadUnB6StatusO", "getIcon"]
+- ["5Hippo06ReadUnB6StatusO", "hash"]
+- ["5Hippo06ReadUnB6StatusO", "hashValue"]
+- ["5Hippo06ReadUnB6StatusO", "init"]
+- ["5Hippo06ReadUnB6StatusO", "none"]
+- ["5Hippo06ReadUnB6StatusO", "rawValue"]
+- ["5Hippo06ReadUnB6StatusO", "read"]
+- ["5Hippo06ReadUnB6StatusO", "sent"]
+- !private ["5Hippo7SERVERSV", "betaUrl"]
+- !private ["5Hippo7SERVERSV", "liveUrl"]
+- !private ["ST", "components"]
+- !private ["ST", "contains"]
+- !private ["ST", "first"]
+- ["5Hippo10SourceTypeO", "=="]
+- ["5Hippo10SourceTypeO", "AGENT_APP"]
+- ["5Hippo10SourceTypeO", "DEFAULT"]
+- ["5Hippo10SourceTypeO", "INTEGRATION"]
+- ["5Hippo10SourceTypeO", "OUTREACH"]
+- ["5Hippo10SourceTypeO", "RawValue"]
+- ["5Hippo10SourceTypeO", "SDK"]
+- ["5Hippo10SourceTypeO", "WEB"]
+- ["5Hippo10SourceTypeO", "WIDGET"]
+- ["5Hippo10SourceTypeO", "_Default_RawValue"]
+- ["5Hippo10SourceTypeO", "_rawHashValue"]
+- ["5Hippo10SourceTypeO", "deinit"]
+- ["5Hippo10SourceTypeO", "hash"]
+- ["5Hippo10SourceTypeO", "hashValue"]
+- ["5Hippo10SourceTypeO", "init"]
+- ["5Hippo10SourceTypeO", "rawValue"]
+- ["5Hippo15StatusCodeValueO", "=="]
+- ["5Hippo15StatusCodeValueO", "Authorized_Max"]
+- ["5Hippo15StatusCodeValueO", "Authorized_Min"]
+- ["5Hippo15StatusCodeValueO", "Bad_Request"]
+- ["5Hippo15StatusCodeValueO", "RawValue"]
+- ["5Hippo15StatusCodeValueO", "Unauthorized"]
+- ["5Hippo15StatusCodeValueO", "_Default_RawValue"]
+- ["5Hippo15StatusCodeValueO", "_rawHashValue"]
+- ["5Hippo15StatusCodeValueO", "deinit"]
+- ["5Hippo15StatusCodeValueO", "hash"]
+- ["5Hippo15StatusCodeValueO", "hashValue"]
+- ["5Hippo15StatusCodeValueO", "init"]
+- ["5Hippo15StatusCodeValueO", "invalidToken"]
+- ["5Hippo15StatusCodeValueO", "rawValue"]
+- !private ["SS", "components"]
+- !private ["Sy", "components"]
+- !private ["s16TextOutputStreamP", "components"]
+- !private ["s20TextOutputStreamableP", "components"]
+- ["5Hippo13TypingMessageO", "=="]
+- ["5Hippo13TypingMessageO", "RawValue"]
+- ["5Hippo13TypingMessageO", "_Default_RawValue"]
+- ["5Hippo13TypingMessageO", "_rawHashValue"]
+- ["5Hippo13TypingMessageO", "deinit"]
+- ["5Hippo13TypingMessageO", "hash"]
+- ["5Hippo13TypingMessageO", "hashValue"]
+- ["5Hippo13TypingMessageO", "init"]
+- ["5Hippo13TypingMessageO", "messageRecieved"]
+- ["5Hippo13TypingMessageO", "rawValue"]
+- ["5Hippo13TypingMessageO", "startTyping"]
+- ["5Hippo13TypingMessageO", "stopTyping"]
+- ["5Hippo22UserSubscriptionStatusO", "=="]
+- ["5Hippo22UserSubscriptionStatusO", "RawValue"]
+- ["5Hippo22UserSubscriptionStatusO", "_Default_RawValue"]
+- ["5Hippo22UserSubscriptionStatusO", "_rawHashValue"]
+- ["5Hippo22UserSubscriptionStatusO", "deinit"]
+- ["5Hippo22UserSubscriptionStatusO", "hash"]
+- ["5Hippo22UserSubscriptionStatusO", "hashValue"]
+- ["5Hippo22UserSubscriptionStatusO", "init"]
+- ["5Hippo22UserSubscriptionStatusO", "notSubscribed"]
+- ["5Hippo22UserSubscriptionStatusO", "rawValue"]
+- ["5Hippo22UserSubscriptionStatusO", "subscribed"]
+- ["5Hippo8UserTypeO", "=="]
+- ["5Hippo8UserTypeO", "Bool"]
+- !private ["5Hippo8UserTypeO", "HippoConfig"]
+- ["5Hippo8UserTypeO", "RawValue"]
+- ["5Hippo8UserTypeO", "_Default_RawValue"]
+- ["5Hippo8UserTypeO", "_rawHashValue"]
+- ["5Hippo8UserTypeO", "agent"]
+- ["5Hippo8UserTypeO", "customer"]
+- ["5Hippo8UserTypeO", "deinit"]
+- ["5Hippo8UserTypeO", "hash"]
+- ["5Hippo8UserTypeO", "hashValue"]
+- ["5Hippo8UserTypeO", "init"]
+- ["5Hippo8UserTypeO", "isMyUserType"]
+- ["5Hippo8UserTypeO", "none"]
+- ["5Hippo8UserTypeO", "rawValue"]
+- ["5Hippo8UserTypeO", "system"]
+- ["5Hippo8ViewTypeO", "=="]
+- ["5Hippo8ViewTypeO", "RawValue"]
+- ["5Hippo8ViewTypeO", "_Default_RawValue"]
+- ["5Hippo8ViewTypeO", "_rawHashValue"]
+- ["5Hippo8ViewTypeO", "deinit"]
+- ["5Hippo8ViewTypeO", "description"]
+- ["5Hippo8ViewTypeO", "hash"]
+- ["5Hippo8ViewTypeO", "hashValue"]
+- ["5Hippo8ViewTypeO", "init"]
+- ["5Hippo8ViewTypeO", "list"]
+- ["5Hippo8ViewTypeO", "rawValue"]
+- !private ["s14_ArrayProtocolP", "contains"]
+- !private ["s14_ArrayProtocolP", "first"]
+- !private ["s30_CustomPlaygroundQuickLookableP", "components"]
+- !private ["s24_DestructorSafeContainerP", "contains"]
+- !private ["s24_DestructorSafeContainerP", "first"]
+- !private ["s51_ExpressibleByBuiltinExtendedGraphemeClusterLiteralP", "components"]
+- !private ["s34_ExpressibleByBuiltinStringLiteralP", "components"]
+- !private ["s41_ExpressibleByBuiltinUnicodeScalarLiteralP", "components"]
+- !private ["s19_HasContiguousBytesP", "components"]
+- !private ["s19_HasContiguousBytesP", "contains"]
+- !private ["s19_HasContiguousBytesP", "first"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "components"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "contains"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "first"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "appUserType"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "baseUrl"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "components"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "emailSourceIcon"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "facebookSourceIcon"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "readMessageTick"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "shared"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "smsSourceIcon"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "theme"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "unreadMessageTick"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "unsentMessageIcon"]
+- !private ["s21_ObjectiveCBridgeableP", "components"]
+- !private ["s21_ObjectiveCBridgeableP", "contains"]
+- !private ["s21_ObjectiveCBridgeableP", "first"]
+- ["5Hippo11channelTypeO", "=="]
+- ["5Hippo11channelTypeO", "BROADCAST_CHANNEL"]
+- ["5Hippo11channelTypeO", "DEFAULT"]
+- ["5Hippo11channelTypeO", "DEFAULT_CHANNEL"]
+- ["5Hippo11channelTypeO", "HELP_CHANNEL"]
+- ["5Hippo11channelTypeO", "RawValue"]
+- ["5Hippo11channelTypeO", "_Default_RawValue"]
+- ["5Hippo11channelTypeO", "_rawHashValue"]
+- ["5Hippo11channelTypeO", "deinit"]
+- ["5Hippo11channelTypeO", "hash"]
+- ["5Hippo11channelTypeO", "hashValue"]
+- ["5Hippo11channelTypeO", "init"]
+- ["5Hippo11channelTypeO", "rawValue"]
+depends-nominal:
+- "5Hippo10ActionTypeO"
+- "5Hippo14AgentEndPointsO"
+- !private "5Hippo11AppUserTypeO"
+- !private "Sa"
+- !private "SK"
+- "5Hippo13BroadcastTypeO"
+- "5Hippo10ButtonTypeO"
+- !private "s7CVarArgP"
+- "5Hippo8CallTypeO"
+- "5Hippo13CaseCountableP"
+- "5Hippo10ChatStatusO"
+- "5Hippo8ChatTypeO"
+- !private "Sl"
+- !private "SL"
+- !private "10Foundation15ContiguousBytesP"
+- "5Hippo16ConversationTypeO"
+- !private "s28CustomDebugStringConvertibleP"
+- !private "s17CustomReflectableP"
+- !private "s23CustomStringConvertibleP"
+- !private "10Foundation12DataProtocolP"
+- !private "Se"
+- !private "SE"
+- "SQ"
+- "s5ErrorP"
+- !private "s25ExpressibleByArrayLiteralP"
+- !private "s43ExpressibleByExtendedGraphemeClusterLiteralP"
+- !private "s32ExpressibleByStringInterpolationP"
+- !private "s26ExpressibleByStringLiteralP"
+- !private "s33ExpressibleByUnicodeScalarLiteralP"
+- "5Hippo8FileTypeO"
+- "5Hippo18FuguCredentialTypeO"
+- "5Hippo13FuguEndPointsO"
+- "5Hippo15FuguEnvironmentO"
+- "5Hippo26FuguUserIntializationErrorO"
+- "SH"
+- !private "s6HasherV"
+- !private "5Hippo0A6ConfigC"
+- "5Hippo0A11EnvironmentO"
+- !private "5Hippo0A5ThemeC"
+- "5Hippo17IntegrationSourceO"
+- !private "5Hippo20KingfisherCompatibleP"
+- "10Foundation14LocalizedErrorP"
+- !private "s25LosslessStringConvertibleP"
+- "5Hippo11MessageTypeO"
+- !private "s10MirrorPathP"
+- !private "SM"
+- !private "10Foundation19MutableDataProtocolP"
+- !private "So8NSCodingP"
+- !private "So9NSCopyingP"
+- !private "So21NSItemProviderReadingP"
+- !private "So21NSItemProviderWritingP"
+- !private "So16NSMutableCopyingP"
+- !private "So8NSObjectC"
+- !private "So8NSObjectP"
+- !private "So14NSSecureCodingP"
+- !private "So8NSStringC"
+- "5Hippo16NotificationTypeO"
+- !private "Sk"
+- !private "Sm"
+- "SY"
+- "5Hippo06ReadUnB6StatusO"
+- !private "5Hippo7SERVERSV"
+- !private "ST"
+- "5Hippo10SourceTypeO"
+- "5Hippo15StatusCodeValueO"
+- !private "SS"
+- !private "Sy"
+- !private "s16TextOutputStreamP"
+- !private "s20TextOutputStreamableP"
+- "5Hippo13TypingMessageO"
+- "5Hippo22UserSubscriptionStatusO"
+- "5Hippo8UserTypeO"
+- "5Hippo8ViewTypeO"
+- !private "s14_ArrayProtocolP"
+- !private "s30_CustomPlaygroundQuickLookableP"
+- !private "s24_DestructorSafeContainerP"
+- !private "s51_ExpressibleByBuiltinExtendedGraphemeClusterLiteralP"
+- !private "s34_ExpressibleByBuiltinStringLiteralP"
+- !private "s41_ExpressibleByBuiltinUnicodeScalarLiteralP"
+- !private "s19_HasContiguousBytesP"
+- !private "s35_HasCustomAnyHashableRepresentationP"
+- !private "10Foundation27_KeyValueCodingAndObservingP"
+- !private "s21_ObjectiveCBridgeableP"
+- "5Hippo11channelTypeO"
+depends-dynamic-lookup:
+depends-external:
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/ObjectiveC.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreMedia.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/simd.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreImage.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/QuartzCore.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Accelerate.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Dispatch.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Metal.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Darwin.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreLocation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Foundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/AVFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreAudio.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/MediaPlayer.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreGraphics.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/os.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Photos.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Swift.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/UIKit.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/SwiftOnoneSupport.swiftmodule"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Hippo.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Helpers/TRWDownloadManager/TWRDownloadManager.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/SocketRocket/SocketRocket.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/SocketRocket/SRWebSocket.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/MZFayeClient/MZFayeClient.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/unextended-module.modulemap"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/usr/include/objc/ObjectiveC.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/OpenGLES.framework/Headers/OpenGLES.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreMedia.framework/Headers/CoreMedia.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreImage.framework/Headers/CoreImage.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/QuartzCore.framework/Headers/QuartzCore.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Accelerate.framework/Headers/Accelerate.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Dispatch.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/QuickLook.framework/Headers/QuickLook.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Metal.framework/Headers/Metal.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/usr/include/Darwin.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreLocation.framework/Headers/CoreLocation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Foundation.framework/Headers/Foundation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/AVFoundation.framework/Headers/AVFoundation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/MediaPlayer.framework/Headers/MediaPlayer.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreGraphics.framework/Headers/CoreGraphics.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/UserNotifications.framework/Headers/UserNotifications.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/os.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Photos.framework/Headers/Photos.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/UIKit.framework/Headers/UIKit.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreText.framework/Headers/CoreText.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/MediaToolbox.framework/Headers/MediaToolbox.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/AudioToolbox.framework/Headers/AudioToolbox.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Security.framework/Headers/Security.apinotes"
+interface-hash: "90daacb8af3169959cd288b0ccd9921a"

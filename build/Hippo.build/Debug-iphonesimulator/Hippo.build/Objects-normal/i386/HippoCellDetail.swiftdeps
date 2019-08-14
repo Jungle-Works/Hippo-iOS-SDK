@@ -1,0 +1,204 @@
+### Swift dependencies file v0 ###
+provides-top-level:
+- "HippoCellDetail"
+provides-nominal:
+- "5Hippo0A10CellDetailC"
+provides-member:
+- ["5Hippo0A10CellDetailC", ""]
+provides-dynamic-lookup:
+depends-top-level:
+- !private "+="
+- !private "=="
+- !private "??"
+- "AssignmentPrecedence"
+- "Bool"
+- "CGFloat"
+- "HippoCellDetail"
+- "NSObject"
+depends-member:
+- ["s7CVarArgP", ""]
+- !private ["s7CVarArgP", "actionHeight"]
+- !private ["s7CVarArgP", "additionalContentHeight"]
+- !private ["s7CVarArgP", "findTotalHeight"]
+- !private ["s7CVarArgP", "footerHeight"]
+- !private ["s7CVarArgP", "headerHeight"]
+- !private ["s7CVarArgP", "init"]
+- !private ["s7CVarArgP", "messageHeight"]
+- !private ["s7CVarArgP", "padding"]
+- !private ["s7CVarArgP", "responseHeight"]
+- !private ["s7CVarArgP", "senderNameHeight"]
+- !private ["s7CVarArgP", "showSenderName"]
+- !private ["s7CVarArgP", "totalHeight"]
+- ["s28CustomDebugStringConvertibleP", ""]
+- !private ["s28CustomDebugStringConvertibleP", "actionHeight"]
+- !private ["s28CustomDebugStringConvertibleP", "additionalContentHeight"]
+- !private ["s28CustomDebugStringConvertibleP", "findTotalHeight"]
+- !private ["s28CustomDebugStringConvertibleP", "footerHeight"]
+- !private ["s28CustomDebugStringConvertibleP", "headerHeight"]
+- !private ["s28CustomDebugStringConvertibleP", "init"]
+- !private ["s28CustomDebugStringConvertibleP", "messageHeight"]
+- !private ["s28CustomDebugStringConvertibleP", "padding"]
+- !private ["s28CustomDebugStringConvertibleP", "responseHeight"]
+- !private ["s28CustomDebugStringConvertibleP", "senderNameHeight"]
+- !private ["s28CustomDebugStringConvertibleP", "showSenderName"]
+- !private ["s28CustomDebugStringConvertibleP", "totalHeight"]
+- ["s23CustomStringConvertibleP", ""]
+- !private ["s23CustomStringConvertibleP", "actionHeight"]
+- !private ["s23CustomStringConvertibleP", "additionalContentHeight"]
+- !private ["s23CustomStringConvertibleP", "findTotalHeight"]
+- !private ["s23CustomStringConvertibleP", "footerHeight"]
+- !private ["s23CustomStringConvertibleP", "headerHeight"]
+- !private ["s23CustomStringConvertibleP", "init"]
+- !private ["s23CustomStringConvertibleP", "messageHeight"]
+- !private ["s23CustomStringConvertibleP", "padding"]
+- !private ["s23CustomStringConvertibleP", "responseHeight"]
+- !private ["s23CustomStringConvertibleP", "senderNameHeight"]
+- !private ["s23CustomStringConvertibleP", "showSenderName"]
+- !private ["s23CustomStringConvertibleP", "totalHeight"]
+- ["SQ", ""]
+- !private ["SQ", "actionHeight"]
+- !private ["SQ", "additionalContentHeight"]
+- !private ["SQ", "findTotalHeight"]
+- !private ["SQ", "footerHeight"]
+- !private ["SQ", "headerHeight"]
+- !private ["SQ", "init"]
+- !private ["SQ", "messageHeight"]
+- !private ["SQ", "padding"]
+- !private ["SQ", "responseHeight"]
+- !private ["SQ", "senderNameHeight"]
+- !private ["SQ", "showSenderName"]
+- !private ["SQ", "totalHeight"]
+- ["SH", ""]
+- !private ["SH", "actionHeight"]
+- !private ["SH", "additionalContentHeight"]
+- !private ["SH", "findTotalHeight"]
+- !private ["SH", "footerHeight"]
+- !private ["SH", "headerHeight"]
+- !private ["SH", "init"]
+- !private ["SH", "messageHeight"]
+- !private ["SH", "padding"]
+- !private ["SH", "responseHeight"]
+- !private ["SH", "senderNameHeight"]
+- !private ["SH", "showSenderName"]
+- !private ["SH", "totalHeight"]
+- ["5Hippo0A10CellDetailC", "Bool"]
+- ["5Hippo0A10CellDetailC", "CGFloat"]
+- ["5Hippo0A10CellDetailC", "actionHeight"]
+- ["5Hippo0A10CellDetailC", "additionalContentHeight"]
+- ["5Hippo0A10CellDetailC", "cellHeight"]
+- ["5Hippo0A10CellDetailC", "deinit"]
+- !private ["5Hippo0A10CellDetailC", "findTotalHeight"]
+- ["5Hippo0A10CellDetailC", "footerHeight"]
+- ["5Hippo0A10CellDetailC", "headerHeight"]
+- ["5Hippo0A10CellDetailC", "init"]
+- ["5Hippo0A10CellDetailC", "messageHeight"]
+- ["5Hippo0A10CellDetailC", "padding"]
+- ["5Hippo0A10CellDetailC", "responseHeight"]
+- ["5Hippo0A10CellDetailC", "senderNameHeight"]
+- ["5Hippo0A10CellDetailC", "showSenderName"]
+- !private ["5Hippo0A10CellDetailC", "totalHeight"]
+- ["So8NSObjectC", "Bool"]
+- ["So8NSObjectC", "CGFloat"]
+- ["So8NSObjectC", ""]
+- ["So8NSObjectC", "actionHeight"]
+- ["So8NSObjectC", "additionalContentHeight"]
+- ["So8NSObjectC", "cellHeight"]
+- ["So8NSObjectC", "findTotalHeight"]
+- ["So8NSObjectC", "footerHeight"]
+- ["So8NSObjectC", "headerHeight"]
+- ["So8NSObjectC", "init"]
+- ["So8NSObjectC", "messageHeight"]
+- ["So8NSObjectC", "padding"]
+- ["So8NSObjectC", "responseHeight"]
+- ["So8NSObjectC", "senderNameHeight"]
+- ["So8NSObjectC", "showSenderName"]
+- ["So8NSObjectC", "totalHeight"]
+- ["So8NSObjectP", ""]
+- !private ["So8NSObjectP", "actionHeight"]
+- !private ["So8NSObjectP", "additionalContentHeight"]
+- !private ["So8NSObjectP", "findTotalHeight"]
+- !private ["So8NSObjectP", "footerHeight"]
+- !private ["So8NSObjectP", "headerHeight"]
+- !private ["So8NSObjectP", "init"]
+- !private ["So8NSObjectP", "messageHeight"]
+- !private ["So8NSObjectP", "padding"]
+- !private ["So8NSObjectP", "responseHeight"]
+- !private ["So8NSObjectP", "senderNameHeight"]
+- !private ["So8NSObjectP", "showSenderName"]
+- !private ["So8NSObjectP", "totalHeight"]
+- ["10Foundation27_KeyValueCodingAndObservingP", ""]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "actionHeight"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "additionalContentHeight"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "findTotalHeight"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "footerHeight"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "headerHeight"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "init"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "messageHeight"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "padding"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "responseHeight"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "senderNameHeight"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "showSenderName"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "totalHeight"]
+depends-nominal:
+- "s7CVarArgP"
+- "s28CustomDebugStringConvertibleP"
+- "s23CustomStringConvertibleP"
+- "SQ"
+- "SH"
+- "5Hippo0A10CellDetailC"
+- "So8NSObjectC"
+- "So8NSObjectP"
+- "10Foundation27_KeyValueCodingAndObservingP"
+depends-dynamic-lookup:
+depends-external:
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/ObjectiveC.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreMedia.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/simd.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreImage.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/QuartzCore.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Accelerate.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Dispatch.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Metal.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Darwin.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreLocation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Foundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/AVFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreAudio.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/MediaPlayer.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreGraphics.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/os.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Photos.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Swift.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/UIKit.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/SwiftOnoneSupport.swiftmodule"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Hippo.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Helpers/TRWDownloadManager/TWRDownloadManager.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/SocketRocket/SocketRocket.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/SocketRocket/SRWebSocket.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/MZFayeClient/MZFayeClient.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/unextended-module.modulemap"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/usr/include/objc/ObjectiveC.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/OpenGLES.framework/Headers/OpenGLES.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreMedia.framework/Headers/CoreMedia.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreImage.framework/Headers/CoreImage.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/QuartzCore.framework/Headers/QuartzCore.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Accelerate.framework/Headers/Accelerate.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Dispatch.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/QuickLook.framework/Headers/QuickLook.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Metal.framework/Headers/Metal.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/usr/include/Darwin.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreLocation.framework/Headers/CoreLocation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Foundation.framework/Headers/Foundation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/AVFoundation.framework/Headers/AVFoundation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/MediaPlayer.framework/Headers/MediaPlayer.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreGraphics.framework/Headers/CoreGraphics.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/UserNotifications.framework/Headers/UserNotifications.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/os.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Photos.framework/Headers/Photos.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/UIKit.framework/Headers/UIKit.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreText.framework/Headers/CoreText.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/MediaToolbox.framework/Headers/MediaToolbox.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/AudioToolbox.framework/Headers/AudioToolbox.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Security.framework/Headers/Security.apinotes"
+interface-hash: "f82ab4e253bc4f532dd7ec40c382f473"

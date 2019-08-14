@@ -1,0 +1,565 @@
+### Swift dependencies file v0 ###
+provides-top-level:
+provides-nominal:
+provides-member:
+- ["5Hippo10KingfisherC", ""]
+- ["So8UIButtonC", ""]
+- ["5Hippo10KingfisherC", "setImage"]
+- ["5Hippo10KingfisherC", "cancelImageDownloadTask"]
+- ["5Hippo10KingfisherC", "setBackgroundImage"]
+- ["5Hippo10KingfisherC", "cancelBackgroundImageDownloadTask"]
+- ["5Hippo10KingfisherC", "webURL"]
+- ["5Hippo10KingfisherC", "backgroundWebURL"]
+- ["So8UIButtonC", "kf_setImage"]
+- ["So8UIButtonC", "kf_cancelImageDownloadTask"]
+- ["So8UIButtonC", "kf_setBackgroundImage"]
+- ["So8UIButtonC", "kf_cancelBackgroundImageDownloadTask"]
+- ["So8UIButtonC", "kf_webURL"]
+- ["So8UIButtonC", "kf_backgroundWebURL"]
+provides-dynamic-lookup:
+depends-top-level:
+- !private "!"
+- !private "!="
+- !private "+"
+- !private "=="
+- !private "??"
+- "AssignmentPrecedence"
+- "CastingPrecedence"
+- "CompletionHandler"
+- !private "DispatchQueue"
+- "DownloadProgressBlock"
+- "Kingfisher"
+- !private "KingfisherEmptyOptionsInfo"
+- !private "KingfisherManager"
+- "KingfisherOptionsInfo"
+- "NSMutableDictionary"
+- !private "NSNumber"
+- "Resource"
+- "RetrieveImageTask"
+- "UIButton"
+- "UIControl"
+- "UIImage"
+- "URL"
+- "Void"
+- !private "backgroundImageTaskKey"
+- !private "imageTaskKey"
+- !private "lastBackgroundURLKey"
+- !private "lastURLKey"
+- !private "objc_getAssociatedObject"
+- !private "objc_setAssociatedObject"
+depends-member:
+- !private ["Sa", "keepCurrentImageWhileLoading"]
+- !private ["SK", "keepCurrentImageWhileLoading"]
+- ["So15CALayerDelegateP", "State"]
+- !private ["So15CALayerDelegateP", "kf"]
+- !private ["So15CALayerDelegateP", "setBackgroundImage"]
+- !private ["So15CALayerDelegateP", "setImage"]
+- ["s7CVarArgP", "State"]
+- !private ["s7CVarArgP", "init"]
+- !private ["s7CVarArgP", "keepCurrentImageWhileLoading"]
+- !private ["s7CVarArgP", "kf"]
+- !private ["s7CVarArgP", "main"]
+- !private ["s7CVarArgP", "safeAsync"]
+- !private ["s7CVarArgP", "setBackgroundImage"]
+- !private ["s7CVarArgP", "setImage"]
+- !private ["s7CVarArgP", "subscript"]
+- !private ["5Hippo9CacheTypeO", "none"]
+- !private ["Sl", "keepCurrentImageWhileLoading"]
+- !private ["10Foundation15ContiguousBytesP", "keepCurrentImageWhileLoading"]
+- ["s28CustomDebugStringConvertibleP", "State"]
+- !private ["s28CustomDebugStringConvertibleP", "init"]
+- !private ["s28CustomDebugStringConvertibleP", "keepCurrentImageWhileLoading"]
+- !private ["s28CustomDebugStringConvertibleP", "kf"]
+- !private ["s28CustomDebugStringConvertibleP", "main"]
+- !private ["s28CustomDebugStringConvertibleP", "safeAsync"]
+- !private ["s28CustomDebugStringConvertibleP", "setBackgroundImage"]
+- !private ["s28CustomDebugStringConvertibleP", "setImage"]
+- !private ["s28CustomDebugStringConvertibleP", "subscript"]
+- !private ["s17CustomReflectableP", "init"]
+- !private ["s17CustomReflectableP", "keepCurrentImageWhileLoading"]
+- !private ["s17CustomReflectableP", "subscript"]
+- ["s23CustomStringConvertibleP", "State"]
+- !private ["s23CustomStringConvertibleP", "init"]
+- !private ["s23CustomStringConvertibleP", "keepCurrentImageWhileLoading"]
+- !private ["s23CustomStringConvertibleP", "kf"]
+- !private ["s23CustomStringConvertibleP", "main"]
+- !private ["s23CustomStringConvertibleP", "safeAsync"]
+- !private ["s23CustomStringConvertibleP", "setBackgroundImage"]
+- !private ["s23CustomStringConvertibleP", "setImage"]
+- !private ["s23CustomStringConvertibleP", "subscript"]
+- !private ["10Foundation12DataProtocolP", "keepCurrentImageWhileLoading"]
+- !private ["Se", "keepCurrentImageWhileLoading"]
+- !private ["So18OS_dispatch_objectC", "main"]
+- !private ["So18OS_dispatch_objectC", "safeAsync"]
+- !private ["So17OS_dispatch_queueC", "main"]
+- !private ["So17OS_dispatch_queueC", "safeAsync"]
+- !private ["SE", "keepCurrentImageWhileLoading"]
+- !private ["SQ", "OBJC_ASSOCIATION_RETAIN_NONATOMIC"]
+- ["SQ", "State"]
+- !private ["SQ", "init"]
+- !private ["SQ", "keepCurrentImageWhileLoading"]
+- !private ["SQ", "kf"]
+- !private ["SQ", "main"]
+- !private ["SQ", "none"]
+- !private ["SQ", "rawValue"]
+- !private ["SQ", "safeAsync"]
+- !private ["SQ", "setBackgroundImage"]
+- !private ["SQ", "setImage"]
+- !private ["SQ", "subscript"]
+- !private ["s25ExpressibleByArrayLiteralP", "keepCurrentImageWhileLoading"]
+- !private ["s25ExpressibleByArrayLiteralP", "rawValue"]
+- !private ["s27ExpressibleByBooleanLiteralP", "init"]
+- !private ["s30ExpressibleByDictionaryLiteralP", "init"]
+- !private ["s30ExpressibleByDictionaryLiteralP", "subscript"]
+- !private ["s25ExpressibleByFloatLiteralP", "init"]
+- !private ["s27ExpressibleByIntegerLiteralP", "init"]
+- !private ["SH", "OBJC_ASSOCIATION_RETAIN_NONATOMIC"]
+- ["SH", "State"]
+- !private ["SH", "init"]
+- !private ["SH", "keepCurrentImageWhileLoading"]
+- !private ["SH", "kf"]
+- !private ["SH", "main"]
+- !private ["SH", "none"]
+- !private ["SH", "safeAsync"]
+- !private ["SH", "setBackgroundImage"]
+- !private ["SH", "setImage"]
+- !private ["SH", "subscript"]
+- ["5Hippo10KingfisherC", "CompletionHandler"]
+- !private ["5Hippo10KingfisherC", "DispatchQueue"]
+- ["5Hippo10KingfisherC", "DownloadProgressBlock"]
+- !private ["5Hippo10KingfisherC", "KingfisherEmptyOptionsInfo"]
+- !private ["5Hippo10KingfisherC", "KingfisherManager"]
+- ["5Hippo10KingfisherC", "KingfisherOptionsInfo"]
+- ["5Hippo10KingfisherC", "NSMutableDictionary"]
+- !private ["5Hippo10KingfisherC", "NSNumber"]
+- ["5Hippo10KingfisherC", "Resource"]
+- ["5Hippo10KingfisherC", "RetrieveImageTask"]
+- ["5Hippo10KingfisherC", "UIButton"]
+- ["5Hippo10KingfisherC", "UIControl"]
+- ["5Hippo10KingfisherC", "UIImage"]
+- ["5Hippo10KingfisherC", "URL"]
+- !private ["5Hippo10KingfisherC", "backgroundImageTask"]
+- !private ["5Hippo10KingfisherC", "backgroundImageTaskKey"]
+- ["5Hippo10KingfisherC", "backgroundWebURL"]
+- !private ["5Hippo10KingfisherC", "backgroundWebURLs"]
+- !private ["5Hippo10KingfisherC", "base"]
+- ["5Hippo10KingfisherC", "cancelBackgroundImageDownloadTask"]
+- ["5Hippo10KingfisherC", "cancelImageDownloadTask"]
+- !private ["5Hippo10KingfisherC", "imageTask"]
+- !private ["5Hippo10KingfisherC", "imageTaskKey"]
+- !private ["5Hippo10KingfisherC", "lastBackgroundURLKey"]
+- !private ["5Hippo10KingfisherC", "lastURLKey"]
+- !private ["5Hippo10KingfisherC", "objc_getAssociatedObject"]
+- !private ["5Hippo10KingfisherC", "objc_setAssociatedObject"]
+- ["5Hippo10KingfisherC", "setBackgroundImage"]
+- !private ["5Hippo10KingfisherC", "setBackgroundImageTask"]
+- !private ["5Hippo10KingfisherC", "setBackgroundWebURL"]
+- !private ["5Hippo10KingfisherC", "setBackgroundWebURLs"]
+- ["5Hippo10KingfisherC", "setImage"]
+- !private ["5Hippo10KingfisherC", "setImageTask"]
+- !private ["5Hippo10KingfisherC", "setWebURL"]
+- !private ["5Hippo10KingfisherC", "setWebURLs"]
+- ["5Hippo10KingfisherC", "webURL"]
+- !private ["5Hippo10KingfisherC", "webURLs"]
+- !private ["5Hippo20KingfisherCompatibleP", "kf"]
+- !private ["5Hippo20KingfisherCompatibleP", "setBackgroundImage"]
+- !private ["5Hippo20KingfisherCompatibleP", "setImage"]
+- !private ["5Hippo17KingfisherManagerC", "defaultOptions"]
+- !private ["5Hippo17KingfisherManagerC", "retrieveImage"]
+- !private ["5Hippo17KingfisherManagerC", "shared"]
+- !private ["SM", "keepCurrentImageWhileLoading"]
+- !private ["10Foundation19MutableDataProtocolP", "keepCurrentImageWhileLoading"]
+- ["So8NSCodingP", "State"]
+- !private ["So8NSCodingP", "init"]
+- !private ["So8NSCodingP", "kf"]
+- !private ["So8NSCodingP", "setBackgroundImage"]
+- !private ["So8NSCodingP", "setImage"]
+- !private ["So8NSCodingP", "subscript"]
+- !private ["So9NSCopyingP", "init"]
+- !private ["So9NSCopyingP", "subscript"]
+- !private ["So12NSDictionaryC", "init"]
+- !private ["So12NSDictionaryC", "subscript"]
+- !private ["So17NSFastEnumerationP", "init"]
+- !private ["So17NSFastEnumerationP", "subscript"]
+- !private ["So16NSMutableCopyingP", "init"]
+- !private ["So16NSMutableCopyingP", "subscript"]
+- !private ["So19NSMutableDictionaryC", "init"]
+- !private ["So19NSMutableDictionaryC", "subscript"]
+- !private ["So8NSNumberC", "init"]
+- ["So8NSObjectC", "CompletionHandler"]
+- ["So8NSObjectC", "DownloadProgressBlock"]
+- ["So8NSObjectC", "KingfisherOptionsInfo"]
+- ["So8NSObjectC", "NSMutableDictionary"]
+- ["So8NSObjectC", "Resource"]
+- ["So8NSObjectC", "RetrieveImageTask"]
+- ["So8NSObjectC", "State"]
+- ["So8NSObjectC", "UIControl"]
+- ["So8NSObjectC", "UIImage"]
+- ["So8NSObjectC", "URL"]
+- !private ["So8NSObjectC", "init"]
+- !private ["So8NSObjectC", "kf"]
+- ["So8NSObjectC", "kf_backgroundImageTask"]
+- ["So8NSObjectC", "kf_backgroundWebURL"]
+- ["So8NSObjectC", "kf_backgroundWebURLs"]
+- ["So8NSObjectC", "kf_cancelBackgroundImageDownloadTask"]
+- ["So8NSObjectC", "kf_cancelImageDownloadTask"]
+- ["So8NSObjectC", "kf_imageTask"]
+- ["So8NSObjectC", "kf_setBackgroundImage"]
+- ["So8NSObjectC", "kf_setBackgroundImageTask"]
+- ["So8NSObjectC", "kf_setBackgroundWebURL"]
+- ["So8NSObjectC", "kf_setBackgroundWebURLs"]
+- ["So8NSObjectC", "kf_setImage"]
+- ["So8NSObjectC", "kf_setImageTask"]
+- ["So8NSObjectC", "kf_setWebURL"]
+- ["So8NSObjectC", "kf_setWebURLs"]
+- ["So8NSObjectC", "kf_webURL"]
+- ["So8NSObjectC", "kf_webURLs"]
+- !private ["So8NSObjectC", "main"]
+- !private ["So8NSObjectC", "safeAsync"]
+- !private ["So8NSObjectC", "setBackgroundImage"]
+- !private ["So8NSObjectC", "setImage"]
+- !private ["So8NSObjectC", "subscript"]
+- ["So8NSObjectP", "State"]
+- !private ["So8NSObjectP", "init"]
+- !private ["So8NSObjectP", "kf"]
+- !private ["So8NSObjectP", "main"]
+- !private ["So8NSObjectP", "safeAsync"]
+- !private ["So8NSObjectP", "setBackgroundImage"]
+- !private ["So8NSObjectP", "setImage"]
+- !private ["So8NSObjectP", "subscript"]
+- !private ["So14NSSecureCodingP", "init"]
+- !private ["So14NSSecureCodingP", "subscript"]
+- !private ["So7NSValueC", "init"]
+- !private ["So9OS_objectC", "main"]
+- !private ["So9OS_objectC", "safeAsync"]
+- !private ["s9OptionSetP", "rawValue"]
+- !private ["Sk", "keepCurrentImageWhileLoading"]
+- !private ["Sm", "keepCurrentImageWhileLoading"]
+- !private ["SY", "OBJC_ASSOCIATION_RETAIN_NONATOMIC"]
+- !private ["SY", "rawValue"]
+- !private ["5Hippo8ResourceP", "downloadURL"]
+- !private ["5Hippo17RetrieveImageTaskC", "cancel"]
+- !private ["5Hippo17RetrieveImageTaskC", "empty"]
+- !private ["ST", "init"]
+- !private ["ST", "keepCurrentImageWhileLoading"]
+- !private ["ST", "subscript"]
+- !private ["s10SetAlgebraP", "rawValue"]
+- !private ["So14UIControlStateV", "rawValue"]
+- !private ["So48UIAccessibilityContentSizeCategoryImageAdjustingP", "kf"]
+- !private ["So48UIAccessibilityContentSizeCategoryImageAdjustingP", "setBackgroundImage"]
+- !private ["So48UIAccessibilityContentSizeCategoryImageAdjustingP", "setImage"]
+- ["So29UIAccessibilityIdentificationP", "State"]
+- !private ["So29UIAccessibilityIdentificationP", "kf"]
+- !private ["So29UIAccessibilityIdentificationP", "setBackgroundImage"]
+- !private ["So29UIAccessibilityIdentificationP", "setImage"]
+- ["So12UIAppearanceP", "State"]
+- !private ["So12UIAppearanceP", "kf"]
+- !private ["So12UIAppearanceP", "setBackgroundImage"]
+- !private ["So12UIAppearanceP", "setImage"]
+- ["So21UIAppearanceContainerP", "State"]
+- !private ["So21UIAppearanceContainerP", "kf"]
+- !private ["So21UIAppearanceContainerP", "setBackgroundImage"]
+- !private ["So21UIAppearanceContainerP", "setImage"]
+- ["So8UIButtonC", "CompletionHandler"]
+- ["So8UIButtonC", "DownloadProgressBlock"]
+- ["So8UIButtonC", "KingfisherOptionsInfo"]
+- ["So8UIButtonC", "NSMutableDictionary"]
+- ["So8UIButtonC", "Resource"]
+- ["So8UIButtonC", "RetrieveImageTask"]
+- ["So8UIButtonC", "UIControl"]
+- ["So8UIButtonC", "UIImage"]
+- ["So8UIButtonC", "URL"]
+- !private ["So8UIButtonC", "deinit"]
+- !private ["So8UIButtonC", "kf"]
+- !private ["So8UIButtonC", "kf_backgroundImageTask"]
+- ["So8UIButtonC", "kf_backgroundWebURL"]
+- !private ["So8UIButtonC", "kf_backgroundWebURLs"]
+- ["So8UIButtonC", "kf_cancelBackgroundImageDownloadTask"]
+- ["So8UIButtonC", "kf_cancelImageDownloadTask"]
+- !private ["So8UIButtonC", "kf_imageTask"]
+- ["So8UIButtonC", "kf_setBackgroundImage"]
+- !private ["So8UIButtonC", "kf_setBackgroundImageTask"]
+- !private ["So8UIButtonC", "kf_setBackgroundWebURL"]
+- !private ["So8UIButtonC", "kf_setBackgroundWebURLs"]
+- ["So8UIButtonC", "kf_setImage"]
+- !private ["So8UIButtonC", "kf_setImageTask"]
+- !private ["So8UIButtonC", "kf_setWebURL"]
+- !private ["So8UIButtonC", "kf_setWebURLs"]
+- ["So8UIButtonC", "kf_webURL"]
+- !private ["So8UIButtonC", "kf_webURLs"]
+- !private ["So8UIButtonC", "setBackgroundImage"]
+- !private ["So8UIButtonC", "setImage"]
+- ["So9UIControlC", "CompletionHandler"]
+- ["So9UIControlC", "DownloadProgressBlock"]
+- ["So9UIControlC", "KingfisherOptionsInfo"]
+- ["So9UIControlC", "NSMutableDictionary"]
+- ["So9UIControlC", "Resource"]
+- ["So9UIControlC", "RetrieveImageTask"]
+- ["So9UIControlC", "State"]
+- ["So9UIControlC", "UIControl"]
+- ["So9UIControlC", "UIImage"]
+- ["So9UIControlC", "URL"]
+- !private ["So9UIControlC", "kf"]
+- ["So9UIControlC", "kf_backgroundImageTask"]
+- ["So9UIControlC", "kf_backgroundWebURL"]
+- ["So9UIControlC", "kf_backgroundWebURLs"]
+- ["So9UIControlC", "kf_cancelBackgroundImageDownloadTask"]
+- ["So9UIControlC", "kf_cancelImageDownloadTask"]
+- ["So9UIControlC", "kf_imageTask"]
+- ["So9UIControlC", "kf_setBackgroundImage"]
+- ["So9UIControlC", "kf_setBackgroundImageTask"]
+- ["So9UIControlC", "kf_setBackgroundWebURL"]
+- ["So9UIControlC", "kf_setBackgroundWebURLs"]
+- ["So9UIControlC", "kf_setImage"]
+- ["So9UIControlC", "kf_setImageTask"]
+- ["So9UIControlC", "kf_setWebURL"]
+- ["So9UIControlC", "kf_setWebURLs"]
+- ["So9UIControlC", "kf_webURL"]
+- ["So9UIControlC", "kf_webURLs"]
+- !private ["So9UIControlC", "setBackgroundImage"]
+- !private ["So9UIControlC", "setImage"]
+- ["So17UICoordinateSpaceP", "State"]
+- !private ["So17UICoordinateSpaceP", "kf"]
+- !private ["So17UICoordinateSpaceP", "setBackgroundImage"]
+- !private ["So17UICoordinateSpaceP", "setImage"]
+- ["So13UIDynamicItemP", "State"]
+- !private ["So13UIDynamicItemP", "kf"]
+- !private ["So13UIDynamicItemP", "setBackgroundImage"]
+- !private ["So13UIDynamicItemP", "setImage"]
+- ["So18UIFocusEnvironmentP", "State"]
+- !private ["So18UIFocusEnvironmentP", "kf"]
+- !private ["So18UIFocusEnvironmentP", "setBackgroundImage"]
+- !private ["So18UIFocusEnvironmentP", "setImage"]
+- ["So11UIFocusItemP", "State"]
+- !private ["So11UIFocusItemP", "kf"]
+- !private ["So11UIFocusItemP", "setBackgroundImage"]
+- !private ["So11UIFocusItemP", "setImage"]
+- ["So20UIFocusItemContainerP", "State"]
+- !private ["So20UIFocusItemContainerP", "kf"]
+- !private ["So20UIFocusItemContainerP", "setBackgroundImage"]
+- !private ["So20UIFocusItemContainerP", "setImage"]
+- ["So30UIPasteConfigurationSupportingP", "State"]
+- !private ["So30UIPasteConfigurationSupportingP", "kf"]
+- !private ["So30UIPasteConfigurationSupportingP", "setBackgroundImage"]
+- !private ["So30UIPasteConfigurationSupportingP", "setImage"]
+- ["So11UIResponderC", "CompletionHandler"]
+- ["So11UIResponderC", "DownloadProgressBlock"]
+- ["So11UIResponderC", "KingfisherOptionsInfo"]
+- ["So11UIResponderC", "NSMutableDictionary"]
+- ["So11UIResponderC", "Resource"]
+- ["So11UIResponderC", "RetrieveImageTask"]
+- ["So11UIResponderC", "State"]
+- ["So11UIResponderC", "UIControl"]
+- ["So11UIResponderC", "UIImage"]
+- ["So11UIResponderC", "URL"]
+- !private ["So11UIResponderC", "kf"]
+- ["So11UIResponderC", "kf_backgroundImageTask"]
+- ["So11UIResponderC", "kf_backgroundWebURL"]
+- ["So11UIResponderC", "kf_backgroundWebURLs"]
+- ["So11UIResponderC", "kf_cancelBackgroundImageDownloadTask"]
+- ["So11UIResponderC", "kf_cancelImageDownloadTask"]
+- ["So11UIResponderC", "kf_imageTask"]
+- ["So11UIResponderC", "kf_setBackgroundImage"]
+- ["So11UIResponderC", "kf_setBackgroundImageTask"]
+- ["So11UIResponderC", "kf_setBackgroundWebURL"]
+- ["So11UIResponderC", "kf_setBackgroundWebURLs"]
+- ["So11UIResponderC", "kf_setImage"]
+- ["So11UIResponderC", "kf_setImageTask"]
+- ["So11UIResponderC", "kf_setWebURL"]
+- ["So11UIResponderC", "kf_setWebURLs"]
+- ["So11UIResponderC", "kf_webURL"]
+- ["So11UIResponderC", "kf_webURLs"]
+- !private ["So11UIResponderC", "setBackgroundImage"]
+- !private ["So11UIResponderC", "setImage"]
+- ["So30UIResponderStandardEditActionsP", "State"]
+- !private ["So30UIResponderStandardEditActionsP", "kf"]
+- !private ["So30UIResponderStandardEditActionsP", "setBackgroundImage"]
+- !private ["So30UIResponderStandardEditActionsP", "setImage"]
+- !private ["So35UISpringLoadedInteractionSupportingP", "kf"]
+- !private ["So35UISpringLoadedInteractionSupportingP", "setBackgroundImage"]
+- !private ["So35UISpringLoadedInteractionSupportingP", "setImage"]
+- ["So18UITraitEnvironmentP", "State"]
+- !private ["So18UITraitEnvironmentP", "kf"]
+- !private ["So18UITraitEnvironmentP", "setBackgroundImage"]
+- !private ["So18UITraitEnvironmentP", "setImage"]
+- ["So23UIUserActivityRestoringP", "State"]
+- !private ["So23UIUserActivityRestoringP", "kf"]
+- !private ["So23UIUserActivityRestoringP", "setBackgroundImage"]
+- !private ["So23UIUserActivityRestoringP", "setImage"]
+- ["So6UIViewC", "CompletionHandler"]
+- ["So6UIViewC", "DownloadProgressBlock"]
+- ["So6UIViewC", "KingfisherOptionsInfo"]
+- ["So6UIViewC", "NSMutableDictionary"]
+- ["So6UIViewC", "Resource"]
+- ["So6UIViewC", "RetrieveImageTask"]
+- ["So6UIViewC", "State"]
+- ["So6UIViewC", "UIControl"]
+- ["So6UIViewC", "UIImage"]
+- ["So6UIViewC", "URL"]
+- !private ["So6UIViewC", "kf"]
+- ["So6UIViewC", "kf_backgroundImageTask"]
+- ["So6UIViewC", "kf_backgroundWebURL"]
+- ["So6UIViewC", "kf_backgroundWebURLs"]
+- ["So6UIViewC", "kf_cancelBackgroundImageDownloadTask"]
+- ["So6UIViewC", "kf_cancelImageDownloadTask"]
+- ["So6UIViewC", "kf_imageTask"]
+- ["So6UIViewC", "kf_setBackgroundImage"]
+- ["So6UIViewC", "kf_setBackgroundImageTask"]
+- ["So6UIViewC", "kf_setBackgroundWebURL"]
+- ["So6UIViewC", "kf_setBackgroundWebURLs"]
+- ["So6UIViewC", "kf_setImage"]
+- ["So6UIViewC", "kf_setImageTask"]
+- ["So6UIViewC", "kf_setWebURL"]
+- ["So6UIViewC", "kf_setWebURLs"]
+- ["So6UIViewC", "kf_webURL"]
+- ["So6UIViewC", "kf_webURLs"]
+- !private ["So6UIViewC", "setBackgroundImage"]
+- !private ["So6UIViewC", "setImage"]
+- !private ["s14_ArrayProtocolP", "keepCurrentImageWhileLoading"]
+- !private ["s24_DestructorSafeContainerP", "keepCurrentImageWhileLoading"]
+- !private ["s19_HasContiguousBytesP", "keepCurrentImageWhileLoading"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "init"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "keepCurrentImageWhileLoading"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "subscript"]
+- ["10Foundation27_KeyValueCodingAndObservingP", "State"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "init"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "kf"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "main"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "safeAsync"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "setBackgroundImage"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "setImage"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "subscript"]
+- !private ["s21_ObjectiveCBridgeableP", "keepCurrentImageWhileLoading"]
+- ["s38__DefaultCustomPlaygroundQuickLookableP", "State"]
+- !private ["s38__DefaultCustomPlaygroundQuickLookableP", "kf"]
+- !private ["s38__DefaultCustomPlaygroundQuickLookableP", "setBackgroundImage"]
+- !private ["s38__DefaultCustomPlaygroundQuickLookableP", "setImage"]
+- !private ["So22objc_AssociationPolicyV", "OBJC_ASSOCIATION_RETAIN_NONATOMIC"]
+depends-nominal:
+- !private "Sa"
+- !private "SK"
+- "So15CALayerDelegateP"
+- "s7CVarArgP"
+- !private "5Hippo9CacheTypeO"
+- !private "Sl"
+- !private "10Foundation15ContiguousBytesP"
+- "s28CustomDebugStringConvertibleP"
+- !private "s17CustomReflectableP"
+- "s23CustomStringConvertibleP"
+- !private "10Foundation12DataProtocolP"
+- !private "Se"
+- !private "So18OS_dispatch_objectC"
+- !private "So17OS_dispatch_queueC"
+- !private "SE"
+- "SQ"
+- !private "s25ExpressibleByArrayLiteralP"
+- !private "s27ExpressibleByBooleanLiteralP"
+- !private "s30ExpressibleByDictionaryLiteralP"
+- !private "s25ExpressibleByFloatLiteralP"
+- !private "s27ExpressibleByIntegerLiteralP"
+- "SH"
+- "5Hippo10KingfisherC"
+- !private "5Hippo20KingfisherCompatibleP"
+- !private "5Hippo17KingfisherManagerC"
+- !private "SM"
+- !private "10Foundation19MutableDataProtocolP"
+- "So8NSCodingP"
+- !private "So9NSCopyingP"
+- !private "So12NSDictionaryC"
+- !private "So17NSFastEnumerationP"
+- !private "So16NSMutableCopyingP"
+- !private "So19NSMutableDictionaryC"
+- !private "So8NSNumberC"
+- "So8NSObjectC"
+- "So8NSObjectP"
+- !private "So14NSSecureCodingP"
+- !private "So7NSValueC"
+- !private "So9OS_objectC"
+- !private "s9OptionSetP"
+- !private "Sk"
+- !private "Sm"
+- !private "SY"
+- !private "5Hippo8ResourceP"
+- !private "5Hippo17RetrieveImageTaskC"
+- !private "ST"
+- !private "s10SetAlgebraP"
+- !private "So14UIControlStateV"
+- !private "So48UIAccessibilityContentSizeCategoryImageAdjustingP"
+- "So29UIAccessibilityIdentificationP"
+- "So12UIAppearanceP"
+- "So21UIAppearanceContainerP"
+- "So8UIButtonC"
+- "So9UIControlC"
+- "So17UICoordinateSpaceP"
+- "So13UIDynamicItemP"
+- "So18UIFocusEnvironmentP"
+- "So11UIFocusItemP"
+- "So20UIFocusItemContainerP"
+- "So30UIPasteConfigurationSupportingP"
+- "So11UIResponderC"
+- "So30UIResponderStandardEditActionsP"
+- !private "So35UISpringLoadedInteractionSupportingP"
+- "So18UITraitEnvironmentP"
+- "So23UIUserActivityRestoringP"
+- "So6UIViewC"
+- !private "s14_ArrayProtocolP"
+- !private "s24_DestructorSafeContainerP"
+- !private "s19_HasContiguousBytesP"
+- !private "s35_HasCustomAnyHashableRepresentationP"
+- "10Foundation27_KeyValueCodingAndObservingP"
+- !private "s21_ObjectiveCBridgeableP"
+- "s38__DefaultCustomPlaygroundQuickLookableP"
+- !private "So22objc_AssociationPolicyV"
+depends-dynamic-lookup:
+depends-external:
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/ObjectiveC.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreMedia.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/simd.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreImage.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/QuartzCore.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Accelerate.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Dispatch.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Metal.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Darwin.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreLocation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Foundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/AVFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreAudio.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/MediaPlayer.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreGraphics.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/os.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Photos.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Swift.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/UIKit.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/SwiftOnoneSupport.swiftmodule"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Hippo.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Helpers/TRWDownloadManager/TWRDownloadManager.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/SocketRocket/SocketRocket.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/SocketRocket/SRWebSocket.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/MZFayeClient/MZFayeClient.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/unextended-module.modulemap"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/usr/include/objc/ObjectiveC.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/OpenGLES.framework/Headers/OpenGLES.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreMedia.framework/Headers/CoreMedia.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreImage.framework/Headers/CoreImage.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/QuartzCore.framework/Headers/QuartzCore.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Accelerate.framework/Headers/Accelerate.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Dispatch.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/QuickLook.framework/Headers/QuickLook.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Metal.framework/Headers/Metal.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/usr/include/Darwin.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreLocation.framework/Headers/CoreLocation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Foundation.framework/Headers/Foundation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/AVFoundation.framework/Headers/AVFoundation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/MediaPlayer.framework/Headers/MediaPlayer.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreGraphics.framework/Headers/CoreGraphics.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/UserNotifications.framework/Headers/UserNotifications.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/os.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Photos.framework/Headers/Photos.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/UIKit.framework/Headers/UIKit.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreText.framework/Headers/CoreText.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/MediaToolbox.framework/Headers/MediaToolbox.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/AudioToolbox.framework/Headers/AudioToolbox.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Security.framework/Headers/Security.apinotes"
+interface-hash: "c8f984b20a44c0b1609739f54fbc7be9"

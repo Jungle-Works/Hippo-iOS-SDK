@@ -1,0 +1,11 @@
+framework module Hippo {
+  umbrella header "Hippo.h"
+
+  export *
+  module * { export * }
+}
+
+module Hippo.Swift {
+    header "Hippo-Swift.h"
+    requires objc
+}

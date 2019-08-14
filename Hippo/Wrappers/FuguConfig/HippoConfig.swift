@@ -98,7 +98,7 @@ public class HippoConfig : NSObject {
     // MARK: - Intialization
     private override init() {
         super.init()
-        
+        print("chall   \(CallManager.shared.isCallClientAvailable())")
         TookanHelper.getCountryCode()
         HippoObservers.shared.enable = true
         FuguNetworkHandler.shared.fuguConnectionChangesStartNotifier()

@@ -1,0 +1,604 @@
+### Swift dependencies file v0 ###
+provides-top-level:
+- "MessageSenderDelegate"
+- "MessageSender"
+provides-nominal:
+- "5Hippo21MessageSenderDelegateP"
+- "5Hippo13MessageSenderC"
+provides-member:
+- ["5Hippo21MessageSenderDelegateP", ""]
+- ["5Hippo13MessageSenderC", ""]
+provides-dynamic-lookup:
+- "fayeConnected"
+- "fayeDisconnected"
+depends-top-level:
+- !private "!"
+- !private "!="
+- !private "&&"
+- "*"
+- !private "=="
+- "AnyObject"
+- "AssignmentPrecedence"
+- "Bool"
+- !private "ComparisonResult"
+- !private "Date"
+- !private "DispatchQueue"
+- "FayeConnection"
+- !private "HippoActionMessage"
+- "HippoMessage"
+- "Int"
+- "MessageSender"
+- "MessageSenderDelegate"
+- !private "NotificationCenter"
+- !private "String"
+- "TimeInterval"
+- "Void"
+- !private "fuguDelay"
+- !private "||"
+depends-member:
+- !private ["s18AdditiveArithmeticP", "description"]
+- !private ["Sa", "append"]
+- !private ["Sa", "count"]
+- !private ["Sa", "first"]
+- !private ["Sa", "removeAll"]
+- !private ["Sa", "removeFirst"]
+- !private ["SK", "append"]
+- !private ["SK", "count"]
+- !private ["SK", "first"]
+- !private ["SK", "removeAll"]
+- !private ["SK", "removeFirst"]
+- !private ["Sz", "description"]
+- ["s7CVarArgP", "FayeResult"]
+- !private ["s7CVarArgP", "addObserver"]
+- !private ["s7CVarArgP", "append"]
+- !private ["s7CVarArgP", "async"]
+- !private ["s7CVarArgP", "count"]
+- !private ["s7CVarArgP", "default"]
+- !private ["s7CVarArgP", "description"]
+- !private ["s7CVarArgP", "first"]
+- !private ["s7CVarArgP", "isChannelSubscribed"]
+- !private ["s7CVarArgP", "main"]
+- !private ["s7CVarArgP", "removeAll"]
+- !private ["s7CVarArgP", "removeFirst"]
+- !private ["s7CVarArgP", "send"]
+- !private ["s7CVarArgP", "shared"]
+- !private ["Sl", "append"]
+- !private ["Sl", "count"]
+- !private ["Sl", "first"]
+- !private ["Sl", "removeAll"]
+- !private ["Sl", "removeFirst"]
+- !private ["SL", "addingTimeInterval"]
+- !private ["SL", "compare"]
+- !private ["SL", "description"]
+- !private ["SL", "init"]
+- !private ["So18NSComparisonResultV", "orderedAscending"]
+- !private ["10Foundation15ContiguousBytesP", "append"]
+- !private ["10Foundation15ContiguousBytesP", "count"]
+- !private ["10Foundation15ContiguousBytesP", "first"]
+- !private ["10Foundation15ContiguousBytesP", "removeAll"]
+- !private ["10Foundation15ContiguousBytesP", "removeFirst"]
+- ["s28CustomDebugStringConvertibleP", "FayeResult"]
+- !private ["s28CustomDebugStringConvertibleP", "addObserver"]
+- !private ["s28CustomDebugStringConvertibleP", "addingTimeInterval"]
+- !private ["s28CustomDebugStringConvertibleP", "append"]
+- !private ["s28CustomDebugStringConvertibleP", "async"]
+- !private ["s28CustomDebugStringConvertibleP", "channelSubscribed"]
+- !private ["s28CustomDebugStringConvertibleP", "compare"]
+- !private ["s28CustomDebugStringConvertibleP", "count"]
+- !private ["s28CustomDebugStringConvertibleP", "default"]
+- !private ["s28CustomDebugStringConvertibleP", "fayeConnected"]
+- !private ["s28CustomDebugStringConvertibleP", "fayeDisconnected"]
+- !private ["s28CustomDebugStringConvertibleP", "first"]
+- !private ["s28CustomDebugStringConvertibleP", "init"]
+- !private ["s28CustomDebugStringConvertibleP", "internetDisconnected"]
+- !private ["s28CustomDebugStringConvertibleP", "isChannelSubscribed"]
+- !private ["s28CustomDebugStringConvertibleP", "main"]
+- !private ["s28CustomDebugStringConvertibleP", "removeAll"]
+- !private ["s28CustomDebugStringConvertibleP", "removeFirst"]
+- !private ["s28CustomDebugStringConvertibleP", "send"]
+- !private ["s28CustomDebugStringConvertibleP", "shared"]
+- !private ["s28CustomDebugStringConvertibleP", "subscribeChannel"]
+- !private ["s17CustomReflectableP", "addingTimeInterval"]
+- !private ["s17CustomReflectableP", "append"]
+- !private ["s17CustomReflectableP", "channelSubscribed"]
+- !private ["s17CustomReflectableP", "compare"]
+- !private ["s17CustomReflectableP", "count"]
+- !private ["s17CustomReflectableP", "description"]
+- !private ["s17CustomReflectableP", "fayeConnected"]
+- !private ["s17CustomReflectableP", "fayeDisconnected"]
+- !private ["s17CustomReflectableP", "first"]
+- !private ["s17CustomReflectableP", "init"]
+- !private ["s17CustomReflectableP", "internetDisconnected"]
+- !private ["s17CustomReflectableP", "removeAll"]
+- !private ["s17CustomReflectableP", "removeFirst"]
+- !private ["s17CustomReflectableP", "subscribeChannel"]
+- ["s23CustomStringConvertibleP", "FayeResult"]
+- !private ["s23CustomStringConvertibleP", "addObserver"]
+- !private ["s23CustomStringConvertibleP", "addingTimeInterval"]
+- !private ["s23CustomStringConvertibleP", "append"]
+- !private ["s23CustomStringConvertibleP", "async"]
+- !private ["s23CustomStringConvertibleP", "compare"]
+- !private ["s23CustomStringConvertibleP", "count"]
+- !private ["s23CustomStringConvertibleP", "default"]
+- !private ["s23CustomStringConvertibleP", "description"]
+- !private ["s23CustomStringConvertibleP", "first"]
+- !private ["s23CustomStringConvertibleP", "init"]
+- !private ["s23CustomStringConvertibleP", "isChannelSubscribed"]
+- !private ["s23CustomStringConvertibleP", "main"]
+- !private ["s23CustomStringConvertibleP", "removeAll"]
+- !private ["s23CustomStringConvertibleP", "removeFirst"]
+- !private ["s23CustomStringConvertibleP", "send"]
+- !private ["s23CustomStringConvertibleP", "shared"]
+- !private ["10Foundation12DataProtocolP", "append"]
+- !private ["10Foundation12DataProtocolP", "count"]
+- !private ["10Foundation12DataProtocolP", "first"]
+- !private ["10Foundation12DataProtocolP", "removeAll"]
+- !private ["10Foundation12DataProtocolP", "removeFirst"]
+- !private ["10Foundation4DateV", "addingTimeInterval"]
+- !private ["10Foundation4DateV", "compare"]
+- !private ["10Foundation4DateV", "init"]
+- !private ["Se", "addingTimeInterval"]
+- !private ["Se", "append"]
+- !private ["Se", "channelSubscribed"]
+- !private ["Se", "compare"]
+- !private ["Se", "count"]
+- !private ["Se", "description"]
+- !private ["Se", "fayeConnected"]
+- !private ["Se", "fayeDisconnected"]
+- !private ["Se", "first"]
+- !private ["Se", "init"]
+- !private ["Se", "internetDisconnected"]
+- !private ["Se", "removeAll"]
+- !private ["Se", "removeFirst"]
+- !private ["Se", "subscribeChannel"]
+- !private ["So18OS_dispatch_objectC", "async"]
+- !private ["So18OS_dispatch_objectC", "main"]
+- !private ["So17OS_dispatch_queueC", "async"]
+- !private ["So17OS_dispatch_queueC", "main"]
+- !private ["SE", "addingTimeInterval"]
+- !private ["SE", "append"]
+- !private ["SE", "channelSubscribed"]
+- !private ["SE", "compare"]
+- !private ["SE", "count"]
+- !private ["SE", "description"]
+- !private ["SE", "fayeConnected"]
+- !private ["SE", "fayeDisconnected"]
+- !private ["SE", "first"]
+- !private ["SE", "init"]
+- !private ["SE", "internetDisconnected"]
+- !private ["SE", "removeAll"]
+- !private ["SE", "removeFirst"]
+- !private ["SE", "subscribeChannel"]
+- ["SQ", "FayeResult"]
+- !private ["SQ", "addObserver"]
+- !private ["SQ", "addingTimeInterval"]
+- !private ["SQ", "append"]
+- !private ["SQ", "async"]
+- !private ["SQ", "channelNotSubscribed"]
+- !private ["SQ", "channelSubscribed"]
+- !private ["SQ", "compare"]
+- !private ["SQ", "consent"]
+- !private ["SQ", "count"]
+- !private ["SQ", "default"]
+- !private ["SQ", "description"]
+- !private ["SQ", "duplicateMuid"]
+- !private ["SQ", "fayeConnected"]
+- !private ["SQ", "fayeDisconnected"]
+- !private ["SQ", "feedback"]
+- !private ["SQ", "first"]
+- !private ["SQ", "init"]
+- !private ["SQ", "internetDisconnected"]
+- !private ["SQ", "invalidSending"]
+- !private ["SQ", "isChannelSubscribed"]
+- !private ["SQ", "main"]
+- !private ["SQ", "messageDeleted"]
+- !private ["SQ", "none"]
+- !private ["SQ", "orderedAscending"]
+- !private ["SQ", "removeAll"]
+- !private ["SQ", "removeFirst"]
+- !private ["SQ", "send"]
+- !private ["SQ", "sent"]
+- !private ["SQ", "shared"]
+- !private ["SQ", "subscribeChannel"]
+- !private ["SQ", "userBlocked"]
+- !private ["SQ", "userDoesNotBelongToChannel"]
+- !private ["s5ErrorP", "channelNotSubscribed"]
+- !private ["s5ErrorP", "duplicateMuid"]
+- !private ["s5ErrorP", "invalidSending"]
+- !private ["s5ErrorP", "messageDeleted"]
+- !private ["s5ErrorP", "userBlocked"]
+- !private ["s5ErrorP", "userDoesNotBelongToChannel"]
+- !private ["s25ExpressibleByArrayLiteralP", "append"]
+- !private ["s25ExpressibleByArrayLiteralP", "count"]
+- !private ["s25ExpressibleByArrayLiteralP", "first"]
+- !private ["s25ExpressibleByArrayLiteralP", "removeAll"]
+- !private ["s25ExpressibleByArrayLiteralP", "removeFirst"]
+- !private ["s27ExpressibleByIntegerLiteralP", "description"]
+- !private ["s23ExpressibleByNilLiteralP", "channelSubscribed"]
+- !private ["s23ExpressibleByNilLiteralP", "fayeConnected"]
+- !private ["s23ExpressibleByNilLiteralP", "fayeDisconnected"]
+- !private ["s23ExpressibleByNilLiteralP", "internetDisconnected"]
+- !private ["s23ExpressibleByNilLiteralP", "subscribeChannel"]
+- ["5Hippo14FayeConnectionC", "FayeResult"]
+- !private ["5Hippo14FayeConnectionC", "isChannelSubscribed"]
+- !private ["5Hippo14FayeConnectionC", "send"]
+- !private ["5Hippo14FayeConnectionC", "shared"]
+- !private ["5Hippo14FayeConnectionC0B5ErrorO", "channelNotSubscribed"]
+- !private ["5Hippo14FayeConnectionC0B5ErrorO", "duplicateMuid"]
+- !private ["5Hippo14FayeConnectionC0B5ErrorO", "invalidSending"]
+- !private ["5Hippo14FayeConnectionC0B5ErrorO", "messageDeleted"]
+- !private ["5Hippo14FayeConnectionC0B5ErrorO", "userBlocked"]
+- !private ["5Hippo14FayeConnectionC0B5ErrorO", "userDoesNotBelongToChannel"]
+- !private ["5Hippo14FayeConnectionC0B13ResponseErrorV", "error"]
+- !private ["s17FixedWidthIntegerP", "description"]
+- !private ["5Hippo15FuguPublishableP", "ComparisonResult"]
+- !private ["5Hippo15FuguPublishableP", "Date"]
+- !private ["5Hippo15FuguPublishableP", "MessageSender"]
+- !private ["5Hippo15FuguPublishableP", "creationDateTime"]
+- !private ["5Hippo15FuguPublishableP", "getJsonToSendToFaye"]
+- !private ["5Hippo15FuguPublishableP", "isDeleted"]
+- !private ["5Hippo15FuguPublishableP", "isMessageExpired"]
+- !private ["5Hippo15FuguPublishableP", "isSentByMe"]
+- !private ["5Hippo15FuguPublishableP", "status"]
+- !private ["5Hippo15FuguPublishableP", "type"]
+- !private ["5Hippo15FuguPublishableP", "wasMessageSendingFailed"]
+- ["SH", "FayeResult"]
+- !private ["SH", "addObserver"]
+- !private ["SH", "addingTimeInterval"]
+- !private ["SH", "append"]
+- !private ["SH", "async"]
+- !private ["SH", "channelNotSubscribed"]
+- !private ["SH", "channelSubscribed"]
+- !private ["SH", "compare"]
+- !private ["SH", "consent"]
+- !private ["SH", "count"]
+- !private ["SH", "default"]
+- !private ["SH", "description"]
+- !private ["SH", "duplicateMuid"]
+- !private ["SH", "fayeConnected"]
+- !private ["SH", "fayeDisconnected"]
+- !private ["SH", "feedback"]
+- !private ["SH", "first"]
+- !private ["SH", "init"]
+- !private ["SH", "internetDisconnected"]
+- !private ["SH", "invalidSending"]
+- !private ["SH", "isChannelSubscribed"]
+- !private ["SH", "main"]
+- !private ["SH", "messageDeleted"]
+- !private ["SH", "none"]
+- !private ["SH", "orderedAscending"]
+- !private ["SH", "removeAll"]
+- !private ["SH", "removeFirst"]
+- !private ["SH", "send"]
+- !private ["SH", "sent"]
+- !private ["SH", "shared"]
+- !private ["SH", "subscribeChannel"]
+- !private ["SH", "userBlocked"]
+- !private ["SH", "userDoesNotBelongToChannel"]
+- !private ["5Hippo0A13ActionMessageC", "deinit"]
+- !private ["5Hippo0A13ActionMessageC", "getJsonToSendToFaye"]
+- ["5Hippo0A7MessageC", "Bool"]
+- !private ["5Hippo0A7MessageC", "ComparisonResult"]
+- !private ["5Hippo0A7MessageC", "Date"]
+- !private ["5Hippo0A7MessageC", "MessageSender"]
+- !private ["5Hippo0A7MessageC", "creationDateTime"]
+- !private ["5Hippo0A7MessageC", "deinit"]
+- !private ["5Hippo0A7MessageC", "getJsonToSendToFaye"]
+- !private ["5Hippo0A7MessageC", "isDeleted"]
+- !private ["5Hippo0A7MessageC", "isMessageExpired"]
+- !private ["5Hippo0A7MessageC", "isSentByMe"]
+- !private ["5Hippo0A7MessageC", "status"]
+- !private ["5Hippo0A7MessageC", "type"]
+- !private ["5Hippo0A7MessageC", "wasMessageSendingFailed"]
+- !private ["Si", "description"]
+- !private ["s25LosslessStringConvertibleP", "description"]
+- ["So20MZFayeClientDelegateP", "FayeResult"]
+- !private ["So20MZFayeClientDelegateP", "isChannelSubscribed"]
+- !private ["So20MZFayeClientDelegateP", "send"]
+- !private ["So20MZFayeClientDelegateP", "shared"]
+- ["5Hippo16MessageCallbacksC", "Bool"]
+- !private ["5Hippo16MessageCallbacksC", "ComparisonResult"]
+- !private ["5Hippo16MessageCallbacksC", "Date"]
+- !private ["5Hippo16MessageCallbacksC", "MessageSender"]
+- !private ["5Hippo16MessageCallbacksC", "creationDateTime"]
+- !private ["5Hippo16MessageCallbacksC", "getJsonToSendToFaye"]
+- !private ["5Hippo16MessageCallbacksC", "isDeleted"]
+- ["5Hippo16MessageCallbacksC", "isMessageExpired"]
+- !private ["5Hippo16MessageCallbacksC", "isSentByMe"]
+- !private ["5Hippo16MessageCallbacksC", "status"]
+- !private ["5Hippo16MessageCallbacksC", "type"]
+- !private ["5Hippo16MessageCallbacksC", "wasMessageSendingFailed"]
+- !private ["5Hippo13MessageSenderC", "DispatchQueue"]
+- ["5Hippo13MessageSenderC", "FayeConnection"]
+- !private ["5Hippo13MessageSenderC", "HippoActionMessage"]
+- ["5Hippo13MessageSenderC", "HippoMessage"]
+- ["5Hippo13MessageSenderC", "Int"]
+- ["5Hippo13MessageSenderC", "MessageSenderDelegate"]
+- !private ["5Hippo13MessageSenderC", "NotificationCenter"]
+- !private ["5Hippo13MessageSenderC", "String"]
+- ["5Hippo13MessageSenderC", "TimeInterval"]
+- ["5Hippo13MessageSenderC", "addMessagesInQueueToSend"]
+- ["5Hippo13MessageSenderC", "channelID"]
+- ["5Hippo13MessageSenderC", "clearMessagesToBeSent"]
+- ["5Hippo13MessageSenderC", "delegate"]
+- ["5Hippo13MessageSenderC", "fayeConnected"]
+- ["5Hippo13MessageSenderC", "fayeDisconnected"]
+- !private ["5Hippo13MessageSenderC", "fuguDelay"]
+- ["5Hippo13MessageSenderC", "init"]
+- !private ["5Hippo13MessageSenderC", "invalidateCurrentMessageWhichIsBeingSent"]
+- ["5Hippo13MessageSenderC", "isSendingMessages"]
+- ["5Hippo13MessageSenderC", "messageExpiryTime"]
+- !private ["5Hippo13MessageSenderC", "messageSendingFailed"]
+- ["5Hippo13MessageSenderC", "messagesToBeSent"]
+- !private ["5Hippo13MessageSenderC", "retryWithDelay"]
+- !private ["5Hippo13MessageSenderC", "startSending"]
+- ["5Hippo21MessageSenderDelegateP", "Bool"]
+- ["5Hippo21MessageSenderDelegateP", "FayeConnection"]
+- ["5Hippo21MessageSenderDelegateP", "HippoMessage"]
+- ["5Hippo21MessageSenderDelegateP", "Void"]
+- ["5Hippo21MessageSenderDelegateP", "duplicateMuidOf"]
+- ["5Hippo21MessageSenderDelegateP", "messageExpired"]
+- ["5Hippo21MessageSenderDelegateP", "messageSendingFailed"]
+- ["5Hippo21MessageSenderDelegateP", "messageSent"]
+- ["5Hippo21MessageSenderDelegateP", "subscribeChannel"]
+- !private ["5Hippo11MessageTypeO", "consent"]
+- !private ["5Hippo11MessageTypeO", "deinit"]
+- !private ["5Hippo11MessageTypeO", "feedback"]
+- !private ["s10MirrorPathP", "description"]
+- !private ["SM", "append"]
+- !private ["SM", "count"]
+- !private ["SM", "first"]
+- !private ["SM", "removeAll"]
+- !private ["SM", "removeFirst"]
+- !private ["10Foundation19MutableDataProtocolP", "append"]
+- !private ["10Foundation19MutableDataProtocolP", "count"]
+- !private ["10Foundation19MutableDataProtocolP", "first"]
+- !private ["10Foundation19MutableDataProtocolP", "removeAll"]
+- !private ["10Foundation19MutableDataProtocolP", "removeFirst"]
+- ["So8NSObjectC", "FayeResult"]
+- !private ["So8NSObjectC", "addObserver"]
+- !private ["So8NSObjectC", "async"]
+- !private ["So8NSObjectC", "default"]
+- !private ["So8NSObjectC", "isChannelSubscribed"]
+- !private ["So8NSObjectC", "main"]
+- !private ["So8NSObjectC", "send"]
+- !private ["So8NSObjectC", "shared"]
+- ["So8NSObjectP", "FayeResult"]
+- !private ["So8NSObjectP", "addObserver"]
+- !private ["So8NSObjectP", "async"]
+- !private ["So8NSObjectP", "default"]
+- !private ["So8NSObjectP", "isChannelSubscribed"]
+- !private ["So8NSObjectP", "main"]
+- !private ["So8NSObjectP", "send"]
+- !private ["So8NSObjectP", "shared"]
+- !private ["So18NSNotificationNamea", "channelSubscribed"]
+- !private ["So18NSNotificationNamea", "fayeConnected"]
+- !private ["So18NSNotificationNamea", "fayeDisconnected"]
+- !private ["So18NSNotificationNamea", "internetDisconnected"]
+- !private ["So20NSNotificationCenterC", "addObserver"]
+- !private ["So20NSNotificationCenterC", "default"]
+- !private ["Sj", "description"]
+- !private ["So9OS_objectC", "async"]
+- !private ["So9OS_objectC", "main"]
+- !private ["Sq", "channelSubscribed"]
+- !private ["Sq", "fayeConnected"]
+- !private ["Sq", "fayeDisconnected"]
+- !private ["Sq", "internetDisconnected"]
+- !private ["Sq", "subscribeChannel"]
+- !private ["Sk", "append"]
+- !private ["Sk", "count"]
+- !private ["Sk", "first"]
+- !private ["Sk", "removeAll"]
+- !private ["Sk", "removeFirst"]
+- !private ["Sm", "append"]
+- !private ["Sm", "count"]
+- !private ["Sm", "first"]
+- !private ["Sm", "removeAll"]
+- !private ["Sm", "removeFirst"]
+- !private ["SY", "channelNotSubscribed"]
+- !private ["SY", "channelSubscribed"]
+- !private ["SY", "consent"]
+- !private ["SY", "duplicateMuid"]
+- !private ["SY", "fayeConnected"]
+- !private ["SY", "fayeDisconnected"]
+- !private ["SY", "feedback"]
+- !private ["SY", "internetDisconnected"]
+- !private ["SY", "invalidSending"]
+- !private ["SY", "messageDeleted"]
+- !private ["SY", "none"]
+- !private ["SY", "orderedAscending"]
+- !private ["SY", "sent"]
+- !private ["SY", "userBlocked"]
+- !private ["SY", "userDoesNotBelongToChannel"]
+- !private ["5Hippo06ReadUnB6StatusO", "deinit"]
+- !private ["5Hippo06ReadUnB6StatusO", "none"]
+- !private ["5Hippo06ReadUnB6StatusO", "sent"]
+- !private ["10Foundation20ReferenceConvertibleP", "addingTimeInterval"]
+- !private ["10Foundation20ReferenceConvertibleP", "compare"]
+- !private ["10Foundation20ReferenceConvertibleP", "init"]
+- !private ["s10SIMDScalarP", "description"]
+- !private ["ST", "append"]
+- !private ["ST", "count"]
+- !private ["ST", "first"]
+- !private ["ST", "removeAll"]
+- !private ["ST", "removeFirst"]
+- !private ["SZ", "description"]
+- !private ["s13SignedNumericP", "description"]
+- !private ["Sx", "description"]
+- !private ["s14_ArrayProtocolP", "append"]
+- !private ["s14_ArrayProtocolP", "count"]
+- !private ["s14_ArrayProtocolP", "first"]
+- !private ["s14_ArrayProtocolP", "removeAll"]
+- !private ["s14_ArrayProtocolP", "removeFirst"]
+- !private ["s30_CustomPlaygroundQuickLookableP", "addingTimeInterval"]
+- !private ["s30_CustomPlaygroundQuickLookableP", "compare"]
+- !private ["s30_CustomPlaygroundQuickLookableP", "description"]
+- !private ["s30_CustomPlaygroundQuickLookableP", "init"]
+- !private ["s24_DestructorSafeContainerP", "append"]
+- !private ["s24_DestructorSafeContainerP", "count"]
+- !private ["s24_DestructorSafeContainerP", "first"]
+- !private ["s24_DestructorSafeContainerP", "removeAll"]
+- !private ["s24_DestructorSafeContainerP", "removeFirst"]
+- !private ["s35_ExpressibleByBuiltinIntegerLiteralP", "description"]
+- !private ["s19_HasContiguousBytesP", "append"]
+- !private ["s19_HasContiguousBytesP", "count"]
+- !private ["s19_HasContiguousBytesP", "first"]
+- !private ["s19_HasContiguousBytesP", "removeAll"]
+- !private ["s19_HasContiguousBytesP", "removeFirst"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "append"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "channelSubscribed"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "count"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "description"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "fayeConnected"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "fayeDisconnected"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "first"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "internetDisconnected"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "removeAll"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "removeFirst"]
+- ["10Foundation27_KeyValueCodingAndObservingP", "FayeResult"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "addObserver"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "async"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "default"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "isChannelSubscribed"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "main"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "send"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "shared"]
+- !private ["s21_ObjectiveCBridgeableP", "addingTimeInterval"]
+- !private ["s21_ObjectiveCBridgeableP", "append"]
+- !private ["s21_ObjectiveCBridgeableP", "channelSubscribed"]
+- !private ["s21_ObjectiveCBridgeableP", "compare"]
+- !private ["s21_ObjectiveCBridgeableP", "count"]
+- !private ["s21_ObjectiveCBridgeableP", "description"]
+- !private ["s21_ObjectiveCBridgeableP", "fayeConnected"]
+- !private ["s21_ObjectiveCBridgeableP", "fayeDisconnected"]
+- !private ["s21_ObjectiveCBridgeableP", "first"]
+- !private ["s21_ObjectiveCBridgeableP", "init"]
+- !private ["s21_ObjectiveCBridgeableP", "internetDisconnected"]
+- !private ["s21_ObjectiveCBridgeableP", "removeAll"]
+- !private ["s21_ObjectiveCBridgeableP", "removeFirst"]
+- !private ["s21_ObjectiveCBridgeableP", "subscribeChannel"]
+- !private ["s20_SwiftNewtypeWrapperP", "channelSubscribed"]
+- !private ["s20_SwiftNewtypeWrapperP", "fayeConnected"]
+- !private ["s20_SwiftNewtypeWrapperP", "fayeDisconnected"]
+- !private ["s20_SwiftNewtypeWrapperP", "internetDisconnected"]
+depends-nominal:
+- !private "s18AdditiveArithmeticP"
+- !private "Sa"
+- !private "SK"
+- !private "Sz"
+- "s7CVarArgP"
+- !private "Sl"
+- !private "SL"
+- !private "So18NSComparisonResultV"
+- !private "10Foundation15ContiguousBytesP"
+- "s28CustomDebugStringConvertibleP"
+- !private "s17CustomReflectableP"
+- "s23CustomStringConvertibleP"
+- !private "10Foundation12DataProtocolP"
+- !private "10Foundation4DateV"
+- !private "Se"
+- !private "So18OS_dispatch_objectC"
+- !private "So17OS_dispatch_queueC"
+- !private "SE"
+- "SQ"
+- !private "s5ErrorP"
+- !private "s25ExpressibleByArrayLiteralP"
+- !private "s27ExpressibleByIntegerLiteralP"
+- !private "s23ExpressibleByNilLiteralP"
+- "5Hippo14FayeConnectionC"
+- !private "5Hippo14FayeConnectionC0B5ErrorO"
+- !private "5Hippo14FayeConnectionC0B13ResponseErrorV"
+- !private "s17FixedWidthIntegerP"
+- !private "5Hippo15FuguPublishableP"
+- "SH"
+- !private "5Hippo0A13ActionMessageC"
+- "5Hippo0A7MessageC"
+- !private "Si"
+- !private "s25LosslessStringConvertibleP"
+- "So20MZFayeClientDelegateP"
+- "5Hippo16MessageCallbacksC"
+- "5Hippo13MessageSenderC"
+- "5Hippo21MessageSenderDelegateP"
+- !private "5Hippo11MessageTypeO"
+- !private "s10MirrorPathP"
+- !private "SM"
+- !private "10Foundation19MutableDataProtocolP"
+- "So8NSObjectC"
+- "So8NSObjectP"
+- !private "So18NSNotificationNamea"
+- !private "So20NSNotificationCenterC"
+- !private "Sj"
+- !private "So9OS_objectC"
+- !private "Sq"
+- !private "Sk"
+- !private "Sm"
+- !private "SY"
+- !private "5Hippo06ReadUnB6StatusO"
+- !private "10Foundation20ReferenceConvertibleP"
+- !private "s10SIMDScalarP"
+- !private "ST"
+- !private "SZ"
+- !private "s13SignedNumericP"
+- !private "Sx"
+- !private "s14_ArrayProtocolP"
+- !private "s30_CustomPlaygroundQuickLookableP"
+- !private "s24_DestructorSafeContainerP"
+- !private "s35_ExpressibleByBuiltinIntegerLiteralP"
+- !private "s19_HasContiguousBytesP"
+- !private "s35_HasCustomAnyHashableRepresentationP"
+- "10Foundation27_KeyValueCodingAndObservingP"
+- !private "s21_ObjectiveCBridgeableP"
+- !private "s20_SwiftNewtypeWrapperP"
+depends-dynamic-lookup:
+depends-external:
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/ObjectiveC.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreMedia.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/simd.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreImage.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/QuartzCore.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Accelerate.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Dispatch.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Metal.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Darwin.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreLocation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Foundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/AVFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreAudio.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/MediaPlayer.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreGraphics.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/os.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Photos.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Swift.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/UIKit.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/SwiftOnoneSupport.swiftmodule"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Hippo.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Helpers/TRWDownloadManager/TWRDownloadManager.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/SocketRocket/SocketRocket.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/SocketRocket/SRWebSocket.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/MZFayeClient/MZFayeClient.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/unextended-module.modulemap"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/usr/include/objc/ObjectiveC.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/OpenGLES.framework/Headers/OpenGLES.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreMedia.framework/Headers/CoreMedia.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreImage.framework/Headers/CoreImage.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/QuartzCore.framework/Headers/QuartzCore.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Accelerate.framework/Headers/Accelerate.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Dispatch.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/QuickLook.framework/Headers/QuickLook.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Metal.framework/Headers/Metal.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/usr/include/Darwin.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreLocation.framework/Headers/CoreLocation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Foundation.framework/Headers/Foundation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/AVFoundation.framework/Headers/AVFoundation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/MediaPlayer.framework/Headers/MediaPlayer.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreGraphics.framework/Headers/CoreGraphics.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/UserNotifications.framework/Headers/UserNotifications.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/os.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Photos.framework/Headers/Photos.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/UIKit.framework/Headers/UIKit.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreText.framework/Headers/CoreText.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/MediaToolbox.framework/Headers/MediaToolbox.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/AudioToolbox.framework/Headers/AudioToolbox.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Security.framework/Headers/Security.apinotes"
+interface-hash: "5c4026233787f7018e75edf84c9dc454"

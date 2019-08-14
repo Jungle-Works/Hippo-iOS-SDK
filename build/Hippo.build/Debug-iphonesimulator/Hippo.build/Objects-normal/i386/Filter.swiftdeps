@@ -1,0 +1,327 @@
+### Swift dependencies file v0 ###
+provides-top-level:
+- "Transformer"
+- "CIImageProcessor"
+- "Filter"
+provides-nominal:
+- "5Hippo16CIImageProcessorP"
+- "5Hippo6FilterV"
+provides-member:
+- ["5Hippo16CIImageProcessorP", ""]
+- ["5Hippo6FilterV", ""]
+- ["5Hippo10KingfisherC", ""]
+- ["So7UIImageC", ""]
+- ["5Hippo16CIImageProcessorP", "process"]
+- ["5Hippo10KingfisherC", "apply"]
+- ["So7UIImageC", "kf_apply"]
+provides-dynamic-lookup:
+depends-top-level:
+- !private ">>"
+- "AssignmentPrecedence"
+- "CGFloat"
+- "CIColor"
+- "CIContext"
+- "CIFilter"
+- "CIImage"
+- "CIImageProcessor"
+- "Color"
+- !private "DefaultImageProcessor"
+- "Filter"
+- "Image"
+- "ImageProcessItem"
+- "ImageProcessor"
+- "Kingfisher"
+- "KingfisherOptionsInfo"
+- "Transformer"
+- !private "assertionFailure"
+- !private "ciContext"
+- "kCIInputBackgroundImageKey"
+- "kCIInputBrightnessKey"
+- "kCIInputColorKey"
+- "kCIInputContrastKey"
+- "kCIInputEVKey"
+- "kCIInputImageKey"
+- "kCIInputSaturationKey"
+depends-member:
+- ["So7CIColorC", "init"]
+- !private ["So9CIContextC", "createCGImage"]
+- ["So9CIContextC", "init"]
+- ["So8CIFilterC", "init"]
+- ["So8CIFilterC", "outputImage"]
+- ["So8CIFilterC", "setValue"]
+- ["So7CIImageC", "applyingFilter"]
+- ["So7CIImageC", "cropped"]
+- ["So7CIImageC", "extent"]
+- !private ["So7CIImageC", "init"]
+- !private ["5Hippo16CIImageProcessorP", "DefaultImageProcessor"]
+- ["5Hippo16CIImageProcessorP", "Filter"]
+- ["5Hippo16CIImageProcessorP", "Image"]
+- ["5Hippo16CIImageProcessorP", "ImageProcessItem"]
+- ["5Hippo16CIImageProcessorP", "KingfisherOptionsInfo"]
+- ["5Hippo16CIImageProcessorP", "filter"]
+- ["5Hippo16CIImageProcessorP", "process"]
+- ["s7CVarArgP", "applyingFilter"]
+- !private ["s7CVarArgP", "createCGImage"]
+- ["s7CVarArgP", "cropped"]
+- ["s7CVarArgP", "extent"]
+- !private ["s7CVarArgP", "imageOrientation"]
+- ["s7CVarArgP", "init"]
+- !private ["s7CVarArgP", "kf"]
+- ["s7CVarArgP", "outputImage"]
+- !private ["s7CVarArgP", "scale"]
+- ["s7CVarArgP", "setValue"]
+- ["s28CustomDebugStringConvertibleP", "applyingFilter"]
+- !private ["s28CustomDebugStringConvertibleP", "createCGImage"]
+- ["s28CustomDebugStringConvertibleP", "cropped"]
+- ["s28CustomDebugStringConvertibleP", "extent"]
+- !private ["s28CustomDebugStringConvertibleP", "imageOrientation"]
+- ["s28CustomDebugStringConvertibleP", "init"]
+- !private ["s28CustomDebugStringConvertibleP", "kf"]
+- ["s28CustomDebugStringConvertibleP", "outputImage"]
+- !private ["s28CustomDebugStringConvertibleP", "scale"]
+- ["s28CustomDebugStringConvertibleP", "setValue"]
+- ["s23CustomStringConvertibleP", "applyingFilter"]
+- !private ["s23CustomStringConvertibleP", "createCGImage"]
+- ["s23CustomStringConvertibleP", "cropped"]
+- ["s23CustomStringConvertibleP", "extent"]
+- !private ["s23CustomStringConvertibleP", "imageOrientation"]
+- ["s23CustomStringConvertibleP", "init"]
+- !private ["s23CustomStringConvertibleP", "kf"]
+- ["s23CustomStringConvertibleP", "outputImage"]
+- !private ["s23CustomStringConvertibleP", "scale"]
+- ["s23CustomStringConvertibleP", "setValue"]
+- !private ["5Hippo21DefaultImageProcessorV", "default"]
+- !private ["5Hippo21DefaultImageProcessorV", "deinit"]
+- ["SQ", "applyingFilter"]
+- !private ["SQ", "createCGImage"]
+- ["SQ", "cropped"]
+- ["SQ", "extent"]
+- !private ["SQ", "imageOrientation"]
+- ["SQ", "init"]
+- !private ["SQ", "kf"]
+- ["SQ", "outputImage"]
+- !private ["SQ", "scale"]
+- ["SQ", "setValue"]
+- ["5Hippo6FilterV", "CGFloat"]
+- ["5Hippo6FilterV", "CIColor"]
+- ["5Hippo6FilterV", "CIFilter"]
+- ["5Hippo6FilterV", "Color"]
+- ["5Hippo6FilterV", "ColorElement"]
+- ["5Hippo6FilterV", "Filter"]
+- ["5Hippo6FilterV", "Transformer"]
+- ["5Hippo6FilterV", "colorControl"]
+- ["5Hippo6FilterV", "init"]
+- ["5Hippo6FilterV", "kCIInputBackgroundImageKey"]
+- ["5Hippo6FilterV", "kCIInputBrightnessKey"]
+- ["5Hippo6FilterV", "kCIInputColorKey"]
+- ["5Hippo6FilterV", "kCIInputContrastKey"]
+- ["5Hippo6FilterV", "kCIInputEVKey"]
+- ["5Hippo6FilterV", "kCIInputImageKey"]
+- ["5Hippo6FilterV", "kCIInputSaturationKey"]
+- ["5Hippo6FilterV", "tint"]
+- ["5Hippo6FilterV", "transform"]
+- ["SH", "applyingFilter"]
+- !private ["SH", "createCGImage"]
+- ["SH", "cropped"]
+- ["SH", "extent"]
+- !private ["SH", "imageOrientation"]
+- ["SH", "init"]
+- !private ["SH", "kf"]
+- ["SH", "outputImage"]
+- !private ["SH", "scale"]
+- ["SH", "setValue"]
+- ["5Hippo16ImageProcessItemO", "data"]
+- ["5Hippo16ImageProcessItemO", "image"]
+- !private ["5Hippo14ImageProcessorP", "DefaultImageProcessor"]
+- ["5Hippo14ImageProcessorP", "Filter"]
+- ["5Hippo14ImageProcessorP", "Image"]
+- ["5Hippo14ImageProcessorP", "ImageProcessItem"]
+- ["5Hippo14ImageProcessorP", "KingfisherOptionsInfo"]
+- ["5Hippo14ImageProcessorP", ""]
+- !private ["5Hippo14ImageProcessorP", "default"]
+- ["5Hippo14ImageProcessorP", "filter"]
+- !private ["5Hippo14ImageProcessorP", "process"]
+- !private ["5Hippo10KingfisherC", "CIImage"]
+- ["5Hippo10KingfisherC", "Filter"]
+- ["5Hippo10KingfisherC", "Image"]
+- ["5Hippo10KingfisherC", "apply"]
+- !private ["5Hippo10KingfisherC", "assertionFailure"]
+- !private ["5Hippo10KingfisherC", "base"]
+- !private ["5Hippo10KingfisherC", "cgImage"]
+- !private ["5Hippo10KingfisherC", "ciContext"]
+- !private ["5Hippo20KingfisherCompatibleP", "imageOrientation"]
+- !private ["5Hippo20KingfisherCompatibleP", "init"]
+- !private ["5Hippo20KingfisherCompatibleP", "kf"]
+- !private ["5Hippo20KingfisherCompatibleP", "scale"]
+- ["So8NSCodingP", "applyingFilter"]
+- ["So8NSCodingP", "cropped"]
+- ["So8NSCodingP", "extent"]
+- !private ["So8NSCodingP", "imageOrientation"]
+- ["So8NSCodingP", "init"]
+- !private ["So8NSCodingP", "kf"]
+- ["So8NSCodingP", "outputImage"]
+- !private ["So8NSCodingP", "scale"]
+- ["So8NSCodingP", "setValue"]
+- ["So9NSCopyingP", "applyingFilter"]
+- ["So9NSCopyingP", "cropped"]
+- ["So9NSCopyingP", "extent"]
+- ["So9NSCopyingP", "init"]
+- ["So9NSCopyingP", "outputImage"]
+- ["So9NSCopyingP", "setValue"]
+- !private ["So21NSItemProviderReadingP", "imageOrientation"]
+- !private ["So21NSItemProviderReadingP", "init"]
+- !private ["So21NSItemProviderReadingP", "kf"]
+- !private ["So21NSItemProviderReadingP", "scale"]
+- !private ["So21NSItemProviderWritingP", "imageOrientation"]
+- !private ["So21NSItemProviderWritingP", "init"]
+- !private ["So21NSItemProviderWritingP", "kf"]
+- !private ["So21NSItemProviderWritingP", "scale"]
+- ["So8NSObjectC", "Filter"]
+- ["So8NSObjectC", "Image"]
+- ["So8NSObjectC", "applyingFilter"]
+- !private ["So8NSObjectC", "createCGImage"]
+- ["So8NSObjectC", "cropped"]
+- ["So8NSObjectC", "extent"]
+- !private ["So8NSObjectC", "imageOrientation"]
+- ["So8NSObjectC", "init"]
+- !private ["So8NSObjectC", "kf"]
+- ["So8NSObjectC", "kf_apply"]
+- ["So8NSObjectC", "outputImage"]
+- !private ["So8NSObjectC", "scale"]
+- ["So8NSObjectC", "setValue"]
+- ["So8NSObjectP", "applyingFilter"]
+- !private ["So8NSObjectP", "createCGImage"]
+- ["So8NSObjectP", "cropped"]
+- ["So8NSObjectP", "extent"]
+- !private ["So8NSObjectP", "imageOrientation"]
+- ["So8NSObjectP", "init"]
+- !private ["So8NSObjectP", "kf"]
+- ["So8NSObjectP", "outputImage"]
+- !private ["So8NSObjectP", "scale"]
+- ["So8NSObjectP", "setValue"]
+- ["So14NSSecureCodingP", "applyingFilter"]
+- ["So14NSSecureCodingP", "cropped"]
+- ["So14NSSecureCodingP", "extent"]
+- !private ["So14NSSecureCodingP", "imageOrientation"]
+- ["So14NSSecureCodingP", "init"]
+- !private ["So14NSSecureCodingP", "kf"]
+- ["So14NSSecureCodingP", "outputImage"]
+- !private ["So14NSSecureCodingP", "scale"]
+- ["So14NSSecureCodingP", "setValue"]
+- !private ["5Hippo11PlaceholderP", "imageOrientation"]
+- !private ["5Hippo11PlaceholderP", "init"]
+- !private ["5Hippo11PlaceholderP", "kf"]
+- !private ["5Hippo11PlaceholderP", "scale"]
+- !private ["So29UIAccessibilityIdentificationP", "imageOrientation"]
+- !private ["So29UIAccessibilityIdentificationP", "init"]
+- !private ["So29UIAccessibilityIdentificationP", "kf"]
+- !private ["So29UIAccessibilityIdentificationP", "scale"]
+- ["So7UIImageC", "Filter"]
+- ["So7UIImageC", "Image"]
+- !private ["So7UIImageC", "deinit"]
+- !private ["So7UIImageC", "imageOrientation"]
+- !private ["So7UIImageC", "init"]
+- !private ["So7UIImageC", "kf"]
+- ["So7UIImageC", "kf_apply"]
+- !private ["So7UIImageC", "scale"]
+- !private ["So39UIItemProviderPresentationSizeProvidingP", "imageOrientation"]
+- !private ["So39UIItemProviderPresentationSizeProvidingP", "init"]
+- !private ["So39UIItemProviderPresentationSizeProvidingP", "kf"]
+- !private ["So39UIItemProviderPresentationSizeProvidingP", "scale"]
+- !private ["s26_ExpressibleByImageLiteralP", "imageOrientation"]
+- !private ["s26_ExpressibleByImageLiteralP", "init"]
+- !private ["s26_ExpressibleByImageLiteralP", "kf"]
+- !private ["s26_ExpressibleByImageLiteralP", "scale"]
+- ["10Foundation27_KeyValueCodingAndObservingP", "applyingFilter"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "createCGImage"]
+- ["10Foundation27_KeyValueCodingAndObservingP", "cropped"]
+- ["10Foundation27_KeyValueCodingAndObservingP", "extent"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "imageOrientation"]
+- ["10Foundation27_KeyValueCodingAndObservingP", "init"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "kf"]
+- ["10Foundation27_KeyValueCodingAndObservingP", "outputImage"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "scale"]
+- ["10Foundation27_KeyValueCodingAndObservingP", "setValue"]
+depends-nominal:
+- "So7CIColorC"
+- "So9CIContextC"
+- "So8CIFilterC"
+- "So7CIImageC"
+- "5Hippo16CIImageProcessorP"
+- "s7CVarArgP"
+- "s28CustomDebugStringConvertibleP"
+- "s23CustomStringConvertibleP"
+- !private "5Hippo21DefaultImageProcessorV"
+- "SQ"
+- "5Hippo6FilterV"
+- "SH"
+- "5Hippo16ImageProcessItemO"
+- "5Hippo14ImageProcessorP"
+- "5Hippo10KingfisherC"
+- !private "5Hippo20KingfisherCompatibleP"
+- "So8NSCodingP"
+- "So9NSCopyingP"
+- !private "So21NSItemProviderReadingP"
+- !private "So21NSItemProviderWritingP"
+- "So8NSObjectC"
+- "So8NSObjectP"
+- "So14NSSecureCodingP"
+- !private "5Hippo11PlaceholderP"
+- !private "So29UIAccessibilityIdentificationP"
+- "So7UIImageC"
+- !private "So39UIItemProviderPresentationSizeProvidingP"
+- !private "s26_ExpressibleByImageLiteralP"
+- "10Foundation27_KeyValueCodingAndObservingP"
+depends-dynamic-lookup:
+depends-external:
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/ObjectiveC.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreMedia.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/simd.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreImage.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/QuartzCore.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Accelerate.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Dispatch.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Metal.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Darwin.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreLocation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Foundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/AVFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreAudio.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/MediaPlayer.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreGraphics.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/os.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Photos.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Swift.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/UIKit.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/SwiftOnoneSupport.swiftmodule"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Hippo.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Helpers/TRWDownloadManager/TWRDownloadManager.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/SocketRocket/SocketRocket.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/SocketRocket/SRWebSocket.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/MZFayeClient/MZFayeClient.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/unextended-module.modulemap"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/usr/include/objc/ObjectiveC.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/OpenGLES.framework/Headers/OpenGLES.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreMedia.framework/Headers/CoreMedia.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreImage.framework/Headers/CoreImage.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/QuartzCore.framework/Headers/QuartzCore.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Accelerate.framework/Headers/Accelerate.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Dispatch.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/QuickLook.framework/Headers/QuickLook.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Metal.framework/Headers/Metal.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/usr/include/Darwin.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreLocation.framework/Headers/CoreLocation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Foundation.framework/Headers/Foundation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/AVFoundation.framework/Headers/AVFoundation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/MediaPlayer.framework/Headers/MediaPlayer.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreGraphics.framework/Headers/CoreGraphics.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/UserNotifications.framework/Headers/UserNotifications.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/os.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Photos.framework/Headers/Photos.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/UIKit.framework/Headers/UIKit.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreText.framework/Headers/CoreText.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/MediaToolbox.framework/Headers/MediaToolbox.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/AudioToolbox.framework/Headers/AudioToolbox.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Security.framework/Headers/Security.apinotes"
+interface-hash: "7936d66ddd40bdc07bbd1086c9d23c80"

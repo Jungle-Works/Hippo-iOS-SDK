@@ -1,0 +1,594 @@
+### Swift dependencies file v0 ###
+provides-top-level:
+- "PickerHelperDelegate"
+- "PickerHelper"
+provides-nominal:
+- "5Hippo20PickerHelperDelegateP"
+- "5Hippo12PickerHelperC"
+provides-member:
+- ["5Hippo20PickerHelperDelegateP", ""]
+- ["5Hippo12PickerHelperC", ""]
+provides-dynamic-lookup:
+depends-top-level:
+- !private "!="
+- "AssignmentPrecedence"
+- "Bool"
+- !private "BussinessProperty"
+- "CoreDocumentPicker"
+- "CoreDocumentPickerDelegate"
+- !private "CoreFilesConfig"
+- !private "CoreKit"
+- "CoreMediaSelector"
+- "CoreMediaSelectorDelegate"
+- !private "FileManager"
+- "PickerHelper"
+- "PickerHelperDelegate"
+- !private "UIAlertAction"
+- !private "UIAlertController"
+- !private "UIImagePickerController"
+- "UIView"
+- "UIViewController"
+- !private "Void"
+- !private "assertionFailure"
+- !private "||"
+depends-member:
+- !private ["Sa", "contains"]
+- !private ["SK", "contains"]
+- !private ["5Hippo17BussinessPropertyC", "current"]
+- !private ["5Hippo17BussinessPropertyC", "maxUploadLimitForBusiness"]
+- !private ["So15CALayerDelegateP", "bounds"]
+- !private ["So15CALayerDelegateP", "endEditing"]
+- !private ["s7CVarArgP", "SourceType"]
+- !private ["s7CVarArgP", "Style"]
+- !private ["s7CVarArgP", "addAction"]
+- !private ["s7CVarArgP", "bounds"]
+- !private ["s7CVarArgP", "contains"]
+- !private ["s7CVarArgP", "current"]
+- !private ["s7CVarArgP", "default"]
+- !private ["s7CVarArgP", "delegate"]
+- !private ["s7CVarArgP", "endEditing"]
+- !private ["s7CVarArgP", "init"]
+- !private ["s7CVarArgP", "isSourceTypeAvailable"]
+- !private ["s7CVarArgP", "maxUploadLimitForBusiness"]
+- !private ["s7CVarArgP", "openCameraFor"]
+- !private ["s7CVarArgP", "openPhotoLibraryFor"]
+- !private ["s7CVarArgP", "popoverPresentationController"]
+- !private ["s7CVarArgP", "present"]
+- !private ["s7CVarArgP", "presentIn"]
+- !private ["s7CVarArgP", "sourceRect"]
+- !private ["s7CVarArgP", "sourceView"]
+- !private ["s7CVarArgP", "ubiquityIdentityToken"]
+- !private ["s7CVarArgP", "view"]
+- !private ["Sl", "contains"]
+- !private ["10Foundation15ContiguousBytesP", "contains"]
+- !private ["5Hippo18CoreDocumentPickerC", "delegate"]
+- !private ["5Hippo18CoreDocumentPickerC", "init"]
+- !private ["5Hippo18CoreDocumentPickerC", "presentIn"]
+- ["5Hippo26CoreDocumentPickerDelegateP", ""]
+- ["5Hippo26CoreDocumentPickerDelegateP", "payOptionClicked"]
+- !private ["5Hippo15CoreFilesConfigV", "enableResizingImage"]
+- !private ["5Hippo15CoreFilesConfigV", "enabledFileTypes"]
+- !private ["5Hippo15CoreFilesConfigV", "init"]
+- !private ["5Hippo15CoreFilesConfigV", "maxSizeInBytes"]
+- !private ["5Hippo7CoreKitC", "filesConfig"]
+- !private ["5Hippo7CoreKitC", "shared"]
+- !private ["5Hippo17CoreMediaSelectorC", "init"]
+- !private ["5Hippo17CoreMediaSelectorC", "openCameraFor"]
+- !private ["5Hippo17CoreMediaSelectorC", "openPhotoLibraryFor"]
+- ["5Hippo25CoreMediaSelectorDelegateP", ""]
+- ["5Hippo25CoreMediaSelectorDelegateP", "payOptionClicked"]
+- !private ["5Hippo14CoreMediaTypesO", "deinit"]
+- !private ["5Hippo14CoreMediaTypesO", "document"]
+- !private ["5Hippo14CoreMediaTypesO", "other"]
+- !private ["s28CustomDebugStringConvertibleP", "SourceType"]
+- !private ["s28CustomDebugStringConvertibleP", "Style"]
+- !private ["s28CustomDebugStringConvertibleP", "addAction"]
+- !private ["s28CustomDebugStringConvertibleP", "bounds"]
+- !private ["s28CustomDebugStringConvertibleP", "contains"]
+- !private ["s28CustomDebugStringConvertibleP", "current"]
+- !private ["s28CustomDebugStringConvertibleP", "default"]
+- !private ["s28CustomDebugStringConvertibleP", "delegate"]
+- !private ["s28CustomDebugStringConvertibleP", "endEditing"]
+- !private ["s28CustomDebugStringConvertibleP", "init"]
+- !private ["s28CustomDebugStringConvertibleP", "isSourceTypeAvailable"]
+- !private ["s28CustomDebugStringConvertibleP", "maxUploadLimitForBusiness"]
+- !private ["s28CustomDebugStringConvertibleP", "openCameraFor"]
+- !private ["s28CustomDebugStringConvertibleP", "openPhotoLibraryFor"]
+- !private ["s28CustomDebugStringConvertibleP", "popoverPresentationController"]
+- !private ["s28CustomDebugStringConvertibleP", "present"]
+- !private ["s28CustomDebugStringConvertibleP", "presentIn"]
+- !private ["s28CustomDebugStringConvertibleP", "sourceRect"]
+- !private ["s28CustomDebugStringConvertibleP", "sourceView"]
+- !private ["s28CustomDebugStringConvertibleP", "ubiquityIdentityToken"]
+- !private ["s28CustomDebugStringConvertibleP", "view"]
+- !private ["s17CustomReflectableP", "contains"]
+- !private ["s17CustomReflectableP", "endEditing"]
+- !private ["s23CustomStringConvertibleP", "SourceType"]
+- !private ["s23CustomStringConvertibleP", "Style"]
+- !private ["s23CustomStringConvertibleP", "addAction"]
+- !private ["s23CustomStringConvertibleP", "bounds"]
+- !private ["s23CustomStringConvertibleP", "contains"]
+- !private ["s23CustomStringConvertibleP", "current"]
+- !private ["s23CustomStringConvertibleP", "default"]
+- !private ["s23CustomStringConvertibleP", "delegate"]
+- !private ["s23CustomStringConvertibleP", "endEditing"]
+- !private ["s23CustomStringConvertibleP", "init"]
+- !private ["s23CustomStringConvertibleP", "isSourceTypeAvailable"]
+- !private ["s23CustomStringConvertibleP", "maxUploadLimitForBusiness"]
+- !private ["s23CustomStringConvertibleP", "openCameraFor"]
+- !private ["s23CustomStringConvertibleP", "openPhotoLibraryFor"]
+- !private ["s23CustomStringConvertibleP", "popoverPresentationController"]
+- !private ["s23CustomStringConvertibleP", "present"]
+- !private ["s23CustomStringConvertibleP", "presentIn"]
+- !private ["s23CustomStringConvertibleP", "sourceRect"]
+- !private ["s23CustomStringConvertibleP", "sourceView"]
+- !private ["s23CustomStringConvertibleP", "ubiquityIdentityToken"]
+- !private ["s23CustomStringConvertibleP", "view"]
+- !private ["10Foundation12DataProtocolP", "contains"]
+- !private ["Se", "contains"]
+- !private ["Se", "endEditing"]
+- !private ["SE", "contains"]
+- !private ["SE", "endEditing"]
+- !private ["SQ", "SourceType"]
+- !private ["SQ", "Style"]
+- !private ["SQ", "actionSheet"]
+- !private ["SQ", "addAction"]
+- !private ["SQ", "bounds"]
+- !private ["SQ", "camera"]
+- !private ["SQ", "cancel"]
+- !private ["SQ", "contains"]
+- !private ["SQ", "current"]
+- !private ["SQ", "default"]
+- !private ["SQ", "delegate"]
+- !private ["SQ", "document"]
+- !private ["SQ", "endEditing"]
+- !private ["SQ", "image"]
+- !private ["SQ", "init"]
+- !private ["SQ", "isSourceTypeAvailable"]
+- !private ["SQ", "maxUploadLimitForBusiness"]
+- !private ["SQ", "openCameraFor"]
+- !private ["SQ", "openPhotoLibraryFor"]
+- !private ["SQ", "other"]
+- !private ["SQ", "popoverPresentationController"]
+- !private ["SQ", "present"]
+- !private ["SQ", "presentIn"]
+- !private ["SQ", "sourceRect"]
+- !private ["SQ", "sourceView"]
+- !private ["SQ", "ubiquityIdentityToken"]
+- !private ["SQ", "video"]
+- !private ["SQ", "view"]
+- !private ["s25ExpressibleByArrayLiteralP", "contains"]
+- !private ["s23ExpressibleByNilLiteralP", "endEditing"]
+- !private ["So13NSFileManagerC", "default"]
+- !private ["So13NSFileManagerC", "ubiquityIdentityToken"]
+- !private ["5Hippo17CoreMediaSelectorC8FileTypeO", "image"]
+- !private ["5Hippo17CoreMediaSelectorC8FileTypeO", "video"]
+- !private ["SH", "SourceType"]
+- !private ["SH", "Style"]
+- !private ["SH", "actionSheet"]
+- !private ["SH", "addAction"]
+- !private ["SH", "bounds"]
+- !private ["SH", "camera"]
+- !private ["SH", "cancel"]
+- !private ["SH", "contains"]
+- !private ["SH", "current"]
+- !private ["SH", "default"]
+- !private ["SH", "delegate"]
+- !private ["SH", "document"]
+- !private ["SH", "endEditing"]
+- !private ["SH", "image"]
+- !private ["SH", "init"]
+- !private ["SH", "isSourceTypeAvailable"]
+- !private ["SH", "maxUploadLimitForBusiness"]
+- !private ["SH", "openCameraFor"]
+- !private ["SH", "openPhotoLibraryFor"]
+- !private ["SH", "other"]
+- !private ["SH", "popoverPresentationController"]
+- !private ["SH", "present"]
+- !private ["SH", "presentIn"]
+- !private ["SH", "sourceRect"]
+- !private ["SH", "sourceView"]
+- !private ["SH", "ubiquityIdentityToken"]
+- !private ["SH", "video"]
+- !private ["SH", "view"]
+- !private ["SM", "contains"]
+- !private ["10Foundation19MutableDataProtocolP", "contains"]
+- !private ["So8NSCodingP", "SourceType"]
+- !private ["So8NSCodingP", "Style"]
+- !private ["So8NSCodingP", "addAction"]
+- !private ["So8NSCodingP", "bounds"]
+- !private ["So8NSCodingP", "endEditing"]
+- !private ["So8NSCodingP", "init"]
+- !private ["So8NSCodingP", "isSourceTypeAvailable"]
+- !private ["So8NSCodingP", "popoverPresentationController"]
+- !private ["So8NSCodingP", "present"]
+- !private ["So8NSCodingP", "view"]
+- !private ["So9NSCopyingP", "init"]
+- !private ["So26NSExtensionRequestHandlingP", "SourceType"]
+- !private ["So26NSExtensionRequestHandlingP", "Style"]
+- !private ["So26NSExtensionRequestHandlingP", "addAction"]
+- !private ["So26NSExtensionRequestHandlingP", "init"]
+- !private ["So26NSExtensionRequestHandlingP", "isSourceTypeAvailable"]
+- !private ["So26NSExtensionRequestHandlingP", "popoverPresentationController"]
+- !private ["So26NSExtensionRequestHandlingP", "present"]
+- !private ["So26NSExtensionRequestHandlingP", "view"]
+- !private ["So8NSObjectC", "SourceType"]
+- !private ["So8NSObjectC", "Style"]
+- !private ["So8NSObjectC", "addAction"]
+- !private ["So8NSObjectC", "bounds"]
+- !private ["So8NSObjectC", "current"]
+- !private ["So8NSObjectC", "default"]
+- !private ["So8NSObjectC", "delegate"]
+- !private ["So8NSObjectC", "endEditing"]
+- !private ["So8NSObjectC", "init"]
+- !private ["So8NSObjectC", "isSourceTypeAvailable"]
+- !private ["So8NSObjectC", "maxUploadLimitForBusiness"]
+- !private ["So8NSObjectC", "openCameraFor"]
+- !private ["So8NSObjectC", "openPhotoLibraryFor"]
+- !private ["So8NSObjectC", "popoverPresentationController"]
+- !private ["So8NSObjectC", "present"]
+- !private ["So8NSObjectC", "presentIn"]
+- !private ["So8NSObjectC", "sourceRect"]
+- !private ["So8NSObjectC", "sourceView"]
+- !private ["So8NSObjectC", "ubiquityIdentityToken"]
+- !private ["So8NSObjectC", "view"]
+- !private ["So8NSObjectP", "SourceType"]
+- !private ["So8NSObjectP", "Style"]
+- !private ["So8NSObjectP", "addAction"]
+- !private ["So8NSObjectP", "bounds"]
+- !private ["So8NSObjectP", "current"]
+- !private ["So8NSObjectP", "default"]
+- !private ["So8NSObjectP", "delegate"]
+- !private ["So8NSObjectP", "endEditing"]
+- !private ["So8NSObjectP", "init"]
+- !private ["So8NSObjectP", "isSourceTypeAvailable"]
+- !private ["So8NSObjectP", "maxUploadLimitForBusiness"]
+- !private ["So8NSObjectP", "openCameraFor"]
+- !private ["So8NSObjectP", "openPhotoLibraryFor"]
+- !private ["So8NSObjectP", "popoverPresentationController"]
+- !private ["So8NSObjectP", "present"]
+- !private ["So8NSObjectP", "presentIn"]
+- !private ["So8NSObjectP", "sourceRect"]
+- !private ["So8NSObjectP", "sourceView"]
+- !private ["So8NSObjectP", "ubiquityIdentityToken"]
+- !private ["So8NSObjectP", "view"]
+- !private ["Sq", "endEditing"]
+- ["5Hippo12PickerHelperC", "Bool"]
+- !private ["5Hippo12PickerHelperC", "BussinessProperty"]
+- ["5Hippo12PickerHelperC", "CoreDocumentPicker"]
+- !private ["5Hippo12PickerHelperC", "CoreFilesConfig"]
+- !private ["5Hippo12PickerHelperC", "CoreKit"]
+- ["5Hippo12PickerHelperC", "CoreMediaSelector"]
+- !private ["5Hippo12PickerHelperC", "FileManager"]
+- ["5Hippo12PickerHelperC", "PickerHelperDelegate"]
+- !private ["5Hippo12PickerHelperC", "UIAlertAction"]
+- !private ["5Hippo12PickerHelperC", "UIAlertController"]
+- !private ["5Hippo12PickerHelperC", "UIImagePickerController"]
+- ["5Hippo12PickerHelperC", "UIView"]
+- ["5Hippo12PickerHelperC", "UIViewController"]
+- !private ["5Hippo12PickerHelperC", "Void"]
+- !private ["5Hippo12PickerHelperC", "assertionFailure"]
+- !private ["5Hippo12PickerHelperC", "currentViewController"]
+- ["5Hippo12PickerHelperC", "delegate"]
+- !private ["5Hippo12PickerHelperC", "documentPicker"]
+- ["5Hippo12PickerHelperC", "enablePayment"]
+- !private ["5Hippo12PickerHelperC", "imagePicker"]
+- ["5Hippo12PickerHelperC", "init"]
+- ["5Hippo12PickerHelperC", "performActionBasedOnCameraPermission"]
+- ["5Hippo12PickerHelperC", "performActionBasedOnGalleryPermission"]
+- ["5Hippo12PickerHelperC", "present"]
+- ["5Hippo20PickerHelperDelegateP", "payOptionClicked"]
+- !private ["Sk", "contains"]
+- !private ["Sm", "contains"]
+- !private ["SY", "actionSheet"]
+- !private ["SY", "camera"]
+- !private ["SY", "cancel"]
+- !private ["SY", "default"]
+- !private ["SY", "document"]
+- !private ["SY", "other"]
+- !private ["ST", "contains"]
+- !private ["So33UIImagePickerControllerSourceTypeV", "camera"]
+- !private ["So22UIAlertControllerStyleV", "actionSheet"]
+- !private ["So18UIAlertActionStyleV", "cancel"]
+- !private ["So18UIAlertActionStyleV", "default"]
+- !private ["So29UIAccessibilityIdentificationP", "bounds"]
+- !private ["So29UIAccessibilityIdentificationP", "endEditing"]
+- !private ["So13UIAlertActionC", "init"]
+- !private ["So17UIAlertControllerC", "Style"]
+- !private ["So17UIAlertControllerC", "addAction"]
+- !private ["So17UIAlertControllerC", "init"]
+- !private ["So17UIAlertControllerC", "popoverPresentationController"]
+- !private ["So12UIAppearanceP", "bounds"]
+- !private ["So12UIAppearanceP", "endEditing"]
+- !private ["So21UIAppearanceContainerP", "SourceType"]
+- !private ["So21UIAppearanceContainerP", "Style"]
+- !private ["So21UIAppearanceContainerP", "addAction"]
+- !private ["So21UIAppearanceContainerP", "bounds"]
+- !private ["So21UIAppearanceContainerP", "endEditing"]
+- !private ["So21UIAppearanceContainerP", "init"]
+- !private ["So21UIAppearanceContainerP", "isSourceTypeAvailable"]
+- !private ["So21UIAppearanceContainerP", "popoverPresentationController"]
+- !private ["So21UIAppearanceContainerP", "present"]
+- !private ["So21UIAppearanceContainerP", "sourceRect"]
+- !private ["So21UIAppearanceContainerP", "sourceView"]
+- !private ["So21UIAppearanceContainerP", "view"]
+- !private ["So18UIContentContainerP", "SourceType"]
+- !private ["So18UIContentContainerP", "Style"]
+- !private ["So18UIContentContainerP", "addAction"]
+- !private ["So18UIContentContainerP", "init"]
+- !private ["So18UIContentContainerP", "isSourceTypeAvailable"]
+- !private ["So18UIContentContainerP", "popoverPresentationController"]
+- !private ["So18UIContentContainerP", "present"]
+- !private ["So18UIContentContainerP", "sourceRect"]
+- !private ["So18UIContentContainerP", "sourceView"]
+- !private ["So18UIContentContainerP", "view"]
+- !private ["So17UICoordinateSpaceP", "bounds"]
+- !private ["So17UICoordinateSpaceP", "endEditing"]
+- !private ["So24UIDocumentPickerDelegateP", "delegate"]
+- !private ["So24UIDocumentPickerDelegateP", "init"]
+- !private ["So24UIDocumentPickerDelegateP", "presentIn"]
+- !private ["So13UIDynamicItemP", "bounds"]
+- !private ["So13UIDynamicItemP", "endEditing"]
+- !private ["So18UIFocusEnvironmentP", "SourceType"]
+- !private ["So18UIFocusEnvironmentP", "Style"]
+- !private ["So18UIFocusEnvironmentP", "addAction"]
+- !private ["So18UIFocusEnvironmentP", "bounds"]
+- !private ["So18UIFocusEnvironmentP", "endEditing"]
+- !private ["So18UIFocusEnvironmentP", "init"]
+- !private ["So18UIFocusEnvironmentP", "isSourceTypeAvailable"]
+- !private ["So18UIFocusEnvironmentP", "popoverPresentationController"]
+- !private ["So18UIFocusEnvironmentP", "present"]
+- !private ["So18UIFocusEnvironmentP", "sourceRect"]
+- !private ["So18UIFocusEnvironmentP", "sourceView"]
+- !private ["So18UIFocusEnvironmentP", "view"]
+- !private ["So11UIFocusItemP", "bounds"]
+- !private ["So11UIFocusItemP", "endEditing"]
+- !private ["So20UIFocusItemContainerP", "bounds"]
+- !private ["So20UIFocusItemContainerP", "endEditing"]
+- !private ["So23UIImagePickerControllerC", "SourceType"]
+- !private ["So23UIImagePickerControllerC", "isSourceTypeAvailable"]
+- !private ["So31UIImagePickerControllerDelegateP", "init"]
+- !private ["So31UIImagePickerControllerDelegateP", "openCameraFor"]
+- !private ["So31UIImagePickerControllerDelegateP", "openPhotoLibraryFor"]
+- !private ["So22UINavigationControllerC", "SourceType"]
+- !private ["So22UINavigationControllerC", "isSourceTypeAvailable"]
+- !private ["So30UINavigationControllerDelegateP", "init"]
+- !private ["So30UINavigationControllerDelegateP", "openCameraFor"]
+- !private ["So30UINavigationControllerDelegateP", "openPhotoLibraryFor"]
+- !private ["So30UIPasteConfigurationSupportingP", "SourceType"]
+- !private ["So30UIPasteConfigurationSupportingP", "Style"]
+- !private ["So30UIPasteConfigurationSupportingP", "addAction"]
+- !private ["So30UIPasteConfigurationSupportingP", "bounds"]
+- !private ["So30UIPasteConfigurationSupportingP", "endEditing"]
+- !private ["So30UIPasteConfigurationSupportingP", "init"]
+- !private ["So30UIPasteConfigurationSupportingP", "isSourceTypeAvailable"]
+- !private ["So30UIPasteConfigurationSupportingP", "popoverPresentationController"]
+- !private ["So30UIPasteConfigurationSupportingP", "present"]
+- !private ["So30UIPasteConfigurationSupportingP", "view"]
+- !private ["So31UIPopoverPresentationControllerC", "sourceRect"]
+- !private ["So31UIPopoverPresentationControllerC", "sourceView"]
+- !private ["So24UIPresentationControllerC", "sourceRect"]
+- !private ["So24UIPresentationControllerC", "sourceView"]
+- !private ["So11UIResponderC", "SourceType"]
+- !private ["So11UIResponderC", "Style"]
+- !private ["So11UIResponderC", "addAction"]
+- !private ["So11UIResponderC", "bounds"]
+- !private ["So11UIResponderC", "endEditing"]
+- !private ["So11UIResponderC", "init"]
+- !private ["So11UIResponderC", "isSourceTypeAvailable"]
+- !private ["So11UIResponderC", "popoverPresentationController"]
+- !private ["So11UIResponderC", "present"]
+- !private ["So11UIResponderC", "view"]
+- !private ["So30UIResponderStandardEditActionsP", "SourceType"]
+- !private ["So30UIResponderStandardEditActionsP", "Style"]
+- !private ["So30UIResponderStandardEditActionsP", "addAction"]
+- !private ["So30UIResponderStandardEditActionsP", "bounds"]
+- !private ["So30UIResponderStandardEditActionsP", "endEditing"]
+- !private ["So30UIResponderStandardEditActionsP", "init"]
+- !private ["So30UIResponderStandardEditActionsP", "isSourceTypeAvailable"]
+- !private ["So30UIResponderStandardEditActionsP", "popoverPresentationController"]
+- !private ["So30UIResponderStandardEditActionsP", "present"]
+- !private ["So30UIResponderStandardEditActionsP", "view"]
+- !private ["So35UISpringLoadedInteractionSupportingP", "Style"]
+- !private ["So35UISpringLoadedInteractionSupportingP", "addAction"]
+- !private ["So35UISpringLoadedInteractionSupportingP", "init"]
+- !private ["So35UISpringLoadedInteractionSupportingP", "popoverPresentationController"]
+- !private ["So16UIStateRestoringP", "SourceType"]
+- !private ["So16UIStateRestoringP", "Style"]
+- !private ["So16UIStateRestoringP", "addAction"]
+- !private ["So16UIStateRestoringP", "init"]
+- !private ["So16UIStateRestoringP", "isSourceTypeAvailable"]
+- !private ["So16UIStateRestoringP", "popoverPresentationController"]
+- !private ["So16UIStateRestoringP", "present"]
+- !private ["So16UIStateRestoringP", "view"]
+- !private ["So18UITraitEnvironmentP", "SourceType"]
+- !private ["So18UITraitEnvironmentP", "Style"]
+- !private ["So18UITraitEnvironmentP", "addAction"]
+- !private ["So18UITraitEnvironmentP", "bounds"]
+- !private ["So18UITraitEnvironmentP", "endEditing"]
+- !private ["So18UITraitEnvironmentP", "init"]
+- !private ["So18UITraitEnvironmentP", "isSourceTypeAvailable"]
+- !private ["So18UITraitEnvironmentP", "popoverPresentationController"]
+- !private ["So18UITraitEnvironmentP", "present"]
+- !private ["So18UITraitEnvironmentP", "sourceRect"]
+- !private ["So18UITraitEnvironmentP", "sourceView"]
+- !private ["So18UITraitEnvironmentP", "view"]
+- !private ["So23UIUserActivityRestoringP", "SourceType"]
+- !private ["So23UIUserActivityRestoringP", "Style"]
+- !private ["So23UIUserActivityRestoringP", "addAction"]
+- !private ["So23UIUserActivityRestoringP", "bounds"]
+- !private ["So23UIUserActivityRestoringP", "endEditing"]
+- !private ["So23UIUserActivityRestoringP", "init"]
+- !private ["So23UIUserActivityRestoringP", "isSourceTypeAvailable"]
+- !private ["So23UIUserActivityRestoringP", "popoverPresentationController"]
+- !private ["So23UIUserActivityRestoringP", "present"]
+- !private ["So23UIUserActivityRestoringP", "view"]
+- !private ["So6UIViewC", "bounds"]
+- !private ["So6UIViewC", "endEditing"]
+- !private ["So16UIViewControllerC", "SourceType"]
+- !private ["So16UIViewControllerC", "Style"]
+- !private ["So16UIViewControllerC", "addAction"]
+- !private ["So16UIViewControllerC", "init"]
+- !private ["So16UIViewControllerC", "isSourceTypeAvailable"]
+- !private ["So16UIViewControllerC", "popoverPresentationController"]
+- !private ["So16UIViewControllerC", "present"]
+- !private ["So16UIViewControllerC", "view"]
+- !private ["s14_ArrayProtocolP", "contains"]
+- !private ["s24_DestructorSafeContainerP", "contains"]
+- !private ["s19_HasContiguousBytesP", "contains"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "contains"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "SourceType"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "Style"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "addAction"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "bounds"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "current"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "default"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "delegate"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "endEditing"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "init"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "isSourceTypeAvailable"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "maxUploadLimitForBusiness"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "openCameraFor"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "openPhotoLibraryFor"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "popoverPresentationController"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "present"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "presentIn"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "sourceRect"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "sourceView"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "ubiquityIdentityToken"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "view"]
+- !private ["s21_ObjectiveCBridgeableP", "contains"]
+- !private ["s21_ObjectiveCBridgeableP", "endEditing"]
+- !private ["s38__DefaultCustomPlaygroundQuickLookableP", "bounds"]
+- !private ["s38__DefaultCustomPlaygroundQuickLookableP", "endEditing"]
+depends-nominal:
+- !private "Sa"
+- !private "SK"
+- !private "5Hippo17BussinessPropertyC"
+- !private "So15CALayerDelegateP"
+- !private "s7CVarArgP"
+- !private "Sl"
+- !private "10Foundation15ContiguousBytesP"
+- !private "5Hippo18CoreDocumentPickerC"
+- "5Hippo26CoreDocumentPickerDelegateP"
+- !private "5Hippo15CoreFilesConfigV"
+- !private "5Hippo7CoreKitC"
+- !private "5Hippo17CoreMediaSelectorC"
+- "5Hippo25CoreMediaSelectorDelegateP"
+- !private "5Hippo14CoreMediaTypesO"
+- !private "s28CustomDebugStringConvertibleP"
+- !private "s17CustomReflectableP"
+- !private "s23CustomStringConvertibleP"
+- !private "10Foundation12DataProtocolP"
+- !private "Se"
+- !private "SE"
+- !private "SQ"
+- !private "s25ExpressibleByArrayLiteralP"
+- !private "s23ExpressibleByNilLiteralP"
+- !private "So13NSFileManagerC"
+- !private "5Hippo17CoreMediaSelectorC8FileTypeO"
+- !private "SH"
+- !private "SM"
+- !private "10Foundation19MutableDataProtocolP"
+- !private "So8NSCodingP"
+- !private "So9NSCopyingP"
+- !private "So26NSExtensionRequestHandlingP"
+- !private "So8NSObjectC"
+- !private "So8NSObjectP"
+- !private "Sq"
+- "5Hippo12PickerHelperC"
+- "5Hippo20PickerHelperDelegateP"
+- !private "Sk"
+- !private "Sm"
+- !private "SY"
+- !private "ST"
+- !private "So33UIImagePickerControllerSourceTypeV"
+- !private "So22UIAlertControllerStyleV"
+- !private "So18UIAlertActionStyleV"
+- !private "So29UIAccessibilityIdentificationP"
+- !private "So13UIAlertActionC"
+- !private "So17UIAlertControllerC"
+- !private "So12UIAppearanceP"
+- !private "So21UIAppearanceContainerP"
+- !private "So18UIContentContainerP"
+- !private "So17UICoordinateSpaceP"
+- !private "So24UIDocumentPickerDelegateP"
+- !private "So13UIDynamicItemP"
+- !private "So18UIFocusEnvironmentP"
+- !private "So11UIFocusItemP"
+- !private "So20UIFocusItemContainerP"
+- !private "So23UIImagePickerControllerC"
+- !private "So31UIImagePickerControllerDelegateP"
+- !private "So22UINavigationControllerC"
+- !private "So30UINavigationControllerDelegateP"
+- !private "So30UIPasteConfigurationSupportingP"
+- !private "So31UIPopoverPresentationControllerC"
+- !private "So24UIPresentationControllerC"
+- !private "So11UIResponderC"
+- !private "So30UIResponderStandardEditActionsP"
+- !private "So35UISpringLoadedInteractionSupportingP"
+- !private "So16UIStateRestoringP"
+- !private "So18UITraitEnvironmentP"
+- !private "So23UIUserActivityRestoringP"
+- !private "So6UIViewC"
+- !private "So16UIViewControllerC"
+- !private "s14_ArrayProtocolP"
+- !private "s24_DestructorSafeContainerP"
+- !private "s19_HasContiguousBytesP"
+- !private "s35_HasCustomAnyHashableRepresentationP"
+- !private "10Foundation27_KeyValueCodingAndObservingP"
+- !private "s21_ObjectiveCBridgeableP"
+- !private "s38__DefaultCustomPlaygroundQuickLookableP"
+depends-dynamic-lookup:
+depends-external:
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/ObjectiveC.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreMedia.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/simd.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreImage.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/QuartzCore.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Accelerate.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Dispatch.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Metal.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Darwin.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreLocation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Foundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/AVFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreAudio.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/MediaPlayer.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreGraphics.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/os.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Photos.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Swift.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/UIKit.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/SwiftOnoneSupport.swiftmodule"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Hippo.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Helpers/TRWDownloadManager/TWRDownloadManager.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/SocketRocket/SocketRocket.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/SocketRocket/SRWebSocket.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/MZFayeClient/MZFayeClient.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/unextended-module.modulemap"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/usr/include/objc/ObjectiveC.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/OpenGLES.framework/Headers/OpenGLES.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreMedia.framework/Headers/CoreMedia.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreImage.framework/Headers/CoreImage.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/QuartzCore.framework/Headers/QuartzCore.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Accelerate.framework/Headers/Accelerate.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Dispatch.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/QuickLook.framework/Headers/QuickLook.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Metal.framework/Headers/Metal.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/usr/include/Darwin.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreLocation.framework/Headers/CoreLocation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Foundation.framework/Headers/Foundation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/AVFoundation.framework/Headers/AVFoundation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/MediaPlayer.framework/Headers/MediaPlayer.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreGraphics.framework/Headers/CoreGraphics.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/UserNotifications.framework/Headers/UserNotifications.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/os.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Photos.framework/Headers/Photos.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/UIKit.framework/Headers/UIKit.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreText.framework/Headers/CoreText.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/MediaToolbox.framework/Headers/MediaToolbox.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/AudioToolbox.framework/Headers/AudioToolbox.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Security.framework/Headers/Security.apinotes"
+interface-hash: "c0264ba3355f113a8644ff7b106679ea"

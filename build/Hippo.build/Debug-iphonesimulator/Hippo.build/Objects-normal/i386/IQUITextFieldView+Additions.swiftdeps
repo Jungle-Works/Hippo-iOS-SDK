@@ -1,0 +1,346 @@
+### Swift dependencies file v0 ###
+provides-top-level:
+- "kIQUseDefaultKeyboardDistance"
+provides-nominal:
+provides-member:
+- ["So6UIViewC", ""]
+- ["So6UIViewC", "keyboardDistanceFromTextField"]
+- ["So6UIViewC", "ignoreSwitchingByNextPrevious"]
+- ["So6UIViewC", "shouldResignOnTouchOutsideMode"]
+provides-dynamic-lookup:
+- "ignoreSwitchingByNextPrevious"
+- "keyboardDistanceFromTextField"
+- "shouldResignOnTouchOutsideMode"
+depends-top-level:
+- "Bool"
+- "CGFloat"
+- "CastingPrecedence"
+- "IQEnableMode"
+- "UIView"
+- !private "kIQIgnoreSwitchingByNextPrevious"
+- !private "kIQKeyboardDistanceFromTextField"
+- !private "kIQKeyboardShouldResignOnTouchOutsideMode"
+- "kIQUseDefaultKeyboardDistance"
+- !private "objc_AssociationPolicy"
+- !private "objc_getAssociatedObject"
+- !private "objc_setAssociatedObject"
+depends-member:
+- ["s18AdditiveArithmeticP", "greatestFiniteMagnitude"]
+- ["SB", "greatestFiniteMagnitude"]
+- !private ["So15CALayerDelegateP", "kIQIgnoreSwitchingByNextPrevious"]
+- !private ["So15CALayerDelegateP", "kIQKeyboardDistanceFromTextField"]
+- !private ["So15CALayerDelegateP", "kIQKeyboardShouldResignOnTouchOutsideMode"]
+- !private ["So15CALayerDelegateP", "kIQUseDefaultKeyboardDistance"]
+- !private ["So15CALayerDelegateP", "objc_AssociationPolicy"]
+- !private ["So15CALayerDelegateP", "objc_getAssociatedObject"]
+- !private ["So15CALayerDelegateP", "objc_setAssociatedObject"]
+- ["12CoreGraphics7CGFloatV", "greatestFiniteMagnitude"]
+- ["s7CVarArgP", "greatestFiniteMagnitude"]
+- !private ["s7CVarArgP", "kIQIgnoreSwitchingByNextPrevious"]
+- !private ["s7CVarArgP", "kIQKeyboardDistanceFromTextField"]
+- !private ["s7CVarArgP", "kIQKeyboardShouldResignOnTouchOutsideMode"]
+- !private ["s7CVarArgP", "kIQUseDefaultKeyboardDistance"]
+- !private ["s7CVarArgP", "objc_AssociationPolicy"]
+- !private ["s7CVarArgP", "objc_getAssociatedObject"]
+- !private ["s7CVarArgP", "objc_setAssociatedObject"]
+- ["SL", "greatestFiniteMagnitude"]
+- !private ["s28CustomDebugStringConvertibleP", "kIQIgnoreSwitchingByNextPrevious"]
+- !private ["s28CustomDebugStringConvertibleP", "kIQKeyboardDistanceFromTextField"]
+- !private ["s28CustomDebugStringConvertibleP", "kIQKeyboardShouldResignOnTouchOutsideMode"]
+- !private ["s28CustomDebugStringConvertibleP", "kIQUseDefaultKeyboardDistance"]
+- !private ["s28CustomDebugStringConvertibleP", "objc_AssociationPolicy"]
+- !private ["s28CustomDebugStringConvertibleP", "objc_getAssociatedObject"]
+- !private ["s28CustomDebugStringConvertibleP", "objc_setAssociatedObject"]
+- ["s17CustomReflectableP", "greatestFiniteMagnitude"]
+- ["s23CustomStringConvertibleP", "greatestFiniteMagnitude"]
+- !private ["s23CustomStringConvertibleP", "kIQIgnoreSwitchingByNextPrevious"]
+- !private ["s23CustomStringConvertibleP", "kIQKeyboardDistanceFromTextField"]
+- !private ["s23CustomStringConvertibleP", "kIQKeyboardShouldResignOnTouchOutsideMode"]
+- !private ["s23CustomStringConvertibleP", "kIQUseDefaultKeyboardDistance"]
+- !private ["s23CustomStringConvertibleP", "objc_AssociationPolicy"]
+- !private ["s23CustomStringConvertibleP", "objc_getAssociatedObject"]
+- !private ["s23CustomStringConvertibleP", "objc_setAssociatedObject"]
+- ["Se", "greatestFiniteMagnitude"]
+- ["SE", "greatestFiniteMagnitude"]
+- !private ["SQ", "Default"]
+- !private ["SQ", "OBJC_ASSOCIATION_RETAIN_NONATOMIC"]
+- ["SQ", "greatestFiniteMagnitude"]
+- !private ["SQ", "kIQIgnoreSwitchingByNextPrevious"]
+- !private ["SQ", "kIQKeyboardDistanceFromTextField"]
+- !private ["SQ", "kIQKeyboardShouldResignOnTouchOutsideMode"]
+- !private ["SQ", "kIQUseDefaultKeyboardDistance"]
+- !private ["SQ", "objc_AssociationPolicy"]
+- !private ["SQ", "objc_getAssociatedObject"]
+- !private ["SQ", "objc_setAssociatedObject"]
+- ["s25ExpressibleByFloatLiteralP", "greatestFiniteMagnitude"]
+- ["s27ExpressibleByIntegerLiteralP", "greatestFiniteMagnitude"]
+- ["SF", "greatestFiniteMagnitude"]
+- !private ["SH", "Default"]
+- !private ["SH", "OBJC_ASSOCIATION_RETAIN_NONATOMIC"]
+- ["SH", "greatestFiniteMagnitude"]
+- !private ["SH", "kIQIgnoreSwitchingByNextPrevious"]
+- !private ["SH", "kIQKeyboardDistanceFromTextField"]
+- !private ["SH", "kIQKeyboardShouldResignOnTouchOutsideMode"]
+- !private ["SH", "kIQUseDefaultKeyboardDistance"]
+- !private ["SH", "objc_AssociationPolicy"]
+- !private ["SH", "objc_getAssociatedObject"]
+- !private ["SH", "objc_setAssociatedObject"]
+- !private ["5Hippo12IQEnableModeO", "Default"]
+- !private ["So8NSCodingP", "kIQIgnoreSwitchingByNextPrevious"]
+- !private ["So8NSCodingP", "kIQKeyboardDistanceFromTextField"]
+- !private ["So8NSCodingP", "kIQKeyboardShouldResignOnTouchOutsideMode"]
+- !private ["So8NSCodingP", "kIQUseDefaultKeyboardDistance"]
+- !private ["So8NSCodingP", "objc_AssociationPolicy"]
+- !private ["So8NSCodingP", "objc_getAssociatedObject"]
+- !private ["So8NSCodingP", "objc_setAssociatedObject"]
+- ["So8NSObjectC", "Bool"]
+- ["So8NSObjectC", "CGFloat"]
+- ["So8NSObjectC", "IQEnableMode"]
+- ["So8NSObjectC", "ignoreSwitchingByNextPrevious"]
+- !private ["So8NSObjectC", "kIQIgnoreSwitchingByNextPrevious"]
+- !private ["So8NSObjectC", "kIQKeyboardDistanceFromTextField"]
+- !private ["So8NSObjectC", "kIQKeyboardShouldResignOnTouchOutsideMode"]
+- !private ["So8NSObjectC", "kIQUseDefaultKeyboardDistance"]
+- ["So8NSObjectC", "keyboardDistanceFromTextField"]
+- !private ["So8NSObjectC", "objc_AssociationPolicy"]
+- !private ["So8NSObjectC", "objc_getAssociatedObject"]
+- !private ["So8NSObjectC", "objc_setAssociatedObject"]
+- ["So8NSObjectC", "shouldResignOnTouchOutsideMode"]
+- !private ["So8NSObjectP", "kIQIgnoreSwitchingByNextPrevious"]
+- !private ["So8NSObjectP", "kIQKeyboardDistanceFromTextField"]
+- !private ["So8NSObjectP", "kIQKeyboardShouldResignOnTouchOutsideMode"]
+- !private ["So8NSObjectP", "kIQUseDefaultKeyboardDistance"]
+- !private ["So8NSObjectP", "objc_AssociationPolicy"]
+- !private ["So8NSObjectP", "objc_getAssociatedObject"]
+- !private ["So8NSObjectP", "objc_setAssociatedObject"]
+- ["Sj", "greatestFiniteMagnitude"]
+- !private ["SY", "Default"]
+- !private ["SY", "OBJC_ASSOCIATION_RETAIN_NONATOMIC"]
+- ["s13SignedNumericP", "greatestFiniteMagnitude"]
+- ["Sx", "greatestFiniteMagnitude"]
+- !private ["So29UIAccessibilityIdentificationP", "kIQIgnoreSwitchingByNextPrevious"]
+- !private ["So29UIAccessibilityIdentificationP", "kIQKeyboardDistanceFromTextField"]
+- !private ["So29UIAccessibilityIdentificationP", "kIQKeyboardShouldResignOnTouchOutsideMode"]
+- !private ["So29UIAccessibilityIdentificationP", "kIQUseDefaultKeyboardDistance"]
+- !private ["So29UIAccessibilityIdentificationP", "objc_AssociationPolicy"]
+- !private ["So29UIAccessibilityIdentificationP", "objc_getAssociatedObject"]
+- !private ["So29UIAccessibilityIdentificationP", "objc_setAssociatedObject"]
+- !private ["So12UIAppearanceP", "kIQIgnoreSwitchingByNextPrevious"]
+- !private ["So12UIAppearanceP", "kIQKeyboardDistanceFromTextField"]
+- !private ["So12UIAppearanceP", "kIQKeyboardShouldResignOnTouchOutsideMode"]
+- !private ["So12UIAppearanceP", "kIQUseDefaultKeyboardDistance"]
+- !private ["So12UIAppearanceP", "objc_AssociationPolicy"]
+- !private ["So12UIAppearanceP", "objc_getAssociatedObject"]
+- !private ["So12UIAppearanceP", "objc_setAssociatedObject"]
+- !private ["So21UIAppearanceContainerP", "kIQIgnoreSwitchingByNextPrevious"]
+- !private ["So21UIAppearanceContainerP", "kIQKeyboardDistanceFromTextField"]
+- !private ["So21UIAppearanceContainerP", "kIQKeyboardShouldResignOnTouchOutsideMode"]
+- !private ["So21UIAppearanceContainerP", "kIQUseDefaultKeyboardDistance"]
+- !private ["So21UIAppearanceContainerP", "objc_AssociationPolicy"]
+- !private ["So21UIAppearanceContainerP", "objc_getAssociatedObject"]
+- !private ["So21UIAppearanceContainerP", "objc_setAssociatedObject"]
+- !private ["So17UICoordinateSpaceP", "kIQIgnoreSwitchingByNextPrevious"]
+- !private ["So17UICoordinateSpaceP", "kIQKeyboardDistanceFromTextField"]
+- !private ["So17UICoordinateSpaceP", "kIQKeyboardShouldResignOnTouchOutsideMode"]
+- !private ["So17UICoordinateSpaceP", "kIQUseDefaultKeyboardDistance"]
+- !private ["So17UICoordinateSpaceP", "objc_AssociationPolicy"]
+- !private ["So17UICoordinateSpaceP", "objc_getAssociatedObject"]
+- !private ["So17UICoordinateSpaceP", "objc_setAssociatedObject"]
+- !private ["So13UIDynamicItemP", "kIQIgnoreSwitchingByNextPrevious"]
+- !private ["So13UIDynamicItemP", "kIQKeyboardDistanceFromTextField"]
+- !private ["So13UIDynamicItemP", "kIQKeyboardShouldResignOnTouchOutsideMode"]
+- !private ["So13UIDynamicItemP", "kIQUseDefaultKeyboardDistance"]
+- !private ["So13UIDynamicItemP", "objc_AssociationPolicy"]
+- !private ["So13UIDynamicItemP", "objc_getAssociatedObject"]
+- !private ["So13UIDynamicItemP", "objc_setAssociatedObject"]
+- !private ["So18UIFocusEnvironmentP", "kIQIgnoreSwitchingByNextPrevious"]
+- !private ["So18UIFocusEnvironmentP", "kIQKeyboardDistanceFromTextField"]
+- !private ["So18UIFocusEnvironmentP", "kIQKeyboardShouldResignOnTouchOutsideMode"]
+- !private ["So18UIFocusEnvironmentP", "kIQUseDefaultKeyboardDistance"]
+- !private ["So18UIFocusEnvironmentP", "objc_AssociationPolicy"]
+- !private ["So18UIFocusEnvironmentP", "objc_getAssociatedObject"]
+- !private ["So18UIFocusEnvironmentP", "objc_setAssociatedObject"]
+- !private ["So11UIFocusItemP", "kIQIgnoreSwitchingByNextPrevious"]
+- !private ["So11UIFocusItemP", "kIQKeyboardDistanceFromTextField"]
+- !private ["So11UIFocusItemP", "kIQKeyboardShouldResignOnTouchOutsideMode"]
+- !private ["So11UIFocusItemP", "kIQUseDefaultKeyboardDistance"]
+- !private ["So11UIFocusItemP", "objc_AssociationPolicy"]
+- !private ["So11UIFocusItemP", "objc_getAssociatedObject"]
+- !private ["So11UIFocusItemP", "objc_setAssociatedObject"]
+- !private ["So20UIFocusItemContainerP", "kIQIgnoreSwitchingByNextPrevious"]
+- !private ["So20UIFocusItemContainerP", "kIQKeyboardDistanceFromTextField"]
+- !private ["So20UIFocusItemContainerP", "kIQKeyboardShouldResignOnTouchOutsideMode"]
+- !private ["So20UIFocusItemContainerP", "kIQUseDefaultKeyboardDistance"]
+- !private ["So20UIFocusItemContainerP", "objc_AssociationPolicy"]
+- !private ["So20UIFocusItemContainerP", "objc_getAssociatedObject"]
+- !private ["So20UIFocusItemContainerP", "objc_setAssociatedObject"]
+- !private ["So30UIPasteConfigurationSupportingP", "kIQIgnoreSwitchingByNextPrevious"]
+- !private ["So30UIPasteConfigurationSupportingP", "kIQKeyboardDistanceFromTextField"]
+- !private ["So30UIPasteConfigurationSupportingP", "kIQKeyboardShouldResignOnTouchOutsideMode"]
+- !private ["So30UIPasteConfigurationSupportingP", "kIQUseDefaultKeyboardDistance"]
+- !private ["So30UIPasteConfigurationSupportingP", "objc_AssociationPolicy"]
+- !private ["So30UIPasteConfigurationSupportingP", "objc_getAssociatedObject"]
+- !private ["So30UIPasteConfigurationSupportingP", "objc_setAssociatedObject"]
+- ["So11UIResponderC", "Bool"]
+- ["So11UIResponderC", "CGFloat"]
+- ["So11UIResponderC", "IQEnableMode"]
+- ["So11UIResponderC", "ignoreSwitchingByNextPrevious"]
+- !private ["So11UIResponderC", "kIQIgnoreSwitchingByNextPrevious"]
+- !private ["So11UIResponderC", "kIQKeyboardDistanceFromTextField"]
+- !private ["So11UIResponderC", "kIQKeyboardShouldResignOnTouchOutsideMode"]
+- !private ["So11UIResponderC", "kIQUseDefaultKeyboardDistance"]
+- ["So11UIResponderC", "keyboardDistanceFromTextField"]
+- !private ["So11UIResponderC", "objc_AssociationPolicy"]
+- !private ["So11UIResponderC", "objc_getAssociatedObject"]
+- !private ["So11UIResponderC", "objc_setAssociatedObject"]
+- ["So11UIResponderC", "shouldResignOnTouchOutsideMode"]
+- !private ["So30UIResponderStandardEditActionsP", "kIQIgnoreSwitchingByNextPrevious"]
+- !private ["So30UIResponderStandardEditActionsP", "kIQKeyboardDistanceFromTextField"]
+- !private ["So30UIResponderStandardEditActionsP", "kIQKeyboardShouldResignOnTouchOutsideMode"]
+- !private ["So30UIResponderStandardEditActionsP", "kIQUseDefaultKeyboardDistance"]
+- !private ["So30UIResponderStandardEditActionsP", "objc_AssociationPolicy"]
+- !private ["So30UIResponderStandardEditActionsP", "objc_getAssociatedObject"]
+- !private ["So30UIResponderStandardEditActionsP", "objc_setAssociatedObject"]
+- !private ["So18UITraitEnvironmentP", "kIQIgnoreSwitchingByNextPrevious"]
+- !private ["So18UITraitEnvironmentP", "kIQKeyboardDistanceFromTextField"]
+- !private ["So18UITraitEnvironmentP", "kIQKeyboardShouldResignOnTouchOutsideMode"]
+- !private ["So18UITraitEnvironmentP", "kIQUseDefaultKeyboardDistance"]
+- !private ["So18UITraitEnvironmentP", "objc_AssociationPolicy"]
+- !private ["So18UITraitEnvironmentP", "objc_getAssociatedObject"]
+- !private ["So18UITraitEnvironmentP", "objc_setAssociatedObject"]
+- !private ["So23UIUserActivityRestoringP", "kIQIgnoreSwitchingByNextPrevious"]
+- !private ["So23UIUserActivityRestoringP", "kIQKeyboardDistanceFromTextField"]
+- !private ["So23UIUserActivityRestoringP", "kIQKeyboardShouldResignOnTouchOutsideMode"]
+- !private ["So23UIUserActivityRestoringP", "kIQUseDefaultKeyboardDistance"]
+- !private ["So23UIUserActivityRestoringP", "objc_AssociationPolicy"]
+- !private ["So23UIUserActivityRestoringP", "objc_getAssociatedObject"]
+- !private ["So23UIUserActivityRestoringP", "objc_setAssociatedObject"]
+- ["So6UIViewC", "Bool"]
+- ["So6UIViewC", "CGFloat"]
+- ["So6UIViewC", "IQEnableMode"]
+- ["So6UIViewC", "ignoreSwitchingByNextPrevious"]
+- !private ["So6UIViewC", "kIQIgnoreSwitchingByNextPrevious"]
+- !private ["So6UIViewC", "kIQKeyboardDistanceFromTextField"]
+- !private ["So6UIViewC", "kIQKeyboardShouldResignOnTouchOutsideMode"]
+- !private ["So6UIViewC", "kIQUseDefaultKeyboardDistance"]
+- ["So6UIViewC", "keyboardDistanceFromTextField"]
+- !private ["So6UIViewC", "objc_AssociationPolicy"]
+- !private ["So6UIViewC", "objc_getAssociatedObject"]
+- !private ["So6UIViewC", "objc_setAssociatedObject"]
+- ["So6UIViewC", "shouldResignOnTouchOutsideMode"]
+- ["s15_CVarArgAlignedP", "greatestFiniteMagnitude"]
+- ["s22_CVarArgPassedAsDoubleP", "greatestFiniteMagnitude"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "kIQIgnoreSwitchingByNextPrevious"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "kIQKeyboardDistanceFromTextField"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "kIQKeyboardShouldResignOnTouchOutsideMode"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "kIQUseDefaultKeyboardDistance"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "objc_AssociationPolicy"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "objc_getAssociatedObject"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "objc_setAssociatedObject"]
+- ["s21_ObjectiveCBridgeableP", "greatestFiniteMagnitude"]
+- !private ["s38__DefaultCustomPlaygroundQuickLookableP", "kIQIgnoreSwitchingByNextPrevious"]
+- !private ["s38__DefaultCustomPlaygroundQuickLookableP", "kIQKeyboardDistanceFromTextField"]
+- !private ["s38__DefaultCustomPlaygroundQuickLookableP", "kIQKeyboardShouldResignOnTouchOutsideMode"]
+- !private ["s38__DefaultCustomPlaygroundQuickLookableP", "kIQUseDefaultKeyboardDistance"]
+- !private ["s38__DefaultCustomPlaygroundQuickLookableP", "objc_AssociationPolicy"]
+- !private ["s38__DefaultCustomPlaygroundQuickLookableP", "objc_getAssociatedObject"]
+- !private ["s38__DefaultCustomPlaygroundQuickLookableP", "objc_setAssociatedObject"]
+- !private ["So22objc_AssociationPolicyV", "OBJC_ASSOCIATION_RETAIN_NONATOMIC"]
+depends-nominal:
+- "s18AdditiveArithmeticP"
+- "SB"
+- !private "So15CALayerDelegateP"
+- "12CoreGraphics7CGFloatV"
+- "s7CVarArgP"
+- "SL"
+- !private "s28CustomDebugStringConvertibleP"
+- "s17CustomReflectableP"
+- "s23CustomStringConvertibleP"
+- "Se"
+- "SE"
+- "SQ"
+- "s25ExpressibleByFloatLiteralP"
+- "s27ExpressibleByIntegerLiteralP"
+- "SF"
+- "SH"
+- !private "5Hippo12IQEnableModeO"
+- !private "So8NSCodingP"
+- "So8NSObjectC"
+- !private "So8NSObjectP"
+- "Sj"
+- !private "SY"
+- "s13SignedNumericP"
+- "Sx"
+- !private "So29UIAccessibilityIdentificationP"
+- !private "So12UIAppearanceP"
+- !private "So21UIAppearanceContainerP"
+- !private "So17UICoordinateSpaceP"
+- !private "So13UIDynamicItemP"
+- !private "So18UIFocusEnvironmentP"
+- !private "So11UIFocusItemP"
+- !private "So20UIFocusItemContainerP"
+- !private "So30UIPasteConfigurationSupportingP"
+- "So11UIResponderC"
+- !private "So30UIResponderStandardEditActionsP"
+- !private "So18UITraitEnvironmentP"
+- !private "So23UIUserActivityRestoringP"
+- "So6UIViewC"
+- "s15_CVarArgAlignedP"
+- "s22_CVarArgPassedAsDoubleP"
+- !private "10Foundation27_KeyValueCodingAndObservingP"
+- "s21_ObjectiveCBridgeableP"
+- !private "s38__DefaultCustomPlaygroundQuickLookableP"
+- !private "So22objc_AssociationPolicyV"
+depends-dynamic-lookup:
+depends-external:
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/ObjectiveC.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreMedia.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/simd.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreImage.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/QuartzCore.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Accelerate.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Dispatch.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Metal.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Darwin.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreLocation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Foundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/AVFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreAudio.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/MediaPlayer.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreGraphics.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/os.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Photos.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Swift.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/UIKit.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/SwiftOnoneSupport.swiftmodule"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Hippo.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Helpers/TRWDownloadManager/TWRDownloadManager.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/SocketRocket/SocketRocket.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/SocketRocket/SRWebSocket.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/MZFayeClient/MZFayeClient.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/unextended-module.modulemap"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/usr/include/objc/ObjectiveC.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/OpenGLES.framework/Headers/OpenGLES.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreMedia.framework/Headers/CoreMedia.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreImage.framework/Headers/CoreImage.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/QuartzCore.framework/Headers/QuartzCore.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Accelerate.framework/Headers/Accelerate.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Dispatch.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/QuickLook.framework/Headers/QuickLook.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Metal.framework/Headers/Metal.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/usr/include/Darwin.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreLocation.framework/Headers/CoreLocation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Foundation.framework/Headers/Foundation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/AVFoundation.framework/Headers/AVFoundation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/MediaPlayer.framework/Headers/MediaPlayer.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreGraphics.framework/Headers/CoreGraphics.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/UserNotifications.framework/Headers/UserNotifications.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/os.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Photos.framework/Headers/Photos.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/UIKit.framework/Headers/UIKit.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreText.framework/Headers/CoreText.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/MediaToolbox.framework/Headers/MediaToolbox.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/AudioToolbox.framework/Headers/AudioToolbox.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Security.framework/Headers/Security.apinotes"
+interface-hash: "6adc8e2554996f20b0bc97920cb7864f"

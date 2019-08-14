@@ -1,0 +1,704 @@
+### Swift dependencies file v0 ###
+provides-top-level:
+- "HippoSupportList"
+- "ListIdentifiers"
+provides-nominal:
+- "5Hippo0A11SupportListC"
+- "5Hippo15ListIdentifiersV"
+provides-member:
+- ["5Hippo0A11SupportListC", ""]
+- ["5Hippo15ListIdentifiersV", ""]
+provides-dynamic-lookup:
+depends-top-level:
+- !private "!"
+- !private "..<"
+- !private "=="
+- !private ">"
+- !private "??"
+- "ActionType"
+- "AssignmentPrecedence"
+- "Bool"
+- "CastingPrecedence"
+- !private "HTTPClient"
+- !private "HippoConfig"
+- "HippoDescriptionContent"
+- "HippoSupportList"
+- !private "HippoUserDetail"
+- "Int"
+- "ListIdentifiers"
+- "NSObject"
+- !private "StatusCodeValue"
+- "String"
+- "TernaryPrecedence"
+- !private "UserDefaultkeys"
+- !private "UserDefaults"
+- "ViewType"
+- "Void"
+- !private "print"
+- !private "userDetailData"
+- !private "~="
+depends-member:
+- ["5Hippo10ActionTypeO", "LIST"]
+- !private ["5Hippo10ActionTypeO", "deinit"]
+- !private ["5Hippo10ActionTypeO", "init"]
+- !private ["Sa", "append"]
+- ["Sa", "init"]
+- !private ["SK", "append"]
+- ["SK", "init"]
+- !private ["SK", "isEmpty"]
+- !private ["SK", "lowercased"]
+- ["s7CVarArgP", "ActionType"]
+- !private ["s7CVarArgP", "FAQData"]
+- !private ["s7CVarArgP", "FAQName"]
+- !private ["s7CVarArgP", "HTTPClient"]
+- !private ["s7CVarArgP", "HippoConfig"]
+- ["s7CVarArgP", "HippoDescriptionContent"]
+- ["s7CVarArgP", "HippoSupportList"]
+- !private ["s7CVarArgP", "HippoUserDetail"]
+- ["s7CVarArgP", "ListIdentifiers"]
+- !private ["s7CVarArgP", "StatusCodeValue"]
+- !private ["s7CVarArgP", "String"]
+- !private ["s7CVarArgP", "UserDefaultkeys"]
+- !private ["s7CVarArgP", "UserDefaults"]
+- ["s7CVarArgP", "ViewType"]
+- ["s7CVarArgP", ""]
+- !private ["s7CVarArgP", "action"]
+- !private ["s7CVarArgP", "appSecretKey"]
+- !private ["s7CVarArgP", "append"]
+- !private ["s7CVarArgP", "content"]
+- !private ["s7CVarArgP", "createdAt"]
+- !private ["s7CVarArgP", "fuguEnUserID"]
+- !private ["s7CVarArgP", "getDataFromJson"]
+- !private ["s7CVarArgP", "getListwhere"]
+- !private ["s7CVarArgP", "getObjectFrom"]
+- !private ["s7CVarArgP", "id"]
+- ["s7CVarArgP", "init"]
+- !private ["s7CVarArgP", "isActive"]
+- !private ["s7CVarArgP", "isEmpty"]
+- !private ["s7CVarArgP", "items"]
+- !private ["s7CVarArgP", "lowercased"]
+- !private ["s7CVarArgP", "parent_id"]
+- !private ["s7CVarArgP", "print"]
+- !private ["s7CVarArgP", "set"]
+- !private ["s7CVarArgP", "shared"]
+- !private ["s7CVarArgP", "standard"]
+- !private ["s7CVarArgP", "subscript"]
+- !private ["s7CVarArgP", "ticketDetails"]
+- !private ["s7CVarArgP", "title"]
+- !private ["s7CVarArgP", "updatedAt"]
+- !private ["s7CVarArgP", "userDetailData"]
+- !private ["s7CVarArgP", "value"]
+- !private ["s7CVarArgP", "viewType"]
+- !private ["Sl", "append"]
+- ["Sl", "init"]
+- !private ["Sl", "isEmpty"]
+- !private ["Sl", "lowercased"]
+- !private ["Sl", "subscript"]
+- !private ["SL", "isEmpty"]
+- !private ["SL", "lowercased"]
+- !private ["10Foundation15ContiguousBytesP", "append"]
+- ["10Foundation15ContiguousBytesP", "init"]
+- ["s28CustomDebugStringConvertibleP", "ActionType"]
+- !private ["s28CustomDebugStringConvertibleP", "FAQData"]
+- !private ["s28CustomDebugStringConvertibleP", "FAQName"]
+- !private ["s28CustomDebugStringConvertibleP", "HTTPClient"]
+- !private ["s28CustomDebugStringConvertibleP", "HippoConfig"]
+- ["s28CustomDebugStringConvertibleP", "HippoDescriptionContent"]
+- ["s28CustomDebugStringConvertibleP", "HippoSupportList"]
+- !private ["s28CustomDebugStringConvertibleP", "HippoUserDetail"]
+- ["s28CustomDebugStringConvertibleP", "ListIdentifiers"]
+- !private ["s28CustomDebugStringConvertibleP", "StatusCodeValue"]
+- !private ["s28CustomDebugStringConvertibleP", "String"]
+- !private ["s28CustomDebugStringConvertibleP", "UserDefaultkeys"]
+- !private ["s28CustomDebugStringConvertibleP", "UserDefaults"]
+- ["s28CustomDebugStringConvertibleP", "ViewType"]
+- ["s28CustomDebugStringConvertibleP", ""]
+- !private ["s28CustomDebugStringConvertibleP", "action"]
+- !private ["s28CustomDebugStringConvertibleP", "appSecretKey"]
+- !private ["s28CustomDebugStringConvertibleP", "append"]
+- !private ["s28CustomDebugStringConvertibleP", "content"]
+- !private ["s28CustomDebugStringConvertibleP", "createdAt"]
+- !private ["s28CustomDebugStringConvertibleP", "fuguEnUserID"]
+- !private ["s28CustomDebugStringConvertibleP", "getDataFromJson"]
+- !private ["s28CustomDebugStringConvertibleP", "getListwhere"]
+- !private ["s28CustomDebugStringConvertibleP", "getObjectFrom"]
+- !private ["s28CustomDebugStringConvertibleP", "id"]
+- ["s28CustomDebugStringConvertibleP", "init"]
+- !private ["s28CustomDebugStringConvertibleP", "isActive"]
+- !private ["s28CustomDebugStringConvertibleP", "isEmpty"]
+- !private ["s28CustomDebugStringConvertibleP", "items"]
+- !private ["s28CustomDebugStringConvertibleP", "lowercased"]
+- !private ["s28CustomDebugStringConvertibleP", "parent_id"]
+- !private ["s28CustomDebugStringConvertibleP", "print"]
+- !private ["s28CustomDebugStringConvertibleP", "set"]
+- !private ["s28CustomDebugStringConvertibleP", "shared"]
+- !private ["s28CustomDebugStringConvertibleP", "standard"]
+- !private ["s28CustomDebugStringConvertibleP", "subscript"]
+- !private ["s28CustomDebugStringConvertibleP", "ticketDetails"]
+- !private ["s28CustomDebugStringConvertibleP", "title"]
+- !private ["s28CustomDebugStringConvertibleP", "updatedAt"]
+- !private ["s28CustomDebugStringConvertibleP", "userDetailData"]
+- !private ["s28CustomDebugStringConvertibleP", "value"]
+- !private ["s28CustomDebugStringConvertibleP", "viewType"]
+- !private ["s17CustomReflectableP", "append"]
+- ["s17CustomReflectableP", "init"]
+- !private ["s17CustomReflectableP", "isEmpty"]
+- !private ["s17CustomReflectableP", "lowercased"]
+- !private ["s17CustomReflectableP", "subscript"]
+- ["s23CustomStringConvertibleP", "ActionType"]
+- !private ["s23CustomStringConvertibleP", "FAQData"]
+- !private ["s23CustomStringConvertibleP", "FAQName"]
+- !private ["s23CustomStringConvertibleP", "HTTPClient"]
+- !private ["s23CustomStringConvertibleP", "HippoConfig"]
+- ["s23CustomStringConvertibleP", "HippoDescriptionContent"]
+- ["s23CustomStringConvertibleP", "HippoSupportList"]
+- !private ["s23CustomStringConvertibleP", "HippoUserDetail"]
+- ["s23CustomStringConvertibleP", "ListIdentifiers"]
+- !private ["s23CustomStringConvertibleP", "StatusCodeValue"]
+- !private ["s23CustomStringConvertibleP", "String"]
+- !private ["s23CustomStringConvertibleP", "UserDefaultkeys"]
+- !private ["s23CustomStringConvertibleP", "UserDefaults"]
+- ["s23CustomStringConvertibleP", "ViewType"]
+- ["s23CustomStringConvertibleP", ""]
+- !private ["s23CustomStringConvertibleP", "action"]
+- !private ["s23CustomStringConvertibleP", "appSecretKey"]
+- !private ["s23CustomStringConvertibleP", "append"]
+- !private ["s23CustomStringConvertibleP", "content"]
+- !private ["s23CustomStringConvertibleP", "createdAt"]
+- !private ["s23CustomStringConvertibleP", "fuguEnUserID"]
+- !private ["s23CustomStringConvertibleP", "getDataFromJson"]
+- !private ["s23CustomStringConvertibleP", "getListwhere"]
+- !private ["s23CustomStringConvertibleP", "getObjectFrom"]
+- !private ["s23CustomStringConvertibleP", "id"]
+- ["s23CustomStringConvertibleP", "init"]
+- !private ["s23CustomStringConvertibleP", "isActive"]
+- !private ["s23CustomStringConvertibleP", "isEmpty"]
+- !private ["s23CustomStringConvertibleP", "items"]
+- !private ["s23CustomStringConvertibleP", "lowercased"]
+- !private ["s23CustomStringConvertibleP", "parent_id"]
+- !private ["s23CustomStringConvertibleP", "print"]
+- !private ["s23CustomStringConvertibleP", "set"]
+- !private ["s23CustomStringConvertibleP", "shared"]
+- !private ["s23CustomStringConvertibleP", "standard"]
+- !private ["s23CustomStringConvertibleP", "subscript"]
+- !private ["s23CustomStringConvertibleP", "ticketDetails"]
+- !private ["s23CustomStringConvertibleP", "title"]
+- !private ["s23CustomStringConvertibleP", "updatedAt"]
+- !private ["s23CustomStringConvertibleP", "userDetailData"]
+- !private ["s23CustomStringConvertibleP", "value"]
+- !private ["s23CustomStringConvertibleP", "viewType"]
+- !private ["10Foundation12DataProtocolP", "append"]
+- ["10Foundation12DataProtocolP", "init"]
+- !private ["Se", "append"]
+- ["Se", "init"]
+- !private ["Se", "isEmpty"]
+- !private ["Se", "lowercased"]
+- !private ["Se", "subscript"]
+- !private ["SD", "init"]
+- !private ["SD", "subscript"]
+- !private ["SE", "append"]
+- ["SE", "init"]
+- !private ["SE", "isEmpty"]
+- !private ["SE", "lowercased"]
+- !private ["SE", "subscript"]
+- ["SQ", "ActionType"]
+- !private ["SQ", "Authorized_Max"]
+- !private ["SQ", "Authorized_Min"]
+- !private ["SQ", "FAQData"]
+- !private ["SQ", "FAQName"]
+- !private ["SQ", "HTTPClient"]
+- !private ["SQ", "HippoConfig"]
+- ["SQ", "HippoDescriptionContent"]
+- ["SQ", "HippoSupportList"]
+- !private ["SQ", "HippoUserDetail"]
+- ["SQ", "LIST"]
+- ["SQ", "ListIdentifiers"]
+- !private ["SQ", "POST"]
+- !private ["SQ", "StatusCodeValue"]
+- !private ["SQ", "String"]
+- !private ["SQ", "UserDefaultkeys"]
+- !private ["SQ", "UserDefaults"]
+- ["SQ", "ViewType"]
+- ["SQ", ""]
+- !private ["SQ", "action"]
+- !private ["SQ", "appSecretKey"]
+- !private ["SQ", "append"]
+- !private ["SQ", "content"]
+- !private ["SQ", "createdAt"]
+- !private ["SQ", "fuguEnUserID"]
+- !private ["SQ", "getDataFromJson"]
+- !private ["SQ", "getListwhere"]
+- !private ["SQ", "getObjectFrom"]
+- !private ["SQ", "id"]
+- ["SQ", "init"]
+- !private ["SQ", "isActive"]
+- !private ["SQ", "isEmpty"]
+- !private ["SQ", "items"]
+- ["SQ", "list"]
+- !private ["SQ", "lowercased"]
+- !private ["SQ", "parent_id"]
+- !private ["SQ", "print"]
+- !private ["SQ", "rawValue"]
+- !private ["SQ", "set"]
+- !private ["SQ", "shared"]
+- !private ["SQ", "standard"]
+- !private ["SQ", "subscript"]
+- !private ["SQ", "ticketDetails"]
+- !private ["SQ", "title"]
+- !private ["SQ", "updatedAt"]
+- !private ["SQ", "userDetailData"]
+- !private ["SQ", "value"]
+- !private ["SQ", "viewType"]
+- !private ["s25ExpressibleByArrayLiteralP", "append"]
+- ["s25ExpressibleByArrayLiteralP", "init"]
+- !private ["s30ExpressibleByDictionaryLiteralP", "init"]
+- !private ["s30ExpressibleByDictionaryLiteralP", "subscript"]
+- !private ["s43ExpressibleByExtendedGraphemeClusterLiteralP", "isEmpty"]
+- !private ["s43ExpressibleByExtendedGraphemeClusterLiteralP", "lowercased"]
+- !private ["s32ExpressibleByStringInterpolationP", "isEmpty"]
+- !private ["s32ExpressibleByStringInterpolationP", "lowercased"]
+- !private ["s26ExpressibleByStringLiteralP", "isEmpty"]
+- !private ["s26ExpressibleByStringLiteralP", "lowercased"]
+- !private ["s33ExpressibleByUnicodeScalarLiteralP", "isEmpty"]
+- !private ["s33ExpressibleByUnicodeScalarLiteralP", "lowercased"]
+- !private ["5Hippo10HTTPClientC", "makeConcurrentConnectionWith"]
+- ["SH", "ActionType"]
+- !private ["SH", "Authorized_Max"]
+- !private ["SH", "Authorized_Min"]
+- !private ["SH", "FAQData"]
+- !private ["SH", "FAQName"]
+- !private ["SH", "HTTPClient"]
+- !private ["SH", "HippoConfig"]
+- ["SH", "HippoDescriptionContent"]
+- ["SH", "HippoSupportList"]
+- !private ["SH", "HippoUserDetail"]
+- ["SH", "LIST"]
+- ["SH", "ListIdentifiers"]
+- !private ["SH", "POST"]
+- !private ["SH", "StatusCodeValue"]
+- !private ["SH", "String"]
+- !private ["SH", "UserDefaultkeys"]
+- !private ["SH", "UserDefaults"]
+- ["SH", "ViewType"]
+- ["SH", ""]
+- !private ["SH", "action"]
+- !private ["SH", "appSecretKey"]
+- !private ["SH", "append"]
+- !private ["SH", "content"]
+- !private ["SH", "createdAt"]
+- !private ["SH", "fuguEnUserID"]
+- !private ["SH", "getDataFromJson"]
+- !private ["SH", "getListwhere"]
+- !private ["SH", "getObjectFrom"]
+- !private ["SH", "id"]
+- ["SH", "init"]
+- !private ["SH", "isActive"]
+- !private ["SH", "isEmpty"]
+- !private ["SH", "items"]
+- ["SH", "list"]
+- !private ["SH", "lowercased"]
+- !private ["SH", "parent_id"]
+- !private ["SH", "print"]
+- !private ["SH", "rawValue"]
+- !private ["SH", "set"]
+- !private ["SH", "shared"]
+- !private ["SH", "standard"]
+- !private ["SH", "subscript"]
+- !private ["SH", "ticketDetails"]
+- !private ["SH", "title"]
+- !private ["SH", "updatedAt"]
+- !private ["SH", "userDetailData"]
+- !private ["SH", "value"]
+- !private ["SH", "viewType"]
+- !private ["5Hippo0A6ConfigC", "appSecretKey"]
+- !private ["5Hippo0A6ConfigC", "shared"]
+- !private ["5Hippo0A6ConfigC", "ticketDetails"]
+- ["5Hippo0A18DescriptionContentC", "init"]
+- ["5Hippo0A11SupportListC", "ActionType"]
+- ["5Hippo0A11SupportListC", "Bool"]
+- ["5Hippo0A11SupportListC", "FAQData"]
+- ["5Hippo0A11SupportListC", "FAQName"]
+- !private ["5Hippo0A11SupportListC", "HTTPClient"]
+- !private ["5Hippo0A11SupportListC", "HippoConfig"]
+- ["5Hippo0A11SupportListC", "HippoDescriptionContent"]
+- ["5Hippo0A11SupportListC", "HippoSupportList"]
+- !private ["5Hippo0A11SupportListC", "HippoUserDetail"]
+- ["5Hippo0A11SupportListC", "Int"]
+- ["5Hippo0A11SupportListC", "ListIdentifiers"]
+- !private ["5Hippo0A11SupportListC", "StatusCodeValue"]
+- ["5Hippo0A11SupportListC", "String"]
+- !private ["5Hippo0A11SupportListC", "UserDefaultkeys"]
+- !private ["5Hippo0A11SupportListC", "UserDefaults"]
+- ["5Hippo0A11SupportListC", "ViewType"]
+- ["5Hippo0A11SupportListC", "Void"]
+- ["5Hippo0A11SupportListC", "action"]
+- ["5Hippo0A11SupportListC", "content"]
+- ["5Hippo0A11SupportListC", "createdAt"]
+- ["5Hippo0A11SupportListC", "currentFAQVersion"]
+- ["5Hippo0A11SupportListC", "currentPathArray"]
+- ["5Hippo0A11SupportListC", "deinit"]
+- ["5Hippo0A11SupportListC", "getDataFromJson"]
+- ["5Hippo0A11SupportListC", "getListForBusiness"]
+- ["5Hippo0A11SupportListC", "getListwhere"]
+- ["5Hippo0A11SupportListC", "getObjectFrom"]
+- ["5Hippo0A11SupportListC", "id"]
+- ["5Hippo0A11SupportListC", "init"]
+- ["5Hippo0A11SupportListC", "isActive"]
+- ["5Hippo0A11SupportListC", "items"]
+- ["5Hippo0A11SupportListC", "list"]
+- ["5Hippo0A11SupportListC", "parent_id"]
+- !private ["5Hippo0A11SupportListC", "print"]
+- ["5Hippo0A11SupportListC", "title"]
+- ["5Hippo0A11SupportListC", "updatedAt"]
+- !private ["5Hippo0A11SupportListC", "userDetailData"]
+- ["5Hippo0A11SupportListC", "viewType"]
+- !private ["5Hippo0A16TicketAtrributesC", "FAQName"]
+- !private ["5Hippo0A10UserDetailC", "fuguEnUserID"]
+- !private ["5Hippo14HttpMethodTypeO", "POST"]
+- !private ["5Hippo20KingfisherCompatibleP", "isEmpty"]
+- !private ["5Hippo20KingfisherCompatibleP", "lowercased"]
+- ["5Hippo15ListIdentifiersV", "Int"]
+- ["5Hippo15ListIdentifiersV", "String"]
+- ["5Hippo15ListIdentifiersV", "id"]
+- ["5Hippo15ListIdentifiersV", "init"]
+- ["5Hippo15ListIdentifiersV", "parentId"]
+- ["5Hippo15ListIdentifiersV", "title"]
+- !private ["s25LosslessStringConvertibleP", "isEmpty"]
+- !private ["s25LosslessStringConvertibleP", "lowercased"]
+- !private ["s10MirrorPathP", "isEmpty"]
+- !private ["s10MirrorPathP", "lowercased"]
+- !private ["SM", "append"]
+- ["SM", "init"]
+- !private ["10Foundation19MutableDataProtocolP", "append"]
+- ["10Foundation19MutableDataProtocolP", "init"]
+- !private ["So8NSCodingP", "isEmpty"]
+- !private ["So8NSCodingP", "lowercased"]
+- !private ["So9NSCopyingP", "isEmpty"]
+- !private ["So9NSCopyingP", "lowercased"]
+- !private ["So21NSItemProviderReadingP", "isEmpty"]
+- !private ["So21NSItemProviderReadingP", "lowercased"]
+- !private ["So21NSItemProviderWritingP", "isEmpty"]
+- !private ["So21NSItemProviderWritingP", "lowercased"]
+- !private ["So16NSMutableCopyingP", "isEmpty"]
+- !private ["So16NSMutableCopyingP", "lowercased"]
+- ["So8NSObjectC", "ActionType"]
+- ["So8NSObjectC", "Bool"]
+- ["So8NSObjectC", "FAQData"]
+- ["So8NSObjectC", "FAQName"]
+- !private ["So8NSObjectC", "HTTPClient"]
+- !private ["So8NSObjectC", "HippoConfig"]
+- ["So8NSObjectC", "HippoDescriptionContent"]
+- ["So8NSObjectC", "HippoSupportList"]
+- !private ["So8NSObjectC", "HippoUserDetail"]
+- ["So8NSObjectC", "Int"]
+- ["So8NSObjectC", "ListIdentifiers"]
+- !private ["So8NSObjectC", "StatusCodeValue"]
+- ["So8NSObjectC", "String"]
+- !private ["So8NSObjectC", "UserDefaultkeys"]
+- !private ["So8NSObjectC", "UserDefaults"]
+- ["So8NSObjectC", "ViewType"]
+- ["So8NSObjectC", "Void"]
+- ["So8NSObjectC", ""]
+- ["So8NSObjectC", "action"]
+- !private ["So8NSObjectC", "appSecretKey"]
+- ["So8NSObjectC", "content"]
+- ["So8NSObjectC", "createdAt"]
+- ["So8NSObjectC", "currentFAQVersion"]
+- ["So8NSObjectC", "currentPathArray"]
+- !private ["So8NSObjectC", "fuguEnUserID"]
+- ["So8NSObjectC", "getDataFromJson"]
+- ["So8NSObjectC", "getListForBusiness"]
+- ["So8NSObjectC", "getListwhere"]
+- ["So8NSObjectC", "getObjectFrom"]
+- ["So8NSObjectC", "id"]
+- ["So8NSObjectC", "init"]
+- ["So8NSObjectC", "isActive"]
+- !private ["So8NSObjectC", "isEmpty"]
+- ["So8NSObjectC", "items"]
+- ["So8NSObjectC", "list"]
+- !private ["So8NSObjectC", "lowercased"]
+- ["So8NSObjectC", "parent_id"]
+- !private ["So8NSObjectC", "print"]
+- !private ["So8NSObjectC", "set"]
+- !private ["So8NSObjectC", "shared"]
+- !private ["So8NSObjectC", "standard"]
+- !private ["So8NSObjectC", "ticketDetails"]
+- ["So8NSObjectC", "title"]
+- ["So8NSObjectC", "updatedAt"]
+- !private ["So8NSObjectC", "userDetailData"]
+- !private ["So8NSObjectC", "value"]
+- ["So8NSObjectC", "viewType"]
+- ["So8NSObjectP", "ActionType"]
+- !private ["So8NSObjectP", "FAQData"]
+- !private ["So8NSObjectP", "FAQName"]
+- !private ["So8NSObjectP", "HTTPClient"]
+- !private ["So8NSObjectP", "HippoConfig"]
+- ["So8NSObjectP", "HippoDescriptionContent"]
+- ["So8NSObjectP", "HippoSupportList"]
+- !private ["So8NSObjectP", "HippoUserDetail"]
+- ["So8NSObjectP", "ListIdentifiers"]
+- !private ["So8NSObjectP", "StatusCodeValue"]
+- !private ["So8NSObjectP", "String"]
+- !private ["So8NSObjectP", "UserDefaultkeys"]
+- !private ["So8NSObjectP", "UserDefaults"]
+- ["So8NSObjectP", "ViewType"]
+- ["So8NSObjectP", ""]
+- !private ["So8NSObjectP", "action"]
+- !private ["So8NSObjectP", "appSecretKey"]
+- !private ["So8NSObjectP", "content"]
+- !private ["So8NSObjectP", "createdAt"]
+- !private ["So8NSObjectP", "fuguEnUserID"]
+- !private ["So8NSObjectP", "getDataFromJson"]
+- !private ["So8NSObjectP", "getListwhere"]
+- !private ["So8NSObjectP", "getObjectFrom"]
+- !private ["So8NSObjectP", "id"]
+- !private ["So8NSObjectP", "init"]
+- !private ["So8NSObjectP", "isActive"]
+- !private ["So8NSObjectP", "isEmpty"]
+- !private ["So8NSObjectP", "items"]
+- !private ["So8NSObjectP", "lowercased"]
+- !private ["So8NSObjectP", "parent_id"]
+- !private ["So8NSObjectP", "print"]
+- !private ["So8NSObjectP", "set"]
+- !private ["So8NSObjectP", "shared"]
+- !private ["So8NSObjectP", "standard"]
+- !private ["So8NSObjectP", "ticketDetails"]
+- !private ["So8NSObjectP", "title"]
+- !private ["So8NSObjectP", "updatedAt"]
+- !private ["So8NSObjectP", "userDetailData"]
+- !private ["So8NSObjectP", "value"]
+- !private ["So8NSObjectP", "viewType"]
+- !private ["So14NSSecureCodingP", "isEmpty"]
+- !private ["So14NSSecureCodingP", "lowercased"]
+- !private ["So8NSStringC", "isEmpty"]
+- !private ["So8NSStringC", "lowercased"]
+- !private ["Sk", "append"]
+- ["Sk", "init"]
+- !private ["Sm", "append"]
+- ["Sm", "init"]
+- !private ["Sm", "isEmpty"]
+- !private ["Sm", "lowercased"]
+- !private ["SY", "Authorized_Max"]
+- !private ["SY", "Authorized_Min"]
+- ["SY", "LIST"]
+- !private ["SY", "POST"]
+- !private ["SY", "init"]
+- ["SY", "list"]
+- !private ["SY", "rawValue"]
+- !private ["ST", "append"]
+- ["ST", "init"]
+- !private ["ST", "isEmpty"]
+- !private ["ST", "lowercased"]
+- !private ["ST", "subscript"]
+- !private ["5Hippo15StatusCodeValueO", "Authorized_Max"]
+- !private ["5Hippo15StatusCodeValueO", "Authorized_Min"]
+- !private ["5Hippo15StatusCodeValueO", "deinit"]
+- !private ["5Hippo15StatusCodeValueO", "rawValue"]
+- !private ["SS", "isEmpty"]
+- !private ["SS", "lowercased"]
+- !private ["Sy", "isEmpty"]
+- !private ["Sy", "lowercased"]
+- !private ["s16TextOutputStreamP", "isEmpty"]
+- !private ["s16TextOutputStreamP", "lowercased"]
+- !private ["s20TextOutputStreamableP", "isEmpty"]
+- !private ["s20TextOutputStreamableP", "lowercased"]
+- !private ["5Hippo15UserDefaultkeysV", "TicketsKey"]
+- !private ["5Hippo15UserDefaultkeysV", "currentFAQVersion"]
+- !private ["So14NSUserDefaultsC", "set"]
+- !private ["So14NSUserDefaultsC", "standard"]
+- !private ["So14NSUserDefaultsC", "value"]
+- !private ["5Hippo8ViewTypeO", "deinit"]
+- !private ["5Hippo8ViewTypeO", "init"]
+- ["5Hippo8ViewTypeO", "list"]
+- !private ["s14_ArrayProtocolP", "append"]
+- ["s14_ArrayProtocolP", "init"]
+- !private ["s30_CustomPlaygroundQuickLookableP", "isEmpty"]
+- !private ["s30_CustomPlaygroundQuickLookableP", "lowercased"]
+- !private ["s24_DestructorSafeContainerP", "append"]
+- ["s24_DestructorSafeContainerP", "init"]
+- !private ["s51_ExpressibleByBuiltinExtendedGraphemeClusterLiteralP", "isEmpty"]
+- !private ["s51_ExpressibleByBuiltinExtendedGraphemeClusterLiteralP", "lowercased"]
+- !private ["s34_ExpressibleByBuiltinStringLiteralP", "isEmpty"]
+- !private ["s34_ExpressibleByBuiltinStringLiteralP", "lowercased"]
+- !private ["s41_ExpressibleByBuiltinUnicodeScalarLiteralP", "isEmpty"]
+- !private ["s41_ExpressibleByBuiltinUnicodeScalarLiteralP", "lowercased"]
+- !private ["s19_HasContiguousBytesP", "append"]
+- ["s19_HasContiguousBytesP", "init"]
+- !private ["s19_HasContiguousBytesP", "isEmpty"]
+- !private ["s19_HasContiguousBytesP", "lowercased"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "append"]
+- ["s35_HasCustomAnyHashableRepresentationP", "init"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "isEmpty"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "lowercased"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "subscript"]
+- !private ["10Foundation36_JSONStringDictionaryDecodableMarkerP", "init"]
+- !private ["10Foundation36_JSONStringDictionaryDecodableMarkerP", "subscript"]
+- !private ["10Foundation36_JSONStringDictionaryEncodableMarkerP", "init"]
+- !private ["10Foundation36_JSONStringDictionaryEncodableMarkerP", "subscript"]
+- ["10Foundation27_KeyValueCodingAndObservingP", "ActionType"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "FAQData"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "FAQName"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "HTTPClient"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "HippoConfig"]
+- ["10Foundation27_KeyValueCodingAndObservingP", "HippoDescriptionContent"]
+- ["10Foundation27_KeyValueCodingAndObservingP", "HippoSupportList"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "HippoUserDetail"]
+- ["10Foundation27_KeyValueCodingAndObservingP", "ListIdentifiers"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "StatusCodeValue"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "String"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "UserDefaultkeys"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "UserDefaults"]
+- ["10Foundation27_KeyValueCodingAndObservingP", "ViewType"]
+- ["10Foundation27_KeyValueCodingAndObservingP", ""]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "action"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "appSecretKey"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "content"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "createdAt"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "fuguEnUserID"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "getDataFromJson"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "getListwhere"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "getObjectFrom"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "id"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "init"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "isActive"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "isEmpty"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "items"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "lowercased"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "parent_id"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "print"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "set"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "shared"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "standard"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "ticketDetails"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "title"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "updatedAt"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "userDetailData"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "value"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "viewType"]
+- !private ["s21_ObjectiveCBridgeableP", "append"]
+- ["s21_ObjectiveCBridgeableP", "init"]
+- !private ["s21_ObjectiveCBridgeableP", "isEmpty"]
+- !private ["s21_ObjectiveCBridgeableP", "lowercased"]
+- !private ["s21_ObjectiveCBridgeableP", "subscript"]
+depends-nominal:
+- "5Hippo10ActionTypeO"
+- "Sa"
+- "SK"
+- "s7CVarArgP"
+- "Sl"
+- !private "SL"
+- "10Foundation15ContiguousBytesP"
+- "s28CustomDebugStringConvertibleP"
+- "s17CustomReflectableP"
+- "s23CustomStringConvertibleP"
+- "10Foundation12DataProtocolP"
+- "Se"
+- !private "SD"
+- "SE"
+- "SQ"
+- "s25ExpressibleByArrayLiteralP"
+- !private "s30ExpressibleByDictionaryLiteralP"
+- !private "s43ExpressibleByExtendedGraphemeClusterLiteralP"
+- !private "s32ExpressibleByStringInterpolationP"
+- !private "s26ExpressibleByStringLiteralP"
+- !private "s33ExpressibleByUnicodeScalarLiteralP"
+- !private "5Hippo10HTTPClientC"
+- "SH"
+- !private "5Hippo0A6ConfigC"
+- "5Hippo0A18DescriptionContentC"
+- "5Hippo0A11SupportListC"
+- !private "5Hippo0A16TicketAtrributesC"
+- !private "5Hippo0A10UserDetailC"
+- !private "5Hippo14HttpMethodTypeO"
+- !private "5Hippo20KingfisherCompatibleP"
+- "5Hippo15ListIdentifiersV"
+- !private "s25LosslessStringConvertibleP"
+- !private "s10MirrorPathP"
+- "SM"
+- "10Foundation19MutableDataProtocolP"
+- !private "So8NSCodingP"
+- !private "So9NSCopyingP"
+- !private "So21NSItemProviderReadingP"
+- !private "So21NSItemProviderWritingP"
+- !private "So16NSMutableCopyingP"
+- "So8NSObjectC"
+- "So8NSObjectP"
+- !private "So14NSSecureCodingP"
+- !private "So8NSStringC"
+- "Sk"
+- "Sm"
+- "SY"
+- "ST"
+- !private "5Hippo15StatusCodeValueO"
+- !private "SS"
+- !private "Sy"
+- !private "s16TextOutputStreamP"
+- !private "s20TextOutputStreamableP"
+- !private "5Hippo15UserDefaultkeysV"
+- !private "So14NSUserDefaultsC"
+- "5Hippo8ViewTypeO"
+- "s14_ArrayProtocolP"
+- !private "s30_CustomPlaygroundQuickLookableP"
+- "s24_DestructorSafeContainerP"
+- !private "s51_ExpressibleByBuiltinExtendedGraphemeClusterLiteralP"
+- !private "s34_ExpressibleByBuiltinStringLiteralP"
+- !private "s41_ExpressibleByBuiltinUnicodeScalarLiteralP"
+- "s19_HasContiguousBytesP"
+- "s35_HasCustomAnyHashableRepresentationP"
+- !private "10Foundation36_JSONStringDictionaryDecodableMarkerP"
+- !private "10Foundation36_JSONStringDictionaryEncodableMarkerP"
+- "10Foundation27_KeyValueCodingAndObservingP"
+- "s21_ObjectiveCBridgeableP"
+depends-dynamic-lookup:
+depends-external:
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/ObjectiveC.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreMedia.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/simd.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreImage.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/QuartzCore.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Accelerate.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Dispatch.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Metal.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Darwin.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreLocation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Foundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/AVFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreAudio.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/MediaPlayer.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreGraphics.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/os.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Photos.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Swift.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/UIKit.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/SwiftOnoneSupport.swiftmodule"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Hippo.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Helpers/TRWDownloadManager/TWRDownloadManager.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/SocketRocket/SocketRocket.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/SocketRocket/SRWebSocket.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/MZFayeClient/MZFayeClient.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/unextended-module.modulemap"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/usr/include/objc/ObjectiveC.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/OpenGLES.framework/Headers/OpenGLES.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreMedia.framework/Headers/CoreMedia.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreImage.framework/Headers/CoreImage.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/QuartzCore.framework/Headers/QuartzCore.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Accelerate.framework/Headers/Accelerate.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Dispatch.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/QuickLook.framework/Headers/QuickLook.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Metal.framework/Headers/Metal.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/usr/include/Darwin.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreLocation.framework/Headers/CoreLocation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Foundation.framework/Headers/Foundation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/AVFoundation.framework/Headers/AVFoundation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/MediaPlayer.framework/Headers/MediaPlayer.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreGraphics.framework/Headers/CoreGraphics.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/UserNotifications.framework/Headers/UserNotifications.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/os.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Photos.framework/Headers/Photos.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/UIKit.framework/Headers/UIKit.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreText.framework/Headers/CoreText.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/MediaToolbox.framework/Headers/MediaToolbox.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/AudioToolbox.framework/Headers/AudioToolbox.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Security.framework/Headers/Security.apinotes"
+interface-hash: "e0942119554e80381d1f12c9a7b2a5a9"
