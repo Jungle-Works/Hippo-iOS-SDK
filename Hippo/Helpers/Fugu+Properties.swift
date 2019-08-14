@@ -11,7 +11,7 @@ import Foundation
 let HippoSDKSource = 1
 let Device_Type_iOS = 2
 var userDetailData = [String: Any]()
-let fuguAppVersion = "1.7.44"
+let fuguAppVersion = "1.7.45"
 let versionCode = 228
 
 /*
@@ -45,4 +45,5 @@ let versionCode = 228
  226 *** 1.7.42 = updated UI of SDK
  227 *** 1.7.43 = UI Changes
  228 *** 1.7.44 = Time issue fixes and UI improvement
+ 229 *** 1.7.45 = Added bot_group_id
  */
