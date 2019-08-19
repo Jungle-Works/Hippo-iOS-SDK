@@ -1,11 +1,269 @@
 ### Swift dependencies file v0 ###
 provides-top-level:
 provides-nominal:
+- "5Hippo0A7ChannelC"
 provides-member:
+- ["5Hippo0A7ChannelC", ""]
 provides-dynamic-lookup:
 depends-top-level:
+- !private "!"
+- !private "??"
+- !private "AgentDetail"
+- "AssignmentPrecedence"
+- "Bool"
+- "CallSignal"
+- !private "Device_Type_iOS"
+- "HippoChannel"
+- !private "HippoConfig"
+- !private "MessageType"
+- "NSError"
+- "SignalingClient"
+- !private "UIDevice"
+- "Void"
+- !private "currentUserType"
+- !private "versionCode"
 depends-member:
+- !private ["5Hippo11AgentDetailC", "getDeviceDetails"]
+- !private ["SK", "isEmpty"]
+- !private ["s7CVarArgP", "current"]
+- !private ["s7CVarArgP", "deviceToken"]
+- !private ["s7CVarArgP", "getDeviceDetails"]
+- !private ["s7CVarArgP", "identifierForVendor"]
+- !private ["s7CVarArgP", "isEmpty"]
+- !private ["s7CVarArgP", "shared"]
+- !private ["s7CVarArgP", "subscript"]
+- !private ["s7CVarArgP", "voipToken"]
+- !private ["5Hippo10CallSignalV", "deinit"]
+- !private ["5Hippo10CallSignalV", "getJsonToSend"]
+- !private ["Sl", "isEmpty"]
+- !private ["Sl", "subscript"]
+- !private ["SL", "isEmpty"]
+- !private ["s28CustomDebugStringConvertibleP", "current"]
+- !private ["s28CustomDebugStringConvertibleP", "deviceToken"]
+- !private ["s28CustomDebugStringConvertibleP", "getDeviceDetails"]
+- !private ["s28CustomDebugStringConvertibleP", "identifierForVendor"]
+- !private ["s28CustomDebugStringConvertibleP", "isEmpty"]
+- !private ["s28CustomDebugStringConvertibleP", "shared"]
+- !private ["s28CustomDebugStringConvertibleP", "subscript"]
+- !private ["s28CustomDebugStringConvertibleP", "uuidString"]
+- !private ["s28CustomDebugStringConvertibleP", "voipToken"]
+- !private ["s17CustomReflectableP", "isEmpty"]
+- !private ["s17CustomReflectableP", "subscript"]
+- !private ["s17CustomReflectableP", "uuidString"]
+- !private ["s23CustomStringConvertibleP", "current"]
+- !private ["s23CustomStringConvertibleP", "deviceToken"]
+- !private ["s23CustomStringConvertibleP", "getDeviceDetails"]
+- !private ["s23CustomStringConvertibleP", "identifierForVendor"]
+- !private ["s23CustomStringConvertibleP", "isEmpty"]
+- !private ["s23CustomStringConvertibleP", "shared"]
+- !private ["s23CustomStringConvertibleP", "subscript"]
+- !private ["s23CustomStringConvertibleP", "uuidString"]
+- !private ["s23CustomStringConvertibleP", "voipToken"]
+- !private ["Se", "isEmpty"]
+- !private ["Se", "subscript"]
+- !private ["Se", "uuidString"]
+- !private ["SD", "subscript"]
+- !private ["SE", "isEmpty"]
+- !private ["SE", "subscript"]
+- !private ["SE", "uuidString"]
+- !private ["SQ", "call"]
+- !private ["SQ", "current"]
+- !private ["SQ", "deviceToken"]
+- !private ["SQ", "getDeviceDetails"]
+- !private ["SQ", "identifierForVendor"]
+- !private ["SQ", "isEmpty"]
+- !private ["SQ", "rawValue"]
+- !private ["SQ", "shared"]
+- !private ["SQ", "subscript"]
+- !private ["SQ", "uuidString"]
+- !private ["SQ", "voipToken"]
+- !private ["s30ExpressibleByDictionaryLiteralP", "subscript"]
+- !private ["s43ExpressibleByExtendedGraphemeClusterLiteralP", "isEmpty"]
+- !private ["s32ExpressibleByStringInterpolationP", "isEmpty"]
+- !private ["s26ExpressibleByStringLiteralP", "isEmpty"]
+- !private ["s33ExpressibleByUnicodeScalarLiteralP", "isEmpty"]
+- !private ["SH", "call"]
+- !private ["SH", "current"]
+- !private ["SH", "deviceToken"]
+- !private ["SH", "getDeviceDetails"]
+- !private ["SH", "identifierForVendor"]
+- !private ["SH", "isEmpty"]
+- !private ["SH", "rawValue"]
+- !private ["SH", "shared"]
+- !private ["SH", "subscript"]
+- !private ["SH", "uuidString"]
+- !private ["SH", "voipToken"]
+- !private ["5Hippo0A7ChannelC", "AgentDetail"]
+- ["5Hippo0A7ChannelC", "Bool"]
+- ["5Hippo0A7ChannelC", "CallSignal"]
+- !private ["5Hippo0A7ChannelC", "Device_Type_iOS"]
+- !private ["5Hippo0A7ChannelC", "HippoConfig"]
+- !private ["5Hippo0A7ChannelC", "MessageType"]
+- ["5Hippo0A7ChannelC", "NSError"]
+- !private ["5Hippo0A7ChannelC", "UIDevice"]
+- ["5Hippo0A7ChannelC", "Void"]
+- ["5Hippo0A7ChannelC", "checkIfReadyForCommunication"]
+- ["5Hippo0A7ChannelC", "connectClient"]
+- !private ["5Hippo0A7ChannelC", "currentUserType"]
+- ["5Hippo0A7ChannelC", "deinit"]
+- !private ["5Hippo0A7ChannelC", "isConnected"]
+- !private ["5Hippo0A7ChannelC", "isSubscribed"]
+- !private ["5Hippo0A7ChannelC", "send"]
+- ["5Hippo0A7ChannelC", "sendSignalToPeer"]
+- ["5Hippo0A7ChannelC", "signalReceivedFromPeer"]
+- !private ["5Hippo0A7ChannelC", "subscribeChannel"]
+- !private ["5Hippo0A7ChannelC", "versionCode"]
+- !private ["5Hippo0A6ConfigC", "deviceToken"]
+- !private ["5Hippo0A6ConfigC", "shared"]
+- !private ["5Hippo0A6ConfigC", "voipToken"]
+- !private ["5Hippo20KingfisherCompatibleP", "isEmpty"]
+- !private ["s25LosslessStringConvertibleP", "isEmpty"]
+- !private ["5Hippo21MessageSenderDelegateP", "AgentDetail"]
+- !private ["5Hippo21MessageSenderDelegateP", "Device_Type_iOS"]
+- !private ["5Hippo21MessageSenderDelegateP", "HippoConfig"]
+- !private ["5Hippo21MessageSenderDelegateP", "MessageType"]
+- !private ["5Hippo21MessageSenderDelegateP", "UIDevice"]
+- ["5Hippo21MessageSenderDelegateP", "checkIfReadyForCommunication"]
+- ["5Hippo21MessageSenderDelegateP", "connectClient"]
+- !private ["5Hippo21MessageSenderDelegateP", "currentUserType"]
+- !private ["5Hippo21MessageSenderDelegateP", "isConnected"]
+- !private ["5Hippo21MessageSenderDelegateP", "isSubscribed"]
+- !private ["5Hippo21MessageSenderDelegateP", "send"]
+- ["5Hippo21MessageSenderDelegateP", "sendSignalToPeer"]
+- ["5Hippo21MessageSenderDelegateP", "signalReceivedFromPeer"]
+- !private ["5Hippo21MessageSenderDelegateP", "subscribeChannel"]
+- !private ["5Hippo21MessageSenderDelegateP", "versionCode"]
+- !private ["5Hippo11MessageTypeO", "call"]
+- !private ["5Hippo11MessageTypeO", "deinit"]
+- !private ["5Hippo11MessageTypeO", "rawValue"]
+- !private ["s10MirrorPathP", "isEmpty"]
+- !private ["So8NSCodingP", "isEmpty"]
+- !private ["So9NSCopyingP", "isEmpty"]
+- !private ["So21NSItemProviderReadingP", "isEmpty"]
+- !private ["So21NSItemProviderWritingP", "isEmpty"]
+- !private ["So16NSMutableCopyingP", "isEmpty"]
+- !private ["So8NSObjectC", "current"]
+- !private ["So8NSObjectC", "deviceToken"]
+- !private ["So8NSObjectC", "getDeviceDetails"]
+- !private ["So8NSObjectC", "identifierForVendor"]
+- !private ["So8NSObjectC", "isEmpty"]
+- !private ["So8NSObjectC", "shared"]
+- !private ["So8NSObjectC", "voipToken"]
+- !private ["So8NSObjectP", "current"]
+- !private ["So8NSObjectP", "deviceToken"]
+- !private ["So8NSObjectP", "getDeviceDetails"]
+- !private ["So8NSObjectP", "identifierForVendor"]
+- !private ["So8NSObjectP", "isEmpty"]
+- !private ["So8NSObjectP", "shared"]
+- !private ["So8NSObjectP", "voipToken"]
+- !private ["So14NSSecureCodingP", "isEmpty"]
+- !private ["So8NSStringC", "isEmpty"]
+- !private ["5Hippo11PublishableP", "getJsonToSend"]
+- !private ["Sm", "isEmpty"]
+- !private ["SY", "call"]
+- !private ["SY", "rawValue"]
+- !private ["10Foundation20ReferenceConvertibleP", "uuidString"]
+- !private ["ST", "isEmpty"]
+- !private ["ST", "subscript"]
+- !private ["5Hippo15SignalingClientP", "AgentDetail"]
+- !private ["5Hippo15SignalingClientP", "Device_Type_iOS"]
+- !private ["5Hippo15SignalingClientP", "HippoConfig"]
+- !private ["5Hippo15SignalingClientP", "MessageType"]
+- !private ["5Hippo15SignalingClientP", "UIDevice"]
+- ["5Hippo15SignalingClientP", ""]
+- ["5Hippo15SignalingClientP", "checkIfReadyForCommunication"]
+- ["5Hippo15SignalingClientP", "connectClient"]
+- !private ["5Hippo15SignalingClientP", "currentUserType"]
+- !private ["5Hippo15SignalingClientP", "isConnected"]
+- !private ["5Hippo15SignalingClientP", "isSubscribed"]
+- !private ["5Hippo15SignalingClientP", "send"]
+- ["5Hippo15SignalingClientP", "sendSignalToPeer"]
+- ["5Hippo15SignalingClientP", "signalReceivedFromPeer"]
+- !private ["5Hippo15SignalingClientP", "subscribeChannel"]
+- !private ["5Hippo15SignalingClientP", "versionCode"]
+- !private ["SS", "isEmpty"]
+- !private ["Sy", "isEmpty"]
+- !private ["s16TextOutputStreamP", "isEmpty"]
+- !private ["s20TextOutputStreamableP", "isEmpty"]
+- !private ["So8UIDeviceC", "current"]
+- !private ["So8UIDeviceC", "identifierForVendor"]
+- !private ["10Foundation4UUIDV", "uuidString"]
+- !private ["5Hippo8UserTypeO", "deinit"]
+- !private ["5Hippo8UserTypeO", "rawValue"]
+- !private ["s30_CustomPlaygroundQuickLookableP", "isEmpty"]
+- !private ["s51_ExpressibleByBuiltinExtendedGraphemeClusterLiteralP", "isEmpty"]
+- !private ["s34_ExpressibleByBuiltinStringLiteralP", "isEmpty"]
+- !private ["s41_ExpressibleByBuiltinUnicodeScalarLiteralP", "isEmpty"]
+- !private ["s19_HasContiguousBytesP", "isEmpty"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "isEmpty"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "subscript"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "current"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "deviceToken"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "getDeviceDetails"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "identifierForVendor"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "isEmpty"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "shared"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "voipToken"]
+- !private ["s21_ObjectiveCBridgeableP", "isEmpty"]
+- !private ["s21_ObjectiveCBridgeableP", "subscript"]
+- !private ["s21_ObjectiveCBridgeableP", "uuidString"]
 depends-nominal:
+- !private "5Hippo11AgentDetailC"
+- !private "SK"
+- !private "s7CVarArgP"
+- !private "5Hippo10CallSignalV"
+- !private "Sl"
+- !private "SL"
+- !private "s28CustomDebugStringConvertibleP"
+- !private "s17CustomReflectableP"
+- !private "s23CustomStringConvertibleP"
+- !private "Se"
+- !private "SD"
+- !private "SE"
+- !private "SQ"
+- !private "s30ExpressibleByDictionaryLiteralP"
+- !private "s43ExpressibleByExtendedGraphemeClusterLiteralP"
+- !private "s32ExpressibleByStringInterpolationP"
+- !private "s26ExpressibleByStringLiteralP"
+- !private "s33ExpressibleByUnicodeScalarLiteralP"
+- !private "SH"
+- "5Hippo0A7ChannelC"
+- !private "5Hippo0A6ConfigC"
+- !private "5Hippo20KingfisherCompatibleP"
+- !private "s25LosslessStringConvertibleP"
+- "5Hippo21MessageSenderDelegateP"
+- !private "5Hippo11MessageTypeO"
+- !private "s10MirrorPathP"
+- !private "So8NSCodingP"
+- !private "So9NSCopyingP"
+- !private "So21NSItemProviderReadingP"
+- !private "So21NSItemProviderWritingP"
+- !private "So16NSMutableCopyingP"
+- !private "So8NSObjectC"
+- !private "So8NSObjectP"
+- !private "So14NSSecureCodingP"
+- !private "So8NSStringC"
+- !private "5Hippo11PublishableP"
+- !private "Sm"
+- !private "SY"
+- !private "10Foundation20ReferenceConvertibleP"
+- !private "ST"
+- "5Hippo15SignalingClientP"
+- !private "SS"
+- !private "Sy"
+- !private "s16TextOutputStreamP"
+- !private "s20TextOutputStreamableP"
+- !private "So8UIDeviceC"
+- !private "10Foundation4UUIDV"
+- !private "5Hippo8UserTypeO"
+- !private "s30_CustomPlaygroundQuickLookableP"
+- !private "s51_ExpressibleByBuiltinExtendedGraphemeClusterLiteralP"
+- !private "s34_ExpressibleByBuiltinStringLiteralP"
+- !private "s41_ExpressibleByBuiltinUnicodeScalarLiteralP"
+- !private "s19_HasContiguousBytesP"
+- !private "s35_HasCustomAnyHashableRepresentationP"
+- !private "10Foundation27_KeyValueCodingAndObservingP"
+- !private "s21_ObjectiveCBridgeableP"
 depends-dynamic-lookup:
 depends-external:
 - "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/ObjectiveC.swiftmodule"
@@ -29,12 +287,97 @@ depends-external:
 - "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Swift.swiftmodule"
 - "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/UIKit.swiftmodule"
 - "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/SwiftOnoneSupport.swiftmodule"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCCodecSpecificInfoH264.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCVideoDecoderH264.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCVideoEncoderH264.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCVideoDecoderFactoryH264.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCVideoEncoderFactoryH264.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCVideoDecoderVP8.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCVideoEncoderVP8.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCVideoDecoderVP9.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCVideoEncoderVP9.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/WebRTC.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCH264ProfileLevelId.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/UIDevice+RTCDevice.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCMediaSource.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCVideoSource.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCAudioSource.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCEncodedImage.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCIntervalRange.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCVideoFrame.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCCertificate.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCIceCandidate.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCTracing.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCVideoViewShading.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCLogging.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCMediaStreamTrack.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCVideoTrack.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCAudioTrack.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCDataChannel.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCMediaStream.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCRtpHeaderExtension.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCAudioSession.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCConfiguration.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCDataChannelConfiguration.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCAudioSessionConfiguration.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCPeerConnection.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCSessionDescription.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCVideoCodecInfo.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCCodecSpecificInfo.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCMetricsSampleInfo.h"
 - "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Hippo.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCRtpFragmentationHeader.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCDtmfSender.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCRtpSender.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCVideoDecoder.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCVideoEncoder.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCI420Buffer.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCMutableI420Buffer.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCNativeMutableI420Buffer.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCNativeI420Buffer.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCVideoFrameBuffer.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCCVPixelBuffer.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCYUVPlanarBuffer.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCMutableYUVPlanarBuffer.h"
 - "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Helpers/TRWDownloadManager/TWRDownloadManager.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCFileLogger.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCCallbackLogger.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCDispatcher.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCVideoRenderer.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCVideoCapturer.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCCameraVideoCapturer.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCFileVideoCapturer.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCSSLAdapter.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCRtpReceiver.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCRtpTransceiver.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCIceServer.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCMetrics.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCVideoEncoderQpThresholds.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCVideoEncoderSettings.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCFieldTrials.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCCryptoOptions.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCPeerConnectionFactoryOptions.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCMacros.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCRtpCodecParameters.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCRtpEncodingParameters.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCRtcpParameters.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCRtpParameters.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCVideoCodecConstants.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCMediaConstraints.h"
 - "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/SocketRocket/SocketRocket.h"
 - "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/SocketRocket/SRWebSocket.h"
 - "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/MZFayeClient/MZFayeClient.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCLegacyStatsReport.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCEAGLVideoView.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCMTLVideoView.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCCameraPreviewView.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCPeerConnectionFactory.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCVideoDecoderFactory.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCDefaultVideoDecoderFactory.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCVideoEncoderFactory.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCDefaultVideoEncoderFactory.h"
 - "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/unextended-module.modulemap"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Modules/module.modulemap"
 - "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/usr/include/objc/ObjectiveC.apinotes"
 - "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/OpenGLES.framework/Headers/OpenGLES.apinotes"
 - "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreMedia.framework/Headers/CoreMedia.apinotes"
@@ -58,4 +401,4 @@ depends-external:
 - "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/MediaToolbox.framework/Headers/MediaToolbox.apinotes"
 - "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/AudioToolbox.framework/Headers/AudioToolbox.apinotes"
 - "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Security.framework/Headers/Security.apinotes"
-interface-hash: "a97bac8fcdc097f581a4ce3d5cfbc609"
+interface-hash: "eacbbc6efe0e2ea43c3969e51ed872ba"

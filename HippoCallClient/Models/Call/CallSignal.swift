@@ -140,15 +140,15 @@ extension CallSignal: Publishable {
     }
 }
 
-extension Date {
-    var toUTCFormatString: String {
-        return convertDateTimeToUTC(date: self)
-    }
-    func convertDateTimeToUTC(date: Date? = nil) -> String {
-        let formatterUTC = DateFormatter()
-        formatterUTC.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
-        formatterUTC.timeZone = TimeZone(secondsFromGMT: 0)
-        
-        return formatterUTC.string(from: date ?? Date())
-    }
-}
+//fileprivate extension Date {
+//    fileprivate var toUTCFormatString: String {
+//        return convertDateTimeToUTC(date: self)
+//    }
+//    fileprivate func convertDateTimeToUTC(date: Date? = nil) -> String {
+//        let formatterUTC = DateFormatter()
+//        formatterUTC.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+//        formatterUTC.timeZone = TimeZone(secondsFromGMT: 0)
+//        
+//        return formatterUTC.string(from: date ?? Date())
+//    }
+//}

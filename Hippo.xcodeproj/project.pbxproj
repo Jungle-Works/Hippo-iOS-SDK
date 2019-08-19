@@ -328,6 +328,23 @@
 		C921FFFD2303458F00E5A5E1 /* SelectImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C921FEBC2303458F00E5A5E1 /* SelectImageViewController.swift */; };
 		C921FFFE2303458F00E5A5E1 /* ShowImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C921FEBD2303458F00E5A5E1 /* ShowImageViewController.swift */; };
 		C921FFFF2303458F00E5A5E1 /* AgentChatInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C921FEBF2303458F00E5A5E1 /* AgentChatInfoViewController.swift */; };
+		C9CC18D9230AB8CC002262E4 /* HippoCallClientDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CC18C4230AB8CC002262E4 /* HippoCallClientDelegate.swift */; };
+		C9CC18DA230AB8CC002262E4 /* HippoCallClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CC18C5230AB8CC002262E4 /* HippoCallClient.swift */; };
+		C9CC18DB230AB8CC002262E4 /* CustomData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CC18C7230AB8CC002262E4 /* CustomData.swift */; };
+		C9CC18DC230AB8CC002262E4 /* HippoUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CC18C8230AB8CC002262E4 /* HippoUser.swift */; };
+		C9CC18DD230AB8CC002262E4 /* CallClientCredential.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CC18CA230AB8CC002262E4 /* CallClientCredential.swift */; };
+		C9CC18DE230AB8CC002262E4 /* CallPeer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CC18CB230AB8CC002262E4 /* CallPeer.swift */; };
+		C9CC18DF230AB8CC002262E4 /* CallPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CC18CC230AB8CC002262E4 /* CallPresenter.swift */; };
+		C9CC18E0230AB8CC002262E4 /* CallClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CC18CD230AB8CC002262E4 /* CallClient.swift */; };
+		C9CC18E1230AB8CC002262E4 /* SignalingClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CC18CE230AB8CC002262E4 /* SignalingClient.swift */; };
+		C9CC18E2230AB8CC002262E4 /* Call.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CC18CF230AB8CC002262E4 /* Call.swift */; };
+		C9CC18E3230AB8CC002262E4 /* CallSignal.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CC18D0230AB8CC002262E4 /* CallSignal.swift */; };
+		C9CC18E4230AB8CC002262E4 /* WebRTCClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CC18D2230AB8CC002262E4 /* WebRTCClient.swift */; };
+		C9CC18E5230AB8CC002262E4 /* RTCIceCandidate+JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CC18D3230AB8CC002262E4 /* RTCIceCandidate+JSON.swift */; };
+		C9CC18E6230AB8CC002262E4 /* RTCSessionDescription+JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CC18D4230AB8CC002262E4 /* RTCSessionDescription+JSON.swift */; };
+		C9CC18E7230AB8CC002262E4 /* FuguChannel+SignalingClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CC18D5230AB8CC002262E4 /* FuguChannel+SignalingClient.swift */; };
+		C9CC18E8230AB8CC002262E4 /* HippoHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CC18D7230AB8CC002262E4 /* HippoHelper.swift */; };
+		C9CC18EB230AB939002262E4 /* WebRTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9CC18EA230AB939002262E4 /* WebRTC.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -644,6 +661,23 @@
 		C921FF142303458F00E5A5E1 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C921FF152303458F00E5A5E1 /* FuguUnique.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = FuguUnique.storyboard; sourceTree = "<group>"; };
 		C921FF162303458F00E5A5E1 /* Montserrat-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-SemiBold.otf"; sourceTree = "<group>"; };
+		C9CC18C4230AB8CC002262E4 /* HippoCallClientDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HippoCallClientDelegate.swift; sourceTree = "<group>"; };
+		C9CC18C5230AB8CC002262E4 /* HippoCallClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HippoCallClient.swift; sourceTree = "<group>"; };
+		C9CC18C7230AB8CC002262E4 /* CustomData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomData.swift; sourceTree = "<group>"; };
+		C9CC18C8230AB8CC002262E4 /* HippoUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HippoUser.swift; sourceTree = "<group>"; };
+		C9CC18CA230AB8CC002262E4 /* CallClientCredential.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallClientCredential.swift; sourceTree = "<group>"; };
+		C9CC18CB230AB8CC002262E4 /* CallPeer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallPeer.swift; sourceTree = "<group>"; };
+		C9CC18CC230AB8CC002262E4 /* CallPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallPresenter.swift; sourceTree = "<group>"; };
+		C9CC18CD230AB8CC002262E4 /* CallClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallClient.swift; sourceTree = "<group>"; };
+		C9CC18CE230AB8CC002262E4 /* SignalingClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignalingClient.swift; sourceTree = "<group>"; };
+		C9CC18CF230AB8CC002262E4 /* Call.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Call.swift; sourceTree = "<group>"; };
+		C9CC18D0230AB8CC002262E4 /* CallSignal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallSignal.swift; sourceTree = "<group>"; };
+		C9CC18D2230AB8CC002262E4 /* WebRTCClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebRTCClient.swift; sourceTree = "<group>"; };
+		C9CC18D3230AB8CC002262E4 /* RTCIceCandidate+JSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RTCIceCandidate+JSON.swift"; sourceTree = "<group>"; };
+		C9CC18D4230AB8CC002262E4 /* RTCSessionDescription+JSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RTCSessionDescription+JSON.swift"; sourceTree = "<group>"; };
+		C9CC18D5230AB8CC002262E4 /* FuguChannel+SignalingClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FuguChannel+SignalingClient.swift"; sourceTree = "<group>"; };
+		C9CC18D7230AB8CC002262E4 /* HippoHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HippoHelper.swift; sourceTree = "<group>"; };
+		C9CC18EA230AB939002262E4 /* WebRTC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = WebRTC.framework; sourceTree = "<group>"; };
 		C9F6D48F21C8B71B00EA23E6 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		C9F6D49121C8B81100EA23E6 /* Hippo.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Hippo.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		E0E4A9E31B1EC7F72EC2F38D /* Pods_Fugu.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Fugu.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -654,6 +688,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9CC18EB230AB939002262E4 /* WebRTC.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -682,6 +717,8 @@
 		717BE16A1EC1BE11003EA321 = {
 			isa = PBXGroup;
 			children = (
+				C9CC18EA230AB939002262E4 /* WebRTC.framework */,
+				C9CC18C2230AB8CC002262E4 /* HippoCallClient */,
 				C921FD8A2303458E00E5A5E1 /* Hippo */,
 				C9F6D49121C8B81100EA23E6 /* Hippo.podspec */,
 				C9F6D48F21C8B71B00EA23E6 /* README.md */,
@@ -1718,6 +1755,69 @@
 			path = Categories;
 			sourceTree = "<group>";
 		};
+		C9CC18C2230AB8CC002262E4 /* HippoCallClient */ = {
+			isa = PBXGroup;
+			children = (
+				C9CC18C3230AB8CC002262E4 /* Wrappers */,
+				C9CC18C6230AB8CC002262E4 /* Models */,
+				C9CC18D1230AB8CC002262E4 /* WebRTCClient */,
+				C9CC18D6230AB8CC002262E4 /* Helpers */,
+			);
+			path = HippoCallClient;
+			sourceTree = "<group>";
+		};
+		C9CC18C3230AB8CC002262E4 /* Wrappers */ = {
+			isa = PBXGroup;
+			children = (
+				C9CC18C4230AB8CC002262E4 /* HippoCallClientDelegate.swift */,
+				C9CC18C5230AB8CC002262E4 /* HippoCallClient.swift */,
+			);
+			path = Wrappers;
+			sourceTree = "<group>";
+		};
+		C9CC18C6230AB8CC002262E4 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				C9CC18C7230AB8CC002262E4 /* CustomData.swift */,
+				C9CC18C8230AB8CC002262E4 /* HippoUser.swift */,
+				C9CC18C9230AB8CC002262E4 /* Call */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		C9CC18C9230AB8CC002262E4 /* Call */ = {
+			isa = PBXGroup;
+			children = (
+				C9CC18CA230AB8CC002262E4 /* CallClientCredential.swift */,
+				C9CC18CB230AB8CC002262E4 /* CallPeer.swift */,
+				C9CC18CC230AB8CC002262E4 /* CallPresenter.swift */,
+				C9CC18CD230AB8CC002262E4 /* CallClient.swift */,
+				C9CC18CE230AB8CC002262E4 /* SignalingClient.swift */,
+				C9CC18CF230AB8CC002262E4 /* Call.swift */,
+				C9CC18D0230AB8CC002262E4 /* CallSignal.swift */,
+			);
+			path = Call;
+			sourceTree = "<group>";
+		};
+		C9CC18D1230AB8CC002262E4 /* WebRTCClient */ = {
+			isa = PBXGroup;
+			children = (
+				C9CC18D2230AB8CC002262E4 /* WebRTCClient.swift */,
+				C9CC18D3230AB8CC002262E4 /* RTCIceCandidate+JSON.swift */,
+				C9CC18D4230AB8CC002262E4 /* RTCSessionDescription+JSON.swift */,
+				C9CC18D5230AB8CC002262E4 /* FuguChannel+SignalingClient.swift */,
+			);
+			path = WebRTCClient;
+			sourceTree = "<group>";
+		};
+		C9CC18D6230AB8CC002262E4 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				C9CC18D7230AB8CC002262E4 /* HippoHelper.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -1901,14 +2001,17 @@
 			files = (
 				C921FF752303458F00E5A5E1 /* HeaderTableViewCell.swift in Sources */,
 				C921FFF92303458F00E5A5E1 /* PaymentCurrency.swift in Sources */,
+				C9CC18D9230AB8CC002262E4 /* HippoCallClientDelegate.swift in Sources */,
 				C921FFA12303458F00E5A5E1 /* BroadCastTextViewCell.swift in Sources */,
 				C921FF322303458F00E5A5E1 /* Formatter.swift in Sources */,
 				C921FFE42303458F00E5A5E1 /* FuguNewChatAttributes.swift in Sources */,
 				C921FF9F2303458F00E5A5E1 /* BroadCastTitleCell.swift in Sources */,
 				C921003D2303459000E5A5E1 /* IQKeyboardReturnKeyHandler.swift in Sources */,
 				C921FF3E2303458F00E5A5E1 /* HippoNotification.swift in Sources */,
+				C9CC18E5230AB8CC002262E4 /* RTCIceCandidate+JSON.swift in Sources */,
 				C921FF3A2303458F00E5A5E1 /* DownloadManager.swift in Sources */,
 				C921FFD52303458F00E5A5E1 /* AgentConversation.swift in Sources */,
+				C9CC18DD230AB8CC002262E4 /* CallClientCredential.swift in Sources */,
 				C921FF412303458F00E5A5E1 /* AgentHomeCollectionViewCell.swift in Sources */,
 				C92100172303459000E5A5E1 /* CloseButton.swift in Sources */,
 				C921FFCA2303458F00E5A5E1 /* MessageContent.swift in Sources */,
@@ -1942,6 +2045,7 @@
 				C921FFF42303458F00E5A5E1 /* BroadcastListViewController.swift in Sources */,
 				C921FFD92303458F00E5A5E1 /* ChatDetail.swift in Sources */,
 				C92100222303459000E5A5E1 /* UIButton+Kingfisher.swift in Sources */,
+				C9CC18DB230AB8CC002262E4 /* CustomData.swift in Sources */,
 				C921FF192303458F00E5A5E1 /* AgentConversationManager.swift in Sources */,
 				C92100152303459000E5A5E1 /* Fugu+Properties.swift in Sources */,
 				C921FFDF2303458F00E5A5E1 /* HippoMessage.swift in Sources */,
@@ -1970,6 +2074,7 @@
 				C921FFAA2303458F00E5A5E1 /* FeedbackTableViewCell.swift in Sources */,
 				C921FF1F2303458F00E5A5E1 /* MZFayeClient.m in Sources */,
 				C92100052303459000E5A5E1 /* AllConversationsViewController.swift in Sources */,
+				C9CC18DF230AB8CC002262E4 /* CallPresenter.swift in Sources */,
 				C921FF462303458F00E5A5E1 /* EmojiCollectionViewCell.swift in Sources */,
 				C921FFEF2303458F00E5A5E1 /* NLevelViewController.swift in Sources */,
 				C921FF952303458F00E5A5E1 /* VideoCallMessageTableViewCell.swift in Sources */,
@@ -1980,6 +2085,7 @@
 				C921FFC72303458F00E5A5E1 /* BroadcastDetailStore.swift in Sources */,
 				C921FF182303458F00E5A5E1 /* ConversationStore.swift in Sources */,
 				C92100202303459000E5A5E1 /* Indicator.swift in Sources */,
+				C9CC18DA230AB8CC002262E4 /* HippoCallClient.swift in Sources */,
 				C921FF2C2303458F00E5A5E1 /* Utilities.swift in Sources */,
 				C921FF7D2303458F00E5A5E1 /* ActionableMessageTableViewCell.swift in Sources */,
 				C921FF4C2303458F00E5A5E1 /* OutgoingImageCell.swift in Sources */,
@@ -2035,6 +2141,7 @@
 				C92100472303459000E5A5E1 /* TookanHelper.swift in Sources */,
 				C921FF772303458F00E5A5E1 /* ItemTableViewCell.swift in Sources */,
 				C921FF4F2303458F00E5A5E1 /* ActionTableDataSource.swift in Sources */,
+				C9CC18E6230AB8CC002262E4 /* RTCSessionDescription+JSON.swift in Sources */,
 				C92100112303459000E5A5E1 /* ParseError.swift in Sources */,
 				C921FF802303458F00E5A5E1 /* IncomingAudioTableViewCell.swift in Sources */,
 				C921FFB72303458F00E5A5E1 /* OperatorOverloading.swift in Sources */,
@@ -2044,6 +2151,8 @@
 				C92100132303459000E5A5E1 /* CountryCode.swift in Sources */,
 				C921FFE22303458F00E5A5E1 /* FormData.swift in Sources */,
 				C92100442303459000E5A5E1 /* FuguConnection.swift in Sources */,
+				C9CC18DC230AB8CC002262E4 /* HippoUser.swift in Sources */,
+				C9CC18E8230AB8CC002262E4 /* HippoHelper.swift in Sources */,
 				C921FF652303458F00E5A5E1 /* LeadTableViewCell.swift in Sources */,
 				C921FFD62303458F00E5A5E1 /* UnreadCount.swift in Sources */,
 				C921FF842303458F00E5A5E1 /* VideoTableViewCell.swift in Sources */,
@@ -2063,6 +2172,7 @@
 				C921FFC42303458F00E5A5E1 /* BroadcastStore.swift in Sources */,
 				C921FFC92303458F00E5A5E1 /* HippoProperty.swift in Sources */,
 				C921FF2D2303458F00E5A5E1 /* CoreLogger.swift in Sources */,
+				C9CC18E7230AB8CC002262E4 /* FuguChannel+SignalingClient.swift in Sources */,
 				C921FFDB2303458F00E5A5E1 /* AgentDetail.swift in Sources */,
 				C921FF862303458F00E5A5E1 /* IncomingVideoTableViewCell.swift in Sources */,
 				C921FFED2303458F00E5A5E1 /* HippoDataCollectorController.swift in Sources */,
@@ -2072,6 +2182,7 @@
 				C921FF522303458F00E5A5E1 /* ActionTagTableViewCell.swift in Sources */,
 				C92100422303459000E5A5E1 /* IQUIView+Hierarchy.swift in Sources */,
 				C921FFEC2303458F00E5A5E1 /* HippoDataCollectorDataSource.swift in Sources */,
+				C9CC18E1230AB8CC002262E4 /* SignalingClient.swift in Sources */,
 				C921FFB62303458F00E5A5E1 /* NotificationCenter+Extension.swift in Sources */,
 				C92100452303459000E5A5E1 /* Fugu+Enums.swift in Sources */,
 				C921FF372303458F00E5A5E1 /* AudioPlayerManager.swift in Sources */,
@@ -2079,6 +2190,7 @@
 				C921FFF02303458F00E5A5E1 /* HippoConversationViewController.swift in Sources */,
 				C921FF602303458F00E5A5E1 /* BotOutgoingMessageTableViewCell.swift in Sources */,
 				C92100022303458F00E5A5E1 /* AgentHomeViewController.swift in Sources */,
+				C9CC18E2230AB8CC002262E4 /* Call.swift in Sources */,
 				C921FF2F2303458F00E5A5E1 /* Formatters.swift in Sources */,
 				C921FFE82303458F00E5A5E1 /* HippoSupportList.swift in Sources */,
 				C921FF682303458F00E5A5E1 /* ChatInfoTagViewCell.swift in Sources */,
@@ -2088,6 +2200,7 @@
 				C921FFE32303458F00E5A5E1 /* QuickLookItem.swift in Sources */,
 				C921FF8F2303458F00E5A5E1 /* LeadDataTableViewCell.swift in Sources */,
 				C92100322303459000E5A5E1 /* IQTextView.swift in Sources */,
+				C9CC18E3230AB8CC002262E4 /* CallSignal.swift in Sources */,
 				C921FF5C2303458F00E5A5E1 /* IncomingImageCell.swift in Sources */,
 				C921FF4D2303458F00E5A5E1 /* CategoryTableViewCell.swift in Sources */,
 				C921FF9C2303458F00E5A5E1 /* BroadcastButtonCell.swift in Sources */,
@@ -2114,6 +2227,7 @@
 				C921FFF32303458F00E5A5E1 /* BroadcastDetailViewController.swift in Sources */,
 				C921FFFC2303458F00E5A5E1 /* PaymentStore.swift in Sources */,
 				C921FF332303458F00E5A5E1 /* Benchmarker.swift in Sources */,
+				C9CC18DE230AB8CC002262E4 /* CallPeer.swift in Sources */,
 				C921FF1B2303458F00E5A5E1 /* FuguDefaults.swift in Sources */,
 				C921001C2303459000E5A5E1 /* Kingfisher.swift in Sources */,
 				C921FF892303458F00E5A5E1 /* OutgoingDocumentTableViewCell.swift in Sources */,
@@ -2122,7 +2236,9 @@
 				C92100312303459000E5A5E1 /* Helper.swift in Sources */,
 				C921FFB12303458F00E5A5E1 /* Socomo+Customs.swift in Sources */,
 				C92100332303459000E5A5E1 /* IQPreviousNextView.swift in Sources */,
+				C9CC18E4230AB8CC002262E4 /* WebRTCClient.swift in Sources */,
 				C921FFD22303458F00E5A5E1 /* FileUploader.swift in Sources */,
+				C9CC18E0230AB8CC002262E4 /* CallClient.swift in Sources */,
 				C921FF1A2303458F00E5A5E1 /* CallManager.swift in Sources */,
 				C921FFC12303458F00E5A5E1 /* HippoCellDetail.swift in Sources */,
 				C921FF5A2303458F00E5A5E1 /* ContactNumberTableCell.swift in Sources */,
@@ -2263,6 +2379,11 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = Hippo/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -2295,6 +2416,11 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = Hippo/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";

@@ -7,11 +7,11 @@
 
 import Foundation
 
-#if canImport(HippoCallClient)
- import HippoCallClient
+#if canImport(WebRTC)
+ import WebRTC
 #endif
 
-#if canImport(HippoCallClient)
+#if canImport(WebRTC)
 extension HippoChannel: SignalingClient {
     
     func connectClient(completion: @escaping (Bool) -> Void) {

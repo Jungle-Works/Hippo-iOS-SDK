@@ -17,13 +17,12 @@ Pod::Spec.new do |s|
     s.default_subspec = 'Chat'
 
     s.subspec 'Chat' do |chat|
-      chat.ios.vendored_frameworks = 'Hippo.framework'
-      chat.preserve_paths = ['*.framework']
+      s.ios.vendored_frameworks = 'Hippo.framework'
+      chat.preserve_paths = ['Hippo.framework']
     end
     
     s.subspec 'Call' do |callClient|
       s.pod_target_xcconfig = { "ENABLE_BITCODE" => "No" }
-      callClient.ios.vendored_frameworks = 'HippoCallClient.framework'
       callClient.preserve_paths = ['*.framework']
       callClient.dependency 'Hippo/Chat'
       callClient.dependency 'Hippo/RTC'
@@ -32,9 +31,9 @@ Pod::Spec.new do |s|
     
     
     s.subspec 'RTC' do |rtc|
-      rtc.ios.vendored_frameworks = 'WebRTC.framework'
+      rtc.ios.vendored_frameworks = 'WebRTC.framework', 'Hippo.framework'
       rtc.preserve_paths = ['*.framework']
       end
-    
+
     
 end

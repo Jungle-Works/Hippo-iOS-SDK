@@ -5,14 +5,17 @@
 /Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/TWRDownloadManager.o
 /Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/HeaderTableViewCell.o
 /Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/PaymentCurrency.o
+/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/HippoCallClientDelegate.o
 /Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/BroadCastTextViewCell.o
 /Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/Formatter.o
 /Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/FuguNewChatAttributes.o
 /Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/BroadCastTitleCell.o
 /Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/IQKeyboardReturnKeyHandler.o
 /Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/HippoNotification.o
+/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/RTCIceCandidate+JSON.o
 /Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/DownloadManager.o
 /Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/AgentConversation.o
+/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/CallClientCredential.o
 /Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/AgentHomeCollectionViewCell.o
 /Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/CloseButton.o
 /Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/MessageContent.o
@@ -46,6 +49,7 @@
 /Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/BroadcastListViewController.o
 /Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/ChatDetail.o
 /Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/UIButton+Kingfisher.o
+/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/CustomData.o
 /Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/AgentConversationManager.o
 /Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/Fugu+Properties.o
 /Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/HippoMessage.o
@@ -73,6 +77,7 @@
 /Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/HippoConversation.o
 /Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/FeedbackTableViewCell.o
 /Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/AllConversationsViewController.o
+/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/CallPresenter.o
 /Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/EmojiCollectionViewCell.o
 /Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/NLevelViewController.o
 /Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/VideoCallMessageTableViewCell.o
@@ -83,6 +88,7 @@
 /Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/BroadcastDetailStore.o
 /Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/ConversationStore.o
 /Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/Indicator.o
+/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/HippoCallClient.o
 /Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/Utilities.o
 /Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/ActionableMessageTableViewCell.o
 /Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/OutgoingImageCell.o
@@ -137,6 +143,7 @@
 /Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/TookanHelper.o
 /Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/ItemTableViewCell.o
 /Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/ActionTableDataSource.o
+/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/RTCSessionDescription+JSON.o
 /Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/ParseError.o
 /Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/IncomingAudioTableViewCell.o
 /Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/OperatorOverloading.o
@@ -146,6 +153,8 @@
 /Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/CountryCode.o
 /Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/FormData.o
 /Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/FuguConnection.o
+/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/HippoUser.o
+/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/HippoHelper.o
 /Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/LeadTableViewCell.o
 /Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/UnreadCount.o
 /Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/VideoTableViewCell.o
@@ -164,6 +173,7 @@
 /Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/BroadcastStore.o
 /Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/HippoProperty.o
 /Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/CoreLogger.o
+/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/FuguChannel+SignalingClient.o
 /Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/AgentDetail.o
 /Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/IncomingVideoTableViewCell.o
 /Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/HippoDataCollectorController.o
@@ -173,6 +183,7 @@
 /Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/ActionTagTableViewCell.o
 /Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/IQUIView+Hierarchy.o
 /Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/HippoDataCollectorDataSource.o
+/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/SignalingClient.o
 /Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/NotificationCenter+Extension.o
 /Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/Fugu+Enums.o
 /Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/AudioPlayerManager.o
@@ -180,6 +191,7 @@
 /Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/HippoConversationViewController.o
 /Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/BotOutgoingMessageTableViewCell.o
 /Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/AgentHomeViewController.o
+/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/Call.o
 /Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/Formatters.o
 /Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/HippoSupportList.o
 /Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/ChatInfoTagViewCell.o
@@ -189,6 +201,7 @@
 /Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/QuickLookItem.o
 /Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/LeadDataTableViewCell.o
 /Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/IQTextView.o
+/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/CallSignal.o
 /Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/IncomingImageCell.o
 /Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/CategoryTableViewCell.o
 /Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/BroadcastButtonCell.o
@@ -214,6 +227,7 @@
 /Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/BroadcastDetailViewController.o
 /Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/PaymentStore.o
 /Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/Benchmarker.o
+/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/CallPeer.o
 /Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/FuguDefaults.o
 /Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/Kingfisher.o
 /Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/OutgoingDocumentTableViewCell.o
@@ -222,7 +236,9 @@
 /Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/Helper.o
 /Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/Socomo+Customs.o
 /Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/IQPreviousNextView.o
+/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/WebRTCClient.o
 /Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/FileUploader.o
+/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/CallClient.o
 /Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/CallManager.o
 /Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/HippoCellDetail.o
 /Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/Objects-normal/i386/ContactNumberTableCell.o

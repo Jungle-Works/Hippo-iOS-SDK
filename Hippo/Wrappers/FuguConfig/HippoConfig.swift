@@ -8,8 +8,8 @@
 import Foundation
 import UIKit
 
-#if canImport(HippoCallClient)
-  import HippoCallClient
+#if canImport(WebRTC)
+  import WebRTC
 #endif
 
 public protocol HippoMessageRecievedDelegate: class {
@@ -723,7 +723,7 @@ extension HippoConfig {
         HippoConfig.shared.delegate?.hippoMessageRecievedWith(response: dict, viewController: contoller)
     }
     
-    #if canImport(HippoCallClient)
+    #if canImport(WebRTC)
     func notifyCallRequest(_ request: CallPresenterRequest) -> CallPresenter? {
         if HippoConfig.shared.delegate == nil {
            HippoConfig.shared.log.error("To Enable video/Audio CALL, SET  HippoConfig.shared.setHippoDelegate(delegate: HippoDelegate)", level: .error)

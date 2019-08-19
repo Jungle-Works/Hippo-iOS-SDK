@@ -1,0 +1,247 @@
+### Swift dependencies file v0 ###
+provides-top-level:
+- "Call"
+provides-nominal:
+- "5Hippo4CallC"
+- "5Hippo4CallC5StateO"
+- "5Hippo4CallC0B4TypeO"
+provides-member:
+- ["5Hippo4CallC", ""]
+- ["5Hippo4CallC5StateO", ""]
+- ["5Hippo4CallC0B4TypeO", ""]
+- ["5Hippo4CallC", "State"]
+- ["5Hippo4CallC", "CallType"]
+provides-dynamic-lookup:
+depends-top-level:
+- "=="
+- "AssignmentPrecedence"
+- "Bool"
+- "Call"
+- "CallPeer"
+- "CallerInfo"
+- "SignalingClient"
+- "String"
+- "WebRTCClient"
+- !private "_findStringSwitchCase"
+- !private "~="
+depends-member:
+- ["5Hippo4CallC", "Bool"]
+- ["5Hippo4CallC", "CallPeer"]
+- ["5Hippo4CallC", "CallType"]
+- ["5Hippo4CallC", "CallerInfo"]
+- ["5Hippo4CallC", "SignalingClient"]
+- ["5Hippo4CallC", "State"]
+- ["5Hippo4CallC", "String"]
+- ["5Hippo4CallC", "WebRTCClient"]
+- !private ["5Hippo4CallC", "_findStringSwitchCase"]
+- ["5Hippo4CallC", "currentUser"]
+- ["5Hippo4CallC", "init"]
+- ["5Hippo4CallC", "isStartCallSend"]
+- ["5Hippo4CallC", "peer"]
+- ["5Hippo4CallC", "rtcClient"]
+- ["5Hippo4CallC", "signalingClient"]
+- ["5Hippo4CallC", "status"]
+- ["5Hippo4CallC", "timeElapsedSinceCallStart"]
+- ["5Hippo4CallC", "type"]
+- ["5Hippo4CallC", "uID"]
+- ["5Hippo4CallC0B4TypeO", "=="]
+- ["5Hippo4CallC0B4TypeO", "RawValue"]
+- ["5Hippo4CallC0B4TypeO", "_Default_RawValue"]
+- !private ["5Hippo4CallC0B4TypeO", "_findStringSwitchCase"]
+- ["5Hippo4CallC0B4TypeO", "_rawHashValue"]
+- ["5Hippo4CallC0B4TypeO", "audio"]
+- ["5Hippo4CallC0B4TypeO", "deinit"]
+- ["5Hippo4CallC0B4TypeO", "hash"]
+- ["5Hippo4CallC0B4TypeO", "hashValue"]
+- ["5Hippo4CallC0B4TypeO", "init"]
+- ["5Hippo4CallC0B4TypeO", "rawValue"]
+- ["5Hippo4CallC0B4TypeO", "video"]
+- ["SQ", "=="]
+- ["SQ", "RawValue"]
+- ["SQ", ""]
+- ["SQ", "_Default_RawValue"]
+- !private ["SQ", "_findStringSwitchCase"]
+- ["SQ", "_rawHashValue"]
+- ["SQ", "hash"]
+- ["SQ", "hashValue"]
+- ["SQ", "idle"]
+- ["SQ", "init"]
+- ["SQ", "rawValue"]
+- ["SH", "=="]
+- ["SH", "RawValue"]
+- ["SH", ""]
+- ["SH", "_Default_RawValue"]
+- !private ["SH", "_findStringSwitchCase"]
+- ["SH", "_rawHashValue"]
+- ["SH", "hash"]
+- ["SH", "hashValue"]
+- ["SH", "idle"]
+- ["SH", "init"]
+- ["SH", "rawValue"]
+- !private ["s6HasherV", "combine"]
+- ["SY", "=="]
+- ["SY", "RawValue"]
+- ["SY", ""]
+- ["SY", "_Default_RawValue"]
+- !private ["SY", "_findStringSwitchCase"]
+- ["SY", "_rawHashValue"]
+- ["SY", "hash"]
+- ["SY", "hashValue"]
+- ["SY", "init"]
+- ["SY", "rawValue"]
+- ["5Hippo4CallC5StateO", "=="]
+- ["5Hippo4CallC5StateO", "__derived_enum_equals"]
+- ["5Hippo4CallC5StateO", "_rawHashValue"]
+- ["5Hippo4CallC5StateO", "deinit"]
+- ["5Hippo4CallC5StateO", "hash"]
+- ["5Hippo4CallC5StateO", "hashValue"]
+- ["5Hippo4CallC5StateO", "idle"]
+- ["5Hippo4CallC5StateO", "inCall"]
+- ["5Hippo4CallC5StateO", "incomingCall"]
+- ["5Hippo4CallC5StateO", "outgoingCall"]
+depends-nominal:
+- "5Hippo4CallC"
+- "5Hippo4CallC0B4TypeO"
+- "SQ"
+- "SH"
+- !private "s6HasherV"
+- "SY"
+- "5Hippo4CallC5StateO"
+depends-dynamic-lookup:
+depends-external:
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/ObjectiveC.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreMedia.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/simd.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreImage.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/QuartzCore.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Accelerate.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Dispatch.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Metal.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Darwin.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreLocation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Foundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/AVFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreAudio.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/MediaPlayer.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreGraphics.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/os.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Photos.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Swift.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/UIKit.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/SwiftOnoneSupport.swiftmodule"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCCodecSpecificInfoH264.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCVideoDecoderH264.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCVideoEncoderH264.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCVideoDecoderFactoryH264.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCVideoEncoderFactoryH264.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCVideoDecoderVP8.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCVideoEncoderVP8.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCVideoDecoderVP9.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCVideoEncoderVP9.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/WebRTC.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCH264ProfileLevelId.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/UIDevice+RTCDevice.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCMediaSource.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCVideoSource.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCAudioSource.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCEncodedImage.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCIntervalRange.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCVideoFrame.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCCertificate.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCIceCandidate.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCTracing.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCVideoViewShading.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCLogging.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCMediaStreamTrack.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCVideoTrack.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCAudioTrack.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCDataChannel.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCMediaStream.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCRtpHeaderExtension.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCAudioSession.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCConfiguration.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCDataChannelConfiguration.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCAudioSessionConfiguration.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCPeerConnection.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCSessionDescription.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCVideoCodecInfo.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCCodecSpecificInfo.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCMetricsSampleInfo.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Hippo.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCRtpFragmentationHeader.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCDtmfSender.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCRtpSender.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCVideoDecoder.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCVideoEncoder.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCI420Buffer.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCMutableI420Buffer.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCNativeMutableI420Buffer.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCNativeI420Buffer.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCVideoFrameBuffer.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCCVPixelBuffer.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCYUVPlanarBuffer.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCMutableYUVPlanarBuffer.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Helpers/TRWDownloadManager/TWRDownloadManager.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCFileLogger.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCCallbackLogger.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCDispatcher.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCVideoRenderer.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCVideoCapturer.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCCameraVideoCapturer.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCFileVideoCapturer.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCSSLAdapter.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCRtpReceiver.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCRtpTransceiver.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCIceServer.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCMetrics.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCVideoEncoderQpThresholds.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCVideoEncoderSettings.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCFieldTrials.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCCryptoOptions.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCPeerConnectionFactoryOptions.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCMacros.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCRtpCodecParameters.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCRtpEncodingParameters.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCRtcpParameters.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCRtpParameters.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCVideoCodecConstants.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCMediaConstraints.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/SocketRocket/SocketRocket.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/SocketRocket/SRWebSocket.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/MZFayeClient/MZFayeClient.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCLegacyStatsReport.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCEAGLVideoView.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCMTLVideoView.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCCameraPreviewView.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCPeerConnectionFactory.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCVideoDecoderFactory.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCDefaultVideoDecoderFactory.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCVideoEncoderFactory.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCDefaultVideoEncoderFactory.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/unextended-module.modulemap"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Modules/module.modulemap"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/usr/include/objc/ObjectiveC.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/OpenGLES.framework/Headers/OpenGLES.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreMedia.framework/Headers/CoreMedia.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreImage.framework/Headers/CoreImage.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/QuartzCore.framework/Headers/QuartzCore.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Accelerate.framework/Headers/Accelerate.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Dispatch.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/QuickLook.framework/Headers/QuickLook.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Metal.framework/Headers/Metal.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/usr/include/Darwin.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreLocation.framework/Headers/CoreLocation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Foundation.framework/Headers/Foundation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/AVFoundation.framework/Headers/AVFoundation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/MediaPlayer.framework/Headers/MediaPlayer.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreGraphics.framework/Headers/CoreGraphics.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/UserNotifications.framework/Headers/UserNotifications.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/os.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Photos.framework/Headers/Photos.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/UIKit.framework/Headers/UIKit.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreText.framework/Headers/CoreText.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/MediaToolbox.framework/Headers/MediaToolbox.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/AudioToolbox.framework/Headers/AudioToolbox.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Security.framework/Headers/Security.apinotes"
+interface-hash: "74034ba94105a829348614df47e5ada6"

@@ -15,8 +15,8 @@ struct CallData {
     var signallingClient: HippoChannel
 }
 
-#if canImport(HippoCallClient)
-import HippoCallClient
+#if canImport(WebRTC)
+import WebRTC
 #endif
 
 
@@ -25,7 +25,7 @@ class CallManager {
     static let shared = CallManager()
     
     func startCall(call: CallData, completion: @escaping (Bool) -> Void) {
-        #if canImport(HippoCallClient)
+        #if canImport(WebRTC)
         let peerUser = call.peerData
         guard let peer = HippoUser(name: peerUser.fullName, userID: peerUser.userID, imageURL: peerUser.image) else {
             return
@@ -41,7 +41,7 @@ class CallManager {
     }
     
     func startConnection(peerUser: User, muid: String, callType: CallType, completion: (Bool) -> Void) {
-        #if canImport(HippoCallClient)
+        #if canImport(WebRTC)
         guard let peer = HippoUser(name: peerUser.fullName, userID: peerUser.userID, imageURL: peerUser.image) else {
             return
         }
@@ -52,12 +52,12 @@ class CallManager {
     }
     
     func hungupCall() {
-        #if canImport(HippoCallClient)
+        #if canImport(WebRTC)
         HippoCallClient.shared.hangupCall()
         #endif
     }
     
-    #if canImport(HippoCallClient)
+    #if canImport(WebRTC)
     func getCallTypeWith(localType: CallType) -> Call.CallType {
         var type = Call.CallType.audio
         
@@ -72,7 +72,7 @@ class CallManager {
     #endif
     
     func isCallClientAvailable() -> Bool {
-        #if canImport(HippoCallClient)
+        #if canImport(WebRTC)
         return true
         #else
         return false
@@ -80,31 +80,31 @@ class CallManager {
     }
     
     func initCallClientIfPresent() {
-        #if canImport(HippoCallClient)
+        #if canImport(WebRTC)
         setCredentials()
         setCallClientDelegate()
         #endif
     }
     
     private func setCredentials() {
-        #if canImport(HippoCallClient)
+        #if canImport(WebRTC)
         HippoCallClient.shared.setCredentials(rawCredentials: testCredentials())
         #endif
     }
     func findActiveCallUUID() -> String? {
-        #if canImport(HippoCallClient)
+        #if canImport(WebRTC)
         return HippoCallClient.shared.activeCallUUID
         #else
         return nil
         #endif
     }
     private func setCallClientDelegate() {
-        #if canImport(HippoCallClient)
+        #if canImport(WebRTC)
         HippoCallClient.shared.registerHippoCallClient(delegate: self)
         #endif
     }
     func voipNotificationRecieved(payloadDict: [String: Any]) {
-        #if canImport(HippoCallClient)
+        #if canImport(WebRTC)
         guard let peer = HippoUser(json: payloadDict), let channelID = Int.parse(values: payloadDict, key: "channel_id") else {
             return
         }
@@ -121,7 +121,7 @@ class CallManager {
         }
         HippoCallClient.shared.voipNotificationRecieved(dictionary: payloadDict, peer: peer, signalingClient: channel, currentUser: currentUser)
         #else
-        print("cannot import HippoCallClient")
+        print("cannot import WebRTC")
         #endif
     }
     
@@ -141,7 +141,7 @@ class CallManager {
         return json
     }
     
-    #if canImport(HippoCallClient)
+    #if canImport(WebRTC)
     func getCurrentUser() -> HippoUser? {
         switch HippoConfig.shared.appUserType {
         case .customer:
@@ -162,7 +162,7 @@ class CallManager {
     #endif
 }
 
-#if canImport(HippoCallClient)
+#if canImport(WebRTC)
 extension CallManager: HippoCallClientDelegate {
     func loadCallPresenterView(request: CallPresenterRequest) -> CallPresenter? {
         return HippoConfig.shared.notifyCallRequest(request)

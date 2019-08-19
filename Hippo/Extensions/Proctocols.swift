@@ -9,8 +9,8 @@
 import Foundation
 import UIKit
 
-#if canImport(HippoCallClient)
- import HippoCallClient
+#if canImport(WebRTC)
+ import WebRTC
 #endif
 
 
@@ -43,7 +43,7 @@ public protocol HippoDelegate: class {
     
     func hippoMessageRecievedWith(response: [String: Any], viewController: UIViewController)
     
-    #if canImport(HippoCallClient)
+    #if canImport(WebRTC)
      func loadCallPresenterView(request: CallPresenterRequest) -> CallPresenter?
     #endif
 }

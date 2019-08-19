@@ -1,0 +1,974 @@
+### Swift dependencies file v0 ###
+provides-top-level:
+- "utcDateFormatter"
+- "CallClient"
+provides-nominal:
+- "5Hippo10CallClientC"
+provides-member:
+- ["5Hippo10CallClientC", ""]
+provides-dynamic-lookup:
+depends-top-level:
+- !private "!"
+- !private "!="
+- !private "+="
+- !private "=="
+- !private ">"
+- "??"
+- "AnyHashable"
+- "AssignmentPrecedence"
+- "Bool"
+- "Call"
+- "CallClient"
+- "CallClientCredential"
+- "CallPeer"
+- "CallPresenter"
+- !private "CallPresenterRequest"
+- "CallSignal"
+- "CastingPrecedence"
+- "CustomData"
+- !private "Date"
+- "DateFormatter"
+- !private "DispatchQueue"
+- !private "HippoCallClient"
+- !private "HippoDelay"
+- !private "NSLocalizedFailureReasonErrorKey"
+- !private "NSLog"
+- "PresentCallRequest"
+- "SignalingClient"
+- "String"
+- !private "TimeInterval"
+- "TimeZone"
+- "UIDevice"
+- "UIView"
+- !private "UUID"
+- "Void"
+- !private "WebRTCClient"
+- "WebRTCClientDelegate"
+- !private "print"
+- "utcDateFormatter"
+- !private "||"
+depends-member:
+- !private ["s18AdditiveArithmeticP", "init"]
+- !private ["SB", "init"]
+- !private ["s7CVarArgP", "asyncAfter"]
+- !private ["s7CVarArgP", "audioSessionDidActivate"]
+- !private ["s7CVarArgP", "audioSessionDidDeactivate"]
+- !private ["s7CVarArgP", "candidateReceivedFromSignalling"]
+- !private ["s7CVarArgP", "changeAudioRouteToSpeaker"]
+- !private ["s7CVarArgP", "configureAudioSession"]
+- ["s7CVarArgP", "current"]
+- !private ["s7CVarArgP", "date"]
+- ["s7CVarArgP", "dateFormat"]
+- !private ["s7CVarArgP", "endCall"]
+- !private ["s7CVarArgP", "frameOfLocalVideoContainerViewChanged"]
+- !private ["s7CVarArgP", "frameOfRemoteVideoContainerViewChanged"]
+- ["s7CVarArgP", "identifierForVendor"]
+- !private ["s7CVarArgP", "incomingCallAnswered"]
+- ["s7CVarArgP", "init"]
+- !private ["s7CVarArgP", "localAndRemoteViewSwitched"]
+- !private ["s7CVarArgP", "main"]
+- !private ["s7CVarArgP", "muteAudio"]
+- !private ["s7CVarArgP", "pauseVideo"]
+- !private ["s7CVarArgP", "sdpReceivedFromSignalling"]
+- !private ["s7CVarArgP", "startNewCall"]
+- !private ["s7CVarArgP", "startVideo"]
+- !private ["s7CVarArgP", "subscript"]
+- !private ["s7CVarArgP", "switchCamera"]
+- ["s7CVarArgP", "timeZone"]
+- !private ["s7CVarArgP", "unmuteAudio"]
+- !private ["s7CVarArgP", "userInfo"]
+- ["5Hippo4CallC", "CallType"]
+- !private ["5Hippo4CallC", "State"]
+- !private ["5Hippo4CallC", "currentUser"]
+- !private ["5Hippo4CallC", "init"]
+- !private ["5Hippo4CallC", "isStartCallSend"]
+- !private ["5Hippo4CallC", "peer"]
+- !private ["5Hippo4CallC", "rtcClient"]
+- !private ["5Hippo4CallC", "signalingClient"]
+- !private ["5Hippo4CallC", "status"]
+- !private ["5Hippo4CallC", "timeElapsedSinceCallStart"]
+- !private ["5Hippo4CallC", "type"]
+- !private ["5Hippo4CallC", "uID"]
+- ["5Hippo10CallClientC", "AnyHashable"]
+- ["5Hippo10CallClientC", "Bool"]
+- ["5Hippo10CallClientC", "Call"]
+- ["5Hippo10CallClientC", "CallClient"]
+- ["5Hippo10CallClientC", "CallClientCredential"]
+- ["5Hippo10CallClientC", "CallPeer"]
+- ["5Hippo10CallClientC", "CallPresenter"]
+- !private ["5Hippo10CallClientC", "CallPresenterRequest"]
+- ["5Hippo10CallClientC", "CallSignal"]
+- ["5Hippo10CallClientC", "CustomData"]
+- !private ["5Hippo10CallClientC", "Date"]
+- !private ["5Hippo10CallClientC", "DispatchQueue"]
+- !private ["5Hippo10CallClientC", "HippoCallClient"]
+- !private ["5Hippo10CallClientC", "HippoDelay"]
+- !private ["5Hippo10CallClientC", "NSLocalizedFailureReasonErrorKey"]
+- !private ["5Hippo10CallClientC", "NSLog"]
+- ["5Hippo10CallClientC", "PresentCallRequest"]
+- ["5Hippo10CallClientC", "SignalingClient"]
+- ["5Hippo10CallClientC", "String"]
+- !private ["5Hippo10CallClientC", "TimeInterval"]
+- ["5Hippo10CallClientC", "UIDevice"]
+- ["5Hippo10CallClientC", "UIView"]
+- !private ["5Hippo10CallClientC", "UUID"]
+- ["5Hippo10CallClientC", "Void"]
+- !private ["5Hippo10CallClientC", "WebRTCClient"]
+- ["5Hippo10CallClientC", "activeCall"]
+- !private ["5Hippo10CallClientC", "answerReceived"]
+- !private ["5Hippo10CallClientC", "callDisconnected"]
+- !private ["5Hippo10CallClientC", "callHungupReceived"]
+- !private ["5Hippo10CallClientC", "callPresenter"]
+- !private ["5Hippo10CallClientC", "callRejectReceived"]
+- !private ["5Hippo10CallClientC", "connected"]
+- !private ["5Hippo10CallClientC", "connectionLost"]
+- !private ["5Hippo10CallClientC", "connectionRetry"]
+- !private ["5Hippo10CallClientC", "credentialRetry"]
+- !private ["5Hippo10CallClientC", "credentials"]
+- !private ["5Hippo10CallClientC", "currentDeviceID"]
+- ["5Hippo10CallClientC", "deinit"]
+- !private ["5Hippo10CallClientC", "expireActiveCall"]
+- ["5Hippo10CallClientC", "hangupCall"]
+- ["5Hippo10CallClientC", "init"]
+- !private ["5Hippo10CallClientC", "isUserBusy"]
+- ["5Hippo10CallClientC", "loadCallPresenterView"]
+- !private ["5Hippo10CallClientC", "maxTimeInNotConnectedState"]
+- !private ["5Hippo10CallClientC", "newIceCandidatesReceived"]
+- !private ["5Hippo10CallClientC", "offerReceived"]
+- !private ["5Hippo10CallClientC", "postMissedCallNotificationFor"]
+- !private ["5Hippo10CallClientC", "print"]
+- !private ["5Hippo10CallClientC", "readyToConnectReceived"]
+- !private ["5Hippo10CallClientC", "registerActiveCallsSignallingClient"]
+- !private ["5Hippo10CallClientC", "registerAudioSessionActivationAndDeactivation"]
+- !private ["5Hippo10CallClientC", "registerCallAnsweredInCallPresenter"]
+- !private ["5Hippo10CallClientC", "registerCallHungupInCallPresenter"]
+- !private ["5Hippo10CallClientC", "registerCallPresenterAccessories"]
+- !private ["5Hippo10CallClientC", "registerChangeInVideoViewsFrameInCallPresenter"]
+- !private ["5Hippo10CallClientC", "registerConfigurationOfAudioSessionInCallPresenter"]
+- !private ["5Hippo10CallClientC", "registerLocalAndRemoteViewSwitchAction"]
+- !private ["5Hippo10CallClientC", "registerMuteButtonPressed"]
+- !private ["5Hippo10CallClientC", "registerPauseVideo"]
+- !private ["5Hippo10CallClientC", "registerPublishDataInCallPresenter"]
+- !private ["5Hippo10CallClientC", "registerSpeakerSwitching"]
+- !private ["5Hippo10CallClientC", "registerStartVideo"]
+- !private ["5Hippo10CallClientC", "registerSwitchCameraInCallPresenter"]
+- !private ["5Hippo10CallClientC", "registerUnMuteButtonPressed"]
+- ["5Hippo10CallClientC", "rtcConnecetd"]
+- ["5Hippo10CallClientC", "rtcConnectionDisconnected"]
+- ["5Hippo10CallClientC", "rtcConnectionRetry"]
+- ["5Hippo10CallClientC", "sendAnswerViaSignalling"]
+- ["5Hippo10CallClientC", "sendCandidateViaSignalling"]
+- ["5Hippo10CallClientC", "sendOfferViaSignalling"]
+- !private ["5Hippo10CallClientC", "sendReadyToConnectFor"]
+- !private ["5Hippo10CallClientC", "sendSignalWhenCallHungUp"]
+- ["5Hippo10CallClientC", "sendSignalWith"]
+- ["5Hippo10CallClientC", "sendStartCallSignal"]
+- ["5Hippo10CallClientC", "setCredentials"]
+- ["5Hippo10CallClientC", "shared"]
+- !private ["5Hippo10CallClientC", "shouldHandle"]
+- !private ["5Hippo10CallClientC", "shouldPostMissedCallNotificationFor"]
+- !private ["5Hippo10CallClientC", "startCallReceived"]
+- ["5Hippo10CallClientC", "startConnecting"]
+- ["5Hippo10CallClientC", "startNew"]
+- !private ["5Hippo10CallClientC", "startPublishingLocalNotificationForIncomingCallWith"]
+- !private ["5Hippo10CallClientC", "startSendingStartCallUntilItExpires"]
+- !private ["5Hippo10CallClientC", "startTimerToExpireNotConnectedCallIn"]
+- !private ["5Hippo10CallClientC", "takeActionOnSignalReceived"]
+- ["5Hippo10CallClientC", "userBusyReceived"]
+- ["5Hippo10CallClientC", "userLoggedOut"]
+- !private ["5Hippo10CallClientC", "utcDateFormatter"]
+- ["5Hippo10CallClientC", "viewForRenderingLocalVideo"]
+- ["5Hippo10CallClientC", "viewForRenderingRemoteVideo"]
+- ["5Hippo10CallClientC", "voipNotificationReceived"]
+- !private ["5Hippo20CallClientCredentialV", "init"]
+- !private ["5Hippo20CallClientCredentialV", "toJson"]
+- !private ["5Hippo8CallPeerP", "peerId"]
+- !private ["5Hippo13CallPresenterP", "addLocalIncomingCallNotification"]
+- !private ["5Hippo13CallPresenterP", "addLocalMissedCallNotification"]
+- !private ["5Hippo13CallPresenterP", "audioSessionActivated"]
+- !private ["5Hippo13CallPresenterP", "audioSessionDeactivated"]
+- !private ["5Hippo13CallPresenterP", "callAnswered"]
+- !private ["5Hippo13CallPresenterP", "callConnected"]
+- !private ["5Hippo13CallPresenterP", "callHungUp"]
+- !private ["5Hippo13CallPresenterP", "callMuted"]
+- !private ["5Hippo13CallPresenterP", "callUnMuted"]
+- !private ["5Hippo13CallPresenterP", "configureAudioSession"]
+- !private ["5Hippo13CallPresenterP", "frameOfLocalVideoViewChanged"]
+- !private ["5Hippo13CallPresenterP", "frameOfRemoteVideoViewChanged"]
+- !private ["5Hippo13CallPresenterP", "muteAudioButtonPressed"]
+- !private ["5Hippo13CallPresenterP", "newDataRecieved"]
+- !private ["5Hippo13CallPresenterP", "pauseVideoButtonPressed"]
+- !private ["5Hippo13CallPresenterP", "publishData"]
+- !private ["5Hippo13CallPresenterP", "remoteConnected"]
+- !private ["5Hippo13CallPresenterP", "remoteRetryToConnect"]
+- !private ["5Hippo13CallPresenterP", "remoteUserHungUp"]
+- !private ["5Hippo13CallPresenterP", "remoteUserRejectedTheCall"]
+- !private ["5Hippo13CallPresenterP", "reportIncomingCallWith"]
+- !private ["5Hippo13CallPresenterP", "sendingOffer"]
+- !private ["5Hippo13CallPresenterP", "setAudioOutputToSpeaker"]
+- !private ["5Hippo13CallPresenterP", "startConnectingCall"]
+- !private ["5Hippo13CallPresenterP", "startNewOutgoingCall"]
+- !private ["5Hippo13CallPresenterP", "startVideoButtonPressed"]
+- !private ["5Hippo13CallPresenterP", "switchCameraButtonPressed"]
+- !private ["5Hippo13CallPresenterP", "switchRemoteAndLocalVideoViewButtonPressed"]
+- !private ["5Hippo13CallPresenterP", "unMuteAudioButtonPressed"]
+- !private ["5Hippo13CallPresenterP", "userBusy"]
+- !private ["5Hippo13CallPresenterP", "viewForLocalVideoRendering"]
+- !private ["5Hippo13CallPresenterP", "viewForRemoteVideoRendering"]
+- !private ["5Hippo20CallPresenterRequestV", "init"]
+- ["5Hippo10CallSignalV", "SignalType"]
+- !private ["5Hippo10CallSignalV", "callType"]
+- !private ["5Hippo10CallSignalV", "callUID"]
+- !private ["5Hippo10CallSignalV", "customData"]
+- !private ["5Hippo10CallSignalV", "getFrom"]
+- !private ["5Hippo10CallSignalV", "init"]
+- !private ["5Hippo10CallSignalV", "isForceSilent"]
+- !private ["5Hippo10CallSignalV", "rtcSignal"]
+- !private ["5Hippo10CallSignalV", "sender"]
+- !private ["5Hippo10CallSignalV", "senderDeviceID"]
+- !private ["5Hippo10CallSignalV", "signalType"]
+- !private ["5Hippo4CallC0B4TypeO", "audio"]
+- !private ["5Hippo4CallC0B4TypeO", "deinit"]
+- !private ["5Hippo10CallerInfoP", "name"]
+- !private ["5Hippo10CallerInfoP", "peerId"]
+- !private ["Sl", "subscript"]
+- !private ["SL", "addingTimeInterval"]
+- !private ["SL", "compare"]
+- !private ["SL", "init"]
+- !private ["SL", "now"]
+- !private ["So18NSComparisonResultV", "orderedAscending"]
+- !private ["s28CustomDebugStringConvertibleP", "addingTimeInterval"]
+- !private ["s28CustomDebugStringConvertibleP", "asyncAfter"]
+- !private ["s28CustomDebugStringConvertibleP", "audioSessionDidActivate"]
+- !private ["s28CustomDebugStringConvertibleP", "audioSessionDidDeactivate"]
+- !private ["s28CustomDebugStringConvertibleP", "candidateReceivedFromSignalling"]
+- !private ["s28CustomDebugStringConvertibleP", "changeAudioRouteToSpeaker"]
+- !private ["s28CustomDebugStringConvertibleP", "compare"]
+- !private ["s28CustomDebugStringConvertibleP", "configureAudioSession"]
+- ["s28CustomDebugStringConvertibleP", "current"]
+- !private ["s28CustomDebugStringConvertibleP", "date"]
+- ["s28CustomDebugStringConvertibleP", "dateFormat"]
+- !private ["s28CustomDebugStringConvertibleP", "endCall"]
+- !private ["s28CustomDebugStringConvertibleP", "frameOfLocalVideoContainerViewChanged"]
+- !private ["s28CustomDebugStringConvertibleP", "frameOfRemoteVideoContainerViewChanged"]
+- ["s28CustomDebugStringConvertibleP", "identifierForVendor"]
+- !private ["s28CustomDebugStringConvertibleP", "idle"]
+- !private ["s28CustomDebugStringConvertibleP", "inCall"]
+- !private ["s28CustomDebugStringConvertibleP", "incomingCall"]
+- !private ["s28CustomDebugStringConvertibleP", "incomingCallAnswered"]
+- ["s28CustomDebugStringConvertibleP", "init"]
+- !private ["s28CustomDebugStringConvertibleP", "localAndRemoteViewSwitched"]
+- !private ["s28CustomDebugStringConvertibleP", "main"]
+- !private ["s28CustomDebugStringConvertibleP", "muteAudio"]
+- !private ["s28CustomDebugStringConvertibleP", "pauseVideo"]
+- !private ["s28CustomDebugStringConvertibleP", "sdpReceivedFromSignalling"]
+- !private ["s28CustomDebugStringConvertibleP", "startNewCall"]
+- !private ["s28CustomDebugStringConvertibleP", "startVideo"]
+- !private ["s28CustomDebugStringConvertibleP", "subscript"]
+- !private ["s28CustomDebugStringConvertibleP", "switchCamera"]
+- ["s28CustomDebugStringConvertibleP", "timeZone"]
+- !private ["s28CustomDebugStringConvertibleP", "toJson"]
+- !private ["s28CustomDebugStringConvertibleP", "unmuteAudio"]
+- !private ["s28CustomDebugStringConvertibleP", "userInfo"]
+- ["s28CustomDebugStringConvertibleP", "uuidString"]
+- !private ["s17CustomReflectableP", "addingTimeInterval"]
+- !private ["s17CustomReflectableP", "compare"]
+- !private ["s17CustomReflectableP", "idle"]
+- !private ["s17CustomReflectableP", "inCall"]
+- !private ["s17CustomReflectableP", "incomingCall"]
+- ["s17CustomReflectableP", "init"]
+- !private ["s17CustomReflectableP", "subscript"]
+- !private ["s17CustomReflectableP", "toJson"]
+- ["s17CustomReflectableP", "uuidString"]
+- !private ["s23CustomStringConvertibleP", "addingTimeInterval"]
+- !private ["s23CustomStringConvertibleP", "asyncAfter"]
+- !private ["s23CustomStringConvertibleP", "audioSessionDidActivate"]
+- !private ["s23CustomStringConvertibleP", "audioSessionDidDeactivate"]
+- !private ["s23CustomStringConvertibleP", "candidateReceivedFromSignalling"]
+- !private ["s23CustomStringConvertibleP", "changeAudioRouteToSpeaker"]
+- !private ["s23CustomStringConvertibleP", "compare"]
+- !private ["s23CustomStringConvertibleP", "configureAudioSession"]
+- ["s23CustomStringConvertibleP", "current"]
+- !private ["s23CustomStringConvertibleP", "date"]
+- ["s23CustomStringConvertibleP", "dateFormat"]
+- !private ["s23CustomStringConvertibleP", "endCall"]
+- !private ["s23CustomStringConvertibleP", "frameOfLocalVideoContainerViewChanged"]
+- !private ["s23CustomStringConvertibleP", "frameOfRemoteVideoContainerViewChanged"]
+- ["s23CustomStringConvertibleP", "identifierForVendor"]
+- !private ["s23CustomStringConvertibleP", "incomingCallAnswered"]
+- ["s23CustomStringConvertibleP", "init"]
+- !private ["s23CustomStringConvertibleP", "localAndRemoteViewSwitched"]
+- !private ["s23CustomStringConvertibleP", "main"]
+- !private ["s23CustomStringConvertibleP", "muteAudio"]
+- !private ["s23CustomStringConvertibleP", "pauseVideo"]
+- !private ["s23CustomStringConvertibleP", "sdpReceivedFromSignalling"]
+- !private ["s23CustomStringConvertibleP", "startNewCall"]
+- !private ["s23CustomStringConvertibleP", "startVideo"]
+- !private ["s23CustomStringConvertibleP", "subscript"]
+- !private ["s23CustomStringConvertibleP", "switchCamera"]
+- ["s23CustomStringConvertibleP", "timeZone"]
+- !private ["s23CustomStringConvertibleP", "unmuteAudio"]
+- !private ["s23CustomStringConvertibleP", "userInfo"]
+- ["s23CustomStringConvertibleP", "uuidString"]
+- !private ["10Foundation4DateV", "addingTimeInterval"]
+- !private ["10Foundation4DateV", "compare"]
+- !private ["10Foundation4DateV", "init"]
+- !private ["So15NSDateFormatterC", "date"]
+- ["So15NSDateFormatterC", "dateFormat"]
+- ["So15NSDateFormatterC", "init"]
+- ["So15NSDateFormatterC", "timeZone"]
+- !private ["Se", "addingTimeInterval"]
+- !private ["Se", "compare"]
+- !private ["Se", "idle"]
+- !private ["Se", "inCall"]
+- !private ["Se", "incomingCall"]
+- ["Se", "init"]
+- !private ["Se", "subscript"]
+- !private ["Se", "toJson"]
+- ["Se", "uuidString"]
+- !private ["SD", "subscript"]
+- !private ["So18OS_dispatch_objectC", "asyncAfter"]
+- !private ["So18OS_dispatch_objectC", "main"]
+- !private ["So17OS_dispatch_queueC", "asyncAfter"]
+- !private ["So17OS_dispatch_queueC", "main"]
+- !private ["8Dispatch0A4TimeV", "now"]
+- !private ["Sd", "init"]
+- !private ["SE", "addingTimeInterval"]
+- !private ["SE", "compare"]
+- !private ["SE", "idle"]
+- !private ["SE", "inCall"]
+- !private ["SE", "incomingCall"]
+- ["SE", "init"]
+- !private ["SE", "subscript"]
+- !private ["SE", "toJson"]
+- ["SE", "uuidString"]
+- !private ["SQ", "addingTimeInterval"]
+- ["SQ", "answer"]
+- !private ["SQ", "asyncAfter"]
+- !private ["SQ", "audio"]
+- !private ["SQ", "audioSessionDidActivate"]
+- !private ["SQ", "audioSessionDidDeactivate"]
+- ["SQ", "callHungUp"]
+- ["SQ", "callRejected"]
+- !private ["SQ", "candidateReceivedFromSignalling"]
+- !private ["SQ", "changeAudioRouteToSpeaker"]
+- !private ["SQ", "compare"]
+- !private ["SQ", "configureAudioSession"]
+- ["SQ", "current"]
+- ["SQ", "custom"]
+- !private ["SQ", "date"]
+- ["SQ", "dateFormat"]
+- !private ["SQ", "endCall"]
+- !private ["SQ", "frameOfLocalVideoContainerViewChanged"]
+- !private ["SQ", "frameOfRemoteVideoContainerViewChanged"]
+- ["SQ", "identifierForVendor"]
+- ["SQ", "idle"]
+- ["SQ", "inCall"]
+- ["SQ", "incomingCall"]
+- !private ["SQ", "incomingCallAnswered"]
+- ["SQ", "init"]
+- !private ["SQ", "localAndRemoteViewSwitched"]
+- !private ["SQ", "main"]
+- !private ["SQ", "muteAudio"]
+- ["SQ", "newIceCandidate"]
+- !private ["SQ", "now"]
+- ["SQ", "offer"]
+- !private ["SQ", "orderedAscending"]
+- ["SQ", "outgoingCall"]
+- !private ["SQ", "pauseVideo"]
+- ["SQ", "readyToConnect"]
+- !private ["SQ", "sdpReceivedFromSignalling"]
+- ["SQ", "startCall"]
+- !private ["SQ", "startNewCall"]
+- !private ["SQ", "startVideo"]
+- !private ["SQ", "subscript"]
+- !private ["SQ", "switchCamera"]
+- ["SQ", "timeZone"]
+- !private ["SQ", "toJson"]
+- !private ["SQ", "unmuteAudio"]
+- ["SQ", "userBusy"]
+- !private ["SQ", "userInfo"]
+- ["SQ", "uuidString"]
+- !private ["s5ErrorP", "userInfo"]
+- !private ["s30ExpressibleByDictionaryLiteralP", "subscript"]
+- !private ["s25ExpressibleByFloatLiteralP", "init"]
+- !private ["s27ExpressibleByIntegerLiteralP", "init"]
+- !private ["s23ExpressibleByNilLiteralP", "idle"]
+- !private ["s23ExpressibleByNilLiteralP", "inCall"]
+- !private ["s23ExpressibleByNilLiteralP", "incomingCall"]
+- !private ["s23ExpressibleByNilLiteralP", "toJson"]
+- !private ["SF", "init"]
+- !private ["So11NSFormatterC", "date"]
+- ["So11NSFormatterC", "dateFormat"]
+- ["So11NSFormatterC", "init"]
+- ["So11NSFormatterC", "timeZone"]
+- !private ["SH", "addingTimeInterval"]
+- ["SH", "answer"]
+- !private ["SH", "asyncAfter"]
+- !private ["SH", "audio"]
+- !private ["SH", "audioSessionDidActivate"]
+- !private ["SH", "audioSessionDidDeactivate"]
+- ["SH", "callHungUp"]
+- ["SH", "callRejected"]
+- !private ["SH", "candidateReceivedFromSignalling"]
+- !private ["SH", "changeAudioRouteToSpeaker"]
+- !private ["SH", "compare"]
+- !private ["SH", "configureAudioSession"]
+- ["SH", "current"]
+- ["SH", "custom"]
+- !private ["SH", "date"]
+- ["SH", "dateFormat"]
+- !private ["SH", "endCall"]
+- !private ["SH", "frameOfLocalVideoContainerViewChanged"]
+- !private ["SH", "frameOfRemoteVideoContainerViewChanged"]
+- ["SH", "identifierForVendor"]
+- ["SH", "idle"]
+- ["SH", "inCall"]
+- ["SH", "incomingCall"]
+- !private ["SH", "incomingCallAnswered"]
+- ["SH", "init"]
+- !private ["SH", "localAndRemoteViewSwitched"]
+- !private ["SH", "main"]
+- !private ["SH", "muteAudio"]
+- ["SH", "newIceCandidate"]
+- ["SH", "offer"]
+- !private ["SH", "orderedAscending"]
+- ["SH", "outgoingCall"]
+- !private ["SH", "pauseVideo"]
+- ["SH", "readyToConnect"]
+- !private ["SH", "sdpReceivedFromSignalling"]
+- ["SH", "startCall"]
+- !private ["SH", "startNewCall"]
+- !private ["SH", "startVideo"]
+- !private ["SH", "subscript"]
+- !private ["SH", "switchCamera"]
+- ["SH", "timeZone"]
+- !private ["SH", "toJson"]
+- !private ["SH", "unmuteAudio"]
+- ["SH", "userBusy"]
+- !private ["SH", "userInfo"]
+- ["SH", "uuidString"]
+- !private ["5Hippo0A10CallClientC", "delgate"]
+- !private ["5Hippo0A10CallClientC", "shared"]
+- !private ["5Hippo0A18CallClientDelegateP", "loadCallPresenterView"]
+- !private ["s25LosslessStringConvertibleP", "init"]
+- !private ["So8NSCodingP", "date"]
+- ["So8NSCodingP", "dateFormat"]
+- ["So8NSCodingP", "init"]
+- ["So8NSCodingP", "timeZone"]
+- !private ["So8NSCodingP", "userInfo"]
+- !private ["So9NSCopyingP", "date"]
+- ["So9NSCopyingP", "dateFormat"]
+- ["So9NSCopyingP", "init"]
+- ["So9NSCopyingP", "timeZone"]
+- !private ["So9NSCopyingP", "userInfo"]
+- !private ["So7NSErrorC", "userInfo"]
+- !private ["So8NSObjectC", "asyncAfter"]
+- !private ["So8NSObjectC", "audioSessionDidActivate"]
+- !private ["So8NSObjectC", "audioSessionDidDeactivate"]
+- !private ["So8NSObjectC", "candidateReceivedFromSignalling"]
+- !private ["So8NSObjectC", "changeAudioRouteToSpeaker"]
+- !private ["So8NSObjectC", "configureAudioSession"]
+- ["So8NSObjectC", "current"]
+- !private ["So8NSObjectC", "date"]
+- ["So8NSObjectC", "dateFormat"]
+- !private ["So8NSObjectC", "endCall"]
+- !private ["So8NSObjectC", "frameOfLocalVideoContainerViewChanged"]
+- !private ["So8NSObjectC", "frameOfRemoteVideoContainerViewChanged"]
+- ["So8NSObjectC", "identifierForVendor"]
+- !private ["So8NSObjectC", "incomingCallAnswered"]
+- ["So8NSObjectC", "init"]
+- !private ["So8NSObjectC", "localAndRemoteViewSwitched"]
+- !private ["So8NSObjectC", "main"]
+- !private ["So8NSObjectC", "muteAudio"]
+- !private ["So8NSObjectC", "pauseVideo"]
+- !private ["So8NSObjectC", "sdpReceivedFromSignalling"]
+- !private ["So8NSObjectC", "startNewCall"]
+- !private ["So8NSObjectC", "startVideo"]
+- !private ["So8NSObjectC", "switchCamera"]
+- ["So8NSObjectC", "timeZone"]
+- !private ["So8NSObjectC", "unmuteAudio"]
+- !private ["So8NSObjectC", "userInfo"]
+- !private ["So8NSObjectP", "asyncAfter"]
+- !private ["So8NSObjectP", "audioSessionDidActivate"]
+- !private ["So8NSObjectP", "audioSessionDidDeactivate"]
+- !private ["So8NSObjectP", "candidateReceivedFromSignalling"]
+- !private ["So8NSObjectP", "changeAudioRouteToSpeaker"]
+- !private ["So8NSObjectP", "configureAudioSession"]
+- ["So8NSObjectP", "current"]
+- !private ["So8NSObjectP", "date"]
+- ["So8NSObjectP", "dateFormat"]
+- !private ["So8NSObjectP", "endCall"]
+- !private ["So8NSObjectP", "frameOfLocalVideoContainerViewChanged"]
+- !private ["So8NSObjectP", "frameOfRemoteVideoContainerViewChanged"]
+- ["So8NSObjectP", "identifierForVendor"]
+- !private ["So8NSObjectP", "incomingCallAnswered"]
+- ["So8NSObjectP", "init"]
+- !private ["So8NSObjectP", "localAndRemoteViewSwitched"]
+- !private ["So8NSObjectP", "main"]
+- !private ["So8NSObjectP", "muteAudio"]
+- !private ["So8NSObjectP", "pauseVideo"]
+- !private ["So8NSObjectP", "sdpReceivedFromSignalling"]
+- !private ["So8NSObjectP", "startNewCall"]
+- !private ["So8NSObjectP", "startVideo"]
+- !private ["So8NSObjectP", "switchCamera"]
+- ["So8NSObjectP", "timeZone"]
+- !private ["So8NSObjectP", "unmuteAudio"]
+- !private ["So8NSObjectP", "userInfo"]
+- !private ["So14NSSecureCodingP", "userInfo"]
+- !private ["Sj", "init"]
+- !private ["So9OS_objectC", "asyncAfter"]
+- !private ["So9OS_objectC", "main"]
+- !private ["Sq", "idle"]
+- !private ["Sq", "inCall"]
+- !private ["Sq", "incomingCall"]
+- !private ["Sq", "toJson"]
+- !private ["5Hippo18PresentCallRequestV", "callType"]
+- !private ["5Hippo18PresentCallRequestV", "init"]
+- ["5Hippo11PublishableP", "SignalType"]
+- !private ["5Hippo11PublishableP", "callType"]
+- !private ["5Hippo11PublishableP", "callUID"]
+- !private ["5Hippo11PublishableP", "customData"]
+- !private ["5Hippo11PublishableP", "getFrom"]
+- !private ["5Hippo11PublishableP", "init"]
+- !private ["5Hippo11PublishableP", "isForceSilent"]
+- !private ["5Hippo11PublishableP", "rtcSignal"]
+- !private ["5Hippo11PublishableP", "sender"]
+- !private ["5Hippo11PublishableP", "senderDeviceID"]
+- !private ["5Hippo11PublishableP", "signalType"]
+- !private ["So25RTCPeerConnectionDelegateP", "audioSessionDidActivate"]
+- !private ["So25RTCPeerConnectionDelegateP", "audioSessionDidDeactivate"]
+- !private ["So25RTCPeerConnectionDelegateP", "candidateReceivedFromSignalling"]
+- !private ["So25RTCPeerConnectionDelegateP", "changeAudioRouteToSpeaker"]
+- !private ["So25RTCPeerConnectionDelegateP", "configureAudioSession"]
+- !private ["So25RTCPeerConnectionDelegateP", "endCall"]
+- !private ["So25RTCPeerConnectionDelegateP", "frameOfLocalVideoContainerViewChanged"]
+- !private ["So25RTCPeerConnectionDelegateP", "frameOfRemoteVideoContainerViewChanged"]
+- !private ["So25RTCPeerConnectionDelegateP", "incomingCallAnswered"]
+- !private ["So25RTCPeerConnectionDelegateP", "init"]
+- !private ["So25RTCPeerConnectionDelegateP", "localAndRemoteViewSwitched"]
+- !private ["So25RTCPeerConnectionDelegateP", "muteAudio"]
+- !private ["So25RTCPeerConnectionDelegateP", "pauseVideo"]
+- !private ["So25RTCPeerConnectionDelegateP", "sdpReceivedFromSignalling"]
+- !private ["So25RTCPeerConnectionDelegateP", "startNewCall"]
+- !private ["So25RTCPeerConnectionDelegateP", "startVideo"]
+- !private ["So25RTCPeerConnectionDelegateP", "switchCamera"]
+- !private ["So25RTCPeerConnectionDelegateP", "unmuteAudio"]
+- !private ["So20RTCVideoViewDelegateP", "audioSessionDidActivate"]
+- !private ["So20RTCVideoViewDelegateP", "audioSessionDidDeactivate"]
+- !private ["So20RTCVideoViewDelegateP", "candidateReceivedFromSignalling"]
+- !private ["So20RTCVideoViewDelegateP", "changeAudioRouteToSpeaker"]
+- !private ["So20RTCVideoViewDelegateP", "configureAudioSession"]
+- !private ["So20RTCVideoViewDelegateP", "endCall"]
+- !private ["So20RTCVideoViewDelegateP", "frameOfLocalVideoContainerViewChanged"]
+- !private ["So20RTCVideoViewDelegateP", "frameOfRemoteVideoContainerViewChanged"]
+- !private ["So20RTCVideoViewDelegateP", "incomingCallAnswered"]
+- !private ["So20RTCVideoViewDelegateP", "init"]
+- !private ["So20RTCVideoViewDelegateP", "localAndRemoteViewSwitched"]
+- !private ["So20RTCVideoViewDelegateP", "muteAudio"]
+- !private ["So20RTCVideoViewDelegateP", "pauseVideo"]
+- !private ["So20RTCVideoViewDelegateP", "sdpReceivedFromSignalling"]
+- !private ["So20RTCVideoViewDelegateP", "startNewCall"]
+- !private ["So20RTCVideoViewDelegateP", "startVideo"]
+- !private ["So20RTCVideoViewDelegateP", "switchCamera"]
+- !private ["So20RTCVideoViewDelegateP", "unmuteAudio"]
+- ["SY", "answer"]
+- !private ["SY", "audio"]
+- ["SY", "callHungUp"]
+- ["SY", "callRejected"]
+- ["SY", "custom"]
+- ["SY", "newIceCandidate"]
+- ["SY", "offer"]
+- !private ["SY", "orderedAscending"]
+- ["SY", "readyToConnect"]
+- ["SY", "startCall"]
+- ["SY", "userBusy"]
+- !private ["10Foundation20ReferenceConvertibleP", "addingTimeInterval"]
+- !private ["10Foundation20ReferenceConvertibleP", "compare"]
+- ["10Foundation20ReferenceConvertibleP", "init"]
+- ["10Foundation20ReferenceConvertibleP", "uuidString"]
+- !private ["s10SIMDScalarP", "init"]
+- !private ["ST", "subscript"]
+- ["5Hippo10CallSignalV0C4TypeO", "answer"]
+- ["5Hippo10CallSignalV0C4TypeO", "callHungUp"]
+- ["5Hippo10CallSignalV0C4TypeO", "callRejected"]
+- ["5Hippo10CallSignalV0C4TypeO", "custom"]
+- !private ["5Hippo10CallSignalV0C4TypeO", "deinit"]
+- ["5Hippo10CallSignalV0C4TypeO", "newIceCandidate"]
+- ["5Hippo10CallSignalV0C4TypeO", "offer"]
+- ["5Hippo10CallSignalV0C4TypeO", "readyToConnect"]
+- ["5Hippo10CallSignalV0C4TypeO", "startCall"]
+- ["5Hippo10CallSignalV0C4TypeO", "userBusy"]
+- !private ["5Hippo15SignalingClientP", "checkIfReadyForCommunication"]
+- !private ["5Hippo15SignalingClientP", "connectClient"]
+- !private ["5Hippo15SignalingClientP", "sendSignalToPeer"]
+- !private ["5Hippo15SignalingClientP", "signalReceivedFromPeer"]
+- !private ["s13SignedNumericP", "init"]
+- !private ["5Hippo4CallC5StateO", "deinit"]
+- ["5Hippo4CallC5StateO", "idle"]
+- ["5Hippo4CallC5StateO", "inCall"]
+- ["5Hippo4CallC5StateO", "incomingCall"]
+- ["5Hippo4CallC5StateO", "outgoingCall"]
+- !private ["Sx", "init"]
+- !private ["s20TextOutputStreamableP", "init"]
+- ["10Foundation8TimeZoneV", "init"]
+- ["So8UIDeviceC", "current"]
+- ["So8UIDeviceC", "identifierForVendor"]
+- !private ["10Foundation4UUIDV", "init"]
+- ["10Foundation4UUIDV", "uuidString"]
+- !private ["5Hippo12WebRTCClientC", "audioSessionDidActivate"]
+- !private ["5Hippo12WebRTCClientC", "audioSessionDidDeactivate"]
+- !private ["5Hippo12WebRTCClientC", "candidateReceivedFromSignalling"]
+- !private ["5Hippo12WebRTCClientC", "changeAudioRouteToSpeaker"]
+- !private ["5Hippo12WebRTCClientC", "configureAudioSession"]
+- !private ["5Hippo12WebRTCClientC", "deinit"]
+- !private ["5Hippo12WebRTCClientC", "endCall"]
+- !private ["5Hippo12WebRTCClientC", "frameOfLocalVideoContainerViewChanged"]
+- !private ["5Hippo12WebRTCClientC", "frameOfRemoteVideoContainerViewChanged"]
+- !private ["5Hippo12WebRTCClientC", "incomingCallAnswered"]
+- !private ["5Hippo12WebRTCClientC", "init"]
+- !private ["5Hippo12WebRTCClientC", "localAndRemoteViewSwitched"]
+- !private ["5Hippo12WebRTCClientC", "muteAudio"]
+- !private ["5Hippo12WebRTCClientC", "pauseVideo"]
+- !private ["5Hippo12WebRTCClientC", "sdpReceivedFromSignalling"]
+- !private ["5Hippo12WebRTCClientC", "startNewCall"]
+- !private ["5Hippo12WebRTCClientC", "startVideo"]
+- !private ["5Hippo12WebRTCClientC", "switchCamera"]
+- !private ["5Hippo12WebRTCClientC", "unmuteAudio"]
+- !private ["5Hippo20WebRTCClientDelegateP", "Call"]
+- ["5Hippo20WebRTCClientDelegateP", "CallClient"]
+- !private ["5Hippo20WebRTCClientDelegateP", "CallClientCredential"]
+- !private ["5Hippo20WebRTCClientDelegateP", "CallPresenterRequest"]
+- !private ["5Hippo20WebRTCClientDelegateP", "CallSignal"]
+- !private ["5Hippo20WebRTCClientDelegateP", "Date"]
+- !private ["5Hippo20WebRTCClientDelegateP", "DispatchQueue"]
+- !private ["5Hippo20WebRTCClientDelegateP", "HippoCallClient"]
+- !private ["5Hippo20WebRTCClientDelegateP", "HippoDelay"]
+- !private ["5Hippo20WebRTCClientDelegateP", "NSLocalizedFailureReasonErrorKey"]
+- !private ["5Hippo20WebRTCClientDelegateP", "NSLog"]
+- !private ["5Hippo20WebRTCClientDelegateP", "PresentCallRequest"]
+- !private ["5Hippo20WebRTCClientDelegateP", "TimeInterval"]
+- ["5Hippo20WebRTCClientDelegateP", "UIDevice"]
+- !private ["5Hippo20WebRTCClientDelegateP", "UUID"]
+- !private ["5Hippo20WebRTCClientDelegateP", "WebRTCClient"]
+- ["5Hippo20WebRTCClientDelegateP", ""]
+- !private ["5Hippo20WebRTCClientDelegateP", "activeCall"]
+- !private ["5Hippo20WebRTCClientDelegateP", "answerReceived"]
+- !private ["5Hippo20WebRTCClientDelegateP", "callDisconnected"]
+- !private ["5Hippo20WebRTCClientDelegateP", "callHungupReceived"]
+- !private ["5Hippo20WebRTCClientDelegateP", "callPresenter"]
+- !private ["5Hippo20WebRTCClientDelegateP", "callRejectReceived"]
+- !private ["5Hippo20WebRTCClientDelegateP", "connected"]
+- !private ["5Hippo20WebRTCClientDelegateP", "connectionLost"]
+- !private ["5Hippo20WebRTCClientDelegateP", "connectionRetry"]
+- !private ["5Hippo20WebRTCClientDelegateP", "credentialRetry"]
+- !private ["5Hippo20WebRTCClientDelegateP", "credentials"]
+- !private ["5Hippo20WebRTCClientDelegateP", "currentDeviceID"]
+- !private ["5Hippo20WebRTCClientDelegateP", "expireActiveCall"]
+- !private ["5Hippo20WebRTCClientDelegateP", "hangupCall"]
+- ["5Hippo20WebRTCClientDelegateP", "init"]
+- !private ["5Hippo20WebRTCClientDelegateP", "isUserBusy"]
+- !private ["5Hippo20WebRTCClientDelegateP", "loadCallPresenterView"]
+- !private ["5Hippo20WebRTCClientDelegateP", "maxTimeInNotConnectedState"]
+- !private ["5Hippo20WebRTCClientDelegateP", "newIceCandidatesReceived"]
+- !private ["5Hippo20WebRTCClientDelegateP", "offerReceived"]
+- !private ["5Hippo20WebRTCClientDelegateP", "postMissedCallNotificationFor"]
+- !private ["5Hippo20WebRTCClientDelegateP", "print"]
+- !private ["5Hippo20WebRTCClientDelegateP", "readyToConnectReceived"]
+- !private ["5Hippo20WebRTCClientDelegateP", "registerActiveCallsSignallingClient"]
+- !private ["5Hippo20WebRTCClientDelegateP", "registerAudioSessionActivationAndDeactivation"]
+- !private ["5Hippo20WebRTCClientDelegateP", "registerCallAnsweredInCallPresenter"]
+- !private ["5Hippo20WebRTCClientDelegateP", "registerCallHungupInCallPresenter"]
+- !private ["5Hippo20WebRTCClientDelegateP", "registerCallPresenterAccessories"]
+- !private ["5Hippo20WebRTCClientDelegateP", "registerChangeInVideoViewsFrameInCallPresenter"]
+- !private ["5Hippo20WebRTCClientDelegateP", "registerConfigurationOfAudioSessionInCallPresenter"]
+- !private ["5Hippo20WebRTCClientDelegateP", "registerLocalAndRemoteViewSwitchAction"]
+- !private ["5Hippo20WebRTCClientDelegateP", "registerMuteButtonPressed"]
+- !private ["5Hippo20WebRTCClientDelegateP", "registerPauseVideo"]
+- !private ["5Hippo20WebRTCClientDelegateP", "registerPublishDataInCallPresenter"]
+- !private ["5Hippo20WebRTCClientDelegateP", "registerSpeakerSwitching"]
+- !private ["5Hippo20WebRTCClientDelegateP", "registerStartVideo"]
+- !private ["5Hippo20WebRTCClientDelegateP", "registerSwitchCameraInCallPresenter"]
+- !private ["5Hippo20WebRTCClientDelegateP", "registerUnMuteButtonPressed"]
+- ["5Hippo20WebRTCClientDelegateP", "rtcConnecetd"]
+- ["5Hippo20WebRTCClientDelegateP", "rtcConnectionDisconnected"]
+- ["5Hippo20WebRTCClientDelegateP", "rtcConnectionRetry"]
+- ["5Hippo20WebRTCClientDelegateP", "sendAnswerViaSignalling"]
+- ["5Hippo20WebRTCClientDelegateP", "sendCandidateViaSignalling"]
+- ["5Hippo20WebRTCClientDelegateP", "sendOfferViaSignalling"]
+- !private ["5Hippo20WebRTCClientDelegateP", "sendReadyToConnectFor"]
+- !private ["5Hippo20WebRTCClientDelegateP", "sendSignalWhenCallHungUp"]
+- !private ["5Hippo20WebRTCClientDelegateP", "sendSignalWith"]
+- !private ["5Hippo20WebRTCClientDelegateP", "shouldHandle"]
+- !private ["5Hippo20WebRTCClientDelegateP", "shouldPostMissedCallNotificationFor"]
+- !private ["5Hippo20WebRTCClientDelegateP", "startCallReceived"]
+- !private ["5Hippo20WebRTCClientDelegateP", "startPublishingLocalNotificationForIncomingCallWith"]
+- !private ["5Hippo20WebRTCClientDelegateP", "startSendingStartCallUntilItExpires"]
+- !private ["5Hippo20WebRTCClientDelegateP", "startTimerToExpireNotConnectedCallIn"]
+- !private ["5Hippo20WebRTCClientDelegateP", "takeActionOnSignalReceived"]
+- !private ["5Hippo20WebRTCClientDelegateP", "userBusyReceived"]
+- !private ["5Hippo20WebRTCClientDelegateP", "utcDateFormatter"]
+- ["5Hippo20WebRTCClientDelegateP", "viewForRenderingLocalVideo"]
+- ["5Hippo20WebRTCClientDelegateP", "viewForRenderingRemoteVideo"]
+- !private ["s15_CVarArgAlignedP", "init"]
+- !private ["s22_CVarArgPassedAsDoubleP", "init"]
+- !private ["s30_CustomPlaygroundQuickLookableP", "addingTimeInterval"]
+- !private ["s30_CustomPlaygroundQuickLookableP", "compare"]
+- !private ["s30_CustomPlaygroundQuickLookableP", "init"]
+- !private ["s33_ExpressibleByBuiltinFloatLiteralP", "init"]
+- !private ["s35_ExpressibleByBuiltinIntegerLiteralP", "init"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "init"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "subscript"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "asyncAfter"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "audioSessionDidActivate"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "audioSessionDidDeactivate"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "candidateReceivedFromSignalling"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "changeAudioRouteToSpeaker"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "configureAudioSession"]
+- ["10Foundation27_KeyValueCodingAndObservingP", "current"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "date"]
+- ["10Foundation27_KeyValueCodingAndObservingP", "dateFormat"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "endCall"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "frameOfLocalVideoContainerViewChanged"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "frameOfRemoteVideoContainerViewChanged"]
+- ["10Foundation27_KeyValueCodingAndObservingP", "identifierForVendor"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "incomingCallAnswered"]
+- ["10Foundation27_KeyValueCodingAndObservingP", "init"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "localAndRemoteViewSwitched"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "main"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "muteAudio"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "pauseVideo"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "sdpReceivedFromSignalling"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "startNewCall"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "startVideo"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "switchCamera"]
+- ["10Foundation27_KeyValueCodingAndObservingP", "timeZone"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "unmuteAudio"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "userInfo"]
+- !private ["s21_ObjectiveCBridgeableP", "addingTimeInterval"]
+- !private ["s21_ObjectiveCBridgeableP", "compare"]
+- !private ["s21_ObjectiveCBridgeableP", "idle"]
+- !private ["s21_ObjectiveCBridgeableP", "inCall"]
+- !private ["s21_ObjectiveCBridgeableP", "incomingCall"]
+- ["s21_ObjectiveCBridgeableP", "init"]
+- !private ["s21_ObjectiveCBridgeableP", "subscript"]
+- !private ["s21_ObjectiveCBridgeableP", "toJson"]
+- ["s21_ObjectiveCBridgeableP", "uuidString"]
+- !private ["s26_OptionalNilComparisonTypeV", "idle"]
+- !private ["s26_OptionalNilComparisonTypeV", "inCall"]
+- !private ["s26_OptionalNilComparisonTypeV", "incomingCall"]
+depends-nominal:
+- !private "s18AdditiveArithmeticP"
+- !private "SB"
+- "s7CVarArgP"
+- "5Hippo4CallC"
+- "5Hippo10CallClientC"
+- !private "5Hippo20CallClientCredentialV"
+- !private "5Hippo8CallPeerP"
+- !private "5Hippo13CallPresenterP"
+- !private "5Hippo20CallPresenterRequestV"
+- "5Hippo10CallSignalV"
+- !private "5Hippo4CallC0B4TypeO"
+- !private "5Hippo10CallerInfoP"
+- !private "Sl"
+- !private "SL"
+- !private "So18NSComparisonResultV"
+- "s28CustomDebugStringConvertibleP"
+- "s17CustomReflectableP"
+- "s23CustomStringConvertibleP"
+- !private "10Foundation4DateV"
+- "So15NSDateFormatterC"
+- "Se"
+- !private "SD"
+- !private "So18OS_dispatch_objectC"
+- !private "So17OS_dispatch_queueC"
+- !private "8Dispatch0A4TimeV"
+- !private "Sd"
+- "SE"
+- "SQ"
+- !private "s5ErrorP"
+- !private "s30ExpressibleByDictionaryLiteralP"
+- !private "s25ExpressibleByFloatLiteralP"
+- !private "s27ExpressibleByIntegerLiteralP"
+- !private "s23ExpressibleByNilLiteralP"
+- !private "SF"
+- "So11NSFormatterC"
+- "SH"
+- !private "5Hippo0A10CallClientC"
+- !private "5Hippo0A18CallClientDelegateP"
+- !private "s25LosslessStringConvertibleP"
+- "So8NSCodingP"
+- "So9NSCopyingP"
+- !private "So7NSErrorC"
+- "So8NSObjectC"
+- "So8NSObjectP"
+- !private "So14NSSecureCodingP"
+- !private "Sj"
+- !private "So9OS_objectC"
+- !private "Sq"
+- !private "5Hippo18PresentCallRequestV"
+- "5Hippo11PublishableP"
+- !private "So25RTCPeerConnectionDelegateP"
+- !private "So20RTCVideoViewDelegateP"
+- "SY"
+- "10Foundation20ReferenceConvertibleP"
+- !private "s10SIMDScalarP"
+- !private "ST"
+- "5Hippo10CallSignalV0C4TypeO"
+- !private "5Hippo15SignalingClientP"
+- !private "s13SignedNumericP"
+- "5Hippo4CallC5StateO"
+- !private "Sx"
+- !private "s20TextOutputStreamableP"
+- "10Foundation8TimeZoneV"
+- "So8UIDeviceC"
+- "10Foundation4UUIDV"
+- !private "5Hippo12WebRTCClientC"
+- "5Hippo20WebRTCClientDelegateP"
+- !private "s15_CVarArgAlignedP"
+- !private "s22_CVarArgPassedAsDoubleP"
+- !private "s30_CustomPlaygroundQuickLookableP"
+- !private "s33_ExpressibleByBuiltinFloatLiteralP"
+- !private "s35_ExpressibleByBuiltinIntegerLiteralP"
+- !private "s35_HasCustomAnyHashableRepresentationP"
+- "10Foundation27_KeyValueCodingAndObservingP"
+- "s21_ObjectiveCBridgeableP"
+- !private "s26_OptionalNilComparisonTypeV"
+depends-dynamic-lookup:
+depends-external:
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/ObjectiveC.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreMedia.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/simd.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreImage.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/QuartzCore.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Accelerate.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Dispatch.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Metal.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Darwin.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreLocation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Foundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/AVFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreAudio.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/MediaPlayer.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreGraphics.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/os.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Photos.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Swift.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/UIKit.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/SwiftOnoneSupport.swiftmodule"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCCodecSpecificInfoH264.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCVideoDecoderH264.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCVideoEncoderH264.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCVideoDecoderFactoryH264.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCVideoEncoderFactoryH264.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCVideoDecoderVP8.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCVideoEncoderVP8.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCVideoDecoderVP9.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCVideoEncoderVP9.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/WebRTC.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCH264ProfileLevelId.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/UIDevice+RTCDevice.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCMediaSource.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCVideoSource.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCAudioSource.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCEncodedImage.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCIntervalRange.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCVideoFrame.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCCertificate.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCIceCandidate.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCTracing.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCVideoViewShading.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCLogging.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCMediaStreamTrack.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCVideoTrack.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCAudioTrack.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCDataChannel.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCMediaStream.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCRtpHeaderExtension.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCAudioSession.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCConfiguration.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCDataChannelConfiguration.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCAudioSessionConfiguration.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCPeerConnection.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCSessionDescription.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCVideoCodecInfo.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCCodecSpecificInfo.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCMetricsSampleInfo.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Hippo.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCRtpFragmentationHeader.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCDtmfSender.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCRtpSender.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCVideoDecoder.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCVideoEncoder.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCI420Buffer.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCMutableI420Buffer.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCNativeMutableI420Buffer.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCNativeI420Buffer.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCVideoFrameBuffer.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCCVPixelBuffer.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCYUVPlanarBuffer.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCMutableYUVPlanarBuffer.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Helpers/TRWDownloadManager/TWRDownloadManager.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCFileLogger.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCCallbackLogger.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCDispatcher.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCVideoRenderer.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCVideoCapturer.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCCameraVideoCapturer.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCFileVideoCapturer.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCSSLAdapter.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCRtpReceiver.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCRtpTransceiver.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCIceServer.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCMetrics.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCVideoEncoderQpThresholds.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCVideoEncoderSettings.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCFieldTrials.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCCryptoOptions.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCPeerConnectionFactoryOptions.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCMacros.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCRtpCodecParameters.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCRtpEncodingParameters.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCRtcpParameters.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCRtpParameters.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCVideoCodecConstants.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCMediaConstraints.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/SocketRocket/SocketRocket.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/SocketRocket/SRWebSocket.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/Hippo/Wrappers/MZFayeClient/MZFayeClient.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCLegacyStatsReport.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCEAGLVideoView.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCMTLVideoView.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCCameraPreviewView.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCPeerConnectionFactory.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCVideoDecoderFactory.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCDefaultVideoDecoderFactory.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCVideoEncoderFactory.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Headers/RTCDefaultVideoEncoderFactory.h"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/build/Hippo.build/Debug-iphonesimulator/Hippo.build/unextended-module.modulemap"
+- "/Users/vishal/Documents/SDKs/Hippo-iOS-SDK/WebRTC.framework/Modules/module.modulemap"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/usr/include/objc/ObjectiveC.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/OpenGLES.framework/Headers/OpenGLES.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreMedia.framework/Headers/CoreMedia.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreImage.framework/Headers/CoreImage.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/QuartzCore.framework/Headers/QuartzCore.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Accelerate.framework/Headers/Accelerate.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Dispatch.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/QuickLook.framework/Headers/QuickLook.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Metal.framework/Headers/Metal.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/usr/include/Darwin.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreLocation.framework/Headers/CoreLocation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Foundation.framework/Headers/Foundation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/AVFoundation.framework/Headers/AVFoundation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/MediaPlayer.framework/Headers/MediaPlayer.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreGraphics.framework/Headers/CoreGraphics.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/UserNotifications.framework/Headers/UserNotifications.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/os.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Photos.framework/Headers/Photos.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/UIKit.framework/Headers/UIKit.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreText.framework/Headers/CoreText.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/MediaToolbox.framework/Headers/MediaToolbox.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/AudioToolbox.framework/Headers/AudioToolbox.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Security.framework/Headers/Security.apinotes"
+interface-hash: "da3e95f5d513b48ff8da50f21332dab0"
