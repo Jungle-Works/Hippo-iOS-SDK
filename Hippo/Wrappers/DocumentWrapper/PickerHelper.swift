@@ -94,8 +94,9 @@ class PickerHelper {
         
         actionSheet.addAction(cancelAction)
         
-        actionSheet.popoverPresentationController?.sourceRect = sender.bounds
+        actionSheet.popoverPresentationController?.sourceRect = sender.frame
         actionSheet.popoverPresentationController?.sourceView = sender
+        
         
         controller.present(actionSheet, animated: true, completion: nil)
     }

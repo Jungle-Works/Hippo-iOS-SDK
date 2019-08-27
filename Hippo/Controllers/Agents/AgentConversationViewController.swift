@@ -213,7 +213,7 @@ class AgentConversationViewController: HippoConversationViewController {
             buttonClickedOnNetworkOff()
             return
         }
-        self.attachmentButtonclicked()
+        self.attachmentButtonclicked(sender)
     }
     func buttonClickedOnNetworkOff() {
         guard !FuguNetworkHandler.shared.isNetworkConnected else {

@@ -13,7 +13,7 @@ public struct CoreFilesConfig {
     public var enabledFileTypes: [CoreMediaTypes] = [CoreMediaTypes.image, .audio, .video, .document, .other]
     public var maxSizeInBytes: UInt = 209715200
     
-    public var rotateImageIfRequired: Bool = false
+    public var rotateImageIfRequired: Bool = true
     public var enableResizingImage: Bool = false
     var maxResolution: CGFloat = 1024
     

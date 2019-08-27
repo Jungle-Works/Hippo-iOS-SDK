@@ -245,7 +245,7 @@ protocol NewChatSentDelegate: class {
         buttonClickedOnNetworkOff()
         return
       }
-     attachmentButtonclicked()
+    attachmentButtonclicked(sender)
 //      imagePicker.delegate = self
 //      let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
 //
