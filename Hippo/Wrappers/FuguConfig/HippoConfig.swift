@@ -583,7 +583,7 @@ public class HippoConfig : NSObject {
                     conVC.disableSendingReply()
                 }
                 
-                conVC.getMessagesBasedOnChannel(fromMessage: 1, pageEnd: nil, completion: {
+                conVC.getMessagesBasedOnChannel(fromMessage: 1, pageEnd: nil, completion: {(_) in
                     conVC.enableSendingNewMessages()
                 })
                 
@@ -633,7 +633,7 @@ public class HippoConfig : NSObject {
                 if isSendingDisabled {
                     conVC.disableSendingReply()
                 }
-                conVC.getMessagesBasedOnChannel(fromMessage: 1, pageEnd: nil, completion: {
+                conVC.getMessagesBasedOnChannel(fromMessage: 1, pageEnd: nil, completion: {(_) in
                     conVC.enableSendingNewMessages()
                 })
             } else if labelId > 0 {

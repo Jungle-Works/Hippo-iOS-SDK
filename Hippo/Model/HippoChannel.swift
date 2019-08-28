@@ -14,6 +14,17 @@ struct HippoChannelCreationResult {
     let channel: HippoChannel?
     let isChannelAvailableLocallay: Bool
     let botMessageID: String?
+    
+    var isReplyMessageSent: Bool = false
+    var isGetMesssagesSuccess: Bool = false
+    
+    init(isSuccessful: Bool, error: Error?, channel: HippoChannel?, isChannelAvailableLocallay: Bool, botMessageID: String?) {
+        self.isSuccessful = isSuccessful
+        self.error = error
+        self.channel = channel
+        self.isChannelAvailableLocallay = isChannelAvailableLocallay
+        self.botMessageID = botMessageID
+    }
 }
 
 protocol HippoChannelDelegate: class {
@@ -22,6 +33,56 @@ protocol HippoChannelDelegate: class {
     func sendingFailedFor(message: HippoMessage)
     func cancelSendingMessage(message: HippoMessage, errorMessage: String?)
     func channelDataRefreshed()
+}
+struct CreateConversationWithLabelId {
+    var replyMessage: HippoMessage?
+    var botGroupId: Int?
+    var labelId: Int
+    var initalMessages: [HippoMessage]
+    
+    func shouldSendInitalMessages() -> Bool {
+        guard let gID = botGroupId else {
+            return false
+        }
+        return gID > 0 && labelId > 0
+    }
+    
+    func getJson() -> [String: Any] {
+        var messagesList: [[String: Any]] = []
+        var params: [String: Any] = [:]
+        var skipReplyMessage: Bool = false
+        
+        for each in initalMessages {
+            if each.messageUniqueID == nil {
+                each.messageUniqueID = String.generateUniqueId()
+            } else if each.messageUniqueID == replyMessage?.messageUniqueID {
+                skipReplyMessage = true
+            }
+            var json: [String: Any] = each.getJsonToSendToFaye()
+            
+            if each.type == .consent {
+                json["user_id"] = 0
+                json["user_type"] = UserType.system.rawValue
+            }
+            
+            messagesList.append(json)
+            
+        }
+        
+        if let replyMessage = replyMessage, !skipReplyMessage {
+            if replyMessage.messageUniqueID == nil {
+                replyMessage.messageUniqueID = String.generateUniqueId()
+            }
+            messagesList.append(replyMessage.getJsonToSendToFaye())
+        }
+        if let botGroupId = botGroupId {
+            params["initiate_bot_group_id"] = botGroupId
+        }
+        if !messagesList.isEmpty {
+            params["initial_bot_messages"] = messagesList
+        }
+        return params
+    }
 }
 
 //TODO: - Subscribe Fail-safe -> subscribe channel again if it is disconnected
@@ -155,10 +216,15 @@ class HippoChannel {
     // MARK: - Create New Channel/Conversation
     static var hashmapTransactionIdToChannelID = [String: Int]()
     
-    class func get(withLabelId labelId: String, completion: @escaping HippoChannelCreationHandler) {
+    class func get(request: CreateConversationWithLabelId, completion: @escaping HippoChannelCreationHandler) {
         
-        let params = getParamsToStartConversation(WithLabelId: labelId)
-        createNewConversationWith(params: params, chatType: .other, completion: completion)
+        let params = getParamsToStartConversation(WithLabelId: request)
+        createNewConversationWith(params: params, chatType: .other) { (result) in
+            if result.isSuccessful {
+                request.replyMessage?.status = .sent
+            }
+            completion(result)
+        }
     }
     
     class func get(withFuguChatAttributes attributes: AgentDirectChatAttributes, completion: @escaping HippoChannelCreationHandler) {
@@ -273,17 +339,20 @@ class HippoChannel {
     }
     
     
-    class func getParamsToStartConversation(WithLabelId labelId: String? = nil, fuguAttributes: FuguNewChatAttributes? = nil) -> [String: Any] {
+    class func getParamsToStartConversation(WithLabelId labelRequest: CreateConversationWithLabelId? = nil, fuguAttributes: FuguNewChatAttributes? = nil) -> [String: Any] {
         var params = [String: Any]()
         params["app_secret_key"] = HippoConfig.shared.appSecretKey
         params["en_user_id"] = HippoUserDetail.fuguEnUserID ?? -1
         
-        if let unwrappedLabelId = labelId {
+        if let unwrappedLabelId = labelRequest?.labelId {
             params["label_id"] = unwrappedLabelId
         }
         
-        var groupingTags = HippoConfig.shared.userDetail?.getUserTagNameArray() ?? [String]()
+        if let request = labelRequest, request.shouldSendInitalMessages() {
+            params = params.updating(request.getJson())
+        }
         
+        var groupingTags = HippoConfig.shared.userDetail?.getUserTagNameArray() ?? [String]()
         
         if let attributeParams = fuguAttributes?.getParamsToStartNewChat() {
             params += attributeParams

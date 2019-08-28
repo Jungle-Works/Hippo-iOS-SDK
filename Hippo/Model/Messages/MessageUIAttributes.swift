@@ -15,6 +15,7 @@ struct MessageUIAttributes {
     
     private(set) var nameHeight: CGFloat = 0
     private(set) var messageHeight: CGFloat = 0
+    private(set) var messageWithNameHeight: CGFloat = 0
     private(set) var attributedMessageString = NSMutableAttributedString()
     private(set) var senderNameAttributedString = NSMutableAttributedString()
     private(set) var timeHeight: CGFloat = 30
@@ -27,6 +28,8 @@ struct MessageUIAttributes {
         
         self.isShowingImage = isShowingImage
         self.isSelfMessage = isSelfMessage
+        self.senderName = senderName
+        
         //        let temp = message.replacingOccurrences(of: "\n", with: "<br>")
         //        var attributedMessageString = temp.stringFromHtml()
         
@@ -34,16 +37,19 @@ struct MessageUIAttributes {
         
         attributedMessageString = getAttributedStringWithThemeFont(aString: attributedMessageString)
         
+        senderNameAttributedString = getSenderNameInThemeFont(appendWithString: "\n")
+        
         self.timeHeight = heightOfConstraintsInNormalMessageCell()
         self.nameHeight = getHeightForName()
         self.messageHeight = heightOf(attributedString: attributedMessageString)
         self.attributedMessageString = attributedMessageString
-        self.senderName = senderName
-        
+       
+
         senderNameAttributedString = getSenderNameInThemeFont(appendWithString: "\n")
-        
         messageWithName = senderNameAttributedString
         senderNameAttributedString.append(self.attributedMessageString)
+        
+        messageWithNameHeight = heightOf(attributedString: senderNameAttributedString)
     }
     func heightOfConstraintsInNormalMessageCell() -> CGFloat {
         return (2 + 2.5 + 3.5 + 12 + 7 + 4)
@@ -52,9 +58,14 @@ struct MessageUIAttributes {
     private func heightOf(attributedString: NSMutableAttributedString) -> CGFloat {
         var availableWidthSpace = windowScreenWidth - CGFloat(60 + 10) - CGFloat(10 + 5) - 1
         availableWidthSpace -= isShowingImage ? 35 : 0
+       
         let availableBoxSize = CGSize(width: availableWidthSpace, height: CGFloat.greatestFiniteMagnitude)
         
-        return attributedString.boundingRect(with: availableBoxSize, options: .usesLineFragmentOrigin, context: nil).size.height
+        let size = attributedString.boundingRect(with: availableBoxSize, options: .usesLineFragmentOrigin, context: nil).size
+//        if !attributedString.string.isEmpty {
+//          print("==\(availableWidthSpace)-\(size)--\(attributedString)")
+//        }
+        return size.height
     }
     
     private func getHeightForName() -> CGFloat {
@@ -88,9 +99,9 @@ struct MessageUIAttributes {
     private func getAttributedStringWithThemeFont(aString: NSMutableAttributedString) -> NSMutableAttributedString {
         
         let range = NSRange.init(location: 0, length: aString.length)
+        
         let style = NSMutableParagraphStyle()
         style.alignment = .left
-//        style.lineBreakMode = .byWordWrapping
         
         if isSelfMessage {
             let font = HippoConfig.shared.theme.inOutChatTextFont

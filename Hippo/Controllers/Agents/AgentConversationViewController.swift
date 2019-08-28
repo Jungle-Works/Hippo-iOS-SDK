@@ -72,7 +72,7 @@ class AgentConversationViewController: HippoConversationViewController {
         configureChatScreen()
         
         guard channel != nil else {
-            startNewConversation(completion: { [weak self] (success, result) in
+            startNewConversation(replyMessage: nil, completion: { [weak self] (success, result) in
                 if success {
                     self?.populateTableViewWithChannelData()
                     self?.fetchMessagesFrom1stPage()
@@ -242,7 +242,7 @@ class AgentConversationViewController: HippoConversationViewController {
             self.sendMessage(message: message)
         } else {
             //TODO: - Loader animation
-            startNewConversation(completion: { [weak self] (success, result) in
+            startNewConversation(replyMessage: nil, completion: { [weak self] (success, result) in
                 if success {
                     self?.populateTableViewWithChannelData()
                     self?.addMessageToUIBeforeSending(message: message)
@@ -365,23 +365,22 @@ class AgentConversationViewController: HippoConversationViewController {
         return loadMoreActivityTopContraint.constant == 10
     }
     
-    override func
-        getMessagesBasedOnChannel(fromMessage pageStart: Int, pageEnd: Int?, completion: (() -> Void)?) {
+    override func getMessagesBasedOnChannel(fromMessage pageStart: Int, pageEnd: Int?, completion: ((_ success: Bool) -> Void)?) {
         
         guard channel != nil else {
-            completion?()
+            completion?(false)
             return
         }
         if FuguNetworkHandler.shared.isNetworkConnected == false {
             let message = HippoConfig.shared.strings.noNetworkConnection
             showErrorMessage(messageString: message, bgColor: UIColor.red)
-            completion?()
+            completion?(false)
             return
         }
         
         if HippoConfig.shared.agentDetail?.fuguToken == nil {
             showHideActivityIndicator()
-            completion?()
+            completion?(false)
             return
         }
         processingRequestCount += 1
@@ -396,6 +395,7 @@ class AgentConversationViewController: HippoConversationViewController {
         
         MessageStore.getMessages(requestParam: request, ignoreIfInProgress: false) {[weak self] (response, isCreateConversationRequired)  in
             guard self != nil else {
+                completion?(false)
                 return
             }
             self?.processingRequestCount -= 1
@@ -409,14 +409,14 @@ class AgentConversationViewController: HippoConversationViewController {
             self?.isGettingMessageViaPaginationInProgress = false
             
             guard let result = response, result.isSuccessFull, let weakself = self else {
-                completion?()
+                completion?(false)
                 return
             }
             weakself.handleSuccessCompletionOfGetMessages(result: result, request: request, completion: completion)
         }
     }
     
-    func handleSuccessCompletionOfGetMessages(result: MessageStore.ChannelMessagesResult, request: MessageStore.messageRequest, completion: (() -> Void)?) {
+    func handleSuccessCompletionOfGetMessages(result: MessageStore.ChannelMessagesResult, request: MessageStore.messageRequest, completion: ((_ success: Bool) -> Void)?) {
         
         
         channel?.chatDetail = result.chatDetail
@@ -455,7 +455,7 @@ class AgentConversationViewController: HippoConversationViewController {
         
         willPaginationWork = result.isMoreDataToLoad
         
-        completion?()
+        completion?(true)
     }
     
     
@@ -472,7 +472,7 @@ class AgentConversationViewController: HippoConversationViewController {
     }
     
     
-    override func startNewConversation(completion: ((_ success: Bool, _ result: HippoChannelCreationResult) -> Void)?) {
+    override func startNewConversation(replyMessage: HippoMessage?, completion: ((_ success: Bool, _ result: HippoChannelCreationResult) -> Void)?) {
         
         disableSendingNewMessages()
         if FuguNetworkHandler.shared.isNetworkConnected == false {
@@ -841,7 +841,7 @@ extension AgentConversationViewController: UIScrollViewDelegate {
             let count = channel?.sentMessages.count ?? 0
             
             isGettingMessageViaPaginationInProgress = true
-            self.getMessagesBasedOnChannel(fromMessage: count + 1, pageEnd: nil, completion: { [weak self] in
+            self.getMessagesBasedOnChannel(fromMessage: count + 1, pageEnd: nil, completion: { [weak self] (_) in
                 self?.showHideActivityIndicator(hide: true)
                 self?.isGettingMessageViaPaginationInProgress = false
             })

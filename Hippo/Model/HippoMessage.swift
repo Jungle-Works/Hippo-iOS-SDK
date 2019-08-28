@@ -123,6 +123,8 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
     //
     var isActive: Bool = true
     var isSkipBotEnabled: Bool = false
+    var isSkipEvent: Bool = false
+    var isFromBot: Int?
     
     var mimeType: String? {
         guard parsedMimeType == nil else {
@@ -245,7 +247,9 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         if let isTypingRawValue = dict["is_typing"] as? Int, let isTyping = TypingMessage(rawValue: isTypingRawValue) {
             self.typingStatus = isTyping
         }
-        
+        isFromBot = Int.parse(values: dict, key: "is_from_bot")
+        isSkipBotEnabled = Bool.parse(key: "is_skip_button", json: dict, defaultValue: false)
+        isSkipEvent = Bool.parse(key: "is_skip_event", json: dict, defaultValue: false)
         fileSize = dict["file_size"] as? String
         fileName = dict["file_name"] as? String
         fileUrl = dict["url"] as? String
@@ -365,14 +369,14 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         }
         
         json["user_id"] = senderId
+        
         json["full_name"] = senderFullName.formatName()
         json["date_time"] = creationDateTime.toUTCFormatString
         json["is_typing"] = typingStatus.rawValue
         json["message_type"] = type.rawValue
-        json["user_type"] = currentUserType().rawValue
+        json["user_type"] = userType.rawValue
         
         json["user_image"] = senderImage ?? ""
-        
         
         json["source"] = SourceType.SDK.rawValue
         json["device_type"] = Device_Type_iOS
@@ -447,6 +451,11 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
             
             json["user_id"] = currentUserId()
             json["content_value"] = contentValues
+            json["is_skip_button"] = isSkipBotEnabled
+            json["is_skip_event"] = isSkipEvent
+            if let is_from_bot = isFromBot {
+                json["is_from_bot"] = is_from_bot
+            }
         } else if type == .quickReply {
             json["bot_button_reply"] = true
             json["user_id"] = currentUserId()
@@ -590,6 +599,10 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         content = newObject.content
         senderImage = newObject.senderImage
         senderFullName = newObject.senderFullName
+        
+        isSkipEvent = newObject.isSkipEvent
+        isSkipBotEnabled = newObject.isSkipBotEnabled
+        
         messageRefresed?()
     }
     func updateFileNameIfEmpty() {
@@ -646,12 +659,14 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
     
     func shouldShowSkipButton() -> Bool {
         var isAllFieldCompleted: Bool = true
+        
         for each in leadsDataArray {
             if !each.isCompleted {
                 isAllFieldCompleted = false
             }
         }
-        return isSkipBotEnabled || isAllFieldCompleted
+        
+        return (!isSkipEvent && isSkipBotEnabled && !isAllFieldCompleted)
     }
     
     func isTypingMessage() -> Bool {

@@ -109,7 +109,7 @@ extension String {
     }
     
     static func generateUniqueId() -> String {
-        return UUID().uuidString + ".\(Date().toMillis())"
+        return UUID().uuidString.suffix(10) + ".\(arc4random()).\(Date().toMillis())"
     }
     
     

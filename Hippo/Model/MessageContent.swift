@@ -15,9 +15,11 @@ class MessageContent: NSObject {
     var values = [String]()
     var buttonTitles: [String] = []
     var actionId: [String] = []
+    
     override init() {
         
     }
+    
     init(param: [[String: Any]]) {
         guard param.count > 0 else {
             return

@@ -60,6 +60,7 @@ class MessageStore {
         
         var channelID: Int = -1
         var labelID: Int = -1
+        var botGroupID: Int?
         var requestType: Int = 0
     }
     
@@ -210,6 +211,7 @@ class MessageStore {
         
         result.channelID = data["channel_id"] as? Int ?? -1
         result.labelID = data["label_id"] as? Int ?? -1
+        result.botGroupID = Int.parse(values: data, key: "bot_group_id")
         result.requestType = data["type"] as? Int ?? 0
         
         //Sending

@@ -19,6 +19,7 @@ class HippoConversationViewController: UIViewController {
     // MARK: - PROPERTIES
     var processingRequestCount = 0
     var labelId = -11
+    var botGroupID: Int?
     
     var directChatDetail: FuguNewChatAttributes?
     var agentDirectChatDetail: AgentDirectChatAttributes?
@@ -95,13 +96,13 @@ class HippoConversationViewController: UIViewController {
     
     //Set Delegate For channels
     func didSetChannel() { }
-    func getMessagesBasedOnChannel(fromMessage pageStart: Int, pageEnd: Int?, completion: (() -> Void)?) { }
-    func getMessagesWith(labelId: Int, completion: (() -> Void)?) { }
+    func getMessagesBasedOnChannel(fromMessage pageStart: Int, pageEnd: Int?, completion: ((_ success: Bool) -> Void)?) { }
+    func getMessagesWith(labelId: Int, completion: ((_ success: Bool) -> Void)?) { }
     func closeKeyBoard() { }
     func reloadVisibleCellsToStartActivityIndicator() { }
     func adjustChatWhenKeyboardIsOpened(withHeight keyboardHeight: CGFloat) { }
     func addRemoveShadowInTextView(toAdd: Bool) { }
-    func startNewConversation(completion: ((_ success: Bool, _ result: HippoChannelCreationResult?) -> Void)?) { }
+    func startNewConversation(replyMessage: HippoMessage?, completion: ((_ success: Bool, _ result: HippoChannelCreationResult?) -> Void)?) { }
     
     
     func clearUnreadCountForChannel(id: Int) { }
@@ -769,16 +770,16 @@ extension HippoConversationViewController {
             break
         }
         //Checking if channel is created or not
-        if channel != nil {
-            self.UploadAndSendMessage(message: message)
-        } else {
-            startNewConversation { (success, result) in
-                guard success else {
-                    return
-                }
+//        if channel != nil {
+//            self.UploadAndSendMessage(message: message)
+//        } else {
+//            startNewConversation(replyMessage: nil) { (success, result) in
+//                guard success else {
+//                    return
+//                }
                 self.UploadAndSendMessage(message: message)
-            }
-        }
+//            }
+//        }
         
     }
     //This function will upload ant file and send it on channel 
@@ -842,7 +843,7 @@ extension HippoConversationViewController {
     func handleUploadSuccessOfFileIn(message: HippoMessage) {
         DownloadManager.shared.addAlreadyDownloadedFileWith(name: message.fileName!, WRTurl: message.fileUrl!)
         message.localImagePath = nil
-        channel?.send(message: message, completion: nil)
+        publishMessageOnChannel(message: message)
     }
     
     func sendConfirmedImage(image confirmedImage: UIImage, mediaType: CoreMediaSelector.Result.MediaType ) {
@@ -950,8 +951,12 @@ extension HippoConversationViewController {
     }
     func publishMessageOnChannel(message: HippoMessage) {
         if channelId == -1 {
-            self.startNewConversation() {[weak self] (success, result) in
-                self?.channel?.send(message: message, completion: {})
+            self.startNewConversation(replyMessage: message) {[weak self] (success, result) in
+                let isReplyMessageSent = result?.isReplyMessageSent ?? false
+                
+                if !isReplyMessageSent {
+                    self?.channel?.send(message: message, completion: {})
+                }
             }
         } else {
             channel?.send(message: message, completion: {})
@@ -1187,7 +1192,13 @@ extension HippoConversationViewController: SelfMessageDelegate {
         tableViewChat.reloadData()
         sendMessage(message: message)
     }
-    
+    func createChannelIfRequiredAndContinue(replyMessage: HippoMessage?, completion: @escaping ((_ success: Bool, _ result: HippoChannelCreationResult?) -> ())) {
+        if channel != nil {
+            completion(true, nil)
+        } else {
+            startNewConversation(replyMessage: replyMessage, completion: completion)
+        }
+    }
 }
 
 extension HippoConversationViewController: ActionTableViewDelegate {
@@ -1197,7 +1208,18 @@ extension HippoConversationViewController: ActionTableViewDelegate {
         }
         customMessage.selectBtnWith(btnId: selectionId)
         tableViewChat.reloadData()
-        sendMessage(message: customMessage)
+        
+        let replyMessage = botGroupID != nil ? customMessage : nil
+        if replyMessage?.messageUniqueID == nil {
+            replyMessage?.messageUniqueID = String.generateUniqueId()
+        }
+        createChannelIfRequiredAndContinue(replyMessage: replyMessage) { (_, result) in
+            let isReplyMessageSent = result?.isReplyMessageSent ?? false
+            
+            if !isReplyMessageSent {
+               self.sendMessage(message: customMessage)
+            }
+        }
     }
 }
 extension HippoConversationViewController: CreatePaymentDelegate {

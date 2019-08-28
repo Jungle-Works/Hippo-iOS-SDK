@@ -50,7 +50,7 @@ class HippoActionMessage: HippoMessage {
     }
     func setHeight() {
         cellDetail = HippoCellDetail()
-        cellDetail?.headerHeight = attributtedMessage.messageHeight + attributtedMessage.nameHeight + attributtedMessage.timeHeight 
+        cellDetail?.headerHeight = attributtedMessage.messageHeight + attributtedMessage.nameHeight + attributtedMessage.timeHeight
         cellDetail?.showSenderName = false
         
         if let attributtedMessage = responseMessage?.attributtedMessage {

@@ -9,7 +9,7 @@
 import UIKit
 
 protocol LeadTableViewCellDelegate: class {
-    func cellUpdated(for cell: LeadTableViewCell, data: [FormData])
+    func cellUpdated(for cell: LeadTableViewCell, data: [FormData], isSkipAction: Bool)
     func sendReply(forCell cell: LeadTableViewCell, data: [FormData])
     func textfieldShouldBeginEditing(textfield: UITextField)
     func textfieldShouldEndEditing(textfield: UITextField)
@@ -85,7 +85,13 @@ class LeadTableViewCell: MessageTableViewCell {
     
     func disableSkipButton() {
         skipButtonContainter.isHidden = true
-        self.delegate?.cellUpdated(for: self, data: filterFileArray)
+        self.delegate?.cellUpdated(for: self, data: filterFileArray, isSkipAction: true)
+    }
+    func checkAndDisableSkipButton() {
+        guard let message = message else {
+            return
+        }
+        skipButtonContainter.isHidden = !message.shouldShowSkipButton()
     }
 }
 
@@ -154,7 +160,7 @@ extension LeadTableViewCell: LeadDataCellDelegate {
         filterFileArray[section].isErrorEnabled = isEnabled
         cell.labelValidationError.text = text
         self.tableView.reloadData()
-        self.delegate?.cellUpdated(for: self, data: filterFileArray)
+        self.delegate?.cellUpdated(for: self, data: filterFileArray, isSkipAction: false)
     }
     
     func textfieldShouldBeginEditing(textfield: UITextField) {
