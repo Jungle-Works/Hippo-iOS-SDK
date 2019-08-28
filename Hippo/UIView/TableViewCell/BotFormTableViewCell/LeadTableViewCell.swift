@@ -13,18 +13,25 @@ protocol LeadTableViewCellDelegate: class {
     func sendReply(forCell cell: LeadTableViewCell, data: [FormData])
     func textfieldShouldBeginEditing(textfield: UITextField)
     func textfieldShouldEndEditing(textfield: UITextField)
+    func leadSkipButtonClicked(message: HippoMessage, cell: LeadTableViewCell)
 }
 
 class LeadTableViewCell: MessageTableViewCell {
     // MARK: Properties
     lazy var leadCellIdentifier: String = String(describing: LeadDataTableViewCell.self)
     
+    
     var filterFileArray = [FormData]()
     weak var delegate: LeadTableViewCellDelegate?
     var indexPath: IndexPath!
     var lastVisibleCellIndex: Int = 0
+    static let skipButtonHeightConstant: CGFloat = 30
     
     // MARK: IBOutlets
+    @IBOutlet weak var bgView: UIView!
+    @IBOutlet weak var skipButton: UIButton!
+    @IBOutlet weak var skipButtonContainter: UIView!
+    @IBOutlet weak var skipButtonHeightConstraint: NSLayoutConstraint!
     @IBOutlet var tableView: UITableView! {
         didSet {
             tableView.isScrollEnabled = false
@@ -37,33 +44,48 @@ class LeadTableViewCell: MessageTableViewCell {
         setup()
     }
     
-//    override func layoutSubviews() {
-//        super.layoutSubviews()
-//        adjustShadow()
-//    }
-    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
     
+    //MARK: Actions
+    @IBAction func skipButtonClicked(_ sender: Any) {
+        guard let message = self.message else {
+            return
+        }
+        delegate?.leadSkipButtonClicked(message: message, cell: self)
+    }
     // MARK: Functions
     private func setup() {
         self.tableView.register(UINib(nibName: leadCellIdentifier, bundle: FuguFlowManager.bundle), forCellReuseIdentifier: leadCellIdentifier)
         tableView.layer.cornerRadius = 10
-        tableView.backgroundColor = HippoConfig.shared.theme.incomingChatBoxColor
+        
+        tableView.backgroundColor = .clear
+        
         tableView.layer.borderWidth = HippoConfig.shared.theme.chatBoxBorderWidth
         tableView.layer.borderColor = HippoConfig.shared.theme.chatBoxBorderColor.cgColor
         self.tableView.dataSource = self
         self.tableView.delegate = self
+        
+        bgView.backgroundColor = HippoConfig.shared.theme.incomingChatBoxColor
+        bgView.layer.cornerRadius = 5
+        bgView.layer.masksToBounds = true
     }
     
     func setData(indexPath: IndexPath, arr: [FormData], message: HippoMessage) {
+        super.intalizeCell(with: message, isIncomingView: true)
+        
         filterFileArray = arr
         self.indexPath = indexPath
         self.tableView.reloadData()
+        skipButtonContainter.isHidden = !message.shouldShowSkipButton()
+        skipButtonHeightConstraint.constant = LeadTableViewCell.skipButtonHeightConstant
        // delegate?.cellUpdated(for: indexPath)
-        
-        super.intalizeCell(with: message, isIncomingView: true)
+    }
+    
+    func disableSkipButton() {
+        skipButtonContainter.isHidden = true
+        self.delegate?.cellUpdated(for: self, data: filterFileArray)
     }
 }
 

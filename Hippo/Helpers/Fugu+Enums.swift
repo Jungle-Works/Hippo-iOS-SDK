@@ -84,10 +84,10 @@ enum IntegrationSource: Int {
 }
 
 enum MessageType: Int {
-    case none = 0, normal = 1, assignAgent = 2, privateNote = 3, imageFile = 10, attachment = 11, actionableMessage = 12, feedback = 14, botText = 15, quickReply = 16, botFormMessage = 17, call = 18, hippoPay = 19, consent = 20
+    case none = 0, normal = 1, assignAgent = 2, privateNote = 3, imageFile = 10, attachment = 11, actionableMessage = 12, feedback = 14, botText = 15, quickReply = 16, leadForm = 17, call = 18, hippoPay = 19, consent = 20
 
     var customerHandledMessages: [MessageType] {
-        return [.normal, .imageFile, .feedback, .actionableMessage, .botFormMessage, .quickReply, .botText, .call, .hippoPay, .attachment, .consent]
+        return [.normal, .imageFile, .feedback, .actionableMessage, .leadForm, .quickReply, .botText, .call, .hippoPay, .attachment, .consent]
     }
     var agentHandledMessages: [MessageType] {
         return [.normal, .imageFile, .privateNote, .assignAgent, .botText, .call, .attachment, .consent]
@@ -98,7 +98,7 @@ enum MessageType: Int {
         return typeHandled.contains(self)
     }
     var isBotMessage: Bool {
-        let botMessages: [MessageType] = [.botFormMessage, .quickReply, .botText, .consent]
+        let botMessages: [MessageType] = [.leadForm, .quickReply, .botText, .consent]
         return botMessages.contains(self)
     }
 }

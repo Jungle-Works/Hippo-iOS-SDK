@@ -9,8 +9,7 @@
 import Foundation
 
 class HippoActionMessage: HippoMessage {
-    
-    var isActive: Bool = false
+
     var selectedBtnId: String = ""
     var isUserInteractionEnbled: Bool = false
     var buttons: [HippoActionButton]?

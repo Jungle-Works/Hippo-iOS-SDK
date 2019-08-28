@@ -759,7 +759,7 @@ protocol NewChatSentDelegate: class {
     }
     func shouldHitGetMessagesAfterCreateConversation() -> Bool {
         let formCount = channel?.messages.filter({ (h) -> Bool in
-            return h.type == MessageType.botFormMessage
+            return h.type == MessageType.leadForm
         }).count ?? 0
         
         let isFormPresent = formCount > 0 ? true : false
@@ -1263,7 +1263,7 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                 }
                 let incomingAttributedString = Helper.getIncomingAttributedStringWithLastUserCheck(chatMessageObject: message)
                 return cell.configureCellOfSupportIncomingCell(resetProperties: true, attributedString: incomingAttributedString, channelId: channel?.id ?? labelId, chatMessageObject: message)
-            case .botFormMessage:
+            case .leadForm:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "LeadTableViewCell", for: indexPath) as? LeadTableViewCell else {
                     return UITableViewCell()
                 }
@@ -1413,7 +1413,7 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                         rowHeight = rowHeight + 50
                     }
                     return rowHeight
-                case MessageType.botFormMessage:
+                case MessageType.leadForm:
                     if message.content.questionsArray.count == 0 {
                         return 0.001
                     }
@@ -1540,9 +1540,13 @@ func getHeighOfButtonCollectionView(actionableMessage: FuguActionableMessage) ->
     }
     func getHeightForLeadFormCell(message: HippoMessage) -> CGFloat {
         var count = 0
+        var buttonAction: [FormData] = []
         for lead in message.leadsDataArray {
-            if lead.isShow {
+            if lead.isShow  && lead.type != .button {
                 count += 1
+            }
+            if lead.type == .button {
+                buttonAction.append(lead)
             }
         }
         var height = LeadDataTableViewCell.rowHeight * CGFloat(count)
@@ -1566,9 +1570,10 @@ func getHeighOfButtonCollectionView(actionableMessage: FuguActionableMessage) ->
                 }
             }
         }
-        
+        let buttonHeight: CGFloat = CGFloat(buttonAction.count * 30)
+        let skipButtonHeight: CGFloat = message.shouldShowSkipButton() ? LeadTableViewCell.skipButtonHeightConstant : 0
         if height > 0 {
-            return CGFloat(height)
+            return CGFloat(height) + buttonHeight + skipButtonHeight
         }
         return 0.001
     }
@@ -1868,7 +1873,7 @@ extension ConversationsViewController: HippoChannelDelegate {
             sendQuickReplyReposeIfRequired()
         }
         
-        if message.type == MessageType.botFormMessage {
+        if message.type == MessageType.leadForm {
             self.replaceLastQuickReplyIncaseofBotForm()
         }
     }
@@ -1938,6 +1943,12 @@ extension ConversationsViewController: HippoChannelDelegate {
 }
 // MARK: Bot Form Cell Delegates
 extension ConversationsViewController: LeadTableViewCellDelegate {
+    func leadSkipButtonClicked(message: HippoMessage, cell: LeadTableViewCell) {
+        message.isSkipBotEnabled = false
+        cell.disableSkipButton()
+    }
+    
+    
     func textfieldShouldBeginEditing(textfield: UITextField) {
         if self.messageTextView.isFirstResponder {
             self.messageTextView.resignFirstResponder()

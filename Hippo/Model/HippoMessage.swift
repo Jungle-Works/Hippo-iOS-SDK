@@ -119,6 +119,11 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
     var belowMessageUserId: Int?
     var aboveMessageType: MessageType?
 
+    
+    //
+    var isActive: Bool = true
+    var isSkipBotEnabled: Bool = false
+    
     var mimeType: String? {
         guard parsedMimeType == nil else {
             return parsedMimeType
@@ -274,8 +279,10 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
             self.contentValues = content_value
             content = MessageContent(param: content_value)
             content.values = dict["values"] as? [String] ?? []//content.values
-            leadsDataArray = FormData.getArray(object: content)
+            let forms = FormData.getArray(object: content)
+            leadsDataArray = forms
         }
+        
         super.init()
         updateFileNameIfEmpty()
         changeMessageTypeIfReuired()
@@ -428,7 +435,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
             json["line_after_feedback_1"] = feedbackMessages.line_after_feedback_1
             json["line_after_feedback_2"] = feedbackMessages.line_after_feedback_2
             json["line_before_feedback"] = feedbackMessages.line_before_feedback
-        } else if type == .botFormMessage {
+        } else if type == .leadForm {
             var arrayOfMessages: [String] = []
             for lead in leadsDataArray {
                 if lead.value.isEmpty {
@@ -636,6 +643,17 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         let unhandledMimeType = ["vnd.adobe.photoshop", "psd", "tiff", "svg", "svg+xml"]
         return unhandledMimeType.contains(parsedType)
     }
+    
+    func shouldShowSkipButton() -> Bool {
+        var isAllFieldCompleted: Bool = true
+        for each in leadsDataArray {
+            if !each.isCompleted {
+                isAllFieldCompleted = false
+            }
+        }
+        return isSkipBotEnabled || isAllFieldCompleted
+    }
+    
     func isTypingMessage() -> Bool {
         let message = self.message
         let imageUrl = self.imageUrl ?? ""

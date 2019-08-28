@@ -105,9 +105,7 @@ class LeadDataTableViewCell: UITableViewCell {
     }
     
     func setTextFieldType(data: FormData) {
-        guard let type = TextfieldType(rawValue: data.dataType) else {
-            return
-        }
+        let type = TextfieldType(rawValue: data.dataType.lowercased()) ?? .string
         switch type {
         case .string:
             self.valueTextfield.keyboardType = .default

@@ -18,10 +18,48 @@
                 <rect key="frame" x="0.0" y="0.0" width="464" height="303.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="PI9-m4-bqj">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h3c-FQ-xku">
                         <rect key="frame" x="45" y="3" width="339" height="297.5"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    </tableView>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="IoW-uQ-Yk8">
+                                <rect key="frame" x="0.0" y="0.0" width="339" height="297.5"/>
+                                <subviews>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="PI9-m4-bqj">
+                                        <rect key="frame" x="0.0" y="0.0" width="339" height="267.5"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </tableView>
+                                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bjq-ar-fpL">
+                                        <rect key="frame" x="0.0" y="267.5" width="339" height="30"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QB0-9B-g2d">
+                                                <rect key="frame" x="299" y="0.0" width="30" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="xje-6C-HU0"/>
+                                                </constraints>
+                                                <state key="normal" title="Skip"/>
+                                                <connections>
+                                                    <action selector="skipButtonClicked:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="zB7-iG-nfI"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="QB0-9B-g2d" secondAttribute="bottom" id="6YW-Vi-7Na"/>
+                                            <constraint firstItem="QB0-9B-g2d" firstAttribute="top" secondItem="Bjq-ar-fpL" secondAttribute="top" id="K4V-ex-UvK"/>
+                                            <constraint firstAttribute="trailing" secondItem="QB0-9B-g2d" secondAttribute="trailing" constant="10" id="gn2-Cw-h0a"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="IoW-uQ-Yk8" firstAttribute="leading" secondItem="h3c-FQ-xku" secondAttribute="leading" id="0hH-e2-opJ"/>
+                            <constraint firstItem="IoW-uQ-Yk8" firstAttribute="top" secondItem="h3c-FQ-xku" secondAttribute="top" id="rCq-xA-iUj"/>
+                            <constraint firstAttribute="trailing" secondItem="IoW-uQ-Yk8" secondAttribute="trailing" id="ytl-fh-qqr"/>
+                            <constraint firstAttribute="bottom" secondItem="IoW-uQ-Yk8" secondAttribute="bottom" id="zLF-Gc-Imc"/>
+                        </constraints>
+                    </view>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Jwe-7r-Zmn">
                         <rect key="frame" x="10" y="270.5" width="30" height="30"/>
                         <constraints>
@@ -31,19 +69,23 @@
                     </imageView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="PI9-m4-bqj" firstAttribute="leading" secondItem="Jwe-7r-Zmn" secondAttribute="trailing" constant="5" id="7f1-XW-BAV"/>
+                    <constraint firstAttribute="trailing" secondItem="h3c-FQ-xku" secondAttribute="trailing" constant="80" id="6h6-ya-Tz2"/>
                     <constraint firstItem="Jwe-7r-Zmn" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="FFg-vL-hHd"/>
-                    <constraint firstAttribute="trailing" secondItem="PI9-m4-bqj" secondAttribute="trailing" constant="80" id="JgR-bx-p6s"/>
-                    <constraint firstItem="PI9-m4-bqj" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="3" id="Xfa-ao-jyG"/>
-                    <constraint firstItem="Jwe-7r-Zmn" firstAttribute="bottom" secondItem="PI9-m4-bqj" secondAttribute="bottom" id="dFX-8r-ArA"/>
-                    <constraint firstAttribute="bottom" secondItem="PI9-m4-bqj" secondAttribute="bottom" constant="3" id="z0f-Xq-jlP"/>
+                    <constraint firstAttribute="bottom" secondItem="h3c-FQ-xku" secondAttribute="bottom" constant="3" id="Y3i-7N-jCv"/>
+                    <constraint firstItem="Jwe-7r-Zmn" firstAttribute="bottom" secondItem="h3c-FQ-xku" secondAttribute="bottom" id="p24-5G-1mF"/>
+                    <constraint firstItem="h3c-FQ-xku" firstAttribute="leading" secondItem="Jwe-7r-Zmn" secondAttribute="trailing" constant="5" id="qC4-vP-N2B"/>
+                    <constraint firstItem="h3c-FQ-xku" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="3" id="wra-kd-Wwh"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
-                <outlet property="senderImageTraillingConstaints" destination="7f1-XW-BAV" id="K01-vo-ANI"/>
+                <outlet property="bgView" destination="h3c-FQ-xku" id="aBc-u8-2xQ"/>
+                <outlet property="senderImageTraillingConstaints" destination="qC4-vP-N2B" id="3As-ks-7fG"/>
                 <outlet property="senderImageView" destination="Jwe-7r-Zmn" id="BL3-w1-E83"/>
                 <outlet property="senderImageWidthConstraint" destination="MjD-8Y-syq" id="8uK-kl-UeK"/>
+                <outlet property="skipButton" destination="QB0-9B-g2d" id="beP-Kz-JP1"/>
+                <outlet property="skipButtonContainter" destination="Bjq-ar-fpL" id="eiB-wc-PyB"/>
+                <outlet property="skipButtonHeightConstraint" destination="xje-6C-HU0" id="fZc-YL-Kap"/>
                 <outlet property="tableView" destination="PI9-m4-bqj" id="RbO-DD-cZy"/>
             </connections>
             <point key="canvasLocation" x="-7" y="-22"/>

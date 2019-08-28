@@ -521,7 +521,7 @@ class HippoChannel {
             if let oldActionMessage = oldMessage as? HippoActionMessage, let newActionMessage = newMessage as? HippoActionMessage {
                 oldActionMessage.updateObject(with: newActionMessage)
             }
-        case .feedback, .botFormMessage:
+        case .feedback, .leadForm:
             oldMessage.updateObject(with: newMessage)
         default:
             break
@@ -625,7 +625,7 @@ class HippoChannel {
             } else {
                 self.updateBotButtonMessage(newMessage: message) // Updates the quick reply message in the channel message.
             }
-        case .botFormMessage:
+        case .leadForm:
             if !message.content.values.isEmpty {
                 return false // Returns because already filled the form.
             } else {

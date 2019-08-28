@@ -194,6 +194,16 @@ class FormData: NSObject {
             errorMessage = "Invalid country code"
         }
     }
+    
+    static func getSkipButton() -> FormData? {
+        guard let form = FormData(json: skipButtonForm) else {
+            return nil
+        }
+        form.isShow = true
+        
+        return form
+    }
+    
     static func getDummyData() -> [FormData] {
         
         guard let customer_inital_form = formDataJson["customer_initial_form_info"] as? [String: Any] else {
@@ -244,8 +254,15 @@ class FormData: NSObject {
     enum FormAction: String {
         case submit = "SUBMIT"
         case addMore = "ADD_MORE"
+        case skip = "SKIP"
         case none = ""
     }
+    
+    private static let skipButtonForm: [String: Any]  = ["type": "BUTTON",
+                                                         "action": "SKIP",
+                                                         "title": "skip",
+                                                         "title_color": "#000000",
+                                                         "background_color": "#ffffff"]
 }
 
 let formDataJson: [String: Any] = [
