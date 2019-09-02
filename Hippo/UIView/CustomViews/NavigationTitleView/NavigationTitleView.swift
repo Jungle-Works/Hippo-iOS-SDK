@@ -129,7 +129,8 @@ class NavigationTitleView: UIView {
     
     func showProfileImage() {
         profileImageView.isHidden = false
-        profileImageView.cornerRadius = profileImageView.bounds.height / 2
+        profileImageView.layer.cornerRadius = profileImageView.bounds.height / 2
+        profileImageView.layer.masksToBounds = true
         backButtonWidthConstraint.constant = 28
         layoutIfNeeded()
     }

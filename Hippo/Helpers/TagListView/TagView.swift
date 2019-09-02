@@ -17,15 +17,15 @@ protocol TagViewCreation {
 }
 
 @IBDesignable
-open class TagView: UIButton {
+class TagView: UIButton {
 
     var detail: TagViewCreation?
     var maxWidthPerecentage: CGFloat = 0.7
     
     @IBInspectable open var cornerRadiu: CGFloat = 0 {
         didSet {
-            layer.cornerRadius = cornerRadius
-            layer.masksToBounds = cornerRadius > 0
+            layer.cornerRadius = cornerRadiu
+            layer.masksToBounds = cornerRadiu > 0
         }
     }
     @IBInspectable open var borderWidt: CGFloat = 0 {

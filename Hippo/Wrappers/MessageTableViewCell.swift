@@ -87,7 +87,8 @@ class MessageTableViewCell: UITableViewCell {
         senderImageView.isHidden = false
         senderImageWidthConstraint.constant = 30
         senderImageTraillingConstaints.constant = 5
-        senderImageView.cornerRadius = senderImageView.bounds.height / 2
+        senderImageView.layer.cornerRadius = senderImageView.bounds.height / 2
+        senderImageView.layer.masksToBounds = true
         layoutIfNeeded()
     }
     

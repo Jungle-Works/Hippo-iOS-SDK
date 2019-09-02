@@ -10,13 +10,13 @@ import UIKit
 
 
 
-@objc public protocol TagListViewDelegate {
+@objc protocol TagListViewDelegate {
     @objc optional func tagPressed(_ title: String, tagView: TagView, sender: TagListView) -> Void
     @objc optional func tagRemoveButtonPressed(_ title: String, tagView: TagView, sender: TagListView) -> Void
 }
 
 @IBDesignable
-public class TagListView: UIView {
+class TagListView: UIView {
     
     var maxWidthPerecentage: CGFloat = 0.7
     
@@ -71,7 +71,7 @@ public class TagListView: UIView {
     @IBInspectable  dynamic var cornerRadiu: CGFloat = 0 {
         didSet {
             for tagView in tagViews {
-                tagView.cornerRadius = cornerRadius
+                tagView.cornerRadiu = cornerRadiu
             }
         }
     }
@@ -261,7 +261,7 @@ public class TagListView: UIView {
             tagBackgroundView.frame.origin = CGPoint(x: currentRowWidth, y: 0)
             tagBackgroundView.frame.size = tagView.bounds.size
             tagBackgroundView.layer.shadowColor = shadowColor.cgColor
-            tagBackgroundView.layer.shadowPath = UIBezierPath(roundedRect: tagBackgroundView.bounds, cornerRadius: cornerRadius).cgPath
+            tagBackgroundView.layer.shadowPath = UIBezierPath(roundedRect: tagBackgroundView.bounds, cornerRadius: tagView.cornerRadiu).cgPath
             tagBackgroundView.layer.shadowOffset = shadowOffset
             tagBackgroundView.layer.shadowOpacity = shadowOpacity
             tagBackgroundView.layer.shadowRadius = shadowRadius
@@ -307,7 +307,7 @@ public class TagListView: UIView {
         tagView.highlightedBackgroundColor = tagHighlightedBackgroundColor
         tagView.selectedBackgroundColor = tagSelectedBackgroundColor
         tagView.titleLineBreakMode = tagLineBreakMode
-        tagView.cornerRadius = 10//cornerRadius
+        tagView.cornerRadiu = 10//cornerRadius
         tagView.borderWidth = borderWidth
         tagView.borderColor = borderColo
         tagView.selectedBorderColor = selectedBorderColor
@@ -325,7 +325,7 @@ public class TagListView: UIView {
         tagView.frame = CGRect(x: tagView.frame.origin.x, y: tagView.frame.origin.y, width: tagView.frame.width + 50, height: tagView.frame.height)
         
         if object.circlularCorner {
-            tagView.cornerRadius = tagView.intrinsicContentSize.height / 2
+            tagView.cornerRadiu = tagView.intrinsicContentSize.height / 2
         }
         // On long press, deselect all tags except this one
         tagView.onLongPress = { [unowned self] this in
@@ -349,7 +349,7 @@ public class TagListView: UIView {
         tagView.highlightedBackgroundColor = tagHighlightedBackgroundColor
         tagView.selectedBackgroundColor = tagSelectedBackgroundColor
         tagView.titleLineBreakMode = tagLineBreakMode
-        tagView.cornerRadius = 6//cornerRadius 
+        tagView.cornerRadiu = 6//cornerRadius 
         tagView.borderWidth = borderWidth
         tagView.borderColor = borderColor
         tagView.selectedBorderColor = selectedBorderColor

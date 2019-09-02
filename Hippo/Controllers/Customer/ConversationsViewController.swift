@@ -2086,9 +2086,9 @@ extension ConversationsViewController: BotOtgoingMessageCellDelegate {
     
     func sendQuickMessage(shouldSendButtonTitle: Bool, chat: HippoMessage, buttonIndex: Int) {
         let replyMessage = botGroupID != nil ? chat : nil
+        
         if replyMessage?.messageUniqueID == nil {
-            
-            String.generateUniqueId()
+            replyMessage?.messageUniqueID = String.generateUniqueId()
         }
         
         createChannelIfRequiredAndContinue(replyMessage: replyMessage) {[weak self] (success, result) in

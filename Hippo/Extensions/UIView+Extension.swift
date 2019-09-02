@@ -10,7 +10,7 @@ import UIKit
 
 
 extension UIView {
-    @IBInspectable var _cornerRadius: CGFloat {
+    @IBInspectable var hippoCornerRadius: CGFloat {
         set {
             self.layer.cornerRadius = newValue
             self.layer.masksToBounds = true
@@ -18,7 +18,6 @@ extension UIView {
             return self.layer.cornerRadius
         }
     }
-    
     
     class var tableAutoDimensionHeight: CGFloat {
         #if swift(>=4.2)
@@ -100,15 +99,15 @@ extension UIView {
         }
     }
     
-    @IBInspectable var cornerRadius: CGFloat {
-        get {
-            return layer.cornerRadius
-        }
-        set {
-            layer.cornerRadius = newValue
-            layer.masksToBounds = newValue > 0
-        }
-    }
+//    @IBInspectable var cornerRadius: CGFloat {
+//        get {
+//            return layer.cornerRadius
+//        }
+//        set {
+//            layer.cornerRadius = newValue
+//            layer.masksToBounds = newValue > 0
+//        }
+//    }
 }
 
 extension TagListView {
