@@ -35,7 +35,11 @@ class AgentConversation: HippoConversation {
     var assigned_to: Int?
     var assigned_by_name: String?
     var assigned_to_name: String?
+    var isMyChat: Bool?
     
+    var updateUnreadCountBy: Int {
+        return isMyChat ?? false ? 1 : 0
+    }
     
     init?(channelId: Int, unreadCount: Int, lastMessage: HippoMessage) {
         super.init()
@@ -72,6 +76,8 @@ class AgentConversation: HippoConversation {
         assigned_by_name = json["assigned_by_name"] as? String
         assigned_to = Int.parse(values: json, key: "assigned_to")
         assigned_by = Int.parse(values: json, key: "assigned_by")
+        unreadCount = Int.parse(values: json, key: "unread_count")
+        isMyChat = Bool.parse(key: "is_my_chat", json: json)
         
         
         if let customer_unique_keys = json["customer_unique_keys"] as? [[String: Any]] {
@@ -181,6 +187,7 @@ class AgentConversation: HippoConversation {
         self.created_at = newConversation.created_at
         self.lastMessage = newConversation.lastMessage
         self.notificationType = newConversation.notificationType
+        self.isMyChat = newConversation.isMyChat ?? self.isMyChat
         
         
         self.assigned_to = newConversation.assigned_to
@@ -229,6 +236,9 @@ class AgentConversation: HippoConversation {
             json["created_at"] = created_at
         }
         json["customerUserUniqueKeys"] = customerUserUniqueKeys
+        if let isMyChat = self.isMyChat {
+            json["is_my_chat"] = isMyChat.intValue()
+        }
 
         return json
     }
@@ -253,7 +263,7 @@ class AgentConversation: HippoConversation {
             return unreadCount
         }
         
-        return unreadCount + 1
+        return unreadCount + newConversation.updateUnreadCountBy
     }
 }
 

@@ -578,11 +578,12 @@ extension AgentHomeViewController: AgentUserChannelDelegate {
     }
     
     func handleMyChatInsertion(with newConversation: AgentConversation) {
-        guard newConversation.agent_id == nil || newConversation.agent_id == 0 || newConversation.agent_id == -1 || newConversation.agent_id == currentUserId() else {
+        guard newConversation.agent_id == nil || newConversation.agent_id == 0 || newConversation.agent_id == -1 || newConversation.agent_id == currentUserId() || newConversation.isMyChat == true else {
             return
         }
         
-        newConversation.unreadCount = 1
+        newConversation.unreadCount = newConversation.updateUnreadCountBy
+        
         ConversationStore.shared.myChats.insert(newConversation, at: 0)
         
         if conversationType == .myChat {
@@ -591,7 +592,7 @@ extension AgentHomeViewController: AgentUserChannelDelegate {
         }
     }
     func handleALLChatInsertion(with newConversation: AgentConversation) {
-        newConversation.unreadCount = 1
+        newConversation.unreadCount = newConversation.updateUnreadCountBy
         ConversationStore.shared.allChats.insert(newConversation, at: 0)
         
         if conversationType == .allChat {
