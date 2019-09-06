@@ -30,7 +30,7 @@ class TagView: UIButton {
     }
     @IBInspectable open var borderWidt: CGFloat = 0 {
         didSet {
-            layer.borderWidth = borderWidth
+            layer.borderWidth = hippoBorderWidth
         }
     }
     
@@ -109,12 +109,12 @@ class TagView: UIButton {
         }
         else if isSelected {
             backgroundColor = selectedBackgroundColor ?? tagBackgroundColor
-            layer.borderColor = selectedBorderColor?.cgColor ?? borderColor?.cgColor
+            layer.borderColor = selectedBorderColor?.cgColor ?? hippoBorderColor?.cgColor
             setTitleColor(selectedTextColor, for: UIControl.State())
         }
         else {
             backgroundColor = tagBackgroundColor
-            layer.borderColor = borderColor?.cgColor
+            layer.borderColor = hippoBorderColor?.cgColor
             setTitleColor(textColor, for: UIControl.State())
         }
     }

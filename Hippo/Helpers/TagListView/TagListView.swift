@@ -78,7 +78,7 @@ class TagListView: UIView {
     @IBInspectable  dynamic var borderWidt: CGFloat = 0 {
         didSet {
             for tagView in tagViews {
-                tagView.borderWidth = borderWidth
+                tagView.hippoBorderWidth = hippoBorderWidth
             }
         }
     }
@@ -86,7 +86,7 @@ class TagListView: UIView {
     @IBInspectable  dynamic var borderColo: UIColor? {
         didSet {
             for tagView in tagViews {
-                tagView.borderColor = borderColor
+                tagView.hippoBorderColor = hippoBorderColor
             }
         }
     }
@@ -308,8 +308,8 @@ class TagListView: UIView {
         tagView.selectedBackgroundColor = tagSelectedBackgroundColor
         tagView.titleLineBreakMode = tagLineBreakMode
         tagView.cornerRadiu = 10//cornerRadius
-        tagView.borderWidth = borderWidth
-        tagView.borderColor = borderColo
+        tagView.hippoBorderWidth = hippoBorderWidth
+        tagView.hippoBorderColor = borderColo
         tagView.selectedBorderColor = selectedBorderColor
         tagView.paddingX = paddingX
         tagView.paddingY = paddingY
@@ -350,8 +350,8 @@ class TagListView: UIView {
         tagView.selectedBackgroundColor = tagSelectedBackgroundColor
         tagView.titleLineBreakMode = tagLineBreakMode
         tagView.cornerRadiu = 6//cornerRadius 
-        tagView.borderWidth = borderWidth
-        tagView.borderColor = borderColor
+        tagView.hippoBorderWidth = hippoBorderWidth
+        tagView.hippoBorderColor = hippoBorderColor
         tagView.selectedBorderColor = selectedBorderColor
         tagView.paddingX = paddingX
         tagView.paddingY = paddingY

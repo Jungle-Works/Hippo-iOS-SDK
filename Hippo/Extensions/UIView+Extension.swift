@@ -81,7 +81,7 @@ extension UIView {
 }
 
 extension UIView {
-    @IBInspectable var borderWidth: CGFloat {
+    @IBInspectable var hippoBorderWidth: CGFloat {
         get {
             return layer.borderWidth
         }
@@ -90,7 +90,7 @@ extension UIView {
         }
     }
     
-    @IBInspectable var borderColor: UIColor? {
+    @IBInspectable var hippoBorderColor: UIColor? {
         get {
             return  layer.borderColor == nil ? nil : UIColor(cgColor: layer.borderColor!)
         }
@@ -117,7 +117,7 @@ extension TagListView {
         borderColo = HippoConfig.shared.appUserType == .customer ? HippoConfig.shared.theme.botTextAndBorderColor : UIColor.lightGray
         paddingY = 10
         paddingX = 20
-        borderWidth = 1
+        hippoBorderWidth = 1
         textColor = HippoConfig.shared.appUserType == .customer ? HippoConfig.shared.theme.botTextAndBorderColor : UIColor.lightGray
         selectedTextColor = HippoConfig.shared.appUserType == .customer ? HippoConfig.shared.theme.botTextAndBorderColor : UIColor.lightGray
         textFont = HippoConfig.shared.theme.incomingMsgFont
