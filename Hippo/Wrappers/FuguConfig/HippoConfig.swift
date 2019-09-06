@@ -33,7 +33,7 @@ struct SERVERS {
     static let devFaye = "https://hippo-api-dev.fuguchat.com:3012/faye"
 }
 
-public class HippoConfig : NSObject {
+@objcMembers public class HippoConfig : NSObject {
     
     public static let shared = HippoConfig()
     
@@ -521,8 +521,8 @@ public class HippoConfig : NSObject {
         return false
     }
     
-    public func handleVoipNotification(payloadDict: [AnyHashable: Any]) {
-        guard let json = payloadDict as? [String: Any] else {
+    public func handleVoipNotification(payload: [AnyHashable: Any]) {
+        guard let json = payload as? [String: Any] else {
             return
         }
         handleVoipNotification(payloadDict: json)

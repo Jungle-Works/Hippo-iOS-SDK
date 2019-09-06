@@ -11,8 +11,8 @@ import Foundation
 let HippoSDKSource = 1
 let Device_Type_iOS = 2
 var userDetailData = [String: Any]()
-let fuguAppVersion = "1.7.50"
-let versionCode = 234
+let fuguAppVersion = "1.7.51"
+let versionCode = 235
 
 /*
  201 = Bot messages
@@ -51,4 +51,5 @@ let versionCode = 234
  232 *** 1.7.48 = corner radius issue fixed
  233 *** 1.7.49 = handled isMyChat key
  234 *** 1.7.50 = renamed borderWidth and color
+ 235 *** 1.7.51 = added @objcMembers to HippoConfig
  */
