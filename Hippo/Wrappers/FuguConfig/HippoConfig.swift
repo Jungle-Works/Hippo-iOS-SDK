@@ -26,8 +26,8 @@ struct SERVERS {
     static let liveUrl = "https://api.fuguchat.com/"
     static let liveFaye = "https://api.fuguchat.com:3002/faye"
     
-    static let betaUrl = "https://hippo-api-dev.fuguchat.com:3002/"
-    static let betaFaye = "https://hippo-api-dev.fuguchat.com:3002/faye"
+    static let betaUrl = "https://hippo-api-dev.fuguchat.com:3004/"
+    static let betaFaye = "https://hippo-api-dev.fuguchat.com:3004/faye"
     
     static let devUrl = "https://hippo-api-dev.fuguchat.com:3011/"
     static let devFaye = "https://hippo-api-dev.fuguchat.com:3012/faye"

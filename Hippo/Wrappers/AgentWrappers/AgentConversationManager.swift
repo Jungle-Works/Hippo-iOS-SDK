@@ -70,6 +70,7 @@ struct GetConversationRequestParam {
 class AgentConversationManager {
     
     static var searchUserUniqueKeys: [String] = []
+    static var transactionID: String? = nil
     
     //MARK: Static variables
     static var isUnreadCountInProgress = false

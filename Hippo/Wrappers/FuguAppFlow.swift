@@ -83,6 +83,21 @@ class FuguFlowManager: NSObject {
         visibleController?.present(nav, animated: true, completion: nil)
         
     }
+    func openDirectAgentConversation() {
+        guard HippoConfig.shared.appUserType == .agent else {
+            return
+        }
+        guard !AgentConversationManager.searchUserUniqueKeys.isEmpty, let transactionId = AgentConversationManager.transactionID else {
+            return
+        }
+        let attributes = AgentDirectChatAttributes(otherUserUniqueKey: AgentConversationManager.searchUserUniqueKeys[0], channelName: nil, transactionID: transactionId.trimWhiteSpacesAndNewLine())
+        let vc = AgentConversationViewController.getWith(chatAttributes: attributes)
+        vc.isSingleChat = true
+        
+        let naVC = UINavigationController(rootViewController: vc)
+        let visibleController = getLastVisibleController()
+        visibleController?.present(naVC, animated: true, completion: nil)
+    }
     func openChatViewController(labelId: Int) {
         
         let conversationViewController = ConversationsViewController.getWith(labelId: labelId.description)

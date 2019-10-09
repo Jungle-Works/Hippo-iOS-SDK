@@ -1414,7 +1414,7 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
         case let typingSection where typingSection == self.messagesGroupedByDate.count && !isTypingLabelHidden:
             return 34
         case let chatSection where chatSection < self.messagesGroupedByDate.count:
-            var messagesArray = self.messagesGroupedByDate[chatSection]
+            let messagesArray = self.messagesGroupedByDate[chatSection]
             if messagesArray.count > indexPath.row {
                 let message = messagesArray[indexPath.row]
                 let messageType = message.type

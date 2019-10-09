@@ -378,6 +378,7 @@ public class UserTag: NSObject {
         AgentDetail.agentLoginData = nil
         UnreadCount.clearAllStoredUnreadCount()
         AgentConversationManager.searchUserUniqueKeys.removeAll()
+        AgentConversationManager.transactionID = nil
         ConversationStore.shared.clearData()
         AgentUserChannel.shared = nil
     }

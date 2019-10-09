@@ -16,15 +16,17 @@ class AgentDirectChatAttributes: NSObject {
     private(set) var otherUserUniqueKey: String = ""
     private(set) var channelName = "Support"
     private(set) var chatType: ChatType = .other
+    private(set) var transactionID: String? = nil
     
     
     
-    init(otherUserUniqueKey: String, channelName: String?) {
+    init(otherUserUniqueKey: String, channelName: String?, transactionID: String? = nil) {
         self.otherUserUniqueKey = otherUserUniqueKey.trimWhiteSpacesAndNewLine()
         
         if let name = channelName {
             self.channelName = name
         }
+        self.transactionID = transactionID
     }
     
     init?(otherUserEmail: String) {
@@ -54,6 +56,9 @@ class AgentDirectChatAttributes: NSObject {
             param["other_user_unique_key"] = [otherUserUniqueKey]
             param["initiator_en_agent_id"] = detail.enUserId
             param["chat_type"] = 0
+        }
+        if let transactionID = transactionID {
+            param["transaction_id"] = transactionID
         }
         return param
     }
