@@ -269,13 +269,19 @@ struct SERVERS {
         }
         
     }
-    public func openConversationFor(otherUserUniqueKey: String) {
+    public func openConversationFor(otherUserUniqueKey: String, channelTitle: String? = nil, transactionId: String? = nil) {
         guard HippoConfig.shared.appUserType == .agent else {
             return
         }
         AgentConversationManager.searchUserUniqueKeys.removeAll()
         AgentConversationManager.searchUserUniqueKeys = [otherUserUniqueKey]
-        FuguFlowManager.shared.openDirectConversationHome()
+        
+        if let tempTransactionID = transactionId, !tempTransactionID.isEmpty {
+            AgentConversationManager.transactionID = tempTransactionID.trimWhiteSpacesAndNewLine()
+            FuguFlowManager.shared.openDirectAgentConversation(channelTitle: channelTitle)
+        } else {
+            FuguFlowManager.shared.openDirectConversationHome()
+        }
     }
     
     public func getUnreadCountFor(with userUniqueKeys: [String]) {

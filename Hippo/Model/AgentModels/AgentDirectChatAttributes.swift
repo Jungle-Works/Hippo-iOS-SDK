@@ -17,14 +17,16 @@ class AgentDirectChatAttributes: NSObject {
     private(set) var channelName = "Support"
     private(set) var chatType: ChatType = .other
     private(set) var transactionID: String? = nil
+    private(set) var customChannelName: String?
     
     
     
     init(otherUserUniqueKey: String, channelName: String?, transactionID: String? = nil) {
         self.otherUserUniqueKey = otherUserUniqueKey.trimWhiteSpacesAndNewLine()
         
-        if let name = channelName {
+        if let name = channelName?.trimWhiteSpacesAndNewLine() {
             self.channelName = name
+            self.customChannelName = name
         }
         self.transactionID = transactionID
     }
@@ -59,6 +61,9 @@ class AgentDirectChatAttributes: NSObject {
         }
         if let transactionID = transactionID {
             param["transaction_id"] = transactionID
+        }
+        if let customChannelName = self.customChannelName {
+            param["custom_label"] = customChannelName
         }
         return param
     }
