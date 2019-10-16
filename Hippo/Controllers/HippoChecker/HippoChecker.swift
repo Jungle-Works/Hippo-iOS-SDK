@@ -29,6 +29,15 @@ class HippoChecker {
             FuguFlowManager.shared.presentAgentConversations()
         }
     }
+    func presentChatsViewController(on viewController: UIViewController) {
+           AgentDetail.setAgentStoredData()
+           switch config.appUserType {
+           case .customer:
+            FuguFlowManager.shared.presentCustomerConversations(on: viewController)
+           case .agent:
+               FuguFlowManager.shared.presentAgentConversations()
+           }
+       }
     
     func shouldCollectDataFromUser() -> Bool {
         let form = HippoProperty.current.forms

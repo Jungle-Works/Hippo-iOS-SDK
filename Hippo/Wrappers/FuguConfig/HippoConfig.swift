@@ -39,7 +39,7 @@ struct SERVERS {
     
     public typealias commonHippoCallback = ((_ success: Bool, _ error: Error?) -> ())
     // MARK: - Properties
-    internal var log = CoreLogger(formatter: Formatter.defaultFormat, theme: nil, minLevels: [.error])
+    internal var log = CoreLogger(formatter: Formatter.defaultFormat, theme: nil, minLevels: [.all])
     internal var muidList: [String] = []
     internal var pushArray = [PushInfo]()
     
@@ -215,6 +215,11 @@ struct SERVERS {
         AgentDetail.setAgentStoredData()
         checker.presentChatsViewController()
     }
+    class public func showChats(on viewController: UIViewController) {
+        AgentDetail.setAgentStoredData()
+        HippoConfig.shared.checker.presentChatsViewController(on: viewController)
+    }
+    
     public func initiateBroadcast(displayName: String = "") {
         guard appUserType == .agent, isBroadcastEnabled else {
             return

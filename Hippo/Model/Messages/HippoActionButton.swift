@@ -8,10 +8,18 @@
 
 import UIKit
 
+enum BotButtonAction: String {
+    case agent = "AGENTS"
+    case audioCall = "AUDIO_CALL"
+    case videoCall = "VIDEO_CALL"
+    case chat = "CONTINUE_CHAT"
+}
+
 class HippoActionButton {
     var id: String
     var title: String = ""
     var isSelected: Bool = false
+    var action: BotButtonAction?
     
     private var selectedColorHex: String = ""
     private var colorHex: String = ""
@@ -40,7 +48,9 @@ class HippoActionButton {
         self.normalTitleHexColor = json["btn_title_color"] as? String ?? ""
         self.selectedTitleHexColor = json["btn_title_selected_color"] as? String ?? ""
         
-        
+        if let action = (json["action"] as? String)?.trimWhiteSpacesAndNewLine() {
+           self.action = BotButtonAction(rawValue: action)
+        }
         self.color = UIColor.clear //HippoConfig.shared.theme.headerBackgroundColor
         
 //        self.color = UIColor.hexStringToUIColor(hex: colorHex)

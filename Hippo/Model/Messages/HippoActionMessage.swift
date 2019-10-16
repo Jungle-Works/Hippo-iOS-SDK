@@ -131,6 +131,8 @@ class HippoActionMessage: HippoMessage {
         
         let selectedId = selectedBtnId.isEmpty ? nil : selectedBtnId
         if !contentValues.isEmpty {
+            contentValues.append(contentsOf: customButtons)
+//            let list = contentValues + customButtons
             let (buttons, selectedButton) = HippoActionButton.getArray(array: contentValues, selectedId: selectedId)
             self.tryToSetResponseMessage(selectedButton: selectedButton)
             self.buttons = buttons
@@ -158,4 +160,53 @@ class HippoActionMessage: HippoMessage {
         messageRefresed?()
         
     }
+    
+    func getButtonWithId(id: String) -> HippoActionButton? {
+        guard let  buttons = self.buttons else {
+            return nil
+        }
+        let button = buttons.first { (b) -> Bool in
+            return b.id == id
+        }
+        return button
+    }
 }
+
+let customButtons: [[String: Any]] = [
+  [
+    "btn_id": "451",
+    "btn_color": "#FFFFFF",
+    "btn_title": "Agent List",
+    "btn_title_color": "#000000",
+    "btn_selected_color": "#1E7EFF",
+    "action": "AGENTS",
+    "btn_title_selected_color": "#FFFFFF"
+  ],
+  [
+    "btn_id": "454",
+    "btn_color": "#FFFFFF",
+    "btn_title": "audio call",
+    "btn_title_color": "#000000",
+    "btn_selected_color": "#1E7EFF",
+    "action": "AUDIO_CALL",
+    "btn_title_selected_color": "#FFFFFF"
+  ],
+  [
+    "btn_id": "455",
+    "btn_color": "#FFFFFF",
+    "btn_title": "video call",
+    "btn_title_color": "#000000",
+    "btn_selected_color": "#1E7EFF",
+    "action": "VIDEO_CALL",
+    "btn_title_selected_color": "#FFFFFF"
+  ],
+  [
+    "btn_id": "455",
+    "btn_color": "#FFFFFF",
+    "btn_title": "Continue chat",
+    "btn_title_color": "#000000",
+    "btn_selected_color": "#1E7EFF",
+    "action": "CONTINUE_CHAT",
+    "btn_title_selected_color": "#FFFFFF"
+  ]
+]

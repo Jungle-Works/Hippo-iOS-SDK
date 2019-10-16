@@ -44,9 +44,18 @@ class FuguFlowManager: NSObject {
          return
       }
       let visibleController = getLastVisibleController()
-    
+    navigationController.modalPresentationStyle = .fullScreen
       visibleController?.present(navigationController, animated: animation, completion: nil)
    }
+    func presentCustomerConversations(on viewController: UIViewController, animation: Bool = true) {
+       guard let navigationController = storyboard.instantiateViewController(withIdentifier: "FuguCustomerNavigationController") as? UINavigationController, let topVC = navigationController.topViewController else {
+          return
+       }
+//       let visibleController = getLastVisibleController()
+     
+        viewController.navigationController?.pushViewController(topVC, animated: animation)
+//       visibleController?.present(navigationController, animated: animation, completion: nil)
+    }
     
     func presentNLevelViewController(animation: Bool = true) {
         self.openFAQScreen(animation: animation)
