@@ -39,9 +39,6 @@ class AgentDirectViewController: HippoHomeViewController {
         checkAgentAndGetData(showLoader: showLoader)
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
     @IBAction func backButtonAction(_ sender: Any) {
         HippoConfig.shared.notifiyDeinit()
         self.navigationController?.dismiss(animated: true, completion: nil)

@@ -5,7 +5,7 @@
 //  Created by Vishal on 20/11/18.
 //
 
-import Foundation
+import UIKit
 
 @objc public class HippoTheme: NSObject {
     

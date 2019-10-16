@@ -5,7 +5,7 @@
 //  Created by Vishal on 19/09/18.
 //
 
-import Foundation
+import UIKit
 
 class HippoHomeViewController: UIViewController {
     

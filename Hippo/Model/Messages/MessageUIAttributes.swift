@@ -6,8 +6,7 @@
 //  Copyright © 2018 Socomo Technologies Private Limited. All rights reserved.
 //
 
-import Foundation
-
+import UIKit
 
 struct MessageUIAttributes {
     private(set) var senderName: String = ""

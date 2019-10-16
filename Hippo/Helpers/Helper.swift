@@ -5,8 +5,7 @@
 //  Created by Vishal on 06/03/19.
 //
 
-import Foundation
-
+import UIKit
 
 class Helper {
     class func formatNumber(number: Double) -> String {

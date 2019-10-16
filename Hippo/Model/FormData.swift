@@ -6,7 +6,7 @@
 //  Copyright © 2018 CL-macmini-88. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 class FormData: NSObject {
     var title = ""

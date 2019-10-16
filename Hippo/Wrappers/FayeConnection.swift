@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import MZFayeClient
 
 class FayeConnection: NSObject {
     

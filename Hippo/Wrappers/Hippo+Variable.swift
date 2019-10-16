@@ -5,7 +5,7 @@
 //  Created by Vishal on 10/04/19.
 //
 
-import Foundation
+import UIKit
 
 class HippoVariable {
     

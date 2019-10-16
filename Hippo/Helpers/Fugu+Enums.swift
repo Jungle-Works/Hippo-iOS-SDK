@@ -6,7 +6,7 @@
 //  Copyright © 2017 CL-macmini-88. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 @available(*, deprecated, renamed: "HippoEnvironment", message: "This Enum is renamed to HippoEnvironment")
 public enum FuguEnvironment: Int {

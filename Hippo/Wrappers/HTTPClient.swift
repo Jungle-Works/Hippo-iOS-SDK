@@ -5,7 +5,7 @@
 //  Created by cl-macmini-117 on 26/09/16.
 //  Copyright © 2015 CilckLabs. All rights reserved.
 //
-import Foundation
+import UIKit
 
 enum HttpMethodType: String {
     case GET
