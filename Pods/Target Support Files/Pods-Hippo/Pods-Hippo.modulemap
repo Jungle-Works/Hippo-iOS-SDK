@@ -1,6 +1,0 @@
-framework module Pods_Hippo {
-  umbrella header "Pods-Hippo-umbrella.h"
-
-  export *
-  module * { export * }
-}
