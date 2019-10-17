@@ -1219,14 +1219,13 @@ extension HippoConversationViewController: ActionTableViewDelegate {
             if !isReplyMessageSent {
                self.sendMessage(message: customMessage)
             }
-            if let button = customMessage.getButtonWithId(id: selectionId), let action = button.action {
+            if let button = customMessage.getButtonWithId(id: selectionId), let action = button.action, button.buttonType == .action {
                 switch action {
                 case .audioCall:
-                    self.showAlert(title: "", message: "Audio call", actionComplete: nil)
+//                    self.showAlert(title: "", message: "Audio call", actionComplete: nil)
                     self.startAudioCall()
                 case .videoCall:
-                    self.showAlert(title: "", message: "Video call", actionComplete: nil)
-
+//                    self.showAlert(title: "", message: "Video call", actionComplete: nil)
                     self.startVideoCall()
                 default:
                     break

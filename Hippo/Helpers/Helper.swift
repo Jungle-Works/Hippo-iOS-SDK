@@ -25,7 +25,25 @@ class Helper {
         let userNameString = isAboveMessageIsFromSameUser ? "" : chatMessageObject.senderFullName
         let middleString = isAboveMessageIsFromSameUser ? "" : "\n"
         
+        let isSelfMessage = chatMessageObject.isSelfMessage(for: chatMessageObject.chatType)
+        let theme = HippoConfig.shared.theme
+        let messageColor: UIColor
+        let timeColor: UIColor
+        let nameColor: UIColor
         
-        return attributedStringForLabel(userNameString, secondString: middleString + messageString, thirdString: "", colorOfFirstString: HippoConfig.shared.theme.senderNameColor, colorOfSecondString: HippoConfig.shared.theme.incomingMsgColor, colorOfThirdString: UIColor.black.withAlphaComponent(0.5), fontOfFirstString: HippoConfig.shared.theme.senderNameFont, fontOfSecondString:  HippoConfig.shared.theme.incomingMsgFont, fontOfThirdString: UIFont.systemFont(ofSize: 11.0), textAlighnment: .left, dateAlignment: .right)
+        switch HippoConfig.shared.appUserType {
+        case .agent:
+            messageColor = isSelfMessage ? theme.outgoingMsgColor : theme.incomingMsgColor
+            timeColor = isSelfMessage ? theme.outgoingMsgDateTextColor : theme.incomingMsgDateTextColor
+            nameColor = isSelfMessage ? theme.senderNameColor : theme.senderNameColor
+            
+        default:
+            messageColor = isSelfMessage ? theme.outgoingMsgColor : theme.incomingMsgColor
+            timeColor = isSelfMessage ? theme.outgoingMsgDateTextColor : theme.incomingMsgDateTextColor
+            nameColor = isSelfMessage ? theme.senderNameColor : theme.senderNameColor
+        }
+        
+        
+        return attributedStringForLabel(userNameString, secondString: middleString + messageString, thirdString: "", colorOfFirstString: nameColor, colorOfSecondString: messageColor, colorOfThirdString: timeColor, fontOfFirstString: HippoConfig.shared.theme.senderNameFont, fontOfSecondString:  HippoConfig.shared.theme.incomingMsgFont, fontOfThirdString: UIFont.systemFont(ofSize: 11.0), textAlighnment: .left, dateAlignment: .right)
     }
 }

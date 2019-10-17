@@ -48,8 +48,8 @@ struct SERVERS {
     private(set)  open var isBroadcastEnabled: Bool = false
     open weak var messageDelegate: HippoMessageRecievedDelegate?
     internal weak var delegate: HippoDelegate?
-    internal var deviceToken = ""
-    internal var voipToken = ""
+//    internal var deviceToken = ""
+//    internal var voipToken = ""
     internal var ticketDetails = HippoTicketAtrributes(categoryName: "")
     internal var theme = HippoTheme.defaultTheme()
     internal var userDetail: HippoUserDetail?
@@ -506,7 +506,7 @@ struct SERVERS {
         guard let token = parseDeviceToken(deviceToken: deviceData) else {
             return
         }
-        voipToken = token
+        TokenManager.voipToken = token
         updateDeviceToken(deviceToken: token)
     }
     
@@ -514,7 +514,7 @@ struct SERVERS {
         guard let token = parseDeviceToken(deviceToken: deviceToken) else {
             return
         }
-        self.deviceToken = token
+        TokenManager.deviceToken = token
         updateDeviceToken(deviceToken: token)
     }
     

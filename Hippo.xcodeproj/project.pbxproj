@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		C92CD3E1235712B3006E5F40 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C92CD3E0235712B3006E5F40 /* UIKit.framework */; };
+		C980E30923589B17004433FF /* HippoCallClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C980E30523588E0D004433FF /* HippoCallClient.framework */; };
 		C9A506F723572B8600F5BE43 /* HippoChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A506F623572B8600F5BE43 /* HippoChat.swift */; };
 		C9DC527F2356FC4F00CA7FE9 /* HippoChat.h in Headers */ = {isa = PBXBuildFile; fileRef = C9DC52712356FC4F00CA7FE9 /* HippoChat.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C9DC540F2356FD4200CA7FE9 /* ConversationPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DC52892356FD4100CA7FE9 /* ConversationPresenter.swift */; };
@@ -326,6 +327,7 @@
 		73C5DC7752C82068B4CD5EB2 /* Pods-Hippo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hippo.release.xcconfig"; path = "Pods/Target Support Files/Pods-Hippo/Pods-Hippo.release.xcconfig"; sourceTree = "<group>"; };
 		8C0A922564912516EF04B93F /* Pods_Hippo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Hippo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C92CD3E0235712B3006E5F40 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		C980E30523588E0D004433FF /* HippoCallClient.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = HippoCallClient.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9A506F623572B8600F5BE43 /* HippoChat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HippoChat.swift; sourceTree = "<group>"; };
 		C9DC526F2356FC4F00CA7FE9 /* HippoChat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HippoChat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9DC52712356FC4F00CA7FE9 /* HippoChat.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HippoChat.h; sourceTree = "<group>"; };
@@ -649,6 +651,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C980E30923589B17004433FF /* HippoCallClient.framework in Frameworks */,
 				C92CD3E1235712B3006E5F40 /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -659,6 +662,7 @@
 		0DC6F74BF9725EE6841BA0D8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C980E30523588E0D004433FF /* HippoCallClient.framework */,
 				C92CD3E0235712B3006E5F40 /* UIKit.framework */,
 				E0E4A9E31B1EC7F72EC2F38D /* Pods_Fugu.framework */,
 				7012A5A44B87F497D213D271 /* Pods_SDKDemo1.framework */,
@@ -1812,8 +1816,7 @@
 				TargetAttributes = {
 					C9DC526E2356FC4F00CA7FE9 = {
 						CreatedOnToolsVersion = 11.0;
-						DevelopmentTeam = 9BMB7KMY7Q;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -2272,13 +2275,16 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 9BMB7KMY7Q;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_BITCODE = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = HippoChat/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -2288,6 +2294,8 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = Vishal.HippoChat;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -2302,13 +2310,16 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 9BMB7KMY7Q;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_BITCODE = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = HippoChat/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -2317,6 +2328,8 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = Vishal.HippoChat;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

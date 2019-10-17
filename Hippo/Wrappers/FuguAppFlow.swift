@@ -126,7 +126,7 @@ class FuguFlowManager: NSObject {
 //        let navVC = UINavigationController(rootViewController: conversationViewController)
 //        navVC.setNavigationBarHidden(true, animated: false)
 
-        conversationViewController.createConversationOnStart = true
+        conversationViewController.createConversationOnStart = false
         conversationViewController.hideBackButton = hideBackButton
         viewController.navigationController?.pushViewController(conversationViewController, animated: animation)
 //        visibleController?.present(navVC, animated: false, completion: nil)

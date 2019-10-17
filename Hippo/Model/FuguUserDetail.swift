@@ -228,11 +228,11 @@ public class UserTag: NSObject {
             params["custom_attributes"] = attributes
         }
         
-        if HippoConfig.shared.deviceToken.isEmpty == false {
-            params["device_token"] = HippoConfig.shared.deviceToken
+        if TokenManager.deviceToken.isEmpty == false {
+            params["device_token"] = TokenManager.deviceToken
         }
-        if HippoConfig.shared.voipToken.isEmpty == false {
-            params["voip_token"] = HippoConfig.shared.voipToken
+        if TokenManager.voipToken.isEmpty == false {
+            params["voip_token"] = TokenManager.voipToken
         }
         
         if let image = userImage {
@@ -266,6 +266,7 @@ public class UserTag: NSObject {
             
             guard let response = (responseObject as? [String: Any]), statusCode == STATUS_CODE_SUCCESS, let data = response["data"] as? [String: Any] else {
                 HippoConfig.shared.log.error("PutUserError: \(error.debugDescription)", level: .error)
+                NotificationCenter.default.post(name: .putUserFailure, object:self)
                 completion?(false, (error ?? APIErrors.statusCodeNotFound))
                 return
             }
@@ -341,6 +342,8 @@ public class UserTag: NSObject {
             } else {
                 pushTotalUnreadCount()
             }
+            NotificationCenter.default.post(name: .putUserSuccess, object:self)
+
             completion?(true, nil)
         }
     }

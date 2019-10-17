@@ -100,6 +100,7 @@ class NavigationTitleView: UIView {
     func setData(imageUrl: String?, name: String?) {
         showProfileImage()
         setNameAsTitle(name)
+        
         guard let url = URL(string: imageUrl ?? "") else {
             return
         }

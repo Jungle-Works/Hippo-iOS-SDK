@@ -8,18 +8,24 @@
 
 import UIKit
 
-enum BotButtonAction: String {
-    case agent = "AGENTS"
-    case audioCall = "AUDIO_CALL"
-    case videoCall = "VIDEO_CALL"
-    case chat = "CONTINUE_CHAT"
+enum BotButtonAction: Int {
+    case assignment = 1
+    case audioCall = 2
+    case videoCall = 3
+    case chat = 4
+    case openUrl = 5
 }
-
+enum BotButtonType: Int {
+   case normal = 1
+    case action = 2
+}
 class HippoActionButton {
     var id: String
     var title: String = ""
     var isSelected: Bool = false
     var action: BotButtonAction?
+    var buttonType: BotButtonType?
+    var buttonActionJson: [String: Any] = ["url": "https://fb.com"]
     
     private var selectedColorHex: String = ""
     private var colorHex: String = ""
@@ -48,9 +54,13 @@ class HippoActionButton {
         self.normalTitleHexColor = json["btn_title_color"] as? String ?? ""
         self.selectedTitleHexColor = json["btn_title_selected_color"] as? String ?? ""
         
-        if let action = (json["action"] as? String)?.trimWhiteSpacesAndNewLine() {
+        if let action = Int.parse(values: json, key: "button_action_type") {
            self.action = BotButtonAction(rawValue: action)
         }
+        if let action = Int.parse(values: json, key: "button_type") {
+           self.buttonType = BotButtonType(rawValue: action)
+        }
+        self.buttonActionJson = json["button_action_json"] as? [String: Any] ?? [:]
         self.color = UIColor.clear //HippoConfig.shared.theme.headerBackgroundColor
         
 //        self.color = UIColor.hexStringToUIColor(hex: colorHex)

@@ -340,6 +340,7 @@ class HippoChannel {
     
     
     class func getParamsToStartConversation(WithLabelId labelRequest: CreateConversationWithLabelId? = nil, fuguAttributes: FuguNewChatAttributes? = nil) -> [String: Any] {
+       
         var params = [String: Any]()
         params["app_secret_key"] = HippoConfig.shared.appSecretKey
         params["en_user_id"] = HippoUserDetail.fuguEnUserID ?? -1

@@ -10,6 +10,31 @@ import UIKit
 
 public typealias HippoGeneralCompletion = ((_ success: Bool,_ error: Error?) -> Void)
 
+struct TokenManager {
+    static var deviceToken: String {
+        set {
+            UserDefaults.standard.set(newValue, forKey: StoreKeys.normalToken)
+        }
+        get {
+            return UserDefaults.standard.value(forKey: StoreKeys.normalToken) as? String ?? ""
+        }
+    }
+    static var voipToken: String {
+           set {
+               UserDefaults.standard.set(newValue, forKey: StoreKeys.voipToken)
+           }
+           get {
+               return UserDefaults.standard.value(forKey: StoreKeys.voipToken) as? String ?? ""
+           }
+       }
+}
+extension TokenManager {
+    struct StoreKeys {
+        static let voipToken = "HIPPO_VoIP_TOKEN"
+        static let normalToken = "HIPPO_NORMAL_TOKEN"
+    }
+}
+
 public class HippoChat {
     
     public static func setUser(_ user: HippoUserDetail) {

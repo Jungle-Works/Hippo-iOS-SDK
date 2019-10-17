@@ -77,7 +77,7 @@ protocol NewChatSentDelegate: class {
    override func viewDidLoad() {
       self.setTitleForCustomNavigationBar()
       super.viewDidLoad()
-      
+      addObserver()
       setNavBarHeightAccordingtoSafeArea()
       configureChatScreen()
     
@@ -164,77 +164,80 @@ protocol NewChatSentDelegate: class {
     override func didSetChannel() {
         channel?.delegate = self
     }
-   func navigationSetUp() {
-      navigationBackgroundView.layer.shadowColor = UIColor.black.cgColor
-      navigationBackgroundView.layer.shadowOpacity = 0.25
-      navigationBackgroundView.layer.shadowOffset = CGSize(width: 0, height: 1.0)
-      navigationBackgroundView.layer.shadowRadius = 4
-      
-      navigationBackgroundView.backgroundColor = HippoConfig.shared.theme.headerBackgroundColor
-//      navigationTitleLabel.textColor = HippoConfig.shared.theme.headerTextColor
-//
-//      if HippoConfig.shared.theme.headerTextFont  != nil {
-//         navigationTitleLabel.font = HippoConfig.shared.theme.headerTextFont
-//      }
-    
-      if HippoConfig.shared.theme.sendBtnIcon != nil {
-         sendMessageButton.setImage(HippoConfig.shared.theme.sendBtnIcon, for: .normal)
-         
-         if let tintColor = HippoConfig.shared.theme.sendBtnIconTintColor {
-            sendMessageButton.tintColor = tintColor
-         }
-         
-         sendMessageButton.setTitle("", for: .normal)
-      } else { sendMessageButton.setTitle("SEND", for: .normal) }
-      
-      if HippoConfig.shared.theme.addButtonIcon != nil {
-         addFileButtonAction.setImage(HippoConfig.shared.theme.addButtonIcon, for: .normal)
-         
-         if let tintColor = HippoConfig.shared.theme.addBtnTintColor {
-            addFileButtonAction.tintColor = tintColor
-         }
-         
-         addFileButtonAction.setTitle("", for: .normal)
-      } else { addFileButtonAction.setTitle("ADD", for: .normal) }
-    
-    handleBackButton()
-//      backButton.tintColor = HippoConfig.shared.theme.headerTextColor
-//      if HippoConfig.shared.theme.leftBarButtonText.count > 0 {
-//         backButton.setTitle((" " + HippoConfig.shared.theme.leftBarButtonText), for: .normal)
-//
-//         if HippoConfig.shared.theme.leftBarButtonFont != nil {
-//            backButton.titleLabel?.font = HippoConfig.shared.theme.leftBarButtonFont
-//         }
-//
-//
-//         backButton.setTitleColor(HippoConfig.shared.theme.leftBarButtonTextColor, for: .normal)
-//
-//      } else {
-//         if HippoConfig.shared.theme.leftBarButtonImage != nil {
-//            backButton.setImage(HippoConfig.shared.theme.leftBarButtonImage, for: .normal)
-//            backButton.tintColor = HippoConfig.shared.theme.headerTextColor
-//         }
-//      }
-    
-//      if HippoConfig.shared.theme.headerTextFont  != nil {
-//         navigationTitleLabel.font = HippoConfig.shared.theme.headerTextFont
-//      }
-    
-//      if HippoConfig.shared.navigationTitleTextAlignMent != nil {
-//         navigationTitleLabel.textAlignment = HippoConfig.shared.navigationTitleTextAlignMent!
-//      }
-    
-         if let businessName = userDetailData["business_name"] as? String, label.isEmpty {
+    func navigationSetUp() {
+        navigationBackgroundView.layer.shadowColor = UIColor.black.cgColor
+        navigationBackgroundView.layer.shadowOpacity = 0.25
+        navigationBackgroundView.layer.shadowOffset = CGSize(width: 0, height: 1.0)
+        navigationBackgroundView.layer.shadowRadius = 4
+        
+        navigationBackgroundView.backgroundColor = HippoConfig.shared.theme.headerBackgroundColor
+        //      navigationTitleLabel.textColor = HippoConfig.shared.theme.headerTextColor
+        //
+        //      if HippoConfig.shared.theme.headerTextFont  != nil {
+        //         navigationTitleLabel.font = HippoConfig.shared.theme.headerTextFont
+        //      }
+        
+        if HippoConfig.shared.theme.sendBtnIcon != nil {
+            sendMessageButton.setImage(HippoConfig.shared.theme.sendBtnIcon, for: .normal)
+            
+            if let tintColor = HippoConfig.shared.theme.sendBtnIconTintColor {
+                sendMessageButton.tintColor = tintColor
+            }
+            
+            sendMessageButton.setTitle("", for: .normal)
+        } else { sendMessageButton.setTitle("SEND", for: .normal) }
+        
+        if HippoConfig.shared.theme.addButtonIcon != nil {
+            addFileButtonAction.setImage(HippoConfig.shared.theme.addButtonIcon, for: .normal)
+            
+            if let tintColor = HippoConfig.shared.theme.addBtnTintColor {
+                addFileButtonAction.tintColor = tintColor
+            }
+            
+            addFileButtonAction.setTitle("", for: .normal)
+        } else { addFileButtonAction.setTitle("ADD", for: .normal) }
+        
+        handleBackButton()
+        if let businessName = userDetailData["business_name"] as? String, label.isEmpty {
             label = businessName
-         }
+        }
         setTitleForCustomNavigationBar()
-//      }
-
-   }
+        
+    }
    
     func handleBackButton() {
         let hideBackButton = (directChatDetail?.hideBackButton ?? false) || self.hideBackButton
         self.titleForNavigation?.setBackButton(hide: hideBackButton)
+    }
+    func addObserver() {
+        NotificationCenter.default.addObserver(self, selector: #selector(putUserSuccess), name: .putUserSuccess, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(putUserFail), name: .putUserFailure, object: nil)
+    }
+    @objc func putUserSuccess() {
+        stopLoaderAnimation()
+        guard channel != nil else {
+          if createConversationOnStart {
+              startNewConversation(replyMessage: nil, completion: { [weak self] (success, result) in
+                  guard success else {
+                      return
+                  }
+                  self?.populateTableViewWithChannelData()
+                  self?.fetchMessagesFrom1stPage()
+              })
+          } else {
+              fetchMessagesFrom1stPage()
+          }
+          return
+         }
+        
+        channel.delegate = self
+
+        populateTableViewWithChannelData()
+        fetchMessagesFrom1stPage()
+        HippoConfig.shared.notifyDidLoad()
+    }
+    @objc func putUserFail() {
+        stopLoaderAnimation()
     }
 // MARK: - UIButton Actions
     
@@ -251,57 +254,7 @@ protocol NewChatSentDelegate: class {
         return
       }
     attachmentButtonclicked(sender)
-//      imagePicker.delegate = self
-//      let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
-//
-//      let cameraAction = UIAlertAction(title: HippoConfig.shared.strings.cameraString, style: .default, handler: { (alert: UIAlertAction!) -> Void in
-//         self.view.endEditing(true)
-//         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera) {
-//            self.imagePicker.sourceType = UIImagePickerControllerSourceType.camera
-//            self.performActionBasedOnCameraPermission()
-//         }
-//      })
-//
-//      let photoLibraryAction = UIAlertAction(title: HippoConfig.shared.strings.photoLibrary, style: .default, handler: { (alert: UIAlertAction!) -> Void in
-//         self.view.endEditing(true)
-//         self.imagePicker.sourceType = UIImagePickerControllerSourceType.photoLibrary
-//         self.performActionBasedOnGalleryPermission()
-//      })
-//
-//      let cancelAction = UIAlertAction(title: HippoConfig.shared.strings.attachmentCancel, style: .cancel, handler: { (alert: UIAlertAction!) -> Void in })
-//
-//      if UIDevice.current.userInterfaceIdiom == .pad {
-//        var rect = CGRect()
-//        rect = CGRect(x: sender.frame.origin.x + sender.frame.width / 2, y: sender.frame.origin.y + self.textViewBgView.frame.origin.y, width:1, height:1)
-//        if let presenter = actionSheet.popoverPresentationController {
-//            presenter.sourceView = self.view
-//            presenter.sourceRect = rect
-//         }
-//      }
-//
-//      actionSheet.addAction(photoLibraryAction)
-//      actionSheet.addAction(cameraAction)
-//      actionSheet.addAction(cancelAction)
-//
-//      self.present(actionSheet, animated: true, completion: nil)
    }
-   
-//   func checkPhotoLibraryPermission() {
-//      let status = PHPhotoLibrary.authorizationStatus()
-//      switch status {
-//      case .authorized: break //handle authorized status
-//      case .denied, .restricted : break //handle denied status
-//      case .notDetermined: // ask for permissions
-//         PHPhotoLibrary.requestAuthorization() { status in
-//            switch status {
-//            case .authorized: break // as above
-//            case .denied, .restricted: break // as above
-//            case .notDetermined: break // won't happen but still
-//            }
-//         }
-//      }
-//   }
-   
     
     func buttonClickedOnNetworkOff() {
         guard !FuguNetworkHandler.shared.isNetworkConnected else {
@@ -734,6 +687,11 @@ protocol NewChatSentDelegate: class {
    
     override func startNewConversation(replyMessage: HippoMessage?, completion: ((_ success: Bool, _ result: HippoChannelCreationResult?) -> Void)?) {
       
+        guard HippoUserDetail.fuguEnUserID != nil else {
+            startLoaderAnimation()
+            completion?(false, nil)
+            return
+        }
       disableSendingNewMessages()
       if FuguNetworkHandler.shared.isNetworkConnected == false {
          errorMessage = HippoConfig.shared.strings.noNetworkConnection
