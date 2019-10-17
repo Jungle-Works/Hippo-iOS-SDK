@@ -21,6 +21,7 @@ struct FuguNewChatAttributes {
    var isInAppChat = false
    var isCustomAttributesRequired: Bool = false
    var customAttributes = [String: Any]()
+   var hideBackButton: Bool = false
     
    private var fuguChatType = ChatType.other
    var groupingTag: [String]?

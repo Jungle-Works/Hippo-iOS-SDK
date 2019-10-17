@@ -135,4 +135,8 @@ class NavigationTitleView: UIView {
         layoutIfNeeded()
     }
     
+    func setBackButton(hide: Bool) {
+        backButton.isHidden = hide
+    }
+    
 }

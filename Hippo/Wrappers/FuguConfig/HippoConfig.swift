@@ -228,11 +228,15 @@ struct SERVERS {
         HippoConfig.shared.strings.displayNameForCustomers = name
         FuguFlowManager.shared.presentBroadcastController()
     }
-    public func openChatScreen(withLabelId labelId: Int) {
+    public func openChatScreen(on viewController: UIViewController? = nil, withLabelId labelId: Int, hideBackButton: Bool = false, animation: Bool = true) {
         guard appUserType == .customer else {
             return
         }
-        FuguFlowManager.shared.openChatViewController(labelId: labelId)
+        if let vc = viewController {
+            FuguFlowManager.shared.openChatViewController(on: vc, labelId: labelId, hideBackButton: hideBackButton, animation: animation)
+        } else {
+            FuguFlowManager.shared.openChatViewController(labelId: labelId)
+        }
     }
     
     public func setRideTime(estimatedTimeInSec: UInt) {
@@ -307,20 +311,24 @@ struct SERVERS {
         return obj == nil ? 0 : obj!.count
     }
     
-    public func openChatByTransactionId(data: GeneralChat, completion: @escaping (_ success: Bool, _ error: Error?) -> Void ) {
+    public func openChatByTransactionId(on viewController: UIViewController? = nil, data: GeneralChat, completion: ((_ success: Bool, _ error: Error?) -> Void)? ) {
         guard appUserType == .customer else {
             return
         }
         
         checkForIntialization { (success, error) in
             guard success else {
-                completion(success, error)
+                completion?(success, error)
                 return
             }
-            let fuguChat = FuguNewChatAttributes(transactionId: data.uniqueChatId, userUniqueKey: data.userUniqueId, otherUniqueKey: nil, tags: data.tags, channelName: data.channelName, preMessage: "", groupingTag: data.groupingTags)
-            
-            FuguFlowManager.shared.showFuguChat(fuguChat, createConversationOnStart: true)
-            completion(true, nil)
+            var fuguChat = FuguNewChatAttributes(transactionId: data.uniqueChatId, userUniqueKey: data.userUniqueId, otherUniqueKey: nil, tags: data.tags, channelName: data.channelName, preMessage: "", groupingTag: data.groupingTags)
+            fuguChat.hideBackButton = data.hideBackButton
+            if let vc = viewController {
+                FuguFlowManager.shared.showFuguChat(on: vc, chat: fuguChat, createConversationOnStart: true)
+            } else {
+                FuguFlowManager.shared.showFuguChat(fuguChat, createConversationOnStart: true)
+            }
+            completion?(true, nil)
         }
     }
     

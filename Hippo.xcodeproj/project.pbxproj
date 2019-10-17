@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		C92CD3E1235712B3006E5F40 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C92CD3E0235712B3006E5F40 /* UIKit.framework */; };
+		C9A506F723572B8600F5BE43 /* HippoChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A506F623572B8600F5BE43 /* HippoChat.swift */; };
 		C9DC527F2356FC4F00CA7FE9 /* HippoChat.h in Headers */ = {isa = PBXBuildFile; fileRef = C9DC52712356FC4F00CA7FE9 /* HippoChat.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C9DC540F2356FD4200CA7FE9 /* ConversationPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DC52892356FD4100CA7FE9 /* ConversationPresenter.swift */; };
 		C9DC54102356FD4200CA7FE9 /* ConversationStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DC528A2356FD4100CA7FE9 /* ConversationStore.swift */; };
@@ -325,6 +326,7 @@
 		73C5DC7752C82068B4CD5EB2 /* Pods-Hippo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hippo.release.xcconfig"; path = "Pods/Target Support Files/Pods-Hippo/Pods-Hippo.release.xcconfig"; sourceTree = "<group>"; };
 		8C0A922564912516EF04B93F /* Pods_Hippo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Hippo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C92CD3E0235712B3006E5F40 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		C9A506F623572B8600F5BE43 /* HippoChat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HippoChat.swift; sourceTree = "<group>"; };
 		C9DC526F2356FC4F00CA7FE9 /* HippoChat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HippoChat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9DC52712356FC4F00CA7FE9 /* HippoChat.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HippoChat.h; sourceTree = "<group>"; };
 		C9DC52722356FC4F00CA7FE9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -340,7 +342,6 @@
 		C9DC52962356FD4100CA7FE9 /* CoreEnum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreEnum.swift; sourceTree = "<group>"; };
 		C9DC52972356FD4100CA7FE9 /* CoreMediaSelector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreMediaSelector.swift; sourceTree = "<group>"; };
 		C9DC52982356FD4100CA7FE9 /* CoreKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreKit.swift; sourceTree = "<group>"; };
-		C9DC52992356FD4100CA7FE9 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C9DC529A2356FD4100CA7FE9 /* CoreFilesConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreFilesConfig.swift; sourceTree = "<group>"; };
 		C9DC529C2356FD4100CA7FE9 /* LoggerEnum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoggerEnum.swift; sourceTree = "<group>"; };
 		C9DC529D2356FD4100CA7FE9 /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
@@ -627,7 +628,6 @@
 		C9DC54092356FD4200CA7FE9 /* Fugu+Enums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Fugu+Enums.swift"; sourceTree = "<group>"; };
 		C9DC540A2356FD4200CA7FE9 /* FuguHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuguHelpers.swift; sourceTree = "<group>"; };
 		C9DC540B2356FD4200CA7FE9 /* TookanHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TookanHelper.swift; sourceTree = "<group>"; };
-		C9DC540C2356FD4200CA7FE9 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C9DC540D2356FD4200CA7FE9 /* FuguUnique.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = FuguUnique.storyboard; sourceTree = "<group>"; };
 		C9DC540E2356FD4200CA7FE9 /* Montserrat-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-SemiBold.otf"; sourceTree = "<group>"; };
 		C9DC554223570B1100CA7FE9 /* MZFayeClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MZFayeClient.h; sourceTree = "<group>"; };
@@ -696,6 +696,22 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		C9A506F523572B6A00F5BE43 /* PublicClasses */ = {
+			isa = PBXGroup;
+			children = (
+				C9A506F823572DA400F5BE43 /* Model */,
+				C9A506F623572B8600F5BE43 /* HippoChat.swift */,
+			);
+			path = PublicClasses;
+			sourceTree = "<group>";
+		};
+		C9A506F823572DA400F5BE43 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		C9DC52702356FC4F00CA7FE9 /* HippoChat */ = {
 			isa = PBXGroup;
 			children = (
@@ -709,6 +725,7 @@
 		C9DC52862356FD4100CA7FE9 /* Hippo */ = {
 			isa = PBXGroup;
 			children = (
+				C9A506F523572B6A00F5BE43 /* PublicClasses */,
 				C9DC52872356FD4100CA7FE9 /* Wrappers */,
 				C9DC52B62356FD4100CA7FE9 /* UIView */,
 				C9DC53572356FD4200CA7FE9 /* Assets.xcassets */,
@@ -721,7 +738,6 @@
 				C9DC53BF2356FD4200CA7FE9 /* MavenPro-Bold.ttf */,
 				C9DC53C02356FD4200CA7FE9 /* ProximaNova-Regular.otf */,
 				C9DC53C12356FD4200CA7FE9 /* Helpers */,
-				C9DC540C2356FD4200CA7FE9 /* Info.plist */,
 				C9DC540D2356FD4200CA7FE9 /* FuguUnique.storyboard */,
 				C9DC540E2356FD4200CA7FE9 /* Montserrat-SemiBold.otf */,
 			);
@@ -770,7 +786,6 @@
 				C9DC52962356FD4100CA7FE9 /* CoreEnum.swift */,
 				C9DC52972356FD4100CA7FE9 /* CoreMediaSelector.swift */,
 				C9DC52982356FD4100CA7FE9 /* CoreKit.swift */,
-				C9DC52992356FD4100CA7FE9 /* Info.plist */,
 				C9DC529A2356FD4100CA7FE9 /* CoreFilesConfig.swift */,
 				C9DC529B2356FD4100CA7FE9 /* CoreLogger */,
 			);
@@ -2126,6 +2141,7 @@
 				C9DC550B2356FD4500CA7FE9 /* TagView.swift in Sources */,
 				C9DC54CF2356FD4400CA7FE9 /* FuguChannelTag.swift in Sources */,
 				C9DC555223570B1100CA7FE9 /* MZFayeClient.m in Sources */,
+				C9A506F723572B8600F5BE43 /* HippoChat.swift in Sources */,
 				C9DC54372356FD4300CA7FE9 /* QuickReplyButtonCollectionViewCell.swift in Sources */,
 				C9DC54E12356FD4500CA7FE9 /* HippoChecker.swift in Sources */,
 				C9DC55162356FD4500CA7FE9 /* Resource.swift in Sources */,

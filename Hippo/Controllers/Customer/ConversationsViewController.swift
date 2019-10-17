@@ -24,6 +24,7 @@ protocol NewChatSentDelegate: class {
     
     //MARK: Constants
     var createConversationOnStart = false
+    var hideBackButton: Bool = false
     
     // MARK: -  IBOutlets
     @IBOutlet weak var audioCAllButtonWidthConstraint: NSLayoutConstraint!
@@ -196,7 +197,7 @@ protocol NewChatSentDelegate: class {
          addFileButtonAction.setTitle("", for: .normal)
       } else { addFileButtonAction.setTitle("ADD", for: .normal) }
     
-    
+    handleBackButton()
 //      backButton.tintColor = HippoConfig.shared.theme.headerTextColor
 //      if HippoConfig.shared.theme.leftBarButtonText.count > 0 {
 //         backButton.setTitle((" " + HippoConfig.shared.theme.leftBarButtonText), for: .normal)
@@ -231,6 +232,10 @@ protocol NewChatSentDelegate: class {
 
    }
    
+    func handleBackButton() {
+        let hideBackButton = (directChatDetail?.hideBackButton ?? false) || self.hideBackButton
+        self.titleForNavigation?.setBackButton(hide: hideBackButton)
+    }
 // MARK: - UIButton Actions
     
     @IBAction func audiCallButtonClicked(_ sender: Any) {
