@@ -29,7 +29,6 @@ class HippoActionMessage: HippoMessage {
         
         if let content_value = dict["content_value"] as? [[String: Any]] {
             self.contentValues = content_value
-//            self.contentValues.append(contentsOf: customButtons)
             let selectedId = selectedBtnId.isEmpty ? nil : selectedBtnId
             let (buttons, selectedButton) = HippoActionButton.getArray(array: contentValues, selectedId: selectedId)
             tryToSetResponseMessage(selectedButton: selectedButton)
@@ -133,8 +132,8 @@ class HippoActionMessage: HippoMessage {
         let selectedId = selectedBtnId.isEmpty ? nil : selectedBtnId
         if !contentValues.isEmpty {
             contentValues.append(contentsOf: customButtons)
-//            let list = contentValues + customButtons
-            let (buttons, selectedButton) = HippoActionButton.getArray(array: contentValues, selectedId: selectedId)
+            let list = contentValues
+            let (buttons, selectedButton) = HippoActionButton.getArray(array: list, selectedId: selectedId)
             self.tryToSetResponseMessage(selectedButton: selectedButton)
             self.buttons = buttons
         }
