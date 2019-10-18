@@ -8,7 +8,7 @@
 import UIKit
 import Photos
 import QuickLook
-
+import SafariServices
 
 class HippoConversationViewController: UIViewController {
     //MARK: Constants
@@ -1227,11 +1227,20 @@ extension HippoConversationViewController: ActionTableViewDelegate {
                 case .videoCall:
 //                    self.showAlert(title: "", message: "Video call", actionComplete: nil)
                     self.startVideoCall()
+                case .openUrl:
+                    if let link = button.getUrlToOpen() {
+                        self.presentSafariViewcontorller(for: link)
+                    }
                 default:
                     break
                 }
             }
         }
+    }
+    func presentSafariViewcontorller(for url: URL) {
+        let safariVC = SFSafariViewController(url: url)
+        safariVC.navigationController?.setTheme()
+        self.navigationController?.pushViewController(safariVC, animated: true)
     }
 }
 extension HippoConversationViewController: CreatePaymentDelegate {

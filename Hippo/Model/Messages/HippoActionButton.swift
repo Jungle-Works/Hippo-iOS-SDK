@@ -20,12 +20,14 @@ enum BotButtonType: Int {
     case action = 2
 }
 class HippoActionButton {
+    static let defaultButtonActionJson: [String: Any] = ["link_url": "https://fb.com"]
+    
     var id: String
     var title: String = ""
     var isSelected: Bool = false
     var action: BotButtonAction?
     var buttonType: BotButtonType?
-    var buttonActionJson: [String: Any] = ["url": "https://fb.com"]
+    var buttonActionJson: [String: Any] = HippoActionButton.defaultButtonActionJson
     
     private var selectedColorHex: String = ""
     private var colorHex: String = ""
@@ -60,7 +62,7 @@ class HippoActionButton {
         if let action = Int.parse(values: json, key: "button_type") {
            self.buttonType = BotButtonType(rawValue: action)
         }
-        self.buttonActionJson = json["button_action_json"] as? [String: Any] ?? [:]
+        self.buttonActionJson = json["button_action_json"] as? [String: Any] ??  HippoActionButton.defaultButtonActionJson
         self.color = UIColor.clear //HippoConfig.shared.theme.headerBackgroundColor
         
 //        self.color = UIColor.hexStringToUIColor(hex: colorHex)
@@ -94,6 +96,12 @@ class HippoActionButton {
     
     func getJson() -> [String : Any] {
         return self.json
+    }
+    func getUrlToOpen() -> URL? {
+        guard let linkURL = buttonActionJson["link_url"] as? String, let url = URL(string: linkURL) else {
+            return nil
+        }
+        return url
     }
 }
 
