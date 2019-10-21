@@ -536,7 +536,8 @@ protocol NewChatSentDelegate: class {
     }
     func handleVideoIcon() {
         setTitleButton()
-        if canStartVideoCall() {
+        
+        if isDirectCallingEnabledFor(type: .video) {
             videoButton.image = HippoConfig.shared.theme.videoCallIcon
             videoButton.tintColor = HippoConfig.shared.theme.headerTextColor
             videoButton.isEnabled = true
@@ -549,7 +550,7 @@ protocol NewChatSentDelegate: class {
     }
     func handleAudioIcon() {
         setTitleButton()
-        if canStartAudioCall() {
+        if isDirectCallingEnabledFor(type: .audio) {
             audioCallButton.image = HippoConfig.shared.theme.audioCallIcon
             audioCallButton.tintColor = HippoConfig.shared.theme.headerTextColor
             audioCallButton.isEnabled = true
@@ -1283,7 +1284,7 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                         return cell
                     }
                     let peerName = channel?.chatDetail?.peerName ?? "   "
-                    let isCallingEnabled = isCallingEnabledFor(type: message.callType)
+                    let isCallingEnabled = isDirectCallingEnabledFor(type: message.callType)
                     cell.setCellWith(message: message, otherUserName: peerName, isCallingEnabled: isCallingEnabled)
                     cell.delegate = self
                     return cell
@@ -1293,7 +1294,7 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                         cell.backgroundColor = .clear
                         return cell
                     }
-                    let isCallingEnabled = isCallingEnabledFor(type: message.callType)
+                    let isCallingEnabled = isDirectCallingEnabledFor(type: message.callType)
                     cell.setCellWith(message: message, isCallingEnabled: isCallingEnabled)
                     cell.delegate = self
                     return cell

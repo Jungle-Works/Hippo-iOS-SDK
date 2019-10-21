@@ -190,6 +190,22 @@ enum NotificationType: Int {
             return false
         }
     }
+    var rejectOnActive: Bool {
+        let rejectionList: [NotificationType] = rejectNotifcationActiveChannelList()
+        return rejectionList.contains(self)
+    }
+    
+    func rejectNotifcationActiveChannelList() -> [NotificationType] {
+        let customerRejectionList: [NotificationType] = [.assigned, .tagged]
+        let agentRejectionList: [NotificationType] = []
+        switch HippoConfig.shared.appUserType {
+        case .agent:
+            return agentRejectionList
+        case .customer:
+            return customerRejectionList
+            
+        }
+    }
 }
 
 enum UserType: Int {

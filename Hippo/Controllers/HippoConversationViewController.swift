@@ -620,6 +620,28 @@ class HippoConversationViewController: UIViewController {
             return canStartAudioCall()
         }
     }
+    func isDirectCallingEnabledFor(type: CallType) -> Bool {
+        let callingDisableOnNavigationForCustomer: Bool = HippoProperty.current.hideCallIconOnNavigationForCustomer
+        switch type {
+        case .video:
+            let status = canStartVideoCall()
+            switch HippoConfig.shared.appUserType {
+            case .customer:
+                return status && !callingDisableOnNavigationForCustomer
+            default:
+                return status
+            }
+            
+        case .audio:
+            let status = canStartAudioCall()
+            switch HippoConfig.shared.appUserType {
+            case .customer:
+                return status && !callingDisableOnNavigationForCustomer
+            default:
+                return status
+            }
+        }
+    }
     
     func updateMessagesInLocalArrays(messages: [HippoMessage]) {
         

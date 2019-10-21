@@ -558,7 +558,10 @@ class HippoChannel {
     
     
     func messageReceived(message: HippoMessage) {
-        
+        if let notificationType = message.notification, notificationType.rejectOnActive {
+            HippoConfig.shared.log.debug("notification reject \(notificationType)", level: .custom)
+            return
+        }
         if message.isANotification() && canChangeStatusOfMessagesToReadAllIf(messageReceived: message) {
             updateAllMessagesStatusToRead()
         }
