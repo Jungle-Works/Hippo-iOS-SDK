@@ -18,7 +18,7 @@ class HippoProperty: NSObject {
     //Properties
     var showMessageSourceIcon: Bool = false
     private(set) var isPaymentRequestEnabled: Bool = false
-    var hideCallIconOnNavigationForCustomer: Bool = true
+    var hideCallIconOnNavigationForCustomer: Bool = false
     
     
     func updatePaymentRequestStatus(enable: Bool) {

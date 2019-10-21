@@ -494,7 +494,7 @@ class HippoConversationViewController: UIViewController {
             titleForNavigation = navigationView
         }
         if let chatType = channel?.chatDetail?.chatType, chatType == .other {
-            let title: String? = (channel?.chatDetail?.assignedAgentID ?? -1) > 0 ? channel?.chatDetail?.assignedAgentName : label
+            let title: String? = channel?.chatDetail?.channelName ?? label
              navigationView.setData(imageUrl: userImage, name: title)
         } else if labelId > 0, channel == nil {
              navigationView.setData(imageUrl: userImage, name: label)
