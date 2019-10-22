@@ -280,6 +280,8 @@ class HippoConversationViewController: UIViewController {
         tableViewChat.register(UINib(nibName: "OutgoingVideoTableViewCell", bundle: bundle), forCellReuseIdentifier: "OutgoingVideoTableViewCell")
         
         tableViewChat.register(UINib(nibName: "ActionTableView", bundle: bundle), forCellReuseIdentifier: "ActionTableView")
+        tableViewChat.register(UINib(nibName: "CardMessageTableViewCell", bundle: bundle), forCellReuseIdentifier: "CardMessageTableViewCell")
+        
         
     }
     

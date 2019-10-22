@@ -103,7 +103,7 @@ class MessageTableViewCell: UITableViewCell {
     
     func setNameAsTitle(_ name: String?) {
         if let parsedName = name {
-            self.senderImageView.setImage(string: parsedName, color: UIColor.lightGray, circular: true)
+            self.senderImageView.setTextInImage(string: parsedName, color: UIColor.lightGray, circular: true)
         } else {
             self.senderImageView.image = HippoConfig.shared.theme.placeHolderImage
         }

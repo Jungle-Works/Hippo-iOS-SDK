@@ -1168,6 +1168,7 @@ extension ConversationsViewController: UIScrollViewDelegate {
 // MARK: - UITableView Delegates
 extension ConversationsViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
+        
       if !isTypingLabelHidden {
          return self.messagesGroupedByDate.count + 1
       }
@@ -1354,6 +1355,12 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                 cell.delegate = self
                 cell.setCellData(message: actionMessage)
                 return cell
+            case .card:
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: "CardMessageTableViewCell", for: indexPath) as? CardMessageTableViewCell else {
+                    return UITableView.defaultCell()
+                }
+                cell.set(message: message)
+                return cell
             default:
                 return getNormalMessageTableViewCell(tableView: tableView, isOutgoingMessage: isOutgoingMsg, message: message, indexPath: indexPath)
             }
@@ -1436,6 +1443,8 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                     return message.cellDetail?.cellHeight ?? 0.01
                 case MessageType.call:
                     return UIView.tableAutoDimensionHeight
+                case .card:
+                    return 190
                 default:
                     return 0.01
                     
@@ -1457,6 +1466,8 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
             switch message.type {
             case .call:
                 return 85
+            case .card:
+                return 190
             default:
                 return self.tableView(tableView, heightForRowAt: indexPath)
             }

@@ -116,7 +116,7 @@ class NavigationTitleView: UIView {
     
     func setNameAsTitle(_ name: String?) {
         if let parsedName = name {
-            self.profileImageView.setImage(string: parsedName, color: UIColor.lightGray, circular: true)
+            self.profileImageView.setTextInImage(string: parsedName, color: UIColor.lightGray, circular: true)
         } else {
           self.profileImageView.image = HippoConfig.shared.theme.placeHolderImage
         }

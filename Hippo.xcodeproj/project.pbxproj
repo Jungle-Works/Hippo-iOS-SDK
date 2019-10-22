@@ -10,6 +10,13 @@
 		C92CD3E1235712B3006E5F40 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C92CD3E0235712B3006E5F40 /* UIKit.framework */; };
 		C980E30923589B17004433FF /* HippoCallClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C980E30523588E0D004433FF /* HippoCallClient.framework */; };
 		C9A506F723572B8600F5BE43 /* HippoChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A506F623572B8600F5BE43 /* HippoChat.swift */; };
+		C9B410E2235DAA240029799A /* MessageCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B410E1235DAA240029799A /* MessageCard.swift */; };
+		C9B410E6235DAD580029799A /* CardListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B410E4235DAD580029799A /* CardListCell.swift */; };
+		C9B410E7235DAD580029799A /* CardListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9B410E5235DAD580029799A /* CardListCell.xib */; };
+		C9B410EA235DB1E60029799A /* HippoImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B410E9235DB1E60029799A /* HippoImageView.swift */; };
+		C9B410EE235DB5B60029799A /* CardMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B410EC235DB5B60029799A /* CardMessageTableViewCell.swift */; };
+		C9B410EF235DB5B60029799A /* CardMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9B410ED235DB5B60029799A /* CardMessageTableViewCell.xib */; };
+		C9B410F1235DB6200029799A /* CardMessageTableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B410F0235DB6200029799A /* CardMessageTableDataSource.swift */; };
 		C9DC527F2356FC4F00CA7FE9 /* HippoChat.h in Headers */ = {isa = PBXBuildFile; fileRef = C9DC52712356FC4F00CA7FE9 /* HippoChat.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C9DC540F2356FD4200CA7FE9 /* ConversationPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DC52892356FD4100CA7FE9 /* ConversationPresenter.swift */; };
 		C9DC54102356FD4200CA7FE9 /* ConversationStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DC528A2356FD4100CA7FE9 /* ConversationStore.swift */; };
@@ -329,6 +336,13 @@
 		C92CD3E0235712B3006E5F40 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C980E30523588E0D004433FF /* HippoCallClient.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = HippoCallClient.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9A506F623572B8600F5BE43 /* HippoChat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HippoChat.swift; sourceTree = "<group>"; };
+		C9B410E1235DAA240029799A /* MessageCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCard.swift; sourceTree = "<group>"; };
+		C9B410E4235DAD580029799A /* CardListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardListCell.swift; sourceTree = "<group>"; };
+		C9B410E5235DAD580029799A /* CardListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CardListCell.xib; sourceTree = "<group>"; };
+		C9B410E9235DB1E60029799A /* HippoImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HippoImageView.swift; sourceTree = "<group>"; };
+		C9B410EC235DB5B60029799A /* CardMessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardMessageTableViewCell.swift; sourceTree = "<group>"; };
+		C9B410ED235DB5B60029799A /* CardMessageTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CardMessageTableViewCell.xib; sourceTree = "<group>"; };
+		C9B410F0235DB6200029799A /* CardMessageTableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardMessageTableDataSource.swift; sourceTree = "<group>"; };
 		C9DC526F2356FC4F00CA7FE9 /* HippoChat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HippoChat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9DC52712356FC4F00CA7FE9 /* HippoChat.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HippoChat.h; sourceTree = "<group>"; };
 		C9DC52722356FC4F00CA7FE9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -716,6 +730,33 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		C9B410E3235DAD300029799A /* CardListCell */ = {
+			isa = PBXGroup;
+			children = (
+				C9B410E4235DAD580029799A /* CardListCell.swift */,
+				C9B410E5235DAD580029799A /* CardListCell.xib */,
+			);
+			path = CardListCell;
+			sourceTree = "<group>";
+		};
+		C9B410E8235DB1C40029799A /* CustomClasses */ = {
+			isa = PBXGroup;
+			children = (
+				C9B410E9235DB1E60029799A /* HippoImageView.swift */,
+			);
+			path = CustomClasses;
+			sourceTree = "<group>";
+		};
+		C9B410EB235DB58C0029799A /* CardMessageTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				C9B410EC235DB5B60029799A /* CardMessageTableViewCell.swift */,
+				C9B410ED235DB5B60029799A /* CardMessageTableViewCell.xib */,
+				C9B410F0235DB6200029799A /* CardMessageTableDataSource.swift */,
+			);
+			path = CardMessageTableViewCell;
+			sourceTree = "<group>";
+		};
 		C9DC52702356FC4F00CA7FE9 /* HippoChat */ = {
 			isa = PBXGroup;
 			children = (
@@ -729,6 +770,7 @@
 		C9DC52862356FD4100CA7FE9 /* Hippo */ = {
 			isa = PBXGroup;
 			children = (
+				C9B410E8235DB1C40029799A /* CustomClasses */,
 				C9A506F523572B6A00F5BE43 /* PublicClasses */,
 				C9DC52872356FD4100CA7FE9 /* Wrappers */,
 				C9DC52B62356FD4100CA7FE9 /* UIView */,
@@ -862,6 +904,7 @@
 		C9DC52B72356FD4100CA7FE9 /* CollectionViewCells */ = {
 			isa = PBXGroup;
 			children = (
+				C9B410E3235DAD300029799A /* CardListCell */,
 				C9DC52B82356FD4100CA7FE9 /* AgentHomeCollectionViewCell */,
 				C9DC52BB2356FD4100CA7FE9 /* QuickReplyButtonCollectionViewCell */,
 				C9DC52BE2356FD4100CA7FE9 /* EmojiCollectionViewCell */,
@@ -926,6 +969,7 @@
 		C9DC52C82356FD4100CA7FE9 /* TableViewCell */ = {
 			isa = PBXGroup;
 			children = (
+				C9B410EB235DB58C0029799A /* CardMessageTableViewCell */,
 				C9DC52C92356FD4100CA7FE9 /* OutgoingImageCell */,
 				C9DC52CC2356FD4100CA7FE9 /* InAppCategoryCell */,
 				C9DC52CF2356FD4100CA7FE9 /* HippoActionMessage */,
@@ -1448,6 +1492,7 @@
 				C9DC53992356FD4200CA7FE9 /* HippoSupportList.swift */,
 				C9DC539A2356FD4200CA7FE9 /* HippoDescriptionContent.swift */,
 				C9DC539B2356FD4200CA7FE9 /* FuguUserDetail.swift */,
+				C9B410E1235DAA240029799A /* MessageCard.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1867,6 +1912,7 @@
 				C9DC54862356FD4400CA7FE9 /* ChatProfileTableViewCell.xib in Resources */,
 				C9DC55092356FD4500CA7FE9 /* typingImage.gif in Resources */,
 				C9DC54922356FD4400CA7FE9 /* BroadcastAgentCell.xib in Resources */,
+				C9B410E7235DAD580029799A /* CardListCell.xib in Resources */,
 				C9DC54672356FD4300CA7FE9 /* ButtonCollectionCell.xib in Resources */,
 				C9DC54392356FD4300CA7FE9 /* EmojiCollectionViewCell.xib in Resources */,
 				C9DC555323570B1100CA7FE9 /* README.md in Resources */,
@@ -1884,6 +1930,7 @@
 				C9DC544D2356FD4300CA7FE9 /* ContactNumberTableCell.xib in Resources */,
 				C9DC546D2356FD4300CA7FE9 /* SenderNameTableCell.xib in Resources */,
 				C9DC54482356FD4300CA7FE9 /* ActionLabelViewCell.xib in Resources */,
+				C9B410EF235DB5B60029799A /* CardMessageTableViewCell.xib in Resources */,
 				C9DC549A2356FD4400CA7FE9 /* BroadcastListTableViewCell.xib in Resources */,
 				C9DC54882356FD4400CA7FE9 /* OutgoingVideoCallMessageTableViewCell.xib in Resources */,
 				C9DC54FB2356FD4500CA7FE9 /* ProximaNova-Regular.otf in Resources */,
@@ -1941,6 +1988,7 @@
 				C9DC54F32356FD4500CA7FE9 /* AgentDirectViewController.swift in Sources */,
 				C9DC547B2356FD4400CA7FE9 /* OutgoingVideoTableViewCell.swift in Sources */,
 				C9DC54B32356FD4400CA7FE9 /* HippoActionButton.swift in Sources */,
+				C9B410EE235DB5B60029799A /* CardMessageTableViewCell.swift in Sources */,
 				C9DC54492356FD4300CA7FE9 /* ActionLabelViewCell.swift in Sources */,
 				C9DC551E2356FD4500CA7FE9 /* String+MD5.swift in Sources */,
 				C9DC54262356FD4300CA7FE9 /* Benchmarker.swift in Sources */,
@@ -2022,6 +2070,7 @@
 				C9DC55272356FD4500CA7FE9 /* IQPreviousNextView.swift in Sources */,
 				C9DC54F92356FD4500CA7FE9 /* ConversationsViewController.swift in Sources */,
 				C9DC54662356FD4300CA7FE9 /* ButtonCollectionCell.swift in Sources */,
+				C9B410E2235DAA240029799A /* MessageCard.swift in Sources */,
 				C9DC54DB2356FD4400CA7FE9 /* HippoSupportList.swift in Sources */,
 				C9DC54242356FD4300CA7FE9 /* LoggerConfig.swift in Sources */,
 				C9DC54592356FD4300CA7FE9 /* LeadTableViewCell.swift in Sources */,
@@ -2041,6 +2090,7 @@
 				C9DC541E2356FD4300CA7FE9 /* LoggerEnum.swift in Sources */,
 				C9DC552F2356FD4500CA7FE9 /* IQKeyboardManagerConstants.swift in Sources */,
 				C9DC54FC2356FD4500CA7FE9 /* UIImageView+Extension.swift in Sources */,
+				C9B410EA235DB1E60029799A /* HippoImageView.swift in Sources */,
 				C9DC54D02356FD4400CA7FE9 /* HippoConversation.swift in Sources */,
 				C9DC55112356FD4500CA7FE9 /* ImageView+Kingfisher.swift in Sources */,
 				C9DC54652356FD4300CA7FE9 /* ButtonTableViewCell.swift in Sources */,
@@ -2102,6 +2152,7 @@
 				C9DC544E2356FD4300CA7FE9 /* ContactNumberTableCell.swift in Sources */,
 				C9DC54832356FD4400CA7FE9 /* LeadDataTableViewCell.swift in Sources */,
 				C9DC54D92356FD4400CA7FE9 /* FuguAttributes.swift in Sources */,
+				C9B410E6235DAD580029799A /* CardListCell.swift in Sources */,
 				C9DC54F62356FD4500CA7FE9 /* ListDescriptionViewController.swift in Sources */,
 				C9DC541B2356FD4300CA7FE9 /* CoreKit.swift in Sources */,
 				C9DC54892356FD4400CA7FE9 /* VideoCallMessageTableViewCell.swift in Sources */,
@@ -2147,6 +2198,7 @@
 				C9A506F723572B8600F5BE43 /* HippoChat.swift in Sources */,
 				C9DC54372356FD4300CA7FE9 /* QuickReplyButtonCollectionViewCell.swift in Sources */,
 				C9DC54E12356FD4500CA7FE9 /* HippoChecker.swift in Sources */,
+				C9B410F1235DB6200029799A /* CardMessageTableDataSource.swift in Sources */,
 				C9DC55162356FD4500CA7FE9 /* Resource.swift in Sources */,
 				C9DC54CD2356FD4400CA7FE9 /* AgentUserChannel.swift in Sources */,
 				C9DC546C2356FD4300CA7FE9 /* SenderNameTableCell.swift in Sources */,

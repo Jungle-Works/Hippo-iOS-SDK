@@ -120,6 +120,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
     var aboveMessageType: MessageType?
 
     
+    var cards: [MessageCard]?
     //
     var isActive: Bool = true
     var isSkipBotEnabled: Bool = false
@@ -563,6 +564,8 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
             }
             arrayOfMessages.append(message)
         }
+        arrayOfMessages.append(MessageCard.generateMessage()!)
+        
         return (arrayOfMessages, messageHashMap)
     }
     
