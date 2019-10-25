@@ -555,14 +555,16 @@ func getLastVisibleController(ofParent parent: UIViewController? = nil) -> UIVie
 }
 
 func parseDeviceToken(deviceToken: Data) -> String? {
-    let tokenData = NSData(data: deviceToken)
-    let trimEnds = tokenData.description.trimmingCharacters(in: CharacterSet(charactersIn: "<>"))
-    let pushToken = trimEnds.replacingOccurrences(of: " ", with: "")
-    
-    guard !pushToken.isEmpty else {
-        return nil
-    }
-    return pushToken
+//    let tokenData = NSData(data: deviceToken)
+//    let trimEnds = tokenData.description.trimmingCharacters(in: CharacterSet(charactersIn: "<>"))
+//    let pushToken = trimEnds.replacingOccurrences(of: " ", with: "")
+//
+//    guard !pushToken.isEmpty else {
+//        return nil
+//    }
+//
+//    return pushToken
+    return deviceToken.reduce("", {$0 + String(format: "%02X", $1)})
 }
 
 func updateDeviceToken(deviceToken: String) {
