@@ -19,6 +19,8 @@ class HippoConversationViewController: UIViewController {
     // MARK: - PROPERTIES
     var processingRequestCount = 0
     var labelId = -11
+    var forceDisableReply: Bool = false
+    var forceHideActionButton: Bool = false
     var botGroupID: Int?
     
     var directChatDetail: FuguNewChatAttributes?
@@ -623,7 +625,7 @@ class HippoConversationViewController: UIViewController {
         }
     }
     func isDirectCallingEnabledFor(type: CallType) -> Bool {
-        let callingDisableOnNavigationForCustomer: Bool = HippoProperty.current.hideCallIconOnNavigationForCustomer
+        let callingDisableOnNavigationForCustomer: Bool = BussinessProperty.current.hideCallIconOnNavigationForCustomer
         switch type {
         case .video:
             let status = canStartVideoCall()

@@ -37,6 +37,15 @@ extension TokenManager {
 
 public class HippoChat {
     
+    public static var isSingleChatApp: Bool {
+        get {
+            return HippoProperty.current.singleChatApp
+        }
+        set {
+            HippoProperty.current.singleChatApp = newValue
+        }
+    }
+    
     public static func setUser(_ user: HippoUserDetail) {
         HippoConfig.shared.updateUserDetail(userDetail: user)
     }

@@ -317,13 +317,9 @@ public class UserTag: NSObject {
             }
             HippoConfig.shared.log.trace("User Login Data\(userDetailData)", level: .response)
             
-            BussinessProperty.current.isVideoCallEnabled = Bool.parse(key: "is_video_call_enabled", json: userDetailData)
-            BussinessProperty.current.isAudioCallEnabled = Bool.parse(key: "is_audio_call_enabled", json: userDetailData, defaultValue: false)
-            BussinessProperty.current.encodeToHTMLEntities = Bool.parse(key: "encode_to_html_entites", json: userDetailData)
-            BussinessProperty.current.botImageUrl = String.parse(values: userDetailData, key: "bot_image_url")
-
-            BussinessProperty.current.unsupportedMessageString = userDetailData["unsupported_message"] as? String ?? ""
-            BussinessProperty.current.maxUploadLimitForBusiness = userDetailData["max_file_size"] as? UInt ?? 10
+            
+            BussinessProperty.current.updateData(loginData: userDetailData)
+            
             
             if let in_app_support_panel_version = userDetailData["in_app_support_panel_version"] as? Int, in_app_support_panel_version > HippoSupportList.currentFAQVersion, isFaqEnabled {
                 HippoSupportList.getListForBusiness(completion: { (success, list) in

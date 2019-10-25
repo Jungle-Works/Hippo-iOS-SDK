@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		C92CD3E1235712B3006E5F40 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C92CD3E0235712B3006E5F40 /* UIKit.framework */; };
-		C980E30923589B17004433FF /* HippoCallClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C980E30523588E0D004433FF /* HippoCallClient.framework */; };
 		C9A506F723572B8600F5BE43 /* HippoChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A506F623572B8600F5BE43 /* HippoChat.swift */; };
 		C9B410E2235DAA240029799A /* MessageCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B410E1235DAA240029799A /* MessageCard.swift */; };
 		C9B410E6235DAD580029799A /* CardListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B410E4235DAD580029799A /* CardListCell.swift */; };
@@ -326,6 +325,7 @@
 		C9DC555623570B1200CA7FE9 /* SocketRocket.h in Headers */ = {isa = PBXBuildFile; fileRef = C9DC554B23570B1100CA7FE9 /* SocketRocket.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C9DC555723570B1200CA7FE9 /* SRWebSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = C9DC554C23570B1100CA7FE9 /* SRWebSocket.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C9DC555823570B1200CA7FE9 /* README.rst in Resources */ = {isa = PBXBuildFile; fileRef = C9DC554D23570B1100CA7FE9 /* README.rst */; };
+		C9E9E9FC23619E7F00914E27 /* AllConversationPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E9E9FB23619E7F00914E27 /* AllConversationPresenter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -655,6 +655,7 @@
 		C9DC554B23570B1100CA7FE9 /* SocketRocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketRocket.h; sourceTree = "<group>"; };
 		C9DC554C23570B1100CA7FE9 /* SRWebSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRWebSocket.h; sourceTree = "<group>"; };
 		C9DC554D23570B1100CA7FE9 /* README.rst */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.rst; sourceTree = "<group>"; };
+		C9E9E9FB23619E7F00914E27 /* AllConversationPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllConversationPresenter.swift; sourceTree = "<group>"; };
 		C9F6D48F21C8B71B00EA23E6 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		C9F6D49121C8B81100EA23E6 /* Hippo.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Hippo.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		E0E4A9E31B1EC7F72EC2F38D /* Pods_Fugu.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Fugu.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -665,7 +666,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C980E30923589B17004433FF /* HippoCallClient.framework in Frameworks */,
 				C92CD3E1235712B3006E5F40 /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -770,6 +770,7 @@
 		C9DC52862356FD4100CA7FE9 /* Hippo */ = {
 			isa = PBXGroup;
 			children = (
+				C9E9E9FA23619E5E00914E27 /* Internal Classes */,
 				C9B410E8235DB1C40029799A /* CustomClasses */,
 				C9A506F523572B6A00F5BE43 /* PublicClasses */,
 				C9DC52872356FD4100CA7FE9 /* Wrappers */,
@@ -1808,6 +1809,14 @@
 			path = SocketRocket;
 			sourceTree = "<group>";
 		};
+		C9E9E9FA23619E5E00914E27 /* Internal Classes */ = {
+			isa = PBXGroup;
+			children = (
+				C9E9E9FB23619E7F00914E27 /* AllConversationPresenter.swift */,
+			);
+			path = "Internal Classes";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -2069,6 +2078,7 @@
 				C9DC54432356FD4300CA7FE9 /* ActionTableDataSource.swift in Sources */,
 				C9DC55272356FD4500CA7FE9 /* IQPreviousNextView.swift in Sources */,
 				C9DC54F92356FD4500CA7FE9 /* ConversationsViewController.swift in Sources */,
+				C9E9E9FC23619E7F00914E27 /* AllConversationPresenter.swift in Sources */,
 				C9DC54662356FD4300CA7FE9 /* ButtonCollectionCell.swift in Sources */,
 				C9B410E2235DAA240029799A /* MessageCard.swift in Sources */,
 				C9DC54DB2356FD4400CA7FE9 /* HippoSupportList.swift in Sources */,
@@ -2336,7 +2346,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_BITCODE = NO;
+				ENABLE_BITCODE = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = HippoChat/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -2371,7 +2381,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_BITCODE = NO;
+				ENABLE_BITCODE = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = HippoChat/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";

@@ -30,7 +30,7 @@ class HippoHomeViewController: UIViewController {
     @objc func didSetUserChannel() { }
     func deleteConversation(channelId: Int) { }
     
-    func channelStatusChanged(channelId: Int, newStatus: ChannelStatus) {
+    func channelStatusChanged(channelId: Int, newStatus: ChatStatus) {
         fuguDelay(2) {
             self.deleteConversation(channelId: channelId)
         }

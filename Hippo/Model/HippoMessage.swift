@@ -281,11 +281,16 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         feedbackMessages = FeedbackMessage(json: dict)
         
         if let content_value = dict["content_value"] as? [[String: Any]] {
-            self.contentValues = content_value
-            content = MessageContent(param: content_value)
-            content.values = dict["values"] as? [String] ?? []//content.values
-            let forms = FormData.getArray(object: content)
-            leadsDataArray = forms
+            switch type {
+            case .card:
+                self.cards = MessageCard.parseList(cardsJson: content_value)
+            default:
+                self.contentValues = content_value
+                content = MessageContent(param: content_value)
+                content.values = dict["values"] as? [String] ?? []//content.values
+                let forms = FormData.getArray(object: content)
+                leadsDataArray = forms
+            }
         }
         
         super.init()
@@ -564,7 +569,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
             }
             arrayOfMessages.append(message)
         }
-        arrayOfMessages.append(MessageCard.generateMessage()!)
+//        arrayOfMessages.append(MessageCard.generateMessage()!)
         
         return (arrayOfMessages, messageHashMap)
     }

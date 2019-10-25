@@ -364,6 +364,10 @@ class HippoChannel {
         }
         params["grouping_tags"] = groupingTags
         
+        if HippoProperty.current.singleChatApp {
+            params["multi_channel_label_mapping_app"] = 1
+        }
+        
         return params
     }
     

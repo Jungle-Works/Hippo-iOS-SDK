@@ -83,6 +83,8 @@ struct UserDefaultkeys {
     static let currentFAQVersion = "HippoCurrentFAQVersion"
     static let countryInfo = "HippoCountryInfo"
     static let botImageUrl = "HippoBotImageUrl"
+    static let hideCallIconOnNavigationForCustomer = "HippoHideCallIconOnNavigationForCustomer"
+    static let multiChannelLabelMapping = "Hippo_Multiple_channel_Label_Mapping"
 }
 
 var FUGU_SCREEN_WIDTH: CGFloat {

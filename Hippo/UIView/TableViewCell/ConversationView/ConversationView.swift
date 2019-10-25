@@ -8,7 +8,6 @@
 
 import UIKit
 
-enum ChannelStatus: Int { case open = 1, close = 2 }
 
 class ConversationView : UITableViewCell {
     @IBOutlet weak var msgStatusWidthConstraint: NSLayoutConstraint!
@@ -76,7 +75,7 @@ extension ConversationView {
       var isOpened = true
       let channelStatus = conersationObj.channelStatus
       
-      if channelStatus == ChannelStatus.close,
+      if channelStatus == ChatStatus.close,
          let labelId = conersationObj.labelId,
          labelId < 0 {
          isOpened = false

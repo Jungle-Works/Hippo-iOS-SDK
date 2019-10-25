@@ -12,6 +12,10 @@ import MobileCoreServices
 extension String {
     
     static func parse(values: [String :Any], key: String, defaultValue: String = "") -> String {
+       
+        return parse(values: values, key: key) ?? defaultValue
+    }
+    static func parse(values: [String :Any], key: String) -> String? {
         if let rawKey = values[key] as? String {
             return rawKey
         } else if let rawKey = values[key] as? Int {
@@ -23,7 +27,7 @@ extension String {
         }  else if let rawKey = values[key] as? Double {
             return String(rawKey)
         }
-        return defaultValue
+        return nil
     }
     
     func stringByReplacingFirstOccurrenceOfString(target: String, withString replaceString: String) -> String {

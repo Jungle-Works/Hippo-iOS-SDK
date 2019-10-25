@@ -61,6 +61,10 @@ import UIKit
     open var addButtonIcon: UIImage? = UIImage(named: "addButtonIcon", in: FuguFlowManager.bundle, compatibleWith: nil)
     open var addBtnTintColor: UIColor?
     
+    open var actionButtonIcon: UIImage? = UIImage(named: "reopen_conversation_icon", in: FuguFlowManager.bundle, compatibleWith: nil)
+    open var actionButtonIconTintColor: UIColor?
+    
+    
     open var readMessageTick: UIImage? = UIImage(named: "readMsgTick", in: FuguFlowManager.bundle, compatibleWith: nil)
     open var readMessageTintColor: UIColor?
     

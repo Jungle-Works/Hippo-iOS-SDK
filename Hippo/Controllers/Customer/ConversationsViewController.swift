@@ -43,6 +43,7 @@ protocol NewChatSentDelegate: class {
    @IBOutlet var seperatorView: UIView!
    @IBOutlet weak var loaderView: So_UIImageView!
    
+    @IBOutlet weak var actionButton: UIBarButtonItem!
     @IBOutlet weak var audioCallButton: UIBarButtonItem!
     @IBOutlet weak var videoButton: UIBarButtonItem!
    @IBOutlet var textViewBottomConstraint: NSLayoutConstraint!
@@ -74,33 +75,34 @@ protocol NewChatSentDelegate: class {
     }
    
    // MARK: - LIFECYCLE
-   override func viewDidLoad() {
-      self.setTitleForCustomNavigationBar()
-      super.viewDidLoad()
-      addObserver()
-      setNavBarHeightAccordingtoSafeArea()
-      configureChatScreen()
-    
+    override func viewDidLoad() {
+        self.setTitleForCustomNavigationBar()
+        super.viewDidLoad()
+        addObserver()
+        setNavBarHeightAccordingtoSafeArea()
+        configureChatScreen()
+        setThemeForBusiness()
+        HippoConfig.shared.notifyDidLoad()
+        
         guard channel != nil else {
-        if createConversationOnStart {
-            startNewConversation(replyMessage: nil, completion: { [weak self] (success, result) in
-                guard success else {
-                    return
-                }
-                self?.populateTableViewWithChannelData()
-                self?.fetchMessagesFrom1stPage()
-            })
-        } else {
-            fetchMessagesFrom1stPage()
+            if createConversationOnStart {
+                startNewConversation(replyMessage: nil, completion: { [weak self] (success, result) in
+                    guard success else {
+                        return
+                    }
+                    self?.populateTableViewWithChannelData()
+                    self?.fetchMessagesFrom1stPage()
+                })
+            } else {
+                fetchMessagesFrom1stPage()
+            }
+            return
         }
-        return
-       }
-      
-      channel.delegate = self
-
-      populateTableViewWithChannelData()
-      fetchMessagesFrom1stPage()
-      HippoConfig.shared.notifyDidLoad()
+        
+        channel.delegate = self
+        
+        populateTableViewWithChannelData()
+        fetchMessagesFrom1stPage()
     }
     
    override  func viewWillAppear(_ animated: Bool) {
@@ -215,6 +217,7 @@ protocol NewChatSentDelegate: class {
     }
     @objc func putUserSuccess() {
         stopLoaderAnimation()
+        setThemeForBusiness()
         guard channel != nil else {
           if createConversationOnStart {
               startNewConversation(replyMessage: nil, completion: { [weak self] (success, result) in
@@ -241,6 +244,13 @@ protocol NewChatSentDelegate: class {
     }
 // MARK: - UIButton Actions
     
+    @IBAction func actionButtonClicked(_ sender: Any) {
+        let config = AllConversationsConfig(enabledChatStatus: [ChatStatus.close], title: "Conversation", shouldUseCache: false, shouldHandlePush: false, shouldPopVc: true, forceDisableReply: true, forceHideActionButton: true, isStaticRemoveConversation: true, lastChannelId: channel?.id)
+        guard let vc = AllConversationsViewController.get(config: config) else {
+            return
+        }
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
     @IBAction func audiCallButtonClicked(_ sender: Any) {
         startAudioCall()
     }
@@ -337,7 +347,14 @@ protocol NewChatSentDelegate: class {
    @IBAction func backButtonAction(_ sender: UIButton) {
        backButtonClicked()
    }
-    
+    func setThemeForBusiness() {
+        let isMultiChannelLabelMapping = BussinessProperty.current.multiChannelLabelMapping && !forceHideActionButton
+            
+        actionButton.title = nil
+        actionButton.image = isMultiChannelLabelMapping ? HippoConfig.shared.theme.actionButtonIcon : nil
+        actionButton.tintColor = HippoConfig.shared.theme.actionButtonIconTintColor
+        
+    }
    override func backButtonClicked() {
         super.backButtonClicked()
         messageTextView.resignFirstResponder()
@@ -387,6 +404,18 @@ protocol NewChatSentDelegate: class {
         self.channel?.isSendingDisabled = true
         self.textViewBottomConstraint.constant = -self.textViewBgView.frame.height
         self.textViewBgView.isHidden = true
+        DispatchQueue.main.async {
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+    func enableSendingReply() {
+        self.channel?.isSendingDisabled = false
+        self.textViewBottomConstraint.constant = self.textViewBgView.frame.height
+        self.textViewBgView.isHidden = false
+        DispatchQueue.main.async {
+            self.view.layoutIfNeeded()
+        }
     }
     func getLastMessage() -> HippoMessage? {
         
@@ -522,7 +551,7 @@ protocol NewChatSentDelegate: class {
         if request.pageStart > 1 {
             keepTableViewWhereItWasBeforeReload(oldContentHeight: contentHeightBeforeNewMessages, oldYOffset: contentOffsetBeforeNewMessages)
         }
-        if result.isSendingDisabled {
+        if result.isSendingDisabled || forceDisableReply {
             disableSendingReply()
         }
         if request.pageStart == 1, request.pageEnd == nil {
@@ -806,21 +835,26 @@ protocol NewChatSentDelegate: class {
         stopLoaderAnimation()
     }
    
-   func updateChatInfoWith(chatObj: FuguConversation) {
+    func updateChatInfoWith(chatObj: FuguConversation, allConversationConfig: AllConversationsConfig) {
       
       if let channelId = chatObj.channelId, channelId > 0 {
          self.channel = FuguChannelPersistancyManager.shared.getChannelBy(id: channelId)
+      } else {
+        self.labelId = chatObj.labelId ?? -1
       }
       channel?.chatDetail?.chatType = chatObj.chatType
-      self.labelId = chatObj.labelId ?? -1
+      
       self.label = chatObj.label ?? ""
       self.userImage = chatObj.channelImageUrl
+        
+      self.forceDisableReply = allConversationConfig.forceDisableReply
+      self.forceHideActionButton = allConversationConfig.forceHideActionButton
    }
    
    // MARK: - Type Methods
-   class func getWith(conversationObj: FuguConversation) -> ConversationsViewController {
+    class func getWith(conversationObj: FuguConversation, allConversationConfig: AllConversationsConfig) -> ConversationsViewController {
       let vc = getNewInstance()
-      vc.updateChatInfoWith(chatObj: conversationObj)
+        vc.updateChatInfoWith(chatObj: conversationObj, allConversationConfig: allConversationConfig)
       return vc
    }
    
@@ -884,7 +918,7 @@ extension ConversationsViewController {
         
         sendMessageButton.isEnabled = false
         
-        if channel != nil, channel.isSendingDisabled == true {
+        if (channel != nil && channel?.isSendingDisabled == true) || forceDisableReply {
             disableSendingReply()
         }
     }

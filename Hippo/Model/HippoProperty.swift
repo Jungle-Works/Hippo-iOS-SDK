@@ -14,12 +14,11 @@ class HippoProperty: NSObject {
     var forms: [FormData] = []
     var formCollectorTitle: String = ""
     var botGroupId: Int = -1
+    var singleChatApp: Bool = false
     
     //Properties
     var showMessageSourceIcon: Bool = false
-    private(set) var isPaymentRequestEnabled: Bool = false
-    var hideCallIconOnNavigationForCustomer: Bool = false
-    
+    private(set) var isPaymentRequestEnabled: Bool = false    
     
     func updatePaymentRequestStatus(enable: Bool) {
         isPaymentRequestEnabled = enable
@@ -32,6 +31,7 @@ class HippoProperty: NSObject {
     func shouldSendBotGroupId() -> Bool {
         return botGroupId > 0
     }
+    
 }
 
 

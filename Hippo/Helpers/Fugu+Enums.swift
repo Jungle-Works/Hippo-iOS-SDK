@@ -98,7 +98,7 @@ enum MessageType: Int {
         return typeHandled.contains(self)
     }
     var isBotMessage: Bool {
-        let botMessages: [MessageType] = [.leadForm, .quickReply, .botText, .consent]
+        let botMessages: [MessageType] = [.leadForm, .quickReply, .botText, .consent, .card]
         return botMessages.contains(self)
     }
 }

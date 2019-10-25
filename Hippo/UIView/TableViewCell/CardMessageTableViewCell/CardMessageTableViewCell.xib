@@ -36,7 +36,7 @@
                     <constraint firstAttribute="bottom" secondItem="1KN-uV-MIl" secondAttribute="bottom" constant="3" id="v6N-dU-3LE"/>
                 </constraints>
             </tableViewCellContentView>
-            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <color key="backgroundColor" systemColor="systemBrownColor" red="0.63529411759999999" green="0.51764705879999995" blue="0.36862745099999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="collectionView" destination="1KN-uV-MIl" id="9wd-5n-nih"/>
