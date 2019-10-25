@@ -111,6 +111,7 @@ import UIKit
     open var typingTextFont: UIFont? = UIFont.systemFont(ofSize: 15.0)
     open var typingTextColor = #colorLiteral(red: 0.1725490196, green: 0.137254902, blue: 0.2, alpha: 1)
     
+    open var chatbackgroundImage: UIImage?
     
     
     //MARK: Theme for broadCast

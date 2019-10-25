@@ -855,9 +855,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="O37-Wc-iDC">
+                                <rect key="frame" x="0.0" y="44" width="375" height="579"/>
+                            </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="interactive" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="qnv-or-clc">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="611"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TypingViewTableViewCell" id="wBs-yQ-I61" customClass="TypingViewTableViewCell" customModule="HippoChat" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
@@ -1082,10 +1085,14 @@
                             <constraint firstItem="3pN-rq-23Q" firstAttribute="top" secondItem="qnv-or-clc" secondAttribute="bottom" id="OC9-c9-sMa"/>
                             <constraint firstItem="85d-HF-bp8" firstAttribute="width" secondItem="ofr-Y0-GIn" secondAttribute="width" id="PYQ-iE-q1J"/>
                             <constraint firstItem="3pN-rq-23Q" firstAttribute="top" secondItem="i5f-Ma-L0R" secondAttribute="bottom" id="Rd1-sS-htC"/>
+                            <constraint firstItem="O37-Wc-iDC" firstAttribute="leading" secondItem="ofr-Y0-GIn" secondAttribute="leading" id="SaU-kH-Gez"/>
                             <constraint firstItem="85d-HF-bp8" firstAttribute="leading" secondItem="ofr-Y0-GIn" secondAttribute="leading" id="Sw2-08-4G4"/>
                             <constraint firstItem="3pN-rq-23Q" firstAttribute="leading" secondItem="ofr-Y0-GIn" secondAttribute="leading" id="U5Q-Xi-hdh"/>
+                            <constraint firstItem="O37-Wc-iDC" firstAttribute="top" secondItem="ijo-Dn-zBl" secondAttribute="bottom" id="XI6-Mx-TpR"/>
+                            <constraint firstItem="O37-Wc-iDC" firstAttribute="centerX" secondItem="ofr-Y0-GIn" secondAttribute="centerX" id="gyh-7j-vUb"/>
                             <constraint firstItem="Kox-UA-NRB" firstAttribute="leading" secondItem="ofr-Y0-GIn" secondAttribute="leading" id="hzA-zV-mzF"/>
                             <constraint firstItem="Kox-UA-NRB" firstAttribute="top" secondItem="ofr-Y0-GIn" secondAttribute="top" id="iEY-Dm-QBn"/>
+                            <constraint firstItem="O37-Wc-iDC" firstAttribute="centerY" secondItem="ofr-Y0-GIn" secondAttribute="centerY" id="kF8-Ry-uhX"/>
                             <constraint firstItem="qnv-or-clc" firstAttribute="leading" secondItem="ofr-Y0-GIn" secondAttribute="leading" id="kJ3-dP-Mz2"/>
                             <constraint firstAttribute="trailing" secondItem="Kox-UA-NRB" secondAttribute="trailing" id="u1C-Cs-wuU"/>
                             <constraint firstItem="qnv-or-clc" firstAttribute="top" secondItem="85d-HF-bp8" secondAttribute="bottom" id="xYe-2F-Nk5"/>
@@ -1117,6 +1124,7 @@
                         <outlet property="addFileButtonAction" destination="DWe-mS-Xbm" id="ciB-Hr-rYv"/>
                         <outlet property="audioCAllButtonWidthConstraint" destination="6Lm-CX-ZS7" id="K7g-aU-Scg"/>
                         <outlet property="audioCallButton" destination="3A0-f7-de1" id="02i-Qv-RRY"/>
+                        <outlet property="backgroundImageView" destination="O37-Wc-iDC" id="Mg7-S2-xhg"/>
                         <outlet property="backgroundView" destination="ofr-Y0-GIn" id="3BR-1r-dwm"/>
                         <outlet property="errorContentView" destination="85d-HF-bp8" id="KCD-yX-dOL"/>
                         <outlet property="errorLabel" destination="CuY-FO-VFT" id="xwM-4e-kUK"/>

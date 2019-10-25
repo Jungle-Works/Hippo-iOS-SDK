@@ -27,6 +27,7 @@ protocol NewChatSentDelegate: class {
     var hideBackButton: Bool = false
     
     // MARK: -  IBOutlets
+    @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var audioCAllButtonWidthConstraint: NSLayoutConstraint!
     @IBOutlet var backgroundView: UIView!
    @IBOutlet var navigationBackgroundView: UIView!
@@ -904,6 +905,10 @@ extension ConversationsViewController {
         configureFooterView()
         addTapGestureInTableView()
         
+        if HippoConfig.shared.theme.chatbackgroundImage != nil      {
+            tableViewChat.backgroundColor = .clear
+            backgroundImageView.image = HippoConfig.shared.theme.chatbackgroundImage
+        }
 //        self.messageTextView.textAlignment = .left
         self.messageTextView.font = HippoConfig.shared.theme.typingTextFont
         self.messageTextView.textColor = HippoConfig.shared.theme.typingTextColor

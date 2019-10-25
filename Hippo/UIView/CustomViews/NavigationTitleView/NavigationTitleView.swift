@@ -26,6 +26,8 @@ class NavigationTitleView: UIView {
     @IBOutlet weak var titleLabel: UILabel!
     
     
+    
+    
     weak var delegate: NavigationTitleViewDelegate?
     
     override func awakeFromNib() {
@@ -80,7 +82,9 @@ class NavigationTitleView: UIView {
         delegate?.titleClicked?()
     }
     @objc func imageClicked() {
-        delegate?.imageIconClicked?()
+        if backButton.isEnabled {
+            delegate?.imageIconClicked?()
+        }
     }
     
     func hideDescription() {
@@ -138,6 +142,7 @@ class NavigationTitleView: UIView {
     
     func setBackButton(hide: Bool) {
         backButton.isHidden = hide
+        backButton.isEnabled = !hide
     }
     
 }
