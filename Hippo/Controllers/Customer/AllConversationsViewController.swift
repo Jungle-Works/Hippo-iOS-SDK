@@ -231,7 +231,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
             }
             
             if result.conversations!.count == 0 {
-                self?.tableViewDefaultText = "No Conversaton found!!"
+                self?.tableViewDefaultText = "No Conversation found!!"
                 DispatchQueue.main.async {
                     self?.showConversationsTableView.reloadData()
                 }
@@ -247,7 +247,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
                 })
             }
             if conversation.isEmpty {
-                self?.tableViewDefaultText = "No Conversaton found!!"
+                self?.tableViewDefaultText = "No Conversation found!!"
             }
             self?.arrayOfConversation = conversation
             self?.showConversationsTableView.reloadData()

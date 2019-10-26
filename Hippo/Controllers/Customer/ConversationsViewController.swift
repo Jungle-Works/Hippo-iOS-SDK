@@ -789,7 +789,7 @@ protocol NewChatSentDelegate: class {
     }
     func shouldHitGetMessagesAfterCreateConversation() -> Bool {
         let formCount = channel?.messages.filter({ (h) -> Bool in
-            return h.type == MessageType.leadForm
+            return (h.type == MessageType.leadForm || h.type == .consent)
         }).count ?? 0
         
         let isFormPresent = formCount > 0 ? true : false
