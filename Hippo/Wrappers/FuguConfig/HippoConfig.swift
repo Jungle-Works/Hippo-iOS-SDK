@@ -506,12 +506,20 @@ struct SERVERS {
         guard let token = parseDeviceToken(deviceToken: deviceData) else {
             return
         }
+        guard TokenManager.voipToken != token else  {
+            log.debug("rejected", level: .custom)
+            return
+        }
         TokenManager.voipToken = token
         updateDeviceToken(deviceToken: token)
     }
     
     public func registerDeviceToken(deviceToken: Data) {
         guard let token = parseDeviceToken(deviceToken: deviceToken) else {
+            return
+        }
+        guard TokenManager.deviceToken != token else  {
+            log.debug("rejected", level: .custom)
             return
         }
         TokenManager.deviceToken = token

@@ -326,6 +326,8 @@
 		C9DC555723570B1200CA7FE9 /* SRWebSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = C9DC554C23570B1100CA7FE9 /* SRWebSocket.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C9DC555823570B1200CA7FE9 /* README.rst in Resources */ = {isa = PBXBuildFile; fileRef = C9DC554D23570B1100CA7FE9 /* README.rst */; };
 		C9E9E9FC23619E7F00914E27 /* AllConversationPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E9E9FB23619E7F00914E27 /* AllConversationPresenter.swift */; };
+		C9FAF60C23681AC90089DBFC /* InformationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9FAF60B23681AC90089DBFC /* InformationView.xib */; };
+		C9FAF60E23681AE20089DBFC /* InformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FAF60D23681AE20089DBFC /* InformationView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -658,6 +660,8 @@
 		C9E9E9FB23619E7F00914E27 /* AllConversationPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllConversationPresenter.swift; sourceTree = "<group>"; };
 		C9F6D48F21C8B71B00EA23E6 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		C9F6D49121C8B81100EA23E6 /* Hippo.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Hippo.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		C9FAF60B23681AC90089DBFC /* InformationView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InformationView.xib; sourceTree = "<group>"; };
+		C9FAF60D23681AE20089DBFC /* InformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationView.swift; sourceTree = "<group>"; };
 		E0E4A9E31B1EC7F72EC2F38D /* Pods_Fugu.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Fugu.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -1812,9 +1816,27 @@
 		C9E9E9FA23619E5E00914E27 /* Internal Classes */ = {
 			isa = PBXGroup;
 			children = (
+				C9FAF60923681A6A0089DBFC /* Views */,
 				C9E9E9FB23619E7F00914E27 /* AllConversationPresenter.swift */,
 			);
 			path = "Internal Classes";
+			sourceTree = "<group>";
+		};
+		C9FAF60923681A6A0089DBFC /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				C9FAF60A23681A7E0089DBFC /* InformationView */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		C9FAF60A23681A7E0089DBFC /* InformationView */ = {
+			isa = PBXGroup;
+			children = (
+				C9FAF60B23681AC90089DBFC /* InformationView.xib */,
+				C9FAF60D23681AE20089DBFC /* InformationView.swift */,
+			);
+			path = InformationView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1955,6 +1977,7 @@
 				C9DC549D2356FD4400CA7FE9 /* FeedbackTableViewCell.xib in Resources */,
 				C9DC55302356FD4500CA7FE9 /* IQKeyboardManager.bundle in Resources */,
 				C9DC544F2356FD4300CA7FE9 /* IncomingImageCell.xib in Resources */,
+				C9FAF60C23681AC90089DBFC /* InformationView.xib in Resources */,
 				C9DC543F2356FD4300CA7FE9 /* OutgoingImageCell.xib in Resources */,
 				C9DC54602356FD4300CA7FE9 /* SupportMessageTableViewCell.xib in Resources */,
 				C9DC54792356FD4300CA7FE9 /* IncomingVideoTableViewCell.xib in Resources */,
@@ -2194,6 +2217,7 @@
 				C9DC54E62356FD4500CA7FE9 /* BroadcastDetailViewController.swift in Sources */,
 				C9DC541D2356FD4300CA7FE9 /* CoreFilesConfig.swift in Sources */,
 				C9DC54B92356FD4400CA7FE9 /* BroadcastInfo.swift in Sources */,
+				C9FAF60E23681AE20089DBFC /* InformationView.swift in Sources */,
 				C9DC54982356FD4400CA7FE9 /* BroadCastTextFieldCell.swift in Sources */,
 				C9DC54A52356FD4400CA7FE9 /* UIImage+Gif.swift in Sources */,
 				C9DC552D2356FD4500CA7FE9 /* HippoKeyboardManager.swift in Sources */,

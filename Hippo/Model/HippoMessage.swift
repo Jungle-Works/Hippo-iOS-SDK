@@ -121,6 +121,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
 
     
     var cards: [MessageCard]?
+    var selectedAgentId: String?
     //
     var isActive: Bool = true
     var isSkipBotEnabled: Bool = false
@@ -283,7 +284,9 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         if let content_value = dict["content_value"] as? [[String: Any]] {
             switch type {
             case .card:
+                self.selectedAgentId = String.parse(values: dict, key: "selected_agent_id")
                 self.cards = MessageCard.parseList(cardsJson: content_value)
+                
             default:
                 self.contentValues = content_value
                 content = MessageContent(param: content_value)
@@ -436,6 +439,17 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         let notificationType = notification ?? .message
         if let rideDetail = RideDetail.current, let time = rideDetail.getRemaningTime(), typingStatus == .messageRecieved, notificationType == .message  {
             json["estimated_inride_secs"] = time
+        }
+        switch type {
+        case .card:
+            json["content_value"] = contentValues
+            json["user_id"] = currentUserId()
+            
+            if let selectedAgentId = self.selectedAgentId {
+                json["selected_agent_id"] = selectedAgentId
+            }
+        default:
+            break
         }
         if type == .feedback {
             json["is_rating_given"] = self.is_rating_given.intValue()

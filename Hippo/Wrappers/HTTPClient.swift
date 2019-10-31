@@ -290,6 +290,7 @@ class HTTPClient {
                         statusCode = httpUrlResponce.statusCode
                     }
                     
+                    HippoConfig.shared.log.error("API RESPONSE: ---url: \(urlResponse?.url?.absoluteString ?? "NO URL"), ---data: \(data?.count ?? -1) ---Error: \(error?.localizedDescription ?? "no error")", level: .custom)
                     let message: String = responseObject?["message"] as? String ?? ""
                     switch statusCode {
                     case 200..<300:

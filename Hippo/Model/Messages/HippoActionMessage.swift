@@ -89,8 +89,8 @@ class HippoActionMessage: HippoMessage {
             } else {
                 remaningWidth = widthRemaningAfterInsertion
             }
-            let message = "===\(each.title)--w=\(w)--widthRemaningAfterInsertion=\(widthRemaningAfterInsertion)--b=\(buttonCount)--remaning=\(remaningWidth) \n"
-            HippoConfig.shared.log.debug(message, level: .custom)
+//            let message = "===\(each.title)--w=\(w)--widthRemaningAfterInsertion=\(widthRemaningAfterInsertion)--b=\(buttonCount)--remaning=\(remaningWidth) \n"
+//            HippoConfig.shared.log.debug(message, level: .custom)
 
         }
         

@@ -213,12 +213,16 @@ protocol NewChatSentDelegate: class {
         self.titleForNavigation?.setBackButton(hide: hideBackButton)
     }
     func addObserver() {
+        guard HippoUserDetail.fuguEnUserID == nil else {
+            return
+        }
         NotificationCenter.default.addObserver(self, selector: #selector(putUserSuccess), name: .putUserSuccess, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(putUserFail), name: .putUserFailure, object: nil)
     }
     @objc func putUserSuccess() {
         stopLoaderAnimation()
         setThemeForBusiness()
+        
         guard channel != nil else {
           if createConversationOnStart {
               startNewConversation(replyMessage: nil, completion: { [weak self] (success, result) in
@@ -908,6 +912,7 @@ extension ConversationsViewController {
         if HippoConfig.shared.theme.chatbackgroundImage != nil      {
             tableViewChat.backgroundColor = .clear
             backgroundImageView.image = HippoConfig.shared.theme.chatbackgroundImage
+            backgroundImageView.contentMode = .scaleToFill
         }
 //        self.messageTextView.textAlignment = .left
         self.messageTextView.font = HippoConfig.shared.theme.typingTextFont
@@ -1398,6 +1403,7 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "CardMessageTableViewCell", for: indexPath) as? CardMessageTableViewCell else {
                     return UITableView.defaultCell()
                 }
+                cell.delegate = self
                 cell.set(message: message)
                 return cell
             default:
@@ -1483,7 +1489,7 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                 case MessageType.call:
                     return UIView.tableAutoDimensionHeight
                 case .card:
-                    return 190
+                    return 230
                 default:
                     return 0.01
                     

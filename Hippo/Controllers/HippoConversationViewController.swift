@@ -1308,3 +1308,10 @@ extension HippoConversationViewController: NavigationTitleViewDelegate {
         self.backButtonClicked()
     }
 }
+extension HippoConversationViewController: CardMessageDelegate {
+    func cardSelected(cell: CardMessageTableViewCell, card: MessageCard, message: HippoMessage) {
+        message.selectedAgentId = card.id
+        sendMessage(message: message)
+        cell.set(message: message)
+    }
+}

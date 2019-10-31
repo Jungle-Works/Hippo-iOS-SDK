@@ -68,13 +68,13 @@ class MessageSender {
             return
         }
         
-        guard (message.status == .none || message.type == .feedback || message.type == .consent ) && !message.isDeleted else {
+        guard (message.status == .none || message.type == .feedback || message.type == .consent || message.type == .card) && !message.isDeleted else {
             messagesToBeSent.removeFirst()
             startSending()
             return
         }
         
-        guard (!message.isMessageExpired() && message.isSentByMe()) || message.type == .feedback || message.type == .consent else {
+        guard (!message.isMessageExpired() && message.isSentByMe()) || message.type == .feedback || message.type == .consent || message.type == .card else {
             invalidateCurrentMessageWhichIsBeingSent()
             self.isSendingMessages = true
             startSending()
@@ -109,6 +109,7 @@ class MessageSender {
                 }
                 self?.messagesToBeSent.removeFirst()
                 self?.startSending()
+                HippoConfig.shared.log.debug("-->\(self?.channelID.description ?? "no channel id") == messageSent == \(messageJSON) ", level: .socket)
             } else {
                 guard let errorType = result.error?.error else {
                     self?.retryWithDelay()

@@ -25,6 +25,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     
     // MARK: - PROPERTIES
     let refreshControl = UIRefreshControl()
+    var informationView: InformationView?
     
     var tableViewDefaultText: String = "Loading ..."
     let urlForFuguChat = "https://fuguchat.com/"
@@ -247,7 +248,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
                 })
             }
             if conversation.isEmpty {
-                self?.tableViewDefaultText = "No Conversation found!!"
+                self?.addInformationView()
             }
             self?.arrayOfConversation = conversation
             self?.showConversationsTableView.reloadData()
@@ -267,6 +268,13 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         self.updateErrorLabelView(isHiding: false)
         self.errorLabel.text = message
         self.updateErrorLabelView(isHiding: true)
+    }
+    func addInformationView() {
+        if informationView == nil {
+            informationView = InformationView.loadView(self.view.bounds, delegate: self)
+        }
+        self.showConversationsTableView.isHidden = true
+        self.view.addSubview(informationView!)
     }
     
     // MARK: - HELPER
@@ -558,4 +566,7 @@ struct AllConversationsConfig {
         }
         return list
     }
+}
+extension AllConversationsViewController: InformationViewDelegate {
+    
 }
