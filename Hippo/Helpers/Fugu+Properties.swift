@@ -11,8 +11,8 @@ import Foundation
 let HippoSDKSource = 1
 let Device_Type_iOS = 2
 var userDetailData = [String: Any]()
-let fuguAppVersion = "1.8.0"
-let versionCode = 240
+let fuguAppVersion = "1.8.1"
+let versionCode = 241
 
 /*
  201 = Bot messages
@@ -54,4 +54,5 @@ let versionCode = 240
  235 *** 1.7.51 = added @objcMembers to HippoConfig
  
  240 *** 1.8.0 = handled device token generation, merchant chat changes
+ 241 *** 1.8.1 = borderWithIssue fixed
  */
