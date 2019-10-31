@@ -19,6 +19,7 @@ import UIKit
 class TagListView: UIView {
     
     var maxWidthPerecentage: CGFloat = 0.7
+    var buttonBorderWidth: CGFloat = 0
     
     @IBInspectable  dynamic var textColor: UIColor = UIColor.white {
         didSet {
@@ -78,7 +79,7 @@ class TagListView: UIView {
     @IBInspectable  dynamic var borderWidt: CGFloat = 0 {
         didSet {
             for tagView in tagViews {
-                tagView.hippoBorderWidth = hippoBorderWidth
+                tagView.hippoBorderWidth = buttonBorderWidth
             }
         }
     }
@@ -308,7 +309,7 @@ class TagListView: UIView {
         tagView.selectedBackgroundColor = tagSelectedBackgroundColor
         tagView.titleLineBreakMode = tagLineBreakMode
         tagView.cornerRadiu = 10//cornerRadius
-        tagView.hippoBorderWidth = hippoBorderWidth
+        tagView.hippoBorderWidth = buttonBorderWidth//hippoBorderWidth
         tagView.hippoBorderColor = borderColo
         tagView.selectedBorderColor = selectedBorderColor
         tagView.paddingX = paddingX
@@ -349,8 +350,8 @@ class TagListView: UIView {
         tagView.highlightedBackgroundColor = tagHighlightedBackgroundColor
         tagView.selectedBackgroundColor = tagSelectedBackgroundColor
         tagView.titleLineBreakMode = tagLineBreakMode
-        tagView.cornerRadiu = 6//cornerRadius 
-        tagView.hippoBorderWidth = hippoBorderWidth
+        tagView.cornerRadiu = 6//cornerRadius
+        tagView.hippoBorderWidth = buttonBorderWidth//hippoBorderWidth
         tagView.hippoBorderColor = hippoBorderColor
         tagView.selectedBorderColor = selectedBorderColor
         tagView.paddingX = paddingX

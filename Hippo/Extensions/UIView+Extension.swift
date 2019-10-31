@@ -117,7 +117,9 @@ extension TagListView {
         borderColo = HippoConfig.shared.appUserType == .customer ? HippoConfig.shared.theme.botTextAndBorderColor : UIColor.lightGray
         paddingY = 10
         paddingX = 20
-        hippoBorderWidth = 1
+        hippoBorderWidth = 0
+        borderWidt = 1
+        buttonBorderWidth = 1
         textColor = HippoConfig.shared.appUserType == .customer ? HippoConfig.shared.theme.botTextAndBorderColor : UIColor.lightGray
         selectedTextColor = HippoConfig.shared.appUserType == .customer ? HippoConfig.shared.theme.botTextAndBorderColor : UIColor.lightGray
         textFont = HippoConfig.shared.theme.incomingMsgFont
