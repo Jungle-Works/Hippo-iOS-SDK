@@ -122,6 +122,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
     
     var cards: [MessageCard]?
     var selectedAgentId: String?
+    var selectedCard: MessageCard?
     //
     var isActive: Bool = true
     var isSkipBotEnabled: Bool = false
@@ -285,7 +286,9 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
             switch type {
             case .card:
                 self.selectedAgentId = String.parse(values: dict, key: "selected_agent_id")
-                self.cards = MessageCard.parseList(cardsJson: content_value)
+                let (cards, selectedCard) = MessageCard.parseList(cardsJson: content_value, selectedCardID: selectedAgentId)
+                self.cards = cards
+                self.selectedCard = selectedCard
                 
             default:
                 self.contentValues = content_value

@@ -37,7 +37,7 @@ extension CardListCell {
     func set(card: MessageCard) {
         
 //        descriptionLabel.isHidden = card.description.isEmpty
-        descriptionLabel.text = "Unable to satisfy constraints.Probably at least one of the constraints in the following list is one you don't want"//card.description
+        descriptionLabel.text = card.description
         
         titleLabel.text = card.title
         let placeholder: UIImage? = UIImage(named: "placeholderImg", in: FuguFlowManager.bundle, compatibleWith: nil)

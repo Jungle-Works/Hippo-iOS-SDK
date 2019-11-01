@@ -26,7 +26,7 @@ struct MessageCard {
             self.image = nil
         }
         self.title = String.parse(values: json, key: "title")
-        self.description = String.parse(values: json, key: "desc")
+        self.description = String.parse(values: json, key: "description")
         
         self.id = String.parse(values: json, key: "id")
     }
@@ -41,6 +41,23 @@ struct MessageCard {
         }
         return cards
     }
+    
+    static func parseList(cardsJson: [[String: Any]], selectedCardID: String?) -> ([MessageCard], MessageCard?) {
+        var cards: [MessageCard] = []
+        var selectedCard: MessageCard?
+        
+        for card in cardsJson {
+            guard let c = MessageCard(json: card) else {
+                continue
+            }
+            if c.id == selectedCardID {
+                selectedCard = c
+            }
+            cards.append(c)
+        }
+        return (cards, selectedCard)
+    }
+    
     static func generateMessage() -> HippoMessage? {
         let message = HippoMessage(message: "", type: .card, chatType: .other)
         message.cards = MessageCard.getMockData()

@@ -1634,7 +1634,7 @@ func getHeighOfButtonCollectionView(actionableMessage: FuguActionableMessage) ->
         let chatMessageObject = chatObject
         var cellHeight = CGFloat(0)
         let bottomSpace = CGFloat(15)
-        let marginBetweenHeaderAndDescription = CGFloat(1.5)
+        let marginBetweenHeaderAndDescription = CGFloat(3)
         let margin = CGFloat(5)
         
         
@@ -1673,22 +1673,30 @@ func getHeighOfButtonCollectionView(actionableMessage: FuguActionableMessage) ->
         cellHeight += collectionViewHeight
         
         if chatMessageObject.actionableMessage?.descriptionArray != nil, (chatMessageObject.actionableMessage?.descriptionArray.count)! > 0 {
+            let itemWidthConstant = (FUGU_SCREEN_WIDTH - actionableMessageRightMargin - 10 - 10 - 10 - 10 - 10) / 2
+            
             
             for info in (chatMessageObject.actionableMessage?.descriptionArray)! {
                 if let messageInfo = info as? [String: Any] {
                     if let priceText = messageInfo["content"] as? String {
                         
-                        let heightOFPriceLabel = priceText.height(withConstrainedWidth: (FUGU_SCREEN_WIDTH - actionableMessageRightMargin - 20 ), font: priceFont!)
+                        let heightOFPriceLabel = priceText.height(withConstrainedWidth: itemWidthConstant , font: priceFont!)
                         
-                        let widthOfPriceLabel = priceText.width(withConstraintedHeight: heightOFPriceLabel, font: priceFont!)
+//                        let widthOfPriceLabel = priceText.width(withConstraintedHeight: heightOFPriceLabel, font: priceFont!)
                         
-                        if let priceText = messageInfo["header"] as? String {
-                            let heightOfContent = priceText.height(withConstrainedWidth: (FUGU_SCREEN_WIDTH - actionableMessageRightMargin - 10 - widthOfPriceLabel), font: descriptionFont!) + marginBetweenHeaderAndDescription + (margin)
-                            cellHeight += heightOfContent
+                        if let headerText = messageInfo["header"] as? String {
+                            let heightOfContent = headerText.height(withConstrainedWidth: (itemWidthConstant), font: descriptionFont!)
+                            cellHeight += max(heightOfContent, heightOFPriceLabel)
+                            cellHeight += marginBetweenHeaderAndDescription + margin
+                             print("$$$$$$$---\(max(heightOfContent, heightOFPriceLabel))")
+                        } else {
+                            print("$$$$$$$---2")
                         }
                         
                         
                         
+                    } else {
+                    print("$$$$$$$")
                     }
                 }
             }
