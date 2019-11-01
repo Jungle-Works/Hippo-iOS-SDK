@@ -97,6 +97,7 @@ enum MessageType: Int {
         let typeHandled = HippoConfig.shared.appUserType == .agent ? agentHandledMessages : customerHandledMessages
         return typeHandled.contains(self)
     }
+    
     var isBotMessage: Bool {
         let botMessages: [MessageType] = [.leadForm, .quickReply, .botText, .consent, .card]
         return botMessages.contains(self)

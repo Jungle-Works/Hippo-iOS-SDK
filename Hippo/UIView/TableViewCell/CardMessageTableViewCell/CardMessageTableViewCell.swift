@@ -65,7 +65,7 @@ extension CardMessageTableViewCell {
     func set(message: HippoMessage) {
         self.message = message
         
-        let selectedAgentId = ( message.selectedAgentId ?? "").trimWhiteSpacesAndNewLine()
+        let selectedAgentId = (message.selectedAgentId ?? "").trimWhiteSpacesAndNewLine()
         collectionView.allowsSelection = selectedAgentId.isEmpty
         setDataSource(with: getCards())
     }

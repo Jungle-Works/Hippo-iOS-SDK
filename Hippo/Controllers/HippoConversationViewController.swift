@@ -687,12 +687,12 @@ class HippoConversationViewController: UIViewController {
     func setDataFor(belowMessage: HippoMessage?, aboveMessage: HippoMessage?) {
         aboveMessage?.belowMessageMuid = belowMessage?.messageUniqueID
         aboveMessage?.belowMessageUserId = belowMessage?.senderId
+        aboveMessage?.belowMessageType = belowMessage?.type
         
         belowMessage?.aboveMessageMuid = aboveMessage?.messageUniqueID
         belowMessage?.aboveMessageUserId = aboveMessage?.senderId
         belowMessage?.aboveMessageType = aboveMessage?.type
-        
-        
+    
         aboveMessage?.messageRefresed?()
     }
     

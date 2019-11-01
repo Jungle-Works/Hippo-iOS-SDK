@@ -42,6 +42,9 @@ public class HippoStrings {
     var inputDataIsInvalid = "Input data is invalid"
     var notAllowedForAgent = "This function/method is not allowed for agent."
     
+    var defaultFallbackText = "This message cannot be displayed"
+    var chatHistory = "Conversations"
+    
     public init() {
         
     }

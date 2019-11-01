@@ -64,9 +64,9 @@ class MessageTableViewCell: UITableViewCell {
         }
         showSenderImageView()
         
-        let isMessageAllowedForImage = message.type == .consent
+        let isMessageAllowedForImage = message.type == .consent  || message.belowMessageType == .card
         
-        if message.belowMessageUserId == message.senderId && !isMessageAllowedForImage {
+        if (message.belowMessageUserId == message.senderId && !isMessageAllowedForImage) {
             unsetImageInSender()
         } else if let senderImage = message.senderImage, let url = URL(string: senderImage) {
             setImageInSenderView(imageURL: url)
@@ -93,6 +93,7 @@ class MessageTableViewCell: UITableViewCell {
     }
     
     func setImageInSenderView(imageURL: URL?) {
+        senderImageView.contentMode = .scaleToFill
         senderImageView.kf.setImage(with: imageURL, placeholder: HippoConfig.shared.theme.placeHolderImage,  completionHandler: {(_, error, _, _) in
             guard let parsedError = error else {
                 return

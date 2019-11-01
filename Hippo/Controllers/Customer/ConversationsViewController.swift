@@ -250,11 +250,7 @@ protocol NewChatSentDelegate: class {
 // MARK: - UIButton Actions
     
     @IBAction func actionButtonClicked(_ sender: Any) {
-        let config = AllConversationsConfig(enabledChatStatus: [ChatStatus.close], title: "Conversation", shouldUseCache: false, shouldHandlePush: false, shouldPopVc: true, forceDisableReply: true, forceHideActionButton: true, isStaticRemoveConversation: true, lastChannelId: channel?.id)
-        guard let vc = AllConversationsViewController.get(config: config) else {
-            return
-        }
-        self.navigationController?.pushViewController(vc, animated: true)
+        presentActionsForCustomer(sender: self.view)
     }
     @IBAction func audiCallButtonClicked(_ sender: Any) {
         startAudioCall()
@@ -1144,7 +1140,7 @@ extension ConversationsViewController {
     func expectedHeight(OfMessageObject chatMessageObject: HippoMessage) -> CGFloat {
         let isProfileImageEnabled: Bool = channel?.chatDetail?.chatType.isImageViewAllowed ?? (labelId > 0)
         
-        let isOutgoingMsg = isSentByMe(senderId: chatMessageObject.senderId)
+        let isOutgoingMsg = isSentByMe(senderId: chatMessageObject.senderId) && chatMessageObject.type != .card
         
         var availableWidthSpace = FUGU_SCREEN_WIDTH - CGFloat(60 + 10) - CGFloat(10 + 5) - 1
         availableWidthSpace -= (isProfileImageEnabled && !isOutgoingMsg) ? 35 : 0
@@ -1252,9 +1248,9 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
          if messagesArray.count > indexPath.row {
             let message = messagesArray[indexPath.row]
             let messageType = message.type
-            let isOutgoingMsg = isSentByMe(senderId: message.senderId)
+            let isOutgoingMsg = isSentByMe(senderId: message.senderId) && messageType != .card
             
-            guard messageType.isMessageTypeHandled() else {
+            guard messageType.isMessageTypeHandled() && !message.isInValidMessage() else {
                 return getNormalMessageTableViewCell(tableView: tableView, isOutgoingMessage: isOutgoingMsg, message: message, indexPath: indexPath)
             }
             
@@ -1435,7 +1431,7 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                 let message = messagesArray[indexPath.row]
                 let messageType = message.type
                 
-                guard messageType.isMessageTypeHandled() else {
+                guard messageType.isMessageTypeHandled() && !message.isInValidMessage() else {
                     var rowHeight = expectedHeight(OfMessageObject: message)
                     
                     rowHeight += returnRetryCancelButtonHeight(chatMessageObject: message)
@@ -2181,5 +2177,48 @@ extension ConversationsViewController: FeedbackTableViewCellDelegate {
         tableViewChat.beginUpdates()
         tableViewChat.cellForRow(at: data.indexPath!)?.updateConstraintsIfNeeded()
         tableViewChat.endUpdates()
+    }
+}
+
+//Action Sheet for Customer options
+extension ConversationsViewController {
+    func presentActionsForCustomer(sender: UIView) {
+        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertController.Style.actionSheet)
+        
+        let logoutOption = UIAlertAction(title: "Logout", style: .default, handler: { (alert: UIAlertAction!) -> Void in
+            self.logoutOptionClicked()
+        })
+        let chatHistory = UIAlertAction(title: HippoConfig.shared.strings.chatHistory, style: .default, handler: { (alert: UIAlertAction!) -> Void in
+            self.pushToChatHistory()
+        })
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (alert: UIAlertAction!) -> Void in })
+        
+        actionSheet.addAction(chatHistory)
+        actionSheet.addAction(logoutOption)
+        
+        actionSheet.addAction(cancelAction)
+
+        
+        actionSheet.popoverPresentationController?.sourceRect = sender.frame
+        actionSheet.popoverPresentationController?.sourceView = sender
+        
+        
+        self.present(actionSheet, animated: true, completion: nil)
+    }
+    
+    func pushToChatHistory() {
+        let config = AllConversationsConfig(enabledChatStatus: [ChatStatus.close], title: HippoConfig.shared.strings.chatHistory, shouldUseCache: false, shouldHandlePush: false, shouldPopVc: true, forceDisableReply: true, forceHideActionButton: true, isStaticRemoveConversation: true, lastChannelId: channel?.id)
+        guard let vc = AllConversationsViewController.get(config: config) else {
+            return
+        }
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func logoutOptionClicked() {
+        HippoConfig.shared.clearHippoUserData { (s) in
+            HippoUserDetail.clearAllData()
+            HippoConfig.shared.delegate?.hippoUserLogOut()
+        }
     }
 }

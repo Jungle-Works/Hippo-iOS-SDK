@@ -109,7 +109,7 @@ class NavigationTitleView: UIView {
             return
         }
         
-        
+        profileImageView.contentMode = .scaleToFill
         profileImageView.kf.setImage(with: url, placeholder: nil,  completionHandler: {(_, error, _, _) in
             guard let parsedError = error else {
                 return

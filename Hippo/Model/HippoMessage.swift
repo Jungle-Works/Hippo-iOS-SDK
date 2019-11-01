@@ -118,11 +118,13 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
     var aboveMessageUserId: Int?
     var belowMessageUserId: Int?
     var aboveMessageType: MessageType?
+    var belowMessageType: MessageType?
 
     
     var cards: [MessageCard]?
     var selectedAgentId: String?
     var selectedCard: MessageCard?
+    var fallbackText: String?
     //
     var isActive: Bool = true
     var isSkipBotEnabled: Bool = false
@@ -227,6 +229,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         if let rawCallType = dict["call_type"] as? String, let callType = CallType(rawValue: rawCallType.uppercased()) {
             self.callType = callType
         }
+        self.fallbackText = dict["fallback_text"] as? String
 
         self.callDurationInSeconds = dict["video_call_duration"] as? Double
         if let user_type = dict["user_type"] as? Int, let type = UserType(rawValue: user_type) {
@@ -290,6 +293,10 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
                 self.cards = cards
                 self.selectedCard = selectedCard
                 
+//                if cards.isEmpty {
+//                    message = fallbackText ?? HippoConfig.shared.strings.defaultFallbackText
+//                    type = .botText
+//                }
             default:
                 self.contentValues = content_value
                 content = MessageContent(param: content_value)
@@ -451,6 +458,9 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
             if let selectedAgentId = self.selectedAgentId {
                 json["selected_agent_id"] = selectedAgentId
             }
+            if let fallbackText = fallbackText {
+                json["fallback_text"] = fallbackText
+            }
         default:
             break
         }
@@ -508,6 +518,9 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
             dict = getJsonToSendToFaye()
         }
         
+        if let fallbackText = self.fallbackText {
+            dict["fallback_text"] = fallbackText
+        }
         dict["message"] = message
         dict["wasMessageSendingFailed"] = getMessageSendingFailedWhenSavingInCache() 
         dict["message_status"] = status.rawValue
@@ -694,6 +707,17 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         return (!isSkipEvent && isSkipBotEnabled && !isAllFieldCompleted)
     }
     
+    func isInValidMessage() -> Bool {
+        switch type {
+        case .card:
+            let fallbackText = self.fallbackText ?? HippoConfig.shared.strings.defaultFallbackText
+            message = fallbackText.isEmpty ? HippoConfig.shared.strings.defaultFallbackText : fallbackText
+            attributtedMessage = MessageUIAttributes(message: message, senderName: senderFullName, isSelfMessage: userType.isMyUserType)
+            return cards?.isEmpty ?? true
+        default:
+            return false
+        }
+    }
     func isTypingMessage() -> Bool {
         let message = self.message
         let imageUrl = self.imageUrl ?? ""
