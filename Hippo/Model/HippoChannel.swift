@@ -358,6 +358,12 @@ class HippoChannel {
         if let attributeParams = fuguAttributes?.getParamsToStartNewChat() {
             params += attributeParams
         }
+        if labelRequest != nil, HippoProperty.current.singleChatApp {
+            var tags = params["tags"] as? [String] ?? []
+            tags.append("Diet Buddy iOS")
+            params["tags"] = tags
+        }
+        
         //Check for getting new channelTags
         if let newGroupingTags = fuguAttributes?.groupingTag {
             groupingTags += newGroupingTags

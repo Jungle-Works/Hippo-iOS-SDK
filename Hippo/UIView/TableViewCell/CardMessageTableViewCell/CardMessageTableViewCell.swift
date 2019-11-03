@@ -36,6 +36,7 @@ class CardMessageTableViewCell: UITableViewCell {
         collectionView.backgroundColor = .clear
         collectionView.delegate = self
         selectionStyle = .none
+        collectionView.contentInset.left = 40
         self.backgroundColor = .clear
     }
     
