@@ -164,6 +164,10 @@ struct SERVERS {
         
     }
     
+    public static func setSkipBot(enable: Bool, reason: String) {
+        HippoProperty.current.skipBot = enable
+        HippoProperty.current.skipBotReason = reason
+    }
     
     public func updateUserDetail(userDetail: HippoUserDetail) {
         self.userDetail = userDetail

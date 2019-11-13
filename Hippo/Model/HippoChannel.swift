@@ -363,6 +363,11 @@ class HippoChannel {
         }
         params["grouping_tags"] = groupingTags
         
+        if let skipBot = HippoProperty.current.skipBot {
+            params["skip_bot"] = skipBot
+            params["skip_bot_reason"] = HippoProperty.current.skipBotReason ?? ""
+        }
+        
         return params
     }
     

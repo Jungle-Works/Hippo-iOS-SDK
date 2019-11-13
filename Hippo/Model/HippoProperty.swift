@@ -15,6 +15,9 @@ class HippoProperty: NSObject {
     var formCollectorTitle: String = ""
     var botGroupId: Int = -1
     
+    var skipBot: Bool?
+    var skipBotReason: String?
+    
     //Properties
     var showMessageSourceIcon: Bool = false
     private(set) var isPaymentRequestEnabled: Bool = false
