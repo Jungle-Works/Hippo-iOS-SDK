@@ -11,8 +11,8 @@ import Foundation
 let HippoSDKSource = 1
 let Device_Type_iOS = 2
 var userDetailData = [String: Any]()
-let fuguAppVersion = "1.8.1"
-let versionCode = 241
+let fuguAppVersion = "1.8.2"
+let versionCode = 242
 
 /*
  201 = Bot messages
@@ -55,4 +55,5 @@ let versionCode = 241
  
  240 *** 1.8.0 = handled device token generation, merchant chat changes
  241 *** 1.8.1 = borderWithIssue fixed
+ 242 *** 1.8.2 = Payment messge ui fixes and skip bot functionality
  */
