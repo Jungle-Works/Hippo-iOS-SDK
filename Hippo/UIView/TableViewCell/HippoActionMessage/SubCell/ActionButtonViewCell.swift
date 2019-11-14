@@ -10,14 +10,18 @@ import UIKit
 
 protocol ActionButtonViewCellDelegate: class {
     func buttonClick(buttonInfo: HippoActionButton)
+    func buttonClick(buttonInfo: HippoCard)
 }
 
 class ActionButtonViewCell: ActionViewCell {
 
+    @IBOutlet weak var buttonLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var buttonTrailingConstraint: NSLayoutConstraint!
     @IBOutlet weak var cellButton: UIButton!
     
     //MARK: Variable
     var buttonInfo: HippoActionButton!
+    var data: HippoCard?
     weak var delegate: ActionButtonViewCellDelegate?
     
     override func awakeFromNib() {
@@ -26,7 +30,11 @@ class ActionButtonViewCell: ActionViewCell {
     }
     
     @IBAction func cellButtonAction(_ sender: Any) {
-        delegate?.buttonClick(buttonInfo: buttonInfo)
+        if buttonInfo != nil {
+          delegate?.buttonClick(buttonInfo: buttonInfo)
+        } else if let data = data {
+            delegate?.buttonClick(buttonInfo: data)
+        }
     }
     
     func setDefaultUI() {
@@ -63,4 +71,23 @@ class ActionButtonViewCell: ActionViewCell {
             cellButton.layer.borderColor = buttonInfo.normalTitleColor?.cgColor
         }
     }
+}
+
+extension ActionButtonViewCell {
+    func set(card: PayementButton) {
+        self.data = card
+        let amount = card.selectedCardDetail?.amount ?? 0
+        let displayAmount = (amount > 0 && card.showAmount) ? " \(amount)" : ""
+        let title = card.title + displayAmount
+        self.cellButton.setTitle(title, for: .normal)
+        
+        let theme = HippoConfig.shared.theme
+        cellButton.setTitleColor(theme.headerTextColor, for: .normal)
+        cellButton.backgroundColor = theme.headerBackgroundColor
+        cellButton.layer.borderWidth = 0
+        
+        buttonLeadingConstraint.constant = 20
+        buttonTrailingConstraint.constant = 20
+    }
+    
 }

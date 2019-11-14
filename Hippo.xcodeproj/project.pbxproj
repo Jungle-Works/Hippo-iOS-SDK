@@ -8,6 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		C92CD3E1235712B3006E5F40 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C92CD3E0235712B3006E5F40 /* UIKit.framework */; };
+		C965D51D236FFB5500100E4B /* HippoCallClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C965D51C236FFB5500100E4B /* HippoCallClient.framework */; };
+		C965D5222370005A00100E4B /* CustomerPayment.swift in Sources */ = {isa = PBXBuildFile; fileRef = C965D5212370005A00100E4B /* CustomerPayment.swift */; };
+		C965D5242370034700100E4B /* Double+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C965D5232370034700100E4B /* Double+Extension.swift */; };
+		C965D528237027FA00100E4B /* CustomerPaymentCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C965D526237027FA00100E4B /* CustomerPaymentCardCell.swift */; };
+		C965D529237027FA00100E4B /* CustomerPaymentCardCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C965D527237027FA00100E4B /* CustomerPaymentCardCell.xib */; };
+		C965D52D2370345900100E4B /* PaymentMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C965D52B2370345900100E4B /* PaymentMessageCell.swift */; };
+		C965D52E2370345900100E4B /* PaymentMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C965D52C2370345900100E4B /* PaymentMessageCell.xib */; };
+		C965D53023703B3000100E4B /* PaymentMessageDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C965D52F23703B3000100E4B /* PaymentMessageDataSource.swift */; };
+		C965D5342371505600100E4B /* CheckoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C965D5332371505600100E4B /* CheckoutViewController.swift */; };
+		C965D536237156F300100E4B /* WebViewConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = C965D535237156F300100E4B /* WebViewConfig.swift */; };
 		C9A506F723572B8600F5BE43 /* HippoChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A506F623572B8600F5BE43 /* HippoChat.swift */; };
 		C9B410E2235DAA240029799A /* MessageCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B410E1235DAA240029799A /* MessageCard.swift */; };
 		C9B410E6235DAD580029799A /* CardListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B410E4235DAD580029799A /* CardListCell.swift */; };
@@ -326,7 +336,6 @@
 		C9DC555723570B1200CA7FE9 /* SRWebSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = C9DC554C23570B1100CA7FE9 /* SRWebSocket.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C9DC555823570B1200CA7FE9 /* README.rst in Resources */ = {isa = PBXBuildFile; fileRef = C9DC554D23570B1100CA7FE9 /* README.rst */; };
 		C9E9E9FC23619E7F00914E27 /* AllConversationPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E9E9FB23619E7F00914E27 /* AllConversationPresenter.swift */; };
-		C9F6B810236BFC5400245D08 /* HippoCallClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9F6B80F236BFC5400245D08 /* HippoCallClient.framework */; };
 		C9FAF60C23681AC90089DBFC /* InformationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9FAF60B23681AC90089DBFC /* InformationView.xib */; };
 		C9FAF60E23681AE20089DBFC /* InformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FAF60D23681AE20089DBFC /* InformationView.swift */; };
 /* End PBXBuildFile section */
@@ -337,7 +346,16 @@
 		73C5DC7752C82068B4CD5EB2 /* Pods-Hippo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hippo.release.xcconfig"; path = "Pods/Target Support Files/Pods-Hippo/Pods-Hippo.release.xcconfig"; sourceTree = "<group>"; };
 		8C0A922564912516EF04B93F /* Pods_Hippo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Hippo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C92CD3E0235712B3006E5F40 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		C980E30523588E0D004433FF /* HippoCallClient.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = HippoCallClient.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C965D51C236FFB5500100E4B /* HippoCallClient.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = HippoCallClient.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C965D5212370005A00100E4B /* CustomerPayment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerPayment.swift; sourceTree = "<group>"; };
+		C965D5232370034700100E4B /* Double+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Extension.swift"; sourceTree = "<group>"; };
+		C965D526237027FA00100E4B /* CustomerPaymentCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerPaymentCardCell.swift; sourceTree = "<group>"; };
+		C965D527237027FA00100E4B /* CustomerPaymentCardCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomerPaymentCardCell.xib; sourceTree = "<group>"; };
+		C965D52B2370345900100E4B /* PaymentMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMessageCell.swift; sourceTree = "<group>"; };
+		C965D52C2370345900100E4B /* PaymentMessageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PaymentMessageCell.xib; sourceTree = "<group>"; };
+		C965D52F23703B3000100E4B /* PaymentMessageDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMessageDataSource.swift; sourceTree = "<group>"; };
+		C965D5332371505600100E4B /* CheckoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutViewController.swift; sourceTree = "<group>"; };
+		C965D535237156F300100E4B /* WebViewConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewConfig.swift; sourceTree = "<group>"; };
 		C9A506F623572B8600F5BE43 /* HippoChat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HippoChat.swift; sourceTree = "<group>"; };
 		C9B410E1235DAA240029799A /* MessageCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCard.swift; sourceTree = "<group>"; };
 		C9B410E4235DAD580029799A /* CardListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardListCell.swift; sourceTree = "<group>"; };
@@ -659,7 +677,6 @@
 		C9DC554C23570B1100CA7FE9 /* SRWebSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRWebSocket.h; sourceTree = "<group>"; };
 		C9DC554D23570B1100CA7FE9 /* README.rst */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.rst; sourceTree = "<group>"; };
 		C9E9E9FB23619E7F00914E27 /* AllConversationPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllConversationPresenter.swift; sourceTree = "<group>"; };
-		C9F6B80F236BFC5400245D08 /* HippoCallClient.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = HippoCallClient.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9F6D48F21C8B71B00EA23E6 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		C9F6D49121C8B81100EA23E6 /* Hippo.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Hippo.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		C9FAF60B23681AC90089DBFC /* InformationView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InformationView.xib; sourceTree = "<group>"; };
@@ -672,7 +689,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C9F6B810236BFC5400245D08 /* HippoCallClient.framework in Frameworks */,
+				C965D51D236FFB5500100E4B /* HippoCallClient.framework in Frameworks */,
 				C92CD3E1235712B3006E5F40 /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -683,8 +700,7 @@
 		0DC6F74BF9725EE6841BA0D8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				C9F6B80F236BFC5400245D08 /* HippoCallClient.framework */,
-				C980E30523588E0D004433FF /* HippoCallClient.framework */,
+				C965D51C236FFB5500100E4B /* HippoCallClient.framework */,
 				C92CD3E0235712B3006E5F40 /* UIKit.framework */,
 				E0E4A9E31B1EC7F72EC2F38D /* Pods_Fugu.framework */,
 				7012A5A44B87F497D213D271 /* Pods_SDKDemo1.framework */,
@@ -720,6 +736,50 @@
 				C9DC526F2356FC4F00CA7FE9 /* HippoChat.framework */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		C965D5202370004700100E4B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C965D5212370005A00100E4B /* CustomerPayment.swift */,
+				C965D535237156F300100E4B /* WebViewConfig.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		C965D525237027CA00100E4B /* CustomerPaymentCell */ = {
+			isa = PBXGroup;
+			children = (
+				C965D526237027FA00100E4B /* CustomerPaymentCardCell.swift */,
+				C965D527237027FA00100E4B /* CustomerPaymentCardCell.xib */,
+			);
+			path = CustomerPaymentCell;
+			sourceTree = "<group>";
+		};
+		C965D52A2370343100100E4B /* PaymentMessageCell */ = {
+			isa = PBXGroup;
+			children = (
+				C965D52B2370345900100E4B /* PaymentMessageCell.swift */,
+				C965D52C2370345900100E4B /* PaymentMessageCell.xib */,
+				C965D52F23703B3000100E4B /* PaymentMessageDataSource.swift */,
+			);
+			path = PaymentMessageCell;
+			sourceTree = "<group>";
+		};
+		C965D53123714FC900100E4B /* Module */ = {
+			isa = PBXGroup;
+			children = (
+				C965D53223714FF300100E4B /* CheckoutViewController */,
+			);
+			path = Module;
+			sourceTree = "<group>";
+		};
+		C965D53223714FF300100E4B /* CheckoutViewController */ = {
+			isa = PBXGroup;
+			children = (
+				C965D5332371505600100E4B /* CheckoutViewController.swift */,
+			);
+			path = CheckoutViewController;
 			sourceTree = "<group>";
 		};
 		C9A506F523572B6A00F5BE43 /* PublicClasses */ = {
@@ -1460,6 +1520,7 @@
 				C9DC53642356FD4200CA7FE9 /* OperatorOverloading.swift */,
 				C9DC53652356FD4200CA7FE9 /* Socomo+String.swift */,
 				C9DC53662356FD4200CA7FE9 /* UITableView+Extension.swift */,
+				C965D5232370034700100E4B /* Double+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1820,6 +1881,8 @@
 		C9E9E9FA23619E5E00914E27 /* Internal Classes */ = {
 			isa = PBXGroup;
 			children = (
+				C965D53123714FC900100E4B /* Module */,
+				C965D5202370004700100E4B /* Model */,
 				C9FAF60923681A6A0089DBFC /* Views */,
 				C9E9E9FB23619E7F00914E27 /* AllConversationPresenter.swift */,
 			);
@@ -1829,6 +1892,8 @@
 		C9FAF60923681A6A0089DBFC /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				C965D52A2370343100100E4B /* PaymentMessageCell */,
+				C965D525237027CA00100E4B /* CustomerPaymentCell */,
 				C9FAF60A23681A7E0089DBFC /* InformationView */,
 			);
 			path = Views;
@@ -1934,6 +1999,7 @@
 				C9DC54772356FD4300CA7FE9 /* OutgoingVideoTableViewCell.xib in Resources */,
 				C9DC544C2356FD4300CA7FE9 /* ActionTagTableViewCell.xib in Resources */,
 				C9DC555823570B1200CA7FE9 /* README.rst in Resources */,
+				C965D52E2370345900100E4B /* PaymentMessageCell.xib in Resources */,
 				C9DC543C2356FD4300CA7FE9 /* ChatInfoHeader.xib in Resources */,
 				C9DC54852356FD4400CA7FE9 /* ChatInfoActionCell.xib in Resources */,
 				C9DC547C2356FD4400CA7FE9 /* OutgoingDocumentTableViewCell.xib in Resources */,
@@ -1957,6 +2023,7 @@
 				C9DC548D2356FD4400CA7FE9 /* ChatInfoAgentTableViewCell.xib in Resources */,
 				C9DC54572356FD4300CA7FE9 /* PaymentItemDescriptionCell.xib in Resources */,
 				C9DC54382356FD4300CA7FE9 /* QuickReplyButtonCollectionViewCell.xib in Resources */,
+				C965D529237027FA00100E4B /* CustomerPaymentCardCell.xib in Resources */,
 				C9DC54732356FD4300CA7FE9 /* OutgoingAudioTableViewCell.xib in Resources */,
 				C9DC54A22356FD4400CA7FE9 /* Montserrat-Medium.otf in Resources */,
 				C9DC54942356FD4400CA7FE9 /* BroadCastTitleCell.xib in Resources */,
@@ -2020,6 +2087,7 @@
 				C9DC549C2356FD4400CA7FE9 /* BoardCastSelectionCell.swift in Sources */,
 				C9DC54462356FD4300CA7FE9 /* ActionTagTableViewCell.swift in Sources */,
 				C9DC550A2356FD4500CA7FE9 /* CloseButton.swift in Sources */,
+				C965D5222370005A00100E4B /* CustomerPayment.swift in Sources */,
 				C9DC54912356FD4400CA7FE9 /* BroadcastAgentCell.swift in Sources */,
 				C9DC54F32356FD4500CA7FE9 /* AgentDirectViewController.swift in Sources */,
 				C9DC547B2356FD4400CA7FE9 /* OutgoingVideoTableViewCell.swift in Sources */,
@@ -2047,6 +2115,7 @@
 				C9DC54802356FD4400CA7FE9 /* SelfMessageTableViewCell.swift in Sources */,
 				C9DC55062356FD4500CA7FE9 /* CountryCode.swift in Sources */,
 				C9DC54112356FD4200CA7FE9 /* AgentConversationManager.swift in Sources */,
+				C965D5342371505600100E4B /* CheckoutViewController.swift in Sources */,
 				C9DC543A2356FD4300CA7FE9 /* EmojiCollectionViewCell.swift in Sources */,
 				C9DC54222356FD4300CA7FE9 /* Formatters.swift in Sources */,
 				C9DC55212356FD4500CA7FE9 /* Placeholder.swift in Sources */,
@@ -2054,6 +2123,7 @@
 				C9DC54782356FD4300CA7FE9 /* VideoTableViewCell.swift in Sources */,
 				C9DC54AD2356FD4400CA7FE9 /* FuguChannelPersistancyManager.swift in Sources */,
 				C9DC54752356FD4300CA7FE9 /* OutgoingAudioTableViewCell.swift in Sources */,
+				C965D53023703B3000100E4B /* PaymentMessageDataSource.swift in Sources */,
 				C9DC547E2356FD4400CA7FE9 /* AgentHomeConversationCell.swift in Sources */,
 				C9DC55342356FD4500CA7FE9 /* IQUIViewController+Additions.swift in Sources */,
 				C9DC54BE2356FD4400CA7FE9 /* HippoTheme.swift in Sources */,
@@ -2085,6 +2155,7 @@
 				C9DC55012356FD4500CA7FE9 /* FuguNetworkHandler.swift in Sources */,
 				C9DC54D22356FD4400CA7FE9 /* HippoMessage.swift in Sources */,
 				C9DC54B42356FD4400CA7FE9 /* HippoCellDetail.swift in Sources */,
+				C965D536237156F300100E4B /* WebViewConfig.swift in Sources */,
 				C9DC54E82356FD4500CA7FE9 /* BroadCastViewController.swift in Sources */,
 				C9DC54D72356FD4400CA7FE9 /* FuguNewChatAttributes.swift in Sources */,
 				C9DC542E2356FD4300CA7FE9 /* PeerToPeerChat.swift in Sources */,
@@ -2145,6 +2216,7 @@
 				C9DC55052356FD4500CA7FE9 /* String+HTMLEntities.swift in Sources */,
 				C9DC549E2356FD4400CA7FE9 /* FeedbackTableViewCell.swift in Sources */,
 				C9DC54102356FD4200CA7FE9 /* ConversationStore.swift in Sources */,
+				C965D5242370034700100E4B /* Double+Extension.swift in Sources */,
 				C9DC540F2356FD4200CA7FE9 /* ConversationPresenter.swift in Sources */,
 				C9DC552E2356FD4500CA7FE9 /* IQKeyboardManagerConstantsInternal.swift in Sources */,
 				C9DC54FF2356FD4500CA7FE9 /* TWRDownloadObject.m in Sources */,
@@ -2164,6 +2236,7 @@
 				C9DC54F42356FD4500CA7FE9 /* AgentConversationViewController.swift in Sources */,
 				C9DC542C2356FD4300CA7FE9 /* HippoQLDataSource.swift in Sources */,
 				C9DC550C2356FD4500CA7FE9 /* TagListView.swift in Sources */,
+				C965D52D2370345900100E4B /* PaymentMessageCell.swift in Sources */,
 				C9DC54952356FD4400CA7FE9 /* BroadCastTextViewCell.swift in Sources */,
 				C9DC54EC2356FD4500CA7FE9 /* PaymentCurrency.swift in Sources */,
 				C9DC54192356FD4300CA7FE9 /* CoreEnum.swift in Sources */,
@@ -2208,6 +2281,7 @@
 				C9DC54E22356FD4500CA7FE9 /* NLevelViewController.swift in Sources */,
 				C9DC55072356FD4500CA7FE9 /* FrameObserverAccessaryView.swift in Sources */,
 				C9DC54BC2356FD4400CA7FE9 /* HippoProperty.swift in Sources */,
+				C965D528237027FA00100E4B /* CustomerPaymentCardCell.swift in Sources */,
 				C9DC55152356FD4500CA7FE9 /* UIButton+Kingfisher.swift in Sources */,
 				C9DC54AF2356FD4400CA7FE9 /* MessageSender.swift in Sources */,
 				C9DC54BD2356FD4400CA7FE9 /* MessageContent.swift in Sources */,
@@ -2376,7 +2450,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_BITCODE = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_OPTIMIZATION_LEVEL = 0;
 				INFOPLIST_FILE = HippoChat/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -2388,7 +2462,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -2413,6 +2487,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_BITCODE = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_OPTIMIZATION_LEVEL = 0;
 				INFOPLIST_FILE = HippoChat/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -2423,7 +2498,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";

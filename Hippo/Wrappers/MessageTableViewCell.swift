@@ -64,7 +64,7 @@ class MessageTableViewCell: UITableViewCell {
         }
         showSenderImageView()
         
-        let isMessageAllowedForImage = message.type == .consent  || message.belowMessageType == .card
+        let isMessageAllowedForImage = message.type == .consent  || message.belowMessageType == .card || message.belowMessageType == .paymentCard
         
         if (message.belowMessageUserId == message.senderId && !isMessageAllowedForImage) {
             unsetImageInSender()

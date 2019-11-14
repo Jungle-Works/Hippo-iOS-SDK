@@ -503,6 +503,9 @@ protocol NewChatSentDelegate: class {
        }
         let request = MessageStore.messageRequest(pageStart: pageStart, showLoader: false, pageEnd: pageEnd, channelId: channel.id, labelId: -1)
         
+        storeRequest = request
+        storeResponse = nil
+        
         MessageStore.getMessages(requestParam: request, ignoreIfInProgress: false) {[weak self] (response, isCreateConversationRequired)  in
             
             self?.hideErrorMessage()
@@ -515,6 +518,7 @@ protocol NewChatSentDelegate: class {
                 completion?(false)
                 return
             }
+            weakself.storeResponse = result
             weakself.handleSuccessCompletionOfGetMessages(result: result, request: request, completion: completion)
         }
    }
@@ -687,7 +691,8 @@ protocol NewChatSentDelegate: class {
       }
 
      let request = MessageStore.messageRequest(pageStart: 1, showLoader: false, pageEnd: nil, channelId: -1, labelId: labelId)
-    
+     storeRequest = request
+     storeResponse = nil
      MessageStore.getMessagesByLabelID(requestParam: request, ignoreIfInProgress: false) {[weak self] (response, error)  in
         
         self?.stopLoaderAnimation()
@@ -702,6 +707,7 @@ protocol NewChatSentDelegate: class {
             completion?(false)
             return
         }
+        weakSelf.storeResponse = result
         
         weakSelf.labelId = result.labelID
         weakSelf.botGroupID = result.botGroupID
@@ -1256,27 +1262,27 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
             
             switch messageType {
             case MessageType.imageFile:
-               if isOutgoingMsg == true {
-                  guard
-                     let cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingImageCell", for: indexPath) as? OutgoingImageCell
-                     else {
-                        let cell = UITableViewCell()
-                        cell.backgroundColor = .clear
-                        return cell
-                  }
-                cell.delegate = self
-                cell.configureCellOfOutGoingImageCell(resetProperties: true, chatMessageObject: message, indexPath: indexPath)
-                return cell
-               } else {
-                  guard let cell = tableView.dequeueReusableCell(withIdentifier: "IncomingImageCell", for: indexPath) as? IncomingImageCell
-                     else {
-                        let cell = UITableViewCell()
-                        cell.backgroundColor = .clear
-                        return cell
-                  }
-                cell.delegate = self
-                return cell.configureIncomingCell(resetProperties: true, channelId: channel.id, chatMessageObject: message, indexPath: indexPath)
-               }
+                if isOutgoingMsg == true {
+                    guard
+                        let cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingImageCell", for: indexPath) as? OutgoingImageCell
+                        else {
+                            let cell = UITableViewCell()
+                            cell.backgroundColor = .clear
+                            return cell
+                    }
+                    cell.delegate = self
+                    cell.configureCellOfOutGoingImageCell(resetProperties: true, chatMessageObject: message, indexPath: indexPath)
+                    return cell
+                } else {
+                    guard let cell = tableView.dequeueReusableCell(withIdentifier: "IncomingImageCell", for: indexPath) as? IncomingImageCell
+                        else {
+                            let cell = UITableViewCell()
+                            cell.backgroundColor = .clear
+                            return cell
+                    }
+                    cell.delegate = self
+                    return cell.configureIncomingCell(resetProperties: true, channelId: channel.id, chatMessageObject: message, indexPath: indexPath)
+                }
             case .feedback:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "FeedbackTableViewCell") as? FeedbackTableViewCell else {
                     return UITableViewCell()
@@ -1287,9 +1293,9 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                 cell.delegate = self
                 cell.backgroundColor = .clear
                 if let muid = message.messageUniqueID {
-                   heightForFeedBackCell["\(muid)"] = cell.alertContainer.bounds.height
+                    heightForFeedBackCell["\(muid)"] = cell.alertContainer.bounds.height
                 }
-//                print("-----\(cell.alertContainer.bounds.height)")
+                //                print("-----\(cell.alertContainer.bounds.height)")
                 return cell
             case .botText:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "SupportMessageTableViewCell", for: indexPath) as? SupportMessageTableViewCell
@@ -1402,6 +1408,13 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                 cell.delegate = self
                 cell.set(message: message)
                 return cell
+            case .paymentCard:
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: "PaymentMessageCell", for: indexPath) as? PaymentMessageCell else {
+                    return UITableView.defaultCell()
+                }
+                cell.delegate = self
+                cell.set(message: message)
+                return cell
             default:
                 return getNormalMessageTableViewCell(tableView: tableView, isOutgoingMessage: isOutgoingMsg, message: message, indexPath: indexPath)
             }
@@ -1486,6 +1499,8 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                     return UIView.tableAutoDimensionHeight
                 case .card:
                     return 230
+                case .paymentCard:
+                    return message.calculatedHeight ?? 0.1
                 default:
                     return 0.01
                     
@@ -1905,6 +1920,19 @@ extension ConversationsViewController: HippoChannelDelegate {
         }
         
         isTypingLabelHidden = message.typingStatus != .startTyping
+        switch message.type {
+        case .paymentCard:
+            if (message.cards ?? []).isEmpty {
+                return
+            }
+            let selectedCardId =  message.selectedCardId?.trimWhiteSpacesAndNewLine() ?? ""
+            if !selectedCardId.isEmpty {
+                self.tableViewChat.reloadData()
+                return
+            }
+        default:
+            break
+        }
         if isTypingLabelHidden {
             deleteTypingLabelSection()
         } else {
@@ -1916,7 +1944,7 @@ extension ConversationsViewController: HippoChannelDelegate {
             return
         }
         
-        if !message.is_rating_given || message.type == .hippoPay {
+        if !message.is_rating_given || message.type == .hippoPay || message.type == .paymentCard {
             updateMessagesArrayLocallyForUIUpdation(message)
             newScrollToBottom(animated: true)
         }

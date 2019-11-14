@@ -21,6 +21,7 @@ protocol FuguPublishable {
     func getJsonToSendToFaye() -> [String: Any]
 }
 
+
 class HippoMessage: MessageCallbacks, FuguPublishable {
     
     
@@ -121,9 +122,9 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
     var belowMessageType: MessageType?
 
     
-    var cards: [MessageCard]?
-    var selectedAgentId: String?
-    var selectedCard: MessageCard?
+    var cards: [HippoCard]?
+    var selectedCardId: String?
+    var selectedCard: HippoCard?
     var fallbackText: String?
     //
     var isActive: Bool = true
@@ -173,6 +174,23 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         }
         documentType = FileType.init(mimeType: unwrappedMimeType)
         return documentType
+    }
+    
+    var calculatedHeight: CGFloat? {
+        switch type {
+        case .card:
+            return cards?.first?.cardHeight
+        case .paymentCard:
+            let cards = self.cards ?? []
+            var height: CGFloat = 0
+            
+            for card in cards {
+                height += card.cardHeight
+            }
+            return height + 5
+        default:
+            return nil
+        }
     }
     
     // MARK: - Intializer
@@ -285,11 +303,12 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         
         feedbackMessages = FeedbackMessage(json: dict)
         
+        
         if let content_value = dict["content_value"] as? [[String: Any]] {
             switch type {
             case .card:
-                self.selectedAgentId = String.parse(values: dict, key: "selected_agent_id")
-                let (cards, selectedCard) = MessageCard.parseList(cardsJson: content_value, selectedCardID: selectedAgentId)
+                self.selectedCardId = String.parse(values: dict, key: "selected_agent_id")
+                let (cards, selectedCard) = MessageCard.parseList(cardsJson: content_value, selectedCardID: selectedCardId)
                 self.cards = cards
                 self.selectedCard = selectedCard
                 
@@ -304,6 +323,34 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
                 let forms = FormData.getArray(object: content)
                 leadsDataArray = forms
             }
+        }
+        switch type {
+        case .paymentCard:
+            let actions: [String: Any] = dict["custom_action"] as? [String: Any] ?? [:]
+            let items = actions["items"] as? [[String: Any]] ?? []
+            if actions.isEmpty && items.isEmpty {
+                break
+            }
+            let selectedID = String.parse(values: actions, key: "selected_id") ?? ""
+            self.selectedCardId = selectedID
+            self.fallbackText = actions["result_message"] as? String ?? ""
+            let (cards, selectedCard) = CustomerPayment.parse(list: items, selectedCardId: selectedID)
+            self.selectedCard = selectedCard
+            
+            if let parsedSelectedCard = selectedCard {
+                self.cards = [parsedSelectedCard]
+            } else {
+                let firstCard = cards.first
+                
+                let buttonView = PayementButton(title: "Proceed To Pay")
+                buttonView.selectedCardDetail = firstCard
+                
+                self.cards = firstCard == nil ? [] : [firstCard!]
+                self.cards?.append(buttonView)
+            }
+            
+        default:
+            break
         }
         
         super.init()
@@ -455,7 +502,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
             json["content_value"] = contentValues
             json["user_id"] = currentUserId()
             
-            if let selectedAgentId = self.selectedAgentId {
+            if let selectedAgentId = self.selectedCardId {
                 json["selected_agent_id"] = selectedAgentId
             }
             if let fallbackText = fallbackText {

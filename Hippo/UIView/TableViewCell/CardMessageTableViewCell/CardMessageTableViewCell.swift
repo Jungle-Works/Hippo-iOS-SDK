@@ -50,14 +50,14 @@ class CardMessageTableViewCell: UITableViewCell {
     }
     internal func getCards() -> [MessageCard]? {
            let selectedCard = message?.cards?.first(where: { (c) -> Bool in
-               return c.id == message?.selectedAgentId
+               return (c as? MessageCard)?.id == message?.selectedCardId
            })
            let cards: [MessageCard]?
                
-           if let parsedCard = selectedCard {
+           if let parsedCard = selectedCard as? MessageCard {
                cards = [parsedCard]
            } else {
-              cards = message?.cards
+              cards = (message?.cards as? [MessageCard]) ?? []
            }
            return cards
        }
@@ -66,7 +66,7 @@ extension CardMessageTableViewCell {
     func set(message: HippoMessage) {
         self.message = message
         
-        let selectedAgentId = (message.selectedAgentId ?? "").trimWhiteSpacesAndNewLine()
+        let selectedAgentId = (message.selectedCardId ?? "").trimWhiteSpacesAndNewLine()
         collectionView.allowsSelection = selectedAgentId.isEmpty
         setDataSource(with: getCards())
     }

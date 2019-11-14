@@ -147,6 +147,10 @@ extension ActionTableView: UITableViewDelegate {
     }
 }
 extension ActionTableView: ActionButtonViewCellDelegate {
+    func buttonClick(buttonInfo: HippoCard) {
+        
+    }
+    
     func buttonClick(buttonInfo: HippoActionButton) {
         delegate?.performActionFor(selectionId: buttonInfo.id, message: message!)
     }

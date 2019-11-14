@@ -113,6 +113,14 @@ import UIKit
     
     open var chatbackgroundImage: UIImage?
     
+    open var titleFont: UIFont = UIFont.boldSystemFont(ofSize: 17)
+    open var titleTextColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
+    
+    open var descriptionFont: UIFont = UIFont.systemFont(ofSize: 14.0)
+    open var descriptionTextColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1).withAlphaComponent(0.6)
+    
+    open var pricingFont: UIFont = UIFont.boldSystemFont(ofSize: 17)
+    open var pricingTextColor: UIColor? = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
     
     //MARK: Theme for broadCast
     open var broadcastTitleFont: UIFont? = UIFont.systemFont(ofSize: 15.0)
@@ -151,6 +159,8 @@ import UIKit
     open var chatAssignIcon = UIImage(named: "assigned_conversation_icon", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysOriginal)
     
     
+    open var radioImageActive: UIImage? = UIImage(named: "radio_button_active", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+     open var radioImageInActive: UIImage? = UIImage(named: "radio_button_deactive", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     
     open var openChatIcon =  UIImage(named: "newChat", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     open var cancelIcon =  UIImage(named: "cancel_icon", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)

@@ -8,8 +8,15 @@
 
 import Foundation
 
+protocol HippoCard {
+    var cardHeight: CGFloat { get }
+}
 
-struct MessageCard {
+struct MessageCard: HippoCard {
+    var cardHeight: CGFloat {
+        return 230
+    }
+    
     let image: HippoResource?
     let title: String
     let description: String

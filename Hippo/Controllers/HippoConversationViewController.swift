@@ -23,6 +23,11 @@ class HippoConversationViewController: UIViewController {
     var forceHideActionButton: Bool = false
     var botGroupID: Int?
     
+    
+    var storeRequest: MessageStore.messageRequest?
+    var storeResponse: MessageStore.ChannelMessagesResult?
+    var isFirstResponseComplete: Bool = false
+    
     var directChatDetail: FuguNewChatAttributes?
     var agentDirectChatDetail: AgentDirectChatAttributes?
     var label = ""
@@ -259,6 +264,8 @@ class HippoConversationViewController: UIViewController {
         let bundle = FuguFlowManager.bundle
         
         tableViewChat.register(UINib(nibName: "SelfMessageTableViewCell", bundle: bundle), forCellReuseIdentifier: "SelfMessageTableViewCell")
+        tableViewChat.register(UINib(nibName: "PaymentMessageCell", bundle: bundle), forCellReuseIdentifier: "PaymentMessageCell")
+        
         tableViewChat.register(UINib(nibName: "SupportMessageTableViewCell", bundle: bundle), forCellReuseIdentifier: "SupportMessageTableViewCell")
         
         tableViewChat.register(UINib(nibName: "OutgoingImageCell", bundle: bundle), forCellReuseIdentifier: "OutgoingImageCell")
@@ -317,8 +324,20 @@ class HippoConversationViewController: UIViewController {
         checkNetworkConnection()
         reloadVisibleCellsToStartActivityIndicator()
         removeNotificationsFromNotificationCenter(channelId: channelId)
+        
+        recreateRequestIfRequired()
     }
     
+    func recreateRequestIfRequired() {
+        guard let storeRequest = storeRequest else {
+            fetchMessagesFrom1stPage()
+            return
+        }
+    
+        if storeResponse == nil {
+            fetchMessagesFrom1stPage()
+        }
+    }
     
     @objc func fayeConnected(_ notification: Notification) {
         guard FuguNetworkHandler.shared.isNetworkConnected else {
@@ -1310,8 +1329,21 @@ extension HippoConversationViewController: NavigationTitleViewDelegate {
 }
 extension HippoConversationViewController: CardMessageDelegate {
     func cardSelected(cell: CardMessageTableViewCell, card: MessageCard, message: HippoMessage) {
-        message.selectedAgentId = card.id
+        message.selectedCardId = card.id
         sendMessage(message: message)
         cell.set(message: message)
     }
+}
+
+extension HippoConversationViewController: PaymentMessageCellDelegate {
+    func cellButtonPressed(message: HippoMessage, card: HippoCard) {
+        guard let selectedCard = (card as? PayementButton)?.selectedCardDetail, let url = URL(string: selectedCard.paymentUrlString ?? "") else {
+            return
+        }
+        let config = WebViewConfig(url: url, title: "Payment")
+        let vc = CheckoutViewController.getNewInstance(config: config)
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    
 }

@@ -121,6 +121,12 @@ public class UserTag: NSObject {
             UserDefaults.standard.set(newValue, forKey: Fugu_en_user_id)
         }
     }
+    static func isValidDetails() -> Bool {
+        let appSecretKey = HippoConfig.shared.appSecretKey
+        let enUserID = fuguEnUserID?.trimWhiteSpacesAndNewLine() ?? ""
+        
+        return !appSecretKey.isEmpty && !enUserID.isEmpty 
+    }
     
     // MARK: - Intializer
     override init() {}

@@ -591,14 +591,17 @@ class HippoChannel {
             refernece.status = .sent
         }
         if let oldMessage = messageReference {
-            updateReferenceMessage(oldMessage: oldMessage, newMessage: message)
-            return
+            let result = updateReferenceMessage(oldMessage: oldMessage, newMessage: message)
+            if result {
+                return
+            }
         }
         appendMessageIfRequired(message: message)
         delegate?.newMessageReceived(newMessage: message)
     }
     
-    func updateReferenceMessage(oldMessage: HippoMessage, newMessage: HippoMessage) {
+    //This function  return the value so the tableView should reload
+    func updateReferenceMessage(oldMessage: HippoMessage, newMessage: HippoMessage) -> Bool {
         switch newMessage.type {
         case .consent:
             if let oldActionMessage = oldMessage as? HippoActionMessage, let newActionMessage = newMessage as? HippoActionMessage {
@@ -606,9 +609,16 @@ class HippoChannel {
             }
         case .feedback, .leadForm:
             oldMessage.updateObject(with: newMessage)
+        case .paymentCard:
+            oldMessage.cards = newMessage.cards
+            oldMessage.selectedCardId = newMessage.selectedCardId
+            oldMessage.fallbackText = newMessage.fallbackText
+            oldMessage.selectedCard = newMessage.selectedCard
+            return false
         default:
             break
         }
+        return true
     }
     
     func findAnyReferenceOf(message: HippoMessage) -> HippoMessage? {

@@ -1925,6 +1925,26 @@
             </objects>
             <point key="canvasLocation" x="-402" y="3260"/>
         </scene>
+        <!--Payment-->
+        <scene sceneID="SkZ-06-eoh">
+            <objects>
+                <viewController storyboardIdentifier="CheckoutViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="QhA-Jd-1eP" customClass="CheckoutViewController" customModule="HippoChat" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="vQ9-cX-nLv"/>
+                        <viewControllerLayoutGuide type="bottom" id="iJ6-iI-Zf8"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="xP1-nW-QOJ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Payment" id="PlW-jL-UV1"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OGw-2P-IpJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="445" y="3275"/>
+        </scene>
     </scenes>
     <resources>
         <image name="BackWhite" width="22" height="14"/>
