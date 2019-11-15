@@ -22,6 +22,7 @@ struct MessageCard: HippoCard {
     let description: String
     
     let id: String
+    let rating: Double?
     
     init?(json: [String: Any]) {
         guard json["id"] != nil else {
@@ -36,6 +37,7 @@ struct MessageCard: HippoCard {
         self.description = String.parse(values: json, key: "description")
         
         self.id = String.parse(values: json, key: "id")
+        self.rating = Double.parse(values: json, key: "rating")
     }
     static func parseList(cardsJson: [[String: Any]]) -> [MessageCard] {
         var cards: [MessageCard] = []

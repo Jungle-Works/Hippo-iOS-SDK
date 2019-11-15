@@ -34,6 +34,7 @@ class PaymentMessageCell: UITableViewCell {
         backgroundColor = .clear
         tableView.backgroundColor = .clear
         tableView.separatorStyle = .none
+        selectionStyle = .none
     }
     private func setupTableView() {
         tableView.register(UINib(nibName: "CustomerPaymentCardCell", bundle: FuguFlowManager.bundle), forCellReuseIdentifier: "CustomerPaymentCardCell")
@@ -68,7 +69,8 @@ extension PaymentMessageCell: PaymentMessageDataSourceInteractor {
     func buttonClick(buttonInfo: HippoActionButton) {
         
     }
+    
     func cellSelected(card: HippoCard) {
-        
+        tableView.reloadData()
     }
 }

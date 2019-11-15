@@ -62,7 +62,18 @@ extension PaymentMessageDataSource: UITableViewDelegate {
         return card.cardHeight
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    let item = cards[indexPath.row]
+        let item = cards[indexPath.row]
+        for each in cards {
+            switch each {
+            case let parsed as CustomerPayment:
+                parsed.isLocalySelected = false
+            case let parsed as PayementButton:
+                parsed.selectedCardDetail = item as? CustomerPayment
+            default:
+                break
+            }
+        }
+        (item as? CustomerPayment)?.isLocalySelected = true
         delegate?.cellSelected(card: item)
     }
 }

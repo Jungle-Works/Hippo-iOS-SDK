@@ -341,11 +341,11 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
                 self.cards = [parsedSelectedCard]
             } else {
                 let firstCard = cards.first
-                
+                firstCard?.isLocalySelected = true
                 let buttonView = PayementButton(title: "Proceed To Pay")
                 buttonView.selectedCardDetail = firstCard
                 
-                self.cards = firstCard == nil ? [] : [firstCard!]
+                self.cards = cards
                 self.cards?.append(buttonView)
             }
             

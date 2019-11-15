@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		C92CD3E1235712B3006E5F40 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C92CD3E0235712B3006E5F40 /* UIKit.framework */; };
+		C945D3B7237D749600DE2F7F /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C945D3B6237D749600DE2F7F /* CoreText.framework */; };
+		C945D3B9237DCF7A00DE2F7F /* HippoLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C945D3B8237DCF7A00DE2F7F /* HippoLabel.swift */; };
+		C945D3BB237E7A1C00DE2F7F /* HippoRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C945D3BA237E7A1C00DE2F7F /* HippoRatingView.swift */; };
+		C945D3BF237E7D8E00DE2F7F /* HCSStarRatingView.h in Headers */ = {isa = PBXBuildFile; fileRef = C945D3BD237E7D8E00DE2F7F /* HCSStarRatingView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C945D3C0237E7D8E00DE2F7F /* HCSStarRatingView.m in Sources */ = {isa = PBXBuildFile; fileRef = C945D3BE237E7D8E00DE2F7F /* HCSStarRatingView.m */; };
 		C965D51D236FFB5500100E4B /* HippoCallClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C965D51C236FFB5500100E4B /* HippoCallClient.framework */; };
 		C965D5222370005A00100E4B /* CustomerPayment.swift in Sources */ = {isa = PBXBuildFile; fileRef = C965D5212370005A00100E4B /* CustomerPayment.swift */; };
 		C965D5242370034700100E4B /* Double+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C965D5232370034700100E4B /* Double+Extension.swift */; };
@@ -346,6 +351,11 @@
 		73C5DC7752C82068B4CD5EB2 /* Pods-Hippo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hippo.release.xcconfig"; path = "Pods/Target Support Files/Pods-Hippo/Pods-Hippo.release.xcconfig"; sourceTree = "<group>"; };
 		8C0A922564912516EF04B93F /* Pods_Hippo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Hippo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C92CD3E0235712B3006E5F40 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		C945D3B6237D749600DE2F7F /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		C945D3B8237DCF7A00DE2F7F /* HippoLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HippoLabel.swift; sourceTree = "<group>"; };
+		C945D3BA237E7A1C00DE2F7F /* HippoRatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HippoRatingView.swift; sourceTree = "<group>"; };
+		C945D3BD237E7D8E00DE2F7F /* HCSStarRatingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HCSStarRatingView.h; sourceTree = "<group>"; };
+		C945D3BE237E7D8E00DE2F7F /* HCSStarRatingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HCSStarRatingView.m; sourceTree = "<group>"; };
 		C965D51C236FFB5500100E4B /* HippoCallClient.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = HippoCallClient.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C965D5212370005A00100E4B /* CustomerPayment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerPayment.swift; sourceTree = "<group>"; };
 		C965D5232370034700100E4B /* Double+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Extension.swift"; sourceTree = "<group>"; };
@@ -689,6 +699,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C945D3B7237D749600DE2F7F /* CoreText.framework in Frameworks */,
 				C965D51D236FFB5500100E4B /* HippoCallClient.framework in Frameworks */,
 				C92CD3E1235712B3006E5F40 /* UIKit.framework in Frameworks */,
 			);
@@ -700,6 +711,7 @@
 		0DC6F74BF9725EE6841BA0D8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C945D3B6237D749600DE2F7F /* CoreText.framework */,
 				C965D51C236FFB5500100E4B /* HippoCallClient.framework */,
 				C92CD3E0235712B3006E5F40 /* UIKit.framework */,
 				E0E4A9E31B1EC7F72EC2F38D /* Pods_Fugu.framework */,
@@ -736,6 +748,15 @@
 				C9DC526F2356FC4F00CA7FE9 /* HippoChat.framework */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		C945D3BC237E7D7C00DE2F7F /* RatingView */ = {
+			isa = PBXGroup;
+			children = (
+				C945D3BD237E7D8E00DE2F7F /* HCSStarRatingView.h */,
+				C945D3BE237E7D8E00DE2F7F /* HCSStarRatingView.m */,
+			);
+			path = RatingView;
 			sourceTree = "<group>";
 		};
 		C965D5202370004700100E4B /* Model */ = {
@@ -810,7 +831,10 @@
 		C9B410E8235DB1C40029799A /* CustomClasses */ = {
 			isa = PBXGroup;
 			children = (
+				C945D3BC237E7D7C00DE2F7F /* RatingView */,
 				C9B410E9235DB1E60029799A /* HippoImageView.swift */,
+				C945D3B8237DCF7A00DE2F7F /* HippoLabel.swift */,
+				C945D3BA237E7A1C00DE2F7F /* HippoRatingView.swift */,
 			);
 			path = CustomClasses;
 			sourceTree = "<group>";
@@ -1922,6 +1946,7 @@
 				C9DC55002356FD4500CA7FE9 /* TWRDownloadManager.h in Headers */,
 				C9DC527F2356FC4F00CA7FE9 /* HippoChat.h in Headers */,
 				C9DC55322356FD4500CA7FE9 /* IQKeyboardManagerSwift.h in Headers */,
+				C945D3BF237E7D8E00DE2F7F /* HCSStarRatingView.h in Headers */,
 				C9DC55182356FD4500CA7FE9 /* Kingfisher.h in Headers */,
 				C9DC555123570B1100CA7FE9 /* MZFayeMessage.h in Headers */,
 				C9DC54142356FD4300CA7FE9 /* CoreKit-Bridging-Header.h in Headers */,
@@ -2114,6 +2139,7 @@
 				C9DC55392356FD4500CA7FE9 /* Fugu+Enums.swift in Sources */,
 				C9DC54802356FD4400CA7FE9 /* SelfMessageTableViewCell.swift in Sources */,
 				C9DC55062356FD4500CA7FE9 /* CountryCode.swift in Sources */,
+				C945D3B9237DCF7A00DE2F7F /* HippoLabel.swift in Sources */,
 				C9DC54112356FD4200CA7FE9 /* AgentConversationManager.swift in Sources */,
 				C965D5342371505600100E4B /* CheckoutViewController.swift in Sources */,
 				C9DC543A2356FD4300CA7FE9 /* EmojiCollectionViewCell.swift in Sources */,
@@ -2134,6 +2160,7 @@
 				C9DC54C12356FD4400CA7FE9 /* HippoTicketAtrributes.swift in Sources */,
 				C9DC54DC2356FD4400CA7FE9 /* HippoDescriptionContent.swift in Sources */,
 				C9DC54BF2356FD4400CA7FE9 /* FuguConversation.swift in Sources */,
+				C945D3BB237E7A1C00DE2F7F /* HippoRatingView.swift in Sources */,
 				C9DC54C22356FD4400CA7FE9 /* ConversationState.swift in Sources */,
 				C9DC55352356FD4500CA7FE9 /* IQUITextFieldView+Additions.swift in Sources */,
 				C9DC55312356FD4500CA7FE9 /* IQKeyboardReturnKeyHandler.swift in Sources */,
@@ -2147,6 +2174,7 @@
 				C9DC54542356FD4300CA7FE9 /* BotOutgoingMessageTableViewCell.swift in Sources */,
 				C9DC550F2356FD4500CA7FE9 /* Kingfisher.swift in Sources */,
 				C9DC54AB2356FD4400CA7FE9 /* Socomo+String.swift in Sources */,
+				C945D3C0237E7D8E00DE2F7F /* HCSStarRatingView.m in Sources */,
 				C9DC54152356FD4300CA7FE9 /* CoreKit+UIImage.swift in Sources */,
 				C9DC54FE2356FD4500CA7FE9 /* TWRDownloadManager.m in Sources */,
 				C9DC54EB2356FD4500CA7FE9 /* PaymentField.swift in Sources */,

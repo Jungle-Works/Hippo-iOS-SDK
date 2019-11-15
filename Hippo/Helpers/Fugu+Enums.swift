@@ -272,6 +272,7 @@ enum FuguEndPoints: String {
     case API_FEEDBACK = "api/deal/feedback"
     case updateRideStatus = "api/users/inRideStatus"
     case fetchP2PUnreadCount = "api/conversation/fetchP2PUnreadCount"
+    case makeSelectedPayment = "api/payment/makeSelectedPayment"
 }
 
 enum AgentEndPoints: String {

@@ -110,6 +110,8 @@ class HippoConversationViewController: UIViewController {
     func adjustChatWhenKeyboardIsOpened(withHeight keyboardHeight: CGFloat) { }
     func addRemoveShadowInTextView(toAdd: Bool) { }
     func startNewConversation(replyMessage: HippoMessage?, completion: ((_ success: Bool, _ result: HippoChannelCreationResult?) -> Void)?) { }
+    func startLoaderAnimation() { }
+    func stopLoaderAnimation() { }
     
     
     func clearUnreadCountForChannel(id: Int) { }
@@ -1338,12 +1340,41 @@ extension HippoConversationViewController: CardMessageDelegate {
 extension HippoConversationViewController: PaymentMessageCellDelegate {
     func cellButtonPressed(message: HippoMessage, card: HippoCard) {
         guard let selectedCard = (card as? PayementButton)?.selectedCardDetail, let url = URL(string: selectedCard.paymentUrlString ?? "") else {
+            generatePaymentUrl(for: message, card: card)
             return
         }
+        initatePayment(for: url)
+    }
+    func initatePayment(for url: URL) {
         let config = WebViewConfig(url: url, title: "Payment")
         let vc = CheckoutViewController.getNewInstance(config: config)
         self.navigationController?.pushViewController(vc, animated: true)
     }
-    
-    
+    func generatePaymentUrl(for message: HippoMessage, card: HippoCard) {
+        guard let selectedCard = (card as? PayementButton)?.selectedCardDetail, let channelId = channel?.id else {
+            HippoConfig.shared.log.error("cannot find selected card.... Please select the card", level: .error)
+            return
+        }
+        
+        HippoConfig.shared.delegate?.startLoading(message: "Redirecting to payment...")
+        
+        PaymentStore.generatePaymentUrl(channelId: channelId, message: message, selectedCard: selectedCard) { (success, data) in
+            HippoConfig.shared.delegate?.stopLoading()
+            guard success, let result = data else {
+                return
+            }
+            guard let paymentUrl = result["payment_url"] as? String else {
+                return
+            }
+            HippoConfig.shared.log.debug("Response --\(result)", level: .response)
+            selectedCard.paymentUrlString = paymentUrl
+            
+            guard let url = URL(string: paymentUrl) else {
+                return
+            }
+            self.initatePayment(for: url)
+        }
+        
+        
+    }
 }

@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -21,13 +23,13 @@
                         <rect key="frame" x="5" y="5" width="141" height="175"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholderImg" translatesAutoresizingMaskIntoConstraints="NO" id="hgc-Fb-lpH" customClass="HippoImageView" customModule="HippoChat" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="141" height="135"/>
+                                <rect key="frame" x="0.0" y="0.0" width="141" height="115"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i21-Iq-S8M">
-                                <rect key="frame" x="0.0" y="107" width="141" height="28"/>
+                                <rect key="frame" x="0.0" y="69" width="141" height="46"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="Xob-zk-TaS">
-                                        <rect key="frame" x="10" y="5" width="121" height="18"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Xob-zk-TaS">
+                                        <rect key="frame" x="10" y="5" width="121" height="38"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UhU-yY-yKa">
                                                 <rect key="frame" x="0.0" y="0.0" width="121" height="18"/>
@@ -35,33 +37,50 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EFA-If-Odq">
+                                                <rect key="frame" x="0.0" y="18" width="121" height="20"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="20" id="Hex-5i-ZIp"/>
+                                                </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="rating">
+                                                        <real key="value" value="3.3999999999999999"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="EFA-If-Odq" secondAttribute="trailing" id="SQu-ed-cz1"/>
+                                            <constraint firstItem="EFA-If-Odq" firstAttribute="leading" secondItem="Xob-zk-TaS" secondAttribute="leading" id="T9K-Bs-cYj"/>
+                                            <constraint firstAttribute="bottom" secondItem="EFA-If-Odq" secondAttribute="bottom" id="gqF-rb-dVJ"/>
+                                        </constraints>
                                     </stackView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="Xob-zk-TaS" secondAttribute="bottom" constant="5" id="3yf-Gc-X5f"/>
+                                    <constraint firstAttribute="bottom" secondItem="Xob-zk-TaS" secondAttribute="bottom" constant="3" id="3yf-Gc-X5f"/>
                                     <constraint firstItem="Xob-zk-TaS" firstAttribute="top" secondItem="i21-Iq-S8M" secondAttribute="top" constant="5" id="LGY-SL-w1h"/>
                                     <constraint firstItem="Xob-zk-TaS" firstAttribute="leading" secondItem="i21-Iq-S8M" secondAttribute="leading" constant="10" id="TgC-LV-F1B"/>
                                     <constraint firstAttribute="trailing" secondItem="Xob-zk-TaS" secondAttribute="trailing" constant="10" id="iKJ-zn-cZE"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mGD-z7-WZx">
-                                <rect key="frame" x="0.0" y="135" width="141" height="40"/>
+                                <rect key="frame" x="0.0" y="115" width="141" height="60"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H1K-Eq-cZW">
-                                        <rect key="frame" x="10" y="0.0" width="121" height="40"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H1K-Eq-cZW" customClass="HippoLabel" customModule="HippoChat" customModuleProvider="target">
+                                        <rect key="frame" x="10" y="0.0" width="121" height="60"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBrownColor" red="0.63529411759999999" green="0.51764705879999995" blue="0.36862745099999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.63529411759999999" green="0.51764705879999995" blue="0.36862745099999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="H1K-Eq-cZW" firstAttribute="top" secondItem="mGD-z7-WZx" secondAttribute="top" id="5Gc-mt-ctO"/>
                                     <constraint firstAttribute="bottom" secondItem="H1K-Eq-cZW" secondAttribute="bottom" id="E4s-hq-sYO"/>
                                     <constraint firstAttribute="trailing" secondItem="H1K-Eq-cZW" secondAttribute="trailing" constant="10" id="ETf-rP-OWL"/>
-                                    <constraint firstAttribute="height" constant="40" id="K5t-eS-wyC"/>
+                                    <constraint firstAttribute="height" constant="60" id="K5t-eS-wyC"/>
                                     <constraint firstItem="H1K-Eq-cZW" firstAttribute="leading" secondItem="mGD-z7-WZx" secondAttribute="leading" constant="10" id="d9c-7q-oVY"/>
                                 </constraints>
                             </view>
@@ -97,6 +116,8 @@
                 <outlet property="descriptionLabel" destination="H1K-Eq-cZW" id="jcF-pr-uQ7"/>
                 <outlet property="imageView" destination="hgc-Fb-lpH" id="YAq-LF-HGF"/>
                 <outlet property="labelContainterView" destination="i21-Iq-S8M" id="E9F-bB-0vV"/>
+                <outlet property="ratingContainerViewHeightConstraint" destination="Hex-5i-ZIp" id="RKh-gS-cCc"/>
+                <outlet property="ratingViewContainer" destination="EFA-If-Odq" id="X5f-UZ-u1K"/>
                 <outlet property="titleLabel" destination="UhU-yY-yKa" id="d7B-Vn-8dX"/>
             </connections>
             <point key="canvasLocation" x="213.768115942029" y="165.06696428571428"/>

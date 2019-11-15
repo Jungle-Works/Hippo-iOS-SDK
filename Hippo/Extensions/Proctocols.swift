@@ -44,6 +44,8 @@ public protocol HippoDelegate: class {
     func hippoMessageRecievedWith(response: [String: Any], viewController: UIViewController)
     func hippoUserLogOut()
     
+    func startLoading(message: String?)
+    func stopLoading()
     
     #if canImport(HippoCallClient)
      func loadCallPresenterView(request: CallPresenterRequest) -> CallPresenter?

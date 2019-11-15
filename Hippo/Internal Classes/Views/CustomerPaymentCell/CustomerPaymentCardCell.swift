@@ -82,6 +82,8 @@ extension CustomerPaymentCardCell {
         setLabel(label: titleLabel, text: card.title)
         setLabel(label: descriptionLabel, text: card.description)
         amountLabel.attributedText = card.displayAmount
+        
+        self.selctionImageView?.image = card.isLocalySelected ? HippoConfig.shared.theme.radioActive : HippoConfig.shared.theme.radioInActive
     }
 }
 

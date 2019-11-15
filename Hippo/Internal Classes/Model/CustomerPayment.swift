@@ -81,6 +81,8 @@ class CustomerPayment {
     var cardConfig: PaymentCardConfig = PaymentCardConfig.defaultConfig()
     var height: CGFloat = .zero
     var isPaid: Bool = false
+    var isLocalySelected: Bool = false
+    var transactionId: String?
     
     var displayAmount: NSAttributedString {
         let theme = HippoConfig.shared.theme
@@ -122,11 +124,14 @@ class CustomerPayment {
         self.paymentUrlString = String.parse(values: json, key: "payment_url")
         self.discount = String.parse(values: json, key: "discount")
         self.currenySymbol = String.parse(values: json, key: "currency_symbol")
+        self.transactionId = String.parse(values: json, key: "transaction_id")
         
         if let selectedId = String.parse(values: json, key: "selected_id"), id == selectedId {
             isPaid = true
         }
         
+        let listCount = Int.parse(values: json, key: "total_cards") ?? 0
+        cardConfig.imageWidth = listCount > 1 ? 30 : 0
         self.calculateHeight()
     }
     
@@ -135,12 +140,16 @@ class CustomerPayment {
         var card: CustomerPayment?
         
         for each in list {
+            var cardJson = each
+            cardJson["total_cards"] = list.count
         
-            guard let c = CustomerPayment(json: each) else {
+            guard let c = CustomerPayment(json: cardJson) else {
                 continue
             }
+            
             if c.id == selectedCardId {
                 c.isPaid = true
+                c.cardConfig.imageWidth = 0
                 c.calculateHeight()
                 card = c
             }
@@ -169,6 +178,24 @@ class CustomerPayment {
         let spacing: CGFloat = descriptionHeight <= 0 ? 0 : cardConfig.labelSpacing
         self.height = height + titleHeight + descriptionHeight + spacing
         
+    }
+    func getJsonForMakePayment() -> [String: Any] {
+        var json: [String: Any] = [:]
+        
+        json["title"] = self.title
+        json["description"] = self.description
+        json["amount"] = self.amount ?? 0
+        json["currency"] = self.currency ?? ""
+        
+        if let symnbol = currenySymbol {
+            json["currency_symbol"] = symnbol
+        }
+        json["id"] = self.id
+        
+        if let transactionID = self.transactionId {
+            json["transaction_id"] = transactionID
+        }
+        return json
     }
 }
 
