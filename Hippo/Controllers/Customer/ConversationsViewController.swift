@@ -807,7 +807,7 @@ protocol NewChatSentDelegate: class {
         
         let isFormPresent = formCount > 0 ? true : false
         let botMessageMUID = HippoChannel.botMessageMUID ?? ""
-        return (isFormPresent && botMessageMUID.isEmpty) || isDefaultChannel
+        return (isFormPresent && botMessageMUID.isEmpty) || isDefaultChannel()
     }
    func enableSendingNewMessages() {
       addFileButtonAction.isUserInteractionEnabled = true
