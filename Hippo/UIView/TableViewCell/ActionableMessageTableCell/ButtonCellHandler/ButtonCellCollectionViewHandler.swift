@@ -44,8 +44,8 @@ class ButtonCellCollectionViewHandler: NSObject {
     func enableButton() -> Bool {
         
         let isSentByMe = currentUserId() == (chatMessageObj?.senderId ?? -3)
-        
-        return !isSentByMe
+        let isAgent = HippoConfig.shared.appUserType == .agent
+        return !isSentByMe && !isAgent
     }
     @objc func messageButtonClicked(sender: UIButton) {
         

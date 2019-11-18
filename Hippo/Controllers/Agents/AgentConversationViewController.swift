@@ -962,6 +962,22 @@ extension AgentConversationViewController: UITableViewDelegate, UITableViewDataS
                     }
                     cell.setupCell(message: message)
                     return cell
+                case .actionableMessage, .hippoPay:
+                    
+                    guard let cell = tableView.dequeueReusableCell(withIdentifier: "ActionableMessageTableViewCell", for: indexPath) as? ActionableMessageTableViewCell else {
+                        let cell = UITableViewCell()
+                        cell.backgroundColor = .clear
+                        return cell
+                    }
+                    cell.tableViewHeightConstraint.constant = self.getHeightOfActionableMessageAt(indexPath: indexPath, chatObject: message)
+                    cell.timeLabel.text = ""
+                    cell.rootViewController = self
+                    cell.registerNib()
+                    cell.setUpData(messageObject: message, isIncomingMessage: !isOutgoingMsg)
+                    cell.actionableMessageTableView.reloadData()
+                    cell.tableViewHeightConstraint.constant = self.getHeightOfActionableMessageAt(indexPath: indexPath, chatObject: message)
+                    cell.backgroundColor = UIColor.clear
+                    return cell
                 case .attachment:
                     if isOutgoingMsg {
                         switch message.concreteFileType! {
@@ -1049,14 +1065,14 @@ extension AgentConversationViewController: UITableViewDelegate, UITableViewDataS
                     default:
                         return 80
                     }
-                case MessageType.actionableMessage:
-                    return 0.01
                 case MessageType.assignAgent:
                     return UIView.tableAutoDimensionHeight
                 case MessageType.call:
                     return UIView.tableAutoDimensionHeight
                 case .consent:
                     return message.cellDetail?.cellHeight ?? 0.01
+                case .actionableMessage, .hippoPay:
+                    return self.getHeightOfActionableMessageAt(indexPath: indexPath, chatObject: message) + heightOfDateLabel
                 default:
                     return 0.01//UITableViewAutomaticDimension
                     
