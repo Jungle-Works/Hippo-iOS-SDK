@@ -360,7 +360,7 @@ class HippoChannel {
         }
         if labelRequest != nil, HippoProperty.current.singleChatApp {
             var tags = params["tags"] as? [String] ?? []
-            tags.append("Diet Buddy iOS")
+            tags.append("iOS")
             params["tags"] = tags
         }
         
