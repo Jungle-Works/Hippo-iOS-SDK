@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C92520CA238277B3002C0FB9 /* HippoMessageSound.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92520C9238277B3002C0FB9 /* HippoMessageSound.swift */; };
+		C92520CC238277C7002C0FB9 /* HippoSoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92520CB238277C7002C0FB9 /* HippoSoundManager.swift */; };
+		C92520D023827884002C0FB9 /* SoundPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92520CF23827884002C0FB9 /* SoundPlayer.swift */; };
 		C92CD3E1235712B3006E5F40 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C92CD3E0235712B3006E5F40 /* UIKit.framework */; };
 		C945D3B7237D749600DE2F7F /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C945D3B6237D749600DE2F7F /* CoreText.framework */; };
 		C945D3B9237DCF7A00DE2F7F /* HippoLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C945D3B8237DCF7A00DE2F7F /* HippoLabel.swift */; };
@@ -350,6 +353,9 @@
 		7012A5A44B87F497D213D271 /* Pods_SDKDemo1.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SDKDemo1.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		73C5DC7752C82068B4CD5EB2 /* Pods-Hippo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hippo.release.xcconfig"; path = "Pods/Target Support Files/Pods-Hippo/Pods-Hippo.release.xcconfig"; sourceTree = "<group>"; };
 		8C0A922564912516EF04B93F /* Pods_Hippo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Hippo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C92520C9238277B3002C0FB9 /* HippoMessageSound.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HippoMessageSound.swift; sourceTree = "<group>"; };
+		C92520CB238277C7002C0FB9 /* HippoSoundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HippoSoundManager.swift; sourceTree = "<group>"; };
+		C92520CF23827884002C0FB9 /* SoundPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundPlayer.swift; sourceTree = "<group>"; };
 		C92CD3E0235712B3006E5F40 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C945D3B6237D749600DE2F7F /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		C945D3B8237DCF7A00DE2F7F /* HippoLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HippoLabel.swift; sourceTree = "<group>"; };
@@ -750,6 +756,22 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		C92520C8238277B3002C0FB9 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C92520C9238277B3002C0FB9 /* HippoMessageSound.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		C92520CE23827879002C0FB9 /* SoundPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				C92520CF23827884002C0FB9 /* SoundPlayer.swift */,
+			);
+			path = SoundPlayer;
+			sourceTree = "<group>";
+		};
 		C945D3BC237E7D7C00DE2F7F /* RatingView */ = {
 			isa = PBXGroup;
 			children = (
@@ -790,6 +812,7 @@
 		C965D53123714FC900100E4B /* Module */ = {
 			isa = PBXGroup;
 			children = (
+				C92520CE23827879002C0FB9 /* SoundPlayer */,
 				C965D53223714FF300100E4B /* CheckoutViewController */,
 			);
 			path = Module;
@@ -806,17 +829,11 @@
 		C9A506F523572B6A00F5BE43 /* PublicClasses */ = {
 			isa = PBXGroup;
 			children = (
-				C9A506F823572DA400F5BE43 /* Model */,
+				C92520C8238277B3002C0FB9 /* Model */,
 				C9A506F623572B8600F5BE43 /* HippoChat.swift */,
+				C92520CB238277C7002C0FB9 /* HippoSoundManager.swift */,
 			);
 			path = PublicClasses;
-			sourceTree = "<group>";
-		};
-		C9A506F823572DA400F5BE43 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		C9B410E3235DAD300029799A /* CardListCell */ = {
@@ -2146,6 +2163,7 @@
 				C9DC54222356FD4300CA7FE9 /* Formatters.swift in Sources */,
 				C9DC55212356FD4500CA7FE9 /* Placeholder.swift in Sources */,
 				C9DC54AE2356FD4400CA7FE9 /* RideDetail.swift in Sources */,
+				C92520CC238277C7002C0FB9 /* HippoSoundManager.swift in Sources */,
 				C9DC54782356FD4300CA7FE9 /* VideoTableViewCell.swift in Sources */,
 				C9DC54AD2356FD4400CA7FE9 /* FuguChannelPersistancyManager.swift in Sources */,
 				C9DC54752356FD4300CA7FE9 /* OutgoingAudioTableViewCell.swift in Sources */,
@@ -2157,11 +2175,13 @@
 				C9DC54302356FD4300CA7FE9 /* FuguConfig.swift in Sources */,
 				C9DC555023570B1100CA7FE9 /* MZFayeMessage.m in Sources */,
 				C9DC54A92356FD4400CA7FE9 /* NotificationCenter+Extension.swift in Sources */,
+				C92520D023827884002C0FB9 /* SoundPlayer.swift in Sources */,
 				C9DC54C12356FD4400CA7FE9 /* HippoTicketAtrributes.swift in Sources */,
 				C9DC54DC2356FD4400CA7FE9 /* HippoDescriptionContent.swift in Sources */,
 				C9DC54BF2356FD4400CA7FE9 /* FuguConversation.swift in Sources */,
 				C945D3BB237E7A1C00DE2F7F /* HippoRatingView.swift in Sources */,
 				C9DC54C22356FD4400CA7FE9 /* ConversationState.swift in Sources */,
+				C92520CA238277B3002C0FB9 /* HippoMessageSound.swift in Sources */,
 				C9DC55352356FD4500CA7FE9 /* IQUITextFieldView+Additions.swift in Sources */,
 				C9DC55312356FD4500CA7FE9 /* IQKeyboardReturnKeyHandler.swift in Sources */,
 				C9DC55022356FD4500CA7FE9 /* Constants.swift in Sources */,

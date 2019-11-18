@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 protocol MessageSenderDelegate: class {
     func messageSent(message: HippoMessage)
     func messageExpired(message: HippoMessage)
@@ -104,6 +103,7 @@ class MessageSender {
                     return
                 }
                 message.status = .sent
+                SoundPlayer.messageSentSucessfully()
                 DispatchQueue.main.async {
                     self?.delegate?.messageSent(message: message)
                 }
