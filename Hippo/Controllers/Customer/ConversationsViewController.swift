@@ -475,11 +475,15 @@ protocol NewChatSentDelegate: class {
         return loadMoreActivityTopContraint.constant == 10
     }
     override func startLoaderAnimation() {
-        loaderView.startRotationAnimation()
+        DispatchQueue.main.async {
+            self.loaderView?.startRotationAnimation()
+        }
     }
     
     override func stopLoaderAnimation() {
-        loaderView.stopRotationAnimation()
+        DispatchQueue.main.async {
+            self.loaderView?.stopRotationAnimation()
+        }
     }
     
    // MARK: - SERVER HIT
@@ -702,7 +706,9 @@ protocol NewChatSentDelegate: class {
      storeResponse = nil
      MessageStore.getMessagesByLabelID(requestParam: request, ignoreIfInProgress: false) {[weak self] (response, error)  in
         
-        self?.stopLoaderAnimation()
+        if self?.storeRequest?.id == request.id {
+          self?.stopLoaderAnimation()
+        }
         self?.hideErrorMessage()
         
         guard error == nil else {

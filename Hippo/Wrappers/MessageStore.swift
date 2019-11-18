@@ -45,6 +45,7 @@ class MessageStore {
         var pageEnd: Int?
         var channelId: Int = -1
         var labelId: Int = -1
+        let id: String = UUID().uuidString
     }
     
     struct ChannelMessagesResult {
