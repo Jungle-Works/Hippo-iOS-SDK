@@ -345,7 +345,9 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
                 let buttonView = PayementButton(title: "Proceed To Pay")
                 buttonView.selectedCardDetail = firstCard
                 
-                self.cards = cards
+                let header = PaymentHeader()
+                
+                self.cards = [header] + cards
                 self.cards?.append(buttonView)
             }
             

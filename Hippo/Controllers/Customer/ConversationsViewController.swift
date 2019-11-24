@@ -108,6 +108,7 @@ protocol NewChatSentDelegate: class {
     
    override  func viewWillAppear(_ animated: Bool) {
       super.viewWillAppear(animated)
+      tableViewChat.contentInset.top = 12
       messageTextView.contentInset.top = 8
       self.navigationController?.isNavigationBarHidden = false
 
@@ -1155,7 +1156,7 @@ extension ConversationsViewController {
         
         let isOutgoingMsg = isSentByMe(senderId: chatMessageObject.senderId) && chatMessageObject.type != .card
         
-        var availableWidthSpace = FUGU_SCREEN_WIDTH - CGFloat(60 + 10) - CGFloat(10 + 5) - 1
+        var availableWidthSpace = FUGU_SCREEN_WIDTH - CGFloat(60 + 10) - CGFloat(10 + 5)
         availableWidthSpace -= (isProfileImageEnabled && !isOutgoingMsg) ? 35 : 0
         
         let availableBoxSize = CGSize(width: availableWidthSpace,
@@ -1164,7 +1165,7 @@ extension ConversationsViewController {
         
         
         var cellTotalHeight: CGFloat = 5 + 2.5 + 3.5 + 12 + 7
-        
+      
         if isOutgoingMsg == true {
             
             let messageString = chatMessageObject.message
@@ -1643,7 +1644,7 @@ func getHeighOfButtonCollectionView(actionableMessage: FuguActionableMessage) ->
         let buttonHeight: CGFloat = CGFloat(buttonAction.count * 30)
         let skipButtonHeight: CGFloat = message.shouldShowSkipButton() ? LeadTableViewCell.skipButtonHeightConstant : 0
         if height > 0 {
-            return CGFloat(height) + buttonHeight + skipButtonHeight
+            return CGFloat(height) + buttonHeight + skipButtonHeight + 2
         }
         return 0.001
     }

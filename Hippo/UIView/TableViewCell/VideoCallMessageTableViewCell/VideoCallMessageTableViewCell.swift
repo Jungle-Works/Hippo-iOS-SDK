@@ -75,7 +75,7 @@ class IncomingVideoCallMessageTableViewCell: VideoCallMessageTableViewCell {
         if message.isMissedCall {
             messageLabel.textColor = UIColor.red
         } else {
-            messageLabel.textColor = UIColor.black
+            messageLabel.textColor =  HippoConfig.shared.theme.incomingMsgColor
         }
         messageLabel.text = message.getVideoCallMessage(otherUserName: "🎥")
         
@@ -102,9 +102,9 @@ class OutgoingVideoCallMessageTableViewCell: VideoCallMessageTableViewCell {
         self.message = message
         
         if message.isMissedCall {
-            messageLabel.textColor = UIColor.black
+            messageLabel.textColor = HippoConfig.shared.theme.outgoingMsgColor
         } else {
-            messageLabel.textColor = UIColor.black
+            messageLabel.textColor = HippoConfig.shared.theme.outgoingMsgColor
         }
         
         messageLabel.text = message.getVideoCallMessage(otherUserName: otherUserName)

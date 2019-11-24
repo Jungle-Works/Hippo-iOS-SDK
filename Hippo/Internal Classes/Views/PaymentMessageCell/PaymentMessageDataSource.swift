@@ -50,6 +50,12 @@ extension PaymentMessageDataSource: UITableViewDataSource {
             cell.set(card: card)
             cell.delegate = delegate
             return cell
+        case let card as PaymentHeader:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "AssignedAgentTableViewCell", for: indexPath) as? AssignedAgentTableViewCell else {
+                return UITableView.defaultCell()
+            }
+            cell.set(card: card)
+            return cell
         default:
             return UITableView.defaultCell()
         }
@@ -63,6 +69,9 @@ extension PaymentMessageDataSource: UITableViewDelegate {
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let item = cards[indexPath.row]
+        if item as? PaymentHeader == nil {
+            return
+        }
         for each in cards {
             switch each {
             case let parsed as CustomerPayment:

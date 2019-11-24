@@ -90,6 +90,10 @@ class SelfMessageTableViewCell: MessageTableViewCell {
         timeLabel.textAlignment = .right
         timeLabel.textColor = HippoConfig.shared.theme.outgoingMsgDateTextColor
         
+        selfMessageTextView.backgroundColor = .clear
+        selfMessageTextView.textContainer.lineFragmentPadding = 0
+        selfMessageTextView.textContainerInset = .zero
+        
         //chatImageView.image = nil
        // chatImageView.layer.cornerRadius = 4.0
         

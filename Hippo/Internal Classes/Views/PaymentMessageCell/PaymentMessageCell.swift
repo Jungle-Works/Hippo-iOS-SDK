@@ -39,6 +39,8 @@ class PaymentMessageCell: UITableViewCell {
     private func setupTableView() {
         tableView.register(UINib(nibName: "CustomerPaymentCardCell", bundle: FuguFlowManager.bundle), forCellReuseIdentifier: "CustomerPaymentCardCell")
         tableView.register(UINib(nibName: "ActionButtonViewCell", bundle: FuguFlowManager.bundle), forCellReuseIdentifier: "ActionButtonViewCell")
+        tableView.register(UINib(nibName: "AssignedAgentTableViewCell", bundle: FuguFlowManager.bundle), forCellReuseIdentifier: "AssignedAgentTableViewCell")
+        
         
         tableView.dataSource = datasource
         tableView.delegate = datasource

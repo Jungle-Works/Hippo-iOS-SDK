@@ -76,18 +76,19 @@ class ActionButtonViewCell: ActionViewCell {
 extension ActionButtonViewCell {
     func set(card: PayementButton) {
         self.data = card
-        let amount = card.selectedCardDetail?.amount ?? 0
-        let displayAmount = (amount > 0 && card.showAmount) ? " \(amount)" : ""
+//        let amount = card.selectedCardDetail?.amount ?? 0
+        let displayAmount = ""//= (amount > 0 && card.showAmount) ? " \(amount)" : ""
         let title = card.title + displayAmount
         self.cellButton.setTitle(title, for: .normal)
         
         let theme = HippoConfig.shared.theme
-        cellButton.setTitleColor(theme.headerTextColor, for: .normal)
-        cellButton.backgroundColor = theme.headerBackgroundColor
+        cellButton.setTitleColor(.white, for: .normal)
+        cellButton.backgroundColor = theme.themeColor
         cellButton.layer.borderWidth = 0
+        cellButton.hippoCornerRadius = cellButton.bounds.height / 2
         
-        buttonLeadingConstraint.constant = 20
-        buttonTrailingConstraint.constant = 20
+        buttonLeadingConstraint.constant = 70
+        buttonTrailingConstraint.constant = 70
     }
     
 }

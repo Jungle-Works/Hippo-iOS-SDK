@@ -23,13 +23,13 @@
                         <rect key="frame" x="5" y="5" width="141" height="175"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholderImg" translatesAutoresizingMaskIntoConstraints="NO" id="hgc-Fb-lpH" customClass="HippoImageView" customModule="HippoChat" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="141" height="115"/>
+                                <rect key="frame" x="0.0" y="0.0" width="141" height="135"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i21-Iq-S8M">
-                                <rect key="frame" x="0.0" y="69" width="141" height="46"/>
+                                <rect key="frame" x="0.0" y="94" width="141" height="41"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Xob-zk-TaS">
-                                        <rect key="frame" x="10" y="5" width="121" height="38"/>
+                                        <rect key="frame" x="10" y="0.0" width="121" height="38"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UhU-yY-yKa">
                                                 <rect key="frame" x="0.0" y="0.0" width="121" height="18"/>
@@ -37,39 +37,56 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EFA-If-Odq">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qy9-vo-Ji8">
                                                 <rect key="frame" x="0.0" y="18" width="121" height="20"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <subviews>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EFA-If-Odq">
+                                                        <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="20" id="Hex-5i-ZIp"/>
+                                                            <constraint firstAttribute="width" constant="20" id="hv4-tc-h5O"/>
+                                                        </constraints>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="rating">
+                                                                <real key="value" value="3.3999999999999999"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </view>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rgo-nZ-TkZ">
+                                                        <rect key="frame" x="20" y="0.0" width="101" height="20"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="20" id="Hex-5i-ZIp"/>
+                                                    <constraint firstAttribute="bottom" secondItem="EFA-If-Odq" secondAttribute="bottom" id="ARE-dk-pK2"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Rgo-nZ-TkZ" secondAttribute="trailing" id="HOq-jo-ZYS"/>
+                                                    <constraint firstItem="Rgo-nZ-TkZ" firstAttribute="top" secondItem="Qy9-vo-Ji8" secondAttribute="top" id="LcI-9T-oDF"/>
+                                                    <constraint firstAttribute="bottom" secondItem="Rgo-nZ-TkZ" secondAttribute="bottom" id="Lx5-kv-1VV"/>
+                                                    <constraint firstItem="Rgo-nZ-TkZ" firstAttribute="leading" secondItem="EFA-If-Odq" secondAttribute="trailing" id="PWm-Mz-F07"/>
+                                                    <constraint firstItem="EFA-If-Odq" firstAttribute="leading" secondItem="Qy9-vo-Ji8" secondAttribute="leading" id="d7q-sh-F50"/>
+                                                    <constraint firstItem="EFA-If-Odq" firstAttribute="top" secondItem="Qy9-vo-Ji8" secondAttribute="top" id="uP5-Ty-kQa"/>
                                                 </constraints>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="rating">
-                                                        <real key="value" value="3.3999999999999999"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                </userDefinedRuntimeAttributes>
                                             </view>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="EFA-If-Odq" secondAttribute="trailing" id="SQu-ed-cz1"/>
-                                            <constraint firstItem="EFA-If-Odq" firstAttribute="leading" secondItem="Xob-zk-TaS" secondAttribute="leading" id="T9K-Bs-cYj"/>
-                                            <constraint firstAttribute="bottom" secondItem="EFA-If-Odq" secondAttribute="bottom" id="gqF-rb-dVJ"/>
-                                        </constraints>
                                     </stackView>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="Xob-zk-TaS" secondAttribute="bottom" constant="3" id="3yf-Gc-X5f"/>
-                                    <constraint firstItem="Xob-zk-TaS" firstAttribute="top" secondItem="i21-Iq-S8M" secondAttribute="top" constant="5" id="LGY-SL-w1h"/>
+                                    <constraint firstItem="Xob-zk-TaS" firstAttribute="top" secondItem="i21-Iq-S8M" secondAttribute="top" id="LGY-SL-w1h"/>
                                     <constraint firstItem="Xob-zk-TaS" firstAttribute="leading" secondItem="i21-Iq-S8M" secondAttribute="leading" constant="10" id="TgC-LV-F1B"/>
                                     <constraint firstAttribute="trailing" secondItem="Xob-zk-TaS" secondAttribute="trailing" constant="10" id="iKJ-zn-cZE"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mGD-z7-WZx">
-                                <rect key="frame" x="0.0" y="115" width="141" height="60"/>
+                                <rect key="frame" x="0.0" y="135" width="141" height="40"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H1K-Eq-cZW" customClass="HippoLabel" customModule="HippoChat" customModuleProvider="target">
-                                        <rect key="frame" x="10" y="0.0" width="121" height="60"/>
+                                        <rect key="frame" x="10" y="0.0" width="121" height="40"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -80,7 +97,7 @@
                                     <constraint firstItem="H1K-Eq-cZW" firstAttribute="top" secondItem="mGD-z7-WZx" secondAttribute="top" id="5Gc-mt-ctO"/>
                                     <constraint firstAttribute="bottom" secondItem="H1K-Eq-cZW" secondAttribute="bottom" id="E4s-hq-sYO"/>
                                     <constraint firstAttribute="trailing" secondItem="H1K-Eq-cZW" secondAttribute="trailing" constant="10" id="ETf-rP-OWL"/>
-                                    <constraint firstAttribute="height" constant="60" id="K5t-eS-wyC"/>
+                                    <constraint firstAttribute="height" constant="40" id="K5t-eS-wyC"/>
                                     <constraint firstItem="H1K-Eq-cZW" firstAttribute="leading" secondItem="mGD-z7-WZx" secondAttribute="leading" constant="10" id="d9c-7q-oVY"/>
                                 </constraints>
                             </view>
@@ -117,6 +134,7 @@
                 <outlet property="imageView" destination="hgc-Fb-lpH" id="YAq-LF-HGF"/>
                 <outlet property="labelContainterView" destination="i21-Iq-S8M" id="E9F-bB-0vV"/>
                 <outlet property="ratingContainerViewHeightConstraint" destination="Hex-5i-ZIp" id="RKh-gS-cCc"/>
+                <outlet property="ratingLabel" destination="Rgo-nZ-TkZ" id="DWd-cS-hnf"/>
                 <outlet property="ratingViewContainer" destination="EFA-If-Odq" id="X5f-UZ-u1K"/>
                 <outlet property="titleLabel" destination="UhU-yY-yKa" id="d7B-Vn-8dX"/>
             </connections>

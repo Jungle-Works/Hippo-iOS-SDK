@@ -15,6 +15,8 @@ import UIKit
     
     var shouldEnableDisplayUserImage: Bool = true
     
+    open var themeColor: UIColor = #colorLiteral(red: 0.3843137255, green: 0.4901960784, blue: 0.8823529412, alpha: 1)
+    
     open var backgroundColor = #colorLiteral(red: 0.9725490196, green: 0.9764705882, blue: 1, alpha: 1)
     open var infoIconTintColor = #colorLiteral(red: 0.3843137255, green: 0.4901960784, blue: 0.8823529412, alpha: 1)
     open var headerBackgroundColor = #colorLiteral(red: 0.3843137255, green: 0.4901960784, blue: 0.8823529412, alpha: 1)
@@ -66,7 +68,7 @@ import UIKit
     open var actionButtonIconTintColor: UIColor?
     
     
-    open var readMessageTick: UIImage? = UIImage(named: "readMsgTick", in: FuguFlowManager.bundle, compatibleWith: nil)
+    open var readMessageTick: UIImage? = UIImage(named: "readMsgTick", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     open var readMessageTintColor: UIColor?
     
     open var unreadMessageTick: UIImage? = UIImage(named: "unreadMsgTick", in: FuguFlowManager.bundle, compatibleWith: nil)

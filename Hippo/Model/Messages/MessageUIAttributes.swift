@@ -36,7 +36,7 @@ struct MessageUIAttributes {
         
         attributedMessageString = getAttributedStringWithThemeFont(aString: attributedMessageString)
         
-        senderNameAttributedString = getSenderNameInThemeFont(appendWithString: "\n")
+        senderNameAttributedString = getSenderNameInThemeFont(appendWithString: "")
         
         self.timeHeight = heightOfConstraintsInNormalMessageCell()
         self.nameHeight = getHeightForName()
@@ -44,7 +44,7 @@ struct MessageUIAttributes {
         self.attributedMessageString = attributedMessageString
        
 
-        senderNameAttributedString = getSenderNameInThemeFont(appendWithString: "\n")
+        senderNameAttributedString = getSenderNameInThemeFont(appendWithString: "")
         messageWithName = senderNameAttributedString
         senderNameAttributedString.append(self.attributedMessageString)
         
@@ -55,7 +55,7 @@ struct MessageUIAttributes {
     }
     
     private func heightOf(attributedString: NSMutableAttributedString) -> CGFloat {
-        var availableWidthSpace = windowScreenWidth - CGFloat(60 + 10) - CGFloat(10 + 5) - 1
+        var availableWidthSpace = windowScreenWidth - CGFloat(60 + 10) - CGFloat(10 + 5)
         availableWidthSpace -= isShowingImage ? 35 : 0
        
         let availableBoxSize = CGSize(width: availableWidthSpace, height: CGFloat.greatestFiniteMagnitude)

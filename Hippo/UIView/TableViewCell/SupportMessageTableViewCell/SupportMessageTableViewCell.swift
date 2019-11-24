@@ -18,10 +18,9 @@ class SupportMessageTableViewCell: MessageTableViewCell {
     
     
     override func awakeFromNib() {
-        supportMessageTextView.backgroundColor = .clear
-        supportMessageTextView.textContainer.lineFragmentPadding = 0
-        supportMessageTextView.textContainerInset = .zero
+        
     }
+    
     
     override func didMoveToSuperview() {
         super.didMoveToSuperview()
@@ -61,6 +60,10 @@ class SupportMessageTableViewCell: MessageTableViewCell {
         bgView.backgroundColor = HippoConfig.shared.theme.incomingChatBoxColor
         bgView.layer.borderWidth = HippoConfig.shared.theme.chatBoxBorderWidth
         bgView.layer.borderColor = HippoConfig.shared.theme.chatBoxBorderColor.cgColor
+        
+        supportMessageTextView.backgroundColor = .clear
+        supportMessageTextView.textContainer.lineFragmentPadding = 0
+        supportMessageTextView.textContainerInset = .zero
     }
     
     func configureCellOfSupportIncomingCell(resetProperties: Bool,

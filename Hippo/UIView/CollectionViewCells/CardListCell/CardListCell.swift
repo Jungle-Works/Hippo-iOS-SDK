@@ -12,6 +12,7 @@ class CardListCell: UICollectionViewCell {
 
     static let ratingViewHeight: CGFloat = 20
     
+    @IBOutlet weak var ratingLabel: UILabel!
     @IBOutlet weak var ratingViewContainer: UIView!
     @IBOutlet weak var imageView: HippoImageView!
     @IBOutlet weak var titleLabel: UILabel!
@@ -30,6 +31,7 @@ class CardListCell: UICollectionViewCell {
     }
 
     func setTheme() {
+        let theme = HippoConfig.shared.theme
         labelContainterView.backgroundColor = UIColor.black.withAlphaComponent(0.3)
         titleLabel.textColor = .white
         descriptionLabel.textColor = .darkText
@@ -38,7 +40,12 @@ class CardListCell: UICollectionViewCell {
         bgView.backgroundColor = .white
         bottomContainer.backgroundColor = .white
         ratingViewContainer.backgroundColor = .clear
-        descriptionLabel.numberOfLines = 4
+        descriptionLabel.numberOfLines = 2
+        ratingLabel.textColor = .white
+        descriptionLabel.font = UIFont.boldSystemFont(ofSize: 11)
+        
+        bgView.layer.borderColor = theme.themeColor.cgColor
+        bgView.layer.borderWidth = 1
     }
     
     private func setDescriptionLabel() {
@@ -84,7 +91,7 @@ class CardListCell: UICollectionViewCell {
         ratingViewContainer.isHidden = false
         self.layoutIfNeeded()
         let containerBound = ratingViewContainer.bounds
-        let width = (containerBound.size.width * 0.7)
+        let width = (containerBound.size.width)
         let bounds = CGRect(x: containerBound.origin.x, y: containerBound.origin.y, width: width, height: containerBound.size.height)
         ratingView = HCSStarRatingView(frame: bounds)
         ratingView?.allowsHalfStars = true
@@ -101,7 +108,9 @@ class CardListCell: UICollectionViewCell {
             return
         }
         initalizeRatingView()
-        ratingView?.value = CGFloat(rating)
+        ratingView?.maximumValue = 1
+        ratingView?.value = 1
+        ratingLabel.text = "\(rating)"
     }
     
     private func hideRatingView() {

@@ -44,12 +44,22 @@ struct PaymentCardConfig {
     var amountWidth: CGFloat = 100
     
     static func defaultConfig() -> PaymentCardConfig {
-        let bgView = ViewLayout(leading: 20, trailing: 20, top: 3, bottom: 0)
+        let bgView = ViewLayout(leading: 45, trailing: 15, top: 3, bottom: 0)
         let innerCard = ViewLayout(equalMargin: 5)
         let labelView = ViewLayout(equalMargin: 10)
         
         let imageWidth: CGFloat = 0
         return PaymentCardConfig(bgView: bgView, innerCard: innerCard, labelView: labelView, imageWidth: imageWidth, labelSpacing: 5, amountWidth: 100)
+    }
+}
+
+class PaymentHeader {
+    var text: String = "Select a plan"
+}
+
+extension PaymentHeader: HippoCard {
+    var cardHeight: CGFloat {
+        return 30
     }
 }
 

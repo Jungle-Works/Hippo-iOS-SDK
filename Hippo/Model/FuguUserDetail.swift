@@ -372,6 +372,9 @@ public class UserTag: NSObject {
         params["app_version_code"] = versionCode
         params["source"] = HippoSDKSource
         
+        if HippoProperty.current.singleChatApp {
+            params["neglect_conversations"] = true
+        }
         return params
     }
     class func clearAgentData() {
