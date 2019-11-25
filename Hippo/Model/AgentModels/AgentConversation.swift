@@ -141,6 +141,8 @@ class AgentConversation: HippoConversation {
                 return messageObject.getVideoCallMessage(otherUserName: "")
             case .attachment:
                 end = "sent a file"
+            case .hippoPay, .actionableMessage:
+                return "Payment initiated"
             default:
                 break
             }
