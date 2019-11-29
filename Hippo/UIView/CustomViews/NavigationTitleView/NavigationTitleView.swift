@@ -82,9 +82,9 @@ class NavigationTitleView: UIView {
         delegate?.titleClicked?()
     }
     @objc func imageClicked() {
-        if backButton.isEnabled {
+//        if backButton.isEnabled {
             delegate?.imageIconClicked?()
-        }
+//        }
     }
     
     func hideDescription() {

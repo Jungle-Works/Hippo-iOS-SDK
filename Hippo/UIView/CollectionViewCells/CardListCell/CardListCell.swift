@@ -8,10 +8,16 @@
 
 import UIKit
 
+protocol CardListCellDelegate: class {
+    func labelContainerClicked(card: MessageCard)
+    func readmoreClicked(card: MessageCard)
+}
+
 class CardListCell: UICollectionViewCell {
 
     static let ratingViewHeight: CGFloat = 20
     
+    @IBOutlet weak var infoImageView: UIImageView!
     @IBOutlet weak var ratingLabel: UILabel!
     @IBOutlet weak var ratingViewContainer: UIView!
     @IBOutlet weak var imageView: HippoImageView!
@@ -24,6 +30,7 @@ class CardListCell: UICollectionViewCell {
     
     var card: MessageCard?
     var ratingView: HCSStarRatingView?
+    weak var delegate: CardListCellDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -43,9 +50,12 @@ class CardListCell: UICollectionViewCell {
         descriptionLabel.numberOfLines = 2
         ratingLabel.textColor = .white
         descriptionLabel.font = UIFont.boldSystemFont(ofSize: 11)
-        
+        infoImageView.image = theme.infoIcon
+        infoImageView.tintColor = theme.infoIconTintColor
         bgView.layer.borderColor = theme.themeColor.cgColor
         bgView.layer.borderWidth = 1
+        ratingViewContainer.isUserInteractionEnabled = false
+        
     }
     
     private func setDescriptionLabel() {
@@ -66,21 +76,35 @@ class CardListCell: UICollectionViewCell {
         }
     }
     
-    private  func addGesture() {
+    private func addGesture() {
+        descriptionLabel.removeAllGesture()
+        
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(labelClicked))
         descriptionLabel.addGestureRecognizer(tapGesture)
     }
     
+    private func addLAbelContainerViewGesture() {
+        labelContainterView.removeAllGesture()
+        let conatinerLabelTapGesture = UITapGestureRecognizer(target: self, action: #selector(labelContainerClicked))
+        labelContainterView.isUserInteractionEnabled = true
+        labelContainterView.addGestureRecognizer(conatinerLabelTapGesture)
+    }
+    
+    @objc private func labelContainerClicked() {
+        if let card = card {
+            delegate?.labelContainerClicked(card: card)
+        }
+    }
+    
     @objc private func labelClicked() {
-        let message = (card?.description ?? "")
-        showAlertWith(message: message, action: nil)
+        if let card = self.card {
+            delegate?.readmoreClicked(card: card)
+        }
+//        let message = (card?.description ?? "")
+//        showAlertWith(message: message, action: nil)
     }
     private func removeGesture() {
-        let gestures = descriptionLabel.gestureRecognizers ?? []
-        
-        for g in gestures {
-            descriptionLabel.removeGestureRecognizer(g)
-        }
+        descriptionLabel.removeAllGesture()
     }
     
     private func initalizeRatingView() {
@@ -126,8 +150,18 @@ extension CardListCell {
         titleLabel.text = card.title
         let placeholder: UIImage? = UIImage(named: "placeholderImg", in: FuguFlowManager.bundle, compatibleWith: nil)
         imageView.setImage(resource: card.image, placeholder: placeholder)
+        addLAbelContainerViewGesture()
         setDescriptionLabel()
         setRating()
     }
 }
 
+
+extension UIView {
+    func removeAllGesture() {
+        let gestures = self.gestureRecognizers ?? []
+        for each in gestures {
+            self.removeGestureRecognizer(each)
+        }
+    }
+}

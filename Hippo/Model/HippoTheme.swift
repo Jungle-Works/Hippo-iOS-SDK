@@ -137,6 +137,8 @@ import UIKit
     open var radioActive = UIImage(named: "radio_button_active", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysOriginal)
     open var radioInActive = UIImage(named: "radio_button_deactive", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysOriginal)
     
+    open var infoIcon: UIImage?
+    
     /// MARK: Theme For Support
     
     open var supportTheme = SupportTheme()
@@ -174,4 +176,19 @@ import UIKit
     var smsSourceIcon = UIImage(named: "smsIntegrationIcon", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     
     open var sourceIconColor: UIColor = UIColor(red: 34/255, green: 150/255, blue: 255/255, alpha: 1)
+    
+    //
+    open var ratingLabelFont: UIFont? = UIFont(name: "HelveticaNeue-Bold", size: 15)
+    open var ratingLabelTextFontColor: UIColor = .black
+    
+    open var profileNameFont: UIFont? = UIFont(name: "HelveticaNeue-Bold", size: 18)
+    open var profileNameTextColor: UIColor = .black
+    
+    open var profileFieldTitleFont: UIFont? =  UIFont(name: "HelveticaNeue-Medium", size: 18)
+    open var profileFieldTitleColor: UIColor = .black
+    
+    open var profileFieldValueFont: UIFont? =  UIFont(name: "HelveticaNeue-Medium", size: 16)
+    open var prfoileFieldValueColor: UIColor? = .lightText
+    
+    open var profileBackgroundColor: UIColor? = UIColor.veryLightBlue
 }

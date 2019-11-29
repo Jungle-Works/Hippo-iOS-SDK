@@ -10,6 +10,7 @@ import UIKit
 
 protocol CardMessageDelegate: class {
     func cardSelected(cell: CardMessageTableViewCell, card: MessageCard, message: HippoMessage)
+    func labelContainerClicked(cell: CardMessageTableViewCell, card: MessageCard, message: HippoMessage)
 }
 
 class CardMessageTableViewCell: UITableViewCell {
@@ -72,6 +73,14 @@ extension CardMessageTableViewCell {
     }
 }
 extension CardMessageTableViewCell: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        switch cell {
+        case let customCell as CardListCell:
+            customCell.delegate = self
+        default:
+            break
+        }
+    }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 160, height: collectionView.bounds.height - 10)
     }
@@ -87,5 +96,17 @@ extension CardMessageTableViewCell: UICollectionViewDelegate, UICollectionViewDe
         }
         let card = cards[indexPath.row]
         delegate?.cardSelected(cell: self, card: card, message: message)
+    }
+}
+extension CardMessageTableViewCell: CardListCellDelegate {
+    func labelContainerClicked(card: MessageCard) {
+        if let message = self.message {
+            delegate?.labelContainerClicked(cell: self, card: card, message: message)
+        }
+    }
+    func readmoreClicked(card: MessageCard) {
+        if let message = self.message {
+            delegate?.labelContainerClicked(cell: self, card: card, message: message)
+        }
     }
 }

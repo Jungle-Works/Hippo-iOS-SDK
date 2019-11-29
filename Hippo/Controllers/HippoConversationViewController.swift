@@ -1326,7 +1326,20 @@ extension HippoConversationViewController: NavigationTitleViewDelegate {
     }
     
     func imageIconClicked() {
-        self.backButtonClicked()
+        if let id = channel?.chatDetail?.assignedAgentID, id > 0 {
+            openProfile(for: -1, agentId: "\(id)", profile: nil)
+        }
+//        self.backButtonClicked()
+    }
+    func titleClicked() {
+        if let id = channel?.chatDetail?.assignedAgentID, id > 0 {
+            openProfile(for: -1, agentId: "\(id)", profile: nil)
+        }
+    }
+    func openProfile(for channelId: Int, agentId: String?, profile: ProfileDetail?) {
+        let presenter = AgentProfilePresenter(channelID: channelId, agentID: agentId, profile: profile)
+        let vc = AgentProfileViewController.get(presenter: presenter)
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }
 extension HippoConversationViewController: CardMessageDelegate {
@@ -1334,6 +1347,14 @@ extension HippoConversationViewController: CardMessageDelegate {
         message.selectedCardId = card.id
         sendMessage(message: message)
         cell.set(message: message)
+    }
+    func labelContainerClicked(cell: CardMessageTableViewCell, card: MessageCard, message: HippoMessage) {
+        let profile = ProfileDetail(json: [:])
+        profile.image = card.image?.url.path
+        profile.fullName = card.title
+        profile.rating = card.rating
+        
+        openProfile(for: -1, agentId: card.id, profile: profile)
     }
 }
 

@@ -557,12 +557,16 @@ class HippoChannel {
             return
         }
         let users = User.parseArray(list: allUsers)
-        guard let (_, _) = User.find(userId: currentUserId(), from: users), (shouldShowToCustomer || HippoConfig.shared.appUserType == .agent) else {
+        guard let (_, _) = User.find(userId: currentUserId(), from: users), (shouldShowToCustomer || HippoConfig.shared.appUserType == .agent), let chatDetail = self.chatDetail else {
             return
         }
-        chatDetail?.allowAudioCall = Bool.parse(key: "allow_audio_call", json: dict) ?? chatDetail?.allowAudioCall ?? false
-        chatDetail?.allowVideoCall = Bool.parse(key: "allow_video_call", json: dict) ?? chatDetail?.allowVideoCall ?? false
-        chatDetail?.updatePeerData(users: users)
+        chatDetail.allowAudioCall = Bool.parse(key: "allow_audio_call", json: dict) ?? chatDetail.allowAudioCall
+        chatDetail.allowVideoCall = Bool.parse(key: "allow_video_call", json: dict) ?? chatDetail.allowVideoCall
+        chatDetail.updatePeerData(users: users)
+        
+        chatDetail.assignedAgentID = users.first?.userID ?? chatDetail.assignedAgentID
+        chatDetail.assignedAgentName = users.first?.fullName ?? chatDetail.assignedAgentName
+        
         delegate?.channelDataRefreshed()
     }
     

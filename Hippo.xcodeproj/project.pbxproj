@@ -26,6 +26,20 @@
 		C965D53023703B3000100E4B /* PaymentMessageDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C965D52F23703B3000100E4B /* PaymentMessageDataSource.swift */; };
 		C965D5342371505600100E4B /* CheckoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C965D5332371505600100E4B /* CheckoutViewController.swift */; };
 		C965D536237156F300100E4B /* WebViewConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = C965D535237156F300100E4B /* WebViewConfig.swift */; };
+		C982E400238CF8AD0080B375 /* AgentProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C982E3FE238CF8AD0080B375 /* AgentProfileViewController.swift */; };
+		C982E401238CF8AD0080B375 /* AgentProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C982E3FF238CF8AD0080B375 /* AgentProfileViewController.xib */; };
+		C982E403238D0A300080B375 /* AgentProfileViewDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C982E402238D0A300080B375 /* AgentProfileViewDatasource.swift */; };
+		C982E408238D0AFD0080B375 /* ParallaxHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C982E405238D0AFD0080B375 /* ParallaxHeader.swift */; };
+		C982E409238D0AFD0080B375 /* ParallaxHeaderMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C982E406238D0AFD0080B375 /* ParallaxHeaderMode.swift */; };
+		C982E40A238D0AFD0080B375 /* UIScrollView+ParallaxHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C982E407238D0AFD0080B375 /* UIScrollView+ParallaxHeader.swift */; };
+		C982E40C238D0B2D0080B375 /* ProfileDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = C982E40B238D0B2D0080B375 /* ProfileDetail.swift */; };
+		C982E40E238D0D080080B375 /* AgentProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C982E40D238D0D080080B375 /* AgentProfilePresenter.swift */; };
+		C982E411238D10AB0080B375 /* MockCustomField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C982E40F238D10AB0080B375 /* MockCustomField.swift */; };
+		C982E412238D10AB0080B375 /* CustomField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C982E410238D10AB0080B375 /* CustomField.swift */; };
+		C982E416238D27F00080B375 /* ProfileNameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C982E414238D27F00080B375 /* ProfileNameCell.swift */; };
+		C982E417238D27F00080B375 /* ProfileNameCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C982E415238D27F00080B375 /* ProfileNameCell.xib */; };
+		C982E420238D37980080B375 /* ProfileDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C982E41E238D37980080B375 /* ProfileDetailCell.swift */; };
+		C982E421238D37980080B375 /* ProfileDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C982E41F238D37980080B375 /* ProfileDetailCell.xib */; };
 		C9A506F723572B8600F5BE43 /* HippoChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A506F623572B8600F5BE43 /* HippoChat.swift */; };
 		C9B410E2235DAA240029799A /* MessageCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B410E1235DAA240029799A /* MessageCard.swift */; };
 		C9B410E6235DAD580029799A /* CardListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B410E4235DAD580029799A /* CardListCell.swift */; };
@@ -372,6 +386,20 @@
 		C965D52F23703B3000100E4B /* PaymentMessageDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMessageDataSource.swift; sourceTree = "<group>"; };
 		C965D5332371505600100E4B /* CheckoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutViewController.swift; sourceTree = "<group>"; };
 		C965D535237156F300100E4B /* WebViewConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewConfig.swift; sourceTree = "<group>"; };
+		C982E3FE238CF8AD0080B375 /* AgentProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentProfileViewController.swift; sourceTree = "<group>"; };
+		C982E3FF238CF8AD0080B375 /* AgentProfileViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AgentProfileViewController.xib; sourceTree = "<group>"; };
+		C982E402238D0A300080B375 /* AgentProfileViewDatasource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentProfileViewDatasource.swift; sourceTree = "<group>"; };
+		C982E405238D0AFD0080B375 /* ParallaxHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParallaxHeader.swift; sourceTree = "<group>"; };
+		C982E406238D0AFD0080B375 /* ParallaxHeaderMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParallaxHeaderMode.swift; sourceTree = "<group>"; };
+		C982E407238D0AFD0080B375 /* UIScrollView+ParallaxHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+ParallaxHeader.swift"; sourceTree = "<group>"; };
+		C982E40B238D0B2D0080B375 /* ProfileDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDetail.swift; sourceTree = "<group>"; };
+		C982E40D238D0D080080B375 /* AgentProfilePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentProfilePresenter.swift; sourceTree = "<group>"; };
+		C982E40F238D10AB0080B375 /* MockCustomField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockCustomField.swift; sourceTree = "<group>"; };
+		C982E410238D10AB0080B375 /* CustomField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomField.swift; sourceTree = "<group>"; };
+		C982E414238D27F00080B375 /* ProfileNameCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileNameCell.swift; sourceTree = "<group>"; };
+		C982E415238D27F00080B375 /* ProfileNameCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileNameCell.xib; sourceTree = "<group>"; };
+		C982E41E238D37980080B375 /* ProfileDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDetailCell.swift; sourceTree = "<group>"; };
+		C982E41F238D37980080B375 /* ProfileDetailCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileDetailCell.xib; sourceTree = "<group>"; };
 		C9A506F623572B8600F5BE43 /* HippoChat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HippoChat.swift; sourceTree = "<group>"; };
 		C9B410E1235DAA240029799A /* MessageCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCard.swift; sourceTree = "<group>"; };
 		C9B410E4235DAD580029799A /* CardListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardListCell.swift; sourceTree = "<group>"; };
@@ -784,8 +812,11 @@
 		C965D5202370004700100E4B /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				C982E410238D10AB0080B375 /* CustomField.swift */,
+				C982E40F238D10AB0080B375 /* MockCustomField.swift */,
 				C965D5212370005A00100E4B /* CustomerPayment.swift */,
 				C965D535237156F300100E4B /* WebViewConfig.swift */,
+				C982E40B238D0B2D0080B375 /* ProfileDetail.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -812,6 +843,7 @@
 		C965D53123714FC900100E4B /* Module */ = {
 			isa = PBXGroup;
 			children = (
+				C982E3FD238CF8570080B375 /* AgentProfileViewController */,
 				C92520CE23827879002C0FB9 /* SoundPlayer */,
 				C965D53223714FF300100E4B /* CheckoutViewController */,
 			);
@@ -824,6 +856,45 @@
 				C965D5332371505600100E4B /* CheckoutViewController.swift */,
 			);
 			path = CheckoutViewController;
+			sourceTree = "<group>";
+		};
+		C982E3FD238CF8570080B375 /* AgentProfileViewController */ = {
+			isa = PBXGroup;
+			children = (
+				C982E3FE238CF8AD0080B375 /* AgentProfileViewController.swift */,
+				C982E3FF238CF8AD0080B375 /* AgentProfileViewController.xib */,
+				C982E402238D0A300080B375 /* AgentProfileViewDatasource.swift */,
+				C982E40D238D0D080080B375 /* AgentProfilePresenter.swift */,
+			);
+			path = AgentProfileViewController;
+			sourceTree = "<group>";
+		};
+		C982E404238D0AE90080B375 /* ParallexView */ = {
+			isa = PBXGroup;
+			children = (
+				C982E405238D0AFD0080B375 /* ParallaxHeader.swift */,
+				C982E406238D0AFD0080B375 /* ParallaxHeaderMode.swift */,
+				C982E407238D0AFD0080B375 /* UIScrollView+ParallaxHeader.swift */,
+			);
+			path = ParallexView;
+			sourceTree = "<group>";
+		};
+		C982E413238D27CB0080B375 /* ProfileNameCell */ = {
+			isa = PBXGroup;
+			children = (
+				C982E414238D27F00080B375 /* ProfileNameCell.swift */,
+				C982E415238D27F00080B375 /* ProfileNameCell.xib */,
+			);
+			path = ProfileNameCell;
+			sourceTree = "<group>";
+		};
+		C982E41D238D376F0080B375 /* ProfileDetailCell */ = {
+			isa = PBXGroup;
+			children = (
+				C982E41E238D37980080B375 /* ProfileDetailCell.swift */,
+				C982E41F238D37980080B375 /* ProfileDetailCell.xib */,
+			);
+			path = ProfileDetailCell;
 			sourceTree = "<group>";
 		};
 		C9A506F523572B6A00F5BE43 /* PublicClasses */ = {
@@ -903,6 +974,7 @@
 		C9DC52872356FD4100CA7FE9 /* Wrappers */ = {
 			isa = PBXGroup;
 			children = (
+				C982E404238D0AE90080B375 /* ParallexView */,
 				C9DC553F23570B1100CA7FE9 /* MZFayeClient */,
 				C9DC554723570B1100CA7FE9 /* SocketRocket */,
 				C9DC52882356FD4100CA7FE9 /* AgentWrappers */,
@@ -1079,6 +1151,8 @@
 		C9DC52C82356FD4100CA7FE9 /* TableViewCell */ = {
 			isa = PBXGroup;
 			children = (
+				C982E41D238D376F0080B375 /* ProfileDetailCell */,
+				C982E413238D27CB0080B375 /* ProfileNameCell */,
 				C9B410EB235DB58C0029799A /* CardMessageTableViewCell */,
 				C9DC52C92356FD4100CA7FE9 /* OutgoingImageCell */,
 				C9DC52CC2356FD4100CA7FE9 /* InAppCategoryCell */,
@@ -2041,6 +2115,7 @@
 				C9DC54772356FD4300CA7FE9 /* OutgoingVideoTableViewCell.xib in Resources */,
 				C9DC544C2356FD4300CA7FE9 /* ActionTagTableViewCell.xib in Resources */,
 				C9DC555823570B1200CA7FE9 /* README.rst in Resources */,
+				C982E401238CF8AD0080B375 /* AgentProfileViewController.xib in Resources */,
 				C965D52E2370345900100E4B /* PaymentMessageCell.xib in Resources */,
 				C9DC543C2356FD4300CA7FE9 /* ChatInfoHeader.xib in Resources */,
 				C9DC54852356FD4400CA7FE9 /* ChatInfoActionCell.xib in Resources */,
@@ -2086,6 +2161,7 @@
 				C9DC553E2356FD4600CA7FE9 /* Montserrat-SemiBold.otf in Resources */,
 				C9DC54722356FD4300CA7FE9 /* IncomingAudioTableViewCell.xib in Resources */,
 				C9DC54642356FD4300CA7FE9 /* ButtonTableViewCell.xib in Resources */,
+				C982E417238D27F00080B375 /* ProfileNameCell.xib in Resources */,
 				C9DC545A2356FD4300CA7FE9 /* LeadTableViewCell.xib in Resources */,
 				C9DC549D2356FD4400CA7FE9 /* FeedbackTableViewCell.xib in Resources */,
 				C9DC55302356FD4500CA7FE9 /* IQKeyboardManager.bundle in Resources */,
@@ -2096,6 +2172,7 @@
 				C9DC54792356FD4300CA7FE9 /* IncomingVideoTableViewCell.xib in Resources */,
 				C9DC548A2356FD4400CA7FE9 /* IncomingVideoCallMessageTableViewCell.xib in Resources */,
 				C9DC54972356FD4400CA7FE9 /* BroadCastTextFieldCell.xib in Resources */,
+				C982E421238D37980080B375 /* ProfileDetailCell.xib in Resources */,
 				C9DC54362356FD4300CA7FE9 /* AgentHomeCollectionViewCell.xib in Resources */,
 				C9DC549F2356FD4400CA7FE9 /* Assets.xcassets in Resources */,
 				C9DC545D2356FD4300CA7FE9 /* ChatInfoTagViewCell.xib in Resources */,
@@ -2118,6 +2195,7 @@
 				C9DC54712356FD4300CA7FE9 /* ActionableMessageTableViewCell.swift in Sources */,
 				C9DC544B2356FD4300CA7FE9 /* ActionViewCell.swift in Sources */,
 				C9DC54D42356FD4400CA7FE9 /* SupportTheme.swift in Sources */,
+				C982E408238D0AFD0080B375 /* ParallaxHeader.swift in Sources */,
 				C9DC54162356FD4300CA7FE9 /* CoreDocumentPicker.swift in Sources */,
 				C9DC55282356FD4500CA7FE9 /* IQTitleBarButtonItem.swift in Sources */,
 				C9DC54E52356FD4500CA7FE9 /* BroadcastDetailDataSource.swift in Sources */,
@@ -2135,10 +2213,12 @@
 				C9DC547B2356FD4400CA7FE9 /* OutgoingVideoTableViewCell.swift in Sources */,
 				C9DC54B32356FD4400CA7FE9 /* HippoActionButton.swift in Sources */,
 				C9B410EE235DB5B60029799A /* CardMessageTableViewCell.swift in Sources */,
+				C982E411238D10AB0080B375 /* MockCustomField.swift in Sources */,
 				C9DC54492356FD4300CA7FE9 /* ActionLabelViewCell.swift in Sources */,
 				C9DC551E2356FD4500CA7FE9 /* String+MD5.swift in Sources */,
 				C9DC54262356FD4300CA7FE9 /* Benchmarker.swift in Sources */,
 				C9DC54F12356FD4500CA7FE9 /* ShowImageViewController.swift in Sources */,
+				C982E400238CF8AD0080B375 /* AgentProfileViewController.swift in Sources */,
 				C9DC54872356FD4400CA7FE9 /* ChatProfileTableViewCell.swift in Sources */,
 				C9DC55362356FD4500CA7FE9 /* IQUIView+Hierarchy.swift in Sources */,
 				C9DC54352356FD4300CA7FE9 /* AgentHomeCollectionViewCell.swift in Sources */,
@@ -2213,6 +2293,7 @@
 				C9DC54D82356FD4400CA7FE9 /* HippoStrings.swift in Sources */,
 				C9DC54B22356FD4400CA7FE9 /* MessageUIAttributes.swift in Sources */,
 				C9DC54902356FD4400CA7FE9 /* BroadcastButtonCell.swift in Sources */,
+				C982E412238D10AB0080B375 /* CustomField.swift in Sources */,
 				C9DC54BB2356FD4400CA7FE9 /* CustomerInfo.swift in Sources */,
 				C9DC54B12356FD4400CA7FE9 /* HippoActionMessage.swift in Sources */,
 				C9DC54B62356FD4400CA7FE9 /* BroadcastManager.swift in Sources */,
@@ -2263,12 +2344,15 @@
 				C9DC54932356FD4400CA7FE9 /* BroadCastTitleCell.swift in Sources */,
 				C9DC55052356FD4500CA7FE9 /* String+HTMLEntities.swift in Sources */,
 				C9DC549E2356FD4400CA7FE9 /* FeedbackTableViewCell.swift in Sources */,
+				C982E420238D37980080B375 /* ProfileDetailCell.swift in Sources */,
 				C9DC54102356FD4200CA7FE9 /* ConversationStore.swift in Sources */,
 				C965D5242370034700100E4B /* Double+Extension.swift in Sources */,
+				C982E40E238D0D080080B375 /* AgentProfilePresenter.swift in Sources */,
 				C9DC540F2356FD4200CA7FE9 /* ConversationPresenter.swift in Sources */,
 				C9DC552E2356FD4500CA7FE9 /* IQKeyboardManagerConstantsInternal.swift in Sources */,
 				C9DC54FF2356FD4500CA7FE9 /* TWRDownloadObject.m in Sources */,
 				C9DC548C2356FD4400CA7FE9 /* ShowMoreTableViewCell.swift in Sources */,
+				C982E416238D27F00080B375 /* ProfileNameCell.swift in Sources */,
 				C9DC54312356FD4300CA7FE9 /* HippoNotification.swift in Sources */,
 				C9DC54EE2356FD4500CA7FE9 /* CreatePaymentDataSource.swift in Sources */,
 				C9DC54452356FD4300CA7FE9 /* ActionTableView.swift in Sources */,
@@ -2288,6 +2372,7 @@
 				C9DC54952356FD4400CA7FE9 /* BroadCastTextViewCell.swift in Sources */,
 				C9DC54EC2356FD4500CA7FE9 /* PaymentCurrency.swift in Sources */,
 				C9DC54192356FD4300CA7FE9 /* CoreEnum.swift in Sources */,
+				C982E40C238D0B2D0080B375 /* ProfileDetail.swift in Sources */,
 				C9DC54D62356FD4400CA7FE9 /* QuickLookItem.swift in Sources */,
 				C9DC54562356FD4300CA7FE9 /* IncomingDocumentTableViewCell.swift in Sources */,
 				C9DC545C2356FD4300CA7FE9 /* ChatInfoTagViewCell.swift in Sources */,
@@ -2304,6 +2389,7 @@
 				C9DC54F22356FD4500CA7FE9 /* AgentChatInfoViewController.swift in Sources */,
 				C9DC550D2356FD4500CA7FE9 /* ImageCache.swift in Sources */,
 				C9DC54A72356FD4400CA7FE9 /* Socomo+Date.swift in Sources */,
+				C982E40A238D0AFD0080B375 /* UIScrollView+ParallaxHeader.swift in Sources */,
 				C9DC54282356FD4300CA7FE9 /* MessageStore.swift in Sources */,
 				C9DC55292356FD4500CA7FE9 /* IQBarButtonItem.swift in Sources */,
 				C9DC54C62356FD4400CA7FE9 /* HippoFile.swift in Sources */,
@@ -2317,6 +2403,7 @@
 				C9DC551D2356FD4500CA7FE9 /* AnimatedImageView.swift in Sources */,
 				C9DC54232356FD4300CA7FE9 /* LoggerTheme.swift in Sources */,
 				C9DC54EA2356FD4500CA7FE9 /* PaymentItem.swift in Sources */,
+				C982E403238D0A300080B375 /* AgentProfileViewDatasource.swift in Sources */,
 				C9DC542B2356FD4300CA7FE9 /* PickerHelper.swift in Sources */,
 				C9DC54402356FD4300CA7FE9 /* OutgoingImageCell.swift in Sources */,
 				C9DC54DD2356FD4400CA7FE9 /* FuguUserDetail.swift in Sources */,
@@ -2336,6 +2423,7 @@
 				C9DC55222356FD4500CA7FE9 /* KingfisherOptionsInfo.swift in Sources */,
 				C9DC54A42356FD4400CA7FE9 /* Socomo+Customs.swift in Sources */,
 				C9DC548E2356FD4400CA7FE9 /* ChatInfoAgentTableViewCell.swift in Sources */,
+				C982E409238D0AFD0080B375 /* ParallaxHeaderMode.swift in Sources */,
 				C9DC55042356FD4500CA7FE9 /* ParseError.swift in Sources */,
 				C9DC54292356FD4300CA7FE9 /* HTTPClient.swift in Sources */,
 				C9DC54212356FD4300CA7FE9 /* Themes.swift in Sources */,

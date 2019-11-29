@@ -69,7 +69,7 @@ extension PaymentMessageDataSource: UITableViewDelegate {
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let item = cards[indexPath.row]
-        if item as? PaymentHeader == nil {
+        if item as? PaymentHeader != nil {
             return
         }
         for each in cards {

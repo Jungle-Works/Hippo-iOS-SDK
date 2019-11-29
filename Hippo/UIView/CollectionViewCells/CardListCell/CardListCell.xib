@@ -54,19 +54,28 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rgo-nZ-TkZ">
-                                                        <rect key="frame" x="20" y="0.0" width="101" height="20"/>
+                                                        <rect key="frame" x="20" y="0.0" width="81" height="20"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7tU-eP-IfO">
+                                                        <rect key="frame" x="101" y="0.0" width="20" height="20"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="20" id="pMk-pH-SCx"/>
+                                                        </constraints>
+                                                    </imageView>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
+                                                    <constraint firstItem="7tU-eP-IfO" firstAttribute="top" secondItem="Qy9-vo-Ji8" secondAttribute="top" id="3Yz-WE-pSN"/>
+                                                    <constraint firstAttribute="bottom" secondItem="7tU-eP-IfO" secondAttribute="bottom" id="5UU-oH-cC6"/>
+                                                    <constraint firstAttribute="trailing" secondItem="7tU-eP-IfO" secondAttribute="trailing" id="6Bj-mH-1GZ"/>
                                                     <constraint firstAttribute="bottom" secondItem="EFA-If-Odq" secondAttribute="bottom" id="ARE-dk-pK2"/>
-                                                    <constraint firstAttribute="trailing" secondItem="Rgo-nZ-TkZ" secondAttribute="trailing" id="HOq-jo-ZYS"/>
                                                     <constraint firstItem="Rgo-nZ-TkZ" firstAttribute="top" secondItem="Qy9-vo-Ji8" secondAttribute="top" id="LcI-9T-oDF"/>
                                                     <constraint firstAttribute="bottom" secondItem="Rgo-nZ-TkZ" secondAttribute="bottom" id="Lx5-kv-1VV"/>
                                                     <constraint firstItem="Rgo-nZ-TkZ" firstAttribute="leading" secondItem="EFA-If-Odq" secondAttribute="trailing" id="PWm-Mz-F07"/>
+                                                    <constraint firstItem="7tU-eP-IfO" firstAttribute="leading" secondItem="Rgo-nZ-TkZ" secondAttribute="trailing" id="XWd-hD-2th"/>
                                                     <constraint firstItem="EFA-If-Odq" firstAttribute="leading" secondItem="Qy9-vo-Ji8" secondAttribute="leading" id="d7q-sh-F50"/>
                                                     <constraint firstItem="EFA-If-Odq" firstAttribute="top" secondItem="Qy9-vo-Ji8" secondAttribute="top" id="uP5-Ty-kQa"/>
                                                 </constraints>
@@ -132,6 +141,7 @@
                 <outlet property="bottomContainer" destination="mGD-z7-WZx" id="RKL-7i-hi0"/>
                 <outlet property="descriptionLabel" destination="H1K-Eq-cZW" id="jcF-pr-uQ7"/>
                 <outlet property="imageView" destination="hgc-Fb-lpH" id="YAq-LF-HGF"/>
+                <outlet property="infoImageView" destination="7tU-eP-IfO" id="ALf-Up-AR9"/>
                 <outlet property="labelContainterView" destination="i21-Iq-S8M" id="E9F-bB-0vV"/>
                 <outlet property="ratingContainerViewHeightConstraint" destination="Hex-5i-ZIp" id="RKh-gS-cCc"/>
                 <outlet property="ratingLabel" destination="Rgo-nZ-TkZ" id="DWd-cS-hnf"/>
