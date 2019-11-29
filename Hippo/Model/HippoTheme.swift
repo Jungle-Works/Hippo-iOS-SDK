@@ -24,6 +24,9 @@ import Foundation
     open var broadcastHeader = "Broadcast Message"
     open var broadcastHistoryHeader = "Broadcast Message history"
     
+    open var themeColor: UIColor = .white
+    open var themeTextcolor: UIColor = .black
+    
     open var audioCallIcon: UIImage? = UIImage(named: "audioCallIcon", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     open var videoCallIcon: UIImage? = UIImage(named: "tiny-video-symbol", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     open var missedCallMessageColor: UIColor = UIColor.red

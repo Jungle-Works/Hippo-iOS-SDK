@@ -117,7 +117,15 @@ extension ButtonCellCollectionViewHandler: UICollectionViewDataSource {
             }
             cell.messageButton.tag = indexPath.item
             cell.messageButton.addTarget(self, action: #selector(self.messageButtonClicked(sender:)), for: .touchUpInside)
+            cell.messageButton.backgroundColor = HippoConfig.shared.theme.themeColor
+            cell.messageButton.setTitleColor(HippoConfig.shared.theme.themeTextcolor, for: .normal)
             cell.messageButton.isEnabled = enableButton()
+            
+            if enableButton() {
+                cell.messageButton.alpha = 1.0
+            } else {
+                cell.messageButton.alpha = 0.8
+            }
             return cell
         }
         return UICollectionViewCell()
