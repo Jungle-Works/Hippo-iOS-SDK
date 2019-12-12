@@ -688,6 +688,10 @@ class HippoChannel {
             FayeConnection.shared.send(messageDict: message.getJsonToSendToFaye(), toChannelID: id.description, completion: {_ in completion?()})
             return
         }
+        if isSendingDisabled {
+            print("----sending is disabled")
+            return
+        }
         
         if !isSubscribed() {
             subscribe()

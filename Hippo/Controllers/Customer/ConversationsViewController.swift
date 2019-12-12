@@ -251,7 +251,7 @@ protocol NewChatSentDelegate: class {
 // MARK: - UIButton Actions
     
     @IBAction func actionButtonClicked(_ sender: Any) {
-        presentActionsForCustomer(sender: self.view)
+//        presentActionsForCustomer(sender: self.view)
     }
     @IBAction func audiCallButtonClicked(_ sender: Any) {
         startAudioCall()
@@ -353,10 +353,10 @@ protocol NewChatSentDelegate: class {
         let isMultiChannelLabelMapping = BussinessProperty.current.multiChannelLabelMapping && !forceHideActionButton
             
         actionButton.title = nil
-        actionButton.image = isMultiChannelLabelMapping ? HippoConfig.shared.theme.actionButtonIcon : nil
-        actionButton.tintColor = HippoConfig.shared.theme.actionButtonIconTintColor
-        
+//        actionButton.image = isMultiChannelLabelMapping ? HippoConfig.shared.theme.actionButtonIcon : nil
+//        actionButton.tintColor = HippoConfig.shared.theme.actionButtonIconTintColor
     }
+    
    override func backButtonClicked() {
         super.backButtonClicked()
         messageTextView.resignFirstResponder()
@@ -2244,7 +2244,7 @@ extension ConversationsViewController {
     }
     
     func pushToChatHistory() {
-        let config = AllConversationsConfig(enabledChatStatus: [ChatStatus.close], title: HippoConfig.shared.strings.chatHistory, shouldUseCache: false, shouldHandlePush: false, shouldPopVc: true, forceDisableReply: true, forceHideActionButton: true, isStaticRemoveConversation: true, lastChannelId: channel?.id)
+        let config = AllConversationsConfig(enabledChatStatus: [ChatStatus.close], title: HippoConfig.shared.strings.chatHistory, shouldUseCache: false, shouldHandlePush: false, shouldPopVc: true, forceDisableReply: true, forceHideActionButton: true, isStaticRemoveConversation: true, lastChannelId: channel?.id, disbaleBackButton: false)
         guard let vc = AllConversationsViewController.get(config: config) else {
             return
         }

@@ -323,6 +323,9 @@ public class UserTag: NSObject {
             }
             HippoConfig.shared.log.trace("User Login Data\(userDetailData)", level: .response)
             
+            if let cusstomerBotID = String.parse(values: userDetailData, key: "customer_conversation_bot_id") {
+                HippoProperty.setNewConversationBotGroupId(botGroupId: cusstomerBotID)
+            } 
             
             BussinessProperty.current.updateData(loginData: userDetailData)
             
@@ -373,7 +376,7 @@ public class UserTag: NSObject {
         params["source"] = HippoSDKSource
         
         if HippoProperty.current.singleChatApp {
-            params["neglect_conversations"] = true
+//            params["neglect_conversations"] = true
         }
         return params
     }

@@ -25,6 +25,7 @@ struct FuguNewChatAttributes {
     
    private var fuguChatType = ChatType.other
    var groupingTag: [String]?
+    var botGroupId: String?
     
     
    
@@ -69,7 +70,10 @@ struct FuguNewChatAttributes {
          let messageToSend = [preMessage]
          params["user_first_messages"] = messageToSend
       }
-      
+    
+    if let botGroupId = self.botGroupId {
+        params["initiate_bot_group_id"] = botGroupId
+    }
       params["chat_type"] = fuguChatType.rawValue
       
       return params

@@ -56,6 +56,12 @@ extension PaymentMessageDataSource: UITableViewDataSource {
             }
             cell.set(card: card)
             return cell
+        case let card as PaymentSecurely:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "PaymentSecureView", for: indexPath) as? PaymentSecureView else {
+                return UITableView.defaultCell()
+            }
+            cell.set(card: card)
+            return cell
         default:
             return UITableView.defaultCell()
         }
@@ -68,8 +74,9 @@ extension PaymentMessageDataSource: UITableViewDelegate {
         return card.cardHeight
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         let item = cards[indexPath.row]
-        if item as? PaymentHeader != nil {
+        guard item as? CustomerPayment != nil else {
             return
         }
         for each in cards {

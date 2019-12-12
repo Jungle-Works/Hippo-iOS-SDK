@@ -26,6 +26,7 @@
 		C965D53023703B3000100E4B /* PaymentMessageDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C965D52F23703B3000100E4B /* PaymentMessageDataSource.swift */; };
 		C965D5342371505600100E4B /* CheckoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C965D5332371505600100E4B /* CheckoutViewController.swift */; };
 		C965D536237156F300100E4B /* WebViewConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = C965D535237156F300100E4B /* WebViewConfig.swift */; };
+		C980FF1523952B1800BAA31B /* ConversationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C980FF1423952B1800BAA31B /* ConversationView.xib */; };
 		C982E400238CF8AD0080B375 /* AgentProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C982E3FE238CF8AD0080B375 /* AgentProfileViewController.swift */; };
 		C982E401238CF8AD0080B375 /* AgentProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C982E3FF238CF8AD0080B375 /* AgentProfileViewController.xib */; };
 		C982E403238D0A300080B375 /* AgentProfileViewDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C982E402238D0A300080B375 /* AgentProfileViewDatasource.swift */; };
@@ -358,6 +359,8 @@
 		C9DC555723570B1200CA7FE9 /* SRWebSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = C9DC554C23570B1100CA7FE9 /* SRWebSocket.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C9DC555823570B1200CA7FE9 /* README.rst in Resources */ = {isa = PBXBuildFile; fileRef = C9DC554D23570B1100CA7FE9 /* README.rst */; };
 		C9E9E9FC23619E7F00914E27 /* AllConversationPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E9E9FB23619E7F00914E27 /* AllConversationPresenter.swift */; };
+		C9EE01092397963B003E9326 /* PaymentSecureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EE01072397963B003E9326 /* PaymentSecureView.swift */; };
+		C9EE010A2397963B003E9326 /* PaymentSecureView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9EE01082397963B003E9326 /* PaymentSecureView.xib */; };
 		C9FAF60C23681AC90089DBFC /* InformationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9FAF60B23681AC90089DBFC /* InformationView.xib */; };
 		C9FAF60E23681AE20089DBFC /* InformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FAF60D23681AE20089DBFC /* InformationView.swift */; };
 /* End PBXBuildFile section */
@@ -386,6 +389,7 @@
 		C965D52F23703B3000100E4B /* PaymentMessageDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMessageDataSource.swift; sourceTree = "<group>"; };
 		C965D5332371505600100E4B /* CheckoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutViewController.swift; sourceTree = "<group>"; };
 		C965D535237156F300100E4B /* WebViewConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewConfig.swift; sourceTree = "<group>"; };
+		C980FF1423952B1800BAA31B /* ConversationView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConversationView.xib; sourceTree = "<group>"; };
 		C982E3FE238CF8AD0080B375 /* AgentProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentProfileViewController.swift; sourceTree = "<group>"; };
 		C982E3FF238CF8AD0080B375 /* AgentProfileViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AgentProfileViewController.xib; sourceTree = "<group>"; };
 		C982E402238D0A300080B375 /* AgentProfileViewDatasource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentProfileViewDatasource.swift; sourceTree = "<group>"; };
@@ -721,6 +725,8 @@
 		C9DC554C23570B1100CA7FE9 /* SRWebSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRWebSocket.h; sourceTree = "<group>"; };
 		C9DC554D23570B1100CA7FE9 /* README.rst */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.rst; sourceTree = "<group>"; };
 		C9E9E9FB23619E7F00914E27 /* AllConversationPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllConversationPresenter.swift; sourceTree = "<group>"; };
+		C9EE01072397963B003E9326 /* PaymentSecureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentSecureView.swift; sourceTree = "<group>"; };
+		C9EE01082397963B003E9326 /* PaymentSecureView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PaymentSecureView.xib; sourceTree = "<group>"; };
 		C9F6D48F21C8B71B00EA23E6 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		C9F6D49121C8B81100EA23E6 /* Hippo.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Hippo.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		C9FAF60B23681AC90089DBFC /* InformationView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InformationView.xib; sourceTree = "<group>"; };
@@ -895,6 +901,15 @@
 				C982E41F238D37980080B375 /* ProfileDetailCell.xib */,
 			);
 			path = ProfileDetailCell;
+			sourceTree = "<group>";
+		};
+		C9924843239794450040927D /* PaymentSecureView */ = {
+			isa = PBXGroup;
+			children = (
+				C9EE01072397963B003E9326 /* PaymentSecureView.swift */,
+				C9EE01082397963B003E9326 /* PaymentSecureView.xib */,
+			);
+			path = PaymentSecureView;
 			sourceTree = "<group>";
 		};
 		C9A506F523572B6A00F5BE43 /* PublicClasses */ = {
@@ -1151,6 +1166,7 @@
 		C9DC52C82356FD4100CA7FE9 /* TableViewCell */ = {
 			isa = PBXGroup;
 			children = (
+				C9924843239794450040927D /* PaymentSecureView */,
 				C982E41D238D376F0080B375 /* ProfileDetailCell */,
 				C982E413238D27CB0080B375 /* ProfileNameCell */,
 				C9B410EB235DB58C0029799A /* CardMessageTableViewCell */,
@@ -1297,6 +1313,7 @@
 			isa = PBXGroup;
 			children = (
 				C9DC52F12356FD4200CA7FE9 /* ConversationView.swift */,
+				C980FF1423952B1800BAA31B /* ConversationView.xib */,
 			);
 			path = ConversationView;
 			sourceTree = "<group>";
@@ -2124,6 +2141,7 @@
 				C9DC54682356FD4300CA7FE9 /* HeaderTableViewCell.xib in Resources */,
 				C9DC54A02356FD4400CA7FE9 /* HippoBroadCast.storyboard in Resources */,
 				C9DC54532356FD4300CA7FE9 /* BotOutgoingMessageTableViewCell.xib in Resources */,
+				C980FF1523952B1800BAA31B /* ConversationView.xib in Resources */,
 				C9DC54822356FD4400CA7FE9 /* LeadDataTableViewCell.xib in Resources */,
 				C9DC54812356FD4400CA7FE9 /* SelfMessageTableViewCell.xib in Resources */,
 				C9DC54632356FD4300CA7FE9 /* ActionableMessageTableViewCell.xib in Resources */,
@@ -2165,6 +2183,7 @@
 				C9DC545A2356FD4300CA7FE9 /* LeadTableViewCell.xib in Resources */,
 				C9DC549D2356FD4400CA7FE9 /* FeedbackTableViewCell.xib in Resources */,
 				C9DC55302356FD4500CA7FE9 /* IQKeyboardManager.bundle in Resources */,
+				C9EE010A2397963B003E9326 /* PaymentSecureView.xib in Resources */,
 				C9DC544F2356FD4300CA7FE9 /* IncomingImageCell.xib in Resources */,
 				C9FAF60C23681AC90089DBFC /* InformationView.xib in Resources */,
 				C9DC543F2356FD4300CA7FE9 /* OutgoingImageCell.xib in Resources */,
@@ -2297,6 +2316,7 @@
 				C9DC54BB2356FD4400CA7FE9 /* CustomerInfo.swift in Sources */,
 				C9DC54B12356FD4400CA7FE9 /* HippoActionMessage.swift in Sources */,
 				C9DC54B62356FD4400CA7FE9 /* BroadcastManager.swift in Sources */,
+				C9EE01092397963B003E9326 /* PaymentSecureView.swift in Sources */,
 				C9DC551F2356FD4500CA7FE9 /* ImageProcessor.swift in Sources */,
 				C9DC552C2356FD4500CA7FE9 /* IQInvocation.swift in Sources */,
 				C9DC54CE2356FD4400CA7FE9 /* AgentDetail.swift in Sources */,

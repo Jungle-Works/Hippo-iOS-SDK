@@ -7,6 +7,38 @@
 
 import UIKit
 
+public struct HippoLabelTheme {
+    public let textColor: UIColor
+    public let textFont: UIFont?
+    
+    public init(textColor: UIColor, textFont: UIFont?) {
+        self.textFont = textFont
+        self.textColor = textColor
+    }
+    
+}
+
+public struct ConversationListTheme {
+    public var titleTheme: HippoLabelTheme
+    public var lastMessageTheme: HippoLabelTheme
+    public var timeTheme: HippoLabelTheme
+    
+    static func normalTheme() -> ConversationListTheme {
+        let titleTheme: HippoLabelTheme = HippoLabelTheme(textColor: .black, textFont: UIFont(name:"HelveticaNeue", size: 15.0))
+        let lastMessageTheme: HippoLabelTheme = HippoLabelTheme(textColor: .black, textFont: UIFont(name:"HelveticaNeue", size: 15.0))
+        let timeTheme: HippoLabelTheme = HippoLabelTheme(textColor: .black, textFont: UIFont(name:"HelveticaNeue", size: 12.0))
+        
+        return ConversationListTheme(titleTheme: titleTheme, lastMessageTheme: lastMessageTheme, timeTheme: timeTheme)
+    }
+    static func unReadTheme() -> ConversationListTheme {
+        let titleTheme: HippoLabelTheme = HippoLabelTheme(textColor: .black, textFont: UIFont(name:"HelveticaNeue-Bold", size: 15.0))
+        let lastMessageTheme: HippoLabelTheme = HippoLabelTheme(textColor: .black, textFont: UIFont(name:"HelveticaNeue-Bold", size: 15.0))
+        let timeTheme: HippoLabelTheme = HippoLabelTheme(textColor: .black, textFont: UIFont(name:"HelveticaNeue-Bold", size: 15.0))
+        
+        return ConversationListTheme(titleTheme: titleTheme, lastMessageTheme: lastMessageTheme, timeTheme: timeTheme)
+    }
+}
+
 @objc public class HippoTheme: NSObject {
     
     public class func defaultTheme() -> HippoTheme { return HippoTheme() }
@@ -27,6 +59,12 @@ import UIKit
     open var broadcastHistoryHeader = "Broadcast Message history"
     open var starRatingColor: UIColor = UIColor.yellow
     
+    open var newConversationButtonFont: UIFont? = UIFont.boldSystemFont(ofSize: 18.0)
+    open var newConversationText = "Talk To Dietitian >"
+    
+    open var conversationListNormalTheme: ConversationListTheme = ConversationListTheme.normalTheme()
+    open var conversationListUnreadTheme: ConversationListTheme = ConversationListTheme.unReadTheme()
+
     open var audioCallIcon: UIImage? = UIImage(named: "audioCallIcon", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     open var videoCallIcon: UIImage? = UIImage(named: "tiny-video-symbol", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     open var missedCallMessageColor: UIColor = UIColor.red
@@ -191,4 +229,11 @@ import UIKit
     open var prfoileFieldValueColor: UIColor? = .lightText
     
     open var profileBackgroundColor: UIColor? = UIColor.veryLightBlue
+    
+    open var logoutButtonIcon: UIImage?
+    open var logoutButtonTintColor: UIColor?
+    
+    open var securePaymentIcon: UIImage? = UIImage(named: "securePayment", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+    open var securePaymentTintColor: UIColor?
+    open var secureTextFont: UIFont = UIFont.systemFont(ofSize: 10)
 }

@@ -1250,6 +1250,11 @@ extension HippoConversationViewController: SelfMessageDelegate {
 
 extension HippoConversationViewController: ActionTableViewDelegate {
     func performActionFor(selectionId: String, message: HippoMessage) {
+        if let channel = self.channel, channel.isSendingDisabled {
+            print("isSendingDisabled disabled")
+            return
+        }
+        
         guard let customMessage = message as? HippoActionMessage else {
             return
         }
@@ -1328,8 +1333,9 @@ extension HippoConversationViewController: NavigationTitleViewDelegate {
     func imageIconClicked() {
         if let id = channel?.chatDetail?.assignedAgentID, id > 0 {
             openProfile(for: -1, agentId: "\(id)", profile: nil)
+        } else {
+            self.backButtonClicked()
         }
-//        self.backButtonClicked()
     }
     func titleClicked() {
         if let id = channel?.chatDetail?.assignedAgentID, id > 0 {
@@ -1344,6 +1350,11 @@ extension HippoConversationViewController: NavigationTitleViewDelegate {
 }
 extension HippoConversationViewController: CardMessageDelegate {
     func cardSelected(cell: CardMessageTableViewCell, card: MessageCard, message: HippoMessage) {
+        if let channel = self.channel, channel.isSendingDisabled {
+            print("isSendingDisabled disabled")
+            return
+        }
+        
         message.selectedCardId = card.id
         sendMessage(message: message)
         cell.set(message: message)
@@ -1360,6 +1371,10 @@ extension HippoConversationViewController: CardMessageDelegate {
 
 extension HippoConversationViewController: PaymentMessageCellDelegate {
     func cellButtonPressed(message: HippoMessage, card: HippoCard) {
+        if let channel = self.channel, channel.isSendingDisabled {
+            print("isSendingDisabled disabled")
+            return
+        }
         guard let selectedCard = (card as? PayementButton)?.selectedCardDetail, let url = URL(string: selectedCard.paymentUrlString ?? "") else {
             generatePaymentUrl(for: message, card: card)
             return

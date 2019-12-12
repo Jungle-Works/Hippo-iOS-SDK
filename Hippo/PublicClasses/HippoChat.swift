@@ -58,10 +58,24 @@ public class HippoChat {
         HippoConfig.shared.setCredential(withAppSecretKey: appSecretKey, appType: appType)
     }
     
+    public static func setNewConversatonButton(enable: Bool) {
+        HippoProperty.setNewConversationButton(enable: enable)
+    }
+    
+    public static func setNewConversationButtonTags(tags: [String]) {
+        HippoProperty.setNewConversationButtonTags(tags: tags)
+    }
+    
+    
 }
 
 extension HippoChat {
     public static func openGeneralChat(on viewController: UIViewController, detail: GeneralChat, completion: HippoGeneralCompletion?) {
         HippoConfig.shared.openChatByTransactionId(on: viewController, data: detail, completion: completion)
+    }
+    
+    public static func openConversationWithHome(on viewController: UIViewController? = nil, withLabelId labelId: Int?, animation: Bool = true) {
+        HippoProperty.setOpenLabelIdOnHome(label: labelId)
+        HippoConfig.shared.checker.presentChatsViewController()
     }
 }

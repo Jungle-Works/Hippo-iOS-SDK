@@ -15,6 +15,11 @@ class HippoProperty: NSObject {
     var formCollectorTitle: String = ""
     var botGroupId: Int = -1
     var singleChatApp: Bool = false
+    private(set) var newConversationButtonTags: [String] = []
+    private(set) var enableNewConversationButton: Bool = false
+    private(set) var newconversationBotGroupId: String? = nil
+
+    private(set) var openLabelIdOnHome: Int?
     
     //Properties
     var showMessageSourceIcon: Bool = false
@@ -32,6 +37,19 @@ class HippoProperty: NSObject {
         return botGroupId > 0
     }
     
+    class func setNewConversationButtonTags(tags: [String]) {
+        current.newConversationButtonTags = tags
+    }
+    class func setNewConversationButton(enable: Bool) {
+        current.enableNewConversationButton = enable
+    }
+    
+    class func setNewConversationBotGroupId(botGroupId: String?) {
+        current.newconversationBotGroupId = botGroupId
+    }
+    class func setOpenLabelIdOnHome(label: Int?) {
+        current.openLabelIdOnHome = label
+    }
 }
 
 

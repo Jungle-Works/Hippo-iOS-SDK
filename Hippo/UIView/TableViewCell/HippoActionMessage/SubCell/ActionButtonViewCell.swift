@@ -45,6 +45,7 @@ class ActionButtonViewCell: ActionViewCell {
         cellButton.layer.borderWidth = 1
         
         cellButton.setTitle("", for: .normal)
+        selectionStyle = .none
     }
     
     func setButtonState(active: Bool) {
@@ -79,9 +80,13 @@ extension ActionButtonViewCell {
 //        let amount = card.selectedCardDetail?.amount ?? 0
         let displayAmount = ""//= (amount > 0 && card.showAmount) ? " \(amount)" : ""
         let title = card.title + displayAmount
-        self.cellButton.setTitle(title, for: .normal)
-        
+        if let attributed = card.attributedTitle {
+            self.cellButton.setAttributedTitle(attributed, for: .normal)
+        } else {
+            self.cellButton.setTitle(title, for: .normal)
+        }
         let theme = HippoConfig.shared.theme
+        cellButton.tintColor = .white
         cellButton.setTitleColor(.white, for: .normal)
         cellButton.backgroundColor = theme.themeColor
         cellButton.layer.borderWidth = 0

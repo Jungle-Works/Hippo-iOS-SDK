@@ -12,6 +12,7 @@ import NotificationCenter
 class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     
     // MARK: - IBOutlets
+    @IBOutlet weak var newConversationBiutton: UIButton!
     @IBOutlet var showConversationsTableView: UITableView!
     @IBOutlet var navigationBackgroundView: UIView!
     //   @IBOutlet var navigationTitleLabel: UILabel!
@@ -45,6 +46,9 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         if config.shouldUseCache {
             self.arrayOfConversation = fetchAllConversationCache()
         }
+        if let labelId = HippoProperty.current.openLabelIdOnHome, labelId > 0 {
+            moveToChatViewcontroller(labelId: labelId)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -56,6 +60,13 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         }
         self.navigationController?.setTheme()
         self.navigationController?.isNavigationBarHidden = false
+    }
+    @IBAction func newConversationClicked(_ sender: Any) {
+        var fuguNewChatAttributes = FuguNewChatAttributes(transactionId: "", userUniqueKey: HippoConfig.shared.userDetail?.userUniqueKey, otherUniqueKey: nil, tags: HippoProperty.current.newConversationButtonTags, channelName: nil, preMessage: "", groupingTag: nil)
+        fuguNewChatAttributes.botGroupId = HippoProperty.current.newconversationBotGroupId
+        let conversation = ConversationsViewController.getWith(chatAttributes: fuguNewChatAttributes)
+        conversation.createConversationOnStart = true
+        self.navigationController?.pushViewController(conversation, animated: true)
     }
     
     func handleIntialCustomerForm() -> Bool {
@@ -102,15 +113,53 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         
         refreshControl.addTarget(self, action: #selector(refresh(_:)), for: .valueChanged)
         
+        setTableView()
         showConversationsTableView.backgroundView = refreshControl
+        let theme = HippoConfig.shared.theme
+        
+        newConversationBiutton.isHidden = !HippoProperty.current.enableNewConversationButton
+        newConversationBiutton.isEnabled = HippoProperty.current.enableNewConversationButton
+        
+        newConversationBiutton.setTitleColor(.white, for: .normal)
+        newConversationBiutton.backgroundColor = theme.themeColor
+        newConversationBiutton.layer.cornerRadius = newConversationBiutton.bounds.height / 2
+        newConversationBiutton.layer.masksToBounds = true
+        newConversationBiutton.titleLabel?.font = theme.newConversationButtonFont
+        newConversationBiutton.setTitle(theme.newConversationText, for: .normal)
+        showConversationsTableView.contentInset.bottom = 70
+        addLogoutButton()
         
         poweredByFuguLabel.attributedText = attributedStringForLabelForTwoStrings("Runs on ", secondString: "Hippo", colorOfFirstString: HippoConfig.shared.powererdByColor, colorOfSecondString: HippoConfig.shared.FuguColor, fontOfFirstString: HippoConfig.shared.poweredByFont, fontOfSecondString: HippoConfig.shared.FuguStringFont, textAlighnment: .center, dateAlignment: .center)
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.openFuguChatWebLink(_:)))
         poweredByFuguLabel.addGestureRecognizer(tap)
+        
         updateBottomLabel()
     }
     
+    func addLogoutButton() {
+        let theme = HippoConfig.shared.theme
+        guard let logoutButtonIcon = theme.logoutButtonIcon else {
+            return
+        }
+        let logoutButton = UIBarButtonItem(image: logoutButtonIcon, landscapeImagePhone: nil, style: .done, target: self, action: #selector(logoutButtonClicked))
+        
+        logoutButton.tintColor = theme.logoutButtonTintColor ?? theme.headerTextColor
+        self.navigationItem.rightBarButtonItem = logoutButton
+    }
+    @objc func logoutButtonClicked() {
+        showOptionAlert(title: "", message: "Are you sure, you want to logout?", successButtonName: "YES", successComplete: { (_) in
+            HippoConfig.shared.clearHippoUserData { (s) in
+                HippoUserDetail.clearAllData()
+                HippoConfig.shared.delegate?.hippoUserLogOut()
+            }
+        }, failureButtonName: "NOT NOW", failureComplete: nil)
+    }
+    
+    func setTableView() {
+        let bundle = FuguFlowManager.bundle
+        showConversationsTableView.register(UINib(nibName: "ConversationView", bundle: bundle), forCellReuseIdentifier: "ConversationCellCustom")
+    }
     func navigationSetUp() {
         
         navigationBackgroundView.layer.shadowColor = UIColor.black.cgColor
@@ -126,7 +175,10 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
             backButton.image = HippoConfig.shared.theme.leftBarButtonImage
             backButton.tintColor = HippoConfig.shared.theme.headerTextColor
         }
-        
+        if config.disbaleBackButton {
+            backButton.isEnabled = false
+            backButton.image = nil
+        }
         title = config.title ?? HippoConfig.shared.theme.headerText
     }
     
@@ -372,6 +424,12 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         self.navigationController?.pushViewController(conversationVC, animated: true)
     }
     
+    func moveToChatViewcontroller(labelId: Int) {
+        HippoConfig.shared.notifyDidLoad()
+        let conversationVC = ConversationsViewController.getWith(labelId: "\(labelId)")
+        conversationVC.delegate = self
+        self.navigationController?.pushViewController(conversationVC, animated: false)
+    }
     //MARK: - HANDLE PUSH NOTIFICATION
     func updateChannelsWithrespectToPush(pushInfo: [String: Any]) {
         
@@ -459,9 +517,14 @@ extension AllConversationsViewController: UITableViewDelegate, UITableViewDataSo
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "ConversationView", for: indexPath) as? ConversationView else {
+//        guard let cell = tableView.dequeueReusableCell(withIdentifier: "ConversationView", for: indexPath) as? ConversationView else {
+//            return UITableViewCell()
+//        }
+        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "ConversationCellCustom", for: indexPath) as? ConversationView else {
             return UITableViewCell()
         }
+        
         
         let convObj = arrayOfConversation[indexPath.row]
         cell.configureConversationCell(resetProperties: true, conersationObj: convObj)
@@ -471,12 +534,12 @@ extension AllConversationsViewController: UITableViewDelegate, UITableViewDataSo
     // MARK: - UITableViewDelegate
     public func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
         guard let cell = tableView.cellForRow(at: indexPath) as? ConversationView else { return }
-        cell.selectionView.backgroundColor = #colorLiteral(red: 0.8156862745, green: 0.8156862745, blue: 0.8156862745, alpha: 1)
+        cell.selectionView?.backgroundColor = #colorLiteral(red: 0.8156862745, green: 0.8156862745, blue: 0.8156862745, alpha: 1)
     }
     
     public func tableView(_ tableView: UITableView, didUnhighlightRowAt indexPath: IndexPath) {
         guard let cell = tableView.cellForRow(at: indexPath) as? ConversationView else { return }
-        cell.selectionView.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0)
+        cell.selectionView?.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0)
     }
     
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -554,9 +617,15 @@ struct AllConversationsConfig {
     var forceHideActionButton: Bool = false
     var isStaticRemoveConversation: Bool = false
     var lastChannelId: Int? = nil
+    var disbaleBackButton: Bool = false
     
     static var defaultConfig: AllConversationsConfig {
-        return AllConversationsConfig(enabledChatStatus: [], title: nil, shouldUseCache: true, shouldHandlePush: true, shouldPopVc: false, forceDisableReply: false, forceHideActionButton: false, isStaticRemoveConversation: false, lastChannelId: nil)
+        var config =  AllConversationsConfig(enabledChatStatus: [], title: nil, shouldUseCache: true, shouldHandlePush: true, shouldPopVc: false, forceDisableReply: false, forceHideActionButton: false, isStaticRemoveConversation: false, lastChannelId: nil, disbaleBackButton: false)
+        
+        if HippoProperty.current.singleChatApp {
+            config.disbaleBackButton = true
+        }
+        return config
     }
     
     func getChatStatusToSend() -> [Int] {
@@ -567,6 +636,22 @@ struct AllConversationsConfig {
         return list
     }
 }
+
+extension AllConversationsViewController: UIScrollViewDelegate {
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        UIView.animate(withDuration: 0.2) {
+            self.newConversationBiutton.alpha = 0
+        }
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        UIView.animate(withDuration: 0.5) {
+            self.newConversationBiutton.alpha = 1
+        }
+    }
+    
+}
+
 extension AllConversationsViewController: InformationViewDelegate {
     
 }

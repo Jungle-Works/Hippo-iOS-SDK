@@ -342,12 +342,14 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
             } else {
                 let firstCard = cards.first
                 firstCard?.isLocalySelected = true
-                let buttonView = PayementButton(title: "Proceed To Pay")
+                let buttonView = PayementButton.createPaymentOption()
                 buttonView.selectedCardDetail = firstCard
                 
                 let header = PaymentHeader()
+                let securePayment = PaymentSecurely.secrurePaymentOption()
                 
                 self.cards = [header] + cards
+                self.cards?.append(securePayment)
                 self.cards?.append(buttonView)
             }
             

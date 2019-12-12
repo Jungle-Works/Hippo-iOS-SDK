@@ -53,6 +53,61 @@ struct PaymentCardConfig {
     }
 }
 
+struct PaymentSecurely {
+    var image: UIImage?
+    var imageTintColor: UIColor?
+    var attributedText: NSMutableAttributedString?
+    
+    var bgViewLayout: ViewLayout = ViewLayout(leading: 10, trailing: 10, top: 5, bottom: 5)
+    var labelContainerLayout: ViewLayout = ViewLayout(equalMargin: 0)
+    var calculatedHeight: CGFloat = 0
+    var imageWidth: CGFloat = 0
+    
+    var height: CGFloat = 0
+    
+    
+    static func secrurePaymentOption() -> PaymentSecurely {
+        var option = PaymentSecurely()
+        let theme = HippoConfig.shared.theme
+        
+        let headerAttributes: [NSAttributedString.Key: Any] = [NSAttributedString.Key.foregroundColor: UIColor.black,
+                                                               NSAttributedString.Key.font: theme.secureTextFont]
+        let secondAttributes: [NSAttributedString.Key: Any] = [NSAttributedString.Key.foregroundColor: UIColor.black,
+                                                                      NSAttributedString.Key.font: theme.secureTextFont]
+        
+        let headerAttributed = NSMutableAttributedString(string: "100% secure payement", attributes: headerAttributes)
+        let secondAttributed = NSMutableAttributedString(string: "\nDiet Buddy Gurantee", attributes: secondAttributes)
+        
+        headerAttributed.append(secondAttributed)
+        
+        option.attributedText = headerAttributed
+        option.image = HippoConfig.shared.theme.securePaymentIcon
+        option.imageTintColor = HippoConfig.shared.theme.securePaymentTintColor
+        option.imageWidth = 30
+        option.labelContainerLayout = ViewLayout(leading: 0, trailing: 0, top: 0, bottom: 0)
+        option.calculateHeight()
+        
+        return option
+    }
+    
+    mutating func calculateHeight() {
+        guard let attributtedString = self.attributedText else {
+            self.height = 0
+            return
+        }
+        
+        let width = FUGU_SCREEN_WIDTH - bgViewLayout.horizontalWidth - labelContainerLayout.horizontalWidth - imageWidth
+        let size = CGSize(width: width, height: .greatestFiniteMagnitude)
+        let h: CGFloat = attributtedString.boundingRect(with: size, options: [.usesLineFragmentOrigin, .usesFontLeading], context: nil).height
+        height = h + bgViewLayout.verticleHeight + labelContainerLayout.verticleHeight + 5
+    }
+}
+extension PaymentSecurely: HippoCard {
+    var cardHeight: CGFloat {
+        return height
+    }
+}
+
 class PaymentHeader {
     var text: String = "Select a plan"
 }
@@ -65,11 +120,32 @@ extension PaymentHeader: HippoCard {
 
 class PayementButton {
     let title: String
+    let attributedTitle: NSMutableAttributedString?
     var selectedCardDetail: CustomerPayment?
     var showAmount: Bool = true
     
     init(title: String) {
         self.title = title
+        self.attributedTitle = nil
+    }
+    init(attributedString: NSMutableAttributedString) {
+        self.title = ""
+        self.attributedTitle = attributedString
+    }
+    
+    static func createPaymentOption() -> PayementButton {
+//        let textAtributes: [NSAttributedString.Key: Any] = [NSAttributedString.Key.foregroundColor: UIColor.white]
+//        let textAttributed = NSMutableAttributedString(string: "  Securely Pay", attributes: textAtributes)
+//
+//        let image1Attachment = NSTextAttachment()
+//        image1Attachment.image = UIImage(named: "lockIcon", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+//        let image1String = NSMutableAttributedString(attachment: image1Attachment)
+//        image1String.append(textAttributed)
+//
+//        let button = PayementButton(attributedString: image1String)
+//        return button
+        let button = PayementButton(title: "Proceed To Pay")
+        return button
     }
 }
 
