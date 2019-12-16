@@ -650,7 +650,8 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
             }
             arrayOfMessages.append(message)
         }
-//        arrayOfMessages.append(MessageCard.generateMessage()!)
+        
+        arrayOfMessages.append(self.generateMessage()!)
         
         return (arrayOfMessages, messageHashMap)
     }
@@ -663,6 +664,41 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         }
         return arrayOfDict
     }
+    
+    static func generateMessage() -> HippoMessage? {
+
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'hh:mm:ss'Z'"
+        let dateStr = dateFormatter.string(from: Date())
+        
+        let dict = [
+            "date_time":dateStr,
+            "email": "",
+            "full_name": "Diet Buddy",
+            "id": 515999,
+            "integration_source": 0,
+            "message" : "can you tell your name first please?",
+            "message_state": 1,
+            "message_status": 1,
+            "message_type" : 23,
+            "muid" : String.generateUniqueId(),
+            "user_id": 0,
+            "user_image": "",
+            "user_type" : 0,
+            "selection_array" :
+            [["id" : "1234567",
+            "label" :"first option to be selected",
+            "status":0]],
+            "minimun_selection" :"1",
+            "maximum_selection" : "3"
+            ] as [String : Any]
+        
+        
+        let message = HippoMessage(dict: dict)
+        
+        return message
+    }
+    
     
     func updateObjectForFeedback(is_rating_given: Bool = false, rating_given: Int = 0, total_rating: Int = 5, line_after_feedback_1: String, line_after_feedback_2: String, line_before_feedback: String) {
         self.is_rating_given = is_rating_given

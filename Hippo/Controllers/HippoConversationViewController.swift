@@ -268,6 +268,8 @@ class HippoConversationViewController: UIViewController {
         tableViewChat.register(UINib(nibName: "SelfMessageTableViewCell", bundle: bundle), forCellReuseIdentifier: "SelfMessageTableViewCell")
         tableViewChat.register(UINib(nibName: "PaymentMessageCell", bundle: bundle), forCellReuseIdentifier: "PaymentMessageCell")
         
+        tableViewChat.register(UINib(nibName: "MultiSelectTableViewCell", bundle: bundle), forCellReuseIdentifier: "MultiSelectTableViewCell")
+        
         tableViewChat.register(UINib(nibName: "SupportMessageTableViewCell", bundle: bundle), forCellReuseIdentifier: "SupportMessageTableViewCell")
         
         tableViewChat.register(UINib(nibName: "OutgoingImageCell", bundle: bundle), forCellReuseIdentifier: "OutgoingImageCell")

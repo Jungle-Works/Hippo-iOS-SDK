@@ -1,22 +1,22 @@
 //
-//  PaymentMessageDataSource.swift
+//  MultiSelectTableViewDataSource.swift
 //  HippoChat
 //
-//  Created by Vishal on 04/11/19.
+//  Created by Clicklabs on 12/16/19.
 //  Copyright © 2019 CL-macmini-88. All rights reserved.
 //
 
 import UIKit
 
-protocol PaymentMessageListDelegate: class {
+protocol MultiSelectTableViewDelegate: class {
     func cellSelected(card: HippoCard)
 }
 
-typealias PaymentMessageDataSourceInteractor = PaymentMessageListDelegate & ActionButtonViewCellDelegate
+typealias MultiSelectTableViewDataSourceInteractor = MultiSelectTableViewCellDelegate & ActionButtonViewCellDelegate
 
-class PaymentMessageDataSource: NSObject {
+
+class MultiSelectTableViewDataSource: NSObject {
     var cards: [HippoCard] = []
-    
     weak var delegate: PaymentMessageDataSourceInteractor?
     
     override init() {
@@ -28,53 +28,55 @@ class PaymentMessageDataSource: NSObject {
     }
 }
 
-extension PaymentMessageDataSource: UITableViewDataSource {
+extension MultiSelectTableViewDataSource: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-       return cards.count
+        return cards.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let item = cards[indexPath.row]
         switch item {
-        case let card as CustomerPayment:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "CustomerPaymentCardCell", for: indexPath) as? CustomerPaymentCardCell else {
+        case let card as MultiSelect:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "MultipleSelectTableViewCell", for: indexPath) as? MultipleSelectTableViewCell else {
                 return UITableView.defaultCell()
             }
             cell.set(card: card)
             return cell
-        case let card as PayementButton:
+        case let card as SubmitButton:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "ActionButtonViewCell", for: indexPath) as? ActionButtonViewCell else {
-                 return UITableView.defaultCell()
+                return UITableView.defaultCell()
             }
-            cell.set(card: card)
+            cell.setMultiSelectSubmit(card: card)
             cell.delegate = delegate
             return cell
-        case let card as PaymentHeader:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "AssignedAgentTableViewCell", for: indexPath) as? AssignedAgentTableViewCell else {
-                return UITableView.defaultCell()
-            }
-            cell.set(card: card)
-            return cell
-        case let card as PaymentSecurely:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "PaymentSecureView", for: indexPath) as? PaymentSecureView else {
-                return UITableView.defaultCell()
-            }
-            cell.set(card: card)
-            return cell
+//        case let card as PaymentHeader:
+//            guard let cell = tableView.dequeueReusableCell(withIdentifier: "AssignedAgentTableViewCell", for: indexPath) as? AssignedAgentTableViewCell else {
+//                return UITableView.defaultCell()
+//            }
+//            cell.set(card: card)
+//            return cell
+//        case let card as PaymentSecurely:
+//            guard let cell = tableView.dequeueReusableCell(withIdentifier: "PaymentSecureView", for: indexPath) as? PaymentSecureView else {
+//                return UITableView.defaultCell()
+//            }
+//            cell.set(card: card)
+//            return cell
         default:
             return UITableView.defaultCell()
         }
     }
 }
 
-extension PaymentMessageDataSource: UITableViewDelegate {
+extension MultiSelectTableViewDataSource: UITableViewDelegate
+{
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let card = cards[indexPath.row]
         return card.cardHeight
     }
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
+    {
         tableView.deselectRow(at: indexPath, animated: true)
         let item = cards[indexPath.row]
         guard item as? CustomerPayment != nil else {

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="110" id="KGk-i7-Jjw" customClass="MultipleSelectTableViewCell" customModule="HippoChat" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="331" height="110"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="331" height="109.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pUp-om-cJ4">
+                        <rect key="frame" x="10" y="10" width="311" height="89.5"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="radio_button_deactive" translatesAutoresizingMaskIntoConstraints="NO" id="IeQ-vi-E5w">
+                                <rect key="frame" x="10" y="32" width="22" height="25.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="22" id="tMb-gK-w0q"/>
+                                </constraints>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qKH-rH-BQN">
+                                <rect key="frame" x="42" y="5" width="264" height="79.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6f2-jv-2gk">
+                                        <rect key="frame" x="5" y="5" width="254" height="69.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="6f2-jv-2gk" secondAttribute="bottom" constant="5" id="Dd7-JF-QIX"/>
+                                    <constraint firstItem="6f2-jv-2gk" firstAttribute="top" secondItem="qKH-rH-BQN" secondAttribute="top" constant="5" id="Kgs-le-ovN"/>
+                                    <constraint firstAttribute="trailing" secondItem="6f2-jv-2gk" secondAttribute="trailing" constant="5" id="Qbo-2X-EWk"/>
+                                    <constraint firstItem="6f2-jv-2gk" firstAttribute="leading" secondItem="qKH-rH-BQN" secondAttribute="leading" constant="5" id="qkJ-QG-hYj"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="qKH-rH-BQN" firstAttribute="leading" secondItem="IeQ-vi-E5w" secondAttribute="trailing" constant="10" id="3pm-0x-vLE"/>
+                            <constraint firstItem="IeQ-vi-E5w" firstAttribute="top" secondItem="pUp-om-cJ4" secondAttribute="top" constant="32" id="8yg-un-agj"/>
+                            <constraint firstItem="IeQ-vi-E5w" firstAttribute="centerY" secondItem="qKH-rH-BQN" secondAttribute="centerY" id="YOQ-No-5WS"/>
+                            <constraint firstAttribute="bottom" secondItem="qKH-rH-BQN" secondAttribute="bottom" constant="5" id="com-y7-5O6"/>
+                            <constraint firstAttribute="trailing" secondItem="qKH-rH-BQN" secondAttribute="trailing" constant="5" id="gUs-S7-v93"/>
+                            <constraint firstItem="IeQ-vi-E5w" firstAttribute="leading" secondItem="pUp-om-cJ4" secondAttribute="leading" constant="10" id="iFs-wW-TC7"/>
+                            <constraint firstItem="qKH-rH-BQN" firstAttribute="top" secondItem="pUp-om-cJ4" secondAttribute="top" constant="5" id="v6H-LB-z1r"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="pUp-om-cJ4" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="eqn-JH-jol"/>
+                    <constraint firstAttribute="trailing" secondItem="pUp-om-cJ4" secondAttribute="trailing" constant="10" id="hFb-hX-ath"/>
+                    <constraint firstItem="pUp-om-cJ4" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="jar-B7-khA"/>
+                    <constraint firstAttribute="bottom" secondItem="pUp-om-cJ4" secondAttribute="bottom" constant="10" id="y0Q-SA-ZlJ"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="bgView" destination="pUp-om-cJ4" id="YOu-Iz-AcV"/>
+                <outlet property="bgViewBottomConstraint" destination="y0Q-SA-ZlJ" id="Ms7-8E-Iq0"/>
+                <outlet property="bgViewLeadingConstraint" destination="jar-B7-khA" id="LtF-o0-jhF"/>
+                <outlet property="bgViewTopConstraint" destination="eqn-JH-jol" id="P3l-4y-ZFi"/>
+                <outlet property="bgViewTrailingConstant" destination="hFb-hX-ath" id="6aI-8M-f82"/>
+                <outlet property="buttonText" destination="6f2-jv-2gk" id="mFt-gr-Ahu"/>
+                <outlet property="buttonTextBottomConstraint" destination="Dd7-JF-QIX" id="9eL-mA-h4y"/>
+                <outlet property="buttonTextLeadingConstraint" destination="qkJ-QG-hYj" id="gk0-rN-5qR"/>
+                <outlet property="buttonTextTopConstraint" destination="Kgs-le-ovN" id="w3u-pR-N3g"/>
+                <outlet property="buttonTextTrailingConstraint" destination="Qbo-2X-EWk" id="JV9-Z2-5fr"/>
+                <outlet property="innerCardView" destination="qKH-rH-BQN" id="vKh-lt-N3K"/>
+                <outlet property="innerCardViewBottomConstraint" destination="com-y7-5O6" id="jLe-Za-s3I"/>
+                <outlet property="innerCardViewLeadingConstraint" destination="3pm-0x-vLE" id="71z-4Q-CSZ"/>
+                <outlet property="innerCardViewTopConstraint" destination="v6H-LB-z1r" id="ZF6-Yg-vqo"/>
+                <outlet property="innerCardViewTrailingConstraint" destination="gUs-S7-v93" id="1Lh-ur-tsa"/>
+                <outlet property="selectionButtonView" destination="IeQ-vi-E5w" id="G95-Fa-rvw"/>
+            </connections>
+            <point key="canvasLocation" x="-468.84057971014494" y="102.45535714285714"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="radio_button_deactive" width="22" height="22"/>
+    </resources>
+</document>

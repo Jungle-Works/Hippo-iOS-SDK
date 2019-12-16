@@ -94,6 +94,7 @@ extension CustomerPaymentCardCell {
         label.text = parsedText
         label.isHidden = parsedText.isEmpty
     }
+    
     private func setConstraint(config: PaymentCardConfig) {
         bgViewTopConstraint.constant = config.bgView.top
         bgViewBottomConstraint.constant = config.bgView.bottom

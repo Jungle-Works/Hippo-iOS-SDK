@@ -1423,6 +1423,18 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                 cell.delegate = self
                 cell.set(message: message)
                 return cell
+                
+            case .multipleSelect :
+                
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: "MultiSelectTableViewCell", for: indexPath) as? MultiSelectTableViewCell else {
+                    return UITableView.defaultCell()
+                }
+                cell.delegate = self
+                cell.set(message: message)
+                return cell
+                
+        
+                
             default:
                 return getNormalMessageTableViewCell(tableView: tableView, isOutgoingMessage: isOutgoingMsg, message: message, indexPath: indexPath)
             }
@@ -1509,6 +1521,8 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                     return 230
                 case .paymentCard:
                     return message.calculatedHeight ?? 0.1
+                case .multipleSelect:
+                    return message.calculatedHeight ?? 44
                 default:
                     return 0.01
                     
