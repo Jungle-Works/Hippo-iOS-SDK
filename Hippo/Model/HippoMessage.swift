@@ -121,7 +121,8 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
     var aboveMessageType: MessageType?
     var belowMessageType: MessageType?
 
-    
+   
+    var selectionArr : [MultiSelectCard]?
     var cards: [HippoCard]?
     var selectedCardId: String?
     var selectedCard: HippoCard?
@@ -219,6 +220,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
             self.status = status
         }
 //        channelId = UIInt.parse
+        self.selectionArr = dict["selection_array"] as? [MultiSelectCard]
         self.rawJsonToSend = dict["rawJsonToSend"] as? [String: Any]
         self.localImagePath = dict["image_file"] as? String
         self.imageUrl = dict["image_url"] as? String

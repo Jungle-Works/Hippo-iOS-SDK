@@ -71,37 +71,17 @@ class MultiSelect
             return nil
         }
         self.id = id
-        self.title = String.parse(values: json, key: "title")
-        if let selectedId = String.parse(values: json, key: "isSelected"), id == selectedId {
+        self.title = String.parse(values: json, key: "label")
+        if let selectedId = String.parse(values: json, key: "status"), id == selectedId {
           
         }
         
-        let listCount = Int.parse(values: json, key: "total_cards") ?? 0
-        cardConfig.imageWidth = listCount > 1 ? 30 : 0
+      //  let listCount = Int.parse(values: json, key: "total_cards") ?? 0
+      //  cardConfig.imageWidth = listCount > 1 ? 30 : 0
         self.calculateHeight()
     }
     
-    static func parse(list: [[String: Any]], selectedCardId: String) -> ([MultiSelect], MultiSelect?) {
-        var cards: [MultiSelect] = []
-        var card: MultiSelect?
-        
-        for each in list {
-            var cardJson = each
-            cardJson["total_cards"] = list.count
-            
-            guard let c = MultiSelect(json: cardJson) else {
-                continue
-            }
-            
-            if c.id == selectedCardId {
-                c.cardConfig.imageWidth = 0
-                c.calculateHeight()
-                card = c
-            }
-            cards.append(c)
-        }
-        return (cards, card)
-    }
+    
     
     func calculateHeight() {
         let theme = HippoConfig.shared.theme
@@ -114,7 +94,7 @@ class MultiSelect
         
         
         let spacing: CGFloat = cardConfig.labelSpacing
-        self.height = height + titleHeight + spacing
+        self.height = height + titleHeight  + spacing
         
     }
     

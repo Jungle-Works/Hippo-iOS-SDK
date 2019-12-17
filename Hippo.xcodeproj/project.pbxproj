@@ -363,6 +363,7 @@
 		C9EE010A2397963B003E9326 /* PaymentSecureView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9EE01082397963B003E9326 /* PaymentSecureView.xib */; };
 		C9FAF60C23681AC90089DBFC /* InformationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9FAF60B23681AC90089DBFC /* InformationView.xib */; };
 		C9FAF60E23681AE20089DBFC /* InformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FAF60D23681AE20089DBFC /* InformationView.swift */; };
+		EE4B7E2823A8989C0093A260 /* MultiSelectCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4B7E2723A8989C0093A260 /* MultiSelectCard.swift */; };
 		EE6EC6DF23A7469A009C9A8D /* MultiSelectTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE6EC6DD23A7469A009C9A8D /* MultiSelectTableViewCell.swift */; };
 		EE6EC6E023A7469A009C9A8D /* MultiSelectTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE6EC6DE23A7469A009C9A8D /* MultiSelectTableViewCell.xib */; };
 		EE6EC6E223A748E1009C9A8D /* MultiSelectTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE6EC6E123A748E1009C9A8D /* MultiSelectTableViewDataSource.swift */; };
@@ -738,6 +739,7 @@
 		C9FAF60B23681AC90089DBFC /* InformationView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InformationView.xib; sourceTree = "<group>"; };
 		C9FAF60D23681AE20089DBFC /* InformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationView.swift; sourceTree = "<group>"; };
 		E0E4A9E31B1EC7F72EC2F38D /* Pods_Fugu.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Fugu.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EE4B7E2723A8989C0093A260 /* MultiSelectCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiSelectCard.swift; sourceTree = "<group>"; };
 		EE6EC6DD23A7469A009C9A8D /* MultiSelectTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiSelectTableViewCell.swift; sourceTree = "<group>"; };
 		EE6EC6DE23A7469A009C9A8D /* MultiSelectTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MultiSelectTableViewCell.xib; sourceTree = "<group>"; };
 		EE6EC6E123A748E1009C9A8D /* MultiSelectTableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiSelectTableViewDataSource.swift; sourceTree = "<group>"; };
@@ -1708,6 +1710,7 @@
 				C9DC539A2356FD4200CA7FE9 /* HippoDescriptionContent.swift */,
 				C9DC539B2356FD4200CA7FE9 /* FuguUserDetail.swift */,
 				C9B410E1235DAA240029799A /* MessageCard.swift */,
+				EE4B7E2723A8989C0093A260 /* MultiSelectCard.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2428,6 +2431,7 @@
 				C9DC550C2356FD4500CA7FE9 /* TagListView.swift in Sources */,
 				C965D52D2370345900100E4B /* PaymentMessageCell.swift in Sources */,
 				C9DC54952356FD4400CA7FE9 /* BroadCastTextViewCell.swift in Sources */,
+				EE4B7E2823A8989C0093A260 /* MultiSelectCard.swift in Sources */,
 				C9DC54EC2356FD4500CA7FE9 /* PaymentCurrency.swift in Sources */,
 				C9DC54192356FD4300CA7FE9 /* CoreEnum.swift in Sources */,
 				C982E40C238D0B2D0080B375 /* ProfileDetail.swift in Sources */,

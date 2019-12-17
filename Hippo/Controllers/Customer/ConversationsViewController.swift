@@ -1429,7 +1429,7 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "MultiSelectTableViewCell", for: indexPath) as? MultiSelectTableViewCell else {
                     return UITableView.defaultCell()
                 }
-                cell.delegate = self
+               // cell.delegate = self
                 cell.set(message: message)
                 return cell
                 

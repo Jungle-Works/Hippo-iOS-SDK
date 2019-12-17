@@ -16,14 +16,14 @@ typealias MultiSelectTableViewDataSourceInteractor = MultiSelectTableViewCellDel
 
 
 class MultiSelectTableViewDataSource: NSObject {
-    var cards: [HippoCard] = []
-    weak var delegate: PaymentMessageDataSourceInteractor?
+    var cards: [MultiSelectCard] = []
+    weak var delegate: MultiSelectTableViewDataSourceInteractor?
     
     override init() {
         
     }
     
-    func update(cards: [HippoCard]) {
+    func update(cards: [MultiSelectCard]) {
         self.cards = cards
     }
 }
@@ -79,20 +79,20 @@ extension MultiSelectTableViewDataSource: UITableViewDelegate
     {
         tableView.deselectRow(at: indexPath, animated: true)
         let item = cards[indexPath.row]
-        guard item as? CustomerPayment != nil else {
+        guard item as? MultiSelect != nil else {
             return
         }
-        for each in cards {
-            switch each {
-            case let parsed as CustomerPayment:
-                parsed.isLocalySelected = false
-            case let parsed as PayementButton:
-                parsed.selectedCardDetail = item as? CustomerPayment
-            default:
-                break
-            }
-        }
-        (item as? CustomerPayment)?.isLocalySelected = true
-        delegate?.cellSelected(card: item)
+//        for each in cards {
+//            switch each {
+//            case let parsed as MultiSelect:
+//                parsed.isLocalySelected = false
+//            case let parsed as SubmitButton:
+//                parsed.selectedCardDetail = item as? MultiSelect
+//            default:
+//                break
+//            }
+//        }
+//        (item as? MultiSelect)?.isLocalySelected = true
+//        delegate?.cellSelected(card: item)
     }
 }

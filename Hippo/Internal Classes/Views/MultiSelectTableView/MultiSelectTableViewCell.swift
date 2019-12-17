@@ -9,7 +9,7 @@
 import UIKit
 
 protocol MultiSelectTableViewCellDelegate: class {
-    func cellButtonPressed(message: HippoMessage, card: HippoCard)
+    func cellButtonPressed(message: HippoMessage, card: MultiSelectCard)
 }
 
 
@@ -55,9 +55,9 @@ class MultiSelectTableViewCell: UITableViewCell {
 extension MultiSelectTableViewCell {
     func set(message: HippoMessage) {
         self.message = message
-        let cards = (message.cards) ?? []
+        let cards = (message.selectionArr) ?? []
         self.datasource.update(cards: cards)
-       // self.datasource.delegate = self
+        self.datasource.delegate = self
         self.multiSelectHieightConstraint.constant = message.calculatedHeight ?? 0
         self.layoutIfNeeded()
         
@@ -68,11 +68,15 @@ extension MultiSelectTableViewCell {
 
 extension MultiSelectTableViewCell: MultiSelectTableViewDataSourceInteractor
 {
-    func cellButtonPressed(message: HippoMessage, card: HippoCard) {
+    func buttonClick(buttonInfo: HippoCard) {
         
     }
     
-    func buttonClick(buttonInfo: HippoCard) {
+    func cellButtonPressed(message: HippoMessage, card: MultiSelectCard) {
+
+    }
+    
+    func buttonClick(buttonInfo: MultiSelectCard) {
         guard let message = self.message else {
             return
         }
@@ -83,7 +87,7 @@ extension MultiSelectTableViewCell: MultiSelectTableViewDataSourceInteractor
         
     }
     
-    func cellSelected(card: HippoCard) {
+    func cellSelected(card: MultiSelectCard) {
         multiselectTableView.reloadData()
     }
 }

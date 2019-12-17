@@ -74,12 +74,9 @@ class MultipleSelectTableViewCell: UITableViewCell {
 
 extension MultipleSelectTableViewCell
 {
-    func set(card: MultiSelect)
-    {
+    func set(card: MultiSelect) {
         setConstraint(config: card.cardConfig)
-        setLabel(label: buttonText, text: "fsdfsdfsdfs")
-       // setLabel(label: descriptionLabel, text: card.description)
-       // amountLabel.attributedText = card.displayAmount
+        setLabel(label:buttonText, text: card.title)
         
        // self.selctionImageView?.image = card.isLocalySelected ? HippoConfig.shared.theme.radioActive : HippoConfig.shared.theme.radioInActive
     }
