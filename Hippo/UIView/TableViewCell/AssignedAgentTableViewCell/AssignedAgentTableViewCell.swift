@@ -37,7 +37,7 @@ class AssignedAgentTableViewCell: UITableViewCell {
     func set(card: PaymentHeader) {
          messageLabel.text = card.text
         messageLabel.font = HippoConfig.shared.theme.titleFont
-        messageLabel.textColor = .black
+        messageLabel.textColor = HippoConfig.shared.theme.darkThemeTextColor
         messageContainer.hippoCornerRadius = messageContainer.bounds.size.height / 2
         messageContainer.layer.borderWidth = 1
         messageContainer.layer.borderColor = UIColor.lightGray.cgColor

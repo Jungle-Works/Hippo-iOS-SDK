@@ -70,7 +70,7 @@ struct PaymentSecurely {
         var option = PaymentSecurely()
         let theme = HippoConfig.shared.theme
         
-        let headerAttributes: [NSAttributedString.Key: Any] = [NSAttributedString.Key.foregroundColor: UIColor.black,
+        let headerAttributes: [NSAttributedString.Key: Any] = [NSAttributedString.Key.foregroundColor: HippoConfig.shared.theme.darkThemeTextColor,
                                                                NSAttributedString.Key.font: theme.secureTextFont]
 //        let secondAttributes: [NSAttributedString.Key: Any] = [NSAttributedString.Key.foregroundColor: UIColor.black,
 //                                                                      NSAttributedString.Key.font: theme.secureTextFont]

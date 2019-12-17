@@ -62,6 +62,9 @@ public struct ConversationListTheme {
     open var newConversationButtonFont: UIFont? = UIFont.boldSystemFont(ofSize: 18.0)
     open var newConversationText = "Talk To Dietitian >"
     
+    open var darkThemeTextColor = UIColor.white
+    open var lightThemeTextColor = UIColor.black
+    
     open var conversationListNormalTheme: ConversationListTheme = ConversationListTheme.normalTheme()
     open var conversationListUnreadTheme: ConversationListTheme = ConversationListTheme.unReadTheme()
 

@@ -48,6 +48,7 @@ class HippoActionMessage: HippoMessage {
         responseMessage?.status = status
         cellDetail?.actionHeight = nil
     }
+    
     func setHeight() {
         cellDetail = HippoCellDetail()
         cellDetail?.headerHeight = attributtedMessage.messageHeight + attributtedMessage.nameHeight + attributtedMessage.timeHeight
@@ -59,7 +60,7 @@ class HippoActionMessage: HippoMessage {
             cellDetail?.actionHeight = nil
         } else {
             let buttonHeight = buttonsHeight() //(buttons?.count ?? 0) * 50
-            cellDetail?.actionHeight = CGFloat(buttonHeight) + 15 + 10 //Button Height + (timeLabelHeight + time gap from top) + padding
+            cellDetail?.actionHeight = CGFloat(buttonHeight) + 15 + 10 + 10 //Button Height + (timeLabelHeight + time gap from top) + padding
         }
         
         cellDetail?.padding = 1
@@ -94,7 +95,7 @@ class HippoActionMessage: HippoMessage {
 
         }
         
-        return CGFloat(buttonCount * 35) + CGFloat(5 * (buttonCount - 1))
+        return CGFloat(buttonCount * 35) + CGFloat(5 * (buttonCount - 1)) 
     }
     private func findButtonWidth(_ text: String) -> CGFloat {
         let attributedText = NSMutableAttributedString(string: text)

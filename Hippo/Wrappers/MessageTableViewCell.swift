@@ -31,6 +31,7 @@ class MessageTableViewCell: UITableViewCell {
         let timeOfMessage = changeDateToParticularFormat(message!.creationDateTime, dateFormat: "h:mm a", showInFormat: true)
         return timeOfMessage
     }
+    
     func setTime() {
         let timeOfMessage = getTimeString()
         timeLabel.text = timeOfMessage
