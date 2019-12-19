@@ -163,6 +163,10 @@ public struct ConversationListTheme {
     open var pricingFont: UIFont = UIFont.boldSystemFont(ofSize: 17)
     open var pricingTextColor: UIColor? = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
     
+    open var multiSelectButtonFont: UIFont = UIFont.boldSystemFont(ofSize: 17)
+    open var multiSelectTextColor: UIColor? = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
+    
+    
     //MARK: Theme for broadCast
     open var broadcastTitleFont: UIFont? = UIFont.systemFont(ofSize: 15.0)
     open var broadcastTitleColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)

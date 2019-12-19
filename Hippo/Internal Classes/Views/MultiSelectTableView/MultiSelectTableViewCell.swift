@@ -26,7 +26,6 @@ class MultiSelectTableViewCell: UITableViewCell {
     @IBOutlet weak var multiSelectLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var multiSelectTrailingConstraint: NSLayoutConstraint!
     
-    
     var message: HippoMessage?
     weak var submitButtonDelegate: submitButtonTableViewDelegate?
     
@@ -55,7 +54,7 @@ class MultiSelectTableViewCell: UITableViewCell {
         multiselectTableView.layer.borderColor = HippoConfig.shared.theme.chatBoxBorderColor.cgColor
         multiselectTableView.layer.borderWidth = HippoConfig.shared.theme.chatBoxBorderWidth
         
-        setTime()
+        
         
     }
     
@@ -76,6 +75,8 @@ class MultiSelectTableViewCell: UITableViewCell {
         guard message != nil else {
             return ""
         }
+        
+        print(message!.creationDateTime)
         let timeOfMessage = changeDateToParticularFormat(message!.creationDateTime, dateFormat: "h:mm a", showInFormat: true)
       
         return timeOfMessage
@@ -104,7 +105,13 @@ extension MultiSelectTableViewCell {
             multiselectTableView.allowsMultipleSelection = false
         }
         
-        //self.setSelectedButtonsArr()
+        if message.customAction?.isReplied == 1
+        {
+            multiselectTableView.allowsSelection = false
+        }
+        
+        
+        setTime()
         self.multiSelectHieightConstraint.constant = message.calculatedHeight ?? 0
         self.layoutIfNeeded()
         
@@ -114,9 +121,29 @@ extension MultiSelectTableViewCell {
     
     @objc func submitButtonClicked()
     {
-       message?.customAction?.isReplied =  1
-       submitButtonDelegate?.submitButtonPressed(hippoMessage: message!)
+        let arr = message?.customAction?.buttonsArray as! [MultiselectButtons]
+        var selectedButtonsArr = arr.filter { $0.status == true }
+        
+    if message?.customAction?.minSelection == 0 
+    {
+        showAlertWith(message: HippoConfig.shared.strings.noMinSelection, action: nil)
     }
+    else
+    {
+        if selectedButtonsArr.count >= message?.customAction?.minSelection ?? 1
+        {
+            message?.customAction?.isReplied =  1
+            submitButtonDelegate?.submitButtonPressed(hippoMessage: message!)
+        }
+        else
+        {
+            showAlertWith(message: HippoConfig.shared.strings.noMinSelection, action: nil)
+        }
+    }
+        
+    
+      
+}
     
     
 }
@@ -126,7 +153,7 @@ extension MultiSelectTableViewCell: UITableViewDataSource
     func numberOfSections(in tableView: UITableView) -> Int {
         if message?.customAction?.isReplied == 0
         {
-          return 3
+            return 3
         }
         else
          {
@@ -213,7 +240,7 @@ extension MultiSelectTableViewCell : UITableViewDelegate
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        if indexPath.section == 1
+        if indexPath.section == 1 && message?.customAction?.isReplied == 0
         {
             let cell = multiselectTableView.cellForRow(at: indexPath) as! MultipleSelectTableViewCell
             
@@ -239,10 +266,6 @@ extension MultiSelectTableViewCell : UITableViewDelegate
                     message?.customAction?.buttonsArray![indexPath.row] = button!
                     cell.set(button: button!)
                 }
-                
-                
-                
-               
             }
             else
             {
@@ -257,12 +280,9 @@ extension MultiSelectTableViewCell : UITableViewDelegate
                     }
                 }
                  cell.set(button: button!)
-                
             }
             
-            
             tableView.reloadData()
-            
         }
     }
     

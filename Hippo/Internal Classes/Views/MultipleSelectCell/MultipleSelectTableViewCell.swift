@@ -54,8 +54,8 @@ class MultipleSelectTableViewCell: UITableViewCell {
         selectionStyle = .none
         
         let theme = HippoConfig.shared.theme
-        buttonText.textColor = theme.pricingTextColor
-        buttonText.font = theme.pricingFont
+        buttonText.textColor = theme.multiSelectTextColor
+        buttonText.font = theme.multiSelectButtonFont
         buttonText.numberOfLines = 0
         
         bgView.backgroundColor = UIColor.clear

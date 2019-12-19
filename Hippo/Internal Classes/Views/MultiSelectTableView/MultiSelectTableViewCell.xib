@@ -27,16 +27,16 @@
                         </constraints>
                     </tableView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WmW-q3-MLD">
-                        <rect key="frame" x="25" y="101" width="42" height="20.5"/>
+                        <rect key="frame" x="213" y="101" width="42" height="20.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
+                    <constraint firstAttribute="trailing" secondItem="WmW-q3-MLD" secondAttribute="trailing" constant="65" id="ETa-47-7Th"/>
                     <constraint firstItem="gPC-Cb-ca5" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="GOp-hH-eIY"/>
                     <constraint firstItem="gPC-Cb-ca5" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="NNG-p6-zaP"/>
-                    <constraint firstItem="WmW-q3-MLD" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="25" id="Rnn-zQ-O9a"/>
                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="gPC-Cb-ca5" secondAttribute="bottom" id="UP0-Q3-JbV"/>
                     <constraint firstAttribute="trailing" secondItem="gPC-Cb-ca5" secondAttribute="trailing" id="XdY-RB-WrT"/>
                     <constraint firstAttribute="bottom" secondItem="WmW-q3-MLD" secondAttribute="bottom" constant="5" id="v1h-nC-ayr"/>

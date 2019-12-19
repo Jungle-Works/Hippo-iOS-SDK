@@ -21,7 +21,7 @@ class CustomAction: NSObject {
         guard let custom_actions = dict["custom_action"] as? [String: Any] else {
             return nil
         }
-        self.minSelection = Int.parse(values: custom_actions, key: "min_selection") ?? 0
+        self.minSelection = Int.parse(values: custom_actions, key: "min_selection") ?? 1
         self.maxSelection = Int.parse(values: custom_actions, key: "max_selection") ?? 1
         
         self.isReplied = Int.parse(values: custom_actions, key:"is_replied") ?? 0
@@ -77,9 +77,9 @@ class CustomAction: NSObject {
       
         
         var arr = [[String:Any]]()
-        for item in (self.buttonsArray as? [MultiselectButtons])!
+        for item in (self.buttonsArray)!
         {
-            let dict  = ["btn_id":item.btnId,"btn_title":item.btnTitle,"status":item.status] as [String:Any]
+            let dict  = ["btn_id":item.btnId,"btn_title":item.btnTitle ?? "","status":item.status?.intValue() ?? 0] as [String:Any]
             
             arr.append(dict)
         }
@@ -95,7 +95,7 @@ class CustomAction: NSObject {
 
 
 class MultiselectButtons: NSObject {
-    var btnId: Int
+    var btnId: String
     var btnTitle : String?
     var status : Bool?
     var isMultiSelect: Bool = false
@@ -103,7 +103,7 @@ class MultiselectButtons: NSObject {
     
     
     init?(dict: [String: Any]) {
-        guard let id = Int.parse(values: dict, key: "btn_id") else {
+        guard let id = String.parse(values: dict, key: "btn_id") else {
             return nil
         }
         self.btnId = id

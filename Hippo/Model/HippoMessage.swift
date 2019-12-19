@@ -537,10 +537,9 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
                 json["fallback_text"] = fallbackText
             }
         case .multipleSelect:
-        
             json["custom_action"] = customAction?.setJsonValue()
-            
-            break
+            json["user_id"] = currentUserId()
+
         default:
             break
         }
@@ -711,7 +710,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
             "email": "",
             "user_id": 0,
             "date_time": dateStr,
-            "message": "Welcome to Docs Online Please select options? Welcome to Docs Online Please select options? Welcome to Docs Online Please select options?",
+            "message": "Welcome to Docs Online Please select options? ",
             "message_type": 23,
             "message_state": 1,
             "muid": String.generateUniqueId(),
@@ -719,18 +718,18 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
             "replied_by": "Test",
             "custom_action": [
                 "min_selection": 1,
-                "max_selection": 2,
+                "max_selection": 0,
                 "is_replied":0,
                 "multi_select_buttons": [
                 [
                 "btn_id": 1,
-                "btn_title": "Tea dbhjsgfhjsdf fsdjfhsdfsdjf  fhsdjfhsdjk fsjkdfhsdk fsjkfdhjsdkhf fsdfjhdsjfhsdfsd fsdfhjds",
+                "btn_title": "Tea",
                 "status": 0
                 ],
                 [
                 "btn_id": 2,
                 "btn_title": "Coffee",
-                "status": 1
+                "status": 0
                 ],
                 [
                 "btn_id": 3,
