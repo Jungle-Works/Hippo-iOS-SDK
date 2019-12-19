@@ -62,11 +62,11 @@ class MultipleSelectTableViewCell: UITableViewCell {
         innerCardView.backgroundColor = UIColor.clear
         backgroundColor = UIColor.clear
         
-        bgView.layer.borderWidth = 1
-        bgView.layer.borderColor = UIColor.black40.cgColor
-        bgView.layer.cornerRadius = 3
+        bgView.layer.borderWidth = HippoConfig.shared.theme.chatBoxBorderWidth
+        bgView.layer.borderColor = HippoConfig.shared.theme.chatBoxBorderColor.cgColor
+        bgView.layer.cornerRadius = 10
         bgView.layer.masksToBounds = true
-        bgView.backgroundColor = UIColor.white
+        bgView.backgroundColor = HippoConfig.shared.theme.chatBoxBorderColor
         
     }
     
@@ -79,14 +79,29 @@ extension MultipleSelectTableViewCell {
         //setConstraint(config: card.cardConfig)
         setLabel(label:buttonText, text: button.btnTitle ?? "")
         
+        var image:UIImage?
         if button.isMultiSelect
         {
-            self.selectionButtonView?.image = button.status! ? HippoConfig.shared.theme.checkBoxActive : HippoConfig.shared.theme.checkBoxInActive
+            image = button.status! ? HippoConfig.shared.theme.checkBoxActive : HippoConfig.shared.theme.checkBoxInActive
         }
         else
         {
-            self.selectionButtonView?.image = button.status! ? HippoConfig.shared.theme.radioActive : HippoConfig.shared.theme.radioInActive
+            image = button.status! ? HippoConfig.shared.theme.radioActive : HippoConfig.shared.theme.radioInActive
         }
+        
+        
+        if button.status!
+        {
+            let renderedImage = image?.withRenderingMode(.alwaysTemplate)
+            self.selectionButtonView?.image = renderedImage
+            self.selectionButtonView.tintColor = HippoConfig.shared.theme.themeColor
+        }
+        else
+        {
+            self.selectionButtonView?.image = image
+        }
+        
+        
     }
     
 }

@@ -63,6 +63,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
     var userType: UserType = currentUserType()
     var attributtedMessage = MessageUIAttributes(message: "", senderName: "", isSelfMessage: false)
     var chatType: ChatType = .other
+    var keyboardType: responseKeyboardType = .defaultKeyboard
     
     var wasMessageSendingFailed = false {
         didSet {
@@ -261,6 +262,23 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         
         self.senderImage = senderImage
         
+        
+        if let inputType = dict["input_type"] as? String
+        {
+            if inputType == responseKeyboardType.numberKeyboard.rawValue
+            {
+                self.keyboardType = .numberKeyboard
+            }
+            else if inputType == responseKeyboardType.none.rawValue
+            {
+                self.keyboardType = .none
+            }
+            else
+            {
+                self.keyboardType = .defaultKeyboard
+            }
+            
+        }
         if let state = dict["message_state"] as? Int {
             isDeleted = state == 0
             isMissedCall = state == 2
@@ -682,7 +700,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
             arrayOfMessages.append(message)
         }
         
-       // arrayOfMessages.append(self.generateMessage()!)
+        arrayOfMessages.append(self.generateMessage()!)
         
         return (arrayOfMessages, messageHashMap)
     }

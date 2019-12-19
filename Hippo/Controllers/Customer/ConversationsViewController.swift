@@ -111,6 +111,7 @@ protocol NewChatSentDelegate: class {
       tableViewChat.contentInset.top = 12
       messageTextView.contentInset.top = 8
       self.navigationController?.isNavigationBarHidden = false
+        tableViewChat.allowsSelection = false
 
       handleVideoIcon()
       handleAudioIcon()
@@ -248,6 +249,32 @@ protocol NewChatSentDelegate: class {
     @objc func putUserFail() {
         stopLoaderAnimation()
     }
+    
+    func setKeyboardType(message:HippoMessage)
+    {
+        messageTextView.reloadInputViews()
+        switch message.keyboardType {
+        case .none:
+            disableSendingReply(withOutUpdate: true)
+            break
+        case .numberKeyboard:
+            enableSendingReply(withOutUpdate: true)
+            messageTextView.keyboardType = .decimalPad
+            
+            break
+        case .defaultKeyboard :
+            enableSendingReply(withOutUpdate: true)
+            messageTextView.keyboardType = .default
+            
+            break
+        default:
+            enableSendingReply(withOutUpdate: true)
+            messageTextView.keyboardType = .default
+           
+        }
+    }
+    
+    
 // MARK: - UIButton Actions
     
     @IBAction func actionButtonClicked(_ sender: Any) {
@@ -402,8 +429,12 @@ protocol NewChatSentDelegate: class {
         }
     }
 
-    func disableSendingReply() {
-        self.channel?.isSendingDisabled = true
+    func disableSendingReply(withOutUpdate: Bool = false) {
+        if !withOutUpdate {
+            self.channel?.isSendingDisabled = true
+        }
+        self.view.endEditing(true)
+        self.textViewBottomConstraint.constant = 0
         self.textViewBottomConstraint.constant = -self.textViewBgView.frame.height
         self.textViewBgView.isHidden = true
         DispatchQueue.main.async {
@@ -411,9 +442,19 @@ protocol NewChatSentDelegate: class {
         }
     }
     
-    func enableSendingReply() {
-        self.channel?.isSendingDisabled = false
-        self.textViewBottomConstraint.constant = self.textViewBgView.frame.height
+    func enableSendingReply(withOutUpdate: Bool = false) {
+        if !withOutUpdate {
+            self.channel?.isSendingDisabled = false
+        }
+       
+        let isSendingDisabled =  self.channel?.isSendingDisabled ?? false
+        if isSendingDisabled && withOutUpdate {
+            return
+        }
+        if self.textViewBottomConstraint.constant < 0 {
+        self.textViewBottomConstraint.constant = 0
+        }
+//        self.textViewBottomConstraint.constant = self.textViewBgView.frame.height
         self.textViewBgView.isHidden = false
         DispatchQueue.main.async {
             self.view.layoutIfNeeded()
@@ -542,7 +583,6 @@ protocol NewChatSentDelegate: class {
         
         
         
-        
         label = result.channelName
         userImage = result.chatDetail?.channelImageUrl
         channel?.chatDetail = result.chatDetail
@@ -559,7 +599,7 @@ protocol NewChatSentDelegate: class {
         }
         
         updateMessagesInLocalArrays(messages: messages)
-        
+        self.setKeyboardType(message: messages.last!)
         
         let contentOffsetBeforeNewMessages = tableViewChat.contentOffset.y
         let contentHeightBeforeNewMessages = tableViewChat.contentSize.height
@@ -1940,6 +1980,10 @@ extension ConversationsViewController: HippoChannelDelegate {
             HippoConfig.shared.log.debug("Yahaa se nahi nikla", level: .custom)
             return
         }
+        
+        
+        self.setKeyboardType(message: message)
+        
         
         isTypingLabelHidden = message.typingStatus != .startTyping
         switch message.type {

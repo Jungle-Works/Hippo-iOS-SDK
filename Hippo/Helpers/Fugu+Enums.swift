@@ -159,6 +159,15 @@ enum ReadUnReadStatus: Int {
     }
 }
 
+enum responseKeyboardType: String{
+    case none = "NONE"
+    case numberKeyboard = "NUMBER"
+    case defaultKeyboard = "DEFAULT"
+}
+
+
+
+
 enum StatusCodeValue: Int {
     case Authorized_Min = 200
     case Authorized_Max = 300

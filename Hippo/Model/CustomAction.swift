@@ -60,7 +60,7 @@ class CustomAction: NSObject {
         
           let size = attributedString.boundingRect(with: availableBoxSize, options: .usesLineFragmentOrigin, context: nil).size
         
-        print(size.height)
+       // print(size.height)
         let h = size.height + 20
         self.messageHeight = h
         return h
@@ -77,6 +77,7 @@ class CustomAction: NSObject {
       
         
         var arr = [[String:Any]]()
+        
         for item in (self.buttonsArray)!
         {
             let dict  = ["btn_id":item.btnId,"btn_title":item.btnTitle ?? "","status":item.status?.intValue() ?? 0] as [String:Any]
@@ -148,7 +149,7 @@ class MultiselectButtons: NSObject {
         
         let size = attributedString.boundingRect(with: availableBoxSize, options: .usesLineFragmentOrigin, context: nil).size
         
-        print(size.height)
+       // print(size.height)
         self.btnHeight = size.height + 22 + 10 + 10
         return btnHeight
     }
