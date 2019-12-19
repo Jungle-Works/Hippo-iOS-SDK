@@ -11,6 +11,7 @@ import UIKit
 class MultipleSelectTableViewCell: UITableViewCell {
     
     var message: HippoMessage?
+    var selectedButtonsArr : [MultiselectButtons]?
     
     @IBOutlet weak var bgView: UIView!
     @IBOutlet weak var bgViewTopConstraint: NSLayoutConstraint!
@@ -72,14 +73,22 @@ class MultipleSelectTableViewCell: UITableViewCell {
 }
 
 
-extension MultipleSelectTableViewCell
-{
-    func set(card: MultiSelect) {
-        setConstraint(config: card.cardConfig)
-        setLabel(label:buttonText, text: card.title)
+extension MultipleSelectTableViewCell {
+    func set(button: MultiselectButtons)
+    {
+        //setConstraint(config: card.cardConfig)
+        setLabel(label:buttonText, text: button.btnTitle ?? "")
         
-       // self.selctionImageView?.image = card.isLocalySelected ? HippoConfig.shared.theme.radioActive : HippoConfig.shared.theme.radioInActive
+        if button.isMultiSelect
+        {
+            self.selectionButtonView?.image = button.status! ? HippoConfig.shared.theme.checkBoxActive : HippoConfig.shared.theme.checkBoxInActive
+        }
+        else
+        {
+            self.selectionButtonView?.image = button.status! ? HippoConfig.shared.theme.radioActive : HippoConfig.shared.theme.radioInActive
+        }
     }
+    
 }
 
 
@@ -90,31 +99,6 @@ extension MultipleSelectTableViewCell {
         label.text = parsedText
         label.isHidden = parsedText.isEmpty
     }
-    private func setConstraint(config: MultipleSelectCardConfig) {
-        bgViewTopConstraint.constant = config.bgView.top
-        bgViewBottomConstraint.constant = config.bgView.bottom
-        bgViewLeadingConstraint.constant = config.bgView.leading
-        bgViewTrailingConstant.constant = config.bgView.trailing
-        
-        innerCardViewTopConstraint.constant = config.innerCard.top
-        innerCardViewBottomConstraint.constant = config.innerCard.bottom
-        innerCardViewLeadingConstraint.constant = config.innerCard.leading
-        innerCardViewTrailingConstraint.constant = config.innerCard.trailing
-        
-        buttonTextTopConstraint.constant = config.labelView.top
-        buttonTextBottomConstraint.constant = config.labelView.bottom
-        buttonTextLeadingConstraint.constant = config.labelView.leading
-        buttonTextTrailingConstraint.constant = config.labelView.trailing
-        
-//        imageViewWidthConstraint.constant = config.imageWidth
-//        amountLabelWidthConstraint.constant = config.amountWidth
-        
-//        labelStackView.spacing = config.labelSpacing
-//        if  config.imageWidth <= 0 {
-//            imageView?.isHidden = true
-//        }
-        self.layoutIfNeeded()
-        
-    }
+  
 }
 

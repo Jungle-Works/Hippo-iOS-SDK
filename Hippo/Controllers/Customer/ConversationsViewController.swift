@@ -1429,7 +1429,7 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "MultiSelectTableViewCell", for: indexPath) as? MultiSelectTableViewCell else {
                     return UITableView.defaultCell()
                 }
-               // cell.delegate = self
+                cell.submitButtonDelegate = self
                 cell.set(message: message)
                 return cell
                 
@@ -1522,7 +1522,7 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                 case .paymentCard:
                     return message.calculatedHeight ?? 0.1
                 case .multipleSelect:
-                    return message.calculatedHeight ?? 44
+                   return message.calculatedHeight ?? 0.01
                 default:
                     return 0.01
                     

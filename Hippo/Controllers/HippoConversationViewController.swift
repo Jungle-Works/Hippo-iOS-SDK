@@ -1416,3 +1416,17 @@ extension HippoConversationViewController: PaymentMessageCellDelegate {
         
     }
 }
+
+extension HippoConversationViewController: submitButtonTableViewDelegate
+{
+    func submitButtonPressed(hippoMessage: HippoMessage) {
+        
+        createChannelIfRequiredAndContinue(replyMessage: nil) { (success, result) in
+            
+            self.sendMessage(message: hippoMessage)
+            self.tableViewChat.reloadData()
+        }
+    }
+    
+    
+}

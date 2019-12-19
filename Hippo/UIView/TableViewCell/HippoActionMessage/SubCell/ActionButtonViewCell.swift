@@ -96,25 +96,6 @@ extension ActionButtonViewCell {
         buttonTrailingConstraint.constant = 70
     }
     
-    func setMultiSelectSubmit(card: SubmitButton) {
-        self.data = card
-        //        let amount = card.selectedCardDetail?.amount ?? 0
-        //let displayAmount = ""//= (amount > 0 && card.showAmount) ? " \(amount)" : ""
-        let title = card.title
-        if let attributed = card.attributedTitle {
-            self.cellButton.setAttributedTitle(attributed, for: .normal)
-        } else {
-            self.cellButton.setTitle(title, for: .normal)
-        }
-        let theme = HippoConfig.shared.theme
-        cellButton.tintColor = .white
-        cellButton.setTitleColor(.white, for: .normal)
-        cellButton.backgroundColor = theme.themeColor
-        cellButton.layer.borderWidth = 0
-        cellButton.hippoCornerRadius = cellButton.bounds.height / 2
-        
-        buttonLeadingConstraint.constant = 70
-        buttonTrailingConstraint.constant = 70
-    }
+    
     
 }

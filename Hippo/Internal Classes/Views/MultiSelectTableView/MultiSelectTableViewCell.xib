@@ -19,27 +19,38 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="126.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gPC-Cb-ca5">
+                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" style="plain" separatorStyle="none" allowsMultipleSelection="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gPC-Cb-ca5">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="100" id="eRY-a5-fk2"/>
                         </constraints>
                     </tableView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WmW-q3-MLD">
+                        <rect key="frame" x="25" y="101" width="42" height="20.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="gPC-Cb-ca5" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="GOp-hH-eIY"/>
                     <constraint firstItem="gPC-Cb-ca5" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="NNG-p6-zaP"/>
+                    <constraint firstItem="WmW-q3-MLD" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="25" id="Rnn-zQ-O9a"/>
                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="gPC-Cb-ca5" secondAttribute="bottom" id="UP0-Q3-JbV"/>
                     <constraint firstAttribute="trailing" secondItem="gPC-Cb-ca5" secondAttribute="trailing" id="XdY-RB-WrT"/>
+                    <constraint firstAttribute="bottom" secondItem="WmW-q3-MLD" secondAttribute="bottom" constant="5" id="v1h-nC-ayr"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="multiSelectHieightConstraint" destination="eRY-a5-fk2" id="9aG-2c-ult"/>
+                <outlet property="multiSelectLeadingConstraint" destination="GOp-hH-eIY" id="nwD-l7-rL8"/>
+                <outlet property="multiSelectTrailingConstraint" destination="XdY-RB-WrT" id="XrM-Xu-llA"/>
                 <outlet property="multiselectTableView" destination="gPC-Cb-ca5" id="MAa-px-zzX"/>
+                <outlet property="timeLabel" destination="WmW-q3-MLD" id="eI8-a6-Eu4"/>
             </connections>
-            <point key="canvasLocation" x="137.68115942028987" y="145.64732142857142"/>
+            <point key="canvasLocation" x="260.86956521739131" y="58.59375"/>
         </tableViewCell>
     </objects>
 </document>
