@@ -190,6 +190,9 @@ struct SERVERS {
         HippoProperty.current.updatePaymentRequestStatus(enable: false)
     }
     
+    public static func setTicketCustomAttributes(attributes: [String: Any]?)  {
+        HippoProperty.current.ticketCustomAttributes = attributes
+    }
     
     public func initManager(agentToken: String, app_type: String, customAttributes: [String: Any]? = nil) {
         let detail = AgentDetail(oAuthToken: agentToken.trimWhiteSpacesAndNewLine(), appType: app_type, customAttributes: customAttributes)

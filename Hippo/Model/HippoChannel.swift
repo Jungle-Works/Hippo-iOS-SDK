@@ -367,7 +367,10 @@ class HippoChannel {
             params["skip_bot"] = skipBot.intValue()
             params["skip_bot_reason"] = HippoProperty.current.skipBotReason ?? ""
         }
-        
+        if let ticketCustomAttributes = HippoProperty.current.ticketCustomAttributes, !ticketCustomAttributes.isEmpty {
+            params["ticket_custom_attributes"] = ticketCustomAttributes
+        }
+         
         return params
     }
     
