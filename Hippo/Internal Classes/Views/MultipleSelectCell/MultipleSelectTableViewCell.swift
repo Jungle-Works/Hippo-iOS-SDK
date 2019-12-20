@@ -66,7 +66,7 @@ class MultipleSelectTableViewCell: UITableViewCell {
         bgView.layer.borderColor = HippoConfig.shared.theme.chatBoxBorderColor.cgColor
         bgView.layer.cornerRadius = 10
         bgView.layer.masksToBounds = true
-        bgView.backgroundColor = HippoConfig.shared.theme.chatBoxBorderColor
+        bgView.backgroundColor = HippoConfig.shared.theme.multiselectUnselectedButtonColor //HippoConfig.shared.theme.chatBoxBorderColor
         
     }
     
@@ -95,10 +95,14 @@ extension MultipleSelectTableViewCell {
             let renderedImage = image?.withRenderingMode(.alwaysTemplate)
             self.selectionButtonView?.image = renderedImage
             self.selectionButtonView.tintColor = HippoConfig.shared.theme.themeColor
+            bgView.backgroundColor = HippoConfig.shared.theme.multiselectSelectedButtonColor
         }
         else
         {
-            self.selectionButtonView?.image = image
+            let renderedImage = image?.withRenderingMode(.alwaysOriginal)
+            self.selectionButtonView?.image = renderedImage
+            bgView.backgroundColor = HippoConfig.shared.theme.multiselectUnselectedButtonColor
+           // self.selectionButtonView?.image = image
         }
         
         

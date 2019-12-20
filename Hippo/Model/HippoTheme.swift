@@ -145,6 +145,9 @@ public struct ConversationListTheme {
     open var chatBoxBorderWidth = CGFloat(0.5)
     open var chatBoxBorderColor = #colorLiteral(red: 0.862745098, green: 0.8784313725, blue: 0.9019607843, alpha: 1)
     
+    open var multiselectUnselectedButtonColor = UIColor(red: 248/255, green: 248/255, blue: 248/255, alpha: 1)
+    open var multiselectSelectedButtonColor = UIColor(red: 232/255, green: 236/255, blue: 252/255, alpha:1)
+    
     open var inOutChatTextFont: UIFont = UIFont.systemFont(ofSize: 15.0)
     
     open var timeTextColor = #colorLiteral(red: 0.1725490196, green: 0.137254902, blue: 0.2, alpha: 1)

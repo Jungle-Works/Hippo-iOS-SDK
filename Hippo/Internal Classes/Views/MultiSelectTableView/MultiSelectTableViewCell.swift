@@ -18,11 +18,17 @@ protocol submitButtonTableViewDelegate : class {
 
 class MultiSelectTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var bgView: UIView!
     @IBOutlet weak var multiselectTableView: UITableView!
     @IBOutlet weak var multiSelectHieightConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var bgViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     
+    @IBOutlet weak var bgViewTrailingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var bgViewLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var bgViewTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var multiSelectLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var multiSelectTrailingConstraint: NSLayoutConstraint!
     
@@ -32,8 +38,8 @@ class MultiSelectTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        multiSelectTrailingConstraint.constant = 60
-        multiSelectLeadingConstraint.constant = 20
+        bgViewTrailingConstraint.constant = 60
+        bgViewLeadingConstraint.constant = 35 + 10
         setTheme()
         setupTableView()
         // Initialization code
@@ -48,11 +54,11 @@ class MultiSelectTableViewCell: UITableViewCell {
     private func setTheme() {
         backgroundColor = .clear
         
-        multiselectTableView.backgroundColor = HippoConfig.shared.theme.incomingChatBoxColor
+        bgView.backgroundColor = HippoConfig.shared.theme.incomingChatBoxColor
         multiselectTableView.separatorStyle = .none
-        multiselectTableView.layer.cornerRadius = HippoConfig.shared.theme.chatBoxCornerRadius
-        multiselectTableView.layer.borderColor = HippoConfig.shared.theme.chatBoxBorderColor.cgColor
-        multiselectTableView.layer.borderWidth = HippoConfig.shared.theme.chatBoxBorderWidth
+        bgView.layer.cornerRadius = 10
+        bgView.layer.borderColor = HippoConfig.shared.theme.chatBoxBorderColor.cgColor
+        bgView.layer.borderWidth = HippoConfig.shared.theme.chatBoxBorderWidth
         
         
         
@@ -89,6 +95,14 @@ class MultiSelectTableViewCell: UITableViewCell {
         timeLabel.textColor = HippoConfig.shared.theme.incomingMsgDateTextColor
     }
     
+    func setName()
+    {
+        self.nameLabel.text = message?.senderFullName
+        
+        self.nameLabel.font = HippoConfig.shared.theme.senderNameFont
+        self.nameLabel.textColor = HippoConfig.shared.theme.senderNameColor
+    }
+    
     
 }
 
@@ -110,9 +124,10 @@ extension MultiSelectTableViewCell {
             multiselectTableView.allowsSelection = false
         }
         
-        
+        setName()
         setTime()
-        self.multiSelectHieightConstraint.constant = message.calculatedHeight ?? 0
+        
+        self.bgViewHeightConstraint.constant = message.calculatedHeight ?? 0
         self.layoutIfNeeded()
         
         self.multiselectTableView.reloadData()
@@ -180,6 +195,7 @@ extension MultiSelectTableViewCell: UITableViewDataSource
                 return UITableView.defaultCell()
             }
             
+            cell.selectionStyle = .none
             cell.descriptionLabel.text = message?.message
             cell.backgroundColor = .clear
             
@@ -202,6 +218,7 @@ extension MultiSelectTableViewCell: UITableViewDataSource
                 return UITableView.defaultCell()
             }
             
+            cell.selectionStyle = .none
             cell.cellButton.setTitle("Submit", for: .normal)
             let theme = HippoConfig.shared.theme
             cell.cellButton.tintColor = .white
@@ -284,6 +301,16 @@ extension MultiSelectTableViewCell : UITableViewDelegate
             
             tableView.reloadData()
         }
+//        else if indexPath.section == 0
+//        {
+//            let cell = multiselectTableView.cellForRow(at: indexPath) as! MultiSelectHeaderTableViewCell
+//            cell.backgroundColor = .clear
+//        }
+//        else
+//        {
+//            let cell = multiselectTableView.cellForRow(at: indexPath) as! ActionButtonViewCell
+//            cell.backgroundColor = .clear
+//        }
     }
     
 }

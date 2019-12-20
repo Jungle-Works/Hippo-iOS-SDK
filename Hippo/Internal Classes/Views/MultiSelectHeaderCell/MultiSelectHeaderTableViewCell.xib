@@ -23,7 +23,7 @@
                         <rect key="frame" x="5" y="5" width="310" height="74.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mzW-cR-219">
-                                <rect key="frame" x="5" y="5" width="300" height="64.5"/>
+                                <rect key="frame" x="10" y="5" width="290" height="64.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -33,8 +33,8 @@
                         <constraints>
                             <constraint firstItem="mzW-cR-219" firstAttribute="top" secondItem="woh-ap-RfX" secondAttribute="top" constant="5" id="09n-Tp-KHK"/>
                             <constraint firstAttribute="bottom" secondItem="mzW-cR-219" secondAttribute="bottom" constant="5" id="BXJ-R9-wDu"/>
-                            <constraint firstAttribute="trailing" secondItem="mzW-cR-219" secondAttribute="trailing" constant="5" id="Stj-yW-dST"/>
-                            <constraint firstItem="mzW-cR-219" firstAttribute="leading" secondItem="woh-ap-RfX" secondAttribute="leading" constant="5" id="vga-Hh-J6L"/>
+                            <constraint firstAttribute="trailing" secondItem="mzW-cR-219" secondAttribute="trailing" constant="10" id="Stj-yW-dST"/>
+                            <constraint firstItem="mzW-cR-219" firstAttribute="leading" secondItem="woh-ap-RfX" secondAttribute="leading" constant="10" id="vga-Hh-J6L"/>
                         </constraints>
                     </view>
                 </subviews>

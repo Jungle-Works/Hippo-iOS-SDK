@@ -44,7 +44,7 @@ class CustomAction: NSObject {
     @discardableResult
     func calculateHeightForMessage(message:String) -> CGFloat
     {
-        let width:CGFloat = windowScreenWidth - 20 - 60 - 10 - 10
+        let width:CGFloat = windowScreenWidth - 35 - 10 - 60 - 5 - 5 - 10 - 10
         let attributedString = NSMutableAttributedString(string: message)
         
         let range = NSRange.init(location: 0, length: attributedString.length)
@@ -61,7 +61,7 @@ class CustomAction: NSObject {
           let size = attributedString.boundingRect(with: availableBoxSize, options: .usesLineFragmentOrigin, context: nil).size
         
        // print(size.height)
-        let h = size.height + 20
+        let h = size.height + 25 
         self.messageHeight = h
         return h
     }
@@ -133,7 +133,7 @@ class MultiselectButtons: NSObject {
     @discardableResult
     func calculateHeightForButtons(btnTitle:String) -> CGFloat
     {
-        let width:CGFloat = windowScreenWidth - 20 - 60 - 10 - 10 - 22 - 10 - 5 - 5 - 5
+        let width:CGFloat = windowScreenWidth - 35 - 10 - 60 - 10 - 10 - 22 - 10 - 5 - 5 - 5
         let attributedString = NSMutableAttributedString(string: btnTitle)
         
         let range = NSRange.init(location: 0, length: attributedString.length)
@@ -150,7 +150,7 @@ class MultiselectButtons: NSObject {
         let size = attributedString.boundingRect(with: availableBoxSize, options: .usesLineFragmentOrigin, context: nil).size
         
        // print(size.height)
-        self.btnHeight = size.height + 22 + 10 + 10
+        self.btnHeight = size.height + 22 + 10 
         return btnHeight
     }
     

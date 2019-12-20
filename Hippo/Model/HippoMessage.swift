@@ -201,11 +201,11 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
             
             if action.isReplied == 1
             {
-                return h + action.messageHeight +  attributtedMessage.timeHeight
+                return h + action.messageHeight +  attributtedMessage.timeHeight + attributtedMessage.nameHeight + 10
             }
             else
             {
-               return h + action.messageHeight + 50 + attributtedMessage.timeHeight 
+               return h + action.messageHeight + 60 + attributtedMessage.timeHeight + attributtedMessage.nameHeight
             }
             
             
@@ -700,7 +700,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
             arrayOfMessages.append(message)
         }
         
-        arrayOfMessages.append(self.generateMessage()!)
+     //   arrayOfMessages.append(self.generateMessage()!)
         
         return (arrayOfMessages, messageHashMap)
     }
@@ -728,7 +728,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
             "email": "",
             "user_id": 0,
             "date_time": dateStr,
-            "message": "Welcome to Docs Online Please select options? ",
+            "message": "Welcome to Docs Online Please select options? Welcome to Docs Online Please select options? Welcome to Docs Online Please select options?  Welcome to Docs Online Please select options?",
             "message_type": 23,
             "message_state": 1,
             "muid": String.generateUniqueId(),
@@ -736,7 +736,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
             "replied_by": "Test",
             "custom_action": [
                 "min_selection": 1,
-                "max_selection": 0,
+                "max_selection": 3,
                 "is_replied":0,
                 "multi_select_buttons": [
                 [
@@ -758,8 +758,28 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
                 "btn_id": 4,
                 "btn_title": "Water",
                 "status": 0
+                ],
+                [
+                "btn_id": 4,
+                "btn_title": "Water",
+                "status": 0
+                ],
+                [
+                "btn_id": 4,
+                "btn_title": "Water",
+                "status": 0
+                ],
+                [
+                "btn_id": 4,
+                "btn_title": "Water",
+                "status": 0
+                ],
+                [
+                "btn_id": 4,
+                "btn_title": "Water",
+                "status": 0
                 ]
-                ]
+              ]
             ],
             "replied_by_id": 14917240,
             "integration_source": 0,
