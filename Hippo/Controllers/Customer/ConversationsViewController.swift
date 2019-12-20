@@ -252,7 +252,7 @@ protocol NewChatSentDelegate: class {
     
     func setKeyboardType(message:HippoMessage)
     {
-        messageTextView.reloadInputViews()
+        
         switch message.keyboardType {
         case .none:
             disableSendingReply(withOutUpdate: true)
@@ -272,6 +272,8 @@ protocol NewChatSentDelegate: class {
             messageTextView.keyboardType = .default
            
         }
+        
+        messageTextView.reloadInputViews()
     }
     
     

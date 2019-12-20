@@ -119,10 +119,10 @@ extension MultiSelectTableViewCell {
             multiselectTableView.allowsMultipleSelection = false
         }
         
-        if message.customAction?.isReplied == 1
-        {
-            multiselectTableView.allowsSelection = false
-        }
+//        if message.customAction?.isReplied == 1
+//        {
+//            multiselectTableView.allowsSelection = false
+//        }
         
         setName()
         setTime()
