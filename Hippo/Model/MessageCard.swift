@@ -12,6 +12,7 @@ protocol HippoCard {
     var cardHeight: CGFloat { get }
 }
 
+
 struct MessageCard: HippoCard {
     var cardHeight: CGFloat {
         return 230

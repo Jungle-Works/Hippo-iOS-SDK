@@ -268,6 +268,8 @@ class HippoConversationViewController: UIViewController {
         tableViewChat.register(UINib(nibName: "SelfMessageTableViewCell", bundle: bundle), forCellReuseIdentifier: "SelfMessageTableViewCell")
         tableViewChat.register(UINib(nibName: "PaymentMessageCell", bundle: bundle), forCellReuseIdentifier: "PaymentMessageCell")
         
+        tableViewChat.register(UINib(nibName: "MultiSelectTableViewCell", bundle: bundle), forCellReuseIdentifier: "MultiSelectTableViewCell")
+        
         tableViewChat.register(UINib(nibName: "SupportMessageTableViewCell", bundle: bundle), forCellReuseIdentifier: "SupportMessageTableViewCell")
         
         tableViewChat.register(UINib(nibName: "OutgoingImageCell", bundle: bundle), forCellReuseIdentifier: "OutgoingImageCell")
@@ -672,6 +674,9 @@ class HippoConversationViewController: UIViewController {
         
         self.messagesGroupedByDate = []
         self.updateMessagesGroupedByDate(messages) //1. first, update new messages
+        
+        
+       
         
         if self.messageArrayCount > 0 {
             self.updateMessagesGroupedByDate(self.channel.messages)//2.second, update existing messages
@@ -1413,4 +1418,18 @@ extension HippoConversationViewController: PaymentMessageCellDelegate {
         
         
     }
+}
+
+extension HippoConversationViewController: submitButtonTableViewDelegate
+{
+    func submitButtonPressed(hippoMessage: HippoMessage) {
+        
+        createChannelIfRequiredAndContinue(replyMessage: nil) { (success, result) in
+            
+            self.sendMessage(message: hippoMessage)
+            self.tableViewChat.reloadData()
+        }
+    }
+    
+    
 }

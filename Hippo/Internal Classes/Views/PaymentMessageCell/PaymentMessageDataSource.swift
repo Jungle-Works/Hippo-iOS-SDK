@@ -16,6 +16,7 @@ typealias PaymentMessageDataSourceInteractor = PaymentMessageListDelegate & Acti
 
 class PaymentMessageDataSource: NSObject {
     var cards: [HippoCard] = []
+    
     weak var delegate: PaymentMessageDataSourceInteractor?
     
     override init() {

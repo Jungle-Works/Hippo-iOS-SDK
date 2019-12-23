@@ -67,13 +67,13 @@ class MessageSender {
             return
         }
         
-        guard (message.status == .none || message.type == .feedback || message.type == .consent || message.type == .card) && !message.isDeleted else {
+        guard (message.status == .none || message.type == .feedback || message.type == .consent || message.type == .card || message.type == .multipleSelect) && !message.isDeleted else {
             messagesToBeSent.removeFirst()
             startSending()
             return
         }
         
-        guard (!message.isMessageExpired() && message.isSentByMe()) || message.type == .feedback || message.type == .consent || message.type == .card else {
+        guard (!message.isMessageExpired() && message.isSentByMe()) || message.type == .feedback || message.type == .consent || message.type == .card || message.type == .multipleSelect else {
             invalidateCurrentMessageWhichIsBeingSent()
             self.isSendingMessages = true
             startSending()

@@ -148,6 +148,9 @@ public struct ConversationListTheme {
     open var chatBoxBorderWidth = CGFloat(0.5)
     open var chatBoxBorderColor = #colorLiteral(red: 0.862745098, green: 0.8784313725, blue: 0.9019607843, alpha: 1)
     
+    open var multiselectUnselectedButtonColor = UIColor(red: 248/255, green: 248/255, blue: 248/255, alpha: 1)
+    open var multiselectSelectedButtonColor = UIColor(red: 232/255, green: 236/255, blue: 252/255, alpha:1)
+    
     open var inOutChatTextFont: UIFont = UIFont.systemFont(ofSize: 15.0)
     
     open var timeTextColor = #colorLiteral(red: 0.1725490196, green: 0.137254902, blue: 0.2, alpha: 1)
@@ -165,6 +168,10 @@ public struct ConversationListTheme {
     
     open var pricingFont: UIFont = UIFont.boldSystemFont(ofSize: 17)
     open var pricingTextColor: UIColor? = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
+    
+    open var multiSelectButtonFont: UIFont = UIFont.boldSystemFont(ofSize: 17)
+    open var multiSelectTextColor: UIColor? = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
+    
     
     //MARK: Theme for broadCast
     open var broadcastTitleFont: UIFont? = UIFont.systemFont(ofSize: 15.0)

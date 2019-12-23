@@ -84,10 +84,10 @@ enum IntegrationSource: Int {
 }
 
 enum MessageType: Int {
-    case none = 0, normal = 1, assignAgent = 2, privateNote = 3, imageFile = 10, attachment = 11, actionableMessage = 12, feedback = 14, botText = 15, quickReply = 16, leadForm = 17, call = 18, hippoPay = 19, consent = 20, card = 21, paymentCard = 22
+    case none = 0, normal = 1, assignAgent = 2, privateNote = 3, imageFile = 10, attachment = 11, actionableMessage = 12, feedback = 14, botText = 15, quickReply = 16, leadForm = 17, call = 18, hippoPay = 19, consent = 20, card = 21, paymentCard = 22 , multipleSelect = 23
 
     var customerHandledMessages: [MessageType] {
-        return [.normal, .imageFile, .feedback, .actionableMessage, .leadForm, .quickReply, .botText, .call, .hippoPay, .attachment, .consent, .card, .paymentCard]
+        return [.normal, .imageFile, .feedback, .actionableMessage, .leadForm, .quickReply, .botText, .call, .hippoPay, .attachment, .consent, .card, .paymentCard , .multipleSelect]
     }
     var agentHandledMessages: [MessageType] {
         return [.normal, .imageFile, .privateNote, .assignAgent, .botText, .call, .attachment, .consent]
@@ -99,7 +99,7 @@ enum MessageType: Int {
     }
     
     var isBotMessage: Bool {
-        let botMessages: [MessageType] = [.leadForm, .quickReply, .botText, .consent, .card]
+        let botMessages: [MessageType] = [.leadForm, .quickReply, .botText, .consent, .card , .multipleSelect]
         return botMessages.contains(self)
     }
 }
@@ -158,6 +158,15 @@ enum ReadUnReadStatus: Int {
         }
     }
 }
+
+enum responseKeyboardType: String{
+    case none = "NONE"
+    case numberKeyboard = "NUMBER"
+    case defaultKeyboard = "DEFAULT"
+}
+
+
+
 
 enum StatusCodeValue: Int {
     case Authorized_Min = 200

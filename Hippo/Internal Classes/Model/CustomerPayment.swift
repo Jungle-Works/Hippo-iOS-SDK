@@ -102,6 +102,7 @@ struct PaymentSecurely {
         height = h + bgViewLayout.verticleHeight + labelContainerLayout.verticleHeight + 5
     }
 }
+
 extension PaymentSecurely: HippoCard {
     var cardHeight: CGFloat {
         return height

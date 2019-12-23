@@ -63,6 +63,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
     var userType: UserType = currentUserType()
     var attributtedMessage = MessageUIAttributes(message: "", senderName: "", isSelfMessage: false)
     var chatType: ChatType = .other
+    var keyboardType: responseKeyboardType = .defaultKeyboard
     
     var wasMessageSendingFailed = false {
         didSet {
@@ -100,7 +101,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
     var callDurationInSeconds: TimeInterval?
     var callType = CallType.video
     var messageSource: IntegrationSource = .normal
-    
+    var customAction :CustomAction?
     var fileUrl: String?
     var fileName: String?
     var fileSize: String?
@@ -121,7 +122,8 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
     var aboveMessageType: MessageType?
     var belowMessageType: MessageType?
 
-    
+   
+  
     var cards: [HippoCard]?
     var selectedCardId: String?
     var selectedCard: HippoCard?
@@ -188,6 +190,25 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
                 height += card.cardHeight
             }
             return height + 5
+        case .multipleSelect :
+            guard let action = customAction else {
+                return 0.01
+            }
+            var h: CGFloat = 0
+            for each in action.buttonsArray ?? [] {
+                h += each.cardHeight
+            }
+            
+            if action.isReplied == 1
+            {
+                return h + action.messageHeight +  attributtedMessage.timeHeight + attributtedMessage.nameHeight + 10
+            }
+            else
+            {
+               return h + action.messageHeight + 60 + attributtedMessage.timeHeight + attributtedMessage.nameHeight
+            }
+            
+            
         default:
             return nil
         }
@@ -219,6 +240,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
             self.status = status
         }
 //        channelId = UIInt.parse
+       
         self.rawJsonToSend = dict["rawJsonToSend"] as? [String: Any]
         self.localImagePath = dict["image_file"] as? String
         self.imageUrl = dict["image_url"] as? String
@@ -240,6 +262,23 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         
         self.senderImage = senderImage
         
+        
+        if let inputType = dict["input_type"] as? String
+        {
+            if inputType == responseKeyboardType.numberKeyboard.rawValue
+            {
+                self.keyboardType = .numberKeyboard
+            }
+            else if inputType == responseKeyboardType.none.rawValue
+            {
+                self.keyboardType = .none
+            }
+            else
+            {
+                self.keyboardType = .defaultKeyboard
+            }
+            
+        }
         if let state = dict["message_state"] as? Int {
             isDeleted = state == 0
             isMissedCall = state == 2
@@ -296,6 +335,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
             self.values = values
         }
         
+
         self.comment = dict["comment"] as? String ?? ""
         self.is_rating_given = Bool.parse(key: "is_rating_given", json: dict, defaultValue: false)
         self.rating_given = dict["rating_given"] as? Int ?? 0
@@ -353,6 +393,8 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
                 self.cards?.append(buttonView)
             }
             
+        case .multipleSelect:
+            self.customAction = CustomAction(dict:dict)
         default:
             break
         }
@@ -512,6 +554,10 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
             if let fallbackText = fallbackText {
                 json["fallback_text"] = fallbackText
             }
+        case .multipleSelect:
+            json["custom_action"] = customAction?.setJsonValue()
+            json["user_id"] = currentUserId()
+
         default:
             break
         }
@@ -554,6 +600,9 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         
         return (wasMessageSendingInProgress && typeIsMedia) || wasMessageSendingFailed
     }
+    
+    
+    
     
     func getDictToSaveInCache() -> [String: Any] {
         var dict = [String: Any]()
@@ -650,7 +699,8 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
             }
             arrayOfMessages.append(message)
         }
-//        arrayOfMessages.append(MessageCard.generateMessage()!)
+        
+     //   arrayOfMessages.append(self.generateMessage()!)
         
         return (arrayOfMessages, messageHashMap)
     }
@@ -663,6 +713,84 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         }
         return arrayOfDict
     }
+    
+    static func generateMessage() -> HippoMessage? {
+
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'hh:mm:ss'Z'"
+        let dateStr = dateFormatter.string(from: Date())
+        
+        let dict = [
+            "full_name": "Docs Online",
+            "user_type": 0,
+            "user_image": "",
+            "id": 387751158,
+            "email": "",
+            "user_id": 0,
+            "date_time": dateStr,
+            "message": "Welcome to Docs Online Please select options? Welcome to Docs Online Please select options? Welcome to Docs Online Please select options?  Welcome to Docs Online Please select options?",
+            "message_type": 23,
+            "message_state": 1,
+            "muid": String.generateUniqueId(),
+            "is_active": 0,
+            "replied_by": "Test",
+            "custom_action": [
+                "min_selection": 1,
+                "max_selection": 3,
+                "is_replied":0,
+                "multi_select_buttons": [
+                [
+                "btn_id": 1,
+                "btn_title": "Tea",
+                "status": 0
+                ],
+                [
+                "btn_id": 2,
+                "btn_title": "Coffee",
+                "status": 0
+                ],
+                [
+                "btn_id": 3,
+                "btn_title": "Juice",
+                "status": 0
+                ],
+                [
+                "btn_id": 4,
+                "btn_title": "Water",
+                "status": 0
+                ],
+                [
+                "btn_id": 4,
+                "btn_title": "Water",
+                "status": 0
+                ],
+                [
+                "btn_id": 4,
+                "btn_title": "Water",
+                "status": 0
+                ],
+                [
+                "btn_id": 4,
+                "btn_title": "Water",
+                "status": 0
+                ],
+                [
+                "btn_id": 4,
+                "btn_title": "Water",
+                "status": 0
+                ]
+              ]
+            ],
+            "replied_by_id": 14917240,
+            "integration_source": 0,
+            "message_status": 3
+            ] as [String : Any]
+        
+        let message = HippoMessage(dict: dict)
+        
+        return message
+    }
+    
     
     func updateObjectForFeedback(is_rating_given: Bool = false, rating_given: Int = 0, total_rating: Int = 5, line_after_feedback_1: String, line_after_feedback_2: String, line_before_feedback: String) {
         self.is_rating_given = is_rating_given

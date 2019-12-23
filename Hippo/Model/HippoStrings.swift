@@ -15,7 +15,7 @@ public class HippoStrings {
     open var messagePlaceHolderText = "Send a message...."
     open var enterSomeText = "Please enter some text."
     open var noNetworkConnection = "No internet connection"
-    
+    open var noMinSelection = "Please select atleast one option"
     open var somethingWentWrong = "Something went wrong."
     open var displayNameForCustomers = "Fleet"
     
