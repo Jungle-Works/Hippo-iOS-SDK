@@ -59,8 +59,19 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
             getAllConversations()
         }
         self.navigationController?.setTheme()
+        self.title = "DIET BUDDY"
         self.navigationController?.isNavigationBarHidden = false
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.navigationItem.title = ""
+    }
+    
+
+
+    
+    
+    
     @IBAction func newConversationClicked(_ sender: Any) {
         var fuguNewChatAttributes = FuguNewChatAttributes(transactionId: "", userUniqueKey: HippoConfig.shared.userDetail?.userUniqueKey, otherUniqueKey: nil, tags: HippoProperty.current.newConversationButtonTags, channelName: nil, preMessage: "", groupingTag: nil)
         fuguNewChatAttributes.botGroupId = HippoProperty.current.newconversationBotGroupId
@@ -145,7 +156,13 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         let logoutButton = UIBarButtonItem(image: logoutButtonIcon, landscapeImagePhone: nil, style: .done, target: self, action: #selector(logoutButtonClicked))
         
         logoutButton.tintColor = theme.logoutButtonTintColor ?? theme.headerTextColor
-        self.navigationItem.rightBarButtonItem = logoutButton
+        
+        
+        let notificationButton = UIBarButtonItem(image: theme.notificationButtonIcon, landscapeImagePhone: nil, style: .done, target: self, action: #selector(notificationButtonClicked))
+        
+        notificationButton.tintColor = theme.notificationButtonTintColor ?? theme.headerTextColor
+        
+        self.navigationItem.rightBarButtonItems = [logoutButton,notificationButton]
     }
     @objc func logoutButtonClicked() {
         showOptionAlert(title: "", message: "Are you sure, you want to logout?", successButtonName: "YES", successComplete: { (_) in
@@ -154,6 +171,14 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
                 HippoConfig.shared.delegate?.hippoUserLogOut()
             }
         }, failureButtonName: "NOT NOW", failureComplete: nil)
+    }
+    
+    @objc func notificationButtonClicked()
+    {
+       // PromotionsViewController
+        HippoConfig.shared.notifyDidLoad()
+        let promotionVC = self.storyboard?.instantiateViewController(withIdentifier: "PromotionsViewController") as! PromotionsViewController
+        self.navigationController?.pushViewController(promotionVC, animated: true)
     }
     
     func setTableView() {
