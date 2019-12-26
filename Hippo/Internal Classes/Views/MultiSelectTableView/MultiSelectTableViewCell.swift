@@ -224,6 +224,7 @@ extension MultiSelectTableViewCell: UITableViewDataSource
             let theme = HippoConfig.shared.theme
             cell.cellButton.tintColor = .white
             cell.cellButton.setTitleColor(.white, for: .normal)
+            cell.cellButton.setTitleColor(.paleGrey, for: .disabled)
             cell.cellButton.backgroundColor = theme.themeColor
             cell.cellButton.layer.borderWidth = 0
             cell.cellButton.hippoCornerRadius = cell.cellButton.bounds.height / 2
@@ -231,6 +232,20 @@ extension MultiSelectTableViewCell: UITableViewDataSource
             cell.cellButton .addTarget(self, action: #selector(submitButtonClicked), for: .touchUpInside)
             cell.buttonLeadingConstraint.constant = 20
             cell.buttonTrailingConstraint.constant = 20
+            
+            let arr = message?.customAction?.buttonsArray as! [MultiselectButtons]
+            
+            var selectedButtonsArr = arr.filter { $0.status == true }
+            
+            if selectedButtonsArr.count > 0
+            {
+                cell.cellButton.isEnabled = true
+                
+            }
+            else
+            {
+                cell.cellButton.isEnabled = false
+            }
             
             return cell
         }

@@ -133,16 +133,17 @@ class MultiselectButtons: NSObject {
     @discardableResult
     func calculateHeightForButtons(btnTitle:String) -> CGFloat
     {
-        let width:CGFloat = windowScreenWidth - 35 - 10 - 60 - 10 - 10 - 22 - 10 - 5 - 5 - 5
+        let width:CGFloat = windowScreenWidth - 35 - 10 - 60 - 10 - 10 - 22 - 5 - 10 - 5
         let attributedString = NSMutableAttributedString(string: btnTitle)
         
         let range = NSRange.init(location: 0, length: attributedString.length)
         let style = NSMutableParagraphStyle()
         style.alignment = .left
         
-        let font = HippoConfig.shared.theme.incomingMsgFont
+        let font = HippoConfig.shared.theme.multiSelectButtonFont
         attributedString.addAttribute(NSAttributedString.Key.font, value: font, range: range)
-        attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: HippoConfig.shared.theme.incomingMsgColor, range: range)
+       
+        attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: HippoConfig.shared.theme.multiSelectTextColor, range: range)
         attributedString.addAttribute(NSAttributedString.Key.paragraphStyle, value: style, range: range)
         
         let availableBoxSize = CGSize(width: width, height: CGFloat.greatestFiniteMagnitude)
