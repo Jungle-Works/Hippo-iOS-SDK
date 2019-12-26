@@ -106,7 +106,8 @@ class MultiSelectTableViewCell: UITableViewCell {
     
 }
 
-extension MultiSelectTableViewCell {
+extension MultiSelectTableViewCell
+{
     func set(message: HippoMessage) {
         self.message = message
         

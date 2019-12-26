@@ -365,6 +365,7 @@
 		C9FAF60E23681AE20089DBFC /* InformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FAF60D23681AE20089DBFC /* InformationView.swift */; };
 		EE65DDDD23B1DDB5000B658B /* PromotionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE65DDDB23B1DDB5000B658B /* PromotionTableViewCell.swift */; };
 		EE65DDDE23B1DDB5000B658B /* PromotionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE65DDDC23B1DDB5000B658B /* PromotionTableViewCell.xib */; };
+		EE65DDE023B1F27A000B658B /* PromotionCellDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE65DDDF23B1F27A000B658B /* PromotionCellDataModel.swift */; };
 		EE6EC6DF23A7469A009C9A8D /* MultiSelectTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE6EC6DD23A7469A009C9A8D /* MultiSelectTableViewCell.swift */; };
 		EE6EC6E023A7469A009C9A8D /* MultiSelectTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE6EC6DE23A7469A009C9A8D /* MultiSelectTableViewCell.xib */; };
 		EEB4C89323A3AB990032159B /* MultipleSelectTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB4C89123A3AB990032159B /* MultipleSelectTableViewCell.swift */; };
@@ -744,6 +745,7 @@
 		E0E4A9E31B1EC7F72EC2F38D /* Pods_Fugu.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Fugu.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE65DDDB23B1DDB5000B658B /* PromotionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromotionTableViewCell.swift; sourceTree = "<group>"; };
 		EE65DDDC23B1DDB5000B658B /* PromotionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PromotionTableViewCell.xib; sourceTree = "<group>"; };
+		EE65DDDF23B1F27A000B658B /* PromotionCellDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromotionCellDataModel.swift; sourceTree = "<group>"; };
 		EE6EC6DD23A7469A009C9A8D /* MultiSelectTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiSelectTableViewCell.swift; sourceTree = "<group>"; };
 		EE6EC6DE23A7469A009C9A8D /* MultiSelectTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MultiSelectTableViewCell.xib; sourceTree = "<group>"; };
 		EEB4C89123A3AB990032159B /* MultipleSelectTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleSelectTableViewCell.swift; sourceTree = "<group>"; };
@@ -1717,6 +1719,7 @@
 				C9DC539B2356FD4200CA7FE9 /* FuguUserDetail.swift */,
 				C9B410E1235DAA240029799A /* MessageCard.swift */,
 				EEB9393023A8E01B00D13385 /* CustomAction.swift */,
+				EE65DDDF23B1F27A000B658B /* PromotionCellDataModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2516,6 +2519,7 @@
 				C9DC54A42356FD4400CA7FE9 /* Socomo+Customs.swift in Sources */,
 				C9DC548E2356FD4400CA7FE9 /* ChatInfoAgentTableViewCell.swift in Sources */,
 				C982E409238D0AFD0080B375 /* ParallaxHeaderMode.swift in Sources */,
+				EE65DDE023B1F27A000B658B /* PromotionCellDataModel.swift in Sources */,
 				C9DC55042356FD4500CA7FE9 /* ParseError.swift in Sources */,
 				C9DC54292356FD4300CA7FE9 /* HTTPClient.swift in Sources */,
 				C9DC54212356FD4300CA7FE9 /* Themes.swift in Sources */,
