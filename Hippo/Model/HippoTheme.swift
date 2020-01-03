@@ -26,14 +26,14 @@ public struct ConversationListTheme {
     static func normalTheme() -> ConversationListTheme {
         let titleTheme: HippoLabelTheme = HippoLabelTheme(textColor: .black, textFont: UIFont(name:"HelveticaNeue", size: 15.0))
         let lastMessageTheme: HippoLabelTheme = HippoLabelTheme(textColor: .black, textFont: UIFont(name:"HelveticaNeue", size: 15.0))
-        let timeTheme: HippoLabelTheme = HippoLabelTheme(textColor: .black, textFont: UIFont(name:"HelveticaNeue", size: 12.0))
+        let timeTheme: HippoLabelTheme = HippoLabelTheme(textColor: .paleGrey, textFont: UIFont(name:"HelveticaNeue", size: 12.0))
         
         return ConversationListTheme(titleTheme: titleTheme, lastMessageTheme: lastMessageTheme, timeTheme: timeTheme)
     }
     static func unReadTheme() -> ConversationListTheme {
         let titleTheme: HippoLabelTheme = HippoLabelTheme(textColor: .black, textFont: UIFont(name:"HelveticaNeue-Bold", size: 15.0))
         let lastMessageTheme: HippoLabelTheme = HippoLabelTheme(textColor: .black, textFont: UIFont(name:"HelveticaNeue-Bold", size: 15.0))
-        let timeTheme: HippoLabelTheme = HippoLabelTheme(textColor: .black, textFont: UIFont(name:"HelveticaNeue-Bold", size: 15.0))
+        let timeTheme: HippoLabelTheme = HippoLabelTheme(textColor: .paleGrey, textFont: UIFont(name:"HelveticaNeue-Bold", size: 15.0))
         
         return ConversationListTheme(titleTheme: titleTheme, lastMessageTheme: lastMessageTheme, timeTheme: timeTheme)
     }
@@ -154,6 +154,7 @@ public struct ConversationListTheme {
     open var inOutChatTextFont: UIFont = UIFont.systemFont(ofSize: 15.0)
     
     open var timeTextColor = #colorLiteral(red: 0.1725490196, green: 0.137254902, blue: 0.2, alpha: 1)
+    open var newTimeTextColor = UIColor(red: 183.0 / 255.0, green: 183.0 / 255.0, blue: 183.0 / 255.0, alpha: 1.0)
     
     open var typingTextFont: UIFont? = UIFont.systemFont(ofSize: 15.0)
     open var typingTextColor = #colorLiteral(red: 0.1725490196, green: 0.137254902, blue: 0.2, alpha: 1)

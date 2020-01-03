@@ -58,7 +58,7 @@ extension ConversationView {
         
         channelImageView.image = nil
         channelImageView.layer.masksToBounds = true
-        channelImageView.layer.cornerRadius = channelImageView.bounds.height / 2
+       // channelImageView.layer.cornerRadius = channelImageView.bounds.height / 2
         channelImageView.contentMode = .scaleAspectFill
         
         placeHolderImageButton?.isHidden = true
@@ -74,7 +74,7 @@ extension ConversationView {
         leadingConstraintOfLastMessage?.constant = 0
         
         msgStatusImageView?.image = nil
-        timeLabel.textColor = UIColor.black.withAlphaComponent(0.37)
+        timeLabel.textColor = HippoConfig.shared.theme.newTimeTextColor//UIColor.black.withAlphaComponent(0.37)
     }
     
     func configureConversationCell(resetProperties: Bool, conersationObj: FuguConversation) {
@@ -110,11 +110,14 @@ extension ConversationView {
             unreadCountLabel.layer.cornerRadius = (unreadCountLabel.bounds.height - 5) / 2
             unreadCountLabel.layer.masksToBounds = true
             unreadCountLabel.textColor = UIColor.white
+            chatTextLabel.setTheme(theme: theme.titleTheme)
+            
         } else {
             theme = HippoConfig.shared.theme.conversationListNormalTheme
             //         headingLabel.font = UIFont(name:"HelveticaNeue", size: 15.0)
             //         chatTextLabel.font = UIFont(name:"HelveticaNeue", size: 12.0)
             //         timeLabel.font = UIFont(name:"HelveticaNeue", size: 12.0)
+            chatTextLabel.setTheme(theme: theme.lastMessageTheme)
         }
         
         statusLabel.isHidden = isOpened
@@ -123,7 +126,7 @@ extension ConversationView {
         statusLabel.text = "closed"
             
         headingLabel.setTheme(theme: theme.titleTheme)
-        chatTextLabel.setTheme(theme: theme.lastMessageTheme)
+        
         timeLabel.setTheme(theme: theme.timeTheme)
         unreadCountLabel.font = theme.timeTheme.textFont
         
@@ -132,6 +135,7 @@ extension ConversationView {
         
         if let channelImage = conersationObj.channelImageUrl, channelImage.isEmpty == false, let url = URL(string: channelImage) {
             channelImageView.kf.setImage(with: url)
+         
         } else if let channelName = conersationObj.label, channelName.isEmpty == false {
             placeHolderImageButton?.alpha = isThisChatOpened(opened: isOpened)
             placeHolderImageButton?.isHidden = false
@@ -189,7 +193,7 @@ extension ConversationView {
             chatTextLabel.text = messageToBeShown
         }
         
-        timeLabel.textColor = HippoConfig.shared.theme.timeTextColor.withAlphaComponent(isThisChatOpened(opened: isOpened))
+        timeLabel.textColor = HippoConfig.shared.theme.newTimeTextColor.withAlphaComponent(isThisChatOpened(opened: isOpened))
         let channelID = conersationObj.channelId ?? -1
         if channelID <= 0 {
             timeLabel.text = ""

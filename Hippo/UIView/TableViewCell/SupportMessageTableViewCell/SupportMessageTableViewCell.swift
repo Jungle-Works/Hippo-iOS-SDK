@@ -35,7 +35,8 @@ class SupportMessageTableViewCell: MessageTableViewCell {
     func setupBoxBackground(messageType: MessageType) {
         switch messageType {
         default:
-            bgView.backgroundColor = HippoConfig.shared.theme.incomingChatBoxColor
+            bgView.backgroundColor =  HippoConfig.shared.theme.incomingChatBoxColor
+           
         }
     }
     
@@ -56,8 +57,16 @@ class SupportMessageTableViewCell: MessageTableViewCell {
         timeLabel.textAlignment = .left
         timeLabel.textColor = HippoConfig.shared.theme.incomingMsgDateTextColor
         
+        
+        bgView.clipsToBounds = true
         bgView.layer.cornerRadius = 10
-        bgView.backgroundColor = HippoConfig.shared.theme.incomingChatBoxColor
+        if #available(iOS 11.0, *) {
+            bgView.layer.maskedCorners = [.layerMaxXMinYCorner,.layerMinXMaxYCorner,.layerMaxXMaxYCorner]
+        } else {
+            // Fallback on earlier versions
+        }
+       // bgView.roundCorners(corners: [.topRight,.bottomLeft,.bottomRight], radius: 8.0)
+        bgView.backgroundColor =  HippoConfig.shared.theme.incomingChatBoxColor
         bgView.layer.borderWidth = HippoConfig.shared.theme.chatBoxBorderWidth
         bgView.layer.borderColor = HippoConfig.shared.theme.chatBoxBorderColor.cgColor
         

@@ -583,8 +583,6 @@ protocol NewChatSentDelegate: class {
         var messages = result.newMessages
         let newMessagesHashMap = result.newMessageHashmap
         
-        
-        
         label = result.channelName
         userImage = result.chatDetail?.channelImageUrl
         channel?.chatDetail = result.chatDetail

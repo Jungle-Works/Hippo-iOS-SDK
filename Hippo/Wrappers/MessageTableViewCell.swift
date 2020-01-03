@@ -88,7 +88,7 @@ class MessageTableViewCell: UITableViewCell {
         senderImageView.isHidden = false
         senderImageWidthConstraint.constant = 30
         senderImageTraillingConstaints.constant = 5
-        senderImageView.layer.cornerRadius = senderImageView.bounds.height / 2
+       // senderImageView.layer.cornerRadius = senderImageView.bounds.height / 2
         senderImageView.layer.masksToBounds = true
         layoutIfNeeded()
     }
@@ -113,5 +113,14 @@ class MessageTableViewCell: UITableViewCell {
     
     func unsetImageInSender() {
         senderImageView.image = nil
+    }
+}
+
+extension UIView {
+    func roundCorners(corners: UIRectCorner, radius: CGFloat) {
+        let path = UIBezierPath(roundedRect: bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
+        let mask = CAShapeLayer()
+        mask.path = path.cgPath
+        layer.mask = mask
     }
 }

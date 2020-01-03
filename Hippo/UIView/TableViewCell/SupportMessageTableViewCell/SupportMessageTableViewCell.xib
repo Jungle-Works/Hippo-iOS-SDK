@@ -66,7 +66,7 @@
                         </constraints>
                     </imageView>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="yCk-vg-WaF">
-                        <rect key="frame" x="10" y="30.5" width="30" height="30"/>
+                        <rect key="frame" x="10" y="3" width="30" height="30"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="30" id="KcF-sD-6Ms"/>
                             <constraint firstAttribute="width" secondItem="yCk-vg-WaF" secondAttribute="height" multiplier="1:1" id="nZB-TO-IzL"/>
@@ -76,6 +76,7 @@
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="RFF-lq-dWC" secondAttribute="trailing" constant="60" id="6DR-L3-Cgb"/>
+                    <constraint firstItem="yCk-vg-WaF" firstAttribute="top" secondItem="RFF-lq-dWC" secondAttribute="top" id="IrN-Yk-c4A"/>
                     <constraint firstItem="aaa-iX-koP" firstAttribute="bottom" secondItem="RFF-lq-dWC" secondAttribute="bottom" id="NBA-M9-2TG"/>
                     <constraint firstItem="y0x-5w-qls" firstAttribute="bottom" secondItem="RFF-lq-dWC" secondAttribute="bottom" constant="1.5" id="QHb-0u-UGp"/>
                     <constraint firstItem="yCk-vg-WaF" firstAttribute="leading" secondItem="uCR-8L-K0b" secondAttribute="leading" constant="10" id="R3c-wu-nBj"/>
@@ -85,7 +86,6 @@
                     <constraint firstItem="RFF-lq-dWC" firstAttribute="top" secondItem="uCR-8L-K0b" secondAttribute="top" constant="3" id="cId-bd-9fZ"/>
                     <constraint firstItem="RFF-lq-dWC" firstAttribute="leading" secondItem="yCk-vg-WaF" secondAttribute="trailing" constant="5" id="emm-WA-g8k"/>
                     <constraint firstItem="aaa-iX-koP" firstAttribute="leading" secondItem="RFF-lq-dWC" secondAttribute="trailing" id="ilC-2u-jAJ"/>
-                    <constraint firstItem="yCk-vg-WaF" firstAttribute="bottom" secondItem="RFF-lq-dWC" secondAttribute="bottom" id="vzv-Gs-RO0"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
