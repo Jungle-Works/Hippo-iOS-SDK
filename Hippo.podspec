@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
     s.name         = 'Hippo'
 <<<<<<< HEAD
-    s.version      = '1.8.5'
+    s.version      = '2.1.1'
 =======
 >>>>>>> voipChanges
     s.summary      = 'Now add Agent in app for quick support.'
