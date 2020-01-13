@@ -11,8 +11,11 @@ import Foundation
 let HippoSDKSource = 1
 let Device_Type_iOS = 2
 var userDetailData = [String: Any]()
+<<<<<<< HEAD
 let fuguAppVersion = "1.8.5"
 let versionCode = 245
+=======
+>>>>>>> voipChanges
 
 /*
  201 = Bot messages
@@ -57,5 +60,11 @@ let versionCode = 245
  241 *** 1.8.1 = borderWithIssue fixed
  242 *** 1.8.2 = Payment messge ui fixes and skip bot functionality
  243 *** 1.8.3 = Payment handled at agentSDK
+<<<<<<< HEAD
  245 *** 1.8.5 = Test changes
+=======
+ 244 *** 1.8.4 = voip changes
+ 
+ 300 *** 2.1.0 = voip changes
+>>>>>>> voipChanges
  */

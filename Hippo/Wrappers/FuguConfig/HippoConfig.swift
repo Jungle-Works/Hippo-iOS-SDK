@@ -26,8 +26,8 @@ struct SERVERS {
     static let liveUrl = "https://api.fuguchat.com/"
     static let liveFaye = "https://api.fuguchat.com:3002/faye"
     
-    static let betaUrl = "https://hippo-api-dev.fuguchat.com:3004/"
-    static let betaFaye = "https://hippo-api-dev.fuguchat.com:3004/faye"
+    static let betaUrl = "https://hippo-api-dev.fuguchat.com:3002/"
+    static let betaFaye = "https://hippo-api-dev.fuguchat.com:3002/faye"
     
     static let devUrl = "https://hippo-api-dev.fuguchat.com:3011/"
     static let devFaye = "https://hippo-api-dev.fuguchat.com:3012/faye"
@@ -39,7 +39,7 @@ struct SERVERS {
     
     public typealias commonHippoCallback = ((_ success: Bool, _ error: Error?) -> ())
     // MARK: - Properties
-    internal var log = CoreLogger(formatter: Formatter.defaultFormat, theme: nil, minLevels: [.error])
+    internal var log = CoreLogger(formatter: Formatter.defaultFormat, theme: nil, minLevels: [.all])
     internal var muidList: [String] = []
     internal var pushArray = [PushInfo]()
     
@@ -190,6 +190,9 @@ struct SERVERS {
         HippoProperty.current.updatePaymentRequestStatus(enable: false)
     }
     
+    public static func setTicketCustomAttributes(attributes: [String: Any]?)  {
+        HippoProperty.current.ticketCustomAttributes = attributes
+    }
     
     public func initManager(agentToken: String, app_type: String, customAttributes: [String: Any]? = nil) {
         let detail = AgentDetail(oAuthToken: agentToken.trimWhiteSpacesAndNewLine(), appType: app_type, customAttributes: customAttributes)

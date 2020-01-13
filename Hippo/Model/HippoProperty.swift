@@ -18,7 +18,9 @@ class HippoProperty: NSObject {
     var skipBot: Bool?
     var skipBotReason: String?
     
+    
     //Properties
+    var ticketCustomAttributes: [String: Any]?
     var showMessageSourceIcon: Bool = false
     private(set) var isPaymentRequestEnabled: Bool = false
     
