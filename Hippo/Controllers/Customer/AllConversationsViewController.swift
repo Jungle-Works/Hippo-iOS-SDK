@@ -53,6 +53,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         checkNetworkConnection()
+        newConversationBiutton.isHidden = true
         if HippoUserDetail.fuguUserID == nil {
             putUserDetails()
         } else {
@@ -61,8 +62,12 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         self.navigationController?.setTheme()
         self.navigationController?.isNavigationBarHidden = false
     }
+    
     @IBAction func newConversationClicked(_ sender: Any) {
         var fuguNewChatAttributes = FuguNewChatAttributes(transactionId: "", userUniqueKey: HippoConfig.shared.userDetail?.userUniqueKey, otherUniqueKey: nil, tags: HippoProperty.current.newConversationButtonTags, channelName: nil, preMessage: "", groupingTag: nil)
+        
+          print("bodID******* \(HippoProperty.current.newconversationBotGroupId)")
+        
         fuguNewChatAttributes.botGroupId = HippoProperty.current.newconversationBotGroupId
         let conversation = ConversationsViewController.getWith(chatAttributes: fuguNewChatAttributes)
         conversation.createConversationOnStart = true
@@ -94,6 +99,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
             }
             self?.arrayOfConversation = self?.fetchAllConversationCache() ?? []
             self?.showConversationsTableView.reloadData()
+            self?.newConversationBiutton.isHidden = !HippoProperty.current.enableNewConversationButton
             
             if let result = self?.handleIntialCustomerForm(), result {
                 return
@@ -304,6 +310,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
             }
             self?.arrayOfConversation = conversation
             self?.showConversationsTableView.reloadData()
+            self?.newConversationBiutton.isHidden = !HippoProperty.current.enableNewConversationButton
         }
     }
     

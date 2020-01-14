@@ -601,7 +601,10 @@ protocol NewChatSentDelegate: class {
         }
         
         updateMessagesInLocalArrays(messages: messages)
-        self.setKeyboardType(message: messages.last!)
+        if (messages.count > 0)
+        {
+            self.setKeyboardType(message: messages.last!)
+        }
         
         let contentOffsetBeforeNewMessages = tableViewChat.contentOffset.y
         let contentHeightBeforeNewMessages = tableViewChat.contentSize.height
