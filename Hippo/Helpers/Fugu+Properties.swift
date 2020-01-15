@@ -13,7 +13,7 @@ let Device_Type_iOS = 2
 var userDetailData = [String: Any]()
 
 let fuguAppVersion = "2.1.1"
-let versionCode = 300
+let versionCode = 301
 
 
 /*
