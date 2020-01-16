@@ -44,6 +44,27 @@ class PromotionsViewController: UIViewController {
     override  func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = false
+        self.getAnnouncements()
+    }
+    
+    func getAnnouncements() {
+        
+        let params = ["end_offset":"1","start_offset":"0","en_user_id":HippoUserDetail.fuguEnUserID,"app_secret_key":HippoConfig.shared.appSecretKey]
+        
+        HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: AgentEndPoints.getAnnouncements.rawValue) { (response, error, _, statusCode) in
+            
+            let r = response as? [String: Any]
+            let data = r!["data"] as? [String: Any]
+            
+            print(data)
+            
+            //let profile = ProfileDetail(json: data)
+            let dataNew = PromotionCellDataModel(dict: data ?? [:])
+            print(dataNew)
+            
+            
+        }
+            
     }
 
 }
