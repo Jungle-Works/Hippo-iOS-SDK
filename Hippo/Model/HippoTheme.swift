@@ -60,7 +60,7 @@ public struct ConversationListTheme {
     open var starRatingColor: UIColor = UIColor.yellow
     
     open var newConversationButtonFont: UIFont? = UIFont.boldSystemFont(ofSize: 18.0)
-    open var newConversationText = "Talk To Dietitian >"
+    open var newConversationText = "Talk To Doctor >"
     
     open var darkThemeTextColor = UIColor.white
     open var lightThemeTextColor = UIColor.black
