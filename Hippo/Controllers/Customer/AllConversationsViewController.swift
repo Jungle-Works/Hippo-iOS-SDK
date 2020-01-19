@@ -152,6 +152,13 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         
         logoutButton.tintColor = theme.logoutButtonTintColor ?? theme.headerTextColor
         self.navigationItem.rightBarButtonItem = logoutButton
+        
+        
+        let notificationButton = UIBarButtonItem(image: theme.notificationButtonIcon, landscapeImagePhone: nil, style: .done, target: self, action: #selector(notificationButtonClicked))
+        
+        notificationButton.tintColor = theme.notificationButtonTintColor ?? theme.headerTextColor
+        
+        self.navigationItem.rightBarButtonItems = [logoutButton,notificationButton]
     }
     @objc func logoutButtonClicked() {
         showOptionAlert(title: "", message: "Are you sure, you want to logout?", successButtonName: "YES", successComplete: { (_) in
@@ -160,6 +167,14 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
                 HippoConfig.shared.delegate?.hippoUserLogOut()
             }
         }, failureButtonName: "NOT NOW", failureComplete: nil)
+    }
+    
+    @objc func notificationButtonClicked()
+    {
+       // PromotionsViewController
+        HippoConfig.shared.notifyDidLoad()
+        let promotionVC = self.storyboard?.instantiateViewController(withIdentifier: "PromotionsViewController") as! PromotionsViewController
+        self.navigationController?.pushViewController(promotionVC, animated: true)
     }
     
     func setTableView() {

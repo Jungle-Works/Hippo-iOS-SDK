@@ -243,6 +243,9 @@ public struct ConversationListTheme {
     open var logoutButtonIcon: UIImage?
     open var logoutButtonTintColor: UIColor?
     
+    open var notificationButtonIcon: UIImage?
+    open var notificationButtonTintColor: UIColor?
+    
     open var securePaymentIcon: UIImage? = UIImage(named: "securePayment", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     open var securePaymentTintColor: UIColor?
     open var secureTextFont: UIFont = UIFont.systemFont(ofSize: 10)

@@ -404,7 +404,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                                 <subviews>
                                     <imageView hidden="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="app_loader_shape" translatesAutoresizingMaskIntoConstraints="NO" id="Lee-41-dPF" customClass="So_UIImageView" customModule="HippoChat" customModuleProvider="target">
-                                        <rect key="frame" x="179.5" y="293.5" width="16" height="16"/>
+                                        <rect key="frame" x="167.5" y="281.5" width="40" height="40"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </imageView>
                                 </subviews>
@@ -549,7 +549,7 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <subviews>
                                     <imageView hidden="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="app_loader_shape" translatesAutoresizingMaskIntoConstraints="NO" id="Y22-DA-qgw" customClass="So_UIImageView" customModule="HippoChat" customModuleProvider="target">
-                                        <rect key="frame" x="167.5" y="281.5" width="40" height="40"/>
+                                        <rect key="frame" x="179.5" y="293.5" width="16" height="16"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </imageView>
                                 </subviews>
@@ -1903,6 +1903,43 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ftV-ge-Pvs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="444" y="-840"/>
+        </scene>
+        <!--Promotions View Controller-->
+        <scene sceneID="8Oo-Yt-8mZ">
+            <objects>
+                <viewController storyboardIdentifier="PromotionsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="CEG-sn-DaH" customClass="PromotionsViewController" customModule="HippoChat" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="RjF-kp-86t"/>
+                        <viewControllerLayoutGuide type="bottom" id="OMd-zA-N0k"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="9yB-FV-pDD">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="oWh-y5-vgO">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="CEG-sn-DaH" id="Uc3-mk-3la"/>
+                                    <outlet property="delegate" destination="CEG-sn-DaH" id="wza-xS-cdc"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="oWh-y5-vgO" secondAttribute="trailing" id="IvN-45-ClB"/>
+                            <constraint firstItem="OMd-zA-N0k" firstAttribute="top" secondItem="oWh-y5-vgO" secondAttribute="bottom" id="J16-u3-dXc"/>
+                            <constraint firstItem="oWh-y5-vgO" firstAttribute="leading" secondItem="9yB-FV-pDD" secondAttribute="leading" id="YZZ-YF-uNa"/>
+                            <constraint firstItem="oWh-y5-vgO" firstAttribute="top" secondItem="9yB-FV-pDD" secondAttribute="top" id="wGd-n2-uqz"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="promotionsTableView" destination="oWh-y5-vgO" id="SR6-3K-KTm"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pOK-DK-Hxf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1245.5999999999999" y="-841.52923538230891"/>
         </scene>
         <!--Payement option-->
         <scene sceneID="yAL-AA-ZXm">

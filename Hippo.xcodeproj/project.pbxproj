@@ -363,6 +363,9 @@
 		C9EE010A2397963B003E9326 /* PaymentSecureView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9EE01082397963B003E9326 /* PaymentSecureView.xib */; };
 		C9FAF60C23681AC90089DBFC /* InformationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9FAF60B23681AC90089DBFC /* InformationView.xib */; };
 		C9FAF60E23681AE20089DBFC /* InformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FAF60D23681AE20089DBFC /* InformationView.swift */; };
+		EE65DDDD23B1DDB5000B658B /* PromotionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE65DDDB23B1DDB5000B658B /* PromotionTableViewCell.swift */; };
+		EE65DDDE23B1DDB5000B658B /* PromotionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE65DDDC23B1DDB5000B658B /* PromotionTableViewCell.xib */; };
+		EE65DDE023B1F27A000B658B /* PromotionCellDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE65DDDF23B1F27A000B658B /* PromotionCellDataModel.swift */; };
 		EE6EC6DF23A7469A009C9A8D /* MultiSelectTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE6EC6DD23A7469A009C9A8D /* MultiSelectTableViewCell.swift */; };
 		EE6EC6E023A7469A009C9A8D /* MultiSelectTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE6EC6DE23A7469A009C9A8D /* MultiSelectTableViewCell.xib */; };
 		EEB4C89323A3AB990032159B /* MultipleSelectTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB4C89123A3AB990032159B /* MultipleSelectTableViewCell.swift */; };
@@ -370,6 +373,7 @@
 		EEB9393123A8E01B00D13385 /* CustomAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB9393023A8E01B00D13385 /* CustomAction.swift */; };
 		EEB9394123A8E7D200D13385 /* MultiSelectHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB9393F23A8E7D200D13385 /* MultiSelectHeaderTableViewCell.swift */; };
 		EEB9394223A8E7D200D13385 /* MultiSelectHeaderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EEB9394023A8E7D200D13385 /* MultiSelectHeaderTableViewCell.xib */; };
+		EEBD8F7423B0E36F00C22269 /* PromotionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBD8F7323B0E36F00C22269 /* PromotionsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -739,6 +743,9 @@
 		C9FAF60B23681AC90089DBFC /* InformationView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InformationView.xib; sourceTree = "<group>"; };
 		C9FAF60D23681AE20089DBFC /* InformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationView.swift; sourceTree = "<group>"; };
 		E0E4A9E31B1EC7F72EC2F38D /* Pods_Fugu.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Fugu.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EE65DDDB23B1DDB5000B658B /* PromotionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromotionTableViewCell.swift; sourceTree = "<group>"; };
+		EE65DDDC23B1DDB5000B658B /* PromotionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PromotionTableViewCell.xib; sourceTree = "<group>"; };
+		EE65DDDF23B1F27A000B658B /* PromotionCellDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromotionCellDataModel.swift; sourceTree = "<group>"; };
 		EE6EC6DD23A7469A009C9A8D /* MultiSelectTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiSelectTableViewCell.swift; sourceTree = "<group>"; };
 		EE6EC6DE23A7469A009C9A8D /* MultiSelectTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MultiSelectTableViewCell.xib; sourceTree = "<group>"; };
 		EEB4C89123A3AB990032159B /* MultipleSelectTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleSelectTableViewCell.swift; sourceTree = "<group>"; };
@@ -746,6 +753,7 @@
 		EEB9393023A8E01B00D13385 /* CustomAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAction.swift; sourceTree = "<group>"; };
 		EEB9393F23A8E7D200D13385 /* MultiSelectHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiSelectHeaderTableViewCell.swift; sourceTree = "<group>"; };
 		EEB9394023A8E7D200D13385 /* MultiSelectHeaderTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MultiSelectHeaderTableViewCell.xib; sourceTree = "<group>"; };
+		EEBD8F7323B0E36F00C22269 /* PromotionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromotionsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1180,6 +1188,7 @@
 		C9DC52C82356FD4100CA7FE9 /* TableViewCell */ = {
 			isa = PBXGroup;
 			children = (
+				EE65DDDA23B1DD13000B658B /* PromotionTableViewCell */,
 				C9924843239794450040927D /* PaymentSecureView */,
 				C982E41D238D376F0080B375 /* ProfileDetailCell */,
 				C982E413238D27CB0080B375 /* ProfileNameCell */,
@@ -1710,6 +1719,7 @@
 				C9DC539B2356FD4200CA7FE9 /* FuguUserDetail.swift */,
 				C9B410E1235DAA240029799A /* MessageCard.swift */,
 				EEB9393023A8E01B00D13385 /* CustomAction.swift */,
+				EE65DDDF23B1F27A000B658B /* PromotionCellDataModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1767,6 +1777,7 @@
 				C9DC53B52356FD4200CA7FE9 /* Agents */,
 				C9DC53BA2356FD4200CA7FE9 /* ListDescriptionViewController.swift */,
 				C9DC53BB2356FD4200CA7FE9 /* Customer */,
+				EEBD8F7323B0E36F00C22269 /* PromotionsViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -2058,6 +2069,15 @@
 			path = InformationView;
 			sourceTree = "<group>";
 		};
+		EE65DDDA23B1DD13000B658B /* PromotionTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				EE65DDDB23B1DDB5000B658B /* PromotionTableViewCell.swift */,
+				EE65DDDC23B1DDB5000B658B /* PromotionTableViewCell.xib */,
+			);
+			path = PromotionTableViewCell;
+			sourceTree = "<group>";
+		};
 		EE6EC6DA23A7465D009C9A8D /* MultiSelectTableView */ = {
 			isa = PBXGroup;
 			children = (
@@ -2233,6 +2253,7 @@
 				C9DC55302356FD4500CA7FE9 /* IQKeyboardManager.bundle in Resources */,
 				C9EE010A2397963B003E9326 /* PaymentSecureView.xib in Resources */,
 				C9DC544F2356FD4300CA7FE9 /* IncomingImageCell.xib in Resources */,
+				EE65DDDE23B1DDB5000B658B /* PromotionTableViewCell.xib in Resources */,
 				C9FAF60C23681AC90089DBFC /* InformationView.xib in Resources */,
 				C9DC543F2356FD4300CA7FE9 /* OutgoingImageCell.xib in Resources */,
 				C9DC54602356FD4300CA7FE9 /* SupportMessageTableViewCell.xib in Resources */,
@@ -2467,6 +2488,7 @@
 				C9DC544E2356FD4300CA7FE9 /* ContactNumberTableCell.swift in Sources */,
 				C9DC54832356FD4400CA7FE9 /* LeadDataTableViewCell.swift in Sources */,
 				C9DC54D92356FD4400CA7FE9 /* FuguAttributes.swift in Sources */,
+				EE65DDDD23B1DDB5000B658B /* PromotionTableViewCell.swift in Sources */,
 				C9B410E6235DAD580029799A /* CardListCell.swift in Sources */,
 				C9DC54F62356FD4500CA7FE9 /* ListDescriptionViewController.swift in Sources */,
 				C9DC541B2356FD4300CA7FE9 /* CoreKit.swift in Sources */,
@@ -2485,6 +2507,7 @@
 				C9DC54702356FD4300CA7FE9 /* ActionableMessageCellHandler.swift in Sources */,
 				EEB4C89323A3AB990032159B /* MultipleSelectTableViewCell.swift in Sources */,
 				C9DC54B52356FD4400CA7FE9 /* UserDetail.swift in Sources */,
+				EEBD8F7423B0E36F00C22269 /* PromotionsViewController.swift in Sources */,
 				C9DC54E22356FD4500CA7FE9 /* NLevelViewController.swift in Sources */,
 				C9DC55072356FD4500CA7FE9 /* FrameObserverAccessaryView.swift in Sources */,
 				C9DC54BC2356FD4400CA7FE9 /* HippoProperty.swift in Sources */,
@@ -2496,6 +2519,7 @@
 				C9DC54A42356FD4400CA7FE9 /* Socomo+Customs.swift in Sources */,
 				C9DC548E2356FD4400CA7FE9 /* ChatInfoAgentTableViewCell.swift in Sources */,
 				C982E409238D0AFD0080B375 /* ParallaxHeaderMode.swift in Sources */,
+				EE65DDE023B1F27A000B658B /* PromotionCellDataModel.swift in Sources */,
 				C9DC55042356FD4500CA7FE9 /* ParseError.swift in Sources */,
 				C9DC54292356FD4300CA7FE9 /* HTTPClient.swift in Sources */,
 				C9DC54212356FD4300CA7FE9 /* Themes.swift in Sources */,

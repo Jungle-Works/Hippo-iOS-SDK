@@ -42,6 +42,8 @@ public protocol HippoDelegate: class {
     func hippoDidLoad()
     
     func hippoMessageRecievedWith(response: [String: Any], viewController: UIViewController)
+    func promotionMessageRecievedWith(response: [String: Any], viewController: UIViewController)
+    
     func hippoUserLogOut()
     
     func startLoading(message: String?)
@@ -68,6 +70,10 @@ extension HippoDelegate {
     }
     
     func hippoMessageRecievedWith(response: [String: Any], viewController: UIViewController) {
+        
+    }
+    
+    func promotionMessageRecievedWith(response: [String: Any], viewController: UIViewController) {
         
     }
 }

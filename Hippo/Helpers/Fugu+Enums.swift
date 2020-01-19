@@ -303,7 +303,9 @@ enum AgentEndPoints: String {
     case broadcastStatus = "api/broadcast/broadcastStatus"
     
     case createOneToOneChat = "api/chat/createOneToOneChat"
+    case getAnnouncements = "api/broadcast/getAnnouncements"
 }
+
 enum BroadcastType: String, CaseCountable {
     case unknown = ""
     case none = "Broadcast"
