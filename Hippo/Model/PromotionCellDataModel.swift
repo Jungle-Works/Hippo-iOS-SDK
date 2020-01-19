@@ -11,28 +11,60 @@ import Foundation
 
 class PromotionCellDataModel
 {
-    var image: UIImage?
+    var imageUrlString: String = ""
     var title: String?
     var description: String?
-    var date : String?
+    var createdAt : String = ""
     var action:[String:Any]?
-    var promotionID: Int
-    var cellHeight:CGFloat = 0
+    var customAttributes: [String:Any]?
+    var channelID:Int
+    var userID:Int
+    var disableReply:Bool?
+    var deepLink:String?
+    var cellHeight:CGFloat = 0.01
+    
+    
     
     init?(dict: [String: Any])
     {
-        guard let promotionID = dict["promotionID"] as? Int else {
-            return nil
-        }
-          self.promotionID = promotionID
+//        guard let promotionID = dict["promotionID"] as? Int else {
+//            return nil
+//        }
+//          self.promotionID = promotionID
         
+        self.channelID = Int.parse(values: dict, key: "channel_id") ?? 1
+        self.title = (dict["title"] as? String) ?? ""
+        self.disableReply = Bool.parse(key: "disable_reply", json: dict) ?? true
+        self.description = dict["description"] as? String ?? ""
+        self.createdAt = dict["created_at"] as? String ?? ""
+        self.userID = Int.parse(values: dict, key: "user_id") ?? 1
+        
+        if let tempDict = dict["custom_attributes"] as? [String:Any]
+       {
+            self.customAttributes = tempDict
+           // print("customAttributes>>> \(customAttributes)")
+        
+        if let imageDict = self.customAttributes!["image"] as? [String:Any]
+        {
+            self.imageUrlString = imageDict["image_url"] as? String ?? ""
+           // print("imageUrlString>>> \(imageUrlString)")
+        }
+        
+        if let deepLink = self.customAttributes!["deeplink"] as? String
+        {
+            self.deepLink = deepLink as? String ?? ""
+            print("deep link>>> \(deepLink)")
+        }
+    }
+        
+        self.cellHeight = calculateHeightForCell(title: self.title!, description: self.description!)
     }
     
     
     @discardableResult
     func calculateHeightForCell(title:String,description:String) -> CGFloat
     {
-        let width:CGFloat = windowScreenWidth - 10 - 10 - 8 - 8
+        let width:CGFloat = windowScreenWidth - 5 - 5
         let attributedTitleString = NSMutableAttributedString(string: title)
         let attributedDescriptionString = NSMutableAttributedString(string: description)
         
@@ -42,7 +74,6 @@ class PromotionCellDataModel
         
         let descRange = NSRange.init(location: 0, length: attributedDescriptionString.length)
        
-        
         let font = HippoConfig.shared.theme.titleFont
         attributedTitleString.addAttribute(NSAttributedString.Key.font, value: font, range: range)
         attributedTitleString.addAttribute(NSAttributedString.Key.foregroundColor, value: HippoConfig.shared.theme.titleTextColor, range: range)
@@ -59,10 +90,25 @@ class PromotionCellDataModel
         
         let size2 = attributedDescriptionString.boundingRect(with: availableBoxSize, options: .usesLineFragmentOrigin, context: nil).size
         
-        // print(size.height)
+        //let height2 = self.description?.height(withConstrainedWidth: width, font: font2)
+        
+      //  print("description >> \(height2)")
         let h = size1.height + size2.height
-        self.cellHeight = h
-        return h
+        
+        var height:CGFloat = 0.01
+        
+        if self.imageUrlString.isEmpty
+        {
+            height = h + 20// time height
+        }
+        else
+        {
+            height = h + 20 + 160 // image height
+        }
+        // print("height ???? \(height)")
+        return height
     }
    
 }
+
+
