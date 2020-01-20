@@ -165,7 +165,7 @@ extension PromotionsViewController: UITableViewDelegate,UITableViewDataSource
         {
             if d.skipBot.isEmpty
             {
-                
+                HippoConfig.shared.isSkipBot = false
             }
             else
             {

@@ -59,10 +59,9 @@ class PromotionCellDataModel
         
         if let data = self.customAttributes!["data"] as? [String:Any]
         {
-            self.skipBot = data["skip_bot"] as! String ?? ""
+            self.skipBot = data["skip_bot"] as? String ?? ""
             print("skipBot>>> \(skipBot)")
         }
-        
     }
         
         self.cellHeight = calculateHeightForCell(title: self.title!, description: self.description!)
