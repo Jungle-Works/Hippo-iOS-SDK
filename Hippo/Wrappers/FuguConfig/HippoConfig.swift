@@ -91,7 +91,7 @@ struct SERVERS {
     internal let FuguColor = #colorLiteral(red: 0.3843137255, green: 0.4901960784, blue: 0.8823529412, alpha: 1)
     internal let poweredByFont: UIFont = UIFont.systemFont(ofSize: 10.0)
     internal let FuguStringFont: UIFont = UIFont.systemFont(ofSize: 10.0)
-    
+    var isSkipBot:Bool = false
     
     public let navigationTitleTextAlignMent: NSTextAlignment? = .center
     

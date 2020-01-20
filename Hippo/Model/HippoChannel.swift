@@ -345,6 +345,11 @@ class HippoChannel {
         params["app_secret_key"] = HippoConfig.shared.appSecretKey
         params["en_user_id"] = HippoUserDetail.fuguEnUserID ?? -1
         
+        if HippoConfig.shared.isSkipBot
+        {
+            params["skip_bot"] = "1"
+        }
+        
         if let unwrappedLabelId = labelRequest?.labelId {
             params["label_id"] = unwrappedLabelId
         }

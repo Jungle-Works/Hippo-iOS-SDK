@@ -163,6 +163,14 @@ extension PromotionsViewController: UITableViewDelegate,UITableViewDataSource
         }
         else
         {
+            if d.skipBot.isEmpty
+            {
+                
+            }
+            else
+            {
+                HippoConfig.shared.isSkipBot = true
+            }
             HippoConfig.shared.openChatScreen(withLabelId: Int(data[indexPath.row].channelID) ?? 0)
         }
     }

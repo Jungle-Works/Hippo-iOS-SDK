@@ -22,6 +22,7 @@ class PromotionCellDataModel
     var disableReply:Bool?
     var deepLink:String = ""
     var cellHeight:CGFloat = 0.01
+    var skipBot:String = ""
     
     
     
@@ -55,6 +56,13 @@ class PromotionCellDataModel
             self.deepLink = deepLink as String ?? ""
             print("deep link>>> \(deepLink)")
         }
+        
+        if let data = self.customAttributes!["data"] as? [String:Any]
+        {
+            self.skipBot = data["skip_bot"] as! String ?? ""
+            print("skipBot>>> \(skipBot)")
+        }
+        
     }
         
         self.cellHeight = calculateHeightForCell(title: self.title!, description: self.description!)
