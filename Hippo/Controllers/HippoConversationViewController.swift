@@ -675,9 +675,6 @@ class HippoConversationViewController: UIViewController {
         self.messagesGroupedByDate = []
         self.updateMessagesGroupedByDate(messages) //1. first, update new messages
         
-        
-       
-        
         if self.messageArrayCount > 0 {
             self.updateMessagesGroupedByDate(self.channel.messages)//2.second, update existing messages
         }

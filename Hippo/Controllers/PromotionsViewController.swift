@@ -78,6 +78,11 @@ class PromotionsViewController: UIViewController {
                 {
                     if startOffset == 0 || arr.count >= 19
                     {
+                        if startOffset == 0 && self.data.count > 0
+                        {
+                            self.data.removeAll()
+                        }
+                        
                         for item in arr
                         {
                             let i = item as! [String:Any]
@@ -152,7 +157,7 @@ extension PromotionsViewController: UITableViewDelegate,UITableViewDataSource
         
         //HippoConfig.shared.delegate?.promotionMessageRecievedWith(response:[:], viewController: self)
         let d = data[indexPath.row]
-        if d.deepLink!.isEmpty
+        if d.deepLink.isEmpty
         {
             
         }

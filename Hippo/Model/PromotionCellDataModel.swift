@@ -20,7 +20,7 @@ class PromotionCellDataModel
     var channelID:Int
     var userID:Int
     var disableReply:Bool?
-    var deepLink:String?
+    var deepLink:String = ""
     var cellHeight:CGFloat = 0.01
     
     
@@ -52,7 +52,7 @@ class PromotionCellDataModel
         
         if let deepLink = self.customAttributes!["deeplink"] as? String
         {
-            self.deepLink = deepLink as? String ?? ""
+            self.deepLink = deepLink as String ?? ""
             print("deep link>>> \(deepLink)")
         }
     }
