@@ -75,10 +75,19 @@ class PromotionTableViewCell: UITableViewCell {
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'hh:mm:ss.SSS'Z'"
+        dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
         let date = dateFormatter.date(from: data.createdAt)
         
-       // print("date>> \(date)")
+//        let dateFormatter2 = DateFormatter()
+//        dateFormatter2.dateFormat = "dd MMM,yy h:mm a"
+//        dateFormatter2.locale = Locale.current
+//        dateFormatter2.timeZone = TimeZone.current
+//        let timeOfMessage = dateFormatter2.string(from: date ?? Date())
+        
+        
         let timeOfMessage = changeDateToParticularFormat(date ?? Date(), dateFormat: "dd MMM,yy h:mm a", showInFormat: true)
+        
+      //  print("date>> \(timeOfMessage) dateCreatedAt?>>> \(data.createdAt)")
         
         self.dateTimeLabel.text = timeOfMessage
         
