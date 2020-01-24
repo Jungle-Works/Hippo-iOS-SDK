@@ -85,10 +85,7 @@ class BotOutgoingMessageTableViewCell: UITableViewCell {
         //        heightImageView.constant = 0
     }
     
-    func configureCellOfSupportIncomingCell(resetProperties: Bool,
-                                            attributedString: NSMutableAttributedString,
-                                            channelId: Int,
-                                            chatMessageObject: HippoMessage) -> BotOutgoingMessageTableViewCell {
+    func configureCellOfSupportIncomingCell(resetProperties: Bool,attributedString: NSMutableAttributedString,channelId: Int,chatMessageObject: HippoMessage) -> BotOutgoingMessageTableViewCell {
         if resetProperties { resetPropertiesOfSupportCell() }
         
         let messageType = chatMessageObject.type.rawValue

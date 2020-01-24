@@ -118,6 +118,7 @@ class FuguFlowManager: NSObject {
         conversationViewController.createConversationOnStart = true
         visibleController?.present(navVC, animated: false, completion: nil)
     }
+    
     func openChatViewController(on viewController: UIViewController, labelId: Int, hideBackButton: Bool, animation: Bool) {
         
         let conversationViewController = ConversationsViewController.getWith(labelId: labelId.description)
@@ -127,7 +128,7 @@ class FuguFlowManager: NSObject {
 //        navVC.setNavigationBarHidden(true, animated: false)
 
         conversationViewController.createConversationOnStart = false
-        conversationViewController.hideBackButton = hideBackButton
+            conversationViewController.hideBackButton = hideBackButton
         viewController.navigationController?.pushViewController(conversationViewController, animated: animation)
 //        visibleController?.present(navVC, animated: false, completion: nil)
     }

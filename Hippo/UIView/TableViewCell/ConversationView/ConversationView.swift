@@ -58,7 +58,7 @@ extension ConversationView {
         
         channelImageView.image = nil
         channelImageView.layer.masksToBounds = true
-        channelImageView.layer.cornerRadius = channelImageView.bounds.height / 2
+        channelImageView.layer.cornerRadius = 5
         channelImageView.contentMode = .scaleAspectFill
         
         placeHolderImageButton?.isHidden = true
@@ -87,9 +87,21 @@ extension ConversationView {
         
         if channelStatus == ChatStatus.close {
             isOpened = false
+          //  bgView.backgroundColor = UIColor.red //HippoConfig.shared.theme.gradientBackgroundColor
+            
         }
+        
+        if isOpened
+        {
+          bgView.backgroundColor = UIColor.white
+        }
+        else
+        {
+            bgView.backgroundColor = HippoConfig.shared.theme.gradientBackgroundColor
+        }
+        
          
-        bgView.backgroundColor = UIColor.white.withAlphaComponent(isThisChatOpened(opened: isOpened))
+       // bgView.backgroundColor = UIColor.white.withAlphaComponent(isThisChatOpened(opened: isOpened))
         
         headingLabel.textColor = HippoConfig.shared.theme.conversationTitleColor.withAlphaComponent(isThisChatOpened(opened: isOpened))
         
@@ -119,7 +131,7 @@ extension ConversationView {
         
         statusLabel.isHidden = isOpened
         statusLabel.font = theme.timeTheme.textFont
-        statusLabel.textColor = HippoConfig.shared.theme.themeColor
+        statusLabel.textColor = HippoConfig.shared.theme.gradientTopColor
         statusLabel.text = "closed"
             
         headingLabel.setTheme(theme: theme.titleTheme)
@@ -141,7 +153,7 @@ extension ConversationView {
             let channelNameInitials = channelName.trimWhiteSpacesAndNewLine()
 //            placeHolderImageButton?.setTitle(String(channelNameInitials.remove(at: channelNameInitials.startIndex)).capitalized, for: .normal)
 //            placeHolderImageButton?.layer.cornerRadius = 15.0
-            channelImageView.setTextInImage(string: channelNameInitials, color: .darkGray, circular: true, textAttributes: nil)
+            channelImageView.setTextInImage(string: channelNameInitials, color: .darkGray, circular: false, textAttributes: nil)
             
         }
         
@@ -154,9 +166,11 @@ extension ConversationView {
             leadingConstraintOfLastMessage?.constant = 2
             msgStatusImageView?.contentMode = .center
             if let lastMessageStatus = conersationObj.lastMessage?.status, lastMessageStatus == .read {
-                msgStatusImageView?.image = UIImage(named: "readMsgTick", in: FuguFlowManager.bundle, compatibleWith: nil)
+                msgStatusImageView?.image = UIImage(named: "readMessageImage", in: FuguFlowManager.bundle, compatibleWith: nil)
+                msgStatusImageView?.tintColor = HippoConfig.shared.theme.readTintColor
             } else {
-                msgStatusImageView?.image = UIImage(named: "unreadMsgTick", in: FuguFlowManager.bundle, compatibleWith: nil)
+                msgStatusImageView?.image = UIImage(named: "readMessageImage", in: FuguFlowManager.bundle, compatibleWith: nil)
+                   msgStatusImageView?.tintColor = HippoConfig.shared.theme.unreadTintColor
             }
         } else if let last_sent_by_full_name = conersationObj.lastMessage?.senderFullName, (conersationObj.lastMessage?.senderId ?? -1) > 0 {
             if last_sent_by_full_name.isEmpty {

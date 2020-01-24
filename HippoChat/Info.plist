@@ -18,5 +18,13 @@
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
+    <key>UIAppFonts</key>
+    <array>
+        <string>TitilliumWeb-Bold.ttf</string>
+        <string>TitilliumWeb-Black.ttf</string>
+        <string>TitilliumWeb-Light.ttf</string>
+        <string>TitilliumWeb-Regular.ttf</string>
+        <string>TitilliumWeb-SemiBold.ttf</string>
+    </array>
 </dict>
 </plist>

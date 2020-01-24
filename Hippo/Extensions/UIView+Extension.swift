@@ -78,6 +78,24 @@ extension UIView {
       rotationAnimation.repeatCount = Float.infinity
       return rotationAnimation
    }
+    
+    func roundCorner(cornerRect: UIRectCorner, cornerRadius: CGFloat, strokeColor: UIColor? = .clear) {
+        let maskPath = UIBezierPath(roundedRect: bounds, byRoundingCorners: cornerRect, cornerRadii: CGSize(width: cornerRadius, height: cornerRadius))
+        
+        let maskLayer = CAShapeLayer()
+        maskLayer.frame = self.bounds
+        maskLayer.path = maskPath.cgPath
+        self.layer.mask = maskLayer
+        
+        let frameLayer = CAShapeLayer()
+        frameLayer.frame = self.bounds
+        frameLayer.path = maskPath.cgPath
+        frameLayer.strokeColor = strokeColor?.cgColor
+        frameLayer.fillColor = nil
+        
+        self.layer.addSublayer(frameLayer)
+    }
+    
 }
 
 extension UIView {

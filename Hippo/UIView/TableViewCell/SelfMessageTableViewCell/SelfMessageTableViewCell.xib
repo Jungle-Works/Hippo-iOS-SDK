@@ -11,14 +11,14 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="SelfMessageTableViewCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="SelfMessageTableViewCell" rowHeight="309" id="3C7-pA-zEk" customClass="SelfMessageTableViewCell" customModule="Hippo" customModuleProvider="target">
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="SelfMessageTableViewCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="SelfMessageTableViewCell" rowHeight="309" id="3C7-pA-zEk" customClass="SelfMessageTableViewCell" customModule="HippoChat" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="375" height="309"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3C7-pA-zEk" id="1ex-sp-f9D">
                 <rect key="frame" x="0.0" y="0.0" width="375" height="308.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zRm-ci-UkK" customClass="So_UIView" customModule="Hippo" customModuleProvider="target">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zRm-ci-UkK" customClass="So_UIView" customModule="HippoChat" customModuleProvider="target">
                         <rect key="frame" x="288" y="3.5" width="78.5" height="63.5"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </view>
@@ -63,14 +63,14 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VGR-ha-gOM">
                         <rect key="frame" x="0.0" y="67.5" width="375" height="45"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="warningIcon" translatesAutoresizingMaskIntoConstraints="NO" id="dL2-Ya-uaD" customClass="So_UIImageView" customModule="Hippo" customModuleProvider="target">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="warningIcon" translatesAutoresizingMaskIntoConstraints="NO" id="dL2-Ya-uaD" customClass="So_UIImageView" customModule="HippoChat" customModuleProvider="target">
                                 <rect key="frame" x="176" y="3" width="16" height="16"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="16" id="1Ju-aF-wy5"/>
                                     <constraint firstAttribute="width" secondItem="dL2-Ya-uaD" secondAttribute="height" multiplier="1:1" id="hdy-i6-072"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Couldn't send the message" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PJ0-lR-oj6" customClass="So_CustomLabel" customModule="Hippo" customModuleProvider="target">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Couldn't send the message" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PJ0-lR-oj6" customClass="So_CustomLabel" customModule="HippoChat" customModuleProvider="target">
                                 <rect key="frame" x="194" y="3" width="176" height="16"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -166,10 +166,11 @@
                 <outlet property="warningView" destination="VGR-ha-gOM" id="nR6-le-TD6"/>
                 <outlet property="warningViewHeightConstraint" destination="UC1-kv-6Bw" id="kO0-rO-PZh"/>
             </connections>
+            <point key="canvasLocation" x="138.40579710144928" y="106.80803571428571"/>
         </tableViewCell>
     </objects>
     <resources>
-        <image name="readMessageImage" width="16" height="9"/>
+        <image name="readMessageImage" width="10" height="10"/>
         <image name="warningIcon" width="24" height="24"/>
     </resources>
 </document>

@@ -88,7 +88,7 @@ class MessageTableViewCell: UITableViewCell {
         senderImageView.isHidden = false
         senderImageWidthConstraint.constant = 30
         senderImageTraillingConstaints.constant = 5
-        senderImageView.layer.cornerRadius = senderImageView.bounds.height / 2
+       // senderImageView.layer.cornerRadius = senderImageView.bounds.height / 2
         senderImageView.layer.masksToBounds = true
         layoutIfNeeded()
     }
@@ -105,7 +105,7 @@ class MessageTableViewCell: UITableViewCell {
     
     func setNameAsTitle(_ name: String?) {
         if let parsedName = name {
-            self.senderImageView.setTextInImage(string: parsedName, color: UIColor.lightGray, circular: true)
+            self.senderImageView.setTextInImage(string: parsedName, color: UIColor.lightGray, circular: false)
         } else {
             self.senderImageView.image = HippoConfig.shared.theme.placeHolderImage
         }

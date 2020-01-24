@@ -47,12 +47,17 @@ public struct ConversationListTheme {
     
     var shouldEnableDisplayUserImage: Bool = true
     
-    open var themeColor: UIColor = #colorLiteral(red: 0.3843137255, green: 0.4901960784, blue: 0.8823529412, alpha: 1)
+    open var themeColor: UIColor =  #colorLiteral(red: 0.3843137255, green: 0.4901960784, blue: 0.8823529412, alpha: 1)
     
-    open var backgroundColor = #colorLiteral(red: 0.9725490196, green: 0.9764705882, blue: 1, alpha: 1)
+    var gradientTopColor = UIColor(red: 77/255, green: 124/255, blue: 254/255, alpha: 1)
+    var gradientBottomColor = UIColor(red: 57/255, green: 58/255, blue: 238/255, alpha: 1)
+    
+    let gradientBackgroundColor = UIColor(red: 77/255, green: 124/255, blue: 254/200, alpha: 0.05)
+    
+    open var backgroundColor = UIColor.white//#colorLiteral(red: 0.9725490196, green: 0.9764705882, blue: 1, alpha: 1)
     open var infoIconTintColor = #colorLiteral(red: 0.3843137255, green: 0.4901960784, blue: 0.8823529412, alpha: 1)
-    open var headerBackgroundColor = #colorLiteral(red: 0.3843137255, green: 0.4901960784, blue: 0.8823529412, alpha: 1)
-    open var headerTextColor = #colorLiteral(red: 0.9882352941, green: 0.9882352941, blue: 0.9882352941, alpha: 1)
+    open var headerBackgroundColor = UIColor.white//#colorLiteral(red: 0.3843137255, green: 0.4901960784, blue: 0.8823529412, alpha: 1)
+    open var headerTextColor = UIColor.black//#colorLiteral(red: 0.9882352941, green: 0.9882352941, blue: 0.9882352941, alpha: 1)
     open var headerText = "Support"
     open var directChatHeader = "Conversation List"
     open var broadcastHeader = "Broadcast Message"
@@ -60,7 +65,7 @@ public struct ConversationListTheme {
     open var starRatingColor: UIColor = UIColor.yellow
     
     open var newConversationButtonFont: UIFont? = UIFont.boldSystemFont(ofSize: 18.0)
-    open var newConversationText = "Talk To Doctor >"
+    open var newConversationText = "Talk To Dietitian >"
     
     open var darkThemeTextColor = UIColor.white
     open var lightThemeTextColor = UIColor.black
@@ -108,12 +113,14 @@ public struct ConversationListTheme {
     open var actionButtonIcon: UIImage? = UIImage(named: "optionIcons", in: FuguFlowManager.bundle, compatibleWith: nil)
     open var actionButtonIconTintColor: UIColor?
     
+    open var readTintColor = UIColor(red: 0/255, green: 221/255, blue: 182/255, alpha: 1)
+    open var unreadTintColor = UIColor.gray
     
-    open var readMessageTick: UIImage? = UIImage(named: "readMsgTick", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
-    open var readMessageTintColor: UIColor?
+    open var readMessageTick: UIImage? = UIImage(named: "readMessageImage", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+    open var readMessageTintColor: UIColor? = UIColor(red: 0/255, green: 221/255, blue: 182/255, alpha: 1)
     
-    open var unreadMessageTick: UIImage? = UIImage(named: "unreadMsgTick", in: FuguFlowManager.bundle, compatibleWith: nil)
-    open var unreadMessageTintColor: UIColor?
+    open var unreadMessageTick: UIImage? = UIImage(named: "readMessageImage", in: FuguFlowManager.bundle, compatibleWith: nil)
+    open var unreadMessageTintColor: UIColor? = UIColor.gray
     
     open var unsentMessageIcon: UIImage? = UIImage(named: "unsent_watch_icon", in: FuguFlowManager.bundle, compatibleWith: nil)
     open var unsentMessageTintColor: UIColor?
@@ -121,13 +128,19 @@ public struct ConversationListTheme {
     open var dateTimeTextColor = UIColor.black40
     open var dateTimeFontSize: UIFont? = UIFont.systemFont(ofSize: 12.0)
     
-    open var senderNameColor = UIColor.black40
+    
+    
+    open var senderNameColor = UIColor.black
     open var senderNameFont: UIFont = UIFont.systemFont(ofSize: 12.0)
     open var itmDescriptionNameFont: UIFont? = UIFont.systemFont(ofSize: 14.0)
-    open var incomingMsgColor = UIColor.black
+    open var incomingMsgColor = UIColor.white// UIColor.black
     open var incomingMsgFont: UIFont = UIFont.systemFont(ofSize: 15.0)
     open var incomingChatBoxColor = UIColor(red: 237/255, green: 237/255, blue: 237/255, alpha: 1)
-    open var incomingMsgDateTextColor = UIColor.black40
+    open var incomingMsgDateTextColor = UIColor.white//UIColor.black40
+    
+    
+    open var missedCallColor = UIColor(red: 237/255, green: 73/255, blue: 124/255, alpha: 1)
+    open var callAgainColor = UIColor(red: 59/255, green: 213/255, blue: 178/255, alpha: 1)
     
     open var privateNoteMsgColor = #colorLiteral(red: 0.1725490196, green: 0.137254902, blue: 0.2, alpha: 1)
     open var privateNoteMsgFont: UIFont? = UIFont.systemFont(ofSize: 15.0)
@@ -140,7 +153,7 @@ public struct ConversationListTheme {
     open var actionableMessageButtonHighlightedColor = #colorLiteral(red: 0.3490196078, green: 0.3490196078, blue: 0.4078431373, alpha: 0.8)
     
     open var outgoingMsgColor = UIColor.black
-    open var outgoingChatBoxColor = UIColor(red: 233/255, green: 239/255, blue: 253/255, alpha: 1)
+    open var outgoingChatBoxColor = UIColor(red: 243/255, green: 243/255, blue: 243/255, alpha: 1)// UIColor(red: 233/255, green: 239/255, blue: 253/255, alpha: 1)
     open var outgoingMsgDateTextColor = UIColor.black40
     
     open var botTextAndBorderColor = UIColor.black

@@ -737,7 +737,8 @@ class HippoConversationViewController: UIViewController {
     func isSentByMe(senderId: Int) -> Bool {
         return getSavedUserId == senderId
     }
-    func attachmentButtonclicked(_ sender: UIButton) {
+    func attachmentButtonclicked(_ sender: UIButton)
+    {
         let showPaymentOption = channel == nil ? false : HippoProperty.current.isPaymentRequestEnabled
         pickerHelper = PickerHelper(viewController: self, enablePayment: showPaymentOption)
         pickerHelper?.present(sender: sender, controller: self)

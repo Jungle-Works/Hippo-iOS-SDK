@@ -368,6 +368,17 @@
 		EE65DDE023B1F27A000B658B /* PromotionCellDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE65DDDF23B1F27A000B658B /* PromotionCellDataModel.swift */; };
 		EE6EC6DF23A7469A009C9A8D /* MultiSelectTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE6EC6DD23A7469A009C9A8D /* MultiSelectTableViewCell.swift */; };
 		EE6EC6E023A7469A009C9A8D /* MultiSelectTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE6EC6DE23A7469A009C9A8D /* MultiSelectTableViewCell.xib */; };
+		EE8D668823D808F80014DA6E /* TitilliumWeb-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE8D667D23D808F80014DA6E /* TitilliumWeb-Black.ttf */; };
+		EE8D668923D808F80014DA6E /* TitilliumWeb-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE8D667E23D808F80014DA6E /* TitilliumWeb-Bold.ttf */; };
+		EE8D668A23D808F80014DA6E /* TitilliumWeb-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE8D667F23D808F80014DA6E /* TitilliumWeb-Regular.ttf */; };
+		EE8D668B23D808F80014DA6E /* TitilliumWeb-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE8D668023D808F80014DA6E /* TitilliumWeb-SemiBold.ttf */; };
+		EE8D668C23D808F80014DA6E /* TitilliumWeb-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE8D668123D808F80014DA6E /* TitilliumWeb-ExtraLight.ttf */; };
+		EE8D668D23D808F80014DA6E /* TitilliumWeb-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE8D668223D808F80014DA6E /* TitilliumWeb-BoldItalic.ttf */; };
+		EE8D668E23D808F80014DA6E /* TitilliumWeb-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE8D668323D808F80014DA6E /* TitilliumWeb-ExtraLightItalic.ttf */; };
+		EE8D668F23D808F80014DA6E /* TitilliumWeb-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE8D668423D808F80014DA6E /* TitilliumWeb-SemiBoldItalic.ttf */; };
+		EE8D669023D808F80014DA6E /* TitilliumWeb-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE8D668523D808F80014DA6E /* TitilliumWeb-LightItalic.ttf */; };
+		EE8D669123D808F80014DA6E /* TitilliumWeb-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE8D668623D808F80014DA6E /* TitilliumWeb-Italic.ttf */; };
+		EE8D669223D808F80014DA6E /* TitilliumWeb-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE8D668723D808F80014DA6E /* TitilliumWeb-Light.ttf */; };
 		EEB4C89323A3AB990032159B /* MultipleSelectTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB4C89123A3AB990032159B /* MultipleSelectTableViewCell.swift */; };
 		EEB4C89423A3AB990032159B /* MultipleSelectTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EEB4C89223A3AB990032159B /* MultipleSelectTableViewCell.xib */; };
 		EEB9393123A8E01B00D13385 /* CustomAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB9393023A8E01B00D13385 /* CustomAction.swift */; };
@@ -748,6 +759,17 @@
 		EE65DDDF23B1F27A000B658B /* PromotionCellDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromotionCellDataModel.swift; sourceTree = "<group>"; };
 		EE6EC6DD23A7469A009C9A8D /* MultiSelectTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiSelectTableViewCell.swift; sourceTree = "<group>"; };
 		EE6EC6DE23A7469A009C9A8D /* MultiSelectTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MultiSelectTableViewCell.xib; sourceTree = "<group>"; };
+		EE8D667D23D808F80014DA6E /* TitilliumWeb-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "TitilliumWeb-Black.ttf"; sourceTree = "<group>"; };
+		EE8D667E23D808F80014DA6E /* TitilliumWeb-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "TitilliumWeb-Bold.ttf"; sourceTree = "<group>"; };
+		EE8D667F23D808F80014DA6E /* TitilliumWeb-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "TitilliumWeb-Regular.ttf"; sourceTree = "<group>"; };
+		EE8D668023D808F80014DA6E /* TitilliumWeb-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "TitilliumWeb-SemiBold.ttf"; sourceTree = "<group>"; };
+		EE8D668123D808F80014DA6E /* TitilliumWeb-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "TitilliumWeb-ExtraLight.ttf"; sourceTree = "<group>"; };
+		EE8D668223D808F80014DA6E /* TitilliumWeb-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "TitilliumWeb-BoldItalic.ttf"; sourceTree = "<group>"; };
+		EE8D668323D808F80014DA6E /* TitilliumWeb-ExtraLightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "TitilliumWeb-ExtraLightItalic.ttf"; sourceTree = "<group>"; };
+		EE8D668423D808F80014DA6E /* TitilliumWeb-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "TitilliumWeb-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
+		EE8D668523D808F80014DA6E /* TitilliumWeb-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "TitilliumWeb-LightItalic.ttf"; sourceTree = "<group>"; };
+		EE8D668623D808F80014DA6E /* TitilliumWeb-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "TitilliumWeb-Italic.ttf"; sourceTree = "<group>"; };
+		EE8D668723D808F80014DA6E /* TitilliumWeb-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "TitilliumWeb-Light.ttf"; sourceTree = "<group>"; };
 		EEB4C89123A3AB990032159B /* MultipleSelectTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleSelectTableViewCell.swift; sourceTree = "<group>"; };
 		EEB4C89223A3AB990032159B /* MultipleSelectTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MultipleSelectTableViewCell.xib; sourceTree = "<group>"; };
 		EEB9393023A8E01B00D13385 /* CustomAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAction.swift; sourceTree = "<group>"; };
@@ -993,6 +1015,7 @@
 				C9DC52872356FD4100CA7FE9 /* Wrappers */,
 				C9DC52B62356FD4100CA7FE9 /* UIView */,
 				C9DC53572356FD4200CA7FE9 /* Assets.xcassets */,
+				EE8D667C23D808F80014DA6E /* TitilliumWeb */,
 				C9DC53582356FD4200CA7FE9 /* HippoBroadCast.storyboard */,
 				C9DC535B2356FD4200CA7FE9 /* Montserrat-Medium.otf */,
 				C9DC535C2356FD4200CA7FE9 /* Extensions */,
@@ -2087,6 +2110,24 @@
 			path = MultiSelectTableView;
 			sourceTree = "<group>";
 		};
+		EE8D667C23D808F80014DA6E /* TitilliumWeb */ = {
+			isa = PBXGroup;
+			children = (
+				EE8D667D23D808F80014DA6E /* TitilliumWeb-Black.ttf */,
+				EE8D667E23D808F80014DA6E /* TitilliumWeb-Bold.ttf */,
+				EE8D667F23D808F80014DA6E /* TitilliumWeb-Regular.ttf */,
+				EE8D668023D808F80014DA6E /* TitilliumWeb-SemiBold.ttf */,
+				EE8D668123D808F80014DA6E /* TitilliumWeb-ExtraLight.ttf */,
+				EE8D668223D808F80014DA6E /* TitilliumWeb-BoldItalic.ttf */,
+				EE8D668323D808F80014DA6E /* TitilliumWeb-ExtraLightItalic.ttf */,
+				EE8D668423D808F80014DA6E /* TitilliumWeb-SemiBoldItalic.ttf */,
+				EE8D668523D808F80014DA6E /* TitilliumWeb-LightItalic.ttf */,
+				EE8D668623D808F80014DA6E /* TitilliumWeb-Italic.ttf */,
+				EE8D668723D808F80014DA6E /* TitilliumWeb-Light.ttf */,
+			);
+			path = TitilliumWeb;
+			sourceTree = "<group>";
+		};
 		EEB4C88C23A3A9DA0032159B /* MultipleSelectCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -2192,6 +2233,7 @@
 				C9DC54552356FD4300CA7FE9 /* IncomingDocumentTableViewCell.xib in Resources */,
 				C9DC54422356FD4300CA7FE9 /* CategoryTableViewCell.xib in Resources */,
 				C9DC544A2356FD4300CA7FE9 /* ActionButtonViewCell.xib in Resources */,
+				EE8D668823D808F80014DA6E /* TitilliumWeb-Black.ttf in Resources */,
 				C9DC54442356FD4300CA7FE9 /* ActionTableView.xib in Resources */,
 				C9DC553D2356FD4600CA7FE9 /* FuguUnique.storyboard in Resources */,
 				C9DC54772356FD4300CA7FE9 /* OutgoingVideoTableViewCell.xib in Resources */,
@@ -2199,10 +2241,13 @@
 				EEB4C89423A3AB990032159B /* MultipleSelectTableViewCell.xib in Resources */,
 				C9DC555823570B1200CA7FE9 /* README.rst in Resources */,
 				C982E401238CF8AD0080B375 /* AgentProfileViewController.xib in Resources */,
+				EE8D668E23D808F80014DA6E /* TitilliumWeb-ExtraLightItalic.ttf in Resources */,
 				C965D52E2370345900100E4B /* PaymentMessageCell.xib in Resources */,
 				C9DC543C2356FD4300CA7FE9 /* ChatInfoHeader.xib in Resources */,
 				C9DC54852356FD4400CA7FE9 /* ChatInfoActionCell.xib in Resources */,
+				EE8D668D23D808F80014DA6E /* TitilliumWeb-BoldItalic.ttf in Resources */,
 				C9DC547C2356FD4400CA7FE9 /* OutgoingDocumentTableViewCell.xib in Resources */,
+				EE8D668923D808F80014DA6E /* TitilliumWeb-Bold.ttf in Resources */,
 				C9DC54962356FD4400CA7FE9 /* BroadCastTextViewCell.xib in Resources */,
 				C9DC54682356FD4300CA7FE9 /* HeaderTableViewCell.xib in Resources */,
 				C9DC54A02356FD4400CA7FE9 /* HippoBroadCast.storyboard in Resources */,
@@ -2215,6 +2260,7 @@
 				C9DC55092356FD4500CA7FE9 /* typingImage.gif in Resources */,
 				C9DC54922356FD4400CA7FE9 /* BroadcastAgentCell.xib in Resources */,
 				C9B410E7235DAD580029799A /* CardListCell.xib in Resources */,
+				EE8D668A23D808F80014DA6E /* TitilliumWeb-Regular.ttf in Resources */,
 				C9DC54672356FD4300CA7FE9 /* ButtonCollectionCell.xib in Resources */,
 				EE6EC6E023A7469A009C9A8D /* MultiSelectTableViewCell.xib in Resources */,
 				C9DC54392356FD4300CA7FE9 /* EmojiCollectionViewCell.xib in Resources */,
@@ -2224,6 +2270,7 @@
 				C9DC54DE2356FD4500CA7FE9 /* MavenPro-Medium.ttf in Resources */,
 				C9DC548D2356FD4400CA7FE9 /* ChatInfoAgentTableViewCell.xib in Resources */,
 				C9DC54572356FD4300CA7FE9 /* PaymentItemDescriptionCell.xib in Resources */,
+				EE8D669023D808F80014DA6E /* TitilliumWeb-LightItalic.ttf in Resources */,
 				C9DC54382356FD4300CA7FE9 /* QuickReplyButtonCollectionViewCell.xib in Resources */,
 				C965D529237027FA00100E4B /* CustomerPaymentCardCell.xib in Resources */,
 				C9DC54732356FD4300CA7FE9 /* OutgoingAudioTableViewCell.xib in Resources */,
@@ -2255,11 +2302,16 @@
 				C9DC544F2356FD4300CA7FE9 /* IncomingImageCell.xib in Resources */,
 				EE65DDDE23B1DDB5000B658B /* PromotionTableViewCell.xib in Resources */,
 				C9FAF60C23681AC90089DBFC /* InformationView.xib in Resources */,
+				EE8D669223D808F80014DA6E /* TitilliumWeb-Light.ttf in Resources */,
+				EE8D668C23D808F80014DA6E /* TitilliumWeb-ExtraLight.ttf in Resources */,
+				EE8D669123D808F80014DA6E /* TitilliumWeb-Italic.ttf in Resources */,
+				EE8D668F23D808F80014DA6E /* TitilliumWeb-SemiBoldItalic.ttf in Resources */,
 				C9DC543F2356FD4300CA7FE9 /* OutgoingImageCell.xib in Resources */,
 				C9DC54602356FD4300CA7FE9 /* SupportMessageTableViewCell.xib in Resources */,
 				C9DC54792356FD4300CA7FE9 /* IncomingVideoTableViewCell.xib in Resources */,
 				C9DC548A2356FD4400CA7FE9 /* IncomingVideoCallMessageTableViewCell.xib in Resources */,
 				C9DC54972356FD4400CA7FE9 /* BroadCastTextFieldCell.xib in Resources */,
+				EE8D668B23D808F80014DA6E /* TitilliumWeb-SemiBold.ttf in Resources */,
 				C982E421238D37980080B375 /* ProfileDetailCell.xib in Resources */,
 				C9DC54362356FD4300CA7FE9 /* AgentHomeCollectionViewCell.xib in Resources */,
 				C9DC549F2356FD4400CA7FE9 /* Assets.xcassets in Resources */,

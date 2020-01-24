@@ -38,6 +38,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     // MARK: - LIFECYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         navigationSetUp()
         uiSetup()
         addObservers()
@@ -61,6 +62,16 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         }
         self.navigationController?.setTheme()
         self.navigationController?.isNavigationBarHidden = false
+        
+        self.tabBarController?.hidesBottomBarWhenPushed = true
+        self.tabBarController?.tabBar.isHidden = false
+        self.tabBarController?.tabBar.layer.zPosition = 0
+    }
+    
+    override func viewWillLayoutSubviews() {
+        self.tabBarController?.hidesBottomBarWhenPushed = true
+        self.tabBarController?.tabBar.isHidden = false
+        self.tabBarController?.tabBar.layer.zPosition = 0
     }
     
     @IBAction func newConversationClicked(_ sender: Any) {
@@ -126,8 +137,15 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         newConversationBiutton.isHidden = !HippoProperty.current.enableNewConversationButton
         newConversationBiutton.isEnabled = HippoProperty.current.enableNewConversationButton
         
+        DispatchQueue.main.async {
+            let gradient = CAGradientLayer()
+            gradient.frame = self.newConversationBiutton.bounds
+            gradient.colors = [theme.gradientTopColor.cgColor, theme.gradientBottomColor.cgColor]
+            self.newConversationBiutton.layer.insertSublayer(gradient, at: 0)
+        }
+        
         newConversationBiutton.setTitleColor(.white, for: .normal)
-        newConversationBiutton.backgroundColor = theme.themeColor
+       // newConversationBiutton.backgroundColor = theme.themeColor
         newConversationBiutton.layer.cornerRadius = newConversationBiutton.bounds.height / 2
         newConversationBiutton.layer.masksToBounds = true
         newConversationBiutton.titleLabel?.font = theme.newConversationButtonFont
@@ -158,7 +176,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         
         notificationButton.tintColor = theme.notificationButtonTintColor ?? theme.headerTextColor
         
-        self.navigationItem.rightBarButtonItems = [logoutButton,notificationButton]
+        self.navigationItem.rightBarButtonItems = [logoutButton]
     }
     @objc func logoutButtonClicked() {
         showOptionAlert(title: "", message: "Are you sure, you want to logout?", successButtonName: "YES", successComplete: { (_) in

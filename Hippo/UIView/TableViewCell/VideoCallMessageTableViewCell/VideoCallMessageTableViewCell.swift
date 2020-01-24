@@ -31,7 +31,8 @@ class VideoCallMessageTableViewCell: MessageTableViewCell {
     @IBOutlet weak var messageBackgroundView: UIView!
     @IBOutlet weak var callDurationLabel: UILabel!
    
-   
+    @IBOutlet weak var phoneIcon: UIImageView!
+    
    weak var delegate: VideoCallMessageTableViewCellDelegate?
    
    // MARK: - View Life Cycle
@@ -64,8 +65,15 @@ class IncomingVideoCallMessageTableViewCell: VideoCallMessageTableViewCell {
    
    override func awakeFromNib() {
       super.awakeFromNib()
-      
-      messageBackgroundView.backgroundColor = HippoConfig.shared.theme.incomingChatBoxColor
+    
+      messageBackgroundView.layer.cornerRadius = 10
+      messageBackgroundView.backgroundColor = HippoConfig.shared.theme.callAgainColor
+    
+    if #available(iOS 11.0, *) {
+        messageBackgroundView.layer.maskedCorners = [.layerMaxXMinYCorner,.layerMinXMaxYCorner,.layerMaxXMaxYCorner]
+    } else {
+        // Fallback on earlier versions
+    }
    }
 
    
@@ -73,11 +81,26 @@ class IncomingVideoCallMessageTableViewCell: VideoCallMessageTableViewCell {
         super.intalizeCell(with: message, isIncomingView: true)
         
         if message.isMissedCall {
-            messageLabel.textColor = UIColor.red
+            
+            messageBackgroundView.backgroundColor = HippoConfig.shared.theme.missedCallColor
+            callAgainButton.setTitle("Call Back", for: .normal)
+            phoneIcon.image = UIImage(named: "missed")
+            phoneIcon.tintColor = UIColor.white
+            
+            
         } else {
-            messageLabel.textColor =  HippoConfig.shared.theme.incomingMsgColor
+           // messageLabel.textColor =  HippoConfig.shared.theme.incomingMsgColor
+            
+            messageBackgroundView.backgroundColor = HippoConfig.shared.theme.callAgainColor
+            
+            callAgainButton.setTitle("Call Again", for: .normal)
+            
+            phoneIcon.image = UIImage(named: "incomming")
         }
+        
+        messageLabel.textColor = UIColor.white
         messageLabel.text = message.getVideoCallMessage(otherUserName: "🎥")
+        callAgainButton.setTitleColor(UIColor.white, for: .normal)
         
         retryButtonHeight.constant = isCallingEnabled ? 35 : 0
         callAgainButton.isEnabled = isCallingEnabled
@@ -95,6 +118,15 @@ class OutgoingVideoCallMessageTableViewCell: VideoCallMessageTableViewCell {
       super.awakeFromNib()
       
       messageBackgroundView.backgroundColor = HippoConfig.shared.theme.outgoingChatBoxColor
+    
+    messageBackgroundView.layer.cornerRadius = 10
+    
+    if #available(iOS 11.0, *) {
+        messageBackgroundView.layer.maskedCorners = [.layerMinXMinYCorner,.layerMinXMaxYCorner,.layerMaxXMaxYCorner]
+    } else {
+        // Fallback on earlier versions
+    }
+    
    }
    
    
@@ -102,11 +134,21 @@ class OutgoingVideoCallMessageTableViewCell: VideoCallMessageTableViewCell {
         self.message = message
         
         if message.isMissedCall {
-            messageLabel.textColor = HippoConfig.shared.theme.outgoingMsgColor
+           
+            callAgainButton.setTitle("Call Back", for: .normal)
+            phoneIcon.image = UIImage(named: "missed")
+            phoneIcon.tintColor = UIColor.black
+            
+            
         } else {
-            messageLabel.textColor = HippoConfig.shared.theme.outgoingMsgColor
+           // messageLabel.textColor = HippoConfig.shared.theme.outgoingMsgColor
+            callAgainButton.setTitle("Call Again", for: .normal)
+            
+            phoneIcon.image = UIImage(named: "outgoing")
+            phoneIcon.tintColor = UIColor.black
         }
         
+       //  messageLabel.textColor = UIColor.white
         messageLabel.text = message.getVideoCallMessage(otherUserName: otherUserName)
         
         retryButtonHeight.constant = isCallingEnabled ? 35 : 0
@@ -127,13 +169,13 @@ extension HippoMessage {
         if let activeVideoCallID = CallManager.shared.findActiveCallUUID(), messageUniqueID == activeVideoCallID {
             return "Ongoing \(callTypeString) call"
         }
-        let tempOtherUser = otherUserName.isEmpty ? "Other user" : otherUserName
+       // let tempOtherUser = otherUserName.isEmpty ? "Other user" : otherUserName
         
         if isMissedCall {
             if isSentByMe() {
-                return "\(tempOtherUser) missed a \(callTypeString) call with you"
+                return "Missed \(callTypeString) Call"//"\(tempOtherUser) missed a \(callTypeString) call with you"
             } else {
-                return "You missed a \(callTypeString) call with \(senderFullName)"
+                return "Missed \(callTypeString) Call"//"You missed a \(callTypeString) call with \(senderFullName)"
             }
         } else {
             return "The \(callTypeString) call ended."

@@ -127,6 +127,12 @@ protocol NewChatSentDelegate: class {
         reloadVisibleCellsToStartActivityIndicator()
         HippoConfig.shared.notifyDidLoad()
     }
+    
+    override func viewWillLayoutSubviews() {
+        self.tabBarController?.hidesBottomBarWhenPushed = true
+        self.tabBarController?.tabBar.isHidden = true
+        self.tabBarController?.tabBar.layer.zPosition = -1
+    }
 
     override func closeKeyBoard() {
         if messageTextView.isFirstResponder {
@@ -185,9 +191,9 @@ protocol NewChatSentDelegate: class {
         if HippoConfig.shared.theme.sendBtnIcon != nil {
             sendMessageButton.setImage(HippoConfig.shared.theme.sendBtnIcon, for: .normal)
             
-            if let tintColor = HippoConfig.shared.theme.sendBtnIconTintColor {
-                sendMessageButton.tintColor = tintColor
-            }
+//            if let tintColor = HippoConfig.shared.theme.sendBtnIconTintColor {
+               sendMessageButton.tintColor = HippoConfig.shared.theme.gradientTopColor
+//            }
             
             sendMessageButton.setTitle("", for: .normal)
         } else { sendMessageButton.setTitle("SEND", for: .normal) }
@@ -195,9 +201,9 @@ protocol NewChatSentDelegate: class {
         if HippoConfig.shared.theme.addButtonIcon != nil {
             addFileButtonAction.setImage(HippoConfig.shared.theme.addButtonIcon, for: .normal)
             
-            if let tintColor = HippoConfig.shared.theme.addBtnTintColor {
-                addFileButtonAction.tintColor = tintColor
-            }
+//            if let tintColor = HippoConfig.shared.theme.addBtnTintColor {
+                addFileButtonAction.tintColor = HippoConfig.shared.theme.gradientTopColor
+//            }
             
             addFileButtonAction.setTitle("", for: .normal)
         } else { addFileButtonAction.setTitle("ADD", for: .normal) }
@@ -1205,11 +1211,11 @@ extension ConversationsViewController {
         availableWidthSpace -= (isProfileImageEnabled && !isOutgoingMsg) ? 35 : 0
         
         let availableBoxSize = CGSize(width: availableWidthSpace,
-                                      height: CGFloat.greatestFiniteMagnitude)
+       height: CGFloat.greatestFiniteMagnitude)
         
         
         
-        var cellTotalHeight: CGFloat = 5 + 2.5 + 3.5 + 12 + 7
+        var cellTotalHeight: CGFloat = 5 + 2.5 + 3.5 + 12 + 7 + 23
       
         if isOutgoingMsg == true {
             

@@ -18,7 +18,7 @@ extension UIImageView {
                        textAttributes: [NSAttributedString.Key: Any]? = nil) {
         
         let image = imageSnap(text: string != nil ? string?.initials : "",
-                              color: color ?? .random,
+                              color:.random,
                               circular: circular,
                               textAttributes:textAttributes)
         
@@ -53,8 +53,7 @@ extension UIImageView {
         
         // Text
         if let text = text {
-            let attributes = textAttributes ?? [NSAttributedString.Key.foregroundColor: UIColor.white,
-                                                NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15.0)]
+            let attributes = textAttributes ?? [NSAttributedString.Key.foregroundColor: UIColor.white,NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20.0)]
             
             let textSize = text.size(withAttributes: attributes)
             let bounds = self.bounds

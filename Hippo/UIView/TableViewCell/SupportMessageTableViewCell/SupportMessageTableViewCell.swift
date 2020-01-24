@@ -15,7 +15,7 @@ class SupportMessageTableViewCell: MessageTableViewCell {
     @IBOutlet weak var supportMessageTextView: UITextView!
     @IBOutlet weak var topConstraint: NSLayoutConstraint!
     @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
-    
+    @IBOutlet weak var nameLabel: UILabel!
     
     override func awakeFromNib() {
         
@@ -56,20 +56,36 @@ class SupportMessageTableViewCell: MessageTableViewCell {
         timeLabel.textAlignment = .left
         timeLabel.textColor = HippoConfig.shared.theme.incomingMsgDateTextColor
         
+        nameLabel.font = HippoConfig.shared.theme.senderNameFont
+        
+        DispatchQueue.main.async {
+            let gradient = CAGradientLayer()
+            gradient.frame = self.bgView.bounds
+            gradient.colors = [HippoConfig.shared.theme.gradientTopColor.cgColor, HippoConfig.shared.theme.gradientBottomColor.cgColor]
+            self.bgView.layer.insertSublayer(gradient, at: 0)
+            
+           // self.shadowView.backgroundColor = UIColor.red
+        }
+        
         bgView.layer.cornerRadius = 10
-        bgView.backgroundColor = HippoConfig.shared.theme.incomingChatBoxColor
-        bgView.layer.borderWidth = HippoConfig.shared.theme.chatBoxBorderWidth
-        bgView.layer.borderColor = HippoConfig.shared.theme.chatBoxBorderColor.cgColor
+        bgView.clipsToBounds = true
+        if #available(iOS 11.0, *) {
+            bgView.layer.maskedCorners = [.layerMaxXMinYCorner,.layerMinXMaxYCorner,.layerMaxXMaxYCorner]
+        } else {
+            // Fallback on earlier versions
+        }
+        
+        //bgView.backgroundColor = HippoConfig.shared.theme.incomingChatBoxColor
+       // bgView.layer.borderWidth = HippoConfig.shared.theme.chatBoxBorderWidth
+      //  bgView.layer.borderColor = HippoConfig.shared.theme.chatBoxBorderColor.cgColor
         
         supportMessageTextView.backgroundColor = .clear
         supportMessageTextView.textContainer.lineFragmentPadding = 0
         supportMessageTextView.textContainerInset = .zero
     }
     
-    func configureCellOfSupportIncomingCell(resetProperties: Bool,
-                                            attributedString: NSMutableAttributedString,
-                                            channelId: Int,
-                                            chatMessageObject: HippoMessage) -> SupportMessageTableViewCell {
+    func configureCellOfSupportIncomingCell(resetProperties: Bool,attributedString: NSMutableAttributedString,channelId: Int,chatMessageObject: HippoMessage) -> SupportMessageTableViewCell
+    {
         if resetProperties { resetPropertiesOfSupportCell() }
         
         message?.messageRefresed = nil
@@ -83,10 +99,12 @@ class SupportMessageTableViewCell: MessageTableViewCell {
             }
         }
         
+        self.nameLabel.text = message?.senderFullName
         setupBoxBackground(messageType: messageType)
         
         setTime()
         
+
         supportMessageTextView.attributedText = attributedString
         setSenderImageView()
         return self

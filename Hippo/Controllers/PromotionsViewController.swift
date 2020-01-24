@@ -171,7 +171,13 @@ extension PromotionsViewController: UITableViewDelegate,UITableViewDataSource
             {
                 HippoConfig.shared.isSkipBot = true
             }
-            HippoConfig.shared.openChatScreen(withLabelId: Int(data[indexPath.row].channelID) ?? 0)
+            //HippoConfig.shared.openChatScreen(withLabelId: Int(data[indexPath.row].channelID) ?? 0)
+            
+            let labelID = d.channelID
+            let conversationViewController = ConversationsViewController.getWith(labelId:"\(labelID)")
+        self.navigationController?.pushViewController(conversationViewController, animated: true)
+            
+            
         }
     }
     
