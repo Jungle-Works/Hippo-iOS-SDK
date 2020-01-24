@@ -30,6 +30,13 @@ class HippoChecker {
         }
     }
     
+    func presentPromotionalPushController()
+    {
+        FuguFlowManager.shared.presentPromotionalpushController()
+    }
+    
+    
+    
     func shouldCollectDataFromUser() -> Bool {
         let form = HippoProperty.current.forms
         guard !form.isEmpty else {

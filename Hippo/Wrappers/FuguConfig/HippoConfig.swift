@@ -56,6 +56,7 @@ struct SERVERS {
     internal var agentDetail: AgentDetail?
     internal var strings = HippoStrings()
     
+    
     open var isPaymentRequestEnabled: Bool {
         return HippoProperty.current.isPaymentRequestEnabled
     }
@@ -79,7 +80,7 @@ struct SERVERS {
     internal var referenceId = -1
     internal var appType: String?
     internal var credentialType = FuguCredentialType.defaultType
-    
+    var isSkipBot:Bool = false
     internal var baseUrl = SERVERS.liveUrl
     internal var fayeBaseURLString: String = SERVERS.liveFaye
     
@@ -222,6 +223,12 @@ struct SERVERS {
         AgentDetail.setAgentStoredData()
         checker.presentChatsViewController()
     }
+    
+    public func presentPromotionalPushController()
+    {
+        checker.presentPromotionalPushController()
+    }
+    
     public func initiateBroadcast(displayName: String = "") {
         guard appUserType == .agent, isBroadcastEnabled else {
             return

@@ -48,6 +48,15 @@ class FuguFlowManager: NSObject {
       visibleController?.present(navigationController, animated: animation, completion: nil)
    }
     
+    func presentPromotionalpushController(animation: Bool = true) {
+        guard let navigationController = storyboard.instantiateViewController(withIdentifier: "FuguPromotionalNavigationController") as? UINavigationController else {
+            return
+        }
+        let visibleController = getLastVisibleController()
+        
+        visibleController?.present(navigationController, animated: animation, completion: nil)
+    }
+    
     func presentNLevelViewController(animation: Bool = true) {
         self.openFAQScreen(animation: animation)
     }

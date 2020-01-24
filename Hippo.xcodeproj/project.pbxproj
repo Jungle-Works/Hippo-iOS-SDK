@@ -272,6 +272,10 @@
 		C9FB6FB821EE10CD00B72CEA /* Benchmarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FB6FA621EE10CD00B72CEA /* Benchmarker.swift */; };
 		C9FB6FDC21EEF04900B72CEA /* TWRDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FB6FD921EEF04800B72CEA /* TWRDownloadManager.m */; };
 		C9FB6FDD21EEF04900B72CEA /* TWRDownloadObject.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FB6FDA21EEF04800B72CEA /* TWRDownloadObject.m */; };
+		EE683A4123DAB3A000177913 /* PromotionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE683A4023DAB3A000177913 /* PromotionsViewController.swift */; };
+		EE683A4523DAB3F700177913 /* PromotionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE683A4323DAB3F700177913 /* PromotionTableViewCell.swift */; };
+		EE683A4623DAB3F700177913 /* PromotionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE683A4423DAB3F700177913 /* PromotionTableViewCell.xib */; };
+		EE683A4823DAB43200177913 /* PromotionCellDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE683A4723DAB43100177913 /* PromotionCellDataModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -549,6 +553,10 @@
 		C9FB6FDA21EEF04800B72CEA /* TWRDownloadObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWRDownloadObject.m; sourceTree = "<group>"; };
 		C9FB6FDB21EEF04800B72CEA /* TWRDownloadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWRDownloadManager.h; sourceTree = "<group>"; };
 		E0E4A9E31B1EC7F72EC2F38D /* Pods_Fugu.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Fugu.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EE683A4023DAB3A000177913 /* PromotionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromotionsViewController.swift; sourceTree = "<group>"; };
+		EE683A4323DAB3F700177913 /* PromotionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromotionTableViewCell.swift; sourceTree = "<group>"; };
+		EE683A4423DAB3F700177913 /* PromotionTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PromotionTableViewCell.xib; sourceTree = "<group>"; };
+		EE683A4723DAB43100177913 /* PromotionCellDataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromotionCellDataModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -606,6 +614,7 @@
 		C936006722EEC5EA00A6C291 /* TableViewCell */ = {
 			isa = PBXGroup;
 			children = (
+				EE683A4223DAB3F700177913 /* PromotionTableViewCell */,
 				C936006822EEC5EA00A6C291 /* OutgoingImageCell */,
 				C936006B22EEC5EA00A6C291 /* InAppCategoryCell */,
 				C936006E22EEC5EA00A6C291 /* HippoActionMessage */,
@@ -1218,6 +1227,7 @@
 		C9B77D8921A01B060092848D /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				EE683A4723DAB43100177913 /* PromotionCellDataModel.swift */,
 				C976E6912215516300B9F79E /* FormData.swift */,
 				C9F6D46F21C8B47100EA23E6 /* HippoStrings.swift */,
 				C9F6D47021C8B47100EA23E6 /* HippoTheme.swift */,
@@ -1276,6 +1286,7 @@
 		C9B77DAD21A01B060092848D /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				EE683A4023DAB3A000177913 /* PromotionsViewController.swift */,
 				C9B77DAE21A01B060092848D /* NLevelViewController.swift */,
 				C9B77DAF21A01B060092848D /* HippoConversationViewController.swift */,
 				C9B77DB021A01B060092848D /* BroadCasting */,
@@ -1516,6 +1527,15 @@
 			path = TRWDownloadManager;
 			sourceTree = "<group>";
 		};
+		EE683A4223DAB3F700177913 /* PromotionTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				EE683A4323DAB3F700177913 /* PromotionTableViewCell.swift */,
+				EE683A4423DAB3F700177913 /* PromotionTableViewCell.xib */,
+			);
+			path = PromotionTableViewCell;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1632,6 +1652,7 @@
 				C93600F522EEC5EA00A6C291 /* CategoryTableViewCell.xib in Resources */,
 				C9B77EDD21A01B070092848D /* Montserrat-SemiBold.otf in Resources */,
 				C9B77E1D21A01B060092848D /* QuickReplyButtonCollectionViewCell.xib in Resources */,
+				EE683A4623DAB3F700177913 /* PromotionTableViewCell.xib in Resources */,
 				C936014622EEC5EA00A6C291 /* BroadCastTextFieldCell.xib in Resources */,
 				C936012C22EEC5EA00A6C291 /* OutgoingDocumentTableViewCell.xib in Resources */,
 				C936013A22EEC5EA00A6C291 /* ShowMoreTableViewCell.xib in Resources */,
@@ -1784,6 +1805,7 @@
 				C9FB6FDD21EEF04900B72CEA /* TWRDownloadObject.m in Sources */,
 				C9B77E8B21A01B060092848D /* HippoSupportList.swift in Sources */,
 				C9B77E6521A01B060092848D /* UIColor+Extension.swift in Sources */,
+				EE683A4523DAB3F700177913 /* PromotionTableViewCell.swift in Sources */,
 				C9F6D47221C8B47100EA23E6 /* HippoStrings.swift in Sources */,
 				C93600F322EEC5EA00A6C291 /* OutgoingImageCell.swift in Sources */,
 				C9B77E8421A01B060092848D /* FuguAddress.swift in Sources */,
@@ -1808,6 +1830,7 @@
 				C936010C22EEC5EA00A6C291 /* ConversationView.swift in Sources */,
 				C9B77EA921A01B070092848D /* FrameObserverAccessaryView.swift in Sources */,
 				C9B77E7921A01B060092848D /* FuguActionableMessage.swift in Sources */,
+				EE683A4823DAB43200177913 /* PromotionCellDataModel.swift in Sources */,
 				C9B77ECB21A01B070092848D /* IQToolbar.swift in Sources */,
 				C9B77E7021A01B060092848D /* PushInfo.swift in Sources */,
 				C9B77ED021A01B070092848D /* IQKeyboardManagerConstants.swift in Sources */,
@@ -1842,6 +1865,7 @@
 				C9FB6FAB21EE10CD00B72CEA /* CoreEnum.swift in Sources */,
 				C9B77E8521A01B060092848D /* HippoMessage.swift in Sources */,
 				C9B77ECF21A01B070092848D /* IQKeyboardManagerConstantsInternal.swift in Sources */,
+				EE683A4123DAB3A000177913 /* PromotionsViewController.swift in Sources */,
 				C9B77EC221A01B070092848D /* Filter.swift in Sources */,
 				C9B77EB221A01B070092848D /* Kingfisher.swift in Sources */,
 				C9B77E1621A01B060092848D /* FuguConfig.swift in Sources */,

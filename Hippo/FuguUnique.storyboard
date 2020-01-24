@@ -632,7 +632,7 @@
                                 </constraints>
                             </view>
                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" image="app_loader_shape" translatesAutoresizingMaskIntoConstraints="NO" id="eZG-Yq-Sel">
-                                <rect key="frame" x="167.5" y="313.5" width="40" height="40"/>
+                                <rect key="frame" x="179.5" y="325.5" width="16" height="16"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q6z-xO-SMj">
                                 <rect key="frame" x="164.5" y="322.5" width="46.5" height="22.5"/>
@@ -1912,6 +1912,63 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hdz-Ho-Xym" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-402" y="3260"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="cZK-eT-AMT">
+            <objects>
+                <navigationController storyboardIdentifier="FuguPromotionalNavigationController" id="VeR-0t-2Rq" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="x3o-cy-0V3">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.24086651210000001" green="0.27939924599999999" blue="0.94049584870000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="mdQ-67-CKh" kind="relationship" relationship="rootViewController" id="S69-FP-dIE"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mMw-wO-iRf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="953" y="-1962"/>
+        </scene>
+        <!--Promotions View Controller-->
+        <scene sceneID="4cd-Nn-mSo">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HXV-tE-GIe" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController storyboardIdentifier="PromotionsViewController" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="mdQ-67-CKh" customClass="PromotionsViewController" customModule="Hippo" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="np4-M2-Pvw"/>
+                        <viewControllerLayoutGuide type="bottom" id="qIZ-E0-00c"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="nDT-Sc-VO4">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Gkx-KU-Tjc">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="mdQ-67-CKh" id="2cG-sU-exG"/>
+                                    <outlet property="delegate" destination="mdQ-67-CKh" id="tjF-ST-bPP"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Gkx-KU-Tjc" firstAttribute="top" secondItem="nDT-Sc-VO4" secondAttribute="top" id="84w-hw-Q3R"/>
+                            <constraint firstItem="Gkx-KU-Tjc" firstAttribute="leading" secondItem="nDT-Sc-VO4" secondAttribute="leading" id="Vt0-uo-bcz"/>
+                            <constraint firstAttribute="trailing" secondItem="Gkx-KU-Tjc" secondAttribute="trailing" id="cUf-vv-a4G"/>
+                            <constraint firstItem="qIZ-E0-00c" firstAttribute="top" secondItem="Gkx-KU-Tjc" secondAttribute="bottom" id="fIh-vz-fiM"/>
+                        </constraints>
+                    </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="jXj-Ta-gY8"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="promotionsTableView" destination="Gkx-KU-Tjc" id="ZPZ-BN-XYJ"/>
+                    </connections>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="1865" y="-1962"/>
         </scene>
     </scenes>
     <resources>
