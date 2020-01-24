@@ -12,8 +12,8 @@ let HippoSDKSource = 1
 let Device_Type_iOS = 2
 var userDetailData = [String: Any]()
 
-let fuguAppVersion = "2.1.2"
-let versionCode = 302
+let fuguAppVersion = "2.1.3"
+let versionCode = 303
 
 
 /*
@@ -69,5 +69,7 @@ let versionCode = 302
  301 *** 2.1.1 = ticket attributes
  
  302 *** 2.1.2 = failed pod upload
+ 
+ 303 *** 2.1.3 = promotional push
 
  */
