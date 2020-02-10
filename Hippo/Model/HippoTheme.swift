@@ -47,9 +47,11 @@ public struct ConversationListTheme {
     
     var shouldEnableDisplayUserImage: Bool = true
     
-    open var themeColor: UIColor =  #colorLiteral(red: 0.3843137255, green: 0.4901960784, blue: 0.8823529412, alpha: 1)
+    //open var themeColor: UIColor =  #colorLiteral(red: 0.3843137255, green: 0.4901960784, blue: 0.8823529412, alpha: 1)
+    open var themeColor: UIColor = UIColor(red: 109/255, green: 212/255, blue: 0/255, alpha: 1)
     
-    var gradientTopColor = UIColor(red: 77/255, green: 124/255, blue: 254/255, alpha: 1)
+    var gradientTopColor = UIColor(red: 109/255, green: 212/255, blue: 0/255, alpha: 1)//UIColor(red: 77/255, green: 124/255, blue: 254/255, alpha: 1)
+    
     var gradientBottomColor = UIColor(red: 57/255, green: 58/255, blue: 238/255, alpha: 1)
     
     let gradientBackgroundColor = UIColor(red: 77/255, green: 124/255, blue: 254/200, alpha: 0.05)
@@ -65,7 +67,7 @@ public struct ConversationListTheme {
     open var starRatingColor: UIColor = UIColor.yellow
     
     open var newConversationButtonFont: UIFont? = UIFont.boldSystemFont(ofSize: 18.0)
-    open var newConversationText = "Talk To Dietitian >"
+    open var newConversationText = "Consult Now >"//"Talk To Dietitian >"
     
     open var darkThemeTextColor = UIColor.white
     open var lightThemeTextColor = UIColor.black

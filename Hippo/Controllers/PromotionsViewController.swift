@@ -29,16 +29,20 @@ class PromotionsViewController: UIViewController {
     var refreshControl = UIRefreshControl()
     var count = 20
     var isMoreData = false
-    
+    var channelIdsArr = [Int]()
+    var informationView: InformationView?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "ANNOUNCEMENTS"
-       setupRefreshController()
+        self.title = "Notifications"
+        
+        self.deleteAllAnnouncementsButton()
+        
+        setupRefreshController()
         promotionsTableView.backgroundColor = HippoConfig.shared.theme.multiselectUnselectedButtonColor
         
         
-    promotionsTableView.register(UINib(nibName: "PromotionTableViewCell", bundle: FuguFlowManager.bundle), forCellReuseIdentifier: "PromotionTableViewCell")
+        promotionsTableView.register(UINib(nibName: "PromotionTableViewCell", bundle: FuguFlowManager.bundle), forCellReuseIdentifier: "PromotionTableViewCell")
         promotionsTableView.rowHeight = UITableView.automaticDimension
         promotionsTableView.estimatedRowHeight = 50
         if let c = customCell {
@@ -61,7 +65,41 @@ class PromotionsViewController: UIViewController {
     override  func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = false
+        self.promotionsTableView.isHidden = false
         self.getAnnouncements(endOffset: 19, startOffset: 0)
+        
+        self.setUpTabBar()
+        
+    }
+
+    override func viewWillLayoutSubviews() {
+        self.setUpTabBar()
+    }
+    
+    func setUpTabBar(){
+        self.tabBarController?.hidesBottomBarWhenPushed = true
+        self.tabBarController?.tabBar.isHidden = false
+        self.tabBarController?.tabBar.layer.zPosition = 0
+        self.tabBarController?.tabBar.items?[1].title = "Notifications"
+    }
+    
+    func deleteAllAnnouncementsButton() {
+        let theme = HippoConfig.shared.theme
+        let deleteAllAnnouncementsButton = UIBarButtonItem(image: UIImage(named: "ic_delete"), landscapeImagePhone: nil, style: .done, target: self, action: #selector(deleteAllAnnouncementsButtonClicked))
+        deleteAllAnnouncementsButton.tintColor = theme.logoutButtonTintColor ?? theme.headerTextColor
+        self.navigationItem.rightBarButtonItem = deleteAllAnnouncementsButton
+        self.navigationItem.rightBarButtonItems = [deleteAllAnnouncementsButton]
+        
+    }
+    @objc func deleteAllAnnouncementsButtonClicked() {
+        guard self.navigationItem.rightBarButtonItem?.tintColor != .clear else {
+            return
+        }
+        showOptionAlert(title: "", message: "Are you sure, you want to clear all Notifications?", successButtonName: "YES", successComplete: { (_) in
+            
+            self.clearAnnouncements(indexPath: IndexPath(row: 0, section: 0), isDeleteAllStatus: 1)
+            
+        }, failureButtonName: "NO", failureComplete: nil)
     }
     
     func getAnnouncements(endOffset:Int,startOffset:Int) {
@@ -96,11 +134,78 @@ class PromotionsViewController: UIViewController {
                     }
                     
                 }
-                self.promotionsTableView.reloadData()
+                
+                self.noNotificationsFound()
+                
+                //self.promotionsTableView.reloadData()
+                
+            }
+            
+        }
+
+    }
+    
+    func noNotificationsFound(){
+        if self.data.count <= 0{
+            self.navigationItem.rightBarButtonItem?.tintColor = .clear
+            if informationView == nil {
+                informationView = InformationView.loadView(self.view.bounds, delegate: self)
+                informationView?.informationLabel.text = "No Notifications found"
+            }
+            self.promotionsTableView.isHidden = true
+            self.informationView?.isHidden = false
+            self.view.addSubview(informationView!)
+        }else{
+            self.promotionsTableView.isHidden = false
+            self.informationView?.isHidden = true
+            self.navigationItem.rightBarButtonItem?.tintColor = HippoConfig.shared.theme.logoutButtonTintColor ?? HippoConfig.shared.theme.headerTextColor
+        }
+        
+        DispatchQueue.main.async {
+            self.promotionsTableView.reloadData()
+        }
+        
+    }
+    
+    func clearAnnouncements(indexPath: IndexPath, isDeleteAllStatus: Int){
+    
+        var params = [String : Any]()
+        if isDeleteAllStatus == 0{
+            //self.channelIdsArr.append(data[indexPath.row].channelID)
+            //self.channelIdsArr[0] = data[indexPath.row].channelID
+            self.channelIdsArr.insert(data[indexPath.row].channelID, at: 0)
+            
+            params = ["app_secret_key":HippoConfig.shared.appSecretKey,"en_user_id":HippoUserDetail.fuguEnUserID ?? "","channel_ids":self.channelIdsArr,"delete_all_announcements":isDeleteAllStatus] as [String : Any]
+        }else{
+            params = ["app_secret_key":HippoConfig.shared.appSecretKey,"en_user_id":HippoUserDetail.fuguEnUserID ?? "","delete_all_announcements":isDeleteAllStatus] as [String : Any]
+        }
+        
+        HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: AgentEndPoints.clearAnnouncements.rawValue) { (response, error, _, statusCode) in
+
+            self.channelIdsArr.removeAll()
+            
+            if error == nil
+            {
+                //let r = response as? NSDictionary
+                if isDeleteAllStatus == 0{
+                    self.promotionsTableView.beginUpdates()
+                    self.data.remove(at: indexPath.row)
+                    self.promotionsTableView.deleteRows(at: [indexPath], with: .fade)
+                    self.promotionsTableView.endUpdates()
+                }else{
+                    self.data.removeAll()
+                    //self.promotionsTableView.reloadData()
+                    //DispatchQueue.main.async {
+                    //    self.promotionsTableView.reloadData()
+                    //}
+                }
+                
+                self.noNotificationsFound()
+                
             }
         }
-            
     }
+    
 
 }
 
@@ -175,7 +280,7 @@ extension PromotionsViewController: UITableViewDelegate,UITableViewDataSource
             
             let labelID = d.channelID
             let conversationViewController = ConversationsViewController.getWith(labelId:"\(labelID)")
-        self.navigationController?.pushViewController(conversationViewController, animated: true)
+            self.navigationController?.pushViewController(conversationViewController, animated: true)
             
             
         }
@@ -195,4 +300,26 @@ extension PromotionsViewController: UITableViewDelegate,UITableViewDataSource
         }
     }
    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
+        return "Clear"
+    }
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if (editingStyle == .delete) {
+           
+            showOptionAlert(title: "", message: "Are you sure, you want to clear Notification?", successButtonName: "YES", successComplete: { (_) in
+                
+                self.clearAnnouncements(indexPath: indexPath, isDeleteAllStatus: 0)
+                
+            }, failureButtonName: "NO", failureComplete: nil)
+        
+        }
+    }
+    
+}
+
+extension PromotionsViewController: InformationViewDelegate {
+    
 }

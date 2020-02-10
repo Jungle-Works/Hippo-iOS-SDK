@@ -54,6 +54,13 @@ protocol NewChatSentDelegate: class {
    @IBOutlet weak var loadMoreActivityTopContraint: NSLayoutConstraint!
    @IBOutlet weak var loadMoreActivityIndicator: UIActivityIndicatorView!
     
+    var transparentView = UIView()
+    var lineLabel = UILabel()
+    var customTableView = UITableView()
+    let height: CGFloat = 125//250
+    var actionSheetTitleArr = ["Photo & Video Library","Camera"]
+    var actionSheetImageArr = ["Library","Camera"]
+    
     var hieghtOfNavigationBar: CGFloat = 0
     
    // MARK: - Computed Properties
@@ -77,8 +84,17 @@ protocol NewChatSentDelegate: class {
    
    // MARK: - LIFECYCLE
     override func viewDidLoad() {
-        self.setTitleForCustomNavigationBar()
+        
         super.viewDidLoad()
+        
+        customTableView.isScrollEnabled = false//true
+        customTableView.separatorStyle = .none
+        customTableView.delegate = self
+        customTableView.dataSource = self
+        customTableView.register(CustomTableViewCell.self, forCellReuseIdentifier: "CustomTableViewCell")
+        
+        self.setTitleForCustomNavigationBar()
+        //super.viewDidLoad()
         addObserver()
         setNavBarHeightAccordingtoSafeArea()
         configureChatScreen()
@@ -104,6 +120,9 @@ protocol NewChatSentDelegate: class {
         
         populateTableViewWithChannelData()
         fetchMessagesFrom1stPage()
+                
+        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
+        
     }
     
    override  func viewWillAppear(_ animated: Bool) {
@@ -112,7 +131,12 @@ protocol NewChatSentDelegate: class {
       messageTextView.contentInset.top = 8
       self.navigationController?.isNavigationBarHidden = false
         tableViewChat.allowsSelection = false
-
+    
+//        if transparentView != nil{
+//            onClickTransparentView()
+//        }
+        onClickTransparentView()
+    
       handleVideoIcon()
       handleAudioIcon()
       HippoConfig.shared.notifyDidLoad()
@@ -192,7 +216,7 @@ protocol NewChatSentDelegate: class {
             sendMessageButton.setImage(HippoConfig.shared.theme.sendBtnIcon, for: .normal)
             
 //            if let tintColor = HippoConfig.shared.theme.sendBtnIconTintColor {
-               sendMessageButton.tintColor = HippoConfig.shared.theme.gradientTopColor
+               sendMessageButton.tintColor = HippoConfig.shared.theme.themeColor
 //            }
             
             sendMessageButton.setTitle("", for: .normal)
@@ -202,7 +226,7 @@ protocol NewChatSentDelegate: class {
             addFileButtonAction.setImage(HippoConfig.shared.theme.addButtonIcon, for: .normal)
             
 //            if let tintColor = HippoConfig.shared.theme.addBtnTintColor {
-                addFileButtonAction.tintColor = HippoConfig.shared.theme.gradientTopColor
+                addFileButtonAction.tintColor = HippoConfig.shared.theme.themeColor
 //            }
             
             addFileButtonAction.setTitle("", for: .normal)
@@ -300,7 +324,11 @@ protocol NewChatSentDelegate: class {
         buttonClickedOnNetworkOff()
         return
       }
-    attachmentButtonclicked(sender)
+    
+    //attachmentButtonclicked(sender)
+    closeKeyBoard()
+    self.openCustomSheet()
+    
    }
     
     func buttonClickedOnNetworkOff() {
@@ -309,6 +337,51 @@ protocol NewChatSentDelegate: class {
         }
         messageTextView.resignFirstResponder()
         showAlertForNoInternetConnection()
+    }
+    
+    func openCustomSheet(){
+        let window = UIApplication.shared.keyWindow
+        transparentView.backgroundColor = UIColor.black.withAlphaComponent(0.9)
+        let screenSize = UIScreen.main.bounds.size
+        transparentView.frame = CGRect(x: 0, y: 0, width: screenSize.width, height: screenSize.height)
+        window?.addSubview(transparentView)
+        
+        customTableView.frame = CGRect(x: 0, y: screenSize.height, width: screenSize.width, height: height)
+        customTableView.layer.cornerRadius = 10
+        if #available(iOS 11.0, *) {
+            customTableView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        } else {
+            //Fallback on earlier versions
+        }
+        window?.addSubview(customTableView)
+        
+        lineLabel.frame = CGRect(x: (screenSize.width/2) - ((screenSize.width/5)/2) , y: screenSize.height, width: screenSize.width/5, height: 6)
+        lineLabel.backgroundColor = .white
+        lineLabel.layer.masksToBounds = true
+        lineLabel.layer.cornerRadius = 4
+        window?.addSubview(lineLabel)
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(onClickTransparentView))
+        transparentView.addGestureRecognizer(tapGesture)
+        
+        let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(onClickTransparentView))
+        swipeDown.direction = UISwipeGestureRecognizer.Direction.down
+        transparentView.addGestureRecognizer(swipeDown)
+        
+        transparentView.alpha = 0
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, options: .curveEaseInOut, animations: {
+            self.transparentView.alpha = 0.5
+            self.customTableView.frame = CGRect(x: 0, y: screenSize.height - self.height, width: screenSize.width, height: self.height)
+            self.lineLabel.frame = CGRect(x: (screenSize.width/2) - ((screenSize.width/5)/2) , y: (screenSize.height - self.height) - 20, width: screenSize.width/5, height: 6)
+        }, completion: nil)
+    }
+    @objc func onClickTransparentView() {
+        let screenSize = UIScreen.main.bounds.size
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, options: .curveEaseInOut, animations: {
+            self.transparentView.alpha = 0
+            self.customTableView.frame = CGRect(x: 0, y: screenSize.height, width: screenSize.width, height: self.height)
+            self.lineLabel.frame = CGRect(x: (screenSize.width/2) - ((screenSize.width/5)/2) , y: screenSize.height, width: screenSize.width/5, height: 6)
+        }, completion: nil)
     }
     
     @IBAction func sendMessageButtonAction(_ sender: UIButton) {
@@ -736,20 +809,26 @@ protocol NewChatSentDelegate: class {
     
     override func getMessagesWith(labelId: Int, completion: ((_ success: Bool) -> Void)?) {
       
+    startLoaderAnimation()//
+        
       if FuguNetworkHandler.shared.isNetworkConnected == false {
+        stopLoaderAnimation()//
          checkNetworkConnection()
          completion?(false)
          return
       }
       
       if HippoConfig.shared.appSecretKey.isEmpty {
+        stopLoaderAnimation()//
          completion?(false)
          return
       }
         
       if channel?.messages.count == 0  || channel == nil {
+        stopLoaderAnimation()//
          startLoaderAnimation()
       } else if !isPaginationInProgress() {
+        stopLoaderAnimation()//
          startGettingNewMessages()
       }
 
@@ -1273,22 +1352,41 @@ extension ConversationsViewController: UIScrollViewDelegate {
 // MARK: - UITableView Delegates
 extension ConversationsViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        
-      if !isTypingLabelHidden {
-         return self.messagesGroupedByDate.count + 1
-      }
-      return self.messagesGroupedByDate.count
+        if tableView == customTableView{
+            return 1
+        }else{
+            if !isTypingLabelHidden {
+                return self.messagesGroupedByDate.count + 1
+            }
+            return self.messagesGroupedByDate.count
+        }
    }
    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-      if section < self.messagesGroupedByDate.count {
-         return messagesGroupedByDate[section].count
-      } else {
-         return isTypingLabelHidden ? 0 : 1
-      }
+        
+        if tableView == customTableView{
+            return actionSheetTitleArr.count
+        }else{
+            if section < self.messagesGroupedByDate.count {
+                return messagesGroupedByDate[section].count
+            } else {
+                return isTypingLabelHidden ? 0 : 1
+            }
+        }
+        
    }
    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+    if tableView == customTableView{
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "CustomTableViewCell", for: indexPath) as? CustomTableViewCell else {fatalError("Unable to deque cell")}
+        cell.selectionStyle = .none
+        cell.lbl.text = actionSheetTitleArr[indexPath.row]
+        cell.settingImage.image = UIImage(named: actionSheetImageArr[indexPath.row])
+        return cell
+
+    }else{
+        
       switch indexPath.section {
       case let typingSection where typingSection == self.messagesGroupedByDate.count && !isTypingLabelHidden:
          
@@ -1499,13 +1597,32 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
       let cell = UITableViewCell()
       cell.backgroundColor = .clear
       return cell
+        
+    }
    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if tableView == customTableView{
+            
+            self.attachmentButtonclickedOfCustomSheet(self.view, openType: actionSheetTitleArr[indexPath.row])
+
+        }else{}
+    }
 
      func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        updateTopBottomSpace(cell: cell, indexPath: indexPath)
+        if tableView == customTableView{
+        }else{
+            updateTopBottomSpace(cell: cell, indexPath: indexPath)
+        }
     }
    
      func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        if tableView == customTableView{
+            return 50
+        }else{
+        
+        
         switch indexPath.section {
         case let typingSection where typingSection == self.messagesGroupedByDate.count && !isTypingLabelHidden:
             return 34
@@ -1582,9 +1699,14 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
         default: break
         }
         return UIView.tableAutoDimensionHeight
+        
+    }
     }
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        if tableView == customTableView{
+            return 50
+        }else{
         switch indexPath.section {
         case let typingSection where typingSection == self.messagesGroupedByDate.count && !isTypingLabelHidden:
             return 34
@@ -1605,55 +1727,65 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
             return 0
         }
     }
+    }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-      if section < self.messagesGroupedByDate.count {
-
-         if section == 0 && channel == nil {
+        if tableView == customTableView{
+            return 10
+        }else{
+            if section < self.messagesGroupedByDate.count {
+                
+                if section == 0 && channel == nil {
+                    return 0
+                }
+                return 28
+            }
             return 0
-         }
-         return 28
-      }
-      return 0
+        }
    }
    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-      let labelBgView = UIView()
-      
-      labelBgView.frame = CGRect(x: 0.0, y: 0.0, width: UIScreen.main.bounds.size.width, height: 28)
-      labelBgView.backgroundColor = .clear
-      
-      let dateLabel = UILabel()
-      dateLabel.layer.masksToBounds = true
-      
-      dateLabel.text = ""
-      dateLabel.layer.cornerRadius = 10
-      dateLabel.textColor = #colorLiteral(red: 0.3490196078, green: 0.3490196078, blue: 0.4078431373, alpha: 1)
-      dateLabel.textAlignment = .center
-      dateLabel.font = UIFont.boldSystemFont(ofSize: 12.0)
-      dateLabel.backgroundColor = #colorLiteral(red: 0.9490196078, green: 0.9490196078, blue: 0.9490196078, alpha: 1)
-      dateLabel.layer.borderColor = #colorLiteral(red: 0.862745098, green: 0.8784313725, blue: 0.9019607843, alpha: 1).cgColor
-      dateLabel.layer.borderWidth = 0.5
-      if section < self.messagesGroupedByDate.count {
-         let localMessagesArray = self.messagesGroupedByDate[section]
-         if  localMessagesArray.count > 0,
-            let dateTime = localMessagesArray.first?.creationDateTime {
-            dateLabel.text = changeDateToParticularFormat(dateTime,
-                                                          dateFormat: "MMM d, yyyy",
-                                                          showInFormat: false).capitalized
-         }
-      }
-        #if swift(>=4.0)
-      let widthIs: CGFloat = CGFloat(dateLabel.text!.boundingRect(with: dateLabel.frame.size, options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: dateLabel.font], context: nil).size.width) + 10
-        
-        #else
-        let widthIs: CGFloat = CGFloat(dateLabel.text!.boundingRect(with: dateLabel.frame.size, options: .usesLineFragmentOrigin, attributes: [NSFontAttributeName: dateLabel.font], context: nil).size.width) + 10
-        #endif
-      let dateLabelHeight = CGFloat(24)
-      dateLabel.frame = CGRect(x: (UIScreen.main.bounds.size.width / 2) - (widthIs/2), y: (labelBgView.frame.height - dateLabelHeight)/2, width: widthIs + 10, height: dateLabelHeight)
-      labelBgView.addSubview(dateLabel)
-      
-      return labelBgView
-   }
+        if tableView == customTableView{
+            return UIView()
+        }else{
+            let labelBgView = UIView()
+            
+            labelBgView.frame = CGRect(x: 0.0, y: 0.0, width: UIScreen.main.bounds.size.width, height: 28)
+            labelBgView.backgroundColor = .clear
+            
+            let dateLabel = UILabel()
+            dateLabel.layer.masksToBounds = true
+            
+            dateLabel.text = ""
+            dateLabel.layer.cornerRadius = 10
+            dateLabel.textColor = #colorLiteral(red: 0.3490196078, green: 0.3490196078, blue: 0.4078431373, alpha: 1)
+            dateLabel.textAlignment = .center
+            dateLabel.font = UIFont.boldSystemFont(ofSize: 12.0)
+            dateLabel.backgroundColor = #colorLiteral(red: 0.9490196078, green: 0.9490196078, blue: 0.9490196078, alpha: 1)
+            dateLabel.layer.borderColor = #colorLiteral(red: 0.862745098, green: 0.8784313725, blue: 0.9019607843, alpha: 1).cgColor
+            dateLabel.layer.borderWidth = 0.5
+            if section < self.messagesGroupedByDate.count {
+                let localMessagesArray = self.messagesGroupedByDate[section]
+                if  localMessagesArray.count > 0,
+                    let dateTime = localMessagesArray.first?.creationDateTime {
+                    dateLabel.text = changeDateToParticularFormat(dateTime,
+                                                                  dateFormat: "MMM d, yyyy",
+                                                                  showInFormat: false).capitalized
+                }
+            }
+            #if swift(>=4.0)
+            let widthIs: CGFloat = CGFloat(dateLabel.text!.boundingRect(with: dateLabel.frame.size, options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: dateLabel.font], context: nil).size.width) + 10
+            
+            #else
+            let widthIs: CGFloat = CGFloat(dateLabel.text!.boundingRect(with: dateLabel.frame.size, options: .usesLineFragmentOrigin, attributes: [NSFontAttributeName: dateLabel.font], context: nil).size.width) + 10
+            #endif
+            let dateLabelHeight = CGFloat(24)
+            dateLabel.frame = CGRect(x: (UIScreen.main.bounds.size.width / 2) - (widthIs/2), y: (labelBgView.frame.height - dateLabelHeight)/2, width: widthIs + 10, height: dateLabelHeight)
+            labelBgView.addSubview(dateLabel)
+            
+            return labelBgView
+
+        }
+    }
 
 func getHeighOfButtonCollectionView(actionableMessage: FuguActionableMessage) -> CGFloat {
     
@@ -1898,11 +2030,10 @@ extension ConversationsViewController: UITextViewDelegate {
 // MARK: - UIImagePicker Delegates
 extension ConversationsViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
-   
    func doesImageExistsAt(filePath: String) -> Bool {
       return UIImage.init(contentsOfFile: filePath) != nil
    }
-   
+    
 }
 
 // MARK: - SelectImageViewControllerDelegate Delegates
@@ -1946,8 +2077,6 @@ extension ConversationsViewController: ImageCellDelegate {
     }
 
 }
-
-
 
 extension ConversationsViewController: HippoChannelDelegate {
     func channelDataRefreshed() {
@@ -2325,5 +2454,11 @@ extension ConversationsViewController {
             HippoUserDetail.clearAllData()
             HippoConfig.shared.delegate?.hippoUserLogOut()
         }
+    }
+}
+
+extension ConversationsViewController:UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
     }
 }

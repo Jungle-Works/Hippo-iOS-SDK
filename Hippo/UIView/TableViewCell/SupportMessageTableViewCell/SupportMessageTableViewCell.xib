@@ -20,7 +20,6 @@
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y0x-5w-qls" customClass="So_UIView" customModule="HippoChat" customModuleProvider="target">
                         <rect key="frame" x="43.5" y="24.5" width="65" height="60.5"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RFF-lq-dWC">
                         <rect key="frame" x="45" y="26" width="62" height="57.5"/>

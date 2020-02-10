@@ -97,11 +97,10 @@ extension ConversationView {
         }
         else
         {
-            bgView.backgroundColor = HippoConfig.shared.theme.gradientBackgroundColor
+            bgView.backgroundColor = UIColor.white//HippoConfig.shared.theme.gradientBackgroundColor
         }
-        
          
-       // bgView.backgroundColor = UIColor.white.withAlphaComponent(isThisChatOpened(opened: isOpened))
+       //bgView.backgroundColor = UIColor.white.withAlphaComponent(isThisChatOpened(opened: isOpened))
         
         headingLabel.textColor = HippoConfig.shared.theme.conversationTitleColor.withAlphaComponent(isThisChatOpened(opened: isOpened))
         
@@ -118,7 +117,7 @@ extension ConversationView {
             //         timeLabel.font = UIFont(name:"HelveticaNeue-Bold", size: 12.0)
             
             unreadCountLabel.text = "  \(unreadCount)  "
-            unreadCountLabel.backgroundColor = #colorLiteral(red: 0.8666666667, green: 0.09019607843, blue: 0.1176470588, alpha: 1).withAlphaComponent(isThisChatOpened(opened: isOpened))
+            unreadCountLabel.backgroundColor = .themeColor//#colorLiteral(red: 0.8666666667, green: 0.09019607843, blue: 0.1176470588, alpha: 1).withAlphaComponent(isThisChatOpened(opened: isOpened))
             unreadCountLabel.layer.cornerRadius = (unreadCountLabel.bounds.height - 5) / 2
             unreadCountLabel.layer.masksToBounds = true
             unreadCountLabel.textColor = UIColor.white

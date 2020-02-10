@@ -28,7 +28,7 @@ class MultiSelectHeaderTableViewCell: UITableViewCell {
         
         let theme = HippoConfig.shared.theme
         descriptionLabel.font = theme.incomingMsgFont
-        descriptionLabel.textColor = theme.incomingMsgColor
+        descriptionLabel.textColor = theme.lightThemeTextColor
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

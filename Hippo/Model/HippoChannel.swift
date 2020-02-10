@@ -287,6 +287,8 @@ class HippoChannel {
             requestParam["bot_form_muid"] = parsedBotMessageMUID
         }
         
+        //requestParam["initiate_bot_group_id"] = 569
+        
         HippoConfig.shared.log.debug("API_CREATE_CONVERSATION.....\(requestParam)", level: .request)
         HTTPClient.makeConcurrentConnectionWith(method: .POST, para: requestParam, extendedUrl: FuguEndPoints.API_CREATE_CONVERSATION.rawValue) { (response, error, _, statusCode) in
             

@@ -363,6 +363,7 @@
 		C9EE010A2397963B003E9326 /* PaymentSecureView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9EE01082397963B003E9326 /* PaymentSecureView.xib */; };
 		C9FAF60C23681AC90089DBFC /* InformationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9FAF60B23681AC90089DBFC /* InformationView.xib */; };
 		C9FAF60E23681AE20089DBFC /* InformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FAF60D23681AE20089DBFC /* InformationView.swift */; };
+		D86C7A5223DE10FD00392190 /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86C7A5123DE10FD00392190 /* CustomTableViewCell.swift */; };
 		EE65DDDD23B1DDB5000B658B /* PromotionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE65DDDB23B1DDB5000B658B /* PromotionTableViewCell.swift */; };
 		EE65DDDE23B1DDB5000B658B /* PromotionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE65DDDC23B1DDB5000B658B /* PromotionTableViewCell.xib */; };
 		EE65DDE023B1F27A000B658B /* PromotionCellDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE65DDDF23B1F27A000B658B /* PromotionCellDataModel.swift */; };
@@ -753,6 +754,7 @@
 		C9F6D49121C8B81100EA23E6 /* Hippo.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Hippo.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		C9FAF60B23681AC90089DBFC /* InformationView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InformationView.xib; sourceTree = "<group>"; };
 		C9FAF60D23681AE20089DBFC /* InformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationView.swift; sourceTree = "<group>"; };
+		D86C7A5123DE10FD00392190 /* CustomTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
 		E0E4A9E31B1EC7F72EC2F38D /* Pods_Fugu.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Fugu.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE65DDDB23B1DDB5000B658B /* PromotionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromotionTableViewCell.swift; sourceTree = "<group>"; };
 		EE65DDDC23B1DDB5000B658B /* PromotionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PromotionTableViewCell.xib; sourceTree = "<group>"; };
@@ -1211,6 +1213,7 @@
 		C9DC52C82356FD4100CA7FE9 /* TableViewCell */ = {
 			isa = PBXGroup;
 			children = (
+				D86C7A5023DE10EA00392190 /* CustomSheetTableViewCell */,
 				EE65DDDA23B1DD13000B658B /* PromotionTableViewCell */,
 				C9924843239794450040927D /* PaymentSecureView */,
 				C982E41D238D376F0080B375 /* ProfileDetailCell */,
@@ -2092,6 +2095,14 @@
 			path = InformationView;
 			sourceTree = "<group>";
 		};
+		D86C7A5023DE10EA00392190 /* CustomSheetTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				D86C7A5123DE10FD00392190 /* CustomTableViewCell.swift */,
+			);
+			path = CustomSheetTableViewCell;
+			sourceTree = "<group>";
+		};
 		EE65DDDA23B1DD13000B658B /* PromotionTableViewCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -2342,6 +2353,7 @@
 				C9DC54E52356FD4500CA7FE9 /* BroadcastDetailDataSource.swift in Sources */,
 				C9DC54252356FD4300CA7FE9 /* Formatter.swift in Sources */,
 				C9DC54342356FD4300CA7FE9 /* MessageTableViewCell.swift in Sources */,
+				D86C7A5223DE10FD00392190 /* CustomTableViewCell.swift in Sources */,
 				C9DC54DF2356FD4500CA7FE9 /* HippoDataCollectorDataSource.swift in Sources */,
 				C9DC55202356FD4500CA7FE9 /* Filter.swift in Sources */,
 				C9DC552A2356FD4500CA7FE9 /* IQToolbar.swift in Sources */,
@@ -2723,7 +2735,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
@@ -2760,7 +2772,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;

@@ -72,6 +72,9 @@ class HippoConversationViewController: UIViewController {
         super.viewDidLoad()
         
         navigationController?.setTheme()
+        
+        tableViewChat.backgroundView = UIImageView(image: UIImage(named: "background"))
+        
         removeNotificationsFromNotificationCenter(channelId: channelId)
         registerFayeNotification()
     }
@@ -743,6 +746,13 @@ class HippoConversationViewController: UIViewController {
         pickerHelper = PickerHelper(viewController: self, enablePayment: showPaymentOption)
         pickerHelper?.present(sender: sender, controller: self)
         pickerHelper?.delegate = self
+    }
+    
+    func attachmentButtonclickedOfCustomSheet(_ sender: UIView, openType: String){
+        let showPaymentOption = channel == nil ? false : HippoProperty.current.isPaymentRequestEnabled
+        pickerHelper = PickerHelper(viewController: self, enablePayment: showPaymentOption)        
+        pickerHelper?.delegate = self
+        pickerHelper?.presentCustomActionSheet(sender: sender, controller: self, openType: openType)
     }
     
 }

@@ -54,4 +54,13 @@ class SelectImageViewController: UIViewController {
         }
         return vc
     }
+    
+    class func get(delegate1: SelectImageViewControllerDelegate) -> SelectImageViewController? {
+        let storyboard = UIStoryboard(name: "FuguUnique", bundle: FuguFlowManager.bundle)
+        guard let vc = storyboard.instantiateViewController(withIdentifier: "SelectImageViewController") as? SelectImageViewController else {
+            return nil
+        }
+        return vc
+    }
+    
 }

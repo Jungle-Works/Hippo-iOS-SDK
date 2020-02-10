@@ -46,6 +46,9 @@ class PaymentSecureView: UITableViewCell {
         backgroundColor = .clear
         self.contentView.backgroundColor = .clear
 //        cellLabel.textAlignment = .center
+        
+       //cellLabel.textColor = .black//
+        
         bgView.backgroundColor = .clear
         labelContainerView.backgroundColor = .clear
     }
@@ -55,6 +58,7 @@ extension PaymentSecureView {
     func set(card: PaymentSecurely) {
         self.card = card
         cellLabel.attributedText = card.attributedText
+        cellLabel.textColor = .black
         cellImage.image = card.image
         cellImage.tintColor = card.imageTintColor
         setConstraint()

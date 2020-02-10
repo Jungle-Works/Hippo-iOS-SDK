@@ -304,6 +304,9 @@ enum AgentEndPoints: String {
     
     case createOneToOneChat = "api/chat/createOneToOneChat"
     case getAnnouncements = "api/broadcast/getAnnouncements"
+    
+    case clearAnnouncements = "api/broadcast/clearAnnouncements"
+    
 }
 
 enum BroadcastType: String, CaseCountable {

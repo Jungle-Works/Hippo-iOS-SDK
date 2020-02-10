@@ -65,15 +65,27 @@ class MessageTableViewCell: UITableViewCell {
         }
         showSenderImageView()
         
-        let isMessageAllowedForImage = message.type == .consent  || message.belowMessageType == .card || message.belowMessageType == .paymentCard
+//        let isMessageAllowedForImage = message.type == .consent  || message.belowMessageType == .card || message.belowMessageType == .paymentCard
+//        if (message.belowMessageUserId == message.senderId && !isMessageAllowedForImage) {
+//            unsetImageInSender()
+//        } else if let senderImage = message.senderImage, let url = URL(string: senderImage) {
+//            setImageInSenderView(imageURL: url)
+//        } else {
+//            setNameAsTitle(message.senderFullName)
+//        }
         
-        if (message.belowMessageUserId == message.senderId && !isMessageAllowedForImage) {
+        let isMessageAllowedForImage = message.type == .consent  || message.belowMessageType == .card || message.belowMessageType == .paymentCard || message.aboveMessageType == .consent
+        
+        if (message.aboveMessageUserId == message.senderId && !isMessageAllowedForImage) {
             unsetImageInSender()
-        } else if let senderImage = message.senderImage, let url = URL(string: senderImage) {
-            setImageInSenderView(imageURL: url)
         } else {
-            setNameAsTitle(message.senderFullName)
+            if let senderImage = message.senderImage, let url = URL(string: senderImage) {
+                setImageInSenderView(imageURL: url)
+            }else{
+                setNameAsTitle(message.senderFullName)
+            }
         }
+        
     }
     
     func hideSenderImageView() {

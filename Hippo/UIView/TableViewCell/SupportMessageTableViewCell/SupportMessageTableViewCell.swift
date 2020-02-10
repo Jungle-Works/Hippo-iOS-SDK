@@ -35,7 +35,9 @@ class SupportMessageTableViewCell: MessageTableViewCell {
     func setupBoxBackground(messageType: MessageType) {
         switch messageType {
         default:
-            bgView.backgroundColor = HippoConfig.shared.theme.incomingChatBoxColor
+            print("default")
+            //bgView.backgroundColor = HippoConfig.shared.theme.incomingChatBoxColor
+            bgView.backgroundColor = HippoConfig.shared.theme.themeColor
         }
     }
     
@@ -58,14 +60,14 @@ class SupportMessageTableViewCell: MessageTableViewCell {
         
         nameLabel.font = HippoConfig.shared.theme.senderNameFont
         
-        DispatchQueue.main.async {
-            let gradient = CAGradientLayer()
-            gradient.frame = self.bgView.bounds
-            gradient.colors = [HippoConfig.shared.theme.gradientTopColor.cgColor, HippoConfig.shared.theme.gradientBottomColor.cgColor]
-            self.bgView.layer.insertSublayer(gradient, at: 0)
-            
-           // self.shadowView.backgroundColor = UIColor.red
-        }
+//        DispatchQueue.main.async {
+//            let gradient = CAGradientLayer()
+//            gradient.frame = self.bgView.bounds
+//            gradient.colors = [HippoConfig.shared.theme.themeColor, HippoConfig.shared.theme.themeColor.cgColor]
+//            self.bgView.layer.insertSublayer(gradient, at: 0)
+//
+//           //self.shadowView.backgroundColor = UIColor.red
+//        }
         
         bgView.layer.cornerRadius = 10
         bgView.clipsToBounds = true
@@ -99,7 +101,16 @@ class SupportMessageTableViewCell: MessageTableViewCell {
             }
         }
         
-        self.nameLabel.text = message?.senderFullName
+        //self.nameLabel.text = message?.senderFullName
+        
+        let isMessageAllowedForImage = chatMessageObject.type == .consent  || chatMessageObject.belowMessageType == .card || chatMessageObject.belowMessageType == .paymentCard || chatMessageObject.aboveMessageType == .consent
+        
+        if (chatMessageObject.aboveMessageUserId == chatMessageObject.senderId && !isMessageAllowedForImage) {
+            self.nameLabel.text = ""
+        } else {
+            self.nameLabel.text = message?.senderFullName
+        }
+        
         setupBoxBackground(messageType: messageType)
         
         setTime()

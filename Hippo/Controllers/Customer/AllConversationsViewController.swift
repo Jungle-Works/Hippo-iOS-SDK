@@ -9,6 +9,11 @@
 import UIKit
 import NotificationCenter
 
+enum ConversationChatType {
+    case openChat
+    case closeChat
+}
+
 class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     
     // MARK: - IBOutlets
@@ -24,6 +29,12 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     @IBOutlet weak var heightOfBottomLabel: NSLayoutConstraint!
     //   @IBOutlet weak var heightofNavigationBar: NSLayoutConstraint!
     
+    @IBOutlet weak var buttonContainerView: UIView!
+    @IBOutlet weak var openChatButton: UIButton!
+    @IBOutlet weak var closeChatButton: UIButton!
+    @IBOutlet weak var bottomLineView: UIView!
+    @IBOutlet weak var bottomViewLeadingConstraint: NSLayoutConstraint!
+    
     // MARK: - PROPERTIES
     let refreshControl = UIRefreshControl()
     var informationView: InformationView?
@@ -32,8 +43,11 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     let urlForFuguChat = "https://fuguchat.com/"
     
     var arrayOfConversation = [FuguConversation]()
+    var ongoingConversationArr = [FuguConversation]()
+    var closedConversationArr = [FuguConversation]()
     var config: AllConversationsConfig = AllConversationsConfig.defaultConfig
     
+    var conversationChatType: ConversationChatType = .openChat
     
     // MARK: - LIFECYCLE
     override func viewDidLoad() {
@@ -45,7 +59,11 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         _ = handleIntialCustomerForm()
         
         if config.shouldUseCache {
-            self.arrayOfConversation = fetchAllConversationCache()
+            //self.arrayOfConversation = fetchAllConversationCache()
+            let fetchAllConversationCacheData = fetchAllConversationCache()
+            if !fetchAllConversationCacheData.isEmpty{
+                self.filterConversationArr(conversationArr: fetchAllConversationCacheData)
+            }
         }
         if let labelId = HippoProperty.current.openLabelIdOnHome, labelId > 0 {
             moveToChatViewcontroller(labelId: labelId)
@@ -63,23 +81,27 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         self.navigationController?.setTheme()
         self.navigationController?.isNavigationBarHidden = false
         
-        self.tabBarController?.hidesBottomBarWhenPushed = true
-        self.tabBarController?.tabBar.isHidden = false
-        self.tabBarController?.tabBar.layer.zPosition = 0
+        self.setUpTabBar()
+        
     }
     
     override func viewWillLayoutSubviews() {
+        self.setUpTabBar()
+    }
+    
+    func setUpTabBar(){
         self.tabBarController?.hidesBottomBarWhenPushed = true
         self.tabBarController?.tabBar.isHidden = false
         self.tabBarController?.tabBar.layer.zPosition = 0
+        self.tabBarController?.tabBar.items?[0].title = "Chats"
     }
     
     @IBAction func newConversationClicked(_ sender: Any) {
         var fuguNewChatAttributes = FuguNewChatAttributes(transactionId: "", userUniqueKey: HippoConfig.shared.userDetail?.userUniqueKey, otherUniqueKey: nil, tags: HippoProperty.current.newConversationButtonTags, channelName: nil, preMessage: "", groupingTag: nil)
         
-          print("bodID******* \(HippoProperty.current.newconversationBotGroupId)")
+        print("bodID******* \(HippoProperty.current.newconversationBotGroupId ?? "")")
         
-        fuguNewChatAttributes.botGroupId = HippoProperty.current.newconversationBotGroupId
+        fuguNewChatAttributes.botGroupId = "569"//HippoProperty.current.newconversationBotGroupId
         let conversation = ConversationsViewController.getWith(chatAttributes: fuguNewChatAttributes)
         conversation.createConversationOnStart = true
         self.navigationController?.pushViewController(conversation, animated: true)
@@ -108,10 +130,18 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
                 self?.showConversationsTableView?.reloadData()
                 return
             }
-            self?.arrayOfConversation = self?.fetchAllConversationCache() ?? []
-            self?.showConversationsTableView.reloadData()
-            self?.newConversationBiutton.isHidden = !HippoProperty.current.enableNewConversationButton
+            //self?.arrayOfConversation = self?.fetchAllConversationCache() ?? []
+            let fetchAllConversationCacheData = self?.fetchAllConversationCache() ?? []
+            if !fetchAllConversationCacheData.isEmpty{
+                self?.filterConversationArr(conversationArr: fetchAllConversationCacheData)
+            }
             
+            self?.showConversationsTableView.reloadData()
+            if self?.conversationChatType == .openChat{
+                self?.newConversationBiutton.isHidden = !HippoProperty.current.enableNewConversationButton
+            }else if self?.conversationChatType == .closeChat{
+                self?.newConversationBiutton.isHidden = true
+            }else{}
             if let result = self?.handleIntialCustomerForm(), result {
                 return
             } else if self?.arrayOfConversation.count == 0 {
@@ -134,18 +164,23 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         showConversationsTableView.backgroundView = refreshControl
         let theme = HippoConfig.shared.theme
         
-        newConversationBiutton.isHidden = !HippoProperty.current.enableNewConversationButton
+        if self.conversationChatType == .openChat{
+            newConversationBiutton.isHidden = !HippoProperty.current.enableNewConversationButton
+        }else if self.conversationChatType == .closeChat{
+            newConversationBiutton.isHidden = true
+        }else{}
+        
         newConversationBiutton.isEnabled = HippoProperty.current.enableNewConversationButton
         
-        DispatchQueue.main.async {
-            let gradient = CAGradientLayer()
-            gradient.frame = self.newConversationBiutton.bounds
-            gradient.colors = [theme.gradientTopColor.cgColor, theme.gradientBottomColor.cgColor]
-            self.newConversationBiutton.layer.insertSublayer(gradient, at: 0)
-        }
+//        DispatchQueue.main.async {
+//            let gradient = CAGradientLayer()
+//            gradient.frame = self.newConversationBiutton.bounds
+//            gradient.colors = [theme.gradientTopColor.cgColor, theme.gradientBottomColor.cgColor]
+//            self.newConversationBiutton.layer.insertSublayer(gradient, at: 0)
+//        }
         
         newConversationBiutton.setTitleColor(.white, for: .normal)
-       // newConversationBiutton.backgroundColor = theme.themeColor
+        newConversationBiutton.backgroundColor = theme.themeColor
         newConversationBiutton.layer.cornerRadius = newConversationBiutton.bounds.height / 2
         newConversationBiutton.layer.masksToBounds = true
         newConversationBiutton.titleLabel?.font = theme.newConversationButtonFont
@@ -280,6 +315,64 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         }
     }
     
+    @IBAction func openChatButtonClicked(_ sender: UIButton) {
+        guard conversationChatType != .openChat else {
+            return
+        }
+        self.newConversationBiutton.isHidden = false
+        conversationChatType = .openChat
+        animateBottomLineView()
+        //getAllConversations()
+        self.showOpenChatData()
+    }
+    
+    @IBAction func closeChatButtonClicked(_ sender: Any) {
+        guard conversationChatType != .closeChat else {
+            return
+        }
+        self.newConversationBiutton.isHidden = true
+        conversationChatType = .closeChat
+        animateBottomLineView()
+        //getAllConversations()
+        self.showcloseChatData()
+    }
+    
+    func showOpenChatData(){
+        self.arrayOfConversation.removeAll()
+        self.arrayOfConversation = self.ongoingConversationArr
+        self.showConversationsTableView.reloadData()
+        if self.arrayOfConversation.count <= 0 {
+            self.tableViewDefaultText = "No Conversation found!!"
+            DispatchQueue.main.async {
+                self.showConversationsTableView.reloadData()
+            }
+        }else{
+            self.showConversationsTableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: .top, animated: true)
+        }
+    }
+    
+    func showcloseChatData(){
+        self.arrayOfConversation.removeAll()
+        self.arrayOfConversation = self.closedConversationArr
+        self.showConversationsTableView.reloadData()
+        if self.arrayOfConversation.count <= 0 {
+            self.tableViewDefaultText = "No Conversation found!!"
+            DispatchQueue.main.async {
+                self.showConversationsTableView.reloadData()
+            }
+        }else{
+            self.showConversationsTableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: .top, animated: true)
+        }
+    }
+    
+    func animateBottomLineView() {
+        let leading = conversationChatType == .openChat ? 0 : openChatButton.bounds.width
+        bottomViewLeadingConstraint.constant = leading
+        UIView.animate(withDuration: 0.4) {
+            self.buttonContainerView.layoutIfNeeded()
+        }
+    }
+    
     @objc func headerEmptyAction(_ sender: UITapGestureRecognizer) {
         
         guard arrayOfConversation.count == 0, tableViewDefaultText != "Loading..." else {
@@ -341,9 +434,65 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
             if conversation.isEmpty {
                 self?.addInformationView()
             }
+            
             self?.arrayOfConversation = conversation
-            self?.showConversationsTableView.reloadData()
-            self?.newConversationBiutton.isHidden = !HippoProperty.current.enableNewConversationButton
+            //self?.showConversationsTableView.reloadData()
+            
+//            DispatchQueue.main.async {
+//                var tempArrayOfConversation = [FuguConversation]()
+//                tempArrayOfConversation = conversation
+//                if self?.conversationChatType == .openChat{
+//                    tempArrayOfConversation = tempArrayOfConversation.filter{$0.channelStatus.rawValue == 1}
+//                    self?.arrayOfConversation.removeAll()
+//                    self?.arrayOfConversation = tempArrayOfConversation
+//                }else if self?.conversationChatType == .closeChat{
+//                    tempArrayOfConversation = tempArrayOfConversation.filter{$0.channelStatus.rawValue == 2}
+//                    self?.arrayOfConversation.removeAll()
+//                    self?.arrayOfConversation = tempArrayOfConversation
+//                }else{}
+//                self?.showConversationsTableView.reloadData()
+//                self?.showConversationsTableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: .top, animated: true)
+//            }
+            
+            //self?.saveConversationsInCache()
+            
+            //self?.filterConversationArr(conversationArr: conversation)
+            let conversationData = conversation
+            if !conversationData.isEmpty{
+                self?.filterConversationArr(conversationArr: conversationData)
+            }
+            
+            if self?.conversationChatType == .openChat{
+                self?.newConversationBiutton.isHidden = !HippoProperty.current.enableNewConversationButton
+            }else if self?.conversationChatType == .closeChat{
+                self?.newConversationBiutton.isHidden = true
+            }else{}
+            
+        }
+    }
+    
+    func filterConversationArr(conversationArr:[FuguConversation]){
+        if conversationArr.count <= 0 {
+            self.tableViewDefaultText = "No Conversation found!!"
+            DispatchQueue.main.async {
+                self.showConversationsTableView.reloadData()
+            }
+            return
+        }else{
+            var tempArrayOfConversation = [FuguConversation]()
+            tempArrayOfConversation = conversationArr
+            
+            self.ongoingConversationArr.removeAll()
+            self.ongoingConversationArr = tempArrayOfConversation.filter{$0.channelStatus.rawValue == 1}
+            
+            self.closedConversationArr.removeAll()
+            self.closedConversationArr = tempArrayOfConversation.filter{$0.channelStatus.rawValue == 2}
+            
+            if self.conversationChatType == .openChat{
+                self.showOpenChatData()
+            }else if self.conversationChatType == .closeChat{
+                self.showcloseChatData()
+            }else{}
         }
     }
     
@@ -415,6 +564,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         }
         let conversationJson = FuguConversation.getJsonFrom(conversations: arrayOfConversation)
         FuguDefaults.set(value: conversationJson, forKey: DefaultName.conversationData.rawValue)
+        //FuguDefaults.set(value: self.conversationChatType, forKey: "conversationType")
     }
     
     func fetchAllConversationCache() -> [FuguConversation] {
@@ -425,6 +575,16 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         let arrayOfConversation = FuguConversation.getConversationArrayFrom(json: convCache)
         return arrayOfConversation
     }
+    
+//    func fetchAllConversationType(){
+//        if let conversationType = FuguDefaults.object(forKey: "conversationType") as? ConversationChatType {
+//            self.conversationChatType = conversationType
+//            self.animateBottomLineView()
+//        }else{
+//            self.conversationChatType = .openChat
+//            self.animateBottomLineView()
+//        }
+//    }
     
     // MARK: - NewChatSentDelegate
     func newChatStartedDelgegate(isChatUpdated: Bool) {

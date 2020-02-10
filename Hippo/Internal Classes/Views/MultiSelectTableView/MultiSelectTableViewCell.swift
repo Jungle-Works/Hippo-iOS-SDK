@@ -137,8 +137,12 @@ extension MultiSelectTableViewCell
     
     @objc func submitButtonClicked()
     {
-        let arr = message?.customAction?.buttonsArray as! [MultiselectButtons]
-        var selectedButtonsArr = arr.filter { $0.status == true }
+//        let arr = message?.customAction?.buttonsArray as! [MultiselectButtons]
+//        var selectedButtonsArr = arr.filter { $0.status == true }
+        var selectedButtonsArr = [MultiselectButtons]()
+        if let arr = message?.customAction?.buttonsArray as? [MultiselectButtons]{
+            selectedButtonsArr = arr.filter { $0.status == true }
+        }
         
     if message?.customAction?.minSelection == 0 
     {
@@ -233,9 +237,12 @@ extension MultiSelectTableViewCell: UITableViewDataSource
             cell.buttonLeadingConstraint.constant = 20
             cell.buttonTrailingConstraint.constant = 20
             
-            let arr = message?.customAction?.buttonsArray as! [MultiselectButtons]
-            
-            var selectedButtonsArr = arr.filter { $0.status == true }
+//            let arr = message?.customAction?.buttonsArray as! [MultiselectButtons]
+//            var selectedButtonsArr = arr.filter { $0.status == true }
+            var selectedButtonsArr = [MultiselectButtons]()
+            if let arr = message?.customAction?.buttonsArray as? [MultiselectButtons]{
+                selectedButtonsArr = arr.filter { $0.status == true }
+            }
             
             if selectedButtonsArr.count > 0
             {
@@ -281,10 +288,13 @@ extension MultiSelectTableViewCell : UITableViewDelegate
            
             if (message?.customAction!.maxSelection)! > 1
             {
-                let arr = message?.customAction?.buttonsArray as! [MultiselectButtons]
-
-                var selectedButtonsArr = arr.filter { $0.status == true }
-                print(selectedButtonsArr.count)
+//                let arr = message?.customAction?.buttonsArray as! [MultiselectButtons]
+//                var selectedButtonsArr = arr.filter { $0.status == true }
+//                print(selectedButtonsArr.count)
+                var selectedButtonsArr = [MultiselectButtons]()
+                if let arr = message?.customAction?.buttonsArray as? [MultiselectButtons]{
+                    selectedButtonsArr = arr.filter { $0.status == true }
+                }
 
                 if selectedButtonsArr.count < (message?.customAction!.maxSelection)!
                 {

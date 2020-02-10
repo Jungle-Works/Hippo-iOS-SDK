@@ -20,6 +20,7 @@ class PromotionTableViewCell: UITableViewCell {
     @IBOutlet weak var imageHeightConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var titleTopConstraint: NSLayoutConstraint!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         self.setUpUI()
@@ -35,20 +36,22 @@ class PromotionTableViewCell: UITableViewCell {
     
     func setUpUI()
     {
-        //bgView.layer.borderWidth = HippoConfig.shared.theme.chatBoxBorderWidth
-       // bgView.layer.borderColor = HippoConfig.shared.theme.chatBoxBorderColor.cgColor
-       // bgView.layer.cornerRadius = 10
+        bgView.layer.borderWidth = HippoConfig.shared.theme.chatBoxBorderWidth
+        bgView.layer.borderColor = HippoConfig.shared.theme.chatBoxBorderColor.cgColor
+        bgView.layer.cornerRadius = 10
         bgView.layer.masksToBounds = true
+        //bgView.clipsToBounds = true
         bgView.backgroundColor = UIColor.white
         
-        promotionTitle.font = HippoConfig.shared.theme.titleFont
-        promotionTitle.textColor = HippoConfig.shared.theme.titleTextColor
+        //promotionTitle.font = HippoConfig.shared.theme.titleFont
+        //promotionTitle.textColor = HippoConfig.shared.theme.titleTextColor
+        promotionTitle.textColor = .black//HippoConfig.shared.theme.conversationTitleColor.withAlphaComponent(1)
         
         descriptionLabel.font = HippoConfig.shared.theme.descriptionFont
-        descriptionLabel.textColor = HippoConfig.shared.theme.descriptionTextColor
+        descriptionLabel.textColor = .darkText//HippoConfig.shared.theme.descriptionTextColor
         
         dateTimeLabel.font = HippoConfig.shared.theme.dateTimeFontSize
-        dateTimeLabel.textColor = HippoConfig.shared.theme.incomingMsgDateTextColor
+        dateTimeLabel.textColor = .darkText//HippoConfig.shared.theme.descriptionTextColor//incomingMsgDateTextColor//
     }
     
     func set(data: PromotionCellDataModel)
@@ -60,10 +63,22 @@ class PromotionTableViewCell: UITableViewCell {
         }
         else
         {
-            self.imageHeightConstraint.constant = 160
+            //self.imageHeightConstraint.constant = 160
             self.promotionImage?.isHidden = false
             let url = URL(string: data.imageUrlString)
-            self.promotionImage.kf.setImage(with: url, placeholder: HippoConfig.shared.theme.placeHolderImage,  completionHandler:nil)
+//            self.promotionImage.kf.setImage(with: url, placeholder: HippoConfig.shared.theme.placeHolderImage,  completionHandler:nil)
+            
+            //DispatchQueue.main.async {
+                self.promotionImage.kf.setImage(with: url, placeholder: HippoConfig.shared.theme.placeHolderImage, options: nil, progressBlock: nil) { (image, error, cacheType, url) in
+                    if let img = image{
+                        let ratio = img.size.width / img.size.height
+                        let newHeight = self.promotionImage.frame.width / ratio
+                        self.imageHeightConstraint.constant = newHeight
+                        self.layoutIfNeeded()
+                    }
+                }
+            //}
+            
         }
         self.promotionTitle.text = data.title//"This is a new tittle"
        

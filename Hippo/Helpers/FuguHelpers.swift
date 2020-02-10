@@ -279,6 +279,26 @@ func pushTotalUnreadCount() {
     
     chatCounter += getPushUnreadCount()
     HippoConfig.shared.sendUnreadCount(chatCounter)
+    
+    if let allConversationVC = getLastVisibleController() as? AllConversationsViewController{
+        let totalNotifyCount = chatCounter
+        if totalNotifyCount > 0{
+            if let tabItems = allConversationVC.tabBarController?.tabBar.items {
+                // In this case we want to modify the badge number of the third tab:
+                let tabItem = tabItems[0]
+                tabItem.badgeValue = "\(totalNotifyCount)"
+                //tabItem.badgeValue = nil
+            //UserDefaults.standard.set(totalNotifyCount, forKey: "totalNotify")
+            }
+        }else{
+            if let tabItems = allConversationVC.tabBarController?.tabBar.items {
+                // In this case we want to modify the badge number of the third tab:
+                let tabItem = tabItems[0]
+                tabItem.badgeValue = nil
+            }
+        }
+    }
+    
 }
 
 func updateStoredUnreadCountFor(with userInfo: [String: Any]) {
