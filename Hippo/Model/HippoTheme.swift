@@ -110,7 +110,8 @@ import Foundation
     open var typingTextFont: UIFont? = UIFont.systemFont(ofSize: 15.0)
     open var typingTextColor = #colorLiteral(red: 0.1725490196, green: 0.137254902, blue: 0.2, alpha: 1)
     
-    
+    open var newConversationButtonFont: UIFont? = UIFont.boldSystemFont(ofSize: 18.0)
+    open var newConversationText = "New Conversation"
     
     //MARK: Theme for broadCast
     open var broadcastTitleFont: UIFont? = UIFont.systemFont(ofSize: 15.0)

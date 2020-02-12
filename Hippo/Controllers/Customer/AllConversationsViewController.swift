@@ -19,6 +19,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
    @IBOutlet weak var errorContentView: UIView!
    @IBOutlet var errorLabel: UILabel!
    @IBOutlet var errorLabelTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var newConversationButton:UIButton!
    @IBOutlet var poweredByFuguLabel: UILabel!
    @IBOutlet weak var heightOfBottomLabel: NSLayoutConstraint!
 //   @IBOutlet weak var heightofNavigationBar: NSLayoutConstraint!
@@ -101,7 +102,18 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
       refreshControl.addTarget(self, action: #selector(refresh(_:)), for: .valueChanged)
       
       showConversationsTableView.backgroundView = refreshControl
-      
+    
+      let theme = HippoConfig.shared.theme
+      newConversationButton.setTitleColor(theme.themeTextcolor, for: .normal)
+      newConversationButton.backgroundColor = theme.themeColor
+      newConversationButton.layer.cornerRadius = newConversationButton.bounds.height / 2
+      newConversationButton.layer.borderWidth = CGFloat(HippoConfig.shared.newConversationButtonBorderWidth)
+      newConversationButton.layer.borderColor = theme.themeTextcolor.cgColor
+      newConversationButton.layer.masksToBounds = true
+      newConversationButton.titleLabel?.font = theme.newConversationButtonFont
+      newConversationButton.setTitle(theme.newConversationText, for: .normal)
+      newConversationButton.isHidden = HippoConfig.shared.isNewConversationButtonHidden
+    
       poweredByFuguLabel.attributedText = attributedStringForLabelForTwoStrings("Runs on ", secondString: "Hippo", colorOfFirstString: HippoConfig.shared.powererdByColor, colorOfSecondString: HippoConfig.shared.FuguColor, fontOfFirstString: HippoConfig.shared.poweredByFont, fontOfSecondString: HippoConfig.shared.FuguStringFont, textAlighnment: .center, dateAlignment: .center)
       
       let tap = UITapGestureRecognizer(target: self, action: #selector(self.openFuguChatWebLink(_:)))
@@ -191,7 +203,18 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         _ = self.navigationController?.dismiss(animated: true, completion: nil)
         
     }
-   
+    
+    @IBAction func newConversationButtonClicked(_ sender: Any) {
+        let fuguNewChatAttributes = FuguNewChatAttributes(transactionId: "", userUniqueKey: HippoConfig.shared.userDetail?.userUniqueKey, otherUniqueKey: nil, tags: nil, channelName: nil, preMessage: "", groupingTag: nil)
+        
+        //print("bodID******* \(HippoProperty.current.newconversationBotGroupId ?? "")")
+        //fuguNewChatAttributes.botGroupId = HippoProperty.current.newconversationBotGroupId
+        
+        let conversation = ConversationsViewController.getWith(chatAttributes: fuguNewChatAttributes)
+        conversation.createConversationOnStart = true
+        self.navigationController?.pushViewController(conversation, animated: true)
+    }
+    
    @objc func headerEmptyAction(_ sender: UITapGestureRecognizer) {
       
       guard arrayOfConversation.count == 0, tableViewDefaultText != "Loading..." else {

@@ -9,6 +9,9 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="HelveticaNeue.ttc">
+            <string>HelveticaNeue</string>
+        </array>
         <array key="Montserrat-Regular.otf">
             <string>Montserrat-Regular</string>
         </array>
@@ -223,6 +226,20 @@
                                     <constraint firstAttribute="height" id="wDT-y5-wgY"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QDN-SW-1fc">
+                                <rect key="frame" x="87.5" y="537" width="200" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="l7I-wP-WjW"/>
+                                    <constraint firstAttribute="height" constant="50" id="wV1-Ex-FAt"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="ArialRoundedMTBold" family="Arial Rounded MT Bold" pointSize="18"/>
+                                <state key="normal" title="New Conversation &gt;">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="newConversationButtonClicked:" destination="NiB-L4-OyJ" eventType="touchUpInside" id="pLP-yx-Rre"/>
+                                </connections>
+                            </button>
                             <label opaque="NO" clipsSubviews="YES" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Runs on Hippo" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eYt-4i-gIl">
                                 <rect key="frame" x="0.0" y="647" width="375" height="20"/>
                                 <constraints>
@@ -236,17 +253,21 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="eJd-kx-5CY" firstAttribute="top" secondItem="eYt-4i-gIl" secondAttribute="bottom" id="1dI-vo-u3e"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="QDN-SW-1fc" secondAttribute="trailing" id="2GG-im-1D0"/>
                             <constraint firstAttribute="trailing" secondItem="eYt-4i-gIl" secondAttribute="trailing" id="7qS-Fk-MYK"/>
                             <constraint firstItem="fN8-67-65O" firstAttribute="leading" secondItem="dUR-q2-McL" secondAttribute="leading" id="FPG-Un-MbH"/>
                             <constraint firstItem="yfp-HZ-0Gy" firstAttribute="top" secondItem="oIt-un-3Xr" secondAttribute="bottom" id="NUX-wF-l1G"/>
                             <constraint firstAttribute="trailing" secondItem="oIt-un-3Xr" secondAttribute="trailing" id="Qsl-sU-L6I"/>
+                            <constraint firstItem="QDN-SW-1fc" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="dUR-q2-McL" secondAttribute="leading" id="Xe7-vM-uAo"/>
                             <constraint firstAttribute="trailing" secondItem="yfp-HZ-0Gy" secondAttribute="trailing" id="YBA-Ea-b0C"/>
                             <constraint firstItem="oIt-un-3Xr" firstAttribute="top" secondItem="fN8-67-65O" secondAttribute="bottom" id="Zf6-rz-LVE"/>
                             <constraint firstAttribute="trailing" secondItem="fN8-67-65O" secondAttribute="trailing" id="bZW-WB-drJ"/>
                             <constraint firstItem="oIt-un-3Xr" firstAttribute="leading" secondItem="dUR-q2-McL" secondAttribute="leading" id="bnM-kP-mB6"/>
                             <constraint firstItem="oIt-un-3Xr" firstAttribute="width" secondItem="dUR-q2-McL" secondAttribute="width" id="cQ2-1L-wtR"/>
+                            <constraint firstItem="eYt-4i-gIl" firstAttribute="top" secondItem="QDN-SW-1fc" secondAttribute="bottom" constant="60" id="fY0-I1-Yve"/>
                             <constraint firstItem="fN8-67-65O" firstAttribute="top" secondItem="dUR-q2-McL" secondAttribute="top" id="mK9-lJ-r85"/>
                             <constraint firstItem="eYt-4i-gIl" firstAttribute="leading" secondItem="dUR-q2-McL" secondAttribute="leading" id="n16-np-L08"/>
+                            <constraint firstItem="QDN-SW-1fc" firstAttribute="centerX" secondItem="dUR-q2-McL" secondAttribute="centerX" id="qCP-KU-Vm9"/>
                             <constraint firstItem="eYt-4i-gIl" firstAttribute="top" secondItem="yfp-HZ-0Gy" secondAttribute="bottom" id="r3g-7a-AUR"/>
                             <constraint firstItem="yfp-HZ-0Gy" firstAttribute="top" secondItem="fN8-67-65O" secondAttribute="bottom" id="weg-PO-Vc7"/>
                             <constraint firstItem="yfp-HZ-0Gy" firstAttribute="leading" secondItem="dUR-q2-McL" secondAttribute="leading" id="x5M-0L-jPK"/>
@@ -272,6 +293,7 @@
                         <outlet property="errorLabelTopConstraint" destination="9kC-X7-IfK" id="hpq-Md-FYs"/>
                         <outlet property="heightOfBottomLabel" destination="0lv-kZ-vjJ" id="mvb-LE-nUG"/>
                         <outlet property="navigationBackgroundView" destination="fN8-67-65O" id="3Je-Zc-afX"/>
+                        <outlet property="newConversationButton" destination="QDN-SW-1fc" id="XAo-8m-5yj"/>
                         <outlet property="poweredByFuguLabel" destination="eYt-4i-gIl" id="Dsh-XD-fWo"/>
                         <outlet property="showConversationsTableView" destination="yfp-HZ-0Gy" id="1wj-zE-lao"/>
                     </connections>
@@ -385,7 +407,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                                 <subviews>
                                     <imageView hidden="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="app_loader_shape" translatesAutoresizingMaskIntoConstraints="NO" id="Lee-41-dPF" customClass="So_UIImageView" customModule="Hippo" customModuleProvider="target">
-                                        <rect key="frame" x="167.5" y="281.5" width="40" height="40"/>
+                                        <rect key="frame" x="179.5" y="293.5" width="16" height="16"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </imageView>
                                 </subviews>
@@ -632,7 +654,7 @@
                                 </constraints>
                             </view>
                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" image="app_loader_shape" translatesAutoresizingMaskIntoConstraints="NO" id="eZG-Yq-Sel">
-                                <rect key="frame" x="179.5" y="325.5" width="16" height="16"/>
+                                <rect key="frame" x="167.5" y="313.5" width="40" height="40"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q6z-xO-SMj">
                                 <rect key="frame" x="164.5" y="322.5" width="46.5" height="22.5"/>
@@ -915,7 +937,7 @@
                                 </constraints>
                             </view>
                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="app_loader_shape" translatesAutoresizingMaskIntoConstraints="NO" id="yXi-kz-HoV" customClass="So_UIImageView" customModule="Hippo" customModuleProvider="target">
-                                <rect key="frame" x="167.5" y="313.5" width="40" height="40"/>
+                                <rect key="frame" x="179.5" y="325.5" width="16" height="16"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3pN-rq-23Q">
@@ -1933,7 +1955,6 @@
         <!--Promotions View Controller-->
         <scene sceneID="4cd-Nn-mSo">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="HXV-tE-GIe" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="PromotionsViewController" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="mdQ-67-CKh" customClass="PromotionsViewController" customModule="Hippo" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="np4-M2-Pvw"/>
@@ -1967,6 +1988,7 @@
                         <outlet property="promotionsTableView" destination="Gkx-KU-Tjc" id="ZPZ-BN-XYJ"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HXV-tE-GIe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1865" y="-1962"/>
         </scene>

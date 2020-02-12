@@ -56,6 +56,8 @@ struct SERVERS {
     internal var agentDetail: AgentDetail?
     internal var strings = HippoStrings()
     
+    private(set)  open var isNewConversationButtonHidden: Bool = true
+    private(set)  open var newConversationButtonBorderWidth: Float = 0.0
     
     open var isPaymentRequestEnabled: Bool {
         return HippoProperty.current.isPaymentRequestEnabled
@@ -182,6 +184,20 @@ struct SERVERS {
     }
     public func disableBroadcast() {
         isBroadcastEnabled = false
+    }
+    
+    public func showNewConversationButton() {
+        isNewConversationButtonHidden = false
+    }
+    public func hideNewConversationButton() {
+        isNewConversationButtonHidden = true
+    }
+    
+    public func showNewConversationButtonBorderWithWidth(borderWidth:Float = 1.0) {
+        newConversationButtonBorderWidth = borderWidth
+    }
+    public func hideNewConversationButtonBorder() {
+        newConversationButtonBorderWidth = 0.0
     }
     
     public class func enablePaymentRequest() {
