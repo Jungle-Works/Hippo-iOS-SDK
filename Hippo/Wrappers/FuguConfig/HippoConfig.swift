@@ -58,6 +58,12 @@ struct SERVERS {
     
     private(set)  open var isNewConversationButtonHidden: Bool = true
     private(set)  open var newConversationButtonBorderWidth: Float = 0.0
+
+    private(set)  open var isSuggestionNeeded = false
+    private(set)  open var maxSuggestionCount = 10
+    private(set)  open var questions = [String: Int]()//Dictionary<String, Int>()
+    private(set)  open var suggestions = [Int: String]()//Dictionary<Int, String>()
+    private(set)  open var mapping = [Int: [Int]]()//Dictionary<Int, Array<Int>>()
     
     open var isPaymentRequestEnabled: Bool {
         return HippoProperty.current.isPaymentRequestEnabled
@@ -193,6 +199,22 @@ struct SERVERS {
         isNewConversationButtonHidden = true
     }
     
+    public func isSuggestionNeeded(setValue: Bool) {
+        isSuggestionNeeded = setValue
+    }
+    public func setMaxSuggestionCount(maxSuggestionCount: Int) {
+        self.maxSuggestionCount = maxSuggestionCount
+    }
+    public func setSuggestionQuestionsData(questions: [String: Int]) {
+        self.questions = questions
+    }
+    public func setSuggestionAnswersData(suggestions: [Int: String]) {
+        self.suggestions = suggestions
+    }
+    public func setSuggestionMappingData(mapping: [Int: [Int]]) {
+        self.mapping = mapping
+    }
+
     public func showNewConversationButtonBorderWithWidth(borderWidth:Float = 1.0) {
         newConversationButtonBorderWidth = borderWidth
     }

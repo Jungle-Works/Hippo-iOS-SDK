@@ -51,6 +51,10 @@ protocol NewChatSentDelegate: class {
    @IBOutlet weak var loadMoreActivityTopContraint: NSLayoutConstraint!
    @IBOutlet weak var loadMoreActivityIndicator: UIActivityIndicatorView!
     
+    @IBOutlet weak var suggestionContainerView: UIView!
+    var suggestionCollectionView = SuggestionView()
+    var suggestionList: [String] = []
+    
     var hieghtOfNavigationBar: CGFloat = 0
     
    // MARK: - Computed Properties
@@ -100,6 +104,7 @@ protocol NewChatSentDelegate: class {
       populateTableViewWithChannelData()
       fetchMessagesFrom1stPage()
       HippoConfig.shared.notifyDidLoad()
+    
     }
     
    override  func viewWillAppear(_ animated: Bool) {
@@ -230,6 +235,113 @@ protocol NewChatSentDelegate: class {
 //      }
 
    }
+    
+    func setUpSuggestionsDataAndUI(){
+        if HippoConfig.shared.isSuggestionNeeded == false{
+            suggestionContainerView.isHidden = true
+            return
+        }
+        if self.messagesGroupedByDate.count > 0 {
+            let givenMessagesArray = self.messagesGroupedByDate[self.messagesGroupedByDate.count - 1]
+            if givenMessagesArray.count >= HippoConfig.shared.maxSuggestionCount {
+                suggestionContainerView.isHidden = true
+                return
+            }
+        }
+        suggestionContainerView.isHidden = false
+        prepareSuggestionArray()
+        prepareSuggestionUI()
+    }
+    
+    func prepareSuggestionArray() {
+        checkAutoSuggestions()
+    }
+    
+    private func checkAutoSuggestions() {
+        if messagesGroupedByDate.count == 0{
+            updateData(id: -1)
+            return
+        //}else if let lastMessage = getLastMessage(), lastMessage.type == MessageType.normal{
+        }else if let lastMessage = getLastMessage(), lastMessage.type == MessageType.normal && isSentByMe(senderId: lastMessage.senderId) == false{
+           //try {
+            if let id = HippoConfig.shared.questions[lastMessage.message]{
+                if id > -1 {
+                    suggestionContainerView.isHidden = false
+                    updateData(id: id)
+                    return
+                }
+            }else{
+                suggestionContainerView.isHidden = true
+            }
+            //} catch (Exception e) {
+            //    print("Exception")
+            //}
+        }else{
+            suggestionContainerView.isHidden = true
+        }
+        
+//        if HippoConfig.shared.isSuggestionNeeded {
+//            //HippoConfig.shared.isSuggestionNeeded = false
+//            updateData(id: 0)
+//        }
+        
+    }
+    
+    private func updateData(id: Int) {
+        var data = [String]()
+        var ids = [Int]()
+        
+        if let suggestionsIdsArr = HippoConfig.shared.mapping[id]{
+            ids = suggestionsIdsArr
+            if ids.count > 0{
+                for i in 0..<ids.count{
+                    if let suggestionsStr = HippoConfig.shared.suggestions[ids[i]] {
+                        data.append(suggestionsStr)
+                    }
+                }
+            }
+        }
+        
+        suggestionList.removeAll()
+        suggestionList = data
+    
+    }
+    
+    func prepareSuggestionUI() {
+        let theme = HippoConfig.shared.theme
+        self.suggestionContainerView.addSubview(suggestionCollectionView)
+        suggestionCollectionView.backgroundColor = theme.themeColor
+        let bundle = FuguFlowManager.bundle
+        suggestionCollectionView.register(UINib(nibName: "SuggestionCell", bundle: bundle) , forCellWithReuseIdentifier: "SuggestionCell")
+        suggestionCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        let suggestionTopToViewTopMargin = NSLayoutConstraint(item: suggestionCollectionView, attribute: .top, relatedBy: .equal, toItem: self.suggestionContainerView, attribute: .topMargin, multiplier: 1, constant: 0)
+        let suggestionLeadingToViewLeading = NSLayoutConstraint(item: suggestionCollectionView, attribute: .leading, relatedBy: .equal, toItem: self.suggestionContainerView, attribute: .leading, multiplier: 1, constant: 0)
+        let suggestionTrailingToViewTrailing = NSLayoutConstraint(item: suggestionCollectionView, attribute: .trailing, relatedBy: .equal, toItem: self.suggestionContainerView, attribute: .trailing, multiplier: 1, constant: 0)
+        //let suggestionHeight = NSLayoutConstraint(item: suggestionCollectionView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 50)
+        let suggestionBottomToViewBottomMargin = NSLayoutConstraint(item: suggestionCollectionView, attribute: .bottom, relatedBy: .equal, toItem: self.suggestionContainerView, attribute: .bottom, multiplier: 1, constant: 0)
+        self.suggestionContainerView.addConstraints([suggestionTopToViewTopMargin, suggestionLeadingToViewLeading, suggestionTrailingToViewTrailing, suggestionBottomToViewBottomMargin])//suggestionHeight])//
+        
+        //suggestionCollectionView.frame = suggestionContainerView.frame
+        
+        suggestionCollectionView.customDataSource?.update(suggestions: suggestionList, nextURL: nil)
+        suggestionCollectionView.customDelegate?.update(vc: self)
+        
+        suggestionCollectionView.reloadData()
+        
+    }
+    
+//    func getMessage() -> HippoMessage?{
+//        if self.messagesGroupedByDate.count > 0 {
+//            let givenMessagesArray = self.messagesGroupedByDate[self.messagesGroupedByDate.count - 1]
+//            if givenMessagesArray.count > 0 {
+//                let message = givenMessagesArray[givenMessagesArray.count - 1]
+//                let messageType = message.type
+//                return message
+//            }
+//            return nil
+//        }
+//        return nil
+//    }
    
 // MARK: - UIButton Actions
     
@@ -307,14 +419,18 @@ protocol NewChatSentDelegate: class {
     }
     
     @IBAction func sendMessageButtonAction(_ sender: UIButton) {
+        self.sendMessageButtonAction(messageTextStr: messageTextView.text)
+    }
+    
+    func sendMessageButtonAction(messageTextStr: String){
         if channel != nil, !channel.isSubscribed()  {
             buttonClickedOnNetworkOff()
             return
         }
-        if isMessageInvalid(messageText: messageTextView.text) {
+        if isMessageInvalid(messageText: messageTextStr) {
             return
         }
-        let trimmedMessage = messageTextView.text.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+        let trimmedMessage = messageTextStr.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
         
         let message = HippoMessage(message: trimmedMessage, type: .normal, uniqueID: String.generateUniqueId(), chatType: channel?.chatDetail?.chatType)
         
@@ -349,7 +465,6 @@ protocol NewChatSentDelegate: class {
                 }
             })
         }
-        
     }
    
     func sendQuickReplyReposeIfRequired() {
@@ -1721,6 +1836,9 @@ extension ConversationsViewController {
    
    func sendReadAllNotification() {
       channel?.send(message: HippoMessage.readAllNotification, completion: {})
+    
+    setUpSuggestionsDataAndUI()//
+    
    }
 }
 
@@ -2159,5 +2277,21 @@ extension ConversationsViewController: FeedbackTableViewCellDelegate {
         tableViewChat.beginUpdates()
         tableViewChat.cellForRow(at: data.indexPath!)?.updateConstraintsIfNeeded()
         tableViewChat.endUpdates()
+    }
+}
+
+extension ConversationsViewController: chatViewDelegateProtocol {
+    func selectedSuggestion(indexPath: IndexPath) {
+        //tableList.append(suggestionList[indexPath.row])
+        self.sendMessageButtonAction(messageTextStr: suggestionList[indexPath.row])
+        suggestionList.remove(at: indexPath.row)
+        if suggestionList.count <= 0{
+            suggestionContainerView.isHidden = true
+        }
+        suggestionCollectionView.customDataSource?.update(suggestions: suggestionList, nextURL: nil)
+        UIView.animate(withDuration: 0.2) {
+            //self.tableView.reloadData()
+            self.suggestionCollectionView.reloadData()
+        }
     }
 }

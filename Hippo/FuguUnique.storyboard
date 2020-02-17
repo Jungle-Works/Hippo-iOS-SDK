@@ -552,7 +552,7 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <subviews>
                                     <imageView hidden="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="app_loader_shape" translatesAutoresizingMaskIntoConstraints="NO" id="Y22-DA-qgw" customClass="So_UIImageView" customModule="Hippo" customModuleProvider="target">
-                                        <rect key="frame" x="167.5" y="281.5" width="40" height="40"/>
+                                        <rect key="frame" x="179.5" y="293.5" width="16" height="16"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </imageView>
                                 </subviews>
@@ -654,7 +654,7 @@
                                 </constraints>
                             </view>
                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" image="app_loader_shape" translatesAutoresizingMaskIntoConstraints="NO" id="eZG-Yq-Sel">
-                                <rect key="frame" x="167.5" y="313.5" width="40" height="40"/>
+                                <rect key="frame" x="179.5" y="325.5" width="16" height="16"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q6z-xO-SMj">
                                 <rect key="frame" x="164.5" y="322.5" width="46.5" height="22.5"/>
@@ -929,6 +929,17 @@
                                     <outlet property="delegate" destination="Zql-KC-mKa" id="DXW-gX-9U4"/>
                                 </connections>
                             </tableView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="AZ4-BR-10y">
+                                <rect key="frame" x="0.0" y="611" width="375" height="0.0"/>
+                                <subviews>
+                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JVk-Db-FLZ">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="wke-2I-C20"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                            </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i5f-Ma-L0R">
                                 <rect key="frame" x="0.0" y="610" width="375" height="1"/>
                                 <color key="backgroundColor" red="0.66666666669999997" green="0.66666666669999997" blue="0.66666666669999997" alpha="0.69999999999999996" colorSpace="calibratedRGB"/>
@@ -937,7 +948,7 @@
                                 </constraints>
                             </view>
                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="app_loader_shape" translatesAutoresizingMaskIntoConstraints="NO" id="yXi-kz-HoV" customClass="So_UIImageView" customModule="Hippo" customModuleProvider="target">
-                                <rect key="frame" x="179.5" y="325.5" width="16" height="16"/>
+                                <rect key="frame" x="167.5" y="313.5" width="40" height="40"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3pN-rq-23Q">
@@ -957,7 +968,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Send a message..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EE4-xz-Z1Q">
-                                        <rect key="frame" x="41" y="3" width="117" height="50"/>
+                                        <rect key="frame" x="41" y="3" width="116.5" height="50"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                         <color key="textColor" red="0.28627450980000002" green="0.28627450980000002" blue="0.28627450980000002" alpha="0.5" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -1103,14 +1114,17 @@
                             <constraint firstAttribute="trailing" secondItem="qnv-or-clc" secondAttribute="trailing" id="Iwz-lA-t9R"/>
                             <constraint firstItem="85d-HF-bp8" firstAttribute="top" secondItem="Kox-UA-NRB" secondAttribute="bottom" id="JrZ-7A-BJE"/>
                             <constraint firstItem="yXi-kz-HoV" firstAttribute="centerX" secondItem="ofr-Y0-GIn" secondAttribute="centerX" id="MBY-kx-i4V"/>
-                            <constraint firstItem="3pN-rq-23Q" firstAttribute="top" secondItem="qnv-or-clc" secondAttribute="bottom" id="OC9-c9-sMa"/>
                             <constraint firstItem="85d-HF-bp8" firstAttribute="width" secondItem="ofr-Y0-GIn" secondAttribute="width" id="PYQ-iE-q1J"/>
                             <constraint firstItem="3pN-rq-23Q" firstAttribute="top" secondItem="i5f-Ma-L0R" secondAttribute="bottom" id="Rd1-sS-htC"/>
                             <constraint firstItem="85d-HF-bp8" firstAttribute="leading" secondItem="ofr-Y0-GIn" secondAttribute="leading" id="Sw2-08-4G4"/>
                             <constraint firstItem="3pN-rq-23Q" firstAttribute="leading" secondItem="ofr-Y0-GIn" secondAttribute="leading" id="U5Q-Xi-hdh"/>
+                            <constraint firstItem="3pN-rq-23Q" firstAttribute="top" secondItem="AZ4-BR-10y" secondAttribute="bottom" id="Ut1-FP-A50"/>
+                            <constraint firstItem="AZ4-BR-10y" firstAttribute="leading" secondItem="ofr-Y0-GIn" secondAttribute="leading" id="f1o-d1-BZq"/>
+                            <constraint firstItem="AZ4-BR-10y" firstAttribute="top" secondItem="qnv-or-clc" secondAttribute="bottom" id="hlS-Zy-No7"/>
                             <constraint firstItem="Kox-UA-NRB" firstAttribute="leading" secondItem="ofr-Y0-GIn" secondAttribute="leading" id="hzA-zV-mzF"/>
                             <constraint firstItem="Kox-UA-NRB" firstAttribute="top" secondItem="ofr-Y0-GIn" secondAttribute="top" id="iEY-Dm-QBn"/>
                             <constraint firstItem="qnv-or-clc" firstAttribute="leading" secondItem="ofr-Y0-GIn" secondAttribute="leading" id="kJ3-dP-Mz2"/>
+                            <constraint firstAttribute="trailing" secondItem="AZ4-BR-10y" secondAttribute="trailing" id="pd8-Ln-Rqj"/>
                             <constraint firstAttribute="trailing" secondItem="Kox-UA-NRB" secondAttribute="trailing" id="u1C-Cs-wuU"/>
                             <constraint firstItem="qnv-or-clc" firstAttribute="top" secondItem="85d-HF-bp8" secondAttribute="bottom" id="xYe-2F-Nk5"/>
                         </constraints>
@@ -1147,6 +1161,7 @@
                         <outlet property="placeHolderLabel" destination="EE4-xz-Z1Q" id="sWm-S8-QVb"/>
                         <outlet property="sendMessageButton" destination="qNk-pG-Dkt" id="clb-OM-eCq"/>
                         <outlet property="seperatorView" destination="i5f-Ma-L0R" id="w3m-bS-D5M"/>
+                        <outlet property="suggestionContainerView" destination="JVk-Db-FLZ" id="K0q-9D-8R1"/>
                         <outlet property="tableViewChat" destination="qnv-or-clc" id="073-yf-d4s"/>
                         <outlet property="textViewBgView" destination="3pN-rq-23Q" id="VFr-dn-D18"/>
                         <outlet property="textViewBottomConstraint" destination="6Wm-8E-PPg" id="DWW-bX-IeR"/>
@@ -1311,7 +1326,7 @@
                                 </constraints>
                             </view>
                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="app_loader_shape" translatesAutoresizingMaskIntoConstraints="NO" id="OGB-1g-dv7" customClass="So_UIImageView" customModule="Hippo" customModuleProvider="target">
-                                <rect key="frame" x="167.5" y="281.5" width="40" height="40"/>
+                                <rect key="frame" x="179.5" y="293.5" width="16" height="16"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VJr-jD-1Ra">

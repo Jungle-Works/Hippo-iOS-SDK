@@ -272,6 +272,12 @@
 		C9FB6FB821EE10CD00B72CEA /* Benchmarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FB6FA621EE10CD00B72CEA /* Benchmarker.swift */; };
 		C9FB6FDC21EEF04900B72CEA /* TWRDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FB6FD921EEF04800B72CEA /* TWRDownloadManager.m */; };
 		C9FB6FDD21EEF04900B72CEA /* TWRDownloadObject.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FB6FDA21EEF04800B72CEA /* TWRDownloadObject.m */; };
+		D86028AB23F6AD40009540D3 /* SuggestionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86028A923F6AD40009540D3 /* SuggestionCell.swift */; };
+		D86028AC23F6AD40009540D3 /* SuggestionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D86028AA23F6AD40009540D3 /* SuggestionCell.xib */; };
+		D86028B023F6AFFA009540D3 /* SuggestionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86028AE23F6AFF9009540D3 /* SuggestionViewDelegate.swift */; };
+		D86028B123F6AFFA009540D3 /* SuggestionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86028AF23F6AFFA009540D3 /* SuggestionViewDataSource.swift */; };
+		D86028B423F6B425009540D3 /* SuggestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86028B323F6B425009540D3 /* SuggestionView.swift */; };
+		D86028B623F6C9D0009540D3 /* SuggestionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86028B523F6C9CF009540D3 /* SuggestionViewFlowLayout.swift */; };
 		EE683A4123DAB3A000177913 /* PromotionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE683A4023DAB3A000177913 /* PromotionsViewController.swift */; };
 		EE683A4523DAB3F700177913 /* PromotionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE683A4323DAB3F700177913 /* PromotionTableViewCell.swift */; };
 		EE683A4623DAB3F700177913 /* PromotionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE683A4423DAB3F700177913 /* PromotionTableViewCell.xib */; };
@@ -552,6 +558,12 @@
 		C9FB6FD921EEF04800B72CEA /* TWRDownloadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWRDownloadManager.m; sourceTree = "<group>"; };
 		C9FB6FDA21EEF04800B72CEA /* TWRDownloadObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWRDownloadObject.m; sourceTree = "<group>"; };
 		C9FB6FDB21EEF04800B72CEA /* TWRDownloadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWRDownloadManager.h; sourceTree = "<group>"; };
+		D86028A923F6AD40009540D3 /* SuggestionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuggestionCell.swift; sourceTree = "<group>"; };
+		D86028AA23F6AD40009540D3 /* SuggestionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SuggestionCell.xib; sourceTree = "<group>"; };
+		D86028AE23F6AFF9009540D3 /* SuggestionViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuggestionViewDelegate.swift; sourceTree = "<group>"; };
+		D86028AF23F6AFFA009540D3 /* SuggestionViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuggestionViewDataSource.swift; sourceTree = "<group>"; };
+		D86028B323F6B425009540D3 /* SuggestionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuggestionView.swift; sourceTree = "<group>"; };
+		D86028B523F6C9CF009540D3 /* SuggestionViewFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuggestionViewFlowLayout.swift; sourceTree = "<group>"; };
 		E0E4A9E31B1EC7F72EC2F38D /* Pods_Fugu.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Fugu.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE683A4023DAB3A000177913 /* PromotionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromotionsViewController.swift; sourceTree = "<group>"; };
 		EE683A4323DAB3F700177913 /* PromotionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromotionTableViewCell.swift; sourceTree = "<group>"; };
@@ -1157,6 +1169,7 @@
 		C9B77D0821A01B060092848D /* CollectionViewCells */ = {
 			isa = PBXGroup;
 			children = (
+				D86028A823F6AC9D009540D3 /* SuggestionCollectionViewCell */,
 				C9B77D0921A01B060092848D /* AgentHomeCollectionViewCell */,
 				C9B77D0C21A01B060092848D /* QuickReplyButtonCollectionViewCell */,
 				C9B77D0F21A01B060092848D /* EmojiCollectionViewCell */,
@@ -1334,6 +1347,8 @@
 		C9B77DC321A01B060092848D /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				D86028B223F6B417009540D3 /* SuggestionView */,
+				D86028AD23F6AF9C009540D3 /* SuggestionViewDelegates */,
 				C9B77DC421A01B060092848D /* FuguNetworkHandler.swift */,
 				C9B77DCE21A01B060092848D /* FrameObserverAccessaryView.swift */,
 				C9B77DCF21A01B060092848D /* Fugu+Properties.swift */,
@@ -1527,6 +1542,33 @@
 			path = TRWDownloadManager;
 			sourceTree = "<group>";
 		};
+		D86028A823F6AC9D009540D3 /* SuggestionCollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				D86028A923F6AD40009540D3 /* SuggestionCell.swift */,
+				D86028AA23F6AD40009540D3 /* SuggestionCell.xib */,
+			);
+			path = SuggestionCollectionViewCell;
+			sourceTree = "<group>";
+		};
+		D86028AD23F6AF9C009540D3 /* SuggestionViewDelegates */ = {
+			isa = PBXGroup;
+			children = (
+				D86028AF23F6AFFA009540D3 /* SuggestionViewDataSource.swift */,
+				D86028AE23F6AFF9009540D3 /* SuggestionViewDelegate.swift */,
+				D86028B523F6C9CF009540D3 /* SuggestionViewFlowLayout.swift */,
+			);
+			path = SuggestionViewDelegates;
+			sourceTree = "<group>";
+		};
+		D86028B223F6B417009540D3 /* SuggestionView */ = {
+			isa = PBXGroup;
+			children = (
+				D86028B323F6B425009540D3 /* SuggestionView.swift */,
+			);
+			path = SuggestionView;
+			sourceTree = "<group>";
+		};
 		EE683A4223DAB3F700177913 /* PromotionTableViewCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -1658,6 +1700,7 @@
 				C936013A22EEC5EA00A6C291 /* ShowMoreTableViewCell.xib in Resources */,
 				C936010622EEC5EA00A6C291 /* IncomingDocumentTableViewCell.xib in Resources */,
 				C9B77E6221A01B060092848D /* HippoBroadCast.storyboard in Resources */,
+				D86028AC23F6AD40009540D3 /* SuggestionCell.xib in Resources */,
 				C936010422EEC5EA00A6C291 /* BotOutgoingMessageTableViewCell.xib in Resources */,
 				C93600FE22EEC5EA00A6C291 /* ContactNumberTableCell.xib in Resources */,
 				C936012922EEC5EA00A6C291 /* IncomingVideoTableViewCell.xib in Resources */,
@@ -1735,6 +1778,7 @@
 				C9FB6FB621EE10CD00B72CEA /* LoggerConfig.swift in Sources */,
 				C9FB6FB321EE10CD00B72CEA /* Themes.swift in Sources */,
 				C9B77E6B21A01B060092848D /* NotificationCenter+Extension.swift in Sources */,
+				D86028AB23F6AD40009540D3 /* SuggestionCell.swift in Sources */,
 				C9FB6FAD21EE10CD00B72CEA /* CoreKit.swift in Sources */,
 				C936011222EEC5EA00A6C291 /* ButtonCellCollectionViewHandler.swift in Sources */,
 				C9B77E7621A01B060092848D /* FuguTheme.swift in Sources */,
@@ -1774,6 +1818,7 @@
 				C9B77E9C21A01B070092848D /* CheckIntializationViewController.swift in Sources */,
 				C936012522EEC5EA00A6C291 /* OutgoingAudioTableViewCell.swift in Sources */,
 				C9B77EB121A01B070092848D /* ThreadHelper.swift in Sources */,
+				D86028B123F6AFFA009540D3 /* SuggestionViewDataSource.swift in Sources */,
 				C936014822EEC5EA00A6C291 /* BroadcastListTableViewCell.swift in Sources */,
 				C936010A22EEC5EA00A6C291 /* LeadTableViewCell.swift in Sources */,
 				C9B77EC821A01B070092848D /* IQPreviousNextView.swift in Sources */,
@@ -1785,6 +1830,7 @@
 				C9B77E7A21A01B060092848D /* GeneralChat.swift in Sources */,
 				C9B77EBC21A01B070092848D /* KingfisherManager.swift in Sources */,
 				C936010722EEC5EA00A6C291 /* IncomingDocumentTableViewCell.swift in Sources */,
+				D86028B423F6B425009540D3 /* SuggestionView.swift in Sources */,
 				C9FB6FA721EE10CD00B72CEA /* CoreKit+UIImage.swift in Sources */,
 				C936012D22EEC5EA00A6C291 /* OutgoingDocumentTableViewCell.swift in Sources */,
 				C9FB6F8D21EE0DE400B72CEA /* HippoQLDataSource.swift in Sources */,
@@ -1854,7 +1900,9 @@
 				C9FB6F8E21EE0DE400B72CEA /* AudioPlayerManager.swift in Sources */,
 				C9B77E1721A01B060092848D /* HippoNotification.swift in Sources */,
 				C9B77E7721A01B060092848D /* HippoTicketAtrributes.swift in Sources */,
+				D86028B623F6C9D0009540D3 /* SuggestionViewFlowLayout.swift in Sources */,
 				C9B77ECD21A01B070092848D /* IQInvocation.swift in Sources */,
+				D86028B023F6AFFA009540D3 /* SuggestionViewDelegate.swift in Sources */,
 				C9B77EAC21A01B070092848D /* CloseButton.swift in Sources */,
 				C9F6D47321C8B47100EA23E6 /* HippoTheme.swift in Sources */,
 				C9B77ED421A01B070092848D /* IQUIViewController+Additions.swift in Sources */,
