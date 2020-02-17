@@ -33,7 +33,7 @@ struct SERVERS {
     static let devFaye = "https://hippo-api-dev.fuguchat.com:3012/faye"
     
     static let betaUrlNew = "https://beta-live-api.fuguchat.com/"
-    static let betaFayeNew = "https://beta-live-api.fuguchat.com/faye"
+    static let betaFayeNew = "https://api.fuguchat.com:3001/faye"
 }
 
 @objcMembers public class HippoConfig : NSObject {
