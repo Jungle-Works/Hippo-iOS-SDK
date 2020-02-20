@@ -72,7 +72,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         checkNetworkConnection()
-        newConversationBiutton.isHidden = true
+//        newConversationBiutton.isHidden = true
         if HippoUserDetail.fuguUserID == nil {
             putUserDetails()
         } else {
@@ -90,10 +90,15 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     }
     
     func setUpTabBar(){
+        //        self.tabBarController?.hidesBottomBarWhenPushed = true
+        //        self.tabBarController?.tabBar.isHidden = false
+        //        self.tabBarController?.tabBar.layer.zPosition = 0
+        //        self.tabBarController?.tabBar.items?[0].title = "Chats"
+        
+        //hide
         self.tabBarController?.hidesBottomBarWhenPushed = true
-        self.tabBarController?.tabBar.isHidden = false
-        self.tabBarController?.tabBar.layer.zPosition = 0
-        self.tabBarController?.tabBar.items?[0].title = "Chats"
+        self.tabBarController?.tabBar.isHidden = true
+        self.tabBarController?.tabBar.layer.zPosition = -1
     }
     
     @IBAction func newConversationClicked(_ sender: Any) {
@@ -137,11 +142,11 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
             }
             
             self?.showConversationsTableView.reloadData()
-            if self?.conversationChatType == .openChat{
-                self?.newConversationBiutton.isHidden = !HippoProperty.current.enableNewConversationButton
-            }else if self?.conversationChatType == .closeChat{
-                self?.newConversationBiutton.isHidden = true
-            }else{}
+//            if self?.conversationChatType == .openChat{
+//                self?.newConversationBiutton.isHidden = !HippoProperty.current.enableNewConversationButton
+//            }else if self?.conversationChatType == .closeChat{
+//                self?.newConversationBiutton.isHidden = true
+//            }else{}
             if let result = self?.handleIntialCustomerForm(), result {
                 return
             } else if self?.arrayOfConversation.count == 0 {
@@ -164,11 +169,11 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         showConversationsTableView.backgroundView = refreshControl
         let theme = HippoConfig.shared.theme
         
-        if self.conversationChatType == .openChat{
-            newConversationBiutton.isHidden = !HippoProperty.current.enableNewConversationButton
-        }else if self.conversationChatType == .closeChat{
-            newConversationBiutton.isHidden = true
-        }else{}
+//        if self.conversationChatType == .openChat{
+//            newConversationBiutton.isHidden = !HippoProperty.current.enableNewConversationButton
+//        }else if self.conversationChatType == .closeChat{
+//            newConversationBiutton.isHidden = true
+//        }else{}
         
         newConversationBiutton.isEnabled = HippoProperty.current.enableNewConversationButton
         
@@ -296,13 +301,27 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     // MARK: - UIButton Actions
     
     @IBAction func backButtonClicked(_ sender: Any) {
+//        saveConversationsInCache()
+//        HippoConfig.shared.notifiyDeinit()
+//        if config.shouldPopVc {
+//            self.navigationController?.popViewController(animated: true)
+//        } else {
+//            _ = self.navigationController?.dismiss(animated: true, completion: nil)
+//        }
+        
         saveConversationsInCache()
         HippoConfig.shared.notifiyDeinit()
+        if let navigationController = UIApplication.shared.keyWindow?.rootViewController as? UINavigationController{
+            if let tabBarController = navigationController.viewControllers[0] as? UITabBarController{
+                tabBarController.selectedIndex = 0
+            }
+        }
         if config.shouldPopVc {
             self.navigationController?.popViewController(animated: true)
         } else {
             _ = self.navigationController?.dismiss(animated: true, completion: nil)
         }
+        
     }
     @IBAction func backButtonAction(_ sender: UIButton) {
         saveConversationsInCache()
@@ -319,7 +338,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         guard conversationChatType != .openChat else {
             return
         }
-        self.newConversationBiutton.isHidden = false
+//        self.newConversationBiutton.isHidden = false
         conversationChatType = .openChat
         animateBottomLineView()
         //getAllConversations()
@@ -330,7 +349,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         guard conversationChatType != .closeChat else {
             return
         }
-        self.newConversationBiutton.isHidden = true
+//        self.newConversationBiutton.isHidden = true
         conversationChatType = .closeChat
         animateBottomLineView()
         //getAllConversations()
@@ -462,11 +481,11 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
                 self?.filterConversationArr(conversationArr: conversationData)
             }
             
-            if self?.conversationChatType == .openChat{
-                self?.newConversationBiutton.isHidden = !HippoProperty.current.enableNewConversationButton
-            }else if self?.conversationChatType == .closeChat{
-                self?.newConversationBiutton.isHidden = true
-            }else{}
+//            if self?.conversationChatType == .openChat{
+//                self?.newConversationBiutton.isHidden = !HippoProperty.current.enableNewConversationButton
+//            }else if self?.conversationChatType == .closeChat{
+//                self?.newConversationBiutton.isHidden = true
+//            }else{}
             
         }
     }

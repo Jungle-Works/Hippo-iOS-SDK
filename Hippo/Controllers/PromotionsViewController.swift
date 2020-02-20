@@ -77,18 +77,48 @@ class PromotionsViewController: UIViewController {
     }
     
     func setUpTabBar(){
-        self.tabBarController?.hidesBottomBarWhenPushed = true
-        self.tabBarController?.tabBar.isHidden = false
-        self.tabBarController?.tabBar.layer.zPosition = 0
-        self.tabBarController?.tabBar.items?[1].title = "Notifications"
+        //        self.tabBarController?.hidesBottomBarWhenPushed = true
+        //        self.tabBarController?.tabBar.isHidden = false
+        //        self.tabBarController?.tabBar.layer.zPosition = 0
+        //        self.tabBarController?.tabBar.items?[1].title = "Notifications"
+        
+        //hide
+        //self.tabBarController?.hidesBottomBarWhenPushed = true
+        self.tabBarController?.tabBar.isHidden = true
+        //self.tabBarController?.tabBar.layer.zPosition = -1
     }
     
     func deleteAllAnnouncementsButton() {
         let theme = HippoConfig.shared.theme
         let deleteAllAnnouncementsButton = UIBarButtonItem(image: UIImage(named: "ic_delete"), landscapeImagePhone: nil, style: .done, target: self, action: #selector(deleteAllAnnouncementsButtonClicked))
         deleteAllAnnouncementsButton.tintColor = theme.logoutButtonTintColor ?? theme.headerTextColor
+        
+        let btnleft : UIButton = UIButton(frame: CGRect(x:0, y:0, width:35, height:35))
+        btnleft.setTitleColor(UIColor.white, for: .normal)
+        btnleft.contentMode = .left
+        btnleft.setImage(UIImage(named :"iconBackTitleBar"), for: .normal)
+        btnleft.addTarget(self, action: #selector(backButtonClicked), for: .touchDown)
+        let backBarButon: UIBarButtonItem = UIBarButtonItem(customView: btnleft)
+        backBarButon.tintColor = theme.logoutButtonTintColor ?? theme.headerTextColor
+        self.navigationItem.setLeftBarButtonItems([backBarButon], animated: false)
+        
         self.navigationItem.rightBarButtonItem = deleteAllAnnouncementsButton
         self.navigationItem.rightBarButtonItems = [deleteAllAnnouncementsButton]
+        
+    }
+    @objc func backButtonClicked() {
+        
+        if let navigationController = UIApplication.shared.keyWindow?.rootViewController as? UINavigationController{
+            if let tabBarController = navigationController.viewControllers[0] as? UITabBarController{
+                tabBarController.selectedIndex = 0
+            }
+        }
+        
+        //        if config.shouldPopVc {
+        //            self.navigationController?.popViewController(animated: true)
+        //        } else {
+        _ = self.navigationController?.dismiss(animated: true, completion: nil)
+        //        }
         
     }
     @objc func deleteAllAnnouncementsButtonClicked() {

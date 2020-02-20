@@ -223,6 +223,14 @@ struct SERVERS {
         HippoConfig.shared.checker.presentChatsViewController(on: viewController)
     }
     
+    public func consultNowButtonClicked(consultNowInfoDict: [String: Any]){
+        FuguFlowManager.shared.consultNowButtonClicked(consultNowInfoDict: consultNowInfoDict)
+    }
+    
+    public func presentPromotionalPushController(){
+        FuguFlowManager.shared.presentPromotionalpushController()
+    }
+    
     public func initiateBroadcast(displayName: String = "") {
         guard appUserType == .agent, isBroadcastEnabled else {
             return

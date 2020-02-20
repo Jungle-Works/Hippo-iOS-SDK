@@ -26,6 +26,9 @@ protocol NewChatSentDelegate: class {
     var createConversationOnStart = false
     var hideBackButton: Bool = false
     
+    var consultNowInfoDict = [String: Any]()
+    var isComingFromConsultNowButton = false
+    
     // MARK: -  IBOutlets
     @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var audioCAllButtonWidthConstraint: NSLayoutConstraint!
@@ -107,8 +110,23 @@ protocol NewChatSentDelegate: class {
                     guard success else {
                         return
                     }
-                    self?.populateTableViewWithChannelData()
-                    self?.fetchMessagesFrom1stPage()
+                    
+                    //self?.populateTableViewWithChannelData()
+                    //self?.fetchMessagesFrom1stPage()
+                    if self?.isComingFromConsultNowButton == true{
+                        self?.isComingFromConsultNowButton = false
+                        self?.callAssignAgentApi(completion: { [weak self] (success) in
+                            guard success == true else {
+                                return
+                            }
+                            self?.populateTableViewWithChannelData()
+                            self?.fetchMessagesFrom1stPage()
+                        })
+                    }else{
+                        self?.populateTableViewWithChannelData()
+                        self?.fetchMessagesFrom1stPage()
+                    }
+                    
                 })
             } else {
                 fetchMessagesFrom1stPage()
@@ -153,6 +171,8 @@ protocol NewChatSentDelegate: class {
     }
     
     override func viewWillLayoutSubviews() {
+        
+        //hide
         self.tabBarController?.hidesBottomBarWhenPushed = true
         self.tabBarController?.tabBar.isHidden = true
         self.tabBarController?.tabBar.layer.zPosition = -1
@@ -261,8 +281,23 @@ protocol NewChatSentDelegate: class {
                   guard success else {
                       return
                   }
-                  self?.populateTableViewWithChannelData()
-                  self?.fetchMessagesFrom1stPage()
+                
+                //self?.populateTableViewWithChannelData()
+                //self?.fetchMessagesFrom1stPage()
+                if self?.isComingFromConsultNowButton == true{
+                    self?.isComingFromConsultNowButton = false
+                    self?.callAssignAgentApi(completion: { [weak self] (success) in
+                        guard success == true else {
+                            return
+                        }
+                        self?.populateTableViewWithChannelData()
+                        self?.fetchMessagesFrom1stPage()
+                    })
+                }else{
+                    self?.populateTableViewWithChannelData()
+                    self?.fetchMessagesFrom1stPage()
+                }
+                
               })
           } else {
               fetchMessagesFrom1stPage()
@@ -801,8 +836,23 @@ protocol NewChatSentDelegate: class {
         completion?(false)
         startNewConversation(replyMessage: nil, completion: { [weak self] (success, result) in
             if success {
-                self?.populateTableViewWithChannelData()
-                self?.fetchMessagesFrom1stPage()
+                
+                //self?.populateTableViewWithChannelData()
+                //self?.fetchMessagesFrom1stPage()
+                if self?.isComingFromConsultNowButton == true{
+                    self?.isComingFromConsultNowButton = false
+                    self?.callAssignAgentApi(completion: { [weak self] (success) in
+                        guard success == true else {
+                            return
+                        }
+                        self?.populateTableViewWithChannelData()
+                        self?.fetchMessagesFrom1stPage()
+                    })
+                }else{
+                    self?.populateTableViewWithChannelData()
+                    self?.fetchMessagesFrom1stPage()
+                }
+                
             }
         })
     }
@@ -866,6 +916,25 @@ protocol NewChatSentDelegate: class {
     
     }
    
+    func callAssignAgentApi(completion: ((_ success: Bool) -> Void)?) {
+        
+        guard let authorEmail = consultNowInfoDict["authorEmail"] as? String else {
+            return
+        }
+        var dict = [String : Any]()
+        dict["agent_email"] = authorEmail
+        dict["app_secret_key"] = HippoConfig.shared.appSecretKey
+        dict["en_user_id"] = HippoUserDetail.fuguEnUserID ?? "-1"
+        dict["channel_id"] = self.channel?.id ?? -1
+        //dict["access_token"] = ""
+        //dict["user_id"] = ""
+        
+        HippoChannel.callAssignAgentApi(withParams: dict) { [weak self] (bool) in
+            completion?(bool)
+        }
+        
+    }
+    
     override func startNewConversation(replyMessage: HippoMessage?, completion: ((_ success: Bool, _ result: HippoChannelCreationResult?) -> Void)?) {
       
         guard HippoUserDetail.fuguEnUserID != nil else {

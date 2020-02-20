@@ -322,6 +322,25 @@ class HippoChannel {
         }
     }
     
+    class func callAssignAgentApi(withParams params: [String: Any], completion: @escaping (Bool) -> Void) {//HippoChannelCreationHandler) {
+        callAssignAgentApi(params: params, completion: completion)
+    }
+    private class func callAssignAgentApi(params: [String: Any],  completion: @escaping (Bool) -> Void) {//HippoChannelCreationHandler) {
+        HippoConfig.shared.log.debug("API_AssignAgent.....\(params)", level: .request)
+        HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: AgentEndPoints.assignAgent.rawValue) { (response, error, _, statusCode) in
+            
+            guard let responseDict = response as? [String: Any],
+                let statusCode = responseDict["statusCode"] as? Int, statusCode == 200 else {
+                    HippoConfig.shared.log.debug("API_AssignAgent ERROR.....\(error?.localizedDescription ?? "")", level: .error)
+                    completion(false)
+                    return
+            }
+            
+            completion(true)
+            
+        }
+    }
+    
     /// Creates new support conversation.
     ///
     /// - Parameters:
