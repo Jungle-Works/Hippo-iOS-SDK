@@ -742,6 +742,8 @@ protocol NewChatSentDelegate: class {
     func handleVideoIcon() {
         setTitleButton()
         
+        //image icon name = tiny-video-symbol
+        
         if isDirectCallingEnabledFor(type: .video) {
             videoButton.image = HippoConfig.shared.theme.videoCallIcon
             videoButton.tintColor = HippoConfig.shared.theme.headerTextColor
@@ -755,6 +757,9 @@ protocol NewChatSentDelegate: class {
     }
     func handleAudioIcon() {
         setTitleButton()
+        
+        //image icon name = audioCallIcon
+        
         if isDirectCallingEnabledFor(type: .audio) {
             audioCallButton.image = HippoConfig.shared.theme.audioCallIcon
             audioCallButton.tintColor = HippoConfig.shared.theme.headerTextColor
