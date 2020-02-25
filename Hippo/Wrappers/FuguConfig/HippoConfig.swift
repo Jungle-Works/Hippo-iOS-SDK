@@ -23,8 +23,8 @@ enum AppUserType {
 
 
 struct SERVERS {
-    static let liveUrl = "https://api.fuguchat.com/"
-    static let liveFaye = "https://api.fuguchat.com:3002/faye"
+    static let liveUrl = "https://api.hippochat.io/"//"https://api.fuguchat.com/"
+    static let liveFaye = "https://api.hippochat.io:3002/faye"//"https://api.fuguchat.com:3002/faye"
     
     static let betaUrl = "https://hippo-api-dev.fuguchat.com:3002/"
     static let betaFaye = "https://hippo-api-dev.fuguchat.com:3002/faye"
@@ -460,6 +460,7 @@ struct SERVERS {
             
             let conVC = ConversationsViewController.getWith(channelID: channelId, channelName: "Group Chat")
             let lastVC = getLastVisibleController()
+            lastVC?.modalPresentationStyle = .fullScreen
             lastVC?.present(conVC, animated: true, completion: nil)
         }
     }

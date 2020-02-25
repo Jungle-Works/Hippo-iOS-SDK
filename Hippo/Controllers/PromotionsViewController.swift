@@ -47,12 +47,24 @@ class PromotionsViewController: UIViewController {
         //navigationBackgroundView.backgroundColor = HippoConfig.shared.theme.headerBackgroundColor
         
         let backButton = UIButton(type: .custom)
-        backButton.setImage(UIImage(named: "BackWhite"), for: .normal)
+        //backButton.setImage(UIImage(named: "BackWhite"), for: .normal)
+        backButton.setImage(UIImage(named: "BackWhite", in: FuguFlowManager.bundle, compatibleWith: nil), for: .normal)
         backButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
         backButton.addTarget(self, action: #selector(backButtonClicked), for: .touchUpInside)
         let item = UIBarButtonItem(customView: backButton)
-    
         self.navigationItem.setLeftBarButton(item, animated: false)
+        
+//        let btnleft : UIButton = UIButton(frame: CGRect(x:0, y:0, width:35, height:35))
+//        btnleft.setTitleColor(UIColor.white, for: .normal)
+//        btnleft.contentMode = .left
+//        //btnleft.setImage(UIImage(named :"home"), for: .normal) //parent app asset
+//        //btnleft.setImage(UIImage(named :"backButtonNormalStateIcon"), for: .normal)//hippo asset
+//        btnleft.setImage(UIImage(named: "backButtonNormalStateIcon", in: FuguFlowManager.bundle, compatibleWith: nil), for: .normal)
+//        btnleft.addTarget(self, action: #selector(backButtonClicked), for: .touchDown)
+//        let backBarButon: UIBarButtonItem = UIBarButtonItem(customView: btnleft)
+//        backBarButon.tintColor = UIColor.black
+//        self.navigationItem.setLeftBarButtonItems([backBarButon], animated: false)
+        
         
     promotionsTableView.register(UINib(nibName: "PromotionTableViewCell", bundle: FuguFlowManager.bundle), forCellReuseIdentifier: "PromotionTableViewCell")
         promotionsTableView.rowHeight = UITableView.automaticDimension
@@ -70,6 +82,9 @@ class PromotionsViewController: UIViewController {
         HippoConfig.shared.notifiyDeinit()
         _ = self.navigationController?.dismiss(animated: true, completion: nil)
     }
+//    @objc func backButtonClicked() {
+//        _ = self.navigationController?.dismiss(animated: true, completion: nil)
+//    }
     
     internal func setupRefreshController() {
         refreshControl.backgroundColor = .clear

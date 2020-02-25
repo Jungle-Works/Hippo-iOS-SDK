@@ -44,7 +44,7 @@ class FuguFlowManager: NSObject {
          return
       }
       let visibleController = getLastVisibleController()
-    
+    navigationController.modalPresentationStyle = .fullScreen
       visibleController?.present(navigationController, animated: animation, completion: nil)
    }
     
@@ -53,7 +53,7 @@ class FuguFlowManager: NSObject {
             return
         }
         let visibleController = getLastVisibleController()
-        
+        navigationController.modalPresentationStyle = .fullScreen
         visibleController?.present(navigationController, animated: animation, completion: nil)
     }
     
@@ -76,6 +76,7 @@ class FuguFlowManager: NSObject {
         guard let navVC = BroadCastViewController.getNavigation() else {
             return
         }
+        visibleController?.modalPresentationStyle = .fullScreen
         visibleController?.present(navVC, animated: animation, completion: nil)
         
     }
@@ -114,7 +115,7 @@ class FuguFlowManager: NSObject {
         //TODO: - Try to hit getByLabelId hit before presenting controller
         let navVC = UINavigationController(rootViewController: conversationViewController)
         navVC.setNavigationBarHidden(true, animated: false)
-
+        navVC.modalPresentationStyle = .fullScreen
         conversationViewController.createConversationOnStart = true
         visibleController?.present(navVC, animated: false, completion: nil)
     }
@@ -136,6 +137,7 @@ class FuguFlowManager: NSObject {
             return
         }
         let visibleController = getLastVisibleController()
+        visibleController?.modalPresentationStyle = .fullScreen
         visibleController?.present(nav, animated: true, completion: nil)
     }
    
