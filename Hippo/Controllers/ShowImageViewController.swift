@@ -8,17 +8,30 @@
 
 import UIKit
 
-class ShowImageViewController: UIViewController , UIScrollViewDelegate {
+class ShowImageViewController: UIViewController , UIScrollViewDelegate, UIGestureRecognizerDelegate {
     @IBOutlet weak var imageView: So_UIImageView!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet var crossButton: UIButton!
+    @IBOutlet var backgroundBlackColorView: UIView!
+    
     var imageToShow: UIImage?
     var imageURLString = ""
     var localImagePath: String? = nil
     
+    // define a variable to store initial touch position
+    var initialTouchPoint: CGPoint = CGPoint(x: 0,y: 0)
+    var fixedCenter = CGPoint()
+    var dismissRatio = CGFloat(0.5)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         crossButton.layer.cornerRadius = 5//31.5
+        
+        let gesture = UIPanGestureRecognizer(target: self, action:(#selector(self.handleGesture(_:))))
+        self.view.addGestureRecognizer(gesture)
+        self.view.isUserInteractionEnabled = true
+        gesture.delegate = self
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -35,6 +48,11 @@ class ShowImageViewController: UIViewController , UIScrollViewDelegate {
         scrollView.minimumZoomScale = 1.0
         scrollView.maximumZoomScale = 5
         scrollView.flashScrollIndicators()
+        
+//        fixedCenter = self.view.center
+//        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(draggedView(_:)))
+//        self.imageView.addGestureRecognizer(panGesture)
+        
     }
     
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
@@ -62,4 +80,52 @@ class ShowImageViewController: UIViewController , UIScrollViewDelegate {
         vc.localImagePath = localPath
         return vc
     }
+    
+    @objc func handleGesture(_ sender: UIPanGestureRecognizer) {
+        
+        let touchPoint = sender.location(in: self.view?.window)
+        if sender.state == UIGestureRecognizer.State.began {
+            initialTouchPoint = touchPoint
+        } else if sender.state == UIGestureRecognizer.State.changed {
+            if touchPoint.y - initialTouchPoint.y > 0 {
+                self.view.frame = CGRect(x: 0, y: touchPoint.y - initialTouchPoint.y, width: self.view.frame.size.width, height: self.view.frame.size.height)
+            }
+        } else if sender.state == UIGestureRecognizer.State.ended || sender.state == UIGestureRecognizer.State.cancelled {
+            if touchPoint.y - initialTouchPoint.y > 100 {
+                self.dismiss(animated: true, completion: nil)
+            } else {
+                UIView.animate(withDuration: 0.3, animations: {
+                    self.view.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height)
+                })
+            }
+        }
+    }
+    
+    @objc func draggedView(_ sender:UIPanGestureRecognizer) {
+        if scrollView.zoomScale > 1.5 {
+            return
+        }
+        let translation = sender.translation(in: self.view)
+        self.imageView.center.y += translation.y
+        
+        let difference = fixedCenter.y - imageView.center.y
+        let ratio = 1 - (difference.magnitude / fixedCenter.y)
+        
+        self.backgroundBlackColorView.alpha = ratio
+        
+        if sender.state == .ended {
+            if (ratio) < dismissRatio {
+                self.dismiss(animated: false, completion: nil)
+            } else {
+                resetImageView()
+            }
+            return
+        }
+        sender.setTranslation(CGPoint.zero, in: self.view)
+    }
+    func resetImageView() {
+        self.imageView.center.y = self.fixedCenter.y
+        self.backgroundBlackColorView.alpha = 1
+    }
+    
 }
