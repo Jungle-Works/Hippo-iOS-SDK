@@ -12,8 +12,8 @@ let HippoSDKSource = 1
 let Device_Type_iOS = 2
 var userDetailData = [String: Any]()
 
-let fuguAppVersion = "2.1.8"
-let versionCode = 308
+let fuguAppVersion = "2.1.9"
+let versionCode = 309
 
 
 /*
@@ -81,4 +81,6 @@ let versionCode = 308
  307 *** 2.1.7 = show back button on promotional push screen and hotfix url
  
  308 *** 2.1.8 = Show Title On Promotion Push Contoller & Hide Image On Down Swipe
+ 
+ 309 *** 2.1.9 = Set Theme Color Of Navigation Bar In Promotional Push Controller
  */
