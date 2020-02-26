@@ -1986,25 +1986,57 @@
                                     <outlet property="delegate" destination="mdQ-67-CKh" id="tjF-ST-bPP"/>
                                 </connections>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mMj-eW-vzp" userLabel="HeaderView">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="0.0"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oci-ph-rsX">
+                                        <rect key="frame" x="46" y="-46" width="283" height="46"/>
+                                        <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
+                                        <color key="textColor" red="0.26274509800000001" green="0.35686274509999999" blue="0.50196078430000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9wJ-CV-FQB">
+                                        <rect key="frame" x="0.0" y="-46" width="46" height="46"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="46" id="HYY-yz-mQS"/>
+                                            <constraint firstAttribute="width" constant="46" id="jUd-ge-RgA"/>
+                                        </constraints>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="oci-ph-rsX" firstAttribute="leading" secondItem="9wJ-CV-FQB" secondAttribute="trailing" id="6l0-7l-Z4Y"/>
+                                    <constraint firstItem="oci-ph-rsX" firstAttribute="height" secondItem="9wJ-CV-FQB" secondAttribute="height" id="908-xY-n4n"/>
+                                    <constraint firstAttribute="bottom" secondItem="9wJ-CV-FQB" secondAttribute="bottom" id="AXg-vQ-HeD"/>
+                                    <constraint firstAttribute="trailing" secondItem="oci-ph-rsX" secondAttribute="trailing" constant="46" id="EH0-PE-8ed"/>
+                                    <constraint firstAttribute="height" id="Qgu-aN-nZG"/>
+                                    <constraint firstItem="9wJ-CV-FQB" firstAttribute="leading" secondItem="mMj-eW-vzp" secondAttribute="leading" id="sGA-Nw-Bbf"/>
+                                    <constraint firstAttribute="bottom" secondItem="oci-ph-rsX" secondAttribute="bottom" id="xWH-ND-pkx"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="Gkx-KU-Tjc" firstAttribute="top" secondItem="nDT-Sc-VO4" secondAttribute="top" id="84w-hw-Q3R"/>
+                            <constraint firstItem="Gkx-KU-Tjc" firstAttribute="top" secondItem="mMj-eW-vzp" secondAttribute="bottom" id="C3n-9l-tBY"/>
+                            <constraint firstItem="mMj-eW-vzp" firstAttribute="top" secondItem="nDT-Sc-VO4" secondAttribute="top" id="Q4j-68-u2K"/>
+                            <constraint firstItem="mMj-eW-vzp" firstAttribute="leading" secondItem="nDT-Sc-VO4" secondAttribute="leading" id="TxZ-OC-bSi"/>
                             <constraint firstItem="Gkx-KU-Tjc" firstAttribute="leading" secondItem="nDT-Sc-VO4" secondAttribute="leading" id="Vt0-uo-bcz"/>
                             <constraint firstAttribute="trailing" secondItem="Gkx-KU-Tjc" secondAttribute="trailing" id="cUf-vv-a4G"/>
                             <constraint firstItem="qIZ-E0-00c" firstAttribute="top" secondItem="Gkx-KU-Tjc" secondAttribute="bottom" id="fIh-vz-fiM"/>
+                            <constraint firstAttribute="trailing" secondItem="mMj-eW-vzp" secondAttribute="trailing" id="mGr-6n-Imb"/>
                         </constraints>
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="jXj-Ta-gY8"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="navigationBackgroundView" destination="mMj-eW-vzp" id="U9M-b2-Mvy"/>
                         <outlet property="promotionsTableView" destination="Gkx-KU-Tjc" id="ZPZ-BN-XYJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HXV-tE-GIe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1865" y="-1962"/>
+            <point key="canvasLocation" x="1864.8" y="-1962.3688155922041"/>
         </scene>
     </scenes>
     <resources>
