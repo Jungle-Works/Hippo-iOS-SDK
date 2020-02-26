@@ -23,6 +23,7 @@ typealias PromtionCutomCell = PromotionCellDelegate & UITableViewCell
 class PromotionsViewController: UIViewController {
 
     @IBOutlet weak var promotionsTableView: UITableView!
+    @IBOutlet var navigationBackgroundView: UIView!
     
     var data: [PromotionCellDataModel] = []
     weak var customCell: PromtionCutomCell?
@@ -36,15 +37,20 @@ class PromotionsViewController: UIViewController {
        // self.title = "ANNOUNCEMENTS"
        setupRefreshController()
         promotionsTableView.backgroundColor = HippoConfig.shared.theme.backgroundColor
-        navigationController?.navigationBar.backgroundColor = HippoConfig.shared.theme.headerBackgroundColor
+//        navigationController?.navigationBar.backgroundColor = HippoConfig.shared.theme.headerBackgroundColor
         
        // UINavigationBar.appearance().barTintColor = HippoConfig.shared.theme.headerTextColor
        // UINavigationBar.appearance().tintColor = HippoConfig.shared.theme.headerTextColor
        // UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor : HippoConfig.shared.theme.headerTextColor]
         
        // navigationController?.navigationBar.tintColor = HippoConfig.shared.theme.headerTextColor
-
         //navigationBackgroundView.backgroundColor = HippoConfig.shared.theme.headerBackgroundColor
+        
+        navigationBackgroundView.layer.shadowColor = UIColor.black.cgColor
+        navigationBackgroundView.layer.shadowOpacity = 0.25
+        navigationBackgroundView.layer.shadowOffset = CGSize(width: 0, height: 1.0)
+        navigationBackgroundView.layer.shadowRadius = 4
+        navigationBackgroundView.backgroundColor = HippoConfig.shared.theme.headerBackgroundColor
         
         let backButton = UIButton(type: .custom)
         //backButton.setImage(UIImage(named: "BackWhite"), for: .normal)
@@ -109,7 +115,7 @@ class PromotionsViewController: UIViewController {
     override  func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = false
-    
+        self.navigationController?.setTheme()
         self.getAnnouncements(endOffset: 19, startOffset: 0)
     }
     
