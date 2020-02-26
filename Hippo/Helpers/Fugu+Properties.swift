@@ -12,8 +12,8 @@ let HippoSDKSource = 1
 let Device_Type_iOS = 2
 var userDetailData = [String: Any]()
 
-let fuguAppVersion = "2.1.6"
-let versionCode = 306
+let fuguAppVersion = "2.1.7"
+let versionCode = 307
 
 
 /*
@@ -77,4 +77,6 @@ let versionCode = 306
  305 *** 2.1.5 = suggestions for normal messages
  
  306 *** 2.1.6 = show back button on promotional push screen
+ 
+ 307 *** 2.1.7 = show back button on promotional push screen and hotfix url
  */
