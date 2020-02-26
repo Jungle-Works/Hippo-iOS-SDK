@@ -227,6 +227,7 @@ hippotheme.backgroundColor = .black
 hippotheme.headerBackgroundColor = .black
 hippotheme.headerTextColor = .black
 hippotheme.headerText = "support"
+hippotheme.promotionsAnnouncementsHeaderText = "Announcements"
 
 HippoConfig.shared.setCustomisedHippoTheme(theme: hippotheme)
 ...

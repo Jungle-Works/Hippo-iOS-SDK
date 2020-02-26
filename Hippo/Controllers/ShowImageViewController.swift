@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ShowImageViewController: UIViewController , UIScrollViewDelegate {
+class ShowImageViewController: UIViewController , UIScrollViewDelegate, UIGestureRecognizerDelegate {
     @IBOutlet weak var imageView: So_UIImageView!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet var crossButton: UIButton!
@@ -16,9 +16,20 @@ class ShowImageViewController: UIViewController , UIScrollViewDelegate {
     var imageURLString = ""
     var localImagePath: String? = nil
     
+    // define a variable to store initial touch position
+    var initialTouchPoint: CGPoint = CGPoint(x: 0,y: 0)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         crossButton.layer.cornerRadius = 5//31.5
+        
+        let gesture = UIPanGestureRecognizer(target: self, action:(#selector(self.handleGesture(_:))))
+//        slideUpView.addGestureRecognizer(gesture)
+//        slideUpView.userInteractionEnabled = true
+        self.view.addGestureRecognizer(gesture)
+        self.view.isUserInteractionEnabled = true
+        gesture.delegate = self
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -62,4 +73,27 @@ class ShowImageViewController: UIViewController , UIScrollViewDelegate {
         vc.localImagePath = localPath
         return vc
     }
+    
+    //@IBAction func panGestureRecognizerHandler(_ sender: UIPanGestureRecognizer) {
+    //func wasDragged(gestureRecognizer: UIPanGestureRecognizer) {
+    @objc func handleGesture(_ sender: UIPanGestureRecognizer) {
+        
+        let touchPoint = sender.location(in: self.view?.window)
+        if sender.state == UIGestureRecognizer.State.began {
+            initialTouchPoint = touchPoint
+        } else if sender.state == UIGestureRecognizer.State.changed {
+            if touchPoint.y - initialTouchPoint.y > 0 {
+                self.view.frame = CGRect(x: 0, y: touchPoint.y - initialTouchPoint.y, width: self.view.frame.size.width, height: self.view.frame.size.height)
+            }
+        } else if sender.state == UIGestureRecognizer.State.ended || sender.state == UIGestureRecognizer.State.cancelled {
+            if touchPoint.y - initialTouchPoint.y > 100 {
+                self.dismiss(animated: true, completion: nil)
+            } else {
+                UIView.animate(withDuration: 0.3, animations: {
+                    self.view.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height)
+                })
+            }
+        }
+    }
+    
 }
