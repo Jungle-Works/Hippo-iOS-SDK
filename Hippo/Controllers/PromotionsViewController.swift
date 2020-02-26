@@ -48,11 +48,20 @@ class PromotionsViewController: UIViewController {
         
         let backButton = UIButton(type: .custom)
         //backButton.setImage(UIImage(named: "BackWhite"), for: .normal)
-        backButton.setImage(UIImage(named: "BackWhite", in: FuguFlowManager.bundle, compatibleWith: nil), for: .normal)
+        //backButton.setImage(UIImage(named: "BackWhite", in: FuguFlowManager.bundle, compatibleWith: nil), for: .normal)
+
+        backButton.tintColor = HippoConfig.shared.theme.headerTextColor
+        if HippoConfig.shared.theme.leftBarButtonImage != nil {
+            backButton.setImage(HippoConfig.shared.theme.leftBarButtonImage, for: .normal)
+            backButton.tintColor = HippoConfig.shared.theme.headerTextColor
+        }
+
         backButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
         backButton.addTarget(self, action: #selector(backButtonClicked), for: .touchUpInside)
         let item = UIBarButtonItem(customView: backButton)
         self.navigationItem.setLeftBarButton(item, animated: false)
+        
+        title = HippoConfig.shared.theme.promotionsAnnouncementsHeaderText
         
 //        let btnleft : UIButton = UIButton(frame: CGRect(x:0, y:0, width:35, height:35))
 //        btnleft.setTitleColor(UIColor.white, for: .normal)
@@ -64,7 +73,6 @@ class PromotionsViewController: UIViewController {
 //        let backBarButon: UIBarButtonItem = UIBarButtonItem(customView: btnleft)
 //        backBarButon.tintColor = UIColor.black
 //        self.navigationItem.setLeftBarButtonItems([backBarButon], animated: false)
-        
         
     promotionsTableView.register(UINib(nibName: "PromotionTableViewCell", bundle: FuguFlowManager.bundle), forCellReuseIdentifier: "PromotionTableViewCell")
         promotionsTableView.rowHeight = UITableView.automaticDimension

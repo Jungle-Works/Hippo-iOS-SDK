@@ -23,6 +23,7 @@ import Foundation
     open var directChatHeader = "Conversation List"
     open var broadcastHeader = "Broadcast Message"
     open var broadcastHistoryHeader = "Broadcast Message history"
+    open var promotionsAnnouncementsHeaderText = "Announcements"
     
     open var themeColor: UIColor = .white
     open var themeTextcolor: UIColor = .black
