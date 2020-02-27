@@ -68,6 +68,9 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         if let labelId = HippoProperty.current.openLabelIdOnHome, labelId > 0 {
             moveToChatViewcontroller(labelId: labelId)
         }
+        
+//        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -82,6 +85,9 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         self.navigationController?.isNavigationBarHidden = false
         
         self.setUpTabBar()
+        
+//        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+//        self.navigationController?.interactivePopGestureRecognizer?.delegate = nil
         
     }
     
@@ -874,3 +880,15 @@ extension AllConversationsViewController: UIScrollViewDelegate {
 extension AllConversationsViewController: InformationViewDelegate {
     
 }
+
+//extension AllConversationsViewController:UIGestureRecognizerDelegate {
+////    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+////        return true
+////    }
+//    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+//        if navigationController?.responds(to: #selector(getter: UINavigationController.interactivePopGestureRecognizer)) ?? false && gestureRecognizer == navigationController?.interactivePopGestureRecognizer {
+//            return false
+//        }
+//        return true
+//    }
+//}

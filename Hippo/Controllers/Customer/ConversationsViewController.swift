@@ -20,7 +20,7 @@ protocol NewChatSentDelegate: class {
 }
 
 
- class ConversationsViewController: HippoConversationViewController {
+class ConversationsViewController: HippoConversationViewController {//}, UIGestureRecognizerDelegate {
     
     //MARK: Constants
     var createConversationOnStart = false
@@ -65,6 +65,8 @@ protocol NewChatSentDelegate: class {
     var actionSheetImageArr = ["Library","Camera"]
     
     var hieghtOfNavigationBar: CGFloat = 0
+    
+//    var initialTouchPoint: CGPoint = CGPoint(x: 0, y: 0)
     
    // MARK: - Computed Properties
    var localFilePath: String {
@@ -138,10 +140,38 @@ protocol NewChatSentDelegate: class {
         
         populateTableViewWithChannelData()
         fetchMessagesFrom1stPage()
-                
+        
+//        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
         self.navigationController?.interactivePopGestureRecognizer?.delegate = self
         
+//        navigationController?.interactivePopGestureRecognizer?.delegate = self
+//        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
+//        view.addGestureRecognizer(panGesture)
+        
     }
+    
+//    @objc func handlePanGesture(_ sender: UIPanGestureRecognizer) {
+//        let touchPoint = sender.location(in: self.view?.window)
+//        let percent = max(sender.translation(in: view).x, 0) / view.frame.width
+//        let velocity = sender.velocity(in: view).x
+//
+//        if sender.state == UIGestureRecognizer.State.began {
+//            initialTouchPoint = touchPoint
+//        } else if sender.state == UIGestureRecognizer.State.changed {
+//            if touchPoint.x - initialTouchPoint.x > 0 {
+//                self.view.frame = CGRect(x: touchPoint.x - initialTouchPoint.x, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height)
+//            }
+//        } else if sender.state == UIGestureRecognizer.State.ended || sender.state == UIGestureRecognizer.State.cancelled {
+//
+//            if percent > 0.5 || velocity > 1000 {
+//                navigationController?.popViewController(animated: true)
+//            } else {
+//                UIView.animate(withDuration: 0.3, animations: {
+//                    self.view.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height)
+//                })
+//            }
+//        }
+//    }
     
    override  func viewWillAppear(_ animated: Bool) {
       super.viewWillAppear(animated)
@@ -158,6 +188,7 @@ protocol NewChatSentDelegate: class {
       handleVideoIcon()
       handleAudioIcon()
       HippoConfig.shared.notifyDidLoad()
+    
    }
    
     override func viewDidAppear(_ animated: Bool) {
@@ -168,6 +199,7 @@ protocol NewChatSentDelegate: class {
         }
         reloadVisibleCellsToStartActivityIndicator()
         HippoConfig.shared.notifyDidLoad()
+        
     }
     
     override func viewWillLayoutSubviews() {
@@ -2531,8 +2563,29 @@ extension ConversationsViewController {
     }
 }
 
-extension ConversationsViewController:UIGestureRecognizerDelegate {
+extension ConversationsViewController: UIGestureRecognizerDelegate {
+
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        
+        messageTextView.resignFirstResponder()
+        channel?.send(message: HippoMessage.stopTyping, completion: {})
+        let rawLabelID = self.labelId == -1 ? nil : self.labelId
+        let channelID = self.channel?.id ?? -1
+        clearUnreadCountForChannel(id: channelID)
+        if let lastMessage = getLastMessage(), let conversationInfo = FuguConversation(channelId: channelID, unreadCount: 0, lastMessage: lastMessage, labelID: rawLabelID) {
+            delegate?.updateConversationWith(conversationObj: conversationInfo)
+        }
+        
         return true
     }
+
+//    func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
+//        let enable = self.navigationController?.viewControllers.count ?? 0 > 1
+//        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = enable
+//    }
+
+//    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+//        return true
+//    }
+
 }
