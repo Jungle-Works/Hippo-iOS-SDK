@@ -119,6 +119,18 @@ class FuguFlowManager: NSObject {
         conversationViewController.createConversationOnStart = true
         visibleController?.present(navVC, animated: false, completion: nil)
     }
+    func openChatViewControllerTempFunc(labelId: Int) {
+        
+        let conversationViewController = ConversationsViewController.getWith(labelId: labelId.description)
+        let visibleController = getLastVisibleController()
+        //TODO: - Try to hit getByLabelId hit before presenting controller
+        let navVC = UINavigationController(rootViewController: conversationViewController)
+        navVC.setNavigationBarHidden(true, animated: false)
+        
+        conversationViewController.createConversationOnStart = true
+        visibleController?.present(navVC, animated: true, completion: nil)
+        
+    }
     
     func openChatViewController(on viewController: UIViewController, labelId: Int, hideBackButton: Bool, animation: Bool) {
         

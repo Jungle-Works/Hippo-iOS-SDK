@@ -83,8 +83,8 @@ struct SERVERS {
     internal var appType: String?
     internal var credentialType = FuguCredentialType.defaultType
     
-    internal var baseUrl = SERVERS.liveUrl//SERVERS.betaUrl//SERVERS.betaUrlNew//
-    internal var fayeBaseURLString: String = SERVERS.liveFaye//SERVERS.betaFaye//SERVERS.betaFayeNew//
+    internal var baseUrl = SERVERS.betaUrl//SERVERS.liveUrl//SERVERS.betaUrlNew//
+    internal var fayeBaseURLString: String = SERVERS.betaFaye//SERVERS.liveFaye//SERVERS.betaFayeNew//
     
     open var unreadCount: ((_ totalUnread: Int) -> ())?
     open var usersUnreadCount: ((_ userUnreadCount: [String: Int]) -> ())?
@@ -246,7 +246,8 @@ struct SERVERS {
         if let vc = viewController {
             FuguFlowManager.shared.openChatViewController(on: vc, labelId: labelId, hideBackButton: hideBackButton, animation: animation)
         } else {
-            FuguFlowManager.shared.openChatViewController(labelId: labelId)
+            //FuguFlowManager.shared.openChatViewController(labelId: labelId)
+            FuguFlowManager.shared.openChatViewControllerTempFunc(labelId: labelId)
         }
     }
     

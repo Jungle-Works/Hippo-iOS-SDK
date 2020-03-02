@@ -32,6 +32,8 @@ class PromotionsViewController: UIViewController {
     var channelIdsArr = [Int]()
     var informationView: InformationView?
 
+    var selectedRow = -1
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Notifications"
@@ -270,10 +272,69 @@ extension PromotionsViewController: UITableViewDelegate,UITableViewDataSource
         cell.backgroundColor = .clear
       
         cell.set(data: data[indexPath.row])
-        
+            
+        cell.showReadMoreLessButton.tag = indexPath.row
+        cell.showReadMoreLessButton.addTarget(self, action: #selector(expandCellSize(_:)), for: .touchUpInside)
+        //cell.descriptionLabel.numberOfLines = 2
+        let values = data[indexPath.row]
+        cell.promotionTitle.text = values.title ?? ""
+            
+        cell.fullDescriptionLabel.text = values.description
+            
+        if (values.description?.count)! > 150{
+            cell.showReadMoreLessButton.isHidden = false
+            cell.showReadMoreLessButtonHeightConstraint.constant = 30
+//            let fullAnsString = values.description
+//            let first98CharactersForAns = String((fullAnsString?.prefix(98))!)
+//            print("=====",first98CharactersForAns)
+//            cell.descriptionLabel.text = first98CharactersForAns
+            cell.descriptionLabel.text = values.description
+            
+            if self.selectedRow == indexPath.row{
+                cell.showReadMoreLessButton.isHidden = true
+                cell.showReadMoreLessButtonHeightConstraint.constant = 0
+                cell.descriptionLabel.isHidden = true
+                cell.fullDescriptionLabel.isHidden = false
+            }else{
+                cell.showReadMoreLessButton.isHidden = false
+                cell.showReadMoreLessButtonHeightConstraint.constant = 30
+                cell.descriptionLabel.isHidden = false
+                cell.fullDescriptionLabel.isHidden = true
+            }
+            
+        }else{
+            cell.showReadMoreLessButton.isHidden = true
+            cell.showReadMoreLessButtonHeightConstraint.constant = 0
+            cell.descriptionLabel.text = values.description
+        }
+            
         return cell
         }
         
+        
+    }
+    
+    @objc func expandCellSize(_ sender:UIButton) {
+        let row = sender.tag
+        //let values = data[row]
+        self.selectedRow = row
+//        let indexpath = IndexPath(row: row, section: 0)
+//        guard let cell = self.promotionsTableView.cellForRow(at: indexpath) as? PromotionTableViewCell else { return }
+//
+//        //cell.descriptionLabel.numberOfLines = 0
+//        cell.showReadMoreLessButton.isHidden = true
+//        cell.showReadMoreLessButtonHeightConstraint.constant = 0
+//
+//        cell.descriptionLabel.isHidden = true
+//        cell.fullDescriptionLabel.isHidden = false
+//        self.promotionsTableView.reloadRows(at: [indexpath], with: .none)
+        
+        //self.promotionsTableView.reloadData()
+        
+        var contentOffset = self.promotionsTableView.contentOffset
+        contentOffset.y += tableView(self.promotionsTableView, heightForRowAt: IndexPath(row: row, section: 0))
+        self.promotionsTableView.reloadData()
+        self.promotionsTableView.contentOffset = contentOffset
         
     }
     
