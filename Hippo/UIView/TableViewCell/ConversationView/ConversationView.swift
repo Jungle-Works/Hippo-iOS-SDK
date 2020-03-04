@@ -110,7 +110,7 @@ extension ConversationView {
         
         let theme: ConversationListTheme
         
-        if let unreadCount = conersationObj.unreadCount, unreadCount > 0, isOpened {
+        if let unreadCount = conersationObj.unreadCount, unreadCount > 0 {//}, isOpened {
             theme = HippoConfig.shared.theme.conversationListUnreadTheme
             //         headingLabel.font = UIFont(name:"HelveticaNeue-Bold", size: 15.0)
             //         chatTextLabel.font = UIFont(name:"HelveticaNeue-Bold", size: 12.0)

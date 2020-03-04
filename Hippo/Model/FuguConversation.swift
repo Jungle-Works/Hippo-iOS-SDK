@@ -128,7 +128,7 @@ class FuguConversation: HippoConversation {
         for rawConversation in json {
             if let conversation = FuguConversation(conversationDict: rawConversation) {
                 if (conversation.unreadCount ?? 0) > 0 {
-                    conversation.channelStatus = .open
+//                    conversation.channelStatus = .open
                 }
                 arrayOfConversation.append(conversation)
             }

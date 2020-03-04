@@ -83,8 +83,8 @@ struct SERVERS {
     internal var appType: String?
     internal var credentialType = FuguCredentialType.defaultType
     
-    internal var baseUrl = SERVERS.betaUrl//SERVERS.liveUrl//SERVERS.betaUrlNew//
-    internal var fayeBaseURLString: String = SERVERS.betaFaye//SERVERS.liveFaye//SERVERS.betaFayeNew//
+    internal var baseUrl = SERVERS.betaUrl//SERVERS.liveUrl//
+    internal var fayeBaseURLString: String = SERVERS.betaFaye//SERVERS.liveFaye//
     
     open var unreadCount: ((_ totalUnread: Int) -> ())?
     open var usersUnreadCount: ((_ userUnreadCount: [String: Int]) -> ())?

@@ -25,7 +25,7 @@ public struct ConversationListTheme {
     
     static func normalTheme() -> ConversationListTheme {
         let titleTheme: HippoLabelTheme = HippoLabelTheme(textColor: .black, textFont: UIFont(name:"HelveticaNeue-Bold", size: 15.0))
-        let lastMessageTheme: HippoLabelTheme = HippoLabelTheme(textColor: .lightGray, textFont: UIFont(name:"HelveticaNeue-Bold", size: 15.0))
+        let lastMessageTheme: HippoLabelTheme = HippoLabelTheme(textColor: .lightGray, textFont: UIFont(name:"HelveticaNeue", size: 15.0))
         let timeTheme: HippoLabelTheme = HippoLabelTheme(textColor: .darkGray, textFont: UIFont(name:"HelveticaNeue", size: 14.0))
         
         return ConversationListTheme(titleTheme: titleTheme, lastMessageTheme: lastMessageTheme, timeTheme: timeTheme)

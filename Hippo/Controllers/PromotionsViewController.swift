@@ -33,6 +33,7 @@ class PromotionsViewController: UIViewController {
     var informationView: InformationView?
 
     var selectedRow = -1
+    var states = [Bool]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -151,6 +152,7 @@ class PromotionsViewController: UIViewController {
                         if startOffset == 0 && self.data.count > 0
                         {
                             self.data.removeAll()
+                            self.states.removeAll()
                         }
                         
                         for item in arr
@@ -158,6 +160,7 @@ class PromotionsViewController: UIViewController {
                             let i = item as! [String:Any]
                             let dataNew = PromotionCellDataModel(dict:i)
                             self.data.append(dataNew!)
+                            self.states.append(true)
                         }
                     }
                     else
@@ -222,10 +225,12 @@ class PromotionsViewController: UIViewController {
                 if isDeleteAllStatus == 0{
                     self.promotionsTableView.beginUpdates()
                     self.data.remove(at: indexPath.row)
+                    self.states.remove(at: indexPath.row)
                     self.promotionsTableView.deleteRows(at: [indexPath], with: .fade)
                     self.promotionsTableView.endUpdates()
                 }else{
                     self.data.removeAll()
+                    self.states.removeAll()
                     //self.promotionsTableView.reloadData()
                     //DispatchQueue.main.async {
                     //    self.promotionsTableView.reloadData()
@@ -281,32 +286,64 @@ extension PromotionsViewController: UITableViewDelegate,UITableViewDataSource
             
         cell.fullDescriptionLabel.text = values.description
             
-        if (values.description?.count)! > 150{
-            cell.showReadMoreLessButton.isHidden = false
-            cell.showReadMoreLessButtonHeightConstraint.constant = 30
-//            let fullAnsString = values.description
-//            let first98CharactersForAns = String((fullAnsString?.prefix(98))!)
-//            print("=====",first98CharactersForAns)
-//            cell.descriptionLabel.text = first98CharactersForAns
+//        if (values.description?.count)! > 150{
+//            cell.showReadMoreLessButton.isHidden = false
+//            cell.showReadMoreLessButtonHeightConstraint.constant = 30
+////            let fullAnsString = values.description
+////            let first98CharactersForAns = String((fullAnsString?.prefix(98))!)
+////            print("=====",first98CharactersForAns)
+////            cell.descriptionLabel.text = first98CharactersForAns
+//            cell.descriptionLabel.text = values.description
+//
+//            if self.selectedRow == indexPath.row{
+//                cell.showReadMoreLessButton.isHidden = true
+//                cell.showReadMoreLessButtonHeightConstraint.constant = 0
+//                cell.descriptionLabel.isHidden = true
+//                cell.fullDescriptionLabel.isHidden = false
+//            }else{
+//                cell.showReadMoreLessButton.isHidden = false
+//                cell.showReadMoreLessButtonHeightConstraint.constant = 30
+//                cell.descriptionLabel.isHidden = false
+//                cell.fullDescriptionLabel.isHidden = true
+//            }
+//
+//        }else{
+//            cell.showReadMoreLessButton.isHidden = true
+//            cell.showReadMoreLessButtonHeightConstraint.constant = 0
+//            cell.descriptionLabel.text = values.description
+//        }
             cell.descriptionLabel.text = values.description
-            
-            if self.selectedRow == indexPath.row{
-                cell.showReadMoreLessButton.isHidden = true
-                cell.showReadMoreLessButtonHeightConstraint.constant = 0
-                cell.descriptionLabel.isHidden = true
-                cell.fullDescriptionLabel.isHidden = false
-            }else{
+            if (values.description?.count)! > 150{
                 cell.showReadMoreLessButton.isHidden = false
                 cell.showReadMoreLessButtonHeightConstraint.constant = 30
+            }else{
+                cell.showReadMoreLessButton.isHidden = true
+                cell.showReadMoreLessButtonHeightConstraint.constant = 0
+                
+            }
+            if states[indexPath.row] == true{
                 cell.descriptionLabel.isHidden = false
                 cell.fullDescriptionLabel.isHidden = true
-            }
-            
-        }else{
-            cell.showReadMoreLessButton.isHidden = true
-            cell.showReadMoreLessButtonHeightConstraint.constant = 0
-            cell.descriptionLabel.text = values.description
-        }
+                //cell.showReadMoreLessButton.setTitle("Read More", for: .normal)
+                let attrs = NSAttributedString(string: "Read more",
+                                               attributes:
+                    [NSAttributedString.Key.foregroundColor: UIColor(red:109.0/255.0, green:212.0/255.0, blue:0.0/255.0, alpha:1.0),
+                     NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16.0),
+                     NSAttributedString.Key.underlineColor: UIColor(red:109.0/255.0, green:212.0/255.0, blue:0.0, alpha:1.0),
+                     NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue])
+                cell.showReadMoreLessButton.setAttributedTitle(attrs, for: .normal)
+            }else if states[indexPath.row] == false{
+                cell.descriptionLabel.isHidden = true
+                cell.fullDescriptionLabel.isHidden = false
+                //cell.showReadMoreLessButton.setTitle("Read Less", for: .normal)
+                let attrs = NSAttributedString(string: "Read less",
+                                               attributes:
+                    [NSAttributedString.Key.foregroundColor: UIColor(red:109.0/255.0, green:212.0/255.0, blue:0.0, alpha:1.0),
+                     NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16.0),
+                     NSAttributedString.Key.underlineColor: UIColor(red:109.0/255.0, green:212.0/255.0, blue:0.0, alpha:1.0),
+                     NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue])
+                cell.showReadMoreLessButton.setAttributedTitle(attrs, for: .normal)
+            }else{}
             
         return cell
         }
@@ -314,29 +351,93 @@ extension PromotionsViewController: UITableViewDelegate,UITableViewDataSource
         
     }
     
+//    @objc func expandCellSize(_ sender:UIButton) {
+//        let row = sender.tag
+//        //let values = data[row]
+//        self.selectedRow = row
+////        let indexpath = IndexPath(row: row, section: 0)
+////        guard let cell = self.promotionsTableView.cellForRow(at: indexpath) as? PromotionTableViewCell else { return }
+////
+////        //cell.descriptionLabel.numberOfLines = 0
+////        cell.showReadMoreLessButton.isHidden = true
+////        cell.showReadMoreLessButtonHeightConstraint.constant = 0
+////
+////        cell.descriptionLabel.isHidden = true
+////        cell.fullDescriptionLabel.isHidden = false
+////        self.promotionsTableView.reloadRows(at: [indexpath], with: .none)
+//
+//        //self.promotionsTableView.reloadData()
+//
+//        var contentOffset = self.promotionsTableView.contentOffset
+//        contentOffset.y += tableView(self.promotionsTableView, heightForRowAt: IndexPath(row: row, section: 0))
+//        self.promotionsTableView.reloadData()
+//        self.promotionsTableView.contentOffset = contentOffset
+//
+//    }
     @objc func expandCellSize(_ sender:UIButton) {
         let row = sender.tag
         //let values = data[row]
-        self.selectedRow = row
-//        let indexpath = IndexPath(row: row, section: 0)
-//        guard let cell = self.promotionsTableView.cellForRow(at: indexpath) as? PromotionTableViewCell else { return }
-//
-//        //cell.descriptionLabel.numberOfLines = 0
-//        cell.showReadMoreLessButton.isHidden = true
-//        cell.showReadMoreLessButtonHeightConstraint.constant = 0
-//
-//        cell.descriptionLabel.isHidden = true
-//        cell.fullDescriptionLabel.isHidden = false
-//        self.promotionsTableView.reloadRows(at: [indexpath], with: .none)
         
-        //self.promotionsTableView.reloadData()
+//        if sender.currentTitle == "Read More"{
+//
+//            states[row] = false
+//            self.promotionsTableView.reloadData()
+//
+////            let indexpath = IndexPath(row: row, section: 0)
+////            guard let cell = self.promotionsTableView.cellForRow(at: indexpath) as? PromotionTableViewCell else { return }
+////
+////            self.promotionsTableView.beginUpdates()
+////            let point = cell.descriptionLabel.convert(CGPoint.zero, to: self.promotionsTableView)
+////            if let indexPath = self.promotionsTableView.indexPathForRow(at: point) as IndexPath? {
+////                states[indexPath.row] = false
+////                DispatchQueue.main.async { [weak self] in
+////                    self?.promotionsTableView.scrollToRow(at: indexPath, at: .top, animated: true)
+////                }
+////            }
+////            self.promotionsTableView.endUpdates()
+//        }else if sender.currentTitle == "Read Less"{
+//
+//            states[row] = true
+//            self.promotionsTableView.reloadData()
+//
+////            tableView.beginUpdates()
+////            let point = label.convert(CGPoint.zero, to: tableView)
+////            if let indexPath = tableView.indexPathForRow(at: point) as IndexPath? {
+////                states[indexPath.row] = true
+////                DispatchQueue.main.async { [weak self] in
+////                    self?.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+////                }
+////            }
+////            tableView.endUpdates()
+//        }else{}
         
-        var contentOffset = self.promotionsTableView.contentOffset
-        contentOffset.y += tableView(self.promotionsTableView, heightForRowAt: IndexPath(row: row, section: 0))
-        self.promotionsTableView.reloadData()
-        self.promotionsTableView.contentOffset = contentOffset
+        
+        let indexpath = IndexPath(row: row, section: 0)
+        guard let cell = self.promotionsTableView.cellForRow(at: indexpath) as? PromotionTableViewCell else { return }
+        if states[row] == true{
+            states[row] = false
+            //self.promotionsTableView.reloadData()
+//            DispatchQueue.main.async { [weak self] in
+//                self?.promotionsTableView.reloadRows(at: [indexpath], with: .none)
+//                self?.promotionsTableView.scrollToRow(at: indexpath, at: .top, animated: true)
+//            }
+            self.promotionsTableView.reloadRows(at: [indexpath], with: .none)
+            self.promotionsTableView.scrollToRow(at: indexpath, at: .top, animated: true)
+            
+        }else if states[row] == false{
+            states[row] = true
+            //self.promotionsTableView.reloadData()
+//            DispatchQueue.main.async { [weak self] in
+//                self?.promotionsTableView.reloadRows(at: [indexpath], with: .none)
+//                self?.promotionsTableView.scrollToRow(at: indexpath, at: .top, animated: true)
+//            }
+            self.promotionsTableView.reloadRows(at: [indexpath], with: .none)
+            self.promotionsTableView.scrollToRow(at: indexpath, at: .top, animated: true)
+            
+        }else{}
         
     }
+    
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 

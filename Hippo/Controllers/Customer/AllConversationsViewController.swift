@@ -713,7 +713,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         arrayOfConversation[index] = convObj
         
         if (convObj.unreadCount ?? 0) > 0 {
-            convObj.channelStatus = .open
+//            convObj.channelStatus = .open
         }
         saveConversationsInCache()
         resetPushCount()
