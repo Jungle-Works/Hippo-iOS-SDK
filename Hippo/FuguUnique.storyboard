@@ -1054,7 +1054,7 @@
                                 </constraints>
                             </view>
                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="app_loader_shape" translatesAutoresizingMaskIntoConstraints="NO" id="yXi-kz-HoV" customClass="So_UIImageView" customModule="HippoChat" customModuleProvider="target">
-                                <rect key="frame" x="167.5" y="313.5" width="40" height="40"/>
+                                <rect key="frame" x="179.5" y="325.5" width="16" height="16"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3pN-rq-23Q">
@@ -2041,17 +2041,24 @@
                                     <outlet property="delegate" destination="CEG-sn-DaH" id="wza-xS-cdc"/>
                                 </connections>
                             </tableView>
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="app_loader_shape" translatesAutoresizingMaskIntoConstraints="NO" id="9Ge-Mz-RYJ" customClass="So_UIImageView" customModule="HippoChat" customModuleProvider="target">
+                                <rect key="frame" x="167.5" y="313.5" width="40" height="40"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="9Ge-Mz-RYJ" firstAttribute="centerX" secondItem="9yB-FV-pDD" secondAttribute="centerX" id="6gk-XC-A9Q"/>
                             <constraint firstItem="OMd-zA-N0k" firstAttribute="top" secondItem="oWh-y5-vgO" secondAttribute="bottom" id="J16-u3-dXc"/>
                             <constraint firstAttribute="trailing" secondItem="oWh-y5-vgO" secondAttribute="trailing" id="Kzu-c3-TbO"/>
                             <constraint firstItem="oWh-y5-vgO" firstAttribute="leading" secondItem="9yB-FV-pDD" secondAttribute="leading" id="YZZ-YF-uNa"/>
                             <constraint firstItem="oWh-y5-vgO" firstAttribute="top" secondItem="9yB-FV-pDD" secondAttribute="top" id="wGd-n2-uqz"/>
+                            <constraint firstItem="9Ge-Mz-RYJ" firstAttribute="centerY" secondItem="9yB-FV-pDD" secondAttribute="centerY" id="xfZ-eT-tKX"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="7OS-F5-H3X"/>
                     <connections>
+                        <outlet property="loaderView" destination="9Ge-Mz-RYJ" id="AUi-M9-710"/>
                         <outlet property="promotionsTableView" destination="oWh-y5-vgO" id="SR6-3K-KTm"/>
                     </connections>
                 </viewController>

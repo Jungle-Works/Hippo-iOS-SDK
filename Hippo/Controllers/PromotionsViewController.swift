@@ -8,14 +8,11 @@
 
 import UIKit
 
-protocol PromotionCellDelegate : class
-{
+protocol PromotionCellDelegate : class {
     //func getActionData(data:PromotionCellDataModel, viewController : UIViewController)
     func setData(data:PromotionCellDataModel)
-    
     var cellIdentifier : String { get  }
     var bundle : Bundle? { get  }
-    
 }
 
 typealias PromtionCutomCell = PromotionCellDelegate & UITableViewCell
@@ -23,6 +20,7 @@ typealias PromtionCutomCell = PromotionCellDelegate & UITableViewCell
 class PromotionsViewController: UIViewController {
 
     @IBOutlet weak var promotionsTableView: UITableView!
+    @IBOutlet weak var loaderView: So_UIImageView!
     
     var data: [PromotionCellDataModel] = []
     weak var customCell: PromtionCutomCell?
@@ -44,14 +42,12 @@ class PromotionsViewController: UIViewController {
         setupRefreshController()
         promotionsTableView.backgroundColor = HippoConfig.shared.theme.multiselectUnselectedButtonColor
         
-        
         promotionsTableView.register(UINib(nibName: "PromotionTableViewCell", bundle: FuguFlowManager.bundle), forCellReuseIdentifier: "PromotionTableViewCell")
         promotionsTableView.rowHeight = UITableView.automaticDimension
         promotionsTableView.estimatedRowHeight = 50
         if let c = customCell {
           promotionsTableView.register(UINib(nibName: c.cellIdentifier, bundle: c.bundle), forCellReuseIdentifier: c.cellIdentifier)
         }
-        // Do any additional setup after loading the view.
     }
     
     internal func setupRefreshController() {
@@ -69,6 +65,8 @@ class PromotionsViewController: UIViewController {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = false
         self.promotionsTableView.isHidden = false
+        
+        self.startLoaderAnimation()
         self.getAnnouncements(endOffset: 19, startOffset: 0)
         
         self.setUpTabBar()
@@ -124,6 +122,18 @@ class PromotionsViewController: UIViewController {
         //        }
         
     }
+    
+    func startLoaderAnimation() {
+        DispatchQueue.main.async {
+            self.loaderView?.startRotationAnimation()
+        }
+    }
+    func stopLoaderAnimation() {
+        DispatchQueue.main.async {
+            self.loaderView?.stopRotationAnimation()
+        }
+    }
+    
     @objc func deleteAllAnnouncementsButtonClicked() {
         guard self.navigationItem.rightBarButtonItem?.tintColor != .clear else {
             return
@@ -141,43 +151,32 @@ class PromotionsViewController: UIViewController {
         
         HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: AgentEndPoints.getAnnouncements.rawValue) { (response, error, _, statusCode) in
             
-            if error == nil
-            {
+            self.stopLoaderAnimation()
+            
+            if error == nil{
                 self.refreshControl.endRefreshing()
                 let r = response as? NSDictionary
-                if let arr = r!["data"] as? NSArray
-                {
-                    if startOffset == 0 || arr.count >= 19
-                    {
-                        if startOffset == 0 && self.data.count > 0
-                        {
+                if let arr = r!["data"] as? NSArray{
+                    if startOffset == 0 || arr.count >= 19{
+                        if startOffset == 0 && self.data.count > 0{
                             self.data.removeAll()
                             self.states.removeAll()
                         }
                         
-                        for item in arr
-                        {
+                        for item in arr{
                             let i = item as! [String:Any]
                             let dataNew = PromotionCellDataModel(dict:i)
                             self.data.append(dataNew!)
                             self.states.append(true)
                         }
-                    }
-                    else
-                    {
+                    }else{
                         self.isMoreData = true
                     }
-                    
                 }
-                
                 self.noNotificationsFound()
-                
                 //self.promotionsTableView.reloadData()
-                
             }
-            
         }
-
     }
     
     func noNotificationsFound(){
@@ -242,11 +241,8 @@ class PromotionsViewController: UIViewController {
             }
         }
     }
-    
 
 }
-
-
 
 extension PromotionsViewController: UITableViewDelegate,UITableViewDataSource
 {
@@ -285,33 +281,7 @@ extension PromotionsViewController: UITableViewDelegate,UITableViewDataSource
         cell.promotionTitle.text = values.title ?? ""
             
         cell.fullDescriptionLabel.text = values.description
-            
-//        if (values.description?.count)! > 150{
-//            cell.showReadMoreLessButton.isHidden = false
-//            cell.showReadMoreLessButtonHeightConstraint.constant = 30
-////            let fullAnsString = values.description
-////            let first98CharactersForAns = String((fullAnsString?.prefix(98))!)
-////            print("=====",first98CharactersForAns)
-////            cell.descriptionLabel.text = first98CharactersForAns
-//            cell.descriptionLabel.text = values.description
-//
-//            if self.selectedRow == indexPath.row{
-//                cell.showReadMoreLessButton.isHidden = true
-//                cell.showReadMoreLessButtonHeightConstraint.constant = 0
-//                cell.descriptionLabel.isHidden = true
-//                cell.fullDescriptionLabel.isHidden = false
-//            }else{
-//                cell.showReadMoreLessButton.isHidden = false
-//                cell.showReadMoreLessButtonHeightConstraint.constant = 30
-//                cell.descriptionLabel.isHidden = false
-//                cell.fullDescriptionLabel.isHidden = true
-//            }
-//
-//        }else{
-//            cell.showReadMoreLessButton.isHidden = true
-//            cell.showReadMoreLessButtonHeightConstraint.constant = 0
-//            cell.descriptionLabel.text = values.description
-//        }
+
             cell.descriptionLabel.text = values.description
             if (values.description?.count)! > 150{
                 cell.showReadMoreLessButton.isHidden = false
@@ -351,102 +321,25 @@ extension PromotionsViewController: UITableViewDelegate,UITableViewDataSource
         
     }
     
-//    @objc func expandCellSize(_ sender:UIButton) {
-//        let row = sender.tag
-//        //let values = data[row]
-//        self.selectedRow = row
-////        let indexpath = IndexPath(row: row, section: 0)
-////        guard let cell = self.promotionsTableView.cellForRow(at: indexpath) as? PromotionTableViewCell else { return }
-////
-////        //cell.descriptionLabel.numberOfLines = 0
-////        cell.showReadMoreLessButton.isHidden = true
-////        cell.showReadMoreLessButtonHeightConstraint.constant = 0
-////
-////        cell.descriptionLabel.isHidden = true
-////        cell.fullDescriptionLabel.isHidden = false
-////        self.promotionsTableView.reloadRows(at: [indexpath], with: .none)
-//
-//        //self.promotionsTableView.reloadData()
-//
-//        var contentOffset = self.promotionsTableView.contentOffset
-//        contentOffset.y += tableView(self.promotionsTableView, heightForRowAt: IndexPath(row: row, section: 0))
-//        self.promotionsTableView.reloadData()
-//        self.promotionsTableView.contentOffset = contentOffset
-//
-//    }
     @objc func expandCellSize(_ sender:UIButton) {
         let row = sender.tag
         //let values = data[row]
-        
-//        if sender.currentTitle == "Read More"{
-//
-//            states[row] = false
-//            self.promotionsTableView.reloadData()
-//
-////            let indexpath = IndexPath(row: row, section: 0)
-////            guard let cell = self.promotionsTableView.cellForRow(at: indexpath) as? PromotionTableViewCell else { return }
-////
-////            self.promotionsTableView.beginUpdates()
-////            let point = cell.descriptionLabel.convert(CGPoint.zero, to: self.promotionsTableView)
-////            if let indexPath = self.promotionsTableView.indexPathForRow(at: point) as IndexPath? {
-////                states[indexPath.row] = false
-////                DispatchQueue.main.async { [weak self] in
-////                    self?.promotionsTableView.scrollToRow(at: indexPath, at: .top, animated: true)
-////                }
-////            }
-////            self.promotionsTableView.endUpdates()
-//        }else if sender.currentTitle == "Read Less"{
-//
-//            states[row] = true
-//            self.promotionsTableView.reloadData()
-//
-////            tableView.beginUpdates()
-////            let point = label.convert(CGPoint.zero, to: tableView)
-////            if let indexPath = tableView.indexPathForRow(at: point) as IndexPath? {
-////                states[indexPath.row] = true
-////                DispatchQueue.main.async { [weak self] in
-////                    self?.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
-////                }
-////            }
-////            tableView.endUpdates()
-//        }else{}
-        
-        
         let indexpath = IndexPath(row: row, section: 0)
         guard let cell = self.promotionsTableView.cellForRow(at: indexpath) as? PromotionTableViewCell else { return }
         if states[row] == true{
             states[row] = false
-            //self.promotionsTableView.reloadData()
-//            DispatchQueue.main.async { [weak self] in
-//                self?.promotionsTableView.reloadRows(at: [indexpath], with: .none)
-//                self?.promotionsTableView.scrollToRow(at: indexpath, at: .top, animated: true)
-//            }
             self.promotionsTableView.reloadRows(at: [indexpath], with: .none)
             self.promotionsTableView.scrollToRow(at: indexpath, at: .top, animated: true)
-            
         }else if states[row] == false{
             states[row] = true
-            //self.promotionsTableView.reloadData()
-//            DispatchQueue.main.async { [weak self] in
-//                self?.promotionsTableView.reloadRows(at: [indexpath], with: .none)
-//                self?.promotionsTableView.scrollToRow(at: indexpath, at: .top, animated: true)
-//            }
             self.promotionsTableView.reloadRows(at: [indexpath], with: .none)
             self.promotionsTableView.scrollToRow(at: indexpath, at: .top, animated: true)
-            
         }else{}
         
     }
     
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-
-//        let h = data[indexPath.row]
-//        print(h.cellHeight)
-//        return h.cellHeight
-
-       // return 266
-        
         return UITableView.automaticDimension
     }
 
