@@ -424,6 +424,60 @@ struct SERVERS {
         })
         completion(true, nil)
     }
+    public func startCallToAgent(data: PeerToPeerChat, agentEmail: String, callType: CallType, completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
+        guard FuguNetworkHandler.shared.isNetworkConnected else {
+            completion(false, HippoError.networkError)
+            return
+        }
+        guard CallManager.shared.isCallClientAvailable() else {
+            log.error(HippoError.callClientNotFound.localizedDescription, level: .error)
+            completion(false, HippoError.callClientNotFound)
+            return
+        }
+        guard appUserType == .customer else {
+            completion(false, HippoError.threwError(message: "Not Allowed For Hippo Agent"))
+            return
+        }
+        guard ((BussinessProperty.current.isVideoCallEnabled && callType == .video) || (BussinessProperty.current.isAudioCallEnabled && callType == .audio)) else {
+            completion(false, HippoError.threwError(message: strings.videoCallDisabledFromHippo))
+            return
+        }
+        
+        guard agentEmail != "" else {
+            completion(false, HippoError.threwError(message: "Agent email is required"))
+            return
+        }
+        
+        checkForIntialization { (success, error) in
+            guard success else {
+                completion(success, error)
+                return
+            }
+            self.findChannelAndStartCallToAgent(data: data, agentEmail: agentEmail, callType: callType, completion: completion)
+        }
+    }
+    private func findChannelAndStartCallToAgent(data: PeerToPeerChat, agentEmail: String, callType: CallType, completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
+        let uuid: String = String.uuid()
+        let peer = User(name: data.peerName, imageURL: data.otherUserImage?.absoluteString, userId: -222)
+        CallManager.shared.startConnection(peerUser: peer, muid: uuid, callType: callType, completion: { success in })
+        let attributes = FuguNewChatAttributes(transactionId: data.uniqueChatId ?? "", userUniqueKey: nil, otherUniqueKey: [data.userUniqueId], tags: nil, channelName: data.channelName, preMessage: "", groupingTag: nil)
+        HippoChannel.getToCallAgent(withFuguChatAttributes: attributes, agentEmail: agentEmail, completion: {(result) in
+            guard result.isSuccessful, let channel = result.channel else {
+                CallManager.shared.hungupCall()
+                completion(false, HippoError.threwError(message: "Something went wrong while creating channel."))
+                return
+            }
+            let call = CallData.init(peerData: peer, callType: callType, muid: uuid, signallingClient: channel)
+            
+            CallManager.shared.startCall(call: call, completion: { (success) in
+                if !success {
+                    CallManager.shared.hungupCall()
+                }
+                completion(true, nil)
+            })
+        })
+        completion(true, nil)
+    }
     internal func openCustomerConversationWith(channelId: Int, completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
         checkForIntialization { (success, error) in
             guard success else {

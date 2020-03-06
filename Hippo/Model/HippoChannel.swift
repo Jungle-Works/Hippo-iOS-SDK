@@ -322,6 +322,17 @@ class HippoChannel {
         }
     }
     
+    class func getToCallAgent(withFuguChatAttributes attributes: FuguNewChatAttributes, agentEmail: String, completion: @escaping HippoChannelCreationHandler) {
+        guard let transactionID = attributes.transactionId,
+            FuguNewChatAttributes.isValidTransactionID(id: transactionID) else {
+                let result = HippoChannelCreationResult(isSuccessful: true, error: nil, channel: nil, isChannelAvailableLocallay: true, botMessageID: nil)
+                completion(result)
+                return
+        }
+        let params = getParamsToCallAgent(agentEmail: agentEmail, fuguAttributes: attributes)
+        createNewConversationWith(params: params, completion: completion)
+    }
+    
     class func callAssignAgentApi(withParams params: [String: Any], completion: @escaping (Bool) -> Void) {//HippoChannelCreationHandler) {
         callAssignAgentApi(params: params, completion: completion)
     }
@@ -403,6 +414,26 @@ class HippoChannel {
         return params
     }
     
+    class func getParamsToCallAgent(agentEmail: String, fuguAttributes: FuguNewChatAttributes? = nil) -> [String: Any] {
+        var params = [String: Any]()
+        if let transactionID = fuguAttributes?.transactionId,
+            FuguNewChatAttributes.isValidTransactionID(id: transactionID){
+            params["transaction_id"] = transactionID
+        }
+        if let tempUserUniqueId = fuguAttributes?.otherUniqueKey {
+            params["other_user_unique_key"] = tempUserUniqueId
+        }
+        params["agent_email"] = agentEmail
+        params["app_secret_key"] = HippoConfig.shared.appSecretKey
+        params["chat_type"] = 0
+        params["app_version"] = versionCode
+        params["device_type"] = Device_Type_iOS
+        params["source_type"] = SourceType.SDK.rawValue
+//        params["in_app_support_channel"] = 0
+//        params["label_id"] = -1
+//        params["grouping_tags"] = []
+        return params
+    }
     
     // MARK: - Messages
 //    private func loadCachedMessages() {
