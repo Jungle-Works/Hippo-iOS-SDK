@@ -7,283 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-<<<<<<< HEAD
 		47B12417C887BBD208902F39 /* Pods_Hippo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C0A922564912516EF04B93F /* Pods_Hippo.framework */; };
 		99354A03CB85B6FC4E9FF864 /* Pods_SDKDemo1.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7012A5A44B87F497D213D271 /* Pods_SDKDemo1.framework */; };
-		C93600F222EEC5EA00A6C291 /* OutgoingImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C936006922EEC5EA00A6C291 /* OutgoingImageCell.xib */; };
-		C93600F322EEC5EA00A6C291 /* OutgoingImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C936006A22EEC5EA00A6C291 /* OutgoingImageCell.swift */; };
-		C93600F422EEC5EA00A6C291 /* CategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C936006C22EEC5EA00A6C291 /* CategoryTableViewCell.swift */; };
-		C93600F522EEC5EA00A6C291 /* CategoryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C936006D22EEC5EA00A6C291 /* CategoryTableViewCell.xib */; };
-		C93600F622EEC5EA00A6C291 /* ActionTableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C936006F22EEC5EA00A6C291 /* ActionTableDataSource.swift */; };
-		C93600F722EEC5EA00A6C291 /* ActionTableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C936007022EEC5EA00A6C291 /* ActionTableView.xib */; };
-		C93600F822EEC5EA00A6C291 /* ActionTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C936007122EEC5EA00A6C291 /* ActionTableView.swift */; };
-		C93600F922EEC5EA00A6C291 /* ActionButtonViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C936007322EEC5EA00A6C291 /* ActionButtonViewCell.swift */; };
-		C93600FA22EEC5EA00A6C291 /* ActionLabelViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C936007422EEC5EA00A6C291 /* ActionLabelViewCell.xib */; };
-		C93600FB22EEC5EA00A6C291 /* ActionLabelViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C936007522EEC5EA00A6C291 /* ActionLabelViewCell.swift */; };
-		C93600FC22EEC5EA00A6C291 /* ActionButtonViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C936007622EEC5EA00A6C291 /* ActionButtonViewCell.xib */; };
-		C93600FD22EEC5EA00A6C291 /* ActionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C936007722EEC5EA00A6C291 /* ActionViewCell.swift */; };
-		C93600FE22EEC5EA00A6C291 /* ContactNumberTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C936007922EEC5EA00A6C291 /* ContactNumberTableCell.xib */; };
-		C93600FF22EEC5EA00A6C291 /* ContactNumberTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C936007A22EEC5EA00A6C291 /* ContactNumberTableCell.swift */; };
-		C936010022EEC5EA00A6C291 /* IncomingImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C936007C22EEC5EA00A6C291 /* IncomingImageCell.xib */; };
-		C936010122EEC5EA00A6C291 /* IncomingImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C936007D22EEC5EA00A6C291 /* IncomingImageCell.swift */; };
-		C936010222EEC5EA00A6C291 /* BroadcastUserStatusCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C936007F22EEC5EA00A6C291 /* BroadcastUserStatusCell.xib */; };
-		C936010322EEC5EA00A6C291 /* BroadcastUserStatusCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C936008022EEC5EA00A6C291 /* BroadcastUserStatusCell.swift */; };
-		C936010422EEC5EA00A6C291 /* BotOutgoingMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C936008222EEC5EA00A6C291 /* BotOutgoingMessageTableViewCell.xib */; };
-		C936010522EEC5EA00A6C291 /* BotOutgoingMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C936008322EEC5EA00A6C291 /* BotOutgoingMessageTableViewCell.swift */; };
-		C936010622EEC5EA00A6C291 /* IncomingDocumentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C936008522EEC5EA00A6C291 /* IncomingDocumentTableViewCell.xib */; };
-		C936010722EEC5EA00A6C291 /* IncomingDocumentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C936008622EEC5EA00A6C291 /* IncomingDocumentTableViewCell.swift */; };
-		C936010822EEC5EA00A6C291 /* PaymentItemDescriptionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C936008822EEC5EA00A6C291 /* PaymentItemDescriptionCell.xib */; };
-		C936010922EEC5EA00A6C291 /* PaymentItemDescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C936008922EEC5EA00A6C291 /* PaymentItemDescriptionCell.swift */; };
-		C936010A22EEC5EA00A6C291 /* LeadTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C936008B22EEC5EA00A6C291 /* LeadTableViewCell.swift */; };
-		C936010B22EEC5EA00A6C291 /* LeadTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C936008C22EEC5EA00A6C291 /* LeadTableViewCell.xib */; };
-		C936010C22EEC5EA00A6C291 /* ConversationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C936008E22EEC5EA00A6C291 /* ConversationView.swift */; };
-		C936010D22EEC5EA00A6C291 /* ChatInfoTagViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C936009022EEC5EA00A6C291 /* ChatInfoTagViewCell.swift */; };
-		C936010E22EEC5EA00A6C291 /* ChatInfoTagViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C936009122EEC5EA00A6C291 /* ChatInfoTagViewCell.xib */; };
-		C936010F22EEC5EA00A6C291 /* AssignedAgentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C936009322EEC5EA00A6C291 /* AssignedAgentTableViewCell.xib */; };
-		C936011022EEC5EA00A6C291 /* AssignedAgentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C936009422EEC5EA00A6C291 /* AssignedAgentTableViewCell.swift */; };
-		C936011122EEC5EA00A6C291 /* SupportMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C936009622EEC5EA00A6C291 /* SupportMessageTableViewCell.swift */; };
-		C936011222EEC5EA00A6C291 /* ButtonCellCollectionViewHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C936009922EEC5EA00A6C291 /* ButtonCellCollectionViewHandler.swift */; };
-		C936011322EEC5EA00A6C291 /* ActionableMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C936009A22EEC5EA00A6C291 /* ActionableMessageTableViewCell.xib */; };
-		C936011422EEC5EA00A6C291 /* ButtonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C936009D22EEC5EA00A6C291 /* ButtonTableViewCell.xib */; };
-		C936011522EEC5EA00A6C291 /* ButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C936009E22EEC5EA00A6C291 /* ButtonTableViewCell.swift */; };
-		C936011622EEC5EA00A6C291 /* ButtonCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93600A022EEC5EA00A6C291 /* ButtonCollectionCell.swift */; };
-		C936011722EEC5EA00A6C291 /* ButtonCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C93600A122EEC5EA00A6C291 /* ButtonCollectionCell.xib */; };
-		C936011822EEC5EA00A6C291 /* HeaderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C93600A322EEC5EA00A6C291 /* HeaderTableViewCell.xib */; };
-		C936011922EEC5EA00A6C291 /* HeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93600A422EEC5EA00A6C291 /* HeaderTableViewCell.swift */; };
-		C936011A22EEC5EA00A6C291 /* ItemTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C93600A622EEC5EA00A6C291 /* ItemTableViewCell.xib */; };
-		C936011B22EEC5EA00A6C291 /* ItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93600A722EEC5EA00A6C291 /* ItemTableViewCell.swift */; };
-		C936011C22EEC5EA00A6C291 /* SenderNameTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93600A922EEC5EA00A6C291 /* SenderNameTableCell.swift */; };
-		C936011D22EEC5EA00A6C291 /* SenderNameTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C93600AA22EEC5EA00A6C291 /* SenderNameTableCell.xib */; };
-		C936011E22EEC5EA00A6C291 /* ImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93600AC22EEC5EA00A6C291 /* ImageTableViewCell.swift */; };
-		C936011F22EEC5EA00A6C291 /* ImageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C93600AD22EEC5EA00A6C291 /* ImageTableViewCell.xib */; };
-		C936012022EEC5EA00A6C291 /* ActionableMessageCellHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93600AF22EEC5EA00A6C291 /* ActionableMessageCellHandler.swift */; };
-		C936012122EEC5EA00A6C291 /* ActionableMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93600B022EEC5EA00A6C291 /* ActionableMessageTableViewCell.swift */; };
-		C936012222EEC5EA00A6C291 /* IncomingAudioTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C93600B222EEC5EA00A6C291 /* IncomingAudioTableViewCell.xib */; };
-		C936012322EEC5EA00A6C291 /* OutgoingAudioTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C93600B322EEC5EA00A6C291 /* OutgoingAudioTableViewCell.xib */; };
-		C936012422EEC5EA00A6C291 /* IncomingAudioTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93600B422EEC5EA00A6C291 /* IncomingAudioTableViewCell.swift */; };
-		C936012522EEC5EA00A6C291 /* OutgoingAudioTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93600B522EEC5EA00A6C291 /* OutgoingAudioTableViewCell.swift */; };
-		C936012622EEC5EA00A6C291 /* TypingViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93600B722EEC5EA00A6C291 /* TypingViewTableViewCell.swift */; };
-		C936012722EEC5EA00A6C291 /* OutgoingVideoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C93600B922EEC5EA00A6C291 /* OutgoingVideoTableViewCell.xib */; };
-		C936012822EEC5EA00A6C291 /* VideoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93600BA22EEC5EA00A6C291 /* VideoTableViewCell.swift */; };
-		C936012922EEC5EA00A6C291 /* IncomingVideoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C93600BB22EEC5EA00A6C291 /* IncomingVideoTableViewCell.xib */; };
-		C936012A22EEC5EA00A6C291 /* IncomingVideoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93600BC22EEC5EA00A6C291 /* IncomingVideoTableViewCell.swift */; };
-		C936012B22EEC5EA00A6C291 /* OutgoingVideoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93600BD22EEC5EA00A6C291 /* OutgoingVideoTableViewCell.swift */; };
-		C936012C22EEC5EA00A6C291 /* OutgoingDocumentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C93600BF22EEC5EA00A6C291 /* OutgoingDocumentTableViewCell.xib */; };
-		C936012D22EEC5EA00A6C291 /* OutgoingDocumentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93600C022EEC5EA00A6C291 /* OutgoingDocumentTableViewCell.swift */; };
-		C936012E22EEC5EA00A6C291 /* AgentHomeConversationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93600C222EEC5EA00A6C291 /* AgentHomeConversationCell.swift */; };
-		C936012F22EEC5EA00A6C291 /* AgentHomeConversationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C93600C322EEC5EA00A6C291 /* AgentHomeConversationCell.xib */; };
-		C936013022EEC5EA00A6C291 /* SelfMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93600C522EEC5EA00A6C291 /* SelfMessageTableViewCell.swift */; };
-		C936013122EEC5EA00A6C291 /* LeadDataTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C93600C722EEC5EA00A6C291 /* LeadDataTableViewCell.xib */; };
-		C936013222EEC5EA00A6C291 /* LeadDataTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93600C822EEC5EA00A6C291 /* LeadDataTableViewCell.swift */; };
-		C936013322EEC5EA00A6C291 /* ChatInfoActionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93600CA22EEC5EA00A6C291 /* ChatInfoActionCell.swift */; };
-		C936013422EEC5EA00A6C291 /* ChatInfoActionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C93600CB22EEC5EA00A6C291 /* ChatInfoActionCell.xib */; };
-		C936013522EEC5EA00A6C291 /* ChatProfileTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C93600CD22EEC5EA00A6C291 /* ChatProfileTableViewCell.xib */; };
-		C936013622EEC5EA00A6C291 /* ChatProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93600CE22EEC5EA00A6C291 /* ChatProfileTableViewCell.swift */; };
-		C936013722EEC5EA00A6C291 /* OutgoingVideoCallMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C93600D022EEC5EA00A6C291 /* OutgoingVideoCallMessageTableViewCell.xib */; };
-		C936013822EEC5EA00A6C291 /* VideoCallMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93600D122EEC5EA00A6C291 /* VideoCallMessageTableViewCell.swift */; };
-		C936013922EEC5EA00A6C291 /* IncomingVideoCallMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C93600D222EEC5EA00A6C291 /* IncomingVideoCallMessageTableViewCell.xib */; };
-		C936013A22EEC5EA00A6C291 /* ShowMoreTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C93600D422EEC5EA00A6C291 /* ShowMoreTableViewCell.xib */; };
-		C936013B22EEC5EA00A6C291 /* ShowMoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93600D522EEC5EA00A6C291 /* ShowMoreTableViewCell.swift */; };
-		C936013C22EEC5EA00A6C291 /* ChatInfoAgentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C93600D722EEC5EA00A6C291 /* ChatInfoAgentTableViewCell.xib */; };
-		C936013D22EEC5EA00A6C291 /* ChatInfoAgentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93600D822EEC5EA00A6C291 /* ChatInfoAgentTableViewCell.swift */; };
-		C936013E22EEC5EA00A6C291 /* BroadcastButtonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C93600DB22EEC5EA00A6C291 /* BroadcastButtonCell.xib */; };
-		C936013F22EEC5EA00A6C291 /* BroadcastButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93600DC22EEC5EA00A6C291 /* BroadcastButtonCell.swift */; };
-		C936014022EEC5EA00A6C291 /* BroadcastAgentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93600DE22EEC5EA00A6C291 /* BroadcastAgentCell.swift */; };
-		C936014122EEC5EA00A6C291 /* BroadcastAgentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C93600DF22EEC5EA00A6C291 /* BroadcastAgentCell.xib */; };
-		C936014222EEC5EA00A6C291 /* BroadCastTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93600E122EEC5EA00A6C291 /* BroadCastTitleCell.swift */; };
-		C936014322EEC5EA00A6C291 /* BroadCastTitleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C93600E222EEC5EA00A6C291 /* BroadCastTitleCell.xib */; };
-		C936014422EEC5EA00A6C291 /* BroadCastTextViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93600E422EEC5EA00A6C291 /* BroadCastTextViewCell.swift */; };
-		C936014522EEC5EA00A6C291 /* BroadCastTextViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C93600E522EEC5EA00A6C291 /* BroadCastTextViewCell.xib */; };
-		C936014622EEC5EA00A6C291 /* BroadCastTextFieldCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C93600E722EEC5EA00A6C291 /* BroadCastTextFieldCell.xib */; };
-		C936014722EEC5EA00A6C291 /* BroadCastTextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93600E822EEC5EA00A6C291 /* BroadCastTextFieldCell.swift */; };
-		C936014822EEC5EA00A6C291 /* BroadcastListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93600EA22EEC5EA00A6C291 /* BroadcastListTableViewCell.swift */; };
-		C936014922EEC5EA00A6C291 /* BroadcastListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C93600EB22EEC5EA00A6C291 /* BroadcastListTableViewCell.xib */; };
-		C936014A22EEC5EA00A6C291 /* BoardCastSelectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C93600ED22EEC5EA00A6C291 /* BoardCastSelectionCell.xib */; };
-		C936014B22EEC5EA00A6C291 /* BoardCastSelectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93600EE22EEC5EA00A6C291 /* BoardCastSelectionCell.swift */; };
-		C936014C22EEC5EA00A6C291 /* FeedbackTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C93600F022EEC5EA00A6C291 /* FeedbackTableViewCell.xib */; };
-		C936014D22EEC5EA00A6C291 /* FeedbackTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93600F122EEC5EA00A6C291 /* FeedbackTableViewCell.swift */; };
-		C936015022EEC7DB00A6C291 /* SelfMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C936014F22EEC7DB00A6C291 /* SelfMessageTableViewCell.xib */; };
-		C936015222EEC87300A6C291 /* SupportMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C936015122EEC87300A6C291 /* SupportMessageTableViewCell.xib */; };
-		C936015A22EED3CC00A6C291 /* ActionTagTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C936015822EED3CC00A6C291 /* ActionTagTableViewCell.swift */; };
-		C936015B22EED3CC00A6C291 /* ActionTagTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C936015922EED3CC00A6C291 /* ActionTagTableViewCell.xib */; };
-		C976E6922215516300B9F79E /* FormData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C976E6912215516300B9F79E /* FormData.swift */; };
-		C9B77E0D21A01B060092848D /* ConversationPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77CF821A01B050092848D /* ConversationPresenter.swift */; };
-		C9B77E0E21A01B060092848D /* ConversationStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77CF921A01B050092848D /* ConversationStore.swift */; };
-		C9B77E0F21A01B060092848D /* AgentConversationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77CFA21A01B050092848D /* AgentConversationManager.swift */; };
-		C9B77E1021A01B060092848D /* CallManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77CFB21A01B050092848D /* CallManager.swift */; };
-		C9B77E1121A01B060092848D /* FuguDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77CFC21A01B050092848D /* FuguDefaults.swift */; };
-		C9B77E1221A01B060092848D /* MessageStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77CFD21A01B050092848D /* MessageStore.swift */; };
-		C9B77E1321A01B060092848D /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77CFE21A01B050092848D /* HTTPClient.swift */; };
-		C9B77E1421A01B060092848D /* PeerToPeerChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77D0021A01B060092848D /* PeerToPeerChat.swift */; };
-		C9B77E1521A01B060092848D /* HippoConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77D0121A01B060092848D /* HippoConfig.swift */; };
-		C9B77E1621A01B060092848D /* FuguConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77D0221A01B060092848D /* FuguConfig.swift */; };
-		C9B77E1721A01B060092848D /* HippoNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77D0421A01B060092848D /* HippoNotification.swift */; };
-		C9B77E1821A01B060092848D /* FayeConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77D0521A01B060092848D /* FayeConnection.swift */; };
-		C9B77E1921A01B060092848D /* FuguAppFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77D0621A01B060092848D /* FuguAppFlow.swift */; };
-		C9B77E1A21A01B060092848D /* AgentHomeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77D0A21A01B060092848D /* AgentHomeCollectionViewCell.swift */; };
-		C9B77E1B21A01B060092848D /* AgentHomeCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9B77D0B21A01B060092848D /* AgentHomeCollectionViewCell.xib */; };
-		C9B77E1C21A01B060092848D /* QuickReplyButtonCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77D0D21A01B060092848D /* QuickReplyButtonCollectionViewCell.swift */; };
-		C9B77E1D21A01B060092848D /* QuickReplyButtonCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9B77D0E21A01B060092848D /* QuickReplyButtonCollectionViewCell.xib */; };
-		C9B77E1E21A01B060092848D /* EmojiCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9B77D1021A01B060092848D /* EmojiCollectionViewCell.xib */; };
-		C9B77E1F21A01B060092848D /* EmojiCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77D1121A01B060092848D /* EmojiCollectionViewCell.swift */; };
-		C9B77E2021A01B060092848D /* ChatInfoHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77D1421A01B060092848D /* ChatInfoHeader.swift */; };
-		C9B77E2121A01B060092848D /* ChatInfoHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9B77D1521A01B060092848D /* ChatInfoHeader.xib */; };
-		C9B77E6121A01B060092848D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9B77D7A21A01B060092848D /* Assets.xcassets */; };
-		C9B77E6221A01B060092848D /* HippoBroadCast.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9B77D7B21A01B060092848D /* HippoBroadCast.storyboard */; };
-		C9B77E6321A01B060092848D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9B77D7C21A01B060092848D /* LaunchScreen.storyboard */; };
-		C9B77E6421A01B060092848D /* Montserrat-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = C9B77D7E21A01B060092848D /* Montserrat-Medium.otf */; };
-		C9B77E6521A01B060092848D /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77D8021A01B060092848D /* UIColor+Extension.swift */; };
-		C9B77E6621A01B060092848D /* Socomo+Customs.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77D8121A01B060092848D /* Socomo+Customs.swift */; };
-		C9B77E6721A01B060092848D /* UIImage+Gif.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77D8221A01B060092848D /* UIImage+Gif.swift */; };
-		C9B77E6821A01B060092848D /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77D8321A01B060092848D /* UIView+Extension.swift */; };
-		C9B77E6921A01B060092848D /* Socomo+Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77D8421A01B060092848D /* Socomo+Date.swift */; };
-		C9B77E6A21A01B060092848D /* Proctocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77D8521A01B060092848D /* Proctocols.swift */; };
-		C9B77E6B21A01B060092848D /* NotificationCenter+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77D8621A01B060092848D /* NotificationCenter+Extension.swift */; };
-		C9B77E6C21A01B060092848D /* OperatorOverloading.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77D8721A01B060092848D /* OperatorOverloading.swift */; };
-		C9B77E6D21A01B060092848D /* Socomo+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77D8821A01B060092848D /* Socomo+String.swift */; };
-		C9B77E6E21A01B060092848D /* FuguChannelPersistancyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77D8A21A01B060092848D /* FuguChannelPersistancyManager.swift */; };
-		C9B77E6F21A01B060092848D /* MessageSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77D8B21A01B060092848D /* MessageSender.swift */; };
-		C9B77E7021A01B060092848D /* PushInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77D8C21A01B060092848D /* PushInfo.swift */; };
-		C9B77E7121A01B060092848D /* UserDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77D8E21A01B060092848D /* UserDetail.swift */; };
-		C9B77E7221A01B060092848D /* HippoBroadcaster.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77D8F21A01B060092848D /* HippoBroadcaster.swift */; };
-		C9B77E7321A01B060092848D /* BroadcastInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77D9021A01B060092848D /* BroadcastInfo.swift */; };
-		C9B77E7421A01B060092848D /* MessageContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77D9121A01B060092848D /* MessageContent.swift */; };
-		C9B77E7521A01B060092848D /* FuguConversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77D9221A01B060092848D /* FuguConversation.swift */; };
-		C9B77E7621A01B060092848D /* FuguTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77D9321A01B060092848D /* FuguTheme.swift */; };
-		C9B77E7721A01B060092848D /* HippoTicketAtrributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77D9421A01B060092848D /* HippoTicketAtrributes.swift */; };
-		C9B77E7821A01B060092848D /* ConversationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77D9521A01B060092848D /* ConversationState.swift */; };
-		C9B77E7921A01B060092848D /* FuguActionableMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77D9621A01B060092848D /* FuguActionableMessage.swift */; };
-		C9B77E7A21A01B060092848D /* GeneralChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77D9721A01B060092848D /* GeneralChat.swift */; };
-		C9B77E7B21A01B060092848D /* AgentConversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77D9921A01B060092848D /* AgentConversation.swift */; };
-		C9B77E7C21A01B060092848D /* UnreadCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77D9A21A01B060092848D /* UnreadCount.swift */; };
-		C9B77E7D21A01B060092848D /* AgentDirectChatAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77D9B21A01B060092848D /* AgentDirectChatAttributes.swift */; };
-		C9B77E7E21A01B060092848D /* AgentChannelPersistancyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77D9C21A01B060092848D /* AgentChannelPersistancyManager.swift */; };
-		C9B77E7F21A01B060092848D /* ChatDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77D9D21A01B060092848D /* ChatDetail.swift */; };
-		C9B77E8021A01B060092848D /* AgentUserChannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77D9E21A01B060092848D /* AgentUserChannel.swift */; };
-		C9B77E8121A01B060092848D /* AgentDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77D9F21A01B060092848D /* AgentDetail.swift */; };
-		C9B77E8221A01B060092848D /* FuguChannelTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DA021A01B060092848D /* FuguChannelTag.swift */; };
-		C9B77E8321A01B060092848D /* FuguImageUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DA121A01B060092848D /* FuguImageUploader.swift */; };
-		C9B77E8421A01B060092848D /* FuguAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DA221A01B060092848D /* FuguAddress.swift */; };
-		C9B77E8521A01B060092848D /* HippoMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DA321A01B060092848D /* HippoMessage.swift */; };
-		C9B77E8621A01B060092848D /* HippoChannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DA421A01B060092848D /* HippoChannel.swift */; };
-		C9B77E8721A01B060092848D /* FuguNewChatAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DA521A01B060092848D /* FuguNewChatAttributes.swift */; };
-		C9B77E8921A01B060092848D /* FuguAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DA721A01B060092848D /* FuguAttributes.swift */; };
-		C9B77E8A21A01B060092848D /* HippoChannel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DA821A01B060092848D /* HippoChannel+Extension.swift */; };
-		C9B77E8B21A01B060092848D /* HippoSupportList.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DA921A01B060092848D /* HippoSupportList.swift */; };
-		C9B77E8C21A01B060092848D /* HippoDescriptionContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DAA21A01B060092848D /* HippoDescriptionContent.swift */; };
-		C9B77E8D21A01B060092848D /* FuguUserDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DAB21A01B060092848D /* FuguUserDetail.swift */; };
-		C9B77E8E21A01B070092848D /* MavenPro-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C9B77DAC21A01B060092848D /* MavenPro-Medium.ttf */; };
-		C9B77E8F21A01B070092848D /* NLevelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DAE21A01B060092848D /* NLevelViewController.swift */; };
-		C9B77E9021A01B070092848D /* HippoConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DAF21A01B060092848D /* HippoConversationViewController.swift */; };
-		C9B77E9121A01B070092848D /* BroadcastSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DB121A01B060092848D /* BroadcastSelectionViewController.swift */; };
-		C9B77E9221A01B070092848D /* BroadcastListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DB221A01B060092848D /* BroadcastListViewController.swift */; };
-		C9B77E9321A01B070092848D /* BroadCastViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DB321A01B060092848D /* BroadCastViewController.swift */; };
-		C9B77E9421A01B070092848D /* HippoHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DB421A01B060092848D /* HippoHomeViewController.swift */; };
-		C9B77E9521A01B070092848D /* SelectImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DB521A01B060092848D /* SelectImageViewController.swift */; };
-		C9B77E9621A01B070092848D /* ShowImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DB621A01B060092848D /* ShowImageViewController.swift */; };
-		C9B77E9721A01B070092848D /* AgentChatInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DB821A01B060092848D /* AgentChatInfoViewController.swift */; };
-		C9B77E9821A01B070092848D /* AgentDirectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DB921A01B060092848D /* AgentDirectViewController.swift */; };
-		C9B77E9921A01B070092848D /* AgentConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DBA21A01B060092848D /* AgentConversationViewController.swift */; };
-		C9B77E9A21A01B070092848D /* AgentHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DBB21A01B060092848D /* AgentHomeViewController.swift */; };
-		C9B77E9B21A01B070092848D /* ListDescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DBC21A01B060092848D /* ListDescriptionViewController.swift */; };
-		C9B77E9C21A01B070092848D /* CheckIntializationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DBE21A01B060092848D /* CheckIntializationViewController.swift */; };
-		C9B77E9D21A01B070092848D /* AllConversationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DBF21A01B060092848D /* AllConversationsViewController.swift */; };
-		C9B77E9E21A01B070092848D /* ConversationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DC021A01B060092848D /* ConversationsViewController.swift */; };
-		C9B77E9F21A01B070092848D /* MavenPro-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C9B77DC121A01B060092848D /* MavenPro-Bold.ttf */; };
-		C9B77EA021A01B070092848D /* ProximaNova-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = C9B77DC221A01B060092848D /* ProximaNova-Regular.otf */; };
-		C9B77EA121A01B070092848D /* FuguNetworkHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DC421A01B060092848D /* FuguNetworkHandler.swift */; };
-		C9B77EA921A01B070092848D /* FrameObserverAccessaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DCE21A01B060092848D /* FrameObserverAccessaryView.swift */; };
-		C9B77EAA21A01B070092848D /* Fugu+Properties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DCF21A01B060092848D /* Fugu+Properties.swift */; };
-		C9B77EAB21A01B070092848D /* typingImage.gif in Resources */ = {isa = PBXBuildFile; fileRef = C9B77DD021A01B060092848D /* typingImage.gif */; };
-		C9B77EAC21A01B070092848D /* CloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DD221A01B060092848D /* CloseButton.swift */; };
-		C9B77EAD21A01B070092848D /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DD321A01B060092848D /* TagView.swift */; };
-		C9B77EAE21A01B070092848D /* TagListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DD421A01B060092848D /* TagListView.swift */; };
-		C9B77EAF21A01B070092848D /* Pulsator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DD521A01B060092848D /* Pulsator.swift */; };
-		C9B77EB021A01B070092848D /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DD721A01B060092848D /* ImageCache.swift */; };
-		C9B77EB121A01B070092848D /* ThreadHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DD821A01B060092848D /* ThreadHelper.swift */; };
-		C9B77EB221A01B070092848D /* Kingfisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DD921A01B060092848D /* Kingfisher.swift */; };
-		C9B77EB321A01B070092848D /* RequestModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DDA21A01B060092848D /* RequestModifier.swift */; };
-		C9B77EB421A01B070092848D /* ImageView+Kingfisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DDB21A01B060092848D /* ImageView+Kingfisher.swift */; };
-		C9B77EB521A01B070092848D /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DDC21A01B060092848D /* Image.swift */; };
-		C9B77EB621A01B070092848D /* Indicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DDD21A01B060092848D /* Indicator.swift */; };
-		C9B77EB721A01B070092848D /* CacheSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DDE21A01B060092848D /* CacheSerializer.swift */; };
-		C9B77EB821A01B070092848D /* UIButton+Kingfisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DDF21A01B060092848D /* UIButton+Kingfisher.swift */; };
-		C9B77EB921A01B070092848D /* Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DE021A01B060092848D /* Resource.swift */; };
-		C9B77EBA21A01B070092848D /* ImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DE121A01B060092848D /* ImageDownloader.swift */; };
-		C9B77EBB21A01B070092848D /* Box.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DE321A01B060092848D /* Box.swift */; };
-		C9B77EBC21A01B070092848D /* KingfisherManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DE421A01B060092848D /* KingfisherManager.swift */; };
-		C9B77EBD21A01B070092848D /* FormatIndicatedCacheSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DE521A01B060092848D /* FormatIndicatedCacheSerializer.swift */; };
-		C9B77EBE21A01B070092848D /* ImageTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DE621A01B060092848D /* ImageTransition.swift */; };
-		C9B77EBF21A01B070092848D /* AnimatedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DE721A01B060092848D /* AnimatedImageView.swift */; };
-		C9B77EC021A01B070092848D /* String+MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DE821A01B060092848D /* String+MD5.swift */; };
-		C9B77EC121A01B070092848D /* ImageProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DE921A01B060092848D /* ImageProcessor.swift */; };
-		C9B77EC221A01B070092848D /* Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DEA21A01B060092848D /* Filter.swift */; };
-		C9B77EC321A01B070092848D /* Placeholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DEB21A01B060092848D /* Placeholder.swift */; };
-		C9B77EC421A01B070092848D /* KingfisherOptionsInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DEC21A01B060092848D /* KingfisherOptionsInfo.swift */; };
-		C9B77EC621A01B070092848D /* ImagePrefetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DEE21A01B060092848D /* ImagePrefetcher.swift */; };
-		C9B77EC721A01B070092848D /* IQTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DF121A01B060092848D /* IQTextView.swift */; };
-		C9B77EC821A01B070092848D /* IQPreviousNextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DF321A01B060092848D /* IQPreviousNextView.swift */; };
-		C9B77EC921A01B070092848D /* IQTitleBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DF421A01B060092848D /* IQTitleBarButtonItem.swift */; };
-		C9B77ECA21A01B070092848D /* IQBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DF521A01B060092848D /* IQBarButtonItem.swift */; };
-		C9B77ECB21A01B070092848D /* IQToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DF621A01B060092848D /* IQToolbar.swift */; };
-		C9B77ECC21A01B070092848D /* IQUIView+IQKeyboardToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DF721A01B060092848D /* IQUIView+IQKeyboardToolbar.swift */; };
-		C9B77ECD21A01B070092848D /* IQInvocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DF821A01B060092848D /* IQInvocation.swift */; };
-		C9B77ECE21A01B070092848D /* HippoKeyboardManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DF921A01B060092848D /* HippoKeyboardManager.swift */; };
-		C9B77ECF21A01B070092848D /* IQKeyboardManagerConstantsInternal.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DFB21A01B060092848D /* IQKeyboardManagerConstantsInternal.swift */; };
-		C9B77ED021A01B070092848D /* IQKeyboardManagerConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DFC21A01B060092848D /* IQKeyboardManagerConstants.swift */; };
-		C9B77ED121A01B070092848D /* IQKeyboardManager.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C9B77DFE21A01B060092848D /* IQKeyboardManager.bundle */; };
-		C9B77ED221A01B070092848D /* IQKeyboardReturnKeyHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DFF21A01B060092848D /* IQKeyboardReturnKeyHandler.swift */; };
-		C9B77ED321A01B070092848D /* IQUIScrollView+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77E0221A01B060092848D /* IQUIScrollView+Additions.swift */; };
-		C9B77ED421A01B070092848D /* IQUIViewController+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77E0321A01B060092848D /* IQUIViewController+Additions.swift */; };
-		C9B77ED521A01B070092848D /* IQUITextFieldView+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77E0421A01B060092848D /* IQUITextFieldView+Additions.swift */; };
-		C9B77ED621A01B070092848D /* IQUIView+Hierarchy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77E0521A01B060092848D /* IQUIView+Hierarchy.swift */; };
-		C9B77ED721A01B070092848D /* IQNSArray+Sort.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77E0621A01B060092848D /* IQNSArray+Sort.swift */; };
-		C9B77ED821A01B070092848D /* FuguConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77E0721A01B060092848D /* FuguConnection.swift */; };
-		C9B77ED921A01B070092848D /* Fugu+Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77E0821A01B060092848D /* Fugu+Enums.swift */; };
-		C9B77EDA21A01B070092848D /* FuguHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77E0921A01B060092848D /* FuguHelpers.swift */; };
-		C9B77EDB21A01B070092848D /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C9B77E0A21A01B060092848D /* Info.plist */; };
-		C9B77EDC21A01B070092848D /* FuguUnique.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9B77E0B21A01B060092848D /* FuguUnique.storyboard */; };
-		C9B77EDD21A01B070092848D /* Montserrat-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = C9B77E0C21A01B060092848D /* Montserrat-SemiBold.otf */; };
-		C9F6D47121C8B47100EA23E6 /* SupportTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F6D46E21C8B47100EA23E6 /* SupportTheme.swift */; };
-		C9F6D47221C8B47100EA23E6 /* HippoStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F6D46F21C8B47100EA23E6 /* HippoStrings.swift */; };
-		C9F6D47321C8B47100EA23E6 /* HippoTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F6D47021C8B47100EA23E6 /* HippoTheme.swift */; };
-		C9F6D49021C8B71B00EA23E6 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = C9F6D48F21C8B71B00EA23E6 /* README.md */; };
 		C9F6D49221C8B81100EA23E6 /* Hippo.podspec in Resources */ = {isa = PBXBuildFile; fileRef = C9F6D49121C8B81100EA23E6 /* Hippo.podspec */; };
-		C9FB6F8B21EE0DE400B72CEA /* PickerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FB6F8721EE0DE300B72CEA /* PickerHelper.swift */; };
-		C9FB6F8C21EE0DE400B72CEA /* DownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FB6F8821EE0DE400B72CEA /* DownloadManager.swift */; };
-		C9FB6F8D21EE0DE400B72CEA /* HippoQLDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FB6F8921EE0DE400B72CEA /* HippoQLDataSource.swift */; };
-		C9FB6F8E21EE0DE400B72CEA /* AudioPlayerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FB6F8A21EE0DE400B72CEA /* AudioPlayerManager.swift */; };
-		C9FB6FA721EE10CD00B72CEA /* CoreKit+UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FB6F9221EE10CD00B72CEA /* CoreKit+UIImage.swift */; };
-		C9FB6FA821EE10CD00B72CEA /* CoreDocumentPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FB6F9321EE10CD00B72CEA /* CoreDocumentPicker.swift */; };
-		C9FB6FA921EE10CD00B72CEA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9FB6F9421EE10CD00B72CEA /* Assets.xcassets */; };
-		C9FB6FAA21EE10CD00B72CEA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9FB6F9521EE10CD00B72CEA /* LaunchScreen.storyboard */; };
-		C9FB6FAB21EE10CD00B72CEA /* CoreEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FB6F9721EE10CD00B72CEA /* CoreEnum.swift */; };
-		C9FB6FAC21EE10CD00B72CEA /* CoreMediaSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FB6F9821EE10CD00B72CEA /* CoreMediaSelector.swift */; };
-		C9FB6FAD21EE10CD00B72CEA /* CoreKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FB6F9921EE10CD00B72CEA /* CoreKit.swift */; };
-		C9FB6FAE21EE10CD00B72CEA /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C9FB6F9A21EE10CD00B72CEA /* Info.plist */; };
-		C9FB6FAF21EE10CD00B72CEA /* CoreFilesConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FB6F9B21EE10CD00B72CEA /* CoreFilesConfig.swift */; };
-		C9FB6FB021EE10CD00B72CEA /* LoggerEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FB6F9D21EE10CD00B72CEA /* LoggerEnum.swift */; };
-		C9FB6FB121EE10CD00B72CEA /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FB6F9E21EE10CD00B72CEA /* Utilities.swift */; };
-		C9FB6FB221EE10CD00B72CEA /* CoreLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FB6F9F21EE10CD00B72CEA /* CoreLogger.swift */; };
-		C9FB6FB321EE10CD00B72CEA /* Themes.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FB6FA121EE10CD00B72CEA /* Themes.swift */; };
-		C9FB6FB421EE10CD00B72CEA /* Formatters.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FB6FA221EE10CD00B72CEA /* Formatters.swift */; };
-		C9FB6FB521EE10CD00B72CEA /* LoggerTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FB6FA321EE10CD00B72CEA /* LoggerTheme.swift */; };
-		C9FB6FB621EE10CD00B72CEA /* LoggerConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FB6FA421EE10CD00B72CEA /* LoggerConfig.swift */; };
-		C9FB6FB721EE10CD00B72CEA /* Formatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FB6FA521EE10CD00B72CEA /* Formatter.swift */; };
-		C9FB6FB821EE10CD00B72CEA /* Benchmarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FB6FA621EE10CD00B72CEA /* Benchmarker.swift */; };
-		C9FB6FDC21EEF04900B72CEA /* TWRDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FB6FD921EEF04800B72CEA /* TWRDownloadManager.m */; };
-		C9FB6FDD21EEF04900B72CEA /* TWRDownloadObject.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FB6FDA21EEF04800B72CEA /* TWRDownloadObject.m */; };
-		D86028AB23F6AD40009540D3 /* SuggestionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86028A923F6AD40009540D3 /* SuggestionCell.swift */; };
-		D86028AC23F6AD40009540D3 /* SuggestionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D86028AA23F6AD40009540D3 /* SuggestionCell.xib */; };
-		D86028B023F6AFFA009540D3 /* SuggestionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86028AE23F6AFF9009540D3 /* SuggestionViewDelegate.swift */; };
-		D86028B123F6AFFA009540D3 /* SuggestionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86028AF23F6AFFA009540D3 /* SuggestionViewDataSource.swift */; };
-		D86028B423F6B425009540D3 /* SuggestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86028B323F6B425009540D3 /* SuggestionView.swift */; };
-		D86028B623F6C9D0009540D3 /* SuggestionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86028B523F6C9CF009540D3 /* SuggestionViewFlowLayout.swift */; };
-		EE683A4123DAB3A000177913 /* PromotionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE683A4023DAB3A000177913 /* PromotionsViewController.swift */; };
-		EE683A4523DAB3F700177913 /* PromotionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE683A4323DAB3F700177913 /* PromotionTableViewCell.swift */; };
-		EE683A4623DAB3F700177913 /* PromotionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE683A4423DAB3F700177913 /* PromotionTableViewCell.xib */; };
-		EE683A4823DAB43200177913 /* PromotionCellDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE683A4723DAB43100177913 /* PromotionCellDataModel.swift */; };
-=======
 		C92520CA238277B3002C0FB9 /* HippoMessageSound.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92520C9238277B3002C0FB9 /* HippoMessageSound.swift */; };
 		C92520CC238277C7002C0FB9 /* HippoSoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92520CB238277C7002C0FB9 /* HippoSoundManager.swift */; };
 		C92520D023827884002C0FB9 /* SoundPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92520CF23827884002C0FB9 /* SoundPlayer.swift */; };
@@ -663,7 +389,6 @@
 		EEB9394123A8E7D200D13385 /* MultiSelectHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB9393F23A8E7D200D13385 /* MultiSelectHeaderTableViewCell.swift */; };
 		EEB9394223A8E7D200D13385 /* MultiSelectHeaderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EEB9394023A8E7D200D13385 /* MultiSelectHeaderTableViewCell.xib */; };
 		EEBD8F7423B0E36F00C22269 /* PromotionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBD8F7323B0E36F00C22269 /* PromotionsViewController.swift */; };
->>>>>>> copy_of_branch_for_wl_tiger_buddy
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -1030,7 +755,6 @@
 		C9EE01082397963B003E9326 /* PaymentSecureView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PaymentSecureView.xib; sourceTree = "<group>"; };
 		C9F6D48F21C8B71B00EA23E6 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		C9F6D49121C8B81100EA23E6 /* Hippo.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Hippo.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-<<<<<<< HEAD
 		C9FB6F8721EE0DE300B72CEA /* PickerHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickerHelper.swift; sourceTree = "<group>"; };
 		C9FB6F8821EE0DE400B72CEA /* DownloadManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadManager.swift; sourceTree = "<group>"; };
 		C9FB6F8921EE0DE400B72CEA /* HippoQLDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HippoQLDataSource.swift; sourceTree = "<group>"; };
@@ -1065,11 +789,6 @@
 		D86028B323F6B425009540D3 /* SuggestionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuggestionView.swift; sourceTree = "<group>"; };
 		D86028B523F6C9CF009540D3 /* SuggestionViewFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuggestionViewFlowLayout.swift; sourceTree = "<group>"; };
 		E0E4A9E31B1EC7F72EC2F38D /* Pods_Fugu.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Fugu.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		EE683A4023DAB3A000177913 /* PromotionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromotionsViewController.swift; sourceTree = "<group>"; };
-		EE683A4323DAB3F700177913 /* PromotionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromotionTableViewCell.swift; sourceTree = "<group>"; };
-		EE683A4423DAB3F700177913 /* PromotionTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PromotionTableViewCell.xib; sourceTree = "<group>"; };
-		EE683A4723DAB43100177913 /* PromotionCellDataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromotionCellDataModel.swift; sourceTree = "<group>"; };
-=======
 		C9FAF60B23681AC90089DBFC /* InformationView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InformationView.xib; sourceTree = "<group>"; };
 		C9FAF60D23681AE20089DBFC /* InformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationView.swift; sourceTree = "<group>"; };
 		D86C7A5123DE10FD00392190 /* CustomTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
@@ -1096,7 +815,6 @@
 		EEB9393F23A8E7D200D13385 /* MultiSelectHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiSelectHeaderTableViewCell.swift; sourceTree = "<group>"; };
 		EEB9394023A8E7D200D13385 /* MultiSelectHeaderTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MultiSelectHeaderTableViewCell.xib; sourceTree = "<group>"; };
 		EEBD8F7323B0E36F00C22269 /* PromotionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromotionsViewController.swift; sourceTree = "<group>"; };
->>>>>>> copy_of_branch_for_wl_tiger_buddy
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1155,41 +873,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-<<<<<<< HEAD
-		C936006722EEC5EA00A6C291 /* TableViewCell */ = {
-			isa = PBXGroup;
-			children = (
-				EE683A4223DAB3F700177913 /* PromotionTableViewCell */,
-				C936006822EEC5EA00A6C291 /* OutgoingImageCell */,
-				C936006B22EEC5EA00A6C291 /* InAppCategoryCell */,
-				C936006E22EEC5EA00A6C291 /* HippoActionMessage */,
-				C936007822EEC5EA00A6C291 /* ContactNumberTableCell */,
-				C936007B22EEC5EA00A6C291 /* IncomingImageCell */,
-				C936007E22EEC5EA00A6C291 /* BroadcastUserStatusCell */,
-				C936008122EEC5EA00A6C291 /* BotOutgoingMessageTableViewCell */,
-				C936008422EEC5EA00A6C291 /* IncomingDocumentCell */,
-				C936008722EEC5EA00A6C291 /* PaymentItemDescriptionCell */,
-				C936008A22EEC5EA00A6C291 /* BotFormTableViewCell */,
-				C936008D22EEC5EA00A6C291 /* ConversationView */,
-				C936008F22EEC5EA00A6C291 /* ChatInfoTagView */,
-				C936009222EEC5EA00A6C291 /* AssignedAgentTableViewCell */,
-				C936009522EEC5EA00A6C291 /* SupportMessageTableViewCell */,
-				C936009722EEC5EA00A6C291 /* ActionableMessageTableCell */,
-				C93600B122EEC5EA00A6C291 /* AudioFileCell */,
-				C93600B622EEC5EA00A6C291 /* TypingViewTableViewCell */,
-				C93600B822EEC5EA00A6C291 /* VideoTableViewCell */,
-				C93600BE22EEC5EA00A6C291 /* OutgoingDocumentCell */,
-				C93600C122EEC5EA00A6C291 /* AgentHomeConversationCell */,
-				C93600C422EEC5EA00A6C291 /* SelfMessageTableViewCell */,
-				C93600C622EEC5EA00A6C291 /* LeadDataCell */,
-				C93600C922EEC5EA00A6C291 /* ChatInfoActionCell */,
-				C93600CC22EEC5EA00A6C291 /* ChatInfoProfileCell */,
-				C93600CF22EEC5EA00A6C291 /* VideoCallMessageTableViewCell */,
-				C93600D322EEC5EA00A6C291 /* ShowMoreTableViewCell */,
-				C93600D622EEC5EA00A6C291 /* AgentProfileTableViewCell */,
-				C93600D922EEC5EA00A6C291 /* BroadCast */,
-				C93600EF22EEC5EA00A6C291 /* FeedbackTableCell */,
-=======
 		C92520C8238277B3002C0FB9 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -1602,7 +1285,6 @@
 				C9DC533B2356FD4200CA7FE9 /* AgentProfileTableViewCell */,
 				C9DC533E2356FD4200CA7FE9 /* BroadCast */,
 				C9DC53542356FD4200CA7FE9 /* FeedbackTableCell */,
->>>>>>> copy_of_branch_for_wl_tiger_buddy
 			);
 			path = TableViewCell;
 			sourceTree = "<group>";
@@ -2166,16 +1848,13 @@
 		C9DC539E2356FD4200CA7FE9 /* HippoChecker */ = {
 			isa = PBXGroup;
 			children = (
-<<<<<<< HEAD
 				D86028A823F6AC9D009540D3 /* SuggestionCollectionViewCell */,
 				C9B77D0921A01B060092848D /* AgentHomeCollectionViewCell */,
 				C9B77D0C21A01B060092848D /* QuickReplyButtonCollectionViewCell */,
 				C9B77D0F21A01B060092848D /* EmojiCollectionViewCell */,
-=======
 				C9DC539F2356FD4200CA7FE9 /* HippoDataCollectorDataSource.swift */,
 				C9DC53A02356FD4200CA7FE9 /* HippoDataCollectorController.swift */,
 				C9DC53A12356FD4200CA7FE9 /* HippoChecker.swift */,
->>>>>>> copy_of_branch_for_wl_tiger_buddy
 			);
 			path = HippoChecker;
 			sourceTree = "<group>";
@@ -2257,7 +1936,6 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
-<<<<<<< HEAD
 		C9B77D8921A01B060092848D /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -2289,7 +1967,10 @@
 				C9B77DA921A01B060092848D /* HippoSupportList.swift */,
 				C9B77DAA21A01B060092848D /* HippoDescriptionContent.swift */,
 				C9B77DAB21A01B060092848D /* FuguUserDetail.swift */,
-=======
+                );
+                path = Model;
+                sourceTree = "<group>";
+        };
 		C9DC53C32356FD4200CA7FE9 /* TRWDownloadManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -2297,7 +1978,6 @@
 				C9DC53C52356FD4200CA7FE9 /* TWRDownloadManager.m */,
 				C9DC53C62356FD4200CA7FE9 /* TWRDownloadObject.m */,
 				C9DC53C72356FD4200CA7FE9 /* TWRDownloadManager.h */,
->>>>>>> copy_of_branch_for_wl_tiger_buddy
 			);
 			path = TRWDownloadManager;
 			sourceTree = "<group>";
@@ -2357,7 +2037,6 @@
 		C9DC53F02356FD4200CA7FE9 /* IQKeyboardManagerSwift */ = {
 			isa = PBXGroup;
 			children = (
-<<<<<<< HEAD
 				EE683A4023DAB3A000177913 /* PromotionsViewController.swift */,
 				C9B77DAE21A01B060092848D /* NLevelViewController.swift */,
 				C9B77DAF21A01B060092848D /* HippoConversationViewController.swift */,
@@ -2368,7 +2047,6 @@
 				C9B77DB721A01B060092848D /* Agents */,
 				C9B77DBC21A01B060092848D /* ListDescriptionViewController.swift */,
 				C9B77DBD21A01B060092848D /* Customer */,
-=======
 				C9DC53F12356FD4200CA7FE9 /* IQTextView */,
 				C9DC53F32356FD4200CA7FE9 /* IQToolbar */,
 				C9DC53FA2356FD4200CA7FE9 /* HippoKeyboardManager.swift */,
@@ -2377,7 +2055,6 @@
 				C9DC54002356FD4200CA7FE9 /* IQKeyboardReturnKeyHandler.swift */,
 				C9DC54012356FD4200CA7FE9 /* IQKeyboardManagerSwift.h */,
 				C9DC54022356FD4200CA7FE9 /* Categories */,
->>>>>>> copy_of_branch_for_wl_tiger_buddy
 			);
 			path = IQKeyboardManagerSwift;
 			sourceTree = "<group>";
@@ -2415,7 +2092,6 @@
 		C9DC53FE2356FD4200CA7FE9 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-<<<<<<< HEAD
 				D86028B223F6B417009540D3 /* SuggestionView */,
 				D86028AD23F6AF9C009540D3 /* SuggestionViewDelegates */,
 				C9B77DC421A01B060092848D /* FuguNetworkHandler.swift */,
@@ -2430,9 +2106,7 @@
 				C9B77E0721A01B060092848D /* FuguConnection.swift */,
 				C9B77E0821A01B060092848D /* Fugu+Enums.swift */,
 				C9B77E0921A01B060092848D /* FuguHelpers.swift */,
-=======
 				C9DC53FF2356FD4200CA7FE9 /* IQKeyboardManager.bundle */,
->>>>>>> copy_of_branch_for_wl_tiger_buddy
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -2701,76 +2375,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-<<<<<<< HEAD
-				C936010822EEC5EA00A6C291 /* PaymentItemDescriptionCell.xib in Resources */,
-				C936013522EEC5EA00A6C291 /* ChatProfileTableViewCell.xib in Resources */,
-				C936012F22EEC5EA00A6C291 /* AgentHomeConversationCell.xib in Resources */,
-				C936014C22EEC5EA00A6C291 /* FeedbackTableViewCell.xib in Resources */,
-				C9B77ED121A01B070092848D /* IQKeyboardManager.bundle in Resources */,
-				C936014322EEC5EA00A6C291 /* BroadCastTitleCell.xib in Resources */,
-				C936010022EEC5EA00A6C291 /* IncomingImageCell.xib in Resources */,
-				C936014122EEC5EA00A6C291 /* BroadcastAgentCell.xib in Resources */,
-				C936015B22EED3CC00A6C291 /* ActionTagTableViewCell.xib in Resources */,
-				C936010E22EEC5EA00A6C291 /* ChatInfoTagViewCell.xib in Resources */,
-				C936011422EEC5EA00A6C291 /* ButtonTableViewCell.xib in Resources */,
-				C9B77E2121A01B060092848D /* ChatInfoHeader.xib in Resources */,
-				C93600FC22EEC5EA00A6C291 /* ActionButtonViewCell.xib in Resources */,
-				C936013722EEC5EA00A6C291 /* OutgoingVideoCallMessageTableViewCell.xib in Resources */,
-				C936012722EEC5EA00A6C291 /* OutgoingVideoTableViewCell.xib in Resources */,
-				C936011822EEC5EA00A6C291 /* HeaderTableViewCell.xib in Resources */,
-				C936015222EEC87300A6C291 /* SupportMessageTableViewCell.xib in Resources */,
-				C936014522EEC5EA00A6C291 /* BroadCastTextViewCell.xib in Resources */,
-				C936011A22EEC5EA00A6C291 /* ItemTableViewCell.xib in Resources */,
-				C9B77EA021A01B070092848D /* ProximaNova-Regular.otf in Resources */,
-				C9B77E8E21A01B070092848D /* MavenPro-Medium.ttf in Resources */,
-				C936014922EEC5EA00A6C291 /* BroadcastListTableViewCell.xib in Resources */,
-				C936013E22EEC5EA00A6C291 /* BroadcastButtonCell.xib in Resources */,
-				C936014A22EEC5EA00A6C291 /* BoardCastSelectionCell.xib in Resources */,
-				C936011722EEC5EA00A6C291 /* ButtonCollectionCell.xib in Resources */,
-				C9B77EDB21A01B070092848D /* Info.plist in Resources */,
-				C936011322EEC5EA00A6C291 /* ActionableMessageTableViewCell.xib in Resources */,
-				C93600F222EEC5EA00A6C291 /* OutgoingImageCell.xib in Resources */,
-				C9F6D49221C8B81100EA23E6 /* Hippo.podspec in Resources */,
-				C9FB6FAA21EE10CD00B72CEA /* LaunchScreen.storyboard in Resources */,
-				C936012222EEC5EA00A6C291 /* IncomingAudioTableViewCell.xib in Resources */,
-				C936010B22EEC5EA00A6C291 /* LeadTableViewCell.xib in Resources */,
-				C936013C22EEC5EA00A6C291 /* ChatInfoAgentTableViewCell.xib in Resources */,
-				C936015022EEC7DB00A6C291 /* SelfMessageTableViewCell.xib in Resources */,
-				C9B77E6121A01B060092848D /* Assets.xcassets in Resources */,
-				C9F6D49021C8B71B00EA23E6 /* README.md in Resources */,
-				C9B77E1E21A01B060092848D /* EmojiCollectionViewCell.xib in Resources */,
-				C936011F22EEC5EA00A6C291 /* ImageTableViewCell.xib in Resources */,
-				C936013922EEC5EA00A6C291 /* IncomingVideoCallMessageTableViewCell.xib in Resources */,
-				C9B77E6321A01B060092848D /* LaunchScreen.storyboard in Resources */,
-				C936010F22EEC5EA00A6C291 /* AssignedAgentTableViewCell.xib in Resources */,
-				C9B77E6421A01B060092848D /* Montserrat-Medium.otf in Resources */,
-				C93600F722EEC5EA00A6C291 /* ActionTableView.xib in Resources */,
-				C936013422EEC5EA00A6C291 /* ChatInfoActionCell.xib in Resources */,
-				C9B77E9F21A01B070092848D /* MavenPro-Bold.ttf in Resources */,
-				C936012322EEC5EA00A6C291 /* OutgoingAudioTableViewCell.xib in Resources */,
-				C9B77E1B21A01B060092848D /* AgentHomeCollectionViewCell.xib in Resources */,
-				C9B77EDC21A01B070092848D /* FuguUnique.storyboard in Resources */,
-				C936010222EEC5EA00A6C291 /* BroadcastUserStatusCell.xib in Resources */,
-				C9B77EAB21A01B070092848D /* typingImage.gif in Resources */,
-				C93600F522EEC5EA00A6C291 /* CategoryTableViewCell.xib in Resources */,
-				C9B77EDD21A01B070092848D /* Montserrat-SemiBold.otf in Resources */,
-				C9B77E1D21A01B060092848D /* QuickReplyButtonCollectionViewCell.xib in Resources */,
-				EE683A4623DAB3F700177913 /* PromotionTableViewCell.xib in Resources */,
-				C936014622EEC5EA00A6C291 /* BroadCastTextFieldCell.xib in Resources */,
-				C936012C22EEC5EA00A6C291 /* OutgoingDocumentTableViewCell.xib in Resources */,
-				C936013A22EEC5EA00A6C291 /* ShowMoreTableViewCell.xib in Resources */,
-				C936010622EEC5EA00A6C291 /* IncomingDocumentTableViewCell.xib in Resources */,
-				C9B77E6221A01B060092848D /* HippoBroadCast.storyboard in Resources */,
-				D86028AC23F6AD40009540D3 /* SuggestionCell.xib in Resources */,
-				C936010422EEC5EA00A6C291 /* BotOutgoingMessageTableViewCell.xib in Resources */,
-				C93600FE22EEC5EA00A6C291 /* ContactNumberTableCell.xib in Resources */,
-				C936012922EEC5EA00A6C291 /* IncomingVideoTableViewCell.xib in Resources */,
-				C9FB6FA921EE10CD00B72CEA /* Assets.xcassets in Resources */,
-				C936011D22EEC5EA00A6C291 /* SenderNameTableCell.xib in Resources */,
-				C936013122EEC5EA00A6C291 /* LeadDataTableViewCell.xib in Resources */,
-				C93600FA22EEC5EA00A6C291 /* ActionLabelViewCell.xib in Resources */,
-				C9FB6FAE21EE10CD00B72CEA /* Info.plist in Resources */,
-=======
 				C9DC54172356FD4300CA7FE9 /* Assets.xcassets in Resources */,
 				C9DC547F2356FD4400CA7FE9 /* AgentHomeConversationCell.xib in Resources */,
 				C9DC54552356FD4300CA7FE9 /* IncomingDocumentTableViewCell.xib in Resources */,
@@ -2859,7 +2463,6 @@
 				C9DC54362356FD4300CA7FE9 /* AgentHomeCollectionViewCell.xib in Resources */,
 				C9DC549F2356FD4400CA7FE9 /* Assets.xcassets in Resources */,
 				C9DC545D2356FD4300CA7FE9 /* ChatInfoTagViewCell.xib in Resources */,
->>>>>>> copy_of_branch_for_wl_tiger_buddy
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2870,213 +2473,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-<<<<<<< HEAD
-				C9B77E1521A01B060092848D /* HippoConfig.swift in Sources */,
-				C9FB6F8B21EE0DE400B72CEA /* PickerHelper.swift in Sources */,
-				C936013D22EEC5EA00A6C291 /* ChatInfoAgentTableViewCell.swift in Sources */,
-				C9B77E8021A01B060092848D /* AgentUserChannel.swift in Sources */,
-				C9B77EBD21A01B070092848D /* FormatIndicatedCacheSerializer.swift in Sources */,
-				C9F6D47121C8B47100EA23E6 /* SupportTheme.swift in Sources */,
-				C93600FB22EEC5EA00A6C291 /* ActionLabelViewCell.swift in Sources */,
-				C936011B22EEC5EA00A6C291 /* ItemTableViewCell.swift in Sources */,
-				C9FB6FB421EE10CD00B72CEA /* Formatters.swift in Sources */,
-				C9B77E9421A01B070092848D /* HippoHomeViewController.swift in Sources */,
-				C9B77ED621A01B070092848D /* IQUIView+Hierarchy.swift in Sources */,
-				C936011C22EEC5EA00A6C291 /* SenderNameTableCell.swift in Sources */,
-				C9B77E8921A01B060092848D /* FuguAttributes.swift in Sources */,
-				C936011E22EEC5EA00A6C291 /* ImageTableViewCell.swift in Sources */,
-				C9FB6FB221EE10CD00B72CEA /* CoreLogger.swift in Sources */,
-				C9FB6FB621EE10CD00B72CEA /* LoggerConfig.swift in Sources */,
-				C9FB6FB321EE10CD00B72CEA /* Themes.swift in Sources */,
-				C9B77E6B21A01B060092848D /* NotificationCenter+Extension.swift in Sources */,
-				D86028AB23F6AD40009540D3 /* SuggestionCell.swift in Sources */,
-				C9FB6FAD21EE10CD00B72CEA /* CoreKit.swift in Sources */,
-				C936011222EEC5EA00A6C291 /* ButtonCellCollectionViewHandler.swift in Sources */,
-				C9B77E7621A01B060092848D /* FuguTheme.swift in Sources */,
-				C9B77E7E21A01B060092848D /* AgentChannelPersistancyManager.swift in Sources */,
-				C9B77EAF21A01B070092848D /* Pulsator.swift in Sources */,
-				C9FB6FAC21EE10CD00B72CEA /* CoreMediaSelector.swift in Sources */,
-				C9B77E0F21A01B060092848D /* AgentConversationManager.swift in Sources */,
-				C9B77E6A21A01B060092848D /* Proctocols.swift in Sources */,
-				C9FB6FB821EE10CD00B72CEA /* Benchmarker.swift in Sources */,
-				C9B77E6621A01B060092848D /* Socomo+Customs.swift in Sources */,
-				C9B77E7B21A01B060092848D /* AgentConversation.swift in Sources */,
-				C9B77E8621A01B060092848D /* HippoChannel.swift in Sources */,
-				C9B77E7321A01B060092848D /* BroadcastInfo.swift in Sources */,
-				C936014B22EEC5EA00A6C291 /* BoardCastSelectionCell.swift in Sources */,
-				C9B77E9021A01B070092848D /* HippoConversationViewController.swift in Sources */,
-				C93600F622EEC5EA00A6C291 /* ActionTableDataSource.swift in Sources */,
-				C936010122EEC5EA00A6C291 /* IncomingImageCell.swift in Sources */,
-				C9B77ECE21A01B070092848D /* HippoKeyboardManager.swift in Sources */,
-				C9B77EDA21A01B070092848D /* FuguHelpers.swift in Sources */,
-				C9B77EB421A01B070092848D /* ImageView+Kingfisher.swift in Sources */,
-				C9B77E9521A01B070092848D /* SelectImageViewController.swift in Sources */,
-				C9B77E9B21A01B070092848D /* ListDescriptionViewController.swift in Sources */,
-				C936012422EEC5EA00A6C291 /* IncomingAudioTableViewCell.swift in Sources */,
-				C9FB6FDC21EEF04900B72CEA /* TWRDownloadManager.m in Sources */,
-				C936014422EEC5EA00A6C291 /* BroadCastTextViewCell.swift in Sources */,
-				C9B77ED521A01B070092848D /* IQUITextFieldView+Additions.swift in Sources */,
-				C9B77E8C21A01B060092848D /* HippoDescriptionContent.swift in Sources */,
-				C9B77EC321A01B070092848D /* Placeholder.swift in Sources */,
-				C936012022EEC5EA00A6C291 /* ActionableMessageCellHandler.swift in Sources */,
-				C9FB6FB121EE10CD00B72CEA /* Utilities.swift in Sources */,
-				C9B77E7C21A01B060092848D /* UnreadCount.swift in Sources */,
-				C9B77EC421A01B070092848D /* KingfisherOptionsInfo.swift in Sources */,
-				C936010D22EEC5EA00A6C291 /* ChatInfoTagViewCell.swift in Sources */,
-				C936013F22EEC5EA00A6C291 /* BroadcastButtonCell.swift in Sources */,
-				C936012B22EEC5EA00A6C291 /* OutgoingVideoTableViewCell.swift in Sources */,
-				C936011022EEC5EA00A6C291 /* AssignedAgentTableViewCell.swift in Sources */,
-				C9B77E9C21A01B070092848D /* CheckIntializationViewController.swift in Sources */,
-				C936012522EEC5EA00A6C291 /* OutgoingAudioTableViewCell.swift in Sources */,
-				C9B77EB121A01B070092848D /* ThreadHelper.swift in Sources */,
-				D86028B123F6AFFA009540D3 /* SuggestionViewDataSource.swift in Sources */,
-				C936014822EEC5EA00A6C291 /* BroadcastListTableViewCell.swift in Sources */,
-				C936010A22EEC5EA00A6C291 /* LeadTableViewCell.swift in Sources */,
-				C9B77EC821A01B070092848D /* IQPreviousNextView.swift in Sources */,
-				C9B77E9721A01B070092848D /* AgentChatInfoViewController.swift in Sources */,
-				C936010922EEC5EA00A6C291 /* PaymentItemDescriptionCell.swift in Sources */,
-				C9B77E0E21A01B060092848D /* ConversationStore.swift in Sources */,
-				C9B77E8A21A01B060092848D /* HippoChannel+Extension.swift in Sources */,
-				C9B77ECA21A01B070092848D /* IQBarButtonItem.swift in Sources */,
-				C9B77E7A21A01B060092848D /* GeneralChat.swift in Sources */,
-				C9B77EBC21A01B070092848D /* KingfisherManager.swift in Sources */,
-				C936010722EEC5EA00A6C291 /* IncomingDocumentTableViewCell.swift in Sources */,
-				D86028B423F6B425009540D3 /* SuggestionView.swift in Sources */,
-				C9FB6FA721EE10CD00B72CEA /* CoreKit+UIImage.swift in Sources */,
-				C936012D22EEC5EA00A6C291 /* OutgoingDocumentTableViewCell.swift in Sources */,
-				C9FB6F8D21EE0DE400B72CEA /* HippoQLDataSource.swift in Sources */,
-				C976E6922215516300B9F79E /* FormData.swift in Sources */,
-				C936013822EEC5EA00A6C291 /* VideoCallMessageTableViewCell.swift in Sources */,
-				C93600FF22EEC5EA00A6C291 /* ContactNumberTableCell.swift in Sources */,
-				C9B77EAE21A01B070092848D /* TagListView.swift in Sources */,
-				C9B77EB021A01B070092848D /* ImageCache.swift in Sources */,
-				C936012A22EEC5EA00A6C291 /* IncomingVideoTableViewCell.swift in Sources */,
-				C936014222EEC5EA00A6C291 /* BroadCastTitleCell.swift in Sources */,
-				C9B77E1F21A01B060092848D /* EmojiCollectionViewCell.swift in Sources */,
-				C9B77E1421A01B060092848D /* PeerToPeerChat.swift in Sources */,
-				C936010322EEC5EA00A6C291 /* BroadcastUserStatusCell.swift in Sources */,
-				C9B77E1821A01B060092848D /* FayeConnection.swift in Sources */,
-				C9B77E1C21A01B060092848D /* QuickReplyButtonCollectionViewCell.swift in Sources */,
-				C9B77EA121A01B070092848D /* FuguNetworkHandler.swift in Sources */,
-				C936015A22EED3CC00A6C291 /* ActionTagTableViewCell.swift in Sources */,
-				C9FB6FDD21EEF04900B72CEA /* TWRDownloadObject.m in Sources */,
-				C9B77E8B21A01B060092848D /* HippoSupportList.swift in Sources */,
-				C9B77E6521A01B060092848D /* UIColor+Extension.swift in Sources */,
-				EE683A4523DAB3F700177913 /* PromotionTableViewCell.swift in Sources */,
-				C9F6D47221C8B47100EA23E6 /* HippoStrings.swift in Sources */,
-				C93600F322EEC5EA00A6C291 /* OutgoingImageCell.swift in Sources */,
-				C9B77E8421A01B060092848D /* FuguAddress.swift in Sources */,
-				C936012822EEC5EA00A6C291 /* VideoTableViewCell.swift in Sources */,
-				C9FB6FB721EE10CD00B72CEA /* Formatter.swift in Sources */,
-				C9B77E7121A01B060092848D /* UserDetail.swift in Sources */,
-				C9B77E9A21A01B070092848D /* AgentHomeViewController.swift in Sources */,
-				C936012E22EEC5EA00A6C291 /* AgentHomeConversationCell.swift in Sources */,
-				C936013622EEC5EA00A6C291 /* ChatProfileTableViewCell.swift in Sources */,
-				C9FB6FB021EE10CD00B72CEA /* LoggerEnum.swift in Sources */,
-				C9B77ED221A01B070092848D /* IQKeyboardReturnKeyHandler.swift in Sources */,
-				C93600F822EEC5EA00A6C291 /* ActionTableView.swift in Sources */,
-				C9B77E9E21A01B070092848D /* ConversationsViewController.swift in Sources */,
-				C9B77EB821A01B070092848D /* UIButton+Kingfisher.swift in Sources */,
-				C93600F922EEC5EA00A6C291 /* ActionButtonViewCell.swift in Sources */,
-				C9B77EBF21A01B070092848D /* AnimatedImageView.swift in Sources */,
-				C9B77E6C21A01B060092848D /* OperatorOverloading.swift in Sources */,
-				C936012122EEC5EA00A6C291 /* ActionableMessageTableViewCell.swift in Sources */,
-				C9B77E7F21A01B060092848D /* ChatDetail.swift in Sources */,
-				C936014D22EEC5EA00A6C291 /* FeedbackTableViewCell.swift in Sources */,
-				C9B77EBA21A01B070092848D /* ImageDownloader.swift in Sources */,
-				C936010C22EEC5EA00A6C291 /* ConversationView.swift in Sources */,
-				C9B77EA921A01B070092848D /* FrameObserverAccessaryView.swift in Sources */,
-				C9B77E7921A01B060092848D /* FuguActionableMessage.swift in Sources */,
-				EE683A4823DAB43200177913 /* PromotionCellDataModel.swift in Sources */,
-				C9B77ECB21A01B070092848D /* IQToolbar.swift in Sources */,
-				C9B77E7021A01B060092848D /* PushInfo.swift in Sources */,
-				C9B77ED021A01B070092848D /* IQKeyboardManagerConstants.swift in Sources */,
-				C9B77E8F21A01B070092848D /* NLevelViewController.swift in Sources */,
-				C9FB6FA821EE10CD00B72CEA /* CoreDocumentPicker.swift in Sources */,
-				C9B77EB921A01B070092848D /* Resource.swift in Sources */,
-				C936013B22EEC5EA00A6C291 /* ShowMoreTableViewCell.swift in Sources */,
-				C9B77E1A21A01B060092848D /* AgentHomeCollectionViewCell.swift in Sources */,
-				C9B77ED921A01B070092848D /* Fugu+Enums.swift in Sources */,
-				C9B77E0D21A01B060092848D /* ConversationPresenter.swift in Sources */,
-				C9B77E1321A01B060092848D /* HTTPClient.swift in Sources */,
-				C9B77E6D21A01B060092848D /* Socomo+String.swift in Sources */,
-				C936010522EEC5EA00A6C291 /* BotOutgoingMessageTableViewCell.swift in Sources */,
-				C9FB6FAF21EE10CD00B72CEA /* CoreFilesConfig.swift in Sources */,
-				C9B77E6821A01B060092848D /* UIView+Extension.swift in Sources */,
-				C9B77EB521A01B070092848D /* Image.swift in Sources */,
-				C9B77ED321A01B070092848D /* IQUIScrollView+Additions.swift in Sources */,
-				C9B77E7D21A01B060092848D /* AgentDirectChatAttributes.swift in Sources */,
-				C9B77E2021A01B060092848D /* ChatInfoHeader.swift in Sources */,
-				C9B77EAD21A01B070092848D /* TagView.swift in Sources */,
-				C9FB6F8E21EE0DE400B72CEA /* AudioPlayerManager.swift in Sources */,
-				C9B77E1721A01B060092848D /* HippoNotification.swift in Sources */,
-				C9B77E7721A01B060092848D /* HippoTicketAtrributes.swift in Sources */,
-				D86028B623F6C9D0009540D3 /* SuggestionViewFlowLayout.swift in Sources */,
-				C9B77ECD21A01B070092848D /* IQInvocation.swift in Sources */,
-				D86028B023F6AFFA009540D3 /* SuggestionViewDelegate.swift in Sources */,
-				C9B77EAC21A01B070092848D /* CloseButton.swift in Sources */,
-				C9F6D47321C8B47100EA23E6 /* HippoTheme.swift in Sources */,
-				C9B77ED421A01B070092848D /* IQUIViewController+Additions.swift in Sources */,
-				C9B77EC621A01B070092848D /* ImagePrefetcher.swift in Sources */,
-				C9B77E6E21A01B060092848D /* FuguChannelPersistancyManager.swift in Sources */,
-				C93600F422EEC5EA00A6C291 /* CategoryTableViewCell.swift in Sources */,
-				C9B77E8321A01B060092848D /* FuguImageUploader.swift in Sources */,
-				C9FB6FAB21EE10CD00B72CEA /* CoreEnum.swift in Sources */,
-				C9B77E8521A01B060092848D /* HippoMessage.swift in Sources */,
-				C9B77ECF21A01B070092848D /* IQKeyboardManagerConstantsInternal.swift in Sources */,
-				EE683A4123DAB3A000177913 /* PromotionsViewController.swift in Sources */,
-				C9B77EC221A01B070092848D /* Filter.swift in Sources */,
-				C9B77EB221A01B070092848D /* Kingfisher.swift in Sources */,
-				C9B77E1621A01B060092848D /* FuguConfig.swift in Sources */,
-				C9B77E9921A01B070092848D /* AgentConversationViewController.swift in Sources */,
-				C9B77E7521A01B060092848D /* FuguConversation.swift in Sources */,
-				C9B77EC121A01B070092848D /* ImageProcessor.swift in Sources */,
-				C9B77E1221A01B060092848D /* MessageStore.swift in Sources */,
-				C9B77E6F21A01B060092848D /* MessageSender.swift in Sources */,
-				C9B77EC721A01B070092848D /* IQTextView.swift in Sources */,
-				C9B77E6921A01B060092848D /* Socomo+Date.swift in Sources */,
-				C9B77EAA21A01B070092848D /* Fugu+Properties.swift in Sources */,
-				C9B77E1921A01B060092848D /* FuguAppFlow.swift in Sources */,
-				C9B77E9621A01B070092848D /* ShowImageViewController.swift in Sources */,
-				C936011922EEC5EA00A6C291 /* HeaderTableViewCell.swift in Sources */,
-				C9B77E9321A01B070092848D /* BroadCastViewController.swift in Sources */,
-				C93600FD22EEC5EA00A6C291 /* ActionViewCell.swift in Sources */,
-				C9B77EBE21A01B070092848D /* ImageTransition.swift in Sources */,
-				C9B77E9821A01B070092848D /* AgentDirectViewController.swift in Sources */,
-				C9B77E1121A01B060092848D /* FuguDefaults.swift in Sources */,
-				C9FB6F8C21EE0DE400B72CEA /* DownloadManager.swift in Sources */,
-				C9B77E9D21A01B070092848D /* AllConversationsViewController.swift in Sources */,
-				C9B77E1021A01B060092848D /* CallManager.swift in Sources */,
-				C936011622EEC5EA00A6C291 /* ButtonCollectionCell.swift in Sources */,
-				C9B77E8721A01B060092848D /* FuguNewChatAttributes.swift in Sources */,
-				C9B77EBB21A01B070092848D /* Box.swift in Sources */,
-				C9B77EB721A01B070092848D /* CacheSerializer.swift in Sources */,
-				C9B77E7821A01B060092848D /* ConversationState.swift in Sources */,
-				C936013222EEC5EA00A6C291 /* LeadDataTableViewCell.swift in Sources */,
-				C9B77E6721A01B060092848D /* UIImage+Gif.swift in Sources */,
-				C936013022EEC5EA00A6C291 /* SelfMessageTableViewCell.swift in Sources */,
-				C936013322EEC5EA00A6C291 /* ChatInfoActionCell.swift in Sources */,
-				C9FB6FB521EE10CD00B72CEA /* LoggerTheme.swift in Sources */,
-				C9B77EC921A01B070092848D /* IQTitleBarButtonItem.swift in Sources */,
-				C9B77EB321A01B070092848D /* RequestModifier.swift in Sources */,
-				C936012622EEC5EA00A6C291 /* TypingViewTableViewCell.swift in Sources */,
-				C936014022EEC5EA00A6C291 /* BroadcastAgentCell.swift in Sources */,
-				C9B77ECC21A01B070092848D /* IQUIView+IQKeyboardToolbar.swift in Sources */,
-				C9B77E8221A01B060092848D /* FuguChannelTag.swift in Sources */,
-				C9B77E7221A01B060092848D /* HippoBroadcaster.swift in Sources */,
-				C9B77EB621A01B070092848D /* Indicator.swift in Sources */,
-				C9B77ED821A01B070092848D /* FuguConnection.swift in Sources */,
-				C936011522EEC5EA00A6C291 /* ButtonTableViewCell.swift in Sources */,
-				C9B77E8D21A01B060092848D /* FuguUserDetail.swift in Sources */,
-				C936014722EEC5EA00A6C291 /* BroadCastTextFieldCell.swift in Sources */,
-				C9B77EC021A01B070092848D /* String+MD5.swift in Sources */,
-				C9B77E9121A01B070092848D /* BroadcastSelectionViewController.swift in Sources */,
-				C936011122EEC5EA00A6C291 /* SupportMessageTableViewCell.swift in Sources */,
-				C9B77E7421A01B060092848D /* MessageContent.swift in Sources */,
-				C9B77ED721A01B070092848D /* IQNSArray+Sort.swift in Sources */,
-				C9B77E8121A01B060092848D /* AgentDetail.swift in Sources */,
-				C9B77E9221A01B070092848D /* BroadcastListViewController.swift in Sources */,
-=======
 				EE6EC6DF23A7469A009C9A8D /* MultiSelectTableViewCell.swift in Sources */,
 				C9DC54E92356FD4500CA7FE9 /* HippoHomeViewController.swift in Sources */,
 				C9DC547D2356FD4400CA7FE9 /* OutgoingDocumentTableViewCell.swift in Sources */,
@@ -3354,7 +2750,6 @@
 				C9DC54472356FD4300CA7FE9 /* ActionButtonViewCell.swift in Sources */,
 				C9DC54DA2356FD4400CA7FE9 /* HippoChannel+Extension.swift in Sources */,
 				C9DC54CB2356FD4400CA7FE9 /* AgentChannelPersistancyManager.swift in Sources */,
->>>>>>> copy_of_branch_for_wl_tiger_buddy
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
