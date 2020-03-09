@@ -11,7 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="IncomingVideoCallMessageTableViewCell" rowHeight="107" id="gHp-v5-Fq8" customClass="IncomingVideoCallMessageTableViewCell" customModule="Hippo" customModuleProvider="target">
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="IncomingVideoCallMessageTableViewCell" rowHeight="107" id="gHp-v5-Fq8" customClass="IncomingVideoCallMessageTableViewCell" customModule="HippoChat" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="621" height="107"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gHp-v5-Fq8" id="9cx-do-cRA">
@@ -35,7 +35,7 @@
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="maX-SC-9KZ">
                                 <rect key="frame" x="15" y="52" width="172" height="1"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="eCQ-34-SiJ"/>
                                 </constraints>
@@ -51,11 +51,18 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Call Duration" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7RD-b4-q2r">
-                                <rect key="frame" x="16" y="28.5" width="99" height="21"/>
+                                <rect key="frame" x="16" y="28.5" width="99" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="incomming" translatesAutoresizingMaskIntoConstraints="NO" id="2Jn-wF-cEi">
+                                <rect key="frame" x="3" y="34" width="10" height="10"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="10" id="BhB-AB-5DZ"/>
+                                    <constraint firstAttribute="width" constant="10" id="YQA-Yq-WeX"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -65,10 +72,13 @@
                             <constraint firstAttribute="bottom" secondItem="qr3-sy-y90" secondAttribute="bottom" id="335-ot-veg"/>
                             <constraint firstAttribute="trailing" secondItem="maX-SC-9KZ" secondAttribute="trailing" constant="15" id="4dy-sN-v6o"/>
                             <constraint firstItem="fJl-7C-PpI" firstAttribute="trailing" secondItem="auy-ee-YMf" secondAttribute="trailing" id="HdD-zD-3hQ"/>
+                            <constraint firstItem="2Jn-wF-cEi" firstAttribute="leading" secondItem="2Yt-JO-M0w" secondAttribute="leading" constant="3" id="L5f-VY-V2f"/>
+                            <constraint firstItem="2Jn-wF-cEi" firstAttribute="centerY" secondItem="7RD-b4-q2r" secondAttribute="centerY" id="MkD-Ij-47x"/>
                             <constraint firstItem="7RD-b4-q2r" firstAttribute="centerY" secondItem="fJl-7C-PpI" secondAttribute="centerY" id="OMF-x3-nU0"/>
                             <constraint firstItem="fJl-7C-PpI" firstAttribute="leading" secondItem="7RD-b4-q2r" secondAttribute="trailing" constant="3" id="TWa-uX-KLs"/>
                             <constraint firstItem="fJl-7C-PpI" firstAttribute="top" secondItem="auy-ee-YMf" secondAttribute="bottom" constant="3" id="ZLl-xo-xxy"/>
                             <constraint firstItem="7RD-b4-q2r" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="2Yt-JO-M0w" secondAttribute="leading" constant="10" id="bsv-ZK-Nmj"/>
+                            <constraint firstItem="7RD-b4-q2r" firstAttribute="leading" secondItem="2Jn-wF-cEi" secondAttribute="trailing" constant="3" id="buy-XJ-1zw"/>
                             <constraint firstItem="maX-SC-9KZ" firstAttribute="leading" secondItem="2Yt-JO-M0w" secondAttribute="leading" constant="15" id="cL8-kV-FZu"/>
                             <constraint firstItem="auy-ee-YMf" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="2Yt-JO-M0w" secondAttribute="leading" constant="10" id="dVV-RZ-Ouv"/>
                             <constraint firstItem="qr3-sy-y90" firstAttribute="top" secondItem="maX-SC-9KZ" secondAttribute="bottom" id="gQv-U2-As6"/>
@@ -78,7 +88,7 @@
                         </constraints>
                     </view>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="e98-kr-4uI">
-                        <rect key="frame" x="10" y="63" width="30" height="30"/>
+                        <rect key="frame" x="10" y="5" width="30" height="30"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="30" id="Wbu-zI-Ahq"/>
                         </constraints>
@@ -90,8 +100,8 @@
                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="2Yt-JO-M0w" secondAttribute="bottom" constant="5" id="CLT-Cn-Dph"/>
                     <constraint firstItem="e98-kr-4uI" firstAttribute="leading" secondItem="9cx-do-cRA" secondAttribute="leading" constant="10" id="IhK-BY-0S4"/>
                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="2Yt-JO-M0w" secondAttribute="trailing" constant="60" id="SSz-xV-B35"/>
-                    <constraint firstItem="e98-kr-4uI" firstAttribute="bottom" secondItem="2Yt-JO-M0w" secondAttribute="bottom" id="VHv-ub-jfp"/>
                     <constraint firstItem="e98-kr-4uI" firstAttribute="width" secondItem="e98-kr-4uI" secondAttribute="height" multiplier="1:1" id="Vzi-Kd-e5z"/>
+                    <constraint firstItem="e98-kr-4uI" firstAttribute="top" secondItem="2Yt-JO-M0w" secondAttribute="top" id="kV2-mN-lVN"/>
                     <constraint firstItem="2Yt-JO-M0w" firstAttribute="top" secondItem="9cx-do-cRA" secondAttribute="top" constant="5" id="shU-fv-l3U"/>
                 </constraints>
             </tableViewCellContentView>
@@ -103,6 +113,7 @@
                 <outlet property="dateTimeLabel" destination="fJl-7C-PpI" id="Ju7-aj-XQW"/>
                 <outlet property="messageBackgroundView" destination="2Yt-JO-M0w" id="g1l-mw-oq0"/>
                 <outlet property="messageLabel" destination="auy-ee-YMf" id="f30-7h-TBe"/>
+                <outlet property="phoneIcon" destination="2Jn-wF-cEi" id="72W-pm-NT5"/>
                 <outlet property="retryButtonHeight" destination="1eE-YT-WxG" id="8eO-U1-a31"/>
                 <outlet property="senderImageTraillingConstaints" destination="0bL-yZ-T6N" id="cvN-gF-PIf"/>
                 <outlet property="senderImageView" destination="e98-kr-4uI" id="gsX-M4-jSN"/>
@@ -111,4 +122,7 @@
             <point key="canvasLocation" x="47.200000000000003" y="-47.226386806596707"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="incomming" width="12" height="12"/>
+    </resources>
 </document>

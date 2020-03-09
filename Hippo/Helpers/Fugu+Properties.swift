@@ -15,7 +15,6 @@ var userDetailData = [String: Any]()
 let fuguAppVersion = "2.1.9"
 let versionCode = 309
 
-
 /*
  201 = Bot messages
  202 = Video Call

@@ -5,7 +5,7 @@
 //  Created by Vishal on 25/09/18.
 //
 
-import Foundation
+import UIKit
 
 struct ConversationState {
     var labelString: String?

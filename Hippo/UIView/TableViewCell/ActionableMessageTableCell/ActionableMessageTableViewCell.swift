@@ -38,7 +38,6 @@ class ActionableMessageTableViewCell: UITableViewCell {
     
     func setupBoxBackground(messageType: Int) {
         //bgView.backgroundColor = FuguConfig.shared.theme.incomingChatBoxColor
-        
     }
     
     func adjustShadow() {
@@ -96,8 +95,4 @@ class ActionableMessageTableViewCell: UITableViewCell {
         actionableMessageTableView.register(UINib(nibName: "ButtonTableViewCell", bundle: FuguFlowManager.bundle), forCellReuseIdentifier: "ButtonTableViewCell")
         actionableMessageTableView.register(UINib(nibName: "SenderNameTableCell", bundle: FuguFlowManager.bundle), forCellReuseIdentifier: "SenderNameTableCell")
     }
-    
- 
-    
-
 }

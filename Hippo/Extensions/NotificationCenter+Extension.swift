@@ -16,4 +16,7 @@ extension Notification.Name {
     static let agentLoginDataUpated = Notification.Name("HipoAgentLoginDataUpdated")
     static let userChannelChanged = Notification.Name("userChannelChanged")
     static let ConversationScreenDisappear = Notification.Name.init("ConversationScreenDisappear")
+    static let putUserSuccess = Notification.Name.init("HippoPutUserSuccess")
+    static let putUserFailure = Notification.Name.init("HippoPutUserFailure")
+
 }

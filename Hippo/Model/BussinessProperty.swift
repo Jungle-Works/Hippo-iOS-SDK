@@ -65,6 +65,29 @@ class BussinessProperty: NSObject {
             UserDefaults.standard.set(newValue, forKey: UserDefaultkeys.audioCallStatus)
         }
     }
+
+    var hideCallIconOnNavigationForCustomer: Bool {
+        get {
+            guard let status = UserDefaults.standard.value(forKey: UserDefaultkeys.hideCallIconOnNavigationForCustomer) as? Bool else {
+                return false
+            }
+            return status
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: UserDefaultkeys.hideCallIconOnNavigationForCustomer)
+        }
+    }
+    var multiChannelLabelMapping: Bool {
+        get {
+            guard let status = UserDefaults.standard.value(forKey: UserDefaultkeys.multiChannelLabelMapping) as? Bool else {
+                return false
+            }
+            return status
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: UserDefaultkeys.multiChannelLabelMapping)
+        }
+    }
     var maxUploadLimitForBusiness: UInt {
         get {
             guard let value = UserDefaults.standard.value(forKey: UserDefaultkeys.maxFileUploadSize) as? UInt else {
@@ -87,5 +110,21 @@ class BussinessProperty: NSObject {
         set {
             UserDefaults.standard.set(newValue, forKey: UserDefaultkeys.unsupportedMessageString)
         }
+    }
+    
+    
+    func updateData(loginData: [String: Any]) {
+        let userDetailData = loginData
+        
+       isVideoCallEnabled = Bool.parse(key: "is_video_call_enabled", json: userDetailData)
+       isAudioCallEnabled = Bool.parse(key: "is_audio_call_enabled", json: userDetailData, defaultValue: false)
+       encodeToHTMLEntities = Bool.parse(key: "encode_to_html_entites", json: userDetailData)
+       botImageUrl = String.parse(values: userDetailData, key: "bot_image_url")
+
+       unsupportedMessageString = userDetailData["unsupported_message"] as? String ?? ""
+       maxUploadLimitForBusiness = userDetailData["max_file_size"] as? UInt ?? 10
+        
+        hideCallIconOnNavigationForCustomer = Bool.parse(key: "hide_direct_call_button", json: userDetailData)
+        multiChannelLabelMapping = Bool.parse(key: "multi_channel_label_mapping", json: userDetailData) ?? false
     }
 }

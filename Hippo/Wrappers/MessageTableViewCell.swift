@@ -31,6 +31,7 @@ class MessageTableViewCell: UITableViewCell {
         let timeOfMessage = changeDateToParticularFormat(message!.creationDateTime, dateFormat: "h:mm a", showInFormat: true)
         return timeOfMessage
     }
+    
     func setTime() {
         let timeOfMessage = getTimeString()
         timeLabel.text = timeOfMessage
@@ -64,15 +65,27 @@ class MessageTableViewCell: UITableViewCell {
         }
         showSenderImageView()
         
-        let isMessageAllowedForImage = message.type == .consent
+//        let isMessageAllowedForImage = message.type == .consent  || message.belowMessageType == .card || message.belowMessageType == .paymentCard
+//        if (message.belowMessageUserId == message.senderId && !isMessageAllowedForImage) {
+//            unsetImageInSender()
+//        } else if let senderImage = message.senderImage, let url = URL(string: senderImage) {
+//            setImageInSenderView(imageURL: url)
+//        } else {
+//            setNameAsTitle(message.senderFullName)
+//        }
         
-        if message.belowMessageUserId == message.senderId && !isMessageAllowedForImage {
+        let isMessageAllowedForImage = message.type == .consent  || message.belowMessageType == .card || message.belowMessageType == .paymentCard || message.aboveMessageType == .consent
+        
+        if (message.aboveMessageUserId == message.senderId && !isMessageAllowedForImage) {
             unsetImageInSender()
-        } else if let senderImage = message.senderImage, let url = URL(string: senderImage) {
-            setImageInSenderView(imageURL: url)
         } else {
-            setNameAsTitle(message.senderFullName)
+            if let senderImage = message.senderImage, let url = URL(string: senderImage) {
+                setImageInSenderView(imageURL: url)
+            }else{
+                setNameAsTitle(message.senderFullName)
+            }
         }
+        
     }
     
     func hideSenderImageView() {
@@ -87,12 +100,13 @@ class MessageTableViewCell: UITableViewCell {
         senderImageView.isHidden = false
         senderImageWidthConstraint.constant = 30
         senderImageTraillingConstaints.constant = 5
-        senderImageView.layer.cornerRadius = senderImageView.bounds.height / 2
+       // senderImageView.layer.cornerRadius = senderImageView.bounds.height / 2
         senderImageView.layer.masksToBounds = true
         layoutIfNeeded()
     }
     
     func setImageInSenderView(imageURL: URL?) {
+        senderImageView.contentMode = .scaleToFill
         senderImageView.kf.setImage(with: imageURL, placeholder: HippoConfig.shared.theme.placeHolderImage,  completionHandler: {(_, error, _, _) in
             guard let parsedError = error else {
                 return
@@ -103,7 +117,7 @@ class MessageTableViewCell: UITableViewCell {
     
     func setNameAsTitle(_ name: String?) {
         if let parsedName = name {
-            self.senderImageView.setImage(string: parsedName, color: UIColor.lightGray, circular: true)
+            self.senderImageView.setTextInImage(string: parsedName, color: UIColor.lightGray, circular: false)
         } else {
             self.senderImageView.image = HippoConfig.shared.theme.placeHolderImage
         }

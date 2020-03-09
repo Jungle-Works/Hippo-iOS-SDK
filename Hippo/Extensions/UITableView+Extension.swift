@@ -5,7 +5,7 @@
 //  Created by Vishal on 05/02/19.
 //
 
-import Foundation
+import UIKit
 
 extension UITableView {
     class func defaultCell(backgroundColor: UIColor = UIColor.clear) -> UITableViewCell {

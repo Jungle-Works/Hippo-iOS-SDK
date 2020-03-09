@@ -26,6 +26,8 @@ class NavigationTitleView: UIView {
     @IBOutlet weak var titleLabel: UILabel!
     
     
+    
+    
     weak var delegate: NavigationTitleViewDelegate?
     
     override func awakeFromNib() {
@@ -80,7 +82,9 @@ class NavigationTitleView: UIView {
         delegate?.titleClicked?()
     }
     @objc func imageClicked() {
-        delegate?.imageIconClicked?()
+//        if backButton.isEnabled {
+            delegate?.imageIconClicked?()
+//        }
     }
     
     func hideDescription() {
@@ -100,11 +104,12 @@ class NavigationTitleView: UIView {
     func setData(imageUrl: String?, name: String?) {
         showProfileImage()
         setNameAsTitle(name)
+        
         guard let url = URL(string: imageUrl ?? "") else {
             return
         }
         
-        
+        profileImageView.contentMode = .scaleToFill
         profileImageView.kf.setImage(with: url, placeholder: nil,  completionHandler: {(_, error, _, _) in
             guard let parsedError = error else {
                 return
@@ -115,7 +120,7 @@ class NavigationTitleView: UIView {
     
     func setNameAsTitle(_ name: String?) {
         if let parsedName = name {
-            self.profileImageView.setImage(string: parsedName, color: UIColor.lightGray, circular: true)
+            self.profileImageView.setTextInImage(string: parsedName, color: UIColor.lightGray, circular: true)
         } else {
           self.profileImageView.image = HippoConfig.shared.theme.placeHolderImage
         }
@@ -131,8 +136,13 @@ class NavigationTitleView: UIView {
         profileImageView.isHidden = false
         profileImageView.layer.cornerRadius = profileImageView.bounds.height / 2
         profileImageView.layer.masksToBounds = true
-        backButtonWidthConstraint.constant = 28
+        backButtonWidthConstraint.constant = 40
         layoutIfNeeded()
+    }
+    
+    func setBackButton(hide: Bool) {
+        backButton.isHidden = hide
+        backButton.isEnabled = !hide
     }
     
 }

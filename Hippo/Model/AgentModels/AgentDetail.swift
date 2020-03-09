@@ -336,11 +336,11 @@ extension AgentDetail {
         if let attributes = HippoConfig.shared.agentDetail?.customAttributes {
             params["custom_attributes"]  = attributes
         }
-        if !HippoConfig.shared.deviceToken.isEmpty {
-            params["device_token"] = HippoConfig.shared.deviceToken
+        if !TokenManager.deviceToken.isEmpty {
+            params["device_token"] = TokenManager.deviceToken
         }
-        if !HippoConfig.shared.voipToken.isEmpty {
-            params["voip_token"] = HippoConfig.shared.voipToken
+        if !TokenManager.voipToken.isEmpty {
+            params["voip_token"] = TokenManager.voipToken
         }
         params["app_version_code"] = "\(versionCode)"
         return params

@@ -30,7 +30,7 @@ class HippoActionMessage: HippoMessage {
         if let content_value = dict["content_value"] as? [[String: Any]] {
             self.contentValues = content_value
             let selectedId = selectedBtnId.isEmpty ? nil : selectedBtnId
-            let (buttons, selectedButton) = HippoActionButton.getArray(array: content_value, selectedId: selectedId)
+            let (buttons, selectedButton) = HippoActionButton.getArray(array: contentValues, selectedId: selectedId)
             tryToSetResponseMessage(selectedButton: selectedButton)
             self.buttons = buttons
         }
@@ -48,6 +48,7 @@ class HippoActionMessage: HippoMessage {
         responseMessage?.status = status
         cellDetail?.actionHeight = nil
     }
+    
     func setHeight() {
         cellDetail = HippoCellDetail()
         cellDetail?.headerHeight = attributtedMessage.messageHeight + attributtedMessage.nameHeight + attributtedMessage.timeHeight
@@ -59,7 +60,7 @@ class HippoActionMessage: HippoMessage {
             cellDetail?.actionHeight = nil
         } else {
             let buttonHeight = buttonsHeight() //(buttons?.count ?? 0) * 50
-            cellDetail?.actionHeight = CGFloat(buttonHeight) + 15 + 10 //Button Height + (timeLabelHeight + time gap from top) + padding
+            cellDetail?.actionHeight = CGFloat(buttonHeight) + 15 + 10 + 10 //Button Height + (timeLabelHeight + time gap from top) + padding
         }
         
         cellDetail?.padding = 1
@@ -89,12 +90,12 @@ class HippoActionMessage: HippoMessage {
             } else {
                 remaningWidth = widthRemaningAfterInsertion
             }
-            let message = "===\(each.title)--w=\(w)--widthRemaningAfterInsertion=\(widthRemaningAfterInsertion)--b=\(buttonCount)--remaning=\(remaningWidth) \n"
-            HippoConfig.shared.log.debug(message, level: .custom)
+//            let message = "===\(each.title)--w=\(w)--widthRemaningAfterInsertion=\(widthRemaningAfterInsertion)--b=\(buttonCount)--remaning=\(remaningWidth) \n"
+//            HippoConfig.shared.log.debug(message, level: .custom)
 
         }
         
-        return CGFloat(buttonCount * 35) + CGFloat(5 * (buttonCount - 1))
+        return CGFloat(buttonCount * 35) + CGFloat(5 * (buttonCount - 1)) 
     }
     private func findButtonWidth(_ text: String) -> CGFloat {
         let attributedText = NSMutableAttributedString(string: text)
@@ -131,7 +132,9 @@ class HippoActionMessage: HippoMessage {
         
         let selectedId = selectedBtnId.isEmpty ? nil : selectedBtnId
         if !contentValues.isEmpty {
-            let (buttons, selectedButton) = HippoActionButton.getArray(array: contentValues, selectedId: selectedId)
+            contentValues.append(contentsOf: customButtons)
+            let list = contentValues
+            let (buttons, selectedButton) = HippoActionButton.getArray(array: list, selectedId: selectedId)
             self.tryToSetResponseMessage(selectedButton: selectedButton)
             self.buttons = buttons
         }
@@ -158,4 +161,53 @@ class HippoActionMessage: HippoMessage {
         messageRefresed?()
         
     }
+    
+    func getButtonWithId(id: String) -> HippoActionButton? {
+        guard let  buttons = self.buttons else {
+            return nil
+        }
+        let button = buttons.first { (b) -> Bool in
+            return b.id == id
+        }
+        return button
+    }
 }
+
+let customButtons: [[String: Any]] = [
+  [
+    "btn_id": "451",
+    "btn_color": "#FFFFFF",
+    "btn_title": "Agent List",
+    "btn_title_color": "#000000",
+    "btn_selected_color": "#1E7EFF",
+    "action": "AGENTS",
+    "btn_title_selected_color": "#FFFFFF"
+  ],
+  [
+    "btn_id": "454",
+    "btn_color": "#FFFFFF",
+    "btn_title": "audio call",
+    "btn_title_color": "#000000",
+    "btn_selected_color": "#1E7EFF",
+    "action": "AUDIO_CALL",
+    "btn_title_selected_color": "#FFFFFF"
+  ],
+  [
+    "btn_id": "455",
+    "btn_color": "#FFFFFF",
+    "btn_title": "video call",
+    "btn_title_color": "#000000",
+    "btn_selected_color": "#1E7EFF",
+    "action": "VIDEO_CALL",
+    "btn_title_selected_color": "#FFFFFF"
+  ],
+  [
+    "btn_id": "455",
+    "btn_color": "#FFFFFF",
+    "btn_title": "Continue chat",
+    "btn_title_color": "#000000",
+    "btn_selected_color": "#1E7EFF",
+    "action": "CONTINUE_CHAT",
+    "btn_title_selected_color": "#FFFFFF"
+  ]
+]

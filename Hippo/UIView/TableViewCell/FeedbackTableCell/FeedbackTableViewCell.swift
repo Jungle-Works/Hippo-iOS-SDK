@@ -43,8 +43,16 @@ class FeedbackTableViewCell: MessageTableViewCell {
     @IBOutlet weak var submitButton: UIButton! {
         didSet {
             submitButton.setTitle("SUBMIT", for: .normal)
-            submitButton.setTitleColor(HippoConfig.shared.theme.headerTextColor, for: .normal)
-            submitButton.backgroundColor = HippoConfig.shared.theme.headerBackgroundColor
+            submitButton.setTitleColor(UIColor.white, for: .normal)
+            DispatchQueue.main.async {
+                let gradient = CAGradientLayer()
+                gradient.frame = self.submitButton.bounds
+                gradient.colors = [HippoConfig.shared.theme.gradientTopColor.cgColor, HippoConfig.shared.theme.gradientBottomColor.cgColor]
+                self.submitButton.layer.insertSublayer(gradient, at: 0)
+                
+                // self.shadowView.backgroundColor = UIColor.red
+            }
+          //  submitButton.backgroundColor = HippoConfig.shared.theme.headerBackgroundColor
         }
     }
     @IBOutlet weak var collectionView: UICollectionView!
@@ -91,6 +99,7 @@ class FeedbackTableViewCell: MessageTableViewCell {
         
         let index = IndexPath(row: data.selectedIndex - 1, section: 0)
         collectionView.selectItem(at: index, animated: false, scrollPosition: .centeredHorizontally)
+        collectionView.backgroundColor = UIColor.clear
     }
     func setDataForCompletedRating() {
         guard data.messageObject != nil else {
@@ -121,10 +130,18 @@ class FeedbackTableViewCell: MessageTableViewCell {
         cellTextView.delegate = self
         cellTextView.flashScrollIndicators()
         
-        alertContainer.layer.borderColor = UIColor.lightGray.cgColor
+        alertContainer.layer.borderColor = HippoConfig.shared.theme.gradientTopColor.cgColor //UIColor.lightGray.cgColor
         alertContainer.layer.borderWidth = 0.5
         alertContainer.layer.masksToBounds = true
-        alertContainer.layer.cornerRadius = 5
+        alertContainer.layer.cornerRadius = 10
+        alertContainer.backgroundColor = HippoConfig.shared.theme.gradientBackgroundColor
+        
+        if #available(iOS 11.0, *) {
+            alertContainer.layer.maskedCorners = [.layerMaxXMinYCorner,.layerMinXMaxYCorner,.layerMaxXMaxYCorner]
+        } else {
+            // Fallback on earlier versions
+        }
+        
         
         selectionStyle = .none
     }
@@ -161,6 +178,7 @@ extension FeedbackTableViewCell: UICollectionViewDelegate, UICollectionViewDataS
         let index = IndexPath(row: data.selectedIndex - 1, section: 0)
         collectionView.selectItem(at: index, animated: false, scrollPosition: .centeredHorizontally)
         cell.setData(data: objectArray[indexPath.row])
+        
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

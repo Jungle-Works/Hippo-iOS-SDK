@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 protocol MessageSenderDelegate: class {
     func messageSent(message: HippoMessage)
     func messageExpired(message: HippoMessage)
@@ -68,13 +67,13 @@ class MessageSender {
             return
         }
         
-        guard (message.status == .none || message.type == .feedback || message.type == .consent ) && !message.isDeleted else {
+        guard (message.status == .none || message.type == .feedback || message.type == .consent || message.type == .card || message.type == .multipleSelect) && !message.isDeleted else {
             messagesToBeSent.removeFirst()
             startSending()
             return
         }
         
-        guard (!message.isMessageExpired() && message.isSentByMe()) || message.type == .feedback || message.type == .consent else {
+        guard (!message.isMessageExpired() && message.isSentByMe()) || message.type == .feedback || message.type == .consent || message.type == .card || message.type == .multipleSelect else {
             invalidateCurrentMessageWhichIsBeingSent()
             self.isSendingMessages = true
             startSending()
@@ -104,11 +103,13 @@ class MessageSender {
                     return
                 }
                 message.status = .sent
+                SoundPlayer.messageSentSucessfully()
                 DispatchQueue.main.async {
                     self?.delegate?.messageSent(message: message)
                 }
                 self?.messagesToBeSent.removeFirst()
                 self?.startSending()
+                HippoConfig.shared.log.debug("-->\(self?.channelID.description ?? "no channel id") == messageSent == \(messageJSON) ", level: .socket)
             } else {
                 guard let errorType = result.error?.error else {
                     self?.retryWithDelay()

@@ -45,6 +45,7 @@ class MessageStore {
         var pageEnd: Int?
         var channelId: Int = -1
         var labelId: Int = -1
+        let id: String = UUID().uuidString
     }
     
     struct ChannelMessagesResult {
@@ -157,8 +158,15 @@ class MessageStore {
             guard !HippoConfig.shared.appSecretKey.isEmpty else {
                 return nil
             }
+            guard let enUserID = HippoUserDetail.fuguEnUserID else {
+                return nil
+            }
             params["app_secret_key"] = HippoConfig.shared.appSecretKey
-            params["en_user_id"] = HippoUserDetail.fuguEnUserID ?? "-1"
+            params["en_user_id"] = enUserID
+            
+            if HippoProperty.current.singleChatApp {
+                params["multi_channel_label_mapping_app"] = 1
+            }
         }
         
         let endPage = requestParam.pageEnd == nil ? requestParam.pageStart + iOSPageLimit : requestParam.pageEnd!

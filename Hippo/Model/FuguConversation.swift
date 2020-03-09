@@ -27,7 +27,7 @@ class FuguConversation: HippoConversation {
     
     init?(conversationDict: [String: Any]) {
         super.init()
-        if let channel_status = conversationDict["channel_status"] as? Int, let channelStatus = ChannelStatus(rawValue: channel_status) {
+        if let channel_status = conversationDict["channel_status"] as? Int, let channelStatus = ChatStatus(rawValue: channel_status) {
             self.channelStatus = channelStatus
         }
         if let label_id = conversationDict["label_id"] as? Int {
@@ -80,9 +80,9 @@ class FuguConversation: HippoConversation {
         return params
     }
     
-    static func getAllConversationFromServer(completion: @escaping (_ result: GetConversationFromServerResult) -> Void) {
+    static func getAllConversationFromServer(config: AllConversationsConfig, completion: @escaping (_ result: GetConversationFromServerResult) -> Void) {
         
-        let params = getParamsToGetAllConversation()
+        let params = getParamsToGetAllConversation(config: config)
         
         HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: FuguEndPoints.API_GET_CONVERSATIONS.rawValue) { (responseObject, error, tag, statusCode) in
             
@@ -109,11 +109,15 @@ class FuguConversation: HippoConversation {
         }
     }
     
-    private static func getParamsToGetAllConversation() -> [String: Any] {
+    private static func getParamsToGetAllConversation(config: AllConversationsConfig) -> [String: Any] {
         var params = [String: Any]()
         
         params["app_secret_key"] = HippoConfig.shared.appSecretKey
         params["en_user_id"] = HippoUserDetail.fuguEnUserID ?? "-1"
+        
+        if !config.enabledChatStatus.isEmpty {
+            params["status"] = config.getChatStatusToSend()
+        }
         
         return params
     }
@@ -124,7 +128,7 @@ class FuguConversation: HippoConversation {
         for rawConversation in json {
             if let conversation = FuguConversation(conversationDict: rawConversation) {
                 if (conversation.unreadCount ?? 0) > 0 {
-                    conversation.channelStatus = .open
+//                    conversation.channelStatus = .open
                 }
                 arrayOfConversation.append(conversation)
             }
