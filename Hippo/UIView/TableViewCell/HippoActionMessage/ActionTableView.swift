@@ -131,7 +131,7 @@ extension ActionTableView: UITableViewDelegate {
         }
         switch sectionValue {
         case .headerMessage:
-            return message.cellDetail?.headerHeight ?? 0.01
+            return (message.cellDetail?.headerHeight ?? 0.01) + 6
         case .buttons:
             return message.cellDetail?.actionHeight ?? message.cellDetail?.responseHeight ?? 0.01
         }
@@ -147,6 +147,10 @@ extension ActionTableView: UITableViewDelegate {
     }
 }
 extension ActionTableView: ActionButtonViewCellDelegate {
+    func buttonClick(buttonInfo: HippoCard) {
+        
+    }
+    
     func buttonClick(buttonInfo: HippoActionButton) {
         delegate?.performActionFor(selectionId: buttonInfo.id, message: message!)
     }

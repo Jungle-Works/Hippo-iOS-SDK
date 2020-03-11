@@ -19,7 +19,7 @@ class ChatDetail: NSObject {
     var customerEmail: String = ""
     var customerContactNumber: String = ""
     var channelTags: [TagDetail] = []
-    var channelStatus = ChannelStatus.open
+    var channelStatus = ChatStatus.open
     var otherUserImage: String?
     
     var chatType: ChatType = .none
@@ -49,7 +49,7 @@ class ChatDetail: NSObject {
         customerContactNumber = json["customer_phone"] as? String ?? ""
         otherUserImage = json["other_user_image"] as? String
         
-        if let channel_status = json["channel_status"] as? Int, let status = ChannelStatus(rawValue: channel_status) {
+        if let channel_status = json["channel_status"] as? Int, let status = ChatStatus(rawValue: channel_status) {
             channelStatus = status
         }
         

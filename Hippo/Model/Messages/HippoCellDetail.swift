@@ -31,7 +31,9 @@ class HippoCellDetail: NSObject {
         }
         let height = findTotalHeight()
         totalHeight = height
-        return height
+        
+        print(height)
+        return height 
     }
     
     private func findTotalHeight() -> CGFloat {

@@ -31,6 +31,9 @@ struct SERVERS {
     
     static let devUrl = "https://hippo-api-dev.fuguchat.com:3011/"
     static let devFaye = "https://hippo-api-dev.fuguchat.com:3012/faye"
+    
+    static let betaUrlNew = "https://beta-live-api.fuguchat.com/"
+    static let betaFayeNew = "https://api.fuguchat.com:3001/faye"
 }
 
 @objcMembers public class HippoConfig : NSObject {
@@ -48,8 +51,8 @@ struct SERVERS {
     private(set)  open var isBroadcastEnabled: Bool = false
     open weak var messageDelegate: HippoMessageRecievedDelegate?
     internal weak var delegate: HippoDelegate?
-    internal var deviceToken = ""
-    internal var voipToken = ""
+//    internal var deviceToken = ""
+//    internal var voipToken = ""
     internal var ticketDetails = HippoTicketAtrributes(categoryName: "")
     internal var theme = HippoTheme.defaultTheme()
     internal var userDetail: HippoUserDetail?
@@ -88,9 +91,10 @@ struct SERVERS {
     internal var referenceId = -1
     internal var appType: String?
     internal var credentialType = FuguCredentialType.defaultType
+
     var isSkipBot:Bool = false
-    internal var baseUrl = SERVERS.liveUrl
-    internal var fayeBaseURLString: String = SERVERS.liveFaye
+    internal var baseUrl = SERVERS.liveUrl//SERVERS.betaUrl//
+    internal var fayeBaseURLString: String = SERVERS.liveFaye//SERVERS.betaFaye//
     
     open var unreadCount: ((_ totalUnread: Int) -> ())?
     open var usersUnreadCount: ((_ userUnreadCount: [String: Int]) -> ())?
@@ -100,7 +104,6 @@ struct SERVERS {
     internal let FuguColor = #colorLiteral(red: 0.3843137255, green: 0.4901960784, blue: 0.8823529412, alpha: 1)
     internal let poweredByFont: UIFont = UIFont.systemFont(ofSize: 10.0)
     internal let FuguStringFont: UIFont = UIFont.systemFont(ofSize: 10.0)
-    
     
     public let navigationTitleTextAlignMent: NSTextAlignment? = .center
     
@@ -261,10 +264,18 @@ struct SERVERS {
         AgentDetail.setAgentStoredData()
         checker.presentChatsViewController()
     }
+
+    class public func showChats(on viewController: UIViewController) {
+        AgentDetail.setAgentStoredData()
+        HippoConfig.shared.checker.presentChatsViewController(on: viewController)
+    }
     
-    public func presentPromotionalPushController()
-    {
-        checker.presentPromotionalPushController()
+    public func consultNowButtonClicked(consultNowInfoDict: [String: Any]){
+        FuguFlowManager.shared.consultNowButtonClicked(consultNowInfoDict: consultNowInfoDict)
+    }
+    
+    public func presentPromotionalPushController(){
+        FuguFlowManager.shared.presentPromotionalpushController()
     }
     
     public func initiateBroadcast(displayName: String = "") {
@@ -275,11 +286,16 @@ struct SERVERS {
         HippoConfig.shared.strings.displayNameForCustomers = name
         FuguFlowManager.shared.presentBroadcastController()
     }
-    public func openChatScreen(withLabelId labelId: Int) {
+    public func openChatScreen(on viewController: UIViewController? = nil, withLabelId labelId: Int, hideBackButton: Bool = false, animation: Bool = true) {
         guard appUserType == .customer else {
             return
         }
-        FuguFlowManager.shared.openChatViewController(labelId: labelId)
+        if let vc = viewController {
+            FuguFlowManager.shared.openChatViewController(on: vc, labelId: labelId, hideBackButton: hideBackButton, animation: animation)
+        } else {
+            //FuguFlowManager.shared.openChatViewController(labelId: labelId)
+            FuguFlowManager.shared.openChatViewControllerTempFunc(labelId: labelId)
+        }
     }
     
     public func setRideTime(estimatedTimeInSec: UInt) {
@@ -354,20 +370,24 @@ struct SERVERS {
         return obj == nil ? 0 : obj!.count
     }
     
-    public func openChatByTransactionId(data: GeneralChat, completion: @escaping (_ success: Bool, _ error: Error?) -> Void ) {
+    public func openChatByTransactionId(on viewController: UIViewController? = nil, data: GeneralChat, completion: ((_ success: Bool, _ error: Error?) -> Void)? ) {
         guard appUserType == .customer else {
             return
         }
         
         checkForIntialization { (success, error) in
             guard success else {
-                completion(success, error)
+                completion?(success, error)
                 return
             }
-            let fuguChat = FuguNewChatAttributes(transactionId: data.uniqueChatId, userUniqueKey: data.userUniqueId, otherUniqueKey: nil, tags: data.tags, channelName: data.channelName, preMessage: "", groupingTag: data.groupingTags)
-            
-            FuguFlowManager.shared.showFuguChat(fuguChat, createConversationOnStart: true)
-            completion(true, nil)
+            var fuguChat = FuguNewChatAttributes(transactionId: data.uniqueChatId, userUniqueKey: data.userUniqueId, otherUniqueKey: nil, tags: data.tags, channelName: data.channelName, preMessage: "", groupingTag: data.groupingTags)
+            fuguChat.hideBackButton = data.hideBackButton
+            if let vc = viewController {
+                FuguFlowManager.shared.showFuguChat(on: vc, chat: fuguChat, createConversationOnStart: true)
+            } else {
+                FuguFlowManager.shared.showFuguChat(fuguChat, createConversationOnStart: true)
+            }
+            completion?(true, nil)
         }
     }
     
@@ -435,6 +455,60 @@ struct SERVERS {
         let attributes = FuguNewChatAttributes(transactionId: data.uniqueChatId ?? "", userUniqueKey: data.userUniqueId, otherUniqueKey: data.idsOfPeers, tags: nil, channelName: data.channelName, preMessage: "", groupingTag: nil)
         
         HippoChannel.get(withFuguChatAttributes: attributes, completion: {(result) in
+            guard result.isSuccessful, let channel = result.channel else {
+                CallManager.shared.hungupCall()
+                completion(false, HippoError.threwError(message: "Something went wrong while creating channel."))
+                return
+            }
+            let call = CallData.init(peerData: peer, callType: callType, muid: uuid, signallingClient: channel)
+            
+            CallManager.shared.startCall(call: call, completion: { (success) in
+                if !success {
+                    CallManager.shared.hungupCall()
+                }
+                completion(true, nil)
+            })
+        })
+        completion(true, nil)
+    }
+    public func startCallToAgent(data: PeerToPeerChat, agentEmail: String, callType: CallType, completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
+        guard FuguNetworkHandler.shared.isNetworkConnected else {
+            completion(false, HippoError.networkError)
+            return
+        }
+        guard CallManager.shared.isCallClientAvailable() else {
+            log.error(HippoError.callClientNotFound.localizedDescription, level: .error)
+            completion(false, HippoError.callClientNotFound)
+            return
+        }
+        guard appUserType == .customer else {
+            completion(false, HippoError.threwError(message: "Not Allowed For Hippo Agent"))
+            return
+        }
+        guard ((BussinessProperty.current.isVideoCallEnabled && callType == .video) || (BussinessProperty.current.isAudioCallEnabled && callType == .audio)) else {
+            completion(false, HippoError.threwError(message: strings.videoCallDisabledFromHippo))
+            return
+        }
+        
+        guard agentEmail != "" else {
+            completion(false, HippoError.threwError(message: "Agent email is required"))
+            return
+        }
+        
+        checkForIntialization { (success, error) in
+            guard success else {
+                completion(success, error)
+                return
+            }
+            self.findChannelAndStartCallToAgent(data: data, agentEmail: agentEmail, callType: callType, completion: completion)
+        }
+    }
+    private func findChannelAndStartCallToAgent(data: PeerToPeerChat, agentEmail: String, callType: CallType, completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
+        let uuid: String = String.uuid()
+        let peer = User(name: data.peerName, imageURL: data.otherUserImage?.absoluteString, userId: -222)
+        CallManager.shared.startConnection(peerUser: peer, muid: uuid, callType: callType, completion: { success in })
+        let attributes = FuguNewChatAttributes(transactionId: data.uniqueChatId ?? "", userUniqueKey: nil, otherUniqueKey: [data.userUniqueId], tags: nil, channelName: data.channelName, preMessage: "", groupingTag: nil)
+        HippoChannel.getToCallAgent(withFuguChatAttributes: attributes, agentEmail: agentEmail, completion: {(result) in
             guard result.isSuccessful, let channel = result.channel else {
                 CallManager.shared.hungupCall()
                 completion(false, HippoError.threwError(message: "Something went wrong while creating channel."))
@@ -546,7 +620,11 @@ struct SERVERS {
         guard let token = parseDeviceToken(deviceToken: deviceData) else {
             return
         }
-        voipToken = token
+        guard TokenManager.voipToken != token else  {
+            log.debug("rejected", level: .custom)
+            return
+        }
+        TokenManager.voipToken = token
         updateDeviceToken(deviceToken: token)
     }
     
@@ -554,7 +632,11 @@ struct SERVERS {
         guard let token = parseDeviceToken(deviceToken: deviceToken) else {
             return
         }
-        self.deviceToken = token
+        guard TokenManager.deviceToken != token else  {
+            log.debug("rejected", level: .custom)
+            return
+        }
+        TokenManager.deviceToken = token
         updateDeviceToken(deviceToken: token)
     }
     

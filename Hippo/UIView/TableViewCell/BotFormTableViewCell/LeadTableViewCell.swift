@@ -60,16 +60,24 @@ class LeadTableViewCell: MessageTableViewCell {
         self.tableView.register(UINib(nibName: leadCellIdentifier, bundle: FuguFlowManager.bundle), forCellReuseIdentifier: leadCellIdentifier)
         tableView.layer.cornerRadius = 10
         
-        tableView.backgroundColor = .clear
+        tableView.backgroundColor = HippoConfig.shared.theme.gradientBackgroundColor //.clear
         
         tableView.layer.borderWidth = HippoConfig.shared.theme.chatBoxBorderWidth
-        tableView.layer.borderColor = HippoConfig.shared.theme.chatBoxBorderColor.cgColor
+        tableView.layer.borderColor = HippoConfig.shared.theme.gradientTopColor.cgColor
         self.tableView.dataSource = self
         self.tableView.delegate = self
         
-        bgView.backgroundColor = HippoConfig.shared.theme.incomingChatBoxColor
-        bgView.layer.cornerRadius = 5
+        bgView.backgroundColor = HippoConfig.shared.theme.gradientBackgroundColor //HippoConfig.shared.theme.incomingChatBoxColor
+        bgView.layer.cornerRadius = 10
         bgView.layer.masksToBounds = true
+        
+        tableView.layer.cornerRadius = 10
+        if #available(iOS 11.0, *) {
+            tableView.layer.maskedCorners = [.layerMaxXMinYCorner,.layerMinXMaxYCorner,.layerMaxXMaxYCorner]
+            bgView.layer.maskedCorners = [.layerMaxXMinYCorner,.layerMinXMaxYCorner,.layerMaxXMaxYCorner]
+        } else {
+            // Fallback on earlier versions
+        }
     }
     
     func setData(indexPath: IndexPath, arr: [FormData], message: HippoMessage) {

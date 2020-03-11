@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="103" id="KGk-i7-Jjw" customClass="PaymentSecureView" customModule="HippoChat" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="396" height="103"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="396" height="102.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GpF-ts-4Sv">
+                        <rect key="frame" x="152" y="10" width="92" height="82.5"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="securePayment" translatesAutoresizingMaskIntoConstraints="NO" id="F8T-VB-vW5">
+                                <rect key="frame" x="0.0" y="0.0" width="30" height="82.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="30" id="e42-Bf-Cvm"/>
+                                </constraints>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3xt-DQ-cYz">
+                                <rect key="frame" x="40" y="10" width="42" height="62.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H9D-09-qCg">
+                                        <rect key="frame" x="0.0" y="0.0" width="42" height="62.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="H9D-09-qCg" firstAttribute="top" secondItem="3xt-DQ-cYz" secondAttribute="top" id="bLq-Bq-AfY"/>
+                                    <constraint firstItem="H9D-09-qCg" firstAttribute="leading" secondItem="3xt-DQ-cYz" secondAttribute="leading" id="cMz-4X-Qm8"/>
+                                    <constraint firstAttribute="trailing" secondItem="H9D-09-qCg" secondAttribute="trailing" id="nac-NK-uZu"/>
+                                    <constraint firstAttribute="bottom" secondItem="H9D-09-qCg" secondAttribute="bottom" id="tX7-PT-oXO"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.8980392157" green="0.81417147059999995" blue="0.25392254040000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="F8T-VB-vW5" firstAttribute="leading" secondItem="GpF-ts-4Sv" secondAttribute="leading" id="BH2-3u-QIh"/>
+                            <constraint firstItem="3xt-DQ-cYz" firstAttribute="top" secondItem="GpF-ts-4Sv" secondAttribute="top" constant="10" id="DHu-n8-3Lb"/>
+                            <constraint firstItem="3xt-DQ-cYz" firstAttribute="leading" secondItem="F8T-VB-vW5" secondAttribute="trailing" constant="10" id="IkC-jy-PuP"/>
+                            <constraint firstAttribute="bottom" secondItem="F8T-VB-vW5" secondAttribute="bottom" id="KA6-SC-K0L"/>
+                            <constraint firstAttribute="trailing" secondItem="3xt-DQ-cYz" secondAttribute="trailing" constant="10" id="NvP-hM-22I"/>
+                            <constraint firstAttribute="bottom" secondItem="3xt-DQ-cYz" secondAttribute="bottom" constant="10" id="RwW-NZ-nSz"/>
+                            <constraint firstItem="F8T-VB-vW5" firstAttribute="top" secondItem="GpF-ts-4Sv" secondAttribute="top" id="zLt-Mv-B0p"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                <constraints>
+                    <constraint firstItem="GpF-ts-4Sv" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="Tsg-Ky-lHG"/>
+                    <constraint firstAttribute="bottom" secondItem="GpF-ts-4Sv" secondAttribute="bottom" constant="10" id="Ycz-rk-BNO"/>
+                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="GpF-ts-4Sv" secondAttribute="trailing" constant="10" id="hDh-qD-EOU"/>
+                    <constraint firstItem="GpF-ts-4Sv" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="pTm-va-9Km"/>
+                    <constraint firstItem="GpF-ts-4Sv" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="wRy-dm-Utg"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="bgView" destination="GpF-ts-4Sv" id="TYC-tT-WS1"/>
+                <outlet property="bgViewBottomCosntraint" destination="Ycz-rk-BNO" id="7Nw-h8-ZET"/>
+                <outlet property="bgViewTopConstraint" destination="Tsg-Ky-lHG" id="NwX-L3-EcD"/>
+                <outlet property="bgViewTraillingConstraint" destination="hDh-qD-EOU" id="DS5-Sm-KBf"/>
+                <outlet property="cellImage" destination="F8T-VB-vW5" id="etL-z4-NYd"/>
+                <outlet property="cellLabel" destination="H9D-09-qCg" id="ZQ5-vT-X72"/>
+                <outlet property="iageWidthConstraint" destination="e42-Bf-Cvm" id="qEi-Fd-4yq"/>
+                <outlet property="labelContainerBottomConstraint" destination="RwW-NZ-nSz" id="3Go-6t-LjB"/>
+                <outlet property="labelContainerLeadingConstraint" destination="IkC-jy-PuP" id="R2U-Y7-K7X"/>
+                <outlet property="labelContainerTaillingConstraint" destination="NvP-hM-22I" id="dcK-VC-pEc"/>
+                <outlet property="labelContainerTopConstraint" destination="DHu-n8-3Lb" id="bbQ-jh-Ulu"/>
+                <outlet property="labelContainerView" destination="3xt-DQ-cYz" id="93n-Jr-6CK"/>
+                <outlet property="leadingViewgbgViewLeadingConstraint" destination="pTm-va-9Km" id="etw-t1-7yG"/>
+            </connections>
+            <point key="canvasLocation" x="88" y="-87"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="securePayment" width="21" height="21"/>
+    </resources>
+</document>

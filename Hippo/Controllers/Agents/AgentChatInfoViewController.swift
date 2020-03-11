@@ -125,13 +125,13 @@ extension AgentChatInfoViewController {
             return
         }
         let message = getPopupMessage()
-        let status = channelDetail!.channelStatus == .open ? ChannelStatus.close : ChannelStatus.open
+        let status = channelDetail!.channelStatus == .open ? ChatStatus.close : ChatStatus.open
         
         showOptionAlert(title: "", message: message, preferredStyle: .alert, successButtonName: "YES", successComplete: { (_) in
             self.changeChannelStatus(channelId: channelId, status: status)
         }, failureButtonName: "NO", failureComplete: nil)
     }
-    func changeChannelStatus(channelId: Int, status: ChannelStatus) {
+    func changeChannelStatus(channelId: Int, status: ChatStatus) {
         AgentConversationManager.updateChannelStatus(for: channelId, newStatus: status.rawValue) {[weak self] (result) in
             guard self != nil, result.isSuccessful else {
                 showAlertWith(message: HippoConfig.shared.strings.somethingWentWrong, action: nil)
@@ -141,7 +141,7 @@ extension AgentChatInfoViewController {
             self?.popToHomeIfExist()
         }
     }
-    func updateHomeView(channelId: Int, status: ChannelStatus) {
+    func updateHomeView(channelId: Int, status: ChatStatus) {
         guard let controllers = self.navigationController?.viewControllers else {
             return
         }

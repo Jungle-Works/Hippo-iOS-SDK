@@ -5,7 +5,7 @@
 //  Created by Vishal on 19/09/18.
 //
 
-import Foundation
+import UIKit
 
 class HippoHomeViewController: UIViewController {
     
@@ -30,7 +30,7 @@ class HippoHomeViewController: UIViewController {
     @objc func didSetUserChannel() { }
     func deleteConversation(channelId: Int) { }
     
-    func channelStatusChanged(channelId: Int, newStatus: ChannelStatus) {
+    func channelStatusChanged(channelId: Int, newStatus: ChatStatus) {
         fuguDelay(2) {
             self.deleteConversation(channelId: channelId)
         }

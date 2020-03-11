@@ -15,7 +15,8 @@ class FuguFlowManager: NSObject {
         let podBundle = Bundle(for: AllConversationsViewController.self)
         
         guard let bundleURL = podBundle.url(forResource: "Hippo", withExtension: "bundle"), let fetchBundle = Bundle(url: bundleURL) else {
-            return nil
+//        guard let bundleURL = podBundle.url(forResource: "HippoChat", withExtension: "bundle"), let fetchBundle = Bundle(url: bundleURL) else {
+            return podBundle
         }
         return fetchBundle
     }
@@ -47,6 +48,15 @@ class FuguFlowManager: NSObject {
     navigationController.modalPresentationStyle = .fullScreen
       visibleController?.present(navigationController, animated: animation, completion: nil)
    }
+    func presentCustomerConversations(on viewController: UIViewController, animation: Bool = true) {
+       guard let navigationController = storyboard.instantiateViewController(withIdentifier: "FuguCustomerNavigationController") as? UINavigationController, let topVC = navigationController.topViewController else {
+          return
+       }
+//       let visibleController = getLastVisibleController()
+     
+        viewController.navigationController?.pushViewController(topVC, animated: animation)
+//       visibleController?.present(navigationController, animated: animation, completion: nil)
+    }
     
     func presentPromotionalpushController(animation: Bool = true) {
         guard let navigationController = storyboard.instantiateViewController(withIdentifier: "FuguPromotionalNavigationController") as? UINavigationController else {
@@ -119,6 +129,32 @@ class FuguFlowManager: NSObject {
         conversationViewController.createConversationOnStart = true
         visibleController?.present(navVC, animated: false, completion: nil)
     }
+    func openChatViewControllerTempFunc(labelId: Int) {
+        
+        let conversationViewController = ConversationsViewController.getWith(labelId: labelId.description)
+        let visibleController = getLastVisibleController()
+        //TODO: - Try to hit getByLabelId hit before presenting controller
+        let navVC = UINavigationController(rootViewController: conversationViewController)
+        navVC.setNavigationBarHidden(true, animated: false)
+        
+        conversationViewController.createConversationOnStart = true
+        visibleController?.present(navVC, animated: true, completion: nil)
+        
+    }
+    
+    func openChatViewController(on viewController: UIViewController, labelId: Int, hideBackButton: Bool, animation: Bool) {
+        
+        let conversationViewController = ConversationsViewController.getWith(labelId: labelId.description)
+//        let visibleController = getLastVisibleController()
+        //TODO: - Try to hit getByLabelId hit before presenting controller
+//        let navVC = UINavigationController(rootViewController: conversationViewController)
+//        navVC.setNavigationBarHidden(true, animated: false)
+
+        conversationViewController.createConversationOnStart = false
+            conversationViewController.hideBackButton = hideBackButton
+        viewController.navigationController?.pushViewController(conversationViewController, animated: animation)
+//        visibleController?.present(navVC, animated: false, completion: nil)
+    }
    
     func showFuguChat(_ chat: FuguNewChatAttributes, createConversationOnStart: Bool = false) {
         let visibleViewController = getLastVisibleController()
@@ -128,6 +164,43 @@ class FuguFlowManager: NSObject {
         convVC.createConversationOnStart = createConversationOnStart
         visibleViewController?.present(navVC, animated: false, completion: nil)
     }
+    func showFuguChat(on viewController: UIViewController, chat: FuguNewChatAttributes, createConversationOnStart: Bool = false) {
+//        let visibleViewController = getLastVisibleController()
+        let convVC = ConversationsViewController.getWith(chatAttributes: chat)
+//        let navVC = UINavigationController(rootViewController: convVC)
+//        navVC.setNavigationBarHidden(true, animated: false)
+        convVC.createConversationOnStart = createConversationOnStart
+//        visibleViewController?.present(navVC, animated: false, completion: nil)
+        viewController.navigationController?.pushViewController(convVC, animated: true)
+    }
+    
+    func consultNowButtonClicked(consultNowInfoDict: [String: Any]){
+        
+        var fuguNewChatAttributes = FuguNewChatAttributes(transactionId: "", userUniqueKey: HippoConfig.shared.userDetail?.userUniqueKey, otherUniqueKey: nil, tags: HippoProperty.current.newConversationButtonTags, channelName: nil, preMessage: "", groupingTag: nil)
+        print("bodID******* \(HippoProperty.current.newconversationBotGroupId ?? "")")
+        fuguNewChatAttributes.botGroupId = "633"//HippoProperty.current.newconversationBotGroupId
+        
+        let visibleViewController = getLastVisibleController()
+        let convVC = ConversationsViewController.getWith(chatAttributes: fuguNewChatAttributes)
+        let navVC = UINavigationController(rootViewController: convVC)
+        navVC.setNavigationBarHidden(true, animated: false)
+        convVC.createConversationOnStart = true
+        convVC.consultNowInfoDict = consultNowInfoDict
+        convVC.isComingFromConsultNowButton = true
+        visibleViewController?.present(navVC, animated: false, completion: nil)
+        
+    }
+    
+//    func presentPromotionalpushController(animation: Bool = true) {
+//
+//        guard let navigationController = storyboard.instantiateViewController(withIdentifier: "FuguPromotionalNavigationController") as? UINavigationController else {
+//            return
+//        }
+//        let visibleController = getLastVisibleController()
+//        navigationController.modalPresentationStyle = .fullScreen
+//        visibleController?.present(navigationController, animated: animation, completion: nil)
+//
+//    }
    
     func presentAgentConversations() {
         guard HippoConfig.shared.appUserType == .agent else {

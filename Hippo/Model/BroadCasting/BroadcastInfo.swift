@@ -5,7 +5,7 @@
 //  Created by Vishal on 26/07/18.
 //
 
-import Foundation
+import UIKit
 
 enum BroadcastStatus: Int {
     case pending = 0

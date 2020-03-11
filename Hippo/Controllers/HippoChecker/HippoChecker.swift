@@ -5,8 +5,7 @@
 //  Created by Vishal on 14/02/19.
 //
 
-import Foundation
-
+import UIKit
 
 class HippoChecker {
     
@@ -29,6 +28,15 @@ class HippoChecker {
             FuguFlowManager.shared.presentAgentConversations()
         }
     }
+    func presentChatsViewController(on viewController: UIViewController) {
+           AgentDetail.setAgentStoredData()
+           switch config.appUserType {
+           case .customer:
+            FuguFlowManager.shared.presentCustomerConversations(on: viewController)
+           case .agent:
+               FuguFlowManager.shared.presentAgentConversations()
+           }
+       }
     
     func presentPromotionalPushController()
     {
