@@ -16,8 +16,6 @@ enum ConversationChatType {
 
 class AllConversationsViewController: UIViewController, NewChatSentDelegate {
 
-//    @IBOutlet weak var newConversationButton:UIButton!
-
     // MARK: - IBOutlets
     @IBOutlet weak var newConversationBiutton: UIButton!
     @IBOutlet var showConversationsTableView: UITableView!
@@ -35,6 +33,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     @IBOutlet weak var openChatButton: UIButton!
     @IBOutlet weak var closeChatButton: UIButton!
     @IBOutlet weak var bottomLineView: UIView!
+    @IBOutlet weak var buttonContainerViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var bottomViewLeadingConstraint: NSLayoutConstraint!
     
     // MARK: - PROPERTIES
@@ -74,11 +73,14 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         
 //        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
         
+        self.openChatButton.setBackgroundColor(color: #colorLiteral(red: 0.8156862745, green: 0.8156862745, blue: 0.8156862745, alpha: 1), forState: UIControl.State.highlighted)
+        self.closeChatButton.setBackgroundColor(color: #colorLiteral(red: 0.8156862745, green: 0.8156862745, blue: 0.8156862745, alpha: 1), forState: UIControl.State.highlighted)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         checkNetworkConnection()
-//        newConversationBiutton.isHidden = true
+        newConversationBiutton.isHidden = true
         if HippoUserDetail.fuguUserID == nil {
             putUserDetails()
         } else {
@@ -115,7 +117,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         
         print("bodID******* \(HippoProperty.current.newconversationBotGroupId ?? "")")
         
-        fuguNewChatAttributes.botGroupId = "569"//HippoProperty.current.newconversationBotGroupId
+        fuguNewChatAttributes.botGroupId = HippoProperty.current.newconversationBotGroupId//"569"//
         let conversation = ConversationsViewController.getWith(chatAttributes: fuguNewChatAttributes)
         conversation.createConversationOnStart = true
         self.navigationController?.pushViewController(conversation, animated: true)
@@ -151,11 +153,11 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
             }
             
             self?.showConversationsTableView.reloadData()
-//            if self?.conversationChatType == .openChat{
-//                self?.newConversationBiutton.isHidden = !HippoProperty.current.enableNewConversationButton
-//            }else if self?.conversationChatType == .closeChat{
-//                self?.newConversationBiutton.isHidden = true
-//            }else{}
+            if self?.conversationChatType == .openChat{
+                self?.newConversationBiutton.isHidden = !HippoProperty.current.enableNewConversationButton
+            }else if self?.conversationChatType == .closeChat{
+                self?.newConversationBiutton.isHidden = true
+            }else{}
             if let result = self?.handleIntialCustomerForm(), result {
                 return
             } else if self?.arrayOfConversation.count == 0 {
@@ -167,7 +169,15 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     }
     
    func uiSetup() {
-    
+    if HippoConfig.shared.hasChannelTabs == true{
+        self.buttonContainerViewHeightConstraint.constant = 45
+        self.openChatButton.isHidden = !HippoConfig.shared.hasChannelTabs
+        self.closeChatButton.isHidden = !HippoConfig.shared.hasChannelTabs
+    }else{
+        self.buttonContainerViewHeightConstraint.constant = 0
+        self.openChatButton.isHidden = !HippoConfig.shared.hasChannelTabs
+        self.closeChatButton.isHidden = !HippoConfig.shared.hasChannelTabs
+    }
     automaticallyAdjustsScrollViewInsets = false
     updateErrorLabelView(isHiding: true)
     refreshControl.addTarget(self, action: #selector(refresh(_:)), for: .valueChanged)
@@ -175,31 +185,21 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     showConversationsTableView.backgroundView = refreshControl
     let theme = HippoConfig.shared.theme
     
-    //        if self.conversationChatType == .openChat{
-    //            newConversationBiutton.isHidden = !HippoProperty.current.enableNewConversationButton
-    //        }else if self.conversationChatType == .closeChat{
-    //            newConversationBiutton.isHidden = true
-    //        }else{}
+//    newConversationBiutton.isEnabled = HippoProperty.current.enableNewConversationButton
+    if self.conversationChatType == .openChat{
+        newConversationBiutton.isHidden = !HippoProperty.current.enableNewConversationButton
+    }else if self.conversationChatType == .closeChat{
+        newConversationBiutton.isHidden = true
+    }else{}
     
-    newConversationBiutton.isEnabled = HippoProperty.current.enableNewConversationButton
     
-    //        DispatchQueue.main.async {
-    //            let gradient = CAGradientLayer()
-    //            gradient.frame = self.newConversationBiutton.bounds
-    //            gradient.colors = [theme.gradientTopColor.cgColor, theme.gradientBottomColor.cgColor]
-    //            self.newConversationBiutton.layer.insertSublayer(gradient, at: 0)
-    //        }
+//    DispatchQueue.main.async {
+//        let gradient = CAGradientLayer()
+//        gradient.frame = self.newConversationBiutton.bounds
+//        gradient.colors = [theme.gradientTopColor.cgColor, theme.gradientBottomColor.cgColor]
+//        self.newConversationBiutton.layer.insertSublayer(gradient, at: 0)
+//    }
     
-//    newConversationBiutton.setTitleColor(.white, for: .normal)
-//    newConversationBiutton.backgroundColor = theme.themeColor
-//    newConversationBiutton.layer.cornerRadius = newConversationBiutton.bounds.height / 2
-//    newConversationBiutton.layer.masksToBounds = true
-//    newConversationBiutton.titleLabel?.font = theme.newConversationButtonFont
-//    newConversationBiutton.setTitle(theme.newConversationText, for: .normal)
-    showConversationsTableView.contentInset.bottom = 70
-    //addLogoutButton()
-    
-//    let theme = HippoConfig.shared.theme
     newConversationBiutton.setTitleColor(theme.themeTextcolor, for: .normal)
     newConversationBiutton.backgroundColor = theme.themeColor
     newConversationBiutton.layer.cornerRadius = newConversationBiutton.bounds.height / 2
@@ -208,7 +208,11 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     newConversationBiutton.layer.masksToBounds = true
     newConversationBiutton.titleLabel?.font = theme.newConversationButtonFont
     newConversationBiutton.setTitle(theme.newConversationText, for: .normal)
-    newConversationBiutton.isHidden = HippoConfig.shared.isNewConversationButtonHidden
+//    newConversationBiutton.isHidden = HippoConfig.shared.isNewConversationButtonHidden
+//    newConversationBiutton.isHidden = !HippoProperty.current.enableNewConversationButton
+    
+    showConversationsTableView.contentInset.bottom = 70
+//    addLogoutButton()
     
     poweredByFuguLabel.attributedText = attributedStringForLabelForTwoStrings("Runs on ", secondString: "Hippo", colorOfFirstString: HippoConfig.shared.powererdByColor, colorOfSecondString: HippoConfig.shared.FuguColor, fontOfFirstString: HippoConfig.shared.poweredByFont, fontOfSecondString: HippoConfig.shared.FuguStringFont, textAlighnment: .center, dateAlignment: .center)
     
@@ -349,10 +353,10 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     }
     
     @IBAction func newConversationButtonClicked(_ sender: Any) {
-        let fuguNewChatAttributes = FuguNewChatAttributes(transactionId: "", userUniqueKey: HippoConfig.shared.userDetail?.userUniqueKey, otherUniqueKey: nil, tags: nil, channelName: nil, preMessage: "", groupingTag: nil)
+        var fuguNewChatAttributes = FuguNewChatAttributes(transactionId: "", userUniqueKey: HippoConfig.shared.userDetail?.userUniqueKey, otherUniqueKey: nil, tags: nil, channelName: nil, preMessage: "", groupingTag: nil)
         
-        //print("bodID******* \(HippoProperty.current.newconversationBotGroupId ?? "")")
-        //fuguNewChatAttributes.botGroupId = HippoProperty.current.newconversationBotGroupId
+        print("bodID******* \(HippoProperty.current.newconversationBotGroupId ?? "")")
+        fuguNewChatAttributes.botGroupId = HippoProperty.current.newconversationBotGroupId
         
         let conversation = ConversationsViewController.getWith(chatAttributes: fuguNewChatAttributes)
         conversation.createConversationOnStart = true
@@ -363,7 +367,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         guard conversationChatType != .openChat else {
             return
         }
-//        self.newConversationBiutton.isHidden = false
+        self.newConversationBiutton.isHidden = false
         conversationChatType = .openChat
         animateBottomLineView()
         //getAllConversations()
@@ -374,7 +378,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         guard conversationChatType != .closeChat else {
             return
         }
-//        self.newConversationBiutton.isHidden = true
+        self.newConversationBiutton.isHidden = true
         conversationChatType = .closeChat
         animateBottomLineView()
         //getAllConversations()
@@ -386,7 +390,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         self.arrayOfConversation = self.ongoingConversationArr
         self.showConversationsTableView.reloadData()
         if self.arrayOfConversation.count <= 0 {
-            self.tableViewDefaultText = "No Conversation found!!"
+            self.tableViewDefaultText = HippoConfig.shared.emptyChannelListText//"No Conversation found!!"
             DispatchQueue.main.async {
                 self.showConversationsTableView.reloadData()
             }
@@ -400,7 +404,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         self.arrayOfConversation = self.closedConversationArr
         self.showConversationsTableView.reloadData()
         if self.arrayOfConversation.count <= 0 {
-            self.tableViewDefaultText = "No Conversation found!!"
+            self.tableViewDefaultText = HippoConfig.shared.emptyChannelListText//"No Conversation found!!"
             DispatchQueue.main.async {
                 self.showConversationsTableView.reloadData()
             }
@@ -460,7 +464,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
             }
             
             if result.conversations!.count == 0 {
-                self?.tableViewDefaultText = "No Conversation found!!"
+                self?.tableViewDefaultText = HippoConfig.shared.emptyChannelListText//"No Conversation found!!"
                 DispatchQueue.main.async {
                     self?.showConversationsTableView.reloadData()
                 }
@@ -506,18 +510,18 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
                 self?.filterConversationArr(conversationArr: conversationData)
             }
             
-//            if self?.conversationChatType == .openChat{
-//                self?.newConversationBiutton.isHidden = !HippoProperty.current.enableNewConversationButton
-//            }else if self?.conversationChatType == .closeChat{
-//                self?.newConversationBiutton.isHidden = true
-//            }else{}
+            if self?.conversationChatType == .openChat{
+                self?.newConversationBiutton.isHidden = !HippoProperty.current.enableNewConversationButton
+            }else if self?.conversationChatType == .closeChat{
+                self?.newConversationBiutton.isHidden = true
+            }else{}
             
         }
     }
     
     func filterConversationArr(conversationArr:[FuguConversation]){
         if conversationArr.count <= 0 {
-            self.tableViewDefaultText = "No Conversation found!!"
+            self.tableViewDefaultText = HippoConfig.shared.emptyChannelListText//"No Conversation found!!"
             DispatchQueue.main.async {
                 self.showConversationsTableView.reloadData()
             }
@@ -779,11 +783,14 @@ extension AllConversationsViewController: UITableViewDelegate, UITableViewDataSo
     public func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
         guard let cell = tableView.cellForRow(at: indexPath) as? ConversationView else { return }
         cell.selectionView?.backgroundColor = #colorLiteral(red: 0.8156862745, green: 0.8156862745, blue: 0.8156862745, alpha: 1)
+//        cell.bgView.backgroundColor = #colorLiteral(red: 0.8156862745, green: 0.8156862745, blue: 0.8156862745, alpha: 1)
+        cell.bgView.backgroundColor = UIColor(red: 241/255, green: 241/255, blue: 241/255, alpha: 1)
     }
     
     public func tableView(_ tableView: UITableView, didUnhighlightRowAt indexPath: IndexPath) {
         guard let cell = tableView.cellForRow(at: indexPath) as? ConversationView else { return }
         cell.selectionView?.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0)
+        cell.bgView.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0)
     }
     
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
