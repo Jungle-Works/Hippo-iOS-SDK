@@ -331,18 +331,18 @@
                                     <constraint firstAttribute="height" id="wDT-y5-wgY"/>
                                 </constraints>
                             </view>
-                            <button hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RXG-gG-bwh">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gVZ-zJ-Eu3">
                                 <rect key="frame" x="87.5" y="488" width="200" height="50"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="Ia2-lL-RKA"/>
-                                    <constraint firstAttribute="width" constant="200" id="b2z-Pi-4La"/>
+                                    <constraint firstAttribute="height" constant="50" id="LOW-u4-5P5"/>
+                                    <constraint firstAttribute="width" constant="200" id="k9T-UQ-SQW"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="ArialRoundedMTBold" family="Arial Rounded MT Bold" pointSize="18"/>
-                                <state key="normal" title="Consult Now &gt;">
+                                <state key="normal" title="New Conversation &gt;">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <action selector="newConversationClicked:" destination="NiB-L4-OyJ" eventType="touchUpInside" id="ZZ6-uC-C4k"/>
+                                    <action selector="newConversationClicked:" destination="NiB-L4-OyJ" eventType="touchUpInside" id="5ka-9d-K8F"/>
                                 </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Runs on Hippo" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eYt-4i-gIl">
@@ -359,26 +359,26 @@
                         <constraints>
                             <constraint firstItem="eJd-kx-5CY" firstAttribute="top" secondItem="eYt-4i-gIl" secondAttribute="bottom" id="1dI-vo-u3e"/>
                             <constraint firstAttribute="trailing" secondItem="eYt-4i-gIl" secondAttribute="trailing" id="7qS-Fk-MYK"/>
+                            <constraint firstItem="gVZ-zJ-Eu3" firstAttribute="centerX" secondItem="dUR-q2-McL" secondAttribute="centerX" id="Bb8-t0-dLm"/>
                             <constraint firstItem="fN8-67-65O" firstAttribute="leading" secondItem="dUR-q2-McL" secondAttribute="leading" id="FPG-Un-MbH"/>
+                            <constraint firstItem="gVZ-zJ-Eu3" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="dUR-q2-McL" secondAttribute="leading" id="G3Q-jU-gcS"/>
                             <constraint firstAttribute="trailing" secondItem="oIt-un-3Xr" secondAttribute="trailing" id="Qsl-sU-L6I"/>
                             <constraint firstAttribute="trailing" secondItem="2fu-zj-iw1" secondAttribute="trailing" id="Swd-Fp-JfI"/>
                             <constraint firstItem="2fu-zj-iw1" firstAttribute="top" secondItem="oIt-un-3Xr" secondAttribute="bottom" id="Tdq-WG-Mr8"/>
                             <constraint firstItem="yfp-HZ-0Gy" firstAttribute="top" secondItem="2fu-zj-iw1" secondAttribute="bottom" id="UFB-gp-eWR"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="gVZ-zJ-Eu3" secondAttribute="trailing" id="V9v-NI-Vi0"/>
                             <constraint firstAttribute="trailing" secondItem="yfp-HZ-0Gy" secondAttribute="trailing" id="YBA-Ea-b0C"/>
                             <constraint firstItem="oIt-un-3Xr" firstAttribute="top" secondItem="fN8-67-65O" secondAttribute="bottom" id="Zf6-rz-LVE"/>
                             <constraint firstAttribute="trailing" secondItem="fN8-67-65O" secondAttribute="trailing" id="bZW-WB-drJ"/>
                             <constraint firstItem="oIt-un-3Xr" firstAttribute="leading" secondItem="dUR-q2-McL" secondAttribute="leading" id="bnM-kP-mB6"/>
                             <constraint firstItem="oIt-un-3Xr" firstAttribute="width" secondItem="dUR-q2-McL" secondAttribute="width" id="cQ2-1L-wtR"/>
                             <constraint firstItem="2fu-zj-iw1" firstAttribute="leading" secondItem="dUR-q2-McL" secondAttribute="leading" id="e9X-F9-mrm"/>
-                            <constraint firstItem="RXG-gG-bwh" firstAttribute="centerX" secondItem="dUR-q2-McL" secondAttribute="centerX" id="eWN-AL-XS4"/>
-                            <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="RXG-gG-bwh" secondAttribute="trailing" id="jhP-P7-rx3"/>
-                            <constraint firstItem="RXG-gG-bwh" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="dUR-q2-McL" secondAttribute="leadingMargin" id="kUV-B9-e2N"/>
+                            <constraint firstItem="eYt-4i-gIl" firstAttribute="top" secondItem="gVZ-zJ-Eu3" secondAttribute="bottom" constant="60" id="fn9-X5-vHf"/>
                             <constraint firstItem="fN8-67-65O" firstAttribute="top" secondItem="dUR-q2-McL" secondAttribute="top" id="mK9-lJ-r85"/>
                             <constraint firstItem="eYt-4i-gIl" firstAttribute="leading" secondItem="dUR-q2-McL" secondAttribute="leading" id="n16-np-L08"/>
                             <constraint firstItem="eYt-4i-gIl" firstAttribute="top" secondItem="yfp-HZ-0Gy" secondAttribute="bottom" id="r3g-7a-AUR"/>
                             <constraint firstItem="yfp-HZ-0Gy" firstAttribute="top" secondItem="fN8-67-65O" secondAttribute="bottom" id="weg-PO-Vc7"/>
                             <constraint firstItem="yfp-HZ-0Gy" firstAttribute="leading" secondItem="dUR-q2-McL" secondAttribute="leading" id="x5M-0L-jPK"/>
-                            <constraint firstItem="eYt-4i-gIl" firstAttribute="top" secondItem="RXG-gG-bwh" secondAttribute="bottom" constant="60" id="zZV-6D-5bH"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -405,7 +405,7 @@
                         <outlet property="errorLabelTopConstraint" destination="9kC-X7-IfK" id="hpq-Md-FYs"/>
                         <outlet property="heightOfBottomLabel" destination="0lv-kZ-vjJ" id="mvb-LE-nUG"/>
                         <outlet property="navigationBackgroundView" destination="fN8-67-65O" id="3Je-Zc-afX"/>
-                        <outlet property="newConversationBiutton" destination="RXG-gG-bwh" id="TSY-Hq-mrm"/>
+                        <outlet property="newConversationBiutton" destination="gVZ-zJ-Eu3" id="UTh-SL-Y13"/>
                         <outlet property="openChatButton" destination="tw3-CG-xbc" id="oil-4w-hrt"/>
                         <outlet property="poweredByFuguLabel" destination="eYt-4i-gIl" id="Dsh-XD-fWo"/>
                         <outlet property="showConversationsTableView" destination="yfp-HZ-0Gy" id="1wj-zE-lao"/>
@@ -1054,7 +1054,7 @@
                                 </constraints>
                             </view>
                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="app_loader_shape" translatesAutoresizingMaskIntoConstraints="NO" id="yXi-kz-HoV" customClass="So_UIImageView" customModule="HippoChat" customModuleProvider="target">
-                                <rect key="frame" x="179.5" y="325.5" width="16" height="16"/>
+                                <rect key="frame" x="167.5" y="313.5" width="40" height="40"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3pN-rq-23Q">
@@ -2042,7 +2042,7 @@
                                 </connections>
                             </tableView>
                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="app_loader_shape" translatesAutoresizingMaskIntoConstraints="NO" id="9Ge-Mz-RYJ" customClass="So_UIImageView" customModule="HippoChat" customModuleProvider="target">
-                                <rect key="frame" x="167.5" y="313.5" width="40" height="40"/>
+                                <rect key="frame" x="179.5" y="325.5" width="16" height="16"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </imageView>
                         </subviews>

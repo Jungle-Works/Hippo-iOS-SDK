@@ -61,6 +61,8 @@ class NavigationTitleView: UIView {
     
         backButton.tintColor = HippoConfig.shared.theme.headerTextColor
         
+//        backButton.setBackgroundColor(color: #colorLiteral(red: 0.8156862745, green: 0.8156862745, blue: 0.8156862745, alpha: 1), forState: UIControl.State.highlighted)
+        
         hideProfileImage()
         
         hideDescription()

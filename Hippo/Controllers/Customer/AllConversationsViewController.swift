@@ -71,6 +71,8 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         
 //        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
         
+        self.openChatButton.setBackgroundColor(color: #colorLiteral(red: 0.8156862745, green: 0.8156862745, blue: 0.8156862745, alpha: 1), forState: UIControl.State.highlighted)
+        self.closeChatButton.setBackgroundColor(color: #colorLiteral(red: 0.8156862745, green: 0.8156862745, blue: 0.8156862745, alpha: 1), forState: UIControl.State.highlighted)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -265,6 +267,14 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
             backButton.image = nil
         }
         title = config.title ?? HippoConfig.shared.theme.headerText
+        
+//        backButton.setBackgroundColor(color: #colorLiteral(red: 0.8156862745, green: 0.8156862745, blue: 0.8156862745, alpha: 1), forState: UIControl.State.highlighted)
+//        backButton.setBackgroundColor(color: UIColor.red, forState: UIControl.State.highlighted)
+//        if let img = UIImage(named: "checked", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate){
+//            backButton.setBackgroundImage(img, for: .highlighted, barMetrics: .default)
+//        }
+//        backButton.setBackgroundImage(UIImage(named: "checked"), for: .highlighted, barMetrics: .default)
+        
     }
     
     func addObservers() {
@@ -757,14 +767,20 @@ extension AllConversationsViewController: UITableViewDelegate, UITableViewDataSo
     }
     
     // MARK: - UITableViewDelegate
+//    public func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
+//        return true
+//    }
     public func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
         guard let cell = tableView.cellForRow(at: indexPath) as? ConversationView else { return }
         cell.selectionView?.backgroundColor = #colorLiteral(red: 0.8156862745, green: 0.8156862745, blue: 0.8156862745, alpha: 1)
+//        cell.bgView.backgroundColor = #colorLiteral(red: 0.8156862745, green: 0.8156862745, blue: 0.8156862745, alpha: 1)
+        cell.bgView.backgroundColor = UIColor(red: 241/255, green: 241/255, blue: 241/255, alpha: 1)
     }
     
     public func tableView(_ tableView: UITableView, didUnhighlightRowAt indexPath: IndexPath) {
         guard let cell = tableView.cellForRow(at: indexPath) as? ConversationView else { return }
         cell.selectionView?.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0)
+        cell.bgView.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0)
     }
     
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
