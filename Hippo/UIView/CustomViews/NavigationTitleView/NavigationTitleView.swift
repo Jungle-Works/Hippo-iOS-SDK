@@ -25,9 +25,6 @@ class NavigationTitleView: UIView {
     @IBOutlet weak var descLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
     
-    
-    
-    
     weak var delegate: NavigationTitleViewDelegate?
     
     override func awakeFromNib() {

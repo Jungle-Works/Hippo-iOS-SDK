@@ -74,7 +74,7 @@ struct SERVERS {
     internal var agentDetail: AgentDetail?
     internal var strings = HippoStrings()
     
-    private(set)  open var isNewConversationButtonHidden: Bool = true
+//    private(set)  open var isNewConversationButtonHidden: Bool = true
     private(set)  open var newConversationButtonBorderWidth: Float = 0.0
 
     private(set)  open var isSuggestionNeeded = false
@@ -82,6 +82,9 @@ struct SERVERS {
     private(set)  open var questions = [String: Int]()//Dictionary<String, Int>()
     private(set)  open var suggestions = [Int: String]()//Dictionary<Int, String>()
     private(set)  open var mapping = [Int: [Int]]()//Dictionary<Int, Array<Int>>()
+    
+    private(set)  open var hasChannelTabs = false
+    private(set)  open var emptyChannelListText = "No Conversation found"
     
     open var isPaymentRequestEnabled: Bool {
         return HippoProperty.current.isPaymentRequestEnabled
@@ -223,12 +226,12 @@ struct SERVERS {
         isBroadcastEnabled = false
     }
     
-    public func showNewConversationButton() {
-        isNewConversationButtonHidden = false
-    }
-    public func hideNewConversationButton() {
-        isNewConversationButtonHidden = true
-    }
+//    public func showNewConversationButton() {
+//        isNewConversationButtonHidden = false
+//    }
+//    public func hideNewConversationButton() {
+//        isNewConversationButtonHidden = true
+//    }
     
     public func isSuggestionNeeded(setValue: Bool) {
         isSuggestionNeeded = setValue
@@ -245,7 +248,14 @@ struct SERVERS {
     public func setSuggestionMappingData(mapping: [Int: [Int]]) {
         self.mapping = mapping
     }
-
+    
+    public func hasChannelTabs(setValue: Bool) {
+        hasChannelTabs = setValue
+    }
+    public func setEmptyChannelListText(text: String) {
+        emptyChannelListText = text
+    }
+    
     public func showNewConversationButtonBorderWithWidth(borderWidth:Float = 1.0) {
         newConversationButtonBorderWidth = borderWidth
     }

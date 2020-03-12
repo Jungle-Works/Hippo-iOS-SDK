@@ -181,8 +181,7 @@ class FuguFlowManager: NSObject {
         
         var fuguNewChatAttributes = FuguNewChatAttributes(transactionId: "", userUniqueKey: HippoConfig.shared.userDetail?.userUniqueKey, otherUniqueKey: nil, tags: HippoProperty.current.newConversationButtonTags, channelName: nil, preMessage: "", groupingTag: nil)
         print("bodID******* \(HippoProperty.current.newconversationBotGroupId ?? "")")
-        fuguNewChatAttributes.botGroupId = "633"//HippoProperty.current.newconversationBotGroupId
-        
+        fuguNewChatAttributes.botGroupId = HippoProperty.current.newconversationBotGroupId//"633"//
         let visibleViewController = getLastVisibleController()
         let convVC = ConversationsViewController.getWith(chatAttributes: fuguNewChatAttributes)
         let navVC = UINavigationController(rootViewController: convVC)

@@ -371,9 +371,7 @@
                             <constraint firstItem="oIt-un-3Xr" firstAttribute="leading" secondItem="dUR-q2-McL" secondAttribute="leading" id="bnM-kP-mB6"/>
                             <constraint firstItem="oIt-un-3Xr" firstAttribute="width" secondItem="dUR-q2-McL" secondAttribute="width" id="cQ2-1L-wtR"/>
                             <constraint firstItem="2fu-zj-iw1" firstAttribute="leading" secondItem="dUR-q2-McL" secondAttribute="leading" id="e9X-F9-mrm"/>
-                            <constraint firstAttribute="centerX" secondItem="dUR-q2-McL" secondAttribute="centerX" id="eWN-AL-XS4"/>
                             <constraint firstItem="eYt-4i-gIl" firstAttribute="top" secondItem="QDN-SW-1fc" secondAttribute="bottom" constant="60" id="jwY-gj-5bh"/>
-                            <constraint firstAttribute="leading" relation="greaterThanOrEqual" secondItem="dUR-q2-McL" secondAttribute="leadingMargin" id="kUV-B9-e2N"/>
                             <constraint firstItem="fN8-67-65O" firstAttribute="top" secondItem="dUR-q2-McL" secondAttribute="top" id="mK9-lJ-r85"/>
                             <constraint firstItem="eYt-4i-gIl" firstAttribute="leading" secondItem="dUR-q2-McL" secondAttribute="leading" id="n16-np-L08"/>
                             <constraint firstItem="QDN-SW-1fc" firstAttribute="centerX" secondItem="dUR-q2-McL" secondAttribute="centerX" id="qCP-KU-Vm9"/>
@@ -401,6 +399,7 @@
                         <outlet property="bottomLineView" destination="BuE-gE-tXP" id="WV7-yF-eIn"/>
                         <outlet property="bottomViewLeadingConstraint" destination="mfe-2Y-GSm" id="spK-6K-FkL"/>
                         <outlet property="buttonContainerView" destination="2fu-zj-iw1" id="Ewu-4M-99Y"/>
+                        <outlet property="buttonContainerViewHeightConstraint" destination="JmL-zd-WPb" id="2We-E5-G5Z"/>
                         <outlet property="closeChatButton" destination="wmr-cy-prS" id="zQk-LF-20T"/>
                         <outlet property="errorContentView" destination="oIt-un-3Xr" id="p27-D5-QAg"/>
                         <outlet property="errorLabel" destination="HYS-6n-0cY" id="xcI-H9-7hp"/>
@@ -522,7 +521,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                                 <subviews>
                                     <imageView hidden="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="app_loader_shape" translatesAutoresizingMaskIntoConstraints="NO" id="Lee-41-dPF" customClass="So_UIImageView" customModule="Hippo" customModuleProvider="target">
-                                        <rect key="frame" x="167.5" y="281.5" width="40" height="40"/>
+                                        <rect key="frame" x="179.5" y="293.5" width="16" height="16"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </imageView>
                                 </subviews>
@@ -667,7 +666,7 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <subviews>
                                     <imageView hidden="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="app_loader_shape" translatesAutoresizingMaskIntoConstraints="NO" id="Y22-DA-qgw" customClass="So_UIImageView" customModule="Hippo" customModuleProvider="target">
-                                        <rect key="frame" x="167.5" y="281.5" width="40" height="40"/>
+                                        <rect key="frame" x="179.5" y="293.5" width="16" height="16"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </imageView>
                                 </subviews>
@@ -769,7 +768,7 @@
                                 </constraints>
                             </view>
                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" image="app_loader_shape" translatesAutoresizingMaskIntoConstraints="NO" id="eZG-Yq-Sel">
-                                <rect key="frame" x="167.5" y="313.5" width="40" height="40"/>
+                                <rect key="frame" x="179.5" y="325.5" width="16" height="16"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q6z-xO-SMj">
                                 <rect key="frame" x="164.5" y="322.5" width="46.5" height="22.5"/>
@@ -1456,7 +1455,7 @@
                                 </constraints>
                             </view>
                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="app_loader_shape" translatesAutoresizingMaskIntoConstraints="NO" id="OGB-1g-dv7" customClass="So_UIImageView" customModule="Hippo" customModuleProvider="target">
-                                <rect key="frame" x="167.5" y="281.5" width="40" height="40"/>
+                                <rect key="frame" x="179.5" y="293.5" width="16" height="16"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VJr-jD-1Ra">
@@ -2059,7 +2058,7 @@
                                 </connections>
                             </tableView>
                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="app_loader_shape" translatesAutoresizingMaskIntoConstraints="NO" id="9Ge-Mz-RYJ" customClass="So_UIImageView" customModule="Hippo" customModuleProvider="target">
-                                <rect key="frame" x="167.5" y="313.5" width="40" height="40"/>
+                                <rect key="frame" x="179.5" y="325.5" width="16" height="16"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </imageView>
                         </subviews>

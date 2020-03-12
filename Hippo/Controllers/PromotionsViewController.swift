@@ -94,14 +94,18 @@ class PromotionsViewController: UIViewController {
         let deleteAllAnnouncementsButton = UIBarButtonItem(image: UIImage(named: "ic_delete"), landscapeImagePhone: nil, style: .done, target: self, action: #selector(deleteAllAnnouncementsButtonClicked))
         deleteAllAnnouncementsButton.tintColor = theme.logoutButtonTintColor ?? theme.headerTextColor
         
-        let btnleft : UIButton = UIButton(frame: CGRect(x:0, y:0, width:35, height:35))
-        btnleft.setTitleColor(UIColor.white, for: .normal)
-        btnleft.contentMode = .left
-        btnleft.setImage(UIImage(named :"iconBackTitleBar"), for: .normal)
-        btnleft.addTarget(self, action: #selector(backButtonClicked), for: .touchDown)
-        let backBarButon: UIBarButtonItem = UIBarButtonItem(customView: btnleft)
-        backBarButon.tintColor = theme.logoutButtonTintColor ?? theme.headerTextColor
-        self.navigationItem.setLeftBarButtonItems([backBarButon], animated: false)
+//        let btnleft : UIButton = UIButton(frame: CGRect(x:0, y:0, width:35, height:35))
+//        btnleft.setTitleColor(UIColor.white, for: .normal)
+//        btnleft.contentMode = .left
+//        btnleft.setImage(UIImage(named :"iconBackTitleBar"), for: .normal)
+//        btnleft.addTarget(self, action: #selector(backButtonClicked), for: .touchDown)
+//        let backBarButon: UIBarButtonItem = UIBarButtonItem(customView: btnleft)
+//        backBarButon.tintColor = theme.logoutButtonTintColor ?? theme.headerTextColor
+//        self.navigationItem.setLeftBarButtonItems([backBarButon], animated: false)
+        let btnleft = UIBarButtonItem(image: UIImage(named: "iconBackTitleBar"), landscapeImagePhone: nil, style: .done, target: self, action: #selector(backButtonClicked))
+        btnleft.tintColor = theme.logoutButtonTintColor ?? theme.headerTextColor
+        self.navigationItem.leftBarButtonItem = btnleft
+        self.navigationItem.leftBarButtonItems = [btnleft]
         
         self.navigationItem.rightBarButtonItem = deleteAllAnnouncementsButton
         self.navigationItem.rightBarButtonItems = [deleteAllAnnouncementsButton]
