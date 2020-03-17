@@ -33,7 +33,7 @@ class ChatDetail: NSObject {
     
     var botMessageMUID: String = ""
     var botMessageID: String = ""
-    
+    var agentAlreadyAssigned: Bool = false
     
     init(channelID: Int) {
         self.channelId = channelID
@@ -48,7 +48,7 @@ class ChatDetail: NSObject {
         customerEmail = json["customer_email"] as? String ?? ""
         customerContactNumber = json["customer_phone"] as? String ?? ""
         otherUserImage = json["other_user_image"] as? String
-        
+        agentAlreadyAssigned = json["agent_already_assigned"] as? Bool ?? false
         if let channel_status = json["channel_status"] as? Int, let status = ChatStatus(rawValue: channel_status) {
             channelStatus = status
         }

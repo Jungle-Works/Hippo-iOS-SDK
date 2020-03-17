@@ -115,7 +115,12 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
                     
                     //self?.populateTableViewWithChannelData()
                     //self?.fetchMessagesFrom1stPage()
-                    if self?.isComingFromConsultNowButton == true{
+                    
+//                    weakSelf.channel = FuguChannelPersistancyManager.shared.getChannelBy(id: result.channelID)
+//                    weakSelf.channel.delegate = self
+//                    weakSelf.populateTableViewWithChannelData()
+                    
+                    if self?.isComingFromConsultNowButton == true  && !(result?.channel?.chatDetail?.agentAlreadyAssigned ?? false) { // checked
                         self?.isComingFromConsultNowButton = false
                         self?.callAssignAgentApi(completion: { [weak self] (success) in
                             guard success == true else {
@@ -124,7 +129,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
                             self?.populateTableViewWithChannelData()
                             self?.fetchMessagesFrom1stPage()
                         })
-                    }else{
+                    } else {
                         self?.populateTableViewWithChannelData()
                         self?.fetchMessagesFrom1stPage()
                     }
@@ -316,7 +321,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
                 
                 //self?.populateTableViewWithChannelData()
                 //self?.fetchMessagesFrom1stPage()
-                if self?.isComingFromConsultNowButton == true{
+                if self?.isComingFromConsultNowButton == true && !(result?.channel?.chatDetail?.agentAlreadyAssigned ?? false) {
                     self?.isComingFromConsultNowButton = false
                     self?.callAssignAgentApi(completion: { [weak self] (success) in
                         guard success == true else {
@@ -876,7 +881,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
                 
                 //self?.populateTableViewWithChannelData()
                 //self?.fetchMessagesFrom1stPage()
-                if self?.isComingFromConsultNowButton == true{
+                if self?.isComingFromConsultNowButton == true && !(result?.channel?.chatDetail?.agentAlreadyAssigned ?? false) {
                     self?.isComingFromConsultNowButton = false
                     self?.callAssignAgentApi(completion: { [weak self] (success) in
                         guard success == true else {
@@ -1012,7 +1017,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
             })
          }
       } else if directChatDetail != nil {
-         HippoChannel.get(withFuguChatAttributes: directChatDetail!) { [weak self] (r) in
+        HippoChannel.get(withFuguChatAttributes: directChatDetail!, isComingFromConsultNow: self.isComingFromConsultNowButton) { [weak self] (r) in
             var result = r
     
             result.isReplyMessageSent = false
@@ -1025,6 +1030,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
          stopLoaderAnimation()
       }
    }
+    
     func getAllLocalMessages() -> [HippoMessage] {
         var messages: [HippoMessage] = [HippoMessage]()
         for each in messagesGroupedByDate {
@@ -1458,7 +1464,7 @@ extension ConversationsViewController: UIScrollViewDelegate {
 // MARK: - UITableView Delegates
 extension ConversationsViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        if tableView == customTableView{
+        if tableView == customTableView {
             return 1
         }else{
             if !isTypingLabelHidden {

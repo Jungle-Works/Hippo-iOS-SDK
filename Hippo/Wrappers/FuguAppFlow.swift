@@ -165,8 +165,11 @@ class FuguFlowManager: NSObject {
     }
     
     func consultNowButtonClicked(consultNowInfoDict: [String: Any]){
-        
-        var fuguNewChatAttributes = FuguNewChatAttributes(transactionId: "", userUniqueKey: HippoConfig.shared.userDetail?.userUniqueKey, otherUniqueKey: nil, tags: HippoProperty.current.newConversationButtonTags, channelName: nil, preMessage: "", groupingTag: nil)
+        var transactionId = ""
+        if let id = consultNowInfoDict["transactionId"] as? Int {
+            transactionId = "\(id)"
+        }
+        var fuguNewChatAttributes = FuguNewChatAttributes(transactionId: transactionId, userUniqueKey: HippoConfig.shared.userDetail?.userUniqueKey, otherUniqueKey: nil, tags: HippoProperty.current.newConversationButtonTags, channelName: nil, preMessage: "", groupingTag: nil)
         print("bodID******* \(HippoProperty.current.newconversationBotGroupId ?? "")")
         fuguNewChatAttributes.botGroupId = "633"//HippoProperty.current.newconversationBotGroupId
         
@@ -178,7 +181,6 @@ class FuguFlowManager: NSObject {
         convVC.consultNowInfoDict = consultNowInfoDict
         convVC.isComingFromConsultNowButton = true
         visibleViewController?.present(navVC, animated: false, completion: nil)
-        
     }
     
     func presentPromotionalpushController(animation: Bool = true) {

@@ -179,7 +179,6 @@ class MessageSender {
 private extension HippoMessage {
     func isMessageExpired() -> Bool {
         let expiryDate = self.creationDateTime.addingTimeInterval(MessageSender.messageExpiryTime)
-        
         return expiryDate.compare(Date()) == ComparisonResult.orderedAscending
     }
 }
