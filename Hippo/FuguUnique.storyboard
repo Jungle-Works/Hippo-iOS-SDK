@@ -1066,7 +1066,7 @@
                                 </constraints>
                             </view>
                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="app_loader_shape" translatesAutoresizingMaskIntoConstraints="NO" id="yXi-kz-HoV" customClass="So_UIImageView" customModule="Hippo" customModuleProvider="target">
-                                <rect key="frame" x="167.5" y="313.5" width="40" height="40"/>
+                                <rect key="frame" x="179.5" y="325.5" width="16" height="16"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3pN-rq-23Q">
@@ -2057,24 +2057,56 @@
                                     <outlet property="delegate" destination="CEG-sn-DaH" id="wza-xS-cdc"/>
                                 </connections>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rIr-cE-DSt" userLabel="HeaderView">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="0.0"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Pv-f0-Z3K">
+                                        <rect key="frame" x="46" y="-46" width="283" height="46"/>
+                                        <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
+                                        <color key="textColor" red="0.26274509800000001" green="0.35686274509999999" blue="0.50196078430000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ESY-L3-wF6">
+                                        <rect key="frame" x="0.0" y="-46" width="46" height="46"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="46" id="5eY-J2-bvd"/>
+                                            <constraint firstAttribute="height" constant="46" id="Icj-1a-8Si"/>
+                                        </constraints>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="1Pv-f0-Z3K" firstAttribute="leading" secondItem="ESY-L3-wF6" secondAttribute="trailing" id="B69-LS-tVQ"/>
+                                    <constraint firstAttribute="trailing" secondItem="1Pv-f0-Z3K" secondAttribute="trailing" constant="46" id="DYe-La-DoF"/>
+                                    <constraint firstAttribute="height" id="IhZ-lS-OGf"/>
+                                    <constraint firstItem="ESY-L3-wF6" firstAttribute="leading" secondItem="rIr-cE-DSt" secondAttribute="leading" id="cYs-5T-vS8"/>
+                                    <constraint firstAttribute="bottom" secondItem="ESY-L3-wF6" secondAttribute="bottom" id="dUp-e8-nzl"/>
+                                    <constraint firstItem="1Pv-f0-Z3K" firstAttribute="height" secondItem="ESY-L3-wF6" secondAttribute="height" id="hmk-t6-Udz"/>
+                                    <constraint firstAttribute="bottom" secondItem="1Pv-f0-Z3K" secondAttribute="bottom" id="sIZ-KE-8tZ"/>
+                                </constraints>
+                            </view>
                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="app_loader_shape" translatesAutoresizingMaskIntoConstraints="NO" id="9Ge-Mz-RYJ" customClass="So_UIImageView" customModule="Hippo" customModuleProvider="target">
-                                <rect key="frame" x="179.5" y="325.5" width="16" height="16"/>
+                                <rect key="frame" x="167.5" y="313.5" width="40" height="40"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="rIr-cE-DSt" firstAttribute="leading" secondItem="9yB-FV-pDD" secondAttribute="leading" id="6RH-P5-5rt"/>
                             <constraint firstItem="9Ge-Mz-RYJ" firstAttribute="centerX" secondItem="9yB-FV-pDD" secondAttribute="centerX" id="6gk-XC-A9Q"/>
                             <constraint firstItem="OMd-zA-N0k" firstAttribute="top" secondItem="oWh-y5-vgO" secondAttribute="bottom" id="J16-u3-dXc"/>
                             <constraint firstAttribute="trailing" secondItem="oWh-y5-vgO" secondAttribute="trailing" id="Kzu-c3-TbO"/>
                             <constraint firstItem="oWh-y5-vgO" firstAttribute="leading" secondItem="9yB-FV-pDD" secondAttribute="leading" id="YZZ-YF-uNa"/>
-                            <constraint firstItem="oWh-y5-vgO" firstAttribute="top" secondItem="9yB-FV-pDD" secondAttribute="top" id="wGd-n2-uqz"/>
+                            <constraint firstItem="oWh-y5-vgO" firstAttribute="top" secondItem="rIr-cE-DSt" secondAttribute="bottom" id="bjH-c8-eMs"/>
+                            <constraint firstAttribute="trailing" secondItem="rIr-cE-DSt" secondAttribute="trailing" id="r4l-Vp-2Cc"/>
                             <constraint firstItem="9Ge-Mz-RYJ" firstAttribute="centerY" secondItem="9yB-FV-pDD" secondAttribute="centerY" id="xfZ-eT-tKX"/>
+                            <constraint firstItem="rIr-cE-DSt" firstAttribute="top" secondItem="9yB-FV-pDD" secondAttribute="top" id="yu8-Vc-FbC"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="7OS-F5-H3X"/>
                     <connections>
                         <outlet property="loaderView" destination="9Ge-Mz-RYJ" id="AUi-M9-710"/>
+                        <outlet property="navigationBackgroundView" destination="rIr-cE-DSt" id="wNj-lG-FeJ"/>
                         <outlet property="promotionsTableView" destination="oWh-y5-vgO" id="SR6-3K-KTm"/>
                     </connections>
                 </viewController>

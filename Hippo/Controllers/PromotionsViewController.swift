@@ -20,6 +20,7 @@ typealias PromtionCutomCell = PromotionCellDelegate & UITableViewCell
 class PromotionsViewController: UIViewController {
 
     @IBOutlet weak var promotionsTableView: UITableView!
+    @IBOutlet weak var navigationBackgroundView: UIView!
     @IBOutlet weak var loaderView: So_UIImageView!
     
     var data: [PromotionCellDataModel] = []
@@ -37,7 +38,7 @@ class PromotionsViewController: UIViewController {
         super.viewDidLoad()
         self.title = "Notifications"
         
-        self.deleteAllAnnouncementsButton()
+        self.setUpViewWithNav()
         
         setupRefreshController()
         promotionsTableView.backgroundColor = HippoConfig.shared.theme.multiselectUnselectedButtonColor
@@ -89,10 +90,28 @@ class PromotionsViewController: UIViewController {
         //self.tabBarController?.tabBar.layer.zPosition = -1
     }
     
-    func deleteAllAnnouncementsButton() {
+    func setUpViewWithNav() {
+        
         let theme = HippoConfig.shared.theme
-        let deleteAllAnnouncementsButton = UIBarButtonItem(image: UIImage(named: "ic_delete"), landscapeImagePhone: nil, style: .done, target: self, action: #selector(deleteAllAnnouncementsButtonClicked))
-        deleteAllAnnouncementsButton.tintColor = theme.logoutButtonTintColor ?? theme.headerTextColor
+        
+        navigationBackgroundView.layer.shadowColor = UIColor.black.cgColor
+        navigationBackgroundView.layer.shadowOpacity = 0.25
+        navigationBackgroundView.layer.shadowOffset = CGSize(width: 0, height: 1.0)
+        navigationBackgroundView.layer.shadowRadius = 4
+        navigationBackgroundView.backgroundColor = theme.headerBackgroundColor
+        
+        title = theme.promotionsAnnouncementsHeaderText
+        
+//        let backButton = UIButton(type: .custom)
+//        backButton.tintColor = theme.headerTextColor
+//        if theme.leftBarButtonImage != nil {
+//            backButton.setImage(theme.leftBarButtonImage, for: .normal)
+//            backButton.tintColor = theme.headerTextColor
+//        }
+//        backButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+//        backButton.addTarget(self, action: #selector(backButtonClicked), for: .touchUpInside)
+//        let item = UIBarButtonItem(customView: backButton)
+//        self.navigationItem.setLeftBarButton(item, animated: false)
         
 //        let btnleft : UIButton = UIButton(frame: CGRect(x:0, y:0, width:35, height:35))
 //        btnleft.setTitleColor(UIColor.white, for: .normal)
@@ -102,13 +121,20 @@ class PromotionsViewController: UIViewController {
 //        let backBarButon: UIBarButtonItem = UIBarButtonItem(customView: btnleft)
 //        backBarButon.tintColor = theme.logoutButtonTintColor ?? theme.headerTextColor
 //        self.navigationItem.setLeftBarButtonItems([backBarButon], animated: false)
-        let btnleft = UIBarButtonItem(image: UIImage(named: "iconBackTitleBar"), landscapeImagePhone: nil, style: .done, target: self, action: #selector(backButtonClicked))
-        btnleft.tintColor = theme.logoutButtonTintColor ?? theme.headerTextColor
-        self.navigationItem.leftBarButtonItem = btnleft
-        self.navigationItem.leftBarButtonItems = [btnleft]
         
-        self.navigationItem.rightBarButtonItem = deleteAllAnnouncementsButton
-        self.navigationItem.rightBarButtonItems = [deleteAllAnnouncementsButton]
+        if theme.leftBarButtonImage != nil {
+            let btnleft = UIBarButtonItem(image: theme.leftBarButtonImage, landscapeImagePhone: nil, style: .done, target: self, action: #selector(backButtonClicked))
+            btnleft.tintColor = theme.logoutButtonTintColor ?? theme.headerTextColor
+            self.navigationItem.leftBarButtonItem = btnleft
+            self.navigationItem.leftBarButtonItems = [btnleft]
+        }
+        
+        if let deleteImage = UIImage(named: "ic_delete", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate){
+            let deleteAllAnnouncementsButton = UIBarButtonItem(image: deleteImage, landscapeImagePhone: nil, style: .done, target: self, action: #selector(deleteAllAnnouncementsButtonClicked))
+            deleteAllAnnouncementsButton.tintColor = theme.logoutButtonTintColor ?? theme.headerTextColor
+            self.navigationItem.rightBarButtonItem = deleteAllAnnouncementsButton
+            self.navigationItem.rightBarButtonItems = [deleteAllAnnouncementsButton]
+        }
         
     }
     @objc func backButtonClicked() {
