@@ -377,7 +377,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         self.arrayOfConversation = self.ongoingConversationArr
         self.showConversationsTableView.reloadData()
         if self.arrayOfConversation.count <= 0 {
-            self.tableViewDefaultText = "No Conversation found!!"
+            self.tableViewDefaultText = "No Consultations yet"
             DispatchQueue.main.async {
                 self.showConversationsTableView.reloadData()
             }
@@ -391,7 +391,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         self.arrayOfConversation = self.closedConversationArr
         self.showConversationsTableView.reloadData()
         if self.arrayOfConversation.count <= 0 {
-            self.tableViewDefaultText = "No Conversation found!!"
+            self.tableViewDefaultText = "No Consultations yet" //"No Conversation found!!"
             DispatchQueue.main.async {
                 self.showConversationsTableView.reloadData()
             }
@@ -451,7 +451,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
             }
             
             if result.conversations!.count == 0 {
-                self?.tableViewDefaultText = "No Conversation found!!"
+                self?.tableViewDefaultText = "No Consultations yet" //"No Conversation found!!"
                 DispatchQueue.main.async {
                     self?.showConversationsTableView.reloadData()
                 }
@@ -508,7 +508,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     
     func filterConversationArr(conversationArr:[FuguConversation]){
         if conversationArr.count <= 0 {
-            self.tableViewDefaultText = "No Conversation found!!"
+            self.tableViewDefaultText = "No Consultations yet" //"No Conversation found!!"
             DispatchQueue.main.async {
                 self.showConversationsTableView.reloadData()
             }

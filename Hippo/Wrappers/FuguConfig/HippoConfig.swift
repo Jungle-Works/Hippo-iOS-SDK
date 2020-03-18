@@ -28,14 +28,16 @@ struct SERVERS {
          
 //    "https://hippo-api-dev.fuguchat.com:3004/"
 //    "https://hippo-api-dev.fuguchat.com:3004/faye"
-    static let betaUrl =  "https://hippo-api-dev.fuguchat.com:3002/"
+    
+    
+    static let betaUrl =   "https://hippo-api-dev.fuguchat.com:3002/"
     static let betaFaye =  "https://hippo-api-dev.fuguchat.com:3002/faye"
     
     static let devUrl = "https://hippo-api-dev.fuguchat.com:3011/"
     static let devFaye = "https://hippo-api-dev.fuguchat.com:3012/faye"
     
     static let betaUrlNew = "https://beta-live-api.fuguchat.com/"
-    static let betaFayeNew = "https://api.fuguchat.com:3001/faye"
+    static let betaFayeNew = "https://beta-live-api.fuguchat.com:3001/faye"
 }
 
 @objcMembers public class HippoConfig : NSObject {
@@ -85,8 +87,8 @@ struct SERVERS {
     internal var appType: String?
     internal var credentialType = FuguCredentialType.defaultType
     
-    internal var baseUrl = SERVERS.liveUrl//SERVERS.betaUrl//
-    internal var fayeBaseURLString: String =  SERVERS.liveFaye //SERVERS.betaFaye//
+    internal var baseUrl = SERVERS.liveUrl //SERVERS.betaUrl //
+    internal var fayeBaseURLString: String = SERVERS.liveFaye //SERVERS.betaFaye //
     
     open var unreadCount: ((_ totalUnread: Int) -> ())?
     open var usersUnreadCount: ((_ userUnreadCount: [String: Int]) -> ())?
