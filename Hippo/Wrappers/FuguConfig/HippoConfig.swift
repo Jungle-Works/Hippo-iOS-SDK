@@ -82,7 +82,7 @@ struct SERVERS {
     }
     
     
-    
+    open var appName: String = ""
     internal var appUserType = AppUserType.customer
     internal var resellerToken = ""
     internal var referenceId = -1
@@ -153,6 +153,19 @@ struct SERVERS {
         self.referenceId = referenceId
         self.appType = appType
     }
+    
+    public func setAppName(withAppName appName: String) {
+        guard appName.isEmpty else {
+            self.appName = appName
+            return
+        }
+        guard let name = Bundle.main.object(forInfoDictionaryKey: kCFBundleNameKey as String) as? String else {
+            self.appName = ""
+            return
+        }
+        self.appName = name
+    }
+    
     public func startOneToOneChat(otherUserEmail: String, completion: @escaping commonHippoCallback) {
         let email = otherUserEmail.trimWhiteSpacesAndNewLine()
         guard email.isValidEmail() else {
@@ -319,8 +332,8 @@ struct SERVERS {
             FuguFlowManager.shared.showFuguChat(fuguChat)
             completion(true, nil)
         }
-        
     }
+    
     public func openConversationFor(otherUserUniqueKey: String, channelTitle: String? = nil, transactionId: String? = nil) {
         guard HippoConfig.shared.appUserType == .agent else {
             return
@@ -328,11 +341,16 @@ struct SERVERS {
         AgentConversationManager.searchUserUniqueKeys.removeAll()
         AgentConversationManager.searchUserUniqueKeys = [otherUserUniqueKey]
         
-        if let tempTransactionID = transactionId, !tempTransactionID.isEmpty {
+        if let tempTransactionID = transactionId, !tempTransactionID.isEmpty, !otherUserUniqueKey.isEmpty {
             AgentConversationManager.transactionID = tempTransactionID.trimWhiteSpacesAndNewLine()
             FuguFlowManager.shared.openDirectAgentConversation(channelTitle: channelTitle)
         } else {
-            FuguFlowManager.shared.openDirectConversationHome()
+            if let tempTransactionID = transactionId, !tempTransactionID.isEmpty {
+                AgentConversationManager.transactionID = tempTransactionID.trimWhiteSpacesAndNewLine()
+                FuguFlowManager.shared.openDirectAgentConversation(channelTitle: channelTitle)
+            } else {
+                FuguFlowManager.shared.openDirectConversationHome()
+            }
         }
     }
     

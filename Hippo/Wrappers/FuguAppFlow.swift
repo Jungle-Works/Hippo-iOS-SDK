@@ -91,8 +91,10 @@ class FuguFlowManager: NSObject {
         }
         let visibleController = getLastVisibleController()
         visibleController?.present(nav, animated: true, completion: nil)
-        
     }
+    
+    
+    
     func openDirectAgentConversation(channelTitle: String?) {
         guard HippoConfig.shared.appUserType == .agent else {
             return

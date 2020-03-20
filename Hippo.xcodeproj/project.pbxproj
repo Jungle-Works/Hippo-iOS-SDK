@@ -161,7 +161,6 @@
 		C9B77E8021A01B060092848D /* AgentUserChannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77D9E21A01B060092848D /* AgentUserChannel.swift */; };
 		C9B77E8121A01B060092848D /* AgentDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77D9F21A01B060092848D /* AgentDetail.swift */; };
 		C9B77E8221A01B060092848D /* FuguChannelTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DA021A01B060092848D /* FuguChannelTag.swift */; };
-		C9B77E8321A01B060092848D /* FuguImageUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DA121A01B060092848D /* FuguImageUploader.swift */; };
 		C9B77E8421A01B060092848D /* FuguAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DA221A01B060092848D /* FuguAddress.swift */; };
 		C9B77E8521A01B060092848D /* HippoMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DA321A01B060092848D /* HippoMessage.swift */; };
 		C9B77E8621A01B060092848D /* HippoChannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DA421A01B060092848D /* HippoChannel.swift */; };
@@ -197,7 +196,6 @@
 		C9B77EAC21A01B070092848D /* CloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DD221A01B060092848D /* CloseButton.swift */; };
 		C9B77EAD21A01B070092848D /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DD321A01B060092848D /* TagView.swift */; };
 		C9B77EAE21A01B070092848D /* TagListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DD421A01B060092848D /* TagListView.swift */; };
-		C9B77EAF21A01B070092848D /* Pulsator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DD521A01B060092848D /* Pulsator.swift */; };
 		C9B77EB021A01B070092848D /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DD721A01B060092848D /* ImageCache.swift */; };
 		C9B77EB121A01B070092848D /* ThreadHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DD821A01B060092848D /* ThreadHelper.swift */; };
 		C9B77EB221A01B070092848D /* Kingfisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DD921A01B060092848D /* Kingfisher.swift */; };
@@ -442,7 +440,6 @@
 		C9B77D9E21A01B060092848D /* AgentUserChannel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgentUserChannel.swift; sourceTree = "<group>"; };
 		C9B77D9F21A01B060092848D /* AgentDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgentDetail.swift; sourceTree = "<group>"; };
 		C9B77DA021A01B060092848D /* FuguChannelTag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuguChannelTag.swift; sourceTree = "<group>"; };
-		C9B77DA121A01B060092848D /* FuguImageUploader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuguImageUploader.swift; sourceTree = "<group>"; };
 		C9B77DA221A01B060092848D /* FuguAddress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuguAddress.swift; sourceTree = "<group>"; };
 		C9B77DA321A01B060092848D /* HippoMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HippoMessage.swift; sourceTree = "<group>"; };
 		C9B77DA421A01B060092848D /* HippoChannel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HippoChannel.swift; sourceTree = "<group>"; };
@@ -478,7 +475,6 @@
 		C9B77DD221A01B060092848D /* CloseButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloseButton.swift; sourceTree = "<group>"; };
 		C9B77DD321A01B060092848D /* TagView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
 		C9B77DD421A01B060092848D /* TagListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagListView.swift; sourceTree = "<group>"; };
-		C9B77DD521A01B060092848D /* Pulsator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pulsator.swift; sourceTree = "<group>"; };
 		C9B77DD721A01B060092848D /* ImageCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		C9B77DD821A01B060092848D /* ThreadHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThreadHelper.swift; sourceTree = "<group>"; };
 		C9B77DD921A01B060092848D /* Kingfisher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Kingfisher.swift; sourceTree = "<group>"; };
@@ -1258,7 +1254,6 @@
 				C9B77D9721A01B060092848D /* GeneralChat.swift */,
 				C9B77D9821A01B060092848D /* AgentModels */,
 				C9B77DA021A01B060092848D /* FuguChannelTag.swift */,
-				C9B77DA121A01B060092848D /* FuguImageUploader.swift */,
 				C9B77DA221A01B060092848D /* FuguAddress.swift */,
 				C9B77DA321A01B060092848D /* HippoMessage.swift */,
 				C9B77DA421A01B060092848D /* HippoChannel.swift */,
@@ -1355,7 +1350,6 @@
 				C9B77DD021A01B060092848D /* typingImage.gif */,
 				C9FB6FD721EEF04800B72CEA /* TRWDownloadManager */,
 				C9B77DD121A01B060092848D /* TagListView */,
-				C9B77DD521A01B060092848D /* Pulsator.swift */,
 				C9B77DD621A01B060092848D /* Kingfisher */,
 				C9B77DEF21A01B060092848D /* IQKeyboardManagerSwift */,
 				C9B77E0721A01B060092848D /* FuguConnection.swift */,
@@ -1783,7 +1777,6 @@
 				C936011222EEC5EA00A6C291 /* ButtonCellCollectionViewHandler.swift in Sources */,
 				C9B77E7621A01B060092848D /* FuguTheme.swift in Sources */,
 				C9B77E7E21A01B060092848D /* AgentChannelPersistancyManager.swift in Sources */,
-				C9B77EAF21A01B070092848D /* Pulsator.swift in Sources */,
 				C9FB6FAC21EE10CD00B72CEA /* CoreMediaSelector.swift in Sources */,
 				C9B77E0F21A01B060092848D /* AgentConversationManager.swift in Sources */,
 				C9B77E6A21A01B060092848D /* Proctocols.swift in Sources */,
@@ -1909,7 +1902,6 @@
 				C9B77EC621A01B070092848D /* ImagePrefetcher.swift in Sources */,
 				C9B77E6E21A01B060092848D /* FuguChannelPersistancyManager.swift in Sources */,
 				C93600F422EEC5EA00A6C291 /* CategoryTableViewCell.swift in Sources */,
-				C9B77E8321A01B060092848D /* FuguImageUploader.swift in Sources */,
 				C9FB6FAB21EE10CD00B72CEA /* CoreEnum.swift in Sources */,
 				C9B77E8521A01B060092848D /* HippoMessage.swift in Sources */,
 				C9B77ECF21A01B070092848D /* IQKeyboardManagerConstantsInternal.swift in Sources */,
