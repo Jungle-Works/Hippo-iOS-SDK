@@ -26,8 +26,12 @@ struct SERVERS {
     static let liveUrl = "https://api.fuguchat.com/"//"https://api.hippochat.io/"//
     static let liveFaye = "https://api.fuguchat.com:3002/faye"//"https://api.hippochat.io:3002/faye"//
     
-    static let betaUrl = "https://hippo-api-dev.fuguchat.com:3002/"
-    static let betaFaye = "https://hippo-api-dev.fuguchat.com:3002/faye"
+    static let betaUrl = "https://beta-live-api.fuguchat.com/"
+    static let betaFaye = "https://beta-live-api.fuguchat.com:3001/faye"
+    
+     /*OLD BETA****/
+//    static let betaUrl = "https://hippo-api-dev.fuguchat.com:3002/"
+//    static let betaFaye = "https://hippo-api-dev.fuguchat.com:3002/faye"
     
     static let devUrl = "https://hippo-api-dev.fuguchat.com:3011/"
     static let devFaye = "https://hippo-api-dev.fuguchat.com:3012/faye"
