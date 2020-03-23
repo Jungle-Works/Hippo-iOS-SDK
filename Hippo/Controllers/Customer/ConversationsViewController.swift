@@ -1694,8 +1694,6 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                 cell.set(message: message)
                 return cell
                 
-        
-                
             default:
                 return getNormalMessageTableViewCell(tableView: tableView, isOutgoingMessage: isOutgoingMsg, message: message, indexPath: indexPath)
             }

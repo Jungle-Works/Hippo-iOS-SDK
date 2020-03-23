@@ -98,6 +98,7 @@ class MessageSender {
         FayeConnection.shared.send(messageDict: messageJSON, toChannelID: channelID.description, completion: { [weak self] (result) in
             
             if result.success {
+                
                 guard self?.messagesToBeSent.count != 0 else {
                     self?.isSendingMessages = false
                     return
@@ -107,10 +108,12 @@ class MessageSender {
                 DispatchQueue.main.async {
                     self?.delegate?.messageSent(message: message)
                 }
-                self?.messagesToBeSent.removeFirst()
+                self?.messagesToBeSent.removeFirst() // uncomment it
                 self?.startSending()
                 HippoConfig.shared.log.debug("-->\(self?.channelID.description ?? "no channel id") == messageSent == \(messageJSON) ", level: .socket)
             } else {
+                
+                print("FayeConnection.shared.send****:", result.error?.error)
                 guard let errorType = result.error?.error else {
                     self?.retryWithDelay()
                     return
@@ -123,11 +126,17 @@ class MessageSender {
                     self?.invalidateCurrentMessageWhichIsBeingSent()
                 case .channelNotSubscribed:
                     self?.delegate.subscribeChannel(completion: { (success) in
-                        self?.retryWithDelay(0)
+                        self?.retryWithDelay(/*0*/)
                     })
                     return
                 case .invalidSending:
                     self?.messageSendingFailed(result: result)
+                case .resendSameMessage:
+                    message.status = .sent
+                    if self?.messagesToBeSent.count ?? 0 > 0 {
+                        self?.messagesToBeSent.removeFirst()
+                    }
+                    break
                 default:
                     break
                 }
@@ -155,6 +164,7 @@ class MessageSender {
             self.delegate?.messageExpired(message: message)
         }
     }
+    
     private func messageSendingFailed(result: FayeConnection.FayeResult) {
         guard let message = messagesToBeSent.first else {
             return
@@ -168,7 +178,8 @@ class MessageSender {
             self.delegate?.messageSendingFailed(message: message, result: result)
         }
     }
-    private func retryWithDelay(_ delay: TimeInterval = 2) {
+    
+    private func retryWithDelay(_ delay: TimeInterval = 5) {
         // delay to wait before retrying
         fuguDelay(delay, completion: { [weak self] in
             self?.startSending()

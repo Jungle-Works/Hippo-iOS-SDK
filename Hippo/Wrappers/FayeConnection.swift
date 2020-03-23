@@ -131,6 +131,7 @@ class FayeConnection: NSObject {
         localFaye.sendMessage(messageDict, toChannel: channelIdForValidation, success: {
             completion((true, nil))
         }) { (error) in
+            print("localFaye.sendMessage*****:", error)
             guard let objcError = error as NSError?, let reasonInfo = objcError.userInfo[NSLocalizedFailureReasonErrorKey] as? [String: Any] else {
                 completion((false, FayeResponseError.fayeNotConnected()))
                 return
@@ -140,7 +141,6 @@ class FayeConnection: NSObject {
             let reason = FayeResponseError(reasonInfo: reasonInfo)
             completion((false, reason))
         }
-        
     }
     
     func unsubscribe(fromChannelId channelID: String, completion: ((Bool, Error?) -> Void)?) {
@@ -213,6 +213,7 @@ extension FayeConnection {
         case duplicateMuid = 412
         case invalidSending = 413
         case channelNotSubscribed = 4000
+        case resendSameMessage = 420
         
         init?(reasonInfo: [String: Any]) {
             guard let statusCode = reasonInfo["statusCode"] as? Int else {
@@ -233,6 +234,9 @@ extension FayeConnection {
         init(reasonInfo: [String: Any]) {
             error =  FayeError(reasonInfo: reasonInfo) ?? .fayeNotConnected
             message = reasonInfo["customMessage"] as? String
+            if message == nil {
+                message = reasonInfo["message"] as? String
+            }
             showError = Bool.parse(key: "showError", json: reasonInfo, defaultValue: false)
         }
         

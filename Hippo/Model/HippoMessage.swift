@@ -429,7 +429,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         
 //        self.type = self.message.isEmpty ? MessageType.imageFile : MessageType.normal
         let senderFullName = (convoDict["last_sent_by_full_name"] as? String) ?? ""
-        self.senderFullName = senderFullName.formatName()
+        self.senderFullName = senderFullName//.formatName()
         self.callDurationInSeconds = convoDict["video_call_duration"] as? Double
         if let rawCallType = convoDict["call_type"] as? String, let callType = CallType(rawValue: rawCallType.uppercased()) {
             self.callType = callType
@@ -445,7 +445,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
     init(message: String, type: MessageType, uniqueID: String? = nil, imageUrl: String? = nil, thumbnailUrl: String? = nil, localFilePath: String? = nil, senderName: String? = nil, senderId: Int? = nil, chatType: ChatType?) {
         self.message = message
         self.senderId = senderId ?? currentUserId()
-        self.senderFullName = senderName ?? currentUserName().formatName()
+        self.senderFullName = senderName ?? currentUserName()//.formatName()
         self.senderImage = currentUserImage()
         self.chatType = chatType ?? .none
         
@@ -482,7 +482,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         
         json["user_id"] = senderId
         
-        json["full_name"] = senderFullName.formatName()
+        json["full_name"] = senderFullName//.formatName()
         json["date_time"] = creationDateTime.toUTCFormatString
         json["is_typing"] = typingStatus.rawValue
         json["message_type"] = type.rawValue
@@ -651,7 +651,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         }
         json["date_time"] = creationDateTime.toUTCFormatString
         json["last_sent_by_id"] = senderId
-        json["last_sent_by_full_name"] = senderFullName.formatName()
+        json["last_sent_by_full_name"] = senderFullName//.formatName()
         json["last_message_status"] = status.rawValue
         
         return json
