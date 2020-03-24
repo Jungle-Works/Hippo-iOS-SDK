@@ -15,6 +15,7 @@ class CustomAction: NSObject {
     var message : String
     var messageHeight: CGFloat = 0
     var isReplied : Int
+    var videoLink : String
     
     init?(dict: [String: Any])
     {
@@ -25,6 +26,8 @@ class CustomAction: NSObject {
         self.maxSelection = Int.parse(values: custom_actions, key: "max_selection") ?? 1
         
         self.isReplied = Int.parse(values: custom_actions, key:"is_replied") ?? 0
+        
+        self.videoLink = String.parse(values: custom_actions, key:"video_link") ?? ""
         
         self.message = String.parse(values: dict, key: "message") ?? ""
         
@@ -74,15 +77,17 @@ class CustomAction: NSObject {
         jsonDict["min_selection"] = self.minSelection
         jsonDict["max_selection"] = self.maxSelection
         jsonDict["is_replied"] = self.isReplied
-      
+        jsonDict["video_link"] = self.videoLink
         
         var arr = [[String:Any]]()
         
-        for item in (self.buttonsArray)!
-        {
-            let dict  = ["btn_id":item.btnId,"btn_title":item.btnTitle ?? "","status":item.status?.intValue() ?? 0] as [String:Any]
-            
-            arr.append(dict)
+        if self.buttonsArray != nil{
+            for item in (self.buttonsArray)!
+            {
+                let dict  = ["btn_id":item.btnId,"btn_title":item.btnTitle ?? "","status":item.status?.intValue() ?? 0] as [String:Any]
+                
+                arr.append(dict)
+            }
         }
         
         jsonDict["multi_select_buttons"] = arr

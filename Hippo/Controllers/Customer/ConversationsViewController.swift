@@ -1798,7 +1798,12 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                 cell.set(message: message)
                 return cell
                 
-        
+            case .embeddedVideoUrl :
+                
+                let cell = tableView.dequeueReusableCell(withIdentifier: "IncomingVideoTableViewCell", for: indexPath) as! IncomingVideoTableViewCell
+                cell.setCellWith(message: message)
+                cell.delegate = self
+                return cell
                 
             default:
                 return getNormalMessageTableViewCell(tableView: tableView, isOutgoingMessage: isOutgoingMsg, message: message, indexPath: indexPath)
@@ -1907,6 +1912,8 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                     return message.calculatedHeight ?? 0.1
                 case .multipleSelect:
                    return message.calculatedHeight ?? 0.01
+                case .embeddedVideoUrl:
+                    return 234
                 default:
                     return 0.01
                     
