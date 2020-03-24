@@ -12,8 +12,8 @@ let HippoSDKSource = 1
 let Device_Type_iOS = 2
 var userDetailData = [String: Any]()
 
-let fuguAppVersion = "2.1.9"
-let versionCode = 309
+let fuguAppVersion = "2.1.10"
+let versionCode = 310
 
 
 /*
@@ -83,4 +83,6 @@ let versionCode = 309
  308 *** 2.1.8 = Show Title On Promotion Push Contoller & Hide Image On Down Swipe
  
  309 *** 2.1.9 = Set Theme Color Of Navigation Bar In Promotional Push Controller
+ 
+ 310 *** 2.1.10 = Public Method For Get App Name, Faye Error Handling, Remove Forced Name Capitalization
  */
