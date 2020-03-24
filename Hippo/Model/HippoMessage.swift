@@ -395,6 +395,10 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
             
         case .multipleSelect:
             self.customAction = CustomAction(dict:dict)
+            
+        case .embeddedVideoUrl:
+            self.customAction = CustomAction(dict:dict)
+            
         default:
             break
         }
@@ -555,6 +559,10 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
                 json["fallback_text"] = fallbackText
             }
         case .multipleSelect:
+            json["custom_action"] = customAction?.setJsonValue()
+            json["user_id"] = currentUserId()
+            
+        case .embeddedVideoUrl:
             json["custom_action"] = customAction?.setJsonValue()
             json["user_id"] = currentUserId()
 
@@ -961,4 +969,3 @@ struct FeedbackMessage {
         line_before_feedback = json["line_before_feedback"] as? String ?? line_before_feedback
     }
 }
-

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 class VideoTableViewCell: MessageTableViewCell {
    
@@ -71,9 +72,12 @@ class VideoTableViewCell: MessageTableViewCell {
          print("-------ERROR\nCannot play, Message is nil\n-------")
          return
       }
-      
-      delegate?.openFileIn(message: unwrappedMessage)
-      setDownloadView()
+      if message?.type == .embeddedVideoUrl{
+        delegate?.openFileIn(message: unwrappedMessage)
+      }else{
+        delegate?.openFileIn(message: unwrappedMessage)
+        setDownloadView()
+      }
    }
    
    // MARK: - Methods
@@ -87,53 +91,120 @@ class VideoTableViewCell: MessageTableViewCell {
    }
    
    func setDisplayView() {
-      if let imageThumbnailURL = message?.thumbnailUrl, let url = URL(string: imageThumbnailURL) {
-        viewFrameImageView.kf.setImage(with: url, placeholder: HippoConfig.shared.theme.placeHolderImage)
-      } else {
-         viewFrameImageView.image = HippoConfig.shared.theme.placeHolderImage
+      if message?.type == .embeddedVideoUrl{
+        if let videoLinkStr = message?.customAction?.videoLink, let _ = URL(string: videoLinkStr) {
+            //Other method to get video ID using extension
+            print(videoLinkStr.youtubeID as Any)
+            //genarateThumbnailFromYouTubeID(youTubeID: youTubeID)
+            //getThumbnailFromVideoUrl(urlString: url)
+            if let youTubeID = videoLinkStr.youtubeID{
+                if let img = genarateThumbnailFromYouTubeID(youTubeID: youTubeID){
+                    viewFrameImageView.image = img
+                    self.showPlayButtonForEmbeddedVideoUrl()
+                }else{
+                    viewFrameImageView.image = HippoConfig.shared.theme.placeHolderImage
+                    self.hidePlayButtonForEmbeddedVideoUrl()
+                }
+            }else{
+                if let img = getThumbnailFromVideoUrl(urlString: videoLinkStr){
+                    viewFrameImageView.image = img
+                    self.showPlayButtonForEmbeddedVideoUrl()
+                }else{
+                    viewFrameImageView.image = HippoConfig.shared.theme.placeHolderImage
+                    self.hidePlayButtonForEmbeddedVideoUrl()
+                }
+            }
+        } else {
+            viewFrameImageView.image = HippoConfig.shared.theme.placeHolderImage
+            self.hidePlayButtonForEmbeddedVideoUrl()
+        }
+      }else{
+        if let imageThumbnailURL = message?.thumbnailUrl, let url = URL(string: imageThumbnailURL) {
+            viewFrameImageView.kf.setImage(with: url, placeholder: HippoConfig.shared.theme.placeHolderImage)
+        } else {
+            viewFrameImageView.image = HippoConfig.shared.theme.placeHolderImage
+        }
       }
-
-      
+    
       setTime()
       sizeLabel.text = message?.fileSize ?? nil
    }
-
+    
+    //MARK:- Generate Thumbnail Functions
+    func genarateThumbnailFromYouTubeID(youTubeID: String) -> UIImage? {
+        let urlString = "http://img.youtube.com/vi/\(youTubeID)/1.jpg"
+        let image = try! (UIImage(withContentsOfUrl: urlString))!
+        return image
+    }
+    func getThumbnailFromVideoUrl(urlString: String) -> UIImage? {
+//        DispatchQueue.global().async {
+            let asset = AVAsset(url: URL(string: urlString)!)
+            let assetImgGenerate : AVAssetImageGenerator = AVAssetImageGenerator(asset: asset)
+            assetImgGenerate.appliesPreferredTrackTransform = true
+            let time = CMTimeMake(value: 1, timescale: 20)
+            let img = try? assetImgGenerate.copyCGImage(at: time, actualTime: nil)
+            if img != nil {
+                let frameImg  = UIImage(cgImage: img!)
+//                DispatchQueue.main.async(execute: {
+//                    // assign your image to UIImageView
+//                })
+                return frameImg
+            }else{
+                return nil
+            }
+//        }
+    }
+    func showPlayButtonForEmbeddedVideoUrl(){
+        playButton.isHidden = false
+        downloadButton.isHidden = true
+        downloadActivityIndicator.isHidden = true
+    }
+    func hidePlayButtonForEmbeddedVideoUrl(){
+        playButton.isHidden = true
+        downloadButton.isHidden = true
+        downloadActivityIndicator.isHidden = true
+    }
+    
    func setDownloadView() {
-      guard let unwrappedMessage = message else {
-         hideDownloadView()
-         return
-      }
-      let readyToDownload = !unwrappedMessage.isSentByMe() || unwrappedMessage.status != .none
-      
-      guard let fileURL = unwrappedMessage.fileUrl else {
-         hideDownloadView()
-         return
-      }
-      
-      guard (readyToDownload ? unwrappedMessage.fileUrl != nil : true) else {
-         print("ERROR------\nNo URL Found to download Video\n--------")
-         return
-      }
-      
-      let isDownloading = DownloadManager.shared.isFileBeingDownloadedWith(url: fileURL)
-      let isDownloaded = DownloadManager.shared.isFileDownloadedWith(url: fileURL)
-      
-      
-      switch (isDownloading, isDownloaded) {
-      case (false, false):
-         playButton.isHidden = true
-         downloadButton.isHidden = false
-         downloadActivityIndicator.isHidden = true
-      case (true, _):
-         playButton.isHidden = true
-         downloadButton.isHidden = true
-         downloadActivityIndicator.startAnimating()
-         downloadActivityIndicator.isHidden = false
-      case (_, true):
-         playButton.isHidden = false
-         downloadButton.isHidden = true
-         downloadActivityIndicator.isHidden = true
-      }
+    if message?.type == .embeddedVideoUrl{
+        
+    }else{
+        guard let unwrappedMessage = message else {
+            hideDownloadView()
+            return
+        }
+        let readyToDownload = !unwrappedMessage.isSentByMe() || unwrappedMessage.status != .none
+        
+        guard let fileURL = unwrappedMessage.fileUrl else {
+            hideDownloadView()
+            return
+        }
+        
+        guard (readyToDownload ? unwrappedMessage.fileUrl != nil : true) else {
+            print("ERROR------\nNo URL Found to download Video\n--------")
+            return
+        }
+        
+        let isDownloading = DownloadManager.shared.isFileBeingDownloadedWith(url: fileURL)
+        let isDownloaded = DownloadManager.shared.isFileDownloadedWith(url: fileURL)
+        
+        
+        switch (isDownloading, isDownloaded) {
+        case (false, false):
+            playButton.isHidden = true
+            downloadButton.isHidden = false
+            downloadActivityIndicator.isHidden = true
+        case (true, _):
+            playButton.isHidden = true
+            downloadButton.isHidden = true
+            downloadActivityIndicator.startAnimating()
+            downloadActivityIndicator.isHidden = false
+        case (_, true):
+            playButton.isHidden = false
+            downloadButton.isHidden = true
+            downloadActivityIndicator.isHidden = true
+        }
+    }
    }
    
    func hideDownloadView() {
@@ -142,4 +213,23 @@ class VideoTableViewCell: MessageTableViewCell {
       downloadActivityIndicator.isHidden = true
    }
 
+}
+
+extension UIImage {
+    convenience init?(withContentsOfUrl imageUrlString: String) throws {
+        let imageUrl = URL(string: imageUrlString)!
+        let imageData = try Data(contentsOf: imageUrl)
+        self.init(data: imageData)
+    }
+}
+extension String {
+    var youtubeID: String? {
+        let pattern = "((?<=(v|V)/)|(?<=be/)|(?<=(\\?|\\&)v=)|(?<=embed/))([\\w-]++)"
+        let regex = try? NSRegularExpression(pattern: pattern, options: .caseInsensitive)
+        let range = NSRange(location: 0, length: count)
+        guard let result = regex?.firstMatch(in: self, range: range) else {
+            return nil
+        }
+        return (self as NSString).substring(with: result.range)
+    }
 }

@@ -1086,22 +1086,39 @@ extension HippoConversationViewController {
         
     }
     func openQuicklookFor(fileURL: String, fileName: String) {
-        guard let localPath = DownloadManager.shared.getLocalPathOf(url: fileURL) else {
-            return
-        }
-        let url = URL(fileURLWithPath: localPath)
-        
-        let qlItem = QuickLookItem(previewItemURL: url, previewItemTitle: fileName)
-        
-        let qlPreview = QLPreviewController()
-        self.qldataSource = HippoQLDataSource(previewItems: [qlItem])
-        qlPreview.delegate = self.qldataSource
-        qlPreview.dataSource = self.qldataSource
-        qlPreview.title = fileName
-//        qlPreview.setupCustomThemeOnNavigationBar(hideNavigationBar: false)
-        qlPreview.navigationItem.hidesBackButton = false
-        qlPreview.hidesBottomBarWhenPushed = true
-        self.navigationController?.pushViewController(qlPreview, animated: true)
+//        if message?.type == .embeddedVideoUrl{
+//            guard let fileURL = message?.customAction?.videoLink else {
+//                return
+//            }
+//            let url = URL(string: fileURL)//URL(fileURLWithPath: fileURL)
+//            let qlItem = QuickLookItem(previewItemURL: url, previewItemTitle: fileName)
+//            let qlPreview = QLPreviewController()
+//            self.qldataSource = HippoQLDataSource(previewItems: [qlItem])
+//            qlPreview.delegate = self.qldataSource
+//            qlPreview.dataSource = self.qldataSource
+//            qlPreview.title = fileName
+//            //        qlPreview.setupCustomThemeOnNavigationBar(hideNavigationBar: false)
+//            qlPreview.navigationItem.hidesBackButton = false
+//            qlPreview.hidesBottomBarWhenPushed = true
+//            self.navigationController?.pushViewController(qlPreview, animated: true)
+//        }else{
+            guard let localPath = DownloadManager.shared.getLocalPathOf(url: fileURL) else {
+                return
+            }
+            let url = URL(fileURLWithPath: localPath)
+            
+            let qlItem = QuickLookItem(previewItemURL: url, previewItemTitle: fileName)
+            
+            let qlPreview = QLPreviewController()
+            self.qldataSource = HippoQLDataSource(previewItems: [qlItem])
+            qlPreview.delegate = self.qldataSource
+            qlPreview.dataSource = self.qldataSource
+            qlPreview.title = fileName
+            //        qlPreview.setupCustomThemeOnNavigationBar(hideNavigationBar: false)
+            qlPreview.navigationItem.hidesBackButton = false
+            qlPreview.hidesBottomBarWhenPushed = true
+            self.navigationController?.pushViewController(qlPreview, animated: true)
+//        }
     }
     func sendMessage(message: HippoMessage) {
         channel?.send(message: message, completion: { [weak self] in
@@ -1197,18 +1214,48 @@ extension HippoConversationViewController: VideoTableViewCellDelegate {
     }
     
     func openFileIn(message: HippoMessage) {
-        guard let fileURL = message.fileUrl, DownloadManager.shared.isFileDownloadedWith(url: fileURL) else {
-            print("-------\nERROR\nFile is not downloaded\n--------")
-            return
+        if message.type == .embeddedVideoUrl{
+            guard let fileURL = message.customAction?.videoLink else {
+                print("-------\nERROR\nEmbedded video link empty\n--------")
+                return
+            }
+            var fileName = message.fileName ?? ""
+            if fileName.count > 10 {
+                let stringIndex = fileName.index(fileName.startIndex, offsetBy: 9)
+                fileName = String(fileName[..<stringIndex])
+            }
+//            //openQuicklookFor(fileURL: fileURL, fileName: fileName)
+//            let url = URL(string: fileURL)//URL(fileURLWithPath: fileURL)
+//            let qlItem = QuickLookItem(previewItemURL: url, previewItemTitle: fileName)
+//            let qlPreview = QLPreviewController()
+//            self.qldataSource = HippoQLDataSource(previewItems: [qlItem])
+//            qlPreview.delegate = self.qldataSource
+//            qlPreview.dataSource = self.qldataSource
+//            qlPreview.title = fileName
+//            //        qlPreview.setupCustomThemeOnNavigationBar(hideNavigationBar: false)
+//            qlPreview.navigationItem.hidesBackButton = false
+//            qlPreview.hidesBottomBarWhenPushed = true
+//            self.navigationController?.pushViewController(qlPreview, animated: true)
+            if let url = URL(string: fileURL){
+                let config = WebViewConfig(url: url, title: fileName)
+                let vc = CheckoutViewController.getNewInstance(config: config)
+                self.navigationController?.pushViewController(vc, animated: true)
+            }else{
+                print("Error----")
+            }
+            
+        }else{
+            guard let fileURL = message.fileUrl, DownloadManager.shared.isFileDownloadedWith(url: fileURL) else {
+                print("-------\nERROR\nFile is not downloaded\n--------")
+                return
+            }
+            var fileName = message.fileName ?? ""
+            if fileName.count > 10 {
+                let stringIndex = fileName.index(fileName.startIndex, offsetBy: 9)
+                fileName = String(fileName[..<stringIndex])
+            }
+            openQuicklookFor(fileURL: fileURL, fileName: fileName)
         }
-        
-        var fileName = message.fileName ?? ""
-        if fileName.count > 10 {
-            let stringIndex = fileName.index(fileName.startIndex, offsetBy: 9)
-            fileName = String(fileName[..<stringIndex])
-        }
-        
-        openQuicklookFor(fileURL: fileURL, fileName: fileName)
     }
 }
 
