@@ -132,6 +132,7 @@ class FayeConnection: NSObject {
         localFaye.sendMessage(messageDict, toChannel: channelIdForValidation, success: {
             completion((true, nil))
         }) { (error) in
+             print("localFaye.sendMessage*****:", error)
             guard let objcError = error as NSError?, let reasonInfo = objcError.userInfo[NSLocalizedFailureReasonErrorKey] as? [String: Any] else {
                 completion((false, FayeResponseError.fayeNotConnected()))
                 return
@@ -214,7 +215,8 @@ extension FayeConnection {
         case duplicateMuid = 412
         case invalidSending = 413
         case channelNotSubscribed = 4000
-        
+        case resendSameMessage = 420
+
         init?(reasonInfo: [String: Any]) {
             guard let statusCode = reasonInfo["statusCode"] as? Int else {
                 return nil

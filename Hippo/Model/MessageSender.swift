@@ -122,11 +122,19 @@ class MessageSender {
                     self?.invalidateCurrentMessageWhichIsBeingSent()
                 case .channelNotSubscribed:
                     self?.delegate.subscribeChannel(completion: { (success) in
-                        self?.retryWithDelay(0)
+                        self?.retryWithDelay(/*0*/)
                     })
                     return
                 case .invalidSending:
                     self?.messageSendingFailed(result: result)
+                    
+                case .resendSameMessage:
+                    message.status = .sent
+                    if self?.messagesToBeSent.count ?? 0 > 0 {
+                        self?.messagesToBeSent.removeFirst()
+                    }
+                    break
+                    
                 default:
                     break
                 }
@@ -167,7 +175,7 @@ class MessageSender {
             self.delegate?.messageSendingFailed(message: message, result: result)
         }
     }
-    private func retryWithDelay(_ delay: TimeInterval = 2) {
+    private func retryWithDelay(_ delay: TimeInterval = 5) {
         // delay to wait before retrying
         fuguDelay(delay, completion: { [weak self] in
             self?.startSending()

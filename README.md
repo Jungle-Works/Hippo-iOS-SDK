@@ -57,6 +57,12 @@ HippoConfig.shared.setCredential(withAppSecretKey: YOUR-APP-SECRET-KEY)
 }
 ```
 
+Note: If you want to set your app name in custom push notifications than use the following method where you add your Hippo Credentials
+
+```sh
+HippoConfig.shared.setAppName(withAppName: YOUR-APPNAME)
+```
+
 #### Option B - Add Credential via `'YOUR-RESELLER-TOKEN', 'YOUR-REFERENCE-ID' and 'YOUR-APP-TYPE'`
 
 Add credential via your `reseller_token` and `refernce_id` key before invoking/ attempting to use any other features/methods of Hippo SDK. As documented below:
