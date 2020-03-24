@@ -515,7 +515,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         }
         json["date_time"] = creationDateTime.toUTCFormatString
         json["last_sent_by_id"] = senderId
-        json["last_sent_by_full_name"] = senderFullName.formatName()
+        json["last_sent_by_full_name"] = senderFullName//.formatName()
         json["last_message_status"] = status.rawValue
         
         return json
