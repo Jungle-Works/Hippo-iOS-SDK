@@ -56,7 +56,10 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         navigationSetUp()
         uiSetup()
         addObservers()
-        _ = handleIntialCustomerForm()
+        //_ = handleIntialCustomerForm()
+        DispatchQueue.main.async {
+            _ = self.handleIntialCustomerForm()
+        }
         
         if config.shouldUseCache {
             //self.arrayOfConversation = fetchAllConversationCache()

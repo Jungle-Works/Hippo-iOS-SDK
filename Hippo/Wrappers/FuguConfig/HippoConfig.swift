@@ -175,6 +175,15 @@ struct SERVERS {
         HippoUserDetail.getUserDetailsAndConversation()
     }
     
+    public func updateUserDetailWithCompletion(userDetail: HippoUserDetail , completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
+        self.userDetail = userDetail
+        self.appUserType = .customer
+        AgentDetail.agentLoginData = nil
+        HippoUserDetail.getUserDetailsAndConversation(completion: { (success, error) in
+            completion(success, error)
+        })
+    }
+    
     public func enableBroadcast() {
         isBroadcastEnabled = true
     }

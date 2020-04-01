@@ -268,6 +268,8 @@ public class UserTag: NSObject {
             return
         }
         
+        print("PutUserParams=====",params)
+        
         HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: endPointName) { (responseObject, error, tag, statusCode) in
             
             guard let response = (responseObject as? [String: Any]), statusCode == STATUS_CODE_SUCCESS, let data = response["data"] as? [String: Any] else {
