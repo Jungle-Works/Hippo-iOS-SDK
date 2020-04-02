@@ -652,9 +652,6 @@ protocol NewChatSentDelegate: class {
         var messages = result.newMessages
         let newMessagesHashMap = result.newMessageHashmap
         
-        
-        
-        
         label = result.channelName
         userImage = result.chatDetail?.channelImageUrl
         channel?.chatDetail = result.chatDetail
@@ -671,7 +668,7 @@ protocol NewChatSentDelegate: class {
         }
         
         updateMessagesInLocalArrays(messages: messages)
-        
+        self.channel.saveMessagesInCache()
         
         let contentOffsetBeforeNewMessages = tableViewChat.contentOffset.y
         let contentHeightBeforeNewMessages = tableViewChat.contentSize.height
@@ -692,6 +689,7 @@ protocol NewChatSentDelegate: class {
         
         completion?(true)
     }
+    
     func handleVideoIcon() {
         setTitleButton()
         if canStartVideoCall() {
