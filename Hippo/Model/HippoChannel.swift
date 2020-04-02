@@ -411,7 +411,7 @@ class HippoChannel {
         return thisChannelCache
     }
     
-    @objc fileprivate func saveMessagesInCache() {
+    @objc  func saveMessagesInCache() {
         var arrayOfSentMessages = [[String: Any]]()
         var arrayOfUnsentMessages = [[String: Any]]()
         

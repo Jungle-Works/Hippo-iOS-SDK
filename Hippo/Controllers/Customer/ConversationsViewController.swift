@@ -71,6 +71,7 @@ protocol NewChatSentDelegate: class {
 
    
     deinit {
+        self.channel.saveMessagesInCache()
         HippoChannel.botMessageMUID = nil
         NotificationCenter.default.removeObserver(self)
         HippoConfig.shared.notifiyDeinit()
