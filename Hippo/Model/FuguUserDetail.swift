@@ -101,6 +101,7 @@ public class UserTag: NSObject {
     var customAttributes: [String: Any]?
     var userTags: [UserTag] = []
     var customRequest: [String: Any] = [:]
+    var botAttributesCustomRequest: [String: Any] = [:]
     var userImage: URL?
     var selectedlanguage : String?
     var userChannel: String?
@@ -270,10 +271,15 @@ public class UserTag: NSObject {
         }
         
         params["device_details"] = AgentDetail.getDeviceDetails()
+
         params["fetch_business_lang"] = 1
         params += customRequest
         print("PUT USER PARAMS:\(params)")
         
+        if botAttributesCustomRequest != nil && botAttributesCustomRequest.count > 0{
+            params["bot_attributes"] = botAttributesCustomRequest
+        }
+       
         return params
     }
     

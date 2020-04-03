@@ -944,6 +944,7 @@ extension AgentConversationViewController {
     @objc func dismissKeyboard(sender: UIGestureRecognizer) {
         
         guard messageTextView.isFirstResponder else {
+            self.view.endEditing(true)//
             return
         }
         

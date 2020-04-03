@@ -78,10 +78,23 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
                 self.filterConversationArr(conversationArr: fetchAllConversationCacheData)
             }
         }
+//        if let labelId = HippoProperty.current.openLabelIdOnHome, labelId > 0 {
+//            moveToChatViewcontroller(labelId: labelId)
+//        }
         if let labelId = HippoProperty.current.openLabelIdOnHome, labelId > 0 {
-            moveToChatViewcontroller(labelId: labelId)
+            //        guard HippoChecker().shouldCollectDataFromUser() else {
+            //            return false
+            //        }
+            if HippoChecker().shouldCollectDataFromUser() {
+                moveToChatViewcontroller(labelId: labelId)
+            }else{
+                if self.arrayOfConversation.count <= 0{
+                    moveToChatViewcontroller(labelId: labelId)
+                }
+            }
         }
         
+
 //        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
         
         self.openChatButton.setBackgroundColor(color: #colorLiteral(red: 0.8156862745, green: 0.8156862745, blue: 0.8156862745, alpha: 1), forState: UIControl.State.highlighted)
@@ -94,6 +107,12 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         
         self.bottomLineView.backgroundColor = HippoConfig.shared.theme.themeColor
         
+
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        checkNetworkConnection()
+        newConversationBiutton.isHidden = true
         if HippoUserDetail.fuguUserID == nil {
             putUserDetails()
         } else {
@@ -107,19 +126,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     override func viewDidAppear(_ animated: Bool) {
       
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        self.height_ErrorLabel.constant = 0
-        checkNetworkConnection()
 
-      //  self.navigationController?.setTheme()
-        self.navigationController?.isNavigationBarHidden = true
-        self.setUpTabBar()
-        
-//        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
-//        self.navigationController?.interactivePopGestureRecognizer?.delegate = nil
-        
-    }
     
     override func viewWillLayoutSubviews() {
         self.setUpTabBar()
@@ -147,6 +154,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
             fuguNewChatAttributes.botGroupId = botID
         }
         
+        fuguNewChatAttributes.botGroupId = HippoProperty.current.newconversationBotGroupId
         let conversation = ConversationsViewController.getWith(chatAttributes: fuguNewChatAttributes)
         conversation.createConversationOnStart = true
         self.navigationController?.pushViewController(conversation, animated: true)

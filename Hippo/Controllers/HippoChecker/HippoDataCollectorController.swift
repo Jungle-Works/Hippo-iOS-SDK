@@ -136,7 +136,11 @@ extension HippoDataCollectorController: BroadcastButtonCellDelegate {
         if !email.isEmpty {
             HippoConfig.shared.userDetail?.email = email
         }
+        
+//        user.customRequest = createRequestJson()
         user.customRequest = createRequestJson()
+        user.botAttributesCustomRequest = createBotAttributesJson()
+        
         //user.phoneNumber = user.phoneNumber?.fullNumber ?? ""//
         if let appUserData = UserDefaults.standard.value(forKey: "customer_login_data") as? [String: Any]{
             if let phoneNumberLocal = appUserData["phoneNumberLocal"] as? [String: Any] {
@@ -153,13 +157,35 @@ extension HippoDataCollectorController: BroadcastButtonCellDelegate {
     }
     
     
+//    func createRequestJson() -> [String: Any] {
+//        var json: [String: Any] = [:]
+//
+//        for each in forms {
+//            json += each.getRequestJson()
+//        }
+//        return json
+//    }
     func createRequestJson() -> [String: Any] {
         var json: [String: Any] = [:]
-        
+        //var botAttributesJson: [String: Any] = [:]
         for each in forms {
-            json += each.getRequestJson()
+            if each.isBotAttributes != nil && each.isBotAttributes == 1{
+                //botAttributesJson += each.getRequestJson()
+            }else{
+                json += each.getRequestJson()
+            }
         }
         return json
+    }
+    func createBotAttributesJson() -> [String: Any] {
+        var botAttributesJson: [String: Any] = [:]
+        for each in forms {
+            if each.isBotAttributes != nil && each.isBotAttributes == 1{
+                botAttributesJson += each.getRequestJson()
+            }else{
+            }
+        }
+        return botAttributesJson
     }
     
     func findEmailInForms() -> String {

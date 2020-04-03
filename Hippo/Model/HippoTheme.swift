@@ -68,8 +68,8 @@ public struct ConversationListTheme {
     
     open var starRatingColor: UIColor = UIColor.yellow
 
-    open var newConversationText = "Talk To Expert"//"Talk To Dietitian >"
-
+    open var newConversationText = "Talk To Vet"//"Talk To Dietitian >"
+    
     open var darkThemeTextColor = UIColor.white
     open var lightThemeTextColor = UIColor.black
     

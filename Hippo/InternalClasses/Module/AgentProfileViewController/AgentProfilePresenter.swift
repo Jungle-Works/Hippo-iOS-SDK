@@ -59,7 +59,8 @@ class AgentProfilePresenter {
             return
         }
         if self.profile == nil {
-            HippoConfig.shared.delegate?.startLoading(message: "Getting User Info")
+            //HippoConfig.shared.delegate?.startLoading(message: "Getting User Info")
+            HippoConfig.shared.delegate?.startLoading(message: "")
         }
         
         HTTPClient.makeConcurrentConnectionWith(method: .POST, para: param, extendedUrl: FuguEndPoints.getInfoV2.rawValue) { (response, error, tag, statusCode) in
