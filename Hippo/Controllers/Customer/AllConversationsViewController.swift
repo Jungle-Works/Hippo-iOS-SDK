@@ -455,7 +455,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
                 DispatchQueue.main.async {
                     self?.showConversationsTableView.reloadData()
                 }
-                self?.openDefaultChannel()
+               // self?.openDefaultChannel()
                 return
             }
             var conversation = result.conversations!
