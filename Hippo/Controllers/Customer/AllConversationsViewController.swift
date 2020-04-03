@@ -68,9 +68,22 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
                 self.filterConversationArr(conversationArr: fetchAllConversationCacheData)
             }
         }
+//        if let labelId = HippoProperty.current.openLabelIdOnHome, labelId > 0 {
+//            moveToChatViewcontroller(labelId: labelId)
+//        }
         if let labelId = HippoProperty.current.openLabelIdOnHome, labelId > 0 {
-            moveToChatViewcontroller(labelId: labelId)
+            //        guard HippoChecker().shouldCollectDataFromUser() else {
+            //            return false
+            //        }
+            if HippoChecker().shouldCollectDataFromUser() {
+                moveToChatViewcontroller(labelId: labelId)
+            }else{
+                if self.arrayOfConversation.count <= 0{
+                    moveToChatViewcontroller(labelId: labelId)
+                }
+            }
         }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -104,7 +117,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         
         print("bodID******* \(HippoProperty.current.newconversationBotGroupId ?? "")")
         
-        fuguNewChatAttributes.botGroupId = "569"//HippoProperty.current.newconversationBotGroupId
+        fuguNewChatAttributes.botGroupId = HippoProperty.current.newconversationBotGroupId//"569"//
         let conversation = ConversationsViewController.getWith(chatAttributes: fuguNewChatAttributes)
         conversation.createConversationOnStart = true
         self.navigationController?.pushViewController(conversation, animated: true)
@@ -691,7 +704,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         arrayOfConversation[index] = convObj
         
         if (convObj.unreadCount ?? 0) > 0 {
-            convObj.channelStatus = .open
+//            convObj.channelStatus = .open
         }
         saveConversationsInCache()
         resetPushCount()

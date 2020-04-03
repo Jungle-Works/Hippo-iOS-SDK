@@ -29,7 +29,7 @@ class HippoConversation: HippoConversationCallBack {
     var unreadCount: Int? {
         didSet {
             if (unreadCount ?? 0) > 0 {
-                channelStatus = .open
+//                channelStatus = .open
             }
         }
     }

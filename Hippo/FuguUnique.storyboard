@@ -338,7 +338,7 @@
                                     <constraint firstAttribute="width" constant="200" id="b2z-Pi-4La"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="ArialRoundedMTBold" family="Arial Rounded MT Bold" pointSize="18"/>
-                                <state key="normal" title="Talk To Expert">
+                                <state key="normal" title="Talk To Vet">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>

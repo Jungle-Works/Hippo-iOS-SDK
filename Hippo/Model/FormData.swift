@@ -33,6 +33,8 @@ class FormData: NSObject {
     var backgroundColor: UIColor?
     var titleColor: UIColor?
     
+    var isBotAttributes: Int?
+    
     override init() {
         
     }
@@ -47,6 +49,9 @@ class FormData: NSObject {
         titleColorHexColor = json["title_color"] as? String ?? ""
         desc = json["description"] as? String ?? ""
         
+        if let isBotAttributesValue = json["is_bot_attributes"] as? Int{
+            isBotAttributes = isBotAttributesValue
+        }
         
         let validation_type = json["validation_type"] as? String ?? ""
         let rawType = json["type"] as? String ?? ""

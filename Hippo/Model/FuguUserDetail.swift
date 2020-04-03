@@ -100,6 +100,7 @@ public class UserTag: NSObject {
     var customAttributes: [String: Any]?
     var userTags: [UserTag] = []
     var customRequest: [String: Any] = [:]
+    var botAttributesCustomRequest: [String: Any] = [:]
     var userImage: URL?
     
     
@@ -247,7 +248,12 @@ public class UserTag: NSObject {
         
         params["device_details"] = AgentDetail.getDeviceDetails()
         
+        if botAttributesCustomRequest != nil && botAttributesCustomRequest.count > 0{
+            params["bot_attributes"] = botAttributesCustomRequest
+        }
+
         params += customRequest
+        
         return params
     }
     
