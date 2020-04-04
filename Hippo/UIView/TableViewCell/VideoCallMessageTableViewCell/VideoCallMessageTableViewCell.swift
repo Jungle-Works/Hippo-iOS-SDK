@@ -42,7 +42,8 @@ class VideoCallMessageTableViewCell: MessageTableViewCell {
         dateTimeLabel.textColor = HippoConfig.shared.theme.dateTimeTextColor
         callDurationLabel.font = HippoConfig.shared.theme.dateTimeFontSize
         callDurationLabel.textColor = HippoConfig.shared.theme.dateTimeTextColor
-        
+        callAgainButton.setTitleColor(HippoConfig.shared.theme.themeColor, for: .normal)
+
         messageBackgroundView.layer.masksToBounds = true
         messageBackgroundView.layer.cornerRadius = 5
         
