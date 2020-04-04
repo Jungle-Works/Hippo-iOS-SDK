@@ -53,15 +53,16 @@ class IncomingImageCell: MessageTableViewCell {
     
     // MARK: - Methods
     func setupBoxBackground(messageType: Int) {
-       // mainContentView.backgroundColor = HippoConfig.shared.theme.incomingChatBoxColor
-        DispatchQueue.main.async {
-            let gradient = CAGradientLayer()
-            gradient.frame = self.mainContentView.bounds
-            gradient.colors = [HippoConfig.shared.theme.gradientTopColor.cgColor, HippoConfig.shared.theme.gradientBottomColor.cgColor]
-            self.mainContentView.layer.insertSublayer(gradient, at: 0)
-            
-            // self.shadowView.backgroundColor = UIColor.red
-        }
+        mainContentView.backgroundColor = HippoConfig.shared.theme.themeColor
+//        DispatchQueue.main.async {
+//            let gradient = CAGradientLayer()
+//            gradient.frame = self.mainContentView.bounds
+//            gradient.colors = [HippoConfig.shared.theme.themeColor, HippoConfig.shared.theme.themeColor]
+////                [HippoConfig.shared.theme.gradientTopColor.cgColor, HippoConfig.shared.theme.gradientBottomColor.cgColor]
+//            self.mainContentView.layer.insertSublayer(gradient, at: 0)
+//
+//            // self.shadowView.backgroundColor = UIColor.red
+//        }
     }
     
     func adjustShadow() {

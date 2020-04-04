@@ -43,7 +43,7 @@ class VideoCallMessageTableViewCell: MessageTableViewCell {
         dateTimeLabel.textColor = HippoConfig.shared.theme.dateTimeTextColor
         callDurationLabel.font = HippoConfig.shared.theme.dateTimeFontSize
         callDurationLabel.textColor = HippoConfig.shared.theme.dateTimeTextColor
-        
+        callAgainButton.setTitleColor(HippoConfig.shared.theme.themeColor, for: .normal)
         messageBackgroundView.layer.masksToBounds = true
         messageBackgroundView.layer.cornerRadius = 5
         
@@ -51,7 +51,7 @@ class VideoCallMessageTableViewCell: MessageTableViewCell {
         messageBackgroundView.layer.borderColor = HippoConfig.shared.theme.chatBoxBorderColor.cgColor
     }
    
-   // MARK: - IBAction
+    // MARK: - IBAction
    @IBAction func callAgainButtonPressed(_ sender: UIButton) {
     delegate?.callAgainButtonPressed(callType: message?.callType ?? .video)
    }
