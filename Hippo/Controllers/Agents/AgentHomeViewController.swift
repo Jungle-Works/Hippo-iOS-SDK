@@ -158,6 +158,7 @@ extension AgentHomeViewController {
         updatePaginationData()
         showLoaderIfRequired()
     }
+    
     func checkForAnyError() {
         guard !AgentConversationManager.isConversationApiOnGoing() else {
             return
@@ -331,10 +332,12 @@ extension AgentHomeViewController {
     }
     @objc func allChatDataUpdated() {
         setData()
+         
         self.tableView.reloadData()
     }
     @objc func myChatDataUpated() {
         setData()
+      
         self.tableView.reloadData()
     }
     

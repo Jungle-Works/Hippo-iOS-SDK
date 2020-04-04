@@ -44,6 +44,7 @@ class ConversationStore {
         FuguDefaults.set(value: myChatsJson, forKey: DefaultKey.myChatConversations)
         FuguDefaults.set(value: allChatsJson, forKey: DefaultKey.allChatConversations)
     }
+    
     func fetchAllCachedConversation() {
         loadCacheForMyChat()
         loadCacheForAllChat()

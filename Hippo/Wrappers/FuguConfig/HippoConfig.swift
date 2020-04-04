@@ -28,8 +28,11 @@ struct SERVERS {
 //    static let liveFaye = "https://api-faye.fuguchat.com:3002/faye"
 ////    "https://api-new.fuguchat.com:3002/faye" //"https://api-faye.fuguchat.com/faye"
     
-    static let liveUrl = "https://api.fuguchat.com/"//"https://api.hippochat.io/"//
-    static let liveFaye = "https://api.fuguchat.com:3002/faye"//"https://api.hippochat.io:3002/faye"//
+//    static let liveUrl = "https://api.fuguchat.com/"//"https://api.hippochat.io/"//
+//    static let liveFaye = "https://api.fuguchat.com:3002/faye"//"https://api.hippochat.io:3002/faye"//
+    
+    static let liveUrl = "https://api.hippochat.io/"
+    static let liveFaye = "wss://faye.hippochat.io/faye"
     
     static let betaUrl = "https://beta-live-api.fuguchat.com/"
     static let betaFaye = "https://beta-live-api.fuguchat.com:3001/faye"
@@ -648,7 +651,8 @@ struct SERVERS {
         let visibleController = getLastVisibleController()
         let channelId = (userInfo["channel_id"] as? Int) ?? -1
         let channelName = (userInfo["label"] as? String) ?? ""
-        
+      //  let channel_Type = (userInfo["channel_type"] as? Int) ?? -1
+
         let rawSendingReplyDisabled = (userInfo["disable_reply"] as? Int) ?? 0
         let isSendingDisabled = rawSendingReplyDisabled == 1 ? true : false
         
@@ -703,11 +707,25 @@ struct SERVERS {
         let channelName = (userInfo["label"] as? String) ?? ""
         let labelId = (userInfo["label_id"] as? Int) ?? -1
         
+//        let channel_Type = (userInfo["channel_type"] as? Int) ?? -1
+        
         let rawSendingReplyDisabled = (userInfo["disable_reply"] as? Int) ?? 0
         let isSendingDisabled = rawSendingReplyDisabled == 1 ? true : false
         
         if let conVC = visibleController as? ConversationsViewController {
-            if channelId != conVC.channel?.id, channelId > 0 {
+            
+           /* if channel_Type == channelType.BROADCAST_CHANNEL.rawValue {
+                conVC.channel?.delegate = nil
+                conVC.messagesGroupedByDate = []
+                conVC.tableViewChat.reloadData()
+                conVC.label = channelName
+                conVC.labelId = labelId
+                conVC.navigationTitleLabel?.text = channelName
+                if isSendingDisabled {
+                    conVC.disableSendingReply()
+                }
+                conVC.fetchMessagesFrom1stPage()
+            } else*/ if channelId != conVC.channel?.id, channelId > 0 {
                 let existingChannelID = conVC.channel?.id ?? -1
                 conVC.clearUnreadCountForChannel(id: existingChannelID)
                 conVC.channel?.delegate = nil
@@ -738,7 +756,13 @@ struct SERVERS {
         }
         
         if let allConVC = visibleController as? AllConversationsViewController {
-            if channelId > 0 {
+            
+           /* if channel_Type == channelType.BROADCAST_CHANNEL.rawValue {
+                let conVC = ConversationsViewController.getWith(labelId: "\(labelId)")
+                conVC.delegate = allConVC
+                allConVC.navigationController?.pushViewController(conVC, animated: true)
+                
+            } else */ if channelId > 0 {
                 let conVC = ConversationsViewController.getWith(channelID: channelId, channelName: channelName)
                 conVC.delegate = allConVC
                 allConVC.navigationController?.pushViewController(conVC, animated: true)
@@ -761,7 +785,12 @@ struct SERVERS {
                 return
             }
             
-            if channelId > 0 {
+           /* if channel_Type == channelType.BROADCAST_CHANNEL.rawValue {
+                let conVC = ConversationsViewController.getWith(labelId: "\(labelId)")
+                let navVC = UINavigationController(rootViewController: conVC)
+                navVC.isNavigationBarHidden = true
+                visibleController?.present(navVC, animated: true, completion: nil)
+            } else */ if channelId > 0 {
                 let conVC = ConversationsViewController.getWith(channelID: channelId, channelName: channelName)
                 let navVC = UINavigationController(rootViewController: conVC)
                 navVC.isNavigationBarHidden = true

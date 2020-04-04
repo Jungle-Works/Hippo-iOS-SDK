@@ -71,7 +71,10 @@ protocol NewChatSentDelegate: class {
 
    
     deinit {
-        self.channel.saveMessagesInCache()
+        
+        if channel != nil {
+            self.channel.saveMessagesInCache()
+        }
         HippoChannel.botMessageMUID = nil
         NotificationCenter.default.removeObserver(self)
         HippoConfig.shared.notifiyDeinit()
@@ -668,7 +671,9 @@ protocol NewChatSentDelegate: class {
         }
         
         updateMessagesInLocalArrays(messages: messages)
-        self.channel.saveMessagesInCache()
+        if channel != nil {
+            self.channel.saveMessagesInCache()
+        }
         
         let contentOffsetBeforeNewMessages = tableViewChat.contentOffset.y
         let contentHeightBeforeNewMessages = tableViewChat.contentSize.height
