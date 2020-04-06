@@ -404,7 +404,7 @@ class HippoConversationViewController: UIViewController {
             return
         }
         
-        self.modalPresentationStyle = .overCurrentContext
+        self.modalPresentationStyle = .overFullScreen
         self.present(showImageVC!, animated: true, completion: nil)
     }
     

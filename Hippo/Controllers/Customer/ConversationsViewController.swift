@@ -71,10 +71,7 @@ protocol NewChatSentDelegate: class {
 
    
     deinit {
-        
-        if channel != nil {
-            self.channel.saveMessagesInCache()
-        }
+    
         HippoChannel.botMessageMUID = nil
         NotificationCenter.default.removeObserver(self)
         HippoConfig.shared.notifiyDeinit()
@@ -512,7 +509,9 @@ protocol NewChatSentDelegate: class {
             
             delegate?.updateConversationWith(conversationObj: conversationInfo)
         }
-        
+        if channel != nil {
+            self.channel.saveMessagesInCache()
+        }
         if self.navigationController == nil {
             HippoConfig.shared.notifiyDeinit()
             dismiss(animated: true, completion: nil)
