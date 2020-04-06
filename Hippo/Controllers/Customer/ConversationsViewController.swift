@@ -83,9 +83,6 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
    
     deinit {
         
-//        if channel != nil {
-//            self.channel.saveMessagesInCache()
-//        }
         HippoChannel.botMessageMUID = nil
         NotificationCenter.default.removeObserver(self)
         HippoConfig.shared.notifiyDeinit()
@@ -554,7 +551,11 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
             
             delegate?.updateConversationWith(conversationObj: conversationInfo)
         }
-        
+    
+    
+            if channel != nil {
+                self.channel.saveMessagesInCache()
+            }
         if self.navigationController == nil {
             HippoConfig.shared.notifiyDeinit()
             dismiss(animated: true, completion: nil)
@@ -756,9 +757,9 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         }
         
         updateMessagesInLocalArrays(messages: messages)
-//        if channel != nil {
-//            self.channel.saveMessagesInCache()
-//        }
+        if channel != nil {
+            self.channel.saveMessagesInCache()
+        }
         if (messages.count > 0)
         {
             self.setKeyboardType(message: messages.last!)
