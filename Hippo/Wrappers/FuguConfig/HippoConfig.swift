@@ -560,6 +560,7 @@ struct SERVERS {
             AgentDetail.LogoutAgent(completion: completion)
         case .customer:
             HippoUserDetail.logoutFromFugu(completion: completion)
+//            print("customerLogout")
         }
     }
     
