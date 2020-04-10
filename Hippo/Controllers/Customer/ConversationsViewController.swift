@@ -87,13 +87,66 @@ protocol NewChatSentDelegate: class {
     
         guard channel != nil else {
         if createConversationOnStart {
-            startNewConversation(replyMessage: nil, completion: { [weak self] (success, result) in
-                guard success else {
-                    return
+//            startNewConversation(replyMessage: nil, completion: { [weak self] (success, result) in
+//                guard success else {
+//                    return
+//                }
+//                self?.populateTableViewWithChannelData()
+//                self?.fetchMessagesFrom1stPage()
+//            })
+            
+            
+            if directChatDetail != nil {
+                HippoChannel.get(withFuguChatAttributes: directChatDetail!) { [weak self] (r) in
+                    let result = r
+                    //                    result.isReplyMessageSent = false
+                    //                    self?.enableSendingNewMessages()
+                    //                    self?.channelCreatedSuccessfullyWith(result: result)
+                    //                    completion?(result.isSuccessful, result)
+                    if result.isChannelAvailableLocallay{
+                        if result.channel != nil, let chnl = result.channel{
+                            
+                            self?.channel = chnl
+//                            channel?.chatDetail?.chatType = chatObj.chatType
+//                            self.labelId = chatObj.labelId ?? -1
+//                            self.label = chatObj.label ?? ""
+//                            self.userImage = chatObj.channelImageUrl
+                            
+                            self?.channel.delegate = self
+                            self?.populateTableViewWithChannelData()
+                            self?.fetchMessagesFrom1stPage()
+                            HippoConfig.shared.notifyDidLoad()
+                        }else{
+                            self?.startNewConversation(replyMessage: nil, completion: { [weak self] (success, result) in
+                                guard success else {
+                                    return
+                                }
+                                self?.populateTableViewWithChannelData()
+                                self?.fetchMessagesFrom1stPage()
+                            })
+                        }
+                    }else{
+                        self?.startNewConversation(replyMessage: nil, completion: { [weak self] (success, result) in
+                            guard success else {
+                                return
+                            }
+                            self?.populateTableViewWithChannelData()
+                            self?.fetchMessagesFrom1stPage()
+                        })
+                    }
                 }
-                self?.populateTableViewWithChannelData()
-                self?.fetchMessagesFrom1stPage()
-            })
+            }else{
+                self.startNewConversation(replyMessage: nil, completion: { [weak self] (success, result) in
+                    guard success else {
+                        return
+                    }
+                    self?.populateTableViewWithChannelData()
+                    self?.fetchMessagesFrom1stPage()
+                })
+
+            }
+            
+
         } else {
             fetchMessagesFrom1stPage()
         }
@@ -107,7 +160,7 @@ protocol NewChatSentDelegate: class {
       HippoConfig.shared.notifyDidLoad()
     
     }
-    
+
    override  func viewWillAppear(_ animated: Bool) {
       super.viewWillAppear(animated)
       messageTextView.contentInset.top = 8
@@ -989,6 +1042,22 @@ protocol NewChatSentDelegate: class {
       vc.directChatDetail = chatAttributes
       vc.label = chatAttributes.channelName ?? ""
       return vc
+    
+    /* testing:
+//    HippoConfig.shared.notifyDidLoad()
+//    let conversationVC = ConversationsViewController.getWith(conversationObj: chatObj)
+//    conversationVC.delegate = self
+//    self.navigationController?.pushViewController(conversationVC, animated: true)
+//
+//    if let channelId = chatObj.channelId, channelId > 0 {
+//        self.channel = FuguChannelPersistancyManager.shared.getChannelBy(id: channelId)
+//    }
+//    channel?.chatDetail?.chatType = chatObj.chatType
+//    self.labelId = chatObj.labelId ?? -1
+//    self.label = chatObj.label ?? ""
+//    self.userImage = chatObj.channelImageUrl
+    */
+    
    }
    
    class func getWith(channelID: Int, channelName: String) -> ConversationsViewController {
