@@ -159,6 +159,8 @@ protocol NewChatSentDelegate: class {
       fetchMessagesFrom1stPage()
       HippoConfig.shared.notifyDidLoad()
     
+      self.navigationController?.interactivePopGestureRecognizer?.delegate = self//
+    
     }
 
    override  func viewWillAppear(_ animated: Bool) {
@@ -2366,4 +2368,31 @@ extension ConversationsViewController: chatViewDelegateProtocol {
             self.suggestionCollectionView.reloadData()
         }
     }
+}
+
+extension ConversationsViewController: UIGestureRecognizerDelegate {
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        
+        messageTextView.resignFirstResponder()
+        channel?.send(message: HippoMessage.stopTyping, completion: {})
+        let rawLabelID = self.labelId == -1 ? nil : self.labelId
+        let channelID = self.channel?.id ?? -1
+        clearUnreadCountForChannel(id: channelID)
+        if let lastMessage = getLastMessage(), let conversationInfo = FuguConversation(channelId: channelID, unreadCount: 0, lastMessage: lastMessage, labelID: rawLabelID) {
+            delegate?.updateConversationWith(conversationObj: conversationInfo)
+        }
+        
+        return true
+    }
+    
+    //    func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
+    //        let enable = self.navigationController?.viewControllers.count ?? 0 > 1
+    //        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = enable
+    //    }
+    
+    //    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+    //        return true
+    //    }
+    
 }
