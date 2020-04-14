@@ -1479,7 +1479,7 @@
 		C9B77CF521A01B050092848D /* Hippo */ = {
 			isa = PBXGroup;
 			children = (
-				D8F6CFF22418F92100B168C5 /* Internal Classes */,
+				D8F6CFF22418F92100B168C5 /* InternalClasses */,
 				D8F6D0312418FAE600B168C5 /* CustomClasses */,
 				D8F6D03C2418FB2B00B168C5 /* PublicClasses */,
 				C9B77CF621A01B050092848D /* Wrappers */,
@@ -1988,7 +1988,7 @@
 			path = SuggestionView;
 			sourceTree = "<group>";
 		};
-		D8F6CFF22418F92100B168C5 /* Internal Classes */ = {
+		D8F6CFF22418F92100B168C5 /* InternalClasses */ = {
 			isa = PBXGroup;
 			children = (
 				D8F6CFF32418F93600B168C5 /* Module */,
@@ -1996,7 +1996,7 @@
 				D8F6CFF52418F94F00B168C5 /* Views */,
 				D8F6CFF62418F99800B168C5 /* AllConversationPresenter.swift */,
 			);
-			path = "Internal Classes";
+			path = InternalClasses;
 			sourceTree = "<group>";
 		};
 		D8F6CFF32418F93600B168C5 /* Module */ = {

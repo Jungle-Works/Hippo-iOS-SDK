@@ -49,6 +49,7 @@ struct SERVERS {
 //
 //    static let betaUrlNew = "https://beta-live-api.fuguchat.com/"
 //    static let betaFayeNew = "https://api.fuguchat.com:3001/faye"
+
 }
 
 @objcMembers public class HippoConfig : NSObject {
@@ -657,6 +658,10 @@ struct SERVERS {
             return
         }
         HippoProperty.setBotGroupID(id: id)
+    }
+    
+    public func setNewConversationBotGroupId(botGroupId: String){
+        HippoProperty.setNewConversationBotGroupId(botGroupId: botGroupId)
     }
     
     // MARK: - Push Notification

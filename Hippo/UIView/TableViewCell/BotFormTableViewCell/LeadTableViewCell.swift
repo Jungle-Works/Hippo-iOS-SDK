@@ -63,11 +63,11 @@ class LeadTableViewCell: MessageTableViewCell {
         tableView.backgroundColor = HippoConfig.shared.theme.gradientBackgroundColor //.clear
         
         tableView.layer.borderWidth = HippoConfig.shared.theme.chatBoxBorderWidth
-        tableView.layer.borderColor = HippoConfig.shared.theme.gradientTopColor.cgColor
+        tableView.layer.borderColor = HippoConfig.shared.theme.chatBoxBorderColor.cgColor//HippoConfig.shared.theme.gradientTopColor.cgColor
         self.tableView.dataSource = self
         self.tableView.delegate = self
         
-        bgView.backgroundColor = HippoConfig.shared.theme.gradientBackgroundColor //HippoConfig.shared.theme.incomingChatBoxColor
+        bgView.backgroundColor = HippoConfig.shared.theme.incomingChatBoxColor//HippoConfig.shared.theme.gradientBackgroundColor //
         bgView.layer.cornerRadius = 10
         bgView.layer.masksToBounds = true
         

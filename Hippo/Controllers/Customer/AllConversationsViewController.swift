@@ -116,8 +116,8 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         var fuguNewChatAttributes = FuguNewChatAttributes(transactionId: "", userUniqueKey: HippoConfig.shared.userDetail?.userUniqueKey, otherUniqueKey: nil, tags: HippoProperty.current.newConversationButtonTags, channelName: nil, preMessage: "", groupingTag: nil)
         
         print("bodID******* \(HippoProperty.current.newconversationBotGroupId ?? "")")
-        
         fuguNewChatAttributes.botGroupId = HippoProperty.current.newconversationBotGroupId//"569"//
+        
         let conversation = ConversationsViewController.getWith(chatAttributes: fuguNewChatAttributes)
         conversation.createConversationOnStart = true
         self.navigationController?.pushViewController(conversation, animated: true)
@@ -353,10 +353,12 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     }
     
     @IBAction func newConversationButtonClicked(_ sender: Any) {
+        //After Merge func
         var fuguNewChatAttributes = FuguNewChatAttributes(transactionId: "", userUniqueKey: HippoConfig.shared.userDetail?.userUniqueKey, otherUniqueKey: nil, tags: nil, channelName: nil, preMessage: "", groupingTag: nil)
         
         print("bodID******* \(HippoProperty.current.newconversationBotGroupId ?? "")")
         fuguNewChatAttributes.botGroupId = HippoProperty.current.newconversationBotGroupId
+        //fuguNewChatAttributes.botGroupId = "211"
         
         let conversation = ConversationsViewController.getWith(chatAttributes: fuguNewChatAttributes)
         conversation.createConversationOnStart = true

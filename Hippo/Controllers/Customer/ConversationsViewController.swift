@@ -323,9 +323,9 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         if HippoConfig.shared.theme.sendBtnIcon != nil {
             sendMessageButton.setImage(HippoConfig.shared.theme.sendBtnIcon, for: .normal)
             
-//            if let tintColor = HippoConfig.shared.theme.sendBtnIconTintColor {
-               sendMessageButton.tintColor = HippoConfig.shared.theme.themeColor
-//            }
+            if let tintColor = HippoConfig.shared.theme.sendBtnIconTintColor {
+                sendMessageButton.tintColor = tintColor
+            }
             
             sendMessageButton.setTitle("", for: .normal)
         } else { sendMessageButton.setTitle("SEND", for: .normal) }
@@ -333,9 +333,9 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         if HippoConfig.shared.theme.addButtonIcon != nil {
             addFileButtonAction.setImage(HippoConfig.shared.theme.addButtonIcon, for: .normal)
             
-//            if let tintColor = HippoConfig.shared.theme.addBtnTintColor {
-                addFileButtonAction.tintColor = HippoConfig.shared.theme.themeColor
-//            }
+            if let tintColor = HippoConfig.shared.theme.addBtnTintColor {
+                addFileButtonAction.tintColor = tintColor
+            }
             
             addFileButtonAction.setTitle("", for: .normal)
         } else { addFileButtonAction.setTitle("ADD", for: .normal) }
@@ -1382,6 +1382,7 @@ extension ConversationsViewController {
     @objc func dismissKeyboard(sender: UIGestureRecognizer) {
       
       guard messageTextView.isFirstResponder else {
+         self.view.endEditing(true)//
          return
       }
       
@@ -1973,7 +1974,7 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                     guard let muid = message.messageUniqueID, var rowHeight: CGFloat = heightForFeedBackCell["\(muid)"] else {
                         return 0.001
                     }
-                    rowHeight += 5 //Height for bottom view
+                    rowHeight += 7 //Height for bottom view
                     return rowHeight
                 case .consent:
                     return message.cellDetail?.cellHeight ?? 0.01
