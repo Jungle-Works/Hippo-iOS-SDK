@@ -51,53 +51,97 @@ class PickerHelper {
     }
     
     func present(sender: UIView, controller: UIViewController) {
+        
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertController.Style.actionSheet)
         let paymentOption = UIAlertAction(title: "Request Payment", style: .default, handler: { (alert: UIAlertAction!) -> Void in
             controller.view.endEditing(true)
             self.delegate?.payOptionClicked()
         })
-        
-        
+
+
         let cameraAction = UIAlertAction(title: "Camera", style: .default, handler: { (alert: UIAlertAction!) -> Void in
             controller.view.endEditing(true)
             if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) {
                 self.performActionBasedOnCameraPermission()
             }
         })
-        
+
         let photoLibraryAction = UIAlertAction(title: "Photo & Video Library", style: .default, handler: { (alert: UIAlertAction!) -> Void in
             controller.view.endEditing(true)
             self.performActionBasedOnGalleryPermission()
         })
-        
+
         let documentAction = UIAlertAction(title: "Document", style: .default) { (_) in
             controller.view.endEditing(true)
             self.documentPicker = CoreDocumentPicker(controller: self.currentViewController)
             self.documentPicker?.delegate = self.delegate
             self.documentPicker?.presentIn(viewController: self.currentViewController, completion: nil)
         }
-        
+
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (alert: UIAlertAction!) -> Void in })
-        
-        
+
+
         if enablePayment {
             actionSheet.addAction(paymentOption)
         }
         actionSheet.addAction(photoLibraryAction)
         actionSheet.addAction(cameraAction)
-        
+
         //Check if iCloud is enabled in capablities
         if FileManager.default.ubiquityIdentityToken != nil {
             if CoreKit.shared.filesConfig.enabledFileTypes.contains(.document) || CoreKit.shared.filesConfig.enabledFileTypes.contains(.other) {            actionSheet.addAction(documentAction)
             }
         }
-        
+
         actionSheet.addAction(cancelAction)
-        
+
         actionSheet.popoverPresentationController?.sourceRect = sender.frame
         actionSheet.popoverPresentationController?.sourceView = sender
-        
-        
+
+
         controller.present(actionSheet, animated: true, completion: nil)
+    
+        
     }
+    
+    func presentCustomActionSheet(sender: UIView, controller: UIViewController, openType: String) {
+
+        switch openType{
+        case "Request Payment":
+            controller.view.endEditing(true)
+            self.delegate?.payOptionClicked()
+        case "Camera":
+            controller.view.endEditing(true)
+            if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) {
+                self.performActionBasedOnCameraPermission()
+            }
+        case "Photo & Video Library":
+            controller.view.endEditing(true)
+            self.performActionBasedOnGalleryPermission()
+        case "Document":
+            controller.view.endEditing(true)
+            self.documentPicker = CoreDocumentPicker(controller: self.currentViewController)
+            self.documentPicker?.delegate = self.delegate
+            self.documentPicker?.presentIn(viewController: self.currentViewController, completion: nil)
+        default :
+            print("default")
+        }
+//        if enablePayment {
+//            actionSheet.addAction(paymentOption)
+//        }
+//        actionSheet.addAction(photoLibraryAction)
+//        actionSheet.addAction(cameraAction)
+//        //Check if iCloud is enabled in capablities
+//        if FileManager.default.ubiquityIdentityToken != nil {
+//            if CoreKit.shared.filesConfig.enabledFileTypes.contains(.document) || CoreKit.shared.filesConfig.enabledFileTypes.contains(.other) {            actionSheet.addAction(documentAction)
+//            }
+//        }
+//        actionSheet.addAction(cancelAction)
+//        actionSheet.popoverPresentationController?.sourceRect = sender.frame
+//        actionSheet.popoverPresentationController?.sourceView = sender
+//        controller.present(actionSheet, animated: true, completion: nil)
+        
+    }
+    
+    
 }

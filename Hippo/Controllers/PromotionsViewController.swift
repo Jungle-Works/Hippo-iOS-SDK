@@ -8,14 +8,11 @@
 
 import UIKit
 
-protocol PromotionCellDelegate : class
-{
+protocol PromotionCellDelegate : class {
     //func getActionData(data:PromotionCellDataModel, viewController : UIViewController)
     func setData(data:PromotionCellDataModel)
-    
     var cellIdentifier : String { get  }
     var bundle : Bundle? { get  }
-    
 }
 
 typealias PromtionCutomCell = PromotionCellDelegate & UITableViewCell
@@ -23,82 +20,35 @@ typealias PromtionCutomCell = PromotionCellDelegate & UITableViewCell
 class PromotionsViewController: UIViewController {
 
     @IBOutlet weak var promotionsTableView: UITableView!
-    @IBOutlet var navigationBackgroundView: UIView!
+    @IBOutlet weak var loaderView: So_UIImageView!
     
     var data: [PromotionCellDataModel] = []
     weak var customCell: PromtionCutomCell?
     var refreshControl = UIRefreshControl()
     var count = 20
     var isMoreData = false
-    
+    var channelIdsArr = [Int]()
+    var informationView: InformationView?
 
+    var selectedRow = -1
+    var states = [Bool]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-       // self.title = "ANNOUNCEMENTS"
-       setupRefreshController()
-        promotionsTableView.backgroundColor = HippoConfig.shared.theme.backgroundColor
-//        navigationController?.navigationBar.backgroundColor = HippoConfig.shared.theme.headerBackgroundColor
+        self.title = "Notifications"
         
-       // UINavigationBar.appearance().barTintColor = HippoConfig.shared.theme.headerTextColor
-       // UINavigationBar.appearance().tintColor = HippoConfig.shared.theme.headerTextColor
-       // UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor : HippoConfig.shared.theme.headerTextColor]
+        self.deleteAllAnnouncementsButton()
         
-       // navigationController?.navigationBar.tintColor = HippoConfig.shared.theme.headerTextColor
-        //navigationBackgroundView.backgroundColor = HippoConfig.shared.theme.headerBackgroundColor
+        setupRefreshController()
+        promotionsTableView.backgroundColor = HippoConfig.shared.theme.multiselectUnselectedButtonColor
         
-        navigationBackgroundView.layer.shadowColor = UIColor.black.cgColor
-        navigationBackgroundView.layer.shadowOpacity = 0.25
-        navigationBackgroundView.layer.shadowOffset = CGSize(width: 0, height: 1.0)
-        navigationBackgroundView.layer.shadowRadius = 4
-        navigationBackgroundView.backgroundColor = HippoConfig.shared.theme.headerBackgroundColor
-        
-        let backButton = UIButton(type: .custom)
-        //backButton.setImage(UIImage(named: "BackWhite"), for: .normal)
-        //backButton.setImage(UIImage(named: "BackWhite", in: FuguFlowManager.bundle, compatibleWith: nil), for: .normal)
-
-        backButton.tintColor = HippoConfig.shared.theme.headerTextColor
-        if HippoConfig.shared.theme.leftBarButtonImage != nil {
-            backButton.setImage(HippoConfig.shared.theme.leftBarButtonImage, for: .normal)
-            backButton.tintColor = HippoConfig.shared.theme.headerTextColor
-        }
-
-        backButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-        backButton.addTarget(self, action: #selector(backButtonClicked), for: .touchUpInside)
-        let item = UIBarButtonItem(customView: backButton)
-        self.navigationItem.setLeftBarButton(item, animated: false)
-        
-        title = HippoConfig.shared.theme.promotionsAnnouncementsHeaderText
-        
-//        let btnleft : UIButton = UIButton(frame: CGRect(x:0, y:0, width:35, height:35))
-//        btnleft.setTitleColor(UIColor.white, for: .normal)
-//        btnleft.contentMode = .left
-//        //btnleft.setImage(UIImage(named :"home"), for: .normal) //parent app asset
-//        //btnleft.setImage(UIImage(named :"backButtonNormalStateIcon"), for: .normal)//hippo asset
-//        btnleft.setImage(UIImage(named: "backButtonNormalStateIcon", in: FuguFlowManager.bundle, compatibleWith: nil), for: .normal)
-//        btnleft.addTarget(self, action: #selector(backButtonClicked), for: .touchDown)
-//        let backBarButon: UIBarButtonItem = UIBarButtonItem(customView: btnleft)
-//        backBarButon.tintColor = UIColor.black
-//        self.navigationItem.setLeftBarButtonItems([backBarButon], animated: false)
-        
-    promotionsTableView.register(UINib(nibName: "PromotionTableViewCell", bundle: FuguFlowManager.bundle), forCellReuseIdentifier: "PromotionTableViewCell")
+        promotionsTableView.register(UINib(nibName: "PromotionTableViewCell", bundle: FuguFlowManager.bundle), forCellReuseIdentifier: "PromotionTableViewCell")
         promotionsTableView.rowHeight = UITableView.automaticDimension
         promotionsTableView.estimatedRowHeight = 50
         if let c = customCell {
           promotionsTableView.register(UINib(nibName: c.cellIdentifier, bundle: c.bundle), forCellReuseIdentifier: c.cellIdentifier)
         }
-        // Do any additional setup after loading the view.
     }
-    
-   
-    
-    @objc func backButtonClicked()
-    {
-        HippoConfig.shared.notifiyDeinit()
-        _ = self.navigationController?.dismiss(animated: true, completion: nil)
-    }
-//    @objc func backButtonClicked() {
-//        _ = self.navigationController?.dismiss(animated: true, completion: nil)
-//    }
     
     internal func setupRefreshController() {
         refreshControl.backgroundColor = .clear
@@ -106,7 +56,6 @@ class PromotionsViewController: UIViewController {
         promotionsTableView.backgroundView = refreshControl
         refreshControl.addTarget(self, action: #selector(reloadrefreshData(refreshCtrler:)), for: .valueChanged)
     }
-    
     @objc func reloadrefreshData(refreshCtrler: UIRefreshControl) {
         isMoreData = false
         self.getAnnouncements(endOffset:19, startOffset: 0)
@@ -115,8 +64,85 @@ class PromotionsViewController: UIViewController {
     override  func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = false
-        self.navigationController?.setTheme()
+        self.promotionsTableView.isHidden = false
+        
+        self.startLoaderAnimation()
         self.getAnnouncements(endOffset: 19, startOffset: 0)
+        
+        self.setUpTabBar()
+        
+    }
+
+    override func viewWillLayoutSubviews() {
+        self.setUpTabBar()
+    }
+    
+    func setUpTabBar(){
+        //        self.tabBarController?.hidesBottomBarWhenPushed = true
+        //        self.tabBarController?.tabBar.isHidden = false
+        //        self.tabBarController?.tabBar.layer.zPosition = 0
+        //        self.tabBarController?.tabBar.items?[1].title = "Notifications"
+        
+        //hide
+        //self.tabBarController?.hidesBottomBarWhenPushed = true
+        self.tabBarController?.tabBar.isHidden = true
+        //self.tabBarController?.tabBar.layer.zPosition = -1
+    }
+    
+    func deleteAllAnnouncementsButton() {
+        let theme = HippoConfig.shared.theme
+        let deleteAllAnnouncementsButton = UIBarButtonItem(image: UIImage(named: "ic_delete"), landscapeImagePhone: nil, style: .done, target: self, action: #selector(deleteAllAnnouncementsButtonClicked))
+        deleteAllAnnouncementsButton.tintColor = theme.logoutButtonTintColor ?? theme.headerTextColor
+        
+        let btnleft : UIButton = UIButton(frame: CGRect(x:0, y:0, width:35, height:35))
+        btnleft.setTitleColor(UIColor.white, for: .normal)
+        btnleft.contentMode = .left
+        btnleft.setImage(UIImage(named :"iconBackTitleBar"), for: .normal)
+        btnleft.addTarget(self, action: #selector(backButtonClicked), for: .touchDown)
+        let backBarButon: UIBarButtonItem = UIBarButtonItem(customView: btnleft)
+        backBarButon.tintColor = theme.logoutButtonTintColor ?? theme.headerTextColor
+        self.navigationItem.setLeftBarButtonItems([backBarButon], animated: false)
+        
+        self.navigationItem.rightBarButtonItem = deleteAllAnnouncementsButton
+        self.navigationItem.rightBarButtonItems = [deleteAllAnnouncementsButton]
+        
+    }
+    @objc func backButtonClicked() {
+        
+        if let navigationController = UIApplication.shared.keyWindow?.rootViewController as? UINavigationController{
+            if let tabBarController = navigationController.viewControllers[0] as? UITabBarController{
+                tabBarController.selectedIndex = 0
+            }
+        }
+        
+        //        if config.shouldPopVc {
+        //            self.navigationController?.popViewController(animated: true)
+        //        } else {
+        _ = self.navigationController?.dismiss(animated: true, completion: nil)
+        //        }
+        
+    }
+    
+    func startLoaderAnimation() {
+        DispatchQueue.main.async {
+            self.loaderView?.startRotationAnimation()
+        }
+    }
+    func stopLoaderAnimation() {
+        DispatchQueue.main.async {
+            self.loaderView?.stopRotationAnimation()
+        }
+    }
+    
+    @objc func deleteAllAnnouncementsButtonClicked() {
+        guard self.navigationItem.rightBarButtonItem?.tintColor != .clear else {
+            return
+        }
+        showOptionAlert(title: "", message: "Are you sure, you want to clear all Notifications?", successButtonName: "YES", successComplete: { (_) in
+            
+            self.clearAnnouncements(indexPath: IndexPath(row: 0, section: 0), isDeleteAllStatus: 1)
+            
+        }, failureButtonName: "NO", failureComplete: nil)
     }
     
     func getAnnouncements(endOffset:Int,startOffset:Int) {
@@ -125,82 +151,101 @@ class PromotionsViewController: UIViewController {
         
         HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: AgentEndPoints.getAnnouncements.rawValue) { (response, error, _, statusCode) in
             
-            if error == nil
-            {
+            self.stopLoaderAnimation()
+            
+            if error == nil{
                 self.refreshControl.endRefreshing()
                 let r = response as? NSDictionary
-                if let arr = r!["data"] as? NSArray
-                {
-                    print("push response>>> \(arr)")
-                    
-                    if startOffset == 0 || arr.count >= 19
-                    {
-                        if startOffset == 0 && self.data.count > 0
-                        {
+                if let arr = r!["data"] as? NSArray{
+                    if startOffset == 0 || arr.count >= 19{
+                        if startOffset == 0 && self.data.count > 0{
                             self.data.removeAll()
+                            self.states.removeAll()
                         }
                         
-                        for item in arr
-                        {
+                        for item in arr{
                             let i = item as! [String:Any]
                             let dataNew = PromotionCellDataModel(dict:i)
-                            print(dataNew)
                             self.data.append(dataNew!)
+                            self.states.append(true)
                         }
-                    }
-                    else
-                    {
+                    }else{
                         self.isMoreData = true
                     }
-                    
                 }
-               
+                self.noNotificationsFound()
+                //self.promotionsTableView.reloadData()
             }
-             self.promotionsTableView.reloadData()
         }
+    }
+    
+    func noNotificationsFound(){
+        if self.data.count <= 0{
+            self.navigationItem.rightBarButtonItem?.tintColor = .clear
+            if informationView == nil {
+                informationView = InformationView.loadView(self.view.bounds, delegate: self)
+                informationView?.informationLabel.text = "No Notifications found"
+            }
+            self.promotionsTableView.isHidden = true
+            self.informationView?.isHidden = false
+            self.view.addSubview(informationView!)
+        }else{
+            self.promotionsTableView.isHidden = false
+            self.informationView?.isHidden = true
+            self.navigationItem.rightBarButtonItem?.tintColor = HippoConfig.shared.theme.logoutButtonTintColor ?? HippoConfig.shared.theme.headerTextColor
+        }
+        
+        DispatchQueue.main.async {
+            self.promotionsTableView.reloadData()
+        }
+        
+    }
+    
+    func clearAnnouncements(indexPath: IndexPath, isDeleteAllStatus: Int){
+    
+        var params = [String : Any]()
+        if isDeleteAllStatus == 0{
+            //self.channelIdsArr.append(data[indexPath.row].channelID)
+            //self.channelIdsArr[0] = data[indexPath.row].channelID
+            self.channelIdsArr.insert(data[indexPath.row].channelID, at: 0)
             
+            params = ["app_secret_key":HippoConfig.shared.appSecretKey,"en_user_id":HippoUserDetail.fuguEnUserID ?? "","channel_ids":self.channelIdsArr,"delete_all_announcements":isDeleteAllStatus] as [String : Any]
+        }else{
+            params = ["app_secret_key":HippoConfig.shared.appSecretKey,"en_user_id":HippoUserDetail.fuguEnUserID ?? "","delete_all_announcements":isDeleteAllStatus] as [String : Any]
+        }
+        
+        HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: AgentEndPoints.clearAnnouncements.rawValue) { (response, error, _, statusCode) in
+
+            self.channelIdsArr.removeAll()
+            
+            if error == nil
+            {
+                //let r = response as? NSDictionary
+                if isDeleteAllStatus == 0{
+                    self.promotionsTableView.beginUpdates()
+                    self.data.remove(at: indexPath.row)
+                    self.states.remove(at: indexPath.row)
+                    self.promotionsTableView.deleteRows(at: [indexPath], with: .fade)
+                    self.promotionsTableView.endUpdates()
+                }else{
+                    self.data.removeAll()
+                    self.states.removeAll()
+                    //self.promotionsTableView.reloadData()
+                    //DispatchQueue.main.async {
+                    //    self.promotionsTableView.reloadData()
+                    //}
+                }
+                
+                self.noNotificationsFound()
+                
+            }
+        }
     }
 
 }
 
-
-
 extension PromotionsViewController: UITableViewDelegate,UITableViewDataSource
 {
-    func EmptyMessage(message:String)
-    {
-        let rect = CGRect(origin: CGPoint(x: 0,y :0), size: CGSize(width: self.view.bounds.size.width, height: self.view.bounds.size.height))
-        let messageLabel = UILabel(frame: rect)
-        messageLabel.text = message
-        messageLabel.textColor = UIColor.black40
-        messageLabel.numberOfLines = 0;
-        messageLabel.textAlignment = .center;
-        messageLabel.font = UIFont.systemFont(ofSize: 15)//UIFont(name: "TrebuchetMS", size: 15)
-        messageLabel.sizeToFit()
-        
-        promotionsTableView.backgroundView = messageLabel;
-        promotionsTableView.separatorStyle = .none;
-    }
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        
-        if data.count > 0
-        {
-            promotionsTableView.backgroundView = nil
-            return 1
-           
-        }
-        else
-        {
-            isMoreData = true
-            let message = "No announcements yet"
-            self.EmptyMessage(message: message)
-            promotionsTableView.backgroundColor = UIColor.clear
-            return 0
-        }
-    }
-    
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.data.count
     }
@@ -228,21 +273,73 @@ extension PromotionsViewController: UITableViewDelegate,UITableViewDataSource
         cell.backgroundColor = .clear
       
         cell.set(data: data[indexPath.row])
-        
+            
+        cell.showReadMoreLessButton.tag = indexPath.row
+        cell.showReadMoreLessButton.addTarget(self, action: #selector(expandCellSize(_:)), for: .touchUpInside)
+        //cell.descriptionLabel.numberOfLines = 2
+        let values = data[indexPath.row]
+        cell.promotionTitle.text = values.title ?? ""
+            
+        cell.fullDescriptionLabel.text = values.description
+
+            cell.descriptionLabel.text = values.description
+            if (values.description?.count)! > 150{
+                cell.showReadMoreLessButton.isHidden = false
+                cell.showReadMoreLessButtonHeightConstraint.constant = 30
+            }else{
+                cell.showReadMoreLessButton.isHidden = true
+                cell.showReadMoreLessButtonHeightConstraint.constant = 0
+                
+            }
+            if states[indexPath.row] == true{
+                cell.descriptionLabel.isHidden = false
+                cell.fullDescriptionLabel.isHidden = true
+                //cell.showReadMoreLessButton.setTitle("Read More", for: .normal)
+                let attrs = NSAttributedString(string: "Read more",
+                                               attributes:
+                    [NSAttributedString.Key.foregroundColor: UIColor(red:109.0/255.0, green:212.0/255.0, blue:0.0/255.0, alpha:1.0),
+                     NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16.0),
+                     NSAttributedString.Key.underlineColor: UIColor(red:109.0/255.0, green:212.0/255.0, blue:0.0, alpha:1.0),
+                     NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue])
+                cell.showReadMoreLessButton.setAttributedTitle(attrs, for: .normal)
+            }else if states[indexPath.row] == false{
+                cell.descriptionLabel.isHidden = true
+                cell.fullDescriptionLabel.isHidden = false
+                //cell.showReadMoreLessButton.setTitle("Read Less", for: .normal)
+                let attrs = NSAttributedString(string: "Read less",
+                                               attributes:
+                    [NSAttributedString.Key.foregroundColor: UIColor(red:109.0/255.0, green:212.0/255.0, blue:0.0, alpha:1.0),
+                     NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16.0),
+                     NSAttributedString.Key.underlineColor: UIColor(red:109.0/255.0, green:212.0/255.0, blue:0.0, alpha:1.0),
+                     NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue])
+                cell.showReadMoreLessButton.setAttributedTitle(attrs, for: .normal)
+            }else{}
+            
         return cell
         }
         
         
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-
-//        let h = data[indexPath.row]
-//        print(h.cellHeight)
-//        return h.cellHeight
-
-       // return 266
+    @objc func expandCellSize(_ sender:UIButton) {
+        let row = sender.tag
+        //let values = data[row]
+        let indexpath = IndexPath(row: row, section: 0)
+        guard let cell = self.promotionsTableView.cellForRow(at: indexpath) as? PromotionTableViewCell else { return }
+        if states[row] == true{
+            states[row] = false
+            self.promotionsTableView.reloadRows(at: [indexpath], with: .none)
+            self.promotionsTableView.scrollToRow(at: indexpath, at: .top, animated: true)
+        }else if states[row] == false{
+            states[row] = true
+            self.promotionsTableView.reloadRows(at: [indexpath], with: .none)
+            self.promotionsTableView.scrollToRow(at: indexpath, at: .top, animated: true)
+        }else{}
         
+    }
+    
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }
 
@@ -268,7 +365,7 @@ extension PromotionsViewController: UITableViewDelegate,UITableViewDataSource
             
             let labelID = d.channelID
             let conversationViewController = ConversationsViewController.getWith(labelId:"\(labelID)")
-        self.navigationController?.pushViewController(conversationViewController, animated: true)
+            self.navigationController?.pushViewController(conversationViewController, animated: true)
             
             
         }
@@ -276,8 +373,7 @@ extension PromotionsViewController: UITableViewDelegate,UITableViewDataSource
     
     
     
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath)
-    {
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.row + 1 == self.data.count {
             print("do something")
             if !isMoreData
@@ -285,13 +381,30 @@ extension PromotionsViewController: UITableViewDelegate,UITableViewDataSource
                 let previousOffset = count
                 count = 19 + count
                 getAnnouncements(endOffset: count, startOffset: previousOffset)
-                promotionsTableView.backgroundView = nil
             }
         }
     }
    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
+        return "Clear"
+    }
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if (editingStyle == .delete) {
+           
+            showOptionAlert(title: "", message: "Are you sure, you want to clear Notification?", successButtonName: "YES", successComplete: { (_) in
+                
+                self.clearAnnouncements(indexPath: indexPath, isDeleteAllStatus: 0)
+                
+            }, failureButtonName: "NO", failureComplete: nil)
+        
+        }
+    }
+    
 }
 
-
+extension PromotionsViewController: InformationViewDelegate {
     
-
+}

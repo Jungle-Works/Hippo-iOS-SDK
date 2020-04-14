@@ -14,7 +14,7 @@ class HippoConversationCallBack {
 class HippoConversation: HippoConversationCallBack {
     
     var channelId: Int?
-    var channelStatus: ChannelStatus = ChannelStatus.open
+    var channelStatus: ChatStatus = ChatStatus.open
     var label: String?
     var labelId: Int?
     var channelImageUrl: String?
@@ -29,7 +29,7 @@ class HippoConversation: HippoConversationCallBack {
     var unreadCount: Int? {
         didSet {
             if (unreadCount ?? 0) > 0 {
-                channelStatus = .open
+//                channelStatus = .open
             }
         }
     }

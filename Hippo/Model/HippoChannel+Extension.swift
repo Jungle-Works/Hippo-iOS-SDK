@@ -5,7 +5,7 @@
 //  Created by Vishal on 14/11/18.
 //
 
-import Foundation
+import UIKit
 
 #if canImport(HippoCallClient)
  import HippoCallClient
@@ -46,10 +46,10 @@ extension HippoChannel: SignalingClient {
             "app_version": versionCode,
             "device_details": AgentDetail.getDeviceDetails()
         ]
-        fayeDict["device_token"] = HippoConfig.shared.deviceToken
+        fayeDict["device_token"] = TokenManager.deviceToken
         
-        if !HippoConfig.shared.voipToken.isEmpty {
-            fayeDict["voip_token"] = HippoConfig.shared.voipToken
+        if !TokenManager.voipToken.isEmpty {
+            fayeDict["voip_token"] = TokenManager.voipToken
         }
         
         send(dict: fayeDict) { (success, error)  in

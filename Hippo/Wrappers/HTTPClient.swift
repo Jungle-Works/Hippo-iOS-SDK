@@ -5,7 +5,7 @@
 //  Created by cl-macmini-117 on 26/09/16.
 //  Copyright © 2015 CilckLabs. All rights reserved.
 //
-import Foundation
+import UIKit
 
 enum HttpMethodType: String {
     case GET
@@ -290,6 +290,7 @@ class HTTPClient {
                         statusCode = httpUrlResponce.statusCode
                     }
                     
+                    HippoConfig.shared.log.error("API RESPONSE: ---url: \(urlResponse?.url?.absoluteString ?? "NO URL"), ---data: \(data?.count ?? -1) ---Error: \(error?.localizedDescription ?? "no error")", level: .custom)
                     let message: String = responseObject?["message"] as? String ?? ""
                     switch statusCode {
                     case 200..<300:

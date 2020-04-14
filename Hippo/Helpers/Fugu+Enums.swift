@@ -6,7 +6,7 @@
 //  Copyright © 2017 CL-macmini-88. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 @available(*, deprecated, renamed: "HippoEnvironment", message: "This Enum is renamed to HippoEnvironment")
 public enum FuguEnvironment: Int {
@@ -84,10 +84,10 @@ enum IntegrationSource: Int {
 }
 
 enum MessageType: Int {
-    case none = 0, normal = 1, assignAgent = 2, privateNote = 3, imageFile = 10, attachment = 11, actionableMessage = 12, feedback = 14, botText = 15, quickReply = 16, leadForm = 17, call = 18, hippoPay = 19, consent = 20
+    case none = 0, normal = 1, assignAgent = 2, privateNote = 3, imageFile = 10, attachment = 11, actionableMessage = 12, feedback = 14, botText = 15, quickReply = 16, leadForm = 17, call = 18, hippoPay = 19, consent = 20, card = 21, paymentCard = 22 , multipleSelect = 23
 
     var customerHandledMessages: [MessageType] {
-        return [.normal, .imageFile, .feedback, .actionableMessage, .leadForm, .quickReply, .botText, .call, .hippoPay, .attachment, .consent]
+        return [.normal, .imageFile, .feedback, .actionableMessage, .leadForm, .quickReply, .botText, .call, .hippoPay, .attachment, .consent, .card, .paymentCard , .multipleSelect]
     }
     var agentHandledMessages: [MessageType] {
         return [.normal, .imageFile, .privateNote, .assignAgent, .botText, .call, .attachment, .consent, .actionableMessage, .hippoPay]
@@ -97,8 +97,12 @@ enum MessageType: Int {
         let typeHandled = HippoConfig.shared.appUserType == .agent ? agentHandledMessages : customerHandledMessages
         return typeHandled.contains(self)
     }
+    
     var isBotMessage: Bool {
+        
         let botMessages: [MessageType] = [.leadForm, .quickReply, .botText, .consent, .hippoPay, .actionableMessage]
+//        let botMessages: [MessageType] = [.leadForm, .quickReply, .botText, .consent, .card , .multipleSelect,.normal]
+
         return botMessages.contains(self)
     }
 }
@@ -158,6 +162,15 @@ enum ReadUnReadStatus: Int {
     }
 }
 
+enum responseKeyboardType: String{
+    case none = "NONE"
+    case numberKeyboard = "NUMBER"
+    case defaultKeyboard = "DEFAULT"
+}
+
+
+
+
 enum StatusCodeValue: Int {
     case Authorized_Min = 200
     case Authorized_Max = 300
@@ -188,6 +201,22 @@ enum NotificationType: Int {
             return true
         default:
             return false
+        }
+    }
+    var rejectOnActive: Bool {
+        let rejectionList: [NotificationType] = rejectNotifcationActiveChannelList()
+        return rejectionList.contains(self)
+    }
+    
+    func rejectNotifcationActiveChannelList() -> [NotificationType] {
+        let customerRejectionList: [NotificationType] = [.assigned, .tagged]
+        let agentRejectionList: [NotificationType] = []
+        switch HippoConfig.shared.appUserType {
+        case .agent:
+            return agentRejectionList
+        case .customer:
+            return customerRejectionList
+            
         }
     }
 }
@@ -255,6 +284,8 @@ enum FuguEndPoints: String {
     case API_FEEDBACK = "api/deal/feedback"
     case updateRideStatus = "api/users/inRideStatus"
     case fetchP2PUnreadCount = "api/conversation/fetchP2PUnreadCount"
+    case makeSelectedPayment = "api/payment/makeSelectedPayment"
+    case getInfoV2 = "api/agent/v1/getInfo"
 }
 
 enum AgentEndPoints: String {
@@ -275,7 +306,12 @@ enum AgentEndPoints: String {
     case broadcastStatus = "api/broadcast/broadcastStatus"
     case getAnnouncements = "api/broadcast/getAnnouncements"
     case createOneToOneChat = "api/chat/createOneToOneChat"
+    
+    case clearAnnouncements = "api/broadcast/clearAnnouncements"
+    
+    case assignAgent = "api/agent/assignAgent"
 }
+
 enum BroadcastType: String, CaseCountable {
     case unknown = ""
     case none = "Broadcast"

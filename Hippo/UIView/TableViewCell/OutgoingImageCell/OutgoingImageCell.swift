@@ -60,6 +60,8 @@ class OutgoingImageCell: MessageTableViewCell {
 extension OutgoingImageCell {
     func setupBoxBackground(messageType: Int) {
         mainContentView.backgroundColor = HippoConfig.shared.theme.themeColor //HippoConfig.shared.theme.outgoingChatBoxColor
+        
+//        mainContentView.backgroundColor = UIColor.black //HippoConfig.shared.theme.outgoingChatBoxColor
     }
     
     func adjustShadow() {
@@ -75,15 +77,24 @@ extension OutgoingImageCell {
         backgroundColor = .clear
         selectionStyle = .none
         timeLabel.text = ""
-        mainContentView.layer.cornerRadius = 5
+        mainContentView.layer.cornerRadius = 10
         
         thumbnailImageView.image = nil
         thumbnailImageView.layer.cornerRadius = mainContentView.layer.cornerRadius
         thumbnailImageView.clipsToBounds = true
         
+        if #available(iOS 11.0, *) {
+            thumbnailImageView.layer.maskedCorners = [.layerMinXMinYCorner]
+            mainContentView.layer.maskedCorners = [.layerMinXMinYCorner,.layerMinXMaxYCorner,.layerMaxXMaxYCorner]
+        } else {
+            // Fallback on earlier versions
+        }
+        
+        
         retryButton.isHidden = true
         
-        readUnreadImageView.image = UIImage(named: "unreadMsgTick", in: FuguFlowManager.bundle, compatibleWith: nil)
+        readUnreadImageView.image = UIImage(named: "readMessageImage", in: FuguFlowManager.bundle, compatibleWith: nil)
+        readUnreadImageView.tintColor = HippoConfig.shared.theme.unreadTintColor
     }
     
     func configureCellOfOutGoingImageCell(resetProperties: Bool, chatMessageObject: HippoMessage, indexPath: IndexPath) {
@@ -145,6 +156,7 @@ extension OutgoingImageCell {
         
         let timeOfMessage = changeDateToParticularFormat(chatMessageObject.creationDateTime, dateFormat: "h:mm a", showInFormat: true)
         timeLabel.text = "\(timeOfMessage)"
+        timeLabel.textColor = UIColor.white
         
     }
     

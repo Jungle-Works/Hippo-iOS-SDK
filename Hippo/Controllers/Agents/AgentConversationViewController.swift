@@ -367,6 +367,13 @@ class AgentConversationViewController: HippoConversationViewController {
     func isPaginationInProgress() -> Bool {
         return loadMoreActivityTopContraint.constant == 10
     }
+    override func startLoaderAnimation() {
+        loaderView.startRotationAnimation()
+    }
+    
+    override func stopLoaderAnimation() {
+        loaderView.stopRotationAnimation()
+    }
     
     override func getMessagesBasedOnChannel(fromMessage pageStart: Int, pageEnd: Int?, completion: ((_ success: Bool) -> Void)?) {
         
@@ -723,13 +730,7 @@ extension AgentConversationViewController {
         }
     }
     
-    func startLoaderAnimation() {
-        loaderView.startRotationAnimation()
-    }
-    
-    func stopLoaderAnimation() {
-        loaderView.stopRotationAnimation()
-    }
+   
     
     func getTopDistanceOfCell(atIndexPath indexPath: IndexPath) -> CGFloat {
         

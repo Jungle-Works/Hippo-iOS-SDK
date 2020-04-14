@@ -8,7 +8,7 @@
 import UIKit
 import Photos
 import QuickLook
-
+import SafariServices
 
 class HippoConversationViewController: UIViewController {
     //MARK: Constants
@@ -19,7 +19,14 @@ class HippoConversationViewController: UIViewController {
     // MARK: - PROPERTIES
     var processingRequestCount = 0
     var labelId = -11
+    var forceDisableReply: Bool = false
+    var forceHideActionButton: Bool = false
     var botGroupID: Int?
+    
+    
+    var storeRequest: MessageStore.messageRequest?
+    var storeResponse: MessageStore.ChannelMessagesResult?
+    var isFirstResponseComplete: Bool = false
     
     var directChatDetail: FuguNewChatAttributes?
     var agentDirectChatDetail: AgentDirectChatAttributes?
@@ -65,6 +72,9 @@ class HippoConversationViewController: UIViewController {
         super.viewDidLoad()
         
         navigationController?.setTheme()
+        
+        tableViewChat.backgroundView = UIImageView(image: UIImage(named: "background"))
+        
         removeNotificationsFromNotificationCenter(channelId: channelId)
         registerFayeNotification()
     }
@@ -103,6 +113,8 @@ class HippoConversationViewController: UIViewController {
     func adjustChatWhenKeyboardIsOpened(withHeight keyboardHeight: CGFloat) { }
     func addRemoveShadowInTextView(toAdd: Bool) { }
     func startNewConversation(replyMessage: HippoMessage?, completion: ((_ success: Bool, _ result: HippoChannelCreationResult?) -> Void)?) { }
+    func startLoaderAnimation() { }
+    func stopLoaderAnimation() { }
     
     
     func clearUnreadCountForChannel(id: Int) { }
@@ -257,6 +269,10 @@ class HippoConversationViewController: UIViewController {
         let bundle = FuguFlowManager.bundle
         
         tableViewChat.register(UINib(nibName: "SelfMessageTableViewCell", bundle: bundle), forCellReuseIdentifier: "SelfMessageTableViewCell")
+        tableViewChat.register(UINib(nibName: "PaymentMessageCell", bundle: bundle), forCellReuseIdentifier: "PaymentMessageCell")
+        
+        tableViewChat.register(UINib(nibName: "MultiSelectTableViewCell", bundle: bundle), forCellReuseIdentifier: "MultiSelectTableViewCell")
+        
         tableViewChat.register(UINib(nibName: "SupportMessageTableViewCell", bundle: bundle), forCellReuseIdentifier: "SupportMessageTableViewCell")
         
         tableViewChat.register(UINib(nibName: "OutgoingImageCell", bundle: bundle), forCellReuseIdentifier: "OutgoingImageCell")
@@ -280,6 +296,8 @@ class HippoConversationViewController: UIViewController {
         tableViewChat.register(UINib(nibName: "OutgoingVideoTableViewCell", bundle: bundle), forCellReuseIdentifier: "OutgoingVideoTableViewCell")
         
         tableViewChat.register(UINib(nibName: "ActionTableView", bundle: bundle), forCellReuseIdentifier: "ActionTableView")
+        tableViewChat.register(UINib(nibName: "CardMessageTableViewCell", bundle: bundle), forCellReuseIdentifier: "CardMessageTableViewCell")
+        
         
     }
     
@@ -313,8 +331,20 @@ class HippoConversationViewController: UIViewController {
         checkNetworkConnection()
         reloadVisibleCellsToStartActivityIndicator()
         removeNotificationsFromNotificationCenter(channelId: channelId)
+        
+        recreateRequestIfRequired()
     }
     
+    func recreateRequestIfRequired() {
+        guard let storeRequest = storeRequest else {
+            fetchMessagesFrom1stPage()
+            return
+        }
+    
+        if storeResponse == nil {
+            fetchMessagesFrom1stPage()
+        }
+    }
     
     @objc func fayeConnected(_ notification: Notification) {
         guard FuguNetworkHandler.shared.isNetworkConnected else {
@@ -494,7 +524,7 @@ class HippoConversationViewController: UIViewController {
             titleForNavigation = navigationView
         }
         if let chatType = channel?.chatDetail?.chatType, chatType == .other {
-            let title: String? = (channel?.chatDetail?.assignedAgentID ?? -1) > 0 ? channel?.chatDetail?.assignedAgentName : label
+            let title: String? = channel?.chatDetail?.channelName ?? label
              navigationView.setData(imageUrl: userImage, name: title)
         } else if labelId > 0, channel == nil {
              navigationView.setData(imageUrl: userImage, name: label)
@@ -620,6 +650,28 @@ class HippoConversationViewController: UIViewController {
             return canStartAudioCall()
         }
     }
+    func isDirectCallingEnabledFor(type: CallType) -> Bool {
+        let callingDisableOnNavigationForCustomer: Bool = BussinessProperty.current.hideCallIconOnNavigationForCustomer
+        switch type {
+        case .video:
+            let status = canStartVideoCall()
+            switch HippoConfig.shared.appUserType {
+            case .customer:
+                return status && !callingDisableOnNavigationForCustomer
+            default:
+                return status
+            }
+            
+        case .audio:
+            let status = canStartAudioCall()
+            switch HippoConfig.shared.appUserType {
+            case .customer:
+                return status && !callingDisableOnNavigationForCustomer
+            default:
+                return status
+            }
+        }
+    }
     
     func updateMessagesInLocalArrays(messages: [HippoMessage]) {
         
@@ -661,12 +713,12 @@ class HippoConversationViewController: UIViewController {
     func setDataFor(belowMessage: HippoMessage?, aboveMessage: HippoMessage?) {
         aboveMessage?.belowMessageMuid = belowMessage?.messageUniqueID
         aboveMessage?.belowMessageUserId = belowMessage?.senderId
+        aboveMessage?.belowMessageType = belowMessage?.type
         
         belowMessage?.aboveMessageMuid = aboveMessage?.messageUniqueID
         belowMessage?.aboveMessageUserId = aboveMessage?.senderId
         belowMessage?.aboveMessageType = aboveMessage?.type
-        
-        
+    
         aboveMessage?.messageRefresed?()
     }
     
@@ -688,11 +740,19 @@ class HippoConversationViewController: UIViewController {
     func isSentByMe(senderId: Int) -> Bool {
         return getSavedUserId == senderId
     }
-    func attachmentButtonclicked(_ sender: UIButton) {
+    func attachmentButtonclicked(_ sender: UIButton)
+    {
         let showPaymentOption = channel == nil ? false : HippoProperty.current.isPaymentRequestEnabled
         pickerHelper = PickerHelper(viewController: self, enablePayment: showPaymentOption)
         pickerHelper?.present(sender: sender, controller: self)
         pickerHelper?.delegate = self
+    }
+    
+    func attachmentButtonclickedOfCustomSheet(_ sender: UIView, openType: String){
+        let showPaymentOption = channel == nil ? false : HippoProperty.current.isPaymentRequestEnabled
+        pickerHelper = PickerHelper(viewController: self, enablePayment: showPaymentOption)        
+        pickerHelper?.delegate = self
+        pickerHelper?.presentCustomActionSheet(sender: sender, controller: self, openType: openType)
     }
     
 }
@@ -1203,6 +1263,11 @@ extension HippoConversationViewController: SelfMessageDelegate {
 
 extension HippoConversationViewController: ActionTableViewDelegate {
     func performActionFor(selectionId: String, message: HippoMessage) {
+        if let channel = self.channel, channel.isSendingDisabled {
+            print("isSendingDisabled disabled")
+            return
+        }
+        
         guard let customMessage = message as? HippoActionMessage else {
             return
         }
@@ -1219,7 +1284,28 @@ extension HippoConversationViewController: ActionTableViewDelegate {
             if !isReplyMessageSent {
                self.sendMessage(message: customMessage)
             }
+            if let button = customMessage.getButtonWithId(id: selectionId), let action = button.action, button.buttonType == .action {
+                switch action {
+                case .audioCall:
+//                    self.showAlert(title: "", message: "Audio call", actionComplete: nil)
+                    self.startAudioCall()
+                case .videoCall:
+//                    self.showAlert(title: "", message: "Video call", actionComplete: nil)
+                    self.startVideoCall()
+                case .openUrl:
+                    if let link = button.getUrlToOpen() {
+                        self.presentSafariViewcontorller(for: link)
+                    }
+                default:
+                    break
+                }
+            }
         }
+    }
+    func presentSafariViewcontorller(for url: URL) {
+        let safariVC = SFSafariViewController(url: url)
+        safariVC.navigationController?.setTheme()
+        self.navigationController?.pushViewController(safariVC, animated: true)
     }
 }
 extension HippoConversationViewController: CreatePaymentDelegate {
@@ -1258,6 +1344,100 @@ extension HippoConversationViewController: NavigationTitleViewDelegate {
     }
     
     func imageIconClicked() {
-        self.backButtonClicked()
+        if let id = channel?.chatDetail?.assignedAgentID, id > 0 {
+            openProfile(for: -1, agentId: "\(id)", profile: nil)
+        } else {
+            self.backButtonClicked()
+        }
     }
+    func titleClicked() {
+        if let id = channel?.chatDetail?.assignedAgentID, id > 0 {
+            openProfile(for: -1, agentId: "\(id)", profile: nil)
+        }
+    }
+    func openProfile(for channelId: Int, agentId: String?, profile: ProfileDetail?) {
+//        let presenter = AgentProfilePresenter(channelID: channelId, agentID: agentId, profile: profile)
+//        let vc = AgentProfileViewController.get(presenter: presenter)
+//        self.navigationController?.pushViewController(vc, animated: true)
+    }
+}
+extension HippoConversationViewController: CardMessageDelegate {
+    func cardSelected(cell: CardMessageTableViewCell, card: MessageCard, message: HippoMessage) {
+        if let channel = self.channel, channel.isSendingDisabled {
+            print("isSendingDisabled disabled")
+            return
+        }
+        
+        message.selectedCardId = card.id
+        sendMessage(message: message)
+        cell.set(message: message)
+    }
+    func labelContainerClicked(cell: CardMessageTableViewCell, card: MessageCard, message: HippoMessage) {
+        let profile = ProfileDetail(json: [:])
+        profile.image = card.image?.url.path
+        profile.fullName = card.title
+        profile.rating = card.rating
+        
+        openProfile(for: -1, agentId: card.id, profile: profile)
+    }
+}
+
+extension HippoConversationViewController: PaymentMessageCellDelegate {
+    func cellButtonPressed(message: HippoMessage, card: HippoCard) {
+        if let channel = self.channel, channel.isSendingDisabled {
+            print("isSendingDisabled disabled")
+            return
+        }
+        guard let selectedCard = (card as? PayementButton)?.selectedCardDetail, let url = URL(string: selectedCard.paymentUrlString ?? "") else {
+            generatePaymentUrl(for: message, card: card)
+            return
+        }
+        initatePayment(for: url)
+    }
+    func initatePayment(for url: URL) {
+        let config = WebViewConfig(url: url, title: "Payment")
+        let vc = CheckoutViewController.getNewInstance(config: config)
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    func generatePaymentUrl(for message: HippoMessage, card: HippoCard) {
+        guard let selectedCard = (card as? PayementButton)?.selectedCardDetail, let channelId = channel?.id else {
+            HippoConfig.shared.log.error("cannot find selected card.... Please select the card", level: .error)
+            return
+        }
+        
+        HippoConfig.shared.delegate?.startLoading(message: "Redirecting to payment...")
+        
+        PaymentStore.generatePaymentUrl(channelId: channelId, message: message, selectedCard: selectedCard) { (success, data) in
+            HippoConfig.shared.delegate?.stopLoading()
+            guard success, let result = data else {
+                return
+            }
+            guard let paymentUrl = result["payment_url"] as? String else {
+                return
+            }
+            HippoConfig.shared.log.debug("Response --\(result)", level: .response)
+            selectedCard.paymentUrlString = paymentUrl
+            
+            guard let url = URL(string: paymentUrl) else {
+                return
+            }
+            self.initatePayment(for: url)
+        }
+        
+        
+    }
+}
+
+extension HippoConversationViewController: submitButtonTableViewDelegate
+{
+    func submitButtonPressed(hippoMessage: HippoMessage) {
+        
+        createChannelIfRequiredAndContinue(replyMessage: nil) { (success, result) in
+            
+            self.sendMessage(message: hippoMessage)
+            self.tableViewChat.reloadData()
+        }
+    }
+    
+    
 }

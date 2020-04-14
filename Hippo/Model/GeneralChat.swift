@@ -25,6 +25,8 @@ public struct GeneralChat {
     /// Name you want to give your chat
     public var channelName: String
     
+    public var hideBackButton: Bool = false
+    
     /**
      - parameter uniqueChatId: Unique ID you will use to recognize seprate chats between same peers. Could be set to `nil` if there is no need to create seprate chat between same peers.
      - parameter idsOfPeers: Unique IDs of peers with whom you want to start chat.

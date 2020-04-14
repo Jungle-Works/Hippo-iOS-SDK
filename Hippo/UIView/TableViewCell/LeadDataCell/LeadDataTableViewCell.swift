@@ -140,10 +140,11 @@ class LeadDataTableViewCell: UITableViewCell {
     }
     
     func setupCellView() {
-        valueContainer.layer.borderColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
-        valueContainer.layer.borderWidth = 1
+        //valueContainer.layer.borderColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+        //valueContainer.layer.borderWidth = 1
         valueContainer.layer.masksToBounds = true
-        valueContainer.layer.cornerRadius = 3
+        valueContainer.backgroundColor = UIColor.white
+        valueContainer.layer.cornerRadius = 10
         self.valueTextfield.delegate = self
         backgroundColor = UIColor.clear
     }

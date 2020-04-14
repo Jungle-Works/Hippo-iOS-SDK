@@ -54,6 +54,16 @@ class IncomingImageCell: MessageTableViewCell {
     // MARK: - Methods
     func setupBoxBackground(messageType: Int) {
         mainContentView.backgroundColor = HippoConfig.shared.theme.themeColor //HippoConfig.shared.theme.incomingChatBoxColor
+
+//       // mainContentView.backgroundColor = HippoConfig.shared.theme.incomingChatBoxColor
+//        DispatchQueue.main.async {
+//            let gradient = CAGradientLayer()
+//            gradient.frame = self.mainContentView.bounds
+//            gradient.colors = [HippoConfig.shared.theme.gradientTopColor.cgColor, HippoConfig.shared.theme.gradientBottomColor.cgColor]
+//            self.mainContentView.layer.insertSublayer(gradient, at: 0)
+//
+//            // self.shadowView.backgroundColor = UIColor.red
+//        }
     }
     
     func adjustShadow() {
@@ -63,6 +73,14 @@ class IncomingImageCell: MessageTableViewCell {
         shadowView.layer.cornerRadius = mainContentView.layer.cornerRadius
         shadowView.clipsToBounds = true
         shadowView.backgroundColor = HippoConfig.shared.theme.chatBoxBorderColor
+        
+        
+        if #available(iOS 11.0, *) {
+            thumbnailImageView.layer.maskedCorners = [.layerMaxXMinYCorner]
+            mainContentView.layer.maskedCorners = [.layerMaxXMinYCorner,.layerMinXMaxYCorner,.layerMaxXMaxYCorner]
+        } else {
+            // Fallback on earlier versions
+        }
     }
 }
 
@@ -73,13 +91,21 @@ extension IncomingImageCell {
         thumbnailImageView.image = nil
         selectionStyle = .none
         timeLabel.text = ""
+        timeLabel.textColor = UIColor.white
         
         retryButton.isHidden = true
         retryButton.backgroundColor = HippoConfig.shared.theme.backgroundColor
         
-        mainContentView.layer.cornerRadius = 5
+        mainContentView.layer.cornerRadius = 10
         thumbnailImageView.layer.cornerRadius = mainContentView.layer.cornerRadius
         thumbnailImageView.clipsToBounds = true
+        
+        if #available(iOS 11.0, *) {
+            thumbnailImageView.layer.maskedCorners = [.layerMaxXMinYCorner]
+            mainContentView.layer.maskedCorners = [.layerMaxXMinYCorner,.layerMinXMaxYCorner,.layerMaxXMaxYCorner]
+        } else {
+            // Fallback on earlier versions
+        }
     }
     
     func configureIncomingCell(resetProperties: Bool, channelId: Int, chatMessageObject: HippoMessage, indexPath: IndexPath) -> IncomingImageCell {

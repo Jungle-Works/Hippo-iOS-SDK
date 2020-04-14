@@ -319,6 +319,8 @@ class HippoChannel {
             requestParam["bot_form_muid"] = parsedBotMessageMUID
         }
         
+        //requestParam["initiate_bot_group_id"] = 569
+        
         HippoConfig.shared.log.debug("API_CREATE_CONVERSATION.....\(requestParam)", level: .request)
         HTTPClient.makeConcurrentConnectionWith(method: .POST, para: requestParam, extendedUrl: FuguEndPoints.API_CREATE_CONVERSATION.rawValue) { (response, error, _, statusCode) in
             
@@ -355,6 +357,36 @@ class HippoChannel {
         }
     }
     
+    class func getToCallAgent(withFuguChatAttributes attributes: FuguNewChatAttributes, agentEmail: String, completion: @escaping HippoChannelCreationHandler) {
+        guard let transactionID = attributes.transactionId,
+            FuguNewChatAttributes.isValidTransactionID(id: transactionID) else {
+                let result = HippoChannelCreationResult(isSuccessful: true, error: nil, channel: nil, isChannelAvailableLocallay: true, botMessageID: nil)
+                completion(result)
+                return
+        }
+        let params = getParamsToCallAgent(agentEmail: agentEmail, fuguAttributes: attributes)
+        createNewConversationWith(params: params, completion: completion)
+    }
+    
+    class func callAssignAgentApi(withParams params: [String: Any], completion: @escaping (Bool) -> Void) {//HippoChannelCreationHandler) {
+        callAssignAgentApi(params: params, completion: completion)
+    }
+    private class func callAssignAgentApi(params: [String: Any],  completion: @escaping (Bool) -> Void) {//HippoChannelCreationHandler) {
+        HippoConfig.shared.log.debug("API_AssignAgent.....\(params)", level: .request)
+        HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: AgentEndPoints.assignAgent.rawValue) { (response, error, _, statusCode) in
+            
+            guard let responseDict = response as? [String: Any],
+                let statusCode = responseDict["statusCode"] as? Int, statusCode == 200 else {
+                    HippoConfig.shared.log.debug("API_AssignAgent ERROR.....\(error?.localizedDescription ?? "")", level: .error)
+                    completion(false)
+                    return
+            }
+            
+            completion(true)
+            
+        }
+    }
+    
     /// Creates new support conversation.
     ///
     /// - Parameters:
@@ -375,9 +407,15 @@ class HippoChannel {
     
     
     class func getParamsToStartConversation(WithLabelId labelRequest: CreateConversationWithLabelId? = nil, fuguAttributes: FuguNewChatAttributes? = nil) -> [String: Any] {
+       
         var params = [String: Any]()
         params["app_secret_key"] = HippoConfig.shared.appSecretKey
         params["en_user_id"] = HippoUserDetail.fuguEnUserID ?? -1
+        
+        if HippoConfig.shared.isSkipBot
+        {
+            params["skip_bot"] = "1"
+        }
         
         if let unwrappedLabelId = labelRequest?.labelId {
             params["label_id"] = unwrappedLabelId
@@ -392,12 +430,18 @@ class HippoChannel {
         if let attributeParams = fuguAttributes?.getParamsToStartNewChat() {
             params += attributeParams
         }
+        if labelRequest != nil, HippoProperty.current.singleChatApp {
+            var tags = params["tags"] as? [String] ?? []
+            tags.append("iOS")
+            params["tags"] = tags
+        }
+        
         //Check for getting new channelTags
         if let newGroupingTags = fuguAttributes?.groupingTag {
             groupingTags += newGroupingTags
         }
         params["grouping_tags"] = groupingTags
-        
+
         if let skipBot = HippoProperty.current.skipBot {
             params["skip_bot"] = skipBot.intValue()
             params["skip_bot_reason"] = HippoProperty.current.skipBotReason ?? ""
@@ -405,10 +449,34 @@ class HippoChannel {
         if let ticketCustomAttributes = HippoProperty.current.ticketCustomAttributes, !ticketCustomAttributes.isEmpty {
             params["ticket_custom_attributes"] = ticketCustomAttributes
         }
-         
+
+        if HippoProperty.current.singleChatApp {
+            params["multi_channel_label_mapping_app"] = 1
+        }
+        
         return params
     }
     
+    class func getParamsToCallAgent(agentEmail: String, fuguAttributes: FuguNewChatAttributes? = nil) -> [String: Any] {
+        var params = [String: Any]()
+        if let transactionID = fuguAttributes?.transactionId,
+            FuguNewChatAttributes.isValidTransactionID(id: transactionID){
+            params["transaction_id"] = transactionID
+        }
+        if let tempUserUniqueId = fuguAttributes?.otherUniqueKey {
+            params["other_user_unique_key"] = tempUserUniqueId
+        }
+        params["agent_email"] = agentEmail
+        params["app_secret_key"] = HippoConfig.shared.appSecretKey
+        params["chat_type"] = 0
+        params["app_version"] = versionCode
+        params["device_type"] = Device_Type_iOS
+        params["source_type"] = SourceType.SDK.rawValue
+//        params["in_app_support_channel"] = 0
+//        params["label_id"] = -1
+//        params["grouping_tags"] = []
+        return params
+    }
     
     // MARK: - Messages
 //    private func loadCachedMessages() {
@@ -589,18 +657,25 @@ class HippoChannel {
             return
         }
         let users = User.parseArray(list: allUsers)
-        guard let (_, _) = User.find(userId: currentUserId(), from: users), (shouldShowToCustomer || HippoConfig.shared.appUserType == .agent) else {
+        guard let (_, _) = User.find(userId: currentUserId(), from: users), (shouldShowToCustomer || HippoConfig.shared.appUserType == .agent), let chatDetail = self.chatDetail else {
             return
         }
-        chatDetail?.allowAudioCall = Bool.parse(key: "allow_audio_call", json: dict) ?? chatDetail?.allowAudioCall ?? false
-        chatDetail?.allowVideoCall = Bool.parse(key: "allow_video_call", json: dict) ?? chatDetail?.allowVideoCall ?? false
-        chatDetail?.updatePeerData(users: users)
+        chatDetail.allowAudioCall = Bool.parse(key: "allow_audio_call", json: dict) ?? chatDetail.allowAudioCall
+        chatDetail.allowVideoCall = Bool.parse(key: "allow_video_call", json: dict) ?? chatDetail.allowVideoCall
+        chatDetail.updatePeerData(users: users)
+        
+        chatDetail.assignedAgentID = users.first?.userID ?? chatDetail.assignedAgentID
+        chatDetail.assignedAgentName = users.first?.fullName ?? chatDetail.assignedAgentName
+        
         delegate?.channelDataRefreshed()
     }
     
     
     func messageReceived(message: HippoMessage) {
-        
+        if let notificationType = message.notification, notificationType.rejectOnActive {
+            HippoConfig.shared.log.debug("notification reject \(notificationType)", level: .custom)
+            return
+        }
         if message.isANotification() && canChangeStatusOfMessagesToReadAllIf(messageReceived: message) {
             updateAllMessagesStatusToRead()
         }
@@ -620,14 +695,17 @@ class HippoChannel {
             refernece.status = .sent
         }
         if let oldMessage = messageReference {
-            updateReferenceMessage(oldMessage: oldMessage, newMessage: message)
-            return
+            let result = updateReferenceMessage(oldMessage: oldMessage, newMessage: message)
+            if result {
+                return
+            }
         }
         appendMessageIfRequired(message: message)
         delegate?.newMessageReceived(newMessage: message)
     }
     
-    func updateReferenceMessage(oldMessage: HippoMessage, newMessage: HippoMessage) {
+    //This function  return the value so the tableView should reload
+    func updateReferenceMessage(oldMessage: HippoMessage, newMessage: HippoMessage) -> Bool {
         switch newMessage.type {
         case .consent:
             if let oldActionMessage = oldMessage as? HippoActionMessage, let newActionMessage = newMessage as? HippoActionMessage {
@@ -635,9 +713,16 @@ class HippoChannel {
             }
         case .feedback, .leadForm:
             oldMessage.updateObject(with: newMessage)
+        case .paymentCard:
+            oldMessage.cards = newMessage.cards
+            oldMessage.selectedCardId = newMessage.selectedCardId
+            oldMessage.fallbackText = newMessage.fallbackText
+            oldMessage.selectedCard = newMessage.selectedCard
+            return false
         default:
             break
         }
+        return true
     }
     
     func findAnyReferenceOf(message: HippoMessage) -> HippoMessage? {
@@ -701,6 +786,10 @@ class HippoChannel {
     func send(message: HippoMessage, completion: (() -> Void)?) {
         guard !message.isANotification() else {
             FayeConnection.shared.send(messageDict: message.getJsonToSendToFaye(), toChannelID: id.description, completion: {_ in completion?()})
+            return
+        }
+        if isSendingDisabled {
+            print("----sending is disabled")
             return
         }
         

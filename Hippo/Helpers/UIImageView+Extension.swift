@@ -7,22 +7,18 @@
 
 import UIKit
 
+
+
+
 extension UIImageView {
     
-    /// Sets the image property of the view based on initial text, a specified background color, custom text attributes, and a circular clipping
-    ///
-    /// - Parameters:
-    ///   - string: The string used to generate the initials. This should be a user's full name if available.
-    ///   - color: This optional paramter sets the background of the image. By default, a random color will be generated.
-    ///   - circular: This boolean will determine if the image view will be clipped to a circular shape.
-    ///   - textAttributes: This dictionary allows you to specify font, text color, shadow properties, etc.
-    open func setImage(string: String?,
+    func setTextInImage(string: String?,
                        color: UIColor? = nil,
                        circular: Bool = false,
                        textAttributes: [NSAttributedString.Key: Any]? = nil) {
         
         let image = imageSnap(text: string != nil ? string?.initials : "",
-                              color: color ?? .random,
+                              color:.random,
                               circular: circular,
                               textAttributes:textAttributes)
         
@@ -57,8 +53,7 @@ extension UIImageView {
         
         // Text
         if let text = text {
-            let attributes = textAttributes ?? [NSAttributedString.Key.foregroundColor: UIColor.white,
-                                                NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15.0)]
+            let attributes = textAttributes ?? [NSAttributedString.Key.foregroundColor: UIColor.white,NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20.0)]
             
             let textSize = text.size(withAttributes: attributes)
             let bounds = self.bounds
@@ -138,9 +133,9 @@ extension String {
             words.removeFirst()
         }
         
-        if let lastCharacter = words.last?.first {
-            finalString.append(String(lastCharacter))
-        }
+//        if let lastCharacter = words.last?.first {
+//            finalString.append(String(lastCharacter))
+//        }
         
         return finalString.uppercased()
     }

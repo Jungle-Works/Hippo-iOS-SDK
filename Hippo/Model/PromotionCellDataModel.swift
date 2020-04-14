@@ -12,11 +12,12 @@ import Foundation
 class PromotionCellDataModel
 {
     var imageUrlString: String = ""
-    var title: String = ""
-    var description: String = ""
+    var title: String?
+    var description: String?
     var createdAt : String = ""
+    var action:[String:Any]?
     var customAttributes: [String:Any]?
-    var channelID:Int 
+    var channelID:Int
     var userID:Int
     var disableReply:Bool?
     var deepLink:String = ""
@@ -27,38 +28,43 @@ class PromotionCellDataModel
     
     init?(dict: [String: Any])
     {
-          self.channelID = Int.parse(values: dict, key: "channel_id") ?? 1
-       self.title = (dict["title"] as? String) ?? ""
+//        guard let promotionID = dict["promotionID"] as? Int else {
+//            return nil
+//        }
+//          self.promotionID = promotionID
+        
+        self.channelID = Int.parse(values: dict, key: "channel_id") ?? 1
+        self.title = (dict["title"] as? String) ?? ""
         self.disableReply = Bool.parse(key: "disable_reply", json: dict) ?? true
         self.description = dict["description"] as? String ?? ""
         self.createdAt = dict["created_at"] as? String ?? ""
         self.userID = Int.parse(values: dict, key: "user_id") ?? 1
-
+        
         if let tempDict = dict["custom_attributes"] as? [String:Any]
        {
             self.customAttributes = tempDict
            // print("customAttributes>>> \(customAttributes)")
-
-        if let imageDict = self.customAttributes?["image"] as? [String:Any]
+        
+        if let imageDict = self.customAttributes!["image"] as? [String:Any]
         {
             self.imageUrlString = imageDict["image_url"] as? String ?? ""
            // print("imageUrlString>>> \(imageUrlString)")
         }
-
-        if let deepLink = self.customAttributes?["deeplink"] as? String
+        
+        if let deepLink = self.customAttributes!["deeplink"] as? String
         {
             self.deepLink = deepLink as String ?? ""
             print("deep link>>> \(deepLink)")
         }
-
-        if let data = self.customAttributes?["data"] as? [String:Any]
+        
+        if let data = self.customAttributes!["data"] as? [String:Any]
         {
             self.skipBot = data["skip_bot"] as? String ?? ""
             print("skipBot>>> \(skipBot)")
         }
     }
-    
-//        self.cellHeight = calculateHeightForCell(title: self.title, description: self.description)
+        
+        self.cellHeight = calculateHeightForCell(title: self.title!, description: self.description!)
     }
     
     
@@ -75,14 +81,14 @@ class PromotionCellDataModel
         
         let descRange = NSRange.init(location: 0, length: attributedDescriptionString.length)
        
-        let font = UIFont.systemFont(ofSize: 16)// HippoConfig.shared.theme.titleFont
+        let font = HippoConfig.shared.theme.titleFont
         attributedTitleString.addAttribute(NSAttributedString.Key.font, value: font, range: range)
-        attributedTitleString.addAttribute(NSAttributedString.Key.foregroundColor, value: HippoConfig.shared.theme.timeTextColor, range: range)
+        attributedTitleString.addAttribute(NSAttributedString.Key.foregroundColor, value: HippoConfig.shared.theme.titleTextColor, range: range)
         attributedTitleString.addAttribute(NSAttributedString.Key.paragraphStyle, value: style, range: range)
         
-        let font2 = HippoConfig.shared.theme.description
+        let font2 = HippoConfig.shared.theme.descriptionFont
         attributedDescriptionString.addAttribute(NSAttributedString.Key.font, value: font2, range: descRange)
-        attributedDescriptionString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.black, range: descRange)
+        attributedDescriptionString.addAttribute(NSAttributedString.Key.foregroundColor, value: HippoConfig.shared.theme.descriptionTextColor, range: descRange)
         attributedDescriptionString.addAttribute(NSAttributedString.Key.paragraphStyle, value: style, range: descRange)
         
         let availableBoxSize = CGSize(width: width, height: CGFloat.greatestFiniteMagnitude)

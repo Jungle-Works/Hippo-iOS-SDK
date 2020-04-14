@@ -6,7 +6,7 @@
 //  Copyright © 2019 Socomo Technologies Private Limited. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 class ActionViewCell: UITableViewCell {
     
