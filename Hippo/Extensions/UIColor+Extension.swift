@@ -20,8 +20,7 @@ extension UIColor {
 internal extension UIColor {
     
     class var themeColor: UIColor {
-        return UIColor(red: 109/255, green: 212/255, blue: 0/255, alpha: 1)//UIColor(red: 34/255, green: 150/255, blue: 255/255, alpha: 1)
-        //return UIColor(red: 33/255, green: 150/255, blue: 243/255, alpha: 1)
+        return UIColor(red: 109/255, green: 212/255, blue: 0/255, alpha: 1)//UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)//
     }
     class var textHighlightedColor: UIColor {
         return UIColor(red: 5/255, green: 122/255, blue: 125/255, alpha: 1)

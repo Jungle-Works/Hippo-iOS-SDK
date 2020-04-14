@@ -91,7 +91,8 @@ extension OutgoingImageCell {
         
         retryButton.isHidden = true
         
-        readUnreadImageView.image = UIImage(named: "readMessageImage", in: FuguFlowManager.bundle, compatibleWith: nil)
+//        readUnreadImageView.image = UIImage(named: "readMessageImage", in: FuguFlowManager.bundle, compatibleWith: nil)
+        readUnreadImageView.image = UIImage(named: "unreadMessageImage", in: FuguFlowManager.bundle, compatibleWith: nil)
         readUnreadImageView.tintColor = HippoConfig.shared.theme.unreadTintColor
     }
     
@@ -176,10 +177,12 @@ extension OutgoingImageCell {
         case .sent:
             readUnreadImageView.image = HippoConfig.shared.theme.unreadMessageTick
             if let tintColor = HippoConfig.shared.theme.readMessageTintColor {
+//            if let tintColor = HippoConfig.shared.theme.unreadMessageTintColor {
                 readUnreadImageView.tintColor = tintColor
             }
             
-        case .read:
+//        case .read:
+        case .read, .delivered:
             readUnreadImageView.image = HippoConfig.shared.theme.readMessageTick
             if let tintColor = HippoConfig.shared.theme.readMessageTintColor {
                 readUnreadImageView.tintColor = tintColor

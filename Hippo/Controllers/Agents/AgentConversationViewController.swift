@@ -1370,18 +1370,18 @@ extension AgentConversationViewController: UIImagePickerControllerDelegate, UINa
     
 }
 
-// MARK: - SelectImageViewControllerDelegate Delegates
-extension AgentConversationViewController: SelectImageViewControllerDelegate {
-    func selectImageVC(_ selectedImageVC: SelectImageViewController, selectedImage: UIImage) {
-        selectedImageVC.dismiss(animated: false) {
-            self.imagePicker.dismiss(animated: false) {
-                self.sendConfirmedImage(image: selectedImage, mediaType: .imageType)
-            }
-        }
-    }
-    
-    func goToConversationViewController() {}
-}
+//// MARK: - SelectImageViewControllerDelegate Delegates
+//extension AgentConversationViewController: SelectImageViewControllerDelegate {
+//    func selectImageVC(_ selectedImageVC: SelectImageViewController, selectedImage: UIImage) {
+//        selectedImageVC.dismiss(animated: false) {
+//            self.imagePicker.dismiss(animated: false) {
+//                self.sendConfirmedImage(image: selectedImage, mediaType: .imageType)
+//            }
+//        }
+//    }
+//    
+//    func goToConversationViewController() {}
+//}
 
 // MARK: - ImageCellDelegate Delegates
 extension AgentConversationViewController: ImageCellDelegate {

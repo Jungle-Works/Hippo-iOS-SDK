@@ -385,6 +385,7 @@ public class UserTag: NSObject {
         AgentConversationManager.errorMessage = nil
         AgentChannelPersistancyManager.shared.clearChannels()
         HippoChannel.hashmapTransactionIdToChannelID = [:]
+        FuguDefaults.removeObject(forKey: "hashmapTransactionIdToChannelID")
         
         AgentDetail.agentLoginData = nil
         UnreadCount.clearAllStoredUnreadCount()
@@ -412,6 +413,7 @@ public class UserTag: NSObject {
         userDetailData = [String: Any]()
         FuguChannelPersistancyManager.shared.clearChannels()
         HippoChannel.hashmapTransactionIdToChannelID = [:]
+        FuguDefaults.removeObject(forKey: "hashmapTransactionIdToChannelID")
         
         FuguDefaults.removeObject(forKey: DefaultKey.myChatConversations)
         FuguDefaults.removeObject(forKey: DefaultKey.allChatConversations)

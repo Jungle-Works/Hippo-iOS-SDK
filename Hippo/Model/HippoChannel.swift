@@ -216,6 +216,30 @@ class HippoChannel {
     // MARK: - Create New Channel/Conversation
     static var hashmapTransactionIdToChannelID = [String: Int]()
     
+    class func saveHashMapTransactionIdToChannelIDInCache(hashMap: [String: Int]) {
+        
+        var sourceDict = hashMap
+        var uniqueValues = Set<Int>()
+        var resultDict = [String: Int](minimumCapacity: sourceDict.count)
+        //The reserveCapacity() function doesn't exist for Dictionaries, as pointed
+        //out by Hamish in the comments. See the initializer with minimumCapacity,
+        //above. That's the way you have to set up a dictionary with an initial capacity.
+        //resultDict.reserveCapacity(sourceDict.count)
+        for (key, value) in sourceDict {
+            if !uniqueValues.contains(value) {
+                uniqueValues.insert(value)
+                resultDict[key] = value
+            }
+        }
+        
+        //        FuguDefaults.set(value: hashMap, forKey: "hashmapTransactionIdToChannelID")
+        FuguDefaults.set(value: resultDict, forKey: "hashmapTransactionIdToChannelID")
+        
+    }
+    class func getHashMapTransactionIdToChannelIDFromCache() -> [String: Int] {
+        return (FuguDefaults.object(forKey: "hashmapTransactionIdToChannelID") as? [String: Int] ?? [:])
+    }
+
     class func get(request: CreateConversationWithLabelId, completion: @escaping HippoChannelCreationHandler) {
         
         let params = getParamsToStartConversation(WithLabelId: request)
@@ -260,6 +284,9 @@ class HippoChannel {
             let result = HippoChannelCreationResult(isSuccessful: true, error: nil, channel: channel, isChannelAvailableLocallay: false, botMessageID: botMessageID)
             if let transactionID = params["transaction_id"] as? String {
                 hashmapTransactionIdToChannelID[transactionID] = channelID
+                
+                saveHashMapTransactionIdToChannelIDInCache(hashMap: HippoChannel.hashmapTransactionIdToChannelID)
+                
             }
             completion(result)
         }
@@ -271,6 +298,12 @@ class HippoChannel {
             let params = getParamsToStartConversation(fuguAttributes: attributes)
             createNewConversationWith(params: params, completion: completion)
         } else {
+            
+            let hashMapTransactionIdToChannelIDFromCache = getHashMapTransactionIdToChannelIDFromCache()
+            if hashMapTransactionIdToChannelIDFromCache != [:]{
+                hashmapTransactionIdToChannelID = hashMapTransactionIdToChannelIDFromCache
+            }
+            
             if let transactionID = attributes.transactionId,
                 FuguNewChatAttributes.isValidTransactionID(id: transactionID),
                 let channelID = hashmapTransactionIdToChannelID[transactionID] {
@@ -325,6 +358,9 @@ class HippoChannel {
             let result = HippoChannelCreationResult(isSuccessful: true, error: nil, channel: channel, isChannelAvailableLocallay: false, botMessageID: botMessageID)
             if let transactionID = params["transaction_id"] as? String {
                 hashmapTransactionIdToChannelID[transactionID] = channelID
+                
+                saveHashMapTransactionIdToChannelIDInCache(hashMap: HippoChannel.hashmapTransactionIdToChannelID)
+                
             }
             completion(result)
         }

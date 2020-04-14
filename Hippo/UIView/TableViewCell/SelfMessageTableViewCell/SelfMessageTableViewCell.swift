@@ -180,7 +180,8 @@ class SelfMessageTableViewCell: MessageTableViewCell {
         }
         
         switch messageReadStatus {
-        case .read:
+//        case .read:
+        case .read, .delivered:
             readUnreadImageView.image = HippoConfig.shared.theme.readMessageTick
             if let tintColor = HippoConfig.shared.theme.readMessageTintColor {
                 readUnreadImageView.tintColor = tintColor

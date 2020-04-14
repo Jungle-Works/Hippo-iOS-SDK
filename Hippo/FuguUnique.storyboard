@@ -1054,7 +1054,7 @@
                                 </constraints>
                             </view>
                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="app_loader_shape" translatesAutoresizingMaskIntoConstraints="NO" id="yXi-kz-HoV" customClass="So_UIImageView" customModule="HippoChat" customModuleProvider="target">
-                                <rect key="frame" x="167.5" y="313.5" width="40" height="40"/>
+                                <rect key="frame" x="179.5" y="325.5" width="16" height="16"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3pN-rq-23Q">
@@ -1284,90 +1284,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tb4-SD-PFs" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1332" y="43.628185907046479"/>
-        </scene>
-        <!--Select Image View Controller-->
-        <scene sceneID="eyY-oJ-Kkw">
-            <objects>
-                <viewController storyboardIdentifier="SelectImageViewController" id="T7e-HO-TRf" customClass="SelectImageViewController" customModule="HippoChat" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="7CY-yu-VR5"/>
-                        <viewControllerLayoutGuide type="bottom" id="3Yp-yl-eg6"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="4il-PE-VlM">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zhH-mV-hRL">
-                                <rect key="frame" x="0.0" y="70" width="375" height="522"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="522" id="gAw-rN-h2l"/>
-                                </constraints>
-                            </imageView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W2e-BB-UEh">
-                                <rect key="frame" x="0.0" y="600" width="375" height="67"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ESk-vJ-sRn">
-                                        <rect key="frame" x="12" y="18" width="34" height="30"/>
-                                        <state key="normal" title="Back">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="cancelButton:" destination="T7e-HO-TRf" eventType="touchUpInside" id="eKc-MW-gTo"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7SC-Oa-1Hy">
-                                        <rect key="frame" x="273" y="18" width="90" height="30"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="90" id="eRX-qv-cZK"/>
-                                        </constraints>
-                                        <state key="normal" title="Send Photo">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="sendButton:" destination="T7e-HO-TRf" eventType="touchUpInside" id="OX4-bm-8Xq"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" red="0.16534432130000001" green="0.17714928269999999" blue="0.192265625" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstItem="7SC-Oa-1Hy" firstAttribute="top" secondItem="W2e-BB-UEh" secondAttribute="top" constant="18" id="722-RU-Hgg"/>
-                                    <constraint firstItem="ESk-vJ-sRn" firstAttribute="top" secondItem="W2e-BB-UEh" secondAttribute="top" constant="18" id="P6v-Ad-PhG"/>
-                                    <constraint firstAttribute="bottom" secondItem="ESk-vJ-sRn" secondAttribute="bottom" constant="19" id="U63-L7-JMw"/>
-                                    <constraint firstAttribute="height" constant="67" id="fPo-7G-ewJ"/>
-                                    <constraint firstAttribute="bottom" secondItem="7SC-Oa-1Hy" secondAttribute="bottom" constant="19" id="ohN-OW-67C"/>
-                                    <constraint firstAttribute="trailing" secondItem="7SC-Oa-1Hy" secondAttribute="trailing" constant="12" id="rdw-nQ-9os"/>
-                                    <constraint firstItem="ESk-vJ-sRn" firstAttribute="leading" secondItem="W2e-BB-UEh" secondAttribute="leading" constant="12" id="zVy-fP-aiQ"/>
-                                </constraints>
-                            </view>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MtK-b2-Z4Y">
-                                <rect key="frame" x="5" y="20" width="34" height="42"/>
-                                <state key="normal">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="3Yp-yl-eg6" firstAttribute="top" secondItem="W2e-BB-UEh" secondAttribute="bottom" id="4L2-lo-rCG"/>
-                            <constraint firstAttribute="trailing" secondItem="zhH-mV-hRL" secondAttribute="trailing" id="6Z1-6f-rmc"/>
-                            <constraint firstItem="W2e-BB-UEh" firstAttribute="top" secondItem="zhH-mV-hRL" secondAttribute="bottom" constant="8" id="Hvb-Yc-4I2"/>
-                            <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="MtK-b2-Z4Y" secondAttribute="trailing" constant="336" id="LpN-eC-LUW"/>
-                            <constraint firstItem="zhH-mV-hRL" firstAttribute="top" secondItem="MtK-b2-Z4Y" secondAttribute="bottom" constant="8" id="PEG-zz-X2g"/>
-                            <constraint firstItem="W2e-BB-UEh" firstAttribute="leading" secondItem="4il-PE-VlM" secondAttribute="leading" id="UHG-yw-kVe"/>
-                            <constraint firstItem="MtK-b2-Z4Y" firstAttribute="top" secondItem="7CY-yu-VR5" secondAttribute="bottom" id="iVO-5F-ule"/>
-                            <constraint firstItem="MtK-b2-Z4Y" firstAttribute="leading" secondItem="4il-PE-VlM" secondAttribute="leading" constant="5" id="jyd-93-zlI"/>
-                            <constraint firstItem="zhH-mV-hRL" firstAttribute="leading" secondItem="4il-PE-VlM" secondAttribute="leading" id="lsg-dF-tnx"/>
-                            <constraint firstAttribute="trailing" secondItem="W2e-BB-UEh" secondAttribute="trailing" id="spL-Gu-Zg1"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="cancelButtonOutlet" destination="ESk-vJ-sRn" id="qco-2Q-2F2"/>
-                        <outlet property="selectImageView" destination="zhH-mV-hRL" id="Ril-Cp-XBh"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Nr0-7g-mDn" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3207" y="44"/>
         </scene>
         <!--Agent Conversation View Controller-->
         <scene sceneID="JNH-Zp-5CV">
@@ -2127,6 +2043,89 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OGw-2P-IpJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="445" y="3275"/>
+        </scene>
+        <!--Select Image View Controller-->
+        <scene sceneID="ZtD-bw-gGl">
+            <objects>
+                <viewController storyboardIdentifier="SelectImageViewController" id="xrN-yE-t2V" customClass="SelectImageViewController" customModule="HippoChat" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="yjZ-Ed-Pbm"/>
+                        <viewControllerLayoutGuide type="bottom" id="h6Y-4p-BUD"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Z5p-Wz-ZAA">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="FIY-mi-sXm">
+                                <rect key="frame" x="0.0" y="70" width="375" height="522"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="522" id="e0a-PY-KEV"/>
+                                </constraints>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h0B-no-cp0">
+                                <rect key="frame" x="0.0" y="600" width="375" height="67"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F71-Mc-rPC">
+                                        <rect key="frame" x="12" y="18" width="34" height="30"/>
+                                        <state key="normal" title="Back">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="cancelButton:" destination="xrN-yE-t2V" eventType="touchUpInside" id="nmy-h4-K0v"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c6H-O1-FRT">
+                                        <rect key="frame" x="273" y="18" width="90" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="90" id="b2x-bK-NdZ"/>
+                                        </constraints>
+                                        <state key="normal" title="Send">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="sendButton:" destination="xrN-yE-t2V" eventType="touchUpInside" id="1yz-58-uq9"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="67" id="DEO-AZ-Py0"/>
+                                    <constraint firstItem="F71-Mc-rPC" firstAttribute="leading" secondItem="h0B-no-cp0" secondAttribute="leading" constant="12" id="I1Z-X5-tP5"/>
+                                    <constraint firstItem="c6H-O1-FRT" firstAttribute="top" secondItem="h0B-no-cp0" secondAttribute="top" constant="18" id="SCj-hv-4ts"/>
+                                    <constraint firstAttribute="bottom" secondItem="c6H-O1-FRT" secondAttribute="bottom" constant="19" id="Tx1-WO-fVT"/>
+                                    <constraint firstItem="F71-Mc-rPC" firstAttribute="top" secondItem="h0B-no-cp0" secondAttribute="top" constant="18" id="YnU-d6-4PE"/>
+                                    <constraint firstAttribute="trailing" secondItem="c6H-O1-FRT" secondAttribute="trailing" constant="12" id="rHt-fm-qdl"/>
+                                    <constraint firstAttribute="bottom" secondItem="F71-Mc-rPC" secondAttribute="bottom" constant="19" id="zf0-Kh-43m"/>
+                                </constraints>
+                            </view>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aDY-xx-H8Y">
+                                <rect key="frame" x="5" y="20" width="34" height="42"/>
+                                <state key="normal">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="aDY-xx-H8Y" secondAttribute="trailing" constant="336" id="TzQ-uW-42M"/>
+                            <constraint firstItem="h6Y-4p-BUD" firstAttribute="top" secondItem="h0B-no-cp0" secondAttribute="bottom" id="YLX-1O-udZ"/>
+                            <constraint firstItem="h0B-no-cp0" firstAttribute="leading" secondItem="Z5p-Wz-ZAA" secondAttribute="leading" id="gBl-j2-rrG"/>
+                            <constraint firstItem="FIY-mi-sXm" firstAttribute="leading" secondItem="Z5p-Wz-ZAA" secondAttribute="leading" id="gI0-XG-ck1"/>
+                            <constraint firstItem="h0B-no-cp0" firstAttribute="top" secondItem="FIY-mi-sXm" secondAttribute="bottom" constant="8" id="gWU-Fm-wDa"/>
+                            <constraint firstAttribute="trailing" secondItem="FIY-mi-sXm" secondAttribute="trailing" id="l3m-6L-nUc"/>
+                            <constraint firstItem="FIY-mi-sXm" firstAttribute="top" secondItem="aDY-xx-H8Y" secondAttribute="bottom" constant="8" id="q5K-Zj-Dbr"/>
+                            <constraint firstItem="aDY-xx-H8Y" firstAttribute="leading" secondItem="Z5p-Wz-ZAA" secondAttribute="leading" constant="5" id="qu6-pU-k8a"/>
+                            <constraint firstItem="aDY-xx-H8Y" firstAttribute="top" secondItem="yjZ-Ed-Pbm" secondAttribute="bottom" id="vDq-KV-Ubn"/>
+                            <constraint firstAttribute="trailing" secondItem="h0B-no-cp0" secondAttribute="trailing" id="vyv-HF-YTt"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="cancelButtonOutlet" destination="F71-Mc-rPC" id="49l-GR-5uO"/>
+                        <outlet property="selectImageView" destination="FIY-mi-sXm" id="hgM-ND-Ptp"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KGV-Sd-0bA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3063" y="44"/>
         </scene>
     </scenes>
     <resources>

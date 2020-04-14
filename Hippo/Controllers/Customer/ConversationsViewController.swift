@@ -109,33 +109,78 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         
         guard channel != nil else {
             if createConversationOnStart {
-                startNewConversation(replyMessage: nil, completion: { [weak self] (success, result) in
-                    guard success else {
-                        return
-                    }
-                    
-                    //self?.populateTableViewWithChannelData()
-                    //self?.fetchMessagesFrom1stPage()
-                    
-//                    weakSelf.channel = FuguChannelPersistancyManager.shared.getChannelBy(id: result.channelID)
-//                    weakSelf.channel.delegate = self
-//                    weakSelf.populateTableViewWithChannelData()
-                    
-                    if self?.isComingFromConsultNowButton == true  && !(result?.channel?.chatDetail?.agentAlreadyAssigned ?? false) { // checked
-                        self?.isComingFromConsultNowButton = false
-                        self?.callAssignAgentApi(completion: { [weak self] (success) in
-                            guard success == true else {
-                                return
+              
+                if directChatDetail != nil {
+                    HippoChannel.get(withFuguChatAttributes: directChatDetail!) { [weak self] (r) in
+                        let result = r
+                        if result.isChannelAvailableLocallay{
+                            if result.channel != nil, let chnl = result.channel{
+                                self?.channel = chnl
+                                self?.channel.delegate = self
+                                self?.populateTableViewWithChannelData()
+                                self?.fetchMessagesFrom1stPage()
+                                HippoConfig.shared.notifyDidLoad()
+                            }else{
+                                self?.startNewConversation(replyMessage: nil, completion: { [weak self] (success, result) in
+                                    guard success else {
+                                        return
+                                    }
+                                    if self?.isComingFromConsultNowButton == true  && !(result?.channel?.chatDetail?.agentAlreadyAssigned ?? false) { // checked
+                                        self?.isComingFromConsultNowButton = false
+                                        self?.callAssignAgentApi(completion: { [weak self] (success) in
+                                            guard success == true else {
+                                                return
+                                            }
+                                            self?.populateTableViewWithChannelData()
+                                            self?.fetchMessagesFrom1stPage()
+                                        })
+                                    } else {
+                                        self?.populateTableViewWithChannelData()
+                                        self?.fetchMessagesFrom1stPage()
+                                    }
+                                })
                             }
+                        }else{
+                            self?.startNewConversation(replyMessage: nil, completion: { [weak self] (success, result) in
+                                guard success else {
+                                    return
+                                }
+                                if self?.isComingFromConsultNowButton == true  && !(result?.channel?.chatDetail?.agentAlreadyAssigned ?? false) { // checked
+                                    self?.isComingFromConsultNowButton = false
+                                    self?.callAssignAgentApi(completion: { [weak self] (success) in
+                                        guard success == true else {
+                                            return
+                                        }
+                                        self?.populateTableViewWithChannelData()
+                                        self?.fetchMessagesFrom1stPage()
+                                    })
+                                } else {
+                                    self?.populateTableViewWithChannelData()
+                                    self?.fetchMessagesFrom1stPage()
+                                }
+                            })
+                        }
+                    }
+                }else{
+                    startNewConversation(replyMessage: nil, completion: { [weak self] (success, result) in
+                        guard success else {
+                            return
+                        }
+                        if self?.isComingFromConsultNowButton == true  && !(result?.channel?.chatDetail?.agentAlreadyAssigned ?? false) { // checked
+                            self?.isComingFromConsultNowButton = false
+                            self?.callAssignAgentApi(completion: { [weak self] (success) in
+                                guard success == true else {
+                                    return
+                                }
+                                self?.populateTableViewWithChannelData()
+                                self?.fetchMessagesFrom1stPage()
+                            })
+                        } else {
                             self?.populateTableViewWithChannelData()
                             self?.fetchMessagesFrom1stPage()
-                        })
-                    } else {
-                        self?.populateTableViewWithChannelData()
-                        self?.fetchMessagesFrom1stPage()
-                    }
-                    
-                })
+                        }
+                    })
+                }
             } else {
                 fetchMessagesFrom1stPage()
             }
@@ -146,6 +191,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         
         populateTableViewWithChannelData()
         fetchMessagesFrom1stPage()
+        //HippoConfig.shared.notifyDidLoad()//
         
 //        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
         self.navigationController?.interactivePopGestureRecognizer?.delegate = self
@@ -2154,18 +2200,18 @@ extension ConversationsViewController: UIImagePickerControllerDelegate, UINaviga
     
 }
 
-// MARK: - SelectImageViewControllerDelegate Delegates
-extension ConversationsViewController: SelectImageViewControllerDelegate {
-   func selectImageVC(_ selectedImageVC: SelectImageViewController, selectedImage: UIImage) {
-      selectedImageVC.dismiss(animated: false) {
-         self.imagePicker.dismiss(animated: false) {
-            self.sendConfirmedImage(image: selectedImage, mediaType: .imageType)
-         }
-      }
-   }
-   
-   func goToConversationViewController() {}
-}
+//// MARK: - SelectImageViewControllerDelegate Delegates
+//extension ConversationsViewController: SelectImageViewControllerDelegate {
+//   func selectImageVC(_ selectedImageVC: SelectImageViewController, selectedImage: UIImage) {
+//      selectedImageVC.dismiss(animated: false) {
+//         self.imagePicker.dismiss(animated: false) {
+//            self.sendConfirmedImage(image: selectedImage, mediaType: .imageType)
+//         }
+//      }
+//   }
+//   
+//   func goToConversationViewController() {}
+//}
 
 // MARK: - ImageCellDelegate Delegates
 extension ConversationsViewController: ImageCellDelegate {

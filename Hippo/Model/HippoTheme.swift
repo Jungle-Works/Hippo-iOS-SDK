@@ -48,9 +48,9 @@ public struct ConversationListTheme {
     var shouldEnableDisplayUserImage: Bool = true
     
     //open var themeColor: UIColor =  #colorLiteral(red: 0.3843137255, green: 0.4901960784, blue: 0.8823529412, alpha: 1)
-    open var themeColor: UIColor = UIColor(red: 109/255, green: 212/255, blue: 0/255, alpha: 1)
+    open var themeColor: UIColor = UIColor(red: 109/255, green: 212/255, blue: 0/255, alpha: 1)//UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)//
     
-    var gradientTopColor = UIColor(red: 109/255, green: 212/255, blue: 0/255, alpha: 1)//UIColor(red: 77/255, green: 124/255, blue: 254/255, alpha: 1)
+    var gradientTopColor = UIColor(red: 109/255, green: 212/255, blue: 0/255, alpha: 1)//UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)//UIColor(red: 77/255, green: 124/255, blue: 254/255, alpha: 1)
     
     var gradientBottomColor = UIColor(red: 57/255, green: 58/255, blue: 238/255, alpha: 1)
     
@@ -60,14 +60,14 @@ public struct ConversationListTheme {
     open var infoIconTintColor = #colorLiteral(red: 0.3843137255, green: 0.4901960784, blue: 0.8823529412, alpha: 1)
     open var headerBackgroundColor = UIColor.white//#colorLiteral(red: 0.3843137255, green: 0.4901960784, blue: 0.8823529412, alpha: 1)
     open var headerTextColor = UIColor.black//#colorLiteral(red: 0.9882352941, green: 0.9882352941, blue: 0.9882352941, alpha: 1)
-    open var headerText = "My Recent Consultations"//"Support"
+    open var headerText = "My Recent Consultations"//"My Recent Classes"//"Support"
     open var directChatHeader = "Conversation List"
     open var broadcastHeader = "Broadcast Message"
     open var broadcastHistoryHeader = "Broadcast Message history"
     open var starRatingColor: UIColor = UIColor.yellow
     
     open var newConversationButtonFont: UIFont? = UIFont.boldSystemFont(ofSize: 18.0)
-    open var newConversationText = "Consult Now >"//"Talk To Dietitian >"
+    open var newConversationText = "Consult Now >"//"Learn Now >"//"Talk To Dietitian >"
     
     open var darkThemeTextColor = UIColor.white
     open var lightThemeTextColor = UIColor.black
@@ -115,13 +115,13 @@ public struct ConversationListTheme {
     open var actionButtonIcon: UIImage? = UIImage(named: "optionIcons", in: FuguFlowManager.bundle, compatibleWith: nil)
     open var actionButtonIconTintColor: UIColor?
     
-    open var readTintColor = UIColor(red: 0/255, green: 221/255, blue: 182/255, alpha: 1)
+    open var readTintColor = UIColor(red: 109/255, green: 212/255, blue: 0/255, alpha: 1)//UIColor(red: 0/255, green: 221/255, blue: 182/255, alpha: 1)
     open var unreadTintColor = UIColor.gray
     
     open var readMessageTick: UIImage? = UIImage(named: "readMessageImage", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
-    open var readMessageTintColor: UIColor? = UIColor(red: 0/255, green: 221/255, blue: 182/255, alpha: 1)
+    open var readMessageTintColor: UIColor? = UIColor(red: 109/255, green: 212/255, blue: 0/255, alpha: 1)//UIColor(red: 0/255, green: 221/255, blue: 182/255, alpha: 1)
     
-    open var unreadMessageTick: UIImage? = UIImage(named: "readMessageImage", in: FuguFlowManager.bundle, compatibleWith: nil)
+    open var unreadMessageTick: UIImage? = UIImage(named: "unreadMessageImage", in: FuguFlowManager.bundle, compatibleWith: nil)
     open var unreadMessageTintColor: UIColor? = UIColor.gray
     
     open var unsentMessageIcon: UIImage? = UIImage(named: "unsent_watch_icon", in: FuguFlowManager.bundle, compatibleWith: nil)
