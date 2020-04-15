@@ -161,7 +161,30 @@ extension UINavigationController {
         navigationBar.titleTextAttributes = attributes
     }
 }
+
+extension UIStoryboard {
+    enum Name: String {
+        case onBoarding = "OnBoarding"
+        case home = "Home"
+        case fuguUnique = "FuguUnique"
+        case moreOptions = "MoreOptions"
+        case inviteGuest = "InviteGuest"
+    }
+}
+
 extension UIViewController {
+    
+    class func findIn(storyboard: UIStoryboard.Name, withIdentifier identifier: String? = nil) -> UIViewController {
+        let storyboard = UIStoryboard(name: storyboard.rawValue, bundle: nil)
+        let vc: UIViewController
+        if identifier != nil {
+            vc = storyboard.instantiateViewController(withIdentifier: identifier!)
+        } else {
+            vc = storyboard.instantiateInitialViewController()!
+        }
+        return vc
+    }
+
     func showAlert(_ inController: UIViewController? = getLastVisibleController(), buttonTitle: String = "OK", title: String?, message: String, preferredStyle: UIAlertController.Style = .alert, actionComplete: ((_ action: UIAlertAction) -> Void)?) {
         let alertMessageController = UIAlertController(title: title, message: message, preferredStyle: preferredStyle)
         

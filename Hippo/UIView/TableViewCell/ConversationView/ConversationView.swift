@@ -165,12 +165,15 @@ extension ConversationView {
             msgStatusWidthConstraint?.constant = 17
             leadingConstraintOfLastMessage?.constant = 2
             msgStatusImageView?.contentMode = .center
-            if let lastMessageStatus = conersationObj.lastMessage?.status, lastMessageStatus == .read {
+//            if let lastMessageStatus = conersationObj.lastMessage?.status, lastMessageStatus == .read {
+            if let lastMessageStatus = conersationObj.lastMessage?.status, lastMessageStatus == .read || lastMessageStatus == .delivered{
                 msgStatusImageView?.image = UIImage(named: "readMessageImage", in: FuguFlowManager.bundle, compatibleWith: nil)
                 msgStatusImageView?.tintColor = HippoConfig.shared.theme.readTintColor
             } else {
-                msgStatusImageView?.image = UIImage(named: "readMessageImage", in: FuguFlowManager.bundle, compatibleWith: nil)
-                   msgStatusImageView?.tintColor = HippoConfig.shared.theme.unreadTintColor
+//                msgStatusImageView?.image = UIImage(named: "readMessageImage", in: FuguFlowManager.bundle, compatibleWith: nil)
+//                msgStatusImageView?.tintColor = HippoConfig.shared.theme.unreadTintColor
+                msgStatusImageView?.image = UIImage(named: "unreadMessageImage", in: FuguFlowManager.bundle, compatibleWith: nil)
+                msgStatusImageView?.tintColor = HippoConfig.shared.theme.unreadTintColor
             }
         } else if let last_sent_by_full_name = conersationObj.lastMessage?.senderFullName, (conersationObj.lastMessage?.senderId ?? -1) > 0 {
             if last_sent_by_full_name.isEmpty {

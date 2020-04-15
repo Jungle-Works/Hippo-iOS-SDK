@@ -111,6 +111,7 @@ class MessageSender {
                 self?.startSending()
                 HippoConfig.shared.log.debug("-->\(self?.channelID.description ?? "no channel id") == messageSent == \(messageJSON) ", level: .socket)
             } else {
+                print("FayeConnection.shared.send****:", result.error?.error)
                 guard let errorType = result.error?.error else {
                     self?.retryWithDelay()
                     return

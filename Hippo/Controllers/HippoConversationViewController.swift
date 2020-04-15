@@ -785,7 +785,10 @@ extension HippoConversationViewController: PickerHelperDelegate {
                 showAlert(title: "", message: HippoConfig.shared.strings.somethingWentWrong, actionComplete: nil)
                 return
             }
-            sendConfirmedImage(image: selectedImage, mediaType: mediaType)
+//            sendConfirmedImage(image: selectedImage, mediaType: mediaType)
+            let vc = SelectImageViewController.getWith(pickedImage: selectedImage, imageFormat: nil, delegate: self, isMentioningEnabled: false, gifData: nil, mediaType: mediaType)
+            self.present(vc, animated: true, completion: nil)
+
         case .movieType:
             guard let filePath = result.filePath else {
                 showAlert(title: "", message: HippoConfig.shared.strings.somethingWentWrong, actionComplete: nil)
@@ -802,6 +805,29 @@ extension HippoConversationViewController: PickerHelperDelegate {
         sendSelectedDocumentWith(filePath: url.path, fileName: url.lastPathComponent, messageType: .attachment, fileType: .document)
     }
 }
+
+// MARK: - SelectImageViewControllerDelegate Delegates
+extension HippoConversationViewController: SelectImageViewControllerDelegate {
+    func selectImageVC(_ selectedImageVC: SelectImageViewController, selectedImage: UIImage) {
+        //        selectedImageVC.dismiss(animated: false) {
+        //            self.imagePicker.dismiss(animated: false) {
+        //                self.sendConfirmedImage(image: selectedImage, mediaType: .imageType)
+        //            }
+        //        }
+        selectedImageVC.dismiss(animated: true) {
+            if self.presentedViewController == self.imagePicker {
+                self.imagePicker.dismiss(animated: false) {
+                    self.sendConfirmedImage(image: selectedImage, mediaType: .imageType)
+                }
+            } else {
+                self.sendConfirmedImage(image: selectedImage, mediaType: .imageType)
+            }
+        }
+    }
+    
+    func goToConversationViewController() {}
+}
+
 extension HippoConversationViewController {
     
     func sendSelectedDocumentWith(filePath: String, fileName: String, messageType: MessageType, fileType: FileType) {

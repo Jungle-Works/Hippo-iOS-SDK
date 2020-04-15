@@ -480,7 +480,8 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
                 
                 //self?.populateTableViewWithChannelData()
                 //self?.fetchMessagesFrom1stPage()
-                if self?.isComingFromConsultNowButton == true{
+//                if self?.isComingFromConsultNowButton == true{
+                if self?.isComingFromConsultNowButton == true && !(result?.channel?.chatDetail?.agentAlreadyAssigned ?? false) {
                     self?.isComingFromConsultNowButton = false
                     self?.callAssignAgentApi(completion: { [weak self] (success) in
                         guard success == true else {
@@ -1048,7 +1049,8 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
                 
                 //self?.populateTableViewWithChannelData()
                 //self?.fetchMessagesFrom1stPage()
-                if self?.isComingFromConsultNowButton == true{
+//                if self?.isComingFromConsultNowButton == true{
+                if self?.isComingFromConsultNowButton == true && !(result?.channel?.chatDetail?.agentAlreadyAssigned ?? false) {
                     self?.isComingFromConsultNowButton = false
                     self?.callAssignAgentApi(completion: { [weak self] (success) in
                         guard success == true else {
@@ -1156,7 +1158,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
          errorMessage = HippoConfig.shared.strings.noNetworkConnection
          showErrorMessage()
          disableSendingNewMessages()
-         return
+//         return
       }
       
       startLoaderAnimation()
@@ -1184,7 +1186,8 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
             })
          }
       } else if directChatDetail != nil {
-         HippoChannel.get(withFuguChatAttributes: directChatDetail!) { [weak self] (r) in
+//         HippoChannel.get(withFuguChatAttributes: directChatDetail!) { [weak self] (r) in
+        HippoChannel.get(withFuguChatAttributes: directChatDetail!, isComingFromConsultNow: self.isComingFromConsultNowButton) { [weak self] (r) in
             var result = r
     
             result.isReplyMessageSent = false
@@ -2350,18 +2353,18 @@ extension ConversationsViewController: UIImagePickerControllerDelegate, UINaviga
     
 }
 
-// MARK: - SelectImageViewControllerDelegate Delegates
-extension ConversationsViewController: SelectImageViewControllerDelegate {
-   func selectImageVC(_ selectedImageVC: SelectImageViewController, selectedImage: UIImage) {
-      selectedImageVC.dismiss(animated: false) {
-         self.imagePicker.dismiss(animated: false) {
-            self.sendConfirmedImage(image: selectedImage, mediaType: .imageType)
-         }
-      }
-   }
-   
-   func goToConversationViewController() {}
-}
+//// MARK: - SelectImageViewControllerDelegate Delegates
+//extension ConversationsViewController: SelectImageViewControllerDelegate {
+//   func selectImageVC(_ selectedImageVC: SelectImageViewController, selectedImage: UIImage) {
+//      selectedImageVC.dismiss(animated: false) {
+//         self.imagePicker.dismiss(animated: false) {
+//            self.sendConfirmedImage(image: selectedImage, mediaType: .imageType)
+//         }
+//      }
+//   }
+//   
+//   func goToConversationViewController() {}
+//}
 
 // MARK: - ImageCellDelegate Delegates
 extension ConversationsViewController: ImageCellDelegate {

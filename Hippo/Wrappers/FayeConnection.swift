@@ -235,6 +235,9 @@ extension FayeConnection {
         init(reasonInfo: [String: Any]) {
             error =  FayeError(reasonInfo: reasonInfo) ?? .fayeNotConnected
             message = reasonInfo["customMessage"] as? String
+            if message == nil {
+                message = reasonInfo["message"] as? String
+            }
             showError = Bool.parse(key: "showError", json: reasonInfo, defaultValue: false)
         }
         

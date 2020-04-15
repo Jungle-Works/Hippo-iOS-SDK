@@ -292,25 +292,32 @@ class HippoChannel {
         }
     }
     
-    class func get(withFuguChatAttributes attributes: FuguNewChatAttributes, completion: @escaping HippoChannelCreationHandler) {
-        
-        let hashMapTransactionIdToChannelIDFromCache = getHashMapTransactionIdToChannelIDFromCache()
-        if hashMapTransactionIdToChannelIDFromCache != [:]{
-            hashmapTransactionIdToChannelID = hashMapTransactionIdToChannelIDFromCache
-        }
-        
-        if let transactionID = attributes.transactionId,
-            FuguNewChatAttributes.isValidTransactionID(id: transactionID),
-            let channelID = hashmapTransactionIdToChannelID[transactionID] {
+//    class func get(withFuguChatAttributes attributes: FuguNewChatAttributes, completion: @escaping HippoChannelCreationHandler) {
+    class func get(withFuguChatAttributes attributes: FuguNewChatAttributes, isComingFromConsultNow: Bool = false, completion: @escaping HippoChannelCreationHandler) {
+    
+        if isComingFromConsultNow {
+            let params = getParamsToStartConversation(fuguAttributes: attributes)
+            createNewConversationWith(params: params, completion: completion)
+        } else {
             
-            let channel = FuguChannelPersistancyManager.shared.getChannelBy(id: channelID)
-            let result = HippoChannelCreationResult(isSuccessful: true, error: nil, channel: channel, isChannelAvailableLocallay: true, botMessageID: nil)
-            completion(result)
-            return
+            let hashMapTransactionIdToChannelIDFromCache = getHashMapTransactionIdToChannelIDFromCache()
+            if hashMapTransactionIdToChannelIDFromCache != [:]{
+                hashmapTransactionIdToChannelID = hashMapTransactionIdToChannelIDFromCache
+            }
+            
+            if let transactionID = attributes.transactionId,
+                FuguNewChatAttributes.isValidTransactionID(id: transactionID),
+                let channelID = hashmapTransactionIdToChannelID[transactionID] {
+                
+                let channel = FuguChannelPersistancyManager.shared.getChannelBy(id: channelID)
+                let result = HippoChannelCreationResult(isSuccessful: true, error: nil, channel: channel, isChannelAvailableLocallay: true, botMessageID: nil)
+                completion(result)
+                return
+            }
+            
+            let params = getParamsToStartConversation(fuguAttributes: attributes)
+            createNewConversationWith(params: params, completion: completion)
         }
-        
-        let params = getParamsToStartConversation(fuguAttributes: attributes)
-        createNewConversationWith(params: params, completion: completion)
     }
     
     private class func createNewConversationWith(params: [String: Any], chatType: ChatType? = nil, completion: @escaping HippoChannelCreationHandler) {
@@ -333,7 +340,10 @@ class HippoChannel {
                     return
             }
             
+//            let channel = FuguChannelPersistancyManager.shared.getChannelBy(id: channelID)
+            print("API_CREATE_CONVERSATION_RESPONSE******* ", response)
             let channel = FuguChannelPersistancyManager.shared.getChannelBy(id: channelID)
+            channel.chatDetail?.agentAlreadyAssigned = data["agent_already_assigned"] as? Bool ?? false
             
             if channel.chatDetail == nil {
                 channel.chatDetail = ChatDetail(json: data)
@@ -514,7 +524,7 @@ class HippoChannel {
         return thisChannelCache
     }
     
-    @objc  func saveMessagesInCache() {
+    @objc func saveMessagesInCache() {
         var arrayOfSentMessages = [[String: Any]]()
         var arrayOfUnsentMessages = [[String: Any]]()
         

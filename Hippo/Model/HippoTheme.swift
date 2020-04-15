@@ -47,7 +47,7 @@ public struct ConversationListTheme {
     
     var shouldEnableDisplayUserImage: Bool = true
     
-    var gradientTopColor = #colorLiteral(red: 0.9725490196, green: 0.9764705882, blue: 1, alpha: 1)//UIColor(red: 77/255, green: 124/255, blue: 254/255, alpha: 1)
+    var gradientTopColor = #colorLiteral(red: 0.9725490196, green: 0.9764705882, blue: 1, alpha: 1)//UIColor(red: 77/255, green: 124/255, blue: 254/255, alpha: 1)//UIColor(red: 109/255, green: 212/255, blue: 0/255, alpha: 1)
     var gradientBottomColor = #colorLiteral(red: 0.9725490196, green: 0.9764705882, blue: 1, alpha: 1)//UIColor(red: 57/255, green: 58/255, blue: 238/255, alpha: 1)
     let gradientBackgroundColor = #colorLiteral(red: 0.9725490196, green: 0.9764705882, blue: 1, alpha: 1)//UIColor(red: 77/255, green: 124/255, blue: 254/200, alpha: 0.05)
 
@@ -55,13 +55,13 @@ public struct ConversationListTheme {
     open var infoIconTintColor = #colorLiteral(red: 0.3843137255, green: 0.4901960784, blue: 0.8823529412, alpha: 1)
     open var headerBackgroundColor = #colorLiteral(red: 0.3843137255, green: 0.4901960784, blue: 0.8823529412, alpha: 1)//UIColor.white
     open var headerTextColor = #colorLiteral(red: 0.9882352941, green: 0.9882352941, blue: 0.9882352941, alpha: 1)//UIColor.black
-    open var headerText = "Support"
+    open var headerText = "Support"//"My Recent Consultations"
     open var directChatHeader = "Conversation List"
     open var broadcastHeader = "Broadcast Message"
     open var broadcastHistoryHeader = "Broadcast Message history"
     open var promotionsAnnouncementsHeaderText = "Announcements"
     
-    open var themeColor: UIColor = .white
+    open var themeColor: UIColor = .white//UIColor(red: 109/255, green: 212/255, blue: 0/255, alpha: 1)
     open var themeTextcolor: UIColor = .black
     
     open var starRatingColor: UIColor = UIColor.yellow
@@ -112,13 +112,13 @@ public struct ConversationListTheme {
     open var actionButtonIcon: UIImage? = UIImage(named: "optionIcons", in: FuguFlowManager.bundle, compatibleWith: nil)
     open var actionButtonIconTintColor: UIColor?
     
-    open var readTintColor = UIColor(red: 0/255, green: 221/255, blue: 182/255, alpha: 1)
+    open var readTintColor = UIColor(red: 0/255, green: 221/255, blue: 182/255, alpha: 1)//UIColor(red: 109/255, green: 212/255, blue: 0/255, alpha: 1)
     open var unreadTintColor = UIColor.gray
     
-    open var readMessageTick: UIImage? = UIImage(named: "readMsgTick", in: FuguFlowManager.bundle, compatibleWith: nil)//UIImage(named: "readMessageImage", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
-    open var readMessageTintColor: UIColor? //= UIColor(red: 0/255, green: 221/255, blue: 182/255, alpha: 1)
+    open var readMessageTick: UIImage? = UIImage(named: "readMessageImage", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)//UIImage(named: "readMsgTick", in: FuguFlowManager.bundle, compatibleWith: nil)//
+    open var readMessageTintColor: UIColor? //= UIColor(red: 0/255, green: 221/255, blue: 182/255, alpha: 1)//UIColor(red: 109/255, green: 212/255, blue: 0/255, alpha: 1)
     
-    open var unreadMessageTick: UIImage? = UIImage(named: "unreadMsgTick", in: FuguFlowManager.bundle, compatibleWith: nil)//UIImage(named: "readMessageImage", in: FuguFlowManager.bundle, compatibleWith: nil)
+    open var unreadMessageTick: UIImage? = UIImage(named: "unreadMessageImage", in: FuguFlowManager.bundle, compatibleWith: nil)//UIImage(named: "unreadMsgTick", in: FuguFlowManager.bundle, compatibleWith: nil)//
     open var unreadMessageTintColor: UIColor? //= UIColor.gray
     
     open var unsentMessageIcon: UIImage? = UIImage(named: "unsent_watch_icon", in: FuguFlowManager.bundle, compatibleWith: nil)
@@ -171,7 +171,7 @@ public struct ConversationListTheme {
     open var typingTextColor = #colorLiteral(red: 0.1725490196, green: 0.137254902, blue: 0.2, alpha: 1)
     
     open var newConversationButtonFont: UIFont? = UIFont.boldSystemFont(ofSize: 18.0)
-    open var newConversationText = "New Conversation"
+    open var newConversationText = "New Conversation"//"Consult Now >"
 
     open var chatbackgroundImage: UIImage?
     
