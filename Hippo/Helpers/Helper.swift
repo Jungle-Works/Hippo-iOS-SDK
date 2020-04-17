@@ -20,7 +20,8 @@ class Helper {
     }
     
     class func getIncomingAttributedStringWithLastUserCheck(chatMessageObject: HippoMessage) -> NSMutableAttributedString {
-    let isAboveMessageIsFromSameUser: Bool = (chatMessageObject.aboveMessageUserId == chatMessageObject.senderId && chatMessageObject.type != .consent && chatMessageObject.aboveMessageType != .consent) && chatMessageObject.aboveMessageType != .assignAgent
+//    let isAboveMessageIsFromSameUser: Bool = (chatMessageObject.aboveMessageUserId == chatMessageObject.senderId && chatMessageObject.type != .consent && chatMessageObject.aboveMessageType != .consent) && chatMessageObject.aboveMessageType != .assignAgent
+    let isAboveMessageIsFromSameUser: Bool = (chatMessageObject.aboveMessageUserId == chatMessageObject.senderId && chatMessageObject.type != .consent && chatMessageObject.aboveMessageType != .consent) && chatMessageObject.aboveMessageType != .assignAgent && chatMessageObject.belowMessageType != .card
     let messageString = chatMessageObject.message
 //    let userNameString = isAboveMessageIsFromSameUser ? "" : chatMessageObject.senderFullName
 //    let middleString = isAboveMessageIsFromSameUser ? "" : "\n"

@@ -124,14 +124,14 @@ class PromotionsViewController: UIViewController {
         
         if theme.leftBarButtonImage != nil {
             let btnleft = UIBarButtonItem(image: theme.leftBarButtonImage, landscapeImagePhone: nil, style: .done, target: self, action: #selector(backButtonClicked))
-            btnleft.tintColor = theme.logoutButtonTintColor ?? theme.headerTextColor
+            btnleft.tintColor = theme.logoutButtonTintColor ?? theme.headerTextColor//theme.themeColor//
             self.navigationItem.leftBarButtonItem = btnleft
             self.navigationItem.leftBarButtonItems = [btnleft]
         }
         
         if let deleteImage = UIImage(named: "ic_delete", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate){
             let deleteAllAnnouncementsButton = UIBarButtonItem(image: deleteImage, landscapeImagePhone: nil, style: .done, target: self, action: #selector(deleteAllAnnouncementsButtonClicked))
-            deleteAllAnnouncementsButton.tintColor = theme.logoutButtonTintColor ?? theme.headerTextColor
+            deleteAllAnnouncementsButton.tintColor = theme.logoutButtonTintColor ?? theme.headerTextColor//theme.themeColor//
             self.navigationItem.rightBarButtonItem = deleteAllAnnouncementsButton
             self.navigationItem.rightBarButtonItems = [deleteAllAnnouncementsButton]
         }

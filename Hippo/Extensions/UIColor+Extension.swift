@@ -20,7 +20,7 @@ extension UIColor {
 internal extension UIColor {
     
     class var themeColor: UIColor {
-        return UIColor(red: 109/255, green: 212/255, blue: 0/255, alpha: 1)
+        return HippoConfig.shared.theme.themeColor//UIColor(red: 109/255, green: 212/255, blue: 0/255, alpha: 1)
 //        return UIColor(red: 34/255, green: 150/255, blue: 255/255, alpha: 1)
         //return UIColor(red: 33/255, green: 150/255, blue: 243/255, alpha: 1)
     }

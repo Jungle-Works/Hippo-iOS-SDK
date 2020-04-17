@@ -96,7 +96,8 @@ enum MessageType: Int {
         return [.normal, .imageFile, .feedback, .actionableMessage, .leadForm, .quickReply, .botText, .call, .hippoPay, .attachment, .consent, .card, .paymentCard , .multipleSelect, .embeddedVideoUrl]//, .address, .dateTime]
     }
     var agentHandledMessages: [MessageType] {
-        return [.normal, .imageFile, .privateNote, .assignAgent, .botText, .call, .attachment, .consent, .actionableMessage, .hippoPay]
+//        return [.normal, .imageFile, .privateNote, .assignAgent, .botText, .call, .attachment, .consent, .actionableMessage, .hippoPay]
+        return [.normal, .imageFile, .privateNote, .assignAgent, .botText, .call, .attachment, .consent, .actionableMessage, .hippoPay, .feedback, .leadForm, .quickReply, .multipleSelect, .embeddedVideoUrl]
     }
    
     func isMessageTypeHandled() -> Bool {
