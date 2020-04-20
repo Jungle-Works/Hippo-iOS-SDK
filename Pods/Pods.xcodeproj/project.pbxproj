@@ -11,22 +11,22 @@
 		114D6D8A8F26D07024A0C1411474C7D3 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A7A74854B0013D0E9C4C6DFCD7FEE5A /* CFNetwork.framework */; };
 		1403538B074C9CAD3CDF80D554AAEAD8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDDCF66BD24FD6C11F2AFD8E98F514DD /* Foundation.framework */; };
 		2B7C684EC5A254C187591FA52B1D4A1E /* Pods-Hippo-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 0098C5ADF58EB5A3FFDD39C7301C53B7 /* Pods-Hippo-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		2C7C0866911A9B55D0C3BC9763B1C109 /* SRWebSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = C6A24EA5F99CD34227E88F60B07AA7A9 /* SRWebSocket.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4CC2517CBF5C5EE75FB99C8AA624D4AF /* MZFayeClient-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 950CFC7349F07502433D4C61D8AFD68F /* MZFayeClient-dummy.m */; };
-		4FC5F7EEB1C16F18615A9BD908E5B35A /* MZFayeMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = DBAC8801B6A04AE672538E6023DD79DE /* MZFayeMessage.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2C7C0866911A9B55D0C3BC9763B1C109 /* SRWebSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = 145EFDD851AEAFD07C5905634A9A6C4F /* SRWebSocket.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4CC2517CBF5C5EE75FB99C8AA624D4AF /* MZFayeClient-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 689FF7513C10B4B212C484B1B061CCF9 /* MZFayeClient-dummy.m */; };
+		4FC5F7EEB1C16F18615A9BD908E5B35A /* MZFayeMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = D43FE3010FCFE6C7801577648534AC82 /* MZFayeMessage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		555D341821D44134E8D6ED90ED865BA3 /* Pods-Hippo-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 32353FB21FAA2ED598CEB58AF1B50F98 /* Pods-Hippo-dummy.m */; };
-		561E489893D40D1D313E4EBB942A0A73 /* SRWebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = C9168B0E65FC9F28840BB1B89154EB6E /* SRWebSocket.m */; };
+		561E489893D40D1D313E4EBB942A0A73 /* SRWebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 11DAA792E1141333B5AA74E10BFFCB74 /* SRWebSocket.m */; };
 		5B889BE7EE16AA83B5B0E602AADAB808 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDDCF66BD24FD6C11F2AFD8E98F514DD /* Foundation.framework */; };
-		5F3B48214BF97612B2C147B112748EEF /* MZFayeMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 084989D714BD7B485424E9CD93CD533E /* MZFayeMessage.m */; };
-		6BE3964BFB2D5E386452CA0FC7C9E71A /* MZFayeClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 14B6D28291132923C1A38A0621BA367C /* MZFayeClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5F3B48214BF97612B2C147B112748EEF /* MZFayeMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 924121C838D1663FE7F40EAE9F37033D /* MZFayeMessage.m */; };
+		6BE3964BFB2D5E386452CA0FC7C9E71A /* MZFayeClient.h in Headers */ = {isa = PBXBuildFile; fileRef = F10985204511619C36D781C4C2EFFED0 /* MZFayeClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		720CA1BB71A79C01868C60B5C18064DC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDDCF66BD24FD6C11F2AFD8E98F514DD /* Foundation.framework */; };
 		867A848020D324B2F403F7A9E100C8C7 /* SocketRocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B5C715D786DA7152068D513BA7EC811 /* SocketRocket.framework */; };
-		BEC6216C1050163987D2C48A53EE72BF /* MZFayeClient-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 6EB189357C93C5C0C9DDFFCB1BBA1538 /* MZFayeClient-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BEC6216C1050163987D2C48A53EE72BF /* MZFayeClient-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = E4B827FA9A5486A630AC559D53DEE97E /* MZFayeClient-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0DC8A8E7A9123C47A5BC81DF1330296 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 261F742D8E8768FAF2D944D941A2D9B2 /* Security.framework */; };
-		D6E23AC3E24A374E5839E38968D977C8 /* SocketRocket-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = F90034A71A6820448BAE6EABA5D5905B /* SocketRocket-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E95B6257824114414F1B636D029E1BE2 /* MZFayeClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 495C83C76EFCA32F577F063CE6FAC3FC /* MZFayeClient.m */; };
-		F500C903070FC391D61BF504AB6F6E9D /* SocketRocket-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D9EC48501ECEAAE1EA18A424CADB97 /* SocketRocket-dummy.m */; };
-		FE7EFF7AD70FEA0967D3A6389EFE03EC /* SocketRocket.h in Headers */ = {isa = PBXBuildFile; fileRef = CA755842E79D3AAE168207C76BD9C3BD /* SocketRocket.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D6E23AC3E24A374E5839E38968D977C8 /* SocketRocket-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = EC47BA2761C886015E704E5070DA8D7C /* SocketRocket-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E95B6257824114414F1B636D029E1BE2 /* MZFayeClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DBD54813022BD9743B43BE3FC76CECA /* MZFayeClient.m */; };
+		F500C903070FC391D61BF504AB6F6E9D /* SocketRocket-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = E16158E3476C710B81E539E8BAFB4E6E /* SocketRocket-dummy.m */; };
+		FE7EFF7AD70FEA0967D3A6389EFE03EC /* SocketRocket.h in Headers */ = {isa = PBXBuildFile; fileRef = 91E40A3A0AEE0DC0A0711F495CC7F331 /* SocketRocket.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,42 +56,40 @@
 /* Begin PBXFileReference section */
 		0098C5ADF58EB5A3FFDD39C7301C53B7 /* Pods-Hippo-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Hippo-umbrella.h"; sourceTree = "<group>"; };
 		00F5BDC56BDA4B71466E04241C0FAF22 /* Pods_Hippo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_Hippo.framework; path = "Pods-Hippo.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		02C8D3A0C7D117F280786727892F4D0F /* SocketRocket.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SocketRocket.release.xcconfig; sourceTree = "<group>"; };
-		07D9EC48501ECEAAE1EA18A424CADB97 /* SocketRocket-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SocketRocket-dummy.m"; sourceTree = "<group>"; };
-		084989D714BD7B485424E9CD93CD533E /* MZFayeMessage.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MZFayeMessage.m; path = MZFayeClient/MZFayeMessage.m; sourceTree = "<group>"; };
-		14B6D28291132923C1A38A0621BA367C /* MZFayeClient.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MZFayeClient.h; path = MZFayeClient/MZFayeClient.h; sourceTree = "<group>"; };
+		0956AE4D9A1B6055FE36E8A6D0FCA156 /* MZFayeClient-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MZFayeClient-prefix.pch"; sourceTree = "<group>"; };
+		11DAA792E1141333B5AA74E10BFFCB74 /* SRWebSocket.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SRWebSocket.m; path = SocketRocket/SRWebSocket.m; sourceTree = "<group>"; };
+		145EFDD851AEAFD07C5905634A9A6C4F /* SRWebSocket.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SRWebSocket.h; path = SocketRocket/SRWebSocket.h; sourceTree = "<group>"; };
 		1664CB00F34559B322E6EFF1BF664C4F /* Pods-Hippo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Hippo.release.xcconfig"; sourceTree = "<group>"; };
 		1B5C715D786DA7152068D513BA7EC811 /* SocketRocket.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SocketRocket.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		1D84BFD3E853B5E5C52E750D545A0364 /* SocketRocket.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = SocketRocket.modulemap; sourceTree = "<group>"; };
+		1DBD54813022BD9743B43BE3FC76CECA /* MZFayeClient.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MZFayeClient.m; path = MZFayeClient/MZFayeClient.m; sourceTree = "<group>"; };
+		21438741B8FDED5953176B922D2A794B /* SocketRocket.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SocketRocket.xcconfig; sourceTree = "<group>"; };
 		261F742D8E8768FAF2D944D941A2D9B2 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
 		32353FB21FAA2ED598CEB58AF1B50F98 /* Pods-Hippo-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Hippo-dummy.m"; sourceTree = "<group>"; };
 		365EA59078F4191B30C55BBD149C6EEE /* Pods-Hippo-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Hippo-acknowledgements.plist"; sourceTree = "<group>"; };
-		3AF319E650B23F6BFAC88DA189F30E0F /* SocketRocket-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SocketRocket-prefix.pch"; sourceTree = "<group>"; };
-		495C83C76EFCA32F577F063CE6FAC3FC /* MZFayeClient.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MZFayeClient.m; path = MZFayeClient/MZFayeClient.m; sourceTree = "<group>"; };
-		616E042DB3E0A7A62554A9221F83F252 /* MZFayeClient-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MZFayeClient-prefix.pch"; sourceTree = "<group>"; };
-		6EB189357C93C5C0C9DDFFCB1BBA1538 /* MZFayeClient-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MZFayeClient-umbrella.h"; sourceTree = "<group>"; };
-		701967008DA7E93AA3A54150027D9BE9 /* SocketRocket-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "SocketRocket-Info.plist"; sourceTree = "<group>"; };
+		5FE915DD290D473BE1EFD0FA8D3AFF27 /* SocketRocket-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SocketRocket-prefix.pch"; sourceTree = "<group>"; };
+		689FF7513C10B4B212C484B1B061CCF9 /* MZFayeClient-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "MZFayeClient-dummy.m"; sourceTree = "<group>"; };
 		7AFBD3C9669D6175A17ED2E8BD10C4B0 /* Pods-Hippo-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Hippo-Info.plist"; sourceTree = "<group>"; };
 		816990C79555FEA12720E90EE2C99487 /* Pods-Hippo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Hippo.debug.xcconfig"; sourceTree = "<group>"; };
 		85A01882ED06DFEA2E0CE78BCDB204A7 /* SocketRocket.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SocketRocket.framework; path = SocketRocket.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		8A5D3B136B0ED6D973F5D435AD3E2D83 /* MZFayeClient.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = MZFayeClient.release.xcconfig; sourceTree = "<group>"; };
 		8A7A74854B0013D0E9C4C6DFCD7FEE5A /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/CFNetwork.framework; sourceTree = DEVELOPER_DIR; };
-		950CFC7349F07502433D4C61D8AFD68F /* MZFayeClient-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "MZFayeClient-dummy.m"; sourceTree = "<group>"; };
+		91E40A3A0AEE0DC0A0711F495CC7F331 /* SocketRocket.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SocketRocket.h; path = SocketRocket/SocketRocket.h; sourceTree = "<group>"; };
+		924121C838D1663FE7F40EAE9F37033D /* MZFayeMessage.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MZFayeMessage.m; path = MZFayeClient/MZFayeMessage.m; sourceTree = "<group>"; };
+		96A3B6F3F769FA5EB386691DC1B334EF /* MZFayeClient-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "MZFayeClient-Info.plist"; sourceTree = "<group>"; };
 		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		9EA062B7027A6DAF6F1170E65EC05FE3 /* Pods-Hippo-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Hippo-acknowledgements.markdown"; sourceTree = "<group>"; };
-		A61A92193C826E73E9E69100097025EE /* MZFayeClient.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = MZFayeClient.modulemap; sourceTree = "<group>"; };
+		9F05682AE3E1721BDCFE09A876089DAB /* MZFayeClient.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = MZFayeClient.xcconfig; sourceTree = "<group>"; };
+		A3C1D5F45D0388E4ACC6BF7C4DF5412F /* MZFayeClient.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = MZFayeClient.modulemap; sourceTree = "<group>"; };
+		ABFFC9E8FFB501E978B82DB20A88A6A7 /* SocketRocket.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = SocketRocket.modulemap; sourceTree = "<group>"; };
 		B12C6979FF83E10A9AC7964D3EBED1BA /* Pods-Hippo-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Hippo-frameworks.sh"; sourceTree = "<group>"; };
-		B3DEC96116D14C8FF917ECFC437DEA11 /* MZFayeClient-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "MZFayeClient-Info.plist"; sourceTree = "<group>"; };
 		B6B8D182444B77AA6BA4856DD8951294 /* MZFayeClient.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = MZFayeClient.framework; path = MZFayeClient.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		C6A24EA5F99CD34227E88F60B07AA7A9 /* SRWebSocket.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SRWebSocket.h; path = SocketRocket/SRWebSocket.h; sourceTree = "<group>"; };
-		C9168B0E65FC9F28840BB1B89154EB6E /* SRWebSocket.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SRWebSocket.m; path = SocketRocket/SRWebSocket.m; sourceTree = "<group>"; };
-		CA755842E79D3AAE168207C76BD9C3BD /* SocketRocket.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SocketRocket.h; path = SocketRocket/SocketRocket.h; sourceTree = "<group>"; };
-		D2C2831F33985084744CFE7DCB1D2004 /* SocketRocket.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SocketRocket.debug.xcconfig; sourceTree = "<group>"; };
-		DBAC8801B6A04AE672538E6023DD79DE /* MZFayeMessage.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MZFayeMessage.h; path = MZFayeClient/MZFayeMessage.h; sourceTree = "<group>"; };
+		D43FE3010FCFE6C7801577648534AC82 /* MZFayeMessage.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MZFayeMessage.h; path = MZFayeClient/MZFayeMessage.h; sourceTree = "<group>"; };
 		DDDCF66BD24FD6C11F2AFD8E98F514DD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		DDF1EA42B71D88DFBC62EC0E7F296172 /* SocketRocket-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "SocketRocket-Info.plist"; sourceTree = "<group>"; };
+		E16158E3476C710B81E539E8BAFB4E6E /* SocketRocket-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SocketRocket-dummy.m"; sourceTree = "<group>"; };
+		E4B827FA9A5486A630AC559D53DEE97E /* MZFayeClient-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MZFayeClient-umbrella.h"; sourceTree = "<group>"; };
+		EC47BA2761C886015E704E5070DA8D7C /* SocketRocket-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SocketRocket-umbrella.h"; sourceTree = "<group>"; };
+		F10985204511619C36D781C4C2EFFED0 /* MZFayeClient.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MZFayeClient.h; path = MZFayeClient/MZFayeClient.h; sourceTree = "<group>"; };
 		F193925F24E815593A308C6F85BAAE50 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
-		F90034A71A6820448BAE6EABA5D5905B /* SocketRocket-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SocketRocket-umbrella.h"; sourceTree = "<group>"; };
-		FCCF89A1D7ADCCC37638E2B80801FB63 /* MZFayeClient.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = MZFayeClient.debug.xcconfig; sourceTree = "<group>"; };
 		FF0ABC14AAD0176C5776C47991CC9604 /* Pods-Hippo.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-Hippo.modulemap"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -127,6 +125,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0D599BEFCF012C83BA38378E6547CC98 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				ABFFC9E8FFB501E978B82DB20A88A6A7 /* SocketRocket.modulemap */,
+				21438741B8FDED5953176B922D2A794B /* SocketRocket.xcconfig */,
+				E16158E3476C710B81E539E8BAFB4E6E /* SocketRocket-dummy.m */,
+				DDF1EA42B71D88DFBC62EC0E7F296172 /* SocketRocket-Info.plist */,
+				5FE915DD290D473BE1EFD0FA8D3AFF27 /* SocketRocket-prefix.pch */,
+				EC47BA2761C886015E704E5070DA8D7C /* SocketRocket-umbrella.h */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/SocketRocket";
+			sourceTree = "<group>";
+		};
 		1509C8FE9256E8D30480096827F01258 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -136,32 +148,18 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		27E2CFC13B4671306383CC004FB38465 /* MZFayeClient */ = {
+		3EAAAD1C021D070651176C0372636194 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				14B6D28291132923C1A38A0621BA367C /* MZFayeClient.h */,
-				495C83C76EFCA32F577F063CE6FAC3FC /* MZFayeClient.m */,
-				DBAC8801B6A04AE672538E6023DD79DE /* MZFayeMessage.h */,
-				084989D714BD7B485424E9CD93CD533E /* MZFayeMessage.m */,
-				A5284E335D97E86C34982154A5AC2F5E /* Support Files */,
-			);
-			name = MZFayeClient;
-			path = MZFayeClient;
-			sourceTree = "<group>";
-		};
-		5739CA3C77A58EC0397803C199FCE033 /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				1D84BFD3E853B5E5C52E750D545A0364 /* SocketRocket.modulemap */,
-				07D9EC48501ECEAAE1EA18A424CADB97 /* SocketRocket-dummy.m */,
-				701967008DA7E93AA3A54150027D9BE9 /* SocketRocket-Info.plist */,
-				3AF319E650B23F6BFAC88DA189F30E0F /* SocketRocket-prefix.pch */,
-				F90034A71A6820448BAE6EABA5D5905B /* SocketRocket-umbrella.h */,
-				D2C2831F33985084744CFE7DCB1D2004 /* SocketRocket.debug.xcconfig */,
-				02C8D3A0C7D117F280786727892F4D0F /* SocketRocket.release.xcconfig */,
+				A3C1D5F45D0388E4ACC6BF7C4DF5412F /* MZFayeClient.modulemap */,
+				9F05682AE3E1721BDCFE09A876089DAB /* MZFayeClient.xcconfig */,
+				689FF7513C10B4B212C484B1B061CCF9 /* MZFayeClient-dummy.m */,
+				96A3B6F3F769FA5EB386691DC1B334EF /* MZFayeClient-Info.plist */,
+				0956AE4D9A1B6055FE36E8A6D0FCA156 /* MZFayeClient-prefix.pch */,
+				E4B827FA9A5486A630AC559D53DEE97E /* MZFayeClient-umbrella.h */,
 			);
 			name = "Support Files";
-			path = "../Target Support Files/SocketRocket";
+			path = "../Target Support Files/MZFayeClient";
 			sourceTree = "<group>";
 		};
 		5CE948445C2AD55EC2397EA5CBD8E9B4 /* Pods-Hippo */ = {
@@ -181,19 +179,17 @@
 			path = "Target Support Files/Pods-Hippo";
 			sourceTree = "<group>";
 		};
-		A5284E335D97E86C34982154A5AC2F5E /* Support Files */ = {
+		7B88D1B23A35B9CCDA0D9902264A71A1 /* MZFayeClient */ = {
 			isa = PBXGroup;
 			children = (
-				A61A92193C826E73E9E69100097025EE /* MZFayeClient.modulemap */,
-				950CFC7349F07502433D4C61D8AFD68F /* MZFayeClient-dummy.m */,
-				B3DEC96116D14C8FF917ECFC437DEA11 /* MZFayeClient-Info.plist */,
-				616E042DB3E0A7A62554A9221F83F252 /* MZFayeClient-prefix.pch */,
-				6EB189357C93C5C0C9DDFFCB1BBA1538 /* MZFayeClient-umbrella.h */,
-				FCCF89A1D7ADCCC37638E2B80801FB63 /* MZFayeClient.debug.xcconfig */,
-				8A5D3B136B0ED6D973F5D435AD3E2D83 /* MZFayeClient.release.xcconfig */,
+				F10985204511619C36D781C4C2EFFED0 /* MZFayeClient.h */,
+				1DBD54813022BD9743B43BE3FC76CECA /* MZFayeClient.m */,
+				D43FE3010FCFE6C7801577648534AC82 /* MZFayeMessage.h */,
+				924121C838D1663FE7F40EAE9F37033D /* MZFayeMessage.m */,
+				3EAAAD1C021D070651176C0372636194 /* Support Files */,
 			);
-			name = "Support Files";
-			path = "../Target Support Files/MZFayeClient";
+			name = MZFayeClient;
+			path = MZFayeClient;
 			sourceTree = "<group>";
 		};
 		A806F598CDD386F306986D0403712479 /* iOS */ = {
@@ -210,22 +206,10 @@
 		B1C425DD68918CDBEFC997233E58094B /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				27E2CFC13B4671306383CC004FB38465 /* MZFayeClient */,
-				C07E9292CFD0A4F26BF42B257D2EC017 /* SocketRocket */,
+				7B88D1B23A35B9CCDA0D9902264A71A1 /* MZFayeClient */,
+				E98B86757B54EE681E03B2AABF4D2693 /* SocketRocket */,
 			);
 			name = Pods;
-			sourceTree = "<group>";
-		};
-		C07E9292CFD0A4F26BF42B257D2EC017 /* SocketRocket */ = {
-			isa = PBXGroup;
-			children = (
-				CA755842E79D3AAE168207C76BD9C3BD /* SocketRocket.h */,
-				C6A24EA5F99CD34227E88F60B07AA7A9 /* SRWebSocket.h */,
-				C9168B0E65FC9F28840BB1B89154EB6E /* SRWebSocket.m */,
-				5739CA3C77A58EC0397803C199FCE033 /* Support Files */,
-			);
-			name = SocketRocket;
-			path = SocketRocket;
 			sourceTree = "<group>";
 		};
 		C3BDCA924F9A0CCFF110CFC34588B3C7 /* Targets Support Files */ = {
@@ -245,6 +229,18 @@
 				F5E602664666D56AF539EA88739F1163 /* Products */,
 				C3BDCA924F9A0CCFF110CFC34588B3C7 /* Targets Support Files */,
 			);
+			sourceTree = "<group>";
+		};
+		E98B86757B54EE681E03B2AABF4D2693 /* SocketRocket */ = {
+			isa = PBXGroup;
+			children = (
+				91E40A3A0AEE0DC0A0711F495CC7F331 /* SocketRocket.h */,
+				145EFDD851AEAFD07C5905634A9A6C4F /* SRWebSocket.h */,
+				11DAA792E1141333B5AA74E10BFFCB74 /* SRWebSocket.m */,
+				0D599BEFCF012C83BA38378E6547CC98 /* Support Files */,
+			);
+			name = SocketRocket;
+			path = SocketRocket;
 			sourceTree = "<group>";
 		};
 		F5E602664666D56AF539EA88739F1163 /* Products */ = {
@@ -453,38 +449,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		11BEF9172888C93BED702E38A7983A15 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 02C8D3A0C7D117F280786727892F4D0F /* SocketRocket.release.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/SocketRocket/SocketRocket-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/SocketRocket/SocketRocket-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/SocketRocket/SocketRocket.modulemap";
-				PRODUCT_MODULE_NAME = SocketRocket;
-				PRODUCT_NAME = SocketRocket;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
 		196DFA3E4A09A28224918543529A1885 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -549,9 +513,9 @@
 			};
 			name = Debug;
 		};
-		2281B89629A47A155FE4D6F278FED0EE /* Debug */ = {
+		4D4BFB8FBE5554F441167E5B1F924828 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FCCF89A1D7ADCCC37638E2B80801FB63 /* MZFayeClient.debug.xcconfig */;
+			baseConfigurationReference = 9F05682AE3E1721BDCFE09A876089DAB /* MZFayeClient.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -580,9 +544,9 @@
 			};
 			name = Debug;
 		};
-		9D47A854C6BA472754048F4C9689BCA9 /* Release */ = {
+		6B6C38056ED640FDC401E2D15B0D57E5 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8A5D3B136B0ED6D973F5D435AD3E2D83 /* MZFayeClient.release.xcconfig */;
+			baseConfigurationReference = 21438741B8FDED5953176B922D2A794B /* SocketRocket.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -593,14 +557,14 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/MZFayeClient/MZFayeClient-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/MZFayeClient/MZFayeClient-Info.plist";
+				GCC_PREFIX_HEADER = "Target Support Files/SocketRocket/SocketRocket-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/SocketRocket/SocketRocket-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/MZFayeClient/MZFayeClient.modulemap";
-				PRODUCT_MODULE_NAME = MZFayeClient;
-				PRODUCT_NAME = MZFayeClient;
+				MODULEMAP_FILE = "Target Support Files/SocketRocket/SocketRocket.modulemap";
+				PRODUCT_MODULE_NAME = SocketRocket;
+				PRODUCT_NAME = SocketRocket;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
@@ -611,6 +575,37 @@
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
+		};
+		9199AFE77ACBD77F8931B2BF64D856BC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 21438741B8FDED5953176B922D2A794B /* SocketRocket.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/SocketRocket/SocketRocket-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/SocketRocket/SocketRocket-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/SocketRocket/SocketRocket.modulemap";
+				PRODUCT_MODULE_NAME = SocketRocket;
+				PRODUCT_NAME = SocketRocket;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
 		};
 		B01D14FDC83DCF9D4BE53066BEA96D05 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -743,9 +738,9 @@
 			};
 			name = Release;
 		};
-		EDFDD6CA71A9EBF66646CFEFAE700C20 /* Debug */ = {
+		F3DB040C00E648C4226E1052D2996795 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D2C2831F33985084744CFE7DCB1D2004 /* SocketRocket.debug.xcconfig */;
+			baseConfigurationReference = 9F05682AE3E1721BDCFE09A876089DAB /* MZFayeClient.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -756,23 +751,24 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/SocketRocket/SocketRocket-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/SocketRocket/SocketRocket-Info.plist";
+				GCC_PREFIX_HEADER = "Target Support Files/MZFayeClient/MZFayeClient-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/MZFayeClient/MZFayeClient-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/SocketRocket/SocketRocket.modulemap";
-				PRODUCT_MODULE_NAME = SocketRocket;
-				PRODUCT_NAME = SocketRocket;
+				MODULEMAP_FILE = "Target Support Files/MZFayeClient/MZFayeClient.modulemap";
+				PRODUCT_MODULE_NAME = MZFayeClient;
+				PRODUCT_NAME = MZFayeClient;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
-			name = Debug;
+			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
@@ -789,8 +785,8 @@
 		6771E6580B826AD5BD3DABBE3165340E /* Build configuration list for PBXNativeTarget "SocketRocket" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				EDFDD6CA71A9EBF66646CFEFAE700C20 /* Debug */,
-				11BEF9172888C93BED702E38A7983A15 /* Release */,
+				9199AFE77ACBD77F8931B2BF64D856BC /* Debug */,
+				6B6C38056ED640FDC401E2D15B0D57E5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -798,8 +794,8 @@
 		B2E8A77A265ED70CBB2080787831F3AD /* Build configuration list for PBXNativeTarget "MZFayeClient" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				2281B89629A47A155FE4D6F278FED0EE /* Debug */,
-				9D47A854C6BA472754048F4C9689BCA9 /* Release */,
+				4D4BFB8FBE5554F441167E5B1F924828 /* Debug */,
+				F3DB040C00E648C4226E1052D2996795 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

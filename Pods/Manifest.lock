@@ -7,7 +7,7 @@ DEPENDENCIES:
   - MZFayeClient
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  trunk:
     - MZFayeClient
     - SocketRocket
 
@@ -17,4 +17,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 3ce7f8fec677e5214471ff775064d01391317b05
 
-COCOAPODS: 1.9.1
+COCOAPODS: 1.8.4
