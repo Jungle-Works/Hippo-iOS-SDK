@@ -7,8 +7,9 @@ target 'Hippo' do
 
   # Pods for Fugu
   
+#  pod 'HippoCallClient', :path => '/Users/Sushil/Downloads/hippodemo/HippoCallClient'
   pod 'MZFayeClient'
-
+  
     post_install do |installer|
       
       installer.pods_project.targets.each do |target|

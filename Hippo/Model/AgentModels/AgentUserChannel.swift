@@ -101,9 +101,14 @@ class AgentUserChannel {
             guard self != nil else {
                 return
             }
-            let conversation = AgentConversation(json: messageDict)
+            if let messageType = messageDict["message_type"] as? Int, messageType == 18 {
             HippoConfig.shared.log.trace("UserChannel:: --->\(messageDict)", level: .socket)
+                CallManager.shared.voipNotificationRecieved(payloadDict: messageDict)
+            }
+            let conversation = AgentConversation(json: messageDict)
+//            HippoConfig.shared.log.trace("UserChannel:: --->\(messageDict)", level: .socket)
             self?.conversationRecieved(conversation)
+            
         }
     }
     

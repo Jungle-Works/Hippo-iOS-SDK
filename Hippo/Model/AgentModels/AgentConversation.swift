@@ -63,7 +63,7 @@ class AgentConversation: HippoConversation {
         agent_id = json["agent_id"] as? Int
         agent_name = json["agent_name"] as? String
         bot_channel_name = json["bot_channel_name"]  as? String
-        channel_id = json["channel_id"] as? Int ?? -1 //Int.parse(values: json, key: "channel_id") //json["channel_id"] as? Int
+        channel_id = Int.parse(values: json, key: "channel_id") //json["channel_id"] as? Int
         channel_name = json["channel_name"] as? String
         created_at = json["created_at"] as? String
         label = json["label"] as? String
@@ -177,7 +177,7 @@ class AgentConversation: HippoConversation {
     }
     
     func update(newConversation: AgentConversation) {
-//                self.channel_id = channelId
+        //        self.channel_id = channelId
         self.unreadCount = getUnreadCountFor(newConversation: newConversation)
         
         self.lastMessageDate = newConversation.lastMessage?.creationDateTime ?? Date()
@@ -209,12 +209,6 @@ class AgentConversation: HippoConversation {
     }
     override func getJsonToStore() -> [String : Any] {
         var json = super.getJsonToStore()
-        
-        if let channel_id = channel_id {
-            if channel_id == -1 {
-                json["channel_id"] = channel_id
-            }
-        }
         
         if let agent_id = agent_id {
             json["agent_id"] = agent_id

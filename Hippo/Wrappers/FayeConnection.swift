@@ -216,6 +216,7 @@ extension FayeConnection {
         case invalidSending = 413
         case channelNotSubscribed = 4000
         case resendSameMessage = 420
+        case versionMismatch = 415
 
         init?(reasonInfo: [String: Any]) {
             guard let statusCode = reasonInfo["statusCode"] as? Int else {
@@ -228,6 +229,7 @@ extension FayeConnection {
             self = reason
         }
     }
+    
     struct FayeResponseError {
         var message: String?
         var error: FayeError?

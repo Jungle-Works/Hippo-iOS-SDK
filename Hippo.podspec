@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
     s.name         = 'Hippo'
 
-    s.version      = '2.1.11'
+    s.version      = '2.1.10'
 
     s.summary      = 'Now add Agent in app for quick support.'
     s.homepage     = 'https://github.com/Jungle-Works/Hippo-iOS-SDK'
@@ -12,7 +12,7 @@ Pod::Spec.new do |s|
     s.author             = { 'Vishal Jhanjhri' => 'jhanjhri.vishal@gmail.com' }
     
     s.source       = { :git => 'https://github.com/Jungle-Works/Hippo-iOS-SDK.git', :tag => s.version }
-    s.ios.deployment_target = '9.0'
+    s.ios.deployment_target = '10.0'
     s.source_files = 'Hippo/**/*.{swift,h,m}'
     s.exclude_files = 'Classes/Exclude'
     s.static_framework = false
@@ -26,15 +26,16 @@ Pod::Spec.new do |s|
     s.preserve_paths = ['README.md']
     
     s.dependency 'MZFayeClient'
+    s.dependency 'Kingfisher'
     s.default_subspec = 'Chat'
-    
+    s.vendored_frameworks =  ['Conference/ConferenceCall/ConferenceCall/JitsiMeet.framework', 'Conference/ConferenceCall/ConferenceCall/WebRTC.framework']
     s.subspec 'Chat' do |chat|
         
     end
     
     s.subspec 'Call' do |callClient|
         s.pod_target_xcconfig = { "ENABLE_BITCODE" => "No" }
-        callClient.dependency 'HippoCallClient', '1.0.1'
+        callClient.dependency 'HippoCallClient', '0.0.21'
     end
     
 end

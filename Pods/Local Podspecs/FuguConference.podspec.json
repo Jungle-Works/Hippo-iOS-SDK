@@ -1,0 +1,23 @@
+{
+  "name": "FuguConference",
+  "version": "0.0.1",
+  "summary": "FuguConference",
+  "homepage": "https://github.com/Jungle-Works/Hippo-iOS-SDK",
+  "documentation_url": "https://github.com/Jungle-Works/Hippo-iOS-SDK",
+  "license": {
+    "type": "MIT",
+    "file": "FILE_LICENSE"
+  },
+  "authors": {
+    "Vishal Jhanjhri": "jhanjhri.vishal@gmail.com"
+  },
+  "source": {
+    "git": "https://github.com/Jungle-Works/Hippo-iOS-SDK.git",
+    "tag": "0.0.1"
+  },
+  "platforms": {
+    "ios": "9.0"
+  },
+  "source_files": "ConferenceCall/**/*.{swift,h,m}",
+  "vendored_frameworks": "ConferenceCall/JitsiMeet.framework"
+}

@@ -30,7 +30,6 @@ class FuguFlowManager: NSObject {
         navVc.setTheme()
         getLastVisibleController()?.present(navVc, animated: true, completion: nil)
     }
-    
     func pushAgentConversationViewController(chatAttributes: AgentDirectChatAttributes) {
         let conVC = AgentConversationViewController.getWith(chatAttributes: chatAttributes)
         let navVc = UINavigationController(rootViewController: conVC)

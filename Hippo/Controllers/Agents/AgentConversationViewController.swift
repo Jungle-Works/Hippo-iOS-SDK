@@ -61,9 +61,6 @@ class AgentConversationViewController: HippoConversationViewController {
     //    }
     
     deinit {
-        if channel != nil {
-            self.channel.saveMessagesInCache()
-        }
         NotificationCenter.default.removeObserver(self)
     }
     
@@ -439,9 +436,7 @@ class AgentConversationViewController: HippoConversationViewController {
             messages = filterForMultipleMuid(newMessages: messages, newMessagesHashMap: newMessagesHashMap)
         }
         updateMessagesInLocalArrays(messages: messages)
-         if channel != nil {
-                 self.channel.saveMessagesInCache()
-             }
+        
         
         let contentOffsetBeforeNewMessages = tableViewChat.contentOffset.y
         let contentHeightBeforeNewMessages = tableViewChat.contentSize.height

@@ -12,8 +12,8 @@ let HippoSDKSource = 1
 let Device_Type_iOS = 2
 var userDetailData = [String: Any]()
 
-let fuguAppVersion = "2.1.11"
-let versionCode = 311
+let fuguAppVersion = "2.1.10"
+let versionCode = 355
 
 
 /*

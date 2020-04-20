@@ -1,0 +1,39 @@
+{
+  "name": "HippoCallClient",
+  "version": "0.0.21",
+  "summary": "Hippo Call Client",
+  "description": "Hippo Call Client to start video call and audio call",
+  "homepage": "https://github.com/Jungle-Works/HippoCallClient.git",
+  "license": {
+    "type": "MIT",
+    "file": "FILE_LICENSE"
+  },
+  "authors": {
+    "Vishal Jhanjhri": "jhanjhri.vishal@gmail.com"
+  },
+  "platforms": {
+    "ios": "10.0"
+  },
+  "source": {
+    "git": "https://github.com/Jungle-Works/HippoCallClient.git",
+    "tag": "0.0.21"
+  },
+  "swift_versions": "4.2",
+  "source_files": "HippoCallClient/**/*.{h,m,swift,xib,storyboard}",
+  "exclude_files": "Classes/Exclude",
+  "static_framework": false,
+  "preserve_paths": "README.md",
+  "vendored_frameworks": [
+    "Conference/ConferenceCall/ConferenceCall/JitsiMeet.framework",
+    "Conference/ConferenceCall/ConferenceCall/WebRTC.framework"
+  ],
+  "dependencies": {
+    "Kingfisher": [
+
+    ]
+  },
+  "pod_target_xcconfig": {
+    "ENABLE_BITCODE": "No"
+  },
+  "swift_version": "4.2"
+}

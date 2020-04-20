@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import Kingfisher
 class PromotionTableViewCell: UITableViewCell {
 
     @IBOutlet weak var bgView: UIView!
@@ -63,7 +63,7 @@ class PromotionTableViewCell: UITableViewCell {
             self.imageHeightConstraint.constant = 160
             self.promotionImage?.isHidden = false
             let url = URL(string: data.imageUrlString)
-            self.promotionImage.kf.setImage(with: url, placeholder: HippoConfig.shared.theme.placeHolderImage,  completionHandler:nil)
+            self.promotionImage.kf.setImage(with: url, placeholder: HippoConfig.shared.theme.placeHolderImage)
         }
         self.promotionTitle.text = data.title//"This is a new tittle"
        

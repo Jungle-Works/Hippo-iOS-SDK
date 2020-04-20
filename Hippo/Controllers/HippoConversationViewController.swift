@@ -404,7 +404,7 @@ class HippoConversationViewController: UIViewController {
             return
         }
         
-        self.modalPresentationStyle = .overFullScreen
+        self.modalPresentationStyle = .overCurrentContext
         self.present(showImageVC!, animated: true, completion: nil)
     }
     
@@ -535,6 +535,28 @@ class HippoConversationViewController: UIViewController {
             self.navigationTitleButton?.sizeToFit()
         }
     }
+    
+    // before shubham changes
+//    func startAudioCall() {
+//        guard canStartAudioCall() else {
+//            return
+//        }
+//        guard let peerDetail = channel?.chatDetail?.peerDetail else {
+//            return
+//
+//        }
+//
+//        self.view.endEditing(true)
+//
+//        let call = CallData.init(peerData: peerDetail, callType: .audio, muid: String.uuid(), signallingClient: channel)
+//
+//        CallManager.shared.startCall(call: call) { (success) in
+//            if !success {
+//                assertionFailure("Cannot start the call")
+//            }
+//        }
+//    }
+    
     func startAudioCall() {
         guard canStartAudioCall() else {
             return
@@ -548,12 +570,47 @@ class HippoConversationViewController: UIViewController {
         
         let call = CallData.init(peerData: peerDetail, callType: .audio, muid: String.uuid(), signallingClient: channel)
         
-        CallManager.shared.startCall(call: call) { (success) in
-            if !success {
+        CallManager.shared.startCall(call: call) { (success, error) in
+            
+            if let mismatchError = error, mismatchError.code == 415 {
+                
+                let message = peerDetail.fullName + " " + "doesn't have the latest version of app installed."
+                self.showOptionAlert(title: "Version Mismatch", message: message, successButtonName: "Call anyway", successComplete: { (successAction) in
+                    
+                    CallManager.shared.startWebRTCCall(call: call) { (success) in
+                        if !success {
+                            assertionFailure("Cannot start webrtc the call too")
+                        }
+                    }
+                    
+                }, failureButtonName: "Cancel") { (failureAction) in
+                    //do nothing
+                }
+            }
+            else if !success {
                 assertionFailure("Cannot start the call")
             }
         }
     }
+    
+    // before shubham changes
+//    func startVideoCall() {
+//        guard canStartVideoCall() else {
+//            return
+//        }
+//        guard let peerDetail = channel?.chatDetail?.peerDetail else {
+//            return
+//        }
+//        self.view.endEditing(true)
+//
+//        let call = CallData.init(peerData: peerDetail, callType: .video, muid: String.uuid(), signallingClient: channel)
+//        CallManager.shared.startCall(call: call) { (success) in
+//            if !success {
+//                assertionFailure("Cannot start the call")
+//            }
+//        }
+//    }
+    
     
     func startVideoCall() {
         guard canStartVideoCall() else {
@@ -565,12 +622,29 @@ class HippoConversationViewController: UIViewController {
         self.view.endEditing(true)
         
         let call = CallData.init(peerData: peerDetail, callType: .video, muid: String.uuid(), signallingClient: channel)
-        CallManager.shared.startCall(call: call) { (success) in
-            if !success {
+        CallManager.shared.startCall(call: call) { (success, error) in
+            
+            if let mismatchError = error, mismatchError.code == 415 {
+                
+                let message = peerDetail.fullName + " " + "doesn't have the latest version of app installed."
+                self.showOptionAlert(title: "Version Mismatch", message: message, successButtonName: "Call anyway", successComplete: { (successAction) in
+                    
+                    CallManager.shared.startWebRTCCall(call: call) { (success) in
+                        if !success {
+                            assertionFailure("Cannot start webrtc the call too")
+                        }
+                    }
+                    
+                }, failureButtonName: "Cancel") { (failureAction) in
+                    //do nothing
+                }
+            }
+            else if !success {
                 assertionFailure("Cannot start the call")
             }
         }
     }
+    
     func canMakeAnyCall() -> Bool {
         guard channel?.chatDetail?.peerDetail != nil else {
             return false

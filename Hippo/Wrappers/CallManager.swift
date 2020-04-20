@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 struct CallData {
     var peerData: User
     var callType: CallType
@@ -33,8 +32,41 @@ class CallManager {
         guard let currentUser = getCurrentUser() else {
             return
         }
-        let callToMake = Call(peer: peer, signalingClient: call.signallingClient, uID: call.muid, currentUser: currentUser, type: getCallTypeWith(localType: call.callType))
+        let callToMake = Call(peer: peer, signalingClient: call.signallingClient, uID: call.muid, currentUser: currentUser, type: getCallTypeWith(localType: call.callType), link: "")
         HippoCallClient.shared.startCall(call: callToMake, completion: completion)
+        #else
+        completion(false)
+        #endif
+    }
+    
+    
+    func startCall(call: CallData, completion: @escaping (Bool, NSError?) -> Void) {
+        #if canImport(HippoCallClient)
+        let peerUser = call.peerData
+        guard let peer = HippoUser(name: peerUser.fullName, userID: peerUser.userID, imageURL: peerUser.image) else {
+            return
+        }
+        guard let currentUser = getCurrentUser() else {
+            return
+        }
+        let callToMake = Call(peer: peer, signalingClient: call.signallingClient, uID: call.muid, currentUser: currentUser, type: getCallTypeWith(localType: call.callType), link: "")
+        HippoCallClient.shared.startCall(call: callToMake, completion: completion)
+        #else
+        completion(false,nil)
+        #endif
+    }
+    
+    func startWebRTCCall(call: CallData, completion: @escaping (Bool) -> Void) {
+        #if canImport(HippoCallClient)
+        let peerUser = call.peerData
+        guard let peer = HippoUser(name: peerUser.fullName, userID: peerUser.userID, imageURL: peerUser.image) else {
+            return
+        }
+        guard let currentUser = getCurrentUser() else {
+            return
+        }
+        let callToMake = Call(peer: peer, signalingClient: call.signallingClient, uID: call.muid, currentUser: currentUser, type: getCallTypeWith(localType: call.callType), link: "")
+        HippoCallClient.shared.startWebRTCCall(call: callToMake, completion: completion)
         #else
         completion(false)
         #endif
@@ -104,19 +136,25 @@ class CallManager {
         #endif
     }
     func voipNotificationRecieved(payloadDict: [String: Any]) {
+        NSLog("11111111")
         #if canImport(HippoCallClient)
         guard let peer = HippoUser(json: payloadDict), let channelID = Int.parse(values: payloadDict, key: "channel_id") else {
+            NSLog("2222222")
             return
         }
+        
         let channel = FuguChannelPersistancyManager.shared.getChannelBy(id: channelID)
         
         if HippoConfig.shared.userDetail == nil {
+             NSLog("33333")
             HippoConfig.shared.userDetail = HippoUserDetail()
         } else if HippoConfig.shared.agentDetail == nil {
+             NSLog("44444")
             HippoConfig.shared.setAgentStoredData()
         }
         
         guard let currentUser = getCurrentUser() else {
+             NSLog("5555555")
             return
         }
         HippoCallClient.shared.voipNotificationRecieved(dictionary: payloadDict, peer: peer, signalingClient: channel, currentUser: currentUser)

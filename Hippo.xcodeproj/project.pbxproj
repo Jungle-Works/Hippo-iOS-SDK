@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		47B12417C887BBD208902F39 /* Pods_Hippo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C0A922564912516EF04B93F /* Pods_Hippo.framework */; };
-		99354A03CB85B6FC4E9FF864 /* Pods_SDKDemo1.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7012A5A44B87F497D213D271 /* Pods_SDKDemo1.framework */; };
 		C93600F222EEC5EA00A6C291 /* OutgoingImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C936006922EEC5EA00A6C291 /* OutgoingImageCell.xib */; };
 		C93600F322EEC5EA00A6C291 /* OutgoingImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C936006A22EEC5EA00A6C291 /* OutgoingImageCell.swift */; };
 		C93600F422EEC5EA00A6C291 /* CategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C936006C22EEC5EA00A6C291 /* CategoryTableViewCell.swift */; };
@@ -196,28 +195,6 @@
 		C9B77EAC21A01B070092848D /* CloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DD221A01B060092848D /* CloseButton.swift */; };
 		C9B77EAD21A01B070092848D /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DD321A01B060092848D /* TagView.swift */; };
 		C9B77EAE21A01B070092848D /* TagListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DD421A01B060092848D /* TagListView.swift */; };
-		C9B77EB021A01B070092848D /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DD721A01B060092848D /* ImageCache.swift */; };
-		C9B77EB121A01B070092848D /* ThreadHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DD821A01B060092848D /* ThreadHelper.swift */; };
-		C9B77EB221A01B070092848D /* Kingfisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DD921A01B060092848D /* Kingfisher.swift */; };
-		C9B77EB321A01B070092848D /* RequestModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DDA21A01B060092848D /* RequestModifier.swift */; };
-		C9B77EB421A01B070092848D /* ImageView+Kingfisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DDB21A01B060092848D /* ImageView+Kingfisher.swift */; };
-		C9B77EB521A01B070092848D /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DDC21A01B060092848D /* Image.swift */; };
-		C9B77EB621A01B070092848D /* Indicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DDD21A01B060092848D /* Indicator.swift */; };
-		C9B77EB721A01B070092848D /* CacheSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DDE21A01B060092848D /* CacheSerializer.swift */; };
-		C9B77EB821A01B070092848D /* UIButton+Kingfisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DDF21A01B060092848D /* UIButton+Kingfisher.swift */; };
-		C9B77EB921A01B070092848D /* Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DE021A01B060092848D /* Resource.swift */; };
-		C9B77EBA21A01B070092848D /* ImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DE121A01B060092848D /* ImageDownloader.swift */; };
-		C9B77EBB21A01B070092848D /* Box.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DE321A01B060092848D /* Box.swift */; };
-		C9B77EBC21A01B070092848D /* KingfisherManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DE421A01B060092848D /* KingfisherManager.swift */; };
-		C9B77EBD21A01B070092848D /* FormatIndicatedCacheSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DE521A01B060092848D /* FormatIndicatedCacheSerializer.swift */; };
-		C9B77EBE21A01B070092848D /* ImageTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DE621A01B060092848D /* ImageTransition.swift */; };
-		C9B77EBF21A01B070092848D /* AnimatedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DE721A01B060092848D /* AnimatedImageView.swift */; };
-		C9B77EC021A01B070092848D /* String+MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DE821A01B060092848D /* String+MD5.swift */; };
-		C9B77EC121A01B070092848D /* ImageProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DE921A01B060092848D /* ImageProcessor.swift */; };
-		C9B77EC221A01B070092848D /* Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DEA21A01B060092848D /* Filter.swift */; };
-		C9B77EC321A01B070092848D /* Placeholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DEB21A01B060092848D /* Placeholder.swift */; };
-		C9B77EC421A01B070092848D /* KingfisherOptionsInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DEC21A01B060092848D /* KingfisherOptionsInfo.swift */; };
-		C9B77EC621A01B070092848D /* ImagePrefetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DEE21A01B060092848D /* ImagePrefetcher.swift */; };
 		C9B77EC721A01B070092848D /* IQTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DF121A01B060092848D /* IQTextView.swift */; };
 		C9B77EC821A01B070092848D /* IQPreviousNextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DF321A01B060092848D /* IQPreviousNextView.swift */; };
 		C9B77EC921A01B070092848D /* IQTitleBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DF421A01B060092848D /* IQTitleBarButtonItem.swift */; };
@@ -284,7 +261,6 @@
 
 /* Begin PBXFileReference section */
 		6F7645C36ABF77183FAD526B /* Pods-Hippo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hippo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Hippo/Pods-Hippo.debug.xcconfig"; sourceTree = "<group>"; };
-		7012A5A44B87F497D213D271 /* Pods_SDKDemo1.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SDKDemo1.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		717BE1731EC1BE11003EA321 /* Hippo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hippo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		73C5DC7752C82068B4CD5EB2 /* Pods-Hippo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hippo.release.xcconfig"; path = "Pods/Target Support Files/Pods-Hippo/Pods-Hippo.release.xcconfig"; sourceTree = "<group>"; };
 		8C0A922564912516EF04B93F /* Pods_Hippo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Hippo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -475,29 +451,6 @@
 		C9B77DD221A01B060092848D /* CloseButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloseButton.swift; sourceTree = "<group>"; };
 		C9B77DD321A01B060092848D /* TagView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
 		C9B77DD421A01B060092848D /* TagListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagListView.swift; sourceTree = "<group>"; };
-		C9B77DD721A01B060092848D /* ImageCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
-		C9B77DD821A01B060092848D /* ThreadHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThreadHelper.swift; sourceTree = "<group>"; };
-		C9B77DD921A01B060092848D /* Kingfisher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Kingfisher.swift; sourceTree = "<group>"; };
-		C9B77DDA21A01B060092848D /* RequestModifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestModifier.swift; sourceTree = "<group>"; };
-		C9B77DDB21A01B060092848D /* ImageView+Kingfisher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ImageView+Kingfisher.swift"; sourceTree = "<group>"; };
-		C9B77DDC21A01B060092848D /* Image.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
-		C9B77DDD21A01B060092848D /* Indicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Indicator.swift; sourceTree = "<group>"; };
-		C9B77DDE21A01B060092848D /* CacheSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheSerializer.swift; sourceTree = "<group>"; };
-		C9B77DDF21A01B060092848D /* UIButton+Kingfisher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+Kingfisher.swift"; sourceTree = "<group>"; };
-		C9B77DE021A01B060092848D /* Resource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Resource.swift; sourceTree = "<group>"; };
-		C9B77DE121A01B060092848D /* ImageDownloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageDownloader.swift; sourceTree = "<group>"; };
-		C9B77DE221A01B060092848D /* Kingfisher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Kingfisher.h; sourceTree = "<group>"; };
-		C9B77DE321A01B060092848D /* Box.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Box.swift; sourceTree = "<group>"; };
-		C9B77DE421A01B060092848D /* KingfisherManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KingfisherManager.swift; sourceTree = "<group>"; };
-		C9B77DE521A01B060092848D /* FormatIndicatedCacheSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormatIndicatedCacheSerializer.swift; sourceTree = "<group>"; };
-		C9B77DE621A01B060092848D /* ImageTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageTransition.swift; sourceTree = "<group>"; };
-		C9B77DE721A01B060092848D /* AnimatedImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimatedImageView.swift; sourceTree = "<group>"; };
-		C9B77DE821A01B060092848D /* String+MD5.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+MD5.swift"; sourceTree = "<group>"; };
-		C9B77DE921A01B060092848D /* ImageProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageProcessor.swift; sourceTree = "<group>"; };
-		C9B77DEA21A01B060092848D /* Filter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Filter.swift; sourceTree = "<group>"; };
-		C9B77DEB21A01B060092848D /* Placeholder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Placeholder.swift; sourceTree = "<group>"; };
-		C9B77DEC21A01B060092848D /* KingfisherOptionsInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KingfisherOptionsInfo.swift; sourceTree = "<group>"; };
-		C9B77DEE21A01B060092848D /* ImagePrefetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePrefetcher.swift; sourceTree = "<group>"; };
 		C9B77DF121A01B060092848D /* IQTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IQTextView.swift; sourceTree = "<group>"; };
 		C9B77DF321A01B060092848D /* IQPreviousNextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IQPreviousNextView.swift; sourceTree = "<group>"; };
 		C9B77DF421A01B060092848D /* IQTitleBarButtonItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IQTitleBarButtonItem.swift; sourceTree = "<group>"; };
@@ -554,6 +507,7 @@
 		C9FB6FD921EEF04800B72CEA /* TWRDownloadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWRDownloadManager.m; sourceTree = "<group>"; };
 		C9FB6FDA21EEF04800B72CEA /* TWRDownloadObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWRDownloadObject.m; sourceTree = "<group>"; };
 		C9FB6FDB21EEF04800B72CEA /* TWRDownloadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWRDownloadManager.h; sourceTree = "<group>"; };
+		CD1EFB6D2445D127008C093B /* HippoCallClient.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = HippoCallClient.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D86028A923F6AD40009540D3 /* SuggestionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuggestionCell.swift; sourceTree = "<group>"; };
 		D86028AA23F6AD40009540D3 /* SuggestionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SuggestionCell.xib; sourceTree = "<group>"; };
 		D86028AE23F6AFF9009540D3 /* SuggestionViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuggestionViewDelegate.swift; sourceTree = "<group>"; };
@@ -572,7 +526,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				99354A03CB85B6FC4E9FF864 /* Pods_SDKDemo1.framework in Frameworks */,
 				47B12417C887BBD208902F39 /* Pods_Hippo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -583,8 +536,8 @@
 		0DC6F74BF9725EE6841BA0D8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CD1EFB6D2445D127008C093B /* HippoCallClient.framework */,
 				E0E4A9E31B1EC7F72EC2F38D /* Pods_Fugu.framework */,
-				7012A5A44B87F497D213D271 /* Pods_SDKDemo1.framework */,
 				8C0A922564912516EF04B93F /* Pods_Hippo.framework */,
 			);
 			name = Frameworks;
@@ -1350,7 +1303,6 @@
 				C9B77DD021A01B060092848D /* typingImage.gif */,
 				C9FB6FD721EEF04800B72CEA /* TRWDownloadManager */,
 				C9B77DD121A01B060092848D /* TagListView */,
-				C9B77DD621A01B060092848D /* Kingfisher */,
 				C9B77DEF21A01B060092848D /* IQKeyboardManagerSwift */,
 				C9B77E0721A01B060092848D /* FuguConnection.swift */,
 				C9B77E0821A01B060092848D /* Fugu+Enums.swift */,
@@ -1367,36 +1319,6 @@
 				C9B77DD421A01B060092848D /* TagListView.swift */,
 			);
 			path = TagListView;
-			sourceTree = "<group>";
-		};
-		C9B77DD621A01B060092848D /* Kingfisher */ = {
-			isa = PBXGroup;
-			children = (
-				C9B77DD721A01B060092848D /* ImageCache.swift */,
-				C9B77DD821A01B060092848D /* ThreadHelper.swift */,
-				C9B77DD921A01B060092848D /* Kingfisher.swift */,
-				C9B77DDA21A01B060092848D /* RequestModifier.swift */,
-				C9B77DDB21A01B060092848D /* ImageView+Kingfisher.swift */,
-				C9B77DDC21A01B060092848D /* Image.swift */,
-				C9B77DDD21A01B060092848D /* Indicator.swift */,
-				C9B77DDE21A01B060092848D /* CacheSerializer.swift */,
-				C9B77DDF21A01B060092848D /* UIButton+Kingfisher.swift */,
-				C9B77DE021A01B060092848D /* Resource.swift */,
-				C9B77DE121A01B060092848D /* ImageDownloader.swift */,
-				C9B77DE221A01B060092848D /* Kingfisher.h */,
-				C9B77DE321A01B060092848D /* Box.swift */,
-				C9B77DE421A01B060092848D /* KingfisherManager.swift */,
-				C9B77DE521A01B060092848D /* FormatIndicatedCacheSerializer.swift */,
-				C9B77DE621A01B060092848D /* ImageTransition.swift */,
-				C9B77DE721A01B060092848D /* AnimatedImageView.swift */,
-				C9B77DE821A01B060092848D /* String+MD5.swift */,
-				C9B77DE921A01B060092848D /* ImageProcessor.swift */,
-				C9B77DEA21A01B060092848D /* Filter.swift */,
-				C9B77DEB21A01B060092848D /* Placeholder.swift */,
-				C9B77DEC21A01B060092848D /* KingfisherOptionsInfo.swift */,
-				C9B77DEE21A01B060092848D /* ImagePrefetcher.swift */,
-			);
-			path = Kingfisher;
 			sourceTree = "<group>";
 		};
 		C9B77DEF21A01B060092848D /* IQKeyboardManagerSwift */ = {
@@ -1715,7 +1637,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Hippo/Pods-Hippo-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-Hippo/Pods-Hippo-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/MZFayeClient/MZFayeClient.framework",
 				"${BUILT_PRODUCTS_DIR}/SocketRocket/SocketRocket.framework",
 			);
@@ -1726,7 +1648,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Hippo/Pods-Hippo-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Hippo/Pods-Hippo-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		778DA9DBA8B35F32864A747E /* [CP] Check Pods Manifest.lock */ = {
@@ -1758,7 +1680,6 @@
 				C9FB6F8B21EE0DE400B72CEA /* PickerHelper.swift in Sources */,
 				C936013D22EEC5EA00A6C291 /* ChatInfoAgentTableViewCell.swift in Sources */,
 				C9B77E8021A01B060092848D /* AgentUserChannel.swift in Sources */,
-				C9B77EBD21A01B070092848D /* FormatIndicatedCacheSerializer.swift in Sources */,
 				C9F6D47121C8B47100EA23E6 /* SupportTheme.swift in Sources */,
 				C93600FB22EEC5EA00A6C291 /* ActionLabelViewCell.swift in Sources */,
 				C936011B22EEC5EA00A6C291 /* ItemTableViewCell.swift in Sources */,
@@ -1791,7 +1712,6 @@
 				C936010122EEC5EA00A6C291 /* IncomingImageCell.swift in Sources */,
 				C9B77ECE21A01B070092848D /* HippoKeyboardManager.swift in Sources */,
 				C9B77EDA21A01B070092848D /* FuguHelpers.swift in Sources */,
-				C9B77EB421A01B070092848D /* ImageView+Kingfisher.swift in Sources */,
 				C9B77E9521A01B070092848D /* SelectImageViewController.swift in Sources */,
 				C9B77E9B21A01B070092848D /* ListDescriptionViewController.swift in Sources */,
 				C936012422EEC5EA00A6C291 /* IncomingAudioTableViewCell.swift in Sources */,
@@ -1799,18 +1719,15 @@
 				C936014422EEC5EA00A6C291 /* BroadCastTextViewCell.swift in Sources */,
 				C9B77ED521A01B070092848D /* IQUITextFieldView+Additions.swift in Sources */,
 				C9B77E8C21A01B060092848D /* HippoDescriptionContent.swift in Sources */,
-				C9B77EC321A01B070092848D /* Placeholder.swift in Sources */,
 				C936012022EEC5EA00A6C291 /* ActionableMessageCellHandler.swift in Sources */,
 				C9FB6FB121EE10CD00B72CEA /* Utilities.swift in Sources */,
 				C9B77E7C21A01B060092848D /* UnreadCount.swift in Sources */,
-				C9B77EC421A01B070092848D /* KingfisherOptionsInfo.swift in Sources */,
 				C936010D22EEC5EA00A6C291 /* ChatInfoTagViewCell.swift in Sources */,
 				C936013F22EEC5EA00A6C291 /* BroadcastButtonCell.swift in Sources */,
 				C936012B22EEC5EA00A6C291 /* OutgoingVideoTableViewCell.swift in Sources */,
 				C936011022EEC5EA00A6C291 /* AssignedAgentTableViewCell.swift in Sources */,
 				C9B77E9C21A01B070092848D /* CheckIntializationViewController.swift in Sources */,
 				C936012522EEC5EA00A6C291 /* OutgoingAudioTableViewCell.swift in Sources */,
-				C9B77EB121A01B070092848D /* ThreadHelper.swift in Sources */,
 				D86028B123F6AFFA009540D3 /* SuggestionViewDataSource.swift in Sources */,
 				C936014822EEC5EA00A6C291 /* BroadcastListTableViewCell.swift in Sources */,
 				C936010A22EEC5EA00A6C291 /* LeadTableViewCell.swift in Sources */,
@@ -1821,7 +1738,6 @@
 				C9B77E8A21A01B060092848D /* HippoChannel+Extension.swift in Sources */,
 				C9B77ECA21A01B070092848D /* IQBarButtonItem.swift in Sources */,
 				C9B77E7A21A01B060092848D /* GeneralChat.swift in Sources */,
-				C9B77EBC21A01B070092848D /* KingfisherManager.swift in Sources */,
 				C936010722EEC5EA00A6C291 /* IncomingDocumentTableViewCell.swift in Sources */,
 				D86028B423F6B425009540D3 /* SuggestionView.swift in Sources */,
 				C9FB6FA721EE10CD00B72CEA /* CoreKit+UIImage.swift in Sources */,
@@ -1831,7 +1747,6 @@
 				C936013822EEC5EA00A6C291 /* VideoCallMessageTableViewCell.swift in Sources */,
 				C93600FF22EEC5EA00A6C291 /* ContactNumberTableCell.swift in Sources */,
 				C9B77EAE21A01B070092848D /* TagListView.swift in Sources */,
-				C9B77EB021A01B070092848D /* ImageCache.swift in Sources */,
 				C936012A22EEC5EA00A6C291 /* IncomingVideoTableViewCell.swift in Sources */,
 				C936014222EEC5EA00A6C291 /* BroadCastTitleCell.swift in Sources */,
 				C9B77E1F21A01B060092848D /* EmojiCollectionViewCell.swift in Sources */,
@@ -1858,14 +1773,11 @@
 				C9B77ED221A01B070092848D /* IQKeyboardReturnKeyHandler.swift in Sources */,
 				C93600F822EEC5EA00A6C291 /* ActionTableView.swift in Sources */,
 				C9B77E9E21A01B070092848D /* ConversationsViewController.swift in Sources */,
-				C9B77EB821A01B070092848D /* UIButton+Kingfisher.swift in Sources */,
 				C93600F922EEC5EA00A6C291 /* ActionButtonViewCell.swift in Sources */,
-				C9B77EBF21A01B070092848D /* AnimatedImageView.swift in Sources */,
 				C9B77E6C21A01B060092848D /* OperatorOverloading.swift in Sources */,
 				C936012122EEC5EA00A6C291 /* ActionableMessageTableViewCell.swift in Sources */,
 				C9B77E7F21A01B060092848D /* ChatDetail.swift in Sources */,
 				C936014D22EEC5EA00A6C291 /* FeedbackTableViewCell.swift in Sources */,
-				C9B77EBA21A01B070092848D /* ImageDownloader.swift in Sources */,
 				C936010C22EEC5EA00A6C291 /* ConversationView.swift in Sources */,
 				C9B77EA921A01B070092848D /* FrameObserverAccessaryView.swift in Sources */,
 				C9B77E7921A01B060092848D /* FuguActionableMessage.swift in Sources */,
@@ -1875,7 +1787,6 @@
 				C9B77ED021A01B070092848D /* IQKeyboardManagerConstants.swift in Sources */,
 				C9B77E8F21A01B070092848D /* NLevelViewController.swift in Sources */,
 				C9FB6FA821EE10CD00B72CEA /* CoreDocumentPicker.swift in Sources */,
-				C9B77EB921A01B070092848D /* Resource.swift in Sources */,
 				C936013B22EEC5EA00A6C291 /* ShowMoreTableViewCell.swift in Sources */,
 				C9B77E1A21A01B060092848D /* AgentHomeCollectionViewCell.swift in Sources */,
 				C9B77ED921A01B070092848D /* Fugu+Enums.swift in Sources */,
@@ -1885,7 +1796,6 @@
 				C936010522EEC5EA00A6C291 /* BotOutgoingMessageTableViewCell.swift in Sources */,
 				C9FB6FAF21EE10CD00B72CEA /* CoreFilesConfig.swift in Sources */,
 				C9B77E6821A01B060092848D /* UIView+Extension.swift in Sources */,
-				C9B77EB521A01B070092848D /* Image.swift in Sources */,
 				C9B77ED321A01B070092848D /* IQUIScrollView+Additions.swift in Sources */,
 				C9B77E7D21A01B060092848D /* AgentDirectChatAttributes.swift in Sources */,
 				C9B77E2021A01B060092848D /* ChatInfoHeader.swift in Sources */,
@@ -1899,19 +1809,15 @@
 				C9B77EAC21A01B070092848D /* CloseButton.swift in Sources */,
 				C9F6D47321C8B47100EA23E6 /* HippoTheme.swift in Sources */,
 				C9B77ED421A01B070092848D /* IQUIViewController+Additions.swift in Sources */,
-				C9B77EC621A01B070092848D /* ImagePrefetcher.swift in Sources */,
 				C9B77E6E21A01B060092848D /* FuguChannelPersistancyManager.swift in Sources */,
 				C93600F422EEC5EA00A6C291 /* CategoryTableViewCell.swift in Sources */,
 				C9FB6FAB21EE10CD00B72CEA /* CoreEnum.swift in Sources */,
 				C9B77E8521A01B060092848D /* HippoMessage.swift in Sources */,
 				C9B77ECF21A01B070092848D /* IQKeyboardManagerConstantsInternal.swift in Sources */,
 				EE683A4123DAB3A000177913 /* PromotionsViewController.swift in Sources */,
-				C9B77EC221A01B070092848D /* Filter.swift in Sources */,
-				C9B77EB221A01B070092848D /* Kingfisher.swift in Sources */,
 				C9B77E1621A01B060092848D /* FuguConfig.swift in Sources */,
 				C9B77E9921A01B070092848D /* AgentConversationViewController.swift in Sources */,
 				C9B77E7521A01B060092848D /* FuguConversation.swift in Sources */,
-				C9B77EC121A01B070092848D /* ImageProcessor.swift in Sources */,
 				C9B77E1221A01B060092848D /* MessageStore.swift in Sources */,
 				C9B77E6F21A01B060092848D /* MessageSender.swift in Sources */,
 				C9B77EC721A01B070092848D /* IQTextView.swift in Sources */,
@@ -1922,7 +1828,6 @@
 				C936011922EEC5EA00A6C291 /* HeaderTableViewCell.swift in Sources */,
 				C9B77E9321A01B070092848D /* BroadCastViewController.swift in Sources */,
 				C93600FD22EEC5EA00A6C291 /* ActionViewCell.swift in Sources */,
-				C9B77EBE21A01B070092848D /* ImageTransition.swift in Sources */,
 				C9B77E9821A01B070092848D /* AgentDirectViewController.swift in Sources */,
 				C9B77E1121A01B060092848D /* FuguDefaults.swift in Sources */,
 				C9FB6F8C21EE0DE400B72CEA /* DownloadManager.swift in Sources */,
@@ -1930,8 +1835,6 @@
 				C9B77E1021A01B060092848D /* CallManager.swift in Sources */,
 				C936011622EEC5EA00A6C291 /* ButtonCollectionCell.swift in Sources */,
 				C9B77E8721A01B060092848D /* FuguNewChatAttributes.swift in Sources */,
-				C9B77EBB21A01B070092848D /* Box.swift in Sources */,
-				C9B77EB721A01B070092848D /* CacheSerializer.swift in Sources */,
 				C9B77E7821A01B060092848D /* ConversationState.swift in Sources */,
 				C936013222EEC5EA00A6C291 /* LeadDataTableViewCell.swift in Sources */,
 				C9B77E6721A01B060092848D /* UIImage+Gif.swift in Sources */,
@@ -1939,18 +1842,15 @@
 				C936013322EEC5EA00A6C291 /* ChatInfoActionCell.swift in Sources */,
 				C9FB6FB521EE10CD00B72CEA /* LoggerTheme.swift in Sources */,
 				C9B77EC921A01B070092848D /* IQTitleBarButtonItem.swift in Sources */,
-				C9B77EB321A01B070092848D /* RequestModifier.swift in Sources */,
 				C936012622EEC5EA00A6C291 /* TypingViewTableViewCell.swift in Sources */,
 				C936014022EEC5EA00A6C291 /* BroadcastAgentCell.swift in Sources */,
 				C9B77ECC21A01B070092848D /* IQUIView+IQKeyboardToolbar.swift in Sources */,
 				C9B77E8221A01B060092848D /* FuguChannelTag.swift in Sources */,
 				C9B77E7221A01B060092848D /* HippoBroadcaster.swift in Sources */,
-				C9B77EB621A01B070092848D /* Indicator.swift in Sources */,
 				C9B77ED821A01B070092848D /* FuguConnection.swift in Sources */,
 				C936011522EEC5EA00A6C291 /* ButtonTableViewCell.swift in Sources */,
 				C9B77E8D21A01B060092848D /* FuguUserDetail.swift in Sources */,
 				C936014722EEC5EA00A6C291 /* BroadCastTextFieldCell.swift in Sources */,
-				C9B77EC021A01B070092848D /* String+MD5.swift in Sources */,
 				C9B77E9121A01B070092848D /* BroadcastSelectionViewController.swift in Sources */,
 				C936011122EEC5EA00A6C291 /* SupportMessageTableViewCell.swift in Sources */,
 				C9B77E7421A01B060092848D /* MessageContent.swift in Sources */,
@@ -2031,7 +1931,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -2083,7 +1983,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -2103,7 +2003,7 @@
 				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/Hippo/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.socomo.Fugu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2127,7 +2027,7 @@
 				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/Hippo/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.socomo.Fugu;
 				PRODUCT_NAME = "$(TARGET_NAME)";

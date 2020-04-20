@@ -7,313 +7,298 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		163F85AF47EA30E805694BBCC2FFD356 /* MZFayeClient-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = C5CBA6613A48E9E75FAE1FADAA55204C /* MZFayeClient-dummy.m */; };
-		1F6037E8E3B4726C522BF37FD9C003E2 /* SRWebSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = DE3C2E66AE1BD266CF3A9CFB795C682D /* SRWebSocket.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		3D6F266E1A4F9EFC1898F9785EBA4329 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 406F5843CD83BF54D1E18F6239A1AFD5 /* Foundation.framework */; };
-		45EEDC08E5DBF7468C1130129C1A95E9 /* SRWebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D0CB02D3678F8E7C851B905A405AEA2 /* SRWebSocket.m */; };
-		56199F6D69986D6B9889B991C34F1E1D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 406F5843CD83BF54D1E18F6239A1AFD5 /* Foundation.framework */; };
-		5635C8D7461F74E76C45E56317422EF7 /* SocketRocket.h in Headers */ = {isa = PBXBuildFile; fileRef = 229E03C8223889E1D44383B5F7674580 /* SocketRocket.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6C4F8036871B99C40CDEA676EDA8621E /* Pods-Hippo-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = A222E90A1B102B79E44B9738E22DA5AA /* Pods-Hippo-dummy.m */; };
-		76BE5545630230498547B1EA155E1952 /* SocketRocket-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8448DE78FFE7DBC7AAA2BD9D31B60861 /* SocketRocket-dummy.m */; };
-		78FE765BD079DC23CDA50051FDE7F5CE /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C19A923614411A1F84910BC6C7A86FE /* CFNetwork.framework */; };
-		9E7CE94401EE8E80DC5137F90C7B926C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 406F5843CD83BF54D1E18F6239A1AFD5 /* Foundation.framework */; };
-		A2C88522AB49867D55FFE1604AF1F3BF /* MZFayeClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 47B1BA2F5EA720B3F17421E1DFAD0C1D /* MZFayeClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B910723CBA9D2BBE4EC4CBD2E17D115A /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAB29530B7BB0B74BBE39B6DC47F5B9D /* Security.framework */; };
-		C2ED2BF8880369626559995CE7CC0D36 /* MZFayeClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E5E7BEE3BA7F5528A30C1926A69246F /* MZFayeClient.m */; };
-		C36F87B655373996B5B18BE73955C77F /* Pods-Hippo-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = E7501D68D5B23184A74B0D91C1EAC53C /* Pods-Hippo-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		DA920E7C616187E27483548E4D039FCF /* MZFayeClient-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = DE46AD3E3B5BDE61D7786FFEA94D97B6 /* MZFayeClient-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E789946D0A5DE323E7D6D9D683E01120 /* SocketRocket-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = EA667D36B839B1FC2FA7699F4C8797C9 /* SocketRocket-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EE119638352F6E882CB03AE337521D2C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2CF46BA08DE84B0B9F3D53A01ACE935 /* QuartzCore.framework */; };
-		F12DEF333F3C683276041E283ECB6864 /* MZFayeMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = 7807FCD0C4C3CAE48FF54CD9E9AACD09 /* MZFayeMessage.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		FB8F60D7B1B47FB48297BDDC0440EFF5 /* SocketRocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 675F24B07ABF1530D81BC2ADEF84A00D /* SocketRocket.framework */; };
-		FE32C2E609BB238B62E1EB7EC37BFF2D /* MZFayeMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = DB6A0C5DFC04DE03966C51E8EB0F9CD6 /* MZFayeMessage.m */; };
+		059A688E3103D3B7F59EEE3FD315308F /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F193925F24E815593A308C6F85BAAE50 /* QuartzCore.framework */; };
+		114D6D8A8F26D07024A0C1411474C7D3 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A7A74854B0013D0E9C4C6DFCD7FEE5A /* CFNetwork.framework */; };
+		1403538B074C9CAD3CDF80D554AAEAD8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDDCF66BD24FD6C11F2AFD8E98F514DD /* Foundation.framework */; };
+		2B7C684EC5A254C187591FA52B1D4A1E /* Pods-Hippo-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 0098C5ADF58EB5A3FFDD39C7301C53B7 /* Pods-Hippo-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2C7C0866911A9B55D0C3BC9763B1C109 /* SRWebSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = C6A24EA5F99CD34227E88F60B07AA7A9 /* SRWebSocket.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4CC2517CBF5C5EE75FB99C8AA624D4AF /* MZFayeClient-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 950CFC7349F07502433D4C61D8AFD68F /* MZFayeClient-dummy.m */; };
+		4FC5F7EEB1C16F18615A9BD908E5B35A /* MZFayeMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = DBAC8801B6A04AE672538E6023DD79DE /* MZFayeMessage.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		555D341821D44134E8D6ED90ED865BA3 /* Pods-Hippo-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 32353FB21FAA2ED598CEB58AF1B50F98 /* Pods-Hippo-dummy.m */; };
+		561E489893D40D1D313E4EBB942A0A73 /* SRWebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = C9168B0E65FC9F28840BB1B89154EB6E /* SRWebSocket.m */; };
+		5B889BE7EE16AA83B5B0E602AADAB808 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDDCF66BD24FD6C11F2AFD8E98F514DD /* Foundation.framework */; };
+		5F3B48214BF97612B2C147B112748EEF /* MZFayeMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 084989D714BD7B485424E9CD93CD533E /* MZFayeMessage.m */; };
+		6BE3964BFB2D5E386452CA0FC7C9E71A /* MZFayeClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 14B6D28291132923C1A38A0621BA367C /* MZFayeClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		720CA1BB71A79C01868C60B5C18064DC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDDCF66BD24FD6C11F2AFD8E98F514DD /* Foundation.framework */; };
+		867A848020D324B2F403F7A9E100C8C7 /* SocketRocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B5C715D786DA7152068D513BA7EC811 /* SocketRocket.framework */; };
+		BEC6216C1050163987D2C48A53EE72BF /* MZFayeClient-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 6EB189357C93C5C0C9DDFFCB1BBA1538 /* MZFayeClient-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D0DC8A8E7A9123C47A5BC81DF1330296 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 261F742D8E8768FAF2D944D941A2D9B2 /* Security.framework */; };
+		D6E23AC3E24A374E5839E38968D977C8 /* SocketRocket-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = F90034A71A6820448BAE6EABA5D5905B /* SocketRocket-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E95B6257824114414F1B636D029E1BE2 /* MZFayeClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 495C83C76EFCA32F577F063CE6FAC3FC /* MZFayeClient.m */; };
+		F500C903070FC391D61BF504AB6F6E9D /* SocketRocket-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D9EC48501ECEAAE1EA18A424CADB97 /* SocketRocket-dummy.m */; };
+		FE7EFF7AD70FEA0967D3A6389EFE03EC /* SocketRocket.h in Headers */ = {isa = PBXBuildFile; fileRef = CA755842E79D3AAE168207C76BD9C3BD /* SocketRocket.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		86A0F1A4BEF3E71C5AAB321125601BA4 /* PBXContainerItemProxy */ = {
+		4BF867316E87A63D71001BC93E3524C7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = A623B6F9D017A028020782F293A2EF0B;
+			remoteGlobalIDString = 1948D0B63D2CF6A48E18B0B292BC6091;
 			remoteInfo = SocketRocket;
 		};
-		9BB3790E0AF2938EA55A7B849C45467E /* PBXContainerItemProxy */ = {
+		EB0FA7CA3522CD42DA515C91D31E8A39 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 03BD086FE1966D44A6B8D72A48AF0472;
+			remoteGlobalIDString = 1948D0B63D2CF6A48E18B0B292BC6091;
+			remoteInfo = SocketRocket;
+		};
+		F3A986DC9BF9D2F6CA760A56030EB8D7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2B5E3CDB22BE40D7558CA2070656609C;
 			remoteInfo = MZFayeClient;
-		};
-		ADC421F15EF6CD054EDE1D2A4E750B2D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = A623B6F9D017A028020782F293A2EF0B;
-			remoteInfo = SocketRocket;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0560FCC49905934BA210CF35B1E02D31 /* Pods_Hippo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_Hippo.framework; path = "Pods-Hippo.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		140FAAA5BF7BDAEEEF53FF3E4DCBEB69 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		229E03C8223889E1D44383B5F7674580 /* SocketRocket.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SocketRocket.h; path = SocketRocket/SocketRocket.h; sourceTree = "<group>"; };
-		2556BB7C6BEB7B8CFEFFF4DDF9DC5DBB /* Pods-Hippo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Hippo.release.xcconfig"; sourceTree = "<group>"; };
-		2567E3892BAF0A23BF0A980CD6EFD6E3 /* SocketRocket-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SocketRocket-prefix.pch"; sourceTree = "<group>"; };
-		2E5E7BEE3BA7F5528A30C1926A69246F /* MZFayeClient.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MZFayeClient.m; path = MZFayeClient/MZFayeClient.m; sourceTree = "<group>"; };
-		390BA2A8E8C8BE97622C463269A828F4 /* MZFayeClient.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = MZFayeClient.modulemap; sourceTree = "<group>"; };
-		3F688C4435E6B073C5F199B1271F8A4D /* MZFayeClient.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = MZFayeClient.framework; path = MZFayeClient.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		406F5843CD83BF54D1E18F6239A1AFD5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		47B1BA2F5EA720B3F17421E1DFAD0C1D /* MZFayeClient.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MZFayeClient.h; path = MZFayeClient/MZFayeClient.h; sourceTree = "<group>"; };
-		49C17D6CBC78CC53A252D4F93654B951 /* Pods-Hippo-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Hippo-acknowledgements.markdown"; sourceTree = "<group>"; };
-		4C19A923614411A1F84910BC6C7A86FE /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/CFNetwork.framework; sourceTree = DEVELOPER_DIR; };
-		58B9342F1312A531117624A32FCDDCFA /* SocketRocket.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = SocketRocket.modulemap; sourceTree = "<group>"; };
-		5ED9C3A655496CF3E32557E045A978BE /* Pods-Hippo-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Hippo-resources.sh"; sourceTree = "<group>"; };
-		61F4C6F73DF7F7DF60850D66A63E4E44 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		675F24B07ABF1530D81BC2ADEF84A00D /* SocketRocket.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SocketRocket.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		74BC592A8216FBD75B5BEB3F9BDAE48C /* Pods-Hippo-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Hippo-frameworks.sh"; sourceTree = "<group>"; };
-		75EAC5563B71D35FDCDDAF01F3C71C20 /* Pods-Hippo-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Hippo-acknowledgements.plist"; sourceTree = "<group>"; };
-		7807FCD0C4C3CAE48FF54CD9E9AACD09 /* MZFayeMessage.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MZFayeMessage.h; path = MZFayeClient/MZFayeMessage.h; sourceTree = "<group>"; };
-		7A5F60BA51C069CC79353D7D27364094 /* Pods-Hippo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Hippo.debug.xcconfig"; sourceTree = "<group>"; };
-		802432A335832BE015294B796FF74270 /* SocketRocket.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SocketRocket.framework; path = SocketRocket.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		82243AD134A45CB979DAED74F3ED9E96 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8448DE78FFE7DBC7AAA2BD9D31B60861 /* SocketRocket-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SocketRocket-dummy.m"; sourceTree = "<group>"; };
-		8D0CB02D3678F8E7C851B905A405AEA2 /* SRWebSocket.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SRWebSocket.m; path = SocketRocket/SRWebSocket.m; sourceTree = "<group>"; };
-		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		9D025C6CF3E35E5C23B8F89B80F80BCC /* SocketRocket.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SocketRocket.xcconfig; sourceTree = "<group>"; };
-		A222E90A1B102B79E44B9738E22DA5AA /* Pods-Hippo-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Hippo-dummy.m"; sourceTree = "<group>"; };
-		C5CBA6613A48E9E75FAE1FADAA55204C /* MZFayeClient-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "MZFayeClient-dummy.m"; sourceTree = "<group>"; };
-		CAB29530B7BB0B74BBE39B6DC47F5B9D /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
-		DB6A0C5DFC04DE03966C51E8EB0F9CD6 /* MZFayeMessage.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MZFayeMessage.m; path = MZFayeClient/MZFayeMessage.m; sourceTree = "<group>"; };
-		DE3C2E66AE1BD266CF3A9CFB795C682D /* SRWebSocket.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SRWebSocket.h; path = SocketRocket/SRWebSocket.h; sourceTree = "<group>"; };
-		DE46AD3E3B5BDE61D7786FFEA94D97B6 /* MZFayeClient-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MZFayeClient-umbrella.h"; sourceTree = "<group>"; };
-		DF4C439A29C0A96338CCF285BDC85443 /* MZFayeClient.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = MZFayeClient.xcconfig; sourceTree = "<group>"; };
-		E12F03A1C579EAABC9E76BC7A990EE1E /* MZFayeClient-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MZFayeClient-prefix.pch"; sourceTree = "<group>"; };
-		E7501D68D5B23184A74B0D91C1EAC53C /* Pods-Hippo-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Hippo-umbrella.h"; sourceTree = "<group>"; };
-		EA667D36B839B1FC2FA7699F4C8797C9 /* SocketRocket-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SocketRocket-umbrella.h"; sourceTree = "<group>"; };
-		F2CF46BA08DE84B0B9F3D53A01ACE935 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
-		FDE2710C98C78A927A5A358FE6577ADC /* Pods-Hippo.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-Hippo.modulemap"; sourceTree = "<group>"; };
+		0098C5ADF58EB5A3FFDD39C7301C53B7 /* Pods-Hippo-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Hippo-umbrella.h"; sourceTree = "<group>"; };
+		00F5BDC56BDA4B71466E04241C0FAF22 /* Pods_Hippo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_Hippo.framework; path = "Pods-Hippo.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		02C8D3A0C7D117F280786727892F4D0F /* SocketRocket.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SocketRocket.release.xcconfig; sourceTree = "<group>"; };
+		07D9EC48501ECEAAE1EA18A424CADB97 /* SocketRocket-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SocketRocket-dummy.m"; sourceTree = "<group>"; };
+		084989D714BD7B485424E9CD93CD533E /* MZFayeMessage.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MZFayeMessage.m; path = MZFayeClient/MZFayeMessage.m; sourceTree = "<group>"; };
+		14B6D28291132923C1A38A0621BA367C /* MZFayeClient.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MZFayeClient.h; path = MZFayeClient/MZFayeClient.h; sourceTree = "<group>"; };
+		1664CB00F34559B322E6EFF1BF664C4F /* Pods-Hippo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Hippo.release.xcconfig"; sourceTree = "<group>"; };
+		1B5C715D786DA7152068D513BA7EC811 /* SocketRocket.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SocketRocket.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1D84BFD3E853B5E5C52E750D545A0364 /* SocketRocket.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = SocketRocket.modulemap; sourceTree = "<group>"; };
+		261F742D8E8768FAF2D944D941A2D9B2 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
+		32353FB21FAA2ED598CEB58AF1B50F98 /* Pods-Hippo-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Hippo-dummy.m"; sourceTree = "<group>"; };
+		365EA59078F4191B30C55BBD149C6EEE /* Pods-Hippo-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Hippo-acknowledgements.plist"; sourceTree = "<group>"; };
+		3AF319E650B23F6BFAC88DA189F30E0F /* SocketRocket-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SocketRocket-prefix.pch"; sourceTree = "<group>"; };
+		495C83C76EFCA32F577F063CE6FAC3FC /* MZFayeClient.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MZFayeClient.m; path = MZFayeClient/MZFayeClient.m; sourceTree = "<group>"; };
+		616E042DB3E0A7A62554A9221F83F252 /* MZFayeClient-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MZFayeClient-prefix.pch"; sourceTree = "<group>"; };
+		6EB189357C93C5C0C9DDFFCB1BBA1538 /* MZFayeClient-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MZFayeClient-umbrella.h"; sourceTree = "<group>"; };
+		701967008DA7E93AA3A54150027D9BE9 /* SocketRocket-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "SocketRocket-Info.plist"; sourceTree = "<group>"; };
+		7AFBD3C9669D6175A17ED2E8BD10C4B0 /* Pods-Hippo-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Hippo-Info.plist"; sourceTree = "<group>"; };
+		816990C79555FEA12720E90EE2C99487 /* Pods-Hippo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Hippo.debug.xcconfig"; sourceTree = "<group>"; };
+		85A01882ED06DFEA2E0CE78BCDB204A7 /* SocketRocket.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SocketRocket.framework; path = SocketRocket.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8A5D3B136B0ED6D973F5D435AD3E2D83 /* MZFayeClient.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = MZFayeClient.release.xcconfig; sourceTree = "<group>"; };
+		8A7A74854B0013D0E9C4C6DFCD7FEE5A /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/CFNetwork.framework; sourceTree = DEVELOPER_DIR; };
+		950CFC7349F07502433D4C61D8AFD68F /* MZFayeClient-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "MZFayeClient-dummy.m"; sourceTree = "<group>"; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9EA062B7027A6DAF6F1170E65EC05FE3 /* Pods-Hippo-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Hippo-acknowledgements.markdown"; sourceTree = "<group>"; };
+		A61A92193C826E73E9E69100097025EE /* MZFayeClient.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = MZFayeClient.modulemap; sourceTree = "<group>"; };
+		B12C6979FF83E10A9AC7964D3EBED1BA /* Pods-Hippo-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Hippo-frameworks.sh"; sourceTree = "<group>"; };
+		B3DEC96116D14C8FF917ECFC437DEA11 /* MZFayeClient-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "MZFayeClient-Info.plist"; sourceTree = "<group>"; };
+		B6B8D182444B77AA6BA4856DD8951294 /* MZFayeClient.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = MZFayeClient.framework; path = MZFayeClient.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C6A24EA5F99CD34227E88F60B07AA7A9 /* SRWebSocket.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SRWebSocket.h; path = SocketRocket/SRWebSocket.h; sourceTree = "<group>"; };
+		C9168B0E65FC9F28840BB1B89154EB6E /* SRWebSocket.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SRWebSocket.m; path = SocketRocket/SRWebSocket.m; sourceTree = "<group>"; };
+		CA755842E79D3AAE168207C76BD9C3BD /* SocketRocket.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SocketRocket.h; path = SocketRocket/SocketRocket.h; sourceTree = "<group>"; };
+		D2C2831F33985084744CFE7DCB1D2004 /* SocketRocket.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SocketRocket.debug.xcconfig; sourceTree = "<group>"; };
+		DBAC8801B6A04AE672538E6023DD79DE /* MZFayeMessage.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MZFayeMessage.h; path = MZFayeClient/MZFayeMessage.h; sourceTree = "<group>"; };
+		DDDCF66BD24FD6C11F2AFD8E98F514DD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		F193925F24E815593A308C6F85BAAE50 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
+		F90034A71A6820448BAE6EABA5D5905B /* SocketRocket-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SocketRocket-umbrella.h"; sourceTree = "<group>"; };
+		FCCF89A1D7ADCCC37638E2B80801FB63 /* MZFayeClient.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = MZFayeClient.debug.xcconfig; sourceTree = "<group>"; };
+		FF0ABC14AAD0176C5776C47991CC9604 /* Pods-Hippo.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-Hippo.modulemap"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		6D567E15F13A7B27A62BA626F46BCC5F /* Frameworks */ = {
+		0C4D0E98397949FE250E58B04B917084 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				78FE765BD079DC23CDA50051FDE7F5CE /* CFNetwork.framework in Frameworks */,
-				3D6F266E1A4F9EFC1898F9785EBA4329 /* Foundation.framework in Frameworks */,
-				B910723CBA9D2BBE4EC4CBD2E17D115A /* Security.framework in Frameworks */,
+				114D6D8A8F26D07024A0C1411474C7D3 /* CFNetwork.framework in Frameworks */,
+				1403538B074C9CAD3CDF80D554AAEAD8 /* Foundation.framework in Frameworks */,
+				D0DC8A8E7A9123C47A5BC81DF1330296 /* Security.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		9B101D1060855BD3BF7A3E05AC9F26DD /* Frameworks */ = {
+		62F6D8F7016929A54CFCE9D30DBD0022 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9E7CE94401EE8E80DC5137F90C7B926C /* Foundation.framework in Frameworks */,
-				EE119638352F6E882CB03AE337521D2C /* QuartzCore.framework in Frameworks */,
-				FB8F60D7B1B47FB48297BDDC0440EFF5 /* SocketRocket.framework in Frameworks */,
+				5B889BE7EE16AA83B5B0E602AADAB808 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		BC23C9DCDB20A137C00116CB0E9EB1E2 /* Frameworks */ = {
+		E19975D0CFA6BA305FD0C29767C7DBB4 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				56199F6D69986D6B9889B991C34F1E1D /* Foundation.framework in Frameworks */,
+				720CA1BB71A79C01868C60B5C18064DC /* Foundation.framework in Frameworks */,
+				059A688E3103D3B7F59EEE3FD315308F /* QuartzCore.framework in Frameworks */,
+				867A848020D324B2F403F7A9E100C8C7 /* SocketRocket.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		24AE5DF3BB2B3855F7CBA32DDB376BA3 /* Pods */ = {
+		1509C8FE9256E8D30480096827F01258 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				2E40FD44F243E1ECC61CEC41554532BF /* MZFayeClient */,
-				5AD771E20396C097A2A8CDF283A4D21C /* SocketRocket */,
+				1B5C715D786DA7152068D513BA7EC811 /* SocketRocket.framework */,
+				A806F598CDD386F306986D0403712479 /* iOS */,
 			);
-			name = Pods;
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		2E40FD44F243E1ECC61CEC41554532BF /* MZFayeClient */ = {
+		27E2CFC13B4671306383CC004FB38465 /* MZFayeClient */ = {
 			isa = PBXGroup;
 			children = (
-				47B1BA2F5EA720B3F17421E1DFAD0C1D /* MZFayeClient.h */,
-				2E5E7BEE3BA7F5528A30C1926A69246F /* MZFayeClient.m */,
-				7807FCD0C4C3CAE48FF54CD9E9AACD09 /* MZFayeMessage.h */,
-				DB6A0C5DFC04DE03966C51E8EB0F9CD6 /* MZFayeMessage.m */,
-				F57E22AFCF3CE2D88F70AA9BABCFD92C /* Support Files */,
+				14B6D28291132923C1A38A0621BA367C /* MZFayeClient.h */,
+				495C83C76EFCA32F577F063CE6FAC3FC /* MZFayeClient.m */,
+				DBAC8801B6A04AE672538E6023DD79DE /* MZFayeMessage.h */,
+				084989D714BD7B485424E9CD93CD533E /* MZFayeMessage.m */,
+				A5284E335D97E86C34982154A5AC2F5E /* Support Files */,
 			);
 			name = MZFayeClient;
 			path = MZFayeClient;
 			sourceTree = "<group>";
 		};
-		33B7070A085FD7715114AF1A85729409 /* Targets Support Files */ = {
+		5739CA3C77A58EC0397803C199FCE033 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				726D8FF0BF6D3AE896A5F4C6F3A29D80 /* Pods-Hippo */,
-			);
-			name = "Targets Support Files";
-			sourceTree = "<group>";
-		};
-		5AD771E20396C097A2A8CDF283A4D21C /* SocketRocket */ = {
-			isa = PBXGroup;
-			children = (
-				229E03C8223889E1D44383B5F7674580 /* SocketRocket.h */,
-				DE3C2E66AE1BD266CF3A9CFB795C682D /* SRWebSocket.h */,
-				8D0CB02D3678F8E7C851B905A405AEA2 /* SRWebSocket.m */,
-				870AB9C7857C830B017B5418B8E864BA /* Support Files */,
-			);
-			name = SocketRocket;
-			path = SocketRocket;
-			sourceTree = "<group>";
-		};
-		726D8FF0BF6D3AE896A5F4C6F3A29D80 /* Pods-Hippo */ = {
-			isa = PBXGroup;
-			children = (
-				140FAAA5BF7BDAEEEF53FF3E4DCBEB69 /* Info.plist */,
-				FDE2710C98C78A927A5A358FE6577ADC /* Pods-Hippo.modulemap */,
-				49C17D6CBC78CC53A252D4F93654B951 /* Pods-Hippo-acknowledgements.markdown */,
-				75EAC5563B71D35FDCDDAF01F3C71C20 /* Pods-Hippo-acknowledgements.plist */,
-				A222E90A1B102B79E44B9738E22DA5AA /* Pods-Hippo-dummy.m */,
-				74BC592A8216FBD75B5BEB3F9BDAE48C /* Pods-Hippo-frameworks.sh */,
-				5ED9C3A655496CF3E32557E045A978BE /* Pods-Hippo-resources.sh */,
-				E7501D68D5B23184A74B0D91C1EAC53C /* Pods-Hippo-umbrella.h */,
-				7A5F60BA51C069CC79353D7D27364094 /* Pods-Hippo.debug.xcconfig */,
-				2556BB7C6BEB7B8CFEFFF4DDF9DC5DBB /* Pods-Hippo.release.xcconfig */,
-			);
-			name = "Pods-Hippo";
-			path = "Target Support Files/Pods-Hippo";
-			sourceTree = "<group>";
-		};
-		7DB346D0F39D3F0E887471402A8071AB = {
-			isa = PBXGroup;
-			children = (
-				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
-				F76E571B98D9047062CC36587B6C3E2C /* Frameworks */,
-				24AE5DF3BB2B3855F7CBA32DDB376BA3 /* Pods */,
-				9B5A81FCE719E8D0D52D183C92E6A12A /* Products */,
-				33B7070A085FD7715114AF1A85729409 /* Targets Support Files */,
-			);
-			sourceTree = "<group>";
-		};
-		870AB9C7857C830B017B5418B8E864BA /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				82243AD134A45CB979DAED74F3ED9E96 /* Info.plist */,
-				58B9342F1312A531117624A32FCDDCFA /* SocketRocket.modulemap */,
-				9D025C6CF3E35E5C23B8F89B80F80BCC /* SocketRocket.xcconfig */,
-				8448DE78FFE7DBC7AAA2BD9D31B60861 /* SocketRocket-dummy.m */,
-				2567E3892BAF0A23BF0A980CD6EFD6E3 /* SocketRocket-prefix.pch */,
-				EA667D36B839B1FC2FA7699F4C8797C9 /* SocketRocket-umbrella.h */,
+				1D84BFD3E853B5E5C52E750D545A0364 /* SocketRocket.modulemap */,
+				07D9EC48501ECEAAE1EA18A424CADB97 /* SocketRocket-dummy.m */,
+				701967008DA7E93AA3A54150027D9BE9 /* SocketRocket-Info.plist */,
+				3AF319E650B23F6BFAC88DA189F30E0F /* SocketRocket-prefix.pch */,
+				F90034A71A6820448BAE6EABA5D5905B /* SocketRocket-umbrella.h */,
+				D2C2831F33985084744CFE7DCB1D2004 /* SocketRocket.debug.xcconfig */,
+				02C8D3A0C7D117F280786727892F4D0F /* SocketRocket.release.xcconfig */,
 			);
 			name = "Support Files";
 			path = "../Target Support Files/SocketRocket";
 			sourceTree = "<group>";
 		};
-		9B5A81FCE719E8D0D52D183C92E6A12A /* Products */ = {
+		5CE948445C2AD55EC2397EA5CBD8E9B4 /* Pods-Hippo */ = {
 			isa = PBXGroup;
 			children = (
-				3F688C4435E6B073C5F199B1271F8A4D /* MZFayeClient.framework */,
-				0560FCC49905934BA210CF35B1E02D31 /* Pods_Hippo.framework */,
-				802432A335832BE015294B796FF74270 /* SocketRocket.framework */,
+				FF0ABC14AAD0176C5776C47991CC9604 /* Pods-Hippo.modulemap */,
+				9EA062B7027A6DAF6F1170E65EC05FE3 /* Pods-Hippo-acknowledgements.markdown */,
+				365EA59078F4191B30C55BBD149C6EEE /* Pods-Hippo-acknowledgements.plist */,
+				32353FB21FAA2ED598CEB58AF1B50F98 /* Pods-Hippo-dummy.m */,
+				B12C6979FF83E10A9AC7964D3EBED1BA /* Pods-Hippo-frameworks.sh */,
+				7AFBD3C9669D6175A17ED2E8BD10C4B0 /* Pods-Hippo-Info.plist */,
+				0098C5ADF58EB5A3FFDD39C7301C53B7 /* Pods-Hippo-umbrella.h */,
+				816990C79555FEA12720E90EE2C99487 /* Pods-Hippo.debug.xcconfig */,
+				1664CB00F34559B322E6EFF1BF664C4F /* Pods-Hippo.release.xcconfig */,
 			);
-			name = Products;
+			name = "Pods-Hippo";
+			path = "Target Support Files/Pods-Hippo";
 			sourceTree = "<group>";
 		};
-		A9427D061FB2A8909462246BEDDE59D8 /* iOS */ = {
+		A5284E335D97E86C34982154A5AC2F5E /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				4C19A923614411A1F84910BC6C7A86FE /* CFNetwork.framework */,
-				406F5843CD83BF54D1E18F6239A1AFD5 /* Foundation.framework */,
-				F2CF46BA08DE84B0B9F3D53A01ACE935 /* QuartzCore.framework */,
-				CAB29530B7BB0B74BBE39B6DC47F5B9D /* Security.framework */,
-			);
-			name = iOS;
-			sourceTree = "<group>";
-		};
-		F57E22AFCF3CE2D88F70AA9BABCFD92C /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				61F4C6F73DF7F7DF60850D66A63E4E44 /* Info.plist */,
-				390BA2A8E8C8BE97622C463269A828F4 /* MZFayeClient.modulemap */,
-				DF4C439A29C0A96338CCF285BDC85443 /* MZFayeClient.xcconfig */,
-				C5CBA6613A48E9E75FAE1FADAA55204C /* MZFayeClient-dummy.m */,
-				E12F03A1C579EAABC9E76BC7A990EE1E /* MZFayeClient-prefix.pch */,
-				DE46AD3E3B5BDE61D7786FFEA94D97B6 /* MZFayeClient-umbrella.h */,
+				A61A92193C826E73E9E69100097025EE /* MZFayeClient.modulemap */,
+				950CFC7349F07502433D4C61D8AFD68F /* MZFayeClient-dummy.m */,
+				B3DEC96116D14C8FF917ECFC437DEA11 /* MZFayeClient-Info.plist */,
+				616E042DB3E0A7A62554A9221F83F252 /* MZFayeClient-prefix.pch */,
+				6EB189357C93C5C0C9DDFFCB1BBA1538 /* MZFayeClient-umbrella.h */,
+				FCCF89A1D7ADCCC37638E2B80801FB63 /* MZFayeClient.debug.xcconfig */,
+				8A5D3B136B0ED6D973F5D435AD3E2D83 /* MZFayeClient.release.xcconfig */,
 			);
 			name = "Support Files";
 			path = "../Target Support Files/MZFayeClient";
 			sourceTree = "<group>";
 		};
-		F76E571B98D9047062CC36587B6C3E2C /* Frameworks */ = {
+		A806F598CDD386F306986D0403712479 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
-				675F24B07ABF1530D81BC2ADEF84A00D /* SocketRocket.framework */,
-				A9427D061FB2A8909462246BEDDE59D8 /* iOS */,
+				8A7A74854B0013D0E9C4C6DFCD7FEE5A /* CFNetwork.framework */,
+				DDDCF66BD24FD6C11F2AFD8E98F514DD /* Foundation.framework */,
+				F193925F24E815593A308C6F85BAAE50 /* QuartzCore.framework */,
+				261F742D8E8768FAF2D944D941A2D9B2 /* Security.framework */,
 			);
-			name = Frameworks;
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		B1C425DD68918CDBEFC997233E58094B /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				27E2CFC13B4671306383CC004FB38465 /* MZFayeClient */,
+				C07E9292CFD0A4F26BF42B257D2EC017 /* SocketRocket */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		C07E9292CFD0A4F26BF42B257D2EC017 /* SocketRocket */ = {
+			isa = PBXGroup;
+			children = (
+				CA755842E79D3AAE168207C76BD9C3BD /* SocketRocket.h */,
+				C6A24EA5F99CD34227E88F60B07AA7A9 /* SRWebSocket.h */,
+				C9168B0E65FC9F28840BB1B89154EB6E /* SRWebSocket.m */,
+				5739CA3C77A58EC0397803C199FCE033 /* Support Files */,
+			);
+			name = SocketRocket;
+			path = SocketRocket;
+			sourceTree = "<group>";
+		};
+		C3BDCA924F9A0CCFF110CFC34588B3C7 /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				5CE948445C2AD55EC2397EA5CBD8E9B4 /* Pods-Hippo */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		CF1408CF629C7361332E53B88F7BD30C = {
+			isa = PBXGroup;
+			children = (
+				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
+				1509C8FE9256E8D30480096827F01258 /* Frameworks */,
+				B1C425DD68918CDBEFC997233E58094B /* Pods */,
+				F5E602664666D56AF539EA88739F1163 /* Products */,
+				C3BDCA924F9A0CCFF110CFC34588B3C7 /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		F5E602664666D56AF539EA88739F1163 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B6B8D182444B77AA6BA4856DD8951294 /* MZFayeClient.framework */,
+				00F5BDC56BDA4B71466E04241C0FAF22 /* Pods_Hippo.framework */,
+				85A01882ED06DFEA2E0CE78BCDB204A7 /* SocketRocket.framework */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		0CF76AE352DFF152FA29D2BBEA34EA2D /* Headers */ = {
+		91743B8FA3E6C1E4D432497A01D6B54B /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C36F87B655373996B5B18BE73955C77F /* Pods-Hippo-umbrella.h in Headers */,
+				D6E23AC3E24A374E5839E38968D977C8 /* SocketRocket-umbrella.h in Headers */,
+				FE7EFF7AD70FEA0967D3A6389EFE03EC /* SocketRocket.h in Headers */,
+				2C7C0866911A9B55D0C3BC9763B1C109 /* SRWebSocket.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7F58509C0BF9B75DBD09B055A8E555EF /* Headers */ = {
+		A2D6F808EB0C8409748CC023AF90989D /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E789946D0A5DE323E7D6D9D683E01120 /* SocketRocket-umbrella.h in Headers */,
-				5635C8D7461F74E76C45E56317422EF7 /* SocketRocket.h in Headers */,
-				1F6037E8E3B4726C522BF37FD9C003E2 /* SRWebSocket.h in Headers */,
+				BEC6216C1050163987D2C48A53EE72BF /* MZFayeClient-umbrella.h in Headers */,
+				6BE3964BFB2D5E386452CA0FC7C9E71A /* MZFayeClient.h in Headers */,
+				4FC5F7EEB1C16F18615A9BD908E5B35A /* MZFayeMessage.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		82F24AF5055FCBD42C1E0359E59C09C2 /* Headers */ = {
+		EB4E3729A85592308D9000968991210D /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DA920E7C616187E27483548E4D039FCF /* MZFayeClient-umbrella.h in Headers */,
-				A2C88522AB49867D55FFE1604AF1F3BF /* MZFayeClient.h in Headers */,
-				F12DEF333F3C683276041E283ECB6864 /* MZFayeMessage.h in Headers */,
+				2B7C684EC5A254C187591FA52B1D4A1E /* Pods-Hippo-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		03BD086FE1966D44A6B8D72A48AF0472 /* MZFayeClient */ = {
+		1948D0B63D2CF6A48E18B0B292BC6091 /* SocketRocket */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 472444272A7A5B01D5B85B884BE8F3FF /* Build configuration list for PBXNativeTarget "MZFayeClient" */;
+			buildConfigurationList = 6771E6580B826AD5BD3DABBE3165340E /* Build configuration list for PBXNativeTarget "SocketRocket" */;
 			buildPhases = (
-				E9B9AFE396E920EDA0C316236C363557 /* Sources */,
-				9B101D1060855BD3BF7A3E05AC9F26DD /* Frameworks */,
-				82F24AF5055FCBD42C1E0359E59C09C2 /* Headers */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				C70E7659CC865BE738CE1DBD3E9DB568 /* PBXTargetDependency */,
-			);
-			name = MZFayeClient;
-			productName = MZFayeClient;
-			productReference = 3F688C4435E6B073C5F199B1271F8A4D /* MZFayeClient.framework */;
-			productType = "com.apple.product-type.framework";
-		};
-		A623B6F9D017A028020782F293A2EF0B /* SocketRocket */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 8698383ABF7E6C3E62D96B9BDBDAB682 /* Build configuration list for PBXNativeTarget "SocketRocket" */;
-			buildPhases = (
-				1C39CE123BE1633A0DD2B3624AC669B4 /* Sources */,
-				6D567E15F13A7B27A62BA626F46BCC5F /* Frameworks */,
-				7F58509C0BF9B75DBD09B055A8E555EF /* Headers */,
+				91743B8FA3E6C1E4D432497A01D6B54B /* Headers */,
+				E82EE05030235C1DAFB3B528B6EEF55F /* Sources */,
+				0C4D0E98397949FE250E58B04B917084 /* Frameworks */,
+				160CE9F3B315EDAA3E80D949EC877F51 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -321,109 +306,186 @@
 			);
 			name = SocketRocket;
 			productName = SocketRocket;
-			productReference = 802432A335832BE015294B796FF74270 /* SocketRocket.framework */;
+			productReference = 85A01882ED06DFEA2E0CE78BCDB204A7 /* SocketRocket.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		FFFFE1D687A0024E5AF6FEFB2622CD09 /* Pods-Hippo */ = {
+		2B5E3CDB22BE40D7558CA2070656609C /* MZFayeClient */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7D77AA08D217FA4D9CE8D72434C046A3 /* Build configuration list for PBXNativeTarget "Pods-Hippo" */;
+			buildConfigurationList = B2E8A77A265ED70CBB2080787831F3AD /* Build configuration list for PBXNativeTarget "MZFayeClient" */;
 			buildPhases = (
-				5E2755ABDBFFE5F636C0AB7DB99D13A7 /* Sources */,
-				BC23C9DCDB20A137C00116CB0E9EB1E2 /* Frameworks */,
-				0CF76AE352DFF152FA29D2BBEA34EA2D /* Headers */,
+				A2D6F808EB0C8409748CC023AF90989D /* Headers */,
+				9FA3E3CD4073FCC53D1551AB0DC7B240 /* Sources */,
+				E19975D0CFA6BA305FD0C29767C7DBB4 /* Frameworks */,
+				711FAC841989920B0F33585215C7BF45 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				C62040CFAEB1DF2749605618D5DA24AC /* PBXTargetDependency */,
-				BFC2F6A4B34D2EC3F1B6734690FF1CB1 /* PBXTargetDependency */,
+				4AB83EF350A20BE72CAEDC8A1E5353A0 /* PBXTargetDependency */,
+			);
+			name = MZFayeClient;
+			productName = MZFayeClient;
+			productReference = B6B8D182444B77AA6BA4856DD8951294 /* MZFayeClient.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		2BC4A2E4D5BB5C60B0312CF359B2F08B /* Pods-Hippo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B807D46B032EBB6D60F1F4EE0CD21D01 /* Build configuration list for PBXNativeTarget "Pods-Hippo" */;
+			buildPhases = (
+				EB4E3729A85592308D9000968991210D /* Headers */,
+				3D755BA5EAE86EC53CA32CA29EC3A35F /* Sources */,
+				62F6D8F7016929A54CFCE9D30DBD0022 /* Frameworks */,
+				BB46363A7797BF94CCF0EFB05714426E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				87E0F4B748C8327DDC0B0B19FCB74FA5 /* PBXTargetDependency */,
+				EE29DAF83658DE5634ACFE0E975D1B55 /* PBXTargetDependency */,
 			);
 			name = "Pods-Hippo";
 			productName = "Pods-Hippo";
-			productReference = 0560FCC49905934BA210CF35B1E02D31 /* Pods_Hippo.framework */;
+			productReference = 00F5BDC56BDA4B71466E04241C0FAF22 /* Pods_Hippo.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		D41D8CD98F00B204E9800998ECF8427E /* Project object */ = {
+		BFDFE7DC352907FC980B868725387E98 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0930;
-				LastUpgradeCheck = 0930;
+				LastSwiftUpdateCheck = 1100;
+				LastUpgradeCheck = 1100;
 			};
-			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
+			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
-			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
-			productRefGroup = 9B5A81FCE719E8D0D52D183C92E6A12A /* Products */;
+			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
+			productRefGroup = F5E602664666D56AF539EA88739F1163 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				03BD086FE1966D44A6B8D72A48AF0472 /* MZFayeClient */,
-				FFFFE1D687A0024E5AF6FEFB2622CD09 /* Pods-Hippo */,
-				A623B6F9D017A028020782F293A2EF0B /* SocketRocket */,
+				2B5E3CDB22BE40D7558CA2070656609C /* MZFayeClient */,
+				2BC4A2E4D5BB5C60B0312CF359B2F08B /* Pods-Hippo */,
+				1948D0B63D2CF6A48E18B0B292BC6091 /* SocketRocket */,
 			);
 		};
 /* End PBXProject section */
 
+/* Begin PBXResourcesBuildPhase section */
+		160CE9F3B315EDAA3E80D949EC877F51 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		711FAC841989920B0F33585215C7BF45 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BB46363A7797BF94CCF0EFB05714426E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
-		1C39CE123BE1633A0DD2B3624AC669B4 /* Sources */ = {
+		3D755BA5EAE86EC53CA32CA29EC3A35F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				76BE5545630230498547B1EA155E1952 /* SocketRocket-dummy.m in Sources */,
-				45EEDC08E5DBF7468C1130129C1A95E9 /* SRWebSocket.m in Sources */,
+				555D341821D44134E8D6ED90ED865BA3 /* Pods-Hippo-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		5E2755ABDBFFE5F636C0AB7DB99D13A7 /* Sources */ = {
+		9FA3E3CD4073FCC53D1551AB0DC7B240 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6C4F8036871B99C40CDEA676EDA8621E /* Pods-Hippo-dummy.m in Sources */,
+				4CC2517CBF5C5EE75FB99C8AA624D4AF /* MZFayeClient-dummy.m in Sources */,
+				E95B6257824114414F1B636D029E1BE2 /* MZFayeClient.m in Sources */,
+				5F3B48214BF97612B2C147B112748EEF /* MZFayeMessage.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E9B9AFE396E920EDA0C316236C363557 /* Sources */ = {
+		E82EE05030235C1DAFB3B528B6EEF55F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				163F85AF47EA30E805694BBCC2FFD356 /* MZFayeClient-dummy.m in Sources */,
-				C2ED2BF8880369626559995CE7CC0D36 /* MZFayeClient.m in Sources */,
-				FE32C2E609BB238B62E1EB7EC37BFF2D /* MZFayeMessage.m in Sources */,
+				F500C903070FC391D61BF504AB6F6E9D /* SocketRocket-dummy.m in Sources */,
+				561E489893D40D1D313E4EBB942A0A73 /* SRWebSocket.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		BFC2F6A4B34D2EC3F1B6734690FF1CB1 /* PBXTargetDependency */ = {
+		4AB83EF350A20BE72CAEDC8A1E5353A0 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = SocketRocket;
-			target = A623B6F9D017A028020782F293A2EF0B /* SocketRocket */;
-			targetProxy = ADC421F15EF6CD054EDE1D2A4E750B2D /* PBXContainerItemProxy */;
+			target = 1948D0B63D2CF6A48E18B0B292BC6091 /* SocketRocket */;
+			targetProxy = 4BF867316E87A63D71001BC93E3524C7 /* PBXContainerItemProxy */;
 		};
-		C62040CFAEB1DF2749605618D5DA24AC /* PBXTargetDependency */ = {
+		87E0F4B748C8327DDC0B0B19FCB74FA5 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = MZFayeClient;
-			target = 03BD086FE1966D44A6B8D72A48AF0472 /* MZFayeClient */;
-			targetProxy = 9BB3790E0AF2938EA55A7B849C45467E /* PBXContainerItemProxy */;
+			target = 2B5E3CDB22BE40D7558CA2070656609C /* MZFayeClient */;
+			targetProxy = F3A986DC9BF9D2F6CA760A56030EB8D7 /* PBXContainerItemProxy */;
 		};
-		C70E7659CC865BE738CE1DBD3E9DB568 /* PBXTargetDependency */ = {
+		EE29DAF83658DE5634ACFE0E975D1B55 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = SocketRocket;
-			target = A623B6F9D017A028020782F293A2EF0B /* SocketRocket */;
-			targetProxy = 86A0F1A4BEF3E71C5AAB321125601BA4 /* PBXContainerItemProxy */;
+			target = 1948D0B63D2CF6A48E18B0B292BC6091 /* SocketRocket */;
+			targetProxy = EB0FA7CA3522CD42DA515C91D31E8A39 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		199D972A13F2B4C56847F7A89CCA83BC /* Debug */ = {
+		11BEF9172888C93BED702E38A7983A15 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 02C8D3A0C7D117F280786727892F4D0F /* SocketRocket.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/SocketRocket/SocketRocket-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/SocketRocket/SocketRocket-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/SocketRocket/SocketRocket.modulemap";
+				PRODUCT_MODULE_NAME = SocketRocket;
+				PRODUCT_NAME = SocketRocket;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		196DFA3E4A09A28224918543529A1885 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -455,8 +517,6 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGNING_ALLOWED = NO;
-				CODE_SIGNING_REQUIRED = NO;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -476,19 +536,22 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				MTL_ENABLE_DEBUG_INFO = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				SYMROOT = "${SRCROOT}/../build";
 			};
 			name = Debug;
 		};
-		3817FD2EB6103E26E6AE6F74761D370F /* Release */ = {
+		2281B89629A47A155FE4D6F278FED0EE /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DF4C439A29C0A96338CCF285BDC85443 /* MZFayeClient.xcconfig */;
+			baseConfigurationReference = FCCF89A1D7ADCCC37638E2B80801FB63 /* MZFayeClient.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -500,7 +563,38 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_PREFIX_HEADER = "Target Support Files/MZFayeClient/MZFayeClient-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/MZFayeClient/Info.plist";
+				INFOPLIST_FILE = "Target Support Files/MZFayeClient/MZFayeClient-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/MZFayeClient/MZFayeClient.modulemap";
+				PRODUCT_MODULE_NAME = MZFayeClient;
+				PRODUCT_NAME = MZFayeClient;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		9D47A854C6BA472754048F4C9689BCA9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8A5D3B136B0ED6D973F5D435AD3E2D83 /* MZFayeClient.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/MZFayeClient/MZFayeClient-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/MZFayeClient/MZFayeClient-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -518,170 +612,7 @@
 			};
 			name = Release;
 		};
-		38530EBF84AC191F3B5A93128B0019C2 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2556BB7C6BEB7B8CFEFFF4DDF9DC5DBB /* Pods-Hippo.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-Hippo/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-Hippo/Pods-Hippo.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		3D6087F4A1C265793630F92A6B470EA8 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7A5F60BA51C069CC79353D7D27364094 /* Pods-Hippo.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-Hippo/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-Hippo/Pods-Hippo.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		5D27B7EE1AECE82EF5DEEF205AE23A77 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9D025C6CF3E35E5C23B8F89B80F80BCC /* SocketRocket.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/SocketRocket/SocketRocket-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/SocketRocket/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/SocketRocket/SocketRocket.modulemap";
-				PRODUCT_MODULE_NAME = SocketRocket;
-				PRODUCT_NAME = SocketRocket;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		78909D52E6EEB8AA33A0F1A706E880B4 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9D025C6CF3E35E5C23B8F89B80F80BCC /* SocketRocket.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/SocketRocket/SocketRocket-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/SocketRocket/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/SocketRocket/SocketRocket.modulemap";
-				PRODUCT_MODULE_NAME = SocketRocket;
-				PRODUCT_NAME = SocketRocket;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		D263644EE3F4AC882DFC961335168CA3 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = DF4C439A29C0A96338CCF285BDC85443 /* MZFayeClient.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/MZFayeClient/MZFayeClient-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/MZFayeClient/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/MZFayeClient/MZFayeClient.modulemap";
-				PRODUCT_MODULE_NAME = MZFayeClient;
-				PRODUCT_NAME = MZFayeClient;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		FDB2FC4A1E5891381CD9D922145497F1 /* Release */ = {
+		B01D14FDC83DCF9D4BE53066BEA96D05 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -713,8 +644,6 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGNING_ALLOWED = NO;
-				CODE_SIGNING_REQUIRED = NO;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -731,54 +660,160 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
 				SYMROOT = "${SRCROOT}/../build";
 			};
 			name = Release;
 		};
+		CBDC6299E2FB04F046158FF7E28B7F94 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 816990C79555FEA12720E90EE2C99487 /* Pods-Hippo.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-Hippo/Pods-Hippo-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-Hippo/Pods-Hippo.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		ECE0375707496AEA23CB330C8F138A45 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1664CB00F34559B322E6EFF1BF664C4F /* Pods-Hippo.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-Hippo/Pods-Hippo-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-Hippo/Pods-Hippo.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		EDFDD6CA71A9EBF66646CFEFAE700C20 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D2C2831F33985084744CFE7DCB1D2004 /* SocketRocket.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/SocketRocket/SocketRocket-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/SocketRocket/SocketRocket-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/SocketRocket/SocketRocket.modulemap";
+				PRODUCT_MODULE_NAME = SocketRocket;
+				PRODUCT_NAME = SocketRocket;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
+		4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				199D972A13F2B4C56847F7A89CCA83BC /* Debug */,
-				FDB2FC4A1E5891381CD9D922145497F1 /* Release */,
+				196DFA3E4A09A28224918543529A1885 /* Debug */,
+				B01D14FDC83DCF9D4BE53066BEA96D05 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		472444272A7A5B01D5B85B884BE8F3FF /* Build configuration list for PBXNativeTarget "MZFayeClient" */ = {
+		6771E6580B826AD5BD3DABBE3165340E /* Build configuration list for PBXNativeTarget "SocketRocket" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				D263644EE3F4AC882DFC961335168CA3 /* Debug */,
-				3817FD2EB6103E26E6AE6F74761D370F /* Release */,
+				EDFDD6CA71A9EBF66646CFEFAE700C20 /* Debug */,
+				11BEF9172888C93BED702E38A7983A15 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7D77AA08D217FA4D9CE8D72434C046A3 /* Build configuration list for PBXNativeTarget "Pods-Hippo" */ = {
+		B2E8A77A265ED70CBB2080787831F3AD /* Build configuration list for PBXNativeTarget "MZFayeClient" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				3D6087F4A1C265793630F92A6B470EA8 /* Debug */,
-				38530EBF84AC191F3B5A93128B0019C2 /* Release */,
+				2281B89629A47A155FE4D6F278FED0EE /* Debug */,
+				9D47A854C6BA472754048F4C9689BCA9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8698383ABF7E6C3E62D96B9BDBDAB682 /* Build configuration list for PBXNativeTarget "SocketRocket" */ = {
+		B807D46B032EBB6D60F1F4EE0CD21D01 /* Build configuration list for PBXNativeTarget "Pods-Hippo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				78909D52E6EEB8AA33A0F1A706E880B4 /* Debug */,
-				5D27B7EE1AECE82EF5DEEF205AE23A77 /* Release */,
+				CBDC6299E2FB04F046158FF7E28B7F94 /* Debug */,
+				ECE0375707496AEA23CB330C8F138A45 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+	rootObject = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 }

@@ -147,7 +147,6 @@ class AgentConversationManager {
         }
         
     }
-    
     class func handleGetConversationSuccess(request: GetConversationRequestParam, result: AgentGetConversationFromServerResult, completion: @escaping ((_ result: AgentGetConversationFromServerResult) -> ())) {
         
         

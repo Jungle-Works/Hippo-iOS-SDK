@@ -71,7 +71,6 @@ protocol NewChatSentDelegate: class {
 
    
     deinit {
-    
         HippoChannel.botMessageMUID = nil
         NotificationCenter.default.removeObserver(self)
         HippoConfig.shared.notifiyDeinit()
@@ -87,66 +86,13 @@ protocol NewChatSentDelegate: class {
     
         guard channel != nil else {
         if createConversationOnStart {
-//            startNewConversation(replyMessage: nil, completion: { [weak self] (success, result) in
-//                guard success else {
-//                    return
-//                }
-//                self?.populateTableViewWithChannelData()
-//                self?.fetchMessagesFrom1stPage()
-//            })
-            
-            
-            if directChatDetail != nil {
-                HippoChannel.get(withFuguChatAttributes: directChatDetail!) { [weak self] (r) in
-                    let result = r
-                    //                    result.isReplyMessageSent = false
-                    //                    self?.enableSendingNewMessages()
-                    //                    self?.channelCreatedSuccessfullyWith(result: result)
-                    //                    completion?(result.isSuccessful, result)
-                    if result.isChannelAvailableLocallay{
-                        if result.channel != nil, let chnl = result.channel{
-                            
-                            self?.channel = chnl
-//                            channel?.chatDetail?.chatType = chatObj.chatType
-//                            self.labelId = chatObj.labelId ?? -1
-//                            self.label = chatObj.label ?? ""
-//                            self.userImage = chatObj.channelImageUrl
-                            
-                            self?.channel.delegate = self
-                            self?.populateTableViewWithChannelData()
-                            self?.fetchMessagesFrom1stPage()
-                            HippoConfig.shared.notifyDidLoad()
-                        }else{
-                            self?.startNewConversation(replyMessage: nil, completion: { [weak self] (success, result) in
-                                guard success else {
-                                    return
-                                }
-                                self?.populateTableViewWithChannelData()
-                                self?.fetchMessagesFrom1stPage()
-                            })
-                        }
-                    }else{
-                        self?.startNewConversation(replyMessage: nil, completion: { [weak self] (success, result) in
-                            guard success else {
-                                return
-                            }
-                            self?.populateTableViewWithChannelData()
-                            self?.fetchMessagesFrom1stPage()
-                        })
-                    }
+            startNewConversation(replyMessage: nil, completion: { [weak self] (success, result) in
+                guard success else {
+                    return
                 }
-            }else{
-                self.startNewConversation(replyMessage: nil, completion: { [weak self] (success, result) in
-                    guard success else {
-                        return
-                    }
-                    self?.populateTableViewWithChannelData()
-                    self?.fetchMessagesFrom1stPage()
-                })
-
-            }
-            
-
+                self?.populateTableViewWithChannelData()
+                self?.fetchMessagesFrom1stPage()
+            })
         } else {
             fetchMessagesFrom1stPage()
         }
@@ -159,10 +105,8 @@ protocol NewChatSentDelegate: class {
       fetchMessagesFrom1stPage()
       HippoConfig.shared.notifyDidLoad()
     
-      self.navigationController?.interactivePopGestureRecognizer?.delegate = self//
-    
     }
-
+    
    override  func viewWillAppear(_ animated: Bool) {
       super.viewWillAppear(animated)
       messageTextView.contentInset.top = 8
@@ -564,9 +508,7 @@ protocol NewChatSentDelegate: class {
             
             delegate?.updateConversationWith(conversationObj: conversationInfo)
         }
-        if channel != nil {
-            self.channel.saveMessagesInCache()
-        }
+        
         if self.navigationController == nil {
             HippoConfig.shared.notifiyDeinit()
             dismiss(animated: true, completion: nil)
@@ -709,6 +651,9 @@ protocol NewChatSentDelegate: class {
         var messages = result.newMessages
         let newMessagesHashMap = result.newMessageHashmap
         
+        
+        
+        
         label = result.channelName
         userImage = result.chatDetail?.channelImageUrl
         channel?.chatDetail = result.chatDetail
@@ -725,9 +670,7 @@ protocol NewChatSentDelegate: class {
         }
         
         updateMessagesInLocalArrays(messages: messages)
-        if channel != nil {
-            self.channel.saveMessagesInCache()
-        }
+        
         
         let contentOffsetBeforeNewMessages = tableViewChat.contentOffset.y
         let contentHeightBeforeNewMessages = tableViewChat.contentSize.height
@@ -748,7 +691,6 @@ protocol NewChatSentDelegate: class {
         
         completion?(true)
     }
-    
     func handleVideoIcon() {
         setTitleButton()
         if canStartVideoCall() {
@@ -1044,22 +986,6 @@ protocol NewChatSentDelegate: class {
       vc.directChatDetail = chatAttributes
       vc.label = chatAttributes.channelName ?? ""
       return vc
-    
-    /* testing:
-//    HippoConfig.shared.notifyDidLoad()
-//    let conversationVC = ConversationsViewController.getWith(conversationObj: chatObj)
-//    conversationVC.delegate = self
-//    self.navigationController?.pushViewController(conversationVC, animated: true)
-//
-//    if let channelId = chatObj.channelId, channelId > 0 {
-//        self.channel = FuguChannelPersistancyManager.shared.getChannelBy(id: channelId)
-//    }
-//    channel?.chatDetail?.chatType = chatObj.chatType
-//    self.labelId = chatObj.labelId ?? -1
-//    self.label = chatObj.label ?? ""
-//    self.userImage = chatObj.channelImageUrl
-    */
-    
    }
    
    class func getWith(channelID: Int, channelName: String) -> ConversationsViewController {
@@ -2368,31 +2294,4 @@ extension ConversationsViewController: chatViewDelegateProtocol {
             self.suggestionCollectionView.reloadData()
         }
     }
-}
-
-extension ConversationsViewController: UIGestureRecognizerDelegate {
-    
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        
-        messageTextView.resignFirstResponder()
-        channel?.send(message: HippoMessage.stopTyping, completion: {})
-        let rawLabelID = self.labelId == -1 ? nil : self.labelId
-        let channelID = self.channel?.id ?? -1
-        clearUnreadCountForChannel(id: channelID)
-        if let lastMessage = getLastMessage(), let conversationInfo = FuguConversation(channelId: channelID, unreadCount: 0, lastMessage: lastMessage, labelID: rawLabelID) {
-            delegate?.updateConversationWith(conversationObj: conversationInfo)
-        }
-        
-        return true
-    }
-    
-    //    func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
-    //        let enable = self.navigationController?.viewControllers.count ?? 0 > 1
-    //        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = enable
-    //    }
-    
-    //    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-    //        return true
-    //    }
-    
 }
