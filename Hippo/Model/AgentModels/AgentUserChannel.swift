@@ -79,33 +79,67 @@ class AgentUserChannel {
         
     }
     
+//    func subscribe(completion: UserChannelHandler? = nil) {
+//        guard id != nil, HippoConfig.shared.appUserType == .agent else {
+//            completion?(false, nil)
+//            return
+//        }
+//        guard !id.isEmpty else {
+//            completion?(false, nil)
+//            return
+//        }
+//
+//        guard !isSubscribed() else {
+//            completion?(false, nil)
+//            return
+//        }
+//
+//        FayeConnection.shared.subscribeTo(channelId: id, completion: { (success) in
+////            NotificationCenter.default.post(name: .userChannelChanged, object: nil)
+//            completion?(success, nil)
+//        }) { [weak self] (messageDict) in
+//            guard self != nil else {
+//                return
+//            }
+//            let conversation = AgentConversation(json: messageDict)
+//            HippoConfig.shared.log.trace("UserChannel:: --->\(messageDict)", level: .socket)
+//            self?.conversationRecieved(conversation)
+//
+//        }
+//    }
+    
     func subscribe(completion: UserChannelHandler? = nil) {
-        guard id != nil, HippoConfig.shared.appUserType == .agent else {
-            completion?(false, nil)
-            return
-        }
-        guard !id.isEmpty else {
-            completion?(false, nil)
-            return
-        }
-        
-        guard !isSubscribed() else {
-            completion?(false, nil)
-            return
-        }
-        
-        FayeConnection.shared.subscribeTo(channelId: id, completion: { (success) in
-//            NotificationCenter.default.post(name: .userChannelChanged, object: nil)
-            completion?(success, nil)
-        }) { [weak self] (messageDict) in
-            guard self != nil else {
+            guard id != nil, HippoConfig.shared.appUserType == .agent else {
+                completion?(false, nil)
                 return
             }
-            let conversation = AgentConversation(json: messageDict)
-            HippoConfig.shared.log.trace("UserChannel:: --->\(messageDict)", level: .socket)
-            self?.conversationRecieved(conversation)
+            guard !id.isEmpty else {
+                completion?(false, nil)
+                return
+            }
+            
+            guard !isSubscribed() else {
+                completion?(false, nil)
+                return
+            }
+            
+            FayeConnection.shared.subscribeTo(channelId: id, completion: { (success) in
+    //            NotificationCenter.default.post(name: .userChannelChanged, object: nil)
+                completion?(success, nil)
+            }) { [weak self] (messageDict) in
+                guard self != nil else {
+                    return
+                }
+                if let messageType = messageDict["message_type"] as? Int, messageType == 18 {
+                HippoConfig.shared.log.trace("UserChannel:: --->\(messageDict)", level: .socket)
+                    CallManager.shared.voipNotificationRecieved(payloadDict: messageDict)
+                }
+                let conversation = AgentConversation(json: messageDict)
+    //            HippoConfig.shared.log.trace("UserChannel:: --->\(messageDict)", level: .socket)
+                self?.conversationRecieved(conversation)
+                
+            }
         }
-    }
     
     fileprivate func unSubscribe(completion: UserChannelHandler? = nil) {
         guard id != nil else {

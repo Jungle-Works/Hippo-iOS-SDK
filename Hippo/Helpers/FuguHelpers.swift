@@ -256,6 +256,32 @@ func fuguDelay(_ withDuration: Double, completion: @escaping () -> ()) {
     }
 }
 
+ func isSubscribed(userChannelId: String) -> Bool {
+  
+    return FayeConnection.shared.isChannelSubscribed(channelID: userChannelId)
+}
+
+ func unSubscribe(userChannelId: String) {
+   
+    FayeConnection.shared.unsubscribe(fromChannelId: userChannelId, completion: { (success, error) in
+    })
+}
+
+    func subscribeCustomerUserChannel(userChannelId: String) {
+        
+        guard !isSubscribed(userChannelId: userChannelId) else {
+            return
+        }
+        
+        FayeConnection.shared.subscribeTo(channelId: userChannelId, completion: { (success) in
+        }) {  (messageDict) in
+            if let messageType = messageDict["message_type"] as? Int, messageType == 18 {
+            HippoConfig.shared.log.trace("UserChannel:: --->\(messageDict)", level: .socket)
+                CallManager.shared.voipNotificationRecieved(payloadDict: messageDict)
+            }
+        }
+    }
+
 func pushTotalUnreadCount() {
     var chatCounter = 0
     

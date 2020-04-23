@@ -12,7 +12,7 @@ Pod::Spec.new do |s|
     s.author             = { 'Vishal Jhanjhri' => 'jhanjhri.vishal@gmail.com' }
     
     s.source       = { :git => 'https://github.com/Jungle-Works/Hippo-iOS-SDK.git', :tag => s.version }
-    s.ios.deployment_target = '9.0'
+    s.ios.deployment_target = '10.0'
     s.source_files = 'Hippo/**/*.{swift,h,m}'
     s.exclude_files = 'Classes/Exclude'
     s.static_framework = false
@@ -26,6 +26,7 @@ Pod::Spec.new do |s|
     s.preserve_paths = ['README.md']
     
     s.dependency 'MZFayeClient'
+    s.dependency 'Kingfisher'
     s.default_subspec = 'Chat'
     
     s.subspec 'Chat' do |chat|

@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import Kingfisher
 
 protocol ShowMoreTableViewCellDelegate: class {
     func buttonClicked(with form: PaymentField)

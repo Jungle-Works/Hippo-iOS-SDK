@@ -102,7 +102,7 @@ public class UserTag: NSObject {
     var customRequest: [String: Any] = [:]
     var userImage: URL?
     
-    
+    var userChannel: String?
     
     class var fuguUserID: Int? {
         get {
@@ -248,6 +248,7 @@ public class UserTag: NSObject {
         params["device_details"] = AgentDetail.getDeviceDetails()
         
         params += customRequest
+        print("PUT USER PARAMS:\(params)")
         return params
     }
     
@@ -280,6 +281,10 @@ public class UserTag: NSObject {
             
             userDetailData = data
             
+            if let rawUserChannel = userDetailData["user_channel"] as? String {
+                HippoConfig.shared.userDetail?.userChannel = rawUserChannel
+                subscribeCustomerUserChannel(userChannelId: rawUserChannel)
+            }
             if let tags = data["grouping_tags"] as? [[String: Any]] {
                 HippoConfig.shared.userDetail?.userTags.removeAll()
                 for each in tags {
@@ -399,7 +404,7 @@ public class UserTag: NSObject {
         
         //Clear agent data
         clearAgentData()
-        
+        unSubscribe(userChannelId: HippoConfig.shared.userDetail?.userChannel ?? "")
         HippoProperty.current = HippoProperty()
         //FuguConfig.shared.deviceToken = ""
         HippoConfig.shared.appSecretKey = ""

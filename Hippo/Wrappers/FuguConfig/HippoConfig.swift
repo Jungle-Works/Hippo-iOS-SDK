@@ -67,8 +67,8 @@ struct SERVERS {
     private(set)  open var isBroadcastEnabled: Bool = false
     open weak var messageDelegate: HippoMessageRecievedDelegate?
     internal weak var delegate: HippoDelegate?
-//    internal var deviceToken = ""
-//    internal var voipToken = ""
+    internal var deviceToken = ""
+    internal var voipToken = ""
     internal var ticketDetails = HippoTicketAtrributes(categoryName: "")
     internal var theme = HippoTheme.defaultTheme()
     internal var userDetail: HippoUserDetail?
