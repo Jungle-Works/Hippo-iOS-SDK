@@ -115,7 +115,8 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
             if createConversationOnStart {
                 
                 if directChatDetail != nil {
-                    HippoChannel.get(withFuguChatAttributes: directChatDetail!) { [weak self] (r) in
+//                    HippoChannel.get(withFuguChatAttributes: directChatDetail!) { [weak self] (r) in
+                    HippoChannel.get(withFuguChatAttributes: directChatDetail!, methodIsOnlyCallForChannelAvailableInLocalOrNot: true) { [weak self] (r) in
                         let result = r
                         if result.isChannelAvailableLocallay{
                             if result.channel != nil, let chnl = result.channel{
