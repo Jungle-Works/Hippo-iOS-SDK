@@ -293,7 +293,7 @@ class HippoChannel {
     }
     
 //    class func get(withFuguChatAttributes attributes: FuguNewChatAttributes, completion: @escaping HippoChannelCreationHandler) {
-    class func get(withFuguChatAttributes attributes: FuguNewChatAttributes, isComingFromConsultNow: Bool = false, completion: @escaping HippoChannelCreationHandler) {
+    class func get(withFuguChatAttributes attributes: FuguNewChatAttributes, isComingFromConsultNow: Bool = false, methodIsOnlyCallForChannelAvailableInLocalOrNot: Bool = false, completion: @escaping HippoChannelCreationHandler) {
     
         if isComingFromConsultNow {
             let params = getParamsToStartConversation(fuguAttributes: attributes)
@@ -311,6 +311,13 @@ class HippoChannel {
                 
                 let channel = FuguChannelPersistancyManager.shared.getChannelBy(id: channelID)
                 let result = HippoChannelCreationResult(isSuccessful: true, error: nil, channel: channel, isChannelAvailableLocallay: true, botMessageID: nil)
+                completion(result)
+                return
+            }
+            
+            if methodIsOnlyCallForChannelAvailableInLocalOrNot == true{
+                //methodIsOnlyCallForChannelAvailableInLocalOrNot = false
+                let result = HippoChannelCreationResult(isSuccessful: false, error: nil, channel: nil, isChannelAvailableLocallay: false, botMessageID: nil)
                 completion(result)
                 return
             }
