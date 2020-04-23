@@ -547,28 +547,6 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         if let rideDetail = RideDetail.current, let time = rideDetail.getRemaningTime(), typingStatus == .messageRecieved, notificationType == .message  {
             json["estimated_inride_secs"] = time
         }
-        switch type {
-        case .card:
-            json["content_value"] = contentValues
-            json["user_id"] = currentUserId()
-            
-            if let selectedAgentId = self.selectedCardId {
-                json["selected_agent_id"] = selectedAgentId
-            }
-            if let fallbackText = fallbackText {
-                json["fallback_text"] = fallbackText
-            }
-        case .multipleSelect:
-            json["custom_action"] = customAction?.setJsonValue()
-            json["user_id"] = currentUserId()
-            
-        case .embeddedVideoUrl:
-            json["custom_action"] = customAction?.setJsonValue()
-            json["user_id"] = currentUserId()
-
-        default:
-            break
-        }
         if type == .feedback {
             json["is_rating_given"] = self.is_rating_given.intValue()
             json["total_rating"] = 5
