@@ -369,7 +369,8 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         guard conversationChatType != .openChat else {
             return
         }
-        self.newConversationBiutton.isHidden = false
+//        self.newConversationBiutton.isHidden = false
+        self.newConversationBiutton.isHidden = !HippoProperty.current.enableNewConversationButton
         conversationChatType = .openChat
         animateBottomLineView()
         //getAllConversations()

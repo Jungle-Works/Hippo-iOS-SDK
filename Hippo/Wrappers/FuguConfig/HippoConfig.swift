@@ -834,7 +834,7 @@ struct SERVERS {
                 conVC.messagesGroupedByDate = []
                 conVC.populateTableViewWithChannelData()
                 conVC.label = channelName
-                conVC.navigationTitleLabel?.text = channelName
+//                conVC.navigationTitleLabel?.text = channelName
                 if isSendingDisabled {
                     conVC.disableSendingReply()
                 }
@@ -847,7 +847,7 @@ struct SERVERS {
                 conVC.tableViewChat.reloadData()
                 conVC.label = channelName
                 conVC.labelId = labelId
-                conVC.navigationTitleLabel?.text = channelName
+//                conVC.navigationTitleLabel?.text = channelName
                 if isSendingDisabled {
                     conVC.disableSendingReply()
                 }

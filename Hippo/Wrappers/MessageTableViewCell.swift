@@ -64,15 +64,28 @@ class MessageTableViewCell: UITableViewCell {
         }
         showSenderImageView()
         
-        let isMessageAllowedForImage = message.type == .consent
+//        let isMessageAllowedForImage = message.type == .consent
+//
+//        if message.belowMessageUserId == message.senderId && !isMessageAllowedForImage {
+//            unsetImageInSender()
+//        } else if let senderImage = message.senderImage, let url = URL(string: senderImage) {
+//            setImageInSenderView(imageURL: url)
+//        } else {
+//            setNameAsTitle(message.senderFullName)
+//        }
         
-        if message.belowMessageUserId == message.senderId && !isMessageAllowedForImage {
+        let isMessageAllowedForImage = message.type == .consent  || message.belowMessageType == .card || message.belowMessageType == .paymentCard || message.aboveMessageType == .consent
+        
+        if (message.aboveMessageUserId == message.senderId && !isMessageAllowedForImage) {
             unsetImageInSender()
-        } else if let senderImage = message.senderImage, let url = URL(string: senderImage) {
-            setImageInSenderView(imageURL: url)
         } else {
-            setNameAsTitle(message.senderFullName)
+            if let senderImage = message.senderImage, let url = URL(string: senderImage) {
+                setImageInSenderView(imageURL: url)
+            }else{
+                setNameAsTitle(message.senderFullName)
+            }
         }
+        
     }
     
     func hideSenderImageView() {
@@ -92,7 +105,30 @@ class MessageTableViewCell: UITableViewCell {
         layoutIfNeeded()
     }
     
+//    func setImageInSenderView(imageURL: URL?) {
+//        senderImageView.kf.setImage(with: imageURL, placeholder: HippoConfig.shared.theme.placeHolderImage,  completionHandler: {(_, error, _, _) in
+//            guard let parsedError = error else {
+//                return
+//            }
+//            print(parsedError.localizedDescription)
+//        })
+//    }
+//
+//    func setNameAsTitle(_ name: String?) {
+//        if let parsedName = name {
+////            self.senderImageView.setImage(string: parsedName, color: UIColor.lightGray, circular: true)
+//            self.senderImageView.image = UIImage(named: parsedName)
+//        } else {
+//            self.senderImageView.image = HippoConfig.shared.theme.placeHolderImage
+//        }
+//    }
+//
+//    func unsetImageInSender() {
+//        senderImageView.image = nil
+//    }
+    
     func setImageInSenderView(imageURL: URL?) {
+        senderImageView.contentMode = .scaleToFill
         senderImageView.kf.setImage(with: imageURL, placeholder: HippoConfig.shared.theme.placeHolderImage,  completionHandler: {(_, error, _, _) in
             guard let parsedError = error else {
                 return
@@ -103,8 +139,7 @@ class MessageTableViewCell: UITableViewCell {
     
     func setNameAsTitle(_ name: String?) {
         if let parsedName = name {
-//            self.senderImageView.setImage(string: parsedName, color: UIColor.lightGray, circular: true)
-            self.senderImageView.image = UIImage(named: parsedName)
+            self.senderImageView.setTextInImage(string: parsedName, color: UIColor.lightGray, circular: false)
         } else {
             self.senderImageView.image = HippoConfig.shared.theme.placeHolderImage
         }

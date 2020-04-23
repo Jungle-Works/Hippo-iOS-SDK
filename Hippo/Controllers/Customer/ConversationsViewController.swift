@@ -34,8 +34,8 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     @IBOutlet weak var audioCAllButtonWidthConstraint: NSLayoutConstraint!
     @IBOutlet var backgroundView: UIView!
    @IBOutlet var navigationBackgroundView: UIView!
-   @IBOutlet var navigationTitleLabel: UILabel!
-   @IBOutlet var backButton: UIButton!
+//   @IBOutlet var navigationTitleLabel: UILabel!
+//   @IBOutlet var backButton: UIButton!
    
    @IBOutlet var sendMessageButton: UIButton!
    @IBOutlet var messageTextView: UITextView!
