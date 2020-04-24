@@ -292,7 +292,7 @@ public class UserTag: NSObject {
             userDetailData = data
             
             if let rawUserChannel = userDetailData["user_channel"] as? String {
-                HippoConfig.shared.HippoUserChannelId = rawUserChannel
+                HippoUserDetail.HippoUserChannelId = rawUserChannel
                 subscribeCustomerUserChannel(userChannelId: rawUserChannel)
                 
             }

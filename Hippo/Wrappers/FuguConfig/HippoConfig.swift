@@ -621,9 +621,11 @@ struct SERVERS {
     
     func checkForChannelSubscribe(completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
         
-        if let HippoUserChannelId = HippoUserDetail.Hippo_User_Channel_Id, HippoUserChannelId != nil {
-            guard isSubscribed(userChannelId: HippoUserChannelId) else {
+        if let hippoUserChannelId = HippoUserDetail.HippoUserChannelId {
+            guard isSubscribed(userChannelId: hippoUserChannelId) else {
+                subscribeCustomerUserChannel(userChannelId: hippoUserChannelId)
                 completion(false, nil)
+                return
             }
             completion(true, nil)
             return
@@ -733,8 +735,6 @@ struct SERVERS {
         checkForChannelSubscribe(completion: { (success, error) in
             if success {
                 self.handleVoipNotification(payloadDict: json)
-            } else {
-                 subscribeCustomerUserChannel(userChannelId: HippoUserDetail.Hippo_User_Channel_Id)
             }
         })
     }
