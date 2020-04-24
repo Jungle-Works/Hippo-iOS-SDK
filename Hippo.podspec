@@ -35,7 +35,7 @@ Pod::Spec.new do |s|
     
     s.subspec 'Call' do |callClient|
         s.pod_target_xcconfig = { "ENABLE_BITCODE" => "No" }
-        callClient.dependency 'HippoCallClient',# '1.0.1'
+        callClient.dependency 'HippoCallClient'
     end
     
 end
