@@ -619,6 +619,20 @@ struct SERVERS {
         })
     }
     
+    func checkForChannelSubscribe(completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
+        
+        if let HippoUserChannelId = HippoUserDetail.Hippo_User_Channel_Id, HippoUserChannelId != nil {
+            guard isSubscribed(userChannelId: HippoUserChannelId) else {
+                completion(false, nil)
+            }
+            completion(true, nil)
+            return
+        }
+        
+        
+    }
+    
+    
     // MARK: - Helpers
     public func switchEnvironment(_ envType: HippoEnvironment) {
         switch envType {
@@ -715,8 +729,16 @@ struct SERVERS {
         guard let json = payload as? [String: Any] else {
             return
         }
-        handleVoipNotification(payloadDict: json)
+        
+        checkForChannelSubscribe(completion: { (success, error) in
+            if success {
+                self.handleVoipNotification(payloadDict: json)
+            } else {
+                 subscribeCustomerUserChannel(userChannelId: HippoUserDetail.Hippo_User_Channel_Id)
+            }
+        })
     }
+    
     public func handleVoipNotification(payloadDict: [String: Any]) {
         CallManager.shared.voipNotificationRecieved(payloadDict: payloadDict)
     }

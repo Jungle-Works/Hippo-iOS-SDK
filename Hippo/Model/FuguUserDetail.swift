@@ -104,13 +104,12 @@ public class UserTag: NSObject {
     
     var userChannel: String?
     
-    class var Hippo_user_channel_id: String? {
+    class var HippoUserChannelId: String? {
         get {
-            return UserDefaults.standard.value(forKey: Hippo_user_channel_id) as? String
+            return UserDefaults.standard.value(forKey: Hippo_User_Channel_Id) as? String
         }
         set {
-            UserDefaults.standard.set(newValue, forKey: Hippo_user_channel_id)
-            subscribeCustomerUserChannel(userChannelId: rawUserChannel)
+            UserDefaults.standard.set(newValue, forKey: Hippo_User_Channel_Id)
         }
     }
     
@@ -293,7 +292,8 @@ public class UserTag: NSObject {
             userDetailData = data
             
             if let rawUserChannel = userDetailData["user_channel"] as? String {
-                HippoConfig.shared.Hippo_user_channel_id = rawUserChannel
+                HippoConfig.shared.HippoUserChannelId = rawUserChannel
+                subscribeCustomerUserChannel(userChannelId: rawUserChannel)
                 
             }
             if let tags = data["grouping_tags"] as? [[String: Any]] {
@@ -440,7 +440,7 @@ public class UserTag: NSObject {
          CallManager.shared.hungupCall()
         
         let defaults = UserDefaults.standard
-        defaults.removeObject(forKey: Hippo_user_channel_id)
+        defaults.removeObject(forKey: Hippo_User_Channel_Id)
         defaults.removeObject(forKey: FUGU_USER_ID)
         defaults.removeObject(forKey: Fugu_en_user_id)
         defaults.synchronize()
