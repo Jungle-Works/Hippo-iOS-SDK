@@ -69,34 +69,38 @@ class MessageStore {
     
     class func getMessages(requestParam: messageRequest, ignoreIfInProgress: Bool = false, completion: @escaping ChannelMessagesCallBack) {
         
-        if ignoreIfInProgress, isInProgress {
-            handleGetMessageError(response: nil, completion: completion)
-            return
-        }
-        guard let params = createParamForGetMessages(requestParam: requestParam) else {
-            handleGetMessageError(response: nil, completion: completion)
-            return
-        }
-        HippoConfig.shared.log.trace(params, level: .request)
-        isInProgress = true
-        
-        HTTPClient.shared.makeSingletonConnectionWith(method: .POST, identifier: RequestIdenfier.getMessagesIdentifier ,para: params, extendedUrl: FuguEndPoints.API_GET_MESSAGES.rawValue) { (responseObject, error, tag, statusCode) in
-            
-            isInProgress = false
-            let rawStatusCode = statusCode ?? -1
-            
-            switch rawStatusCode {
-            case STATUS_CODE_SUCCESS:
-                guard let response = responseObject as? [String: Any], let data = response["data"] as? [String: Any] else {
-                    handleGetMessageError(response: nil, completion: completion)
-                    return
-                }
-                handleGetMessagesCompletion(for: requestParam, data: data, completion: completion)
-            default:
-                HippoConfig.shared.log.error(error?.localizedDescription ?? "", level: .error )
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+            // your code here
+            if ignoreIfInProgress, isInProgress {
                 handleGetMessageError(response: nil, completion: completion)
+                return
             }
-        }
+            guard let params = createParamForGetMessages(requestParam: requestParam) else {
+                handleGetMessageError(response: nil, completion: completion)
+                return
+            }
+            HippoConfig.shared.log.trace(params, level: .request)
+            isInProgress = true
+            
+            HTTPClient.shared.makeSingletonConnectionWith(method: .POST, identifier: RequestIdenfier.getMessagesIdentifier ,para: params, extendedUrl: FuguEndPoints.API_GET_MESSAGES.rawValue) { (responseObject, error, tag, statusCode) in
+                
+                isInProgress = false
+                let rawStatusCode = statusCode ?? -1
+                
+                switch rawStatusCode {
+                case STATUS_CODE_SUCCESS:
+                    guard let response = responseObject as? [String: Any], let data = response["data"] as? [String: Any] else {
+                        handleGetMessageError(response: nil, completion: completion)
+                        return
+                    }
+                    handleGetMessagesCompletion(for: requestParam, data: data, completion: completion)
+                default:
+                    HippoConfig.shared.log.error(error?.localizedDescription ?? "", level: .error )
+                    handleGetMessageError(response: nil, completion: completion)
+                }
+            }
+
+//        }
         
     }
     
