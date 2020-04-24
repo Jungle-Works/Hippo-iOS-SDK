@@ -14,6 +14,7 @@ import AVFoundation
 let FUGU_USER_ID = "fuguUserId"
 let Fugu_AppSecret_Key = "fugu_app_secret_key"
 let Fugu_en_user_id = "fuguEnUserId"
+let Hippo_user_channel_id = "userChannelId"
 
 
 extension UInt {
