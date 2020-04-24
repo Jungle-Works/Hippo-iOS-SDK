@@ -196,7 +196,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         
         populateTableViewWithChannelData()
         fetchMessagesFrom1stPage()
-        //HippoConfig.shared.notifyDidLoad()//
+        HippoConfig.shared.notifyDidLoad()//
         
         //        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
         self.navigationController?.interactivePopGestureRecognizer?.delegate = self

@@ -815,22 +815,56 @@ extension AgentConversationViewController {
         }
     }
     
+//    //OldAgentSdkFunc
+//    func expectedHeight(OfMessageObject chatMessageObject: HippoMessage) -> CGFloat {
+//
+////        let isProfileImageEnabled: Bool = channel?.chatDetail?.chatType.isImageViewAllowed ?? false
+////        let isOutgoingMsg = isSentByMe(senderId: chatMessageObject.senderId)
+//
+//        let availableWidthSpace = FUGU_SCREEN_WIDTH - CGFloat(60 + 10) - CGFloat(10 + 5)
+//        let availableBoxSize = CGSize(width: availableWidthSpace,
+//                                      height: CGFloat.greatestFiniteMagnitude)
+//
+//        var cellTotalHeight: CGFloat = 5 + 2.5 + 3.5 + 12 + 7
+//
+//        let incomingAttributedString = Helper.getIncomingAttributedStringWithLastUserCheck(chatMessageObject: chatMessageObject)
+//        cellTotalHeight += incomingAttributedString.boundingRect(with: availableBoxSize, options: .usesLineFragmentOrigin, context: nil).size.height
+//
+//        return cellTotalHeight
+//    }
+    //CustomerSdkFunc
     func expectedHeight(OfMessageObject chatMessageObject: HippoMessage) -> CGFloat {
-        
-//        let isProfileImageEnabled: Bool = channel?.chatDetail?.chatType.isImageViewAllowed ?? false
-//        let isOutgoingMsg = isSentByMe(senderId: chatMessageObject.senderId)
-        
-        let availableWidthSpace = FUGU_SCREEN_WIDTH - CGFloat(60 + 10) - CGFloat(10 + 5)
+        let isProfileImageEnabled: Bool = channel?.chatDetail?.chatType.isImageViewAllowed ?? (labelId > 0)
+        let isOutgoingMsg = isSentByMe(senderId: chatMessageObject.senderId) && chatMessageObject.type != .card
+        var availableWidthSpace = FUGU_SCREEN_WIDTH - CGFloat(60 + 10) - CGFloat(10 + 5)
+        availableWidthSpace -= (isProfileImageEnabled && !isOutgoingMsg) ? 35 : 0
         let availableBoxSize = CGSize(width: availableWidthSpace,
                                       height: CGFloat.greatestFiniteMagnitude)
-        
-        var cellTotalHeight: CGFloat = 5 + 2.5 + 3.5 + 12 + 7
-        
-        let incomingAttributedString = Helper.getIncomingAttributedStringWithLastUserCheck(chatMessageObject: chatMessageObject)
-        cellTotalHeight += incomingAttributedString.boundingRect(with: availableBoxSize, options: .usesLineFragmentOrigin, context: nil).size.height
-        
+        var cellTotalHeight: CGFloat = 5 + 2.5 + 3.5 + 12 + 7 + 23
+        if isOutgoingMsg == true {
+            let messageString = chatMessageObject.message
+            #if swift(>=4.0)
+            var attributes: [NSAttributedString.Key: Any]?
+            attributes = [NSAttributedString.Key.font: HippoConfig.shared.theme.inOutChatTextFont]
+            if messageString.isEmpty == false {
+                cellTotalHeight += messageString.boundingRect(with: availableBoxSize, options: .usesLineFragmentOrigin, attributes: attributes, context: nil).size.height
+            }
+            #else
+            var attributes: [String: Any]?
+            if let applicableFont = HippoConfig.shared.theme.inOutChatTextFont {
+                attributes = [NSFontAttributeName: applicableFont]
+            }
+            if messageString.isEmpty == false {
+                cellTotalHeight += messageString.boundingRect(with: availableBoxSize, options: .usesLineFragmentOrigin, attributes: attributes, context: nil).size.height
+            }
+            #endif
+        } else {
+            let incomingAttributedString = Helper.getIncomingAttributedStringWithLastUserCheck(chatMessageObject: chatMessageObject)
+            cellTotalHeight += incomingAttributedString.boundingRect(with: availableBoxSize, options: .usesLineFragmentOrigin, context: nil).size.height
+        }
         return cellTotalHeight
     }
+
     
 }
 
@@ -938,6 +972,37 @@ extension AgentConversationViewController: UITableViewDelegate, UITableViewDataS
                     }
                 case .normal, .privateNote, .botText:
                     return getNormalMessageTableViewCell(tableView: tableView, isOutgoingMessage: isOutgoingMsg, message: message, indexPath: indexPath)
+                case .feedback:
+                    guard let cell = tableView.dequeueReusableCell(withIdentifier: "FeedbackTableViewCell") as? FeedbackTableViewCell else {
+                        return UITableViewCell()
+                    }
+                    var param = FeedbackParams(title: message.message, indexPath: indexPath, messageObj: message)
+                    param.showSendButton = true
+                    cell.setData(params: param)
+//                    cell.delegate = self
+                    cell.backgroundColor = .clear
+                    if let muid = message.messageUniqueID {
+                        heightForFeedBackCell["\(muid)"] = cell.alertContainer.bounds.height
+                    }
+                    //                print("-----\(cell.alertContainer.bounds.height)")
+                    return cell
+                case .leadForm:
+                    guard let cell = tableView.dequeueReusableCell(withIdentifier: "LeadTableViewCell", for: indexPath) as? LeadTableViewCell else {
+                        return UITableViewCell()
+                    }
+//                    cell.delegate = self
+                    cell.setData(indexPath: indexPath, arr: message.leadsDataArray, message: message)
+                    return cell
+                case .quickReply:
+                    guard let cell = tableView.dequeueReusableCell(withIdentifier: "BotOutgoingMessageTableViewCell", for: indexPath) as? BotOutgoingMessageTableViewCell
+                        else {
+                            let cell = UITableViewCell()
+                            cell.backgroundColor = .clear
+                            return cell
+                    }
+//                    cell.delegate = self
+                    let incomingAttributedString = Helper.getIncomingAttributedStringWithLastUserCheck(chatMessageObject: message)
+                    return cell.configureCellOfSupportIncomingCell(resetProperties: true, attributedString: incomingAttributedString, channelId: channel.id, chatMessageObject: message)
                 case .call:
                     if isOutgoingMsg {
                         guard let cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingVideoCallMessageTableViewCell", for: indexPath) as? OutgoingVideoCallMessageTableViewCell else {
@@ -1020,8 +1085,33 @@ extension AgentConversationViewController: UITableViewDelegate, UITableViewDataS
                     }
                     cell.setCellData(message: actionMessage)
                     return cell
+                case .card:
+                    guard let cell = tableView.dequeueReusableCell(withIdentifier: "CardMessageTableViewCell", for: indexPath) as? CardMessageTableViewCell else {
+                        return UITableView.defaultCell()
+                    }
+                    cell.delegate = self
+                    cell.set(message: message)
+                    return cell
+                case .paymentCard:
+                    guard let cell = tableView.dequeueReusableCell(withIdentifier: "PaymentMessageCell", for: indexPath) as? PaymentMessageCell else {
+                        return UITableView.defaultCell()
+                    }
+                    cell.delegate = self
+                    cell.set(message: message)
+                    return cell
+                    
+                case .multipleSelect :
+                    
+                    guard let cell = tableView.dequeueReusableCell(withIdentifier: "MultiSelectTableViewCell", for: indexPath) as? MultiSelectTableViewCell else {
+                        return UITableView.defaultCell()
+                    }
+                    cell.submitButtonDelegate = self
+                    cell.set(message: message)
+                    return cell
+                    
                 default:
-                    return getDefaultCell()
+//                    return getDefaultCell()
+                    return getNormalMessageTableViewCell(tableView: tableView, isOutgoingMessage: isOutgoingMsg, message: message, indexPath: indexPath)
                 }
             }
         default:
@@ -1063,6 +1153,22 @@ extension AgentConversationViewController: UITableViewDelegate, UITableViewDataS
                     rowHeight += returnRetryCancelButtonHeight(chatMessageObject: message)
                     rowHeight += getTopDistanceOfCell(atIndexPath: indexPath)
                     return rowHeight
+                case MessageType.quickReply:
+                    var rowHeight: CGFloat = 0
+                    if message.values.count > 0 {
+                        return rowHeight
+                    }
+                    if message.isQuickReplyEnabled {
+                        rowHeight = rowHeight + 50
+                    }
+                    return rowHeight
+                case MessageType.leadForm:
+                    if message.content.questionsArray.count == 0 {
+                        return 0.001
+                    }
+                    //TODO: Change it later on
+                    //let count = chatMessageObject.content.values.count == chatMessageObject.content.questionsArray.count ? chatMessageObject.content.values.count : chatMessageObject.content.values.count + 1
+                    return getHeightForLeadFormCell(message: message)
                 case .attachment:
                     switch message.concreteFileType! {
                         
@@ -1079,6 +1185,18 @@ extension AgentConversationViewController: UITableViewDelegate, UITableViewDataS
                     return message.cellDetail?.cellHeight ?? 0.01
                 case .actionableMessage, .hippoPay:
                     return self.getHeightOfActionableMessageAt(indexPath: indexPath, chatObject: message) + heightOfDateLabel
+                case MessageType.feedback:
+                    guard let muid = message.messageUniqueID, var rowHeight: CGFloat = heightForFeedBackCell["\(muid)"] else {
+                        return 0.001
+                    }
+                    rowHeight += 7//5 //Height for bottom view
+                    return rowHeight
+                case .card:
+                    return 230
+                case .paymentCard:
+                    return message.calculatedHeight ?? 0.1
+                case .multipleSelect:
+                    return message.calculatedHeight ?? 0.01
                 default:
                     return 0.01//UITableViewAutomaticDimension
                     
@@ -1100,6 +1218,8 @@ extension AgentConversationViewController: UITableViewDelegate, UITableViewDataS
                 switch message.type {
                 case .call:
                     return 85
+                case .card:
+                    return 190
                 default:
                     return self.tableView(tableView, heightForRowAt: indexPath)
                 }
@@ -1179,6 +1299,46 @@ extension AgentConversationViewController: UITableViewDelegate, UITableViewDataS
             
         }
         return 0
+    }
+    
+    func getHeightForLeadFormCell(message: HippoMessage) -> CGFloat {
+        var count = 0
+        var buttonAction: [FormData] = []
+        for lead in message.leadsDataArray {
+            if lead.isShow  && lead.type != .button {
+                count += 1
+            }
+            if lead.type == .button {
+                buttonAction.append(lead)
+            }
+        }
+        var height = LeadDataTableViewCell.rowHeight * CGFloat(count)
+        if count > 1 {
+            height -= CGFloat(5*(count))
+        }
+        // Check if count is more than or equal to 2
+        if (count - 2) >= 0 {
+            // Check if last visible cell value is submitted
+            if message.leadsDataArray[count - 2].isCompleted {
+                // Check if last cell is visible.
+                if count == message.leadsDataArray.count {
+                    // Check if last cell value is submitted.
+                    if message.leadsDataArray[count - 1].isCompleted {
+                        height -= CGFloat(10 * (count))
+                    } else {
+                        height -= CGFloat(10 * (count - 1))
+                    }
+                } else {
+                    height -= CGFloat(10 * (count - 1))
+                }
+            }
+        }
+        let buttonHeight: CGFloat = CGFloat(buttonAction.count * 30)
+        let skipButtonHeight: CGFloat = message.shouldShowSkipButton() ? LeadTableViewCell.skipButtonHeightConstant : 0
+        if height > 0 {
+            return CGFloat(height) + buttonHeight + skipButtonHeight + 2
+        }
+        return 0.001
     }
     
     func getHeightOfActionableMessageAt(indexPath: IndexPath, chatObject: HippoMessage)-> CGFloat {
