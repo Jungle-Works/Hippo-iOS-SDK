@@ -741,13 +741,13 @@ struct SERVERS {
         }
         //        UIApplication.shared.clearNotificationCenter()
         
-        if let announcementPush = userData["is_announcement_push"] as? Int, announcementPush == 1 {
-            DispatchQueue.main.async {
-                HippoManagerHelper.shared.setHippoTheme()
-                HippoManagerHelper.shared.openNotificationsViewController()
-            }
-        }
-        
+//        if let announcementPush = userInfo["is_announcement_push"] as? Int, announcementPush == 1 {
+//            DispatchQueue.main.async {
+//                //HippoChat.isSingleChatApp = false
+//                HippoConfig.shared.presentPromotionalPushController()
+//                return
+//            }
+//        }
         
         switch HippoConfig.shared.appUserType {
         case .agent:

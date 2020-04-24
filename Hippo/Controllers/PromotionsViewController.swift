@@ -57,6 +57,7 @@ class PromotionsViewController: UIViewController {
         promotionsTableView.backgroundView = refreshControl
         refreshControl.addTarget(self, action: #selector(reloadrefreshData(refreshCtrler:)), for: .valueChanged)
     }
+    
     @objc func reloadrefreshData(refreshCtrler: UIRefreshControl) {
         isMoreData = false
         self.getAnnouncements(endOffset:19, startOffset: 0)

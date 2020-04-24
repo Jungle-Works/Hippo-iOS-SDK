@@ -64,6 +64,9 @@ class FuguFlowManager: NSObject {
             return
         }
         let visibleController = getLastVisibleController()
+        guard ((visibleController as? PromotionsViewController) == nil) else {
+            return
+        }
         navigationController.modalPresentationStyle = .fullScreen
         visibleController?.present(navigationController, animated: animation, completion: nil)
     }
