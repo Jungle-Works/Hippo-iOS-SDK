@@ -741,6 +741,14 @@ struct SERVERS {
         }
         //        UIApplication.shared.clearNotificationCenter()
         
+        if let announcementPush = userData["is_announcement_push"] as? Int, announcementPush == 1 {
+            DispatchQueue.main.async {
+                HippoManagerHelper.shared.setHippoTheme()
+                HippoManagerHelper.shared.openNotificationsViewController()
+            }
+        }
+        
+        
         switch HippoConfig.shared.appUserType {
         case .agent:
             handleAgentNotification(userInfo: userInfo)
@@ -748,6 +756,7 @@ struct SERVERS {
             handleCustomerNotification(userInfo: userInfo)
         }
     }
+    
     func handleAgentNotification(userInfo: [String: Any]) {
         let visibleController = getLastVisibleController()
         let channelId = (userInfo["channel_id"] as? Int) ?? -1

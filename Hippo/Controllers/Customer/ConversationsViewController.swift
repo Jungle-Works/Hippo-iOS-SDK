@@ -644,6 +644,17 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
             //TODO: - Loader animation
             let replyMessage = botGroupID != nil ? message : nil
             
+            var checkBoolForApiHit = false
+            if isDefaultChannel() {
+                if replyMessage == nil{
+                    checkBoolForApiHit = true
+                }else{
+                    checkBoolForApiHit = false
+                }
+            } else{
+                checkBoolForApiHit = false
+            }
+            
             startNewConversation(replyMessage: replyMessage, completion: { [weak self] (success, result) in
                 guard success else {
                     return
@@ -661,7 +672,18 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
                 
                 if !isReplyMessageSent {
                     self?.sendMessage(message: message)
+                    
+                    if checkBoolForApiHit == true{
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
+                            // your code hear
+                            self?.getMessagesAfterCreateConversation(callback: { (success) in
+                                //print(success)
+                                checkBoolForApiHit = false
+                            })
+                        })
+                    }
                 }
+                
             })
         }
     }
