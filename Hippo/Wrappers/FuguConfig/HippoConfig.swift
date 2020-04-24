@@ -41,8 +41,8 @@ struct SERVERS {
 //    static let betaUrl = "https://hippo-api-dev.fuguchat.com:3002/"
 //    static let betaFaye = "https://hippo-api-dev.fuguchat.com:3002/faye"
     
-    static let devUrl =  "https://hippo-api-dev.fuguchat.com:3002/" //"https://hippo-api-dev.fuguchat.com:3002/" //"https://hippo-api-dev.fuguchat.com:3011/"
-    static let devFaye = "https://hippo-api-dev.fuguchat.com:3002/faye" //"https://hippo-api-dev.fuguchat.com:3002/faye" //"https://hippo-api-dev.fuguchat.com:3012/faye"
+    static let devUrl =  "https://hippo-api-dev.fuguchat.com:3004/" //"https://hippo-api-dev.fuguchat.com:3002/" //"https://hippo-api-dev.fuguchat.com:3011/"
+    static let devFaye = "https://hippo-api-dev.fuguchat.com:3004/faye" //"https://hippo-api-dev.fuguchat.com:3002/faye" //"https://hippo-api-dev.fuguchat.com:3012/faye"
     
 //    static let devUrl = "https://hippo-api-dev.fuguchat.com:3011/"
 //    static let devFaye = "https://hippo-api-dev.fuguchat.com:3012/faye"
@@ -731,12 +731,12 @@ struct SERVERS {
         guard let json = payload as? [String: Any] else {
             return
         }
-        
-        checkForChannelSubscribe(completion: { (success, error) in
-            if success {
-                self.handleVoipNotification(payloadDict: json)
-            }
-        })
+        self.handleVoipNotification(payloadDict: json)
+//        checkForChannelSubscribe(completion: { (success, error) in
+//            if success {
+//                self.handleVoipNotification(payloadDict: json)
+//            }
+//        })
     }
     
     public func handleVoipNotification(payloadDict: [String: Any]) {
