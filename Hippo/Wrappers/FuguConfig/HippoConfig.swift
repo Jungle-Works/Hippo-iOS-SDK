@@ -112,9 +112,9 @@ struct SERVERS {
     internal var credentialType = FuguCredentialType.defaultType
 
     var isSkipBot:Bool = false
-    internal var baseUrl = SERVERS.liveUrl//SERVERS.betaUrl//
-    internal var fayeBaseURLString: String = SERVERS.liveFaye//SERVERS.betaFaye//
-    
+    internal var baseUrl =    SERVERS.liveUrl     // SERVERS.betaUrl//
+    internal var fayeBaseURLString: String =   SERVERS.liveFaye   // SERVERS.betaFaye//
+     
     open var unreadCount: ((_ totalUnread: Int) -> ())?
     open var usersUnreadCount: ((_ userUnreadCount: [String: Int]) -> ())?
     open var HippoDismissed: ((_ isDismissed: Bool) -> ())?
@@ -619,20 +619,7 @@ struct SERVERS {
         })
     }
     
-    func checkForChannelSubscribe(completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
-        
-        if let hippoUserChannelId = HippoUserDetail.HippoUserChannelId {
-            guard isSubscribed(userChannelId: hippoUserChannelId) else {
-                subscribeCustomerUserChannel(userChannelId: hippoUserChannelId)
-                completion(false, nil)
-                return
-            }
-            completion(true, nil)
-            return
-        }
-        
-        
-    }
+
     
     
     // MARK: - Helpers
@@ -694,15 +681,41 @@ struct SERVERS {
     }
     
     public func registerDeviceToken(deviceToken: Data) {
+        log.debug("registerDeviceToken:\(deviceToken)", level: .custom)
         guard let token = parseDeviceToken(deviceToken: deviceToken) else {
             return
         }
-        guard TokenManager.deviceToken != token else  {
-            log.debug("rejected", level: .custom)
+        log.debug("registerDeviceToken parsing token:\(token)", level: .custom)
+//        guard TokenManager.deviceToken != token else  {
+//            log.debug("rejected", level: .custom)
+//            return
+//        }
+        TokenManager.deviceToken = token
+        log.debug("registerDeviceToken save token:\(TokenManager.deviceToken)", level: .custom)
+        updateDeviceToken(deviceToken: token)
+    }
+    
+    func checkForChannelSubscribe(completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
+        
+        if let hippoUserChannelId = HippoUserDetail.HippoUserChannelId {
+            guard isSubscribed(userChannelId: hippoUserChannelId) else {
+                subscribeCustomerUserChannel(userChannelId: hippoUserChannelId)
+                completion(false, nil)
+                return
+            }
+            completion(true, nil)
             return
         }
-        TokenManager.deviceToken = token
-        updateDeviceToken(deviceToken: token)
+    }
+    
+    
+    public func isHippoUserChannelSubscribe() -> Bool {
+        var checkStatus = false
+        self.checkForChannelSubscribe(completion: { (success, error) in
+           checkStatus = success
+        })
+        
+        return checkStatus
     }
     
     public func isHippoNotification(withUserInfo userInfo: [String: Any]) -> Bool {

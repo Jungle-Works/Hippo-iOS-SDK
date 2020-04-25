@@ -243,7 +243,7 @@ public class UserTag: NSObject {
         if !attributes.isEmpty {
             params["custom_attributes"] = attributes
         }
-        
+        print("TokenManager.deviceToken:", TokenManager.deviceToken)
         if TokenManager.deviceToken.isEmpty == false {
             params["device_token"] = TokenManager.deviceToken
         }
@@ -415,7 +415,7 @@ public class UserTag: NSObject {
         
         //Clear agent data
         clearAgentData()
-        unSubscribe(userChannelId: HippoConfig.shared.userDetail?.userChannel ?? "")
+        //unSubscribe(userChannelId: HippoConfig.shared.userDetail?.userChannel ?? "")
         HippoProperty.current = HippoProperty()
         //FuguConfig.shared.deviceToken = ""
         HippoConfig.shared.appSecretKey = ""
@@ -445,6 +445,7 @@ public class UserTag: NSObject {
         defaults.removeObject(forKey: Fugu_en_user_id)
         defaults.synchronize()
     }
+    
     class func logoutFromFugu(completion: ((Bool) -> Void)? = nil) {
         if HippoConfig.shared.appSecretKey.isEmpty {
             completion?(false)
