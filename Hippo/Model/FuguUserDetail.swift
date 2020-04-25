@@ -243,12 +243,19 @@ public class UserTag: NSObject {
         if !attributes.isEmpty {
             params["custom_attributes"] = attributes
         }
-        print("TokenManager.deviceToken:", TokenManager.deviceToken)
+       
         if TokenManager.deviceToken.isEmpty == false {
             params["device_token"] = TokenManager.deviceToken
+        } else if let token = UserDefaults.standard.value(forKey: TokenManager.StoreKeys.normalToken) as? String, token.isEmpty == false {
+            TokenManager.deviceToken = token
+             params["device_token"] = TokenManager.deviceToken
         }
+         print("TokenManager.deviceToken:", TokenManager.deviceToken)
         if TokenManager.voipToken.isEmpty == false {
             params["voip_token"] = TokenManager.voipToken
+        } else if let token = UserDefaults.standard.value(forKey: TokenManager.StoreKeys.voipToken) as? String, token.isEmpty == false {
+            TokenManager.voipToken = token
+             params["voip_token"] = TokenManager.voipToken
         }
         
         if let image = userImage {
@@ -410,7 +417,10 @@ public class UserTag: NSObject {
         ConversationStore.shared.clearData()
         AgentUserChannel.shared = nil
     }
+    
     class func clearAllData() {
+        
+        
         FuguDefaults.removeAllPersistingData()
         
         //Clear agent data
@@ -443,7 +453,9 @@ public class UserTag: NSObject {
         defaults.removeObject(forKey: Hippo_User_Channel_Id)
         defaults.removeObject(forKey: FUGU_USER_ID)
         defaults.removeObject(forKey: Fugu_en_user_id)
+
         defaults.synchronize()
+        
     }
     
     class func logoutFromFugu(completion: ((Bool) -> Void)? = nil) {
@@ -460,9 +472,13 @@ public class UserTag: NSObject {
             params["en_user_id"] = savedUserId
         }
         
+        let deviceToken = TokenManager.deviceToken
+        let voipToken = TokenManager.voipToken
+        
         HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: FuguEndPoints.API_CLEAR_USER_DATA_LOGOUT.rawValue) { (responseObject, error, tag, statusCode) in
             clearAllData()
-            
+            TokenManager.deviceToken = deviceToken
+            TokenManager.voipToken = voipToken
             let tempStatusCode = statusCode ?? 0
             let success = (200 <= tempStatusCode) && (300 > tempStatusCode)
             completion?(success)

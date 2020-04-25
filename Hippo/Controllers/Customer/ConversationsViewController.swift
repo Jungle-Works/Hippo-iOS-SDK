@@ -1811,6 +1811,7 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                     let peerName = channel?.chatDetail?.peerName ?? "   "
                     let isCallingEnabled = isDirectCallingEnabledFor(type: message.callType)
                     cell.setCellWith(message: message, otherUserName: peerName, isCallingEnabled: isCallingEnabled)
+                    
                     cell.delegate = self
                     return cell
                 } else {

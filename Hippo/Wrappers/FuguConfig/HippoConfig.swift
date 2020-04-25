@@ -112,8 +112,8 @@ struct SERVERS {
     internal var credentialType = FuguCredentialType.defaultType
 
     var isSkipBot:Bool = false
-    internal var baseUrl =    SERVERS.liveUrl     // SERVERS.betaUrl//
-    internal var fayeBaseURLString: String =   SERVERS.liveFaye   // SERVERS.betaFaye//
+    internal var baseUrl =      SERVERS.liveUrl     // SERVERS.betaUrl//
+    internal var fayeBaseURLString: String =     SERVERS.liveFaye   // SERVERS.betaFaye//
      
     open var unreadCount: ((_ totalUnread: Int) -> ())?
     open var usersUnreadCount: ((_ userUnreadCount: [String: Int]) -> ())?
@@ -680,6 +680,14 @@ struct SERVERS {
         updateDeviceToken(deviceToken: token)
     }
     
+    public func getDeviceTokenKey() -> String {
+        return TokenManager.StoreKeys.normalToken
+    }
+    
+    public func getVoipDeviceTokenKey() -> String {
+        return TokenManager.StoreKeys.voipToken
+    }
+    
     public func registerDeviceToken(deviceToken: Data) {
         log.debug("registerDeviceToken:\(deviceToken)", level: .custom)
         guard let token = parseDeviceToken(deviceToken: deviceToken) else {
@@ -719,6 +727,7 @@ struct SERVERS {
     }
     
     public func isHippoNotification(withUserInfo userInfo: [String: Any]) -> Bool {
+        
         if let pushSource = userInfo["push_source"] as? String, (pushSource == "FUGU" || pushSource == "HIPPO") {
             return true
         }
