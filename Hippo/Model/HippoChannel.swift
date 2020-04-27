@@ -663,6 +663,12 @@ class HippoChannel {
             return
         }
         
+        let rawSendingReplyDisabled = (dict["disable_reply"] as? Int) ?? 0
+        let isSendingDisabled = rawSendingReplyDisabled == 1 ? true : false
+        if isSendingDisabled {
+            chatDetail?.disableReply = isSendingDisabled
+        }
+        
         if HippoConfig.shared.appUserType == .customer {
             chatDetail?.channelImageUrl = dict["channel_image_url"] as? String ?? chatDetail?.channelImageUrl
             chatDetail?.channelName = dict["label"] as? String

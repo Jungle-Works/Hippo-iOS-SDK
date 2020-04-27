@@ -151,6 +151,7 @@ class OutgoingVideoCallMessageTableViewCell: VideoCallMessageTableViewCell {
         
        //  messageLabel.textColor = UIColor.white
         messageLabel.text = message.getVideoCallMessage(otherUserName: otherUserName)
+        callAgainButton.setTitleColor(UIColor.black, for: .normal)
         
         retryButtonHeight.constant = isCallingEnabled ? 35 : 0
         callAgainButton.isEnabled = isCallingEnabled

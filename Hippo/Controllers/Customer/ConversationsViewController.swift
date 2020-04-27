@@ -2423,6 +2423,11 @@ extension ConversationsViewController: HippoChannelDelegate {
         label = channel?.chatDetail?.channelName ?? label
         userImage = channel?.chatDetail?.channelImageUrl
         
+        if channel?.chatDetail?.disableReply == true{
+            //disableSendingReply(withOutUpdate: true)
+            disableSendingReply()
+        }
+        
         setTitleForCustomNavigationBar()
         handleAudioIcon()
         handleVideoIcon()

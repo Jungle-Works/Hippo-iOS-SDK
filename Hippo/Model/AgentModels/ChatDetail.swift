@@ -36,6 +36,8 @@ class ChatDetail: NSObject {
     
     var agentAlreadyAssigned: Bool = false
     
+    var disableReply = false
+    
     init(channelID: Int) {
         self.channelId = channelID
     }
