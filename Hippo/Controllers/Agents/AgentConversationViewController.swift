@@ -1436,6 +1436,12 @@ extension AgentConversationViewController: ImageCellDelegate {
 
 extension AgentConversationViewController: HippoChannelDelegate {
     func channelDataRefreshed() {
+        
+        if channel?.chatDetail?.disableReply == true{
+            //disableSendingReply(withOutUpdate: true)
+            disableSendingReply()
+        }
+
         handleAudioIcon()
         handleVideoIcon()
         tableViewChat.reloadData()

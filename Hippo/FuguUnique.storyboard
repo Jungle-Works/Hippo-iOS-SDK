@@ -933,29 +933,44 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ssf-oX-dVK">
-                                <rect key="frame" x="0.0" y="20" width="375" height="63"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="90"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wpa-3a-4N0">
-                                        <rect key="frame" x="305" y="8" width="60" height="47"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.39933268229166669" colorSpace="calibratedWhite"/>
+                                        <rect key="frame" x="10" y="33" width="60" height="47"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="60" id="Krd-Sl-zjE"/>
                                             <constraint firstAttribute="height" constant="47" id="pZ5-7s-qWc"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
-                                        <state key="normal" title="Close">
+                                        <state key="normal" image="close_conversation_icon">
                                             <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
                                             <action selector="crossButtonTapped:" destination="yy2-dU-UGI" eventType="touchUpInside" id="DwY-WO-ch8"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Gf-GR-mRl">
+                                        <rect key="frame" x="315" y="33" width="60" height="47"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="47" id="aEq-gA-vzI"/>
+                                            <constraint firstAttribute="width" constant="60" id="krS-As-xAh"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
+                                        <state key="normal" image="download_white">
+                                            <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="downloadButtonPressed:" destination="yy2-dU-UGI" eventType="touchUpInside" id="oya-Z8-pJG"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.39827244718309857" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="63" id="V6g-Ir-bfO"/>
-                                    <constraint firstAttribute="trailing" secondItem="Wpa-3a-4N0" secondAttribute="trailing" constant="10" id="hFF-Pj-ro1"/>
-                                    <constraint firstItem="Wpa-3a-4N0" firstAttribute="centerY" secondItem="ssf-oX-dVK" secondAttribute="centerY" id="uFG-M8-eEN"/>
+                                    <constraint firstAttribute="bottom" secondItem="Wpa-3a-4N0" secondAttribute="bottom" constant="10" id="Bcw-T9-iid"/>
+                                    <constraint firstItem="Wpa-3a-4N0" firstAttribute="leading" secondItem="ssf-oX-dVK" secondAttribute="leading" constant="10" id="H2J-6q-67C"/>
+                                    <constraint firstItem="0Gf-GR-mRl" firstAttribute="centerY" secondItem="Wpa-3a-4N0" secondAttribute="centerY" id="IhZ-2i-eow"/>
+                                    <constraint firstAttribute="trailing" secondItem="0Gf-GR-mRl" secondAttribute="trailing" id="Qe4-ia-htd"/>
+                                    <constraint firstAttribute="height" constant="90" id="V6g-Ir-bfO"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -965,22 +980,23 @@
                             <constraint firstItem="ssf-oX-dVK" firstAttribute="leading" secondItem="9Cx-lZ-GRJ" secondAttribute="leading" id="BzK-Rd-E11"/>
                             <constraint firstItem="GXl-r8-ltD" firstAttribute="top" secondItem="Oi7-eo-wfQ" secondAttribute="bottom" id="Cma-kd-QA8"/>
                             <constraint firstItem="Oi7-eo-wfQ" firstAttribute="leading" secondItem="9Cx-lZ-GRJ" secondAttribute="leading" id="Fa2-BE-8vK"/>
-                            <constraint firstItem="ssf-oX-dVK" firstAttribute="top" secondItem="MOx-R5-dUO" secondAttribute="bottom" id="LAP-Aa-t01"/>
                             <constraint firstItem="Oi7-eo-wfQ" firstAttribute="top" secondItem="9Cx-lZ-GRJ" secondAttribute="top" id="One-vj-yVd"/>
                             <constraint firstItem="fyx-oW-fHw" firstAttribute="width" secondItem="9Cx-lZ-GRJ" secondAttribute="width" id="We8-uJ-nN7"/>
+                            <constraint firstItem="ssf-oX-dVK" firstAttribute="top" secondItem="9Cx-lZ-GRJ" secondAttribute="top" id="eFA-Ha-hRv"/>
                             <constraint firstAttribute="trailing" secondItem="ssf-oX-dVK" secondAttribute="trailing" id="oKw-1S-keW"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="backgroundBlackColorView" destination="9Cx-lZ-GRJ" id="H4j-M8-EkJ"/>
                         <outlet property="crossButton" destination="Wpa-3a-4N0" id="PCv-4d-2Np"/>
+                        <outlet property="downloadButton" destination="0Gf-GR-mRl" id="ZMa-i1-k7H"/>
                         <outlet property="imageView" destination="vvN-Gl-BZQ" id="1tv-44-fat"/>
                         <outlet property="scrollView" destination="fyx-oW-fHw" id="YJB-NH-Imq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7Y0-qu-tnl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2271" y="44"/>
+            <point key="canvasLocation" x="2269.5999999999999" y="43.628185907046479"/>
         </scene>
         <!--Conversations View Controller-->
         <scene sceneID="ble-P1-JV6">
@@ -1173,6 +1189,59 @@
                                     <constraint firstAttribute="bottom" secondItem="CuY-FO-VFT" secondAttribute="bottom" id="xKs-30-VW2"/>
                                 </constraints>
                             </view>
+                            <view hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QBg-dm-fGO" customClass="So_UIView" customModule="Hippo" customModuleProvider="target">
+                                <rect key="frame" x="325" y="546" width="50" height="65"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ANe-hi-TUN" customClass="So_UIView" customModule="Hippo" customModuleProvider="target">
+                                        <rect key="frame" x="5" y="3" width="45" height="34"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </view>
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n22-N8-Eyg">
+                                        <rect key="frame" x="5" y="3" width="45" height="34"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="34" id="7WA-M1-4CO"/>
+                                        </constraints>
+                                        <state key="normal" image="new_chat_icon"/>
+                                        <connections>
+                                            <action selector="newConversationCountButtonAction:" destination="Zql-KC-mKa" eventType="touchUpInside" id="7mJ-ch-9Ua"/>
+                                        </connections>
+                                    </button>
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="6" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="n6I-sG-hk1" customClass="So_CustomLabel" customModule="Hippo" customModuleProvider="target">
+                                        <rect key="frame" x="29" y="0.0" width="17" height="17"/>
+                                        <color key="backgroundColor" red="0.88023829460000003" green="0.16684350370000001" blue="0.28022629020000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="17" id="2W5-By-Pss"/>
+                                            <constraint firstAttribute="height" constant="17" id="L7c-gf-5Bh"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="8.5"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="MontBold">
+                                                <real key="value" value="12"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="4Of-ly-c2Q"/>
+                                    <constraint firstAttribute="trailing" secondItem="n22-N8-Eyg" secondAttribute="trailing" id="95U-LX-ESW"/>
+                                    <constraint firstItem="ANe-hi-TUN" firstAttribute="width" secondItem="n22-N8-Eyg" secondAttribute="width" id="Bev-yR-hT6"/>
+                                    <constraint firstAttribute="height" constant="65" id="IGc-e2-maO"/>
+                                    <constraint firstItem="ANe-hi-TUN" firstAttribute="centerX" secondItem="n22-N8-Eyg" secondAttribute="centerX" id="KOW-qV-GyL"/>
+                                    <constraint firstAttribute="trailing" secondItem="n6I-sG-hk1" secondAttribute="trailing" constant="4" id="KyW-bG-KLS"/>
+                                    <constraint firstItem="n6I-sG-hk1" firstAttribute="top" secondItem="QBg-dm-fGO" secondAttribute="top" id="NAB-PE-2K3"/>
+                                    <constraint firstItem="n22-N8-Eyg" firstAttribute="leading" secondItem="QBg-dm-fGO" secondAttribute="leading" constant="5" id="bUm-bt-oPY"/>
+                                    <constraint firstItem="ANe-hi-TUN" firstAttribute="height" secondItem="n22-N8-Eyg" secondAttribute="height" id="bWL-hp-skZ"/>
+                                    <constraint firstItem="n22-N8-Eyg" firstAttribute="top" secondItem="QBg-dm-fGO" secondAttribute="top" constant="3" id="eWy-Os-WQZ"/>
+                                    <constraint firstItem="ANe-hi-TUN" firstAttribute="centerY" secondItem="n22-N8-Eyg" secondAttribute="centerY" id="epV-xV-i0v"/>
+                                </constraints>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kox-UA-NRB" userLabel="HeaderView">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="0.0"/>
                                 <subviews>
@@ -1229,6 +1298,7 @@
                             <constraint firstItem="i5f-Ma-L0R" firstAttribute="leading" secondItem="ofr-Y0-GIn" secondAttribute="leading" id="73J-EZ-sGO"/>
                             <constraint firstAttribute="trailing" secondItem="85d-HF-bp8" secondAttribute="trailing" id="8bf-dn-I5s"/>
                             <constraint firstAttribute="trailing" secondItem="i5f-Ma-L0R" secondAttribute="trailing" id="8e0-2e-HUR"/>
+                            <constraint firstAttribute="trailing" secondItem="QBg-dm-fGO" secondAttribute="trailing" id="Dxm-L1-7Mu"/>
                             <constraint firstAttribute="trailing" secondItem="qnv-or-clc" secondAttribute="trailing" id="Iwz-lA-t9R"/>
                             <constraint firstItem="85d-HF-bp8" firstAttribute="top" secondItem="Kox-UA-NRB" secondAttribute="bottom" id="JrZ-7A-BJE"/>
                             <constraint firstItem="yXi-kz-HoV" firstAttribute="centerX" secondItem="ofr-Y0-GIn" secondAttribute="centerX" id="MBY-kx-i4V"/>
@@ -1246,6 +1316,7 @@
                             <constraint firstItem="Kox-UA-NRB" firstAttribute="top" secondItem="ofr-Y0-GIn" secondAttribute="top" id="iEY-Dm-QBn"/>
                             <constraint firstItem="O37-Wc-iDC" firstAttribute="centerY" secondItem="ofr-Y0-GIn" secondAttribute="centerY" id="kF8-Ry-uhX"/>
                             <constraint firstItem="qnv-or-clc" firstAttribute="leading" secondItem="ofr-Y0-GIn" secondAttribute="leading" id="kJ3-dP-Mz2"/>
+                            <constraint firstItem="QBg-dm-fGO" firstAttribute="bottom" secondItem="qnv-or-clc" secondAttribute="bottom" id="kmc-GT-5WI"/>
                             <constraint firstAttribute="trailing" secondItem="AZ4-BR-10y" secondAttribute="trailing" id="pd8-Ln-Rqj"/>
                             <constraint firstAttribute="trailing" secondItem="Kox-UA-NRB" secondAttribute="trailing" id="u1C-Cs-wuU"/>
                             <constraint firstItem="qnv-or-clc" firstAttribute="top" secondItem="85d-HF-bp8" secondAttribute="bottom" id="xYe-2F-Nk5"/>
@@ -1287,6 +1358,10 @@
                         <outlet property="loaderView" destination="yXi-kz-HoV" id="NTR-yh-rnf"/>
                         <outlet property="messageTextView" destination="wgK-4e-znX" id="HcB-2o-dIZ"/>
                         <outlet property="navigationBackgroundView" destination="Kox-UA-NRB" id="M7c-48-3pP"/>
+                        <outlet property="newConversationContainer" destination="QBg-dm-fGO" id="cxw-A1-eRa"/>
+                        <outlet property="newConversationCountButton" destination="n22-N8-Eyg" id="mr3-42-9FL"/>
+                        <outlet property="newConversationLabel" destination="n6I-sG-hk1" id="eUh-3s-Ynd"/>
+                        <outlet property="newConversationShadow" destination="ANe-hi-TUN" id="ImG-Lf-l4s"/>
                         <outlet property="placeHolderLabel" destination="EE4-xz-Z1Q" id="sWm-S8-QVb"/>
                         <outlet property="sendMessageButton" destination="qNk-pG-Dkt" id="clb-OM-eCq"/>
                         <outlet property="seperatorView" destination="i5f-Ma-L0R" id="w3m-bS-D5M"/>
@@ -2240,7 +2315,10 @@
         <image name="audioCallIcon" width="20" height="20"/>
         <image name="backButtonNormalStateIcon" width="16" height="14"/>
         <image name="broadcastIcon" width="25.5" height="19.5"/>
+        <image name="close_conversation_icon" width="32" height="32"/>
+        <image name="download_white" width="21" height="21"/>
         <image name="newChat" width="30" height="30"/>
+        <image name="new_chat_icon" width="18" height="19"/>
         <image name="notification" width="21.5" height="25"/>
         <image name="tiny-video-symbol" width="28" height="18"/>
     </resources>
