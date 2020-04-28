@@ -933,29 +933,44 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ssf-oX-dVK">
-                                <rect key="frame" x="0.0" y="20" width="375" height="63"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="90"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wpa-3a-4N0">
-                                        <rect key="frame" x="305" y="8" width="60" height="47"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.39933268229166669" colorSpace="calibratedWhite"/>
+                                        <rect key="frame" x="10" y="33" width="60" height="47"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="60" id="Krd-Sl-zjE"/>
                                             <constraint firstAttribute="height" constant="47" id="pZ5-7s-qWc"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
-                                        <state key="normal" title="Close">
-                                            <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <state key="normal" image="close_conversation_icon">
+                                            <color key="titleShadowColor" red="0.50196078431372548" green="0.49803921568627452" blue="0.49803921568627452" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
                                             <action selector="crossButtonTapped:" destination="yy2-dU-UGI" eventType="touchUpInside" id="DwY-WO-ch8"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z43-MJ-DCV">
+                                        <rect key="frame" x="305" y="33" width="60" height="47"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="47" id="WO7-HF-HvN"/>
+                                            <constraint firstAttribute="width" constant="60" id="xvz-5X-V0f"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
+                                        <state key="normal" image="download_white">
+                                            <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="downloadButtonPressed:" destination="yy2-dU-UGI" eventType="touchUpInside" id="6oc-V0-P2i"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.39645686619718312" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="63" id="V6g-Ir-bfO"/>
-                                    <constraint firstAttribute="trailing" secondItem="Wpa-3a-4N0" secondAttribute="trailing" constant="10" id="hFF-Pj-ro1"/>
-                                    <constraint firstItem="Wpa-3a-4N0" firstAttribute="centerY" secondItem="ssf-oX-dVK" secondAttribute="centerY" id="uFG-M8-eEN"/>
+                                    <constraint firstItem="Z43-MJ-DCV" firstAttribute="centerY" secondItem="Wpa-3a-4N0" secondAttribute="centerY" id="O7V-MU-QEl"/>
+                                    <constraint firstAttribute="trailing" secondItem="Z43-MJ-DCV" secondAttribute="trailing" constant="10" id="Paa-vw-gAE"/>
+                                    <constraint firstAttribute="height" constant="90" id="V6g-Ir-bfO"/>
+                                    <constraint firstAttribute="bottom" secondItem="Wpa-3a-4N0" secondAttribute="bottom" constant="10" id="hqH-EC-C4c"/>
+                                    <constraint firstItem="Wpa-3a-4N0" firstAttribute="leading" secondItem="ssf-oX-dVK" secondAttribute="leading" constant="10" id="ivS-Qd-rj8"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -965,22 +980,23 @@
                             <constraint firstItem="ssf-oX-dVK" firstAttribute="leading" secondItem="9Cx-lZ-GRJ" secondAttribute="leading" id="BzK-Rd-E11"/>
                             <constraint firstItem="GXl-r8-ltD" firstAttribute="top" secondItem="Oi7-eo-wfQ" secondAttribute="bottom" id="Cma-kd-QA8"/>
                             <constraint firstItem="Oi7-eo-wfQ" firstAttribute="leading" secondItem="9Cx-lZ-GRJ" secondAttribute="leading" id="Fa2-BE-8vK"/>
-                            <constraint firstItem="ssf-oX-dVK" firstAttribute="top" secondItem="MOx-R5-dUO" secondAttribute="bottom" id="LAP-Aa-t01"/>
                             <constraint firstItem="Oi7-eo-wfQ" firstAttribute="top" secondItem="9Cx-lZ-GRJ" secondAttribute="top" id="One-vj-yVd"/>
                             <constraint firstItem="fyx-oW-fHw" firstAttribute="width" secondItem="9Cx-lZ-GRJ" secondAttribute="width" id="We8-uJ-nN7"/>
                             <constraint firstAttribute="trailing" secondItem="ssf-oX-dVK" secondAttribute="trailing" id="oKw-1S-keW"/>
+                            <constraint firstItem="ssf-oX-dVK" firstAttribute="top" secondItem="9Cx-lZ-GRJ" secondAttribute="top" id="xOc-Yh-0op"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="backgroundBlackColorView" destination="9Cx-lZ-GRJ" id="H4j-M8-EkJ"/>
                         <outlet property="crossButton" destination="Wpa-3a-4N0" id="PCv-4d-2Np"/>
+                        <outlet property="downloadButton" destination="Z43-MJ-DCV" id="YWT-dZ-x0t"/>
                         <outlet property="imageView" destination="vvN-Gl-BZQ" id="1tv-44-fat"/>
                         <outlet property="scrollView" destination="fyx-oW-fHw" id="YJB-NH-Imq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7Y0-qu-tnl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2271" y="44"/>
+            <point key="canvasLocation" x="2269.5999999999999" y="43.628185907046479"/>
         </scene>
         <!--Conversations View Controller-->
         <scene sceneID="ble-P1-JV6">
@@ -1220,6 +1236,59 @@
                                     <constraint firstItem="q89-dO-p90" firstAttribute="leading" secondItem="Re0-dP-1cC" secondAttribute="trailing" id="sjr-hO-W8a"/>
                                 </constraints>
                             </view>
+                            <view hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tWf-tK-kZ6" customClass="So_UIView" customModule="Hippo" customModuleProvider="target">
+                                <rect key="frame" x="325" y="546" width="50" height="65"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dqW-hD-PsC" customClass="So_UIView" customModule="Hippo" customModuleProvider="target">
+                                        <rect key="frame" x="5" y="3" width="45" height="34"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </view>
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qlf-NE-nQt">
+                                        <rect key="frame" x="5" y="3" width="45" height="34"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="34" id="hiA-ZG-nrA"/>
+                                        </constraints>
+                                        <state key="normal" image="new_chat_icon"/>
+                                        <connections>
+                                            <action selector="newConversationCountButtonAction:" destination="Zql-KC-mKa" eventType="touchUpInside" id="RTI-fB-YYU"/>
+                                        </connections>
+                                    </button>
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="6" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c1l-Kz-GU1" customClass="So_CustomLabel" customModule="Hippo" customModuleProvider="target">
+                                        <rect key="frame" x="29" y="0.0" width="17" height="17"/>
+                                        <color key="backgroundColor" red="0.88023829460000003" green="0.16684350370000001" blue="0.28022629020000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="17" id="KxH-Zf-e6p"/>
+                                            <constraint firstAttribute="width" constant="17" id="nUM-c9-YA0"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="8.5"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="MontBold">
+                                                <real key="value" value="12"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="EPZ-98-eQo"/>
+                                    <constraint firstItem="dqW-hD-PsC" firstAttribute="centerY" secondItem="Qlf-NE-nQt" secondAttribute="centerY" id="IvQ-PS-cq9"/>
+                                    <constraint firstAttribute="height" constant="65" id="L7S-K4-LMC"/>
+                                    <constraint firstItem="dqW-hD-PsC" firstAttribute="width" secondItem="Qlf-NE-nQt" secondAttribute="width" id="Qai-4t-2xs"/>
+                                    <constraint firstItem="Qlf-NE-nQt" firstAttribute="top" secondItem="tWf-tK-kZ6" secondAttribute="top" constant="3" id="Vqa-ag-gqi"/>
+                                    <constraint firstAttribute="trailing" secondItem="c1l-Kz-GU1" secondAttribute="trailing" constant="4" id="Z8x-wf-XMG"/>
+                                    <constraint firstItem="c1l-Kz-GU1" firstAttribute="top" secondItem="tWf-tK-kZ6" secondAttribute="top" id="gNR-bk-EMy"/>
+                                    <constraint firstItem="dqW-hD-PsC" firstAttribute="centerX" secondItem="Qlf-NE-nQt" secondAttribute="centerX" id="ik0-ZV-sc5"/>
+                                    <constraint firstItem="dqW-hD-PsC" firstAttribute="height" secondItem="Qlf-NE-nQt" secondAttribute="height" id="qFE-JL-oyJ"/>
+                                    <constraint firstItem="Qlf-NE-nQt" firstAttribute="leading" secondItem="tWf-tK-kZ6" secondAttribute="leading" constant="5" id="rkY-bi-6jg"/>
+                                    <constraint firstAttribute="trailing" secondItem="Qlf-NE-nQt" secondAttribute="trailing" id="vLM-aA-cit"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.97647058819999999" green="0.98823529409999999" blue="0.98823529409999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -1237,6 +1306,7 @@
                             <constraint firstItem="O37-Wc-iDC" firstAttribute="leading" secondItem="ofr-Y0-GIn" secondAttribute="leading" id="SaU-kH-Gez"/>
                             <constraint firstItem="85d-HF-bp8" firstAttribute="leading" secondItem="ofr-Y0-GIn" secondAttribute="leading" id="Sw2-08-4G4"/>
                             <constraint firstItem="3pN-rq-23Q" firstAttribute="leading" secondItem="ofr-Y0-GIn" secondAttribute="leading" id="U5Q-Xi-hdh"/>
+                            <constraint firstItem="tWf-tK-kZ6" firstAttribute="bottom" secondItem="qnv-or-clc" secondAttribute="bottom" id="U8B-WI-MdK"/>
                             <constraint firstItem="3pN-rq-23Q" firstAttribute="top" secondItem="AZ4-BR-10y" secondAttribute="bottom" id="Ut1-FP-A50"/>
                             <constraint firstItem="O37-Wc-iDC" firstAttribute="top" secondItem="ijo-Dn-zBl" secondAttribute="bottom" id="XI6-Mx-TpR"/>
                             <constraint firstItem="AZ4-BR-10y" firstAttribute="leading" secondItem="ofr-Y0-GIn" secondAttribute="leading" id="f1o-d1-BZq"/>
@@ -1246,6 +1316,7 @@
                             <constraint firstItem="Kox-UA-NRB" firstAttribute="top" secondItem="ofr-Y0-GIn" secondAttribute="top" id="iEY-Dm-QBn"/>
                             <constraint firstItem="O37-Wc-iDC" firstAttribute="centerY" secondItem="ofr-Y0-GIn" secondAttribute="centerY" id="kF8-Ry-uhX"/>
                             <constraint firstItem="qnv-or-clc" firstAttribute="leading" secondItem="ofr-Y0-GIn" secondAttribute="leading" id="kJ3-dP-Mz2"/>
+                            <constraint firstAttribute="trailing" secondItem="tWf-tK-kZ6" secondAttribute="trailing" id="orp-ul-c77"/>
                             <constraint firstAttribute="trailing" secondItem="AZ4-BR-10y" secondAttribute="trailing" id="pd8-Ln-Rqj"/>
                             <constraint firstAttribute="trailing" secondItem="Kox-UA-NRB" secondAttribute="trailing" id="u1C-Cs-wuU"/>
                             <constraint firstItem="qnv-or-clc" firstAttribute="top" secondItem="85d-HF-bp8" secondAttribute="bottom" id="xYe-2F-Nk5"/>
@@ -1287,6 +1358,10 @@
                         <outlet property="loaderView" destination="yXi-kz-HoV" id="NTR-yh-rnf"/>
                         <outlet property="messageTextView" destination="wgK-4e-znX" id="HcB-2o-dIZ"/>
                         <outlet property="navigationBackgroundView" destination="Kox-UA-NRB" id="M7c-48-3pP"/>
+                        <outlet property="newConversationContainer" destination="tWf-tK-kZ6" id="DwL-OS-oTh"/>
+                        <outlet property="newConversationCountButton" destination="Qlf-NE-nQt" id="IDk-cw-Wxz"/>
+                        <outlet property="newConversationLabel" destination="c1l-Kz-GU1" id="PBc-X7-Boj"/>
+                        <outlet property="newConversationShadow" destination="dqW-hD-PsC" id="yzc-lR-S48"/>
                         <outlet property="placeHolderLabel" destination="EE4-xz-Z1Q" id="sWm-S8-QVb"/>
                         <outlet property="sendMessageButton" destination="qNk-pG-Dkt" id="clb-OM-eCq"/>
                         <outlet property="seperatorView" destination="i5f-Ma-L0R" id="w3m-bS-D5M"/>
@@ -2240,7 +2315,10 @@
         <image name="audioCallIcon" width="20" height="20"/>
         <image name="backButtonNormalStateIcon" width="16" height="14"/>
         <image name="broadcastIcon" width="25.5" height="19.5"/>
+        <image name="close_conversation_icon" width="32" height="32"/>
+        <image name="download_white" width="21" height="21"/>
         <image name="newChat" width="30" height="30"/>
+        <image name="new_chat_icon" width="18" height="19"/>
         <image name="notification" width="21.5" height="25"/>
         <image name="tiny-video-symbol" width="28" height="18"/>
     </resources>

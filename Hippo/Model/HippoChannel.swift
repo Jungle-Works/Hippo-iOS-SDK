@@ -667,6 +667,8 @@ class HippoChannel {
         let isSendingDisabled = rawSendingReplyDisabled == 1 ? true : false
         if isSendingDisabled {
             chatDetail?.disableReply = isSendingDisabled
+            chatDetail?.allowAudioCall = !isSendingDisabled
+            chatDetail?.allowVideoCall = !isSendingDisabled
         }
         
         if HippoConfig.shared.appUserType == .customer {
@@ -686,6 +688,11 @@ class HippoChannel {
         chatDetail.allowAudioCall = Bool.parse(key: "allow_audio_call", json: dict) ?? chatDetail.allowAudioCall
         chatDetail.allowVideoCall = Bool.parse(key: "allow_video_call", json: dict) ?? chatDetail.allowVideoCall
         chatDetail.updatePeerData(users: users)
+        
+        if isSendingDisabled {
+            chatDetail.allowAudioCall = !isSendingDisabled
+            chatDetail.allowVideoCall = !isSendingDisabled
+        }
         
         chatDetail.assignedAgentID = users.first?.userID ?? chatDetail.assignedAgentID
         chatDetail.assignedAgentName = users.first?.fullName ?? chatDetail.assignedAgentName

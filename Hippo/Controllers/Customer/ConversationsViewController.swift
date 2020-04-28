@@ -58,15 +58,21 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
    @IBOutlet weak var loadMoreActivityIndicator: UIActivityIndicatorView!
    @IBOutlet weak var suggestionContainerView: UIView!
     
+    //NewConversation view
+    @IBOutlet weak var newConversationContainer: So_UIView!
+    @IBOutlet weak var newConversationLabel: So_CustomLabel!
+    @IBOutlet weak var newConversationShadow: So_UIView!
+    @IBOutlet weak var newConversationCountButton: UIButton!
+    
     var suggestionCollectionView = SuggestionView()
     var suggestionList: [String] = []
     
     var transparentView = UIView()
     var lineLabel = UILabel()
     var customTableView = UITableView()
-    let height: CGFloat = 125//250
-    var actionSheetTitleArr = ["Photo & Video Library","Camera"]
-    var actionSheetImageArr = ["Library","Camera"]
+    let height: CGFloat = 175//125//250
+    var actionSheetTitleArr = ["Photo & Video Library","Camera","Document"]
+    var actionSheetImageArr = ["Library","Camera","Library"]
     
     var hieghtOfNavigationBar: CGFloat = 0
     
@@ -563,6 +569,13 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     self.openCustomSheet()
     
    }
+    
+    @IBAction func newConversationCountButtonAction(_ sender: Any) {
+//        newConversationLabel.text = nil
+//        newConversationLabel.isHidden = true
+//        newConversationCounter  = 0
+        scrollTableViewToBottom(true)
+    }
     
     func buttonClickedOnNetworkOff() {
         guard !FuguNetworkHandler.shared.isNetworkConnected else {
@@ -1397,6 +1410,13 @@ extension ConversationsViewController {
         if (channel != nil && channel?.isSendingDisabled == true) || forceDisableReply {
             disableSendingReply()
         }
+        
+        self.newConversationCountButton.roundCorner(cornerRect: [.topLeft, .bottomLeft], cornerRadius: 5)
+        self.newConversationShadow.layer.cornerRadius = 5
+        self.newConversationShadow.showShadow(shadowSideAngles: ShadowSideView(topSide: true, leftSide: true, bottomSide: true))
+//        self.newConversationShadow.showShadow(shadowSideAngles: ShadowSideView(topSide: true, leftSide: true, bottomSide: true, rightSide: true))
+//        self.updateNewConversationCountButton(animation: false)
+        
     }
    
    func addTapGestureInTableView() {
@@ -1567,19 +1587,6 @@ extension ConversationsViewController {
         }
         
     }
-    
-   func scrollTableViewToBottom(animated: Bool = false) {
-      
-      DispatchQueue.main.async {
-         if self.messagesGroupedByDate.count > 0 {
-            let givenMessagesArray = self.messagesGroupedByDate[self.messagesGroupedByDate.count - 1]
-            if givenMessagesArray.count > 0 {
-               let indexPath = IndexPath(row: givenMessagesArray.count - 1, section: self.messagesGroupedByDate.count - 1)
-               self.tableViewChat.scrollToRow(at: indexPath, at: .bottom, animated: animated)
-            }
-         }
-      }
-   }
 
     func getMessageFromGrouped(messages: [[HippoMessage]]) -> (sentMessage: [HippoMessage], unsentMessages: [HippoMessage]) {
         var sentMessages: [HippoMessage] = []
@@ -1648,6 +1655,60 @@ extension ConversationsViewController {
         return cellTotalHeight
     }
 
+//    func scrollTableViewToBottom(animated: Bool = false) {
+//
+//        DispatchQueue.main.async {
+//            if self.messagesGroupedByDate.count > 0 {
+//                let givenMessagesArray = self.messagesGroupedByDate[self.messagesGroupedByDate.count - 1]
+//                if givenMessagesArray.count > 0 {
+//                    let indexPath = IndexPath(row: givenMessagesArray.count - 1, section: self.messagesGroupedByDate.count - 1)
+//                    self.tableViewChat.scrollToRow(at: indexPath, at: .bottom, animated: animated)
+//                }
+//            }
+//        }
+//    }
+    func scrollTableViewToBottom(_ animation: Bool = false) {
+        
+        DispatchQueue.main.async {
+            
+            var numberOfSections = -1
+            if self.tableViewChat.numberOfSections > 1 {
+                numberOfSections = self.tableViewChat.numberOfSections - 1
+            } else {
+                numberOfSections = self.tableViewChat.numberOfSections
+            }
+            
+            guard numberOfSections > 0 else {
+                return
+            }
+            
+            if self.messagesGroupedByDate.count > 0, let lastIndex = self.messagesGroupedByDate.last, lastIndex.count > 0 {
+                
+                let max = self.tableViewChat.numberOfRows(inSection: self.messagesGroupedByDate.count - 1)
+                let min = lastIndex.count - 1
+                
+                let row = min < max ? min : max - 1
+                guard numberOfSections >= self.messagesGroupedByDate.count - 1 else {
+                    return
+                }
+                let indexPath = IndexPath(row: row, section: self.messagesGroupedByDate.count - 1)
+                
+                self.tableViewChat.scrollToRow(at: indexPath, at: .bottom, animated: animation)
+                self.newConversationContainer.isHidden = true
+            }
+        }
+    }
+    
+//    func updateNewConversationCountButton(animation: Bool) {
+//        if newConversationCounter > 0 {
+//            newConversationLabel.text = "\(newConversationCounter)"
+//            newConversationLabel.isHidden = false
+//            newConversationContainer.isHidden = false
+//        } else {
+//            newConversationLabel.isHidden = true
+//        }
+//    }
+    
 }
 
 // MARK: - UIScrollViewDelegate
@@ -1666,6 +1727,20 @@ extension ConversationsViewController: UIScrollViewDelegate {
             self?.isGettingMessageViaPaginationInProgress = false
          })
       }
+//        if shouldRecognizeScroll {
+            if scrollView.contentOffset.y < (tableViewChat.contentSize.height - tableViewChat.frame.height - 180) {
+                newConversationContainer.isHidden = false
+            } else {
+//                if newConversationCounter == 0 {
+                    newConversationContainer.isHidden = true
+//                }
+            }
+
+//            if scrollView.contentOffset.y > (tableViewChat.contentSize.height - tableViewChat.frame.height - 10) {
+//                newConversationCounter = 0
+//                updateNewConversationCountButton(animation: true)
+//            }
+//        }
    }
     
 }
@@ -1703,7 +1778,11 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "CustomTableViewCell", for: indexPath) as? CustomTableViewCell else {fatalError("Unable to deque cell")}
         cell.selectionStyle = .none
         cell.lbl.text = actionSheetTitleArr[indexPath.row]
-        cell.settingImage.image = UIImage(named: actionSheetImageArr[indexPath.row])
+        cell.settingImage.tintColor = .black
+//        cell.settingImage.image = UIImage(named: actionSheetImageArr[indexPath.row])
+        if let img = UIImage(named: actionSheetImageArr[indexPath.row], in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate){
+          cell.settingImage.image = img
+        }
         return cell
 
     }else{
@@ -2575,6 +2654,22 @@ extension ConversationsViewController: HippoChannelDelegate {
    func isTypingSectionPresent() -> Bool {
       return self.messagesGroupedByDate.count < tableViewChat.numberOfSections
    }
+    
+//    func checkScrollerPostion() {
+//        let contentHeight = tableViewChat.contentSize.height
+//        let tableHeight = tableViewChat.bounds.height
+//        let offset = tableViewChat.contentOffset.y
+//
+//        
+//        if offset > (contentHeight - tableHeight - 10) {
+//            self.newConversationCounter = 0
+//            scrollTableViewToBottom(false)
+//        } else if contentHeight > tableHeight {
+//            self.newConversationCounter += 1
+//        }
+//        self.updateNewConversationCountButton(animation: true)
+//    }
+    
 }
 // MARK: Bot Form Cell Delegates
 extension ConversationsViewController: LeadTableViewCellDelegate {

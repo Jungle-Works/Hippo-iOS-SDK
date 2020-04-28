@@ -7,7 +7,34 @@
 
 import UIKit
 
-
+struct ShadowSideView {
+    var topSide = false
+    var leftSide = false
+    var bottomSide = false
+    var rightSide = false
+    
+    init(topSide: Bool? = false, leftSide: Bool? = false, bottomSide: Bool? = false, rightSide: Bool? = false) {
+        self.topSide = topSide!
+        self.leftSide = leftSide!
+        self.bottomSide = bottomSide!
+        self.rightSide = rightSide!
+    }
+    
+    func isAllSide() -> Bool {
+        return (self.topSide && self.leftSide && self.bottomSide && self.rightSide)
+    }
+    
+    func isBottomAndRightSideOnly() -> Bool {
+        return (self.topSide == false && self.leftSide == false && self.bottomSide == true && self.rightSide == true)
+    }
+    
+    func isBottomAndLeftSideOnly() -> Bool {
+        return (self.topSide == false && self.leftSide == true && self.bottomSide == true && self.rightSide == false)
+    }
+    static func allSide() -> ShadowSideView {
+        return ShadowSideView(topSide: true, leftSide: true, bottomSide: true, rightSide: true)
+    }
+}
 
 extension UIView {
     @IBInspectable var hippoCornerRadius: CGFloat {
@@ -94,6 +121,34 @@ extension UIView {
         frameLayer.fillColor = nil
         
         self.layer.addSublayer(frameLayer)
+    }
+    
+    func showShadow(shadowColor: UIColor = .gray, shadowSideAngles: ShadowSideView) {
+        var shadowFrame = bounds
+        if shadowSideAngles.isAllSide() == false {
+            if shadowSideAngles.isBottomAndRightSideOnly() == true {
+                shadowFrame.origin.y = 4
+                shadowFrame.size.height -= 4
+                
+                shadowFrame.origin.x = 3
+                shadowFrame.size.width -= 3
+            } else if shadowSideAngles.isBottomAndLeftSideOnly() == true {
+                shadowFrame.origin.y = 4
+                shadowFrame.size.height -= 4
+                
+                shadowFrame.origin.x = 0
+                shadowFrame.size.width -= 3
+            }
+        }
+        
+        let maskPath = UIBezierPath(roundedRect: shadowFrame, cornerRadius: layer.cornerRadius)
+        
+        layer.masksToBounds = false
+        layer.shadowColor = shadowColor.cgColor
+        layer.shadowOffset = CGSize(width: 0.5, height: 0.5)
+        layer.shadowOpacity = 0.3
+        layer.shadowRadius = 4
+        layer.shadowPath = maskPath.cgPath
     }
     
 }
