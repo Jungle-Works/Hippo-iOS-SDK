@@ -172,7 +172,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
                             })
                         }
                     }
-                }else{
+                } else {
                     startNewConversation(replyMessage: nil, completion: { [weak self] (success, result) in
                         guard success else {
                             return

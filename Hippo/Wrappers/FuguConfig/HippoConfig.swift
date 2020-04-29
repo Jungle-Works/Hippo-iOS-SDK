@@ -750,20 +750,24 @@ struct SERVERS {
     }
     
     public func handleVoipNotification(payload: [AnyHashable: Any]) {
-        guard let json = payload as? [String: Any] else {
-            return
+            guard let json = payload as? [String: Any] else {
+                return
+            }
+            guard isHippoUserChannelSubscribe() else {
+                self.handleVoipNotification(payloadDict: json)
+                return
+            }
+            
         }
-        self.handleVoipNotification(payloadDict: json)
-//        checkForChannelSubscribe(completion: { (success, error) in
-//            if success {
-//                self.handleVoipNotification(payloadDict: json)
-//            }
-//        })
-    }
-    
-    public func handleVoipNotification(payloadDict: [String: Any]) {
-        CallManager.shared.voipNotificationRecieved(payloadDict: payloadDict)
-    }
+        
+        public func handleVoipNotification(payloadDict: [String: Any]) {
+            
+            guard isHippoUserChannelSubscribe() else {
+                CallManager.shared.voipNotificationRecieved(payloadDict: payloadDict)
+                return
+            }
+    //        CallManager.shared.voipNotificationRecieved(payloadDict: payloadDict)
+        }
     
     public func handleRemoteNotification(userInfo: [String: Any]) {
         setAgentStoredData()

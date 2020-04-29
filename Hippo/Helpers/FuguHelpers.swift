@@ -277,8 +277,9 @@ func fuguDelay(_ withDuration: Double, completion: @escaping () -> ()) {
         FayeConnection.shared.subscribeTo(channelId: userChannelId, completion: { (success) in
         }) {  (messageDict) in
             if let messageType = messageDict["message_type"] as? Int, messageType == 18 {
-            HippoConfig.shared.log.trace("UserChannel:: --->\(messageDict)", level: .socket)
+            
                 if let channel_id = messageDict["channel_id"] as? Int, isSubscribed(userChannelId: "\(channel_id)") == false {
+                    HippoConfig.shared.log.trace("UserChannel:: --->\(messageDict)", level: .socket)
                     CallManager.shared.voipNotificationRecieved(payloadDict: messageDict)
                 }
             }
