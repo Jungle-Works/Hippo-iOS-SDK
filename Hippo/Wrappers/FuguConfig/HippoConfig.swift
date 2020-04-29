@@ -41,8 +41,8 @@ struct SERVERS {
 //    static let betaUrl = "https://hippo-api-dev.fuguchat.com:3002/"
 //    static let betaFaye = "https://hippo-api-dev.fuguchat.com:3002/faye"
     
-    static let devUrl =  "https://hippo-api-dev.fuguchat.com:3002/" //"https://hippo-api-dev.fuguchat.com:3002/" //"https://hippo-api-dev.fuguchat.com:3011/"
-    static let devFaye = "https://hippo-api-dev.fuguchat.com:3002/faye" //"https://hippo-api-dev.fuguchat.com:3002/faye" //"https://hippo-api-dev.fuguchat.com:3012/faye"
+    static let devUrl =  "https://hippo-api-dev.fuguchat.com:3004/"//"https://hippo-api-dev.fuguchat.com:3002/" //"https://hippo-api-dev.fuguchat.com:3002/" //"https://hippo-api-dev.fuguchat.com:3011/"
+    static let devFaye = "https://hippo-api-dev.fuguchat.com:3004/faye"//"https://hippo-api-dev.fuguchat.com:3002/faye" //"https://hippo-api-dev.fuguchat.com:3002/faye" //"https://hippo-api-dev.fuguchat.com:3012/faye"
     
 //    static let devUrl = "https://hippo-api-dev.fuguchat.com:3011/"
 //    static let devFaye = "https://hippo-api-dev.fuguchat.com:3012/faye"
@@ -729,6 +729,12 @@ struct SERVERS {
         if HippoConfig.shared.isHippoNotification(withUserInfo: userInfo) == false {
             return
         }
+        
+        if let announcementPush = userInfo["is_announcement_push"] as? Int, announcementPush == 1 {
+            self.handleAnnouncementsNotification(userInfo: userInfo)
+            return
+        }
+        
         //Check to append all muid of push list
         if let muid = userInfo["muid"] as? String, !HippoConfig.shared.muidList.contains(muid) {
             HippoConfig.shared.muidList.append(muid)
@@ -904,6 +910,24 @@ struct SERVERS {
             }
         }
     }
+    
+    func handleAnnouncementsNotification(userInfo: [String: Any]) {
+        let visibleController = getLastVisibleController()
+        if let promotionsVC = visibleController as? PromotionsViewController {
+            promotionsVC.callGetAnnouncementsApi()
+            return
+        }else{
+            checkForIntialization { (success, error) in
+                guard success else {
+                    return
+                }
+//                HippoChat.isSingleChatApp = false
+                HippoConfig.shared.presentPromotionalPushController()
+                return
+            }
+        }
+    }
+    
 }
 
 
