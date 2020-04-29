@@ -728,6 +728,7 @@ struct SERVERS {
     
     public func isHippoNotification(withUserInfo userInfo: [String: Any]) -> Bool {
         
+        
         if let pushSource = userInfo["push_source"] as? String, (pushSource == "FUGU" || pushSource == "HIPPO") {
             return true
         }
@@ -777,6 +778,12 @@ struct SERVERS {
         if HippoConfig.shared.isHippoNotification(withUserInfo: userInfo) == false {
             return
         }
+        
+        if let announcementPush = userInfo["is_announcement_push"] as? Int, announcementPush == 1 {
+            self.handleAnnouncementsNotification(userInfo: userInfo)
+            return
+        }
+        
         //Check to append all muid of push list
         if let muid = userInfo["muid"] as? String, !HippoConfig.shared.muidList.contains(muid) {
             HippoConfig.shared.muidList.append(muid)
@@ -804,6 +811,25 @@ struct SERVERS {
             handleCustomerNotification(userInfo: userInfo)
         }
     }
+    
+    
+    func handleAnnouncementsNotification(userInfo: [String: Any]) {
+            let visibleController = getLastVisibleController()
+            if let promotionsVC = visibleController as? PromotionsViewController {
+                promotionsVC.callGetAnnouncementsApi()
+                return
+            }else{
+                checkForIntialization { (success, error) in
+                    guard success else {
+                        return
+                    }
+    //                HippoChat.isSingleChatApp = false
+                    HippoConfig.shared.presentPromotionalPushController()
+                    return
+                }
+            }
+        }
+    
     
     func handleAgentNotification(userInfo: [String: Any]) {
         let visibleController = getLastVisibleController()

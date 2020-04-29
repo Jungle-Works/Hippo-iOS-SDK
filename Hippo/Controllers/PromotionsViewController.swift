@@ -68,13 +68,18 @@ class PromotionsViewController: UIViewController {
         self.navigationController?.isNavigationBarHidden = false
         self.promotionsTableView.isHidden = false
         
-        self.startLoaderAnimation()
-        self.getAnnouncements(endOffset: 19, startOffset: 0)
-        
+//        self.startLoaderAnimation()
+//        self.getAnnouncements(endOffset: 19, startOffset: 0)
+        self.callGetAnnouncementsApi()
         self.setUpTabBar()
         
     }
 
+    func callGetAnnouncementsApi(){
+        self.startLoaderAnimation()
+        self.getAnnouncements(endOffset: 19, startOffset: 0)
+    }
+    
     override func viewWillLayoutSubviews() {
         self.setUpTabBar()
     }
