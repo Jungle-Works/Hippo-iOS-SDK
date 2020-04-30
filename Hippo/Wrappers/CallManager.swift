@@ -33,6 +33,7 @@ class CallManager {
         guard let currentUser = getCurrentUser() else {
             return
         }
+        
         let callToMake = Call(peer: peer, signalingClient: call.signallingClient, uID: call.muid, currentUser: currentUser, type: getCallTypeWith(localType: call.callType), link: "")
         HippoCallClient.shared.startCall(call: callToMake, completion: completion)
         #else
@@ -40,21 +41,23 @@ class CallManager {
         #endif
     }
     
-    func startCall(call: CallData, completion: @escaping (Bool, NSError?) -> Void) {
-        #if canImport(HippoCallClient)
-        let peerUser = call.peerData
-        guard let peer = HippoUser(name: peerUser.fullName, userID: peerUser.userID, imageURL: peerUser.image) else {
-            return
-        }
-        guard let currentUser = getCurrentUser() else {
-            return
-        }
-        let callToMake = Call(peer: peer, signalingClient: call.signallingClient, uID: call.muid, currentUser: currentUser, type: getCallTypeWith(localType: call.callType), link: "")
-        HippoCallClient.shared.startCall(call: callToMake, completion: completion)
-        #else
-        completion(false,nil)
-        #endif
-    }
+    // use this method if you are using jitsi branch for calling feature
+    
+//    func startCall(call: CallData, completion: @escaping (Bool, NSError?) -> Void) {
+//        #if canImport(HippoCallClient)
+//        let peerUser = call.peerData
+//        guard let peer = HippoUser(name: peerUser.fullName, userID: peerUser.userID, imageURL: peerUser.image) else {
+//            return
+//        }
+//        guard let currentUser = getCurrentUser() else {
+//            return
+//        }
+//        let callToMake = Call(peer: peer, signalingClient: call.signallingClient, uID: call.muid, currentUser: currentUser, type: getCallTypeWith(localType: call.callType), link: "")
+//        HippoCallClient.shared.startCall(call: callToMake, completion: completion)
+//        #else
+//        completion(false,nil)
+//        #endif
+//    }
     
     func startWebRTCCall(call: CallData, completion: @escaping (Bool) -> Void) {
         #if canImport(HippoCallClient)

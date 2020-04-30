@@ -578,7 +578,15 @@ class HippoConversationViewController: UIViewController {
         
         let call = CallData.init(peerData: peerDetail, callType: .audio, muid: String.uuid(), signallingClient: channel)
         
-        CallManager.shared.startCall(call: call) { (success, error) in
+         CallManager.shared.startCall(call: call) { (success) in
+                   if !success {
+                       assertionFailure("Cannot start the call")
+                   }
+               }
+        
+        // #####-------USE THIS METHOD IF YOU ARE USING JITSI CALLING BARNCH FOR CALLING FEATURE -----#####
+
+      /*  CallManager.shared.startCall(call: call) { (success, error) in
             
             if let mismatchError = error, mismatchError.code == 415 {
                 
@@ -598,7 +606,7 @@ class HippoConversationViewController: UIViewController {
             else if !success {
                 assertionFailure("Cannot start the call")
             }
-        }
+        }*/
     }
     
     func startVideoCall() {
@@ -611,7 +619,14 @@ class HippoConversationViewController: UIViewController {
         self.view.endEditing(true)
         
         let call = CallData.init(peerData: peerDetail, callType: .video, muid: String.uuid(), signallingClient: channel)
-        CallManager.shared.startCall(call: call) { (success, error) in
+
+        CallManager.shared.startCall(call: call) { (success) in
+            if !success {
+                assertionFailure("Cannot start the call")
+            }
+        }
+        // #####-------USE THIS METHOD IF YOU ARE USING JITSI CALLING BARNCH FOR CALLING FEATURE -----#####
+/*CallManager.shared.startCall(call: call) { (success, error) in
             
             if let mismatchError = error, mismatchError.code == 415 {
                 
@@ -631,7 +646,7 @@ class HippoConversationViewController: UIViewController {
             else if !success {
                 assertionFailure("Cannot start the call")
             }
-        }
+        } */
     }
     
     func canMakeAnyCall() -> Bool {
