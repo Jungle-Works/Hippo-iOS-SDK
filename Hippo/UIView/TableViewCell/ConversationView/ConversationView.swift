@@ -144,6 +144,7 @@ extension ConversationView {
         
         if let channelImage = conersationObj.channelImageUrl, channelImage.isEmpty == false, let url = URL(string: channelImage) {
             channelImageView.kf.setImage(with: url)
+            channelImageView.backgroundColor = nil
         } else if let channelName = conersationObj.label, channelName.isEmpty == false {
             placeHolderImageButton?.alpha = isThisChatOpened(opened: isOpened)
             placeHolderImageButton?.isHidden = false
@@ -153,8 +154,14 @@ extension ConversationView {
             let channelNameInitials = channelName.trimWhiteSpacesAndNewLine()
 //            placeHolderImageButton?.setTitle(String(channelNameInitials.remove(at: channelNameInitials.startIndex)).capitalized, for: .normal)
 //            placeHolderImageButton?.layer.cornerRadius = 15.0
-            channelImageView.setTextInImage(string: channelNameInitials, color: .darkGray, circular: false, textAttributes: nil)
-            
+            let color = getRandomColor()
+            if channelImageView.backgroundColor == nil{
+                channelImageView.setTextInImage(string: channelNameInitials, color: color, circular: false, textAttributes: nil)
+                channelImageView.backgroundColor = color
+            }else{
+               channelImageView.setTextInImage(string: channelNameInitials, color: channelImageView.backgroundColor, circular: false, textAttributes: nil)
+            }
+           
         }
         
         //      chatTextLabel.textColor = HippoConfig.shared.theme.conversationLastMsgColor.withAlphaComponent(isThisChatOpened(opened: isOpened))
@@ -217,5 +224,14 @@ extension ConversationView {
     
     func isThisChatOpened(opened: Bool) -> CGFloat {
         return opened ? 1 : 0.5
+    }
+    
+    func getRandomColor() -> UIColor {
+         //Generate between 0 to 1
+         let red:CGFloat = CGFloat(drand48())
+         let green:CGFloat = CGFloat(drand48())
+         let blue:CGFloat = CGFloat(drand48())
+
+         return UIColor(red:red, green: green, blue: blue, alpha: 1.0)
     }
 }

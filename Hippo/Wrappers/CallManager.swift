@@ -55,6 +55,7 @@ class CallManager {
         completion(false,nil)
         #endif
     }
+
     
     func startWebRTCCall(call: CallData, completion: @escaping (Bool) -> Void) {
         #if canImport(HippoCallClient)

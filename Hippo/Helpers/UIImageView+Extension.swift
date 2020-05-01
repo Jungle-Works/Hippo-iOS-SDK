@@ -18,7 +18,7 @@ extension UIImageView {
                        textAttributes: [NSAttributedString.Key: Any]? = nil) {
         
         let image = imageSnap(text: string != nil ? string?.initials : "",
-                              color:.random,
+                              color: color ?? .random,
                               circular: circular,
                               textAttributes:textAttributes)
         

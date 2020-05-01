@@ -445,6 +445,7 @@ public class UserTag: NSObject {
         FuguDefaults.removeObject(forKey: DefaultKey.allChatConversations)
         
         FuguDefaults.removeObject(forKey: DefaultName.conversationData.rawValue)
+        FuguDefaults.removeObject(forKey: DefaultName.appointmentData.rawValue)
         FuguDefaults.removeAllPersistingData()
         
          CallManager.shared.hungupCall()

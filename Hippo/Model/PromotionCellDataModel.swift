@@ -28,11 +28,6 @@ class PromotionCellDataModel
     
     init?(dict: [String: Any])
     {
-//        guard let promotionID = dict["promotionID"] as? Int else {
-//            return nil
-//        }
-//          self.promotionID = promotionID
-        
         self.channelID = Int.parse(values: dict, key: "channel_id") ?? 1
         self.title = (dict["title"] as? String) ?? ""
         self.disableReply = Bool.parse(key: "disable_reply", json: dict) ?? true
@@ -116,6 +111,18 @@ class PromotionCellDataModel
         return height
     }
    
+       static func getAnnouncementsArrayFrom(json: [[String: Any]]) -> [PromotionCellDataModel] {
+            var arrayOfConversation = [PromotionCellDataModel]()
+            
+            for rawConversation in json {
+                if let conversation = PromotionCellDataModel(dict: rawConversation) {
+                    arrayOfConversation.append(conversation)
+                }
+            }
+            
+            return arrayOfConversation
+        }
+    
 }
 
 
