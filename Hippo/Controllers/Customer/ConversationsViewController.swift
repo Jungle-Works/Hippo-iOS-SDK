@@ -64,6 +64,12 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     @IBOutlet weak var newConversationShadow: So_UIView!
     @IBOutlet weak var newConversationCountButton: UIButton!
     
+    @IBOutlet weak var retryLabelView: UIView!
+    @IBOutlet weak var retryLabelViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var chatScreenTableViewTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var retryLoader: UIActivityIndicatorView!
+    @IBOutlet weak var labelViewRetryButton: UIButton!
+    
     var suggestionCollectionView = SuggestionView()
     var suggestionList: [String] = []
     
@@ -77,7 +83,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     var hieghtOfNavigationBar: CGFloat = 0
     
 //    var initialTouchPoint: CGPoint = CGPoint(x: 0, y: 0)
-    
+
    // MARK: - Computed Properties
    var localFilePath: String {
       get {
@@ -577,6 +583,18 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         scrollTableViewToBottom(true)
     }
     
+    //MARK:- IBAction for retryBtn on label
+    @IBAction func retryLabelButtonTapped(_ sender: Any) {
+        chatScreenTableViewTopConstraint.constant = 0
+        
+        retryLoader.isHidden = false
+        labelViewRetryButton.isHidden = true
+        fuguDelay(2.0) {
+            self.fetchMessagesFrom1stPage()
+        }
+        
+    }
+
     func buttonClickedOnNetworkOff() {
         guard !FuguNetworkHandler.shared.isNetworkConnected else {
             return
@@ -906,7 +924,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
          startLoaderAnimation()
          disableSendingNewMessages()
       } else if !isPaginationInProgress() {
-            startGettingNewMessages()
+//            startGettingNewMessages()
        }
         let request = MessageStore.messageRequest(pageStart: pageStart, showLoader: false, pageEnd: pageEnd, channelId: channel.id, labelId: -1)
         
@@ -923,9 +941,11 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
             
             guard let result = response, result.isSuccessFull, let weakself = self else {
                 completion?(false)
+                self?.goForApiRetry()
                 return
             }
             weakself.storeResponse = result
+            weakself.hideRetryLabelView()
             weakself.handleSuccessCompletionOfGetMessages(result: result, request: request, completion: completion)
         }
    }
@@ -1126,7 +1146,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
          startLoaderAnimation()
       } else if !isPaginationInProgress() {
         stopLoaderAnimation()//
-         startGettingNewMessages()
+//         startGettingNewMessages()
       }
 
      let request = MessageStore.messageRequest(pageStart: 1, showLoader: false, pageEnd: nil, channelId: -1, labelId: labelId)
@@ -1708,6 +1728,35 @@ extension ConversationsViewController {
 //            newConversationLabel.isHidden = true
 //        }
 //    }
+    
+    func hideRetryLabelView() {
+        chatScreenTableViewTopConstraint.constant = 0
+        
+//        retryView.isHidden = true
+        labelViewRetryButton.isHidden = false
+        retryLoader.isHidden = true
+        retryLabelView.isHidden = true
+    }
+    
+    func goForApiRetry(){
+        if FuguNetworkHandler.shared.isNetworkConnected{
+            //If There are No Cached Msg
+            if self.messagesGroupedByDate.count == 0{
+//                super.textViewBottomConstraint.constant = -100
+//                retryView.isHidden = false
+//                view.bringSubview(toFront: retryView)
+            }
+            else{
+                //If there are cached msgs
+                chatScreenTableViewTopConstraint.constant = 25
+                
+                retryLabelView.isHidden = false
+                retryLoader.isHidden = true
+                labelViewRetryButton.isHidden = false
+            }
+        }
+    }
+
     
 }
 
