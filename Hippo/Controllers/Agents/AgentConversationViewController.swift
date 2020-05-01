@@ -22,8 +22,8 @@ class AgentConversationViewController: HippoConversationViewController {
     @IBOutlet var backButton: UIButton!
     @IBOutlet var sendMessageButton: UIButton!
     @IBOutlet var messageTextView: UITextView!
-//    @IBOutlet weak var errorContentView: UIView!
-//    @IBOutlet var errorLabel: UILabel!
+    //    @IBOutlet weak var errorContentView: UIView!
+    //    @IBOutlet var errorLabel: UILabel!
     @IBOutlet var textViewBgView: UIView!
     @IBOutlet var placeHolderLabel: UILabel!
     @IBOutlet var addFileButtonAction: UIButton!
@@ -83,7 +83,7 @@ class AgentConversationViewController: HippoConversationViewController {
             })
             return
         }
-//        infoButton.isHidden = true
+        //        infoButton.isHidden = true
         
         populateTableViewWithChannelData()
         fetchMessagesFrom1stPage()
@@ -187,7 +187,7 @@ class AgentConversationViewController: HippoConversationViewController {
         }
         
     }
-        
+
     // MARK: - UIButton Actions
     
     @IBAction func audioButtonClicked(_ sender: Any) {
@@ -446,9 +446,9 @@ class AgentConversationViewController: HippoConversationViewController {
             messages = filterForMultipleMuid(newMessages: messages, newMessagesHashMap: newMessagesHashMap)
         }
         updateMessagesInLocalArrays(messages: messages)
-         if channel != nil {
-                 self.channel.saveMessagesInCache()
-             }
+        if channel != nil {
+            self.channel.saveMessagesInCache()
+        }
         
         let contentOffsetBeforeNewMessages = tableViewChat.contentOffset.y
         let contentHeightBeforeNewMessages = tableViewChat.contentSize.height
@@ -586,8 +586,8 @@ class AgentConversationViewController: HippoConversationViewController {
 extension AgentConversationViewController {
     
     func handleInfoIcon() {
-//        let customerId = channel?.chatDetail?.customerID ?? -1
-//        infoButton.isHidden = customerId < 1
+        //        let customerId = channel?.chatDetail?.customerID ?? -1
+        //        infoButton.isHidden = customerId < 1
     }
     
     
@@ -730,7 +730,7 @@ extension AgentConversationViewController {
         }
     }
     
-   
+
     
     func getTopDistanceOfCell(atIndexPath indexPath: IndexPath) -> CGFloat {
         
@@ -815,20 +815,52 @@ extension AgentConversationViewController {
         }
     }
     
+    //    func expectedHeight(OfMessageObject chatMessageObject: HippoMessage) -> CGFloat {
+    //
+    ////        let isProfileImageEnabled: Bool = channel?.chatDetail?.chatType.isImageViewAllowed ?? false
+    ////        let isOutgoingMsg = isSentByMe(senderId: chatMessageObject.senderId)
+    //
+    //        let availableWidthSpace = FUGU_SCREEN_WIDTH - CGFloat(60 + 10) - CGFloat(10 + 5)
+    //        let availableBoxSize = CGSize(width: availableWidthSpace,
+    //                                      height: CGFloat.greatestFiniteMagnitude)
+    //
+    //        var cellTotalHeight: CGFloat = 5 + 2.5 + 3.5 + 12 + 7
+    //
+    //        let incomingAttributedString = Helper.getIncomingAttributedStringWithLastUserCheck(chatMessageObject: chatMessageObject)
+    //        cellTotalHeight += incomingAttributedString.boundingRect(with: availableBoxSize, options: .usesLineFragmentOrigin, context: nil).size.height
+    //
+    //        return cellTotalHeight
+    //    }
+
     func expectedHeight(OfMessageObject chatMessageObject: HippoMessage) -> CGFloat {
-        
-//        let isProfileImageEnabled: Bool = channel?.chatDetail?.chatType.isImageViewAllowed ?? false
-//        let isOutgoingMsg = isSentByMe(senderId: chatMessageObject.senderId)
-        
-        let availableWidthSpace = FUGU_SCREEN_WIDTH - CGFloat(60 + 10) - CGFloat(10 + 5)
+        let isProfileImageEnabled: Bool = channel?.chatDetail?.chatType.isImageViewAllowed ?? (labelId > 0)
+        let isOutgoingMsg = isSentByMe(senderId: chatMessageObject.senderId) && chatMessageObject.type != .card
+        var availableWidthSpace = FUGU_SCREEN_WIDTH - CGFloat(60 + 10) - CGFloat(10 + 5)
+        availableWidthSpace -= (isProfileImageEnabled && !isOutgoingMsg) ? 35 : 0
         let availableBoxSize = CGSize(width: availableWidthSpace,
                                       height: CGFloat.greatestFiniteMagnitude)
-        
-        var cellTotalHeight: CGFloat = 5 + 2.5 + 3.5 + 12 + 7
-        
-        let incomingAttributedString = Helper.getIncomingAttributedStringWithLastUserCheck(chatMessageObject: chatMessageObject)
-        cellTotalHeight += incomingAttributedString.boundingRect(with: availableBoxSize, options: .usesLineFragmentOrigin, context: nil).size.height
-        
+        var cellTotalHeight: CGFloat = 5 + 2.5 + 3.5 + 12 + 7 + 23
+        if isOutgoingMsg == true {
+            let messageString = chatMessageObject.message
+            #if swift(>=4.0)
+            var attributes: [NSAttributedString.Key: Any]?
+            attributes = [NSAttributedString.Key.font: HippoConfig.shared.theme.inOutChatTextFont]
+            if messageString.isEmpty == false {
+                cellTotalHeight += messageString.boundingRect(with: availableBoxSize, options: .usesLineFragmentOrigin, attributes: attributes, context: nil).size.height
+            }
+            #else
+            var attributes: [String: Any]?
+            if let applicableFont = HippoConfig.shared.theme.inOutChatTextFont {
+                attributes = [NSFontAttributeName: applicableFont]
+            }
+            if messageString.isEmpty == false {
+                cellTotalHeight += messageString.boundingRect(with: availableBoxSize, options: .usesLineFragmentOrigin, attributes: attributes, context: nil).size.height
+            }
+            #endif
+        } else {
+            let incomingAttributedString = Helper.getIncomingAttributedStringWithLastUserCheck(chatMessageObject: chatMessageObject)
+            cellTotalHeight += incomingAttributedString.boundingRect(with: availableBoxSize, options: .usesLineFragmentOrigin, context: nil).size.height
+        }
         return cellTotalHeight
     }
     
@@ -1020,6 +1052,42 @@ extension AgentConversationViewController: UITableViewDelegate, UITableViewDataS
                     }
                     cell.setCellData(message: actionMessage)
                     return cell
+
+                case .leadForm:
+                     guard let cell = tableView.dequeueReusableCell(withIdentifier: "LeadTableViewCell", for: indexPath) as? LeadTableViewCell else {
+                        return UITableViewCell()
+                    }
+                    cell.delegate = self
+                    cell.setData(indexPath: indexPath, arr: message.leadsDataArray, message: message)
+                    cell.isUserInteractionEnabled = false
+                    return cell
+
+                case .multipleSelect:
+                    guard let cell = tableView.dequeueReusableCell(withIdentifier: "MultiSelectTableViewCell", for: indexPath) as? MultiSelectTableViewCell else {
+                            return UITableView.defaultCell()
+                        }
+//                    cell.submitButtonDelegate = self
+                    cell.isAgent = true
+                    cell.isUserInteractionEnabled = false
+                    cell.set(message: message)
+                        return cell
+                case .feedback:
+                    guard let cell = tableView.dequeueReusableCell(withIdentifier: "FeedbackTableViewCell") as? FeedbackTableViewCell else {
+                        return UITableViewCell()
+                    }
+                    var param = FeedbackParams(title: message.message, indexPath: indexPath, messageObj: message)
+                    param.showSendButton = false
+                    cell.isAgent = true
+                    cell.setDataForAgent(with: param)
+//                    cell.delegate = self
+                    cell.backgroundColor = .clear
+                    if let muid = message.messageUniqueID {
+                        heightForFeedBackCell["\(muid)"] = cell.alertContainer.bounds.height
+                    }
+                    cell.isUserInteractionEnabled = false
+                    return cell
+                case .paymentCard:
+                    break
                 default:
                     return getDefaultCell()
                 }
@@ -1048,6 +1116,10 @@ extension AgentConversationViewController: UITableViewDelegate, UITableViewDataS
             if messagesArray.count > indexPath.row {
                 let message = messagesArray[indexPath.row]
                 let messageType = message.type
+                print("-------------------- MESSAGE TYPE = \(messageType)------------------")
+                if messageType == .leadForm {
+                    print("leadForm")
+                }
                 
                 guard messageType.isMessageTypeHandled() else {
                     var rowHeight = expectedHeight(OfMessageObject: message)
@@ -1079,6 +1151,16 @@ extension AgentConversationViewController: UITableViewDelegate, UITableViewDataS
                     return message.cellDetail?.cellHeight ?? 0.01
                 case .actionableMessage, .hippoPay:
                     return self.getHeightOfActionableMessageAt(indexPath: indexPath, chatObject: message) + heightOfDateLabel
+                case .leadForm:
+                    return getHeightForLeadFormCell(message: message)
+                case .multipleSelect:
+                    return message.calculatedHeight ?? 0.01
+                case .feedback:
+                    guard let muid = message.messageUniqueID, var rowHeight: CGFloat = heightForFeedBackCell["\(muid)"] else {
+                        return 0.001
+                    }
+                    rowHeight += 7 //Height for bottom view
+                    return rowHeight
                 default:
                     return 0.01//UITableViewAutomaticDimension
                     
@@ -1087,6 +1169,46 @@ extension AgentConversationViewController: UITableViewDelegate, UITableViewDataS
         default: break
         }
         return UIView.tableAutoDimensionHeight
+    }
+
+    func getHeightForLeadFormCell(message: HippoMessage) -> CGFloat {
+        var count = 0
+        var buttonAction: [FormData] = []
+        for lead in message.leadsDataArray {
+            if lead.isShow  && lead.type != .button {
+                count += 1
+            }
+            if lead.type == .button {
+                buttonAction.append(lead)
+            }
+        }
+        var height = LeadDataTableViewCell.rowHeight * CGFloat(count)
+        if count > 1 {
+            height -= CGFloat(5*(count))
+        }
+        // Check if count is more than or equal to 2
+        if (count - 2) >= 0 {
+            // Check if last visible cell value is submitted
+            if message.leadsDataArray[count - 2].isCompleted {
+                // Check if last cell is visible.
+                if count == message.leadsDataArray.count {
+                    // Check if last cell value is submitted.
+                    if message.leadsDataArray[count - 1].isCompleted {
+                        height -= CGFloat(10 * (count))
+                    } else {
+                        height -= CGFloat(10 * (count - 1))
+                    }
+                } else {
+                    height -= CGFloat(10 * (count - 1))
+                }
+            }
+        }
+        let buttonHeight: CGFloat = CGFloat(buttonAction.count * 30)
+        let skipButtonHeight: CGFloat = message.shouldShowSkipButton() ? LeadTableViewCell.skipButtonHeightConstant : 0
+        if height > 0 {
+            return CGFloat(height) + buttonHeight + skipButtonHeight + 2
+        }
+        return 0.001
     }
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -1097,6 +1219,9 @@ extension AgentConversationViewController: UITableViewDelegate, UITableViewDataS
             var messagesArray = self.messagesGroupedByDate[chatSection]
             if messagesArray.count > indexPath.row {
                 let message = messagesArray[indexPath.row]
+                if message.type == .leadForm {
+                    print("leadform")
+                }
                 switch message.type {
                 case .call:
                     return 85
@@ -1352,29 +1477,29 @@ extension AgentConversationViewController: UITextViewDelegate {
 extension AgentConversationViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     
-//    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-//// Local variable inserted by Swift 4.2 migrator.
-//        
-//         let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
-//
-//        guard let pickedImage = info[convertFromUIImagePickerControllerInfoKey(UIImagePickerController.InfoKey.originalImage)] as? UIImage
-//            else {
-//                picker.dismiss(animated: true, completion: nil)
-//                return
-//        }
-//        
-//        let formattedImage = rotateCameraImageToProperOrientation(imageSource: pickedImage)
-//        
-//        if picker.sourceType == .camera {
-//            sendConfirmedImage(image: formattedImage, mediaType: .imageType)
-//            picker.dismiss(animated: true, completion: nil)
-//        } else if let destinationVC = self.storyboard?.instantiateViewController(withIdentifier: "SelectImageViewController") as? SelectImageViewController {
-//            destinationVC.pickedImage = formattedImage
-//            destinationVC.delegate = self
-//            picker.modalPresentationStyle = .overCurrentContext
-//            self.imagePicker.present(destinationVC, animated: true, completion: nil)
-//        }
-//    }
+    //    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+    //// Local variable inserted by Swift 4.2 migrator.
+    //
+    //         let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
+    //
+    //        guard let pickedImage = info[convertFromUIImagePickerControllerInfoKey(UIImagePickerController.InfoKey.originalImage)] as? UIImage
+    //            else {
+    //                picker.dismiss(animated: true, completion: nil)
+    //                return
+    //        }
+    //
+    //        let formattedImage = rotateCameraImageToProperOrientation(imageSource: pickedImage)
+    //
+    //        if picker.sourceType == .camera {
+    //            sendConfirmedImage(image: formattedImage, mediaType: .imageType)
+    //            picker.dismiss(animated: true, completion: nil)
+    //        } else if let destinationVC = self.storyboard?.instantiateViewController(withIdentifier: "SelectImageViewController") as? SelectImageViewController {
+    //            destinationVC.pickedImage = formattedImage
+    //            destinationVC.delegate = self
+    //            picker.modalPresentationStyle = .overCurrentContext
+    //            self.imagePicker.present(destinationVC, animated: true, completion: nil)
+    //        }
+    //    }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
@@ -1432,6 +1557,30 @@ extension AgentConversationViewController: ImageCellDelegate {
         openSelectedImage(for: message)
     }
     
+}
+
+extension AgentConversationViewController: LeadTableViewCellDelegate {
+    func cellUpdated(for cell: LeadTableViewCell, data: [FormData], isSkipAction: Bool) {
+        print("CELL UPDATED")
+    }
+
+    func sendReply(forCell cell: LeadTableViewCell, data: [FormData]) {
+        print("SEND REPLY")
+    }
+
+    func textfieldShouldBeginEditing(textfield: UITextField) {
+        print("SHOULD BEGIN")
+    }
+
+    func textfieldShouldEndEditing(textfield: UITextField) {
+        print("SHOULD END")
+    }
+
+    func leadSkipButtonClicked(message: HippoMessage, cell: LeadTableViewCell) {
+        print("LEAD SKIP BUTTON CLICKED")
+    }
+
+
 }
 
 extension AgentConversationViewController: HippoChannelDelegate {
@@ -1526,11 +1675,11 @@ extension AgentConversationViewController: HippoChannelDelegate {
 // Helper function inserted by Swift 4.2 migrator.
 #if swift(>=4.2)
 fileprivate func convertFromUIImagePickerControllerInfoKeyDictionary(_ input: [UIImagePickerController.InfoKey: Any]) -> [String: Any] {
-	return Dictionary(uniqueKeysWithValues: input.map {key, value in (key.rawValue, value)})
+    return Dictionary(uniqueKeysWithValues: input.map {key, value in (key.rawValue, value)})
 }
 
 // Helper function inserted by Swift 4.2 migrator.
 fileprivate func convertFromUIImagePickerControllerInfoKey(_ input: UIImagePickerController.InfoKey) -> String {
-	return input.rawValue
+    return input.rawValue
 }
 #endif
