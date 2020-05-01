@@ -142,10 +142,10 @@ class HippoConversationViewController: UIViewController {
         return labelId > -1
     }
     
-    func startGettingNewMessages() {
-        let color = HippoConfig.shared.theme.processingGreenColor
-        showErrorMessage(messageString: HippoConfig.shared.strings.checkingNewMessages, bgColor: color)
-    }
+//    func startGettingNewMessages() {
+//        let color = HippoConfig.shared.theme.processingGreenColor
+//        showErrorMessage(messageString: HippoConfig.shared.strings.checkingNewMessages, bgColor: color)
+//    }
     
     func isMessageInvalid(messageText: String) -> Bool {
         if messageText.replacingOccurrences(of: " ", with: "").count == 0 ||

@@ -41,8 +41,11 @@ struct SERVERS {
 //    static let betaUrl = "https://hippo-api-dev.fuguchat.com:3002/"
 //    static let betaFaye = "https://hippo-api-dev.fuguchat.com:3002/faye"
     
+
     static let devUrl =  "https://hippo-api-dev.fuguchat.com:3004/" //"https://hippo-api-dev.fuguchat.com:3002/" //"https://hippo-api-dev.fuguchat.com:3011/"
     static let devFaye = "https://hippo-api-dev.fuguchat.com:3004/faye" //"https://hippo-api-dev.fuguchat.com:3002/faye" //"https://hippo-api-dev.fuguchat.com:3012/faye"
+
+   //"https://hippo-api-dev.fuguchat.com:3012/faye"
     
 //    static let devUrl = "https://hippo-api-dev.fuguchat.com:3011/"
 //    static let devFaye = "https://hippo-api-dev.fuguchat.com:3012/faye"

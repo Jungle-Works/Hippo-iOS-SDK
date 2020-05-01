@@ -398,7 +398,7 @@ class AgentConversationViewController: HippoConversationViewController {
             startLoaderAnimation()
             disableSendingNewMessages()
         }  else if !isPaginationInProgress()  {
-            startGettingNewMessages()
+//            startGettingNewMessages()
         }
         
         let request = MessageStore.messageRequest(pageStart: pageStart, showLoader: false, pageEnd: pageEnd, channelId: channel.id, labelId: -1)
