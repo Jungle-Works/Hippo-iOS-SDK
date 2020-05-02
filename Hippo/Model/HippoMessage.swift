@@ -256,7 +256,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
             self.type = type
         }
         
-        if (senderImage ?? "").isEmpty, (senderId <= 0  || type.isBotMessage) {
+        if (senderImage ?? "").isEmpty, (senderId <= 0  && type.isBotMessage) {
             senderImage = BussinessProperty.current.botImageUrl
         }
         

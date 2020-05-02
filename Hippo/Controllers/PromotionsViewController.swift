@@ -19,24 +19,43 @@ typealias PromtionCutomCell = PromotionCellDelegate & UITableViewCell
 
 class PromotionsViewController: UIViewController {
 
+    //MARK:- IBOutlets
+    
     @IBOutlet weak var promotionsTableView: UITableView!
     @IBOutlet weak var navigationBackgroundView: UIView!
     @IBOutlet weak var loaderView: So_UIImageView!
+    @IBOutlet var errorLabel: UILabel!
+    @IBOutlet var viewError_Height: NSLayoutConstraint!
+     @IBOutlet weak var errorContentView: UIView!
+    //MARK:- Variables
     
     var data: [PromotionCellDataModel] = []
     weak var customCell: PromtionCutomCell?
     var refreshControl = UIRefreshControl()
-    var count = 20
+   // var count = 20
     var isMoreData = false
     var channelIdsArr = [Int]()
     var informationView: InformationView?
 
     var selectedRow = -1
     var states = [Bool]()
+    var shouldUseCache : Bool = true
+    var page = 1
+    var limit = 19
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Notifications"
+  
+        FuguNetworkHandler.shared.fuguConnectionChangesStartNotifier()
+        
+        if shouldUseCache {
+            self.data = fetchAllAnnouncementCache()
+            for _ in data{
+                 self.states.append(true)
+            }
+            noNotificationsFound()
+        }
         
         self.setUpViewWithNav()
         
@@ -49,34 +68,37 @@ class PromotionsViewController: UIViewController {
         if let c = customCell {
           promotionsTableView.register(UINib(nibName: c.cellIdentifier, bundle: c.bundle), forCellReuseIdentifier: c.cellIdentifier)
         }
+        self.callGetAnnouncementsApi()
     }
     
     internal func setupRefreshController() {
-        refreshControl.backgroundColor = .clear
-        refreshControl.tintColor = .themeColor
-        promotionsTableView.backgroundView = refreshControl
+//        refreshControl.backgroundColor = .clear
+//        refreshControl.tintColor = .themeColor
+        promotionsTableView.refreshControl = refreshControl
         refreshControl.addTarget(self, action: #selector(reloadrefreshData(refreshCtrler:)), for: .valueChanged)
     }
     
     @objc func reloadrefreshData(refreshCtrler: UIRefreshControl) {
         isMoreData = false
-        self.getAnnouncements(endOffset:19, startOffset: 0)
+        self.page = 1
+        if FuguNetworkHandler.shared.isNetworkConnected {
+            self.getAnnouncements(endOffset:19, startOffset: 0)
+        }else{
+             self.refreshControl.endRefreshing()
+        }
     }
     
     override  func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = false
         self.promotionsTableView.isHidden = false
-        
-//        self.startLoaderAnimation()
-//        self.getAnnouncements(endOffset: 19, startOffset: 0)
-        self.callGetAnnouncementsApi()
+        self.checkNetworkConnection()
         self.setUpTabBar()
-        
     }
 
     func callGetAnnouncementsApi(){
-        self.startLoaderAnimation()
+       // self.startLoaderAnimation()
+        self.page = 1
         self.getAnnouncements(endOffset: 19, startOffset: 0)
     }
     
@@ -177,6 +199,7 @@ class PromotionsViewController: UIViewController {
         showOptionAlert(title: "", message: "Are you sure, you want to clear all Notifications?", successButtonName: "YES", successComplete: { (_) in
             
             self.clearAnnouncements(indexPath: IndexPath(row: 0, section: 0), isDeleteAllStatus: 1)
+             FuguDefaults.removeObject(forKey: DefaultName.appointmentData.rawValue)
             
         }, failureButtonName: "NO", failureComplete: nil)
     }
@@ -187,27 +210,28 @@ class PromotionsViewController: UIViewController {
         
         HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: AgentEndPoints.getAnnouncements.rawValue) { (response, error, _, statusCode) in
             
-            self.stopLoaderAnimation()
+           // self.stopLoaderAnimation()
             
             if error == nil{
                 self.refreshControl.endRefreshing()
                 let r = response as? NSDictionary
                 if let arr = r!["data"] as? NSArray{
-                    if startOffset == 0 || arr.count >= 19{
-                        if startOffset == 0 && self.data.count > 0{
-                            self.data.removeAll()
-                            self.states.removeAll()
-                        }
-                        
-                        for item in arr{
-                            let i = item as! [String:Any]
-                            let dataNew = PromotionCellDataModel(dict:i)
-                            self.data.append(dataNew!)
-                            self.states.append(true)
-                        }
-                    }else{
-                        self.isMoreData = true
+                    if startOffset == 0 && self.data.count > 0{
+                        self.data.removeAll()
+                        self.states.removeAll()
                     }
+                    
+                    for item in arr{
+                        let i = item as! [String:Any]
+                        let dataNew = PromotionCellDataModel(dict:i)
+                        self.data.append(dataNew!)
+                        self.states.append(true)
+                    }
+                    
+                    if startOffset == 0{
+                        self.savePromotionsInCache(arr as? [[String : Any]] ?? [[String : Any]]())
+                    }
+                    
                 }
                 self.noNotificationsFound()
                 //self.promotionsTableView.reloadData()
@@ -271,6 +295,7 @@ class PromotionsViewController: UIViewController {
                     //    self.promotionsTableView.reloadData()
                     //}
                 }
+                
                 
                 self.noNotificationsFound()
                 
@@ -407,19 +432,6 @@ extension PromotionsViewController: UITableViewDelegate,UITableViewDataSource
         }
     }
     
-    
-    
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if indexPath.row + 1 == self.data.count {
-            print("do something")
-            if !isMoreData
-            {
-                let previousOffset = count
-                count = 19 + count
-                getAnnouncements(endOffset: count, startOffset: previousOffset)
-            }
-        }
-    }
    
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
@@ -444,3 +456,98 @@ extension PromotionsViewController: UITableViewDelegate,UITableViewDataSource
 extension PromotionsViewController: InformationViewDelegate {
     
 }
+
+extension PromotionsViewController{
+    
+    //MARK:- Save Promotions data in cache
+    
+    func savePromotionsInCache(_ json: [[String: Any]]) {
+        guard shouldUseCache else {
+            return
+        }
+        FuguDefaults.set(value: json, forKey: DefaultName.appointmentData.rawValue)
+        //FuguDefaults.set(value: self.conversationChatType, forKey: "conversationType")
+    }
+    
+    func fetchAllAnnouncementCache() -> [PromotionCellDataModel] {
+        guard let convCache = FuguDefaults.object(forKey: DefaultName.appointmentData.rawValue) as? [[String: Any]] else {
+            return []
+        }
+        
+        let arrayOfConversation = PromotionCellDataModel.getAnnouncementsArrayFrom(json: convCache)
+        return arrayOfConversation
+    }
+    
+}
+
+extension PromotionsViewController : UIScrollViewDelegate {
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        self.reloadProducts(scrollView)
+    }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if !decelerate {
+            self.reloadProducts(scrollView)
+        }
+    }
+    
+    func reloadProducts(_ scrollView: UIScrollView) {
+        if scrollView == promotionsTableView{
+            if scrollView.frame.size.height + scrollView.contentOffset.y >= scrollView.contentSize.height, (data.count) % limit == 0 {
+                if self.page != Int((data.count)/limit + 1){
+                    self.page = Int((data.count)/limit + 1)
+                    let previousOffset = data.count + 1 // add 1 manually to both start offeset and end offset
+                    getAnnouncements(endOffset: data.count + limit + 1, startOffset: previousOffset)
+                }else{
+                    return
+                }
+            }
+        }
+    }
+}
+extension PromotionsViewController{
+    
+    
+    @objc func appMovedToBackground() {
+        checkNetworkConnection()
+    }
+    
+    @objc func appMovedToForground() {
+        checkNetworkConnection()
+    }
+    
+
+    func checkNetworkConnection() {
+        errorLabel.backgroundColor = UIColor.red
+        if FuguNetworkHandler.shared.isNetworkConnected {
+            viewError_Height.constant = 0
+            errorLabel.text = ""
+        } else {
+            viewError_Height.constant = 20
+            errorContentView.backgroundColor = .red
+            errorLabel.text = HippoConfig.shared.strings.noNetworkConnection
+        }
+    }
+    
+    
+    // MARK: - HELPER
+    func updateErrorLabelView(isHiding: Bool) {
+
+        if isHiding {
+            if self.viewError_Height.constant == 20 {
+                fuguDelay(3, completion: {
+                   // self.errorLabelTopConstraint.constant = -20
+                    self.errorLabel.text = ""
+                    self.viewError_Height.constant = 0
+                    self.view.layoutIfNeeded()
+                    self.errorLabel.backgroundColor = UIColor.red
+                })
+            }
+            return
+        }else{
+            viewError_Height.constant = 20
+            self.view.layoutIfNeeded()
+        }
+    }
+}
+

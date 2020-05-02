@@ -33,7 +33,7 @@ public class HippoStrings {
     open var allTeamString = "All Teams"
     open var allAgentsString = "All"
     
-    open var checkingNewMessages = "Updating new messages..."
+//    open var checkingNewMessages = "Updating new messages..."
     
     var videoCallDisabledFromHippo = "Please contact your Admin to enable video call."
     

@@ -47,7 +47,6 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     var ongoingConversationArr = [FuguConversation]()
     var closedConversationArr = [FuguConversation]()
     var config: AllConversationsConfig = AllConversationsConfig.defaultConfig
-    
     var conversationChatType: ConversationChatType = .openChat
     
     // MARK: - LIFECYCLE
@@ -76,16 +75,18 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         self.openChatButton.setBackgroundColor(color: #colorLiteral(red: 0.8156862745, green: 0.8156862745, blue: 0.8156862745, alpha: 1), forState: UIControl.State.highlighted)
         self.closeChatButton.setBackgroundColor(color: #colorLiteral(red: 0.8156862745, green: 0.8156862745, blue: 0.8156862745, alpha: 1), forState: UIControl.State.highlighted)
         
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        checkNetworkConnection()
-        newConversationBiutton.isHidden = true
         if HippoUserDetail.fuguUserID == nil {
             putUserDetails()
         } else {
             getAllConversations()
         }
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        checkNetworkConnection()
+        newConversationBiutton.isHidden = true
+
         self.navigationController?.setTheme()
         self.navigationController?.isNavigationBarHidden = false
         
@@ -658,8 +659,13 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
             }
         }
         
+        if chatObj?.lastMessage?.messageUniqueID != conversationObj.lastMessage?.messageUniqueID{
+            self.getAllConversations()
+        }
+        
         chatObj?.unreadCount = conversationObj.unreadCount
         chatObj?.lastMessage = conversationObj.lastMessage
+        
         
         guard isViewLoaded else {
             return
@@ -794,8 +800,8 @@ extension AllConversationsViewController: UITableViewDelegate, UITableViewDataSo
     
     public func tableView(_ tableView: UITableView, didUnhighlightRowAt indexPath: IndexPath) {
         guard let cell = tableView.cellForRow(at: indexPath) as? ConversationView else { return }
-        cell.selectionView?.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0)
-        cell.bgView.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0)
+        cell.selectionView?.backgroundColor = .white
+        cell.bgView.backgroundColor = .white
     }
     
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

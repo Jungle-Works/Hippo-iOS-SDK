@@ -133,8 +133,10 @@ class AgentUserChannel {
                 if let messageType = messageDict["message_type"] as? Int, messageType == 18 {
                     
                     if HippoConfig.shared.appUserType == .agent  {
-                        HippoConfig.shared.log.trace("UserChannel:: --->\(messageDict)", level: .socket)
-                        CallManager.shared.voipNotificationRecieved(payloadDict: messageDict)
+                        if versionCode >= 350 {
+                            HippoConfig.shared.log.trace("UserChannel:: --->\(messageDict)", level: .socket)
+                            CallManager.shared.voipNotificationRecieved(payloadDict: messageDict)
+                        }
                     }
 
                     

@@ -120,16 +120,36 @@ class FuguNetworkHandler: NSObject {
 //            chatBoxVC.startSendingCachedMessagesWhenInternetAvailable()
             chatBoxVC.internetIsBack()
          }
-        } else if let conversationVC = getLastVisibleController() as? AllConversationsViewController, conversationVC.isViewLoaded {
+        }else if let chatBoxVC = getLastVisibleController() as? PromotionsViewController, chatBoxVC.isViewLoaded {
+                    if hidden == false {
+                        chatBoxVC.errorLabel.text = erorMessage
+                    }
+                    if let color = errorLabelColor {
+                        chatBoxVC.errorLabel.backgroundColor = color
+                    } else {
+                        chatBoxVC.errorLabel.backgroundColor = UIColor.red
+                    }
+                    if !isToLoadFirstTime && chatBoxVC.viewError_Height.constant == 0 {
+                        chatBoxVC.errorLabel.backgroundColor = UIColor.red
+                        chatBoxVC.updateErrorLabelView(isHiding: true)
+                    } else {
+                        chatBoxVC.updateErrorLabelView(isHiding: hidden)
+                    }
+                 
+                 if hidden {
+                    chatBoxVC.updateErrorLabelView(isHiding: hidden)
+                    chatBoxVC.callGetAnnouncementsApi()
+                 }
+                }
+        
+        
+        
+        
+        else if let conversationVC = getLastVisibleController() as? AllConversationsViewController, conversationVC.isViewLoaded {
             if hidden == false {
                 
                 guard let chatCachedArray = FuguDefaults.object(forKey: DefaultName.conversationData.rawValue) as? [[String: Any]], chatCachedArray.isEmpty == false else {
-//                    if !isToLoadFirstTime && conversationVC.errorLabelTopConstraint.constant == -20 {
-//                        fuguDelay(1, completion: {
-//                                    conversationVC.tableViewDefaultText = "No Internet Connection\n Tap to retry"
-//                                    conversationVC.showConversationsTableView.reloadData()
-//                        })
-//                    }
+
                         return
                 }
                 
