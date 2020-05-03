@@ -20,7 +20,7 @@ protocol FeedbackTableViewCellDelegate: class {
 class FeedbackTableViewCell: MessageTableViewCell {
     
     static let submitButtonHeight: CGFloat = 35
-    
+    var isAgent: Bool = false
     var objectArray = [FeedbackAttributes]()
     weak var delegate: FeedbackTableViewCellDelegate?
     var data = FeedbackParams()
@@ -45,14 +45,14 @@ class FeedbackTableViewCell: MessageTableViewCell {
             submitButton.setTitle("SUBMIT", for: .normal)
             submitButton.setTitleColor(HippoConfig.shared.theme.headerTextColor, for: .normal)
             submitButton.backgroundColor = HippoConfig.shared.theme.headerBackgroundColor
-//            submitButton.setTitle("SUBMIT", for: .normal)
-//            submitButton.setTitleColor(UIColor.white, for: .normal)
-//            DispatchQueue.main.async {
-//                let gradient = CAGradientLayer()
-//                gradient.frame = self.submitButton.bounds
-//                gradient.colors = [HippoConfig.shared.theme.gradientTopColor.cgColor, HippoConfig.shared.theme.gradientBottomColor.cgColor]
-//                self.submitButton.layer.insertSublayer(gradient, at: 0)
-//            }
+            //            submitButton.setTitle("SUBMIT", for: .normal)
+            //            submitButton.setTitleColor(UIColor.white, for: .normal)
+            //            DispatchQueue.main.async {
+            //                let gradient = CAGradientLayer()
+            //                gradient.frame = self.submitButton.bounds
+            //                gradient.colors = [HippoConfig.shared.theme.gradientTopColor.cgColor, HippoConfig.shared.theme.gradientBottomColor.cgColor]
+            //                self.submitButton.layer.insertSublayer(gradient, at: 0)
+            //            }
         }
     }
     @IBOutlet weak var collectionView: UICollectionView!
@@ -63,6 +63,39 @@ class FeedbackTableViewCell: MessageTableViewCell {
         objectArray = FeedbackAttributes.getArray()
         setupCollectionView()
         setupAlertView()
+    }
+
+    func setDataForAgent(with params: FeedbackParams) {
+        self.data = params
+        if let message = params.messageObject {
+            super.intalizeCell(with: message, isIncomingView: true)
+        }
+        data.cellTextView = cellTextView
+        titleLabel.text = data.messageObject!.feedbackMessages.line_before_feedback
+
+        if params.messageObject!.is_rating_given {
+            completionView.isHidden = false
+            submitButton.isHidden = true
+            cellTextView.isEditable = false
+            placeholderLabel.isHidden = true
+            constraintSubmitHeight.constant = 0
+
+            verticleLineview.isHidden = true
+            setDataForCompletedRating(isAgent: true)
+        } else {
+            completionView.isHidden = true
+            submitButton.isHidden = true
+            cellTextView.isEditable = true
+            placeholderLabel.isHidden = true
+            cellTextView.isHidden = true
+            constraintSubmitHeight.constant = 0
+            textviewHeightConstraint.constant = 0
+            verticleLineview.isHidden = true
+        }
+        self.layoutIfNeeded()
+        //updateHeightOf(textView: cellTextView)
+        collectionView.reloadData()
+
     }
     
     func setData(params: FeedbackParams) {
@@ -81,7 +114,7 @@ class FeedbackTableViewCell: MessageTableViewCell {
             placeholderLabel.isHidden = true
             constraintSubmitHeight.constant = 0
             verticleLineview.isHidden = true
-//            textviewHeightConstraint.constant = min_height_textview + 35
+            //            textviewHeightConstraint.constant = min_height_textview + 35
             setDataForCompletedRating()
         } else {
             completionView.isHidden = true
@@ -90,7 +123,7 @@ class FeedbackTableViewCell: MessageTableViewCell {
             placeholderLabel.isHidden = false
             cellTextView.text = ""
             constraintSubmitHeight.constant = FeedbackTableViewCell.submitButtonHeight
-//            textviewHeightConstraint.constant = min_height_textview
+            //            textviewHeightConstraint.constant = min_height_textview
             verticleLineview.isHidden = false
         }
         self.layoutIfNeeded()
@@ -99,18 +132,28 @@ class FeedbackTableViewCell: MessageTableViewCell {
         
         let index = IndexPath(row: data.selectedIndex - 1, section: 0)
         collectionView.selectItem(at: index, animated: false, scrollPosition: .centeredHorizontally)
-//        collectionView.backgroundColor = UIColor.clear
+        //        collectionView.backgroundColor = UIColor.clear
     }
-    func setDataForCompletedRating() {
+    func setDataForCompletedRating(isAgent: Bool = false) {
         guard data.messageObject != nil else {
             return
         }
-        cellTextView.text = data.messageObject!.comment
-        
-        if cellTextView.text.isEmpty {
-            placeholderLabel.text = "No Comment..."
-            placeholderLabel.isHidden = false
+        if isAgent {
+            cellTextView.text = data.messageObject!.comment
+            if cellTextView.text.isEmpty {
+                cellTextView.isHidden = true
+                placeholderLabel.isHidden = true
+                textviewHeightConstraint.constant = 0
+            }
+
+        } else {
+            cellTextView.text = data.messageObject!.comment
+            if cellTextView.text.isEmpty {
+                placeholderLabel.text = "No Comment..."
+                placeholderLabel.isHidden = false
+            }
         }
+
         ratingImage.image = FeedbackAttributes.getArray()[data.selectedIndex - 1].image
         
         feedbackDescLabel.text = data.messageObject!.feedbackMessages.line_after_feedback_2
@@ -134,12 +177,12 @@ class FeedbackTableViewCell: MessageTableViewCell {
         alertContainer.layer.borderWidth = 0.5
         alertContainer.layer.masksToBounds = true
         alertContainer.layer.cornerRadius = 10
-//        alertContainer.backgroundColor = HippoConfig.shared.theme.gradientBackgroundColor
-//        if #available(iOS 11.0, *) {
-//            alertContainer.layer.maskedCorners = [.layerMaxXMinYCorner,.layerMinXMaxYCorner,.layerMaxXMaxYCorner]
-//        } else {
-//            // Fallback on earlier versions
-//        }
+        //        alertContainer.backgroundColor = HippoConfig.shared.theme.gradientBackgroundColor
+        //        if #available(iOS 11.0, *) {
+        //            alertContainer.layer.maskedCorners = [.layerMaxXMinYCorner,.layerMinXMaxYCorner,.layerMaxXMaxYCorner]
+        //        } else {
+        //            // Fallback on earlier versions
+        //        }
         
         
         selectionStyle = .none
@@ -176,6 +219,7 @@ extension FeedbackTableViewCell: UICollectionViewDelegate, UICollectionViewDataS
         
         let index = IndexPath(row: data.selectedIndex - 1, section: 0)
         collectionView.selectItem(at: index, animated: false, scrollPosition: .centeredHorizontally)
+        cell.isAgent = self.isAgent
         cell.setData(data: objectArray[indexPath.row])
         
         return cell
@@ -200,8 +244,8 @@ extension FeedbackTableViewCell: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         self.delegate?.cellTextViewBeginEditing(textView: textView, data: data)
         HippoKeyboardManager.shared.enable = true
-//        HippoKeyboardManager.shared.layoutIfNeededOnUpdate = false
-//        IQKeyboardManager.shared.enableAutoToolbar = false
+        //        HippoKeyboardManager.shared.layoutIfNeededOnUpdate = false
+        //        IQKeyboardManager.shared.enableAutoToolbar = false
     }
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
         return true
@@ -226,20 +270,20 @@ extension FeedbackTableViewCell: UITextViewDelegate {
     
     func updateHeightOf(textView: UITextView) {
         return
-//        var heightOfTextView = textView.contentSize.height - (textView.frame.size.height + textView.textContainerInset.top + textView.textContainerInset.bottom)
-//        
-//        heightOfTextView = textView.contentSize.height + textView.textContainerInset.top + textView.textContainerInset.bottom
-//        
-//        
-//        if heightOfTextView < self.min_height_textview {
-//            heightOfTextView = self.min_height_textview
-//        } else if heightOfTextView > self.max_height_textview {
-//            heightOfTextView = self.max_height_textview
-//        }
-//        self.textviewHeightConstraint.constant = heightOfTextView
-//        self.data.textViewHeight = heightOfTextView
-//        self.delegate?.updateHeightForCell(at: self.data, textView: textView)
-//        self.layoutIfNeeded()
+        //        var heightOfTextView = textView.contentSize.height - (textView.frame.size.height + textView.textContainerInset.top + textView.textContainerInset.bottom)
+        //
+        //        heightOfTextView = textView.contentSize.height + textView.textContainerInset.top + textView.textContainerInset.bottom
+        //
+        //
+        //        if heightOfTextView < self.min_height_textview {
+        //            heightOfTextView = self.min_height_textview
+        //        } else if heightOfTextView > self.max_height_textview {
+        //            heightOfTextView = self.max_height_textview
+        //        }
+        //        self.textviewHeightConstraint.constant = heightOfTextView
+        //        self.data.textViewHeight = heightOfTextView
+        //        self.delegate?.updateHeightForCell(at: self.data, textView: textView)
+        //        self.layoutIfNeeded()
     }
 }
 

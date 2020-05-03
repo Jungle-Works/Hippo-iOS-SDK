@@ -31,7 +31,8 @@ class MultiSelectTableViewCell: UITableViewCell {
     @IBOutlet weak var bgViewTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var multiSelectLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var multiSelectTrailingConstraint: NSLayoutConstraint!
-    
+
+    var isAgent: Bool = false
     var message: HippoMessage?
     weak var submitButtonDelegate: submitButtonTableViewDelegate?
     
@@ -108,7 +109,9 @@ class MultiSelectTableViewCell: UITableViewCell {
 
 extension MultiSelectTableViewCell
 {
-    func set(message: HippoMessage) {
+    func set(message: HippoMessage, isAgent: Bool = false) {
+
+
         self.message = message
         
         if message.customAction?.maxSelection ?? 1 > 1
@@ -254,6 +257,7 @@ extension MultiSelectTableViewCell: UITableViewDataSource
             {
                 cell.cellButton.isEnabled = false
             }
+            cell.cellButton.isHidden = self.isAgent
             
             return cell
         }
