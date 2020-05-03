@@ -34,7 +34,9 @@ class CallManager {
             return
         }
         
-        let callToMake = Call(peer: peer, signalingClient: call.signallingClient, uID: call.muid, currentUser: currentUser, type: getCallTypeWith(localType: call.callType), link: "")
+//        let callToMake = Call(peer: peer, signalingClient: call.signallingClient, uID: call.muid, currentUser: currentUser, type: getCallTypeWith(localType: call.callType), link: "")
+        let callToMake = Call(peer: peer, signalingClient: call.signallingClient, uID: call.muid, currentUser: currentUser, type: getCallTypeWith(localType: call.callType))
+        
         HippoCallClient.shared.startCall(call: callToMake, completion: completion)
         #else
         completion(false)
@@ -59,21 +61,22 @@ class CallManager {
 //        #endif
 //    }
     
-    func startWebRTCCall(call: CallData, completion: @escaping (Bool) -> Void) {
-        #if canImport(HippoCallClient)
-        let peerUser = call.peerData
-        guard let peer = HippoUser(name: peerUser.fullName, userID: peerUser.userID, imageURL: peerUser.image) else {
-            return
-        }
-        guard let currentUser = getCurrentUser() else {
-            return
-        }
-        let callToMake = Call(peer: peer, signalingClient: call.signallingClient, uID: call.muid, currentUser: currentUser, type: getCallTypeWith(localType: call.callType), link: "")
-        HippoCallClient.shared.startWebRTCCall(call: callToMake, completion: completion)
-        #else
-        completion(false)
-        #endif
-    }
+//    func startWebRTCCall(call: CallData, completion: @escaping (Bool) -> Void) {
+//        #if canImport(HippoCallClient)
+//        let peerUser = call.peerData
+//        guard let peer = HippoUser(name: peerUser.fullName, userID: peerUser.userID, imageURL: peerUser.image) else {
+//            return
+//        }
+//        guard let currentUser = getCurrentUser() else {
+//            return
+//        }
+////        let callToMake = Call(peer: peer, signalingClient: call.signallingClient, uID: call.muid, currentUser: currentUser, type: getCallTypeWith(localType: call.callType), link: "")
+//        let callToMake = Call(peer: peer, signalingClient: call.signallingClient, uID: call.muid, currentUser: currentUser, type: getCallTypeWith(localType: call.callType))
+//        HippoCallClient.shared.startWebRTCCall(call: callToMake, completion: completion)
+//        #else
+//        completion(false)
+//        #endif
+//    }
     
     func startConnection(peerUser: User, muid: String, callType: CallType, completion: (Bool) -> Void) {
         #if canImport(HippoCallClient)

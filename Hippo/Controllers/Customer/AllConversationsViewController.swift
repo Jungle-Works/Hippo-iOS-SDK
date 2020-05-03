@@ -117,7 +117,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         
         print("bodID******* \(HippoProperty.current.newconversationBotGroupId ?? "")")
         print("bodID*******First")
-        fuguNewChatAttributes.botGroupId = HippoProperty.current.newconversationBotGroupId//"72"//
+        fuguNewChatAttributes.botGroupId = HippoProperty.current.newconversationBotGroupId//"5"//
         
         let conversation = ConversationsViewController.getWith(chatAttributes: fuguNewChatAttributes)
         conversation.createConversationOnStart = true
@@ -359,8 +359,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         
         print("bodID******* \(HippoProperty.current.newconversationBotGroupId ?? "")")
         print("bodID*******Second")
-        fuguNewChatAttributes.botGroupId = HippoProperty.current.newconversationBotGroupId//"72"//
-//        fuguNewChatAttributes.botGroupId = "299"
+        fuguNewChatAttributes.botGroupId = HippoProperty.current.newconversationBotGroupId//"5"//
         
         let conversation = ConversationsViewController.getWith(chatAttributes: fuguNewChatAttributes)
         conversation.createConversationOnStart = true

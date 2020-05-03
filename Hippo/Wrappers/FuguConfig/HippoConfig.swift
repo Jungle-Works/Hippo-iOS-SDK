@@ -23,33 +23,18 @@ enum AppUserType {
 
 
 struct SERVERS {
-    
-//    static let liveUrl = "https://api-new.fuguchat.com/"
-//    static let liveFaye = "https://api-faye.fuguchat.com:3002/faye"
-////    "https://api-new.fuguchat.com:3002/faye" //"https://api-faye.fuguchat.com/faye"
-    
     static let liveUrl = "https://api.fuguchat.com/"//"https://api.hippochat.io/"//
     static let liveFaye = "https://api.fuguchat.com:3002/faye"//"https://api.hippochat.io:3002/faye"//
-    
-//    static let liveUrl = "https://api.hippochat.io/"
-//    static let liveFaye = "wss://faye.hippochat.io/faye"
     
     static let betaUrl = "https://beta-live-api.fuguchat.com/"
     static let betaFaye = "https://beta-live-api.fuguchat.com:3001/faye"
     
-     /*OLD BETA****/
-//    static let betaUrl = "https://hippo-api-dev.fuguchat.com:3002/"
-//    static let betaFaye = "https://hippo-api-dev.fuguchat.com:3002/faye"
+    /*OLD BETA****/
+    //    static let betaUrl = "https://hippo-api-dev.fuguchat.com:3002/"
+    //    static let betaFaye = "https://hippo-api-dev.fuguchat.com:3002/faye"
     
-    static let devUrl =  "https://hippo-api-dev.fuguchat.com:3004/" //"https://hippo-api-dev.fuguchat.com:3002/" //"https://hippo-api-dev.fuguchat.com:3011/"
-    static let devFaye = "https://hippo-api-dev.fuguchat.com:3004/faye" //"https://hippo-api-dev.fuguchat.com:3002/faye" //"https://hippo-api-dev.fuguchat.com:3012/faye"
-    
-//    static let devUrl = "https://hippo-api-dev.fuguchat.com:3011/"
-//    static let devFaye = "https://hippo-api-dev.fuguchat.com:3012/faye"
-//
-//    static let betaUrlNew = "https://beta-live-api.fuguchat.com/"
-//    static let betaFayeNew = "https://api.fuguchat.com:3001/faye"
-
+    static let devUrl = "https://hippo-api-dev.fuguchat.com:3002/" //"https://hippo-api-dev.fuguchat.com:3011/"
+    static let devFaye = "https://hippo-api-dev.fuguchat.com:3002/faye" //"https://hippo-api-dev.fuguchat.com:3012/faye"
 }
 
 @objcMembers public class HippoConfig : NSObject {
