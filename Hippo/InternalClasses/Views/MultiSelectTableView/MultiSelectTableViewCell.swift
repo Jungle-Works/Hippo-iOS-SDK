@@ -143,7 +143,7 @@ extension MultiSelectTableViewCell
 //        let arr = message?.customAction?.buttonsArray as! [MultiselectButtons]
 //        var selectedButtonsArr = arr.filter { $0.status == true }
         var selectedButtonsArr = [MultiselectButtons]()
-        if let arr = message?.customAction?.buttonsArray as? [MultiselectButtons]{
+        if let arr = message?.customAction?.buttonsArray{
             selectedButtonsArr = arr.filter { $0.status == true }
         }
         

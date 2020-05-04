@@ -749,9 +749,11 @@ class HippoConversationViewController: UIViewController {
             case .orderedSame:
                 var latestMessageGroup = messagesGroupedByDate.last ?? []
                 let lastMessage: HippoMessage? = latestMessageGroup.last
-                self.setDataFor(belowMessage: message, aboveMessage: lastMessage)
-                latestMessageGroup.append(message)
-                messagesGroupedByDate[messagesGroupedByDate.count - 1] = latestMessageGroup
+                if lastMessage?.messageUniqueID != message.messageUniqueID{
+                    self.setDataFor(belowMessage: message, aboveMessage: lastMessage)
+                    latestMessageGroup.append(message)
+                    messagesGroupedByDate[messagesGroupedByDate.count - 1] = latestMessageGroup
+                }
             default:
                 addMessageToNewGroup(message: message)
             }
@@ -773,6 +775,7 @@ class HippoConversationViewController: UIViewController {
     func addMessageToNewGroup(message: HippoMessage) {
         self.messagesGroupedByDate.append([message])
     }
+    
     func getDateTimeStringOfLatestStoredMessage() -> Date? {
         guard !messagesGroupedByDate.isEmpty else {
             return nil
