@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="vAr-Qq-z1C">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="vAr-Qq-z1C">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -595,19 +593,31 @@
                                 </connections>
                             </button>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="OV9-2J-dXz">
-                            <button key="customView" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ECE-rP-luu">
-                                <rect key="frame" x="308" y="0.0" width="51" height="44"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="broadcastIcon"/>
-                                <connections>
-                                    <action selector="broadcastButtonClicked:" destination="uIz-da-txe" eventType="touchUpInside" id="KB1-Xc-B33"/>
-                                </connections>
-                            </button>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem style="plain" id="ck4-O6-bJ5">
+                                <switch key="customView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="0X4-U3-bKC">
+                                    <rect key="frame" x="308" y="6.5" width="51" height="31"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <connections>
+                                        <action selector="agentStatusToggle:" destination="uIz-da-txe" eventType="valueChanged" id="PNu-td-U9w"/>
+                                    </connections>
+                                </switch>
+                            </barButtonItem>
+                            <barButtonItem style="plain" id="OV9-2J-dXz">
+                                <button key="customView" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ECE-rP-luu">
+                                    <rect key="frame" x="249" y="0.0" width="51" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" image="broadcastIcon"/>
+                                    <connections>
+                                        <action selector="broadcastButtonClicked:" destination="uIz-da-txe" eventType="touchUpInside" id="KB1-Xc-B33"/>
+                                    </connections>
+                                </button>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <connections>
+                        <outlet property="agentStatus" destination="0X4-U3-bKC" id="aZl-bA-40O"/>
                         <outlet property="allChatButton" destination="Xn6-ix-4fV" id="nPI-Wu-ajg"/>
                         <outlet property="backButton" destination="n1n-hH-rmG" id="IUu-6w-Fak"/>
                         <outlet property="bottomLineView" destination="bdt-a9-10w" id="pe2-l4-Odt"/>
@@ -768,7 +778,7 @@
                                 </constraints>
                             </view>
                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" image="app_loader_shape" translatesAutoresizingMaskIntoConstraints="NO" id="eZG-Yq-Sel">
-                                <rect key="frame" x="147.5" y="293.5" width="80" height="80"/>
+                                <rect key="frame" x="167.5" y="313.5" width="40" height="40"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q6z-xO-SMj">
                                 <rect key="frame" x="164.5" y="322.5" width="46.5" height="22.5"/>
@@ -1856,6 +1866,16 @@
                             </button>
                         </barButtonItem>
                         <rightBarButtonItems>
+                            <barButtonItem title="Item" style="plain" id="Mh5-T0-buE">
+                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="u78-hd-ZhM">
+                                    <rect key="frame" x="330" y="11" width="21" height="22"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" image="optionIcons"/>
+                                    <connections>
+                                        <action selector="infoButtonClicked:" destination="RAD-lA-huB" eventType="touchUpInside" id="vRe-ul-8Bv"/>
+                                    </connections>
+                                </button>
+                            </barButtonItem>
                             <barButtonItem id="M0G-Cq-VOz">
                                 <connections>
                                     <action selector="videoCallButtonClicked:" destination="RAD-lA-huB" id="eLc-u9-Lqx"/>
@@ -2489,6 +2509,7 @@
         <image name="newChat" width="30" height="30"/>
         <image name="new_chat_icon" width="18" height="19"/>
         <image name="notification" width="21.5" height="25"/>
+        <image name="optionIcons" width="21" height="21"/>
         <image name="payment" width="21" height="21"/>
         <image name="private+message_icon_chat_box" width="17" height="20"/>
         <image name="starIcon" width="26" height="23"/>

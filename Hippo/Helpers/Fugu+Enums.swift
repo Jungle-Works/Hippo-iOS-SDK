@@ -326,6 +326,7 @@ enum AgentEndPoints: String {
     case clearAnnouncements = "api/broadcast/clearAnnouncements"
     
     case assignAgent = "api/agent/assignAgent"
+    case agentStatus = "api/agent/editInfo"
     
     case sendPayment = "api/payment/sendPaymentUrl"
 //    case serverGetConfig = "api/apps/getConfig"

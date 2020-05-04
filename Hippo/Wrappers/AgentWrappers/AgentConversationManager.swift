@@ -116,6 +116,30 @@ class AgentConversationManager {
         }
         
     }
+    class func agentStatusUpdate(newStatus: AgentStatus) {
+        guard HippoConfig.shared.appUserType == .agent else {
+             return
+         }
+         guard let agent = HippoConfig.shared.agentDetail, agent.id > 0 else {
+             return
+         }
+         let param: [String: Any] = [
+                "access_token": agent.fuguToken,
+                "en_user_id": agent.enUserId,
+                "business_id": agent.businessId,
+                "device_type": Device_Type_iOS,
+                "online_status": newStatus.rawValue,
+             ]
+        print(param)
+
+        HTTPClient.shared.makeSingletonConnectionWith(method: .POST, identifier: RequestIdenfier.getAllConversationIdentfier,para: param, extendedUrl: AgentEndPoints.agentStatus.rawValue) { (response, error, tag, statusCode) in
+            if let _ = error {
+                return
+            }
+            HippoConfig.shared.agentDetail?.status = newStatus
+        }
+    }
+
     class func getUserUnreadCount() {
         guard !isUnreadCountInProgress && !isLoginInProgess else {
             return

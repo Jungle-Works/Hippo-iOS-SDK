@@ -45,6 +45,8 @@ class AgentHomeViewController: HippoHomeViewController {
     @IBOutlet weak var bottomViewLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var backButton: UIButton!
     
+    @IBOutlet weak var agentStatus: UISwitch!
+
     @IBOutlet weak var loaderContainer: UIView!
     @IBOutlet weak var centerErrorButton: UIButton!
     @IBOutlet weak var loaderImage: So_UIImageView!
@@ -79,7 +81,11 @@ class AgentHomeViewController: HippoHomeViewController {
         HippoConfig.shared.notifiyDeinit()
         self.dismiss(animated: true, completion: nil)
     }
-    
+
+    @IBAction func agentStatusToggle(_ sender: Any) {
+        agentStatusChanged()
+    }
+
     @IBAction func myChatButtonClicked(_ sender: UIButton) {
         guard conversationType != .myChat else {
             return
@@ -106,7 +112,8 @@ class AgentHomeViewController: HippoHomeViewController {
         setData()
         tableView.reloadData()
     }
-    
+
+
     deinit {
         print("Deinit AgentHome.....")
     }
@@ -147,6 +154,10 @@ class AgentHomeViewController: HippoHomeViewController {
 
 //MARK: Methods
 extension AgentHomeViewController {
+
+    func agentStatusChanged() {
+        AgentConversationManager.agentStatusUpdate(newStatus: self.agentStatus.isOn ? AgentStatus.available : AgentStatus.away)
+    }
     
     func setData() {
         switch conversationType {
@@ -155,9 +166,19 @@ extension AgentHomeViewController {
         case .myChat:
             conversationList = ConversationStore.shared.myChats
         }
+        setAgentStatus()
         updatePaginationData()
         showLoaderIfRequired()
     }
+
+    func setAgentStatus() {
+        guard let agent = HippoConfig.shared.agentDetail, agent.id > 0 else {
+            return
+        }
+        self.agentStatus.isOn = agent.status == .available ? true : false
+    }
+
+
     
     func checkForAnyError() {
         guard !AgentConversationManager.isConversationApiOnGoing() else {
