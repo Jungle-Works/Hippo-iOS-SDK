@@ -360,7 +360,10 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         
         print("bodID******* \(HippoProperty.current.newconversationBotGroupId ?? "")")
         print("bodID*******Second")
-        fuguNewChatAttributes.botGroupId = HippoProperty.current.newconversationBotGroupId//"72"//
+        if HippoProperty.current.newconversationBotGroupId != ""{
+            fuguNewChatAttributes.botGroupId = HippoProperty.current.newconversationBotGroupId
+        }
+       //"72"//
 //        fuguNewChatAttributes.botGroupId = "299"
         
         let conversation = ConversationsViewController.getWith(chatAttributes: fuguNewChatAttributes)

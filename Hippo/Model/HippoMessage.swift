@@ -513,6 +513,8 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         json["source"] = SourceType.SDK.rawValue
         json["device_type"] = Device_Type_iOS
         
+        json["selected_agent_id"] = selectedCardId
+        
         if let parsedBotFormMUID = self.botFormMessageUniqueID {
             json["bot_form_muid"] = parsedBotFormMUID
         }
@@ -594,8 +596,41 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
             json["values"] = [selectedActionId]
             json["content_value"] = contentValues
         }
+        
+        if customAction != nil{
+            json["custom_action"] = getDicForCustomAction()
+        }
+        
         return json
     }
+    
+    //dic for multiselection message
+    
+    func getDicForCustomAction() -> [String : Any]{
+        var dic = [String : Any]()
+        dic["is_replied"] = 1 // Need to send 1 for message
+        dic["max_selection"] = 1
+        dic["min_selection"] = 1
+        dic["multi_select_buttons"] = getArrOfCustomActionBtn()
+        
+        return dic
+    }
+    
+    
+    func getArrOfCustomActionBtn()-> [[String : Any]]{
+        var btnArr = [[String : Any]]()
+        for btn in customAction?.buttonsArray ?? [MultiselectButtons](){
+            var dic = [String : Any]()
+            dic["btn_id"] = btn.btnId
+            dic["btn_title"] = btn.btnTitle
+            dic["status"] = btn.status
+            btnArr.append(dic)
+        }
+        return btnArr
+    }
+    
+    ///
+    
     func getMessageSendingFailedWhenSavingInCache() -> Bool {
         let wasMessageSendingInProgress = status == .none
         let typeIsMedia = (type == .imageFile || type == .attachment)
