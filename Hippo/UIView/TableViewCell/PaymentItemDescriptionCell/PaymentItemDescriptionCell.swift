@@ -16,6 +16,8 @@ protocol PaymentItemDescriptionCellDelegate: class {
 
 class PaymentItemDescriptionCell: UITableViewCell {
 
+    @IBOutlet weak var titleTextField: UITextField!
+    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var textviewPlaceHolderLabel: UILabel!
     @IBOutlet weak var textViewBottomLineView: UIView!
     @IBOutlet weak var cancelIcon: UIButton!
@@ -34,6 +36,7 @@ class PaymentItemDescriptionCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        titleTextField.delegate = self
         priceTextField.delegate = self
         descriptionTextView.delegate = self
         setUI()
@@ -44,8 +47,15 @@ class PaymentItemDescriptionCell: UITableViewCell {
     }
     
     func setUI() {
+//        let theme = HippoTheme.theme
+//
+//        self.backgroundColor = .clear
+        
         priceLabel.textColor = HippoConfig.shared.theme.broadcastTitleColor
         priceLabel.font = UIFont.systemFont(ofSize: 14)
+        
+        titleLabel.textColor = HippoConfig.shared.theme.broadcastTitleColor
+        titleLabel.font = UIFont.systemFont(ofSize: 14)
         
         descriptionLabel.textColor = HippoConfig.shared.theme.broadcastTitleColor
         descriptionLabel.font = UIFont.systemFont(ofSize: 14)
@@ -59,13 +69,26 @@ class PaymentItemDescriptionCell: UITableViewCell {
         descriptionTextView.layer.borderWidth = 1
         descriptionTextView.layer.cornerRadius = 5
         
-        cancelIcon.backgroundColor = UIColor.themeColor
+        cancelIcon.backgroundColor = HippoConfig.shared.theme.headerTextColor//UIColor.themeColor
         cancelIcon.tintColor = UIColor.white
         cancelIcon.layer.cornerRadius = cancelIcon.bounds.height / 2
-         cancelIcon.layer.masksToBounds = true
+        cancelIcon.layer.masksToBounds = true
         cancelIcon.setImage(HippoConfig.shared.theme.cancelIcon, for: .normal)
         
+//        bgView.backgroundColor = theme.systemBackgroundColor.primary
+//
+//        descriptionTextView.textColor = theme.label.primary
+//        titleTextField.textColor = theme.label.primary
+//        priceTextField.textColor = theme.label.primary
+//
+//
+//        titleTextField.backgroundColor = theme.systemBackgroundColor.secondary
+//        priceTextField.backgroundColor = theme.systemBackgroundColor.secondary
+//        descriptionTextView.backgroundColor = theme.systemBackgroundColor.secondary
+        
+        
         textviewPlaceHolderLabel.text = ""
+//        textviewPlaceHolderLabel.textColor = theme.label.secondary
         
         textViewBottomLineView.isHidden = true
     }
@@ -83,6 +106,12 @@ class PaymentItemDescriptionCell: UITableViewCell {
         priceTextField.text = item.priceField.value
         priceTextField.placeholder = item.priceField.placeHolder
         priceLabel.text = item.priceField.title
+        
+        titleTextField.keyboardType = item.titleField.validationType.keyBoardType
+        titleTextField.text = item.titleField.value
+        titleTextField.placeholder = item.titleField.placeHolder
+        titleLabel.text = item.titleField.title
+        
         
         descriptionTextView.keyboardType = item.descriptionField.validationType.keyBoardType
         descriptionTextView.text = item.descriptionField.value
@@ -138,13 +167,23 @@ extension PaymentItemDescriptionCell: UITextFieldDelegate {
         let updatedString = (textField.text as NSString?)?.replacingCharacters(in: range, with: string)
         let countForNewString = updatedString?.count ?? 0
         
+        
+        
         let maxCount = 10
         
-        guard countForNewString <= maxCount else {
-            return false
+        switch textField {
+        case priceTextField:
+            guard countForNewString <= maxCount else {
+                return false
+            }
+            item.priceField.value = updatedString ?? ""
+            delegate?.itemPriceUpdated()
+        case titleTextField:
+            item.titleField.value = updatedString ?? ""
+        default:
+            break
         }
-        item.priceField.value = updatedString ?? ""
-        delegate?.itemPriceUpdated()
+        
         return true
     }
 }

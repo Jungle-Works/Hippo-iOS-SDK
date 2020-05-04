@@ -36,11 +36,16 @@ class ShowMoreTableViewCell: UITableViewCell {
     }
 
     func setUI() {
+//        let theme = HippoTheme.theme
         totalPriceLabel.textColor = HippoConfig.shared.theme.broadcastTitleColor
         totalPriceLabel.font = UIFont.systemFont(ofSize: 15)
         
-        showMoreButton.setTitleColor(Color.themeColor, for: .normal)
-        showMoreButton.tintColor = Color.themeColor
+//        backgroundColor = .clear
+        
+//        showMoreButton.setTitleColor(Color.themeColor, for: .normal)
+//        showMoreButton.tintColor = Color.themeColor
+        showMoreButton.setTitleColor(HippoConfig.shared.theme.headerTextColor, for: .normal)
+        showMoreButton.tintColor = HippoConfig.shared.theme.headerTextColor
     }
     func setupCell(form: PaymentField, store: PaymentStore) {
         self.form = form
@@ -70,6 +75,11 @@ class ShowMoreTableViewCell: UITableViewCell {
             totalPriceLabel.text = "Total Price: \(formattedValue)"
         } else {
             totalPriceLabel.text = ""
+        }
+        if HippoConfig.shared.appUserType == .agent{
+            if store?.totalCostEnabled == false {
+                totalPriceLabel.text = ""
+            }
         }
     }
 }

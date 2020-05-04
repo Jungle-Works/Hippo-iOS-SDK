@@ -13,7 +13,7 @@ let Device_Type_iOS = 2
 var userDetailData = [String: Any]()
 
 let fuguAppVersion = "2.1.11"
-let versionCode = 320
+let versionCode = 320//350(newCalling)
 
 /*
  201 = Bot messages

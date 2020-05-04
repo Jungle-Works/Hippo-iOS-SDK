@@ -41,12 +41,22 @@
 		C9FB6FA921EE10CD00B72CEA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9FB6F9421EE10CD00B72CEA /* Assets.xcassets */; };
 		C9FB6FAA21EE10CD00B72CEA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9FB6F9521EE10CD00B72CEA /* LaunchScreen.storyboard */; };
 		C9FB6FAE21EE10CD00B72CEA /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C9FB6F9A21EE10CD00B72CEA /* Info.plist */; };
+		D848D1B0245EEEDF00235322 /* PaymentPlanStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D848D1AE245EEEDE00235322 /* PaymentPlanStore.swift */; };
+		D848D1B1245EEEDF00235322 /* PaymentPlan.swift in Sources */ = {isa = PBXBuildFile; fileRef = D848D1AF245EEEDF00235322 /* PaymentPlan.swift */; };
+		D848D1B5245EEF5600235322 /* PaymentPlansDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D848D1B3245EEF5600235322 /* PaymentPlansDataSource.swift */; };
+		D848D1B6245EEF5600235322 /* PaymentPlansViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D848D1B4245EEF5600235322 /* PaymentPlansViewController.swift */; };
+		D848D1BA245EEF9700235322 /* PaymentPlanHomeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D848D1B8245EEF9700235322 /* PaymentPlanHomeCell.swift */; };
+		D848D1BB245EEF9700235322 /* PaymentPlanHomeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D848D1B9245EEF9700235322 /* PaymentPlanHomeCell.xib */; };
+		D84F79F5245F49AC00B36168 /* PaymentItemDescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84F79F3245F49AB00B36168 /* PaymentItemDescriptionCell.swift */; };
+		D84F79F6245F49AC00B36168 /* PaymentItemDescriptionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D84F79F4245F49AC00B36168 /* PaymentItemDescriptionCell.xib */; };
 		D86028AB23F6AD40009540D3 /* SuggestionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86028A923F6AD40009540D3 /* SuggestionCell.swift */; };
 		D86028AC23F6AD40009540D3 /* SuggestionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D86028AA23F6AD40009540D3 /* SuggestionCell.xib */; };
 		D86028B023F6AFFA009540D3 /* SuggestionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86028AE23F6AFF9009540D3 /* SuggestionViewDelegate.swift */; };
 		D86028B123F6AFFA009540D3 /* SuggestionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86028AF23F6AFFA009540D3 /* SuggestionViewDataSource.swift */; };
 		D86028B423F6B425009540D3 /* SuggestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86028B323F6B425009540D3 /* SuggestionView.swift */; };
 		D86028B623F6C9D0009540D3 /* SuggestionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86028B523F6C9CF009540D3 /* SuggestionViewFlowLayout.swift */; };
+		D8A2EDFA245F2F020090E283 /* CreatePaymentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8A2EDF9245F2F020090E283 /* CreatePaymentViewController.xib */; };
+		D8A2EDFE245F2F480090E283 /* PaymentPlansViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8A2EDFD245F2F480090E283 /* PaymentPlansViewController.xib */; };
 		D8F6CFF72418F99800B168C5 /* AllConversationPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F6CFF62418F99800B168C5 /* AllConversationPresenter.swift */; };
 		D8F6CFFF2418F9CF00B168C5 /* AgentProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8F6CFFB2418F9CE00B168C5 /* AgentProfileViewController.xib */; };
 		D8F6D0002418F9CF00B168C5 /* AgentProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F6CFFC2418F9CE00B168C5 /* AgentProfileViewController.swift */; };
@@ -163,8 +173,6 @@
 		D8F6D10B241949C100B168C5 /* BotOutgoingMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F6D109241949C100B168C5 /* BotOutgoingMessageTableViewCell.swift */; };
 		D8F6D10E241949EC00B168C5 /* IncomingDocumentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8F6D10C241949EB00B168C5 /* IncomingDocumentTableViewCell.xib */; };
 		D8F6D10F241949EC00B168C5 /* IncomingDocumentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F6D10D241949EC00B168C5 /* IncomingDocumentTableViewCell.swift */; };
-		D8F6D11224194A0B00B168C5 /* PaymentItemDescriptionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8F6D11024194A0B00B168C5 /* PaymentItemDescriptionCell.xib */; };
-		D8F6D11324194A0B00B168C5 /* PaymentItemDescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F6D11124194A0B00B168C5 /* PaymentItemDescriptionCell.swift */; };
 		D8F6D11624194A3200B168C5 /* LeadTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8F6D11424194A3100B168C5 /* LeadTableViewCell.xib */; };
 		D8F6D11724194A3200B168C5 /* LeadTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F6D11524194A3200B168C5 /* LeadTableViewCell.swift */; };
 		D8F6D11A24194A9300B168C5 /* ConversationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8F6D11824194A9200B168C5 /* ConversationView.xib */; };
@@ -390,12 +398,22 @@
 		C9FB6F9421EE10CD00B72CEA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C9FB6F9621EE10CD00B72CEA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C9FB6F9A21EE10CD00B72CEA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D848D1AE245EEEDE00235322 /* PaymentPlanStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentPlanStore.swift; sourceTree = "<group>"; };
+		D848D1AF245EEEDF00235322 /* PaymentPlan.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentPlan.swift; sourceTree = "<group>"; };
+		D848D1B3245EEF5600235322 /* PaymentPlansDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentPlansDataSource.swift; sourceTree = "<group>"; };
+		D848D1B4245EEF5600235322 /* PaymentPlansViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentPlansViewController.swift; sourceTree = "<group>"; };
+		D848D1B8245EEF9700235322 /* PaymentPlanHomeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentPlanHomeCell.swift; sourceTree = "<group>"; };
+		D848D1B9245EEF9700235322 /* PaymentPlanHomeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PaymentPlanHomeCell.xib; sourceTree = "<group>"; };
+		D84F79F3245F49AB00B36168 /* PaymentItemDescriptionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentItemDescriptionCell.swift; sourceTree = "<group>"; };
+		D84F79F4245F49AC00B36168 /* PaymentItemDescriptionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PaymentItemDescriptionCell.xib; sourceTree = "<group>"; };
 		D86028A923F6AD40009540D3 /* SuggestionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuggestionCell.swift; sourceTree = "<group>"; };
 		D86028AA23F6AD40009540D3 /* SuggestionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SuggestionCell.xib; sourceTree = "<group>"; };
 		D86028AE23F6AFF9009540D3 /* SuggestionViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuggestionViewDelegate.swift; sourceTree = "<group>"; };
 		D86028AF23F6AFFA009540D3 /* SuggestionViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuggestionViewDataSource.swift; sourceTree = "<group>"; };
 		D86028B323F6B425009540D3 /* SuggestionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuggestionView.swift; sourceTree = "<group>"; };
 		D86028B523F6C9CF009540D3 /* SuggestionViewFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuggestionViewFlowLayout.swift; sourceTree = "<group>"; };
+		D8A2EDF9245F2F020090E283 /* CreatePaymentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreatePaymentViewController.xib; sourceTree = "<group>"; };
+		D8A2EDFD245F2F480090E283 /* PaymentPlansViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PaymentPlansViewController.xib; sourceTree = "<group>"; };
 		D8F6CFF62418F99800B168C5 /* AllConversationPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllConversationPresenter.swift; sourceTree = "<group>"; };
 		D8F6CFFB2418F9CE00B168C5 /* AgentProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AgentProfileViewController.xib; sourceTree = "<group>"; };
 		D8F6CFFC2418F9CE00B168C5 /* AgentProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgentProfileViewController.swift; sourceTree = "<group>"; };
@@ -525,8 +543,6 @@
 		D8F6D109241949C100B168C5 /* BotOutgoingMessageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BotOutgoingMessageTableViewCell.swift; sourceTree = "<group>"; };
 		D8F6D10C241949EB00B168C5 /* IncomingDocumentTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IncomingDocumentTableViewCell.xib; sourceTree = "<group>"; };
 		D8F6D10D241949EC00B168C5 /* IncomingDocumentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IncomingDocumentTableViewCell.swift; sourceTree = "<group>"; };
-		D8F6D11024194A0B00B168C5 /* PaymentItemDescriptionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PaymentItemDescriptionCell.xib; sourceTree = "<group>"; };
-		D8F6D11124194A0B00B168C5 /* PaymentItemDescriptionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentItemDescriptionCell.swift; sourceTree = "<group>"; };
 		D8F6D11424194A3100B168C5 /* LeadTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LeadTableViewCell.xib; sourceTree = "<group>"; };
 		D8F6D11524194A3200B168C5 /* LeadTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeadTableViewCell.swift; sourceTree = "<group>"; };
 		D8F6D11824194A9200B168C5 /* ConversationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConversationView.xib; sourceTree = "<group>"; };
@@ -820,6 +836,7 @@
 		C936006722EEC5EA00A6C291 /* TableViewCell */ = {
 			isa = PBXGroup;
 			children = (
+				D848D1B7245EEF7900235322 /* PaymentPlanHomeCell */,
 				D8F6D0D52419469A00B168C5 /* CustomSheetTableViewCell */,
 				D8F6D0D02419468100B168C5 /* PaymentSecureView */,
 				D8F6D0CB2419466C00B168C5 /* ProfileDetailCell */,
@@ -950,8 +967,8 @@
 		C936008722EEC5EA00A6C291 /* PaymentItemDescriptionCell */ = {
 			isa = PBXGroup;
 			children = (
-				D8F6D11024194A0B00B168C5 /* PaymentItemDescriptionCell.xib */,
-				D8F6D11124194A0B00B168C5 /* PaymentItemDescriptionCell.swift */,
+				D84F79F3245F49AB00B36168 /* PaymentItemDescriptionCell.swift */,
+				D84F79F4245F49AC00B36168 /* PaymentItemDescriptionCell.xib */,
 			);
 			path = PaymentItemDescriptionCell;
 			sourceTree = "<group>";
@@ -1454,6 +1471,7 @@
 		C9B77D8921A01B060092848D /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D848D1AD245EEE9700235322 /* PaymentPlan */,
 				D8F6D2152419549E00B168C5 /* Messages */,
 				D8F6D1E22419547400B168C5 /* BussinessProperty.swift */,
 				D8F6D1ED2419547A00B168C5 /* ConversationState.swift */,
@@ -1546,6 +1564,7 @@
 				D8F6D2B724195D5600B168C5 /* PromotionsViewController.swift */,
 				D8F6D2C324195D7C00B168C5 /* HippoChecker */,
 				D8F6D2CA24195DB100B168C5 /* Payment */,
+				D848D1B2245EEF1B00235322 /* PaymentPlan */,
 				C9B77DB021A01B060092848D /* BroadCasting */,
 				C9B77DB721A01B060092848D /* Agents */,
 				C9B77DBD21A01B060092848D /* Customer */,
@@ -1749,6 +1768,33 @@
 			path = TRWDownloadManager;
 			sourceTree = "<group>";
 		};
+		D848D1AD245EEE9700235322 /* PaymentPlan */ = {
+			isa = PBXGroup;
+			children = (
+				D848D1AF245EEEDF00235322 /* PaymentPlan.swift */,
+				D848D1AE245EEEDE00235322 /* PaymentPlanStore.swift */,
+			);
+			path = PaymentPlan;
+			sourceTree = "<group>";
+		};
+		D848D1B2245EEF1B00235322 /* PaymentPlan */ = {
+			isa = PBXGroup;
+			children = (
+				D848D1B3245EEF5600235322 /* PaymentPlansDataSource.swift */,
+				D848D1B4245EEF5600235322 /* PaymentPlansViewController.swift */,
+			);
+			path = PaymentPlan;
+			sourceTree = "<group>";
+		};
+		D848D1B7245EEF7900235322 /* PaymentPlanHomeCell */ = {
+			isa = PBXGroup;
+			children = (
+				D848D1B8245EEF9700235322 /* PaymentPlanHomeCell.swift */,
+				D848D1B9245EEF9700235322 /* PaymentPlanHomeCell.xib */,
+			);
+			path = PaymentPlanHomeCell;
+			sourceTree = "<group>";
+		};
 		D86028A823F6AC9D009540D3 /* SuggestionCollectionViewCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -1776,6 +1822,38 @@
 			path = SuggestionView;
 			sourceTree = "<group>";
 		};
+		D8A2EDF7245F2ECC0090E283 /* CreatePayment */ = {
+			isa = PBXGroup;
+			children = (
+				D8A2EDF8245F2EDA0090E283 /* Resources */,
+			);
+			path = CreatePayment;
+			sourceTree = "<group>";
+		};
+		D8A2EDF8245F2EDA0090E283 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				D8A2EDF9245F2F020090E283 /* CreatePaymentViewController.xib */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		D8A2EDFB245F2F1D0090E283 /* PaymentPlan */ = {
+			isa = PBXGroup;
+			children = (
+				D8A2EDFC245F2F2C0090E283 /* Resources */,
+			);
+			path = PaymentPlan;
+			sourceTree = "<group>";
+		};
+		D8A2EDFC245F2F2C0090E283 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				D8A2EDFD245F2F480090E283 /* PaymentPlansViewController.xib */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		D8F6CFF22418F92100B168C5 /* InternalClasses */ = {
 			isa = PBXGroup;
 			children = (
@@ -1790,6 +1868,8 @@
 		D8F6CFF32418F93600B168C5 /* Module */ = {
 			isa = PBXGroup;
 			children = (
+				D8A2EDFB245F2F1D0090E283 /* PaymentPlan */,
+				D8A2EDF7245F2ECC0090E283 /* CreatePayment */,
 				D8F6CFF82418F9A400B168C5 /* AgentProfileViewController */,
 				D8F6CFF92418F9AC00B168C5 /* SoundPlayer */,
 				D8F6CFFA2418F9B800B168C5 /* CheckoutViewController */,
@@ -2213,6 +2293,7 @@
 				D8F6D0FF2419493C00B168C5 /* ContactNumberTableCell.xib in Resources */,
 				D8F6D0A72419437400B168C5 /* CardListCell.xib in Resources */,
 				D8F6D01A2418FA6900B168C5 /* MultiSelectHeaderTableViewCell.xib in Resources */,
+				D8A2EDFA245F2F020090E283 /* CreatePaymentViewController.xib in Resources */,
 				D8F6D0FA2419486300B168C5 /* ActionLabelViewCell.xib in Resources */,
 				D8F6D10A241949C100B168C5 /* BotOutgoingMessageTableViewCell.xib in Resources */,
 				D8F6CFFF2418F9CF00B168C5 /* AgentProfileViewController.xib in Resources */,
@@ -2237,6 +2318,7 @@
 				D8F6D19C2419500F00B168C5 /* BoardCastSelectionCell.xib in Resources */,
 				D8F6D11A24194A9300B168C5 /* ConversationView.xib in Resources */,
 				C9B77E8E21A01B070092848D /* MavenPro-Medium.ttf in Resources */,
+				D8A2EDFE245F2F480090E283 /* PaymentPlansViewController.xib in Resources */,
 				D8F6D13224194C2200B168C5 /* ButtonTableViewCell.xib in Resources */,
 				D8F6D11624194A3200B168C5 /* LeadTableViewCell.xib in Resources */,
 				C9B77EDB21A01B070092848D /* Info.plist in Resources */,
@@ -2244,6 +2326,7 @@
 				D8F6D1062419498D00B168C5 /* BroadcastUserStatusCell.xib in Resources */,
 				D8F6D1AF2419510F00B168C5 /* TitilliumWeb-Italic.ttf in Resources */,
 				D8F6D19124194FB300B168C5 /* BroadCastTextViewCell.xib in Resources */,
+				D84F79F6245F49AC00B36168 /* PaymentItemDescriptionCell.xib in Resources */,
 				C9F6D49221C8B81100EA23E6 /* Hippo.podspec in Resources */,
 				D8F6D17924194ED700B168C5 /* IncomingVideoCallMessageTableViewCell.xib in Resources */,
 				C9FB6FAA21EE10CD00B72CEA /* LaunchScreen.storyboard in Resources */,
@@ -2255,7 +2338,6 @@
 				D8F6D01E2418FA7300B168C5 /* MultiSelectTableViewCell.xib in Resources */,
 				C9F6D49021C8B71B00EA23E6 /* README.md in Resources */,
 				D8F6D0212418FA7E00B168C5 /* MultipleSelectTableViewCell.xib in Resources */,
-				D8F6D11224194A0B00B168C5 /* PaymentItemDescriptionCell.xib in Resources */,
 				D8F6D16624194E1200B168C5 /* SelfMessageTableViewCell.xib in Resources */,
 				D8F6D1B12419510F00B168C5 /* TitilliumWeb-BoldItalic.ttf in Resources */,
 				C9B77E6321A01B060092848D /* LaunchScreen.storyboard in Resources */,
@@ -2264,6 +2346,7 @@
 				D8F6D1B82419510F00B168C5 /* TitilliumWeb-Light.ttf in Resources */,
 				D8F6D12624194B3200B168C5 /* SupportMessageTableViewCell.xib in Resources */,
 				D8F6D1AE2419510F00B168C5 /* TitilliumWeb-SemiBold.ttf in Resources */,
+				D848D1BB245EEF9700235322 /* PaymentPlanHomeCell.xib in Resources */,
 				D8F6D12B24194B6500B168C5 /* ActionableMessageTableViewCell.xib in Resources */,
 				D8F6D12224194B0700B168C5 /* AssignedAgentTableViewCell.xib in Resources */,
 				C9B77E9F21A01B070092848D /* MavenPro-Bold.ttf in Resources */,
@@ -2407,6 +2490,7 @@
 				D8F6D00F2418FA0300B168C5 /* ProfileDetail.swift in Sources */,
 				D8F6D08A241900D500B168C5 /* Hippo+Variable.swift in Sources */,
 				D8F6D0422418FB5B00B168C5 /* HippoSoundManager.swift in Sources */,
+				D848D1B0245EEEDF00235322 /* PaymentPlanStore.swift in Sources */,
 				D8F6D16224194DE600B168C5 /* AgentHomeConversationCell.swift in Sources */,
 				D8F6D17324194EB100B168C5 /* ChatProfileTableViewCell.swift in Sources */,
 				D8F6D2482419588300B168C5 /* FuguNetworkHandler.swift in Sources */,
@@ -2473,6 +2557,7 @@
 				D8F6D15824194D8600B168C5 /* OutgoingVideoTableViewCell.swift in Sources */,
 				D8F6D15E24194DA500B168C5 /* OutgoingDocumentTableViewCell.swift in Sources */,
 				D8F6D2D124195DC500B168C5 /* PaymentItem.swift in Sources */,
+				D848D1B5245EEF5600235322 /* PaymentPlansDataSource.swift in Sources */,
 				D8F6D1F82419547C00B168C5 /* SupportTheme.swift in Sources */,
 				D8F6D2A124195AA200B168C5 /* IQTitleBarButtonItem.swift in Sources */,
 				D8F6D2B224195C3300B168C5 /* IQUIScrollView+Additions.swift in Sources */,
@@ -2495,7 +2580,6 @@
 				D8F6D17D24194EFC00B168C5 /* ShowMoreTableViewCell.swift in Sources */,
 				D8F6D15B24194D8600B168C5 /* IncomingVideoTableViewCell.swift in Sources */,
 				D8F6D15124194D4D00B168C5 /* TypingViewTableViewCell.swift in Sources */,
-				D8F6D11324194A0B00B168C5 /* PaymentItemDescriptionCell.swift in Sources */,
 				D8F6D2282419552B00B168C5 /* UserDetail.swift in Sources */,
 				D8F6D0012418F9CF00B168C5 /* AgentProfileViewDatasource.swift in Sources */,
 				D8F6D2382419557600B168C5 /* AgentDirectChatAttributes.swift in Sources */,
@@ -2503,6 +2587,7 @@
 				D8F6D2E024195E2500B168C5 /* BroadcastDetailDataSource.swift in Sources */,
 				D8F6D0102418FA0300B168C5 /* MockCustomField.swift in Sources */,
 				D8F6D1CE241951D000B168C5 /* UIColor+Extension.swift in Sources */,
+				D848D1B1245EEEDF00235322 /* PaymentPlan.swift in Sources */,
 				D8F6D0662418FDF300B168C5 /* FuguDefaults.swift in Sources */,
 				D8F6D0392418FB1C00B168C5 /* HippoRatingView.swift in Sources */,
 				D8F6D0862419000100B168C5 /* Formatter.swift in Sources */,
@@ -2514,6 +2599,7 @@
 				D8F6D2DC24195E1000B168C5 /* BroadCastViewController.swift in Sources */,
 				D8F6D1CA241951D000B168C5 /* UITableView+Extension.swift in Sources */,
 				D8F6D25E241958E200B168C5 /* HTML+Utilities.swift in Sources */,
+				D84F79F5245F49AC00B36168 /* PaymentItemDescriptionCell.swift in Sources */,
 				D8F6D0192418FA6900B168C5 /* MultiSelectHeaderTableViewCell.swift in Sources */,
 				D8F6D2642419591500B168C5 /* CloseButton.swift in Sources */,
 				D8F6D0842419000100B168C5 /* Benchmarker.swift in Sources */,
@@ -2543,6 +2629,7 @@
 				D8F6D0222418FA7E00B168C5 /* MultipleSelectTableViewCell.swift in Sources */,
 				D8F6D12A24194B6500B168C5 /* ActionableMessageTableViewCell.swift in Sources */,
 				D8F6D0352418FB0100B168C5 /* HCSStarRatingView.m in Sources */,
+				D848D1BA245EEF9700235322 /* PaymentPlanHomeCell.swift in Sources */,
 				D8F6D0BE2419449500B168C5 /* NavigationTitleView.swift in Sources */,
 				D8F6D03F2418FB4E00B168C5 /* HippoMessageSound.swift in Sources */,
 				D8F6D0B82419444900B168C5 /* ChatInfoHeader.swift in Sources */,
@@ -2570,6 +2657,7 @@
 				D8F6D0942419010F00B168C5 /* FayeConnection.swift in Sources */,
 				D8F6D0C32419465000B168C5 /* CardMessageTableDataSource.swift in Sources */,
 				D8F6D13E24194C9300B168C5 /* ItemTableViewCell.swift in Sources */,
+				D848D1B6245EEF5600235322 /* PaymentPlansViewController.swift in Sources */,
 				D8F6D2112419547C00B168C5 /* HippoConversation.swift in Sources */,
 				D8F6D20B2419547C00B168C5 /* HippoStrings.swift in Sources */,
 				D8F6D1FD2419547C00B168C5 /* HippoProperty.swift in Sources */,

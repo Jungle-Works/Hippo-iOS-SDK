@@ -1239,6 +1239,20 @@ extension HippoConversationViewController {
         }
         
     }
+    
+    func presentPlansVc() {
+        guard channelId > 0 else {
+            return
+        }
+        
+        let id = UInt(channelId)
+        
+        let vc = PaymentPlansViewController.get(channelId: id)
+        let navVC = UINavigationController(rootViewController: vc)
+//        navVC.setupCustomThemeOnNavigationController(hideNavigationBar: false)
+        self.present(navVC, animated: true, completion: nil)
+    }
+    
 }
 
 
@@ -1440,6 +1454,9 @@ extension HippoConversationViewController: CreatePaymentDelegate {
         scrollToBottomWithIndexPath(animated: true)
         
         publishMessageOnChannel(message: message)
+    }
+    func backButtonPressed(shouldUpdate: Bool){
+        //code
     }
 }
 
