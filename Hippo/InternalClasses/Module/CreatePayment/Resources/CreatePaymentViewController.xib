@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <viewController restorationIdentifier="CreatePaymentViewController" id="6U1-F1-GyG" customClass="CreatePaymentViewController" customModule="Hippo" customModuleProvider="target">
+            <view key="view" contentMode="scaleToFill" id="gLD-UJ-CBo">
+                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                <subviews>
+                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="mnX-WY-ewq">
+                        <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tableView>
+                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="app_loader_shape" translatesAutoresizingMaskIntoConstraints="NO" id="QPP-JD-Dfv" customClass="So_UIImageView" customModule="Hippo" customModuleProvider="target">
+                        <rect key="frame" x="187" y="428" width="40" height="40"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </imageView>
+                </subviews>
+                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstItem="mnX-WY-ewq" firstAttribute="leading" secondItem="TfS-rD-WMC" secondAttribute="leading" id="6ft-PL-fVc"/>
+                    <constraint firstItem="mnX-WY-ewq" firstAttribute="top" secondItem="TfS-rD-WMC" secondAttribute="top" id="VC1-r6-YXP"/>
+                    <constraint firstItem="TfS-rD-WMC" firstAttribute="bottom" secondItem="mnX-WY-ewq" secondAttribute="bottom" id="Z6W-OZ-ItB"/>
+                    <constraint firstItem="TfS-rD-WMC" firstAttribute="trailing" secondItem="mnX-WY-ewq" secondAttribute="trailing" id="boX-hU-wtD"/>
+                    <constraint firstItem="QPP-JD-Dfv" firstAttribute="centerX" secondItem="gLD-UJ-CBo" secondAttribute="centerX" id="gzG-jy-lTV"/>
+                    <constraint firstItem="QPP-JD-Dfv" firstAttribute="centerY" secondItem="gLD-UJ-CBo" secondAttribute="centerY" id="tfC-SV-ttw"/>
+                </constraints>
+                <viewLayoutGuide key="safeArea" id="TfS-rD-WMC"/>
+            </view>
+            <navigationItem key="navigationItem" title="Title" id="Z5K-nj-Q0r">
+                <barButtonItem key="leftBarButtonItem" image="whiteBackButton" id="GpU-hb-CyC">
+                    <connections>
+                        <action selector="backButtonAction:" destination="6U1-F1-GyG" id="KER-bi-YIo"/>
+                    </connections>
+                </barButtonItem>
+            </navigationItem>
+            <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+            <connections>
+                <outlet property="backButton" destination="GpU-hb-CyC" id="F02-3m-bi3"/>
+                <outlet property="loaderView" destination="QPP-JD-Dfv" id="J3a-nN-c1F"/>
+                <outlet property="tableView" destination="mnX-WY-ewq" id="ijC-k6-T2O"/>
+            </connections>
+            <point key="canvasLocation" x="92" y="-61"/>
+        </viewController>
+    </objects>
+    <resources>
+        <image name="app_loader_shape" width="40" height="40"/>
+        <image name="whiteBackButton" width="22" height="14"/>
+    </resources>
+</document>

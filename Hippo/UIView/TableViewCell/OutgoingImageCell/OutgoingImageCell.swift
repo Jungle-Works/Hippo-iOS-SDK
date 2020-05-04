@@ -157,7 +157,7 @@ extension OutgoingImageCell {
         
         let timeOfMessage = changeDateToParticularFormat(chatMessageObject.creationDateTime, dateFormat: "h:mm a", showInFormat: true)
         timeLabel.text = "\(timeOfMessage)"
-        timeLabel.textColor = UIColor.white
+        timeLabel.textColor = HippoConfig.shared.theme.outgoingMsgDateTextColor//UIColor.white
         
     }
     

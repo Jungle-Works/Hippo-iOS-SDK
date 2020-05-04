@@ -28,7 +28,14 @@ class PaymentField: FormData {
         }
         return fields
     }
-    
+    class func getPlanNameField(plan: PaymentPlan?) -> [PaymentField] {
+        
+        guard let field = PaymentField(json: planNameFields) else {
+            return []
+        }
+        field.value = plan?.planName ?? field.value
+        return [field]
+    }
     
     class func getStaticButtons() -> [PaymentField] {
         var buttons: [PaymentField] = []
@@ -60,6 +67,14 @@ class PaymentField: FormData {
             "type": "TEXTFIELD",
             "key": ""
         ]]
+    static let planNameFields: [String: Any] = [
+        "validation_type": "ANY",
+        "placeholder": "Enter Plan Name",
+        "title": "Plan Name",
+        "is_required": true,
+        "type": "TEXTFIELD",
+        "key": "plan_name"
+    ]
     
     
     static let defaultButtons: [[String: Any]] = [[
@@ -71,8 +86,16 @@ class PaymentField: FormData {
         ], [
             "type": "BUTTON",
             "action": "SUBMIT",
-            "title": "Submit",
+            "title": "Request Payment",
             "title_color": "#000000",
             "background_color": "#ffffff"
+        ]]
+    
+    static let defaultButtonsWithoutAddMore: [[String: Any]] = [[
+        "type": "BUTTON",
+        "action": "SUBMIT",
+        "title": "Request Payment",
+        "title_color": "#000000",
+        "background_color": "#ffffff"
         ]]
 }

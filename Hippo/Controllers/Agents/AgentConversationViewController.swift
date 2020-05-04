@@ -32,11 +32,13 @@ class AgentConversationViewController: HippoConversationViewController {
     @IBOutlet weak var infoButton: UIButton!
     
     @IBOutlet weak var videoButton: UIBarButtonItem!
-    @IBOutlet var textViewBottomConstraint: NSLayoutConstraint!
-    
+//    @IBOutlet var textViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var bottomContentViewBottomConstraint: NSLayoutConstraint!
     //    @IBOutlet weak var hieghtOfNavigationBar: NSLayoutConstraint!
     @IBOutlet weak var loadMoreActivityTopContraint: NSLayoutConstraint!
     @IBOutlet weak var loadMoreActivityIndicator: UIActivityIndicatorView!
+    
+    @IBOutlet weak var paymentButton: UIButton!
     
     // MARK: - PROPERTIES
     var heightOfNavigation: CGFloat = 0
@@ -296,6 +298,12 @@ class AgentConversationViewController: HippoConversationViewController {
         }
     }
     
+    @IBAction func paymentButtonClicked(_ sender: Any) {
+        //delegate?.createPaymentButtonClicked()
+        self.closeKeyBoard()
+        presentPlansVc()
+    }
+   
     override func titleButtonclicked() {
         guard isCustomerInfoAvailable() else {
             return
@@ -702,7 +710,8 @@ extension AgentConversationViewController {
             inputView.changeKeyboardFrame { [weak self] (keyboardVisible, keyboardFrame) in
                 let value = UIScreen.main.bounds.height - keyboardFrame.minY - UIView.safeAreaInsetOfKeyWindow.bottom
                 let maxValue = max(0, value)
-                self?.textViewBottomConstraint.constant = maxValue
+//                self?.textViewBottomConstraint.constant = maxValue
+                self?.bottomContentViewBottomConstraint.constant = maxValue
                 
                 self?.view.layoutIfNeeded()
             }
@@ -1052,7 +1061,6 @@ extension AgentConversationViewController: UITableViewDelegate, UITableViewDataS
                     }
                     cell.setCellData(message: actionMessage)
                     return cell
-
                 case .leadForm:
                      guard let cell = tableView.dequeueReusableCell(withIdentifier: "LeadTableViewCell", for: indexPath) as? LeadTableViewCell else {
                         return UITableViewCell()
@@ -1061,7 +1069,6 @@ extension AgentConversationViewController: UITableViewDelegate, UITableViewDataS
                     cell.setData(indexPath: indexPath, arr: message.leadsDataArray, message: message)
                     cell.isUserInteractionEnabled = false
                     return cell
-
                 case .multipleSelect:
                     guard let cell = tableView.dequeueReusableCell(withIdentifier: "MultiSelectTableViewCell", for: indexPath) as? MultiSelectTableViewCell else {
                             return UITableView.defaultCell()
@@ -1087,7 +1094,11 @@ extension AgentConversationViewController: UITableViewDelegate, UITableViewDataS
                     cell.isUserInteractionEnabled = false
                     return cell
                 case .paymentCard:
-                    break
+                    guard let cell = tableView.dequeueReusableCell(withIdentifier: "PaymentMessageCell", for: indexPath) as? PaymentMessageCell else {
+                        return UITableView.defaultCell()
+                    }
+                    cell.set(message: message)
+                    return cell
                 default:
                     return getDefaultCell()
                 }
@@ -1161,6 +1172,8 @@ extension AgentConversationViewController: UITableViewDelegate, UITableViewDataS
                     }
                     rowHeight += 7 //Height for bottom view
                     return rowHeight
+                case .paymentCard:
+                    return message.calculatedHeight ?? 0.01
                 default:
                     return 0.01//UITableViewAutomaticDimension
                     
@@ -1511,7 +1524,8 @@ extension AgentConversationViewController: UIImagePickerControllerDelegate, UINa
     
     func disableSendingReply() {
         self.channel?.isSendingDisabled = true
-        self.textViewBottomConstraint.constant = -self.textViewBgView.frame.height
+//        self.textViewBottomConstraint.constant = -self.textViewBgView.frame.height
+        self.bottomContentViewBottomConstraint.constant = -self.textViewBgView.frame.height
         self.textViewBgView.isHidden = true
     }
     
@@ -1627,6 +1641,20 @@ extension AgentConversationViewController: HippoChannelDelegate {
         message.status = .read
         message.wasMessageSendingFailed = false
         
+        switch message.type {
+        case .paymentCard:
+            if (message.cards ?? []).isEmpty {
+                return
+            }
+            let selectedCardId =  message.selectedCardId?.trimWhiteSpacesAndNewLine() ?? ""
+            if !selectedCardId.isEmpty {
+                self.tableViewChat.reloadData()
+                return
+            }
+        default:
+            break
+        }
+
         tableViewChat.reloadData()
         
         guard !message.isANotification() else {

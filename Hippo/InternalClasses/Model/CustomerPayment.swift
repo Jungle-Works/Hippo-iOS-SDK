@@ -44,12 +44,25 @@ struct PaymentCardConfig {
     var amountWidth: CGFloat = 100
     
     static func defaultConfig() -> PaymentCardConfig {
-        let bgView = ViewLayout(leading: 45, trailing: 15, top: 3, bottom: 0)
-        let innerCard = ViewLayout(equalMargin: 5)
-        let labelView = ViewLayout(equalMargin: 10)
-        
-        let imageWidth: CGFloat = 0
-        return PaymentCardConfig(bgView: bgView, innerCard: innerCard, labelView: labelView, imageWidth: imageWidth, labelSpacing: 5, amountWidth: 100)
+//        let bgView = ViewLayout(leading: 45, trailing: 15, top: 3, bottom: 0)
+//        let innerCard = ViewLayout(equalMargin: 5)
+//        let labelView = ViewLayout(equalMargin: 10)
+//
+//        let imageWidth: CGFloat = 0
+//        return PaymentCardConfig(bgView: bgView, innerCard: innerCard, labelView: labelView, imageWidth: imageWidth, labelSpacing: 5, amountWidth: 100)
+        if HippoConfig.shared.appUserType == .agent{
+            let bgView = ViewLayout(leading: 20, trailing: 20, top: 3, bottom: 0)
+            let innerCard = ViewLayout(equalMargin: 5)
+            let labelView = ViewLayout(equalMargin: 10)
+            let imageWidth: CGFloat = 0
+            return PaymentCardConfig(bgView: bgView, innerCard: innerCard, labelView: labelView, imageWidth: imageWidth, labelSpacing: 5, amountWidth: 100)
+        }else{
+            let bgView = ViewLayout(leading: 45, trailing: 15, top: 3, bottom: 0)
+            let innerCard = ViewLayout(equalMargin: 5)
+            let labelView = ViewLayout(equalMargin: 10)
+            let imageWidth: CGFloat = 0
+            return PaymentCardConfig(bgView: bgView, innerCard: innerCard, labelView: labelView, imageWidth: imageWidth, labelSpacing: 5, amountWidth: 100)
+        }
     }
 }
 
@@ -217,8 +230,13 @@ class CustomerPayment {
             isPaid = true
         }
         
-        let listCount = Int.parse(values: json, key: "total_cards") ?? 0
-        cardConfig.imageWidth = listCount > 1 ? 30 : 0
+//        let listCount = Int.parse(values: json, key: "total_cards") ?? 0
+//        cardConfig.imageWidth = listCount > 1 ? 30 : 0
+        if HippoConfig.shared.appUserType == .customer{
+            let listCount = Int.parse(values: json, key: "total_cards") ?? 0
+            cardConfig.imageWidth = listCount > 1 ? 30 : 0
+        }
+        
         self.calculateHeight()
     }
     

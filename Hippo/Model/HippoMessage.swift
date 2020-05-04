@@ -380,17 +380,33 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
             if let parsedSelectedCard = selectedCard {
                 self.cards = [parsedSelectedCard]
             } else {
-                let firstCard = cards.first
-                firstCard?.isLocalySelected = true
-                let buttonView = PayementButton.createPaymentOption()
-                buttonView.selectedCardDetail = firstCard
+//                let firstCard = cards.first
+//                firstCard?.isLocalySelected = true
+//                let buttonView = PayementButton.createPaymentOption()
+//                buttonView.selectedCardDetail = firstCard
+//
+//                let header = PaymentHeader()
+//                let securePayment = PaymentSecurely.secrurePaymentOption()
+//
+//                self.cards = [header] + cards
+//                self.cards?.append(securePayment)
+//                self.cards?.append(buttonView)                
+                if HippoConfig.shared.appUserType == .agent{
+                    self.cards = cards
+                }else{
+                    let firstCard = cards.first
+                    firstCard?.isLocalySelected = true
+                    let buttonView = PayementButton.createPaymentOption()
+                    buttonView.selectedCardDetail = firstCard
+                    
+                    let header = PaymentHeader()
+                    let securePayment = PaymentSecurely.secrurePaymentOption()
+                    
+                    self.cards = [header] + cards
+                    self.cards?.append(securePayment)
+                    self.cards?.append(buttonView)
+                }
                 
-                let header = PaymentHeader()
-                let securePayment = PaymentSecurely.secrurePaymentOption()
-                
-                self.cards = [header] + cards
-                self.cards?.append(securePayment)
-                self.cards?.append(buttonView)
             }
             
         case .multipleSelect:

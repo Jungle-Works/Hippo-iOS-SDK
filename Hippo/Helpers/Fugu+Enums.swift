@@ -63,6 +63,12 @@ enum SourceType: Int {
     case INTEGRATION = 5
     case OUTREACH = 6
 }
+
+enum PaymentPlanType: Int {
+    case agentPlan = 1
+    case businessPlan = 2
+}
+
 enum IntegrationSource: Int {
     case normal = 0
     case email = 5
@@ -97,7 +103,7 @@ enum MessageType: Int {
     }
     var agentHandledMessages: [MessageType] {
 //        return [.normal, .imageFile, .privateNote, .assignAgent, .botText, .call, .attachment, .consent, .actionableMessage, .hippoPay]
-        return [.normal, .imageFile, .privateNote, .assignAgent, .botText, .call, .attachment, .consent, .actionableMessage, .hippoPay, .feedback, .leadForm, .quickReply, .multipleSelect, .embeddedVideoUrl]
+        return [.normal, .imageFile, .privateNote, .assignAgent, .botText, .call, .attachment, .consent, .actionableMessage, .hippoPay, .feedback, .leadForm, .quickReply, .paymentCard, .multipleSelect, .embeddedVideoUrl]
     }
    
     func isMessageTypeHandled() -> Bool {
@@ -320,6 +326,11 @@ enum AgentEndPoints: String {
     case clearAnnouncements = "api/broadcast/clearAnnouncements"
     
     case assignAgent = "api/agent/assignAgent"
+    
+    case sendPayment = "api/payment/sendPaymentUrl"
+//    case serverGetConfig = "api/apps/getConfig"
+    case getPaymentPlans = "api/agent/getPaymentPlans"
+    case editPaymentPlans = "api/agent/editPaymentPlans"
 }
 
 enum BroadcastType: String, CaseCountable {

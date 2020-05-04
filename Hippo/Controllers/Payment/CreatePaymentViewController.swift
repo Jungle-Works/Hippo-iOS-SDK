@@ -9,6 +9,7 @@ import UIKit
 
 protocol CreatePaymentDelegate: class {
     func sendMessage(for store: PaymentStore)
+    func backButtonPressed(shouldUpdate: Bool)
 }
 
 
@@ -17,40 +18,82 @@ class CreatePaymentViewController: UIViewController {
     //MARK: Outlets
     @IBOutlet weak var backButton: UIBarButtonItem!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var loaderView: So_UIImageView!
     
     //MARK: Variables
     var datasource: CreatePaymentDataSource?
-    var store: PaymentStore = PaymentStore()
+//    var store: PaymentStore = PaymentStore()
+    var store: PaymentStore!
     weak var delegate: CreatePaymentDelegate?
     
+    var messageType = MessageType.none
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupTableView()
-        self.navigationController?.setTheme()
-        HippoKeyboardManager.shared.enable = true
-        setUI()
-        store.delegate = self
+//        setupTableView()
+//        self.navigationController?.setTheme()
+//        HippoKeyboardManager.shared.enable = true
+//        setUI()
+//        store.delegate = self
     }
     override func viewDidDisappear(_ animated: Bool) {
         HippoKeyboardManager.shared.enable = false
     }
     
     @IBAction func backButtonAction(_ sender: Any) {
+        if self.messageType == .paymentCard{
+            delegate?.backButtonPressed(shouldUpdate: false)
+        }
         self.navigationController?.popViewController(animated: true)
     }
     
+    internal func initalizeView() {
+        
+        setupTableView()
+        self.navigationController?.setTheme()
+        HippoKeyboardManager.shared.enable = true
+        
+        setUI()
+        if self.messageType == .paymentCard{
+            setEditButton()
+        }
+        store.delegate = self
+//        self.view.backgroundColor = HippoTheme.theme.systemBackgroundColor.secondary
+    }
+    internal func setEditButton() {
+        let displayEditButton = store.displayEditButton ?? false
+        guard displayEditButton else {
+            return
+        }
+        let button: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editButtonPressed))
+        navigationItem.rightBarButtonItems = [button]
+    }
+    internal func resetRightBarButton() {
+        navigationItem.rightBarButtonItems = []
+    }
+    @objc internal func editButtonPressed() {
+        store.isEditing = true
+        self.dataUpdate()
+        resetRightBarButton()
+    }
+    
     func setUI() {
-        title = "Payment Request"
+        if self.messageType == .paymentCard{
+            title = store?.title
+        }else{
+            title = "Payment Request"
+        }
         if HippoConfig.shared.theme.leftBarButtonImage != nil {
             backButton.image = HippoConfig.shared.theme.leftBarButtonImage
             backButton.tintColor = HippoConfig.shared.theme.headerTextColor
         }
+        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
     }
     func setupTableView() {
         datasource = CreatePaymentDataSource(store: store)
         tableView.dataSource = datasource
         tableView.delegate = self
+//        tableView.backgroundColor = .clear
         
         tableView.separatorStyle = .none
         tableView.allowsSelection = false
@@ -69,7 +112,50 @@ class CreatePaymentViewController: UIViewController {
     class func get() -> CreatePaymentViewController {
         let storyboard = UIStoryboard(name: "FuguUnique", bundle: FuguFlowManager.bundle)
         let vc = storyboard.instantiateViewController(withIdentifier: "CreatePaymentViewController") as! CreatePaymentViewController
+        vc.initalizeView()
         return vc
+    }
+    
+    class func get(channelId: UInt) -> CreatePaymentViewController {
+        let vc = generateView()
+        vc.messageType = .paymentCard
+        vc.store = PaymentStore(channelId: channelId)
+        vc.initalizeView()
+        return vc
+    }
+
+    class func generateView() -> CreatePaymentViewController {
+        let array = FuguFlowManager.bundle?.loadNibNamed("CreatePaymentViewController", owner: self, options: nil)
+        let view: CreatePaymentViewController? = array?.first as? CreatePaymentViewController
+//        let storyboard = UIStoryboard(name: "FuguUnique", bundle: FuguFlowManager.bundle)
+//        let view = storyboard.instantiateViewController(withIdentifier: "CreatePaymentViewController") as! CreatePaymentViewController
+
+        guard let customView = view else {
+            let vc = CreatePaymentViewController()
+            return vc
+        }
+//        return view
+        return customView
+    }
+
+    class func get(store: PaymentStore) -> CreatePaymentViewController {
+        let vc = generateView()
+        vc.messageType = .paymentCard
+        vc.store = store
+        vc.initalizeView()
+        return vc
+    }
+    
+    func startLoaderAnimation() {
+        DispatchQueue.main.async {
+            self.loaderView?.startRotationAnimation()
+        }
+    }
+    
+    func stopLoaderAnimation() {
+        DispatchQueue.main.async {
+            self.loaderView?.stopRotationAnimation()
+        }
     }
     
 }
@@ -109,12 +195,33 @@ extension CreatePaymentViewController: BroadcastButtonCellDelegate {
     }
     
     func sendButtonClicked() {
-        if let errorMesaage = store.validateStore() {
-            showAlertWith(message: errorMesaage, action: nil)
-            return
+        if self.messageType == .paymentCard{
+            if let errorMesaage = store.validateStore() {
+                showAlert(title: "", message: errorMesaage, actionComplete: nil)
+                return
+            }
+//        delegate?.sendMessage(for: store)
+            self.startLoaderAnimation()
+            store.takeAction {[weak self] (success, _) in
+                self?.stopLoaderAnimation()
+                guard success else {
+                    return
+                }
+                if self?.store.isSending ?? false {
+                    self?.dismiss(animated: true, completion: nil)
+                } else {
+                    self?.delegate?.backButtonPressed(shouldUpdate: true)
+                    self?.navigationController?.popViewController(animated: true)
+                }
+            }
+        }else{
+            if let errorMesaage = store.validateStore() {
+                showAlertWith(message: errorMesaage, action: nil)
+                return
+            }
+            delegate?.sendMessage(for: store)
+            self.navigationController?.popViewController(animated: true)
         }
-        delegate?.sendMessage(for: store)
-        self.navigationController?.popViewController(animated: true)
     }
 }
 
@@ -144,5 +251,11 @@ extension CreatePaymentViewController: ShowMoreTableViewCellDelegate {
 extension CreatePaymentViewController: PaymentStoreDelegate {
     func dataUpdate() {
         tableView.reloadData()
+    }
+}
+
+extension CreatePaymentViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
     }
 }

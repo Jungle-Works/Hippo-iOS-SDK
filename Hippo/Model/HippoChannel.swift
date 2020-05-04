@@ -745,10 +745,21 @@ class HippoChannel {
         case .feedback, .leadForm:
             oldMessage.updateObject(with: newMessage)
         case .paymentCard:
+//            oldMessage.cards = newMessage.cards
+//            oldMessage.selectedCardId = newMessage.selectedCardId
+//            oldMessage.fallbackText = newMessage.fallbackText
+//            oldMessage.selectedCard = newMessage.selectedCard
+//            return false
+            
             oldMessage.cards = newMessage.cards
-            oldMessage.selectedCardId = newMessage.selectedCardId
-            oldMessage.fallbackText = newMessage.fallbackText
             oldMessage.selectedCard = newMessage.selectedCard
+            oldMessage.fallbackText = newMessage.fallbackText
+            if HippoConfig.shared.appUserType == .agent {
+                if (oldMessage.selectedCardId ?? "") == (newMessage.selectedCardId ?? "") {
+                    return true
+                }
+            }
+            oldMessage.selectedCardId = newMessage.selectedCardId
             return false
         default:
             break
