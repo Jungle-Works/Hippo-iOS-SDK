@@ -116,6 +116,31 @@ class AgentConversationManager {
         }
         
     }
+
+    class func getBotsAction(userId: Int, channelId: Int, handler: @escaping (([BotAction]) -> Void)) {
+        guard let agent = HippoConfig.shared.agentDetail else {
+            return
+        }
+        let params: [String: Any] = ["access_token": agent.fuguToken,
+                                     "user_id": userId,
+                                     "channel_id": "\(channelId)"]
+        HTTPClient.shared.makeSingletonConnectionWith(method: .POST, identifier: RequestIdenfier.getAllConversationIdentfier, para: params, extendedUrl: AgentEndPoints.getBotActions.rawValue) { (response, error, tag, statusCode) in
+            if let _ = error {
+                handler([BotAction]())
+            } else {
+                if let response = response as? [String: Any], let data = response["data"] as? [[String: Any]] {
+                    var actionsArray = [BotAction]()
+                    for action in data {
+                        actionsArray.append(BotAction(dict: action))
+                    }
+                    handler(actionsArray)
+                }
+            }
+
+        }
+    }
+
+
     class func agentStatusUpdate(newStatus: AgentStatus) {
         guard HippoConfig.shared.appUserType == .agent else {
              return

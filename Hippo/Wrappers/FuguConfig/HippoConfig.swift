@@ -52,6 +52,31 @@ static let devFaye = "https://hippo-api-dev.fuguchat.com:3002/faye"//"https://hi
 
 }
 
+struct BotAction {
+    var botId: Int?
+    var botName: String?
+    var message: String?
+    var messageType: String?
+
+    init(dict: [String: Any]) {
+        if let value = dict["bot_id"] as? Int {
+            self.botId = value
+        }
+
+        if let value = dict["bot_name"] as? String {
+            self.botName = value
+        }
+
+        if let value = dict["message"] as? String {
+            self.message = value
+        }
+
+        if let value = dict["message_type"] as? String {
+            self.messageType = value
+        }
+    }
+}
+
 @objcMembers public class HippoConfig : NSObject {
     
     public static let shared = HippoConfig()

@@ -39,11 +39,12 @@ class AgentConversationViewController: HippoConversationViewController {
     @IBOutlet weak var loadMoreActivityIndicator: UIActivityIndicatorView!
     
     @IBOutlet weak var paymentButton: UIButton!
-    
+    @IBOutlet weak var botActionButton: UIButton!
+
     // MARK: - PROPERTIES
     var heightOfNavigation: CGFloat = 0
-    
     var isSingleChat = false
+     var botActionView = BotTableView.loadView(CGRect.zero)
     
     // MARK: - Computed Properties
     var localFilePath: String {
@@ -257,7 +258,28 @@ class AgentConversationViewController: HippoConversationViewController {
         }
         
     }
-    
+
+    @IBAction func getBotActions(_ sender: Any) {
+        AgentConversationManager.getBotsAction(userId: getSavedUserId, channelId: self.channelId) { (botActions) in
+            self.addBotActionView(with: botActions)
+        }
+    }
+
+    func addBotActionView(with botArray: [BotAction]) {
+        guard let window = UIApplication.shared.keyWindow else {
+            return
+        }
+        if botArray.isEmpty {
+//            self.updateNoBotAction()
+            return
+        }
+        self.botActionView.removeFromSuperview()
+        self.botActionView.frame = window.frame
+//        self.botActionView.delegate = self
+        self.botActionView.setupCell(botArray)
+        window.addSubview(self.botActionView)
+    }
+
     override func addMessageToUIBeforeSending(message: HippoMessage) {
         self.updateMessagesArrayLocallyForUIUpdation(message)
         self.messageTextView.text = ""
