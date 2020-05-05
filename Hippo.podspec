@@ -26,7 +26,6 @@ Pod::Spec.new do |s|
     s.preserve_paths = ['README.md']
     
     s.dependency 'MZFayeClient'
-    s.dependency 'Kingfisher'
     s.default_subspec = 'Chat'
     
     s.subspec 'Chat' do |chat|

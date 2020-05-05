@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Kingfisher
+//import Kingfisher
 protocol SelectImageViewControllerDelegate: class {
     func selectImageVC(_ selectedImageVC: SelectImageViewController, selectedImage: UIImage)
     func goToConversationViewController()
