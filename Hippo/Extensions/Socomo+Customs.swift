@@ -25,6 +25,11 @@ class So_TableViewCell: UITableViewCell {
 }
 
 //@IBDesignable
+class So_CustomButton: UIButton {
+    
+}
+
+//@IBDesignable
 class So_UIImageView: UIImageView {
    
    

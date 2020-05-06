@@ -44,13 +44,13 @@ extension DateFilterTableViewCell {
         if let selectedField = selectedDateCell, selectedField.isEqualTo(lhs: dateCell, rhs: selectedField) {
             radioBtnImageView.image = #imageLiteral(resourceName: "radio_button_active")
             
-            titleLabel.font = UIFont.boldProximaNova(withSize: 19)
+//            titleLabel.font = UIFont.boldProximaNova(withSize: 19)
 //            titleLabel.textColor = .darkColor
 //            descriptionLabel.textColor = .darkColor
         } else {
             radioBtnImageView.image = #imageLiteral(resourceName: "radio_button_deactive")
             
-            titleLabel.font = UIFont.semiBoldProximaNova(withSize: 19)
+//            titleLabel.font = UIFont.semiBoldProximaNova(withSize: 19)
 //            titleLabel.textColor = .dirtyPurple
 //            descriptionLabel.textColor = .dirtyPurple
         }
@@ -66,16 +66,16 @@ extension DateFilterTableViewCell {
         descriptionLabel.text = dateInfo.description
         
         if dateInfo.isSelected {
-            radioBtnImageView.tintColor = HippoTheme.current.themeColor
-            radioBtnImageView.image = HippoImage.current.radioButtonOn
-            descriptionLabel.font = UIFont.semiBoldProximaNova(withSize: 15)
-            titleLabel.font = UIFont.semiBoldProximaNova(withSize: 17)
+//            radioBtnImageView.tintColor = HippoTheme.current.themeColor
+//            radioBtnImageView.image = HippoImage.current.radioButtonOn
+//            descriptionLabel.font = UIFont.semiBoldProximaNova(withSize: 15)
+//            titleLabel.font = UIFont.semiBoldProximaNova(withSize: 17)
 //            titleLabel.textColor = .darkColor
 //            descriptionLabel.textColor = .darkColor
         } else {
-            radioBtnImageView.image = HippoImage.current.radioButtonOff?.withRenderingMode(.alwaysOriginal)
-            descriptionLabel.font = UIFont.regularProximaNova(withSize: 15)
-            titleLabel.font = UIFont.regularProximaNova(withSize: 17)
+//            radioBtnImageView.image = HippoImage.current.radioButtonOff?.withRenderingMode(.alwaysOriginal)
+//            descriptionLabel.font = UIFont.regularProximaNova(withSize: 15)
+//            titleLabel.font = UIFont.regularProximaNova(withSize: 17)
 //            titleLabel.textColor = .dirtyPurple
 //            descriptionLabel.textColor = .dirtyPurple
         }

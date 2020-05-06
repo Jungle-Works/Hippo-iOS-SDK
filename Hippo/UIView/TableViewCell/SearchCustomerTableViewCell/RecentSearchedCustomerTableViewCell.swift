@@ -16,7 +16,7 @@ class RecentSearchedCustomerTableViewCell: CoreTabelViewCell {
 
     @IBOutlet weak var emailContainer: UIView!
     @IBOutlet weak var emailLabel: So_CustomLabel!
-    @IBOutlet weak var cancelButton: So_CustomButton!
+//    @IBOutlet weak var cancelButton: So_CustomButton!
     
     weak var delegate: RecentSearchedProtocol?
     

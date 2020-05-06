@@ -21,7 +21,7 @@ class ChatInfoShowMoreTableViewCell: CoreTabelViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        showMoreButton.setTitleColor(HippoTheme.current.themeColor, for: .normal)
+//        showMoreButton.setTitleColor(HippoTheme.current.themeColor, for: .normal)
         backgroundColor = .clear
     }
 

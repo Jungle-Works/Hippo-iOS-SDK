@@ -25,10 +25,10 @@ class FilterManager: NSObject {
     var chatStatusArray = [labelWithId]()
     var chatTypeArray = [labelWithId]()
     var labelArray = [TagDetail]()
-    var channelArray = [ChannelDetail]()
+    var channelArray = [ChatDetail]()
     
     var peopleArray = [SearchCustomerData]()
-    var customChannelArray = [ChannelDetail]()
+    var customChannelArray = [ChatDetail]()
     var dateList = [DateFilterInfo]()
     var selectedDate: DateFilterInfo?
     
@@ -49,8 +49,8 @@ class FilterManager: NSObject {
 //            each.isSelected = false
 //        }
         
-        labelArray = Business.shared.tags.clone()
-        channelArray = Business.shared.channels.clone()
+//        labelArray = Business.shared.tags.clone()
+//        channelArray = Business.shared.channels.clone()
         
         selectedChatStatus = [ChatStatus.open.rawValue]
         selectedChatType = [Int]()
@@ -63,35 +63,35 @@ class FilterManager: NSObject {
         dateList = DateFilterInfo.initalDate()
     }
     
-    private func setChatArray(for type: CurrentScreen) {
-        switch type {
-        case .allChat:
-            chatTypeArray.append(labelWithId(label: "Unassigned", id: 2))
-        default:
-            chatTypeArray.append(labelWithId(label: "Unassigned", id: 2))
-            chatTypeArray.append(labelWithId(label: "My chats", id: 1))
-            chatTypeArray.append(labelWithId(label: "Tagged", id: 3))
-        }
-    }
+//    private func setChatArray(for type: CurrentScreen) {
+//        switch type {
+//        case .allChat:
+//            chatTypeArray.append(labelWithId(label: "Unassigned", id: 2))
+//        default:
+//            chatTypeArray.append(labelWithId(label: "Unassigned", id: 2))
+//            chatTypeArray.append(labelWithId(label: "My chats", id: 1))
+//            chatTypeArray.append(labelWithId(label: "Tagged", id: 3))
+//        }
+//    }
     func resetData() {
-        ConversationManager.sharedInstance.selectedCustomerObject = nil
-        FilterManager.shared = FilterManager()
-        FilterManager.shared.setChatArray(for: LeftSideMenuPresenter.shared.currentScreenActive)
+//        ConversationManager.sharedInstance.selectedCustomerObject = nil
+//        FilterManager.shared = FilterManager()
+//        FilterManager.shared.setChatArray(for: LeftSideMenuPresenter.shared.currentScreenActive)
     }
     
     
     class func searchPeople(with searchString: String, isLoadMore: Bool, callback: @escaping((_ isSuccess: Bool, _ isPaginationRequired: Bool) -> Void)) {
-        if isConnectedToInternet == false {
-            showAlert(lastVisibleController, title: nil, message: Messages.NoInternetMessage, actionComplete: nil)
-            callback(false, false)
-            return
-        }
+//        if isConnectedToInternet == false {
+//            showAlert(lastVisibleController, title: nil, message: Messages.NoInternetMessage, actionComplete: nil)
+//            callback(false, false)
+//            return
+//        }
         guard searchString.count > 2 else {
             callback(false, false)
             return
         }
         
-        guard let accessToken = PersonInfo.getAccessToken() else {
+        guard let accessToken = HippoConfig.shared.agentDetail?.fuguToken else {
             callback(false, false)
             return
         }
@@ -143,7 +143,7 @@ class FilterManager: NSObject {
             callback(false, false)
             return
         }
-        guard let accessToken = PersonInfo.getAccessToken() else {
+        guard let accessToken = HippoConfig.shared.agentDetail?.fuguToken else {
             callback(false, false)
             return
         }
@@ -159,40 +159,40 @@ class FilterManager: NSObject {
         if isLoadMore {
             params["channel_start"] = FilterManager.shared.customChannelArray.count.toString()
         }
-        
-        HTTPRequest(path: EndPoints.search, parameters: params, encoding: .json)
-            .config(isIndicatorEnable: false, isAlertEnable: false, isNetworkAlertEnable: false)
-            .handler { (response) in
-                guard response.isSuccess, let value = response.value as? [String: Any], let data = value["data"] as? [String: Any], let channels = data["channels"] as? [[String: Any]] else {
-                    callback(false, false)
-                    return
-                }
-                var channelArray = [ChannelDetail]()
-                
-                for each in channels {
-                    if let obj = ChannelDetail(JSON: each) {
-                        obj.isDefaultChannel = false
-                        channelArray.append(obj)
-                    }
-                }
-                if isLoadMore {
-                    FilterManager.shared.customChannelArray.append(contentsOf: channelArray)
-                } else {
-                    FilterManager.shared.customChannelArray = channelArray
-                }
-                let totalUserCount = data["total_channels"] as? Int ?? FilterManager.shared.customChannelArray.count
-                let isPaginationRequired = FilterManager.shared.customChannelArray.count < totalUserCount
-                callback(true, isPaginationRequired)
-        }
+
+//        HTTPRequest(path: EndPoints.search, parameters: params, encoding: .json)
+//            .config(isIndicatorEnable: false, isAlertEnable: false, isNetworkAlertEnable: false)
+//            .handler { (response) in
+//                guard response.isSuccess, let value = response.value as? [String: Any], let data = value["data"] as? [String: Any], let channels = data["channels"] as? [[String: Any]] else {
+//                    callback(false, false)
+//                    return
+//                }
+//                var channelArray = [ChannelDetail]()
+//
+//                for each in channels {
+//                    if let obj = ChannelDetail(JSON: each) {
+//                        obj.isDefaultChannel = false
+//                        channelArray.append(obj)
+//                    }
+//                }
+//                if isLoadMore {
+//                    FilterManager.shared.customChannelArray.append(contentsOf: channelArray)
+//                } else {
+//                    FilterManager.shared.customChannelArray = channelArray
+//                }
+//                let totalUserCount = data["total_channels"] as? Int ?? FilterManager.shared.customChannelArray.count
+//                let isPaginationRequired = FilterManager.shared.customChannelArray.count < totalUserCount
+//                callback(true, isPaginationRequired)
+//        }
     }
     
-    class func shouldDisplayOptionFor(option: FilterOptionSection) -> Bool {
-        switch option {
-        case .agents:
-            return LeftSideMenuPresenter.shared.currentScreenActive  == .allChat
-        case .channels, .chatType, .date, .labels, .people, .status:
-            return true
-        }
-    }
+//    class func shouldDisplayOptionFor(option: FilterOptionSection) -> Bool {
+//        switch option {
+//        case .agents:
+//            return LeftSideMenuPresenter.shared.currentScreenActive  == .allChat
+//        case .channels, .chatType, .date, .labels, .people, .status:
+//            return true
+//        }
+//    }
     
 }

@@ -41,7 +41,7 @@ import Foundation
 //class CustomerInfo: NSObject {}
 class SearchCustomerData: NSObject {
     
-    var user_id: Int?
+    var user_id: UInt?
     var user_type: Bool?
     var full_name: String?
     var phone_number: String?
@@ -52,13 +52,13 @@ class SearchCustomerData: NSObject {
     
     init(json: [String: Any]) {
         user_id = UInt.parse(values: json, key: "user_id")
-        user_type = Bool.parse(key: "user_type", json: dict)
+        user_type = Bool.parse(key: "user_type", json: json)
         full_name = json["full_name"] as? String ?? ""
         phone_number = json["phone_number"] as? String ?? ""
         email = json["email"] as? String ?? ""
         app_name = json["app_name"] as? String ?? ""
         user_image = json["user_image"] as? String ?? ""
-        status = Bool.parse(key: "status", json: dict)
+        status = Bool.parse(key: "status", json: json)
     }
 
 }

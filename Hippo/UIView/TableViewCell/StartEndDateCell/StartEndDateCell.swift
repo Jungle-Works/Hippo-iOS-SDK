@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import JVFloatLabeledTextField
+//import JVFloatLabeledTextField
 
 
 protocol StartEndDateCellDelegate: class {
@@ -15,10 +15,14 @@ protocol StartEndDateCellDelegate: class {
     func endDateValueChanged(_ sender: UIDatePicker)
 }
 
+class CoreTabelViewCell: UITableViewCell {
+
+}
+
 class StartEndDateCell: CoreTabelViewCell {
 
-    @IBOutlet weak var textFieldTwo: JVFloatLabeledTextField!
-    @IBOutlet weak var textFieldOne: JVFloatLabeledTextField!
+//    @IBOutlet weak var textFieldTwo: JVFloatLabeledTextField!
+//    @IBOutlet weak var textFieldOne: JVFloatLabeledTextField!
     @IBOutlet weak var containerView: UIView!
     
     let startDatePicker: UIDatePicker = UIDatePicker()
@@ -46,14 +50,15 @@ class StartEndDateCell: CoreTabelViewCell {
         endDatePicker.datePickerMode = .dateAndTime
         endDatePicker.addTarget(self, action: #selector(endDateChanged(_:)), for: .valueChanged)
     }
+
     internal func setupFields() {
-        textFieldTwo.delegate = self
-        textFieldTwo.inputView = endDatePicker
-        textFieldTwo.placeholder = "Select End Date"
-        
-        textFieldOne.delegate = self
-        textFieldOne.inputView = startDatePicker
-        textFieldOne.placeholder = "Select Start Date"
+//        textFieldTwo.delegate = self
+//        textFieldTwo.inputView = endDatePicker
+//        textFieldTwo.placeholder = "Select End Date"
+//
+//        textFieldOne.delegate = self
+//        textFieldOne.inputView = startDatePicker
+//        textFieldOne.placeholder = "Select Start Date"
     }
     
     func setupCell(dateInfo: DateFilterInfo) {
@@ -89,18 +94,18 @@ class StartEndDateCell: CoreTabelViewCell {
     }
     
     internal func setDateInTextfield() {
-        
-        textFieldOne.text = dateInfo?.startDate?.toString(with: .broadcastDate) ?? ""
-        textFieldTwo.text = dateInfo?.endDate?.toString(with: .broadcastDate) ?? ""
+//
+//        textFieldOne.text = dateInfo?.startDate?.toString(with: .broadcastDate) ?? ""
+//        textFieldTwo.text = dateInfo?.endDate?.toString(with: .broadcastDate) ?? ""
     }
 }
 
 extension StartEndDateCell: UITextFieldDelegate {
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        Helper.enableIQKeyboard()
+//        Helper.enableIQKeyboard()
         return true
     }
     func textFieldDidEndEditing(_ textField: UITextField) {
-       Helper.disableIQKeyboard()
+//       Helper.disableIQKeyboard()
     }
 }
