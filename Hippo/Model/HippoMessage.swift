@@ -462,13 +462,23 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         attributtedMessage = MessageUIAttributes(message: message, senderName: senderFullName, isSelfMessage: userType.isMyUserType)
     }
     
-    init(message: String, type: MessageType, uniqueID: String? = nil, imageUrl: String? = nil, thumbnailUrl: String? = nil, localFilePath: String? = nil, senderName: String? = nil, senderId: Int? = nil, chatType: ChatType?) {
+    init(message: String, type: MessageType, uniqueID: String? = nil,bot: BotAction? = nil, imageUrl: String? = nil, thumbnailUrl: String? = nil, localFilePath: String? = nil, senderName: String? = nil, senderId: Int? = nil, chatType: ChatType?) {
         self.message = message
         self.senderId = senderId ?? currentUserId()
         self.senderFullName = senderName ?? currentUserName()//.formatName()
         self.senderImage = currentUserImage()
         self.chatType = chatType ?? .none
-        
+
+        // Bot feedback handling ?
+        if let bot = bot {
+            self.contentValues = bot.contentValues
+            self.content = MessageContent(param: self.contentValues)
+            self.content.values = bot.values as? [String] ?? []
+            leadsDataArray = FormData.getArray(object: content)
+        }
+
+
+
         creationDateTime = Date()
         self.type = type
         self.messageUniqueID = uniqueID

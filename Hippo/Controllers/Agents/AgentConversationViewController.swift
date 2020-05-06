@@ -260,7 +260,7 @@ class AgentConversationViewController: HippoConversationViewController {
     }
 
     @IBAction func getBotActions(_ sender: Any) {
-        AgentConversationManager.getBotsAction(userId: getSavedUserId, channelId: self.channelId) { (botActions) in
+        AgentConversationManager.getBotsAction(userId: self.channel.chatDetail?.customerID ?? 0, channelId: self.channelId) { (botActions) in
             self.addBotActionView(with: botActions)
         }
     }
@@ -271,11 +271,12 @@ class AgentConversationViewController: HippoConversationViewController {
         }
         if botArray.isEmpty {
 //            self.updateNoBotAction()
+            showAlertWith(message: "No bot action available.", action: nil)
             return
         }
         self.botActionView.removeFromSuperview()
         self.botActionView.frame = window.frame
-//        self.botActionView.delegate = self
+        self.botActionView.delegate = self
         self.botActionView.setupCell(botArray)
         window.addSubview(self.botActionView)
     }
@@ -1616,6 +1617,43 @@ extension AgentConversationViewController: LeadTableViewCellDelegate {
         print("LEAD SKIP BUTTON CLICKED")
     }
 
+
+}
+
+extension AgentConversationViewController: BotTableDelegate {
+    func sendButtonClicked(with object: BotAction) {
+        switch object.messageType {
+        case .feedback:
+            sendFeedbackMessageToFaye()
+        default:
+            sendBotFormFaye(object: object)
+        }
+    }
+    func sendFeedbackMessageToFaye() {
+        let message = HippoMessage(message: "", type: .feedback, uniqueID: generateUniqueId(), chatType: chatType)
+        channel.unsentMessages.append(message)
+        self.addMessageToUIBeforeSending(message: message)
+        channel.send(message: message) {
+//            self.assignAlertView.backgroundColor = UIColor.fadedOrange
+//            self.assignAlertLabel.text = "Feedback request has been sent."
+//            self.updateAssignAlert(isAgentCanSendMsg: true)
+//            self.channel?.channelInfo?.isFeedbackAsked = true
+        }
+    }
+
+    func sendBotFormFaye(object: BotAction) {
+        let message: HippoMessage?
+        switch object.messageType {
+        case .leadForm:
+            message = HippoMessage(message: object.message, type: object.messageType,uniqueID: generateUniqueId(), bot: object, chatType: chatType)
+            channel.unsentMessages.append(message!)
+            self.addMessageToUIBeforeSending(message: message!)
+            channel.send(message: message!, completion: nil)
+        default:
+            break
+        }
+
+    }
 
 }
 

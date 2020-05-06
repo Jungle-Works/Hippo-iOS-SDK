@@ -124,7 +124,9 @@ class AgentConversationManager {
         let params: [String: Any] = ["access_token": agent.fuguToken,
                                      "user_id": userId,
                                      "channel_id": "\(channelId)"]
+        print(params)
         HTTPClient.shared.makeSingletonConnectionWith(method: .POST, identifier: RequestIdenfier.getAllConversationIdentfier, para: params, extendedUrl: AgentEndPoints.getBotActions.rawValue) { (response, error, tag, statusCode) in
+            print(response)
             if let _ = error {
                 handler([BotAction]())
             } else {

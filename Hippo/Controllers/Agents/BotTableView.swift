@@ -61,12 +61,12 @@ class BotTableView: UIView {
     }
     
     func setTheme() {
-//        let theme = HippoTheme.theme
-//        pickerView.backgroundColor = theme.systemBackgroundColor.tertiary
-//        pickerView.tintColor = theme.label.tertiary
+//        let theme = HippoTheme.defaultTheme()
+        pickerView.backgroundColor = UIColor.veryLightBlue
+        pickerView.tintColor = UIColor.gray
     }
     func setLayer() {
-        pickerSelectorView.backgroundColor = UIColor.themeColor
+        pickerSelectorView.backgroundColor = UIColor.lightGray
     }
     
     func setupCell(_ array: [BotAction]) {
@@ -110,13 +110,13 @@ extension BotTableView: UIPickerViewDelegate, UIPickerViewDataSource {
         paragraphStyle.alignment = .center
         
         let defaultAttributes: [NSAttributedString.Key: Any] = [
-//            .font: UIFont.regularMontserrat(withSize: 13),
+            .font: UIFont.systemFont(ofSize: 13.0),
             .foregroundColor: UIColor.black.withAlphaComponent(0.8),
             .paragraphStyle: paragraphStyle
         ]
         let Selected: [NSAttributedString.Key: Any] = [
-            .foregroundColor: UIColor.themeColor,
-//            .font: UIFont.regularMontserrat(withSize: 13),
+            .foregroundColor: UIColor.black,
+            .font: UIFont.systemFont(ofSize: 13.0),
             .paragraphStyle: paragraphStyle
         ]
         if row == pickerView.selectedRow(inComponent: component) {
@@ -138,6 +138,7 @@ extension BotTableView: UIPickerViewDelegate, UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         selectedRow = row
         pickerView.reloadAllComponents()
+        sendButton.isHidden = false
         
 //        if listArray[row].id == BotAction.defaultId {
 //            sendButton.isHidden = true
