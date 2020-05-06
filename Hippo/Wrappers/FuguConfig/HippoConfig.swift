@@ -84,7 +84,7 @@ static let devFaye = "https://hippo-api-dev.fuguchat.com:3002/faye"//"https://hi
     private(set)  open var suggestions = [Int: String]()//Dictionary<Int, String>()
     private(set)  open var mapping = [Int: [Int]]()//Dictionary<Int, Array<Int>>()
     
-    private(set)  open var hasChannelTabs = false
+    private(set)  open var hasChannelTabs = true//false
     private(set)  open var emptyChannelListText = "No Conversation found"
     
     open var isPaymentRequestEnabled: Bool {
