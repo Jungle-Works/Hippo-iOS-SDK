@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="81" id="KGk-i7-Jjw" customClass="SearchCustomerTableViewCell" customModule="HippoAgent" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="322" height="81"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="322" height="81"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x9x-qj-oTB">
+                        <rect key="frame" x="0.0" y="0.0" width="322" height="81"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="xUe-ac-WH2">
+                                <rect key="frame" x="20" y="5" width="207" height="70"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lw2-dj-PBS" customClass="So_CustomLabel" customModule="HippoAgent" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="207" height="23.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="SemiBoldFontSize">
+                                                <real key="value" value="14"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MG4-iX-nk1" customClass="So_CustomLabel" customModule="HippoAgent" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="23.5" width="207" height="23"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="RegularFontSizee">
+                                                <real key="value" value="12"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5TQ-iX-lvs" customClass="So_CustomLabel" customModule="HippoAgent" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="46.5" width="207" height="23.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="RegularFontSizee">
+                                                <real key="value" value="12"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UTo-D7-vCy" customClass="So_CustomButton" customModule="HippoAgent" customModuleProvider="target">
+                                <rect key="frame" x="242" y="23" width="70" height="35"/>
+                                <color key="backgroundColor" red="0.13333333333333333" green="0.58823529411764708" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="70" id="Yj9-t9-Ufw"/>
+                                    <constraint firstAttribute="height" constant="35" id="cf0-Jt-wa9"/>
+                                </constraints>
+                                <state key="normal" title="New Chat">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="MontRegular">
+                                        <real key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="addNewChatAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="gxz-c0-xQV"/>
+                                </connections>
+                            </button>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vsv-vF-CY3" customClass="So_UIView" customModule="HippoAgent" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="80" width="322" height="1"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="ktA-TO-8bs"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="UTo-D7-vCy" firstAttribute="leading" secondItem="xUe-ac-WH2" secondAttribute="trailing" constant="15" id="9fb-H4-RyT"/>
+                            <constraint firstAttribute="bottom" secondItem="Vsv-vF-CY3" secondAttribute="bottom" id="MbC-GG-9na"/>
+                            <constraint firstItem="UTo-D7-vCy" firstAttribute="centerY" secondItem="x9x-qj-oTB" secondAttribute="centerY" id="NOp-11-c3P"/>
+                            <constraint firstItem="xUe-ac-WH2" firstAttribute="leading" secondItem="eTD-fi-DOH" secondAttribute="leading" constant="20" id="Rud-2M-4je"/>
+                            <constraint firstItem="xUe-ac-WH2" firstAttribute="top" secondItem="x9x-qj-oTB" secondAttribute="top" constant="5" id="bFo-n8-rmV"/>
+                            <constraint firstItem="eTD-fi-DOH" firstAttribute="trailing" secondItem="UTo-D7-vCy" secondAttribute="trailing" constant="10" id="dk7-dO-u1g"/>
+                            <constraint firstAttribute="trailing" secondItem="Vsv-vF-CY3" secondAttribute="trailing" id="jXh-bY-3Lu"/>
+                            <constraint firstItem="Vsv-vF-CY3" firstAttribute="top" secondItem="xUe-ac-WH2" secondAttribute="bottom" constant="5" id="ohs-dG-V4h"/>
+                            <constraint firstItem="Vsv-vF-CY3" firstAttribute="leading" secondItem="x9x-qj-oTB" secondAttribute="leading" id="p53-mC-HUX"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="eTD-fi-DOH"/>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="x9x-qj-oTB" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="e3u-Ai-9Qn"/>
+                    <constraint firstItem="x9x-qj-oTB" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="kqF-ng-4Ik"/>
+                    <constraint firstAttribute="trailing" secondItem="x9x-qj-oTB" secondAttribute="trailing" id="uKf-PJ-wet"/>
+                    <constraint firstAttribute="bottom" secondItem="x9x-qj-oTB" secondAttribute="bottom" id="xnz-qp-dF1"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="addChatButton" destination="UTo-D7-vCy" id="s75-h4-1DF"/>
+                <outlet property="bottomLineView" destination="Vsv-vF-CY3" id="ECN-vF-9gb"/>
+                <outlet property="customerEmail" destination="5TQ-iX-lvs" id="wVz-2C-RGU"/>
+                <outlet property="customerName" destination="Lw2-dj-PBS" id="2d1-Ch-Vrc"/>
+                <outlet property="customerPhone" destination="MG4-iX-nk1" id="KCI-pG-kJh"/>
+            </connections>
+            <point key="canvasLocation" x="34" y="57.5"/>
+        </tableViewCell>
+    </objects>
+</document>

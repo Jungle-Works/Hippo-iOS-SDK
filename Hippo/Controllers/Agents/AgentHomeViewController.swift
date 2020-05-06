@@ -50,7 +50,7 @@ class AgentHomeViewController: HippoHomeViewController {
     @IBOutlet weak var loaderContainer: UIView!
     @IBOutlet weak var centerErrorButton: UIButton!
     @IBOutlet weak var loaderImage: So_UIImageView!
-    
+    @IBOutlet weak var filterButton: UIButton!
     
     //MARK: ViewDidload
     override func viewDidLoad() {
@@ -59,6 +59,8 @@ class AgentHomeViewController: HippoHomeViewController {
         addObservers()
         setUpView()
         setData()
+        
+        FilterManager.shared.resetData()
         
         ConversationStore.shared.fetchAllCachedConversation()
     }
@@ -113,6 +115,13 @@ class AgentHomeViewController: HippoHomeViewController {
         tableView.reloadData()
     }
 
+    @IBAction func filterBtnAction(_ sender: Any) {
+//        googleAnalytics(category: Category_Home_Screen, action: Action_Filter_Clicked, label: Label_Filter_Opened)
+//        easyTipView?.dismiss()
+        let navVC = FilterViewController.getFilterStoryboardRoot()
+        
+        self.present(navVC, animated: true, completion: nil)
+    }
 
     deinit {
         print("Deinit AgentHome.....")
@@ -322,6 +331,7 @@ extension AgentHomeViewController {
         let request = GetConversationRequestParam.init(pageStart: 1, pageEnd: nil, showLoader: false, type: type, identifier: String.generateUniqueId())
         AgentConversationManager.getConversations(with: request) {[weak self] (result) in
             self?.refreshControl.endRefreshing()
+            self?.updateFilterIcon()
             self?.setData()
             self?.tableView.reloadData()
         }
@@ -403,6 +413,47 @@ extension AgentHomeViewController {
         centerErrorButton.isHidden = true
     }
     
+    func updateFilterIcon() {
+        if FilterManager.shared.selectedChatStatus.count == 0 && FilterManager.shared.selectedChatType.count == 0 && FilterManager.shared.selectedLabelId.count == 0 {
+            filterButton.ImageNoRender = #imageLiteral(resourceName: "filter_button_icon_unselected")
+        } else {
+            filterButton.ImageNoRender = #imageLiteral(resourceName: "filter_button_icon")
+        }
+        switch LeftSideMenuPresenter.shared.currentScreenActive {
+        case .p2p:
+            hideFilterIcon()
+        default:
+            enableFilterIcon()
+        }
+    }
+    func enableFilterIcon() {
+        filterButton.isEnabled = true
+    }
+    
+    func hideFilterIcon() {
+        filterButton.ImageNoRender = UIImage()
+        filterButton.isEnabled = false
+    }
+    
+    func setupNavigationBar() {
+        switch LeftSideMenuPresenter.shared.currentScreenActive {
+        case .myChat:
+            enableFilterIcon()
+            setCustomTitle(barTitle: "My Chats")
+            setupCustomThemeOnNavigationBar(hideNavigationBar: false)
+        case .allChat:
+            enableFilterIcon()
+            setCustomTitle(barTitle: "All Chats")
+            setupCustomThemeOnNavigationBar(hideNavigationBar: false)
+        case .p2p:
+            hideFilterIcon()
+            setCustomTitle(barTitle: "P2P Chats")
+            setupCustomThemeOnNavigationBar(hideNavigationBar: false)
+        }
+        self.viewDidLayoutSubviews()
+    }
+
+    
 }
 
 
@@ -449,6 +500,7 @@ extension AgentHomeViewController: UIScrollViewDelegate {
                 return
             }
             self?.stopLoadingMore()
+            self?.updateFilterIcon()
             self?.setData()
             self?.tableView.reloadData()
             self?.allowPagination = true

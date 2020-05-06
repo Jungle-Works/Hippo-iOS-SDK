@@ -47,6 +47,27 @@
 		D848D1B6245EEF5600235322 /* PaymentPlansViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D848D1B4245EEF5600235322 /* PaymentPlansViewController.swift */; };
 		D848D1BA245EEF9700235322 /* PaymentPlanHomeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D848D1B8245EEF9700235322 /* PaymentPlanHomeCell.swift */; };
 		D848D1BB245EEF9700235322 /* PaymentPlanHomeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D848D1B9245EEF9700235322 /* PaymentPlanHomeCell.xib */; };
+		D84BE1202462A8050010A16C /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84BE11F2462A8050010A16C /* FilterViewController.swift */; };
+		D84BE1242462BCB60010A16C /* FilterOptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84BE1222462BCB50010A16C /* FilterOptionTableViewCell.swift */; };
+		D84BE1252462BCB60010A16C /* FilterOptionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D84BE1232462BCB60010A16C /* FilterOptionTableViewCell.xib */; };
+		D84BE1292462BE5A0010A16C /* StartEndDateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84BE1272462BE590010A16C /* StartEndDateCell.swift */; };
+		D84BE12A2462BE5A0010A16C /* StartEndDateCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D84BE1282462BE5A0010A16C /* StartEndDateCell.xib */; };
+		D84BE12E2462BEB90010A16C /* DateFilterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84BE12C2462BEB80010A16C /* DateFilterTableViewCell.swift */; };
+		D84BE12F2462BEB90010A16C /* DateFilterTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D84BE12D2462BEB80010A16C /* DateFilterTableViewCell.xib */; };
+		D84BE1372462C3430010A16C /* RecentSearchedCustomerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84BE1312462C3410010A16C /* RecentSearchedCustomerTableViewCell.swift */; };
+		D84BE1382462C3430010A16C /* NoCustomersFoundTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84BE1322462C3420010A16C /* NoCustomersFoundTableViewCell.swift */; };
+		D84BE1392462C3430010A16C /* NoCustomersFoundTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D84BE1332462C3420010A16C /* NoCustomersFoundTableViewCell.xib */; };
+		D84BE13A2462C3430010A16C /* SearchCustomerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84BE1342462C3420010A16C /* SearchCustomerTableViewCell.swift */; };
+		D84BE13B2462C3430010A16C /* SearchCustomerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D84BE1352462C3420010A16C /* SearchCustomerTableViewCell.xib */; };
+		D84BE13C2462C3430010A16C /* RecentSearchedCustomerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D84BE1362462C3420010A16C /* RecentSearchedCustomerTableViewCell.xib */; };
+		D84BE1402462C3AD0010A16C /* FilterTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D84BE13E2462C3AD0010A16C /* FilterTableViewCell.xib */; };
+		D84BE1412462C3AD0010A16C /* FilterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84BE13F2462C3AD0010A16C /* FilterTableViewCell.swift */; };
+		D84BE1452462C4050010A16C /* ChatInfoShowMoreTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D84BE1432462C4040010A16C /* ChatInfoShowMoreTableViewCell.xib */; };
+		D84BE1462462C4050010A16C /* ChatInfoShowMoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84BE1442462C4050010A16C /* ChatInfoShowMoreTableViewCell.swift */; };
+		D84BE14A2462C4950010A16C /* FilterChannelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84BE1482462C4940010A16C /* FilterChannelCell.swift */; };
+		D84BE14B2462C4950010A16C /* FilterChannelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D84BE1492462C4940010A16C /* FilterChannelCell.xib */; };
+		D84BE14E2462C63A0010A16C /* SearchCustomerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84BE14D2462C63A0010A16C /* SearchCustomerData.swift */; };
+		D84BE1512462C7640010A16C /* FilterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84BE1502462C7640010A16C /* FilterManager.swift */; };
 		D84F79F5245F49AC00B36168 /* PaymentItemDescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84F79F3245F49AB00B36168 /* PaymentItemDescriptionCell.swift */; };
 		D84F79F6245F49AC00B36168 /* PaymentItemDescriptionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D84F79F4245F49AC00B36168 /* PaymentItemDescriptionCell.xib */; };
 		D86028AB23F6AD40009540D3 /* SuggestionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86028A923F6AD40009540D3 /* SuggestionCell.swift */; };
@@ -427,6 +448,27 @@
 		D848D1B4245EEF5600235322 /* PaymentPlansViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentPlansViewController.swift; sourceTree = "<group>"; };
 		D848D1B8245EEF9700235322 /* PaymentPlanHomeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentPlanHomeCell.swift; sourceTree = "<group>"; };
 		D848D1B9245EEF9700235322 /* PaymentPlanHomeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PaymentPlanHomeCell.xib; sourceTree = "<group>"; };
+		D84BE11F2462A8050010A16C /* FilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
+		D84BE1222462BCB50010A16C /* FilterOptionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterOptionTableViewCell.swift; sourceTree = "<group>"; };
+		D84BE1232462BCB60010A16C /* FilterOptionTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FilterOptionTableViewCell.xib; sourceTree = "<group>"; };
+		D84BE1272462BE590010A16C /* StartEndDateCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartEndDateCell.swift; sourceTree = "<group>"; };
+		D84BE1282462BE5A0010A16C /* StartEndDateCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StartEndDateCell.xib; sourceTree = "<group>"; };
+		D84BE12C2462BEB80010A16C /* DateFilterTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateFilterTableViewCell.swift; sourceTree = "<group>"; };
+		D84BE12D2462BEB80010A16C /* DateFilterTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DateFilterTableViewCell.xib; sourceTree = "<group>"; };
+		D84BE1312462C3410010A16C /* RecentSearchedCustomerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentSearchedCustomerTableViewCell.swift; sourceTree = "<group>"; };
+		D84BE1322462C3420010A16C /* NoCustomersFoundTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoCustomersFoundTableViewCell.swift; sourceTree = "<group>"; };
+		D84BE1332462C3420010A16C /* NoCustomersFoundTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoCustomersFoundTableViewCell.xib; sourceTree = "<group>"; };
+		D84BE1342462C3420010A16C /* SearchCustomerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchCustomerTableViewCell.swift; sourceTree = "<group>"; };
+		D84BE1352462C3420010A16C /* SearchCustomerTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchCustomerTableViewCell.xib; sourceTree = "<group>"; };
+		D84BE1362462C3420010A16C /* RecentSearchedCustomerTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RecentSearchedCustomerTableViewCell.xib; sourceTree = "<group>"; };
+		D84BE13E2462C3AD0010A16C /* FilterTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FilterTableViewCell.xib; sourceTree = "<group>"; };
+		D84BE13F2462C3AD0010A16C /* FilterTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterTableViewCell.swift; sourceTree = "<group>"; };
+		D84BE1432462C4040010A16C /* ChatInfoShowMoreTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatInfoShowMoreTableViewCell.xib; sourceTree = "<group>"; };
+		D84BE1442462C4050010A16C /* ChatInfoShowMoreTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatInfoShowMoreTableViewCell.swift; sourceTree = "<group>"; };
+		D84BE1482462C4940010A16C /* FilterChannelCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterChannelCell.swift; sourceTree = "<group>"; };
+		D84BE1492462C4940010A16C /* FilterChannelCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FilterChannelCell.xib; sourceTree = "<group>"; };
+		D84BE14D2462C63A0010A16C /* SearchCustomerData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchCustomerData.swift; sourceTree = "<group>"; };
+		D84BE1502462C7640010A16C /* FilterManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterManager.swift; sourceTree = "<group>"; };
 		D84F79F3245F49AB00B36168 /* PaymentItemDescriptionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentItemDescriptionCell.swift; sourceTree = "<group>"; };
 		D84F79F4245F49AC00B36168 /* PaymentItemDescriptionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PaymentItemDescriptionCell.xib; sourceTree = "<group>"; };
 		D86028A923F6AD40009540D3 /* SuggestionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuggestionCell.swift; sourceTree = "<group>"; };
@@ -883,6 +925,13 @@
 		C936006722EEC5EA00A6C291 /* TableViewCell */ = {
 			isa = PBXGroup;
 			children = (
+				D84BE1472462C4790010A16C /* FilterChannelCell */,
+				D84BE1422462C3EB0010A16C /* ChatInfoShowMoreCell */,
+				D84BE13D2462C3950010A16C /* FilterTableCell */,
+				D84BE1302462C2D40010A16C /* SearchCustomerTableViewCell */,
+				D84BE12B2462BE9B0010A16C /* DateFilterCell */,
+				D84BE1262462BE3B0010A16C /* StartEndDateCell */,
+				D84BE1212462BC830010A16C /* FilterOptionCell */,
 				D848D1B7245EEF7900235322 /* PaymentPlanHomeCell */,
 				D8F6D0D52419469A00B168C5 /* CustomSheetTableViewCell */,
 				D8F6D0D02419468100B168C5 /* PaymentSecureView */,
@@ -1362,6 +1411,7 @@
 		C9B77CF521A01B050092848D /* Hippo */ = {
 			isa = PBXGroup;
 			children = (
+				D84BE14F2462C74B0010A16C /* Managers */,
 				D8F6CFF22418F92100B168C5 /* InternalClasses */,
 				D8F6D0312418FAE600B168C5 /* CustomClasses */,
 				D8F6D03C2418FB2B00B168C5 /* PublicClasses */,
@@ -1518,6 +1568,7 @@
 		C9B77D8921A01B060092848D /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D84BE14C2462C56F0010A16C /* SearchAndCreateNewConvo */,
 				D848D1AD245EEE9700235322 /* PaymentPlan */,
 				D8F6D2152419549E00B168C5 /* Messages */,
 				D8F6D1E22419547400B168C5 /* BussinessProperty.swift */,
@@ -1609,6 +1660,7 @@
 				D8F6D2BB24195D5800B168C5 /* ShowImageViewController.swift */,
 				D8F6D2B924195D5700B168C5 /* ListDescriptionViewController.swift */,
 				D8F6D2B724195D5600B168C5 /* PromotionsViewController.swift */,
+				D84BE11E2462A7D40010A16C /* FilterViewController */,
 				D8F6D2C324195D7C00B168C5 /* HippoChecker */,
 				D8F6D2CA24195DB100B168C5 /* Payment */,
 				D848D1B2245EEF1B00235322 /* PaymentPlan */,
@@ -1841,6 +1893,97 @@
 				D848D1B9245EEF9700235322 /* PaymentPlanHomeCell.xib */,
 			);
 			path = PaymentPlanHomeCell;
+			sourceTree = "<group>";
+		};
+		D84BE11E2462A7D40010A16C /* FilterViewController */ = {
+			isa = PBXGroup;
+			children = (
+				D84BE11F2462A8050010A16C /* FilterViewController.swift */,
+			);
+			path = FilterViewController;
+			sourceTree = "<group>";
+		};
+		D84BE1212462BC830010A16C /* FilterOptionCell */ = {
+			isa = PBXGroup;
+			children = (
+				D84BE1222462BCB50010A16C /* FilterOptionTableViewCell.swift */,
+				D84BE1232462BCB60010A16C /* FilterOptionTableViewCell.xib */,
+			);
+			path = FilterOptionCell;
+			sourceTree = "<group>";
+		};
+		D84BE1262462BE3B0010A16C /* StartEndDateCell */ = {
+			isa = PBXGroup;
+			children = (
+				D84BE1272462BE590010A16C /* StartEndDateCell.swift */,
+				D84BE1282462BE5A0010A16C /* StartEndDateCell.xib */,
+			);
+			path = StartEndDateCell;
+			sourceTree = "<group>";
+		};
+		D84BE12B2462BE9B0010A16C /* DateFilterCell */ = {
+			isa = PBXGroup;
+			children = (
+				D84BE12C2462BEB80010A16C /* DateFilterTableViewCell.swift */,
+				D84BE12D2462BEB80010A16C /* DateFilterTableViewCell.xib */,
+			);
+			path = DateFilterCell;
+			sourceTree = "<group>";
+		};
+		D84BE1302462C2D40010A16C /* SearchCustomerTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				D84BE1322462C3420010A16C /* NoCustomersFoundTableViewCell.swift */,
+				D84BE1332462C3420010A16C /* NoCustomersFoundTableViewCell.xib */,
+				D84BE1312462C3410010A16C /* RecentSearchedCustomerTableViewCell.swift */,
+				D84BE1362462C3420010A16C /* RecentSearchedCustomerTableViewCell.xib */,
+				D84BE1342462C3420010A16C /* SearchCustomerTableViewCell.swift */,
+				D84BE1352462C3420010A16C /* SearchCustomerTableViewCell.xib */,
+			);
+			path = SearchCustomerTableViewCell;
+			sourceTree = "<group>";
+		};
+		D84BE13D2462C3950010A16C /* FilterTableCell */ = {
+			isa = PBXGroup;
+			children = (
+				D84BE13F2462C3AD0010A16C /* FilterTableViewCell.swift */,
+				D84BE13E2462C3AD0010A16C /* FilterTableViewCell.xib */,
+			);
+			path = FilterTableCell;
+			sourceTree = "<group>";
+		};
+		D84BE1422462C3EB0010A16C /* ChatInfoShowMoreCell */ = {
+			isa = PBXGroup;
+			children = (
+				D84BE1442462C4050010A16C /* ChatInfoShowMoreTableViewCell.swift */,
+				D84BE1432462C4040010A16C /* ChatInfoShowMoreTableViewCell.xib */,
+			);
+			path = ChatInfoShowMoreCell;
+			sourceTree = "<group>";
+		};
+		D84BE1472462C4790010A16C /* FilterChannelCell */ = {
+			isa = PBXGroup;
+			children = (
+				D84BE1482462C4940010A16C /* FilterChannelCell.swift */,
+				D84BE1492462C4940010A16C /* FilterChannelCell.xib */,
+			);
+			path = FilterChannelCell;
+			sourceTree = "<group>";
+		};
+		D84BE14C2462C56F0010A16C /* SearchAndCreateNewConvo */ = {
+			isa = PBXGroup;
+			children = (
+				D84BE14D2462C63A0010A16C /* SearchCustomerData.swift */,
+			);
+			path = SearchAndCreateNewConvo;
+			sourceTree = "<group>";
+		};
+		D84BE14F2462C74B0010A16C /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				D84BE1502462C7640010A16C /* FilterManager.swift */,
+			);
+			path = Managers;
 			sourceTree = "<group>";
 		};
 		D86028A823F6AC9D009540D3 /* SuggestionCollectionViewCell */ = {
@@ -2377,10 +2520,14 @@
 				D8F6D10A241949C100B168C5 /* BotOutgoingMessageTableViewCell.xib in Resources */,
 				D8F6CFFF2418F9CF00B168C5 /* AgentProfileViewController.xib in Resources */,
 				D8F6D1B22419510F00B168C5 /* TitilliumWeb-LightItalic.ttf in Resources */,
+				D84BE1392462C3430010A16C /* NoCustomersFoundTableViewCell.xib in Resources */,
 				D8F6D15A24194D8600B168C5 /* OutgoingVideoTableViewCell.xib in Resources */,
+				D84BE12F2462BEB90010A16C /* DateFilterTableViewCell.xib in Resources */,
+				D84BE12A2462BE5A0010A16C /* StartEndDateCell.xib in Resources */,
 				D8F6D0EC241947E100B168C5 /* ActionTableView.xib in Resources */,
 				D8F6D0B0241943D900B168C5 /* QuickReplyButtonCollectionViewCell.xib in Resources */,
 				D8F6D1BA2419516700B168C5 /* HippoBroadCast.storyboard in Resources */,
+				D84BE13B2462C3430010A16C /* SearchCustomerTableViewCell.xib in Resources */,
 				D8F6D0D42419469000B168C5 /* PaymentSecureView.xib in Resources */,
 				D8F6D0DF2419472800B168C5 /* OutgoingImageCell.xib in Resources */,
 				D8F6D0B72419444900B168C5 /* ChatInfoHeader.xib in Resources */,
@@ -2441,14 +2588,18 @@
 				C9B77EDD21A01B070092848D /* Montserrat-SemiBold.otf in Resources */,
 				D88B20D224619F90007FD382 /* Info.plist in Resources */,
 				D8F6D14D24194D1800B168C5 /* IncomingAudioTableViewCell.xib in Resources */,
+				D84BE13C2462C3430010A16C /* RecentSearchedCustomerTableViewCell.xib in Resources */,
+				D84BE14B2462C4950010A16C /* FilterChannelCell.xib in Resources */,
 				D8F6D0262418FA8A00B168C5 /* PaymentMessageCell.xib in Resources */,
 				D8F6D14E24194D1800B168C5 /* OutgoingAudioTableViewCell.xib in Resources */,
 				D8F6D15F24194DA500B168C5 /* OutgoingDocumentTableViewCell.xib in Resources */,
 				D8F6D0BD2419449500B168C5 /* NavigationTitleView.xib in Resources */,
 				D8F6D1A12419503300B168C5 /* FeedbackTableViewCell.xib in Resources */,
 				D86028AC23F6AD40009540D3 /* SuggestionCell.xib in Resources */,
+				D84BE1452462C4050010A16C /* ChatInfoShowMoreTableViewCell.xib in Resources */,
 				D8F6D18424194F5800B168C5 /* BroadcastButtonCell.xib in Resources */,
 				D8F6D1B42419510F00B168C5 /* TitilliumWeb-ExtraLight.ttf in Resources */,
+				D84BE1402462C3AD0010A16C /* FilterTableViewCell.xib in Resources */,
 				D8F6D13624194C4A00B168C5 /* ButtonCollectionCell.xib in Resources */,
 				D8F6D15724194D8600B168C5 /* IncomingVideoTableViewCell.xib in Resources */,
 				D8F6D0B32419440C00B168C5 /* EmojiCollectionViewCell.xib in Resources */,
@@ -2457,6 +2608,7 @@
 				D8F6D18124194F1F00B168C5 /* ChatInfoAgentTableViewCell.xib in Resources */,
 				D8F6D1B62419510F00B168C5 /* TitilliumWeb-Regular.ttf in Resources */,
 				D8F6D18924194F7600B168C5 /* BroadcastAgentCell.xib in Resources */,
+				D84BE1252462BCB60010A16C /* FilterOptionTableViewCell.xib in Resources */,
 				D8F6D14224194CB300B168C5 /* SenderNameTableCell.xib in Resources */,
 				D8F6D0CF2419467600B168C5 /* ProfileDetailCell.xib in Resources */,
 				D8F6D0CA2419466200B168C5 /* ProfileNameCell.xib in Resources */,
@@ -2563,6 +2715,7 @@
 				D8F6D29D24195AA200B168C5 /* IQBarButtonItem.swift in Sources */,
 				D8F6D2662419591500B168C5 /* TagView.swift in Sources */,
 				D8F6D2D224195DC500B168C5 /* PaymentField.swift in Sources */,
+				D84BE14E2462C63A0010A16C /* SearchCustomerData.swift in Sources */,
 				D8F6D14724194CD200B168C5 /* ImageTableViewCell.swift in Sources */,
 				D8F6D2042419547C00B168C5 /* BussinessProperty.swift in Sources */,
 				D8F6D0AF241943D900B168C5 /* QuickReplyButtonCollectionViewCell.swift in Sources */,
@@ -2610,6 +2763,7 @@
 				D8F6D07A2418FFDC00B168C5 /* LoggerEnum.swift in Sources */,
 				D8F6D0482418FC4400B168C5 /* ParallaxHeader.swift in Sources */,
 				D8F6D2A024195AA200B168C5 /* IQUIView+IQKeyboardToolbar.swift in Sources */,
+				D84BE1412462C3AD0010A16C /* FilterTableViewCell.swift in Sources */,
 				D8F6D2BD24195D5900B168C5 /* SelectImageViewController.swift in Sources */,
 				D88B20DD24619F90007FD382 /* ImagePrefetcher.swift in Sources */,
 				D8F6D0D7241946A400B168C5 /* CustomTableViewCell.swift in Sources */,
@@ -2629,6 +2783,7 @@
 				D8F6D06A2418FF6000B168C5 /* CoreKit+UIImage.swift in Sources */,
 				D8F6D2DB24195E1000B168C5 /* BroadcastListViewController.swift in Sources */,
 				D8F6D11B24194A9300B168C5 /* ConversationView.swift in Sources */,
+				D84BE1372462C3430010A16C /* RecentSearchedCustomerTableViewCell.swift in Sources */,
 				D8F6D0512418FC7500B168C5 /* MZFayeClient.m in Sources */,
 				D8F6D1FB2419547C00B168C5 /* FuguActionableMessage.swift in Sources */,
 				D8F6D2032419547C00B168C5 /* HippoTicketAtrributes.swift in Sources */,
@@ -2637,12 +2792,15 @@
 				D8F6D0FE2419493C00B168C5 /* ContactNumberTableCell.swift in Sources */,
 				D8F6D1F92419547C00B168C5 /* QuickLookItem.swift in Sources */,
 				D8F6D14324194CB300B168C5 /* SenderNameTableCell.swift in Sources */,
+				D84BE1512462C7640010A16C /* FilterManager.swift in Sources */,
 				D8F6D0932419010F00B168C5 /* HippoNotification.swift in Sources */,
 				D8F6D0D32419469000B168C5 /* PaymentSecureView.swift in Sources */,
 				D8F6D01D2418FA7300B168C5 /* MultiSelectTableViewCell.swift in Sources */,
 				D8F6D1072419498D00B168C5 /* BroadcastUserStatusCell.swift in Sources */,
 				D8F6D2272419552B00B168C5 /* CustomerInfo.swift in Sources */,
 				D8F6D0912419010F00B168C5 /* MessageTableViewCell.swift in Sources */,
+				D84BE1242462BCB60010A16C /* FilterOptionTableViewCell.swift in Sources */,
+				D84BE1462462C4050010A16C /* ChatInfoShowMoreTableViewCell.swift in Sources */,
 				D8F6D24B2419588300B168C5 /* FrameObserverAccessaryView.swift in Sources */,
 				D8F6D0832419000100B168C5 /* LoggerTheme.swift in Sources */,
 				D8F6D15824194D8600B168C5 /* OutgoingVideoTableViewCell.swift in Sources */,
@@ -2657,11 +2815,13 @@
 				D8F6D2C724195D9200B168C5 /* HippoChecker.swift in Sources */,
 				D8F6D2C924195D9200B168C5 /* HippoDataCollectorDataSource.swift in Sources */,
 				D8F6D04A2418FC4400B168C5 /* UIScrollView+ParallaxHeader.swift in Sources */,
+				D84BE12E2462BEB90010A16C /* DateFilterTableViewCell.swift in Sources */,
 				D8F6D00C2418FA0300B168C5 /* WebViewConfig.swift in Sources */,
 				D8F6D22B2419552B00B168C5 /* BroadcastStore.swift in Sources */,
 				D8F6D06C2418FF6E00B168C5 /* CoreDocumentPicker.swift in Sources */,
 				D8F6D21B241954B400B168C5 /* HippoActionMessage.swift in Sources */,
 				D8F6D0A22419017B00B168C5 /* HippoConfig.swift in Sources */,
+				D84BE1202462A8050010A16C /* FilterViewController.swift in Sources */,
 				D88B20DB24619F90007FD382 /* ThreadHelper.swift in Sources */,
 				D8F6D1D0241951D000B168C5 /* UIImage+Gif.swift in Sources */,
 				D8F6D24A2419588300B168C5 /* CountryCode.swift in Sources */,
@@ -2710,6 +2870,7 @@
 				D86028B023F6AFFA009540D3 /* SuggestionViewDelegate.swift in Sources */,
 				C9B77ECF21A01B070092848D /* IQKeyboardManagerConstantsInternal.swift in Sources */,
 				C9B77EC221A01B070092848D /* Filter.swift in Sources */,
+				D84BE1382462C3430010A16C /* NoCustomersFoundTableViewCell.swift in Sources */,
 				C9B77E6F21A01B060092848D /* MessageSender.swift in Sources */,
 				D88B20E024619F90007FD382 /* UIButton+Kingfisher.swift in Sources */,
 				C9B77EC721A01B070092848D /* IQTextView.swift in Sources */,
@@ -2724,6 +2885,7 @@
 				D8F6D2E124195E2500B168C5 /* BroadcastDetailViewController.swift in Sources */,
 				D8F6D0222418FA7E00B168C5 /* MultipleSelectTableViewCell.swift in Sources */,
 				D8F6D12A24194B6500B168C5 /* ActionableMessageTableViewCell.swift in Sources */,
+				D84BE1292462BE5A0010A16C /* StartEndDateCell.swift in Sources */,
 				D8F6D0352418FB0100B168C5 /* HCSStarRatingView.m in Sources */,
 				D848D1BA245EEF9700235322 /* PaymentPlanHomeCell.swift in Sources */,
 				D88B20E324619F90007FD382 /* Box.swift in Sources */,
@@ -2760,6 +2922,7 @@
 				D8F6D13E24194C9300B168C5 /* ItemTableViewCell.swift in Sources */,
 				D848D1B6245EEF5600235322 /* PaymentPlansViewController.swift in Sources */,
 				D8F6D2112419547C00B168C5 /* HippoConversation.swift in Sources */,
+				D84BE14A2462C4950010A16C /* FilterChannelCell.swift in Sources */,
 				D8F6D20B2419547C00B168C5 /* HippoStrings.swift in Sources */,
 				D8F6D1FD2419547C00B168C5 /* HippoProperty.swift in Sources */,
 				D8F6D0EB241947E100B168C5 /* ActionTableView.swift in Sources */,
@@ -2778,6 +2941,7 @@
 				D8F6D18024194F1F00B168C5 /* ChatInfoAgentTableViewCell.swift in Sources */,
 				D8F6D2E624195E5E00B168C5 /* AgentChatInfoViewController.swift in Sources */,
 				D8F6D0C92419466200B168C5 /* ProfileNameCell.swift in Sources */,
+				D84BE13A2462C3430010A16C /* SearchCustomerTableViewCell.swift in Sources */,
 				D8F6D2C824195D9200B168C5 /* HippoDataCollectorController.swift in Sources */,
 				D8F6D0492418FC4400B168C5 /* ParallaxHeaderMode.swift in Sources */,
 				D8F6D0742418FF8600B168C5 /* CoreFilesConfig.swift in Sources */,
