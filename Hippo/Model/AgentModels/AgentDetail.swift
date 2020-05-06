@@ -327,6 +327,7 @@ extension AgentDetail {
             return [:]
         }
         var params = [String: Any]()
+        params["ignore_agent_status"] = 1
         params["access_token"] = agentDetail.fuguToken
         params["device_type"] = Device_Type_iOS
         params["device_id"]  =  UIDevice.current.identifierForVendor?.uuidString ?? 0
