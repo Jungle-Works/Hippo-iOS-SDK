@@ -23,7 +23,7 @@ class PromotionCellDataModel
     var deepLink:String = ""
     var cellHeight:CGFloat = 0.01
     var skipBot:String = ""
-    
+    var customAttributeData : [String : Any]?
     
     
     init?(dict: [String: Any])
@@ -51,6 +51,8 @@ class PromotionCellDataModel
             self.deepLink = deepLink as String ?? ""
             print("deep link>>> \(deepLink)")
         }
+        
+        self.customAttributeData = self.customAttributes?["data"] as? [String : Any]
         
         if let data = self.customAttributes!["data"] as? [String:Any]
         {

@@ -136,6 +136,13 @@ static let devFaye = "https://hippo-api-dev.fuguchat.com:3002/faye"//"https://hi
         CallManager.shared.initCallClientIfPresent()
     }
     
+    //MARK:- Function to pass Deep link Dic
+    //Function is called on click of deep link form promotion view controller
+    func getDeepLinkData(_ data : [String : Any]){
+        HippoConfig.shared.delegate?.deepLinkClicked(response: data)
+    }
+    
+    //
     
     internal func setAgentStoredData() {
         guard let storedData = AgentDetail.agentLoginData else {

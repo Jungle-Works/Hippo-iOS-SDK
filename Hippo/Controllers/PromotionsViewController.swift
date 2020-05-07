@@ -27,6 +27,7 @@ class PromotionsViewController: UIViewController {
     @IBOutlet var errorLabel: UILabel!
     @IBOutlet var viewError_Height: NSLayoutConstraint!
      @IBOutlet weak var errorContentView: UIView!
+    @IBOutlet weak var top_Constraint : NSLayoutConstraint!
     //MARK:- Variables
     
     var data: [PromotionCellDataModel] = []
@@ -94,6 +95,9 @@ class PromotionsViewController: UIViewController {
         self.promotionsTableView.isHidden = false
         self.checkNetworkConnection()
         self.setUpTabBar()
+        self.setUpViewWithNav()
+        //top_Constraint.constant = (self.navigationController?.navigationBar.frame.size.height ?? 0.0) + 20
+        self.view.layoutSubviews()
     }
 
     func callGetAnnouncementsApi(){
@@ -405,30 +409,12 @@ extension PromotionsViewController: UITableViewDelegate,UITableViewDataSource
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        //HippoConfig.shared.delegate?.promotionMessageRecievedWith(response:[:], viewController: self)
-        let d = data[indexPath.row]
-        if d.deepLink.isEmpty
-        {
-            
-        }
-        else
-        {
-            if d.skipBot.isEmpty
-            {
-                HippoConfig.shared.isSkipBot = false
+        if let promotionData = data[indexPath.row] as? PromotionCellDataModel{
+            if let deepLink = promotionData.deepLink as? String{
+                if deepLink == "3x67AU1"{
+                   HippoConfig.shared.getDeepLinkData(promotionData.customAttributeData ?? [String : Any]())
+                }
             }
-            else
-            {
-                HippoConfig.shared.isSkipBot = true
-            }
-            //HippoConfig.shared.openChatScreen(withLabelId: Int(data[indexPath.row].channelID) ?? 0)
-            
-            let labelID = d.channelID
-            let conversationViewController = ConversationsViewController.getWith(labelId:"\(labelID)")
-            self.navigationController?.pushViewController(conversationViewController, animated: true)
-            
-            
         }
     }
     
