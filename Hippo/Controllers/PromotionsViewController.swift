@@ -27,7 +27,7 @@ class PromotionsViewController: UIViewController {
     @IBOutlet var errorLabel: UILabel!
     @IBOutlet var viewError_Height: NSLayoutConstraint!
      @IBOutlet weak var errorContentView: UIView!
-    @IBOutlet weak var top_Constraint : NSLayoutConstraint!
+//    @IBOutlet weak var top_Constraint : NSLayoutConstraint!
     //MARK:- Variables
     
     var data: [PromotionCellDataModel] = []

@@ -12,7 +12,7 @@ let HippoSDKSource = 1
 let Device_Type_iOS = 2
 var userDetailData = [String: Any]()
 
-let fuguAppVersion = "2.1.13"
+let fuguAppVersion = "2.1.14"
 let versionCode = 320//350(newCalling)
 
 /*
@@ -88,4 +88,6 @@ let versionCode = 320//350(newCalling)
  311 *** 2.1.12 = Merged code with buddy branch & old calling
  
  312 *** 2.1.13 = Broadcast issue, chat cache issues fixed and change new conversation button
+ 
+ 313 *** 2.1.14 = Promotions issue fixed and deep linking handled
  */
