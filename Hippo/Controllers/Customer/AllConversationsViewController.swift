@@ -35,6 +35,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     @IBOutlet weak var bottomLineView: UIView!
     @IBOutlet weak var buttonContainerViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var bottomViewLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var width_NewConversation : NSLayoutConstraint!
     
     // MARK: - PROPERTIES
     let refreshControl = UIRefreshControl()
@@ -42,7 +43,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     
     var tableViewDefaultText: String = "Loading ..."
     let urlForFuguChat = "https://fuguchat.com/"
-    
+    var arrayOfFullConversation = [FuguConversation]()
     var arrayOfConversation = [FuguConversation]()
     var ongoingConversationArr = [FuguConversation]()
     var closedConversationArr = [FuguConversation]()
@@ -61,6 +62,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         
         if config.shouldUseCache {
             //self.arrayOfConversation = fetchAllConversationCache()
+            arrayOfFullConversation = fetchAllConversationCache()
             let fetchAllConversationCacheData = fetchAllConversationCache()
             if !fetchAllConversationCacheData.isEmpty{
                 self.filterConversationArr(conversationArr: fetchAllConversationCacheData)
@@ -85,7 +87,6 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         checkNetworkConnection()
-        newConversationBiutton.isHidden = true
 
         self.navigationController?.setTheme()
         self.navigationController?.isNavigationBarHidden = false
@@ -209,7 +210,8 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     newConversationBiutton.layer.borderColor = theme.themeTextcolor.cgColor
     newConversationBiutton.layer.masksToBounds = true
     newConversationBiutton.titleLabel?.font = theme.newConversationButtonFont
-    newConversationBiutton.setTitle(theme.newConversationText, for: .normal)
+    newConversationBiutton.isSelected = false
+    self.updateNewConversationBtnUI(isSelected: false)
 //    newConversationBiutton.isHidden = HippoConfig.shared.isNewConversationButtonHidden
 //    newConversationBiutton.isHidden = !HippoProperty.current.enableNewConversationButton
     
@@ -322,6 +324,25 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         UIApplication.shared.openURL(fuguURL)
     }
     
+    func updateNewConversationBtnUI(isSelected : Bool){
+        if isSelected{
+            width_NewConversation.constant = 210
+            let chatImage = UIImage(named: "chat", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+            self.newConversationBiutton.setImage(chatImage, for: .normal)
+            self.newConversationBiutton.setTitle("  " + HippoConfig.shared.theme.newConversationText, for: .normal)
+            self.newConversationBiutton.tintColor = HippoConfig.shared.theme.themeTextcolor
+            self.newConversationBiutton.backgroundColor = HippoConfig.shared.theme.themeColor
+        }else{
+            width_NewConversation.constant = 50
+            let chatImage = UIImage(named: "chat", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+            self.newConversationBiutton.tintColor = HippoConfig.shared.theme.themeTextcolor
+            self.newConversationBiutton.setImage(chatImage, for: .normal)
+            self.newConversationBiutton.setTitle("", for: .normal)
+            self.newConversationBiutton.backgroundColor = HippoConfig.shared.theme.themeColor
+        }
+    }
+    
+    
     // MARK: - UIButton Actions
     
     @IBAction func backButtonClicked(_ sender: Any) {
@@ -354,21 +375,34 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         
     }
     
-    @IBAction func newConversationButtonClicked(_ sender: Any) {
+    @IBAction func newConversationButtonClicked(_ sender: UIButton) {
         //After Merge func
-        var fuguNewChatAttributes = FuguNewChatAttributes(transactionId: "", userUniqueKey: HippoConfig.shared.userDetail?.userUniqueKey, otherUniqueKey: nil, tags: nil, channelName: nil, preMessage: "", groupingTag: nil)
         
-        print("bodID******* \(HippoProperty.current.newconversationBotGroupId ?? "")")
-        print("bodID*******Second")
-        if HippoProperty.current.newconversationBotGroupId != ""{
-            fuguNewChatAttributes.botGroupId = HippoProperty.current.newconversationBotGroupId
+        sender.isSelected = !sender.isSelected
+        if sender.isSelected{
+            UIView.animate(withDuration: 0.2, delay: 0, options: [.curveEaseOut], animations: {
+                self.updateNewConversationBtnUI(isSelected: sender.isSelected)
+            })
+            
+        }else{
+            
+            var fuguNewChatAttributes = FuguNewChatAttributes(transactionId: "", userUniqueKey: HippoConfig.shared.userDetail?.userUniqueKey, otherUniqueKey: nil, tags: nil, channelName: nil, preMessage: "", groupingTag: nil)
+            
+            print("bodID******* \(HippoProperty.current.newconversationBotGroupId ?? "")")
+            print("bodID*******Second")
+            if HippoProperty.current.newconversationBotGroupId != ""{
+                fuguNewChatAttributes.botGroupId = HippoProperty.current.newconversationBotGroupId
+            }
+            //"72"//
+            //        fuguNewChatAttributes.botGroupId = "299"
+            
+            let conversation = ConversationsViewController.getWith(chatAttributes: fuguNewChatAttributes)
+            conversation.createConversationOnStart = true
+            self.navigationController?.pushViewController(conversation, animated: true)
+             self.updateNewConversationBtnUI(isSelected: sender.isSelected)
         }
-       //"72"//
-//        fuguNewChatAttributes.botGroupId = "299"
         
-        let conversation = ConversationsViewController.getWith(chatAttributes: fuguNewChatAttributes)
-        conversation.createConversationOnStart = true
-        self.navigationController?.pushViewController(conversation, animated: true)
+        
     }
 
     @IBAction func openChatButtonClicked(_ sender: UIButton) {
@@ -493,27 +527,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
             }
             
             self?.arrayOfConversation = conversation
-            //self?.showConversationsTableView.reloadData()
-            
-//            DispatchQueue.main.async {
-//                var tempArrayOfConversation = [FuguConversation]()
-//                tempArrayOfConversation = conversation
-//                if self?.conversationChatType == .openChat{
-//                    tempArrayOfConversation = tempArrayOfConversation.filter{$0.channelStatus.rawValue == 1}
-//                    self?.arrayOfConversation.removeAll()
-//                    self?.arrayOfConversation = tempArrayOfConversation
-//                }else if self?.conversationChatType == .closeChat{
-//                    tempArrayOfConversation = tempArrayOfConversation.filter{$0.channelStatus.rawValue == 2}
-//                    self?.arrayOfConversation.removeAll()
-//                    self?.arrayOfConversation = tempArrayOfConversation
-//                }else{}
-//                self?.showConversationsTableView.reloadData()
-//                self?.showConversationsTableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: .top, animated: true)
-//            }
-            
-            //self?.saveConversationsInCache()
-            
-            //self?.filterConversationArr(conversationArr: conversation)
+            self?.arrayOfFullConversation = conversation
             let conversationData = conversation
             if !conversationData.isEmpty{
                 self?.filterConversationArr(conversationArr: conversationData)
@@ -619,7 +633,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         guard config.shouldUseCache else {
             return
         }
-        let conversationJson = FuguConversation.getJsonFrom(conversations: arrayOfConversation)
+        let conversationJson = FuguConversation.getJsonFrom(conversations: arrayOfFullConversation)
         FuguDefaults.set(value: conversationJson, forKey: DefaultName.conversationData.rawValue)
         //FuguDefaults.set(value: self.conversationChatType, forKey: "conversationType")
     }
@@ -752,7 +766,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         if (convObj.unreadCount ?? 0) > 0 {
 //            convObj.channelStatus = .open
         }
-        saveConversationsInCache()
+       // saveConversationsInCache()
         resetPushCount()
         pushTotalUnreadCount()
         
