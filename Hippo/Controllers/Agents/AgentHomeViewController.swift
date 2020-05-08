@@ -50,7 +50,8 @@ class AgentHomeViewController: HippoHomeViewController {
     @IBOutlet weak var loaderContainer: UIView!
     @IBOutlet weak var centerErrorButton: UIButton!
     @IBOutlet weak var loaderImage: So_UIImageView!
-    
+    @IBOutlet weak var filterButton: UIButton!
+
     
     //MARK: ViewDidload
     override func viewDidLoad() {
@@ -113,6 +114,9 @@ class AgentHomeViewController: HippoHomeViewController {
         tableView.reloadData()
     }
 
+    @IBAction func filterButtonTapped(_ sender: Any) {
+        
+    }
 
     deinit {
         print("Deinit AgentHome.....")
