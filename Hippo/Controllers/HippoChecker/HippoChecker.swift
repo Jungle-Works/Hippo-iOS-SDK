@@ -13,7 +13,7 @@ class HippoChecker {
     enum HippoCheckerRequest {
         case presentChat
     }
-    
+
     var config: HippoConfig {
         return HippoConfig.shared
     }

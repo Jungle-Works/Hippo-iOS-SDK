@@ -123,11 +123,12 @@ class FuguFlowManager: NSObject {
         guard HippoConfig.shared.appUserType == .agent else {
             return
         }
-        guard let nav = AgentHomeViewController.get() else {
+        guard let controller = AgentHomeViewController.getController() else {
             return
         }
         let visibleController = getLastVisibleController()
-        visibleController?.present(nav, animated: true, completion: nil)
+        visibleController?.navigationController?.pushViewController(controller, animated: true)
+//        visibleController?.present(nav, animated: true, completion: nil)
     }
    
 

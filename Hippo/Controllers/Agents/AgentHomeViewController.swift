@@ -77,7 +77,13 @@ class AgentHomeViewController: HippoHomeViewController {
         resetPushCount()
         pushTotalUnreadCount()
         HippoConfig.shared.notifiyDeinit()
-        self.dismiss(animated: true, completion: nil)
+        if navigationController?.presentingViewController != nil {
+            // Navigation controller is being presented modally
+            self.dismiss(animated: true, completion: nil)
+        } else {
+            self.navigationController?.popViewController(animated: true)
+        }
+
     }
     
     @IBAction func myChatButtonClicked(_ sender: UIButton) {
