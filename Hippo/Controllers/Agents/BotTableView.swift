@@ -81,7 +81,7 @@ class BotTableView: UIView {
         }
         
         setupPickerview()
-        sendButton.isHidden = true
+//        sendButton.isHidden = true
         pickerView.reloadAllComponents()
         selectedRow = -1
         pickerView.selectRow(pickerView.numberOfRows(inComponent: 0) - 1, inComponent: 0, animated: false)
@@ -92,7 +92,12 @@ class BotTableView: UIView {
         delegate = nil
         selectedRow = -1
         pickerView.selectRow(listArray.count - 1, inComponent: 0, animated: false)
-        self.removeFromSuperview()
+        UIView.animate(withDuration: 0.25, animations: {
+            self.alpha = 0.0
+        }) { (_) in
+            self.removeFromSuperview()
+        }
+
     }
 }
 

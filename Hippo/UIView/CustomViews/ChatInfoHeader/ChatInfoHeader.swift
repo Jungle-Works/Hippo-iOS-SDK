@@ -20,7 +20,7 @@ class ChatInfoHeader: UIView {
     
     class func configureSectionHeader(headerInfo: ChatInfoCell) -> ChatInfoHeader {
         let chatInfoHeader = UINib(nibName: "ChatInfoHeader", bundle: FuguFlowManager.bundle).instantiate(withOwner: nil, options: nil)[0] as! ChatInfoHeader
-        chatInfoHeader.textLabel.textColor = .themeColor
+        chatInfoHeader.textLabel.textColor = .black
         chatInfoHeader.textLabel.text = headerInfo.nameOfCell
         chatInfoHeader.iconImageView.image = headerInfo.infoImage ?? nil
         

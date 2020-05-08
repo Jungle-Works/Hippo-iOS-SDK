@@ -32,7 +32,7 @@ class AgentConversationViewController: HippoConversationViewController {
     @IBOutlet weak var infoButton: UIButton!
     
     @IBOutlet weak var videoButton: UIBarButtonItem!
-//    @IBOutlet var textViewBottomConstraint: NSLayoutConstraint!
+    //    @IBOutlet var textViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var bottomContentViewBottomConstraint: NSLayoutConstraint!
     //    @IBOutlet weak var hieghtOfNavigationBar: NSLayoutConstraint!
     @IBOutlet weak var loadMoreActivityTopContraint: NSLayoutConstraint!
@@ -41,10 +41,14 @@ class AgentConversationViewController: HippoConversationViewController {
     @IBOutlet weak var paymentButton: UIButton!
     @IBOutlet weak var botActionButton: UIButton!
 
+    @IBOutlet weak var retryLabelView: UIView!
+    @IBOutlet weak var retryLoader: UIActivityIndicatorView!
+    @IBOutlet weak var labelViewRetryButton: UIButton!
+
     // MARK: - PROPERTIES
     var heightOfNavigation: CGFloat = 0
     var isSingleChat = false
-     var botActionView = BotTableView.loadView(CGRect.zero)
+    var botActionView = BotTableView.loadView(CGRect.zero)
     
     // MARK: - Computed Properties
     var localFilePath: String {
@@ -193,6 +197,14 @@ class AgentConversationViewController: HippoConversationViewController {
 
     // MARK: - UIButton Actions
     
+    @IBAction func retryLabelButtonTapped(_ sender: Any) {
+        retryLoader.isHidden = false
+        labelViewRetryButton.isHidden = true
+        fuguDelay(2.0) {
+            self.fetchMessagesFrom1stPage()
+        }
+    }
+
     @IBAction func audioButtonClicked(_ sender: Any) {
         startAudioCall()
     }
@@ -270,7 +282,6 @@ class AgentConversationViewController: HippoConversationViewController {
             return
         }
         if botArray.isEmpty {
-//            self.updateNoBotAction()
             showAlertWith(message: "No bot action available.", action: nil)
             return
         }
@@ -278,7 +289,11 @@ class AgentConversationViewController: HippoConversationViewController {
         self.botActionView.frame = window.frame
         self.botActionView.delegate = self
         self.botActionView.setupCell(botArray)
+        self.botActionView.alpha = 0.0
         window.addSubview(self.botActionView)
+        UIView.animate(withDuration: 0.25) { () -> Void in
+            self.botActionView.alpha = 1.0
+        }
     }
 
     override func addMessageToUIBeforeSending(message: HippoMessage) {
@@ -326,7 +341,7 @@ class AgentConversationViewController: HippoConversationViewController {
         self.closeKeyBoard()
         presentPlansVc()
     }
-   
+
     override func titleButtonclicked() {
         guard isCustomerInfoAvailable() else {
             return
@@ -407,7 +422,7 @@ class AgentConversationViewController: HippoConversationViewController {
     }
     
     override func getMessagesBasedOnChannel(fromMessage pageStart: Int, pageEnd: Int?, completion: ((_ success: Bool) -> Void)?) {
-        
+
         guard channel != nil else {
             completion?(false)
             return
@@ -429,7 +444,7 @@ class AgentConversationViewController: HippoConversationViewController {
             startLoaderAnimation()
             disableSendingNewMessages()
         }  else if !isPaginationInProgress()  {
-//            startGettingNewMessages()
+            //            startGettingNewMessages()
         }
         
         let request = MessageStore.messageRequest(pageStart: pageStart, showLoader: false, pageEnd: pageEnd, channelId: channel.id, labelId: -1)
@@ -448,12 +463,27 @@ class AgentConversationViewController: HippoConversationViewController {
             self?.stopLoaderAnimation()
             self?.showHideActivityIndicator(hide: true)
             self?.isGettingMessageViaPaginationInProgress = false
-            
+
             guard let result = response, result.isSuccessFull, let weakself = self else {
                 completion?(false)
+                self?.goForApiRetry()
                 return
             }
             weakself.handleSuccessCompletionOfGetMessages(result: result, request: request, completion: completion)
+        }
+    }
+
+    func goForApiRetry() {
+        if FuguNetworkHandler.shared.isNetworkConnected{
+            //If There are No Cached Msg
+            if self.messagesGroupedByDate.count == 0 {
+            }
+            else{
+                //If there are cached msgs
+                retryLabelView.isHidden = false
+                retryLoader.isHidden = true
+                labelViewRetryButton.isHidden = false
+            }
         }
     }
     
@@ -733,7 +763,7 @@ extension AgentConversationViewController {
             inputView.changeKeyboardFrame { [weak self] (keyboardVisible, keyboardFrame) in
                 let value = UIScreen.main.bounds.height - keyboardFrame.minY - UIView.safeAreaInsetOfKeyWindow.bottom
                 let maxValue = max(0, value)
-//                self?.textViewBottomConstraint.constant = maxValue
+                //                self?.textViewBottomConstraint.constant = maxValue
                 self?.bottomContentViewBottomConstraint.constant = maxValue
                 
                 self?.view.layoutIfNeeded()
@@ -1085,7 +1115,7 @@ extension AgentConversationViewController: UITableViewDelegate, UITableViewDataS
                     cell.setCellData(message: actionMessage)
                     return cell
                 case .leadForm:
-                     guard let cell = tableView.dequeueReusableCell(withIdentifier: "LeadTableViewCell", for: indexPath) as? LeadTableViewCell else {
+                    guard let cell = tableView.dequeueReusableCell(withIdentifier: "LeadTableViewCell", for: indexPath) as? LeadTableViewCell else {
                         return UITableViewCell()
                     }
                     cell.delegate = self
@@ -1094,13 +1124,13 @@ extension AgentConversationViewController: UITableViewDelegate, UITableViewDataS
                     return cell
                 case .multipleSelect:
                     guard let cell = tableView.dequeueReusableCell(withIdentifier: "MultiSelectTableViewCell", for: indexPath) as? MultiSelectTableViewCell else {
-                            return UITableView.defaultCell()
-                        }
-//                    cell.submitButtonDelegate = self
+                        return UITableView.defaultCell()
+                    }
+                    //                    cell.submitButtonDelegate = self
                     cell.isAgent = true
                     cell.isUserInteractionEnabled = false
                     cell.set(message: message)
-                        return cell
+                    return cell
                 case .feedback:
                     guard let cell = tableView.dequeueReusableCell(withIdentifier: "FeedbackTableViewCell") as? FeedbackTableViewCell else {
                         return UITableViewCell()
@@ -1109,7 +1139,7 @@ extension AgentConversationViewController: UITableViewDelegate, UITableViewDataS
                     param.showSendButton = false
                     cell.isAgent = true
                     cell.setDataForAgent(with: param)
-//                    cell.delegate = self
+                    //                    cell.delegate = self
                     cell.backgroundColor = .clear
                     if let muid = message.messageUniqueID {
                         heightForFeedBackCell["\(muid)"] = cell.alertContainer.bounds.height
@@ -1547,7 +1577,7 @@ extension AgentConversationViewController: UIImagePickerControllerDelegate, UINa
     
     func disableSendingReply() {
         self.channel?.isSendingDisabled = true
-//        self.textViewBottomConstraint.constant = -self.textViewBgView.frame.height
+        //        self.textViewBottomConstraint.constant = -self.textViewBgView.frame.height
         self.bottomContentViewBottomConstraint.constant = -self.textViewBgView.frame.height
         self.textViewBgView.isHidden = true
     }
@@ -1634,10 +1664,10 @@ extension AgentConversationViewController: BotTableDelegate {
         channel.unsentMessages.append(message)
         self.addMessageToUIBeforeSending(message: message)
         channel.send(message: message) {
-//            self.assignAlertView.backgroundColor = UIColor.fadedOrange
-//            self.assignAlertLabel.text = "Feedback request has been sent."
-//            self.updateAssignAlert(isAgentCanSendMsg: true)
-//            self.channel?.channelInfo?.isFeedbackAsked = true
+            //            self.assignAlertView.backgroundColor = UIColor.fadedOrange
+            //            self.assignAlertLabel.text = "Feedback request has been sent."
+            //            self.updateAssignAlert(isAgentCanSendMsg: true)
+            //            self.channel?.channelInfo?.isFeedbackAsked = true
         }
     }
 

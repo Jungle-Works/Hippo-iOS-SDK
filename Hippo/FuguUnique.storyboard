@@ -519,7 +519,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
                                 <subviews>
                                     <imageView hidden="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="app_loader_shape" translatesAutoresizingMaskIntoConstraints="NO" id="Lee-41-dPF" customClass="So_UIImageView" customModule="Hippo" customModuleProvider="target">
-                                        <rect key="frame" x="167.5" y="291.5" width="40" height="40"/>
+                                        <rect key="frame" x="147.5" y="271.5" width="80" height="80"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </imageView>
                                 </subviews>
@@ -676,7 +676,7 @@
                                 <rect key="frame" x="0.0" y="44" width="375" height="623"/>
                                 <subviews>
                                     <imageView hidden="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="app_loader_shape" translatesAutoresizingMaskIntoConstraints="NO" id="Y22-DA-qgw" customClass="So_UIImageView" customModule="Hippo" customModuleProvider="target">
-                                        <rect key="frame" x="167.5" y="291.5" width="40" height="40"/>
+                                        <rect key="frame" x="147.5" y="271.5" width="80" height="80"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </imageView>
                                 </subviews>
@@ -778,7 +778,7 @@
                                 </constraints>
                             </view>
                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" image="app_loader_shape" translatesAutoresizingMaskIntoConstraints="NO" id="eZG-Yq-Sel">
-                                <rect key="frame" x="167.5" y="313.5" width="40" height="40"/>
+                                <rect key="frame" x="147.5" y="293.5" width="80" height="80"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q6z-xO-SMj">
                                 <rect key="frame" x="164.5" y="322.5" width="46.5" height="22.5"/>
@@ -1719,6 +1719,71 @@
                                     <constraint firstItem="T4b-Pj-Swz" firstAttribute="top" secondItem="FvA-Uz-bG4" secondAttribute="top" constant="-20" id="haB-RG-Hjx"/>
                                 </constraints>
                             </view>
+                            <view hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NEK-xS-uSy">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="25"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0jL-DX-q6l">
+                                        <rect key="frame" x="85.5" y="0.0" width="204.5" height="25"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slow internet connection." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PnN-GF-GrK">
+                                                <rect key="frame" x="0.0" y="0.0" width="154.5" height="25"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="25" id="Rnv-J1-HJL"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U5w-0l-2Fa">
+                                                <rect key="frame" x="154.5" y="0.0" width="50" height="25"/>
+                                                <subviews>
+                                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="pkx-VL-T0b">
+                                                        <rect key="frame" x="15" y="2.5" width="20" height="20"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="20" id="3gg-Ui-91I"/>
+                                                            <constraint firstAttribute="height" constant="20" id="va1-Y0-DJa"/>
+                                                        </constraints>
+                                                    </activityIndicatorView>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hgd-bl-x5E">
+                                                        <rect key="frame" x="0.0" y="0.0" width="50" height="25"/>
+                                                        <state key="normal">
+                                                            <attributedString key="attributedTitle">
+                                                                <fragment content="Retry">
+                                                                    <attributes>
+                                                                        <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                                        <font key="NSFont" metaFont="systemBold" size="15"/>
+                                                                        <font key="NSOriginalFont" metaFont="systemBold" size="15"/>
+                                                                        <integer key="NSUnderline" value="1"/>
+                                                                    </attributes>
+                                                                </fragment>
+                                                            </attributedString>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="retryLabelButtonTapped:" destination="RAD-lA-huB" eventType="touchUpInside" id="OSp-Nt-Ehh"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstItem="Hgd-bl-x5E" firstAttribute="top" secondItem="U5w-0l-2Fa" secondAttribute="top" id="CAK-V8-SvT"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Hgd-bl-x5E" secondAttribute="trailing" id="PIG-pq-oon"/>
+                                                    <constraint firstAttribute="bottom" secondItem="Hgd-bl-x5E" secondAttribute="bottom" id="aix-x8-2IV"/>
+                                                    <constraint firstItem="pkx-VL-T0b" firstAttribute="centerX" secondItem="U5w-0l-2Fa" secondAttribute="centerX" id="bsc-Ar-u61"/>
+                                                    <constraint firstItem="Hgd-bl-x5E" firstAttribute="leading" secondItem="U5w-0l-2Fa" secondAttribute="leading" id="cNz-gM-kms"/>
+                                                    <constraint firstAttribute="width" constant="50" id="fat-hU-wUs"/>
+                                                    <constraint firstItem="pkx-VL-T0b" firstAttribute="centerY" secondItem="U5w-0l-2Fa" secondAttribute="centerY" id="sA4-0i-8ZG"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.98431372549999996" green="0.90588235289999997" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstItem="0jL-DX-q6l" firstAttribute="centerX" secondItem="NEK-xS-uSy" secondAttribute="centerX" id="iFF-eH-9vH"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="25" id="j8d-4S-ahA"/>
+                                    <constraint firstAttribute="height" constant="25" id="mFs-hs-ixy"/>
+                                    <constraint firstItem="0jL-DX-q6l" firstAttribute="centerY" secondItem="NEK-xS-uSy" secondAttribute="centerY" id="zeI-5V-VXV"/>
+                                </constraints>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I8G-5k-zEy" userLabel="BottomContentView" customClass="So_UIView" customModule="Hippo" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="524" width="375" height="50"/>
                                 <subviews>
@@ -1837,11 +1902,14 @@
                         <color key="backgroundColor" red="0.97647058819999999" green="0.98823529409999999" blue="0.98823529409999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="FvA-Uz-bG4" firstAttribute="leading" secondItem="rcJ-ZN-hfW" secondAttribute="leading" id="Atf-IV-dD8"/>
+                            <constraint firstItem="NEK-xS-uSy" firstAttribute="leading" secondItem="rcJ-ZN-hfW" secondAttribute="leading" id="Crq-Sh-qCP"/>
                             <constraint firstAttribute="trailing" secondItem="VJr-jD-1Ra" secondAttribute="trailing" id="CwV-hW-dFS"/>
                             <constraint firstItem="FvA-Uz-bG4" firstAttribute="width" secondItem="rcJ-ZN-hfW" secondAttribute="width" id="Dnm-q7-Maw"/>
                             <constraint firstItem="I8G-5k-zEy" firstAttribute="top" secondItem="VJr-jD-1Ra" secondAttribute="bottom" id="IOG-a2-f7B"/>
+                            <constraint firstAttribute="trailing" secondItem="NEK-xS-uSy" secondAttribute="trailing" id="JSe-In-cGV"/>
                             <constraint firstItem="VJr-jD-1Ra" firstAttribute="leading" secondItem="rcJ-ZN-hfW" secondAttribute="leading" id="KYH-wp-QiJ"/>
                             <constraint firstAttribute="trailing" secondItem="I8G-5k-zEy" secondAttribute="trailing" id="Mc5-ml-xG1"/>
+                            <constraint firstItem="NEK-xS-uSy" firstAttribute="top" secondItem="FvA-Uz-bG4" secondAttribute="bottom" id="PVm-9g-vOh"/>
                             <constraint firstItem="FeR-Yy-uA2" firstAttribute="leading" secondItem="rcJ-ZN-hfW" secondAttribute="leading" id="SvP-1F-Tp1"/>
                             <constraint firstItem="VJr-jD-1Ra" firstAttribute="top" secondItem="Mtn-eI-Dik" secondAttribute="bottom" id="XJc-Vk-BYo"/>
                             <constraint firstItem="VJr-jD-1Ra" firstAttribute="top" secondItem="FeR-Yy-uA2" secondAttribute="bottom" id="XbQ-0A-DEo"/>
@@ -1908,12 +1976,15 @@
                         <outlet property="errorContentView" destination="FvA-Uz-bG4" id="I0m-kS-wIk"/>
                         <outlet property="errorLabel" destination="T4b-Pj-Swz" id="mif-f4-gb6"/>
                         <outlet property="errorLabelTopConstraint" destination="haB-RG-Hjx" id="hbU-3y-03b"/>
+                        <outlet property="labelViewRetryButton" destination="Hgd-bl-x5E" id="vep-ag-Gmp"/>
                         <outlet property="loadMoreActivityIndicator" destination="7gL-EW-Etf" id="h0M-PM-r9k"/>
                         <outlet property="loadMoreActivityTopContraint" destination="Y5e-Fk-uZP" id="W5V-5Z-Fs2"/>
                         <outlet property="loaderView" destination="OGB-1g-dv7" id="i3F-w6-qy2"/>
                         <outlet property="messageTextView" destination="HWq-nU-95V" id="DFK-82-SWj"/>
                         <outlet property="paymentButton" destination="SUQ-0n-24V" id="epB-t6-nZg"/>
                         <outlet property="placeHolderLabel" destination="vkZ-H0-n5j" id="aPW-pL-Qah"/>
+                        <outlet property="retryLabelView" destination="NEK-xS-uSy" id="kab-aK-qoj"/>
+                        <outlet property="retryLoader" destination="pkx-VL-T0b" id="cDd-r1-61Y"/>
                         <outlet property="sendMessageButton" destination="ZPm-UX-dzr" id="jN7-O2-EX6"/>
                         <outlet property="seperatorView" destination="Mtn-eI-Dik" id="Hhf-72-GNR"/>
                         <outlet property="tableViewChat" destination="FeR-Yy-uA2" id="l7F-I5-HAv"/>
@@ -2469,7 +2540,7 @@
                                 </constraints>
                             </view>
                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="app_loader_shape" translatesAutoresizingMaskIntoConstraints="NO" id="DhK-89-YLr" customClass="So_UIImageView" customModule="Hippo" customModuleProvider="target">
-                                <rect key="frame" x="167.5" y="313.5" width="40" height="40"/>
+                                <rect key="frame" x="147.5" y="293.5" width="80" height="80"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </imageView>
                         </subviews>
