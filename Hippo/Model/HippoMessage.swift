@@ -14,6 +14,7 @@ class MessageCallbacks {
     var leadFormUpdated: (() -> Void)? = nil
     var sendingStatusUpdated: (() -> Void)? = nil
     var messageRefresed: (() -> Void)? = nil
+    
 }
 
 
@@ -855,7 +856,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         comment = newObject.comment
         feedbackMessages.line_after_feedback_1 = newObject.feedbackMessages.line_after_feedback_1
         feedbackMessages.line_after_feedback_2 = newObject.feedbackMessages.line_after_feedback_2
-        feedbackMessages.line_before_feedback = newObject.feedbackMessages.line_before_feedback
+        feedbackMessages.line_before_feedback  = newObject.feedbackMessages.line_before_feedback
         is_rating_given = newObject.is_rating_given
         //Updating for leadForm
         leadsDataArray = newObject.leadsDataArray
