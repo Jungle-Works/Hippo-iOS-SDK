@@ -110,8 +110,9 @@ class CreatePaymentViewController: UIViewController {
     }
     
     class func get() -> CreatePaymentViewController {
-        let storyboard = UIStoryboard(name: "FuguUnique", bundle: FuguFlowManager.bundle)
-        let vc = storyboard.instantiateViewController(withIdentifier: "CreatePaymentViewController") as! CreatePaymentViewController
+//        let storyboard = UIStoryboard(name: "FuguUnique", bundle: FuguFlowManager.bundle)
+//        let vc = storyboard.instantiateViewController(withIdentifier: "CreatePaymentViewController") as! CreatePaymentViewController
+        let vc = generateView()
         vc.initalizeView()
         return vc
     }

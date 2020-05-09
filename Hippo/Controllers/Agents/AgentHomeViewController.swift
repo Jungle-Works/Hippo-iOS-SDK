@@ -320,7 +320,12 @@ extension AgentHomeViewController {
     }
     internal func setupRefreshController() {
         refreshControl.backgroundColor = .clear
-        refreshControl.tintColor = .themeColor
+//        refreshControl.tintColor = .themeColor
+        if HippoConfig.shared.theme.themeColor == UIColor.white || HippoConfig.shared.theme.themeColor == UIColor.clear{
+            refreshControl.tintColor = HippoConfig.shared.theme.themeTextcolor
+        }else{
+            refreshControl.tintColor = .themeColor
+        }
         tableView.backgroundView = refreshControl
         refreshControl.addTarget(self, action: #selector(reloadrefreshData(refreshCtrler:)), for: .valueChanged)
     }
