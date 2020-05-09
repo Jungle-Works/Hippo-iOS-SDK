@@ -903,7 +903,6 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     
    // MARK: - SERVER HIT
     override func getMessagesBasedOnChannel(fromMessage pageStart: Int, pageEnd: Int?, completion: ((_ success: Bool) -> Void)?) {
-      
       guard channel != nil else {
          completion?(false)
          return
@@ -1167,6 +1166,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         
         guard let result = response, result.isSuccessFull, let weakSelf = self else {
             completion?(false)
+            self?.goForApiRetry()
             return
         }
         weakSelf.storeResponse = result
@@ -1750,7 +1750,6 @@ extension ConversationsViewController {
             else{
                 //If there are cached msgs
                 chatScreenTableViewTopConstraint.constant = 25
-                
                 retryLabelView.isHidden = false
                 retryLoader.isHidden = true
                 labelViewRetryButton.isHidden = false

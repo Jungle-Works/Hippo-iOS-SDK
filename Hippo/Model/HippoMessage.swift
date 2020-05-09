@@ -14,6 +14,7 @@ class MessageCallbacks {
     var leadFormUpdated: (() -> Void)? = nil
     var sendingStatusUpdated: (() -> Void)? = nil
     var messageRefresed: (() -> Void)? = nil
+    
 }
 
 
@@ -462,13 +463,23 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         attributtedMessage = MessageUIAttributes(message: message, senderName: senderFullName, isSelfMessage: userType.isMyUserType)
     }
     
-    init(message: String, type: MessageType, uniqueID: String? = nil, imageUrl: String? = nil, thumbnailUrl: String? = nil, localFilePath: String? = nil, senderName: String? = nil, senderId: Int? = nil, chatType: ChatType?) {
+    init(message: String, type: MessageType, uniqueID: String? = nil,bot: BotAction? = nil, imageUrl: String? = nil, thumbnailUrl: String? = nil, localFilePath: String? = nil, senderName: String? = nil, senderId: Int? = nil, chatType: ChatType?) {
         self.message = message
         self.senderId = senderId ?? currentUserId()
         self.senderFullName = senderName ?? currentUserName()//.formatName()
         self.senderImage = currentUserImage()
         self.chatType = chatType ?? .none
-        
+
+        // Bot feedback handling ?
+        if let bot = bot {
+            self.contentValues = bot.contentValues
+            self.content = MessageContent(param: self.contentValues)
+            self.content.values = bot.values as? [String] ?? []
+            leadsDataArray = FormData.getArray(object: content)
+        }
+
+
+
         creationDateTime = Date()
         self.type = type
         self.messageUniqueID = uniqueID
@@ -845,7 +856,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         comment = newObject.comment
         feedbackMessages.line_after_feedback_1 = newObject.feedbackMessages.line_after_feedback_1
         feedbackMessages.line_after_feedback_2 = newObject.feedbackMessages.line_after_feedback_2
-        feedbackMessages.line_before_feedback = newObject.feedbackMessages.line_before_feedback
+        feedbackMessages.line_before_feedback  = newObject.feedbackMessages.line_before_feedback
         is_rating_given = newObject.is_rating_given
         //Updating for leadForm
         leadsDataArray = newObject.leadsDataArray

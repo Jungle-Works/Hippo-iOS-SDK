@@ -50,7 +50,8 @@ class AgentHomeViewController: HippoHomeViewController {
     @IBOutlet weak var loaderContainer: UIView!
     @IBOutlet weak var centerErrorButton: UIButton!
     @IBOutlet weak var loaderImage: So_UIImageView!
-    
+    @IBOutlet weak var filterButton: UIButton!
+
     
     //MARK: ViewDidload
     override func viewDidLoad() {
@@ -65,6 +66,7 @@ class AgentHomeViewController: HippoHomeViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.filterButton.tintColor = HippoConfig.shared.theme.themeTextcolor
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -112,7 +114,16 @@ class AgentHomeViewController: HippoHomeViewController {
         setData()
         tableView.reloadData()
     }
-
+    
+    @IBAction func filterBtnAction(_ sender: Any) {
+//        let navVC = FilterViewController.getFilterStoryboardRoot()
+//        self.present(navVC, animated: true, completion: nil)
+        if let vc = FilterViewController.getNewInstance(){
+            let navVC = UINavigationController(rootViewController: vc)
+//        navVC.setupCustomThemeOnNavigationController(hideNavigationBar: false)
+            self.present(navVC, animated: true, completion: nil)
+        }
+    }
 
     deinit {
         print("Deinit AgentHome.....")
@@ -309,7 +320,12 @@ extension AgentHomeViewController {
     }
     internal func setupRefreshController() {
         refreshControl.backgroundColor = .clear
-        refreshControl.tintColor = .themeColor
+//        refreshControl.tintColor = .themeColor
+        if HippoConfig.shared.theme.themeColor == UIColor.white || HippoConfig.shared.theme.themeColor == UIColor.clear{
+            refreshControl.tintColor = HippoConfig.shared.theme.themeTextcolor
+        }else{
+            refreshControl.tintColor = .themeColor
+        }
         tableView.backgroundView = refreshControl
         refreshControl.addTarget(self, action: #selector(reloadrefreshData(refreshCtrler:)), for: .valueChanged)
     }
@@ -495,6 +511,39 @@ extension AgentHomeViewController: UITableViewDelegate, UITableViewDataSource {
             pushTotalUnreadCount()
             tableView.reloadRows(at: [indexPath], with: .none)
         }
+    }
+
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        var deleteAction = UITableViewRowAction(style: .default, title: "End chat") { (action, indexpath) in
+            self.updateChannelStatus(for: indexPath.row)
+        }
+        return [deleteAction]
+    }
+
+    func updateChannelStatus(for row: Int) {
+        if let channelId = conversationList[row].channel_id, let newStatus = conversationList[row].status {
+            AgentConversationManager.updateChannelStatus(for: channelId, newStatus: newStatus) { (result) in
+                guard result.isSuccessful else {
+                    showAlertWith(message: HippoConfig.shared.strings.somethingWentWrong, action: nil)
+                    return
+                }
+                guard let controllers = self.navigationController?.viewControllers else { return }
+                for each in controllers {
+                    if let vc = each as? HippoHomeViewController {
+                        vc.channelStatusChanged(channelId: channelId, newStatus: ChatStatus(rawValue: newStatus) ?? ChatStatus.open)
+                    break
+                }
+                if let vc = each as? AgentDirectViewController, vc.conversationList.count > 1 {
+                    break
+                }
+                }
+            }
+        }
+
     }
     
     fileprivate func setupTableView() {

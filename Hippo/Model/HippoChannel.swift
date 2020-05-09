@@ -744,6 +744,7 @@ class HippoChannel {
             }
         case .feedback, .leadForm:
             oldMessage.updateObject(with: newMessage)
+            delegate?.channelDataRefreshed()
         case .paymentCard:
 //            oldMessage.cards = newMessage.cards
 //            oldMessage.selectedCardId = newMessage.selectedCardId

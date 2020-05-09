@@ -89,6 +89,67 @@ enum IntegrationSource: Int {
     }
 }
 
+enum FilterOptionSection: Int, CaseCountable {
+//    case people = 0
+    case status
+//    case chatType
+//    case channels
+//    case labels
+//    case agents
+//    case date
+}
+struct FilterField {
+    var nameOfField: String = ""
+    var selected: Bool = false
+    var isAnyImage: Bool = true
+    var isSectionTitle: Bool = false
+    var id: Int = -1
+    
+    init(nameOfField: String, isAnyImage: Bool = true, selected: Bool = false, isSectionTitle: Bool = false) {
+        self.nameOfField = nameOfField
+        self.selected = selected
+        self.isAnyImage = isAnyImage
+        self.isSectionTitle = isSectionTitle
+    }
+    init(data: labelWithId) {
+        self.nameOfField = data.label
+        self.selected = data.isSelected
+        self.id = data.id
+    }
+//    init(data: ChannelDetail) {
+//        self.nameOfField = data.channelName
+//        self.selected = data.isSelected
+//        self.id = data.id
+//    }
+//    init(data: TagDetail) {
+//        isSectionTitle = false
+//        self.nameOfField = data.tagName ?? ""
+//        self.selected = data.isSelected
+//        self.id = data.tagId ?? -1
+//    }
+//    init(data: Agent, selectedAgentID: [Int]) {
+//        isSectionTitle = false
+//        self.nameOfField = data.fullName ?? ""
+//        self.selected = false
+//        self.id = data.userId ?? data.inviteId ?? -1
+//
+//        if id > 0 {
+//            self.selected = selectedAgentID.contains(id)
+//        }
+//    }
+}
+struct labelWithId {
+    var label: String
+    var id: Int
+    var isSelected: Bool
+    
+    init(label: String, id: Int, isSelected: Bool = false) {
+        self.label = label
+        self.id = id
+        self.isSelected = isSelected
+    }
+}
+
 enum MessageType: Int {
     case none = 0, normal = 1, assignAgent = 2, privateNote = 3, imageFile = 10, attachment = 11, actionableMessage = 12, feedback = 14, botText = 15, quickReply = 16, leadForm = 17, call = 18, hippoPay = 19, consent = 20, card = 21, paymentCard = 22, multipleSelect = 23, embeddedVideoUrl = 24//, address = 25, dateTime = 26
 
@@ -332,6 +393,7 @@ enum AgentEndPoints: String {
 //    case serverGetConfig = "api/apps/getConfig"
     case getPaymentPlans = "api/agent/getPaymentPlans"
     case editPaymentPlans = "api/agent/editPaymentPlans"
+    case getBotActions = "api/agent/getAllBotActions"
 }
 
 enum BroadcastType: String, CaseCountable {

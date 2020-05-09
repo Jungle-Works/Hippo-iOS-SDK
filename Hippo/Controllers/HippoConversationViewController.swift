@@ -59,6 +59,9 @@ class HippoConversationViewController: UIViewController {
     var titleForNavigation: NavigationTitleView?
     
     var errorMessage: String = ""
+    var chatType: ChatType? {
+        return channel.chatDetail?.chatType
+    }
     
     //MARK: 
     @IBOutlet var tableViewChat: UITableView!

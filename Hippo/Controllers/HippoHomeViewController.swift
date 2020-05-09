@@ -29,7 +29,7 @@ class HippoHomeViewController: UIViewController {
     //MARK: Function to override
     @objc func didSetUserChannel() { }
     func deleteConversation(channelId: Int) { }
-    
+
     func channelStatusChanged(channelId: Int, newStatus: ChatStatus) {
         fuguDelay(2) {
             self.deleteConversation(channelId: channelId)

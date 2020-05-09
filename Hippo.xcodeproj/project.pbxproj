@@ -78,6 +78,12 @@
 		D88B20E524619F90007FD382 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88B20CE24619F8F007FD382 /* ImageCache.swift */; };
 		D88B20E624619F90007FD382 /* FormatIndicatedCacheSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88B20CF24619F8F007FD382 /* FormatIndicatedCacheSerializer.swift */; };
 		D88B20E724619F90007FD382 /* ImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88B20D024619F8F007FD382 /* ImageDownloader.swift */; };
+		D88B900124657E2400E3093F /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88B900024657E2400E3093F /* FilterViewController.swift */; };
+		D88B90052465818600E3093F /* FilterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88B90032465818500E3093F /* FilterTableViewCell.swift */; };
+		D88B90062465818600E3093F /* FilterTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D88B90042465818600E3093F /* FilterTableViewCell.xib */; };
+		D88B900D2466111E00E3093F /* FilterOptionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D88B900B2466111D00E3093F /* FilterOptionTableViewCell.xib */; };
+		D88B900E2466111E00E3093F /* FilterOptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88B900C2466111E00E3093F /* FilterOptionTableViewCell.swift */; };
+		D88B9011246672EB00E3093F /* FilterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88B9010246672EA00E3093F /* FilterManager.swift */; };
 		D8A2EDFA245F2F020090E283 /* CreatePaymentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8A2EDF9245F2F020090E283 /* CreatePaymentViewController.xib */; };
 		D8A2EDFE245F2F480090E283 /* PaymentPlansViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8A2EDFD245F2F480090E283 /* PaymentPlansViewController.xib */; };
 		D8F6CFF72418F99800B168C5 /* AllConversationPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F6CFF62418F99800B168C5 /* AllConversationPresenter.swift */; };
@@ -459,6 +465,12 @@
 		D88B20CE24619F8F007FD382 /* ImageCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		D88B20CF24619F8F007FD382 /* FormatIndicatedCacheSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormatIndicatedCacheSerializer.swift; sourceTree = "<group>"; };
 		D88B20D024619F8F007FD382 /* ImageDownloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageDownloader.swift; sourceTree = "<group>"; };
+		D88B900024657E2400E3093F /* FilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
+		D88B90032465818500E3093F /* FilterTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterTableViewCell.swift; sourceTree = "<group>"; };
+		D88B90042465818600E3093F /* FilterTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FilterTableViewCell.xib; sourceTree = "<group>"; };
+		D88B900B2466111D00E3093F /* FilterOptionTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FilterOptionTableViewCell.xib; sourceTree = "<group>"; };
+		D88B900C2466111E00E3093F /* FilterOptionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterOptionTableViewCell.swift; sourceTree = "<group>"; };
+		D88B9010246672EA00E3093F /* FilterManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterManager.swift; sourceTree = "<group>"; };
 		D8A2EDF9245F2F020090E283 /* CreatePaymentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreatePaymentViewController.xib; sourceTree = "<group>"; };
 		D8A2EDFD245F2F480090E283 /* PaymentPlansViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PaymentPlansViewController.xib; sourceTree = "<group>"; };
 		D8F6CFF62418F99800B168C5 /* AllConversationPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllConversationPresenter.swift; sourceTree = "<group>"; };
@@ -883,6 +895,8 @@
 		C936006722EEC5EA00A6C291 /* TableViewCell */ = {
 			isa = PBXGroup;
 			children = (
+				D88B900A2466110000E3093F /* FilterOptionCell */,
+				D88B90022465817000E3093F /* FilterTableCell */,
 				D848D1B7245EEF7900235322 /* PaymentPlanHomeCell */,
 				D8F6D0D52419469A00B168C5 /* CustomSheetTableViewCell */,
 				D8F6D0D02419468100B168C5 /* PaymentSecureView */,
@@ -1602,6 +1616,7 @@
 		C9B77DAD21A01B060092848D /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				D88B900024657E2400E3093F /* FilterViewController.swift */,
 				D8F6D2BA24195D5800B168C5 /* NLevelViewController.swift */,
 				D8F6D2B824195D5600B168C5 /* HippoConversationViewController.swift */,
 				D8F6D2B524195D5500B168C5 /* HippoHomeViewController.swift */,
@@ -1654,6 +1669,7 @@
 		C9B77DC321A01B060092848D /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				D88B9010246672EA00E3093F /* FilterManager.swift */,
 				D8F6D23C2419587C00B168C5 /* UIImageView+Extension.swift */,
 				D8F6D23D2419587D00B168C5 /* FuguNetworkHandler.swift */,
 				D8F6D23F2419587E00B168C5 /* CountryCode.swift */,
@@ -1899,6 +1915,24 @@
 				D88B20C924619F8E007FD382 /* UIButton+Kingfisher.swift */,
 			);
 			path = Kingfisher;
+			sourceTree = "<group>";
+		};
+		D88B90022465817000E3093F /* FilterTableCell */ = {
+			isa = PBXGroup;
+			children = (
+				D88B90032465818500E3093F /* FilterTableViewCell.swift */,
+				D88B90042465818600E3093F /* FilterTableViewCell.xib */,
+			);
+			path = FilterTableCell;
+			sourceTree = "<group>";
+		};
+		D88B900A2466110000E3093F /* FilterOptionCell */ = {
+			isa = PBXGroup;
+			children = (
+				D88B900C2466111E00E3093F /* FilterOptionTableViewCell.swift */,
+				D88B900B2466111D00E3093F /* FilterOptionTableViewCell.xib */,
+			);
+			path = FilterOptionCell;
 			sourceTree = "<group>";
 		};
 		D8A2EDF7245F2ECC0090E283 /* CreatePayment */ = {
@@ -2398,11 +2432,13 @@
 				D8F6D11A24194A9300B168C5 /* ConversationView.xib in Resources */,
 				C9B77E8E21A01B070092848D /* MavenPro-Medium.ttf in Resources */,
 				D8A2EDFE245F2F480090E283 /* PaymentPlansViewController.xib in Resources */,
+				D88B90062465818600E3093F /* FilterTableViewCell.xib in Resources */,
 				D8F6D13224194C2200B168C5 /* ButtonTableViewCell.xib in Resources */,
 				D8F6D11624194A3200B168C5 /* LeadTableViewCell.xib in Resources */,
 				C9B77EDB21A01B070092848D /* Info.plist in Resources */,
 				D8F6D0C52419465000B168C5 /* CardMessageTableViewCell.xib in Resources */,
 				D8F6D1062419498D00B168C5 /* BroadcastUserStatusCell.xib in Resources */,
+				D88B900D2466111E00E3093F /* FilterOptionTableViewCell.xib in Resources */,
 				D8F6D1AF2419510F00B168C5 /* TitilliumWeb-Italic.ttf in Resources */,
 				D8F6D19124194FB300B168C5 /* BroadCastTextViewCell.xib in Resources */,
 				D84F79F6245F49AC00B36168 /* PaymentItemDescriptionCell.xib in Resources */,
@@ -2610,6 +2646,7 @@
 				D8F6D07A2418FFDC00B168C5 /* LoggerEnum.swift in Sources */,
 				D8F6D0482418FC4400B168C5 /* ParallaxHeader.swift in Sources */,
 				D8F6D2A024195AA200B168C5 /* IQUIView+IQKeyboardToolbar.swift in Sources */,
+				D88B9011246672EB00E3093F /* FilterManager.swift in Sources */,
 				D8F6D2BD24195D5900B168C5 /* SelectImageViewController.swift in Sources */,
 				D88B20DD24619F90007FD382 /* ImagePrefetcher.swift in Sources */,
 				D8F6D0D7241946A400B168C5 /* CustomTableViewCell.swift in Sources */,
@@ -2620,6 +2657,7 @@
 				D8F6D10F241949EC00B168C5 /* IncomingDocumentTableViewCell.swift in Sources */,
 				D8F6D0302418FAA100B168C5 /* InformationView.swift in Sources */,
 				D8F6D00E2418FA0300B168C5 /* CustomerPayment.swift in Sources */,
+				D88B90052465818600E3093F /* FilterTableViewCell.swift in Sources */,
 				D88B20DE24619F90007FD382 /* Kingfisher.swift in Sources */,
 				D8F6D0E72419479900B168C5 /* CategoryTableViewCell.swift in Sources */,
 				D88B20D124619F90007FD382 /* AnimatedImageView.swift in Sources */,
@@ -2647,6 +2685,7 @@
 				D8F6D0832419000100B168C5 /* LoggerTheme.swift in Sources */,
 				D8F6D15824194D8600B168C5 /* OutgoingVideoTableViewCell.swift in Sources */,
 				D8F6D15E24194DA500B168C5 /* OutgoingDocumentTableViewCell.swift in Sources */,
+				D88B900E2466111E00E3093F /* FilterOptionTableViewCell.swift in Sources */,
 				D8F6D2D124195DC500B168C5 /* PaymentItem.swift in Sources */,
 				D848D1B5245EEF5600235322 /* PaymentPlansDataSource.swift in Sources */,
 				D88B20D524619F90007FD382 /* Filter.swift in Sources */,
@@ -2662,6 +2701,7 @@
 				D8F6D06C2418FF6E00B168C5 /* CoreDocumentPicker.swift in Sources */,
 				D8F6D21B241954B400B168C5 /* HippoActionMessage.swift in Sources */,
 				D8F6D0A22419017B00B168C5 /* HippoConfig.swift in Sources */,
+				D88B900124657E2400E3093F /* FilterViewController.swift in Sources */,
 				D88B20DB24619F90007FD382 /* ThreadHelper.swift in Sources */,
 				D8F6D1D0241951D000B168C5 /* UIImage+Gif.swift in Sources */,
 				D8F6D24A2419588300B168C5 /* CountryCode.swift in Sources */,

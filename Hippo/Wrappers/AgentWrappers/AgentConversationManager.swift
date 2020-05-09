@@ -116,6 +116,33 @@ class AgentConversationManager {
         }
         
     }
+
+    class func getBotsAction(userId: Int, channelId: Int, handler: @escaping (([BotAction]) -> Void)) {
+        guard let agent = HippoConfig.shared.agentDetail else {
+            return
+        }
+        let params: [String: Any] = ["access_token": agent.fuguToken,
+                                     "user_id": userId,
+                                     "channel_id": "\(channelId)"]
+        print(params)
+        HTTPClient.shared.makeSingletonConnectionWith(method: .POST, identifier: RequestIdenfier.getAllConversationIdentfier, para: params, extendedUrl: AgentEndPoints.getBotActions.rawValue) { (response, error, tag, statusCode) in
+            print(response)
+            if let _ = error {
+                handler([BotAction]())
+            } else {
+                if let response = response as? [String: Any], let data = response["data"] as? [[String: Any]] {
+                    var actionsArray = [BotAction]()
+                    for action in data {
+                        actionsArray.append(BotAction(dict: action))
+                    }
+                    handler(actionsArray)
+                }
+            }
+
+        }
+    }
+
+
     class func agentStatusUpdate(newStatus: AgentStatus) {
         guard HippoConfig.shared.appUserType == .agent else {
              return
@@ -313,7 +340,22 @@ extension AgentConversationManager {
         guard let agent = HippoConfig.shared.agentDetail, agent.id > 0 else {
             return nil
         }
-        var params: [String: Any] = ["status": [1],
+//        var params: [String: Any] = ["status": [1],
+//                                     "access_token": agent.fuguToken,
+//                                     "en_user_id": agent.enUserId,
+//                                     "device_type": "2"]
+        var statusArr = [Int]()
+        for i in 0..<FilterManager.shared.chatStatusArray.count{
+            if FilterManager.shared.chatStatusArray[i].isSelected == true{
+                statusArr.append(i+1)
+            }
+        }
+        if statusArr == []{
+            statusArr.append(1)
+        }
+//        print("qqqqqqqqqq",statusArr)
+        
+        var params: [String: Any] = ["status": statusArr,
                                      "access_token": agent.fuguToken,
                                      "en_user_id": agent.enUserId,
                                      "device_type": "2"]
