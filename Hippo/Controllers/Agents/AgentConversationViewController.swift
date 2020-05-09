@@ -1585,7 +1585,8 @@ extension AgentConversationViewController: UIImagePickerControllerDelegate, UINa
     func disableSendingReply() {
         self.channel?.isSendingDisabled = true
         //        self.textViewBottomConstraint.constant = -self.textViewBgView.frame.height
-        self.bottomContentViewBottomConstraint.constant = -self.textViewBgView.frame.height
+//        self.bottomContentViewBottomConstraint.constant = -self.textViewBgView.frame.height
+        self.bottomContentViewBottomConstraint.constant = -self.textViewBgView.frame.height-50
         self.textViewBgView.isHidden = true
     }
     

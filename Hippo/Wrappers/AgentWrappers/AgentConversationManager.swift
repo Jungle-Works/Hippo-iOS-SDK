@@ -340,7 +340,22 @@ extension AgentConversationManager {
         guard let agent = HippoConfig.shared.agentDetail, agent.id > 0 else {
             return nil
         }
-        var params: [String: Any] = ["status": [1],
+//        var params: [String: Any] = ["status": [1],
+//                                     "access_token": agent.fuguToken,
+//                                     "en_user_id": agent.enUserId,
+//                                     "device_type": "2"]
+        var statusArr = [Int]()
+        for i in 0..<FilterManager.shared.chatStatusArray.count{
+            if FilterManager.shared.chatStatusArray[i].isSelected == true{
+                statusArr.append(i+1)
+            }
+        }
+        if statusArr == []{
+            statusArr.append(1)
+        }
+//        print("qqqqqqqqqq",statusArr)
+        
+        var params: [String: Any] = ["status": statusArr,
                                      "access_token": agent.fuguToken,
                                      "en_user_id": agent.enUserId,
                                      "device_type": "2"]
