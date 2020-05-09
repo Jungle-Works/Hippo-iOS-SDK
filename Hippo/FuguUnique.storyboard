@@ -594,16 +594,6 @@
                             </button>
                         </barButtonItem>
                         <rightBarButtonItems>
-                            <barButtonItem style="plain" id="Qsd-0X-9D9">
-                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="oad-B9-tBv">
-                                    <rect key="frame" x="335" y="1" width="24" height="42"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <state key="normal" image="lockIcon"/>
-                                    <connections>
-                                        <action selector="filterButtonTapped:" destination="uIz-da-txe" eventType="touchUpInside" id="LdL-Pb-tld"/>
-                                    </connections>
-                                </button>
-                            </barButtonItem>
                             <barButtonItem style="plain" id="ck4-O6-bJ5">
                                 <switch key="customView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="0X4-U3-bKC">
                                     <rect key="frame" x="276" y="6.5" width="51" height="31"/>
@@ -639,7 +629,6 @@
                         <outlet property="errorLabelTopConstraint" destination="AN7-ef-46H" id="DiL-RC-fBa"/>
                         <outlet property="errorView" destination="hbE-Ab-hBF" id="GgL-Zh-CDA"/>
                         <outlet property="errorViewTopConstraint" destination="z3V-rz-sgK" id="K4S-FB-cV6"/>
-                        <outlet property="filterButton" destination="oad-B9-tBv" id="Qka-CQ-7Fg"/>
                         <outlet property="loaderContainer" destination="vH2-cc-1Ko" id="ei3-1u-qKP"/>
                         <outlet property="loaderImage" destination="Lee-41-dPF" id="SIb-6F-m3m"/>
                         <outlet property="myChatButton" destination="bP4-8r-t5O" id="I5n-ru-3EB"/>
@@ -687,7 +676,7 @@
                                 <rect key="frame" x="0.0" y="44" width="375" height="623"/>
                                 <subviews>
                                     <imageView hidden="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="app_loader_shape" translatesAutoresizingMaskIntoConstraints="NO" id="Y22-DA-qgw" customClass="So_UIImageView" customModule="Hippo" customModuleProvider="target">
-                                        <rect key="frame" x="147.5" y="271.5" width="80" height="80"/>
+                                        <rect key="frame" x="167.5" y="291.5" width="40" height="40"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </imageView>
                                 </subviews>
@@ -1103,7 +1092,7 @@
                                 </constraints>
                             </view>
                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="app_loader_shape" translatesAutoresizingMaskIntoConstraints="NO" id="yXi-kz-HoV" customClass="So_UIImageView" customModule="Hippo" customModuleProvider="target">
-                                <rect key="frame" x="147.5" y="293.5" width="80" height="80"/>
+                                <rect key="frame" x="167.5" y="313.5" width="40" height="40"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3pN-rq-23Q">
@@ -2551,7 +2540,7 @@
                                 </constraints>
                             </view>
                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="app_loader_shape" translatesAutoresizingMaskIntoConstraints="NO" id="DhK-89-YLr" customClass="So_UIImageView" customModule="Hippo" customModuleProvider="target">
-                                <rect key="frame" x="147.5" y="293.5" width="80" height="80"/>
+                                <rect key="frame" x="167.5" y="313.5" width="40" height="40"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </imageView>
                         </subviews>
@@ -2597,7 +2586,6 @@
         <image name="broadcastIcon" width="25.5" height="19.5"/>
         <image name="close_conversation_icon" width="32" height="32"/>
         <image name="download_white" width="21" height="21"/>
-        <image name="lockIcon" width="10.5" height="10.5"/>
         <image name="newChat" width="30" height="30"/>
         <image name="new_chat_icon" width="18" height="19"/>
         <image name="notification" width="21.5" height="25"/>

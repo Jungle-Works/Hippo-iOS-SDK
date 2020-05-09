@@ -145,7 +145,6 @@ class FeedbackTableViewCell: MessageTableViewCell {
                 placeholderLabel.isHidden = true
                 textviewHeightConstraint.constant = 0
             }
-
         } else {
             cellTextView.text = data.messageObject!.comment
             if cellTextView.text.isEmpty {

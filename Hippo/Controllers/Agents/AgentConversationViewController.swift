@@ -205,6 +205,12 @@ class AgentConversationViewController: HippoConversationViewController {
         }
     }
 
+    func hideRetryLabelView() {
+        labelViewRetryButton.isHidden = false
+        retryLoader.isHidden = true
+        retryLabelView.isHidden = true
+    }
+
     @IBAction func audioButtonClicked(_ sender: Any) {
         startAudioCall()
     }
@@ -469,6 +475,7 @@ class AgentConversationViewController: HippoConversationViewController {
                 self?.goForApiRetry()
                 return
             }
+            weakself.hideRetryLabelView()
             weakself.handleSuccessCompletionOfGetMessages(result: result, request: request, completion: completion)
         }
     }
