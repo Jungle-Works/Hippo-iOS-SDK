@@ -50,7 +50,7 @@ class AgentHomeViewController: HippoHomeViewController {
     @IBOutlet weak var loaderContainer: UIView!
     @IBOutlet weak var centerErrorButton: UIButton!
     @IBOutlet weak var loaderImage: So_UIImageView!
-    
+    @IBOutlet weak var filterButton: UIButton!
     
     //MARK: ViewDidload
     override func viewDidLoad() {
@@ -65,6 +65,7 @@ class AgentHomeViewController: HippoHomeViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.filterButton.tintColor = HippoConfig.shared.theme.themeTextcolor
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -112,7 +113,16 @@ class AgentHomeViewController: HippoHomeViewController {
         setData()
         tableView.reloadData()
     }
-
+    
+    @IBAction func filterBtnAction(_ sender: Any) {
+//        let navVC = FilterViewController.getFilterStoryboardRoot()
+//        self.present(navVC, animated: true, completion: nil)
+        if let vc = FilterViewController.getNewInstance(){
+            let navVC = UINavigationController(rootViewController: vc)
+//        navVC.setupCustomThemeOnNavigationController(hideNavigationBar: false)
+            self.present(navVC, animated: true, completion: nil)
+        }
+    }
 
     deinit {
         print("Deinit AgentHome.....")
