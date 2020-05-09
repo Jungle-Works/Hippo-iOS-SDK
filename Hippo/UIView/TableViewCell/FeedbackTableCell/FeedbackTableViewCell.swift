@@ -139,6 +139,8 @@ class FeedbackTableViewCell: MessageTableViewCell {
             return
         }
         if isAgent {
+            textviewHeightConstraint.constant = min_height_textview
+            cellTextView.isHidden = false
             cellTextView.text = data.messageObject!.comment
             if cellTextView.text.isEmpty {
                 cellTextView.isHidden = true
