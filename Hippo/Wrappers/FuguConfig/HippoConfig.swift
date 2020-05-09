@@ -124,7 +124,7 @@ struct BotAction {
     private(set)  open var suggestions = [Int: String]()//Dictionary<Int, String>()
     private(set)  open var mapping = [Int: [Int]]()//Dictionary<Int, Array<Int>>()
     
-    private(set)  open var hasChannelTabs = false
+    private(set)  open var hasChannelTabs = true//false
     private(set)  open var emptyChannelListText = "No Conversation found"
     
     open var isPaymentRequestEnabled: Bool {
@@ -930,26 +930,22 @@ struct BotAction {
         let channelId = (userInfo["channel_id"] as? Int) ?? -1
         let channelName = (userInfo["label"] as? String) ?? ""
         let labelId = (userInfo["label_id"] as? Int) ?? -1
-        
-//        let channel_Type = (userInfo["channel_type"] as? Int) ?? -1
+        let channel_Type = (userInfo["channel_type"] as? Int) ?? -1
         
         let rawSendingReplyDisabled = (userInfo["disable_reply"] as? Int) ?? 0
         let isSendingDisabled = rawSendingReplyDisabled == 1 ? true : false
         
         if let conVC = visibleController as? ConversationsViewController {
             
-           /* if channel_Type == channelType.BROADCAST_CHANNEL.rawValue {
+            if channel_Type == channelType.BROADCAST_CHANNEL.rawValue {
                 conVC.channel?.delegate = nil
                 conVC.messagesGroupedByDate = []
                 conVC.tableViewChat.reloadData()
                 conVC.label = channelName
                 conVC.labelId = labelId
-                conVC.navigationTitleLabel?.text = channelName
-                if isSendingDisabled {
-                    conVC.disableSendingReply()
-                }
+                conVC.channel = nil
                 conVC.fetchMessagesFrom1stPage()
-            } else*/ if channelId != conVC.channel?.id, channelId > 0 {
+            } else if channelId != conVC.channel?.id, channelId > 0 {
                 let existingChannelID = conVC.channel?.id ?? -1
                 conVC.clearUnreadCountForChannel(id: existingChannelID)
                 conVC.channel?.delegate = nil
@@ -981,12 +977,12 @@ struct BotAction {
         
         if let allConVC = visibleController as? AllConversationsViewController {
             
-           /* if channel_Type == channelType.BROADCAST_CHANNEL.rawValue {
+             if channel_Type == channelType.BROADCAST_CHANNEL.rawValue {
                 let conVC = ConversationsViewController.getWith(labelId: "\(labelId)")
                 conVC.delegate = allConVC
                 allConVC.navigationController?.pushViewController(conVC, animated: true)
                 
-            } else */ if channelId > 0 {
+            } else if channelId > 0 {
                 let conVC = ConversationsViewController.getWith(channelID: channelId, channelName: channelName)
                 conVC.delegate = allConVC
                 allConVC.navigationController?.pushViewController(conVC, animated: true)
@@ -1009,12 +1005,12 @@ struct BotAction {
                 return
             }
             
-           /* if channel_Type == channelType.BROADCAST_CHANNEL.rawValue {
+            if channel_Type == channelType.BROADCAST_CHANNEL.rawValue {
                 let conVC = ConversationsViewController.getWith(labelId: "\(labelId)")
                 let navVC = UINavigationController(rootViewController: conVC)
                 navVC.isNavigationBarHidden = true
                 visibleController?.present(navVC, animated: true, completion: nil)
-            } else */ if channelId > 0 {
+            } else if channelId > 0 {
                 let conVC = ConversationsViewController.getWith(channelID: channelId, channelName: channelName)
                 let navVC = UINavigationController(rootViewController: conVC)
                 navVC.isNavigationBarHidden = true

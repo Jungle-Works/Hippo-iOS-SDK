@@ -12,7 +12,7 @@ let HippoSDKSource = 1
 let Device_Type_iOS = 2
 var userDetailData = [String: Any]()
 
-let fuguAppVersion = "2.1.11"
+let fuguAppVersion = "2.1.13"
 let versionCode = 320//350(newCalling)
 
 /*
@@ -84,4 +84,8 @@ let versionCode = 320//350(newCalling)
  309 *** 2.1.9 = Set Theme Color Of Navigation Bar In Promotional Push Controller
  
  310 *** 2.1.10 = Public Method For Get App Name, Faye Error Handling, Remove Forced Name Capitalization
+ 
+ 311 *** 2.1.12 = Merged code with buddy branch & old calling
+ 
+ 312 *** 2.1.13 = Broadcast issue, chat cache issues fixed and change new conversation button
  */
