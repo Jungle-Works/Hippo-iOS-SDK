@@ -77,9 +77,9 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     var transparentView = UIView()
     var lineLabel = UILabel()
     var customTableView = UITableView()
-    let height: CGFloat = 175//125//250
-    var actionSheetTitleArr = ["Photo & Video Library","Camera","Document"]
-    var actionSheetImageArr = ["Library","Camera","Library"]
+//    let height: CGFloat = 175//125//250
+//    var actionSheetTitleArr = ["Photo & Video Library","Camera","Document"]
+//    var actionSheetImageArr = ["Library","Camera","Library"]
     
     var hieghtOfNavigationBar: CGFloat = 0
     
@@ -218,6 +218,10 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         //        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
         //        view.addGestureRecognizer(panGesture)
         
+        if fetchAddedPaymentGatewaysData() != nil, let getArr = fetchAddedPaymentGatewaysData(){
+            self.addedPaymentGatewaysArr = getArr
+        }
+        
     }
     
     //    @objc func handlePanGesture(_ sender: UIPanGestureRecognizer) {
@@ -269,7 +273,6 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         }
         reloadVisibleCellsToStartActivityIndicator()
         HippoConfig.shared.notifyDidLoad()
-        
     }
     
     override func viewWillLayoutSubviews() {
@@ -573,6 +576,12 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     
     //attachmentButtonclicked(sender)
     closeKeyBoard()
+    actionSheetTitleArr.removeAll()
+    actionSheetImageArr.removeAll()
+    actionSheetTitleArr = ["Photo & Video Library","Camera","Document"]
+    actionSheetImageArr = ["Library","Camera","Library"]
+    heightForActionSheet = CGFloat((actionSheetTitleArr.count * 60))
+    isProceedToPayActionSheet = false
     self.openCustomSheet()
     
    }
@@ -604,14 +613,15 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         showAlertForNoInternetConnection()
     }
     
-    func openCustomSheet(){
+    override func openCustomSheet(){
+        self.customTableView.reloadData()
         let window = UIApplication.shared.keyWindow
         transparentView.backgroundColor = UIColor.black.withAlphaComponent(0.9)
         let screenSize = UIScreen.main.bounds.size
         transparentView.frame = CGRect(x: 0, y: 0, width: screenSize.width, height: screenSize.height)
         window?.addSubview(transparentView)
         
-        customTableView.frame = CGRect(x: 0, y: screenSize.height, width: screenSize.width, height: height)
+        customTableView.frame = CGRect(x: 0, y: screenSize.height, width: screenSize.width, height: heightForActionSheet)
         customTableView.layer.cornerRadius = 10
         if #available(iOS 11.0, *) {
             customTableView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
@@ -636,15 +646,15 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         transparentView.alpha = 0
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, options: .curveEaseInOut, animations: {
             self.transparentView.alpha = 0.5
-            self.customTableView.frame = CGRect(x: 0, y: screenSize.height - self.height, width: screenSize.width, height: self.height)
-            self.lineLabel.frame = CGRect(x: (screenSize.width/2) - ((screenSize.width/5)/2) , y: (screenSize.height - self.height) - 20, width: screenSize.width/5, height: 6)
+            self.customTableView.frame = CGRect(x: 0, y: screenSize.height - self.heightForActionSheet, width: screenSize.width, height: self.heightForActionSheet)
+            self.lineLabel.frame = CGRect(x: (screenSize.width/2) - ((screenSize.width/5)/2) , y: (screenSize.height - self.heightForActionSheet) - 20, width: screenSize.width/5, height: 6)
         }, completion: nil)
     }
     @objc func onClickTransparentView() {
         let screenSize = UIScreen.main.bounds.size
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, options: .curveEaseInOut, animations: {
             self.transparentView.alpha = 0
-            self.customTableView.frame = CGRect(x: 0, y: screenSize.height, width: screenSize.width, height: self.height)
+            self.customTableView.frame = CGRect(x: 0, y: screenSize.height, width: screenSize.width, height: self.heightForActionSheet)
             self.lineLabel.frame = CGRect(x: (screenSize.width/2) - ((screenSize.width/5)/2) , y: screenSize.height, width: screenSize.width/5, height: 6)
         }, completion: nil)
     }
@@ -1757,6 +1767,38 @@ extension ConversationsViewController {
         }
     }
 
+    func fetchAddedPaymentGatewaysData() -> [PaymentGateway]? {
+        if let addedPaymentGatewaysData = FuguDefaults.object(forKey: DefaultName.addedPaymentGatewaysData.rawValue) as? [[String: Any]]{
+            let addedPaymentGatewaysArr = PaymentGateway.parse(addedPaymentGateways: addedPaymentGatewaysData)
+            return addedPaymentGatewaysArr
+        }else{
+            return nil
+        }
+    }
+    
+    func generatePaymentUrlWithSelectedPaymentGateway(for message: HippoMessage, card: CustomerPayment, selectedPaymentGateway: PaymentGateway?, proceedToPayChannel: HippoChannel?) {
+        let selectedCard = card
+        guard let channelId = proceedToPayChannel?.id else {
+            HippoConfig.shared.log.error("cannot find selected card.... Please select the card", level: .error)
+            return
+        }
+        HippoConfig.shared.delegate?.startLoading(message: "Redirecting to payment...")
+        PaymentStore.generatePaymentUrl(channelId: channelId, message: message, selectedCard: selectedCard, selectedPaymentGateway: selectedPaymentGateway) { (success, data) in
+            HippoConfig.shared.delegate?.stopLoading()
+            guard success, let result = data else {
+                return
+            }
+            guard let paymentUrl = result["payment_url"] as? String else {
+                return
+            }
+            HippoConfig.shared.log.debug("Response --\(result)", level: .response)
+            selectedCard.paymentUrlString = paymentUrl
+            guard let url = URL(string: paymentUrl) else {
+                return
+            }
+            self.initatePayment(for: url)
+        }
+    }
     
 }
 
@@ -1831,6 +1873,8 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
 //        cell.settingImage.image = UIImage(named: actionSheetImageArr[indexPath.row])
         if let img = UIImage(named: actionSheetImageArr[indexPath.row], in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate){
             cell.settingImage.image = img
+        }else{
+            cell.settingImage.image = nil
         }
         return cell
 
@@ -2059,7 +2103,28 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView == customTableView{
             
-            self.attachmentButtonclickedOfCustomSheet(self.view, openType: actionSheetTitleArr[indexPath.row])
+            onClickTransparentView()
+            
+            if isProceedToPayActionSheet == true{
+                if addedPaymentGatewaysArr.count > 0{
+                    for i in 0..<addedPaymentGatewaysArr.count{
+                        if let gatewayName = addedPaymentGatewaysArr[i].gateway_name {
+                            if gatewayName == actionSheetTitleArr[indexPath.row]{
+                                if let message = proceedToPayMessage{
+                                    if let selectedCard = proceedToPaySelectedCard{
+                                        if let chnl = proceedToPayChannel{
+                                            self.generatePaymentUrlWithSelectedPaymentGateway(for: message, card: selectedCard, selectedPaymentGateway: addedPaymentGatewaysArr[i], proceedToPayChannel: chnl)
+                                        }
+                                    }
+                                }
+                                break
+                            }
+                        }
+                    }
+                }
+            }else{
+                self.attachmentButtonclickedOfCustomSheet(self.view, openType: actionSheetTitleArr[indexPath.row])
+            }
 
         }else{}
     }

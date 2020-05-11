@@ -372,8 +372,41 @@ public class UserTag: NSObject {
             }
             NotificationCenter.default.post(name: .putUserSuccess, object:self)
 
+            let params = getParamsForPaymentGateway()
+            self.getPaymentGateway(withParams: params) { (success) in
+                //guard success == true else { return }
+            }
+            
             completion?(true, nil)
         }
+    }
+    
+    class func getPaymentGateway(withParams params: [String: Any], completion: @escaping (Bool) -> Void) {
+        getPaymentGateway(params: params, completion: completion)
+    }
+    private class func getPaymentGateway(params: [String: Any],  completion: @escaping (Bool) -> Void) {
+        HippoConfig.shared.log.debug("API_GetPaymentGateway.....\(params)", level: .request)
+        HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: FuguEndPoints.getPaymentGateway.rawValue) { (response, error, _, statusCode) in
+            guard let responseDict = response as? [String: Any],
+                let statusCode = responseDict["statusCode"] as? Int, let data = responseDict["data"] as? [String: Any], let addedPaymentGateways = data["added_payment_gateways"] as? [[String: Any]], statusCode == 200 else {
+                    HippoConfig.shared.log.debug("API_API_GetPaymentGateway ERROR.....\(error?.localizedDescription ?? "")", level: .error)
+                    completion(false)
+                    return
+            }
+//            let addedPaymentGatewaysArr = PaymentGateway.parse(addedPaymentGateways: addedPaymentGateways)
+            FuguDefaults.set(value: addedPaymentGateways, forKey: DefaultName.addedPaymentGatewaysData.rawValue)
+            completion(true)
+        }
+    }
+    private class func getParamsForPaymentGateway() -> [String: Any] {
+        var params = [String: Any]()
+        params["app_secret_key"] = HippoConfig.shared.appSecretKey
+        params["app_version"] = versionCode
+        params["device_type"] = Device_Type_iOS
+        params["source_type"] = SourceType.SDK.rawValue
+        params["app_version_code"] = versionCode
+        params["get_enabled_gateways"] = 1
+        return params
     }
     
     private class func getParamsToGetFuguUserDetails() throws -> [String: Any] {
@@ -446,6 +479,8 @@ public class UserTag: NSObject {
         
         FuguDefaults.removeObject(forKey: DefaultName.conversationData.rawValue)
         FuguDefaults.removeObject(forKey: DefaultName.appointmentData.rawValue)
+        FuguDefaults.removeObject(forKey: DefaultName.addedPaymentGatewaysData.rawValue)
+        
         FuguDefaults.removeAllPersistingData()
         
          CallManager.shared.hungupCall()

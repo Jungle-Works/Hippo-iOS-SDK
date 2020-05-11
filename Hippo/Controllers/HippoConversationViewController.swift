@@ -63,6 +63,15 @@ class HippoConversationViewController: UIViewController {
         return channel.chatDetail?.chatType
     }
     
+    var heightForActionSheet: CGFloat = 175//125//250
+    var actionSheetTitleArr = [String]()
+    var actionSheetImageArr = [String]()
+    var addedPaymentGatewaysArr: [PaymentGateway] = []
+    var isProceedToPayActionSheet = false
+    var proceedToPayMessage : HippoMessage?
+    var proceedToPaySelectedCard : CustomerPayment?
+    var proceedToPayChannel: HippoChannel?
+
     //MARK: 
     @IBOutlet var tableViewChat: UITableView!
     
@@ -124,6 +133,7 @@ class HippoConversationViewController: UIViewController {
     @objc func titleButtonclicked() { }
     func addMessageToUIBeforeSending(message: HippoMessage) { }
     
+    func openCustomSheet() { }
 
     func checkNetworkConnection() {
         if FuguNetworkHandler.shared.isNetworkConnected {
@@ -1528,22 +1538,69 @@ extension HippoConversationViewController: CardMessageDelegate {
 
 extension HippoConversationViewController: PaymentMessageCellDelegate {
     func cellButtonPressed(message: HippoMessage, card: HippoCard) {
+//        if let channel = self.channel, channel.isSendingDisabled {
+//            print("isSendingDisabled disabled")
+//            return
+//        }
+//        guard let selectedCard = (card as? PayementButton)?.selectedCardDetail, let url = URL(string: selectedCard.paymentUrlString ?? "") else {
+//            generatePaymentUrl(for: message, card: card)
+//            return
+//        }
+//        initatePayment(for: url)
         if let channel = self.channel, channel.isSendingDisabled {
             print("isSendingDisabled disabled")
             return
         }
-        guard let selectedCard = (card as? PayementButton)?.selectedCardDetail, let url = URL(string: selectedCard.paymentUrlString ?? "") else {
-            generatePaymentUrl(for: message, card: card)
+        guard let selectedCard = (card as? PayementButton)?.selectedCardDetail else {
+            //, let url = URL(string: selectedCard.paymentUrlString ?? "") else {
+            //generatePaymentUrl(for: message, card: card)
             return
         }
-        initatePayment(for: url)
+        
+        proceedToPayMessage = message
+        proceedToPaySelectedCard = selectedCard
+        proceedToPayChannel = channel
+        
+        if HippoConfig.shared.appUserType == .customer{
+            closeKeyBoard()
+            if addedPaymentGatewaysArr.count > 0{
+                if let currencyStr = selectedCard.currency{
+                    actionSheetTitleArr.removeAll()
+                    actionSheetImageArr.removeAll()
+                    for i in 0..<addedPaymentGatewaysArr.count{
+                        if let currencyAllowedArr = addedPaymentGatewaysArr[i].currency_allowed {
+                            if currencyAllowedArr.contains(currencyStr){
+                                if let gatewayName = addedPaymentGatewaysArr[i].gateway_name {
+                                    actionSheetTitleArr.append(gatewayName)
+                                    actionSheetImageArr.append(gatewayName)
+                                }
+                            }
+                        }
+                    }
+                    heightForActionSheet = CGFloat((actionSheetTitleArr.count * 60))
+                    isProceedToPayActionSheet = true
+                    openCustomSheet()
+                }
+            }
+        }else{
+            if let channel = self.channel, channel.isSendingDisabled {
+                print("isSendingDisabled disabled")
+                return
+            }
+            guard let selectedCard = (card as? PayementButton)?.selectedCardDetail, let url = URL(string: selectedCard.paymentUrlString ?? "") else {
+                generatePaymentUrl(for: message, card: card, selectedPaymentGateway: nil)
+                return
+            }
+            initatePayment(for: url)
+        }
     }
+    
     func initatePayment(for url: URL) {
         let config = WebViewConfig(url: url, title: "Payment")
         let vc = CheckoutViewController.getNewInstance(config: config)
         self.navigationController?.pushViewController(vc, animated: true)
     }
-    func generatePaymentUrl(for message: HippoMessage, card: HippoCard) {
+    func generatePaymentUrl(for message: HippoMessage, card: HippoCard, selectedPaymentGateway: PaymentGateway?) {
         guard let selectedCard = (card as? PayementButton)?.selectedCardDetail, let channelId = channel?.id else {
             HippoConfig.shared.log.error("cannot find selected card.... Please select the card", level: .error)
             return
@@ -1551,7 +1608,7 @@ extension HippoConversationViewController: PaymentMessageCellDelegate {
         
         HippoConfig.shared.delegate?.startLoading(message: "Redirecting to payment...")
         
-        PaymentStore.generatePaymentUrl(channelId: channelId, message: message, selectedCard: selectedCard) { (success, data) in
+        PaymentStore.generatePaymentUrl(channelId: channelId, message: message, selectedCard: selectedCard, selectedPaymentGateway: selectedPaymentGateway) { (success, data) in
             HippoConfig.shared.delegate?.stopLoading()
             guard success, let result = data else {
                 return
@@ -1567,7 +1624,6 @@ extension HippoConversationViewController: PaymentMessageCellDelegate {
             }
             self.initatePayment(for: url)
         }
-        
         
     }
 }
