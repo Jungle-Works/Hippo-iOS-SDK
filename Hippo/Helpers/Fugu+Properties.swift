@@ -12,8 +12,10 @@ let HippoSDKSource = 1
 let Device_Type_iOS = 2
 var userDetailData = [String: Any]()
 
+
 let fuguAppVersion = "2.1.15"
-let versionCode = 320//350(newCalling)
+let versionCode = 350(newCalling)
+
 
 /*
  201 = Bot messages
