@@ -278,6 +278,7 @@ class AgentConversationViewController: HippoConversationViewController {
     }
 
     @IBAction func getBotActions(_ sender: Any) {
+        self.closeKeyBoard()
         AgentConversationManager.getBotsAction(userId: self.channel.chatDetail?.customerID ?? 0, channelId: self.channelId) { (botActions) in
             self.addBotActionView(with: botActions)
         }
