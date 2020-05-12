@@ -169,6 +169,34 @@ extension PayementButton: HippoCard {
     }
 }
 
+class PaymentGateway {
+    let gateway_id: Int?
+    var business_id: Int?
+    var gateway_name: String?
+    var gateway_image: String?
+    var currency_allowed: [String]?
+
+    init?(json: [String: Any]) {
+        self.gateway_id = Int.parse(values: json, key: "gateway_id")
+        self.business_id = Int.parse(values: json, key: "business_id")
+        self.gateway_name = String.parse(values: json, key: "gateway_name")
+        self.gateway_image = String.parse(values: json, key: "gateway_image")
+        self.currency_allowed = json["currency_allowed"] as? [String] ?? []
+    }
+    
+    static func parse(addedPaymentGateways: [[String: Any]]) -> [PaymentGateway] {
+        var list: [PaymentGateway] = []
+        for addedPaymentGateway in addedPaymentGateways {
+            guard let p = PaymentGateway(json: addedPaymentGateway) else {
+                continue
+            }
+            list.append(p)
+        }
+        return list
+    }
+    
+}
+
 class CustomerPayment {
     let title: String
     var description: String

@@ -208,7 +208,7 @@ class PaymentStore: NSObject {
         return (totalPrice, description)
     }
     
-    static func generatePaymentUrl(channelId: Int, message: HippoMessage, selectedCard: CustomerPayment, completion: @escaping ((_ success: Bool, _ data: [String: Any]?) -> ())) {
+    static func generatePaymentUrl(channelId: Int, message: HippoMessage, selectedCard: CustomerPayment, selectedPaymentGateway: PaymentGateway?, completion: @escaping ((_ success: Bool, _ data: [String: Any]?) -> ())) {
         guard let enUserId = HippoUserDetail.fuguEnUserID else {
             completion(false, nil)
             return
@@ -218,6 +218,11 @@ class PaymentStore: NSObject {
                                     "app_secret_key": HippoConfig.shared.appSecretKey]
         
         param["items"] = [selectedCard.getJsonForMakePayment()]
+        
+        param["is_multi_gateway_flow"] = 1
+        if let selectedPaymentGatewayId = selectedPaymentGateway?.gateway_id{
+            param["payment_gateway_id"] = selectedPaymentGatewayId
+        }
         
         HTTPClient.makeConcurrentConnectionWith(method: .POST, enCodingType: .json, para: param, extendedUrl: FuguEndPoints.makeSelectedPayment.rawValue) { (response, error, tag, status) in
             if let err = error {
