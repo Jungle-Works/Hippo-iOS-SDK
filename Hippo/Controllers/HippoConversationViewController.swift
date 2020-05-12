@@ -1576,6 +1576,8 @@ extension HippoConversationViewController: PaymentMessageCellDelegate {
                                         actionSheetImageArr.append("CardNet Banking")
                                     }else if gatewayName.contains("Paytm"){
                                         actionSheetImageArr.append("Paytm")
+                                    }else{
+                                        actionSheetImageArr.append(gatewayName)
                                     }
                                 }
                             }
