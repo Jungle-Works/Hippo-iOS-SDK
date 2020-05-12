@@ -211,17 +211,6 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         fetchMessagesFrom1stPage()
         //HippoConfig.shared.notifyDidLoad()//
         
-        //        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
-        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
-        
-        //        navigationController?.interactivePopGestureRecognizer?.delegate = self
-        //        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
-        //        view.addGestureRecognizer(panGesture)
-        
-        if fetchAddedPaymentGatewaysData() != nil, let getArr = fetchAddedPaymentGatewaysData(){
-            self.addedPaymentGatewaysArr = getArr
-        }
-        
     }
     
     //    @objc func handlePanGesture(_ sender: UIPanGestureRecognizer) {
@@ -1447,6 +1436,16 @@ extension ConversationsViewController {
         self.newConversationShadow.showShadow(shadowSideAngles: ShadowSideView(topSide: true, leftSide: true, bottomSide: true))
         //        self.newConversationShadow.showShadow(shadowSideAngles: ShadowSideView(topSide: true, leftSide: true, bottomSide: true, rightSide: true))
         //        self.updateNewConversationCountButton(animation: false)
+        
+        //        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
+        //        navigationController?.interactivePopGestureRecognizer?.delegate = self
+        //        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
+        //        view.addGestureRecognizer(panGesture)
+        
+        if fetchAddedPaymentGatewaysData() != nil, let getArr = fetchAddedPaymentGatewaysData(){
+            self.addedPaymentGatewaysArr = getArr
+        }
         
     }
    
