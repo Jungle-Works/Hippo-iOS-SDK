@@ -17,7 +17,8 @@ class CustomTableViewCell: UITableViewCell {
     
     lazy var settingImage: UIImageView = {
 //       let imageView = UIImageView(frame: CGRect(x: 15, y: 10, width: 30, height: 30))
-        let imageView = UIImageView(frame: CGRect(x: 13, y: 15, width: 25, height: 25))
+//        let imageView = UIImageView(frame: CGRect(x: 13, y: 15, width: 25, height: 25))
+        let imageView = UIImageView(frame: CGRect(x: 13, y: 13, width: 25, height: 25))
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
