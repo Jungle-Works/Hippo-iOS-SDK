@@ -85,7 +85,7 @@ class HippoConversationViewController: UIViewController {
         
         navigationController?.setTheme()
         
-        tableViewChat.backgroundView = UIImageView(image: UIImage(named: "background"))
+//        tableViewChat.backgroundView = UIImageView(image: UIImage(named: "background"))
         
         removeNotificationsFromNotificationCenter(channelId: channelId)
         registerFayeNotification()
@@ -1572,7 +1572,13 @@ extension HippoConversationViewController: PaymentMessageCellDelegate {
                             if currencyAllowedArr.contains(currencyStr){
                                 if let gatewayName = addedPaymentGatewaysArr[i].gateway_name {
                                     actionSheetTitleArr.append(gatewayName)
-                                    actionSheetImageArr.append(gatewayName)
+                                    if gatewayName.contains("Card"){
+                                        actionSheetImageArr.append("CardNet Banking")
+                                    }else if gatewayName.contains("Paytm"){
+                                        actionSheetImageArr.append("Paytm")
+                                    }else{
+                                        actionSheetImageArr.append(gatewayName)
+                                    }
                                 }
                             }
                         }

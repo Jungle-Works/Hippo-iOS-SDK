@@ -1868,9 +1868,13 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "CustomTableViewCell", for: indexPath) as? CustomTableViewCell else {fatalError("Unable to deque cell")}
         cell.selectionStyle = .none
         cell.lbl.text = actionSheetTitleArr[indexPath.row]
-        cell.settingImage.tintColor = .black
-//        cell.settingImage.image = UIImage(named: actionSheetImageArr[indexPath.row])
-        if let img = UIImage(named: actionSheetImageArr[indexPath.row], in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate){
+        if isProceedToPayActionSheet == true{
+            cell.settingImage.tintColor = nil
+        }else{
+            cell.settingImage.tintColor = .black
+        }
+        let renderingMode: UIImage.RenderingMode = isProceedToPayActionSheet == true ? .alwaysOriginal : .alwaysTemplate
+        if let img = UIImage(named: actionSheetImageArr[indexPath.row], in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(renderingMode){
             cell.settingImage.image = img
         }else{
             cell.settingImage.image = nil
