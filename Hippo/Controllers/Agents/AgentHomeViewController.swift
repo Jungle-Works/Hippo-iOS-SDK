@@ -70,10 +70,13 @@ class AgentHomeViewController: HippoHomeViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        self.setDataForViewDidAppear()
+    }
+    
+    func setDataForViewDidAppear(){
         isInitalLoad = false
         AgentConversationManager.getAllData()
     }
-    
     
     //MARK: Actions
     @IBAction func backButtonClicked(_ sender: UIButton) {
@@ -119,8 +122,10 @@ class AgentHomeViewController: HippoHomeViewController {
 //        let navVC = FilterViewController.getFilterStoryboardRoot()
 //        self.present(navVC, animated: true, completion: nil)
         if let vc = FilterViewController.getNewInstance(){
+            vc.filterScreenButtonsDelegate = self
             let navVC = UINavigationController(rootViewController: vc)
 //        navVC.setupCustomThemeOnNavigationController(hideNavigationBar: false)
+//            navVC.modalPresentationStyle = .overFullScreen
             self.present(navVC, animated: true, completion: nil)
         }
     }
@@ -734,3 +739,16 @@ extension AgentHomeViewController: AgentUserChannelDelegate {
 
 }
 
+extension AgentHomeViewController : FilterScreenButtonsDelegate{
+    func cancelButtonPressed() {
+        //code
+    }
+
+    func resetButtonPressed() {
+        self.setDataForViewDidAppear()
+    }
+
+    func applyButtonPressed() {
+        self.setDataForViewDidAppear()
+    }
+}

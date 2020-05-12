@@ -13,7 +13,16 @@ import Foundation
 //    func newChatClicked(selectedPersonData: SearchCustomerData)
 //}
 
+protocol FilterScreenButtonsDelegate: AnyObject {
+    func cancelButtonPressed()
+    func resetButtonPressed()
+    func applyButtonPressed()
+}
+
+
 class FilterViewController: UIViewController {
+    
+    weak var filterScreenButtonsDelegate: FilterScreenButtonsDelegate?
     
     //MARK: Screen constants
     let optionTableBackground = UIColor.veryLightBlue
@@ -78,11 +87,13 @@ class FilterViewController: UIViewController {
     
     @IBAction func resetButtonClicked(_ sender: UIButton) {
         FilterManager.shared.resetData()
+        self.filterScreenButtonsDelegate?.resetButtonPressed()
         dismissView {
             self.reloadConversationData()
         }
     }
     @IBAction func dismissButtonClicked(_ sender: UIButton) {
+        self.filterScreenButtonsDelegate?.cancelButtonPressed()
         dismissView()
     }
     @IBAction func applyButtonClicked(_ sender: UIButton) {
@@ -90,6 +101,7 @@ class FilterViewController: UIViewController {
 //            return
 //        }
         updateManager()
+        self.filterScreenButtonsDelegate?.applyButtonPressed()
         dismissView()
     }
     
