@@ -1600,6 +1600,7 @@ extension HippoConversationViewController: PaymentMessageCellDelegate {
     func initatePayment(for url: URL) {
         let config = WebViewConfig(url: url, title: "Payment")
         let vc = CheckoutViewController.getNewInstance(config: config)
+        vc.isComingForPayment = true
         self.navigationController?.pushViewController(vc, animated: true)
     }
     func generatePaymentUrl(for message: HippoMessage, card: HippoCard, selectedPaymentGateway: PaymentGateway?) {
