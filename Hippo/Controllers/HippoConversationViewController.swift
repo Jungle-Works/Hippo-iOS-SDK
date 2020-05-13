@@ -1571,15 +1571,11 @@ extension HippoConversationViewController: PaymentMessageCellDelegate {
                         if let currencyAllowedArr = addedPaymentGatewaysArr[i].currency_allowed {
                             if currencyAllowedArr.contains(currencyStr){
                                 if let gatewayName = addedPaymentGatewaysArr[i].gateway_name {
-                                    actionSheetTitleArr.append(gatewayName)
-                                    if gatewayName.contains("Card"){
-                                        actionSheetImageArr.append("CardNet Banking")
-                                    }else if gatewayName.contains("Paytm"){
-                                        actionSheetImageArr.append("Paytm")
-                                    }else{
-                                        actionSheetImageArr.append(gatewayName)
+                                    if let gatewayImage = addedPaymentGatewaysArr[i].gateway_image {
+                                        actionSheetTitleArr.append(gatewayName)
+                                        actionSheetImageArr.append(gatewayImage)
                                     }
-                                }
+                                }                                
                             }
                         }
                     }

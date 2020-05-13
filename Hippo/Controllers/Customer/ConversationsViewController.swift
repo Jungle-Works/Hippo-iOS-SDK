@@ -1865,22 +1865,29 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
     if tableView == customTableView{
+        
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "CustomTableViewCell", for: indexPath) as? CustomTableViewCell else {fatalError("Unable to deque cell")}
         cell.selectionStyle = .none
         cell.lbl.text = actionSheetTitleArr[indexPath.row]
         if isProceedToPayActionSheet == true{
             cell.settingImage.tintColor = nil
+            if let url = URL(string: actionSheetImageArr[indexPath.row]) {
+                let placeHolderImage = HippoConfig.shared.theme.placeHolderImage
+                cell.settingImage.kf.setImage(with: url, placeholder: placeHolderImage)
+            }else{
+                cell.settingImage.image = nil
+            }
         }else{
             cell.settingImage.tintColor = .black
-        }
-        let renderingMode: UIImage.RenderingMode = isProceedToPayActionSheet == true ? .alwaysOriginal : .alwaysTemplate
-        if let img = UIImage(named: actionSheetImageArr[indexPath.row], in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(renderingMode){
-            cell.settingImage.image = img
-        }else{
-            cell.settingImage.image = nil
+            let renderingMode: UIImage.RenderingMode = isProceedToPayActionSheet == true ? .alwaysOriginal : .alwaysTemplate
+            if let img = UIImage(named: actionSheetImageArr[indexPath.row], in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(renderingMode){
+                cell.settingImage.image = img
+            }else{
+                cell.settingImage.image = nil
+            }
         }
         return cell
-
+        
     }else{
         
       switch indexPath.section {
