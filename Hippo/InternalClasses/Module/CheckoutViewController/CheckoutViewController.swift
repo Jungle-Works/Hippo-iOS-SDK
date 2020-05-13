@@ -13,6 +13,7 @@ class CheckoutViewController: UIViewController {
 
     var webView: WKWebView!
     var config: WebViewConfig!
+    var isComingForPayment = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,6 +54,39 @@ class CheckoutViewController: UIViewController {
         return vc
     }
 
+    // handling keys of paytm add money feature
+    func handleForPaytmAddMoneyStatus(webUrl: String) {
+        handleForUrlKeys(webUrl: webUrl)
+    }
+
+    //Payfort redirects through several URLs.
+    func handleForUrlKeys(webUrl: String) {
+        print(webUrl)
+        if webUrl.contains("success.html"){
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 4.0, execute: {
+                self.backAction()
+//            })
+        }else if webUrl.contains("error.html") || webUrl.contains("error") || webUrl.contains("Error"){
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: {
+                self.backAction()
+//            })
+        }
+    }
+
+    func backAction(isFromBackBtn: Bool = false) {
+            if isFromBackBtn{
+//            self.navigationController?.view.layer.add(CATransition().getPopTransition(), forKey: kCATransition)
+//                ErrorView.showWith(message: AppConfiguration.current.strings.order_successful_but_payment_failed, isErrorMessage: true, removed: nil)
+            _ = self.navigationController?.popToRootViewController(animated: false)
+            } else {
+//                self.navigationController?.view.layer.add(CATransition().getPopTransition(), forKey: kCATransition)
+//                _ = self.navigationController?.popViewController(animated: false)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: {
+                    _ = self.navigationController?.popViewController(animated: false)
+                })
+            }
+        }
+    
 }
 extension CheckoutViewController: WKUIDelegate {
     
@@ -71,6 +105,9 @@ extension CheckoutViewController: WKNavigationDelegate {
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         print("======00000\(webView.url?.description ?? "")")
+        if isComingForPayment == true{
+            handleForPaytmAddMoneyStatus(webUrl: webView.url?.absoluteString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed) ?? "")
+        }
     }
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
         print("======11111\(error)")
