@@ -36,6 +36,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     @IBOutlet weak var buttonContainerViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var bottomViewLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var width_NewConversation : NSLayoutConstraint!
+    @IBOutlet weak var view_NewConversationBtn : UIView!
     
     // MARK: - PROPERTIES
     let refreshControl = UIRefreshControl()
@@ -157,9 +158,9 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
             
             self?.showConversationsTableView.reloadData()
             if self?.conversationChatType == .openChat{
-                self?.newConversationBiutton.isHidden = !HippoProperty.current.enableNewConversationButton
+                self?.view_NewConversationBtn.isHidden = !HippoProperty.current.enableNewConversationButton
             }else if self?.conversationChatType == .closeChat{
-                self?.newConversationBiutton.isHidden = true
+                self?.view_NewConversationBtn.isHidden = true
             }else{}
             if let result = self?.handleIntialCustomerForm(), result {
                 return
@@ -190,9 +191,9 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     
 //    newConversationBiutton.isEnabled = HippoProperty.current.enableNewConversationButton
     if self.conversationChatType == .openChat{
-        newConversationBiutton.isHidden = !HippoProperty.current.enableNewConversationButton
+        view_NewConversationBtn.isHidden = !HippoProperty.current.enableNewConversationButton
     }else if self.conversationChatType == .closeChat{
-        newConversationBiutton.isHidden = true
+        view_NewConversationBtn.isHidden = true
     }else{}
     
     
@@ -205,10 +206,11 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     
     newConversationBiutton.setTitleColor(theme.themeTextcolor, for: .normal)
     newConversationBiutton.backgroundColor = theme.themeColor
-    newConversationBiutton.layer.cornerRadius = newConversationBiutton.bounds.height / 2
-    newConversationBiutton.layer.borderWidth = CGFloat(HippoConfig.shared.newConversationButtonBorderWidth)
-    newConversationBiutton.layer.borderColor = theme.themeTextcolor.cgColor
-    newConversationBiutton.layer.masksToBounds = true
+    view_NewConversationBtn.backgroundColor = theme.themeColor
+    view_NewConversationBtn.layer.cornerRadius = newConversationBiutton.bounds.height / 2
+    view_NewConversationBtn.layer.borderWidth = CGFloat(HippoConfig.shared.newConversationButtonBorderWidth)
+    view_NewConversationBtn.layer.borderColor = theme.themeTextcolor.cgColor
+    view_NewConversationBtn.layer.masksToBounds = true
     newConversationBiutton.titleLabel?.font = theme.newConversationButtonFont
     newConversationBiutton.isSelected = false
     self.updateNewConversationBtnUI(isSelected: false)
@@ -326,14 +328,14 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     
     func updateNewConversationBtnUI(isSelected : Bool){
         if isSelected{
-            width_NewConversation.constant = 210
+           // width_NewConversation.constant = 210
             let chatImage = UIImage(named: "chat", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
             self.newConversationBiutton.setImage(chatImage, for: .normal)
             self.newConversationBiutton.setTitle("  " + HippoConfig.shared.theme.newConversationText, for: .normal)
             self.newConversationBiutton.tintColor = HippoConfig.shared.theme.themeTextcolor
             self.newConversationBiutton.backgroundColor = HippoConfig.shared.theme.themeColor
         }else{
-            width_NewConversation.constant = 50
+          //  width_NewConversation.constant = 50
             let chatImage = UIImage(named: "chat", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
             self.newConversationBiutton.tintColor = HippoConfig.shared.theme.themeTextcolor
             self.newConversationBiutton.setImage(chatImage, for: .normal)
@@ -410,7 +412,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
             return
         }
 //        self.newConversationBiutton.isHidden = false
-        self.newConversationBiutton.isHidden = !HippoProperty.current.enableNewConversationButton
+        self.view_NewConversationBtn.isHidden = !HippoProperty.current.enableNewConversationButton
         conversationChatType = .openChat
         animateBottomLineView()
         //getAllConversations()
@@ -421,7 +423,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         guard conversationChatType != .closeChat else {
             return
         }
-        self.newConversationBiutton.isHidden = true
+        self.view_NewConversationBtn.isHidden = true
         conversationChatType = .closeChat
         animateBottomLineView()
         //getAllConversations()
@@ -534,9 +536,9 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
             }
             
             if self?.conversationChatType == .openChat{
-                self?.newConversationBiutton.isHidden = !HippoProperty.current.enableNewConversationButton
+                self?.view_NewConversationBtn.isHidden = !HippoProperty.current.enableNewConversationButton
             }else if self?.conversationChatType == .closeChat{
-                self?.newConversationBiutton.isHidden = true
+                self?.view_NewConversationBtn.isHidden = true
             }else{}
             
         }
@@ -919,13 +921,13 @@ struct AllConversationsConfig {
 extension AllConversationsViewController: UIScrollViewDelegate {
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         UIView.animate(withDuration: 0.2) {
-            self.newConversationBiutton.alpha = 0
+            self.view_NewConversationBtn.alpha = 0
         }
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         UIView.animate(withDuration: 0.5) {
-            self.newConversationBiutton.alpha = 1
+            self.view_NewConversationBtn.alpha = 1
         }
     }
     

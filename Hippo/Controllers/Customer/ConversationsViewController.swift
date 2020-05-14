@@ -3041,15 +3041,18 @@ extension ConversationsViewController {
 extension ConversationsViewController: UIGestureRecognizerDelegate {
 
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        
         messageTextView.resignFirstResponder()
         channel?.send(message: HippoMessage.stopTyping, completion: {})
+        if gestureRecognizer == self.navigationController?.interactivePopGestureRecognizer{
+            return false
+        }
         let rawLabelID = self.labelId == -1 ? nil : self.labelId
         let channelID = self.channel?.id ?? -1
         clearUnreadCountForChannel(id: channelID)
         if let lastMessage = getLastMessage(), let conversationInfo = FuguConversation(channelId: channelID, unreadCount: 0, lastMessage: lastMessage, labelID: rawLabelID) {
             delegate?.updateConversationWith(conversationObj: conversationInfo)
         }
+        
         
         return true
     }

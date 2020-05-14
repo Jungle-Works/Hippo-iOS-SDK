@@ -225,15 +225,17 @@ class CustomerPayment {
                                                    NSAttributedString.Key.foregroundColor: theme.pricingTextColor ?? theme.headerBackgroundColor]
         attributedString.addAttributes(attr, range: range)
         
-        let paidString = "\n - PAID -"
+        let paidString = isPaid ? "\n - PAID -" : "\n - PENDING -"
         let paidRange = (paidString as NSString).range(of: paidString)
         let paidAttr: [NSAttributedString.Key: Any] = [NSAttributedString.Key.font: theme.descriptionFont]
         
         let paidAttributedString = NSMutableAttributedString(string: paidString)
         paidAttributedString.addAttributes(paidAttr, range: paidRange)
         
-        if isPaid {
+        if HippoConfig.shared.appUserType == .agent{
             attributedString.append(paidAttributedString)
+        }else if isPaid , HippoConfig.shared.appUserType == .customer{
+           attributedString.append(paidAttributedString)
         }
         return attributedString
     }
@@ -256,6 +258,8 @@ class CustomerPayment {
         
         if let selectedId = String.parse(values: json, key: "selected_id"), id == selectedId {
             isPaid = true
+        }else if let selectedId = String.parse(values: json, key: "selected_id"), selectedId == ""{
+            isPaid = false
         }
         
 //        let listCount = Int.parse(values: json, key: "total_cards") ?? 0
