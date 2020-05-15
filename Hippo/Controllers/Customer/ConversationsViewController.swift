@@ -767,6 +767,17 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
             
             delegate?.updateConversationWith(conversationObj: conversationInfo)
         }
+    
+        //if chat delegate is not set , it doesnot exist in allconversation
+        if delegate == nil{
+            for controller in self.navigationController?.viewControllers ?? [UIViewController](){
+                if controller is AllConversationsViewController{
+                    (controller as? AllConversationsViewController)?.getAllConversations()
+                    break
+                }
+            }
+        }
+    
         if channel != nil {
             self.channel.saveMessagesInCache()
         }
@@ -3041,15 +3052,18 @@ extension ConversationsViewController {
 extension ConversationsViewController: UIGestureRecognizerDelegate {
 
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        
         messageTextView.resignFirstResponder()
         channel?.send(message: HippoMessage.stopTyping, completion: {})
+        if gestureRecognizer == self.navigationController?.interactivePopGestureRecognizer{
+            return false
+        }
         let rawLabelID = self.labelId == -1 ? nil : self.labelId
         let channelID = self.channel?.id ?? -1
         clearUnreadCountForChannel(id: channelID)
         if let lastMessage = getLastMessage(), let conversationInfo = FuguConversation(channelId: channelID, unreadCount: 0, lastMessage: lastMessage, labelID: rawLabelID) {
             delegate?.updateConversationWith(conversationObj: conversationInfo)
         }
+        
         
         return true
     }

@@ -1265,6 +1265,7 @@ extension HippoConversationViewController {
         
         let vc = PaymentPlansViewController.get(channelId: id)
         let navVC = UINavigationController(rootViewController: vc)
+        self.modalPresentationStyle = .fullScreen
 //        navVC.setupCustomThemeOnNavigationController(hideNavigationBar: false)
         self.present(navVC, animated: true, completion: nil)
     }
