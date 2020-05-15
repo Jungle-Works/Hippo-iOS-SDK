@@ -750,7 +750,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         let convObj = arrayOfConversation[index]
         let lastMessage = HippoMessage(convoDict: pushInfo)
         
-        
+       
         
         if let lastMuid = convObj.lastMessage?.messageUniqueID, let newMuid = lastMessage?.messageUniqueID, lastMuid == newMuid {
             return
@@ -948,3 +948,16 @@ extension AllConversationsViewController: InformationViewDelegate {
 //        return true
 //    }
 //}
+extension AllConversationsViewController{
+    
+    //MARK:- Put conversation in closed based on Faye
+    
+    func closeChat(_ channelId : Int){
+        let index = arrayOfConversation.firstIndex(where: {$0.channelId == channelId})
+        if let index = index , index < arrayOfConversation.count{
+            arrayOfConversation[index].channelStatus = .close
+        }
+        self.filterConversationArr(conversationArr: arrayOfConversation)
+    }
+    
+}

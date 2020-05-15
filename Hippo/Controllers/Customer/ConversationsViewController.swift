@@ -767,6 +767,17 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
             
             delegate?.updateConversationWith(conversationObj: conversationInfo)
         }
+    
+        //if chat delegate is not set , it doesnot exist in allconversation
+        if delegate == nil{
+            for controller in self.navigationController?.viewControllers ?? [UIViewController](){
+                if controller is AllConversationsViewController{
+                    (controller as? AllConversationsViewController)?.getAllConversations()
+                    break
+                }
+            }
+        }
+    
         if channel != nil {
             self.channel.saveMessagesInCache()
         }

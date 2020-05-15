@@ -257,34 +257,58 @@ func fuguDelay(_ withDuration: Double, completion: @escaping () -> ()) {
     }
 }
 
- func isSubscribed(userChannelId: String) -> Bool {
-  
+func isSubscribed(userChannelId: String) -> Bool {
+    
     return FayeConnection.shared.isChannelSubscribed(channelID: userChannelId)
 }
 
- func unSubscribe(userChannelId: String) {
-   
+func unSubscribe(userChannelId: String) {
+    
     FayeConnection.shared.unsubscribe(fromChannelId: userChannelId, completion: { (success, error) in
     })
 }
 
-    func subscribeCustomerUserChannel(userChannelId: String) {
-        
-        guard !isSubscribed(userChannelId: userChannelId) else {
-            return
-        }
-        
-        FayeConnection.shared.subscribeTo(channelId: userChannelId, completion: { (success) in
-        }) {  (messageDict) in
-            if let messageType = messageDict["message_type"] as? Int, messageType == 18 {
+func subscribeCustomerUserChannel(userChannelId: String) {
+    
+    guard !isSubscribed(userChannelId: userChannelId) else {
+        return
+    }
+    
+    FayeConnection.shared.subscribeTo(channelId: userChannelId, completion: { (success) in
+    }) {  (messageDict) in
+        if let messageType = messageDict["message_type"] as? Int, messageType == 18 {
             
-                if let channel_id = messageDict["channel_id"] as? Int, isSubscribed(userChannelId: "\(channel_id)") == false {
-                    HippoConfig.shared.log.trace("UserChannel:: --->\(messageDict)", level: .socket)
-                    CallManager.shared.voipNotificationRecieved(payloadDict: messageDict)
+            if let channel_id = messageDict["channel_id"] as? Int, isSubscribed(userChannelId: "\(channel_id)") == false {
+                HippoConfig.shared.log.trace("UserChannel:: --->\(messageDict)", level: .socket)
+                CallManager.shared.voipNotificationRecieved(payloadDict: messageDict)
+            }
+        }
+    }
+}
+
+func subscribeMarkConversation(){
+    let markConversationChannel = HippoConfig.shared.appSecretKey + "/" + "markConversation"
+    
+    guard !isSubscribed(userChannelId: markConversationChannel) else {
+        return
+    }
+    
+    FayeConnection.shared.subscribeTo(channelId: markConversationChannel, completion: { (success) in
+    }) {  (messageDict) in
+        print(messageDict)
+        if let notificationType = messageDict["notification_type"] as? Int, notificationType == 12, let status = messageDict["status"] as? String, status == "2"{
+            for controller in getLastVisibleController()?.navigationController?.viewControllers ?? [UIViewController](){
+                if controller is AllConversationsViewController{
+                    (controller as? AllConversationsViewController)?.closeChat(messageDict["channel_id"] as? Int ?? -1)
+                    return
                 }
             }
         }
     }
+    
+}
+
+
 
 func pushTotalUnreadCount() {
     var chatCounter = 0
@@ -318,7 +342,7 @@ func pushTotalUnreadCount() {
                 let tabItem = tabItems[0]
                 tabItem.badgeValue = "\(totalNotifyCount)"
                 //tabItem.badgeValue = nil
-            //UserDefaults.standard.set(totalNotifyCount, forKey: "totalNotify")
+                //UserDefaults.standard.set(totalNotifyCount, forKey: "totalNotify")
             }
         }else{
             if let tabItems = allConversationVC.tabBarController?.tabBar.items {
@@ -332,8 +356,8 @@ func pushTotalUnreadCount() {
 }
 
 func updateStoredUnreadCountFor(with userInfo: [String: Any]) {
-     let recievedChannelId = userInfo["channel_id"] as? Int ?? -1
-     let recievedLabelId = userInfo["label_id"] as? Int ?? -1
+    let recievedChannelId = userInfo["channel_id"] as? Int ?? -1
+    let recievedLabelId = userInfo["label_id"] as? Int ?? -1
     
     guard recievedChannelId > 0, recievedLabelId > 0 else {
         return
@@ -355,7 +379,7 @@ func updateStoredUnreadCountFor(with userInfo: [String: Any]) {
             if labelId == recievedLabelId {
                 isLabelIdPresent = true
             }
-        
+            
             if recievedChannelId < 1 {
                 isChannelIdPresent = false
             }
