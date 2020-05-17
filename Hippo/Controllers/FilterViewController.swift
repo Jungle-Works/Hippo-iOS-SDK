@@ -64,6 +64,7 @@ class FilterViewController: UIViewController {
     //MARK: Outlets
     @IBOutlet weak var applyButtonHeightConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var crossButton: UIButton!
     @IBOutlet weak var resetButton: UIButton!
     @IBOutlet weak var applyButton: UIButton!
     @IBOutlet weak var applyButtonBottomConstraint: NSLayoutConstraint!
@@ -159,6 +160,7 @@ class FilterViewController: UIViewController {
 //        ConversationManager.sharedInstance.selectedChannelId = -1
     }
     private func setupController() {
+        self.navigationController?.setTheme()
 //        setupCustomThemeOnNavigationBar(hideNavigationBar: false)
         self.navigationController?.isNavigationBarHidden = false
         setupTableView()
@@ -167,9 +169,11 @@ class FilterViewController: UIViewController {
         resultTableview.backgroundColor = theme.backgroundColor
 //        applyButtonHeightConstraint.constant = 0
         
-        resetButton.setTitleColor(theme.themeColor, for: .normal)
+        crossButton.tintColor = HippoConfig.shared.theme.headerTextColor
+        
+        resetButton.setTitleColor(HippoConfig.shared.theme.headerBackgroundColor, for: .normal)
 //        resetButton.backgroundColor = UIColor.veryLightBlue
-        resetButton.backgroundColor = theme.themeTextcolor
+        resetButton.backgroundColor = HippoConfig.shared.theme.headerTextColor
         
 //        applyButton.clipsToBounds = true
         

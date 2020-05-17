@@ -22,6 +22,8 @@ class ChatDetail: NSObject {
     var channelStatus = ChatStatus.open
     var otherUserImage: String?
     
+    var isBotInProgress: Bool = false
+    
     var chatType: ChatType = .none
     var channelImageUrl: String?
     var channelName: String?
@@ -51,6 +53,8 @@ class ChatDetail: NSObject {
         customerEmail = json["customer_email"] as? String ?? ""
         customerContactNumber = json["customer_phone"] as? String ?? ""
         otherUserImage = json["other_user_image"] as? String
+        
+        isBotInProgress = Bool.parse(key: "is_bot_in_progress", json: json, defaultValue: false)
         
         agentAlreadyAssigned = json["agent_already_assigned"] as? Bool ?? false
         if let channel_status = json["channel_status"] as? Int, let status = ChatStatus(rawValue: channel_status) {
@@ -114,6 +118,8 @@ class ChatDetail: NSObject {
         dict["customer_email"] = customerEmail
         dict["customer_phone"] = customerContactNumber
         dict["channel_status"] = channelStatus.rawValue
+        
+        dict["is_bot_in_progress"] = isBotInProgress
         
         dict["tags"] = TagDetail.getObjectToStore(tags: channelTags)
         

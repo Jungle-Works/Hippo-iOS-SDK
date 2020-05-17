@@ -75,6 +75,7 @@ class AgentDetail: NSObject {
     var userImage: String?
     
     var status = AgentStatus.offline
+    var agentUserType = AgentUserType.agent
     
     var oAuthToken = ""
     var app_type = AgentDetail.defaultAppType
@@ -119,6 +120,10 @@ class AgentDetail: NSObject {
         if let custom_attributes = dict["self_custom_attributes"] as? [String : Any] {
             self.customAttributes = custom_attributes
         }
+        if let agent_type = dict["agent_type"] as? Int, let agentType = AgentUserType.init(rawValue: agent_type){
+            self.agentUserType = agentType
+        }
+        
     }
     
     
@@ -146,6 +151,7 @@ class AgentDetail: NSObject {
         dict["business_name"] = businessName
         dict["phone_number"]  = number
         dict["online_status"] = status.rawValue
+        dict["agent_type"] = agentUserType.rawValue
         
         dict["app_type"] = app_type
         if customAttributes != nil {

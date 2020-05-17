@@ -36,7 +36,13 @@ class PaymentPlanStore {
 //                let plans = PaymentPlan.parse(plans: data)
 //                self.plans = plans
 //        }
+        
+//        delegate?.startLoaderAnimation()
+        
         HTTPClient.makeConcurrentConnectionWith(method: .POST, para: param, extendedUrl: AgentEndPoints.getPaymentPlans.rawValue) { (response, error, _, statusCode) in
+            
+//            self.delegate?.stopLoaderAnimation()
+            
             guard let responseDict = response as? [String: Any],
                 let statusCode = responseDict["statusCode"] as? Int, statusCode == 200 else {
                     HippoConfig.shared.log.debug("API_GetPaymentPlans ERROR.....\(error?.localizedDescription ?? "")", level: .error)

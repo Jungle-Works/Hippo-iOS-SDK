@@ -21,6 +21,10 @@ enum AppUserType {
     case customer
 }
 
+enum AgentUserType: Int {
+    case agent = 11
+    case admin = 13
+}
 
 struct SERVERS {
 

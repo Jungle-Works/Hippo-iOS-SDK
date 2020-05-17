@@ -60,6 +60,7 @@ public struct ConversationListTheme {
     open var broadcastHeader = "Broadcast Message"
     open var broadcastHistoryHeader = "Broadcast Message history"
     open var promotionsAnnouncementsHeaderText = "Announcements"
+    open var takeOverButtonText = "Take Over"
     
     open var themeColor: UIColor = .white//UIColor(red: 109/255, green: 212/255, blue: 0/255, alpha: 1)//
     open var themeTextcolor: UIColor = .black//.white//UIColor(red: 109/255, green: 212/255, blue: 0/255, alpha: 1)//
@@ -76,13 +77,16 @@ public struct ConversationListTheme {
     open var videoCallIcon: UIImage? = UIImage(named: "tiny-video-symbol", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     open var missedCallMessageColor: UIColor = UIColor.red
     
-    open var headerTextFont: UIFont? = UIFont.boldSystemFont(ofSize: 18.0)
+//    open var headerTextFont: UIFont? = UIFont.boldSystemFont(ofSize: 18.0)
+    open var headerTextFont: UIFont? = UIFont.boldSystemFont(ofSize: 20.0)
     open var actionableMessageHeaderTextFont: UIFont? = UIFont.boldSystemFont(ofSize: 16.0)
     open var actionableMessagePriceBoldFont: UIFont? = UIFont.boldSystemFont(ofSize: 15.0)
     open var actionableMessageDescriptionFont: UIFont? = UIFont.boldSystemFont(ofSize: 13.0)
     open var actionableMessageButtonFont: UIFont? = UIFont.boldSystemFont(ofSize: 16.0)
     
-    open var leftBarButtonImage: UIImage? = UIImage(named: "whiteBackButton", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+//    open var leftBarButtonImage: UIImage? = UIImage(named: "whiteBackButton", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+    open var leftBarButtonImage: UIImage? = UIImage(named: "back", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+    
     open var leftBarButtonFont: UIFont? = UIFont.systemFont(ofSize: 13.0)
     open var leftBarButtonTextColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
     open var leftBarButtonText = String()
@@ -99,6 +103,11 @@ public struct ConversationListTheme {
     open var broadcastBarButtonFont: UIFont? = UIFont.systemFont(ofSize: 13.0)
     open var broadcastBarButtonTextColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
     open var broadcastBarButtonText = String()
+    
+    open var filterBarButtonImage: UIImage? = UIImage(named: "filter_button_icon", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+    open var filterBarButtonFont: UIFont? = UIFont.systemFont(ofSize: 13.0)
+    open var filterBarButtonTextColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+    open var filterBarButtonText = String()
     
     open var conversationTitleColor = #colorLiteral(red: 0.1725490196, green: 0.137254902, blue: 0.2, alpha: 1)
     open var conversationLastMsgColor = #colorLiteral(red: 0.1725490196, green: 0.137254902, blue: 0.2, alpha: 1)

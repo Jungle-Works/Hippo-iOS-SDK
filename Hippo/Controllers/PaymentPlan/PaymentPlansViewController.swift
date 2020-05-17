@@ -10,6 +10,8 @@ import UIKit
 
 protocol PaymentPlansViewDelegate: class {
     func plansUpdated()
+//    func startLoaderAnimation()
+//    func stopLoaderAnimation()
 }
 
 class PaymentPlansViewController: UIViewController {
@@ -26,6 +28,7 @@ class PaymentPlansViewController: UIViewController {
         super.viewDidLoad()
         setTheme()
         setTableView()
+        self.startLoaderAnimation()
     }
 
     @IBAction func cancelButtonClicked(_ sender: Any) {
@@ -39,6 +42,7 @@ class PaymentPlansViewController: UIViewController {
         title = "Saved Plans"
         cancelButton.tintColor = HippoConfig.shared.theme.headerTextColor
 //        self.view.backgroundColor = HippoTheme.theme.systemBackgroundColor.secondary
+        loaderView.tintColor = HippoConfig.shared.theme.headerTextColor
     }
     
     internal func setTableView() {
@@ -111,6 +115,8 @@ class PaymentPlansViewController: UIViewController {
 extension PaymentPlansViewController: PaymentPlansViewDelegate {
     func plansUpdated() {
         let plans = store.plans
+        
+        self.stopLoaderAnimation()
         
         if plans.isEmpty, channelId != nil {
             pushCreatePayment(with: nil, animated: false)

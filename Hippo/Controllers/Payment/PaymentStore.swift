@@ -266,9 +266,10 @@ extension PaymentStore {
         let items = getItems()
         param["items"] = items
         
-        if items.count > 1 {
-            param["is_message_only"] = 1
-        }
+//        if items.count > 1 {
+//            param["is_message_only"] = 1
+//        }
+        param["is_message_only"] = 1
         
 //        HTTPRequest(method: .post, path: EndPoints.sendPayment, parameters: param, encoding: .json, files: nil)
 //            .config(isIndicatorEnable: true, isAlertEnable: true)

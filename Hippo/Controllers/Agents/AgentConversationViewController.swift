@@ -44,7 +44,10 @@ class AgentConversationViewController: HippoConversationViewController {
     @IBOutlet weak var retryLabelView: UIView!
     @IBOutlet weak var retryLoader: UIActivityIndicatorView!
     @IBOutlet weak var labelViewRetryButton: UIButton!
-
+    @IBOutlet weak var takeOverButtonContainer: UIView!
+    @IBOutlet weak var takeOverButton: UIButton!
+    @IBOutlet weak var takeOverButtonHeightConstraint: NSLayoutConstraint!
+    
     // MARK: - PROPERTIES
     var heightOfNavigation: CGFloat = 0
     var isSingleChat = false
@@ -348,7 +351,32 @@ class AgentConversationViewController: HippoConversationViewController {
         self.closeKeyBoard()
         presentPlansVc()
     }
+    
+    @IBAction func takeOverButtonPressed(_ sender: Any) {
+        askBeforeAssigningChat()
+    }
+    
+    func askBeforeAssigningChat() {
+        showOptionAlert(title: "", message: "Are you sure you want to assign this chat to you?", successButtonName: "Yes", successComplete: { (action) in
+            self.assignChatToSelf()
+        }, failureButtonName: "No", failureComplete: nil)
+    }
+    
+    func assignChatToSelf() {
+        AgentConversationManager.assignChatToMe(channelID: self.channelId) {[weak self] (success) in
+            guard success, let strongSelf = self else {
+                return
+            }
+            strongSelf.channel?.chatDetail?.assignedAgentID = currentUserId()
+            strongSelf.channel?.chatDetail?.assignedAgentName = HippoConfig.shared.agentDetail?.fullName ?? ""
+            strongSelf.channel?.chatDetail?.isBotInProgress = false
+            strongSelf.channel?.chatDetail?.disableReply = false
+            strongSelf.channel?.isSendingDisabled = false
+            strongSelf.setFooterView(isReplyDisabled: strongSelf.channel?.chatDetail?.disableReply ?? false, isBotInProgress: strongSelf.channel?.chatDetail?.isBotInProgress ?? false)
+        }
+    }
 
+    
     override func titleButtonclicked() {
         guard isCustomerInfoAvailable() else {
             return
@@ -528,6 +556,7 @@ class AgentConversationViewController: HippoConversationViewController {
         }
         if result.isSendingDisabled {
             disableSendingReply()
+            setFooterView(isReplyDisabled: result.isSendingDisabled, isBotInProgress: result.isBotInProgress)
         }
         if request.pageStart == 1, request.pageEnd == nil {
             newScrollToBottom(animated: true)
@@ -707,6 +736,7 @@ extension AgentConversationViewController {
         
         if channel != nil, channel.isSendingDisabled == true {
             disableSendingReply()
+            setFooterView(isReplyDisabled: channel.isSendingDisabled, isBotInProgress: channel.chatDetail?.isBotInProgress ?? false)
         }
     }
     
@@ -778,6 +808,14 @@ extension AgentConversationViewController {
             }
             isObserverAdded = true
         }
+        
+        takeOverButtonContainer.backgroundColor = HippoConfig.shared.theme.headerBackgroundColor
+//        takeOverButton.backgroundColor = HippoConfig.shared.theme.themeColor
+//        takeOverButton.setTitleColor(HippoConfig.shared.theme.themeTextcolor, for: .normal)
+        takeOverButton.backgroundColor = HippoConfig.shared.theme.themeTextcolor
+        takeOverButton.setTitleColor(HippoConfig.shared.theme.themeColor, for: .normal)
+        takeOverButton.setTitle(HippoConfig.shared.theme.takeOverButtonText, for: .normal)
+        
     }
     
     
@@ -1591,6 +1629,48 @@ extension AgentConversationViewController: UIImagePickerControllerDelegate, UINa
         self.textViewBgView.isHidden = true
     }
     
+    func enableSendingReply() {
+        self.channel?.isSendingDisabled = false
+        self.bottomContentViewBottomConstraint.constant = 0
+        //configureFooterView()
+        self.textViewBgView.isHidden = false
+    }
+    
+    func setFooterView(isReplyDisabled: Bool = false, isBotInProgress : Bool = false) {
+//        let isReplyDisabled = channel?.channelInfo?.isReplayDisabled ?? false
+//        let isBotInProgress = channel?.channelInfo?.isBotInProgress ?? false
+        
+        disableTakeOverButton()
+        
+        switch (isReplyDisabled, isBotInProgress) {
+        case (false, _):
+            //messageSendingView?.disableActionButton()
+            print(isReplyDisabled, isBotInProgress)
+        case (true, false):
+            //messageSendingView?.hideMessageBox(withBottomBar: false, setUI: true)
+            print(isReplyDisabled, isBotInProgress)
+        case (true, true):
+            //messageSendingView?.enableActionButton()
+            print(isReplyDisabled, isBotInProgress)
+            enableTakeOverButton()
+        }
+        
+    }
+    
+    func enableTakeOverButton(){
+        takeOverButtonContainer.isHidden = false
+        takeOverButton.isHidden = false
+        takeOverButton.isEnabled = true
+        takeOverButtonHeightConstraint.constant = 50
+    }
+    
+    func disableTakeOverButton(){
+        takeOverButtonContainer.isHidden = true
+        takeOverButton.isHidden = true
+        takeOverButton.isEnabled = false
+        takeOverButtonHeightConstraint.constant = 0
+    }
+    
 }
 
 //// MARK: - SelectImageViewControllerDelegate Delegates
@@ -1703,7 +1783,10 @@ extension AgentConversationViewController: HippoChannelDelegate {
         if channel?.chatDetail?.disableReply == true{
             //disableSendingReply(withOutUpdate: true)
             disableSendingReply()
+        }else{
+            enableSendingReply()
         }
+        setFooterView(isReplyDisabled: channel?.chatDetail?.disableReply ?? false, isBotInProgress: channel?.chatDetail?.isBotInProgress ?? false)
 
         handleAudioIcon()
         handleVideoIcon()
