@@ -182,7 +182,17 @@ struct BotAction {
         HippoConfig.shared.delegate?.deepLinkClicked(response: data)
     }
     
-    //
+    //Function to get current channel id
+    open func getCurrentChannelId()->Int?{
+        let topViewController = getLastVisibleController()
+        //will return channel id if we have some active chat else return nil
+        if topViewController is ConversationsViewController{
+            return (topViewController as? ConversationsViewController)?.channelId
+        }
+        return nil
+    }
+    
+    
     
     internal func setAgentStoredData() {
         guard let storedData = AgentDetail.agentLoginData else {
