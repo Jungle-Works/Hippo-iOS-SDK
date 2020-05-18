@@ -248,7 +248,11 @@ extension AgentDetail {
             BussinessProperty.current.isAudioCallEnabled = Bool.parse(key: "is_audio_call_enabled", json: data)
             
             if let businessProperty = data["business_property"] as? [String: Any] {
+                
                 BussinessProperty.current.encodeToHTMLEntities = Bool.parse(key: "encode_to_html_entites", json: businessProperty)
+                
+                BussinessProperty.current.isAskPaymentAllowed = Bool.parse(key: "is_ask_payment_allowed", json: businessProperty)
+                
             }
             
             BussinessProperty.current.unsupportedMessageString = data["unsupported_message"] as? String ?? ""

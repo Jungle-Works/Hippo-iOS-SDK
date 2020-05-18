@@ -86,6 +86,7 @@ struct UserDefaultkeys {
     static let botImageUrl = "HippoBotImageUrl"
     static let hideCallIconOnNavigationForCustomer = "HippoHideCallIconOnNavigationForCustomer"
     static let multiChannelLabelMapping = "Hippo_Multiple_channel_Label_Mapping"
+    static let isAskPaymentAllowed = "is_ask_payment_allowed"
 }
 
 var FUGU_SCREEN_WIDTH: CGFloat {

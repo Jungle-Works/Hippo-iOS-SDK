@@ -48,6 +48,12 @@ class AgentConversationViewController: HippoConversationViewController {
     @IBOutlet weak var takeOverButton: UIButton!
     @IBOutlet weak var takeOverButtonHeightConstraint: NSLayoutConstraint!
     
+    //NewConversation view
+    @IBOutlet weak var newConversationContainer: So_UIView!
+    @IBOutlet weak var newConversationLabel: So_CustomLabel!
+    @IBOutlet weak var newConversationShadow: So_UIView!
+    @IBOutlet weak var newConversationCountButton: UIButton!
+
     // MARK: - PROPERTIES
     var heightOfNavigation: CGFloat = 0
     var isSingleChat = false
@@ -354,6 +360,13 @@ class AgentConversationViewController: HippoConversationViewController {
     
     @IBAction func takeOverButtonPressed(_ sender: Any) {
         askBeforeAssigningChat()
+    }
+    
+    @IBAction func newConversationCountButtonAction(_ sender: Any) {
+        //        newConversationLabel.text = nil
+        //        newConversationLabel.isHidden = true
+        //        newConversationCounter  = 0
+        scrollTableViewToBottom(true)
     }
     
     func askBeforeAssigningChat() {
@@ -738,6 +751,17 @@ extension AgentConversationViewController {
             disableSendingReply()
             setFooterView(isReplyDisabled: channel.isSendingDisabled, isBotInProgress: channel.chatDetail?.isBotInProgress ?? false)
         }
+        
+        paymentButton.isHidden = !BussinessProperty.current.isAskPaymentAllowed
+        
+        self.newConversationCountButton.roundCorner(cornerRect: [.topLeft, .bottomLeft], cornerRadius: 5)
+        self.newConversationShadow.layer.cornerRadius = 5
+        self.newConversationShadow.showShadow(shadowSideAngles: ShadowSideView(topSide: true, leftSide: true, bottomSide: true))
+        //        self.newConversationShadow.showShadow(shadowSideAngles: ShadowSideView(topSide: true, leftSide: true, bottomSide: true, rightSide: true))
+        //        self.updateNewConversationCountButton(animation: false)
+        
+        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
+        
     }
     
     func addTapGestureInTableView() {
@@ -910,18 +934,59 @@ extension AgentConversationViewController {
         }
         
     }
-    func scrollTableViewToBottom(animated: Bool = false) {
+//    func scrollTableViewToBottom(animated: Bool = false) {
+//
+//        DispatchQueue.main.async {
+//            if self.messagesGroupedByDate.count > 0 {
+//                let givenMessagesArray = self.messagesGroupedByDate[self.messagesGroupedByDate.count - 1]
+//                if givenMessagesArray.count > 0 {
+//                    let indexPath = IndexPath(row: givenMessagesArray.count - 1, section: self.messagesGroupedByDate.count - 1)
+//                    self.tableViewChat.scrollToRow(at: indexPath, at: .bottom, animated: animated)
+//                }
+//            }
+//        }
+//    }
+    func scrollTableViewToBottom(_ animation: Bool = false) {
         
         DispatchQueue.main.async {
-            if self.messagesGroupedByDate.count > 0 {
-                let givenMessagesArray = self.messagesGroupedByDate[self.messagesGroupedByDate.count - 1]
-                if givenMessagesArray.count > 0 {
-                    let indexPath = IndexPath(row: givenMessagesArray.count - 1, section: self.messagesGroupedByDate.count - 1)
-                    self.tableViewChat.scrollToRow(at: indexPath, at: .bottom, animated: animated)
+            
+            var numberOfSections = -1
+            if self.tableViewChat.numberOfSections > 1 {
+                numberOfSections = self.tableViewChat.numberOfSections - 1
+            } else {
+                numberOfSections = self.tableViewChat.numberOfSections
+            }
+            
+            guard numberOfSections > 0 else {
+                return
+            }
+            
+            if self.messagesGroupedByDate.count > 0, let lastIndex = self.messagesGroupedByDate.last, lastIndex.count > 0 {
+                
+                let max = self.tableViewChat.numberOfRows(inSection: self.messagesGroupedByDate.count - 1)
+                let min = lastIndex.count - 1
+                
+                let row = min < max ? min : max - 1
+                guard numberOfSections >= self.messagesGroupedByDate.count - 1 else {
+                    return
                 }
+                let indexPath = IndexPath(row: row, section: self.messagesGroupedByDate.count - 1)
+                
+                self.tableViewChat.scrollToRow(at: indexPath, at: .bottom, animated: animation)
+                self.newConversationContainer.isHidden = true
             }
         }
     }
+    
+//    func updateNewConversationCountButton(animation: Bool) {
+//        if newConversationCounter > 0 {
+//            newConversationLabel.text = "\(newConversationCounter)"
+//            newConversationLabel.isHidden = false
+//            newConversationContainer.isHidden = false
+//        } else {
+//            newConversationLabel.isHidden = true
+//        }
+//    }
     
     //    func expectedHeight(OfMessageObject chatMessageObject: HippoMessage) -> CGFloat {
     //
@@ -992,6 +1057,21 @@ extension AgentConversationViewController: UIScrollViewDelegate {
                 self?.isGettingMessageViaPaginationInProgress = false
             })
         }
+//        if shouldRecognizeScroll {
+        if scrollView.contentOffset.y < (tableViewChat.contentSize.height - tableViewChat.frame.height - 180) {
+            newConversationContainer.isHidden = false
+        } else {
+//                if newConversationCounter == 0 {
+            newConversationContainer.isHidden = true
+//                }
+        }
+//
+//        if scrollView.contentOffset.y > (tableViewChat.contentSize.height - tableViewChat.frame.height - 10) {
+//            newConversationCounter = 0
+//            updateNewConversationCountButton(animation: true)
+//        }
+//    }
+        
     }
     
     func getUnsentMessageCount() -> Int {
@@ -1882,6 +1962,21 @@ extension AgentConversationViewController: HippoChannelDelegate {
         return self.messagesGroupedByDate.count < tableViewChat.numberOfSections
     }
     
+//    func checkScrollerPostion() {
+//        let contentHeight = tableViewChat.contentSize.height
+//        let tableHeight = tableViewChat.bounds.height
+//        let offset = tableViewChat.contentOffset.y
+//
+//
+//        if offset > (contentHeight - tableHeight - 10) {
+//            self.newConversationCounter = 0
+//            scrollTableViewToBottom(false)
+//        } else if contentHeight > tableHeight {
+//            self.newConversationCounter += 1
+//        }
+//        self.updateNewConversationCountButton(animation: true)
+//    }
+    
 }
 // Helper function inserted by Swift 4.2 migrator.
 #if swift(>=4.2)
@@ -1894,3 +1989,37 @@ fileprivate func convertFromUIImagePickerControllerInfoKey(_ input: UIImagePicke
     return input.rawValue
 }
 #endif
+
+extension AgentConversationViewController: UIGestureRecognizerDelegate {
+
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        
+        messageTextView.resignFirstResponder()
+        channel?.send(message: HippoMessage.stopTyping, completion: {})
+        let channelID = self.channel?.id ?? -1
+        clearUnreadCountForChannel(id: channelID)
+        if let lastMessage = getLastMessage() {
+            agentConversationDelegate?.updateConversationWith(channelId: channel?.id ?? -1, lastMessage: lastMessage, unreadCount: 0)
+        }
+        if isSingleChat {
+            HippoConfig.shared.notifiyDeinit()
+//            self.navigationController?.dismiss(animated: true, completion: nil)
+////            return
+//            return true
+        }
+//        if self.navigationController == nil {
+//            HippoConfig.shared.notifiyDeinit()
+//            dismiss(animated: true, completion: nil)
+//        } else {
+//            if self.navigationController!.viewControllers.count > 1 {
+//                _ = self.navigationController?.popViewController(animated: true)
+//            } else {
+//                HippoConfig.shared.notifiyDeinit()
+//                self.navigationController?.dismiss(animated: true, completion: nil)
+//            }
+//        }
+        
+        return true
+    }
+
+}
