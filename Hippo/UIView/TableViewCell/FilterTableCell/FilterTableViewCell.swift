@@ -73,7 +73,7 @@ extension FilterTableViewCell {
 //            tickImageView.image = HippoImage.current.multipleAgentUnSelected?.withRenderingMode(.alwaysOriginal)
             tickImageView.image = HippoConfig.shared.theme.checkBoxInActive
 //            tickImageView.tintColor = HippoTheme.current.buttonUnselectedColor
-            tickImageView.tintColor = HippoConfig.shared.theme.themeColor
+            tickImageView.tintColor = .white//HippoConfig.shared.theme.themeColor
 
         }
         

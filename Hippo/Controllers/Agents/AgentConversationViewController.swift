@@ -17,6 +17,7 @@ protocol AgentChatDeleagate: class {
 class AgentConversationViewController: HippoConversationViewController {
     
     // MARK: -  IBOutlets
+    @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var audioButton: UIBarButtonItem!
     @IBOutlet var backgroundView: UIView!
     @IBOutlet var backButton: UIButton!
@@ -38,6 +39,7 @@ class AgentConversationViewController: HippoConversationViewController {
     @IBOutlet weak var loadMoreActivityTopContraint: NSLayoutConstraint!
     @IBOutlet weak var loadMoreActivityIndicator: UIActivityIndicatorView!
     
+    @IBOutlet weak var bottomContentView: So_UIView!
     @IBOutlet weak var paymentButton: UIButton!
     @IBOutlet weak var botActionButton: UIButton!
 
@@ -743,6 +745,7 @@ extension AgentConversationViewController {
         self.messageTextView.font = HippoConfig.shared.theme.typingTextFont
         self.messageTextView.textColor = HippoConfig.shared.theme.typingTextColor
         self.messageTextView.backgroundColor = .clear
+        self.messageTextView.tintColor = HippoConfig.shared.theme.messageTextViewTintColor//
         placeHolderLabel.text = HippoConfig.shared.strings.messagePlaceHolderText
         hideErrorMessage()
         sendMessageButton.isEnabled = false
@@ -750,6 +753,12 @@ extension AgentConversationViewController {
         if channel != nil, channel.isSendingDisabled == true {
             disableSendingReply()
             setFooterView(isReplyDisabled: channel.isSendingDisabled, isBotInProgress: channel.chatDetail?.isBotInProgress ?? false)
+        }
+        
+        if HippoConfig.shared.theme.chatbackgroundImage != nil {
+            tableViewChat.backgroundColor = .clear
+            backgroundImageView.image = HippoConfig.shared.theme.chatbackgroundImage
+            backgroundImageView.contentMode = .scaleToFill
         }
         
         paymentButton.isHidden = !BussinessProperty.current.isAskPaymentAllowed
@@ -815,6 +824,7 @@ extension AgentConversationViewController {
     
     func configureFooterView() {
         textViewBgView.backgroundColor = .white
+        bottomContentView.backgroundColor = .white
         if isObserverAdded == false {
             textViewBgView.layoutIfNeeded()
             let inputView = FrameObserverAccessaryView(frame: textViewBgView.bounds)
@@ -1612,6 +1622,7 @@ extension AgentConversationViewController: UITextViewDelegate {
         placeHolderLabel.textColor = #colorLiteral(red: 0.2862745098, green: 0.2862745098, blue: 0.2862745098, alpha: 0.8)
         textInTextField = textView.text
         textViewBgView.backgroundColor = .white
+        bottomContentView.backgroundColor = .white
         timer = Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(self.watcherOnTextView), userInfo: nil, repeats: true)
         
         return true
@@ -1619,6 +1630,7 @@ extension AgentConversationViewController: UITextViewDelegate {
     
     func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
         textViewBgView.backgroundColor = UIColor.white
+        bottomContentView.backgroundColor = UIColor.white
         placeHolderLabel.textColor = #colorLiteral(red: 0.2862745098, green: 0.2862745098, blue: 0.2862745098, alpha: 0.5)
         
         timer.invalidate()

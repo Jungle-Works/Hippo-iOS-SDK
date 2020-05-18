@@ -109,11 +109,18 @@ public struct ConversationListTheme {
     open var filterBarButtonTextColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
     open var filterBarButtonText = String()
     
+    open var crossBarButtonImage: UIImage? = UIImage(named: "cancel_icon", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+    open var crossBarButtonFont: UIFont? = UIFont.systemFont(ofSize: 13.0)
+    open var crossBarButtonTextColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+    open var crossBarButtonText = String()
+    
     open var conversationTitleColor = #colorLiteral(red: 0.1725490196, green: 0.137254902, blue: 0.2, alpha: 1)
     open var conversationLastMsgColor = #colorLiteral(red: 0.1725490196, green: 0.137254902, blue: 0.2, alpha: 1)
     
     open var sendBtnIcon: UIImage? = UIImage(named: "sendMessageIcon", in: FuguFlowManager.bundle, compatibleWith: nil)
     open var sendBtnIconTintColor: UIColor?
+    
+    open var messageTextViewTintColor = UIColor(red: 11/255, green: 106/255, blue: 255/255, alpha: 1)
     
     open var addButtonIcon: UIImage? = UIImage(named: "addButtonIcon", in: FuguFlowManager.bundle, compatibleWith: nil)
     open var addBtnTintColor: UIColor?
@@ -204,7 +211,9 @@ public struct ConversationListTheme {
     open var broadcastTitleInfoColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
     
     open var checkBoxActive = UIImage(named: "checkbox_active_icon", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysOriginal)
+//        open var checkBoxActive = UIImage(named: "checkbox_active_icon", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     open var checkBoxInActive = UIImage(named: "checkbox_inactive_icon", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysOriginal)
+//    open var checkBoxInActive = UIImage(named: "checkbox_inactive_icon", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     open var radioActive = UIImage(named: "radio_button_active", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysOriginal)
     open var radioInActive = UIImage(named: "radio_button_deactive", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysOriginal)
     

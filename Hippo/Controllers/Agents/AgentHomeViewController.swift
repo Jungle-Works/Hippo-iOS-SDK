@@ -67,7 +67,6 @@ class AgentHomeViewController: HippoHomeViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.filterButton.tintColor = HippoConfig.shared.theme.themeTextcolor
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -193,6 +192,8 @@ extension AgentHomeViewController {
         guard let agent = HippoConfig.shared.agentDetail, agent.id > 0 else {
             return
         }
+        //self.agentStatus.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
+        //self.agentStatus.contentHorizontalAlignment = .center
         self.agentStatus.isOn = agent.status == .available ? true : false
     }
 

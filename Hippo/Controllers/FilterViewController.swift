@@ -168,8 +168,22 @@ class FilterViewController: UIViewController {
         optionsTableView.backgroundColor = theme.backgroundColor
         resultTableview.backgroundColor = theme.backgroundColor
 //        applyButtonHeightConstraint.constant = 0
-        
+                
+        //Configuring FilterButton
+        crossButton.setTitle("", for: .normal)
         crossButton.tintColor = HippoConfig.shared.theme.headerTextColor
+        if HippoConfig.shared.theme.crossBarButtonText.count > 0 {
+            crossButton.setTitle((" " + HippoConfig.shared.theme.crossBarButtonText), for: .normal)
+            if HippoConfig.shared.theme.crossBarButtonFont != nil {
+                crossButton.titleLabel?.font = HippoConfig.shared.theme.crossBarButtonFont
+            }
+            crossButton.setTitleColor(HippoConfig.shared.theme.crossBarButtonTextColor, for: .normal)
+        } else {
+            if HippoConfig.shared.theme.crossBarButtonImage != nil {
+                crossButton.setImage(HippoConfig.shared.theme.crossBarButtonImage, for: .normal)
+                crossButton.tintColor = HippoConfig.shared.theme.headerTextColor
+            }
+        }
         
         resetButton.setTitleColor(HippoConfig.shared.theme.headerBackgroundColor, for: .normal)
 //        resetButton.backgroundColor = UIColor.veryLightBlue
@@ -182,7 +196,11 @@ class FilterViewController: UIViewController {
         
 //        applyButton.setTheme(type: [.fill(group: group), .text(group: group)])
 //        applyButton.backgroundColor = theme.themeColor
+        
+//        applyButton.backgroundColor = theme.themeColor
+//        applyButton.setTitleColor(theme.themeTextcolor, for: .normal)
         applyButton.backgroundColor = theme.themeTextcolor
+        applyButton.setTitleColor(theme.themeColor, for: .normal)
         
         setTheme()
 //        applyButton.backgroundColor = HippoTheme.current.themeColor

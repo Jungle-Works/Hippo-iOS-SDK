@@ -1417,6 +1417,7 @@ extension ConversationsViewController {
         self.messageTextView.font = HippoConfig.shared.theme.typingTextFont
         self.messageTextView.textColor = HippoConfig.shared.theme.typingTextColor
         self.messageTextView.backgroundColor = .clear
+        self.messageTextView.tintColor = HippoConfig.shared.theme.messageTextViewTintColor//
         
         placeHolderLabel.text = HippoConfig.shared.strings.messagePlaceHolderText
         

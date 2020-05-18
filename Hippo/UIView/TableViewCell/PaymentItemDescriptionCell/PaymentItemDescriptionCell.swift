@@ -69,7 +69,7 @@ class PaymentItemDescriptionCell: UITableViewCell {
         descriptionTextView.layer.borderWidth = 1
         descriptionTextView.layer.cornerRadius = 5
         
-        cancelIcon.backgroundColor = HippoConfig.shared.theme.headerTextColor//UIColor.themeColor
+        cancelIcon.backgroundColor = HippoConfig.shared.theme.themeTextcolor//UIColor.themeColor
         cancelIcon.tintColor = UIColor.white
         cancelIcon.layer.cornerRadius = cancelIcon.bounds.height / 2
         cancelIcon.layer.masksToBounds = true
