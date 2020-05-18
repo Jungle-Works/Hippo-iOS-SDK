@@ -49,7 +49,7 @@ class AgentConversationViewController: HippoConversationViewController {
     var heightOfNavigation: CGFloat = 0
     var isSingleChat = false
     var botActionView = BotTableView.loadView(CGRect.zero)
-    var custombarbuttonParam : CGFloat : 32.0
+    var custombarbuttonParam : CGFloat = 32.0
     // MARK: - Computed Properties
     var localFilePath: String {
         get {
