@@ -12,7 +12,7 @@ let HippoSDKSource = 1
 let Device_Type_iOS = 2
 var userDetailData = [String: Any]()
 
-let fuguAppVersion = "2.1.18"
+let fuguAppVersion = "2.1.19"
 let versionCode = 320//350(newCalling)
 
 /*
@@ -98,4 +98,6 @@ let versionCode = 320//350(newCalling)
  316 *** 2.1.17 = Calling issues fixed and pending status added in agent chat.
  
  317 *** 2.1.18 = Cp sdk feedback done and present full screen done and Merge branch 'FatafatCpSdkIssues'
+ 
+ 318 *** 2.1.19 = Function added to get current channel id.
  */
