@@ -49,7 +49,7 @@ class AgentConversationViewController: HippoConversationViewController {
     var heightOfNavigation: CGFloat = 0
     var isSingleChat = false
     var botActionView = BotTableView.loadView(CGRect.zero)
-    
+    var custombarbuttonParam : CGFloat : 32.0
     // MARK: - Computed Properties
     var localFilePath: String {
         get {
@@ -659,11 +659,14 @@ extension AgentConversationViewController {
         //        infoButton.isHidden = customerId < 1
     }
     
-    
     func handleVideoIcon() {
         setTitleButton()
         if canStartVideoCall() {
-            videoButton.image = HippoConfig.shared.theme.videoCallIcon
+            let customVideoBtn : UIButton = UIButton()
+            customVideoBtn.setImage(HippoConfig.shared.theme.videoCallIcon, for: .normal)
+            customVideoBtn.frame = CGRect(x: 0, y: 0, width: custombarbuttonParam, height: custombarbuttonParam)
+            customVideoBtn.addTarget(self, action: #selector(videoCallButtonClicked), for: UIControl.Event.touchUpInside)
+            videoButton.customView = customVideoBtn
             videoButton.tintColor = HippoConfig.shared.theme.headerTextColor
             videoButton.isEnabled = true
             videoButton.title = nil
@@ -676,7 +679,11 @@ extension AgentConversationViewController {
     func handleAudioIcon() {
         setTitleButton()
         if canStartAudioCall() {
-            audioButton.image = HippoConfig.shared.theme.audioCallIcon
+            let customAudioBtn : UIButton = UIButton()
+            customAudioBtn.setImage(HippoConfig.shared.theme.audioCallIcon, for: .normal)
+            customAudioBtn.frame = CGRect(x: 0, y: 0, width: custombarbuttonParam, height: custombarbuttonParam)
+            customAudioBtn.addTarget(self, action:  #selector(audioButtonClicked), for: UIControl.Event.touchUpInside)
+            audioButton.customView = customAudioBtn
             audioButton.tintColor = HippoConfig.shared.theme.headerTextColor
             audioButton.isEnabled = true
         } else {
@@ -684,6 +691,32 @@ extension AgentConversationViewController {
             audioButton.isEnabled = false
         }
     }
+    
+    
+//    func handleVideoIcon() {
+//        setTitleButton()
+//        if canStartVideoCall() {
+//            videoButton.image = HippoConfig.shared.theme.videoCallIcon
+//            videoButton.tintColor = HippoConfig.shared.theme.headerTextColor
+//            videoButton.isEnabled = true
+//            videoButton.title = nil
+//        } else {
+//            videoButton.title = ""
+//            videoButton.image = nil
+//            videoButton.isEnabled = false
+//        }
+//    }
+//    func handleAudioIcon() {
+//        setTitleButton()
+//        if canStartAudioCall() {
+//            audioButton.image = HippoConfig.shared.theme.audioCallIcon
+//            audioButton.tintColor = HippoConfig.shared.theme.headerTextColor
+//            audioButton.isEnabled = true
+//        } else {
+//            audioButton.image = nil
+//            audioButton.isEnabled = false
+//        }
+//    }
     func returnRetryCancelButtonHeight(chatMessageObject: HippoMessage) -> CGFloat {
         if chatMessageObject.wasMessageSendingFailed, chatMessageObject.type != MessageType.imageFile, chatMessageObject.status == ReadUnReadStatus.none, isSentByMe(senderId: chatMessageObject.senderId) {
             return 40
