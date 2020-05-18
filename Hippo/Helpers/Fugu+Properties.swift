@@ -12,7 +12,7 @@ let HippoSDKSource = 1
 let Device_Type_iOS = 2
 var userDetailData = [String: Any]()
 
-let fuguAppVersion = "2.1.17"
+let fuguAppVersion = "2.1.18"
 let versionCode = 320//350(newCalling)
 
 /*
@@ -96,4 +96,6 @@ let versionCode = 320//350(newCalling)
  315 *** 2.1.16 = Functionlity for payment gateways like paytm and redirection from web view on success and error in paytm payment.
  
  316 *** 2.1.17 = Calling issues fixed and pending status added in agent chat.
+ 
+ 317 *** 2.1.18 = Cp sdk feedback done and present full screen done and Merge branch 'FatafatCpSdkIssues'
  */
