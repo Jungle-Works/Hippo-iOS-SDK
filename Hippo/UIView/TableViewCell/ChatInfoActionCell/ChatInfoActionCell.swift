@@ -17,13 +17,6 @@ class ChatInfoActionCell: UITableViewCell {
     @IBOutlet weak var widthOfIconImageView: NSLayoutConstraint!
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     
 }
@@ -42,11 +35,12 @@ extension ChatInfoActionCell {
         iconImageView.image = chatInfo.infoImage ?? nil
         cellLabel.text = chatInfo.nameOfCell
         
-        if iconImageView.image == nil {
+        if chatInfo.infoImage == nil {
             widthOfIconImageView.constant = 0
         } else {
             widthOfIconImageView.constant = 15
         }
+        
         return self
     }
 }

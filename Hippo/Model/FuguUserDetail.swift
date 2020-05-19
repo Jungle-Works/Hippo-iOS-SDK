@@ -312,6 +312,7 @@ public class UserTag: NSObject {
             
             if let appSecretKey = userDetailData["app_secret_key"] as? String {
                 HippoConfig.shared.appSecretKey = appSecretKey
+                subscribeMarkConversation()
             }
             
             if let userId = userDetailData["user_id"] as? Int {
@@ -515,6 +516,7 @@ public class UserTag: NSObject {
             clearAllData()
             TokenManager.deviceToken = deviceToken
             TokenManager.voipToken = voipToken
+            unSubscribe(userChannelId: HippoConfig.shared.appSecretKey + "/" + "markConversation")
             let tempStatusCode = statusCode ?? 0
             let success = (200 <= tempStatusCode) && (300 > tempStatusCode)
             completion?(success)

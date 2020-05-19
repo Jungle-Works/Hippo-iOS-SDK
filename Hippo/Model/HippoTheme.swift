@@ -72,9 +72,13 @@ public struct ConversationListTheme {
     
     open var conversationListNormalTheme: ConversationListTheme = ConversationListTheme.normalTheme()
     open var conversationListUnreadTheme: ConversationListTheme = ConversationListTheme.unReadTheme()
-
-    open var audioCallIcon: UIImage? = UIImage(named: "audioCallIcon", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
-    open var videoCallIcon: UIImage? = UIImage(named: "tiny-video-symbol", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+    open var informationIcon: UIImage? = UIImage(named: "dots", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+    open var audioCallIcon: UIImage? = UIImage(named: "call", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+    open var videoCallIcon: UIImage? = UIImage(named: "video", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+    
+    open var paymentIcon: UIImage? = UIImage(named: "makePayment", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+    open var botIcon: UIImage? = UIImage(named: "bot", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+    
     open var missedCallMessageColor: UIColor = UIColor.red
     
 //    open var headerTextFont: UIFont? = UIFont.boldSystemFont(ofSize: 18.0)
@@ -83,10 +87,11 @@ public struct ConversationListTheme {
     open var actionableMessagePriceBoldFont: UIFont? = UIFont.boldSystemFont(ofSize: 15.0)
     open var actionableMessageDescriptionFont: UIFont? = UIFont.boldSystemFont(ofSize: 13.0)
     open var actionableMessageButtonFont: UIFont? = UIFont.boldSystemFont(ofSize: 16.0)
-    
-//    open var leftBarButtonImage: UIImage? = UIImage(named: "whiteBackButton", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
-    open var leftBarButtonImage: UIImage? = UIImage(named: "back", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
-    
+
+    open var leftBarButtonImage: UIImage? = UIImage(named: "whiteBackButton", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+    open var leftBarButtonArrowImage: UIImage? = UIImage(named: "back", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+    open var closeChatImage: UIImage? = UIImage(named: "closeRed", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+
     open var leftBarButtonFont: UIFont? = UIFont.systemFont(ofSize: 13.0)
     open var leftBarButtonTextColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
     open var leftBarButtonText = String()

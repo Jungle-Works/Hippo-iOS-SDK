@@ -18,21 +18,12 @@ class ChatInfoAgentTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         resetData()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     
     func setUpData(agentId: Int, agentName: String) -> ChatInfoAgentTableViewCell {
-//        resetData()
-    
         agentNameLabel.text = agentName.isEmpty ? "Unassigned" : agentName
-        containerView.layer.borderColor = UIColor.paleGrey.cgColor
-        
+        //containerView.layer.borderColor = UIColor.paleGrey.cgColor
+        containerView.layer.borderColor = UIColor.clear.cgColor
         return self
     }
     

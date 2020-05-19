@@ -186,7 +186,17 @@ struct BotAction {
         HippoConfig.shared.delegate?.deepLinkClicked(response: data)
     }
     
-    //
+    //Function to get current channel id
+    open func getCurrentChannelId()->Int?{
+        let topViewController = getLastVisibleController()
+        //will return channel id if we have some active chat else return nil
+        if topViewController is ConversationsViewController{
+            return (topViewController as? ConversationsViewController)?.channelId
+        }
+        return nil
+    }
+    
+    
     
     internal func setAgentStoredData() {
         guard let storedData = AgentDetail.agentLoginData else {
@@ -557,18 +567,18 @@ struct BotAction {
             }
             let call = CallData.init(peerData: peer, callType: callType, muid: uuid, signallingClient: channel)
             
-//            CallManager.shared.startCall(call: call, completion: { (success) in
-//                if !success {
-//                    CallManager.shared.hungupCall()
-//                }
-//                completion(true, nil)
-//            })
-            CallManager.shared.startCall(call: call, completion: { (success,error) in
+            CallManager.shared.startCall(call: call, completion: { (success) in
                 if !success {
                     CallManager.shared.hungupCall()
                 }
                 completion(true, nil)
             })
+//            CallManager.shared.startCall(call: call, completion: { (success,error) in
+//                if !success {
+//                    CallManager.shared.hungupCall()
+//                }
+//                completion(true, nil)
+//            })
             
         })
         completion(true, nil)
@@ -618,18 +628,18 @@ struct BotAction {
             }
             let call = CallData.init(peerData: peer, callType: callType, muid: uuid, signallingClient: channel)
             
-//            CallManager.shared.startCall(call: call, completion: { (success) in
-//                if !success {
-//                    CallManager.shared.hungupCall()
-//                }
-//                completion(true, nil)
-//            })
-            CallManager.shared.startCall(call: call, completion: { (success,error) in
+            CallManager.shared.startCall(call: call, completion: { (success) in
                 if !success {
                     CallManager.shared.hungupCall()
                 }
                 completion(true, nil)
             })
+//            CallManager.shared.startCall(call: call, completion: { (success,error) in
+//                if !success {
+//                    CallManager.shared.hungupCall()
+//                }
+//                completion(true, nil)
+//            })
             
         })
         completion(true, nil)
@@ -1037,16 +1047,19 @@ struct BotAction {
                 let conVC = ConversationsViewController.getWith(labelId: "\(labelId)")
                 let navVC = UINavigationController(rootViewController: conVC)
                 navVC.isNavigationBarHidden = true
+                visibleController?.modalPresentationStyle = .fullScreen
                 visibleController?.present(navVC, animated: true, completion: nil)
             } else if channelId > 0 {
                 let conVC = ConversationsViewController.getWith(channelID: channelId, channelName: channelName)
                 let navVC = UINavigationController(rootViewController: conVC)
                 navVC.isNavigationBarHidden = true
+                visibleController?.modalPresentationStyle = .fullScreen
                 visibleController?.present(navVC, animated: true, completion: nil)
             } else if labelId > 0 {
                 let conVC = ConversationsViewController.getWith(labelId: "\(labelId)")
                 let navVC = UINavigationController(rootViewController: conVC)
                 navVC.isNavigationBarHidden = true
+                visibleController?.modalPresentationStyle = .fullScreen
                 visibleController?.present(navVC, animated: true, completion: nil)
             }
         }

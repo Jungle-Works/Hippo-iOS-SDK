@@ -13,3 +13,4 @@ class SuggestionViewFlowLayout: UICollectionViewFlowLayout {
         fatalError("init(coder:) has not been implemented")
     }
 }
+
