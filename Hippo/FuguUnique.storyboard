@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="vAr-Qq-z1C">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="vAr-Qq-z1C">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -332,10 +332,10 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bbp-1f-txy">
-                                <rect key="frame" x="129" y="508" width="226" height="50"/>
+                                <rect key="frame" x="149" y="508" width="206" height="50"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QDN-SW-1fc">
-                                        <rect key="frame" x="10" y="0.0" width="206" height="50"/>
+                                        <rect key="frame" x="10" y="0.0" width="186" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="30" id="tYM-an-dHz"/>
                                             <constraint firstAttribute="height" constant="50" id="wV1-Ex-FAt"/>
@@ -532,7 +532,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
                                 <subviews>
                                     <imageView hidden="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="app_loader_shape" translatesAutoresizingMaskIntoConstraints="NO" id="Lee-41-dPF" customClass="So_UIImageView" customModule="Hippo" customModuleProvider="target">
-                                        <rect key="frame" x="147.5" y="271.5" width="80" height="80"/>
+                                        <rect key="frame" x="167.5" y="291.5" width="40" height="40"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </imageView>
                                 </subviews>
@@ -701,7 +701,7 @@
                                 <rect key="frame" x="0.0" y="44" width="375" height="623"/>
                                 <subviews>
                                     <imageView hidden="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="app_loader_shape" translatesAutoresizingMaskIntoConstraints="NO" id="Y22-DA-qgw" customClass="So_UIImageView" customModule="Hippo" customModuleProvider="target">
-                                        <rect key="frame" x="147.5" y="271.5" width="80" height="80"/>
+                                        <rect key="frame" x="167.5" y="291.5" width="40" height="40"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </imageView>
                                 </subviews>
@@ -803,7 +803,7 @@
                                 </constraints>
                             </view>
                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" image="app_loader_shape" translatesAutoresizingMaskIntoConstraints="NO" id="eZG-Yq-Sel">
-                                <rect key="frame" x="147.5" y="293.5" width="80" height="80"/>
+                                <rect key="frame" x="167.5" y="313.5" width="40" height="40"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q6z-xO-SMj">
                                 <rect key="frame" x="164.5" y="322.5" width="46.5" height="22.5"/>
@@ -1117,7 +1117,7 @@
                                 </constraints>
                             </view>
                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="app_loader_shape" translatesAutoresizingMaskIntoConstraints="NO" id="yXi-kz-HoV" customClass="So_UIImageView" customModule="Hippo" customModuleProvider="target">
-                                <rect key="frame" x="147.5" y="293.5" width="80" height="80"/>
+                                <rect key="frame" x="167.5" y="313.5" width="40" height="40"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3pN-rq-23Q">
@@ -1137,13 +1137,13 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Send a message..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EE4-xz-Z1Q">
-                                        <rect key="frame" x="86" y="3" width="116.5" height="50"/>
+                                        <rect key="frame" x="46" y="3" width="116.5" height="50"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                         <color key="textColor" red="0.28627450980000002" green="0.28627450980000002" blue="0.28627450980000002" alpha="0.5" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="wgK-4e-znX">
-                                        <rect key="frame" x="80" y="3" width="250" height="50"/>
+                                        <rect key="frame" x="40" y="3" width="290" height="50"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="bZM-ew-sx4"/>
@@ -1156,7 +1156,10 @@
                                         </connections>
                                     </textView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DWe-mS-Xbm">
-                                        <rect key="frame" x="40" y="0.0" width="40" height="56"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="40" height="56"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="40" id="SNW-Si-oSF"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="28"/>
                                         <inset key="titleEdgeInsets" minX="0.0" minY="-3" maxX="0.0" maxY="0.0"/>
                                         <state key="normal" image="AddFile">
@@ -1170,9 +1173,9 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RvA-MK-cPq">
-                                        <rect key="frame" x="0.0" y="0.0" width="40" height="56"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="56"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="40" id="ajd-Bp-rKE"/>
+                                            <constraint firstAttribute="width" id="ajd-Bp-rKE"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="28"/>
                                         <inset key="titleEdgeInsets" minX="0.0" minY="-3" maxX="0.0" maxY="0.0"/>
@@ -1195,7 +1198,6 @@
                                     <constraint firstAttribute="bottom" secondItem="qNk-pG-Dkt" secondAttribute="bottom" id="AIp-lT-dbG"/>
                                     <constraint firstItem="wgK-4e-znX" firstAttribute="top" secondItem="EE4-xz-Z1Q" secondAttribute="top" id="BWf-YR-7S2"/>
                                     <constraint firstItem="qNk-pG-Dkt" firstAttribute="leading" secondItem="wgK-4e-znX" secondAttribute="trailing" id="EMg-c5-fIg"/>
-                                    <constraint firstItem="DWe-mS-Xbm" firstAttribute="width" secondItem="RvA-MK-cPq" secondAttribute="width" id="Eg4-VQ-Vqc"/>
                                     <constraint firstItem="wgK-4e-znX" firstAttribute="centerY" secondItem="3pN-rq-23Q" secondAttribute="centerY" id="Fiu-6T-9PL"/>
                                     <constraint firstItem="EE4-xz-Z1Q" firstAttribute="centerY" secondItem="3pN-rq-23Q" secondAttribute="centerY" id="Gea-gp-hmv"/>
                                     <constraint firstAttribute="trailing" secondItem="qNk-pG-Dkt" secondAttribute="trailing" id="IFy-gu-WDO"/>
@@ -2002,19 +2004,19 @@
                                                 <cells>
                                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="AttachmentOptionCollectionViewCell" reuseIdentifier="AttachmentOptionCollectionViewCell" id="86o-MH-o6N" customClass="AttachmentOptionCollectionViewCell" customModule="Hippo" customModuleProvider="target">
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" id="gC5-yW-bs3">
+                                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="gC5-yW-bs3">
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <subviews>
-                                                                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uFo-xL-fM2">
+                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uFo-xL-fM2">
                                                                     <rect key="frame" x="0.0" y="0.0" width="116" height="125"/>
                                                                     <subviews>
-                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="makePayment" translatesAutoresizingMaskIntoConstraints="NO" id="IDL-Ye-nen">
+                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="makePayment" translatesAutoresizingMaskIntoConstraints="NO" id="IDL-Ye-nen">
                                                                             <rect key="frame" x="16" y="4" width="84" height="84"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" secondItem="IDL-Ye-nen" secondAttribute="height" multiplier="1:1" id="bUf-m7-YVP"/>
                                                                             </constraints>
                                                                         </imageView>
-                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JMc-0q-fB9">
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JMc-0q-fB9">
                                                                             <rect key="frame" x="4" y="94" width="108" height="17.5"/>
                                                                             <fontDescription key="fontDescription" name="SinhalaSangamMN" family="Sinhala Sangam MN" pointSize="13"/>
                                                                             <nil key="textColor"/>
@@ -2166,6 +2168,7 @@
                         <outlet property="backButton" destination="uak-vB-lwe" id="58l-Yy-tJJ"/>
                         <outlet property="backgroundImageView" destination="cUx-ZN-ZG8" id="2Yg-g9-seS"/>
                         <outlet property="backgroundView" destination="rcJ-ZN-hfW" id="ESw-bU-BJ6"/>
+                        <outlet property="bottomContentViewBottomConstraint" destination="8WP-bD-i02" id="0IJ-K0-9tc"/>
                         <outlet property="collectionViewOptions" destination="Sws-Ro-GXq" id="fGb-dr-dVj"/>
                         <outlet property="errorContentView" destination="FvA-Uz-bG4" id="I0m-kS-wIk"/>
                         <outlet property="errorLabel" destination="T4b-Pj-Swz" id="mif-f4-gb6"/>
@@ -2741,7 +2744,7 @@
                                 </constraints>
                             </view>
                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="app_loader_shape" translatesAutoresizingMaskIntoConstraints="NO" id="DhK-89-YLr" customClass="So_UIImageView" customModule="Hippo" customModuleProvider="target">
-                                <rect key="frame" x="147.5" y="293.5" width="80" height="80"/>
+                                <rect key="frame" x="167.5" y="313.5" width="40" height="40"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </imageView>
                         </subviews>

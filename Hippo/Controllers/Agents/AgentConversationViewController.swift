@@ -34,7 +34,7 @@ class AgentConversationViewController: HippoConversationViewController {
     
     @IBOutlet weak var videoButton: UIBarButtonItem!
     //    @IBOutlet var textViewBottomConstraint: NSLayoutConstraint!
-    //@IBOutlet weak var bottomContentViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var bottomContentViewBottomConstraint: NSLayoutConstraint!
     //    @IBOutlet weak var hieghtOfNavigationBar: NSLayoutConstraint!
     @IBOutlet weak var loadMoreActivityTopContraint: NSLayoutConstraint!
     @IBOutlet weak var loadMoreActivityIndicator: UIActivityIndicatorView!
@@ -94,9 +94,6 @@ class AgentConversationViewController: HippoConversationViewController {
     // MARK: - LIFECYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.attachments = [
-            Attachment(icon : HippoConfig.shared.theme.paymentIcon , title : "Payment"),
-            Attachment(icon : HippoConfig.shared.theme.botIcon  , title : "Bot")]
         collectionViewOptions?.delegate = self
         collectionViewOptions?.dataSource = self
         HippoConfig.shared.notifyDidLoad()
@@ -168,6 +165,10 @@ class AgentConversationViewController: HippoConversationViewController {
     
     override func backButtonClicked() {
         backbtnClicked()
+    }
+    
+    override func titleClicked() {
+        titleButtonclicked()
     }
     
     
@@ -310,12 +311,6 @@ class AgentConversationViewController: HippoConversationViewController {
         
     }
 
-//    @IBAction func getBotActions(_ sender: Any) {
-//        self.closeKeyBoard()
-//        AgentConversationManager.getBotsAction(userId: self.channel.chatDetail?.customerID ?? 0, channelId: self.channelId) { (botActions) in
-//            self.addBotActionView(with: botActions)
-//        }
-//    }
 
     func addBotActionView(with botArray: [BotAction]) {
         guard let window = UIApplication.shared.keyWindow else {
@@ -412,11 +407,7 @@ class AgentConversationViewController: HippoConversationViewController {
         }
     }
 
-//    @IBAction func paymentButtonClicked(_ sender: Any) {
-//        //delegate?.createPaymentButtonClicked()
-//        self.closeKeyBoard()
-//        presentPlansVc()
-//    }
+
     
     override func titleButtonclicked() {
         guard isCustomerInfoAvailable() else {
@@ -828,7 +819,10 @@ extension AgentConversationViewController {
             backgroundImageView.contentMode = .scaleToFill
         }
         
-//        paymentButton.isHidden = !BussinessProperty.current.isAskPaymentAllowed
+        if BussinessProperty.current.isAskPaymentAllowed{
+            self.attachments.append(Attachment(icon : HippoConfig.shared.theme.paymentIcon , title : "Payment"))
+        }
+        self.attachments.append(Attachment(icon : HippoConfig.shared.theme.botIcon  , title : "Bot"))
         
         self.newConversationCountButton.roundCorner(cornerRect: [.topLeft, .bottomLeft], cornerRadius: 5)
         self.newConversationShadow.layer.cornerRadius = 5
@@ -903,7 +897,7 @@ extension AgentConversationViewController {
                 let value = UIScreen.main.bounds.height - keyboardFrame.minY - UIView.safeAreaInsetOfKeyWindow.bottom
                 let maxValue = max(0, value)
                 //                self?.textViewBottomConstraint.constant = maxValue
-                //self?.bottomContentViewBottomConstraint?.constant = maxValue
+                self?.bottomContentViewBottomConstraint?.constant = maxValue
                 
                 self?.view.layoutIfNeeded()
             }
@@ -1782,7 +1776,7 @@ extension AgentConversationViewController: UIImagePickerControllerDelegate, UINa
         self.channel?.isSendingDisabled = true
         //        self.textViewBottomConstraint.constant = -self.textViewBgView.frame.height
 //        self.bottomContentViewBottomConstraint.constant = -self.textViewBgView.frame.height
-        //self.bottomContentViewBottomConstraint.constant = -self.textViewBgView.frame.height-50
+        self.bottomContentViewBottomConstraint.constant = -self.textViewBgView.frame.height-50
         self.textViewBgView.isHidden = true
     }
     
