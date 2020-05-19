@@ -6,6 +6,8 @@
 //  Copyright © 2018 CL-macmini-88. All rights reserved.
 //
 
+
+
 import UIKit
 
 
@@ -66,7 +68,7 @@ extension AgentChatInfoViewController {
         guard channelDetail != nil else {
             return
         }
-        let closeImage = UIImage(named: "closeIcon", in: FuguFlowManager.bundle, compatibleWith: nil)
+        let closeImage = HippoConfig.shared.theme.closeChatImage
         if channelDetail?.channelStatus == .open {
             actionArray.append(ChatInfoCell(infoImage: closeImage, nameOfCell: "Close Chat"))
         } else {
@@ -85,8 +87,8 @@ extension AgentChatInfoViewController {
             }
             backButton.setTitleColor(HippoConfig.shared.theme.leftBarButtonTextColor, for: .normal)
         } else {
-            if HippoConfig.shared.theme.leftBarButtonImage != nil {
-                backButton.setImage(HippoConfig.shared.theme.leftBarButtonImage, for: .normal)
+            if HippoConfig.shared.theme.leftBarButtonArrowImage != nil {
+                backButton.setImage(HippoConfig.shared.theme.leftBarButtonArrowImage, for: .normal)
                 backButton.tintColor = HippoConfig.shared.theme.headerTextColor
             }
         }
@@ -196,7 +198,17 @@ extension AgentChatInfoViewController: UITableViewDelegate  {
         return UIView.tableAutoDimensionHeight
     }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-       return 30
+        guard let value = AgentChatInfoSections(rawValue: section) else {
+            return 0
+        }
+        
+        switch value {
+        case .userInfo:
+            return 0
+        default:
+            return 32
+        }
+       
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let value = AgentChatInfoSections(rawValue: indexPath.section) else {

@@ -71,6 +71,9 @@ class HippoConversationViewController: UIViewController {
     var proceedToPayMessage : HippoMessage?
     var proceedToPaySelectedCard : CustomerPayment?
     var proceedToPayChannel: HippoChannel?
+    var attachments: [Attachment]  = []
+    
+    
 
     //MARK: 
     @IBOutlet var tableViewChat: UITableView!
@@ -511,6 +514,7 @@ class HippoConversationViewController: UIViewController {
         return customerId > 0
     }
     func setTitleButton() {
+        
         let color = HippoConfig.shared.theme.headerTextColor
         let button =  UIButton(type: .custom)
         button.sizeToFit()
@@ -525,9 +529,9 @@ class HippoConversationViewController: UIViewController {
     }
     
     func setTitleForCustomNavigationBar() {
-        guard HippoConfig.shared.appUserType == .customer else {
-            return
-        }
+//        guard HippoConfig.shared.appUserType == .customer else {
+//            return
+//        }
         let rectForNavigationTitle: CGRect = CGRect(x: 0, y: 0, width: 500, height: 100)
         let navigationView: NavigationTitleView
         if let parsedTitleForNavigation = titleForNavigation {
@@ -548,7 +552,9 @@ class HippoConversationViewController: UIViewController {
         navigationView.setTitle(title: label)
         title = nil
         let button = UIBarButtonItem(customView: navigationView)
-    
+        if HippoConfig.shared.appUserType != .customer{
+            navigationView.hideProfileImage()
+        }
         navigationItem.leftBarButtonItem = button
     }
     
@@ -1645,3 +1651,59 @@ extension HippoConversationViewController: submitButtonTableViewDelegate
     
     
 }
+
+//MARK:- COLLECTION VIEW DELEAGATE/DATASOURCE
+extension HippoConversationViewController : UICollectionViewDelegate , UICollectionViewDataSource , UICollectionViewDelegateFlowLayout{
+    
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return attachments.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+
+        guard let attachmentOptionCVCell  = collectionView.dequeueReusableCell(withReuseIdentifier: "AttachmentOptionCollectionViewCell", for: indexPath) as? AttachmentOptionCollectionViewCell else { return UICollectionViewCell() }
+        attachmentOptionCVCell.attachmentDetail = attachments[indexPath.item]
+        return attachmentOptionCVCell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let param = UIScreen.main.bounds.width/4 - 8
+        return CGSize(width: param, height: param)
+    }
+    
+    
+}
+
+
+
+
+//MARK:- COLLECTIONVIEW CELL
+class AttachmentOptionCollectionViewCell : UICollectionViewCell{
+    
+    @IBOutlet weak var imageViewAttachment: UIImageView!
+    @IBOutlet weak var labelAttachment: UILabel!
+    
+    var attachmentDetail : Attachment?{
+        didSet{
+            imageViewAttachment?.image = attachmentDetail?.icon
+            labelAttachment?.text = attachmentDetail?.title
+        }
+    }
+}
+
+
+
+class Attachment : NSObject{
+    
+    var icon  : UIImage?
+    var title : String?
+    
+    init(icon : UIImage?, title : String?) {
+        self.icon = icon
+        self.title = title
+    }
+}
+
+
+

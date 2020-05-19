@@ -33,3 +33,6 @@ class SuggestionViewDataSource: NSObject, UICollectionViewDataSource {
         return cell
     }
 }
+
+
+

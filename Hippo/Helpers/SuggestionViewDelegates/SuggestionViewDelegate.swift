@@ -23,3 +23,6 @@ class SuggestionViewDelegate: NSObject, UICollectionViewDelegate {
         ncell?.layoutIfNeeded()
     }
 }
+
+
+

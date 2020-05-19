@@ -29,21 +29,25 @@ class AgentConversationViewController: HippoConversationViewController {
     @IBOutlet var addFileButtonAction: UIButton!
     @IBOutlet var seperatorView: UIView!
     @IBOutlet weak var loaderView: So_UIImageView!
-    @IBOutlet weak var infoButton: UIButton!
+    @IBOutlet weak var infoButton: UIBarButtonItem!
     
     @IBOutlet weak var videoButton: UIBarButtonItem!
     //    @IBOutlet var textViewBottomConstraint: NSLayoutConstraint!
-    @IBOutlet weak var bottomContentViewBottomConstraint: NSLayoutConstraint!
+    //@IBOutlet weak var bottomContentViewBottomConstraint: NSLayoutConstraint!
     //    @IBOutlet weak var hieghtOfNavigationBar: NSLayoutConstraint!
     @IBOutlet weak var loadMoreActivityTopContraint: NSLayoutConstraint!
     @IBOutlet weak var loadMoreActivityIndicator: UIActivityIndicatorView!
     
-    @IBOutlet weak var paymentButton: UIButton!
+    
     @IBOutlet weak var botActionButton: UIButton!
 
     @IBOutlet weak var retryLabelView: UIView!
     @IBOutlet weak var retryLoader: UIActivityIndicatorView!
     @IBOutlet weak var labelViewRetryButton: UIButton!
+    
+    
+    @IBOutlet weak var collectionViewOptions: UICollectionView!
+    @IBOutlet weak var attachmentViewHeightConstraint: NSLayoutConstraint!
 
     // MARK: - PROPERTIES
     var heightOfNavigation: CGFloat = 0
@@ -63,6 +67,7 @@ class AgentConversationViewController: HippoConversationViewController {
     }
     
     
+    
     //    var getSavedUserId: Int {
     //        return FuguConfig.shared.agentDetail?.id ?? -1
     //    }
@@ -77,10 +82,15 @@ class AgentConversationViewController: HippoConversationViewController {
     // MARK: - LIFECYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.attachments = [
+            Attachment(icon : HippoConfig.shared.theme.paymentIcon , title : "Payment"),
+            Attachment(icon : HippoConfig.shared.theme.botIcon  , title : "Bot")]
+        collectionViewOptions?.delegate = self
+        collectionViewOptions?.dataSource = self
         HippoConfig.shared.notifyDidLoad()
         setNavBarHeightAccordingtoSafeArea()
         configureChatScreen()
-        
+        self.setTitleForCustomNavigationBar()
         guard channel != nil else {
             startNewConversation(replyMessage: nil, completion: { [weak self] (success, result) in
                 if success {
@@ -144,6 +154,10 @@ class AgentConversationViewController: HippoConversationViewController {
         super.viewWillDisappear(animated)
     }
     
+    override func backButtonClicked() {
+        backbtnClicked()
+    }
+    
     
     func navigationSetUp() {
         setTitleButton()
@@ -180,8 +194,8 @@ class AgentConversationViewController: HippoConversationViewController {
             backButton.setTitleColor(HippoConfig.shared.theme.leftBarButtonTextColor, for: .normal)
             
         } else {
-            if HippoConfig.shared.theme.leftBarButtonImage != nil {
-                backButton.setImage(HippoConfig.shared.theme.leftBarButtonImage, for: .normal)
+            if HippoConfig.shared.theme.leftBarButtonArrowImage != nil {
+                backButton.setImage(HippoConfig.shared.theme.leftBarButtonArrowImage, for: .normal)
                 backButton.tintColor = HippoConfig.shared.theme.headerTextColor
             }
         }
@@ -231,6 +245,13 @@ class AgentConversationViewController: HippoConversationViewController {
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
+    @IBAction func addAttachmentButtonAction(_ sender: UIButton) {
+        attachmentViewHeightConstraint.constant = attachmentViewHeightConstraint.constant == 128 ? 0 : 128
+        
+    }
+    
+    
+    
     
     @IBAction func addImagesButtonAction(_ sender: UIButton) {
         if (channel != nil && !channel.isSubscribed()) || !FuguNetworkHandler.shared.isNetworkConnected {
@@ -277,12 +298,12 @@ class AgentConversationViewController: HippoConversationViewController {
         
     }
 
-    @IBAction func getBotActions(_ sender: Any) {
-        self.closeKeyBoard()
-        AgentConversationManager.getBotsAction(userId: self.channel.chatDetail?.customerID ?? 0, channelId: self.channelId) { (botActions) in
-            self.addBotActionView(with: botActions)
-        }
-    }
+//    @IBAction func getBotActions(_ sender: Any) {
+//        self.closeKeyBoard()
+//        AgentConversationManager.getBotsAction(userId: self.channel.chatDetail?.customerID ?? 0, channelId: self.channelId) { (botActions) in
+//            self.addBotActionView(with: botActions)
+//        }
+//    }
 
     func addBotActionView(with botArray: [BotAction]) {
         guard let window = UIApplication.shared.keyWindow else {
@@ -310,7 +331,7 @@ class AgentConversationViewController: HippoConversationViewController {
     }
     
     
-    @IBAction func backButtonAction(_ sender: UIButton) {
+    func backbtnClicked(){
         messageTextView.resignFirstResponder()
         
         channel?.send(message: HippoMessage.stopTyping, completion: {})
@@ -343,11 +364,18 @@ class AgentConversationViewController: HippoConversationViewController {
         }
     }
     
-    @IBAction func paymentButtonClicked(_ sender: Any) {
-        //delegate?.createPaymentButtonClicked()
-        self.closeKeyBoard()
-        presentPlansVc()
+    
+    @IBAction func backButtonAction(_ sender: UIButton) {
+        
     }
+    
+    
+    
+//    @IBAction func paymentButtonClicked(_ sender: Any) {
+//        //delegate?.createPaymentButtonClicked()
+//        self.closeKeyBoard()
+//        presentPlansVc()
+//    }
 
     override func titleButtonclicked() {
         guard isCustomerInfoAvailable() else {
@@ -654,10 +682,7 @@ class AgentConversationViewController: HippoConversationViewController {
 // MARK: - HELPERS
 extension AgentConversationViewController {
     
-    func handleInfoIcon() {
-        //        let customerId = channel?.chatDetail?.customerID ?? -1
-        //        infoButton.isHidden = customerId < 1
-    }
+ 
     
     func handleVideoIcon() {
         setTitleButton()
@@ -690,6 +715,17 @@ extension AgentConversationViewController {
             audioButton.image = nil
             audioButton.isEnabled = false
         }
+    }
+    
+    func handleInfoIcon() {
+        setTitleButton()
+        let customInfoBtn : UIButton = UIButton()
+        customInfoBtn.setImage(HippoConfig.shared.theme.informationIcon, for: .normal)
+        customInfoBtn.frame = CGRect(x: 0, y: 0, width: custombarbuttonParam, height: custombarbuttonParam)
+        customInfoBtn.addTarget(self, action:  #selector(infoButtonClicked), for: UIControl.Event.touchUpInside)
+        infoButton.customView = customInfoBtn
+        infoButton.tintColor = HippoConfig.shared.theme.headerTextColor
+        infoButton.isEnabled = true
     }
     
     
@@ -805,7 +841,7 @@ extension AgentConversationViewController {
                 let value = UIScreen.main.bounds.height - keyboardFrame.minY - UIView.safeAreaInsetOfKeyWindow.bottom
                 let maxValue = max(0, value)
                 //                self?.textViewBottomConstraint.constant = maxValue
-                self?.bottomContentViewBottomConstraint.constant = maxValue
+                //self?.bottomContentViewBottomConstraint?.constant = maxValue
                 
                 self?.view.layoutIfNeeded()
             }
@@ -970,7 +1006,7 @@ extension AgentConversationViewController {
 }
 
 // MARK: - UIScrollViewDelegate
-extension AgentConversationViewController: UIScrollViewDelegate {
+extension AgentConversationViewController {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if self.tableViewChat.contentOffset.y < -5.0 && self.willPaginationWork, FuguNetworkHandler.shared.isNetworkConnected {
             
@@ -1620,7 +1656,7 @@ extension AgentConversationViewController: UIImagePickerControllerDelegate, UINa
         self.channel?.isSendingDisabled = true
         //        self.textViewBottomConstraint.constant = -self.textViewBgView.frame.height
 //        self.bottomContentViewBottomConstraint.constant = -self.textViewBgView.frame.height
-        self.bottomContentViewBottomConstraint.constant = -self.textViewBgView.frame.height-50
+        //self.bottomContentViewBottomConstraint.constant = -self.textViewBgView.frame.height-50
         self.textViewBgView.isHidden = true
     }
     
@@ -1728,6 +1764,22 @@ extension AgentConversationViewController: BotTableDelegate {
 
     }
 
+}
+
+
+extension AgentConversationViewController{
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let attachCVCell = collectionView.cellForItem(at: indexPath) as? AttachmentOptionCollectionViewCell else { return }
+        if attachCVCell.attachmentDetail?.title == "Payment"{
+            self.closeKeyBoard()
+            presentPlansVc()
+        }else if attachCVCell.attachmentDetail?.title == "Bot"{
+            self.closeKeyBoard()
+            AgentConversationManager.getBotsAction(userId: self.channel.chatDetail?.customerID ?? 0, channelId: self.channelId) { (botActions) in
+                self.addBotActionView(with: botActions)
+            }
+        }
+    }
 }
 
 extension AgentConversationViewController: HippoChannelDelegate {
