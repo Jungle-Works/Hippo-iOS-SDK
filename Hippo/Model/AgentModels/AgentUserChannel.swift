@@ -130,6 +130,9 @@ class AgentUserChannel {
                 guard self != nil else {
                     return
                 }
+                
+                HippoConfig.shared.log.trace("UserChannel:: --->\(messageDict)", level: .socket)
+                
                 if let messageType = messageDict["message_type"] as? Int, messageType == 18 {
                     
                     if HippoConfig.shared.appUserType == .agent  {
@@ -145,7 +148,8 @@ class AgentUserChannel {
                 }
                 let conversation = AgentConversation(json: messageDict)
     //            HippoConfig.shared.log.trace("UserChannel:: --->\(messageDict)", level: .socket)
-                self?.conversationRecieved(conversation)
+//                self?.conversationRecieved(conversation)
+                self?.conversationRecieved(conversation, dict: messageDict)
                 
             }
         }
@@ -162,7 +166,9 @@ class AgentUserChannel {
             completion?(success, error)
         })
     }
-    fileprivate func conversationRecieved(_ newConversation: AgentConversation) {
+//    fileprivate func conversationRecieved(_ newConversation: AgentConversation) {
+    fileprivate func conversationRecieved(_ newConversation: AgentConversation, dict: [String: Any]) {
+        
         guard let receivedChannelId = newConversation.channel_id, receivedChannelId > 0 else {
             return
         }
@@ -171,16 +177,39 @@ class AgentUserChannel {
             return
         }
         
-        if type == .readAll {
+//        if type == .readAll {
+//            handleReadAllForHome(newConversation: newConversation)
+//            return
+//        }
+        switch type {
+        case .readAll:
             handleReadAllForHome(newConversation: newConversation)
             return
+        case .channelRefresh:
+            let chatDetail = ChatDetail(json: dict)
+//            existingConversation?.0.isBotInProgress = chatDetail.isBotInProgress
+//            existingConversation?.0.conversationUpdated?()
+            handleChannelRefresh(chatDetail: chatDetail)
+        default:
+            break
         }
-        
+
         handleAssignmentNotificationForChat(newConversation, channelID: receivedChannelId)
 //        handleBotMessages(newConversation, channelID: receivedChannelId)
         
         delegate?.newConversationRecieved(newConversation, channelID: receivedChannelId)
     }
+    
+    func handleChannelRefresh(chatDetail: ChatDetail) {
+        guard let chatVC = getLastVisibleController() as? AgentConversationViewController else {
+            return
+        }
+        guard chatVC.channelId == chatDetail.channelId else {
+            return
+        }
+        chatVC.handleChannelRefresh(detail: chatDetail)
+    }
+    
     func handleReadAllForHome(newConversation: AgentConversation) {
         guard let receivedChannelId = newConversation.channel_id, receivedChannelId > 0 else {
             return

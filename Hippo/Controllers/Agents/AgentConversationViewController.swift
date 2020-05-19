@@ -2035,3 +2035,25 @@ extension AgentConversationViewController: UIGestureRecognizerDelegate {
     }
 
 }
+
+//MARK: UserChannel Bot messages
+extension AgentConversationViewController {
+    
+    func handleChannelRefresh(detail: ChatDetail) {
+//        channel?.channelInfo?.isBotInProgress = detail.isBotInProgress
+//        channel?.channelInfo?.isReplayDisabled = detail.isReplayDisabled
+//        setFooterView()
+        channel?.chatDetail?.isBotInProgress = detail.isBotInProgress
+        channel?.chatDetail?.disableReply = detail.disableReply
+        channel?.isSendingDisabled = detail.disableReply
+        if channel?.chatDetail?.disableReply == true{
+            //disableSendingReply(withOutUpdate: true)
+            disableSendingReply()
+        }else{
+            enableSendingReply()
+        }
+        setFooterView(isReplyDisabled: channel?.chatDetail?.disableReply ?? false, isBotInProgress: channel?.chatDetail?.isBotInProgress ?? false)
+
+    }
+    
+}

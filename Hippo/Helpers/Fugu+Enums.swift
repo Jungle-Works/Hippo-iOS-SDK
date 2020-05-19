@@ -269,12 +269,14 @@ enum NotificationType: Int {
     case agentRefresh = 11
     case markConversation = 12
     case channelRefreshed = 13
-    
     case call = 14
+    
+    case channelRefresh = 17
     
     var isNotificationTypeHandled: Bool {
         switch self {
-        case .message, .assigned, .readAll:
+//        case .message, .assigned, .readAll:
+        case .message, .assigned, .readAll, .channelRefresh:
             return true
         default:
             return false
