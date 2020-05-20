@@ -288,3 +288,10 @@ public struct ConversationListTheme {
     open var securePaymentTintColor: UIColor?
     open var secureTextFont: UIFont = UIFont.systemFont(ofSize: 10)
 }
+
+
+class MyFont: UIFont{
+    override open class func boldSystemFont(ofSize fontSize: CGFloat) -> UIFont {
+        return UIFont.italicSystemFont(ofSize: fontSize)
+    }
+}

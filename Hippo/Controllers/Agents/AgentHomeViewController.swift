@@ -554,6 +554,9 @@ extension AgentHomeViewController: UITableViewDelegate, UITableViewDataSource {
         return UIView.tableAutoDimensionHeight
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if (conversationList[indexPath.row].unreadCount ?? 0) > 0{
+            removeChannelForUnreadCount(conversationList[indexPath.row].channel_id ?? -1)
+        }
         tableView.deselectRow(at: indexPath, animated: true)
         tableView.isUserInteractionEnabled = false
         fuguDelay(1) {

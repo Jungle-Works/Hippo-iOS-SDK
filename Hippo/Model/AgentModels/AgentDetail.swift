@@ -52,6 +52,7 @@ enum AgentStatus: String {
 struct ResponseResult {
     let isSuccessful: Bool
     let error: Error?
+    let response : NSDictionary? = NSDictionary()
 }
 
 class AgentDetail: NSObject {
@@ -284,6 +285,7 @@ extension AgentDetail {
         HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: AgentEndPoints.logout.rawValue) { (responseObject, error, tag, statusCode) in
             
             HippoUserDetail.clearAllData()
+            HippoConfig.shared.delegate?.hippoUserLogOut()
             let tempStatusCode = statusCode ?? 0
             let success = (200 <= tempStatusCode) && (300 > tempStatusCode)
             completion?(success)

@@ -1085,6 +1085,14 @@ public extension HippoConfig {
 }
 
 extension HippoConfig {
+    func sendDataIfChatIsAssignedToSelfAgent(_ dic : [String : Any]){
+        HippoConfig.shared.delegate?.sendDataIfChatIsAssignedToSelfAgent(dic)
+    }
+    
+    func sendAgentUnreadCount(_ totalCount: Int) {
+        HippoConfig.shared.delegate?.hippoAgentTotalUnreadCount(totalCount)
+    }
+    
     func sendUnreadCount(_ totalCount: Int) {
         HippoConfig.shared.unreadCount?(totalCount)
         HippoConfig.shared.delegate?.hippoUnreadCount(totalCount)

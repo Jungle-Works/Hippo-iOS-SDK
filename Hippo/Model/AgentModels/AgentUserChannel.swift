@@ -141,15 +141,26 @@ class AgentUserChannel {
                             CallManager.shared.voipNotificationRecieved(payloadDict: messageDict)
                         }
                     }
-
-                    
-//                HippoConfig.shared.log.trace("UserChannel:: --->\(messageDict)", level: .socket)
-//                    CallManager.shared.voipNotificationRecieved(payloadDict: messageDict)
                 }
                 let conversation = AgentConversation(json: messageDict)
+<<<<<<< Updated upstream
     //            HippoConfig.shared.log.trace("UserChannel:: --->\(messageDict)", level: .socket)
 //                self?.conversationRecieved(conversation)
                 self?.conversationRecieved(conversation, dict: messageDict)
+=======
+                //paas data to parent app if chat is assigned to self
+                
+                if conversation.notificationType == .assigned {
+                    if conversation.assigned_to == currentUserId(){
+                        //pass data
+                        HippoConfig.shared.sendDataIfChatIsAssignedToSelfAgent(messageDict)
+                    }else{
+                        removeChannelForUnreadCount(conversation.channel_id ?? -1)
+                    }
+                }
+                
+                self?.conversationRecieved(conversation)
+>>>>>>> Stashed changes
                 
             }
         }
@@ -177,12 +188,22 @@ class AgentUserChannel {
             return
         }
         
+<<<<<<< Updated upstream
 //        if type == .readAll {
 //            handleReadAllForHome(newConversation: newConversation)
 //            return
 //        }
         switch type {
         case .readAll:
+=======
+        
+        //update count
+        //if channel id is not equal to current channel id
+        if HippoConfig.shared.getCurrentChannelId() != newConversation.channel_id && type == .message{
+                calculateTotalAgentUnreadCount(newConversation.channel_id ?? -1, newConversation.unreadCount ?? 0)
+        }else if type == .readAll {
+            removeChannelForUnreadCount(newConversation.channel_id ?? -1)
+>>>>>>> Stashed changes
             handleReadAllForHome(newConversation: newConversation)
             return
         case .channelRefresh:

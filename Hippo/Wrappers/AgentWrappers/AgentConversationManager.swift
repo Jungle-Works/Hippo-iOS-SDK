@@ -94,6 +94,9 @@ class AgentConversationManager {
             }
             getUserUnreadCount()
             getAllData()
+            UnreadCount.getAgentTotalUnreadCount { (result) in
+                
+            }
         }
     }
     class func getAllData() {
@@ -177,6 +180,7 @@ class AgentConversationManager {
         })
         
     }
+    
     class func getConversations(with request: GetConversationRequestParam, completion: @escaping ((_ result: AgentGetConversationFromServerResult) -> ())) {
         
         guard let params = getParamsToGetConversation(with: request) else {

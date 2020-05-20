@@ -311,6 +311,49 @@ func subscribeMarkConversation(){
 
 
 
+
+func removeChannelForUnreadCount(_ channelId : Int){
+    if var channelList = FuguDefaults.object(forKey: DefaultName.agentTotalUnreadHashMap.rawValue) as? [String : Any], let totalUnreadCount = UserDefaults.standard.value(forKey: DefaultName.agentUnreadCount.rawValue) as? Int{
+       //find if the channel exists in list
+        if let channelUnreadCount = channelList["\(channelId)"] as? Int{
+            let newUnreadCount = totalUnreadCount - channelUnreadCount
+            HippoConfig.shared.sendAgentUnreadCount(newUnreadCount)
+            channelList.removeValue(forKey: "\(channelId)")
+            FuguDefaults.set(value: channelList, forKey: DefaultName.agentTotalUnreadHashMap.rawValue)
+            UserDefaults.standard.set(newUnreadCount, forKey: DefaultName.agentUnreadCount.rawValue)
+        }
+    }
+}
+
+
+
+func calculateTotalAgentUnreadCount(_ channelId : Int, _ unreadCount : Int){
+    if var channelList = FuguDefaults.object(forKey: DefaultName.agentTotalUnreadHashMap.rawValue) as? [String : Any], var totalUnreadCount = UserDefaults.standard.value(forKey: DefaultName.agentUnreadCount.rawValue) as? Int{
+       //find if the channel exists in list
+        if let channelUnreadCount = channelList["\(channelId)"] as? Int{
+            let newUnreadCount = channelUnreadCount + 1
+            channelList["\(channelId)"] = newUnreadCount
+           // set value in hash
+            FuguDefaults.set(value: channelList, forKey: DefaultName.agentTotalUnreadHashMap.rawValue)
+            //set total unread
+            totalUnreadCount = totalUnreadCount + 1
+            UserDefaults.standard.set(totalUnreadCount, forKey: DefaultName.agentUnreadCount.rawValue)
+            //send delegate
+            HippoConfig.shared.sendAgentUnreadCount(totalUnreadCount)
+        }else{
+            // if channel id doesnot exist in list
+            channelList["\(channelId)"] = 1
+            FuguDefaults.set(value: channelList, forKey: DefaultName.agentTotalUnreadHashMap.rawValue)
+            
+            totalUnreadCount = totalUnreadCount + 1
+            UserDefaults.standard.set(totalUnreadCount, forKey: DefaultName.agentUnreadCount.rawValue)
+            //send delegate
+            HippoConfig.shared.sendAgentUnreadCount(totalUnreadCount)
+            
+        }
+    }
+}
+
 func pushTotalUnreadCount() {
     var chatCounter = 0
     
