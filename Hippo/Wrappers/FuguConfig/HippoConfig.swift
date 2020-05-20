@@ -567,18 +567,18 @@ struct BotAction {
             }
             let call = CallData.init(peerData: peer, callType: callType, muid: uuid, signallingClient: channel)
             
-            CallManager.shared.startCall(call: call, completion: { (success) in
-                if !success {
-                    CallManager.shared.hungupCall()
-                }
-                completion(true, nil)
-            })
-//            CallManager.shared.startCall(call: call, completion: { (success,error) in
+//            CallManager.shared.startCall(call: call, completion: { (success) in
 //                if !success {
 //                    CallManager.shared.hungupCall()
 //                }
 //                completion(true, nil)
 //            })
+            CallManager.shared.startCall(call: call, completion: { (success,error) in
+                if !success {
+                    CallManager.shared.hungupCall()
+                }
+                completion(true, nil)
+            })
             
         })
         completion(true, nil)
@@ -628,18 +628,18 @@ struct BotAction {
             }
             let call = CallData.init(peerData: peer, callType: callType, muid: uuid, signallingClient: channel)
             
-            CallManager.shared.startCall(call: call, completion: { (success) in
-                if !success {
-                    CallManager.shared.hungupCall()
-                }
-                completion(true, nil)
-            })
-//            CallManager.shared.startCall(call: call, completion: { (success,error) in
+//            CallManager.shared.startCall(call: call, completion: { (success) in
 //                if !success {
 //                    CallManager.shared.hungupCall()
 //                }
 //                completion(true, nil)
 //            })
+            CallManager.shared.startCall(call: call, completion: { (success,error) in
+                if !success {
+                    CallManager.shared.hungupCall()
+                }
+                completion(true, nil)
+            })
             
         })
         completion(true, nil)
