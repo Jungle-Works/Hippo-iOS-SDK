@@ -67,7 +67,7 @@ extension FilterTableViewCell {
 //            tickImageView.image = #imageLiteral(resourceName: "checkbox_active_icon")
         } else {
 //            filterLabel.font = UIFont.regularProximaNova(withSize: 19)
-            filterLabel.font = UIFont.systemFont(ofSize: 19)
+            filterLabel.font = UIFont.regular(ofSize: 19)
 //            filterLabel.textColor = .dirtyPurple
 //            tickImageView.image = #imageLiteral(resourceName: "checkbox_inactive_icon")
 //            tickImageView.image = HippoImage.current.multipleAgentUnSelected?.withRenderingMode(.alwaysOriginal)
@@ -180,7 +180,7 @@ extension FilterTableViewCell {
             tickImageView.image = #imageLiteral(resourceName: "checkbox_active_icon")
         } else {
 //            filterLabel.font = UIFont.regularProximaNova(withSize: 19)
-            filterLabel.font = UIFont.systemFont(ofSize: 19)
+            filterLabel.font = UIFont.regular(ofSize: 19)
             filterLabel.textColor = .dirtyPurple
             tickImageView.image = #imageLiteral(resourceName: "checkbox_inactive_icon")
         }

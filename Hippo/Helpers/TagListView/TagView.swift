@@ -93,7 +93,7 @@ class TagView: UIButton {
         }
     }
     
-    var textFont: UIFont = UIFont.systemFont(ofSize: 12) {
+    var textFont: UIFont = UIFont.regular(ofSize: 12) {
         didSet {
             titleLabel?.font = textFont
         }

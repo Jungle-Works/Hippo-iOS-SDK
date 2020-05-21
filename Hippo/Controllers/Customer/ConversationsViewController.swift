@@ -331,6 +331,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         //      }
         
         if HippoConfig.shared.theme.sendBtnIcon != nil {
+            sendMessageButton.imageView?.tintColor = HippoConfig.shared.theme.themeColor
             sendMessageButton.setImage(HippoConfig.shared.theme.sendBtnIcon, for: .normal)
             
             if let tintColor = HippoConfig.shared.theme.sendBtnIconTintColor {
@@ -341,11 +342,12 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         } else { sendMessageButton.setTitle("SEND", for: .normal) }
         
         if HippoConfig.shared.theme.addButtonIcon != nil {
-            addFileButtonAction.setImage(HippoConfig.shared.theme.addButtonIcon, for: .normal)
+             addFileButtonAction.tintColor = HippoConfig.shared.theme.themeColor
+             addFileButtonAction.setImage(HippoConfig.shared.theme.addButtonIcon, for: .normal)
             
-            if let tintColor = HippoConfig.shared.theme.addBtnTintColor {
-                addFileButtonAction.tintColor = tintColor
-            }
+//            if let tintColor = HippoConfig.shared.theme.addBtnTintColor {
+//                addFileButtonAction.tintColor = tintColor
+//            }
             
             addFileButtonAction.setTitle("", for: .normal)
         } else { addFileButtonAction.setTitle("ADD", for: .normal) }
@@ -1443,7 +1445,7 @@ extension ConversationsViewController {
         addTapGestureInTableView()
         
         if HippoConfig.shared.theme.chatbackgroundImage != nil      {
-            tableViewChat.backgroundColor = .clear
+            tableViewChat.backgroundColor = .white//.clear
             backgroundImageView.image = HippoConfig.shared.theme.chatbackgroundImage
             backgroundImageView.contentMode = .scaleToFill
         }

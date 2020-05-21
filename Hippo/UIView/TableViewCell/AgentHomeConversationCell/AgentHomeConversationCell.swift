@@ -134,9 +134,9 @@ extension AgentHomeConversationCell {
     }
     
     func setLabelsFont(){
-        nameLabel.font = UIFont.boldSystemFont(ofSize: 18.0)
-        lastMessageLabel.font = UIFont.systemFont(ofSize: 14.0)
-        timeLabel.font = UIFont.systemFont(ofSize: 14.0)
+        nameLabel.font = UIFont.bold(ofSize: 18.0)
+        lastMessageLabel.font = UIFont.regular(ofSize: 14.0)
+        timeLabel.font = UIFont.regular(ofSize: 14.0)
     }
     
     func setTags() {
@@ -227,7 +227,7 @@ extension AgentHomeConversationCell {
         var containerBorderColor: UIColor?
         
 //        init(labelText: String, textColor: UIColor, textFont: UIFont = UIFont.systemFont(ofSize: 11), containerBackgroundColor: UIColor, containerBorderColor: UIColor = .clear) {
-        init(labelText: String, textColor: UIColor, textFont: UIFont = UIFont.boldSystemFont(ofSize: 13), containerBackgroundColor: UIColor, containerBorderColor: UIColor = .clear) {
+        init(labelText: String, textColor: UIColor, textFont: UIFont = UIFont.bold(ofSize: 13), containerBackgroundColor: UIColor, containerBorderColor: UIColor = .clear) {
             self.labelText = labelText
             self.textColor = textColor
             self.textFont = textFont

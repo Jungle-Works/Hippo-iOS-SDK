@@ -78,6 +78,13 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         self.openChatButton.setBackgroundColor(color: #colorLiteral(red: 0.8156862745, green: 0.8156862745, blue: 0.8156862745, alpha: 1), forState: UIControl.State.highlighted)
         self.closeChatButton.setBackgroundColor(color: #colorLiteral(red: 0.8156862745, green: 0.8156862745, blue: 0.8156862745, alpha: 1), forState: UIControl.State.highlighted)
         
+        self.openChatButton.titleLabel?.font = UIFont.bold(ofSize: 15)
+        self.closeChatButton.titleLabel?.font = UIFont.regular(ofSize: 15)
+        self.openChatButton.setTitle(HippoConfig.shared.theme.ongoingBtnText, for: .normal)
+        self.closeChatButton.setTitle(HippoConfig.shared.theme.pastBtnText, for: .normal)
+        
+        self.bottomLineView.backgroundColor = HippoConfig.shared.theme.themeColor
+        
         if HippoUserDetail.fuguUserID == nil {
             putUserDetails()
         } else {
@@ -204,16 +211,17 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
 //        self.newConversationBiutton.layer.insertSublayer(gradient, at: 0)
 //    }
     
-    newConversationBiutton.setTitleColor(theme.themeTextcolor, for: .normal)
+   // newConversationBiutton.setTitleColor(theme.themeTextcolor, for: .normal)
     newConversationBiutton.backgroundColor = theme.themeColor
     view_NewConversationBtn.backgroundColor = theme.themeColor
     view_NewConversationBtn.layer.cornerRadius = newConversationBiutton.bounds.height / 2
-    view_NewConversationBtn.layer.borderWidth = CGFloat(HippoConfig.shared.newConversationButtonBorderWidth)
-    view_NewConversationBtn.layer.borderColor = theme.themeTextcolor.cgColor
+    //view_NewConversationBtn.layer.borderWidth = CGFloat(HippoConfig.shared.newConversationButtonBorderWidth)
+    //view_NewConversationBtn.layer.borderColor = theme.themeTextcolor.cgColor
     view_NewConversationBtn.layer.masksToBounds = true
     newConversationBiutton.titleLabel?.font = theme.newConversationButtonFont
     newConversationBiutton.isSelected = false
     self.updateNewConversationBtnUI(isSelected: false)
+    newConversationBiutton.setTitleColor(.white, for: .normal)
 //    newConversationBiutton.isHidden = HippoConfig.shared.isNewConversationButtonHidden
 //    newConversationBiutton.isHidden = !HippoProperty.current.enableNewConversationButton
     
@@ -332,12 +340,12 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
             let chatImage = UIImage(named: "chat", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
             self.newConversationBiutton.setImage(chatImage, for: .normal)
             self.newConversationBiutton.setTitle("  " + HippoConfig.shared.theme.newConversationText, for: .normal)
-            self.newConversationBiutton.tintColor = HippoConfig.shared.theme.themeTextcolor
+            self.newConversationBiutton.tintColor = .white//HippoConfig.shared.theme.themeTextcolor
             self.newConversationBiutton.backgroundColor = HippoConfig.shared.theme.themeColor
         }else{
           //  width_NewConversation.constant = 50
             let chatImage = UIImage(named: "chat", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
-            self.newConversationBiutton.tintColor = HippoConfig.shared.theme.themeTextcolor
+            self.newConversationBiutton.tintColor = .white//HippoConfig.shared.theme.themeTextcolor
             self.newConversationBiutton.setImage(chatImage, for: .normal)
             self.newConversationBiutton.setTitle("", for: .normal)
             self.newConversationBiutton.backgroundColor = HippoConfig.shared.theme.themeColor
@@ -411,7 +419,9 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         guard conversationChatType != .openChat else {
             return
         }
-//        self.newConversationBiutton.isHidden = false
+        self.openChatButton.titleLabel?.font = UIFont.bold(ofSize: 15)
+        self.closeChatButton.titleLabel?.font = UIFont.regular(ofSize: 15)
+        //        self.newConversationBiutton.isHidden = false
         self.view_NewConversationBtn.isHidden = !HippoProperty.current.enableNewConversationButton
         conversationChatType = .openChat
         animateBottomLineView()
@@ -423,6 +433,8 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         guard conversationChatType != .closeChat else {
             return
         }
+        self.openChatButton.titleLabel?.font = UIFont.regular(ofSize: 15)
+        self.closeChatButton.titleLabel?.font = UIFont.bold(ofSize: 15)
         self.view_NewConversationBtn.isHidden = true
         conversationChatType = .closeChat
         animateBottomLineView()
@@ -848,7 +860,7 @@ extension AllConversationsViewController: UITableViewDelegate, UITableViewDataSo
         footerLabel.textAlignment = NSTextAlignment.center
         footerLabel.textColor = #colorLiteral(red: 0.3490196078, green: 0.3490196078, blue: 0.4078431373, alpha: 1)
         footerLabel.numberOfLines = 0
-        footerLabel.font = UIFont.systemFont(ofSize: 16.0)
+        footerLabel.font = UIFont.regular(ofSize: 16.0)
         
         footerLabel.text = tableViewDefaultText
         

@@ -34,10 +34,10 @@ class BroadcastUserStatusCell: UITableViewCell {
     }
     
     private func setUITheme() {
-        nameLabel.font = UIFont.systemFont(ofSize: 16)
+        nameLabel.font = UIFont.regular(ofSize: 16)
         nameLabel.textColor = UIColor.black
         
-        statusLabel.font = UIFont.systemFont(ofSize: 13)
+        statusLabel.font = UIFont.regular(ofSize: 13)
         statusLabel.textColor = UIColor.gray
         
         openChatButton.setImage(HippoConfig.shared.theme.openChatIcon, for: .normal)

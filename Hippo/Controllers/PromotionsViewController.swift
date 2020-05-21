@@ -161,12 +161,16 @@ class PromotionsViewController: UIViewController {
             self.navigationItem.leftBarButtonItems = [btnleft]
         }
         
-        if let deleteImage = UIImage(named: "ic_delete", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate){
-            let deleteAllAnnouncementsButton = UIBarButtonItem(image: deleteImage, landscapeImagePhone: nil, style: .done, target: self, action: #selector(deleteAllAnnouncementsButtonClicked))
+//        if let deleteImage = UIImage(named: "", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate){
+            let deleteAllAnnouncementsButton = UIBarButtonItem(title: "Clear All", style: .done, target: self, action: #selector(deleteAllAnnouncementsButtonClicked))
+            deleteAllAnnouncementsButton.setTitleTextAttributes([
+                NSAttributedString.Key.font : UIFont.regular(ofSize: 14),
+            NSAttributedString.Key.foregroundColor : UIColor.darkGray,
+        ], for: .normal)
             deleteAllAnnouncementsButton.tintColor = theme.logoutButtonTintColor ?? theme.headerTextColor//theme.themeColor//
             self.navigationItem.rightBarButtonItem = deleteAllAnnouncementsButton
             self.navigationItem.rightBarButtonItems = [deleteAllAnnouncementsButton]
-        }
+     //   }
         
     }
     @objc func backButtonClicked() {
@@ -363,7 +367,7 @@ extension PromotionsViewController: UITableViewDelegate,UITableViewDataSource
                 let attrs = NSAttributedString(string: "Read more",
                                                attributes:
                     [NSAttributedString.Key.foregroundColor: UIColor(red:109.0/255.0, green:212.0/255.0, blue:0.0/255.0, alpha:1.0),
-                     NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16.0),
+                     NSAttributedString.Key.font: UIFont.regular(ofSize: 16.0),
                      NSAttributedString.Key.underlineColor: UIColor(red:109.0/255.0, green:212.0/255.0, blue:0.0, alpha:1.0),
                      NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue])
                 cell.showReadMoreLessButton.setAttributedTitle(attrs, for: .normal)
@@ -374,7 +378,7 @@ extension PromotionsViewController: UITableViewDelegate,UITableViewDataSource
                 let attrs = NSAttributedString(string: "Read less",
                                                attributes:
                     [NSAttributedString.Key.foregroundColor: UIColor(red:109.0/255.0, green:212.0/255.0, blue:0.0, alpha:1.0),
-                     NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16.0),
+                     NSAttributedString.Key.font: UIFont.regular(ofSize: 16.0),
                      NSAttributedString.Key.underlineColor: UIColor(red:109.0/255.0, green:212.0/255.0, blue:0.0, alpha:1.0),
                      NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue])
                 cell.showReadMoreLessButton.setAttributedTitle(attrs, for: .normal)

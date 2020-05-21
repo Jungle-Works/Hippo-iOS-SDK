@@ -59,7 +59,7 @@ class CustomerPaymentCardCell: UITableViewCell {
         amountLabel.font = theme.pricingFont
         amountLabel.numberOfLines = 0
         
-        innerCard.backgroundColor = UIColor.clear
+        innerCard.backgroundColor = UIColor.white
         labelView.backgroundColor = UIColor.clear
         backgroundColor = UIColor.clear
 
@@ -101,8 +101,8 @@ extension CustomerPaymentCardCell {
     private func setConstraint(config: PaymentCardConfig) {
         bgViewTopConstraint.constant = config.bgView.top
         bgViewBottomConstraint.constant = config.bgView.bottom
-        bgViewLeadingConstraint.constant = config.bgView.leading
-        bgViewTrailingConstraint.constant = config.bgView.trailing
+        bgViewLeadingConstraint.constant = 15//config.bgView.leading
+        bgViewTrailingConstraint.constant = 15//config.bgView.trailing
         
         innerViewtopConstraint.constant = config.innerCard.top
         innerViewBottomConstraint.constant = config.innerCard.bottom

@@ -32,7 +32,7 @@ class PaymentMessageCell: UITableViewCell {
     }
     private func setTheme() {
         backgroundColor = .clear
-        tableView.backgroundColor = .clear
+        tableView.backgroundColor = HippoConfig.shared.theme.outgoingChatBoxColor//.clear
         tableView.separatorStyle = .none
         selectionStyle = .none
     }

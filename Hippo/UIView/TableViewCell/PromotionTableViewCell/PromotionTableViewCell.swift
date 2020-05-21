@@ -33,7 +33,7 @@ class PromotionTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.setUpUI()
-        
+        showReadMoreLessButton.backgroundColor = HippoConfig.shared.theme.themeColor
         // Initialization code
     }
 
@@ -51,11 +51,11 @@ class PromotionTableViewCell: UITableViewCell {
         //bgView.clipsToBounds = true
         bgView.backgroundColor = UIColor.white
         
-        //promotionTitle.font = HippoConfig.shared.theme.titleFont
+         promotionTitle.font = HippoConfig.shared.theme.titleFont
         //promotionTitle.textColor = HippoConfig.shared.theme.titleTextColor
         promotionTitle.textColor = .black//HippoConfig.shared.theme.conversationTitleColor.withAlphaComponent(1)
-        
-        descriptionLabel.textColor = .darkText//HippoConfig.shared.theme.descriptionTextColor
+          
+        descriptionLabel.textColor = UIColor(red: 90, green: 90, blue: 90, alpha: 1.0) //.darkText//HippoConfig.shared.theme.descriptionTextColor
         descriptionLabel.font = HippoConfig.shared.theme.descriptionFont
 //        descriptionLabel.font = UIFont.boldSystemFont(ofSize: 11)
 //        descriptionLabel.numberOfLines = 2

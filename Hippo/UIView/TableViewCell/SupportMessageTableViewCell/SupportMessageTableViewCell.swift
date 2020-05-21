@@ -16,6 +16,7 @@ class SupportMessageTableViewCell: MessageTableViewCell {
     @IBOutlet weak var topConstraint: NSLayoutConstraint!
     @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var constraint_Height : NSLayoutConstraint!
     
     override func awakeFromNib() {
         
@@ -37,7 +38,7 @@ class SupportMessageTableViewCell: MessageTableViewCell {
         default:
             print("default")
             //bgView.backgroundColor = HippoConfig.shared.theme.incomingChatBoxColor
-            bgView.backgroundColor = HippoConfig.shared.theme.themeColor
+            bgView.backgroundColor = HippoConfig.shared.theme.recievingBubbleColor
         }
     }
     

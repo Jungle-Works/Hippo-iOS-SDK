@@ -52,13 +52,13 @@ class PaymentItemDescriptionCell: UITableViewCell {
 //        self.backgroundColor = .clear
         
         priceLabel.textColor = HippoConfig.shared.theme.broadcastTitleColor
-        priceLabel.font = UIFont.systemFont(ofSize: 14)
+        priceLabel.font = UIFont.regular(ofSize: 14)
         
         titleLabel.textColor = HippoConfig.shared.theme.broadcastTitleColor
-        titleLabel.font = UIFont.systemFont(ofSize: 14)
+        titleLabel.font = UIFont.regular(ofSize: 14)
         
         descriptionLabel.textColor = HippoConfig.shared.theme.broadcastTitleColor
-        descriptionLabel.font = UIFont.systemFont(ofSize: 14)
+        descriptionLabel.font = UIFont.regular(ofSize: 14)
         
         bgView.layer.masksToBounds = true
         bgView.layer.cornerRadius = 5

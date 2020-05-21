@@ -43,7 +43,7 @@ class BroadcastListTableViewCell: UITableViewCell {
         forwardImageView.tintColor = HippoConfig.shared.theme.headerBackgroundColor
         forwardImageView.image = HippoConfig.shared.theme.forwardIcon
         
-        let font = UIFont.systemFont(ofSize: 15)
+        let font = UIFont.regular(ofSize: 15)
         
         dateLabel.font = font
         senderNameLabel.font = font
