@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="vAr-Qq-z1C">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="vAr-Qq-z1C">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -1426,19 +1426,19 @@
                                                 <cells>
                                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="AttachmentOptionCollectionViewCell" reuseIdentifier="AttachmentOptionCollectionViewCell" id="xh7-xR-tiK" customClass="AttachmentOptionCollectionViewCell" customModule="Hippo" customModuleProvider="target">
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" id="Ss0-a8-nFv">
+                                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Ss0-a8-nFv">
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <subviews>
-                                                                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DNZ-vf-TRI">
+                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DNZ-vf-TRI">
                                                                     <rect key="frame" x="0.0" y="0.0" width="116" height="125"/>
                                                                     <subviews>
-                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="makePayment" translatesAutoresizingMaskIntoConstraints="NO" id="ksK-Dy-FFY">
+                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="makePayment" translatesAutoresizingMaskIntoConstraints="NO" id="ksK-Dy-FFY">
                                                                             <rect key="frame" x="16" y="4" width="84" height="84"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" secondItem="ksK-Dy-FFY" secondAttribute="height" multiplier="1:1" id="oB3-JE-6dJ"/>
                                                                             </constraints>
                                                                         </imageView>
-                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sOb-OB-w2H">
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sOb-OB-w2H">
                                                                             <rect key="frame" x="4" y="94" width="108" height="17.5"/>
                                                                             <fontDescription key="fontDescription" name="SinhalaSangamMN" family="Sinhala Sangam MN" pointSize="13"/>
                                                                             <nil key="textColor"/>
@@ -1562,6 +1562,7 @@
                         <outlet property="loadMoreActivityTopContraint" destination="uKb-30-sIc" id="Nli-fv-f4d"/>
                         <outlet property="loaderView" destination="yXi-kz-HoV" id="NTR-yh-rnf"/>
                         <outlet property="messageTextView" destination="wgK-4e-znX" id="HcB-2o-dIZ"/>
+                        <outlet property="moreOptionsButton" destination="RvA-MK-cPq" id="htu-OO-fae"/>
                         <outlet property="navigationBackgroundView" destination="Kox-UA-NRB" id="M7c-48-3pP"/>
                         <outlet property="newConversationContainer" destination="tWf-tK-kZ6" id="DwL-OS-oTh"/>
                         <outlet property="newConversationCountButton" destination="Qlf-NE-nQt" id="IDk-cw-Wxz"/>
@@ -2179,6 +2180,7 @@
                         <outlet property="loadMoreActivityTopContraint" destination="Y5e-Fk-uZP" id="W5V-5Z-Fs2"/>
                         <outlet property="loaderView" destination="OGB-1g-dv7" id="i3F-w6-qy2"/>
                         <outlet property="messageTextView" destination="HWq-nU-95V" id="DFK-82-SWj"/>
+                        <outlet property="moreOptionsButton" destination="YXN-8X-YeU" id="QZM-6R-6Uw"/>
                         <outlet property="newConversationContainer" destination="71Y-Ek-hxd" id="R3t-kf-rmO"/>
                         <outlet property="newConversationCountButton" destination="mDB-9x-3D4" id="wth-Ey-lXU"/>
                         <outlet property="newConversationLabel" destination="ur3-GD-op0" id="uPN-vj-fLM"/>

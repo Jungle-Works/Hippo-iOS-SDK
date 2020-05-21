@@ -124,6 +124,18 @@ class BussinessProperty: NSObject {
         }
     }
     
+    var agentStatusForToggle: String {
+        get {
+            guard let value = UserDefaults.standard.value(forKey: UserDefaultkeys.onlineStatus) as? String else {
+                return AgentStatus.offline.rawValue
+            }
+            return value
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: UserDefaultkeys.onlineStatus)
+        }
+    }
+    
     func updateData(loginData: [String: Any]) {
         let userDetailData = loginData
         

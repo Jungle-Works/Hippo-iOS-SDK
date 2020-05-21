@@ -166,7 +166,9 @@ class AgentConversationManager {
             if let _ = error {
                 return
             }
-            HippoConfig.shared.agentDetail?.status = newStatus
+            print("newStatus: ",newStatus)
+//            HippoConfig.shared.agentDetail?.status = newStatus
+            BussinessProperty.current.agentStatusForToggle = newStatus.rawValue
         }
     }
 

@@ -600,14 +600,14 @@ class HippoConversationViewController: UIViewController {
         
         let call = CallData.init(peerData: peerDetail, callType: .audio, muid: String.uuid(), signallingClient: channel)
         
-  /*      CallManager.shared.startCall(call: call) { (success) in
-                   if !success {
-                       assertionFailure("Cannot start the call")
-                   }
-        }*/
+//       CallManager.shared.startCall(call: call) { (success) in
+//                   if !success {
+//                       assertionFailure("Cannot start the call")
+//                   }
+//        }
         
-//        // #####-------USE THIS METHOD IF YOU ARE USING JITSI CALLING BARNCH FOR CALLING FEATURE -----#####
-//
+        // #####-------USE THIS METHOD IF YOU ARE USING JITSI CALLING BARNCH FOR CALLING FEATURE -----#####
+
         CallManager.shared.startCall(call: call) { (success, error) in
 
             if let mismatchError = error, mismatchError.code == 415 {
@@ -643,13 +643,13 @@ class HippoConversationViewController: UIViewController {
         
         let call = CallData.init(peerData: peerDetail, callType: .video, muid: String.uuid(), signallingClient: channel)
         
-    /*    CallManager.shared.startCall(call: call) { (success) in
-             if !success {
-             assertionFailure("Cannot start the call")
-             }
-         }*/
+//      CallManager.shared.startCall(call: call) { (success) in
+//             if !success {
+//             assertionFailure("Cannot start the call")
+//             }
+//         }
         
-//        // #####-------USE THIS METHOD IF YOU ARE USING JITSI CALLING BARNCH FOR CALLING FEATURE -----#####
+        // #####-------USE THIS METHOD IF YOU ARE USING JITSI CALLING BARNCH FOR CALLING FEATURE -----#####
         CallManager.shared.startCall(call: call) { (success, error) in
 
             if let mismatchError = error, mismatchError.code == 415 {
@@ -1694,6 +1694,8 @@ class AttachmentOptionCollectionViewCell : UICollectionViewCell{
         didSet{
             imageViewAttachment?.image = attachmentDetail?.icon
             labelAttachment?.text = attachmentDetail?.title
+            imageViewAttachment?.tintColor = HippoConfig.shared.theme.moreOptionsIconsTintColor
+            labelAttachment?.tintColor = HippoConfig.shared.theme.moreOptionsTitlesTintColor
         }
     }
 }
