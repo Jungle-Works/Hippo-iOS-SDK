@@ -33,7 +33,7 @@ class CallManager {
         guard let currentUser = getCurrentUser() else {
             return
         }
-        
+
         let callToMake = Call(peer: peer, signalingClient: call.signallingClient, uID: call.muid, currentUser: currentUser, type: getCallTypeWith(localType: call.callType))
         HippoCallClient.shared.startCall(call: callToMake, completion: completion)
         #else
@@ -58,7 +58,7 @@ class CallManager {
         completion(false,nil)
         #endif
     }
-  
+
 
     func startWebRTCCall(call: CallData, completion: @escaping (Bool) -> Void) {
         #if canImport(HippoCallClient)

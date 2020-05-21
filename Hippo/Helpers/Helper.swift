@@ -46,6 +46,6 @@ class Helper {
 
 
 //    return attributedStringForLabel(userNameString, secondString: middleString + messageString, thirdString: "", colorOfFirstString: nameColor, colorOfSecondString: messageColor, colorOfThirdString: timeColor, fontOfFirstString: HippoConfig.shared.theme.senderNameFont, fontOfSecondString: HippoConfig.shared.theme.incomingMsgFont, fontOfThirdString: UIFont.systemFont(ofSize: 11.0), textAlighnment: .left, dateAlignment: .right)
-        return attributedStringForLabel("", secondString: messageString, thirdString: "", colorOfFirstString: nameColor, colorOfSecondString: messageColor, colorOfThirdString: timeColor, fontOfFirstString: HippoConfig.shared.theme.senderNameFont, fontOfSecondString:  HippoConfig.shared.theme.incomingMsgFont, fontOfThirdString: UIFont.systemFont(ofSize: 11.0), textAlighnment: .left, dateAlignment: .right)
+        return attributedStringForLabel("", secondString: messageString, thirdString: "", colorOfFirstString: nameColor, colorOfSecondString: messageColor, colorOfThirdString: timeColor, fontOfFirstString: HippoConfig.shared.theme.senderNameFont, fontOfSecondString:  HippoConfig.shared.theme.incomingMsgFont, fontOfThirdString: UIFont.regular(ofSize: 11.0), textAlighnment: .left, dateAlignment: .right)
     }
 }

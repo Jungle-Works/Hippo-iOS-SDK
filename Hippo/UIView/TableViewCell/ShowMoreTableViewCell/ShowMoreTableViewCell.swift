@@ -38,14 +38,14 @@ class ShowMoreTableViewCell: UITableViewCell {
     func setUI() {
 //        let theme = HippoTheme.theme
         totalPriceLabel.textColor = HippoConfig.shared.theme.broadcastTitleColor
-        totalPriceLabel.font = UIFont.systemFont(ofSize: 15)
+        totalPriceLabel.font = UIFont.regular(ofSize: 15)
         
 //        backgroundColor = .clear
         
 //        showMoreButton.setTitleColor(Color.themeColor, for: .normal)
 //        showMoreButton.tintColor = Color.themeColor
-        showMoreButton.setTitleColor(HippoConfig.shared.theme.headerTextColor, for: .normal)
-        showMoreButton.tintColor = HippoConfig.shared.theme.headerTextColor
+        showMoreButton.setTitleColor(HippoConfig.shared.theme.themeTextcolor, for: .normal)
+        showMoreButton.tintColor = HippoConfig.shared.theme.themeTextcolor
     }
     func setupCell(form: PaymentField, store: PaymentStore) {
         self.form = form

@@ -94,6 +94,9 @@ class AgentConversationManager {
             }
             getUserUnreadCount()
             getAllData()
+            UnreadCount.getAgentTotalUnreadCount { (result) in
+                
+            }
         }
     }
     class func getAllData() {
@@ -177,6 +180,7 @@ class AgentConversationManager {
         })
         
     }
+    
     class func getConversations(with request: GetConversationRequestParam, completion: @escaping ((_ result: AgentGetConversationFromServerResult) -> ())) {
         
         guard let params = getParamsToGetConversation(with: request) else {
@@ -313,6 +317,31 @@ class AgentConversationManager {
         let result = AgentGetConversationFromServerResult(isSuccessful: true, error: nil, conversations: conversations)
         return result
     }
+    
+//    func assignChatToMe(channel: HippoChannel?, completion: ((_ success: Bool) -> ())?) {
+    class func assignChatToMe(channelID: Int, completion: @escaping ((_ result: Bool) -> Void)) {
+        guard let accessToken = HippoConfig.shared.agentDetail?.fuguToken else {
+            completion(false)
+            return
+        }
+        let userId = currentUserId()
+        let params: [String : Any] = ["access_token": accessToken,
+                                      "channel_id": channelID,
+                                      "user_id": userId]
+        
+        HippoConfig.shared.log.debug("API_AssignAgent.....\(params)", level: .request)
+        HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: AgentEndPoints.assignAgent.rawValue) { (response, error, _, statusCode) in
+            
+            guard let responseDict = response as? [String: Any],
+                let statusCode = responseDict["statusCode"] as? Int, statusCode == 200 else {
+                    HippoConfig.shared.log.debug("API_AssignAgent ERROR.....\(error?.localizedDescription ?? "")", level: .error)
+                    completion(false)
+                    return
+            }
+            completion(true)
+        }
+    }
+    
 }
 
 

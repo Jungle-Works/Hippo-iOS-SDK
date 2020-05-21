@@ -8,6 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		47B12417C887BBD208902F39 /* Pods_Hippo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C0A922564912516EF04B93F /* Pods_Hippo.framework */; };
+		6BB9994B2476534000FC32C8 /* Mark Simonson - Proxima Nova Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6BB999412476534000FC32C8 /* Mark Simonson - Proxima Nova Light.ttf */; };
+		6BB9994C2476534000FC32C8 /* ProximaNova-RegIt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6BB999422476534000FC32C8 /* ProximaNova-RegIt.ttf */; };
+		6BB9994D2476534000FC32C8 /* Mark Simonson - Proxima Nova Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6BB999432476534000FC32C8 /* Mark Simonson - Proxima Nova Bold.otf */; };
+		6BB9994E2476534000FC32C8 /* ProximaNova-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6BB999442476534000FC32C8 /* ProximaNova-Light.ttf */; };
+		6BB9994F2476534000FC32C8 /* ProximaNova-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6BB999452476534000FC32C8 /* ProximaNova-Bold.ttf */; };
+		6BB999502476534000FC32C8 /* ProximaNova-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6BB999462476534000FC32C8 /* ProximaNova-Thin.ttf */; };
+		6BB999512476534000FC32C8 /* Mark Simonson - Proxima Nova Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6BB999472476534000FC32C8 /* Mark Simonson - Proxima Nova Black.otf */; };
+		6BB999522476534000FC32C8 /* Mark Simonson - Proxima Nova Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6BB999482476534000FC32C8 /* Mark Simonson - Proxima Nova Regular.ttf */; };
+		6BB999532476534000FC32C8 /* ProximaNova-Sbold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6BB999492476534000FC32C8 /* ProximaNova-Sbold.ttf */; };
+		6BB999542476534000FC32C8 /* ProximaNova-Reg.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6BB9994A2476534000FC32C8 /* ProximaNova-Reg.ttf */; };
 		C9B77E6121A01B060092848D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9B77D7A21A01B060092848D /* Assets.xcassets */; };
 		C9B77E6321A01B060092848D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9B77D7C21A01B060092848D /* LaunchScreen.storyboard */; };
 		C9B77E6421A01B060092848D /* Montserrat-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = C9B77D7E21A01B060092848D /* Montserrat-Medium.otf */; };
@@ -382,6 +392,16 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6BB999412476534000FC32C8 /* Mark Simonson - Proxima Nova Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Mark Simonson - Proxima Nova Light.ttf"; sourceTree = "<group>"; };
+		6BB999422476534000FC32C8 /* ProximaNova-RegIt.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-RegIt.ttf"; sourceTree = "<group>"; };
+		6BB999432476534000FC32C8 /* Mark Simonson - Proxima Nova Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Mark Simonson - Proxima Nova Bold.otf"; sourceTree = "<group>"; };
+		6BB999442476534000FC32C8 /* ProximaNova-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-Light.ttf"; sourceTree = "<group>"; };
+		6BB999452476534000FC32C8 /* ProximaNova-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-Bold.ttf"; sourceTree = "<group>"; };
+		6BB999462476534000FC32C8 /* ProximaNova-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-Thin.ttf"; sourceTree = "<group>"; };
+		6BB999472476534000FC32C8 /* Mark Simonson - Proxima Nova Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Mark Simonson - Proxima Nova Black.otf"; sourceTree = "<group>"; };
+		6BB999482476534000FC32C8 /* Mark Simonson - Proxima Nova Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Mark Simonson - Proxima Nova Regular.ttf"; sourceTree = "<group>"; };
+		6BB999492476534000FC32C8 /* ProximaNova-Sbold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-Sbold.ttf"; sourceTree = "<group>"; };
+		6BB9994A2476534000FC32C8 /* ProximaNova-Reg.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-Reg.ttf"; sourceTree = "<group>"; };
 		6F7645C36ABF77183FAD526B /* Pods-Hippo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hippo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Hippo/Pods-Hippo.debug.xcconfig"; sourceTree = "<group>"; };
 		717BE1731EC1BE11003EA321 /* Hippo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hippo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		73C5DC7752C82068B4CD5EB2 /* Pods-Hippo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hippo.release.xcconfig"; path = "Pods/Target Support Files/Pods-Hippo/Pods-Hippo.release.xcconfig"; sourceTree = "<group>"; };
@@ -869,6 +889,23 @@
 				C9B77D9F21A01B060092848D /* AgentDetail.swift */,
 			);
 			name = "Recovered References";
+			sourceTree = "<group>";
+		};
+		6BB999402476534000FC32C8 /* Font */ = {
+			isa = PBXGroup;
+			children = (
+				6BB999412476534000FC32C8 /* Mark Simonson - Proxima Nova Light.ttf */,
+				6BB999422476534000FC32C8 /* ProximaNova-RegIt.ttf */,
+				6BB999432476534000FC32C8 /* Mark Simonson - Proxima Nova Bold.otf */,
+				6BB999442476534000FC32C8 /* ProximaNova-Light.ttf */,
+				6BB999452476534000FC32C8 /* ProximaNova-Bold.ttf */,
+				6BB999462476534000FC32C8 /* ProximaNova-Thin.ttf */,
+				6BB999472476534000FC32C8 /* Mark Simonson - Proxima Nova Black.otf */,
+				6BB999482476534000FC32C8 /* Mark Simonson - Proxima Nova Regular.ttf */,
+				6BB999492476534000FC32C8 /* ProximaNova-Sbold.ttf */,
+				6BB9994A2476534000FC32C8 /* ProximaNova-Reg.ttf */,
+			);
+			path = Font;
 			sourceTree = "<group>";
 		};
 		717BE16A1EC1BE11003EA321 = {
@@ -1669,6 +1706,7 @@
 		C9B77DC321A01B060092848D /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				6BB999402476534000FC32C8 /* Font */,
 				D88B9010246672EA00E3093F /* FilterManager.swift */,
 				D8F6D23C2419587C00B168C5 /* UIImageView+Extension.swift */,
 				D8F6D23D2419587D00B168C5 /* FuguNetworkHandler.swift */,
@@ -2412,6 +2450,7 @@
 				D8F6CFFF2418F9CF00B168C5 /* AgentProfileViewController.xib in Resources */,
 				D8F6D1B22419510F00B168C5 /* TitilliumWeb-LightItalic.ttf in Resources */,
 				D8F6D15A24194D8600B168C5 /* OutgoingVideoTableViewCell.xib in Resources */,
+				6BB999542476534000FC32C8 /* ProximaNova-Reg.ttf in Resources */,
 				D8F6D0EC241947E100B168C5 /* ActionTableView.xib in Resources */,
 				D8F6D0B0241943D900B168C5 /* QuickReplyButtonCollectionViewCell.xib in Resources */,
 				D8F6D1BA2419516700B168C5 /* HippoBroadCast.storyboard in Resources */,
@@ -2423,6 +2462,7 @@
 				D8F6D0F72419486300B168C5 /* ActionTagTableViewCell.xib in Resources */,
 				D8F6D10E241949EC00B168C5 /* IncomingDocumentTableViewCell.xib in Resources */,
 				D8F6D1B52419510F00B168C5 /* TitilliumWeb-ExtraLightItalic.ttf in Resources */,
+				6BB999512476534000FC32C8 /* Mark Simonson - Proxima Nova Black.otf in Resources */,
 				D8F6D0F62419486300B168C5 /* ActionButtonViewCell.xib in Resources */,
 				D8F6D2492419588300B168C5 /* typingImage.gif in Resources */,
 				D8F6D16A24194E3700B168C5 /* LeadDataTableViewCell.xib in Resources */,
@@ -2439,14 +2479,18 @@
 				D8F6D0C52419465000B168C5 /* CardMessageTableViewCell.xib in Resources */,
 				D8F6D1062419498D00B168C5 /* BroadcastUserStatusCell.xib in Resources */,
 				D88B900D2466111E00E3093F /* FilterOptionTableViewCell.xib in Resources */,
+				6BB9994B2476534000FC32C8 /* Mark Simonson - Proxima Nova Light.ttf in Resources */,
 				D8F6D1AF2419510F00B168C5 /* TitilliumWeb-Italic.ttf in Resources */,
 				D8F6D19124194FB300B168C5 /* BroadCastTextViewCell.xib in Resources */,
 				D84F79F6245F49AC00B36168 /* PaymentItemDescriptionCell.xib in Resources */,
 				C9F6D49221C8B81100EA23E6 /* Hippo.podspec in Resources */,
 				D8F6D17924194ED700B168C5 /* IncomingVideoCallMessageTableViewCell.xib in Resources */,
 				C9FB6FAA21EE10CD00B72CEA /* LaunchScreen.storyboard in Resources */,
+				6BB9994D2476534000FC32C8 /* Mark Simonson - Proxima Nova Bold.otf in Resources */,
+				6BB9994F2476534000FC32C8 /* ProximaNova-Bold.ttf in Resources */,
 				D8F6D0E62419479900B168C5 /* CategoryTableViewCell.xib in Resources */,
 				D8F6D0DB2419470000B168C5 /* PromotionTableViewCell.xib in Resources */,
+				6BB9994E2476534000FC32C8 /* ProximaNova-Light.ttf in Resources */,
 				D8F6D13F24194C9300B168C5 /* ItemTableViewCell.xib in Resources */,
 				D8F6D1B02419510F00B168C5 /* TitilliumWeb-Bold.ttf in Resources */,
 				C9B77E6121A01B060092848D /* Assets.xcassets in Resources */,
@@ -2454,11 +2498,13 @@
 				C9F6D49021C8B71B00EA23E6 /* README.md in Resources */,
 				D8F6D0212418FA7E00B168C5 /* MultipleSelectTableViewCell.xib in Resources */,
 				D8F6D16624194E1200B168C5 /* SelfMessageTableViewCell.xib in Resources */,
+				6BB999532476534000FC32C8 /* ProximaNova-Sbold.ttf in Resources */,
 				D8F6D1B12419510F00B168C5 /* TitilliumWeb-BoldItalic.ttf in Resources */,
 				C9B77E6321A01B060092848D /* LaunchScreen.storyboard in Resources */,
 				D8F6D02C2418FA9400B168C5 /* CustomerPaymentCardCell.xib in Resources */,
 				C9B77E6421A01B060092848D /* Montserrat-Medium.otf in Resources */,
 				D8F6D1B82419510F00B168C5 /* TitilliumWeb-Light.ttf in Resources */,
+				6BB999522476534000FC32C8 /* Mark Simonson - Proxima Nova Regular.ttf in Resources */,
 				D8F6D12624194B3200B168C5 /* SupportMessageTableViewCell.xib in Resources */,
 				D8F6D1AE2419510F00B168C5 /* TitilliumWeb-SemiBold.ttf in Resources */,
 				D848D1BB245EEF9700235322 /* PaymentPlanHomeCell.xib in Resources */,
@@ -2473,6 +2519,7 @@
 				D8F6D11F24194AD500B168C5 /* ChatInfoTagViewCell.xib in Resources */,
 				D8F6D17C24194EFC00B168C5 /* ShowMoreTableViewCell.xib in Resources */,
 				D8F6D16324194DE600B168C5 /* AgentHomeConversationCell.xib in Resources */,
+				6BB9994C2476534000FC32C8 /* ProximaNova-RegIt.ttf in Resources */,
 				D8F6D13B24194C7500B168C5 /* HeaderTableViewCell.xib in Resources */,
 				C9B77EDD21A01B070092848D /* Montserrat-SemiBold.otf in Resources */,
 				D88B20D224619F90007FD382 /* Info.plist in Resources */,
@@ -2495,6 +2542,7 @@
 				D8F6D18924194F7600B168C5 /* BroadcastAgentCell.xib in Resources */,
 				D8F6D14224194CB300B168C5 /* SenderNameTableCell.xib in Resources */,
 				D8F6D0CF2419467600B168C5 /* ProfileDetailCell.xib in Resources */,
+				6BB999502476534000FC32C8 /* ProximaNova-Thin.ttf in Resources */,
 				D8F6D0CA2419466200B168C5 /* ProfileNameCell.xib in Resources */,
 				D8F6D05C2418FCD200B168C5 /* README.rst in Resources */,
 				D8F6D17724194ED700B168C5 /* OutgoingVideoCallMessageTableViewCell.xib in Resources */,

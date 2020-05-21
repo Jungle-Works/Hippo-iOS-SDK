@@ -115,13 +115,13 @@ extension BotTableView: UIPickerViewDelegate, UIPickerViewDataSource {
         paragraphStyle.alignment = .center
         
         let defaultAttributes: [NSAttributedString.Key: Any] = [
-            .font: UIFont.systemFont(ofSize: 13.0),
+            .font: UIFont.regular(ofSize: 13.0),
             .foregroundColor: UIColor.black.withAlphaComponent(0.8),
             .paragraphStyle: paragraphStyle
         ]
         let Selected: [NSAttributedString.Key: Any] = [
             .foregroundColor: UIColor.black,
-            .font: UIFont.systemFont(ofSize: 13.0),
+            .font: UIFont.regular(ofSize: 13.0),
             .paragraphStyle: paragraphStyle
         ]
         if row == pickerView.selectedRow(inComponent: component) {

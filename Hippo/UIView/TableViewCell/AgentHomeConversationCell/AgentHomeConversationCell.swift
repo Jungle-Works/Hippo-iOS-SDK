@@ -63,9 +63,10 @@ extension AgentHomeConversationCell {
         transitionLabel.text = ""
         transitionImageView.image = nil
         
-        nameLabel.font = UIFont(name:"HelveticaNeue", size: 15.0)
-        lastMessageLabel.font = UIFont(name:"HelveticaNeue", size: 12.0)
-        timeLabel.font = UIFont(name:"HelveticaNeue", size: 12.0)
+//        nameLabel.font = UIFont(name:"HelveticaNeue", size: 15.0)
+//        lastMessageLabel.font = UIFont(name:"HelveticaNeue", size: 12.0)
+//        timeLabel.font = UIFont(name:"HelveticaNeue", size: 12.0)
+        self.setLabelsFont()
     }
     
     func setupCell(resetProperties: Bool = true, cellInfo: AgentConversation) {
@@ -119,15 +120,23 @@ extension AgentHomeConversationCell {
         if let totalCount = cellData?.unreadCount, totalCount > 0 {
             counterLabel.text = "\(totalCount)"
             counterLabel.isHidden = false
-            nameLabel.font = UIFont(name:"HelveticaNeue-Bold", size: 15.0)
-            lastMessageLabel.font = UIFont(name:"HelveticaNeue-Bold", size: 12.0)
-            timeLabel.font = UIFont(name:"HelveticaNeue-Bold", size: 12.0)
+//            nameLabel.font = UIFont(name:"HelveticaNeue-Bold", size: 15.0)
+//            lastMessageLabel.font = UIFont(name:"HelveticaNeue-Bold", size: 12.0)
+//            timeLabel.font = UIFont(name:"HelveticaNeue-Bold", size: 12.0)
+            self.setLabelsFont()
         } else {
             counterLabel.isHidden = true
-            nameLabel.font = UIFont(name:"HelveticaNeue", size: 15.0)
-            lastMessageLabel.font = UIFont(name:"HelveticaNeue", size: 12.0)
-            timeLabel.font = UIFont(name:"HelveticaNeue", size: 12.0)
+//            nameLabel.font = UIFont(name:"HelveticaNeue", size: 15.0)
+//            lastMessageLabel.font = UIFont(name:"HelveticaNeue", size: 12.0)
+//            timeLabel.font = UIFont(name:"HelveticaNeue", size: 12.0)
+            self.setLabelsFont()
         }
+    }
+    
+    func setLabelsFont(){
+        nameLabel.font = UIFont.bold(ofSize: 18.0)
+        lastMessageLabel.font = UIFont.regular(ofSize: 14.0)
+        timeLabel.font = UIFont.regular(ofSize: 14.0)
     }
     
     func setTags() {
@@ -184,7 +193,8 @@ extension AgentHomeConversationCell {
         guard !botChannelName.isEmpty else {
             return nil
         }
-        tag = TagBoxInfo(labelText: botChannelName, textColor: .purpleGrey, containerBackgroundColor: .veryLightBlue, containerBorderColor: UIColor.makeColor(red: 228, green: 228, blue: 237, alpha: 1))
+//        tag = TagBoxInfo(labelText: botChannelName, textColor: .purpleGrey, containerBackgroundColor: .veryLightBlue, containerBorderColor: UIColor.makeColor(red: 228, green: 228, blue: 237, alpha: 1))
+        tag = TagBoxInfo(labelText: botChannelName, textColor: .darkGrayColorForTag, containerBackgroundColor: .lightGrayBgColorForTag, containerBorderColor: UIColor.makeColor(red: 228, green: 228, blue: 237, alpha: 1))
         return tag
     }
     func getAssignedStatusTag(info: AgentConversation) -> TagBoxInfo? {
@@ -195,12 +205,14 @@ extension AgentHomeConversationCell {
         
         if agentID <= 0 {
             if let closedString = closedLabel.text, closedString.isEmpty == false {
-                tag = TagBoxInfo(labelText: "Unassigned", textColor: .purpleGrey, containerBackgroundColor: .veryLightBlue, containerBorderColor: unassignedColorForClosedChat)
+//                tag = TagBoxInfo(labelText: "Unassigned", textColor: .purpleGrey, containerBackgroundColor: .veryLightBlue, containerBorderColor: unassignedColorForClosedChat)
+                tag = TagBoxInfo(labelText: "Unassigned", textColor: .darkGrayColorForTag, containerBackgroundColor: .lightGrayBgColorForTag, containerBorderColor: unassignedColorForClosedChat)
             } else {
                 tag = TagBoxInfo(labelText: "Unassigned", textColor: .white, containerBackgroundColor: .pumpkinOrange)
             }
         } else if let agentName = info.agent_name {
-                tag = TagBoxInfo(labelText: agentName, textColor: .purpleGrey, containerBackgroundColor: .veryLightBlue, containerBorderColor: UIColor.makeColor(red: 228, green: 228, blue: 237, alpha: 1))
+//                tag = TagBoxInfo(labelText: agentName, textColor: .purpleGrey, containerBackgroundColor: .veryLightBlue, containerBorderColor: UIColor.makeColor(red: 228, green: 228, blue: 237, alpha: 1))
+            tag = TagBoxInfo(labelText: agentName, textColor: .darkGrayColorForTag, containerBackgroundColor: .lightGrayBgColorForTag, containerBorderColor: UIColor.makeColor(red: 228, green: 228, blue: 237, alpha: 1))
         }
         return tag
     }
@@ -214,7 +226,8 @@ extension AgentHomeConversationCell {
         var containerBckgrndColor: UIColor?
         var containerBorderColor: UIColor?
         
-        init(labelText: String, textColor: UIColor, textFont: UIFont = UIFont.systemFont(ofSize: 11), containerBackgroundColor: UIColor, containerBorderColor: UIColor = .clear) {
+//        init(labelText: String, textColor: UIColor, textFont: UIFont = UIFont.systemFont(ofSize: 11), containerBackgroundColor: UIColor, containerBorderColor: UIColor = .clear) {
+        init(labelText: String, textColor: UIColor, textFont: UIFont = UIFont.bold(ofSize: 13), containerBackgroundColor: UIColor, containerBorderColor: UIColor = .clear) {
             self.labelText = labelText
             self.textColor = textColor
             self.textFont = textFont

@@ -52,8 +52,8 @@ class NavigationTitleView: UIView {
         titleLabel.font = HippoConfig.shared.theme.headerTextFont
         titleLabel.textColor = HippoConfig.shared.theme.headerTextColor
         
-        if HippoConfig.shared.theme.leftBarButtonImage != nil {
-            backButton.setImage(HippoConfig.shared.theme.leftBarButtonImage, for: .normal)
+        if HippoConfig.shared.theme.leftBarButtonArrowImage != nil {
+            backButton.setImage(HippoConfig.shared.theme.leftBarButtonArrowImage, for: .normal)
         }
     
         backButton.tintColor = HippoConfig.shared.theme.headerTextColor
@@ -125,15 +125,15 @@ class NavigationTitleView: UIView {
     
     func hideProfileImage() {
         profileImageView.isHidden = true
-        backButtonWidthConstraint.constant = 40
+        backButtonWidthConstraint.constant = 30
         layoutIfNeeded()
     }
     
     func showProfileImage() {
         profileImageView.isHidden = false
-        profileImageView.layer.cornerRadius = profileImageView.bounds.height / 2
+        profileImageView.layer.cornerRadius = profileImageView.frame.size.height/2
         profileImageView.layer.masksToBounds = true
-        backButtonWidthConstraint.constant = 40
+        backButtonWidthConstraint.constant = 30
         layoutIfNeeded()
     }
     

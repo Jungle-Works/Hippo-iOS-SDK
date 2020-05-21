@@ -71,6 +71,9 @@ class HippoConversationViewController: UIViewController {
     var proceedToPayMessage : HippoMessage?
     var proceedToPaySelectedCard : CustomerPayment?
     var proceedToPayChannel: HippoChannel?
+    var attachments: [Attachment]  = []
+    
+    
 
     //MARK: 
     @IBOutlet var tableViewChat: UITableView!
@@ -511,11 +514,15 @@ class HippoConversationViewController: UIViewController {
         return customerId > 0
     }
     func setTitleButton() {
+        
         let color = HippoConfig.shared.theme.headerTextColor
         let button =  UIButton(type: .custom)
         button.sizeToFit()
         button.backgroundColor = UIColor.clear
         button.setTitleColor(color, for: .normal)
+        
+        button.titleLabel?.font = HippoConfig.shared.theme.headerTextFont//
+        
         button.addTarget(self, action: #selector(self.titleButtonclicked), for: .touchUpInside)
 
         self.navigationItem.titleView = button
@@ -525,9 +532,9 @@ class HippoConversationViewController: UIViewController {
     }
     
     func setTitleForCustomNavigationBar() {
-        guard HippoConfig.shared.appUserType == .customer else {
-            return
-        }
+//        guard HippoConfig.shared.appUserType == .customer else {
+//            return
+//        }
         let rectForNavigationTitle: CGRect = CGRect(x: 0, y: 0, width: 500, height: 100)
         let navigationView: NavigationTitleView
         if let parsedTitleForNavigation = titleForNavigation {
@@ -548,7 +555,9 @@ class HippoConversationViewController: UIViewController {
         navigationView.setTitle(title: label)
         title = nil
         let button = UIBarButtonItem(customView: navigationView)
-    
+        if HippoConfig.shared.appUserType != .customer{
+            navigationView.hideProfileImage()
+        }
         navigationItem.leftBarButtonItem = button
     }
     
@@ -591,27 +600,23 @@ class HippoConversationViewController: UIViewController {
         
         let call = CallData.init(peerData: peerDetail, callType: .audio, muid: String.uuid(), signallingClient: channel)
         
-    /*     CallManager.shared.startCall(call: call) { (success) in
-                   if !success {
-                       assertionFailure("Cannot start the call")
-                   }
-               }
-   */
-        // #####-------USE THIS METHOD IF YOU ARE USING JITSI CALLING BARNCH FOR CALLING FEATURE -----#####
 
+//        // #####-------USE THIS METHOD IF YOU ARE USING JITSI CALLING BARNCH FOR CALLING FEATURE -----#####
+//
         CallManager.shared.startCall(call: call) { (success, error) in
-            
+
+
             if let mismatchError = error, mismatchError.code == 415 {
-                
+
                 let message = peerDetail.fullName + " " + "doesn't have the latest version of app installed."
                 self.showOptionAlert(title: "Version Mismatch", message: message, successButtonName: "Call anyway", successComplete: { (successAction) in
-                    
+
                     CallManager.shared.startWebRTCCall(call: call) { (success) in
                         if !success {
                             assertionFailure("Cannot start webrtc the call too")
                         }
                     }
-                    
+
                 }, failureButtonName: "Cancel") { (failureAction) in
                     //do nothing
                 }
@@ -633,25 +638,22 @@ class HippoConversationViewController: UIViewController {
         
         let call = CallData.init(peerData: peerDetail, callType: .video, muid: String.uuid(), signallingClient: channel)
         
-        /*        CallManager.shared.startCall(call: call) { (success) in
-         if !success {
-         assertionFailure("Cannot start the call")
-         }
-         }*/
-        // #####-------USE THIS METHOD IF YOU ARE USING JITSI CALLING BARNCH FOR CALLING FEATURE -----#####
+        
+//        // #####-------USE THIS METHOD IF YOU ARE USING JITSI CALLING BARNCH FOR CALLING FEATURE -----#####
         CallManager.shared.startCall(call: call) { (success, error) in
-            
+
+
             if let mismatchError = error, mismatchError.code == 415 {
-                
+
                 let message = peerDetail.fullName + " " + "doesn't have the latest version of app installed."
                 self.showOptionAlert(title: "Version Mismatch", message: message, successButtonName: "Call anyway", successComplete: { (successAction) in
-                    
+
                     CallManager.shared.startWebRTCCall(call: call) { (success) in
                         if !success {
                             assertionFailure("Cannot start webrtc the call too")
                         }
                     }
-                    
+
                 }, failureButtonName: "Cancel") { (failureAction) in
                     //do nothing
                 }
@@ -1265,6 +1267,7 @@ extension HippoConversationViewController {
         
         let vc = PaymentPlansViewController.get(channelId: id)
         let navVC = UINavigationController(rootViewController: vc)
+        self.modalPresentationStyle = .fullScreen
 //        navVC.setupCustomThemeOnNavigationController(hideNavigationBar: false)
         self.present(navVC, animated: true, completion: nil)
     }
@@ -1644,3 +1647,59 @@ extension HippoConversationViewController: submitButtonTableViewDelegate
     
     
 }
+
+//MARK:- COLLECTION VIEW DELEAGATE/DATASOURCE
+extension HippoConversationViewController : UICollectionViewDelegate , UICollectionViewDataSource , UICollectionViewDelegateFlowLayout{
+    
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return attachments.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+
+        guard let attachmentOptionCVCell  = collectionView.dequeueReusableCell(withReuseIdentifier: "AttachmentOptionCollectionViewCell", for: indexPath) as? AttachmentOptionCollectionViewCell else { return UICollectionViewCell() }
+        attachmentOptionCVCell.attachmentDetail = attachments[indexPath.item]
+        return attachmentOptionCVCell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let param = UIScreen.main.bounds.width/4 - 8
+        return CGSize(width: param, height: param)
+    }
+    
+    
+}
+
+
+
+
+//MARK:- COLLECTIONVIEW CELL
+class AttachmentOptionCollectionViewCell : UICollectionViewCell{
+    
+    @IBOutlet weak var imageViewAttachment: UIImageView!
+    @IBOutlet weak var labelAttachment: UILabel!
+    
+    var attachmentDetail : Attachment?{
+        didSet{
+            imageViewAttachment?.image = attachmentDetail?.icon
+            labelAttachment?.text = attachmentDetail?.title
+        }
+    }
+}
+
+
+
+class Attachment : NSObject{
+    
+    var icon  : UIImage?
+    var title : String?
+    
+    init(icon : UIImage?, title : String?) {
+        self.icon = icon
+        self.title = title
+    }
+}
+
+
+

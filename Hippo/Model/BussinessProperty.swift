@@ -112,6 +112,17 @@ class BussinessProperty: NSObject {
         }
     }
     
+    var isAskPaymentAllowed: Bool {
+        get {
+            guard let value = UserDefaults.standard.value(forKey: UserDefaultkeys.isAskPaymentAllowed) as? Bool else {
+                return false
+            }
+            return value
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: UserDefaultkeys.isAskPaymentAllowed)
+        }
+    }
     
     func updateData(loginData: [String: Any]) {
         let userDetailData = loginData

@@ -13,7 +13,9 @@ enum DefaultName: String {
     case sentMessagesData = "sent_messages_data"
     case conversationData = "fugu_conversation_data"
     case appointmentData = "fugu_appointment_data"
-    case addedPaymentGatewaysData = "added_payment_gateways"    
+    case addedPaymentGatewaysData = "added_payment_gateways"
+    case agentTotalUnreadHashMap = "agentTotalUnreadHashMap"
+    case agentUnreadCount = "agentUnreadCount"
 }
 
 struct DefaultKey {

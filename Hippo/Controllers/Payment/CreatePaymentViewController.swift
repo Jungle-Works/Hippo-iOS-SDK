@@ -87,6 +87,9 @@ class CreatePaymentViewController: UIViewController {
             backButton.image = HippoConfig.shared.theme.leftBarButtonImage
             backButton.tintColor = HippoConfig.shared.theme.headerTextColor
         }
+        
+        loaderView.tintColor = HippoConfig.shared.theme.headerTextColor
+        
         self.navigationController?.interactivePopGestureRecognizer?.delegate = self
     }
     func setupTableView() {

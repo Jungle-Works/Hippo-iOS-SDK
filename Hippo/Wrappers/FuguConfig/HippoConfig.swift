@@ -21,6 +21,10 @@ enum AppUserType {
     case customer
 }
 
+enum AgentUserType: Int {
+    case agent = 11
+    case admin = 13
+}
 
 struct SERVERS {
 
@@ -161,8 +165,8 @@ struct BotAction {
     
     internal let powererdByColor = #colorLiteral(red: 0.4980392157, green: 0.4980392157, blue: 0.4980392157, alpha: 1)
     internal let FuguColor = #colorLiteral(red: 0.3843137255, green: 0.4901960784, blue: 0.8823529412, alpha: 1)
-    internal let poweredByFont: UIFont = UIFont.systemFont(ofSize: 10.0)
-    internal let FuguStringFont: UIFont = UIFont.systemFont(ofSize: 10.0)
+    internal let poweredByFont: UIFont = UIFont.regular(ofSize: 10.0)
+    internal let FuguStringFont: UIFont = UIFont.regular(ofSize: 10.0)
     
     public let navigationTitleTextAlignMent: NSTextAlignment? = .center
     
@@ -182,7 +186,17 @@ struct BotAction {
         HippoConfig.shared.delegate?.deepLinkClicked(response: data)
     }
     
-    //
+    //Function to get current channel id
+    open func getCurrentChannelId()->Int?{
+        let topViewController = getLastVisibleController()
+        //will return channel id if we have some active chat else return nil
+        if topViewController is ConversationsViewController{
+            return (topViewController as? ConversationsViewController)?.channelId
+        }
+        return nil
+    }
+    
+    
     
     internal func setAgentStoredData() {
         guard let storedData = AgentDetail.agentLoginData else {
@@ -559,6 +573,7 @@ struct BotAction {
                 }
                 completion(true, nil)
             })
+            
         })
         completion(true, nil)
     }
@@ -853,6 +868,9 @@ struct BotAction {
         
         switch HippoConfig.shared.appUserType {
         case .agent:
+            if userInfo["notification_type"] as? Int == 20{
+                return
+            }
             handleAgentNotification(userInfo: userInfo)
         case .customer:
             handleCustomerNotification(userInfo: userInfo)
@@ -1016,16 +1034,19 @@ struct BotAction {
                 let conVC = ConversationsViewController.getWith(labelId: "\(labelId)")
                 let navVC = UINavigationController(rootViewController: conVC)
                 navVC.isNavigationBarHidden = true
+                visibleController?.modalPresentationStyle = .fullScreen
                 visibleController?.present(navVC, animated: true, completion: nil)
             } else if channelId > 0 {
                 let conVC = ConversationsViewController.getWith(channelID: channelId, channelName: channelName)
                 let navVC = UINavigationController(rootViewController: conVC)
                 navVC.isNavigationBarHidden = true
+                visibleController?.modalPresentationStyle = .fullScreen
                 visibleController?.present(navVC, animated: true, completion: nil)
             } else if labelId > 0 {
                 let conVC = ConversationsViewController.getWith(labelId: "\(labelId)")
                 let navVC = UINavigationController(rootViewController: conVC)
                 navVC.isNavigationBarHidden = true
+                visibleController?.modalPresentationStyle = .fullScreen
                 visibleController?.present(navVC, animated: true, completion: nil)
             }
         }
@@ -1051,6 +1072,14 @@ public extension HippoConfig {
 }
 
 extension HippoConfig {
+    func sendDataIfChatIsAssignedToSelfAgent(_ dic : [String : Any]){
+        HippoConfig.shared.delegate?.sendDataIfChatIsAssignedToSelfAgent(dic)
+    }
+    
+    func sendAgentUnreadCount(_ totalCount: Int) {
+        HippoConfig.shared.delegate?.hippoAgentTotalUnreadCount(totalCount)
+    }
+    
     func sendUnreadCount(_ totalCount: Int) {
         HippoConfig.shared.unreadCount?(totalCount)
         HippoConfig.shared.delegate?.hippoUnreadCount(totalCount)

@@ -118,6 +118,18 @@ internal extension UIColor {
         return UIColor(red: 227.0 / 255.0, green: 53.0 / 255.0, blue: 48.0 / 255.0, alpha: 1.0)
     }
     
+    class var darkGrayColorForTag: UIColor {
+        return UIColor(red: 97/255, green: 97/255, blue: 97/255, alpha: 1)
+    }
+    
+    class var lightGrayBgColorForTag: UIColor {
+        return UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1)
+    }
+    
+    class var unreadMessageColor : UIColor{
+        return UIColor(red: 82  , green: 82, blue: 82, alpha: 1.0)
+    }
+    
     class func hexStringToUIColor (hex:String) -> UIColor {
         var cString:String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
         

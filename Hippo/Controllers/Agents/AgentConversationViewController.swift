@@ -17,6 +17,7 @@ protocol AgentChatDeleagate: class {
 class AgentConversationViewController: HippoConversationViewController {
     
     // MARK: -  IBOutlets
+    @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var audioButton: UIBarButtonItem!
     @IBOutlet var backgroundView: UIView!
     @IBOutlet var backButton: UIButton!
@@ -29,7 +30,7 @@ class AgentConversationViewController: HippoConversationViewController {
     @IBOutlet var addFileButtonAction: UIButton!
     @IBOutlet var seperatorView: UIView!
     @IBOutlet weak var loaderView: So_UIImageView!
-    @IBOutlet weak var infoButton: UIButton!
+    @IBOutlet weak var infoButton: UIBarButtonItem!
     
     @IBOutlet weak var videoButton: UIBarButtonItem!
     //    @IBOutlet var textViewBottomConstraint: NSLayoutConstraint!
@@ -37,19 +38,34 @@ class AgentConversationViewController: HippoConversationViewController {
     //    @IBOutlet weak var hieghtOfNavigationBar: NSLayoutConstraint!
     @IBOutlet weak var loadMoreActivityTopContraint: NSLayoutConstraint!
     @IBOutlet weak var loadMoreActivityIndicator: UIActivityIndicatorView!
+
+//    @IBOutlet weak var bottomContentView: So_UIView!//
+//    @IBOutlet weak var paymentButton: UIButton!//
     
-    @IBOutlet weak var paymentButton: UIButton!
-    @IBOutlet weak var botActionButton: UIButton!
+//    @IBOutlet weak var botActionButton: UIButton!
 
     @IBOutlet weak var retryLabelView: UIView!
     @IBOutlet weak var retryLoader: UIActivityIndicatorView!
     @IBOutlet weak var labelViewRetryButton: UIButton!
 
+    @IBOutlet weak var takeOverButtonContainer: UIView!
+    @IBOutlet weak var takeOverButton: UIButton!
+    @IBOutlet weak var takeOverButtonHeightConstraint: NSLayoutConstraint!
+    
+    //NewConversation view
+    @IBOutlet weak var newConversationContainer: So_UIView!
+    @IBOutlet weak var newConversationLabel: So_CustomLabel!
+    @IBOutlet weak var newConversationShadow: So_UIView!
+    @IBOutlet weak var newConversationCountButton: UIButton!
+
+    @IBOutlet weak var collectionViewOptions: UICollectionView!
+    @IBOutlet weak var attachmentViewHeightConstraint: NSLayoutConstraint!
+
     // MARK: - PROPERTIES
     var heightOfNavigation: CGFloat = 0
     var isSingleChat = false
     var botActionView = BotTableView.loadView(CGRect.zero)
-    
+    var custombarbuttonParam : CGFloat = 32.0
     // MARK: - Computed Properties
     var localFilePath: String {
         get {
@@ -61,6 +77,7 @@ class AgentConversationViewController: HippoConversationViewController {
             return documentImageUrl.appendingPathComponent("\(existingImageCounter).jpg").path
         }
     }
+    
     
     
     //    var getSavedUserId: Int {
@@ -77,10 +94,12 @@ class AgentConversationViewController: HippoConversationViewController {
     // MARK: - LIFECYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
+        collectionViewOptions?.delegate = self
+        collectionViewOptions?.dataSource = self
         HippoConfig.shared.notifyDidLoad()
         setNavBarHeightAccordingtoSafeArea()
         configureChatScreen()
-        
+        self.setTitleForCustomNavigationBar()
         guard channel != nil else {
             startNewConversation(replyMessage: nil, completion: { [weak self] (success, result) in
                 if success {
@@ -144,26 +163,28 @@ class AgentConversationViewController: HippoConversationViewController {
         super.viewWillDisappear(animated)
     }
     
+    override func backButtonClicked() {
+        backbtnClicked()
+    }
+    
+    override func titleClicked() {
+        titleButtonclicked()
+    }
+    
     
     func navigationSetUp() {
         setTitleButton()
         if HippoConfig.shared.theme.sendBtnIcon != nil {
+            sendMessageButton.tintColor = HippoConfig.shared.theme.themeColor
             sendMessageButton.setImage(HippoConfig.shared.theme.sendBtnIcon, for: .normal)
-            
-            if let tintColor = HippoConfig.shared.theme.sendBtnIconTintColor {
-                sendMessageButton.tintColor = tintColor
-            }
-            
+           
             sendMessageButton.setTitle("", for: .normal)
         } else { sendMessageButton.setTitle("SEND", for: .normal) }
         
         if HippoConfig.shared.theme.addButtonIcon != nil {
+            addFileButtonAction.tintColor = HippoConfig.shared.theme.themeColor
             addFileButtonAction.setImage(HippoConfig.shared.theme.addButtonIcon, for: .normal)
-            
-            if let tintColor = HippoConfig.shared.theme.addBtnTintColor {
-                addFileButtonAction.tintColor = tintColor
-            }
-            
+    
             addFileButtonAction.setTitle("", for: .normal)
         } else { addFileButtonAction.setTitle("ADD", for: .normal) }
         
@@ -180,8 +201,8 @@ class AgentConversationViewController: HippoConversationViewController {
             backButton.setTitleColor(HippoConfig.shared.theme.leftBarButtonTextColor, for: .normal)
             
         } else {
-            if HippoConfig.shared.theme.leftBarButtonImage != nil {
-                backButton.setImage(HippoConfig.shared.theme.leftBarButtonImage, for: .normal)
+            if HippoConfig.shared.theme.leftBarButtonArrowImage != nil {
+                backButton.setImage(HippoConfig.shared.theme.leftBarButtonArrowImage, for: .normal)
                 backButton.tintColor = HippoConfig.shared.theme.headerTextColor
             }
         }
@@ -230,6 +251,13 @@ class AgentConversationViewController: HippoConversationViewController {
         }
         self.navigationController?.pushViewController(vc, animated: true)
     }
+    
+    @IBAction func addAttachmentButtonAction(_ sender: UIButton) {
+        attachmentViewHeightConstraint.constant = attachmentViewHeightConstraint.constant == 128 ? 0 : 128
+        
+    }
+    
+    
     
     
     @IBAction func addImagesButtonAction(_ sender: UIButton) {
@@ -310,7 +338,7 @@ class AgentConversationViewController: HippoConversationViewController {
     }
     
     
-    @IBAction func backButtonAction(_ sender: UIButton) {
+    func backbtnClicked(){
         messageTextView.resignFirstResponder()
         
         channel?.send(message: HippoMessage.stopTyping, completion: {})
@@ -343,12 +371,44 @@ class AgentConversationViewController: HippoConversationViewController {
         }
     }
     
-    @IBAction func paymentButtonClicked(_ sender: Any) {
-        //delegate?.createPaymentButtonClicked()
-        self.closeKeyBoard()
-        presentPlansVc()
+    
+    @IBAction func backButtonAction(_ sender: UIButton) {
+        
     }
 
+    @IBAction func takeOverButtonPressed(_ sender: Any) {
+        askBeforeAssigningChat()
+    }
+    
+    @IBAction func newConversationCountButtonAction(_ sender: Any) {
+        //        newConversationLabel.text = nil
+        //        newConversationLabel.isHidden = true
+        //        newConversationCounter  = 0
+        scrollTableViewToBottom(true)
+    }
+    
+    func askBeforeAssigningChat() {
+        showOptionAlert(title: "", message: "Are you sure you want to assign this chat to you?", successButtonName: "Yes", successComplete: { (action) in
+            self.assignChatToSelf()
+        }, failureButtonName: "No", failureComplete: nil)
+    }
+    
+    func assignChatToSelf() {
+        AgentConversationManager.assignChatToMe(channelID: self.channelId) {[weak self] (success) in
+            guard success, let strongSelf = self else {
+                return
+            }
+            strongSelf.channel?.chatDetail?.assignedAgentID = currentUserId()
+            strongSelf.channel?.chatDetail?.assignedAgentName = HippoConfig.shared.agentDetail?.fullName ?? ""
+            strongSelf.channel?.chatDetail?.isBotInProgress = false
+            strongSelf.channel?.chatDetail?.disableReply = false
+            strongSelf.channel?.isSendingDisabled = false
+            strongSelf.setFooterView(isReplyDisabled: strongSelf.channel?.chatDetail?.disableReply ?? false, isBotInProgress: strongSelf.channel?.chatDetail?.isBotInProgress ?? false)
+        }
+    }
+
+
+    
     override func titleButtonclicked() {
         guard isCustomerInfoAvailable() else {
             return
@@ -528,6 +588,7 @@ class AgentConversationViewController: HippoConversationViewController {
         }
         if result.isSendingDisabled {
             disableSendingReply()
+            setFooterView(isReplyDisabled: result.isSendingDisabled, isBotInProgress: result.isBotInProgress)
         }
         if request.pageStart == 1, request.pageEnd == nil {
             newScrollToBottom(animated: true)
@@ -654,16 +715,16 @@ class AgentConversationViewController: HippoConversationViewController {
 // MARK: - HELPERS
 extension AgentConversationViewController {
     
-    func handleInfoIcon() {
-        //        let customerId = channel?.chatDetail?.customerID ?? -1
-        //        infoButton.isHidden = customerId < 1
-    }
-    
+ 
     
     func handleVideoIcon() {
         setTitleButton()
         if canStartVideoCall() {
-            videoButton.image = HippoConfig.shared.theme.videoCallIcon
+            let customVideoBtn : UIButton = UIButton()
+            customVideoBtn.setImage(HippoConfig.shared.theme.videoCallIcon, for: .normal)
+            customVideoBtn.frame = CGRect(x: 0, y: 0, width: custombarbuttonParam, height: custombarbuttonParam)
+            customVideoBtn.addTarget(self, action: #selector(videoCallButtonClicked), for: UIControl.Event.touchUpInside)
+            videoButton.customView = customVideoBtn
             videoButton.tintColor = HippoConfig.shared.theme.headerTextColor
             videoButton.isEnabled = true
             videoButton.title = nil
@@ -676,7 +737,11 @@ extension AgentConversationViewController {
     func handleAudioIcon() {
         setTitleButton()
         if canStartAudioCall() {
-            audioButton.image = HippoConfig.shared.theme.audioCallIcon
+            let customAudioBtn : UIButton = UIButton()
+            customAudioBtn.setImage(HippoConfig.shared.theme.audioCallIcon, for: .normal)
+            customAudioBtn.frame = CGRect(x: 0, y: 0, width: custombarbuttonParam, height: custombarbuttonParam)
+            customAudioBtn.addTarget(self, action:  #selector(audioButtonClicked), for: UIControl.Event.touchUpInside)
+            audioButton.customView = customAudioBtn
             audioButton.tintColor = HippoConfig.shared.theme.headerTextColor
             audioButton.isEnabled = true
         } else {
@@ -684,6 +749,43 @@ extension AgentConversationViewController {
             audioButton.isEnabled = false
         }
     }
+    
+    func handleInfoIcon() {
+        setTitleButton()
+        let customInfoBtn : UIButton = UIButton()
+        customInfoBtn.setImage(HippoConfig.shared.theme.informationIcon, for: .normal)
+        customInfoBtn.frame = CGRect(x: 0, y: 0, width: custombarbuttonParam, height: custombarbuttonParam)
+        customInfoBtn.addTarget(self, action:  #selector(infoButtonClicked), for: UIControl.Event.touchUpInside)
+        infoButton.customView = customInfoBtn
+        infoButton.tintColor = HippoConfig.shared.theme.headerTextColor
+        infoButton.isEnabled = true
+    }
+    
+    
+//    func handleVideoIcon() {
+//        setTitleButton()
+//        if canStartVideoCall() {
+//            videoButton.image = HippoConfig.shared.theme.videoCallIcon
+//            videoButton.tintColor = HippoConfig.shared.theme.headerTextColor
+//            videoButton.isEnabled = true
+//            videoButton.title = nil
+//        } else {
+//            videoButton.title = ""
+//            videoButton.image = nil
+//            videoButton.isEnabled = false
+//        }
+//    }
+//    func handleAudioIcon() {
+//        setTitleButton()
+//        if canStartAudioCall() {
+//            audioButton.image = HippoConfig.shared.theme.audioCallIcon
+//            audioButton.tintColor = HippoConfig.shared.theme.headerTextColor
+//            audioButton.isEnabled = true
+//        } else {
+//            audioButton.image = nil
+//            audioButton.isEnabled = false
+//        }
+//    }
     func returnRetryCancelButtonHeight(chatMessageObject: HippoMessage) -> CGFloat {
         if chatMessageObject.wasMessageSendingFailed, chatMessageObject.type != MessageType.imageFile, chatMessageObject.status == ReadUnReadStatus.none, isSentByMe(senderId: chatMessageObject.senderId) {
             return 40
@@ -701,13 +803,35 @@ extension AgentConversationViewController {
         self.messageTextView.font = HippoConfig.shared.theme.typingTextFont
         self.messageTextView.textColor = HippoConfig.shared.theme.typingTextColor
         self.messageTextView.backgroundColor = .clear
+        self.messageTextView.tintColor = HippoConfig.shared.theme.messageTextViewTintColor//
         placeHolderLabel.text = HippoConfig.shared.strings.messagePlaceHolderText
         hideErrorMessage()
         sendMessageButton.isEnabled = false
         
         if channel != nil, channel.isSendingDisabled == true {
             disableSendingReply()
+            setFooterView(isReplyDisabled: channel.isSendingDisabled, isBotInProgress: channel.chatDetail?.isBotInProgress ?? false)
         }
+        
+        if HippoConfig.shared.theme.chatbackgroundImage != nil {
+            tableViewChat.backgroundColor = .clear
+            backgroundImageView.image = HippoConfig.shared.theme.chatbackgroundImage
+            backgroundImageView.contentMode = .scaleToFill
+        }
+        
+        if BussinessProperty.current.isAskPaymentAllowed{
+            self.attachments.append(Attachment(icon : HippoConfig.shared.theme.paymentIcon , title : "Payment"))
+        }
+        self.attachments.append(Attachment(icon : HippoConfig.shared.theme.botIcon  , title : "Bot"))
+        
+        self.newConversationCountButton.roundCorner(cornerRect: [.topLeft, .bottomLeft], cornerRadius: 5)
+        self.newConversationShadow.layer.cornerRadius = 5
+        self.newConversationShadow.showShadow(shadowSideAngles: ShadowSideView(topSide: true, leftSide: true, bottomSide: true))
+        //        self.newConversationShadow.showShadow(shadowSideAngles: ShadowSideView(topSide: true, leftSide: true, bottomSide: true, rightSide: true))
+        //        self.updateNewConversationCountButton(animation: false)
+        
+        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
+        
     }
     
     func addTapGestureInTableView() {
@@ -761,6 +885,7 @@ extension AgentConversationViewController {
     
     func configureFooterView() {
         textViewBgView.backgroundColor = .white
+//        bottomContentView.backgroundColor = .white
         if isObserverAdded == false {
             textViewBgView.layoutIfNeeded()
             let inputView = FrameObserverAccessaryView(frame: textViewBgView.bounds)
@@ -772,12 +897,18 @@ extension AgentConversationViewController {
                 let value = UIScreen.main.bounds.height - keyboardFrame.minY - UIView.safeAreaInsetOfKeyWindow.bottom
                 let maxValue = max(0, value)
                 //                self?.textViewBottomConstraint.constant = maxValue
-                self?.bottomContentViewBottomConstraint.constant = maxValue
+                self?.bottomContentViewBottomConstraint?.constant = maxValue
                 
                 self?.view.layoutIfNeeded()
             }
             isObserverAdded = true
         }
+        
+        takeOverButtonContainer.backgroundColor = HippoConfig.shared.theme.headerBackgroundColor
+        takeOverButton.backgroundColor = HippoConfig.shared.theme.themeTextcolor
+        takeOverButton.setTitleColor(HippoConfig.shared.theme.themeColor, for: .normal)
+        takeOverButton.setTitle(HippoConfig.shared.theme.takeOverButtonText, for: .normal)
+        
     }
     
     
@@ -872,18 +1003,59 @@ extension AgentConversationViewController {
         }
         
     }
-    func scrollTableViewToBottom(animated: Bool = false) {
+//    func scrollTableViewToBottom(animated: Bool = false) {
+//
+//        DispatchQueue.main.async {
+//            if self.messagesGroupedByDate.count > 0 {
+//                let givenMessagesArray = self.messagesGroupedByDate[self.messagesGroupedByDate.count - 1]
+//                if givenMessagesArray.count > 0 {
+//                    let indexPath = IndexPath(row: givenMessagesArray.count - 1, section: self.messagesGroupedByDate.count - 1)
+//                    self.tableViewChat.scrollToRow(at: indexPath, at: .bottom, animated: animated)
+//                }
+//            }
+//        }
+//    }
+    func scrollTableViewToBottom(_ animation: Bool = false) {
         
         DispatchQueue.main.async {
-            if self.messagesGroupedByDate.count > 0 {
-                let givenMessagesArray = self.messagesGroupedByDate[self.messagesGroupedByDate.count - 1]
-                if givenMessagesArray.count > 0 {
-                    let indexPath = IndexPath(row: givenMessagesArray.count - 1, section: self.messagesGroupedByDate.count - 1)
-                    self.tableViewChat.scrollToRow(at: indexPath, at: .bottom, animated: animated)
+            
+            var numberOfSections = -1
+            if self.tableViewChat.numberOfSections > 1 {
+                numberOfSections = self.tableViewChat.numberOfSections - 1
+            } else {
+                numberOfSections = self.tableViewChat.numberOfSections
+            }
+            
+            guard numberOfSections > 0 else {
+                return
+            }
+            
+            if self.messagesGroupedByDate.count > 0, let lastIndex = self.messagesGroupedByDate.last, lastIndex.count > 0 {
+                
+                let max = self.tableViewChat.numberOfRows(inSection: self.messagesGroupedByDate.count - 1)
+                let min = lastIndex.count - 1
+                
+                let row = min < max ? min : max - 1
+                guard numberOfSections >= self.messagesGroupedByDate.count - 1 else {
+                    return
                 }
+                let indexPath = IndexPath(row: row, section: self.messagesGroupedByDate.count - 1)
+                
+                self.tableViewChat.scrollToRow(at: indexPath, at: .bottom, animated: animation)
+                self.newConversationContainer.isHidden = true
             }
         }
     }
+    
+//    func updateNewConversationCountButton(animation: Bool) {
+//        if newConversationCounter > 0 {
+//            newConversationLabel.text = "\(newConversationCounter)"
+//            newConversationLabel.isHidden = false
+//            newConversationContainer.isHidden = false
+//        } else {
+//            newConversationLabel.isHidden = true
+//        }
+//    }
     
     //    func expectedHeight(OfMessageObject chatMessageObject: HippoMessage) -> CGFloat {
     //
@@ -937,7 +1109,7 @@ extension AgentConversationViewController {
 }
 
 // MARK: - UIScrollViewDelegate
-extension AgentConversationViewController: UIScrollViewDelegate {
+extension AgentConversationViewController {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if self.tableViewChat.contentOffset.y < -5.0 && self.willPaginationWork, FuguNetworkHandler.shared.isNetworkConnected {
             
@@ -954,6 +1126,21 @@ extension AgentConversationViewController: UIScrollViewDelegate {
                 self?.isGettingMessageViaPaginationInProgress = false
             })
         }
+//        if shouldRecognizeScroll {
+        if scrollView.contentOffset.y < (tableViewChat.contentSize.height - tableViewChat.frame.height - 180) {
+            newConversationContainer.isHidden = false
+        } else {
+//                if newConversationCounter == 0 {
+            newConversationContainer.isHidden = true
+//                }
+        }
+//
+//        if scrollView.contentOffset.y > (tableViewChat.contentSize.height - tableViewChat.frame.height - 10) {
+//            newConversationCounter = 0
+//            updateNewConversationCountButton(animation: true)
+//        }
+//    }
+        
     }
     
     func getUnsentMessageCount() -> Int {
@@ -1494,6 +1681,7 @@ extension AgentConversationViewController: UITextViewDelegate {
         placeHolderLabel.textColor = #colorLiteral(red: 0.2862745098, green: 0.2862745098, blue: 0.2862745098, alpha: 0.8)
         textInTextField = textView.text
         textViewBgView.backgroundColor = .white
+//        bottomContentView.backgroundColor = .white
         timer = Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(self.watcherOnTextView), userInfo: nil, repeats: true)
         
         return true
@@ -1501,6 +1689,7 @@ extension AgentConversationViewController: UITextViewDelegate {
     
     func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
         textViewBgView.backgroundColor = UIColor.white
+//        bottomContentView.backgroundColor = UIColor.white
         placeHolderLabel.textColor = #colorLiteral(red: 0.2862745098, green: 0.2862745098, blue: 0.2862745098, alpha: 0.5)
         
         timer.invalidate()
@@ -1589,6 +1778,48 @@ extension AgentConversationViewController: UIImagePickerControllerDelegate, UINa
 //        self.bottomContentViewBottomConstraint.constant = -self.textViewBgView.frame.height
         self.bottomContentViewBottomConstraint.constant = -self.textViewBgView.frame.height-50
         self.textViewBgView.isHidden = true
+    }
+    
+    func enableSendingReply() {
+        self.channel?.isSendingDisabled = false
+//        self.bottomContentViewBottomConstraint.constant = 0
+        //configureFooterView()
+        self.textViewBgView.isHidden = false
+    }
+    
+    func setFooterView(isReplyDisabled: Bool = false, isBotInProgress : Bool = false) {
+//        let isReplyDisabled = channel?.channelInfo?.isReplayDisabled ?? false
+//        let isBotInProgress = channel?.channelInfo?.isBotInProgress ?? false
+        
+        disableTakeOverButton()
+        
+        switch (isReplyDisabled, isBotInProgress) {
+        case (false, _):
+            //messageSendingView?.disableActionButton()
+            print(isReplyDisabled, isBotInProgress)
+        case (true, false):
+            //messageSendingView?.hideMessageBox(withBottomBar: false, setUI: true)
+            print(isReplyDisabled, isBotInProgress)
+        case (true, true):
+            //messageSendingView?.enableActionButton()
+            print(isReplyDisabled, isBotInProgress)
+            enableTakeOverButton()
+        }
+        
+    }
+    
+    func enableTakeOverButton(){
+        takeOverButtonContainer.isHidden = false
+        takeOverButton.isHidden = false
+        takeOverButton.isEnabled = true
+        takeOverButtonHeightConstraint.constant = 50
+    }
+    
+    func disableTakeOverButton(){
+        takeOverButtonContainer.isHidden = true
+        takeOverButton.isHidden = true
+        takeOverButton.isEnabled = false
+        takeOverButtonHeightConstraint.constant = 0
     }
     
 }
@@ -1697,13 +1928,32 @@ extension AgentConversationViewController: BotTableDelegate {
 
 }
 
+
+extension AgentConversationViewController{
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let attachCVCell = collectionView.cellForItem(at: indexPath) as? AttachmentOptionCollectionViewCell else { return }
+        if attachCVCell.attachmentDetail?.title == "Payment"{
+            self.closeKeyBoard()
+            presentPlansVc()
+        }else if attachCVCell.attachmentDetail?.title == "Bot"{
+            self.closeKeyBoard()
+            AgentConversationManager.getBotsAction(userId: self.channel.chatDetail?.customerID ?? 0, channelId: self.channelId) { (botActions) in
+                self.addBotActionView(with: botActions)
+            }
+        }
+    }
+}
+
 extension AgentConversationViewController: HippoChannelDelegate {
     func channelDataRefreshed() {
         
         if channel?.chatDetail?.disableReply == true{
             //disableSendingReply(withOutUpdate: true)
             disableSendingReply()
+        }else{
+            enableSendingReply()
         }
+        setFooterView(isReplyDisabled: channel?.chatDetail?.disableReply ?? false, isBotInProgress: channel?.chatDetail?.isBotInProgress ?? false)
 
         handleAudioIcon()
         handleVideoIcon()
@@ -1799,6 +2049,21 @@ extension AgentConversationViewController: HippoChannelDelegate {
         return self.messagesGroupedByDate.count < tableViewChat.numberOfSections
     }
     
+//    func checkScrollerPostion() {
+//        let contentHeight = tableViewChat.contentSize.height
+//        let tableHeight = tableViewChat.bounds.height
+//        let offset = tableViewChat.contentOffset.y
+//
+//
+//        if offset > (contentHeight - tableHeight - 10) {
+//            self.newConversationCounter = 0
+//            scrollTableViewToBottom(false)
+//        } else if contentHeight > tableHeight {
+//            self.newConversationCounter += 1
+//        }
+//        self.updateNewConversationCountButton(animation: true)
+//    }
+    
 }
 // Helper function inserted by Swift 4.2 migrator.
 #if swift(>=4.2)
@@ -1811,3 +2076,59 @@ fileprivate func convertFromUIImagePickerControllerInfoKey(_ input: UIImagePicke
     return input.rawValue
 }
 #endif
+
+extension AgentConversationViewController: UIGestureRecognizerDelegate {
+
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        
+        messageTextView.resignFirstResponder()
+        channel?.send(message: HippoMessage.stopTyping, completion: {})
+        let channelID = self.channel?.id ?? -1
+        clearUnreadCountForChannel(id: channelID)
+        if let lastMessage = getLastMessage() {
+            agentConversationDelegate?.updateConversationWith(channelId: channel?.id ?? -1, lastMessage: lastMessage, unreadCount: 0)
+        }
+        if isSingleChat {
+            HippoConfig.shared.notifiyDeinit()
+//            self.navigationController?.dismiss(animated: true, completion: nil)
+////            return
+//            return true
+        }
+//        if self.navigationController == nil {
+//            HippoConfig.shared.notifiyDeinit()
+//            dismiss(animated: true, completion: nil)
+//        } else {
+//            if self.navigationController!.viewControllers.count > 1 {
+//                _ = self.navigationController?.popViewController(animated: true)
+//            } else {
+//                HippoConfig.shared.notifiyDeinit()
+//                self.navigationController?.dismiss(animated: true, completion: nil)
+//            }
+//        }
+        
+        return true
+    }
+
+}
+
+//MARK: UserChannel Bot messages
+extension AgentConversationViewController {
+    
+    func handleChannelRefresh(detail: ChatDetail) {
+//        channel?.channelInfo?.isBotInProgress = detail.isBotInProgress
+//        channel?.channelInfo?.isReplayDisabled = detail.isReplayDisabled
+//        setFooterView()
+        channel?.chatDetail?.isBotInProgress = detail.isBotInProgress
+        channel?.chatDetail?.disableReply = detail.disableReply
+        channel?.isSendingDisabled = detail.disableReply
+        if channel?.chatDetail?.disableReply == true{
+            //disableSendingReply(withOutUpdate: true)
+            disableSendingReply()
+        }else{
+            enableSendingReply()
+        }
+        setFooterView(isReplyDisabled: channel?.chatDetail?.disableReply ?? false, isBotInProgress: channel?.chatDetail?.isBotInProgress ?? false)
+
+    }
+    
+}

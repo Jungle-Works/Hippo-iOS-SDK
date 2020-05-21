@@ -58,7 +58,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
    @IBOutlet weak var loadMoreActivityIndicator: UIActivityIndicatorView!
    @IBOutlet weak var suggestionContainerView: UIView!
     
-    //NewConversation view
+    //New conversation view
     @IBOutlet weak var newConversationContainer: So_UIView!
     @IBOutlet weak var newConversationLabel: So_CustomLabel!
     @IBOutlet weak var newConversationShadow: So_UIView!
@@ -70,6 +70,9 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     @IBOutlet weak var chatScreenTableViewTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var retryLoader: UIActivityIndicatorView!
     @IBOutlet weak var labelViewRetryButton: UIButton!
+    
+    @IBOutlet weak var collectionViewOptions: UICollectionView!
+    @IBOutlet weak var attachmentViewHeightConstraint: NSLayoutConstraint!
     
     var suggestionCollectionView = SuggestionView()
     var suggestionList: [String] = []
@@ -109,7 +112,8 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        
+        collectionViewOptions?.delegate = self
+        collectionViewOptions?.dataSource = self
         customTableView.isScrollEnabled = false//true
         customTableView.separatorStyle = .none
         customTableView.delegate = self
@@ -327,6 +331,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         //      }
         
         if HippoConfig.shared.theme.sendBtnIcon != nil {
+            sendMessageButton.imageView?.tintColor = HippoConfig.shared.theme.themeColor
             sendMessageButton.setImage(HippoConfig.shared.theme.sendBtnIcon, for: .normal)
             
             if let tintColor = HippoConfig.shared.theme.sendBtnIconTintColor {
@@ -337,11 +342,12 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         } else { sendMessageButton.setTitle("SEND", for: .normal) }
         
         if HippoConfig.shared.theme.addButtonIcon != nil {
-            addFileButtonAction.setImage(HippoConfig.shared.theme.addButtonIcon, for: .normal)
+             addFileButtonAction.tintColor = HippoConfig.shared.theme.themeColor
+             addFileButtonAction.setImage(HippoConfig.shared.theme.addButtonIcon, for: .normal)
             
-            if let tintColor = HippoConfig.shared.theme.addBtnTintColor {
-                addFileButtonAction.tintColor = tintColor
-            }
+//            if let tintColor = HippoConfig.shared.theme.addBtnTintColor {
+//                addFileButtonAction.tintColor = tintColor
+//            }
             
             addFileButtonAction.setTitle("", for: .normal)
         } else { addFileButtonAction.setTitle("ADD", for: .normal) }
@@ -557,6 +563,11 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
      startVideoCall()
    }
     
+    @IBAction func addAttachmentButtonAction(_ sender: UIButton) {
+        attachmentViewHeightConstraint.constant = attachmentViewHeightConstraint.constant == 128 ? 0 : 128
+        
+    }
+    
    @IBAction func addImagesButtonAction(_ sender: UIButton) {
       if channel != nil, !channel.isSubscribed() {
         buttonClickedOnNetworkOff()
@@ -767,6 +778,17 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
             
             delegate?.updateConversationWith(conversationObj: conversationInfo)
         }
+    
+        //if chat delegate is not set , it doesnot exist in allconversation
+        if delegate == nil{
+            for controller in self.navigationController?.viewControllers ?? [UIViewController](){
+                if controller is AllConversationsViewController{
+                    (controller as? AllConversationsViewController)?.getAllConversations()
+                    break
+                }
+            }
+        }
+    
         if channel != nil {
             self.channel.saveMessagesInCache()
         }
@@ -1005,10 +1027,17 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         //image icon name = tiny-video-symbol
         
         if isDirectCallingEnabledFor(type: .video) {
-            videoButton.image = HippoConfig.shared.theme.videoCallIcon
-            videoButton.tintColor = HippoConfig.shared.theme.headerTextColor
-            videoButton.isEnabled = true
-            videoButton.title = nil
+            
+            let customVideoBtn : UIButton = UIButton()
+                       customVideoBtn.setImage(HippoConfig.shared.theme.videoCallIcon, for: .normal)
+                       customVideoBtn.frame = CGRect(x: 0, y: 0, width: 32, height: 32)
+                       customVideoBtn.addTarget(self, action:  #selector(videoButtonClicked), for: UIControl.Event.touchUpInside)
+                       videoButton.customView = customVideoBtn
+                       videoButton.tintColor = HippoConfig.shared.theme.headerTextColor
+                       videoButton.isEnabled = true
+                        videoButton.title = nil
+            
+            
         } else {
             videoButton.title = ""
             videoButton.image = nil
@@ -1021,13 +1050,20 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         //image icon name = audioCallIcon
         
         if isDirectCallingEnabledFor(type: .audio) {
-            audioCallButton.image = HippoConfig.shared.theme.audioCallIcon
+            
+            let customAudioBtn : UIButton = UIButton()
+            customAudioBtn.setImage(HippoConfig.shared.theme.audioCallIcon, for: .normal)
+            customAudioBtn.frame = CGRect(x: 0, y: 0, width: 32, height: 32)
+            customAudioBtn.addTarget(self, action:  #selector(audiCallButtonClicked), for: UIControl.Event.touchUpInside)
+            audioCallButton.customView = customAudioBtn
             audioCallButton.tintColor = HippoConfig.shared.theme.headerTextColor
             audioCallButton.isEnabled = true
         } else {
             audioCallButton.image = nil
             audioCallButton.isEnabled = false
         }
+        
+        
     }
    
    func keepTableViewWhereItWasBeforeReload(oldContentHeight: CGFloat, oldYOffset: CGFloat) {
@@ -1409,7 +1445,7 @@ extension ConversationsViewController {
         addTapGestureInTableView()
         
         if HippoConfig.shared.theme.chatbackgroundImage != nil      {
-            tableViewChat.backgroundColor = .clear
+            tableViewChat.backgroundColor = .white//.clear
             backgroundImageView.image = HippoConfig.shared.theme.chatbackgroundImage
             backgroundImageView.contentMode = .scaleToFill
         }
@@ -1417,6 +1453,7 @@ extension ConversationsViewController {
         self.messageTextView.font = HippoConfig.shared.theme.typingTextFont
         self.messageTextView.textColor = HippoConfig.shared.theme.typingTextColor
         self.messageTextView.backgroundColor = .clear
+        self.messageTextView.tintColor = HippoConfig.shared.theme.messageTextViewTintColor//
         
         placeHolderLabel.text = HippoConfig.shared.strings.messagePlaceHolderText
         
@@ -1802,7 +1839,7 @@ extension ConversationsViewController {
 }
 
 // MARK: - UIScrollViewDelegate
-extension ConversationsViewController: UIScrollViewDelegate {
+extension ConversationsViewController {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
       if self.tableViewChat.contentOffset.y < -5.0 && self.willPaginationWork, FuguNetworkHandler.shared.isNetworkConnected {
          
@@ -3041,9 +3078,11 @@ extension ConversationsViewController {
 extension ConversationsViewController: UIGestureRecognizerDelegate {
 
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        
         messageTextView.resignFirstResponder()
         channel?.send(message: HippoMessage.stopTyping, completion: {})
+        if gestureRecognizer == self.navigationController?.interactivePopGestureRecognizer{
+            return false
+        }
         let rawLabelID = self.labelId == -1 ? nil : self.labelId
         let channelID = self.channel?.id ?? -1
         clearUnreadCountForChannel(id: channelID)
@@ -3051,7 +3090,14 @@ extension ConversationsViewController: UIGestureRecognizerDelegate {
             delegate?.updateConversationWith(conversationObj: conversationInfo)
         }
         
+        
         return true
     }
 
 }
+
+
+
+
+
+

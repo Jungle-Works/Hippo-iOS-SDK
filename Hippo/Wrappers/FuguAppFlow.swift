@@ -29,6 +29,7 @@ class FuguFlowManager: NSObject {
         let conVC = AgentConversationViewController.getWith(channelID: channelId, channelName: channelName)
         let navVc = UINavigationController(rootViewController: conVC)
         navVc.setTheme()
+        navVc.modalPresentationStyle = .fullScreen
         getLastVisibleController()?.present(navVc, animated: true, completion: nil)
     }
     
@@ -36,6 +37,7 @@ class FuguFlowManager: NSObject {
         let conVC = AgentConversationViewController.getWith(chatAttributes: chatAttributes)
         let navVc = UINavigationController(rootViewController: conVC)
         navVc.setTheme()
+        navVc.modalPresentationStyle = .fullScreen
         getLastVisibleController()?.present(navVc, animated: true, completion: nil)
     }
     
@@ -46,7 +48,7 @@ class FuguFlowManager: NSObject {
          return
       }
       let visibleController = getLastVisibleController()
-    navigationController.modalPresentationStyle = .fullScreen
+      navigationController.modalPresentationStyle = .fullScreen
       visibleController?.present(navigationController, animated: animation, completion: nil)
    }
     func presentCustomerConversations(on viewController: UIViewController, animation: Bool = true) {
@@ -82,6 +84,7 @@ class FuguFlowManager: NSObject {
         let navVC = UINavigationController(rootViewController: vc)
         navVC.setTheme()
         vc.isFirstLevel = true
+        navVC.modalPresentationStyle = .fullScreen
         visibleController?.present(navVC, animated: animation, completion: nil)
     }
     
@@ -90,7 +93,7 @@ class FuguFlowManager: NSObject {
         guard let navVC = BroadCastViewController.getNavigation() else {
             return
         }
-        visibleController?.modalPresentationStyle = .fullScreen
+        navVC.modalPresentationStyle = .fullScreen
         visibleController?.present(navVC, animated: animation, completion: nil)
         
     }
@@ -104,6 +107,7 @@ class FuguFlowManager: NSObject {
             return
         }
         let visibleController = getLastVisibleController()
+        nav.modalPresentationStyle = .fullScreen
         visibleController?.present(nav, animated: true, completion: nil)
     }
     
@@ -122,6 +126,7 @@ class FuguFlowManager: NSObject {
         
         let naVC = UINavigationController(rootViewController: vc)
         let visibleController = getLastVisibleController()
+        naVC.modalPresentationStyle = .fullScreen
         visibleController?.present(naVC, animated: true, completion: nil)
     }
     func openChatViewController(labelId: Int) {
@@ -144,6 +149,7 @@ class FuguFlowManager: NSObject {
         navVC.setNavigationBarHidden(true, animated: false)
         
         conversationViewController.createConversationOnStart = true
+        navVC.modalPresentationStyle = .fullScreen
         visibleController?.present(navVC, animated: true, completion: nil)
         
     }
@@ -168,6 +174,7 @@ class FuguFlowManager: NSObject {
         let navVC = UINavigationController(rootViewController: convVC)
         navVC.setNavigationBarHidden(true, animated: false)
         convVC.createConversationOnStart = createConversationOnStart
+        navVC.modalPresentationStyle = .fullScreen
         visibleViewController?.present(navVC, animated: false, completion: nil)
     }
     func showFuguChat(on viewController: UIViewController, chat: FuguNewChatAttributes, createConversationOnStart: Bool = false) {
@@ -198,6 +205,7 @@ class FuguFlowManager: NSObject {
         convVC.createConversationOnStart = true
         convVC.consultNowInfoDict = consultNowInfoDict
         convVC.isComingFromConsultNowButton = true
+        navVC.modalPresentationStyle = .fullScreen
         visibleViewController?.present(navVC, animated: false, completion: nil)
         
     }
@@ -221,7 +229,7 @@ class FuguFlowManager: NSObject {
             return
         }
         let visibleController = getLastVisibleController()
-        visibleController?.modalPresentationStyle = .fullScreen
+        nav.modalPresentationStyle = .fullScreen
         visibleController?.present(nav, animated: true, completion: nil)
     }
    
@@ -268,6 +276,7 @@ class FuguFlowManager: NSObject {
         let visibleController = getLastVisibleController()
         let navVC = UINavigationController(rootViewController: vc)
         navVC.setTheme()
+        navVC.modalPresentationStyle = .fullScreen
         visibleController?.present(navVC, animated: animated, completion: nil)
     }
     private func showNotificationForAgent(with userInfo: [String: Any]) -> Bool {

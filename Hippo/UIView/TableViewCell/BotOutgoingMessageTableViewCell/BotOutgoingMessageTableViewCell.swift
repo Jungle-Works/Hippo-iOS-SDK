@@ -132,7 +132,7 @@ extension BotOutgoingMessageTableViewCell: UICollectionViewDataSource, UICollect
     }
     
     func expectedWidth(buttonTitle: String) -> CGFloat {
-        let font = UIFont.systemFont(ofSize: 20)
+        let font = UIFont.regular(ofSize: 20)
         #if swift(>=4.0)
            let fontAttributes = [NSAttributedString.Key.font: font]
           let size = buttonTitle.size(withAttributes: fontAttributes)

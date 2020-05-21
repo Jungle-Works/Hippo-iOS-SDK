@@ -94,4 +94,12 @@ let versionCode = 350
  313 *** 2.1.14 = Promotions issue fixed and deep linking handled
  
  314 *** 2.1.15 = Update agent sdk with feedback and filter functionality, with develop_latest branch code
+ 
+ 315 *** 2.1.16 = Functionlity for payment gateways like paytm and redirection from web view on success and error in paytm payment.
+ 
+ 316 *** 2.1.17 = Calling issues fixed and pending status added in agent chat.
+ 
+ 317 *** 2.1.18 = Cp sdk feedback done and present full screen done and Merge branch 'FatafatCpSdkIssues'
+ 
+ 318 *** 2.1.19 = Function added to get current channel id.
  */

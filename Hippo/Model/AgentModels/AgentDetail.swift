@@ -52,6 +52,7 @@ enum AgentStatus: String {
 struct ResponseResult {
     let isSuccessful: Bool
     let error: Error?
+    let response : NSDictionary? = NSDictionary()
 }
 
 class AgentDetail: NSObject {
@@ -75,6 +76,7 @@ class AgentDetail: NSObject {
     var userImage: String?
     
     var status = AgentStatus.offline
+    var agentUserType = AgentUserType.agent
     
     var oAuthToken = ""
     var app_type = AgentDetail.defaultAppType
@@ -119,6 +121,10 @@ class AgentDetail: NSObject {
         if let custom_attributes = dict["self_custom_attributes"] as? [String : Any] {
             self.customAttributes = custom_attributes
         }
+        if let agent_type = dict["agent_type"] as? Int, let agentType = AgentUserType.init(rawValue: agent_type){
+            self.agentUserType = agentType
+        }
+        
     }
     
     
@@ -146,6 +152,7 @@ class AgentDetail: NSObject {
         dict["business_name"] = businessName
         dict["phone_number"]  = number
         dict["online_status"] = status.rawValue
+        dict["agent_type"] = agentUserType.rawValue
         
         dict["app_type"] = app_type
         if customAttributes != nil {
@@ -242,7 +249,11 @@ extension AgentDetail {
             BussinessProperty.current.isAudioCallEnabled = Bool.parse(key: "is_audio_call_enabled", json: data)
             
             if let businessProperty = data["business_property"] as? [String: Any] {
+                
                 BussinessProperty.current.encodeToHTMLEntities = Bool.parse(key: "encode_to_html_entites", json: businessProperty)
+                
+                BussinessProperty.current.isAskPaymentAllowed = Bool.parse(key: "is_ask_payment_allowed", json: businessProperty)
+                
             }
             
             BussinessProperty.current.unsupportedMessageString = data["unsupported_message"] as? String ?? ""
@@ -274,6 +285,7 @@ extension AgentDetail {
         HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: AgentEndPoints.logout.rawValue) { (responseObject, error, tag, statusCode) in
             
             HippoUserDetail.clearAllData()
+            HippoConfig.shared.delegate?.hippoUserLogOut()
             let tempStatusCode = statusCode ?? 0
             let success = (200 <= tempStatusCode) && (300 > tempStatusCode)
             completion?(success)
