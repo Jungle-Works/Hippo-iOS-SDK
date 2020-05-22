@@ -24,15 +24,15 @@ public struct ConversationListTheme {
     public var timeTheme: HippoLabelTheme
     
     static func normalTheme() -> ConversationListTheme {
-        let titleTheme: HippoLabelTheme = HippoLabelTheme(textColor: .black, textFont: UIFont.bold(ofSize: 16.0))
-        let lastMessageTheme: HippoLabelTheme = HippoLabelTheme(textColor: UIColor(red: 152/255 , green: 173/255, blue: 176/255, alpha: 1.0), textFont: UIFont.regular(ofSize: 15.0))
+        let titleTheme: HippoLabelTheme = HippoLabelTheme(textColor: .black, textFont: UIFont.bold(ofSize: 16))
+        let lastMessageTheme: HippoLabelTheme = HippoLabelTheme(textColor: UIColor(red: 152/255 , green: 173/255, blue: 176/255, alpha: 1.0), textFont: UIFont.regular(ofSize: 14.0))
         let timeTheme: HippoLabelTheme = HippoLabelTheme(textColor: UIColor(red: 152/255 , green: 173/255, blue: 176/255, alpha: 1.0), textFont: UIFont.regular(ofSize: 12.0))
         return ConversationListTheme(titleTheme: titleTheme, lastMessageTheme: lastMessageTheme, timeTheme: timeTheme)
     }
     
     static func unReadTheme() -> ConversationListTheme {
         let titleTheme: HippoLabelTheme = HippoLabelTheme(textColor: .black, textFont: UIFont.bold(ofSize: 16.0))
-        let lastMessageTheme: HippoLabelTheme = HippoLabelTheme(textColor: UIColor(red: 74/255 , green: 74/255, blue: 74/255, alpha: 1.0), textFont: UIFont.regular(ofSize: 15.0))
+        let lastMessageTheme: HippoLabelTheme = HippoLabelTheme(textColor: UIColor(red: 74/255 , green: 74/255, blue: 74/255, alpha: 1.0), textFont: UIFont.regular(ofSize: 14.0))
         let timeTheme: HippoLabelTheme = HippoLabelTheme(textColor: UIColor(red: 74/255 , green: 74/255, blue: 74/255, alpha: 1.0), textFont: UIFont.regular(ofSize: 12.0))
         
         return ConversationListTheme(titleTheme: titleTheme, lastMessageTheme: lastMessageTheme, timeTheme: timeTheme)
@@ -56,7 +56,7 @@ public struct ConversationListTheme {
     open var unreadMessageColor = UIColor(red: 82/255 , green: 82/255, blue: 82/255, alpha: 1.0)
     open var backgroundColor = UIColor.white //#colorLiteral(red: 0.9725490196, green: 0.9764705882, blue: 1, alpha: 1)
     open var infoIconTintColor = #colorLiteral(red: 0.3843137255, green: 0.4901960784, blue: 0.8823529412, alpha: 1)
-    open var headerBackgroundColor = #colorLiteral(red: 0.3843137255, green: 0.4901960784, blue: 0.8823529412, alpha: 1)//UIColor.white
+    open var headerBackgroundColor = UIColor.white
     open var headerTextColor = #colorLiteral(red: 0.9882352941, green: 0.9882352941, blue: 0.9882352941, alpha: 1)//UIColor.black
     open var headerText = "Support"//"My Recent Consultations"
     open var directChatHeader = "Conversation List"
@@ -80,7 +80,7 @@ public struct ConversationListTheme {
     open var informationIcon: UIImage? = UIImage(named: "dots", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     open var audioCallIcon: UIImage? = UIImage(named: "call", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     open var videoCallIcon: UIImage? = UIImage(named: "video", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
-    
+    open var noChatImage : UIImage? = UIImage(named: "noChats", in: FuguFlowManager.bundle, compatibleWith: nil)
     open var paymentIcon: UIImage? = UIImage(named: "makePayment", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     open var botIcon: UIImage? = UIImage(named: "bot", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     
@@ -202,7 +202,7 @@ public struct ConversationListTheme {
 
     open var chatbackgroundImage: UIImage?
     
-    open var titleFont: UIFont = UIFont.bold(ofSize: 16.0)//UIFont(name:  HippoFont.boldFont, size: 17.0) ?? UIFont.boldregular(ofSize: 17.0)
+    open var titleFont: UIFont = UIFont.bold(ofSize: 18.0)//UIFont(name:  HippoFont.boldFont, size: 17.0) ?? UIFont.boldregular(ofSize: 17.0)
     open var titleTextColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
     
     open var descriptionFont: UIFont = UIFont(name:  HippoFont.regularFont, size: 14.0) ?? UIFont.regular(ofSize: 15.0)

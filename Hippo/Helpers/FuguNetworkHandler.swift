@@ -161,13 +161,6 @@ class FuguNetworkHandler: NSObject {
                 } else {
                     conversationVC.errorLabel.backgroundColor = UIColor.red
                 }
-                if !isToLoadFirstTime && conversationVC.errorLabelTopConstraint.constant == -20 {
-                    conversationVC.updateErrorLabelView(isHiding: true)
-                    conversationVC.errorLabel.backgroundColor = UIColor.red
-                } else {
-                    conversationVC.updateErrorLabelView(isHiding: false)
-                }
-                //            conversationVC.updateErrorLabelView(isHiding: false)
             } else {
                 conversationVC.getAllConversations()
                 conversationVC.updateErrorLabelView(isHiding: hidden)

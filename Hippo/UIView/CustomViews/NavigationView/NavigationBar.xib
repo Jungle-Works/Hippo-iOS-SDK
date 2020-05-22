@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SourceSansPro-Bold.ttf">
+            <string>SourceSansPro-Bold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NavigationBar" customModule="Hippo" customModuleProvider="target">
+            <connections>
+                <outlet property="image_back" destination="sHE-cu-ZOR" id="vlC-Tx-HbV"/>
+                <outlet property="leftButton" destination="HR0-Xt-n2K" id="VSs-CW-ZhJ"/>
+                <outlet property="titleLabel" destination="G01-tg-7hU" id="Zsk-ry-MVR"/>
+                <outlet property="view" destination="zgO-lO-xc9" id="0AK-07-Vd3"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="zgO-lO-xc9" userLabel="Content">
+            <rect key="frame" x="0.0" y="0.0" width="488" height="97"/>
+            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="whiteBackButton" translatesAutoresizingMaskIntoConstraints="NO" id="sHE-cu-ZOR">
+                    <rect key="frame" x="10" y="48.5" width="10" height="10"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="10" id="Ndz-cT-7y2"/>
+                        <constraint firstAttribute="width" secondItem="sHE-cu-ZOR" secondAttribute="height" multiplier="1:1" id="xVP-GG-iUs"/>
+                    </constraints>
+                </imageView>
+                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HR0-Xt-n2K">
+                    <rect key="frame" x="0.0" y="0.0" width="60" height="97"/>
+                    <accessibility key="accessibilityConfiguration" identifier="topBarNavigation_backBtn"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="60" id="2Be-xt-6aA"/>
+                    </constraints>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="Navigation Bar Title" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" minimumFontSize="12" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="G01-tg-7hU">
+                    <rect key="frame" x="139" y="39.5" width="210" height="28"/>
+                    <accessibility key="accessibilityConfiguration" identifier="topBarNavigation_titleLbl"/>
+                    <fontDescription key="fontDescription" name="SourceSansPro-Bold" family="Source Sans Pro" pointSize="24"/>
+                    <color key="textColor" red="0.16862745100000001" green="0.2274509804" blue="0.3294117647" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="HR0-Xt-n2K" firstAttribute="leading" secondItem="zgO-lO-xc9" secondAttribute="leading" id="4sK-GR-ERm"/>
+                <constraint firstItem="G01-tg-7hU" firstAttribute="top" relation="greaterThanOrEqual" secondItem="zgO-lO-xc9" secondAttribute="top" id="E4n-tY-vHF"/>
+                <constraint firstAttribute="bottom" secondItem="HR0-Xt-n2K" secondAttribute="bottom" id="H63-yh-hie"/>
+                <constraint firstItem="G01-tg-7hU" firstAttribute="centerY" secondItem="YNn-bR-0b8" secondAttribute="centerY" id="Itv-h3-VMu"/>
+                <constraint firstItem="G01-tg-7hU" firstAttribute="centerX" secondItem="YNn-bR-0b8" secondAttribute="centerX" id="SkB-9p-5A4"/>
+                <constraint firstItem="sHE-cu-ZOR" firstAttribute="leading" secondItem="YNn-bR-0b8" secondAttribute="leading" constant="10" id="W6S-4x-MTf"/>
+                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="G01-tg-7hU" secondAttribute="bottom" id="a0m-gU-tqU"/>
+                <constraint firstItem="HR0-Xt-n2K" firstAttribute="top" secondItem="zgO-lO-xc9" secondAttribute="top" id="de4-Em-IHx"/>
+                <constraint firstItem="sHE-cu-ZOR" firstAttribute="centerY" secondItem="YNn-bR-0b8" secondAttribute="centerY" id="dtc-af-B5s"/>
+                <constraint firstItem="sHE-cu-ZOR" firstAttribute="centerY" secondItem="G01-tg-7hU" secondAttribute="centerY" id="pIP-n3-wSn"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="YNn-bR-0b8"/>
+            <point key="canvasLocation" x="-34.782608695652179" y="22.433035714285712"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="whiteBackButton" width="8" height="12"/>
+    </resources>
+</document>
