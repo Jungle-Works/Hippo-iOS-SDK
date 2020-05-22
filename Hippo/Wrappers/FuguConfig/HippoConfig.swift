@@ -98,7 +98,7 @@ struct BotAction {
 
 @objcMembers public class HippoConfig : NSObject {
     
-    public static let shared = HippoConfig()
+    public static var shared = HippoConfig()
     
     public typealias commonHippoCallback = ((_ success: Bool, _ error: Error?) -> ())
     // MARK: - Properties

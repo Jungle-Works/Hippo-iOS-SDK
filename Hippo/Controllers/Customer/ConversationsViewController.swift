@@ -1322,7 +1322,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
    func enableSendingNewMessages() {
       addFileButtonAction.isUserInteractionEnabled = true
       messageTextView.isEditable = true
-      sendMessageButton.isEnabled = true
+      //sendMessageButton.isEnabled = true
    }
    
    func disableSendingNewMessages() {
@@ -1601,7 +1601,7 @@ extension ConversationsViewController {
 
         let topConstraint = getTopDistanceOfCell(atIndexPath: indexPath)
         if let editedCell = cell as? SelfMessageTableViewCell {
-            editedCell.topConstraint.constant = topConstraint
+            //editedCell.topConstraint.constant = topConstraint
         } else if let editedCell = cell as? SupportMessageTableViewCell {
             editedCell.topConstraint.constant = topConstraint
         }
@@ -2577,6 +2577,9 @@ extension ConversationsViewController: UITextViewDelegate {
    }
    
     func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.trimWhiteSpacesAndNewLine() == ""{
+             self.sendMessageButton.isEnabled = false
+        }
    }
    
      func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
