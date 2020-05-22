@@ -193,7 +193,8 @@ class AgentUserChannel {
         }else if type == .channelRefresh{
             let chatDetail = ChatDetail(json: dict)
             handleChannelRefresh(chatDetail: chatDetail)
-        }
+            return
+        }else{}
         
         handleAssignmentNotificationForChat(newConversation, channelID: receivedChannelId)
         //        handleBotMessages(newConversation, channelID: receivedChannelId)
