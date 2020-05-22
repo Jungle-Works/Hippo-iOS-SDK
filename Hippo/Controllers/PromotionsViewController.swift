@@ -18,7 +18,7 @@ protocol PromotionCellDelegate : class {
 typealias PromtionCutomCell = PromotionCellDelegate & UITableViewCell
 
 class PromotionsViewController: UIViewController {
-
+    
     //MARK:- IBOutlets
     
     @IBOutlet weak var promotionsTableView: UITableView!
@@ -26,18 +26,18 @@ class PromotionsViewController: UIViewController {
     @IBOutlet weak var loaderView: So_UIImageView!
     @IBOutlet var errorLabel: UILabel!
     @IBOutlet var viewError_Height: NSLayoutConstraint!
-     @IBOutlet weak var errorContentView: UIView!
-//    @IBOutlet weak var top_Constraint : NSLayoutConstraint!
+    @IBOutlet weak var errorContentView: UIView!
+    //    @IBOutlet weak var top_Constraint : NSLayoutConstraint!
     //MARK:- Variables
     
     var data: [PromotionCellDataModel] = []
     weak var customCell: PromtionCutomCell?
     var refreshControl = UIRefreshControl()
-   // var count = 20
+    // var count = 20
     var isMoreData = false
     var channelIdsArr = [Int]()
     var informationView: InformationView?
-
+    
     var selectedRow = -1
     var states = [Bool]()
     var shouldUseCache : Bool = true
@@ -47,13 +47,13 @@ class PromotionsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Notifications"
-  
+        
         FuguNetworkHandler.shared.fuguConnectionChangesStartNotifier()
         
         if shouldUseCache {
             self.data = fetchAllAnnouncementCache()
             for _ in data{
-                 self.states.append(true)
+                self.states.append(true)
             }
             noNotificationsFound()
         }
@@ -67,14 +67,14 @@ class PromotionsViewController: UIViewController {
         promotionsTableView.rowHeight = UITableView.automaticDimension
         promotionsTableView.estimatedRowHeight = 50
         if let c = customCell {
-          promotionsTableView.register(UINib(nibName: c.cellIdentifier, bundle: c.bundle), forCellReuseIdentifier: c.cellIdentifier)
+            promotionsTableView.register(UINib(nibName: c.cellIdentifier, bundle: c.bundle), forCellReuseIdentifier: c.cellIdentifier)
         }
         self.callGetAnnouncementsApi()
     }
     
     internal func setupRefreshController() {
-//        refreshControl.backgroundColor = .clear
-//        refreshControl.tintColor = .themeColor
+        //        refreshControl.backgroundColor = .clear
+        //        refreshControl.tintColor = .themeColor
         promotionsTableView.refreshControl = refreshControl
         refreshControl.addTarget(self, action: #selector(reloadrefreshData(refreshCtrler:)), for: .valueChanged)
     }
@@ -85,7 +85,7 @@ class PromotionsViewController: UIViewController {
         if FuguNetworkHandler.shared.isNetworkConnected {
             self.getAnnouncements(endOffset:19, startOffset: 0)
         }else{
-             self.refreshControl.endRefreshing()
+            self.refreshControl.endRefreshing()
         }
     }
     
@@ -99,9 +99,9 @@ class PromotionsViewController: UIViewController {
         //top_Constraint.constant = (self.navigationController?.navigationBar.frame.size.height ?? 0.0) + 20
         self.view.layoutSubviews()
     }
-
+    
     func callGetAnnouncementsApi(){
-       // self.startLoaderAnimation()
+        // self.startLoaderAnimation()
         self.page = 1
         self.getAnnouncements(endOffset: 19, startOffset: 0)
     }
@@ -134,25 +134,25 @@ class PromotionsViewController: UIViewController {
         
         title = theme.promotionsAnnouncementsHeaderText
         
-//        let backButton = UIButton(type: .custom)
-//        backButton.tintColor = theme.headerTextColor
-//        if theme.leftBarButtonImage != nil {
-//            backButton.setImage(theme.leftBarButtonImage, for: .normal)
-//            backButton.tintColor = theme.headerTextColor
-//        }
-//        backButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-//        backButton.addTarget(self, action: #selector(backButtonClicked), for: .touchUpInside)
-//        let item = UIBarButtonItem(customView: backButton)
-//        self.navigationItem.setLeftBarButton(item, animated: false)
+        //        let backButton = UIButton(type: .custom)
+        //        backButton.tintColor = theme.headerTextColor
+        //        if theme.leftBarButtonImage != nil {
+        //            backButton.setImage(theme.leftBarButtonImage, for: .normal)
+        //            backButton.tintColor = theme.headerTextColor
+        //        }
+        //        backButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        //        backButton.addTarget(self, action: #selector(backButtonClicked), for: .touchUpInside)
+        //        let item = UIBarButtonItem(customView: backButton)
+        //        self.navigationItem.setLeftBarButton(item, animated: false)
         
-//        let btnleft : UIButton = UIButton(frame: CGRect(x:0, y:0, width:35, height:35))
-//        btnleft.setTitleColor(UIColor.white, for: .normal)
-//        btnleft.contentMode = .left
-//        btnleft.setImage(UIImage(named :"iconBackTitleBar"), for: .normal)
-//        btnleft.addTarget(self, action: #selector(backButtonClicked), for: .touchDown)
-//        let backBarButon: UIBarButtonItem = UIBarButtonItem(customView: btnleft)
-//        backBarButon.tintColor = theme.logoutButtonTintColor ?? theme.headerTextColor
-//        self.navigationItem.setLeftBarButtonItems([backBarButon], animated: false)
+        //        let btnleft : UIButton = UIButton(frame: CGRect(x:0, y:0, width:35, height:35))
+        //        btnleft.setTitleColor(UIColor.white, for: .normal)
+        //        btnleft.contentMode = .left
+        //        btnleft.setImage(UIImage(named :"iconBackTitleBar"), for: .normal)
+        //        btnleft.addTarget(self, action: #selector(backButtonClicked), for: .touchDown)
+        //        let backBarButon: UIBarButtonItem = UIBarButtonItem(customView: btnleft)
+        //        backBarButon.tintColor = theme.logoutButtonTintColor ?? theme.headerTextColor
+        //        self.navigationItem.setLeftBarButtonItems([backBarButon], animated: false)
         
         if theme.leftBarButtonImage != nil {
             let btnleft = UIBarButtonItem(image: theme.leftBarButtonImage, landscapeImagePhone: nil, style: .done, target: self, action: #selector(backButtonClicked))
@@ -161,16 +161,16 @@ class PromotionsViewController: UIViewController {
             self.navigationItem.leftBarButtonItems = [btnleft]
         }
         
-//        if let deleteImage = UIImage(named: "", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate){
-            let deleteAllAnnouncementsButton = UIBarButtonItem(title: "Clear All", style: .done, target: self, action: #selector(deleteAllAnnouncementsButtonClicked))
-            deleteAllAnnouncementsButton.setTitleTextAttributes([
-                NSAttributedString.Key.font : UIFont.regular(ofSize: 14),
+        //        if let deleteImage = UIImage(named: "", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate){
+        let deleteAllAnnouncementsButton = UIBarButtonItem(title: "Clear All", style: .done, target: self, action: #selector(deleteAllAnnouncementsButtonClicked))
+        deleteAllAnnouncementsButton.setTitleTextAttributes([
+            NSAttributedString.Key.font : UIFont.regular(ofSize: 14),
             NSAttributedString.Key.foregroundColor : UIColor.darkGray,
         ], for: .normal)
-            deleteAllAnnouncementsButton.tintColor = theme.logoutButtonTintColor ?? theme.headerTextColor//theme.themeColor//
-            self.navigationItem.rightBarButtonItem = deleteAllAnnouncementsButton
-            self.navigationItem.rightBarButtonItems = [deleteAllAnnouncementsButton]
-     //   }
+        deleteAllAnnouncementsButton.tintColor = theme.logoutButtonTintColor ?? theme.headerTextColor//theme.themeColor//
+        self.navigationItem.rightBarButtonItem = deleteAllAnnouncementsButton
+        self.navigationItem.rightBarButtonItems = [deleteAllAnnouncementsButton]
+        //   }
         
     }
     @objc func backButtonClicked() {
@@ -207,7 +207,7 @@ class PromotionsViewController: UIViewController {
         showOptionAlert(title: "", message: "Are you sure, you want to clear all Notifications?", successButtonName: "YES", successComplete: { (_) in
             
             self.clearAnnouncements(indexPath: IndexPath(row: 0, section: 0), isDeleteAllStatus: 1)
-             FuguDefaults.removeObject(forKey: DefaultName.appointmentData.rawValue)
+            FuguDefaults.removeObject(forKey: DefaultName.appointmentData.rawValue)
             
         }, failureButtonName: "NO", failureComplete: nil)
     }
@@ -218,7 +218,7 @@ class PromotionsViewController: UIViewController {
         
         HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: AgentEndPoints.getAnnouncements.rawValue) { (response, error, _, statusCode) in
             
-           // self.stopLoaderAnimation()
+            // self.stopLoaderAnimation()
             
             if error == nil{
                 self.refreshControl.endRefreshing()
@@ -270,7 +270,7 @@ class PromotionsViewController: UIViewController {
     }
     
     func clearAnnouncements(indexPath: IndexPath, isDeleteAllStatus: Int){
-    
+        
         var params = [String : Any]()
         if isDeleteAllStatus == 0{
             //self.channelIdsArr.append(data[indexPath.row].channelID)
@@ -283,7 +283,7 @@ class PromotionsViewController: UIViewController {
         }
         
         HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: AgentEndPoints.clearAnnouncements.rawValue) { (response, error, _, statusCode) in
-
+            
             self.channelIdsArr.removeAll()
             
             if error == nil
@@ -310,7 +310,7 @@ class PromotionsViewController: UIViewController {
             }
         }
     }
-
+    
 }
 
 extension PromotionsViewController: UITableViewDelegate,UITableViewDataSource
@@ -328,29 +328,29 @@ extension PromotionsViewController: UITableViewDelegate,UITableViewDataSource
             
             cell.selectionStyle = .none
             cell.backgroundColor = .clear
-//            cell.promotionTitle.text = "This is a new tittle"
-//            cell.descriptionLabel.text = "This is description of promotion in a new format"
-         //   cell.set(data: data[indexPath.row])
+            //            cell.promotionTitle.text = "This is a new tittle"
+            //            cell.descriptionLabel.text = "This is description of promotion in a new format"
+            //   cell.set(data: data[indexPath.row])
             
             return cell
         } else {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "PromotionTableViewCell", for: indexPath) as? PromotionTableViewCell else {
-            return UITableView.defaultCell()
-        }
-        
-        cell.selectionStyle = .none
-        cell.backgroundColor = .clear
-      
-        cell.set(data: data[indexPath.row])
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "PromotionTableViewCell", for: indexPath) as? PromotionTableViewCell else {
+                return UITableView.defaultCell()
+            }
             
-        cell.showReadMoreLessButton.tag = indexPath.row
-        cell.showReadMoreLessButton.addTarget(self, action: #selector(expandCellSize(_:)), for: .touchUpInside)
-        //cell.descriptionLabel.numberOfLines = 2
-        let values = data[indexPath.row]
-        cell.promotionTitle.text = values.title ?? ""
+            cell.selectionStyle = .none
+            cell.backgroundColor = .clear
             
-        cell.fullDescriptionLabel.text = values.description
-
+            cell.set(data: data[indexPath.row])
+            
+            cell.showReadMoreLessButton.tag = indexPath.row
+            cell.showReadMoreLessButton.addTarget(self, action: #selector(expandCellSize(_:)), for: .touchUpInside)
+            //cell.descriptionLabel.numberOfLines = 2
+            let values = data[indexPath.row]
+            cell.promotionTitle.text = values.title ?? ""
+            
+            cell.fullDescriptionLabel.text = values.description
+            
             cell.descriptionLabel.text = values.description
             if (values.description?.count)! > 150{
                 cell.showReadMoreLessButton.isHidden = false
@@ -364,27 +364,33 @@ extension PromotionsViewController: UITableViewDelegate,UITableViewDataSource
                 cell.descriptionLabel.isHidden = false
                 cell.fullDescriptionLabel.isHidden = true
                 //cell.showReadMoreLessButton.setTitle("Read More", for: .normal)
-                let attrs = NSAttributedString(string: "Read more",
-                                               attributes:
-                    [NSAttributedString.Key.foregroundColor: UIColor(red:109.0/255.0, green:212.0/255.0, blue:0.0/255.0, alpha:1.0),
-                     NSAttributedString.Key.font: UIFont.regular(ofSize: 16.0),
-                     NSAttributedString.Key.underlineColor: UIColor(red:109.0/255.0, green:212.0/255.0, blue:0.0, alpha:1.0),
-                     NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue])
-                cell.showReadMoreLessButton.setAttributedTitle(attrs, for: .normal)
+                //                let attrs = NSAttributedString(string: "Read more",
+                //                                               attributes:
+                //                    [NSAttributedString.Key.foregroundColor: UIColor(red:109.0/255.0, green:212.0/255.0, blue:0.0/255.0, alpha:1.0),
+                //                     NSAttributedString.Key.font: UIFont.regular(ofSize: 16.0),
+                //                     NSAttributedString.Key.underlineColor: UIColor(red:109.0/255.0, green:212.0/255.0, blue:0.0, alpha:1.0),
+                //                     NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue])
+                //                cell.showReadMoreLessButton.setAttributedTitle(attrs, for: .normal)
+                cell.showReadMoreLessButton.setTitle("Read More", for: .normal)
+                cell.showReadMoreLessButton.titleLabel?.font = UIFont.regular(ofSize: 14.0)
+                cell.showReadMoreLessButton.setTitleColor(HippoConfig.shared.theme.themeColor, for: .normal)
+                
             }else if states[indexPath.row] == false{
                 cell.descriptionLabel.isHidden = true
                 cell.fullDescriptionLabel.isHidden = false
-                //cell.showReadMoreLessButton.setTitle("Read Less", for: .normal)
-                let attrs = NSAttributedString(string: "Read less",
-                                               attributes:
-                    [NSAttributedString.Key.foregroundColor: UIColor(red:109.0/255.0, green:212.0/255.0, blue:0.0, alpha:1.0),
-                     NSAttributedString.Key.font: UIFont.regular(ofSize: 16.0),
-                     NSAttributedString.Key.underlineColor: UIColor(red:109.0/255.0, green:212.0/255.0, blue:0.0, alpha:1.0),
-                     NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue])
-                cell.showReadMoreLessButton.setAttributedTitle(attrs, for: .normal)
+                cell.showReadMoreLessButton.setTitle("Read Less", for: .normal)
+                cell.showReadMoreLessButton.titleLabel?.font = UIFont.regular(ofSize: 14.0)
+                cell.showReadMoreLessButton.setTitleColor(HippoConfig.shared.theme.themeColor, for: .normal)
+                //                let attrs = NSAttributedString(string: "Read less",
+                //                                               attributes:
+                //                    [NSAttributedString.Key.foregroundColor: UIColor(red:109.0/255.0, green:212.0/255.0, blue:0.0, alpha:1.0),
+                //                     NSAttributedString.Key.font: UIFont.regular(ofSize: 16.0),
+                //                     NSAttributedString.Key.underlineColor: UIColor(red:109.0/255.0, green:212.0/255.0, blue:0.0, alpha:1.0),
+                //                     NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue])
+                //                cell.showReadMoreLessButton.setAttributedTitle(attrs, for: .normal)
             }else{}
             
-        return cell
+            return cell
         }
         
         
@@ -411,18 +417,18 @@ extension PromotionsViewController: UITableViewDelegate,UITableViewDataSource
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }
-
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let promotionData = data[indexPath.row] as? PromotionCellDataModel{
             if let deepLink = promotionData.deepLink as? String{
                 if deepLink == "3x67AU1"{
-                   HippoConfig.shared.getDeepLinkData(promotionData.customAttributeData ?? [String : Any]())
+                    HippoConfig.shared.getDeepLinkData(promotionData.customAttributeData ?? [String : Any]())
                 }
             }
         }
     }
     
-   
+    
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
@@ -431,13 +437,13 @@ extension PromotionsViewController: UITableViewDelegate,UITableViewDataSource
     }
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if (editingStyle == .delete) {
-           
+            
             showOptionAlert(title: "", message: "Are you sure, you want to clear Notification?", successButtonName: "YES", successComplete: { (_) in
                 
                 self.clearAnnouncements(indexPath: indexPath, isDeleteAllStatus: 0)
                 
             }, failureButtonName: "NO", failureComplete: nil)
-        
+            
         }
     }
     
@@ -506,7 +512,7 @@ extension PromotionsViewController{
         checkNetworkConnection()
     }
     
-
+    
     func checkNetworkConnection() {
         errorLabel.backgroundColor = UIColor.red
         if FuguNetworkHandler.shared.isNetworkConnected {
@@ -522,11 +528,11 @@ extension PromotionsViewController{
     
     // MARK: - HELPER
     func updateErrorLabelView(isHiding: Bool) {
-
+        
         if isHiding {
             if self.viewError_Height.constant == 20 {
                 fuguDelay(3, completion: {
-                   // self.errorLabelTopConstraint.constant = -20
+                    // self.errorLabelTopConstraint.constant = -20
                     self.errorLabel.text = ""
                     self.viewError_Height.constant = 0
                     self.view.layoutIfNeeded()

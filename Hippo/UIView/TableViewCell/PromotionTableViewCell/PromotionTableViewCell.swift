@@ -23,9 +23,9 @@ class PromotionTableViewCell: UITableViewCell {
     @IBOutlet weak var promotionImage: UIImageView!
     @IBOutlet weak var imageHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var titleTopConstraint: NSLayoutConstraint!
-    
     @IBOutlet weak var showReadMoreLessButton: UIButton!
     @IBOutlet weak var showReadMoreLessButtonHeightConstraint: NSLayoutConstraint!
+    
     
     var data: PromotionCellDataModel?
 //    weak var delegate: PromotionTableViewCellDelegate?
@@ -33,7 +33,7 @@ class PromotionTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.setUpUI()
-        showReadMoreLessButton.backgroundColor = HippoConfig.shared.theme.themeColor
+        
         // Initialization code
     }
 
@@ -55,16 +55,16 @@ class PromotionTableViewCell: UITableViewCell {
         //promotionTitle.textColor = HippoConfig.shared.theme.titleTextColor
         promotionTitle.textColor = .black//HippoConfig.shared.theme.conversationTitleColor.withAlphaComponent(1)
           
-        descriptionLabel.textColor = UIColor(red: 90, green: 90, blue: 90, alpha: 1.0) //.darkText//HippoConfig.shared.theme.descriptionTextColor
+        descriptionLabel.textColor = UIColor(red: 90/255, green: 90/255, blue: 90/255, alpha: 1.0) //.darkText//HippoConfig.shared.theme.descriptionTextColor
         descriptionLabel.font = HippoConfig.shared.theme.descriptionFont
 //        descriptionLabel.font = UIFont.boldSystemFont(ofSize: 11)
 //        descriptionLabel.numberOfLines = 2
         
-        fullDescriptionLabel.textColor = .darkText//HippoConfig.shared.theme.descriptionTextColor
+        fullDescriptionLabel.textColor = UIColor(red: 90/255, green: 90/255, blue: 90/255, alpha: 1.0)//HippoConfig.shared.theme.descriptionTextColor
         fullDescriptionLabel.font = HippoConfig.shared.theme.descriptionFont
         
         dateTimeLabel.font = HippoConfig.shared.theme.dateTimeFontSize
-        dateTimeLabel.textColor = .darkText//HippoConfig.shared.theme.descriptionTextColor//incomingMsgDateTextColor//
+        dateTimeLabel.textColor = UIColor(red: 113/255, green: 113/255, blue: 113/255, alpha: 1.0) //HippoConfig.shared.theme.descriptionTextColor//incomingMsgDateTextColor//
     }
     
     func set(data: PromotionCellDataModel){
