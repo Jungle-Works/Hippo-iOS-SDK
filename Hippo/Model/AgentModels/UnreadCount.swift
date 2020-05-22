@@ -240,6 +240,7 @@ extension UnreadCount{
                 FuguDefaults.set(value: unreadHashMap, forKey: DefaultName.agentTotalUnreadHashMap.rawValue)
                 UserDefaults.standard.set(unreadCount, forKey: DefaultName.agentUnreadCount.rawValue)
                 HippoConfig.shared.sendAgentUnreadCount(unreadCount)
+                HippoConfig.shared.sendAgentChannelsUnreadCount(unreadHashMap.count)
             }
         }
      }

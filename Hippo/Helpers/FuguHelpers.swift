@@ -320,6 +320,7 @@ func removeChannelForUnreadCount(_ channelId : Int){
             let newUnreadCount = totalUnreadCount - channelUnreadCount
             HippoConfig.shared.sendAgentUnreadCount(newUnreadCount)
             channelList.removeValue(forKey: "\(channelId)")
+            HippoConfig.shared.sendAgentChannelsUnreadCount(channelList.count)
             FuguDefaults.set(value: channelList, forKey: DefaultName.agentTotalUnreadHashMap.rawValue)
             UserDefaults.standard.set(newUnreadCount, forKey: DefaultName.agentUnreadCount.rawValue)
         }
@@ -341,6 +342,7 @@ func calculateTotalAgentUnreadCount(_ channelId : Int, _ unreadCount : Int){
             UserDefaults.standard.set(totalUnreadCount, forKey: DefaultName.agentUnreadCount.rawValue)
             //send delegate
             HippoConfig.shared.sendAgentUnreadCount(totalUnreadCount)
+            HippoConfig.shared.sendAgentChannelsUnreadCount(channelList.count)
         }else{
             // if channel id doesnot exist in list
             channelList["\(channelId)"] = 1
@@ -350,7 +352,7 @@ func calculateTotalAgentUnreadCount(_ channelId : Int, _ unreadCount : Int){
             UserDefaults.standard.set(totalUnreadCount, forKey: DefaultName.agentUnreadCount.rawValue)
             //send delegate
             HippoConfig.shared.sendAgentUnreadCount(totalUnreadCount)
-            
+            HippoConfig.shared.sendAgentChannelsUnreadCount(channelList.count)
         }
     }
 }
