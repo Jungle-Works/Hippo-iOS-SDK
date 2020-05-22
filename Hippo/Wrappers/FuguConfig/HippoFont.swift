@@ -7,13 +7,10 @@
 
 import Foundation
 
-@objcMembers public class HippoFont : NSObject {
-    
-    public static let shared = HippoFont()
-    
-    open var regularFont = ""
-    open var boldFont = ""
-    open var lightFont = ""
+public class HippoFont : NSObject {
+
+    public static var regularFont = ""
+    public static var boldFont = ""
+   // open var lightFont = ""
     
 }
-
