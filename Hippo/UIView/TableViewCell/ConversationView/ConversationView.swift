@@ -121,7 +121,7 @@ extension ConversationView {
             //         timeLabel.font = UIFont(name:"HelveticaNeue-Bold", size: 12.0)
               
             unreadCountLabel.text = "  \(unreadCount)  "
-            view_Unread.backgroundColor = UIColor(red: 244/255, green: 64/255, blue: 67/255, alpha: 1.0)//.red//HippoConfig.shared.theme.themeColor
+            view_Unread.backgroundColor = HippoConfig.shared.theme.unreadCountColor
                 //#colorLiteral(red: 0.8666666667, green: 0.09019607843, blue: 0.1176470588, alpha: 1).withAlphaComponent(isThisChatOpened(opened: isOpened))
             view_Unread.layer.cornerRadius = view_Unread.frame.size.height/2
             unreadCountLabel.textColor = UIColor.white
