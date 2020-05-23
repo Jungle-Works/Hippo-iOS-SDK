@@ -18,13 +18,17 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
 
     // MARK: - IBOutlets
     @IBOutlet weak var newConversationBiutton: UIButton!
-    @IBOutlet var showConversationsTableView: UITableView!
+    @IBOutlet var showConversationsTableView: UITableView!{
+        didSet{
+            showConversationsTableView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0)
+        }
+    }
     @IBOutlet var navigationBackgroundView: UIView!
     //   @IBOutlet var navigationTitleLabel: UILabel!
     @IBOutlet var backButton: UIBarButtonItem!
     @IBOutlet weak var errorContentView: UIView!
     @IBOutlet var errorLabel: UILabel!
-    @IBOutlet var errorLabelTopConstraint: NSLayoutConstraint!
+   // @IBOutlet var errorLabelTopConstraint: NSLayoutConstraint!
     @IBOutlet var poweredByFuguLabel: UILabel!
     @IBOutlet weak var heightOfBottomLabel: NSLayoutConstraint!
     //   @IBOutlet weak var heightofNavigationBar: NSLayoutConstraint!
@@ -37,6 +41,8 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     @IBOutlet weak var bottomViewLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var width_NewConversation : NSLayoutConstraint!
     @IBOutlet weak var view_NewConversationBtn : UIView!
+    @IBOutlet weak var height_ErrorLabel : NSLayoutConstraint!
+    @IBOutlet weak var view_NavigationBar : NavigationBar!
     
     // MARK: - PROPERTIES
     let refreshControl = UIRefreshControl()
@@ -56,7 +62,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         super.viewDidLoad()
         
         self.automaticallyAdjustsScrollViewInsets = false
-        navigationSetUp()
+       // navigationSetUp()
         uiSetup()
         addObservers()
         _ = handleIntialCustomerForm()
@@ -91,14 +97,20 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
             getAllConversations()
         }
         
+        view_NavigationBar.title = config.title ?? HippoConfig.shared.theme.headerText
+        view_NavigationBar.leftButton.addTarget(self, action: #selector(backButtonAction(_:)), for: .touchUpInside)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+      
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        self.height_ErrorLabel.constant = 0
         checkNetworkConnection()
 
-        self.navigationController?.setTheme()
-        self.navigationController?.isNavigationBarHidden = false
-        
+      //  self.navigationController?.setTheme()
+        self.navigationController?.isNavigationBarHidden = true
         self.setUpTabBar()
         
 //        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
@@ -152,7 +164,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
             guard success else {
                 let errorMessage = error?.localizedDescription ?? "Something went wrong."
                 
-                self?.tableViewDefaultText = errorMessage + "\n Please tap to retry."
+                //self?.tableViewDefaultText = errorMessage + "\n Please tap to retry."
                 self?.arrayOfConversation = []
                 self?.showConversationsTableView?.reloadData()
                 return
@@ -228,12 +240,12 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     showConversationsTableView.contentInset.bottom = 70
 //    addLogoutButton()
     
-    poweredByFuguLabel.attributedText = attributedStringForLabelForTwoStrings("Runs on ", secondString: "Hippo", colorOfFirstString: HippoConfig.shared.powererdByColor, colorOfSecondString: HippoConfig.shared.FuguColor, fontOfFirstString: HippoConfig.shared.poweredByFont, fontOfSecondString: HippoConfig.shared.FuguStringFont, textAlighnment: .center, dateAlignment: .center)
+    //poweredByFuguLabel.attributedText = attributedStringForLabelForTwoStrings("Runs on ", secondString: "Hippo", colorOfFirstString: HippoConfig.shared.powererdByColor, colorOfSecondString: HippoConfig.shared.FuguColor, fontOfFirstString: HippoConfig.shared.poweredByFont, fontOfSecondString: HippoConfig.shared.FuguStringFont, textAlighnment: .center, dateAlignment: .center)
     
-    let tap = UITapGestureRecognizer(target: self, action: #selector(self.openFuguChatWebLink(_:)))
-    poweredByFuguLabel.addGestureRecognizer(tap)
+//    let tap = UITapGestureRecognizer(target: self, action: #selector(self.openFuguChatWebLink(_:)))
+//    poweredByFuguLabel.addGestureRecognizer(tap)
     
-    updateBottomLabel()
+//    updateBottomLabel()
     
     }
     func addLogoutButton() {
@@ -277,12 +289,12 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
 
     func navigationSetUp() {
         
-        navigationBackgroundView.layer.shadowColor = UIColor.black.cgColor
-        navigationBackgroundView.layer.shadowOpacity = 0.25
-        navigationBackgroundView.layer.shadowOffset = CGSize(width: 0, height: 1.0)
-        navigationBackgroundView.layer.shadowRadius = 4
-        
-        navigationBackgroundView.backgroundColor = HippoConfig.shared.theme.headerBackgroundColor
+//        navigationBackgroundView.layer.shadowColor = UIColor.black.cgColor
+//        navigationBackgroundView.layer.shadowOpacity = 0.25
+//        navigationBackgroundView.layer.shadowOffset = CGSize(width: 0, height: 1.0)
+//        navigationBackgroundView.layer.shadowRadius = 4
+//
+//        navigationBackgroundView.backgroundColor = HippoConfig.shared.theme.headerBackgroundColor
         
         backButton.tintColor = HippoConfig.shared.theme.headerTextColor
         
@@ -315,10 +327,9 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     func checkNetworkConnection() {
         errorLabel.backgroundColor = UIColor.red
         if FuguNetworkHandler.shared.isNetworkConnected {
-            errorLabelTopConstraint.constant = -20
+            errorLabel.text = ""
             updateErrorLabelView(isHiding: true)
         } else {
-            errorLabelTopConstraint.constant = -20
             errorLabel.text = HippoConfig.shared.strings.noNetworkConnection
             updateErrorLabelView(isHiding: false)
         }
@@ -433,8 +444,8 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         guard conversationChatType != .closeChat else {
             return
         }
-        self.openChatButton.titleLabel?.font = UIFont.regular(ofSize: 15)
-        self.closeChatButton.titleLabel?.font = UIFont.bold(ofSize: 15)
+        self.openChatButton.titleLabel?.font = UIFont.regular(ofSize: 16)
+        self.closeChatButton.titleLabel?.font = UIFont.bold(ofSize: 16)
         self.view_NewConversationBtn.isHidden = true
         conversationChatType = .closeChat
         animateBottomLineView()
@@ -446,28 +457,35 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         self.arrayOfConversation.removeAll()
         self.arrayOfConversation = self.ongoingConversationArr
         self.showConversationsTableView.reloadData()
-        if self.arrayOfConversation.count <= 0 {
-            self.tableViewDefaultText = HippoConfig.shared.emptyChannelListText//"No Conversation found!!"
-            DispatchQueue.main.async {
-                self.showConversationsTableView.reloadData()
-            }
-        }else{
+        //        if self.arrayOfConversation.count <= 0 {
+        //            noConversationFound()
+        //            DispatchQueue.main.async {
+        //                self.showConversationsTableView.reloadData()
+        //            }
+        //        }else{
+        self.noConversationFound()
+        if self.arrayOfConversation.count > 0{
             self.showConversationsTableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: .top, animated: true)
         }
+        
+        // }
     }
     
     func showcloseChatData(){
         self.arrayOfConversation.removeAll()
         self.arrayOfConversation = self.closedConversationArr
         self.showConversationsTableView.reloadData()
-        if self.arrayOfConversation.count <= 0 {
-            self.tableViewDefaultText = HippoConfig.shared.emptyChannelListText//"No Conversation found!!"
-            DispatchQueue.main.async {
-                self.showConversationsTableView.reloadData()
-            }
-        }else{
+        //        if self.arrayOfConversation.count <= 0 {
+        noConversationFound()
+        if self.arrayOfConversation.count > 0{
             self.showConversationsTableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: .top, animated: true)
         }
+        //            DispatchQueue.main.async {
+        //                self.showConversationsTableView.reloadData()
+        //            }
+        //        }else{
+        //            self.showConversationsTableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: .top, animated: true)
+        
     }
     
     func animateBottomLineView() {
@@ -520,14 +538,11 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
                 return
             }
             
-            if result.conversations!.count == 0 {
-                self?.tableViewDefaultText = HippoConfig.shared.emptyChannelListText//"No Conversation found!!"
-                DispatchQueue.main.async {
-                    self?.showConversationsTableView.reloadData()
-                }
+            if result.conversations?.count == 0 {
                 self?.openDefaultChannel()
                 return
             }
+            self?.noConversationFound()
             var conversation = result.conversations!
             if self?.config.isStaticRemoveConversation ?? false, let status = self?.config.enabledChatStatus, !status.isEmpty {
                 let lastChannelId = self?.config.lastChannelId ?? -12
@@ -557,29 +572,60 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     }
     
     func filterConversationArr(conversationArr:[FuguConversation]){
-        if conversationArr.count <= 0 {
-            self.tableViewDefaultText = HippoConfig.shared.emptyChannelListText//"No Conversation found!!"
-            DispatchQueue.main.async {
-                self.showConversationsTableView.reloadData()
-            }
-            return
-        }else{
-            var tempArrayOfConversation = [FuguConversation]()
-            tempArrayOfConversation = conversationArr
-            
-            self.ongoingConversationArr.removeAll()
-            self.ongoingConversationArr = tempArrayOfConversation.filter{$0.channelStatus.rawValue == 1}
-            
-            self.closedConversationArr.removeAll()
-            self.closedConversationArr = tempArrayOfConversation.filter{$0.channelStatus.rawValue == 2}
-            
-            if self.conversationChatType == .openChat{
-                self.showOpenChatData()
-            }else if self.conversationChatType == .closeChat{
-                self.showcloseChatData()
-            }else{}
-        }
+        //        if conversationArr.count <= 0 {
+        //            self.noConversationFound()
+        //            DispatchQueue.main.async {
+        //                self.showConversationsTableView.reloadData()
+        //            }
+        //            return
+        //        }else{
+        self.noConversationFound()
+        var tempArrayOfConversation = [FuguConversation]()
+        tempArrayOfConversation = conversationArr
+        
+        self.ongoingConversationArr.removeAll()
+        self.ongoingConversationArr = tempArrayOfConversation.filter{$0.channelStatus.rawValue == 1}
+        
+        self.closedConversationArr.removeAll()
+        self.closedConversationArr = tempArrayOfConversation.filter{$0.channelStatus.rawValue == 2}
+        
+        if self.conversationChatType == .openChat{
+            self.showOpenChatData()
+        }else if self.conversationChatType == .closeChat{
+            self.showcloseChatData()
+        }else{}
+        //        }
     }
+    
+    func noConversationFound(){
+        if self.arrayOfConversation.count <= 0{
+            //self.navigationItem.rightBarButtonItem?.tintColor = .clear
+            if informationView == nil {
+                informationView = InformationView.loadView(self.view.bounds, delegate: self)
+                informationView?.informationLabel.text = "You have no chats."
+            }
+            //self.showConversationsTableView.isHidden = true
+            self.informationView?.informationImageView.image = HippoConfig.shared.theme.noChatImage
+            self.informationView?.isHidden = false
+            self.showConversationsTableView.addSubview(informationView!)
+        }else{
+            for view in showConversationsTableView.subviews{
+                if view is InformationView{
+                     view.removeFromSuperview()
+                }
+            }
+            showConversationsTableView.layoutSubviews()
+            self.informationView?.isHidden = true
+            //self.navigationItem.rightBarButtonItem?.tintColor = HippoConfig.shared.theme.logoutButtonTintColor ?? HippoConfig.shared.theme.headerTextColor
+        }
+        
+        DispatchQueue.main.async {
+            self.showConversationsTableView.reloadData()
+        }
+        
+    }
+    
+    
     
     func openDefaultChannel() {
         HippoConfig.shared.notifyDidLoad()
@@ -605,31 +651,11 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     
     // MARK: - HELPER
     func updateErrorLabelView(isHiding: Bool) {
-        if errorLabelTopConstraint == nil || errorLabel == nil {
-            return
-        }
-        
-        if isHiding {
-            if self.errorLabelTopConstraint.constant == 0 {
-                fuguDelay(3, completion: {
-                    self.errorLabelTopConstraint.constant = -20
-                    self.errorLabel.text = ""
-                    
-                    //               UIView.animate(withDuration: 0.5, animations: {
-                    self.view.layoutIfNeeded()
-                    //               }, completion: {_ in
-                    self.errorLabel.backgroundColor = UIColor.red
-                    //               })
-                })
-            }
-            return
-        }
-        
-        if errorLabelTopConstraint.constant != 0 {
-            errorLabelTopConstraint.constant = 0
-            //         UIView.animate(withDuration: 0.5) {
-            self.view.layoutIfNeeded()
-            //         }
+        if isHiding{
+           self.height_ErrorLabel.constant = 0
+           errorLabel.text = ""
+        }else{
+            self.height_ErrorLabel.constant = 20
         }
     }
     

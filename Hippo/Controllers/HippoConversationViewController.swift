@@ -81,7 +81,8 @@ class HippoConversationViewController: UIViewController {
     @IBOutlet weak var errorContentView: UIView!
     @IBOutlet var errorLabel: UILabel!
     @IBOutlet var errorLabelTopConstraint: NSLayoutConstraint!
-    
+    @IBOutlet weak var view_Navigation : NavigationBarChat!
+    @IBOutlet weak var height_errorView : NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -181,27 +182,27 @@ class HippoConversationViewController: UIViewController {
     func showErrorMessage(messageString: String = "", bgColor: UIColor = UIColor.red) {
         var message = messageString.trimWhiteSpacesAndNewLine()
         message = message.isEmpty ? errorMessage  : messageString
-        
+
         guard !message.isEmpty else {
             hideErrorMessage()
             return
         }
         errorLabel.text = message
         errorLabel.backgroundColor = bgColor
-        
-        if errorLabelTopConstraint != nil && errorLabelTopConstraint.constant != 0 {
-            errorLabelTopConstraint.constant = 0
+
+        if height_errorView != nil && height_errorView.constant != 20 {
+            height_errorView.constant = 20
             view.layoutIfNeeded()
         }
     }
     
     func hideErrorMessage() {
-        let negativeheight: CGFloat = -20
-        guard errorLabelTopConstraint.constant != negativeheight else {
+        let height: CGFloat = 0
+        guard height_errorView.constant != height else {
             return
         }
         DispatchQueue.main.async {
-            self.errorLabelTopConstraint.constant = negativeheight
+            self.height_errorView.constant = height
             self.errorLabel.text = ""
             self.errorMessage = ""
             self.view.layoutIfNeeded()
@@ -211,19 +212,21 @@ class HippoConversationViewController: UIViewController {
     
     func updateErrorLabelView(isHiding: Bool, delay: Double = 3) {
         if isHiding {
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delay) {
-                self.errorLabelTopConstraint.constant = -20
-                self.errorLabel.text = ""
-                self.view.layoutIfNeeded()
-                self.errorLabel.backgroundColor = UIColor.red
+            if self.height_errorView.constant == 20 {
+                fuguDelay(3, completion: {
+                    // self.errorLabelTopConstraint.constant = -20
+                    self.errorLabel.text = ""
+                    self.height_errorView.constant = 0
+                    self.view.layoutIfNeeded()
+                    self.errorLabel.backgroundColor = UIColor.red
+                })
             }
             return
-        }
-        
-        if errorLabelTopConstraint != nil && errorLabelTopConstraint.constant != 0 {
-            self.errorLabelTopConstraint.constant = 0
+        }else{
+            height_errorView.constant = 20
             self.view.layoutIfNeeded()
         }
+        
     }
     
     func populateTableViewWithChannelData() {
@@ -535,30 +538,31 @@ class HippoConversationViewController: UIViewController {
 //        guard HippoConfig.shared.appUserType == .customer else {
 //            return
 //        }
-        let rectForNavigationTitle: CGRect = CGRect(x: 0, y: 0, width: 500, height: 100)
-        let navigationView: NavigationTitleView
-        if let parsedTitleForNavigation = titleForNavigation {
-            navigationView = parsedTitleForNavigation
-        } else {
-            navigationView = NavigationTitleView.loadView(rectForNavigationTitle, delegate: self)
-            titleForNavigation = navigationView
-        }
+//        let rectForNavigationTitle: CGRect = CGRect(x: 0, y: 0, width: 500, height: 100)
+//        let navigationView: NavigationTitleView
+//        if let parsedTitleForNavigation = titleForNavigation {
+//            navigationView = parsedTitleForNavigation
+//        } else {
+//            navigationView = NavigationTitleView.loadView(rectForNavigationTitle, delegate: self)
+//            titleForNavigation = navigationView
+//        }
         if let chatType = channel?.chatDetail?.chatType, chatType == .other {
             let title: String? = channel?.chatDetail?.channelName ?? label
-             navigationView.setData(imageUrl: userImage, name: title)
+             view_Navigation.setData(imageUrl: userImage, name: title)
         } else if labelId > 0, channel == nil {
-             navigationView.setData(imageUrl: userImage, name: label)
+             view_Navigation.setData(imageUrl: userImage, name: label)
         } else {
-             navigationView.hideProfileImage()
+             view_Navigation.hideProfileImage()
         }
-        navigationView.removeFromSuperview()
-        navigationView.setTitle(title: label)
+  //      navigationView.removeFromSuperview()
+        view_Navigation.setTitle(title: label)
         title = nil
-        let button = UIBarButtonItem(customView: navigationView)
+        //let button = UIBarButtonItem(customView: navigationView)
         if HippoConfig.shared.appUserType != .customer{
-            navigationView.hideProfileImage()
+            view_Navigation.hideProfileImage()
         }
-        navigationItem.leftBarButtonItem = button
+        view_Navigation.delegate = self
+   //     navigationItem.leftBarButtonItem = button
     }
     
     
@@ -638,6 +642,13 @@ class HippoConversationViewController: UIViewController {
         
         let call = CallData.init(peerData: peerDetail, callType: .video, muid: String.uuid(), signallingClient: channel)
         
+
+   /*     CallManager.shared.startCall(call: call) { (success) in
+             if !success {
+             assertionFailure("Cannot start the call")
+             }
+         }*/
+
         
 //        // #####-------USE THIS METHOD IF YOU ARE USING JITSI CALLING BARNCH FOR CALLING FEATURE -----#####
         CallManager.shared.startCall(call: call) { (success, error) in

@@ -108,7 +108,7 @@ class FuguNetworkHandler: NSObject {
             } else {
                 chatBoxVC.errorLabel.backgroundColor = UIColor.red
             }
-            if !isToLoadFirstTime && chatBoxVC.errorLabelTopConstraint.constant == -20 {
+            if !isToLoadFirstTime && chatBoxVC.height_errorView.constant == 0 {
                 chatBoxVC.errorLabel.backgroundColor = UIColor.red
                 chatBoxVC.updateErrorLabelView(isHiding: true)
             } else {
@@ -161,13 +161,13 @@ class FuguNetworkHandler: NSObject {
                 } else {
                     conversationVC.errorLabel.backgroundColor = UIColor.red
                 }
-                if !isToLoadFirstTime && conversationVC.errorLabelTopConstraint.constant == -20 {
-                    conversationVC.updateErrorLabelView(isHiding: true)
+                
+                if !isToLoadFirstTime && conversationVC.height_ErrorLabel.constant == 0 {
                     conversationVC.errorLabel.backgroundColor = UIColor.red
+                    conversationVC.updateErrorLabelView(isHiding: true)
                 } else {
-                    conversationVC.updateErrorLabelView(isHiding: false)
+                    conversationVC.updateErrorLabelView(isHiding: hidden)
                 }
-                //            conversationVC.updateErrorLabelView(isHiding: false)
             } else {
                 conversationVC.getAllConversations()
                 conversationVC.updateErrorLabelView(isHiding: hidden)
