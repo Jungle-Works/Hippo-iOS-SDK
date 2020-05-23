@@ -144,7 +144,7 @@ final class NavigationBarChat: UIView {
             return
         }
         
-        image_profile.contentMode = .scaleToFill
+        image_profile.contentMode = .scaleAspectFill
         image_profile.kf.setImage(with: url, placeholder: nil,  completionHandler: {(_, error, _, _) in
             guard let parsedError = error else {
                 return

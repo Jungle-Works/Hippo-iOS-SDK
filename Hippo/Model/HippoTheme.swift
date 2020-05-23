@@ -24,14 +24,14 @@ public struct ConversationListTheme {
     public var timeTheme: HippoLabelTheme
     
     static func normalTheme() -> ConversationListTheme {
-        let titleTheme: HippoLabelTheme = HippoLabelTheme(textColor: .black, textFont: UIFont.bold(ofSize: 16))
+        let titleTheme: HippoLabelTheme = HippoLabelTheme(textColor: .black, textFont: UIFont.bold(ofSize: 15))
         let lastMessageTheme: HippoLabelTheme = HippoLabelTheme(textColor: UIColor(red: 152/255 , green: 173/255, blue: 176/255, alpha: 1.0), textFont: UIFont.regular(ofSize: 14.0))
         let timeTheme: HippoLabelTheme = HippoLabelTheme(textColor: UIColor(red: 152/255 , green: 173/255, blue: 176/255, alpha: 1.0), textFont: UIFont.regular(ofSize: 12.0))
         return ConversationListTheme(titleTheme: titleTheme, lastMessageTheme: lastMessageTheme, timeTheme: timeTheme)
     }
     
     static func unReadTheme() -> ConversationListTheme {
-        let titleTheme: HippoLabelTheme = HippoLabelTheme(textColor: .black, textFont: UIFont.bold(ofSize: 16.0))
+        let titleTheme: HippoLabelTheme = HippoLabelTheme(textColor: .black, textFont: UIFont.bold(ofSize: 15.0))
         let lastMessageTheme: HippoLabelTheme = HippoLabelTheme(textColor: UIColor(red: 74/255 , green: 74/255, blue: 74/255, alpha: 1.0), textFont: UIFont.regular(ofSize: 14.0))
         let timeTheme: HippoLabelTheme = HippoLabelTheme(textColor: UIColor(red: 74/255 , green: 74/255, blue: 74/255, alpha: 1.0), textFont: UIFont.regular(ofSize: 12.0))
         
@@ -90,7 +90,7 @@ public struct ConversationListTheme {
     open var ongoingBtnText = "Current"
     open var pastBtnText = "Past"
     
-    open var headerTextFont: UIFont? = UIFont.bold(ofSize: 18.0)
+    open var headerTextFont: UIFont? = UIFont.bold(ofSize: 17.0)
     open var actionableMessageHeaderTextFont: UIFont? = UIFont.bold(ofSize: 16.0)
     open var actionableMessagePriceBoldFont: UIFont? = UIFont.bold(ofSize: 15.0)
     open var actionableMessageDescriptionFont: UIFont? = UIFont.bold(ofSize: 13.0)
