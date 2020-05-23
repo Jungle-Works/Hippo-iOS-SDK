@@ -33,7 +33,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var audioCAllButtonWidthConstraint: NSLayoutConstraint!
     @IBOutlet var backgroundView: UIView!
-   @IBOutlet var navigationBackgroundView: UIView!
+    @IBOutlet var navigationBackgroundView: UIView!
 //   @IBOutlet var navigationTitleLabel: UILabel!
 //   @IBOutlet var backButton: UIButton!
    
@@ -112,6 +112,9 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        view_Navigation.call_button.addTarget(self, action: #selector(audiCallButtonClicked(_:)), for: .touchUpInside)
+        view_Navigation.video_button.addTarget(self, action: #selector(videoButtonClicked(_:)), for: .touchUpInside)
+        
         collectionViewOptions?.delegate = self
         collectionViewOptions?.dataSource = self
         customTableView.isScrollEnabled = false//true
@@ -240,13 +243,15 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     //        }
     //    }
     
+    
+    
    override  func viewWillAppear(_ animated: Bool) {
       super.viewWillAppear(animated)
       tableViewChat.contentInset.top = 12
       messageTextView.contentInset.top = 8
-      self.navigationController?.isNavigationBarHidden = false
+      self.navigationController?.isNavigationBarHidden = true
         tableViewChat.allowsSelection = false
-    
+    checkNetworkConnection()
 //        if transparentView != nil{
 //            onClickTransparentView()
 //        }
@@ -318,12 +323,12 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         channel?.delegate = self
     }
     func navigationSetUp() {
-        navigationBackgroundView.layer.shadowColor = UIColor.black.cgColor
+        /*navigationBackgroundView.layer.shadowColor = UIColor.black.cgColor
         navigationBackgroundView.layer.shadowOpacity = 0.25
         navigationBackgroundView.layer.shadowOffset = CGSize(width: 0, height: 1.0)
         navigationBackgroundView.layer.shadowRadius = 4
         
-        navigationBackgroundView.backgroundColor = HippoConfig.shared.theme.headerBackgroundColor
+        navigationBackgroundView.backgroundColor = HippoConfig.shared.theme.headerBackgroundColor*/
         //      navigationTitleLabel.textColor = HippoConfig.shared.theme.headerTextColor
         //
         //      if HippoConfig.shared.theme.headerTextFont  != nil {
@@ -760,7 +765,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     func setThemeForBusiness() {
         let isMultiChannelLabelMapping = BussinessProperty.current.multiChannelLabelMapping && !forceHideActionButton
             
-        actionButton.title = nil
+     //   actionButton.title = nil
 //        actionButton.image = isMultiChannelLabelMapping ? HippoConfig.shared.theme.actionButtonIcon : nil
 //        actionButton.tintColor = HippoConfig.shared.theme.actionButtonIconTintColor
     }
@@ -981,7 +986,6 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         channel?.chatDetail = result.chatDetail
         
         setTitleForCustomNavigationBar()
-        
         handleVideoIcon()
         handleAudioIcon()
         
@@ -1028,20 +1032,12 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         
         if isDirectCallingEnabledFor(type: .video) {
             
-            let customVideoBtn : UIButton = UIButton()
-                       customVideoBtn.setImage(HippoConfig.shared.theme.videoCallIcon, for: .normal)
-                       customVideoBtn.frame = CGRect(x: 0, y: 0, width: 32, height: 32)
-                       customVideoBtn.addTarget(self, action:  #selector(videoButtonClicked), for: UIControl.Event.touchUpInside)
-                       videoButton.customView = customVideoBtn
-                       videoButton.tintColor = HippoConfig.shared.theme.headerTextColor
-                       videoButton.isEnabled = true
-                        videoButton.title = nil
-            
-            
+            view_Navigation.video_button.tintColor = HippoConfig.shared.theme.headerTextColor
+            view_Navigation.video_button.isEnabled = true
+            view_Navigation.video_button.setImage(HippoConfig.shared.theme.videoCallIcon, for: .normal)
         } else {
-            videoButton.title = ""
-            videoButton.image = nil
-            videoButton.isEnabled = false
+            view_Navigation.video_button.setImage(UIImage(), for: .normal)
+            view_Navigation.video_button.isEnabled = false
         }
     }
     func handleAudioIcon() {
@@ -1050,17 +1046,12 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         //image icon name = audioCallIcon
         
         if isDirectCallingEnabledFor(type: .audio) {
-            
-            let customAudioBtn : UIButton = UIButton()
-            customAudioBtn.setImage(HippoConfig.shared.theme.audioCallIcon, for: .normal)
-            customAudioBtn.frame = CGRect(x: 0, y: 0, width: 32, height: 32)
-            customAudioBtn.addTarget(self, action:  #selector(audiCallButtonClicked), for: UIControl.Event.touchUpInside)
-            audioCallButton.customView = customAudioBtn
-            audioCallButton.tintColor = HippoConfig.shared.theme.headerTextColor
-            audioCallButton.isEnabled = true
+            view_Navigation.call_button.tintColor = HippoConfig.shared.theme.headerTextColor
+            view_Navigation.call_button.isEnabled = true
+            view_Navigation.call_button.setImage(HippoConfig.shared.theme.audioCallIcon, for: .normal)
         } else {
-            audioCallButton.image = nil
-            audioCallButton.isEnabled = false
+            view_Navigation.call_button.setImage(UIImage(), for: .normal)
+            view_Navigation.call_button.isEnabled = false
         }
         
         

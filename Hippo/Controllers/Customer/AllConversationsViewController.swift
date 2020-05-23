@@ -101,13 +101,16 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         view_NavigationBar.leftButton.addTarget(self, action: #selector(backButtonAction(_:)), for: .touchUpInside)
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+      
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         self.height_ErrorLabel.constant = 0
         checkNetworkConnection()
 
       //  self.navigationController?.setTheme()
         self.navigationController?.isNavigationBarHidden = true
-        
         self.setUpTabBar()
         
 //        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false

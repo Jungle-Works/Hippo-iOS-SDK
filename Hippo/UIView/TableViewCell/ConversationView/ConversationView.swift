@@ -79,6 +79,8 @@ extension ConversationView {
        // timeLabel.textColor = UIColor.black.withAlphaComponent(0.37)
     }
     
+    
+    
     func configureConversationCell(resetProperties: Bool, conersationObj: FuguConversation) {
         if resetProperties {
             resetPropertiesOfConversationView()
@@ -117,12 +119,11 @@ extension ConversationView {
             //         headingLabel.font = UIFont(name:"HelveticaNeue-Bold", size: 15.0)
             //         chatTextLabel.font = UIFont(name:"HelveticaNeue-Bold", size: 12.0)
             //         timeLabel.font = UIFont(name:"HelveticaNeue-Bold", size: 12.0)
-            
+              
             unreadCountLabel.text = "  \(unreadCount)  "
-            view_Unread.backgroundColor = HippoConfig.shared.theme.themeColor
+            view_Unread.backgroundColor = UIColor(red: 244/255, green: 64/255, blue: 67/255, alpha: 1.0)//.red//HippoConfig.shared.theme.themeColor
                 //#colorLiteral(red: 0.8666666667, green: 0.09019607843, blue: 0.1176470588, alpha: 1).withAlphaComponent(isThisChatOpened(opened: isOpened))
-            view_Unread.layer.cornerRadius = 20/2
-         
+            view_Unread.layer.cornerRadius = view_Unread.frame.size.height/2
             unreadCountLabel.textColor = UIColor.white
            // timeLabel.textColor =  UIColor(red: 74/255 , green: 74/255, blue: 74/255, alpha: 1.0)
             
@@ -134,10 +135,10 @@ extension ConversationView {
             //         timeLabel.font = UIFont(name:"HelveticaNeue", size: 12.0)
         }
         
-        statusLabel.isHidden = isOpened
-        statusLabel.font = theme.timeTheme.textFont
-        statusLabel.textColor = HippoConfig.shared.theme.gradientTopColor
-        statusLabel.text = "closed"
+        statusLabel.isHidden = true
+//        statusLabel.font = theme.timeTheme.textFont
+//        statusLabel.textColor = HippoConfig.shared.theme.gradientTopColor
+//        statusLabel.text = "closed"
             
         headingLabel.setTheme(theme: theme.titleTheme)
         chatTextLabel.setTheme(theme: theme.lastMessageTheme)
@@ -211,7 +212,7 @@ extension ConversationView {
                 let message = messageString.isEmpty ? " sent a message" : messageString
                 messageToBeShown = ""
                 if !senderNAme.isEmpty {
-                    messageToBeShown = senderNAme + ": "
+                    //messageToBeShown = senderNAme + ": "
                 }
                 messageToBeShown += message
             }
