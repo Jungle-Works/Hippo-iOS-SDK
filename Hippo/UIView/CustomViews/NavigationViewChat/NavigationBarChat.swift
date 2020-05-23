@@ -39,7 +39,7 @@ final class NavigationBarChat: UIView {
             image_back.image = HippoConfig.shared.theme.leftBarButtonImage
         }
     }
-    @IBOutlet weak var descLabel : UILabel!
+   // @IBOutlet weak var descLabel : UILabel!
     
     
     var isLeftButtonHidden: Bool {
@@ -89,8 +89,8 @@ final class NavigationBarChat: UIView {
     
         hideProfileImage()
         
-        hideDescription()
-        descLabel.text = "tap to view info"
+       // hideDescription()
+       // descLabel.text = "tap to view info"
         titleLabel.text = ""
     }
     
@@ -116,26 +116,7 @@ final class NavigationBarChat: UIView {
                 delegate?.imageIconClicked?()
     //        }
         }
-    
-    
-    
-    
-    func hideDescription() {
-        UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseInOut, animations: {
-            self.descLabel.isHidden = true
-            //self.labelContainer.layoutIfNeeded()
-        }, completion: nil)
-    }
-    
-    func showDescription() {
-        UIView.animate(withDuration: 0.2, delay: 0, options: .transitionFlipFromTop, animations: {
-            self.descLabel.isHidden = false
-            //self.labelContainer.layoutIfNeeded()
-        }, completion: nil)
-    }
-    
-    
-    
+
     func setData(imageUrl: String?, name: String?) {
         showProfileImage()
         setNameAsTitle(name)

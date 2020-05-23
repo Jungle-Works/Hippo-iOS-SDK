@@ -16,7 +16,6 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NavigationBarChat" customModule="Hippo" customModuleProvider="target">
             <connections>
                 <outlet property="call_button" destination="i2f-CG-dFd" id="wnm-Ee-UAc"/>
-                <outlet property="descLabel" destination="j3b-Oh-0vG" id="SlA-q3-G2b"/>
                 <outlet property="image_back" destination="2BX-Lh-fkl" id="TPk-bG-Qer"/>
                 <outlet property="image_profile" destination="z7l-ty-HKT" id="oQp-nd-2ak"/>
                 <outlet property="leftButton" destination="7hR-Qt-lyZ" id="HYB-F0-d4i"/>
@@ -47,32 +46,30 @@
                         <action selector="backButtonClicked:" destination="-1" eventType="touchUpInside" id="TbB-0n-1QS"/>
                     </connections>
                 </button>
-                <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BJH-NH-5K7">
-                    <rect key="frame" x="78" y="79.5" width="384" height="28"/>
+                <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="u6w-pZ-spi">
+                    <rect key="frame" x="38" y="76" width="250" height="35"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="Navigation Bar Title" lineBreakMode="tailTruncation" minimumFontSize="12" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DXw-oN-sRE">
-                            <rect key="frame" x="0.0" y="0.0" width="384" height="28"/>
-                            <accessibility key="accessibilityConfiguration" identifier="topBarNavigation_titleLbl"/>
-                            <fontDescription key="fontDescription" name="SourceSansPro-Bold" family="Source Sans Pro" pointSize="24"/>
-                            <color key="textColor" red="0.16862745100000001" green="0.2274509804" blue="0.3294117647" alpha="1" colorSpace="calibratedRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" minimumFontSize="12" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="j3b-Oh-0vG">
-                            <rect key="frame" x="0.0" y="0.0" width="0.0" height="28"/>
-                            <accessibility key="accessibilityConfiguration" identifier="topBarNavigation_titleLbl"/>
-                            <fontDescription key="fontDescription" name="SourceSansPro-Bold" family="Source Sans Pro" pointSize="24"/>
-                            <color key="textColor" red="0.16862745100000001" green="0.2274509804" blue="0.3294117647" alpha="1" colorSpace="calibratedRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="z7l-ty-HKT">
+                            <rect key="frame" x="0.0" y="0.0" width="35" height="35"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="35" id="5gm-7Q-g7X"/>
+                                <constraint firstAttribute="width" secondItem="z7l-ty-HKT" secondAttribute="height" multiplier="1:1" id="xrz-1v-4S0"/>
+                            </constraints>
+                        </imageView>
+                        <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BJH-NH-5K7">
+                            <rect key="frame" x="40" y="0.0" width="210" height="35"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="Navigation Bar Title" lineBreakMode="tailTruncation" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DXw-oN-sRE">
+                                    <rect key="frame" x="0.0" y="0.0" width="210" height="35"/>
+                                    <accessibility key="accessibilityConfiguration" identifier="topBarNavigation_titleLbl"/>
+                                    <fontDescription key="fontDescription" name="SourceSansPro-Bold" family="Source Sans Pro" pointSize="24"/>
+                                    <color key="textColor" red="0.16862745100000001" green="0.2274509804" blue="0.3294117647" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                        </stackView>
                     </subviews>
                 </stackView>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="z7l-ty-HKT">
-                    <rect key="frame" x="38" y="76" width="35" height="35"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="35" id="5gm-7Q-g7X"/>
-                        <constraint firstAttribute="width" secondItem="z7l-ty-HKT" secondAttribute="height" multiplier="1:1" id="xrz-1v-4S0"/>
-                    </constraints>
-                </imageView>
                 <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jrQ-CH-Wi7">
                     <rect key="frame" x="462" y="76" width="70" height="35"/>
                     <subviews>
@@ -91,25 +88,20 @@
                             </constraints>
                         </button>
                     </subviews>
-                    <constraints>
-                        <constraint firstItem="iPf-KZ-a4V" firstAttribute="width" secondItem="i2f-CG-dFd" secondAttribute="width" id="Z2Y-k1-1pe"/>
-                    </constraints>
                 </stackView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="7hR-Qt-lyZ" firstAttribute="top" secondItem="ak3-Nx-eMw" secondAttribute="top" id="4RG-Hy-XrY"/>
-                <constraint firstItem="z7l-ty-HKT" firstAttribute="leading" secondItem="2BX-Lh-fkl" secondAttribute="trailing" constant="10" id="Ayf-eX-8Cp"/>
-                <constraint firstItem="BJH-NH-5K7" firstAttribute="leading" secondItem="z7l-ty-HKT" secondAttribute="trailing" constant="5" id="DF1-sr-F6a"/>
                 <constraint firstItem="2BX-Lh-fkl" firstAttribute="centerY" secondItem="xaR-2g-JC8" secondAttribute="centerY" id="GIB-sh-SFU"/>
+                <constraint firstItem="u6w-pZ-spi" firstAttribute="leading" secondItem="2BX-Lh-fkl" secondAttribute="trailing" constant="10" id="IUh-zF-AdS"/>
                 <constraint firstItem="jrQ-CH-Wi7" firstAttribute="centerY" secondItem="2BX-Lh-fkl" secondAttribute="centerY" id="PQv-jQ-WVl"/>
-                <constraint firstItem="jrQ-CH-Wi7" firstAttribute="leading" secondItem="BJH-NH-5K7" secondAttribute="trailing" id="UXq-BN-g0S"/>
+                <constraint firstItem="jrQ-CH-Wi7" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="u6w-pZ-spi" secondAttribute="trailing" constant="2" id="YEy-6s-3sg"/>
                 <constraint firstAttribute="bottom" secondItem="7hR-Qt-lyZ" secondAttribute="bottom" id="Zo7-ER-5wc"/>
-                <constraint firstItem="z7l-ty-HKT" firstAttribute="centerY" secondItem="2BX-Lh-fkl" secondAttribute="centerY" id="aEe-eF-d8K"/>
                 <constraint firstItem="xaR-2g-JC8" firstAttribute="trailing" secondItem="jrQ-CH-Wi7" secondAttribute="trailing" constant="10" id="fco-g6-zvI"/>
                 <constraint firstItem="7hR-Qt-lyZ" firstAttribute="leading" secondItem="ak3-Nx-eMw" secondAttribute="leading" id="hHI-7G-Zsx"/>
+                <constraint firstItem="u6w-pZ-spi" firstAttribute="centerY" secondItem="2BX-Lh-fkl" secondAttribute="centerY" id="rbh-y5-pjJ"/>
                 <constraint firstItem="2BX-Lh-fkl" firstAttribute="leading" secondItem="xaR-2g-JC8" secondAttribute="leading" constant="15" id="t3n-8X-gz2"/>
-                <constraint firstItem="BJH-NH-5K7" firstAttribute="centerY" secondItem="z7l-ty-HKT" secondAttribute="centerY" id="xfh-l1-vMY"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>

@@ -1035,7 +1035,9 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
             view_Navigation.video_button.tintColor = HippoConfig.shared.theme.headerTextColor
             view_Navigation.video_button.isEnabled = true
             view_Navigation.video_button.setImage(HippoConfig.shared.theme.videoCallIcon, for: .normal)
+            view_Navigation.video_button.isHidden = false
         } else {
+            view_Navigation.video_button.isHidden = true
             view_Navigation.video_button.setImage(UIImage(), for: .normal)
             view_Navigation.video_button.isEnabled = false
         }
@@ -1049,9 +1051,11 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
             view_Navigation.call_button.tintColor = HippoConfig.shared.theme.headerTextColor
             view_Navigation.call_button.isEnabled = true
             view_Navigation.call_button.setImage(HippoConfig.shared.theme.audioCallIcon, for: .normal)
+            view_Navigation.call_button.isHidden = false
         } else {
             view_Navigation.call_button.setImage(UIImage(), for: .normal)
             view_Navigation.call_button.isEnabled = false
+            view_Navigation.call_button.isHidden = true
         }
         
         
