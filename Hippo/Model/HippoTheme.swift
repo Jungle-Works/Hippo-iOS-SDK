@@ -88,7 +88,9 @@ public struct ConversationListTheme {
     open var actionableMessageDescriptionFont: UIFont? = UIFont.boldSystemFont(ofSize: 13.0)
     open var actionableMessageButtonFont: UIFont? = UIFont.boldSystemFont(ofSize: 16.0)
 
-    open var leftBarButtonImage: UIImage? = UIImage(named: "whiteBackButton", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+//    open var leftBarButtonImage: UIImage? = UIImage(named: "whiteBackButton", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+    open var leftBarButtonImage: UIImage? = UIImage(named: "back", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+    
     open var leftBarButtonArrowImage: UIImage? = UIImage(named: "back", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     open var closeChatImage: UIImage? = UIImage(named: "closeRed", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
 

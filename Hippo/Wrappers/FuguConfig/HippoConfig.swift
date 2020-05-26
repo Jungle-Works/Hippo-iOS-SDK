@@ -1091,10 +1091,11 @@ extension HippoConfig {
     
     func sendAgentUnreadCount(_ totalCount: Int) {
         HippoConfig.shared.delegate?.hippoAgentTotalUnreadCount(totalCount)
+        print("sendAgentUnreadCount====================",totalCount)
     }
     
-    func sendAgentChannelsUnreadCount(_ totalCount: Int) {
-        HippoConfig.shared.delegate?.hippoAgentTotalChannelsUnreadCount(totalCount)
+    func sendAgentChannelsUnreadCount(_ totalCount: Int) {        HippoConfig.shared.delegate?.hippoAgentTotalChannelsUnreadCount(totalCount)
+        print("sendAgentChannelsUnreadCount====================",totalCount)
     }
     
     func sendUnreadCount(_ totalCount: Int) {

@@ -49,6 +49,7 @@ class AgentHomeViewController: HippoHomeViewController {
     @IBOutlet weak var agentStatus: UISwitch!
 
     @IBOutlet weak var loaderContainer: UIView!
+    @IBOutlet weak var noChatsFoundImageView: So_UIImageView!
     @IBOutlet weak var centerErrorButton: UIButton!
     @IBOutlet weak var loaderImage: So_UIImageView!
     @IBOutlet weak var filterButton: UIButton!
@@ -221,7 +222,7 @@ extension AgentHomeViewController {
         if  HippoConfig.shared.agentDetail == nil || HippoConfig.shared.agentDetail!.oAuthToken.isEmpty {
             message = "Auth token is not found or found Empty"
         } else if !AgentConversationManager.isAnyApiOnGoing() && conversationList.isEmpty {
-            message = "No chat found for your business."
+            message = "You have no chats"//"No chat found for your business."
             enableButton = true
         }
         
@@ -232,11 +233,13 @@ extension AgentHomeViewController {
         guard !message.isEmpty, conversationList.isEmpty, !AgentConversationManager.isAnyApiOnGoing() else {
             buttonContainerView.isHidden = false
             centerErrorButton.isHidden = true
+            noChatsFoundImageView.isHidden = true
             return
         }
         loaderImage.isHidden = true
         loaderContainer.isHidden = true
         centerErrorButton.isHidden = false
+        noChatsFoundImageView.isHidden = false
         centerErrorButton.setTitle(message, for: .normal)
         centerErrorButton.isEnabled = enableButton
     }
@@ -468,6 +471,7 @@ extension AgentHomeViewController {
         loaderContainer.isHidden = false
         loaderContainer.alpha = 0
         centerErrorButton.isHidden = true
+        noChatsFoundImageView.isHidden = true
         loaderImage.isHidden = false
         loaderImage.startRotationAnimation()
         UIView.animate(withDuration: 0.3) {
@@ -485,6 +489,7 @@ extension AgentHomeViewController {
         loaderImage.isHidden = true
         loaderContainer.isHidden = true
         centerErrorButton.isHidden = true
+        noChatsFoundImageView.isHidden = true
     }
     
 }

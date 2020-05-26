@@ -14,6 +14,10 @@ protocol PaymentPlansViewDelegate: class {
 //    func stopLoaderAnimation()
 }
 
+protocol paymentCardPaymentOfCreatePaymentDelegate: AnyObject {
+    func paymentCardPaymentOfCreatePayment(isSuccessful: Bool)
+}
+
 class PaymentPlansViewController: UIViewController {
 
     @IBOutlet weak var cancelButton: UIBarButtonItem!
@@ -23,6 +27,7 @@ class PaymentPlansViewController: UIViewController {
     var datasource = PaymentPlansDataSource()
     let store = PaymentPlanStore()
     var channelId: UInt?
+    weak var sendNewPaymentDelegate: paymentCardPaymentOfCreatePaymentDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -113,6 +118,7 @@ class PaymentPlansViewController: UIViewController {
     
 }
 extension PaymentPlansViewController: PaymentPlansViewDelegate {
+    
     func plansUpdated() {
         let plans = store.plans
         
@@ -124,6 +130,7 @@ extension PaymentPlansViewController: PaymentPlansViewDelegate {
         datasource.plans = plans
         tableView.reloadData()
     }
+    
 }
 extension PaymentPlansViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -136,6 +143,7 @@ extension PaymentPlansViewController: UITableViewDelegate {
 extension PaymentPlansViewController: CreatePaymentDelegate {
     func sendMessage(for store: PaymentStore) {
         //code
+        print("")
     }
     func backButtonPressed(shouldUpdate: Bool) {
         if channelId != nil, store.plans.isEmpty {
@@ -146,5 +154,9 @@ extension PaymentPlansViewController: CreatePaymentDelegate {
             store.getPlans()
         }
     }
-
+    func paymentCardPayment(isSuccessful: Bool){
+        if isSuccessful == true{
+            self.sendNewPaymentDelegate?.paymentCardPaymentOfCreatePayment(isSuccessful: true)
+        }
+    }
 }

@@ -172,6 +172,9 @@ class AgentConversationViewController: HippoConversationViewController {
         titleButtonclicked()
     }
     
+    override func paymentCardPaymentOfCreatePaymentCalled(){
+        self.attachmentViewHeightConstraint.constant = 0
+    }
     
     func navigationSetUp() {
         setTitleButton()
@@ -1916,16 +1919,27 @@ extension AgentConversationViewController: BotTableDelegate {
         }
     }
     func sendFeedbackMessageToFaye() {
-        let message = HippoMessage(message: "Please provide a feedback for our conversation", type: .feedback, uniqueID: generateUniqueId(), chatType: chatType)
+//        let message = HippoMessage(message: "Please provide a feedback for our conversation", type: .feedback, uniqueID: generateUniqueId(), chatType: chatType)
+        let message = HippoMessage(message: "Please give your feedback", type: .feedback, uniqueID: generateUniqueId(), chatType: chatType)
         message.updateObject(with: message)
         channel.unsentMessages.append(message)
         self.addMessageToUIBeforeSending(message: message)
+        //messageTextView.resignFirstResponder()
         channel.send(message: message) {
             //            self.assignAlertView.backgroundColor = UIColor.fadedOrange
             //            self.assignAlertLabel.text = "Feedback request has been sent."
             //            self.updateAssignAlert(isAgentCanSendMsg: true)
             //            self.channel?.channelInfo?.isFeedbackAsked = true
+//            self.scrollTableViewToBottom(true)
+//            self.view.layoutIfNeeded()
+            self.attachmentViewHeightConstraint.constant = 0
         }
+        
+//        DispatchQueue.main.async {
+//            let scrollPoint = CGPoint(x: 0, y: self.tableViewChat.contentSize.height - self.tableViewChat.frame.size.height)
+//            self.tableViewChat.setContentOffset(scrollPoint, animated: true)
+//        }
+        
     }
 
     func sendBotFormFaye(object: BotAction) {
@@ -1936,6 +1950,7 @@ extension AgentConversationViewController: BotTableDelegate {
             channel.unsentMessages.append(message!)
             self.addMessageToUIBeforeSending(message: message!)
             channel.send(message: message!, completion: nil)
+            self.attachmentViewHeightConstraint.constant = 0
         default:
             break
         }
