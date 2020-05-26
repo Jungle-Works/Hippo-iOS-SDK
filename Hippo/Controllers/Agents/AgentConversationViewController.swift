@@ -27,6 +27,7 @@ class AgentConversationViewController: HippoConversationViewController {
     //    @IBOutlet var errorLabel: UILabel!
     @IBOutlet var textViewBgView: UIView!
     @IBOutlet var placeHolderLabel: UILabel!
+    @IBOutlet weak var moreOptionsButton: UIButton!
     @IBOutlet var addFileButtonAction: UIButton!
     @IBOutlet var seperatorView: UIView!
     @IBOutlet weak var loaderView: So_UIImageView!
@@ -194,6 +195,15 @@ class AgentConversationViewController: HippoConversationViewController {
             addFileButtonAction.setTitle("", for: .normal)
         } else { addFileButtonAction.setTitle("ADD", for: .normal) }
         
+        if HippoConfig.shared.theme.moreOptionsButtonIcon != nil {
+            moreOptionsButton.setImage(HippoConfig.shared.theme.moreOptionsButtonIcon, for: .normal)
+            
+            if let tintColor = HippoConfig.shared.theme.moreOptionsBtnTintColor {
+                moreOptionsButton.tintColor = tintColor
+            }
+            
+            moreOptionsButton.setTitle("", for: .normal)
+        } else { moreOptionsButton.setTitle("More Options", for: .normal) }
         
         backButton.tintColor = HippoConfig.shared.theme.headerTextColor
         if HippoConfig.shared.theme.leftBarButtonText.count > 0 {
@@ -648,11 +658,13 @@ class AgentConversationViewController: HippoConversationViewController {
     
     func enableSendingNewMessages() {
         addFileButtonAction.isUserInteractionEnabled = true
+        moreOptionsButton.isUserInteractionEnabled = true
         messageTextView.isEditable = true
     }
     
     func disableSendingNewMessages() {
         addFileButtonAction.isUserInteractionEnabled = false
+        moreOptionsButton.isUserInteractionEnabled = false
         messageTextView.isEditable = false
     }
     
@@ -1783,6 +1795,10 @@ extension AgentConversationViewController: UIImagePickerControllerDelegate, UINa
     func enableSendingReply() {
         self.channel?.isSendingDisabled = false
 //        self.bottomContentViewBottomConstraint.constant = 0
+        if self.bottomContentViewBottomConstraint.constant < 0{
+            self.bottomContentViewBottomConstraint.constant = 0
+        }else{}
+        
         //configureFooterView()
         self.textViewBgView.isHidden = false
     }

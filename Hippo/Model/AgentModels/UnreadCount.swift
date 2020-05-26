@@ -190,4 +190,59 @@ extension UnreadCount {
         param["response_type"] = 1
         return param
     }
+    
+    fileprivate static func paramsForAgentUnreadCount() -> [String: Any]? {
+         var param = [String : Any]()
+         
+         guard let agent = HippoConfig.shared.agentDetail, agent.id > 0 else {
+             return nil
+         }
+         
+         param["access_token"] = agent.fuguToken
+     
+         return param
+     }
+    
+    
+}
+extension UnreadCount{
+    class func getAgentTotalUnreadCount(completion: @escaping ((_ result: ResponseResult) -> Void)) {
+         
+         guard HippoConfig.shared.appUserType == .agent, HippoConfig.shared.agentDetail != nil else {
+             completion(ResponseResult(isSuccessful: false, error: HippoError.general))
+             return
+         }
+         
+         guard let params = paramsForAgentUnreadCount() else {
+             completion(ResponseResult(isSuccessful: false, error: HippoError.general))
+             return
+         }
+         HippoConfig.shared.log.trace(params, level: .request)
+         
+        HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: AgentEndPoints.conversationUnread.rawValue) { (responseObject, error, tag, statusCode) in
+            guard let unwrappedStatusCode = statusCode, error == nil, unwrappedStatusCode == STATUS_CODE_SUCCESS, error == nil  else {
+                HippoConfig.shared.log.error(error ?? "Something went Wrong!!", level: .error)
+                completion(ResponseResult(isSuccessful: false, error: error))
+                return
+            }
+            if let agentTotalUnreadCount = ((responseObject as? [String: Any])?["data"] as? [String: Any])?["agent_total_unread_count"] as? [NSDictionary]{
+            
+                let unreadCount = agentTotalUnreadCount.reduce(0) {(result, next) -> Int in
+                    return result + (next.value(forKey: "unread_count") as? Int ?? 0)
+                }
+                var unreadHashMap = [String:Any]()
+                for dic in agentTotalUnreadCount{
+                    let channelId = dic.value(forKey: "channel_id") as? Int
+                    let unreadCount = dic.value(forKey: "unread_count") as? Int
+                    unreadHashMap["\(channelId ?? 0)"] = unreadCount
+                }
+               
+                FuguDefaults.set(value: unreadHashMap, forKey: DefaultName.agentTotalUnreadHashMap.rawValue)
+                UserDefaults.standard.set(unreadCount, forKey: DefaultName.agentUnreadCount.rawValue)
+                HippoConfig.shared.sendAgentUnreadCount(unreadCount)
+                HippoConfig.shared.sendAgentChannelsUnreadCount(unreadHashMap.count)
+            }
+        }
+     }
+    
 }

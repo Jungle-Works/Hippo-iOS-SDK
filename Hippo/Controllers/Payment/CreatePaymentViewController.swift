@@ -206,9 +206,10 @@ extension CreatePaymentViewController: BroadcastButtonCellDelegate {
             }
 //        delegate?.sendMessage(for: store)
             self.startLoaderAnimation()
-            store.takeAction {[weak self] (success, _) in
+            store.takeAction {[weak self] (success, error) in
                 self?.stopLoaderAnimation()
                 guard success else {
+                    showAlertWith(message: error?.localizedDescription ?? "", action: nil)
                     return
                 }
                 if self?.store.isSending ?? false {

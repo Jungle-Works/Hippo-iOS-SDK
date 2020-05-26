@@ -567,7 +567,7 @@ struct BotAction {
             }
             let call = CallData.init(peerData: peer, callType: callType, muid: uuid, signallingClient: channel)
             
-//            CallManager.shared.startCall(call: call, completion: { (success) in
+//            CallManager.shared.startCall(call: call, completion: { (success)  in
 //                if !success {
 //                    CallManager.shared.hungupCall()
 //                }
@@ -1085,6 +1085,18 @@ public extension HippoConfig {
 }
 
 extension HippoConfig {
+    func sendDataIfChatIsAssignedToSelfAgent(_ dic : [String : Any]){
+        HippoConfig.shared.delegate?.sendDataIfChatIsAssignedToSelfAgent(dic)
+    }
+    
+    func sendAgentUnreadCount(_ totalCount: Int) {
+        HippoConfig.shared.delegate?.hippoAgentTotalUnreadCount(totalCount)
+    }
+    
+    func sendAgentChannelsUnreadCount(_ totalCount: Int) {
+        HippoConfig.shared.delegate?.hippoAgentTotalChannelsUnreadCount(totalCount)
+    }
+    
     func sendUnreadCount(_ totalCount: Int) {
         HippoConfig.shared.unreadCount?(totalCount)
         HippoConfig.shared.delegate?.hippoUnreadCount(totalCount)

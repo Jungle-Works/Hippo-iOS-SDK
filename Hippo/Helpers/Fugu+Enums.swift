@@ -369,10 +369,12 @@ enum FuguEndPoints: String {
 }
 
 enum AgentEndPoints: String {
+    case conversationUnread = "api/conversation/getAgentTotalUnreadCount"
     case getAgentLoginInfo = "api/agent/getAgentLoginInfo"
     case loginViaAuthToken = "api/agent/agentLoginViaAuthToken"
     case loginViaToken = "api/agent/agentLogin"
-    case getConversation = "api/conversation/v1/getConversations"
+//    case getConversation = "api/conversation/v1/getConversations"
+    case getConversation = "api/conversation/v2/getConversations"
     case markConversation = "api/conversation/markConversation"
     case logout = "api/agent/agentLogout"
     case getUnreadCount = "api/conversation/get_customer_unread_count"

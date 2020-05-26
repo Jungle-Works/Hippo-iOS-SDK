@@ -182,20 +182,20 @@ extension AgentHomeViewController {
         case .myChat:
             conversationList = ConversationStore.shared.myChats
         }
-        setAgentStatus()
+//        setAgentStatus()
         setUpButtonContainerView()
         updatePaginationData()
         showLoaderIfRequired()
     }
 
-    func setAgentStatus() {
-        guard let agent = HippoConfig.shared.agentDetail, agent.id > 0 else {
-            return
-        }
-        //self.agentStatus.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
-        //self.agentStatus.contentHorizontalAlignment = .center
-        self.agentStatus.isOn = agent.status == .available ? true : false
-    }
+//    func setAgentStatus() {
+//        guard let agent = HippoConfig.shared.agentDetail, agent.id > 0 else {
+//            return
+//        }
+//        //self.agentStatus.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
+//        //self.agentStatus.contentHorizontalAlignment = .center
+//        self.agentStatus.isOn = agent.status == .available ? true : false
+//    }
 
     func setUpButtonContainerView(){
         guard let agent = HippoConfig.shared.agentDetail, agent.id > 0 else {
@@ -415,7 +415,11 @@ extension AgentHomeViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(loginDataUpdated), name: .agentLoginDataUpated, object: nil)
     }
     
+//    @objc func loginDataUpdated() {
+//        self.tableView.reloadData()
+//    }
     @objc func loginDataUpdated() {
+        self.setAgentStatusForToggle()
         self.tableView.reloadData()
     }
     
@@ -432,6 +436,14 @@ extension AgentHomeViewController {
         setData()
       
         self.tableView.reloadData()
+    }
+    
+    func setAgentStatusForToggle(){
+        if BussinessProperty.current.agentStatusForToggle == AgentStatus.available.rawValue {
+            self.agentStatus.isOn = true
+        }else{
+            self.agentStatus.isOn = false
+        }
     }
     
     func showLoaderIfRequired() {
@@ -554,6 +566,9 @@ extension AgentHomeViewController: UITableViewDelegate, UITableViewDataSource {
         return UIView.tableAutoDimensionHeight
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if (conversationList[indexPath.row].unreadCount ?? 0) > 0{
+            removeChannelForUnreadCount(conversationList[indexPath.row].channel_id ?? -1)
+        }
         tableView.deselectRow(at: indexPath, animated: true)
         tableView.isUserInteractionEnabled = false
         fuguDelay(1) {

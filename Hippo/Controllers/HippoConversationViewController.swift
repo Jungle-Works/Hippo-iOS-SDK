@@ -600,7 +600,7 @@ class HippoConversationViewController: UIViewController {
         
         let call = CallData.init(peerData: peerDetail, callType: .audio, muid: String.uuid(), signallingClient: channel)
         
-//        CallManager.shared.startCall(call: call) { (success) in
+//       CallManager.shared.startCall(call: call) { (success) in
 //                   if !success {
 //                       assertionFailure("Cannot start the call")
 //                   }
@@ -643,7 +643,7 @@ class HippoConversationViewController: UIViewController {
         
         let call = CallData.init(peerData: peerDetail, callType: .video, muid: String.uuid(), signallingClient: channel)
         
-//        CallManager.shared.startCall(call: call) { (success) in
+//      CallManager.shared.startCall(call: call) { (success) in
 //             if !success {
 //             assertionFailure("Cannot start the call")
 //             }
@@ -1694,6 +1694,8 @@ class AttachmentOptionCollectionViewCell : UICollectionViewCell{
         didSet{
             imageViewAttachment?.image = attachmentDetail?.icon
             labelAttachment?.text = attachmentDetail?.title
+            imageViewAttachment?.tintColor = HippoConfig.shared.theme.moreOptionsIconsTintColor
+            labelAttachment?.tintColor = HippoConfig.shared.theme.moreOptionsTitlesTintColor
         }
     }
 }

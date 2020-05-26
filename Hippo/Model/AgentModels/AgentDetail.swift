@@ -52,6 +52,7 @@ enum AgentStatus: String {
 struct ResponseResult {
     let isSuccessful: Bool
     let error: Error?
+    let response : NSDictionary? = NSDictionary()
 }
 
 class AgentDetail: NSObject {
@@ -74,7 +75,7 @@ class AgentDetail: NSObject {
     var number = ""
     var userImage: String?
     
-    var status = AgentStatus.offline
+//    var status = AgentStatus.offline
     var agentUserType = AgentUserType.agent
     
     var oAuthToken = ""
@@ -89,7 +90,6 @@ class AgentDetail: NSObject {
             UserDefaults.standard.set(newValue, forKey: UserDefaultkeys.agentData)
         }
     }
-    
     
     init(dict: [String: Any]) {
         super.init()
@@ -108,9 +108,17 @@ class AgentDetail: NSObject {
         number = dict["phone_number"] as? String ?? ""
         userImage = dict["user_image"] as? String
  
-        if let online_status = dict["online_status"] as? String, let status = AgentStatus.init(rawValue: online_status) {
-            self.status = status
-        }
+//        if let online_status = dict["online_status"] as? String, let status = AgentStatus.init(rawValue: online_status) {
+//            self.status = status
+//        }
+//        if HippoConfig.shared.agentDetail?.status == AgentStatus.offline{
+//            if let online_status = dict["online_status"] as? String, let status = AgentStatus.init(rawValue: online_status) {
+//                self.status = status
+//            }
+//        }else{
+//            self.status = HippoConfig.shared.agentDetail?.status ?? AgentStatus.offline
+//        }
+        
         if let auth_token = dict["auth_token"] as? String {
             oAuthToken = auth_token
         }
@@ -150,7 +158,7 @@ class AgentDetail: NSObject {
         dict["business_id"] = businessId
         dict["business_name"] = businessName
         dict["phone_number"]  = number
-        dict["online_status"] = status.rawValue
+//        dict["online_status"] = status.rawValue
         dict["agent_type"] = agentUserType.rawValue
         
         dict["app_type"] = app_type
@@ -244,6 +252,10 @@ extension AgentDetail {
             detail.customAttributes = attributes
             HippoConfig.shared.agentDetail = detail
             
+            if let online_status = data["online_status"] as? String, let status = AgentStatus.init(rawValue: online_status) {
+                BussinessProperty.current.agentStatusForToggle = status.rawValue
+            }
+            
             BussinessProperty.current.isVideoCallEnabled = Bool.parse(key: "is_video_call_enabled", json: data)
             BussinessProperty.current.isAudioCallEnabled = Bool.parse(key: "is_audio_call_enabled", json: data)
             
@@ -284,6 +296,7 @@ extension AgentDetail {
         HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: AgentEndPoints.logout.rawValue) { (responseObject, error, tag, statusCode) in
             
             HippoUserDetail.clearAllData()
+            HippoConfig.shared.delegate?.hippoUserLogOut()
             let tempStatusCode = statusCode ?? 0
             let success = (200 <= tempStatusCode) && (300 > tempStatusCode)
             completion?(success)

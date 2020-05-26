@@ -45,7 +45,9 @@ public protocol HippoDelegate: class {
     func hippoUserLogOut()
     func startLoading(message: String?)
     func stopLoading()
-    
+    func hippoAgentTotalUnreadCount(_ totalCount: Int)
+    func hippoAgentTotalChannelsUnreadCount(_ totalCount: Int)    
+    func sendDataIfChatIsAssignedToSelfAgent(_ dic : [String : Any])
     
     #if canImport(HippoCallClient)
      func loadCallPresenterView(request: CallPresenterRequest) -> CallPresenter?
