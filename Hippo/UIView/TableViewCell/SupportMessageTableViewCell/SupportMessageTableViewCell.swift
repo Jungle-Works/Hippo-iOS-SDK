@@ -16,7 +16,7 @@ class SupportMessageTableViewCell: MessageTableViewCell {
     @IBOutlet weak var topConstraint: NSLayoutConstraint!
     @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var constraint_Height : NSLayoutConstraint!
+   // @IBOutlet weak var constraint_Height : NSLayoutConstraint!
     
     override func awakeFromNib() {
         
@@ -44,6 +44,11 @@ class SupportMessageTableViewCell: MessageTableViewCell {
     
     func adjustShadow() {
         bgView.layoutIfNeeded()
+    }
+    
+    func updateBottomConstraint(_ constant : CGFloat){
+        self.bottomConstraint.constant = constant
+        self.layoutIfNeeded()
     }
     
     func resetPropertiesOfSupportCell() {

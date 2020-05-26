@@ -173,6 +173,10 @@ class SelfMessageTableViewCell: MessageTableViewCell {
         }
     }
     
+    func updateBottomConstraint(_ constant : CGFloat){
+        self.bottomConstraint.constant = constant
+        self.layoutIfNeeded()
+    }
     
     private func setReadUnreadIcon() {
         guard let messageReadStatus = message?.status else {

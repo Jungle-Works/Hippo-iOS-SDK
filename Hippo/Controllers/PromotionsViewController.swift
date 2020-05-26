@@ -21,12 +21,18 @@ class PromotionsViewController: UIViewController {
     
     //MARK:- IBOutlets
     
-    @IBOutlet weak var promotionsTableView: UITableView!
+    @IBOutlet weak var promotionsTableView: UITableView!{
+        didSet{
+            promotionsTableView.contentInset = UIEdgeInsets(top: 5, left: 0, bottom: 0, right: 0)
+        }
+    }
     @IBOutlet weak var navigationBackgroundView: UIView!
     @IBOutlet weak var loaderView: So_UIImageView!
     @IBOutlet var errorLabel: UILabel!
     @IBOutlet var viewError_Height: NSLayoutConstraint!
     @IBOutlet weak var errorContentView: UIView!
+    @IBOutlet weak var navigationBar : NavigationBar!
+    
     //    @IBOutlet weak var top_Constraint : NSLayoutConstraint!
     //MARK:- Variables
     
@@ -61,7 +67,7 @@ class PromotionsViewController: UIViewController {
         self.setUpViewWithNav()
         
         setupRefreshController()
-        promotionsTableView.backgroundColor = HippoConfig.shared.theme.multiselectUnselectedButtonColor
+        promotionsTableView.backgroundColor = HippoConfig.shared.theme.promotionBackgroundColor
         
         promotionsTableView.register(UINib(nibName: "PromotionTableViewCell", bundle: FuguFlowManager.bundle), forCellReuseIdentifier: "PromotionTableViewCell")
         promotionsTableView.rowHeight = UITableView.automaticDimension
@@ -91,7 +97,7 @@ class PromotionsViewController: UIViewController {
     
     override  func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.isNavigationBarHidden = false
+        self.navigationController?.isNavigationBarHidden = true
         self.promotionsTableView.isHidden = false
         self.checkNetworkConnection()
         self.setUpTabBar()
@@ -123,56 +129,24 @@ class PromotionsViewController: UIViewController {
     }
     
     func setUpViewWithNav() {
-        
-        let theme = HippoConfig.shared.theme
-        
-        navigationBackgroundView.layer.shadowColor = UIColor.black.cgColor
-        navigationBackgroundView.layer.shadowOpacity = 0.25
-        navigationBackgroundView.layer.shadowOffset = CGSize(width: 0, height: 1.0)
-        navigationBackgroundView.layer.shadowRadius = 4
-        navigationBackgroundView.backgroundColor = theme.headerBackgroundColor
-        
-        title = theme.promotionsAnnouncementsHeaderText
-        
-        //        let backButton = UIButton(type: .custom)
-        //        backButton.tintColor = theme.headerTextColor
-        //        if theme.leftBarButtonImage != nil {
-        //            backButton.setImage(theme.leftBarButtonImage, for: .normal)
-        //            backButton.tintColor = theme.headerTextColor
-        //        }
-        //        backButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-        //        backButton.addTarget(self, action: #selector(backButtonClicked), for: .touchUpInside)
-        //        let item = UIBarButtonItem(customView: backButton)
-        //        self.navigationItem.setLeftBarButton(item, animated: false)
-        
-        //        let btnleft : UIButton = UIButton(frame: CGRect(x:0, y:0, width:35, height:35))
-        //        btnleft.setTitleColor(UIColor.white, for: .normal)
-        //        btnleft.contentMode = .left
-        //        btnleft.setImage(UIImage(named :"iconBackTitleBar"), for: .normal)
-        //        btnleft.addTarget(self, action: #selector(backButtonClicked), for: .touchDown)
-        //        let backBarButon: UIBarButtonItem = UIBarButtonItem(customView: btnleft)
-        //        backBarButon.tintColor = theme.logoutButtonTintColor ?? theme.headerTextColor
-        //        self.navigationItem.setLeftBarButtonItems([backBarButon], animated: false)
-        
-        if theme.leftBarButtonImage != nil {
-            let btnleft = UIBarButtonItem(image: theme.leftBarButtonImage, landscapeImagePhone: nil, style: .done, target: self, action: #selector(backButtonClicked))
-            btnleft.tintColor = theme.logoutButtonTintColor ?? theme.headerTextColor//theme.themeColor//
-            self.navigationItem.leftBarButtonItem = btnleft
-            self.navigationItem.leftBarButtonItems = [btnleft]
-        }
-        
-        //        if let deleteImage = UIImage(named: "", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate){
-        let deleteAllAnnouncementsButton = UIBarButtonItem(title: "Clear All", style: .done, target: self, action: #selector(deleteAllAnnouncementsButtonClicked))
-        deleteAllAnnouncementsButton.setTitleTextAttributes([
-            NSAttributedString.Key.font : UIFont.regular(ofSize: 14),
-            NSAttributedString.Key.foregroundColor : UIColor.darkGray,
-        ], for: .normal)
-        deleteAllAnnouncementsButton.tintColor = theme.logoutButtonTintColor ?? theme.headerTextColor//theme.themeColor//
-        self.navigationItem.rightBarButtonItem = deleteAllAnnouncementsButton
-        self.navigationItem.rightBarButtonItems = [deleteAllAnnouncementsButton]
-        //   }
+   
+        navigationBar.title = HippoConfig.shared.theme.promotionsAnnouncementsHeaderText
+        navigationBar.leftButton.addTarget(self, action: #selector(backButtonClicked), for: .touchUpInside)
+        navigationBar.rightButton.setTitle("Clear All", for: .normal)
+        navigationBar.rightButton.titleLabel?.font = UIFont.regular(ofSize: 14)
+        navigationBar.rightButton.setTitleColor(UIColor(red: 95/255, green: 95/255, blue: 95/255, alpha: 1.0), for: .normal)
+        navigationBar.rightButton.addTarget(self, action: #selector(deleteAllAnnouncementsButtonClicked), for: .touchUpInside)
+        navigationBar.view.layer.shadowOffset = CGSize(width: 0.0, height: 0.5)
+        navigationBar.view.layer.shadowRadius = 2.0
+        navigationBar.view.layer.shadowOpacity = 0.5
+        navigationBar.view.layer.masksToBounds = false
+        navigationBar.view.layer.shadowPath = UIBezierPath(rect: CGRect(x: 0,
+                                                                        y: navigationBar.bounds.maxY - navigationBar.layer.shadowRadius,
+                                                                        width: navigationBar.bounds.width,
+                                                                        height: navigationBar.layer.shadowRadius)).cgPath
         
     }
+    
     @objc func backButtonClicked() {
         
         if let navigationController = UIApplication.shared.keyWindow?.rootViewController as? UINavigationController{
@@ -204,12 +178,12 @@ class PromotionsViewController: UIViewController {
         guard self.navigationItem.rightBarButtonItem?.tintColor != .clear else {
             return
         }
-        showOptionAlert(title: "", message: "Are you sure, you want to clear all Notifications?", successButtonName: "YES", successComplete: { (_) in
-            
+//        showOptionAlert(title: "", message: "Are you sure, you want to clear all Notifications?", successButtonName: "YES", successComplete: { (_) in
+//
             self.clearAnnouncements(indexPath: IndexPath(row: 0, section: 0), isDeleteAllStatus: 1)
             FuguDefaults.removeObject(forKey: DefaultName.appointmentData.rawValue)
             
-        }, failureButtonName: "NO", failureComplete: nil)
+     //   }, failureButtonName: "NO", failureComplete: nil)
     }
     
     func getAnnouncements(endOffset:Int,startOffset:Int) {
@@ -249,18 +223,22 @@ class PromotionsViewController: UIViewController {
     
     func noNotificationsFound(){
         if self.data.count <= 0{
-            self.navigationItem.rightBarButtonItem?.tintColor = .clear
+           // self.navigationItem.rightBarButtonItem?.tintColor = .clear
             if informationView == nil {
-                informationView = InformationView.loadView(self.view.bounds, delegate: self)
+                informationView = InformationView.loadView(self.promotionsTableView.bounds, delegate: self)
                 informationView?.informationLabel.text = "No Notifications found"
             }
-            self.promotionsTableView.isHidden = true
+
             self.informationView?.isHidden = false
-            self.view.addSubview(informationView!)
+            self.promotionsTableView.addSubview(informationView!)
         }else{
-            self.promotionsTableView.isHidden = false
+            for view in promotionsTableView.subviews{
+                if view is InformationView{
+                    view.removeFromSuperview()
+                }
+            }
             self.informationView?.isHidden = true
-            self.navigationItem.rightBarButtonItem?.tintColor = HippoConfig.shared.theme.logoutButtonTintColor ?? HippoConfig.shared.theme.headerTextColor
+           // self.navigationItem.rightBarButtonItem?.tintColor = HippoConfig.shared.theme.logoutButtonTintColor ?? HippoConfig.shared.theme.headerTextColor
         }
         
         DispatchQueue.main.async {
@@ -438,11 +416,11 @@ extension PromotionsViewController: UITableViewDelegate,UITableViewDataSource
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if (editingStyle == .delete) {
             
-            showOptionAlert(title: "", message: "Are you sure, you want to clear Notification?", successButtonName: "YES", successComplete: { (_) in
-                
+//            showOptionAlert(title: "", message: "Are you sure, you want to clear Notification?", successButtonName: "YES", successComplete: { (_) in
+//
                 self.clearAnnouncements(indexPath: indexPath, isDeleteAllStatus: 0)
                 
-            }, failureButtonName: "NO", failureComplete: nil)
+ //           }, failureButtonName: "NO", failureComplete: nil)
             
         }
     }

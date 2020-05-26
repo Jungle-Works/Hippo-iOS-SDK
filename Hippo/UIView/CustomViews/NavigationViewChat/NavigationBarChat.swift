@@ -12,7 +12,18 @@ final class NavigationBarChat: UIView {
     
     private static let NIB_NAME = "NavigationBarChat"
     
-    @IBOutlet var view: UIView!
+    @IBOutlet var view: UIView!{
+        didSet{
+            view.layer.shadowOffset = CGSize(width: 0.0, height: 1.0)
+            view.layer.shadowRadius = 3.0
+            view.layer.shadowOpacity = 0.5
+            view.layer.masksToBounds = false
+            view.layer.shadowPath = UIBezierPath(rect: CGRect(x: 0,
+                                                                       y: bounds.maxY - layer.shadowRadius,
+                                                                       width: bounds.width,
+                                                                       height: layer.shadowRadius)).cgPath
+        }
+    }
     @IBOutlet weak var leftButton: UIButton!
     @IBOutlet weak var titleLabel : UILabel!
     @IBOutlet weak var call_button : UIButton!{
@@ -142,7 +153,7 @@ final class NavigationBarChat: UIView {
      
      func showProfileImage() {
          image_profile.isHidden = false
-         image_profile.layer.cornerRadius = image_profile.frame.size.height/2
+         image_profile.layer.cornerRadius = 8//image_profile.frame.size.height/2
          image_profile.layer.masksToBounds = true
          layoutIfNeeded()
      }
@@ -154,7 +165,7 @@ final class NavigationBarChat: UIView {
     
     func setNameAsTitle(_ name: String?) {
         if let parsedName = name {
-            self.image_profile.setTextInImage(string: parsedName, color: UIColor.lightGray, circular: true)
+            self.image_profile.setTextInImage(string: parsedName, color: UIColor.lightGray, circular: false)
         } else {
           self.image_profile.image = HippoConfig.shared.theme.placeHolderImage
         }
