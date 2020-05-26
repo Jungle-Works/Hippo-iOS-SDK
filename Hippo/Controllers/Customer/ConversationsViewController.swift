@@ -1592,13 +1592,14 @@ extension ConversationsViewController {
         }
     }
     
+    
     func updateTopBottomSpace(cell: UITableViewCell, indexPath: IndexPath) {
 
         let topConstraint = getTopDistanceOfCell(atIndexPath: indexPath)
         if let editedCell = cell as? SelfMessageTableViewCell {
             //editedCell.topConstraint.constant = topConstraint
         } else if let editedCell = cell as? SupportMessageTableViewCell {
-            editedCell.topConstraint.constant = topConstraint
+            //editedCell.topConstraint.constant = topConstraint
         }
         else if let editedCell = cell as? IncomingImageCell {
             editedCell.topConstraint.constant = topConstraint + 2
@@ -1996,6 +1997,8 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                          cell.backgroundColor = .clear
                          return cell
                  }
+                 let bottomSpace = getBottomSpaceOfMessageAt(indexPath: indexPath, message: message)
+                 cell.updateBottomConstraint(bottomSpace)
                  let incomingAttributedString = Helper.getIncomingAttributedStringWithLastUserCheck(chatMessageObject: message)
                  return cell.configureCellOfSupportIncomingCell(resetProperties: true, attributedString: incomingAttributedString, channelId: channel?.id ?? labelId, chatMessageObject: message)
              case .leadForm:
@@ -2174,6 +2177,14 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
      func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if tableView == customTableView{
         }else{
+//            guard let message = getMessageAt(indexPath: indexPath) else { return  }
+//            if let selfCell = cell as? SelfMessageTableViewCell {
+//               let bottomSpace = getBottomSpaceOfMessageAt(indexPath: indexPath, message: message)
+//                selfCell.updateBottomConstraint(bottomSpace)
+//            } else if let supportCell = cell as? SupportMessageTableViewCell{
+//                let bottomSpace = getBottomSpaceOfMessageAt(indexPath: indexPath, message: message)
+//                supportCell.updateBottomConstraint(bottomSpace)
+//            }
             updateTopBottomSpace(cell: cell, indexPath: indexPath)
         }
     }
@@ -2205,12 +2216,15 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                 switch messageType {
                 case MessageType.imageFile:
                     return 288
+//                case MessageType.botText:
+//                    var rowHeight = expectedHeight(OfMessageObject: message)
+//
+//                    rowHeight += returnRetryCancelButtonHeight(chatMessageObject: message)
+//                    rowHeight += getTopDistanceOfCell(atIndexPath: indexPath)
+//                    return rowHeight
+//
                 case MessageType.normal, MessageType.botText:
-                    var rowHeight = expectedHeight(OfMessageObject: message)
-                    
-                    rowHeight += returnRetryCancelButtonHeight(chatMessageObject: message)
-                    rowHeight += getTopDistanceOfCell(atIndexPath: indexPath)
-                    return rowHeight
+                    return UIView.tableAutoDimensionHeight
                 case MessageType.quickReply:
                     var rowHeight: CGFloat = 0
                     if message.values.count > 0 {

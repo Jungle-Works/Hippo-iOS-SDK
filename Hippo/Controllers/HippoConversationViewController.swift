@@ -604,11 +604,11 @@ class HippoConversationViewController: UIViewController {
         
         let call = CallData.init(peerData: peerDetail, callType: .audio, muid: String.uuid(), signallingClient: channel)
         
-//        CallManager.shared.startCall(call: call) { (success) in
-//                   if !success {
-//                       assertionFailure("Cannot start the call")
-//                   }
-//        }
+    /*    CallManager.shared.startCall(call: call) { (success) in
+                   if !success {
+                       assertionFailure("Cannot start the call")
+                   }
+        }*/
         
 //        // #####-------USE THIS METHOD IF YOU ARE USING JITSI CALLING BARNCH FOR CALLING FEATURE -----#####
 //
@@ -647,14 +647,14 @@ class HippoConversationViewController: UIViewController {
         
         let call = CallData.init(peerData: peerDetail, callType: .video, muid: String.uuid(), signallingClient: channel)
         
-   /*     CallManager.shared.startCall(call: call) { (success) in
+    /*  CallManager.shared.startCall(call: call) { (success) in
              if !success {
              assertionFailure("Cannot start the call")
              }
          }*/
         
 //        // #####-------USE THIS METHOD IF YOU ARE USING JITSI CALLING BARNCH FOR CALLING FEATURE -----#####
-        CallManager.shared.startCall(call: call) { (success, error) in
+          CallManager.shared.startCall(call: call) { (success, error) in
 
             if let mismatchError = error, mismatchError.code == 415 {
 
@@ -835,6 +835,27 @@ class HippoConversationViewController: UIViewController {
         pickerHelper?.presentCustomActionSheet(sender: sender, controller: self, openType: openType)
     }
     
+    func getMessageAt(indexPath: IndexPath) -> HippoMessage? {
+        guard doesMessageAtIndexPathExists(indexPath) else {
+            return nil
+        }
+        
+        return messagesGroupedByDate[indexPath.section][indexPath.row]
+    }
+    
+    func doesMessageAtIndexPathExists(_ indexPath: IndexPath) -> Bool {
+        guard messagesGroupedByDate.count > indexPath.section else {
+            return false
+        }
+        
+        let groupedArray = messagesGroupedByDate[indexPath.section]
+        
+        guard groupedArray.count > indexPath.row else {
+            return false
+        }
+        
+        return true
+    }
 }
 
 
@@ -1498,11 +1519,15 @@ extension HippoConversationViewController {
         switch isOutgoingMessage {
         case false:
             let cell = tableView.dequeueReusableCell(withIdentifier: "SupportMessageTableViewCell", for: indexPath) as! SupportMessageTableViewCell
+            let bottomSpace = getBottomSpaceOfMessageAt(indexPath: indexPath, message: message)
+            cell.updateBottomConstraint(bottomSpace)
             let incomingAttributedString = Helper.getIncomingAttributedStringWithLastUserCheck(chatMessageObject: message)
             return cell.configureCellOfSupportIncomingCell(resetProperties: true, attributedString: incomingAttributedString, channelId: channel?.id ?? labelId, chatMessageObject: message)
         case true:
             let cell = tableView.dequeueReusableCell(withIdentifier: "SelfMessageTableViewCell", for: indexPath) as! SelfMessageTableViewCell
             cell.delegate = self
+            let bottomSpace = getBottomSpaceOfMessageAt(indexPath: indexPath, message: message)
+            cell.updateBottomConstraint(bottomSpace)
             return cell.configureIncomingMessageCell(resetProperties: true, chatMessageObject: message, indexPath: indexPath)
         }
     }
@@ -1646,6 +1671,39 @@ extension HippoConversationViewController: PaymentMessageCellDelegate {
         }
         
     }
+    
+    func getNextMessageInDateGroupOfMessageAt(indexPath: IndexPath) -> HippoMessage? {
+        let row = indexPath.row
+        let section = indexPath.section
+
+        guard messagesGroupedByDate.count > section else {
+            return nil
+        }
+        
+        let groupedArray = messagesGroupedByDate[section]
+        
+        guard groupedArray.count > row + 1 else {
+            return nil
+        }
+        
+        let nextMessage = groupedArray[row+1]
+        return nextMessage
+    }
+    
+    
+    
+    func getBottomSpaceOfMessageAt(indexPath: IndexPath, message: HippoMessage) -> CGFloat {
+        guard let nextMessage = getNextMessageInDateGroupOfMessageAt(indexPath: indexPath) else {
+            return 1
+        }
+        
+        if nextMessage.senderId != message.senderId {
+            return 10 // bottom space from other user massage
+         }
+        
+        return 0 // onle top pennding for same user message extra bottom space is 0
+    }
+    
 }
 
 extension HippoConversationViewController: submitButtonTableViewDelegate

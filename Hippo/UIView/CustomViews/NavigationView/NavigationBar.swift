@@ -12,11 +12,10 @@ final class NavigationBar: UIView {
     
     private static let NIB_NAME = "NavigationBar"
     
-    @IBOutlet private var view: UIView!
+    @IBOutlet var view: UIView!
     @IBOutlet weak var leftButton: UIButton!
     @IBOutlet private weak var titleLabel: UILabel!
-    @IBOutlet private weak var rightFirstButton: UIButton!
-    @IBOutlet private weak var rightSecondButton: UIButton!
+    @IBOutlet var rightButton: UIButton!
     @IBOutlet private weak var image_back : UIImageView!
     
     var title: String = "" {
@@ -37,6 +36,7 @@ final class NavigationBar: UIView {
             return leftButton.isHidden
         }
     }
+    
     
 
     override func awakeFromNib() {

@@ -157,10 +157,10 @@ public struct ConversationListTheme {
     open var dateTimeFontSize: UIFont? = UIFont.regular(ofSize: 11.0)
     
     open var senderNameColor = UIColor.black40//UIColor.black
-    open var senderNameFont: UIFont = UIFont(name: HippoFont.regularFont, size: 16.0) ?? UIFont.regular(ofSize: 16.0)
+    open var senderNameFont: UIFont = UIFont.regular(ofSize: 15.0)
     open var itmDescriptionNameFont: UIFont? = UIFont.regular(ofSize: 14.0)
     open var incomingMsgColor = UIColor.black//UIColor.white//
-    open var incomingMsgFont: UIFont = UIFont.regular(ofSize: 16.0)
+    open var incomingMsgFont: UIFont = UIFont.regular(ofSize: 15.0)
     open var incomingChatBoxColor = UIColor(red: 237/255, green: 237/255, blue: 237/255, alpha: 1)
     open var incomingMsgDateTextColor = UIColor.black40//UIColor.white//
     
@@ -186,11 +186,11 @@ public struct ConversationListTheme {
     
     open var chatBoxBorderWidth = CGFloat(0.5)
     open var chatBoxBorderColor = #colorLiteral(red: 0.862745098, green: 0.8784313725, blue: 0.9019607843, alpha: 1)
-    
+    var promotionBackgroundColor = UIColor(red: 244/255, green: 245/255, blue: 246/255, alpha: 1)
     open var multiselectUnselectedButtonColor = UIColor(red: 248/255, green: 248/255, blue: 248/255, alpha: 1)
     open var multiselectSelectedButtonColor = UIColor(red: 232/255, green: 236/255, blue: 252/255, alpha:1)
     
-    open var inOutChatTextFont: UIFont = UIFont.regular(ofSize: 16.0)
+    open var inOutChatTextFont: UIFont = UIFont.regular(ofSize: 15.0)
     
     open var timeTextColor = #colorLiteral(red: 0.1725490196, green: 0.137254902, blue: 0.2, alpha: 1)
     
@@ -203,9 +203,11 @@ public struct ConversationListTheme {
     open var chatbackgroundImage: UIImage?
     
     open var titleFont: UIFont = UIFont.bold(ofSize: 18.0)//UIFont(name:  HippoFont.boldFont, size: 17.0) ?? UIFont.boldregular(ofSize: 17.0)
+    open var promotionTitle : UIFont = UIFont.bold(ofSize: 15.0)
+    
     open var titleTextColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
     
-    open var descriptionFont: UIFont = UIFont(name:  HippoFont.regularFont, size: 14.0) ?? UIFont.regular(ofSize: 15.0)
+    open var descriptionFont: UIFont = UIFont.regular(ofSize: 14.0)
     open var descriptionTextColor = UIColor(red: 64/255, green: 64/255, blue: 64/255, alpha: 1.0)//#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1).withAlphaComponent(0.6)
     open var pricingFont: UIFont = UIFont.regular(ofSize: 17.0)//UIFont(name:  HippoFont.boldFont, size: 17) ?? UIFont.boldregular(ofSize: 17)
     open var pricingTextColor: UIColor? = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)

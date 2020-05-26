@@ -24,7 +24,7 @@ class CallManager {
     
     static let shared = CallManager()
     
-  /*  func startCall(call: CallData, completion: @escaping (Bool) -> Void) {
+ /*     func startCall(call: CallData, completion: @escaping (Bool) -> Void) {
         #if canImport(HippoCallClient)
         let peerUser = call.peerData
         guard let peer = HippoUser(name: peerUser.fullName, userID: peerUser.userID, imageURL: peerUser.image) else {
@@ -43,7 +43,7 @@ class CallManager {
     
 //    // use this method if you are using jitsi branch for calling feature
 //
-    func startCall(call: CallData, completion: @escaping (Bool, NSError?) -> Void) {
+  func startCall(call: CallData, completion: @escaping (Bool, NSError?) -> Void) {
         #if canImport(HippoCallClient)
         let peerUser = call.peerData
         guard let peer = HippoUser(name: peerUser.fullName, userID: peerUser.userID, imageURL: peerUser.image) else {

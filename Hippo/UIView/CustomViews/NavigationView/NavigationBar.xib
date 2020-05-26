@@ -17,6 +17,7 @@
             <connections>
                 <outlet property="image_back" destination="sHE-cu-ZOR" id="vlC-Tx-HbV"/>
                 <outlet property="leftButton" destination="HR0-Xt-n2K" id="VSs-CW-ZhJ"/>
+                <outlet property="rightButton" destination="oEA-g4-A1P" id="mBR-DB-zMV"/>
                 <outlet property="titleLabel" destination="G01-tg-7hU" id="Zsk-ry-MVR"/>
                 <outlet property="view" destination="zgO-lO-xc9" id="0AK-07-Vd3"/>
             </connections>
@@ -47,6 +48,9 @@
                     <color key="textColor" red="0.16862745100000001" green="0.2274509804" blue="0.3294117647" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oEA-g4-A1P">
+                    <rect key="frame" x="443" y="38.5" width="30" height="30"/>
+                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
@@ -55,7 +59,9 @@
                 <constraint firstAttribute="bottom" secondItem="HR0-Xt-n2K" secondAttribute="bottom" id="H63-yh-hie"/>
                 <constraint firstItem="G01-tg-7hU" firstAttribute="centerY" secondItem="YNn-bR-0b8" secondAttribute="centerY" id="Itv-h3-VMu"/>
                 <constraint firstItem="G01-tg-7hU" firstAttribute="centerX" secondItem="YNn-bR-0b8" secondAttribute="centerX" id="SkB-9p-5A4"/>
+                <constraint firstItem="YNn-bR-0b8" firstAttribute="trailing" secondItem="oEA-g4-A1P" secondAttribute="trailing" constant="15" id="TiR-99-iJl"/>
                 <constraint firstItem="sHE-cu-ZOR" firstAttribute="leading" secondItem="YNn-bR-0b8" secondAttribute="leading" constant="15" id="W6S-4x-MTf"/>
+                <constraint firstItem="oEA-g4-A1P" firstAttribute="centerY" secondItem="G01-tg-7hU" secondAttribute="centerY" id="ZiS-f8-kUV"/>
                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="G01-tg-7hU" secondAttribute="bottom" id="a0m-gU-tqU"/>
                 <constraint firstItem="HR0-Xt-n2K" firstAttribute="top" secondItem="zgO-lO-xc9" secondAttribute="top" id="de4-Em-IHx"/>
                 <constraint firstItem="sHE-cu-ZOR" firstAttribute="centerY" secondItem="YNn-bR-0b8" secondAttribute="centerY" id="dtc-af-B5s"/>
