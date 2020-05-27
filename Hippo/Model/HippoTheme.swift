@@ -165,6 +165,7 @@ public struct ConversationListTheme {
     open var incomingChatBoxColor = UIColor(red: 237/255, green: 237/255, blue: 237/255, alpha: 1)
     open var incomingMsgDateTextColor = UIColor.black40//UIColor.white//
     
+    open var searchBarBackgroundColor = UIColor(red: 243/255, green: 243/255, blue: 243/255, alpha: 1)
     
     open var missedCallColor = UIColor(red: 237/255, green: 73/255, blue: 124/255, alpha: 1)
     open var callAgainColor = UIColor(red: 59/255, green: 213/255, blue: 178/255, alpha: 1)

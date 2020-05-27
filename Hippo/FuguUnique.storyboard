@@ -2937,9 +2937,6 @@
                                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <textInputTraits key="textInputTraits"/>
                                         <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                <real key="value" value="0.0"/>
-                                            </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
                                                 <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </userDefinedRuntimeAttribute>
@@ -2969,15 +2966,20 @@
                         <viewLayoutGuide key="safeArea" id="afu-nc-3Dv"/>
                     </view>
                     <navigationItem key="navigationItem" title="Assign Conversation" id="0lP-Pm-26K">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="0Qa-fC-Z6r">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <connections>
-                                <action selector="closeBtnAction:" destination="dYa-NF-vhT" id="XK6-XQ-BVX"/>
-                            </connections>
+                        <barButtonItem key="leftBarButtonItem" style="plain" id="Ern-Ji-Fnp">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="LRr-DF-cQp">
+                                <rect key="frame" x="16" y="0.0" width="44" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="backButtonNormalStateIcon"/>
+                                <connections>
+                                    <action selector="backButtonClicked:" destination="dYa-NF-vhT" eventType="touchUpInside" id="gPt-if-ZxE"/>
+                                </connections>
+                            </button>
                         </barButtonItem>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <connections>
+                        <outlet property="backButton" destination="LRr-DF-cQp" id="tUa-PM-iqf"/>
                         <outlet property="searchBar" destination="rba-qm-WAD" id="9Bs-6f-Y5a"/>
                         <outlet property="tableViewAgent" destination="uDX-2l-Ifn" id="3Ka-dF-TnV"/>
                     </connections>

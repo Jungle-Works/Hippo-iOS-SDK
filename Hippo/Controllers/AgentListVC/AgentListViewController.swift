@@ -12,6 +12,7 @@ class AgentListViewController: UIViewController {
     
     @IBOutlet weak var tableViewAgent: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var backButton: UIButton!
     
     var channelId = -1
     var agentList = [Agent]()
@@ -35,9 +36,14 @@ class AgentListViewController: UIViewController {
         super.didReceiveMemoryWarning()
     }
     
-    @IBAction func closeBtnAction(_ sender: UIBarButtonItem) {
-        self.searchBar.resignFirstResponder()
-        self.navigationController?.popViewController(animated: true)
+//    @IBAction func closeBtnAction(_ sender: UIBarButtonItem) {
+//        self.searchBar.resignFirstResponder()
+//        self.navigationController?.popViewController(animated: true)
+//    }
+    
+    @IBAction func backButtonClicked(_ sender: UIButton) {
+         self.searchBar.resignFirstResponder()
+         self.navigationController?.popViewController(animated: true)
     }
     
     func setTheme() {
@@ -122,32 +128,50 @@ extension AgentListViewController {
     
     func setupNavigationBar() {
         //titleOfNavigationItem(barTitle: "Assign Conversation")
-        setCustomTitle(barTitle: "Assign Conversation")
+//        setCustomTitle(barTitle: "Assign Conversation")
 //        setupCustomThemeOnNavigationBar(hideNavigationBar: false)
-        navigationItem.hidesBackButton = false
+//        navigationItem.hidesBackButton = false
+        self.navigationController?.setTheme()
+        self.navigationController?.isNavigationBarHidden = false
+        
+        self.navigationItem.title = "Assign Conversation"
+        backButton.tintColor = HippoConfig.shared.theme.headerTextColor
+        if HippoConfig.shared.theme.leftBarButtonText.count > 0 {
+            backButton.setTitle((" " + HippoConfig.shared.theme.leftBarButtonText), for: .normal)
+            if HippoConfig.shared.theme.leftBarButtonFont != nil {
+                backButton.titleLabel?.font = HippoConfig.shared.theme.leftBarButtonFont
+            }
+            backButton.setTitleColor(HippoConfig.shared.theme.leftBarButtonTextColor, for: .normal)
+        } else {
+            if HippoConfig.shared.theme.leftBarButtonArrowImage != nil {
+                backButton.setImage(HippoConfig.shared.theme.leftBarButtonArrowImage, for: .normal)
+                backButton.tintColor = HippoConfig.shared.theme.headerTextColor
+            }
+        }
+
+        
     }
     
-    func setCustomTitle(barTitle: String) {
-        let label = UILabel()
-        label.text = ""
-//        label.font = UIFont.boldTitilium(withSize: 17)
-        label.font = UIFont.systemFont(ofSize: 17.0)
-        label.textAlignment = .center
-        
-        titleLabel = label
-        titleLabel?.isUserInteractionEnabled = false
-        navigationItem.titleView?.isUserInteractionEnabled = true
-        
-        
-        //        titleOfNavigationItem(barTitle: barTitle)
-        titleLabel?.text = barTitle
-        titleLabel?.textColor = UIColor.black
-        titleLabel?.sizeToFit()
-        
-        navigationItem.titleView = titleLabel
-        
-        
-    }
+//    func setCustomTitle(barTitle: String) {
+//        let label = UILabel()
+//        label.text = ""
+////        label.font = UIFont.boldTitilium(withSize: 17)
+//        label.font = UIFont.systemFont(ofSize: 17.0)
+//        label.textAlignment = .center
+//
+//        titleLabel = label
+//        titleLabel?.isUserInteractionEnabled = false
+//        navigationItem.titleView?.isUserInteractionEnabled = true
+//
+//
+//        //        titleOfNavigationItem(barTitle: barTitle)
+//        titleLabel?.text = barTitle
+//        titleLabel?.textColor = UIColor.black
+//        titleLabel?.sizeToFit()
+//
+//        navigationItem.titleView = titleLabel
+//
+//    }
     
     func isAgentActive(indexRow: Int) -> Bool {
         if indexRow < agentList.count, let agentStatus = agentList[indexRow].status, agentStatus == 0 {
@@ -160,26 +184,26 @@ extension AgentListViewController {
         searchBar.sizeToFit()
         
         searchBar.placeholder = "Search"
-        searchBar.barTintColor = HippoConfig.shared.theme.backgroundColor//HippoTheme.current.searchBarBackgroundColor
+        searchBar.barTintColor = HippoConfig.shared.theme.searchBarBackgroundColor//HippoConfig.shared.theme.backgroundColor//
         searchBar.returnKeyType = .done
         searchBar.delegate = self
-        searchBar.tintColor = HippoConfig.shared.theme.backgroundColor//HippoTheme.current.searchBarBackgroundColor
-        searchBar.backgroundColor = UIColor.white
+        searchBar.tintColor = UIColor.black//HippoConfig.shared.theme.searchBarBackgroundColor//HippoConfig.shared.theme.backgroundColor//
+        searchBar.backgroundColor = UIColor.white//UIColor(red: 236/255, green: 236/255, blue: 236/255, alpha: 1)//
         searchBar.backgroundImage = UIImage()
         
         
         let textFieldInsideSearchBar = searchBar.value(forKey: "searchField") as? UITextField
-        textFieldInsideSearchBar?.backgroundColor = HippoConfig.shared.theme.backgroundColor//HippoTheme.current.searchBarBackgroundColor
+        textFieldInsideSearchBar?.backgroundColor = HippoConfig.shared.theme.searchBarBackgroundColor//HippoConfig.shared.theme.backgroundColor//
         
         titleSearchBar.sizeToFit()
         titleSearchBar.placeholder = "Search"
-        titleSearchBar.barTintColor = HippoConfig.shared.theme.backgroundColor//HippoTheme.current.searchBarBackgroundColor
+        titleSearchBar.barTintColor = HippoConfig.shared.theme.searchBarBackgroundColor//HippoConfig.shared.theme.backgroundColor//
         titleSearchBar.returnKeyType = .done
         titleSearchBar.delegate = self
         titleSearchBar.frame = searchBar.frame
         
         let textFieldInsideSearchBar1 = titleSearchBar.value(forKey: "searchField") as? UITextField
-        textFieldInsideSearchBar1?.backgroundColor = HippoConfig.shared.theme.backgroundColor//HippoTheme.current.searchBarBackgroundColor
+        textFieldInsideSearchBar1?.backgroundColor = HippoConfig.shared.theme.searchBarBackgroundColor//HippoConfig.shared.theme.backgroundColor//
     }
     
 }
@@ -264,6 +288,7 @@ extension AgentListViewController {
             guard let responseDict = response as? [String: Any],
                 let statusCode = responseDict["statusCode"] as? Int, statusCode == 200 else {
                     HippoConfig.shared.log.debug("API_AssignAgent ERROR.....\(error?.localizedDescription ?? "")", level: .error)
+                    showAlertWith(message: error?.localizedDescription ?? "", action: nil)
                     return
             }
           
@@ -288,6 +313,16 @@ extension AgentListViewController {
 //        } else {
 //            mainNavigationController.popViewController(animated: true)
 //        }
-        self.navigationController?.popViewController(animated: true)
+       
+        
+//        self.navigationController?.popViewController(animated: true)
+        for controller in self.navigationController!.viewControllers as Array {
+            if controller.isKind(of: AgentHomeViewController.self) {
+                self.navigationController!.popToViewController(controller, animated: true)
+                break
+            }
+        }
+        
     }
+
 }
