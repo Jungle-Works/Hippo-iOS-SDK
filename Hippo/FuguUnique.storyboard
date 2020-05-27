@@ -1435,19 +1435,19 @@
                                                 <cells>
                                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="AttachmentOptionCollectionViewCell" reuseIdentifier="AttachmentOptionCollectionViewCell" id="xh7-xR-tiK" customClass="AttachmentOptionCollectionViewCell" customModule="Hippo" customModuleProvider="target">
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Ss0-a8-nFv">
+                                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" id="Ss0-a8-nFv">
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <subviews>
-                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DNZ-vf-TRI">
+                                                                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DNZ-vf-TRI">
                                                                     <rect key="frame" x="0.0" y="0.0" width="116" height="125"/>
                                                                     <subviews>
-                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="makePayment" translatesAutoresizingMaskIntoConstraints="NO" id="ksK-Dy-FFY">
+                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="makePayment" translatesAutoresizingMaskIntoConstraints="NO" id="ksK-Dy-FFY">
                                                                             <rect key="frame" x="16" y="4" width="84" height="84"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" secondItem="ksK-Dy-FFY" secondAttribute="height" multiplier="1:1" id="oB3-JE-6dJ"/>
                                                                             </constraints>
                                                                         </imageView>
-                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sOb-OB-w2H">
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sOb-OB-w2H">
                                                                             <rect key="frame" x="4" y="94" width="108" height="17.5"/>
                                                                             <fontDescription key="fontDescription" name="SinhalaSangamMN" family="Sinhala Sangam MN" pointSize="13"/>
                                                                             <nil key="textColor"/>
@@ -2014,19 +2014,19 @@
                                                 <cells>
                                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="AttachmentOptionCollectionViewCell" reuseIdentifier="AttachmentOptionCollectionViewCell" id="86o-MH-o6N" customClass="AttachmentOptionCollectionViewCell" customModule="Hippo" customModuleProvider="target">
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="gC5-yW-bs3">
+                                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" id="gC5-yW-bs3">
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <subviews>
-                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uFo-xL-fM2">
+                                                                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uFo-xL-fM2">
                                                                     <rect key="frame" x="0.0" y="0.0" width="116" height="125"/>
                                                                     <subviews>
-                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="makePayment" translatesAutoresizingMaskIntoConstraints="NO" id="IDL-Ye-nen">
+                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="makePayment" translatesAutoresizingMaskIntoConstraints="NO" id="IDL-Ye-nen">
                                                                             <rect key="frame" x="16" y="4" width="84" height="84"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" secondItem="IDL-Ye-nen" secondAttribute="height" multiplier="1:1" id="bUf-m7-YVP"/>
                                                                             </constraints>
                                                                         </imageView>
-                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JMc-0q-fB9">
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JMc-0q-fB9">
                                                                             <rect key="frame" x="4" y="94" width="108" height="17.5"/>
                                                                             <fontDescription key="fontDescription" name="SinhalaSangamMN" family="Sinhala Sangam MN" pointSize="13"/>
                                                                             <nil key="textColor"/>

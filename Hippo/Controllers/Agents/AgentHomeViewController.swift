@@ -62,7 +62,7 @@ class AgentHomeViewController: HippoHomeViewController {
         addObservers()
         setUpView()
         setData()
-        
+        setAgentStatusForToggle()
         ConversationStore.shared.fetchAllCachedConversation()
     }
     
