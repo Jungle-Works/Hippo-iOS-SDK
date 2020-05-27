@@ -45,6 +45,12 @@ public class HippoStrings {
     var defaultFallbackText = "This message cannot be displayed"
     var chatHistory = "Conversations"
     
+    //Status
+    static let active = "Active"
+    static let inActive = "Inactive"
+    static let revoked = "Revoked"
+    static let invited = "Invited"
+    
     public init() {
         
     }

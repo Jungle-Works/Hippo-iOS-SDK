@@ -101,6 +101,7 @@ class AgentConversationViewController: HippoConversationViewController {
         setNavBarHeightAccordingtoSafeArea()
         configureChatScreen()
         self.setTitleForCustomNavigationBar()
+        getAgentsData()
         guard channel != nil else {
             startNewConversation(replyMessage: nil, completion: { [weak self] (success, result) in
                 if success {
@@ -847,6 +848,11 @@ extension AgentConversationViewController {
         
         self.navigationController?.interactivePopGestureRecognizer?.delegate = self
         
+    }
+    
+    func getAgentsData() {
+        AgentConversationManager.getAgentsList(showLoader: false) {[weak self] (_) in
+        }
     }
     
     func addTapGestureInTableView() {

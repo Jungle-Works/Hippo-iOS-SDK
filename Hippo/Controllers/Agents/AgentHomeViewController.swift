@@ -62,7 +62,7 @@ class AgentHomeViewController: HippoHomeViewController {
         addObservers()
         setUpView()
         setData()
-        
+        setAgentStatusForToggle()
         ConversationStore.shared.fetchAllCachedConversation()
     }
     
@@ -77,6 +77,7 @@ class AgentHomeViewController: HippoHomeViewController {
     func setDataForViewDidAppear(){
         isInitalLoad = false
         AgentConversationManager.getAllData()
+        Business.shared.restoreAllSavedInfo()//
     }
     
     //MARK: Actions
@@ -173,7 +174,14 @@ class AgentHomeViewController: HippoHomeViewController {
 extension AgentHomeViewController {
 
     func agentStatusChanged() {
-        AgentConversationManager.agentStatusUpdate(newStatus: self.agentStatus.isOn ? AgentStatus.available : AgentStatus.away)
+//        AgentConversationManager.agentStatusUpdate(newStatus: self.agentStatus.isOn ? AgentStatus.available : AgentStatus.away)
+        AgentConversationManager.agentStatusUpdate(newStatus: self.agentStatus.isOn ? AgentStatus.available : AgentStatus.away) {[weak self] (success) in
+            guard success, let strongSelf = self else {
+                return
+            }
+            AgentConversationManager.getAgentsList(showLoader: false) {[weak self] (_) in                
+            }
+        }
     }
     
     func setData() {

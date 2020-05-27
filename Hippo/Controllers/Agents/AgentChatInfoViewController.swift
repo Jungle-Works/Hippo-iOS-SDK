@@ -218,6 +218,15 @@ extension AgentChatInfoViewController: UITableViewDelegate  {
         switch value {
         case .channelActions:
             channelActionClicked()
+        case .chatInfo:
+            switch indexPath.row {
+            case 0: //For agent info
+                pushToAgentAssignmentList()
+                break
+            case 1: //for channel tags
+                print("case 1")
+            default:break
+            }
         default:
             break
         }
@@ -225,6 +234,16 @@ extension AgentChatInfoViewController: UITableViewDelegate  {
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         return 150
     }
+    
+    func pushToAgentAssignmentList() {
+        guard channelDetail != nil else {
+            return
+        }
+        if let vc = AgentListViewController.get(channelInfo: channelDetail!){
+        self.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    
 }
 //MARK: TableViewDataSource
 extension AgentChatInfoViewController: UITableViewDataSource {

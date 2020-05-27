@@ -399,6 +399,8 @@ enum AgentEndPoints: String {
     case getPaymentPlans = "api/agent/getPaymentPlans"
     case editPaymentPlans = "api/agent/editPaymentPlans"
     case getBotActions = "api/agent/getAllBotActions"
+    
+    case getAgents = "api/agent/getAgents"
 }
 
 enum BroadcastType: String, CaseCountable {

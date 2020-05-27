@@ -247,6 +247,7 @@ public struct ConversationListTheme {
     
     //MARK: Icons
     open var placeHolderImage = UIImage(named: "placeholderImg", in: FuguFlowManager.bundle, compatibleWith: nil)
+    open var userPlaceHolderImage = UIImage(named: "user_placeholder_icon", in: FuguFlowManager.bundle, compatibleWith: nil)
     open var csvIcon = UIImage(named: "csv", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     open var pdfIcon = UIImage(named: "pdf", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     open var docIcon = UIImage(named: "doc", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
@@ -271,6 +272,9 @@ public struct ConversationListTheme {
     
     open var openChatIcon =  UIImage(named: "newChat", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     open var cancelIcon =  UIImage(named: "cancel_icon", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+    
+    open var availableStatusIcon =  UIImage(named: "available_status_icon", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+    open var awayStatusIcon =  UIImage(named: "away_status_icon", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     
     //Private icons
     var facebookSourceIcon = UIImage(named: "facebookIcon", in: FuguFlowManager.bundle, compatibleWith: nil)
