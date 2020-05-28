@@ -12,7 +12,7 @@ let HippoSDKSource = 1
 let Device_Type_iOS = 2
 var userDetailData = [String: Any]()
 
-let fuguAppVersion = "2.1.20"
+let fuguAppVersion = "2.1.21"
 let versionCode = 320//350(newCalling)
 
 /*
@@ -102,5 +102,7 @@ let versionCode = 320//350(newCalling)
  318 *** 2.1.19 = Function added to get current channel id.
  
  319 *** 2.1.20 = UI changes and unread count in agent sdk
+ 
+ 320 *** 2.1.21 = p2p chat count in parent app and chat autoclose in refresh channel
  
  */
