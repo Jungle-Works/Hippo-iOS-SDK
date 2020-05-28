@@ -772,31 +772,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     
    override func backButtonClicked() {
         super.backButtonClicked()
-        messageTextView.resignFirstResponder()
-    
-        channel?.send(message: HippoMessage.stopTyping, completion: {})
-        let rawLabelID = self.labelId == -1 ? nil : self.labelId
-        let channelID = self.channel?.id ?? -1
-        
-        clearUnreadCountForChannel(id: channelID)
-        if let lastMessage = getLastMessage(), let conversationInfo = FuguConversation(channelId: channelID, unreadCount: 0, lastMessage: lastMessage, labelID: rawLabelID) {
-            
-            delegate?.updateConversationWith(conversationObj: conversationInfo)
-        }
-    
-        //if chat delegate is not set , it doesnot exist in allconversation
-        if delegate == nil{
-            for controller in self.navigationController?.viewControllers ?? [UIViewController](){
-                if controller is AllConversationsViewController{
-                    (controller as? AllConversationsViewController)?.getAllConversations()
-                    break
-                }
-            }
-        }
-    
-        if channel != nil {
-            self.channel.saveMessagesInCache()
-        }
+        backNavigationDataSaving()
         if self.navigationController == nil {
             HippoConfig.shared.notifiyDeinit()
             dismiss(animated: true, completion: nil)
@@ -809,6 +785,36 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
             }
         }
    }
+    
+    func backNavigationDataSaving(){
+        messageTextView.resignFirstResponder()
+        
+        channel?.send(message: HippoMessage.stopTyping, completion: {})
+        let rawLabelID = self.labelId == -1 ? nil : self.labelId
+        let channelID = self.channel?.id ?? -1
+        
+        clearUnreadCountForChannel(id: channelID)
+        if let lastMessage = getLastMessage(), let conversationInfo = FuguConversation(channelId: channelID, unreadCount: 0, lastMessage: lastMessage, labelID: rawLabelID) {
+            
+            delegate?.updateConversationWith(conversationObj: conversationInfo)
+        }
+        
+        //if chat delegate is not set , it doesnot exist in allconversation
+        if delegate == nil{
+            for controller in self.navigationController?.viewControllers ?? [UIViewController](){
+                if controller is AllConversationsViewController{
+                    (controller as? AllConversationsViewController)?.getAllConversations()
+                    break
+                }
+            }
+        }
+        
+        if channel != nil {
+            self.channel.saveMessagesInCache()
+        }
+        
+    }
+    
  override func clearUnreadCountForChannel(id: Int) {
         
         let channelRaw: [String: Any] = ["channel_id": id]
@@ -3092,17 +3098,17 @@ extension ConversationsViewController: UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         messageTextView.resignFirstResponder()
         channel?.send(message: HippoMessage.stopTyping, completion: {})
-        if gestureRecognizer == self.navigationController?.interactivePopGestureRecognizer{
-            return false
-        }
         let rawLabelID = self.labelId == -1 ? nil : self.labelId
         let channelID = self.channel?.id ?? -1
-        clearUnreadCountForChannel(id: channelID)
+       // clearUnreadCountForChannel(id: channelID)
         if let lastMessage = getLastMessage(), let conversationInfo = FuguConversation(channelId: channelID, unreadCount: 0, lastMessage: lastMessage, labelID: rawLabelID) {
             delegate?.updateConversationWith(conversationObj: conversationInfo)
         }
         
-        
+        if gestureRecognizer == self.navigationController?.interactivePopGestureRecognizer{
+            //self.backNavigationDataSaving()
+            return false
+        }
         return true
     }
 

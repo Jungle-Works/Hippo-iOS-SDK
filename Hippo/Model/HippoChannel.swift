@@ -632,12 +632,10 @@ class HippoChannel {
                 return
             }
             if message.type == .call {
-                
-               // DispatchQueue.main.async {
-                    self?.signalReceivedFromPeer?(messageDict)
-//                    CallManager.shared.voipNotificationRecieved(payloadDict: messageDict)
-//                }
-                return
+                self?.signalReceivedFromPeer?(messageDict)
+                if HippoConfig.shared.appUserType == .customer  {
+                    CallManager.shared.voipNotificationRecieved(payloadDict: messageDict)
+                }
             }
             
             self?.messageReceived(message: message)
