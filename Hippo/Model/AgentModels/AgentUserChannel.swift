@@ -189,7 +189,6 @@ class AgentUserChannel {
         }else if type == .readAll {
             removeChannelForUnreadCount(newConversation.channel_id ?? -1)
             handleReadAllForHome(newConversation: newConversation)
-            return
         }else if type == .channelRefresh{
             let chatDetail = ChatDetail(json: dict)
             handleChannelRefresh(chatDetail: chatDetail)

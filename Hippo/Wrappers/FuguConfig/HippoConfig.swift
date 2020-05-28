@@ -1085,6 +1085,10 @@ public extension HippoConfig {
 }
 
 extension HippoConfig {
+    func sendp2pUnreadCount(_ unreadCount : Int, _ channelId : Int){
+        HippoConfig.shared.delegate?.sendp2pUnreadCount(unreadCount: unreadCount,channelId: channelId)
+    }
+    
     func sendDataIfChatIsAssignedToSelfAgent(_ dic : [String : Any]){
         HippoConfig.shared.delegate?.sendDataIfChatIsAssignedToSelfAgent(dic)
     }

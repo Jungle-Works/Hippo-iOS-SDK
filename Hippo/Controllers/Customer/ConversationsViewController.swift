@@ -2658,6 +2658,10 @@ extension ConversationsViewController: ImageCellDelegate {
 }
 
 extension ConversationsViewController: HippoChannelDelegate {
+    func closeChatActionFromRefreshChannel() {
+        self.backButtonClicked()
+    }
+    
     func channelDataRefreshed() {
         label = channel?.chatDetail?.channelName ?? label
         userImage = channel?.chatDetail?.channelImageUrl

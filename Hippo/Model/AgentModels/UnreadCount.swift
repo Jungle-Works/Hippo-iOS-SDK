@@ -131,6 +131,16 @@ extension UnreadCount {
                 callback(HippoError.general, nil)
                 return
             }
+            
+            if let unreadDic = (responseObject as? [String: Any])?["data"] as? [String : Any]{
+                var unreadHashMap = [String : Any]()
+                let channelId = unreadDic["channel_id"] as? Int ?? -1
+                let unreadCount = unreadDic["unread_count"] as? Int
+                unreadHashMap["\(channelId)"] = unreadCount
+                FuguDefaults.set(value: unreadHashMap, forKey: DefaultName.p2pUnreadCount.rawValue)
+            }
+        
+          
             HippoConfig.shared.log.debug("\(responseObject ?? [:])", level: .response)
             callback(nil, unreadCount)
     
