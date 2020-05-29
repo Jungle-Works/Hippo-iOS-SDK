@@ -835,6 +835,8 @@ extension AgentConversationViewController {
             backgroundImageView.contentMode = .scaleToFill
         }
         
+        self.attachments.append(Attachment(icon : HippoConfig.shared.theme.alphabetSymbolIcon  , title : "Text"))
+        self.attachments.append(Attachment(icon : HippoConfig.shared.theme.privateInternalNotesIcon  , title : "Internal Notes"))
         if BussinessProperty.current.isAskPaymentAllowed{
             self.attachments.append(Attachment(icon : HippoConfig.shared.theme.paymentIcon , title : "Payment"))
         }
