@@ -38,7 +38,7 @@ struct SERVERS {
 static let liveUrl = "https://api.hippochat.io/"
 static let liveFaye = "wss://faye.hippochat.io/faye"
 
-static let betaUrl = "https://beta-live-api.fuguchat.com/"
+static let betaUrl = "https://beta-live-api.fuguchat.com:3001/"
 static let betaFaye = "https://beta-live-api.fuguchat.com:3001/faye"
 
 /*OLD BETA****/
@@ -1085,6 +1085,10 @@ public extension HippoConfig {
 }
 
 extension HippoConfig {
+    func sendp2pUnreadCount(_ unreadCount : Int, _ channelId : Int){
+        HippoConfig.shared.delegate?.sendp2pUnreadCount(unreadCount: unreadCount,channelId: channelId)
+    }
+    
     func sendDataIfChatIsAssignedToSelfAgent(_ dic : [String : Any]){
         HippoConfig.shared.delegate?.sendDataIfChatIsAssignedToSelfAgent(dic)
     }

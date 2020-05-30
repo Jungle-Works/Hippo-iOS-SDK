@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		47B12417C887BBD208902F39 /* Pods_Hippo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C0A922564912516EF04B93F /* Pods_Hippo.framework */; };
+<<<<<<< HEAD
 		6B91A93E24780AF4008AB4CC /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B91A93C24780AF4008AB4CC /* NavigationBar.swift */; };
 		6B91A93F24780AF4008AB4CC /* NavigationBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6B91A93D24780AF4008AB4CC /* NavigationBar.xib */; };
 		6BA8B19E24784E1B00E7E087 /* NavigationBarChat.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6BA8B19D24784E1B00E7E087 /* NavigationBarChat.xib */; };
@@ -22,6 +23,9 @@
 		6BB999522476534000FC32C8 /* Mark Simonson - Proxima Nova Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6BB999482476534000FC32C8 /* Mark Simonson - Proxima Nova Regular.ttf */; };
 		6BB999532476534000FC32C8 /* ProximaNova-Sbold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6BB999492476534000FC32C8 /* ProximaNova-Sbold.ttf */; };
 		6BB999542476534000FC32C8 /* ProximaNova-Reg.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6BB9994A2476534000FC32C8 /* ProximaNova-Reg.ttf */; };
+=======
+		6B1011F2248128D2007FC8EC /* loader.gif in Resources */ = {isa = PBXBuildFile; fileRef = 6B1011F1248128D2007FC8EC /* loader.gif */; };
+>>>>>>> origin/master
 		C9B77E6121A01B060092848D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9B77D7A21A01B060092848D /* Assets.xcassets */; };
 		C9B77E6321A01B060092848D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9B77D7C21A01B060092848D /* LaunchScreen.storyboard */; };
 		C9B77E6421A01B060092848D /* Montserrat-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = C9B77D7E21A01B060092848D /* Montserrat-Medium.otf */; };
@@ -396,6 +400,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+<<<<<<< HEAD
 		6B91A93C24780AF4008AB4CC /* NavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
 		6B91A93D24780AF4008AB4CC /* NavigationBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NavigationBar.xib; sourceTree = "<group>"; };
 		6BA8B19D24784E1B00E7E087 /* NavigationBarChat.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NavigationBarChat.xib; sourceTree = "<group>"; };
@@ -410,6 +415,9 @@
 		6BB999482476534000FC32C8 /* Mark Simonson - Proxima Nova Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Mark Simonson - Proxima Nova Regular.ttf"; sourceTree = "<group>"; };
 		6BB999492476534000FC32C8 /* ProximaNova-Sbold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-Sbold.ttf"; sourceTree = "<group>"; };
 		6BB9994A2476534000FC32C8 /* ProximaNova-Reg.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-Reg.ttf"; sourceTree = "<group>"; };
+=======
+		6B1011F1248128D2007FC8EC /* loader.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = loader.gif; sourceTree = "<group>"; };
+>>>>>>> origin/master
 		6F7645C36ABF77183FAD526B /* Pods-Hippo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hippo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Hippo/Pods-Hippo.debug.xcconfig"; sourceTree = "<group>"; };
 		717BE1731EC1BE11003EA321 /* Hippo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hippo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		73C5DC7752C82068B4CD5EB2 /* Pods-Hippo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hippo.release.xcconfig"; path = "Pods/Target Support Files/Pods-Hippo/Pods-Hippo.release.xcconfig"; sourceTree = "<group>"; };
@@ -1741,6 +1749,7 @@
 				D8F6D23F2419587E00B168C5 /* CountryCode.swift */,
 				D8F6D2402419587E00B168C5 /* FrameObserverAccessaryView.swift */,
 				D8F6D2462419588200B168C5 /* Fugu+Properties.swift */,
+				6B1011F1248128D2007FC8EC /* loader.gif */,
 				D8F6D23E2419587D00B168C5 /* typingImage.gif */,
 				D8F6D2442419588000B168C5 /* Helper.swift */,
 				D8F6D2452419588100B168C5 /* FuguConnection.swift */,
@@ -2557,6 +2566,7 @@
 				D8F6D0262418FA8A00B168C5 /* PaymentMessageCell.xib in Resources */,
 				D8F6D14E24194D1800B168C5 /* OutgoingAudioTableViewCell.xib in Resources */,
 				D8F6D15F24194DA500B168C5 /* OutgoingDocumentTableViewCell.xib in Resources */,
+				6B1011F2248128D2007FC8EC /* loader.gif in Resources */,
 				D8F6D0BD2419449500B168C5 /* NavigationTitleView.xib in Resources */,
 				D8F6D1A12419503300B168C5 /* FeedbackTableViewCell.xib in Resources */,
 				D86028AC23F6AD40009540D3 /* SuggestionCell.xib in Resources */,

@@ -1605,7 +1605,16 @@ extension HippoConversationViewController: PaymentMessageCellDelegate {
         
         if HippoConfig.shared.appUserType == .customer{
             closeKeyBoard()
-            if addedPaymentGatewaysArr.count > 0{
+            switch addedPaymentGatewaysArr.count{
+            case 0:
+                showAlertWith(message: "No payment method available", action: nil)
+            case 1:
+                if let proceedToPayMessage = proceedToPayMessage, let proceedToPayChannel = proceedToPayChannel, let proceedToPaySelectedCard = proceedToPaySelectedCard{
+                    generatePaymentUrlWithSelectedPaymentGateway(for: proceedToPayMessage, card: proceedToPaySelectedCard, selectedPaymentGateway: addedPaymentGatewaysArr.first, proceedToPayChannel: proceedToPayChannel)
+                    return
+                }
+                break
+            default:
                 if let currencyStr = selectedCard.currency{
                     actionSheetTitleArr.removeAll()
                     actionSheetImageArr.removeAll()
@@ -1625,6 +1634,8 @@ extension HippoConversationViewController: PaymentMessageCellDelegate {
                     isProceedToPayActionSheet = true
                     openCustomSheet()
                 }
+                
+                break
             }
         }else{
             if let channel = self.channel, channel.isSendingDisabled {
@@ -1672,6 +1683,7 @@ extension HippoConversationViewController: PaymentMessageCellDelegate {
         
     }
     
+
     func getNextMessageInDateGroupOfMessageAt(indexPath: IndexPath) -> HippoMessage? {
         let row = indexPath.row
         let section = indexPath.section
@@ -1704,6 +1716,31 @@ extension HippoConversationViewController: PaymentMessageCellDelegate {
         return 0 // onle top pennding for same user message extra bottom space is 0
     }
     
+
+    func generatePaymentUrlWithSelectedPaymentGateway(for message: HippoMessage, card: CustomerPayment, selectedPaymentGateway: PaymentGateway?, proceedToPayChannel: HippoChannel?) {
+        let selectedCard = card
+        guard let channelId = proceedToPayChannel?.id else {
+            HippoConfig.shared.log.error("cannot find selected card.... Please select the card", level: .error)
+            return
+        }
+        HippoConfig.shared.delegate?.startLoading(message: "Redirecting to payment...")
+        PaymentStore.generatePaymentUrl(channelId: channelId, message: message, selectedCard: selectedCard, selectedPaymentGateway: selectedPaymentGateway) { (success, data) in
+            HippoConfig.shared.delegate?.stopLoading()
+            guard success, let result = data else {
+                return
+            }
+            guard let paymentUrl = result["payment_url"] as? String else {
+                return
+            }
+            HippoConfig.shared.log.debug("Response --\(result)", level: .response)
+            selectedCard.paymentUrlString = paymentUrl
+            guard let url = URL(string: paymentUrl) else {
+                return
+            }
+            self.initatePayment(for: url)
+        }
+    }
+
 }
 
 extension HippoConversationViewController: submitButtonTableViewDelegate
