@@ -33,6 +33,7 @@ protocol HippoChannelDelegate: class {
     func sendingFailedFor(message: HippoMessage)
     func cancelSendingMessage(message: HippoMessage, errorMessage: String?)
     func channelDataRefreshed()
+    func closeChatActionFromRefreshChannel()
 }
 struct CreateConversationWithLabelId {
     var replyMessage: HippoMessage?
@@ -632,10 +633,11 @@ class HippoChannel {
                 return
             }
             if message.type == .call {
-                self?.signalReceivedFromPeer?(messageDict)
-                if HippoConfig.shared.appUserType == .customer  {
+              self?.signalReceivedFromPeer?(messageDict)
+              if HippoConfig.shared.appUserType == .customer  {
                     CallManager.shared.voipNotificationRecieved(payloadDict: messageDict)
-                }
+              }
+                return
             }
             
             self?.messageReceived(message: message)
@@ -650,6 +652,9 @@ class HippoChannel {
         case .channelRefreshed:
             channelRefreshed(dict: dict)
             return false
+        case .message:
+            print("***** \(notificationType)")
+            return true
         default:
             break
         }
@@ -661,6 +666,11 @@ class HippoChannel {
         guard let channelId = Int.parse(values: dict, key: "channel_id"), id == channelId else {
             return
         }
+        let closetheChat = dict["close_the_chat"] as? Int
+        if closetheChat == 1{
+            delegate?.closeChatActionFromRefreshChannel()
+        }
+        
         
         let rawSendingReplyDisabled = (dict["disable_reply"] as? Int) ?? 0
         let isSendingDisabled = rawSendingReplyDisabled == 1 ? true : false
@@ -705,6 +715,7 @@ class HippoChannel {
             HippoConfig.shared.log.debug("notification reject \(notificationType)", level: .custom)
             return
         }
+        
         if message.isANotification() && canChangeStatusOfMessagesToReadAllIf(messageReceived: message) {
             updateAllMessagesStatusToRead()
         }

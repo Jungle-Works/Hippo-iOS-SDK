@@ -1945,6 +1945,10 @@ extension AgentConversationViewController{
 }
 
 extension AgentConversationViewController: HippoChannelDelegate {
+    func closeChatActionFromRefreshChannel() {
+        
+    }
+    
     func channelDataRefreshed() {
         
         if channel?.chatDetail?.disableReply == true{

@@ -1814,29 +1814,7 @@ extension ConversationsViewController {
         }
     }
     
-    func generatePaymentUrlWithSelectedPaymentGateway(for message: HippoMessage, card: CustomerPayment, selectedPaymentGateway: PaymentGateway?, proceedToPayChannel: HippoChannel?) {
-        let selectedCard = card
-        guard let channelId = proceedToPayChannel?.id else {
-            HippoConfig.shared.log.error("cannot find selected card.... Please select the card", level: .error)
-            return
-        }
-        HippoConfig.shared.delegate?.startLoading(message: "Redirecting to payment...")
-        PaymentStore.generatePaymentUrl(channelId: channelId, message: message, selectedCard: selectedCard, selectedPaymentGateway: selectedPaymentGateway) { (success, data) in
-            HippoConfig.shared.delegate?.stopLoading()
-            guard success, let result = data else {
-                return
-            }
-            guard let paymentUrl = result["payment_url"] as? String else {
-                return
-            }
-            HippoConfig.shared.log.debug("Response --\(result)", level: .response)
-            selectedCard.paymentUrlString = paymentUrl
-            guard let url = URL(string: paymentUrl) else {
-                return
-            }
-            self.initatePayment(for: url)
-        }
-    }
+
     
 }
 
@@ -2164,7 +2142,7 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                                 if let message = proceedToPayMessage{
                                     if let selectedCard = proceedToPaySelectedCard{
                                         if let chnl = proceedToPayChannel{
-                                            self.generatePaymentUrlWithSelectedPaymentGateway(for: message, card: selectedCard, selectedPaymentGateway: addedPaymentGatewaysArr[i], proceedToPayChannel: chnl)
+                                            generatePaymentUrlWithSelectedPaymentGateway(for: message, card: selectedCard, selectedPaymentGateway: addedPaymentGatewaysArr[i], proceedToPayChannel: chnl)
                                         }
                                     }
                                 }
@@ -2678,6 +2656,10 @@ extension ConversationsViewController: ImageCellDelegate {
 }
 
 extension ConversationsViewController: HippoChannelDelegate {
+    func closeChatActionFromRefreshChannel() {
+        self.backButtonClicked()
+    }
+    
     func channelDataRefreshed() {
         label = channel?.chatDetail?.channelName ?? label
         userImage = channel?.chatDetail?.channelImageUrl
@@ -3095,22 +3077,20 @@ extension ConversationsViewController {
 
 extension ConversationsViewController: UIGestureRecognizerDelegate {
 
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        messageTextView.resignFirstResponder()
-        channel?.send(message: HippoMessage.stopTyping, completion: {})
-        let rawLabelID = self.labelId == -1 ? nil : self.labelId
-        let channelID = self.channel?.id ?? -1
-       // clearUnreadCountForChannel(id: channelID)
-        if let lastMessage = getLastMessage(), let conversationInfo = FuguConversation(channelId: channelID, unreadCount: 0, lastMessage: lastMessage, labelID: rawLabelID) {
-            delegate?.updateConversationWith(conversationObj: conversationInfo)
+     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+            messageTextView.resignFirstResponder()
+            channel?.send(message: HippoMessage.stopTyping, completion: {})
+            let rawLabelID = self.labelId == -1 ? nil : self.labelId
+            let channelID = self.channel?.id ?? -1
+            if let lastMessage = getLastMessage(), let conversationInfo = FuguConversation(channelId: channelID, unreadCount: 0, lastMessage: lastMessage, labelID: rawLabelID) {
+                delegate?.updateConversationWith(conversationObj: conversationInfo)
+            }
+            
+            if gestureRecognizer == self.navigationController?.interactivePopGestureRecognizer{
+                return false
+            }
+            return true
         }
-        
-        if gestureRecognizer == self.navigationController?.interactivePopGestureRecognizer{
-            //self.backNavigationDataSaving()
-            return false
-        }
-        return true
-    }
 
 }
 
