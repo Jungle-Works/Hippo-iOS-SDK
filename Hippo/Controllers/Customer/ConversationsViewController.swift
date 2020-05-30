@@ -1810,29 +1810,7 @@ extension ConversationsViewController {
         }
     }
     
-    func generatePaymentUrlWithSelectedPaymentGateway(for message: HippoMessage, card: CustomerPayment, selectedPaymentGateway: PaymentGateway?, proceedToPayChannel: HippoChannel?) {
-        let selectedCard = card
-        guard let channelId = proceedToPayChannel?.id else {
-            HippoConfig.shared.log.error("cannot find selected card.... Please select the card", level: .error)
-            return
-        }
-        HippoConfig.shared.delegate?.startLoading(message: "Redirecting to payment...")
-        PaymentStore.generatePaymentUrl(channelId: channelId, message: message, selectedCard: selectedCard, selectedPaymentGateway: selectedPaymentGateway) { (success, data) in
-            HippoConfig.shared.delegate?.stopLoading()
-            guard success, let result = data else {
-                return
-            }
-            guard let paymentUrl = result["payment_url"] as? String else {
-                return
-            }
-            HippoConfig.shared.log.debug("Response --\(result)", level: .response)
-            selectedCard.paymentUrlString = paymentUrl
-            guard let url = URL(string: paymentUrl) else {
-                return
-            }
-            self.initatePayment(for: url)
-        }
-    }
+
     
 }
 
@@ -2158,7 +2136,7 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                                 if let message = proceedToPayMessage{
                                     if let selectedCard = proceedToPaySelectedCard{
                                         if let chnl = proceedToPayChannel{
-                                            self.generatePaymentUrlWithSelectedPaymentGateway(for: message, card: selectedCard, selectedPaymentGateway: addedPaymentGatewaysArr[i], proceedToPayChannel: chnl)
+                                            generatePaymentUrlWithSelectedPaymentGateway(for: message, card: selectedCard, selectedPaymentGateway: addedPaymentGatewaysArr[i], proceedToPayChannel: chnl)
                                         }
                                     }
                                 }

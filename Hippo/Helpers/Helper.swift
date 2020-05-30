@@ -49,3 +49,53 @@ class Helper {
         return attributedStringForLabel("", secondString: messageString, thirdString: "", colorOfFirstString: nameColor, colorOfSecondString: messageColor, colorOfThirdString: timeColor, fontOfFirstString: HippoConfig.shared.theme.senderNameFont, fontOfSecondString:  HippoConfig.shared.theme.incomingMsgFont, fontOfThirdString: UIFont.systemFont(ofSize: 11.0), textAlighnment: .left, dateAlignment: .right)
     }
 }
+class CustomLoader{
+    
+     static let shared = CustomLoader()
+    lazy var loader = UIImageView()
+    //lazy var loaderView = UIView()
+    private var backgroundView = UIView()
+    
+    
+    func showLoader(message: String = "Please wait" , _ viewController : UIViewController) {
+        if let viewController = viewController as? UIViewController{
+            if viewController.view.subviews.contains(loader)
+            {
+                self.hideGifLoader(viewController)
+            }
+        }
+        backgroundView.frame = viewController.view.frame
+        backgroundView.backgroundColor = .black
+        backgroundView.alpha = 0.4
+        
+        loader.isHidden = false
+        //loaderView.isHidden = false
+        backgroundView.isHidden = false
+        
+        //loaderView.frame = (CGRect(x: self.backgroundView.frame.size.width/2 - 40 , y: self.backgroundView.frame.size.height/2 - 40 , width: 80, height: 80))
+        //loaderView.backgroundColor = UIColor.black
+        //loaderView.layer.cornerRadius = 10
+        //loader.center = loaderView.center
+        loader = UIImageView(frame: CGRect(x: self.backgroundView.frame.size.width/2 - 40 , y: self.backgroundView.frame.size.height/2 - 40 , width: 80, height: 80))
+        loader.image = UIImage.gifImageWithName("loader")
+        loader.isHidden = false
+        //loaderView.addSubview(loader)
+       
+        
+        if let viewController = viewController as? UIViewController{
+            viewController.view.addSubview(backgroundView)
+            viewController.view.addSubview(loader)
+        }
+        
+    }
+    
+    func hideGifLoader(_ viewController : UIViewController) {
+        backgroundView.isHidden = true
+        loader.isHidden = true
+        //loaderView.isHidden = true
+        backgroundView.removeFromSuperview()
+        loader.removeFromSuperview()
+       // loaderView.removeFromSuperview()
+    }
+    
+}
