@@ -81,6 +81,7 @@ class AgentDetail: NSObject {
     var oAuthToken = ""
     var app_type = AgentDetail.defaultAppType
     var customAttributes: [String: Any]? = nil
+    var businessCurrency : [BuisnessCurrency]?
     
     static var agentLoginData: [String: Any]? {
         get {
@@ -107,7 +108,7 @@ class AgentDetail: NSObject {
         businessName = dict["business_name"] as? String ?? ""
         number = dict["phone_number"] as? String ?? ""
         userImage = dict["user_image"] as? String
- 
+        
 //        if let online_status = dict["online_status"] as? String, let status = AgentStatus.init(rawValue: online_status) {
 //            self.status = status
 //        }
@@ -133,9 +134,7 @@ class AgentDetail: NSObject {
         }
         
     }
-    
-    
-    
+       
     init(oAuthToken: String, appType: String, customAttributes: [String: Any]?) {
         self.oAuthToken = oAuthToken
         self.customAttributes = customAttributes
@@ -264,6 +263,8 @@ extension AgentDetail {
                 BussinessProperty.current.encodeToHTMLEntities = Bool.parse(key: "encode_to_html_entites", json: businessProperty)
                 
                 BussinessProperty.current.isAskPaymentAllowed = Bool.parse(key: "is_ask_payment_allowed", json: businessProperty)
+                
+                BussinessProperty.current.currencyArr = BuisnessCurrency().getCurrenyData(businessProperty["business_currency"] as? [[String : Any]] ?? [[String : Any]]())
                 
             }
             

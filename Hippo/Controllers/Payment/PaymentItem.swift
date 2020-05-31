@@ -16,7 +16,6 @@ class PaymentItem: NSObject {
     var titleField: PaymentField
     var errorMessage: String = ""
     var id: String?
-    
     var currency: PaymentCurrency?
     
     
