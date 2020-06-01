@@ -30,18 +30,23 @@ class CheckoutViewController: UIViewController {
     }
     
     private func initalizeWebView() {
-        let webConfiguration = WKWebViewConfiguration()
-        if #available(iOS 10.0, *) {
-            webConfiguration.ignoresViewportScaleLimits = false
-        }
-        webView = WKWebView(frame: CGRect(x: 0, y: 60, width: self.view.bounds.width, height: self.view.bounds.height - 60), configuration: webConfiguration)
-        webView.uiDelegate = self
-        if !config.zoomingEnabled {
-            webView.scrollView.delegate = self
-        }
-        webView.navigationDelegate = self
-        view.addSubview(webView)
-    }
+         let webConfiguration = WKWebViewConfiguration()
+         if #available(iOS 10.0, *) {
+             webConfiguration.ignoresViewportScaleLimits = false
+         }
+         var height : CGFloat = 0.0
+         if #available(iOS 11.0, *) {
+             height = UIApplication.shared.delegate?.window??.safeAreaInsets.top ?? 0.0
+         }
+         
+         webView = WKWebView(frame: CGRect(x: 0, y: height + navigationBar.frame.size.height, width: self.view.bounds.width, height: self.view.bounds.height - (height + navigationBar.frame.size.height)), configuration: webConfiguration)
+         webView.uiDelegate = self
+         if !config.zoomingEnabled {
+             webView.scrollView.delegate = self
+         }
+         webView.navigationDelegate = self
+         view.addSubview(webView)
+     }
     
     private func launchRequest() {
         let request = URLRequest(url: config.initalUrl)
