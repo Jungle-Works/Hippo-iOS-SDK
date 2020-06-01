@@ -68,29 +68,19 @@ class CheckoutViewController: UIViewController {
     func handleForUrlKeys(webUrl: String) {
         print(webUrl)
         if webUrl.contains("success.html"){
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 4.0, execute: {
-            self.backAction(UIButton())
-//            })
-        }else if webUrl.contains("error.html") || webUrl.contains("error") || webUrl.contains("Error"){
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: {
                 self.backAction(UIButton())
-//            })
+            })
+        }else if webUrl.contains("error.html") || webUrl.contains("error") || webUrl.contains("Error"){
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: {
+                self.backAction(UIButton())
+            })
         }
     }
 
     @IBAction func backAction(_ sender: UIButton) {
-       //     if isFromBackBtn{
-        
-//                ErrorView.showWith(message: AppConfiguration.current.strings.order_successful_but_payment_failed, isErrorMessage: true, removed: nil)
-//            _ = self.navigationController?.popToRootViewController(animated: false)
-//            } else {
-//                self.navigationController?.view.layer.add(CATransition().getPopTransition(), forKey: kCATransition)
-//                _ = self.navigationController?.popViewController(animated: false)
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: {
-                    _ = self.navigationController?.popViewController(animated: false)
-                })
-//            }
-        }
+        _ = self.navigationController?.popViewController(animated: false)
+    }
 
 }
 extension CheckoutViewController: WKUIDelegate {
