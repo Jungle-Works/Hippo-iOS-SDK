@@ -1604,9 +1604,15 @@ extension HippoConversationViewController: PaymentMessageCellDelegate {
             case 0:
                 showAlertWith(message: "No payment method available", action: nil)
             case 1:
-                if let proceedToPayMessage = proceedToPayMessage, let proceedToPayChannel = proceedToPayChannel, let proceedToPaySelectedCard = proceedToPaySelectedCard{
-                    generatePaymentUrlWithSelectedPaymentGateway(for: proceedToPayMessage, card: proceedToPaySelectedCard, selectedPaymentGateway: addedPaymentGatewaysArr.first, proceedToPayChannel: proceedToPayChannel)
-                    return
+                if let currencyStr = selectedCard.currency, let currencyAllowed = addedPaymentGatewaysArr.first?.currency_allowed{
+                    if currencyAllowed.contains(currencyStr){
+                        if let proceedToPayMessage = proceedToPayMessage, let proceedToPayChannel = proceedToPayChannel, let proceedToPaySelectedCard = proceedToPaySelectedCard{
+                            generatePaymentUrlWithSelectedPaymentGateway(for: proceedToPayMessage, card: proceedToPaySelectedCard, selectedPaymentGateway: addedPaymentGatewaysArr.first, proceedToPayChannel: proceedToPayChannel)
+                            return
+                        }
+                    }else{
+                       showAlertWith(message: "No payment method available", action: nil)
+                    }
                 }
                 break
             default:
@@ -1625,9 +1631,13 @@ extension HippoConversationViewController: PaymentMessageCellDelegate {
                             }
                         }
                     }
-                    heightForActionSheet = CGFloat((actionSheetTitleArr.count * 60))
-                    isProceedToPayActionSheet = true
-                    openCustomSheet()
+                    if actionSheetTitleArr.count > 0{
+                        heightForActionSheet = CGFloat((actionSheetTitleArr.count * 60))
+                        isProceedToPayActionSheet = true
+                        openCustomSheet()
+                    }else{
+                      showAlertWith(message: "No payment method available", action: nil)
+                    }
                 }
                 
                 break
