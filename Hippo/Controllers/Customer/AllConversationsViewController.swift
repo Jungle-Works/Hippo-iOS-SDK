@@ -614,8 +614,8 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
             //self.navigationItem.rightBarButtonItem?.tintColor = .clear
             if informationView == nil {
                 informationView = InformationView.loadView(self.view.bounds, delegate: self)
-                informationView?.informationLabel.text = errorMessage
             }
+            self.informationView?.informationLabel.text = errorMessage
             //self.showConversationsTableView.isHidden = true
             self.informationView?.informationImageView.image = HippoConfig.shared.theme.noChatImage
             self.informationView?.isButtonInfoHidden = !shouldShowBtn

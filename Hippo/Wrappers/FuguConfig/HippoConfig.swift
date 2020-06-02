@@ -158,10 +158,10 @@ struct BotAction {
     var isSkipBot:Bool = false
     internal var baseUrl =      SERVERS.liveUrl     // SERVERS.betaUrl//
     internal var fayeBaseURLString: String =     SERVERS.liveFaye   // SERVERS.betaFaye//
-     
     open var unreadCount: ((_ totalUnread: Int) -> ())?
     open var usersUnreadCount: ((_ userUnreadCount: [String: Int]) -> ())?
     open var HippoDismissed: ((_ isDismissed: Bool) -> ())?
+
     
     internal let powererdByColor = #colorLiteral(red: 0.4980392157, green: 0.4980392157, blue: 0.4980392157, alpha: 1)
     internal let FuguColor = #colorLiteral(red: 0.3843137255, green: 0.4901960784, blue: 0.8823529412, alpha: 1)
@@ -515,6 +515,16 @@ struct BotAction {
     }
     public func fetchUnreadCountFor(request: PeerToPeerChat, completion: @escaping P2PUnreadCountCompletion) {
         UnreadCount.fetchP2PUnreadCount(request: request, callback: completion)
+    }
+    
+    public func registerNewChannelId(_ channelId : Int){
+        var unreadHashMap = FuguDefaults.object(forKey: DefaultName.p2pUnreadCount.rawValue) as? [String: Any] ?? [String : Any]()
+        if unreadHashMap.values.count == 0 || unreadHashMap.keys.contains("\(channelId)") == false{
+            unreadHashMap.removeAll()
+            unreadHashMap["\(channelId)"] = 1
+            FuguDefaults.set(value: unreadHashMap, forKey: DefaultName.p2pUnreadCount.rawValue)
+            HippoConfig.shared.sendp2pUnreadCount(1, channelId)
+        }
     }
     
     public func openChatWith(channelId: Int, completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
