@@ -1132,6 +1132,18 @@ extension HippoConfig {
         HippoConfig.shared.delegate?.hippoMessageRecievedWith(response: dict, viewController: contoller)
     }
     
+    //register channel id
+    
+    public func registerNewChannelId(_ channelId : Int){
+         var unreadHashMap = FuguDefaults.object(forKey: DefaultName.p2pUnreadCount.rawValue) as? [String: Any] ?? [String : Any]()
+         if unreadHashMap.values.count == 0 || unreadHashMap.keys.contains("\(channelId)") == false{
+             unreadHashMap.removeAll()
+             unreadHashMap["\(channelId)"] = 1
+             FuguDefaults.set(value: unreadHashMap, forKey: DefaultName.p2pUnreadCount.rawValue)
+             HippoConfig.shared.sendp2pUnreadCount(1, channelId)
+         }
+     }
+    
     #if canImport(HippoCallClient)
     func notifyCallRequest(_ request: CallPresenterRequest) -> CallPresenter? {
         if HippoConfig.shared.delegate == nil {
