@@ -181,8 +181,8 @@ class PaymentStore: NSObject {
                                         "title": item.titleField.value,
                                         "description": item.descriptionField.value,
                                         "amount": Double(item.priceField.value) ?? 0,
-                                        "currency": selectedCurrency?.code ?? "INR",
-                                        "currency_symbol": selectedCurrency?.symbol ?? "₹"]
+                                        "currency": item.currency?.code ?? "INR",
+                                        "currency_symbol": item.currency?.symbol ?? "₹"]
             
             if withTransactionId {
                 dict["transaction_id"] = String.generateUniqueId()

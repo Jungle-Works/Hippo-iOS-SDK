@@ -184,7 +184,8 @@ class AgentUserChannel {
         
         //update count
         //if channel id is not equal to current channel id
-        if HippoConfig.shared.getCurrentChannelId() != newConversation.channel_id && type == .message{
+//        if HippoConfig.shared.getCurrentChannelId() != newConversation.channel_id && type == .message{
+        if HippoConfig.shared.getCurrentAgentSdkChannelId() != newConversation.channel_id && type == .message{
             calculateTotalAgentUnreadCount(newConversation.channel_id ?? -1, newConversation.unreadCount ?? 0)
         }else if type == .readAll {
             removeChannelForUnreadCount(newConversation.channel_id ?? -1)
@@ -192,7 +193,8 @@ class AgentUserChannel {
         }else if type == .channelRefresh{
             let chatDetail = ChatDetail(json: dict)
             handleChannelRefresh(chatDetail: chatDetail)
-        }
+            return
+        }else{}
         
         handleAssignmentNotificationForChat(newConversation, channelID: receivedChannelId)
         //        handleBotMessages(newConversation, channelID: receivedChannelId)

@@ -15,6 +15,8 @@ class ChatInfoActionCell: UITableViewCell {
     @IBOutlet weak var cellLabel: So_CustomLabel!
     @IBOutlet weak var horizontalLineView: So_UIView!
     @IBOutlet weak var widthOfIconImageView: NSLayoutConstraint!
+    @IBOutlet weak var closeReopenChatTapButton: UIButton!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
     }
@@ -34,6 +36,9 @@ extension ChatInfoActionCell {
         
         iconImageView.image = chatInfo.infoImage ?? nil
         cellLabel.text = chatInfo.nameOfCell
+        
+        iconImageView.tintColor = HippoConfig.shared.theme.themeTextcolor
+        cellLabel.tintColor = HippoConfig.shared.theme.themeTextcolor
         
         if chatInfo.infoImage == nil {
             widthOfIconImageView.constant = 0

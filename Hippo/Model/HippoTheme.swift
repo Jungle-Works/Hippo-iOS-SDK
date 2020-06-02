@@ -88,7 +88,9 @@ public struct ConversationListTheme {
     open var actionableMessageDescriptionFont: UIFont? = UIFont.boldSystemFont(ofSize: 13.0)
     open var actionableMessageButtonFont: UIFont? = UIFont.boldSystemFont(ofSize: 16.0)
 
-    open var leftBarButtonImage: UIImage? = UIImage(named: "whiteBackButton", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+//    open var leftBarButtonImage: UIImage? = UIImage(named: "whiteBackButton", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+    open var leftBarButtonImage: UIImage? = UIImage(named: "back", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+    
     open var leftBarButtonArrowImage: UIImage? = UIImage(named: "back", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     open var closeChatImage: UIImage? = UIImage(named: "closeRed", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
 
@@ -127,6 +129,12 @@ public struct ConversationListTheme {
     
     open var messageTextViewTintColor = UIColor(red: 11/255, green: 106/255, blue: 255/255, alpha: 1)
     
+//    open var moreOptionsButtonIcon: UIImage? = UIImage(named: "moreOptions", in: FuguFlowManager.bundle, compatibleWith: nil)
+        open var moreOptionsButtonIcon: UIImage? = UIImage(named: "moreOptions", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+    open var moreOptionsBtnTintColor: UIColor?
+    open var moreOptionsIconsTintColor = UIColor.black
+    open var moreOptionsTitlesTintColor = UIColor.black
+    
     open var addButtonIcon: UIImage? = UIImage(named: "addButtonIcon", in: FuguFlowManager.bundle, compatibleWith: nil)
     open var addBtnTintColor: UIColor?
     
@@ -147,7 +155,6 @@ public struct ConversationListTheme {
     
     open var dateTimeTextColor = UIColor.black40
     open var dateTimeFontSize: UIFont? = UIFont.systemFont(ofSize: 12.0)
-    
     
     
     open var senderNameColor = UIColor.black40//UIColor.black
@@ -215,10 +222,19 @@ public struct ConversationListTheme {
     open var broadcastTitleInfoFont: UIFont? = UIFont.systemFont(ofSize: 10.0)
     open var broadcastTitleInfoColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
     
-    open var checkBoxActive = UIImage(named: "checkbox_active_icon", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysOriginal)
-//        open var checkBoxActive = UIImage(named: "checkbox_active_icon", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
-    open var checkBoxInActive = UIImage(named: "checkbox_inactive_icon", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysOriginal)
-//    open var checkBoxInActive = UIImage(named: "checkbox_inactive_icon", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+//    open var checkBoxActive = UIImage(named: "checkbox_active_icon", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysOriginal)
+    open var checkBoxActive = UIImage(named: "checkbox_active_icon", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+    open var checkBoxActiveTintColor = UIColor.black
+//    open var checkBoxInActive = UIImage(named: "checkbox_inactive_icon", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysOriginal)
+    open var checkBoxInActive = UIImage(named: "checkbox_inactive_icon", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+    open var checkBoxInActiveTintColor = UIColor.white
+    
+    open var titleColorOfFilterResetButton = UIColor.white
+    open var backgroundColorOfFilterResetButton = UIColor.black
+    
+    open var titleColorOfFilterApplyButton = UIColor.white
+    open var backgroundColorOfFilterApplyButton = UIColor.black
+    
     open var radioActive = UIImage(named: "radio_button_active", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysOriginal)
     open var radioInActive = UIImage(named: "radio_button_deactive", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysOriginal)
     
@@ -245,6 +261,7 @@ public struct ConversationListTheme {
     open var audioIcon = UIImage(named: "AudioIcon", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     open var uploadIcon = UIImage(named: "uploadIcon", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     open var chatReOpenIcon = UIImage(named: "reopen_conversation_icon", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysOriginal)
+    open var chatReOpenIconWithTemplateMode = UIImage(named: "reopen_conversation_icon", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     open var chatCloseIcon = UIImage(named: "close_conversation_icon", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysOriginal)
     open var chatAssignIcon = UIImage(named: "assigned_conversation_icon", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysOriginal)
     

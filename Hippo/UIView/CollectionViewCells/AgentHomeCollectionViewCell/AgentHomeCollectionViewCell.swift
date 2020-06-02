@@ -81,7 +81,7 @@ extension AgentHomeCollectionViewCell {
         } else if HippoConfig.shared.agentDetail!.id <= 0 {
             message = "Getting Conversation..."
         } else {
-            message = "No chat found for your business."
+            message = "You have no chats"//"No chat found for your business."
             enableButton = true
         }
         if let error = AgentConversationManager.errorMessage {
