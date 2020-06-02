@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import SZMentionsSwift
+//import SZMentionsSwift
 
 struct MentionAttribute: AttributeContainer {
     var name: NSAttributedString.Key
@@ -47,7 +47,7 @@ struct MessageSendingViewConfig {
         ),
         MentionAttribute(
             name: .font,
-            value: UIFont.regularMontserrat(withSize: 14)
+            value: UIFont.systemFont(ofSize: 14.0)//UIFont.regularMontserrat(withSize: 14)
         ),
         MentionAttribute(
             name: .backgroundColor,
@@ -61,7 +61,7 @@ struct MessageSendingViewConfig {
         ),
         MentionAttribute(
             name: .font,
-            value: UIFont.regularMontserrat(withSize: 14)
+            value: UIFont.systemFont(ofSize: 14.0)//UIFont.regularMontserrat(withSize: 14)
         ),
         MentionAttribute(
             name: .backgroundColor,
@@ -97,14 +97,14 @@ struct MessageSendingViewConfig {
         var defaultAttributes: [MentionAttribute] = [
             MentionAttribute(
                 name: .font,
-                value: UIFont.regularMontserrat(withSize: 14)
+                value: UIFont.systemFont(ofSize: 14.0)//UIFont.regularMontserrat(withSize: 14)
             ),
             MentionAttribute(
                 name: .backgroundColor,
                 value: UIColor.clear
             ),
         ]
-        let color = privateMessage ? HippoTheme.theme.chatBox.privateMessageTheme.placeholderColor : HippoTheme.theme.chatBox.outgoingMessageTheme.text
+        let color = UIColor.black//privateMessage ? HippoTheme.theme.chatBox.privateMessageTheme.placeholderColor : HippoTheme.theme.chatBox.outgoingMessageTheme.text
         let foregroundColor = MentionAttribute(name: .foregroundColor, value: color)
         
         defaultAttributes.append(foregroundColor)

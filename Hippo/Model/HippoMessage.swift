@@ -66,6 +66,8 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
     var chatType: ChatType = .other
     var keyboardType: responseKeyboardType = .defaultKeyboard
     
+    var taggedUsers: [Int]?
+    
     var wasMessageSendingFailed = false {
         didSet {
             sendingStatusUpdated?()
@@ -463,7 +465,9 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         attributtedMessage = MessageUIAttributes(message: message, senderName: senderFullName, isSelfMessage: userType.isMyUserType)
     }
     
-    init(message: String, type: MessageType, uniqueID: String? = nil,bot: BotAction? = nil, imageUrl: String? = nil, thumbnailUrl: String? = nil, localFilePath: String? = nil, senderName: String? = nil, senderId: Int? = nil, chatType: ChatType?) {
+//    init(message: String, type: MessageType, uniqueID: String? = nil,bot: BotAction? = nil, imageUrl: String? = nil, thumbnailUrl: String? = nil, localFilePath: String? = nil, senderName: String? = nil, senderId: Int? = nil, chatType: ChatType?) {
+    init(message: String, type: MessageType, uniqueID: String? = nil,bot: BotAction? = nil, imageUrl: String? = nil, thumbnailUrl: String? = nil, localFilePath: String? = nil, taggedUserArray: [Int]? = nil, senderName: String? = nil, senderId: Int? = nil, chatType: ChatType?) {
+
         self.message = message
         self.senderId = senderId ?? currentUserId()
         self.senderFullName = senderName ?? currentUserName()//.formatName()
@@ -485,6 +489,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         self.messageUniqueID = uniqueID
         self.imageUrl = imageUrl
         self.thumbnailUrl = thumbnailUrl
+        self.taggedUsers = taggedUserArray
         self.localImagePath = localFilePath
         
         self.userType = currentUserType()
@@ -540,6 +545,10 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         }
         if let unwrappedMessageIndex = messageUniqueID {
             json["muid"] = unwrappedMessageIndex
+        }
+        
+        if let unwrappedTaggedArray = taggedUsers {
+            json["tagged_users"] = unwrappedTaggedArray
         }
         
         if let tempFileUrl = self.fileUrl {

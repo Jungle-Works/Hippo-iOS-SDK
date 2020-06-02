@@ -96,6 +96,19 @@
 		D8CD682624863C75000F4097 /* MessageSendingViewConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CD682324863C75000F4097 /* MessageSendingViewConfig.swift */; };
 		D8CD682724863C75000F4097 /* MentionDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CD682424863C75000F4097 /* MentionDataManager.swift */; };
 		D8CD682924865235000F4097 /* UITextView+Properties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CD682824865235000F4097 /* UITextView+Properties.swift */; };
+		D8CD683024866EC7000F4097 /* SZMentionsSwift.podspec in Resources */ = {isa = PBXBuildFile; fileRef = D8CD682F24866EC7000F4097 /* SZMentionsSwift.podspec */; };
+		D8CD683724866EDC000F4097 /* AttributeContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CD683124866ED9000F4097 /* AttributeContainer.swift */; };
+		D8CD683824866EDC000F4097 /* CreateMention.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CD683224866ED9000F4097 /* CreateMention.swift */; };
+		D8CD683924866EDC000F4097 /* MentionListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CD683324866ED9000F4097 /* MentionListener.swift */; };
+		D8CD683A24866EDC000F4097 /* MentionsManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CD683424866EDA000F4097 /* MentionsManagerDelegate.swift */; };
+		D8CD683B24866EDC000F4097 /* Mention.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CD683524866EDA000F4097 /* Mention.swift */; };
+		D8CD684324866EF1000F4097 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CD683C24866EEF000F4097 /* Operators.swift */; };
+		D8CD684424866EF1000F4097 /* Attribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CD683D24866EF0000F4097 /* Attribute.swift */; };
+		D8CD684524866EF1000F4097 /* MentionsArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CD683E24866EF0000F4097 /* MentionsArray.swift */; };
+		D8CD684624866EF1000F4097 /* Verifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CD683F24866EF0000F4097 /* Verifier.swift */; };
+		D8CD684724866EF1000F4097 /* NSRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CD684024866EF1000F4097 /* NSRange.swift */; };
+		D8CD684824866EF1000F4097 /* NSAttributedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CD684124866EF1000F4097 /* NSAttributedString.swift */; };
+		D8CD684924866EF1000F4097 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CD684224866EF1000F4097 /* String.swift */; };
 		D8F6CFF72418F99800B168C5 /* AllConversationPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F6CFF62418F99800B168C5 /* AllConversationPresenter.swift */; };
 		D8F6CFFF2418F9CF00B168C5 /* AgentProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8F6CFFB2418F9CE00B168C5 /* AgentProfileViewController.xib */; };
 		D8F6D0002418F9CF00B168C5 /* AgentProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F6CFFC2418F9CE00B168C5 /* AgentProfileViewController.swift */; };
@@ -493,6 +506,19 @@
 		D8CD682324863C75000F4097 /* MessageSendingViewConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageSendingViewConfig.swift; sourceTree = "<group>"; };
 		D8CD682424863C75000F4097 /* MentionDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MentionDataManager.swift; sourceTree = "<group>"; };
 		D8CD682824865235000F4097 /* UITextView+Properties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextView+Properties.swift"; sourceTree = "<group>"; };
+		D8CD682F24866EC7000F4097 /* SZMentionsSwift.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SZMentionsSwift.podspec; sourceTree = "<group>"; };
+		D8CD683124866ED9000F4097 /* AttributeContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributeContainer.swift; sourceTree = "<group>"; };
+		D8CD683224866ED9000F4097 /* CreateMention.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateMention.swift; sourceTree = "<group>"; };
+		D8CD683324866ED9000F4097 /* MentionListener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MentionListener.swift; sourceTree = "<group>"; };
+		D8CD683424866EDA000F4097 /* MentionsManagerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MentionsManagerDelegate.swift; sourceTree = "<group>"; };
+		D8CD683524866EDA000F4097 /* Mention.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mention.swift; sourceTree = "<group>"; };
+		D8CD683C24866EEF000F4097 /* Operators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
+		D8CD683D24866EF0000F4097 /* Attribute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Attribute.swift; sourceTree = "<group>"; };
+		D8CD683E24866EF0000F4097 /* MentionsArray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MentionsArray.swift; sourceTree = "<group>"; };
+		D8CD683F24866EF0000F4097 /* Verifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Verifier.swift; sourceTree = "<group>"; };
+		D8CD684024866EF1000F4097 /* NSRange.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSRange.swift; sourceTree = "<group>"; };
+		D8CD684124866EF1000F4097 /* NSAttributedString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSAttributedString.swift; sourceTree = "<group>"; };
+		D8CD684224866EF1000F4097 /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		D8F6CFF62418F99800B168C5 /* AllConversationPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllConversationPresenter.swift; sourceTree = "<group>"; };
 		D8F6CFFB2418F9CE00B168C5 /* AgentProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AgentProfileViewController.xib; sourceTree = "<group>"; };
 		D8F6CFFC2418F9CE00B168C5 /* AgentProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgentProfileViewController.swift; sourceTree = "<group>"; };
@@ -1710,6 +1736,7 @@
 				D8F6D2432419588000B168C5 /* TookanHelper.swift */,
 				C9B77DD521A01B060092848D /* Pulsator.swift */,
 				D88B20B824619F6B007FD382 /* Kingfisher */,
+				D8CD682D24866EA8000F4097 /* SZMentionsSwift */,
 				D86028B223F6B417009540D3 /* SuggestionView */,
 				D86028AD23F6AF9C009540D3 /* SuggestionViewDelegates */,
 				C9FB6FD721EEF04800B72CEA /* TRWDownloadManager */,
@@ -2019,6 +2046,42 @@
 				D8CD682324863C75000F4097 /* MessageSendingViewConfig.swift */,
 			);
 			path = MessageSendingView;
+			sourceTree = "<group>";
+		};
+		D8CD682D24866EA8000F4097 /* SZMentionsSwift */ = {
+			isa = PBXGroup;
+			children = (
+				D8CD682E24866EBB000F4097 /* Classes */,
+				D8CD682F24866EC7000F4097 /* SZMentionsSwift.podspec */,
+			);
+			path = SZMentionsSwift;
+			sourceTree = "<group>";
+		};
+		D8CD682E24866EBB000F4097 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				D8CD683624866EDC000F4097 /* Internal */,
+				D8CD683124866ED9000F4097 /* AttributeContainer.swift */,
+				D8CD683224866ED9000F4097 /* CreateMention.swift */,
+				D8CD683524866EDA000F4097 /* Mention.swift */,
+				D8CD683324866ED9000F4097 /* MentionListener.swift */,
+				D8CD683424866EDA000F4097 /* MentionsManagerDelegate.swift */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		D8CD683624866EDC000F4097 /* Internal */ = {
+			isa = PBXGroup;
+			children = (
+				D8CD683D24866EF0000F4097 /* Attribute.swift */,
+				D8CD683E24866EF0000F4097 /* MentionsArray.swift */,
+				D8CD684124866EF1000F4097 /* NSAttributedString.swift */,
+				D8CD684024866EF1000F4097 /* NSRange.swift */,
+				D8CD683C24866EEF000F4097 /* Operators.swift */,
+				D8CD684224866EF1000F4097 /* String.swift */,
+				D8CD683F24866EF0000F4097 /* Verifier.swift */,
+			);
+			path = Internal;
 			sourceTree = "<group>";
 		};
 		D8F6CFF22418F92100B168C5 /* InternalClasses */ = {
@@ -2477,6 +2540,7 @@
 				D8F6D0F72419486300B168C5 /* ActionTagTableViewCell.xib in Resources */,
 				D8F6D10E241949EC00B168C5 /* IncomingDocumentTableViewCell.xib in Resources */,
 				D8F6D1B52419510F00B168C5 /* TitilliumWeb-ExtraLightItalic.ttf in Resources */,
+				D8CD683024866EC7000F4097 /* SZMentionsSwift.podspec in Resources */,
 				D8F6D0F62419486300B168C5 /* ActionButtonViewCell.xib in Resources */,
 				D8F6D2492419588300B168C5 /* typingImage.gif in Resources */,
 				D8F6D16A24194E3700B168C5 /* LeadDataTableViewCell.xib in Resources */,
@@ -2704,8 +2768,10 @@
 				D88B20DC24619F90007FD382 /* ImageView+Kingfisher.swift in Sources */,
 				D8F6D07A2418FFDC00B168C5 /* LoggerEnum.swift in Sources */,
 				D8F6D0482418FC4400B168C5 /* ParallaxHeader.swift in Sources */,
+				D8CD683B24866EDC000F4097 /* Mention.swift in Sources */,
 				D8F6D2A024195AA200B168C5 /* IQUIView+IQKeyboardToolbar.swift in Sources */,
 				D88B9011246672EB00E3093F /* FilterManager.swift in Sources */,
+				D8CD684324866EF1000F4097 /* Operators.swift in Sources */,
 				D8F6D2BD24195D5900B168C5 /* SelectImageViewController.swift in Sources */,
 				D88B20DD24619F90007FD382 /* ImagePrefetcher.swift in Sources */,
 				D8F6D0D7241946A400B168C5 /* CustomTableViewCell.swift in Sources */,
@@ -2728,13 +2794,17 @@
 				D8F6D11B24194A9300B168C5 /* ConversationView.swift in Sources */,
 				D8F6D0512418FC7500B168C5 /* MZFayeClient.m in Sources */,
 				D8F6D1FB2419547C00B168C5 /* FuguActionableMessage.swift in Sources */,
+				D8CD683A24866EDC000F4097 /* MentionsManagerDelegate.swift in Sources */,
 				D8F6D2032419547C00B168C5 /* HippoTicketAtrributes.swift in Sources */,
 				D8F6D1032419496900B168C5 /* IncomingImageCell.swift in Sources */,
 				D8F6D2342419557600B168C5 /* AgentUserChannel.swift in Sources */,
+				D8CD684724866EF1000F4097 /* NSRange.swift in Sources */,
+				D8CD684424866EF1000F4097 /* Attribute.swift in Sources */,
 				D8F6D0FE2419493C00B168C5 /* ContactNumberTableCell.swift in Sources */,
 				D8F6D1F92419547C00B168C5 /* QuickLookItem.swift in Sources */,
 				D8F6D14324194CB300B168C5 /* SenderNameTableCell.swift in Sources */,
 				D8F6D0932419010F00B168C5 /* HippoNotification.swift in Sources */,
+				D8CD684624866EF1000F4097 /* Verifier.swift in Sources */,
 				D8F6D0D32419469000B168C5 /* PaymentSecureView.swift in Sources */,
 				D8F6D01D2418FA7300B168C5 /* MultiSelectTableViewCell.swift in Sources */,
 				D8F6D1072419498D00B168C5 /* BroadcastUserStatusCell.swift in Sources */,
@@ -2762,10 +2832,12 @@
 				D8F6D0A22419017B00B168C5 /* HippoConfig.swift in Sources */,
 				D88B900124657E2400E3093F /* FilterViewController.swift in Sources */,
 				D88B20DB24619F90007FD382 /* ThreadHelper.swift in Sources */,
+				D8CD684924866EF1000F4097 /* String.swift in Sources */,
 				D8F6D1D0241951D000B168C5 /* UIImage+Gif.swift in Sources */,
 				D8CD682524863C75000F4097 /* MentionTableDataSourceDelegate.swift in Sources */,
 				D8F6D24A2419588300B168C5 /* CountryCode.swift in Sources */,
 				D8F6D22A2419552B00B168C5 /* BroadcastManager.swift in Sources */,
+				D8CD683924866EDC000F4097 /* MentionListener.swift in Sources */,
 				D8F6D0652418FDF300B168C5 /* CallManager.swift in Sources */,
 				D8F6D0F92419486300B168C5 /* ActionTagTableViewCell.swift in Sources */,
 				D8F6D0DA2419470000B168C5 /* PromotionTableViewCell.swift in Sources */,
@@ -2782,6 +2854,7 @@
 				D88B20E124619F90007FD382 /* RequestModifier.swift in Sources */,
 				D8F6D1CE241951D000B168C5 /* UIColor+Extension.swift in Sources */,
 				D848D1B1245EEEDF00235322 /* PaymentPlan.swift in Sources */,
+				D8CD684524866EF1000F4097 /* MentionsArray.swift in Sources */,
 				D8F6D0662418FDF300B168C5 /* FuguDefaults.swift in Sources */,
 				D8F6D0392418FB1C00B168C5 /* HippoRatingView.swift in Sources */,
 				D8F6D0862419000100B168C5 /* Formatter.swift in Sources */,
@@ -2795,6 +2868,7 @@
 				D8F6D25E241958E200B168C5 /* HTML+Utilities.swift in Sources */,
 				D84F79F5245F49AC00B36168 /* PaymentItemDescriptionCell.swift in Sources */,
 				D8F6D0192418FA6900B168C5 /* MultiSelectHeaderTableViewCell.swift in Sources */,
+				D8CD684824866EF1000F4097 /* NSAttributedString.swift in Sources */,
 				D8F6D2642419591500B168C5 /* CloseButton.swift in Sources */,
 				D8F6D0842419000100B168C5 /* Benchmarker.swift in Sources */,
 				D8F6D0062418F9E600B168C5 /* CheckoutViewController.swift in Sources */,
@@ -2815,6 +2889,7 @@
 				C9B77EC721A01B070092848D /* IQTextView.swift in Sources */,
 				D88B20E724619F90007FD382 /* ImageDownloader.swift in Sources */,
 				C9B77E6921A01B060092848D /* Socomo+Date.swift in Sources */,
+				D8CD683824866EDC000F4097 /* CreateMention.swift in Sources */,
 				C9B77EAA21A01B070092848D /* Fugu+Properties.swift in Sources */,
 				C9B77E7821A01B060092848D /* ConversationState.swift in Sources */,
 				C9B77E7221A01B060092848D /* HippoBroadcaster.swift in Sources */,
@@ -2880,6 +2955,7 @@
 				D8F6D0432418FB5B00B168C5 /* HippoChat.swift in Sources */,
 				D8F6D18024194F1F00B168C5 /* ChatInfoAgentTableViewCell.swift in Sources */,
 				D8F6D2E624195E5E00B168C5 /* AgentChatInfoViewController.swift in Sources */,
+				D8CD683724866EDC000F4097 /* AttributeContainer.swift in Sources */,
 				D8C9E8E2247E181A00F18C6C /* Business.swift in Sources */,
 				D8F6D0C92419466200B168C5 /* ProfileNameCell.swift in Sources */,
 				D8F6D2C824195D9200B168C5 /* HippoDataCollectorController.swift in Sources */,

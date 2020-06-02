@@ -26,10 +26,6 @@ Pod::Spec.new do |s|
     s.preserve_paths = ['README.md']
     
     s.dependency 'MZFayeClient'
-    s.dependency 'SZMentionsSwift'
-    s.subspec 'SZMentionsSwift' do |ss|
-    ss.source_files = 'SZMentionsSwift/**/*.{h,m}'
-    end
     
     s.default_subspec = 'Chat'
     
