@@ -51,6 +51,11 @@ public class HippoStrings {
     static let revoked = "Revoked"
     static let invited = "Invited"
     
+    //Conversation Screen Text
+    static let normalMessagePlaceHolder = "Type a message..."//"Type a message, use / to add a saved reply"
+    static let privateMessagePlaceHolder = "Send an Internal note to your team, use @name to tag"
+    static let normalMessagePlaceHolderWithoutCannedMessage = "Type a message..."
+    
     public init() {
         
     }

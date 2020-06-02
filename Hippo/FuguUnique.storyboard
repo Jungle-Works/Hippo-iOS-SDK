@@ -1751,7 +1751,7 @@
                                 </constraints>
                             </view>
                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="app_loader_shape" translatesAutoresizingMaskIntoConstraints="NO" id="OGB-1g-dv7" customClass="So_UIImageView" customModule="Hippo" customModuleProvider="target">
-                                <rect key="frame" x="147.5" y="271.5" width="80" height="80"/>
+                                <rect key="frame" x="167.5" y="291.5" width="40" height="40"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VJr-jD-1Ra">
@@ -1776,7 +1776,7 @@
                                         <color key="textColor" red="0.28627450980000002" green="0.28627450980000002" blue="0.28627450980000002" alpha="0.5" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="HWq-nU-95V">
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="HWq-nU-95V" customClass="HippoMessageTextView" customModule="Hippo" customModuleProvider="target">
                                         <rect key="frame" x="70" y="3" width="260" height="50"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -2094,6 +2094,13 @@
                                     <constraint firstItem="2FY-2k-BtY" firstAttribute="top" secondItem="Cys-GR-QcD" secondAttribute="top" constant="5" id="p6k-Vk-Vmf"/>
                                 </constraints>
                             </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="3zl-6a-hC9">
+                                <rect key="frame" x="0.0" y="514" width="375" height="0.0"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" id="Oy5-uy-vFH"/>
+                                </constraints>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" red="0.97647058819999999" green="0.98823529409999999" blue="0.98823529409999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -2112,6 +2119,7 @@
                             <constraint firstItem="FeR-Yy-uA2" firstAttribute="leading" secondItem="rcJ-ZN-hfW" secondAttribute="leading" id="SvP-1F-Tp1"/>
                             <constraint firstItem="VJr-jD-1Ra" firstAttribute="top" secondItem="Mtn-eI-Dik" secondAttribute="bottom" id="XJc-Vk-BYo"/>
                             <constraint firstItem="VJr-jD-1Ra" firstAttribute="top" secondItem="FeR-Yy-uA2" secondAttribute="bottom" id="XbQ-0A-DEo"/>
+                            <constraint firstItem="Mtn-eI-Dik" firstAttribute="top" secondItem="3zl-6a-hC9" secondAttribute="bottom" constant="3" id="aCi-SP-Jhx"/>
                             <constraint firstItem="cUx-ZN-ZG8" firstAttribute="leading" secondItem="rcJ-ZN-hfW" secondAttribute="leading" id="bIz-A5-f3M"/>
                             <constraint firstItem="OuP-2B-C0r" firstAttribute="top" secondItem="VJr-jD-1Ra" secondAttribute="bottom" id="cBN-Fo-VVC"/>
                             <constraint firstItem="OGB-1g-dv7" firstAttribute="centerY" secondItem="rcJ-ZN-hfW" secondAttribute="centerY" id="cb4-G1-Lef"/>
@@ -2119,6 +2127,8 @@
                             <constraint firstAttribute="trailing" secondItem="yl7-ny-UXf" secondAttribute="trailing" id="mpz-oD-Wxi"/>
                             <constraint firstItem="FvA-Uz-bG4" firstAttribute="top" secondItem="6L7-s9-FOO" secondAttribute="bottom" id="oNe-dt-rtS"/>
                             <constraint firstAttribute="trailing" secondItem="OuP-2B-C0r" secondAttribute="trailing" id="pdj-qd-Dy5"/>
+                            <constraint firstItem="3zl-6a-hC9" firstAttribute="leading" secondItem="rcJ-ZN-hfW" secondAttribute="leading" id="qmB-yS-Ih6"/>
+                            <constraint firstAttribute="trailing" secondItem="3zl-6a-hC9" secondAttribute="trailing" id="rIL-2K-xUV"/>
                             <constraint firstItem="cUx-ZN-ZG8" firstAttribute="top" secondItem="6L7-s9-FOO" secondAttribute="bottom" id="sQz-x2-NsU"/>
                             <constraint firstItem="yl7-ny-UXf" firstAttribute="leading" secondItem="rcJ-ZN-hfW" secondAttribute="leading" id="tNb-mF-fMn"/>
                             <constraint firstItem="cUx-ZN-ZG8" firstAttribute="centerX" secondItem="rcJ-ZN-hfW" secondAttribute="centerX" id="tcR-ja-AA2"/>
@@ -2188,7 +2198,9 @@
                         <outlet property="loadMoreActivityIndicator" destination="7gL-EW-Etf" id="h0M-PM-r9k"/>
                         <outlet property="loadMoreActivityTopContraint" destination="Y5e-Fk-uZP" id="W5V-5Z-Fs2"/>
                         <outlet property="loaderView" destination="OGB-1g-dv7" id="i3F-w6-qy2"/>
-                        <outlet property="messageTextView" destination="HWq-nU-95V" id="DFK-82-SWj"/>
+                        <outlet property="mentionsListTableView" destination="3zl-6a-hC9" id="3U1-pR-Aln"/>
+                        <outlet property="mentionsListTableViewHeightConstraint" destination="Oy5-uy-vFH" id="SNO-v7-bch"/>
+                        <outlet property="messageTextView" destination="HWq-nU-95V" id="bgr-cj-VtN"/>
                         <outlet property="moreOptionsButton" destination="YXN-8X-YeU" id="QZM-6R-6Uw"/>
                         <outlet property="newConversationContainer" destination="71Y-Ek-hxd" id="R3t-kf-rmO"/>
                         <outlet property="newConversationCountButton" destination="mDB-9x-3D4" id="wth-Ey-lXU"/>
@@ -2209,7 +2221,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0WN-8n-mD0" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1214" y="853"/>
+            <point key="canvasLocation" x="1213.5999999999999" y="852.3238380809596"/>
         </scene>
         <!--Channel Info-->
         <scene sceneID="9kj-Df-34s">

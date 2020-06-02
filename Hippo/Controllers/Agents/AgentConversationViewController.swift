@@ -8,6 +8,7 @@
 
 import UIKit
 import Photos
+import SZMentionsSwift
 
 protocol AgentChatDeleagate: class {
     func updateConversationWith(channelId: Int, lastMessage: HippoMessage, unreadCount: Int)
@@ -16,13 +17,19 @@ protocol AgentChatDeleagate: class {
 
 class AgentConversationViewController: HippoConversationViewController {
     
+    struct IntializationRequest {
+        let config: MessageSendingViewConfig
+        let dataManager: MentionDataManager
+    }
+    
     // MARK: -  IBOutlets
     @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var audioButton: UIBarButtonItem!
     @IBOutlet var backgroundView: UIView!
     @IBOutlet var backButton: UIButton!
     @IBOutlet var sendMessageButton: UIButton!
-    @IBOutlet var messageTextView: UITextView!
+//    @IBOutlet var messageTextView: UITextView!
+    @IBOutlet var messageTextView: HippoMessageTextView!
     //    @IBOutlet weak var errorContentView: UIView!
     //    @IBOutlet var errorLabel: UILabel!
     @IBOutlet var textViewBgView: UIView!
@@ -62,12 +69,28 @@ class AgentConversationViewController: HippoConversationViewController {
     @IBOutlet weak var collectionViewOptions: UICollectionView!
     @IBOutlet weak var attachmentViewHeightConstraint: NSLayoutConstraint!
 
+    //MARK: - Outlets for MessageSendingView
+    @IBOutlet weak var mentionsListTableView: UITableView!
+    @IBOutlet weak var mentionsListTableViewHeightConstraint: NSLayoutConstraint!
+    
     // MARK: - PROPERTIES
     var heightOfNavigation: CGFloat = 0
     var isSingleChat = false
     var botActionView = BotTableView.loadView(CGRect.zero)
     var custombarbuttonParam : CGFloat = 32.0
-    var isPrivateMessage = false
+    
+    //MARK: - Variables for MessageSendingView
+    private let animationDuration: TimeInterval = 0.3
+    var maxMentionViewHeight: CGFloat = windowScreenHeight
+    let heightOfTableViewCell: CGFloat = 50
+    private let leadingConstantForSelectedBar: CGFloat = 8
+    weak var delegate: MessageSendingViewDelegate?
+    private var dataSource: MentionTableDataSourceDelegate!
+    private var dataManager: MentionDataManager!
+    private var mentionListener: MentionListener!
+    private var messageSendingViewConfig: MessageSendingViewConfig = MessageSendingViewConfig()
+    private var timer: Timer?
+    var lastUnsendMessage:String?
     
     // MARK: - Computed Properties
     var localFilePath: String {
@@ -299,31 +322,34 @@ class AgentConversationViewController: HippoConversationViewController {
     
     
     @IBAction func sendMessageButtonAction(_ sender: UIButton) {
-        if channel != nil, !channel.isSubscribed() {
-            buttonClickedOnNetworkOff()
-            return
-        }
-        if isMessageInvalid(messageText: messageTextView.text) {
-            return
-        }
-        let trimmedMessage = messageTextView.text.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+//        if channel != nil, !channel.isSubscribed() {
+//            buttonClickedOnNetworkOff()
+//            return
+//        }
+//        if isMessageInvalid(messageText: messageTextView.text) {
+//            return
+//        }
+//        let trimmedMessage = messageTextView.text.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+//
+//        let message = HippoMessage(message: trimmedMessage, type: .normal, uniqueID: String.generateUniqueId(), chatType: channel?.chatDetail?.chatType)
+//        channel?.unsentMessages.append(message)
+//
+//        if channel != nil {
+//            addMessageToUIBeforeSending(message: message)
+//            self.sendMessage(message: message)
+//        } else {
+//            //TODO: - Loader animation
+//            startNewConversation(replyMessage: nil, completion: { [weak self] (success, result) in
+//                if success {
+//                    self?.populateTableViewWithChannelData()
+//                    self?.addMessageToUIBeforeSending(message: message)
+//                    self?.sendMessage(message: message)
+//                }
+//            })
+//        }
         
-        let message = HippoMessage(message: trimmedMessage, type: .normal, uniqueID: String.generateUniqueId(), chatType: channel?.chatDetail?.chatType)
-        channel?.unsentMessages.append(message)
-        
-        if channel != nil {
-            addMessageToUIBeforeSending(message: message)
-            self.sendMessage(message: message)
-        } else {
-            //TODO: - Loader animation
-            startNewConversation(replyMessage: nil, completion: { [weak self] (success, result) in
-                if success {
-                    self?.populateTableViewWithChannelData()
-                    self?.addMessageToUIBeforeSending(message: message)
-                    self?.sendMessage(message: message)
-                }
-            })
-        }
+        let mentions = messageTextView.isPrivateMode ? mentionListener.mentions : []
+        self.sendButtonClicked(mentions: mentions, message: messageTextView.text, isPrivateMessage: messageTextView.isPrivateMode, config: config)
         
     }
 
@@ -856,6 +882,7 @@ extension AgentConversationViewController {
     
     func getAgentsData() {
         AgentConversationManager.getAgentsList(showLoader: false) {[weak self] (_) in
+            self.intalizeMessageSendingView()
         }
     }
     
@@ -1129,6 +1156,295 @@ extension AgentConversationViewController {
             cellTotalHeight += incomingAttributedString.boundingRect(with: availableBoxSize, options: .usesLineFragmentOrigin, context: nil).size.height
         }
         return cellTotalHeight
+    }
+    
+    //MARK: - funcs for MessageSendingView
+    func intalizeMessageSendingView() {
+        var config = MessageSendingViewConfig()
+        
+        if channel?.channelInfo?.chatType == .o2o {
+            config.normalMessagePlaceHolder = HippoStrings.normalMessagePlaceHolderWithoutCannedMessage
+        }
+        
+        let dataManager = MentionDataManager(mentions: Business.shared.agents)
+        let request = IntializationRequest(config: config, dataManager: dataManager)
+        self.messageSendingViewConfig = request.config
+        self.dataManager = request.dataManager
+        self.setUpUI()
+        self.intalizeMention()
+    }
+    fileprivate func setUpUI() {
+        setupTableView()
+        setupTextView()
+//        setActionButtonUI()
+        enableNormalMessage(isInital: true)
+//        setEditMessageText()
+//        bottomContainer.backgroundColor = HippoTheme.theme.chatBox.chatBackgroundColor
+//        viewsContainer.backgroundColor =  HippoTheme.theme.chatBox.chatBackgroundColor
+        updateDefaultTextAttributes()
+//        setEditCancelMessageButton()
+//        let showBottomBar: Bool = config.showBottomBar()
+//        bottomContainerHeightConstraint.constant = showBottomBar ? config.bottomBarHeight : 0
+//        bottomContainer.isHidden = !showBottomBar
+//        textViewContainer.isHidden = config.hideMessageBox
+//        delegate?.updateMessContainerHeight(height: getHeightForTheView())
+    }
+    func setupTableView() {
+        mentionsListTableView.isHidden = true
+        mentionsListTableViewHeightConstraint.constant = 0
+        let bundle = FuguFlowManager.bundle
+        mentionsListTableView.register(UINib(nibName: "AgentListTableViewCell", bundle: bundle), forCellReuseIdentifier: "AgentListTableViewCell")
+        dataSource = MentionTableDataSourceDelegate(mentions: dataManager?.filteredMentions ?? [], delegate: self)
+        mentionsListTableView.delegate = dataSource
+        mentionsListTableView.dataSource = dataSource
+    }
+    func setupTextView() {
+//        delegate?.updateMessContainerHeight(height: getHeightForTheView())
+        messageTextView.imagePasteDelegate = self
+//        messageTextView.backgroundColor = UIColor.clear
+//        messageTextView.textContainerInset.bottom = 0
+//        messageTextView.textContainerInset.top = 3
+//        setEditMessageText()
+        
+//        placeHolderLabel.text = HippoConfig.shared.strings.messagePlaceHolderText
+    }
+//    fileprivate func setEditMessageText() {
+//        guard let editMessage = config.editMessage, config.mode == .editMessage else {
+//            return
+//        }
+//        messageTextView.text = editMessage.message
+//        placeHolderLabel.isHidden = !editMessage.message.isEmpty
+//        manageSendButton()
+//    }
+//    func manageSendButton() {
+//        sendMessageButton.isHidden = !messageTextView.hasText
+//    }
+//    fileprivate func setActionButtonUI() {
+//        takeOverButtonContainer.backgroundColor = HippoConfig.shared.theme.headerBackgroundColor
+//        takeOverButton.backgroundColor = HippoConfig.shared.theme.themeTextcolor
+//        takeOverButton.setTitleColor(HippoConfig.shared.theme.themeColor, for: .normal)
+//        takeOverButton.setTitle(HippoConfig.shared.theme.takeOverButtonText, for: .normal)
+//    }
+    fileprivate func enableNormalMessage(isInital: Bool = false) {
+        guard messageTextView.isPrivateMode || isInital else {
+            return
+        }
+        resetMention()
+//        selectedBarLeadingConstraint.constant = normalMessageButton.frame.minX + leadingConstantForSelectedBar
+        animateConstraintChanges()
+        if messageTextView.isPrivateMode {
+            messageTextView.isPrivateMode = false
+        }
+        updateUIAsPerMessageType()
+    }
+    func resetMention() {
+        mentionListener?.reset()
+    }
+    func animateConstraintChanges(completion: (() -> Void)? = nil) {
+        UIView.animate(withDuration: animationDuration, delay: 0, options: UIView.AnimationOptions.curveEaseOut, animations: {
+            self.layoutIfNeeded()
+        }, completion: { _ in
+            completion?()
+        })
+    }
+    func updateUIAsPerMessageType() {
+        let isPrivate = messageTextView.isPrivateMode
+//        let isForwardSlashAllowed =  Business.shared.properties.isForwardSlashAllowed
+        let isForwardSlashAllowed =  false
+        addFileButtonAction.isHidden = isPrivate
+//        cannedButton.isHidden = isPrivate || config.shouldHideBottonButtons()
+//        botButton.isHidden = isPrivate || config.shouldHideBottonButtons()
+        let isBotButtonHidden = isPrivate || config.shouldHideBottonButtons()
+        if isBotButtonHidden == true{
+            if self.attachments.contains(Attachment(icon : HippoConfig.shared.theme.botIcon  , title : "Bot")){
+                self.attachments.remove(at: 3)
+            }
+        }else{
+            if self.attachments.contains(Attachment(icon : HippoConfig.shared.theme.botIcon  , title : "Bot")){
+            }else{
+                self.attachments.append(Attachment(icon : HippoConfig.shared.theme.botIcon  , title : "Bot"))
+            }
+        }
+        textViewBgView.backgroundColor = isPrivate ? HippoConfig.shared.theme.privateNoteChatBoxColor : UIColor.white
+//        placeHolderLabel.textColor = isPrivate ? theme.chatBox.privateMessageTheme.placeholderColor : theme.label.primary
+        placeHolderLabel.text = isPrivate ?  self.messageSendingViewConfig.privateMessagePlaceHolder : ( isForwardSlashAllowed ? self.messageSendingViewConfig.normalMessagePlaceHolder : self.messageSendingViewConfig.normalMessagePlaceHolderWithoutCannedMessage)
+        textViewDidChange(messageTextView)
+        updateDefaultTextAttributes()
+    }
+    func updateDefaultTextAttributes() {
+        let isPrivate = messageTextView.isPrivateMode
+        let defaultParam = config.createDefaultAttributeds(for: isPrivate)
+        mentionListener?.updateDefaultTextAttributes(newAttributes: defaultParam)
+    }
+//    fileprivate func setEditCancelMessageButton() {
+//        let isEditEnabled = config.mode == .editMessage && config.editMessage != nil
+//        cancelEditButton.isHidden = !isEditEnabled
+//        cancelEditButtonWidthConstraint.constant = isEditEnabled ? 56 : 0
+//        textViewContainer.layoutIfNeeded()
+//    }
+    func intalizeMention() {
+        mentionListener = MentionListener(mentionsTextView: messageTextView, delegate: self, mentionTextAttributes: { (c) -> [AttributeContainer] in
+            return self.messageSendingViewConfig.mentionAttributes
+        }, defaultTextAttributes: config.defaultAttributes, spaceAfterMention: true, triggers: config.allowedMentionForPrivate, cooldownInterval: 0, searchSpaces: true, hideMentions: {
+            print("+++++++++")
+            DispatchQueue.main.async {
+                self.hideMentionsList()
+            }
+        }, didHandleMentionOnReturn: { () -> Bool in
+            print("------")
+            return false
+        }, showMentionsListWithString: {[weak self] (mentionString, triggerString) in
+            //hanlde string
+            guard let weakSelf = self else {
+                return
+            }
+            DispatchQueue.main.async {
+                weakSelf.handleMentionTableFor(mentionString: mentionString, triggerString: triggerString)
+            }
+        })
+        updateDefaultTextAttributes()
+    }
+    fileprivate func enablePrivateNote() {
+        guard !messageTextView.isPrivateMode else {
+            return
+        }
+        resetMention()
+//        selectedBarLeadingConstraint.constant = privateNoteButton.frame.minX + leadingConstantForSelectedBar
+        animateConstraintChanges()
+        messageTextView.isPrivateMode = true
+        updateUIAsPerMessageType()
+    }
+    fileprivate func enableNormalMessage(isInital: Bool = false) {
+        guard messageTextView.isPrivateMode || isInital else {
+            return
+        }
+        resetMention()
+//        selectedBarLeadingConstraint.constant = normalMessageButton.frame.minX + leadingConstantForSelectedBar
+        animateConstraintChanges()
+        if messageTextView.isPrivateMode {
+            messageTextView.isPrivateMode = false
+        }
+        updateUIAsPerMessageType()
+    }
+    
+    func sendButtonClicked(mentions: [Mention], message: String, isPrivateMessage isPrivate: Bool, config: MessageSendingViewConfig) {
+//        if config.mode == .editMessage {
+//            editMessage(mentions: mentions, message: message, isPrivateMessage: isPrivate, config: config)
+//            return
+//        }
+//        guard isAgentCanSendMsg else {
+//            self.assignAlertView.shakeAnimation()
+//            return
+//        }
+//        googleAnalytics(category: Category_Chat_Screen, action: Action_Send_Button_Clicked, label: Label_Send_Chat)
+//        self.isTaggingStart = false
+//        let messageString = messageTextView.text.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+//        guard !messageString.isEmpty else {
+//            showNoMessageAlert()
+//            return
+//        }
+//        if channelId == -1 {
+//            messageSendingView?.disableSendButton()
+//            self.startNewConversation() {[weak self] (result) in
+//                guard result else {
+//                    self?.messageSendingView?.enableSendButton()
+//                    return
+//                }
+//                self?.sendMessageToFaye(mentions: mentions, messageString: messageString, isPrivate: isPrivate)
+//                self?.messageSendingView?.enableSendButton()
+//            }
+//        } else {
+//            self.sendMessageToFaye(mentions: mentions, messageString: messageString, isPrivate: isPrivate)
+//        }
+    
+       if channel != nil, !channel.isSubscribed() {
+            buttonClickedOnNetworkOff()
+            return
+        }
+        if isMessageInvalid(messageText: messageTextView.text) {
+            return
+        }
+        let trimmedMessage = messageTextView.text.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+
+//        let message = HippoMessage(message: trimmedMessage, type: .normal, uniqueID: String.generateUniqueId(), chatType: channel?.chatDetail?.chatType)
+//        channel?.unsentMessages.append(message)
+
+        if channel != nil {
+//            addMessageToUIBeforeSending(message: message)
+//            self.sendMessage(message: message)
+            self.sendMessageToFaye(mentions: mentions, messageString: trimmedMessage, isPrivate: isPrivate)
+        } else {
+            //TODO: - Loader animation
+            startNewConversation(replyMessage: nil, completion: { [weak self] (success, result) in
+                if success {
+                    self?.populateTableViewWithChannelData()
+//                    self?.addMessageToUIBeforeSending(message: message)
+//                    self?.sendMessage(message: message)
+                    self.sendMessageToFaye(mentions: mentions, messageString: trimmedMessage, isPrivate: isPrivate)
+                }
+            })
+        }
+    }
+    func sendMessageToFaye(mentions: [Mention], messageString: String, isPrivate: Bool) {
+        guard channelId >= 0, currentUserId() >= 0 else {
+            return
+        }
+        let (text, ids) = addTag(mentions: mentions, messageString: messageString)
+        let messageType = isPrivate ? MessageType.privateNote : MessageType.normal
+        let muid = generateUniqueId()
+        resetVariables()
+        let message = HippoMessage(message: text, type: messageType, uniqueID: muid, taggedUserArray: ids, chatType: chatType)
+        
+        channel?.unsentMessages.append(message)
+        addMessageToUIBeforeSending(message: message)
+        
+//        publishMessageOnChannel(message: message)
+        self.sendMessage(message: message)
+    }
+//    func publishMessageOnChannel(message: HippoMessage) {
+//        if channelId == -1 {
+//            self.startNewConversation() {[weak self] (result) in
+//                self?.channel?.send(message: message, completion: {})
+//            }
+//        } else {
+//            channel?.send(message: message, completion: {})
+//        }
+//    }
+    func addTag(mentions: [Mention], messageString: String) -> (String, [Int]) {
+        var finalString: NSString = ""
+        var ids: [Int] = []
+        finalString = (messageSendingView.messageTextView.text ?? "").trimWhiteSpacesAndNewLine() as NSString
+        let filteredMention = mentions.sorted { (m1, m2) -> Bool in
+            return m1.range.location > m2.range.location
+        }
+        for mention in filteredMention {
+            guard let agent = mention.object as? Agent else {
+                continue
+            }
+//            finalString = finalString.replacingOccurrences(of: agent.mentionName, with: agent.attributedFullName!, options: .regularExpression, range: mention.range) as NSString
+            guard let id = agent.userId else {
+                continue
+            }
+            if !ids.contains(id) {
+              ids.append(id)
+            }
+        }
+        return (finalString as String, ids)
+    }
+    func resetVariables() {
+        resetVariablesToDefault()
+        typingMessageValue = TypingMessage.startTyping.rawValue
+//        taggedAgentArray.removeAll()
+    }
+    func resetVariablesToDefault() {
+        messageTextView.text = ""
+        resetMention()
+        hideMentionsList()
+        textViewDidChange(messageTextView)
+    }
+    fileprivate func hideMentionsList() {
+       self.mentionsListTableViewHeightConstraint.constant = 0
+       animateConstraintChanges()
     }
     
 }
@@ -1726,7 +2042,9 @@ extension AgentConversationViewController: UITextViewDelegate {
     }
     
     func textViewDidChange(_ textView: UITextView) {
-        
+        placeHolderLabel.isHidden = textView.hasText
+//        manageSendButton()
+//        delegate?.updateMessContainerHeight(height: getHeightForTheView())
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
@@ -1984,9 +2302,9 @@ extension AgentConversationViewController{
 //        }
         switch attachCVCell.attachmentDetail?.title {
         case "Text":
-            isPrivateMessage = false
+            enableNormalMessage()
         case "Internal Notes":
-            isPrivateMessage = true
+            enablePrivateNote()
         case "Payment":
             self.closeKeyBoard()
             presentPlansVc()

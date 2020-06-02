@@ -92,6 +92,10 @@
 		D8C9E8E0247DFCD200F18C6C /* Agent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C9E8DF247DFCD200F18C6C /* Agent.swift */; };
 		D8C9E8E2247E181A00F18C6C /* Business.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C9E8E1247E181A00F18C6C /* Business.swift */; };
 		D8C9E8E4247E320900F18C6C /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C9E8E3247E320900F18C6C /* CacheManager.swift */; };
+		D8CD682524863C75000F4097 /* MentionTableDataSourceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CD682224863C75000F4097 /* MentionTableDataSourceDelegate.swift */; };
+		D8CD682624863C75000F4097 /* MessageSendingViewConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CD682324863C75000F4097 /* MessageSendingViewConfig.swift */; };
+		D8CD682724863C75000F4097 /* MentionDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CD682424863C75000F4097 /* MentionDataManager.swift */; };
+		D8CD682924865235000F4097 /* UITextView+Properties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CD682824865235000F4097 /* UITextView+Properties.swift */; };
 		D8F6CFF72418F99800B168C5 /* AllConversationPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F6CFF62418F99800B168C5 /* AllConversationPresenter.swift */; };
 		D8F6CFFF2418F9CF00B168C5 /* AgentProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8F6CFFB2418F9CE00B168C5 /* AgentProfileViewController.xib */; };
 		D8F6D0002418F9CF00B168C5 /* AgentProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F6CFFC2418F9CE00B168C5 /* AgentProfileViewController.swift */; };
@@ -485,6 +489,10 @@
 		D8C9E8DF247DFCD200F18C6C /* Agent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Agent.swift; sourceTree = "<group>"; };
 		D8C9E8E1247E181A00F18C6C /* Business.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Business.swift; sourceTree = "<group>"; };
 		D8C9E8E3247E320900F18C6C /* CacheManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
+		D8CD682224863C75000F4097 /* MentionTableDataSourceDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MentionTableDataSourceDelegate.swift; sourceTree = "<group>"; };
+		D8CD682324863C75000F4097 /* MessageSendingViewConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageSendingViewConfig.swift; sourceTree = "<group>"; };
+		D8CD682424863C75000F4097 /* MentionDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MentionDataManager.swift; sourceTree = "<group>"; };
+		D8CD682824865235000F4097 /* UITextView+Properties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextView+Properties.swift"; sourceTree = "<group>"; };
 		D8F6CFF62418F99800B168C5 /* AllConversationPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllConversationPresenter.swift; sourceTree = "<group>"; };
 		D8F6CFFB2418F9CE00B168C5 /* AgentProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AgentProfileViewController.xib; sourceTree = "<group>"; };
 		D8F6CFFC2418F9CE00B168C5 /* AgentProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgentProfileViewController.swift; sourceTree = "<group>"; };
@@ -1461,6 +1469,7 @@
 		C9B77D0721A01B060092848D /* UIView */ = {
 			isa = PBXGroup;
 			children = (
+				D8CD682124863C4E000F4097 /* MessageSendingView */,
 				C936006722EEC5EA00A6C291 /* TableViewCell */,
 				C9B77D0821A01B060092848D /* CollectionViewCells */,
 				C9B77D1221A01B060092848D /* CustomViews */,
@@ -1539,6 +1548,7 @@
 				D8F6D1BE241951CB00B168C5 /* Socomo+String.swift */,
 				D8F6D1BF241951CC00B168C5 /* UITableView+Extension.swift */,
 				D8F6D1BD241951CB00B168C5 /* Double+Extension.swift */,
+				D8CD682824865235000F4097 /* UITextView+Properties.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1999,6 +2009,16 @@
 				D8A2EDFD245F2F480090E283 /* PaymentPlansViewController.xib */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		D8CD682124863C4E000F4097 /* MessageSendingView */ = {
+			isa = PBXGroup;
+			children = (
+				D8CD682424863C75000F4097 /* MentionDataManager.swift */,
+				D8CD682224863C75000F4097 /* MentionTableDataSourceDelegate.swift */,
+				D8CD682324863C75000F4097 /* MessageSendingViewConfig.swift */,
+			);
+			path = MessageSendingView;
 			sourceTree = "<group>";
 		};
 		D8F6CFF22418F92100B168C5 /* InternalClasses */ = {
@@ -2628,6 +2648,7 @@
 				D8F6D2C124195D5900B168C5 /* NLevelViewController.swift in Sources */,
 				D8F6D0622418FD4800B168C5 /* ConversationPresenter.swift in Sources */,
 				C9B77EAF21A01B070092848D /* Pulsator.swift in Sources */,
+				D8CD682624863C75000F4097 /* MessageSendingViewConfig.swift in Sources */,
 				D8F6D17824194ED700B168C5 /* VideoCallMessageTableViewCell.swift in Sources */,
 				D8F6D0272418FA8A00B168C5 /* PaymentMessageCell.swift in Sources */,
 				D8F6D05A2418FCC200B168C5 /* SRWebSocket.m in Sources */,
@@ -2675,6 +2696,7 @@
 				D8F6D09B2419015500B168C5 /* DownloadManager.swift in Sources */,
 				D8F6D24F2419588300B168C5 /* Helper.swift in Sources */,
 				D8F6D1F62419547C00B168C5 /* FuguNewChatAttributes.swift in Sources */,
+				D8CD682724863C75000F4097 /* MentionDataManager.swift in Sources */,
 				D8F6D1F32419547C00B168C5 /* CustomAction.swift in Sources */,
 				D8F6D29F24195AA200B168C5 /* IQPreviousNextView.swift in Sources */,
 				D8F6D0992419015500B168C5 /* AudioPlayerManager.swift in Sources */,
@@ -2741,6 +2763,7 @@
 				D88B900124657E2400E3093F /* FilterViewController.swift in Sources */,
 				D88B20DB24619F90007FD382 /* ThreadHelper.swift in Sources */,
 				D8F6D1D0241951D000B168C5 /* UIImage+Gif.swift in Sources */,
+				D8CD682524863C75000F4097 /* MentionTableDataSourceDelegate.swift in Sources */,
 				D8F6D24A2419588300B168C5 /* CountryCode.swift in Sources */,
 				D8F6D22A2419552B00B168C5 /* BroadcastManager.swift in Sources */,
 				D8F6D0652418FDF300B168C5 /* CallManager.swift in Sources */,
@@ -2851,6 +2874,7 @@
 				D8F6D0522418FC7500B168C5 /* MZFayeMessage.m in Sources */,
 				D8F6D260241958E200B168C5 /* String+HTMLEntities.swift in Sources */,
 				D8F6CFF72418F99800B168C5 /* AllConversationPresenter.swift in Sources */,
+				D8CD682924865235000F4097 /* UITextView+Properties.swift in Sources */,
 				D88B20DA24619F90007FD382 /* Indicator.swift in Sources */,
 				D8F6D02B2418FA9400B168C5 /* CustomerPaymentCardCell.swift in Sources */,
 				D8F6D0432418FB5B00B168C5 /* HippoChat.swift in Sources */,

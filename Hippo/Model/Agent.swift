@@ -8,7 +8,7 @@
 
 import Foundation 
 //import ObjectMapper
-//import SZMentionsSwift
+import SZMentionsSwift
 
 
 enum AgentEnableStatus: Int {
@@ -124,9 +124,9 @@ class Agent : NSObject{
     func setName() {
         if let name = fullName, let agentId = userId {
             self.name = name.lowercased()
-//            self.attributedFullName = "<a color='#2296FF' href='mention://\(agentId)' contenteditable='false' data-id=" + "'\(agentId)'>" + "@" + name + kFontLastStr + " "
+            self.attributedFullName = "<a color='#2296FF' href='mention://\(agentId)' contenteditable='false' data-id=" + "'\(agentId)'>" + "@" + name + kFontLastStr + " "
         } else {
-//            self.attributedFullName =  kFontFirstStr + " " + kFontLastStr + " "
+            self.attributedFullName =  kFontFirstStr + " " + kFontLastStr + " "
             self.name = "".lowercased()
         }
     }
@@ -186,12 +186,12 @@ class Agent : NSObject{
     
 }
 
-//extension Agent: CreateMention {
-//    var mentionName: String {
-//        return "@" + (self.fullName ?? self.email ?? "Agent")
-//    }
-//
-//    var mentionSymbol: String {
-//        return "@"
-//    }
-//}
+extension Agent: CreateMention {
+    var mentionName: String {
+        return "@" + (self.fullName ?? self.email ?? "Agent")
+    }
+
+    var mentionSymbol: String {
+        return "@"
+    }
+}
