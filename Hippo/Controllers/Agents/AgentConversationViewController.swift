@@ -202,6 +202,20 @@ class AgentConversationViewController: HippoConversationViewController {
         self.attachmentViewHeightConstraint.constant = 0
     }
     
+//    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+//        guard !mentionsListTableView.isHidden && mentionsListTableViewHeightConstraint.constant > 0 else {
+//            return super.hitTest(point, with: event)
+//        }
+//        let pointForTableView = mentionsListTableView.convert(point, from: self)
+//        if mentionsListTableView.bounds.contains(pointForTableView) {
+//            return mentionsListTableView.hitTest(pointForTableView, with: event)
+//        }
+//
+//        return super.hitTest(point, with: event)
+//    }
+    
+    
+
     func navigationSetUp() {
         setTitleButton()
         if HippoConfig.shared.theme.sendBtnIcon != nil {
@@ -868,7 +882,7 @@ extension AgentConversationViewController {
         if BussinessProperty.current.isAskPaymentAllowed{
             self.attachments.append(Attachment(icon : HippoConfig.shared.theme.paymentIcon , title : "Payment"))
         }
-        self.attachments.append(Attachment(icon : HippoConfig.shared.theme.botIcon  , title : "Bot"))
+//        self.attachments.append(Attachment(icon : HippoConfig.shared.theme.botIcon  , title : "Bot"))
         
         self.newConversationCountButton.roundCorner(cornerRect: [.topLeft, .bottomLeft], cornerRadius: 5)
         self.newConversationShadow.layer.cornerRadius = 5
@@ -936,7 +950,10 @@ extension AgentConversationViewController {
     }
     
     func configureFooterView() {
-        textViewBgView.backgroundColor = .white
+//        textViewBgView.backgroundColor = .white
+        let isPrivate = messageTextView.isPrivateMode
+        textViewBgView.backgroundColor = isPrivate ? HippoConfig.shared.theme.privateNoteChatBoxColor : UIColor.white
+//        messageTextView.tintColor = isPrivate ? UIColor(red: 0/255, green: 122/255, blue: 255/255, alpha: 1) : UIColor.black
 //        bottomContentView.backgroundColor = .white
         if isObserverAdded == false {
             textViewBgView.layoutIfNeeded()
@@ -1206,8 +1223,6 @@ extension AgentConversationViewController {
 //        messageTextView.textContainerInset.bottom = 0
 //        messageTextView.textContainerInset.top = 3
 //        setEditMessageText()
-        
-//        placeHolderLabel.text = HippoConfig.shared.strings.messagePlaceHolderText
     }
 //    fileprivate func setEditMessageText() {
 //        guard let editMessage = config.editMessage, config.mode == .editMessage else {
@@ -1256,18 +1271,16 @@ extension AgentConversationViewController {
 //        cannedButton.isHidden = isPrivate || config.shouldHideBottonButtons()
 //        botButton.isHidden = isPrivate || config.shouldHideBottonButtons()
         let isBotButtonHidden = isPrivate || self.messageSendingViewConfig.shouldHideBottonButtons()
-        if isBotButtonHidden == true{
-            if self.attachments.contains(Attachment(icon : HippoConfig.shared.theme.botIcon  , title : "Bot")){
-                self.attachments.remove(at: 3)
-            }
-        }else{
-            if self.attachments.contains(Attachment(icon : HippoConfig.shared.theme.botIcon  , title : "Bot")){
+        
+            if isBotButtonHidden == true{
+                    self.attachments.remove(at: 3)
             }else{
                 self.attachments.append(Attachment(icon : HippoConfig.shared.theme.botIcon  , title : "Bot"))
             }
-        }
-        collectionViewOptions.reloadData()
+            collectionViewOptions.reloadData()
+        
         textViewBgView.backgroundColor = isPrivate ? HippoConfig.shared.theme.privateNoteChatBoxColor : UIColor.white
+//        messageTextView.tintColor = isPrivate ? UIColor(red: 0/255, green: 122/255, blue: 255/255, alpha: 1) : UIColor.black
 //        placeHolderLabel.textColor = isPrivate ? theme.chatBox.privateMessageTheme.placeholderColor : theme.label.primary
         placeHolderLabel.text = isPrivate ?  self.messageSendingViewConfig.privateMessagePlaceHolder : ( isForwardSlashAllowed ? self.messageSendingViewConfig.normalMessagePlaceHolder : self.messageSendingViewConfig.normalMessagePlaceHolderWithoutCannedMessage)
         textViewDidChange(messageTextView)
@@ -1328,7 +1341,12 @@ extension AgentConversationViewController {
         let wasPreviouslyHidden = self.mentionsListTableViewHeightConstraint.constant == 0
         let expectedHeight = CGFloat(filteredMentions.count) * heightOfTableViewCell
         let actualHeight = min(maxMentionViewHeight, expectedHeight)
-        self.mentionsListTableViewHeightConstraint.constant = actualHeight
+//        self.mentionsListTableViewHeightConstraint.constant = actualHeight
+        if actualHeight > tableViewChat.frame.height{
+            self.mentionsListTableViewHeightConstraint.constant = tableViewChat.frame.height - 100
+        }else{
+            self.mentionsListTableViewHeightConstraint.constant = actualHeight
+        }
         dataSource.updateMentions(newMentions: filteredMentions)
         mentionsListTableView.reloadData()
         if filteredMentions.count != 0 {
@@ -2043,7 +2061,10 @@ extension AgentConversationViewController: UITextViewDelegate {
         
         placeHolderLabel.textColor = #colorLiteral(red: 0.2862745098, green: 0.2862745098, blue: 0.2862745098, alpha: 0.8)
         textInTextField = textView.text
-        textViewBgView.backgroundColor = .white
+//        textViewBgView.backgroundColor = .white
+        let isPrivate = messageTextView.isPrivateMode
+        textViewBgView.backgroundColor = isPrivate ? HippoConfig.shared.theme.privateNoteChatBoxColor : UIColor.white
+//        messageTextView.tintColor = isPrivate ? UIColor(red: 0/255, green: 122/255, blue: 255/255, alpha: 1) : UIColor.black
 //        bottomContentView.backgroundColor = .white
         timer = Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(self.watcherOnTextView), userInfo: nil, repeats: true)
         
@@ -2051,7 +2072,10 @@ extension AgentConversationViewController: UITextViewDelegate {
     }
     
     func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
-        textViewBgView.backgroundColor = UIColor.white
+//        textViewBgView.backgroundColor = UIColor.white
+        let isPrivate = messageTextView.isPrivateMode
+        textViewBgView.backgroundColor = isPrivate ? HippoConfig.shared.theme.privateNoteChatBoxColor : UIColor.white
+//        messageTextView.tintColor = isPrivate ? UIColor(red: 0/255, green: 122/255, blue: 255/255, alpha: 1) : UIColor.black
 //        bottomContentView.backgroundColor = UIColor.white
         placeHolderLabel.textColor = #colorLiteral(red: 0.2862745098, green: 0.2862745098, blue: 0.2862745098, alpha: 0.5)
         
