@@ -24,25 +24,25 @@ class CallManager {
     
     static let shared = CallManager()
     
-   /* func startCall(call: CallData, completion: @escaping (Bool) -> Void) {
-        #if canImport(HippoCallClient)
-        let peerUser = call.peerData
-        guard let peer = HippoUser(name: peerUser.fullName, userID: peerUser.userID, imageURL: peerUser.image) else {
-            return
-        }
-        guard let currentUser = getCurrentUser() else {
-            return
-        }
-
-        let callToMake = Call(peer: peer, signalingClient: call.signallingClient, uID: call.muid, currentUser: currentUser, type: getCallTypeWith(localType: call.callType))
-        HippoCallClient.shared.startCall(call: callToMake, completion: completion)
-        #else
-        completion(false)
-        #endif
-    }
-    */
-    // use this method if you are using jitsi branch for calling feature
+//    func startCall(call: CallData, completion: @escaping (Bool) -> Void) {
+//        #if canImport(HippoCallClient)
+//        let peerUser = call.peerData
+//        guard let peer = HippoUser(name: peerUser.fullName, userID: peerUser.userID, imageURL: peerUser.image) else {
+//            return
+//        }
+//        guard let currentUser = getCurrentUser() else {
+//            return
+//        }
+//
+//        let callToMake = Call(peer: peer, signalingClient: call.signallingClient, uID: call.muid, currentUser: currentUser, type: getCallTypeWith(localType: call.callType))
+//        HippoCallClient.shared.startCall(call: callToMake, completion: completion)
+//        #else
+//        completion(false)
+//        #endif
+//    }
     
+    // use this method if you are using jitsi branch for calling feature
+
     func startCall(call: CallData, completion: @escaping (Bool, NSError?) -> Void) {
         #if canImport(HippoCallClient)
         let peerUser = call.peerData
