@@ -18,6 +18,7 @@
                 <outlet property="call_button" destination="i2f-CG-dFd" id="wnm-Ee-UAc"/>
                 <outlet property="image_back" destination="2BX-Lh-fkl" id="TPk-bG-Qer"/>
                 <outlet property="image_profile" destination="z7l-ty-HKT" id="oQp-nd-2ak"/>
+                <outlet property="info_button" destination="DXW-PI-ES6" id="Sxf-aC-3ak"/>
                 <outlet property="leftButton" destination="7hR-Qt-lyZ" id="HYB-F0-d4i"/>
                 <outlet property="titleLabel" destination="DXw-oN-sRE" id="5TU-LT-cvR"/>
                 <outlet property="video_button" destination="iPf-KZ-a4V" id="sEe-oQ-Dku"/>
@@ -87,7 +88,16 @@
                                 <constraint firstAttribute="width" secondItem="iPf-KZ-a4V" secondAttribute="height" multiplier="1:1" id="7Ko-aA-cj0"/>
                             </constraints>
                         </button>
+                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DXW-PI-ES6">
+                            <rect key="frame" x="70" y="0.0" width="35" height="35"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="DXW-PI-ES6" secondAttribute="height" multiplier="1:1" id="rgh-sn-UP7"/>
+                            </constraints>
+                        </button>
                     </subviews>
+                    <constraints>
+                        <constraint firstItem="DXW-PI-ES6" firstAttribute="width" secondItem="DXW-PI-ES6" secondAttribute="height" multiplier="1:1" id="7Uk-pa-GUi"/>
+                    </constraints>
                 </stackView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

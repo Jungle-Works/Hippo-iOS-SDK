@@ -126,6 +126,7 @@ class AgentConversationViewController: HippoConversationViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.isHidden = true
         
         messageTextView.contentInset.top = 8
         handleInfoIcon()
@@ -188,25 +189,7 @@ class AgentConversationViewController: HippoConversationViewController {
             addFileButtonAction.setTitle("", for: .normal)
         } else { addFileButtonAction.setTitle("ADD", for: .normal) }
         
-        
-        backButton.tintColor = HippoConfig.shared.theme.headerTextColor
-        if HippoConfig.shared.theme.leftBarButtonText.count > 0 {
-            backButton.setTitle((" " + HippoConfig.shared.theme.leftBarButtonText), for: .normal)
-            
-            if HippoConfig.shared.theme.leftBarButtonFont != nil {
-                backButton.titleLabel?.font = HippoConfig.shared.theme.leftBarButtonFont
-            }
-            
-            
-            backButton.setTitleColor(HippoConfig.shared.theme.leftBarButtonTextColor, for: .normal)
-            
-        } else {
-            if HippoConfig.shared.theme.leftBarButtonArrowImage != nil {
-                backButton.setImage(HippoConfig.shared.theme.leftBarButtonArrowImage, for: .normal)
-                backButton.tintColor = HippoConfig.shared.theme.headerTextColor
-            }
-        }
-        
+    
         if !label.isEmpty {
             setNavigationTitle(title: label)
         } else if let businessName = userDetailData["business_name"] as? String {
@@ -713,46 +696,45 @@ extension AgentConversationViewController {
     
     func handleVideoIcon() {
         setTitleButton()
-        if canStartVideoCall() {
-            let customVideoBtn : UIButton = UIButton()
-            customVideoBtn.setImage(HippoConfig.shared.theme.videoCallIcon, for: .normal)
-            customVideoBtn.frame = CGRect(x: 0, y: 0, width: custombarbuttonParam, height: custombarbuttonParam)
-            customVideoBtn.addTarget(self, action: #selector(videoCallButtonClicked), for: UIControl.Event.touchUpInside)
-            videoButton.customView = customVideoBtn
-            videoButton.tintColor = HippoConfig.shared.theme.headerTextColor
-            videoButton.isEnabled = true
-            videoButton.title = nil
+        
+        if isDirectCallingEnabledFor(type: .video) {
+            
+            view_Navigation.video_button.tintColor = HippoConfig.shared.theme.headerTextColor
+            view_Navigation.video_button.isEnabled = true
+            view_Navigation.video_button.setImage(HippoConfig.shared.theme.videoCallIcon, for: .normal)
+            view_Navigation.video_button.isHidden = false
         } else {
-            videoButton.title = ""
-            videoButton.image = nil
-            videoButton.isEnabled = false
+            view_Navigation.video_button.isHidden = true
+            view_Navigation.video_button.setImage(UIImage(), for: .normal)
+            view_Navigation.video_button.isEnabled = false
         }
     }
+    
     func handleAudioIcon() {
         setTitleButton()
-        if canStartAudioCall() {
-            let customAudioBtn : UIButton = UIButton()
-            customAudioBtn.setImage(HippoConfig.shared.theme.audioCallIcon, for: .normal)
-            customAudioBtn.frame = CGRect(x: 0, y: 0, width: custombarbuttonParam, height: custombarbuttonParam)
-            customAudioBtn.addTarget(self, action:  #selector(audioButtonClicked), for: UIControl.Event.touchUpInside)
-            audioButton.customView = customAudioBtn
-            audioButton.tintColor = HippoConfig.shared.theme.headerTextColor
-            audioButton.isEnabled = true
+        
+        //image icon name = audioCallIcon
+        
+        if isDirectCallingEnabledFor(type: .audio) {
+            view_Navigation.call_button.tintColor = HippoConfig.shared.theme.headerTextColor
+            view_Navigation.call_button.isEnabled = true
+            view_Navigation.call_button.setImage(HippoConfig.shared.theme.audioCallIcon, for: .normal)
+            view_Navigation.call_button.isHidden = false
         } else {
-            audioButton.image = nil
-            audioButton.isEnabled = false
+            view_Navigation.call_button.setImage(UIImage(), for: .normal)
+            view_Navigation.call_button.isEnabled = false
+            view_Navigation.call_button.isHidden = true
         }
+        
     }
     
     func handleInfoIcon() {
         setTitleButton()
-        let customInfoBtn : UIButton = UIButton()
-        customInfoBtn.setImage(HippoConfig.shared.theme.informationIcon, for: .normal)
-        customInfoBtn.frame = CGRect(x: 0, y: 0, width: custombarbuttonParam, height: custombarbuttonParam)
-        customInfoBtn.addTarget(self, action:  #selector(infoButtonClicked), for: UIControl.Event.touchUpInside)
-        infoButton.customView = customInfoBtn
-        infoButton.tintColor = HippoConfig.shared.theme.headerTextColor
-        infoButton.isEnabled = true
+        view_Navigation.info_button.isHidden = false
+        view_Navigation.info_button.setImage(HippoConfig.shared.theme.informationIcon, for: .normal)
+        view_Navigation.info_button.addTarget(self, action:  #selector(infoButtonClicked), for: UIControl.Event.touchUpInside)
+        view_Navigation.info_button.tintColor = HippoConfig.shared.theme.headerTextColor
+        view_Navigation.info_button.isEnabled = true
     }
     
     
