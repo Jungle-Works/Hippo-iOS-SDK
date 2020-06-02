@@ -14,7 +14,9 @@ protocol PaymentItemDescriptionCellDelegate: class {
      func itemPriceUpdated()
 }
 
-class PaymentItemDescriptionCell: UITableViewCell {
+class PaymentItemDescriptionCell: UITableViewCell,UIPickerViewDelegate,UIPickerViewDataSource {
+  
+    
 
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var titleLabel: UILabel!
@@ -27,18 +29,23 @@ class PaymentItemDescriptionCell: UITableViewCell {
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var textviewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var textField_Currency : UITextField!
+    
     
     //MARK:
     let min_height_textview: CGFloat = 50
     let max_height_textview: CGFloat = 120
     weak var delegate: PaymentItemDescriptionCellDelegate?
     var item: PaymentItem!
+    var pickerView: UIPickerView?
     
     override func awakeFromNib() {
         super.awakeFromNib()
         titleTextField.delegate = self
         priceTextField.delegate = self
         descriptionTextView.delegate = self
+        textField_Currency.delegate = self
+
         setUI()
     }
     
@@ -99,13 +106,18 @@ class PaymentItemDescriptionCell: UITableViewCell {
     
     
     func setupCellFor(item: PaymentItem) {
-        
+        setPickerView()
         self.item = item
         
         priceTextField.keyboardType = item.priceField.validationType.keyBoardType
         priceTextField.text = item.priceField.value
         priceTextField.placeholder = item.priceField.placeHolder
         priceLabel.text = item.priceField.title
+        textField_Currency.text = item.currency == nil ? BussinessProperty.current.currencyArr?.first?.currencySymbol ?? "" : item.currency?.symbol
+        if BussinessProperty.current.currencyArr?.count ?? 0 == 1 && item.currency == nil{
+            item.currency = PaymentCurrency(BussinessProperty.current.currencyArr?[0].currencySymbol ?? "", BussinessProperty.current.currencyArr?[0].currency ?? "")
+        }
+        
         
         titleTextField.keyboardType = item.titleField.validationType.keyBoardType
         titleTextField.text = item.titleField.value
@@ -140,7 +152,56 @@ class PaymentItemDescriptionCell: UITableViewCell {
         self.layoutIfNeeded()
     }
     
+    func setPickerView() {
+        pickerView = UIPickerView()
+        pickerView?.delegate = self
+        pickerView?.dataSource = self
+        pickerView?.showsSelectionIndicator = true
+        
+        let toolBar = UIToolbar()
+        toolBar.barStyle = UIBarStyle.default
+        toolBar.isTranslucent = true
+        toolBar.tintColor = UIColor.black
+        toolBar.sizeToFit()
+        
+        
+        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.plain, target: self, action: #selector(prickerDoneButtonClicked))
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
+        
+        toolBar.setItems([spaceButton, doneButton], animated: false)
+        toolBar.isUserInteractionEnabled = true
+        
+        textField_Currency.inputView = pickerView
+        textField_Currency.inputAccessoryView = toolBar
+    }
+    
+    @objc func prickerDoneButtonClicked() {
+        if textField_Currency?.text == ""{
+            textField_Currency.text = BussinessProperty.current.currencyArr?.first?.currencySymbol ?? ""
+        }
+        textField_Currency.resignFirstResponder()
+    }
+    
 }
+extension PaymentItemDescriptionCell {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return BussinessProperty.current.currencyArr?.count ?? 0
+    }
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        let value = BussinessProperty.current.currencyArr?[row]
+        return value?.currencySymbol
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        textField_Currency.text = BussinessProperty.current.currencyArr?[row].currencySymbol
+        item.currency = PaymentCurrency(BussinessProperty.current.currencyArr?[row].currencySymbol ?? "", BussinessProperty.current.currencyArr?[row].currency ?? "")
+    }
+}
+
 
 
 extension PaymentItemDescriptionCell: UITextViewDelegate {

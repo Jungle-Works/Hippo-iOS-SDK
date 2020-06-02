@@ -49,6 +49,7 @@ class AgentHomeViewController: HippoHomeViewController {
     @IBOutlet weak var agentStatus: UISwitch!
 
     @IBOutlet weak var loaderContainer: UIView!
+    @IBOutlet weak var noChatsFoundImageView: So_UIImageView!
     @IBOutlet weak var centerErrorButton: UIButton!
     @IBOutlet weak var loaderImage: So_UIImageView!
     @IBOutlet weak var filterButton: UIButton!
@@ -61,7 +62,7 @@ class AgentHomeViewController: HippoHomeViewController {
         addObservers()
         setUpView()
         setData()
-        
+        setAgentStatusForToggle()
         ConversationStore.shared.fetchAllCachedConversation()
     }
     
@@ -182,20 +183,20 @@ extension AgentHomeViewController {
         case .myChat:
             conversationList = ConversationStore.shared.myChats
         }
-        setAgentStatus()
+//        setAgentStatus()
         setUpButtonContainerView()
         updatePaginationData()
         showLoaderIfRequired()
     }
 
-    func setAgentStatus() {
-        guard let agent = HippoConfig.shared.agentDetail, agent.id > 0 else {
-            return
-        }
-        //self.agentStatus.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
-        //self.agentStatus.contentHorizontalAlignment = .center
-        self.agentStatus.isOn = agent.status == .available ? true : false
-    }
+//    func setAgentStatus() {
+//        guard let agent = HippoConfig.shared.agentDetail, agent.id > 0 else {
+//            return
+//        }
+//        //self.agentStatus.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
+//        //self.agentStatus.contentHorizontalAlignment = .center
+//        self.agentStatus.isOn = agent.status == .available ? true : false
+//    }
 
     func setUpButtonContainerView(){
         guard let agent = HippoConfig.shared.agentDetail, agent.id > 0 else {
@@ -221,7 +222,7 @@ extension AgentHomeViewController {
         if  HippoConfig.shared.agentDetail == nil || HippoConfig.shared.agentDetail!.oAuthToken.isEmpty {
             message = "Auth token is not found or found Empty"
         } else if !AgentConversationManager.isAnyApiOnGoing() && conversationList.isEmpty {
-            message = "No chat found for your business."
+            message = "You have no chats"//"No chat found for your business."
             enableButton = true
         }
         
@@ -232,11 +233,13 @@ extension AgentHomeViewController {
         guard !message.isEmpty, conversationList.isEmpty, !AgentConversationManager.isAnyApiOnGoing() else {
             buttonContainerView.isHidden = false
             centerErrorButton.isHidden = true
+            noChatsFoundImageView.isHidden = true
             return
         }
         loaderImage.isHidden = true
         loaderContainer.isHidden = true
         centerErrorButton.isHidden = false
+        noChatsFoundImageView.isHidden = false
         centerErrorButton.setTitle(message, for: .normal)
         centerErrorButton.isEnabled = enableButton
     }
@@ -415,7 +418,11 @@ extension AgentHomeViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(loginDataUpdated), name: .agentLoginDataUpated, object: nil)
     }
     
+//    @objc func loginDataUpdated() {
+//        self.tableView.reloadData()
+//    }
     @objc func loginDataUpdated() {
+        self.setAgentStatusForToggle()
         self.tableView.reloadData()
     }
     
@@ -432,6 +439,14 @@ extension AgentHomeViewController {
         setData()
       
         self.tableView.reloadData()
+    }
+    
+    func setAgentStatusForToggle(){
+        if BussinessProperty.current.agentStatusForToggle == AgentStatus.available.rawValue {
+            self.agentStatus.isOn = true
+        }else{
+            self.agentStatus.isOn = false
+        }
     }
     
     func showLoaderIfRequired() {
@@ -456,6 +471,7 @@ extension AgentHomeViewController {
         loaderContainer.isHidden = false
         loaderContainer.alpha = 0
         centerErrorButton.isHidden = true
+        noChatsFoundImageView.isHidden = true
         loaderImage.isHidden = false
         loaderImage.startRotationAnimation()
         UIView.animate(withDuration: 0.3) {
@@ -473,6 +489,7 @@ extension AgentHomeViewController {
         loaderImage.isHidden = true
         loaderContainer.isHidden = true
         centerErrorButton.isHidden = true
+        noChatsFoundImageView.isHidden = true
     }
     
 }

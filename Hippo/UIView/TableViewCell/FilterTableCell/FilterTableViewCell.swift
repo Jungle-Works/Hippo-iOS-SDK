@@ -63,7 +63,7 @@ extension FilterTableViewCell {
 //            tickImageView.image = HippoImage.current.multipleAgentSelected
             tickImageView.image = HippoConfig.shared.theme.checkBoxActive
 //            tickImageView.tintColor = HippoTheme.current.themeColor
-            tickImageView.tintColor = HippoConfig.shared.theme.themeTextcolor
+            tickImageView.tintColor = HippoConfig.shared.theme.checkBoxActiveTintColor
 //            tickImageView.image = #imageLiteral(resourceName: "checkbox_active_icon")
         } else {
 //            filterLabel.font = UIFont.regularProximaNova(withSize: 19)
@@ -73,7 +73,7 @@ extension FilterTableViewCell {
 //            tickImageView.image = HippoImage.current.multipleAgentUnSelected?.withRenderingMode(.alwaysOriginal)
             tickImageView.image = HippoConfig.shared.theme.checkBoxInActive
 //            tickImageView.tintColor = HippoTheme.current.buttonUnselectedColor
-            tickImageView.tintColor = .white//HippoConfig.shared.theme.themeColor
+            tickImageView.tintColor = HippoConfig.shared.theme.checkBoxInActiveTintColor
 
         }
         
