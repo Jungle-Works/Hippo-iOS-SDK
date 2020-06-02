@@ -67,6 +67,8 @@ class AgentConversationViewController: HippoConversationViewController {
     var isSingleChat = false
     var botActionView = BotTableView.loadView(CGRect.zero)
     var custombarbuttonParam : CGFloat = 32.0
+    var isPrivateMessage = false
+    
     // MARK: - Computed Properties
     var localFilePath: String {
         get {
@@ -1971,15 +1973,32 @@ extension AgentConversationViewController: BotTableDelegate {
 extension AgentConversationViewController{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let attachCVCell = collectionView.cellForItem(at: indexPath) as? AttachmentOptionCollectionViewCell else { return }
-        if attachCVCell.attachmentDetail?.title == "Payment"{
+//        if attachCVCell.attachmentDetail?.title == "Payment"{
+//            self.closeKeyBoard()
+//            presentPlansVc()
+//        }else if attachCVCell.attachmentDetail?.title == "Bot"{
+//            self.closeKeyBoard()
+//            AgentConversationManager.getBotsAction(userId: self.channel.chatDetail?.customerID ?? 0, channelId: self.channelId) { (botActions) in
+//                self.addBotActionView(with: botActions)
+//            }
+//        }
+        switch attachCVCell.attachmentDetail?.title {
+        case "Text":
+            isPrivateMessage = false
+        case "Internal Notes":
+            isPrivateMessage = true
+        case "Payment":
             self.closeKeyBoard()
             presentPlansVc()
-        }else if attachCVCell.attachmentDetail?.title == "Bot"{
+        case "Bot":
             self.closeKeyBoard()
             AgentConversationManager.getBotsAction(userId: self.channel.chatDetail?.customerID ?? 0, channelId: self.channelId) { (botActions) in
                 self.addBotActionView(with: botActions)
             }
+        default:
+            print("default")
         }
+        
     }
 }
 
