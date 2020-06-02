@@ -38,11 +38,7 @@ final class NavigationBarChat: UIView {
            video_button.tintColor = HippoConfig.shared.theme.headerTextColor
         }
     }
-    @IBOutlet private weak var image_profile : UIImageView!{
-        didSet{
-            
-        }
-    }
+    @IBOutlet private weak var image_profile : UIImageView!
     
     @IBOutlet private weak var image_back : UIImageView!{
         didSet{
@@ -50,6 +46,8 @@ final class NavigationBarChat: UIView {
             image_back.image = HippoConfig.shared.theme.leftBarButtonImage
         }
     }
+    @IBOutlet weak var info_button : UIButton!
+    
    // @IBOutlet weak var descLabel : UILabel!
     
     

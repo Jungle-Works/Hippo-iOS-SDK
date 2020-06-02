@@ -25,7 +25,7 @@ struct FuguNewChatAttributes {
     
    private var fuguChatType = ChatType.other
    var groupingTag: [String]?
-    var botGroupId: String?
+   var botGroupId: String?
     
     
    
