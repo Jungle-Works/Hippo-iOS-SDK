@@ -41,7 +41,7 @@ class CallManager {
         #endif
     }*/
     
-//    // use this method if you are using jitsi branch for calling feature
+//   // use this method if you are using jitsi branch for calling feature
 //
   func startCall(call: CallData, completion: @escaping (Bool, NSError?) -> Void) {
         #if canImport(HippoCallClient)

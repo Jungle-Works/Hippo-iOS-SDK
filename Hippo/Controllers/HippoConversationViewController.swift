@@ -138,6 +138,8 @@ class HippoConversationViewController: UIViewController {
     func addMessageToUIBeforeSending(message: HippoMessage) { }
     
     func openCustomSheet() { }
+    
+    func paymentCardPaymentOfCreatePaymentCalled() { }
 
     func checkNetworkConnection() {
         if FuguNetworkHandler.shared.isNetworkConnected {
@@ -1301,6 +1303,7 @@ extension HippoConversationViewController {
         let id = UInt(channelId)
         
         let vc = PaymentPlansViewController.get(channelId: id)
+        vc.sendNewPaymentDelegate = self
         let navVC = UINavigationController(rootViewController: vc)
         self.modalPresentationStyle = .fullScreen
 //        navVC.setupCustomThemeOnNavigationController(hideNavigationBar: false)
@@ -1510,6 +1513,10 @@ extension HippoConversationViewController: CreatePaymentDelegate {
         publishMessageOnChannel(message: message)
     }
     func backButtonPressed(shouldUpdate: Bool){
+        //code
+        print("")
+    }
+    func paymentCardPayment(isSuccessful: Bool) {
         //code
     }
 }
@@ -1803,11 +1810,11 @@ class AttachmentOptionCollectionViewCell : UICollectionViewCell{
         didSet{
             imageViewAttachment?.image = attachmentDetail?.icon
             labelAttachment?.text = attachmentDetail?.title
+            imageViewAttachment?.tintColor = HippoConfig.shared.theme.moreOptionsIconsTintColor
+            labelAttachment?.tintColor = HippoConfig.shared.theme.moreOptionsTitlesTintColor
         }
     }
 }
-
-
 
 class Attachment : NSObject{
     
@@ -1820,5 +1827,11 @@ class Attachment : NSObject{
     }
 }
 
-
-
+extension HippoConversationViewController : paymentCardPaymentOfCreatePaymentDelegate{
+    func paymentCardPaymentOfCreatePayment(isSuccessful: Bool) {
+        if isSuccessful == true{
+            //self.attachmentViewHeightConstraint.constant = 0
+            paymentCardPaymentOfCreatePaymentCalled()
+        }
+    }
+}

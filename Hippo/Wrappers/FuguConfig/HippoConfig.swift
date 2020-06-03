@@ -196,7 +196,15 @@ struct BotAction {
         return nil
     }
     
-    
+    //Function to get current agent sdk channel id
+    open func getCurrentAgentSdkChannelId()->Int?{
+        let topViewController = getLastVisibleController()
+        //will return channel id if we have some active chat else return nil
+        if topViewController is AgentConversationViewController{
+            return (topViewController as? AgentConversationViewController)?.channelId
+        }
+        return nil
+    }
     
     internal func setAgentStoredData() {
         guard let storedData = AgentDetail.agentLoginData else {
@@ -1105,6 +1113,11 @@ extension HippoConfig {
     
     func sendAgentUnreadCount(_ totalCount: Int) {
         HippoConfig.shared.delegate?.hippoAgentTotalUnreadCount(totalCount)
+        print("sendAgentUnreadCount====================",totalCount)
+    }
+    
+    func sendAgentChannelsUnreadCount(_ totalCount: Int) {        HippoConfig.shared.delegate?.hippoAgentTotalChannelsUnreadCount(totalCount)
+        print("sendAgentChannelsUnreadCount====================",totalCount)
     }
     
     func sendUnreadCount(_ totalCount: Int) {
