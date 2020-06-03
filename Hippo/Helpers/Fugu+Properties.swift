@@ -12,7 +12,7 @@ let HippoSDKSource = 1
 let Device_Type_iOS = 2
 var userDetailData = [String: Any]()
 
-let fuguAppVersion = "2.1.23"
+let fuguAppVersion = "2.1.24"
 let versionCode = 320//350(newCalling)
 
 /*
@@ -108,4 +108,6 @@ let versionCode = 320//350(newCalling)
  321 *** 2.1.22 = p2p chat count in parent app and chat autoclose in refresh channel
  
  322 *** 2.1.23 = payment method fixes and calling fixes done
+ 
+ 323 *** 2.1.24 = curreny handled in payment, method exposed for registering new channel id in p2p chat, resolved bot group id must be a number issue
  */
