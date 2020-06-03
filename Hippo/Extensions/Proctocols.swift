@@ -48,6 +48,9 @@ public protocol HippoDelegate: class {
     func hippoAgentTotalUnreadCount(_ totalCount: Int)
     func hippoAgentTotalChannelsUnreadCount(_ totalCount: Int)    
     func sendDataIfChatIsAssignedToSelfAgent(_ dic : [String : Any])
+    func sendp2pUnreadCount(unreadCount : Int, channelId : Int)
+    func chatListButtonAction()
+    
     
     #if canImport(HippoCallClient)
      func loadCallPresenterView(request: CallPresenterRequest) -> CallPresenter?
@@ -55,6 +58,10 @@ public protocol HippoDelegate: class {
 }
 
 extension HippoDelegate {
+    
+    func sendp2pUnreadCount(unreadCount : Int, channelId : Int){
+        
+    }
     func hippoUnreadCount(_ totalCount: Int) {
         
     }

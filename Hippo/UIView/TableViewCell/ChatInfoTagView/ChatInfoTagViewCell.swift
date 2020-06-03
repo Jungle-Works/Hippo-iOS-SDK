@@ -19,7 +19,7 @@ class ChatInfoTagViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        tagViewOutlet.textFont = UIFont.systemFont(ofSize: 15)
+        tagViewOutlet.textFont = UIFont.regular(ofSize: 15)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

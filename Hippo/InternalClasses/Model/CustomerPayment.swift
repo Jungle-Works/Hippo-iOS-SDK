@@ -123,12 +123,12 @@ extension PaymentSecurely: HippoCard {
 }
 
 class PaymentHeader {
-    var text: String = "Select a plan"
+    var text: String = "SELECT A PLAN"
 }
 
 extension PaymentHeader: HippoCard {
     var cardHeight: CGFloat {
-        return 30
+        return 40
     }
 }
 

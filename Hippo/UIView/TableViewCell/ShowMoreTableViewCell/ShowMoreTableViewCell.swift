@@ -38,7 +38,7 @@ class ShowMoreTableViewCell: UITableViewCell {
     func setUI() {
 //        let theme = HippoTheme.theme
         totalPriceLabel.textColor = HippoConfig.shared.theme.broadcastTitleColor
-        totalPriceLabel.font = UIFont.systemFont(ofSize: 15)
+        totalPriceLabel.font = UIFont.regular(ofSize: 15)
         
 //        backgroundColor = .clear
         

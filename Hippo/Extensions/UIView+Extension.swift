@@ -214,8 +214,20 @@ extension UINavigationController {
         
         #endif
         navigationBar.titleTextAttributes = attributes
+        navigationBar.setBackgroundImage(UIImage(named: ""), for: UIBarMetrics.default)
+        navigationBar.shadowImage = UIImage(named: "")
     }
 }
+
+//extension UIFont {
+//    class func regular(ofSize size: CGFloat) -> UIFont {
+//        return UIFont(name: HippoConfig.shared.regularFont , size: size) ?? UIFont.systemFont(ofSize: size)
+//    }
+//    class func bold(ofSize size: CGFloat) -> UIFont{
+//        return UIFont(name: HippoConfig.shared.boldFont , size: size) ?? UIFont.systemFont(ofSize: size)
+//    }
+//}
+
 
 extension UIStoryboard {
     enum Name: String {
