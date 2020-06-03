@@ -120,8 +120,10 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         
         print("bodID******* \(HippoProperty.current.newconversationBotGroupId ?? "")")
         print("bodID*******First")
-        fuguNewChatAttributes.botGroupId = HippoProperty.current.newconversationBotGroupId//"72"//
-        
+//        fuguNewChatAttributes.botGroupId = HippoProperty.current.newconversationBotGroupId//"72"//
+        if let botID = HippoProperty.current.newconversationBotGroupId, botID != ""{
+            fuguNewChatAttributes.botGroupId = botID
+        }
         let conversation = ConversationsViewController.getWith(chatAttributes: fuguNewChatAttributes)
         conversation.createConversationOnStart = true
         self.navigationController?.pushViewController(conversation, animated: true)
@@ -392,12 +394,10 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
             
             print("bodID******* \(HippoProperty.current.newconversationBotGroupId ?? "")")
             print("bodID*******Second")
-            if HippoProperty.current.newconversationBotGroupId != ""{
-                fuguNewChatAttributes.botGroupId = HippoProperty.current.newconversationBotGroupId
+//            fuguNewChatAttributes.botGroupId = HippoProperty.current.newconversationBotGroupId
+            if let botID = HippoProperty.current.newconversationBotGroupId, botID != ""{
+                fuguNewChatAttributes.botGroupId = botID
             }
-            //"72"//
-            //        fuguNewChatAttributes.botGroupId = "299"
-            
             let conversation = ConversationsViewController.getWith(chatAttributes: fuguNewChatAttributes)
             conversation.createConversationOnStart = true
             self.navigationController?.pushViewController(conversation, animated: true)
