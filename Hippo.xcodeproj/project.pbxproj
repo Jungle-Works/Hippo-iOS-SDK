@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		47B12417C887BBD208902F39 /* Pods_Hippo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C0A922564912516EF04B93F /* Pods_Hippo.framework */; };
+		6B1011F2248128D2007FC8EC /* loader.gif in Resources */ = {isa = PBXBuildFile; fileRef = 6B1011F1248128D2007FC8EC /* loader.gif */; };
 		6B91A93E24780AF4008AB4CC /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B91A93C24780AF4008AB4CC /* NavigationBar.swift */; };
 		6B91A93F24780AF4008AB4CC /* NavigationBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6B91A93D24780AF4008AB4CC /* NavigationBar.xib */; };
 		6BA8B19E24784E1B00E7E087 /* NavigationBarChat.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6BA8B19D24784E1B00E7E087 /* NavigationBarChat.xib */; };
@@ -22,7 +23,6 @@
 		6BB999522476534000FC32C8 /* Mark Simonson - Proxima Nova Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6BB999482476534000FC32C8 /* Mark Simonson - Proxima Nova Regular.ttf */; };
 		6BB999532476534000FC32C8 /* ProximaNova-Sbold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6BB999492476534000FC32C8 /* ProximaNova-Sbold.ttf */; };
 		6BB999542476534000FC32C8 /* ProximaNova-Reg.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6BB9994A2476534000FC32C8 /* ProximaNova-Reg.ttf */; };
-		6B1011F2248128D2007FC8EC /* loader.gif in Resources */ = {isa = PBXBuildFile; fileRef = 6B1011F1248128D2007FC8EC /* loader.gif */; };
 		C9B77E6121A01B060092848D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9B77D7A21A01B060092848D /* Assets.xcassets */; };
 		C9B77E6321A01B060092848D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9B77D7C21A01B060092848D /* LaunchScreen.storyboard */; };
 		C9B77E6421A01B060092848D /* Montserrat-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = C9B77D7E21A01B060092848D /* Montserrat-Medium.otf */; };
@@ -420,6 +420,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6B1011F1248128D2007FC8EC /* loader.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = loader.gif; sourceTree = "<group>"; };
 		6B91A93C24780AF4008AB4CC /* NavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
 		6B91A93D24780AF4008AB4CC /* NavigationBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NavigationBar.xib; sourceTree = "<group>"; };
 		6BA8B19D24784E1B00E7E087 /* NavigationBarChat.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NavigationBarChat.xib; sourceTree = "<group>"; };
@@ -434,7 +435,6 @@
 		6BB999482476534000FC32C8 /* Mark Simonson - Proxima Nova Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Mark Simonson - Proxima Nova Regular.ttf"; sourceTree = "<group>"; };
 		6BB999492476534000FC32C8 /* ProximaNova-Sbold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-Sbold.ttf"; sourceTree = "<group>"; };
 		6BB9994A2476534000FC32C8 /* ProximaNova-Reg.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-Reg.ttf"; sourceTree = "<group>"; };
-		6B1011F1248128D2007FC8EC /* loader.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = loader.gif; sourceTree = "<group>"; };
 		6F7645C36ABF77183FAD526B /* Pods-Hippo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hippo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Hippo/Pods-Hippo.debug.xcconfig"; sourceTree = "<group>"; };
 		717BE1731EC1BE11003EA321 /* Hippo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hippo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		73C5DC7752C82068B4CD5EB2 /* Pods-Hippo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hippo.release.xcconfig"; path = "Pods/Target Support Files/Pods-Hippo/Pods-Hippo.release.xcconfig"; sourceTree = "<group>"; };
@@ -1495,8 +1495,9 @@
 				C9B77D0721A01B060092848D /* UIView */,
 				C9B77D7A21A01B060092848D /* Assets.xcassets */,
 				D8F6D1A2241950DB00B168C5 /* TitilliumWeb */,
-				D8F6D1B92419516600B168C5 /* HippoBroadCast.storyboard */,
 				C9B77D7C21A01B060092848D /* LaunchScreen.storyboard */,
+				D8F6D23A241956C100B168C5 /* FuguUnique.storyboard */,
+				D8F6D1B92419516600B168C5 /* HippoBroadCast.storyboard */,
 				C9B77D7E21A01B060092848D /* Montserrat-Medium.otf */,
 				C9B77D7F21A01B060092848D /* Extensions */,
 				C9B77D8921A01B060092848D /* Model */,
@@ -1505,7 +1506,6 @@
 				C9B77DC121A01B060092848D /* MavenPro-Bold.ttf */,
 				C9B77DC221A01B060092848D /* ProximaNova-Regular.otf */,
 				C9B77DC321A01B060092848D /* Helpers */,
-				D8F6D23A241956C100B168C5 /* FuguUnique.storyboard */,
 				C9B77E0A21A01B060092848D /* Info.plist */,
 				C9B77E0C21A01B060092848D /* Montserrat-SemiBold.otf */,
 				D8F6D0A3241941D400B168C5 /* Hippo.h */,
