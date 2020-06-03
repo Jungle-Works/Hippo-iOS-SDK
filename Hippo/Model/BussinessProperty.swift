@@ -10,7 +10,7 @@ import Foundation
 
 class BussinessProperty: NSObject {
     static let current = BussinessProperty()
-    
+    var currencyArr : [BuisnessCurrency]?
     
     var botImageUrl: String? {
         get {
@@ -150,4 +150,29 @@ class BussinessProperty: NSObject {
         hideCallIconOnNavigationForCustomer = Bool.parse(key: "hide_direct_call_button", json: userDetailData)
         multiChannelLabelMapping = Bool.parse(key: "multi_channel_label_mapping", json: userDetailData) ?? false
     }
+}
+
+struct BuisnessCurrency{
+    var currency : String?
+    var currencySymbol : String?
+    
+    init() {
+        
+    }
+    
+    func getBuisnessCurrency(_ dic : [String : Any]) -> BuisnessCurrency{
+        var this = BuisnessCurrency()
+        this.currency = dic["currency"] as? String
+        this.currencySymbol = dic["currency_symbol"] as? String
+        return this
+    }
+    
+    func getCurrenyData(_ arrCurrency : [[String : Any]]) -> [BuisnessCurrency]{
+        var buisnessCurrency = [BuisnessCurrency]()
+        for data in arrCurrency{
+            buisnessCurrency.append(BuisnessCurrency().getBuisnessCurrency(data))
+        }
+        return buisnessCurrency
+    }
+    
 }
