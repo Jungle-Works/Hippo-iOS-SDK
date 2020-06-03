@@ -43,7 +43,6 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
 //   @IBOutlet var errorLabel: UILabel!
    @IBOutlet var textViewBgView: UIView!
    @IBOutlet var placeHolderLabel: UILabel!
-   @IBOutlet weak var moreOptionsButton: UIButton!
    @IBOutlet var addFileButtonAction: UIButton!
    @IBOutlet var seperatorView: UIView!
    @IBOutlet weak var loaderView: So_UIImageView!
@@ -357,16 +356,6 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
             
             addFileButtonAction.setTitle("", for: .normal)
         } else { addFileButtonAction.setTitle("ADD", for: .normal) }
-        
-        if HippoConfig.shared.theme.moreOptionsButtonIcon != nil {
-            moreOptionsButton.setImage(HippoConfig.shared.theme.moreOptionsButtonIcon, for: .normal)
-            
-            if let tintColor = HippoConfig.shared.theme.moreOptionsBtnTintColor {
-                moreOptionsButton.tintColor = tintColor
-            }
-            
-            moreOptionsButton.setTitle("", for: .normal)
-        } else { moreOptionsButton.setTitle("More Options", for: .normal) }
         
         handleBackButton()
         if let businessName = userDetailData["business_name"] as? String, label.isEmpty {
@@ -1327,14 +1316,12 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     }
    func enableSendingNewMessages() {
       addFileButtonAction.isUserInteractionEnabled = true
-      moreOptionsButton.isUserInteractionEnabled = true
       messageTextView.isEditable = true
       //sendMessageButton.isEnabled = true
    }
    
    func disableSendingNewMessages() {
       addFileButtonAction.isUserInteractionEnabled = false
-      moreOptionsButton.isUserInteractionEnabled = false
       messageTextView.isEditable = false
       sendMessageButton.isEnabled = false
    }
@@ -2629,7 +2616,7 @@ extension ConversationsViewController: UIImagePickerControllerDelegate, UINaviga
 //         }
 //      }
 //   }
-//   
+//
 //   func goToConversationViewController() {}
 //}
 
