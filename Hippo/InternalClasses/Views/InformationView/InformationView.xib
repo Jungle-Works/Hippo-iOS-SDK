@@ -15,7 +15,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ei8-Za-ACZ">
-                    <rect key="frame" x="40" y="297.5" width="334" height="151.5"/>
+                    <rect key="frame" x="40" y="337.5" width="334" height="151.5"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="KQU-Xa-g5i">
                             <rect key="frame" x="0.0" y="0.0" width="334" height="151.5"/>
@@ -57,7 +57,7 @@
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="Ei8-Za-ACZ" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" constant="-80" id="EAh-6T-ZgB"/>
+                <constraint firstItem="Ei8-Za-ACZ" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" constant="-40" id="EAh-6T-ZgB"/>
                 <constraint firstItem="Ei8-Za-ACZ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="40" id="GWd-MT-7u2"/>
                 <constraint firstItem="NuH-yc-rQ0" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.4" id="Njp-vk-Wdh"/>
                 <constraint firstItem="Ei8-Za-ACZ" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="l5a-Te-Uq4"/>

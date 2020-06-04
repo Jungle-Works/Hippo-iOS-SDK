@@ -186,9 +186,8 @@ class FilterViewController: UIViewController {
             }
         }
         
-        resetButton.setTitleColor(HippoConfig.shared.theme.headerBackgroundColor, for: .normal)
-//        resetButton.backgroundColor = UIColor.veryLightBlue
-        resetButton.backgroundColor = HippoConfig.shared.theme.headerTextColor
+        resetButton.setTitleColor(HippoConfig.shared.theme.titleColorOfFilterResetButton, for: .normal)
+        resetButton.backgroundColor = HippoConfig.shared.theme.backgroundColorOfFilterResetButton
         
 //        applyButton.clipsToBounds = true
         
@@ -200,8 +199,8 @@ class FilterViewController: UIViewController {
         
 //        applyButton.backgroundColor = theme.themeColor
 //        applyButton.setTitleColor(theme.themeTextcolor, for: .normal)
-        applyButton.backgroundColor = theme.themeTextcolor
-        applyButton.setTitleColor(theme.themeColor, for: .normal)
+        applyButton.backgroundColor = theme.backgroundColorOfFilterApplyButton
+        applyButton.setTitleColor(theme.titleColorOfFilterApplyButton, for: .normal)
         
         setTheme()
 //        applyButton.backgroundColor = HippoTheme.current.themeColor

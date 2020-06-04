@@ -10,6 +10,7 @@ import UIKit
 protocol CreatePaymentDelegate: class {
     func sendMessage(for store: PaymentStore)
     func backButtonPressed(shouldUpdate: Bool)
+    func paymentCardPayment(isSuccessful: Bool)
 }
 
 
@@ -206,12 +207,14 @@ extension CreatePaymentViewController: BroadcastButtonCellDelegate {
             }
 //        delegate?.sendMessage(for: store)
             self.startLoaderAnimation()
-            store.takeAction {[weak self] (success, _) in
+            store.takeAction {[weak self] (success, error) in
                 self?.stopLoaderAnimation()
                 guard success else {
+                    showAlertWith(message: error?.localizedDescription ?? "", action: nil)
                     return
                 }
                 if self?.store.isSending ?? false {
+                    self?.delegate?.paymentCardPayment(isSuccessful: true)
                     self?.dismiss(animated: true, completion: nil)
                 } else {
                     self?.delegate?.backButtonPressed(shouldUpdate: true)

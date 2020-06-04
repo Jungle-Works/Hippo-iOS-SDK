@@ -102,7 +102,6 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
 
    
     deinit {
-    
         HippoChannel.botMessageMUID = nil
         NotificationCenter.default.removeObserver(self)
         HippoConfig.shared.notifiyDeinit()
@@ -2622,7 +2621,7 @@ extension ConversationsViewController: UIImagePickerControllerDelegate, UINaviga
 //         }
 //      }
 //   }
-//   
+//
 //   func goToConversationViewController() {}
 //}
 

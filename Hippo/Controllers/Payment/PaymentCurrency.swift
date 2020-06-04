@@ -26,6 +26,11 @@ class PaymentCurrency: NSObject {
         displayName = name + " (\(symbol))"
     }
     
+    init(_ symbol : String, _ name : String){
+        self.symbol = symbol
+        self.code = name
+    }
+    
     class func getAllCurrency() -> [PaymentCurrency] {
         guard currencies.isEmpty else {
             return currencies

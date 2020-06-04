@@ -87,6 +87,7 @@ struct UserDefaultkeys {
     static let hideCallIconOnNavigationForCustomer = "HippoHideCallIconOnNavigationForCustomer"
     static let multiChannelLabelMapping = "Hippo_Multiple_channel_Label_Mapping"
     static let isAskPaymentAllowed = "is_ask_payment_allowed"
+    static let onlineStatus = "online_status"
 }
 
 var FUGU_SCREEN_WIDTH: CGFloat {
@@ -279,6 +280,9 @@ func subscribeCustomerUserChannel(userChannelId: String) {
     }) {  (messageDict) in
         if let messageType = messageDict["message_type"] as? Int, messageType == 18 {
             if let channel_id = messageDict["channel_id"] as? Int{ //isSubscribed(userChannelId: "\(channel_id)") == false {
+                
+                let channel = FuguChannelPersistancyManager.shared.getChannelBy(id: channel_id)
+                channel.signalReceivedFromPeer?(messageDict)
                 HippoConfig.shared.log.trace("UserChannel:: --->\(messageDict)", level: .socket)
                 CallManager.shared.voipNotificationRecieved(payloadDict: messageDict)
             }
@@ -335,6 +339,7 @@ func removeChannelForUnreadCount(_ channelId : Int){
             let newUnreadCount = totalUnreadCount - channelUnreadCount
             HippoConfig.shared.sendAgentUnreadCount(newUnreadCount)
             channelList.removeValue(forKey: "\(channelId)")
+            HippoConfig.shared.sendAgentChannelsUnreadCount(channelList.count)
             FuguDefaults.set(value: channelList, forKey: DefaultName.agentTotalUnreadHashMap.rawValue)
             UserDefaults.standard.set(newUnreadCount, forKey: DefaultName.agentUnreadCount.rawValue)
         }
@@ -356,6 +361,7 @@ func calculateTotalAgentUnreadCount(_ channelId : Int, _ unreadCount : Int){
             UserDefaults.standard.set(totalUnreadCount, forKey: DefaultName.agentUnreadCount.rawValue)
             //send delegate
             HippoConfig.shared.sendAgentUnreadCount(totalUnreadCount)
+            HippoConfig.shared.sendAgentChannelsUnreadCount(channelList.count)
         }else{
             // if channel id doesnot exist in list
             channelList["\(channelId)"] = 1
@@ -365,7 +371,7 @@ func calculateTotalAgentUnreadCount(_ channelId : Int, _ unreadCount : Int){
             UserDefaults.standard.set(totalUnreadCount, forKey: DefaultName.agentUnreadCount.rawValue)
             //send delegate
             HippoConfig.shared.sendAgentUnreadCount(totalUnreadCount)
-            
+            HippoConfig.shared.sendAgentChannelsUnreadCount(channelList.count)
         }
     }
 }

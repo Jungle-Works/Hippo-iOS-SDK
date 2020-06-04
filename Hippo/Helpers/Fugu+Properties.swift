@@ -11,9 +11,8 @@ import Foundation
 let HippoSDKSource = 1
 let Device_Type_iOS = 2
 var userDetailData = [String: Any]()
-let fuguAppVersion = "2.1.15"
-let versionCode = 350
-
+let fuguAppVersion = "2.1.24"
+let versionCode = 350//(newCalling)
 
 /*
  201 = Bot messages
@@ -58,9 +57,9 @@ let versionCode = 350
  241 *** 1.8.1 = borderWithIssue fixed
  242 *** 1.8.2 = Payment messge ui fixes and skip bot functionality
  243 *** 1.8.3 = Payment handled at agentSDK
-
+ 
  245 *** 1.8.5 = Test changes
-
+ 
  244 *** 1.8.4 = voip changes
  
  300 *** 2.1.0 = voip changes
@@ -70,7 +69,7 @@ let versionCode = 350
  302 *** 2.1.2 = failed pod upload
  
  303 *** 2.1.3 = promotional push
-
+ 
  304 *** 2.1.4 = new conversation button added
  
  305 *** 2.1.5 = suggestions for normal messages
@@ -106,4 +105,8 @@ let versionCode = 350
  320 *** 2.1.21 = p2p chat count in parent app and chat autoclose in refresh channel
  
  321 *** 2.1.22 = p2p chat count in parent app and chat autoclose in refresh channel
+ 
+ 322 *** 2.1.23 = payment method fixes and calling fixes done
+ 
+ 323 *** 2.1.24 = curreny handled in payment, method exposed for registering new channel id in p2p chat, resolved bot group id must be a number issue
  */

@@ -187,8 +187,15 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
             if let result = self?.handleIntialCustomerForm(), result {
                 return
             } else if self?.arrayOfConversation.count == 0 {
-                self?.openDefaultChannel()
-                return
+                if HippoConfig.shared.shouldOpenDefaultChannel{
+                    self?.openDefaultChannel()
+                    return
+                }
+                
+                if self?.ongoingConversationArr.count == 0 && self?.closedConversationArr.count == 0 && HippoConfig.shared.theme.shouldShowBtnOnChatList == true{ self?.noConversationFound(true,HippoConfig.shared.theme.noOpenAndcloseChatError)
+                }else if self?.ongoingConversationArr.count == 0 && self?.closedConversationArr.count == 0{ self?.noConversationFound(false,HippoConfig.shared.theme.noOpenAndcloseChatError)
+                }else{ self?.noConversationFound(false,HippoConfig.shared.theme.noChatUnderCatagoryError)
+                }
             }
         })
         
@@ -512,11 +519,11 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     
     @objc func headerEmptyAction(_ sender: UITapGestureRecognizer) {
         
-        guard arrayOfConversation.count == 0, tableViewDefaultText != "Loading..." else {
+        guard arrayOfConversation.count == 0, tableViewDefaultText != "" else {
             return
         }
         
-        tableViewDefaultText = "Loading..."
+        tableViewDefaultText = ""
         self.showConversationsTableView.reloadData()
         if HippoUserDetail.fuguUserID == nil {
             putUserDetails()
@@ -551,13 +558,8 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
                 self?.showErrorMessageInTopErrorLabel(withMessage: errorMessage)
                 return
             }
+            //
             
-            if result.conversations?.count == 0 {
-                if HippoConfig.shared.theme.shouldShowBtnOnChatList == true{ self?.noConversationFound(true,HippoConfig.shared.theme.noOpenAndcloseChatError)
-                }else{ self?.noConversationFound(false,HippoConfig.shared.theme.noOpenAndcloseChatError)
-                }
-                return
-            }
             //self?.noConversationFound()
             var conversation = result.conversations!
             if self?.config.isStaticRemoveConversation ?? false, let status = self?.config.enabledChatStatus, !status.isEmpty {
@@ -567,9 +569,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
                     return (status.contains(con.channelStatus) && lastChannelId != con.channelId)
                 })
             }
-            if conversation.isEmpty {
-                self?.addInformationView()
-            }
+            
             
             self?.arrayOfConversation = conversation
             self?.arrayOfFullConversation = conversation
@@ -584,6 +584,17 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
                 self?.view_NewConversationBtn.isHidden = true
             }else{}
             
+            if result.conversations?.count == 0 {
+                self?.closedConversationArr.removeAll()
+                self?.ongoingConversationArr.removeAll()
+                if HippoConfig.shared.theme.shouldShowBtnOnChatList == true{ self?.noConversationFound(true,HippoConfig.shared.theme.noOpenAndcloseChatError)
+                }else{ self?.noConversationFound(false,HippoConfig.shared.theme.noOpenAndcloseChatError)
+                }
+                if HippoConfig.shared.shouldOpenDefaultChannel{
+                    self?.openDefaultChannel()
+                    return
+                }
+            }
         }
     }
     
@@ -626,7 +637,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         if self.arrayOfConversation.count <= 0{
             //self.navigationItem.rightBarButtonItem?.tintColor = .clear
             if informationView == nil {
-                informationView = InformationView.loadView(self.view.bounds, delegate: self)
+                informationView = InformationView.loadView(self.showConversationsTableView.bounds, delegate: self)
             }
             self.informationView?.informationLabel.text = errorMessage
             //self.showConversationsTableView.isHidden = true
@@ -636,6 +647,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
             
             self.informationView?.isHidden = false
             self.showConversationsTableView.addSubview(informationView!)
+            showConversationsTableView.layoutSubviews()
         }else{
             for view in showConversationsTableView.subviews{
                 if view is InformationView{
@@ -669,13 +681,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         self.errorLabel.text = message
         self.updateErrorLabelView(isHiding: true)
     }
-    func addInformationView() {
-        if informationView == nil {
-            informationView = InformationView.loadView(self.view.bounds, delegate: self)
-        }
-        self.showConversationsTableView.isHidden = true
-        self.view.addSubview(informationView!)
-    }
+
     
     // MARK: - HELPER
     func updateErrorLabelView(isHiding: Bool) {

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -25,11 +25,6 @@
                                     <constraint firstAttribute="width" constant="16" id="SPW-PO-4sA"/>
                                     <constraint firstAttribute="width" secondItem="7dR-4A-lTH" secondAttribute="height" multiplier="1:1" id="brE-vc-nN2"/>
                                 </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="36"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="0jU-xt-gpr" customClass="So_CustomLabel" customModule="Hippo" customModuleProvider="target">
                                 <rect key="frame" x="40" y="8" width="37.5" height="18"/>
@@ -37,15 +32,22 @@
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mC4-Lu-Nu3">
+                                <rect key="frame" x="0.0" y="0.0" width="93.5" height="34"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="0jU-xt-gpr" firstAttribute="leading" secondItem="7dR-4A-lTH" secondAttribute="trailing" constant="8" id="7vh-cT-0pQ"/>
                             <constraint firstAttribute="bottom" secondItem="0jU-xt-gpr" secondAttribute="bottom" constant="8" id="GQm-rV-185"/>
+                            <constraint firstItem="mC4-Lu-Nu3" firstAttribute="leading" secondItem="Mc6-ye-pNN" secondAttribute="leading" id="Gx5-19-GX3"/>
+                            <constraint firstAttribute="bottom" secondItem="mC4-Lu-Nu3" secondAttribute="bottom" id="KEi-qe-8m1"/>
+                            <constraint firstItem="mC4-Lu-Nu3" firstAttribute="top" secondItem="Mc6-ye-pNN" secondAttribute="top" id="Mua-ef-mZF"/>
                             <constraint firstItem="7dR-4A-lTH" firstAttribute="centerY" secondItem="Mc6-ye-pNN" secondAttribute="centerY" id="Om7-gy-ry8"/>
                             <constraint firstAttribute="trailing" secondItem="0jU-xt-gpr" secondAttribute="trailing" constant="16" id="PCZ-6h-jF8"/>
                             <constraint firstItem="0jU-xt-gpr" firstAttribute="centerY" secondItem="7dR-4A-lTH" secondAttribute="centerY" id="PIe-P3-0g4"/>
                             <constraint firstItem="7dR-4A-lTH" firstAttribute="leading" secondItem="Mc6-ye-pNN" secondAttribute="leading" constant="16" id="UcF-Pp-9gI"/>
+                            <constraint firstAttribute="trailing" secondItem="mC4-Lu-Nu3" secondAttribute="trailing" id="eqb-JU-KBo"/>
                             <constraint firstItem="0jU-xt-gpr" firstAttribute="top" secondItem="Mc6-ye-pNN" secondAttribute="top" constant="8" id="nWR-RZ-7hW"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
@@ -70,6 +72,7 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="cellLabel" destination="0jU-xt-gpr" id="h0p-Ws-VtJ"/>
+                <outlet property="closeReopenChatTapButton" destination="mC4-Lu-Nu3" id="rlM-KP-aSn"/>
                 <outlet property="iconImageView" destination="7dR-4A-lTH" id="AlW-v0-HRL"/>
                 <outlet property="mainContentView" destination="Mc6-ye-pNN" id="win-ab-XSr"/>
                 <outlet property="widthOfIconImageView" destination="SPW-PO-4sA" id="UG6-Dh-iPc"/>

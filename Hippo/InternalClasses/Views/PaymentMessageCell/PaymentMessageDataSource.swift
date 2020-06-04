@@ -42,6 +42,8 @@ extension PaymentMessageDataSource: UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "CustomerPaymentCardCell", for: indexPath) as? CustomerPaymentCardCell else {
                 return UITableView.defaultCell()
             }
+           // let paymentCard = cards.filter{$0 is CustomerPayment}
+           // card.cardConfig.isMultiplePayment = paymentCard.count > 1 ? true : false
             cell.set(card: card)
             return cell
         case let card as PayementButton:

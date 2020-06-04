@@ -73,10 +73,11 @@ extension AgentChatInfoViewController {
             return
         }
         let closeImage = HippoConfig.shared.theme.closeChatImage
+        let reopenImage = HippoConfig.shared.theme.chatReOpenIconWithTemplateMode
         if channelDetail?.channelStatus == .open {
             actionArray.append(ChatInfoCell(infoImage: closeImage, nameOfCell: "Close Chat"))
         } else {
-            actionArray.append(ChatInfoCell(infoImage: closeImage, nameOfCell: "Reopen Chat"))
+            actionArray.append(ChatInfoCell(infoImage: reopenImage, nameOfCell: "Reopen Chat"))
         }
     }
     
@@ -279,9 +280,20 @@ extension AgentChatInfoViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "ChatInfoActionCell", for: indexPath) as? ChatInfoActionCell else {
             return ChatInfoActionCell()
         }
-        cell.selectionStyle = .default
+        cell.selectionStyle = .none//.default
+        cell.closeReopenChatTapButton.tag = indexPath.row
+        cell.closeReopenChatTapButton.addTarget(self, action: #selector(closeReopenChatTapButtonPressed(_:)), for: .touchUpInside)
         return cell.configureCellOfChatInfo(resetProperties: true, chatInfo: actionArray[indexPath.row])
     }
+    
+    @objc func closeReopenChatTapButtonPressed(_ sender:UIButton) {
+////        let row = sender.tag
+////        let values = data[row]
+////        let indexpath = IndexPath(row: row, section: 0)
+////        guard let cell = self.tableView.cellForRow(at: indexpath) as? ChatInfoActionCell else { return }
+//        channelActionClicked()
+    }
+    
     func returnTagView(indexPath: IndexPath) -> ChatInfoTagViewCell {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "ChatInfoTagViewCell", for: indexPath) as? ChatInfoTagViewCell,  channelDetail != nil  else {
