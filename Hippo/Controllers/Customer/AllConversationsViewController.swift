@@ -563,6 +563,8 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
             }else{}
             
             if result.conversations?.count == 0 {
+                self?.closedConversationArr.removeAll()
+                self?.ongoingConversationArr.removeAll()
                 if HippoConfig.shared.theme.shouldShowBtnOnChatList == true{ self?.noConversationFound(true,HippoConfig.shared.theme.noOpenAndcloseChatError)
                 }else{ self?.noConversationFound(false,HippoConfig.shared.theme.noOpenAndcloseChatError)
                 }
