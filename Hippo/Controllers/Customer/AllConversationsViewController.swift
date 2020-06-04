@@ -536,13 +536,8 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
                 self?.showErrorMessageInTopErrorLabel(withMessage: errorMessage)
                 return
             }
+            //
             
-            if result.conversations?.count == 0 {
-                if HippoConfig.shared.theme.shouldShowBtnOnChatList == true{ self?.noConversationFound(true,HippoConfig.shared.theme.noOpenAndcloseChatError)
-                }else{ self?.noConversationFound(false,HippoConfig.shared.theme.noOpenAndcloseChatError)
-                }
-                return
-            }
             //self?.noConversationFound()
             var conversation = result.conversations!
             if self?.config.isStaticRemoveConversation ?? false, let status = self?.config.enabledChatStatus, !status.isEmpty {
@@ -552,9 +547,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
                     return (status.contains(con.channelStatus) && lastChannelId != con.channelId)
                 })
             }
-            if conversation.isEmpty {
-                self?.addInformationView()
-            }
+            
             
             self?.arrayOfConversation = conversation
             self?.arrayOfFullConversation = conversation
@@ -569,6 +562,11 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
                 self?.view_NewConversationBtn.isHidden = true
             }else{}
             
+            if result.conversations?.count == 0 {
+                if HippoConfig.shared.theme.shouldShowBtnOnChatList == true{ self?.noConversationFound(true,HippoConfig.shared.theme.noOpenAndcloseChatError)
+                }else{ self?.noConversationFound(false,HippoConfig.shared.theme.noOpenAndcloseChatError)
+                }
+            }
         }
     }
     
@@ -654,13 +652,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         self.errorLabel.text = message
         self.updateErrorLabelView(isHiding: true)
     }
-    func addInformationView() {
-        if informationView == nil {
-            informationView = InformationView.loadView(self.view.bounds, delegate: self)
-        }
-        self.showConversationsTableView.isHidden = true
-        self.view.addSubview(informationView!)
-    }
+
     
     // MARK: - HELPER
     func updateErrorLabelView(isHiding: Bool) {

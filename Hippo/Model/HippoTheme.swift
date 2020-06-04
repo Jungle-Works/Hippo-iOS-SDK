@@ -129,7 +129,10 @@ public struct ConversationListTheme {
     open var conversationTitleColor = #colorLiteral(red: 0.1725490196, green: 0.137254902, blue: 0.2, alpha: 1)
     open var conversationLastMsgColor = #colorLiteral(red: 0.1725490196, green: 0.137254902, blue: 0.2, alpha: 1)
     
-    open var sendBtnIcon: UIImage? = UIImage(named: "send", in: FuguFlowManager.bundle, compatibleWith: nil)
+    open var sendBtnIcon: UIImage? = UIImage(named: "send", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+    
+    open var chatArrowIcon: UIImage? = UIImage(named: "chat_arrow", in: FuguFlowManager.bundle, compatibleWith: nil)
+    
     open var sendBtnIconTintColor: UIColor?
     
     open var messageTextViewTintColor = UIColor(red: 11/255, green: 106/255, blue: 255/255, alpha: 1)
@@ -214,7 +217,7 @@ public struct ConversationListTheme {
     
     open var descriptionFont: UIFont = UIFont.regular(ofSize: 14.0)
     open var descriptionTextColor = UIColor(red: 64/255, green: 64/255, blue: 64/255, alpha: 1.0)//#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1).withAlphaComponent(0.6)
-    open var pricingFont: UIFont = UIFont.regular(ofSize: 17.0)//UIFont(name:  HippoFont.boldFont, size: 17) ?? UIFont.boldregular(ofSize: 17)
+    open var pricingFont: UIFont = UIFont.regular(ofSize: 14.0)//UIFont(name:  HippoFont.boldFont, size: 17) ?? UIFont.boldregular(ofSize: 17)
     open var pricingTextColor: UIColor? = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
     
     open var multiSelectButtonFont: UIFont = UIFont.regular(ofSize: 15.0)
