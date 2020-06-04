@@ -67,6 +67,7 @@
 		D848D1BB245EEF9700235322 /* PaymentPlanHomeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D848D1B9245EEF9700235322 /* PaymentPlanHomeCell.xib */; };
 		D84F79F5245F49AC00B36168 /* PaymentItemDescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84F79F3245F49AB00B36168 /* PaymentItemDescriptionCell.swift */; };
 		D84F79F6245F49AC00B36168 /* PaymentItemDescriptionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D84F79F4245F49AC00B36168 /* PaymentItemDescriptionCell.xib */; };
+		D85273CE2487E982006FC5CE /* AgentSdk.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D85273CD2487E982006FC5CE /* AgentSdk.storyboard */; };
 		D86028AB23F6AD40009540D3 /* SuggestionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86028A923F6AD40009540D3 /* SuggestionCell.swift */; };
 		D86028AC23F6AD40009540D3 /* SuggestionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D86028AA23F6AD40009540D3 /* SuggestionCell.xib */; };
 		D86028B023F6AFFA009540D3 /* SuggestionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86028AE23F6AFF9009540D3 /* SuggestionViewDelegate.swift */; };
@@ -491,6 +492,7 @@
 		D848D1B9245EEF9700235322 /* PaymentPlanHomeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PaymentPlanHomeCell.xib; sourceTree = "<group>"; };
 		D84F79F3245F49AB00B36168 /* PaymentItemDescriptionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentItemDescriptionCell.swift; sourceTree = "<group>"; };
 		D84F79F4245F49AC00B36168 /* PaymentItemDescriptionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PaymentItemDescriptionCell.xib; sourceTree = "<group>"; };
+		D85273CD2487E982006FC5CE /* AgentSdk.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AgentSdk.storyboard; sourceTree = "<group>"; };
 		D86028A923F6AD40009540D3 /* SuggestionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuggestionCell.swift; sourceTree = "<group>"; };
 		D86028AA23F6AD40009540D3 /* SuggestionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SuggestionCell.xib; sourceTree = "<group>"; };
 		D86028AE23F6AFF9009540D3 /* SuggestionViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuggestionViewDelegate.swift; sourceTree = "<group>"; };
@@ -1498,6 +1500,7 @@
 				C9B77D7C21A01B060092848D /* LaunchScreen.storyboard */,
 				D8F6D23A241956C100B168C5 /* FuguUnique.storyboard */,
 				D8F6D1B92419516600B168C5 /* HippoBroadCast.storyboard */,
+				D85273CD2487E982006FC5CE /* AgentSdk.storyboard */,
 				C9B77D7E21A01B060092848D /* Montserrat-Medium.otf */,
 				C9B77D7F21A01B060092848D /* Extensions */,
 				C9B77D8921A01B060092848D /* Model */,
@@ -2622,6 +2625,7 @@
 				C9B77E8E21A01B070092848D /* MavenPro-Medium.ttf in Resources */,
 				D8A2EDFE245F2F480090E283 /* PaymentPlansViewController.xib in Resources */,
 				D88B90062465818600E3093F /* FilterTableViewCell.xib in Resources */,
+				D85273CE2487E982006FC5CE /* AgentSdk.storyboard in Resources */,
 				D8F6D13224194C2200B168C5 /* ButtonTableViewCell.xib in Resources */,
 				D8F6D11624194A3200B168C5 /* LeadTableViewCell.xib in Resources */,
 				C9B77EDB21A01B070092848D /* Info.plist in Resources */,
