@@ -169,6 +169,7 @@ struct BotAction {
     internal let FuguStringFont: UIFont = UIFont.regular(ofSize: 10.0)
     
     public let navigationTitleTextAlignMent: NSTextAlignment? = .center
+    public var shouldOpenDefaultChannel = true
     
     // MARK: - Intialization
     private override init() {
