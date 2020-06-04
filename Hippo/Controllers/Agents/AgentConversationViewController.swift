@@ -233,7 +233,13 @@ class AgentConversationViewController: HippoConversationViewController {
              addFileButtonAction.setTitle("", for: .normal)
          } else { addFileButtonAction.setTitle("ADD", for: .normal) }
          
-     
+        if HippoConfig.shared.theme.moreOptionsButtonIcon != nil {
+                moreOptionsButton.tintColor = HippoConfig.shared.theme.themeColor
+                moreOptionsButton.setImage(HippoConfig.shared.theme.moreOptionsButtonIcon, for: .normal)
+        
+                moreOptionsButton.setTitle("", for: .normal)
+        } else { moreOptionsButton.setTitle("More Options", for: .normal) }
+        
          if !label.isEmpty {
              setNavigationTitle(title: label)
          } else if let businessName = userDetailData["business_name"] as? String {
@@ -730,7 +736,8 @@ class AgentConversationViewController: HippoConversationViewController {
     }
     
     private class func getNewInstance() -> AgentConversationViewController {
-        let storyboard = UIStoryboard(name: "FuguUnique", bundle: FuguFlowManager.bundle)
+//        let storyboard = UIStoryboard(name: "FuguUnique", bundle: FuguFlowManager.bundle)
+        let storyboard = UIStoryboard(name: "AgentSdk", bundle: FuguFlowManager.bundle)
         let vc = storyboard.instantiateViewController(withIdentifier: "AgentConversationViewController") as! AgentConversationViewController
         return vc
     }
@@ -757,6 +764,7 @@ extension AgentConversationViewController {
             view_Navigation.video_button.setImage(UIImage(), for: .normal)
             view_Navigation.video_button.isEnabled = false
         }
+        view_Navigation.video_button.addTarget(self, action: #selector(videoCallButtonClicked(_:)), for: .touchUpInside)
     }
     
     func handleAudioIcon() {
@@ -774,7 +782,7 @@ extension AgentConversationViewController {
             view_Navigation.call_button.isEnabled = false
             view_Navigation.call_button.isHidden = true
         }
-        
+        view_Navigation.call_button.addTarget(self, action: #selector(audioButtonClicked(_:)), for: .touchUpInside)
     }
     
     func handleInfoIcon() {
@@ -829,7 +837,8 @@ extension AgentConversationViewController {
         self.messageTextView.textColor = HippoConfig.shared.theme.typingTextColor
         self.messageTextView.backgroundColor = .clear
         self.messageTextView.tintColor = HippoConfig.shared.theme.messageTextViewTintColor//
-        placeHolderLabel.text = HippoConfig.shared.strings.messagePlaceHolderText
+//        placeHolderLabel.text = HippoConfig.shared.strings.messagePlaceHolderText
+        placeHolderLabel.text = HippoStrings.normalMessagePlaceHolderWithoutCannedMessage
         hideErrorMessage()
         sendMessageButton.isEnabled = false
         
@@ -1110,37 +1119,83 @@ extension AgentConversationViewController {
     //        return cellTotalHeight
     //    }
 
+//    func expectedHeight(OfMessageObject chatMessageObject: HippoMessage) -> CGFloat {
+//        let isProfileImageEnabled: Bool = channel?.chatDetail?.chatType.isImageViewAllowed ?? (labelId > 0)
+//        let isOutgoingMsg = isSentByMe(senderId: chatMessageObject.senderId) && chatMessageObject.type != .card
+//        var availableWidthSpace = FUGU_SCREEN_WIDTH - CGFloat(60 + 10) - CGFloat(10 + 5)
+//        availableWidthSpace -= (isProfileImageEnabled && !isOutgoingMsg) ? 35 : 0
+//        let availableBoxSize = CGSize(width: availableWidthSpace,
+//                                      height: CGFloat.greatestFiniteMagnitude)
+//        var cellTotalHeight: CGFloat = 5 + 2.5 + 3.5 + 12 + 7 + 23
+//        if isOutgoingMsg == true {
+//            let messageString = chatMessageObject.message
+//            #if swift(>=4.0)
+//            var attributes: [NSAttributedString.Key: Any]?
+//            attributes = [NSAttributedString.Key.font: HippoConfig.shared.theme.inOutChatTextFont]
+//            if messageString.isEmpty == false {
+//                cellTotalHeight += messageString.boundingRect(with: availableBoxSize, options: .usesLineFragmentOrigin, attributes: attributes, context: nil).size.height
+//            }
+//            #else
+//            var attributes: [String: Any]?
+//            if let applicableFont = HippoConfig.shared.theme.inOutChatTextFont {
+//                attributes = [NSFontAttributeName: applicableFont]
+//            }
+//            if messageString.isEmpty == false {
+//                cellTotalHeight += messageString.boundingRect(with: availableBoxSize, options: .usesLineFragmentOrigin, attributes: attributes, context: nil).size.height
+//            }
+//            #endif
+//        } else {
+//            let incomingAttributedString = Helper.getIncomingAttributedStringWithLastUserCheck(chatMessageObject: chatMessageObject)
+//            cellTotalHeight += incomingAttributedString.boundingRect(with: availableBoxSize, options: .usesLineFragmentOrigin, context: nil).size.height
+//        }
+//        return cellTotalHeight
+//    }
     func expectedHeight(OfMessageObject chatMessageObject: HippoMessage) -> CGFloat {
         let isProfileImageEnabled: Bool = channel?.chatDetail?.chatType.isImageViewAllowed ?? (labelId > 0)
+        
         let isOutgoingMsg = isSentByMe(senderId: chatMessageObject.senderId) && chatMessageObject.type != .card
+        
         var availableWidthSpace = FUGU_SCREEN_WIDTH - CGFloat(60 + 10) - CGFloat(10 + 5)
         availableWidthSpace -= (isProfileImageEnabled && !isOutgoingMsg) ? 35 : 0
+        
         let availableBoxSize = CGSize(width: availableWidthSpace,
-                                      height: CGFloat.greatestFiniteMagnitude)
+       height: CGFloat.greatestFiniteMagnitude)
+        
+        
+        
         var cellTotalHeight: CGFloat = 5 + 2.5 + 3.5 + 12 + 7 + 23
+      
         if isOutgoingMsg == true {
+            
             let messageString = chatMessageObject.message
+            
             #if swift(>=4.0)
             var attributes: [NSAttributedString.Key: Any]?
             attributes = [NSAttributedString.Key.font: HippoConfig.shared.theme.inOutChatTextFont]
+            
             if messageString.isEmpty == false {
                 cellTotalHeight += messageString.boundingRect(with: availableBoxSize, options: .usesLineFragmentOrigin, attributes: attributes, context: nil).size.height
             }
+            
             #else
             var attributes: [String: Any]?
             if let applicableFont = HippoConfig.shared.theme.inOutChatTextFont {
                 attributes = [NSFontAttributeName: applicableFont]
             }
+            
             if messageString.isEmpty == false {
                 cellTotalHeight += messageString.boundingRect(with: availableBoxSize, options: .usesLineFragmentOrigin, attributes: attributes, context: nil).size.height
             }
             #endif
+            
         } else {
             let incomingAttributedString = Helper.getIncomingAttributedStringWithLastUserCheck(chatMessageObject: chatMessageObject)
             cellTotalHeight += incomingAttributedString.boundingRect(with: availableBoxSize, options: .usesLineFragmentOrigin, context: nil).size.height
         }
+        
         return cellTotalHeight
     }
+
     
     //MARK: - funcs for MessageSendingView
     func intalizeMessageSendingView() {
@@ -1869,7 +1924,7 @@ extension AgentConversationViewController: UITableViewDelegate, UITableViewDataS
         dateLabel.layer.cornerRadius = 10
         dateLabel.textColor = #colorLiteral(red: 0.3490196078, green: 0.3490196078, blue: 0.4078431373, alpha: 1)
         dateLabel.textAlignment = .center
-        dateLabel.font = UIFont.boldSystemFont(ofSize: 12.0)
+        dateLabel.font = UIFont.bold(ofSize: 12)//UIFont.boldSystemFont(ofSize: 12.0)
         dateLabel.backgroundColor = #colorLiteral(red: 0.9490196078, green: 0.9490196078, blue: 0.9490196078, alpha: 1)
         dateLabel.layer.borderColor = #colorLiteral(red: 0.862745098, green: 0.8784313725, blue: 0.9019607843, alpha: 1).cgColor
         dateLabel.layer.borderWidth = 0.5

@@ -23,12 +23,15 @@ class AgentHomeConversationCell: UITableViewCell {
     @IBOutlet weak var rightSideView: So_UIView!
     @IBOutlet weak var heightOfRightContainer: NSLayoutConstraint!
     @IBOutlet weak var rightSideLabel: So_CustomLabel!
+    @IBOutlet weak var counterLabelContainerView: UIView!
     @IBOutlet weak var counterLabel: So_CustomLabel!
     @IBOutlet weak var horizontalLine: So_UIView!
     
     @IBOutlet weak var transitionView: So_UIView!
     @IBOutlet weak var transitionImageView: So_UIImageView!
     @IBOutlet weak var transitionLabel: So_CustomLabel!
+    
+    @IBOutlet weak var channelImageView: So_UIImageView!
     
     var arrayTagList = [TagBoxInfo]()
     var tagViewHeight: CGFloat = 22.5
@@ -54,7 +57,13 @@ extension AgentHomeConversationCell {
         selectionStyle = .none
         
         timeLabel.text = ""
+        counterLabelContainerView.isHidden = true
         counterLabel.isHidden = true
+        
+        channelImageView.image = nil
+        channelImageView.layer.masksToBounds = true
+        channelImageView.layer.cornerRadius = 5
+        channelImageView.contentMode = .scaleAspectFill
         
         leftSideView.layer.borderWidth = 0.5
         rightSideView.layer.borderWidth = 0.5
@@ -114,17 +123,41 @@ extension AgentHomeConversationCell {
         
         //Setting tags
         setTags()
+        
+//        if let channelImage = cellData?.user_image, channelImage.isEmpty == false, let url = URL(string: channelImage) {
+        if let channelImage = cellData?.user_image, channelImage.isEmpty == false, channelImage.contains("http"), let url = URL(string: channelImage) {
+            channelImageView.kf.setImage(with: url)
+            channelImageView.backgroundColor = nil
+        } else if let channelName = cellData?.label, channelName.isEmpty == false {
+//            placeHolderImageButton?.alpha = isThisChatOpened(opened: isOpened)
+//            placeHolderImageButton?.isHidden = false
+//            placeHolderImageButton?.setImage(nil, for: .normal)
+//            placeHolderImageButton?.backgroundColor = .lightGray
+
+            let channelNameInitials = channelName.trimWhiteSpacesAndNewLine()
+            let color = getRandomColor()
+            if channelImageView.backgroundColor == nil{
+                channelImageView.setTextInImage(string: channelNameInitials, color: color, circular: false, textAttributes: nil)
+                channelImageView.backgroundColor = color
+            }else{
+               channelImageView.setTextInImage(string: channelNameInitials, color: channelImageView.backgroundColor, circular: false, textAttributes: nil)
+            }
+        }
+        
     }
     
     func setUnreadCount() {
         if let totalCount = cellData?.unreadCount, totalCount > 0 {
             counterLabel.text = "\(totalCount)"
+            counterLabelContainerView.isHidden = false
             counterLabel.isHidden = false
+            counterLabelContainerView.layer.cornerRadius = counterLabelContainerView.frame.size.height/2
 //            nameLabel.font = UIFont(name:"HelveticaNeue-Bold", size: 15.0)
 //            lastMessageLabel.font = UIFont(name:"HelveticaNeue-Bold", size: 12.0)
 //            timeLabel.font = UIFont(name:"HelveticaNeue-Bold", size: 12.0)
             self.setLabelsFont()
         } else {
+            counterLabelContainerView.isHidden = true
             counterLabel.isHidden = true
 //            nameLabel.font = UIFont(name:"HelveticaNeue", size: 15.0)
 //            lastMessageLabel.font = UIFont(name:"HelveticaNeue", size: 12.0)
@@ -134,9 +167,10 @@ extension AgentHomeConversationCell {
     }
     
     func setLabelsFont(){
-        nameLabel.font = UIFont.bold(ofSize: 18.0)
-        lastMessageLabel.font = UIFont.regular(ofSize: 14.0)
-        timeLabel.font = UIFont.regular(ofSize: 14.0)
+        nameLabel.font = UIFont.bold(ofSize: 16.0)
+        lastMessageLabel.font = UIFont.regular(ofSize: 15.0)
+        timeLabel.font = UIFont.regular(ofSize: 12.5)
+        closedLabel.font = UIFont.regular(ofSize: 12.5)
     }
     
     func setTags() {
@@ -235,4 +269,15 @@ extension AgentHomeConversationCell {
             self.containerBorderColor = containerBorderColor
         }
     }
+    
+    func getRandomColor() -> UIColor {
+         //Generate between 0 to 1
+         let red:CGFloat = CGFloat(drand48())
+         let green:CGFloat = CGFloat(drand48())
+         let blue:CGFloat = CGFloat(drand48())
+
+         return UIColor(red:red, green: green, blue: blue, alpha: 1.0)
+    }
+
+    
 }

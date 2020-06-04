@@ -52,7 +52,8 @@ class AgentListViewController: UIViewController {
         self.view.backgroundColor = theme.backgroundColor
     }
     class func get(channelInfo: ChatDetail) -> AgentListViewController? {
-        let storyboard = UIStoryboard(name: "FuguUnique", bundle: FuguFlowManager.bundle)
+//        let storyboard = UIStoryboard(name: "FuguUnique", bundle: FuguFlowManager.bundle)
+        let storyboard = UIStoryboard(name: "AgentSdk", bundle: FuguFlowManager.bundle)
         guard let vc = storyboard.instantiateViewController(withIdentifier: "AgentListViewController") as? AgentListViewController else {
             return nil
         }

@@ -2315,7 +2315,7 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
             dateLabel.layer.cornerRadius = 10
             dateLabel.textColor = #colorLiteral(red: 0.3490196078, green: 0.3490196078, blue: 0.4078431373, alpha: 1)
             dateLabel.textAlignment = .center
-            dateLabel.font = UIFont.boldSystemFont(ofSize: 12.0)
+            dateLabel.font = UIFont.bold(ofSize: 12)//UIFont.boldSystemFont(ofSize: 12.0)
             dateLabel.backgroundColor = #colorLiteral(red: 0.9490196078, green: 0.9490196078, blue: 0.9490196078, alpha: 1)
             dateLabel.layer.borderColor = #colorLiteral(red: 0.862745098, green: 0.8784313725, blue: 0.9019607843, alpha: 1).cgColor
             dateLabel.layer.borderWidth = 0.5

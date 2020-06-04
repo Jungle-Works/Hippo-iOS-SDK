@@ -59,7 +59,8 @@ class AgentChatInfoViewController: UIViewController {
     
     //MARK: Class methods
     class func get(chatDetail: ChatDetail) -> AgentChatInfoViewController? {
-        let storyboard = UIStoryboard(name: "FuguUnique", bundle: FuguFlowManager.bundle)
+//        let storyboard = UIStoryboard(name: "FuguUnique", bundle: FuguFlowManager.bundle)
+        let storyboard = UIStoryboard(name: "AgentSdk", bundle: FuguFlowManager.bundle)
         let vc = storyboard.instantiateViewController(withIdentifier: "AgentChatInfoViewController") as? AgentChatInfoViewController
         vc?.channelDetail = chatDetail
         return vc

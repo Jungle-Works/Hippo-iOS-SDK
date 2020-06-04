@@ -47,7 +47,7 @@ struct MessageSendingViewConfig {
         ),
         MentionAttribute(
             name: .font,
-            value: UIFont.systemFont(ofSize: 14.0)//UIFont.regularMontserrat(withSize: 14)
+            value: UIFont.regular(ofSize: 14)//UIFont.regularMontserrat(withSize: 14)
         ),
         MentionAttribute(
             name: .backgroundColor,
@@ -61,7 +61,7 @@ struct MessageSendingViewConfig {
         ),
         MentionAttribute(
             name: .font,
-            value: UIFont.systemFont(ofSize: 14.0)//UIFont.regularMontserrat(withSize: 14)
+            value: UIFont.regular(ofSize: 14)//UIFont.regularMontserrat(withSize: 14)
         ),
         MentionAttribute(
             name: .backgroundColor,
@@ -97,7 +97,7 @@ struct MessageSendingViewConfig {
         var defaultAttributes: [MentionAttribute] = [
             MentionAttribute(
                 name: .font,
-                value: UIFont.systemFont(ofSize: 14.0)//UIFont.regularMontserrat(withSize: 14)
+                value: UIFont.regular(ofSize: 14)//UIFont.regularMontserrat(withSize: 14)
             ),
             MentionAttribute(
                 name: .backgroundColor,

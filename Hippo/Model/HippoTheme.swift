@@ -81,16 +81,23 @@ public struct ConversationListTheme {
     open var audioCallIcon: UIImage? = UIImage(named: "call", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     open var videoCallIcon: UIImage? = UIImage(named: "video", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     open var noChatImage : UIImage? = UIImage(named: "noChats", in: FuguFlowManager.bundle, compatibleWith: nil)
-    open var paymentIcon: UIImage? = UIImage(named: "makePayment", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
-    open var botIcon: UIImage? = UIImage(named: "bot", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
-    open var alphabetSymbolIcon: UIImage? = UIImage(named: "alphabet_symbol_icon", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
-    open var privateInternalNotesIcon: UIImage? = UIImage(named: "private+message_icon_chat_box", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+    open var paymentIcon: UIImage? = UIImage(named: "makePayment", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysOriginal)
+//    open var paymentIcon: UIImage? = UIImage(named: "makePayment", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+    open var botIcon: UIImage? = UIImage(named: "bot", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysOriginal)
+//    open var botIcon: UIImage? = UIImage(named: "bot", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+    open var alphabetSymbolIcon: UIImage? = UIImage(named: "alphabet_symbol_icon", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysOriginal)
+//    open var alphabetSymbolIcon: UIImage? = UIImage(named: "alphabet_symbol_icon", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+    open var privateInternalNotesIcon: UIImage? = UIImage(named: "private+message_icon_chat_box", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysOriginal)
+//    open var privateInternalNotesIcon: UIImage? = UIImage(named: "private+message_icon_chat_box", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     
     open var missedCallMessageColor: UIColor = UIColor.red
     
 //    open var headerTextFont: UIFont? = UIFont.boldregular(ofSize: 18.0)
     open var ongoingBtnText = "Current"
     open var pastBtnText = "Past"
+    
+    open var myChatBtnText = "My Chats"
+    open var allChatBtnText = "All Chats"
     
     open var headerTextFont: UIFont? = UIFont.bold(ofSize: 17.0)
     open var actionableMessageHeaderTextFont: UIFont? = UIFont.bold(ofSize: 16.0)

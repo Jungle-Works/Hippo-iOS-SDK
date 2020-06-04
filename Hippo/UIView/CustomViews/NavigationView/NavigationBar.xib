@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -18,6 +18,8 @@
                 <outlet property="image_back" destination="sHE-cu-ZOR" id="vlC-Tx-HbV"/>
                 <outlet property="leftButton" destination="HR0-Xt-n2K" id="VSs-CW-ZhJ"/>
                 <outlet property="rightButton" destination="oEA-g4-A1P" id="mBR-DB-zMV"/>
+                <outlet property="rightSwitchButton" destination="g9T-V1-IH1" id="trz-2P-BrU"/>
+                <outlet property="rightSwitchButtonContainerView" destination="IqM-bH-2t2" id="daw-p9-6O8"/>
                 <outlet property="titleLabel" destination="G01-tg-7hU" id="Zsk-ry-MVR"/>
                 <outlet property="view" destination="zgO-lO-xc9" id="0AK-07-Vd3"/>
             </connections>
@@ -48,24 +50,46 @@
                     <color key="textColor" red="0.16862745100000001" green="0.2274509804" blue="0.3294117647" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oEA-g4-A1P">
-                    <rect key="frame" x="443" y="38.5" width="30" height="30"/>
-                </button>
+                <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="Kxh-Rn-dD0">
+                    <rect key="frame" x="443" y="33.5" width="30" height="40"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oEA-g4-A1P">
+                            <rect key="frame" x="0.0" y="0.0" width="30" height="40"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="40" id="J5E-IW-17q"/>
+                            </constraints>
+                        </button>
+                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IqM-bH-2t2">
+                            <rect key="frame" x="0.0" y="0.0" width="50" height="40"/>
+                            <subviews>
+                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="g9T-V1-IH1">
+                                    <rect key="frame" x="0.5" y="4.5" width="51" height="31"/>
+                                </switch>
+                            </subviews>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="50" id="J5f-l9-dON"/>
+                                <constraint firstItem="g9T-V1-IH1" firstAttribute="centerX" secondItem="IqM-bH-2t2" secondAttribute="centerX" id="o0q-mx-xgQ"/>
+                                <constraint firstItem="g9T-V1-IH1" firstAttribute="centerY" secondItem="IqM-bH-2t2" secondAttribute="centerY" id="qB6-US-vr8"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                </stackView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="HR0-Xt-n2K" firstAttribute="leading" secondItem="zgO-lO-xc9" secondAttribute="leading" id="4sK-GR-ERm"/>
                 <constraint firstItem="G01-tg-7hU" firstAttribute="top" relation="greaterThanOrEqual" secondItem="zgO-lO-xc9" secondAttribute="top" id="E4n-tY-vHF"/>
                 <constraint firstAttribute="bottom" secondItem="HR0-Xt-n2K" secondAttribute="bottom" id="H63-yh-hie"/>
+                <constraint firstAttribute="trailing" secondItem="Kxh-Rn-dD0" secondAttribute="trailing" constant="15" id="IDD-nA-bkm"/>
                 <constraint firstItem="G01-tg-7hU" firstAttribute="centerY" secondItem="YNn-bR-0b8" secondAttribute="centerY" id="Itv-h3-VMu"/>
                 <constraint firstItem="G01-tg-7hU" firstAttribute="centerX" secondItem="YNn-bR-0b8" secondAttribute="centerX" id="SkB-9p-5A4"/>
-                <constraint firstItem="YNn-bR-0b8" firstAttribute="trailing" secondItem="oEA-g4-A1P" secondAttribute="trailing" constant="15" id="TiR-99-iJl"/>
                 <constraint firstItem="sHE-cu-ZOR" firstAttribute="leading" secondItem="YNn-bR-0b8" secondAttribute="leading" constant="15" id="W6S-4x-MTf"/>
-                <constraint firstItem="oEA-g4-A1P" firstAttribute="centerY" secondItem="G01-tg-7hU" secondAttribute="centerY" id="ZiS-f8-kUV"/>
                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="G01-tg-7hU" secondAttribute="bottom" id="a0m-gU-tqU"/>
                 <constraint firstItem="HR0-Xt-n2K" firstAttribute="top" secondItem="zgO-lO-xc9" secondAttribute="top" id="de4-Em-IHx"/>
                 <constraint firstItem="sHE-cu-ZOR" firstAttribute="centerY" secondItem="YNn-bR-0b8" secondAttribute="centerY" id="dtc-af-B5s"/>
                 <constraint firstItem="sHE-cu-ZOR" firstAttribute="centerY" secondItem="G01-tg-7hU" secondAttribute="centerY" id="pIP-n3-wSn"/>
+                <constraint firstItem="Kxh-Rn-dD0" firstAttribute="centerY" secondItem="G01-tg-7hU" secondAttribute="centerY" id="q4W-T2-zLx"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>

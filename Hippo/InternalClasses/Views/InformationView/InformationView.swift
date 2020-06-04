@@ -49,7 +49,7 @@ class InformationView: UIView {
         informationLabel.textAlignment = .center
         button_Info.isHidden = true
         button_Info.backgroundColor = HippoConfig.shared.theme.themeColor
-        button_Info.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15.0)
+        button_Info.titleLabel?.font = UIFont.bold(ofSize: 15)//UIFont.boldSystemFont(ofSize: 15.0)
         button_Info.setTitleColor(.white, for: .normal)
     }
     

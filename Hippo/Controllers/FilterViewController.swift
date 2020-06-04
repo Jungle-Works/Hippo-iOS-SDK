@@ -121,7 +121,8 @@ class FilterViewController: UIViewController {
 //        return vc
 //    }
     class func getNewInstance() -> FilterViewController? {
-        let storyboard = UIStoryboard(name: "FuguUnique", bundle: FuguFlowManager.bundle)
+//        let storyboard = UIStoryboard(name: "FuguUnique", bundle: FuguFlowManager.bundle)
+        let storyboard = UIStoryboard(name: "AgentSdk", bundle: FuguFlowManager.bundle)
         guard let vc = storyboard.instantiateViewController(withIdentifier: "FilterViewController") as? FilterViewController else {
             return nil
         }

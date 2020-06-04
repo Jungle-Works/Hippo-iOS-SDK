@@ -23,6 +23,7 @@ class AgentConversation: HippoConversation {
     
     
     var status: Int?
+    var user_image: String?
     var user_id: Int?
     var date_time: String?
     var notificationType: NotificationType?
@@ -68,6 +69,7 @@ class AgentConversation: HippoConversation {
         created_at = json["created_at"] as? String
         label = json["label"] as? String
         status = json["status"] as? Int
+        user_image = String.parse(values: json, key: "user_image", defaultValue: "")
         user_id = Int.parse(values: json, key: "user_id") //json["user_id"] as? Int
         date_time = json["date_time"] as? String
         
@@ -233,6 +235,9 @@ class AgentConversation: HippoConversation {
         }
         if let status = status {
             json["status"] = status
+        }
+        if let user_image = user_image {
+            json["user_image"] = user_image
         }
         if let user_id = user_id {
             json["user_id"] = user_id
