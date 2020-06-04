@@ -862,7 +862,8 @@ extension AgentConversationViewController {
         self.messageTextView.textColor = HippoConfig.shared.theme.typingTextColor
         self.messageTextView.backgroundColor = .clear
         self.messageTextView.tintColor = HippoConfig.shared.theme.messageTextViewTintColor//
-        placeHolderLabel.text = HippoConfig.shared.strings.messagePlaceHolderText
+//        placeHolderLabel.text = HippoConfig.shared.strings.messagePlaceHolderText
+        placeHolderLabel.text = HippoStrings.normalMessagePlaceHolderWithoutCannedMessage
         hideErrorMessage()
         sendMessageButton.isEnabled = false
         
