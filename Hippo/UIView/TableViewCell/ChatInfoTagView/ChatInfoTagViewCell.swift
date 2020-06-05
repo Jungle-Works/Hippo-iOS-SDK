@@ -13,12 +13,13 @@ class ChatInfoTagViewCell: UITableViewCell {
 
     var tagDetailArray = [TagDetail]()
     @IBOutlet weak var collectionViewOutlet: UICollectionView!
-    
+    @IBOutlet weak var tagTextLabel: UILabel!    
     @IBOutlet weak var tagViewOutlet: TagListView!
     @IBOutlet weak var heightConstraint: NSLayoutConstraint!
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        tagTextLabel.font = UIFont.regular(ofSize: 15)
         tagViewOutlet.textFont = UIFont.regular(ofSize: 15)
     }
 

@@ -101,7 +101,9 @@
             <connections>
                 <outlet property="agentNameLabel" destination="BR9-qQ-qg3" id="hac-u1-BCm"/>
                 <outlet property="agentProfileImage" destination="vUR-xK-CFA" id="tUv-gZ-1E6"/>
+                <outlet property="assignedToTextLabel" destination="mL6-qE-2fT" id="iq7-QV-Ng2"/>
                 <outlet property="containerView" destination="yk4-Uv-ISa" id="Zj7-G3-bdB"/>
+                <outlet property="downArrowButton" destination="afo-mJ-rPH" id="FVd-PZ-IoW"/>
                 <outlet property="namePlaceHolderImage" destination="Djz-V9-gKx" id="pMe-6I-fdf"/>
             </connections>
             <point key="canvasLocation" x="-151" y="-88"/>

@@ -216,12 +216,11 @@
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" id="o67-Se-eTo">
                                 <rect key="frame" x="16" y="0.0" width="44" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="backButtonNormalStateIcon"/>
                             </button>
                         </barButtonItem>
                         <rightBarButtonItems>
                             <barButtonItem style="plain" id="N6t-eO-8u9">
-                                <switch key="customView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="5EH-Vc-NKO">
+                                <switch key="customView" hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="5EH-Vc-NKO">
                                     <rect key="frame" x="308" y="6.5" width="51" height="31"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 </switch>
@@ -230,7 +229,6 @@
                                 <button key="customView" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="j6a-I4-21B">
                                     <rect key="frame" x="249" y="0.0" width="51" height="44"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <state key="normal" image="filter_button_icon"/>
                                 </button>
                             </barButtonItem>
                             <barButtonItem style="plain" id="1Jh-9h-dOu">
@@ -804,21 +802,31 @@
                         <viewControllerLayoutGuide type="bottom" id="Ujw-VA-SnJ"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="XYf-Ak-9yg">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="xHG-ma-41l">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
+                                <rect key="frame" x="0.0" y="40" width="375" height="627"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1MB-pV-MdH" customClass="NavigationBar" customModule="Hippo" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="Mce-Jb-uiQ"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="xHG-ma-41l" firstAttribute="leading" secondItem="XYf-Ak-9yg" secondAttribute="leading" id="1G8-7M-cpH"/>
-                            <constraint firstItem="xHG-ma-41l" firstAttribute="top" secondItem="Quf-Sv-Me1" secondAttribute="bottom" id="8jg-Vx-WeK"/>
+                            <constraint firstItem="1MB-pV-MdH" firstAttribute="leading" secondItem="XYf-Ak-9yg" secondAttribute="leading" id="23o-CE-2c5"/>
                             <constraint firstItem="Ujw-VA-SnJ" firstAttribute="top" secondItem="xHG-ma-41l" secondAttribute="bottom" id="HfN-ge-Dmk"/>
                             <constraint firstAttribute="trailing" secondItem="xHG-ma-41l" secondAttribute="trailing" id="YGa-nF-fgK"/>
+                            <constraint firstAttribute="trailing" secondItem="1MB-pV-MdH" secondAttribute="trailing" id="amv-Ie-4De"/>
+                            <constraint firstItem="1MB-pV-MdH" firstAttribute="top" secondItem="Quf-Sv-Me1" secondAttribute="bottom" id="ffy-nL-04W"/>
+                            <constraint firstItem="xHG-ma-41l" firstAttribute="top" secondItem="1MB-pV-MdH" secondAttribute="bottom" id="xJI-pE-VLS"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="kKF-nh-JW7"/>
                     </view>
@@ -828,21 +836,17 @@
                                 <rect key="frame" x="16" y="0.0" width="44" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="backButtonNormalStateIcon"/>
-                                <connections>
-                                    <action selector="backButtonClicked:" destination="s6c-5Y-Xcm" eventType="touchUpInside" id="pgz-9s-yC0"/>
-                                </connections>
                             </button>
                         </barButtonItem>
                     </navigationItem>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <connections>
-                        <outlet property="backButton" destination="CZI-Re-s2e" id="gyh-KD-b8w"/>
                         <outlet property="tableView" destination="xHG-ma-41l" id="RvR-D2-0k7"/>
+                        <outlet property="view_NavigationBar" destination="1MB-pV-MdH" id="aJ3-6d-OVY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cQZ-x1-jlC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1497" y="849"/>
+            <point key="canvasLocation" x="1496.8" y="848.72563718140941"/>
         </scene>
         <!--Filter-->
         <scene sceneID="ow7-Zq-7kO">
@@ -972,16 +976,16 @@
             </objects>
             <point key="canvasLocation" x="2258" y="849"/>
         </scene>
-        <!--Assign Conversation-->
+        <!--Agent List View Controller-->
         <scene sceneID="UV7-B5-F81">
             <objects>
                 <viewController storyboardIdentifier="AgentListViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="g1g-ER-Rja" customClass="AgentListViewController" customModule="Hippo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="lSv-9d-EQ2">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="GXZ-Rm-FQD">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
+                                <rect key="frame" x="0.0" y="40" width="375" height="627"/>
                                 <subviews>
                                     <searchBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yGM-XP-34Z">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
@@ -1000,7 +1004,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </searchBar>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="interactive" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="QOp-g9-dEs">
-                                        <rect key="frame" x="0.0" y="50" width="375" height="573"/>
+                                        <rect key="frame" x="0.0" y="50" width="375" height="577"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <connections>
                                             <outlet property="dataSource" destination="g1g-ER-Rja" id="44p-I6-0R0"/>
@@ -1009,33 +1013,38 @@
                                     </tableView>
                                 </subviews>
                             </stackView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c12-ot-Ad3" customClass="NavigationBar" customModule="Hippo" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="f3k-ek-2cc"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="GXZ-Rm-FQD" firstAttribute="bottom" secondItem="HSR-vZ-l8M" secondAttribute="bottom" id="EDH-Ub-tEl"/>
-                            <constraint firstItem="GXZ-Rm-FQD" firstAttribute="top" secondItem="HSR-vZ-l8M" secondAttribute="top" id="SnW-YY-2fl"/>
+                            <constraint firstAttribute="trailing" secondItem="c12-ot-Ad3" secondAttribute="trailing" id="R1S-TB-Pei"/>
+                            <constraint firstItem="c12-ot-Ad3" firstAttribute="leading" secondItem="lSv-9d-EQ2" secondAttribute="leading" id="XXa-Zs-1aV"/>
+                            <constraint firstItem="GXZ-Rm-FQD" firstAttribute="top" secondItem="c12-ot-Ad3" secondAttribute="bottom" id="dGC-WE-XTG"/>
                             <constraint firstItem="HSR-vZ-l8M" firstAttribute="trailing" secondItem="GXZ-Rm-FQD" secondAttribute="trailing" id="jJf-Ri-ELr"/>
                             <constraint firstItem="GXZ-Rm-FQD" firstAttribute="leading" secondItem="HSR-vZ-l8M" secondAttribute="leading" id="kTy-Bg-wvm"/>
+                            <constraint firstItem="c12-ot-Ad3" firstAttribute="top" secondItem="HSR-vZ-l8M" secondAttribute="top" id="uWU-wI-tFl"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="HSR-vZ-l8M"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Assign Conversation" id="wOi-pM-SOY">
+                    <navigationItem key="navigationItem" id="wOi-pM-SOY">
                         <barButtonItem key="leftBarButtonItem" style="plain" id="th9-Sy-Vk9">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="CbK-Jy-nnw">
                                 <rect key="frame" x="16" y="0.0" width="44" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="backButtonNormalStateIcon"/>
-                                <connections>
-                                    <action selector="backButtonClicked:" destination="g1g-ER-Rja" eventType="touchUpInside" id="U3Q-UN-ya6"/>
-                                </connections>
                             </button>
                         </barButtonItem>
                     </navigationItem>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <connections>
-                        <outlet property="backButton" destination="CbK-Jy-nnw" id="X6C-JK-HHl"/>
                         <outlet property="searchBar" destination="yGM-XP-34Z" id="LN1-7p-kJ1"/>
                         <outlet property="tableViewAgent" destination="QOp-g9-dEs" id="ZOe-Ud-adO"/>
+                        <outlet property="view_NavigationBar" destination="c12-ot-Ad3" id="bpV-aW-n2H"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ByA-Rk-feS" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1049,7 +1058,6 @@
         <image name="backButtonNormalStateIcon" width="16" height="14"/>
         <image name="broadcastIcon" width="25.5" height="19.5"/>
         <image name="cancel_icon" width="16" height="16"/>
-        <image name="filter_button_icon" width="16" height="16"/>
         <image name="makePayment" width="45" height="45"/>
         <image name="moreOptions" width="24" height="24"/>
         <image name="new_chat_icon" width="18" height="19"/>

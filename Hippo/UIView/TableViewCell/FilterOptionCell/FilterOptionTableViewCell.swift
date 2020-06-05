@@ -28,6 +28,7 @@ class FilterOptionTableViewCell: UITableViewCell {
     private func setupCellView() {
         verticleLineView.backgroundColor = UIColor.themeColor
         verticleLineView.isHidden = true
+        cellLabel.font = UIFont.regular(ofSize: 17.0)
     }
     
     private func resetCell() {

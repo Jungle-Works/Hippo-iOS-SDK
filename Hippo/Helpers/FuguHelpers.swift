@@ -88,6 +88,7 @@ struct UserDefaultkeys {
     static let multiChannelLabelMapping = "Hippo_Multiple_channel_Label_Mapping"
     static let isAskPaymentAllowed = "is_ask_payment_allowed"
     static let onlineStatus = "online_status"
+    static let filterApplied = "filterApplied"
 }
 
 var FUGU_SCREEN_WIDTH: CGFloat {
@@ -280,6 +281,9 @@ func subscribeCustomerUserChannel(userChannelId: String) {
     }) {  (messageDict) in
         if let messageType = messageDict["message_type"] as? Int, messageType == 18 {
             if let channel_id = messageDict["channel_id"] as? Int{ //isSubscribed(userChannelId: "\(channel_id)") == false {
+                
+                let channel = FuguChannelPersistancyManager.shared.getChannelBy(id: channel_id)
+                channel.signalReceivedFromPeer?(messageDict)
                 HippoConfig.shared.log.trace("UserChannel:: --->\(messageDict)", level: .socket)
                 CallManager.shared.voipNotificationRecieved(payloadDict: messageDict)
             }

@@ -97,7 +97,7 @@
                                     <constraint firstAttribute="height" constant="22" id="mhT-X7-f4e"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.29019607843137252" green="0.29019607843137252" blue="0.29019607843137252" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="textColor" red="0.6470588235294118" green="0.70980392156862748" blue="0.72156862745098038" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J00-73-q1k" userLabel="LeftContainer" customClass="So_UIView" customModule="Hippo" customModuleProvider="target">

@@ -75,6 +75,7 @@ class AgentHomeViewController: HippoHomeViewController {
         isInitalLoad = false
         AgentConversationManager.getAllData()
         Business.shared.restoreAllSavedInfo()//
+        setFilterButtonIcon()
     }
     
     //MARK: Actions
@@ -407,10 +408,7 @@ extension AgentHomeViewController {
             }
             view_NavigationBar.rightButton.setTitleColor(HippoConfig.shared.theme.filterBarButtonTextColor, for: .normal)
         } else {
-            if HippoConfig.shared.theme.filterBarButtonImage != nil {
-                view_NavigationBar.rightButton.setImage(HippoConfig.shared.theme.filterBarButtonImage, for: .normal)
-                view_NavigationBar.rightButton.tintColor = HippoConfig.shared.theme.headerTextColor
-            }
+            setFilterButtonIcon()
         }
         view_NavigationBar.rightButton.addTarget(self, action: #selector(filterBtnAction(_:)), for: .touchUpInside)
         //Configuring SwitchButton
@@ -491,6 +489,18 @@ extension AgentHomeViewController {
         }else{
 //            self.agentStatus.isOn = false
             view_NavigationBar.rightSwitchButton.isOn = false
+        }
+    }
+    
+    func setFilterButtonIcon(){
+        if BussinessProperty.current.isFilterApplied == true {
+            if HippoConfig.shared.theme.filterSelectedBarButtonImage != nil {                view_NavigationBar.rightButton.setImage(HippoConfig.shared.theme.filterSelectedBarButtonImage, for: .normal)
+                view_NavigationBar.rightButton.tintColor = HippoConfig.shared.theme.headerTextColor
+            }
+        }else{
+            if HippoConfig.shared.theme.filterUnselectedBarButtonImage != nil {                view_NavigationBar.rightButton.setImage(HippoConfig.shared.theme.filterUnselectedBarButtonImage, for: .normal)
+                view_NavigationBar.rightButton.tintColor = HippoConfig.shared.theme.headerTextColor
+            }
         }
     }
     

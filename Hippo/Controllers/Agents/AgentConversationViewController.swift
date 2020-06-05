@@ -24,9 +24,9 @@ class AgentConversationViewController: HippoConversationViewController {
     
     // MARK: -  IBOutlets
     @IBOutlet weak var backgroundImageView: UIImageView!
-    @IBOutlet weak var audioButton: UIBarButtonItem!
+//    @IBOutlet weak var audioButton: UIBarButtonItem!
     @IBOutlet var backgroundView: UIView!
-    @IBOutlet var backButton: UIButton!
+//    @IBOutlet var backButton: UIButton!
     @IBOutlet var sendMessageButton: UIButton!
 //    @IBOutlet var messageTextView: UITextView!
     @IBOutlet var messageTextView: HippoMessageTextView!
@@ -38,9 +38,9 @@ class AgentConversationViewController: HippoConversationViewController {
     @IBOutlet var addFileButtonAction: UIButton!
     @IBOutlet var seperatorView: UIView!
     @IBOutlet weak var loaderView: So_UIImageView!
-    @IBOutlet weak var infoButton: UIBarButtonItem!
+//    @IBOutlet weak var infoButton: UIBarButtonItem!
     
-    @IBOutlet weak var videoButton: UIBarButtonItem!
+//    @IBOutlet weak var videoButton: UIBarButtonItem!
     //    @IBOutlet var textViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var bottomContentViewBottomConstraint: NSLayoutConstraint!
     //    @IBOutlet weak var hieghtOfNavigationBar: NSLayoutConstraint!
@@ -852,7 +852,7 @@ extension AgentConversationViewController {
             backgroundImageView.image = HippoConfig.shared.theme.chatbackgroundImage
             backgroundImageView.contentMode = .scaleToFill
         }
-        
+
         self.attachments.append(Attachment(icon : HippoConfig.shared.theme.alphabetSymbolIcon  , title : "Text"))
         self.attachments.append(Attachment(icon : HippoConfig.shared.theme.privateInternalNotesIcon  , title : "Internal Notes"))
         if BussinessProperty.current.isAskPaymentAllowed{
@@ -1793,10 +1793,11 @@ extension AgentConversationViewController: UITableViewDelegate, UITableViewDataS
                 case MessageType.imageFile:
                     return 288
                 case MessageType.normal, .privateNote, .botText:
-                    var rowHeight = expectedHeight(OfMessageObject: message)
-                    rowHeight += returnRetryCancelButtonHeight(chatMessageObject: message)
-                    rowHeight += getTopDistanceOfCell(atIndexPath: indexPath)
-                    return rowHeight
+//                    var rowHeight = expectedHeight(OfMessageObject: message)
+//                    rowHeight += returnRetryCancelButtonHeight(chatMessageObject: message)
+//                    rowHeight += getTopDistanceOfCell(atIndexPath: indexPath)
+//                    return rowHeight
+                    return UIView.tableAutoDimensionHeight
                 case .attachment:
                     switch message.concreteFileType! {
                         

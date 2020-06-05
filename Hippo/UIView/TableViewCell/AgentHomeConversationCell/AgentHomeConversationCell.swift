@@ -152,6 +152,7 @@ extension AgentHomeConversationCell {
             counterLabelContainerView.isHidden = false
             counterLabel.isHidden = false
             counterLabelContainerView.layer.cornerRadius = counterLabelContainerView.frame.size.height/2
+            lastMessageLabel.textColor = UIColor(red: 74/255, green: 74/255, blue: 74/255, alpha: 1.0)
 //            nameLabel.font = UIFont(name:"HelveticaNeue-Bold", size: 15.0)
 //            lastMessageLabel.font = UIFont(name:"HelveticaNeue-Bold", size: 12.0)
 //            timeLabel.font = UIFont(name:"HelveticaNeue-Bold", size: 12.0)
@@ -159,6 +160,7 @@ extension AgentHomeConversationCell {
         } else {
             counterLabelContainerView.isHidden = true
             counterLabel.isHidden = true
+            lastMessageLabel.textColor = UIColor(red: 165/255, green: 181/255, blue: 184/255, alpha: 1.0)
 //            nameLabel.font = UIFont(name:"HelveticaNeue", size: 15.0)
 //            lastMessageLabel.font = UIFont(name:"HelveticaNeue", size: 12.0)
 //            timeLabel.font = UIFont(name:"HelveticaNeue", size: 12.0)
