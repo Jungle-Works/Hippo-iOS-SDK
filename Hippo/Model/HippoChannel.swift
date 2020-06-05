@@ -632,13 +632,14 @@ class HippoChannel {
             guard let message = HippoMessage.createMessage(rawMessage: messageDict, chatType: chatType) else {
                 return
             }
-//            if message.type == .call {
-//              self?.signalReceivedFromPeer?(messageDict)
-//              if HippoConfig.shared.appUserType == .customer  {
+            if message.type == .call {
+                
+               // DispatchQueue.main.async {
+//                    self?.signalReceivedFromPeer?(messageDict)
 //                    CallManager.shared.voipNotificationRecieved(payloadDict: messageDict)
-//              }
+//                }
 //                return
-//            }
+            }
             
             self?.messageReceived(message: message)
         }
