@@ -27,17 +27,24 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="uGa-Ec-epH" customClass="So_UIImageView" customModule="Hippo" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="121"/>
                             </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ReP-ic-lii" customClass="So_UIImageView" customModule="Hippo" customModuleProvider="target">
+                                <rect key="frame" x="13" y="15" width="47" height="47"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="ReP-ic-lii" secondAttribute="height" multiplier="1:1" id="1id-XL-bax"/>
+                                    <constraint firstAttribute="width" constant="47" id="RF9-y2-xH6"/>
+                                </constraints>
+                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="27 sep 17" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kpI-kJ-82z" customClass="So_CustomLabel" customModule="Hippo" customModuleProvider="target">
                                 <rect key="frame" x="223" y="17" width="80" height="20.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="lFh-Jj-1jT"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="textColor" red="0.43137254901960786" green="0.43137254901960786" blue="0.43137254901960786" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sad-o8-5pd" userLabel="ContainerClose" customClass="So_UIView" customModule="Hippo" customModuleProvider="target">
-                                <rect key="frame" x="15" y="16" width="58" height="22.5"/>
+                                <rect key="frame" x="73" y="16" width="58" height="22.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" Closed" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="5lw-Nz-gOx" customClass="So_CustomLabel" customModule="Hippo" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="58" height="22.5"/>
@@ -61,38 +68,40 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="LabelLabeLabelLabe" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yvw-2J-xtj">
-                                <rect key="frame" x="73" y="17" width="148" height="20.5"/>
+                                <rect key="frame" x="131" y="17" width="90" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.17254901960784313" green="0.13565224410000001" blue="0.20179888609999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="yUi-Ik-aXZ" userLabel="CounterLabel" customClass="So_CustomLabel" customModule="Hippo" customModuleProvider="target">
-                                <rect key="frame" x="285" y="41.5" width="18" height="18"/>
-                                <color key="backgroundColor" red="1" green="0.45882352941176469" blue="0.1803921568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hhA-Ju-C1G">
+                                <rect key="frame" x="276" y="41.5" width="27" height="18"/>
+                                <subviews>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="yUi-Ik-aXZ" userLabel="CounterLabel" customClass="So_CustomLabel" customModule="Hippo" customModuleProvider="target">
+                                        <rect key="frame" x="10.5" y="2" width="6" height="14.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.95686274510000002" green="0.25098039220000001" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="yUi-Ik-aXZ" secondAttribute="height" multiplier="1:1" id="B4V-el-lCn"/>
-                                    <constraint firstAttribute="width" constant="18" id="Qe5-Te-VZi"/>
+                                    <constraint firstItem="yUi-Ik-aXZ" firstAttribute="centerX" secondItem="hhA-Ju-C1G" secondAttribute="centerX" id="5OL-a6-Z25"/>
+                                    <constraint firstItem="yUi-Ik-aXZ" firstAttribute="centerY" secondItem="hhA-Ju-C1G" secondAttribute="centerY" id="g1j-HJ-FBP"/>
+                                    <constraint firstAttribute="width" secondItem="hhA-Ju-C1G" secondAttribute="height" multiplier="1.5:1" id="isA-xh-nZo"/>
+                                    <constraint firstAttribute="height" constant="18" id="uHK-iL-R7g"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="9"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </label>
+                            </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Zj-gy-Hbg">
-                                <rect key="frame" x="15" y="39.5" width="245" height="22"/>
+                                <rect key="frame" x="73" y="39.5" width="187" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="22" id="mhT-X7-f4e"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.59607843137254901" green="0.59607843137254901" blue="0.59607843137254901" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="textColor" red="0.6470588235294118" green="0.70980392156862748" blue="0.72156862745098038" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J00-73-q1k" userLabel="LeftContainer" customClass="So_UIView" customModule="Hippo" customModuleProvider="target">
-                                <rect key="frame" x="15" y="67.5" width="54" height="20.5"/>
+                                <rect key="frame" x="73" y="67.5" width="54" height="20.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="heq-lF-Dae" customClass="So_CustomLabel" customModule="Hippo" customModuleProvider="target">
                                         <rect key="frame" x="6" y="0.0" width="42" height="20.5"/>
@@ -116,7 +125,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jqz-0e-yBz" userLabel="RightContainer" customClass="So_UIView" customModule="Hippo" customModuleProvider="target">
-                                <rect key="frame" x="77" y="67.5" width="54" height="20.5"/>
+                                <rect key="frame" x="135" y="67.5" width="54" height="20.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lFz-Mk-Ri2" customClass="So_CustomLabel" customModule="Hippo" customModuleProvider="target">
                                         <rect key="frame" x="6" y="0.0" width="42" height="20.5"/>
@@ -139,7 +148,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rrl-r4-jw9" customClass="So_UIView" customModule="Hippo" customModuleProvider="target">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rrl-r4-jw9" customClass="So_UIView" customModule="Hippo" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="120" width="320" height="1"/>
                                 <color key="backgroundColor" red="0.90578371290000004" green="0.9059391618" blue="0.90588235289999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -177,19 +186,22 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Yvw-2J-xtj" firstAttribute="leading" secondItem="sad-o8-5pd" secondAttribute="trailing" id="0RY-ee-ng4"/>
+                            <constraint firstItem="ReP-ic-lii" firstAttribute="leading" secondItem="UKr-gT-4qp" secondAttribute="leading" constant="13" id="1AX-WS-yhi"/>
                             <constraint firstItem="0Zj-gy-Hbg" firstAttribute="top" secondItem="kpI-kJ-82z" secondAttribute="bottom" constant="2" id="4sB-Hm-EdR"/>
                             <constraint firstAttribute="trailing" secondItem="kpI-kJ-82z" secondAttribute="trailing" constant="17" id="6Gh-cU-95c"/>
-                            <constraint firstItem="0Zj-gy-Hbg" firstAttribute="leading" secondItem="UKr-gT-4qp" secondAttribute="leading" constant="15" id="ALU-4b-D4P"/>
+                            <constraint firstItem="0Zj-gy-Hbg" firstAttribute="leading" secondItem="sad-o8-5pd" secondAttribute="leading" id="8AC-Pg-AWf"/>
+                            <constraint firstItem="sad-o8-5pd" firstAttribute="leading" secondItem="ReP-ic-lii" secondAttribute="trailing" constant="13" id="HWu-Fp-vGT"/>
                             <constraint firstItem="Ge3-CW-xdZ" firstAttribute="centerY" secondItem="UKr-gT-4qp" secondAttribute="centerY" id="Ixp-LU-rEY"/>
                             <constraint firstItem="uGa-Ec-epH" firstAttribute="centerX" secondItem="UKr-gT-4qp" secondAttribute="centerX" id="O6v-5v-89s"/>
                             <constraint firstItem="jqz-0e-yBz" firstAttribute="top" secondItem="J00-73-q1k" secondAttribute="top" id="QXi-YD-2fL"/>
                             <constraint firstItem="Ge3-CW-xdZ" firstAttribute="centerX" secondItem="UKr-gT-4qp" secondAttribute="centerX" id="SIT-zx-eGB"/>
+                            <constraint firstItem="ReP-ic-lii" firstAttribute="top" secondItem="sad-o8-5pd" secondAttribute="top" constant="-1" id="Sie-MH-tek"/>
                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="kpI-kJ-82z" secondAttribute="bottom" constant="8" id="TbD-uP-yYd"/>
                             <constraint firstAttribute="trailing" secondItem="uGa-Ec-epH" secondAttribute="trailing" id="Vx4-jK-oyv"/>
                             <constraint firstItem="kpI-kJ-82z" firstAttribute="leading" secondItem="Yvw-2J-xtj" secondAttribute="trailing" constant="2" id="XNq-NZ-d4K"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="jqz-0e-yBz" secondAttribute="trailing" constant="60" id="XaC-3N-h2B"/>
                             <constraint firstAttribute="trailing" secondItem="rrl-r4-jw9" secondAttribute="trailing" id="ZzJ-Ge-W2K"/>
-                            <constraint firstItem="sad-o8-5pd" firstAttribute="leading" secondItem="UKr-gT-4qp" secondAttribute="leading" constant="15" id="a6V-Jc-iJd"/>
+                            <constraint firstItem="hhA-Ju-C1G" firstAttribute="centerY" secondItem="0Zj-gy-Hbg" secondAttribute="centerY" id="b8u-js-X6N"/>
                             <constraint firstItem="rrl-r4-jw9" firstAttribute="leading" secondItem="UKr-gT-4qp" secondAttribute="leading" id="bY6-6h-YJZ"/>
                             <constraint firstItem="sad-o8-5pd" firstAttribute="top" secondItem="UKr-gT-4qp" secondAttribute="top" constant="16" id="cn7-eI-6OZ"/>
                             <constraint firstItem="kpI-kJ-82z" firstAttribute="top" relation="greaterThanOrEqual" secondItem="UKr-gT-4qp" secondAttribute="top" constant="17" id="cqd-Ea-wN8"/>
@@ -201,16 +213,15 @@
                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="J00-73-q1k" secondAttribute="bottom" constant="15" id="hVn-ed-SHp"/>
                             <constraint firstItem="Ge3-CW-xdZ" firstAttribute="width" secondItem="UKr-gT-4qp" secondAttribute="width" id="iej-yO-RpD"/>
                             <constraint firstItem="Yvw-2J-xtj" firstAttribute="centerY" secondItem="sad-o8-5pd" secondAttribute="centerY" id="jP4-KQ-4La"/>
-                            <constraint firstItem="yUi-Ik-aXZ" firstAttribute="centerY" secondItem="0Zj-gy-Hbg" secondAttribute="centerY" id="jgz-Y2-qIF"/>
-                            <constraint firstItem="yUi-Ik-aXZ" firstAttribute="trailing" secondItem="kpI-kJ-82z" secondAttribute="trailing" id="kLn-Ae-bl9"/>
+                            <constraint firstItem="J00-73-q1k" firstAttribute="leading" secondItem="0Zj-gy-Hbg" secondAttribute="leading" id="kRk-Ms-GP3"/>
                             <constraint firstItem="0Zj-gy-Hbg" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Yvw-2J-xtj" secondAttribute="bottom" constant="2" id="m7G-AM-goz"/>
                             <constraint firstAttribute="bottom" secondItem="rrl-r4-jw9" secondAttribute="bottom" id="mPi-V0-5W4"/>
+                            <constraint firstItem="hhA-Ju-C1G" firstAttribute="trailing" secondItem="kpI-kJ-82z" secondAttribute="trailing" id="nYS-a9-9ll"/>
                             <constraint firstItem="Ge3-CW-xdZ" firstAttribute="height" secondItem="UKr-gT-4qp" secondAttribute="height" id="oZZ-al-Q1Y"/>
                             <constraint firstAttribute="bottom" secondItem="uGa-Ec-epH" secondAttribute="bottom" id="piO-q6-FK1"/>
                             <constraint firstItem="kpI-kJ-82z" firstAttribute="centerY" secondItem="sad-o8-5pd" secondAttribute="centerY" id="qio-N2-uc3"/>
                             <constraint firstItem="J00-73-q1k" firstAttribute="top" secondItem="0Zj-gy-Hbg" secondAttribute="bottom" constant="6" id="x2K-0D-iHs"/>
                             <constraint firstAttribute="trailing" secondItem="0Zj-gy-Hbg" secondAttribute="trailing" constant="60" id="xBf-42-HiL"/>
-                            <constraint firstItem="J00-73-q1k" firstAttribute="leading" secondItem="UKr-gT-4qp" secondAttribute="leading" constant="15" id="yMl-w5-KOZ"/>
                             <constraint firstItem="uGa-Ec-epH" firstAttribute="top" secondItem="UKr-gT-4qp" secondAttribute="top" id="zcv-fF-Tie"/>
                         </constraints>
                     </view>
@@ -223,10 +234,12 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="channelImageView" destination="ReP-ic-lii" id="i2b-I1-EwM"/>
                 <outlet property="closedLabel" destination="5lw-Nz-gOx" id="cig-Jh-bZR"/>
                 <outlet property="closedViewWidthConstraint" destination="7Lf-kX-vpZ" id="CtD-Uz-Fr5"/>
                 <outlet property="containerBckgrnd" destination="uGa-Ec-epH" id="QZ4-pY-LDC"/>
                 <outlet property="counterLabel" destination="yUi-Ik-aXZ" id="Hma-9x-ZGU"/>
+                <outlet property="counterLabelContainerView" destination="hhA-Ju-C1G" id="YHG-Gc-N8U"/>
                 <outlet property="heightOfLeftContainer" destination="kdm-06-wzl" id="7qX-LK-eVR"/>
                 <outlet property="heightOfRightContainer" destination="AXY-u1-f3U" id="DY7-fx-Ewa"/>
                 <outlet property="horizontalLine" destination="rrl-r4-jw9" id="MoY-jY-K8A"/>
@@ -242,7 +255,7 @@
                 <outlet property="transitionLabel" destination="pTb-Kp-DAU" id="NqZ-kn-j2G"/>
                 <outlet property="transitionView" destination="Ge3-CW-xdZ" id="Cb5-Rs-3Zu"/>
             </connections>
-            <point key="canvasLocation" x="35" y="143.5"/>
+            <point key="canvasLocation" x="33.600000000000001" y="143.47826086956522"/>
         </tableViewCell>
     </objects>
 </document>

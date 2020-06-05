@@ -24,6 +24,7 @@ class OutgoingAudioTableViewCell: AudioTableViewCell {
       self.activityIndicator.isHidden = true
       controlButton.isHidden = false
       setUIAccordingToTheme()
+       messageStatusImageView.tintColor = HippoConfig.shared.theme.themeTextcolor
    }
    
    func setData(message: HippoMessage) {
@@ -73,6 +74,7 @@ class OutgoingAudioTableViewCell: AudioTableViewCell {
          activityIndicator.isHidden = true
          controlButton.isHidden = false
          messageStatusImageView.image = HippoConfig.shared.theme.readMessageTick
+         
       case .sent:
          activityIndicator.isHidden = true
          controlButton.isHidden = false

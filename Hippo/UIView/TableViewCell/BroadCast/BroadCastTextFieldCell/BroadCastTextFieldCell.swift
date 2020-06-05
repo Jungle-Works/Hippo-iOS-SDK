@@ -57,7 +57,7 @@ class BroadCastTextFieldCell: UITableViewCell {
         errorLabel.isHidden = newHiddenValue
         
         titleLabel.textColor = HippoConfig.shared.theme.broadcastTitleColor
-        titleLabel.font = UIFont.systemFont(ofSize: 14)
+        titleLabel.font = UIFont.regular(ofSize: 14)
     }
     
     

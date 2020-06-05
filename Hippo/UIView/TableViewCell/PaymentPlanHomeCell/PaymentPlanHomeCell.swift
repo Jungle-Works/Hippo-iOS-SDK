@@ -47,7 +47,7 @@ class PaymentPlanHomeCell: UITableViewCell {
         forwardImageView.tintColor = HippoConfig.shared.theme.titleTextColor//UIColor.themeColor
         forwardImageView.image = HippoConfig.shared.theme.forwardIcon
         
-        let font = UIFont.systemFont(ofSize: 15)//UIFont.regularProximaNova(withSize: 15)
+        let font = UIFont.regular(ofSize: 15)//UIFont.regularProximaNova(withSize: 15)
         
         planIdLabel.font = font
         planNameLabel.font = font

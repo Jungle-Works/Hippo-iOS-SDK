@@ -10,7 +10,10 @@ import UIKit
 import WebKit
 
 class CheckoutViewController: UIViewController {
-
+    
+    @IBOutlet weak var navigationBar : NavigationBar!
+ 
+    
     var webView: WKWebView!
     var config: WebViewConfig!
     var isComingForPayment = false
@@ -21,22 +24,29 @@ class CheckoutViewController: UIViewController {
         initalizeWebView()
         launchRequest()
         
-        title = config.title
+        navigationBar.title = config.title
+        navigationBar.leftButton.addTarget(self, action: #selector(backAction(_:)), for: .touchUpInside)
+      
     }
     
     private func initalizeWebView() {
-        let webConfiguration = WKWebViewConfiguration()
-        if #available(iOS 10.0, *) {
-            webConfiguration.ignoresViewportScaleLimits = false
-        }
-        webView = WKWebView(frame: .zero, configuration: webConfiguration)
-        webView.uiDelegate = self
-        if !config.zoomingEnabled {
-            webView.scrollView.delegate = self
-        }
-        webView.navigationDelegate = self
-        view = webView
-    }
+         let webConfiguration = WKWebViewConfiguration()
+         if #available(iOS 10.0, *) {
+             webConfiguration.ignoresViewportScaleLimits = false
+         }
+         var height : CGFloat = 0.0
+         if #available(iOS 11.0, *) {
+             height = UIApplication.shared.delegate?.window??.safeAreaInsets.top ?? 0.0
+         }
+         
+         webView = WKWebView(frame: CGRect(x: 0, y: height + navigationBar.frame.size.height, width: self.view.bounds.width, height: self.view.bounds.height - (height + navigationBar.frame.size.height)), configuration: webConfiguration)
+         webView.uiDelegate = self
+         if !config.zoomingEnabled {
+             webView.scrollView.delegate = self
+         }
+         webView.navigationDelegate = self
+         view.addSubview(webView)
+     }
     
     private func launchRequest() {
         let request = URLRequest(url: config.initalUrl)
@@ -63,31 +73,19 @@ class CheckoutViewController: UIViewController {
     func handleForUrlKeys(webUrl: String) {
         print(webUrl)
         if webUrl.contains("success.html"){
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 4.0, execute: {
-                self.backAction()
-//            })
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: {
+                self.backAction(UIButton())
+            })
         }else if webUrl.contains("error.html") || webUrl.contains("error") || webUrl.contains("Error"){
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: {
-                self.backAction()
-//            })
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: {
+                self.backAction(UIButton())
+            })
         }
     }
-    
-    
-    
-    func backAction(isFromBackBtn: Bool = false) {
-            if isFromBackBtn{
-//            self.navigationController?.view.layer.add(CATransition().getPopTransition(), forKey: kCATransition)
-//                ErrorView.showWith(message: AppConfiguration.current.strings.order_successful_but_payment_failed, isErrorMessage: true, removed: nil)
-            _ = self.navigationController?.popToRootViewController(animated: false)
-            } else {
-//                self.navigationController?.view.layer.add(CATransition().getPopTransition(), forKey: kCATransition)
-//                _ = self.navigationController?.popViewController(animated: false)
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: {
-                    _ = self.navigationController?.popViewController(animated: false)
-                })
-            }
-        }
+
+    @IBAction func backAction(_ sender: UIButton) {
+        _ = self.navigationController?.popViewController(animated: false)
+    }
 
 }
 extension CheckoutViewController: WKUIDelegate {

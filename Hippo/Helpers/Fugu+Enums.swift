@@ -195,7 +195,8 @@ enum ChatType: Int {
     case generalChat = 5
     
     var isImageViewAllowed: Bool {
-        guard HippoConfig.shared.appUserType == .customer else {
+//        guard HippoConfig.shared.appUserType == .customer else {
+        guard HippoConfig.shared.appUserType == .customer || HippoConfig.shared.appUserType == .agent else {
             return false
         }
         return ChatType.allowedImageViewFor.contains(self)

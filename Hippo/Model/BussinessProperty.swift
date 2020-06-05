@@ -136,6 +136,18 @@ class BussinessProperty: NSObject {
         }
     }
     
+    var isFilterApplied: Bool {
+        get {
+            guard let value = UserDefaults.standard.value(forKey: UserDefaultkeys.filterApplied) as? Bool else {
+                return false
+            }
+            return value
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: UserDefaultkeys.filterApplied)
+        }
+    }
+    
     func updateData(loginData: [String: Any]) {
         let userDetailData = loginData
         

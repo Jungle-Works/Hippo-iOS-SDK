@@ -33,7 +33,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var audioCAllButtonWidthConstraint: NSLayoutConstraint!
     @IBOutlet var backgroundView: UIView!
-   @IBOutlet var navigationBackgroundView: UIView!
+    @IBOutlet var navigationBackgroundView: UIView!
 //   @IBOutlet var navigationTitleLabel: UILabel!
 //   @IBOutlet var backButton: UIButton!
    
@@ -43,7 +43,6 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
 //   @IBOutlet var errorLabel: UILabel!
    @IBOutlet var textViewBgView: UIView!
    @IBOutlet var placeHolderLabel: UILabel!
-   @IBOutlet weak var moreOptionsButton: UIButton!
    @IBOutlet var addFileButtonAction: UIButton!
    @IBOutlet var seperatorView: UIView!
    @IBOutlet weak var loaderView: So_UIImageView!
@@ -103,7 +102,6 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
 
    
     deinit {
-    
         HippoChannel.botMessageMUID = nil
         NotificationCenter.default.removeObserver(self)
         HippoConfig.shared.notifiyDeinit()
@@ -113,6 +111,9 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        view_Navigation.call_button.addTarget(self, action: #selector(audiCallButtonClicked(_:)), for: .touchUpInside)
+        view_Navigation.video_button.addTarget(self, action: #selector(videoButtonClicked(_:)), for: .touchUpInside)
+        
         collectionViewOptions?.delegate = self
         collectionViewOptions?.dataSource = self
         customTableView.isScrollEnabled = false//true
@@ -241,13 +242,15 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     //        }
     //    }
     
+    
+    
    override  func viewWillAppear(_ animated: Bool) {
       super.viewWillAppear(animated)
       tableViewChat.contentInset.top = 12
       messageTextView.contentInset.top = 8
-      self.navigationController?.isNavigationBarHidden = false
+      self.navigationController?.isNavigationBarHidden = true
         tableViewChat.allowsSelection = false
-    
+    checkNetworkConnection()
 //        if transparentView != nil{
 //            onClickTransparentView()
 //        }
@@ -319,12 +322,12 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         channel?.delegate = self
     }
     func navigationSetUp() {
-        navigationBackgroundView.layer.shadowColor = UIColor.black.cgColor
+        /*navigationBackgroundView.layer.shadowColor = UIColor.black.cgColor
         navigationBackgroundView.layer.shadowOpacity = 0.25
         navigationBackgroundView.layer.shadowOffset = CGSize(width: 0, height: 1.0)
         navigationBackgroundView.layer.shadowRadius = 4
         
-        navigationBackgroundView.backgroundColor = HippoConfig.shared.theme.headerBackgroundColor
+        navigationBackgroundView.backgroundColor = HippoConfig.shared.theme.headerBackgroundColor*/
         //      navigationTitleLabel.textColor = HippoConfig.shared.theme.headerTextColor
         //
         //      if HippoConfig.shared.theme.headerTextFont  != nil {
@@ -332,6 +335,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         //      }
         
         if HippoConfig.shared.theme.sendBtnIcon != nil {
+            sendMessageButton.imageView?.tintColor = HippoConfig.shared.theme.themeColor
             sendMessageButton.setImage(HippoConfig.shared.theme.sendBtnIcon, for: .normal)
             
             if let tintColor = HippoConfig.shared.theme.sendBtnIconTintColor {
@@ -342,24 +346,15 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         } else { sendMessageButton.setTitle("SEND", for: .normal) }
         
         if HippoConfig.shared.theme.addButtonIcon != nil {
-            addFileButtonAction.setImage(HippoConfig.shared.theme.addButtonIcon, for: .normal)
+             addFileButtonAction.tintColor = HippoConfig.shared.theme.themeColor
+             addFileButtonAction.setImage(HippoConfig.shared.theme.addButtonIcon, for: .normal)
             
-            if let tintColor = HippoConfig.shared.theme.addBtnTintColor {
-                addFileButtonAction.tintColor = tintColor
-            }
+//            if let tintColor = HippoConfig.shared.theme.addBtnTintColor {
+//                addFileButtonAction.tintColor = tintColor
+//            }
             
             addFileButtonAction.setTitle("", for: .normal)
         } else { addFileButtonAction.setTitle("ADD", for: .normal) }
-        
-        if HippoConfig.shared.theme.moreOptionsButtonIcon != nil {
-            moreOptionsButton.setImage(HippoConfig.shared.theme.moreOptionsButtonIcon, for: .normal)
-            
-            if let tintColor = HippoConfig.shared.theme.moreOptionsBtnTintColor {
-                moreOptionsButton.tintColor = tintColor
-            }
-            
-            moreOptionsButton.setTitle("", for: .normal)
-        } else { moreOptionsButton.setTitle("More Options", for: .normal) }
         
         handleBackButton()
         if let businessName = userDetailData["business_name"] as? String, label.isEmpty {
@@ -769,7 +764,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     func setThemeForBusiness() {
         let isMultiChannelLabelMapping = BussinessProperty.current.multiChannelLabelMapping && !forceHideActionButton
             
-        actionButton.title = nil
+     //   actionButton.title = nil
 //        actionButton.image = isMultiChannelLabelMapping ? HippoConfig.shared.theme.actionButtonIcon : nil
 //        actionButton.tintColor = HippoConfig.shared.theme.actionButtonIconTintColor
     }
@@ -990,7 +985,6 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         channel?.chatDetail = result.chatDetail
         
         setTitleForCustomNavigationBar()
-        
         handleVideoIcon()
         handleAudioIcon()
         
@@ -1037,20 +1031,14 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         
         if isDirectCallingEnabledFor(type: .video) {
             
-            let customVideoBtn : UIButton = UIButton()
-                       customVideoBtn.setImage(HippoConfig.shared.theme.videoCallIcon, for: .normal)
-                       customVideoBtn.frame = CGRect(x: 0, y: 0, width: 32, height: 32)
-                       customVideoBtn.addTarget(self, action:  #selector(videoButtonClicked), for: UIControl.Event.touchUpInside)
-                       videoButton.customView = customVideoBtn
-                       videoButton.tintColor = HippoConfig.shared.theme.headerTextColor
-                       videoButton.isEnabled = true
-                        videoButton.title = nil
-            
-            
+            view_Navigation.video_button.tintColor = HippoConfig.shared.theme.headerTextColor
+            view_Navigation.video_button.isEnabled = true
+            view_Navigation.video_button.setImage(HippoConfig.shared.theme.videoCallIcon, for: .normal)
+            view_Navigation.video_button.isHidden = false
         } else {
-            videoButton.title = ""
-            videoButton.image = nil
-            videoButton.isEnabled = false
+            view_Navigation.video_button.isHidden = true
+            view_Navigation.video_button.setImage(UIImage(), for: .normal)
+            view_Navigation.video_button.isEnabled = false
         }
     }
     func handleAudioIcon() {
@@ -1059,17 +1047,14 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         //image icon name = audioCallIcon
         
         if isDirectCallingEnabledFor(type: .audio) {
-            
-            let customAudioBtn : UIButton = UIButton()
-            customAudioBtn.setImage(HippoConfig.shared.theme.audioCallIcon, for: .normal)
-            customAudioBtn.frame = CGRect(x: 0, y: 0, width: 32, height: 32)
-            customAudioBtn.addTarget(self, action:  #selector(audiCallButtonClicked), for: UIControl.Event.touchUpInside)
-            audioCallButton.customView = customAudioBtn
-            audioCallButton.tintColor = HippoConfig.shared.theme.headerTextColor
-            audioCallButton.isEnabled = true
+            view_Navigation.call_button.tintColor = HippoConfig.shared.theme.headerTextColor
+            view_Navigation.call_button.isEnabled = true
+            view_Navigation.call_button.setImage(HippoConfig.shared.theme.audioCallIcon, for: .normal)
+            view_Navigation.call_button.isHidden = false
         } else {
-            audioCallButton.image = nil
-            audioCallButton.isEnabled = false
+            view_Navigation.call_button.setImage(UIImage(), for: .normal)
+            view_Navigation.call_button.isEnabled = false
+            view_Navigation.call_button.isHidden = true
         }
         
         
@@ -1330,14 +1315,12 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     }
    func enableSendingNewMessages() {
       addFileButtonAction.isUserInteractionEnabled = true
-      moreOptionsButton.isUserInteractionEnabled = true
       messageTextView.isEditable = true
-      sendMessageButton.isEnabled = true
+      //sendMessageButton.isEnabled = true
    }
    
    func disableSendingNewMessages() {
       addFileButtonAction.isUserInteractionEnabled = false
-      moreOptionsButton.isUserInteractionEnabled = false
       messageTextView.isEditable = false
       sendMessageButton.isEnabled = false
    }
@@ -1456,7 +1439,7 @@ extension ConversationsViewController {
         addTapGestureInTableView()
         
         if HippoConfig.shared.theme.chatbackgroundImage != nil      {
-            tableViewChat.backgroundColor = .clear
+            tableViewChat.backgroundColor = .white//.clear
             backgroundImageView.image = HippoConfig.shared.theme.chatbackgroundImage
             backgroundImageView.contentMode = .scaleToFill
         }
@@ -1608,13 +1591,14 @@ extension ConversationsViewController {
         }
     }
     
+    
     func updateTopBottomSpace(cell: UITableViewCell, indexPath: IndexPath) {
 
         let topConstraint = getTopDistanceOfCell(atIndexPath: indexPath)
         if let editedCell = cell as? SelfMessageTableViewCell {
-            editedCell.topConstraint.constant = topConstraint
+            //editedCell.topConstraint.constant = topConstraint
         } else if let editedCell = cell as? SupportMessageTableViewCell {
-            editedCell.topConstraint.constant = topConstraint
+            //editedCell.topConstraint.constant = topConstraint
         }
         else if let editedCell = cell as? IncomingImageCell {
             editedCell.topConstraint.constant = topConstraint + 2
@@ -1823,29 +1807,7 @@ extension ConversationsViewController {
         }
     }
     
-    func generatePaymentUrlWithSelectedPaymentGateway(for message: HippoMessage, card: CustomerPayment, selectedPaymentGateway: PaymentGateway?, proceedToPayChannel: HippoChannel?) {
-        let selectedCard = card
-        guard let channelId = proceedToPayChannel?.id else {
-            HippoConfig.shared.log.error("cannot find selected card.... Please select the card", level: .error)
-            return
-        }
-        HippoConfig.shared.delegate?.startLoading(message: "Redirecting to payment...")
-        PaymentStore.generatePaymentUrl(channelId: channelId, message: message, selectedCard: selectedCard, selectedPaymentGateway: selectedPaymentGateway) { (success, data) in
-            HippoConfig.shared.delegate?.stopLoading()
-            guard success, let result = data else {
-                return
-            }
-            guard let paymentUrl = result["payment_url"] as? String else {
-                return
-            }
-            HippoConfig.shared.log.debug("Response --\(result)", level: .response)
-            selectedCard.paymentUrlString = paymentUrl
-            guard let url = URL(string: paymentUrl) else {
-                return
-            }
-            self.initatePayment(for: url)
-        }
-    }
+
     
 }
 
@@ -1910,253 +1872,255 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
         
    }
    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-    if tableView == customTableView{
-        
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "CustomTableViewCell", for: indexPath) as? CustomTableViewCell else {fatalError("Unable to deque cell")}
-        cell.selectionStyle = .none
-        cell.lbl.text = actionSheetTitleArr[indexPath.row]
-        if isProceedToPayActionSheet == true{
-            cell.settingImage.tintColor = nil
-            if let url = URL(string: actionSheetImageArr[indexPath.row]) {
-                let placeHolderImage = HippoConfig.shared.theme.placeHolderImage
-                cell.settingImage.kf.setImage(with: url, placeholder: placeHolderImage)
-            }else{
-                cell.settingImage.image = nil
-            }
-        }else{
-            cell.settingImage.tintColor = .black
-            let renderingMode: UIImage.RenderingMode = isProceedToPayActionSheet == true ? .alwaysOriginal : .alwaysTemplate
-            if let img = UIImage(named: actionSheetImageArr[indexPath.row], in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(renderingMode){
-                cell.settingImage.image = img
-            }else{
-                cell.settingImage.image = nil
-            }
-        }
-        return cell
-        
-    }else{
-        
-      switch indexPath.section {
-      case let typingSection where typingSection == self.messagesGroupedByDate.count && !isTypingLabelHidden:
+   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
          
-         let cell = tableView.dequeueReusableCell(withIdentifier: "TypingViewTableViewCell", for: indexPath) as! TypingViewTableViewCell
+     if tableView == customTableView{
          
-         cell.backgroundColor = .clear
+         guard let cell = tableView.dequeueReusableCell(withIdentifier: "CustomTableViewCell", for: indexPath) as? CustomTableViewCell else {fatalError("Unable to deque cell")}
          cell.selectionStyle = .none
-         cell.bgView.isHidden = false
-         cell.gifImageView.image = nil
-         cell.bgView.backgroundColor = .clear
-         cell.gifImageView.layer.cornerRadius = 15.0
-         
-         let imageBundle = FuguFlowManager.bundle ?? Bundle.main
-         if let getImagePath = imageBundle.path(forResource: "typingImage", ofType: ".gif") {
-            cell.gifImageView.image = UIImage.animatedImageWithData(try! Data(contentsOf: URL(fileURLWithPath: getImagePath)))!
+         cell.lbl.text = actionSheetTitleArr[indexPath.row]
+         if isProceedToPayActionSheet == true{
+             cell.settingImage.tintColor = nil
+             if let url = URL(string: actionSheetImageArr[indexPath.row]) {
+                 let placeHolderImage = HippoConfig.shared.theme.placeHolderImage
+                 cell.settingImage.kf.setImage(with: url, placeholder: placeHolderImage)
+             }else{
+                 cell.settingImage.image = nil
+             }
+         }else{
+             cell.settingImage.tintColor = .black
+             let renderingMode: UIImage.RenderingMode = isProceedToPayActionSheet == true ? .alwaysOriginal : .alwaysTemplate
+             if let img = UIImage(named: actionSheetImageArr[indexPath.row], in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(renderingMode){
+                 cell.settingImage.image = img
+             }else{
+                 cell.settingImage.image = nil
+             }
          }
-         
          return cell
-      case let chatSection where chatSection < self.messagesGroupedByDate.count:
-         var messagesArray = messagesGroupedByDate[chatSection]
          
-         if messagesArray.count > indexPath.row {
-            let message = messagesArray[indexPath.row]
-            let messageType = message.type
-            let isOutgoingMsg = isSentByMe(senderId: message.senderId) && messageType != .card
-            
-            guard messageType.isMessageTypeHandled() && !message.isInValidMessage() else {
-                return getNormalMessageTableViewCell(tableView: tableView, isOutgoingMessage: isOutgoingMsg, message: message, indexPath: indexPath)
-            }
-            
-            switch messageType {
-            case MessageType.imageFile:
-                if isOutgoingMsg == true {
-                    guard
-                        let cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingImageCell", for: indexPath) as? OutgoingImageCell
-                        else {
-                            let cell = UITableViewCell()
-                            cell.backgroundColor = .clear
-                            return cell
-                    }
-                    cell.delegate = self
-                    cell.configureCellOfOutGoingImageCell(resetProperties: true, chatMessageObject: message, indexPath: indexPath)
-                    return cell
-                } else {
-                    guard let cell = tableView.dequeueReusableCell(withIdentifier: "IncomingImageCell", for: indexPath) as? IncomingImageCell
-                        else {
-                            let cell = UITableViewCell()
-                            cell.backgroundColor = .clear
-                            return cell
-                    }
-                    cell.delegate = self
-                    return cell.configureIncomingCell(resetProperties: true, channelId: channel.id, chatMessageObject: message, indexPath: indexPath)
-                }
-            case .feedback:
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: "FeedbackTableViewCell") as? FeedbackTableViewCell else {
-                    return UITableViewCell()
-                }
-                var param = FeedbackParams(title: message.message, indexPath: indexPath, messageObj: message)
-                param.showSendButton = true
-                cell.setData(params: param)
-                cell.delegate = self
-                cell.backgroundColor = .clear
-                if let muid = message.messageUniqueID {
-                    heightForFeedBackCell["\(muid)"] = cell.alertContainer.bounds.height
-                }
-                //                print("-----\(cell.alertContainer.bounds.height)")
-                return cell
-            case .botText:
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: "SupportMessageTableViewCell", for: indexPath) as? SupportMessageTableViewCell
-                    else {
-                        let cell = UITableViewCell()
-                        cell.backgroundColor = .clear
-                        return cell
-                }
-                let incomingAttributedString = Helper.getIncomingAttributedStringWithLastUserCheck(chatMessageObject: message)
-                return cell.configureCellOfSupportIncomingCell(resetProperties: true, attributedString: incomingAttributedString, channelId: channel?.id ?? labelId, chatMessageObject: message)
-            case .leadForm:
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: "LeadTableViewCell", for: indexPath) as? LeadTableViewCell else {
-                    return UITableViewCell()
-                }
-                cell.delegate = self
-                cell.setData(indexPath: indexPath, arr: message.leadsDataArray, message: message)
-                return cell
-            case .quickReply:
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: "BotOutgoingMessageTableViewCell", for: indexPath) as? BotOutgoingMessageTableViewCell
-                    else {
-                        let cell = UITableViewCell()
-                        cell.backgroundColor = .clear
-                        return cell
-                }
-                cell.delegate = self
-                let incomingAttributedString = Helper.getIncomingAttributedStringWithLastUserCheck(chatMessageObject: message)
-                return cell.configureCellOfSupportIncomingCell(resetProperties: true, attributedString: incomingAttributedString, channelId: channel.id, chatMessageObject: message)
-            case .call:
-                if isOutgoingMsg {
-                    guard let cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingVideoCallMessageTableViewCell", for: indexPath) as? OutgoingVideoCallMessageTableViewCell else {
-                        let cell = UITableViewCell()
-                        cell.backgroundColor = .clear
-                        return cell
-                    }
-                    let peerName = channel?.chatDetail?.peerName ?? "   "
-                    let isCallingEnabled = isDirectCallingEnabledFor(type: message.callType)
-                    cell.setCellWith(message: message, otherUserName: peerName, isCallingEnabled: isCallingEnabled)
-                    
-                    cell.delegate = self
-                    return cell
-                } else {
-                    guard let cell = tableView.dequeueReusableCell(withIdentifier: "IncomingVideoCallMessageTableViewCell", for: indexPath) as? IncomingVideoCallMessageTableViewCell else {
-                        let cell = UITableViewCell()
-                        cell.backgroundColor = .clear
-                        return cell
-                    }
-                    let isCallingEnabled = isDirectCallingEnabledFor(type: message.callType)
-                    cell.setCellWith(message: message, isCallingEnabled: isCallingEnabled)
-                    cell.delegate = self
-                    return cell
-                }
-            case .actionableMessage, .hippoPay:
-                
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: "ActionableMessageTableViewCell", for: indexPath) as? ActionableMessageTableViewCell else {
-                    let cell = UITableViewCell()
-                    cell.backgroundColor = .clear
-                    return cell
-                }
-                cell.tableViewHeightConstraint.constant = self.getHeightOfActionableMessageAt(indexPath: indexPath, chatObject: message)
-                cell.timeLabel.text = ""
-                cell.rootViewController = self
-                cell.registerNib()
-                cell.setUpData(messageObject: message, isIncomingMessage: !isOutgoingMsg)
-                cell.actionableMessageTableView.reloadData()
-                cell.tableViewHeightConstraint.constant = self.getHeightOfActionableMessageAt(indexPath: indexPath, chatObject: message)
-                cell.backgroundColor = UIColor.clear
-                return cell
-            case .attachment:
-                if isOutgoingMsg {
-                    switch message.concreteFileType! {
-                    case .video:
-                        let cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingVideoTableViewCell", for: indexPath) as! OutgoingVideoTableViewCell
-                        cell.setCellWith(message: message)
-                        cell.retryDelegate = self
-                        cell.delegate = self
-                        return cell
-                    default:
-                        let cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingDocumentTableViewCell") as! OutgoingDocumentTableViewCell
-                        cell.setCellWith(message: message)
-                        cell.actionDelegate = self
-                        cell.delegate = self
-                        cell.nameLabel.isHidden = true
-                        return cell
-                    }
-                } else {
-                    switch message.concreteFileType! {
-                    case .video:
-                        let cell = tableView.dequeueReusableCell(withIdentifier: "IncomingVideoTableViewCell", for: indexPath) as! IncomingVideoTableViewCell
-                        cell.setCellWith(message: message)
-                        cell.delegate = self
-                        return cell
-                    default:
-                        let cell = tableView.dequeueReusableCell(withIdentifier: "IncomingDocumentTableViewCell") as! IncomingDocumentTableViewCell
-                        cell.setCellWith(message: message)
-                        cell.actionDelegate = self
-                        cell.nameLabel.isHidden = false
-                        return cell
-                    }
-                }
-            case .consent:
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: "ActionTableView", for: indexPath) as? ActionTableView, let actionMessage = message as? HippoActionMessage else {
-                    return UITableView.defaultCell()
-                }
-                cell.delegate = self
-                cell.setCellData(message: actionMessage)
-                return cell
-            case .card:
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: "CardMessageTableViewCell", for: indexPath) as? CardMessageTableViewCell else {
-                    return UITableView.defaultCell()
-                }
-                cell.delegate = self
-                cell.set(message: message)
-                return cell
-            case .paymentCard:
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: "PaymentMessageCell", for: indexPath) as? PaymentMessageCell else {
-                    return UITableView.defaultCell()
-                }
-                cell.delegate = self
-                cell.set(message: message)
-                return cell
-                
-            case .multipleSelect :
-                
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: "MultiSelectTableViewCell", for: indexPath) as? MultiSelectTableViewCell else {
-                    return UITableView.defaultCell()
-                }
-                cell.submitButtonDelegate = self
-                cell.set(message: message)
-                return cell
-                
-            case .embeddedVideoUrl :
-                
-                let cell = tableView.dequeueReusableCell(withIdentifier: "IncomingVideoTableViewCell", for: indexPath) as! IncomingVideoTableViewCell
-                cell.setCellWith(message: message)
-                cell.delegate = self
-                return cell
-                
-            default:
-                return getNormalMessageTableViewCell(tableView: tableView, isOutgoingMessage: isOutgoingMsg, message: message, indexPath: indexPath)
-            }
-         }
-      default:
-         let cell = UITableViewCell()
-         cell.backgroundColor = .clear
-         return cell
-      }
-      
-      let cell = UITableViewCell()
-      cell.backgroundColor = .clear
-      return cell
-        
+     }else{
+         
+       switch indexPath.section {
+       case let typingSection where typingSection == self.messagesGroupedByDate.count && !isTypingLabelHidden:
+          
+          let cell = tableView.dequeueReusableCell(withIdentifier: "TypingViewTableViewCell", for: indexPath) as! TypingViewTableViewCell
+          
+          cell.backgroundColor = .clear
+          cell.selectionStyle = .none
+          cell.bgView.isHidden = false
+          cell.gifImageView.image = nil
+          cell.bgView.backgroundColor = .clear
+          cell.gifImageView.layer.cornerRadius = 15.0
+          
+          let imageBundle = FuguFlowManager.bundle ?? Bundle.main
+          if let getImagePath = imageBundle.path(forResource: "typingImage", ofType: ".gif") {
+             cell.gifImageView.image = UIImage.animatedImageWithData(try! Data(contentsOf: URL(fileURLWithPath: getImagePath)))!
+          }
+          
+          return cell
+       case let chatSection where chatSection < self.messagesGroupedByDate.count:
+          var messagesArray = messagesGroupedByDate[chatSection]
+          
+          if messagesArray.count > indexPath.row {
+             let message = messagesArray[indexPath.row]
+             let messageType = message.type
+             let isOutgoingMsg = isSentByMe(senderId: message.senderId) && messageType != .card
+             
+             guard messageType.isMessageTypeHandled() && !message.isInValidMessage() else {
+                 return getNormalMessageTableViewCell(tableView: tableView, isOutgoingMessage: isOutgoingMsg, message: message, indexPath: indexPath)
+             }
+             
+             switch messageType {
+             case MessageType.imageFile:
+                 if isOutgoingMsg == true {
+                     guard
+                         let cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingImageCell", for: indexPath) as? OutgoingImageCell
+                         else {
+                             let cell = UITableViewCell()
+                             cell.backgroundColor = .clear
+                             return cell
+                     }
+                     cell.delegate = self
+                     cell.configureCellOfOutGoingImageCell(resetProperties: true, chatMessageObject: message, indexPath: indexPath)
+                     return cell
+                 } else {
+                     guard let cell = tableView.dequeueReusableCell(withIdentifier: "IncomingImageCell", for: indexPath) as? IncomingImageCell
+                         else {
+                             let cell = UITableViewCell()
+                             cell.backgroundColor = .clear
+                             return cell
+                     }
+                     cell.delegate = self
+                     return cell.configureIncomingCell(resetProperties: true, channelId: channel.id, chatMessageObject: message, indexPath: indexPath)
+                 }
+             case .feedback:
+                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "FeedbackTableViewCell") as? FeedbackTableViewCell else {
+                     return UITableViewCell()
+                 }
+                 var param = FeedbackParams(title: message.message, indexPath: indexPath, messageObj: message)
+                 param.showSendButton = true
+                 cell.setData(params: param)
+                 cell.delegate = self
+                 cell.backgroundColor = .clear
+                 if let muid = message.messageUniqueID {
+                     heightForFeedBackCell["\(muid)"] = cell.alertContainer.bounds.height
+                 }
+                 //                print("-----\(cell.alertContainer.bounds.height)")
+                 return cell
+             case .botText:
+                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "SupportMessageTableViewCell", for: indexPath) as? SupportMessageTableViewCell
+                     else {
+                         let cell = UITableViewCell()
+                         cell.backgroundColor = .clear
+                         return cell
+                 }
+                 let bottomSpace = getBottomSpaceOfMessageAt(indexPath: indexPath, message: message)
+                 cell.updateBottomConstraint(bottomSpace)
+                 let incomingAttributedString = Helper.getIncomingAttributedStringWithLastUserCheck(chatMessageObject: message)
+                 return cell.configureCellOfSupportIncomingCell(resetProperties: true, attributedString: incomingAttributedString, channelId: channel?.id ?? labelId, chatMessageObject: message)
+             case .leadForm:
+                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "LeadTableViewCell", for: indexPath) as? LeadTableViewCell else {
+                     return UITableViewCell()
+                 }
+                 cell.delegate = self
+                 cell.setData(indexPath: indexPath, arr: message.leadsDataArray, message: message)
+                 return cell
+             case .quickReply:
+                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "BotOutgoingMessageTableViewCell", for: indexPath) as? BotOutgoingMessageTableViewCell
+                     else {
+                         let cell = UITableViewCell()
+                         cell.backgroundColor = .clear
+                         return cell
+                 }
+                 cell.delegate = self
+                 let incomingAttributedString = Helper.getIncomingAttributedStringWithLastUserCheck(chatMessageObject: message)
+                 return cell.configureCellOfSupportIncomingCell(resetProperties: true, attributedString: incomingAttributedString, channelId: channel.id, chatMessageObject: message)
+             case .call:
+                 if isOutgoingMsg {
+                     guard let cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingVideoCallMessageTableViewCell", for: indexPath) as? OutgoingVideoCallMessageTableViewCell else {
+                         let cell = UITableViewCell()
+                         cell.backgroundColor = .clear
+                         return cell
+                     }
+                     let peerName = channel?.chatDetail?.peerName ?? "   "
+                     let isCallingEnabled = isDirectCallingEnabledFor(type: message.callType)
+                     cell.setCellWith(message: message, otherUserName: peerName, isCallingEnabled: isCallingEnabled)
+                     
+                     cell.delegate = self
+                     return cell
+                 } else {
+                     guard let cell = tableView.dequeueReusableCell(withIdentifier: "IncomingVideoCallMessageTableViewCell", for: indexPath) as? IncomingVideoCallMessageTableViewCell else {
+                         let cell = UITableViewCell()
+                         cell.backgroundColor = .clear
+                         return cell
+                     }
+                     let isCallingEnabled = isDirectCallingEnabledFor(type: message.callType)
+                     cell.setCellWith(message: message, isCallingEnabled: isCallingEnabled)
+                     cell.delegate = self
+                     return cell
+                 }
+             case .actionableMessage, .hippoPay:
+                 
+                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "ActionableMessageTableViewCell", for: indexPath) as? ActionableMessageTableViewCell else {
+                     let cell = UITableViewCell()
+                     cell.backgroundColor = .clear
+                     return cell
+                 }
+                 cell.tableViewHeightConstraint.constant = self.getHeightOfActionableMessageAt(indexPath: indexPath, chatObject: message)
+                 cell.timeLabel.text = ""
+                 cell.rootViewController = self
+                 cell.registerNib()
+                 cell.setUpData(messageObject: message, isIncomingMessage: !isOutgoingMsg)
+                 cell.actionableMessageTableView.reloadData()
+                 cell.tableViewHeightConstraint.constant = self.getHeightOfActionableMessageAt(indexPath: indexPath, chatObject: message)
+                 cell.backgroundColor = UIColor.clear
+                 return cell
+             case .attachment:
+                 if isOutgoingMsg {
+                     switch message.concreteFileType! {
+                     case .video:
+                         let cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingVideoTableViewCell", for: indexPath) as! OutgoingVideoTableViewCell
+                         cell.setCellWith(message: message)
+                         cell.retryDelegate = self
+                         cell.delegate = self
+                         return cell
+                     default:
+                         let cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingDocumentTableViewCell") as! OutgoingDocumentTableViewCell
+                         cell.setCellWith(message: message)
+                         cell.actionDelegate = self
+                         cell.delegate = self
+                         cell.nameLabel.isHidden = true
+                         return cell
+                     }
+                 } else {
+                     switch message.concreteFileType! {
+                     case .video:
+                         let cell = tableView.dequeueReusableCell(withIdentifier: "IncomingVideoTableViewCell", for: indexPath) as! IncomingVideoTableViewCell
+                         cell.setCellWith(message: message)
+                         cell.delegate = self
+                         return cell
+                     default:
+                         let cell = tableView.dequeueReusableCell(withIdentifier: "IncomingDocumentTableViewCell") as! IncomingDocumentTableViewCell
+                         cell.setCellWith(message: message)
+                         cell.actionDelegate = self
+                         cell.nameLabel.isHidden = false
+                         return cell
+                     }
+                 }
+             case .consent:
+                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "ActionTableView", for: indexPath) as? ActionTableView, let actionMessage = message as? HippoActionMessage else {
+                     return UITableView.defaultCell()
+                 }
+                 cell.delegate = self
+                 cell.setCellData(message: actionMessage)
+                 return cell
+             case .card:
+                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "CardMessageTableViewCell", for: indexPath) as? CardMessageTableViewCell else {
+                     return UITableView.defaultCell()
+                 }
+                 cell.delegate = self
+                 cell.set(message: message)
+                 return cell
+             case .paymentCard:
+                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "PaymentMessageCell", for: indexPath) as? PaymentMessageCell else {
+                     return UITableView.defaultCell()
+                 }
+                 cell.delegate = self
+                 cell.set(message: message)
+                 return cell
+                 
+             case .multipleSelect :
+                 
+                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "MultiSelectTableViewCell", for: indexPath) as? MultiSelectTableViewCell else {
+                     return UITableView.defaultCell()
+                 }
+                 cell.submitButtonDelegate = self
+                 cell.set(message: message)
+                 return cell
+                 
+             case .embeddedVideoUrl :
+                 
+                 let cell = tableView.dequeueReusableCell(withIdentifier: "IncomingVideoTableViewCell", for: indexPath) as! IncomingVideoTableViewCell
+                 cell.setCellWith(message: message)
+                 cell.delegate = self
+                 return cell
+                 
+             default:
+                 return getNormalMessageTableViewCell(tableView: tableView, isOutgoingMessage: isOutgoingMsg, message: message, indexPath: indexPath)
+             }
+          }
+       default:
+          let cell = UITableViewCell()
+          cell.backgroundColor = .clear
+          return cell
+       }
+       
+       let cell = UITableViewCell()
+       cell.backgroundColor = .clear
+       return cell
+         
+     }
     }
-   }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView == customTableView{
@@ -2171,7 +2135,7 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                                 if let message = proceedToPayMessage{
                                     if let selectedCard = proceedToPaySelectedCard{
                                         if let chnl = proceedToPayChannel{
-                                            self.generatePaymentUrlWithSelectedPaymentGateway(for: message, card: selectedCard, selectedPaymentGateway: addedPaymentGatewaysArr[i], proceedToPayChannel: chnl)
+                                            generatePaymentUrlWithSelectedPaymentGateway(for: message, card: selectedCard, selectedPaymentGateway: addedPaymentGatewaysArr[i], proceedToPayChannel: chnl)
                                         }
                                     }
                                 }
@@ -2190,6 +2154,14 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
      func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if tableView == customTableView{
         }else{
+//            guard let message = getMessageAt(indexPath: indexPath) else { return  }
+//            if let selfCell = cell as? SelfMessageTableViewCell {
+//               let bottomSpace = getBottomSpaceOfMessageAt(indexPath: indexPath, message: message)
+//                selfCell.updateBottomConstraint(bottomSpace)
+//            } else if let supportCell = cell as? SupportMessageTableViewCell{
+//                let bottomSpace = getBottomSpaceOfMessageAt(indexPath: indexPath, message: message)
+//                supportCell.updateBottomConstraint(bottomSpace)
+//            }
             updateTopBottomSpace(cell: cell, indexPath: indexPath)
         }
     }
@@ -2221,12 +2193,15 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                 switch messageType {
                 case MessageType.imageFile:
                     return 288
+//                case MessageType.botText:
+//                    var rowHeight = expectedHeight(OfMessageObject: message)
+//
+//                    rowHeight += returnRetryCancelButtonHeight(chatMessageObject: message)
+//                    rowHeight += getTopDistanceOfCell(atIndexPath: indexPath)
+//                    return rowHeight
+//
                 case MessageType.normal, MessageType.botText:
-                    var rowHeight = expectedHeight(OfMessageObject: message)
-                    
-                    rowHeight += returnRetryCancelButtonHeight(chatMessageObject: message)
-                    rowHeight += getTopDistanceOfCell(atIndexPath: indexPath)
-                    return rowHeight
+                    return UIView.tableAutoDimensionHeight
                 case MessageType.quickReply:
                     var rowHeight: CGFloat = 0
                     if message.values.count > 0 {
@@ -2339,7 +2314,7 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
             dateLabel.layer.cornerRadius = 10
             dateLabel.textColor = #colorLiteral(red: 0.3490196078, green: 0.3490196078, blue: 0.4078431373, alpha: 1)
             dateLabel.textAlignment = .center
-            dateLabel.font = UIFont.boldSystemFont(ofSize: 12.0)
+            dateLabel.font = UIFont.bold(ofSize: 12)//UIFont.boldSystemFont(ofSize: 12.0)
             dateLabel.backgroundColor = #colorLiteral(red: 0.9490196078, green: 0.9490196078, blue: 0.9490196078, alpha: 1)
             dateLabel.layer.borderColor = #colorLiteral(red: 0.862745098, green: 0.8784313725, blue: 0.9019607843, alpha: 1).cgColor
             dateLabel.layer.borderWidth = 0.5
@@ -2588,6 +2563,9 @@ extension ConversationsViewController: UITextViewDelegate {
    }
    
     func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.trimWhiteSpacesAndNewLine() == ""{
+             self.sendMessageButton.isEnabled = false
+        }
    }
    
      func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
@@ -2637,7 +2615,7 @@ extension ConversationsViewController: UIImagePickerControllerDelegate, UINaviga
 //         }
 //      }
 //   }
-//   
+//
 //   func goToConversationViewController() {}
 //}
 
@@ -2671,6 +2649,10 @@ extension ConversationsViewController: ImageCellDelegate {
 }
 
 extension ConversationsViewController: HippoChannelDelegate {
+    func closeChatActionFromRefreshChannel() {
+        self.backButtonClicked()
+    }
+    
     func channelDataRefreshed() {
         label = channel?.chatDetail?.channelName ?? label
         userImage = channel?.chatDetail?.channelImageUrl
@@ -3088,22 +3070,20 @@ extension ConversationsViewController {
 
 extension ConversationsViewController: UIGestureRecognizerDelegate {
 
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        messageTextView.resignFirstResponder()
-        channel?.send(message: HippoMessage.stopTyping, completion: {})
-        if gestureRecognizer == self.navigationController?.interactivePopGestureRecognizer{
-            return false
+     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+            messageTextView.resignFirstResponder()
+            channel?.send(message: HippoMessage.stopTyping, completion: {})
+            let rawLabelID = self.labelId == -1 ? nil : self.labelId
+            let channelID = self.channel?.id ?? -1
+            if let lastMessage = getLastMessage(), let conversationInfo = FuguConversation(channelId: channelID, unreadCount: 0, lastMessage: lastMessage, labelID: rawLabelID) {
+                delegate?.updateConversationWith(conversationObj: conversationInfo)
+            }
+            
+            if gestureRecognizer == self.navigationController?.interactivePopGestureRecognizer{
+                return false
+            }
+            return true
         }
-        let rawLabelID = self.labelId == -1 ? nil : self.labelId
-        let channelID = self.channel?.id ?? -1
-        clearUnreadCountForChannel(id: channelID)
-        if let lastMessage = getLastMessage(), let conversationInfo = FuguConversation(channelId: channelID, unreadCount: 0, lastMessage: lastMessage, labelID: rawLabelID) {
-            delegate?.updateConversationWith(conversationObj: conversationInfo)
-        }
-        
-        
-        return true
-    }
 
 }
 

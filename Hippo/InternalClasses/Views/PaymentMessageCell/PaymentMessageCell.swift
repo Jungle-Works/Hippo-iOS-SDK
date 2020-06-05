@@ -15,7 +15,11 @@ protocol PaymentMessageCellDelegate: class {
 class PaymentMessageCell: UITableViewCell {
 
     @IBOutlet weak var heightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var tableView: UITableView!{
+        didSet{
+            tableView.layer.cornerRadius = 6
+        }
+    }
     
     let datasource: PaymentMessageDataSource = PaymentMessageDataSource()
     weak var delegate: PaymentMessageCellDelegate?
@@ -32,7 +36,7 @@ class PaymentMessageCell: UITableViewCell {
     }
     private func setTheme() {
         backgroundColor = .clear
-        tableView.backgroundColor = .clear
+        tableView.backgroundColor = HippoConfig.shared.theme.outgoingChatBoxColor//.clear
         tableView.separatorStyle = .none
         selectionStyle = .none
     }

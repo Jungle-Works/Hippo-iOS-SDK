@@ -12,7 +12,8 @@ class AgentListViewController: UIViewController {
     
     @IBOutlet weak var tableViewAgent: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
-    @IBOutlet weak var backButton: UIButton!
+//    @IBOutlet weak var backButton: UIButton!
+    @IBOutlet weak var view_NavigationBar: NavigationBar!
     
     var channelId = -1
     var agentList = [Agent]()
@@ -52,7 +53,8 @@ class AgentListViewController: UIViewController {
         self.view.backgroundColor = theme.backgroundColor
     }
     class func get(channelInfo: ChatDetail) -> AgentListViewController? {
-        let storyboard = UIStoryboard(name: "FuguUnique", bundle: FuguFlowManager.bundle)
+//        let storyboard = UIStoryboard(name: "FuguUnique", bundle: FuguFlowManager.bundle)
+        let storyboard = UIStoryboard(name: "AgentSdk", bundle: FuguFlowManager.bundle)
         guard let vc = storyboard.instantiateViewController(withIdentifier: "AgentListViewController") as? AgentListViewController else {
             return nil
         }
@@ -127,29 +129,38 @@ extension AgentListViewController {
     }
     
     func setupNavigationBar() {
-        //titleOfNavigationItem(barTitle: "Assign Conversation")
-//        setCustomTitle(barTitle: "Assign Conversation")
-//        setupCustomThemeOnNavigationBar(hideNavigationBar: false)
-//        navigationItem.hidesBackButton = false
-        self.navigationController?.setTheme()
-        self.navigationController?.isNavigationBarHidden = false
-        
-        self.navigationItem.title = "Assign Conversation"
-        backButton.tintColor = HippoConfig.shared.theme.headerTextColor
-        if HippoConfig.shared.theme.leftBarButtonText.count > 0 {
-            backButton.setTitle((" " + HippoConfig.shared.theme.leftBarButtonText), for: .normal)
-            if HippoConfig.shared.theme.leftBarButtonFont != nil {
-                backButton.titleLabel?.font = HippoConfig.shared.theme.leftBarButtonFont
-            }
-            backButton.setTitleColor(HippoConfig.shared.theme.leftBarButtonTextColor, for: .normal)
-        } else {
-            if HippoConfig.shared.theme.leftBarButtonArrowImage != nil {
-                backButton.setImage(HippoConfig.shared.theme.leftBarButtonArrowImage, for: .normal)
-                backButton.tintColor = HippoConfig.shared.theme.headerTextColor
-            }
-        }
-
-        
+//        //titleOfNavigationItem(barTitle: "Assign Conversation")
+////        setCustomTitle(barTitle: "Assign Conversation")
+////        setupCustomThemeOnNavigationBar(hideNavigationBar: false)
+////        navigationItem.hidesBackButton = false
+//        self.navigationController?.setTheme()
+//        self.navigationController?.isNavigationBarHidden = false
+//
+//        self.navigationItem.title = "Assign Conversation"
+//        backButton.tintColor = HippoConfig.shared.theme.headerTextColor
+//        if HippoConfig.shared.theme.leftBarButtonText.count > 0 {
+//            backButton.setTitle((" " + HippoConfig.shared.theme.leftBarButtonText), for: .normal)
+//            if HippoConfig.shared.theme.leftBarButtonFont != nil {
+//                backButton.titleLabel?.font = HippoConfig.shared.theme.leftBarButtonFont
+//            }
+//            backButton.setTitleColor(HippoConfig.shared.theme.leftBarButtonTextColor, for: .normal)
+//        } else {
+//            if HippoConfig.shared.theme.leftBarButtonArrowImage != nil {
+//                backButton.setImage(HippoConfig.shared.theme.leftBarButtonArrowImage, for: .normal)
+//                backButton.tintColor = HippoConfig.shared.theme.headerTextColor
+//            }
+//        }
+        self.navigationController?.isNavigationBarHidden = true
+        view_NavigationBar.title = "Assign Conversation"
+        view_NavigationBar.leftButton.addTarget(self, action: #selector(backButtonClicked(_:)), for: .touchUpInside)
+        view_NavigationBar.view.layer.shadowOffset = CGSize(width: 0.0, height: 0.5)
+        view_NavigationBar.view.layer.shadowRadius = 2.0
+        view_NavigationBar.view.layer.shadowOpacity = 0.5
+        view_NavigationBar.view.layer.masksToBounds = false
+        view_NavigationBar.view.layer.shadowPath = UIBezierPath(rect: CGRect(x: 0,
+                                                                        y: view_NavigationBar.bounds.maxY - view_NavigationBar.layer.shadowRadius,
+                                                                        width: view_NavigationBar.bounds.width,
+                                                                        height: view_NavigationBar.layer.shadowRadius)).cgPath
     }
     
 //    func setCustomTitle(barTitle: String) {

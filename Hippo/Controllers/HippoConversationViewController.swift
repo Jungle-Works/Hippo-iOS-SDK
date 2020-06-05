@@ -81,7 +81,8 @@ class HippoConversationViewController: UIViewController {
     @IBOutlet weak var errorContentView: UIView!
     @IBOutlet var errorLabel: UILabel!
     @IBOutlet var errorLabelTopConstraint: NSLayoutConstraint!
-    
+    @IBOutlet weak var view_Navigation : NavigationBarChat!
+    @IBOutlet weak var height_errorView : NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -183,27 +184,27 @@ class HippoConversationViewController: UIViewController {
     func showErrorMessage(messageString: String = "", bgColor: UIColor = UIColor.red) {
         var message = messageString.trimWhiteSpacesAndNewLine()
         message = message.isEmpty ? errorMessage  : messageString
-        
+
         guard !message.isEmpty else {
             hideErrorMessage()
             return
         }
         errorLabel.text = message
         errorLabel.backgroundColor = bgColor
-        
-        if errorLabelTopConstraint != nil && errorLabelTopConstraint.constant != 0 {
-            errorLabelTopConstraint.constant = 0
+
+        if height_errorView != nil && height_errorView.constant != 20 {
+            height_errorView.constant = 20
             view.layoutIfNeeded()
         }
     }
     
     func hideErrorMessage() {
-        let negativeheight: CGFloat = -20
-        guard errorLabelTopConstraint.constant != negativeheight else {
+        let height: CGFloat = 0
+        guard height_errorView.constant != height else {
             return
         }
         DispatchQueue.main.async {
-            self.errorLabelTopConstraint.constant = negativeheight
+            self.height_errorView.constant = height
             self.errorLabel.text = ""
             self.errorMessage = ""
             self.view.layoutIfNeeded()
@@ -213,19 +214,21 @@ class HippoConversationViewController: UIViewController {
     
     func updateErrorLabelView(isHiding: Bool, delay: Double = 3) {
         if isHiding {
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delay) {
-                self.errorLabelTopConstraint.constant = -20
-                self.errorLabel.text = ""
-                self.view.layoutIfNeeded()
-                self.errorLabel.backgroundColor = UIColor.red
+            if self.height_errorView.constant == 20 {
+                fuguDelay(3, completion: {
+                    // self.errorLabelTopConstraint.constant = -20
+                    self.errorLabel.text = ""
+                    self.height_errorView.constant = 0
+                    self.view.layoutIfNeeded()
+                    self.errorLabel.backgroundColor = UIColor.red
+                })
             }
             return
-        }
-        
-        if errorLabelTopConstraint != nil && errorLabelTopConstraint.constant != 0 {
-            self.errorLabelTopConstraint.constant = 0
+        }else{
+            height_errorView.constant = 20
             self.view.layoutIfNeeded()
         }
+        
     }
     
     func populateTableViewWithChannelData() {
@@ -537,30 +540,31 @@ class HippoConversationViewController: UIViewController {
 //        guard HippoConfig.shared.appUserType == .customer else {
 //            return
 //        }
-        let rectForNavigationTitle: CGRect = CGRect(x: 0, y: 0, width: 500, height: 100)
-        let navigationView: NavigationTitleView
-        if let parsedTitleForNavigation = titleForNavigation {
-            navigationView = parsedTitleForNavigation
-        } else {
-            navigationView = NavigationTitleView.loadView(rectForNavigationTitle, delegate: self)
-            titleForNavigation = navigationView
-        }
+//        let rectForNavigationTitle: CGRect = CGRect(x: 0, y: 0, width: 500, height: 100)
+//        let navigationView: NavigationTitleView
+//        if let parsedTitleForNavigation = titleForNavigation {
+//            navigationView = parsedTitleForNavigation
+//        } else {
+//            navigationView = NavigationTitleView.loadView(rectForNavigationTitle, delegate: self)
+//            titleForNavigation = navigationView
+//        }
         if let chatType = channel?.chatDetail?.chatType, chatType == .other {
             let title: String? = channel?.chatDetail?.channelName ?? label
-             navigationView.setData(imageUrl: userImage, name: title)
+             view_Navigation.setData(imageUrl: userImage, name: title)
         } else if labelId > 0, channel == nil {
-             navigationView.setData(imageUrl: userImage, name: label)
+             view_Navigation.setData(imageUrl: userImage, name: label)
         } else {
-             navigationView.hideProfileImage()
+             view_Navigation.hideProfileImage()
         }
-        navigationView.removeFromSuperview()
-        navigationView.setTitle(title: label)
+  //      navigationView.removeFromSuperview()
+        view_Navigation.setTitle(title: label)
         title = nil
-        let button = UIBarButtonItem(customView: navigationView)
+        //let button = UIBarButtonItem(customView: navigationView)
         if HippoConfig.shared.appUserType != .customer{
-            navigationView.hideProfileImage()
+            view_Navigation.hideProfileImage()
         }
-        navigationItem.leftBarButtonItem = button
+        view_Navigation.delegate = self
+   //     navigationItem.leftBarButtonItem = button
     }
     
     
@@ -589,93 +593,91 @@ class HippoConversationViewController: UIViewController {
             self.navigationTitleButton?.sizeToFit()
         }
     }
-    func startAudioCall() {
-        guard canStartAudioCall() else {
-            return
-        }
-        guard let peerDetail = channel?.chatDetail?.peerDetail else {
-            return
+        func startAudioCall() {
+            guard canStartAudioCall() else {
+                return
+            }
+            guard let peerDetail = channel?.chatDetail?.peerDetail else {
+                return
+                
+            }
+            
+            self.view.endEditing(true)
+            
+            let call = CallData.init(peerData: peerDetail, callType: .audio, muid: String.uuid(), signallingClient: channel)
+            
+//           CallManager.shared.startCall(call: call) { (success) in
+//                       if !success {
+//                           assertionFailure("Cannot start the call")
+//                       }
+//            }
+            
+            // #####-------USE THIS METHOD IF YOU ARE USING JITSI CALLING BARNCH FOR CALLING FEATURE -----#####
+    
+            CallManager.shared.startCall(call: call) { (success, error) in
+    
+                if let mismatchError = error, mismatchError.code == 415 {
+    
+                    let message = peerDetail.fullName + " " + "doesn't have the latest version of app installed."
+                    self.showOptionAlert(title: "Version Mismatch", message: message, successButtonName: "Call anyway", successComplete: { (successAction) in
+    
+                        CallManager.shared.startWebRTCCall(call: call) { (success) in
+                            if !success {
+                                assertionFailure("Cannot start webrtc the call too")
+                            }
+                        }
+    
+                    }, failureButtonName: "Cancel") { (failureAction) in
+                        //do nothing
+                    }
+                }
+                else if !success {
+                    assertionFailure("Cannot start the call")
+                }
+            }
             
         }
-        
-        self.view.endEditing(true)
-        
-        let call = CallData.init(peerData: peerDetail, callType: .audio, muid: String.uuid(), signallingClient: channel)
-        
-//       CallManager.shared.startCall(call: call) { (success) in
-//                   if !success {
-//                       assertionFailure("Cannot start the call")
-//                   }
-//        }
-        
-        // #####-------USE THIS METHOD IF YOU ARE USING JITSI CALLING BARNCH FOR CALLING FEATURE -----#####
-
-        CallManager.shared.startCall(call: call) { (success, error) in
-
-            if let mismatchError = error, mismatchError.code == 415 {
-
-                let message = peerDetail.fullName + " " + "doesn't have the latest version of app installed."
-                self.showOptionAlert(title: "Version Mismatch", message: message, successButtonName: "Call anyway", successComplete: { (successAction) in
-
-                    CallManager.shared.startWebRTCCall(call: call) { (success) in
-                        if !success {
-                            assertionFailure("Cannot start webrtc the call too")
-                        }
-                    }
-
-                }, failureButtonName: "Cancel") { (failureAction) in
-                    //do nothing
-                }
+        func startVideoCall() {
+            guard canStartVideoCall() else {
+                return
             }
-            else if !success {
-                assertionFailure("Cannot start the call")
+            guard let peerDetail = channel?.chatDetail?.peerDetail else {
+                return
             }
-        }
-        
-    }
-    
-    func startVideoCall() {
-        guard canStartVideoCall() else {
-            return
-        }
-        guard let peerDetail = channel?.chatDetail?.peerDetail else {
-            return
-        }
-        self.view.endEditing(true)
-        
-        let call = CallData.init(peerData: peerDetail, callType: .video, muid: String.uuid(), signallingClient: channel)
-        
-//      CallManager.shared.startCall(call: call) { (success) in
-//             if !success {
-//             assertionFailure("Cannot start the call")
+            self.view.endEditing(true)
+            
+            let call = CallData.init(peerData: peerDetail, callType: .video, muid: String.uuid(), signallingClient: channel)
+            
+//          CallManager.shared.startCall(call: call) { (success) in
+//                 if !success {
+//                 assertionFailure("Cannot start the call")
+//                 }
 //             }
-//         }
-        
-        // #####-------USE THIS METHOD IF YOU ARE USING JITSI CALLING BARNCH FOR CALLING FEATURE -----#####
-        CallManager.shared.startCall(call: call) { (success, error) in
-
-            if let mismatchError = error, mismatchError.code == 415 {
-
-                let message = peerDetail.fullName + " " + "doesn't have the latest version of app installed."
-                self.showOptionAlert(title: "Version Mismatch", message: message, successButtonName: "Call anyway", successComplete: { (successAction) in
-
-                    CallManager.shared.startWebRTCCall(call: call) { (success) in
-                        if !success {
-                            assertionFailure("Cannot start webrtc the call too")
+            
+            // #####-------USE THIS METHOD IF YOU ARE USING JITSI CALLING BARNCH FOR CALLING FEATURE -----#####
+            CallManager.shared.startCall(call: call) { (success, error) in
+    
+                if let mismatchError = error, mismatchError.code == 415 {
+    
+                    let message = peerDetail.fullName + " " + "doesn't have the latest version of app installed."
+                    self.showOptionAlert(title: "Version Mismatch", message: message, successButtonName: "Call anyway", successComplete: { (successAction) in
+    
+                        CallManager.shared.startWebRTCCall(call: call) { (success) in
+                            if !success {
+                                assertionFailure("Cannot start webrtc the call too")
+                            }
                         }
+    
+                    }, failureButtonName: "Cancel") { (failureAction) in
+                        //do nothing
                     }
-
-                }, failureButtonName: "Cancel") { (failureAction) in
-                    //do nothing
+                }
+                else if !success {
+                    assertionFailure("Cannot start the call")
                 }
             }
-            else if !success {
-                assertionFailure("Cannot start the call")
-            }
+            
         }
-        
-    }
-    
     func canMakeAnyCall() -> Bool {
         guard channel?.chatDetail?.peerDetail != nil else {
             return false
@@ -833,6 +835,27 @@ class HippoConversationViewController: UIViewController {
         pickerHelper?.presentCustomActionSheet(sender: sender, controller: self, openType: openType)
     }
     
+    func getMessageAt(indexPath: IndexPath) -> HippoMessage? {
+        guard doesMessageAtIndexPathExists(indexPath) else {
+            return nil
+        }
+        
+        return messagesGroupedByDate[indexPath.section][indexPath.row]
+    }
+    
+    func doesMessageAtIndexPathExists(_ indexPath: IndexPath) -> Bool {
+        guard messagesGroupedByDate.count > indexPath.section else {
+            return false
+        }
+        
+        let groupedArray = messagesGroupedByDate[indexPath.section]
+        
+        guard groupedArray.count > indexPath.row else {
+            return false
+        }
+        
+        return true
+    }
 }
 
 
@@ -1501,11 +1524,15 @@ extension HippoConversationViewController {
         switch isOutgoingMessage {
         case false:
             let cell = tableView.dequeueReusableCell(withIdentifier: "SupportMessageTableViewCell", for: indexPath) as! SupportMessageTableViewCell
+            let bottomSpace = getBottomSpaceOfMessageAt(indexPath: indexPath, message: message)
+            cell.updateBottomConstraint(bottomSpace)
             let incomingAttributedString = Helper.getIncomingAttributedStringWithLastUserCheck(chatMessageObject: message)
             return cell.configureCellOfSupportIncomingCell(resetProperties: true, attributedString: incomingAttributedString, channelId: channel?.id ?? labelId, chatMessageObject: message)
         case true:
             let cell = tableView.dequeueReusableCell(withIdentifier: "SelfMessageTableViewCell", for: indexPath) as! SelfMessageTableViewCell
             cell.delegate = self
+            let bottomSpace = getBottomSpaceOfMessageAt(indexPath: indexPath, message: message)
+            cell.updateBottomConstraint(bottomSpace)
             return cell.configureIncomingMessageCell(resetProperties: true, chatMessageObject: message, indexPath: indexPath)
         }
     }
@@ -1583,7 +1610,22 @@ extension HippoConversationViewController: PaymentMessageCellDelegate {
         
         if HippoConfig.shared.appUserType == .customer{
             closeKeyBoard()
-            if addedPaymentGatewaysArr.count > 0{
+            switch addedPaymentGatewaysArr.count{
+            case 0:
+                showAlertWith(message: "No payment method available", action: nil)
+            case 1:
+                if let currencyStr = selectedCard.currency, let currencyAllowed = addedPaymentGatewaysArr.first?.currency_allowed{
+                    if currencyAllowed.contains(currencyStr){
+                        if let proceedToPayMessage = proceedToPayMessage, let proceedToPayChannel = proceedToPayChannel, let proceedToPaySelectedCard = proceedToPaySelectedCard{
+                            generatePaymentUrlWithSelectedPaymentGateway(for: proceedToPayMessage, card: proceedToPaySelectedCard, selectedPaymentGateway: addedPaymentGatewaysArr.first, proceedToPayChannel: proceedToPayChannel)
+                            return
+                        }
+                    }else{
+                       showAlertWith(message: "No payment method available", action: nil)
+                    }
+                }
+                break
+            default:
                 if let currencyStr = selectedCard.currency{
                     actionSheetTitleArr.removeAll()
                     actionSheetImageArr.removeAll()
@@ -1599,10 +1641,16 @@ extension HippoConversationViewController: PaymentMessageCellDelegate {
                             }
                         }
                     }
-                    heightForActionSheet = CGFloat((actionSheetTitleArr.count * 60))
-                    isProceedToPayActionSheet = true
-                    openCustomSheet()
+                    if actionSheetTitleArr.count > 0{
+                        heightForActionSheet = CGFloat((actionSheetTitleArr.count * 60))
+                        isProceedToPayActionSheet = true
+                        openCustomSheet()
+                    }else{
+                      showAlertWith(message: "No payment method available", action: nil)
+                    }
                 }
+                
+                break
             }
         }else{
             if let channel = self.channel, channel.isSendingDisabled {
@@ -1649,6 +1697,65 @@ extension HippoConversationViewController: PaymentMessageCellDelegate {
         }
         
     }
+    
+
+    func getNextMessageInDateGroupOfMessageAt(indexPath: IndexPath) -> HippoMessage? {
+        let row = indexPath.row
+        let section = indexPath.section
+
+        guard messagesGroupedByDate.count > section else {
+            return nil
+        }
+        
+        let groupedArray = messagesGroupedByDate[section]
+        
+        guard groupedArray.count > row + 1 else {
+            return nil
+        }
+        
+        let nextMessage = groupedArray[row+1]
+        return nextMessage
+    }
+    
+    
+    
+    func getBottomSpaceOfMessageAt(indexPath: IndexPath, message: HippoMessage) -> CGFloat {
+        guard let nextMessage = getNextMessageInDateGroupOfMessageAt(indexPath: indexPath) else {
+            return 1
+        }
+        
+        if nextMessage.senderId != message.senderId {
+            return 10 // bottom space from other user massage
+         }
+        
+        return 0 // onle top pennding for same user message extra bottom space is 0
+    }
+    
+
+    func generatePaymentUrlWithSelectedPaymentGateway(for message: HippoMessage, card: CustomerPayment, selectedPaymentGateway: PaymentGateway?, proceedToPayChannel: HippoChannel?) {
+        let selectedCard = card
+        guard let channelId = proceedToPayChannel?.id else {
+            HippoConfig.shared.log.error("cannot find selected card.... Please select the card", level: .error)
+            return
+        }
+        HippoConfig.shared.delegate?.startLoading(message: "Redirecting to payment...")
+        PaymentStore.generatePaymentUrl(channelId: channelId, message: message, selectedCard: selectedCard, selectedPaymentGateway: selectedPaymentGateway) { (success, data) in
+            HippoConfig.shared.delegate?.stopLoading()
+            guard success, let result = data else {
+                return
+            }
+            guard let paymentUrl = result["payment_url"] as? String else {
+                return
+            }
+            HippoConfig.shared.log.debug("Response --\(result)", level: .response)
+            selectedCard.paymentUrlString = paymentUrl
+            guard let url = URL(string: paymentUrl) else {
+                return
+            }
+            self.initatePayment(for: url)
+        }
+    }
+
 }
 
 extension HippoConversationViewController: submitButtonTableViewDelegate

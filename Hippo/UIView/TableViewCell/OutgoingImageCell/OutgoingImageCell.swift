@@ -59,7 +59,7 @@ class OutgoingImageCell: MessageTableViewCell {
 //MARK: - Configure Cell
 extension OutgoingImageCell {
     func setupBoxBackground(messageType: Int) {
-        mainContentView.backgroundColor = HippoConfig.shared.theme.themeColor //HippoConfig.shared.theme.outgoingChatBoxColor
+        mainContentView.backgroundColor = HippoConfig.shared.theme.outgoingChatBoxColor//HippoConfig.shared.theme.recievingBubbleColor //HippoConfig.shared.theme.outgoingChatBoxColor
         
 //        mainContentView.backgroundColor = UIColor.black //HippoConfig.shared.theme.outgoingChatBoxColor
     }

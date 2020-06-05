@@ -122,8 +122,9 @@ extension UnreadCount {
         HTTPClient.makeConcurrentConnectionWith(method: .POST, enCodingType: .json, para: params, extendedUrl: FuguEndPoints.fetchP2PUnreadCount.rawValue) { (responseObject, error, tag, statusCode) in
             
             guard let unwrappedStatusCode = statusCode, error == nil, unwrappedStatusCode == STATUS_CODE_SUCCESS, error == nil  else {
-                HippoConfig.shared.log.error(error ?? "Something went Wrong!!", level: .error)
+//                HippoConfig.shared.log.error(error ?? "Something went Wrong!!", level: .error)
                 callback(HippoError.general, nil)
+                print("Error",error ?? "")
                 return
             }
             guard let response = responseObject as? [String: Any], let data = response["data"] as? [String: Any], let unreadCount = Int.parse(values: data, key: "unread_count") else {
@@ -131,6 +132,16 @@ extension UnreadCount {
                 callback(HippoError.general, nil)
                 return
             }
+            
+            if let unreadDic = (responseObject as? [String: Any])?["data"] as? [String : Any]{
+                var unreadHashMap = [String : Any]()
+                let channelId = unreadDic["channel_id"] as? Int ?? -1
+                let unreadCount = unreadDic["unread_count"] as? Int
+                unreadHashMap["\(channelId)"] = unreadCount
+                FuguDefaults.set(value: unreadHashMap, forKey: DefaultName.p2pUnreadCount.rawValue)
+            }
+        
+          
             HippoConfig.shared.log.debug("\(responseObject ?? [:])", level: .response)
             callback(nil, unreadCount)
     

@@ -88,6 +88,7 @@ struct UserDefaultkeys {
     static let multiChannelLabelMapping = "Hippo_Multiple_channel_Label_Mapping"
     static let isAskPaymentAllowed = "is_ask_payment_allowed"
     static let onlineStatus = "online_status"
+    static let filterApplied = "filterApplied"
 }
 
 var FUGU_SCREEN_WIDTH: CGFloat {
@@ -279,10 +280,29 @@ func subscribeCustomerUserChannel(userChannelId: String) {
     FayeConnection.shared.subscribeTo(channelId: userChannelId, completion: { (success) in
     }) {  (messageDict) in
         if let messageType = messageDict["message_type"] as? Int, messageType == 18 {
-            
-            if let channel_id = messageDict["channel_id"] as? Int, isSubscribed(userChannelId: "\(channel_id)") == false {
+            if let channel_id = messageDict["channel_id"] as? Int{ //isSubscribed(userChannelId: "\(channel_id)") == false {
+                
+                let channel = FuguChannelPersistancyManager.shared.getChannelBy(id: channel_id)
+                channel.signalReceivedFromPeer?(messageDict)
                 HippoConfig.shared.log.trace("UserChannel:: --->\(messageDict)", level: .socket)
                 CallManager.shared.voipNotificationRecieved(payloadDict: messageDict)
+            }
+        }
+        
+        
+        if let notificationType = messageDict["notification_type"] as? Int{
+            var unreadData = FuguDefaults.object(forKey: DefaultName.p2pUnreadCount.rawValue) as? [String: Any]
+            if notificationType == NotificationType.message.rawValue && messageDict["channel_id"] as? Int == Int(unreadData?.keys.first ?? "") && messageDict["channel_id"] as? Int != HippoConfig.shared.getCurrentChannelId(){
+                let unreadCount = (unreadData?["\(messageDict["channel_id"] as? Int ?? -1)"] as? Int ?? 0) + 1
+                unreadData?["\(messageDict["channel_id"] as? Int ?? -1)"] = unreadCount
+                FuguDefaults.set(value: unreadData, forKey: DefaultName.p2pUnreadCount.rawValue)
+                HippoConfig.shared.sendp2pUnreadCount(unreadCount, messageDict["channel_id"] as? Int ?? -1)
+                
+            }else if notificationType == NotificationType.readAll.rawValue && messageDict["channel_id"] as? Int == Int(unreadData?.keys.first ?? ""){
+                let unreadCount = 0
+                unreadData?["\(messageDict["channel_id"] as? Int ?? -1)"] = unreadCount
+                FuguDefaults.set(value: unreadData, forKey: DefaultName.p2pUnreadCount.rawValue)
+                HippoConfig.shared.sendp2pUnreadCount(unreadCount, messageDict["channel_id"] as? Int ?? -1)
             }
         }
     }

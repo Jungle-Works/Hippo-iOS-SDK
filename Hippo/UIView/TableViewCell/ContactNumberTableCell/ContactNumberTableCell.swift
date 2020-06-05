@@ -53,7 +53,7 @@ class ContactNumberTableCell: UITableViewCell {
         countryCodeTextField.keyboardType = .phonePad
         
         titleLabel.textColor = HippoConfig.shared.theme.broadcastTitleColor
-        titleLabel.font = UIFont.systemFont(ofSize: 14)
+        titleLabel.font = UIFont.regular(ofSize: 14)
         
         setErrorMessageIfNeed()
     }

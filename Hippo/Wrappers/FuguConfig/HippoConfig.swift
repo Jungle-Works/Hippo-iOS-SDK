@@ -38,15 +38,15 @@ struct SERVERS {
 static let liveUrl = "https://api.hippochat.io/"
 static let liveFaye = "wss://faye.hippochat.io/faye"
 
-static let betaUrl = "https://beta-live-api.fuguchat.com/"
+static let betaUrl = "https://beta-live-api.fuguchat.com:3001/"
 static let betaFaye = "https://beta-live-api.fuguchat.com:3001/faye"
 
 /*OLD BETA****/
 // static let betaUrl = "https://hippo-api-dev.fuguchat.com:3002/"
 // static let betaFaye = "https://hippo-api-dev.fuguchat.com:3002/faye"
 
-static let devUrl = "https://hippo-api-dev.fuguchat.com:3004/"//"https://hippo-api-dev.fuguchat.com:3002/"
-static let devFaye = "https://hippo-api-dev.fuguchat.com:3004/faye"//"https://hippo-api-dev.fuguchat.com:3002/faye"//
+static let devUrl = "https://hippo-api-dev.fuguchat.com:3002/"//"https://hippo-api-dev.fuguchat.com:3002/"
+static let devFaye = "https://hippo-api-dev.fuguchat.com:3002/faye"//"https://hippo-api-dev.fuguchat.com:3002/faye"//
 
 // static let devUrl = "https://hippo-api-dev.fuguchat.com:3011/"
 // static let devFaye = "https://hippo-api-dev.fuguchat.com:3012/faye"
@@ -98,7 +98,7 @@ struct BotAction {
 
 @objcMembers public class HippoConfig : NSObject {
     
-    public static let shared = HippoConfig()
+    public static var shared = HippoConfig()
     
     public typealias commonHippoCallback = ((_ success: Bool, _ error: Error?) -> ())
     // MARK: - Properties
@@ -158,17 +158,18 @@ struct BotAction {
     var isSkipBot:Bool = false
     internal var baseUrl =      SERVERS.liveUrl     // SERVERS.betaUrl//
     internal var fayeBaseURLString: String =     SERVERS.liveFaye   // SERVERS.betaFaye//
-     
     open var unreadCount: ((_ totalUnread: Int) -> ())?
     open var usersUnreadCount: ((_ userUnreadCount: [String: Int]) -> ())?
     open var HippoDismissed: ((_ isDismissed: Bool) -> ())?
+
     
     internal let powererdByColor = #colorLiteral(red: 0.4980392157, green: 0.4980392157, blue: 0.4980392157, alpha: 1)
     internal let FuguColor = #colorLiteral(red: 0.3843137255, green: 0.4901960784, blue: 0.8823529412, alpha: 1)
-    internal let poweredByFont: UIFont = UIFont.systemFont(ofSize: 10.0)
-    internal let FuguStringFont: UIFont = UIFont.systemFont(ofSize: 10.0)
+    internal let poweredByFont: UIFont = UIFont.regular(ofSize: 10.0)
+    internal let FuguStringFont: UIFont = UIFont.regular(ofSize: 10.0)
     
     public let navigationTitleTextAlignMent: NSTextAlignment? = .center
+    public var shouldOpenDefaultChannel = true
     
     // MARK: - Intialization
     private override init() {
@@ -525,6 +526,16 @@ struct BotAction {
         UnreadCount.fetchP2PUnreadCount(request: request, callback: completion)
     }
     
+    public func registerNewChannelId(_ channelId : Int){
+        var unreadHashMap = FuguDefaults.object(forKey: DefaultName.p2pUnreadCount.rawValue) as? [String: Any] ?? [String : Any]()
+        if unreadHashMap.values.count == 0 || unreadHashMap.keys.contains("\(channelId)") == false{
+            unreadHashMap.removeAll()
+            unreadHashMap["\(channelId)"] = 1
+            FuguDefaults.set(value: unreadHashMap, forKey: DefaultName.p2pUnreadCount.rawValue)
+            HippoConfig.shared.sendp2pUnreadCount(1, channelId)
+        }
+    }
+    
     public func openChatWith(channelId: Int, completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
         switch appUserType {
         case .agent:
@@ -575,7 +586,7 @@ struct BotAction {
             }
             let call = CallData.init(peerData: peer, callType: callType, muid: uuid, signallingClient: channel)
             
-//            CallManager.shared.startCall(call: call, completion: { (success)  in
+//            CallManager.shared.startCall(call: call, completion: { (success) in
 //                if !success {
 //                    CallManager.shared.hungupCall()
 //                }
@@ -1093,6 +1104,10 @@ public extension HippoConfig {
 }
 
 extension HippoConfig {
+    func sendp2pUnreadCount(_ unreadCount : Int, _ channelId : Int){
+        HippoConfig.shared.delegate?.sendp2pUnreadCount(unreadCount: unreadCount,channelId: channelId)
+    }
+    
     func sendDataIfChatIsAssignedToSelfAgent(_ dic : [String : Any]){
         HippoConfig.shared.delegate?.sendDataIfChatIsAssignedToSelfAgent(dic)
     }

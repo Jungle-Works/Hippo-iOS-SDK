@@ -20,12 +20,16 @@ class PromotionTableViewCell: UITableViewCell {
     //@IBOutlet weak var descriptionLabel: HippoLabel!
     @IBOutlet weak var dateTimeLabel: UILabel!
     @IBOutlet weak var promotionTitle: UILabel!
-    @IBOutlet weak var promotionImage: UIImageView!
+    @IBOutlet weak var promotionImage: UIImageView!{
+        didSet{
+            promotionImage.layer.cornerRadius = 6
+        }
+    }
     @IBOutlet weak var imageHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var titleTopConstraint: NSLayoutConstraint!
-    
     @IBOutlet weak var showReadMoreLessButton: UIButton!
     @IBOutlet weak var showReadMoreLessButtonHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var constraint_timeLabelBottom : NSLayoutConstraint!
     
     var data: PromotionCellDataModel?
 //    weak var delegate: PromotionTableViewCellDelegate?
@@ -51,20 +55,20 @@ class PromotionTableViewCell: UITableViewCell {
         //bgView.clipsToBounds = true
         bgView.backgroundColor = UIColor.white
         
-        //promotionTitle.font = HippoConfig.shared.theme.titleFont
+         promotionTitle.font = HippoConfig.shared.theme.promotionTitle
         //promotionTitle.textColor = HippoConfig.shared.theme.titleTextColor
         promotionTitle.textColor = .black//HippoConfig.shared.theme.conversationTitleColor.withAlphaComponent(1)
-        
-        descriptionLabel.textColor = .darkText//HippoConfig.shared.theme.descriptionTextColor
+          
+        descriptionLabel.textColor = UIColor(red: 90/255, green: 90/255, blue: 90/255, alpha: 1.0) //.darkText//HippoConfig.shared.theme.descriptionTextColor
         descriptionLabel.font = HippoConfig.shared.theme.descriptionFont
 //        descriptionLabel.font = UIFont.boldSystemFont(ofSize: 11)
 //        descriptionLabel.numberOfLines = 2
         
-        fullDescriptionLabel.textColor = .darkText//HippoConfig.shared.theme.descriptionTextColor
+        fullDescriptionLabel.textColor = UIColor(red: 90/255, green: 90/255, blue: 90/255, alpha: 1.0)//HippoConfig.shared.theme.descriptionTextColor
         fullDescriptionLabel.font = HippoConfig.shared.theme.descriptionFont
         
         dateTimeLabel.font = HippoConfig.shared.theme.dateTimeFontSize
-        dateTimeLabel.textColor = .darkText//HippoConfig.shared.theme.descriptionTextColor//incomingMsgDateTextColor//
+        dateTimeLabel.textColor = UIColor(red: 113/255, green: 113/255, blue: 113/255, alpha: 1.0) //HippoConfig.shared.theme.descriptionTextColor//incomingMsgDateTextColor//
     }
     
     func set(data: PromotionCellDataModel){
@@ -74,21 +78,13 @@ class PromotionTableViewCell: UITableViewCell {
         if data.imageUrlString.isEmpty{
             self.promotionImage?.isHidden = true
             self.imageHeightConstraint.constant = 0
+            self.constraint_timeLabelBottom.constant = 0
         }else{
-            //self.imageHeightConstraint.constant = 160
+            self.imageHeightConstraint.constant = self.promotionImage.frame.size.width / 2.5
             self.promotionImage?.isHidden = false
             let url = URL(string: data.imageUrlString)
-//            self.promotionImage.kf.setImage(with: url, placeholder: HippoConfig.shared.theme.placeHolderImage,  completionHandler:nil)
-            
-            //DispatchQueue.main.async {
-                self.promotionImage.kf.setImage(with: url, placeholder: HippoConfig.shared.theme.placeHolderImage, options: nil, progressBlock: nil) { (image, error, cacheType, url) in
-                    if let img = image{
-                        let ratio = img.size.width / img.size.height
-                        let newHeight = self.promotionImage.frame.width / ratio
-                        self.imageHeightConstraint.constant = newHeight
-                        self.layoutIfNeeded()
-                    }
-                }
+                self.promotionImage.kf.setImage(with: url, placeholder: HippoConfig.shared.theme.placeHolderImage, options: nil, progressBlock: nil)
+            self.constraint_timeLabelBottom.constant = 7
             //}
         }
 //        self.promotionTitle.text = data.title//"This is a new tittle"
@@ -113,12 +109,9 @@ class PromotionTableViewCell: UITableViewCell {
 //        let timeOfMessage = dateFormatter2.string(from: date ?? Date())
         
         
-        let timeOfMessage = changeDateToParticularFormat(date ?? Date(), dateFormat: "dd MMM,yy h:mm a", showInFormat: true)
-        
-      //  print("date>> \(timeOfMessage) dateCreatedAt?>>> \(data.createdAt)")
-        
-        self.dateTimeLabel.text = timeOfMessage
-        
+        dateTimeLabel.text = date?.toString ?? ""
+    
+
         self.layoutIfNeeded()
     }
     

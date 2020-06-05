@@ -21,6 +21,13 @@ struct ViewLayout {
         return leading + trailing
     }
     
+    init(){
+        self.leading = 0
+        self.trailing = 0
+        self.top = 0
+        self.bottom = 0
+    }
+    
     init(leading: CGFloat, trailing: CGFloat, top: CGFloat, bottom: CGFloat) {
         self.leading = leading
         self.trailing = trailing
@@ -36,12 +43,16 @@ struct ViewLayout {
     }
 }
 struct PaymentCardConfig {
-    var bgView: ViewLayout
-    var innerCard: ViewLayout
-    var labelView: ViewLayout
-    var imageWidth: CGFloat
-    var labelSpacing: CGFloat
+    var bgView: ViewLayout = ViewLayout()
+    var innerCard: ViewLayout = ViewLayout()
+    var labelView: ViewLayout = ViewLayout()
+    var imageWidth: CGFloat = CGFloat()
+    var labelSpacing: CGFloat = CGFloat()
     var amountWidth: CGFloat = 100
+    
+    
+   
+    
     
     static func defaultConfig() -> PaymentCardConfig {
 //        let bgView = ViewLayout(leading: 45, trailing: 15, top: 3, bottom: 0)
@@ -57,13 +68,36 @@ struct PaymentCardConfig {
             let imageWidth: CGFloat = 0
             return PaymentCardConfig(bgView: bgView, innerCard: innerCard, labelView: labelView, imageWidth: imageWidth, labelSpacing: 5, amountWidth: 100)
         }else{
-            let bgView = ViewLayout(leading: 45, trailing: 15, top: 3, bottom: 0)
+            let bgView = ViewLayout(leading: 10, trailing: 10, top: 10, bottom: 10)
             let innerCard = ViewLayout(equalMargin: 5)
             let labelView = ViewLayout(equalMargin: 10)
             let imageWidth: CGFloat = 0
             return PaymentCardConfig(bgView: bgView, innerCard: innerCard, labelView: labelView, imageWidth: imageWidth, labelSpacing: 5, amountWidth: 100)
         }
     }
+    
+      static func bottomConfig() -> PaymentCardConfig {
+    //        let bgView = ViewLayout(leading: 45, trailing: 15, top: 3, bottom: 0)
+    //        let innerCard = ViewLayout(equalMargin: 5)
+    //        let labelView = ViewLayout(equalMargin: 10)
+    //
+    //        let imageWidth: CGFloat = 0
+    //        return PaymentCardConfig(bgView: bgView, innerCard: innerCard, labelView: labelView, imageWidth: imageWidth, labelSpacing: 5, amountWidth: 100)
+            if HippoConfig.shared.appUserType == .agent{
+                let bgView = ViewLayout(leading: 20, trailing: 20, top: 3, bottom: 0)
+                let innerCard = ViewLayout(equalMargin: 5)
+                let labelView = ViewLayout(equalMargin: 10)
+                let imageWidth: CGFloat = 0
+                return PaymentCardConfig(bgView: bgView, innerCard: innerCard, labelView: labelView, imageWidth: imageWidth, labelSpacing: 5, amountWidth: 100)
+            }else{
+                let bgView = ViewLayout(leading: 10, trailing: 10, top: 5, bottom: 0)
+                let innerCard = ViewLayout(equalMargin: 5)
+                let labelView = ViewLayout(equalMargin: 10)
+                let imageWidth: CGFloat = 0
+                return PaymentCardConfig(bgView: bgView, innerCard: innerCard, labelView: labelView, imageWidth: imageWidth, labelSpacing: 5, amountWidth: 100)
+            }
+        }
+    
 }
 
 struct PaymentSecurely {
@@ -123,12 +157,12 @@ extension PaymentSecurely: HippoCard {
 }
 
 class PaymentHeader {
-    var text: String = "Select a plan"
+    var text: String = "SELECT A PLAN"
 }
 
 extension PaymentHeader: HippoCard {
     var cardHeight: CGFloat {
-        return 30
+        return 40
     }
 }
 
@@ -232,17 +266,23 @@ class CustomerPayment {
         let paidAttributedString = NSMutableAttributedString(string: paidString)
         paidAttributedString.addAttributes(paidAttr, range: paidRange)
         
-        if HippoConfig.shared.appUserType == .agent{
-            attributedString.append(paidAttributedString)
-        }else if isPaid , HippoConfig.shared.appUserType == .customer{
-           attributedString.append(paidAttributedString)
-        }
+//        if HippoConfig.shared.appUserType == .agent{
+//            attributedString.append(paidAttributedString)
+//        }else if isPaid , HippoConfig.shared.appUserType == .customer{
+//           attributedString.append(paidAttributedString)
+//        }
         return attributedString
     }
     
     
     
-    init?(json: [String: Any]) {
+    init?(json: [String: Any], isMultipleCards : Bool?) {
+        if isMultipleCards ?? false{
+            cardConfig = PaymentCardConfig.bottomConfig()
+        }else{
+            cardConfig = PaymentCardConfig.defaultConfig()
+        }
+        
         guard let id = String.parse(values: json, key: "id") else {
             return nil
         }
@@ -280,7 +320,7 @@ class CustomerPayment {
             var cardJson = each
             cardJson["total_cards"] = list.count
         
-            guard let c = CustomerPayment(json: cardJson) else {
+            guard let c = CustomerPayment(json: cardJson, isMultipleCards: list.count > 1) else {
                 continue
             }
             

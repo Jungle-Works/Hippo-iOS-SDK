@@ -90,10 +90,10 @@ extension ActionButtonViewCell {
         cellButton.setTitleColor(HippoConfig.shared.theme.themeTextcolor, for: .normal)
         cellButton.backgroundColor = theme.themeColor
         cellButton.layer.borderWidth = 0
-        cellButton.hippoCornerRadius = cellButton.bounds.height / 2
-        
-        buttonLeadingConstraint.constant = 70
-        buttonTrailingConstraint.constant = 70
+       // cellButton.hippoCornerRadius = cellButton.bounds.height / 2
+        cellButton.titleLabel?.textColor = .white
+        buttonLeadingConstraint.constant = 15
+        buttonTrailingConstraint.constant = 15
     }
     
     

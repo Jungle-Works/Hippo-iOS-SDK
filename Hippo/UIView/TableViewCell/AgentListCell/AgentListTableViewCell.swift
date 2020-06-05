@@ -36,6 +36,7 @@ class AgentListTableViewCell: UITableViewCell { //CoreTabelViewCell {
     
     func setTheme() {
 //        let theme = HippoTheme.theme
+        nameLabel.font = UIFont.regular(ofSize: 17.0)
         nameLabel.textColor = HippoConfig.shared.theme.lightThemeTextColor//theme.label.primary
         backgroundColor = .clear
         horizontalLineView.backgroundColor = UIColor.gray//theme.sepratorColor

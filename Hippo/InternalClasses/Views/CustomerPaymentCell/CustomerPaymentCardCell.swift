@@ -35,7 +35,14 @@ class CustomerPaymentCardCell: UITableViewCell {
     @IBOutlet weak var labelView: UIView!
     @IBOutlet weak var selctionImageView: UIImageView!
     @IBOutlet weak var innerCard: UIView!
-    @IBOutlet weak var bgView: UIView!
+    @IBOutlet weak var bgView: UIView!{
+        didSet{
+            addShadow()
+        }
+    }
+    @IBOutlet weak var label_PaidStatus : UILabel!
+    
+    var isMultiplePaymentCell : Bool?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -47,25 +54,28 @@ class CustomerPaymentCardCell: UITableViewCell {
         selectionStyle = .none
         
         let theme = HippoConfig.shared.theme
-        titleLabel.textColor = theme.titleTextColor
-        titleLabel.font = theme.titleFont
+        titleLabel.textColor = .black
+        titleLabel.font = UIFont.boldSystemFont(ofSize: 15.0)
         titleLabel.numberOfLines = 0
         
         descriptionLabel.textColor = theme.descriptionTextColor
         descriptionLabel.font = theme.descriptionFont
         descriptionLabel.numberOfLines = 0
             
-        amountLabel.textColor = theme.pricingTextColor
+        amountLabel.textColor = theme.descriptionTextColor
         amountLabel.font = theme.pricingFont
         amountLabel.numberOfLines = 0
         
-        innerCard.backgroundColor = UIColor.clear
+        label_PaidStatus.font = UIFont.boldSystemFont(ofSize: 15.0)
+        label_PaidStatus.textColor = .black
+        
+        innerCard.backgroundColor = UIColor.white
         labelView.backgroundColor = UIColor.clear
         backgroundColor = UIColor.clear
 
-        bgView.layer.borderWidth = 1
-        bgView.layer.borderColor = UIColor.black40.cgColor
-        bgView.layer.cornerRadius = 3
+        bgView.layer.borderWidth = 0.2
+        bgView.layer.borderColor = UIColor.lightGray.cgColor
+        bgView.layer.cornerRadius = 6
         bgView.layer.masksToBounds = true
         bgView.backgroundColor = UIColor.white
     }
@@ -78,6 +88,14 @@ class CustomerPaymentCardCell: UITableViewCell {
 extension CustomerPaymentCardCell {
     func set(card: CustomerPayment) {
         setConstraint(config: card.cardConfig)
+        let paidString = card.isPaid ? "\n - PAID -" : "\n - PENDING -"
+        if HippoConfig.shared.appUserType == .agent{
+            setLabel(label: label_PaidStatus, text: paidString)
+        }else if card.isPaid , HippoConfig.shared.appUserType == .customer{
+            setLabel(label: label_PaidStatus, text: paidString)
+        }else{
+            setLabel(label: label_PaidStatus, text: "")
+        }
         
         setLabel(label: titleLabel, text: card.title)
         setLabel(label: descriptionLabel, text: card.description)
@@ -124,4 +142,12 @@ extension CustomerPaymentCardCell {
         self.layoutIfNeeded()
         
     }
+    
+    func addShadow(){
+        bgView.layer.shadowColor = UIColor.black.cgColor
+        bgView.layer.shadowOffset = CGSize(width: bgView.bounds.width, height: 2)
+        bgView.layer.shadowRadius = 6
+        bgView.layer.shadowOpacity = 1
+    }
+    
 }
