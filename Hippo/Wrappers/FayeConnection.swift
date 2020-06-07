@@ -61,7 +61,11 @@ class FayeConnection: NSObject {
         let webSocketState = localFaye?.webSocket?.readyState ?? .CLOSED
         
         if webSocketState != .CONNECTING && webSocketState != .OPEN {
-            localFaye?.connect({}, failure: {_ in })
+            localFaye?.connect({
+                print("faye connected")
+            }, failure: {(error) in
+                print("faye error", error.debugDescription)
+            })
         }
     }
     
