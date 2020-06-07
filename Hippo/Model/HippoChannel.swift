@@ -638,7 +638,7 @@ class HippoChannel {
 //                    self?.signalReceivedFromPeer?(messageDict)
 //                    CallManager.shared.voipNotificationRecieved(payloadDict: messageDict)
 //                }
-//                return
+                return
             }
             
             self?.messageReceived(message: message)
