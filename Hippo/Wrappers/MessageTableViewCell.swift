@@ -79,10 +79,23 @@ class MessageTableViewCell: UITableViewCell {
         if (message.aboveMessageUserId == message.senderId && !isMessageAllowedForImage) {
             unsetImageInSender()
         } else {
-            if let senderImage = message.senderImage, let url = URL(string: senderImage) {
-                setImageInSenderView(imageURL: url)
+//            if let senderImage = message.senderImage, let url = URL(string: senderImage) {
+//                setImageInSenderView(imageURL: url)
+//            }else{
+//                setNameAsTitle(message.senderFullName)
+//            }
+            if HippoConfig.shared.appUserType == .agent{
+                if let senderImage = message.senderImage, senderImage.isEmpty == false, senderImage.contains("http"), let url = URL(string: senderImage) {
+                    setImageInSenderView(imageURL: url)
+                }else{
+                    setNameAsTitle(message.senderFullName)
+                }
             }else{
-                setNameAsTitle(message.senderFullName)
+                if let senderImage = message.senderImage, let url = URL(string: senderImage) {
+                    setImageInSenderView(imageURL: url)
+                }else{
+                    setNameAsTitle(message.senderFullName)
+                }
             }
         }
         

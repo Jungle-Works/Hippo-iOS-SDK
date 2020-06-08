@@ -181,13 +181,24 @@ extension AgentHomeConversationCell {
         guard let data = cellData else {
             return
         }
-        if let unassignedTag = self.getAssignedStatusTag(info: data) {
-            arrayTagList.append(unassignedTag)
-        }
+//        if let unassignedTag = self.getAssignedStatusTag(info: data) {
+//            arrayTagList.append(unassignedTag)
+//        }
+        if data.notificationType == nil{
+            self.getUnassignedTag(data: data)
+        }else if let type = data.notificationType, type == .assigned || type == .message{
+            self.getUnassignedTag(data: data)
+        }else{}
+        
         if let botChannelTag = self.getBotChannelTag(info: data) {
             arrayTagList.append(botChannelTag)
         }
         self.setTagView()
+    }
+    func getUnassignedTag(data: AgentConversation){
+        if let unassignedTag = self.getAssignedStatusTag(info: data) {
+            arrayTagList.append(unassignedTag)
+        }
     }
     func setTagView() {
         setTagViewDefault()
