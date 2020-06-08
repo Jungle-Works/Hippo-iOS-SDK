@@ -278,6 +278,20 @@ func subscribeCustomerUserChannel(userChannelId: String) {
     }
     
     FayeConnection.shared.subscribeTo(channelId: userChannelId, completion: { (success) in
+        if !success{
+            if !FayeConnection.shared.isConnected && FuguNetworkHandler.shared.isNetworkConnected{
+                // wait for faye and try again
+                var retryAttempt = 0
+                fuguDelay(0.5) {
+                    if retryAttempt <= 2{
+                        subscribeCustomerUserChannel(userChannelId: userChannelId)
+                        retryAttempt += 1
+                    }else{
+                        return
+                    }
+                }
+            }
+        }
     }) {  (messageDict) in
         if let messageType = messageDict["message_type"] as? Int, messageType == 18 {
             if let channel_id = messageDict["channel_id"] as? Int{ //isSubscribed(userChannelId: "\(channel_id)") == false {

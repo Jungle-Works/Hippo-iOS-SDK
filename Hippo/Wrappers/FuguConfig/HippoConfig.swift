@@ -897,12 +897,12 @@ struct BotAction {
 //                return
 //            }
 //        }
+        if userInfo["notification_type"] as? Int == 20{
+            return
+        }
         
         switch HippoConfig.shared.appUserType {
         case .agent:
-            if userInfo["notification_type"] as? Int == 20{
-                return
-            }
             handleAgentNotification(userInfo: userInfo)
         case .customer:
             handleCustomerNotification(userInfo: userInfo)
