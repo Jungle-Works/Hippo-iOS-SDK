@@ -330,7 +330,7 @@ public struct ConversationListTheme {
     open var securePaymentTintColor: UIColor?
     open var secureTextFont: UIFont = UIFont.regular(ofSize: 10)
     
-    open var shouldShowBtnOnChatList : Bool = true
+    open var shouldShowBtnOnChatList : Bool = false
     open var chatListRetryBtnText : String = "Retry"
     open var noOpenAndcloseChatError : String = "Seems like you haven't started any chat yet, kick start it now!"
     open var noChatUnderCatagoryError : String = "You have no chats."
