@@ -136,15 +136,13 @@ class AgentUserChannel {
             if let messageType = messageDict["message_type"] as? Int, messageType == 18 {
                 
                 if HippoConfig.shared.appUserType == .agent  {
-                    //                    if versionCode >= 350 {
-                    //                        HippoConfig.shared.log.trace("UserChannel:: --->\(messageDict)", level: .socket)
-                    //                        CallManager.shared.voipNotificationRecieved(payloadDict: messageDict)
-                    //                    }
-                    if let channel_id = messageDict["channel_id"] as? Int{
-                        let channel = FuguChannelPersistancyManager.shared.getChannelBy(id: channel_id)
-                        channel.signalReceivedFromPeer?(messageDict)
-                        HippoConfig.shared.log.trace("UserChannel:: --->\(messageDict)", level: .socket)
-                        CallManager.shared.voipNotificationRecieved(payloadDict: messageDict)
+                    if versionCode >= 350 {
+                        if let channel_id = messageDict["channel_id"] as? Int{
+                            let channel = FuguChannelPersistancyManager.shared.getChannelBy(id: channel_id)
+                           // channel.signalReceivedFromPeer?(messageDict)
+                            HippoConfig.shared.log.trace("UserChannel:: --->\(messageDict)", level: .socket)
+                            CallManager.shared.voipNotificationRecieved(payloadDict: messageDict)
+                        }
                     }
                 }
             }
