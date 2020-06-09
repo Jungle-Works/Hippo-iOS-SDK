@@ -519,27 +519,27 @@ Cache type of a cached image.
     It will be called automatically when `UIApplicationDidEnterBackgroundNotification` received.
     */
     @objc   func backgroundCleanExpiredDiskCache() {
-        // if 'sharedApplication()' is unavailable, then return
-        guard let sharedApplication = Kingfisher<UIApplication>.shared else { return }
-
-        func endBackgroundTask(_ task: inout UIBackgroundTaskIdentifier) {
-            #if swift(>=4.2)
-            sharedApplication.endBackgroundTask(convertToUIBackgroundTaskIdentifier(task.hashValue))
-            task = UIBackgroundTaskIdentifier.invalid
-            #else
-            sharedApplication.endBackgroundTask(task)
-            task = UIBackgroundTaskInvalid
-            #endif
-        }
-        
-        var backgroundTask: UIBackgroundTaskIdentifier!
-        backgroundTask = sharedApplication.beginBackgroundTask {
-            endBackgroundTask(&backgroundTask!)
-        }
-        
-        cleanExpiredDiskCache {
-            endBackgroundTask(&backgroundTask!)
-        }
+//        // if 'sharedApplication()' is unavailable, then return
+//        guard let sharedApplication = Kingfisher<UIApplication>.shared else { return }
+//
+//        func endBackgroundTask(_ task: inout UIBackgroundTaskIdentifier) {
+//            #if swift(>=4.2)
+//            sharedApplication.endBackgroundTask(convertToUIBackgroundTaskIdentifier(task.hashValue))
+//            task = UIBackgroundTaskIdentifier.invalid
+//            #else
+//            sharedApplication.endBackgroundTask(task)
+//            task = UIBackgroundTaskInvalid
+//            #endif
+//        }
+//
+//        var backgroundTask: UIBackgroundTaskIdentifier!
+//        backgroundTask = sharedApplication.beginBackgroundTask {
+//            endBackgroundTask(&backgroundTask!)
+//        }
+//
+//        cleanExpiredDiskCache {
+//            endBackgroundTask(&backgroundTask!)
+//        }
     }
 #endif
 
@@ -693,8 +693,8 @@ extension String {
 }
 
 // Helper function inserted by Swift 4.2 migrator.
-#if swift(>=4.2)
-fileprivate func convertToUIBackgroundTaskIdentifier(_ input: Int) -> UIBackgroundTaskIdentifier {
-	return UIBackgroundTaskIdentifier(rawValue: input)
-}
-#endif
+//#if swift(>=4.2)
+//fileprivate func convertToUIBackgroundTaskIdentifier(_ input: Int) -> UIBackgroundTaskIdentifier {
+//	return UIBackgroundTaskIdentifier(rawValue: input)
+//}
+//#endif
