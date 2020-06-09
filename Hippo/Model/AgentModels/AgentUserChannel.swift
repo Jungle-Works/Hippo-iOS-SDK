@@ -139,7 +139,7 @@ class AgentUserChannel {
                     if versionCode >= 350 {
                         if let channel_id = messageDict["channel_id"] as? Int{
                             let channel = FuguChannelPersistancyManager.shared.getChannelBy(id: channel_id)
-                            channel.signalReceivedFromPeer?(messageDict)
+                           // channel.signalReceivedFromPeer?(messageDict)
                             HippoConfig.shared.log.trace("UserChannel:: --->\(messageDict)", level: .socket)
                             CallManager.shared.voipNotificationRecieved(payloadDict: messageDict)
                         }
