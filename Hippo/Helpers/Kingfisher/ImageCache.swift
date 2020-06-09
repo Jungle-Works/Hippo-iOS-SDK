@@ -62,8 +62,8 @@ Cache type of a cached image.
     case none, memory, disk
 }
 
-/// `ImageCache` represents both the memory and disk cache system of Kingfisher. 
-/// While a default image cache object will be used if you prefer the extension methods of Kingfisher, 
+/// `ImageCache` represents both the memory and disk cache system of Kingfisher.
+/// While a default image cache object will be used if you prefer the extension methods of Kingfisher,
 /// you can create your own cache object and configure it as your need. You could use an `ImageCache`
 /// object to manipulate memory and disk cache for Kingfisher.
  class ImageCache {
@@ -71,9 +71,9 @@ Cache type of a cached image.
     //Memory
     fileprivate let memoryCache = NSCache<NSString, AnyObject>()
     
-    /// The largest cache cost of memory cache. The total cost is pixel count of 
+    /// The largest cache cost of memory cache. The total cost is pixel count of
     /// all cached images in memory.
-    /// Default is unlimited. Memory cache will be purged automatically when a 
+    /// Default is unlimited. Memory cache will be purged automatically when a
     /// memory warning notification is received.
      var maxMemoryCost: UInt = 0 {
         didSet {
@@ -91,12 +91,12 @@ Cache type of a cached image.
     /// The default file extension appended to cached files.
      var pathExtension: String?
     
-    /// The longest time duration in second of the cache being stored in disk. 
+    /// The longest time duration in second of the cache being stored in disk.
     /// Default is 1 week (60 * 60 * 24 * 7 seconds).
     /// Setting this to a negative value will make the disk cache never expiring.
      var maxCachePeriodInSecond: TimeInterval = 60 * 60 * 24 * 7 //Cache exists for 1 week
     
-    /// The largest disk size can be taken for the cache. It is the total 
+    /// The largest disk size can be taken for the cache. It is the total
     /// allocated size of cached files in bytes.
     /// Default is no limit.
      var maxDiskCacheSize: UInt = 0
@@ -118,7 +118,7 @@ Cache type of a cached image.
     /**
     Init method. Passing a name for the cache. It represents a cache folder in the memory and disk.
     
-    - parameter name: Name of the cache. It will be used as the memory cache name and the disk cache folder name 
+    - parameter name: Name of the cache. It will be used as the memory cache name and the disk cache folder name
                       appending to the cache path. This value should not be an empty string.
     - parameter path: Optional - Location of cache path on disk. If `nil` is passed in (the default value),
                       the `.cachesDirectory` in of your app will be used.
@@ -221,7 +221,7 @@ Cache type of a cached image.
     }
     
     /**
-    Remove the image for key for the cache. It will be opted out from both memory and disk. 
+    Remove the image for key for the cache. It will be opted out from both memory and disk.
     It is an async operation.
     
     - parameter key:               Key for the image.
@@ -264,9 +264,9 @@ Cache type of a cached image.
     Get an image for a key from memory or disk.
     
     - parameter key:               Key for the image.
-    - parameter options:           Options of retrieving image. If you need to retrieve an image which was 
+    - parameter options:           Options of retrieving image. If you need to retrieve an image which was
                                    stored with a specified `ImageProcessor`, pass the processor in the option too.
-    - parameter completionHandler: Called when getting operation completes with image result and cached type of 
+    - parameter completionHandler: Called when getting operation completes with image result and cached type of
                                    this image. If there is no such key cached, the image will be `nil`.
     
     - returns: The retrieving task.
@@ -340,7 +340,7 @@ Cache type of a cached image.
     Get an image for a key from memory.
     
     - parameter key:     Key for the image.
-    - parameter options: Options of retrieving image. If you need to retrieve an image which was 
+    - parameter options: Options of retrieving image. If you need to retrieve an image which was
                          stored with a specified `ImageProcessor`, pass the processor in the option too.
     - returns: The image object if it is cached, or `nil` if there is no such key in the cache.
     */
@@ -515,31 +515,31 @@ Cache type of a cached image.
 #if !os(macOS) && !os(watchOS)
     /**
     Clean expired disk cache when app in background. This is an async operation.
-    In most cases, you should not call this method explicitly. 
+    In most cases, you should not call this method explicitly.
     It will be called automatically when `UIApplicationDidEnterBackgroundNotification` received.
     */
     @objc   func backgroundCleanExpiredDiskCache() {
-        // if 'sharedApplication()' is unavailable, then return
-        guard let sharedApplication = Kingfisher<UIApplication>.shared else { return }
-
-        func endBackgroundTask(_ task: inout UIBackgroundTaskIdentifier) {
-            #if swift(>=4.2)
-            sharedApplication.endBackgroundTask(convertToUIBackgroundTaskIdentifier(task.hashValue))
-            task = UIBackgroundTaskIdentifier.invalid
-            #else
-            sharedApplication.endBackgroundTask(task)
-            task = UIBackgroundTaskInvalid
-            #endif
-        }
-        
-        var backgroundTask: UIBackgroundTaskIdentifier!
-        backgroundTask = sharedApplication.beginBackgroundTask {
-            endBackgroundTask(&backgroundTask!)
-        }
-        
-        cleanExpiredDiskCache {
-            endBackgroundTask(&backgroundTask!)
-        }
+//        // if 'sharedApplication()' is unavailable, then return
+//        guard let sharedApplication = Kingfisher<UIApplication>.shared else { return }
+//
+//        func endBackgroundTask(_ task: inout UIBackgroundTaskIdentifier) {
+//            #if swift(>=4.2)
+//            sharedApplication.endBackgroundTask(convertToUIBackgroundTaskIdentifier(task.hashValue))
+//            task = UIBackgroundTaskIdentifier.invalid
+//            #else
+//            sharedApplication.endBackgroundTask(task)
+//            task = UIBackgroundTaskInvalid
+//            #endif
+//        }
+//
+//        var backgroundTask: UIBackgroundTaskIdentifier!
+//        backgroundTask = sharedApplication.beginBackgroundTask {
+//            endBackgroundTask(&backgroundTask!)
+//        }
+//
+//        cleanExpiredDiskCache {
+//            endBackgroundTask(&backgroundTask!)
+//        }
     }
 #endif
 
@@ -597,7 +597,7 @@ Cache type of a cached image.
     }
     
     /**
-    Calculate the disk size taken by cache. 
+    Calculate the disk size taken by cache.
     It is the total allocated size of the cached files in bytes.
     
     - parameter completionHandler: Called with the calculated size when finishes.
@@ -692,9 +692,9 @@ extension String {
     }
 }
 
-// Helper function inserted by Swift 4.2 migrator.
-#if swift(>=4.2)
-fileprivate func convertToUIBackgroundTaskIdentifier(_ input: Int) -> UIBackgroundTaskIdentifier {
-	return UIBackgroundTaskIdentifier(rawValue: input)
-}
-#endif
+//// Helper function inserted by Swift 4.2 migrator.
+//#if swift(>=4.2)
+//fileprivate func convertToUIBackgroundTaskIdentifier(_ input: Int) -> UIBackgroundTaskIdentifier {
+//    return UIBackgroundTaskIdentifier(rawValue: input)
+//}
+//#endif
