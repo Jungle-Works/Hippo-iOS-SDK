@@ -170,6 +170,10 @@ class AgentConversationViewController: HippoConversationViewController {
         }
         AgentConversationManager.getUserUnreadCount()
         reloadVisibleCellsToStartActivityIndicator()
+        
+        let unsendMessage = self.getUnsentMessage()
+        self.setUpLastUnsendMessage(message:unsendMessage)
+        
     }
     
     override func reloadVisibleCellsToStartActivityIndicator() {
@@ -189,6 +193,18 @@ class AgentConversationViewController: HippoConversationViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        
+        if messageTextView.isFirstResponder {
+            messageTextView.resignFirstResponder()
+//            self.bottomSpaceOfFooterView.constant = 0
+        }
+//        var dict = HippoConfig.folder.object(forKey: "StoredUnsendMessages") as? [String: Any] ?? [:]
+//        dict["\(channelId)"] = messageTextView.text
+//        HippoConfig.folder.set(value: dict, forKey: "StoredUnsendMessages")
+        var dict = FuguDefaults.object(forKey: "StoredUnsendMessages") as? [String: Any] ?? [:]
+        dict["\(channelId)"] = messageTextView.text
+        FuguDefaults.set(value: dict, forKey: "StoredUnsendMessages")
+        
     }
     
     override func backButtonClicked() {
@@ -360,7 +376,22 @@ class AgentConversationViewController: HippoConversationViewController {
             self.botActionView.alpha = 1.0
         }
     }
+    
+    func getUnsentMessage() -> String{
+//        let unsentCache = HippoConfig.folder.object(forKey: "StoredUnsendMessages") as? [String: Any]
+        let unsentCache = FuguDefaults.object(forKey: "StoredUnsendMessages") as? [String: Any] ?? [:]
+//        print(unsentCache ?? [:])
+        let value = (unsentCache["\(channelId)"]) ?? ""
+        return value as! String
+    }
 
+    func setUpLastUnsendMessage(message:String){
+        messageTextView.text = message
+        placeHolderLabel.isHidden = !message.isEmpty
+//        manageSendButton()
+        self.sendMessageButton.isEnabled = !message.isEmpty
+    }
+    
     override func addMessageToUIBeforeSending(message: HippoMessage) {
         self.updateMessagesArrayLocallyForUIUpdation(message)
         self.messageTextView.text = ""
@@ -596,8 +627,14 @@ class AgentConversationViewController: HippoConversationViewController {
         var messages = result.newMessages
         let newMessagesHashMap = result.newMessageHashmap
         
+//        label = result.channelName
+//        setNavigationTitle(title: label)
+        let previousLabel = label
         label = result.channelName
         setNavigationTitle(title: label)
+        if previousLabel == "" && label != ""{
+            setTitleForCustomNavigationBar()
+        }
         
         if request.pageStart == 1 && messages.count > 0 {
             filterMessages(newMessagesHashMap: newMessagesHashMap, lastMessage: messages.last!)
@@ -616,10 +653,17 @@ class AgentConversationViewController: HippoConversationViewController {
         if request.pageStart > 1 {
             keepTableViewWhereItWasBeforeReload(oldContentHeight: contentHeightBeforeNewMessages, oldYOffset: contentOffsetBeforeNewMessages)
         }
+//        if result.isSendingDisabled {
+//            disableSendingReply()
+//            setFooterView(isReplyDisabled: result.isSendingDisabled, isBotInProgress: result.isBotInProgress)
+//        }
         if result.isSendingDisabled {
             disableSendingReply()
             setFooterView(isReplyDisabled: result.isSendingDisabled, isBotInProgress: result.isBotInProgress)
+        }else{
+            enableSendingReply()
         }
+        
         if request.pageStart == 1, request.pageEnd == nil {
             newScrollToBottom(animated: true)
             sendReadAllNotification()
@@ -731,7 +775,12 @@ class AgentConversationViewController: HippoConversationViewController {
     class func getWith(channelID: Int, channelName: String) -> AgentConversationViewController {
         let vc = getNewInstance()
         vc.channel = AgentChannelPersistancyManager.shared.getChannelBy(id: channelID)
-        vc.label = channelName
+//        vc.label = channelName
+        if channelName != ""{
+            vc.label = channelName
+        }else{
+            vc.label = vc.channel.chatDetail?.customerName ?? ""
+        }
         return vc
     }
     
