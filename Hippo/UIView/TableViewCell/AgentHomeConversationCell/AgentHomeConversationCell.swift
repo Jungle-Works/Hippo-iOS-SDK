@@ -259,7 +259,12 @@ extension AgentHomeConversationCell {
             }
         } else if let agentName = info.agent_name {
 //                tag = TagBoxInfo(labelText: agentName, textColor: .purpleGrey, containerBackgroundColor: .veryLightBlue, containerBorderColor: UIColor.makeColor(red: 228, green: 228, blue: 237, alpha: 1))
-            tag = TagBoxInfo(labelText: agentName, textColor: .darkGrayColorForTag, containerBackgroundColor: .lightGrayBgColorForTag, containerBorderColor: UIColor.makeColor(red: 228, green: 228, blue: 237, alpha: 1))
+            guard let loginAgent = HippoConfig.shared.agentDetail, loginAgent.id > 0 else {
+                return tag
+            }
+            if loginAgent.agentUserType == .admin{
+                tag = TagBoxInfo(labelText: agentName, textColor: .darkGrayColorForTag, containerBackgroundColor: .lightGrayBgColorForTag, containerBorderColor: UIColor.makeColor(red: 228, green: 228, blue: 237, alpha: 1))
+            }
         }
         return tag
     }

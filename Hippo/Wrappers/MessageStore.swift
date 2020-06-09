@@ -96,6 +96,13 @@ class MessageStore {
                 handleGetMessagesCompletion(for: requestParam, data: data, completion: completion)
             default:
                 HippoConfig.shared.log.error(error?.localizedDescription ?? "", level: .error )
+                if error?.localizedDescription ?? "" == "Access Denied"{
+                    showAlertWith(message: error?.localizedDescription ?? "") {
+                        if let vc = getLastVisibleController(){
+                            vc.dismiss(animated: true, completion: nil)
+                        }
+                    }
+                }
                 handleGetMessageError(response: nil, completion: completion)
             }
         }

@@ -679,20 +679,28 @@ extension AgentHomeViewController: UITableViewDelegate, UITableViewDataSource {
     func updateChannelStatus(for row: Int) {
         if let channelId = conversationList[row].channel_id, let status = conversationList[row].status {
             let newStatus = status == 1 ? 2 : 1
+            self.startLoading()
             AgentConversationManager.updateChannelStatus(for: channelId, newStatus: newStatus) { (result) in
                 guard result.isSuccessful else {
+                    self.stopLoading()
                     showAlertWith(message: HippoConfig.shared.strings.somethingWentWrong, action: nil)
                     return
                 }
-                guard let controllers = self.navigationController?.viewControllers else { return }
+                guard let controllers = self.navigationController?.viewControllers else {
+                    self.stopLoading()
+                    return
+                }
                 for each in controllers {
                     if let vc = each as? HippoHomeViewController {
-                        vc.channelStatusChanged(channelId: channelId, newStatus: ChatStatus(rawValue: newStatus) ?? ChatStatus.open)
-                    break
-                }
-                if let vc = each as? AgentDirectViewController, vc.conversationList.count > 1 {
-                    break
-                }
+//                        vc.channelStatusChanged(channelId: channelId, newStatus: ChatStatus(rawValue: newStatus) ?? ChatStatus.open)
+                        self.stopLoading()
+                        self.deleteConversation(channelId: channelId)
+                        break
+                    }
+                    self.stopLoading()
+                    if let vc = each as? AgentDirectViewController, vc.conversationList.count > 1 {
+                        break
+                    }
                 }
             }
         }

@@ -327,11 +327,18 @@ extension AgentListViewController {
        
         
 //        self.navigationController?.popViewController(animated: true)
+        var isAgentHomeViewController : UIViewController?
         for controller in self.navigationController!.viewControllers as Array {
             if controller.isKind(of: AgentHomeViewController.self) {
-                self.navigationController!.popToViewController(controller, animated: true)
+                isAgentHomeViewController = controller
                 break
             }
+        }
+        if isAgentHomeViewController != nil{
+            self.navigationController!.popToViewController(isAgentHomeViewController!, animated: true)
+        }else{
+//            self.navigationController?.popToRootViewController(animated: true)
+            self.dismiss(animated: true, completion: nil)
         }
         
     }
