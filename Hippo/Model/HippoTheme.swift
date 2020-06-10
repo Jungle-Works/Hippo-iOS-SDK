@@ -177,10 +177,10 @@ public struct ConversationListTheme {
     open var dateTimeFontSize: UIFont? = UIFont.regular(ofSize: 11.0)
     
     open var senderNameColor = UIColor.black40//UIColor.black
-    open var senderNameFont: UIFont = UIFont.regular(ofSize: 15.0)
+    open var senderNameFont: UIFont = UIFont.regular(ofSize: 16.0)
     open var itmDescriptionNameFont: UIFont? = UIFont.regular(ofSize: 14.0)
     open var incomingMsgColor = UIColor.black//UIColor.white//
-    open var incomingMsgFont: UIFont = UIFont.regular(ofSize: 15.0)
+    open var incomingMsgFont: UIFont = UIFont.regular(ofSize: 16.0)
     open var incomingChatBoxColor = UIColor(red: 237/255, green: 237/255, blue: 237/255, alpha: 1)
     open var incomingMsgDateTextColor = UIColor.black40//UIColor.white//
     
@@ -211,7 +211,7 @@ public struct ConversationListTheme {
     open var multiselectUnselectedButtonColor = UIColor(red: 248/255, green: 248/255, blue: 248/255, alpha: 1)
     open var multiselectSelectedButtonColor = UIColor(red: 232/255, green: 236/255, blue: 252/255, alpha:1)
     
-    open var inOutChatTextFont: UIFont = UIFont.regular(ofSize: 15.0)
+    open var inOutChatTextFont: UIFont = UIFont.regular(ofSize: 16.0)
     
     open var timeTextColor = #colorLiteral(red: 0.1725490196, green: 0.137254902, blue: 0.2, alpha: 1)
     
