@@ -373,7 +373,8 @@ public class UserTag: NSObject {
             }
             NotificationCenter.default.post(name: .putUserSuccess, object:self)
 
-            if let isAskPaymentAllowed = userDetailData["is_ask_payment_allowed"] as? Bool, isAskPaymentAllowed == true {
+            let isAskPaymentAllowed = Bool.parse(key: "is_ask_payment_allowed", json: userDetailData, defaultValue: false)
+            if isAskPaymentAllowed == true{
                 let params = getParamsForPaymentGateway()
                 self.getPaymentGateway(withParams: params) { (success) in
                     //guard success == true else { return }
