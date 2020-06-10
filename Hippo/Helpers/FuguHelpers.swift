@@ -297,7 +297,7 @@ func subscribeCustomerUserChannel(userChannelId: String) {
             if let channel_id = messageDict["channel_id"] as? Int{ //isSubscribed(userChannelId: "\(channel_id)") == false {
                 
                 let channel = FuguChannelPersistancyManager.shared.getChannelBy(id: channel_id)
-                channel.signalReceivedFromPeer?(messageDict)
+                //channel.signalReceivedFromPeer?(messageDict)
                 HippoConfig.shared.log.trace("UserChannel:: --->\(messageDict)", level: .socket)
                 CallManager.shared.voipNotificationRecieved(payloadDict: messageDict)
             }
