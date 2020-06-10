@@ -187,8 +187,8 @@ class CallManager {
             }
             let name = user.fullName ?? ""
             let userID = HippoUserDetail.fuguUserID ?? -1
-            
-            return HippoUser(name: name, userID: userID, imageURL: nil)
+            let userImage = user.userImage
+            return HippoUser(name: name, userID: userID, imageURL: userImage?.absoluteString)
         case .agent:
             guard let agentDetail = HippoConfig.shared.agentDetail else {
                 return nil
