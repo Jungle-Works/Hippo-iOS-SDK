@@ -373,9 +373,11 @@ public class UserTag: NSObject {
             }
             NotificationCenter.default.post(name: .putUserSuccess, object:self)
 
-            let params = getParamsForPaymentGateway()
-            self.getPaymentGateway(withParams: params) { (success) in
-                //guard success == true else { return }
+            if let isAskPaymentAllowed = userDetailData["is_ask_payment_allowed"] as? Bool, isAskPaymentAllowed == true {
+                let params = getParamsForPaymentGateway()
+                self.getPaymentGateway(withParams: params) { (success) in
+                    //guard success == true else { return }
+                }
             }
             
             completion?(true, nil)
@@ -432,9 +434,11 @@ public class UserTag: NSObject {
         params["app_version_code"] = versionCode
         params["source"] = HippoSDKSource
         
-        if HippoProperty.current.singleChatApp {
-//            params["neglect_conversations"] = true
-        }
+//        if HippoProperty.current.singleChatApp {
+////            params["neglect_conversations"] = true
+//        }
+        params["neglect_conversations"] = true
+        
         return params
     }
     class func clearAgentData() {

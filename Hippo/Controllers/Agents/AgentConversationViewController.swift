@@ -138,6 +138,9 @@ class AgentConversationViewController: HippoConversationViewController {
         }
         //        infoButton.isHidden = true
         
+        let unsendMessage = self.getUnsentMessage()
+        self.setUpLastUnsendMessage(message:unsendMessage)
+        
         populateTableViewWithChannelData()
         fetchMessagesFrom1stPage()
     }
@@ -165,14 +168,14 @@ class AgentConversationViewController: HippoConversationViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+//        let unsendMessage = self.getUnsentMessage()
+//        self.setUpLastUnsendMessage(message:unsendMessage)
+        
         if !loaderView.isHidden {
             startLoaderAnimation()
         }
         AgentConversationManager.getUserUnreadCount()
         reloadVisibleCellsToStartActivityIndicator()
-        
-        let unsendMessage = self.getUnsentMessage()
-        self.setUpLastUnsendMessage(message:unsendMessage)
         
     }
     
