@@ -881,6 +881,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     override func adjustChatWhenKeyboardIsOpened(withHeight keyboardHeight: CGFloat) {
         // TODO: - Refactor
         guard tableViewChat.contentSize.height + keyboardHeight > UIScreen.main.bounds.height - hieghtOfNavigationBar else {
+            print("return****")
             return
         }
         
@@ -2229,11 +2230,11 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                     return self.getHeightOfActionableMessageAt(indexPath: indexPath, chatObject: message) + heightOfDateLabel
                 case MessageType.feedback:
                     
-                    guard let muid = message.messageUniqueID, var rowHeight: CGFloat = heightForFeedBackCell["\(muid)"] else {
-                        return 0.001
-                    }
-                    rowHeight += 7 //Height for bottom view
-                    return rowHeight
+//                    guard let muid = message.messageUniqueID, var rowHeight: CGFloat = heightForFeedBackCell["\(muid)"] else {
+//                        return 0.001
+//                    }
+                 //   rowHeight += 7 //Height for bottom view
+                    return UIView.tableAutoDimensionHeight
                 case .consent:
                     return message.cellDetail?.cellHeight ?? 0.01
                 case MessageType.call:
@@ -2977,7 +2978,6 @@ extension ConversationsViewController: BotOtgoingMessageCellDelegate {
 extension ConversationsViewController: FeedbackTableViewCellDelegate {
     
     func cellTextViewEndEditing(data: FeedbackParams) {
-        
     }
     func cellTextViewBeginEditing(textView: UITextView, data: FeedbackParams) {
         
@@ -3070,20 +3070,30 @@ extension ConversationsViewController {
 
 extension ConversationsViewController: UIGestureRecognizerDelegate {
 
-     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-            messageTextView.resignFirstResponder()
-            channel?.send(message: HippoMessage.stopTyping, completion: {})
-            let rawLabelID = self.labelId == -1 ? nil : self.labelId
-            let channelID = self.channel?.id ?? -1
-            if let lastMessage = getLastMessage(), let conversationInfo = FuguConversation(channelId: channelID, unreadCount: 0, lastMessage: lastMessage, labelID: rawLabelID) {
-                delegate?.updateConversationWith(conversationObj: conversationInfo)
-            }
-            
-            if gestureRecognizer == self.navigationController?.interactivePopGestureRecognizer{
-                return false
-            }
-            return true
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        messageTextView.resignFirstResponder()
+        channel?.send(message: HippoMessage.stopTyping, completion: {})
+        let rawLabelID = self.labelId == -1 ? nil : self.labelId
+        let channelID = self.channel?.id ?? -1
+        if let lastMessage = getLastMessage(), let conversationInfo = FuguConversation(channelId: channelID, unreadCount: 0, lastMessage: lastMessage, labelID: rawLabelID) {
+            delegate?.updateConversationWith(conversationObj: conversationInfo)
         }
+        
+        //if chat delegate is not set , it doesnot exist in allconversation
+        if delegate == nil{
+            for controller in self.navigationController?.viewControllers ?? [UIViewController](){
+                if controller is AllConversationsViewController{
+                    (controller as? AllConversationsViewController)?.getAllConversations()
+                    break
+                }
+            }
+        }
+        
+        if gestureRecognizer == self.navigationController?.interactivePopGestureRecognizer{
+            return false
+        }
+        return true
+    }
 
 }
 
