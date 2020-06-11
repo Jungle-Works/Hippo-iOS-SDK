@@ -116,35 +116,60 @@ class FeedbackTableViewCell: MessageTableViewCell {
 
     func setDataForAgent(with params: FeedbackParams) {
         self.data = params
+        textviewHeightConstraint?.isActive = true
+        textviewHeightConstraint?.constant = 80
         if let message = params.messageObject {
             super.intalizeCell(with: message, isIncomingView: true)
         }
+        
         data.cellTextView = cellTextView
-        titleLabel.text = data.messageObject!.feedbackMessages.line_before_feedback
-
+        titleLabel.text = "Rating & Review"//data.messageObject!.feedbackMessages.line_before_feedback
+        label_SenderName.text = message?.senderFullName
+        if let senderImage = message?.senderImage, let url = URL(string: senderImage) {
+            image_SenderInsideFeedback.kf.setImage(with: url, placeholder: HippoConfig.shared.theme.placeHolderImage,  completionHandler: {(_, error, _, _) in
+                guard let parsedError = error else {
+                    return
+                }
+                print(parsedError.localizedDescription)
+            })
+        }else{
+            if let parsedName = message?.senderFullName {
+                self.image_SenderInsideFeedback.setTextInImage(string: parsedName, color: UIColor.lightGray, circular: false)
+            } else {
+                self.image_SenderInsideFeedback.image = HippoConfig.shared.theme.placeHolderImage
+            }
+        }
+        
         if params.messageObject!.is_rating_given {
-          //  completionView.isHidden = false
+            //  completionView.isHidden = false
             submitButton.isHidden = true
             cellTextView.isEditable = false
             placeholderLabel.isHidden = true
             constraintSubmitHeight.constant = 0
-
+            view_Rating.isHidden = true
+            view_ReviewSubmitted.isHidden = false
+            cellTextView.layer.borderWidth = 0
+            textviewHeightConstraint?.isActive = false
+            cellTextView.isScrollEnabled = false
+            view_Divider.isHidden = false
             //verticleLineview.isHidden = true
             setDataForCompletedRating(isAgent: true)
         } else {
-           // completionView.isHidden = true
+            // completionView.isHidden = true
             submitButton.isHidden = true
-            cellTextView.isEditable = true
             placeholderLabel.isHidden = true
             cellTextView.isHidden = true
             constraintSubmitHeight.constant = 0
             textviewHeightConstraint.constant = 0
-            //verticleLineview.isHidden = true
+            view_Divider.isHidden = true
+            view_ReviewSubmitted.isHidden = true
+            view_Rating.isHidden = false
+            view_Rating.rating = 5.0
         }
         self.layoutIfNeeded()
         //updateHeightOf(textView: cellTextView)
         //collectionView.reloadData()
-
+        
     }
     
     func setData(params: FeedbackParams) {
@@ -218,6 +243,7 @@ class FeedbackTableViewCell: MessageTableViewCell {
             textviewHeightConstraint.constant = min_height_textview
             cellTextView.isHidden = false
             cellTextView.text = data.messageObject!.comment
+            label_Rating.text = "\(data.messageObject?.rating_given ?? 0)" + "/" + "\(data.messageObject?.total_rating ?? 0)"
             if cellTextView.text.isEmpty {
                 cellTextView.isHidden = true
                 placeholderLabel.isHidden = true
@@ -225,7 +251,7 @@ class FeedbackTableViewCell: MessageTableViewCell {
             }
         } else {
             cellTextView.text = data.messageObject!.comment
-            label_Rating.text = "\(data.messageObject?.rating_given ?? 0)" + "/" + "5"
+            label_Rating.text = "\(data.messageObject?.rating_given ?? 0)" + "/" + "\(data.messageObject?.total_rating ?? 0)"
             if cellTextView.text.isEmpty {
                 placeholderLabel.text = "No Comment..."
                 placeholderLabel.isHidden = false

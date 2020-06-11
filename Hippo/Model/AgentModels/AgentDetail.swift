@@ -159,7 +159,7 @@ class AgentDetail: NSObject {
         dict["phone_number"]  = number
 //        dict["online_status"] = status.rawValue
         dict["agent_type"] = agentUserType.rawValue
-        
+        dict["user_image"] = userImage
         dict["app_type"] = app_type
         if customAttributes != nil {
          dict["self_custom_attributes"] = customAttributes!
