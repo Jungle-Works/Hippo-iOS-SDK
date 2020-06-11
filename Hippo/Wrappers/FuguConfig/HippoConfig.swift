@@ -688,6 +688,19 @@ struct BotAction {
 //            lastVC?.present(conVC, animated: true, completion: nil)
 //        }
     }
+    public func openAgentChatWith(channelId: Int, completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
+            HippoChecker.checkForAgentIntialization { (success, error) in
+                guard success else {
+                    completion(false, error)
+                    return
+                }
+                guard channelId > 0 else {
+                    completion(false, HippoError.invalidInputData)
+                    return
+                }
+                FuguFlowManager.shared.pushAgentConversationViewController(channelId: channelId, channelName: "")
+            }
+    }
     
     internal func validateLogin(completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
         

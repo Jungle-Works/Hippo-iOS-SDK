@@ -32,7 +32,6 @@ class FilterManager: NSObject {
 //    var dateList = [DateFilterInfo]()
 //    var selectedDate: DateFilterInfo?
     
-    
     override init() {
 //        chatTypeArray.removeAll()
         chatStatusArray.removeAll()
@@ -63,6 +62,9 @@ class FilterManager: NSObject {
 //        chatStatusArray.append(labelWithId(label: "Closed chats", id: 2))
         
 //        dateList = DateFilterInfo.initalDate()
+        
+        BussinessProperty.current.isFilterApplied = false
+        
     }
     
 //    private func setChatArray(for type: CurrentScreen) {
@@ -79,6 +81,7 @@ class FilterManager: NSObject {
 //        ConversationManager.sharedInstance.selectedCustomerObject = nil
         FilterManager.shared = FilterManager()
 //        FilterManager.shared.setChatArray(for: LeftSideMenuPresenter.shared.currentScreenActive)
+        BussinessProperty.current.isFilterApplied = false        
     }
     
     

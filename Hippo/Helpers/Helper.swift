@@ -7,6 +7,9 @@
 
 import UIKit
 
+let kFontFirstStr = "<a color='#627de3' contenteditable='false' data-id='197'>"
+let kFontLastStr = "</a>"
+
 class Helper {
     class func formatNumber(number: Double) -> String {
         let numberFormatter = NumberFormatter()

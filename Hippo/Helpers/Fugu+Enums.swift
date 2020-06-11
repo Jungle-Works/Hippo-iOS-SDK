@@ -195,7 +195,8 @@ enum ChatType: Int {
     case generalChat = 5
     
     var isImageViewAllowed: Bool {
-        guard HippoConfig.shared.appUserType == .customer else {
+//        guard HippoConfig.shared.appUserType == .customer else {
+        guard HippoConfig.shared.appUserType == .customer || HippoConfig.shared.appUserType == .agent else {
             return false
         }
         return ChatType.allowedImageViewFor.contains(self)
@@ -399,6 +400,8 @@ enum AgentEndPoints: String {
     case getPaymentPlans = "api/agent/getPaymentPlans"
     case editPaymentPlans = "api/agent/editPaymentPlans"
     case getBotActions = "api/agent/getAllBotActions"
+    
+    case getAgents = "api/agent/getAgents"
 }
 
 enum BroadcastType: String, CaseCountable {

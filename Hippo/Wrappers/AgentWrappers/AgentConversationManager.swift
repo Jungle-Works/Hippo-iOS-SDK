@@ -146,12 +146,15 @@ class AgentConversationManager {
     }
 
 
-    class func agentStatusUpdate(newStatus: AgentStatus) {
-        guard HippoConfig.shared.appUserType == .agent else {
-             return
+//    class func agentStatusUpdate(newStatus: AgentStatus) {
+    class func agentStatusUpdate(newStatus: AgentStatus, completion: @escaping ((_ result: Bool) -> Void)) {
+         guard HippoConfig.shared.appUserType == .agent else {
+            completion(false)
+            return
          }
          guard let agent = HippoConfig.shared.agentDetail, agent.id > 0 else {
-             return
+            completion(false)
+            return
          }
          let param: [String: Any] = [
                 "access_token": agent.fuguToken,
@@ -164,11 +167,13 @@ class AgentConversationManager {
 
         HTTPClient.shared.makeSingletonConnectionWith(method: .POST, identifier: RequestIdenfier.getAllConversationIdentfier,para: param, extendedUrl: AgentEndPoints.agentStatus.rawValue) { (response, error, tag, statusCode) in
             if let _ = error {
+                completion(false)
                 return
             }
             print("newStatus: ",newStatus)
 //            HippoConfig.shared.agentDetail?.status = newStatus
             BussinessProperty.current.agentStatusForToggle = newStatus.rawValue
+            completion(true)
         }
     }
 
@@ -356,9 +361,38 @@ class AgentConversationManager {
         }
     }
     
+//    func getAgentsList(showLoader: Bool = false, completion: @escaping AgentCallBack) {
+    class func getAgentsList(showLoader: Bool = false, completion: @escaping ((_ result: Bool) -> Void)) {
+        
+        guard let accessToken = HippoConfig.shared.agentDetail?.fuguToken, let bussinessId = HippoConfig.shared.agentDetail?.businessId else {
+//            completion(nil)
+            completion(false)
+            return
+        }
+
+        let params: [String : Any] = ["access_token": accessToken,
+                                      "business_id": bussinessId]
+        
+        HippoConfig.shared.log.debug("API_GetAgents.....\(params)", level: .request)
+        HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: AgentEndPoints.getAgents.rawValue) { (response, error, _, statusCode) in
+            
+            guard let responseDict = response as? [String: Any],
+                let statusCode = responseDict["statusCode"] as? Int, statusCode == 200, let data = responseDict["data"] as? [String: Any], let rawAgents = data["agents"] as? [[String: Any]] else {
+                    HippoConfig.shared.log.debug("API_GetAgents ERROR.....\(error?.localizedDescription ?? "")", level: .error)
+                    completion(false)
+                    return
+            }
+            let agents = Agent.getArrayfrom(jsonArray: rawAgents)
+            Business.shared.agents = agents
+            CacheManager.storeAgents(agents: agents)
+//            NotificationCenter.default.post(.init(name: .AgentRefreshed))
+//            completion(agents)
+            completion(true)
+        }
+        
+    }
+    
 }
-
-
 
 //MARK: Params objectssss
 extension AgentConversationManager {

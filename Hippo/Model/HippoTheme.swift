@@ -80,15 +80,25 @@ public struct ConversationListTheme {
     open var informationIcon: UIImage? = UIImage(named: "dots", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     open var audioCallIcon: UIImage? = UIImage(named: "call", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     open var videoCallIcon: UIImage? = UIImage(named: "video", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+
     open var noChatImage : UIImage? = UIImage(named: "noChats", in: FuguFlowManager.bundle, compatibleWith: nil)
-    open var paymentIcon: UIImage? = UIImage(named: "makePayment", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
-    open var botIcon: UIImage? = UIImage(named: "bot", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+    open var paymentIcon: UIImage? = UIImage(named: "makePayment", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysOriginal)
+//    open var paymentIcon: UIImage? = UIImage(named: "makePayment", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+    open var botIcon: UIImage? = UIImage(named: "bot", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysOriginal)
+//    open var botIcon: UIImage? = UIImage(named: "bot", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+    open var alphabetSymbolIcon: UIImage? = UIImage(named: "alphabet_symbol_icon", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysOriginal)
+//    open var alphabetSymbolIcon: UIImage? = UIImage(named: "alphabet_symbol_icon", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+    open var privateInternalNotesIcon: UIImage? = UIImage(named: "private+message_icon_chat_box", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysOriginal)
+//    open var privateInternalNotesIcon: UIImage? = UIImage(named: "private+message_icon_chat_box", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     
     open var missedCallMessageColor: UIColor = UIColor.red
     
 //    open var headerTextFont: UIFont? = UIFont.boldregular(ofSize: 18.0)
     open var ongoingBtnText = "Current"
     open var pastBtnText = "Past"
+    
+    open var myChatBtnText = "My Chats"
+    open var allChatBtnText = "All Chats"
     
     open var headerTextFont: UIFont? = UIFont.bold(ofSize: 17.0)
     open var actionableMessageHeaderTextFont: UIFont? = UIFont.bold(ofSize: 16.0)
@@ -116,7 +126,9 @@ public struct ConversationListTheme {
     open var broadcastBarButtonTextColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
     open var broadcastBarButtonText = String()
     
-    open var filterBarButtonImage: UIImage? = UIImage(named: "filter_button_icon", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+//    open var filterBarButtonImage: UIImage? = UIImage(named: "filter_button_icon", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+    open var filterSelectedBarButtonImage: UIImage? = UIImage(named: "filter_button_icon", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysOriginal)
+    open var filterUnselectedBarButtonImage: UIImage? = UIImage(named: "filter_button_icon_unselected", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysOriginal)
     open var filterBarButtonFont: UIFont? = UIFont.regular(ofSize: 13.0)
     open var filterBarButtonTextColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
     open var filterBarButtonText = String()
@@ -172,6 +184,7 @@ public struct ConversationListTheme {
     open var incomingChatBoxColor = UIColor(red: 237/255, green: 237/255, blue: 237/255, alpha: 1)
     open var incomingMsgDateTextColor = UIColor.black40//UIColor.white//
     
+    open var searchBarBackgroundColor = UIColor(red: 243/255, green: 243/255, blue: 243/255, alpha: 1)
     
     open var missedCallColor = UIColor(red: 237/255, green: 73/255, blue: 124/255, alpha: 1)
     open var callAgainColor = UIColor(red: 59/255, green: 213/255, blue: 178/255, alpha: 1)
@@ -255,6 +268,7 @@ public struct ConversationListTheme {
     
     //MARK: Icons
     open var placeHolderImage = UIImage(named: "placeholderImg", in: FuguFlowManager.bundle, compatibleWith: nil)
+    open var userPlaceHolderImage = UIImage(named: "user_placeholder_icon", in: FuguFlowManager.bundle, compatibleWith: nil)
     open var csvIcon = UIImage(named: "csv", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     open var pdfIcon = UIImage(named: "pdf", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     open var docIcon = UIImage(named: "doc", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
@@ -280,6 +294,9 @@ public struct ConversationListTheme {
     open var openChatIcon =  UIImage(named: "newChat", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     open var cancelIcon =  UIImage(named: "cancel_icon", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     
+    open var availableStatusIcon =  UIImage(named: "available_status_icon", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+    open var awayStatusIcon =  UIImage(named: "away_status_icon", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+    
     //Private icons
     var facebookSourceIcon = UIImage(named: "facebookIcon", in: FuguFlowManager.bundle, compatibleWith: nil)
     var emailSourceIcon = UIImage(named: "emailIntegrationIcon", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
@@ -288,6 +305,10 @@ public struct ConversationListTheme {
     open var sourceIconColor: UIColor = UIColor(red: 34/255, green: 150/255, blue: 255/255, alpha: 1)
     
     //
+    
+    open var ratingFullStar = UIImage(named: "starWithShadow", in: FuguFlowManager.bundle, compatibleWith: nil)
+    open var ratingEmptyStar = UIImage(named: "emptyStar", in: FuguFlowManager.bundle, compatibleWith: nil)
+    
     open var ratingLabelFont: UIFont? = UIFont(name: "HelveticaNeue-Bold", size: 15)
     open var ratingLabelTextFontColor: UIColor = .black
     

@@ -1,3 +1,4 @@
+
 //
 //  CallManager.swift
 //  SDKDemo1
@@ -192,7 +193,7 @@ class CallManager {
             guard let agentDetail = HippoConfig.shared.agentDetail else {
                 return nil
             }
-            return HippoUser(name: agentDetail.fullName, userID: agentDetail.id, imageURL: nil)
+            return HippoUser(name: agentDetail.fullName, userID: agentDetail.id, imageURL: agentDetail.userImage)
         }
     }
     #endif

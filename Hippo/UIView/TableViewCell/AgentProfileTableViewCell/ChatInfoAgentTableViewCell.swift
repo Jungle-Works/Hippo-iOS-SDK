@@ -14,10 +14,13 @@ class ChatInfoAgentTableViewCell: UITableViewCell {
     @IBOutlet weak var agentProfileImage: UIImageView!
     @IBOutlet weak var agentNameLabel: UILabel!
     @IBOutlet weak var namePlaceHolderImage: UIImageView!
+    @IBOutlet weak var assignedToTextLabel: UILabel!
+    @IBOutlet weak var downArrowButton: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         resetData()
+        setFonts()
     }
     
     func setUpData(agentId: Int, agentName: String) -> ChatInfoAgentTableViewCell {
@@ -32,4 +35,10 @@ class ChatInfoAgentTableViewCell: UITableViewCell {
         agentProfileImage.image = UIImage()
         agentNameLabel.text = ""
     }
+    
+    func setFonts(){
+        agentNameLabel.font = UIFont.regular(ofSize: 18.0)
+        assignedToTextLabel.font = UIFont.regular(ofSize: 15.0)
+    }
+
 }

@@ -124,7 +124,20 @@ class AgentUserChannel {
         }
         
         FayeConnection.shared.subscribeTo(channelId: id, completion: { (success) in
-            //            NotificationCenter.default.post(name: .userChannelChanged, object: nil)
+            if !success{
+                if !FayeConnection.shared.isConnected && FuguNetworkHandler.shared.isNetworkConnected{
+                    // wait for faye and try again
+                    var retryAttempt = 0
+                    fuguDelay(0.5) {
+                        if retryAttempt <= 2{
+                            self.subscribe()
+                            retryAttempt += 1
+                        }else{
+                            return
+                        }
+                    }
+                }
+            }
             completion?(success, nil)
         }) { [weak self] (messageDict) in
             guard self != nil else {
@@ -137,8 +150,12 @@ class AgentUserChannel {
                 
                 if HippoConfig.shared.appUserType == .agent  {
                     if versionCode >= 350 {
-                        HippoConfig.shared.log.trace("UserChannel:: --->\(messageDict)", level: .socket)
-                        CallManager.shared.voipNotificationRecieved(payloadDict: messageDict)
+                        if let channel_id = messageDict["channel_id"] as? Int{
+                            let channel = FuguChannelPersistancyManager.shared.getChannelBy(id: channel_id)
+                           // channel.signalReceivedFromPeer?(messageDict)
+                            HippoConfig.shared.log.trace("UserChannel:: --->\(messageDict)", level: .socket)
+                            CallManager.shared.voipNotificationRecieved(payloadDict: messageDict)
+                        }
                     }
                 }
             }

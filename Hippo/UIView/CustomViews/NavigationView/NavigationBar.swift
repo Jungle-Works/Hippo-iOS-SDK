@@ -17,6 +17,8 @@ final class NavigationBar: UIView {
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet var rightButton: UIButton!
     @IBOutlet private weak var image_back : UIImageView!
+    @IBOutlet weak var rightSwitchButtonContainerView: UIView!
+    @IBOutlet weak var rightSwitchButton: UISwitch!
     
     var title: String = "" {
         didSet {
@@ -37,8 +39,6 @@ final class NavigationBar: UIView {
         }
     }
     
-    
-
     override func awakeFromNib() {
         initWithNib()
     }

@@ -67,7 +67,7 @@ class BroadcastInfo: NSObject {
     func createMessageString() {
         let rawAttributedString = NSMutableAttributedString(string: message)
         
-        let font = UIFont.boldSystemFont(ofSize: 15)
+        let font = UIFont.bold(ofSize: 15)//UIFont.boldSystemFont(ofSize: 15)
         let firstNameRange = (message as NSString).range(of: BroadcastInfo.firstNameString)
         let firstNameAttributes = [NSAttributedString.Key.foregroundColor: UIColor.themeColor,
                                    NSAttributedString.Key.font: font]

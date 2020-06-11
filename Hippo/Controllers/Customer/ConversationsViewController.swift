@@ -887,6 +887,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     override func adjustChatWhenKeyboardIsOpened(withHeight keyboardHeight: CGFloat) {
         // TODO: - Refactor
         guard tableViewChat.contentSize.height + keyboardHeight > UIScreen.main.bounds.height - hieghtOfNavigationBar else {
+            print("return****")
             return
         }
         
@@ -2235,11 +2236,11 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                     return self.getHeightOfActionableMessageAt(indexPath: indexPath, chatObject: message) + heightOfDateLabel
                 case MessageType.feedback:
                     
-                    guard let muid = message.messageUniqueID, var rowHeight: CGFloat = heightForFeedBackCell["\(muid)"] else {
-                        return 0.001
-                    }
-                    rowHeight += 7 //Height for bottom view
-                    return rowHeight
+//                    guard let muid = message.messageUniqueID, var rowHeight: CGFloat = heightForFeedBackCell["\(muid)"] else {
+//                        return 0.001
+//                    }
+                 //   rowHeight += 7 //Height for bottom view
+                    return UIView.tableAutoDimensionHeight
                 case .consent:
                     return message.cellDetail?.cellHeight ?? 0.01
                 case MessageType.call:
@@ -2320,7 +2321,7 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
             dateLabel.layer.cornerRadius = 10
             dateLabel.textColor = #colorLiteral(red: 0.3490196078, green: 0.3490196078, blue: 0.4078431373, alpha: 1)
             dateLabel.textAlignment = .center
-            dateLabel.font = UIFont.boldSystemFont(ofSize: 12.0)
+            dateLabel.font = UIFont.bold(ofSize: 12)//UIFont.boldSystemFont(ofSize: 12.0)
             dateLabel.backgroundColor = #colorLiteral(red: 0.9490196078, green: 0.9490196078, blue: 0.9490196078, alpha: 1)
             dateLabel.layer.borderColor = #colorLiteral(red: 0.862745098, green: 0.8784313725, blue: 0.9019607843, alpha: 1).cgColor
             dateLabel.layer.borderWidth = 0.5
@@ -2983,7 +2984,6 @@ extension ConversationsViewController: BotOtgoingMessageCellDelegate {
 extension ConversationsViewController: FeedbackTableViewCellDelegate {
     
     func cellTextViewEndEditing(data: FeedbackParams) {
-        
     }
     func cellTextViewBeginEditing(textView: UITextView, data: FeedbackParams) {
         
@@ -3076,20 +3076,30 @@ extension ConversationsViewController {
 
 extension ConversationsViewController: UIGestureRecognizerDelegate {
 
-     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-            messageTextView.resignFirstResponder()
-            channel?.send(message: HippoMessage.stopTyping, completion: {})
-            let rawLabelID = self.labelId == -1 ? nil : self.labelId
-            let channelID = self.channel?.id ?? -1
-            if let lastMessage = getLastMessage(), let conversationInfo = FuguConversation(channelId: channelID, unreadCount: 0, lastMessage: lastMessage, labelID: rawLabelID) {
-                delegate?.updateConversationWith(conversationObj: conversationInfo)
-            }
-            
-            if gestureRecognizer == self.navigationController?.interactivePopGestureRecognizer{
-                return false
-            }
-            return true
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        messageTextView.resignFirstResponder()
+        channel?.send(message: HippoMessage.stopTyping, completion: {})
+        let rawLabelID = self.labelId == -1 ? nil : self.labelId
+        let channelID = self.channel?.id ?? -1
+        if let lastMessage = getLastMessage(), let conversationInfo = FuguConversation(channelId: channelID, unreadCount: 0, lastMessage: lastMessage, labelID: rawLabelID) {
+            delegate?.updateConversationWith(conversationObj: conversationInfo)
         }
+        
+        //if chat delegate is not set , it doesnot exist in allconversation
+        if delegate == nil{
+            for controller in self.navigationController?.viewControllers ?? [UIViewController](){
+                if controller is AllConversationsViewController{
+                    (controller as? AllConversationsViewController)?.getAllConversations()
+                    break
+                }
+            }
+        }
+        
+        if gestureRecognizer == self.navigationController?.interactivePopGestureRecognizer{
+            return false
+        }
+        return true
+    }
 
 }
 

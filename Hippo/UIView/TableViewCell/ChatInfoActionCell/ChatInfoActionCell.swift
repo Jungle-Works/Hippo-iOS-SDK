@@ -19,6 +19,7 @@ class ChatInfoActionCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        cellLabel.font = UIFont.regular(ofSize: 15.0)
     }
     
 }

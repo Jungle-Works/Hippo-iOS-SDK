@@ -49,7 +49,7 @@ class CardListCell: UICollectionViewCell {
         ratingViewContainer.backgroundColor = .clear
         descriptionLabel.numberOfLines = 2
         ratingLabel.textColor = .white
-        descriptionLabel.font = UIFont.boldSystemFont(ofSize: 11)
+        descriptionLabel.font = UIFont.bold(ofSize: 11)//UIFont.boldSystemFont(ofSize: 11)
         infoImageView.image = theme.infoIcon
         infoImageView.tintColor = theme.infoIconTintColor
         bgView.layer.borderColor = theme.themeColor.cgColor

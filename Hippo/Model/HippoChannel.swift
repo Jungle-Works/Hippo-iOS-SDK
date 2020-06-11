@@ -632,13 +632,15 @@ class HippoChannel {
             guard let message = HippoMessage.createMessage(rawMessage: messageDict, chatType: chatType) else {
                 return
             }
-//            if message.type == .call {
-//              self?.signalReceivedFromPeer?(messageDict)
-//              if HippoConfig.shared.appUserType == .customer  {
-//                    CallManager.shared.voipNotificationRecieved(payloadDict: messageDict)
-//              }
-//                return
-//            }
+            if message.type == .call {
+                if versionCode < 350 && HippoConfig.shared.appUserType == .agent{
+                    DispatchQueue.main.async {
+                        self?.signalReceivedFromPeer?(messageDict)
+                        CallManager.shared.voipNotificationRecieved(payloadDict: messageDict)
+                    }
+                }
+                return
+            }
             
             self?.messageReceived(message: message)
         }
@@ -840,7 +842,7 @@ class HippoChannel {
             FayeConnection.shared.send(messageDict: message.getJsonToSendToFaye(), toChannelID: id.description, completion: {_ in completion?()})
             return
         }
-        if isSendingDisabled {
+        if isSendingDisabled && !(message.type == .feedback){
             print("----sending is disabled")
             return
         }

@@ -66,6 +66,8 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
     var chatType: ChatType = .other
     var keyboardType: responseKeyboardType = .defaultKeyboard
     
+    var taggedUsers: [Int]?
+    
     var wasMessageSendingFailed = false {
         didSet {
             sendingStatusUpdated?()
@@ -190,7 +192,8 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
             for card in cards {
                 height += card.cardHeight
             }
-            return height + 5
+//            return height + 5
+            return height + 9
         case .multipleSelect :
             guard let action = customAction else {
                 return 0.01
@@ -463,7 +466,9 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         attributtedMessage = MessageUIAttributes(message: message, senderName: senderFullName, isSelfMessage: userType.isMyUserType)
     }
     
-    init(message: String, type: MessageType, uniqueID: String? = nil,bot: BotAction? = nil, imageUrl: String? = nil, thumbnailUrl: String? = nil, localFilePath: String? = nil, senderName: String? = nil, senderId: Int? = nil, chatType: ChatType?) {
+//    init(message: String, type: MessageType, uniqueID: String? = nil,bot: BotAction? = nil, imageUrl: String? = nil, thumbnailUrl: String? = nil, localFilePath: String? = nil, senderName: String? = nil, senderId: Int? = nil, chatType: ChatType?) {
+    init(message: String, type: MessageType, uniqueID: String? = nil,bot: BotAction? = nil, imageUrl: String? = nil, thumbnailUrl: String? = nil, localFilePath: String? = nil, taggedUserArray: [Int]? = nil, senderName: String? = nil, senderId: Int? = nil, chatType: ChatType?) {
+
         self.message = message
         self.senderId = senderId ?? currentUserId()
         self.senderFullName = senderName ?? currentUserName()//.formatName()
@@ -485,6 +490,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         self.messageUniqueID = uniqueID
         self.imageUrl = imageUrl
         self.thumbnailUrl = thumbnailUrl
+        self.taggedUsers = taggedUserArray
         self.localImagePath = localFilePath
         
         self.userType = currentUserType()
@@ -540,6 +546,10 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         }
         if let unwrappedMessageIndex = messageUniqueID {
             json["muid"] = unwrappedMessageIndex
+        }
+        
+        if let unwrappedTaggedArray = taggedUsers {
+            json["tagged_users"] = unwrappedTaggedArray
         }
         
         if let tempFileUrl = self.fileUrl {
@@ -1001,7 +1011,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
 struct FeedbackMessage {
     var line_after_feedback_1 = "Your response is recorded"
     var line_after_feedback_2 = "Thank you"
-    var line_before_feedback = "Please give your feedback"//"Please provide feedback for our conversation"
+    var line_before_feedback = "Rating & Review"//"Please provide feedback for our conversation"
     
     init(json: [String: Any]) {
         line_after_feedback_1 = json["line_after_feedback_1"] as? String ?? line_after_feedback_1

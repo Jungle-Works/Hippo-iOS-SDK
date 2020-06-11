@@ -8,6 +8,7 @@
 
 import UIKit
 import Photos
+//import SZMentionsSwift
 
 protocol AgentChatDeleagate: class {
     func updateConversationWith(channelId: Int, lastMessage: HippoMessage, unreadCount: Int)
@@ -16,13 +17,19 @@ protocol AgentChatDeleagate: class {
 
 class AgentConversationViewController: HippoConversationViewController {
     
+    struct IntializationRequest {
+        let config: MessageSendingViewConfig
+        let dataManager: MentionDataManager
+    }
+    
     // MARK: -  IBOutlets
     @IBOutlet weak var backgroundImageView: UIImageView!
-    @IBOutlet weak var audioButton: UIBarButtonItem!
+//    @IBOutlet weak var audioButton: UIBarButtonItem!
     @IBOutlet var backgroundView: UIView!
-    @IBOutlet var backButton: UIButton!
+//    @IBOutlet var backButton: UIButton!
     @IBOutlet var sendMessageButton: UIButton!
-    @IBOutlet var messageTextView: UITextView!
+//    @IBOutlet var messageTextView: UITextView!
+    @IBOutlet var messageTextView: HippoMessageTextView!
     //    @IBOutlet weak var errorContentView: UIView!
     //    @IBOutlet var errorLabel: UILabel!
     @IBOutlet var textViewBgView: UIView!
@@ -31,9 +38,9 @@ class AgentConversationViewController: HippoConversationViewController {
     @IBOutlet var addFileButtonAction: UIButton!
     @IBOutlet var seperatorView: UIView!
     @IBOutlet weak var loaderView: So_UIImageView!
-    @IBOutlet weak var infoButton: UIBarButtonItem!
+//    @IBOutlet weak var infoButton: UIBarButtonItem!
     
-    @IBOutlet weak var videoButton: UIBarButtonItem!
+//    @IBOutlet weak var videoButton: UIBarButtonItem!
     //    @IBOutlet var textViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var bottomContentViewBottomConstraint: NSLayoutConstraint!
     //    @IBOutlet weak var hieghtOfNavigationBar: NSLayoutConstraint!
@@ -62,11 +69,29 @@ class AgentConversationViewController: HippoConversationViewController {
     @IBOutlet weak var collectionViewOptions: UICollectionView!
     @IBOutlet weak var attachmentViewHeightConstraint: NSLayoutConstraint!
 
+    //MARK: - Outlets for MessageSendingView
+    @IBOutlet weak var mentionsListTableView: UITableView!
+    @IBOutlet weak var mentionsListTableViewHeightConstraint: NSLayoutConstraint!
+    
     // MARK: - PROPERTIES
     var heightOfNavigation: CGFloat = 0
     var isSingleChat = false
     var botActionView = BotTableView.loadView(CGRect.zero)
     var custombarbuttonParam : CGFloat = 32.0
+    
+    //MARK: - Variables for MessageSendingView
+    private let animationDuration: TimeInterval = 0.3
+    var maxMentionViewHeight: CGFloat = windowScreenHeight
+    let heightOfTableViewCell: CGFloat = 50
+    private let leadingConstantForSelectedBar: CGFloat = 8
+//    weak var delegate: MessageSendingViewDelegate?
+    private var dataSource: MentionTableDataSourceDelegate!
+    private var dataManager: MentionDataManager!
+    private var mentionListener: MentionListener!
+    private var messageSendingViewConfig: MessageSendingViewConfig = MessageSendingViewConfig()
+//    private var timer: Timer?
+//    var lastUnsendMessage:String?
+    
     // MARK: - Computed Properties
     var localFilePath: String {
         get {
@@ -101,6 +126,7 @@ class AgentConversationViewController: HippoConversationViewController {
         setNavBarHeightAccordingtoSafeArea()
         configureChatScreen()
         self.setTitleForCustomNavigationBar()
+        getAgentsData()
         guard channel != nil else {
             startNewConversation(replyMessage: nil, completion: { [weak self] (success, result) in
                 if success {
@@ -111,6 +137,9 @@ class AgentConversationViewController: HippoConversationViewController {
             return
         }
         //        infoButton.isHidden = true
+        
+        let unsendMessage = self.getUnsentMessage()
+        self.setUpLastUnsendMessage(message:unsendMessage)
         
         populateTableViewWithChannelData()
         fetchMessagesFrom1stPage()
@@ -139,11 +168,15 @@ class AgentConversationViewController: HippoConversationViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+//        let unsendMessage = self.getUnsentMessage()
+//        self.setUpLastUnsendMessage(message:unsendMessage)
+        
         if !loaderView.isHidden {
             startLoaderAnimation()
         }
         AgentConversationManager.getUserUnreadCount()
         reloadVisibleCellsToStartActivityIndicator()
+        
     }
     
     override func reloadVisibleCellsToStartActivityIndicator() {
@@ -163,6 +196,18 @@ class AgentConversationViewController: HippoConversationViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        
+        if messageTextView.isFirstResponder {
+            messageTextView.resignFirstResponder()
+//            self.bottomSpaceOfFooterView.constant = 0
+        }
+//        var dict = HippoConfig.folder.object(forKey: "StoredUnsendMessages") as? [String: Any] ?? [:]
+//        dict["\(channelId)"] = messageTextView.text
+//        HippoConfig.folder.set(value: dict, forKey: "StoredUnsendMessages")
+        var dict = FuguDefaults.object(forKey: "StoredUnsendMessages") as? [String: Any] ?? [:]
+        dict["\(channelId)"] = messageTextView.text
+        FuguDefaults.set(value: dict, forKey: "StoredUnsendMessages")
+        
     }
     
     override func backButtonClicked() {
@@ -177,6 +222,20 @@ class AgentConversationViewController: HippoConversationViewController {
         self.attachmentViewHeightConstraint.constant = 0
     }
     
+//    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+//        guard !mentionsListTableView.isHidden && mentionsListTableViewHeightConstraint.constant > 0 else {
+//            return super.hitTest(point, with: event)
+//        }
+//        let pointForTableView = mentionsListTableView.convert(point, from: self)
+//        if mentionsListTableView.bounds.contains(pointForTableView) {
+//            return mentionsListTableView.hitTest(pointForTableView, with: event)
+//        }
+//
+//        return super.hitTest(point, with: event)
+//    }
+    
+    
+
     func navigationSetUp() {
          setTitleButton()
          if HippoConfig.shared.theme.sendBtnIcon != nil {
@@ -193,7 +252,13 @@ class AgentConversationViewController: HippoConversationViewController {
              addFileButtonAction.setTitle("", for: .normal)
          } else { addFileButtonAction.setTitle("ADD", for: .normal) }
          
-     
+        if HippoConfig.shared.theme.moreOptionsButtonIcon != nil {
+                moreOptionsButton.tintColor = HippoConfig.shared.theme.themeColor
+                moreOptionsButton.setImage(HippoConfig.shared.theme.moreOptionsButtonIcon, for: .normal)
+        
+                moreOptionsButton.setTitle("", for: .normal)
+        } else { moreOptionsButton.setTitle("More Options", for: .normal) }
+        
          if !label.isEmpty {
              setNavigationTitle(title: label)
          } else if let businessName = userDetailData["business_name"] as? String {
@@ -264,31 +329,34 @@ class AgentConversationViewController: HippoConversationViewController {
     
     
     @IBAction func sendMessageButtonAction(_ sender: UIButton) {
-        if channel != nil, !channel.isSubscribed() {
-            buttonClickedOnNetworkOff()
-            return
-        }
-        if isMessageInvalid(messageText: messageTextView.text) {
-            return
-        }
-        let trimmedMessage = messageTextView.text.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+//        if channel != nil, !channel.isSubscribed() {
+//            buttonClickedOnNetworkOff()
+//            return
+//        }
+//        if isMessageInvalid(messageText: messageTextView.text) {
+//            return
+//        }
+//        let trimmedMessage = messageTextView.text.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+//
+//        let message = HippoMessage(message: trimmedMessage, type: .normal, uniqueID: String.generateUniqueId(), chatType: channel?.chatDetail?.chatType)
+//        channel?.unsentMessages.append(message)
+//
+//        if channel != nil {
+//            addMessageToUIBeforeSending(message: message)
+//            self.sendMessage(message: message)
+//        } else {
+//            //TODO: - Loader animation
+//            startNewConversation(replyMessage: nil, completion: { [weak self] (success, result) in
+//                if success {
+//                    self?.populateTableViewWithChannelData()
+//                    self?.addMessageToUIBeforeSending(message: message)
+//                    self?.sendMessage(message: message)
+//                }
+//            })
+//        }
         
-        let message = HippoMessage(message: trimmedMessage, type: .normal, uniqueID: String.generateUniqueId(), chatType: channel?.chatDetail?.chatType)
-        channel?.unsentMessages.append(message)
-        
-        if channel != nil {
-            addMessageToUIBeforeSending(message: message)
-            self.sendMessage(message: message)
-        } else {
-            //TODO: - Loader animation
-            startNewConversation(replyMessage: nil, completion: { [weak self] (success, result) in
-                if success {
-                    self?.populateTableViewWithChannelData()
-                    self?.addMessageToUIBeforeSending(message: message)
-                    self?.sendMessage(message: message)
-                }
-            })
-        }
+        let mentions = messageTextView.isPrivateMode ? mentionListener.mentions : []
+        self.sendButtonClicked(mentions: mentions, message: messageTextView.text, isPrivateMessage: messageTextView.isPrivateMode, config: self.messageSendingViewConfig)
         
     }
 
@@ -317,7 +385,22 @@ class AgentConversationViewController: HippoConversationViewController {
             self.botActionView.alpha = 1.0
         }
     }
+    
+    func getUnsentMessage() -> String{
+//        let unsentCache = HippoConfig.folder.object(forKey: "StoredUnsendMessages") as? [String: Any]
+        let unsentCache = FuguDefaults.object(forKey: "StoredUnsendMessages") as? [String: Any] ?? [:]
+//        print(unsentCache ?? [:])
+        let value = (unsentCache["\(channelId)"]) ?? ""
+        return value as! String
+    }
 
+    func setUpLastUnsendMessage(message:String){
+        messageTextView.text = message
+        placeHolderLabel.isHidden = !message.isEmpty
+//        manageSendButton()
+        self.sendMessageButton.isEnabled = !message.isEmpty
+    }
+    
     override func addMessageToUIBeforeSending(message: HippoMessage) {
         self.updateMessagesArrayLocallyForUIUpdation(message)
         self.messageTextView.text = ""
@@ -553,8 +636,14 @@ class AgentConversationViewController: HippoConversationViewController {
         var messages = result.newMessages
         let newMessagesHashMap = result.newMessageHashmap
         
+//        label = result.channelName
+//        setNavigationTitle(title: label)
+        let previousLabel = label
         label = result.channelName
         setNavigationTitle(title: label)
+        if previousLabel == "" && label != ""{
+            setTitleForCustomNavigationBar()
+        }
         
         if request.pageStart == 1 && messages.count > 0 {
             filterMessages(newMessagesHashMap: newMessagesHashMap, lastMessage: messages.last!)
@@ -573,10 +662,17 @@ class AgentConversationViewController: HippoConversationViewController {
         if request.pageStart > 1 {
             keepTableViewWhereItWasBeforeReload(oldContentHeight: contentHeightBeforeNewMessages, oldYOffset: contentOffsetBeforeNewMessages)
         }
+//        if result.isSendingDisabled {
+//            disableSendingReply()
+//            setFooterView(isReplyDisabled: result.isSendingDisabled, isBotInProgress: result.isBotInProgress)
+//        }
         if result.isSendingDisabled {
             disableSendingReply()
             setFooterView(isReplyDisabled: result.isSendingDisabled, isBotInProgress: result.isBotInProgress)
+        }else{
+            enableSendingReply()
         }
+        
         if request.pageStart == 1, request.pageEnd == nil {
             newScrollToBottom(animated: true)
             sendReadAllNotification()
@@ -688,12 +784,18 @@ class AgentConversationViewController: HippoConversationViewController {
     class func getWith(channelID: Int, channelName: String) -> AgentConversationViewController {
         let vc = getNewInstance()
         vc.channel = AgentChannelPersistancyManager.shared.getChannelBy(id: channelID)
-        vc.label = channelName
+//        vc.label = channelName
+        if channelName != ""{
+            vc.label = channelName
+        }else{
+            vc.label = vc.channel.chatDetail?.customerName ?? ""
+        }
         return vc
     }
     
     private class func getNewInstance() -> AgentConversationViewController {
-        let storyboard = UIStoryboard(name: "FuguUnique", bundle: FuguFlowManager.bundle)
+//        let storyboard = UIStoryboard(name: "FuguUnique", bundle: FuguFlowManager.bundle)
+        let storyboard = UIStoryboard(name: "AgentSdk", bundle: FuguFlowManager.bundle)
         let vc = storyboard.instantiateViewController(withIdentifier: "AgentConversationViewController") as! AgentConversationViewController
         return vc
     }
@@ -720,6 +822,7 @@ extension AgentConversationViewController {
             view_Navigation.video_button.setImage(UIImage(), for: .normal)
             view_Navigation.video_button.isEnabled = false
         }
+        view_Navigation.video_button.addTarget(self, action: #selector(videoCallButtonClicked(_:)), for: .touchUpInside)
     }
     
     func handleAudioIcon() {
@@ -737,7 +840,7 @@ extension AgentConversationViewController {
             view_Navigation.call_button.isEnabled = false
             view_Navigation.call_button.isHidden = true
         }
-        
+        view_Navigation.call_button.addTarget(self, action: #selector(audioButtonClicked(_:)), for: .touchUpInside)
     }
     
     func handleInfoIcon() {
@@ -792,7 +895,8 @@ extension AgentConversationViewController {
         self.messageTextView.textColor = HippoConfig.shared.theme.typingTextColor
         self.messageTextView.backgroundColor = .clear
         self.messageTextView.tintColor = HippoConfig.shared.theme.messageTextViewTintColor//
-        placeHolderLabel.text = HippoConfig.shared.strings.messagePlaceHolderText
+//        placeHolderLabel.text = HippoConfig.shared.strings.messagePlaceHolderText
+        placeHolderLabel.text = HippoStrings.normalMessagePlaceHolderWithoutCannedMessage
         hideErrorMessage()
         sendMessageButton.isEnabled = false
         
@@ -806,11 +910,13 @@ extension AgentConversationViewController {
             backgroundImageView.image = HippoConfig.shared.theme.chatbackgroundImage
             backgroundImageView.contentMode = .scaleToFill
         }
-        
+
+        self.attachments.append(Attachment(icon : HippoConfig.shared.theme.alphabetSymbolIcon  , title : "Text"))
+        self.attachments.append(Attachment(icon : HippoConfig.shared.theme.privateInternalNotesIcon  , title : "Internal Notes"))
         if BussinessProperty.current.isAskPaymentAllowed{
             self.attachments.append(Attachment(icon : HippoConfig.shared.theme.paymentIcon , title : "Payment"))
         }
-        self.attachments.append(Attachment(icon : HippoConfig.shared.theme.botIcon  , title : "Bot"))
+//        self.attachments.append(Attachment(icon : HippoConfig.shared.theme.botIcon  , title : "Bot"))
         
         self.newConversationCountButton.roundCorner(cornerRect: [.topLeft, .bottomLeft], cornerRadius: 5)
         self.newConversationShadow.layer.cornerRadius = 5
@@ -820,6 +926,12 @@ extension AgentConversationViewController {
         
         self.navigationController?.interactivePopGestureRecognizer?.delegate = self
         
+    }
+    
+    func getAgentsData() {
+        AgentConversationManager.getAgentsList(showLoader: false) {[weak self] (_) in
+            self?.intalizeMessageSendingView()
+        }
     }
     
     func addTapGestureInTableView() {
@@ -872,7 +984,10 @@ extension AgentConversationViewController {
     }
     
     func configureFooterView() {
-        textViewBgView.backgroundColor = .white
+//        textViewBgView.backgroundColor = .white
+        let isPrivate = messageTextView.isPrivateMode
+        textViewBgView.backgroundColor = isPrivate ? HippoConfig.shared.theme.privateNoteChatBoxColor : UIColor.white
+//        messageTextView.tintColor = isPrivate ? UIColor(red: 0/255, green: 122/255, blue: 255/255, alpha: 1) : UIColor.black
 //        bottomContentView.backgroundColor = .white
         if isObserverAdded == false {
             textViewBgView.layoutIfNeeded()
@@ -1062,38 +1177,396 @@ extension AgentConversationViewController {
     //        return cellTotalHeight
     //    }
 
+//    func expectedHeight(OfMessageObject chatMessageObject: HippoMessage) -> CGFloat {
+//        let isProfileImageEnabled: Bool = channel?.chatDetail?.chatType.isImageViewAllowed ?? (labelId > 0)
+//        let isOutgoingMsg = isSentByMe(senderId: chatMessageObject.senderId) && chatMessageObject.type != .card
+//        var availableWidthSpace = FUGU_SCREEN_WIDTH - CGFloat(60 + 10) - CGFloat(10 + 5)
+//        availableWidthSpace -= (isProfileImageEnabled && !isOutgoingMsg) ? 35 : 0
+//        let availableBoxSize = CGSize(width: availableWidthSpace,
+//                                      height: CGFloat.greatestFiniteMagnitude)
+//        var cellTotalHeight: CGFloat = 5 + 2.5 + 3.5 + 12 + 7 + 23
+//        if isOutgoingMsg == true {
+//            let messageString = chatMessageObject.message
+//            #if swift(>=4.0)
+//            var attributes: [NSAttributedString.Key: Any]?
+//            attributes = [NSAttributedString.Key.font: HippoConfig.shared.theme.inOutChatTextFont]
+//            if messageString.isEmpty == false {
+//                cellTotalHeight += messageString.boundingRect(with: availableBoxSize, options: .usesLineFragmentOrigin, attributes: attributes, context: nil).size.height
+//            }
+//            #else
+//            var attributes: [String: Any]?
+//            if let applicableFont = HippoConfig.shared.theme.inOutChatTextFont {
+//                attributes = [NSFontAttributeName: applicableFont]
+//            }
+//            if messageString.isEmpty == false {
+//                cellTotalHeight += messageString.boundingRect(with: availableBoxSize, options: .usesLineFragmentOrigin, attributes: attributes, context: nil).size.height
+//            }
+//            #endif
+//        } else {
+//            let incomingAttributedString = Helper.getIncomingAttributedStringWithLastUserCheck(chatMessageObject: chatMessageObject)
+//            cellTotalHeight += incomingAttributedString.boundingRect(with: availableBoxSize, options: .usesLineFragmentOrigin, context: nil).size.height
+//        }
+//        return cellTotalHeight
+//    }
     func expectedHeight(OfMessageObject chatMessageObject: HippoMessage) -> CGFloat {
         let isProfileImageEnabled: Bool = channel?.chatDetail?.chatType.isImageViewAllowed ?? (labelId > 0)
+        
         let isOutgoingMsg = isSentByMe(senderId: chatMessageObject.senderId) && chatMessageObject.type != .card
+        
         var availableWidthSpace = FUGU_SCREEN_WIDTH - CGFloat(60 + 10) - CGFloat(10 + 5)
         availableWidthSpace -= (isProfileImageEnabled && !isOutgoingMsg) ? 35 : 0
+        
         let availableBoxSize = CGSize(width: availableWidthSpace,
-                                      height: CGFloat.greatestFiniteMagnitude)
+       height: CGFloat.greatestFiniteMagnitude)
+        
+        
+        
         var cellTotalHeight: CGFloat = 5 + 2.5 + 3.5 + 12 + 7 + 23
+      
         if isOutgoingMsg == true {
+            
             let messageString = chatMessageObject.message
+            
             #if swift(>=4.0)
             var attributes: [NSAttributedString.Key: Any]?
             attributes = [NSAttributedString.Key.font: HippoConfig.shared.theme.inOutChatTextFont]
+            
             if messageString.isEmpty == false {
                 cellTotalHeight += messageString.boundingRect(with: availableBoxSize, options: .usesLineFragmentOrigin, attributes: attributes, context: nil).size.height
             }
+            
             #else
             var attributes: [String: Any]?
             if let applicableFont = HippoConfig.shared.theme.inOutChatTextFont {
                 attributes = [NSFontAttributeName: applicableFont]
             }
+            
             if messageString.isEmpty == false {
                 cellTotalHeight += messageString.boundingRect(with: availableBoxSize, options: .usesLineFragmentOrigin, attributes: attributes, context: nil).size.height
             }
             #endif
+            
         } else {
             let incomingAttributedString = Helper.getIncomingAttributedStringWithLastUserCheck(chatMessageObject: chatMessageObject)
             cellTotalHeight += incomingAttributedString.boundingRect(with: availableBoxSize, options: .usesLineFragmentOrigin, context: nil).size.height
         }
+        
         return cellTotalHeight
     }
+
     
+    //MARK: - funcs for MessageSendingView
+    func intalizeMessageSendingView() {
+        var config = MessageSendingViewConfig()
+        
+//        if channel?.channelInfo?.chatType == .o2o {
+        if channel?.chatDetail?.chatType == .o2o {
+            config.normalMessagePlaceHolder = HippoStrings.normalMessagePlaceHolderWithoutCannedMessage
+        }
+        
+        let dataManager = MentionDataManager(mentions: Business.shared.agents)
+        let request = IntializationRequest(config: config, dataManager: dataManager)
+        self.messageSendingViewConfig = request.config
+        self.dataManager = request.dataManager
+        self.setUpUI()
+        self.intalizeMention()
+    }
+    fileprivate func setUpUI() {
+        setupTableView()
+        setupTextView()
+//        setActionButtonUI()
+        enableNormalMessage(isInital: true)
+//        setEditMessageText()
+//        bottomContainer.backgroundColor = HippoTheme.theme.chatBox.chatBackgroundColor
+//        viewsContainer.backgroundColor =  HippoTheme.theme.chatBox.chatBackgroundColor
+        updateDefaultTextAttributes()
+//        setEditCancelMessageButton()
+//        let showBottomBar: Bool = config.showBottomBar()
+//        bottomContainerHeightConstraint.constant = showBottomBar ? config.bottomBarHeight : 0
+//        bottomContainer.isHidden = !showBottomBar
+//        textViewContainer.isHidden = config.hideMessageBox
+//        delegate?.updateMessContainerHeight(height: getHeightForTheView())
+    }
+    func setupTableView() {
+        mentionsListTableView.isHidden = true
+        mentionsListTableViewHeightConstraint.constant = 0
+        let bundle = FuguFlowManager.bundle
+        mentionsListTableView.register(UINib(nibName: "AgentListTableViewCell", bundle: bundle), forCellReuseIdentifier: "AgentListTableViewCell")
+        dataSource = MentionTableDataSourceDelegate(mentions: dataManager?.filteredMentions ?? [], delegate: self)
+        mentionsListTableView.delegate = dataSource
+        mentionsListTableView.dataSource = dataSource
+    }
+    func setupTextView() {
+//        delegate?.updateMessContainerHeight(height: getHeightForTheView())
+//        messageTextView.imagePasteDelegate = self
+//        messageTextView.backgroundColor = UIColor.clear
+//        messageTextView.textContainerInset.bottom = 0
+//        messageTextView.textContainerInset.top = 3
+//        setEditMessageText()
+    }
+//    fileprivate func setEditMessageText() {
+//        guard let editMessage = config.editMessage, config.mode == .editMessage else {
+//            return
+//        }
+//        messageTextView.text = editMessage.message
+//        placeHolderLabel.isHidden = !editMessage.message.isEmpty
+//        manageSendButton()
+//    }
+//    func manageSendButton() {
+//        sendMessageButton.isHidden = !messageTextView.hasText
+//    }
+//    fileprivate func setActionButtonUI() {
+//        takeOverButtonContainer.backgroundColor = HippoConfig.shared.theme.headerBackgroundColor
+//        takeOverButton.backgroundColor = HippoConfig.shared.theme.themeTextcolor
+//        takeOverButton.setTitleColor(HippoConfig.shared.theme.themeColor, for: .normal)
+//        takeOverButton.setTitle(HippoConfig.shared.theme.takeOverButtonText, for: .normal)
+//    }
+    fileprivate func enableNormalMessage(isInital: Bool = false) {
+        guard messageTextView.isPrivateMode || isInital else {
+            return
+        }
+        resetMention()
+//        selectedBarLeadingConstraint.constant = normalMessageButton.frame.minX + leadingConstantForSelectedBar
+        animateConstraintChanges()
+        if messageTextView.isPrivateMode {
+            messageTextView.isPrivateMode = false
+        }
+        updateUIAsPerMessageType()
+    }
+    func resetMention() {
+        mentionListener?.reset()
+    }
+    func animateConstraintChanges(completion: (() -> Void)? = nil) {
+        UIView.animate(withDuration: animationDuration, delay: 0, options: UIView.AnimationOptions.curveEaseOut, animations: {
+//            self.layoutIfNeeded()
+        }, completion: { _ in
+            completion?()
+        })
+    }
+    func updateUIAsPerMessageType() {
+        let isPrivate = messageTextView.isPrivateMode
+//        let isForwardSlashAllowed =  Business.shared.properties.isForwardSlashAllowed
+        let isForwardSlashAllowed =  false
+        addFileButtonAction.isHidden = isPrivate
+//        cannedButton.isHidden = isPrivate || config.shouldHideBottonButtons()
+//        botButton.isHidden = isPrivate || config.shouldHideBottonButtons()
+        let isBotButtonHidden = isPrivate || self.messageSendingViewConfig.shouldHideBottonButtons()
+        
+            if isBotButtonHidden == true{
+                    self.attachments.remove(at: 3)
+            }else{
+                self.attachments.append(Attachment(icon : HippoConfig.shared.theme.botIcon  , title : "Bot"))
+            }
+            collectionViewOptions.reloadData()
+        
+        textViewBgView.backgroundColor = isPrivate ? HippoConfig.shared.theme.privateNoteChatBoxColor : UIColor.white
+//        messageTextView.tintColor = isPrivate ? UIColor(red: 0/255, green: 122/255, blue: 255/255, alpha: 1) : UIColor.black
+//        placeHolderLabel.textColor = isPrivate ? theme.chatBox.privateMessageTheme.placeholderColor : theme.label.primary
+        placeHolderLabel.text = isPrivate ?  self.messageSendingViewConfig.privateMessagePlaceHolder : ( isForwardSlashAllowed ? self.messageSendingViewConfig.normalMessagePlaceHolder : self.messageSendingViewConfig.normalMessagePlaceHolderWithoutCannedMessage)
+        textViewDidChange(messageTextView)
+        updateDefaultTextAttributes()
+    }
+    func updateDefaultTextAttributes() {
+        let isPrivate = messageTextView.isPrivateMode
+        let defaultParam = messageSendingViewConfig.createDefaultAttributeds(for: isPrivate)
+        mentionListener?.updateDefaultTextAttributes(newAttributes: defaultParam)
+    }
+//    fileprivate func setEditCancelMessageButton() {
+//        let isEditEnabled = config.mode == .editMessage && config.editMessage != nil
+//        cancelEditButton.isHidden = !isEditEnabled
+//        cancelEditButtonWidthConstraint.constant = isEditEnabled ? 56 : 0
+//        textViewContainer.layoutIfNeeded()
+//    }
+    func intalizeMention() {
+        mentionListener = MentionListener(mentionsTextView: messageTextView, delegate: self, mentionTextAttributes: { (c) -> [AttributeContainer] in
+            return self.messageSendingViewConfig.mentionAttributes
+        }, defaultTextAttributes: messageSendingViewConfig.defaultAttributes, spaceAfterMention: true, triggers: messageSendingViewConfig.allowedMentionForPrivate, cooldownInterval: 0, searchSpaces: true, hideMentions: {
+            print("+++++++++")
+            DispatchQueue.main.async {
+                self.hideMentionsList()
+            }
+        }, didHandleMentionOnReturn: { () -> Bool in
+            print("------")
+            return false
+        }, showMentionsListWithString: {[weak self] (mentionString, triggerString) in
+            //hanlde string
+            guard let weakSelf = self else {
+                return
+            }
+            DispatchQueue.main.async {
+                weakSelf.handleMentionTableFor(mentionString: mentionString, triggerString: triggerString)
+            }
+        })
+        updateDefaultTextAttributes()
+    }
+    fileprivate func enablePrivateNote() {
+        guard !messageTextView.isPrivateMode else {
+            return
+        }
+        resetMention()
+//        selectedBarLeadingConstraint.constant = privateNoteButton.frame.minX + leadingConstantForSelectedBar
+        animateConstraintChanges()
+        messageTextView.isPrivateMode = true
+        updateUIAsPerMessageType()
+    }
+    fileprivate func handleMentionTableFor(mentionString: String, triggerString: String) {
+//        guard triggerString != "/" else {
+//            handleSavedReplies(mentionString)
+//            return
+//        }
+        guard messageSendingViewConfig.isMentionEnabled, messageTextView.isPrivateMode else {
+            return
+        }
+        let filteredMentions = dataManager.filterMentions(with: mentionString)
+        let wasPreviouslyHidden = self.mentionsListTableViewHeightConstraint.constant == 0
+        let expectedHeight = CGFloat(filteredMentions.count) * heightOfTableViewCell
+        let actualHeight = min(maxMentionViewHeight, expectedHeight)
+//        self.mentionsListTableViewHeightConstraint.constant = actualHeight
+        if actualHeight > tableViewChat.frame.height{
+            self.mentionsListTableViewHeightConstraint.constant = tableViewChat.frame.height - 100
+        }else{
+            self.mentionsListTableViewHeightConstraint.constant = actualHeight
+        }
+        dataSource.updateMentions(newMentions: filteredMentions)
+        mentionsListTableView.reloadData()
+        if filteredMentions.count != 0 {
+            mentionsListTableView.isHidden = false
+        }
+        animateConstraintChanges {
+            guard wasPreviouslyHidden else {
+                return
+            }
+            self.mentionsListTableView.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
+        }
+    }
+    
+    func sendButtonClicked(mentions: [Mention], message: String, isPrivateMessage isPrivate: Bool, config: MessageSendingViewConfig) {
+//        if config.mode == .editMessage {
+//            editMessage(mentions: mentions, message: message, isPrivateMessage: isPrivate, config: config)
+//            return
+//        }
+//        guard isAgentCanSendMsg else {
+//            self.assignAlertView.shakeAnimation()
+//            return
+//        }
+//        googleAnalytics(category: Category_Chat_Screen, action: Action_Send_Button_Clicked, label: Label_Send_Chat)
+//        self.isTaggingStart = false
+//        let messageString = messageTextView.text.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+//        guard !messageString.isEmpty else {
+//            showNoMessageAlert()
+//            return
+//        }
+//        if channelId == -1 {
+//            messageSendingView?.disableSendButton()
+//            self.startNewConversation() {[weak self] (result) in
+//                guard result else {
+//                    self?.messageSendingView?.enableSendButton()
+//                    return
+//                }
+//                self?.sendMessageToFaye(mentions: mentions, messageString: messageString, isPrivate: isPrivate)
+//                self?.messageSendingView?.enableSendButton()
+//            }
+//        } else {
+//            self.sendMessageToFaye(mentions: mentions, messageString: messageString, isPrivate: isPrivate)
+//        }
+    
+       if channel != nil, !channel.isSubscribed() {
+            buttonClickedOnNetworkOff()
+            return
+        }
+        if isMessageInvalid(messageText: messageTextView.text) {
+            return
+        }
+        let trimmedMessage = messageTextView.text.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+
+//        let message = HippoMessage(message: trimmedMessage, type: .normal, uniqueID: String.generateUniqueId(), chatType: channel?.chatDetail?.chatType)
+//        channel?.unsentMessages.append(message)
+
+        if channel != nil {
+//            addMessageToUIBeforeSending(message: message)
+//            self.sendMessage(message: message)
+            self.sendMessageToFaye(mentions: mentions, messageString: trimmedMessage, isPrivate: isPrivate)
+        } else {
+            //TODO: - Loader animation
+            startNewConversation(replyMessage: nil, completion: { [weak self] (success, result) in
+                if success {
+                    self?.populateTableViewWithChannelData()
+//                    self?.addMessageToUIBeforeSending(message: message)
+//                    self?.sendMessage(message: message)
+                    self?.sendMessageToFaye(mentions: mentions, messageString: trimmedMessage, isPrivate: isPrivate)
+                }
+            })
+        }
+    }
+    func sendMessageToFaye(mentions: [Mention], messageString: String, isPrivate: Bool) {
+        guard channelId >= 0, currentUserId() >= 0 else {
+            return
+        }
+        let (text, ids) = addTag(mentions: mentions, messageString: messageString)
+        let messageType = isPrivate ? MessageType.privateNote : MessageType.normal
+        let muid = generateUniqueId()
+        resetVariables()
+        let message = HippoMessage(message: text, type: messageType, uniqueID: muid, taggedUserArray: ids, chatType: chatType)
+        
+        channel?.unsentMessages.append(message)
+        addMessageToUIBeforeSending(message: message)
+        
+//        publishMessageOnChannel(message: message)
+        self.sendMessage(message: message)
+    }
+//    func publishMessageOnChannel(message: HippoMessage) {
+//        if channelId == -1 {
+//            self.startNewConversation() {[weak self] (result) in
+//                self?.channel?.send(message: message, completion: {})
+//            }
+//        } else {
+//            channel?.send(message: message, completion: {})
+//        }
+//    }
+    func addTag(mentions: [Mention], messageString: String) -> (String, [Int]) {
+        var finalString: NSString = ""
+        var ids: [Int] = []
+        finalString = (messageTextView.text ?? "").trimWhiteSpacesAndNewLine() as NSString
+        let filteredMention = mentions.sorted { (m1, m2) -> Bool in
+            return m1.range.location > m2.range.location
+        }
+        for mention in filteredMention {
+            guard let agent = mention.object as? Agent else {
+                continue
+            }
+//            finalString = finalString.replacingOccurrences(of: agent.mentionName, with: agent.attributedFullName!, options: .regularExpression, range: mention.range) as NSString
+            guard let id = agent.userId else {
+                continue
+            }
+            if !ids.contains(id) {
+              ids.append(id)
+            }
+        }
+        return (finalString as String, ids)
+    }
+    func resetVariables() {
+        resetVariablesToDefault()
+        typingMessageValue = TypingMessage.startTyping.rawValue
+//        taggedAgentArray.removeAll()
+    }
+    func resetVariablesToDefault() {
+        messageTextView.text = ""
+        resetMention()
+        hideMentionsList()
+        textViewDidChange(messageTextView)
+    }
+    fileprivate func hideMentionsList() {
+       self.mentionsListTableViewHeightConstraint.constant = 0
+       animateConstraintChanges()
+    }
+    
+}
+
+// MARK: - MentionTableDelegate
+extension AgentConversationViewController: MentionTableDelegate {
+    func mentionSelected(_ agent: Agent) {
+        mentionListener.addMention(agent)
+    }
 }
 
 // MARK: - UIScrollViewDelegate
@@ -1378,10 +1851,11 @@ extension AgentConversationViewController: UITableViewDelegate, UITableViewDataS
                 case MessageType.imageFile:
                     return 288
                 case MessageType.normal, .privateNote, .botText:
-                    var rowHeight = expectedHeight(OfMessageObject: message)
-                    rowHeight += returnRetryCancelButtonHeight(chatMessageObject: message)
-                    rowHeight += getTopDistanceOfCell(atIndexPath: indexPath)
-                    return rowHeight
+//                    var rowHeight = expectedHeight(OfMessageObject: message)
+//                    rowHeight += returnRetryCancelButtonHeight(chatMessageObject: message)
+//                    rowHeight += getTopDistanceOfCell(atIndexPath: indexPath)
+//                    return rowHeight
+                    return UIView.tableAutoDimensionHeight
                 case .attachment:
                     switch message.concreteFileType! {
                         
@@ -1403,11 +1877,12 @@ extension AgentConversationViewController: UITableViewDelegate, UITableViewDataS
                 case .multipleSelect:
                     return message.calculatedHeight ?? 0.01
                 case .feedback:
-                    guard let muid = message.messageUniqueID, var rowHeight: CGFloat = heightForFeedBackCell["\(muid)"] else {
-                        return 0.001
-                    }
-                    rowHeight += 7 //Height for bottom view
-                    return rowHeight
+                    return UIView.tableAutoDimensionHeight
+//                    guard let muid = message.messageUniqueID, var rowHeight: CGFloat = heightForFeedBackCell["\(muid)"] else {
+//                        return 0.001
+//                    }
+//                    rowHeight += 7 //Height for bottom view
+//                    return rowHeight
                 case .paymentCard:
                     return message.calculatedHeight ?? 0.01
                 default:
@@ -1509,7 +1984,7 @@ extension AgentConversationViewController: UITableViewDelegate, UITableViewDataS
         dateLabel.layer.cornerRadius = 10
         dateLabel.textColor = #colorLiteral(red: 0.3490196078, green: 0.3490196078, blue: 0.4078431373, alpha: 1)
         dateLabel.textAlignment = .center
-        dateLabel.font = UIFont.boldSystemFont(ofSize: 12.0)
+        dateLabel.font = UIFont.bold(ofSize: 12)//UIFont.boldSystemFont(ofSize: 12.0)
         dateLabel.backgroundColor = #colorLiteral(red: 0.9490196078, green: 0.9490196078, blue: 0.9490196078, alpha: 1)
         dateLabel.layer.borderColor = #colorLiteral(red: 0.862745098, green: 0.8784313725, blue: 0.9019607843, alpha: 1).cgColor
         dateLabel.layer.borderWidth = 0.5
@@ -1668,7 +2143,10 @@ extension AgentConversationViewController: UITextViewDelegate {
         
         placeHolderLabel.textColor = #colorLiteral(red: 0.2862745098, green: 0.2862745098, blue: 0.2862745098, alpha: 0.8)
         textInTextField = textView.text
-        textViewBgView.backgroundColor = .white
+//        textViewBgView.backgroundColor = .white
+        let isPrivate = messageTextView.isPrivateMode
+        textViewBgView.backgroundColor = isPrivate ? HippoConfig.shared.theme.privateNoteChatBoxColor : UIColor.white
+//        messageTextView.tintColor = isPrivate ? UIColor(red: 0/255, green: 122/255, blue: 255/255, alpha: 1) : UIColor.black
 //        bottomContentView.backgroundColor = .white
         timer = Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(self.watcherOnTextView), userInfo: nil, repeats: true)
         
@@ -1676,7 +2154,10 @@ extension AgentConversationViewController: UITextViewDelegate {
     }
     
     func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
-        textViewBgView.backgroundColor = UIColor.white
+//        textViewBgView.backgroundColor = UIColor.white
+        let isPrivate = messageTextView.isPrivateMode
+        textViewBgView.backgroundColor = isPrivate ? HippoConfig.shared.theme.privateNoteChatBoxColor : UIColor.white
+//        messageTextView.tintColor = isPrivate ? UIColor(red: 0/255, green: 122/255, blue: 255/255, alpha: 1) : UIColor.black
 //        bottomContentView.backgroundColor = UIColor.white
         placeHolderLabel.textColor = #colorLiteral(red: 0.2862745098, green: 0.2862745098, blue: 0.2862745098, alpha: 0.5)
         
@@ -1689,7 +2170,9 @@ extension AgentConversationViewController: UITextViewDelegate {
     }
     
     func textViewDidChange(_ textView: UITextView) {
-        
+        placeHolderLabel.isHidden = textView.hasText
+//        manageSendButton()
+//        delegate?.updateMessContainerHeight(height: getHeightForTheView())
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
@@ -1936,15 +2419,32 @@ extension AgentConversationViewController: BotTableDelegate {
 extension AgentConversationViewController{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let attachCVCell = collectionView.cellForItem(at: indexPath) as? AttachmentOptionCollectionViewCell else { return }
-        if attachCVCell.attachmentDetail?.title == "Payment"{
+//        if attachCVCell.attachmentDetail?.title == "Payment"{
+//            self.closeKeyBoard()
+//            presentPlansVc()
+//        }else if attachCVCell.attachmentDetail?.title == "Bot"{
+//            self.closeKeyBoard()
+//            AgentConversationManager.getBotsAction(userId: self.channel.chatDetail?.customerID ?? 0, channelId: self.channelId) { (botActions) in
+//                self.addBotActionView(with: botActions)
+//            }
+//        }
+        switch attachCVCell.attachmentDetail?.title {
+        case "Text":
+            enableNormalMessage()
+        case "Internal Notes":
+            enablePrivateNote()
+        case "Payment":
             self.closeKeyBoard()
             presentPlansVc()
-        }else if attachCVCell.attachmentDetail?.title == "Bot"{
+        case "Bot":
             self.closeKeyBoard()
             AgentConversationManager.getBotsAction(userId: self.channel.chatDetail?.customerID ?? 0, channelId: self.channelId) { (botActions) in
                 self.addBotActionView(with: botActions)
             }
+        default:
+            print("default")
         }
+        
     }
 }
 

@@ -101,6 +101,7 @@ class FilterViewController: UIViewController {
 //        guard isValidateCustomDatePicker() else {
 //            return
 //        }
+        BussinessProperty.current.isFilterApplied = true
         updateManager()
         self.filterScreenButtonsDelegate?.applyButtonPressed()
         dismissView()
@@ -122,7 +123,8 @@ class FilterViewController: UIViewController {
 //        return vc
 //    }
     class func getNewInstance() -> FilterViewController? {
-        let storyboard = UIStoryboard(name: "FuguUnique", bundle: FuguFlowManager.bundle)
+//        let storyboard = UIStoryboard(name: "FuguUnique", bundle: FuguFlowManager.bundle)
+        let storyboard = UIStoryboard(name: "AgentSdk", bundle: FuguFlowManager.bundle)
         guard let vc = storyboard.instantiateViewController(withIdentifier: "FilterViewController") as? FilterViewController else {
             return nil
         }
@@ -185,10 +187,11 @@ class FilterViewController: UIViewController {
                 crossButton.tintColor = HippoConfig.shared.theme.headerTextColor
             }
         }
-        
+                
         resetButton.setTitleColor(HippoConfig.shared.theme.titleColorOfFilterResetButton, for: .normal)
         resetButton.backgroundColor = HippoConfig.shared.theme.backgroundColorOfFilterResetButton
-        
+//        resetButton.font = UIFont.regular(ofSize: 15.0)
+        resetButton.titleLabel?.font = UIFont.regular(ofSize: 15.0)
 //        applyButton.clipsToBounds = true
         
 //        let group = theme.primaryButtonGroup
@@ -201,6 +204,8 @@ class FilterViewController: UIViewController {
 //        applyButton.setTitleColor(theme.themeTextcolor, for: .normal)
         applyButton.backgroundColor = theme.backgroundColorOfFilterApplyButton
         applyButton.setTitleColor(theme.titleColorOfFilterApplyButton, for: .normal)
+//        applyButton.font = UIFont.regular(ofSize: 15.0)
+        applyButton.titleLabel?.font = UIFont.regular(ofSize: 15.0)
         
         setTheme()
 //        applyButton.backgroundColor = HippoTheme.current.themeColor
