@@ -361,9 +361,9 @@ public class UserTag: NSObject {
                     }
                 })
             }
-            if let botChannelsArray = userDetailData["conversations"] as? [[String: Any]] {
-                FuguDefaults.set(value: botChannelsArray, forKey: DefaultName.conversationData.rawValue)
-            }
+//            if let botChannelsArray = userDetailData["conversations"] as? [[String: Any]] {
+//                FuguDefaults.set(value: botChannelsArray, forKey: DefaultName.conversationData.rawValue)
+//            }
             resetPushCount()
             
             if let lastVisibleController = getLastVisibleController() as? ConversationsViewController, let channelId = lastVisibleController.channel?.id {
