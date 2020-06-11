@@ -1,36 +1,36 @@
 //
-//  HippoRatingView.swift
-//  HippoChat
-//
-//  Created by Vishal on 15/11/19.
-//  Copyright © 2019 CL-macmini-88. All rights reserved.
+//  FloatRatingView.swift
+//  Created by Arohi
+
 //
 
 import UIKit
 
-@objc protocol FloatRatingViewDelegate {
+/*@objc public protocol FloatRatingViewDelegate {
     /// Returns the rating value when touch events end
     @objc optional func floatRatingView(_ ratingView: FloatRatingView, didUpdate rating: Double)
-    
+
     /// Returns the rating value as the user pans
     @objc optional func floatRatingView(_ ratingView: FloatRatingView, isUpdating rating: Double)
 }
 
 /// A simple rating view that can set whole, half or floating point ratings.
- class FloatRatingView: UIView {
+@IBDesignable
+@objcMembers
+open class FloatRatingView: UIView {
     
     // MARK: Properties
     
-    var delegate: FloatRatingViewDelegate?
-    
+    open weak var delegate: FloatRatingViewDelegate?
+
     /// Array of empty image views
     private var emptyImageViews: [UIImageView] = []
-    
+
     /// Array of full image views
     private var fullImageViews: [UIImageView] = []
-    
+
     /// Sets the empty image (e.g. a star outline)
-    var emptyImage: UIImage? {
+    @IBInspectable open var emptyImage: UIImage? {
         didSet {
             // Update empty image views
             for imageView in emptyImageViews {
@@ -39,10 +39,10 @@ import UIKit
             refresh()
         }
     }
-    
+
     /// Sets the full image that is overlayed on top of the empty image.
     /// Should be same size and shape as the empty image.
-  var fullImage: UIImage? {
+    @IBInspectable open var fullImage: UIImage? {
         didSet {
             // Update full image views
             for imageView in fullImageViews {
@@ -51,12 +51,12 @@ import UIKit
             refresh()
         }
     }
-    
+
     /// Sets the empty and full image view content mode.
     open var imageContentMode: UIView.ContentMode = .scaleAspectFit
-    
+
     /// Minimum rating.
-    var minRating: Int = 0 {
+    @IBInspectable open var minRating: Int = 0 {
         didSet {
             // Update current rating if needed
             if rating < Double(minRating) {
@@ -65,9 +65,9 @@ import UIKit
             }
         }
     }
-    
+
     /// Max rating value.
-    var maxRating: Int = 5 {
+    @IBInspectable open var maxRating: Int = 5 {
         didSet {
             if maxRating != oldValue {
                 removeImageViews()
@@ -79,24 +79,24 @@ import UIKit
             }
         }
     }
-    
+
     /// Minimum image size.
-    var minImageSize = CGSize(width: 5.0, height: 5.0)
-    
+    @IBInspectable open var minImageSize = CGSize(width: 5.0, height: 5.0)
+
     /// Set the current rating.
-    var rating: Double = 0 {
+    @IBInspectable open var rating: Double = 0 {
         didSet {
             if rating != oldValue {
                 refresh()
             }
         }
     }
-    
+
     /// Sets whether or not the rating view can be changed by panning.
-    var editable = true
-    
+    @IBInspectable open var editable = true
+
     // MARK: Type
-    
+
     @objc public enum FloatRatingViewType: Int {
         /// Integer rating
         case wholeRatings
@@ -104,15 +104,15 @@ import UIKit
         case halfRatings
         /// Double rating
         case floatRatings
-        
+
         /// Returns true if rating can contain decimal places
         func supportsFractions() -> Bool {
             return self == .halfRatings || self == .floatRatings
         }
     }
-    
+
     /// Float rating view type
-    var type: FloatRatingViewType = .wholeRatings
+    @IBInspectable open var type: FloatRatingViewType = .wholeRatings
     
     // MARK: Initializations
     
@@ -129,12 +129,12 @@ import UIKit
     }
     
     // MARK: Helper methods
-    
+
     private func initImageViews() {
         guard emptyImageViews.isEmpty && fullImageViews.isEmpty else {
             return
         }
-        
+
         // Add new image views
         for _ in 0..<maxRating {
             let emptyImageView = UIImageView()
@@ -142,7 +142,7 @@ import UIKit
             emptyImageView.image = emptyImage
             emptyImageViews.append(emptyImageView)
             addSubview(emptyImageView)
-            
+
             let fullImageView = UIImageView()
             fullImageView.contentMode = imageContentMode
             fullImageView.image = fullImage
@@ -150,7 +150,7 @@ import UIKit
             addSubview(fullImageView)
         }
     }
-    
+
     private func removeImageViews() {
         // Remove old image views
         for i in 0..<emptyImageViews.count {
@@ -162,12 +162,12 @@ import UIKit
         emptyImageViews.removeAll(keepingCapacity: false)
         fullImageViews.removeAll(keepingCapacity: false)
     }
-    
+
     // Refresh hides or shows full images
     private func refresh() {
         for i in 0..<fullImageViews.count {
             let imageView = fullImageViews[i]
-            
+
             if rating >= Double(i+1) {
                 imageView.layer.mask = nil
                 imageView.isHidden = false
@@ -202,13 +202,13 @@ import UIKit
             return CGSize(width: size.width, height: height)
         }
     }
-    
+
     // Calculates new rating based on touch location in view
     private func updateLocation(_ touch: UITouch) {
         guard editable else {
             return
         }
-        
+
         let touchLocation = touch.location(in: self)
         var newRating: Double = 0
         for i in stride(from: (maxRating-1), through: 0, by: -1) {
@@ -216,10 +216,10 @@ import UIKit
             guard touchLocation.x > imageView.frame.origin.x else {
                 continue
             }
-            
+
             // Find touch point in image view
             let newLocation = imageView.convert(touchLocation, from: self)
-            
+
             // Find decimal value for float or half rating
             if imageView.point(inside: newLocation, with: nil) && (type.supportsFractions()) {
                 let decimalNum = Double(newLocation.x / imageView.frame.size.width)
@@ -233,31 +233,31 @@ import UIKit
             }
             break
         }
-        
+
         // Check min rating
         rating = newRating < Double(minRating) ? Double(minRating) : newRating
-        
+
         // Update delegate
         delegate?.floatRatingView?(self, isUpdating: rating)
     }
-    
-    
+
+
     // MARK: UIView
     
     // Override to calculate ImageView frames
     override open func layoutSubviews() {
         super.layoutSubviews()
-        
+
         guard let emptyImage = emptyImage else {
             return
         }
-        
+
         let desiredImageWidth = frame.size.width / CGFloat(emptyImageViews.count)
-        let maxImageWidth = max(minImageSize.width, desiredImageWidth) - 10
+        let maxImageWidth = max(minImageSize.width, desiredImageWidth)
         let maxImageHeight = max(minImageSize.height, frame.size.height)
         let imageViewSize = sizeForImage(emptyImage, inSize: CGSize(width: maxImageWidth, height: maxImageHeight))
         let imageXOffset = (frame.size.width - (imageViewSize.width * CGFloat(emptyImageViews.count))) /
-            CGFloat((emptyImageViews.count - 1))
+                            CGFloat((emptyImageViews.count - 1))
         
         for i in 0..<maxRating {
             let imageFrame = CGRect(x: i == 0 ? 0 : CGFloat(i)*(imageXOffset+imageViewSize.width), y: 0, width: imageViewSize.width, height: imageViewSize.height)
@@ -271,17 +271,17 @@ import UIKit
         
         refresh()
     }
-    
-    
+
+
     // MARK: Touch events
-    
+
     override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else {
             return
         }
         updateLocation(touch)
     }
-    
+
     override open func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else {
             return
@@ -299,3 +299,4 @@ import UIKit
         delegate?.floatRatingView?(self, didUpdate: rating)
     }
 }
+*/

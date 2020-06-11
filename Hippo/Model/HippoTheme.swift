@@ -305,6 +305,10 @@ public struct ConversationListTheme {
     open var sourceIconColor: UIColor = UIColor(red: 34/255, green: 150/255, blue: 255/255, alpha: 1)
     
     //
+    
+    open var ratingFullStar = UIImage(named: "starWithShadow", in: FuguFlowManager.bundle, compatibleWith: nil)
+    open var ratingEmptyStar = UIImage(named: "emptyStar", in: FuguFlowManager.bundle, compatibleWith: nil)
+    
     open var ratingLabelFont: UIFont? = UIFont(name: "HelveticaNeue-Bold", size: 15)
     open var ratingLabelTextFontColor: UIColor = .black
     

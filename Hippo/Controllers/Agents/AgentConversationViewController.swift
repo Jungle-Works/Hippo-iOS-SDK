@@ -1871,11 +1871,12 @@ extension AgentConversationViewController: UITableViewDelegate, UITableViewDataS
                 case .multipleSelect:
                     return message.calculatedHeight ?? 0.01
                 case .feedback:
-                    guard let muid = message.messageUniqueID, var rowHeight: CGFloat = heightForFeedBackCell["\(muid)"] else {
-                        return 0.001
-                    }
-                    rowHeight += 7 //Height for bottom view
-                    return rowHeight
+                    return UIView.tableAutoDimensionHeight
+//                    guard let muid = message.messageUniqueID, var rowHeight: CGFloat = heightForFeedBackCell["\(muid)"] else {
+//                        return 0.001
+//                    }
+//                    rowHeight += 7 //Height for bottom view
+//                    return rowHeight
                 case .paymentCard:
                     return message.calculatedHeight ?? 0.01
                 default:

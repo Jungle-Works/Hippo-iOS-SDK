@@ -85,7 +85,7 @@ class ChatDetail: NSObject {
         
         switch (HippoConfig.shared.appUserType, otherUsers.count > 0) {
         case (.agent, _):
-            tempPeerDetail = User(name: customerName, imageURL: nil, userId: customerID)
+            tempPeerDetail = User(name: customerName, imageURL: channelImageUrl, userId: customerID)
         case (.customer, true):
             let user = otherUsers[0]
             tempPeerDetail = User(dict: user)
