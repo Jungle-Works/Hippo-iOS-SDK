@@ -593,40 +593,41 @@ class HippoConversationViewController: UIViewController {
             self.navigationTitleButton?.sizeToFit()
         }
     }
-        func startAudioCall() {
-            guard canStartAudioCall() else {
-                return
+    func startAudioCall() {
+        guard canStartAudioCall() else {
+            return
+        }
+        guard let peerDetail = channel?.chatDetail?.peerDetail else {
+            return
+            
+        }
+        
+        self.view.endEditing(true)
+        
+        let call = CallData.init(peerData: peerDetail, callType: .audio, muid: String.uuid(), signallingClient: channel)
+        
+        if versionCode < 350{
+            CallManager.shared.startCall(call: call) { (success,error) in
+                if !success {
+                    assertionFailure("Cannot start the call")
+                }
             }
-            guard let peerDetail = channel?.chatDetail?.peerDetail else {
-                return
+        }else{
+            //            // #####-------USE THIS METHOD IF YOU ARE USING JITSI CALLING BARNCH FOR CALLING FEATURE -----#####
+            //
+            CallManager.shared.startCall(call: call) { (success, error) in
                 
-            }
-            
-            self.view.endEditing(true)
-            
-            let call = CallData.init(peerData: peerDetail, callType: .audio, muid: String.uuid(), signallingClient: channel)
-            
-//           CallManager.shared.startCall(call: call) { (success) in
-//                       if !success {
-//                           assertionFailure("Cannot start the call")
-//                       }
-//            }
-            
-//            // #####-------USE THIS METHOD IF YOU ARE USING JITSI CALLING BARNCH FOR CALLING FEATURE -----#####
-//
-            CallManager.shared.startCall(call: call) { (success, error) in
-
                 if let mismatchError = error, mismatchError.code == 415 {
-
+                    
                     let message = peerDetail.fullName + " " + "doesn't have the latest version of app installed."
                     self.showOptionAlert(title: "Version Mismatch", message: message, successButtonName: "Call anyway", successComplete: { (successAction) in
-
+                        
                         CallManager.shared.startWebRTCCall(call: call) { (success) in
                             if !success {
                                 assertionFailure("Cannot start webrtc the call too")
                             }
                         }
-
+                        
                     }, failureButtonName: "Cancel") { (failureAction) in
                         //do nothing
                     }
@@ -635,39 +636,39 @@ class HippoConversationViewController: UIViewController {
                     assertionFailure("Cannot start the call")
                 }
             }
-            
         }
-        func startVideoCall() {
-            guard canStartVideoCall() else {
-                return
+    }
+    func startVideoCall() {
+        guard canStartVideoCall() else {
+            return
+        }
+        guard let peerDetail = channel?.chatDetail?.peerDetail else {
+            return
+        }
+        self.view.endEditing(true)
+        
+        let call = CallData.init(peerData: peerDetail, callType: .video, muid: String.uuid(), signallingClient: channel)
+        if versionCode < 350{
+            CallManager.shared.startCall(call: call) { (success,error) in
+                if !success {
+                    assertionFailure("Cannot start the call")
+                }
             }
-            guard let peerDetail = channel?.chatDetail?.peerDetail else {
-                return
-            }
-            self.view.endEditing(true)
-            
-            let call = CallData.init(peerData: peerDetail, callType: .video, muid: String.uuid(), signallingClient: channel)
-            
-//          CallManager.shared.startCall(call: call) { (success) in
-//                 if !success {
-//                 assertionFailure("Cannot start the call")
-//                 }
-//             }
-            
-//            // #####-------USE THIS METHOD IF YOU ARE USING JITSI CALLING BARNCH FOR CALLING FEATURE -----#####
+        }else{
+            //            // #####-------USE THIS METHOD IF YOU ARE USING JITSI CALLING BARNCH FOR CALLING FEATURE -----#####
             CallManager.shared.startCall(call: call) { (success, error) in
-
+                
                 if let mismatchError = error, mismatchError.code == 415 {
-
+                    
                     let message = peerDetail.fullName + " " + "doesn't have the latest version of app installed."
                     self.showOptionAlert(title: "Version Mismatch", message: message, successButtonName: "Call anyway", successComplete: { (successAction) in
-
+                        
                         CallManager.shared.startWebRTCCall(call: call) { (success) in
                             if !success {
                                 assertionFailure("Cannot start webrtc the call too")
                             }
                         }
-
+                        
                     }, failureButtonName: "Cancel") { (failureAction) in
                         //do nothing
                     }
@@ -676,8 +677,8 @@ class HippoConversationViewController: UIViewController {
                     assertionFailure("Cannot start the call")
                 }
             }
-            
         }
+    }
     func canMakeAnyCall() -> Bool {
         guard channel?.chatDetail?.peerDetail != nil else {
             return false
