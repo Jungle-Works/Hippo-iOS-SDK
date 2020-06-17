@@ -161,7 +161,8 @@ struct BotAction {
     open var unreadCount: ((_ totalUnread: Int) -> ())?
     open var usersUnreadCount: ((_ userUnreadCount: [String: Int]) -> ())?
     open var HippoDismissed: ((_ isDismissed: Bool) -> ())?
-
+    open var HippoPrePaymentCancelled: (()->())?
+    open var HippoPrePaymentSuccessful: ((Bool)->())?
     
     internal let powererdByColor = #colorLiteral(red: 0.4980392157, green: 0.4980392157, blue: 0.4980392157, alpha: 1)
     internal let FuguColor = #colorLiteral(red: 0.3843137255, green: 0.4901960784, blue: 0.8823529412, alpha: 1)
@@ -374,6 +375,10 @@ struct BotAction {
         checker.presentChatsViewController()
     }
 
+    func presentPrePaymentController(){
+        
+    }
+    
     class public func showChats(on viewController: UIViewController) {
         AgentDetail.setAgentStoredData()
         HippoConfig.shared.checker.presentChatsViewController(on: viewController)
@@ -464,6 +469,19 @@ struct BotAction {
                 FuguFlowManager.shared.openDirectConversationHome()
             }
         }
+    }
+    
+    public func fetchAddedPaymentGatewaysData() -> [PaymentGateway]? {
+        if let addedPaymentGatewaysData = FuguDefaults.object(forKey: DefaultName.addedPaymentGatewaysData.rawValue) as? [[String: Any]]{
+            let addedPaymentGatewaysArr = PaymentGateway.parse(addedPaymentGateways: addedPaymentGatewaysData)
+            return addedPaymentGatewaysArr
+        }else{
+            return nil
+        }
+    }
+    
+    public func openPrePayment(paymentGatewayId : Int, prePaymentDic: [String : Any], completion: @escaping PrePaymentCompletion){
+        PrePayment.callPrePaymentApi(paymentGatewayId: paymentGatewayId, prePaymentDic: prePaymentDic, completion: completion)
     }
     
     public func getUnreadCountFor(with userUniqueKeys: [String]) {

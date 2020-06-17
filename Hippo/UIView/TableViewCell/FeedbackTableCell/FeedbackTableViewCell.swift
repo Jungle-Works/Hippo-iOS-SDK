@@ -71,16 +71,16 @@ class FeedbackTableViewCell: MessageTableViewCell {
             titleLabel.font = UIFont.boldSystemFont(ofSize: 20)
         }
     }
-    @IBOutlet weak var label_SenderName : UILabel!{
-        didSet{
-            label_SenderName.font = UIFont.regular(ofSize: 18)
-        }
-    }
-    @IBOutlet weak var image_SenderInsideFeedback : UIImageView!{
-        didSet{
-            image_SenderInsideFeedback.layer.cornerRadius = 6
-        }
-    }
+//    @IBOutlet weak var label_SenderName : UILabel!{
+//        didSet{
+//            label_SenderName.font = UIFont.regular(ofSize: 18)
+//        }
+//    }
+//    @IBOutlet weak var image_SenderInsideFeedback : UIImageView!{
+//        didSet{
+//            image_SenderInsideFeedback.layer.cornerRadius = 6
+//        }
+//    }
     @IBOutlet weak var view_ReviewSubmitted : UIView!{
         didSet{
             view_ReviewSubmitted.layer.cornerRadius = 10
@@ -96,7 +96,6 @@ class FeedbackTableViewCell: MessageTableViewCell {
     @IBOutlet weak var label_ReviewSubmitted : UILabel!{
         didSet{
             label_ReviewSubmitted.font = UIFont.regular(ofSize: 15.0)
-            label_ReviewSubmitted.text = "Thank you for your feeback!"
         }
     }
     @IBOutlet weak var label_Rating : UILabel!{
@@ -116,6 +115,7 @@ class FeedbackTableViewCell: MessageTableViewCell {
 
     func setDataForAgent(with params: FeedbackParams) {
         self.data = params
+        label_ReviewSubmitted.text = data.messageObject?.feedbackMessages.line_after_feedback_2
         textviewHeightConstraint?.isActive = true
         textviewHeightConstraint?.constant = 80
         if let message = params.messageObject {
@@ -123,22 +123,8 @@ class FeedbackTableViewCell: MessageTableViewCell {
         }
         
         data.cellTextView = cellTextView
-        titleLabel.text = "Rating & Review"//data.messageObject!.feedbackMessages.line_before_feedback
-        label_SenderName.text = message?.senderFullName
-        if let senderImage = message?.senderImage, let url = URL(string: senderImage) {
-            image_SenderInsideFeedback.kf.setImage(with: url, placeholder: HippoConfig.shared.theme.placeHolderImage,  completionHandler: {(_, error, _, _) in
-                guard let parsedError = error else {
-                    return
-                }
-                print(parsedError.localizedDescription)
-            })
-        }else{
-            if let parsedName = message?.senderFullName {
-                self.image_SenderInsideFeedback.setTextInImage(string: parsedName, color: UIColor.lightGray, circular: false)
-            } else {
-                self.image_SenderInsideFeedback.image = HippoConfig.shared.theme.placeHolderImage
-            }
-        }
+        titleLabel.text = message?.message
+
         
         if params.messageObject!.is_rating_given {
             //  completionView.isHidden = false
@@ -164,7 +150,7 @@ class FeedbackTableViewCell: MessageTableViewCell {
             view_Divider.isHidden = true
             view_ReviewSubmitted.isHidden = true
             view_Rating.isHidden = false
-            view_Rating.rating = 5.0
+            view_Rating.rating = 0.0
         }
         self.layoutIfNeeded()
         //updateHeightOf(textView: cellTextView)
@@ -174,6 +160,7 @@ class FeedbackTableViewCell: MessageTableViewCell {
     
     func setData(params: FeedbackParams) {
         self.data = params
+        label_ReviewSubmitted.text = data.messageObject?.feedbackMessages.line_after_feedback_2
         textviewHeightConstraint?.isActive = true
         textviewHeightConstraint?.constant = 80
         if let message = params.messageObject {
@@ -182,21 +169,6 @@ class FeedbackTableViewCell: MessageTableViewCell {
         
         data.cellTextView = cellTextView
         titleLabel.text = "Rating & Review"//data.messageObject!.feedbackMessages.line_before_feedback
-        label_SenderName.text = message?.senderFullName
-        if let senderImage = message?.senderImage, let url = URL(string: senderImage) {
-            image_SenderInsideFeedback.kf.setImage(with: url, placeholder: HippoConfig.shared.theme.placeHolderImage,  completionHandler: {(_, error, _, _) in
-                guard let parsedError = error else {
-                    return
-                }
-                print(parsedError.localizedDescription)
-            })
-        }else{
-            if let parsedName = message?.senderFullName {
-                self.image_SenderInsideFeedback.setTextInImage(string: parsedName, color: UIColor.lightGray, circular: false)
-            } else {
-                self.image_SenderInsideFeedback.image = HippoConfig.shared.theme.placeHolderImage
-            }
-        }
         
         if params.messageObject!.is_rating_given {
             //completionView.isHidden = false
@@ -277,7 +249,7 @@ class FeedbackTableViewCell: MessageTableViewCell {
         cellTextView.delegate = self
         cellTextView.flashScrollIndicators()
         alertContainer.layer.borderColor = UIColor(red: 242/255, green: 245/255, blue: 248/255, alpha: 1.0).cgColor //HippoConfig.shared.theme.gradientTopColor.cgColor //
-        alertContainer.layer.borderWidth = 2
+        alertContainer.layer.borderWidth = 4
         alertContainer.layer.masksToBounds = true
         alertContainer.layer.cornerRadius = 10
         //        alertContainer.backgroundColor = HippoConfig.shared.theme.gradientBackgroundColor
@@ -303,7 +275,7 @@ class FeedbackTableViewCell: MessageTableViewCell {
     
     override func showSenderImageView() {
         super.showSenderImageView()
-        feedbackTrailingconstraint.constant = 45
+        feedbackTrailingconstraint.constant = 80
         layoutIfNeeded()
     }
 }

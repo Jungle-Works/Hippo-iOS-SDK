@@ -367,6 +367,7 @@ enum FuguEndPoints: String {
     case makeSelectedPayment = "api/payment/makeSelectedPayment"
     case getInfoV2 = "api/agent/v1/getInfo"
     case getPaymentGateway = "api/payment/getPaymentGateway"
+    case getPrePayment = "api/conversation/createOperationalChannel"
 }
 
 enum AgentEndPoints: String {

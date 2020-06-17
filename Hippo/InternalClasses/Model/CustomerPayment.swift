@@ -203,7 +203,7 @@ extension PayementButton: HippoCard {
     }
 }
 
-class PaymentGateway {
+public class PaymentGateway {
     let gateway_id: Int?
     var business_id: Int?
     var gateway_name: String?

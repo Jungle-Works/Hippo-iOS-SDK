@@ -2376,7 +2376,7 @@ extension AgentConversationViewController: BotTableDelegate {
     }
     func sendFeedbackMessageToFaye() {
 //        let message = HippoMessage(message: "Please provide a feedback for our conversation", type: .feedback, uniqueID: generateUniqueId(), chatType: chatType)
-        let message = HippoMessage(message: "Please give your feedback", type: .feedback, uniqueID: generateUniqueId(), chatType: chatType)
+        let message = HippoMessage(message: "Rating & Review", type: .feedback, uniqueID: generateUniqueId(), chatType: chatType)
         message.updateObject(with: message)
         channel.unsentMessages.append(message)
         self.addMessageToUIBeforeSending(message: message)
