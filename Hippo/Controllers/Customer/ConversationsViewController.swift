@@ -2992,7 +2992,7 @@ extension ConversationsViewController: FeedbackTableViewCellDelegate {
         mess.total_rating = 5
         mess.rating_given = data.selectedIndex
         mess.comment = data.cellTextView.text.trimWhiteSpacesAndNewLine()
-        mess.senderId = HippoUserDetail.fuguUserID ?? 0
+        mess.senderId = data.messageObject?.senderId ?? -1
         
         self.channel.send(message: mess) {
             self.channel.upateFeedbackStatus(newMessage: mess)

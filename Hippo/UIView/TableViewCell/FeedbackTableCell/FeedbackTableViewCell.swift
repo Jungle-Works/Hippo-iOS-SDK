@@ -249,7 +249,7 @@ class FeedbackTableViewCell: MessageTableViewCell {
         cellTextView.delegate = self
         cellTextView.flashScrollIndicators()
         alertContainer.layer.borderColor = UIColor(red: 242/255, green: 245/255, blue: 248/255, alpha: 1.0).cgColor //HippoConfig.shared.theme.gradientTopColor.cgColor //
-        alertContainer.layer.borderWidth = 2
+        alertContainer.layer.borderWidth = 4
         alertContainer.layer.masksToBounds = true
         alertContainer.layer.cornerRadius = 10
         //        alertContainer.backgroundColor = HippoConfig.shared.theme.gradientBackgroundColor
@@ -275,7 +275,7 @@ class FeedbackTableViewCell: MessageTableViewCell {
     
     override func showSenderImageView() {
         super.showSenderImageView()
-        feedbackTrailingconstraint.constant = 45
+        feedbackTrailingconstraint.constant = 80
         layoutIfNeeded()
     }
 }
