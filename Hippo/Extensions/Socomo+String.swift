@@ -116,7 +116,6 @@ extension String {
         return UUID().uuidString.suffix(10) + ".\(arc4random()).\(Date().toMillis())"
     }
     
-    
         func height(withConstrainedWidth width: CGFloat, font: UIFont) -> CGFloat {
             let constraintRect = CGSize(width: width, height: .greatestFiniteMagnitude)
             #if swift(>=4.0)

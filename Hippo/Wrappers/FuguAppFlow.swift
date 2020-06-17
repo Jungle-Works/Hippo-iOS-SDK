@@ -236,7 +236,34 @@ class FuguFlowManager: NSObject {
         visibleController?.present(nav, animated: true, completion: nil)
     }
    
-
+    func presentPrePaymentController(_ url : String, _ channelId : Int){
+        //        guard let prepaymentVC = PrePaymentController.get() else {
+        //            return
+        //        }
+        //        let navVC = UINavigationController(rootViewController: prepaymentVC)
+        //        navVC.setNavigationBarHidden(true, animated: false)
+        //        let visibleController = getLastVisibleController()
+        //        navVC.modalPresentationStyle = .fullScreen
+        //        visibleController?.present(navVC, animated: true, completion: nil)
+        guard let config = WebViewConfig(url: url, title: "Payment") else { return }
+        let vc = CheckoutViewController.getNewInstance(config: config)
+        vc.isComingForPayment = true
+        let navVC = UINavigationController(rootViewController: vc)
+        navVC.setNavigationBarHidden(true, animated: false)
+        let visibleController = getLastVisibleController()
+        navVC.modalPresentationStyle = .fullScreen
+        vc.isPrePayment = true
+        vc.channelId = channelId
+        vc.isPaymentCancelled = {(sucess) in
+            HippoConfig.shared.HippoPrePaymentCancelled?()
+        }
+        vc.isPaymentSuccess = {(status) in
+            HippoConfig.shared.HippoPrePaymentSuccessful?(status)
+        }
+        
+        visibleController?.present(navVC, animated: true, completion: nil)  
+    }
+    
     func toShowInAppNotification(userInfo: [String: Any]) -> Bool {
         if validateFuguCredential() == false {
             return false

@@ -17,6 +17,10 @@ class CheckoutViewController: UIViewController {
     var webView: WKWebView!
     var config: WebViewConfig!
     var isComingForPayment = false
+    var isPrePayment : Bool?
+    var isPaymentSuccess : ((Bool)->())?
+    var isPaymentCancelled : ((Bool)->())?
+    var channelId : Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,7 +30,27 @@ class CheckoutViewController: UIViewController {
         
         navigationBar.title = config.title
         navigationBar.leftButton.addTarget(self, action: #selector(backAction(_:)), for: .touchUpInside)
-      
+        navigationBar.image_back.isHidden = isPrePayment ?? false ? true : false
+        navigationBar.leftButton.isEnabled = isPrePayment ?? false ? false : true
+        navigationBar.rightButton.setImage(HippoConfig.shared.theme.crossBarButtonImage, for: .normal)
+        navigationBar.rightButton.addTarget(self, action: #selector(cancelAction(_:)), for: .touchUpInside)
+        navigationBar.rightButton.isHidden = isPrePayment ?? false ? false : true
+        navigationBar.leftButton.isEnabled = isPrePayment ?? false ? true : false
+        navigationBar.rightButton.tintColor = .black
+        FayeConnection.shared.subscribeTo(channelId: "\(channelId ?? -1)", completion: {(success) in
+            print("channel subscribed", success)
+        }) {(messageDict) in
+            print(messageDict)
+            if messageDict["message_type"] as? Int == 22{
+                if (messageDict["custom_action"] as? NSDictionary)?.value(forKey: "selected_id") as? Int == 1{
+                    self.isPaymentSuccess?(true)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: {
+                        self.backAction(UIButton())
+                    })
+                    FayeConnection.shared.unsubscribe(fromChannelId: "\(self.channelId ?? -1)", completion: nil)
+                }
+            }
+        }
     }
     
     private func initalizeWebView() {
@@ -34,12 +58,12 @@ class CheckoutViewController: UIViewController {
          if #available(iOS 10.0, *) {
              webConfiguration.ignoresViewportScaleLimits = false
          }
-         var height : CGFloat = 0.0
-         if #available(iOS 11.0, *) {
-             height = UIApplication.shared.delegate?.window??.safeAreaInsets.top ?? 0.0
-         }
+        var height : CGFloat = 30.0
+        if #available(iOS 11.0, *) {
+            height = UIApplication.shared.delegate?.window??.safeAreaInsets.top ?? 0.0
+        }
          
-         webView = WKWebView(frame: CGRect(x: 0, y: height + navigationBar.frame.size.height, width: self.view.bounds.width, height: self.view.bounds.height - (height + navigationBar.frame.size.height)), configuration: webConfiguration)
+         webView = WKWebView(frame: CGRect(x: 0, y: height + navigationBar.frame.size.height + 20, width: self.view.bounds.width, height: self.view.bounds.height - (height + navigationBar.frame.size.height + 20)), configuration: webConfiguration)
          webView.uiDelegate = self
          if !config.zoomingEnabled {
              webView.scrollView.delegate = self
@@ -73,18 +97,37 @@ class CheckoutViewController: UIViewController {
     func handleForUrlKeys(webUrl: String) {
         print(webUrl)
         if webUrl.contains("success.html"){
+            self.isPaymentSuccess?(true)
             DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: {
                 self.backAction(UIButton())
             })
         }else if webUrl.contains("error.html") || webUrl.contains("error") || webUrl.contains("Error"){
+            self.isPaymentSuccess?(false)
             DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: {
                 self.backAction(UIButton())
             })
         }
     }
 
+    @IBAction func cancelAction(_ sender : UIButton){
+        let bottomPopupController = UIStoryboard(name: "FuguUnique", bundle: FuguFlowManager.bundle).instantiateViewController(withIdentifier: "BottomPopupController") as! BottomPopupController
+        bottomPopupController.modalPresentationStyle = .overFullScreen
+        bottomPopupController.paymentCancelled = {[weak self]() in
+            DispatchQueue.main.async {
+                self?.isPaymentCancelled?(false)
+                self?.backAction(sender)
+            }
+        }
+        self.present(bottomPopupController, animated: false, completion: nil)
+    }
+    
     @IBAction func backAction(_ sender: UIButton) {
-        _ = self.navigationController?.popViewController(animated: false)
+        if self.navigationController?.viewControllers.count ?? 0 > 1 {
+            _ = self.navigationController?.popViewController(animated: true)
+        } else {
+            HippoConfig.shared.notifiyDeinit()
+            self.navigationController?.dismiss(animated: true, completion: nil)
+        }
     }
 
 }
