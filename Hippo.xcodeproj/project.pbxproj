@@ -23,6 +23,7 @@
 		6BB999522476534000FC32C8 /* Mark Simonson - Proxima Nova Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6BB999482476534000FC32C8 /* Mark Simonson - Proxima Nova Regular.ttf */; };
 		6BB999532476534000FC32C8 /* ProximaNova-Sbold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6BB999492476534000FC32C8 /* ProximaNova-Sbold.ttf */; };
 		6BB999542476534000FC32C8 /* ProximaNova-Reg.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6BB9994A2476534000FC32C8 /* ProximaNova-Reg.ttf */; };
+		6BBBEA8324991C7300C3E1CE /* BottomPopupController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BBBEA8224991C7300C3E1CE /* BottomPopupController.swift */; };
 		6BCCD5902490B86600C5CA0D /* FloatRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCCD58F2490B86600C5CA0D /* FloatRatingView.swift */; };
 		C9B77E6121A01B060092848D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9B77D7A21A01B060092848D /* Assets.xcassets */; };
 		C9B77E6321A01B060092848D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9B77D7C21A01B060092848D /* LaunchScreen.storyboard */; };
@@ -437,6 +438,7 @@
 		6BB999482476534000FC32C8 /* Mark Simonson - Proxima Nova Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Mark Simonson - Proxima Nova Regular.ttf"; sourceTree = "<group>"; };
 		6BB999492476534000FC32C8 /* ProximaNova-Sbold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-Sbold.ttf"; sourceTree = "<group>"; };
 		6BB9994A2476534000FC32C8 /* ProximaNova-Reg.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-Reg.ttf"; sourceTree = "<group>"; };
+		6BBBEA8224991C7300C3E1CE /* BottomPopupController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomPopupController.swift; sourceTree = "<group>"; };
 		6BCCD58F2490B86600C5CA0D /* FloatRatingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatRatingView.swift; sourceTree = "<group>"; };
 		6F7645C36ABF77183FAD526B /* Pods-Hippo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hippo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Hippo/Pods-Hippo.debug.xcconfig"; sourceTree = "<group>"; };
 		717BE1731EC1BE11003EA321 /* Hippo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hippo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -984,6 +986,14 @@
 				6BB9994A2476534000FC32C8 /* ProximaNova-Reg.ttf */,
 			);
 			path = Font;
+			sourceTree = "<group>";
+		};
+		6BBBEA8124991C5900C3E1CE /* Popup */ = {
+			isa = PBXGroup;
+			children = (
+				6BBBEA8224991C7300C3E1CE /* BottomPopupController.swift */,
+			);
+			path = Popup;
 			sourceTree = "<group>";
 		};
 		6BCCD58E2490B84900C5CA0D /* Rating View */ = {
@@ -1749,6 +1759,7 @@
 		C9B77DAD21A01B060092848D /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				6BBBEA8124991C5900C3E1CE /* Popup */,
 				D88B900024657E2400E3093F /* FilterViewController.swift */,
 				D8F6D2BA24195D5800B168C5 /* NLevelViewController.swift */,
 				D8F6D2B824195D5600B168C5 /* HippoConversationViewController.swift */,
@@ -3033,6 +3044,7 @@
 				D8F6D2D424195DC500B168C5 /* CreatePaymentDataSource.swift in Sources */,
 				D8F6D0942419010F00B168C5 /* FayeConnection.swift in Sources */,
 				D8F6D0C32419465000B168C5 /* CardMessageTableDataSource.swift in Sources */,
+				6BBBEA8324991C7300C3E1CE /* BottomPopupController.swift in Sources */,
 				D8F6D13E24194C9300B168C5 /* ItemTableViewCell.swift in Sources */,
 				D848D1B6245EEF5600235322 /* PaymentPlansViewController.swift in Sources */,
 				D8F6D2112419547C00B168C5 /* HippoConversation.swift in Sources */,

@@ -12,11 +12,11 @@ final class NavigationBar: UIView {
     
     private static let NIB_NAME = "NavigationBar"
     
-    @IBOutlet var view: UIView!
+    @IBOutlet weak var view: UIView!
     @IBOutlet weak var leftButton: UIButton!
-    @IBOutlet private weak var titleLabel: UILabel!
-    @IBOutlet var rightButton: UIButton!
-    @IBOutlet private weak var image_back : UIImageView!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var rightButton: UIButton!
+    @IBOutlet weak var image_back : UIImageView!
     @IBOutlet weak var rightSwitchButtonContainerView: UIView!
     @IBOutlet weak var rightSwitchButton: UISwitch!
     

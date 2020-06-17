@@ -13,6 +13,54 @@ class UnreadCountInteracter {
 }
 
 public typealias P2PUnreadCountCompletion = ((_ response: HippoError?, _ unreadCount: Int?) -> ())
+public typealias PrePaymentCompletion = ((_ response: HippoError?) -> ())
+
+
+class PrePayment{
+    
+    class func callPrePaymentApi(paymentGatewayId : Int, prePaymentDic: [String : Any], completion: @escaping ((_ result: HippoError) -> Void)) {
+         
+        let params = PrePayment.getPrePaymentParams(paymentGatewayId,prePaymentDic)
+         HippoConfig.shared.log.trace(params, level: .request)
+         
+        HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: FuguEndPoints.getPrePayment.rawValue) { (responseObject, error, tag, statusCode) in
+            guard let unwrappedStatusCode = statusCode, error == nil, unwrappedStatusCode == STATUS_CODE_SUCCESS, error == nil  else {
+                //                HippoConfig.shared.log.error(error ?? "Something went Wrong!!", level: .error)
+                completion(HippoError.general)
+                print("Error",error ?? "")
+                return
+            }
+            guard let response = responseObject as? [String: Any], let data = response["data"] as? [String: Any] else {
+                HippoConfig.shared.log.error(error ?? "Something went Wrong!!", level: .error)
+                completion(HippoError.general)
+                return
+            }
+            
+            let channelId = data["channel_id"] as? Int
+            let paymentUrl = (data["payment_url"] as? NSDictionary)?.value(forKey: "payment_url") as? String
+            FuguFlowManager.shared.presentPrePaymentController(paymentUrl ?? "", channelId ?? -1)
+        }
+     }
+    
+    static func getPrePaymentParams(_ paymentGatewayId : Int, _ prePaymentDic : [String : Any]) -> [String : Any]{
+
+            var json: [String: Any] = [:]
+            
+            let appSecretKey = HippoConfig.shared.appSecretKey
+            json["app_secret_key"] = appSecretKey
+            let enUserId: String = currentEnUserId()
+            json["en_user_id"] = enUserId
+            json["fetch_payment_url"] = 1
+            json["operation_type"] = 1
+            json["payment_items"] = [prePaymentDic]
+            json["user_id"] = currentUserId()
+            json["transaction_id"] = String.generateUniqueId()
+            json["payment_gateway_id"] = paymentGatewayId
+            
+            return json
+    }
+}
+
 
 class UnreadCount {
     
