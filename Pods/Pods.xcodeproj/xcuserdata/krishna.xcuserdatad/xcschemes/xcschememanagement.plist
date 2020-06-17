@@ -5,52 +5,20 @@
 	<key>SchemeUserState</key>
 	<dict>
 		<key>MZFayeClient.xcscheme</key>
-<<<<<<< HEAD
 		<dict>
-			<key>orderHint</key>
-			<integer>0</integer>
-		</dict>
-		<key>MZFayeClient.xcscheme_^#shared#^_</key>
-=======
->>>>>>> 59da6e2e55729ecafb30456d84c92b1040c6585c
-		<dict>
-			<key>isShown</key>
-			<false/>
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
 		<key>Pods-Hippo.xcscheme</key>
-<<<<<<< HEAD
 		<dict>
-			<key>orderHint</key>
-			<integer>1</integer>
-		</dict>
-		<key>Pods-Hippo.xcscheme_^#shared#^_</key>
-=======
->>>>>>> 59da6e2e55729ecafb30456d84c92b1040c6585c
-		<dict>
-			<key>isShown</key>
-			<false/>
 			<key>orderHint</key>
 			<integer>1</integer>
 		</dict>
 		<key>SocketRocket.xcscheme</key>
-<<<<<<< HEAD
 		<dict>
-			<key>orderHint</key>
-			<integer>2</integer>
-		</dict>
-		<key>SocketRocket.xcscheme_^#shared#^_</key>
-=======
->>>>>>> 59da6e2e55729ecafb30456d84c92b1040c6585c
-		<dict>
-			<key>isShown</key>
-			<false/>
 			<key>orderHint</key>
 			<integer>2</integer>
 		</dict>
 	</dict>
-	<key>SuppressBuildableAutocreation</key>
-	<dict/>
 </dict>
 </plist>

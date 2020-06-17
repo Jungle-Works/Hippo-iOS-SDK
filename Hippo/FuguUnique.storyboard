@@ -1916,22 +1916,22 @@
                                 <rect key="frame" x="0.0" y="440.5" width="375" height="226.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cancel Payment" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mF9-m3-tG3">
-                                        <rect key="frame" x="20" y="30" width="335" height="20.5"/>
+                                        <rect key="frame" x="25" y="30" width="325" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Are you sure you want to cancel the payment?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AEZ-Ve-GaB">
-                                        <rect key="frame" x="20" y="80.5" width="335" height="41"/>
+                                        <rect key="frame" x="25" y="80.5" width="325" height="41"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0P7-PP-05b">
-                                        <rect key="frame" x="20" y="151.5" width="335" height="45"/>
+                                        <rect key="frame" x="25" y="151.5" width="325" height="45"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Xz-C8-U5y">
-                                                <rect key="frame" x="0.0" y="0.0" width="161" height="45"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="156" height="45"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="45" id="rhf-0v-rQz"/>
                                                 </constraints>
@@ -1941,7 +1941,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JAa-67-qer">
-                                                <rect key="frame" x="174" y="0.0" width="161" height="45"/>
+                                                <rect key="frame" x="169" y="0.0" width="156" height="45"/>
                                                 <state key="normal" title="Yes, Cancel"/>
                                                 <connections>
                                                     <action selector="Action_Yes" destination="ZpR-c4-DRT" eventType="touchUpInside" id="IEa-9k-YrG"/>
@@ -1967,11 +1967,11 @@
                                     <constraint firstItem="0P7-PP-05b" firstAttribute="top" secondItem="AEZ-Ve-GaB" secondAttribute="bottom" constant="30" id="JZI-Wf-GHN"/>
                                     <constraint firstItem="0P7-PP-05b" firstAttribute="leading" secondItem="AEZ-Ve-GaB" secondAttribute="leading" id="Tug-LT-gsV"/>
                                     <constraint firstItem="mF9-m3-tG3" firstAttribute="top" secondItem="rbU-Xh-che" secondAttribute="top" constant="30" id="UlI-cm-XOX"/>
-                                    <constraint firstItem="mF9-m3-tG3" firstAttribute="leading" secondItem="rbU-Xh-che" secondAttribute="leading" constant="20" id="V8s-4o-lUQ"/>
+                                    <constraint firstItem="mF9-m3-tG3" firstAttribute="leading" secondItem="rbU-Xh-che" secondAttribute="leading" constant="25" id="V8s-4o-lUQ"/>
                                     <constraint firstItem="0P7-PP-05b" firstAttribute="trailing" secondItem="AEZ-Ve-GaB" secondAttribute="trailing" id="dg7-XB-Loy"/>
                                     <constraint firstItem="AEZ-Ve-GaB" firstAttribute="leading" secondItem="mF9-m3-tG3" secondAttribute="leading" id="foc-1S-zId"/>
                                     <constraint firstItem="AEZ-Ve-GaB" firstAttribute="trailing" secondItem="mF9-m3-tG3" secondAttribute="trailing" id="hmi-zg-ThD"/>
-                                    <constraint firstAttribute="trailing" secondItem="mF9-m3-tG3" secondAttribute="trailing" constant="20" id="mSF-mR-sqU"/>
+                                    <constraint firstAttribute="trailing" secondItem="mF9-m3-tG3" secondAttribute="trailing" constant="25" id="mSF-mR-sqU"/>
                                     <constraint firstItem="AEZ-Ve-GaB" firstAttribute="top" secondItem="mF9-m3-tG3" secondAttribute="bottom" constant="30" id="zLU-A6-jvA"/>
                                 </constraints>
                             </view>
@@ -1984,7 +1984,7 @@
                             <constraint firstItem="rbU-Xh-che" firstAttribute="leading" secondItem="QsU-FK-T4R" secondAttribute="leading" id="iXP-hw-L3e"/>
                             <constraint firstAttribute="trailing" secondItem="rbU-Xh-che" secondAttribute="trailing" id="pBV-7r-evm"/>
                             <constraint firstItem="3AJ-uy-Wg9" firstAttribute="top" secondItem="XyW-RV-1q7" secondAttribute="bottom" id="qWj-As-Mlj"/>
-                            <constraint firstItem="3AJ-uy-Wg9" firstAttribute="top" secondItem="rbU-Xh-che" secondAttribute="bottom" id="tri-ki-agr"/>
+                            <constraint firstAttribute="bottom" secondItem="rbU-Xh-che" secondAttribute="bottom" id="tri-ki-agr"/>
                         </constraints>
                     </view>
                     <connections>

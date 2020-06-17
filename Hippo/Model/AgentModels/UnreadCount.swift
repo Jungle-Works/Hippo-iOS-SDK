@@ -18,7 +18,7 @@ public typealias PrePaymentCompletion = ((_ response: HippoError?) -> ())
 
 class PrePayment{
     
-    class func callPrePaymentApi(paymentGatewayId : Int, prePaymentDic: [String : Any], completion: @escaping ((_ result: HippoError) -> Void)) {
+    class func callPrePaymentApi(paymentGatewayId : Int, prePaymentDic: [String : Any], completion: @escaping ((_ result: HippoError?) -> Void)) {
          
         let params = PrePayment.getPrePaymentParams(paymentGatewayId,prePaymentDic)
          HippoConfig.shared.log.trace(params, level: .request)
@@ -39,6 +39,7 @@ class PrePayment{
             let channelId = data["channel_id"] as? Int
             let paymentUrl = (data["payment_url"] as? NSDictionary)?.value(forKey: "payment_url") as? String
             FuguFlowManager.shared.presentPrePaymentController(paymentUrl ?? "", channelId ?? -1)
+            completion(nil)
         }
      }
     
