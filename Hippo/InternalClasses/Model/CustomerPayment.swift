@@ -204,11 +204,11 @@ extension PayementButton: HippoCard {
 }
 
 public class PaymentGateway {
-    let gateway_id: Int?
-    var business_id: Int?
-    var gateway_name: String?
-    var gateway_image: String?
-    var currency_allowed: [String]?
+    public let gateway_id: Int?
+    public var business_id: Int?
+    public var gateway_name: String?
+    public var gateway_image: String?
+    public var currency_allowed: [String]?
 
     init?(json: [String: Any]) {
         self.gateway_id = Int.parse(values: json, key: "gateway_id")
