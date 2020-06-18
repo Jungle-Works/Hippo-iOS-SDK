@@ -683,9 +683,12 @@ struct BotAction {
                 return
             }
 
-            let conVC = AgentConversationViewController.getWith(channelID: channelId, channelName: "Channel")
+            let conVC = AgentConversationViewController.getWith(channelID: channelId, channelName: "")
             let lastVC = getLastVisibleController()
-            lastVC?.present(conVC, animated: true, completion: nil)
+            let navVC = UINavigationController(rootViewController: conVC)
+            navVC.setTheme()
+            navVC.modalPresentationStyle = .fullScreen
+            lastVC?.present(navVC, animated: true, completion: nil)
         }
     }
     public func openAgentChatWith(channelId: Int, completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
