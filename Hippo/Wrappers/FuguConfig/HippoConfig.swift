@@ -539,9 +539,9 @@ struct BotAction {
     public func openChatWith(channelId: Int, completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
         switch appUserType {
         case .agent:
-            openCustomerConversationWith(channelId: channelId, completion: completion)
-        case .customer:
             openAgentConversationWith(channelId: channelId, completion: completion)
+        case .customer:
+            openCustomerConversationWith(channelId: channelId, completion: completion)
         }
     }
     public func startCall(data: PeerToPeerChat, callType: CallType, completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
@@ -677,17 +677,16 @@ struct BotAction {
         }
     }
     internal func openAgentConversationWith(channelId: Int, completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
-        completion(false, HippoError.notAllowedForAgent)
-//        HippoChecker.checkForAgentIntialization { (success, error) in
-//            guard success else {
-//                completion(false, error)
-//                return
-//            }
-//
-//            let conVC = AgentConversationViewController.getWith(channelID: channelId, channelName: "Channel")
-//            let lastVC = getLastVisibleController()
-//            lastVC?.present(conVC, animated: true, completion: nil)
-//        }
+        HippoChecker.checkForAgentIntialization { (success, error) in
+            guard success else {
+                completion(false, error)
+                return
+            }
+
+            let conVC = AgentConversationViewController.getWith(channelID: channelId, channelName: "Channel")
+            let lastVC = getLastVisibleController()
+            lastVC?.present(conVC, animated: true, completion: nil)
+        }
     }
     public func openAgentChatWith(channelId: Int, completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
             HippoChecker.checkForAgentIntialization { (success, error) in
