@@ -13,6 +13,7 @@ class BottomPopupController: UIViewController {
     //MARK:- Variables
     
     var paymentCancelled : (()->())?
+    var popupdismissed : (()->())?
     
     //MARK:- IBOutlets
     
@@ -53,7 +54,7 @@ class BottomPopupController: UIViewController {
         didSet{
             button_Yes.titleLabel?.font = UIFont.regular(ofSize: 18.0)
             button_Yes.setTitleColor(.white, for: .normal)
-            button_Yes.backgroundColor = UIColor(red: 118/255, green: 182/255, blue: 150/255, alpha: 1.0)
+            button_Yes.backgroundColor = HippoConfig.shared.theme.themeColor
             button_Yes.layer.cornerRadius = 6
         }
     }
@@ -77,15 +78,17 @@ extension BottomPopupController{
     //MARK:- IBAction
     
     @IBAction func dismissView(){
-        self.dismiss(animated: false, completion: nil)
+        self.dismiss(animated: true, completion: nil)
+        self.popupdismissed?()
     }
     
     @IBAction func Action_No(){
-      self.dismiss(animated: false, completion: nil)
+      self.dismiss(animated: true, completion: nil)
+      self.popupdismissed?()
     }
     
     @IBAction func Action_Yes(){
-        self.dismiss(animated: false, completion: nil)
+        self.dismiss(animated: true, completion: nil)
         self.paymentCancelled?()
     }
 }

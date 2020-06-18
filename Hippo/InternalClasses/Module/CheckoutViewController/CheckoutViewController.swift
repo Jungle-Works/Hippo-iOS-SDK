@@ -21,6 +21,7 @@ class CheckoutViewController: UIViewController {
     var isPaymentSuccess : ((Bool)->())?
     var isPaymentCancelled : ((Bool)->())?
     var channelId : Int?
+    let transparentView = UIView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,12 +59,12 @@ class CheckoutViewController: UIViewController {
          if #available(iOS 10.0, *) {
              webConfiguration.ignoresViewportScaleLimits = false
          }
-        var height : CGFloat = 30.0
+        var height : CGFloat = 0.0
         if #available(iOS 11.0, *) {
             height = UIApplication.shared.delegate?.window??.safeAreaInsets.top ?? 0.0
         }
          
-         webView = WKWebView(frame: CGRect(x: 0, y: height + navigationBar.frame.size.height + 20, width: self.view.bounds.width, height: self.view.bounds.height - (height + navigationBar.frame.size.height + 20)), configuration: webConfiguration)
+         webView = WKWebView(frame: CGRect(x: 0, y: height + navigationBar.frame.size.height + 10, width: self.view.bounds.width, height: self.view.bounds.height - (height + navigationBar.frame.size.height + 10)), configuration: webConfiguration)
          webView.uiDelegate = self
          if !config.zoomingEnabled {
              webView.scrollView.delegate = self
@@ -111,15 +112,7 @@ class CheckoutViewController: UIViewController {
 
 
     @IBAction func cancelAction(_ sender : UIButton){
-        let bottomPopupController = UIStoryboard(name: "FuguUnique", bundle: FuguFlowManager.bundle).instantiateViewController(withIdentifier: "BottomPopupController") as! BottomPopupController
-        bottomPopupController.modalPresentationStyle = .overFullScreen
-        bottomPopupController.paymentCancelled = {[weak self]() in
-            DispatchQueue.main.async {
-                self?.isPaymentCancelled?(false)
-                self?.backAction(sender)
-            }
-        }
-        self.present(bottomPopupController, animated: false, completion: nil)
+        addTransparentView()
     }
     
 
@@ -133,6 +126,51 @@ class CheckoutViewController: UIViewController {
     }
 
 }
+extension CheckoutViewController{
+    func addTransparentView(){
+      
+        let window = UIApplication.shared.keyWindow
+        transparentView.backgroundColor = UIColor.black.withAlphaComponent(0.9)
+        let screenSize = UIScreen.main.bounds.size
+        transparentView.frame = CGRect(x: 0, y: 0, width: screenSize.width, height: screenSize.height)
+        window?.addSubview(transparentView)
+        transparentView.alpha = 0
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, options: .curveEaseInOut, animations: {
+            self.transparentView.alpha = 0.5
+            self.openCancelPopup()
+        }, completion: nil)
+    }
+   
+    func openCancelPopup(){
+        let bottomPopupController = UIStoryboard(name: "FuguUnique", bundle: FuguFlowManager.bundle).instantiateViewController(withIdentifier: "BottomPopupController") as! BottomPopupController
+        bottomPopupController.modalPresentationStyle = .overFullScreen
+        bottomPopupController.paymentCancelled = {[weak self]() in
+            DispatchQueue.main.async {
+                self?.isPaymentCancelled?(false)
+                self?.onClickTransparentView()
+                self?.backAction(UIButton())
+            }
+        }
+        bottomPopupController.popupdismissed = {[weak self]() in
+            DispatchQueue.main.async {
+                self?.onClickTransparentView()
+            }
+        }
+        self.present(bottomPopupController, animated: true, completion: nil)
+    }
+    @objc func onClickTransparentView() {
+        
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, options: .curveEaseInOut, animations: {
+            self.transparentView.alpha = 0
+        }, completion: { (status) in
+            self.transparentView.removeFromSuperview()
+        })
+    }
+    
+}
+
+
+
 extension CheckoutViewController: WKUIDelegate {
     
 }
