@@ -762,6 +762,10 @@ func validateFuguCredential() -> Bool {
     }
 }
 
+func getCurrentLanguageLocale() -> String {
+      return "en"
+  }
+
 
 func showAlertWith(message: String, action: (() -> Void)?) {
     let alert = UIAlertController(title: "", message: message, preferredStyle: .alert)

@@ -8,6 +8,8 @@
 import Foundation
 
 public class HippoStrings {
+    open var ongoing = "Current".localized
+    
     open var disbaledCameraErrorMessage = "Access to Camera is denied. Please enable from setings."
     open var cameraString = "New Image via Camera"
     open var photoLibrary = "Photo Library"

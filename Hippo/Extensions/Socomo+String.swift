@@ -47,6 +47,14 @@ extension String {
             return true
         }
     }
+    var localized: String {
+          if let path = Bundle.main.path(forResource: getCurrentLanguageLocale(), ofType: "lproj") {
+              let bundle = Bundle(path: path)
+              return NSLocalizedString(self, tableName: nil, bundle: bundle!, value: "", comment: "")
+          }
+          return self
+      }
+    
     
     func isOnlyNumber() -> Bool {
         let number = UInt(self)
