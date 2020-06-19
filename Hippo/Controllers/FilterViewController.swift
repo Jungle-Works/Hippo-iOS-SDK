@@ -19,6 +19,7 @@ protocol FilterScreenButtonsDelegate: AnyObject {
     func applyButtonPressed()
 }
 
+
 class FilterViewController: UIViewController {
     
     weak var filterScreenButtonsDelegate: FilterScreenButtonsDelegate?

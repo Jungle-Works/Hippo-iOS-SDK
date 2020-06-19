@@ -294,10 +294,11 @@ func subscribeCustomerUserChannel(userChannelId: String) {
         }
     }) {  (messageDict) in
         if let messageType = messageDict["message_type"] as? Int, messageType == 18 {
-            if let channel_id = messageDict["channel_id"] as? Int{ //isSubscribed(userChannelId: "\(channel_id)") == false {
-                
+            if let channel_id = messageDict["channel_id"] as? Int{ 
                 let channel = FuguChannelPersistancyManager.shared.getChannelBy(id: channel_id)
-                channel.signalReceivedFromPeer?(messageDict)
+                if versionCode < 350{
+                   channel.signalReceivedFromPeer?(messageDict)
+                }
                 HippoConfig.shared.log.trace("UserChannel:: --->\(messageDict)", level: .socket)
                 CallManager.shared.voipNotificationRecieved(payloadDict: messageDict)
             }
@@ -761,11 +762,15 @@ func validateFuguCredential() -> Bool {
     }
 }
 
+func getCurrentLanguageLocale() -> String {
+      return "en"
+  }
+
 
 func showAlertWith(message: String, action: (() -> Void)?) {
     let alert = UIAlertController(title: "", message: message, preferredStyle: .alert)
     
-    let dismissAction = UIAlertAction(title: "OK", style: .default, handler: { _ in
+    let dismissAction = UIAlertAction(title: HippoStrings.ok, style: .default, handler: { _ in
         action?()
     })
     alert.addAction(dismissAction)

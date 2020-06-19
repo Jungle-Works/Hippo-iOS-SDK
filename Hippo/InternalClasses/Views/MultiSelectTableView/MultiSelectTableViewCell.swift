@@ -149,7 +149,7 @@ extension MultiSelectTableViewCell
         
     if message?.customAction?.minSelection == 0 
     {
-        showAlertWith(message: HippoConfig.shared.strings.noMinSelection, action: nil)
+        showAlertWith(message: HippoStrings.noMinSelection, action: nil)
     }
     else
     {
@@ -160,7 +160,7 @@ extension MultiSelectTableViewCell
         }
         else
         {
-            showAlertWith(message: HippoConfig.shared.strings.noMinSelection, action: nil)
+            showAlertWith(message: HippoStrings.noMinSelection, action: nil)
         }
     }
         

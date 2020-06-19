@@ -141,7 +141,7 @@ class HippoBroadcaster {
         HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: AgentEndPoints.getGroupingTag.rawValue) { (response, error, _, statusCode) in
             
             guard let responseDict = response as? [String: Any], let data = responseDict["data"] as? [String: Any], let tags = data["tags"] as? [[String: Any]] else {
-                    let message = error?.localizedDescription ?? HippoConfig.shared.strings.somethingWentWrong
+                    let message = error?.localizedDescription ?? HippoStrings.somethingWentWrong
                     completion(false, message)
                     return
             }
@@ -170,18 +170,18 @@ class HippoBroadcaster {
     }
     func sendBroadcastMessage(dict: [String: Any], completion: @escaping sendBroadcastCompletion) {
         guard let params = getParamsForBroadcastMessage(with: dict) else {
-            completion(false, HippoConfig.shared.strings.somethingWentWrong)
+            completion(false, HippoStrings.somethingWentWrong)
             return
         }
         
         HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: AgentEndPoints.sendBroadcastMessage.rawValue) { (response, error, _, statusCode) in
             
             guard let responseDict = response as? [String: Any], let _ = responseDict["data"] as? [String: Any] else {
-                let message = HippoConfig.shared.strings.somethingWentWrong
+                let message = HippoStrings.somethingWentWrong
                 completion(false, message)
                 return
             }
-            let message = responseDict["message"] as? String ?? HippoConfig.shared.strings.somethingWentWrong
+            let message = responseDict["message"] as? String ?? HippoStrings.somethingWentWrong
             completion(true, message)
         }
     }

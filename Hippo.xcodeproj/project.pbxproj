@@ -9,20 +9,13 @@
 /* Begin PBXBuildFile section */
 		47B12417C887BBD208902F39 /* Pods_Hippo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C0A922564912516EF04B93F /* Pods_Hippo.framework */; };
 		6B1011F2248128D2007FC8EC /* loader.gif in Resources */ = {isa = PBXBuildFile; fileRef = 6B1011F1248128D2007FC8EC /* loader.gif */; };
+		6B45484A249B89C8006F84C7 /* HippoLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6B45484C249B89C8006F84C7 /* HippoLocalizable.strings */; };
 		6B91A93E24780AF4008AB4CC /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B91A93C24780AF4008AB4CC /* NavigationBar.swift */; };
 		6B91A93F24780AF4008AB4CC /* NavigationBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6B91A93D24780AF4008AB4CC /* NavigationBar.xib */; };
 		6BA8B19E24784E1B00E7E087 /* NavigationBarChat.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6BA8B19D24784E1B00E7E087 /* NavigationBarChat.xib */; };
 		6BA8B1A024784E3600E7E087 /* NavigationBarChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA8B19F24784E3600E7E087 /* NavigationBarChat.swift */; };
-		6BB9994B2476534000FC32C8 /* Mark Simonson - Proxima Nova Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6BB999412476534000FC32C8 /* Mark Simonson - Proxima Nova Light.ttf */; };
-		6BB9994C2476534000FC32C8 /* ProximaNova-RegIt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6BB999422476534000FC32C8 /* ProximaNova-RegIt.ttf */; };
-		6BB9994D2476534000FC32C8 /* Mark Simonson - Proxima Nova Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6BB999432476534000FC32C8 /* Mark Simonson - Proxima Nova Bold.otf */; };
-		6BB9994E2476534000FC32C8 /* ProximaNova-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6BB999442476534000FC32C8 /* ProximaNova-Light.ttf */; };
-		6BB9994F2476534000FC32C8 /* ProximaNova-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6BB999452476534000FC32C8 /* ProximaNova-Bold.ttf */; };
-		6BB999502476534000FC32C8 /* ProximaNova-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6BB999462476534000FC32C8 /* ProximaNova-Thin.ttf */; };
-		6BB999512476534000FC32C8 /* Mark Simonson - Proxima Nova Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6BB999472476534000FC32C8 /* Mark Simonson - Proxima Nova Black.otf */; };
-		6BB999522476534000FC32C8 /* Mark Simonson - Proxima Nova Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6BB999482476534000FC32C8 /* Mark Simonson - Proxima Nova Regular.ttf */; };
-		6BB999532476534000FC32C8 /* ProximaNova-Sbold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6BB999492476534000FC32C8 /* ProximaNova-Sbold.ttf */; };
-		6BB999542476534000FC32C8 /* ProximaNova-Reg.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6BB9994A2476534000FC32C8 /* ProximaNova-Reg.ttf */; };
+		6BBBEA8324991C7300C3E1CE /* BottomPopupController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BBBEA8224991C7300C3E1CE /* BottomPopupController.swift */; };
+		6BCCD5902490B86600C5CA0D /* FloatRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCCD58F2490B86600C5CA0D /* FloatRatingView.swift */; };
 		C9B77E6121A01B060092848D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9B77D7A21A01B060092848D /* Assets.xcassets */; };
 		C9B77E6321A01B060092848D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9B77D7C21A01B060092848D /* LaunchScreen.storyboard */; };
 		C9B77E6421A01B060092848D /* Montserrat-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = C9B77D7E21A01B060092848D /* Montserrat-Medium.otf */; };
@@ -40,10 +33,7 @@
 		C9B77E8621A01B060092848D /* HippoChannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DA421A01B060092848D /* HippoChannel.swift */; };
 		C9B77E8C21A01B060092848D /* HippoDescriptionContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DAA21A01B060092848D /* HippoDescriptionContent.swift */; };
 		C9B77E8E21A01B070092848D /* MavenPro-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C9B77DAC21A01B060092848D /* MavenPro-Medium.ttf */; };
-		C9B77E9F21A01B070092848D /* MavenPro-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C9B77DC121A01B060092848D /* MavenPro-Bold.ttf */; };
-		C9B77EA021A01B070092848D /* ProximaNova-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = C9B77DC221A01B060092848D /* ProximaNova-Regular.otf */; };
 		C9B77EAA21A01B070092848D /* Fugu+Properties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DCF21A01B060092848D /* Fugu+Properties.swift */; };
-		C9B77EAF21A01B070092848D /* Pulsator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DD521A01B060092848D /* Pulsator.swift */; };
 		C9B77EC221A01B070092848D /* Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DEA21A01B060092848D /* Filter.swift */; };
 		C9B77EC321A01B070092848D /* Placeholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DEB21A01B060092848D /* Placeholder.swift */; };
 		C9B77EC721A01B070092848D /* IQTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DF121A01B060092848D /* IQTextView.swift */; };
@@ -422,20 +412,16 @@
 
 /* Begin PBXFileReference section */
 		6B1011F1248128D2007FC8EC /* loader.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = loader.gif; sourceTree = "<group>"; };
+		6B454848249B89B0006F84C7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		6B454849249B89BD006F84C7 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		6B45484B249B89C8006F84C7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/HippoLocalizable.strings; sourceTree = "<group>"; };
+		6B45484D249B89D0006F84C7 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/HippoLocalizable.strings; sourceTree = "<group>"; };
 		6B91A93C24780AF4008AB4CC /* NavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
 		6B91A93D24780AF4008AB4CC /* NavigationBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NavigationBar.xib; sourceTree = "<group>"; };
 		6BA8B19D24784E1B00E7E087 /* NavigationBarChat.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NavigationBarChat.xib; sourceTree = "<group>"; };
 		6BA8B19F24784E3600E7E087 /* NavigationBarChat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarChat.swift; sourceTree = "<group>"; };
-		6BB999412476534000FC32C8 /* Mark Simonson - Proxima Nova Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Mark Simonson - Proxima Nova Light.ttf"; sourceTree = "<group>"; };
-		6BB999422476534000FC32C8 /* ProximaNova-RegIt.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-RegIt.ttf"; sourceTree = "<group>"; };
-		6BB999432476534000FC32C8 /* Mark Simonson - Proxima Nova Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Mark Simonson - Proxima Nova Bold.otf"; sourceTree = "<group>"; };
-		6BB999442476534000FC32C8 /* ProximaNova-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-Light.ttf"; sourceTree = "<group>"; };
-		6BB999452476534000FC32C8 /* ProximaNova-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-Bold.ttf"; sourceTree = "<group>"; };
-		6BB999462476534000FC32C8 /* ProximaNova-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-Thin.ttf"; sourceTree = "<group>"; };
-		6BB999472476534000FC32C8 /* Mark Simonson - Proxima Nova Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Mark Simonson - Proxima Nova Black.otf"; sourceTree = "<group>"; };
-		6BB999482476534000FC32C8 /* Mark Simonson - Proxima Nova Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Mark Simonson - Proxima Nova Regular.ttf"; sourceTree = "<group>"; };
-		6BB999492476534000FC32C8 /* ProximaNova-Sbold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-Sbold.ttf"; sourceTree = "<group>"; };
-		6BB9994A2476534000FC32C8 /* ProximaNova-Reg.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-Reg.ttf"; sourceTree = "<group>"; };
+		6BBBEA8224991C7300C3E1CE /* BottomPopupController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomPopupController.swift; sourceTree = "<group>"; };
+		6BCCD58F2490B86600C5CA0D /* FloatRatingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatRatingView.swift; sourceTree = "<group>"; };
 		6F7645C36ABF77183FAD526B /* Pods-Hippo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hippo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Hippo/Pods-Hippo.debug.xcconfig"; sourceTree = "<group>"; };
 		717BE1731EC1BE11003EA321 /* Hippo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hippo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		73C5DC7752C82068B4CD5EB2 /* Pods-Hippo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hippo.release.xcconfig"; path = "Pods/Target Support Files/Pods-Hippo/Pods-Hippo.release.xcconfig"; sourceTree = "<group>"; };
@@ -465,10 +451,7 @@
 		C9B77DAA21A01B060092848D /* HippoDescriptionContent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HippoDescriptionContent.swift; sourceTree = "<group>"; };
 		C9B77DAB21A01B060092848D /* FuguUserDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuguUserDetail.swift; sourceTree = "<group>"; };
 		C9B77DAC21A01B060092848D /* MavenPro-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MavenPro-Medium.ttf"; sourceTree = "<group>"; };
-		C9B77DC121A01B060092848D /* MavenPro-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MavenPro-Bold.ttf"; sourceTree = "<group>"; };
-		C9B77DC221A01B060092848D /* ProximaNova-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-Regular.otf"; sourceTree = "<group>"; };
 		C9B77DCF21A01B060092848D /* Fugu+Properties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Fugu+Properties.swift"; sourceTree = "<group>"; };
-		C9B77DD521A01B060092848D /* Pulsator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pulsator.swift; sourceTree = "<group>"; };
 		C9B77DEA21A01B060092848D /* Filter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Filter.swift; sourceTree = "<group>"; };
 		C9B77DEB21A01B060092848D /* Placeholder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Placeholder.swift; sourceTree = "<group>"; };
 		C9B77DF121A01B060092848D /* IQTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IQTextView.swift; sourceTree = "<group>"; };
@@ -949,6 +932,14 @@
 			name = "Recovered References";
 			sourceTree = "<group>";
 		};
+		6B45483D249B84A3006F84C7 /* Language */ = {
+			isa = PBXGroup;
+			children = (
+				6B45484C249B89C8006F84C7 /* HippoLocalizable.strings */,
+			);
+			path = Language;
+			sourceTree = "<group>";
+		};
 		6B91A93B24780AF4008AB4CC /* NavigationView */ = {
 			isa = PBXGroup;
 			children = (
@@ -967,21 +958,20 @@
 			path = NavigationViewChat;
 			sourceTree = "<group>";
 		};
-		6BB999402476534000FC32C8 /* Font */ = {
+		6BBBEA8124991C5900C3E1CE /* Popup */ = {
 			isa = PBXGroup;
 			children = (
-				6BB999412476534000FC32C8 /* Mark Simonson - Proxima Nova Light.ttf */,
-				6BB999422476534000FC32C8 /* ProximaNova-RegIt.ttf */,
-				6BB999432476534000FC32C8 /* Mark Simonson - Proxima Nova Bold.otf */,
-				6BB999442476534000FC32C8 /* ProximaNova-Light.ttf */,
-				6BB999452476534000FC32C8 /* ProximaNova-Bold.ttf */,
-				6BB999462476534000FC32C8 /* ProximaNova-Thin.ttf */,
-				6BB999472476534000FC32C8 /* Mark Simonson - Proxima Nova Black.otf */,
-				6BB999482476534000FC32C8 /* Mark Simonson - Proxima Nova Regular.ttf */,
-				6BB999492476534000FC32C8 /* ProximaNova-Sbold.ttf */,
-				6BB9994A2476534000FC32C8 /* ProximaNova-Reg.ttf */,
+				6BBBEA8224991C7300C3E1CE /* BottomPopupController.swift */,
 			);
-			path = Font;
+			path = Popup;
+			sourceTree = "<group>";
+		};
+		6BCCD58E2490B84900C5CA0D /* Rating View */ = {
+			isa = PBXGroup;
+			children = (
+				6BCCD58F2490B86600C5CA0D /* FloatRatingView.swift */,
+			);
+			path = "Rating View";
 			sourceTree = "<group>";
 		};
 		717BE16A1EC1BE11003EA321 = {
@@ -1490,6 +1480,7 @@
 		C9B77CF521A01B050092848D /* Hippo */ = {
 			isa = PBXGroup;
 			children = (
+				6B45483D249B84A3006F84C7 /* Language */,
 				D8F6CFF22418F92100B168C5 /* InternalClasses */,
 				D8F6D0312418FAE600B168C5 /* CustomClasses */,
 				D8F6D03C2418FB2B00B168C5 /* PublicClasses */,
@@ -1506,8 +1497,6 @@
 				C9B77D8921A01B060092848D /* Model */,
 				C9B77DAC21A01B060092848D /* MavenPro-Medium.ttf */,
 				C9B77DAD21A01B060092848D /* Controllers */,
-				C9B77DC121A01B060092848D /* MavenPro-Bold.ttf */,
-				C9B77DC221A01B060092848D /* ProximaNova-Regular.otf */,
 				C9B77DC321A01B060092848D /* Helpers */,
 				C9B77E0A21A01B060092848D /* Info.plist */,
 				C9B77E0C21A01B060092848D /* Montserrat-SemiBold.otf */,
@@ -1613,6 +1602,7 @@
 		C9B77D1221A01B060092848D /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
+				6BCCD58E2490B84900C5CA0D /* Rating View */,
 				6BA8B19C24784DEE00E7E087 /* NavigationViewChat */,
 				6B91A93B24780AF4008AB4CC /* NavigationView */,
 				C9B77D1321A01B060092848D /* ChatInfoHeader */,
@@ -1738,6 +1728,7 @@
 		C9B77DAD21A01B060092848D /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				6BBBEA8124991C5900C3E1CE /* Popup */,
 				D88B900024657E2400E3093F /* FilterViewController.swift */,
 				D8F6D2BA24195D5800B168C5 /* NLevelViewController.swift */,
 				D8F6D2B824195D5600B168C5 /* HippoConversationViewController.swift */,
@@ -1792,7 +1783,6 @@
 		C9B77DC321A01B060092848D /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				6BB999402476534000FC32C8 /* Font */,
 				D88B9010246672EA00E3093F /* FilterManager.swift */,
 				D8F6D23C2419587C00B168C5 /* UIImageView+Extension.swift */,
 				D8F6D23D2419587D00B168C5 /* FuguNetworkHandler.swift */,
@@ -1806,7 +1796,6 @@
 				D8F6D2412419587F00B168C5 /* Fugu+Enums.swift */,
 				D8F6D2422419587F00B168C5 /* FuguHelpers.swift */,
 				D8F6D2432419588000B168C5 /* TookanHelper.swift */,
-				C9B77DD521A01B060092848D /* Pulsator.swift */,
 				D88B20B824619F6B007FD382 /* Kingfisher */,
 				D8CD682D24866EA8000F4097 /* SZMentionsSwift */,
 				D86028B223F6B417009540D3 /* SuggestionView */,
@@ -2570,8 +2559,9 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				English,
-				en,
 				Base,
+				en,
+				es,
 			);
 			mainGroup = 717BE16A1EC1BE11003EA321;
 			productRefGroup = 717BE1741EC1BE11003EA321 /* Products */;
@@ -2601,7 +2591,6 @@
 				D8F6CFFF2418F9CF00B168C5 /* AgentProfileViewController.xib in Resources */,
 				D8F6D1B22419510F00B168C5 /* TitilliumWeb-LightItalic.ttf in Resources */,
 				D8F6D15A24194D8600B168C5 /* OutgoingVideoTableViewCell.xib in Resources */,
-				6BB999542476534000FC32C8 /* ProximaNova-Reg.ttf in Resources */,
 				D8F6D0EC241947E100B168C5 /* ActionTableView.xib in Resources */,
 				D8F6D0B0241943D900B168C5 /* QuickReplyButtonCollectionViewCell.xib in Resources */,
 				D8F6D1BA2419516700B168C5 /* HippoBroadCast.storyboard in Resources */,
@@ -2614,11 +2603,9 @@
 				D8F6D10E241949EC00B168C5 /* IncomingDocumentTableViewCell.xib in Resources */,
 				D8F6D1B52419510F00B168C5 /* TitilliumWeb-ExtraLightItalic.ttf in Resources */,
 				D8CD683024866EC7000F4097 /* SZMentionsSwift.podspec in Resources */,
-				6BB999512476534000FC32C8 /* Mark Simonson - Proxima Nova Black.otf in Resources */,
 				D8F6D0F62419486300B168C5 /* ActionButtonViewCell.xib in Resources */,
 				D8F6D2492419588300B168C5 /* typingImage.gif in Resources */,
 				D8F6D16A24194E3700B168C5 /* LeadDataTableViewCell.xib in Resources */,
-				C9B77EA021A01B070092848D /* ProximaNova-Regular.otf in Resources */,
 				D8F6D1B32419510F00B168C5 /* TitilliumWeb-SemiBoldItalic.ttf in Resources */,
 				D8F6D19C2419500F00B168C5 /* BoardCastSelectionCell.xib in Resources */,
 				D8F6D11A24194A9300B168C5 /* ConversationView.xib in Resources */,
@@ -2632,40 +2619,34 @@
 				D8F6D0C52419465000B168C5 /* CardMessageTableViewCell.xib in Resources */,
 				D8F6D1062419498D00B168C5 /* BroadcastUserStatusCell.xib in Resources */,
 				D88B900D2466111E00E3093F /* FilterOptionTableViewCell.xib in Resources */,
-				6BB9994B2476534000FC32C8 /* Mark Simonson - Proxima Nova Light.ttf in Resources */,
 				D8F6D1AF2419510F00B168C5 /* TitilliumWeb-Italic.ttf in Resources */,
 				D8F6D19124194FB300B168C5 /* BroadCastTextViewCell.xib in Resources */,
 				D84F79F6245F49AC00B36168 /* PaymentItemDescriptionCell.xib in Resources */,
 				C9F6D49221C8B81100EA23E6 /* Hippo.podspec in Resources */,
 				D8F6D17924194ED700B168C5 /* IncomingVideoCallMessageTableViewCell.xib in Resources */,
 				C9FB6FAA21EE10CD00B72CEA /* LaunchScreen.storyboard in Resources */,
-				6BB9994D2476534000FC32C8 /* Mark Simonson - Proxima Nova Bold.otf in Resources */,
-				6BB9994F2476534000FC32C8 /* ProximaNova-Bold.ttf in Resources */,
 				D8F6D0E62419479900B168C5 /* CategoryTableViewCell.xib in Resources */,
 				D8F6D0DB2419470000B168C5 /* PromotionTableViewCell.xib in Resources */,
-				6BB9994E2476534000FC32C8 /* ProximaNova-Light.ttf in Resources */,
 				D8F6D13F24194C9300B168C5 /* ItemTableViewCell.xib in Resources */,
 				D8F6D1B02419510F00B168C5 /* TitilliumWeb-Bold.ttf in Resources */,
 				C9B77E6121A01B060092848D /* Assets.xcassets in Resources */,
+				6B45484A249B89C8006F84C7 /* HippoLocalizable.strings in Resources */,
 				D8F6D01E2418FA7300B168C5 /* MultiSelectTableViewCell.xib in Resources */,
 				C9F6D49021C8B71B00EA23E6 /* README.md in Resources */,
 				D830D814247DE9F500EDC774 /* AgentListTableViewCell.xib in Resources */,
 				D8F6D0212418FA7E00B168C5 /* MultipleSelectTableViewCell.xib in Resources */,
 				D8F6D16624194E1200B168C5 /* SelfMessageTableViewCell.xib in Resources */,
-				6BB999532476534000FC32C8 /* ProximaNova-Sbold.ttf in Resources */,
 				D8F6D1B12419510F00B168C5 /* TitilliumWeb-BoldItalic.ttf in Resources */,
 				C9B77E6321A01B060092848D /* LaunchScreen.storyboard in Resources */,
 				D8F6D02C2418FA9400B168C5 /* CustomerPaymentCardCell.xib in Resources */,
 				C9B77E6421A01B060092848D /* Montserrat-Medium.otf in Resources */,
 				D8F6D1B82419510F00B168C5 /* TitilliumWeb-Light.ttf in Resources */,
-				6BB999522476534000FC32C8 /* Mark Simonson - Proxima Nova Regular.ttf in Resources */,
 				D8F6D12624194B3200B168C5 /* SupportMessageTableViewCell.xib in Resources */,
 				6BA8B19E24784E1B00E7E087 /* NavigationBarChat.xib in Resources */,
 				D8F6D1AE2419510F00B168C5 /* TitilliumWeb-SemiBold.ttf in Resources */,
 				D848D1BB245EEF9700235322 /* PaymentPlanHomeCell.xib in Resources */,
 				D8F6D12B24194B6500B168C5 /* ActionableMessageTableViewCell.xib in Resources */,
 				D8F6D12224194B0700B168C5 /* AssignedAgentTableViewCell.xib in Resources */,
-				C9B77E9F21A01B070092848D /* MavenPro-Bold.ttf in Resources */,
 				D8F6D16E24194E8700B168C5 /* ChatInfoActionCell.xib in Resources */,
 				D8F6D23B241956C200B168C5 /* FuguUnique.storyboard in Resources */,
 				D8F6D1B72419510F00B168C5 /* TitilliumWeb-Black.ttf in Resources */,
@@ -2674,7 +2655,6 @@
 				D8F6D11F24194AD500B168C5 /* ChatInfoTagViewCell.xib in Resources */,
 				D8F6D17C24194EFC00B168C5 /* ShowMoreTableViewCell.xib in Resources */,
 				D8F6D16324194DE600B168C5 /* AgentHomeConversationCell.xib in Resources */,
-				6BB9994C2476534000FC32C8 /* ProximaNova-RegIt.ttf in Resources */,
 				D8F6D13B24194C7500B168C5 /* HeaderTableViewCell.xib in Resources */,
 				C9B77EDD21A01B070092848D /* Montserrat-SemiBold.otf in Resources */,
 				D88B20D224619F90007FD382 /* Info.plist in Resources */,
@@ -2699,7 +2679,6 @@
 				D8F6D18924194F7600B168C5 /* BroadcastAgentCell.xib in Resources */,
 				D8F6D14224194CB300B168C5 /* SenderNameTableCell.xib in Resources */,
 				D8F6D0CF2419467600B168C5 /* ProfileDetailCell.xib in Resources */,
-				6BB999502476534000FC32C8 /* ProximaNova-Thin.ttf in Resources */,
 				D8F6D0CA2419466200B168C5 /* ProfileNameCell.xib in Resources */,
 				D8F6D05C2418FCD200B168C5 /* README.rst in Resources */,
 				D8F6D17724194ED700B168C5 /* OutgoingVideoCallMessageTableViewCell.xib in Resources */,
@@ -2797,7 +2776,6 @@
 				D8F6D1C7241951D000B168C5 /* OperatorOverloading.swift in Sources */,
 				D8F6D2C124195D5900B168C5 /* NLevelViewController.swift in Sources */,
 				D8F6D0622418FD4800B168C5 /* ConversationPresenter.swift in Sources */,
-				C9B77EAF21A01B070092848D /* Pulsator.swift in Sources */,
 				D8CD682624863C75000F4097 /* MessageSendingViewConfig.swift in Sources */,
 				D8F6D17824194ED700B168C5 /* VideoCallMessageTableViewCell.swift in Sources */,
 				D8F6D0272418FA8A00B168C5 /* PaymentMessageCell.swift in Sources */,
@@ -2828,6 +2806,7 @@
 				D8F6D18D24194F9300B168C5 /* BroadCastTitleCell.swift in Sources */,
 				D88B20E524619F90007FD382 /* ImageCache.swift in Sources */,
 				D8F6D09C2419015500B168C5 /* HippoQLDataSource.swift in Sources */,
+				6BCCD5902490B86600C5CA0D /* FloatRatingView.swift in Sources */,
 				D8F6D1CF241951D000B168C5 /* Proctocols.swift in Sources */,
 				D8F6D08B241900D500B168C5 /* HTTPClient.swift in Sources */,
 				D8F6D0AB241943A600B168C5 /* AgentHomeCollectionViewCell.swift in Sources */,
@@ -3021,6 +3000,7 @@
 				D8F6D2D424195DC500B168C5 /* CreatePaymentDataSource.swift in Sources */,
 				D8F6D0942419010F00B168C5 /* FayeConnection.swift in Sources */,
 				D8F6D0C32419465000B168C5 /* CardMessageTableDataSource.swift in Sources */,
+				6BBBEA8324991C7300C3E1CE /* BottomPopupController.swift in Sources */,
 				D8F6D13E24194C9300B168C5 /* ItemTableViewCell.swift in Sources */,
 				D848D1B6245EEF5600235322 /* PaymentPlansViewController.swift in Sources */,
 				D8F6D2112419547C00B168C5 /* HippoConversation.swift in Sources */,
@@ -3055,10 +3035,21 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		6B45484C249B89C8006F84C7 /* HippoLocalizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6B45484B249B89C8006F84C7 /* en */,
+				6B45484D249B89D0006F84C7 /* es */,
+			);
+			name = HippoLocalizable.strings;
+			sourceTree = "<group>";
+		};
 		C9B77D7C21A01B060092848D /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				C9B77D7D21A01B060092848D /* Base */,
+				6B454848249B89B0006F84C7 /* en */,
+				6B454849249B89BD006F84C7 /* es */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -3078,6 +3069,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -3136,6 +3128,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";

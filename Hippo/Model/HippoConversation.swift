@@ -19,7 +19,7 @@ class HippoConversation: HippoConversationCallBack {
     var labelId: Int?
     var channelImageUrl: String?
     var chatType: ChatType = .none
-    
+    var channelBackgroundColor : UIColor?
     
     var lastMessage: HippoMessage? {
         didSet {

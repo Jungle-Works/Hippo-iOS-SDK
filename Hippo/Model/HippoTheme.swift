@@ -58,13 +58,13 @@ public struct ConversationListTheme {
     open var infoIconTintColor = #colorLiteral(red: 0.3843137255, green: 0.4901960784, blue: 0.8823529412, alpha: 1)
     open var headerBackgroundColor = UIColor.white
     open var headerTextColor = #colorLiteral(red: 0.9882352941, green: 0.9882352941, blue: 0.9882352941, alpha: 1)//UIColor.black
-    open var headerText = "Support"//"My Recent Consultations"
+    open var headerText = HippoStrings.support//"My Recent Consultations"
     open var directChatHeader = "Conversation List"
     open var broadcastHeader = "Broadcast Message"
     open var broadcastHistoryHeader = "Broadcast Message history"
     open var promotionsAnnouncementsHeaderText = "Announcements"
     open var takeOverButtonText = "Take Over"
-    
+    open var unreadCountColor : UIColor = UIColor(red: 244/255, green: 64/255, blue: 67/255, alpha: 1.0)//UIColor(red: 91/255, green: 159/255, blue: 13/255, alpha: 1.0)
     open var themeColor: UIColor = UIColor(red: 91/255, green: 159/255, blue: 13/255, alpha: 1.0)//.white//UIColor(red: 109/255, green: 212/255, blue: 0/255, alpha: 1)//
     open var recievingBubbleColor : UIColor = UIColor(red: 225/255, green: 240/255, blue: 255/255, alpha: 1.0)
     
@@ -80,6 +80,7 @@ public struct ConversationListTheme {
     open var informationIcon: UIImage? = UIImage(named: "dots", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     open var audioCallIcon: UIImage? = UIImage(named: "call", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     open var videoCallIcon: UIImage? = UIImage(named: "video", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+
     open var noChatImage : UIImage? = UIImage(named: "noChats", in: FuguFlowManager.bundle, compatibleWith: nil)
     open var paymentIcon: UIImage? = UIImage(named: "makePayment", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysOriginal)
 //    open var paymentIcon: UIImage? = UIImage(named: "makePayment", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
@@ -93,9 +94,6 @@ public struct ConversationListTheme {
     open var missedCallMessageColor: UIColor = UIColor.red
     
 //    open var headerTextFont: UIFont? = UIFont.boldregular(ofSize: 18.0)
-    open var ongoingBtnText = "Current"
-    open var pastBtnText = "Past"
-    
     open var myChatBtnText = "My Chats"
     open var allChatBtnText = "All Chats"
     
@@ -176,10 +174,10 @@ public struct ConversationListTheme {
     open var dateTimeFontSize: UIFont? = UIFont.regular(ofSize: 11.0)
     
     open var senderNameColor = UIColor.black40//UIColor.black
-    open var senderNameFont: UIFont = UIFont.regular(ofSize: 15.0)
+    open var senderNameFont: UIFont = UIFont.regular(ofSize: 16.0)
     open var itmDescriptionNameFont: UIFont? = UIFont.regular(ofSize: 14.0)
     open var incomingMsgColor = UIColor.black//UIColor.white//
-    open var incomingMsgFont: UIFont = UIFont.regular(ofSize: 15.0)
+    open var incomingMsgFont: UIFont = UIFont.regular(ofSize: 16.0)
     open var incomingChatBoxColor = UIColor(red: 237/255, green: 237/255, blue: 237/255, alpha: 1)
     open var incomingMsgDateTextColor = UIColor.black40//UIColor.white//
     
@@ -210,7 +208,7 @@ public struct ConversationListTheme {
     open var multiselectUnselectedButtonColor = UIColor(red: 248/255, green: 248/255, blue: 248/255, alpha: 1)
     open var multiselectSelectedButtonColor = UIColor(red: 232/255, green: 236/255, blue: 252/255, alpha:1)
     
-    open var inOutChatTextFont: UIFont = UIFont.regular(ofSize: 15.0)
+    open var inOutChatTextFont: UIFont = UIFont.regular(ofSize: 16.0)
     
     open var timeTextColor = #colorLiteral(red: 0.1725490196, green: 0.137254902, blue: 0.2, alpha: 1)
     
@@ -304,6 +302,10 @@ public struct ConversationListTheme {
     open var sourceIconColor: UIColor = UIColor(red: 34/255, green: 150/255, blue: 255/255, alpha: 1)
     
     //
+    
+    open var ratingFullStar = UIImage(named: "starWithShadow", in: FuguFlowManager.bundle, compatibleWith: nil)
+    open var ratingEmptyStar = UIImage(named: "emptyStar", in: FuguFlowManager.bundle, compatibleWith: nil)
+    
     open var ratingLabelFont: UIFont? = UIFont(name: "HelveticaNeue-Bold", size: 15)
     open var ratingLabelTextFontColor: UIColor = .black
     
@@ -330,9 +332,9 @@ public struct ConversationListTheme {
     open var secureTextFont: UIFont = UIFont.regular(ofSize: 10)
     
     open var shouldShowBtnOnChatList : Bool = false
-    open var chatListRetryBtnText : String = "Retry"
-    open var noOpenAndcloseChatError : String = "Seems like you haven't started any chat yet, kick start it now!"
-    open var noChatUnderCatagoryError : String = "You have no chats."
+    open var chatListRetryBtnText : String = HippoStrings.retry
+    open var noOpenAndcloseChatError : String = HippoStrings.noChatStarted
+    open var noChatUnderCatagoryError : String = HippoStrings.noChatInCatagory
     
 }
 

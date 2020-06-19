@@ -98,7 +98,7 @@ class FuguNetworkHandler: NSObject {
     }
     
     fileprivate func errorMessage(errorLabelColor: UIColor? = nil, errorLabelMessage: String = "", isToLoadFirstTime: Bool = true, needToBeHidden hidden: Bool) {
-        let erorMessage = errorLabelMessage.isEmpty ? HippoConfig.shared.strings.noNetworkConnection : errorLabelMessage
+        let erorMessage = errorLabelMessage.isEmpty ? HippoStrings.noNetworkConnection : errorLabelMessage
         if let chatBoxVC = getLastVisibleController() as? ConversationsViewController, chatBoxVC.isViewLoaded {
             if hidden == false {
                 chatBoxVC.errorLabel.text = erorMessage

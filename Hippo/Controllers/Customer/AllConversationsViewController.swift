@@ -86,8 +86,8 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         
         self.openChatButton.titleLabel?.font = UIFont.bold(ofSize: 15)
         self.closeChatButton.titleLabel?.font = UIFont.regular(ofSize: 15)
-        self.openChatButton.setTitle(HippoConfig.shared.theme.ongoingBtnText, for: .normal)
-        self.closeChatButton.setTitle(HippoConfig.shared.theme.pastBtnText, for: .normal)
+        self.openChatButton.setTitle(HippoStrings.ongoing, for: .normal)
+        self.closeChatButton.setTitle(HippoStrings.past, for: .normal)
         
         self.bottomLineView.backgroundColor = HippoConfig.shared.theme.themeColor
         
@@ -134,6 +134,20 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         self.tabBarController?.tabBar.layer.zPosition = -1
     }
     
+    @IBAction func newConversationClicked(_ sender: Any) {
+        var fuguNewChatAttributes = FuguNewChatAttributes(transactionId: "", userUniqueKey: HippoConfig.shared.userDetail?.userUniqueKey, otherUniqueKey: nil, tags: HippoProperty.current.newConversationButtonTags, channelName: nil, preMessage: "", groupingTag: nil)
+        
+        print("bodID******* \(HippoProperty.current.newconversationBotGroupId ?? "")")
+        print("bodID*******First")
+//        fuguNewChatAttributes.botGroupId = HippoProperty.current.newconversationBotGroupId//"72"//
+        if let botID = HippoProperty.current.newconversationBotGroupId, botID != ""{
+            fuguNewChatAttributes.botGroupId = botID
+        }
+        
+        let conversation = ConversationsViewController.getWith(chatAttributes: fuguNewChatAttributes)
+        conversation.createConversationOnStart = true
+        self.navigationController?.pushViewController(conversation, animated: true)
+    }
     
     func handleIntialCustomerForm() -> Bool {
         guard HippoUserDetail.fuguUserID != nil else {
@@ -326,7 +340,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
             errorLabel.text = ""
             updateErrorLabelView(isHiding: true)
         } else {
-            errorLabel.text = HippoConfig.shared.strings.noNetworkConnection
+            errorLabel.text = HippoStrings.noNetworkConnection
             updateErrorLabelView(isHiding: false)
         }
     }
@@ -411,6 +425,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
             if let botID = HippoProperty.current.newconversationBotGroupId, botID != ""{
                 fuguNewChatAttributes.botGroupId = botID
             }
+            
             let conversation = ConversationsViewController.getWith(chatAttributes: fuguNewChatAttributes)
             conversation.createConversationOnStart = true
             self.navigationController?.pushViewController(conversation, animated: true)

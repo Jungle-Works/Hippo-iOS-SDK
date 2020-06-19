@@ -582,7 +582,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     closeKeyBoard()
     actionSheetTitleArr.removeAll()
     actionSheetImageArr.removeAll()
-    actionSheetTitleArr = ["Photo & Video Library","Camera","Document"]
+    actionSheetTitleArr = [HippoStrings.photoLibrary,HippoStrings.camera,HippoStrings.document]
     actionSheetImageArr = ["Library","Camera","Library"]
     heightForActionSheet = CGFloat((actionSheetTitleArr.count * 60))
     isProceedToPayActionSheet = false
@@ -771,31 +771,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     
    override func backButtonClicked() {
         super.backButtonClicked()
-        messageTextView.resignFirstResponder()
-    
-        channel?.send(message: HippoMessage.stopTyping, completion: {})
-        let rawLabelID = self.labelId == -1 ? nil : self.labelId
-        let channelID = self.channel?.id ?? -1
-        
-        clearUnreadCountForChannel(id: channelID)
-        if let lastMessage = getLastMessage(), let conversationInfo = FuguConversation(channelId: channelID, unreadCount: 0, lastMessage: lastMessage, labelID: rawLabelID) {
-            
-            delegate?.updateConversationWith(conversationObj: conversationInfo)
-        }
-    
-        //if chat delegate is not set , it doesnot exist in allconversation
-        if delegate == nil{
-            for controller in self.navigationController?.viewControllers ?? [UIViewController](){
-                if controller is AllConversationsViewController{
-                    (controller as? AllConversationsViewController)?.getAllConversations()
-                    break
-                }
-            }
-        }
-    
-        if channel != nil {
-            self.channel.saveMessagesInCache()
-        }
+        backNavigationDataSaving()
         if self.navigationController == nil {
             HippoConfig.shared.notifiyDeinit()
             dismiss(animated: true, completion: nil)
@@ -808,6 +784,36 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
             }
         }
    }
+    
+    func backNavigationDataSaving(){
+        messageTextView.resignFirstResponder()
+        
+        channel?.send(message: HippoMessage.stopTyping, completion: {})
+        let rawLabelID = self.labelId == -1 ? nil : self.labelId
+        let channelID = self.channel?.id ?? -1
+        
+        clearUnreadCountForChannel(id: channelID)
+        if let lastMessage = getLastMessage(), let conversationInfo = FuguConversation(channelId: channelID, unreadCount: 0, lastMessage: lastMessage, labelID: rawLabelID) {
+            
+            delegate?.updateConversationWith(conversationObj: conversationInfo)
+        }
+        
+        //if chat delegate is not set , it doesnot exist in allconversation
+        if delegate == nil{
+            for controller in self.navigationController?.viewControllers ?? [UIViewController](){
+                if controller is AllConversationsViewController{
+                    (controller as? AllConversationsViewController)?.getAllConversations()
+                    break
+                }
+            }
+        }
+        
+        if channel != nil {
+            self.channel.saveMessagesInCache()
+        }
+        
+    }
+    
  override func clearUnreadCountForChannel(id: Int) {
         
         let channelRaw: [String: Any] = ["channel_id": id]
@@ -881,6 +887,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     override func adjustChatWhenKeyboardIsOpened(withHeight keyboardHeight: CGFloat) {
         // TODO: - Refactor
         guard tableViewChat.contentSize.height + keyboardHeight > UIScreen.main.bounds.height - hieghtOfNavigationBar else {
+            print("return****")
             return
         }
         
@@ -906,7 +913,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
 //            updateErrorLabelView(isHiding: true)
 //        } else {
 //            errorLabelTopConstraint.constant = -20
-//            errorLabel.text = HippoConfig.shared.strings.noNetworkConnection
+//            errorLabel.text = HippoStrings.noNetworkConnection
 //            updateErrorLabelView(isHiding: false)
 //        }
 //    }
@@ -1124,7 +1131,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         tableViewChat.reloadData()
         
         directChatDetail = FuguNewChatAttributes.defaultChat
-        label = (userDetailData["business_name"] as? String) ?? "Support"
+        label = (userDetailData["business_name"] as? String) ?? HippoStrings.support
         userImage = nil
         setTitleForCustomNavigationBar()
         
@@ -1241,7 +1248,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         }
       disableSendingNewMessages()
       if FuguNetworkHandler.shared.isNetworkConnected == false {
-         errorMessage = HippoConfig.shared.strings.noNetworkConnection
+         errorMessage = HippoStrings.noNetworkConnection
          showErrorMessage()
          disableSendingNewMessages()
 //         return
@@ -2229,11 +2236,11 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                     return self.getHeightOfActionableMessageAt(indexPath: indexPath, chatObject: message) + heightOfDateLabel
                 case MessageType.feedback:
                     
-                    guard let muid = message.messageUniqueID, var rowHeight: CGFloat = heightForFeedBackCell["\(muid)"] else {
-                        return 0.001
-                    }
-                    rowHeight += 7 //Height for bottom view
-                    return rowHeight
+//                    guard let muid = message.messageUniqueID, var rowHeight: CGFloat = heightForFeedBackCell["\(muid)"] else {
+//                        return 0.001
+//                    }
+                 //   rowHeight += 7 //Height for bottom view
+                    return UIView.tableAutoDimensionHeight
                 case .consent:
                     return message.cellDetail?.cellHeight ?? 0.01
                 case MessageType.call:
@@ -2977,7 +2984,6 @@ extension ConversationsViewController: BotOtgoingMessageCellDelegate {
 extension ConversationsViewController: FeedbackTableViewCellDelegate {
     
     func cellTextViewEndEditing(data: FeedbackParams) {
-        
     }
     func cellTextViewBeginEditing(textView: UITextView, data: FeedbackParams) {
         
@@ -2992,7 +2998,7 @@ extension ConversationsViewController: FeedbackTableViewCellDelegate {
         mess.total_rating = 5
         mess.rating_given = data.selectedIndex
         mess.comment = data.cellTextView.text.trimWhiteSpacesAndNewLine()
-        mess.senderId = HippoUserDetail.fuguUserID ?? 0
+        mess.senderId = data.messageObject?.senderId ?? -1
         
         self.channel.send(message: mess) {
             self.channel.upateFeedbackStatus(newMessage: mess)
@@ -3037,7 +3043,7 @@ extension ConversationsViewController {
             self.pushToChatHistory()
         })
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (alert: UIAlertAction!) -> Void in })
+        let cancelAction = UIAlertAction(title: HippoStrings.attachmentCancel, style: .cancel, handler: { (alert: UIAlertAction!) -> Void in })
         
         actionSheet.addAction(chatHistory)
         actionSheet.addAction(logoutOption)
@@ -3070,20 +3076,30 @@ extension ConversationsViewController {
 
 extension ConversationsViewController: UIGestureRecognizerDelegate {
 
-     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-            messageTextView.resignFirstResponder()
-            channel?.send(message: HippoMessage.stopTyping, completion: {})
-            let rawLabelID = self.labelId == -1 ? nil : self.labelId
-            let channelID = self.channel?.id ?? -1
-            if let lastMessage = getLastMessage(), let conversationInfo = FuguConversation(channelId: channelID, unreadCount: 0, lastMessage: lastMessage, labelID: rawLabelID) {
-                delegate?.updateConversationWith(conversationObj: conversationInfo)
-            }
-            
-            if gestureRecognizer == self.navigationController?.interactivePopGestureRecognizer{
-                return false
-            }
-            return true
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        messageTextView.resignFirstResponder()
+        channel?.send(message: HippoMessage.stopTyping, completion: {})
+        let rawLabelID = self.labelId == -1 ? nil : self.labelId
+        let channelID = self.channel?.id ?? -1
+        if let lastMessage = getLastMessage(), let conversationInfo = FuguConversation(channelId: channelID, unreadCount: 0, lastMessage: lastMessage, labelID: rawLabelID) {
+            delegate?.updateConversationWith(conversationObj: conversationInfo)
         }
+        
+        //if chat delegate is not set , it doesnot exist in allconversation
+        if delegate == nil{
+            for controller in self.navigationController?.viewControllers ?? [UIViewController](){
+                if controller is AllConversationsViewController{
+                    (controller as? AllConversationsViewController)?.getAllConversations()
+                    break
+                }
+            }
+        }
+        
+        if gestureRecognizer == self.navigationController?.interactivePopGestureRecognizer{
+            return false
+        }
+        return true
+    }
 
 }
 

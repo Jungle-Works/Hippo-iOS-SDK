@@ -293,7 +293,7 @@ extension AgentHomeViewController {
             errorLabel.text = ""
             hideErrorLabelView()
         } else {
-            errorLabel.text = HippoConfig.shared.strings.noNetworkConnection
+            errorLabel.text = HippoStrings.noNetworkConnection
             showErrorLabelView()
         }
     }
@@ -679,20 +679,28 @@ extension AgentHomeViewController: UITableViewDelegate, UITableViewDataSource {
     func updateChannelStatus(for row: Int) {
         if let channelId = conversationList[row].channel_id, let status = conversationList[row].status {
             let newStatus = status == 1 ? 2 : 1
+            self.startLoading()
             AgentConversationManager.updateChannelStatus(for: channelId, newStatus: newStatus) { (result) in
                 guard result.isSuccessful else {
-                    showAlertWith(message: HippoConfig.shared.strings.somethingWentWrong, action: nil)
+                    self.stopLoading()
+                    showAlertWith(message: HippoStrings.somethingWentWrong, action: nil)
                     return
                 }
-                guard let controllers = self.navigationController?.viewControllers else { return }
+                guard let controllers = self.navigationController?.viewControllers else {
+                    self.stopLoading()
+                    return
+                }
                 for each in controllers {
                     if let vc = each as? HippoHomeViewController {
-                        vc.channelStatusChanged(channelId: channelId, newStatus: ChatStatus(rawValue: newStatus) ?? ChatStatus.open)
-                    break
-                }
-                if let vc = each as? AgentDirectViewController, vc.conversationList.count > 1 {
-                    break
-                }
+//                        vc.channelStatusChanged(channelId: channelId, newStatus: ChatStatus(rawValue: newStatus) ?? ChatStatus.open)
+                        self.stopLoading()
+                        self.deleteConversation(channelId: channelId)
+                        break
+                    }
+                    self.stopLoading()
+                    if let vc = each as? AgentDirectViewController, vc.conversationList.count > 1 {
+                        break
+                    }
                 }
             }
         }
@@ -890,11 +898,12 @@ extension AgentHomeViewController : FilterScreenButtonsDelegate{
     func cancelButtonPressed() {
         //code
     }
+
     
     func resetButtonPressed() {
         self.setDataForViewDidAppear()
     }
-    
+
     func applyButtonPressed() {
         self.setDataForViewDidAppear()
     }

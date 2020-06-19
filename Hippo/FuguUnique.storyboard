@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="vAr-Qq-z1C">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="vAr-Qq-z1C">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -1862,6 +1863,142 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jG4-ar-HKK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1908" y="474.51274362818594"/>
+        </scene>
+        <!--Pre Payment Controller-->
+        <scene sceneID="2e2-Kk-xMu">
+            <objects>
+                <viewController storyboardIdentifier="PrePaymentController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Edv-Fm-ul7" customClass="PrePaymentController" customModule="Hippo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="e3O-eh-m5f">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tkd-58-90y" customClass="NavigationBar" customModule="Hippo" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="X7o-S9-TzH"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="7aO-6U-CIb" firstAttribute="top" secondItem="tkd-58-90y" secondAttribute="top" id="9jw-al-HgV"/>
+                            <constraint firstItem="tkd-58-90y" firstAttribute="leading" secondItem="7aO-6U-CIb" secondAttribute="leading" id="MSs-XX-9Ua"/>
+                            <constraint firstItem="7aO-6U-CIb" firstAttribute="trailing" secondItem="tkd-58-90y" secondAttribute="trailing" id="teP-Hn-aG5"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="7aO-6U-CIb"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="riH-KG-4nN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1463" y="1711"/>
+        </scene>
+        <!--Bottom Popup Controller-->
+        <scene sceneID="JpP-J0-fMI">
+            <objects>
+                <viewController storyboardIdentifier="BottomPopupController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="ZpR-c4-DRT" customClass="BottomPopupController" customModule="Hippo" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="eIn-IY-Qt9"/>
+                        <viewControllerLayoutGuide type="bottom" id="3AJ-uy-Wg9"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="QsU-FK-T4R">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XyW-RV-1q7" customClass="UIControl">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <action selector="dismissView" destination="ZpR-c4-DRT" eventType="touchUpInside" id="yGB-bs-wpI"/>
+                                </connections>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rbU-Xh-che">
+                                <rect key="frame" x="0.0" y="440.5" width="375" height="226.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cancel Payment" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mF9-m3-tG3">
+                                        <rect key="frame" x="25" y="30" width="325" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Are you sure you want to cancel the payment?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AEZ-Ve-GaB">
+                                        <rect key="frame" x="25" y="80.5" width="325" height="41"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0P7-PP-05b">
+                                        <rect key="frame" x="25" y="151.5" width="325" height="45"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Xz-C8-U5y">
+                                                <rect key="frame" x="0.0" y="0.0" width="156" height="45"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="45" id="rhf-0v-rQz"/>
+                                                </constraints>
+                                                <state key="normal" title="No"/>
+                                                <connections>
+                                                    <action selector="Action_No" destination="ZpR-c4-DRT" eventType="touchUpInside" id="rX7-S8-TD4"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JAa-67-qer">
+                                                <rect key="frame" x="169" y="0.0" width="156" height="45"/>
+                                                <state key="normal" title="Yes, Cancel"/>
+                                                <connections>
+                                                    <action selector="Action_Yes" destination="ZpR-c4-DRT" eventType="touchUpInside" id="IEa-9k-YrG"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <constraints>
+                                            <constraint firstItem="0Xz-C8-U5y" firstAttribute="width" secondItem="JAa-67-qer" secondAttribute="width" id="3Ao-AD-lOy"/>
+                                            <constraint firstAttribute="bottom" secondItem="JAa-67-qer" secondAttribute="bottom" id="6f7-LK-afg"/>
+                                            <constraint firstAttribute="trailing" secondItem="JAa-67-qer" secondAttribute="trailing" id="HtP-4h-RFd"/>
+                                            <constraint firstItem="0Xz-C8-U5y" firstAttribute="width" secondItem="0P7-PP-05b" secondAttribute="width" multiplier="0.48" id="VXJ-7F-bKe"/>
+                                            <constraint firstItem="JAa-67-qer" firstAttribute="top" secondItem="0P7-PP-05b" secondAttribute="top" id="gBz-eH-rQS"/>
+                                            <constraint firstAttribute="bottom" secondItem="0Xz-C8-U5y" secondAttribute="bottom" id="nvl-5p-vTp"/>
+                                            <constraint firstItem="0Xz-C8-U5y" firstAttribute="top" secondItem="0P7-PP-05b" secondAttribute="top" id="oR9-57-FCl"/>
+                                            <constraint firstItem="0Xz-C8-U5y" firstAttribute="leading" secondItem="0P7-PP-05b" secondAttribute="leading" id="pph-Gg-JJp"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="0P7-PP-05b" secondAttribute="bottom" constant="30" id="J8V-rZ-ipb"/>
+                                    <constraint firstItem="0P7-PP-05b" firstAttribute="top" secondItem="AEZ-Ve-GaB" secondAttribute="bottom" constant="30" id="JZI-Wf-GHN"/>
+                                    <constraint firstItem="0P7-PP-05b" firstAttribute="leading" secondItem="AEZ-Ve-GaB" secondAttribute="leading" id="Tug-LT-gsV"/>
+                                    <constraint firstItem="mF9-m3-tG3" firstAttribute="top" secondItem="rbU-Xh-che" secondAttribute="top" constant="30" id="UlI-cm-XOX"/>
+                                    <constraint firstItem="mF9-m3-tG3" firstAttribute="leading" secondItem="rbU-Xh-che" secondAttribute="leading" constant="25" id="V8s-4o-lUQ"/>
+                                    <constraint firstItem="0P7-PP-05b" firstAttribute="trailing" secondItem="AEZ-Ve-GaB" secondAttribute="trailing" id="dg7-XB-Loy"/>
+                                    <constraint firstItem="AEZ-Ve-GaB" firstAttribute="leading" secondItem="mF9-m3-tG3" secondAttribute="leading" id="foc-1S-zId"/>
+                                    <constraint firstItem="AEZ-Ve-GaB" firstAttribute="trailing" secondItem="mF9-m3-tG3" secondAttribute="trailing" id="hmi-zg-ThD"/>
+                                    <constraint firstAttribute="trailing" secondItem="mF9-m3-tG3" secondAttribute="trailing" constant="25" id="mSF-mR-sqU"/>
+                                    <constraint firstItem="AEZ-Ve-GaB" firstAttribute="top" secondItem="mF9-m3-tG3" secondAttribute="bottom" constant="30" id="zLU-A6-jvA"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="XyW-RV-1q7" firstAttribute="leading" secondItem="QsU-FK-T4R" secondAttribute="leading" id="2BP-U1-cuo"/>
+                            <constraint firstItem="XyW-RV-1q7" firstAttribute="top" secondItem="eIn-IY-Qt9" secondAttribute="bottom" id="Kwr-0x-zDc"/>
+                            <constraint firstAttribute="trailing" secondItem="XyW-RV-1q7" secondAttribute="trailing" id="R62-C4-dCq"/>
+                            <constraint firstItem="rbU-Xh-che" firstAttribute="leading" secondItem="QsU-FK-T4R" secondAttribute="leading" id="iXP-hw-L3e"/>
+                            <constraint firstAttribute="trailing" secondItem="rbU-Xh-che" secondAttribute="trailing" id="pBV-7r-evm"/>
+                            <constraint firstItem="3AJ-uy-Wg9" firstAttribute="top" secondItem="XyW-RV-1q7" secondAttribute="bottom" id="qWj-As-Mlj"/>
+                            <constraint firstAttribute="bottom" secondItem="rbU-Xh-che" secondAttribute="bottom" id="tri-ki-agr"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="button_No" destination="0Xz-C8-U5y" id="ULf-9s-nDH"/>
+                        <outlet property="button_Yes" destination="JAa-67-qer" id="MIl-kD-lU2"/>
+                        <outlet property="label_CancelMessage" destination="AEZ-Ve-GaB" id="cmc-VA-lMu"/>
+                        <outlet property="label_CancelPayemnt" destination="mF9-m3-tG3" id="mmk-Rh-Ss9"/>
+                        <outlet property="view_Background" destination="XyW-RV-1q7" id="gNK-Qa-qct"/>
+                        <outlet property="view_Popup" destination="rbU-Xh-che" id="0mW-Vq-dea"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="h9g-dW-aFA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2272.8000000000002" y="1706.8965517241381"/>
         </scene>
     </scenes>
     <resources>

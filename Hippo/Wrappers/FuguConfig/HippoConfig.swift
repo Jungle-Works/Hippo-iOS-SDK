@@ -45,8 +45,8 @@ static let betaFaye = "https://beta-live-api.fuguchat.com:3001/faye"
 // static let betaUrl = "https://hippo-api-dev.fuguchat.com:3002/"
 // static let betaFaye = "https://hippo-api-dev.fuguchat.com:3002/faye"
 
-static let devUrl = "https://hippo-api-dev.fuguchat.com:3002/"//"https://hippo-api-dev.fuguchat.com:3002/"
-static let devFaye = "https://hippo-api-dev.fuguchat.com:3002/faye"//"https://hippo-api-dev.fuguchat.com:3002/faye"//
+static let devUrl = "https://hippo-api-dev.fuguchat.com:3004/"//"https://hippo-api-dev.fuguchat.com:3002/"//
+static let devFaye = "https://hippo-api-dev.fuguchat.com:3004/faye"//"https://hippo-api-dev.fuguchat.com:3002/faye"//
 
 // static let devUrl = "https://hippo-api-dev.fuguchat.com:3011/"
 // static let devFaye = "https://hippo-api-dev.fuguchat.com:3012/faye"
@@ -161,7 +161,8 @@ struct BotAction {
     open var unreadCount: ((_ totalUnread: Int) -> ())?
     open var usersUnreadCount: ((_ userUnreadCount: [String: Int]) -> ())?
     open var HippoDismissed: ((_ isDismissed: Bool) -> ())?
-
+    open var HippoPrePaymentCancelled: (()->())?
+    open var HippoPrePaymentSuccessful: ((Bool)->())?
     
     internal let powererdByColor = #colorLiteral(red: 0.4980392157, green: 0.4980392157, blue: 0.4980392157, alpha: 1)
     internal let FuguColor = #colorLiteral(red: 0.3843137255, green: 0.4901960784, blue: 0.8823529412, alpha: 1)
@@ -374,6 +375,10 @@ struct BotAction {
         checker.presentChatsViewController()
     }
 
+    func presentPrePaymentController(){
+        
+    }
+    
     class public func showChats(on viewController: UIViewController) {
         AgentDetail.setAgentStoredData()
         HippoConfig.shared.checker.presentChatsViewController(on: viewController)
@@ -464,6 +469,19 @@ struct BotAction {
                 FuguFlowManager.shared.openDirectConversationHome()
             }
         }
+    }
+    
+    public func fetchAddedPaymentGatewaysData() -> [PaymentGateway]? {
+        if let addedPaymentGatewaysData = FuguDefaults.object(forKey: DefaultName.addedPaymentGatewaysData.rawValue) as? [[String: Any]]{
+            let addedPaymentGatewaysArr = PaymentGateway.parse(addedPaymentGateways: addedPaymentGatewaysData)
+            return addedPaymentGatewaysArr
+        }else{
+            return nil
+        }
+    }
+    
+    public func openPrePayment(paymentGatewayId : Int, prePaymentDic: [String : Any], completion: @escaping PrePaymentCompletion){
+        PrePayment.callPrePaymentApi(paymentGatewayId: paymentGatewayId, prePaymentDic: prePaymentDic, completion: completion)
     }
     
     public func getUnreadCountFor(with userUniqueKeys: [String]) {
@@ -585,19 +603,19 @@ struct BotAction {
                 return
             }
             let call = CallData.init(peerData: peer, callType: callType, muid: uuid, signallingClient: channel)
-            
-            CallManager.shared.startCall(call: call, completion: { (success) in
-                if !success {
-                    CallManager.shared.hungupCall()
-                }
-                completion(true, nil)
-            })
-//            CallManager.shared.startCall(call: call, completion: { (success,error) in
+  
+//            CallManager.shared.startCall(call: call, completion: { (success)  in
 //                if !success {
 //                    CallManager.shared.hungupCall()
 //                }
 //                completion(true, nil)
 //            })
+            CallManager.shared.startCall(call: call, completion: { (success,error)  in
+                if !success {
+                    CallManager.shared.hungupCall()
+                }
+                completion(true, nil)
+            })
             
         })
         completion(true, nil)
@@ -646,20 +664,19 @@ struct BotAction {
                 return
             }
             let call = CallData.init(peerData: peer, callType: callType, muid: uuid, signallingClient: channel)
-            
-            CallManager.shared.startCall(call: call, completion: { (success) in
-                if !success {
-                    CallManager.shared.hungupCall()
-                }
-                completion(true, nil)
-            })
-//            CallManager.shared.startCall(call: call, completion: { (success,error) in
+  
+//            CallManager.shared.startCall(call: call, completion: { (success)  in
 //                if !success {
 //                    CallManager.shared.hungupCall()
 //                }
 //                completion(true, nil)
 //            })
-            
+            CallManager.shared.startCall(call: call, completion: { (success,error)  in
+                if !success {
+                    CallManager.shared.hungupCall()
+                }
+                completion(true, nil)
+            })
         })
         completion(true, nil)
     }
@@ -688,6 +705,19 @@ struct BotAction {
 //            let lastVC = getLastVisibleController()
 //            lastVC?.present(conVC, animated: true, completion: nil)
 //        }
+    }
+    public func openAgentChatWith(channelId: Int, completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
+            HippoChecker.checkForAgentIntialization { (success, error) in
+                guard success else {
+                    completion(false, error)
+                    return
+                }
+                guard channelId > 0 else {
+                    completion(false, HippoError.invalidInputData)
+                    return
+                }
+                FuguFlowManager.shared.pushAgentConversationViewController(channelId: channelId, channelName: "")
+            }
     }
     
     internal func validateLogin(completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {

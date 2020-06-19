@@ -121,7 +121,7 @@ extension ConversationView {
             //         timeLabel.font = UIFont(name:"HelveticaNeue-Bold", size: 12.0)
               
             unreadCountLabel.text = "  \(unreadCount)  "
-            view_Unread.backgroundColor = UIColor(red: 244/255, green: 64/255, blue: 67/255, alpha: 1.0)//.red//HippoConfig.shared.theme.themeColor
+            view_Unread.backgroundColor = HippoConfig.shared.theme.unreadCountColor
                 //#colorLiteral(red: 0.8666666667, green: 0.09019607843, blue: 0.1176470588, alpha: 1).withAlphaComponent(isThisChatOpened(opened: isOpened))
             view_Unread.layer.cornerRadius = view_Unread.frame.size.height/2
             unreadCountLabel.textColor = UIColor.white
@@ -160,13 +160,8 @@ extension ConversationView {
             let channelNameInitials = channelName.trimWhiteSpacesAndNewLine()
 //            placeHolderImageButton?.setTitle(String(channelNameInitials.remove(at: channelNameInitials.startIndex)).capitalized, for: .normal)
 //            placeHolderImageButton?.layer.cornerRadius = 15.0
-            let color = getRandomColor()
-            if channelImageView.backgroundColor == nil{
-                channelImageView.setTextInImage(string: channelNameInitials, color: color, circular: false, textAttributes: nil)
-                channelImageView.backgroundColor = color
-            }else{
-               channelImageView.setTextInImage(string: channelNameInitials, color: channelImageView.backgroundColor, circular: false, textAttributes: nil)
-            }
+            let color = conersationObj.channelBackgroundColor
+            channelImageView.setTextInImage(string: channelNameInitials, color: color, circular: false, textAttributes: nil)
            
         }
         
@@ -232,12 +227,5 @@ extension ConversationView {
         return opened ? 1 : 0.5
     }
     
-    func getRandomColor() -> UIColor {
-         //Generate between 0 to 1
-         let red:CGFloat = CGFloat(drand48())
-         let green:CGFloat = CGFloat(drand48())
-         let blue:CGFloat = CGFloat(drand48())
-
-         return UIColor(red:red, green: green, blue: blue, alpha: 1.0)
-    }
+  
 }

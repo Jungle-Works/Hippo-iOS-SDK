@@ -8,17 +8,33 @@
 import Foundation
 
 public class HippoStrings {
+    //cp sdk
+    static var ongoing = "Current".localized
+    static var past = "Past".localized
+    static var newConversation = "New Conversation".localized
+    static var noNetworkConnection = "No internet connection".localized
+    static var connected = "Connected".localized
+    static var somethingWentWrong = "Something went wrong.".localized
+    static var loading = "Loading...".localized
+    static var photoLibrary = "Photo & Video Library".localized
+    static var camera = "Camera".localized
+    static var document = "Document".localized
+    static var payment = "Payment".localized
+    static var retry = "Retry".localized
+    static var noChatStarted = "Seems like you haven't started any chat yet, kick start it now!".localized
+    static var noChatInCatagory = "You have no chats.".localized
+    static var writeReview = "Write a review".localized
+    open var messagePlaceHolderText = "Send a message....".localized
+    static var enterSomeText = "Please enter some text.".localized
+    static var attachmentCancel = "Cancel".localized
+    static var ok = "OK".localized
+    static var support = "Support".localized
+    static var noMinSelection = "Please select atleast one option"
+    
+    
     open var disbaledCameraErrorMessage = "Access to Camera is denied. Please enable from setings."
     open var cameraString = "New Image via Camera"
-    open var photoLibrary = "Photo Library"
-    open var attachmentCancel = "Cancel"
-    open var messagePlaceHolderText = "Send a message...."
-    open var enterSomeText = "Please enter some text."
-    open var noNetworkConnection = "No internet connection"
-    open var noMinSelection = "Please select atleast one option"
-    open var somethingWentWrong = "Something went wrong."
     open var displayNameForCustomers = "Fleet"
-    
     open var broadCastTitle = "This will send message to your active*"
     open var broadCastTitleInfo = "*Based on past 30 days login activity."
     open var selectTeamsString = "Select Team"

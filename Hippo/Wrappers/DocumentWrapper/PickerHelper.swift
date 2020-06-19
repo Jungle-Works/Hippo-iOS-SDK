@@ -78,7 +78,7 @@ class PickerHelper {
             self.documentPicker?.presentIn(viewController: self.currentViewController, completion: nil)
         }
 
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (alert: UIAlertAction!) -> Void in })
+        let cancelAction = UIAlertAction(title: HippoStrings.attachmentCancel, style: .cancel, handler: { (alert: UIAlertAction!) -> Void in })
 
 
         if enablePayment {

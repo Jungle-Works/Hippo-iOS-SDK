@@ -138,6 +138,9 @@ class AgentConversationViewController: HippoConversationViewController {
         }
         //        infoButton.isHidden = true
         
+        let unsendMessage = self.getUnsentMessage()
+        self.setUpLastUnsendMessage(message:unsendMessage)
+        
         populateTableViewWithChannelData()
         fetchMessagesFrom1stPage()
     }
@@ -165,11 +168,15 @@ class AgentConversationViewController: HippoConversationViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+//        let unsendMessage = self.getUnsentMessage()
+//        self.setUpLastUnsendMessage(message:unsendMessage)
+        
         if !loaderView.isHidden {
             startLoaderAnimation()
         }
         AgentConversationManager.getUserUnreadCount()
         reloadVisibleCellsToStartActivityIndicator()
+        
     }
     
     override func reloadVisibleCellsToStartActivityIndicator() {
@@ -189,6 +196,18 @@ class AgentConversationViewController: HippoConversationViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        
+        if messageTextView.isFirstResponder {
+            messageTextView.resignFirstResponder()
+//            self.bottomSpaceOfFooterView.constant = 0
+        }
+//        var dict = HippoConfig.folder.object(forKey: "StoredUnsendMessages") as? [String: Any] ?? [:]
+//        dict["\(channelId)"] = messageTextView.text
+//        HippoConfig.folder.set(value: dict, forKey: "StoredUnsendMessages")
+        var dict = FuguDefaults.object(forKey: "StoredUnsendMessages") as? [String: Any] ?? [:]
+        dict["\(channelId)"] = messageTextView.text
+        FuguDefaults.set(value: dict, forKey: "StoredUnsendMessages")
+        
     }
     
     override func backButtonClicked() {
@@ -341,6 +360,12 @@ class AgentConversationViewController: HippoConversationViewController {
         
     }
 
+    @IBAction func getBotActions(_ sender: Any) {
+        self.closeKeyBoard()
+        AgentConversationManager.getBotsAction(userId: self.channel.chatDetail?.customerID ?? 0, channelId: self.channelId) { (botActions) in
+            self.addBotActionView(with: botActions)
+        }
+    }
 
     func addBotActionView(with botArray: [BotAction]) {
         guard let window = UIApplication.shared.keyWindow else {
@@ -360,7 +385,22 @@ class AgentConversationViewController: HippoConversationViewController {
             self.botActionView.alpha = 1.0
         }
     }
+    
+    func getUnsentMessage() -> String{
+//        let unsentCache = HippoConfig.folder.object(forKey: "StoredUnsendMessages") as? [String: Any]
+        let unsentCache = FuguDefaults.object(forKey: "StoredUnsendMessages") as? [String: Any] ?? [:]
+//        print(unsentCache ?? [:])
+        let value = (unsentCache["\(channelId)"]) ?? ""
+        return value as! String
+    }
 
+    func setUpLastUnsendMessage(message:String){
+        messageTextView.text = message
+        placeHolderLabel.isHidden = !message.isEmpty
+//        manageSendButton()
+        self.sendMessageButton.isEnabled = !message.isEmpty
+    }
+    
     override func addMessageToUIBeforeSending(message: HippoMessage) {
         self.updateMessagesArrayLocallyForUIUpdation(message)
         self.messageTextView.text = ""
@@ -502,7 +542,7 @@ class AgentConversationViewController: HippoConversationViewController {
         if FuguNetworkHandler.shared.isNetworkConnected {
             hideErrorMessage()
         } else {
-            errorMessage = HippoConfig.shared.strings.noNetworkConnection
+            errorMessage = HippoStrings.noNetworkConnection
             showErrorMessage()
         }
     }
@@ -525,7 +565,7 @@ class AgentConversationViewController: HippoConversationViewController {
             return
         }
         if FuguNetworkHandler.shared.isNetworkConnected == false {
-            let message = HippoConfig.shared.strings.noNetworkConnection
+            let message = HippoStrings.noNetworkConnection
             showErrorMessage(messageString: message, bgColor: UIColor.red)
             completion?(false)
             return
@@ -596,8 +636,14 @@ class AgentConversationViewController: HippoConversationViewController {
         var messages = result.newMessages
         let newMessagesHashMap = result.newMessageHashmap
         
+//        label = result.channelName
+//        setNavigationTitle(title: label)
+        let previousLabel = label
         label = result.channelName
         setNavigationTitle(title: label)
+        if previousLabel == "" && label != ""{
+            setTitleForCustomNavigationBar()
+        }
         
         if request.pageStart == 1 && messages.count > 0 {
             filterMessages(newMessagesHashMap: newMessagesHashMap, lastMessage: messages.last!)
@@ -616,10 +662,17 @@ class AgentConversationViewController: HippoConversationViewController {
         if request.pageStart > 1 {
             keepTableViewWhereItWasBeforeReload(oldContentHeight: contentHeightBeforeNewMessages, oldYOffset: contentOffsetBeforeNewMessages)
         }
+//        if result.isSendingDisabled {
+//            disableSendingReply()
+//            setFooterView(isReplyDisabled: result.isSendingDisabled, isBotInProgress: result.isBotInProgress)
+//        }
         if result.isSendingDisabled {
             disableSendingReply()
             setFooterView(isReplyDisabled: result.isSendingDisabled, isBotInProgress: result.isBotInProgress)
+        }else{
+            enableSendingReply()
         }
+        
         if request.pageStart == 1, request.pageEnd == nil {
             newScrollToBottom(animated: true)
             sendReadAllNotification()
@@ -648,7 +701,7 @@ class AgentConversationViewController: HippoConversationViewController {
         
         disableSendingNewMessages()
         if FuguNetworkHandler.shared.isNetworkConnected == false {
-            errorMessage = HippoConfig.shared.strings.noNetworkConnection
+            errorMessage = HippoStrings.noNetworkConnection
             showErrorMessage()
             disableSendingNewMessages()
             return
@@ -731,7 +784,12 @@ class AgentConversationViewController: HippoConversationViewController {
     class func getWith(channelID: Int, channelName: String) -> AgentConversationViewController {
         let vc = getNewInstance()
         vc.channel = AgentChannelPersistancyManager.shared.getChannelBy(id: channelID)
-        vc.label = channelName
+//        vc.label = channelName
+        if channelName != ""{
+            vc.label = channelName
+        }else{
+            vc.label = vc.channel.chatDetail?.customerName ?? ""
+        }
         return vc
     }
     
@@ -856,7 +914,7 @@ extension AgentConversationViewController {
         self.attachments.append(Attachment(icon : HippoConfig.shared.theme.alphabetSymbolIcon  , title : "Text"))
         self.attachments.append(Attachment(icon : HippoConfig.shared.theme.privateInternalNotesIcon  , title : "Internal Notes"))
         if BussinessProperty.current.isAskPaymentAllowed{
-            self.attachments.append(Attachment(icon : HippoConfig.shared.theme.paymentIcon , title : "Payment"))
+            self.attachments.append(Attachment(icon : HippoConfig.shared.theme.paymentIcon , title : HippoStrings.payment))
         }
 //        self.attachments.append(Attachment(icon : HippoConfig.shared.theme.botIcon  , title : "Bot"))
         
@@ -1819,11 +1877,12 @@ extension AgentConversationViewController: UITableViewDelegate, UITableViewDataS
                 case .multipleSelect:
                     return message.calculatedHeight ?? 0.01
                 case .feedback:
-                    guard let muid = message.messageUniqueID, var rowHeight: CGFloat = heightForFeedBackCell["\(muid)"] else {
-                        return 0.001
-                    }
-                    rowHeight += 7 //Height for bottom view
-                    return rowHeight
+                    return UIView.tableAutoDimensionHeight
+//                    guard let muid = message.messageUniqueID, var rowHeight: CGFloat = heightForFeedBackCell["\(muid)"] else {
+//                        return 0.001
+//                    }
+//                    rowHeight += 7 //Height for bottom view
+//                    return rowHeight
                 case .paymentCard:
                     return message.calculatedHeight ?? 0.01
                 default:
@@ -2317,7 +2376,7 @@ extension AgentConversationViewController: BotTableDelegate {
     }
     func sendFeedbackMessageToFaye() {
 //        let message = HippoMessage(message: "Please provide a feedback for our conversation", type: .feedback, uniqueID: generateUniqueId(), chatType: chatType)
-        let message = HippoMessage(message: "Please give your feedback", type: .feedback, uniqueID: generateUniqueId(), chatType: chatType)
+        let message = HippoMessage(message: "Rating & Review", type: .feedback, uniqueID: generateUniqueId(), chatType: chatType)
         message.updateObject(with: message)
         channel.unsentMessages.append(message)
         self.addMessageToUIBeforeSending(message: message)

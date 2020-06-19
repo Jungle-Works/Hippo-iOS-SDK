@@ -14,7 +14,7 @@ class AgentDirectChatAttributes: NSObject {
     
     private(set) var otherUserEmail = ""
     private(set) var otherUserUniqueKey: String = ""
-    private(set) var channelName = "Support"
+    private(set) var channelName = HippoStrings.support
     private(set) var chatType: ChatType = .other
     private(set) var transactionID: String? = nil
     private(set) var customChannelName: String?

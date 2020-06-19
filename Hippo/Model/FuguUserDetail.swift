@@ -334,7 +334,7 @@ public class UserTag: NSObject {
             }
             if let customer_initial_form_info = userDetailData["customer_initial_form_info"] as? [String: Any] {
                 HippoProperty.current.forms = FormData.getFormDataList(from: customer_initial_form_info)
-                HippoProperty.current.formCollectorTitle = customer_initial_form_info["page_title"] as? String ?? "SUPPORT"
+                HippoProperty.current.formCollectorTitle = customer_initial_form_info["page_title"] as? String ?? HippoStrings.support.capitalized
             } else {
                 HippoProperty.current.forms = []
             }
@@ -373,9 +373,12 @@ public class UserTag: NSObject {
             }
             NotificationCenter.default.post(name: .putUserSuccess, object:self)
 
-            let params = getParamsForPaymentGateway()
-            self.getPaymentGateway(withParams: params) { (success) in
-                //guard success == true else { return }
+            let isAskPaymentAllowed = Bool.parse(key: "is_ask_payment_allowed", json: userDetailData, defaultValue: false)
+            if isAskPaymentAllowed == true{
+                let params = getParamsForPaymentGateway()
+                self.getPaymentGateway(withParams: params) { (success) in
+                    //guard success == true else { return }
+                }
             }
             
             completion?(true, nil)
@@ -432,9 +435,11 @@ public class UserTag: NSObject {
         params["app_version_code"] = versionCode
         params["source"] = HippoSDKSource
         
-        if HippoProperty.current.singleChatApp {
-//            params["neglect_conversations"] = true
-        }
+//        if HippoProperty.current.singleChatApp {
+////            params["neglect_conversations"] = true
+//        }
+        params["neglect_conversations"] = true
+        
         return params
     }
     class func clearAgentData() {

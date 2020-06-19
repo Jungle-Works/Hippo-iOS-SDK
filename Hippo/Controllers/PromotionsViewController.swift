@@ -499,7 +499,7 @@ extension PromotionsViewController{
         } else {
             viewError_Height.constant = 20
             errorContentView.backgroundColor = .red
-            errorLabel.text = HippoConfig.shared.strings.noNetworkConnection
+            errorLabel.text = HippoStrings.noNetworkConnection
         }
     }
     

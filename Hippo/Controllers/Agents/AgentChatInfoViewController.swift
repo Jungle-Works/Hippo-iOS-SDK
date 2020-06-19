@@ -155,7 +155,7 @@ extension AgentChatInfoViewController {
     func changeChannelStatus(channelId: Int, status: ChatStatus) {
         AgentConversationManager.updateChannelStatus(for: channelId, newStatus: status.rawValue) {[weak self] (result) in
             guard self != nil, result.isSuccessful else {
-                showAlertWith(message: HippoConfig.shared.strings.somethingWentWrong, action: nil)
+                showAlertWith(message: HippoStrings.somethingWentWrong, action: nil)
                 return
             }
             self?.updateHomeView(channelId: channelId, status: status)
