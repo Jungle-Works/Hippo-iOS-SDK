@@ -58,7 +58,7 @@ public struct ConversationListTheme {
     open var infoIconTintColor = #colorLiteral(red: 0.3843137255, green: 0.4901960784, blue: 0.8823529412, alpha: 1)
     open var headerBackgroundColor = UIColor.white
     open var headerTextColor = #colorLiteral(red: 0.9882352941, green: 0.9882352941, blue: 0.9882352941, alpha: 1)//UIColor.black
-    open var headerText = "Support"//"My Recent Consultations"
+    open var headerText = HippoStrings.support//"My Recent Consultations"
     open var directChatHeader = "Conversation List"
     open var broadcastHeader = "Broadcast Message"
     open var broadcastHistoryHeader = "Broadcast Message history"
@@ -94,9 +94,6 @@ public struct ConversationListTheme {
     open var missedCallMessageColor: UIColor = UIColor.red
     
 //    open var headerTextFont: UIFont? = UIFont.boldregular(ofSize: 18.0)
-    open var ongoingBtnText = "Current"
-    open var pastBtnText = "Past"
-    
     open var myChatBtnText = "My Chats"
     open var allChatBtnText = "All Chats"
     
@@ -335,9 +332,9 @@ public struct ConversationListTheme {
     open var secureTextFont: UIFont = UIFont.regular(ofSize: 10)
     
     open var shouldShowBtnOnChatList : Bool = false
-    open var chatListRetryBtnText : String = "Retry"
-    open var noOpenAndcloseChatError : String = "Seems like you haven't started any chat yet, kick start it now!"
-    open var noChatUnderCatagoryError : String = "You have no chats."
+    open var chatListRetryBtnText : String = HippoStrings.retry
+    open var noOpenAndcloseChatError : String = HippoStrings.noChatStarted
+    open var noChatUnderCatagoryError : String = HippoStrings.noChatInCatagory
     
 }
 

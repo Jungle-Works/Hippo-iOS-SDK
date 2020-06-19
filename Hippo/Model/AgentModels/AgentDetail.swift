@@ -36,9 +36,9 @@ public enum HippoError: LocalizedError {
         case .invalidAppSecretKey:
             return "Invalid appsecret key"
         case .networkError:
-            return HippoConfig.shared.strings.noNetworkConnection
+            return HippoStrings.noNetworkConnection
         default:
-            return HippoConfig.shared.strings.somethingWentWrong
+            return HippoStrings.somethingWentWrong
         }
     }
 }

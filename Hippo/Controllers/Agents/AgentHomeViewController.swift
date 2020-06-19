@@ -293,7 +293,7 @@ extension AgentHomeViewController {
             errorLabel.text = ""
             hideErrorLabelView()
         } else {
-            errorLabel.text = HippoConfig.shared.strings.noNetworkConnection
+            errorLabel.text = HippoStrings.noNetworkConnection
             showErrorLabelView()
         }
     }
@@ -683,7 +683,7 @@ extension AgentHomeViewController: UITableViewDelegate, UITableViewDataSource {
             AgentConversationManager.updateChannelStatus(for: channelId, newStatus: newStatus) { (result) in
                 guard result.isSuccessful else {
                     self.stopLoading()
-                    showAlertWith(message: HippoConfig.shared.strings.somethingWentWrong, action: nil)
+                    showAlertWith(message: HippoStrings.somethingWentWrong, action: nil)
                     return
                 }
                 guard let controllers = self.navigationController?.viewControllers else {

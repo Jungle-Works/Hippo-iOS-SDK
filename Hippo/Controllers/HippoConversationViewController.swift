@@ -145,7 +145,7 @@ class HippoConversationViewController: UIViewController {
         if FuguNetworkHandler.shared.isNetworkConnected {
             hideErrorMessage()
         } else {
-            errorMessage = HippoConfig.shared.strings.noNetworkConnection
+            errorMessage = HippoStrings.noNetworkConnection
             showErrorMessage()
         }
     }
@@ -173,7 +173,7 @@ class HippoConversationViewController: UIViewController {
             if FuguNetworkHandler.shared.isNetworkConnected == false {
                 return true
             }
-            errorMessage = HippoConfig.shared.strings.enterSomeText
+            errorMessage = HippoStrings.enterSomeText
             showErrorMessage()
             updateErrorLabelView(isHiding: true)
             return true
@@ -421,7 +421,7 @@ class HippoConversationViewController: UIViewController {
     
     
     func showAlertForNoInternetConnection() {
-        showAlertWith(message: HippoConfig.shared.strings.noNetworkConnection) {
+        showAlertWith(message: HippoStrings.noNetworkConnection) {
             return
         }
     }
@@ -628,7 +628,7 @@ class HippoConversationViewController: UIViewController {
                             }
                         }
                         
-                    }, failureButtonName: "Cancel") { (failureAction) in
+                    }, failureButtonName: HippoStrings.attachmentCancel) { (failureAction) in
                         //do nothing
                     }
                 }
@@ -877,14 +877,14 @@ extension HippoConversationViewController: PickerHelperDelegate {
     
     func imageViewPickerDidFinish(mediaSelector: CoreMediaSelector, with result: CoreMediaSelector.Result) {
         guard result.isSuccessful else {
-            showAlert(title: "", message: result.error?.localizedDescription ?? HippoConfig.shared.strings.somethingWentWrong, actionComplete: nil)
+            showAlert(title: "", message: result.error?.localizedDescription ?? HippoStrings.somethingWentWrong, actionComplete: nil)
             return
         }
         let mediaType = result.mediaType ?? .imageType
         switch mediaType {
         case .gifType, .imageType:
             guard let selectedImage = result.image else {
-                showAlert(title: "", message: HippoConfig.shared.strings.somethingWentWrong, actionComplete: nil)
+                showAlert(title: "", message: HippoStrings.somethingWentWrong, actionComplete: nil)
                 return
             }
 //            sendConfirmedImage(image: selectedImage, mediaType: mediaType)
@@ -893,7 +893,7 @@ extension HippoConversationViewController: PickerHelperDelegate {
 
         case .movieType:
             guard let filePath = result.filePath else {
-                showAlert(title: "", message: HippoConfig.shared.strings.somethingWentWrong, actionComplete: nil)
+                showAlert(title: "", message: HippoStrings.somethingWentWrong, actionComplete: nil)
                 return
             }
             let filePathUrl = URL(fileURLWithPath: filePath)
@@ -1667,7 +1667,7 @@ extension HippoConversationViewController: PaymentMessageCellDelegate {
     }
     
     func initatePayment(for url: URL) {
-        let config = WebViewConfig(url: url, title: "Payment")
+        let config = WebViewConfig(url: url, title: HippoStrings.payment)
         let vc = CheckoutViewController.getNewInstance(config: config)
         vc.isComingForPayment = true
         self.navigationController?.pushViewController(vc, animated: true)

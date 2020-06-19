@@ -770,7 +770,7 @@ func getCurrentLanguageLocale() -> String {
 func showAlertWith(message: String, action: (() -> Void)?) {
     let alert = UIAlertController(title: "", message: message, preferredStyle: .alert)
     
-    let dismissAction = UIAlertAction(title: "OK", style: .default, handler: { _ in
+    let dismissAction = UIAlertAction(title: HippoStrings.ok, style: .default, handler: { _ in
         action?()
     })
     alert.addAction(dismissAction)

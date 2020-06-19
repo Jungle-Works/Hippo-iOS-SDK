@@ -542,7 +542,7 @@ class AgentConversationViewController: HippoConversationViewController {
         if FuguNetworkHandler.shared.isNetworkConnected {
             hideErrorMessage()
         } else {
-            errorMessage = HippoConfig.shared.strings.noNetworkConnection
+            errorMessage = HippoStrings.noNetworkConnection
             showErrorMessage()
         }
     }
@@ -565,7 +565,7 @@ class AgentConversationViewController: HippoConversationViewController {
             return
         }
         if FuguNetworkHandler.shared.isNetworkConnected == false {
-            let message = HippoConfig.shared.strings.noNetworkConnection
+            let message = HippoStrings.noNetworkConnection
             showErrorMessage(messageString: message, bgColor: UIColor.red)
             completion?(false)
             return
@@ -701,7 +701,7 @@ class AgentConversationViewController: HippoConversationViewController {
         
         disableSendingNewMessages()
         if FuguNetworkHandler.shared.isNetworkConnected == false {
-            errorMessage = HippoConfig.shared.strings.noNetworkConnection
+            errorMessage = HippoStrings.noNetworkConnection
             showErrorMessage()
             disableSendingNewMessages()
             return
@@ -914,7 +914,7 @@ extension AgentConversationViewController {
         self.attachments.append(Attachment(icon : HippoConfig.shared.theme.alphabetSymbolIcon  , title : "Text"))
         self.attachments.append(Attachment(icon : HippoConfig.shared.theme.privateInternalNotesIcon  , title : "Internal Notes"))
         if BussinessProperty.current.isAskPaymentAllowed{
-            self.attachments.append(Attachment(icon : HippoConfig.shared.theme.paymentIcon , title : "Payment"))
+            self.attachments.append(Attachment(icon : HippoConfig.shared.theme.paymentIcon , title : HippoStrings.payment))
         }
 //        self.attachments.append(Attachment(icon : HippoConfig.shared.theme.botIcon  , title : "Bot"))
         

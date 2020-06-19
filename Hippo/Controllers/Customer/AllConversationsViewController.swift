@@ -86,8 +86,8 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         
         self.openChatButton.titleLabel?.font = UIFont.bold(ofSize: 15)
         self.closeChatButton.titleLabel?.font = UIFont.regular(ofSize: 15)
-        self.openChatButton.setTitle(HippoConfig.shared.theme.ongoingBtnText, for: .normal)
-        self.closeChatButton.setTitle(HippoConfig.shared.theme.pastBtnText, for: .normal)
+        self.openChatButton.setTitle(HippoStrings.ongoing, for: .normal)
+        self.closeChatButton.setTitle(HippoStrings.past, for: .normal)
         
         self.bottomLineView.backgroundColor = HippoConfig.shared.theme.themeColor
         
@@ -340,7 +340,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
             errorLabel.text = ""
             updateErrorLabelView(isHiding: true)
         } else {
-            errorLabel.text = HippoConfig.shared.strings.noNetworkConnection
+            errorLabel.text = HippoStrings.noNetworkConnection
             updateErrorLabelView(isHiding: false)
         }
     }

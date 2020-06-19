@@ -334,7 +334,7 @@ public class UserTag: NSObject {
             }
             if let customer_initial_form_info = userDetailData["customer_initial_form_info"] as? [String: Any] {
                 HippoProperty.current.forms = FormData.getFormDataList(from: customer_initial_form_info)
-                HippoProperty.current.formCollectorTitle = customer_initial_form_info["page_title"] as? String ?? "SUPPORT"
+                HippoProperty.current.formCollectorTitle = customer_initial_form_info["page_title"] as? String ?? HippoStrings.support.capitalized
             } else {
                 HippoProperty.current.forms = []
             }

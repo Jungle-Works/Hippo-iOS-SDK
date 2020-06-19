@@ -582,7 +582,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     closeKeyBoard()
     actionSheetTitleArr.removeAll()
     actionSheetImageArr.removeAll()
-    actionSheetTitleArr = ["Photo & Video Library","Camera","Document"]
+    actionSheetTitleArr = [HippoStrings.photoLibrary,HippoStrings.camera,HippoStrings.document]
     actionSheetImageArr = ["Library","Camera","Library"]
     heightForActionSheet = CGFloat((actionSheetTitleArr.count * 60))
     isProceedToPayActionSheet = false
@@ -913,7 +913,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
 //            updateErrorLabelView(isHiding: true)
 //        } else {
 //            errorLabelTopConstraint.constant = -20
-//            errorLabel.text = HippoConfig.shared.strings.noNetworkConnection
+//            errorLabel.text = HippoStrings.noNetworkConnection
 //            updateErrorLabelView(isHiding: false)
 //        }
 //    }
@@ -1131,7 +1131,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         tableViewChat.reloadData()
         
         directChatDetail = FuguNewChatAttributes.defaultChat
-        label = (userDetailData["business_name"] as? String) ?? "Support"
+        label = (userDetailData["business_name"] as? String) ?? HippoStrings.support
         userImage = nil
         setTitleForCustomNavigationBar()
         
@@ -1248,7 +1248,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         }
       disableSendingNewMessages()
       if FuguNetworkHandler.shared.isNetworkConnected == false {
-         errorMessage = HippoConfig.shared.strings.noNetworkConnection
+         errorMessage = HippoStrings.noNetworkConnection
          showErrorMessage()
          disableSendingNewMessages()
 //         return
@@ -3043,7 +3043,7 @@ extension ConversationsViewController {
             self.pushToChatHistory()
         })
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (alert: UIAlertAction!) -> Void in })
+        let cancelAction = UIAlertAction(title: HippoStrings.attachmentCancel, style: .cancel, handler: { (alert: UIAlertAction!) -> Void in })
         
         actionSheet.addAction(chatHistory)
         actionSheet.addAction(logoutOption)
