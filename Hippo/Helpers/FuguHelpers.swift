@@ -727,7 +727,8 @@ func parseDeviceToken(deviceToken: Data) -> String? {
 func updateDeviceToken(deviceToken: String) {
     switch HippoConfig.shared.appUserType {
     case .agent:
-        AgentConversationManager.updateAgentChannel()
+        AgentConversationManager.updateAgentChannel{ (error) in
+        }
     case .customer:
         HippoUserDetail.getUserDetailsAndConversation()
     }

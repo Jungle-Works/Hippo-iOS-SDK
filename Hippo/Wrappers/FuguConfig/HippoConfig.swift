@@ -350,7 +350,9 @@ struct BotAction {
         detail.isForking = true
         self.appUserType = .agent
         self.agentDetail = detail
-        AgentConversationManager.updateAgentChannel()
+        AgentConversationManager.updateAgentChannel{ (error) in
+            
+        }
     }
     
     /********
@@ -362,11 +364,11 @@ struct BotAction {
      device_type: Int = your device type on your system.
      *******/
     
-    public func initManager(authToken: String, app_type: String, customAttributes: [String: Any]? = nil) {
+    public func initManager(authToken: String, app_type: String, customAttributes: [String: Any]? = nil, completion: @escaping HippoResponseRecieved) {
         let detail = AgentDetail(oAuthToken: authToken.trimWhiteSpacesAndNewLine(), appType: app_type, customAttributes: customAttributes)
         self.appUserType = .agent
         self.agentDetail = detail
-        AgentConversationManager.updateAgentChannel()
+        AgentConversationManager.updateAgentChannel(completion: completion)
     }
     // MARK: - Open Chat UI Methods
     public func presentChatsViewController() {

@@ -85,13 +85,15 @@ class AgentConversationManager {
     
     static var errorMessage: String?
     
-    class func updateAgentChannel() {
+    class func updateAgentChannel(completion: @escaping HippoResponseRecieved) {
         isLoginInProgess = true
         AgentDetail.loginViaAuth {(result) in
             isLoginInProgess = false
             guard result.isSuccessful else {
+                completion(result.error as? HippoError ?? HippoError.general)
                 return
             }
+            completion(nil)
             getUserUnreadCount()
             getAllData()
             UnreadCount.getAgentTotalUnreadCount { (result) in

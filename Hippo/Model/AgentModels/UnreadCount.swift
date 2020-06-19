@@ -13,6 +13,7 @@ class UnreadCountInteracter {
 }
 
 public typealias P2PUnreadCountCompletion = ((_ response: HippoError?, _ unreadCount: Int?) -> ())
+public typealias HippoResponseRecieved = ((_ error: HippoError?) -> ())
 
 class UnreadCount {
     
