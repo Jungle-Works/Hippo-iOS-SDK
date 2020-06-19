@@ -193,6 +193,8 @@ class FuguFlowManager: NSObject {
         var transactionId = ""
         if let id = consultNowInfoDict["transactionId"] as? Int {
             transactionId = "\(id)"
+        }else if let id = consultNowInfoDict["transactionId"] as? String{
+            transactionId = id
         }
         var fuguNewChatAttributes = FuguNewChatAttributes(transactionId: transactionId, userUniqueKey: HippoConfig.shared.userDetail?.userUniqueKey, otherUniqueKey: nil, tags: HippoProperty.current.newConversationButtonTags, channelName: nil, preMessage: "", groupingTag: nil)
         print("bodID******* \(HippoProperty.current.newconversationBotGroupId ?? "")")
