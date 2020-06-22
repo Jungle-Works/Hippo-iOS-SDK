@@ -204,7 +204,7 @@ extension ConversationView {
             default:
                 let messageString = lastMessage.message.removeNewLine()
                 let senderNAme = lastMessage.senderFullName
-                let message = messageString.isEmpty ? " sent a message" : messageString
+                let message = messageString.isEmpty ? " \(HippoStrings.messageSent)" : messageString
                 messageToBeShown = ""
                 if !senderNAme.isEmpty {
                     //messageToBeShown = senderNAme + ": "

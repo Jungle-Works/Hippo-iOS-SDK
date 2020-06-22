@@ -66,7 +66,7 @@ class BoardCastSelectionCell: UITableViewCell {
         cellLabel.textColor = isTeamSelected ? UIColor.black : UIColor.lightGray
         bottomLineView.backgroundColor = isTeamSelected ? UIColor.lightGray : UIColor.lightGray.withAlphaComponent(0.5)
         
-        cellLabel.text = HippoConfig.shared.strings.selectString.trimWhiteSpacesAndNewLine() + " " + HippoConfig.shared.strings.displayNameForCustomers.trimWhiteSpacesAndNewLine()
+        cellLabel.text = HippoStrings.selectString.trimWhiteSpacesAndNewLine() + " " + HippoConfig.shared.strings.displayNameForCustomers.trimWhiteSpacesAndNewLine()
         
         
         if manager?.selectedTeam?.tagId == -100 {

@@ -33,7 +33,7 @@ class BroadcastDetailViewController: UIViewController {
         startLoadingCell()
         store.getStatusFromInital()
         
-        title = "Broadcast Details"
+        title = HippoStrings.broadcastDetails
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -111,7 +111,7 @@ extension BroadcastDetailViewController: UITableViewDelegate {
         case .header:
             return nil
         case .users:
-            let detail = ChatInfoCell(infoImage: nil, nameOfCell: "Recipients")
+            let detail = ChatInfoCell(infoImage: nil, nameOfCell: HippoStrings.recipients)
             return ChatInfoHeader.configureSectionHeader(headerInfo: detail)
         }
     }

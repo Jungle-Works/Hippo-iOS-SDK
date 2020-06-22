@@ -216,7 +216,7 @@ public struct ConversationListTheme {
     open var typingTextColor = #colorLiteral(red: 0.1725490196, green: 0.137254902, blue: 0.2, alpha: 1)
     
     open var newConversationButtonFont: UIFont? = UIFont(name:  HippoFont.boldFont, size: 18.0)
-    open var newConversationText = "New Conversation"//"Consult Now >"
+    open var newConversationText = HippoStrings.newConversation//"Consult Now >"
 
     open var chatbackgroundImage: UIImage?
     

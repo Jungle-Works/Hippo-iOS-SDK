@@ -64,7 +64,7 @@ class CardListCell: UICollectionViewCell {
         let readmoreFont = descriptionLabel.font //If font changes calculation is to be changed
         let readmoreFontColor = UIColor.blue
         
-        let isTrailingAdded = self.descriptionLabel.addTrailing(with: "...", moreText: "Read More", moreTextFont: readmoreFont!, moreTextColor: readmoreFontColor)
+        let isTrailingAdded = self.descriptionLabel.addTrailing(with: "...", moreText: HippoStrings.readMore, moreTextFont: readmoreFont!, moreTextColor: readmoreFontColor)
         
         
         if isTrailingAdded {

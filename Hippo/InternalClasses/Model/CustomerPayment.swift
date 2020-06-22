@@ -248,7 +248,7 @@ class CustomerPayment {
     
     var displayAmount: NSAttributedString {
         let theme = HippoConfig.shared.theme
-        var amountText: String = "Free"
+        var amountText: String = HippoStrings.free
         let currencySymbol: String = currenySymbol?.trimWhiteSpacesAndNewLine() ?? ""
         if let temp = amount, temp > 0 {
             amountText = "\(currencySymbol) \(temp)"
@@ -259,7 +259,7 @@ class CustomerPayment {
                                                    NSAttributedString.Key.foregroundColor: theme.pricingTextColor ?? theme.headerBackgroundColor]
         attributedString.addAttributes(attr, range: range)
         
-        let paidString = isPaid ? "\n - PAID -" : "\n - PENDING -"
+        let paidString = isPaid ? "\n \(HippoStrings.paymentPaid)" : "\n \(HippoStrings.paymentPending)"
         let paidRange = (paidString as NSString).range(of: paidString)
         let paidAttr: [NSAttributedString.Key: Any] = [NSAttributedString.Key.font: theme.descriptionFont]
         
