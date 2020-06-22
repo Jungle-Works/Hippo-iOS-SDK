@@ -51,20 +51,19 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="Kxh-Rn-dD0">
-                    <rect key="frame" x="433" y="33.5" width="40" height="40"/>
+                    <rect key="frame" x="433" y="28.5" width="40" height="50"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oEA-g4-A1P">
-                            <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oEA-g4-A1P">
+                            <rect key="frame" x="0.0" y="0.0" width="40" height="50"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="40" id="J5E-IW-17q"/>
-                                <constraint firstAttribute="width" constant="40" id="cDQ-DS-Rfa"/>
+                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="40" id="jZE-Um-64K"/>
                             </constraints>
                         </button>
                         <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IqM-bH-2t2">
-                            <rect key="frame" x="0.0" y="0.0" width="50" height="40"/>
+                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                             <subviews>
                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="g9T-V1-IH1">
-                                    <rect key="frame" x="0.5" y="4.5" width="51" height="31"/>
+                                    <rect key="frame" x="0.5" y="9.5" width="51" height="31"/>
                                 </switch>
                             </subviews>
                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>

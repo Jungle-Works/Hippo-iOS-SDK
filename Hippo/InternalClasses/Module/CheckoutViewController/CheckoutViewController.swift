@@ -36,7 +36,7 @@ class CheckoutViewController: UIViewController {
         navigationBar.rightButton.setImage(HippoConfig.shared.theme.crossBarButtonImage, for: .normal)
         navigationBar.rightButton.addTarget(self, action: #selector(cancelAction(_:)), for: .touchUpInside)
         navigationBar.rightButton.isHidden = isPrePayment ?? false ? false : true
-        navigationBar.leftButton.isEnabled = isPrePayment ?? false ? true : false
+        navigationBar.rightButton.isEnabled = isPrePayment ?? false ? true : false
         navigationBar.rightButton.tintColor = .black
         FayeConnection.shared.subscribeTo(channelId: "\(channelId ?? -1)", completion: {(success) in
             print("channel subscribed", success)
