@@ -157,7 +157,7 @@ extension PaymentSecurely: HippoCard {
 }
 
 class PaymentHeader {
-    var text: String = "SELECT A PLAN"
+    var text: String = HippoStrings.selectaPlan
 }
 
 extension PaymentHeader: HippoCard {
@@ -192,7 +192,7 @@ class PayementButton {
 //
 //        let button = PayementButton(attributedString: image1String)
 //        return button
-        let button = PayementButton(title: "Proceed To Pay")
+        let button = PayementButton(title: HippoStrings.proccedToPay)
         return button
     }
 }

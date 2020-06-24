@@ -24,7 +24,7 @@ class PaymentPlanStore {
     func getPlans() {
         guard let param = generateParam() else {
 //            showAlert(title: "", message: "Something went wrong", actionComplete: nil)
-            showAlertWith(message: "Something went wrong", action: nil)
+            showAlertWith(message: HippoStrings.somethingWentWrong, action: nil)
             return
         }
 //        HTTPRequest.init(method: .post, path: EndPoints.getPaymentPlans, parameters: param, encoding: .json, files: nil)

@@ -368,6 +368,7 @@ enum FuguEndPoints: String {
     case getInfoV2 = "api/agent/v1/getInfo"
     case getPaymentGateway = "api/payment/getPaymentGateway"
     case getPrePayment = "api/conversation/createOperationalChannel"
+    case getLanguage = "api/apps/fetchAppLanguageData"
 }
 
 enum AgentEndPoints: String {
@@ -448,13 +449,13 @@ enum FileType: String {
     func getTypeString() -> String {
         switch self {
         case .image:
-            return "Image"
+            return HippoStrings.image
         case .audio:
-            return "Audio"
+            return HippoStrings.audio
         case .video:
-            return "Video"
+            return HippoStrings.video
         case .document:
-            return "Document"
+            return HippoStrings.document
         }
     }
 }

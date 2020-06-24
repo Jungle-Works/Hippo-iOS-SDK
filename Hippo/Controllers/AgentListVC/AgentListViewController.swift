@@ -95,12 +95,12 @@ extension AgentListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        self.showOptionAlert(title: "", message: "Are you sure you want to assign this chat?", preferredStyle: .alert, successButtonName: "YES", successComplete: { (_) in
+        self.showOptionAlert(title: "", message: "Are you sure you want to assign this chat?", preferredStyle: .alert, successButtonName: HippoStrings.yes.capitalized, successComplete: { (_) in
             self.assignChatToAgent(agent: self.agentList[indexPath.row])
         }, failureButtonName: "NO", failureComplete: nil)
     }
     
-//    func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
+//    func tableView(_ tableView: UITableView, didHighlightRowAt i.ndexPath: IndexPath) {
 //        guard let cell = tableView.cellForRow(at: indexPath) as? AgentListTableViewCell else { return }
 //        cell.mainContentView.backgroundColor = UIColor.clear
 //        cell.verticalSelectionLine.isHidden = false

@@ -16,6 +16,7 @@
 		6BA8B1A024784E3600E7E087 /* NavigationBarChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA8B19F24784E3600E7E087 /* NavigationBarChat.swift */; };
 		6BBBEA8324991C7300C3E1CE /* BottomPopupController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BBBEA8224991C7300C3E1CE /* BottomPopupController.swift */; };
 		6BCCD5902490B86600C5CA0D /* FloatRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCCD58F2490B86600C5CA0D /* FloatRatingView.swift */; };
+		6BCD891324A2590800FD0A22 /* AllString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCD891224A2590800FD0A22 /* AllString.swift */; };
 		C9B77E6121A01B060092848D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9B77D7A21A01B060092848D /* Assets.xcassets */; };
 		C9B77E6321A01B060092848D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9B77D7C21A01B060092848D /* LaunchScreen.storyboard */; };
 		C9B77E6421A01B060092848D /* Montserrat-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = C9B77D7E21A01B060092848D /* Montserrat-Medium.otf */; };
@@ -422,6 +423,7 @@
 		6BA8B19F24784E3600E7E087 /* NavigationBarChat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarChat.swift; sourceTree = "<group>"; };
 		6BBBEA8224991C7300C3E1CE /* BottomPopupController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomPopupController.swift; sourceTree = "<group>"; };
 		6BCCD58F2490B86600C5CA0D /* FloatRatingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatRatingView.swift; sourceTree = "<group>"; };
+		6BCD891224A2590800FD0A22 /* AllString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllString.swift; sourceTree = "<group>"; };
 		6F7645C36ABF77183FAD526B /* Pods-Hippo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hippo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Hippo/Pods-Hippo.debug.xcconfig"; sourceTree = "<group>"; };
 		717BE1731EC1BE11003EA321 /* Hippo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hippo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		73C5DC7752C82068B4CD5EB2 /* Pods-Hippo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hippo.release.xcconfig"; path = "Pods/Target Support Files/Pods-Hippo/Pods-Hippo.release.xcconfig"; sourceTree = "<group>"; };
@@ -1693,6 +1695,7 @@
 				C9B77DAA21A01B060092848D /* HippoDescriptionContent.swift */,
 				C9B77DAB21A01B060092848D /* FuguUserDetail.swift */,
 				C9B77DA121A01B060092848D /* FuguImageUploader.swift */,
+				6BCD891224A2590800FD0A22 /* AllString.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -3024,6 +3027,7 @@
 				D8F6D18024194F1F00B168C5 /* ChatInfoAgentTableViewCell.swift in Sources */,
 				D8F6D2E624195E5E00B168C5 /* AgentChatInfoViewController.swift in Sources */,
 				D8CD683724866EDC000F4097 /* AttributeContainer.swift in Sources */,
+				6BCD891324A2590800FD0A22 /* AllString.swift in Sources */,
 				D8C9E8E2247E181A00F18C6C /* Business.swift in Sources */,
 				D8F6D0C92419466200B168C5 /* ProfileNameCell.swift in Sources */,
 				D8F6D2C824195D9200B168C5 /* HippoDataCollectorController.swift in Sources */,

@@ -305,7 +305,7 @@ let formDataJson: [String: Any] = [
         "button": [
             "type": "BUTTON",
             "action": "SUBMIT",
-            "title": "Submit",
+            "title": HippoStrings.submit,
             "title_color": "#000000",
             "background_color": "#ffffff"
         ]

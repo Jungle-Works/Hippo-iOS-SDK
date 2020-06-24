@@ -5,54 +5,1677 @@
   Created by Arohi Sharma on 18/06/20.
   Copyright © 2020 CL-macmini-88. All rights reserved.
 */
-"Current" = "Actual";
-"Past" = "Pasado";
-"New Conversation" = "nueva conversación";
-"No internet connection" = "Sin Internet conectados";
-"Connected" = "Conectado";
-"Something went wrong. Please try again" = "Algo salió mal. Inténtalo de nuevo";
+
+// cpsdk strings
+
+"Unable to connect to the internet" = "Incapaz de conectarse a Internet";
+"No Internet Connection \nTap to retry" = "Conexión a Internet No \ NTAP de reintento";
+"Something went wrong \nTap to retry" = "Algo salió mal \ NTAP de reintento";
+"New Conversation" = "Nueva Conversación";
 "Loading..." = "Cargando...";
-"Photo & Video Library" = "Biblioteca de fotos y videos";
+"Runs on" = "Se ejecuta en";
+"Hippo" = "Hipopótamo";
+"Gallery not found in this phone." = "Gallery no se encuentra en este teléfono.";
 "Camera" = "Cámara";
-"Document" = "Documentos";
+"Gallery" = "Galería";
+"Documents" = "Documentos";
 "Payment" = "Pago";
+"Audio" = "Audio";
+"Document" = "Documento";
 "Retry" = "Rever";
-"Seems like you haven't started any chat yet, kick start it now!" = "Parece que no se ha iniciado ninguna charla, sin embargo, poner en marcha ahora!";
-"You have no chats." = "No tiene chats.";
-"Write a review" = "Escribe una reseña";
+"Attachment Image" = "Adjunto Imagen";
 "Send a message..." = "Enviar un mensaje...";
-"Please enter some text." = "Por favor ingrese un texto.";
 "Cancel" = "Cancelar";
-"OK" = "Okay";
+"OK" = "OKAY";
+"Sorry this file is no longer available on your device" = "Lo sentimos, este archivo ya no está disponible en su dispositivo";
 "Support" = "Apoyo";
-"Please select atleast one option" = "Por favor, seleccione al menos una opción";
-"Broadcast Details" = "Detalles de emisión";
+"Could not send your message" = "No se pudo enviar el mensaje";
+"Tap to <u>Retry</u>&#160;" = "Toque para <u> Reintentar </ u> & # 160;";
+"Cancel" = "Cancelar";
+"Not connected to Internet" = "No conectado a Internet";
+"Connecting..." = "Conectando ...";
+"Connected" = "Conectado";
+"No conversations found" = "No hay conversaciones encontrados";
+"We couldn’t find any\nconversations in this inbox" = "No hemos podido encontrar ningún \ nconversations en esta bandeja";
+"<i>Tap to view</i>" = "<I> Toque a la vista </ ​​i>";
+"ACTIONS" = "COMPORTAMIENTO";
+"SHOW MORE..." = "MOSTRAR MÁS...";
+"Leave a comment" = "Deja un comentario";
+"No data found" = "Datos no encontrados";
+"Your request has been submitted successfully" = "Su solicitud ha sido enviado correctamente";
+"Hippo" = "Hipopótamo";
+"Terrible" = "Terrible";
+"Bad" = "Malo";
+"Okay" = "Bueno";
+"Good" = "Bueno";
+"Great" = "Excelente";
+"Search&#8230;" = "Search & # 8230;";
+"No Countries Found!" = "No hay países encontró!";
+"Select country" = "Seleccionar país";
+"Call Again" = "Llama de nuevo";
+"Select" = "Seleccione";
+"This app may not work correctly without the requested permissions." = "Esta aplicación puede no funcionar correctamente sin los permisos solicitados.";
+"This app may not work correctly without the requested permissions. Open the app settings screen to modify app permissions." = "Esta aplicación puede no funcionar correctamente sin los permisos solicitados. Abra la aplicación de configuración de pantalla para modificar permisos de la aplicación.";
+"Permissions Required" = "Permisos necesarios";
+"Done" = "Hecho";
+"Need Reading Storage Permission for Picking Files" = "Necesidad de lectura permiso de almacenamiento para archivos Picking";
+"Already up to max" = "Ya hasta un máximo de";
+"No photo App in this phone!" = "No se han App en este teléfono!";
+"All" = "Todas";
+"Browse other docs&#8230;" = "Examinar otros documentos & # 8230;";
+"File size cannot be greater than" = "Tamaño del archivo no puede ser mayor que";
+"Attachment File" = "Archivo adjunto";
+"This file type is not supported" = "No se admite este tipo de archivo";
+"Uploading" = "Carga";
+"uploading in progress" = "Carga en curso";
+"This message doesn't support in your current app." = "Este mensaje doesn't apoyo en su aplicación actual.";
+"Broadcast Details" = "Detalles de difusión";
 "Recipients" = "destinatarios";
 "Add an option" = "Añadir una opción";
-"Request Payment" = "Solicitar pago";
-"Save Plan" = "Guardar el plan";
-"Update Plan" = "actualización del plan";
-"Connecting..." = "Conectando...";
-"Your request has been submitted successfully" = "Su solicitud ha sido enviado correctamente";
-"Call Back" = "Llamar de vuelta";
-"Call Again" = "Llama de nuevo";
-"call ended" = "llamada terminada";
-"video" = "vídeo";
+"Request payment" = "Solicitar pago";
+"Enter Price" = "Enter Precio";
+"Enter Description" = "Enter Descripción";
+"Currency" = "Moneda";
+"Title" = "Título";
+"Enter Title" = "Enter Título";
+"Price" = "Precio";
+"Description" = "Descripción";
+"Total price" = "Precio total";
+"TransactionID can\'t be empty" = "TransactionID puede \ 't estar vacía";
+"Other user unique keys array can\'t be empty" = "Otras claves únicas de usuario matriz puede \ 't estar vacía";
+"Create Conversation" = "Crear Conversación";
+"Conversations" = "Conversaciones";
+"Logout" = "Cerrar sesión";
+"Something went wrong \nPlease try again later" = "Algo salió mal \ n Por favor inténtelo de nuevo más tarde";
+"Diet Buddy Guarantee" = "Garantía de amigos Dieta";
+"activity_image_transition" = "activity_image_transition";
+"Read More" = "Leer más";
+"Read Less" = "Leer menos";
+"Slow Internet connection." = "Conexión lenta a Internet.";
+"Please grant storage permission" = "Por favor, permiso de almacenamiento subvención";
+"Net Banking" = "Net Banking";
+"Payfort" = "Payfort";
+"Paytm" = "Paytm";
+"Card" = "Tarjeta";
+"Paymob" = "Paymob";
+"Card/Net Banking" = "Tarjeta Bancaria / Net";
+"New Support Chat" = "Nuevo soporte de chat";
+"Pay with Paytm" = "Pago con Paytm";
+"Stripe" = "Raya";
+"Fetching payment methods..." = "Captación de métodos de pago ...";
+"No payment method available" = "Método de pago no está disponible";
+"You have no chats" = "No tiene chats";
+"Clear All" = "Limpiar todo";
+"Find an Expert" = "Encuentra un experto";
+"Seems like you haven’t started on your Buddy journey yet, kick start it now!" = "Parece que usted no ha comenzado en su viaje de amigos, sin embargo, poner en marcha ahora!";
+"Rating & Review" = "Clasificación y reseña";
+"Cancel Payment" = "Cancelar el pago";
+"Are you sure you want to cancel\nthe payment?" = "¿Está seguro que desea cancelar \ nel pago?";
+"No" = "No";
+"Yes, Cancel" = "Sí, Cancelar";
+"Payment" = "Pago";
+"Please wait \n Redirecting to the payment link" = "Por favor, espere \ n Redirigir al enlace de pago";
+"Retry" = "Rever";
+"No video app found" = "No se encontró aplicación de vídeo";
+"Chat Support" = "Soporte de chat";
+"Submit" = "enviar";
+"Call" = "Llamada";
+"call" = "llamada";
+"Chat" = "Charla";
+"Notifications" = "Notificaciones";
+"No Notifications" = "No Notificaciones";
+"Notification deleted" = "Notificación borrado";
+"Chats" = "Chats";
+"Notifications" = "Notificaciones";
+"Current" = "Actual";
+"Past" = "Pasado";
+"Yes" = "Si";
+"Are you sure you want to logout?" = "¿Estás seguro de que quieres salir?";
+"Create conversation" = "Crear la conversación";
+"No Internet Connected" = "No conectado a Internet";
+"You" = "Tú";
+"sent a message" = "Enviado un mensaje";
 "voice" = "voz";
-"The" = "los";
-"Missed" = "perdidas";
-"call" = "Llamada";
-"Ongoing" = "En marcha";
+"video" = "vídeo";
+"call with you" = "Llamar con usted";
+"Customer missed a" = "Cliente perdió una";
+"You missed a" = "Usted ha omitido una";
+"call with" = "llamar con";
+"call ended" = "llamada terminada";
+"The" = "Los";
+"Something went wrong. Please try again" = "Algo salió mal. Por favor, vuelva a intentarlo";
+"Already files in queue. Please wait" = "Ya archivos en cola. Por favor espere";
+"Please grant permission" = "Por favor, permiso subvención";
+"Pay" = "Pagar";
+"Error in publishing message" = "Error en la publicación de mensajes";
+"This feature not supported" = "Esta característica no está soportada";
+"You have no chats." = "No tiene chats.";
+"Write a review" = "Escribe una reseña";
+"Please select atleast one option" = "Por favor, seleccione al menos una opción";
+"Enter numeric values only" = "Enter sólo valores numéricos";
+"Enter valid email" = "Ingrese un email valido";
+"Field can't be empty" = "El campo no puede estar vacío";
+"Please fill previous fields" = "Por favor, rellene los campos anteriores";
+"Please enter valid price for item" = "Por favor, introduzca el precio válido para el artículo";
+"Invalid price" = "Precio incorrecto";
+"Alert!" = "¡Alerta!";
+"File type not supported! Do you want to open with other apps?" = "Tipo de archivo no soportado! ¿Quieres abrir con otras aplicaciones?";
+"with country code" = "Con código de país";
+"Enter your phone" = "Introduzca su teléfono";
+"Enter valid phone number" = "Introduzca el número de teléfono válido";
+"Save Plan" = "Guardar el Plan";
+"Update Plan" = "Actualización del Plan";
+"Seems like you haven't started any chat yet, kick start it now!" = "Parece que usted no ha comenzado ninguna charla, sin embargo, poner en marcha ahora!";
+"Call Back" = "Llamar de vuelta";
+"Missed" = "Perdidas";
 "- PAID -" = "- PAGADO -";
+"Ongoing" = "En marcha";
+"at" = "a";
 "- PENDING -" = "- Pendiente -";
 "Free" = "Gratis";
-"at" = "a";
+"Photo & Video Library" = "Biblioteca de fotos y videos";
+"Video" = "Vídeo";
+"Files" = "archivos";
+"Please enter some text." = "Por favor ingrese un texto.";
+"Missed Call" = "Llamada perdida";
+"The voice call" = "La llamada de voz";
+"The video call" = "Por favor ingrese un texto.";
+"The voice call ended" = "La llamada de voz terminó";
+"The video call ended" = "La videollamada ha terminado";
+"All agents are busy right now, we'll connect you shortly" = "Por favor ingrese un texto.";
+"Copied to clipboard" = "Copiado al portapapeles";
+"Proceed To Pay" = "Proceda a pagar";
 "Today" = "Hoy";
 "Yesterday" = "Ayer";
-"Pay" = "Pagar";
-"Done" = "Hecho";
-"Select" = "Seleccione";
-"Clear All" = "Limpiar todo";
-"Read More" = "Más";
-"Read Less" = "Leer Menos";
 "No Notifications found" = "No se encontraron notificaciones";
+"CALLING..." = "VOCACIÓN...";
+"RINGING..." = "EL SONAR...";
+"DISCONNECTING..." = "Desconectar ...";
+"Busy on another call..." = "Ocupado con otra llamada ...";
+"Call Declined" = "Se rechaza la llamada";
+"Audio Call" = "Llamada de audio";
+"Call Rejected" = "Llamada rechazada";
+"does not have the updated app, Calling using old SDK..." = "No tiene la aplicación actualizada, realización de llamadas con edad SDK ...";
+"HANG UP" = "COLGAR";
+"Ongoing Call" = "Llamada en curso";
+"Incoming Call" = "Llamada entrante";
+"Incoming Video Call" = "Entrante videollamada";
+"Incoming Audio Call" = "Llamada entrante de audio";
+"Version Mismatch" = "Versión no coincide";
+"Call anyway" = "llamar de todos modos";
+"select a plan" = "seleccionar un plan";
+"Payment Request" = "Solicitud de pago";
+"is calling you......" = "le está llamando ......";
+"No Comment..." = "Sin comentarios...";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

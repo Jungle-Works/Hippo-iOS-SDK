@@ -82,7 +82,7 @@ class CreatePaymentViewController: UIViewController {
         if self.messageType == .paymentCard{
             title = store?.title
         }else{
-            title = "Payment Request"
+            title = HippoStrings.paymentRequest
         }
         if HippoConfig.shared.theme.leftBarButtonImage != nil {
             backButton.image = HippoConfig.shared.theme.leftBarButtonImage

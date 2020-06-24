@@ -40,6 +40,7 @@ struct CreateConversationWithLabelId {
     var botGroupId: Int?
     var labelId: Int
     var initalMessages: [HippoMessage]
+    var channelName : String?
     
     func shouldSendInitalMessages() -> Bool {
         guard let gID = botGroupId else {
@@ -470,6 +471,13 @@ class HippoChannel {
 
         if HippoProperty.current.singleChatApp {
             params["multi_channel_label_mapping_app"] = 1
+        }
+        
+        if getCurrentLanguageLocale() != "en"{
+            if labelRequest?.botGroupId ?? 0 < 0{
+                params["multi_language_default_message"] = labelRequest?.initalMessages.first?.message
+            }
+            params["multi_language_label"] = labelRequest?.channelName
         }
         
         return params

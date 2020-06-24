@@ -54,14 +54,14 @@ class PaymentField: FormData {
     static let initalPaymentField: [[String: Any]] = [[
         "validation_type": "ANY",
         "placeholder": "Enter Title",
-        "title": "Title",
+        "title": HippoStrings.title,
         "is_required": true,
         "type": "TEXTFIELD",
         "key": "title"
         ], [
             "validation_type": "CURRENCY",
-            "placeholder": "Currency",
-            "title": "Currency",
+            "placeholder": HippoStrings.currency,
+            "title": HippoStrings.currency,
             "action_value": "United States dollar ($)",
             "is_required": true,
             "type": "TEXTFIELD",

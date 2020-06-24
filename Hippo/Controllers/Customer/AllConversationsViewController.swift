@@ -165,7 +165,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     func putUserDetails() {
         HippoUserDetail.getUserDetailsAndConversation(completion: { [weak self] (success, error) in
             guard success else {
-                let errorMessage = error?.localizedDescription ?? "Something went wrong."
+                let errorMessage = error?.localizedDescription ?? HippoStrings.somethingWentWrong
                 
                 //self?.tableViewDefaultText = errorMessage + "\n Please tap to retry."
                 self?.arrayOfConversation = []
@@ -276,12 +276,12 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         self.navigationItem.rightBarButtonItems = [logoutButton]
     }
     @objc func logoutButtonClicked() {
-        showOptionAlert(title: "", message: "Are you sure, you want to logout?", successButtonName: "YES", successComplete: { (_) in
+        showOptionAlert(title: "", message: HippoStrings.logout, successButtonName: HippoStrings.yes, successComplete: { (_) in
             HippoConfig.shared.clearHippoUserData { (s) in
                 HippoUserDetail.clearAllData()
                 HippoConfig.shared.delegate?.hippoUserLogOut()
             }
-        }, failureButtonName: "NOT NOW", failureComplete: nil)
+        }, failureButtonName: HippoStrings.no.capitalized, failureComplete: nil)
     }
     
     @objc func notificationButtonClicked()
@@ -553,14 +553,11 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
             pushTotalUnreadCount()
             
             guard result.isSuccessful else {
-                let errorMessage = result.error?.localizedDescription ?? "Something went wrong."
-                
+                let errorMessage = result.error?.localizedDescription ?? HippoStrings.somethingWentWrong
                 self?.showErrorMessageInTopErrorLabel(withMessage: errorMessage)
                 return
             }
-            //
-            
-            //self?.noConversationFound()
+          
             var conversation = result.conversations!
             if self?.config.isStaticRemoveConversation ?? false, let status = self?.config.enabledChatStatus, !status.isEmpty {
                 let lastChannelId = self?.config.lastChannelId ?? -12

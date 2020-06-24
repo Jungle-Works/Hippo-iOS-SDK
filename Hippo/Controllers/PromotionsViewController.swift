@@ -52,7 +52,7 @@ class PromotionsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Notifications"
+        self.title = HippoStrings.notifications
         
         FuguNetworkHandler.shared.fuguConnectionChangesStartNotifier()
         
@@ -178,8 +178,7 @@ class PromotionsViewController: UIViewController {
         guard self.navigationItem.rightBarButtonItem?.tintColor != .clear else {
             return
         }
-//        showOptionAlert(title: "", message: "Are you sure, you want to clear all Notifications?", successButtonName: "YES", successComplete: { (_) in
-//
+
             self.clearAnnouncements(indexPath: IndexPath(row: 0, section: 0), isDeleteAllStatus: 1)
             FuguDefaults.removeObject(forKey: DefaultName.appointmentData.rawValue)
             
@@ -416,8 +415,7 @@ extension PromotionsViewController: UITableViewDelegate,UITableViewDataSource
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if (editingStyle == .delete) {
             
-//            showOptionAlert(title: "", message: "Are you sure, you want to clear Notification?", successButtonName: "YES", successComplete: { (_) in
-//
+
                 self.clearAnnouncements(indexPath: indexPath, isDeleteAllStatus: 0)
                 
  //           }, failureButtonName: "NO", failureComplete: nil)

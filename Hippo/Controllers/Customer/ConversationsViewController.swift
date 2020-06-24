@@ -335,24 +335,24 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         //      }
         
         if HippoConfig.shared.theme.sendBtnIcon != nil {
-            sendMessageButton.imageView?.tintColor = HippoConfig.shared.theme.themeColor
-            sendMessageButton.setImage(HippoConfig.shared.theme.sendBtnIcon, for: .normal)
-            
+           
             if let tintColor = HippoConfig.shared.theme.sendBtnIconTintColor {
-                sendMessageButton.tintColor = tintColor
+                sendMessageButton.imageView?.tintColor = tintColor
+            }else{
+                sendMessageButton.imageView?.tintColor = HippoConfig.shared.theme.themeColor
             }
-            
+            sendMessageButton.setImage(HippoConfig.shared.theme.sendBtnIcon, for: .normal)
             sendMessageButton.setTitle("", for: .normal)
         } else { sendMessageButton.setTitle("SEND", for: .normal) }
         
         if HippoConfig.shared.theme.addButtonIcon != nil {
-             addFileButtonAction.tintColor = HippoConfig.shared.theme.themeColor
+            
+            if let tintColor = HippoConfig.shared.theme.addBtnTintColor {
+                addFileButtonAction.imageView?.tintColor = tintColor
+            }else{
+                sendMessageButton.imageView?.tintColor = HippoConfig.shared.theme.themeColor
+            }
              addFileButtonAction.setImage(HippoConfig.shared.theme.addButtonIcon, for: .normal)
-            
-//            if let tintColor = HippoConfig.shared.theme.addBtnTintColor {
-//                addFileButtonAction.tintColor = tintColor
-//            }
-            
             addFileButtonAction.setTitle("", for: .normal)
         } else { addFileButtonAction.setTitle("ADD", for: .normal) }
         
@@ -1206,7 +1206,6 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
             return
         }
         weakSelf.storeResponse = result
-        
         weakSelf.labelId = result.labelID
         weakSelf.botGroupID = result.botGroupID
         
@@ -1261,7 +1260,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
       }
       
       if isDefaultChannel() {
-        let request = CreateConversationWithLabelId(replyMessage: replyMessage, botGroupId: botGroupID, labelId: labelId, initalMessages: getAllLocalMessages())
+        let request = CreateConversationWithLabelId(replyMessage: replyMessage, botGroupId: botGroupID, labelId: labelId, initalMessages: getAllLocalMessages(), channelName: label)
         HippoChannel.get(request: request) { [weak self] (r) in
             var result = r
             if result.isSuccessful, request.shouldSendInitalMessages(), request.replyMessage != nil {
@@ -3036,10 +3035,10 @@ extension ConversationsViewController {
     func presentActionsForCustomer(sender: UIView) {
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertController.Style.actionSheet)
         
-        let logoutOption = UIAlertAction(title: "Logout", style: .default, handler: { (alert: UIAlertAction!) -> Void in
+        let logoutOption = UIAlertAction(title: HippoStrings.logoutTitle, style: .default, handler: { (alert: UIAlertAction!) -> Void in
             self.logoutOptionClicked()
         })
-        let chatHistory = UIAlertAction(title: HippoConfig.shared.strings.chatHistory, style: .default, handler: { (alert: UIAlertAction!) -> Void in
+        let chatHistory = UIAlertAction(title: HippoStrings.chatHistory, style: .default, handler: { (alert: UIAlertAction!) -> Void in
             self.pushToChatHistory()
         })
         
@@ -3059,7 +3058,7 @@ extension ConversationsViewController {
     }
     
     func pushToChatHistory() {
-        let config = AllConversationsConfig(enabledChatStatus: [ChatStatus.close], title: HippoConfig.shared.strings.chatHistory, shouldUseCache: false, shouldHandlePush: false, shouldPopVc: true, forceDisableReply: true, forceHideActionButton: true, isStaticRemoveConversation: true, lastChannelId: channel?.id, disbaleBackButton: false)
+        let config = AllConversationsConfig(enabledChatStatus: [ChatStatus.close], title: HippoStrings.chatHistory, shouldUseCache: false, shouldHandlePush: false, shouldPopVc: true, forceDisableReply: true, forceHideActionButton: true, isStaticRemoveConversation: true, lastChannelId: channel?.id, disbaleBackButton: false)
         guard let vc = AllConversationsViewController.get(config: config) else {
             return
         }

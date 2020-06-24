@@ -70,7 +70,7 @@ class BoardCastSelectionCell: UITableViewCell {
         
         
         if manager?.selectedTeam?.tagId == -100 {
-            cellLabel.text = HippoConfig.shared.strings.allAgentsString + " " + HippoConfig.shared.strings.displayNameForCustomers + " " + HippoConfig.shared.strings.selectedString
+            cellLabel.text = HippoStrings.allAgentsString + " " + HippoConfig.shared.strings.displayNameForCustomers + " " + HippoConfig.shared.strings.selectedString
         }
     }
     func setUpForShowAgents() {

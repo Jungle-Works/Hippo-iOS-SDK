@@ -430,6 +430,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         
         let isCellHavingImage = chatType.isImageViewAllowed && !userType.isMyUserType && HippoConfig.shared.appUserType != .agent
         attributtedMessage = MessageUIAttributes(message: message, senderName: senderFullName, isSelfMessage: userType.isMyUserType, isShowingImage: isCellHavingImage)
+        
     }
     
     convenience init?(convoDict: [String: Any]) {
@@ -621,6 +622,9 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         if customAction != nil{
             json["custom_action"] = getDicForCustomAction()
         }
+        
+        //send selected language
+        json["lang"] = getCurrentLanguageLocale()
         
         return json
     }
@@ -996,7 +1000,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         let message_type = messageJson["message_type"] as? Int ?? 0
         let type = MessageType(rawValue: message_type) ?? .none
         
-        let tempMessage: HippoMessage?
+        var tempMessage: HippoMessage?
         
         switch type {
         case .consent:
@@ -1011,7 +1015,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
 struct FeedbackMessage {
     var line_after_feedback_1 = "Your response is recorded"
     var line_after_feedback_2 = "Thank you"
-    var line_before_feedback = "Rating & Review"//"Please provide feedback for our conversation"
+    var line_before_feedback = HippoStrings.ratingReview//"Please provide feedback for our conversation"
     
     init(json: [String: Any]) {
         line_after_feedback_1 = json["line_after_feedback_1"] as? String ?? line_after_feedback_1

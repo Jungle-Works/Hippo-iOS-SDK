@@ -109,26 +109,26 @@ class PaymentItem: NSObject {
     
     static let defaultDescriptionItem: [String: Any] = [
         "validation_type": "ANY",
-        "placeholder": "Enter Description",
-        "title": "Description",
+        "placeholder": HippoStrings.enterDescription,
+        "title": HippoStrings.description,
         "is_required": true,
         "type": "TEXTFIELD",
-        "key": "Title"
+        "key": HippoStrings.title
     ]
     static let defaultPriceItem: [String: Any] = [
         "validation_type": "DECIMAL",
-        "placeholder": "Enter Price",
-        "title": "Price",
+        "placeholder": HippoStrings.enterPrice,
+        "title": HippoStrings.price,
         "is_required": true,
         "type": "TEXTFIELD",
-        "key": "Price"
+        "key": HippoStrings.price
     ]
     static let defaultTitleItem: [String: Any] = [
         "validation_type": "ANY",
-        "placeholder": "Enter Title",
-        "title":  "Title",
+        "placeholder": HippoStrings.enterTitle,
+        "title":  HippoStrings.title,
         "is_required": true,
         "type": "TEXTFIELD",
-        "key": "Title"
+        "key": HippoStrings.title
     ]
 }

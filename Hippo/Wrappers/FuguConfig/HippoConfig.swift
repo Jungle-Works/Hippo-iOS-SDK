@@ -45,8 +45,8 @@ static let betaFaye = "https://beta-live-api.fuguchat.com:3001/faye"
 // static let betaUrl = "https://hippo-api-dev.fuguchat.com:3002/"
 // static let betaFaye = "https://hippo-api-dev.fuguchat.com:3002/faye"
 
-static let devUrl = "https://hippo-api-dev.fuguchat.com:3004/"//"https://hippo-api-dev.fuguchat.com:3002/"//
-static let devFaye = "https://hippo-api-dev.fuguchat.com:3004/faye"//"https://hippo-api-dev.fuguchat.com:3002/faye"//
+static let devUrl = "https://hippo-api-dev.fuguchat.com:3002/"//"https://hippo-api-dev.fuguchat.com:3002/"//
+static let devFaye = "https://hippo-api-dev.fuguchat.com:3002/faye"//"https://hippo-api-dev.fuguchat.com:3002/faye"//
 
 // static let devUrl = "https://hippo-api-dev.fuguchat.com:3011/"
 // static let devFaye = "https://hippo-api-dev.fuguchat.com:3012/faye"
@@ -117,7 +117,7 @@ struct BotAction {
     internal var theme = HippoTheme.defaultTheme()
     internal var userDetail: HippoUserDetail?
     internal var agentDetail: AgentDetail?
-    internal var strings = HippoStrings()
+    public var strings = HippoStrings()
     
 //    private(set)  open var isNewConversationButtonHidden: Bool = true
     private(set)  open var newConversationButtonBorderWidth: Float = 0.0
@@ -279,6 +279,11 @@ struct BotAction {
         
     }
     
+    public func getAllStrings(){
+        AllString.getAllStrings()
+    }
+    
+    
     public static func setSkipBot(enable: Bool, reason: String) {
         HippoProperty.current.skipBot = enable
         HippoProperty.current.skipBotReason = reason
@@ -289,6 +294,7 @@ struct BotAction {
         self.appUserType = .customer
         AgentDetail.agentLoginData = nil
         HippoUserDetail.getUserDetailsAndConversation()
+        getAllStrings()
     }
     
     public func enableBroadcast() {
@@ -599,7 +605,7 @@ struct BotAction {
         HippoChannel.get(withFuguChatAttributes: attributes, completion: {(result) in
             guard result.isSuccessful, let channel = result.channel else {
                 CallManager.shared.hungupCall()
-                completion(false, HippoError.threwError(message: "Something went wrong while creating channel."))
+                completion(false, HippoError.threwError(message: HippoStrings.somethingWentWrong))
                 return
             }
             let call = CallData.init(peerData: peer, callType: callType, muid: uuid, signallingClient: channel)
@@ -660,7 +666,7 @@ struct BotAction {
         HippoChannel.getToCallAgent(withFuguChatAttributes: attributes, agentEmail: agentEmail, completion: {(result) in
             guard result.isSuccessful, let channel = result.channel else {
                 CallManager.shared.hungupCall()
-                completion(false, HippoError.threwError(message: "Something went wrong while creating channel."))
+                completion(false, HippoError.threwError(message: HippoStrings.somethingWentWrong))
                 return
             }
             let call = CallData.init(peerData: peer, callType: callType, muid: uuid, signallingClient: channel)

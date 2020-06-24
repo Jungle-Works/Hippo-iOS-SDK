@@ -127,7 +127,7 @@ class AgentConversation: HippoConversation {
         }
         
         if self.lastMessage?.senderId == AgentDetail.id {
-            title = "You:"
+            title = HippoStrings.you
         } else if self.lastMessage?.userType == UserType.customer {
             let nameArray = self.lastMessage?.senderFullName.components(separatedBy: " ") ?? []
             let count = nameArray.count

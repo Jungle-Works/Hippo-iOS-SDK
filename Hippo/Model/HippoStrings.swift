@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import HippoCallClient
+
 
 public class HippoStrings {
     //cp sdk
@@ -62,6 +64,43 @@ public class HippoStrings {
     static var readMore = "Read More".localized
     static var readLess = "Read Less".localized
     static var noNotificationFound = "No Notifications found".localized
+    static var you = "You".localized
+    static var versionMismatch = "Version Mismatch".localized
+    static var callAnyway = "Call anyway".localized
+    static var callOldSdk = "does not have the updated app, Calling using old SDK...".localized
+    static var yesCancel = "Yes, Cancel".localized
+    static var no = "No".localized
+    static var currency = "Currency".localized
+    static var title = "Title".localized
+    static var price = "Price".localized
+    static var enterPrice = "Enter Price".localized
+    static var selectaPlan = "select a plan".localized
+    static var proccedToPay = "Proceed To Pay".localized
+    static var ratingReview = "Rating & Review".localized
+    static var audio = "Audio".localized
+    static var image = "Image".localized
+    static var cancel = "Cancel".localized
+    static var alert = "Alert!".localized
+    static var chatHistory = "Conversations".localized
+    static var enterTitle = "Enter Title".localized
+    static var enterDescription = "Enter Description".localized
+    static var description = "Description".localized
+    static var notifications = "Notifications".localized
+    static var submit = "Submit".localized
+    static var totalPrice = "Total Price".localized
+    static var yes = "Yes".localized
+    static var logout = "Are you sure you want to logout?".localized
+    static var logoutTitle = "Logout".localized
+    static var unknownMessage = "This message doesn't support in your current app.".localized
+    static var allAgentsString = "All".localized
+    open var incomingCall = "Incoming Call".localized
+    static var paymentRequest = "Payment Request".localized
+    open var calling = "CALLING...".localized
+    static var noComment = "No Comment...".localized
+    static var ringing = "RINGING...".localized
+    static var busyAnotherCall = "Busy on another call...".localized
+    static var callDeclined = "Call Declined".localized
+    static var isCallingYou = "is calling you...".localized
     
     open var disbaledCameraErrorMessage = "Access to Camera is denied. Please enable from setings."
     open var cameraString = "New Image via Camera"
@@ -77,7 +116,7 @@ public class HippoStrings {
     open var noBroadcastAvailable = "No broadcast found!"
     
     open var allTeamString = "All Teams"
-    open var allAgentsString = "All"
+   
     
 //    open var checkingNewMessages = "Updating new messages..."
     
@@ -89,7 +128,7 @@ public class HippoStrings {
     var notAllowedForAgent = "This function/method is not allowed for agent."
     
     var defaultFallbackText = "This message cannot be displayed"
-    var chatHistory = "Conversations"
+    
     
     //Status
     static let active = "Active"
@@ -103,6 +142,18 @@ public class HippoStrings {
     static let normalMessagePlaceHolderWithoutCannedMessage = "Type a message..."
     
     public init() {
+        if versionCode > 320{
+            #if canImport(HippoCallClient)
+            
+            HippoCallClientStrings.calling = calling
+            HippoCallClientStrings.ringing = HippoStrings.ringing
+            HippoCallClientStrings.callingYou = HippoStrings.isCallingYou
+            HippoCallClientStrings.callDeclined = HippoStrings.callDeclined
+            HippoCallClientStrings.busyOnOtherCall = HippoStrings.busyAnotherCall
+            
+            #else
         
+            #endif
+        }
     }
 }

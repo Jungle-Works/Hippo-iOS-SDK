@@ -458,9 +458,9 @@ class AgentConversationViewController: HippoConversationViewController {
     }
     
     func askBeforeAssigningChat() {
-        showOptionAlert(title: "", message: "Are you sure you want to assign this chat to you?", successButtonName: "Yes", successComplete: { (action) in
+        showOptionAlert(title: "", message: "Are you sure you want to assign this chat to you?", successButtonName: HippoStrings.yes, successComplete: { (action) in
             self.assignChatToSelf()
-        }, failureButtonName: "No", failureComplete: nil)
+        }, failureButtonName: HippoStrings.no, failureComplete: nil)
     }
     
     func assignChatToSelf() {
@@ -2376,7 +2376,7 @@ extension AgentConversationViewController: BotTableDelegate {
     }
     func sendFeedbackMessageToFaye() {
 //        let message = HippoMessage(message: "Please provide a feedback for our conversation", type: .feedback, uniqueID: generateUniqueId(), chatType: chatType)
-        let message = HippoMessage(message: "Rating & Review", type: .feedback, uniqueID: generateUniqueId(), chatType: chatType)
+        let message = HippoMessage(message: HippoStrings.ratingReview, type: .feedback, uniqueID: generateUniqueId(), chatType: chatType)
         message.updateObject(with: message)
         channel.unsentMessages.append(message)
         self.addMessageToUIBeforeSending(message: message)

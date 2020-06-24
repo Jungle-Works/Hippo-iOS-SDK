@@ -657,18 +657,13 @@ extension AgentHomeViewController: UITableViewDelegate, UITableViewDataSource {
         if let status = conversationList[indexPath.row].status {
             if status == 1{
                 let deleteAction = UITableViewRowAction(style: .default, title: "End chat") { (action, indexpath) in
-                    self.showOptionAlert(title: "", message: "Are you sure, you want to Close this conversation?", preferredStyle: .alert, successButtonName: "YES", successComplete: { (_) in
+                    self.showOptionAlert(title: "", message: "Are you sure, you want to Close this conversation?", preferredStyle: .alert, successButtonName: HippoStrings.yes, successComplete: { (_) in
                         self.updateChannelStatus(for: indexPath.row)
-                    }, failureButtonName: "NO", failureComplete: nil)
+                    }, failureButtonName: HippoStrings.no.capitalized, failureComplete: nil)
                 }
                 return [deleteAction]
             }else if status == 2{
-//                let reopenAction = UITableViewRowAction(style: .default, title: "Reopen chat") { (action, indexpath) in
-//                    self.showOptionAlert(title: "", message: "Are you sure, you want to Reopen this conversation?", preferredStyle: .alert, successButtonName: "YES", successComplete: { (_) in
-//                        self.updateChannelStatus(for: indexPath.row)
-//                    }, failureButtonName: "NO", failureComplete: nil)
-//                }
-//                return [reopenAction]
+
                 return nil
             }
             return nil
