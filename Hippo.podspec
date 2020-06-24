@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
     s.name         = 'Hippo'
 
-    s.version      = '2.1.26'
+    s.version      = '2.1.27'
 
     s.summary      = 'Now add Agent in app for quick support.'
     s.homepage     = 'https://github.com/Jungle-Works/Hippo-iOS-SDK'

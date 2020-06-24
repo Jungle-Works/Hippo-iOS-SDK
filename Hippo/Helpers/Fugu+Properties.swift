@@ -12,7 +12,7 @@ let HippoSDKSource = 1
 let Device_Type_iOS = 2
 var userDetailData = [String: Any]()
 
-let fuguAppVersion = "2.1.26"
+let fuguAppVersion = "2.1.27"
 let versionCode = 320
 
 /*
@@ -114,5 +114,7 @@ let versionCode = 320
  324 *** 2.1.25 = Enhanced ui in cp and agent sdk
  
  325 *** 2.1.26 = Rating and review ui changes, generic calling functions and fixes
+ 
+ 326 *** 2.1.27 = Fallback for btn color
  
  */
