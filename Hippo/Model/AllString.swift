@@ -22,7 +22,7 @@ class AllString{
                 print("Error",error ?? "")
                 return
             }
-            guard let response = responseObject as? [String: Any] else {
+            guard let apiResponse = responseObject as? [String : Any], let data = apiResponse["data"] as? [String : Any], let response = data["business_data"] as? [String: Any] else {
                 return
             }
             

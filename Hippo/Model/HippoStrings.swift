@@ -101,6 +101,10 @@ public class HippoStrings {
     static var busyAnotherCall = "Busy on another call...".localized
     static var callDeclined = "Call Declined".localized
     static var isCallingYou = "is calling you...".localized
+    static var sendPhoto = "Send Photo".localized
+    static var back = "Back".localized
+    static var slowInternet = "Slow Internet connection.".localized
+    
     
     open var disbaledCameraErrorMessage = "Access to Camera is denied. Please enable from setings."
     open var cameraString = "New Image via Camera"

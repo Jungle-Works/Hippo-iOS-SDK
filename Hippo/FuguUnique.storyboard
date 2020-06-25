@@ -1208,6 +1208,7 @@
                         <outlet property="errorLabel" destination="pyU-lu-mcX" id="Q1R-At-yu6"/>
                         <outlet property="height_errorView" destination="3dg-dn-6hz" id="dGP-Hc-Vlq"/>
                         <outlet property="labelViewRetryButton" destination="yTc-4O-JxL" id="NtK-Bz-wyh"/>
+                        <outlet property="label_slowInternet" destination="wUb-Ah-pXI" id="NSe-Sy-ErB"/>
                         <outlet property="loadMoreActivityIndicator" destination="RbX-1l-Ixu" id="krL-Hj-Web"/>
                         <outlet property="loadMoreActivityTopContraint" destination="v7A-P9-nHQ" id="7K7-Bp-mdY"/>
                         <outlet property="loaderView" destination="Fld-6h-IW2" id="x8W-rm-C0e"/>
@@ -1311,6 +1312,7 @@
                     <connections>
                         <outlet property="cancelButtonOutlet" destination="ESk-vJ-sRn" id="qco-2Q-2F2"/>
                         <outlet property="selectImageView" destination="zhH-mV-hRL" id="Ril-Cp-XBh"/>
+                        <outlet property="sendButtonOutlet" destination="7SC-Oa-1Hy" id="hXG-Bt-AEW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Nr0-7g-mDn" userLabel="First Responder" sceneMemberID="firstResponder"/>

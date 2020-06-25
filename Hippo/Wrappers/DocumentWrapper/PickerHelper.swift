@@ -108,18 +108,18 @@ class PickerHelper {
     func presentCustomActionSheet(sender: UIView, controller: UIViewController, openType: String) {
 
         switch openType{
-        case "Request Payment":
+        case HippoStrings.requestPayment:
             controller.view.endEditing(true)
             self.delegate?.payOptionClicked()
-        case "Camera":
+        case HippoStrings.camera:
             controller.view.endEditing(true)
             if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) {
                 self.performActionBasedOnCameraPermission()
             }
-        case "Photo & Video Library":
+        case HippoStrings.photoLibrary:
             controller.view.endEditing(true)
             self.performActionBasedOnGalleryPermission()
-        case "Document":
+        case HippoStrings.document:
             controller.view.endEditing(true)
             self.documentPicker = CoreDocumentPicker(controller: self.currentViewController)
             self.documentPicker?.delegate = self.delegate

@@ -331,7 +331,7 @@ public struct ConversationListTheme {
     open var securePaymentTintColor: UIColor?
     open var secureTextFont: UIFont = UIFont.regular(ofSize: 10)
     
-    open var shouldShowBtnOnChatList : Bool = false
+    open var shouldShowBtnOnChatList : Bool = true
     open var chatListRetryBtnText : String = HippoStrings.retry
     open var noOpenAndcloseChatError : String = HippoStrings.noChatStarted
     open var noChatUnderCatagoryError : String = HippoStrings.noChatInCatagory

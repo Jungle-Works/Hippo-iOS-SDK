@@ -42,7 +42,7 @@ class FuguNetworkHandler: NSObject {
                 NotificationCenter.default.post(name: .internetConnected, object: nil)
 //                print(">>>>>>connected")
                 
-                weakSelf.errorMessage(errorLabelColor: UIColor.orange, errorLabelMessage: "Connecting...", isToLoadFirstTime: false, needToBeHidden: false)
+                weakSelf.errorMessage(errorLabelColor: UIColor.orange, errorLabelMessage: HippoStrings.connecting, isToLoadFirstTime: false, needToBeHidden: false)
                 if FayeConnection.shared.isConnected == true {
                     fuguDelay(0.5, completion: {
                         weakSelf.updateConnectedStatus()
@@ -91,9 +91,9 @@ class FuguNetworkHandler: NSObject {
     
     fileprivate func updateConnectedStatus() {
         
-            self.errorMessage(errorLabelColor: HippoConfig.shared.theme.processingGreenColor, errorLabelMessage: "Connected", isToLoadFirstTime: false, needToBeHidden: false)
+        self.errorMessage(errorLabelColor: HippoConfig.shared.theme.processingGreenColor, errorLabelMessage: HippoStrings.connected, isToLoadFirstTime: false, needToBeHidden: false)
             fuguDelay(0.5, completion: {
-                self.errorMessage(errorLabelColor: HippoConfig.shared.theme.processingGreenColor, errorLabelMessage: "Connected",  needToBeHidden: true)
+                self.errorMessage(errorLabelColor: HippoConfig.shared.theme.processingGreenColor, errorLabelMessage: HippoStrings.connected,  needToBeHidden: true)
             })
     }
     

@@ -69,10 +69,26 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     @IBOutlet weak var retryLabelViewHeight: NSLayoutConstraint!
     @IBOutlet weak var chatScreenTableViewTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var retryLoader: UIActivityIndicatorView!
-    @IBOutlet weak var labelViewRetryButton: UIButton!
+    @IBOutlet weak var labelViewRetryButton: UIButton!{
+        didSet{
+            let attributedString = NSAttributedString(string: HippoStrings.retry, attributes:[
+                NSAttributedString.Key.font : UIFont.bold(ofSize: 15.0),
+                NSAttributedString.Key.foregroundColor : UIColor.black,
+                NSAttributedString.Key.underlineStyle:1.0
+            ])
+            labelViewRetryButton.setAttributedTitle(attributedString, for: .normal)
+        }
+    }
     
     @IBOutlet weak var collectionViewOptions: UICollectionView!
     @IBOutlet weak var attachmentViewHeightConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var label_slowInternet : UILabel!{
+        didSet{
+            label_slowInternet.font = UIFont.regular(ofSize: 15.0)
+            label_slowInternet.text = HippoStrings.slowInternet
+        }
+    }
     
     var suggestionCollectionView = SuggestionView()
     var suggestionList: [String] = []

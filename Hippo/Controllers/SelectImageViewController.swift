@@ -16,7 +16,17 @@ protocol SelectImageViewControllerDelegate: class {
 class SelectImageViewController: UIViewController {
     
     @IBOutlet weak var selectImageView: UIImageView!
-    @IBOutlet weak var cancelButtonOutlet: UIButton!
+    @IBOutlet weak var cancelButtonOutlet: UIButton!{
+        didSet{
+            cancelButtonOutlet.setTitle(HippoStrings.back, for: .normal)
+        }
+    }
+    @IBOutlet weak var sendButtonOutlet: UIButton!{
+        didSet{
+            sendButtonOutlet.setTitle(HippoStrings.sendPhoto, for: .normal)
+        }
+    }
+    
     
     weak var delegate: SelectImageViewControllerDelegate?
     var pickedImage: UIImage?
