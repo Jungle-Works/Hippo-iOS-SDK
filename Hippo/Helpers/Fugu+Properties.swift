@@ -12,8 +12,8 @@ let HippoSDKSource = 1
 let Device_Type_iOS = 2
 var userDetailData = [String: Any]()
 
-let fuguAppVersion = "2.1.27"
-let versionCode = 320
+let fuguAppVersion = "2.1.28"
+var versionCode = 320
 
 /*
  201 = Bot messages
@@ -116,5 +116,7 @@ let versionCode = 320
  325 *** 2.1.26 = Rating and review ui changes, generic calling functions and fixes
  
  326 *** 2.1.27 = Fallback for btn color
+ 
+ 327 *** 2.1.28 = Variable added for new calling and issues fixed
  
  */

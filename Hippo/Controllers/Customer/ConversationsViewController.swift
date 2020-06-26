@@ -350,7 +350,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
             if let tintColor = HippoConfig.shared.theme.addBtnTintColor {
                 addFileButtonAction.imageView?.tintColor = tintColor
             }else{
-                sendMessageButton.imageView?.tintColor = HippoConfig.shared.theme.themeColor
+                addFileButtonAction.imageView?.tintColor = HippoConfig.shared.theme.themeColor
             }
             addFileButtonAction.setImage(HippoConfig.shared.theme.addButtonIcon, for: .normal)
             addFileButtonAction.setTitle("", for: .normal)

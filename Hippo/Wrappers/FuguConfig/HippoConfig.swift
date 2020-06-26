@@ -171,6 +171,15 @@ struct BotAction {
     
     public let navigationTitleTextAlignMent: NSTextAlignment? = .center
     public var shouldOpenDefaultChannel = true
+    public var shouldUseNewCalling : Bool?{
+        didSet{
+            if shouldUseNewCalling ?? false{
+                versionCode = 350
+            }else{
+                versionCode = 320
+            }
+        }
+    }
     
     // MARK: - Intialization
     private override init() {
