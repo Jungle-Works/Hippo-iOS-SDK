@@ -1726,10 +1726,10 @@
             </objects>
             <point key="canvasLocation" x="1865" y="-1962"/>
         </scene>
-        <!--Checkout View Controller-->
+        <!--Pre Payment View Controller-->
         <scene sceneID="zjR-sj-HGh">
             <objects>
-                <viewController storyboardIdentifier="CheckoutViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="W7R-NT-0ws" customClass="CheckoutViewController" customModule="Hippo" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CheckoutViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="W7R-NT-0ws" customClass="PrePaymentViewController" customModule="Hippo" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="S6N-DR-WDx"/>
                         <viewControllerLayoutGuide type="bottom" id="e0M-p7-ttp"/>

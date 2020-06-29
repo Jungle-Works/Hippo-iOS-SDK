@@ -474,7 +474,7 @@ class HippoChannel {
         }
         
         if getCurrentLanguageLocale() != "en"{
-            if labelRequest?.botGroupId ?? 0 < 0{
+            if (labelRequest?.botGroupId ?? 0) <= 0{
                 params["multi_language_default_message"] = labelRequest?.initalMessages.first?.message
             }
             params["multi_language_label"] = labelRequest?.channelName

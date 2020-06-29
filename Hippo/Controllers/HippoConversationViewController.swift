@@ -1382,7 +1382,7 @@ extension HippoConversationViewController: VideoTableViewCellDelegate {
 //            self.navigationController?.pushViewController(qlPreview, animated: true)
             if let url = URL(string: fileURL){
                 let config = WebViewConfig(url: url, title: fileName)
-                let vc = CheckoutViewController.getNewInstance(config: config)
+                let vc = PrePaymentViewController.getNewInstance(config: config)
                 self.navigationController?.pushViewController(vc, animated: true)
             }else{
                 print("Error----")
@@ -1668,7 +1668,7 @@ extension HippoConversationViewController: PaymentMessageCellDelegate {
     
     func initatePayment(for url: URL) {
         let config = WebViewConfig(url: url, title: HippoStrings.payment)
-        let vc = CheckoutViewController.getNewInstance(config: config)
+        let vc = PrePaymentViewController.getNewInstance(config: config)
         vc.isComingForPayment = true
         self.navigationController?.pushViewController(vc, animated: true)
     }

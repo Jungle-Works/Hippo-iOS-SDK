@@ -71,7 +71,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     @IBOutlet weak var retryLoader: UIActivityIndicatorView!
     @IBOutlet weak var labelViewRetryButton: UIButton!{
         didSet{
-            let attributedString = NSAttributedString(string: HippoStrings.retry, attributes:[
+            let attributedString = NSAttributedString(string: HippoConfig.shared.strings.retry, attributes:[
                 NSAttributedString.Key.font : UIFont.bold(ofSize: 15.0),
                 NSAttributedString.Key.foregroundColor : UIColor.black,
                 NSAttributedString.Key.underlineStyle:1.0
@@ -366,7 +366,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
             if let tintColor = HippoConfig.shared.theme.addBtnTintColor {
                 addFileButtonAction.imageView?.tintColor = tintColor
             }else{
-                sendMessageButton.imageView?.tintColor = HippoConfig.shared.theme.themeColor
+                addFileButtonAction.imageView?.tintColor = HippoConfig.shared.theme.themeColor
             }
              addFileButtonAction.setImage(HippoConfig.shared.theme.addButtonIcon, for: .normal)
             addFileButtonAction.setTitle("", for: .normal)

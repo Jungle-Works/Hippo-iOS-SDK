@@ -122,7 +122,7 @@ struct PaymentSecurely {
 //        let secondAttributes: [NSAttributedString.Key: Any] = [NSAttributedString.Key.foregroundColor: UIColor.black,
 //                                                                      NSAttributedString.Key.font: theme.secureTextFont]
         
-        let headerAttributed = NSMutableAttributedString(string: "100% secure payement", attributes: headerAttributes)
+        let headerAttributed = NSMutableAttributedString(string: HippoStrings.hippoSecurePayment, attributes: headerAttributes)
 //        let secondAttributed = NSMutableAttributedString(string: "\nDiet Buddy Gurantee", attributes: secondAttributes)
         
 //        headerAttributed.append(secondAttributed)
@@ -157,7 +157,7 @@ extension PaymentSecurely: HippoCard {
 }
 
 class PaymentHeader {
-    var text: String = HippoStrings.selectaPlan
+    var text: String = "Select a Plan".localized
 }
 
 extension PaymentHeader: HippoCard {

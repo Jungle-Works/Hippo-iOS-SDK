@@ -9,7 +9,7 @@
 import UIKit
 import WebKit
 
-class CheckoutViewController: UIViewController {
+class PrePaymentViewController: UIViewController {
     
     @IBOutlet weak var navigationBar : NavigationBar!
  
@@ -82,9 +82,9 @@ class CheckoutViewController: UIViewController {
         
     }
        
-    class func getNewInstance(config: WebViewConfig) -> CheckoutViewController {
+    class func getNewInstance(config: WebViewConfig) -> PrePaymentViewController {
         let storyboard = UIStoryboard(name: "FuguUnique", bundle: FuguFlowManager.bundle)
-        let vc = storyboard.instantiateViewController(withIdentifier: "CheckoutViewController") as! CheckoutViewController
+        let vc = storyboard.instantiateViewController(withIdentifier: "CheckoutViewController") as! PrePaymentViewController
         vc.config = config
         return vc
     }
@@ -126,7 +126,7 @@ class CheckoutViewController: UIViewController {
     }
 
 }
-extension CheckoutViewController{
+extension PrePaymentViewController{
     func addTransparentView(){
       
         let window = UIApplication.shared.keyWindow
@@ -171,11 +171,11 @@ extension CheckoutViewController{
 
 
 
-extension CheckoutViewController: WKUIDelegate {
+extension PrePaymentViewController: WKUIDelegate {
     
 }
 
-extension CheckoutViewController: UIScrollViewDelegate {
+extension PrePaymentViewController: UIScrollViewDelegate {
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return nil
     }
@@ -184,7 +184,7 @@ extension CheckoutViewController: UIScrollViewDelegate {
     }
 }
 
-extension CheckoutViewController: WKNavigationDelegate {
+extension PrePaymentViewController: WKNavigationDelegate {
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         print("======00000\(webView.url?.description ?? "")")

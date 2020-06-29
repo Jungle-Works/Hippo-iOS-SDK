@@ -31,12 +31,14 @@ class BottomPopupController: UIViewController {
     }
     @IBOutlet weak var label_CancelPayemnt : UILabel!{
         didSet{
+            label_CancelPayemnt.text = HippoStrings.cancelPaymentTitle
             label_CancelPayemnt.font = UIFont.bold(ofSize: 24.0)
             label_CancelPayemnt.textColor = .black
         }
     }
     @IBOutlet weak var label_CancelMessage : UILabel!{
         didSet{
+            label_CancelMessage.text = HippoStrings.cancelPayment
             label_CancelMessage.font = UIFont.regular(ofSize: 18.0)
             label_CancelMessage.textColor = .black
         }

@@ -203,14 +203,16 @@
 "Incoming Audio Call" = "Llamada entrante de audio";
 "Version Mismatch" = "Versión no coincide";
 "Call anyway" = "llamar de todos modos";
-"select a plan" = "seleccionar un plan";
+"Select a Plan" = "seleccionar un plan";
 "Payment Request" = "Solicitud de pago";
 "is calling you......" = "le está llamando ......";
 "No Comment..." = "Sin comentarios...";
 "Send Photo" = "Enviar foto";
 "Back" = "Espalda";
-
-
+"100% secure payment" = "100% pago seguro";
+"A payment is requested to you" = "Se solicita un pago a usted";
+"Clear" = "Claro";
+"is calling you..." = "le está llamando ......";
 
 
 

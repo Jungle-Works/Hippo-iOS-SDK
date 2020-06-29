@@ -13,7 +13,7 @@ public class HippoStrings {
     //cp sdk
     static var ongoing = "Current".localized
     static var past = "Past".localized
-    static var newConversation = "New Conversation".localized
+    open var newConversation = "New Conversation".localized
     static var noNetworkConnection = "No internet connected".localized
     static var connected = "Connected".localized
     static var somethingWentWrong = "Something went wrong. Please try again".localized
@@ -22,9 +22,9 @@ public class HippoStrings {
     static var camera = "Camera".localized
     static var document = "Document".localized
     static var payment = "Payment".localized
-    static var retry = "Retry".localized
-    static var noChatStarted = "Seems like you haven't started any chat yet, kick start it now!".localized
-    static var noChatInCatagory = "You have no chats.".localized
+    open var retry = "Retry".localized
+    open var noChatStarted = "Seems like you haven't started any chat yet, kick start it now!".localized
+    open var noChatInCatagory = "You have no chats.".localized
     static var writeReview = "Write a review".localized
     open var messagePlaceHolderText = "Send a message...".localized
     static var enterSomeText = "Please enter some text.".localized
@@ -74,7 +74,7 @@ public class HippoStrings {
     static var title = "Title".localized
     static var price = "Price".localized
     static var enterPrice = "Enter Price".localized
-    static var selectaPlan = "select a plan".localized
+    var selectaPlan = "Select a Plan".localized
     static var proccedToPay = "Proceed To Pay".localized
     static var ratingReview = "Rating & Review".localized
     static var audio = "Audio".localized
@@ -93,9 +93,9 @@ public class HippoStrings {
     static var logoutTitle = "Logout".localized
     static var unknownMessage = "This message doesn't support in your current app.".localized
     static var allAgentsString = "All".localized
-    open var incomingCall = "Incoming Call".localized
+    var incomingCall = "Incoming Call".localized
     static var paymentRequest = "Payment Request".localized
-    open var calling = "CALLING...".localized
+    static var calling = "CALLING...".localized
     static var noComment = "No Comment...".localized
     static var ringing = "RINGING...".localized
     static var busyAnotherCall = "Busy on another call...".localized
@@ -104,8 +104,12 @@ public class HippoStrings {
     static var sendPhoto = "Send Photo".localized
     static var back = "Back".localized
     static var slowInternet = "Slow Internet connection.".localized
-    
-    
+    static var hippoSecurePayment = "100% secure payment".localized
+    static var paymentRequested = "A payment is requested to you".localized
+    static var clear = "Clear".localized
+    static var cancelPayment = "Are you sure you want to cancel the payment?".localized
+    static var cancelPaymentTitle = "Cancel Payment".localized
+
     open var disbaledCameraErrorMessage = "Access to Camera is denied. Please enable from setings."
     open var cameraString = "New Image via Camera"
     open var displayNameForCustomers = "Fleet"
@@ -146,18 +150,23 @@ public class HippoStrings {
     static let normalMessagePlaceHolderWithoutCannedMessage = "Type a message..."
     
     public init() {
+        HippoStrings.updateHippoCallClientStrings()
+    }
+    
+    class func updateHippoCallClientStrings(){
         if versionCode > 320{
             #if canImport(HippoCallClient)
             
-            HippoCallClientStrings.calling = calling
+            HippoCallClientStrings.calling = HippoStrings.calling
             HippoCallClientStrings.ringing = HippoStrings.ringing
             HippoCallClientStrings.callingYou = HippoStrings.isCallingYou
             HippoCallClientStrings.callDeclined = HippoStrings.callDeclined
             HippoCallClientStrings.busyOnOtherCall = HippoStrings.busyAnotherCall
             
             #else
-        
+            
             #endif
         }
     }
+    
 }

@@ -763,8 +763,8 @@ func validateFuguCredential() -> Bool {
 }
 
 func getCurrentLanguageLocale() -> String {
-      return "es"
-  }
+    return  UserDefaults.standard.value(forKey: DefaultName.selectedLanguage.rawValue) as? String ?? "en"
+}
 
 
 func showAlertWith(message: String, action: (() -> Void)?) {

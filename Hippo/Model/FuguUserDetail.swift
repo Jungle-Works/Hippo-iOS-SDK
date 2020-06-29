@@ -101,6 +101,7 @@ public class UserTag: NSObject {
     var userTags: [UserTag] = []
     var customRequest: [String: Any] = [:]
     var userImage: URL?
+    var selectedlanguage : String?
     
     var userChannel: String?
     
@@ -141,7 +142,7 @@ public class UserTag: NSObject {
     // MARK: - Intializer
     override init() {}
     
-    public init(fullName: String, email: String, phoneNumber: String, userUniqueKey: String, addressAttribute: HippoAttributes? = nil, customAttributes: [String: Any]? = nil, userTags: [UserTag]? = nil, userImage: String? = nil) {
+    public init(fullName: String, email: String, phoneNumber: String, userUniqueKey: String, addressAttribute: HippoAttributes? = nil, customAttributes: [String: Any]? = nil, userTags: [UserTag]? = nil, userImage: String? = nil, selectedlanguage : String? = nil) {
         super.init()
         
         self.fullName = fullName.trimWhiteSpacesAndNewLine()
@@ -156,6 +157,9 @@ public class UserTag: NSObject {
         if let parsedUserImage = userImage?.trimWhiteSpacesAndNewLine(), let url = URL(string: parsedUserImage) {
             self.userImage = url
         }
+        self.selectedlanguage = selectedlanguage
+        
+        UserDefaults.standard.set(selectedlanguage, forKey: DefaultName.selectedLanguage.rawValue)
     }
     
     func getUserTagsJSON() -> [[String: Any]] {
@@ -263,9 +267,10 @@ public class UserTag: NSObject {
         }
         
         params["device_details"] = AgentDetail.getDeviceDetails()
-        
+        params["fetch_business_lang"] = 1
         params += customRequest
         print("PUT USER PARAMS:\(params)")
+        
         return params
     }
     
@@ -439,6 +444,7 @@ public class UserTag: NSObject {
 ////            params["neglect_conversations"] = true
 //        }
         params["neglect_conversations"] = true
+       
         
         return params
     }

@@ -410,7 +410,7 @@ extension PromotionsViewController: UITableViewDelegate,UITableViewDataSource
         return true
     }
     func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
-        return "Clear"
+        return HippoStrings.clear
     }
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if (editingStyle == .delete) {

@@ -129,7 +129,6 @@ struct BotAction {
     private(set)  open var mapping = [Int: [Int]]()//Dictionary<Int, Array<Int>>()
     
     private(set)  open var hasChannelTabs = true//false
-    private(set)  open var emptyChannelListText = "No Conversation found"
     
     open var isPaymentRequestEnabled: Bool {
         return HippoProperty.current.isPaymentRequestEnabled
@@ -163,6 +162,7 @@ struct BotAction {
     open var HippoDismissed: ((_ isDismissed: Bool) -> ())?
     open var HippoPrePaymentCancelled: (()->())?
     open var HippoPrePaymentSuccessful: ((Bool)->())?
+    public var HippoLanguageChanged : ((String)->())?
     
     internal let powererdByColor = #colorLiteral(red: 0.4980392157, green: 0.4980392157, blue: 0.4980392157, alpha: 1)
     internal let FuguColor = #colorLiteral(red: 0.3843137255, green: 0.4901960784, blue: 0.8823529412, alpha: 1)
@@ -171,6 +171,17 @@ struct BotAction {
     
     public let navigationTitleTextAlignMent: NSTextAlignment? = .center
     public var shouldOpenDefaultChannel = false
+    
+    public var shouldUseNewCalling : Bool?{
+        didSet{
+            if shouldUseNewCalling ?? false{
+                versionCode = 350
+            }else{
+                versionCode = 320
+            }
+        }
+    }
+    
     
     // MARK: - Intialization
     private override init() {
@@ -279,8 +290,9 @@ struct BotAction {
         
     }
     
-    public func getAllStrings(){
+    func getAllStrings(){
         AllString.getAllStrings()
+        AllString.updateLanguageApi()
     }
     
     
@@ -293,8 +305,12 @@ struct BotAction {
         self.userDetail = userDetail
         self.appUserType = .customer
         AgentDetail.agentLoginData = nil
-        HippoUserDetail.getUserDetailsAndConversation()
-        getAllStrings()
+        HippoUserDetail.getUserDetailsAndConversation { (status, error) in
+            if (self.userDetail?.selectedlanguage ?? "") == ""{
+               self.userDetail?.selectedlanguage = BussinessProperty.current.buisnessLanguageArr?.filter{$0.is_default == true}.first?.lang_code
+            }
+            self.setLanguage(self.userDetail?.selectedlanguage ?? "en",true)
+        }
     }
     
     public func enableBroadcast() {
@@ -310,6 +326,8 @@ struct BotAction {
 //    public func hideNewConversationButton() {
 //        isNewConversationButtonHidden = true
 //    }
+    
+    
     
     public func isSuggestionNeeded(setValue: Bool) {
         isSuggestionNeeded = setValue
@@ -330,9 +348,9 @@ struct BotAction {
     public func hasChannelTabs(setValue: Bool) {
         hasChannelTabs = setValue
     }
-    public func setEmptyChannelListText(text: String) {
-        emptyChannelListText = text
-    }
+//    public func setEmptyChannelListText(text: String) {
+//        emptyChannelListText = text
+//    }
     
     public func showNewConversationButtonBorderWithWidth(borderWidth:Float = 1.0) {
         newConversationButtonBorderWidth = borderWidth
@@ -749,7 +767,24 @@ struct BotAction {
         })
     }
     
-
+    //MARK:- Set Language
+    
+    public func setLanguage(_ code : String, _ isFromPutUser : Bool = false){
+        if isFromPutUser, BussinessProperty.current.buisnessLanguageArr?.contains(where: {$0.lang_code == code}) ?? false{
+            UserDefaults.standard.set(code, forKey: DefaultName.selectedLanguage.rawValue)
+            getAllStrings()
+            self.HippoLanguageChanged?(code)
+        }else if !isFromPutUser , BussinessProperty.current.buisnessLanguageArr?.contains(where: {$0.lang_code == code}) ?? false, code != getCurrentLanguageLocale(){
+            UserDefaults.standard.set(code, forKey: DefaultName.selectedLanguage.rawValue)
+            getAllStrings()
+            self.HippoLanguageChanged?(code)
+        }else if BussinessProperty.current.buisnessLanguageArr?.contains(where: {$0.lang_code == code}) ?? false == false{
+            let defaultLang = BussinessProperty.current.buisnessLanguageArr?.filter{$0.is_default == true}.first?.lang_code
+            UserDefaults.standard.set(defaultLang, forKey: DefaultName.selectedLanguage.rawValue)
+            getAllStrings()
+            self.HippoLanguageChanged?(defaultLang ?? code)
+        }
+    }
     
     
     // MARK: - Helpers

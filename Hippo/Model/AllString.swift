@@ -34,7 +34,7 @@ class AllString{
             }
             
             if let cancelPayment = response["cancel_payment_text"] as? String{
-                         
+                HippoStrings.cancelPayment = cancelPayment
             }
             
             if let label_StartChat = response["float_label_start_chat"] as? String{
@@ -82,19 +82,15 @@ class AllString{
             }
             
             if let retry = response["fugu_menu_retry"] as? String{
-                HippoStrings.retry = retry
+                HippoConfig.shared.strings.retry = retry
             }
             
-            if let newConversation = response["fugu_no_conversation_found"] as? String{
-               
+            if let newConversation = response["fugu_new_conversation"] as? String{
+                HippoConfig.shared.strings.newConversation = newConversation
             }
             
             if let noDataFound = response["fugu_no_data_found"] as? String{
                
-            }
-            
-            if let notConnectedToInternet = response["fugu_not_connected_to_internet"] as? String{
-                HippoStrings.noNetworkConnection = notConnectedToInternet
             }
             
             if let ok = response["fugu_ok"] as? String{
@@ -109,9 +105,7 @@ class AllString{
             if let powered_by = response["fugu_powered_by"] as? String{
                // HippoStrings.powered_by = powered_by
             }
-            if let retry = response["fugu_retry"] as? String{
-                HippoStrings.retry = retry
-            }
+        
             if let send_message = response["fugu_send_message"] as? String{
                 HippoConfig.shared.strings.messagePlaceHolderText = send_message
                 
@@ -183,7 +177,7 @@ class AllString{
                 HippoStrings.callback = hippo_call_back
             }
             if let hippo_call_calling = response["hippo_call_calling"] as? String{
-                HippoConfig.shared.strings.calling = hippo_call_calling
+                HippoStrings.calling = hippo_call_calling
             }
             if let hippo_call_declined = response["hippo_call_declined"] as? String{
                 HippoStrings.callDeclined = hippo_call_declined
@@ -222,7 +216,7 @@ class AllString{
                 HippoStrings.callOldSdk = hippo_calling_from_old
             }
             if let hippo_cancel_payment = response["hippo_cancel_payment"] as? String{
-               
+                HippoStrings.cancelPaymentTitle = hippo_cancel_payment
             }
             if let hippo_card = response["hippo_card"] as? String{
               
@@ -361,7 +355,7 @@ class AllString{
                 HippoStrings.no = hippo_no
             }
             if let hippo_no_chat = response["hippo_no_chat"] as? String{
-                HippoStrings.noChatStarted = hippo_no_chat
+                HippoConfig.shared.strings.noChatStarted = hippo_no_chat
             }
             if let hippo_no_chat_init = response["hippo_no_chat_init"] as? String{
                
@@ -379,7 +373,7 @@ class AllString{
                 HippoStrings.noPaymentMethod = hippo_no_payment_methods
             }
             if let hippo_nochats = response["hippo_nochats"] as? String{
-                HippoStrings.noChatInCatagory = hippo_nochats
+                HippoConfig.shared.strings.noChatInCatagory = hippo_nochats
             }
             if let hippo_notifications = response["hippo_notifications"] as? String{
                 HippoStrings.notifications = hippo_notifications
@@ -594,11 +588,39 @@ class AllString{
                
             }
             if let vw_up_to_max = response["vw_up_to_max"] as? String{
-               
-        
+                
             }
             
+            if let hippo_secure_payment = response["hippo_secure_payment"] as? String{
+                HippoStrings.hippoSecurePayment = hippo_secure_payment
+            }
+            
+            if let PAYMENT_REQUESTED = response["PAYMENT_REQUESTED"] as? String{
+                HippoStrings.paymentRequested = PAYMENT_REQUESTED
+            }
+            
+            if let hippo_clear = response["hippo_clear"] as? String{
+                HippoStrings.clear = hippo_clear
+            }
+            
+            if let hippo_calling_you = response["hippo_calling_you"] as? String{
+                HippoStrings.isCallingYou = hippo_calling_you
+            }
+            
+            
+            HippoStrings.updateHippoCallClientStrings()
         }
     }
     
+    class func updateLanguageApi() {
+        var params = [String: Any]()
+        params["user_id"] = HippoUserDetail.fuguUserID
+        params["en_user_id"] = HippoUserDetail.fuguEnUserID
+        params["app_secret_key"] = HippoConfig.shared.appSecretKey
+        params["update_lang"] = getCurrentLanguageLocale()
+        
+        HippoConfig.shared.log.trace(params, level: .request)
+        HTTPClient.makeConcurrentConnectionWith(method: .POST, enCodingType: .json, para: params, extendedUrl: FuguEndPoints.updateLanguage.rawValue) { (responseObject, error, tag, statusCode) in
+        }
+    }
 }

@@ -13,6 +13,7 @@ class FuguConversation: HippoConversation {
     
     var channelImage: String?
     var defaultMessage: String?
+    var mutiLanguageMsg : String?
     
     init?(channelId: Int, unreadCount: Int, lastMessage: HippoMessage, labelID: Int?) {
         guard channelId > 0 else {
@@ -28,6 +29,10 @@ class FuguConversation: HippoConversation {
     init?(conversationDict: [String: Any]) {
         super.init()
         self.channelBackgroundColor = getRandomColor()
+        
+        if let mutiLanguageMsg = conversationDict["multi_lang_message"] as? String{
+            self.mutiLanguageMsg = MultiLanguageMsg().matchString(mutiLanguageMsg) 
+        }
         
         if let channel_status = conversationDict["channel_status"] as? Int, let channelStatus = ChatStatus(rawValue: channel_status) {
             self.channelStatus = channelStatus
@@ -74,6 +79,11 @@ class FuguConversation: HippoConversation {
         }else if channelId == nil {
             self.lastMessage?.message = conversationDict["message"] as? String ?? self.lastMessage?.message ?? ""
         }
+        
+        if self.mutiLanguageMsg != nil{
+            self.lastMessage?.message = mutiLanguageMsg ?? ""
+        }
+        
     }
     
     override func getJsonToStore() -> [String: Any] {

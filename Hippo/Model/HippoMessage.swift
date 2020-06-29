@@ -230,6 +230,10 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         let parsedMessage = (dict["message"] as? String ?? "").trimWhiteSpacesAndNewLine()
         message = parsedMessage.removeHtmlEntities()
         
+        if let mutiLanguageMsg = dict["multi_lang_message"] as? String{
+            self.message = MultiLanguageMsg().matchString(mutiLanguageMsg)
+        }
+        
         if let dateTimeString = dict["date_time"] as? String {
             creationDateTime = dateTimeString.toDate ?? dateTimeString.toDateWithLinent
         } else {
