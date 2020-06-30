@@ -79,7 +79,7 @@ extension AgentChatInfoViewController {
         let closeImage = HippoConfig.shared.theme.closeChatImage
         let reopenImage = HippoConfig.shared.theme.chatReOpenIconWithTemplateMode
         if channelDetail?.channelStatus == .open {
-            actionArray.append(ChatInfoCell(infoImage: closeImage, nameOfCell: "Close Chat"))
+            actionArray.append(ChatInfoCell(infoImage: closeImage, nameOfCell: HippoStrings.closeChat))
         } else {
             actionArray.append(ChatInfoCell(infoImage: reopenImage, nameOfCell: "Reopen Chat"))
         }
@@ -101,7 +101,7 @@ extension AgentChatInfoViewController {
 //                backButton.tintColor = HippoConfig.shared.theme.headerTextColor
 //            }
 //        }
-        view_NavigationBar.title = "Info"
+        view_NavigationBar.title = HippoStrings.info
         view_NavigationBar.leftButton.addTarget(self, action: #selector(backButtonClicked(_:)), for: .touchUpInside)
         view_NavigationBar.view.layer.shadowOffset = CGSize(width: 0.0, height: 0.5)
         view_NavigationBar.view.layer.shadowRadius = 2.0
@@ -205,9 +205,9 @@ extension AgentChatInfoViewController: UITableViewDelegate  {
         var sectionHeaderName = ""
         switch value {
         case .channelActions:
-            sectionHeaderName = "Actions"
+            sectionHeaderName = HippoStrings.actions
         case .chatInfo:
-            sectionHeaderName = "Channel Info"
+            sectionHeaderName = HippoStrings.channelInfo
         case .userInfo:
             sectionHeaderName = "User Profile"
         }

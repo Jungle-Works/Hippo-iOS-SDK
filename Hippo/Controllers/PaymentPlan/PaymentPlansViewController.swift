@@ -44,7 +44,7 @@ class PaymentPlansViewController: UIViewController {
         store.delegate = self
 //        setupCustomThemeOnNavigationBar(hideNavigationBar: false)
         self.navigationController?.setTheme()
-        title = "Saved Plans"
+        title = HippoStrings.savedPlans
         cancelButton.tintColor = HippoConfig.shared.theme.headerTextColor
 //        self.view.backgroundColor = HippoTheme.theme.systemBackgroundColor.secondary
         loaderView.tintColor = HippoConfig.shared.theme.headerTextColor

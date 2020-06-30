@@ -97,7 +97,7 @@ extension AgentListViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
         self.showOptionAlert(title: "", message: "Are you sure you want to assign this chat?", preferredStyle: .alert, successButtonName: HippoStrings.yes.capitalized, successComplete: { (_) in
             self.assignChatToAgent(agent: self.agentList[indexPath.row])
-        }, failureButtonName: "NO", failureComplete: nil)
+        }, failureButtonName: HippoStrings.no, failureComplete: nil)
     }
     
 //    func tableView(_ tableView: UITableView, didHighlightRowAt i.ndexPath: IndexPath) {
@@ -194,7 +194,7 @@ extension AgentListViewController {
     func setUpSearchBar() {
         searchBar.sizeToFit()
         
-        searchBar.placeholder = "Search"
+        searchBar.placeholder = HippoStrings.search
         searchBar.barTintColor = HippoConfig.shared.theme.searchBarBackgroundColor//HippoConfig.shared.theme.backgroundColor//
         searchBar.returnKeyType = .done
         searchBar.delegate = self
@@ -207,7 +207,7 @@ extension AgentListViewController {
         textFieldInsideSearchBar?.backgroundColor = HippoConfig.shared.theme.searchBarBackgroundColor//HippoConfig.shared.theme.backgroundColor//
         
         titleSearchBar.sizeToFit()
-        titleSearchBar.placeholder = "Search"
+        titleSearchBar.placeholder = HippoStrings.search
         titleSearchBar.barTintColor = HippoConfig.shared.theme.searchBarBackgroundColor//HippoConfig.shared.theme.backgroundColor//
         titleSearchBar.returnKeyType = .done
         titleSearchBar.delegate = self

@@ -94,7 +94,7 @@ public struct ConversationListTheme {
     open var missedCallMessageColor: UIColor = UIColor.red
     
 //    open var headerTextFont: UIFont? = UIFont.boldregular(ofSize: 18.0)
-    open var myChatBtnText = "My Chats"
+    open var myChatBtnText = HippoStrings.myChats
     open var allChatBtnText = "All Chats"
     
     open var headerTextFont: UIFont? = UIFont.bold(ofSize: 17.0)

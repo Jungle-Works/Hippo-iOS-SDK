@@ -446,11 +446,11 @@ enum BroadcastType: String, CaseCountable {
     var description: String {
         switch self {
         case .email:
-            return "Email"
+            return HippoStrings.email
         case .unknown:
             return ""
         default:
-            return "In App"
+            return HippoStrings.inApp
         }
     }
 }
