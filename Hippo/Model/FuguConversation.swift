@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+import UIKit
 
 class FuguConversation: HippoConversation {
     
@@ -27,7 +27,6 @@ class FuguConversation: HippoConversation {
     
     init?(conversationDict: [String: Any]) {
         super.init()
-        self.channelBackgroundColor = getRandomColor()
         
         if let channel_status = conversationDict["channel_status"] as? Int, let channelStatus = ChatStatus(rawValue: channel_status) {
             self.channelStatus = channelStatus
@@ -55,6 +54,8 @@ class FuguConversation: HippoConversation {
         if let label = conversationDict["label"] as? String {
             self.label = label
         }
+        self.channelBackgroundColor = UIColor.hexStringToUIColor(hex: material[getColor(char: label?.initials ?? "")])
+        
         if let default_message = conversationDict["default_message"] as? String {
             self.defaultMessage = default_message
         }
@@ -150,14 +151,6 @@ class FuguConversation: HippoConversation {
         return arrayOfDict
     }
     
-    private func getRandomColor() -> UIColor {
-           //Generate between 0 to 1
-           let red:CGFloat = CGFloat(drand48())
-           let green:CGFloat = CGFloat(drand48())
-           let blue:CGFloat = CGFloat(drand48())
-
-           return UIColor(red:red, green: green, blue: blue, alpha: 1.0)
-      }
     
 }
 
