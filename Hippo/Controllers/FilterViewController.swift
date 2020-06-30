@@ -521,7 +521,7 @@ extension FilterViewController: UITableViewDataSource {
 //        case .people:
 //            cell.setupCell(titleLabel: "People")
         case .status:
-            cell.setupCell(titleLabel: "Status")
+            cell.setupCell(titleLabel: HippoStrings.status)
 //        case .chatType:
 //            cell.setupCell(titleLabel: "Type")
 //        case .channels:

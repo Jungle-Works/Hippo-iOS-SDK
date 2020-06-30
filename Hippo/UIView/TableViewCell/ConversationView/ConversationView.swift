@@ -196,7 +196,7 @@ extension ConversationView {
             case .normal:
                 messageToBeShown += lastMessage.message.removeNewLine()
             case .imageFile:
-                messageToBeShown += "Attachment: Image"
+                messageToBeShown += HippoStrings.attachmentImage
             case .attachment:
                 messageToBeShown += "sent a file"
             case .call:

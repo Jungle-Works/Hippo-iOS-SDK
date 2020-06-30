@@ -73,7 +73,7 @@ class ChatDetail: NSObject {
         }
         
         if assignedAgentID < 0 {
-            assignedAgentName = "Unassigned"
+            assignedAgentName = HippoStrings.unassigned
         }
         
        var tempPeerDetail: User?

@@ -32,7 +32,7 @@ class ProfileDetail {
         }
         descriptionField = CustomField(json: [:])
         descriptionField?.value = desc
-        descriptionField?.displayName = "Description"
+        descriptionField?.displayName = HippoStrings.description
         
         filterList()
     }

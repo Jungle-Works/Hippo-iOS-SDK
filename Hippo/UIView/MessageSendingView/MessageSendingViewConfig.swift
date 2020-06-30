@@ -35,7 +35,7 @@ struct MessageSendingViewConfig {
     var normalMessagePlaceHolderWithoutCannedMessage: String = HippoStrings.normalMessagePlaceHolderWithoutCannedMessage
     
     var isActionButtonEnabled: Bool = false
-    var actionButtonMessage: String = "Take Over"
+    var actionButtonMessage: String = HippoStrings.takeOver
     var actionButtonHeightConstant: CGFloat = 50
     var actionButtonTopBottomPadding: CGFloat = 5
     
