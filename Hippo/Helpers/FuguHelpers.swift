@@ -319,10 +319,11 @@ func subscribeCustomerUserChannel(userChannelId: String) {
         }
     }) {  (messageDict) in
         if let messageType = messageDict["message_type"] as? Int, messageType == 18 {
-            if let channel_id = messageDict["channel_id"] as? Int{ 
+            if let channel_id = messageDict["channel_id"] as? Int{ //isSubscribed(userChannelId: "\(channel_id)") == false {
+                
                 let channel = FuguChannelPersistancyManager.shared.getChannelBy(id: channel_id)
-                if versionCode < 350{
-                   channel.signalReceivedFromPeer?(messageDict)
+                if versionCode < 350{//call for old version
+                    channel.signalReceivedFromPeer?(messageDict)
                 }
                 HippoConfig.shared.log.trace("UserChannel:: --->\(messageDict)", level: .socket)
                 CallManager.shared.voipNotificationRecieved(payloadDict: messageDict)
@@ -751,7 +752,8 @@ func parseDeviceToken(deviceToken: Data) -> String? {
 func updateDeviceToken(deviceToken: String) {
     switch HippoConfig.shared.appUserType {
     case .agent:
-        AgentConversationManager.updateAgentChannel()
+        AgentConversationManager.updateAgentChannel{ (error) in
+        }
     case .customer:
         HippoUserDetail.getUserDetailsAndConversation()
     }

@@ -373,7 +373,9 @@ struct BotAction {
         detail.isForking = true
         self.appUserType = .agent
         self.agentDetail = detail
-        AgentConversationManager.updateAgentChannel()
+        AgentConversationManager.updateAgentChannel{ (error) in
+            
+        }
     }
     
     /********
@@ -385,11 +387,11 @@ struct BotAction {
      device_type: Int = your device type on your system.
      *******/
     
-    public func initManager(authToken: String, app_type: String, customAttributes: [String: Any]? = nil) {
+    public func initManager(authToken: String, app_type: String, customAttributes: [String: Any]? = nil, completion: @escaping HippoResponseRecieved) {
         let detail = AgentDetail(oAuthToken: authToken.trimWhiteSpacesAndNewLine(), appType: app_type, customAttributes: customAttributes)
         self.appUserType = .agent
         self.agentDetail = detail
-        AgentConversationManager.updateAgentChannel()
+        AgentConversationManager.updateAgentChannel(completion: completion)
     }
     // MARK: - Open Chat UI Methods
     public func presentChatsViewController() {
@@ -579,9 +581,9 @@ struct BotAction {
     public func openChatWith(channelId: Int, completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
         switch appUserType {
         case .agent:
-            openCustomerConversationWith(channelId: channelId, completion: completion)
-        case .customer:
             openAgentConversationWith(channelId: channelId, completion: completion)
+        case .customer:
+            openCustomerConversationWith(channelId: channelId, completion: completion)
         }
     }
     public func startCall(data: PeerToPeerChat, callType: CallType, completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
@@ -716,17 +718,19 @@ struct BotAction {
         }
     }
     internal func openAgentConversationWith(channelId: Int, completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
-        completion(false, HippoError.notAllowedForAgent)
-//        HippoChecker.checkForAgentIntialization { (success, error) in
-//            guard success else {
-//                completion(false, error)
-//                return
-//            }
-//
-//            let conVC = AgentConversationViewController.getWith(channelID: channelId, channelName: "Channel")
-//            let lastVC = getLastVisibleController()
-//            lastVC?.present(conVC, animated: true, completion: nil)
-//        }
+        HippoChecker.checkForAgentIntialization { (success, error) in
+            guard success else {
+                completion(false, error)
+                return
+            }
+
+            let conVC = AgentConversationViewController.getWith(channelID: channelId, channelName: "")
+            let lastVC = getLastVisibleController()
+            let navVC = UINavigationController(rootViewController: conVC)
+            navVC.setTheme()
+            navVC.modalPresentationStyle = .fullScreen
+            lastVC?.present(navVC, animated: true, completion: nil)
+        }
     }
     public func openAgentChatWith(channelId: Int, completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
             HippoChecker.checkForAgentIntialization { (success, error) in

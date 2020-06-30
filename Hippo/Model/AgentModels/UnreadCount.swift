@@ -63,6 +63,9 @@ class PrePayment{
 }
 
 
+public typealias HippoResponseRecieved = ((_ error: HippoError?) -> ())
+
+
 class UnreadCount {
     
     static var unreadCountList = [String: UnreadCount]()
