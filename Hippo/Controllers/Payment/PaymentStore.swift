@@ -105,11 +105,11 @@ class PaymentStore: NSObject {
             buttons = PaymentField.getStaticButtons()
             let text: String
             if channelId != nil  {
-                text = "Request Payment"
+                text = HippoStrings.requestPayment
             } else if plan == nil && channelId == nil {
-                text = "Save Plan"
+                text = HippoStrings.savePlan
             } else {
-                text = "Update Plan"
+                text = HippoStrings.updatePlan
             }
             
             for each in buttons {
@@ -167,7 +167,7 @@ class PaymentStore: NSObject {
         var actionButton: [String: Any] = [:]
         
         actionButton += buttonAction
-        actionButton["button_text"] = "PAY"
+        actionButton["button_text"] = HippoStrings.Pay
         
         json["action_buttons"] = [actionButton]
         

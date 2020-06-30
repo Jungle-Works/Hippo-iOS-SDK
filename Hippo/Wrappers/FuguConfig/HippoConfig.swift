@@ -45,8 +45,8 @@ static let betaFaye = "https://beta-live-api.fuguchat.com:3001/faye"
 // static let betaUrl = "https://hippo-api-dev.fuguchat.com:3002/"
 // static let betaFaye = "https://hippo-api-dev.fuguchat.com:3002/faye"
 
-static let devUrl = "https://hippo-api-dev.fuguchat.com:3004/"//"https://hippo-api-dev.fuguchat.com:3002/"//
-static let devFaye = "https://hippo-api-dev.fuguchat.com:3004/faye"//"https://hippo-api-dev.fuguchat.com:3002/faye"//
+static let devUrl = "https://hippo-api-dev.fuguchat.com:3002/"//"https://hippo-api-dev.fuguchat.com:3002/"//
+static let devFaye = "https://hippo-api-dev.fuguchat.com:3002/faye"//"https://hippo-api-dev.fuguchat.com:3002/faye"//
 
 // static let devUrl = "https://hippo-api-dev.fuguchat.com:3011/"
 // static let devFaye = "https://hippo-api-dev.fuguchat.com:3012/faye"
@@ -117,7 +117,7 @@ struct BotAction {
     internal var theme = HippoTheme.defaultTheme()
     internal var userDetail: HippoUserDetail?
     internal var agentDetail: AgentDetail?
-    internal var strings = HippoStrings()
+    public var strings = HippoStrings()
     
 //    private(set)  open var isNewConversationButtonHidden: Bool = true
     private(set)  open var newConversationButtonBorderWidth: Float = 0.0
@@ -129,7 +129,6 @@ struct BotAction {
     private(set)  open var mapping = [Int: [Int]]()//Dictionary<Int, Array<Int>>()
     
     private(set)  open var hasChannelTabs = true//false
-    private(set)  open var emptyChannelListText = "No Conversation found"
     
     open var isPaymentRequestEnabled: Bool {
         return HippoProperty.current.isPaymentRequestEnabled
@@ -163,6 +162,7 @@ struct BotAction {
     open var HippoDismissed: ((_ isDismissed: Bool) -> ())?
     open var HippoPrePaymentCancelled: (()->())?
     open var HippoPrePaymentSuccessful: ((Bool)->())?
+    public var HippoLanguageChanged : ((String)->())?
     
     internal let powererdByColor = #colorLiteral(red: 0.4980392157, green: 0.4980392157, blue: 0.4980392157, alpha: 1)
     internal let FuguColor = #colorLiteral(red: 0.3843137255, green: 0.4901960784, blue: 0.8823529412, alpha: 1)
@@ -288,6 +288,12 @@ struct BotAction {
         
     }
     
+    func getAllStrings(){
+        AllString.getAllStrings()
+        AllString.updateLanguageApi()
+    }
+    
+    
     public static func setSkipBot(enable: Bool, reason: String) {
         HippoProperty.current.skipBot = enable
         HippoProperty.current.skipBotReason = reason
@@ -297,7 +303,12 @@ struct BotAction {
         self.userDetail = userDetail
         self.appUserType = .customer
         AgentDetail.agentLoginData = nil
-        HippoUserDetail.getUserDetailsAndConversation()
+        HippoUserDetail.getUserDetailsAndConversation { (status, error) in
+            if (self.userDetail?.selectedlanguage ?? "") == ""{
+               self.userDetail?.selectedlanguage = BussinessProperty.current.buisnessLanguageArr?.filter{$0.is_default == true}.first?.lang_code
+            }
+            self.setLanguage(self.userDetail?.selectedlanguage ?? "en",true)
+        }
     }
     
     public func enableBroadcast() {
@@ -313,6 +324,8 @@ struct BotAction {
 //    public func hideNewConversationButton() {
 //        isNewConversationButtonHidden = true
 //    }
+    
+    
     
     public func isSuggestionNeeded(setValue: Bool) {
         isSuggestionNeeded = setValue
@@ -333,9 +346,9 @@ struct BotAction {
     public func hasChannelTabs(setValue: Bool) {
         hasChannelTabs = setValue
     }
-    public func setEmptyChannelListText(text: String) {
-        emptyChannelListText = text
-    }
+//    public func setEmptyChannelListText(text: String) {
+//        emptyChannelListText = text
+//    }
     
     public func showNewConversationButtonBorderWithWidth(borderWidth:Float = 1.0) {
         newConversationButtonBorderWidth = borderWidth
@@ -608,7 +621,7 @@ struct BotAction {
         HippoChannel.get(withFuguChatAttributes: attributes, completion: {(result) in
             guard result.isSuccessful, let channel = result.channel else {
                 CallManager.shared.hungupCall()
-                completion(false, HippoError.threwError(message: "Something went wrong while creating channel."))
+                completion(false, HippoError.threwError(message: HippoStrings.somethingWentWrong))
                 return
             }
             let call = CallData.init(peerData: peer, callType: callType, muid: uuid, signallingClient: channel)
@@ -669,7 +682,7 @@ struct BotAction {
         HippoChannel.getToCallAgent(withFuguChatAttributes: attributes, agentEmail: agentEmail, completion: {(result) in
             guard result.isSuccessful, let channel = result.channel else {
                 CallManager.shared.hungupCall()
-                completion(false, HippoError.threwError(message: "Something went wrong while creating channel."))
+                completion(false, HippoError.threwError(message: HippoStrings.somethingWentWrong))
                 return
             }
             let call = CallData.init(peerData: peer, callType: callType, muid: uuid, signallingClient: channel)
@@ -752,7 +765,24 @@ struct BotAction {
         })
     }
     
-
+    //MARK:- Set Language
+    
+    public func setLanguage(_ code : String, _ isFromPutUser : Bool = false){
+        if isFromPutUser, BussinessProperty.current.buisnessLanguageArr?.contains(where: {$0.lang_code == code}) ?? false{
+            UserDefaults.standard.set(code, forKey: DefaultName.selectedLanguage.rawValue)
+            getAllStrings()
+            self.HippoLanguageChanged?(code)
+        }else if !isFromPutUser , BussinessProperty.current.buisnessLanguageArr?.contains(where: {$0.lang_code == code}) ?? false, code != getCurrentLanguageLocale(){
+            UserDefaults.standard.set(code, forKey: DefaultName.selectedLanguage.rawValue)
+            getAllStrings()
+            self.HippoLanguageChanged?(code)
+        }else if BussinessProperty.current.buisnessLanguageArr?.contains(where: {$0.lang_code == code}) ?? false == false{
+            let defaultLang = BussinessProperty.current.buisnessLanguageArr?.filter{$0.is_default == true}.first?.lang_code
+            UserDefaults.standard.set(defaultLang, forKey: DefaultName.selectedLanguage.rawValue)
+            getAllStrings()
+            self.HippoLanguageChanged?(defaultLang ?? code)
+        }
+    }
     
     
     // MARK: - Helpers

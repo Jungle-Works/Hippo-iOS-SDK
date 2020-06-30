@@ -215,7 +215,7 @@ class ListDescriptionViewController: UIViewController {
             if result.isSuccessful {
                 self.popToRootVC()
             } else {
-                let message = result.error?.localizedDescription ?? "Something went wrong. Please try again."
+                let message = result.error?.localizedDescription ?? HippoStrings.somethingWentWrong
                 self.handleErrorLabel(with: message, isForceShow: true)
             }
         })

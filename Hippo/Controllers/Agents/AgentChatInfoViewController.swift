@@ -148,9 +148,9 @@ extension AgentChatInfoViewController {
         let message = getPopupMessage()
         let status = channelDetail!.channelStatus == .open ? ChatStatus.close : ChatStatus.open
         
-        showOptionAlert(title: "", message: message, preferredStyle: .alert, successButtonName: "YES", successComplete: { (_) in
+        showOptionAlert(title: "", message: message, preferredStyle: .alert, successButtonName: HippoStrings.yes.capitalized, successComplete: { (_) in
             self.changeChannelStatus(channelId: channelId, status: status)
-        }, failureButtonName: "NO", failureComplete: nil)
+        }, failureButtonName: HippoStrings.no.capitalized, failureComplete: nil)
     }
     func changeChannelStatus(channelId: Int, status: ChatStatus) {
         AgentConversationManager.updateChannelStatus(for: channelId, newStatus: status.rawValue) {[weak self] (result) in

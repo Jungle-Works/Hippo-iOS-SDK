@@ -32,7 +32,7 @@ public enum HippoError: LocalizedError {
         case .callClientNotFound:
             return HippoConfig.shared.strings.callClientNotFound
         case .updateUserDetail:
-            return  "Something went wrong., please updateUserDetail again!!!"
+            return HippoStrings.somethingWentWrong
         case .invalidAppSecretKey:
             return "Invalid appsecret key"
         case .networkError:
@@ -234,10 +234,10 @@ extension AgentDetail {
             
             guard let unwrappedStatusCode = statusCode, let response = responseObject as? [String: Any], let data = response["data"] as? [String: Any], unwrappedStatusCode == STATUS_CODE_SUCCESS else {
                 let result = ResponseResult(isSuccessful: false, error: error)
-                print("Login errror: \(error?.localizedDescription ?? "Something went wrong")")
+                print("Login errror: \(error?.localizedDescription ?? HippoStrings.somethingWentWrong)")
                 postLoginUpdated()
                 HippoUserDetail.clearAllData()
-                AgentConversationManager.errorMessage = error?.localizedDescription ?? "Something went wrong"
+                AgentConversationManager.errorMessage = error?.localizedDescription ?? HippoStrings.somethingWentWrong
                 completion(result)
                 return
             }

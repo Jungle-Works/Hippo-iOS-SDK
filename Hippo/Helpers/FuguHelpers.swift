@@ -262,13 +262,13 @@ func changeDateToParticularFormat(_ dateTobeConverted: Date, dateFormat: String,
         let comparisonResult = Calendar.current.compare(dateTobeConverted, to: Date(), toGranularity: .day)
         switch comparisonResult {
         case .orderedSame:
-            return "Today"
+            return HippoStrings.today
         default:
             let calendar = NSCalendar.current
             let dateOfMsg = calendar.startOfDay(for: dateTobeConverted)
             let currentDate = calendar.startOfDay(for: Date())
             let dateDifference = calendar.dateComponents([.day], from: dateOfMsg, to: currentDate).day
-            if dateDifference == 1 { return "Yesterday" }
+            if dateDifference == 1 { return HippoStrings.yesterday }
             return formatter.string(from: dateTobeConverted)
         }
     }
@@ -788,8 +788,8 @@ func validateFuguCredential() -> Bool {
 }
 
 func getCurrentLanguageLocale() -> String {
-      return "en"
-  }
+    return  UserDefaults.standard.value(forKey: DefaultName.selectedLanguage.rawValue) as? String ?? "en"
+}
 
 
 func showAlertWith(message: String, action: (() -> Void)?) {

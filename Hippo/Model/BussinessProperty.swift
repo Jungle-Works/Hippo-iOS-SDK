@@ -6,11 +6,12 @@
 //
 
 import Foundation
-
+import UIKit
 
 class BussinessProperty: NSObject {
     static let current = BussinessProperty()
     var currencyArr : [BuisnessCurrency]?
+    var buisnessLanguageArr : [BuisnessLanguage]?
     
     var botImageUrl: String? {
         get {
@@ -103,7 +104,7 @@ class BussinessProperty: NSObject {
     var unsupportedMessageString: String {
         get {
             guard let unsupportedMessageString = UserDefaults.standard.value(forKey: UserDefaultkeys.unsupportedMessageString) as? String, !unsupportedMessageString.isEmpty else {
-                return "This message doesn't support in your current app."
+                return HippoStrings.unknownMessage
             }
             return unsupportedMessageString
         }
@@ -161,6 +162,7 @@ class BussinessProperty: NSObject {
         
         hideCallIconOnNavigationForCustomer = Bool.parse(key: "hide_direct_call_button", json: userDetailData)
         multiChannelLabelMapping = Bool.parse(key: "multi_channel_label_mapping", json: userDetailData) ?? false
+        buisnessLanguageArr = BuisnessLanguage().getLanguageData(loginData["business_languages"] as? [[String : Any]] ?? [[String : Any]]())
     }
 }
 
@@ -187,4 +189,29 @@ struct BuisnessCurrency{
         return buisnessCurrency
     }
     
+}
+
+struct BuisnessLanguage : Decodable{
+    
+    var business_id : Int?
+    var is_default : Bool?
+    var lang_code : String?
+    var lang_id : Int?
+    
+    func getBuisnessLanguage(_ dic : [String : Any]) -> BuisnessLanguage{
+        var this = BuisnessLanguage()
+        this.business_id = dic["business_id"] as? Int
+        this.is_default = dic["is_default"] as? Bool
+        this.lang_code = dic["lang_code"] as? String
+        this.lang_id = dic["lang_id"] as? Int
+        return this
+    }
+    
+    func getLanguageData(_ arrLanguage : [[String : Any]]) -> [BuisnessLanguage]{
+        var buisnessLanguage = [BuisnessLanguage]()
+        for data in arrLanguage{
+            buisnessLanguage.append(BuisnessLanguage().getBuisnessLanguage(data))
+        }
+        return buisnessLanguage
+    }
 }

@@ -69,10 +69,26 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     @IBOutlet weak var retryLabelViewHeight: NSLayoutConstraint!
     @IBOutlet weak var chatScreenTableViewTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var retryLoader: UIActivityIndicatorView!
-    @IBOutlet weak var labelViewRetryButton: UIButton!
+    @IBOutlet weak var labelViewRetryButton: UIButton!{
+        didSet{
+            let attributedString = NSAttributedString(string: HippoConfig.shared.strings.retry, attributes:[
+                NSAttributedString.Key.font : UIFont.bold(ofSize: 15.0),
+                NSAttributedString.Key.foregroundColor : UIColor.black,
+                NSAttributedString.Key.underlineStyle:1.0
+            ])
+            labelViewRetryButton.setAttributedTitle(attributedString, for: .normal)
+        }
+    }
     
     @IBOutlet weak var collectionViewOptions: UICollectionView!
     @IBOutlet weak var attachmentViewHeightConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var label_slowInternet : UILabel!{
+        didSet{
+            label_slowInternet.font = UIFont.regular(ofSize: 15.0)
+            label_slowInternet.text = HippoStrings.slowInternet
+        }
+    }
     
     var suggestionCollectionView = SuggestionView()
     var suggestionList: [String] = []
@@ -1207,7 +1223,6 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
             return
         }
         weakSelf.storeResponse = result
-        
         weakSelf.labelId = result.labelID
         weakSelf.botGroupID = result.botGroupID
         
@@ -1262,7 +1277,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
       }
       
       if isDefaultChannel() {
-        let request = CreateConversationWithLabelId(replyMessage: replyMessage, botGroupId: botGroupID, labelId: labelId, initalMessages: getAllLocalMessages())
+        let request = CreateConversationWithLabelId(replyMessage: replyMessage, botGroupId: botGroupID, labelId: labelId, initalMessages: getAllLocalMessages(), channelName: label)
         HippoChannel.get(request: request) { [weak self] (r) in
             var result = r
             if result.isSuccessful, request.shouldSendInitalMessages(), request.replyMessage != nil {
@@ -3037,10 +3052,10 @@ extension ConversationsViewController {
     func presentActionsForCustomer(sender: UIView) {
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertController.Style.actionSheet)
         
-        let logoutOption = UIAlertAction(title: "Logout", style: .default, handler: { (alert: UIAlertAction!) -> Void in
+        let logoutOption = UIAlertAction(title: HippoStrings.logoutTitle, style: .default, handler: { (alert: UIAlertAction!) -> Void in
             self.logoutOptionClicked()
         })
-        let chatHistory = UIAlertAction(title: HippoConfig.shared.strings.chatHistory, style: .default, handler: { (alert: UIAlertAction!) -> Void in
+        let chatHistory = UIAlertAction(title: HippoStrings.chatHistory, style: .default, handler: { (alert: UIAlertAction!) -> Void in
             self.pushToChatHistory()
         })
         
@@ -3060,7 +3075,7 @@ extension ConversationsViewController {
     }
     
     func pushToChatHistory() {
-        let config = AllConversationsConfig(enabledChatStatus: [ChatStatus.close], title: HippoConfig.shared.strings.chatHistory, shouldUseCache: false, shouldHandlePush: false, shouldPopVc: true, forceDisableReply: true, forceHideActionButton: true, isStaticRemoveConversation: true, lastChannelId: channel?.id, disbaleBackButton: false)
+        let config = AllConversationsConfig(enabledChatStatus: [ChatStatus.close], title: HippoStrings.chatHistory, shouldUseCache: false, shouldHandlePush: false, shouldPopVc: true, forceDisableReply: true, forceHideActionButton: true, isStaticRemoveConversation: true, lastChannelId: channel?.id, disbaleBackButton: false)
         guard let vc = AllConversationsViewController.get(config: config) else {
             return
         }

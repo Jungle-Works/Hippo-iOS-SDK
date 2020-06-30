@@ -216,7 +216,6 @@ public struct ConversationListTheme {
     open var typingTextColor = #colorLiteral(red: 0.1725490196, green: 0.137254902, blue: 0.2, alpha: 1)
     
     open var newConversationButtonFont: UIFont? = UIFont(name:  HippoFont.boldFont, size: 18.0)
-    open var newConversationText = "New Conversation"//"Consult Now >"
 
     open var chatbackgroundImage: UIImage?
     
@@ -331,10 +330,7 @@ public struct ConversationListTheme {
     open var securePaymentTintColor: UIColor?
     open var secureTextFont: UIFont = UIFont.regular(ofSize: 10)
     
-    open var shouldShowBtnOnChatList : Bool = false
-    open var chatListRetryBtnText : String = HippoStrings.retry
-    open var noOpenAndcloseChatError : String = HippoStrings.noChatStarted
-    open var noChatUnderCatagoryError : String = HippoStrings.noChatInCatagory
+    open var shouldShowBtnOnChatList : Bool = true
     
 }
 

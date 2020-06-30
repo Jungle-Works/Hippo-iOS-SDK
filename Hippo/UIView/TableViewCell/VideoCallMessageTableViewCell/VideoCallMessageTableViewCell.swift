@@ -84,7 +84,7 @@ class IncomingVideoCallMessageTableViewCell: VideoCallMessageTableViewCell {
         if message.isMissedCall {
             
             messageBackgroundView.backgroundColor = HippoConfig.shared.theme.missedCallColor
-            callAgainButton.setTitle("Call Back", for: .normal)
+            callAgainButton.setTitle(HippoStrings.callback, for: .normal)
             phoneIcon.image = UIImage(named: "missed")
             phoneIcon.tintColor = UIColor.white
             
@@ -94,7 +94,7 @@ class IncomingVideoCallMessageTableViewCell: VideoCallMessageTableViewCell {
             
             messageBackgroundView.backgroundColor = HippoConfig.shared.theme.callAgainColor
             
-            callAgainButton.setTitle("Call Again", for: .normal)
+            callAgainButton.setTitle(HippoStrings.callAgain, for: .normal)
             
             phoneIcon.image = UIImage(named: "incomming")
         }
@@ -136,14 +136,14 @@ class OutgoingVideoCallMessageTableViewCell: VideoCallMessageTableViewCell {
         
         if message.isMissedCall {
            
-            callAgainButton.setTitle("Call Back", for: .normal)
+            callAgainButton.setTitle(HippoStrings.callback, for: .normal)
             phoneIcon.image = UIImage(named: "missed")
             phoneIcon.tintColor = UIColor.black
             
             
         } else {
            // messageLabel.textColor = HippoConfig.shared.theme.outgoingMsgColor
-            callAgainButton.setTitle("Call Again", for: .normal)
+            callAgainButton.setTitle(HippoStrings.callAgain, for: .normal)
             
             phoneIcon.image = UIImage(named: "outgoing")
             phoneIcon.tintColor = UIColor.black
@@ -170,18 +170,18 @@ extension HippoMessage {
         let callTypeString = getCallTypeString()
         
         if let activeVideoCallID = CallManager.shared.findActiveCallUUID(), messageUniqueID == activeVideoCallID {
-            return "Ongoing \(callTypeString) call"
+            return "\(HippoStrings.ongoing_call) \(callTypeString) \(HippoStrings.call)"
         }
        // let tempOtherUser = otherUserName.isEmpty ? "Other user" : otherUserName
         
         if isMissedCall {
             if isSentByMe() {
-                return "Missed \(callTypeString) Call"//"\(tempOtherUser) missed a \(callTypeString) call with you"
+                return "\(HippoStrings.missed) \(callTypeString) \(HippoStrings.call)"//"\(tempOtherUser) missed a \(callTypeString) call with you"
             } else {
-                return "Missed \(callTypeString) Call"//"You missed a \(callTypeString) call with \(senderFullName)"
+                return "\(HippoStrings.missed) \(callTypeString) \(HippoStrings.call)"//"You missed a \(callTypeString) call with \(senderFullName)"
             }
         } else {
-            return "The \(callTypeString) call ended."
+            return "\(HippoStrings.the) \(callTypeString) \(HippoStrings.callEnded)."
         }
     }
     
@@ -190,14 +190,14 @@ extension HippoMessage {
             return nil
         }
         
-        return (dateComponentFormatter.string(from: duration) ?? "") + " at"
+        return (dateComponentFormatter.string(from: duration) ?? "") + " \(HippoStrings.at)"
     }
     func getCallTypeString() -> String {
         switch callType {
         case .video:
-            return "video"
+            return HippoStrings.video
         case .audio:
-            return "voice"
+            return HippoStrings.voice
         }
     }
     

@@ -72,7 +72,7 @@ class ShowMoreTableViewCell: UITableViewCell {
         
         if price > 0 {
             let formattedValue = Helper.formatNumber(number: price)
-            totalPriceLabel.text = "Total Price: \(formattedValue)"
+            totalPriceLabel.text = "\(HippoStrings.totalPrice): \(formattedValue)"
         } else {
             totalPriceLabel.text = ""
         }

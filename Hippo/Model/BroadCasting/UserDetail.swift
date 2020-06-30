@@ -40,7 +40,7 @@ class UserDetail {
     static func getAllAgentsDefaultObj() -> UserDetail {
         let obj = UserDetail(dict: [:])
         
-        obj.name = HippoConfig.shared.strings.allAgentsString + " " + HippoConfig.shared.strings.displayNameForCustomers
+        obj.name = HippoStrings.allAgentsString + " " + HippoConfig.shared.strings.displayNameForCustomers
         obj.id = -100
         obj.tagId = -100
         

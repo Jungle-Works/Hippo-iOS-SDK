@@ -227,7 +227,7 @@ extension MultiSelectTableViewCell: UITableViewDataSource
             }
             
             cell.selectionStyle = .none
-            cell.cellButton.setTitle("Submit", for: .normal)
+            cell.cellButton.setTitle(HippoStrings.submit, for: .normal)
             let theme = HippoConfig.shared.theme
             cell.cellButton.tintColor = .white
 //            cell.cellButton.setTitleColor(.white, for: .normal)

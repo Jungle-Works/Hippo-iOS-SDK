@@ -31,18 +31,21 @@ class BottomPopupController: UIViewController {
     }
     @IBOutlet weak var label_CancelPayemnt : UILabel!{
         didSet{
+            label_CancelPayemnt.text = HippoStrings.cancelPaymentTitle
             label_CancelPayemnt.font = UIFont.bold(ofSize: 24.0)
             label_CancelPayemnt.textColor = .black
         }
     }
     @IBOutlet weak var label_CancelMessage : UILabel!{
         didSet{
+            label_CancelMessage.text = HippoStrings.cancelPayment
             label_CancelMessage.font = UIFont.regular(ofSize: 18.0)
             label_CancelMessage.textColor = .black
         }
     }
     @IBOutlet weak var button_No : UIButton!{
         didSet{
+            button_No.setTitle(HippoStrings.no, for: .normal)
             button_No.titleLabel?.font = UIFont.regular(ofSize: 18.0)
             button_No.setTitleColor(UIColor(red: 108/255, green: 108/255, blue: 108/255, alpha: 1.0), for: .normal)
             button_No.layer.borderWidth = 1
@@ -52,6 +55,7 @@ class BottomPopupController: UIViewController {
     }
     @IBOutlet weak var button_Yes : UIButton!{
         didSet{
+            button_Yes.setTitle(HippoStrings.yesCancel, for: .normal)
             button_Yes.titleLabel?.font = UIFont.regular(ofSize: 18.0)
             button_Yes.setTitleColor(.white, for: .normal)
             button_Yes.backgroundColor = HippoConfig.shared.theme.themeColor

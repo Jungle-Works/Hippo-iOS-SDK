@@ -368,6 +368,8 @@ enum FuguEndPoints: String {
     case getInfoV2 = "api/agent/v1/getInfo"
     case getPaymentGateway = "api/payment/getPaymentGateway"
     case getPrePayment = "api/conversation/createOperationalChannel"
+    case getLanguage = "api/apps/fetchAppLanguageData"
+    case updateLanguage = "api/apps/updateUserLanguage"
 }
 
 enum AgentEndPoints: String {
@@ -401,10 +403,39 @@ enum AgentEndPoints: String {
     case getPaymentPlans = "api/agent/getPaymentPlans"
     case editPaymentPlans = "api/agent/editPaymentPlans"
     case getBotActions = "api/agent/getAllBotActions"
-    
     case getAgents = "api/agent/getAgents"
 }
 
+struct MultiLanguageMsg{
+    
+    //MARK:- Variables
+ 
+    //MARK:- Functions
+    private func getMultiLanguageMsg(_ tag : String) -> String{
+        switch tag{
+        case MultiLanguageTags.RATING_AND_REVIEW.rawValue:
+            return HippoStrings.ratingReview
+        case MultiLanguageTags.PAYMENT_REQUESTED.rawValue:
+            return HippoStrings.paymentRequested
+        default:
+            return ""
+        }
+    }
+    
+    func matchString(_ str : String) -> String{
+        let tag = MultiLanguageTags.allCases.filter{str.contains($0.rawValue)}
+        let replacementStr = self.getMultiLanguageMsg(tag.first?.rawValue ?? "")
+        return str.replacingOccurrences(of: tag.first?.rawValue ?? "", with: replacementStr, options: .caseInsensitive, range: nil)
+    }
+}
+
+enum MultiLanguageTags : String, CaseIterable{
+   case RATING_AND_REVIEW = "{{{RATING_AND_REVIEW}}}"
+   case PAYMENT_REQUESTED = "{{{PAYMENT_REQUESTED}}}"
+    
+}
+      
+        
 enum BroadcastType: String, CaseCountable {
     case unknown = ""
     case none = "Broadcast"
@@ -448,13 +479,13 @@ enum FileType: String {
     func getTypeString() -> String {
         switch self {
         case .image:
-            return "Image"
+            return HippoStrings.image
         case .audio:
-            return "Audio"
+            return HippoStrings.audio
         case .video:
-            return "Video"
+            return HippoStrings.video
         case .document:
-            return "Document"
+            return HippoStrings.document
         }
     }
 }

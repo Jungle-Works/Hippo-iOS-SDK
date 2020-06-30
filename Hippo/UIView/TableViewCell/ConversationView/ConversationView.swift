@@ -169,7 +169,7 @@ extension ConversationView {
         
         var messageString = ""
         if let last_sent_by_id = conersationObj.lastMessage?.senderId, let userId = HippoUserDetail.fuguUserID, last_sent_by_id == userId {
-            messageString = "You: "
+            messageString = "\(HippoStrings.you): "
             msgStatusWidthConstraint?.constant = 17
             leadingConstraintOfLastMessage?.constant = 2
             msgStatusImageView?.contentMode = .center
@@ -204,7 +204,7 @@ extension ConversationView {
             default:
                 let messageString = lastMessage.message.removeNewLine()
                 let senderNAme = lastMessage.senderFullName
-                let message = messageString.isEmpty ? " sent a message" : messageString
+                let message = messageString.isEmpty ? " \(HippoStrings.messageSent)" : messageString
                 messageToBeShown = ""
                 if !senderNAme.isEmpty {
                     //messageToBeShown = senderNAme + ": "
