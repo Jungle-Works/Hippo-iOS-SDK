@@ -45,8 +45,8 @@ static let betaFaye = "https://beta-live-api.fuguchat.com:3001/faye"
 // static let betaUrl = "https://hippo-api-dev.fuguchat.com:3002/"
 // static let betaFaye = "https://hippo-api-dev.fuguchat.com:3002/faye"
 
-static let devUrl = "https://hippo-api-dev.fuguchat.com:3011/"//"https://hippo-api-dev.fuguchat.com:3002/"//
-static let devFaye = "https://hippo-api-dev.fuguchat.com:3011/faye"//"https://hippo-api-dev.fuguchat.com:3002/faye"//
+static let devUrl = "https://hippo-api-dev.fuguchat.com:3004/"//"https://hippo-api-dev.fuguchat.com:3002/"//
+static let devFaye = "https://hippo-api-dev.fuguchat.com:3004/faye"//"https://hippo-api-dev.fuguchat.com:3002/faye"//
 
 // static let devUrl = "https://hippo-api-dev.fuguchat.com:3011/"
 // static let devFaye = "https://hippo-api-dev.fuguchat.com:3012/faye"
@@ -290,10 +290,16 @@ struct BotAction {
     
     func getAllStrings(){
         AllString.getAllStrings{(error) in
-             self.HippoLanguageChanged?(error)
+            self.HippoLanguageChanged?(error)
+            if error == nil{
+                if self.appUserType == .customer{
+                    AllString.updateLanguageApi()
+                }else{
+                    let status = AgentStatus.allCases.filter{$0.rawValue == BussinessProperty.current.agentStatusForToggle}
+                    AgentConversationManager.agentStatusUpdate(newStatus: status.first ?? .available, completion: {_ in })
+                }
+            }
         }
-       
-        AllString.updateLanguageApi()
     }
     
     

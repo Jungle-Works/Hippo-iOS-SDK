@@ -43,7 +43,7 @@ public enum HippoError: LocalizedError {
     }
 }
 
-enum AgentStatus: String {
+enum AgentStatus: String , CaseIterable{
     case available = "AVAILABLE"
     case offline = "OFFLINE"
     case away = "AWAY"

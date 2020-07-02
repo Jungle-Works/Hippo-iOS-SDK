@@ -866,7 +866,7 @@ class AllString{
         }
         
         if let send_message = response["send_message"] as? String{
-            
+            HippoStrings.messagePlaceHolderText = send_message
         }
         
         if let leave_an_internal_note = response["leave_an_internal_note"] as? String{
@@ -1594,7 +1594,11 @@ class AllString{
         }
         
         if let call_again = response["call_again"] as? String{
-            
+             HippoStrings.callAgain = call_again
+        }
+        
+        if let hippo_call_back = response["hippo_call_back"] as? String{
+            HippoStrings.callback = hippo_call_back
         }
         
         if let agent_video_call = response["agent_video_call"] as? String{
