@@ -243,7 +243,7 @@ class AgentConversationViewController: HippoConversationViewController {
              sendMessageButton.setImage(HippoConfig.shared.theme.sendBtnIcon, for: .normal)
             
              sendMessageButton.setTitle("", for: .normal)
-         } else { sendMessageButton.setTitle("SEND", for: .normal) }
+         } else { sendMessageButton.setTitle(HippoStrings.send, for: .normal) }
          
          if HippoConfig.shared.theme.addButtonIcon != nil {
              addFileButtonAction.tintColor = HippoConfig.shared.theme.themeColor
@@ -372,7 +372,7 @@ class AgentConversationViewController: HippoConversationViewController {
             return
         }
         if botArray.isEmpty {
-            showAlertWith(message: "No bot action available.", action: nil)
+            showAlertWith(message: HippoStrings.noBotActionAvailable, action: nil)
             return
         }
         self.botActionView.removeFromSuperview()

@@ -835,9 +835,9 @@ func currentEnUserId() -> String {
 func currentUserName() -> String {
     switch HippoConfig.shared.appUserType {
     case .agent:
-        return HippoConfig.shared.agentDetail?.fullName ?? "Agent"
+        return HippoConfig.shared.agentDetail?.fullName ?? HippoStrings.agent
     case .customer:
-        return HippoConfig.shared.userDetail?.fullName ?? "Visitor"
+        return HippoConfig.shared.userDetail?.fullName ?? HippoStrings.visitor
     }
 }
 

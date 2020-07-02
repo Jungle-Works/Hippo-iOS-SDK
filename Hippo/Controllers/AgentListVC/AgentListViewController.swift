@@ -151,7 +151,7 @@ extension AgentListViewController {
 //            }
 //        }
         self.navigationController?.isNavigationBarHidden = true
-        view_NavigationBar.title = "Assign Conversation"
+        view_NavigationBar.title = HippoStrings.assignConversation
         view_NavigationBar.leftButton.addTarget(self, action: #selector(backButtonClicked(_:)), for: .touchUpInside)
         view_NavigationBar.view.layer.shadowOffset = CGSize(width: 0.0, height: 0.5)
         view_NavigationBar.view.layer.shadowRadius = 2.0

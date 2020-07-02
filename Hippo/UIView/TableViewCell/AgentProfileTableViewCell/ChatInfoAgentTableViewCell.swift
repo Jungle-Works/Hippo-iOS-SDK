@@ -34,6 +34,7 @@ class ChatInfoAgentTableViewCell: UITableViewCell {
         selectionStyle = .none
         agentProfileImage.image = UIImage()
         agentNameLabel.text = ""
+        assignedToTextLabel.text = HippoStrings.assignedTo
     }
     
     func setFonts(){
