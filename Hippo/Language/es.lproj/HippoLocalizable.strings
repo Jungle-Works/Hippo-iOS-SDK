@@ -571,15 +571,17 @@
 "Internal Notes" = "Notas internas";
 "Text" = "Texto";
 "Bot" = "Bot";
-
-
-
-
-
-
-
-
-
+"SEND" = "ENVIAR";
+"No Bot Action Available." = "Sin Bot acción disponible.";
+"Assigned To" = "Asignado a";
+"Assign Conversation" = "Conversación Asignar";
+"Demo" = "Manifestación";
+"Me" = "Yo";
+"Visitor" = "Visitante";
+"Agent" = "Agente";
+"User Profile" = "Perfil del usuario";
+"Send" = "Enviar";
+"Tags" = "Etiquetas";
 
 
 

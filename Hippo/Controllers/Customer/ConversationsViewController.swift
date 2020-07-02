@@ -359,7 +359,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
             }
             sendMessageButton.setImage(HippoConfig.shared.theme.sendBtnIcon, for: .normal)
             sendMessageButton.setTitle("", for: .normal)
-        } else { sendMessageButton.setTitle("SEND", for: .normal) }
+        } else { sendMessageButton.setTitle(HippoStrings.send, for: .normal) }
         
         if HippoConfig.shared.theme.addButtonIcon != nil {
             

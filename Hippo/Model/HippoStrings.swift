@@ -126,7 +126,7 @@ public class HippoStrings {
     static var profile = "Profile".localized
     static var channelInfo = "Channel Info".localized
     static var info = "Info".localized
-    static var search = "Seach".localized
+    static var search = "Search".localized
     static var takeOver = "Take Over".localized
     static var savedPlans = "Saved Plans".localized
     static var planName = "Plan Name".localized
@@ -160,6 +160,16 @@ public class HippoStrings {
     static var reset = "Reset".localized
     static var filter = "Filter".localized
     static var apply = "Apply".localized
+    static var send = "SEND".localized
+    static var noBotActionAvailable = "No Bot Action Available.".localized
+    static var assignedTo = "Assigned To".localized
+    static var demo = "Demo".localized
+    static var visitor = "Visitor".localized
+    static var agent = "Agent".localized
+    static var userProfile = "User Profile".localized
+    static var sendTitle = "Send".localized
+    static var tags = "Tags".localized
+    
 
     open var disbaledCameraErrorMessage = "Access to Camera is denied. Please enable from setings."
     open var cameraString = "New Image via Camera"

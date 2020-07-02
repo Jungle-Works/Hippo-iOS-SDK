@@ -1,6 +1,6 @@
 //
 //  AgentChatInfoViewController.swift
-//  SDKDemo1
+//  SDKtags1
 //
 //  Created by Vishal on 19/06/18.
 //  Copyright © 2018 CL-macmini-88. All rights reserved.
@@ -209,7 +209,7 @@ extension AgentChatInfoViewController: UITableViewDelegate  {
         case .chatInfo:
             sectionHeaderName = HippoStrings.channelInfo
         case .userInfo:
-            sectionHeaderName = "User Profile"
+            sectionHeaderName = HippoStrings.userProfile
         }
         return ChatInfoHeader.configureSectionHeader(headerInfo: ChatInfoCell(infoImage: nil, nameOfCell: sectionHeaderName))
     }
