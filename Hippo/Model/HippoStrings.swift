@@ -44,6 +44,7 @@ public class HippoStrings {
     
     var defaultFallbackText = "This message cannot be displayed"
     var chatHistory = "Conversations"
+    var addImage  = "AddImage"
     
     public init() {
         

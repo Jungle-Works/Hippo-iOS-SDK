@@ -113,6 +113,8 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     }
     
     @IBAction func newConversationClicked(_ sender: Any) {
+        HippoConfig.shared.delegate?.callAnalytics((sender as? UIButton)?.titleLabel?.text ?? "")
+        
         var fuguNewChatAttributes = FuguNewChatAttributes(transactionId: "", userUniqueKey: HippoConfig.shared.userDetail?.userUniqueKey, otherUniqueKey: nil, tags: HippoProperty.current.newConversationButtonTags, channelName: nil, preMessage: "", groupingTag: nil)
         
         print("bodID******* \(HippoProperty.current.newconversationBotGroupId ?? "")")
@@ -332,6 +334,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     }
     
     @IBAction func openChatButtonClicked(_ sender: UIButton) {
+         HippoConfig.shared.delegate?.callAnalytics((sender as? UIButton)?.titleLabel?.text ?? "")
         guard conversationChatType != .openChat else {
             return
         }
@@ -343,6 +346,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     }
     
     @IBAction func closeChatButtonClicked(_ sender: Any) {
+         HippoConfig.shared.delegate?.callAnalytics((sender as? UIButton)?.titleLabel?.text ?? "")
         guard conversationChatType != .closeChat else {
             return
         }

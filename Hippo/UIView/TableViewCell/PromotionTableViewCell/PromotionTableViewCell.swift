@@ -89,7 +89,7 @@ class PromotionTableViewCell: UITableViewCell {
        // self.descriptionLabel.backgroundColor = UIColor.blue
         
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'hh:mm:ss.SSS'Z'"
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
         dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
         let date = dateFormatter.date(from: data.createdAt)
         

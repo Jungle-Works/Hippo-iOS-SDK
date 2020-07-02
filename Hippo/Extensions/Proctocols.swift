@@ -48,6 +48,7 @@ public protocol HippoDelegate: class {
     
     func startLoading(message: String?)
     func stopLoading()
+    func callAnalytics(_ btnClicked : String)
     
     #if canImport(HippoCallClient)
      func loadCallPresenterView(request: CallPresenterRequest) -> CallPresenter?

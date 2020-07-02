@@ -313,13 +313,16 @@ protocol NewChatSentDelegate: class {
 //        presentActionsForCustomer(sender: self.view)
     }
     @IBAction func audiCallButtonClicked(_ sender: Any) {
+         HippoConfig.shared.delegate?.callAnalytics((sender as? UIButton)?.titleLabel?.text ?? "")
         startAudioCall()
     }
     @IBAction func videoButtonClicked(_ sender: Any) {
+         HippoConfig.shared.delegate?.callAnalytics((sender as? UIButton)?.titleLabel?.text ?? "")
      startVideoCall()
    }
     
    @IBAction func addImagesButtonAction(_ sender: UIButton) {
+    HippoConfig.shared.delegate?.callAnalytics(HippoConfig.shared.strings.addImage)
       if channel != nil, !channel.isSubscribed() {
         buttonClickedOnNetworkOff()
         return
