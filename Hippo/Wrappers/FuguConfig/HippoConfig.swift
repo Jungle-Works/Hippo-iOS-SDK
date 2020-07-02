@@ -45,8 +45,8 @@ static let betaFaye = "https://beta-live-api.fuguchat.com:3001/faye"
 // static let betaUrl = "https://hippo-api-dev.fuguchat.com:3002/"
 // static let betaFaye = "https://hippo-api-dev.fuguchat.com:3002/faye"
 
-static let devUrl = "https://hippo-api-dev.fuguchat.com:3004/"//"https://hippo-api-dev.fuguchat.com:3002/"//
-static let devFaye = "https://hippo-api-dev.fuguchat.com:3004/faye"//"https://hippo-api-dev.fuguchat.com:3002/faye"//
+static let devUrl = "https://hippo-api-dev.fuguchat.com:3011/"//"https://hippo-api-dev.fuguchat.com:3002/"//
+static let devFaye = "https://hippo-api-dev.fuguchat.com:3011/faye"//"https://hippo-api-dev.fuguchat.com:3002/faye"//
 
 // static let devUrl = "https://hippo-api-dev.fuguchat.com:3011/"
 // static let devFaye = "https://hippo-api-dev.fuguchat.com:3012/faye"
@@ -162,7 +162,7 @@ struct BotAction {
     open var HippoDismissed: ((_ isDismissed: Bool) -> ())?
     open var HippoPrePaymentCancelled: (()->())?
     open var HippoPrePaymentSuccessful: ((Bool)->())?
-    public var HippoLanguageChanged : ((String)->())?
+    public var HippoLanguageChanged : ((Error?)->())?
     
     internal let powererdByColor = #colorLiteral(red: 0.4980392157, green: 0.4980392157, blue: 0.4980392157, alpha: 1)
     internal let FuguColor = #colorLiteral(red: 0.3843137255, green: 0.4901960784, blue: 0.8823529412, alpha: 1)
@@ -289,7 +289,10 @@ struct BotAction {
     }
     
     func getAllStrings(){
-        AllString.getAllStrings()
+        AllString.getAllStrings{(error) in
+             self.HippoLanguageChanged?(error)
+        }
+       
         AllString.updateLanguageApi()
     }
     
@@ -781,16 +784,13 @@ struct BotAction {
         if isFromPutUser, BussinessProperty.current.buisnessLanguageArr?.contains(where: {$0.lang_code == code}) ?? false{
             UserDefaults.standard.set(code, forKey: DefaultName.selectedLanguage.rawValue)
             getAllStrings()
-            self.HippoLanguageChanged?(code)
         }else if !isFromPutUser , BussinessProperty.current.buisnessLanguageArr?.contains(where: {$0.lang_code == code}) ?? false, code != getCurrentLanguageLocale(){
             UserDefaults.standard.set(code, forKey: DefaultName.selectedLanguage.rawValue)
             getAllStrings()
-            self.HippoLanguageChanged?(code)
         }else if BussinessProperty.current.buisnessLanguageArr?.contains(where: {$0.lang_code == code}) ?? false == false{
             let defaultLang = BussinessProperty.current.buisnessLanguageArr?.filter{$0.is_default == true}.first?.lang_code
             UserDefaults.standard.set(defaultLang, forKey: DefaultName.selectedLanguage.rawValue)
             getAllStrings()
-            self.HippoLanguageChanged?(defaultLang ?? code)
         }
     }
     

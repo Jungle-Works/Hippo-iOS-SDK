@@ -9,7 +9,7 @@
 import Foundation
 class AllString{
     
-    class func getAllStrings() {
+    class func getAllStrings(completion: @escaping HippoResponseRecieved) {
         var params = [String: Any]()
         params["request_source"] = HippoConfig.shared.appUserType == .agent ? 1 : 0
         params["app_secret_key"] = HippoConfig.shared.appUserType == .agent ? HippoConfig.shared.agentDetail?.appSecrectKey : HippoConfig.shared.appSecretKey
