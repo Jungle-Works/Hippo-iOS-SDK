@@ -790,7 +790,7 @@ func validateFuguCredential() -> Bool {
 }
 
 func getCurrentLanguageLocale() -> String {
-    return  UserDefaults.standard.value(forKey: DefaultName.selectedLanguage.rawValue) as? String ?? "en"
+    return UserDefaults.standard.value(forKey: DefaultName.selectedLanguage.rawValue) as? String ?? "en"
 }
 
 

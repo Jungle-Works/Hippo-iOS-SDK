@@ -9,28 +9,28 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="AssignedAgentTableViewCell" customModule="Hippo" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="65" id="KGk-i7-Jjw" customClass="AssignedAgentTableViewCell" customModule="Hippo" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="332" height="65"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                <rect key="frame" x="0.0" y="0.0" width="332" height="65"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Drg-kU-wPe">
-                        <rect key="frame" x="5" y="5" width="310" height="39"/>
+                        <rect key="frame" x="5" y="5" width="322" height="60"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jY3-4z-hWf" userLabel="LeftHorizontal">
-                                <rect key="frame" x="0.0" y="19" width="129" height="1"/>
+                                <rect key="frame" x="0.0" y="29.5" width="135" height="1"/>
                                 <color key="backgroundColor" red="0.91764705879999997" green="0.91764705879999997" blue="0.91764705879999997" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="hgm-qt-Aiv"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8i8-tb-MaE">
-                                <rect key="frame" x="129" y="5" width="52" height="29"/>
+                                <rect key="frame" x="135" y="5" width="52" height="50"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C63-mc-wYg">
-                                        <rect key="frame" x="5" y="3" width="42" height="23"/>
+                                        <rect key="frame" x="5" y="5" width="42" height="40"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -40,12 +40,12 @@
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="C63-mc-wYg" secondAttribute="trailing" constant="5" id="4pg-mw-kcg"/>
                                     <constraint firstItem="C63-mc-wYg" firstAttribute="leading" secondItem="8i8-tb-MaE" secondAttribute="leading" constant="5" id="WbK-xi-IIA"/>
-                                    <constraint firstAttribute="bottom" secondItem="C63-mc-wYg" secondAttribute="bottom" constant="3" id="nQY-hF-8LY"/>
-                                    <constraint firstItem="C63-mc-wYg" firstAttribute="top" secondItem="8i8-tb-MaE" secondAttribute="top" constant="3" id="sdm-Jp-OTL"/>
+                                    <constraint firstAttribute="bottom" secondItem="C63-mc-wYg" secondAttribute="bottom" constant="5" id="nQY-hF-8LY"/>
+                                    <constraint firstItem="C63-mc-wYg" firstAttribute="top" secondItem="8i8-tb-MaE" secondAttribute="top" constant="5" id="sdm-Jp-OTL"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4yO-ei-uZR" userLabel="RightHorizontal">
-                                <rect key="frame" x="181" y="19" width="129" height="1"/>
+                                <rect key="frame" x="187" y="29.5" width="135" height="1"/>
                                 <color key="backgroundColor" red="0.91764705879999997" green="0.91764705879999997" blue="0.91764705879999997" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="F2t-Ou-lfu"/>
@@ -66,7 +66,7 @@
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eBd-vl-Lh7">
-                        <rect key="frame" x="5" y="35" width="310" height="9"/>
+                        <rect key="frame" x="5" y="56" width="322" height="9"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="9" id="5zv-C1-S1j"/>
@@ -90,7 +90,7 @@
                 <outlet property="view_Left" destination="jY3-4z-hWf" id="hRD-QD-Mih"/>
                 <outlet property="view_Right" destination="4yO-ei-uZR" id="WFV-OV-FYO"/>
             </connections>
-            <point key="canvasLocation" x="137.59999999999999" y="154.72263868065968"/>
+            <point key="canvasLocation" x="147.19999999999999" y="164.16791604197903"/>
         </tableViewCell>
     </objects>
 </document>

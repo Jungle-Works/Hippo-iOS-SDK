@@ -1,10 +1,10 @@
-/* 
-  HippoLocalizable.strings
-  Hippo
-
-  Created by Arohi Sharma on 18/06/20.
-  Copyright © 2020 CL-macmini-88. All rights reserved.
-*/
+/*
+ HippoLocalizable.strings
+ Hippo
+ 
+ Created by Arohi Sharma on 18/06/20.
+ Copyright © 2020 CL-macmini-88. All rights reserved.
+ */
 
 // cpsdk strings
 
@@ -31,7 +31,6 @@
 "Support" = "Apoyo";
 "Could not send your message" = "No se pudo enviar el mensaje";
 "Tap to <u>Retry</u>&#160;" = "Toque para <u> Reintentar </ u> & # 160;";
-"Cancel" = "Cancelar";
 "Not connected to Internet" = "No conectado a Internet";
 "Connecting..." = "Conectando ...";
 "Connected" = "Conectado";
@@ -72,7 +71,7 @@
 "Broadcast Details" = "Detalles de difusión";
 "Recipients" = "destinatarios";
 "Add an option" = "Añadir una opción";
-"Request payment" = "Solicitar pago";
+"Request Payment" = "Solicitar pago";
 "Enter Price" = "Enter Precio";
 "Enter Description" = "Enter Descripción";
 "Currency" = "Moneda";
@@ -215,20 +214,363 @@
 "is calling you..." = "le está llamando ......";
 
 
+// Agent SDK
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+"Open" = "Abierto";
+"Closed" = "Cerrado";
+"Hello blank fragment" = "Hola fragmento blanco";
+"Open Conversations" = "Conversaciones abiertas";
+"Closed Conversations" = "Conversaciones cerrados";
+"Unable to connect to the internet" = "Incapaz de conectarse a Internet";
+"No Internet Connection \nTap to retry" = "Sin conexión a Internet \n TAP de reintento";
+"Something went wrong \nTap to retry" = "Algo salió mal \n TAP de reintento";
+"New Conversation" = "Nueva conversación";
+"New Conversations" = "Nuevas Conversaciones";
+"Powered by Fugu" = "Desarrollado por Fugu";
+"Refresh" = "Actualizar";
+"Forgot Password?" = "¿Se te olvidó tu contraseña?";
+"Don\'t have an account?" = "Don\'t tiene una cuenta?";
+"I agree to your Terms of Service and Privacy Policy." = "Estoy de acuerdo con sus Términos de Servicio y Política de Privacidad.";
+"Register your business" = "Registre su negocio";
+"Sign In" = "Registrarse";
+"Sign Up" = "Regístrate";
+"PASSWORD" = "CONTRASEÑA";
+"BUSINESS NAME" = "NOMBRE DEL NEGOCIO";
+"NEW PASSWORD" = "NUEVA CONTRASEÑA";
+"OLD PASSWORD" = "CONTRASEÑA ANTERIOR";
+"CONFIRM PASSWORD" = "CONFIRMAR CONTRASEÑA";
+"EMAIL ADDRESS" = "DIRECCIÓN DE CORREO ELECTRÓNICO";
+"Login to continue" = "Inicia sesión para continuar";
+"Enter valid email address" = "Introduzca la dirección de correo electrónico válida";
+"Enter something to search" = "Introducir algo para buscar";
+"Enter the password" = "Introduce la contraseña";
+"Enter the name" = "Introduzca el nombre";
+"Enter the business name" = "Introduzca el nombre de la empresa";
+"Enter the phone number" = "Introduzca el número de teléfono";
+"Invalid phone number" = "Numero de telefono invalido";
+"We just need your registered email address to send you password reset instructions" = "Sólo tenemos su dirección de correo electrónico registrada para enviarle instrucciones de restablecimiento de contraseña";
+"Done" = "Hecho";
+"You:" = "Tú:";
+"User:" = "Usuario:";
+"Details" = "detalles";
+"Actions" = "Comportamiento";
+"Close Chat" = "Cerca de chat";
+"Assign Chat" = "Asignar chat";
+"Participants" = "Participantes";
+"Type a message" = "Escribir un mensaje";
+"Type a message, use / to add a saved reply" = "Escribir un mensaje, utilice / para añadir una respuesta salvado";
+"Type a message" = "Escribir un mensaje";
+"Send an internal note to your team, use @name to tag" = "Enviar una nota interna a su equipo, utilice @Name a la etiqueta";
+"Reopen Conversation" = "Vuelva a abrir la conversación";
+"Attach image using" = "Adjuntar imagen utilizando";
+"Camera" = "Cámara";
+"Gallery" = "Galería";
+"Gallery not found in this phone." = "Galería no se encuentra en este teléfono.";
+"The permission was not granted" = "El permiso no se concedió";
+"Retry" = "Rever";
+"Attachment: Image" = "Adjunto: Imagen";
+"Send a message..." = "Enviar un mensaje...";
+"Leave an internal note..." = "Deja una nota interna ...";
+"Saved Replies" = "Respuestas guardados";
+"No conversations found" = "No se encontraron conversaciones";
+"No previous conversations found" = "No se encontraron conversaciones anteriores";
+"We couldn’t find any\nconversations in this inbox" = "No hemos podido encontrar \n conversaciones en esta bandeja";
+"We couldn’t find any\nprevious conversations in this inbox" = "No hemos podido encontrar \n conversaciones previous en esta bandeja";
+"Enter Code" = "Introduzca el código";
+"Status" = "Estado";
+"Closed Chats" = "Los chats cerrada";
+"Open Chats" = "Abrir chats";
+"Type" = "Tipo";
+"My Chats" = "mi chats";
+"Unassigned" = "sin asignar";
+"Tagged" = "Tagged";
+"Labels" = "Etiquetas";
+"Are you sure, you want to Logout?" = "¿Seguro, que quieres salir?";
+"PROCEED" = "CONTINUAR";
+"CANCEL" = "CANCELAR";
+"Are you sure, you want to reassign?" = "¿Seguro, desea volver a asignar?";
+"Are you sure, you want to reassign this chat to you?" = "¿Seguro, desea volver a asignar este chat para usted?";
+"CONFIRM" = "CONFIRMAR";
+"Are you sure, you want to Close this chat?" = "¿Seguro, que desea cerrar este chat?";
+"CLOSE" = "CERCA";
+"Are you sure, you want to Reopen this chat?" = "¿Seguro, desea volver a abrir este chat?";
+"Reopen" = "Reabrir";
+"LOGOUT" = "CERRAR SESIÓN";
+"Logout" = "Cerrar sesión";
+"<i>Tap to view</i>" = "<i>Tap a la vista</​​i>";
+"Conversation Closed" = "Conversación Cerrada";
+"Conversation Re-opened" = "Conversación Reabierto";
+"Conversation Assigned" = "Conversación Asignado";
+"We have pre-applied some filters to give you\nmore relevant chats." = "Hemos aplicado algunos filtros para darle \n more chats pertinentes.";
+"Analytics" = "Analítica";
+"Volume Trends" = "Tendencias de volumen";
+"Time Trends" = "tiempo Tendencias";
+"Agent Wise Trends" = "Agente Wise Tendencias";
+"Support" = "Apoyo";
+"Chat with fugu" = "Chatear con fugu";
+"All Chats" = "Todos los chats";
+"Profile" = "Perfil";
+"All Agents" = "Todos los Agentes";
+"All Channels" = "Todos los Canales";
+"All Tags" = "Todas las Etiquetas";
+"Agents" = "Agentes";
+"New" = "Nuevo";
+"Replied" = "Respondido";
+"Assigned" = "Asignado";
+"Apply" = "Aplicar";
+"Date" = "Fecha";
+"Today" = "Hoy";
+"Yesterday" = "Ayer";
+"Last 7 days" = "Los últimos 7 días";
+"Last 30 days" = "Últimos 30 días";
+"Agent Wise Data" = "Agente de Data Wise";
+"Avg. 1st\nResp. Time" = "Avg. Primero \nResp. Hora";
+"Avg. Close\nTime" = "Avg. Cerrar \nTime";
+"Average Response Time" = "Tiempo promedio de respuesta";
+"Channels" = "Canales";
+"Tags" = "Etiquetas";
+"Channel Info" = "Información del canal";
+"Close" = "Cerca";
+"My Analytics" = "Mi Analytics";
+"Edit Profile" = "Editar perfil";
+"First Visit:" = "Primera visita:";
+"Url:" = "Url:";
+"Device:" = "Dispositivo:";
+"No.of Visits:" = "Visitas No.of:";
+"Last Visit:" = "Última visita:";
+"Business" = "Negocio";
+"Name:" = "Nombre:";
+"NAME" = "NOMBRE";
+"PHONE NUMBER" = "NÚMERO DE TELÉFONO";
+"E-MAIL ADDRESS" = "DIRECCIÓN DE CORREO ELECTRÓNICO";
+"No. of Visitors" = "Número de Visitantes";
+"Social Profile:" = "Perfil social:";
+"Past Chats" = "Los chats últimos";
+"View More" = "Ver más";
+"Shared Images" = "Imágenes compartidas";
+"Details" = "Detalles";
+"Custom Data" = "Datos Personalizados";
+"Reassign Chat" = "Reasignar chat";
+"Ok" = "Okay";
+"User Info" = "Información de usuario";
+"Info" = "información";
+"Change Password" = "Cambia la contraseña";
+"Your Profile" = "Tu perfil";
+"Available" = "Disponible";
+"Offline" = "Desconectado";
+"Away" = "Lejos";
+"Make yourself available for chat" = "Esté disponible para el chat";
+"Updating conversations..." = "Actualización de las conversaciones ...";
+"You are now available for chat" = "Ahora se encuentra disponible para el chat";
+"Save" = "Salvar";
+"Profile edited successfully" = "Perfil editado con éxito";
+"Password change successfully" = "cambio de contraseña con éxito";
+"New password is same as old password" = "La nueva contraseña es la misma que la contraseña antigua";
+"Field cannot be empty" = "El campo no puede estar vacío";
+"Phone number cannot be empty" = "número de teléfono no puede estar vacío";
+"Name cannot be empty" = "El nombre no puede estar vacío";
+"Old password cannot be empty" = "antigua contraseña no puede estar vacía";
+"New password cannot be empty" = "La nueva contraseña no puede estar vacía";
+"Confirm password cannot be empty" = "Confirmar contraseña no puede estar vacía";
+"Please enter confirm password" = "Por favor, introduzca la contraseña confirman";
+"Please enter address type." = "Por favor, introduzca el tipo de dirección.";
+"Password doesn\'t match" = "Contraseña doesn \ 't partido";
+"Please enter First name." = "Por favor, introduzca Nombre.";
+"Please enter address." = "Por favor, introduzca la dirección.";
+"Please select your date of Birth." = "Por favor seleccione su fecha de nacimiento.";
+"Name must be atleast 3 characters long." = "El nombre debe tener al menos 3 caracteres de largo.";
+"Name cannot contain number and special characters." = "El nombre no puede contener el número y caracteres especiales.";
+"Please enter Last name." = "Por favor, ingrese el apellido.";
+"Last name cannot contain number,spaces and special characters." = "Apellido no puede contener el número, espacios y caracteres especiales.";
+"Please enter Email id." = "Por favor, introduzca correo electrónico de identificación.";
+"Please enter a valid Email." = "Por favor introduzca una dirección de correo electrónico válida.";
+"Please enter password." = "Por favor, ingrese contraseña.";
+"Password must contain atleast 6 characters." = "La contraseña debe contener al menos 6 caracteres.";
+"Please enter Phone Number." = "Por favor, ingrese el número telefónico.";
+"Phone Number cannot start from zero." = "Número de teléfono no puede partir de cero.";
+"Phone Number length cannot be greater than 15 digits." = "Teléfono Número longitud no puede ser mayor de 15 dígitos.";
+"Phone Number length should be atleast 6 digits." = "Teléfono Número longitud debe tener una antigüedad de 6 dígitos.";
+"Please enter valid phone number." = "Por favor, introduzca el número de teléfono válido.";
+"Please enter a 4-digit verification code." = "Por favor, introduzca un código de verificación de 4 dígitos.";
+"Please enter country code." = "Por favor, introduzca el código de país.";
+"Please enter valid country code." = "Por favor, introduzca el código de país válido.";
+"Please swipe left or right to choose your role." = "Por favor pase a la izquierda o derecha para elegir su papel.";
+"Your Email is not verified yet!! Please verify your email first.." = "Su e-mail no se verifica hasta ahora !! Por favor, compruebe su correo electrónico primero ..";
+"Your Phone number is not verified yet!! Please verify your Phone number first.." = "Su número de teléfono no se verifica hasta ahora !! Por favor, verifique su número de teléfono en primer lugar ..";
+"Your Referral code is not verified yet!! Please verify your Referral code first.." = "Su código de referencia no se verifica hasta ahora !! Por favor, compruebe su código de referencia en primer lugar ..";
+"Please select the area on geofencing" = "Por favor, seleccione la zona en geofencing";
+"Please enter otp" = "Por favor, introduzca OTP";
+"Search" = "Buscar";
+"People" = "Personas";
+"Custom Attributes" = "Atributos personalizados";
+"Visitor Info" = "Información para visitantes";
+"UTM Source" = "UTM Fuente";
+"UTM Medium" = "UTM Medio";
+"Product" = "Producto";
+"Continent Code" = "Código continente";
+"Referrer" = "referente";
+"Vertical Page" = "Página Vertical";
+"Previous Page" = "Pagina anterior";
+"UTM Term" = "UTM Plazo";
+"Web Referrer" = "Referente web";
+"UTM Old Source" = "UTM Fuente Vieja";
+"UTM Old Medium" = "UTM Antiguo Medio";
+"Gclid" = "gclid";
+"Old Campaign" = "Campaña de edad";
+"Current Campaign" = "Campaña actual";
+"Session IP" = "sesión IP";
+"Show More" = "Mostrar más";
+"Show Less" = "Muestra menos";
+"Select Day" = "Seleccione Día";
+"Feedback" = "Realimentación";
+"Ask for feedback" = "Pedirle su opinión";
+"You rated this conversation" = "Usted ha calificado esta conversación";
+"Rate your conversation" = "Valorar su conversación";
+"Thanks..." = "Gracias...";
+"Thanks for your feedback" = "Gracias por tus comentarios";
+"Pending feedback from customer" = "A la espera de los comentarios de los clientes";
+"Do you need feedback from customer?" = "¿Necesita la retroalimentación de los clientes?";
+"Feedback request has been sent" = "solicitud de respuesta ha sido enviado";
+"of" = "de";
+"Terms of Service" = "Términos de servicio";
+"Privacy Policy" = "Política de privacidad";
+"Terms of Service and Privacy Policy" = "Termino del servicio y política de privacidad";
+"We have updated our Terms of Service and Privacy Policy to help you comply with the EU GDPR(General Data Protection Regulation). To continue using Hippo, Please accept our new terms." = "Hemos actualizado nuestros Términos de Servicio y Política de Privacidad para ayudarle a cumplir con la GDPR UE (Reglamento General de Protección de Datos). Para continuar utilizando Hipona, Por favor, acepte nuestras nuevas condiciones.";
+"Decline" = "Disminución";
+"Accept" = "Aceptar";
+"No Bot found" = "No se han encontrado Bot";
+"Next" = "próximo";
+"Update Profile" = "Actualización del perfil";
+"This device is not supported." = "Este dispositivo no es compatible.";
+"Assign this deal to me" = "Asignar este problema para mí";
+"Could not send your message" = "No se ha podido enviar su mensaje";
+"Tap to <u>Retry</u>&#160;" = "Toque en <u>Reintentar</u>&#160;";
+"Load more..." = "Carga más...";
+"Reset" = "Reiniciar";
+"Filter" = "Filtrar";
+"No data found!" = "¡Datos no encontrados!";
+"Search here" = "Busca aquí";
+"Updating new messages..." = "Actualización de nuevos mensajes ...";
+"Video call" = "Videollamada";
+"Call Again" = "Llama de nuevo";
+"Incoming %s call..." = "Entrante %s llamada ...";
+"Audio" = "Audio";
+"Documents" = "Documentos";
+"Video" = "Vídeo";
+"This file type is not supported" = "No se admite este tipo de archivo";
+"File size cannot be greater than %s" = "Tamaño de archivo no puede ser mayor que %s";
+"Uploading" = "Carga";
+"uploading in progress" = "la carga en curso";
+"Something went wrong." = "Algo salió mal.";
+"Broadcast" = "Transmitir";
+"Broadcasts" = "transmisiones";
+"Broadcast History" = "Historia de la difusión";
+"Recipients" = "destinatarios";
+"Broadcast Details" = "Detalles de emisión";
+"No broadcast found" = "No hay transmisión encontrado";
+"P2P Chats" = "Los chats P2P";
+"Members" = "Miembros";
+"Enter note" = "Introduzca nota";
+"History" = "Historia";
+"Chat History" = "Historial de mensajes";
+"No change found" = "Ningún cambio encontrado";
+"Document" = "Documento";
+"Camera" = "Cámara";
+"Facing Connectivity Issues \n\n Reconnecting..." = "Frente a los problemas de conectividad \n\n Reconexión ...";
+"Take over" = "Tomar el control";
+"Custom date\nDate range" = "fecha personalizado \n rango Date";
+"Channel Timeline" = "canal Cronología";
+"UPDATE" = "ACTUALIZAR";
+"Title" = "Título";
+"Enter title" = "Introduzca el título";
+"Price" = "Precio";
+"Description" = "Descripción";
+"Total price : %s" = "Precio total: %s";
+"+ Add an option" = "+ Añadir una opción";
+"Enter Price" = "Introduzca Precio";
+"Enter Description" = "Introduzca Descripción";
+"Currency" = "Moneda";
+"Search&#8230;" = "Search&#8230;";
+"No sim card detected." = "No se detecta la tarjeta SIM.";
+"Listener is not set you will not receive any callback for country picked!" = "Oyente no está establecido, no recibirá ninguna llamada de retorno para el país elegido!";
+"No Countries Found! Did you call build()" = "No se han encontrado Países! ¿Has llamado build()";
+"Select country" = "Seleccionar país";
+"Send Payment" = "Enviar Pago";
+"Notes" = "notas";
+"Required*" = "Necesario*";
+"Add text here..." = "Añadir texto aquí ...";
+"Your account is unverified.\nPlease contact to business admin for verification" = "Su cuenta no está verificado.\nPor favor contacto al administrador de negocios para la verificación";
+"Your account is being reviewed…" = "Su cuenta está siendo revisado ...";
+"Refresh" = "Actualizar";
+"Additional Information" = "Información Adicional";
+"Verification" = "Verificación";
+"Saved Plans" = "plan de Guardado";
+"Plan title" = "título del plan";
+"Plan Name" = "Nombre del plan";
+"You have not saved any plan yet. \n Tap here to add a plan" = "No ha guardado ningún plan todavía. \n Pulse aquí para añadir un plan";
+"Deal name" = "nombre de la oferta";
+"Email" = "Email";
+"Phone" = "Teléfono";
+"Company" = "Empresa";
+"Pipeline Name" = "Nombre de tuberías";
+"Deal Owner" = "trato propietario";
+"Follow" = "Seguir";
+"Location" = "Ubicación";
+"Add Deal" = "Añadir reparto";
+"Edit Deal" = "Editar reparto";
+"Slow Internet connection. " = "conexión lenta a Internet.";
+"Connecting ..." = "Conectando ...";
+"Connected" = "Conectado";
+"Support" = "Apoyo";
+"<![CDATA[Rating & Review]]>" = "<![CDATA[Puntuación y reseña]]>";
+"In App" = "en App";
+"Sender Name:" = "Nombre del remitente:";
+"Date:" = "Fecha:";
+"Title:" = "Título:";
+"Message:" = "Mensaje:";
+"Fallback Name:" = "Nombre de retorno:";
+"Broadcast Type:" = "Broadcast Tipo:";
+"Channel Info" = "Información del canal";
+"No channel journey available" = "No viaje canal disponible";
+"No members found" = "No se encontraron usuarios";
+"Please select valid date" = "Por favor, seleccione una fecha válida";
+"No user found." = "Usuario no encontrado.";
+"From" = "De";
+"To" = "A";
+"Update Plan" = "actualización del plan";
+"Add Plan" = "Añadir plan de";
+"Payment Request" = "Solicitud de pago";
+"Please fill previous fields" = "Rellene los campos anteriores";
+"Field can\'t be empty" = "El campo puede\'t estar vacía";
+"Invalid price" = "Precio Incorrecto";
+"Payment" = "Pago";
+"Verify Details" = "verificar detalles";
+"Save Card" = "Guardar la tarjeta";
+"Are you sure you want to delete this plan?" = "¿Está seguro de que desea borrar este plan?";
+"YES" = "SI";
+"NO" = "NO";
+"Business" = "Negocio";
+"Self" = "Yo";
+"Plan id:" = "Plan de Identificación:";
+"Plan name:" = "Nombre del plan:";
+"Plan Owner:" = "Plan de Propietario:";
+"Updated at:" = "Actualizado en:";
+"new chat is assigned to you" = "se te ha asignado un nuevo chat";
+"assigned to themselves" = "Asignada a sí mismas";
+"assigned chat to" = "chat asignado a";
+"chat was reopened by" = "el chat fue reabierto por";
+"The chat was auto-opened" = "El chat se abrió automáticamente";
+"The chat was auto-closed" = "El chat se cerró automáticamente";
+"The chat was re-opened by" = "El chat fue reabierto por";
+"The chat was closed by" = "El chat fue cerrado por";
+"was auto assigned" = "Fue asignada automáticamente";
+"was forced assigned" = "fue forzado asignado";
+"tagged" = "etiquetada";
+"mentioned you" = "te mencionó";
+"you missed call from" = "perdiste la llamada de";
+"Internal Notes" = "Notas internas";
+"Text" = "Texto";
+"Bot" = "Bot";
 
 
 

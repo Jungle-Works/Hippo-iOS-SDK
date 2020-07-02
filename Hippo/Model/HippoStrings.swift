@@ -26,7 +26,7 @@ public class HippoStrings {
     open var noChatStarted = "Seems like you haven't started any chat yet, kick start it now!".localized
     open var noChatInCatagory = "You have no chats.".localized
     static var writeReview = "Write a review".localized
-    open var messagePlaceHolderText = "Send a message...".localized
+    static var messagePlaceHolderText = "Send a message...".localized
     static var enterSomeText = "Please enter some text.".localized
     static var attachmentCancel = "Cancel".localized
     static var ok = "OK".localized
@@ -112,7 +112,7 @@ public class HippoStrings {
     
     /// Agent sdk
     
-    static var openChat = "Open chats".localized
+    static var openChat = "Open Chats".localized
     static var newConversation = "New Conversation".localized
     static var actions = "Actions".localized
     static var closeChat = "Close Chat".localized
@@ -133,8 +133,33 @@ public class HippoStrings {
     static var email = "Email".localized
     static var inApp = "In App".localized
     static var selfTag = "Self".localized
-    
-    
+    static var assignedToThemselves = "assigned to themselves".localized
+    static var newChatAssignedToYou = "new chat is assigned to you".localized
+    static var chatAssigned = "assigned chat to".localized
+    static var chayReopened = "chat was reopened by".localized
+    static var chatAutoOpened = "The chat was auto-opened".localized
+    static var chatAutoClosed = "The chat was auto-closed".localized
+    static var chatReopened = "The chat was re-opened by".localized
+    static var chatClosedBy = "The chat was closed by".localized
+    static var chatAutoAssigned = "was auto assigned".localized
+    static var forceAssigned = "was forced assigned".localized
+    static var tagged = "tagged".localized
+    static var mentionedYou = "mentioned you".localized
+    static var missedCallFrom = "you missed call from".localized
+    static var allChats = "All Chats".localized
+    static var text = "Text".localized
+    static var internalNotes = "Internal Notes".localized
+    static var bot = "Bot".localized
+    static let privateMessagePlaceHolder = "Send an internal note to your team, use @name to tag".localized
+    static var delivered = "Delivered".localized
+    static var me = "Me".localized
+    static var sentAPhoto = "sent a photo".localized
+    static var sentAFile = "sent a File".localized
+    static var customer = "Customer".localized
+    static var assignConversation = "Assign Conversation".localized
+    static var reset = "Reset".localized
+    static var filter = "Filter".localized
+    static var apply = "Apply".localized
 
     open var disbaledCameraErrorMessage = "Access to Camera is denied. Please enable from setings."
     open var cameraString = "New Image via Camera"
@@ -170,10 +195,8 @@ public class HippoStrings {
     static let revoked = "Revoked"
     static let invited = "Invited"
     
-    //Conversation Screen Text
-    static let normalMessagePlaceHolder = "Type a message..."//"Type a message, use / to add a saved reply"
-    static let privateMessagePlaceHolder = "Send an Internal note to your team, use @name to tag"
-    static let normalMessagePlaceHolderWithoutCannedMessage = "Type a message..."
+  
+   
     
     public init() {
         HippoStrings.updateHippoCallClientStrings()

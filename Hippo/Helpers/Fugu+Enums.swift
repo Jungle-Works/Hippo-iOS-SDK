@@ -376,7 +376,7 @@ enum AgentEndPoints: String {
     case conversationUnread = "api/conversation/getAgentTotalUnreadCount"
     case getAgentLoginInfo = "api/agent/getAgentLoginInfo"
     case loginViaAuthToken = "api/agent/agentLoginViaAuthToken"
-    case loginViaToken = "api/agent/agentLogin"
+    case loginViaToken = "api/agent/v1/agentLogin"
 //    case getConversation = "api/conversation/v1/getConversations"
     case getConversation = "api/conversation/v2/getConversations"
     case markConversation = "api/conversation/markConversation"
@@ -417,6 +417,33 @@ struct MultiLanguageMsg{
             return HippoStrings.ratingReview
         case MultiLanguageTags.PAYMENT_REQUESTED.rawValue:
             return HippoStrings.paymentRequested
+        case MultiLanguageTags.ASSIGNED_TO_THEMSELVES.rawValue:
+            return HippoStrings.assignedToThemselves
+        case MultiLanguageTags.NEW_CHAT_ASSIGNED_TO_YOU.rawValue:
+            return HippoStrings.newChatAssignedToYou
+        case MultiLanguageTags.ASSIGNED_CHAT_TO.rawValue:
+            return HippoStrings.chatAssigned
+        case MultiLanguageTags.CHAT_REOPENED_BY.rawValue:
+            return HippoStrings.chatReopened
+        case MultiLanguageTags.CHAT_WAS_AUTO_OPENED.rawValue:
+            return HippoStrings.chatAutoOpened
+        case MultiLanguageTags.CHAT_WAS_AUTO_CLOSED.rawValue:
+            return HippoStrings.chatAutoClosed
+        case MultiLanguageTags.CHAT_WAS_RE_OPENED.rawValue:
+            return HippoStrings.chayReopened
+        case MultiLanguageTags.CHAT_WAS_CLOSED.rawValue:
+            return HippoStrings.chatAutoClosed
+        case MultiLanguageTags.WAS_AUTO_ASSIGNED.rawValue:
+            return HippoStrings.chatAutoAssigned
+        case MultiLanguageTags.WAS_FORCE_ASSIGNED.rawValue:
+            return HippoStrings.forceAssigned
+        case MultiLanguageTags.TAGGED.rawValue:
+            return HippoStrings.tagged
+        case MultiLanguageTags.MENTIONED_YOU.rawValue:
+            return HippoStrings.tagged
+        case MultiLanguageTags.CALLING_YOU.rawValue:
+            return HippoStrings.isCallingYou
+            
         default:
             return ""
         }
@@ -430,9 +457,21 @@ struct MultiLanguageMsg{
 }
 
 enum MultiLanguageTags : String, CaseIterable{
-   case RATING_AND_REVIEW = "{{{RATING_AND_REVIEW}}}"
-   case PAYMENT_REQUESTED = "{{{PAYMENT_REQUESTED}}}"
-    
+    case RATING_AND_REVIEW = "{{{RATING_AND_REVIEW}}}"
+    case PAYMENT_REQUESTED = "{{{PAYMENT_REQUESTED}}}"
+    case ASSIGNED_TO_THEMSELVES = "{{{ASSIGNED_TO_THEMSELVES}}}"
+    case NEW_CHAT_ASSIGNED_TO_YOU = "{{{NEW_CHAT_ASSIGNED_TO_YOU}}}"
+    case ASSIGNED_CHAT_TO = "{{{ASSIGNED_CHAT_TO}}}"
+    case CHAT_REOPENED_BY = "{{{CHAT_REOPENED_BY}}}"
+    case CHAT_WAS_AUTO_OPENED = "{{{CHAT_WAS_AUTO_OPENED}}}"
+    case CHAT_WAS_AUTO_CLOSED = "{{{CHAT_WAS_AUTO_CLOSED}}}"
+    case CHAT_WAS_RE_OPENED = "{{{CHAT_WAS_RE_OPENED}}}"
+    case CHAT_WAS_CLOSED = "{{{CHAT_WAS_CLOSED}}}"
+    case WAS_AUTO_ASSIGNED = "{{{WAS_AUTO_ASSIGNED}}}"
+    case WAS_FORCE_ASSIGNED = "{{{WAS_FORCE_ASSIGNED}}}"
+    case TAGGED = "{{{TAGGED}}}"
+    case MENTIONED_YOU = "{{{MENTIONED_YOU}}}"
+    case CALLING_YOU = "{{{CALLING_YOU}}}"
 }
       
         

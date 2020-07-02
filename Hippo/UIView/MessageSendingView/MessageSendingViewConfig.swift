@@ -29,10 +29,10 @@ struct MessageSendingViewConfig {
     
     var allowedMentionForPrivate: [String] = ["@"]
     
-    var normalMessagePlaceHolder: String = HippoStrings.normalMessagePlaceHolder
+    var normalMessagePlaceHolder: String = HippoStrings.messagePlaceHolderText
     var privateMessagePlaceHolder: String = HippoStrings.privateMessagePlaceHolder
     
-    var normalMessagePlaceHolderWithoutCannedMessage: String = HippoStrings.normalMessagePlaceHolderWithoutCannedMessage
+    var normalMessagePlaceHolderWithoutCannedMessage: String = HippoStrings.messagePlaceHolderText
     
     var isActionButtonEnabled: Bool = false
     var actionButtonMessage: String = HippoStrings.takeOver

@@ -37,6 +37,7 @@ class AgentConversation: HippoConversation {
     var assigned_by_name: String?
     var assigned_to_name: String?
     var isMyChat: Bool?
+    var mutiLanguageMsg : String?
     
     var updateUnreadCountBy: Int {
         return isMyChat ?? false ? 1 : 0
@@ -107,6 +108,13 @@ class AgentConversation: HippoConversation {
             lastMessage = message
         } else if let message = HippoMessage(dict: json) {
             lastMessage = message
+        }
+        
+        if let mutiLanguageMsg = json["multi_lang_message"] as? String{
+            self.mutiLanguageMsg = MultiLanguageMsg().matchString(mutiLanguageMsg)
+            if self.mutiLanguageMsg != nil{
+                lastMessage?.message = self.mutiLanguageMsg ?? ""
+            }
         }
         
         self.displayingMessage = getDisplayMessage()

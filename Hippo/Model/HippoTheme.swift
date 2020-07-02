@@ -58,12 +58,8 @@ public struct ConversationListTheme {
     open var infoIconTintColor = #colorLiteral(red: 0.3843137255, green: 0.4901960784, blue: 0.8823529412, alpha: 1)
     open var headerBackgroundColor = UIColor.white
     open var headerTextColor = #colorLiteral(red: 0.9882352941, green: 0.9882352941, blue: 0.9882352941, alpha: 1)//UIColor.black
-    open var headerText = HippoStrings.support//"My Recent Consultations"
-    open var directChatHeader = "Conversation List"
-    open var broadcastHeader = "Broadcast Message"
-    open var broadcastHistoryHeader = "Broadcast Message history"
-    open var promotionsAnnouncementsHeaderText = "Announcements"
-    open var takeOverButtonText = "Take Over"
+  
+    
     open var unreadCountColor : UIColor = UIColor(red: 244/255, green: 64/255, blue: 67/255, alpha: 1.0)//UIColor(red: 91/255, green: 159/255, blue: 13/255, alpha: 1.0)
     open var themeColor: UIColor = UIColor(red: 91/255, green: 159/255, blue: 13/255, alpha: 1.0)//.white//UIColor(red: 109/255, green: 212/255, blue: 0/255, alpha: 1)//
     open var recievingBubbleColor : UIColor = UIColor(red: 225/255, green: 240/255, blue: 255/255, alpha: 1.0)
@@ -94,8 +90,7 @@ public struct ConversationListTheme {
     open var missedCallMessageColor: UIColor = UIColor.red
     
 //    open var headerTextFont: UIFont? = UIFont.boldregular(ofSize: 18.0)
-    open var myChatBtnText = HippoStrings.myChats
-    open var allChatBtnText = "All Chats"
+
     
     open var headerTextFont: UIFont? = UIFont.bold(ofSize: 17.0)
     open var actionableMessageHeaderTextFont: UIFont? = UIFont.bold(ofSize: 16.0)
@@ -329,9 +324,19 @@ public struct ConversationListTheme {
     open var securePaymentIcon: UIImage? = UIImage(named: "securePayment", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     open var securePaymentTintColor: UIColor?
     open var secureTextFont: UIFont = UIFont.regular(ofSize: 10)
-    
     open var shouldShowBtnOnChatList : Bool = true
     
+    //MARK:- Open Strings Parent app can set
+    
+    open var headerText = HippoStrings.support//"My Recent Consultations"
+    open var directChatHeader = "Conversation List"
+    open var broadcastHeader = "Broadcast Message"
+    open var broadcastHistoryHeader = "Broadcast Message history"
+    open var promotionsAnnouncementsHeaderText = "Announcements"
+    open var takeOverButtonText : String?
+    open var myChatBtnText : String?
+    open var allChatBtnText : String?
+    open var messagePlaceHolderText : String?
 }
 
 

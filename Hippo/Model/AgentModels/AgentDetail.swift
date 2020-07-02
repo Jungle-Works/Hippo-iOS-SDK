@@ -106,6 +106,9 @@ class AgentDetail: NSObject {
         email = dict["email"] as? String ?? ""
         businessId = dict["business_id"] as? Int ?? -1
         businessName = dict["business_name"] as? String ?? ""
+        if let buisnessLanguageArr = dict["business_languages"] as? [[String : Any]]{
+            BussinessProperty.current.buisnessLanguageArr = BuisnessLanguage().getLanguageData(buisnessLanguageArr)
+        }
         number = dict["phone_number"] as? String ?? ""
         userImage = dict["user_image"] as? String
         
@@ -164,6 +167,7 @@ class AgentDetail: NSObject {
         if customAttributes != nil {
          dict["self_custom_attributes"] = customAttributes!
         }
+        
         return dict
     }
     class func setAgentStoredData() {
@@ -368,6 +372,9 @@ extension AgentDetail {
             params["voip_token"] = TokenManager.voipToken
         }
         params["app_version_code"] = "\(versionCode)"
+        
+        params["fetch_business_lang"] = 1
+        
         return params
     }
     internal static func getParamsForAuthLogin() -> [String: Any] {

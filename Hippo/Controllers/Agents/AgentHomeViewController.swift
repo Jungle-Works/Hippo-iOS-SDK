@@ -392,8 +392,8 @@ extension AgentHomeViewController {
         self.allChatButton.setBackgroundColor(color: #colorLiteral(red: 0.8156862745, green: 0.8156862745, blue: 0.8156862745, alpha: 1), forState: UIControl.State.highlighted)
         self.myChatButton.titleLabel?.font = UIFont.bold(ofSize: 15)
         self.allChatButton.titleLabel?.font = UIFont.regular(ofSize: 15)
-        self.myChatButton.setTitle(HippoConfig.shared.theme.myChatBtnText, for: .normal)
-        self.allChatButton.setTitle(HippoConfig.shared.theme.allChatBtnText, for: .normal)
+        self.myChatButton.setTitle(HippoConfig.shared.theme.myChatBtnText == nil ? HippoStrings.myChats : HippoConfig.shared.theme.myChatBtnText, for: .normal)
+        self.allChatButton.setTitle(HippoConfig.shared.theme.allChatBtnText == nil ? HippoStrings.allChats : HippoConfig.shared.theme.allChatBtnText, for: .normal)
         self.bottomLineView.backgroundColor = HippoConfig.shared.theme.themeColor
         self.view.backgroundColor = HippoConfig.shared.theme.backgroundColor
         view_NavigationBar.title = HippoConfig.shared.theme.headerText
