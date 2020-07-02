@@ -294,7 +294,7 @@ extension BroadcastSelectionViewController: UITableViewDataSource {
             let label = UILabel()
             label.text = "Team: " + (broadcaster?.selectedTeam?.tagName ?? "")
             label.textColor = HippoConfig.shared.theme.headerBackgroundColor
-            label.font = UIFont.systemFont(ofSize: 14)
+            label.font = UIFont.regular(ofSize: 14)
 //            label.backgroundColor = UIColor.white
             label.textAlignment = .left
             label.layer.masksToBounds = true

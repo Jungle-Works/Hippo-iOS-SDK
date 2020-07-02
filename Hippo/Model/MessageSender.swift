@@ -112,7 +112,7 @@ class MessageSender {
                 self?.startSending()
                 HippoConfig.shared.log.debug("-->\(self?.channelID.description ?? "no channel id") == messageSent == \(messageJSON) ", level: .socket)
             } else {
-                
+
                 print("FayeConnection.shared.send****:", result.error?.error)
                 guard let errorType = result.error?.error else {
                     self?.retryWithDelay()
@@ -178,7 +178,6 @@ class MessageSender {
             self.delegate?.messageSendingFailed(message: message, result: result)
         }
     }
-    
     private func retryWithDelay(_ delay: TimeInterval = 5) {
         // delay to wait before retrying
         fuguDelay(delay, completion: { [weak self] in

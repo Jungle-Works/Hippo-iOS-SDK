@@ -86,14 +86,16 @@ extension ActionButtonViewCell {
             self.cellButton.setTitle(title, for: .normal)
         }
         let theme = HippoConfig.shared.theme
-        cellButton.tintColor = .white
-        cellButton.setTitleColor(.white, for: .normal)
+
+        cellButton.tintColor = HippoConfig.shared.theme.themeTextcolor
+        cellButton.setTitleColor(HippoConfig.shared.theme.themeTextcolor, for: .normal)
         cellButton.backgroundColor = theme.themeColor
         cellButton.layer.borderWidth = 0
-        cellButton.hippoCornerRadius = cellButton.bounds.height / 2
-        
-        buttonLeadingConstraint.constant = 70
-        buttonTrailingConstraint.constant = 70
+       // cellButton.hippoCornerRadius = cellButton.bounds.height / 2
+        cellButton.titleLabel?.textColor = .white
+        buttonLeadingConstraint.constant = 15
+        buttonTrailingConstraint.constant = 15
+
     }
     
     

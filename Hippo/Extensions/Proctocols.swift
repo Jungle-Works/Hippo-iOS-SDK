@@ -36,18 +36,21 @@ extension CaseCountable where Self : RawRepresentable, Self.RawValue == Int {
 
 public protocol HippoDelegate: class {
     func hippoUnreadCount(_ totalCount: Int)
-    func hippoUserUnreadCount(_ usersCount: [String: Int])
-    
+    func hippoUserUnreadCount(_ usersCount: [String: Int])    
     func hippoDeinit()
     func hippoDidLoad()
-    
     func hippoMessageRecievedWith(response: [String: Any], viewController: UIViewController)
     func promotionMessageRecievedWith(response: [String: Any], viewController: UIViewController)
-    
+    func deepLinkClicked(response : [String : Any])
     func hippoUserLogOut()
-    
     func startLoading(message: String?)
     func stopLoading()
+    func hippoAgentTotalUnreadCount(_ totalCount: Int)
+    func hippoAgentTotalChannelsUnreadCount(_ totalCount: Int)    
+    func sendDataIfChatIsAssignedToSelfAgent(_ dic : [String : Any])
+    func sendp2pUnreadCount(unreadCount : Int, channelId : Int)
+    func chatListButtonAction()
+    
     
     #if canImport(HippoCallClient)
      func loadCallPresenterView(request: CallPresenterRequest) -> CallPresenter?
@@ -55,6 +58,10 @@ public protocol HippoDelegate: class {
 }
 
 extension HippoDelegate {
+    
+    func sendp2pUnreadCount(unreadCount : Int, channelId : Int){
+        
+    }
     func hippoUnreadCount(_ totalCount: Int) {
         
     }

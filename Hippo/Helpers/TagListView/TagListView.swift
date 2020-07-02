@@ -193,7 +193,7 @@ class TagListView: UIView {
         }
     }
     
-    @objc  dynamic var textFont: UIFont = UIFont.systemFont(ofSize: 12) {
+    @objc  dynamic var textFont: UIFont = UIFont.regular(ofSize: 12) {
         didSet {
             for tagView in tagViews {
                 tagView.textFont = textFont
@@ -350,7 +350,7 @@ class TagListView: UIView {
         tagView.highlightedBackgroundColor = tagHighlightedBackgroundColor
         tagView.selectedBackgroundColor = tagSelectedBackgroundColor
         tagView.titleLineBreakMode = tagLineBreakMode
-        tagView.cornerRadiu = 6//cornerRadius 
+        tagView.cornerRadiu = 6//cornerRadius
         tagView.hippoBorderWidth = buttonBorderWidth//hippoBorderWidth
         tagView.hippoBorderColor = hippoBorderColor
         tagView.selectedBorderColor = selectedBorderColor

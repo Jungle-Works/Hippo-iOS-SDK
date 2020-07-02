@@ -2,17 +2,29 @@
   "images" : [
     {
       "idiom" : "universal",
+<<<<<<< HEAD
       "filename" : "artwork.png",
+=======
+      "filename" : "noNotification3X.png",
+>>>>>>> 26ad03e0f775e3bc6bb7b6fba905ddb2574a1e20
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+<<<<<<< HEAD
       "filename" : "artwork@2x.png",
+=======
+      "filename" : "noNotification3X@2x.png",
+>>>>>>> 26ad03e0f775e3bc6bb7b6fba905ddb2574a1e20
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
+<<<<<<< HEAD
       "filename" : "artwork@3x.png",
+=======
+      "filename" : "noNotification3X@3x.png",
+>>>>>>> 26ad03e0f775e3bc6bb7b6fba905ddb2574a1e20
       "scale" : "3x"
     }
   ],

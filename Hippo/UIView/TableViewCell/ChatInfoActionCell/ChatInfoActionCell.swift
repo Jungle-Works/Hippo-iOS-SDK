@@ -15,15 +15,11 @@ class ChatInfoActionCell: UITableViewCell {
     @IBOutlet weak var cellLabel: So_CustomLabel!
     @IBOutlet weak var horizontalLineView: So_UIView!
     @IBOutlet weak var widthOfIconImageView: NSLayoutConstraint!
+    @IBOutlet weak var closeReopenChatTapButton: UIButton!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+        cellLabel.font = UIFont.regular(ofSize: 15.0)
     }
     
 }
@@ -42,11 +38,15 @@ extension ChatInfoActionCell {
         iconImageView.image = chatInfo.infoImage ?? nil
         cellLabel.text = chatInfo.nameOfCell
         
-        if iconImageView.image == nil {
+        iconImageView.tintColor = HippoConfig.shared.theme.themeTextcolor
+        cellLabel.tintColor = HippoConfig.shared.theme.themeTextcolor
+        
+        if chatInfo.infoImage == nil {
             widthOfIconImageView.constant = 0
         } else {
             widthOfIconImageView.constant = 15
         }
+        
         return self
     }
 }

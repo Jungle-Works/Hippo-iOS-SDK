@@ -155,8 +155,7 @@ class SelfMessageTableViewCell: MessageTableViewCell {
         let messageString = chatMessageObject.message
         let userNameString = chatMessageObject.senderFullName
         
-        
-        return attributedStringForLabel(userNameString, secondString: "\n" + messageString, thirdString: "", colorOfFirstString: HippoConfig.shared.theme.senderNameColor, colorOfSecondString: HippoConfig.shared.theme.outgoingMsgColor, colorOfThirdString: UIColor.black.withAlphaComponent(0.5), fontOfFirstString: HippoConfig.shared.theme.senderNameFont, fontOfSecondString:  HippoConfig.shared.theme.incomingMsgFont, fontOfThirdString: UIFont.systemFont(ofSize: 11.0), textAlighnment: .left, dateAlignment: .right)
+        return attributedStringForLabel(userNameString, secondString: "\n" + messageString, thirdString: "", colorOfFirstString: HippoConfig.shared.theme.senderNameColor, colorOfSecondString: HippoConfig.shared.theme.outgoingMsgColor, colorOfThirdString: UIColor.black.withAlphaComponent(0.5), fontOfFirstString: HippoConfig.shared.theme.senderNameFont, fontOfSecondString:  HippoConfig.shared.theme.incomingMsgFont, fontOfThirdString: UIFont.regular(ofSize: 11.0), textAlighnment: .left, dateAlignment: .right)
     }
     
     func setupWarningView() {
@@ -173,6 +172,10 @@ class SelfMessageTableViewCell: MessageTableViewCell {
         }
     }
     
+    func updateBottomConstraint(_ constant : CGFloat){
+        self.bottomConstraint.constant = constant
+        self.layoutIfNeeded()
+    }
     
     private func setReadUnreadIcon() {
         guard let messageReadStatus = message?.status else {
@@ -180,7 +183,8 @@ class SelfMessageTableViewCell: MessageTableViewCell {
         }
         
         switch messageReadStatus {
-        case .read:
+//        case .read:
+        case .read, .delivered:
             readUnreadImageView.image = HippoConfig.shared.theme.readMessageTick
             if let tintColor = HippoConfig.shared.theme.readMessageTintColor {
                 readUnreadImageView.tintColor = tintColor

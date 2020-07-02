@@ -61,7 +61,11 @@ class FayeConnection: NSObject {
         let webSocketState = localFaye?.webSocket?.readyState ?? .CLOSED
         
         if webSocketState != .CONNECTING && webSocketState != .OPEN {
-            localFaye?.connect({}, failure: {_ in })
+            localFaye?.connect({
+                print("faye connected")
+            }, failure: {(error) in
+                print("faye error", error.debugDescription)
+            })
         }
     }
     
@@ -131,7 +135,9 @@ class FayeConnection: NSObject {
         localFaye.sendMessage(messageDict, toChannel: channelIdForValidation, success: {
             completion((true, nil))
         }) { (error) in
-            print("localFaye.sendMessage*****:", error)
+
+             print("localFaye.sendMessage*****:", error)
+
             guard let objcError = error as NSError?, let reasonInfo = objcError.userInfo[NSLocalizedFailureReasonErrorKey] as? [String: Any] else {
                 completion((false, FayeResponseError.fayeNotConnected()))
                 return
@@ -214,6 +220,7 @@ extension FayeConnection {
         case invalidSending = 413
         case channelNotSubscribed = 4000
         case resendSameMessage = 420
+        case versionMismatch = 415
         
         init?(reasonInfo: [String: Any]) {
             guard let statusCode = reasonInfo["statusCode"] as? Int else {

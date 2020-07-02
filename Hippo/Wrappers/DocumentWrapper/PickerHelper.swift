@@ -78,8 +78,8 @@ class PickerHelper {
             self.documentPicker?.presentIn(viewController: self.currentViewController, completion: nil)
         }
 
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (alert: UIAlertAction!) -> Void in })
 
+        let cancelAction = UIAlertAction(title: HippoStrings.attachmentCancel, style: .cancel, handler: { (alert: UIAlertAction!) -> Void in })
 
         if enablePayment {
             actionSheet.addAction(paymentOption)
@@ -87,11 +87,13 @@ class PickerHelper {
         actionSheet.addAction(photoLibraryAction)
         actionSheet.addAction(cameraAction)
 
-        //Check if iCloud is enabled in capablities
-        if FileManager.default.ubiquityIdentityToken != nil {
-            if CoreKit.shared.filesConfig.enabledFileTypes.contains(.document) || CoreKit.shared.filesConfig.enabledFileTypes.contains(.other) {            actionSheet.addAction(documentAction)
-            }
-        }
+
+//        //Check if iCloud is enabled in capablities
+//        if FileManager.default.ubiquityIdentityToken != nil {
+//            if CoreKit.shared.filesConfig.enabledFileTypes.contains(.document) || CoreKit.shared.filesConfig.enabledFileTypes.contains(.other) {            actionSheet.addAction(documentAction)
+//            }
+//        }
+        actionSheet.addAction(documentAction)
 
         actionSheet.addAction(cancelAction)
 

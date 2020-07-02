@@ -147,7 +147,7 @@ internal class IQTextView : UITextView {
             if let unwrappedFont = font {
                 placeholderLabel.font = unwrappedFont
             } else {
-                placeholderLabel.font = UIFont.systemFont(ofSize: 12)
+                placeholderLabel.font = UIFont.regular(ofSize: 12)
             }
         }
     }

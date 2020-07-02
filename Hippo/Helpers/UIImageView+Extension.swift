@@ -12,6 +12,44 @@ import UIKit
 
 extension UIImageView {
     
+
+    func displayImage(imageString: String, placeHolderImage: UIImage?) {
+        guard let imageURL = URL(string: imageString), !imageString.isEmpty else {
+            self.image = placeHolderImage
+//            self.clipsToBounds = true
+            return
+        }
+        self.kf.setImage(with: imageURL, placeholder: placeHolderImage, completionHandler: {(image, error, _, _) in
+            self.clipsToBounds = true
+            self.clipsToBounds = true
+            self.layer.masksToBounds = true
+        })
+    }
+    func setStatusImageView(status: String) {
+        
+        switch status {
+        case AgentStatus.available.rawValue:
+            self.backgroundColor = UIColor.availableStatusColor
+            self.image = HippoConfig.shared.theme.availableStatusIcon//#imageLiteral(resourceName: "available_status_icon")
+            self.contentMode = .center
+            
+        case AgentStatus.offline.rawValue:
+            self.backgroundColor = UIColor.offlineStatusColor
+            self.image = nil
+            self.contentMode = .center
+            
+        case AgentStatus.away.rawValue:
+            self.backgroundColor = UIColor.awayStatusColor
+            self.image = HippoConfig.shared.theme.awayStatusIcon//#imageLiteral(resourceName: "away_status_icon")
+            self.contentMode = .center
+            
+        default:
+            self.backgroundColor = UIColor.awayStatusColor
+            self.image = nil
+            self.contentMode = .center
+        }
+    }
+    
     func setTextInImage(string: String?,
                        color: UIColor? = nil,
                        circular: Bool = false,
@@ -53,7 +91,8 @@ extension UIImageView {
         
         // Text
         if let text = text {
-            let attributes = textAttributes ?? [NSAttributedString.Key.foregroundColor: UIColor.white,NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20.0)]
+
+            let attributes = textAttributes ?? [NSAttributedString.Key.foregroundColor: UIColor.white,NSAttributedString.Key.font: UIFont.regular(ofSize: 20.0)]
             
             let textSize = text.size(withAttributes: attributes)
             let bounds = self.bounds

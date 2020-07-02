@@ -4,10 +4,17 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+<<<<<<< HEAD
 		<key>HippoChat.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>16</integer>
+=======
+		<key>Hippo.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>0</integer>
+>>>>>>> 26ad03e0f775e3bc6bb7b6fba905ddb2574a1e20
 		</dict>
 	</dict>
 </dict>

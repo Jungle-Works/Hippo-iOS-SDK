@@ -93,9 +93,11 @@ class OutgoingVideoTableViewCell: VideoTableViewCell {
       switch status {
       case .none:
          messageStatusImageView.image = HippoConfig.shared.theme.unsentMessageIcon
-      case .sent, .delivered:
+//      case .sent, .delivered:
+      case .sent:
          messageStatusImageView.image = HippoConfig.shared.theme.unreadMessageTick
-      case .read:
+//      case .read:
+      case .read, .delivered:
          messageStatusImageView.image = HippoConfig.shared.theme.readMessageTick
       }
    }

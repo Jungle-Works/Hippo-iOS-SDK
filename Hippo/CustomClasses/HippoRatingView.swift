@@ -8,7 +8,8 @@
 
 import UIKit
 
-@objc public protocol FloatRatingViewDelegate {
+
+@objc protocol FloatRatingViewDelegate {
     /// Returns the rating value when touch events end
     @objc optional func floatRatingView(_ ratingView: FloatRatingView, didUpdate rating: Double)
     
@@ -24,7 +25,13 @@ open class FloatRatingView: UIView {
     // MARK: Properties
     
     open weak var delegate: FloatRatingViewDelegate?
+
+ class FloatRatingView: UIView {
     
+    // MARK: Properties
+    
+    var delegate: FloatRatingViewDelegate?
+  
     /// Array of empty image views
     private var emptyImageViews: [UIImageView] = []
     
@@ -32,7 +39,8 @@ open class FloatRatingView: UIView {
     private var fullImageViews: [UIImageView] = []
     
     /// Sets the empty image (e.g. a star outline)
-    @IBInspectable open var emptyImage: UIImage? {
+
+    var emptyImage: UIImage? {
         didSet {
             // Update empty image views
             for imageView in emptyImageViews {
@@ -44,7 +52,8 @@ open class FloatRatingView: UIView {
     
     /// Sets the full image that is overlayed on top of the empty image.
     /// Should be same size and shape as the empty image.
-    @IBInspectable open var fullImage: UIImage? {
+
+  var fullImage: UIImage? {
         didSet {
             // Update full image views
             for imageView in fullImageViews {
@@ -58,7 +67,8 @@ open class FloatRatingView: UIView {
     open var imageContentMode: UIView.ContentMode = .scaleAspectFit
     
     /// Minimum rating.
-    @IBInspectable open var minRating: Int = 0 {
+
+    var minRating: Int = 0 {
         didSet {
             // Update current rating if needed
             if rating < Double(minRating) {
@@ -69,7 +79,8 @@ open class FloatRatingView: UIView {
     }
     
     /// Max rating value.
-    @IBInspectable open var maxRating: Int = 5 {
+
+    var maxRating: Int = 5 {
         didSet {
             if maxRating != oldValue {
                 removeImageViews()
@@ -83,10 +94,11 @@ open class FloatRatingView: UIView {
     }
     
     /// Minimum image size.
-    @IBInspectable open var minImageSize = CGSize(width: 5.0, height: 5.0)
+
+    var minImageSize = CGSize(width: 5.0, height: 5.0)
     
     /// Set the current rating.
-    @IBInspectable open var rating: Double = 0 {
+    var rating: Double = 0 {
         didSet {
             if rating != oldValue {
                 refresh()
@@ -95,7 +107,8 @@ open class FloatRatingView: UIView {
     }
     
     /// Sets whether or not the rating view can be changed by panning.
-    @IBInspectable open var editable = true
+
+    var editable = true
     
     // MARK: Type
     
@@ -114,7 +127,9 @@ open class FloatRatingView: UIView {
     }
     
     /// Float rating view type
-    @IBInspectable open var type: FloatRatingViewType = .wholeRatings
+
+    var type: FloatRatingViewType = .wholeRatings
+
     
     // MARK: Initializations
     
@@ -255,7 +270,9 @@ open class FloatRatingView: UIView {
         }
         
         let desiredImageWidth = frame.size.width / CGFloat(emptyImageViews.count)
-        let maxImageWidth = max(minImageSize.width, desiredImageWidth)
+
+        let maxImageWidth = max(minImageSize.width, desiredImageWidth) - 10
+
         let maxImageHeight = max(minImageSize.height, frame.size.height)
         let imageViewSize = sizeForImage(emptyImage, inSize: CGSize(width: maxImageWidth, height: maxImageHeight))
         let imageXOffset = (frame.size.width - (imageViewSize.width * CGFloat(emptyImageViews.count))) /

@@ -7,7 +7,34 @@
 
 import UIKit
 
-
+struct ShadowSideView {
+    var topSide = false
+    var leftSide = false
+    var bottomSide = false
+    var rightSide = false
+    
+    init(topSide: Bool? = false, leftSide: Bool? = false, bottomSide: Bool? = false, rightSide: Bool? = false) {
+        self.topSide = topSide!
+        self.leftSide = leftSide!
+        self.bottomSide = bottomSide!
+        self.rightSide = rightSide!
+    }
+    
+    func isAllSide() -> Bool {
+        return (self.topSide && self.leftSide && self.bottomSide && self.rightSide)
+    }
+    
+    func isBottomAndRightSideOnly() -> Bool {
+        return (self.topSide == false && self.leftSide == false && self.bottomSide == true && self.rightSide == true)
+    }
+    
+    func isBottomAndLeftSideOnly() -> Bool {
+        return (self.topSide == false && self.leftSide == true && self.bottomSide == true && self.rightSide == false)
+    }
+    static func allSide() -> ShadowSideView {
+        return ShadowSideView(topSide: true, leftSide: true, bottomSide: true, rightSide: true)
+    }
+}
 
 extension UIView {
     @IBInspectable var hippoCornerRadius: CGFloat {
@@ -96,6 +123,35 @@ extension UIView {
         self.layer.addSublayer(frameLayer)
     }
     
+
+    func showShadow(shadowColor: UIColor = .gray, shadowSideAngles: ShadowSideView) {
+        var shadowFrame = bounds
+        if shadowSideAngles.isAllSide() == false {
+            if shadowSideAngles.isBottomAndRightSideOnly() == true {
+                shadowFrame.origin.y = 4
+                shadowFrame.size.height -= 4
+                
+                shadowFrame.origin.x = 3
+                shadowFrame.size.width -= 3
+            } else if shadowSideAngles.isBottomAndLeftSideOnly() == true {
+                shadowFrame.origin.y = 4
+                shadowFrame.size.height -= 4
+                
+                shadowFrame.origin.x = 0
+                shadowFrame.size.width -= 3
+            }
+        }
+        
+        let maskPath = UIBezierPath(roundedRect: shadowFrame, cornerRadius: layer.cornerRadius)
+        
+        layer.masksToBounds = false
+        layer.shadowColor = shadowColor.cgColor
+        layer.shadowOffset = CGSize(width: 0.5, height: 0.5)
+        layer.shadowOpacity = 0.3
+        layer.shadowRadius = 4
+        layer.shadowPath = maskPath.cgPath
+    }
+
 }
 
 extension UIView {
@@ -159,10 +215,45 @@ extension UINavigationController {
         
         #endif
         navigationBar.titleTextAttributes = attributes
+        navigationBar.setBackgroundImage(UIImage(named: ""), for: UIBarMetrics.default)
+        navigationBar.shadowImage = UIImage(named: "")
     }
 }
+
+//extension UIFont {
+//    class func regular(ofSize size: CGFloat) -> UIFont {
+//        return UIFont(name: HippoConfig.shared.regularFont , size: size) ?? UIFont.systemFont(ofSize: size)
+//    }
+//    class func bold(ofSize size: CGFloat) -> UIFont{
+//        return UIFont(name: HippoConfig.shared.boldFont , size: size) ?? UIFont.systemFont(ofSize: size)
+//    }
+//}
+
+
+extension UIStoryboard {
+    enum Name: String {
+        case onBoarding = "OnBoarding"
+        case home = "Home"
+        case fuguUnique = "FuguUnique"
+        case moreOptions = "MoreOptions"
+        case inviteGuest = "InviteGuest"
+    }
+}
+
 extension UIViewController {
-    func showAlert(_ inController: UIViewController? = getLastVisibleController(), buttonTitle: String = "OK", title: String?, message: String, preferredStyle: UIAlertController.Style = .alert, actionComplete: ((_ action: UIAlertAction) -> Void)?) {
+    
+    class func findIn(storyboard: UIStoryboard.Name, withIdentifier identifier: String? = nil) -> UIViewController {
+        let storyboard = UIStoryboard(name: storyboard.rawValue, bundle: nil)
+        let vc: UIViewController
+        if identifier != nil {
+            vc = storyboard.instantiateViewController(withIdentifier: identifier!)
+        } else {
+            vc = storyboard.instantiateInitialViewController()!
+        }
+        return vc
+    }
+
+    func showAlert(_ inController: UIViewController? = getLastVisibleController(), buttonTitle: String = HippoStrings.ok, title: String?, message: String, preferredStyle: UIAlertController.Style = .alert, actionComplete: ((_ action: UIAlertAction) -> Void)?) {
         let alertMessageController = UIAlertController(title: title, message: message, preferredStyle: preferredStyle)
         
         let okAction = UIAlertAction(title: buttonTitle, style: .default, handler: actionComplete)
@@ -272,17 +363,18 @@ extension UIButton {
 
 extension UIBarButtonItem {
     
-    func setBackgroundColor(color: UIColor, forState: UIControl.State) {
-//        self.clipsToBounds = true  // add this to maintain corner radius
-        UIGraphicsBeginImageContext(CGSize(width: 1, height: 1))
-        if let context = UIGraphicsGetCurrentContext() {
-            context.setFillColor(color.cgColor)
-            context.fill(CGRect(x: 0, y: 0, width: 1, height: 1))
-            let colorImage = UIGraphicsGetImageFromCurrentImageContext()
-            UIGraphicsEndImageContext()
-//            self.setBackgroundImage(colorImage, for: forState)
-            self.setBackgroundImage(colorImage, for: forState, barMetrics: .default)
-        }
-    }
+
+//    func setBackgroundColor(color: UIColor, forState: UIControl.State) {
+//        //        self.clipsToBounds = true  // add this to maintain corner radius
+//        UIGraphicsBeginImageContext(CGSize(width: 1, height: 1))
+//        if let context = UIGraphicsGetCurrentContext() {
+//            context.setFillColor(color.cgColor)
+//            context.fill(CGRect(x: 0, y: 0, width: 1, height: 1))
+//            let colorImage = UIGraphicsGetImageFromCurrentImageContext()
+//            UIGraphicsEndImageContext()
+//            //            self.setBackgroundImage(colorImage, for: forState)
+//            self.setBackgroundImage(colorImage, for: forState, barMetrics: .default)
+//        }
+//    }
     
 }

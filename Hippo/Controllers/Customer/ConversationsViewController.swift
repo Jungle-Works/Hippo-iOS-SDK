@@ -33,9 +33,9 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var audioCAllButtonWidthConstraint: NSLayoutConstraint!
     @IBOutlet var backgroundView: UIView!
-   @IBOutlet var navigationBackgroundView: UIView!
-   @IBOutlet var navigationTitleLabel: UILabel!
-   @IBOutlet var backButton: UIButton!
+    @IBOutlet var navigationBackgroundView: UIView!
+//   @IBOutlet var navigationTitleLabel: UILabel!
+//   @IBOutlet var backButton: UIButton!
    
    @IBOutlet var sendMessageButton: UIButton!
    @IBOutlet var messageTextView: UITextView!
@@ -56,6 +56,33 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     
    @IBOutlet weak var loadMoreActivityTopContraint: NSLayoutConstraint!
    @IBOutlet weak var loadMoreActivityIndicator: UIActivityIndicatorView!
+   @IBOutlet weak var suggestionContainerView: UIView!
+    
+    //New conversation view
+    @IBOutlet weak var newConversationContainer: So_UIView!
+    @IBOutlet weak var newConversationLabel: So_CustomLabel!
+    @IBOutlet weak var newConversationShadow: So_UIView!
+    @IBOutlet weak var newConversationCountButton: UIButton!
+
+    
+    @IBOutlet weak var retryLabelView: UIView!
+    @IBOutlet weak var retryLabelViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var chatScreenTableViewTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var retryLoader: UIActivityIndicatorView!
+    @IBOutlet weak var labelViewRetryButton: UIButton!
+    
+    @IBOutlet weak var collectionViewOptions: UICollectionView!
+    @IBOutlet weak var attachmentViewHeightConstraint: NSLayoutConstraint!
+    
+    var suggestionCollectionView = SuggestionView()
+    var suggestionList: [String] = []
+    
+    var transparentView = UIView()
+    var lineLabel = UILabel()
+    var customTableView = UITableView()
+//    let height: CGFloat = 175//125//250
+//    var actionSheetTitleArr = ["Photo & Video Library","Camera","Document"]
+//    var actionSheetImageArr = ["Library","Camera","Library"]
     
     var transparentView = UIView()
     var lineLabel = UILabel()
@@ -67,7 +94,8 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     var hieghtOfNavigationBar: CGFloat = 0
     
 //    var initialTouchPoint: CGPoint = CGPoint(x: 0, y: 0)
-    
+
+
    // MARK: - Computed Properties
    var localFilePath: String {
       get {
@@ -86,12 +114,16 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         NotificationCenter.default.removeObserver(self)
         HippoConfig.shared.notifiyDeinit()
     }
-   
-   // MARK: - LIFECYCLE
+
+    // MARK: - LIFECYCLE
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        view_Navigation.call_button.addTarget(self, action: #selector(audiCallButtonClicked(_:)), for: .touchUpInside)
+        view_Navigation.video_button.addTarget(self, action: #selector(videoButtonClicked(_:)), for: .touchUpInside)
         
+        collectionViewOptions?.delegate = self
+        collectionViewOptions?.dataSource = self
         customTableView.isScrollEnabled = false//true
         customTableView.separatorStyle = .none
         customTableView.delegate = self
@@ -108,33 +140,79 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         
         guard channel != nil else {
             if createConversationOnStart {
-                startNewConversation(replyMessage: nil, completion: { [weak self] (success, result) in
-                    guard success else {
-                        return
-                    }
-                    
-                    //self?.populateTableViewWithChannelData()
-                    //self?.fetchMessagesFrom1stPage()
-                    
-//                    weakSelf.channel = FuguChannelPersistancyManager.shared.getChannelBy(id: result.channelID)
-//                    weakSelf.channel.delegate = self
-//                    weakSelf.populateTableViewWithChannelData()
-                    
-                    if self?.isComingFromConsultNowButton == true  && !(result?.channel?.chatDetail?.agentAlreadyAssigned ?? false) { // checked
-                        self?.isComingFromConsultNowButton = false
-                        self?.callAssignAgentApi(completion: { [weak self] (success) in
-                            guard success == true else {
-                                return
+                
+                if directChatDetail != nil {
+//                    HippoChannel.get(withFuguChatAttributes: directChatDetail!) { [weak self] (r) in
+                    HippoChannel.get(withFuguChatAttributes: directChatDetail!, isComingFromConsultNow: isComingFromConsultNowButton, methodIsOnlyCallForChannelAvailableInLocalOrNot: true) { [weak self] (r) in
+                        let result = r
+                        if result.isChannelAvailableLocallay{
+                            if result.channel != nil, let chnl = result.channel{
+                                self?.channel = chnl
+                                self?.channel.delegate = self
+                                self?.populateTableViewWithChannelData()
+                                self?.fetchMessagesFrom1stPage()
+                                HippoConfig.shared.notifyDidLoad()
+                            }else{
+                                self?.startNewConversation(replyMessage: nil, completion: { [weak self] (success, result) in
+                                    guard success else {
+                                        return
+                                    }
+                                    if self?.isComingFromConsultNowButton == true  && !(result?.channel?.chatDetail?.agentAlreadyAssigned ?? false) { // checked
+                                        self?.isComingFromConsultNowButton = false
+                                        self?.callAssignAgentApi(completion: { [weak self] (success) in
+                                            guard success == true else {
+                                                return
+                                            }
+                                            self?.populateTableViewWithChannelData()
+                                            self?.fetchMessagesFrom1stPage()
+                                        })
+                                    } else {
+                                        self?.populateTableViewWithChannelData()
+                                        self?.fetchMessagesFrom1stPage()
+                                    }
+                                })
                             }
+                        }else{
+                            self?.startNewConversation(replyMessage: nil, completion: { [weak self] (success, result) in
+                                guard success else {
+                                    return
+                                }
+                                if self?.isComingFromConsultNowButton == true  && !(result?.channel?.chatDetail?.agentAlreadyAssigned ?? false) { // checked
+                                    self?.isComingFromConsultNowButton = false
+                                    self?.callAssignAgentApi(completion: { [weak self] (success) in
+                                        guard success == true else {
+                                            return
+                                        }
+                                        self?.populateTableViewWithChannelData()
+                                        self?.fetchMessagesFrom1stPage()
+                                    })
+                                } else {
+                                    self?.populateTableViewWithChannelData()
+                                    self?.fetchMessagesFrom1stPage()
+                                }
+                            })
+                        }
+                    }
+                } else {
+                    startNewConversation(replyMessage: nil, completion: { [weak self] (success, result) in
+                        guard success else {
+                            return
+                        }
+                        if self?.isComingFromConsultNowButton == true  && !(result?.channel?.chatDetail?.agentAlreadyAssigned ?? false) { // checked
+                            self?.isComingFromConsultNowButton = false
+                            self?.callAssignAgentApi(completion: { [weak self] (success) in
+                                guard success == true else {
+                                    return
+                                }
+                                self?.populateTableViewWithChannelData()
+                                self?.fetchMessagesFrom1stPage()
+                            })
+                        } else {
                             self?.populateTableViewWithChannelData()
                             self?.fetchMessagesFrom1stPage()
-                        })
-                    } else {
-                        self?.populateTableViewWithChannelData()
-                        self?.fetchMessagesFrom1stPage()
-                    }
-                    
-                })
+                        }
+                    })
+                }
             } else {
                 fetchMessagesFrom1stPage()
             }
@@ -145,46 +223,42 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         
         populateTableViewWithChannelData()
         fetchMessagesFrom1stPage()
-        
-//        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
-        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
-        
-//        navigationController?.interactivePopGestureRecognizer?.delegate = self
-//        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
-//        view.addGestureRecognizer(panGesture)
+        //HippoConfig.shared.notifyDidLoad()//
         
     }
     
-//    @objc func handlePanGesture(_ sender: UIPanGestureRecognizer) {
-//        let touchPoint = sender.location(in: self.view?.window)
-//        let percent = max(sender.translation(in: view).x, 0) / view.frame.width
-//        let velocity = sender.velocity(in: view).x
-//
-//        if sender.state == UIGestureRecognizer.State.began {
-//            initialTouchPoint = touchPoint
-//        } else if sender.state == UIGestureRecognizer.State.changed {
-//            if touchPoint.x - initialTouchPoint.x > 0 {
-//                self.view.frame = CGRect(x: touchPoint.x - initialTouchPoint.x, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height)
-//            }
-//        } else if sender.state == UIGestureRecognizer.State.ended || sender.state == UIGestureRecognizer.State.cancelled {
-//
-//            if percent > 0.5 || velocity > 1000 {
-//                navigationController?.popViewController(animated: true)
-//            } else {
-//                UIView.animate(withDuration: 0.3, animations: {
-//                    self.view.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height)
-//                })
-//            }
-//        }
-//    }
+    //    @objc func handlePanGesture(_ sender: UIPanGestureRecognizer) {
+    //        let touchPoint = sender.location(in: self.view?.window)
+    //        let percent = max(sender.translation(in: view).x, 0) / view.frame.width
+    //        let velocity = sender.velocity(in: view).x
+    //
+    //        if sender.state == UIGestureRecognizer.State.began {
+    //            initialTouchPoint = touchPoint
+    //        } else if sender.state == UIGestureRecognizer.State.changed {
+    //            if touchPoint.x - initialTouchPoint.x > 0 {
+    //                self.view.frame = CGRect(x: touchPoint.x - initialTouchPoint.x, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height)
+    //            }
+    //        } else if sender.state == UIGestureRecognizer.State.ended || sender.state == UIGestureRecognizer.State.cancelled {
+    //
+    //            if percent > 0.5 || velocity > 1000 {
+    //                navigationController?.popViewController(animated: true)
+    //            } else {
+    //                UIView.animate(withDuration: 0.3, animations: {
+    //                    self.view.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height)
+    //                })
+    //            }
+    //        }
+    //    }
+    
     
    override  func viewWillAppear(_ animated: Bool) {
       super.viewWillAppear(animated)
       tableViewChat.contentInset.top = 12
       messageTextView.contentInset.top = 8
-      self.navigationController?.isNavigationBarHidden = false
+
+      self.navigationController?.isNavigationBarHidden = true
         tableViewChat.allowsSelection = false
-    
+    checkNetworkConnection()
 //        if transparentView != nil{
 //            onClickTransparentView()
 //        }
@@ -205,6 +279,14 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         reloadVisibleCellsToStartActivityIndicator()
         HippoConfig.shared.notifyDidLoad()
         
+    }
+    
+    override func viewWillLayoutSubviews() {
+        
+        //hide
+        self.tabBarController?.hidesBottomBarWhenPushed = true
+        self.tabBarController?.tabBar.isHidden = true
+        self.tabBarController?.tabBar.layer.zPosition = -1
     }
     
     override func viewWillLayoutSubviews() {
@@ -257,12 +339,18 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         channel?.delegate = self
     }
     func navigationSetUp() {
-        navigationBackgroundView.layer.shadowColor = UIColor.black.cgColor
+
+        /*navigationBackgroundView.layer.shadowColor = UIColor.black.cgColor
+>>>>>>> 26ad03e0f775e3bc6bb7b6fba905ddb2574a1e20
         navigationBackgroundView.layer.shadowOpacity = 0.25
         navigationBackgroundView.layer.shadowOffset = CGSize(width: 0, height: 1.0)
         navigationBackgroundView.layer.shadowRadius = 4
         
+<<<<<<< HEAD
         navigationBackgroundView.backgroundColor = HippoConfig.shared.theme.headerBackgroundColor
+=======
+        navigationBackgroundView.backgroundColor = HippoConfig.shared.theme.headerBackgroundColor*/
+
         //      navigationTitleLabel.textColor = HippoConfig.shared.theme.headerTextColor
         //
         //      if HippoConfig.shared.theme.headerTextFont  != nil {
@@ -270,22 +358,27 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         //      }
         
         if HippoConfig.shared.theme.sendBtnIcon != nil {
+
+            
+            if let tintColor = HippoConfig.shared.theme.sendBtnIconTintColor {
+                sendMessageButton.imageView?.tintColor = tintColor
+            }else{
+                sendMessageButton.imageView?.tintColor = HippoConfig.shared.theme.themeColor
+            }
             sendMessageButton.setImage(HippoConfig.shared.theme.sendBtnIcon, for: .normal)
-            
-//            if let tintColor = HippoConfig.shared.theme.sendBtnIconTintColor {
-               sendMessageButton.tintColor = HippoConfig.shared.theme.themeColor
-//            }
-            
+
             sendMessageButton.setTitle("", for: .normal)
         } else { sendMessageButton.setTitle("SEND", for: .normal) }
         
         if HippoConfig.shared.theme.addButtonIcon != nil {
+
+            
+            if let tintColor = HippoConfig.shared.theme.addBtnTintColor {
+                addFileButtonAction.imageView?.tintColor = tintColor
+            }else{
+                addFileButtonAction.imageView?.tintColor = HippoConfig.shared.theme.themeColor
+            }
             addFileButtonAction.setImage(HippoConfig.shared.theme.addButtonIcon, for: .normal)
-            
-//            if let tintColor = HippoConfig.shared.theme.addBtnTintColor {
-                addFileButtonAction.tintColor = HippoConfig.shared.theme.themeColor
-//            }
-            
             addFileButtonAction.setTitle("", for: .normal)
         } else { addFileButtonAction.setTitle("ADD", for: .normal) }
         
@@ -294,8 +387,117 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
             label = businessName
         }
         setTitleForCustomNavigationBar()
+//      }
+
+   }
+    
+    func setUpSuggestionsDataAndUI(){
+        if HippoConfig.shared.isSuggestionNeeded == false{
+            suggestionContainerView.isHidden = true
+            return
+        }
+        if self.messagesGroupedByDate.count > 0 {
+            let givenMessagesArray = self.messagesGroupedByDate[self.messagesGroupedByDate.count - 1]
+            if givenMessagesArray.count >= HippoConfig.shared.maxSuggestionCount {
+                suggestionContainerView.isHidden = true
+                return
+            }
+        }
+        suggestionContainerView.isHidden = false
+        prepareSuggestionArray()
+        prepareSuggestionUI()
+    }
+    
+    func prepareSuggestionArray() {
+        checkAutoSuggestions()
+    }
+    
+    private func checkAutoSuggestions() {
+        if messagesGroupedByDate.count == 0{
+            updateData(id: -1)
+            return
+        //}else if let lastMessage = getLastMessage(), lastMessage.type == MessageType.normal{
+        }else if let lastMessage = getLastMessage(), lastMessage.type == MessageType.normal && isSentByMe(senderId: lastMessage.senderId) == false{
+           //try {
+            if let id = HippoConfig.shared.questions[lastMessage.message]{
+                if id > -1 {
+                    suggestionContainerView.isHidden = false
+                    updateData(id: id)
+                    return
+                }
+            }else{
+                suggestionContainerView.isHidden = true
+            }
+            //} catch (Exception e) {
+            //    print("Exception")
+            //}
+        }else{
+            suggestionContainerView.isHidden = true
+        }
+        
+//        if HippoConfig.shared.isSuggestionNeeded {
+//            //HippoConfig.shared.isSuggestionNeeded = false
+//            updateData(id: 0)
+//        }
         
     }
+    
+    private func updateData(id: Int) {
+        var data = [String]()
+        var ids = [Int]()
+        
+        if let suggestionsIdsArr = HippoConfig.shared.mapping[id]{
+            ids = suggestionsIdsArr
+            if ids.count > 0{
+                for i in 0..<ids.count{
+                    if let suggestionsStr = HippoConfig.shared.suggestions[ids[i]] {
+                        data.append(suggestionsStr)
+                    }
+                }
+            }
+        }
+        
+        suggestionList.removeAll()
+        suggestionList = data
+    
+    }
+    
+    func prepareSuggestionUI() {
+        let theme = HippoConfig.shared.theme
+        self.suggestionContainerView.addSubview(suggestionCollectionView)
+        suggestionCollectionView.backgroundColor = theme.themeColor
+        let bundle = FuguFlowManager.bundle
+        suggestionCollectionView.register(UINib(nibName: "SuggestionCell", bundle: bundle) , forCellWithReuseIdentifier: "SuggestionCell")
+        suggestionCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        let suggestionTopToViewTopMargin = NSLayoutConstraint(item: suggestionCollectionView, attribute: .top, relatedBy: .equal, toItem: self.suggestionContainerView, attribute: .topMargin, multiplier: 1, constant: 0)
+        let suggestionLeadingToViewLeading = NSLayoutConstraint(item: suggestionCollectionView, attribute: .leading, relatedBy: .equal, toItem: self.suggestionContainerView, attribute: .leading, multiplier: 1, constant: 0)
+        let suggestionTrailingToViewTrailing = NSLayoutConstraint(item: suggestionCollectionView, attribute: .trailing, relatedBy: .equal, toItem: self.suggestionContainerView, attribute: .trailing, multiplier: 1, constant: 0)
+        //let suggestionHeight = NSLayoutConstraint(item: suggestionCollectionView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 50)
+        let suggestionBottomToViewBottomMargin = NSLayoutConstraint(item: suggestionCollectionView, attribute: .bottom, relatedBy: .equal, toItem: self.suggestionContainerView, attribute: .bottom, multiplier: 1, constant: 0)
+        self.suggestionContainerView.addConstraints([suggestionTopToViewTopMargin, suggestionLeadingToViewLeading, suggestionTrailingToViewTrailing, suggestionBottomToViewBottomMargin])//suggestionHeight])//
+        
+        //suggestionCollectionView.frame = suggestionContainerView.frame
+        
+        suggestionCollectionView.customDataSource?.update(suggestions: suggestionList, nextURL: nil)
+        suggestionCollectionView.customDelegate?.update(vc: self)
+        
+        suggestionCollectionView.reloadData()
+        
+    }
+    
+//    func getMessage() -> HippoMessage?{
+//        if self.messagesGroupedByDate.count > 0 {
+//            let givenMessagesArray = self.messagesGroupedByDate[self.messagesGroupedByDate.count - 1]
+//            if givenMessagesArray.count > 0 {
+//                let message = givenMessagesArray[givenMessagesArray.count - 1]
+//                let messageType = message.type
+//                return message
+//            }
+//            return nil
+//        }
+//        return nil
+//    }
+>>>>>>> 26ad03e0f775e3bc6bb7b6fba905ddb2574a1e20
    
     func handleBackButton() {
         let hideBackButton = (directChatDetail?.hideBackButton ?? false) || self.hideBackButton
@@ -391,6 +593,11 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
      startVideoCall()
    }
     
+    @IBAction func addAttachmentButtonAction(_ sender: UIButton) {
+        attachmentViewHeightConstraint.constant = attachmentViewHeightConstraint.constant == 128 ? 0 : 128
+        
+    }
+    
    @IBAction func addImagesButtonAction(_ sender: UIButton) {
       if channel != nil, !channel.isSubscribed() {
         buttonClickedOnNetworkOff()
@@ -399,10 +606,36 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     
     //attachmentButtonclicked(sender)
     closeKeyBoard()
+
+    actionSheetTitleArr.removeAll()
+    actionSheetImageArr.removeAll()
+    actionSheetTitleArr = [HippoStrings.photoLibrary,HippoStrings.camera,HippoStrings.document]
+    actionSheetImageArr = ["Library","Camera","Library"]
+    heightForActionSheet = CGFloat((actionSheetTitleArr.count * 60))
+    isProceedToPayActionSheet = false
     self.openCustomSheet()
     
    }
     
+    @IBAction func newConversationCountButtonAction(_ sender: Any) {
+        //        newConversationLabel.text = nil
+        //        newConversationLabel.isHidden = true
+        //        newConversationCounter  = 0
+        scrollTableViewToBottom(true)
+    }
+    
+    //MARK:- IBAction for retryBtn on label
+    @IBAction func retryLabelButtonTapped(_ sender: Any) {
+        chatScreenTableViewTopConstraint.constant = 0
+        
+        retryLoader.isHidden = false
+        labelViewRetryButton.isHidden = true
+        fuguDelay(2.0) {
+            self.fetchMessagesFrom1stPage()
+        }
+        
+    }
+
     func buttonClickedOnNetworkOff() {
         guard !FuguNetworkHandler.shared.isNetworkConnected else {
             return
@@ -411,14 +644,19 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         showAlertForNoInternetConnection()
     }
     
-    func openCustomSheet(){
+
+    override func openCustomSheet(){
+        self.customTableView.reloadData()
+
         let window = UIApplication.shared.keyWindow
         transparentView.backgroundColor = UIColor.black.withAlphaComponent(0.9)
         let screenSize = UIScreen.main.bounds.size
         transparentView.frame = CGRect(x: 0, y: 0, width: screenSize.width, height: screenSize.height)
         window?.addSubview(transparentView)
         
-        customTableView.frame = CGRect(x: 0, y: screenSize.height, width: screenSize.width, height: height)
+
+        customTableView.frame = CGRect(x: 0, y: screenSize.height, width: screenSize.width, height: heightForActionSheet)
+
         customTableView.layer.cornerRadius = 10
         if #available(iOS 11.0, *) {
             customTableView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
@@ -443,28 +681,36 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         transparentView.alpha = 0
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, options: .curveEaseInOut, animations: {
             self.transparentView.alpha = 0.5
-            self.customTableView.frame = CGRect(x: 0, y: screenSize.height - self.height, width: screenSize.width, height: self.height)
-            self.lineLabel.frame = CGRect(x: (screenSize.width/2) - ((screenSize.width/5)/2) , y: (screenSize.height - self.height) - 20, width: screenSize.width/5, height: 6)
+
+            self.customTableView.frame = CGRect(x: 0, y: screenSize.height - self.heightForActionSheet, width: screenSize.width, height: self.heightForActionSheet)
+            self.lineLabel.frame = CGRect(x: (screenSize.width/2) - ((screenSize.width/5)/2) , y: (screenSize.height - self.heightForActionSheet) - 20, width: screenSize.width/5, height: 6)
+
         }, completion: nil)
     }
     @objc func onClickTransparentView() {
         let screenSize = UIScreen.main.bounds.size
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, options: .curveEaseInOut, animations: {
             self.transparentView.alpha = 0
-            self.customTableView.frame = CGRect(x: 0, y: screenSize.height, width: screenSize.width, height: self.height)
+
+            self.customTableView.frame = CGRect(x: 0, y: screenSize.height, width: screenSize.width, height: self.heightForActionSheet)
+
             self.lineLabel.frame = CGRect(x: (screenSize.width/2) - ((screenSize.width/5)/2) , y: screenSize.height, width: screenSize.width/5, height: 6)
         }, completion: nil)
     }
     
     @IBAction func sendMessageButtonAction(_ sender: UIButton) {
+        self.sendMessageButtonAction(messageTextStr: messageTextView.text)
+    }
+    
+    func sendMessageButtonAction(messageTextStr: String){
         if channel != nil, !channel.isSubscribed()  {
             buttonClickedOnNetworkOff()
             return
         }
-        if isMessageInvalid(messageText: messageTextView.text) {
+        if isMessageInvalid(messageText: messageTextStr) {
             return
         }
-        let trimmedMessage = messageTextView.text.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+        let trimmedMessage = messageTextStr.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
         
         let message = HippoMessage(message: trimmedMessage, type: .normal, uniqueID: String.generateUniqueId(), chatType: channel?.chatDetail?.chatType)
         
@@ -478,6 +724,17 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         } else {
             //TODO: - Loader animation
             let replyMessage = botGroupID != nil ? message : nil
+            
+            var checkBoolForApiHit = false
+            if isDefaultChannel() {
+                if replyMessage == nil{
+                    checkBoolForApiHit = true
+                }else{
+                    checkBoolForApiHit = false
+                }
+            } else{
+                checkBoolForApiHit = false
+            }
             
             startNewConversation(replyMessage: replyMessage, completion: { [weak self] (success, result) in
                 guard success else {
@@ -496,10 +753,20 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
                 
                 if !isReplyMessageSent {
                     self?.sendMessage(message: message)
+                    
+                    if checkBoolForApiHit == true{
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
+                            // your code hear
+                            self?.getMessagesAfterCreateConversation(callback: { (success) in
+                                //print(success)
+                                checkBoolForApiHit = false
+                            })
+                        })
+                    }
                 }
+                
             })
         }
-        
     }
    
     func sendQuickReplyReposeIfRequired() {
@@ -539,18 +806,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     
    override func backButtonClicked() {
         super.backButtonClicked()
-        messageTextView.resignFirstResponder()
-    
-        channel?.send(message: HippoMessage.stopTyping, completion: {})
-        let rawLabelID = self.labelId == -1 ? nil : self.labelId
-        let channelID = self.channel?.id ?? -1
-        
-        clearUnreadCountForChannel(id: channelID)
-        if let lastMessage = getLastMessage(), let conversationInfo = FuguConversation(channelId: channelID, unreadCount: 0, lastMessage: lastMessage, labelID: rawLabelID) {
-            
-            delegate?.updateConversationWith(conversationObj: conversationInfo)
-        }
-        
+        backNavigationDataSaving()
         if self.navigationController == nil {
             HippoConfig.shared.notifiyDeinit()
             dismiss(animated: true, completion: nil)
@@ -563,6 +819,36 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
             }
         }
    }
+    
+    func backNavigationDataSaving(){
+        messageTextView.resignFirstResponder()
+        
+        channel?.send(message: HippoMessage.stopTyping, completion: {})
+        let rawLabelID = self.labelId == -1 ? nil : self.labelId
+        let channelID = self.channel?.id ?? -1
+        
+        clearUnreadCountForChannel(id: channelID)
+        if let lastMessage = getLastMessage(), let conversationInfo = FuguConversation(channelId: channelID, unreadCount: 0, lastMessage: lastMessage, labelID: rawLabelID) {
+            
+            delegate?.updateConversationWith(conversationObj: conversationInfo)
+        }
+        
+        //if chat delegate is not set , it doesnot exist in allconversation
+        if delegate == nil{
+            for controller in self.navigationController?.viewControllers ?? [UIViewController](){
+                if controller is AllConversationsViewController{
+                    (controller as? AllConversationsViewController)?.getAllConversations()
+                    break
+                }
+            }
+        }
+        
+        if channel != nil {
+            self.channel.saveMessagesInCache()
+        }
+        
+    }
+    
  override func clearUnreadCountForChannel(id: Int) {
         
         let channelRaw: [String: Any] = ["channel_id": id]
@@ -636,6 +922,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     override func adjustChatWhenKeyboardIsOpened(withHeight keyboardHeight: CGFloat) {
         // TODO: - Refactor
         guard tableViewChat.contentSize.height + keyboardHeight > UIScreen.main.bounds.height - hieghtOfNavigationBar else {
+            print("return****")
             return
         }
         
@@ -661,7 +948,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
 //            updateErrorLabelView(isHiding: true)
 //        } else {
 //            errorLabelTopConstraint.constant = -20
-//            errorLabel.text = HippoConfig.shared.strings.noNetworkConnection
+//            errorLabel.text = HippoStrings.noNetworkConnection
 //            updateErrorLabelView(isHiding: false)
 //        }
 //    }
@@ -683,7 +970,6 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     
    // MARK: - SERVER HIT
     override func getMessagesBasedOnChannel(fromMessage pageStart: Int, pageEnd: Int?, completion: ((_ success: Bool) -> Void)?) {
-      
       guard channel != nil else {
          completion?(false)
          return
@@ -705,7 +991,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
          startLoaderAnimation()
          disableSendingNewMessages()
       } else if !isPaginationInProgress() {
-            startGettingNewMessages()
+//            startGettingNewMessages()
        }
         let request = MessageStore.messageRequest(pageStart: pageStart, showLoader: false, pageEnd: pageEnd, channelId: channel.id, labelId: -1)
         
@@ -722,9 +1008,11 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
             
             guard let result = response, result.isSuccessFull, let weakself = self else {
                 completion?(false)
+                self?.goForApiRetry()
                 return
             }
             weakself.storeResponse = result
+            weakself.hideRetryLabelView()
             weakself.handleSuccessCompletionOfGetMessages(result: result, request: request, completion: completion)
         }
    }
@@ -733,15 +1021,12 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         
         var messages = result.newMessages
         let newMessagesHashMap = result.newMessageHashmap
-        
-        
-        
+
         label = result.channelName
         userImage = result.chatDetail?.channelImageUrl
         channel?.chatDetail = result.chatDetail
         
         setTitleForCustomNavigationBar()
-        
         handleVideoIcon()
         handleAudioIcon()
         
@@ -752,6 +1037,11 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         }
         
         updateMessagesInLocalArrays(messages: messages)
+
+        if channel != nil {
+            self.channel.saveMessagesInCache()
+        }
+
         if (messages.count > 0)
         {
             self.setKeyboardType(message: messages.last!)
@@ -776,20 +1066,24 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         
         completion?(true)
     }
+    
     func handleVideoIcon() {
         setTitleButton()
         
         //image icon name = tiny-video-symbol
         
         if isDirectCallingEnabledFor(type: .video) {
-            videoButton.image = HippoConfig.shared.theme.videoCallIcon
-            videoButton.tintColor = HippoConfig.shared.theme.headerTextColor
-            videoButton.isEnabled = true
-            videoButton.title = nil
+
+            
+            view_Navigation.video_button.tintColor = HippoConfig.shared.theme.headerTextColor
+            view_Navigation.video_button.isEnabled = true
+            view_Navigation.video_button.setImage(HippoConfig.shared.theme.videoCallIcon, for: .normal)
+            view_Navigation.video_button.isHidden = false
+
         } else {
-            videoButton.title = ""
-            videoButton.image = nil
-            videoButton.isEnabled = false
+            view_Navigation.video_button.isHidden = true
+            view_Navigation.video_button.setImage(UIImage(), for: .normal)
+            view_Navigation.video_button.isEnabled = false
         }
     }
     func handleAudioIcon() {
@@ -798,13 +1092,19 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         //image icon name = audioCallIcon
         
         if isDirectCallingEnabledFor(type: .audio) {
-            audioCallButton.image = HippoConfig.shared.theme.audioCallIcon
-            audioCallButton.tintColor = HippoConfig.shared.theme.headerTextColor
-            audioCallButton.isEnabled = true
+
+            view_Navigation.call_button.tintColor = HippoConfig.shared.theme.headerTextColor
+            view_Navigation.call_button.isEnabled = true
+            view_Navigation.call_button.setImage(HippoConfig.shared.theme.audioCallIcon, for: .normal)
+            view_Navigation.call_button.isHidden = false
+
         } else {
-            audioCallButton.image = nil
-            audioCallButton.isEnabled = false
+            view_Navigation.call_button.setImage(UIImage(), for: .normal)
+            view_Navigation.call_button.isEnabled = false
+            view_Navigation.call_button.isHidden = true
         }
+        
+        
     }
    
    func keepTableViewWhereItWasBeforeReload(oldContentHeight: CGFloat, oldYOffset: CGFloat) {
@@ -871,7 +1171,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         tableViewChat.reloadData()
         
         directChatDetail = FuguNewChatAttributes.defaultChat
-        label = (userDetailData["business_name"] as? String) ?? "Support"
+        label = (userDetailData["business_name"] as? String) ?? HippoStrings.support
         userImage = nil
         setTitleForCustomNavigationBar()
         
@@ -921,7 +1221,8 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
          startLoaderAnimation()
       } else if !isPaginationInProgress() {
         stopLoaderAnimation()//
-         startGettingNewMessages()
+
+//         startGettingNewMessages()
       }
 
      let request = MessageStore.messageRequest(pageStart: 1, showLoader: false, pageEnd: nil, channelId: -1, labelId: labelId)
@@ -941,6 +1242,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         
         guard let result = response, result.isSuccessFull, let weakSelf = self else {
             completion?(false)
+            self?.goForApiRetry()
             return
         }
         weakSelf.storeResponse = result
@@ -986,10 +1288,10 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         }
       disableSendingNewMessages()
       if FuguNetworkHandler.shared.isNetworkConnected == false {
-         errorMessage = HippoConfig.shared.strings.noNetworkConnection
+         errorMessage = HippoStrings.noNetworkConnection
          showErrorMessage()
          disableSendingNewMessages()
-         return
+//         return
       }
       
       startLoaderAnimation()
@@ -1017,6 +1319,9 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
             })
          }
       } else if directChatDetail != nil {
+
+//         HippoChannel.get(withFuguChatAttributes: directChatDetail!) { [weak self] (r) in
+
         HippoChannel.get(withFuguChatAttributes: directChatDetail!, isComingFromConsultNow: self.isComingFromConsultNowButton) { [weak self] (r) in
             var result = r
     
@@ -1061,7 +1366,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
    func enableSendingNewMessages() {
       addFileButtonAction.isUserInteractionEnabled = true
       messageTextView.isEditable = true
-      sendMessageButton.isEnabled = true
+      //sendMessageButton.isEnabled = true
    }
    
    func disableSendingNewMessages() {
@@ -1132,6 +1437,22 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
       vc.directChatDetail = chatAttributes
       vc.label = chatAttributes.channelName ?? ""
       return vc
+    
+    /* testing:
+//    HippoConfig.shared.notifyDidLoad()
+//    let conversationVC = ConversationsViewController.getWith(conversationObj: chatObj)
+//    conversationVC.delegate = self
+//    self.navigationController?.pushViewController(conversationVC, animated: true)
+//
+//    if let channelId = chatObj.channelId, channelId > 0 {
+//        self.channel = FuguChannelPersistancyManager.shared.getChannelBy(id: channelId)
+//    }
+//    channel?.chatDetail?.chatType = chatObj.chatType
+//    self.labelId = chatObj.labelId ?? -1
+//    self.label = chatObj.label ?? ""
+//    self.userImage = chatObj.channelImageUrl
+    */
+    
    }
    
    class func getWith(channelID: Int, channelName: String) -> ConversationsViewController {
@@ -1168,7 +1489,9 @@ extension ConversationsViewController {
         addTapGestureInTableView()
         
         if HippoConfig.shared.theme.chatbackgroundImage != nil      {
-            tableViewChat.backgroundColor = .clear
+
+            tableViewChat.backgroundColor = .white//.clear
+
             backgroundImageView.image = HippoConfig.shared.theme.chatbackgroundImage
             backgroundImageView.contentMode = .scaleToFill
         }
@@ -1176,6 +1499,7 @@ extension ConversationsViewController {
         self.messageTextView.font = HippoConfig.shared.theme.typingTextFont
         self.messageTextView.textColor = HippoConfig.shared.theme.typingTextColor
         self.messageTextView.backgroundColor = .clear
+        self.messageTextView.tintColor = HippoConfig.shared.theme.messageTextViewTintColor//
         
         placeHolderLabel.text = HippoConfig.shared.strings.messagePlaceHolderText
         
@@ -1189,6 +1513,23 @@ extension ConversationsViewController {
         if (channel != nil && channel?.isSendingDisabled == true) || forceDisableReply {
             disableSendingReply()
         }
+        
+        self.newConversationCountButton.roundCorner(cornerRect: [.topLeft, .bottomLeft], cornerRadius: 5)
+        self.newConversationShadow.layer.cornerRadius = 5
+        self.newConversationShadow.showShadow(shadowSideAngles: ShadowSideView(topSide: true, leftSide: true, bottomSide: true))
+        //        self.newConversationShadow.showShadow(shadowSideAngles: ShadowSideView(topSide: true, leftSide: true, bottomSide: true, rightSide: true))
+        //        self.updateNewConversationCountButton(animation: false)
+        
+        //        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
+        //        navigationController?.interactivePopGestureRecognizer?.delegate = self
+        //        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
+        //        view.addGestureRecognizer(panGesture)
+        
+        if fetchAddedPaymentGatewaysData() != nil, let getArr = fetchAddedPaymentGatewaysData(){
+            self.addedPaymentGatewaysArr = getArr
+        }
+        
     }
    
    func addTapGestureInTableView() {
@@ -1200,6 +1541,7 @@ extension ConversationsViewController {
     @objc func dismissKeyboard(sender: UIGestureRecognizer) {
       
       guard messageTextView.isFirstResponder else {
+         self.view.endEditing(true)//
          return
       }
       
@@ -1301,13 +1643,14 @@ extension ConversationsViewController {
         }
     }
     
+    
     func updateTopBottomSpace(cell: UITableViewCell, indexPath: IndexPath) {
 
         let topConstraint = getTopDistanceOfCell(atIndexPath: indexPath)
         if let editedCell = cell as? SelfMessageTableViewCell {
-            editedCell.topConstraint.constant = topConstraint
+            //editedCell.topConstraint.constant = topConstraint
         } else if let editedCell = cell as? SupportMessageTableViewCell {
-            editedCell.topConstraint.constant = topConstraint
+            //editedCell.topConstraint.constant = topConstraint
         }
         else if let editedCell = cell as? IncomingImageCell {
             editedCell.topConstraint.constant = topConstraint + 2
@@ -1358,19 +1701,6 @@ extension ConversationsViewController {
         }
         
     }
-    
-   func scrollTableViewToBottom(animated: Bool = false) {
-      
-      DispatchQueue.main.async {
-         if self.messagesGroupedByDate.count > 0 {
-            let givenMessagesArray = self.messagesGroupedByDate[self.messagesGroupedByDate.count - 1]
-            if givenMessagesArray.count > 0 {
-               let indexPath = IndexPath(row: givenMessagesArray.count - 1, section: self.messagesGroupedByDate.count - 1)
-               self.tableViewChat.scrollToRow(at: indexPath, at: .bottom, animated: animated)
-            }
-         }
-      }
-   }
 
     func getMessageFromGrouped(messages: [[HippoMessage]]) -> (sentMessage: [HippoMessage], unsentMessages: [HippoMessage]) {
         var sentMessages: [HippoMessage] = []
@@ -1403,9 +1733,7 @@ extension ConversationsViewController {
         
         let availableBoxSize = CGSize(width: availableWidthSpace,
        height: CGFloat.greatestFiniteMagnitude)
-        
-        
-        
+
         var cellTotalHeight: CGFloat = 5 + 2.5 + 3.5 + 12 + 7 + 23
       
         if isOutgoingMsg == true {
@@ -1438,11 +1766,103 @@ extension ConversationsViewController {
         
         return cellTotalHeight
     }
+    
+//    func scrollTableViewToBottom(animated: Bool = false) {
+//
+//        DispatchQueue.main.async {
+//            if self.messagesGroupedByDate.count > 0 {
+//                let givenMessagesArray = self.messagesGroupedByDate[self.messagesGroupedByDate.count - 1]
+//                if givenMessagesArray.count > 0 {
+//                    let indexPath = IndexPath(row: givenMessagesArray.count - 1, section: self.messagesGroupedByDate.count - 1)
+//                    self.tableViewChat.scrollToRow(at: indexPath, at: .bottom, animated: animated)
+//                }
+//            }
+//        }
+//    }
+    func scrollTableViewToBottom(_ animation: Bool = false) {
+        
+        DispatchQueue.main.async {
+            
+            var numberOfSections = -1
+            if self.tableViewChat.numberOfSections > 1 {
+                numberOfSections = self.tableViewChat.numberOfSections - 1
+            } else {
+                numberOfSections = self.tableViewChat.numberOfSections
+            }
+            
+            guard numberOfSections > 0 else {
+                return
+            }
+            
+            if self.messagesGroupedByDate.count > 0, let lastIndex = self.messagesGroupedByDate.last, lastIndex.count > 0 {
+                
+                let max = self.tableViewChat.numberOfRows(inSection: self.messagesGroupedByDate.count - 1)
+                let min = lastIndex.count - 1
+                
+                let row = min < max ? min : max - 1
+                guard numberOfSections >= self.messagesGroupedByDate.count - 1 else {
+                    return
+                }
+                let indexPath = IndexPath(row: row, section: self.messagesGroupedByDate.count - 1)
+                
+                self.tableViewChat.scrollToRow(at: indexPath, at: .bottom, animated: animation)
+                self.newConversationContainer.isHidden = true
+            }
+        }
+    }
+    
+//    func updateNewConversationCountButton(animation: Bool) {
+//        if newConversationCounter > 0 {
+//            newConversationLabel.text = "\(newConversationCounter)"
+//            newConversationLabel.isHidden = false
+//            newConversationContainer.isHidden = false
+//        } else {
+//            newConversationLabel.isHidden = true
+//        }
+//    }
+    
+    func hideRetryLabelView() {
+        chatScreenTableViewTopConstraint.constant = 0
+        
+//        retryView.isHidden = true
+        labelViewRetryButton.isHidden = false
+        retryLoader.isHidden = true
+        retryLabelView.isHidden = true
+    }
+    
+    func goForApiRetry(){
+        if FuguNetworkHandler.shared.isNetworkConnected{
+            //If There are No Cached Msg
+            if self.messagesGroupedByDate.count == 0{
+//                super.textViewBottomConstraint.constant = -100
+//                retryView.isHidden = false
+//                view.bringSubview(toFront: retryView)
+            }
+            else{
+                //If there are cached msgs
+                chatScreenTableViewTopConstraint.constant = 25
+                retryLabelView.isHidden = false
+                retryLoader.isHidden = true
+                labelViewRetryButton.isHidden = false
+            }
+        }
+    }
 
+    func fetchAddedPaymentGatewaysData() -> [PaymentGateway]? {
+        if let addedPaymentGatewaysData = FuguDefaults.object(forKey: DefaultName.addedPaymentGatewaysData.rawValue) as? [[String: Any]]{
+            let addedPaymentGatewaysArr = PaymentGateway.parse(addedPaymentGateways: addedPaymentGatewaysData)
+            return addedPaymentGatewaysArr
+        }else{
+            return nil
+        }
+    }
+    
+
+    
 }
 
 // MARK: - UIScrollViewDelegate
-extension ConversationsViewController: UIScrollViewDelegate {
+extension ConversationsViewController {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
       if self.tableViewChat.contentOffset.y < -5.0 && self.willPaginationWork, FuguNetworkHandler.shared.isNetworkConnected {
          
@@ -1457,6 +1877,20 @@ extension ConversationsViewController: UIScrollViewDelegate {
             self?.isGettingMessageViaPaginationInProgress = false
          })
       }
+//        if shouldRecognizeScroll {
+        if scrollView.contentOffset.y < (tableViewChat.contentSize.height - tableViewChat.frame.height - 180) {
+            newConversationContainer.isHidden = false
+        } else {
+//                if newConversationCounter == 0 {
+            newConversationContainer.isHidden = true
+//                }
+        }
+//
+//        if scrollView.contentOffset.y > (tableViewChat.contentSize.height - tableViewChat.frame.height - 10) {
+//            newConversationCounter = 0
+//            updateNewConversationCountButton(animation: true)
+//        }
+//    }
    }
     
 }
@@ -1464,7 +1898,9 @@ extension ConversationsViewController: UIScrollViewDelegate {
 // MARK: - UITableView Delegates
 extension ConversationsViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        if tableView == customTableView {
+
+        if tableView == customTableView{
+
             return 1
         }else{
             if !isTypingLabelHidden {
@@ -1488,240 +1924,297 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
         
    }
    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-    if tableView == customTableView{
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "CustomTableViewCell", for: indexPath) as? CustomTableViewCell else {fatalError("Unable to deque cell")}
-        cell.selectionStyle = .none
-        cell.lbl.text = actionSheetTitleArr[indexPath.row]
-        cell.settingImage.image = UIImage(named: actionSheetImageArr[indexPath.row])
-        return cell
 
-    }else{
+   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-      switch indexPath.section {
-      case let typingSection where typingSection == self.messagesGroupedByDate.count && !isTypingLabelHidden:
+     if tableView == customTableView{
          
-         let cell = tableView.dequeueReusableCell(withIdentifier: "TypingViewTableViewCell", for: indexPath) as! TypingViewTableViewCell
-         
-         cell.backgroundColor = .clear
+         guard let cell = tableView.dequeueReusableCell(withIdentifier: "CustomTableViewCell", for: indexPath) as? CustomTableViewCell else {fatalError("Unable to deque cell")}
          cell.selectionStyle = .none
-         cell.bgView.isHidden = false
-         cell.gifImageView.image = nil
-         cell.bgView.backgroundColor = .clear
-         cell.gifImageView.layer.cornerRadius = 15.0
-         
-         let imageBundle = FuguFlowManager.bundle ?? Bundle.main
-         if let getImagePath = imageBundle.path(forResource: "typingImage", ofType: ".gif") {
-            cell.gifImageView.image = UIImage.animatedImageWithData(try! Data(contentsOf: URL(fileURLWithPath: getImagePath)))!
+         cell.lbl.text = actionSheetTitleArr[indexPath.row]
+         if isProceedToPayActionSheet == true{
+             cell.settingImage.tintColor = nil
+             if let url = URL(string: actionSheetImageArr[indexPath.row]) {
+                 let placeHolderImage = HippoConfig.shared.theme.placeHolderImage
+                 cell.settingImage.kf.setImage(with: url, placeholder: placeHolderImage)
+             }else{
+                 cell.settingImage.image = nil
+             }
+         }else{
+             cell.settingImage.tintColor = .black
+             let renderingMode: UIImage.RenderingMode = isProceedToPayActionSheet == true ? .alwaysOriginal : .alwaysTemplate
+             if let img = UIImage(named: actionSheetImageArr[indexPath.row], in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(renderingMode){
+                 cell.settingImage.image = img
+             }else{
+                 cell.settingImage.image = nil
+             }
          }
-         
          return cell
-      case let chatSection where chatSection < self.messagesGroupedByDate.count:
-         var messagesArray = messagesGroupedByDate[chatSection]
          
-         if messagesArray.count > indexPath.row {
-            let message = messagesArray[indexPath.row]
-            let messageType = message.type
-            let isOutgoingMsg = isSentByMe(senderId: message.senderId) && messageType != .card
-            
-            guard messageType.isMessageTypeHandled() && !message.isInValidMessage() else {
-                return getNormalMessageTableViewCell(tableView: tableView, isOutgoingMessage: isOutgoingMsg, message: message, indexPath: indexPath)
-            }
-            
-            switch messageType {
-            case MessageType.imageFile:
-                if isOutgoingMsg == true {
-                    guard
-                        let cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingImageCell", for: indexPath) as? OutgoingImageCell
-                        else {
-                            let cell = UITableViewCell()
-                            cell.backgroundColor = .clear
-                            return cell
-                    }
-                    cell.delegate = self
-                    cell.configureCellOfOutGoingImageCell(resetProperties: true, chatMessageObject: message, indexPath: indexPath)
-                    return cell
-                } else {
-                    guard let cell = tableView.dequeueReusableCell(withIdentifier: "IncomingImageCell", for: indexPath) as? IncomingImageCell
-                        else {
-                            let cell = UITableViewCell()
-                            cell.backgroundColor = .clear
-                            return cell
-                    }
-                    cell.delegate = self
-                    return cell.configureIncomingCell(resetProperties: true, channelId: channel.id, chatMessageObject: message, indexPath: indexPath)
-                }
-            case .feedback:
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: "FeedbackTableViewCell") as? FeedbackTableViewCell else {
-                    return UITableViewCell()
-                }
-                var param = FeedbackParams(title: message.message, indexPath: indexPath, messageObj: message)
-                param.showSendButton = true
-                cell.setData(params: param)
-                cell.delegate = self
-                cell.backgroundColor = .clear
-                if let muid = message.messageUniqueID {
-                    heightForFeedBackCell["\(muid)"] = cell.alertContainer.bounds.height
-                }
-                //                print("-----\(cell.alertContainer.bounds.height)")
-                return cell
-            case .botText:
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: "SupportMessageTableViewCell", for: indexPath) as? SupportMessageTableViewCell
-                    else {
-                        let cell = UITableViewCell()
-                        cell.backgroundColor = .clear
-                        return cell
-                }
-                let incomingAttributedString = Helper.getIncomingAttributedStringWithLastUserCheck(chatMessageObject: message)
-                return cell.configureCellOfSupportIncomingCell(resetProperties: true, attributedString: incomingAttributedString, channelId: channel?.id ?? labelId, chatMessageObject: message)
-            case .leadForm:
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: "LeadTableViewCell", for: indexPath) as? LeadTableViewCell else {
-                    return UITableViewCell()
-                }
-                cell.delegate = self
-                cell.setData(indexPath: indexPath, arr: message.leadsDataArray, message: message)
-                return cell
-            case .quickReply:
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: "BotOutgoingMessageTableViewCell", for: indexPath) as? BotOutgoingMessageTableViewCell
-                    else {
-                        let cell = UITableViewCell()
-                        cell.backgroundColor = .clear
-                        return cell
-                }
-                cell.delegate = self
-                let incomingAttributedString = Helper.getIncomingAttributedStringWithLastUserCheck(chatMessageObject: message)
-                return cell.configureCellOfSupportIncomingCell(resetProperties: true, attributedString: incomingAttributedString, channelId: channel.id, chatMessageObject: message)
-            case .call:
-                if isOutgoingMsg {
-                    guard let cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingVideoCallMessageTableViewCell", for: indexPath) as? OutgoingVideoCallMessageTableViewCell else {
-                        let cell = UITableViewCell()
-                        cell.backgroundColor = .clear
-                        return cell
-                    }
-                    let peerName = channel?.chatDetail?.peerName ?? "   "
-                    let isCallingEnabled = isDirectCallingEnabledFor(type: message.callType)
-                    cell.setCellWith(message: message, otherUserName: peerName, isCallingEnabled: isCallingEnabled)
-                    cell.delegate = self
-                    return cell
-                } else {
-                    guard let cell = tableView.dequeueReusableCell(withIdentifier: "IncomingVideoCallMessageTableViewCell", for: indexPath) as? IncomingVideoCallMessageTableViewCell else {
-                        let cell = UITableViewCell()
-                        cell.backgroundColor = .clear
-                        return cell
-                    }
-                    let isCallingEnabled = isDirectCallingEnabledFor(type: message.callType)
-                    cell.setCellWith(message: message, isCallingEnabled: isCallingEnabled)
-                    cell.delegate = self
-                    return cell
-                }
-            case .actionableMessage, .hippoPay:
-                
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: "ActionableMessageTableViewCell", for: indexPath) as? ActionableMessageTableViewCell else {
-                    let cell = UITableViewCell()
-                    cell.backgroundColor = .clear
-                    return cell
-                }
-                cell.tableViewHeightConstraint.constant = self.getHeightOfActionableMessageAt(indexPath: indexPath, chatObject: message)
-                cell.timeLabel.text = ""
-                cell.rootViewController = self
-                cell.registerNib()
-                cell.setUpData(messageObject: message, isIncomingMessage: !isOutgoingMsg)
-                cell.actionableMessageTableView.reloadData()
-                cell.tableViewHeightConstraint.constant = self.getHeightOfActionableMessageAt(indexPath: indexPath, chatObject: message)
-                cell.backgroundColor = UIColor.clear
-                return cell
-            case .attachment:
-                if isOutgoingMsg {
-                    switch message.concreteFileType! {
-                    case .video:
-                        let cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingVideoTableViewCell", for: indexPath) as! OutgoingVideoTableViewCell
-                        cell.setCellWith(message: message)
-                        cell.retryDelegate = self
-                        cell.delegate = self
-                        return cell
-                    default:
-                        let cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingDocumentTableViewCell") as! OutgoingDocumentTableViewCell
-                        cell.setCellWith(message: message)
-                        cell.actionDelegate = self
-                        cell.delegate = self
-                        cell.nameLabel.isHidden = true
-                        return cell
-                    }
-                } else {
-                    switch message.concreteFileType! {
-                    case .video:
-                        let cell = tableView.dequeueReusableCell(withIdentifier: "IncomingVideoTableViewCell", for: indexPath) as! IncomingVideoTableViewCell
-                        cell.setCellWith(message: message)
-                        cell.delegate = self
-                        return cell
-                    default:
-                        let cell = tableView.dequeueReusableCell(withIdentifier: "IncomingDocumentTableViewCell") as! IncomingDocumentTableViewCell
-                        cell.setCellWith(message: message)
-                        cell.actionDelegate = self
-                        cell.nameLabel.isHidden = false
-                        return cell
-                    }
-                }
-            case .consent:
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: "ActionTableView", for: indexPath) as? ActionTableView, let actionMessage = message as? HippoActionMessage else {
-                    return UITableView.defaultCell()
-                }
-                cell.delegate = self
-                cell.setCellData(message: actionMessage)
-                return cell
-            case .card:
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: "CardMessageTableViewCell", for: indexPath) as? CardMessageTableViewCell else {
-                    return UITableView.defaultCell()
-                }
-                cell.delegate = self
-                cell.set(message: message)
-                return cell
-            case .paymentCard:
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: "PaymentMessageCell", for: indexPath) as? PaymentMessageCell else {
-                    return UITableView.defaultCell()
-                }
-                cell.delegate = self
-                cell.set(message: message)
-                return cell
-                
-            case .multipleSelect :
-                
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: "MultiSelectTableViewCell", for: indexPath) as? MultiSelectTableViewCell else {
-                    return UITableView.defaultCell()
-                }
-                cell.submitButtonDelegate = self
-                cell.set(message: message)
-                return cell
-                
-            default:
-                return getNormalMessageTableViewCell(tableView: tableView, isOutgoingMessage: isOutgoingMsg, message: message, indexPath: indexPath)
-            }
-         }
-      default:
-         let cell = UITableViewCell()
-         cell.backgroundColor = .clear
-         return cell
-      }
-      
-      let cell = UITableViewCell()
-      cell.backgroundColor = .clear
-      return cell
-        
+     }else{
+         
+       switch indexPath.section {
+       case let typingSection where typingSection == self.messagesGroupedByDate.count && !isTypingLabelHidden:
+          
+          let cell = tableView.dequeueReusableCell(withIdentifier: "TypingViewTableViewCell", for: indexPath) as! TypingViewTableViewCell
+          
+          cell.backgroundColor = .clear
+          cell.selectionStyle = .none
+          cell.bgView.isHidden = false
+          cell.gifImageView.image = nil
+          cell.bgView.backgroundColor = .clear
+          cell.gifImageView.layer.cornerRadius = 15.0
+          
+          let imageBundle = FuguFlowManager.bundle ?? Bundle.main
+          if let getImagePath = imageBundle.path(forResource: "typingImage", ofType: ".gif") {
+             cell.gifImageView.image = UIImage.animatedImageWithData(try! Data(contentsOf: URL(fileURLWithPath: getImagePath)))!
+          }
+          
+          return cell
+       case let chatSection where chatSection < self.messagesGroupedByDate.count:
+          var messagesArray = messagesGroupedByDate[chatSection]
+          
+          if messagesArray.count > indexPath.row {
+             let message = messagesArray[indexPath.row]
+             let messageType = message.type
+             let isOutgoingMsg = isSentByMe(senderId: message.senderId) && messageType != .card
+             
+             guard messageType.isMessageTypeHandled() && !message.isInValidMessage() else {
+                 return getNormalMessageTableViewCell(tableView: tableView, isOutgoingMessage: isOutgoingMsg, message: message, indexPath: indexPath)
+             }
+             
+             switch messageType {
+             case MessageType.imageFile:
+                 if isOutgoingMsg == true {
+                     guard
+                         let cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingImageCell", for: indexPath) as? OutgoingImageCell
+                         else {
+                             let cell = UITableViewCell()
+                             cell.backgroundColor = .clear
+                             return cell
+                     }
+                     cell.delegate = self
+                     cell.configureCellOfOutGoingImageCell(resetProperties: true, chatMessageObject: message, indexPath: indexPath)
+                     return cell
+                 } else {
+                     guard let cell = tableView.dequeueReusableCell(withIdentifier: "IncomingImageCell", for: indexPath) as? IncomingImageCell
+                         else {
+                             let cell = UITableViewCell()
+                             cell.backgroundColor = .clear
+                             return cell
+                     }
+                     cell.delegate = self
+                     return cell.configureIncomingCell(resetProperties: true, channelId: channel.id, chatMessageObject: message, indexPath: indexPath)
+                 }
+             case .feedback:
+                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "FeedbackTableViewCell") as? FeedbackTableViewCell else {
+                     return UITableViewCell()
+                 }
+                 var param = FeedbackParams(title: message.message, indexPath: indexPath, messageObj: message)
+                 param.showSendButton = true
+                 cell.setData(params: param)
+                 cell.delegate = self
+                 cell.backgroundColor = .clear
+                 if let muid = message.messageUniqueID {
+                     heightForFeedBackCell["\(muid)"] = cell.alertContainer.bounds.height
+                 }
+                 //                print("-----\(cell.alertContainer.bounds.height)")
+                 return cell
+             case .botText:
+                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "SupportMessageTableViewCell", for: indexPath) as? SupportMessageTableViewCell
+                     else {
+                         let cell = UITableViewCell()
+                         cell.backgroundColor = .clear
+                         return cell
+                 }
+                 let bottomSpace = getBottomSpaceOfMessageAt(indexPath: indexPath, message: message)
+                 cell.updateBottomConstraint(bottomSpace)
+                 let incomingAttributedString = Helper.getIncomingAttributedStringWithLastUserCheck(chatMessageObject: message)
+                 return cell.configureCellOfSupportIncomingCell(resetProperties: true, attributedString: incomingAttributedString, channelId: channel?.id ?? labelId, chatMessageObject: message)
+             case .leadForm:
+                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "LeadTableViewCell", for: indexPath) as? LeadTableViewCell else {
+                     return UITableViewCell()
+                 }
+                 cell.delegate = self
+                 cell.setData(indexPath: indexPath, arr: message.leadsDataArray, message: message)
+                 return cell
+             case .quickReply:
+                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "BotOutgoingMessageTableViewCell", for: indexPath) as? BotOutgoingMessageTableViewCell
+                     else {
+                         let cell = UITableViewCell()
+                         cell.backgroundColor = .clear
+                         return cell
+                 }
+                 cell.delegate = self
+                 let incomingAttributedString = Helper.getIncomingAttributedStringWithLastUserCheck(chatMessageObject: message)
+                 return cell.configureCellOfSupportIncomingCell(resetProperties: true, attributedString: incomingAttributedString, channelId: channel.id, chatMessageObject: message)
+             case .call:
+                 if isOutgoingMsg {
+                     guard let cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingVideoCallMessageTableViewCell", for: indexPath) as? OutgoingVideoCallMessageTableViewCell else {
+                         let cell = UITableViewCell()
+                         cell.backgroundColor = .clear
+                         return cell
+                     }
+                     let peerName = channel?.chatDetail?.peerName ?? "   "
+                     let isCallingEnabled = isDirectCallingEnabledFor(type: message.callType)
+                     cell.setCellWith(message: message, otherUserName: peerName, isCallingEnabled: isCallingEnabled)
+                     
+                     cell.delegate = self
+                     return cell
+                 } else {
+                     guard let cell = tableView.dequeueReusableCell(withIdentifier: "IncomingVideoCallMessageTableViewCell", for: indexPath) as? IncomingVideoCallMessageTableViewCell else {
+                         let cell = UITableViewCell()
+                         cell.backgroundColor = .clear
+                         return cell
+                     }
+                     let isCallingEnabled = isDirectCallingEnabledFor(type: message.callType)
+                     cell.setCellWith(message: message, isCallingEnabled: isCallingEnabled)
+                     cell.delegate = self
+                     return cell
+                 }
+             case .actionableMessage, .hippoPay:
+                 
+                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "ActionableMessageTableViewCell", for: indexPath) as? ActionableMessageTableViewCell else {
+                     let cell = UITableViewCell()
+                     cell.backgroundColor = .clear
+                     return cell
+                 }
+                 cell.tableViewHeightConstraint.constant = self.getHeightOfActionableMessageAt(indexPath: indexPath, chatObject: message)
+                 cell.timeLabel.text = ""
+                 cell.rootViewController = self
+                 cell.registerNib()
+                 cell.setUpData(messageObject: message, isIncomingMessage: !isOutgoingMsg)
+                 cell.actionableMessageTableView.reloadData()
+                 cell.tableViewHeightConstraint.constant = self.getHeightOfActionableMessageAt(indexPath: indexPath, chatObject: message)
+                 cell.backgroundColor = UIColor.clear
+                 return cell
+             case .attachment:
+                 if isOutgoingMsg {
+                     switch message.concreteFileType! {
+                     case .video:
+                         let cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingVideoTableViewCell", for: indexPath) as! OutgoingVideoTableViewCell
+                         cell.setCellWith(message: message)
+                         cell.retryDelegate = self
+                         cell.delegate = self
+                         return cell
+                     default:
+                         let cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingDocumentTableViewCell") as! OutgoingDocumentTableViewCell
+                         cell.setCellWith(message: message)
+                         cell.actionDelegate = self
+                         cell.delegate = self
+                         cell.nameLabel.isHidden = true
+                         return cell
+                     }
+                 } else {
+                     switch message.concreteFileType! {
+                     case .video:
+                         let cell = tableView.dequeueReusableCell(withIdentifier: "IncomingVideoTableViewCell", for: indexPath) as! IncomingVideoTableViewCell
+                         cell.setCellWith(message: message)
+                         cell.delegate = self
+                         return cell
+                     default:
+                         let cell = tableView.dequeueReusableCell(withIdentifier: "IncomingDocumentTableViewCell") as! IncomingDocumentTableViewCell
+                         cell.setCellWith(message: message)
+                         cell.actionDelegate = self
+                         cell.nameLabel.isHidden = false
+                         return cell
+                     }
+                 }
+             case .consent:
+                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "ActionTableView", for: indexPath) as? ActionTableView, let actionMessage = message as? HippoActionMessage else {
+                     return UITableView.defaultCell()
+                 }
+                 cell.delegate = self
+                 cell.setCellData(message: actionMessage)
+                 return cell
+             case .card:
+                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "CardMessageTableViewCell", for: indexPath) as? CardMessageTableViewCell else {
+                     return UITableView.defaultCell()
+                 }
+                 cell.delegate = self
+                 cell.set(message: message)
+                 return cell
+             case .paymentCard:
+                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "PaymentMessageCell", for: indexPath) as? PaymentMessageCell else {
+                     return UITableView.defaultCell()
+                 }
+                 cell.delegate = self
+                 cell.set(message: message)
+                 return cell
+                 
+             case .multipleSelect :
+                 
+                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "MultiSelectTableViewCell", for: indexPath) as? MultiSelectTableViewCell else {
+                     return UITableView.defaultCell()
+                 }
+                 cell.submitButtonDelegate = self
+                 cell.set(message: message)
+                 return cell
+                 
+             case .embeddedVideoUrl :
+                 
+                 let cell = tableView.dequeueReusableCell(withIdentifier: "IncomingVideoTableViewCell", for: indexPath) as! IncomingVideoTableViewCell
+                 cell.setCellWith(message: message)
+                 cell.delegate = self
+                 return cell
+                 
+             default:
+                 return getNormalMessageTableViewCell(tableView: tableView, isOutgoingMessage: isOutgoingMsg, message: message, indexPath: indexPath)
+             }
+          }
+       default:
+          let cell = UITableViewCell()
+          cell.backgroundColor = .clear
+          return cell
+       }
+       
+       let cell = UITableViewCell()
+       cell.backgroundColor = .clear
+       return cell
+         
+     }
     }
-   }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView == customTableView{
             
-            self.attachmentButtonclickedOfCustomSheet(self.view, openType: actionSheetTitleArr[indexPath.row])
-
+            onClickTransparentView()
+            
+            if isProceedToPayActionSheet == true{
+                if addedPaymentGatewaysArr.count > 0{
+                    for i in 0..<addedPaymentGatewaysArr.count{
+                        if let gatewayName = addedPaymentGatewaysArr[i].gateway_name {
+                            if gatewayName == actionSheetTitleArr[indexPath.row]{
+                                if let message = proceedToPayMessage{
+                                    if let selectedCard = proceedToPaySelectedCard{
+                                        if let chnl = proceedToPayChannel{
+                                            generatePaymentUrlWithSelectedPaymentGateway(for: message, card: selectedCard, selectedPaymentGateway: addedPaymentGatewaysArr[i], proceedToPayChannel: chnl)
+                                        }
+                                    }
+                                }
+                                break
+                            }
+                        }
+                    }
+                }
+            }else{
+                self.attachmentButtonclickedOfCustomSheet(self.view, openType: actionSheetTitleArr[indexPath.row])
+            }
         }else{}
     }
 
      func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if tableView == customTableView{
         }else{
+
+//            guard let message = getMessageAt(indexPath: indexPath) else { return  }
+//            if let selfCell = cell as? SelfMessageTableViewCell {
+//               let bottomSpace = getBottomSpaceOfMessageAt(indexPath: indexPath, message: message)
+//                selfCell.updateBottomConstraint(bottomSpace)
+//            } else if let supportCell = cell as? SupportMessageTableViewCell{
+//                let bottomSpace = getBottomSpaceOfMessageAt(indexPath: indexPath, message: message)
+//                supportCell.updateBottomConstraint(bottomSpace)
+//            }
             updateTopBottomSpace(cell: cell, indexPath: indexPath)
         }
     }
@@ -1753,12 +2246,15 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                 switch messageType {
                 case MessageType.imageFile:
                     return 288
+//                case MessageType.botText:
+//                    var rowHeight = expectedHeight(OfMessageObject: message)
+//
+//                    rowHeight += returnRetryCancelButtonHeight(chatMessageObject: message)
+//                    rowHeight += getTopDistanceOfCell(atIndexPath: indexPath)
+//                    return rowHeight
+//
                 case MessageType.normal, MessageType.botText:
-                    var rowHeight = expectedHeight(OfMessageObject: message)
-                    
-                    rowHeight += returnRetryCancelButtonHeight(chatMessageObject: message)
-                    rowHeight += getTopDistanceOfCell(atIndexPath: indexPath)
-                    return rowHeight
+                    return UIView.tableAutoDimensionHeight
                 case MessageType.quickReply:
                     var rowHeight: CGFloat = 0
                     if message.values.count > 0 {
@@ -1786,11 +2282,11 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                     return self.getHeightOfActionableMessageAt(indexPath: indexPath, chatObject: message) + heightOfDateLabel
                 case MessageType.feedback:
                     
-                    guard let muid = message.messageUniqueID, var rowHeight: CGFloat = heightForFeedBackCell["\(muid)"] else {
-                        return 0.001
-                    }
-                    rowHeight += 5 //Height for bottom view
-                    return rowHeight
+//                    guard let muid = message.messageUniqueID, var rowHeight: CGFloat = heightForFeedBackCell["\(muid)"] else {
+//                        return 0.001
+//                    }
+                 //   rowHeight += 7 //Height for bottom view
+                    return UIView.tableAutoDimensionHeight
                 case .consent:
                     return message.cellDetail?.cellHeight ?? 0.01
                 case MessageType.call:
@@ -1801,6 +2297,8 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                     return message.calculatedHeight ?? 0.1
                 case .multipleSelect:
                    return message.calculatedHeight ?? 0.01
+                case .embeddedVideoUrl:
+                    return 234
                 default:
                     return 0.01
                     
@@ -1869,7 +2367,7 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
             dateLabel.layer.cornerRadius = 10
             dateLabel.textColor = #colorLiteral(red: 0.3490196078, green: 0.3490196078, blue: 0.4078431373, alpha: 1)
             dateLabel.textAlignment = .center
-            dateLabel.font = UIFont.boldSystemFont(ofSize: 12.0)
+            dateLabel.font = UIFont.bold(ofSize: 12)//UIFont.boldSystemFont(ofSize: 12.0)
             dateLabel.backgroundColor = #colorLiteral(red: 0.9490196078, green: 0.9490196078, blue: 0.9490196078, alpha: 1)
             dateLabel.layer.borderColor = #colorLiteral(red: 0.862745098, green: 0.8784313725, blue: 0.9019607843, alpha: 1).cgColor
             dateLabel.layer.borderWidth = 0.5
@@ -1960,7 +2458,9 @@ func getHeighOfButtonCollectionView(actionableMessage: FuguActionableMessage) ->
         let chatMessageObject = chatObject
         var cellHeight = CGFloat(0)
         let bottomSpace = CGFloat(15)
+//        let marginBetweenHeaderAndDescription = CGFloat(2.5)
         let marginBetweenHeaderAndDescription = CGFloat(3)
+
         let margin = CGFloat(5)
         
         
@@ -1999,27 +2499,37 @@ func getHeighOfButtonCollectionView(actionableMessage: FuguActionableMessage) ->
         cellHeight += collectionViewHeight
         
         if chatMessageObject.actionableMessage?.descriptionArray != nil, (chatMessageObject.actionableMessage?.descriptionArray.count)! > 0 {
+
+//            let itemWidthConstant = (FUGU_SCREEN_WIDTH - actionableMessageRightMargin - 10 - 10 - 10 - 10 - 10) / 2
             let itemWidthConstant = (FUGU_SCREEN_WIDTH - actionableMessageRightMargin - 10 - 10 - 10 - 10 - 10) / 2
-            
-            
+
             for info in (chatMessageObject.actionableMessage?.descriptionArray)! {
                 if let messageInfo = info as? [String: Any] {
                     if let priceText = messageInfo["content"] as? String {
                         
+
+//                        let heightOFPriceLabel = priceText.height(withConstrainedWidth: (FUGU_SCREEN_WIDTH - actionableMessageRightMargin - 20 ), font: priceFont!)
+//                        let heightOFPriceLabel = priceText.height(withConstrainedWidth: itemWidthConstant , font: priceFont!)
+
                         let heightOFPriceLabel = priceText.height(withConstrainedWidth: itemWidthConstant , font: priceFont!)
                         
 //                        let widthOfPriceLabel = priceText.width(withConstraintedHeight: heightOFPriceLabel, font: priceFont!)
                         
                         if let headerText = messageInfo["header"] as? String {
+
+
+//                            let heightOfContent = priceText.height(withConstrainedWidth: (FUGU_SCREEN_WIDTH - actionableMessageRightMargin - 10 - widthOfPriceLabel), font: descriptionFont!) + marginBetweenHeaderAndDescription + (margin)
+//                            cellHeight += heightOfContent
+                            
+//                            let heightOfContent = headerText.height(withConstrainedWidth: (itemWidthConstant), font: descriptionFont!)
                             let heightOfContent = headerText.height(withConstrainedWidth: (itemWidthConstant), font: descriptionFont!)
                             cellHeight += max(heightOfContent, heightOFPriceLabel)
                             cellHeight += marginBetweenHeaderAndDescription + margin
-                             print("$$$$$$$---\(max(heightOfContent, heightOFPriceLabel))")
+                            print("$$$$$$$---\(max(heightOfContent, heightOFPriceLabel))")
+
                         } else {
                             print("$$$$$$$---2")
                         }
-                        
-                        
                         
                     } else {
                     print("$$$$$$$")
@@ -2069,6 +2579,9 @@ extension ConversationsViewController {
    
    func sendReadAllNotification() {
       channel?.send(message: HippoMessage.readAllNotification, completion: {})
+    
+    setUpSuggestionsDataAndUI()//
+    
    }
 }
 
@@ -2106,6 +2619,9 @@ extension ConversationsViewController: UITextViewDelegate {
    }
    
     func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.trimWhiteSpacesAndNewLine() == ""{
+             self.sendMessageButton.isEnabled = false
+        }
    }
    
      func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
@@ -2146,18 +2662,18 @@ extension ConversationsViewController: UIImagePickerControllerDelegate, UINaviga
     
 }
 
-// MARK: - SelectImageViewControllerDelegate Delegates
-extension ConversationsViewController: SelectImageViewControllerDelegate {
-   func selectImageVC(_ selectedImageVC: SelectImageViewController, selectedImage: UIImage) {
-      selectedImageVC.dismiss(animated: false) {
-         self.imagePicker.dismiss(animated: false) {
-            self.sendConfirmedImage(image: selectedImage, mediaType: .imageType)
-         }
-      }
-   }
-   
-   func goToConversationViewController() {}
-}
+//// MARK: - SelectImageViewControllerDelegate Delegates
+//extension ConversationsViewController: SelectImageViewControllerDelegate {
+//   func selectImageVC(_ selectedImageVC: SelectImageViewController, selectedImage: UIImage) {
+//      selectedImageVC.dismiss(animated: false) {
+//         self.imagePicker.dismiss(animated: false) {
+//            self.sendConfirmedImage(image: selectedImage, mediaType: .imageType)
+//         }
+//      }
+//   }
+//
+//   func goToConversationViewController() {}
+//}
 
 // MARK: - ImageCellDelegate Delegates
 extension ConversationsViewController: ImageCellDelegate {
@@ -2189,10 +2705,19 @@ extension ConversationsViewController: ImageCellDelegate {
 }
 
 extension ConversationsViewController: HippoChannelDelegate {
+    func closeChatActionFromRefreshChannel() {
+        self.backButtonClicked()
+    }
+    
     func channelDataRefreshed() {
         label = channel?.chatDetail?.channelName ?? label
         userImage = channel?.chatDetail?.channelImageUrl
         
+        if channel?.chatDetail?.disableReply == true{
+            //disableSendingReply(withOutUpdate: true)
+            disableSendingReply()
+        }
+
         setTitleForCustomNavigationBar()
         handleAudioIcon()
         handleVideoIcon()
@@ -2340,6 +2865,22 @@ extension ConversationsViewController: HippoChannelDelegate {
    func isTypingSectionPresent() -> Bool {
       return self.messagesGroupedByDate.count < tableViewChat.numberOfSections
    }
+    
+//    func checkScrollerPostion() {
+//        let contentHeight = tableViewChat.contentSize.height
+//        let tableHeight = tableViewChat.bounds.height
+//        let offset = tableViewChat.contentOffset.y
+//
+//
+//        if offset > (contentHeight - tableHeight - 10) {
+//            self.newConversationCounter = 0
+//            scrollTableViewToBottom(false)
+//        } else if contentHeight > tableHeight {
+//            self.newConversationCounter += 1
+//        }
+//        self.updateNewConversationCountButton(animation: true)
+//    }
+    
 }
 // MARK: Bot Form Cell Delegates
 extension ConversationsViewController: LeadTableViewCellDelegate {
@@ -2492,7 +3033,6 @@ extension ConversationsViewController: BotOtgoingMessageCellDelegate {
 extension ConversationsViewController: FeedbackTableViewCellDelegate {
     
     func cellTextViewEndEditing(data: FeedbackParams) {
-        
     }
     func cellTextViewBeginEditing(textView: UITextView, data: FeedbackParams) {
         
@@ -2507,7 +3047,7 @@ extension ConversationsViewController: FeedbackTableViewCellDelegate {
         mess.total_rating = 5
         mess.rating_given = data.selectedIndex
         mess.comment = data.cellTextView.text.trimWhiteSpacesAndNewLine()
-        mess.senderId = HippoUserDetail.fuguUserID ?? 0
+        mess.senderId = data.messageObject?.senderId ?? -1
         
         self.channel.send(message: mess) {
             self.channel.upateFeedbackStatus(newMessage: mess)
@@ -2524,6 +3064,22 @@ extension ConversationsViewController: FeedbackTableViewCellDelegate {
     }
 }
 
+extension ConversationsViewController: chatViewDelegateProtocol {
+    func selectedSuggestion(indexPath: IndexPath) {
+        //tableList.append(suggestionList[indexPath.row])
+        self.sendMessageButtonAction(messageTextStr: suggestionList[indexPath.row])
+        suggestionList.remove(at: indexPath.row)
+        if suggestionList.count <= 0{
+            suggestionContainerView.isHidden = true
+        }
+        suggestionCollectionView.customDataSource?.update(suggestions: suggestionList, nextURL: nil)
+        UIView.animate(withDuration: 0.2) {
+            //self.tableView.reloadData()
+            self.suggestionCollectionView.reloadData()
+        }
+    }
+}
+
 //Action Sheet for Customer options
 extension ConversationsViewController {
     func presentActionsForCustomer(sender: UIView) {
@@ -2536,8 +3092,9 @@ extension ConversationsViewController {
             self.pushToChatHistory()
         })
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (alert: UIAlertAction!) -> Void in })
-        
+
+        let cancelAction = UIAlertAction(title: HippoStrings.attachmentCancel, style: .cancel, handler: { (alert: UIAlertAction!) -> Void in })
+
         actionSheet.addAction(chatHistory)
         actionSheet.addAction(logoutOption)
         
@@ -2570,16 +3127,15 @@ extension ConversationsViewController {
 extension ConversationsViewController: UIGestureRecognizerDelegate {
 
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        
+
         messageTextView.resignFirstResponder()
         channel?.send(message: HippoMessage.stopTyping, completion: {})
         let rawLabelID = self.labelId == -1 ? nil : self.labelId
         let channelID = self.channel?.id ?? -1
-        clearUnreadCountForChannel(id: channelID)
         if let lastMessage = getLastMessage(), let conversationInfo = FuguConversation(channelId: channelID, unreadCount: 0, lastMessage: lastMessage, labelID: rawLabelID) {
             delegate?.updateConversationWith(conversationObj: conversationInfo)
         }
-        
+
         return true
     }
 
@@ -2593,3 +3149,28 @@ extension ConversationsViewController: UIGestureRecognizerDelegate {
 //    }
 
 }
+=======
+        //if chat delegate is not set , it doesnot exist in allconversation
+        if delegate == nil{
+            for controller in self.navigationController?.viewControllers ?? [UIViewController](){
+                if controller is AllConversationsViewController{
+                    (controller as? AllConversationsViewController)?.getAllConversations()
+                    break
+                }
+            }
+        }
+        
+        if gestureRecognizer == self.navigationController?.interactivePopGestureRecognizer{
+            return false
+        }
+        return true
+    }
+
+}
+
+
+
+
+
+
+>>>>>>> 26ad03e0f775e3bc6bb7b6fba905ddb2574a1e20

@@ -21,28 +21,86 @@ enum AppUserType {
     case customer
 }
 
+enum AgentUserType: Int {
+    case agent = 11
+    case admin = 13
+}
 
 struct SERVERS {
-    static let liveUrl = "https://api.fuguchat.com/"
-    static let liveFaye = "https://api.fuguchat.com:3002/faye"
-         
-//    "https://hippo-api-dev.fuguchat.com:3004/"
-//    "https://hippo-api-dev.fuguchat.com:3004/faye"
-    
-    
-    static let betaUrl =   "https://hippo-api-dev.fuguchat.com:3004/" // "https://hippo-api-dev.fuguchat.com:3002/"
-    static let betaFaye =  "https://hippo-api-dev.fuguchat.com:3004/faye" //"https://hippo-api-dev.fuguchat.com:3002/faye"
-    
-    static let devUrl = "https://hippo-api-dev.fuguchat.com:3011/"
-    static let devFaye = "https://hippo-api-dev.fuguchat.com:3012/faye"
-    
-    static let betaUrlNew = "https://beta-live-api.fuguchat.com/"
-    static let betaFayeNew = "https://beta-live-api.fuguchat.com:3001/faye"
+
+
+// static let liveUrl = "https://api-new.fuguchat.com/"
+// static let liveFaye = "https://api-faye.fuguchat.com:3002/faye"
+//// "https://api-new.fuguchat.com:3002/faye" //"https://api-faye.fuguchat.com/faye"
+
+// static let liveUrl = "https://api.fuguchat.com/"//"https://api.hippochat.io/"//
+// static let liveFaye = "https://api.fuguchat.com:3002/faye"//"https://api.hippochat.io:3002/faye"//
+
+static let liveUrl = "https://api.hippochat.io/"
+static let liveFaye = "wss://faye.hippochat.io/faye"
+
+static let betaUrl = "https://beta-live-api.fuguchat.com:3001/"
+static let betaFaye = "https://beta-live-api.fuguchat.com:3001/faye"
+
+/*OLD BETA****/
+// static let betaUrl = "https://hippo-api-dev.fuguchat.com:3002/"
+// static let betaFaye = "https://hippo-api-dev.fuguchat.com:3002/faye"
+
+static let devUrl = "https://hippo-api-dev.fuguchat.com:3004/"//"https://hippo-api-dev.fuguchat.com:3002/"//
+static let devFaye = "https://hippo-api-dev.fuguchat.com:3004/faye"//"https://hippo-api-dev.fuguchat.com:3002/faye"//
+
+// static let devUrl = "https://hippo-api-dev.fuguchat.com:3011/"
+// static let devFaye = "https://hippo-api-dev.fuguchat.com:3012/faye"
+//
+// static let betaUrlNew = "https://beta-live-api.fuguchat.com/"
+// static let betaFayeNew = "https://api.fuguchat.com:3001/faye"
+
+}
+
+struct BotAction {
+    var botId = Int()
+    var botName = String()
+    var message = String()
+    var messageType = MessageType.none
+    var contentValues = [[String: Any]]()
+    var rawDict = [String: Any]()
+    var values = [Any]()
+
+    init(dict: [String: Any]) {
+        if let value = dict["bot_id"] as? Int {
+            self.botId = value
+        }
+
+        if let value = dict["bot_name"] as? String {
+            self.botName = value
+        }
+
+        if let value = dict["message"] as? String {
+            self.message = value
+        }
+
+        if let message_type = dict["message_type"] as? Int, let messageType = MessageType(rawValue: message_type) {
+            self.messageType = messageType
+        }
+
+        if let contentValues = dict["content_value"] as? [[String: Any]] {
+            self.contentValues = contentValues
+        }
+
+        if let values = dict["values"] as? [Any] {
+            self.values = values
+        }
+
+        self.rawDict = dict
+
+
+    }
+
 }
 
 @objcMembers public class HippoConfig : NSObject {
     
-    public static let shared = HippoConfig()
+    public static var shared = HippoConfig()
     
     public typealias commonHippoCallback = ((_ success: Bool, _ error: Error?) -> ())
     // MARK: - Properties
@@ -63,6 +121,18 @@ struct SERVERS {
     internal var agentDetail: AgentDetail?
     internal var strings = HippoStrings()
     
+//    private(set)  open var isNewConversationButtonHidden: Bool = true
+    private(set)  open var newConversationButtonBorderWidth: Float = 0.0
+
+    private(set)  open var isSuggestionNeeded = false
+    private(set)  open var maxSuggestionCount = 10
+    private(set)  open var questions = [String: Int]()//Dictionary<String, Int>()
+    private(set)  open var suggestions = [Int: String]()//Dictionary<Int, String>()
+    private(set)  open var mapping = [Int: [Int]]()//Dictionary<Int, Array<Int>>()
+    
+    private(set)  open var hasChannelTabs = true//false
+    private(set)  open var emptyChannelListText = "No Conversation found"
+    
     open var isPaymentRequestEnabled: Bool {
         return HippoProperty.current.isPaymentRequestEnabled
     }
@@ -80,27 +150,37 @@ struct SERVERS {
     }
     
     
-    
+    open var appName: String = ""
     internal var appUserType = AppUserType.customer
     internal var resellerToken = ""
     internal var referenceId = -1
     internal var appType: String?
     internal var credentialType = FuguCredentialType.defaultType
-    
-    internal var baseUrl =  SERVERS.liveUrl // SERVERS.betaUrl //
-    internal var fayeBaseURLString: String =  SERVERS.liveFaye // SERVERS.betaFaye //
-    
+    var isSkipBot:Bool = false
+    internal var baseUrl =      SERVERS.liveUrl     // SERVERS.betaUrl//
+    internal var fayeBaseURLString: String =     SERVERS.liveFaye   // SERVERS.betaFaye//
     open var unreadCount: ((_ totalUnread: Int) -> ())?
     open var usersUnreadCount: ((_ userUnreadCount: [String: Int]) -> ())?
     open var HippoDismissed: ((_ isDismissed: Bool) -> ())?
+    open var HippoPrePaymentCancelled: (()->())?
+    open var HippoPrePaymentSuccessful: ((Bool)->())?
     
     internal let powererdByColor = #colorLiteral(red: 0.4980392157, green: 0.4980392157, blue: 0.4980392157, alpha: 1)
     internal let FuguColor = #colorLiteral(red: 0.3843137255, green: 0.4901960784, blue: 0.8823529412, alpha: 1)
-    internal let poweredByFont: UIFont = UIFont.systemFont(ofSize: 10.0)
-    internal let FuguStringFont: UIFont = UIFont.systemFont(ofSize: 10.0)
-    var isSkipBot:Bool = false
-    
+    internal let poweredByFont: UIFont = UIFont.regular(ofSize: 10.0)
+    internal let FuguStringFont: UIFont = UIFont.regular(ofSize: 10.0)
+  
     public let navigationTitleTextAlignMent: NSTextAlignment? = .center
+    public var shouldOpenDefaultChannel = true
+    public var shouldUseNewCalling : Bool?{
+        didSet{
+            if shouldUseNewCalling ?? false{
+                versionCode = 350
+            }else{
+                versionCode = 320
+            }
+        }
+    }
     
     // MARK: - Intialization
     private override init() {
@@ -112,6 +192,31 @@ struct SERVERS {
         CallManager.shared.initCallClientIfPresent()
     }
     
+    //MARK:- Function to pass Deep link Dic
+    //Function is called on click of deep link form promotion view controller
+    func getDeepLinkData(_ data : [String : Any]){
+        HippoConfig.shared.delegate?.deepLinkClicked(response: data)
+    }
+    
+    //Function to get current channel id
+    open func getCurrentChannelId()->Int?{
+        let topViewController = getLastVisibleController()
+        //will return channel id if we have some active chat else return nil
+        if topViewController is ConversationsViewController{
+            return (topViewController as? ConversationsViewController)?.channelId
+        }
+        return nil
+    }
+    
+    //Function to get current agent sdk channel id
+    open func getCurrentAgentSdkChannelId()->Int?{
+        let topViewController = getLastVisibleController()
+        //will return channel id if we have some active chat else return nil
+        if topViewController is AgentConversationViewController{
+            return (topViewController as? AgentConversationViewController)?.channelId
+        }
+        return nil
+    }
     
     internal func setAgentStoredData() {
         guard let storedData = AgentDetail.agentLoginData else {
@@ -151,6 +256,19 @@ struct SERVERS {
         self.referenceId = referenceId
         self.appType = appType
     }
+    
+    public func setAppName(withAppName appName: String) {
+        guard appName.isEmpty else {
+            self.appName = appName
+            return
+        }
+        guard let name = Bundle.main.object(forInfoDictionaryKey: kCFBundleNameKey as String) as? String else {
+            self.appName = ""
+            return
+        }
+        self.appName = name
+    }
+    
     public func startOneToOneChat(otherUserEmail: String, completion: @escaping commonHippoCallback) {
         let email = otherUserEmail.trimWhiteSpacesAndNewLine()
         guard email.isValidEmail() else {
@@ -171,6 +289,10 @@ struct SERVERS {
         
     }
     
+    public static func setSkipBot(enable: Bool, reason: String) {
+        HippoProperty.current.skipBot = enable
+        HippoProperty.current.skipBotReason = reason
+    }
     
     public func updateUserDetail(userDetail: HippoUserDetail) {
         self.userDetail = userDetail
@@ -186,6 +308,43 @@ struct SERVERS {
         isBroadcastEnabled = false
     }
     
+//    public func showNewConversationButton() {
+//        isNewConversationButtonHidden = false
+//    }
+//    public func hideNewConversationButton() {
+//        isNewConversationButtonHidden = true
+//    }
+    
+    public func isSuggestionNeeded(setValue: Bool) {
+        isSuggestionNeeded = setValue
+    }
+    public func setMaxSuggestionCount(maxSuggestionCount: Int) {
+        self.maxSuggestionCount = maxSuggestionCount
+    }
+    public func setSuggestionQuestionsData(questions: [String: Int]) {
+        self.questions = questions
+    }
+    public func setSuggestionAnswersData(suggestions: [Int: String]) {
+        self.suggestions = suggestions
+    }
+    public func setSuggestionMappingData(mapping: [Int: [Int]]) {
+        self.mapping = mapping
+    }
+    
+    public func hasChannelTabs(setValue: Bool) {
+        hasChannelTabs = setValue
+    }
+    public func setEmptyChannelListText(text: String) {
+        emptyChannelListText = text
+    }
+    
+    public func showNewConversationButtonBorderWithWidth(borderWidth:Float = 1.0) {
+        newConversationButtonBorderWidth = borderWidth
+    }
+    public func hideNewConversationButtonBorder() {
+        newConversationButtonBorderWidth = 0.0
+    }
+    
     public class func enablePaymentRequest() {
         HippoProperty.current.updatePaymentRequestStatus(enable: true)
     }
@@ -193,6 +352,9 @@ struct SERVERS {
         HippoProperty.current.updatePaymentRequestStatus(enable: false)
     }
     
+    public static func setTicketCustomAttributes(attributes: [String: Any]?)  {
+        HippoProperty.current.ticketCustomAttributes = attributes
+    }
     
     public func initManager(agentToken: String, app_type: String, customAttributes: [String: Any]? = nil) {
         let detail = AgentDetail(oAuthToken: agentToken.trimWhiteSpacesAndNewLine(), appType: app_type, customAttributes: customAttributes)
@@ -222,6 +384,11 @@ struct SERVERS {
         AgentDetail.setAgentStoredData()
         checker.presentChatsViewController()
     }
+
+    func presentPrePaymentController(){
+        
+    }
+    
     class public func showChats(on viewController: UIViewController) {
         AgentDetail.setAgentStoredData()
         HippoConfig.shared.checker.presentChatsViewController(on: viewController)
@@ -292,8 +459,8 @@ struct SERVERS {
             FuguFlowManager.shared.showFuguChat(fuguChat)
             completion(true, nil)
         }
-        
     }
+    
     public func openConversationFor(otherUserUniqueKey: String, channelTitle: String? = nil, transactionId: String? = nil) {
         guard HippoConfig.shared.appUserType == .agent else {
             return
@@ -301,12 +468,30 @@ struct SERVERS {
         AgentConversationManager.searchUserUniqueKeys.removeAll()
         AgentConversationManager.searchUserUniqueKeys = [otherUserUniqueKey]
         
-        if let tempTransactionID = transactionId, !tempTransactionID.isEmpty {
+        if let tempTransactionID = transactionId, !tempTransactionID.isEmpty, !otherUserUniqueKey.isEmpty {
             AgentConversationManager.transactionID = tempTransactionID.trimWhiteSpacesAndNewLine()
             FuguFlowManager.shared.openDirectAgentConversation(channelTitle: channelTitle)
         } else {
-            FuguFlowManager.shared.openDirectConversationHome()
+            if let tempTransactionID = transactionId, !tempTransactionID.isEmpty {
+                AgentConversationManager.transactionID = tempTransactionID.trimWhiteSpacesAndNewLine()
+                FuguFlowManager.shared.openDirectAgentConversation(channelTitle: channelTitle)
+            } else {
+                FuguFlowManager.shared.openDirectConversationHome()
+            }
         }
+    }
+    
+    public func fetchAddedPaymentGatewaysData() -> [PaymentGateway]? {
+        if let addedPaymentGatewaysData = FuguDefaults.object(forKey: DefaultName.addedPaymentGatewaysData.rawValue) as? [[String: Any]]{
+            let addedPaymentGatewaysArr = PaymentGateway.parse(addedPaymentGateways: addedPaymentGatewaysData)
+            return addedPaymentGatewaysArr
+        }else{
+            return nil
+        }
+    }
+    
+    public func openPrePayment(paymentGatewayId : Int, prePaymentDic: [String : Any], completion: @escaping PrePaymentCompletion){
+        PrePayment.callPrePaymentApi(paymentGatewayId: paymentGatewayId, prePaymentDic: prePaymentDic, completion: completion)
     }
     
     public func getUnreadCountFor(with userUniqueKeys: [String]) {
@@ -369,6 +554,16 @@ struct SERVERS {
         UnreadCount.fetchP2PUnreadCount(request: request, callback: completion)
     }
     
+    public func registerNewChannelId(_ channelId : Int){
+        var unreadHashMap = FuguDefaults.object(forKey: DefaultName.p2pUnreadCount.rawValue) as? [String: Any] ?? [String : Any]()
+        if unreadHashMap.values.count == 0 || unreadHashMap.keys.contains("\(channelId)") == false{
+            unreadHashMap.removeAll()
+            unreadHashMap["\(channelId)"] = 1
+            FuguDefaults.set(value: unreadHashMap, forKey: DefaultName.p2pUnreadCount.rawValue)
+            HippoConfig.shared.sendp2pUnreadCount(1, channelId)
+        }
+    }
+    
     public func openChatWith(channelId: Int, completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
         switch appUserType {
         case .agent:
@@ -418,8 +613,75 @@ struct SERVERS {
                 return
             }
             let call = CallData.init(peerData: peer, callType: callType, muid: uuid, signallingClient: channel)
+  
+//            CallManager.shared.startCall(call: call, completion: { (success)  in
+//                if !success {
+//                    CallManager.shared.hungupCall()
+//                }
+//                completion(true, nil)
+//            })
+            CallManager.shared.startCall(call: call, completion: { (success,error)  in
+                if !success {
+                    CallManager.shared.hungupCall()
+                }
+                completion(true, nil)
+            })
             
-            CallManager.shared.startCall(call: call, completion: { (success) in
+        })
+        completion(true, nil)
+    }
+    public func startCallToAgent(data: PeerToPeerChat, agentEmail: String, callType: CallType, completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
+        guard FuguNetworkHandler.shared.isNetworkConnected else {
+            completion(false, HippoError.networkError)
+            return
+        }
+        guard CallManager.shared.isCallClientAvailable() else {
+            log.error(HippoError.callClientNotFound.localizedDescription, level: .error)
+            completion(false, HippoError.callClientNotFound)
+            return
+        }
+        guard appUserType == .customer else {
+            completion(false, HippoError.threwError(message: "Not Allowed For Hippo Agent"))
+            return
+        }
+        guard ((BussinessProperty.current.isVideoCallEnabled && callType == .video) || (BussinessProperty.current.isAudioCallEnabled && callType == .audio)) else {
+            completion(false, HippoError.threwError(message: strings.videoCallDisabledFromHippo))
+            return
+        }
+        
+        guard agentEmail != "" else {
+            completion(false, HippoError.threwError(message: "Agent email is required"))
+            return
+        }
+        
+        checkForIntialization { (success, error) in
+            guard success else {
+                completion(success, error)
+                return
+            }
+            self.findChannelAndStartCallToAgent(data: data, agentEmail: agentEmail, callType: callType, completion: completion)
+        }
+    }
+    private func findChannelAndStartCallToAgent(data: PeerToPeerChat, agentEmail: String, callType: CallType, completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
+        let uuid: String = String.uuid()
+        let peer = User(name: data.peerName, imageURL: data.otherUserImage?.absoluteString, userId: -222)
+        CallManager.shared.startConnection(peerUser: peer, muid: uuid, callType: callType, completion: { success in })
+        let attributes = FuguNewChatAttributes(transactionId: data.uniqueChatId ?? "", userUniqueKey: nil, otherUniqueKey: [data.userUniqueId], tags: nil, channelName: data.channelName, preMessage: "", groupingTag: nil)
+        HippoChannel.getToCallAgent(withFuguChatAttributes: attributes, agentEmail: agentEmail, completion: {(result) in
+            guard result.isSuccessful, let channel = result.channel else {
+                CallManager.shared.hungupCall()
+                completion(false, HippoError.threwError(message: "Something went wrong while creating channel."))
+                return
+            }
+            let call = CallData.init(peerData: peer, callType: callType, muid: uuid, signallingClient: channel)
+  
+//            CallManager.shared.startCall(call: call, completion: { (success)  in
+//                if !success {
+//                    CallManager.shared.hungupCall()
+//                }
+//                completion(true, nil)
+//            })
+            CallManager.shared.startCall(call: call, completion: { (success,error)  in
                 if !success {
                     CallManager.shared.hungupCall()
                 }
@@ -491,6 +753,7 @@ struct SERVERS {
             
             let conVC = ConversationsViewController.getWith(channelID: channelId, channelName: "Group Chat")
             let lastVC = getLastVisibleController()
+            lastVC?.modalPresentationStyle = .fullScreen
             lastVC?.present(conVC, animated: true, completion: nil)
         }
     }
@@ -506,6 +769,19 @@ struct SERVERS {
 //            let lastVC = getLastVisibleController()
 //            lastVC?.present(conVC, animated: true, completion: nil)
 //        }
+    }
+    public func openAgentChatWith(channelId: Int, completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
+            HippoChecker.checkForAgentIntialization { (success, error) in
+                guard success else {
+                    completion(false, error)
+                    return
+                }
+                guard channelId > 0 else {
+                    completion(false, HippoError.invalidInputData)
+                    return
+                }
+                FuguFlowManager.shared.pushAgentConversationViewController(channelId: channelId, channelName: "")
+            }
     }
     
     internal func validateLogin(completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
@@ -530,6 +806,9 @@ struct SERVERS {
             completion(success, error)
         })
     }
+    
+
+    
     
     // MARK: - Helpers
     public func switchEnvironment(_ envType: HippoEnvironment) {
@@ -560,6 +839,7 @@ struct SERVERS {
             AgentDetail.LogoutAgent(completion: completion)
         case .customer:
             HippoUserDetail.logoutFromFugu(completion: completion)
+//            print("customerLogout")
         }
     }
     
@@ -569,6 +849,10 @@ struct SERVERS {
             return
         }
         HippoProperty.setBotGroupID(id: id)
+    }
+    
+    public func setNewConversationBotGroupId(botGroupId: String){
+        HippoProperty.setNewConversationBotGroupId(botGroupId: botGroupId)
     }
     
     // MARK: - Push Notification
@@ -584,19 +868,56 @@ struct SERVERS {
         updateDeviceToken(deviceToken: token)
     }
     
+    public func getDeviceTokenKey() -> String {
+        return TokenManager.StoreKeys.normalToken
+    }
+    
+    public func getVoipDeviceTokenKey() -> String {
+        return TokenManager.StoreKeys.voipToken
+    }
+    
     public func registerDeviceToken(deviceToken: Data) {
+        log.debug("registerDeviceToken:\(deviceToken)", level: .custom)
         guard let token = parseDeviceToken(deviceToken: deviceToken) else {
             return
         }
-        guard TokenManager.deviceToken != token else  {
-            log.debug("rejected", level: .custom)
-            return
-        }
+
+        log.debug("registerDeviceToken parsing token:\(token)", level: .custom)
+//        guard TokenManager.deviceToken != token else  {
+//            log.debug("rejected", level: .custom)
+//            return
+//        }
         TokenManager.deviceToken = token
+        log.debug("registerDeviceToken save token:\(TokenManager.deviceToken)", level: .custom)
         updateDeviceToken(deviceToken: token)
     }
     
+    func checkForChannelSubscribe(completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
+        
+        if let hippoUserChannelId = HippoUserDetail.HippoUserChannelId {
+            guard isSubscribed(userChannelId: hippoUserChannelId) else {
+                subscribeCustomerUserChannel(userChannelId: hippoUserChannelId)
+                completion(false, nil)
+                return
+            }
+            completion(true, nil)
+            return
+        }
+    }
+    
+    
+    public func isHippoUserChannelSubscribe() -> Bool {
+        var checkStatus = false
+        self.checkForChannelSubscribe(completion: { (success, error) in
+           checkStatus = success
+        })
+        
+        return checkStatus
+    }
+    
     public func isHippoNotification(withUserInfo userInfo: [String: Any]) -> Bool {
+        
+        
         if let pushSource = userInfo["push_source"] as? String, (pushSource == "FUGU" || pushSource == "HIPPO") {
             return true
         }
@@ -619,14 +940,24 @@ struct SERVERS {
     }
     
     public func handleVoipNotification(payload: [AnyHashable: Any]) {
-        guard let json = payload as? [String: Any] else {
-            return
+            guard let json = payload as? [String: Any] else {
+                return
+            }
+            guard isHippoUserChannelSubscribe() else {
+                self.handleVoipNotification(payloadDict: json)
+                return
+            }
+            
         }
-        handleVoipNotification(payloadDict: json)
-    }
-    public func handleVoipNotification(payloadDict: [String: Any]) {
-        CallManager.shared.voipNotificationRecieved(payloadDict: payloadDict)
-    }
+        
+        public func handleVoipNotification(payloadDict: [String: Any]) {
+            
+            guard isHippoUserChannelSubscribe() else {
+                CallManager.shared.voipNotificationRecieved(payloadDict: payloadDict)
+                return
+            }
+    //        CallManager.shared.voipNotificationRecieved(payloadDict: payloadDict)
+        }
     
     public func handleRemoteNotification(userInfo: [String: Any]) {
         setAgentStoredData()
@@ -636,6 +967,12 @@ struct SERVERS {
         if HippoConfig.shared.isHippoNotification(withUserInfo: userInfo) == false {
             return
         }
+        
+        if let announcementPush = userInfo["is_announcement_push"] as? Int, announcementPush == 1 {
+            self.handleAnnouncementsNotification(userInfo: userInfo)
+            return
+        }
+        
         //Check to append all muid of push list
         if let muid = userInfo["muid"] as? String, !HippoConfig.shared.muidList.contains(muid) {
             HippoConfig.shared.muidList.append(muid)
@@ -648,6 +985,17 @@ struct SERVERS {
         }
         //        UIApplication.shared.clearNotificationCenter()
         
+//        if let announcementPush = userInfo["is_announcement_push"] as? Int, announcementPush == 1 {
+//            DispatchQueue.main.async {
+//                //HippoChat.isSingleChatApp = false
+//                HippoConfig.shared.presentPromotionalPushController()
+//                return
+//            }
+//        }
+        if userInfo["notification_type"] as? Int == 20{
+            return
+        }
+        
         switch HippoConfig.shared.appUserType {
         case .agent:
             handleAgentNotification(userInfo: userInfo)
@@ -655,11 +1003,32 @@ struct SERVERS {
             handleCustomerNotification(userInfo: userInfo)
         }
     }
+    
+    
+    func handleAnnouncementsNotification(userInfo: [String: Any]) {
+            let visibleController = getLastVisibleController()
+            if let promotionsVC = visibleController as? PromotionsViewController {
+                promotionsVC.callGetAnnouncementsApi()
+                return
+            }else{
+                checkForIntialization { (success, error) in
+                    guard success else {
+                        return
+                    }
+    //                HippoChat.isSingleChatApp = false
+                    HippoConfig.shared.presentPromotionalPushController()
+                    return
+                }
+            }
+        }
+    
+    
     func handleAgentNotification(userInfo: [String: Any]) {
         let visibleController = getLastVisibleController()
         let channelId = (userInfo["channel_id"] as? Int) ?? -1
         let channelName = (userInfo["label"] as? String) ?? ""
-        
+      //  let channel_Type = (userInfo["channel_type"] as? Int) ?? -1
+
         let rawSendingReplyDisabled = (userInfo["disable_reply"] as? Int) ?? 0
         let isSendingDisabled = rawSendingReplyDisabled == 1 ? true : false
         
@@ -713,12 +1082,22 @@ struct SERVERS {
         let channelId = (userInfo["channel_id"] as? Int) ?? -1
         let channelName = (userInfo["label"] as? String) ?? ""
         let labelId = (userInfo["label_id"] as? Int) ?? -1
+        let channel_Type = (userInfo["channel_type"] as? Int) ?? -1
         
         let rawSendingReplyDisabled = (userInfo["disable_reply"] as? Int) ?? 0
         let isSendingDisabled = rawSendingReplyDisabled == 1 ? true : false
         
         if let conVC = visibleController as? ConversationsViewController {
-            if channelId != conVC.channel?.id, channelId > 0 {
+            
+            if channel_Type == channelType.BROADCAST_CHANNEL.rawValue {
+                conVC.channel?.delegate = nil
+                conVC.messagesGroupedByDate = []
+                conVC.tableViewChat.reloadData()
+                conVC.label = channelName
+                conVC.labelId = labelId
+                conVC.channel = nil
+                conVC.fetchMessagesFrom1stPage()
+            } else if channelId != conVC.channel?.id, channelId > 0 {
                 let existingChannelID = conVC.channel?.id ?? -1
                 conVC.clearUnreadCountForChannel(id: existingChannelID)
                 conVC.channel?.delegate = nil
@@ -726,7 +1105,7 @@ struct SERVERS {
                 conVC.messagesGroupedByDate = []
                 conVC.populateTableViewWithChannelData()
                 conVC.label = channelName
-                conVC.navigationTitleLabel?.text = channelName
+//                conVC.navigationTitleLabel?.text = channelName
                 if isSendingDisabled {
                     conVC.disableSendingReply()
                 }
@@ -739,7 +1118,7 @@ struct SERVERS {
                 conVC.tableViewChat.reloadData()
                 conVC.label = channelName
                 conVC.labelId = labelId
-                conVC.navigationTitleLabel?.text = channelName
+//                conVC.navigationTitleLabel?.text = channelName
                 if isSendingDisabled {
                     conVC.disableSendingReply()
                 }
@@ -749,7 +1128,13 @@ struct SERVERS {
         }
         
         if let allConVC = visibleController as? AllConversationsViewController {
-            if channelId > 0 {
+            
+             if channel_Type == channelType.BROADCAST_CHANNEL.rawValue {
+                let conVC = ConversationsViewController.getWith(labelId: "\(labelId)")
+                conVC.delegate = allConVC
+                allConVC.navigationController?.pushViewController(conVC, animated: true)
+                
+            } else if channelId > 0 {
                 let conVC = ConversationsViewController.getWith(channelID: channelId, channelName: channelName)
                 conVC.delegate = allConVC
                 allConVC.navigationController?.pushViewController(conVC, animated: true)
@@ -772,15 +1157,23 @@ struct SERVERS {
                 return
             }
             
-            if channelId > 0 {
+            if channel_Type == channelType.BROADCAST_CHANNEL.rawValue {
+                let conVC = ConversationsViewController.getWith(labelId: "\(labelId)")
+                let navVC = UINavigationController(rootViewController: conVC)
+                navVC.isNavigationBarHidden = true
+                visibleController?.modalPresentationStyle = .fullScreen
+                visibleController?.present(navVC, animated: true, completion: nil)
+            } else if channelId > 0 {
                 let conVC = ConversationsViewController.getWith(channelID: channelId, channelName: channelName)
                 let navVC = UINavigationController(rootViewController: conVC)
                 navVC.isNavigationBarHidden = true
+                visibleController?.modalPresentationStyle = .fullScreen
                 visibleController?.present(navVC, animated: true, completion: nil)
             } else if labelId > 0 {
                 let conVC = ConversationsViewController.getWith(labelId: "\(labelId)")
                 let navVC = UINavigationController(rootViewController: conVC)
                 navVC.isNavigationBarHidden = true
+                visibleController?.modalPresentationStyle = .fullScreen
                 visibleController?.present(navVC, animated: true, completion: nil)
             }
         }
@@ -806,6 +1199,23 @@ public extension HippoConfig {
 }
 
 extension HippoConfig {
+    func sendp2pUnreadCount(_ unreadCount : Int, _ channelId : Int){
+        HippoConfig.shared.delegate?.sendp2pUnreadCount(unreadCount: unreadCount,channelId: channelId)
+    }
+    
+    func sendDataIfChatIsAssignedToSelfAgent(_ dic : [String : Any]){
+        HippoConfig.shared.delegate?.sendDataIfChatIsAssignedToSelfAgent(dic)
+    }
+    
+    func sendAgentUnreadCount(_ totalCount: Int) {
+        HippoConfig.shared.delegate?.hippoAgentTotalUnreadCount(totalCount)
+        print("sendAgentUnreadCount====================",totalCount)
+    }
+    
+    func sendAgentChannelsUnreadCount(_ totalCount: Int) {        HippoConfig.shared.delegate?.hippoAgentTotalChannelsUnreadCount(totalCount)
+        print("sendAgentChannelsUnreadCount====================",totalCount)
+    }
+    
     func sendUnreadCount(_ totalCount: Int) {
         HippoConfig.shared.unreadCount?(totalCount)
         HippoConfig.shared.delegate?.hippoUnreadCount(totalCount)

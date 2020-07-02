@@ -94,5 +94,6 @@ class ActionableMessageTableViewCell: UITableViewCell {
         actionableMessageTableView.register(UINib(nibName: "ItemTableViewCell", bundle: FuguFlowManager.bundle), forCellReuseIdentifier: "ItemTableViewCell")
         actionableMessageTableView.register(UINib(nibName: "ButtonTableViewCell", bundle: FuguFlowManager.bundle), forCellReuseIdentifier: "ButtonTableViewCell")
         actionableMessageTableView.register(UINib(nibName: "SenderNameTableCell", bundle: FuguFlowManager.bundle), forCellReuseIdentifier: "SenderNameTableCell")
+        
     }
 }

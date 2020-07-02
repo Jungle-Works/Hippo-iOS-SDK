@@ -30,7 +30,9 @@ class ConversationView: UITableViewCell {
     @IBOutlet var unreadCountWidthLabel: NSLayoutConstraint?
     @IBOutlet weak var selectionView: UIView?
     @IBOutlet weak var leadingConstraintOfLastMessage: NSLayoutConstraint?
-    
+
+    @IBOutlet weak var view_Unread : UIView!
+      
     override func awakeFromNib() { super.awakeFromNib()
         msgStatusWidthConstraint?.constant = 0
         leadingConstraintOfLastMessage?.constant = 0
@@ -67,9 +69,9 @@ extension ConversationView {
         placeHolderImageButton?.backgroundColor = .white
         placeHolderImageButton?.setTitle("", for: .normal)
         
-        unreadCountLabel.layer.masksToBounds = true
+ 
         unreadCountLabel.text = ""
-        unreadCountLabel.backgroundColor = .clear
+        view_Unread.backgroundColor = .clear
         msgStatusWidthConstraint?.constant = 0
         leadingConstraintOfLastMessage?.constant = 0
         
@@ -115,25 +117,29 @@ extension ConversationView {
             //         headingLabel.font = UIFont(name:"HelveticaNeue-Bold", size: 15.0)
             //         chatTextLabel.font = UIFont(name:"HelveticaNeue-Bold", size: 12.0)
             //         timeLabel.font = UIFont(name:"HelveticaNeue-Bold", size: 12.0)
-            
+
+              
             unreadCountLabel.text = "  \(unreadCount)  "
-            unreadCountLabel.backgroundColor = UIColor.red//.themeColor
+            view_Unread.backgroundColor = HippoConfig.shared.theme.unreadCountColor
                 //#colorLiteral(red: 0.8666666667, green: 0.09019607843, blue: 0.1176470588, alpha: 1).withAlphaComponent(isThisChatOpened(opened: isOpened))
-            unreadCountLabel.layer.cornerRadius = (unreadCountLabel.bounds.height - 5) / 2
-            unreadCountLabel.layer.masksToBounds = true
+            view_Unread.layer.cornerRadius = view_Unread.frame.size.height/2
             unreadCountLabel.textColor = UIColor.white
+           // timeLabel.textColor =  UIColor(red: 74/255 , green: 74/255, blue: 74/255, alpha: 1.0)
+            
         } else {
             theme = HippoConfig.shared.theme.conversationListNormalTheme
+           // timeLabel.textColor =  UIColor(red: 74/255 , green: 74/255, blue: 74/255, alpha: 1.0)
             //         headingLabel.font = UIFont(name:"HelveticaNeue", size: 15.0)
             //         chatTextLabel.font = UIFont(name:"HelveticaNeue", size: 12.0)
             //         timeLabel.font = UIFont(name:"HelveticaNeue", size: 12.0)
         }
         
-        statusLabel.isHidden = isOpened
-        statusLabel.font = theme.timeTheme.textFont
-        statusLabel.textColor = HippoConfig.shared.theme.gradientTopColor
-        statusLabel.text = "closed"
-            
+
+        statusLabel.isHidden = true
+//        statusLabel.font = theme.timeTheme.textFont
+//        statusLabel.textColor = HippoConfig.shared.theme.gradientTopColor
+//        statusLabel.text = "closed"
+      
         headingLabel.setTheme(theme: theme.titleTheme)
         chatTextLabel.setTheme(theme: theme.lastMessageTheme)
         timeLabel.setTheme(theme: theme.timeTheme)
@@ -144,6 +150,7 @@ extension ConversationView {
         
         if let channelImage = conersationObj.channelImageUrl, channelImage.isEmpty == false, let url = URL(string: channelImage) {
             channelImageView.kf.setImage(with: url)
+            channelImageView.backgroundColor = nil
         } else if let channelName = conersationObj.label, channelName.isEmpty == false {
             placeHolderImageButton?.alpha = isThisChatOpened(opened: isOpened)
             placeHolderImageButton?.isHidden = false
@@ -153,8 +160,10 @@ extension ConversationView {
             let channelNameInitials = channelName.trimWhiteSpacesAndNewLine()
 //            placeHolderImageButton?.setTitle(String(channelNameInitials.remove(at: channelNameInitials.startIndex)).capitalized, for: .normal)
 //            placeHolderImageButton?.layer.cornerRadius = 15.0
-            channelImageView.setTextInImage(string: channelNameInitials, color: .darkGray, circular: false, textAttributes: nil)
-            
+
+            let color = conersationObj.channelBackgroundColor
+            channelImageView.setTextInImage(string: channelNameInitials, color: color, circular: false, textAttributes: nil)
+           
         }
         
         //      chatTextLabel.textColor = HippoConfig.shared.theme.conversationLastMsgColor.withAlphaComponent(isThisChatOpened(opened: isOpened))
@@ -165,12 +174,17 @@ extension ConversationView {
             msgStatusWidthConstraint?.constant = 17
             leadingConstraintOfLastMessage?.constant = 2
             msgStatusImageView?.contentMode = .center
-            if let lastMessageStatus = conersationObj.lastMessage?.status, lastMessageStatus == .read {
+
+//            if let lastMessageStatus = conersationObj.lastMessage?.status, lastMessageStatus == .read {
+            if let lastMessageStatus = conersationObj.lastMessage?.status, lastMessageStatus == .read || lastMessageStatus == .delivered{
                 msgStatusImageView?.image = UIImage(named: "readMessageImage", in: FuguFlowManager.bundle, compatibleWith: nil)
                 msgStatusImageView?.tintColor = HippoConfig.shared.theme.readTintColor
             } else {
-                msgStatusImageView?.image = UIImage(named: "readMessageImage", in: FuguFlowManager.bundle, compatibleWith: nil)
-                   msgStatusImageView?.tintColor = HippoConfig.shared.theme.unreadTintColor
+//                msgStatusImageView?.image = UIImage(named: "readMessageImage", in: FuguFlowManager.bundle, compatibleWith: nil)
+//                msgStatusImageView?.tintColor = HippoConfig.shared.theme.unreadTintColor
+                msgStatusImageView?.image = UIImage(named: "unreadMessageImage", in: FuguFlowManager.bundle, compatibleWith: nil)
+                msgStatusImageView?.tintColor = HippoConfig.shared.theme.unreadTintColor
+
             }
         } else if let last_sent_by_full_name = conersationObj.lastMessage?.senderFullName, (conersationObj.lastMessage?.senderId ?? -1) > 0 {
             if last_sent_by_full_name.isEmpty {
@@ -196,14 +210,17 @@ extension ConversationView {
                 let message = messageString.isEmpty ? " sent a message" : messageString
                 messageToBeShown = ""
                 if !senderNAme.isEmpty {
-                    messageToBeShown = senderNAme + ": "
+
+                    //messageToBeShown = senderNAme + ": "
                 }
                 messageToBeShown += message
             }
             chatTextLabel.text = messageToBeShown
         }
         
-        timeLabel.textColor = HippoConfig.shared.theme.timeTextColor.withAlphaComponent(isThisChatOpened(opened: isOpened))
+
+      //  timeLabel.textColor = HippoConfig.shared.theme.timeTextColor.withAlphaComponent(isThisChatOpened(opened: isOpened))
+
         let channelID = conersationObj.channelId ?? -1
         if channelID <= 0 {
             timeLabel.text = ""
@@ -215,4 +232,6 @@ extension ConversationView {
     func isThisChatOpened(opened: Bool) -> CGFloat {
         return opened ? 1 : 0.5
     }
+    
+  
 }

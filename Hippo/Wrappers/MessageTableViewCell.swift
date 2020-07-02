@@ -65,8 +65,14 @@ class MessageTableViewCell: UITableViewCell {
         }
         showSenderImageView()
         
+<<<<<<< HEAD
 //        let isMessageAllowedForImage = message.type == .consent  || message.belowMessageType == .card || message.belowMessageType == .paymentCard
 //        if (message.belowMessageUserId == message.senderId && !isMessageAllowedForImage) {
+=======
+//        let isMessageAllowedForImage = message.type == .consent
+//
+//        if message.belowMessageUserId == message.senderId && !isMessageAllowedForImage {
+>>>>>>> 26ad03e0f775e3bc6bb7b6fba905ddb2574a1e20
 //            unsetImageInSender()
 //        } else if let senderImage = message.senderImage, let url = URL(string: senderImage) {
 //            setImageInSenderView(imageURL: url)
@@ -79,10 +85,30 @@ class MessageTableViewCell: UITableViewCell {
         if (message.aboveMessageUserId == message.senderId && !isMessageAllowedForImage) {
             unsetImageInSender()
         } else {
+<<<<<<< HEAD
             if let senderImage = message.senderImage, let url = URL(string: senderImage) {
                 setImageInSenderView(imageURL: url)
             }else{
                 setNameAsTitle(message.senderFullName)
+=======
+//            if let senderImage = message.senderImage, let url = URL(string: senderImage) {
+//                setImageInSenderView(imageURL: url)
+//            }else{
+//                setNameAsTitle(message.senderFullName)
+//            }
+            if HippoConfig.shared.appUserType == .agent{
+                if let senderImage = message.senderImage, senderImage.isEmpty == false, senderImage.contains("http"), let url = URL(string: senderImage) {
+                    setImageInSenderView(imageURL: url)
+                }else{
+                    setNameAsTitle(message.senderFullName)
+                }
+            }else{
+                if let senderImage = message.senderImage, let url = URL(string: senderImage) {
+                    setImageInSenderView(imageURL: url)
+                }else{
+                    setNameAsTitle(message.senderFullName)
+                }
+>>>>>>> 26ad03e0f775e3bc6bb7b6fba905ddb2574a1e20
             }
         }
         
@@ -100,13 +126,43 @@ class MessageTableViewCell: UITableViewCell {
         senderImageView.isHidden = false
         senderImageWidthConstraint.constant = 30
         senderImageTraillingConstaints.constant = 5
+<<<<<<< HEAD
        // senderImageView.layer.cornerRadius = senderImageView.bounds.height / 2
+=======
+        senderImageView.layer.cornerRadius = 6//senderImageView.bounds.height
+>>>>>>> 26ad03e0f775e3bc6bb7b6fba905ddb2574a1e20
         senderImageView.layer.masksToBounds = true
         layoutIfNeeded()
     }
     
+//    func setImageInSenderView(imageURL: URL?) {
+//        senderImageView.kf.setImage(with: imageURL, placeholder: HippoConfig.shared.theme.placeHolderImage,  completionHandler: {(_, error, _, _) in
+//            guard let parsedError = error else {
+//                return
+//            }
+//            print(parsedError.localizedDescription)
+//        })
+//    }
+//
+//    func setNameAsTitle(_ name: String?) {
+//        if let parsedName = name {
+////            self.senderImageView.setImage(string: parsedName, color: UIColor.lightGray, circular: true)
+//            self.senderImageView.image = UIImage(named: parsedName)
+//        } else {
+//            self.senderImageView.image = HippoConfig.shared.theme.placeHolderImage
+//        }
+//    }
+//
+//    func unsetImageInSender() {
+//        senderImageView.image = nil
+//    }
+    
     func setImageInSenderView(imageURL: URL?) {
+<<<<<<< HEAD
         senderImageView.contentMode = .scaleToFill
+=======
+        senderImageView.contentMode = .scaleAspectFill
+>>>>>>> 26ad03e0f775e3bc6bb7b6fba905ddb2574a1e20
         senderImageView.kf.setImage(with: imageURL, placeholder: HippoConfig.shared.theme.placeHolderImage,  completionHandler: {(_, error, _, _) in
             guard let parsedError = error else {
                 return

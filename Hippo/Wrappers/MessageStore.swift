@@ -63,6 +63,8 @@ class MessageStore {
         var labelID: Int = -1
         var botGroupID: Int?
         var requestType: Int = 0
+        
+        var isBotInProgress: Bool = false
     }
     
     
@@ -94,6 +96,13 @@ class MessageStore {
                 handleGetMessagesCompletion(for: requestParam, data: data, completion: completion)
             default:
                 HippoConfig.shared.log.error(error?.localizedDescription ?? "", level: .error )
+                if error?.localizedDescription ?? "" == "Access Denied"{
+//                    showAlertWith(message: error?.localizedDescription ?? "") {
+//                        if let vc = getLastVisibleController(){
+//                            vc.dismiss(animated: true, completion: nil)
+//                        }
+//                    }
+                }
                 handleGetMessageError(response: nil, completion: completion)
             }
         }
@@ -215,6 +224,10 @@ class MessageStore {
         //Checking sending Status
         if let _disableSending = data["disable_reply"] as? Bool {
             result.isSendingDisabled = _disableSending
+        }
+        
+        if let _isBotInProgress = data["is_bot_in_progress"] as? Bool {
+            result.isBotInProgress = _isBotInProgress
         }
         
         result.channelID = data["channel_id"] as? Int ?? -1

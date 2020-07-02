@@ -9,7 +9,6 @@
 import UIKit
 import NotificationCenter
 
-
 class AgentHomeViewController: HippoHomeViewController {
     
     //MARK: Screen Constants
@@ -34,7 +33,6 @@ class AgentHomeViewController: HippoHomeViewController {
     @IBOutlet weak var errorView: UIView!
     @IBOutlet weak var errorLabelTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var errorViewTopConstraint: NSLayoutConstraint!
-    
     @IBOutlet weak var paginationActivityLoader: UIActivityIndicatorView!
     @IBOutlet weak var buttonContainerView: UIView!
     @IBOutlet weak var bottomLineView: UIView!
@@ -42,13 +40,16 @@ class AgentHomeViewController: HippoHomeViewController {
     @IBOutlet weak var broadCastButton: UIButton!
     @IBOutlet weak var myChatButton: UIButton!
     @IBOutlet weak var allChatButton: UIButton!
+    @IBOutlet weak var buttonContainerViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var bottomViewLeadingConstraint: NSLayoutConstraint!
-    @IBOutlet weak var backButton: UIButton!
-    
+//    @IBOutlet weak var backButton: UIButton!
+//    @IBOutlet weak var agentStatus: UISwitch!
     @IBOutlet weak var loaderContainer: UIView!
+    @IBOutlet weak var noChatsFoundImageView: So_UIImageView!
     @IBOutlet weak var centerErrorButton: UIButton!
     @IBOutlet weak var loaderImage: So_UIImageView!
-    
+//    @IBOutlet weak var filterButton: UIButton!
+    @IBOutlet weak var view_NavigationBar : NavigationBar!
     
     //MARK: ViewDidload
     override func viewDidLoad() {
@@ -57,19 +58,25 @@ class AgentHomeViewController: HippoHomeViewController {
         addObservers()
         setUpView()
         setData()
-        
+        setAgentStatusForToggle()
         ConversationStore.shared.fetchAllCachedConversation()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+//        self.navigationController?.navigationBar.isHidden = false
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        isInitalLoad = false
-        AgentConversationManager.getAllData()
+        self.setDataForViewDidAppear()
     }
     
+    func setDataForViewDidAppear(){
+        isInitalLoad = false
+        AgentConversationManager.getAllData()
+        Business.shared.restoreAllSavedInfo()//
+        setFilterButtonIcon()
+    }
     
     //MARK: Actions
     @IBAction func backButtonClicked(_ sender: UIButton) {
@@ -79,11 +86,17 @@ class AgentHomeViewController: HippoHomeViewController {
         HippoConfig.shared.notifiyDeinit()
         self.dismiss(animated: true, completion: nil)
     }
-    
+
+    @IBAction func agentStatusToggle(_ sender: Any) {
+        agentStatusChanged()
+    }
+
     @IBAction func myChatButtonClicked(_ sender: UIButton) {
         guard conversationType != .myChat else {
             return
         }
+        self.myChatButton.titleLabel?.font = UIFont.bold(ofSize: 15)
+        self.allChatButton.titleLabel?.font = UIFont.regular(ofSize: 15)
         conversationType = .myChat
         animateBottomLineView()
         setData()
@@ -101,26 +114,42 @@ class AgentHomeViewController: HippoHomeViewController {
         guard conversationType != .allChat else {
             return
         }
+        self.myChatButton.titleLabel?.font = UIFont.regular(ofSize: 16)
+        self.allChatButton.titleLabel?.font = UIFont.bold(ofSize: 16)
         conversationType = .allChat
         animateBottomLineView()
         setData()
         tableView.reloadData()
     }
     
+    @IBAction func filterBtnAction(_ sender: Any) {
+//        let navVC = FilterViewController.getFilterStoryboardRoot()
+//        self.present(navVC, animated: true, completion: nil)
+        if let vc = FilterViewController.getNewInstance(){
+            vc.filterScreenButtonsDelegate = self
+            let navVC = UINavigationController(rootViewController: vc)
+//        navVC.setupCustomThemeOnNavigationController(hideNavigationBar: false)
+//            navVC.modalPresentationStyle = .overFullScreen
+            self.present(navVC, animated: true, completion: nil)
+        }
+    }
+
     deinit {
         print("Deinit AgentHome.....")
     }
     
     //Class methods
     class func get() -> UINavigationController? {
-        let storyboard = UIStoryboard(name: "FuguUnique", bundle: FuguFlowManager.bundle)
+//        let storyboard = UIStoryboard(name: "FuguUnique", bundle: FuguFlowManager.bundle)
+        let storyboard = UIStoryboard(name: "AgentSdk", bundle: FuguFlowManager.bundle)
         guard let navigationController = storyboard.instantiateViewController(withIdentifier: "FuguAgentNavigationController") as? UINavigationController else {
             return nil
         }
         return navigationController
     }
     class func getController() -> UIViewController? {
-        let storyboard = UIStoryboard(name: "FuguUnique", bundle: FuguFlowManager.bundle)
+//        let storyboard = UIStoryboard(name: "FuguUnique", bundle: FuguFlowManager.bundle)
+        let storyboard = UIStoryboard(name: "AgentSdk", bundle: FuguFlowManager.bundle)
         let vc = storyboard.instantiateViewController(withIdentifier: "AgentHomeViewController") as? AgentHomeViewController
         return vc
     }
@@ -147,6 +176,17 @@ class AgentHomeViewController: HippoHomeViewController {
 
 //MARK: Methods
 extension AgentHomeViewController {
+
+    func agentStatusChanged() {
+//        AgentConversationManager.agentStatusUpdate(newStatus: self.agentStatus.isOn ? AgentStatus.available : AgentStatus.away) {[weak self] (success) in
+    AgentConversationManager.agentStatusUpdate(newStatus: view_NavigationBar.rightSwitchButton.isOn ? AgentStatus.available : AgentStatus.away) {[weak self] (success) in
+            guard success, let strongSelf = self else {
+                return
+            }
+            AgentConversationManager.getAgentsList(showLoader: false) {[weak self] (_) in                
+            }
+        }
+    }
     
     func setData() {
         switch conversationType {
@@ -155,9 +195,38 @@ extension AgentHomeViewController {
         case .myChat:
             conversationList = ConversationStore.shared.myChats
         }
+//        setAgentStatus()
+        setUpButtonContainerView()
         updatePaginationData()
         showLoaderIfRequired()
     }
+
+//    func setAgentStatus() {
+//        guard let agent = HippoConfig.shared.agentDetail, agent.id > 0 else {
+//            return
+//        }
+//        //self.agentStatus.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
+//        //self.agentStatus.contentHorizontalAlignment = .center
+//        self.agentStatus.isOn = agent.status == .available ? true : false
+//    }
+
+    func setUpButtonContainerView(){
+        guard let agent = HippoConfig.shared.agentDetail, agent.id > 0 else {
+            return
+        }
+        if agent.agentUserType == .admin{
+            self.buttonContainerViewHeightConstraint.constant = 45
+            self.myChatButton.isHidden = false
+            self.allChatButton.isHidden = false
+            self.bottomLineView.isHidden = false
+        }else{
+            self.buttonContainerViewHeightConstraint.constant = 0
+            self.myChatButton.isHidden = true
+            self.allChatButton.isHidden = true
+            self.bottomLineView.isHidden = true
+        }
+    }
+    
     func checkForAnyError() {
         guard !AgentConversationManager.isConversationApiOnGoing() else {
             return
@@ -167,7 +236,7 @@ extension AgentHomeViewController {
         if  HippoConfig.shared.agentDetail == nil || HippoConfig.shared.agentDetail!.oAuthToken.isEmpty {
             message = "Auth token is not found or found Empty"
         } else if !AgentConversationManager.isAnyApiOnGoing() && conversationList.isEmpty {
-            message = "No chat found for your business."
+            message = "You have no chats"//"No chat found for your business."
             enableButton = true
         }
         
@@ -178,11 +247,13 @@ extension AgentHomeViewController {
         guard !message.isEmpty, conversationList.isEmpty, !AgentConversationManager.isAnyApiOnGoing() else {
             buttonContainerView.isHidden = false
             centerErrorButton.isHidden = true
+            noChatsFoundImageView.isHidden = true
             return
         }
         loaderImage.isHidden = true
         loaderContainer.isHidden = true
         centerErrorButton.isHidden = false
+        noChatsFoundImageView.isHidden = false
         centerErrorButton.setTitle(message, for: .normal)
         centerErrorButton.isEnabled = enableButton
     }
@@ -191,7 +262,13 @@ extension AgentHomeViewController {
     func animateBottomLineView() {
         let leading = conversationType == .myChat ? 0 : myChatButton.bounds.width
         bottomViewLeadingConstraint.constant = leading
-        
+//        if conversationType == .myChat{
+//            self.myChatButton.setTitleColor(UIColor.black, for: .normal)
+//            self.allChatButton.setTitleColor(UIColor.darkGray, for: .normal)
+//        }else{
+//            self.myChatButton.setTitleColor(UIColor.darkGray, for: .normal)
+//            self.allChatButton.setTitleColor(UIColor.black, for: .normal)
+//        }
         UIView.animate(withDuration: 0.4) {
             self.buttonContainerView.layoutIfNeeded()
         }
@@ -216,7 +293,7 @@ extension AgentHomeViewController {
             errorLabel.text = ""
             hideErrorLabelView()
         } else {
-            errorLabel.text = HippoConfig.shared.strings.noNetworkConnection
+            errorLabel.text = HippoStrings.noNetworkConnection
             showErrorLabelView()
         }
     }
@@ -249,45 +326,106 @@ extension AgentHomeViewController {
     func setUpView() {
         setupRefreshController()
         
-        self.navigationController?.setTheme()
+//        self.navigationController?.setTheme()
+//
+//        self.navigationItem.title = HippoConfig.shared.theme.headerText
+//        self.view.backgroundColor = HippoConfig.shared.theme.backgroundColor
+//
+//        backButton.tintColor = HippoConfig.shared.theme.headerTextColor
+//        if HippoConfig.shared.theme.leftBarButtonText.count > 0 {
+//            backButton.setTitle((" " + HippoConfig.shared.theme.leftBarButtonText), for: .normal)
+//            if HippoConfig.shared.theme.leftBarButtonFont != nil {
+//                backButton.titleLabel?.font = HippoConfig.shared.theme.leftBarButtonFont
+//            }
+//            backButton.setTitleColor(HippoConfig.shared.theme.leftBarButtonTextColor, for: .normal)
+//        } else {
+//            if HippoConfig.shared.theme.leftBarButtonImage != nil {
+//                backButton.setImage(HippoConfig.shared.theme.leftBarButtonImage, for: .normal)
+//                backButton.tintColor = HippoConfig.shared.theme.headerTextColor
+//            }
+//        }
+//
+////        backButton.setTitle((" " + "trea"), for: .normal)
+////        if HippoConfig.shared.theme.leftBarButtonFont != nil {
+////            backButton.titleLabel?.font = HippoConfig.shared.theme.leftBarButtonFont
+////        }
+////        backButton.setTitleColor(.black, for: .normal)
+////        if HippoConfig.shared.theme.leftBarButtonImage != nil {
+////            backButton.setImage(HippoConfig.shared.theme.leftBarButtonImage, for: .normal)
+////            backButton.tintColor = HippoConfig.shared.theme.headerTextColor
+////        }
+//
+//        //Configuring FilterButton
+//        filterButton.setTitle("", for: .normal)
+//        filterButton.tintColor = HippoConfig.shared.theme.headerTextColor
+//        if HippoConfig.shared.theme.filterBarButtonText.count > 0 {
+//            filterButton.setTitle((" " + HippoConfig.shared.theme.filterBarButtonText), for: .normal)
+//            if HippoConfig.shared.theme.filterBarButtonFont != nil {
+//                filterButton.titleLabel?.font = HippoConfig.shared.theme.filterBarButtonFont
+//            }
+//            filterButton.setTitleColor(HippoConfig.shared.theme.filterBarButtonTextColor, for: .normal)
+//        } else {
+//            if HippoConfig.shared.theme.filterBarButtonImage != nil {
+//                filterButton.setImage(HippoConfig.shared.theme.filterBarButtonImage, for: .normal)
+//                filterButton.tintColor = HippoConfig.shared.theme.headerTextColor
+//            }
+//        }
+//
+//        //Configuring BroadcastButton
+//        broadCastButton.setTitle("", for: .normal)
+//        broadCastButton.tintColor = HippoConfig.shared.theme.headerTextColor
+//        if HippoConfig.shared.theme.broadcastBarButtonText.count > 0 {
+//            broadCastButton.setTitle((" " + HippoConfig.shared.theme.broadcastBarButtonText), for: .normal)
+//            if HippoConfig.shared.theme.broadcastBarButtonFont != nil {
+//                broadCastButton.titleLabel?.font = HippoConfig.shared.theme.homeBarButtonFont
+//            }
+//            broadCastButton.setTitleColor(HippoConfig.shared.theme.broadcastBarButtonTextColor, for: .normal)
+//        } else {
+//            if HippoConfig.shared.theme.broadcastBarButtonImage != nil {
+//                broadCastButton.setImage(HippoConfig.shared.theme.broadcastBarButtonImage, for: .normal)
+//                broadCastButton.tintColor = HippoConfig.shared.theme.headerTextColor
+//            }
+//        }
+//        broadCastButton.isHidden = !HippoConfig.shared.isBroadcastEnabled
         
-        self.navigationItem.title = HippoConfig.shared.theme.headerText
+        self.myChatButton.setBackgroundColor(color: #colorLiteral(red: 0.8156862745, green: 0.8156862745, blue: 0.8156862745, alpha: 1), forState: UIControl.State.highlighted)
+        self.allChatButton.setBackgroundColor(color: #colorLiteral(red: 0.8156862745, green: 0.8156862745, blue: 0.8156862745, alpha: 1), forState: UIControl.State.highlighted)
+        self.myChatButton.titleLabel?.font = UIFont.bold(ofSize: 15)
+        self.allChatButton.titleLabel?.font = UIFont.regular(ofSize: 15)
+        self.myChatButton.setTitle(HippoConfig.shared.theme.myChatBtnText, for: .normal)
+        self.allChatButton.setTitle(HippoConfig.shared.theme.allChatBtnText, for: .normal)
+        self.bottomLineView.backgroundColor = HippoConfig.shared.theme.themeColor
         self.view.backgroundColor = HippoConfig.shared.theme.backgroundColor
-        
-        backButton.tintColor = HippoConfig.shared.theme.headerTextColor
-        if HippoConfig.shared.theme.leftBarButtonText.count > 0 {
-            backButton.setTitle((" " + HippoConfig.shared.theme.leftBarButtonText), for: .normal)
-            if HippoConfig.shared.theme.leftBarButtonFont != nil {
-                backButton.titleLabel?.font = HippoConfig.shared.theme.leftBarButtonFont
+        view_NavigationBar.title = HippoConfig.shared.theme.headerText
+        view_NavigationBar.leftButton.addTarget(self, action: #selector(backButtonClicked(_:)), for: .touchUpInside)
+        //Configuring FilterButton
+        view_NavigationBar.rightButton.setTitle("", for: .normal)
+        view_NavigationBar.rightButton.tintColor = HippoConfig.shared.theme.headerTextColor
+        if HippoConfig.shared.theme.filterBarButtonText.count > 0 {
+            view_NavigationBar.rightButton.setTitle((" " + HippoConfig.shared.theme.filterBarButtonText), for: .normal)
+            if HippoConfig.shared.theme.filterBarButtonFont != nil {
+                view_NavigationBar.rightButton.titleLabel?.font = UIFont.regular(ofSize: 14)//HippoConfig.shared.theme.filterBarButtonFont
             }
-            backButton.setTitleColor(HippoConfig.shared.theme.leftBarButtonTextColor, for: .normal)
+            view_NavigationBar.rightButton.setTitleColor(HippoConfig.shared.theme.filterBarButtonTextColor, for: .normal)
         } else {
-            if HippoConfig.shared.theme.leftBarButtonImage != nil {
-                backButton.setImage(HippoConfig.shared.theme.leftBarButtonImage, for: .normal)
-                backButton.tintColor = HippoConfig.shared.theme.headerTextColor
-            }
+            setFilterButtonIcon()
         }
+        view_NavigationBar.rightButton.addTarget(self, action: #selector(filterBtnAction(_:)), for: .touchUpInside)
+        //Configuring SwitchButton
+        view_NavigationBar.rightSwitchButtonContainerView.isHidden = false
+        view_NavigationBar.rightSwitchButton.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
+        view_NavigationBar.rightSwitchButton.contentHorizontalAlignment = .center
+        view_NavigationBar.rightSwitchButton.addTarget(self, action: #selector(agentStatusToggle(_:)), for: .touchUpInside)
         
-        //Configuring BroadcastButton
-        broadCastButton.setTitle("", for: .normal)
-        broadCastButton.tintColor = HippoConfig.shared.theme.headerTextColor
-        if HippoConfig.shared.theme.broadcastBarButtonText.count > 0 {
-            broadCastButton.setTitle((" " + HippoConfig.shared.theme.broadcastBarButtonText), for: .normal)
-            if HippoConfig.shared.theme.broadcastBarButtonFont != nil {
-                broadCastButton.titleLabel?.font = HippoConfig.shared.theme.homeBarButtonFont
-            }
-            broadCastButton.setTitleColor(HippoConfig.shared.theme.broadcastBarButtonTextColor, for: .normal)
-        } else {
-            if HippoConfig.shared.theme.broadcastBarButtonImage != nil {
-                broadCastButton.setImage(HippoConfig.shared.theme.broadcastBarButtonImage, for: .normal)
-                broadCastButton.tintColor = HippoConfig.shared.theme.headerTextColor
-            }
-        }
-        broadCastButton.isHidden = !HippoConfig.shared.isBroadcastEnabled
     }
     internal func setupRefreshController() {
         refreshControl.backgroundColor = .clear
-        refreshControl.tintColor = .themeColor
+//        refreshControl.tintColor = .themeColor
+        if HippoConfig.shared.theme.themeColor == UIColor.white || HippoConfig.shared.theme.themeColor == UIColor.clear{
+            refreshControl.tintColor = HippoConfig.shared.theme.themeTextcolor
+        }else{
+            refreshControl.tintColor = .themeColor
+        }
         tableView.backgroundView = refreshControl
         refreshControl.addTarget(self, action: #selector(reloadrefreshData(refreshCtrler:)), for: .valueChanged)
     }
@@ -321,7 +459,11 @@ extension AgentHomeViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(loginDataUpdated), name: .agentLoginDataUpated, object: nil)
     }
     
+//    @objc func loginDataUpdated() {
+//        self.tableView.reloadData()
+//    }
     @objc func loginDataUpdated() {
+        self.setAgentStatusForToggle()
         self.tableView.reloadData()
     }
     
@@ -331,11 +473,35 @@ extension AgentHomeViewController {
     }
     @objc func allChatDataUpdated() {
         setData()
+         
         self.tableView.reloadData()
     }
     @objc func myChatDataUpated() {
         setData()
+      
         self.tableView.reloadData()
+    }
+    
+    func setAgentStatusForToggle(){
+        if BussinessProperty.current.agentStatusForToggle == AgentStatus.available.rawValue {
+//            self.agentStatus.isOn = true
+            view_NavigationBar.rightSwitchButton.isOn = true
+        }else{
+//            self.agentStatus.isOn = false
+            view_NavigationBar.rightSwitchButton.isOn = false
+        }
+    }
+    
+    func setFilterButtonIcon(){
+        if BussinessProperty.current.isFilterApplied == true {
+            if HippoConfig.shared.theme.filterSelectedBarButtonImage != nil {                view_NavigationBar.rightButton.setImage(HippoConfig.shared.theme.filterSelectedBarButtonImage, for: .normal)
+                view_NavigationBar.rightButton.tintColor = HippoConfig.shared.theme.headerTextColor
+            }
+        }else{
+            if HippoConfig.shared.theme.filterUnselectedBarButtonImage != nil {                view_NavigationBar.rightButton.setImage(HippoConfig.shared.theme.filterUnselectedBarButtonImage, for: .normal)
+                view_NavigationBar.rightButton.tintColor = HippoConfig.shared.theme.headerTextColor
+            }
+        }
     }
     
     func showLoaderIfRequired() {
@@ -360,6 +526,7 @@ extension AgentHomeViewController {
         loaderContainer.isHidden = false
         loaderContainer.alpha = 0
         centerErrorButton.isHidden = true
+        noChatsFoundImageView.isHidden = true
         loaderImage.isHidden = false
         loaderImage.startRotationAnimation()
         UIView.animate(withDuration: 0.3) {
@@ -377,6 +544,7 @@ extension AgentHomeViewController {
         loaderImage.isHidden = true
         loaderContainer.isHidden = true
         centerErrorButton.isHidden = true
+        noChatsFoundImageView.isHidden = true
     }
     
 }
@@ -458,6 +626,9 @@ extension AgentHomeViewController: UITableViewDelegate, UITableViewDataSource {
         return UIView.tableAutoDimensionHeight
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if (conversationList[indexPath.row].unreadCount ?? 0) > 0{
+            removeChannelForUnreadCount(conversationList[indexPath.row].channel_id ?? -1)
+        }
         tableView.deselectRow(at: indexPath, animated: true)
         tableView.isUserInteractionEnabled = false
         fuguDelay(1) {
@@ -471,6 +642,69 @@ extension AgentHomeViewController: UITableViewDelegate, UITableViewDataSource {
             pushTotalUnreadCount()
             tableView.reloadRows(at: [indexPath], with: .none)
         }
+    }
+
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+//        var deleteAction = UITableViewRowAction(style: .default, title: "End chat") { (action, indexpath) in
+//            self.updateChannelStatus(for: indexPath.row)
+//        }
+//        return [deleteAction]
+        
+        if let status = conversationList[indexPath.row].status {
+            if status == 1{
+                let deleteAction = UITableViewRowAction(style: .default, title: "End chat") { (action, indexpath) in
+                    self.showOptionAlert(title: "", message: "Are you sure, you want to Close this conversation?", preferredStyle: .alert, successButtonName: "YES", successComplete: { (_) in
+                        self.updateChannelStatus(for: indexPath.row)
+                    }, failureButtonName: "NO", failureComplete: nil)
+                }
+                return [deleteAction]
+            }else if status == 2{
+//                let reopenAction = UITableViewRowAction(style: .default, title: "Reopen chat") { (action, indexpath) in
+//                    self.showOptionAlert(title: "", message: "Are you sure, you want to Reopen this conversation?", preferredStyle: .alert, successButtonName: "YES", successComplete: { (_) in
+//                        self.updateChannelStatus(for: indexPath.row)
+//                    }, failureButtonName: "NO", failureComplete: nil)
+//                }
+//                return [reopenAction]
+                return nil
+            }
+            return nil
+        }
+        return nil
+    }
+
+    func updateChannelStatus(for row: Int) {
+        if let channelId = conversationList[row].channel_id, let status = conversationList[row].status {
+            let newStatus = status == 1 ? 2 : 1
+            self.startLoading()
+            AgentConversationManager.updateChannelStatus(for: channelId, newStatus: newStatus) { (result) in
+                guard result.isSuccessful else {
+                    self.stopLoading()
+                    showAlertWith(message: HippoStrings.somethingWentWrong, action: nil)
+                    return
+                }
+                guard let controllers = self.navigationController?.viewControllers else {
+                    self.stopLoading()
+                    return
+                }
+                for each in controllers {
+                    if let vc = each as? HippoHomeViewController {
+//                        vc.channelStatusChanged(channelId: channelId, newStatus: ChatStatus(rawValue: newStatus) ?? ChatStatus.open)
+                        self.stopLoading()
+                        self.deleteConversation(channelId: channelId)
+                        break
+                    }
+                    self.stopLoading()
+                    if let vc = each as? AgentDirectViewController, vc.conversationList.count > 1 {
+                        break
+                    }
+                }
+            }
+        }
+
     }
     
     fileprivate func setupTableView() {
@@ -656,8 +890,21 @@ extension AgentHomeViewController: AgentUserChannelDelegate {
             handleALLChatInsertion(with: newConversation)
         }
         
-        
     }
 
 }
 
+extension AgentHomeViewController : FilterScreenButtonsDelegate{
+    func cancelButtonPressed() {
+        //code
+    }
+
+    
+    func resetButtonPressed() {
+        self.setDataForViewDidAppear()
+    }
+
+    func applyButtonPressed() {
+        self.setDataForViewDidAppear()
+    }
+}

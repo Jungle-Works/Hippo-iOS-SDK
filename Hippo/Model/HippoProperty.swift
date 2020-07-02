@@ -20,8 +20,13 @@ class HippoProperty: NSObject {
     private(set) var newconversationBotGroupId: String? = nil
 
     private(set) var openLabelIdOnHome: Int?
+
+    var skipBot: Bool?
+    var skipBotReason: String?
+    
     
     //Properties
+    var ticketCustomAttributes: [String: Any]?
     var showMessageSourceIcon: Bool = false
     private(set) var isPaymentRequestEnabled: Bool = false    
     

@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+import UIKit
 
 class FuguConversation: HippoConversation {
     
@@ -53,6 +53,8 @@ class FuguConversation: HippoConversation {
         if let label = conversationDict["label"] as? String {
             self.label = label
         }
+        self.channelBackgroundColor = UIColor.hexStringToUIColor(hex: material[getColor(char: label?.initials ?? "")])
+        
         if let default_message = conversationDict["default_message"] as? String {
             self.defaultMessage = default_message
         }
@@ -147,6 +149,7 @@ class FuguConversation: HippoConversation {
         
         return arrayOfDict
     }
+    
     
 }
 

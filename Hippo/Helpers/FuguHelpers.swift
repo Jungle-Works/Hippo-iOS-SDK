@@ -14,6 +14,7 @@ import AVFoundation
 let FUGU_USER_ID = "fuguUserId"
 let Fugu_AppSecret_Key = "fugu_app_secret_key"
 let Fugu_en_user_id = "fuguEnUserId"
+let Hippo_User_Channel_Id = "userChannelId"
 
 
 extension UInt {
@@ -85,6 +86,10 @@ struct UserDefaultkeys {
     static let botImageUrl = "HippoBotImageUrl"
     static let hideCallIconOnNavigationForCustomer = "HippoHideCallIconOnNavigationForCustomer"
     static let multiChannelLabelMapping = "Hippo_Multiple_channel_Label_Mapping"
+
+    static let isAskPaymentAllowed = "is_ask_payment_allowed"
+    static let onlineStatus = "online_status"
+    static let filterApplied = "filterApplied"
 }
 
 var FUGU_SCREEN_WIDTH: CGFloat {
@@ -108,6 +113,31 @@ var isModuleRunning: Bool {
         return true
     }
     return bundleIdentifier != "com.socomo.Fugu"
+}
+var material:[String] = [
+    "e57373",
+    "f06292",
+    "ba68c8",
+    "9575cd",
+    "7986cb",
+    "64b5f6",
+    "4fc3f7",
+    "4dd0e1",
+    "4db6ac",
+    "81c784",
+    "aed581",
+    "ff8a65",
+    "d4e157",
+    "ffd54f",
+    "ffb74d",
+    "a1887f",
+    "90a4ae"
+]
+
+func getColor(char: String) -> Int {
+    let val = char.unicodeScalars.first?.value ?? 0
+    let index = Int(val) % material.count
+    return index
 }
 
 
@@ -256,6 +286,138 @@ func fuguDelay(_ withDuration: Double, completion: @escaping () -> ()) {
     }
 }
 
+func isSubscribed(userChannelId: String) -> Bool {
+    
+    return FayeConnection.shared.isChannelSubscribed(channelID: userChannelId)
+}
+
+func unSubscribe(userChannelId: String) {
+    
+    FayeConnection.shared.unsubscribe(fromChannelId: userChannelId, completion: { (success, error) in
+    })
+}
+
+func subscribeCustomerUserChannel(userChannelId: String) {
+    
+    guard !isSubscribed(userChannelId: userChannelId) else {
+        return
+    }
+    
+    FayeConnection.shared.subscribeTo(channelId: userChannelId, completion: { (success) in
+        if !success{
+            if !FayeConnection.shared.isConnected && FuguNetworkHandler.shared.isNetworkConnected{
+                // wait for faye and try again
+                var retryAttempt = 0
+                fuguDelay(0.5) {
+                    if retryAttempt <= 2{
+                        subscribeCustomerUserChannel(userChannelId: userChannelId)
+                        retryAttempt += 1
+                    }else{
+                        return
+                    }
+                }
+            }
+        }
+    }) {  (messageDict) in
+        if let messageType = messageDict["message_type"] as? Int, messageType == 18 {
+            if let channel_id = messageDict["channel_id"] as? Int{ 
+                let channel = FuguChannelPersistancyManager.shared.getChannelBy(id: channel_id)
+                if versionCode < 350{
+                   channel.signalReceivedFromPeer?(messageDict)
+                }
+                HippoConfig.shared.log.trace("UserChannel:: --->\(messageDict)", level: .socket)
+                CallManager.shared.voipNotificationRecieved(payloadDict: messageDict)
+            }
+        }
+        
+        
+        if let notificationType = messageDict["notification_type"] as? Int{
+            var unreadData = FuguDefaults.object(forKey: DefaultName.p2pUnreadCount.rawValue) as? [String: Any]
+            if notificationType == NotificationType.message.rawValue && messageDict["channel_id"] as? Int == Int(unreadData?.keys.first ?? "") && messageDict["channel_id"] as? Int != HippoConfig.shared.getCurrentChannelId(){
+                let unreadCount = (unreadData?["\(messageDict["channel_id"] as? Int ?? -1)"] as? Int ?? 0) + 1
+                unreadData?["\(messageDict["channel_id"] as? Int ?? -1)"] = unreadCount
+                FuguDefaults.set(value: unreadData, forKey: DefaultName.p2pUnreadCount.rawValue)
+                HippoConfig.shared.sendp2pUnreadCount(unreadCount, messageDict["channel_id"] as? Int ?? -1)
+                
+            }else if notificationType == NotificationType.readAll.rawValue && messageDict["channel_id"] as? Int == Int(unreadData?.keys.first ?? ""){
+                let unreadCount = 0
+                unreadData?["\(messageDict["channel_id"] as? Int ?? -1)"] = unreadCount
+                FuguDefaults.set(value: unreadData, forKey: DefaultName.p2pUnreadCount.rawValue)
+                HippoConfig.shared.sendp2pUnreadCount(unreadCount, messageDict["channel_id"] as? Int ?? -1)
+            }
+        }
+    }
+}
+
+func subscribeMarkConversation(){
+    let markConversationChannel = HippoConfig.shared.appSecretKey + "/" + "markConversation"
+    
+    guard !isSubscribed(userChannelId: markConversationChannel) else {
+        return
+    }
+    
+    FayeConnection.shared.subscribeTo(channelId: markConversationChannel, completion: { (success) in
+    }) {  (messageDict) in
+        print(messageDict)
+        if let notificationType = messageDict["notification_type"] as? Int, notificationType == 12, let status = messageDict["status"] as? String, status == "2"{
+            for controller in getLastVisibleController()?.navigationController?.viewControllers ?? [UIViewController](){
+                if controller is AllConversationsViewController{
+                    (controller as? AllConversationsViewController)?.closeChat(messageDict["channel_id"] as? Int ?? -1)
+                    return
+                }
+            }
+        }
+    }
+    
+}
+
+
+
+
+func removeChannelForUnreadCount(_ channelId : Int){
+    if var channelList = FuguDefaults.object(forKey: DefaultName.agentTotalUnreadHashMap.rawValue) as? [String : Any], let totalUnreadCount = UserDefaults.standard.value(forKey: DefaultName.agentUnreadCount.rawValue) as? Int{
+       //find if the channel exists in list
+        if let channelUnreadCount = channelList["\(channelId)"] as? Int{
+            let newUnreadCount = totalUnreadCount - channelUnreadCount
+            HippoConfig.shared.sendAgentUnreadCount(newUnreadCount)
+            channelList.removeValue(forKey: "\(channelId)")
+            HippoConfig.shared.sendAgentChannelsUnreadCount(channelList.count)
+            FuguDefaults.set(value: channelList, forKey: DefaultName.agentTotalUnreadHashMap.rawValue)
+            UserDefaults.standard.set(newUnreadCount, forKey: DefaultName.agentUnreadCount.rawValue)
+        }
+    }
+}
+
+
+
+func calculateTotalAgentUnreadCount(_ channelId : Int, _ unreadCount : Int){
+    if var channelList = FuguDefaults.object(forKey: DefaultName.agentTotalUnreadHashMap.rawValue) as? [String : Any], var totalUnreadCount = UserDefaults.standard.value(forKey: DefaultName.agentUnreadCount.rawValue) as? Int{
+       //find if the channel exists in list
+        if let channelUnreadCount = channelList["\(channelId)"] as? Int{
+            let newUnreadCount = channelUnreadCount + 1
+            channelList["\(channelId)"] = newUnreadCount
+           // set value in hash
+            FuguDefaults.set(value: channelList, forKey: DefaultName.agentTotalUnreadHashMap.rawValue)
+            //set total unread
+            totalUnreadCount = totalUnreadCount + 1
+            UserDefaults.standard.set(totalUnreadCount, forKey: DefaultName.agentUnreadCount.rawValue)
+            //send delegate
+            HippoConfig.shared.sendAgentUnreadCount(totalUnreadCount)
+            HippoConfig.shared.sendAgentChannelsUnreadCount(channelList.count)
+        }else{
+            // if channel id doesnot exist in list
+            channelList["\(channelId)"] = 1
+            FuguDefaults.set(value: channelList, forKey: DefaultName.agentTotalUnreadHashMap.rawValue)
+            
+            totalUnreadCount = totalUnreadCount + 1
+            UserDefaults.standard.set(totalUnreadCount, forKey: DefaultName.agentUnreadCount.rawValue)
+            //send delegate
+            HippoConfig.shared.sendAgentUnreadCount(totalUnreadCount)
+            HippoConfig.shared.sendAgentChannelsUnreadCount(channelList.count)
+        }
+    }
+}
+
 func pushTotalUnreadCount() {
     var chatCounter = 0
     
@@ -288,7 +450,7 @@ func pushTotalUnreadCount() {
                 let tabItem = tabItems[0]
                 tabItem.badgeValue = "\(totalNotifyCount)"
                 //tabItem.badgeValue = nil
-            //UserDefaults.standard.set(totalNotifyCount, forKey: "totalNotify")
+                //UserDefaults.standard.set(totalNotifyCount, forKey: "totalNotify")
             }
         }else{
             if let tabItems = allConversationVC.tabBarController?.tabBar.items {
@@ -302,8 +464,8 @@ func pushTotalUnreadCount() {
 }
 
 func updateStoredUnreadCountFor(with userInfo: [String: Any]) {
-     let recievedChannelId = userInfo["channel_id"] as? Int ?? -1
-     let recievedLabelId = userInfo["label_id"] as? Int ?? -1
+    let recievedChannelId = userInfo["channel_id"] as? Int ?? -1
+    let recievedLabelId = userInfo["label_id"] as? Int ?? -1
     
     guard recievedChannelId > 0, recievedLabelId > 0 else {
         return
@@ -325,7 +487,7 @@ func updateStoredUnreadCountFor(with userInfo: [String: Any]) {
             if labelId == recievedLabelId {
                 isLabelIdPresent = true
             }
-        
+            
             if recievedChannelId < 1 {
                 isChannelIdPresent = false
             }
@@ -626,11 +788,15 @@ func validateFuguCredential() -> Bool {
     }
 }
 
+func getCurrentLanguageLocale() -> String {
+      return "en"
+  }
+
 
 func showAlertWith(message: String, action: (() -> Void)?) {
     let alert = UIAlertController(title: "", message: message, preferredStyle: .alert)
     
-    let dismissAction = UIAlertAction(title: "OK", style: .default, handler: { _ in
+    let dismissAction = UIAlertAction(title: HippoStrings.ok, style: .default, handler: { _ in
         action?()
     })
     alert.addAction(dismissAction)

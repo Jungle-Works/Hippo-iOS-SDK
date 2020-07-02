@@ -2,17 +2,29 @@
   "images" : [
     {
       "idiom" : "universal",
+<<<<<<< HEAD
       "filename" : "checkBoxSelected.png",
+=======
+      "filename" : "checkboxOn.png",
+>>>>>>> 26ad03e0f775e3bc6bb7b6fba905ddb2574a1e20
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+<<<<<<< HEAD
       "filename" : "checkBoxSelected@2x.png",
+=======
+      "filename" : "checkboxOn@2x.png",
+>>>>>>> 26ad03e0f775e3bc6bb7b6fba905ddb2574a1e20
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
+<<<<<<< HEAD
       "filename" : "checkBoxSelected@3x.png",
+=======
+      "filename" : "checkboxOn@3x.png",
+>>>>>>> 26ad03e0f775e3bc6bb7b6fba905ddb2574a1e20
       "scale" : "3x"
     }
   ],

@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<<<<<<< HEAD
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+=======
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+>>>>>>> 26ad03e0f775e3bc6bb7b6fba905ddb2574a1e20
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -21,7 +29,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="84"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hIs-wo-M8D">
+<<<<<<< HEAD
                                 <rect key="frame" x="10" y="5" width="300" height="74"/>
+=======
+                                <rect key="frame" x="0.0" y="5" width="320" height="69"/>
+>>>>>>> 26ad03e0f775e3bc6bb7b6fba905ddb2574a1e20
                                 <state key="normal" title="Button"/>
                                 <connections>
                                     <action selector="cellButtonAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="fGj-4s-PQt"/>
@@ -31,9 +43,9 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="hIs-wo-M8D" firstAttribute="top" secondItem="m8y-L5-SX9" secondAttribute="top" constant="5" id="0Yt-YL-gMg"/>
-                            <constraint firstItem="hIs-wo-M8D" firstAttribute="leading" secondItem="m8y-L5-SX9" secondAttribute="leading" constant="10" id="CdX-5r-CHY"/>
-                            <constraint firstAttribute="trailing" secondItem="hIs-wo-M8D" secondAttribute="trailing" constant="10" id="MfO-Av-B7K"/>
-                            <constraint firstAttribute="bottom" secondItem="hIs-wo-M8D" secondAttribute="bottom" constant="5" id="jfa-Mc-FYG"/>
+                            <constraint firstItem="hIs-wo-M8D" firstAttribute="leading" secondItem="m8y-L5-SX9" secondAttribute="leading" id="CdX-5r-CHY"/>
+                            <constraint firstAttribute="trailing" secondItem="hIs-wo-M8D" secondAttribute="trailing" id="MfO-Av-B7K"/>
+                            <constraint firstAttribute="bottom" secondItem="hIs-wo-M8D" secondAttribute="bottom" constant="10" id="jfa-Mc-FYG"/>
                         </constraints>
                     </view>
                 </subviews>

@@ -12,6 +12,9 @@ class ShowImageViewController: UIViewController , UIScrollViewDelegate, UIGestur
     @IBOutlet weak var imageView: So_UIImageView!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet var crossButton: UIButton!
+
+    @IBOutlet weak var downloadButton: UIButton!
+
     @IBOutlet var backgroundBlackColorView: UIView!
     
     var imageToShow: UIImage?
@@ -20,6 +23,7 @@ class ShowImageViewController: UIViewController , UIScrollViewDelegate, UIGestur
     
     // define a variable to store initial touch position
     var initialTouchPoint: CGPoint = CGPoint(x: 0,y: 0)
+
     var fixedCenter = CGPoint()
     var dismissRatio = CGFloat(0.5)
     
@@ -28,6 +32,7 @@ class ShowImageViewController: UIViewController , UIScrollViewDelegate, UIGestur
         crossButton.layer.cornerRadius = 5//31.5
         
         let gesture = UIPanGestureRecognizer(target: self, action:(#selector(self.handleGesture(_:))))
+
         self.view.addGestureRecognizer(gesture)
         self.view.isUserInteractionEnabled = true
         gesture.delegate = self
@@ -67,6 +72,28 @@ class ShowImageViewController: UIViewController , UIScrollViewDelegate, UIGestur
         self.dismiss(animated: true, completion: nil)
     }
    
+    @IBAction func downloadButtonPressed(_ sender: Any) {
+        saveImage()
+    }
+
+    //MARK: - Save image
+    func saveImage() {
+        guard let selectedImage = imageView.image else {
+            return
+        }
+        UIImageWriteToSavedPhotosAlbum(selectedImage, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
+    }
+    //MARK: - Save Image callback
+    @objc func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
+        if let error = error {
+            //            print(error.localizedDescription)
+            showAlert(title: "Alert!", message: error.localizedDescription, actionComplete: nil)
+        } else {
+            //            print("Success")
+            showAlert(title: "Saved!", message: "Image has been saved to your photos.", actionComplete: nil)
+        }
+    }
+    
    // MARK: - Type Methods
    class func getFor(imageUrlString: String) -> ShowImageViewController {
       let storyboard = UIStoryboard(name: "FuguUnique", bundle: FuguFlowManager.bundle)
@@ -127,5 +154,5 @@ class ShowImageViewController: UIViewController , UIScrollViewDelegate, UIGestur
         self.imageView.center.y = self.fixedCenter.y
         self.backgroundBlackColorView.alpha = 1
     }
-    
+
 }

@@ -20,7 +20,10 @@ extension UIColor {
 internal extension UIColor {
     
     class var themeColor: UIColor {
-        return UIColor(red: 95/255, green: 14/255, blue: 109/255, alpha: 1)//UIColor(red: 34/255, green: 150/255, blue: 255/255, alpha: 1)
+
+        return HippoConfig.shared.theme.themeColor//UIColor(red: 109/255, green: 212/255, blue: 0/255, alpha: 1)
+//        return UIColor(red: 34/255, green: 150/255, blue: 255/255, alpha: 1)
+
         //return UIColor(red: 33/255, green: 150/255, blue: 243/255, alpha: 1)
     }
     class var textHighlightedColor: UIColor {
@@ -115,6 +118,18 @@ internal extension UIColor {
     
     class var crimson: UIColor {
         return UIColor(red: 227.0 / 255.0, green: 53.0 / 255.0, blue: 48.0 / 255.0, alpha: 1.0)
+    }
+    
+    class var darkGrayColorForTag: UIColor {
+        return UIColor(red: 97/255, green: 97/255, blue: 97/255, alpha: 1)
+    }
+    
+    class var lightGrayBgColorForTag: UIColor {
+        return UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1)
+    }
+    
+    class var unreadMessageColor : UIColor{
+        return UIColor(red: 82  , green: 82, blue: 82, alpha: 1.0)
     }
     
     class func hexStringToUIColor (hex:String) -> UIColor {

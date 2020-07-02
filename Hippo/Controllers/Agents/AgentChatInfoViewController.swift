@@ -6,6 +6,8 @@
 //  Copyright © 2018 CL-macmini-88. All rights reserved.
 //
 
+
+
 import UIKit
 
 
@@ -33,12 +35,13 @@ class AgentChatInfoViewController: UIViewController {
 
     //MARK: Outlets
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var backButton: UIButton!
+//    @IBOutlet weak var backButton: UIButton!
+    @IBOutlet weak var view_NavigationBar: NavigationBar!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         fillData()
-        self.navigationController?.setTheme()
+//        self.navigationController?.setTheme()
         setUpView()
         setupTableView()
     }
@@ -47,13 +50,20 @@ class AgentChatInfoViewController: UIViewController {
         super.didReceiveMemoryWarning()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+//        self.navigationController?.navigationBar.isHidden = false
+//        self.navigationController?.isNavigationBarHidden = false
+        self.navigationController?.isNavigationBarHidden = true
+    }
+    
     @IBAction func backButtonClicked(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
     }
     
     //MARK: Class methods
     class func get(chatDetail: ChatDetail) -> AgentChatInfoViewController? {
-        let storyboard = UIStoryboard(name: "FuguUnique", bundle: FuguFlowManager.bundle)
+//        let storyboard = UIStoryboard(name: "FuguUnique", bundle: FuguFlowManager.bundle)
+        let storyboard = UIStoryboard(name: "AgentSdk", bundle: FuguFlowManager.bundle)
         let vc = storyboard.instantiateViewController(withIdentifier: "AgentChatInfoViewController") as? AgentChatInfoViewController
         vc?.channelDetail = chatDetail
         return vc
@@ -66,30 +76,41 @@ extension AgentChatInfoViewController {
         guard channelDetail != nil else {
             return
         }
-        let closeImage = UIImage(named: "closeIcon", in: FuguFlowManager.bundle, compatibleWith: nil)
+        let closeImage = HippoConfig.shared.theme.closeChatImage
+        let reopenImage = HippoConfig.shared.theme.chatReOpenIconWithTemplateMode
         if channelDetail?.channelStatus == .open {
             actionArray.append(ChatInfoCell(infoImage: closeImage, nameOfCell: "Close Chat"))
         } else {
-            actionArray.append(ChatInfoCell(infoImage: closeImage, nameOfCell: "Reopen Chat"))
+            actionArray.append(ChatInfoCell(infoImage: reopenImage, nameOfCell: "Reopen Chat"))
         }
     }
     
     func setUpView() {
-        self.navigationItem.title = "Info"
-        
-        backButton.tintColor = HippoConfig.shared.theme.headerTextColor
-        if HippoConfig.shared.theme.leftBarButtonText.count > 0 {
-            backButton.setTitle((" " + HippoConfig.shared.theme.leftBarButtonText), for: .normal)
-            if HippoConfig.shared.theme.leftBarButtonFont != nil {
-                backButton.titleLabel?.font = HippoConfig.shared.theme.leftBarButtonFont
-            }
-            backButton.setTitleColor(HippoConfig.shared.theme.leftBarButtonTextColor, for: .normal)
-        } else {
-            if HippoConfig.shared.theme.leftBarButtonImage != nil {
-                backButton.setImage(HippoConfig.shared.theme.leftBarButtonImage, for: .normal)
-                backButton.tintColor = HippoConfig.shared.theme.headerTextColor
-            }
-        }
+//        self.navigationItem.title = "Info"
+//
+//        backButton.tintColor = HippoConfig.shared.theme.headerTextColor
+//        if HippoConfig.shared.theme.leftBarButtonText.count > 0 {
+//            backButton.setTitle((" " + HippoConfig.shared.theme.leftBarButtonText), for: .normal)
+//            if HippoConfig.shared.theme.leftBarButtonFont != nil {
+//                backButton.titleLabel?.font = HippoConfig.shared.theme.leftBarButtonFont
+//            }
+//            backButton.setTitleColor(HippoConfig.shared.theme.leftBarButtonTextColor, for: .normal)
+//        } else {
+//            if HippoConfig.shared.theme.leftBarButtonArrowImage != nil {
+//                backButton.setImage(HippoConfig.shared.theme.leftBarButtonArrowImage, for: .normal)
+//                backButton.tintColor = HippoConfig.shared.theme.headerTextColor
+//            }
+//        }
+        view_NavigationBar.title = "Info"
+        view_NavigationBar.leftButton.addTarget(self, action: #selector(backButtonClicked(_:)), for: .touchUpInside)
+        view_NavigationBar.view.layer.shadowOffset = CGSize(width: 0.0, height: 0.5)
+        view_NavigationBar.view.layer.shadowRadius = 2.0
+        view_NavigationBar.view.layer.shadowOpacity = 0.5
+        view_NavigationBar.view.layer.masksToBounds = false
+        view_NavigationBar.view.layer.shadowPath = UIBezierPath(rect: CGRect(x: 0,
+                                                                        y: view_NavigationBar.bounds.maxY - view_NavigationBar.layer.shadowRadius,
+                                                                        width: view_NavigationBar.bounds.width,
+                                                                        height: view_NavigationBar.layer.shadowRadius)).cgPath
     }
     func setupTableView() {
         tableView.delegate = self
@@ -134,7 +155,7 @@ extension AgentChatInfoViewController {
     func changeChannelStatus(channelId: Int, status: ChatStatus) {
         AgentConversationManager.updateChannelStatus(for: channelId, newStatus: status.rawValue) {[weak self] (result) in
             guard self != nil, result.isSuccessful else {
-                showAlertWith(message: HippoConfig.shared.strings.somethingWentWrong, action: nil)
+                showAlertWith(message: HippoStrings.somethingWentWrong, action: nil)
                 return
             }
             self?.updateHomeView(channelId: channelId, status: status)
@@ -196,7 +217,17 @@ extension AgentChatInfoViewController: UITableViewDelegate  {
         return UIView.tableAutoDimensionHeight
     }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-       return 30
+        guard let value = AgentChatInfoSections(rawValue: section) else {
+            return 0
+        }
+        
+        switch value {
+        case .userInfo:
+            return 0
+        default:
+            return 32
+        }
+       
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let value = AgentChatInfoSections(rawValue: indexPath.section) else {
@@ -205,6 +236,15 @@ extension AgentChatInfoViewController: UITableViewDelegate  {
         switch value {
         case .channelActions:
             channelActionClicked()
+        case .chatInfo:
+            switch indexPath.row {
+            case 0: //For agent info
+                pushToAgentAssignmentList()
+                break
+            case 1: //for channel tags
+                print("case 1")
+            default:break
+            }
         default:
             break
         }
@@ -212,6 +252,16 @@ extension AgentChatInfoViewController: UITableViewDelegate  {
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         return 150
     }
+    
+    func pushToAgentAssignmentList() {
+        guard channelDetail != nil else {
+            return
+        }
+        if let vc = AgentListViewController.get(channelInfo: channelDetail!){
+        self.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    
 }
 //MARK: TableViewDataSource
 extension AgentChatInfoViewController: UITableViewDataSource {
@@ -263,9 +313,20 @@ extension AgentChatInfoViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "ChatInfoActionCell", for: indexPath) as? ChatInfoActionCell else {
             return ChatInfoActionCell()
         }
-        cell.selectionStyle = .default
+        cell.selectionStyle = .none//.default
+        cell.closeReopenChatTapButton.tag = indexPath.row
+        cell.closeReopenChatTapButton.addTarget(self, action: #selector(closeReopenChatTapButtonPressed(_:)), for: .touchUpInside)
         return cell.configureCellOfChatInfo(resetProperties: true, chatInfo: actionArray[indexPath.row])
     }
+    
+    @objc func closeReopenChatTapButtonPressed(_ sender:UIButton) {
+////        let row = sender.tag
+////        let values = data[row]
+////        let indexpath = IndexPath(row: row, section: 0)
+////        guard let cell = self.tableView.cellForRow(at: indexpath) as? ChatInfoActionCell else { return }
+//        channelActionClicked()
+    }
+    
     func returnTagView(indexPath: IndexPath) -> ChatInfoTagViewCell {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "ChatInfoTagViewCell", for: indexPath) as? ChatInfoTagViewCell,  channelDetail != nil  else {

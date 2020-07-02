@@ -38,7 +38,7 @@ class HippoConversationViewController: UIViewController {
     weak var agentConversationDelegate: AgentChatDeleagate?
     var navigationTitleButton: UIButton?
     
-    var heightForFeedBackCell: [String: CGFloat] = [:] //[muid: height] 
+    var heightForFeedBackCell: [String: CGFloat] = [:] //[muid: height]
     var typingMessageValue = TypingMessage.messageRecieved.rawValue
     var textInTextField = ""
     var timer = Timer()
@@ -59,21 +59,38 @@ class HippoConversationViewController: UIViewController {
     var titleForNavigation: NavigationTitleView?
     
     var errorMessage: String = ""
+    var chatType: ChatType? {
+        return channel.chatDetail?.chatType
+    }
     
-    //MARK: 
+    var heightForActionSheet: CGFloat = 175//125//250
+    var actionSheetTitleArr = [String]()
+    var actionSheetImageArr = [String]()
+    var addedPaymentGatewaysArr: [PaymentGateway] = []
+    var isProceedToPayActionSheet = false
+    var proceedToPayMessage : HippoMessage?
+    var proceedToPaySelectedCard : CustomerPayment?
+    var proceedToPayChannel: HippoChannel?
+    var attachments: [Attachment]  = []
+    
+    
+
+    //MARK:
     @IBOutlet var tableViewChat: UITableView!
     
     @IBOutlet weak var errorContentView: UIView!
     @IBOutlet var errorLabel: UILabel!
     @IBOutlet var errorLabelTopConstraint: NSLayoutConstraint!
-    
+    @IBOutlet weak var view_Navigation : NavigationBarChat!
+    @IBOutlet weak var height_errorView : NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         navigationController?.setTheme()
         
-        tableViewChat.backgroundView = UIImageView(image: UIImage(named: "background"))
+
+//        tableViewChat.backgroundView = UIImageView(image: UIImage(named: "background"))
         
         removeNotificationsFromNotificationCenter(channelId: channelId)
         registerFayeNotification()
@@ -121,12 +138,15 @@ class HippoConversationViewController: UIViewController {
     @objc func titleButtonclicked() { }
     func addMessageToUIBeforeSending(message: HippoMessage) { }
     
+    func openCustomSheet() { }
+    
+    func paymentCardPaymentOfCreatePaymentCalled() { }
 
     func checkNetworkConnection() {
         if FuguNetworkHandler.shared.isNetworkConnected {
             hideErrorMessage()
         } else {
-            errorMessage = HippoConfig.shared.strings.noNetworkConnection
+            errorMessage = HippoStrings.noNetworkConnection
             showErrorMessage()
         }
     }
@@ -142,10 +162,10 @@ class HippoConversationViewController: UIViewController {
         return labelId > -1
     }
     
-    func startGettingNewMessages() {
-        let color = HippoConfig.shared.theme.processingGreenColor
-        showErrorMessage(messageString: HippoConfig.shared.strings.checkingNewMessages, bgColor: color)
-    }
+//    func startGettingNewMessages() {
+//        let color = HippoConfig.shared.theme.processingGreenColor
+//        showErrorMessage(messageString: HippoConfig.shared.strings.checkingNewMessages, bgColor: color)
+//    }
     
     func isMessageInvalid(messageText: String) -> Bool {
         if messageText.replacingOccurrences(of: " ", with: "").count == 0 ||
@@ -154,7 +174,7 @@ class HippoConversationViewController: UIViewController {
             if FuguNetworkHandler.shared.isNetworkConnected == false {
                 return true
             }
-            errorMessage = HippoConfig.shared.strings.enterSomeText
+            errorMessage = HippoStrings.enterSomeText
             showErrorMessage()
             updateErrorLabelView(isHiding: true)
             return true
@@ -165,27 +185,27 @@ class HippoConversationViewController: UIViewController {
     func showErrorMessage(messageString: String = "", bgColor: UIColor = UIColor.red) {
         var message = messageString.trimWhiteSpacesAndNewLine()
         message = message.isEmpty ? errorMessage  : messageString
-        
+
         guard !message.isEmpty else {
             hideErrorMessage()
             return
         }
         errorLabel.text = message
         errorLabel.backgroundColor = bgColor
-        
-        if errorLabelTopConstraint != nil && errorLabelTopConstraint.constant != 0 {
-            errorLabelTopConstraint.constant = 0
+
+        if height_errorView != nil && height_errorView.constant != 20 {
+            height_errorView.constant = 20
             view.layoutIfNeeded()
         }
     }
     
     func hideErrorMessage() {
-        let negativeheight: CGFloat = -20
-        guard errorLabelTopConstraint.constant != negativeheight else {
+        let height: CGFloat = 0
+        guard height_errorView.constant != height else {
             return
         }
         DispatchQueue.main.async {
-            self.errorLabelTopConstraint.constant = negativeheight
+            self.height_errorView.constant = height
             self.errorLabel.text = ""
             self.errorMessage = ""
             self.view.layoutIfNeeded()
@@ -195,19 +215,21 @@ class HippoConversationViewController: UIViewController {
     
     func updateErrorLabelView(isHiding: Bool, delay: Double = 3) {
         if isHiding {
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delay) {
-                self.errorLabelTopConstraint.constant = -20
-                self.errorLabel.text = ""
-                self.view.layoutIfNeeded()
-                self.errorLabel.backgroundColor = UIColor.red
+            if self.height_errorView.constant == 20 {
+                fuguDelay(3, completion: {
+                    // self.errorLabelTopConstraint.constant = -20
+                    self.errorLabel.text = ""
+                    self.height_errorView.constant = 0
+                    self.view.layoutIfNeeded()
+                    self.errorLabel.backgroundColor = UIColor.red
+                })
             }
             return
-        }
-        
-        if errorLabelTopConstraint != nil && errorLabelTopConstraint.constant != 0 {
-            self.errorLabelTopConstraint.constant = 0
+        }else{
+            height_errorView.constant = 20
             self.view.layoutIfNeeded()
         }
+        
     }
     
     func populateTableViewWithChannelData() {
@@ -400,7 +422,7 @@ class HippoConversationViewController: UIViewController {
     
     
     func showAlertForNoInternetConnection() {
-        showAlertWith(message: HippoConfig.shared.strings.noNetworkConnection) {
+        showAlertWith(message: HippoStrings.noNetworkConnection) {
             return
         }
     }
@@ -434,7 +456,7 @@ class HippoConversationViewController: UIViewController {
             return
         }
         
-        self.modalPresentationStyle = .overCurrentContext
+        self.modalPresentationStyle = .overFullScreen
         self.present(showImageVC!, animated: true, completion: nil)
     }
     
@@ -498,11 +520,15 @@ class HippoConversationViewController: UIViewController {
         return customerId > 0
     }
     func setTitleButton() {
+        
         let color = HippoConfig.shared.theme.headerTextColor
         let button =  UIButton(type: .custom)
         button.sizeToFit()
         button.backgroundColor = UIColor.clear
         button.setTitleColor(color, for: .normal)
+        
+        button.titleLabel?.font = HippoConfig.shared.theme.headerTextFont//
+        
         button.addTarget(self, action: #selector(self.titleButtonclicked), for: .touchUpInside)
 
         self.navigationItem.titleView = button
@@ -512,31 +538,36 @@ class HippoConversationViewController: UIViewController {
     }
     
     func setTitleForCustomNavigationBar() {
-        guard HippoConfig.shared.appUserType == .customer else {
-            return
-        }
-        let rectForNavigationTitle: CGRect = CGRect(x: 0, y: 0, width: 500, height: 100)
-        let navigationView: NavigationTitleView
-        if let parsedTitleForNavigation = titleForNavigation {
-            navigationView = parsedTitleForNavigation
-        } else {
-            navigationView = NavigationTitleView.loadView(rectForNavigationTitle, delegate: self)
-            titleForNavigation = navigationView
-        }
+//        guard HippoConfig.shared.appUserType == .customer else {
+//            return
+//        }
+//        let rectForNavigationTitle: CGRect = CGRect(x: 0, y: 0, width: 500, height: 100)
+//        let navigationView: NavigationTitleView
+//        if let parsedTitleForNavigation = titleForNavigation {
+//            navigationView = parsedTitleForNavigation
+//        } else {
+//            navigationView = NavigationTitleView.loadView(rectForNavigationTitle, delegate: self)
+//            titleForNavigation = navigationView
+//        }
         if let chatType = channel?.chatDetail?.chatType, chatType == .other {
             let title: String? = channel?.chatDetail?.channelName ?? label
-             navigationView.setData(imageUrl: userImage, name: title)
+
+             view_Navigation.setData(imageUrl: userImage, name: title)
+
         } else if labelId > 0, channel == nil {
-             navigationView.setData(imageUrl: userImage, name: label)
+             view_Navigation.setData(imageUrl: userImage, name: label)
         } else {
-             navigationView.hideProfileImage()
+             view_Navigation.hideProfileImage()
         }
-        navigationView.removeFromSuperview()
-        navigationView.setTitle(title: label)
+  //      navigationView.removeFromSuperview()
+        view_Navigation.setTitle(title: label)
         title = nil
-        let button = UIBarButtonItem(customView: navigationView)
-    
-        navigationItem.leftBarButtonItem = button
+        //let button = UIBarButtonItem(customView: navigationView)
+        if HippoConfig.shared.appUserType != .customer{
+            view_Navigation.hideProfileImage()
+        }
+        view_Navigation.delegate = self
+   //     navigationItem.leftBarButtonItem = button
     }
     
     
@@ -578,13 +609,38 @@ class HippoConversationViewController: UIViewController {
         
         let call = CallData.init(peerData: peerDetail, callType: .audio, muid: String.uuid(), signallingClient: channel)
         
-        CallManager.shared.startCall(call: call) { (success) in
-            if !success {
-                assertionFailure("Cannot start the call")
+        if versionCode < 350{
+            CallManager.shared.startCall(call: call) { (success,error) in
+                if !success {
+                    assertionFailure("Cannot start the call")
+                }
+            }
+        }else{
+            //            // #####-------USE THIS METHOD IF YOU ARE USING JITSI CALLING BARNCH FOR CALLING FEATURE -----#####
+            //
+            CallManager.shared.startCall(call: call) { (success, error) in
+                
+                if let mismatchError = error, mismatchError.code == 415 {
+                    
+                    let message = peerDetail.fullName + " " + "doesn't have the latest version of app installed."
+                    self.showOptionAlert(title: "Version Mismatch", message: message, successButtonName: "Call anyway", successComplete: { (successAction) in
+                        
+                        CallManager.shared.startWebRTCCall(call: call) { (success) in
+                            if !success {
+                                assertionFailure("Cannot start webrtc the call too")
+                            }
+                        }
+                        
+                    }, failureButtonName: HippoStrings.attachmentCancel) { (failureAction) in
+                        //do nothing
+                    }
+                }
+                else if !success {
+                    assertionFailure("Cannot start the call")
+                }
             }
         }
     }
-    
     func startVideoCall() {
         guard canStartVideoCall() else {
             return
@@ -595,9 +651,34 @@ class HippoConversationViewController: UIViewController {
         self.view.endEditing(true)
         
         let call = CallData.init(peerData: peerDetail, callType: .video, muid: String.uuid(), signallingClient: channel)
-        CallManager.shared.startCall(call: call) { (success) in
-            if !success {
-                assertionFailure("Cannot start the call")
+        if versionCode < 350{
+            CallManager.shared.startCall(call: call) { (success,error) in
+                if !success {
+                    assertionFailure("Cannot start the call")
+                }
+            }
+        }else{
+            //            // #####-------USE THIS METHOD IF YOU ARE USING JITSI CALLING BARNCH FOR CALLING FEATURE -----#####
+            CallManager.shared.startCall(call: call) { (success, error) in
+                
+                if let mismatchError = error, mismatchError.code == 415 {
+                    
+                    let message = peerDetail.fullName + " " + "doesn't have the latest version of app installed."
+                    self.showOptionAlert(title: "Version Mismatch", message: message, successButtonName: "Call anyway", successComplete: { (successAction) in
+                        
+                        CallManager.shared.startWebRTCCall(call: call) { (success) in
+                            if !success {
+                                assertionFailure("Cannot start webrtc the call too")
+                            }
+                        }
+                        
+                    }, failureButtonName: "Cancel") { (failureAction) in
+                        //do nothing
+                    }
+                }
+                else if !success {
+                    assertionFailure("Cannot start the call")
+                }
             }
         }
     }
@@ -701,9 +782,11 @@ class HippoConversationViewController: UIViewController {
             case .orderedSame:
                 var latestMessageGroup = messagesGroupedByDate.last ?? []
                 let lastMessage: HippoMessage? = latestMessageGroup.last
-                self.setDataFor(belowMessage: message, aboveMessage: lastMessage)
-                latestMessageGroup.append(message)
-                messagesGroupedByDate[messagesGroupedByDate.count - 1] = latestMessageGroup
+                if lastMessage?.messageUniqueID != message.messageUniqueID{
+                    self.setDataFor(belowMessage: message, aboveMessage: lastMessage)
+                    latestMessageGroup.append(message)
+                    messagesGroupedByDate[messagesGroupedByDate.count - 1] = latestMessageGroup
+                }
             default:
                 addMessageToNewGroup(message: message)
             }
@@ -725,6 +808,7 @@ class HippoConversationViewController: UIViewController {
     func addMessageToNewGroup(message: HippoMessage) {
         self.messagesGroupedByDate.append([message])
     }
+    
     func getDateTimeStringOfLatestStoredMessage() -> Date? {
         guard !messagesGroupedByDate.isEmpty else {
             return nil
@@ -750,11 +834,33 @@ class HippoConversationViewController: UIViewController {
     
     func attachmentButtonclickedOfCustomSheet(_ sender: UIView, openType: String){
         let showPaymentOption = channel == nil ? false : HippoProperty.current.isPaymentRequestEnabled
-        pickerHelper = PickerHelper(viewController: self, enablePayment: showPaymentOption)        
+
+        pickerHelper = PickerHelper(viewController: self, enablePayment: showPaymentOption)
         pickerHelper?.delegate = self
         pickerHelper?.presentCustomActionSheet(sender: sender, controller: self, openType: openType)
     }
     
+    func getMessageAt(indexPath: IndexPath) -> HippoMessage? {
+        guard doesMessageAtIndexPathExists(indexPath) else {
+            return nil
+        }
+        
+        return messagesGroupedByDate[indexPath.section][indexPath.row]
+    }
+    
+    func doesMessageAtIndexPathExists(_ indexPath: IndexPath) -> Bool {
+        guard messagesGroupedByDate.count > indexPath.section else {
+            return false
+        }
+        
+        let groupedArray = messagesGroupedByDate[indexPath.section]
+        
+        guard groupedArray.count > indexPath.row else {
+            return false
+        }
+        
+        return true
+    }
 }
 
 
@@ -775,20 +881,23 @@ extension HippoConversationViewController: PickerHelperDelegate {
     
     func imageViewPickerDidFinish(mediaSelector: CoreMediaSelector, with result: CoreMediaSelector.Result) {
         guard result.isSuccessful else {
-            showAlert(title: "", message: result.error?.localizedDescription ?? HippoConfig.shared.strings.somethingWentWrong, actionComplete: nil)
+            showAlert(title: "", message: result.error?.localizedDescription ?? HippoStrings.somethingWentWrong, actionComplete: nil)
             return
         }
         let mediaType = result.mediaType ?? .imageType
         switch mediaType {
         case .gifType, .imageType:
             guard let selectedImage = result.image else {
-                showAlert(title: "", message: HippoConfig.shared.strings.somethingWentWrong, actionComplete: nil)
+                showAlert(title: "", message: HippoStrings.somethingWentWrong, actionComplete: nil)
                 return
             }
-            sendConfirmedImage(image: selectedImage, mediaType: mediaType)
+//            sendConfirmedImage(image: selectedImage, mediaType: mediaType)
+            let vc = SelectImageViewController.getWith(pickedImage: selectedImage, imageFormat: nil, delegate: self, isMentioningEnabled: false, gifData: nil, mediaType: mediaType)
+            self.present(vc, animated: true, completion: nil)
+
         case .movieType:
             guard let filePath = result.filePath else {
-                showAlert(title: "", message: HippoConfig.shared.strings.somethingWentWrong, actionComplete: nil)
+                showAlert(title: "", message: HippoStrings.somethingWentWrong, actionComplete: nil)
                 return
             }
             let filePathUrl = URL(fileURLWithPath: filePath)
@@ -802,6 +911,29 @@ extension HippoConversationViewController: PickerHelperDelegate {
         sendSelectedDocumentWith(filePath: url.path, fileName: url.lastPathComponent, messageType: .attachment, fileType: .document)
     }
 }
+
+// MARK: - SelectImageViewControllerDelegate Delegates
+extension HippoConversationViewController: SelectImageViewControllerDelegate {
+    func selectImageVC(_ selectedImageVC: SelectImageViewController, selectedImage: UIImage) {
+        //        selectedImageVC.dismiss(animated: false) {
+        //            self.imagePicker.dismiss(animated: false) {
+        //                self.sendConfirmedImage(image: selectedImage, mediaType: .imageType)
+        //            }
+        //        }
+        selectedImageVC.dismiss(animated: true) {
+            if self.presentedViewController == self.imagePicker {
+                self.imagePicker.dismiss(animated: false) {
+                    self.sendConfirmedImage(image: selectedImage, mediaType: .imageType)
+                }
+            } else {
+                self.sendConfirmedImage(image: selectedImage, mediaType: .imageType)
+            }
+        }
+    }
+    
+    func goToConversationViewController() {}
+}
+
 extension HippoConversationViewController {
     
     func sendSelectedDocumentWith(filePath: String, fileName: String, messageType: MessageType, fileType: FileType) {
@@ -842,7 +974,7 @@ extension HippoConversationViewController {
 //        }
         
     }
-    //This function will upload ant file and send it on channel 
+    //This function will upload ant file and send it on channel
     func UploadAndSendMessage(message: HippoMessage) {
         switch message.type {
         case .imageFile:
@@ -1086,22 +1218,39 @@ extension HippoConversationViewController {
         
     }
     func openQuicklookFor(fileURL: String, fileName: String) {
-        guard let localPath = DownloadManager.shared.getLocalPathOf(url: fileURL) else {
-            return
-        }
-        let url = URL(fileURLWithPath: localPath)
-        
-        let qlItem = QuickLookItem(previewItemURL: url, previewItemTitle: fileName)
-        
-        let qlPreview = QLPreviewController()
-        self.qldataSource = HippoQLDataSource(previewItems: [qlItem])
-        qlPreview.delegate = self.qldataSource
-        qlPreview.dataSource = self.qldataSource
-        qlPreview.title = fileName
-//        qlPreview.setupCustomThemeOnNavigationBar(hideNavigationBar: false)
-        qlPreview.navigationItem.hidesBackButton = false
-        qlPreview.hidesBottomBarWhenPushed = true
-        self.navigationController?.pushViewController(qlPreview, animated: true)
+//        if message?.type == .embeddedVideoUrl{
+//            guard let fileURL = message?.customAction?.videoLink else {
+//                return
+//            }
+//            let url = URL(string: fileURL)//URL(fileURLWithPath: fileURL)
+//            let qlItem = QuickLookItem(previewItemURL: url, previewItemTitle: fileName)
+//            let qlPreview = QLPreviewController()
+//            self.qldataSource = HippoQLDataSource(previewItems: [qlItem])
+//            qlPreview.delegate = self.qldataSource
+//            qlPreview.dataSource = self.qldataSource
+//            qlPreview.title = fileName
+//            //        qlPreview.setupCustomThemeOnNavigationBar(hideNavigationBar: false)
+//            qlPreview.navigationItem.hidesBackButton = false
+//            qlPreview.hidesBottomBarWhenPushed = true
+//            self.navigationController?.pushViewController(qlPreview, animated: true)
+//        }else{
+            guard let localPath = DownloadManager.shared.getLocalPathOf(url: fileURL) else {
+                return
+            }
+            let url = URL(fileURLWithPath: localPath)
+            
+            let qlItem = QuickLookItem(previewItemURL: url, previewItemTitle: fileName)
+            
+            let qlPreview = QLPreviewController()
+            self.qldataSource = HippoQLDataSource(previewItems: [qlItem])
+            qlPreview.delegate = self.qldataSource
+            qlPreview.dataSource = self.qldataSource
+            qlPreview.title = fileName
+            //        qlPreview.setupCustomThemeOnNavigationBar(hideNavigationBar: false)
+            qlPreview.navigationItem.hidesBackButton = false
+            qlPreview.hidesBottomBarWhenPushed = true
+            self.navigationController?.pushViewController(qlPreview, animated: true)
+//        }
     }
     func sendMessage(message: HippoMessage) {
         channel?.send(message: message, completion: { [weak self] in
@@ -1148,6 +1297,22 @@ extension HippoConversationViewController {
         }
         
     }
+    
+    func presentPlansVc() {
+        guard channelId > 0 else {
+            return
+        }
+        
+        let id = UInt(channelId)
+        
+        let vc = PaymentPlansViewController.get(channelId: id)
+        vc.sendNewPaymentDelegate = self
+        let navVC = UINavigationController(rootViewController: vc)
+        self.modalPresentationStyle = .fullScreen
+//        navVC.setupCustomThemeOnNavigationController(hideNavigationBar: false)
+        self.present(navVC, animated: true, completion: nil)
+    }
+    
 }
 
 
@@ -1197,18 +1362,48 @@ extension HippoConversationViewController: VideoTableViewCellDelegate {
     }
     
     func openFileIn(message: HippoMessage) {
-        guard let fileURL = message.fileUrl, DownloadManager.shared.isFileDownloadedWith(url: fileURL) else {
-            print("-------\nERROR\nFile is not downloaded\n--------")
-            return
+        if message.type == .embeddedVideoUrl{
+            guard let fileURL = message.customAction?.videoLink else {
+                print("-------\nERROR\nEmbedded video link empty\n--------")
+                return
+            }
+            var fileName = message.fileName ?? ""
+            if fileName.count > 10 {
+                let stringIndex = fileName.index(fileName.startIndex, offsetBy: 9)
+                fileName = String(fileName[..<stringIndex])
+            }
+//            //openQuicklookFor(fileURL: fileURL, fileName: fileName)
+//            let url = URL(string: fileURL)//URL(fileURLWithPath: fileURL)
+//            let qlItem = QuickLookItem(previewItemURL: url, previewItemTitle: fileName)
+//            let qlPreview = QLPreviewController()
+//            self.qldataSource = HippoQLDataSource(previewItems: [qlItem])
+//            qlPreview.delegate = self.qldataSource
+//            qlPreview.dataSource = self.qldataSource
+//            qlPreview.title = fileName
+//            //        qlPreview.setupCustomThemeOnNavigationBar(hideNavigationBar: false)
+//            qlPreview.navigationItem.hidesBackButton = false
+//            qlPreview.hidesBottomBarWhenPushed = true
+//            self.navigationController?.pushViewController(qlPreview, animated: true)
+            if let url = URL(string: fileURL){
+                let config = WebViewConfig(url: url, title: fileName)
+                let vc = CheckoutViewController.getNewInstance(config: config)
+                self.navigationController?.pushViewController(vc, animated: true)
+            }else{
+                print("Error----")
+            }
+            
+        }else{
+            guard let fileURL = message.fileUrl, DownloadManager.shared.isFileDownloadedWith(url: fileURL) else {
+                print("-------\nERROR\nFile is not downloaded\n--------")
+                return
+            }
+            var fileName = message.fileName ?? ""
+            if fileName.count > 10 {
+                let stringIndex = fileName.index(fileName.startIndex, offsetBy: 9)
+                fileName = String(fileName[..<stringIndex])
+            }
+            openQuicklookFor(fileURL: fileURL, fileName: fileName)
         }
-        
-        var fileName = message.fileName ?? ""
-        if fileName.count > 10 {
-            let stringIndex = fileName.index(fileName.startIndex, offsetBy: 9)
-            fileName = String(fileName[..<stringIndex])
-        }
-        
-        openQuicklookFor(fileURL: fileURL, fileName: fileName)
     }
 }
 
@@ -1320,6 +1515,13 @@ extension HippoConversationViewController: CreatePaymentDelegate {
         
         publishMessageOnChannel(message: message)
     }
+    func backButtonPressed(shouldUpdate: Bool){
+        //code
+        print("")
+    }
+    func paymentCardPayment(isSuccessful: Bool) {
+        //code
+    }
 }
 
 extension HippoConversationViewController {
@@ -1327,11 +1529,15 @@ extension HippoConversationViewController {
         switch isOutgoingMessage {
         case false:
             let cell = tableView.dequeueReusableCell(withIdentifier: "SupportMessageTableViewCell", for: indexPath) as! SupportMessageTableViewCell
+            let bottomSpace = getBottomSpaceOfMessageAt(indexPath: indexPath, message: message)
+            cell.updateBottomConstraint(bottomSpace)
             let incomingAttributedString = Helper.getIncomingAttributedStringWithLastUserCheck(chatMessageObject: message)
             return cell.configureCellOfSupportIncomingCell(resetProperties: true, attributedString: incomingAttributedString, channelId: channel?.id ?? labelId, chatMessageObject: message)
         case true:
             let cell = tableView.dequeueReusableCell(withIdentifier: "SelfMessageTableViewCell", for: indexPath) as! SelfMessageTableViewCell
             cell.delegate = self
+            let bottomSpace = getBottomSpaceOfMessageAt(indexPath: indexPath, message: message)
+            cell.updateBottomConstraint(bottomSpace)
             return cell.configureIncomingMessageCell(resetProperties: true, chatMessageObject: message, indexPath: indexPath)
         }
     }
@@ -1354,6 +1560,284 @@ extension HippoConversationViewController: NavigationTitleViewDelegate {
         if let id = channel?.chatDetail?.assignedAgentID, id > 0 {
             openProfile(for: -1, agentId: "\(id)", profile: nil)
         }
+
+    }
+    func openProfile(for channelId: Int, agentId: String?, profile: ProfileDetail?) {
+//        let presenter = AgentProfilePresenter(channelID: channelId, agentID: agentId, profile: profile)
+//        let vc = AgentProfileViewController.get(presenter: presenter)
+//        self.navigationController?.pushViewController(vc, animated: true)
+    }
+}
+extension HippoConversationViewController: CardMessageDelegate {
+    func cardSelected(cell: CardMessageTableViewCell, card: MessageCard, message: HippoMessage) {
+        if let channel = self.channel, channel.isSendingDisabled {
+            print("isSendingDisabled disabled")
+            return
+        }
+        
+        message.selectedCardId = card.id
+        sendMessage(message: message)
+        cell.set(message: message)
+    }
+    func labelContainerClicked(cell: CardMessageTableViewCell, card: MessageCard, message: HippoMessage) {
+        let profile = ProfileDetail(json: [:])
+        profile.image = card.image?.url.path
+        profile.fullName = card.title
+        profile.rating = card.rating
+        
+        openProfile(for: -1, agentId: card.id, profile: profile)
+    }
+}
+
+extension HippoConversationViewController: PaymentMessageCellDelegate {
+    func cellButtonPressed(message: HippoMessage, card: HippoCard) {
+//        if let channel = self.channel, channel.isSendingDisabled {
+//            print("isSendingDisabled disabled")
+//            return
+//        }
+//        guard let selectedCard = (card as? PayementButton)?.selectedCardDetail, let url = URL(string: selectedCard.paymentUrlString ?? "") else {
+//            generatePaymentUrl(for: message, card: card)
+//            return
+//        }
+//        initatePayment(for: url)
+        if let channel = self.channel, channel.isSendingDisabled {
+            print("isSendingDisabled disabled")
+            return
+        }
+        guard let selectedCard = (card as? PayementButton)?.selectedCardDetail else {
+            //, let url = URL(string: selectedCard.paymentUrlString ?? "") else {
+            //generatePaymentUrl(for: message, card: card)
+            return
+        }
+        
+        proceedToPayMessage = message
+        proceedToPaySelectedCard = selectedCard
+        proceedToPayChannel = channel
+        
+        if HippoConfig.shared.appUserType == .customer{
+            closeKeyBoard()
+            switch addedPaymentGatewaysArr.count{
+            case 0:
+                showAlertWith(message: "No payment method available", action: nil)
+            case 1:
+                if let currencyStr = selectedCard.currency, let currencyAllowed = addedPaymentGatewaysArr.first?.currency_allowed{
+                    if currencyAllowed.contains(currencyStr){
+                        if let proceedToPayMessage = proceedToPayMessage, let proceedToPayChannel = proceedToPayChannel, let proceedToPaySelectedCard = proceedToPaySelectedCard{
+                            generatePaymentUrlWithSelectedPaymentGateway(for: proceedToPayMessage, card: proceedToPaySelectedCard, selectedPaymentGateway: addedPaymentGatewaysArr.first, proceedToPayChannel: proceedToPayChannel)
+                            return
+                        }
+                    }else{
+                       showAlertWith(message: "No payment method available", action: nil)
+                    }
+                }
+                break
+            default:
+                if let currencyStr = selectedCard.currency{
+                    actionSheetTitleArr.removeAll()
+                    actionSheetImageArr.removeAll()
+                    for i in 0..<addedPaymentGatewaysArr.count{
+                        if let currencyAllowedArr = addedPaymentGatewaysArr[i].currency_allowed {
+                            if currencyAllowedArr.contains(currencyStr){
+                                if let gatewayName = addedPaymentGatewaysArr[i].gateway_name {
+                                    if let gatewayImage = addedPaymentGatewaysArr[i].gateway_image {
+                                        actionSheetTitleArr.append(gatewayName)
+                                        actionSheetImageArr.append(gatewayImage)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    if actionSheetTitleArr.count > 0{
+                        heightForActionSheet = CGFloat((actionSheetTitleArr.count * 60))
+                        isProceedToPayActionSheet = true
+                        openCustomSheet()
+                    }else{
+                      showAlertWith(message: "No payment method available", action: nil)
+                    }
+                }
+                
+                break
+            }
+        }else{
+            if let channel = self.channel, channel.isSendingDisabled {
+                print("isSendingDisabled disabled")
+                return
+            }
+            guard let selectedCard = (card as? PayementButton)?.selectedCardDetail, let url = URL(string: selectedCard.paymentUrlString ?? "") else {
+                generatePaymentUrl(for: message, card: card, selectedPaymentGateway: nil)
+                return
+            }
+            initatePayment(for: url)
+        }
+    }
+    
+    func initatePayment(for url: URL) {
+        let config = WebViewConfig(url: url, title: HippoStrings.payment)
+        let vc = CheckoutViewController.getNewInstance(config: config)
+        vc.isComingForPayment = true
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    func generatePaymentUrl(for message: HippoMessage, card: HippoCard, selectedPaymentGateway: PaymentGateway?) {
+        guard let selectedCard = (card as? PayementButton)?.selectedCardDetail, let channelId = channel?.id else {
+            HippoConfig.shared.log.error("cannot find selected card.... Please select the card", level: .error)
+            return
+        }
+        
+        HippoConfig.shared.delegate?.startLoading(message: "Redirecting to payment...")
+        
+        PaymentStore.generatePaymentUrl(channelId: channelId, message: message, selectedCard: selectedCard, selectedPaymentGateway: selectedPaymentGateway) { (success, data) in
+            HippoConfig.shared.delegate?.stopLoading()
+            guard success, let result = data else {
+                return
+            }
+            guard let paymentUrl = result["payment_url"] as? String else {
+                return
+            }
+            HippoConfig.shared.log.debug("Response --\(result)", level: .response)
+            selectedCard.paymentUrlString = paymentUrl
+            
+            guard let url = URL(string: paymentUrl) else {
+                return
+            }
+            self.initatePayment(for: url)
+        }
+        
+    }
+    
+
+    func getNextMessageInDateGroupOfMessageAt(indexPath: IndexPath) -> HippoMessage? {
+        let row = indexPath.row
+        let section = indexPath.section
+
+        guard messagesGroupedByDate.count > section else {
+            return nil
+        }
+        
+        let groupedArray = messagesGroupedByDate[section]
+        
+        guard groupedArray.count > row + 1 else {
+            return nil
+        }
+        
+        let nextMessage = groupedArray[row+1]
+        return nextMessage
+    }
+    
+    
+    
+    func getBottomSpaceOfMessageAt(indexPath: IndexPath, message: HippoMessage) -> CGFloat {
+        guard let nextMessage = getNextMessageInDateGroupOfMessageAt(indexPath: indexPath) else {
+            return 1
+        }
+        
+        if nextMessage.senderId != message.senderId {
+            return 10 // bottom space from other user massage
+         }
+        
+        return 0 // onle top pennding for same user message extra bottom space is 0
+    }
+    
+
+    func generatePaymentUrlWithSelectedPaymentGateway(for message: HippoMessage, card: CustomerPayment, selectedPaymentGateway: PaymentGateway?, proceedToPayChannel: HippoChannel?) {
+        let selectedCard = card
+        guard let channelId = proceedToPayChannel?.id else {
+            HippoConfig.shared.log.error("cannot find selected card.... Please select the card", level: .error)
+            return
+        }
+        HippoConfig.shared.delegate?.startLoading(message: "Redirecting to payment...")
+        PaymentStore.generatePaymentUrl(channelId: channelId, message: message, selectedCard: selectedCard, selectedPaymentGateway: selectedPaymentGateway) { (success, data) in
+            HippoConfig.shared.delegate?.stopLoading()
+            guard success, let result = data else {
+                return
+            }
+            guard let paymentUrl = result["payment_url"] as? String else {
+                return
+            }
+            HippoConfig.shared.log.debug("Response --\(result)", level: .response)
+            selectedCard.paymentUrlString = paymentUrl
+            guard let url = URL(string: paymentUrl) else {
+                return
+            }
+            self.initatePayment(for: url)
+        }
+    }
+
+}
+
+extension HippoConversationViewController: submitButtonTableViewDelegate
+{
+    func submitButtonPressed(hippoMessage: HippoMessage) {
+        
+        createChannelIfRequiredAndContinue(replyMessage: nil) { (success, result) in
+            
+            self.sendMessage(message: hippoMessage)
+            self.tableViewChat.reloadData()
+        }
+    }
+    
+    
+}
+
+//MARK:- COLLECTION VIEW DELEAGATE/DATASOURCE
+extension HippoConversationViewController : UICollectionViewDelegate , UICollectionViewDataSource , UICollectionViewDelegateFlowLayout{
+    
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return attachments.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+
+        guard let attachmentOptionCVCell  = collectionView.dequeueReusableCell(withReuseIdentifier: "AttachmentOptionCollectionViewCell", for: indexPath) as? AttachmentOptionCollectionViewCell else { return UICollectionViewCell() }
+        attachmentOptionCVCell.attachmentDetail = attachments[indexPath.item]
+        return attachmentOptionCVCell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let param = UIScreen.main.bounds.width/4 - 8
+        return CGSize(width: param, height: param)
+    }
+    
+    
+}
+
+
+
+
+//MARK:- COLLECTIONVIEW CELL
+class AttachmentOptionCollectionViewCell : UICollectionViewCell{
+    
+    @IBOutlet weak var imageViewAttachment: UIImageView!
+    @IBOutlet weak var labelAttachment: UILabel!
+    
+    var attachmentDetail : Attachment?{
+        didSet{
+            imageViewAttachment?.image = attachmentDetail?.icon
+            labelAttachment?.text = attachmentDetail?.title
+            imageViewAttachment?.tintColor = HippoConfig.shared.theme.moreOptionsIconsTintColor
+            labelAttachment?.tintColor = HippoConfig.shared.theme.moreOptionsTitlesTintColor
+        }
+    }
+}
+
+class Attachment : NSObject{
+    
+    var icon  : UIImage?
+    var title : String?
+    
+    init(icon : UIImage?, title : String?) {
+        self.icon = icon
+        self.title = title
+    }
+}
+
+extension HippoConversationViewController : paymentCardPaymentOfCreatePaymentDelegate{
+    func paymentCardPaymentOfCreatePayment(isSuccessful: Bool) {
+        if isSuccessful == true{
+            //self.attachmentViewHeightConstraint.constant = 0
+            paymentCardPaymentOfCreatePaymentCalled()
+        }
+
     }
     func openProfile(for channelId: Int, agentId: String?, profile: ProfileDetail?) {
 //        let presenter = AgentProfilePresenter(channelID: channelId, agentID: agentId, profile: profile)

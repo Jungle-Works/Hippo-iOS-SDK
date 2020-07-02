@@ -47,6 +47,14 @@ extension String {
             return true
         }
     }
+    var localized: String {
+        if let path = FuguFlowManager.bundle?.path(forResource: getCurrentLanguageLocale(), ofType: "lproj") {
+              let bundle = Bundle(path: path)
+              return NSLocalizedString(self, tableName: "HippoLocalizable", bundle: bundle!, value: "", comment: "")
+          }
+          return self
+      }
+    
     
     func isOnlyNumber() -> Bool {
         let number = UInt(self)
@@ -115,7 +123,6 @@ extension String {
     static func generateUniqueId() -> String {
         return UUID().uuidString.suffix(10) + ".\(arc4random()).\(Date().toMillis())"
     }
-    
     
         func height(withConstrainedWidth width: CGFloat, font: UIFont) -> CGFloat {
             let constraintRect = CGSize(width: width, height: .greatestFiniteMagnitude)

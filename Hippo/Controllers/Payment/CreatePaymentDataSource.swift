@@ -13,7 +13,7 @@ class CreatePaymentDataSource: NSObject {
     var store: PaymentStore
     
     init(store: PaymentStore) {
-       self.store = store
+        self.store = store
     }
     
     enum DataSourceSection: Int, CaseCountable {
@@ -52,6 +52,7 @@ extension CreatePaymentDataSource: UITableViewDataSource {
             let customCell = tableView.dequeueReusableCell(withIdentifier: "BroadCastTextFieldCell", for: indexPath) as! BroadCastTextFieldCell
             let form = store.fields[indexPath.row]
             customCell.setupCell(form: form)
+            customCell.isUserInteractionEnabled = store.isEditing
             return customCell
             
         case .button:
@@ -67,13 +68,14 @@ extension CreatePaymentDataSource: UITableViewDataSource {
                 customCell.setupCellFor(form: value)
                 return customCell
             }
-           
+            
         case .items:
             let customCell = tableView.dequeueReusableCell(withIdentifier: "PaymentItemDescriptionCell", for: indexPath) as! PaymentItemDescriptionCell
             let item = store.items[indexPath.row]
             let count = store.items.count
             customCell.setupCellFor(item: item)
-            customCell.cancelIcon.isHidden = count == 1
+            customCell.isUserInteractionEnabled = store.isEditing
+            customCell.cancelIcon.isHidden = count == 1 || !store.isEditing
             
             return customCell
         }

@@ -43,7 +43,7 @@ class BroadcastListTableViewCell: UITableViewCell {
         forwardImageView.tintColor = HippoConfig.shared.theme.headerBackgroundColor
         forwardImageView.image = HippoConfig.shared.theme.forwardIcon
         
-        let font = UIFont.systemFont(ofSize: 15)
+        let font = UIFont.regular(ofSize: 15)
         
         dateLabel.font = font
         senderNameLabel.font = font
@@ -70,9 +70,6 @@ class BroadcastListTableViewCell: UITableViewCell {
         
         broadcastTypeLabel.text = broadcast.broadcastType.description
         broadcastStackView.isHidden = broadcast.broadcastType == .unknown
-        
-        
-        
     }
     
     func setHomeUI() {
@@ -81,6 +78,7 @@ class BroadcastListTableViewCell: UITableViewCell {
         fallbackNameLabel.numberOfLines = 1
         forwardImageView.isHidden = false
     }
+    
     func setDetailUI() {
         titleLabel.numberOfLines = 0
         messageLabel.numberOfLines = 0

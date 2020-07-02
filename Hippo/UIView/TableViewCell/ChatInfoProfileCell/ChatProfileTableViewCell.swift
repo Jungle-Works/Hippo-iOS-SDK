@@ -32,6 +32,7 @@ class ChatProfileTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         userEmailTextView.textContainer.maximumNumberOfLines = 1
+        setFonts()
     }
     
     func setupCell(with data: ChatDetail) {
@@ -39,6 +40,14 @@ class ChatProfileTableViewCell: UITableViewCell {
         userLocationTextView.text = "NA"
         userEmailTextView.text = data.customerEmail.isEmpty ? "NA" : data.customerEmail
         userNumberTextView.text = data.customerContactNumber.isEmpty ? "NA" : data.customerContactNumber
+    }
+    
+    func setFonts(){
+        userLocationTextView.font = UIFont.regular(ofSize: 16.0)
+        userNumberTextView.font = UIFont.regular(ofSize: 16.0)
+        userEmailTextView.font = UIFont.regular(ofSize: 16.0)
+        lastActiveTimeLabel.font = UIFont.regular(ofSize: 15.0)
+        userNameLabel.font = UIFont.bold(ofSize: 22.0)
     }
     
 }

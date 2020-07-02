@@ -26,6 +26,11 @@ class PaymentCurrency: NSObject {
         displayName = name + " (\(symbol))"
     }
     
+    init(_ symbol : String, _ name : String){
+        self.symbol = symbol
+        self.code = name
+    }
+    
     class func getAllCurrency() -> [PaymentCurrency] {
         guard currencies.isEmpty else {
             return currencies
@@ -39,6 +44,25 @@ class PaymentCurrency: NSObject {
         
         currencies = list
         return currencies
+    }
+    
+    static func findCurrency(code: String?, symbol: String?) -> PaymentCurrency? {
+        let currencies = getAllCurrency()
+        var objForCode: PaymentCurrency?
+        var objForSymbol: PaymentCurrency?
+        
+        for each in currencies {
+            guard objForCode == nil && objForSymbol == nil else {
+                break
+            }
+            if each.code == code, objForCode == nil {
+                objForCode = each
+            }
+            if each.symbol == symbol, objForSymbol == nil {
+                objForSymbol = each
+            }
+        }
+        return objForCode ?? objForSymbol
     }
 }
 
@@ -230,4 +254,3 @@ let currencyJson: [[String: Any]] = [
         "name": "res"
     ]
 ]
-

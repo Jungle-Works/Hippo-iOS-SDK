@@ -14,25 +14,19 @@ class ChatInfoAgentTableViewCell: UITableViewCell {
     @IBOutlet weak var agentProfileImage: UIImageView!
     @IBOutlet weak var agentNameLabel: UILabel!
     @IBOutlet weak var namePlaceHolderImage: UIImageView!
+    @IBOutlet weak var assignedToTextLabel: UILabel!
+    @IBOutlet weak var downArrowButton: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         resetData()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+        setFonts()
     }
     
     func setUpData(agentId: Int, agentName: String) -> ChatInfoAgentTableViewCell {
-//        resetData()
-    
         agentNameLabel.text = agentName.isEmpty ? "Unassigned" : agentName
-        containerView.layer.borderColor = UIColor.paleGrey.cgColor
-        
+        //containerView.layer.borderColor = UIColor.paleGrey.cgColor
+        containerView.layer.borderColor = UIColor.clear.cgColor
         return self
     }
     
@@ -41,4 +35,10 @@ class ChatInfoAgentTableViewCell: UITableViewCell {
         agentProfileImage.image = UIImage()
         agentNameLabel.text = ""
     }
+    
+    func setFonts(){
+        agentNameLabel.font = UIFont.regular(ofSize: 18.0)
+        assignedToTextLabel.font = UIFont.regular(ofSize: 15.0)
+    }
+
 }

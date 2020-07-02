@@ -33,6 +33,7 @@ protocol HippoChannelDelegate: class {
     func sendingFailedFor(message: HippoMessage)
     func cancelSendingMessage(message: HippoMessage, errorMessage: String?)
     func channelDataRefreshed()
+    func closeChatActionFromRefreshChannel()
 }
 struct CreateConversationWithLabelId {
     var replyMessage: HippoMessage?
@@ -216,6 +217,30 @@ class HippoChannel {
     // MARK: - Create New Channel/Conversation
     static var hashmapTransactionIdToChannelID = [String: Int]()
     
+    class func saveHashMapTransactionIdToChannelIDInCache(hashMap: [String: Int]) {
+        
+        var sourceDict = hashMap
+        var uniqueValues = Set<Int>()
+        var resultDict = [String: Int](minimumCapacity: sourceDict.count)
+        //The reserveCapacity() function doesn't exist for Dictionaries, as pointed
+        //out by Hamish in the comments. See the initializer with minimumCapacity,
+        //above. That's the way you have to set up a dictionary with an initial capacity.
+        //resultDict.reserveCapacity(sourceDict.count)
+        for (key, value) in sourceDict {
+            if !uniqueValues.contains(value) {
+                uniqueValues.insert(value)
+                resultDict[key] = value
+            }
+        }
+        
+//        FuguDefaults.set(value: hashMap, forKey: "hashmapTransactionIdToChannelID")
+        FuguDefaults.set(value: resultDict, forKey: "hashmapTransactionIdToChannelID")
+        
+    }
+    class func getHashMapTransactionIdToChannelIDFromCache() -> [String: Int] {
+        return (FuguDefaults.object(forKey: "hashmapTransactionIdToChannelID") as? [String: Int] ?? [:])
+    }    
+    
     class func get(request: CreateConversationWithLabelId, completion: @escaping HippoChannelCreationHandler) {
         
         let params = getParamsToStartConversation(WithLabelId: request)
@@ -258,29 +283,58 @@ class HippoChannel {
             let channel = FuguChannelPersistancyManager.shared.getChannelBy(id: channelID)
             let botMessageID: String? = String.parse(values: data, key: "bot_message_id")
             let result = HippoChannelCreationResult(isSuccessful: true, error: nil, channel: channel, isChannelAvailableLocallay: false, botMessageID: botMessageID)
-            if let transactionID = params["transaction_id"] as? String {
+            if var transactionID = params["transaction_id"] as? String {
+                if let otherUserUniqueKey = params["other_user_unique_key"] as? String{
+                    if otherUserUniqueKey.trimWhiteSpacesAndNewLine().count > 0{
+                        transactionID = transactionID + "-" + otherUserUniqueKey
+                    }
+                }
                 hashmapTransactionIdToChannelID[transactionID] = channelID
+                
+                saveHashMapTransactionIdToChannelIDInCache(hashMap: HippoChannel.hashmapTransactionIdToChannelID)
+                
             }
             completion(result)
         }
     }
     
-    class func get(withFuguChatAttributes attributes: FuguNewChatAttributes, isComingFromConsultNow: Bool = false, completion: @escaping HippoChannelCreationHandler) {
-        
+
+//    class func get(withFuguChatAttributes attributes: FuguNewChatAttributes, completion: @escaping HippoChannelCreationHandler) {
+    class func get(withFuguChatAttributes attributes: FuguNewChatAttributes, isComingFromConsultNow: Bool = false, methodIsOnlyCallForChannelAvailableInLocalOrNot: Bool = false, completion: @escaping HippoChannelCreationHandler) {
+
         if isComingFromConsultNow {
             let params = getParamsToStartConversation(fuguAttributes: attributes)
             createNewConversationWith(params: params, completion: completion)
         } else {
-            if let transactionID = attributes.transactionId,
-                FuguNewChatAttributes.isValidTransactionID(id: transactionID),
+
+            
+            let hashMapTransactionIdToChannelIDFromCache = getHashMapTransactionIdToChannelIDFromCache()
+            if hashMapTransactionIdToChannelIDFromCache != [:]{
+                hashmapTransactionIdToChannelID = hashMapTransactionIdToChannelIDFromCache
+            }
+            
+            if var transactionID = attributes.transactionId, let otherUserUniqueKey = attributes.otherUniqueKey?.first{
+                if otherUserUniqueKey.trimWhiteSpacesAndNewLine().count > 0{
+                  transactionID = transactionID + "-" + otherUserUniqueKey
+                }
+                if FuguNewChatAttributes.isValidTransactionID(id: transactionID),
                 let channelID = hashmapTransactionIdToChannelID[transactionID] {
-                
-                let channel = FuguChannelPersistancyManager.shared.getChannelBy(id: channelID)
-                let result = HippoChannelCreationResult(isSuccessful: true, error: nil, channel: channel, isChannelAvailableLocallay: true, botMessageID: nil)
+                    
+                    let channel = FuguChannelPersistancyManager.shared.getChannelBy(id: channelID)
+                    let result = HippoChannelCreationResult(isSuccessful: true, error: nil, channel: channel, isChannelAvailableLocallay: true, botMessageID: nil)
+                    completion(result)
+                    return
+                    
+                }
+            }
+            
+            if methodIsOnlyCallForChannelAvailableInLocalOrNot == true{
+                //methodIsOnlyCallForChannelAvailableInLocalOrNot = false
+                let result = HippoChannelCreationResult(isSuccessful: false, error: nil, channel: nil, isChannelAvailableLocallay: false, botMessageID: nil)
                 completion(result)
                 return
             }
-            
+
             let params = getParamsToStartConversation(fuguAttributes: attributes)
             createNewConversationWith(params: params, completion: completion)
         }
@@ -305,8 +359,9 @@ class HippoChannel {
                     completion(result)
                     return
             }
-            
-           
+
+//            let channel = FuguChannelPersistancyManager.shared.getChannelBy(id: channelID)
+
             print("API_CREATE_CONVERSATION_RESPONSE******* ", response)
             let channel = FuguChannelPersistancyManager.shared.getChannelBy(id: channelID)
             channel.chatDetail?.agentAlreadyAssigned = data["agent_already_assigned"] as? Bool ?? false
@@ -323,8 +378,17 @@ class HippoChannel {
             
             let botMessageID: String? = String.parse(values: data, key: "bot_message_id")
             let result = HippoChannelCreationResult(isSuccessful: true, error: nil, channel: channel, isChannelAvailableLocallay: false, botMessageID: botMessageID)
-            if let transactionID = params["transaction_id"] as? String {
+            if var transactionID = params["transaction_id"] as? String {
+                if let otherUserUniqueKey = (params["other_user_unique_key"] as? [String])?.first{
+                    if otherUserUniqueKey.trimWhiteSpacesAndNewLine().count > 0{
+                        transactionID = transactionID + "-" + (otherUserUniqueKey)
+                    }
+                }
+                
                 hashmapTransactionIdToChannelID[transactionID] = channelID
+                
+                saveHashMapTransactionIdToChannelIDInCache(hashMap: HippoChannel.hashmapTransactionIdToChannelID)
+                
             }
             completion(result)
         }
@@ -414,6 +478,18 @@ class HippoChannel {
             groupingTags += newGroupingTags
         }
         params["grouping_tags"] = groupingTags
+
+        if let skipBot = HippoProperty.current.skipBot {
+            params["skip_bot"] = skipBot.intValue()
+            params["skip_bot_reason"] = HippoProperty.current.skipBotReason ?? ""
+        }
+        if let ticketCustomAttributes = HippoProperty.current.ticketCustomAttributes, !ticketCustomAttributes.isEmpty {
+            params["ticket_custom_attributes"] = ticketCustomAttributes
+        }
+
+        if HippoProperty.current.singleChatApp {
+            params["multi_channel_label_mapping_app"] = 1
+        }
         
         if HippoProperty.current.singleChatApp {
             params["multi_channel_label_mapping_app"] = 1
@@ -479,7 +555,7 @@ class HippoChannel {
         return thisChannelCache
     }
     
-    @objc fileprivate func saveMessagesInCache() {
+    @objc func saveMessagesInCache() {
         var arrayOfSentMessages = [[String: Any]]()
         var arrayOfUnsentMessages = [[String: Any]]()
         
@@ -580,9 +656,11 @@ class HippoChannel {
                 return
             }
             if message.type == .call {
-                
-                DispatchQueue.main.async {
-                    self?.signalReceivedFromPeer?(messageDict)
+                if versionCode < 350 && HippoConfig.shared.appUserType == .agent{
+                    DispatchQueue.main.async {
+                        self?.signalReceivedFromPeer?(messageDict)
+                        CallManager.shared.voipNotificationRecieved(payloadDict: messageDict)
+                    }
                 }
                 return
             }
@@ -599,6 +677,9 @@ class HippoChannel {
         case .channelRefreshed:
             channelRefreshed(dict: dict)
             return false
+        case .message:
+            print("***** \(notificationType)")
+            return true
         default:
             break
         }
@@ -609,6 +690,19 @@ class HippoChannel {
         //ChannelId should be same as current channelId
         guard let channelId = Int.parse(values: dict, key: "channel_id"), id == channelId else {
             return
+        }
+        let closetheChat = dict["close_the_chat"] as? Int
+        if closetheChat == 1{
+            delegate?.closeChatActionFromRefreshChannel()
+        }
+        
+        
+        let rawSendingReplyDisabled = (dict["disable_reply"] as? Int) ?? 0
+        let isSendingDisabled = rawSendingReplyDisabled == 1 ? true : false
+        if isSendingDisabled {
+            chatDetail?.disableReply = isSendingDisabled
+            chatDetail?.allowAudioCall = !isSendingDisabled
+            chatDetail?.allowVideoCall = !isSendingDisabled
         }
         
         if HippoConfig.shared.appUserType == .customer {
@@ -629,6 +723,13 @@ class HippoChannel {
         chatDetail.allowVideoCall = Bool.parse(key: "allow_video_call", json: dict) ?? chatDetail.allowVideoCall
         chatDetail.updatePeerData(users: users)
         
+
+        if isSendingDisabled {
+            chatDetail.allowAudioCall = !isSendingDisabled
+            chatDetail.allowVideoCall = !isSendingDisabled
+        }
+
+
         chatDetail.assignedAgentID = users.first?.userID ?? chatDetail.assignedAgentID
         chatDetail.assignedAgentName = users.first?.fullName ?? chatDetail.assignedAgentName
         
@@ -678,11 +779,24 @@ class HippoChannel {
             }
         case .feedback, .leadForm:
             oldMessage.updateObject(with: newMessage)
+            delegate?.channelDataRefreshed()
         case .paymentCard:
+//            oldMessage.cards = newMessage.cards
+//            oldMessage.selectedCardId = newMessage.selectedCardId
+//            oldMessage.fallbackText = newMessage.fallbackText
+//            oldMessage.selectedCard = newMessage.selectedCard
+//            return false
+            
             oldMessage.cards = newMessage.cards
-            oldMessage.selectedCardId = newMessage.selectedCardId
-            oldMessage.fallbackText = newMessage.fallbackText
             oldMessage.selectedCard = newMessage.selectedCard
+            oldMessage.fallbackText = newMessage.fallbackText
+            if HippoConfig.shared.appUserType == .agent {
+                if (oldMessage.selectedCardId ?? "") == (newMessage.selectedCardId ?? "") {
+                    return true
+                }
+            }
+            oldMessage.selectedCardId = newMessage.selectedCardId
+
             return false
         default:
             break
@@ -753,7 +867,9 @@ class HippoChannel {
             FayeConnection.shared.send(messageDict: message.getJsonToSendToFaye(), toChannelID: id.description, completion: {_ in completion?()})
             return
         }
-        if isSendingDisabled {
+
+        if isSendingDisabled && !(message.type == .feedback){
+
             print("----sending is disabled")
             return
         }

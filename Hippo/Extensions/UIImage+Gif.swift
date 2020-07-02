@@ -33,6 +33,34 @@ extension UIImage {
         return image
     }
     
+    public class func gifImageWithURL(_ gifUrl:String) -> UIImage? {
+        guard let bundleURL:URL? = URL(string: gifUrl)
+            else {
+                print("image named \"\(gifUrl)\" doesn't exist")
+                return nil
+        }
+        guard let imageData = try? Data(contentsOf: bundleURL!) else {
+            print("image named \"\(gifUrl)\" into NSData")
+            return nil
+        }
+        
+        return animatedImageWithData(imageData)
+    }
+    
+    public class func gifImageWithName(_ name: String) -> UIImage? {
+        guard let bundleURL = FuguFlowManager.bundle?.url(forResource: name, withExtension: "gif") else {
+                print("SwiftGif: This image named \"\(name)\" does not exist")
+                return nil
+        }
+        guard let imageData = try? Data(contentsOf: bundleURL) else {
+            print("SwiftGif: Cannot turn image named \"\(name)\" into NSData")
+            return nil
+        }
+        return animatedImageWithData(imageData)
+    }
+    
+    
+    
     class func animatedImageWithData(_ data: Data) -> UIImage? {
         let source = CGImageSourceCreateWithData(data as CFData, nil)
         let image = UIImage.animatedImageWithSource(source!)

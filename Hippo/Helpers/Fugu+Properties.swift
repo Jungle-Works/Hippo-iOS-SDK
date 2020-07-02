@@ -11,8 +11,9 @@ import Foundation
 let HippoSDKSource = 1
 let Device_Type_iOS = 2
 var userDetailData = [String: Any]()
-let fuguAppVersion = "1.7.52"
-let versionCode = 236
+let fuguAppVersion = "2.1.29"
+var versionCode = 236
+
 
 /*
  201 = Bot messages
@@ -53,5 +54,71 @@ let versionCode = 236
  234 *** 1.7.50 = renamed borderWidth and color
  235 *** 1.7.51 = added @objcMembers to HippoConfig
  
- 236 *** 1.7.52 = diet buddy changes
+ 240 *** 1.8.0 = handled device token generation, merchant chat changes
+ 241 *** 1.8.1 = borderWithIssue fixed
+ 242 *** 1.8.2 = Payment messge ui fixes and skip bot functionality
+ 243 *** 1.8.3 = Payment handled at agentSDK
+ 
+ 245 *** 1.8.5 = Test changes
+ 
+ 244 *** 1.8.4 = voip changes
+ 
+ 300 *** 2.1.0 = voip changes
+ 
+ 301 *** 2.1.1 = ticket attributes
+ 
+ 302 *** 2.1.2 = failed pod upload
+ 
+ 303 *** 2.1.3 = promotional push
+ 
+ 304 *** 2.1.4 = new conversation button added
+ 
+ 305 *** 2.1.5 = suggestions for normal messages
+ 
+ 306 *** 2.1.6 = show back button on promotional push screen
+ 
+ 307 *** 2.1.7 = show back button on promotional push screen and hotfix url
+ 
+ 308 *** 2.1.8 = Show Title On Promotion Push Contoller & Hide Image On Down Swipe
+ 
+ 309 *** 2.1.9 = Set Theme Color Of Navigation Bar In Promotional Push Controller
+ 
+ 310 *** 2.1.10 = Public Method For Get App Name, Faye Error Handling, Remove Forced Name Capitalization
+ 
+ 311 *** 2.1.12 = Merged code with buddy branch & old calling
+ 
+ 312 *** 2.1.13 = Broadcast issue, chat cache issues fixed and change new conversation button
+ 
+ 313 *** 2.1.14 = Promotions issue fixed and deep linking handled
+ 
+ 314 *** 2.1.15 = Update agent sdk with feedback and filter functionality, with develop_latest branch code
+ 
+ 315 *** 2.1.16 = Functionlity for payment gateways like paytm and redirection from web view on success and error in paytm payment.
+ 
+ 316 *** 2.1.17 = Calling issues fixed and pending status added in agent chat.
+ 
+ 317 *** 2.1.18 = Cp sdk feedback done and present full screen done and Merge branch 'FatafatCpSdkIssues'
+ 
+ 318 *** 2.1.19 = Function added to get current channel id.
+ 
+ 319 *** 2.1.20 = UI changes and unread count in agent sdk
+ 
+ 320 *** 2.1.21 = p2p chat count in parent app and chat autoclose in refresh channel
+ 
+ 321 *** 2.1.22 = p2p chat count in parent app and chat autoclose in refresh channel
+ 
+ 322 *** 2.1.23 = payment method fixes and calling fixes done
+ 
+ 323 *** 2.1.24 = curreny handled in payment, method exposed for registering new channel id in p2p chat, resolved bot group id must be a number issue
+ 
+ 324 *** 2.1.25 = Enhanced ui in cp and agent sdk
+ 
+ 325 *** 2.1.26 = Rating and review ui changes, generic calling functions and fixes
+ 
+ 326 *** 2.1.27 = Fallback for btn color
+ 
+ 327 *** 2.1.28 = Variable added for new calling and issues fixed
+ 
+ 328 *** 2.1.29 = Color coding changed for conversation
+ 
  */

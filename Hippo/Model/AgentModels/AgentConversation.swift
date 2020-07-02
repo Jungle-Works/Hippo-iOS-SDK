@@ -23,6 +23,7 @@ class AgentConversation: HippoConversation {
     
     
     var status: Int?
+    var user_image: String?
     var user_id: Int?
     var date_time: String?
     var notificationType: NotificationType?
@@ -63,11 +64,12 @@ class AgentConversation: HippoConversation {
         agent_id = json["agent_id"] as? Int
         agent_name = json["agent_name"] as? String
         bot_channel_name = json["bot_channel_name"]  as? String
-        channel_id = Int.parse(values: json, key: "channel_id") //json["channel_id"] as? Int
+        channel_id = json["channel_id"] as? Int ?? -1 //Int.parse(values: json, key: "channel_id") //json["channel_id"] as? Int
         channel_name = json["channel_name"] as? String
         created_at = json["created_at"] as? String
         label = json["label"] as? String
         status = json["status"] as? Int
+        user_image = String.parse(values: json, key: "user_image", defaultValue: "")
         user_id = Int.parse(values: json, key: "user_id") //json["user_id"] as? Int
         date_time = json["date_time"] as? String
         
@@ -141,6 +143,8 @@ class AgentConversation: HippoConversation {
                 return messageObject.getVideoCallMessage(otherUserName: "")
             case .attachment:
                 end = "sent a file"
+            case .hippoPay, .actionableMessage:
+                return "Payment initiated"
             default:
                 break
             }
@@ -175,7 +179,7 @@ class AgentConversation: HippoConversation {
     }
     
     func update(newConversation: AgentConversation) {
-        //        self.channel_id = channelId
+//                self.channel_id = channelId
         self.unreadCount = getUnreadCountFor(newConversation: newConversation)
         
         self.lastMessageDate = newConversation.lastMessage?.creationDateTime ?? Date()
@@ -208,6 +212,12 @@ class AgentConversation: HippoConversation {
     override func getJsonToStore() -> [String : Any] {
         var json = super.getJsonToStore()
         
+        if let channel_id = channel_id {
+            if channel_id == -1 {
+                json["channel_id"] = channel_id
+            }
+        }
+        
         if let agent_id = agent_id {
             json["agent_id"] = agent_id
         }
@@ -225,6 +235,9 @@ class AgentConversation: HippoConversation {
         }
         if let status = status {
             json["status"] = status
+        }
+        if let user_image = user_image {
+            json["user_image"] = user_image
         }
         if let user_id = user_id {
             json["user_id"] = user_id

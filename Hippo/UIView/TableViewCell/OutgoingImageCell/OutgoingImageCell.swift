@@ -59,7 +59,11 @@ class OutgoingImageCell: MessageTableViewCell {
 //MARK: - Configure Cell
 extension OutgoingImageCell {
     func setupBoxBackground(messageType: Int) {
-        mainContentView.backgroundColor = HippoConfig.shared.theme.themeColor //HippoConfig.shared.theme.outgoingChatBoxColor
+
+        mainContentView.backgroundColor = HippoConfig.shared.theme.outgoingChatBoxColor//HippoConfig.shared.theme.recievingBubbleColor //HippoConfig.shared.theme.outgoingChatBoxColor
+        
+//        mainContentView.backgroundColor = UIColor.black //HippoConfig.shared.theme.outgoingChatBoxColor
+
     }
     
     func adjustShadow() {
@@ -91,7 +95,9 @@ extension OutgoingImageCell {
         
         retryButton.isHidden = true
         
-        readUnreadImageView.image = UIImage(named: "readMessageImage", in: FuguFlowManager.bundle, compatibleWith: nil)
+
+//        readUnreadImageView.image = UIImage(named: "readMessageImage", in: FuguFlowManager.bundle, compatibleWith: nil)
+        readUnreadImageView.image = UIImage(named: "unreadMessageImage", in: FuguFlowManager.bundle, compatibleWith: nil)
         readUnreadImageView.tintColor = HippoConfig.shared.theme.unreadTintColor
     }
     
@@ -154,7 +160,9 @@ extension OutgoingImageCell {
         
         let timeOfMessage = changeDateToParticularFormat(chatMessageObject.creationDateTime, dateFormat: "h:mm a", showInFormat: true)
         timeLabel.text = "\(timeOfMessage)"
-        timeLabel.textColor = UIColor.white
+
+        timeLabel.textColor = HippoConfig.shared.theme.outgoingMsgDateTextColor//UIColor.white
+
         
     }
     
@@ -176,10 +184,12 @@ extension OutgoingImageCell {
         case .sent:
             readUnreadImageView.image = HippoConfig.shared.theme.unreadMessageTick
             if let tintColor = HippoConfig.shared.theme.readMessageTintColor {
+//            if let tintColor = HippoConfig.shared.theme.unreadMessageTintColor {
                 readUnreadImageView.tintColor = tintColor
             }
             
-        case .read:
+//        case .read:
+        case .read, .delivered:
             readUnreadImageView.image = HippoConfig.shared.theme.readMessageTick
             if let tintColor = HippoConfig.shared.theme.readMessageTintColor {
                 readUnreadImageView.tintColor = tintColor

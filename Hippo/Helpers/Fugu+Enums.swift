@@ -63,6 +63,12 @@ enum SourceType: Int {
     case INTEGRATION = 5
     case OUTREACH = 6
 }
+
+enum PaymentPlanType: Int {
+    case agentPlan = 1
+    case businessPlan = 2
+}
+
 enum IntegrationSource: Int {
     case normal = 0
     case email = 5
@@ -83,14 +89,86 @@ enum IntegrationSource: Int {
     }
 }
 
-enum MessageType: Int {
-    case none = 0, normal = 1, assignAgent = 2, privateNote = 3, imageFile = 10, attachment = 11, actionableMessage = 12, feedback = 14, botText = 15, quickReply = 16, leadForm = 17, call = 18, hippoPay = 19, consent = 20, card = 21, paymentCard = 22 , multipleSelect = 23
+enum FilterOptionSection: Int, CaseCountable {
+//    case people = 0
+    case status
+//    case chatType
+//    case channels
+//    case labels
+//    case agents
+//    case date
+}
+struct FilterField {
+    var nameOfField: String = ""
+    var selected: Bool = false
+    var isAnyImage: Bool = true
+    var isSectionTitle: Bool = false
+    var id: Int = -1
+    
+    init(nameOfField: String, isAnyImage: Bool = true, selected: Bool = false, isSectionTitle: Bool = false) {
+        self.nameOfField = nameOfField
+        self.selected = selected
+        self.isAnyImage = isAnyImage
+        self.isSectionTitle = isSectionTitle
+    }
+    init(data: labelWithId) {
+        self.nameOfField = data.label
+        self.selected = data.isSelected
+        self.id = data.id
+    }
+//    init(data: ChannelDetail) {
+//        self.nameOfField = data.channelName
+//        self.selected = data.isSelected
+//        self.id = data.id
+//    }
+//    init(data: TagDetail) {
+//        isSectionTitle = false
+//        self.nameOfField = data.tagName ?? ""
+//        self.selected = data.isSelected
+//        self.id = data.tagId ?? -1
+//    }
+//    init(data: Agent, selectedAgentID: [Int]) {
+//        isSectionTitle = false
+//        self.nameOfField = data.fullName ?? ""
+//        self.selected = false
+//        self.id = data.userId ?? data.inviteId ?? -1
+//
+//        if id > 0 {
+//            self.selected = selectedAgentID.contains(id)
+//        }
+//    }
+}
+struct labelWithId {
+    var label: String
+    var id: Int
+    var isSelected: Bool
+    
+    init(label: String, id: Int, isSelected: Bool = false) {
+        self.label = label
+        self.id = id
+        self.isSelected = isSelected
+    }
+}
 
+enum MessageType: Int {
+
+    case none = 0, normal = 1, assignAgent = 2, privateNote = 3, imageFile = 10, attachment = 11, actionableMessage = 12, feedback = 14, botText = 15, quickReply = 16, leadForm = 17, call = 18, hippoPay = 19, consent = 20, card = 21, paymentCard = 22, multipleSelect = 23, embeddedVideoUrl = 24//, address = 25, dateTime = 26
+
+
+    
+//    BUSINESS_SPECIFIC_MESSAGE : 4,
+//    PUBLIC_NOTE : 5,
+//    SUPPORT_MESSAGE : 13,
+   
+    
     var customerHandledMessages: [MessageType] {
-        return [.normal, .imageFile, .feedback, .actionableMessage, .leadForm, .quickReply, .botText, .call, .hippoPay, .attachment, .consent, .card, .paymentCard , .multipleSelect]
+
+        return [.normal, .imageFile, .feedback, .actionableMessage, .leadForm, .quickReply, .botText, .call, .hippoPay, .attachment, .consent, .card, .paymentCard , .multipleSelect, .embeddedVideoUrl]//, .address, .dateTime]
+
     }
     var agentHandledMessages: [MessageType] {
-        return [.normal, .imageFile, .privateNote, .assignAgent, .botText, .call, .attachment, .consent]
+//        return [.normal, .imageFile, .privateNote, .assignAgent, .botText, .call, .attachment, .consent, .actionableMessage, .hippoPay]
+        return [.normal, .imageFile, .privateNote, .assignAgent, .botText, .call, .attachment, .consent, .actionableMessage, .hippoPay, .feedback, .leadForm, .quickReply, .paymentCard, .multipleSelect, .embeddedVideoUrl]
     }
    
     func isMessageTypeHandled() -> Bool {
@@ -99,7 +177,14 @@ enum MessageType: Int {
     }
     
     var isBotMessage: Bool {
-        let botMessages: [MessageType] = [.leadForm, .quickReply, .botText, .consent, .card , .multipleSelect,.normal]
+
+        
+//        let botMessages: [MessageType] = [.leadForm, .quickReply, .botText, .consent, .hippoPay, .actionableMessage]
+////        let botMessages: [MessageType] = [.leadForm, .quickReply, .botText, .consent, .card , .multipleSelect,.normal]
+        
+//        let botMessages: [MessageType] = [.leadForm, .quickReply, .botText, .consent, .hippoPay, .actionableMessage, .card , .multipleSelect, .embeddedVideoUrl]//, .address, .dateTime]
+        let botMessages: [MessageType] = [.leadForm, .quickReply, .botText, .consent, .hippoPay, .actionableMessage, .card , .multipleSelect, .normal, .embeddedVideoUrl]//, .address, .dateTime]
+
         return botMessages.contains(self)
     }
 }
@@ -115,7 +200,8 @@ enum ChatType: Int {
     case generalChat = 5
     
     var isImageViewAllowed: Bool {
-        guard HippoConfig.shared.appUserType == .customer else {
+//        guard HippoConfig.shared.appUserType == .customer else {
+        guard HippoConfig.shared.appUserType == .customer || HippoConfig.shared.appUserType == .agent else {
             return false
         }
         return ChatType.allowedImageViewFor.contains(self)
@@ -189,12 +275,14 @@ enum NotificationType: Int {
     case agentRefresh = 11
     case markConversation = 12
     case channelRefreshed = 13
-    
     case call = 14
+    
+    case channelRefresh = 17
     
     var isNotificationTypeHandled: Bool {
         switch self {
-        case .message, .assigned, .readAll:
+//        case .message, .assigned, .readAll:
+        case .message, .assigned, .readAll, .channelRefresh:
             return true
         default:
             return false
@@ -283,13 +371,19 @@ enum FuguEndPoints: String {
     case fetchP2PUnreadCount = "api/conversation/fetchP2PUnreadCount"
     case makeSelectedPayment = "api/payment/makeSelectedPayment"
     case getInfoV2 = "api/agent/v1/getInfo"
+
+    case getPaymentGateway = "api/payment/getPaymentGateway"
+    case getPrePayment = "api/conversation/createOperationalChannel"
+
 }
 
 enum AgentEndPoints: String {
+    case conversationUnread = "api/conversation/getAgentTotalUnreadCount"
     case getAgentLoginInfo = "api/agent/getAgentLoginInfo"
     case loginViaAuthToken = "api/agent/agentLoginViaAuthToken"
     case loginViaToken = "api/agent/agentLogin"
-    case getConversation = "api/conversation/v1/getConversations"
+//    case getConversation = "api/conversation/v1/getConversations"
+    case getConversation = "api/conversation/v2/getConversations"
     case markConversation = "api/conversation/markConversation"
     case logout = "api/agent/agentLogout"
     case getUnreadCount = "api/conversation/get_customer_unread_count"
@@ -301,13 +395,19 @@ enum AgentEndPoints: String {
     case sendBroadcastMessage = "api/broadcast/sendBroadcastMessage"
     case getBroadcastList = "api/broadcast/getBroadcastList"
     case broadcastStatus = "api/broadcast/broadcastStatus"
-    
-    case createOneToOneChat = "api/chat/createOneToOneChat"
     case getAnnouncements = "api/broadcast/getAnnouncements"
-    
+    case createOneToOneChat = "api/chat/createOneToOneChat"
     case clearAnnouncements = "api/broadcast/clearAnnouncements"
-    
     case assignAgent = "api/agent/assignAgent"
+    case agentStatus = "api/agent/editInfo"
+    
+    case sendPayment = "api/payment/sendPaymentUrl"
+//    case serverGetConfig = "api/apps/getConfig"
+    case getPaymentPlans = "api/agent/getPaymentPlans"
+    case editPaymentPlans = "api/agent/editPaymentPlans"
+    case getBotActions = "api/agent/getAllBotActions"
+    
+    case getAgents = "api/agent/getAgents"
 }
 
 enum BroadcastType: String, CaseCountable {

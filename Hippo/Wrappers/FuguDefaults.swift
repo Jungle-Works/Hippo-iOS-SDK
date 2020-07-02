@@ -12,11 +12,17 @@ enum DefaultName: String {
     case unsentMessagesData = "unsent_messages_data"
     case sentMessagesData = "sent_messages_data"
     case conversationData = "fugu_conversation_data"
+    case appointmentData = "fugu_appointment_data"
+    case addedPaymentGatewaysData = "added_payment_gateways"
+    case agentTotalUnreadHashMap = "agentTotalUnreadHashMap"
+    case agentUnreadCount = "agentUnreadCount"
+    case p2pUnreadCount = "cusUnreadCount"
 }
 
 struct DefaultKey {
     static let myChatConversations = "Agent_My_Chat_Data"
     static let allChatConversations = "Agent_All_chat_Data"
+    static let AgentsList = "Hippo_agent_data"
 }
 class FuguDefaults: NSObject {
     class func set(value: Any?, forKey keyName: String) {

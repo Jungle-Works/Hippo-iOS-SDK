@@ -13,6 +13,55 @@ class UnreadCountInteracter {
 }
 
 public typealias P2PUnreadCountCompletion = ((_ response: HippoError?, _ unreadCount: Int?) -> ())
+public typealias PrePaymentCompletion = ((_ response: HippoError?) -> ())
+
+
+class PrePayment{
+    
+    class func callPrePaymentApi(paymentGatewayId : Int, prePaymentDic: [String : Any], completion: @escaping ((_ result: HippoError?) -> Void)) {
+         
+        let params = PrePayment.getPrePaymentParams(paymentGatewayId,prePaymentDic)
+         HippoConfig.shared.log.trace(params, level: .request)
+         
+        HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: FuguEndPoints.getPrePayment.rawValue) { (responseObject, error, tag, statusCode) in
+            guard let unwrappedStatusCode = statusCode, error == nil, unwrappedStatusCode == STATUS_CODE_SUCCESS, error == nil  else {
+                //                HippoConfig.shared.log.error(error ?? "Something went Wrong!!", level: .error)
+                completion(HippoError.general)
+                print("Error",error ?? "")
+                return
+            }
+            guard let response = responseObject as? [String: Any], let data = response["data"] as? [String: Any] else {
+                HippoConfig.shared.log.error(error ?? "Something went Wrong!!", level: .error)
+                completion(HippoError.general)
+                return
+            }
+            
+            let channelId = data["channel_id"] as? Int
+            let paymentUrl = (data["payment_url"] as? NSDictionary)?.value(forKey: "payment_url") as? String
+            FuguFlowManager.shared.presentPrePaymentController(paymentUrl ?? "", channelId ?? -1)
+            completion(nil)
+        }
+     }
+    
+    static func getPrePaymentParams(_ paymentGatewayId : Int, _ prePaymentDic : [String : Any]) -> [String : Any]{
+
+            var json: [String: Any] = [:]
+            
+            let appSecretKey = HippoConfig.shared.appSecretKey
+            json["app_secret_key"] = appSecretKey
+            let enUserId: String = currentEnUserId()
+            json["en_user_id"] = enUserId
+            json["fetch_payment_url"] = 1
+            json["operation_type"] = 1
+            json["payment_items"] = [prePaymentDic]
+            json["user_id"] = currentUserId()
+            json["transaction_id"] = String.generateUniqueId()
+            json["payment_gateway_id"] = paymentGatewayId
+            
+            return json
+    }
+}
+
 
 class UnreadCount {
     
@@ -122,8 +171,9 @@ extension UnreadCount {
         HTTPClient.makeConcurrentConnectionWith(method: .POST, enCodingType: .json, para: params, extendedUrl: FuguEndPoints.fetchP2PUnreadCount.rawValue) { (responseObject, error, tag, statusCode) in
             
             guard let unwrappedStatusCode = statusCode, error == nil, unwrappedStatusCode == STATUS_CODE_SUCCESS, error == nil  else {
-                HippoConfig.shared.log.error(error ?? "Something went Wrong!!", level: .error)
+//                HippoConfig.shared.log.error(error ?? "Something went Wrong!!", level: .error)
                 callback(HippoError.general, nil)
+                print("Error",error ?? "")
                 return
             }
             guard let response = responseObject as? [String: Any], let data = response["data"] as? [String: Any], let unreadCount = Int.parse(values: data, key: "unread_count") else {
@@ -131,6 +181,16 @@ extension UnreadCount {
                 callback(HippoError.general, nil)
                 return
             }
+            
+            if let unreadDic = (responseObject as? [String: Any])?["data"] as? [String : Any]{
+                var unreadHashMap = [String : Any]()
+                let channelId = unreadDic["channel_id"] as? Int ?? -1
+                let unreadCount = unreadDic["unread_count"] as? Int
+                unreadHashMap["\(channelId)"] = unreadCount
+                FuguDefaults.set(value: unreadHashMap, forKey: DefaultName.p2pUnreadCount.rawValue)
+            }
+        
+          
             HippoConfig.shared.log.debug("\(responseObject ?? [:])", level: .response)
             callback(nil, unreadCount)
     
@@ -190,4 +250,59 @@ extension UnreadCount {
         param["response_type"] = 1
         return param
     }
+    
+    fileprivate static func paramsForAgentUnreadCount() -> [String: Any]? {
+         var param = [String : Any]()
+         
+         guard let agent = HippoConfig.shared.agentDetail, agent.id > 0 else {
+             return nil
+         }
+         
+         param["access_token"] = agent.fuguToken
+     
+         return param
+     }
+    
+    
+}
+extension UnreadCount{
+    class func getAgentTotalUnreadCount(completion: @escaping ((_ result: ResponseResult) -> Void)) {
+         
+         guard HippoConfig.shared.appUserType == .agent, HippoConfig.shared.agentDetail != nil else {
+             completion(ResponseResult(isSuccessful: false, error: HippoError.general))
+             return
+         }
+         
+         guard let params = paramsForAgentUnreadCount() else {
+             completion(ResponseResult(isSuccessful: false, error: HippoError.general))
+             return
+         }
+         HippoConfig.shared.log.trace(params, level: .request)
+         
+        HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: AgentEndPoints.conversationUnread.rawValue) { (responseObject, error, tag, statusCode) in
+            guard let unwrappedStatusCode = statusCode, error == nil, unwrappedStatusCode == STATUS_CODE_SUCCESS, error == nil  else {
+                HippoConfig.shared.log.error(error ?? "Something went Wrong!!", level: .error)
+                completion(ResponseResult(isSuccessful: false, error: error))
+                return
+            }
+            if let agentTotalUnreadCount = ((responseObject as? [String: Any])?["data"] as? [String: Any])?["agent_total_unread_count"] as? [NSDictionary]{
+            
+                let unreadCount = agentTotalUnreadCount.reduce(0) {(result, next) -> Int in
+                    return result + (next.value(forKey: "unread_count") as? Int ?? 0)
+                }
+                var unreadHashMap = [String:Any]()
+                for dic in agentTotalUnreadCount{
+                    let channelId = dic.value(forKey: "channel_id") as? Int
+                    let unreadCount = dic.value(forKey: "unread_count") as? Int
+                    unreadHashMap["\(channelId ?? 0)"] = unreadCount
+                }
+               
+                FuguDefaults.set(value: unreadHashMap, forKey: DefaultName.agentTotalUnreadHashMap.rawValue)
+                UserDefaults.standard.set(unreadCount, forKey: DefaultName.agentUnreadCount.rawValue)
+                HippoConfig.shared.sendAgentUnreadCount(unreadCount)
+                HippoConfig.shared.sendAgentChannelsUnreadCount(unreadHashMap.count)
+            }
+        }
+     }
+    
 }

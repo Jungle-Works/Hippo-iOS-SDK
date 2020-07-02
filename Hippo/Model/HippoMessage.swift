@@ -14,6 +14,7 @@ class MessageCallbacks {
     var leadFormUpdated: (() -> Void)? = nil
     var sendingStatusUpdated: (() -> Void)? = nil
     var messageRefresed: (() -> Void)? = nil
+    
 }
 
 
@@ -64,6 +65,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
     var attributtedMessage = MessageUIAttributes(message: "", senderName: "", isSelfMessage: false)
     var chatType: ChatType = .other
     var keyboardType: responseKeyboardType = .defaultKeyboard
+    var taggedUsers: [Int]?
     
     var wasMessageSendingFailed = false {
         didSet {
@@ -189,7 +191,9 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
             for card in cards {
                 height += card.cardHeight
             }
-            return height + 5
+
+//            return height + 5
+            return height + 9
         case .multipleSelect :
             guard let action = customAction else {
                 return 0.01
@@ -256,7 +260,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
             self.type = type
         }
         
-        if (senderImage ?? "").isEmpty, (senderId <= 0  || type.isBotMessage) {
+        if (senderImage ?? "").isEmpty, (senderId <= 0  && type.isBotMessage) {
             senderImage = BussinessProperty.current.botImageUrl
         }
         
@@ -380,21 +384,41 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
             if let parsedSelectedCard = selectedCard {
                 self.cards = [parsedSelectedCard]
             } else {
-                let firstCard = cards.first
-                firstCard?.isLocalySelected = true
-                let buttonView = PayementButton.createPaymentOption()
-                buttonView.selectedCardDetail = firstCard
-                
-                let header = PaymentHeader()
-                let securePayment = PaymentSecurely.secrurePaymentOption()
-                
-                self.cards = [header] + cards
-                self.cards?.append(securePayment)
-                self.cards?.append(buttonView)
+
+//                let firstCard = cards.first
+//                firstCard?.isLocalySelected = true
+//                let buttonView = PayementButton.createPaymentOption()
+//                buttonView.selectedCardDetail = firstCard
+//
+//                let header = PaymentHeader()
+//                let securePayment = PaymentSecurely.secrurePaymentOption()
+//
+//                self.cards = [header] + cards
+//                self.cards?.append(securePayment)
+//                self.cards?.append(buttonView)                
+                if HippoConfig.shared.appUserType == .agent{
+                    self.cards = cards
+                }else{
+                    let firstCard = cards.first
+                    firstCard?.isLocalySelected = true
+                    let buttonView = PayementButton.createPaymentOption()
+                    buttonView.selectedCardDetail = firstCard
+                    
+                    let header = PaymentHeader()
+                    let securePayment = PaymentSecurely.secrurePaymentOption()
+                    
+                    self.cards = [header] + cards
+                    self.cards?.append(securePayment)
+                    self.cards?.append(buttonView)
+                }
             }
             
         case .multipleSelect:
             self.customAction = CustomAction(dict:dict)
+
+        case .embeddedVideoUrl:
+            self.customAction = CustomAction(dict:dict)
+    
         default:
             break
         }
@@ -442,18 +466,31 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         attributtedMessage = MessageUIAttributes(message: message, senderName: senderFullName, isSelfMessage: userType.isMyUserType)
     }
     
-    init(message: String, type: MessageType, uniqueID: String? = nil, imageUrl: String? = nil, thumbnailUrl: String? = nil, localFilePath: String? = nil, senderName: String? = nil, senderId: Int? = nil, chatType: ChatType?) {
+//    init(message: String, type: MessageType, uniqueID: String? = nil,bot: BotAction? = nil, imageUrl: String? = nil, thumbnailUrl: String? = nil, localFilePath: String? = nil, senderName: String? = nil, senderId: Int? = nil, chatType: ChatType?) {
+    init(message: String, type: MessageType, uniqueID: String? = nil,bot: BotAction? = nil, imageUrl: String? = nil, thumbnailUrl: String? = nil, localFilePath: String? = nil, taggedUserArray: [Int]? = nil, senderName: String? = nil, senderId: Int? = nil, chatType: ChatType?) {
+
         self.message = message
         self.senderId = senderId ?? currentUserId()
         self.senderFullName = senderName ?? currentUserName()//.formatName()
         self.senderImage = currentUserImage()
         self.chatType = chatType ?? .none
-        
+
+        // Bot feedback handling ?
+        if let bot = bot {
+            self.contentValues = bot.contentValues
+            self.content = MessageContent(param: self.contentValues)
+            self.content.values = bot.values as? [String] ?? []
+            leadsDataArray = FormData.getArray(object: content)
+        }
+
+
+
         creationDateTime = Date()
         self.type = type
         self.messageUniqueID = uniqueID
         self.imageUrl = imageUrl
         self.thumbnailUrl = thumbnailUrl
+        self.taggedUsers = taggedUserArray
         self.localImagePath = localFilePath
         
         self.userType = currentUserType()
@@ -493,6 +530,8 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         json["source"] = SourceType.SDK.rawValue
         json["device_type"] = Device_Type_iOS
         
+        json["selected_agent_id"] = selectedCardId
+        
         if let parsedBotFormMUID = self.botFormMessageUniqueID {
             json["bot_form_muid"] = parsedBotFormMUID
         }
@@ -507,6 +546,10 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         }
         if let unwrappedMessageIndex = messageUniqueID {
             json["muid"] = unwrappedMessageIndex
+        }
+        
+        if let unwrappedTaggedArray = taggedUsers {
+            json["tagged_users"] = unwrappedTaggedArray
         }
         
         if let tempFileUrl = self.fileUrl {
@@ -592,8 +635,41 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
             json["values"] = [selectedActionId]
             json["content_value"] = contentValues
         }
+        
+        if customAction != nil{
+            json["custom_action"] = getDicForCustomAction()
+        }
+        
         return json
     }
+    
+    //dic for multiselection message
+    
+    func getDicForCustomAction() -> [String : Any]{
+        var dic = [String : Any]()
+        dic["is_replied"] = 1 // Need to send 1 for message
+        dic["max_selection"] = 1
+        dic["min_selection"] = 1
+        dic["multi_select_buttons"] = getArrOfCustomActionBtn()
+        
+        return dic
+    }
+    
+    
+    func getArrOfCustomActionBtn()-> [[String : Any]]{
+        var btnArr = [[String : Any]]()
+        for btn in customAction?.buttonsArray ?? [MultiselectButtons](){
+            var dic = [String : Any]()
+            dic["btn_id"] = btn.btnId
+            dic["btn_title"] = btn.btnTitle
+            dic["status"] = btn.status
+            btnArr.append(dic)
+        }
+        return btnArr
+    }
+    
+    ///
+    
     func getMessageSendingFailedWhenSavingInCache() -> Bool {
         let wasMessageSendingInProgress = status == .none
         let typeIsMedia = (type == .imageFile || type == .attachment)
@@ -808,7 +884,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         comment = newObject.comment
         feedbackMessages.line_after_feedback_1 = newObject.feedbackMessages.line_after_feedback_1
         feedbackMessages.line_after_feedback_2 = newObject.feedbackMessages.line_after_feedback_2
-        feedbackMessages.line_before_feedback = newObject.feedbackMessages.line_before_feedback
+        feedbackMessages.line_before_feedback  = newObject.feedbackMessages.line_before_feedback
         is_rating_given = newObject.is_rating_given
         //Updating for leadForm
         leadsDataArray = newObject.leadsDataArray
@@ -953,7 +1029,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
 struct FeedbackMessage {
     var line_after_feedback_1 = "Your response is recorded"
     var line_after_feedback_2 = "Thank you"
-    var line_before_feedback = "Please Proview feedback for our conversation"
+    var line_before_feedback = "Rating & Review"//"Please provide feedback for our conversation"
     
     init(json: [String: Any]) {
         line_after_feedback_1 = json["line_after_feedback_1"] as? String ?? line_after_feedback_1
@@ -961,4 +1037,3 @@ struct FeedbackMessage {
         line_before_feedback = json["line_before_feedback"] as? String ?? line_before_feedback
     }
 }
-

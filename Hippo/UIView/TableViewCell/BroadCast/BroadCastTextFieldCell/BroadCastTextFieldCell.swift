@@ -33,9 +33,15 @@ class BroadCastTextFieldCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         selectionStyle = .none
-        cellTextField.delegate = self
-        
+        cellTextField.delegate = self        
         setErrorLabelView(isHidden: true)
+//        selectionStyle = .none
+//        cellTextField.delegate = self
+//        backgroundColor = .clear
+//        setErrorLabelView(isHidden: true)
+//        let theme = HippoTheme.theme
+//        cellTextField.textColor = theme.label.primary
+//        cellTextField.backgroundColor = theme.systemBackgroundColor.primary
     }
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
@@ -51,7 +57,7 @@ class BroadCastTextFieldCell: UITableViewCell {
         errorLabel.isHidden = newHiddenValue
         
         titleLabel.textColor = HippoConfig.shared.theme.broadcastTitleColor
-        titleLabel.font = UIFont.systemFont(ofSize: 14)
+        titleLabel.font = UIFont.regular(ofSize: 14)
     }
     
     

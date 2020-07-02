@@ -37,6 +37,12 @@ class HippoChecker {
                FuguFlowManager.shared.presentAgentConversations()
            }
        }
+
+    func presentPromotionalPushController()
+    {
+        FuguFlowManager.shared.presentPromotionalpushController()
+    }
+    
     
     func shouldCollectDataFromUser() -> Bool {
         let form = HippoProperty.current.forms

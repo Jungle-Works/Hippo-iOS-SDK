@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+import UIKit
 
 class PromotionCellDataModel
 {
@@ -23,11 +23,13 @@ class PromotionCellDataModel
     var deepLink:String = ""
     var cellHeight:CGFloat = 0.01
     var skipBot:String = ""
-    
-    
+
+    var customAttributeData : [String : Any]?
+
     
     init?(dict: [String: Any])
     {
+
 //        guard let promotionID = dict["promotionID"] as? Int else {
 //            return nil
 //        }
@@ -57,6 +59,9 @@ class PromotionCellDataModel
             print("deep link>>> \(deepLink)")
         }
         
+
+        self.customAttributeData = self.customAttributes?["data"] as? [String : Any]
+
         if let data = self.customAttributes!["data"] as? [String:Any]
         {
             self.skipBot = data["skip_bot"] as? String ?? ""
@@ -116,6 +121,19 @@ class PromotionCellDataModel
         return height
     }
    
+
+       static func getAnnouncementsArrayFrom(json: [[String: Any]]) -> [PromotionCellDataModel] {
+            var arrayOfConversation = [PromotionCellDataModel]()
+            
+            for rawConversation in json {
+                if let conversation = PromotionCellDataModel(dict: rawConversation) {
+                    arrayOfConversation.append(conversation)
+                }
+            }
+            
+            return arrayOfConversation
+        }
+    
 }
 
 

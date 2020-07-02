@@ -23,12 +23,15 @@ class AgentHomeConversationCell: UITableViewCell {
     @IBOutlet weak var rightSideView: So_UIView!
     @IBOutlet weak var heightOfRightContainer: NSLayoutConstraint!
     @IBOutlet weak var rightSideLabel: So_CustomLabel!
+    @IBOutlet weak var counterLabelContainerView: UIView!
     @IBOutlet weak var counterLabel: So_CustomLabel!
     @IBOutlet weak var horizontalLine: So_UIView!
     
     @IBOutlet weak var transitionView: So_UIView!
     @IBOutlet weak var transitionImageView: So_UIImageView!
     @IBOutlet weak var transitionLabel: So_CustomLabel!
+    
+    @IBOutlet weak var channelImageView: So_UIImageView!
     
     var arrayTagList = [TagBoxInfo]()
     var tagViewHeight: CGFloat = 22.5
@@ -54,7 +57,13 @@ extension AgentHomeConversationCell {
         selectionStyle = .none
         
         timeLabel.text = ""
+        counterLabelContainerView.isHidden = true
         counterLabel.isHidden = true
+        
+        channelImageView.image = nil
+        channelImageView.layer.masksToBounds = true
+        channelImageView.layer.cornerRadius = 5
+        channelImageView.contentMode = .scaleAspectFill
         
         leftSideView.layer.borderWidth = 0.5
         rightSideView.layer.borderWidth = 0.5
@@ -63,9 +72,10 @@ extension AgentHomeConversationCell {
         transitionLabel.text = ""
         transitionImageView.image = nil
         
-        nameLabel.font = UIFont(name:"HelveticaNeue", size: 15.0)
-        lastMessageLabel.font = UIFont(name:"HelveticaNeue", size: 12.0)
-        timeLabel.font = UIFont(name:"HelveticaNeue", size: 12.0)
+//        nameLabel.font = UIFont(name:"HelveticaNeue", size: 15.0)
+//        lastMessageLabel.font = UIFont(name:"HelveticaNeue", size: 12.0)
+//        timeLabel.font = UIFont(name:"HelveticaNeue", size: 12.0)
+        self.setLabelsFont()
     }
     
     func setupCell(resetProperties: Bool = true, cellInfo: AgentConversation) {
@@ -113,21 +123,56 @@ extension AgentHomeConversationCell {
         
         //Setting tags
         setTags()
+        
+//        if let channelImage = cellData?.user_image, channelImage.isEmpty == false, let url = URL(string: channelImage) {
+        if let channelImage = cellData?.user_image, channelImage.isEmpty == false, channelImage.contains("http"), let url = URL(string: channelImage) {
+            channelImageView.kf.setImage(with: url)
+            channelImageView.backgroundColor = nil
+        } else if let channelName = cellData?.label, channelName.isEmpty == false {
+//            placeHolderImageButton?.alpha = isThisChatOpened(opened: isOpened)
+//            placeHolderImageButton?.isHidden = false
+//            placeHolderImageButton?.setImage(nil, for: .normal)
+//            placeHolderImageButton?.backgroundColor = .lightGray
+
+            let channelNameInitials = channelName.trimWhiteSpacesAndNewLine()
+            let color = getRandomColor()
+            if channelImageView.backgroundColor == nil{
+                channelImageView.setTextInImage(string: channelNameInitials, color: color, circular: false, textAttributes: nil)
+                channelImageView.backgroundColor = color
+            }else{
+               channelImageView.setTextInImage(string: channelNameInitials, color: channelImageView.backgroundColor, circular: false, textAttributes: nil)
+            }
+        }
+        
     }
     
     func setUnreadCount() {
         if let totalCount = cellData?.unreadCount, totalCount > 0 {
             counterLabel.text = "\(totalCount)"
+            counterLabelContainerView.isHidden = false
             counterLabel.isHidden = false
-            nameLabel.font = UIFont(name:"HelveticaNeue-Bold", size: 15.0)
-            lastMessageLabel.font = UIFont(name:"HelveticaNeue-Bold", size: 12.0)
-            timeLabel.font = UIFont(name:"HelveticaNeue-Bold", size: 12.0)
+            counterLabelContainerView.layer.cornerRadius = counterLabelContainerView.frame.size.height/2
+            lastMessageLabel.textColor = UIColor(red: 74/255, green: 74/255, blue: 74/255, alpha: 1.0)
+//            nameLabel.font = UIFont(name:"HelveticaNeue-Bold", size: 15.0)
+//            lastMessageLabel.font = UIFont(name:"HelveticaNeue-Bold", size: 12.0)
+//            timeLabel.font = UIFont(name:"HelveticaNeue-Bold", size: 12.0)
+            self.setLabelsFont()
         } else {
+            counterLabelContainerView.isHidden = true
             counterLabel.isHidden = true
-            nameLabel.font = UIFont(name:"HelveticaNeue", size: 15.0)
-            lastMessageLabel.font = UIFont(name:"HelveticaNeue", size: 12.0)
-            timeLabel.font = UIFont(name:"HelveticaNeue", size: 12.0)
+            lastMessageLabel.textColor = UIColor(red: 165/255, green: 181/255, blue: 184/255, alpha: 1.0)
+//            nameLabel.font = UIFont(name:"HelveticaNeue", size: 15.0)
+//            lastMessageLabel.font = UIFont(name:"HelveticaNeue", size: 12.0)
+//            timeLabel.font = UIFont(name:"HelveticaNeue", size: 12.0)
+            self.setLabelsFont()
         }
+    }
+    
+    func setLabelsFont(){
+        nameLabel.font = UIFont.bold(ofSize: 16.0)
+        lastMessageLabel.font = UIFont.regular(ofSize: 15.0)
+        timeLabel.font = UIFont.regular(ofSize: 12.5)
+        closedLabel.font = UIFont.regular(ofSize: 12.5)
     }
     
     func setTags() {
@@ -136,13 +181,24 @@ extension AgentHomeConversationCell {
         guard let data = cellData else {
             return
         }
-        if let unassignedTag = self.getAssignedStatusTag(info: data) {
-            arrayTagList.append(unassignedTag)
-        }
+//        if let unassignedTag = self.getAssignedStatusTag(info: data) {
+//            arrayTagList.append(unassignedTag)
+//        }
+        if data.notificationType == nil{
+            self.getUnassignedTag(data: data)
+        }else if let type = data.notificationType, type == .assigned || type == .message{
+            self.getUnassignedTag(data: data)
+        }else{}
+        
         if let botChannelTag = self.getBotChannelTag(info: data) {
             arrayTagList.append(botChannelTag)
         }
         self.setTagView()
+    }
+    func getUnassignedTag(data: AgentConversation){
+        if let unassignedTag = self.getAssignedStatusTag(info: data) {
+            arrayTagList.append(unassignedTag)
+        }
     }
     func setTagView() {
         setTagViewDefault()
@@ -184,7 +240,8 @@ extension AgentHomeConversationCell {
         guard !botChannelName.isEmpty else {
             return nil
         }
-        tag = TagBoxInfo(labelText: botChannelName, textColor: .purpleGrey, containerBackgroundColor: .veryLightBlue, containerBorderColor: UIColor.makeColor(red: 228, green: 228, blue: 237, alpha: 1))
+//        tag = TagBoxInfo(labelText: botChannelName, textColor: .purpleGrey, containerBackgroundColor: .veryLightBlue, containerBorderColor: UIColor.makeColor(red: 228, green: 228, blue: 237, alpha: 1))
+        tag = TagBoxInfo(labelText: botChannelName, textColor: .darkGrayColorForTag, containerBackgroundColor: .lightGrayBgColorForTag, containerBorderColor: UIColor.makeColor(red: 228, green: 228, blue: 237, alpha: 1))
         return tag
     }
     func getAssignedStatusTag(info: AgentConversation) -> TagBoxInfo? {
@@ -195,12 +252,19 @@ extension AgentHomeConversationCell {
         
         if agentID <= 0 {
             if let closedString = closedLabel.text, closedString.isEmpty == false {
-                tag = TagBoxInfo(labelText: "Unassigned", textColor: .purpleGrey, containerBackgroundColor: .veryLightBlue, containerBorderColor: unassignedColorForClosedChat)
+//                tag = TagBoxInfo(labelText: "Unassigned", textColor: .purpleGrey, containerBackgroundColor: .veryLightBlue, containerBorderColor: unassignedColorForClosedChat)
+                tag = TagBoxInfo(labelText: "Unassigned", textColor: .darkGrayColorForTag, containerBackgroundColor: .lightGrayBgColorForTag, containerBorderColor: unassignedColorForClosedChat)
             } else {
                 tag = TagBoxInfo(labelText: "Unassigned", textColor: .white, containerBackgroundColor: .pumpkinOrange)
             }
         } else if let agentName = info.agent_name {
-                tag = TagBoxInfo(labelText: agentName, textColor: .purpleGrey, containerBackgroundColor: .veryLightBlue, containerBorderColor: UIColor.makeColor(red: 228, green: 228, blue: 237, alpha: 1))
+//                tag = TagBoxInfo(labelText: agentName, textColor: .purpleGrey, containerBackgroundColor: .veryLightBlue, containerBorderColor: UIColor.makeColor(red: 228, green: 228, blue: 237, alpha: 1))
+            guard let loginAgent = HippoConfig.shared.agentDetail, loginAgent.id > 0 else {
+                return tag
+            }
+            if loginAgent.agentUserType == .admin{
+                tag = TagBoxInfo(labelText: agentName, textColor: .darkGrayColorForTag, containerBackgroundColor: .lightGrayBgColorForTag, containerBorderColor: UIColor.makeColor(red: 228, green: 228, blue: 237, alpha: 1))
+            }
         }
         return tag
     }
@@ -214,7 +278,8 @@ extension AgentHomeConversationCell {
         var containerBckgrndColor: UIColor?
         var containerBorderColor: UIColor?
         
-        init(labelText: String, textColor: UIColor, textFont: UIFont = UIFont.systemFont(ofSize: 11), containerBackgroundColor: UIColor, containerBorderColor: UIColor = .clear) {
+//        init(labelText: String, textColor: UIColor, textFont: UIFont = UIFont.systemFont(ofSize: 11), containerBackgroundColor: UIColor, containerBorderColor: UIColor = .clear) {
+        init(labelText: String, textColor: UIColor, textFont: UIFont = UIFont.bold(ofSize: 13), containerBackgroundColor: UIColor, containerBorderColor: UIColor = .clear) {
             self.labelText = labelText
             self.textColor = textColor
             self.textFont = textFont
@@ -222,4 +287,15 @@ extension AgentHomeConversationCell {
             self.containerBorderColor = containerBorderColor
         }
     }
+    
+    func getRandomColor() -> UIColor {
+         //Generate between 0 to 1
+         let red:CGFloat = CGFloat(drand48())
+         let green:CGFloat = CGFloat(drand48())
+         let blue:CGFloat = CGFloat(drand48())
+
+         return UIColor(red:red, green: green, blue: blue, alpha: 1.0)
+    }
+
+    
 }

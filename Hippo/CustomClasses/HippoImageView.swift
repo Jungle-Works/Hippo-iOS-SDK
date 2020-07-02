@@ -8,6 +8,8 @@
 
 import UIKit
 
+//import Kingfisher
+
 struct HippoResource {
     let url: URL
 }
@@ -19,8 +21,6 @@ extension HippoResource: Resource {
     var downloadURL: URL {
         return url
     }
-    
-    
 }
 
 class HippoImageView: UIImageView {
