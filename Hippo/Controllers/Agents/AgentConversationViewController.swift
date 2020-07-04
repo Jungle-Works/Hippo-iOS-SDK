@@ -458,7 +458,7 @@ class AgentConversationViewController: HippoConversationViewController {
     }
     
     func askBeforeAssigningChat() {
-        showOptionAlert(title: "", message: "Are you sure you want to assign this chat to you?", successButtonName: HippoStrings.yes, successComplete: { (action) in
+        showOptionAlert(title: "", message: HippoStrings.takeOverChat, successButtonName: HippoStrings.yes, successComplete: { (action) in
             self.assignChatToSelf()
         }, failureButtonName: HippoStrings.no, failureComplete: nil)
     }

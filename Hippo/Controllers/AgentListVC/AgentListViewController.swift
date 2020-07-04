@@ -95,7 +95,10 @@ extension AgentListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        self.showOptionAlert(title: "", message: "Are you sure you want to assign this chat?", preferredStyle: .alert, successButtonName: HippoStrings.yes.capitalized, successComplete: { (_) in
+        let messageToShow = agentList[indexPath.row].userId == currentUserId() ? HippoStrings.reasignChatToYou : HippoStrings.reasignChat
+        
+        
+        self.showOptionAlert(title: "", message: messageToShow, preferredStyle: .alert, successButtonName: HippoStrings.yes.capitalized, successComplete: { (_) in
             self.assignChatToAgent(agent: self.agentList[indexPath.row])
         }, failureButtonName: HippoStrings.no, failureComplete: nil)
     }

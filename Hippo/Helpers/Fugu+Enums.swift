@@ -432,7 +432,7 @@ struct MultiLanguageMsg{
         case MultiLanguageTags.CHAT_WAS_RE_OPENED.rawValue:
             return HippoStrings.chayReopened
         case MultiLanguageTags.CHAT_WAS_CLOSED.rawValue:
-            return HippoStrings.chatAutoClosed
+            return HippoStrings.chatClosedBy
         case MultiLanguageTags.WAS_AUTO_ASSIGNED.rawValue:
             return HippoStrings.chatAutoAssigned
         case MultiLanguageTags.WAS_FORCE_ASSIGNED.rawValue:
@@ -440,9 +440,19 @@ struct MultiLanguageMsg{
         case MultiLanguageTags.TAGGED.rawValue:
             return HippoStrings.tagged
         case MultiLanguageTags.MENTIONED_YOU.rawValue:
-            return HippoStrings.tagged
+            return HippoStrings.mentionedYou
         case MultiLanguageTags.CALLING_YOU.rawValue:
             return HippoStrings.isCallingYou
+        case MultiLanguageTags.newCustomer.rawValue:
+            return HippoStrings.newCustomer
+        case MultiLanguageTags.botSkipped.rawValue:
+            return HippoStrings.botSkipped
+        case MultiLanguageTags.missedCallFrom.rawValue:
+            return HippoStrings.missedCallFrom
+        case MultiLanguageTags.fileImage.rawValue:
+            return HippoStrings.sentAPhoto
+        case MultiLanguageTags.fileAttachment.rawValue:
+            
             
         default:
             return ""
@@ -452,7 +462,7 @@ struct MultiLanguageMsg{
     func matchString(_ str : String) -> String{
         let tag = MultiLanguageTags.allCases.filter{str.contains($0.rawValue)}
         let replacementStr = self.getMultiLanguageMsg(tag.first?.rawValue ?? "")
-        return str.replacingOccurrences(of: tag.first?.rawValue ?? "", with: replacementStr, options: .caseInsensitive, range: nil)
+        return str.replacingOccurrences(of: tag.first?.rawValue ?? "", with: " " + replacementStr, options: .caseInsensitive, range: nil)
     }
 }
 
@@ -472,6 +482,11 @@ enum MultiLanguageTags : String, CaseIterable{
     case TAGGED = "{{{TAGGED}}}"
     case MENTIONED_YOU = "{{{MENTIONED_YOU}}}"
     case CALLING_YOU = "{{{CALLING_YOU}}}"
+    case newCustomer = "{{{NEW_CUSTOMER}}}"
+    case botSkipped = "{{{BOT_SKIPPED_FOR_THIS_SESSION}}}"
+    case missedCallFrom = "{{{MISSED_CALL_FROM}}}"
+    case fileImage = "{{{FILE_IMAGE}}}"
+    case fileAttachment = "{{{FILE_ATTACHMENT}}}"
 }
       
         

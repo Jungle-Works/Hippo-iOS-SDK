@@ -6,8 +6,10 @@
 //
 
 import Foundation
+#if canImport(HippoCallClient)
 import HippoCallClient
-
+#else
+#endif
 
 public class HippoStrings {
     //cp sdk
@@ -150,7 +152,7 @@ public class HippoStrings {
     static var text = "Text".localized
     static var internalNotes = "Internal Notes".localized
     static var bot = "Bot".localized
-    static let privateMessagePlaceHolder = "Send an internal note to your team, use @name to tag".localized
+    static var privateMessagePlaceHolder = "Send an internal note to your team, use @name to tag".localized
     static var delivered = "Delivered".localized
     static var me = "Me".localized
     static var sentAPhoto = "sent a photo".localized
@@ -169,8 +171,18 @@ public class HippoStrings {
     static var userProfile = "User Profile".localized
     static var sendTitle = "Send".localized
     static var tags = "Tags".localized
+    static var daysAgo = "days ago".localized
+    static var botSkipped = "Bot has been skipped for this chat session.".localized
+    static var newCustomer = "New Customer".localized
+    static var closeChatPopup = "Are you sure, you want to Close this chat?".localized
+    static var reopenChatPopup = "Are you sure, you want to Reopen this chat?".localized
+    static var takeOverChat = "Are you sure, you want to assign this chat to you?".localized
+    static var reasignChat = "Are you sure, you want to reassign?".localized
+    static var reasignChatToYou = "Are you sure, you want to reassign this chat to you?".localized
     
-
+    
+    
+    
     open var disbaledCameraErrorMessage = "Access to Camera is denied. Please enable from setings."
     open var cameraString = "New Image via Camera"
     open var displayNameForCustomers = "Fleet"
@@ -209,18 +221,18 @@ public class HippoStrings {
    
     
     public init() {
-        HippoStrings.updateHippoCallClientStrings()
+      
     }
     
     class func updateHippoCallClientStrings(){
         if versionCode > 320{
             #if canImport(HippoCallClient)
             
-//            HippoCallClientStrings.calling = HippoStrings.calling
-//            HippoCallClientStrings.ringing = HippoStrings.ringing
-//            HippoCallClientStrings.callingYou = HippoStrings.isCallingYou
-//            HippoCallClientStrings.callDeclined = HippoStrings.callDeclined
-//            HippoCallClientStrings.busyOnOtherCall = HippoStrings.busyAnotherCall
+            HippoCallClientStrings.calling = HippoStrings.calling
+            HippoCallClientStrings.ringing = HippoStrings.ringing
+            HippoCallClientStrings.callingYou = HippoStrings.isCallingYou
+            HippoCallClientStrings.callDeclined = HippoStrings.callDeclined
+            HippoCallClientStrings.busyOnOtherCall = HippoStrings.busyAnotherCall
             
             #else
             

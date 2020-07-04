@@ -44,9 +44,9 @@ extension Date {
             switch dateDifference {
             case 1:
                 //formatter.dateFormat = "hh:mm a"
-                return "Yesterday"
+                return HippoStrings.yesterday
             case let difference where (difference > 1 && difference < 8):
-                return "\(dateDifference) days ago"
+                return "\(dateDifference) \(HippoStrings.daysAgo)"
             default:
                 formatter.dateFormat = "d/MM/yyyy"
                 return formatter.string(from: self)

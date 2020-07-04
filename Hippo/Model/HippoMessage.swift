@@ -428,9 +428,12 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         }
         
         super.init()
-        updateFileNameIfEmpty()
-        changeMessageTypeIfReuired()
-        changeMessageIfMessageTypeNotSupported()
+        
+        if type != .none{
+            updateFileNameIfEmpty()
+            changeMessageTypeIfReuired()
+            changeMessageIfMessageTypeNotSupported()
+        }
         
         let isCellHavingImage = chatType.isImageViewAllowed && !userType.isMyUserType && HippoConfig.shared.appUserType != .agent
         attributtedMessage = MessageUIAttributes(message: message, senderName: senderFullName, isSelfMessage: userType.isMyUserType, isShowingImage: isCellHavingImage)
@@ -599,6 +602,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
             json["line_after_feedback_1"] = feedbackMessages.line_after_feedback_1
             json["line_after_feedback_2"] = feedbackMessages.line_after_feedback_2
             json["line_before_feedback"] = feedbackMessages.line_before_feedback
+            json["multi_lang_message"] = MultiLanguageTags.RATING_AND_REVIEW.rawValue
         } else if type == .leadForm {
             var arrayOfMessages: [String] = []
             for lead in leadsDataArray {
@@ -911,6 +915,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         let unsuppportedMessage = BussinessProperty.current.unsupportedMessageString
         message = unsuppportedMessage
     }
+    
     func changeMessageTypeIfReuired() {
         let isUnhandledFileType: Bool = isUnhandledType()
         switch type {

@@ -43,6 +43,7 @@ class AgentConversation: HippoConversation {
         return isMyChat ?? false ? 1 : 0
     }
     
+    
     init?(channelId: Int, unreadCount: Int, lastMessage: HippoMessage) {
         super.init()
         guard channelId > 0 else {
@@ -130,8 +131,8 @@ class AgentConversation: HippoConversation {
         
         
         if lastMessage.isEmpty {
-            title = "Customer"
-            end = "sent a photo"
+            title = HippoStrings.customer
+            end = HippoStrings.sentAPhoto
         }
         
         if self.lastMessage?.senderId == AgentDetail.id {
@@ -150,7 +151,7 @@ class AgentConversation: HippoConversation {
             case .call:
                 return messageObject.getVideoCallMessage(otherUserName: "")
             case .attachment:
-                end = "sent a file"
+                end = HippoStrings.sentAFile
             case .hippoPay, .actionableMessage:
                 return "Payment initiated"
             default:

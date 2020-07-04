@@ -477,7 +477,7 @@
 "Document" = "Documento";
 "Camera" = "Cámara";
 "Facing Connectivity Issues \n\n Reconnecting..." = "Frente a los problemas de conectividad \n\n Reconexión ...";
-"Take over" = "Tomar el control";
+"Take Over" = "Tomar el control";
 "Custom date\nDate range" = "fecha personalizado \n rango Date";
 "Channel Timeline" = "canal Cronología";
 "UPDATE" = "ACTUALIZAR";
@@ -567,7 +567,6 @@
 "was forced assigned" = "fue forzado asignado";
 "tagged" = "etiquetada";
 "mentioned you" = "te mencionó";
-"you missed call from" = "perdiste la llamada de";
 "Internal Notes" = "Notas internas";
 "Text" = "Texto";
 "Bot" = "Bot";
@@ -575,17 +574,17 @@
 "No Bot Action Available." = "Sin Bot acción disponible.";
 "Assigned To" = "Asignado a";
 "Assign Conversation" = "Conversación Asignar";
-"Demo" = "Manifestación";
 "Me" = "Yo";
 "Visitor" = "Visitante";
 "Agent" = "Agente";
 "User Profile" = "Perfil del usuario";
 "Send" = "Enviar";
 "Tags" = "Etiquetas";
-
-
-
-
+"days ago" = "hace días";
+"Bot has been skipped for this chat session." = "Se ha omitido el bot para esta sesión de chat.";
+"New Customer" = "Nueva cliente";
+"you missed call from" = "perdiste la llamada de";
+"Are you sure, you want to assign this chat to you?" = "¿Seguro, que desea asignar este chat para usted?";
 
 
 

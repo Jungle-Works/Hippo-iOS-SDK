@@ -132,9 +132,9 @@ extension AgentChatInfoViewController {
             return message
         }
         if channelDetail!.channelStatus == .open {
-            message = "Are you sure, you want to Close this conversation?"
+            message = HippoStrings.closeChatPopup
         } else {
-            message = "Are you sure, you want to Reopen this conversation?"
+            message = HippoStrings.reopenChatPopup
         }
         return message
     }

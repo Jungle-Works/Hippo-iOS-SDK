@@ -619,6 +619,70 @@ class AllString{
     }
     
     class func agentParsing(_ response: [String: Any]){
+        if let PAYMENT_REQUESTED = response["PAYMENT_REQUESTED"] as? String{
+            HippoStrings.paymentRequested = PAYMENT_REQUESTED
+        }
+        if let ASSIGNED_TO_THEMSELVES = response["NEW_CHAT_ASSIGNED_TO_YOU"] as? String{
+            HippoStrings.assignedToThemselves = ASSIGNED_TO_THEMSELVES
+        }
+        if let ASSIGNED_CHAT_TO = response["ASSIGNED_CHAT_TO"] as? String{
+            HippoStrings.chatAssigned = ASSIGNED_CHAT_TO
+        }
+        if let CHAT_REOPENED_BY = response["CHAT_REOPENED_BY"] as? String{
+            HippoStrings.chatReopened = CHAT_REOPENED_BY
+        }
+        if let CHAT_WAS_AUTO_OPENED = response["CHAT_WAS_AUTO_OPENED"] as? String{
+            HippoStrings.chatAutoOpened = CHAT_WAS_AUTO_OPENED
+        }
+        if let CHAT_WAS_AUTO_CLOSED = response["CHAT_WAS_AUTO_CLOSED"] as? String{
+            HippoStrings.chatAutoClosed = CHAT_WAS_AUTO_CLOSED
+        }
+        if let CHAT_WAS_RE_OPENED = response["CHAT_WAS_RE_OPENED"] as? String{
+            HippoStrings.chatReopened = CHAT_WAS_RE_OPENED
+        }
+        if let CHAT_WAS_CLOSED = response["CHAT_WAS_CLOSED"] as? String{
+            HippoStrings.chatClosedBy = CHAT_WAS_CLOSED
+        }
+        if let WAS_AUTO_ASSIGNED = response["WAS_AUTO_ASSIGNED"] as? String{
+            HippoStrings.chatAutoAssigned = WAS_AUTO_ASSIGNED
+        }
+        if let WAS_FORCE_ASSIGNED = response["WAS_FORCE_ASSIGNED"] as? String{
+            HippoStrings.forceAssigned = WAS_FORCE_ASSIGNED
+        }
+        if let TAGGED = response["TAGGED"] as? String{
+            HippoStrings.tagged = TAGGED
+        }
+        if let MENTIONED_YOU = response["MENTIONED_YOU"] as? String{
+            HippoStrings.mentionedYou = MENTIONED_YOU
+        }
+        if let CALLING_YOU = response["CALLING_YOU"] as? String{
+            HippoStrings.isCallingYou = CALLING_YOU
+        }
+        if let MISSED_CALL_FROM = response["MISSED_CALL_FROM"] as? String{
+            HippoStrings.missedCallFrom = MISSED_CALL_FROM
+        }
+        if let RATING_AND_REVIEW = response["RATING_AND_REVIEW"] as? String{
+            HippoStrings.ratingReview = RATING_AND_REVIEW
+        }
+        if let BOT_SKIPPED_FOR_THIS_SESSION = response["BOT_SKIPPED_FOR_THIS_SESSION"] as? String{
+            HippoStrings.botSkipped = BOT_SKIPPED_FOR_THIS_SESSION
+        }
+        if let NEW_CUSTOMER = response["NEW_CUSTOMER"] as? String{
+            HippoStrings.newCustomer = NEW_CUSTOMER
+        }
+        if let hippo_call_calling = response["hippo_call_calling"] as? String{
+            HippoStrings.calling = hippo_call_calling
+        }
+        if let hippo_call_ringing = response["hippo_call_ringing"] as? String{
+            HippoStrings.ringing = hippo_call_ringing
+        }
+        if let hippo_call_declined = response["hippo_call_declined"] as? String{
+            HippoStrings.callDeclined = hippo_call_declined
+        }
+        if let hippo_busy_on_call = response["hippo_busy_on_call"] as? String{
+            HippoStrings.busyAnotherCall = hippo_busy_on_call
+        }
+        
         
         
         if let conversations = response["conversations"] as? String{
@@ -830,7 +894,7 @@ class AllString{
         }
         
         if let type_a_internal_note = response["type_a_internal_note"] as? String{
-            
+            HippoStrings.privateMessagePlaceHolder = type_a_internal_note
         }
         
         if let reopen_conversation = response["reopen_conversation"] as? String{
@@ -942,11 +1006,11 @@ class AllString{
         }
         
         if let assign_agent_message = response["assign_agent_message"] as? String{
-            
+            HippoStrings.reasignChat = assign_agent_message
         }
         
         if let self_assign_agent_message = response["self_assign_agent_message"] as? String{
-            
+            HippoStrings.reasignChatToYou = self_assign_agent_message
         }
         
         if let confirm = response["confirm"] as? String{
@@ -954,7 +1018,7 @@ class AllString{
         }
         
         if let close_chat_message = response["close_chat_message"] as? String{
-            
+            HippoStrings.closeChatPopup = close_chat_message
         }
         
         if let close = response["close"] as? String{
@@ -962,7 +1026,7 @@ class AllString{
         }
         
         if let reopen_chat_message = response["reopen_chat_message"] as? String{
-            
+            HippoStrings.reopenChatPopup = reopen_chat_message
         }
         
         if let reopen_caps = response["reopen_caps"] as? String{

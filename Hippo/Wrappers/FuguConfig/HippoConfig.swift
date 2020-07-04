@@ -404,7 +404,10 @@ struct BotAction {
         self.agentDetail = detail
         AgentConversationManager.updateAgentChannel(completion: {(error) in
             if (selectedLanguage ?? "") == ""{ self.setLanguage(BussinessProperty.current.buisnessLanguageArr?.filter{$0.is_default == true}.first?.lang_code ?? "")
+                completion(error)
+                return
             }
+            self.setLanguage(selectedLanguage ?? "en")
             completion(error)
         })
     }
@@ -787,10 +790,7 @@ struct BotAction {
     //MARK:- Set Language
     
     public func setLanguage(_ code : String, _ isFromPutUser : Bool = false){
-        if isFromPutUser, BussinessProperty.current.buisnessLanguageArr?.contains(where: {$0.lang_code == code}) ?? false{
-            UserDefaults.standard.set(code, forKey: DefaultName.selectedLanguage.rawValue)
-            getAllStrings()
-        }else if !isFromPutUser , BussinessProperty.current.buisnessLanguageArr?.contains(where: {$0.lang_code == code}) ?? false, code != getCurrentLanguageLocale(){
+        if BussinessProperty.current.buisnessLanguageArr?.contains(where: {$0.lang_code == code}) ?? false{
             UserDefaults.standard.set(code, forKey: DefaultName.selectedLanguage.rawValue)
             getAllStrings()
         }else if BussinessProperty.current.buisnessLanguageArr?.contains(where: {$0.lang_code == code}) ?? false == false{
