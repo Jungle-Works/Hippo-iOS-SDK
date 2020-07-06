@@ -452,8 +452,7 @@ struct MultiLanguageMsg{
         case MultiLanguageTags.fileImage.rawValue:
             return HippoStrings.sentAPhoto
         case MultiLanguageTags.fileAttachment.rawValue:
-            
-            
+            return ""
         default:
             return ""
         }

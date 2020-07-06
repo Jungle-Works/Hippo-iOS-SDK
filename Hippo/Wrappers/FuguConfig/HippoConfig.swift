@@ -316,7 +316,7 @@ struct BotAction {
             if (self.userDetail?.selectedlanguage ?? "") == ""{
                self.userDetail?.selectedlanguage = BussinessProperty.current.buisnessLanguageArr?.filter{$0.is_default == true}.first?.lang_code
             }
-            self.setLanguage(self.userDetail?.selectedlanguage ?? "en",true)
+            self.setLanguage(self.userDetail?.selectedlanguage ?? "en")
         }
     }
     
@@ -789,7 +789,7 @@ struct BotAction {
     
     //MARK:- Set Language
     
-    public func setLanguage(_ code : String, _ isFromPutUser : Bool = false){
+    public func setLanguage(_ code : String){
         if BussinessProperty.current.buisnessLanguageArr?.contains(where: {$0.lang_code == code}) ?? false{
             UserDefaults.standard.set(code, forKey: DefaultName.selectedLanguage.rawValue)
             getAllStrings()
