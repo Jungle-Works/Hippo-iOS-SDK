@@ -1764,7 +1764,7 @@ class AllString{
         }
         
         if let hippo_enter_title = response["hippo_enter_title"] as? String{
-            
+            HippoStrings.enterTitle = hippo_enter_title
         }
         
         if let hippo_title_item_price = response["hippo_title_item_price"] as? String{
