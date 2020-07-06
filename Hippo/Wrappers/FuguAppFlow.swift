@@ -248,8 +248,8 @@ class FuguFlowManager: NSObject {
         //        let visibleController = getLastVisibleController()
         //        navVC.modalPresentationStyle = .fullScreen
         //        visibleController?.present(navVC, animated: true, completion: nil)
-        guard let config = WebViewConfig(url: url, title: "Payment") else { return }
-        let vc = CheckoutViewController.getNewInstance(config: config)
+        guard let config = WebViewConfig(url: url, title: HippoStrings.payment) else { return }
+        let vc = PrePaymentViewController.getNewInstance(config: config)
         vc.isComingForPayment = true
         let navVC = UINavigationController(rootViewController: vc)
         navVC.setNavigationBarHidden(true, animated: false)

@@ -19,6 +19,7 @@ class ChatInfoTagViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        tagTextLabel.text = HippoStrings.tags
         tagTextLabel.font = UIFont.regular(ofSize: 15)
         tagViewOutlet.textFont = UIFont.regular(ofSize: 15)
     }

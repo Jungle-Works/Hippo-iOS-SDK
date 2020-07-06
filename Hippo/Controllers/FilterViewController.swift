@@ -75,6 +75,14 @@ class FilterViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if FilterManager.shared.chatStatusArray.count > 0{
+            var tempStatusArr = [labelWithId]()
+            tempStatusArr.append(labelWithId(label: HippoStrings.openChat, id: 1, isSelected: FilterManager.shared.chatStatusArray.filter{$0.id == 1}.first?.isSelected ?? false))
+            tempStatusArr.append(labelWithId(label: HippoStrings.closeChat, id: 2, isSelected: FilterManager.shared.chatStatusArray.filter{$0.id == 2}.first?.isSelected ?? false))
+            FilterManager.shared.chatStatusArray = tempStatusArr
+        }
+        
+        
         setupController()
         setData()
         
@@ -166,6 +174,7 @@ class FilterViewController: UIViewController {
         self.navigationController?.setTheme()
 //        setupCustomThemeOnNavigationBar(hideNavigationBar: false)
         self.navigationController?.isNavigationBarHidden = false
+        self.navigationItem.title = HippoStrings.filter
         setupTableView()
         let theme = HippoConfig.shared.theme
         optionsTableView.backgroundColor = theme.backgroundColor
@@ -192,6 +201,7 @@ class FilterViewController: UIViewController {
         resetButton.backgroundColor = HippoConfig.shared.theme.backgroundColorOfFilterResetButton
 //        resetButton.font = UIFont.regular(ofSize: 15.0)
         resetButton.titleLabel?.font = UIFont.regular(ofSize: 15.0)
+        resetButton.setTitle(HippoStrings.reset, for: .normal)
 //        applyButton.clipsToBounds = true
         
 //        let group = theme.primaryButtonGroup
@@ -206,6 +216,7 @@ class FilterViewController: UIViewController {
         applyButton.setTitleColor(theme.titleColorOfFilterApplyButton, for: .normal)
 //        applyButton.font = UIFont.regular(ofSize: 15.0)
         applyButton.titleLabel?.font = UIFont.regular(ofSize: 15.0)
+        applyButton.setTitle(HippoStrings.apply, for: .normal)
         
         setTheme()
 //        applyButton.backgroundColor = HippoTheme.current.themeColor
@@ -521,7 +532,7 @@ extension FilterViewController: UITableViewDataSource {
 //        case .people:
 //            cell.setupCell(titleLabel: "People")
         case .status:
-            cell.setupCell(titleLabel: "Status")
+            cell.setupCell(titleLabel: HippoStrings.status)
 //        case .chatType:
 //            cell.setupCell(titleLabel: "Type")
 //        case .channels:

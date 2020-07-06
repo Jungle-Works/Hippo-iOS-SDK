@@ -88,7 +88,7 @@ class CustomerPaymentCardCell: UITableViewCell {
 extension CustomerPaymentCardCell {
     func set(card: CustomerPayment) {
         setConstraint(config: card.cardConfig)
-        let paidString = card.isPaid ? "\n - PAID -" : "\n - PENDING -"
+        let paidString = card.isPaid ? "\n \(HippoStrings.paymentPaid)" : "\n \(HippoStrings.paymentPending)"
         if HippoConfig.shared.appUserType == .agent{
             setLabel(label: label_PaidStatus, text: paidString)
         }else if card.isPaid , HippoConfig.shared.appUserType == .customer{

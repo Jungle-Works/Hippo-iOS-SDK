@@ -54,14 +54,14 @@ class PaymentField: FormData {
     static let initalPaymentField: [[String: Any]] = [[
         "validation_type": "ANY",
         "placeholder": "Enter Title",
-        "title": "Title",
+        "title": HippoStrings.title,
         "is_required": true,
         "type": "TEXTFIELD",
         "key": "title"
         ], [
             "validation_type": "CURRENCY",
-            "placeholder": "Currency",
-            "title": "Currency",
+            "placeholder": HippoStrings.currency,
+            "title": HippoStrings.currency,
             "action_value": "United States dollar ($)",
             "is_required": true,
             "type": "TEXTFIELD",
@@ -70,7 +70,7 @@ class PaymentField: FormData {
     static let planNameFields: [String: Any] = [
         "validation_type": "ANY",
         "placeholder": "Enter Plan Name",
-        "title": "Plan Name",
+        "title": HippoStrings.planName,
         "is_required": true,
         "type": "TEXTFIELD",
         "key": "plan_name"
@@ -80,13 +80,13 @@ class PaymentField: FormData {
     static let defaultButtons: [[String: Any]] = [[
         "type": "BUTTON",
         "action": "ADD_MORE",
-        "title": "+ Add an option",
+        "title": "\(HippoStrings.addOption)",
         "title_color": "#000000",
         "background_color": "#ffffff"
         ], [
             "type": "BUTTON",
             "action": "SUBMIT",
-            "title": "Request Payment",
+            "title": HippoStrings.requestPayment,
             "title_color": "#000000",
             "background_color": "#ffffff"
         ]]
@@ -94,7 +94,7 @@ class PaymentField: FormData {
     static let defaultButtonsWithoutAddMore: [[String: Any]] = [[
         "type": "BUTTON",
         "action": "SUBMIT",
-        "title": "Request Payment",
+        "title": HippoStrings.requestPayment,
         "title_color": "#000000",
         "background_color": "#ffffff"
         ]]

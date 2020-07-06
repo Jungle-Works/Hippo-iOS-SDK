@@ -60,7 +60,7 @@ extension AgentListTableViewCell {
         agent = agentObject
 
         if let agentId = agentObject.userId, agentId == currentUserId(){//agentUserID {
-            nameLabel.text = "Me"
+            nameLabel.text = HippoStrings.me
         } else {
             nameLabel.text = agentObject.fullName ?? ""
         }
@@ -105,7 +105,7 @@ extension AgentListTableViewCell {
         let agentId = agentObject.userId ?? -1
         
         if agentId == currentUserId() {
-            nameLabel.text = "Me"
+            nameLabel.text = HippoStrings.me
         } else {
             nameLabel.text = agentObject.fullName ?? ""
         }

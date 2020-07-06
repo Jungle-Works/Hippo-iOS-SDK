@@ -113,6 +113,31 @@ var isModuleRunning: Bool {
     }
     return bundleIdentifier != "com.socomo.Fugu"
 }
+var material:[String] = [
+    "e57373",
+    "f06292",
+    "ba68c8",
+    "9575cd",
+    "7986cb",
+    "64b5f6",
+    "4fc3f7",
+    "4dd0e1",
+    "4db6ac",
+    "81c784",
+    "aed581",
+    "ff8a65",
+    "d4e157",
+    "ffd54f",
+    "ffb74d",
+    "a1887f",
+    "90a4ae"
+]
+
+func getColor(char: String) -> Int {
+    let val = char.unicodeScalars.first?.value ?? 0
+    let index = Int(val) % material.count
+    return index
+}
 
 
 func convertDateTimeToUTC(date: Date? = nil) -> String {
@@ -237,13 +262,13 @@ func changeDateToParticularFormat(_ dateTobeConverted: Date, dateFormat: String,
         let comparisonResult = Calendar.current.compare(dateTobeConverted, to: Date(), toGranularity: .day)
         switch comparisonResult {
         case .orderedSame:
-            return "Today"
+            return HippoStrings.today
         default:
             let calendar = NSCalendar.current
             let dateOfMsg = calendar.startOfDay(for: dateTobeConverted)
             let currentDate = calendar.startOfDay(for: Date())
             let dateDifference = calendar.dateComponents([.day], from: dateOfMsg, to: currentDate).day
-            if dateDifference == 1 { return "Yesterday" }
+            if dateDifference == 1 { return HippoStrings.yesterday }
             return formatter.string(from: dateTobeConverted)
         }
     }
@@ -294,10 +319,11 @@ func subscribeCustomerUserChannel(userChannelId: String) {
         }
     }) {  (messageDict) in
         if let messageType = messageDict["message_type"] as? Int, messageType == 18 {
-            if let channel_id = messageDict["channel_id"] as? Int{ 
+            if let channel_id = messageDict["channel_id"] as? Int{ //isSubscribed(userChannelId: "\(channel_id)") == false {
+                
                 let channel = FuguChannelPersistancyManager.shared.getChannelBy(id: channel_id)
-                if versionCode < 350{
-                   channel.signalReceivedFromPeer?(messageDict)
+                if versionCode < 350{//call for old version
+                    channel.signalReceivedFromPeer?(messageDict)
                 }
                 HippoConfig.shared.log.trace("UserChannel:: --->\(messageDict)", level: .socket)
                 CallManager.shared.voipNotificationRecieved(payloadDict: messageDict)
@@ -726,7 +752,8 @@ func parseDeviceToken(deviceToken: Data) -> String? {
 func updateDeviceToken(deviceToken: String) {
     switch HippoConfig.shared.appUserType {
     case .agent:
-        AgentConversationManager.updateAgentChannel()
+        AgentConversationManager.updateAgentChannel{ (error) in
+        }
     case .customer:
         HippoUserDetail.getUserDetailsAndConversation()
     }
@@ -762,11 +789,15 @@ func validateFuguCredential() -> Bool {
     }
 }
 
+func getCurrentLanguageLocale() -> String {
+    return UserDefaults.standard.value(forKey: DefaultName.selectedLanguage.rawValue) as? String ?? "en"
+}
+
 
 func showAlertWith(message: String, action: (() -> Void)?) {
     let alert = UIAlertController(title: "", message: message, preferredStyle: .alert)
     
-    let dismissAction = UIAlertAction(title: "OK", style: .default, handler: { _ in
+    let dismissAction = UIAlertAction(title: HippoStrings.ok, style: .default, handler: { _ in
         action?()
     })
     alert.addAction(dismissAction)
@@ -804,9 +835,9 @@ func currentEnUserId() -> String {
 func currentUserName() -> String {
     switch HippoConfig.shared.appUserType {
     case .agent:
-        return HippoConfig.shared.agentDetail?.fullName ?? "Agent"
+        return HippoConfig.shared.agentDetail?.fullName ?? HippoStrings.agent
     case .customer:
-        return HippoConfig.shared.userDetail?.fullName ?? "Visitor"
+        return HippoConfig.shared.userDetail?.fullName ?? HippoStrings.visitor
     }
 }
 

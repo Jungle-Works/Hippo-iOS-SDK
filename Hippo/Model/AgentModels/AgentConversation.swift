@@ -37,10 +37,12 @@ class AgentConversation: HippoConversation {
     var assigned_by_name: String?
     var assigned_to_name: String?
     var isMyChat: Bool?
+    var mutiLanguageMsg : String?
     
     var updateUnreadCountBy: Int {
         return isMyChat ?? false ? 1 : 0
     }
+    
     
     init?(channelId: Int, unreadCount: Int, lastMessage: HippoMessage) {
         super.init()
@@ -109,6 +111,13 @@ class AgentConversation: HippoConversation {
             lastMessage = message
         }
         
+        if let mutiLanguageMsg = json["multi_lang_message"] as? String{
+            self.mutiLanguageMsg = MultiLanguageMsg().matchString(mutiLanguageMsg)
+            if self.mutiLanguageMsg != nil{
+                lastMessage?.message = self.mutiLanguageMsg ?? ""
+            }
+        }
+        
         self.displayingMessage = getDisplayMessage()
         setTime()
     }
@@ -122,12 +131,12 @@ class AgentConversation: HippoConversation {
         
         
         if lastMessage.isEmpty {
-            title = "Customer"
-            end = "sent a photo"
+            title = HippoStrings.customer
+            end = HippoStrings.sentAPhoto
         }
         
         if self.lastMessage?.senderId == AgentDetail.id {
-            title = "You:"
+            title = HippoStrings.you
         } else if self.lastMessage?.userType == UserType.customer {
             let nameArray = self.lastMessage?.senderFullName.components(separatedBy: " ") ?? []
             let count = nameArray.count
@@ -142,7 +151,7 @@ class AgentConversation: HippoConversation {
             case .call:
                 return messageObject.getVideoCallMessage(otherUserName: "")
             case .attachment:
-                end = "sent a file"
+                end = HippoStrings.sentAFile
             case .hippoPay, .actionableMessage:
                 return "Payment initiated"
             default:

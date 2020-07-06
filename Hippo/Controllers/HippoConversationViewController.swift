@@ -145,7 +145,7 @@ class HippoConversationViewController: UIViewController {
         if FuguNetworkHandler.shared.isNetworkConnected {
             hideErrorMessage()
         } else {
-            errorMessage = HippoConfig.shared.strings.noNetworkConnection
+            errorMessage = HippoStrings.noNetworkConnection
             showErrorMessage()
         }
     }
@@ -173,7 +173,7 @@ class HippoConversationViewController: UIViewController {
             if FuguNetworkHandler.shared.isNetworkConnected == false {
                 return true
             }
-            errorMessage = HippoConfig.shared.strings.enterSomeText
+            errorMessage = HippoStrings.enterSomeText
             showErrorMessage()
             updateErrorLabelView(isHiding: true)
             return true
@@ -421,7 +421,7 @@ class HippoConversationViewController: UIViewController {
     
     
     func showAlertForNoInternetConnection() {
-        showAlertWith(message: HippoConfig.shared.strings.noNetworkConnection) {
+        showAlertWith(message: HippoStrings.noNetworkConnection) {
             return
         }
     }
@@ -619,8 +619,8 @@ class HippoConversationViewController: UIViewController {
                 
                 if let mismatchError = error, mismatchError.code == 415 {
                     
-                    let message = peerDetail.fullName + " " + "doesn't have the latest version of app installed."
-                    self.showOptionAlert(title: "Version Mismatch", message: message, successButtonName: "Call anyway", successComplete: { (successAction) in
+                    let message = peerDetail.fullName + " " + HippoStrings.callOldSdk
+                    self.showOptionAlert(title: HippoStrings.versionMismatch, message: message, successButtonName: HippoStrings.callAnyway, successComplete: { (successAction) in
                         
                         CallManager.shared.startWebRTCCall(call: call) { (success) in
                             if !success {
@@ -628,7 +628,7 @@ class HippoConversationViewController: UIViewController {
                             }
                         }
                         
-                    }, failureButtonName: "Cancel") { (failureAction) in
+                    }, failureButtonName: HippoStrings.cancel) { (failureAction) in
                         //do nothing
                     }
                 }
@@ -660,8 +660,8 @@ class HippoConversationViewController: UIViewController {
                 
                 if let mismatchError = error, mismatchError.code == 415 {
                     
-                    let message = peerDetail.fullName + " " + "doesn't have the latest version of app installed."
-                    self.showOptionAlert(title: "Version Mismatch", message: message, successButtonName: "Call anyway", successComplete: { (successAction) in
+                    let message = peerDetail.fullName + " " + HippoStrings.callOldSdk
+                    self.showOptionAlert(title: HippoStrings.versionMismatch, message: message, successButtonName: HippoStrings.callAnyway, successComplete: { (successAction) in
                         
                         CallManager.shared.startWebRTCCall(call: call) { (success) in
                             if !success {
@@ -669,7 +669,7 @@ class HippoConversationViewController: UIViewController {
                             }
                         }
                         
-                    }, failureButtonName: "Cancel") { (failureAction) in
+                    }, failureButtonName: HippoStrings.cancel) { (failureAction) in
                         //do nothing
                     }
                 }
@@ -877,14 +877,14 @@ extension HippoConversationViewController: PickerHelperDelegate {
     
     func imageViewPickerDidFinish(mediaSelector: CoreMediaSelector, with result: CoreMediaSelector.Result) {
         guard result.isSuccessful else {
-            showAlert(title: "", message: result.error?.localizedDescription ?? HippoConfig.shared.strings.somethingWentWrong, actionComplete: nil)
+            showAlert(title: "", message: result.error?.localizedDescription ?? HippoStrings.somethingWentWrong, actionComplete: nil)
             return
         }
         let mediaType = result.mediaType ?? .imageType
         switch mediaType {
         case .gifType, .imageType:
             guard let selectedImage = result.image else {
-                showAlert(title: "", message: HippoConfig.shared.strings.somethingWentWrong, actionComplete: nil)
+                showAlert(title: "", message: HippoStrings.somethingWentWrong, actionComplete: nil)
                 return
             }
 //            sendConfirmedImage(image: selectedImage, mediaType: mediaType)
@@ -893,7 +893,7 @@ extension HippoConversationViewController: PickerHelperDelegate {
 
         case .movieType:
             guard let filePath = result.filePath else {
-                showAlert(title: "", message: HippoConfig.shared.strings.somethingWentWrong, actionComplete: nil)
+                showAlert(title: "", message: HippoStrings.somethingWentWrong, actionComplete: nil)
                 return
             }
             let filePathUrl = URL(fileURLWithPath: filePath)
@@ -1382,7 +1382,7 @@ extension HippoConversationViewController: VideoTableViewCellDelegate {
 //            self.navigationController?.pushViewController(qlPreview, animated: true)
             if let url = URL(string: fileURL){
                 let config = WebViewConfig(url: url, title: fileName)
-                let vc = CheckoutViewController.getNewInstance(config: config)
+                let vc = PrePaymentViewController.getNewInstance(config: config)
                 self.navigationController?.pushViewController(vc, animated: true)
             }else{
                 print("Error----")
@@ -1613,7 +1613,7 @@ extension HippoConversationViewController: PaymentMessageCellDelegate {
             closeKeyBoard()
             switch addedPaymentGatewaysArr.count{
             case 0:
-                showAlertWith(message: "No payment method available", action: nil)
+                showAlertWith(message: HippoStrings.noPaymentMethod, action: nil)
             case 1:
                 if let currencyStr = selectedCard.currency, let currencyAllowed = addedPaymentGatewaysArr.first?.currency_allowed{
                     if currencyAllowed.contains(currencyStr){
@@ -1622,7 +1622,7 @@ extension HippoConversationViewController: PaymentMessageCellDelegate {
                             return
                         }
                     }else{
-                       showAlertWith(message: "No payment method available", action: nil)
+                       showAlertWith(message: HippoStrings.noPaymentMethod, action: nil)
                     }
                 }
                 break
@@ -1647,7 +1647,7 @@ extension HippoConversationViewController: PaymentMessageCellDelegate {
                         isProceedToPayActionSheet = true
                         openCustomSheet()
                     }else{
-                      showAlertWith(message: "No payment method available", action: nil)
+                      showAlertWith(message: HippoStrings.noPaymentMethod, action: nil)
                     }
                 }
                 
@@ -1667,8 +1667,8 @@ extension HippoConversationViewController: PaymentMessageCellDelegate {
     }
     
     func initatePayment(for url: URL) {
-        let config = WebViewConfig(url: url, title: "Payment")
-        let vc = CheckoutViewController.getNewInstance(config: config)
+        let config = WebViewConfig(url: url, title: HippoStrings.payment)
+        let vc = PrePaymentViewController.getNewInstance(config: config)
         vc.isComingForPayment = true
         self.navigationController?.pushViewController(vc, animated: true)
     }

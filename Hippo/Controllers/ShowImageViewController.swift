@@ -85,10 +85,10 @@ class ShowImageViewController: UIViewController , UIScrollViewDelegate, UIGestur
     @objc func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
         if let error = error {
             //            print(error.localizedDescription)
-            showAlert(title: "Alert!", message: error.localizedDescription, actionComplete: nil)
+            showAlert(title: HippoStrings.alert, message: error.localizedDescription, actionComplete: nil)
         } else {
             //            print("Success")
-            showAlert(title: "Saved!", message: "Image has been saved to your photos.", actionComplete: nil)
+            showAlert(title: HippoStrings.saved, message: "Image has been saved to your photos.", actionComplete: nil)
         }
     }
     

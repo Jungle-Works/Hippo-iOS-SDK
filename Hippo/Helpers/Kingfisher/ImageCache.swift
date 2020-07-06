@@ -692,9 +692,9 @@ extension String {
     }
 }
 
-//// Helper function inserted by Swift 4.2 migrator.
+// Helper function inserted by Swift 4.2 migrator.
 //#if swift(>=4.2)
 //fileprivate func convertToUIBackgroundTaskIdentifier(_ input: Int) -> UIBackgroundTaskIdentifier {
-//    return UIBackgroundTaskIdentifier(rawValue: input)
+//	return UIBackgroundTaskIdentifier(rawValue: input)
 //}
 //#endif

@@ -54,7 +54,7 @@ extension UIImageView {
                        circular: Bool = false,
                        textAttributes: [NSAttributedString.Key: Any]? = nil) {
         
-        let image = imageSnap(text: string != nil ? string?.initials : "",
+        let image = imageSnap(text: string != nil ? string?.trimWhiteSpacesAndNewLine().initials : "",
                               color: color ?? .random,
                               circular: circular,
                               textAttributes:textAttributes)

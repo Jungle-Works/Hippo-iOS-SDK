@@ -1,0 +1,23 @@
+/* 
+  HippoLocalizable.strings
+  Hippo
+
+  Created by Arohi Sharma on 18/06/20.
+  Copyright © 2020 CL-macmini-88. All rights reserved.
+*/
+"Current" = "Current";
+"assigned to themselves" = "assigned to themselves";
+"new chat is assigned to you" = "new chat is assigned to you";
+"assigned chat to" = "assigned chat to";
+"chat was reopened by" = "chat was reopened by";
+"The chat was auto-opened" = "The chat was auto-opened";
+"The chat was auto-closed" = "The chat was auto-closed";
+"The chat was re-opened by" = "The chat was re-opened by";
+"The chat was closed by" = "The chat was closed by";
+"was auto assigned" = "was auto assigned";
+"was forced assigned" = "was forced assigned";
+"tagged" = "tagged";
+"mentioned you" = "mentioned you";
+"A payment is requested to you" = "A payment is requested to you";
+"you missed call from" = "you missed call from";
+

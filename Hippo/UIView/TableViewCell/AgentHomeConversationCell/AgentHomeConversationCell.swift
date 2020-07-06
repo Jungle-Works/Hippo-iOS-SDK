@@ -108,7 +108,7 @@ extension AgentHomeConversationCell {
         
         //Setting setting close label
         if let cellChatStatus = cellInfo.status, cellChatStatus == ChatStatus.close.rawValue {
-            closedLabel.text = "   Closed   "
+            closedLabel.text = HippoStrings.closed
             closedViewWidthConstraint.constant = 55
         } else {
             closedLabel.text = ""
@@ -253,9 +253,9 @@ extension AgentHomeConversationCell {
         if agentID <= 0 {
             if let closedString = closedLabel.text, closedString.isEmpty == false {
 //                tag = TagBoxInfo(labelText: "Unassigned", textColor: .purpleGrey, containerBackgroundColor: .veryLightBlue, containerBorderColor: unassignedColorForClosedChat)
-                tag = TagBoxInfo(labelText: "Unassigned", textColor: .darkGrayColorForTag, containerBackgroundColor: .lightGrayBgColorForTag, containerBorderColor: unassignedColorForClosedChat)
+                tag = TagBoxInfo(labelText: HippoStrings.unassigned, textColor: .darkGrayColorForTag, containerBackgroundColor: .lightGrayBgColorForTag, containerBorderColor: unassignedColorForClosedChat)
             } else {
-                tag = TagBoxInfo(labelText: "Unassigned", textColor: .white, containerBackgroundColor: .pumpkinOrange)
+                tag = TagBoxInfo(labelText: HippoStrings.unassigned, textColor: .white, containerBackgroundColor: .pumpkinOrange)
             }
         } else if let agentName = info.agent_name {
 //                tag = TagBoxInfo(labelText: agentName, textColor: .purpleGrey, containerBackgroundColor: .veryLightBlue, containerBorderColor: UIColor.makeColor(red: 228, green: 228, blue: 237, alpha: 1))

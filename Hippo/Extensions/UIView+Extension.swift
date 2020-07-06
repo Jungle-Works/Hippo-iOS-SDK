@@ -252,7 +252,7 @@ extension UIViewController {
         return vc
     }
 
-    func showAlert(_ inController: UIViewController? = getLastVisibleController(), buttonTitle: String = "OK", title: String?, message: String, preferredStyle: UIAlertController.Style = .alert, actionComplete: ((_ action: UIAlertAction) -> Void)?) {
+    func showAlert(_ inController: UIViewController? = getLastVisibleController(), buttonTitle: String = HippoStrings.ok, title: String?, message: String, preferredStyle: UIAlertController.Style = .alert, actionComplete: ((_ action: UIAlertAction) -> Void)?) {
         let alertMessageController = UIAlertController(title: title, message: message, preferredStyle: preferredStyle)
         
         let okAction = UIAlertAction(title: buttonTitle, style: .default, handler: actionComplete)

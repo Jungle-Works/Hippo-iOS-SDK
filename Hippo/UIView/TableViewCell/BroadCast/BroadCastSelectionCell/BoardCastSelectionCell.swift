@@ -66,11 +66,11 @@ class BoardCastSelectionCell: UITableViewCell {
         cellLabel.textColor = isTeamSelected ? UIColor.black : UIColor.lightGray
         bottomLineView.backgroundColor = isTeamSelected ? UIColor.lightGray : UIColor.lightGray.withAlphaComponent(0.5)
         
-        cellLabel.text = HippoConfig.shared.strings.selectString.trimWhiteSpacesAndNewLine() + " " + HippoConfig.shared.strings.displayNameForCustomers.trimWhiteSpacesAndNewLine()
+        cellLabel.text = HippoStrings.selectString.trimWhiteSpacesAndNewLine() + " " + HippoConfig.shared.strings.displayNameForCustomers.trimWhiteSpacesAndNewLine()
         
         
         if manager?.selectedTeam?.tagId == -100 {
-            cellLabel.text = HippoConfig.shared.strings.allAgentsString + " " + HippoConfig.shared.strings.displayNameForCustomers + " " + HippoConfig.shared.strings.selectedString
+            cellLabel.text = HippoStrings.allAgentsString + " " + HippoConfig.shared.strings.displayNameForCustomers + " " + HippoConfig.shared.strings.selectedString
         }
     }
     func setUpForShowAgents() {

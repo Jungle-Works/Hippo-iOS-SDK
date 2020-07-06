@@ -31,7 +31,7 @@ class PrePayment{
                 return
             }
             guard let response = responseObject as? [String: Any], let data = response["data"] as? [String: Any] else {
-                HippoConfig.shared.log.error(error ?? "Something went Wrong!!", level: .error)
+                HippoConfig.shared.log.error(error ?? HippoStrings.somethingWentWrong, level: .error)
                 completion(HippoError.general)
                 return
             }
@@ -61,6 +61,9 @@ class PrePayment{
             return json
     }
 }
+
+
+public typealias HippoResponseRecieved = ((_ error: HippoError?) -> ())
 
 
 class UnreadCount {
@@ -177,7 +180,7 @@ extension UnreadCount {
                 return
             }
             guard let response = responseObject as? [String: Any], let data = response["data"] as? [String: Any], let unreadCount = Int.parse(values: data, key: "unread_count") else {
-                HippoConfig.shared.log.error(error ?? "Something went Wrong!!", level: .error)
+                HippoConfig.shared.log.error(error ?? HippoStrings.somethingWentWrong, level: .error)
                 callback(HippoError.general, nil)
                 return
             }
@@ -220,14 +223,14 @@ extension UnreadCount {
         HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: AgentEndPoints.getUnreadCount.rawValue) { (responseObject, error, tag, statusCode) in
             
             guard let unwrappedStatusCode = statusCode, error == nil, unwrappedStatusCode == STATUS_CODE_SUCCESS, error == nil  else {
-                HippoConfig.shared.log.error(error ?? "Something went Wrong!!", level: .error)
+                HippoConfig.shared.log.error(error ?? HippoStrings.somethingWentWrong, level: .error)
                 completion(ResponseResult(isSuccessful: false, error: error))
                 return
             }
             HippoConfig.shared.log.debug("\(responseObject ?? [:])", level: .response)
             
             guard let response = responseObject as? [String: Any], let data = response["data"] as? [String: Any], let user_unread_count = data["user_unread_count"] as? [[String: Any]] else {
-                HippoConfig.shared.log.error(error ?? "Something went Wrong!!!!", level: .error)
+                HippoConfig.shared.log.error(error ?? HippoStrings.somethingWentWrong, level: .error)
                 completion(ResponseResult(isSuccessful: false, error: error))
                 return
             }
@@ -281,7 +284,7 @@ extension UnreadCount{
          
         HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: AgentEndPoints.conversationUnread.rawValue) { (responseObject, error, tag, statusCode) in
             guard let unwrappedStatusCode = statusCode, error == nil, unwrappedStatusCode == STATUS_CODE_SUCCESS, error == nil  else {
-                HippoConfig.shared.log.error(error ?? "Something went Wrong!!", level: .error)
+                HippoConfig.shared.log.error(error ?? HippoStrings.somethingWentWrong, level: .error)
                 completion(ResponseResult(isSuccessful: false, error: error))
                 return
             }

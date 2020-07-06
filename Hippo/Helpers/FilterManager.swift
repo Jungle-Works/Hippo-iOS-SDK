@@ -56,8 +56,8 @@ class FilterManager: NSObject {
 //        selectedLabelId = [Int]()
 //        selectedChannelId = [Int]()
         
-        chatStatusArray.append(labelWithId(label: "Open chats", id: 1, isSelected: true))
-        chatStatusArray.append(labelWithId(label: "Closed chats", id: 2))
+        chatStatusArray.append(labelWithId(label: HippoStrings.openChat , id: 1, isSelected: true))
+        chatStatusArray.append(labelWithId(label: HippoStrings.closeChat, id: 2))
 //        chatStatusArray.append(labelWithId(label: "Open chats", id: 1))
 //        chatStatusArray.append(labelWithId(label: "Closed chats", id: 2))
         

@@ -53,32 +53,32 @@ class PickerHelper {
     func present(sender: UIView, controller: UIViewController) {
         
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertController.Style.actionSheet)
-        let paymentOption = UIAlertAction(title: "Request Payment", style: .default, handler: { (alert: UIAlertAction!) -> Void in
+        let paymentOption = UIAlertAction(title: HippoStrings.requestPayment, style: .default, handler: { (alert: UIAlertAction!) -> Void in
             controller.view.endEditing(true)
             self.delegate?.payOptionClicked()
         })
 
 
-        let cameraAction = UIAlertAction(title: "Camera", style: .default, handler: { (alert: UIAlertAction!) -> Void in
+        let cameraAction = UIAlertAction(title: HippoStrings.camera, style: .default, handler: { (alert: UIAlertAction!) -> Void in
             controller.view.endEditing(true)
             if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) {
                 self.performActionBasedOnCameraPermission()
             }
         })
 
-        let photoLibraryAction = UIAlertAction(title: "Photo & Video Library", style: .default, handler: { (alert: UIAlertAction!) -> Void in
+        let photoLibraryAction = UIAlertAction(title: HippoStrings.photoLibrary, style: .default, handler: { (alert: UIAlertAction!) -> Void in
             controller.view.endEditing(true)
             self.performActionBasedOnGalleryPermission()
         })
 
-        let documentAction = UIAlertAction(title: "Document", style: .default) { (_) in
+        let documentAction = UIAlertAction(title: HippoStrings.document, style: .default) { (_) in
             controller.view.endEditing(true)
             self.documentPicker = CoreDocumentPicker(controller: self.currentViewController)
             self.documentPicker?.delegate = self.delegate
             self.documentPicker?.presentIn(viewController: self.currentViewController, completion: nil)
         }
 
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (alert: UIAlertAction!) -> Void in })
+        let cancelAction = UIAlertAction(title: HippoStrings.cancel, style: .cancel, handler: { (alert: UIAlertAction!) -> Void in })
 
 
         if enablePayment {
@@ -108,18 +108,18 @@ class PickerHelper {
     func presentCustomActionSheet(sender: UIView, controller: UIViewController, openType: String) {
 
         switch openType{
-        case "Request Payment":
+        case HippoStrings.requestPayment:
             controller.view.endEditing(true)
             self.delegate?.payOptionClicked()
-        case "Camera":
+        case HippoStrings.camera:
             controller.view.endEditing(true)
             if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) {
                 self.performActionBasedOnCameraPermission()
             }
-        case "Photo & Video Library":
+        case HippoStrings.photoLibrary:
             controller.view.endEditing(true)
             self.performActionBasedOnGalleryPermission()
-        case "Document":
+        case HippoStrings.document:
             controller.view.endEditing(true)
             self.documentPicker = CoreDocumentPicker(controller: self.currentViewController)
             self.documentPicker?.delegate = self.delegate

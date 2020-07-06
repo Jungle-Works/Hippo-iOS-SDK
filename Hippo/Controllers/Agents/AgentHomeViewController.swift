@@ -293,7 +293,7 @@ extension AgentHomeViewController {
             errorLabel.text = ""
             hideErrorLabelView()
         } else {
-            errorLabel.text = HippoConfig.shared.strings.noNetworkConnection
+            errorLabel.text = HippoStrings.noNetworkConnection
             showErrorLabelView()
         }
     }
@@ -392,8 +392,8 @@ extension AgentHomeViewController {
         self.allChatButton.setBackgroundColor(color: #colorLiteral(red: 0.8156862745, green: 0.8156862745, blue: 0.8156862745, alpha: 1), forState: UIControl.State.highlighted)
         self.myChatButton.titleLabel?.font = UIFont.bold(ofSize: 15)
         self.allChatButton.titleLabel?.font = UIFont.regular(ofSize: 15)
-        self.myChatButton.setTitle(HippoConfig.shared.theme.myChatBtnText, for: .normal)
-        self.allChatButton.setTitle(HippoConfig.shared.theme.allChatBtnText, for: .normal)
+        self.myChatButton.setTitle(HippoConfig.shared.theme.myChatBtnText == nil ? HippoStrings.myChats : HippoConfig.shared.theme.myChatBtnText, for: .normal)
+        self.allChatButton.setTitle(HippoConfig.shared.theme.allChatBtnText == nil ? HippoStrings.allChats : HippoConfig.shared.theme.allChatBtnText, for: .normal)
         self.bottomLineView.backgroundColor = HippoConfig.shared.theme.themeColor
         self.view.backgroundColor = HippoConfig.shared.theme.backgroundColor
         view_NavigationBar.title = HippoConfig.shared.theme.headerText
@@ -656,19 +656,14 @@ extension AgentHomeViewController: UITableViewDelegate, UITableViewDataSource {
         
         if let status = conversationList[indexPath.row].status {
             if status == 1{
-                let deleteAction = UITableViewRowAction(style: .default, title: "End chat") { (action, indexpath) in
-                    self.showOptionAlert(title: "", message: "Are you sure, you want to Close this conversation?", preferredStyle: .alert, successButtonName: "YES", successComplete: { (_) in
+                let deleteAction = UITableViewRowAction(style: .default, title: HippoStrings.closeChat) { (action, indexpath) in
+                    self.showOptionAlert(title: "", message: HippoStrings.closeChatPopup, preferredStyle: .alert, successButtonName: HippoStrings.yes, successComplete: { (_) in
                         self.updateChannelStatus(for: indexPath.row)
-                    }, failureButtonName: "NO", failureComplete: nil)
+                    }, failureButtonName: HippoStrings.no.capitalized, failureComplete: nil)
                 }
                 return [deleteAction]
             }else if status == 2{
-//                let reopenAction = UITableViewRowAction(style: .default, title: "Reopen chat") { (action, indexpath) in
-//                    self.showOptionAlert(title: "", message: "Are you sure, you want to Reopen this conversation?", preferredStyle: .alert, successButtonName: "YES", successComplete: { (_) in
-//                        self.updateChannelStatus(for: indexPath.row)
-//                    }, failureButtonName: "NO", failureComplete: nil)
-//                }
-//                return [reopenAction]
+
                 return nil
             }
             return nil
@@ -683,7 +678,7 @@ extension AgentHomeViewController: UITableViewDelegate, UITableViewDataSource {
             AgentConversationManager.updateChannelStatus(for: channelId, newStatus: newStatus) { (result) in
                 guard result.isSuccessful else {
                     self.stopLoading()
-                    showAlertWith(message: HippoConfig.shared.strings.somethingWentWrong, action: nil)
+                    showAlertWith(message: HippoStrings.somethingWentWrong, action: nil)
                     return
                 }
                 guard let controllers = self.navigationController?.viewControllers else {
@@ -719,7 +714,9 @@ extension AgentHomeViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension AgentHomeViewController: AgentHomeCollectionViewCellDelegate {
     func placholderButtonClicked() {
-        AgentConversationManager.updateAgentChannel()
+        AgentConversationManager.updateAgentChannel { (error) in
+            
+        }
     }
     
     func moveToConversationWith(_ conversationObject: AgentConversation) {

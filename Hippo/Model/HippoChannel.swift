@@ -40,6 +40,7 @@ struct CreateConversationWithLabelId {
     var botGroupId: Int?
     var labelId: Int
     var initalMessages: [HippoMessage]
+    var channelName : String?
     
     func shouldSendInitalMessages() -> Bool {
         guard let gID = botGroupId else {
@@ -283,7 +284,12 @@ class HippoChannel {
             let channel = FuguChannelPersistancyManager.shared.getChannelBy(id: channelID)
             let botMessageID: String? = String.parse(values: data, key: "bot_message_id")
             let result = HippoChannelCreationResult(isSuccessful: true, error: nil, channel: channel, isChannelAvailableLocallay: false, botMessageID: botMessageID)
-            if let transactionID = params["transaction_id"] as? String {
+            if var transactionID = params["transaction_id"] as? String {
+                if let otherUserUniqueKey = params["other_user_unique_key"] as? String{
+                    if otherUserUniqueKey.trimWhiteSpacesAndNewLine().count > 0{
+                        transactionID = transactionID + "-" + otherUserUniqueKey
+                    }
+                }
                 hashmapTransactionIdToChannelID[transactionID] = channelID
                 
                 saveHashMapTransactionIdToChannelIDInCache(hashMap: HippoChannel.hashmapTransactionIdToChannelID)
@@ -306,14 +312,19 @@ class HippoChannel {
                 hashmapTransactionIdToChannelID = hashMapTransactionIdToChannelIDFromCache
             }
             
-            if let transactionID = attributes.transactionId,
-                FuguNewChatAttributes.isValidTransactionID(id: transactionID),
+            if var transactionID = attributes.transactionId, let otherUserUniqueKey = attributes.otherUniqueKey?.first{
+                if otherUserUniqueKey.trimWhiteSpacesAndNewLine().count > 0{
+                  transactionID = transactionID + "-" + otherUserUniqueKey
+                }
+                if FuguNewChatAttributes.isValidTransactionID(id: transactionID),
                 let channelID = hashmapTransactionIdToChannelID[transactionID] {
-                
-                let channel = FuguChannelPersistancyManager.shared.getChannelBy(id: channelID)
-                let result = HippoChannelCreationResult(isSuccessful: true, error: nil, channel: channel, isChannelAvailableLocallay: true, botMessageID: nil)
-                completion(result)
-                return
+                    
+                    let channel = FuguChannelPersistancyManager.shared.getChannelBy(id: channelID)
+                    let result = HippoChannelCreationResult(isSuccessful: true, error: nil, channel: channel, isChannelAvailableLocallay: true, botMessageID: nil)
+                    completion(result)
+                    return
+                    
+                }
             }
             
             if methodIsOnlyCallForChannelAvailableInLocalOrNot == true{
@@ -365,7 +376,13 @@ class HippoChannel {
             
             let botMessageID: String? = String.parse(values: data, key: "bot_message_id")
             let result = HippoChannelCreationResult(isSuccessful: true, error: nil, channel: channel, isChannelAvailableLocallay: false, botMessageID: botMessageID)
-            if let transactionID = params["transaction_id"] as? String {
+            if var transactionID = params["transaction_id"] as? String {
+                if let otherUserUniqueKey = (params["other_user_unique_key"] as? [String])?.first{
+                    if otherUserUniqueKey.trimWhiteSpacesAndNewLine().count > 0{
+                        transactionID = transactionID + "-" + (otherUserUniqueKey)
+                    }
+                }
+                
                 hashmapTransactionIdToChannelID[transactionID] = channelID
                 
                 saveHashMapTransactionIdToChannelIDInCache(hashMap: HippoChannel.hashmapTransactionIdToChannelID)
@@ -470,6 +487,13 @@ class HippoChannel {
 
         if HippoProperty.current.singleChatApp {
             params["multi_channel_label_mapping_app"] = 1
+        }
+        
+        if getCurrentLanguageLocale() != "en"{
+            if (labelRequest?.botGroupId ?? 0) <= 0{
+                params["multi_language_default_message"] = labelRequest?.initalMessages.first?.message
+            }
+            params["multi_language_label"] = labelRequest?.channelName
         }
         
         return params

@@ -117,7 +117,7 @@ struct BotAction {
     internal var theme = HippoTheme.defaultTheme()
     internal var userDetail: HippoUserDetail?
     internal var agentDetail: AgentDetail?
-    internal var strings = HippoStrings()
+    public var strings = HippoStrings()
     
 //    private(set)  open var isNewConversationButtonHidden: Bool = true
     private(set)  open var newConversationButtonBorderWidth: Float = 0.0
@@ -129,7 +129,6 @@ struct BotAction {
     private(set)  open var mapping = [Int: [Int]]()//Dictionary<Int, Array<Int>>()
     
     private(set)  open var hasChannelTabs = true//false
-    private(set)  open var emptyChannelListText = "No Conversation found"
     
     open var isPaymentRequestEnabled: Bool {
         return HippoProperty.current.isPaymentRequestEnabled
@@ -163,6 +162,7 @@ struct BotAction {
     open var HippoDismissed: ((_ isDismissed: Bool) -> ())?
     open var HippoPrePaymentCancelled: (()->())?
     open var HippoPrePaymentSuccessful: ((Bool)->())?
+    public var HippoLanguageChanged : ((Error?)->())?
     
     internal let powererdByColor = #colorLiteral(red: 0.4980392157, green: 0.4980392157, blue: 0.4980392157, alpha: 1)
     internal let FuguColor = #colorLiteral(red: 0.3843137255, green: 0.4901960784, blue: 0.8823529412, alpha: 1)
@@ -171,6 +171,15 @@ struct BotAction {
     
     public let navigationTitleTextAlignMent: NSTextAlignment? = .center
     public var shouldOpenDefaultChannel = true
+    public var shouldUseNewCalling : Bool?{
+        didSet{
+            if shouldUseNewCalling ?? false{
+                versionCode = 350
+            }else{
+                versionCode = 320
+            }
+        }
+    }
     
     // MARK: - Intialization
     private override init() {
@@ -279,6 +288,21 @@ struct BotAction {
         
     }
     
+    func getAllStrings(){
+        AllString.getAllStrings{(error) in
+            self.HippoLanguageChanged?(error)
+            if error == nil{
+                if self.appUserType == .customer{
+                    AllString.updateLanguageApi()
+                }else{
+                    let status = AgentStatus.allCases.filter{$0.rawValue == BussinessProperty.current.agentStatusForToggle}
+                    AgentConversationManager.agentStatusUpdate(newStatus: status.first ?? .available, completion: {_ in })
+                }
+            }
+        }
+    }
+    
+    
     public static func setSkipBot(enable: Bool, reason: String) {
         HippoProperty.current.skipBot = enable
         HippoProperty.current.skipBotReason = reason
@@ -288,7 +312,12 @@ struct BotAction {
         self.userDetail = userDetail
         self.appUserType = .customer
         AgentDetail.agentLoginData = nil
-        HippoUserDetail.getUserDetailsAndConversation()
+        HippoUserDetail.getUserDetailsAndConversation { (status, error) in
+            if (self.userDetail?.selectedlanguage ?? "") == ""{
+               self.userDetail?.selectedlanguage = BussinessProperty.current.buisnessLanguageArr?.filter{$0.is_default == true}.first?.lang_code
+            }
+            self.setLanguage(self.userDetail?.selectedlanguage ?? "en",true)
+        }
     }
     
     public func enableBroadcast() {
@@ -304,6 +333,8 @@ struct BotAction {
 //    public func hideNewConversationButton() {
 //        isNewConversationButtonHidden = true
 //    }
+    
+    
     
     public func isSuggestionNeeded(setValue: Bool) {
         isSuggestionNeeded = setValue
@@ -324,9 +355,9 @@ struct BotAction {
     public func hasChannelTabs(setValue: Bool) {
         hasChannelTabs = setValue
     }
-    public func setEmptyChannelListText(text: String) {
-        emptyChannelListText = text
-    }
+//    public func setEmptyChannelListText(text: String) {
+//        emptyChannelListText = text
+//    }
     
     public func showNewConversationButtonBorderWithWidth(borderWidth:Float = 1.0) {
         newConversationButtonBorderWidth = borderWidth
@@ -346,12 +377,16 @@ struct BotAction {
         HippoProperty.current.ticketCustomAttributes = attributes
     }
     
-    public func initManager(agentToken: String, app_type: String, customAttributes: [String: Any]? = nil) {
+    public func initManager(agentToken: String, app_type: String, customAttributes: [String: Any]? = nil,selectedLanguage : String? = nil, completion: @escaping HippoResponseRecieved) {
         let detail = AgentDetail(oAuthToken: agentToken.trimWhiteSpacesAndNewLine(), appType: app_type, customAttributes: customAttributes)
         detail.isForking = true
         self.appUserType = .agent
         self.agentDetail = detail
-        AgentConversationManager.updateAgentChannel()
+        AgentConversationManager.updateAgentChannel(completion: {(error) in
+            if (selectedLanguage ?? "") == ""{ self.setLanguage(BussinessProperty.current.buisnessLanguageArr?.filter{$0.is_default == true}.first?.lang_code ?? "")
+            }
+            completion(error)
+        })
     }
     
     /********
@@ -363,11 +398,18 @@ struct BotAction {
      device_type: Int = your device type on your system.
      *******/
     
-    public func initManager(authToken: String, app_type: String, customAttributes: [String: Any]? = nil) {
+    public func initManager(authToken: String, app_type: String, customAttributes: [String: Any]? = nil, selectedLanguage : String? = nil, completion: @escaping HippoResponseRecieved) {
         let detail = AgentDetail(oAuthToken: authToken.trimWhiteSpacesAndNewLine(), appType: app_type, customAttributes: customAttributes)
         self.appUserType = .agent
         self.agentDetail = detail
-        AgentConversationManager.updateAgentChannel()
+        AgentConversationManager.updateAgentChannel(completion: {(error) in
+            if (selectedLanguage ?? "") == ""{ self.setLanguage(BussinessProperty.current.buisnessLanguageArr?.filter{$0.is_default == true}.first?.lang_code ?? "en")
+                completion(error)
+                return
+            }
+            self.setLanguage(selectedLanguage ?? "en")
+            completion(error)
+        })
     }
     // MARK: - Open Chat UI Methods
     public func presentChatsViewController() {
@@ -557,9 +599,9 @@ struct BotAction {
     public func openChatWith(channelId: Int, completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
         switch appUserType {
         case .agent:
-            openCustomerConversationWith(channelId: channelId, completion: completion)
-        case .customer:
             openAgentConversationWith(channelId: channelId, completion: completion)
+        case .customer:
+            openCustomerConversationWith(channelId: channelId, completion: completion)
         }
     }
     public func startCall(data: PeerToPeerChat, callType: CallType, completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
@@ -599,7 +641,7 @@ struct BotAction {
         HippoChannel.get(withFuguChatAttributes: attributes, completion: {(result) in
             guard result.isSuccessful, let channel = result.channel else {
                 CallManager.shared.hungupCall()
-                completion(false, HippoError.threwError(message: "Something went wrong while creating channel."))
+                completion(false, HippoError.threwError(message: HippoStrings.somethingWentWrong))
                 return
             }
             let call = CallData.init(peerData: peer, callType: callType, muid: uuid, signallingClient: channel)
@@ -660,7 +702,7 @@ struct BotAction {
         HippoChannel.getToCallAgent(withFuguChatAttributes: attributes, agentEmail: agentEmail, completion: {(result) in
             guard result.isSuccessful, let channel = result.channel else {
                 CallManager.shared.hungupCall()
-                completion(false, HippoError.threwError(message: "Something went wrong while creating channel."))
+                completion(false, HippoError.threwError(message: HippoStrings.somethingWentWrong))
                 return
             }
             let call = CallData.init(peerData: peer, callType: callType, muid: uuid, signallingClient: channel)
@@ -694,17 +736,19 @@ struct BotAction {
         }
     }
     internal func openAgentConversationWith(channelId: Int, completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
-        completion(false, HippoError.notAllowedForAgent)
-//        HippoChecker.checkForAgentIntialization { (success, error) in
-//            guard success else {
-//                completion(false, error)
-//                return
-//            }
-//
-//            let conVC = AgentConversationViewController.getWith(channelID: channelId, channelName: "Channel")
-//            let lastVC = getLastVisibleController()
-//            lastVC?.present(conVC, animated: true, completion: nil)
-//        }
+        HippoChecker.checkForAgentIntialization { (success, error) in
+            guard success else {
+                completion(false, error)
+                return
+            }
+
+            let conVC = AgentConversationViewController.getWith(channelID: channelId, channelName: "")
+            let lastVC = getLastVisibleController()
+            let navVC = UINavigationController(rootViewController: conVC)
+            navVC.setTheme()
+            navVC.modalPresentationStyle = .fullScreen
+            lastVC?.present(navVC, animated: true, completion: nil)
+        }
     }
     public func openAgentChatWith(channelId: Int, completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
             HippoChecker.checkForAgentIntialization { (success, error) in
@@ -743,7 +787,18 @@ struct BotAction {
         })
     }
     
-
+    //MARK:- Set Language
+    
+    public func setLanguage(_ code : String, _ isFromPutUser : Bool = false){
+        if BussinessProperty.current.buisnessLanguageArr?.contains(where: {$0.lang_code == code}) ?? false{
+            UserDefaults.standard.set(code, forKey: DefaultName.selectedLanguage.rawValue)
+            getAllStrings()
+        }else if BussinessProperty.current.buisnessLanguageArr?.contains(where: {$0.lang_code == code}) ?? false == false{
+            let defaultLang = BussinessProperty.current.buisnessLanguageArr?.filter{$0.is_default == true}.first?.lang_code
+            UserDefaults.standard.set(defaultLang, forKey: DefaultName.selectedLanguage.rawValue)
+            getAllStrings()
+        }
+    }
     
     
     // MARK: - Helpers
@@ -801,7 +856,7 @@ struct BotAction {
             return
         }
         TokenManager.voipToken = token
-        updateDeviceToken(deviceToken: token)
+       // updateDeviceToken(deviceToken: token)
     }
     
     public func getDeviceTokenKey() -> String {
@@ -824,7 +879,7 @@ struct BotAction {
 //        }
         TokenManager.deviceToken = token
         log.debug("registerDeviceToken save token:\(TokenManager.deviceToken)", level: .custom)
-        updateDeviceToken(deviceToken: token)
+        //updateDeviceToken(deviceToken: token)
     }
     
     func checkForChannelSubscribe(completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {

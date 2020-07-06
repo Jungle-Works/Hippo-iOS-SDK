@@ -15,7 +15,7 @@ class ChatDetail: NSObject {
     var assignedAgentID: Int = -1
     var assignedAgentName: String = ""
     var customerID: Int = -1
-    var customerName: String = "Visitor"
+    var customerName: String = HippoStrings.visitor
     var customerEmail: String = ""
     var customerContactNumber: String = ""
     var channelTags: [TagDetail] = []
@@ -73,7 +73,7 @@ class ChatDetail: NSObject {
         }
         
         if assignedAgentID < 0 {
-            assignedAgentName = "Unassigned"
+            assignedAgentName = HippoStrings.unassigned
         }
         
        var tempPeerDetail: User?

@@ -43,15 +43,16 @@ class FeedbackTableViewCell: MessageTableViewCell {
     @IBOutlet weak var cellTextView: UITextView!{
         didSet{
             cellTextView.font = UIFont.regular(ofSize: 16.0)
-            cellTextView.layer.borderWidth = 1
-            cellTextView.layer.borderColor = UIColor(red: 242/255, green: 245/255, blue: 248/255, alpha: 1.0).cgColor
+            cellTextView.layer.borderWidth = 1.5
+            cellTextView.layer.borderColor = UIColor(red: 230/255, green: 230/255, blue: 230/255, alpha: 1.0).cgColor
             cellTextView.layer.cornerRadius = 10
         }
     }
     @IBOutlet weak var alertContainer: UIView!
     @IBOutlet weak var submitButton: UIButton! {
         didSet {
-            submitButton.setTitle("Submit", for: .normal)
+            submitButton.titleLabel?.font = UIFont.bold(ofSize: 16.0)
+            submitButton.setTitle(HippoStrings.submit, for: .normal)
             submitButton.setTitleColor(.white, for: .normal)
             submitButton.backgroundColor = HippoConfig.shared.theme.themeColor
             submitButton.layer.cornerRadius = 6
@@ -68,7 +69,7 @@ class FeedbackTableViewCell: MessageTableViewCell {
     }
     @IBOutlet weak var titleLabel: UILabel!{
         didSet{
-            titleLabel.font = UIFont.boldSystemFont(ofSize: 20)
+            titleLabel.font = UIFont.bold(ofSize: 20)
         }
     }
 //    @IBOutlet weak var label_SenderName : UILabel!{
@@ -100,7 +101,7 @@ class FeedbackTableViewCell: MessageTableViewCell {
     }
     @IBOutlet weak var label_Rating : UILabel!{
         didSet{
-            label_Rating.font = UIFont.boldSystemFont(ofSize: 23.0)
+            label_Rating.font = UIFont.bold(ofSize: 23.0)
         }
     }
     
@@ -168,7 +169,8 @@ class FeedbackTableViewCell: MessageTableViewCell {
         }
         
         data.cellTextView = cellTextView
-        titleLabel.text = "Rating & Review"//data.messageObject!.feedbackMessages.line_before_feedback
+        titleLabel.text = message?.message
+        placeholderLabel.text = HippoStrings.writeReview
         
         if params.messageObject!.is_rating_given {
             //completionView.isHidden = false
@@ -225,7 +227,7 @@ class FeedbackTableViewCell: MessageTableViewCell {
             cellTextView.text = data.messageObject!.comment
             label_Rating.text = "\(data.messageObject?.rating_given ?? 0)" + "/" + "\(data.messageObject?.total_rating ?? 0)"
             if cellTextView.text.isEmpty {
-                placeholderLabel.text = "No Comment..."
+                placeholderLabel.text = HippoStrings.noComment
                 placeholderLabel.isHidden = false
             }
         }
@@ -249,7 +251,7 @@ class FeedbackTableViewCell: MessageTableViewCell {
         cellTextView.delegate = self
         cellTextView.flashScrollIndicators()
         alertContainer.layer.borderColor = UIColor(red: 242/255, green: 245/255, blue: 248/255, alpha: 1.0).cgColor //HippoConfig.shared.theme.gradientTopColor.cgColor //
-        alertContainer.layer.borderWidth = 4
+        alertContainer.layer.borderWidth = 5
         alertContainer.layer.masksToBounds = true
         alertContainer.layer.cornerRadius = 10
         //        alertContainer.backgroundColor = HippoConfig.shared.theme.gradientBackgroundColor

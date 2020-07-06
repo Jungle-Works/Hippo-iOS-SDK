@@ -26,7 +26,7 @@ final class NavigationBar: UIView {
             image_back.image = HippoConfig.shared.theme.leftBarButtonImage
             titleLabel.font = HippoConfig.shared.theme.headerTextFont
             titleLabel.textColor = HippoConfig.shared.theme.headerTextColor
-            titleLabel.text = title
+            titleLabel.text = HippoConfig.shared.theme.headerText
         }
     }
     

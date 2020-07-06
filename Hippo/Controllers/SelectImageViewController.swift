@@ -17,6 +17,8 @@ class SelectImageViewController: UIViewController {
     
     @IBOutlet weak var selectImageView: UIImageView!
     @IBOutlet weak var cancelButtonOutlet: UIButton!
+    @IBOutlet weak var sendButtonOutlet: UIButton!
+    
     
     weak var delegate: SelectImageViewControllerDelegate?
     var pickedImage: UIImage?

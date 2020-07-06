@@ -101,6 +101,7 @@ public class UserTag: NSObject {
     var userTags: [UserTag] = []
     var customRequest: [String: Any] = [:]
     var userImage: URL?
+    var selectedlanguage : String?
     
     var userChannel: String?
     
@@ -141,7 +142,7 @@ public class UserTag: NSObject {
     // MARK: - Intializer
     override init() {}
     
-    public init(fullName: String, email: String, phoneNumber: String, userUniqueKey: String, addressAttribute: HippoAttributes? = nil, customAttributes: [String: Any]? = nil, userTags: [UserTag]? = nil, userImage: String? = nil) {
+    public init(fullName: String, email: String, phoneNumber: String, userUniqueKey: String, addressAttribute: HippoAttributes? = nil, customAttributes: [String: Any]? = nil, userTags: [UserTag]? = nil, userImage: String? = nil, selectedlanguage : String? = nil) {
         super.init()
         
         self.fullName = fullName.trimWhiteSpacesAndNewLine()
@@ -156,6 +157,9 @@ public class UserTag: NSObject {
         if let parsedUserImage = userImage?.trimWhiteSpacesAndNewLine(), let url = URL(string: parsedUserImage) {
             self.userImage = url
         }
+        self.selectedlanguage = selectedlanguage
+        
+        UserDefaults.standard.set(selectedlanguage, forKey: DefaultName.selectedLanguage.rawValue)
     }
     
     func getUserTagsJSON() -> [[String: Any]] {
@@ -263,9 +267,10 @@ public class UserTag: NSObject {
         }
         
         params["device_details"] = AgentDetail.getDeviceDetails()
-        
+        params["fetch_business_lang"] = 1
         params += customRequest
         print("PUT USER PARAMS:\(params)")
+        
         return params
     }
     
@@ -286,7 +291,7 @@ public class UserTag: NSObject {
             return
         }
         
-        HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: endPointName) { (responseObject, error, tag, statusCode) in
+        HTTPClient.shared.makeSingletonConnectionWith(method: .POST, identifier: RequestIdenfier.putUser, para: params, extendedUrl: endPointName) { (responseObject, error, tag, statusCode) in
             
             guard let response = (responseObject as? [String: Any]), statusCode == STATUS_CODE_SUCCESS, let data = response["data"] as? [String: Any] else {
                 HippoConfig.shared.log.error("PutUserError: \(error.debugDescription)", level: .error)
@@ -334,7 +339,7 @@ public class UserTag: NSObject {
             }
             if let customer_initial_form_info = userDetailData["customer_initial_form_info"] as? [String: Any] {
                 HippoProperty.current.forms = FormData.getFormDataList(from: customer_initial_form_info)
-                HippoProperty.current.formCollectorTitle = customer_initial_form_info["page_title"] as? String ?? "SUPPORT"
+                HippoProperty.current.formCollectorTitle = customer_initial_form_info["page_title"] as? String ?? HippoStrings.support.capitalized
             } else {
                 HippoProperty.current.forms = []
             }
@@ -361,9 +366,9 @@ public class UserTag: NSObject {
                     }
                 })
             }
-            if let botChannelsArray = userDetailData["conversations"] as? [[String: Any]] {
-                FuguDefaults.set(value: botChannelsArray, forKey: DefaultName.conversationData.rawValue)
-            }
+//            if let botChannelsArray = userDetailData["conversations"] as? [[String: Any]] {
+//                FuguDefaults.set(value: botChannelsArray, forKey: DefaultName.conversationData.rawValue)
+//            }
             resetPushCount()
             
             if let lastVisibleController = getLastVisibleController() as? ConversationsViewController, let channelId = lastVisibleController.channel?.id {
@@ -439,6 +444,7 @@ public class UserTag: NSObject {
 ////            params["neglect_conversations"] = true
 //        }
         params["neglect_conversations"] = true
+       
         
         return params
     }

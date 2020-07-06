@@ -16,6 +16,7 @@ struct RequestIdenfier {
     static let authLoginIdentifier = "HIPPO_AUTH_LOGIN_IDENTIFIER"
     static let agentLoginIdentifier = "HIPPO_AGENT_LOGIN1_IDENTIFIER"
     static let getCountrycode = "tookanGetCountrycode"
+    static let putUser = "Hippo_Put_User"
 }
 
 class MessageStore {
@@ -214,13 +215,8 @@ class MessageStore {
         if let _tags = data["tags"] as? [[String :Any]] {
             result.tags = TagDetail.parseTagDetail(data: _tags)
         }
-        
-        //SetChannel Name
-        if let channelName = data["label"] as? String {
-            result.channelName = channelName
-        } else if let fullName = data["full_name"] as? String, fullName.count > 0 {
-            result.channelName = fullName
-        }
+    
+     
         //Checking sending Status
         if let _disableSending = data["disable_reply"] as? Bool {
             result.isSendingDisabled = _disableSending
@@ -234,6 +230,20 @@ class MessageStore {
         result.labelID = data["label_id"] as? Int ?? -1
         result.botGroupID = Int.parse(values: data, key: "bot_group_id")
         result.requestType = data["type"] as? Int ?? 0
+        
+        //if default channel
+        
+        if result.channelID < 0, getCurrentLanguageLocale() != "en", let otherLanguageDic = rawMessages.first?["channel_other_lang_data"] as? [String : Any]{
+            if result.botGroupID ?? 0 <= 0{
+                result.newMessages.first?.message = otherLanguageDic["channel_message"] as? String ?? ""
+            }
+            result.channelName = otherLanguageDic["channel_name"] as? String ?? ""
+            //channel name
+        }else if let channelName = data["label"] as? String {
+            result.channelName = channelName
+        } else if let fullName = data["full_name"] as? String, fullName.count > 0 {
+            result.channelName = fullName
+        }
         
         //Sending
         completion(result, nil)

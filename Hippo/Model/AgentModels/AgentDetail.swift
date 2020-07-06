@@ -32,18 +32,18 @@ public enum HippoError: LocalizedError {
         case .callClientNotFound:
             return HippoConfig.shared.strings.callClientNotFound
         case .updateUserDetail:
-            return  "Something went wrong., please updateUserDetail again!!!"
+            return HippoStrings.somethingWentWrong
         case .invalidAppSecretKey:
             return "Invalid appsecret key"
         case .networkError:
-            return HippoConfig.shared.strings.noNetworkConnection
+            return HippoStrings.noNetworkConnection
         default:
-            return HippoConfig.shared.strings.somethingWentWrong
+            return HippoStrings.somethingWentWrong
         }
     }
 }
 
-enum AgentStatus: String {
+enum AgentStatus: String , CaseIterable{
     case available = "AVAILABLE"
     case offline = "OFFLINE"
     case away = "AWAY"
@@ -74,7 +74,7 @@ class AgentDetail: NSObject {
     var businessName = ""
     var number = ""
     var userImage: String?
-    
+    var languageCode : String?
 //    var status = AgentStatus.offline
     var agentUserType = AgentUserType.agent
     
@@ -106,9 +106,24 @@ class AgentDetail: NSObject {
         email = dict["email"] as? String ?? ""
         businessId = dict["business_id"] as? Int ?? -1
         businessName = dict["business_name"] as? String ?? ""
+        if let buisnessLanguageArr = dict["business_languages"] as? [[String : Any]]{
+            BussinessProperty.current.buisnessLanguageArr = BuisnessLanguage().getLanguageData(buisnessLanguageArr)
+        }
         number = dict["phone_number"] as? String ?? ""
         userImage = dict["user_image"] as? String
+        languageCode = dict["lang_code"] as? String
         
+        if (languageCode?.trimWhiteSpacesAndNewLine() ?? "") != ""{
+            for (index,_) in (BussinessProperty.current.buisnessLanguageArr ?? [BuisnessLanguage]()).enumerated(){
+                if BussinessProperty.current.buisnessLanguageArr?[index].lang_code == languageCode{
+                    BussinessProperty.current.buisnessLanguageArr?[index].is_default = true
+                }else{
+                    BussinessProperty.current.buisnessLanguageArr?[index].is_default = false
+                }
+            }
+        }
+        
+      
 //        if let online_status = dict["online_status"] as? String, let status = AgentStatus.init(rawValue: online_status) {
 //            self.status = status
 //        }
@@ -164,6 +179,7 @@ class AgentDetail: NSObject {
         if customAttributes != nil {
          dict["self_custom_attributes"] = customAttributes!
         }
+        
         return dict
     }
     class func setAgentStoredData() {
@@ -234,10 +250,10 @@ extension AgentDetail {
             
             guard let unwrappedStatusCode = statusCode, let response = responseObject as? [String: Any], let data = response["data"] as? [String: Any], unwrappedStatusCode == STATUS_CODE_SUCCESS else {
                 let result = ResponseResult(isSuccessful: false, error: error)
-                print("Login errror: \(error?.localizedDescription ?? "Something went wrong")")
+                print("Login errror: \(error?.localizedDescription ?? HippoStrings.somethingWentWrong)")
                 postLoginUpdated()
                 HippoUserDetail.clearAllData()
-                AgentConversationManager.errorMessage = error?.localizedDescription ?? "Something went wrong"
+                AgentConversationManager.errorMessage = error?.localizedDescription ?? HippoStrings.somethingWentWrong
                 completion(result)
                 return
             }
@@ -368,6 +384,9 @@ extension AgentDetail {
             params["voip_token"] = TokenManager.voipToken
         }
         params["app_version_code"] = "\(versionCode)"
+        
+        params["fetch_business_lang"] = 1
+        
         return params
     }
     internal static func getParamsForAuthLogin() -> [String: Any] {
