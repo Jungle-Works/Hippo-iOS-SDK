@@ -607,7 +607,9 @@ class AllString{
     }
     
     class func agentParsing(_ response: [String: Any]){
-        
+        if let hippo_pending = response["hippo_pending"] as? String{
+            HippoStrings.paymentPending = hippo_pending
+        }
         if let hippo_request_payment = response["hippo_request_payment"] as? String{
             HippoStrings.requestPayment = hippo_request_payment
         }
