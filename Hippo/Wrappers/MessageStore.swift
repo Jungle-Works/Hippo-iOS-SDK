@@ -16,6 +16,7 @@ struct RequestIdenfier {
     static let authLoginIdentifier = "HIPPO_AUTH_LOGIN_IDENTIFIER"
     static let agentLoginIdentifier = "HIPPO_AGENT_LOGIN1_IDENTIFIER"
     static let getCountrycode = "tookanGetCountrycode"
+    static let putUser = "Hippo_Put_User"
 }
 
 class MessageStore {

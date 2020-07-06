@@ -113,13 +113,17 @@ class AgentDetail: NSObject {
         userImage = dict["user_image"] as? String
         languageCode = dict["lang_code"] as? String
         
-        for (index,_) in (BussinessProperty.current.buisnessLanguageArr ?? [BuisnessLanguage]()).enumerated(){
-            if BussinessProperty.current.buisnessLanguageArr?[index].lang_code == languageCode{
-                BussinessProperty.current.buisnessLanguageArr?[index].is_default = true
-            }else{
-                BussinessProperty.current.buisnessLanguageArr?[index].is_default = false
+        if (languageCode?.trimWhiteSpacesAndNewLine() ?? "") != ""{
+            for (index,_) in (BussinessProperty.current.buisnessLanguageArr ?? [BuisnessLanguage]()).enumerated(){
+                if BussinessProperty.current.buisnessLanguageArr?[index].lang_code == languageCode{
+                    BussinessProperty.current.buisnessLanguageArr?[index].is_default = true
+                }else{
+                    BussinessProperty.current.buisnessLanguageArr?[index].is_default = false
+                }
             }
         }
+        
+      
 //        if let online_status = dict["online_status"] as? String, let status = AgentStatus.init(rawValue: online_status) {
 //            self.status = status
 //        }

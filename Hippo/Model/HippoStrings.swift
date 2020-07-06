@@ -30,7 +30,7 @@ public class HippoStrings {
     static var writeReview = "Write a review".localized
     static var messagePlaceHolderText = "Send a message...".localized
     static var enterSomeText = "Please enter some text.".localized
-    static var attachmentCancel = "Cancel".localized
+    //static var attachmentCancel = "Cancel".localized
     static var ok = "OK".localized
     static var support = "Support".localized
     static var noMinSelection = "Please select atleast one option".localized
@@ -76,7 +76,7 @@ public class HippoStrings {
     static var title = "Title".localized
     static var price = "Price".localized
     static var enterPrice = "Enter Price".localized
-    var selectaPlan = "Select a Plan".localized
+    static var selectaPlan = "Select a Plan".localized
     static var proccedToPay = "Proceed To Pay".localized
     static var ratingReview = "Rating & Review".localized
     static var audio = "Audio".localized
@@ -95,7 +95,7 @@ public class HippoStrings {
     static var logoutTitle = "Logout".localized
     static var unknownMessage = "This message doesn't support in your current app.".localized
     static var allAgentsString = "All".localized
-    var incomingCall = "Incoming Call".localized
+    static var incomingCall = "Incoming Call".localized
     static var paymentRequest = "Payment Request".localized
     static var calling = "CALLING...".localized
     static var noComment = "No Comment...".localized
@@ -114,6 +114,7 @@ public class HippoStrings {
     
     /// Agent sdk
     
+    static var closed = "Closed".localized
     static var openChat = "Open Chats".localized
     static var newConversation = "New Conversation".localized
     static var actions = "Actions".localized
@@ -179,8 +180,8 @@ public class HippoStrings {
     static var takeOverChat = "Are you sure, you want to assign this chat to you?".localized
     static var reasignChat = "Are you sure, you want to reassign?".localized
     static var reasignChatToYou = "Are you sure, you want to reassign this chat to you?".localized
-    
-    
+    static var saved = "Saved!".localized
+    static var imageSaved = "Image has been saved to your photos.".localized
     
     
     open var disbaledCameraErrorMessage = "Access to Camera is denied. Please enable from setings."

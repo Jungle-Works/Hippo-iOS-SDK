@@ -628,7 +628,7 @@ class HippoConversationViewController: UIViewController {
                             }
                         }
                         
-                    }, failureButtonName: HippoStrings.attachmentCancel) { (failureAction) in
+                    }, failureButtonName: HippoStrings.cancel) { (failureAction) in
                         //do nothing
                     }
                 }
@@ -669,7 +669,7 @@ class HippoConversationViewController: UIViewController {
                             }
                         }
                         
-                    }, failureButtonName: HippoStrings.attachmentCancel) { (failureAction) in
+                    }, failureButtonName: HippoStrings.cancel) { (failureAction) in
                         //do nothing
                     }
                 }

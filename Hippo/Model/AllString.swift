@@ -20,6 +20,7 @@ class AllString{
             
             guard let unwrappedStatusCode = statusCode, error == nil, unwrappedStatusCode == STATUS_CODE_SUCCESS, error == nil  else {
                 print("Error",error ?? "")
+                completion(error as? HippoError)
                 return
             }
             guard let apiResponse = responseObject as? [String : Any], let data = apiResponse["data"] as? [String : Any], let response = data["business_data"] as? [String: Any] else {
@@ -31,6 +32,7 @@ class AllString{
               customerParsing(response)
             }
             HippoStrings.updateHippoCallClientStrings()
+            completion(error as? HippoError)
         }
     }
     
@@ -369,9 +371,6 @@ class AllString{
         if let hippo_no_chat_init = response["hippo_no_chat_init"] as? String{
             
         }
-        if let hippo_no_internet_cancel = response["hippo_no_internet_cancel"] as? String{
-            HippoStrings.cancel = hippo_no_internet_cancel
-        }
         if let hippo_no_internet_connected = response["hippo_no_internet_connected"] as? String{
             HippoStrings.noNetworkConnection = hippo_no_internet_connected
         }
@@ -470,21 +469,6 @@ class AllString{
         }
         if let hippo_sent_a_msg = response["hippo_sent_a_msg"] as? String{
             HippoStrings.messageSent = hippo_sent_a_msg
-        }
-        if let hippo_smile_rating_bad = response["hippo_smile_rating_bad"] as? String{
-            
-        }
-        if let hippo_smile_rating_good = response["hippo_smile_rating_good"] as? String{
-            
-        }
-        if let hippo_smile_rating_great = response["hippo_smile_rating_great"] as? String{
-            
-        }
-        if let hippo_smile_rating_okay = response["hippo_smile_rating_okay"] as? String{
-            
-        }
-        if let hippo_smile_rating_terrible = response["hippo_smile_rating_terrible"] as? String{
-            
         }
         if let hippo_something_went_wrong = response["hippo_something_went_wrong"] as? String{
             HippoStrings.somethingWentWrong = hippo_something_went_wrong
@@ -616,9 +600,38 @@ class AllString{
             HippoStrings.isCallingYou = hippo_calling_you
         }
         
+        if let hippo_select_a_plan = response["hippo_select_a_plan"] as? String{
+            HippoStrings.selectaPlan = hippo_select_a_plan
+        }
+        
     }
     
     class func agentParsing(_ response: [String: Any]){
+        
+        if let hippo_request_payment = response["hippo_request_payment"] as? String{
+            HippoStrings.requestPayment = hippo_request_payment
+        }
+        if let hippo_day_ago = response["hippo_day_ago"] as? String{
+            HippoStrings.daysAgo = hippo_day_ago
+        }
+        if let hippo_call = response["hippo_call"] as? String{
+            HippoStrings.call = hippo_call
+        }
+        if let hippo_imagesaved_title = response["hippo_imagesaved_title"] as? String{
+            HippoStrings.saved = hippo_imagesaved_title
+        }
+        if let hippo_image_saved = response["hippo_image_saved"] as? String{
+            HippoStrings.imageSaved = hippo_image_saved
+        }
+        if let hippo_photo_video_library = response["hippo_photo_video_library"] as? String{
+            HippoStrings.photoLibrary = hippo_photo_video_library
+        }
+        if let FILE_IMAGE = response["FILE_IMAGE"] as? String{
+            HippoStrings.sentAPhoto = FILE_IMAGE
+        }
+        if let FILE_ATTACHMENT = response["FILE_ATTACHMENT"] as? String{
+            HippoStrings.sentAFile = FILE_ATTACHMENT
+        }
         if let PAYMENT_REQUESTED = response["PAYMENT_REQUESTED"] as? String{
             HippoStrings.paymentRequested = PAYMENT_REQUESTED
         }
@@ -684,17 +697,8 @@ class AllString{
         }
         
         
-        
-        if let conversations = response["conversations"] as? String{
-            
-        }
-        
-        if let open = response["open"] as? String{
-            
-        }
-        
         if let closed = response["closed"] as? String{
-            
+            HippoStrings.closed = closed
         }
         
         if let hello_blank_fragment = response["hello_blank_fragment"] as? String{
@@ -829,32 +833,8 @@ class AllString{
             
         }
         
-        if let proxima_r = response["proxima_r"] as? String{
-            
-        }
-        
-        if let proxima_b = response["proxima_b"] as? String{
-            
-        }
-        
-        if let proxima_sb = response["proxima_sb"] as? String{
-            
-        }
-        
-        if let montserrat_sb = response["montserrat_sb"] as? String{
-            
-        }
-        
-        if let montserrat_r = response["montserrat_r"] as? String{
-            
-        }
-        
-        if let montserrat_m = response["montserrat_m"] as? String{
-            
-        }
-        
         if let hippo_you = response["hippo_you"] as? String{
-            
+            HippoStrings.you = hippo_you
         }
         
         if let hippo_user = response["hippo_user"] as? String{
@@ -922,7 +902,7 @@ class AllString{
         }
         
         if let retry = response["retry"] as? String{
-            
+            HippoConfig.shared.strings.retry = retry
         }
         
         if let attachment = response["attachment"] as? String{
@@ -1698,7 +1678,7 @@ class AllString{
         }
         
         if let hippo_something_wrong = response["hippo_something_wrong"] as? String{
-            
+            HippoStrings.somethingWentWrong = hippo_something_wrong
         }
         
         if let broadcast_text = response["broadcast_text"] as? String{
@@ -1798,7 +1778,7 @@ class AllString{
         }
         
         if let hippo_add_an_option = response["hippo_add_an_option"] as? String{
-            
+            HippoStrings.addOption = hippo_add_an_option
         }
         
         if let hippo_request_payment = response["hippo_request_payment"] as? String{
@@ -2138,7 +2118,7 @@ class AllString{
         }
         
         if let hippo_send = response["hippo_send"] as? String{
-            
+            HippoStrings.sendTitle = hippo_send
         }
         
         if let hippo_copy_text = response["hippo_copy_text"] as? String{
@@ -2193,8 +2173,8 @@ class AllString{
             
         }
         
-        if let hippo_missed_a = response["hippo_missed_a"] as? String{
-            
+        if let hippo_missed = response["hippo_missed"] as? String{
+            HippoStrings.missed = hippo_missed
         }
         
         if let hippo_the = response["hippo_the"] as? String{

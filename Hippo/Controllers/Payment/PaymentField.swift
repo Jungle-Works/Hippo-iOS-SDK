@@ -80,7 +80,7 @@ class PaymentField: FormData {
     static let defaultButtons: [[String: Any]] = [[
         "type": "BUTTON",
         "action": "ADD_MORE",
-        "title": "+ \(HippoStrings.addOption)",
+        "title": "\(HippoStrings.addOption)",
         "title_color": "#000000",
         "background_color": "#ffffff"
         ], [

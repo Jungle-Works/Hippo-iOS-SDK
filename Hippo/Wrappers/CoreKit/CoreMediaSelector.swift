@@ -102,7 +102,7 @@ public class CoreMediaSelector: NSObject, UINavigationControllerDelegate, UIImag
             self?.openPhotoLibraryFor(fileName: fileName, fileTypes: fileTypes, inViewController: viewController)
         })
         
-        let cancelAction = UIAlertAction(title: HippoStrings.attachmentCancel, style: .cancel, handler: {
+        let cancelAction = UIAlertAction(title: HippoStrings.cancel, style: .cancel, handler: {
             (alert: UIAlertAction!) -> Void in
         })
         

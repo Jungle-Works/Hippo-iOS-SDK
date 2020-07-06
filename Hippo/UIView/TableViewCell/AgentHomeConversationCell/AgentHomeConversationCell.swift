@@ -108,7 +108,7 @@ extension AgentHomeConversationCell {
         
         //Setting setting close label
         if let cellChatStatus = cellInfo.status, cellChatStatus == ChatStatus.close.rawValue {
-            closedLabel.text = "   Closed   "
+            closedLabel.text = HippoStrings.closed
             closedViewWidthConstraint.constant = 55
         } else {
             closedLabel.text = ""

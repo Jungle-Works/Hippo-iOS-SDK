@@ -164,6 +164,7 @@ class AgentConversationManager {
                 "business_id": agent.businessId,
                 "device_type": Device_Type_iOS,
                 "online_status": newStatus.rawValue,
+                "lang_code" : getCurrentLanguageLocale()
              ]
         print(param)
 

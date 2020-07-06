@@ -403,7 +403,7 @@ struct BotAction {
         self.appUserType = .agent
         self.agentDetail = detail
         AgentConversationManager.updateAgentChannel(completion: {(error) in
-            if (selectedLanguage ?? "") == ""{ self.setLanguage(BussinessProperty.current.buisnessLanguageArr?.filter{$0.is_default == true}.first?.lang_code ?? "")
+            if (selectedLanguage ?? "") == ""{ self.setLanguage(BussinessProperty.current.buisnessLanguageArr?.filter{$0.is_default == true}.first?.lang_code ?? "en")
                 completion(error)
                 return
             }
@@ -856,7 +856,7 @@ struct BotAction {
             return
         }
         TokenManager.voipToken = token
-        updateDeviceToken(deviceToken: token)
+       // updateDeviceToken(deviceToken: token)
     }
     
     public func getDeviceTokenKey() -> String {
@@ -879,7 +879,7 @@ struct BotAction {
 //        }
         TokenManager.deviceToken = token
         log.debug("registerDeviceToken save token:\(TokenManager.deviceToken)", level: .custom)
-        updateDeviceToken(deviceToken: token)
+        //updateDeviceToken(deviceToken: token)
     }
     
     func checkForChannelSubscribe(completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {

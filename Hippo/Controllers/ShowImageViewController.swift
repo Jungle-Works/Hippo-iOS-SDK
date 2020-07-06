@@ -88,7 +88,7 @@ class ShowImageViewController: UIViewController , UIScrollViewDelegate, UIGestur
             showAlert(title: HippoStrings.alert, message: error.localizedDescription, actionComplete: nil)
         } else {
             //            print("Success")
-            showAlert(title: "Saved!", message: "Image has been saved to your photos.", actionComplete: nil)
+            showAlert(title: HippoStrings.saved, message: "Image has been saved to your photos.", actionComplete: nil)
         }
     }
     
