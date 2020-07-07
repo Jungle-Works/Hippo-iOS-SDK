@@ -424,13 +424,13 @@ struct MultiLanguageMsg{
         case MultiLanguageTags.ASSIGNED_CHAT_TO.rawValue:
             return HippoStrings.chatAssigned
         case MultiLanguageTags.CHAT_REOPENED_BY.rawValue:
-            return HippoStrings.chatReopened
+            return HippoStrings.chatReopenedby
         case MultiLanguageTags.CHAT_WAS_AUTO_OPENED.rawValue:
             return HippoStrings.chatAutoOpened
         case MultiLanguageTags.CHAT_WAS_AUTO_CLOSED.rawValue:
             return HippoStrings.chatAutoClosed
         case MultiLanguageTags.CHAT_WAS_RE_OPENED.rawValue:
-            return HippoStrings.chayReopened
+            return HippoStrings.chatReopened
         case MultiLanguageTags.CHAT_WAS_CLOSED.rawValue:
             return HippoStrings.chatClosedBy
         case MultiLanguageTags.WAS_AUTO_ASSIGNED.rawValue:
@@ -452,7 +452,7 @@ struct MultiLanguageMsg{
         case MultiLanguageTags.fileImage.rawValue:
             return HippoStrings.sentAPhoto
         case MultiLanguageTags.fileAttachment.rawValue:
-            return ""
+            return HippoStrings.sentAFile
             
         default:
             return ""

@@ -139,7 +139,7 @@ public class HippoStrings {
     static var assignedToThemselves = "assigned to themselves".localized
     static var newChatAssignedToYou = "new chat is assigned to you".localized
     static var chatAssigned = "assigned chat to".localized
-    static var chayReopened = "chat was reopened by".localized
+    static var chatReopenedby = "chat was reopened by".localized
     static var chatAutoOpened = "The chat was auto-opened".localized
     static var chatAutoClosed = "The chat was auto-closed".localized
     static var chatReopened = "The chat was re-opened by".localized

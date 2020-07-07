@@ -644,7 +644,7 @@ class AllString{
             HippoStrings.chatAssigned = ASSIGNED_CHAT_TO
         }
         if let CHAT_REOPENED_BY = response["CHAT_REOPENED_BY"] as? String{
-            HippoStrings.chatReopened = CHAT_REOPENED_BY
+            HippoStrings.chatReopenedby = CHAT_REOPENED_BY
         }
         if let CHAT_WAS_AUTO_OPENED = response["CHAT_WAS_AUTO_OPENED"] as? String{
             HippoStrings.chatAutoOpened = CHAT_WAS_AUTO_OPENED
