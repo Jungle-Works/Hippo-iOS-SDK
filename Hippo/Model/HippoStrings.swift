@@ -182,7 +182,7 @@ public class HippoStrings {
     static var reasignChatToYou = "Are you sure, you want to reassign this chat to you?".localized
     static var saved = "Saved!".localized
     static var imageSaved = "Image has been saved to your photos.".localized
-    
+    static var reopenChat = "Reopen Chat".localized
     
     open var disbaledCameraErrorMessage = "Access to Camera is denied. Please enable from setings."
     open var cameraString = "New Image via Camera"
