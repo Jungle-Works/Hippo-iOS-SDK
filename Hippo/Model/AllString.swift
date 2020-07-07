@@ -697,8 +697,6 @@ class AllString{
         if let hippo_busy_on_call = response["hippo_busy_on_call"] as? String{
             HippoStrings.busyAnotherCall = hippo_busy_on_call
         }
-        
-        
         if let closed = response["closed"] as? String{
             HippoStrings.closed = closed
         }
