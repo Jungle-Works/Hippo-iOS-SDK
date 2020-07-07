@@ -697,8 +697,6 @@ class AllString{
         if let hippo_busy_on_call = response["hippo_busy_on_call"] as? String{
             HippoStrings.busyAnotherCall = hippo_busy_on_call
         }
-        
-        
         if let closed = response["closed"] as? String{
             HippoStrings.closed = closed
         }
@@ -1764,7 +1762,7 @@ class AllString{
         }
         
         if let hippo_enter_title = response["hippo_enter_title"] as? String{
-            
+            HippoStrings.enterTitle = hippo_enter_title
         }
         
         if let hippo_title_item_price = response["hippo_title_item_price"] as? String{

@@ -304,8 +304,8 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
 //        navigationBackgroundView.layer.shadowOffset = CGSize(width: 0, height: 1.0)
 //        navigationBackgroundView.layer.shadowRadius = 4
 //
-//        navigationBackgroundView.backgroundColor = HippoConfig.shared.theme.headerBackgroundColor
-        
+        navigationBackgroundView.backgroundColor = HippoConfig.shared.theme.headerBackgroundColor
+
         backButton.tintColor = HippoConfig.shared.theme.headerTextColor
         
         if HippoConfig.shared.theme.leftBarButtonImage != nil {
@@ -316,7 +316,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
             backButton.isEnabled = false
             backButton.image = nil
         }
-        title = config.title ?? HippoConfig.shared.theme.headerText
+      //  title = config.title ?? HippoConfig.shared.theme.headerText
     }
     
     func addObservers() {

@@ -328,7 +328,7 @@ public struct ConversationListTheme {
     
     //MARK:- Open Strings Parent app can set
     
-    open var headerText = HippoStrings.support//"My Recent Consultations"
+    open var headerText = "My Recent Consultations"
     open var directChatHeader = "Conversation List"
     open var broadcastHeader = "Broadcast Message"
     open var broadcastHistoryHeader = "Broadcast Message history"

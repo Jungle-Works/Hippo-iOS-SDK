@@ -30,13 +30,13 @@ class PaymentItem: NSObject {
     init?(option: [String: Any]) {
         UId = UUID().uuidString
         
-        guard let priceForm = PaymentField(json: PaymentItem.defaultPriceItem) else {
+        guard let priceForm = PaymentField(json: PaymentItem.getDefaultPriceItem()) else {
             return nil
         }
-        guard let descriptionForm = PaymentField(json: PaymentItem.defaultDescriptionItem) else {
+        guard let descriptionForm = PaymentField(json: PaymentItem.defaultDescriptionItem()) else {
             return nil
         }
-        guard let titleForm = PaymentField(json: PaymentItem.defaultTitleItem) else {
+        guard let titleForm = PaymentField(json: PaymentItem.defaultTitleItem()) else {
             return nil
         }
         priceForm.value = String.parse(values: option, key: "amount") ?? priceForm.value
@@ -55,13 +55,13 @@ class PaymentItem: NSObject {
     }
     
     class func getDefaultForm() -> PaymentItem? {
-        guard let priceForm = PaymentField(json: defaultPriceItem) else {
+        guard let priceForm = PaymentField(json: getDefaultPriceItem()) else {
             return nil
         }
-        guard let descriptionForm = PaymentField(json: defaultDescriptionItem) else {
+        guard let descriptionForm = PaymentField(json: defaultDescriptionItem()) else {
             return nil
         }
-        guard let titleForm = PaymentField(json: defaultTitleItem) else {
+        guard let titleForm = PaymentField(json: defaultTitleItem()) else {
             return nil
         }
         
@@ -107,28 +107,33 @@ class PaymentItem: NSObject {
         
     }
     
-    static let defaultDescriptionItem: [String: Any] = [
-        "validation_type": "ANY",
-        "placeholder": HippoStrings.enterDescription,
-        "title": HippoStrings.description,
-        "is_required": true,
-        "type": "TEXTFIELD",
-        "key": HippoStrings.title
-    ]
-    static let defaultPriceItem: [String: Any] = [
-        "validation_type": "DECIMAL",
-        "placeholder": HippoStrings.enterPrice,
-        "title": HippoStrings.price,
-        "is_required": true,
-        "type": "TEXTFIELD",
-        "key": HippoStrings.price
-    ]
-    static let defaultTitleItem: [String: Any] = [
-        "validation_type": "ANY",
-        "placeholder": HippoStrings.enterTitle,
-        "title":  HippoStrings.title,
-        "is_required": true,
-        "type": "TEXTFIELD",
-        "key": HippoStrings.title
-    ]
+    static func getDefaultPriceItem() -> [String: Any]{
+        let defaultPriceItem = ["validation_type": "DECIMAL",
+                                "placeholder": HippoStrings.enterPrice,
+                                "title": HippoStrings.price,
+                                "is_required": true,
+                                "type": "TEXTFIELD",
+                                "key": HippoStrings.price] as [String : Any]
+        return defaultPriceItem
+    }
+    
+    static func defaultDescriptionItem() -> [String: Any]{
+        let defaultPriceItem = ["validation_type": "ANY",
+                                "placeholder": HippoStrings.enterDescription,
+                                "title": HippoStrings.description,
+                                "is_required": true,
+                                "type": "TEXTFIELD",
+                                "key": HippoStrings.title] as [String : Any]
+        return defaultPriceItem
+    }
+    
+    static func defaultTitleItem() -> [String: Any]{
+        let defaultTitleItem = ["validation_type": "ANY",
+                                "placeholder": HippoStrings.enterTitle,
+                                "title":  HippoStrings.title,
+                                "is_required": true,
+                                "type": "TEXTFIELD",
+                                "key": HippoStrings.title] as [String : Any]
+        return defaultTitleItem
+    }
 }
