@@ -233,7 +233,7 @@ class MessageStore {
         
         //if default channel
         
-        if result.channelID < 0, getCurrentLanguageLocale() != "en", let otherLanguageDic = rawMessages.first?["channel_other_lang_data"] as? [String : Any]{
+        if result.channelID < 0, let otherLanguageDic = rawMessages.first?["channel_other_lang_data"] as? [String : Any]{
             if result.botGroupID ?? 0 <= 0{
                 result.newMessages.first?.message = otherLanguageDic["channel_message"] as? String ?? ""
             }

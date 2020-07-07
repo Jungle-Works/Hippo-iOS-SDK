@@ -74,7 +74,7 @@ class FuguConversation: HippoConversation {
             self.lastMessage = message
         }
         //For default channel
-        if channelId == nil && getCurrentLanguageLocale() != "en", let otherLanguageDic = conversationDict["channel_other_lang_data"] as? [String : Any]{
+        if channelId == nil, let otherLanguageDic = conversationDict["channel_other_lang_data"] as? [String : Any]{
             self.lastMessage?.message = otherLanguageDic["channel_message"] as? String ?? conversationDict["message"] as? String ?? self.lastMessage?.message ?? ""
             self.label = otherLanguageDic["channel_name"] as? String ?? conversationDict["label"] as? String
         }else if channelId == nil {
