@@ -700,7 +700,9 @@ class AllString{
         if let closed = response["closed"] as? String{
             HippoStrings.closed = closed
         }
-        
+        if let hippo_Reopen_Chat = response["hippo_Reopen_Chat"] as? String{
+            HippoStrings.reopenChat = hippo_Reopen_Chat
+        }
         if let hello_blank_fragment = response["hello_blank_fragment"] as? String{
             
         }

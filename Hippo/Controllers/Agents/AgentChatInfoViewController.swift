@@ -81,7 +81,7 @@ extension AgentChatInfoViewController {
         if channelDetail?.channelStatus == .open {
             actionArray.append(ChatInfoCell(infoImage: closeImage, nameOfCell: HippoStrings.closeChat))
         } else {
-            actionArray.append(ChatInfoCell(infoImage: reopenImage, nameOfCell: "Reopen Chat"))
+            actionArray.append(ChatInfoCell(infoImage: reopenImage, nameOfCell: HippoStrings.reopenChat))
         }
     }
     
