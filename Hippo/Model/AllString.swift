@@ -637,8 +637,11 @@ class AllString{
         if let PAYMENT_REQUESTED = response["PAYMENT_REQUESTED"] as? String{
             HippoStrings.paymentRequested = PAYMENT_REQUESTED
         }
-        if let ASSIGNED_TO_THEMSELVES = response["NEW_CHAT_ASSIGNED_TO_YOU"] as? String{
+        if let ASSIGNED_TO_THEMSELVES = response["ASSIGNED_TO_THEMSELVES"] as? String{
             HippoStrings.assignedToThemselves = ASSIGNED_TO_THEMSELVES
+        }
+        if let NEW_CHAT_ASSIGNED_TO_YOU = response["NEW_CHAT_ASSIGNED_TO_YOU"] as? String{
+            HippoStrings.newChatAssignedToYou = NEW_CHAT_ASSIGNED_TO_YOU
         }
         if let ASSIGNED_CHAT_TO = response["ASSIGNED_CHAT_TO"] as? String{
             HippoStrings.chatAssigned = ASSIGNED_CHAT_TO
