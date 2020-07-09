@@ -600,7 +600,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     actionSheetTitleArr.removeAll()
     actionSheetImageArr.removeAll()
     actionSheetTitleArr = [HippoStrings.photoLibrary,HippoStrings.camera,HippoStrings.document]
-    actionSheetImageArr = ["Library",HippoStrings.camera,"Library"]
+    actionSheetImageArr = ["Library","Camera","Library"]
     heightForActionSheet = CGFloat((actionSheetTitleArr.count * 60))
     isProceedToPayActionSheet = false
     self.openCustomSheet()

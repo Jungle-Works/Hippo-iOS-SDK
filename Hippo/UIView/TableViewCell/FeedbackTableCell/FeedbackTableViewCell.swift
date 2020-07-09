@@ -116,7 +116,7 @@ class FeedbackTableViewCell: MessageTableViewCell {
 
     func setDataForAgent(with params: FeedbackParams) {
         self.data = params
-        label_ReviewSubmitted.text = data.messageObject?.feedbackMessages.line_after_feedback_2
+        label_ReviewSubmitted.text = data.messageObject?.feedbackMessages.line_after_feedback_2_new
         textviewHeightConstraint?.isActive = true
         textviewHeightConstraint?.constant = 80
         if let message = params.messageObject {
@@ -161,7 +161,7 @@ class FeedbackTableViewCell: MessageTableViewCell {
     
     func setData(params: FeedbackParams) {
         self.data = params
-        label_ReviewSubmitted.text = data.messageObject?.feedbackMessages.line_after_feedback_2
+        label_ReviewSubmitted.text = data.messageObject?.feedbackMessages.line_after_feedback_2_new
         textviewHeightConstraint?.isActive = true
         textviewHeightConstraint?.constant = 80
         if let message = params.messageObject {

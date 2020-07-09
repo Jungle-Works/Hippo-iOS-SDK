@@ -602,6 +602,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
             json["line_after_feedback_1"] = feedbackMessages.line_after_feedback_1
             json["line_after_feedback_2"] = feedbackMessages.line_after_feedback_2
             json["line_before_feedback"] = feedbackMessages.line_before_feedback
+            json["line_after_feedback_2_new"] = feedbackMessages.line_after_feedback_2_new
             json["multi_lang_message"] = MultiLanguageTags.RATING_AND_REVIEW.rawValue
         } else if type == .leadForm {
             var arrayOfMessages: [String] = []
@@ -879,6 +880,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         feedbackMessages.line_after_feedback_1 = newObject.feedbackMessages.line_after_feedback_1
         feedbackMessages.line_after_feedback_2 = newObject.feedbackMessages.line_after_feedback_2
         feedbackMessages.line_before_feedback  = newObject.feedbackMessages.line_before_feedback
+        feedbackMessages.line_after_feedback_2_new = newObject.feedbackMessages.line_after_feedback_2_new
         is_rating_given = newObject.is_rating_given
         //Updating for leadForm
         leadsDataArray = newObject.leadsDataArray
@@ -1025,10 +1027,12 @@ struct FeedbackMessage {
     var line_after_feedback_1 = "Your response is recorded"
     var line_after_feedback_2 = "Thank you"
     var line_before_feedback = HippoStrings.ratingReview//"Please provide feedback for our conversation"
+    var line_after_feedback_2_new = ""
     
     init(json: [String: Any]) {
         line_after_feedback_1 = json["line_after_feedback_1"] as? String ?? line_after_feedback_1
         line_after_feedback_2 = json["line_after_feedback_2"] as? String ?? line_after_feedback_2
         line_before_feedback = json["line_before_feedback"] as? String ?? line_before_feedback
+        line_after_feedback_2_new = json["line_after_feedback_2_new"] as? String ?? ""
     }
 }
