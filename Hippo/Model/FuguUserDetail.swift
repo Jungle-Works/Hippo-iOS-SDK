@@ -286,7 +286,7 @@ public class UserTag: NSObject {
             return
         }
         
-        HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: endPointName) { (responseObject, error, tag, statusCode) in
+        HTTPClient.shared.makeSingletonConnectionWith(method: .POST, identifier: RequestIdenfier.putUser, para: params, extendedUrl: endPointName) { (responseObject, error, tag, statusCode) in
             
             guard let response = (responseObject as? [String: Any]), statusCode == STATUS_CODE_SUCCESS, let data = response["data"] as? [String: Any] else {
                 HippoConfig.shared.log.error("PutUserError: \(error.debugDescription)", level: .error)

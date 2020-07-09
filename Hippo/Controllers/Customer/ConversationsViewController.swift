@@ -3076,8 +3076,13 @@ extension ConversationsViewController {
 }
 
 extension ConversationsViewController: UIGestureRecognizerDelegate {
-
+    
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
+    
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        guard gestureRecognizer.isEqual(self.navigationController?.interactivePopGestureRecognizer) else{ return true }
         messageTextView.resignFirstResponder()
         channel?.send(message: HippoMessage.stopTyping, completion: {})
         let rawLabelID = self.labelId == -1 ? nil : self.labelId
@@ -3087,7 +3092,7 @@ extension ConversationsViewController: UIGestureRecognizerDelegate {
         }
         
         //if chat delegate is not set , it doesnot exist in allconversation
-        if delegate == nil{
+        if delegate == nil {
             for controller in self.navigationController?.viewControllers ?? [UIViewController](){
                 if controller is AllConversationsViewController{
                     (controller as? AllConversationsViewController)?.getAllConversations()
@@ -3095,13 +3100,9 @@ extension ConversationsViewController: UIGestureRecognizerDelegate {
                 }
             }
         }
-        
-        if gestureRecognizer == self.navigationController?.interactivePopGestureRecognizer{
-            return false
-        }
         return true
     }
-
+    
 }
 
 

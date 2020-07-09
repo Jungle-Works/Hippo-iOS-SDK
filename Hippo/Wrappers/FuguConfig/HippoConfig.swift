@@ -810,7 +810,7 @@ struct BotAction {
             return
         }
         TokenManager.voipToken = token
-        updateDeviceToken(deviceToken: token)
+        //updateDeviceToken(deviceToken: token)
     }
     
     public func getDeviceTokenKey() -> String {
@@ -833,7 +833,7 @@ struct BotAction {
 //        }
         TokenManager.deviceToken = token
         log.debug("registerDeviceToken save token:\(TokenManager.deviceToken)", level: .custom)
-        updateDeviceToken(deviceToken: token)
+        //updateDeviceToken(deviceToken: token)
     }
     
     func checkForChannelSubscribe(completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
