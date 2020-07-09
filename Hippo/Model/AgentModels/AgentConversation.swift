@@ -37,6 +37,8 @@ class AgentConversation: HippoConversation {
     var assigned_by_name: String?
     var assigned_to_name: String?
     var isMyChat: Bool?
+    var isBotInProgress : Int?
+    
     
     var updateUnreadCountBy: Int {
         return isMyChat ?? false ? 1 : 0
@@ -60,6 +62,7 @@ class AgentConversation: HippoConversation {
     
     init(json: [String: Any]) {
         super.init()
+        isBotInProgress = json["is_bot_in_progress"] as? Int
         labelId = json["label_id"] as? Int ?? -1
         agent_id = json["agent_id"] as? Int
         agent_name = json["agent_name"] as? String
@@ -72,7 +75,7 @@ class AgentConversation: HippoConversation {
         user_image = String.parse(values: json, key: "user_image", defaultValue: "")
         user_id = Int.parse(values: json, key: "user_id") //json["user_id"] as? Int
         date_time = json["date_time"] as? String
-        
+        channelBackgroundColor = UIColor.hexStringToUIColor(hex: material[getColor(char: label?.initials ?? "")])
         
         assigned_to_name = json["assigned_to_name"] as? String
         assigned_by_name = json["assigned_by_name"] as? String

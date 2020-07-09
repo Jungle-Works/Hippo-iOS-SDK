@@ -23,6 +23,7 @@ class PaymentPlansViewController: UIViewController {
     @IBOutlet weak var cancelButton: UIBarButtonItem!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var loaderView: So_UIImageView!
+    @IBOutlet var view_Navigation : NavigationBar!
     
     var datasource = PaymentPlansDataSource()
     let store = PaymentPlanStore()
@@ -43,9 +44,16 @@ class PaymentPlansViewController: UIViewController {
     internal func setTheme() {
         store.delegate = self
 //        setupCustomThemeOnNavigationBar(hideNavigationBar: false)
-        self.navigationController?.setTheme()
-        title = "Saved Plans"
-        cancelButton.tintColor = HippoConfig.shared.theme.headerTextColor
+        view_Navigation.setupNavigationBar = {[weak self]() in
+            DispatchQueue.main.async {
+                self?.view_Navigation.image_back.tintColor = HippoConfig.shared.theme.headerTextColor
+                self?.view_Navigation.image_back.image = HippoConfig.shared.theme.crossBarButtonImage
+                self?.view_Navigation.title = "Saved Plans"
+                self?.view_Navigation.leftButton.addTarget(self, action: #selector(self?.cancelButtonClicked(_:)), for: .touchUpInside)
+                self?.setaddIcon()
+            }
+        }
+     
 //        self.view.backgroundColor = HippoTheme.theme.systemBackgroundColor.secondary
         loaderView.tintColor = HippoConfig.shared.theme.headerTextColor
     }
@@ -59,13 +67,13 @@ class PaymentPlansViewController: UIViewController {
         
         tableView.dataSource = datasource
         tableView.delegate = self
-        setaddIcon()
+        
     }
     
     internal func setaddIcon() {
-        let button: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonClicked))
-        button.tintColor = HippoConfig.shared.theme.headerTextColor
-        navigationItem.rightBarButtonItem = button
+        view_Navigation.rightButton.tintColor = HippoConfig.shared.theme.headerTextColor
+        view_Navigation.rightButton.setImage(HippoConfig.shared.theme.AddFileIcon, for: .normal)
+        view_Navigation.rightButton.addTarget(self, action: #selector(addButtonClicked), for: .touchUpInside)
     }
     @objc internal func addButtonClicked() {
         pushCreatePayment(with: nil, animated: true)

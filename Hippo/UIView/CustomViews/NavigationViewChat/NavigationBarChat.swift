@@ -20,7 +20,7 @@ final class NavigationBarChat: UIView {
             view.layer.masksToBounds = false
             view.layer.shadowPath = UIBezierPath(rect: CGRect(x: 0,
                                                                        y: bounds.maxY - layer.shadowRadius,
-                                                                       width: bounds.width,
+                                                                       width: UIScreen.main.bounds.width,
                                                                        height: layer.shadowRadius)).cgPath
         }
     }

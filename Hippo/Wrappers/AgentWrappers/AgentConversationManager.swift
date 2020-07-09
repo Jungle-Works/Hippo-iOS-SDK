@@ -93,7 +93,7 @@ class AgentConversationManager {
                 return
             }
             getUserUnreadCount()
-            getAllData()
+           // getAllData()
             UnreadCount.getAgentTotalUnreadCount { (result) in
                 
             }
