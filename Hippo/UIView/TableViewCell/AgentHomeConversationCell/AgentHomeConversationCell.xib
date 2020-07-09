@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -100,10 +100,10 @@
                                 <color key="textColor" red="0.6470588235294118" green="0.70980392156862748" blue="0.72156862745098038" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J00-73-q1k" userLabel="LeftContainer" customClass="So_UIView" customModule="Hippo" customModuleProvider="target">
+                            <view contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="748" verticalCompressionResistancePriority="749" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="J00-73-q1k" userLabel="LeftContainer" customClass="So_UIView" customModule="Hippo" customModuleProvider="target">
                                 <rect key="frame" x="73" y="67.5" width="54" height="20.5"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="heq-lF-Dae" customClass="So_CustomLabel" customModule="Hippo" customModuleProvider="target">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label Label Label Label Label Label Label Label Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="heq-lF-Dae" customClass="So_CustomLabel" customModule="Hippo" customModuleProvider="target">
                                         <rect key="frame" x="6" y="0.0" width="42" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
@@ -124,10 +124,10 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jqz-0e-yBz" userLabel="RightContainer" customClass="So_UIView" customModule="Hippo" customModuleProvider="target">
+                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jqz-0e-yBz" userLabel="RightContainer" customClass="So_UIView" customModule="Hippo" customModuleProvider="target">
                                 <rect key="frame" x="135" y="67.5" width="54" height="20.5"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lFz-Mk-Ri2" customClass="So_CustomLabel" customModule="Hippo" customModuleProvider="target">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lFz-Mk-Ri2" customClass="So_CustomLabel" customModule="Hippo" customModuleProvider="target">
                                         <rect key="frame" x="6" y="0.0" width="42" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
@@ -199,7 +199,7 @@
                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="kpI-kJ-82z" secondAttribute="bottom" constant="8" id="TbD-uP-yYd"/>
                             <constraint firstAttribute="trailing" secondItem="uGa-Ec-epH" secondAttribute="trailing" id="Vx4-jK-oyv"/>
                             <constraint firstItem="kpI-kJ-82z" firstAttribute="leading" secondItem="Yvw-2J-xtj" secondAttribute="trailing" constant="2" id="XNq-NZ-d4K"/>
-                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="jqz-0e-yBz" secondAttribute="trailing" constant="60" id="XaC-3N-h2B"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="jqz-0e-yBz" secondAttribute="trailing" constant="10" id="XaC-3N-h2B"/>
                             <constraint firstAttribute="trailing" secondItem="rrl-r4-jw9" secondAttribute="trailing" id="ZzJ-Ge-W2K"/>
                             <constraint firstItem="hhA-Ju-C1G" firstAttribute="centerY" secondItem="0Zj-gy-Hbg" secondAttribute="centerY" id="b8u-js-X6N"/>
                             <constraint firstItem="rrl-r4-jw9" firstAttribute="leading" secondItem="UKr-gT-4qp" secondAttribute="leading" id="bY6-6h-YJZ"/>

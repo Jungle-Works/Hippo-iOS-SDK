@@ -20,10 +20,10 @@ final class NavigationBar: UIView {
     @IBOutlet weak var rightSwitchButtonContainerView: UIView!
     @IBOutlet weak var rightSwitchButton: UISwitch!
     
+    
+    var setupNavigationBar : (()->())?
     var title: String = "" {
         didSet {
-            image_back.tintColor = HippoConfig.shared.theme.titleTextColor
-            image_back.image = HippoConfig.shared.theme.leftBarButtonImage
             titleLabel.font = HippoConfig.shared.theme.headerTextFont
             titleLabel.textColor = HippoConfig.shared.theme.headerTextColor
             titleLabel.text = title
@@ -43,7 +43,20 @@ final class NavigationBar: UIView {
         initWithNib()
     }
     
+    func initMethod(){
+        initWithNib()
+    }
+    
+    private func setup(){
+        image_back.tintColor = HippoConfig.shared.theme.headerTextColor
+        image_back.image = HippoConfig.shared.theme.leftBarButtonImage
+    }
+    
+    
     private func initWithNib() {
+        if self.subviews.contains(view ?? UIView()){
+            self.view.removeFromSuperview()
+        }
         FuguFlowManager.bundle?.loadNibNamed(NavigationBar.NIB_NAME, owner: self, options: nil)
         view.translatesAutoresizingMaskIntoConstraints = false
         addSubview(view)
@@ -59,6 +72,8 @@ final class NavigationBar: UIView {
                 view.trailingAnchor.constraint(equalTo: trailingAnchor),
             ]
         )
+        self.setup()
+        self.setupNavigationBar?()
     }
 }
 

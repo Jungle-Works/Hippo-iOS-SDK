@@ -862,9 +862,10 @@ class HippoConversationViewController: UIViewController {
 
 extension HippoConversationViewController: PickerHelperDelegate {
     func payOptionClicked() {
-        let vc = CreatePaymentViewController.get()
+        let paymentStore = PaymentStore(plan: nil, channelId: UInt(channelId), isEditing: (channelId != -1), isSending: channelId != -1)
+        let vc = CreatePaymentViewController.get(store: paymentStore)
         vc.delegate = self
-        self.navigationController?.isNavigationBarHidden = false
+        //self.navigationController?.isNavigationBarHidden = false
         self.navigationController?.pushViewController(vc, animated: true)
     }
     func imagePickingError(mediaSelector: CoreMediaSelector, error: Error) {
@@ -1304,7 +1305,8 @@ extension HippoConversationViewController {
         let vc = PaymentPlansViewController.get(channelId: id)
         vc.sendNewPaymentDelegate = self
         let navVC = UINavigationController(rootViewController: vc)
-        self.modalPresentationStyle = .fullScreen
+        navVC.modalPresentationStyle = .fullScreen
+        navVC.navigationBar.isHidden = true
 //        navVC.setupCustomThemeOnNavigationController(hideNavigationBar: false)
         self.present(navVC, animated: true, completion: nil)
     }

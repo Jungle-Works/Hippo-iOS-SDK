@@ -150,12 +150,8 @@ class AgentUserChannel {
                 
                 if HippoConfig.shared.appUserType == .agent  {
                     if versionCode >= 350 {
-                        if let channel_id = messageDict["channel_id"] as? Int{
-                            let channel = FuguChannelPersistancyManager.shared.getChannelBy(id: channel_id)
-                           // channel.signalReceivedFromPeer?(messageDict)
-                            HippoConfig.shared.log.trace("UserChannel:: --->\(messageDict)", level: .socket)
-                            CallManager.shared.voipNotificationRecieved(payloadDict: messageDict)
-                        }
+                        HippoConfig.shared.log.trace("UserChannel:: --->\(messageDict)", level: .socket)
+                        CallManager.shared.voipNotificationRecieved(payloadDict: messageDict)
                     }
                 }
             }
@@ -201,22 +197,30 @@ class AgentUserChannel {
         
         //update count
         //if channel id is not equal to current channel id
-//        if HippoConfig.shared.getCurrentChannelId() != newConversation.channel_id && type == .message{
+
         if HippoConfig.shared.getCurrentAgentSdkChannelId() != newConversation.channel_id && type == .message{
             calculateTotalAgentUnreadCount(newConversation.channel_id ?? -1, newConversation.unreadCount ?? 0)
-        }else if type == .readAll {
-            removeChannelForUnreadCount(newConversation.channel_id ?? -1)
-            handleReadAllForHome(newConversation: newConversation)
-        }else if type == .channelRefresh{
-            let chatDetail = ChatDetail(json: dict)
-            handleChannelRefresh(chatDetail: chatDetail)
-            return
-        }else{}
+        }
         
-        handleAssignmentNotificationForChat(newConversation, channelID: receivedChannelId)
-        //        handleBotMessages(newConversation, channelID: receivedChannelId)
+        switch type {
+            case .message:
+                delegate?.newConversationRecieved(newConversation, channelID: receivedChannelId)
+                break
+            case .readAll:
+                removeChannelForUnreadCount(newConversation.channel_id ?? -1)
+                handleReadAllForHome(newConversation: newConversation)
+                break
+            case .channelRefresh:
+                let chatDetail = ChatDetail(json: dict)
+                handleChannelRefresh(chatDetail: chatDetail)
+                break
+            case .assigned:
+                handleAssignmentNotificationForChat(newConversation, channelID: receivedChannelId)
+                break
+            default:
+                break
+        }
         
-        delegate?.newConversationRecieved(newConversation, channelID: receivedChannelId)
     }
         
         func handleChannelRefresh(chatDetail: ChatDetail) {

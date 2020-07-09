@@ -20,6 +20,7 @@ class CreatePaymentViewController: UIViewController {
     @IBOutlet weak var backButton: UIBarButtonItem!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var loaderView: So_UIImageView!
+    @IBOutlet var view_Navigation : NavigationBar!
     
     //MARK: Variables
     var datasource: CreatePaymentDataSource?
@@ -62,13 +63,14 @@ class CreatePaymentViewController: UIViewController {
 //        self.view.backgroundColor = HippoTheme.theme.systemBackgroundColor.secondary
     }
     internal func setEditButton() {
-        let displayEditButton = store.displayEditButton ?? false
+        let displayEditButton = store.displayEditButton
         guard displayEditButton else {
             return
         }
-        let button: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editButtonPressed))
-        navigationItem.rightBarButtonItems = [button]
+        view_Navigation.rightButton.setImage(HippoConfig.shared.theme.editIcon, for: .normal)
+        view_Navigation.rightButton.addTarget(self, action: #selector(editButtonPressed), for: .touchUpInside)
     }
+    
     internal func resetRightBarButton() {
         navigationItem.rightBarButtonItems = []
     }
@@ -80,19 +82,22 @@ class CreatePaymentViewController: UIViewController {
     
     func setUI() {
         if self.messageType == .paymentCard{
-            title = store?.title
+            view_Navigation.title = store?.title ?? ""
         }else{
             title = HippoStrings.paymentRequest
         }
         if HippoConfig.shared.theme.leftBarButtonImage != nil {
-            backButton.image = HippoConfig.shared.theme.leftBarButtonImage
-            backButton.tintColor = HippoConfig.shared.theme.headerTextColor
+            view_Navigation.image_back.image = HippoConfig.shared.theme.leftBarButtonImage
+            view_Navigation.image_back.tintColor = HippoConfig.shared.theme.headerTextColor
         }
+        
+        view_Navigation.leftButton.addTarget(self, action: #selector(self.backButtonAction(_:)), for: .touchUpInside)
         
         loaderView.tintColor = HippoConfig.shared.theme.headerTextColor
         
         self.navigationController?.interactivePopGestureRecognizer?.delegate = self
     }
+    
     func setupTableView() {
         datasource = CreatePaymentDataSource(store: store)
         tableView.dataSource = datasource
