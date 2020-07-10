@@ -37,10 +37,6 @@ class AgentListViewController: UIViewController {
         super.didReceiveMemoryWarning()
     }
     
-//    @IBAction func closeBtnAction(_ sender: UIBarButtonItem) {
-//        self.searchBar.resignFirstResponder()
-//        self.navigationController?.popViewController(animated: true)
-//    }
     
     @IBAction func backButtonClicked(_ sender: UIButton) {
          self.searchBar.resignFirstResponder()

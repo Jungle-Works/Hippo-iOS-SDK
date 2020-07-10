@@ -37,7 +37,7 @@ class AgentConversation: HippoConversation {
     var assigned_by_name: String?
     var assigned_to_name: String?
     var isMyChat: Bool?
-    var isBotInProgress : Int?
+    var isBotInProgress: Bool = false
     
     
     var updateUnreadCountBy: Int {
@@ -62,7 +62,7 @@ class AgentConversation: HippoConversation {
     
     init(json: [String: Any]) {
         super.init()
-        isBotInProgress = json["is_bot_in_progress"] as? Int
+        isBotInProgress = Bool.parse(key: "is_bot_in_progress", json: json, defaultValue: false)
         labelId = json["label_id"] as? Int ?? -1
         agent_id = json["agent_id"] as? Int
         agent_name = json["agent_name"] as? String
@@ -194,9 +194,7 @@ class AgentConversation: HippoConversation {
         self.created_at = newConversation.created_at
         self.lastMessage = newConversation.lastMessage
         self.notificationType = newConversation.notificationType
-        self.isMyChat = newConversation.isMyChat ?? self.isMyChat
-        
-        
+        self.isMyChat = newConversation.isMyChat ?? self.isMyChat     
         self.assigned_to = newConversation.assigned_to
         self.assigned_to_name = newConversation.assigned_to_name
         self.assigned_by = newConversation.assigned_by
