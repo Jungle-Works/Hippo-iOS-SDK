@@ -1353,12 +1353,14 @@ extension AgentConversationViewController {
 //        botButton.isHidden = isPrivate || config.shouldHideBottonButtons()
         let isBotButtonHidden = isPrivate || self.messageSendingViewConfig.shouldHideBottonButtons()
         
-            if isBotButtonHidden == true{
-                    self.attachments.remove(at: 3)
-            }else{
-                self.attachments.append(Attachment(icon : HippoConfig.shared.theme.botIcon  , title : HippoStrings.bot))
+        if isBotButtonHidden == true{
+            if let index = self.attachments.firstIndex(where: {$0.title?.lowercased() == "bot"}), index < self.attachments.count{
+               self.attachments.remove(at: index)
             }
-            collectionViewOptions.reloadData()
+        }else{
+            self.attachments.append(Attachment(icon : HippoConfig.shared.theme.botIcon  , title : "Bot"))
+        }
+        collectionViewOptions.reloadData()
         
         textViewBgView.backgroundColor = isPrivate ? HippoConfig.shared.theme.privateNoteChatBoxColor : UIColor.white
 //        messageTextView.tintColor = isPrivate ? UIColor(red: 0/255, green: 122/255, blue: 255/255, alpha: 1) : UIColor.black

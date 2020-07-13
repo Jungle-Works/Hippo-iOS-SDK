@@ -129,19 +129,14 @@ extension AgentHomeConversationCell {
             channelImageView.kf.setImage(with: url)
             channelImageView.backgroundColor = nil
         } else if let channelName = cellData?.label, channelName.isEmpty == false {
-//            placeHolderImageButton?.alpha = isThisChatOpened(opened: isOpened)
-//            placeHolderImageButton?.isHidden = false
-//            placeHolderImageButton?.setImage(nil, for: .normal)
-//            placeHolderImageButton?.backgroundColor = .lightGray
-
+            //            placeHolderImageButton?.alpha = isThisChatOpened(opened: isOpened)
+            //            placeHolderImageButton?.isHidden = false
+            //            placeHolderImageButton?.setImage(nil, for: .normal)
+            //            placeHolderImageButton?.backgroundColor = .lightGray
+            
             let channelNameInitials = channelName.trimWhiteSpacesAndNewLine()
-            let color = getRandomColor()
-            if channelImageView.backgroundColor == nil{
-                channelImageView.setTextInImage(string: channelNameInitials, color: color, circular: false, textAttributes: nil)
-                channelImageView.backgroundColor = color
-            }else{
-               channelImageView.setTextInImage(string: channelNameInitials, color: channelImageView.backgroundColor, circular: false, textAttributes: nil)
-            }
+            let color = cellData?.channelBackgroundColor
+            channelImageView.setTextInImage(string: channelNameInitials, color: color, circular: false, textAttributes: nil)
         }
         
     }
@@ -235,14 +230,13 @@ extension AgentHomeConversationCell {
     
     func getBotChannelTag(info: AgentConversation) -> TagBoxInfo? {
         var tag: TagBoxInfo?
-        let botChannelName = info.bot_channel_name ?? ""
-        
-        guard !botChannelName.isEmpty else {
+        let botInProgress = info.isBotInProgress ?? 0
+        if botInProgress > 0{
+            tag = TagBoxInfo(labelText: "Bot in progress", textColor: .darkGrayColorForTag, containerBackgroundColor: .lightGrayBgColorForTag, containerBorderColor: UIColor.makeColor(red: 228, green: 228, blue: 237, alpha: 1))
+            return tag
+        }else{
             return nil
         }
-//        tag = TagBoxInfo(labelText: botChannelName, textColor: .purpleGrey, containerBackgroundColor: .veryLightBlue, containerBorderColor: UIColor.makeColor(red: 228, green: 228, blue: 237, alpha: 1))
-        tag = TagBoxInfo(labelText: botChannelName, textColor: .darkGrayColorForTag, containerBackgroundColor: .lightGrayBgColorForTag, containerBorderColor: UIColor.makeColor(red: 228, green: 228, blue: 237, alpha: 1))
-        return tag
     }
     func getAssignedStatusTag(info: AgentConversation) -> TagBoxInfo? {
         var tag: TagBoxInfo?
@@ -257,15 +251,16 @@ extension AgentHomeConversationCell {
             } else {
                 tag = TagBoxInfo(labelText: HippoStrings.unassigned, textColor: .white, containerBackgroundColor: .pumpkinOrange)
             }
-        } else if let agentName = info.agent_name {
-//                tag = TagBoxInfo(labelText: agentName, textColor: .purpleGrey, containerBackgroundColor: .veryLightBlue, containerBorderColor: UIColor.makeColor(red: 228, green: 228, blue: 237, alpha: 1))
-            guard let loginAgent = HippoConfig.shared.agentDetail, loginAgent.id > 0 else {
-                return tag
-            }
-            if loginAgent.agentUserType == .admin{
-                tag = TagBoxInfo(labelText: agentName, textColor: .darkGrayColorForTag, containerBackgroundColor: .lightGrayBgColorForTag, containerBorderColor: UIColor.makeColor(red: 228, green: 228, blue: 237, alpha: 1))
-            }
         }
+//        else if let agentName = info.agent_name {
+////                tag = TagBoxInfo(labelText: agentName, textColor: .purpleGrey, containerBackgroundColor: .veryLightBlue, containerBorderColor: UIColor.makeColor(red: 228, green: 228, blue: 237, alpha: 1))
+//            guard let loginAgent = HippoConfig.shared.agentDetail, loginAgent.id > 0 else {
+//                return tag
+//            }
+//            if loginAgent.agentUserType == .admin{
+//                tag = TagBoxInfo(labelText: agentName, textColor: .darkGrayColorForTag, containerBackgroundColor: .lightGrayBgColorForTag, containerBorderColor: UIColor.makeColor(red: 228, green: 228, blue: 237, alpha: 1))
+//            }
+//        }
         return tag
     }
 }
@@ -286,15 +281,6 @@ extension AgentHomeConversationCell {
             self.containerBckgrndColor = containerBackgroundColor
             self.containerBorderColor = containerBorderColor
         }
-    }
-    
-    func getRandomColor() -> UIColor {
-         //Generate between 0 to 1
-         let red:CGFloat = CGFloat(drand48())
-         let green:CGFloat = CGFloat(drand48())
-         let blue:CGFloat = CGFloat(drand48())
-
-         return UIColor(red:red, green: green, blue: blue, alpha: 1.0)
     }
 
     
