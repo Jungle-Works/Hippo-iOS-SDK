@@ -24,15 +24,14 @@ class AgentHomeViewController: HippoHomeViewController {
     //MARK: Varibles
     fileprivate var conversationList = [AgentConversation]()
     fileprivate var conversationType: ConversationType = .myChat
-    fileprivate var refreshControl = UIRefreshControl()
+    var refreshControl = UIRefreshControl()
     fileprivate var isMoreToLoad = false
     fileprivate var allowPagination = true
     
     //MARK: Outlets
     @IBOutlet weak var errorLabel: UILabel!
     @IBOutlet weak var errorView: UIView!
-    @IBOutlet weak var errorLabelTopConstraint: NSLayoutConstraint!
-    @IBOutlet weak var errorViewTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var height_ErrorLabel : NSLayoutConstraint!
     @IBOutlet weak var paginationActivityLoader: UIActivityIndicatorView!
     @IBOutlet weak var buttonContainerView: UIView!
     @IBOutlet weak var bottomLineView: UIView!
@@ -60,6 +59,9 @@ class AgentHomeViewController: HippoHomeViewController {
         setData()
         setAgentStatusForToggle()
         ConversationStore.shared.fetchAllCachedConversation()
+        AgentConversationManager.getAllData()
+        Business.shared.restoreAllSavedInfo()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -68,13 +70,13 @@ class AgentHomeViewController: HippoHomeViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        self.setDataForViewDidAppear()
+        isInitalLoad = false
     }
     
     func setDataForViewDidAppear(){
         isInitalLoad = false
         AgentConversationManager.getAllData()
-        Business.shared.restoreAllSavedInfo()//
+        Business.shared.restoreAllSavedInfo()
         setFilterButtonIcon()
     }
     
@@ -291,38 +293,28 @@ extension AgentHomeViewController {
         errorLabel.backgroundColor = UIColor.red
         if FuguNetworkHandler.shared.isNetworkConnected {
             errorLabel.text = ""
-            hideErrorLabelView()
+            updateErrorLabelView(isHiding: true)
         } else {
             errorLabel.text = HippoStrings.noNetworkConnection
-            showErrorLabelView()
+            updateErrorLabelView(isHiding: false)
         }
     }
     
-    func hideErrorLabelView() {
-        guard errorLabelTopConstraint.constant > -20 else {
-            return
-        }
-        
-        DispatchQueue.main.async {
-            self.errorLabelTopConstraint.constant = -20
+    func updateErrorLabelView(isHiding: Bool) {
+         if isHiding{
             UIView.animate(withDuration: 0.2) {
+                self.height_ErrorLabel.constant = 0
                 self.errorView.layoutIfNeeded()
             }
-        }
-    }
+            errorLabel.text = ""
+         }else{
+            UIView.animate(withDuration: 0.2) {
+                self.height_ErrorLabel.constant = 20
+                self.errorView.layoutIfNeeded()
+            }
+         }
+     }
     
-    func showErrorLabelView() {
-        guard errorLabelTopConstraint.constant < 0 else {
-            return
-        }
-        
-        DispatchQueue.main.async {
-            self.errorLabelTopConstraint.constant = 0
-            UIView.animate(withDuration: 0.2) {
-                self.errorView.layoutIfNeeded()
-            }
-        }
-    }
     func setUpView() {
         setupRefreshController()
         

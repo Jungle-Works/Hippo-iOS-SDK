@@ -964,6 +964,13 @@ class HippoChannel {
         print("Channel with \(id) Deintialized")
     }
     
+    func deinitObservers(){
+        NotificationCenter.default.removeObserver(self)
+        unSubscribe()
+        saveMessagesInCache()
+    }
+    
+    
 }
 
 extension HippoChannel: MessageSenderDelegate {

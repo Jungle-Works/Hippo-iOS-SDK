@@ -2591,32 +2591,24 @@ fileprivate func convertFromUIImagePickerControllerInfoKey(_ input: UIImagePicke
 extension AgentConversationViewController: UIGestureRecognizerDelegate {
 
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        
+        return true
+    }
+    
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        guard gestureRecognizer.isEqual(self.navigationController?.interactivePopGestureRecognizer) else{ return true }
         messageTextView.resignFirstResponder()
-        channel?.send(message: HippoMessage.stopTyping, completion: {})
+        channel?.send(message: HippoMessage.stopTyping, completion: {
+            self.channel?.deinitObservers()
+        })
         let channelID = self.channel?.id ?? -1
         clearUnreadCountForChannel(id: channelID)
         if let lastMessage = getLastMessage() {
             agentConversationDelegate?.updateConversationWith(channelId: channel?.id ?? -1, lastMessage: lastMessage, unreadCount: 0)
         }
+        
         if isSingleChat {
             HippoConfig.shared.notifiyDeinit()
-//            self.navigationController?.dismiss(animated: true, completion: nil)
-////            return
-//            return true
         }
-//        if self.navigationController == nil {
-//            HippoConfig.shared.notifiyDeinit()
-//            dismiss(animated: true, completion: nil)
-//        } else {
-//            if self.navigationController!.viewControllers.count > 1 {
-//                _ = self.navigationController?.popViewController(animated: true)
-//            } else {
-//                HippoConfig.shared.notifiyDeinit()
-//                self.navigationController?.dismiss(animated: true, completion: nil)
-//            }
-//        }
-        
         return true
     }
 
