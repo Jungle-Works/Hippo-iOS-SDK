@@ -116,7 +116,7 @@ class FeedbackTableViewCell: MessageTableViewCell {
 
     func setDataForAgent(with params: FeedbackParams) {
         self.data = params
-        label_ReviewSubmitted.text = data.messageObject?.feedbackMessages.line_after_feedback_2_new
+        label_ReviewSubmitted.text = HippoStrings.thanksForFeedback
         textviewHeightConstraint?.isActive = true
         textviewHeightConstraint?.constant = 80
         if let message = params.messageObject {
@@ -124,7 +124,7 @@ class FeedbackTableViewCell: MessageTableViewCell {
         }
         
         data.cellTextView = cellTextView
-        titleLabel.text = message?.message
+        titleLabel.text = HippoStrings.ratingReview
 
         
         if params.messageObject!.is_rating_given {
@@ -161,7 +161,7 @@ class FeedbackTableViewCell: MessageTableViewCell {
     
     func setData(params: FeedbackParams) {
         self.data = params
-        label_ReviewSubmitted.text = data.messageObject?.feedbackMessages.line_after_feedback_2_new
+        label_ReviewSubmitted.text = HippoStrings.thanksForFeedback
         textviewHeightConstraint?.isActive = true
         textviewHeightConstraint?.constant = 80
         if let message = params.messageObject {
@@ -169,7 +169,7 @@ class FeedbackTableViewCell: MessageTableViewCell {
         }
         
         data.cellTextView = cellTextView
-        titleLabel.text = message?.message
+        titleLabel.text = HippoStrings.ratingReview
         placeholderLabel.text = HippoStrings.writeReview
         
         if params.messageObject!.is_rating_given {
