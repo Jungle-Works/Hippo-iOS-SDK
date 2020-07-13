@@ -824,6 +824,19 @@ extension AgentHomeViewController: AgentUserChannelDelegate {
         }
     }
     
+    func channelRefresh(chatDetail : ChatDetail, _ channelId : Int){
+        let myChatIndex = AgentConversation.getIndex(in: ConversationStore.shared.myChats, for: channelId)
+        let allChatIndex = AgentConversation.getIndex(in: ConversationStore.shared.allChats, for: channelId)
+        guard myChatIndex != nil || allChatIndex != nil else {
+            return
+        }
+        ConversationStore.shared.myChats[myChatIndex!].isBotInProgress = chatDetail.isBotInProgress
+        ConversationStore.shared.allChats[allChatIndex!].isBotInProgress = chatDetail.isBotInProgress
+        setData()
+        self.tableView.reloadData()
+    }
+    
+    
     func newConversationRecieved(_ newConversation: AgentConversation, channelID: Int) {
         if AgentConversation.isAssignmentNotification(for: newConversation) {
             handleAssignmentNotification(with: newConversation, channelID: channelID)

@@ -224,13 +224,13 @@ class AgentUserChannel {
     }
         
         func handleChannelRefresh(chatDetail: ChatDetail) {
-            guard let chatVC = getLastVisibleController() as? AgentConversationViewController else {
-                return
+            if let chatVC = getLastVisibleController() as? AgentConversationViewController {
+                if chatVC.channelId == chatDetail.channelId {
+                    chatVC.handleChannelRefresh(detail: chatDetail)
+                }
+            }else if let chatHomeVC = getLastVisibleController() as? AgentHomeViewController{
+                chatHomeVC.channelRefresh(chatDetail: chatDetail, chatDetail.channelId)
             }
-            guard chatVC.channelId == chatDetail.channelId else {
-                return
-            }
-            chatVC.handleChannelRefresh(detail: chatDetail)
         }
         
         func handleReadAllForHome(newConversation: AgentConversation) {

@@ -176,9 +176,6 @@ extension AgentHomeConversationCell {
         guard let data = cellData else {
             return
         }
-//        if let unassignedTag = self.getAssignedStatusTag(info: data) {
-//            arrayTagList.append(unassignedTag)
-//        }
         if data.notificationType == nil{
             self.getUnassignedTag(data: data)
         }else if let type = data.notificationType, type == .assigned || type == .message{
@@ -230,8 +227,8 @@ extension AgentHomeConversationCell {
     
     func getBotChannelTag(info: AgentConversation) -> TagBoxInfo? {
         var tag: TagBoxInfo?
-        let botInProgress = info.isBotInProgress ?? 0
-        if botInProgress > 0{
+        let botInProgress = info.isBotInProgress
+        if botInProgress{
             tag = TagBoxInfo(labelText: "Bot in progress", textColor: .darkGrayColorForTag, containerBackgroundColor: .lightGrayBgColorForTag, containerBorderColor: UIColor.makeColor(red: 228, green: 228, blue: 237, alpha: 1))
             return tag
         }else{

@@ -359,7 +359,16 @@ func subscribeMarkConversation(){
     FayeConnection.shared.subscribeTo(channelId: markConversationChannel, completion: { (success) in
     }) {  (messageDict) in
         print(messageDict)
-        if let notificationType = messageDict["notification_type"] as? Int, notificationType == 12, let status = messageDict["status"] as? String, status == "2"{
+        if let notificationType = messageDict["notification_type"] as? Int, notificationType == 12{
+            if let status = messageDict["status"] as? String{
+                if status != "2"{
+                    return
+                }
+            }else if let status = messageDict["status"] as? Int{
+                if status != 2{
+                    return
+                }
+            }
             for controller in getLastVisibleController()?.navigationController?.viewControllers ?? [UIViewController](){
                 if controller is AllConversationsViewController{
                     (controller as? AllConversationsViewController)?.closeChat(messageDict["channel_id"] as? Int ?? -1)
