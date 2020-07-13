@@ -600,7 +600,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     actionSheetTitleArr.removeAll()
     actionSheetImageArr.removeAll()
     actionSheetTitleArr = [HippoStrings.photoLibrary,HippoStrings.camera,HippoStrings.document]
-    actionSheetImageArr = ["Library",HippoStrings.camera,"Library"]
+    actionSheetImageArr = ["Library","Camera","Library"]
     heightForActionSheet = CGFloat((actionSheetTitleArr.count * 60))
     isProceedToPayActionSheet = false
     self.openCustomSheet()
@@ -3091,11 +3091,10 @@ extension ConversationsViewController {
 }
 
 extension ConversationsViewController: UIGestureRecognizerDelegate {
-
+    
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
     }
-
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         guard gestureRecognizer.isEqual(self.navigationController?.interactivePopGestureRecognizer) else{ return true }
         messageTextView.resignFirstResponder()

@@ -95,7 +95,7 @@ class AgentConversationManager {
             }
             completion(nil)
             getUserUnreadCount()
-            getAllData()
+           // getAllData()
             UnreadCount.getAgentTotalUnreadCount { (result) in
                 
             }

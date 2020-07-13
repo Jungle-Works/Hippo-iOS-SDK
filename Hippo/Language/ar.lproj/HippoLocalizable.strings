@@ -1,0 +1,965 @@
+/* 
+  HippoLocalizable.strings
+  Hippo
+
+  Created by Arohi Sharma on 18/06/20.
+  Copyright © 2020 CL-macmini-88. All rights reserved.
+*/
+
+
+
+
+
+"Unable to connect to the internet" = "غير قادر على الاتصال بالانترنت";
+"No Internet Connection \nTap to retry" = "اتصال لا الإنترنت \ nTap لإعادة المحاولة";
+"Something went wrong \nTap to retry" = "حدث خطأ \ nTap لإعادة المحاولة";
+"New Conversation" = "محاورة جديدة";
+"Loading..." = "جار التحميل...";
+"Runs on" = "يعمل على";
+"Hippo" = "فرس النهر";
+"Gallery not found in this phone." = "معرض لا توجد في هذا الهاتف.";
+"Camera" = "الة تصوير";
+"Gallery" = "صالة عرض";
+"Documents" = "مستندات";
+"Payment" = "دفع";
+"Audio" = "الصوت";
+"Document" = "وثيقة";
+"Retry" = "إعادة المحاولة";
+"Attachment Image" = "مرفق صورة";
+"Send a message..." = "ارسل رسالة...";
+"Cancel" = "إلغاء";
+"OK" = "حسنا";
+"Sorry this file is no longer available on your device" = "عفوا هذا الملف لم تعد متوفرة على جهازك";
+"Support" = "الدعم";
+"Could not send your message" = "تعذر إرسال الرسالة";
+"Tap to Retry" = "إضغط لإعادة المحاولة";
+"Cancel" = "إلغاء";
+"Not connected to Internet" = "ليس متصلا بالإنترنت";
+"Connecting..." = "توصيل...";
+"Connected" = "متصل";
+"No conversations found" = "لا توجد محادثات";
+"We couldn’t find any\nconversations in this inbox" = "لم نتمكن من العثور على أي \ nconversations في هذا البريد الوارد";
+"<i>Tap to view</i>" = "<ط> انقر لعرض </ I>";
+"ACTIONS" = "أجراءات";
+"SHOW MORE..." = "أظهر المزيد...";
+"Leave a comment" = "اترك تعليقا";
+"No data found" = "لاتوجد بيانات";
+"Your request has been submitted successfully" = "تم تقديم طلبك بنجاح";
+"Hippo" = "فرس النهر";
+"Terrible" = "رهيب";
+"Bad" = "سيئة";
+"Okay" = "حسنا";
+"Good" = "جيد";
+"Great" = "عظيم";
+"Search&#8230;" = "البحث & # 8230؛";
+"No Countries Found!" = "لا البلدان وجدت!";
+"Select country" = "حدد الدولة";
+"Call Again" = "اتصل مرة اخرى";
+"Select" = "تحديد";
+"This app may not work correctly without the requested permissions." = "هذا التطبيق قد لا تعمل بشكل صحيح دون الأذونات المطلوبة.";
+"This app may not work correctly without the requested permissions. Open the app settings screen to modify app permissions." = "هذا التطبيق قد لا تعمل بشكل صحيح دون الأذونات المطلوبة. افتح التطبيق إعدادات الشاشة لتعديل أذونات التطبيق.";
+"Permissions Required" = "ضوابط المطلوبة";
+"Done" = "منجز";
+"Need Reading Storage Permission for Picking Files" = "الحاجة القراءة التخزين إذن لاختيار الملفات";
+"Already up to max" = "إذا كنت تصل إلى الحد الأقصى";
+"No photo App in this phone!" = "لا صور التطبيقات في هذا الهاتف!";
+"All" = "الكل";
+"Browse other docs&#8230;" = "مستندات أخرى استعرض & # 8230؛";
+"File size cannot be greater than" = "حجم الملف لا يمكن أن يكون أكبر من";
+"Attachment File" = "الملف المرفق";
+"This file type is not supported" = "لا يتم اعتماد هذا النوع من الملفات";
+"Uploading" = "تحميل";
+"uploading in progress" = "تحميل في التقدم";
+"This message doesn't support in your current app." = "لا يدعم هذه الرسالة في التطبيق الحالي.";
+"Broadcast Details" = "تفاصيل البث";
+"Recipients" = "المستلمين";
+"Add an option" = "إضافة خيار";
+"Request payment" = "طلب دفع";
+"Enter Price" = "أدخل الأسعار";
+"Enter Description" = "أدخل الوصف";
+"Currency" = "عملة";
+"Title" = "عنوان";
+"Enter Title" = "أدخل العنوان";
+"Price" = "السعر";
+"Description" = "وصف";
+"Total price :" = "السعر الكلي :";
+"TransactionID can\'t be empty" = "TransactionID يمكن \ 'ر تكون فارغة";
+"Other user unique keys array can\'t be empty" = "المستخدم أخرى مفاتيح فريدة من نوعها مجموعة يمكن \ 'ر تكون فارغة";
+"Create Conversation" = "إنشاء المحادثة";
+"Conversations" = "المحادثات";
+"Logout" = "تسجيل خروج";
+"Something went wrong \nPlease try again later" = "شيء على ما يرام \ n الرجاء إعادة المحاولة لاحقا";
+"Guarantee" = "ضمان";
+"activity_image_transition" = "activity_image_transition";
+"Read More" = "قراءة المزيد";
+"Read Less" = "أقرأ أقل";
+"Slow Internet connection." = "الاتصال بالإنترنت بطيء.";
+"Please grant storage permission" = "إذن تخزين منحة الرجاء";
+"Net Banking" = "المصرفية نت";
+"Net Banking" = "المصرفية نت";
+"Payfort" = "Payfort";
+"Paytm" = "Paytm";
+"Card" = "بطاقة";
+"Paymob" = "Paymob";
+"Card/Net Banking" = "بطاقة / صافي المصرفية";
+"New Support Chat" = "الدردشة دعم جديد";
+"Pay with Paytm" = "طرق الدفع Paytm";
+"Stripe" = "شريط";
+"Fetching payment methods..." = "طرق الدفع جار إحضار ...";
+"No payment method available" = "لا طريقة الدفع المتاحة";
+"You have no chats" = "لا يوجد لديك دردشات";
+"Clear All" = "امسح الكل";
+"Find an Expert" = "البحث عن خبير";
+"Seems like you haven’t started on your Buddy journey yet, kick start it now!" = "يبدو وكأنك لم تكن قد بدأت في رحلة الأصدقاء الخاصة بك حتى الآن، ركلة تشغيله الآن!";
+"Rating & Review" = "تقييم ومراجعة";
+"Cancel Payment" = "الغاء الدفع";
+"Are you sure you want to cancel the payment?" = "هل أنت متأكد أنك تريد إلغاء الدفع؟";
+"No" = "لا";
+"Yes, Cancel" = "نعم، الغاء";
+"Payment" = "دفع";
+"Please wait \n Redirecting to the payment link" = "الرجاء الانتظار \ ن إعادة توجيه إلى رابط الدفع";
+"Retry" = "إعادة المحاولة";
+"No video app found" = "لم يتم العثور على التطبيق الفيديو";
+"Chat Support" = "دعم الدردشة";
+"Submit" = "إرسال";
+"call" = "مكالمة";
+"Chat" = "دردشة";
+"Notifications" = "إشعارات";
+"No Notifications" = "لا إشعارات";
+"Notification deleted" = "حذف إعلام";
+"Chats" = "دردشات";
+"Net Banking" = "المصرفية نت";
+"Current" = "تيار";
+"Past" = "الماضي";
+"Yes" = "نعم";
+"Are you sure you want to logout?" = "هل أنت متأكد أنك تريد تسجيل الخروج؟";
+"Create conversation" = "إنشاء محادثة";
+"No Internet Connected" = "لا يوجد إنترنت اتصال";
+"You" = "أنت";
+"sent a message" = "أرسلت رسالة";
+"voice" = "صوت";
+"video" = "فيديو";
+"call with you" = "دعوة معك";
+"Customer missed a" = "غاب العملاء ل";
+"You missed a" = "أنت غاب عن";
+"call with" = "الاتصال مع";
+"call ended" = "المكالمة انتهت";
+"The" = "ال";
+"Something went wrong. Please try again" = "حدث خطأ ما. أعد المحاولة من فضلك";
+"Already files in queue. Please wait" = "الملفات إذا كنت في قائمة الانتظار. الرجاء الانتظار";
+"Please grant permission" = "إذن منحة الرجاء";
+"Pay" = "دفع";
+"Error in publishing message" = "خطأ في نشر رسالة";
+"This feature not supported" = "هذه الميزة غير مدعومة";
+"You have no chats." = "لا يوجد لديك الأحاديث.";
+"Write a review" = "أكتب مراجعة";
+"Please select atleast one option" = "الرجاء تحديد خيار واحد أتلست";
+"Enter numeric values only" = "أدخل القيم الرقمية فقط";
+"Enter valid email" = "أدخل بريد إلكتروني صحيح";
+"Field can't be empty" = "الميدان لا يمكن إفراغ";
+"Please fill previous fields" = "الرجاء تعبئة الحقول السابقة";
+"Please enter valid price for item" = "الرجاء إدخال سعر صالحة للبند";
+"Invalid price" = "سعر غير صالح";
+"Alert!" = "إنذار!";
+"File type not supported! Do you want to open with other apps?" = "نوع الملف غير مدعوم! هل تريد فتح مع تطبيقات أخرى؟";
+"with country code" = "مع رمز البلد";
+"Enter your phone" = "أدخل الهاتف";
+"Enter valid phone number" = "أدخل رقم هاتف صحيح";
+"Save Plan" = "خطة إنقاذ";
+"Update Plan" = "خطة تحديث";
+"Seems like you haven't started any chat yet, kick start it now!" = "ويبدو وكأنك لم تكن قد بدأت أي دردشة بعد، ركلة تشغيله الآن!";
+"Call Back" = "أتصل مرة أخرى";
+"Missed" = "افتقد";
+"- PAID -" = "- دفع -";
+"Ongoing" = "جاري التنفيذ";
+"at" = "في";
+"- PENDING -" = "- قيد الانتظار -";
+"Free" = "مجانا";
+"Photo & Video Library" = "مكتبة الصور والفيديو";
+"Video" = "فيديو";
+"Files" = "ملفات";
+"Please enter some text." = "الرجاء إدخال النص.";
+"Missed Call" = "مكالمة فائتة";
+"The voice call" = "إن مكالمة صوتية";
+"The video call" = "مكالمة فيديو";
+"The voice call ended" = "انتهت المكالمة الصوتية";
+"The video call ended" = "انتهت مكالمة فيديو";
+"All agents are busy right now, we'll connect you shortly" = "جميع وكلاء مشغولون الآن، سنقوم بالاتصال بك قريبا";
+"Copied to clipboard" = "نسخ إلى الحافظة";
+"Proceed to Pay" = "المضي قدما لدفع";
+"Today" = "اليوم";
+"Yesterday" = "في الامس";
+"No Notifications found" = "العثور على أي إشعارات";
+"CALLING..." = "يطالب ...";
+"RINGING..." = "رنين...";
+"DISCONNECTING..." = "فصل ...";
+"Busy on another call..." = "مشغول على مكالمة أخرى ...";
+"Call Declined" = "ورفض الدعوة";
+"Audio Call" = "نداء الصوت";
+"Call Rejected" = "تم رفض المكالة";
+"does not have the updated app, Calling using old SDK..." = "لم يكن لديك التطبيق المحدث، دعوة باستخدام SDK القديم ...";
+"HANG UP" = "يشنق";
+"Ongoing Call" = "نداء مستمر";
+"Incoming Call" = "مكالمة واردة";
+"Incoming Video Call" = "الواردة مكالمة فيديو";
+"Incoming Audio Call" = "الواردة الصوت نداء";
+"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

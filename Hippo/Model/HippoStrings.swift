@@ -113,7 +113,7 @@ public class HippoStrings {
     static var cancelPaymentTitle = "Cancel Payment".localized
     
     /// Agent sdk
-    
+    static var thanksForFeedback = "Thank you for your comments!".localized
     static var closed = "Closed".localized
     static var openChat = "Open Chats".localized
     static var newConversation = "New Conversation".localized
