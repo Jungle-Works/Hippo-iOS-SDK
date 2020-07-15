@@ -236,7 +236,7 @@ extension AgentHomeViewController {
         if  HippoConfig.shared.agentDetail == nil || HippoConfig.shared.agentDetail!.oAuthToken.isEmpty {
             message = "Auth token is not found or found Empty"
         } else if !AgentConversationManager.isAnyApiOnGoing() && conversationList.isEmpty {
-            message = "You have no chats"//"No chat found for your business."
+            message =  HippoStrings.noDataFound//"No chat found for your business."
             enableButton = true
         }
         

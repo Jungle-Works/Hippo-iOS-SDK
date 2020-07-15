@@ -112,6 +112,7 @@ public class HippoStrings {
     static var cancelPayment = "Are you sure you want to cancel the payment?".localized
     static var cancelPaymentTitle = "Cancel Payment".localized
     
+    
     /// Agent sdk
     static var thanksForFeedback = "Thank you for your comments!".localized
     static var closed = "Closed".localized
@@ -183,6 +184,8 @@ public class HippoStrings {
     static var saved = "Saved!".localized
     static var imageSaved = "Image has been saved to your photos.".localized
     static var reopenChat = "Reopen Chat".localized
+    static var noDataFound = "No data found!"
+
     
     open var disbaledCameraErrorMessage = "Access to Camera is denied. Please enable from setings."
     open var cameraString = "New Image via Camera"
@@ -196,8 +199,8 @@ public class HippoStrings {
     open var MessageString = "Message"
     open var seePreviousMessges = "See Previous Messages"
     open var noBroadcastAvailable = "No broadcast found!"
-    
     open var allTeamString = "All Teams"
+    
    
     
 //    open var checkingNewMessages = "Updating new messages..."

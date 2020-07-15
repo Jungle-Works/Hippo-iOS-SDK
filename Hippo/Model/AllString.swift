@@ -1627,7 +1627,7 @@ class AllString{
         }
         
         if let no_data_found = response["no_data_found"] as? String{
-            
+            HippoStrings.noDataFound = no_data_found
         }
         
         if let search_here = response["search_here"] as? String{
