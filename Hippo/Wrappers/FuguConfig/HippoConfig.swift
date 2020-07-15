@@ -1188,6 +1188,15 @@ public extension HippoConfig {
     }
 }
 
+extension HippoConfig{
+    //MARK:- Create channel for group calling
+    /// - Get data from parent app  as AgentGroupCallModel for create new channel for group calling
+   
+    public func createGroupCallChannel(request: AgentGroupCallModel, callback: @escaping HippoResponseRecieved){
+        GroupCall.createGroupCallChannel(request: request, callback: callback)
+    }
+    
+}
 extension HippoConfig {
     func sendp2pUnreadCount(_ unreadCount : Int, _ channelId : Int){
         HippoConfig.shared.delegate?.sendp2pUnreadCount(unreadCount: unreadCount,channelId: channelId)

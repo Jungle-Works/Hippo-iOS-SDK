@@ -404,6 +404,9 @@ enum AgentEndPoints: String {
     case editPaymentPlans = "api/agent/editPaymentPlans"
     case getBotActions = "api/agent/getAllBotActions"
     case getAgents = "api/agent/getAgents"
+    case createGroupCallChannel = "api/conversation/createGroupCallChannel"
+    case getGroupCallChannelDetals = "api/conversation/getGroupCallChannelDetails"
+    
 }
 
 struct MultiLanguageMsg{
