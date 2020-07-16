@@ -83,7 +83,7 @@ class MessageStore {
         HippoConfig.shared.log.trace(params, level: .request)
         isInProgress = true
         
-        HTTPClient.shared.makeSingletonConnectionWith(method: .POST, identifier: RequestIdenfier.getMessagesIdentifier ,para: params, extendedUrl: FuguEndPoints.API_GET_MESSAGES.rawValue) { (responseObject, error, tag, statusCode) in
+        HTTPClient.makeConcurrentConnectionWith(method: .POST,para: params, extendedUrl: FuguEndPoints.API_GET_MESSAGES.rawValue) { (responseObject, error, tag, statusCode) in
             
             isInProgress = false
             let rawStatusCode = statusCode ?? -1

@@ -46,7 +46,8 @@ public struct AgentGroupCallModel {
     /// * Optional parameter
     public var message : String?
     
-    
+    //init for creating group session
+    ///*init for these parameters for creating channel for group calling from parent app*
     public init?(resellerToken: String, referenceId: String, email: String, roomTitle: String, sessionStartTime: String, sessionEndTime: String, uniqueIds : [String], transactionId : String, userIds : [String]?, agentIds : [String]?, message : String?){
         self.resellerToken = resellerToken
         self.referenceId = referenceId
@@ -60,11 +61,21 @@ public struct AgentGroupCallModel {
         self.message = message
         self.transactionId = transactionId
     }
+    
+    //init for getting session details
+    ///*init these parameters for getting session details*
+    
+    public init?(resellerToken : String, referenceId : String, email : String, transactionId : String){
+        self.resellerToken = resellerToken
+        self.referenceId = referenceId
+        self.email = email
+        self.transactionId = transactionId
+    }
 }
 extension AgentGroupCallModel{
     
     //MARK:- Generate Params
-    
+    ///Returns paramets for creating channel for group calling
     func generateParamsForCreatingChannel() throws -> [String : Any]{
         var params = [String : Any]()
         
@@ -91,4 +102,18 @@ extension AgentGroupCallModel{
         return params
     }
     
+    ///Returns params for getting details of group calling session
+    
+    func generateParamsForGettingChannel()-> [String : Any]{
+        var params = [String : Any]()
+        params["app_secret_key"] = HippoConfig.shared.agentDetail?.appSecrectKey
+        params["access_token"] = HippoConfig.shared.agentDetail?.fuguToken
+        params["reseller_token"] = resellerToken
+        params["reference_id"] = referenceId
+        params["agent_email"] = email
+        params["user_id"] = currentUserId()
+        params["en_user_id"] = currentEnUserId()
+        params["transaction_id"] = transactionId
+        return params
+    }
 }

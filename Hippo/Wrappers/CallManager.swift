@@ -15,6 +15,13 @@ struct CallData {
     var signallingClient: HippoChannel
 }
 
+struct GroupCallData{
+    var peerData: User
+    var callType: CallType
+    var muid: String
+    var signallingClient : GroupCallChannel
+}
+
 #if canImport(HippoCallClient)
 import HippoCallClient
 #endif
@@ -40,6 +47,24 @@ class CallManager {
 //        completion(false)
 //        #endif
 //    }
+    
+    
+    
+    func startGroupCall(call: GroupCallData, groupCallChannelData : GroupCallChannelData, completion: @escaping (Bool, NSError?) -> Void){
+        #if canImport(HippoCallClient)
+        let peerUser = call.peerData
+        guard let peer = HippoUser(name: peerUser.fullName, userID: peerUser.userID, imageURL: peerUser.image) else {
+            return
+        }
+        guard let currentUser = getCurrentUser() else {
+            return
+        }
+        let callToMake = Call(peer: peer, signalingClient: call.signallingClient, uID: call.muid, currentUser: currentUser, type: getCallTypeWith(localType: call.callType), link: "")
+        
+        #else
+        completion(false,nil)
+        #endif
+    }
     
     // use this method if you are using jitsi branch for calling feature
 

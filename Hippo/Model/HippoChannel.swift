@@ -265,7 +265,6 @@ class HippoChannel {
         default:
             createNewConversationWith(params: params, completion: completion)
         }
-        
     }
     
     private class func createOneToOneConversation(params: [String: Any], completion: @escaping HippoChannelCreationHandler) {

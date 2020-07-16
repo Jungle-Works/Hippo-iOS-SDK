@@ -16,6 +16,7 @@
 		6B91A93F24780AF4008AB4CC /* NavigationBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6B91A93D24780AF4008AB4CC /* NavigationBar.xib */; };
 		6BA8B19E24784E1B00E7E087 /* NavigationBarChat.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6BA8B19D24784E1B00E7E087 /* NavigationBarChat.xib */; };
 		6BA8B1A024784E3600E7E087 /* NavigationBarChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA8B19F24784E3600E7E087 /* NavigationBarChat.swift */; };
+		6BB2E0D224BF50E900DCC6E7 /* GroupCallChannelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BB2E0D124BF50E900DCC6E7 /* GroupCallChannelData.swift */; };
 		6BBBEA8324991C7300C3E1CE /* BottomPopupController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BBBEA8224991C7300C3E1CE /* BottomPopupController.swift */; };
 		6BCCD5902490B86600C5CA0D /* FloatRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCCD58F2490B86600C5CA0D /* FloatRatingView.swift */; };
 		6BCD891324A2590800FD0A22 /* AllString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCD891224A2590800FD0A22 /* AllString.swift */; };
@@ -426,6 +427,7 @@
 		6B91A93D24780AF4008AB4CC /* NavigationBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NavigationBar.xib; sourceTree = "<group>"; };
 		6BA8B19D24784E1B00E7E087 /* NavigationBarChat.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NavigationBarChat.xib; sourceTree = "<group>"; };
 		6BA8B19F24784E3600E7E087 /* NavigationBarChat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarChat.swift; sourceTree = "<group>"; };
+		6BB2E0D124BF50E900DCC6E7 /* GroupCallChannelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupCallChannelData.swift; sourceTree = "<group>"; };
 		6BBBEA8224991C7300C3E1CE /* BottomPopupController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomPopupController.swift; sourceTree = "<group>"; };
 		6BCCD58F2490B86600C5CA0D /* FloatRatingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatRatingView.swift; sourceTree = "<group>"; };
 		6BCD891224A2590800FD0A22 /* AllString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllString.swift; sourceTree = "<group>"; };
@@ -1731,6 +1733,7 @@
 				D8F6D22D2419557300B168C5 /* AgentUserChannel.swift */,
 				D8F6D22E2419557400B168C5 /* AgentDetail.swift */,
 				6B87979324BEDAB80093EA90 /* GroupCall.swift */,
+				6BB2E0D124BF50E900DCC6E7 /* GroupCallChannelData.swift */,
 			);
 			path = AgentModels;
 			sourceTree = "<group>";
@@ -2949,6 +2952,7 @@
 				D84F79F5245F49AC00B36168 /* PaymentItemDescriptionCell.swift in Sources */,
 				D8F6D0192418FA6900B168C5 /* MultiSelectHeaderTableViewCell.swift in Sources */,
 				D8CD684824866EF1000F4097 /* NSAttributedString.swift in Sources */,
+				6BB2E0D224BF50E900DCC6E7 /* GroupCallChannelData.swift in Sources */,
 				D8F6D2642419591500B168C5 /* CloseButton.swift in Sources */,
 				D8F6D0842419000100B168C5 /* Benchmarker.swift in Sources */,
 				D8F6D0062418F9E600B168C5 /* CheckoutViewController.swift in Sources */,

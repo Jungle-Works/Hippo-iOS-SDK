@@ -289,7 +289,7 @@ struct BotAction {
     }
     
     func getAllStrings(){
-        AllString.getAllStrings{(error) in
+        AllString.getAllStrings{(error,response) in
             self.HippoLanguageChanged?(error)
             if error == nil{
                 if self.appUserType == .customer{
@@ -382,10 +382,10 @@ struct BotAction {
         detail.isForking = true
         self.appUserType = .agent
         self.agentDetail = detail
-        AgentConversationManager.updateAgentChannel(completion: {(error) in
+        AgentConversationManager.updateAgentChannel(completion: {(error,response) in
             if (selectedLanguage ?? "") == ""{ self.setLanguage(BussinessProperty.current.buisnessLanguageArr?.filter{$0.is_default == true}.first?.lang_code ?? "")
             }
-            completion(error)
+            completion(error,response)
         })
     }
     
@@ -402,13 +402,13 @@ struct BotAction {
         let detail = AgentDetail(oAuthToken: authToken.trimWhiteSpacesAndNewLine(), appType: app_type, customAttributes: customAttributes)
         self.appUserType = .agent
         self.agentDetail = detail
-        AgentConversationManager.updateAgentChannel(completion: {(error) in
+        AgentConversationManager.updateAgentChannel(completion: {(error,response) in
             if (selectedLanguage ?? "") == ""{ self.setLanguage(BussinessProperty.current.buisnessLanguageArr?.filter{$0.is_default == true}.first?.lang_code ?? "en")
-                completion(error)
+                completion(error,response)
                 return
             }
             self.setLanguage(selectedLanguage ?? "en")
-            completion(error)
+            completion(error,response)
         })
     }
     // MARK: - Open Chat UI Methods

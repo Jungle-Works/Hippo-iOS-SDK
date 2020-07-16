@@ -21,6 +21,7 @@ class User: NSObject {
     var userType: UserType = .customer
     var image: String?
     
+    
     init?(dict: [String: Any]) {
         guard let rawUserId = Int.parse(values: dict, key: "user_id") else {
             return nil

@@ -706,7 +706,7 @@ extension AgentHomeViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension AgentHomeViewController: AgentHomeCollectionViewCellDelegate {
     func placholderButtonClicked() {
-        AgentConversationManager.updateAgentChannel { (error) in
+        AgentConversationManager.updateAgentChannel { (error,response)  in
             
         }
     }
