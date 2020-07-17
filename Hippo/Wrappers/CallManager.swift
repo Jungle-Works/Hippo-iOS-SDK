@@ -61,6 +61,9 @@ class CallManager {
         }
         let callToMake = Call(peer: peer, signalingClient: call.signallingClient, uID: call.muid, currentUser: currentUser, type: getCallTypeWith(localType: call.callType), link: "")
         
+        let groupCallData = CallClientGroupCallData(roomTitle: groupCallChannelData.roomTitle ?? "", roomUniqueId: groupCallChannelData.roomUniqueId ?? "")
+        
+        HippoCallClient.shared.startGroupCall(call: callToMake, groupCallData: groupCallData,completion: completion)
         #else
         completion(false,nil)
         #endif

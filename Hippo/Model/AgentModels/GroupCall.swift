@@ -49,7 +49,7 @@ extension GroupCall{
         params = request.generateParamsForGettingChannel()
       
         HippoConfig.shared.log.trace(params, level: .request)
-        HTTPClient.makeConcurrentConnectionWith(method: .POST, enCodingType: .json, para: params, extendedUrl: AgentEndPoints.createGroupCallChannel.rawValue) { (responseObject, error, tag, statusCode) in
+        HTTPClient.makeConcurrentConnectionWith(method: .POST, enCodingType: .json, para: params, extendedUrl: AgentEndPoints.getGroupCallChannelDetals.rawValue) { (responseObject, error, tag, statusCode) in
             
             guard let unwrappedStatusCode = statusCode, error == nil, unwrappedStatusCode == STATUS_CODE_SUCCESS, error == nil  else {
                 callback(HippoError.general, nil)
