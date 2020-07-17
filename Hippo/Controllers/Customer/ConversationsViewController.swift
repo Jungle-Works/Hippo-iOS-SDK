@@ -974,7 +974,9 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
             
             guard let result = response, result.isSuccessFull, let weakself = self else {
                 completion?(false)
-                self?.goForApiRetry()
+                if HippoConfig.shared.shouldShowSlowInternetBar ?? true{
+                  self?.goForApiRetry()
+                }
                 return
             }
             weakself.storeResponse = result
@@ -1781,8 +1783,6 @@ extension ConversationsViewController {
     
     func hideRetryLabelView() {
         chatScreenTableViewTopConstraint.constant = 0
-        
-//        retryView.isHidden = true
         labelViewRetryButton.isHidden = false
         retryLoader.isHidden = true
         retryLabelView.isHidden = true
@@ -1790,19 +1790,10 @@ extension ConversationsViewController {
     
     func goForApiRetry(){
         if FuguNetworkHandler.shared.isNetworkConnected{
-            //If There are No Cached Msg
-            if self.messagesGroupedByDate.count == 0{
-//                super.textViewBottomConstraint.constant = -100
-//                retryView.isHidden = false
-//                view.bringSubview(toFront: retryView)
-            }
-            else{
-                //If there are cached msgs
-                chatScreenTableViewTopConstraint.constant = 25
-                retryLabelView.isHidden = false
-                retryLoader.isHidden = true
-                labelViewRetryButton.isHidden = false
-            }
+            chatScreenTableViewTopConstraint.constant = 25
+            retryLabelView.isHidden = false
+            retryLoader.isHidden = true
+            labelViewRetryButton.isHidden = false
         }
     }
 

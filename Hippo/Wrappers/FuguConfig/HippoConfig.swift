@@ -180,6 +180,9 @@ struct BotAction {
             }
         }
     }
+    ///turn its value true to show slow internet bar on chat screen
+    public var shouldShowSlowInternetBar : Bool?
+    
     
     // MARK: - Intialization
     private override init() {

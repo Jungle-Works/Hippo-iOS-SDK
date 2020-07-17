@@ -1025,11 +1025,11 @@ extension AllConversationsViewController{
     //MARK:- Put conversation in closed based on Faye
     
     func closeChat(_ channelId : Int){
-        let index = arrayOfConversation.firstIndex(where: {$0.channelId == channelId})
-        if let index = index , index < arrayOfConversation.count{
-            arrayOfConversation[index].channelStatus = .close
+        let index = arrayOfFullConversation.firstIndex(where: {$0.channelId == channelId})
+        if let index = index , index < arrayOfFullConversation.count{
+            arrayOfFullConversation[index].channelStatus = .close
         }
-        self.filterConversationArr(conversationArr: arrayOfConversation)
+        self.filterConversationArr(conversationArr: arrayOfFullConversation)
     }
     
 }
