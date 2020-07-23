@@ -105,9 +105,7 @@ struct BotAction {
     internal var log = CoreLogger(formatter: Formatter.defaultFormat, theme: nil, minLevels: [.all])
     internal var muidList: [String] = []
     internal var pushArray = [PushInfo]()
-    
     internal var checker: HippoChecker = HippoChecker()
-    
     private(set)  open var isBroadcastEnabled: Bool = false
     open weak var messageDelegate: HippoMessageRecievedDelegate?
     internal weak var delegate: HippoDelegate?
@@ -118,8 +116,6 @@ struct BotAction {
     internal var userDetail: HippoUserDetail?
     internal var agentDetail: AgentDetail?
     public var strings = HippoStrings()
-    
-//    private(set)  open var isNewConversationButtonHidden: Bool = true
     private(set)  open var newConversationButtonBorderWidth: Float = 0.0
 
     private(set)  open var isSuggestionNeeded = false
@@ -133,6 +129,17 @@ struct BotAction {
     open var isPaymentRequestEnabled: Bool {
         return HippoProperty.current.isPaymentRequestEnabled
     }
+    internal var groupCallData: [String : Any] {
+         get {
+            guard let groupCallData = UserDefaults.standard.value(forKey: Fugu_groupCallData) as? [String : Any] else {
+                 return [String : Any]()
+             }
+             return groupCallData
+         }
+         set {
+             UserDefaults.standard.set(newValue, forKey: Fugu_groupCallData)
+         }
+     }
     
     internal var appSecretKey: String {
         get {
@@ -163,6 +170,7 @@ struct BotAction {
     open var HippoPrePaymentCancelled: (()->())?
     open var HippoPrePaymentSuccessful: ((Bool)->())?
     public var HippoLanguageChanged : ((Error?)->())?
+    public var HippoSessionStatus: ((GroupCallStatus)->())?
     
     internal let powererdByColor = #colorLiteral(red: 0.4980392157, green: 0.4980392157, blue: 0.4980392157, alpha: 1)
     internal let FuguColor = #colorLiteral(red: 0.3843137255, green: 0.4901960784, blue: 0.8823529412, alpha: 1)
@@ -316,7 +324,7 @@ struct BotAction {
             if (self.userDetail?.selectedlanguage ?? "") == ""{
                self.userDetail?.selectedlanguage = BussinessProperty.current.buisnessLanguageArr?.filter{$0.is_default == true}.first?.lang_code
             }
-            self.setLanguage(self.userDetail?.selectedlanguage ?? "en",true)
+            self.setLanguage(self.userDetail?.selectedlanguage ?? "en")
         }
     }
     
@@ -789,7 +797,7 @@ struct BotAction {
     
     //MARK:- Set Language
     
-    public func setLanguage(_ code : String, _ isFromPutUser : Bool = false){
+    public func setLanguage(_ code : String){
         if BussinessProperty.current.buisnessLanguageArr?.contains(where: {$0.lang_code == code}) ?? false{
             UserDefaults.standard.set(code, forKey: DefaultName.selectedLanguage.rawValue)
             getAllStrings()
@@ -1014,6 +1022,9 @@ struct BotAction {
     
     
     func handleAgentNotification(userInfo: [String: Any]) {
+        if userInfo["notification_type"] as? Int == 25{
+            return
+        }
         let visibleController = getLastVisibleController()
         let channelId = (userInfo["channel_id"] as? Int) ?? -1
         let channelName = (userInfo["label"] as? String) ?? ""
@@ -1067,6 +1078,11 @@ struct BotAction {
         
     }
     func handleCustomerNotification(userInfo: [String: Any]) {
+        if userInfo["notification_type"] as? Int == 25{
+            CallManager.shared.voipNotificationRecievedForGroupCall(payloadDict: userInfo)
+            return
+        }
+        
         let visibleController = getLastVisibleController()
         
         let channelId = (userInfo["channel_id"] as? Int) ?? -1
@@ -1190,15 +1206,20 @@ public extension HippoConfig {
 
 extension HippoConfig{
     //MARK:- Create channel for group calling
-    /// - Get data from parent app  as AgentGroupCallModel for create new channel for group calling
+    /// - Get data from parent app  as GroupCallModel for create new channel for group calling
    
-    public func createGroupCallChannel(request: AgentGroupCallModel, callback: @escaping HippoResponseRecieved){
+    public func createGroupCallChannel(request: GroupCallModel, callback: @escaping HippoResponseRecieved){
         GroupCall.createGroupCallChannel(request: request, callback: callback)
     }
     
-    public func joinGroupCall(request: AgentGroupCallModel, callback: @escaping HippoResponseRecieved){
+    public func joinGroupCall(request: GroupCallModel, callback: @escaping HippoResponseRecieved){
         GroupCall.getGroupCallChannelDetails(request: request, callback: callback)
     }
+    
+    public func restoreSession(_ transactionId : String){
+         groupCallData.removeValue(forKey: transactionId)
+    }
+    
 }
 extension HippoConfig {
     func sendp2pUnreadCount(_ unreadCount : Int, _ channelId : Int){

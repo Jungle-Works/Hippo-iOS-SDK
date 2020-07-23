@@ -28,10 +28,10 @@ class TookanHelper: NSObject {
                 return
             }
             countryInfo = data
-            guard HippoConfig.shared.userDetail != nil else {
-                return
-            }
-            HippoUserDetail.getUserDetailsAndConversation(completion: nil)
+//            guard HippoConfig.shared.userDetail != nil else {
+//                return
+//            }
+           // HippoUserDetail.getUserDetailsAndConversation(completion: nil)
         })
     }
 }

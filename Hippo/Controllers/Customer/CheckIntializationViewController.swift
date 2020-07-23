@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CheckIntializationViewController: UIViewController {
+/*class CheckIntializationViewController: UIViewController {
 
    // MARK: - Properties
    var completion: ((_ presentingViewController: UIViewController) -> Void)?
@@ -101,3 +101,4 @@ class CheckIntializationViewController: UIViewController {
     }
     
 }
+*/

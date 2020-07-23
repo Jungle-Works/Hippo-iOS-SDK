@@ -11,7 +11,12 @@ import UIKit
 class ShowImageViewController: UIViewController , UIScrollViewDelegate, UIGestureRecognizerDelegate {
     @IBOutlet weak var imageView: So_UIImageView!
     @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet var crossButton: UIButton!
+    @IBOutlet var crossButton: UIButton!{
+        didSet{
+            crossButton.imageView?.tintColor = .white
+            crossButton.setImage(HippoConfig.shared.theme.closeChatImage, for: .normal)
+        }
+    }
     @IBOutlet weak var downloadButton: UIButton!
     @IBOutlet var backgroundBlackColorView: UIView!
     

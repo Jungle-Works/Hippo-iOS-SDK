@@ -63,7 +63,7 @@ class CallManager {
         
         let groupCallData = CallClientGroupCallData(roomTitle: groupCallChannelData.roomTitle ?? "", roomUniqueId: groupCallChannelData.roomUniqueId ?? "")
         
-        HippoCallClient.shared.startGroupCall(call: callToMake, groupCallData: groupCallData,completion: completion)
+        HippoCallClient.shared.startGroupCall(call: callToMake, groupCallData: groupCallData)
         #else
         completion(false,nil)
         #endif
@@ -167,6 +167,35 @@ class CallManager {
         HippoCallClient.shared.registerHippoCallClient(delegate: self)
         #endif
     }
+    
+    func voipNotificationRecievedForGroupCall(payloadDict: [String: Any]){
+        #if canImport(HippoCallClient)
+        guard let peer = HippoUser(json: payloadDict) else {
+            return
+        }
+        var channelId : Int?
+        
+        if let channelID = payloadDict["channel_id"] as? Int{
+            channelId = channelID
+        }else if let channelID = Int.parse(values: payloadDict, key: "channel_id"){
+            channelId = channelID
+        }
+        guard let channel_id = channelId else {
+            return
+        }
+        
+        let groupCallChannel = GroupCallChannel(channel_id)
+        guard let currentUser = getCurrentUser() else {
+            return
+        }
+        HippoCallClient.shared.voipNotificationRecievedForGroupCall(dictionary: payloadDict, peer: peer, signalingClient: groupCallChannel, currentUser: currentUser)
+        
+        #else
+        print("cannot import HippoCallClient")
+        #endif
+    }
+    
+    
     func voipNotificationRecieved(payloadDict: [String: Any]) {
         #if canImport(HippoCallClient)
         guard let peer = HippoUser(json: payloadDict), let channelID = Int.parse(values: payloadDict, key: "channel_id") else {

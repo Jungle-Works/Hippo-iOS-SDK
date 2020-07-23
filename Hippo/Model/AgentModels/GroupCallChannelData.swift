@@ -21,6 +21,7 @@ struct GroupCallChannelData {
     var sessionEndTime : String?
     var channelId : Int?
     var status : Bool?
+    var callType : CallType?
     
    
     //
@@ -43,7 +44,14 @@ class GroupCallChannel{
     
     //MARK:- Variables
     var channelId : Int?
+    var userChannelId : String?{
+        get{
+            return HippoUserDetail.HippoUserChannelId
+        }
+        set{}
+    }
     var signalReceivedFromPeer: (([String : Any]) -> Void)?
+    var dict : [String : Any]?
     
     //MARK:- Initialisation
     init(_ id : Int) {
@@ -53,10 +61,60 @@ class GroupCallChannel{
 
 #if canImport(HippoCallClient)
 extension GroupCallChannel: SignalingClient {
-    
+    func sendSessionStatus(status: String) {
+        if status == "MISSED_GROUP_CALL"{
+            HippoConfig.shared.HippoSessionStatus?(.missed)
+        }else if status == "JOIN_GROUP_CALL"{
+            HippoConfig.shared.HippoSessionStatus?(.rejected)
+        }else if status == "REJECT_GROUP_CALL"{
+            HippoConfig.shared.HippoSessionStatus?(.sessionStarted)
+        }else if status == "END_GROUP_CALL"{
+            HippoConfig.shared.HippoSessionStatus?(.sessionEnded)
+        }
+    }
     
     func connectClient(completion: @escaping (Bool) -> Void) {
+        guard isConnected() else {
+            completion(false)
+            return
+        }
         
+        guard !isSubscribed() else {
+            completion(true)
+            return
+        }
+      
+        if currentUserType() == .customer{
+            subscribeCustomerUserChannel(userChannelId: userChannelId ?? "")
+        }
+        
+        subscribeChannel { (error,success)  in
+            completion(success)
+        }
+    }
+    
+    
+    private func isConnected() -> Bool {
+        return FayeConnection.shared.isConnected && FuguNetworkHandler.shared.isNetworkConnected
+    }
+    
+    private func isSubscribed() -> Bool {
+        guard let channelId = channelId else{
+            return false
+        }
+        return FayeConnection.shared.isChannelSubscribed(channelID: "\(channelId)")
+    }
+       
+    private func subscribeChannel(completion: @escaping (Error?,Bool) -> Void){
+        guard let channelId = channelId else{
+            completion(HippoError.ChannelIdNotFound,false)
+            return
+        }
+        FayeConnection.shared.subscribeTo(channelId: "\(channelId)", completion: {(success) in
+            completion(nil,true)
+        }) {[weak self] (messageDict) in
+            
+        }
     }
     
     func checkIfReadyForCommunication() -> Bool {
@@ -68,8 +126,53 @@ extension GroupCallChannel: SignalingClient {
     }
     
     func sendJitsiObject(json: [String : Any], completion: @escaping (Bool, NSError?) -> Void) {
+        var fayeDict = json
         
+        fayeDict["message_type"] = MessageType.groupCall.rawValue
+        fayeDict["user_type"] = currentUserType().rawValue
+        fayeDict["device_payload"] = [
+            "device_id": UIDevice.current.identifierForVendor?.uuidString ?? 0,
+            "device_type": Device_Type_iOS,
+            "app_version": versionCode,
+            "device_details": AgentDetail.getDeviceDetails()
+        ]
+        fayeDict["device_token"] = HippoConfig.shared.deviceToken
+        
+        if !HippoConfig.shared.voipToken.isEmpty {
+            fayeDict["voip_token"] = HippoConfig.shared.voipToken
+        }
+        send(dict: fayeDict) { (error, success)  in
+            completion(error,success)
+            print(success)
+            print(error)
+            
+        }
     }
     
+    func send(dict: [String: Any], completion: @escaping  (Bool, NSError?) -> Void) {
+        var json = dict
+        guard let channelId = channelId else{
+            completion(false,HippoError.ChannelIdNotFound as NSError)
+            return
+        }
+        
+        json["channel_id"] = "\(channelId)"
+        
+        if currentUserType() == .agent{
+            
+            FayeConnection.shared.send(messageDict: json, toChannelID: "\(channelId)") { (result) in
+                completion(result.success,result.error?.error as NSError?)
+            }
+        }else{
+            FayeConnection.shared.send(messageDict: json, toChannelID: "\(channelId)") { (result) in
+
+            }
+            FayeConnection.shared.send(messageDict: json, toChannelID: userChannelId ?? "") { (result) in
+                completion(result.success,result.error?.error as NSError?)
+            }
+        }
+       
+    }
+  
 }
 #endif

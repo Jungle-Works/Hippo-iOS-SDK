@@ -158,7 +158,8 @@ public class UserTag: NSObject {
         if let parsedUserImage = userImage?.trimWhiteSpacesAndNewLine(), let url = URL(string: parsedUserImage) {
             self.userImage = url
         }
-        self.selectedlanguage = selectedlanguage
+        
+       self.selectedlanguage = selectedlanguage
         
         UserDefaults.standard.set(selectedlanguage, forKey: DefaultName.selectedLanguage.rawValue)
     }
@@ -471,7 +472,9 @@ public class UserTag: NSObject {
         
         //Clear agent data
         clearAgentData()
-        //unSubscribe(userChannelId: HippoConfig.shared.userDetail?.userChannel ?? "")
+        
+        //unSubscribe(userChannelId: HippoUserDetail.HippoUserChannelId ?? "")
+        HippoConfig.shared.groupCallData.removeAll()
         HippoProperty.current = HippoProperty()
         //FuguConfig.shared.deviceToken = ""
         HippoConfig.shared.appSecretKey = ""
@@ -489,6 +492,8 @@ public class UserTag: NSObject {
         
         FuguDefaults.removeObject(forKey: DefaultKey.myChatConversations)
         FuguDefaults.removeObject(forKey: DefaultKey.allChatConversations)
+        FuguDefaults.removeObject(forKey: DefaultKey.allChatConversations)
+        
         
         FuguDefaults.removeObject(forKey: DefaultName.conversationData.rawValue)
         FuguDefaults.removeObject(forKey: DefaultName.appointmentData.rawValue)

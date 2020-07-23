@@ -14,7 +14,7 @@ class GroupCall{
     ///Call this api for creating new channel for group calling
     ///*This method should be called from agent sdk*
     
-    class func createGroupCallChannel(request: AgentGroupCallModel, callback: @escaping HippoResponseRecieved) {
+    class func createGroupCallChannel(request: GroupCallModel, callback: @escaping HippoResponseRecieved) {
         let params: [String: Any]
         
         do {
@@ -43,7 +43,13 @@ extension GroupCall{
     //MARK:- API Call for getting details of group calling session created by agent
     ///*Returns the channel data to parent app*
     
-    class func getGroupCallChannelDetails(request: AgentGroupCallModel, callback: @escaping HippoResponseRecieved) {
+    class func getGroupCallChannelDetails(request: GroupCallModel, callback: @escaping HippoResponseRecieved) {
+        
+        if let dict = ((HippoConfig.shared.groupCallData as NSDictionary).value(forKey: request.transactionId ?? "") as? [String : Any]){
+            self.handleResponse(dict, request.callType ?? .video, dict["muid"] as? String ?? "")
+            return
+        }
+        
         let params: [String: Any]
         
         params = request.generateParamsForGettingChannel()
@@ -56,17 +62,38 @@ extension GroupCall{
                 print("Error",error ?? "")
                 return
             }
-            let groupCall = GroupCallChannelData().getGroupCallChannelData((responseObject as? [String : Any])?["data"] as? [String : Any] ?? [String : Any]())
-            
-            let user = User(name: currentUserName(), imageURL: currentUserImage(), userId: currentUserId())
-            
-            let groupCallChannel = GroupCallChannel(groupCall.channelId ?? -1)
-            let groupCallData = GroupCallData.init(peerData: user, callType: .audio, muid: String.uuid(), signallingClient: groupCallChannel)
-            CallManager.shared.startGroupCall(call: groupCallData, groupCallChannelData: groupCall) { (status, error) in
-                
+           
+            guard var response = responseObject as? [String : Any] else{
+                callback(HippoError.general, nil)
+                return
             }
+            
+            if currentUserType() == .agent{
+                var responseDict = HippoConfig.shared.groupCallData
+                response["muid"] = String.uuid()
+                responseDict[request.transactionId ?? ""] = response
+                HippoConfig.shared.groupCallData = responseDict
+            }
+            
+            self.handleResponse(response, request.callType ?? .video, response["muid"] as? String ?? "")
             
             callback(nil, responseObject as? [String : Any])
         }
     }
+    
+    
+    private class func handleResponse(_ responseObject : [String : Any], _ callType : CallType, _ muid : String){
+        let groupCall = GroupCallChannelData().getGroupCallChannelData(responseObject["data"] as? [String : Any] ?? [String : Any]())
+        
+        let user = User(name: currentUserName(), imageURL: currentUserImage(), userId: currentUserId())
+        
+        let groupCallChannel = GroupCallChannel(groupCall.channelId ?? -1)
+        
+        
+        let groupCallData = GroupCallData.init(peerData: user, callType: callType, muid: muid, signallingClient: groupCallChannel)
+        CallManager.shared.startGroupCall(call: groupCallData, groupCallChannelData: groupCall) { (status, error) in
+            
+        }
+    }
+    
 }

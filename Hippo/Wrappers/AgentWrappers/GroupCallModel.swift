@@ -8,7 +8,9 @@
 
 import Foundation
 
-public struct AgentGroupCallModel {
+public struct GroupCallModel {
+    //call type
+    public var callType : CallType?
     
     // reseller token from parent app
     public var resellerToken: String?
@@ -33,14 +35,6 @@ public struct AgentGroupCallModel {
     
     // transaction id
     public var transactionId : String?
-    
-    //Multiple customer ids
-    /// * Optional parameter
-    public var userIds : [String]?
-    
-    //Multiple agent ids
-    /// * Optional parameter
-    public var agentIds : [String]?
 
     //Message
     /// * Optional parameter
@@ -48,31 +42,27 @@ public struct AgentGroupCallModel {
     
     //init for creating group session
     ///*init for these parameters for creating channel for group calling from parent app*
-    public init?(resellerToken: String, referenceId: String, email: String, roomTitle: String, sessionStartTime: String, sessionEndTime: String, uniqueIds : [String], transactionId : String, userIds : [String]?, agentIds : [String]?, message : String?){
-        self.resellerToken = resellerToken
-        self.referenceId = referenceId
+    public init?(email: String, roomTitle: String, sessionStartTime: String, sessionEndTime: String, uniqueIds : [String], transactionId : String, userIds : [String]?, agentIds : [String]?, message : String?){
         self.email = email
         self.roomTitle = roomTitle
         self.sessionStartTime = sessionStartTime
         self.sessionEndTime = sessionEndTime
         self.uniqueIds = uniqueIds
-        self.userIds = userIds
-        self.agentIds = agentIds
         self.message = message
         self.transactionId = transactionId
     }
     
     //init for getting session details
     ///*init these parameters for getting session details*
+    ///resellerToken,referenceid and email are optional params
     
-    public init?(resellerToken : String, referenceId : String, email : String, transactionId : String){
-        self.resellerToken = resellerToken
-        self.referenceId = referenceId
+    
+    public init?(email : String?, transactionId : String, callType : CallType){
         self.email = email
         self.transactionId = transactionId
     }
 }
-extension AgentGroupCallModel{
+extension GroupCallModel{
     
     //MARK:- Generate Params
     ///Returns paramets for creating channel for group calling
@@ -83,14 +73,10 @@ extension AgentGroupCallModel{
             HippoConfig.shared.log.trace("notAllowedForCustomer", level: .error)
             throw HippoError.notAllowedForAgent
         }
-        params["app_secret_key"] = HippoConfig.shared.agentDetail?.appSecrectKey
+        
         params["access_token"] = HippoConfig.shared.agentDetail?.fuguToken
         params["user_id"] = currentUserId()
         params["en_user_id"] = currentEnUserId()
-        params["user_ids"] = userIds
-        params["agent_ids"] = agentIds
-        params["reseller_token"] = resellerToken
-        params["reference_id"] = referenceId
         params["agent_email"] = email
         params["room_title"] = roomTitle
         params["session_end_time"] = sessionEndTime
@@ -106,14 +92,15 @@ extension AgentGroupCallModel{
     
     func generateParamsForGettingChannel()-> [String : Any]{
         var params = [String : Any]()
-        params["app_secret_key"] = HippoConfig.shared.agentDetail?.appSecrectKey
-        params["access_token"] = HippoConfig.shared.agentDetail?.fuguToken
-        params["reseller_token"] = resellerToken
-        params["reference_id"] = referenceId
-        params["agent_email"] = email
+        if currentUserType() == .agent{
+            params["access_token"] = HippoConfig.shared.agentDetail?.fuguToken
+        }else{
+            params["app_secret_key"] = HippoConfig.shared.appSecretKey
+        }
         params["user_id"] = currentUserId()
         params["en_user_id"] = currentEnUserId()
         params["transaction_id"] = transactionId
+        params["call_type"] = callType?.rawValue
         return params
     }
 }
