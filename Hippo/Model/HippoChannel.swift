@@ -265,7 +265,6 @@ class HippoChannel {
         default:
             createNewConversationWith(params: params, completion: completion)
         }
-        
     }
     
     private class func createOneToOneConversation(params: [String: Any], completion: @escaping HippoChannelCreationHandler) {
@@ -963,6 +962,13 @@ class HippoChannel {
         saveMessagesInCache()
         print("Channel with \(id) Deintialized")
     }
+    
+    func deinitObservers(){
+        NotificationCenter.default.removeObserver(self)
+        unSubscribe()
+        saveMessagesInCache()
+    }
+    
     
 }
 

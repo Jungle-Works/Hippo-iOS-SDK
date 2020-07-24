@@ -10,10 +10,13 @@
 		47B12417C887BBD208902F39 /* Pods_Hippo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C0A922564912516EF04B93F /* Pods_Hippo.framework */; };
 		6B1011F2248128D2007FC8EC /* loader.gif in Resources */ = {isa = PBXBuildFile; fileRef = 6B1011F1248128D2007FC8EC /* loader.gif */; };
 		6B45484A249B89C8006F84C7 /* HippoLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6B45484C249B89C8006F84C7 /* HippoLocalizable.strings */; };
+		6B87979424BEDAB80093EA90 /* GroupCall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B87979324BEDAB80093EA90 /* GroupCall.swift */; };
+		6B87979624BEDBF10093EA90 /* AgentGroupCallChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B87979524BEDBF10093EA90 /* AgentGroupCallChat.swift */; };
 		6B91A93E24780AF4008AB4CC /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B91A93C24780AF4008AB4CC /* NavigationBar.swift */; };
 		6B91A93F24780AF4008AB4CC /* NavigationBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6B91A93D24780AF4008AB4CC /* NavigationBar.xib */; };
 		6BA8B19E24784E1B00E7E087 /* NavigationBarChat.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6BA8B19D24784E1B00E7E087 /* NavigationBarChat.xib */; };
 		6BA8B1A024784E3600E7E087 /* NavigationBarChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA8B19F24784E3600E7E087 /* NavigationBarChat.swift */; };
+		6BB2E0D224BF50E900DCC6E7 /* GroupCallChannelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BB2E0D124BF50E900DCC6E7 /* GroupCallChannelData.swift */; };
 		6BBBEA8324991C7300C3E1CE /* BottomPopupController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BBBEA8224991C7300C3E1CE /* BottomPopupController.swift */; };
 		6BCCD5902490B86600C5CA0D /* FloatRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCCD58F2490B86600C5CA0D /* FloatRatingView.swift */; };
 		6BCD891324A2590800FD0A22 /* AllString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCD891224A2590800FD0A22 /* AllString.swift */; };
@@ -418,10 +421,13 @@
 		6B454849249B89BD006F84C7 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		6B45484B249B89C8006F84C7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/HippoLocalizable.strings; sourceTree = "<group>"; };
 		6B45484D249B89D0006F84C7 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/HippoLocalizable.strings; sourceTree = "<group>"; };
+		6B87979324BEDAB80093EA90 /* GroupCall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupCall.swift; sourceTree = "<group>"; };
+		6B87979524BEDBF10093EA90 /* AgentGroupCallChat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentGroupCallChat.swift; sourceTree = "<group>"; };
 		6B91A93C24780AF4008AB4CC /* NavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
 		6B91A93D24780AF4008AB4CC /* NavigationBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NavigationBar.xib; sourceTree = "<group>"; };
 		6BA8B19D24784E1B00E7E087 /* NavigationBarChat.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NavigationBarChat.xib; sourceTree = "<group>"; };
 		6BA8B19F24784E3600E7E087 /* NavigationBarChat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarChat.swift; sourceTree = "<group>"; };
+		6BB2E0D124BF50E900DCC6E7 /* GroupCallChannelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupCallChannelData.swift; sourceTree = "<group>"; };
 		6BBBEA8224991C7300C3E1CE /* BottomPopupController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomPopupController.swift; sourceTree = "<group>"; };
 		6BCCD58F2490B86600C5CA0D /* FloatRatingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatRatingView.swift; sourceTree = "<group>"; };
 		6BCD891224A2590800FD0A22 /* AllString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllString.swift; sourceTree = "<group>"; };
@@ -1538,6 +1544,7 @@
 				D8F6D05F2418FD4700B168C5 /* ConversationPresenter.swift */,
 				D8F6D05D2418FD4700B168C5 /* ConversationStore.swift */,
 				D8F6D05E2418FD4700B168C5 /* AgentConversationManager.swift */,
+				6B87979524BEDBF10093EA90 /* AgentGroupCallChat.swift */,
 			);
 			path = AgentWrappers;
 			sourceTree = "<group>";
@@ -1725,6 +1732,8 @@
 				D8F6D22C2419557300B168C5 /* ChatDetail.swift */,
 				D8F6D22D2419557300B168C5 /* AgentUserChannel.swift */,
 				D8F6D22E2419557400B168C5 /* AgentDetail.swift */,
+				6B87979324BEDAB80093EA90 /* GroupCall.swift */,
+				6BB2E0D124BF50E900DCC6E7 /* GroupCallChannelData.swift */,
 			);
 			path = AgentModels;
 			sourceTree = "<group>";
@@ -2871,6 +2880,7 @@
 				D8F6D1032419496900B168C5 /* IncomingImageCell.swift in Sources */,
 				D8F6D2342419557600B168C5 /* AgentUserChannel.swift in Sources */,
 				D8CD684724866EF1000F4097 /* NSRange.swift in Sources */,
+				6B87979624BEDBF10093EA90 /* AgentGroupCallChat.swift in Sources */,
 				D8CD684424866EF1000F4097 /* Attribute.swift in Sources */,
 				D8F6D0FE2419493C00B168C5 /* ContactNumberTableCell.swift in Sources */,
 				D8F6D1F92419547C00B168C5 /* QuickLookItem.swift in Sources */,
@@ -2887,6 +2897,7 @@
 				D8F6D15824194D8600B168C5 /* OutgoingVideoTableViewCell.swift in Sources */,
 				D8F6D15E24194DA500B168C5 /* OutgoingDocumentTableViewCell.swift in Sources */,
 				D88B900E2466111E00E3093F /* FilterOptionTableViewCell.swift in Sources */,
+				6B87979424BEDAB80093EA90 /* GroupCall.swift in Sources */,
 				D8F6D2D124195DC500B168C5 /* PaymentItem.swift in Sources */,
 				D848D1B5245EEF5600235322 /* PaymentPlansDataSource.swift in Sources */,
 				D88B20D524619F90007FD382 /* Filter.swift in Sources */,
@@ -2941,6 +2952,7 @@
 				D84F79F5245F49AC00B36168 /* PaymentItemDescriptionCell.swift in Sources */,
 				D8F6D0192418FA6900B168C5 /* MultiSelectHeaderTableViewCell.swift in Sources */,
 				D8CD684824866EF1000F4097 /* NSAttributedString.swift in Sources */,
+				6BB2E0D224BF50E900DCC6E7 /* GroupCallChannelData.swift in Sources */,
 				D8F6D2642419591500B168C5 /* CloseButton.swift in Sources */,
 				D8F6D0842419000100B168C5 /* Benchmarker.swift in Sources */,
 				D8F6D0062418F9E600B168C5 /* CheckoutViewController.swift in Sources */,

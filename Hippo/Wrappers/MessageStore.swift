@@ -83,8 +83,8 @@ class MessageStore {
         HippoConfig.shared.log.trace(params, level: .request)
         isInProgress = true
         
-        HTTPClient.shared.makeSingletonConnectionWith(method: .POST, identifier: RequestIdenfier.getMessagesIdentifier ,para: params, extendedUrl: FuguEndPoints.API_GET_MESSAGES.rawValue) { (responseObject, error, tag, statusCode) in
-            
+        HTTPClient.shared.makeSingletonConnectionWith(method: .POST, identifier: RequestIdenfier.getMessagesIdentifier + "\(requestParam.channelId)",para: params, extendedUrl: FuguEndPoints.API_GET_MESSAGES.rawValue) { (responseObject, error, tag, statusCode) in
+       
             isInProgress = false
             let rawStatusCode = statusCode ?? -1
             
@@ -97,12 +97,12 @@ class MessageStore {
                 handleGetMessagesCompletion(for: requestParam, data: data, completion: completion)
             default:
                 HippoConfig.shared.log.error(error?.localizedDescription ?? "", level: .error )
+                if error?.localizedDescription == "cancelled"{
+                    return
+                }
+                
                 if error?.localizedDescription ?? "" == "Access Denied"{
-//                    showAlertWith(message: error?.localizedDescription ?? "") {
-//                        if let vc = getLastVisibleController(){
-//                            vc.dismiss(animated: true, completion: nil)
-//                        }
-//                    }
+                    
                 }
                 handleGetMessageError(response: nil, completion: completion)
             }

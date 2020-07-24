@@ -15,6 +15,7 @@ let FUGU_USER_ID = "fuguUserId"
 let Fugu_AppSecret_Key = "fugu_app_secret_key"
 let Fugu_en_user_id = "fuguEnUserId"
 let Hippo_User_Channel_Id = "userChannelId"
+let Fugu_groupCallData = "groupCallData"
 
 
 extension UInt {
@@ -318,18 +319,19 @@ func subscribeCustomerUserChannel(userChannelId: String) {
             }
         }
     }) {  (messageDict) in
-        if let messageType = messageDict["message_type"] as? Int, messageType == 18 {
+         HippoConfig.shared.log.trace("UserChannel:: --->\(messageDict)", level: .socket)
+        if let messageType = messageDict["message_type"] as? Int, messageType == MessageType.call.rawValue {
             if let channel_id = messageDict["channel_id"] as? Int{ //isSubscribed(userChannelId: "\(channel_id)") == false {
                 
                 let channel = FuguChannelPersistancyManager.shared.getChannelBy(id: channel_id)
                 if versionCode < 350{//call for old version
                     channel.signalReceivedFromPeer?(messageDict)
                 }
-                HippoConfig.shared.log.trace("UserChannel:: --->\(messageDict)", level: .socket)
                 CallManager.shared.voipNotificationRecieved(payloadDict: messageDict)
             }
+        }else if let messageType = messageDict["message_type"] as? Int, messageType == MessageType.groupCall.rawValue{
+            CallManager.shared.voipNotificationRecievedForGroupCall(payloadDict: messageDict)
         }
-        
         
         if let notificationType = messageDict["notification_type"] as? Int{
             var unreadData = FuguDefaults.object(forKey: DefaultName.p2pUnreadCount.rawValue) as? [String: Any]
@@ -359,7 +361,16 @@ func subscribeMarkConversation(){
     FayeConnection.shared.subscribeTo(channelId: markConversationChannel, completion: { (success) in
     }) {  (messageDict) in
         print(messageDict)
-        if let notificationType = messageDict["notification_type"] as? Int, notificationType == 12, let status = messageDict["status"] as? String, status == "2"{
+        if let notificationType = messageDict["notification_type"] as? Int, notificationType == 12{
+            if let status = messageDict["status"] as? String{
+                if status != "2"{
+                    return
+                }
+            }else if let status = messageDict["status"] as? Int{
+                if status != 2{
+                    return
+                }
+            }
             for controller in getLastVisibleController()?.navigationController?.viewControllers ?? [UIViewController](){
                 if controller is AllConversationsViewController{
                     (controller as? AllConversationsViewController)?.closeChat(messageDict["channel_id"] as? Int ?? -1)
@@ -752,7 +763,7 @@ func parseDeviceToken(deviceToken: Data) -> String? {
 func updateDeviceToken(deviceToken: String) {
     switch HippoConfig.shared.appUserType {
     case .agent:
-        AgentConversationManager.updateAgentChannel{ (error) in
+        AgentConversationManager.updateAgentChannel{ (error,response) in
         }
     case .customer:
         HippoUserDetail.getUserDetailsAndConversation()
@@ -790,7 +801,11 @@ func validateFuguCredential() -> Bool {
 }
 
 func getCurrentLanguageLocale() -> String {
-    return UserDefaults.standard.value(forKey: DefaultName.selectedLanguage.rawValue) as? String ?? "en"
+    if UserDefaults.standard.value(forKey: DefaultName.selectedLanguage.rawValue) as? String == ""{
+        return "en"
+    }else{
+        return UserDefaults.standard.value(forKey: DefaultName.selectedLanguage.rawValue) as? String ?? "en"
+    }
 }
 
 

@@ -63,7 +63,7 @@ class PrePayment{
 }
 
 
-public typealias HippoResponseRecieved = ((_ error: HippoError?) -> ())
+public typealias HippoResponseRecieved = ((_ error: HippoError?, _ param: [String : Any]?) -> ())
 
 
 class UnreadCount {

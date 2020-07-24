@@ -232,11 +232,11 @@ public class HippoStrings {
         if versionCode > 320{
             #if canImport(HippoCallClient)
             
-            HippoCallClientStrings.calling = HippoStrings.calling
-            HippoCallClientStrings.ringing = HippoStrings.ringing
-            HippoCallClientStrings.callingYou = HippoStrings.isCallingYou
-            HippoCallClientStrings.callDeclined = HippoStrings.callDeclined
-            HippoCallClientStrings.busyOnOtherCall = HippoStrings.busyAnotherCall
+//            HippoCallClientStrings.calling = HippoStrings.calling
+//            HippoCallClientStrings.ringing = HippoStrings.ringing
+//            HippoCallClientStrings.callingYou = HippoStrings.isCallingYou
+//            HippoCallClientStrings.callDeclined = HippoStrings.callDeclined
+//            HippoCallClientStrings.busyOnOtherCall = HippoStrings.busyAnotherCall
             
             #else
             

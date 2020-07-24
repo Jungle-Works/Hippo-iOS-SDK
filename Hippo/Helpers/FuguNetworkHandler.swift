@@ -114,47 +114,40 @@ class FuguNetworkHandler: NSObject {
             } else {
                 chatBoxVC.updateErrorLabelView(isHiding: hidden)
             }
-         
-         if hidden {
             
-//            chatBoxVC.startSendingCachedMessagesWhenInternetAvailable()
-            chatBoxVC.internetIsBack()
-         }
+            if hidden {
+                chatBoxVC.internetIsBack()
+            }
         }else if let chatBoxVC = getLastVisibleController() as? PromotionsViewController, chatBoxVC.isViewLoaded {
-                    if hidden == false {
-                        chatBoxVC.errorLabel.text = erorMessage
-                    }
-                    if let color = errorLabelColor {
-                        chatBoxVC.errorLabel.backgroundColor = color
-                    } else {
-                        chatBoxVC.errorLabel.backgroundColor = UIColor.red
-                    }
-                    if !isToLoadFirstTime && chatBoxVC.viewError_Height.constant == 0 {
-                        chatBoxVC.errorLabel.backgroundColor = UIColor.red
-                        chatBoxVC.updateErrorLabelView(isHiding: true)
-                    } else {
-                        chatBoxVC.updateErrorLabelView(isHiding: hidden)
-                    }
-                 
-                 if hidden {
-                    chatBoxVC.updateErrorLabelView(isHiding: hidden)
-                    chatBoxVC.callGetAnnouncementsApi()
-                 }
-                }
-        
-        
-        
-        
-        else if let conversationVC = getLastVisibleController() as? AllConversationsViewController, conversationVC.isViewLoaded {
+            if hidden == false {
+                chatBoxVC.errorLabel.text = erorMessage
+            }
+            if let color = errorLabelColor {
+                chatBoxVC.errorLabel.backgroundColor = color
+            } else {
+                chatBoxVC.errorLabel.backgroundColor = UIColor.red
+            }
+            if !isToLoadFirstTime && chatBoxVC.viewError_Height.constant == 0 {
+                chatBoxVC.errorLabel.backgroundColor = UIColor.red
+                chatBoxVC.updateErrorLabelView(isHiding: true)
+            } else {
+                chatBoxVC.updateErrorLabelView(isHiding: hidden)
+            }
+            
+            if hidden {
+                chatBoxVC.updateErrorLabelView(isHiding: hidden)
+                chatBoxVC.callGetAnnouncementsApi()
+            }
+        }else if let conversationVC = getLastVisibleController() as? AllConversationsViewController, conversationVC.isViewLoaded {
             if hidden == false {
                 
                 guard let chatCachedArray = FuguDefaults.object(forKey: DefaultName.conversationData.rawValue) as? [[String: Any]], chatCachedArray.isEmpty == false else {
-
-                        return
+                    
+                    return
                 }
                 
                 conversationVC.refreshControl.endRefreshing()
-               
+                
                 conversationVC.errorLabel.text = erorMessage
                 if let color = errorLabelColor {
                     conversationVC.errorLabel.backgroundColor = color
@@ -171,6 +164,33 @@ class FuguNetworkHandler: NSObject {
             } else {
                 conversationVC.getAllConversations()
                 conversationVC.updateErrorLabelView(isHiding: hidden)
+            }
+        }else if let agentVC = getLastVisibleController() as? AgentHomeViewController, agentVC.isViewLoaded {
+            if hidden == false {
+                
+//                guard let chatCachedArray = FuguDefaults.object(forKey: DefaultName.conversationData.rawValue) as? [[String: Any]], chatCachedArray.isEmpty == false else {
+//
+//                    return
+//                }
+                
+ //               agentVC.refreshControl.endRefreshing()
+                
+                agentVC.errorLabel.text = erorMessage
+                if let color = errorLabelColor {
+                    agentVC.errorLabel.backgroundColor = color
+                } else {
+                    agentVC.errorLabel.backgroundColor = UIColor.red
+                }
+                
+                if !isToLoadFirstTime && agentVC.height_ErrorLabel.constant == 0 {
+                    agentVC.errorLabel.backgroundColor = UIColor.red
+                    agentVC.updateErrorLabelView(isHiding: true)
+                } else {
+                    agentVC.updateErrorLabelView(isHiding: hidden)
+                }
+            } else {
+                AgentConversationManager.getAllData()
+                agentVC.updateErrorLabelView(isHiding: hidden)
             }
         }
     }
