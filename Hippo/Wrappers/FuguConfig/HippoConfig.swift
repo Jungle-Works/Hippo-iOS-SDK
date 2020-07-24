@@ -938,24 +938,24 @@ struct BotAction {
     }
     
     public func handleVoipNotification(payload: [AnyHashable: Any]) {
-            guard let json = payload as? [String: Any] else {
-                return
-            }
-            guard isHippoUserChannelSubscribe() else {
-                self.handleVoipNotification(payloadDict: json)
-                return
-            }
-            
+        guard let json = payload as? [String: Any] else {
+            return
+        }
+        guard isHippoUserChannelSubscribe() else {
+            self.handleVoipNotification(payloadDict: json)
+            return
         }
         
-        public func handleVoipNotification(payloadDict: [String: Any]) {
-            
-            guard isHippoUserChannelSubscribe() else {
-                CallManager.shared.voipNotificationRecieved(payloadDict: payloadDict)
-                return
-            }
-    //        CallManager.shared.voipNotificationRecieved(payloadDict: payloadDict)
+    }
+        
+    public func handleVoipNotification(payloadDict: [String: Any]) {
+        
+        guard isHippoUserChannelSubscribe() else {
+            CallManager.shared.voipNotificationRecieved(payloadDict: payloadDict)
+            return
         }
+        //        CallManager.shared.voipNotificationRecieved(payloadDict: payloadDict)
+    }
     
     public func handleRemoteNotification(userInfo: [String: Any]) {
         setAgentStoredData()
@@ -990,9 +990,9 @@ struct BotAction {
 //                return
 //            }
 //        }
-        if userInfo["notification_type"] as? Int == 20{
-            return
-        }
+//        if userInfo["notification_type"] as? Int == 20{
+//            return
+//        }
         
         switch HippoConfig.shared.appUserType {
         case .agent:
@@ -1021,10 +1021,39 @@ struct BotAction {
         }
     
     
+    func subscribeChannelAndStartListening(_ channelId : Int){
+        FayeConnection.shared.subscribeTo(channelId: "\(channelId)", completion: {(success) in
+            if !success{
+                if !FayeConnection.shared.isConnected && FuguNetworkHandler.shared.isNetworkConnected{
+                    FayeConnection.shared.enviromentSwitchedWith(urlString: self.fayeBaseURLString)
+                    var retryAttempt = 0
+                    fuguDelay(0.2) {
+                        if retryAttempt <= 3{
+                            self.subscribeChannelAndStartListening(channelId)
+                            retryAttempt += 1
+                        }else{
+                            return
+                        }
+                    }
+                }
+            }
+            print("channel subscribed", success)
+        }) {(messageDict) in
+            print(messageDict)
+            CallManager.shared.voipNotificationRecieved(payloadDict: messageDict)
+        }
+    }
+    
     func handleAgentNotification(userInfo: [String: Any]) {
         if userInfo["notification_type"] as? Int == 25{
             return
+        }else if userInfo["notification_type"] as? Int == 20{
+            if let channelId = userInfo["channel_id"] as? Int{
+                subscribeChannelAndStartListening(channelId)
+                return
+            }
         }
+        
         let visibleController = getLastVisibleController()
         let channelId = (userInfo["channel_id"] as? Int) ?? -1
         let channelName = (userInfo["label"] as? String) ?? ""
@@ -1081,6 +1110,9 @@ struct BotAction {
         if userInfo["notification_type"] as? Int == 25{
             CallManager.shared.voipNotificationRecievedForGroupCall(payloadDict: userInfo)
             return
+        }else if userInfo["notification_type"] as? Int == 20{
+           CallManager.shared.voipNotificationRecieved(payloadDict: userInfo)
+           return
         }
         
         let visibleController = getLastVisibleController()
@@ -1219,6 +1251,12 @@ extension HippoConfig{
     public func restoreSession(_ transactionId : String){
          groupCallData.removeValue(forKey: transactionId)
     }
+    
+    #if canImport(HippoCallClient)
+    public func forceKillOnTermination(){
+        HippoCallClient.shared.terminateSessionIfAny()
+    }
+    #endif
     
 }
 extension HippoConfig {

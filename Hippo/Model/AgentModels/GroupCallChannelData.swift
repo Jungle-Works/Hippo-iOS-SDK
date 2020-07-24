@@ -22,7 +22,7 @@ struct GroupCallChannelData {
     var channelId : Int?
     var status : Bool?
     var callType : CallType?
-    
+    var transactionId : String?
    
     //
     
@@ -61,15 +61,17 @@ class GroupCallChannel{
 
 #if canImport(HippoCallClient)
 extension GroupCallChannel: SignalingClient {
-    func sendSessionStatus(status: String) {
+    func sendSessionStatus(status: String, transactionId: String) {
         if status == "MISSED_GROUP_CALL"{
             HippoConfig.shared.HippoSessionStatus?(.missed)
         }else if status == "JOIN_GROUP_CALL"{
-            HippoConfig.shared.HippoSessionStatus?(.rejected)
-        }else if status == "REJECT_GROUP_CALL"{
             HippoConfig.shared.HippoSessionStatus?(.sessionStarted)
+        }else if status == "REJECT_GROUP_CALL"{
+            HippoConfig.shared.HippoSessionStatus?(.rejected)
         }else if status == "END_GROUP_CALL"{
             HippoConfig.shared.HippoSessionStatus?(.sessionEnded)
+        }else if status == "START_GROUP_CALL"{
+           HippoConfig.shared.HippoSessionStatus?(.agentSessionStarted)
         }
     }
     

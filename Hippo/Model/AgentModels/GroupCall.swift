@@ -46,7 +46,7 @@ extension GroupCall{
     class func getGroupCallChannelDetails(request: GroupCallModel, callback: @escaping HippoResponseRecieved) {
         
         if let dict = ((HippoConfig.shared.groupCallData as NSDictionary).value(forKey: request.transactionId ?? "") as? [String : Any]){
-            self.handleResponse(dict, request.callType ?? .video, dict["muid"] as? String ?? "")
+            self.handleResponse(dict, request.callType ?? .video, dict["muid"] as? String ?? "", request.transactionId ?? "")
             return
         }
         
@@ -75,16 +75,16 @@ extension GroupCall{
                 HippoConfig.shared.groupCallData = responseDict
             }
             
-            self.handleResponse(response, request.callType ?? .video, response["muid"] as? String ?? "")
+            self.handleResponse(response, request.callType ?? .video, response["muid"] as? String ?? "", request.transactionId ?? "")
             
             callback(nil, responseObject as? [String : Any])
         }
     }
     
     
-    private class func handleResponse(_ responseObject : [String : Any], _ callType : CallType, _ muid : String){
-        let groupCall = GroupCallChannelData().getGroupCallChannelData(responseObject["data"] as? [String : Any] ?? [String : Any]())
-        
+    private class func handleResponse(_ responseObject : [String : Any], _ callType : CallType, _ muid : String, _ tranactionId : String){
+        var groupCall = GroupCallChannelData().getGroupCallChannelData(responseObject["data"] as? [String : Any] ?? [String : Any]())
+        groupCall.transactionId = tranactionId
         let user = User(name: currentUserName(), imageURL: currentUserImage(), userId: currentUserId())
         
         let groupCallChannel = GroupCallChannel(groupCall.channelId ?? -1)

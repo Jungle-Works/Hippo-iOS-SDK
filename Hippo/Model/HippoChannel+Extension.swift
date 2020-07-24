@@ -12,6 +12,7 @@ public enum GroupCallStatus{
     case rejected
     case sessionStarted
     case sessionEnded
+    case agentSessionStarted
 }
 
 
@@ -22,11 +23,10 @@ public enum GroupCallStatus{
 
 #if canImport(HippoCallClient)
 extension HippoChannel: SignalingClient {
-    
-    func sendSessionStatus(status: String) {
-       
+    func sendSessionStatus(status: String, transactionId: String) {
+        
     }
-  
+    
     func connectClient(completion: @escaping (Bool) -> Void) {
         guard !isConnected() else {
             completion(true)
