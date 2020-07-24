@@ -7,12 +7,25 @@
 
 import UIKit
 
+public enum GroupCallStatus{
+    case missed
+    case rejected
+    case sessionStarted
+    case sessionEnded
+    case agentSessionStarted
+}
+
+
+
 #if canImport(HippoCallClient)
  import HippoCallClient
 #endif
 
 #if canImport(HippoCallClient)
 extension HippoChannel: SignalingClient {
+    func sendSessionStatus(status: String, transactionId: String) {
+        
+    }
     
     func connectClient(completion: @escaping (Bool) -> Void) {
         guard !isConnected() else {

@@ -115,7 +115,6 @@ public struct ConversationListTheme {
     open var homeBarButtonTextColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
     open var homeBarButtonText = String()
     
-    open var broadcastBarButtonImage: UIImage? = UIImage(named: "broadcastIcon", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     open var broadcastBarButtonFont: UIFont? = UIFont.regular(ofSize: 13.0)
     open var broadcastBarButtonTextColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
     open var broadcastBarButtonText = String()
@@ -137,7 +136,6 @@ public struct ConversationListTheme {
     
     open var sendBtnIcon: UIImage? = UIImage(named: "send", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     
-    open var chatArrowIcon: UIImage? = UIImage(named: "chat_arrow", in: FuguFlowManager.bundle, compatibleWith: nil)
     
     open var sendBtnIconTintColor: UIColor?
     
@@ -236,7 +234,7 @@ public struct ConversationListTheme {
     open var broadcastTitleInfoFont: UIFont? = UIFont.regular(ofSize: 10.0)
     open var broadcastTitleInfoColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
     
-//    open var checkBoxActive = UIImage(named: "checkbox_active_icon", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysOriginal)
+
     open var checkBoxActive = UIImage(named: "checkbox_active_icon", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     open var checkBoxActiveTintColor = UIColor.black
 //    open var checkBoxInActive = UIImage(named: "checkbox_inactive_icon", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysOriginal)
@@ -277,7 +275,7 @@ public struct ConversationListTheme {
     open var uploadIcon = UIImage(named: "uploadIcon", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     open var chatReOpenIcon = UIImage(named: "reopen_conversation_icon", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysOriginal)
     open var chatReOpenIconWithTemplateMode = UIImage(named: "reopen_conversation_icon", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
-    open var chatCloseIcon = UIImage(named: "close_conversation_icon", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysOriginal)
+    open var chatCloseIcon = UIImage(named: "cancel_icon", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysOriginal)
     open var chatAssignIcon = UIImage(named: "assigned_conversation_icon", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysOriginal)
     
     

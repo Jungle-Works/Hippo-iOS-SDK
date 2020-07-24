@@ -12,7 +12,7 @@ let HippoSDKSource = 1
 let Device_Type_iOS = 2
 var userDetailData = [String: Any]()
 
-let fuguAppVersion = "2.1.30"
+let fuguAppVersion = "2.1.31"
 var versionCode = 320
 
 /*
@@ -120,5 +120,7 @@ var versionCode = 320
  327 *** 2.1.28 = Variable added for new calling and issues fixed
  
  328 *** 2.1.29 = Color coding changed for conversation
+ 
+ 329 *** 2.1.31 = Agent sdk issues fixed and api optimisations done for extra hits
  
  */

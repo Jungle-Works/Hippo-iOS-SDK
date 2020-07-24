@@ -150,24 +150,22 @@
                                     <constraint firstItem="F3C-jv-Sxi" firstAttribute="centerX" secondItem="qXQ-cI-C7R" secondAttribute="centerX" id="Tgx-6G-3Oa"/>
                                 </constraints>
                             </view>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6XP-nX-Ex8">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6XP-nX-Ex8">
                                 <rect key="frame" x="0.0" y="40" width="375" height="0.0"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Internet Connection" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VJ9-9Q-lTV">
-                                        <rect key="frame" x="0.0" y="-20" width="375" height="20"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="fmx-9D-XVA"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="0.0"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="10"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
+                                    <constraint firstItem="VJ9-9Q-lTV" firstAttribute="top" secondItem="6XP-nX-Ex8" secondAttribute="top" id="5pZ-NW-UbU"/>
                                     <constraint firstItem="VJ9-9Q-lTV" firstAttribute="leading" secondItem="6XP-nX-Ex8" secondAttribute="leading" id="OO3-gI-NHt"/>
                                     <constraint firstAttribute="trailing" secondItem="VJ9-9Q-lTV" secondAttribute="trailing" id="dT6-k1-3Ti"/>
-                                    <constraint firstItem="VJ9-9Q-lTV" firstAttribute="top" secondItem="6XP-nX-Ex8" secondAttribute="top" constant="-20" id="mX4-ng-pwc"/>
+                                    <constraint firstAttribute="height" id="pwS-GH-bmp"/>
                                     <constraint firstAttribute="bottom" secondItem="VJ9-9Q-lTV" secondAttribute="bottom" id="scg-GB-wPm"/>
                                 </constraints>
                             </view>
@@ -177,7 +175,7 @@
                             <constraint firstItem="6XP-nX-Ex8" firstAttribute="leading" secondItem="mvZ-qV-pMu" secondAttribute="leading" id="36C-Wd-Qac"/>
                             <constraint firstItem="Gh1-0d-ONf" firstAttribute="leading" secondItem="mvZ-qV-pMu" secondAttribute="leading" id="7nO-72-00P"/>
                             <constraint firstItem="Wi6-gy-afq" firstAttribute="leading" secondItem="mvZ-qV-pMu" secondAttribute="leading" id="Drr-ge-Hd4"/>
-                            <constraint firstItem="Gh1-0d-ONf" firstAttribute="top" secondItem="6XP-nX-Ex8" secondAttribute="bottom" id="EGH-tE-evv"/>
+                            <constraint firstItem="Gh1-0d-ONf" firstAttribute="bottom" secondItem="6XP-nX-Ex8" secondAttribute="top" id="EGH-tE-evv"/>
                             <constraint firstItem="Nwe-Em-gil" firstAttribute="leading" secondItem="mvZ-qV-pMu" secondAttribute="leading" id="FF6-9L-rkV"/>
                             <constraint firstItem="4ue-Lt-t3z" firstAttribute="top" secondItem="qXQ-cI-C7R" secondAttribute="bottom" id="FHN-a9-JYr"/>
                             <constraint firstAttribute="trailing" secondItem="Nwe-Em-gil" secondAttribute="trailing" id="ICR-vp-m2Z"/>
@@ -191,15 +189,14 @@
                             <constraint firstItem="qOb-Xv-lEG" firstAttribute="top" secondItem="vXy-qr-hnU" secondAttribute="bottom" id="YjV-Py-970"/>
                             <constraint firstItem="5Sk-cn-0eB" firstAttribute="leading" secondItem="mvZ-qV-pMu" secondAttribute="leading" id="bzA-aa-hRW"/>
                             <constraint firstAttribute="trailing" secondItem="Gh1-0d-ONf" secondAttribute="trailing" id="c8K-DG-aKr"/>
-                            <constraint firstItem="Nwe-Em-gil" firstAttribute="top" secondItem="Gh1-0d-ONf" secondAttribute="bottom" id="cy5-cr-6vV"/>
-                            <constraint firstItem="6XP-nX-Ex8" firstAttribute="top" secondItem="qOb-Xv-lEG" secondAttribute="bottom" id="f5l-Ag-IvE"/>
                             <constraint firstAttribute="trailing" secondItem="6XP-nX-Ex8" secondAttribute="trailing" id="fwm-FI-zXo"/>
                             <constraint firstItem="93u-rW-Bn3" firstAttribute="width" secondItem="mvZ-qV-pMu" secondAttribute="width" multiplier="0.56" id="jmp-Jz-ah4"/>
                             <constraint firstAttribute="trailing" secondItem="qXQ-cI-C7R" secondAttribute="trailing" id="khz-za-6Ft"/>
                             <constraint firstItem="Gh1-0d-ONf" firstAttribute="top" secondItem="qOb-Xv-lEG" secondAttribute="bottom" id="lKU-yH-V5o"/>
-                            <constraint firstItem="qXQ-cI-C7R" firstAttribute="top" secondItem="6XP-nX-Ex8" secondAttribute="bottom" id="nno-Lo-67o"/>
+                            <constraint firstItem="qXQ-cI-C7R" firstAttribute="top" secondItem="6XP-nX-Ex8" secondAttribute="bottom" id="mEs-9p-2Wn"/>
                             <constraint firstItem="93u-rW-Bn3" firstAttribute="height" secondItem="mvZ-qV-pMu" secondAttribute="height" multiplier="0.252006" id="pHp-no-V8S"/>
                             <constraint firstItem="4ue-Lt-t3z" firstAttribute="top" secondItem="Wi6-gy-afq" secondAttribute="bottom" id="q6C-nU-pDl"/>
+                            <constraint firstItem="Nwe-Em-gil" firstAttribute="top" secondItem="6XP-nX-Ex8" secondAttribute="bottom" id="qnC-xy-thE"/>
                             <constraint firstItem="5Sk-cn-0eB" firstAttribute="top" secondItem="93u-rW-Bn3" secondAttribute="bottom" constant="-25" id="tCa-aF-6Re"/>
                             <constraint firstItem="5Sk-cn-0eB" firstAttribute="centerY" secondItem="mvZ-qV-pMu" secondAttribute="centerY" constant="60" id="u3f-Mg-kvt"/>
                             <constraint firstAttribute="trailing" secondItem="5Sk-cn-0eB" secondAttribute="trailing" id="ySY-iu-Q5P"/>
@@ -252,8 +249,8 @@
                         <outlet property="buttonContainerViewHeightConstraint" destination="upG-tD-tjE" id="hxK-sb-c9s"/>
                         <outlet property="centerErrorButton" destination="5Sk-cn-0eB" id="fE6-sH-aes"/>
                         <outlet property="errorLabel" destination="VJ9-9Q-lTV" id="uOL-kZ-aYj"/>
-                        <outlet property="errorLabelTopConstraint" destination="mX4-ng-pwc" id="KSg-hw-mpp"/>
                         <outlet property="errorView" destination="6XP-nX-Ex8" id="7Ds-Ev-FIC"/>
+                        <outlet property="height_ErrorLabel" destination="pwS-GH-bmp" id="nGR-Je-2h0"/>
                         <outlet property="loaderContainer" destination="qXQ-cI-C7R" id="g4k-5H-LJx"/>
                         <outlet property="loaderImage" destination="F3C-jv-Sxi" id="jaZ-T4-okD"/>
                         <outlet property="myChatButton" destination="Zhx-lP-gGW" id="Mgm-he-Et7"/>
@@ -385,7 +382,7 @@
                                 </constraints>
                             </view>
                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="app_loader_shape" translatesAutoresizingMaskIntoConstraints="NO" id="Rai-32-2YJ" customClass="So_UIImageView" customModule="Hippo" customModuleProvider="target">
-                                <rect key="frame" x="147.5" y="271.5" width="80" height="80"/>
+                                <rect key="frame" x="167.5" y="291.5" width="40" height="40"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mF9-lG-KfK">

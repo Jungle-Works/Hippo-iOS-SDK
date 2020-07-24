@@ -18,6 +18,7 @@ public enum HippoError: LocalizedError {
     case invalidAppSecretKey
     case updateUserDetail
     case threwError(message: String)
+    case ChannelIdNotFound
     
     public var errorDescription: String? {
         switch self {
@@ -37,6 +38,8 @@ public enum HippoError: LocalizedError {
             return "Invalid appsecret key"
         case .networkError:
             return HippoStrings.noNetworkConnection
+        case .ChannelIdNotFound:
+            return "Channel id is empty"
         default:
             return HippoStrings.somethingWentWrong
         }

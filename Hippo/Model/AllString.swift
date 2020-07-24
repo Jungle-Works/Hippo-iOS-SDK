@@ -20,7 +20,7 @@ class AllString{
             
             guard let unwrappedStatusCode = statusCode, error == nil, unwrappedStatusCode == STATUS_CODE_SUCCESS, error == nil  else {
                 print("Error",error ?? "")
-                completion(error as? HippoError)
+                completion(error as? HippoError, nil)
                 return
             }
             guard let apiResponse = responseObject as? [String : Any], let data = apiResponse["data"] as? [String : Any], let response = data["business_data"] as? [String: Any] else {
@@ -32,7 +32,7 @@ class AllString{
               customerParsing(response)
             }
             HippoStrings.updateHippoCallClientStrings()
-            completion(error as? HippoError)
+            completion(error as? HippoError, nil)
         }
     }
     

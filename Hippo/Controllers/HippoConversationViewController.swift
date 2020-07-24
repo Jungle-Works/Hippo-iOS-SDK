@@ -599,7 +599,6 @@ class HippoConversationViewController: UIViewController {
         }
         guard let peerDetail = channel?.chatDetail?.peerDetail else {
             return
-            
         }
         
         self.view.endEditing(true)

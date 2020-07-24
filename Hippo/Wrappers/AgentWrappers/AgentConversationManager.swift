@@ -90,10 +90,10 @@ class AgentConversationManager {
         AgentDetail.loginViaAuth {(result) in
             isLoginInProgess = false
             guard result.isSuccessful else {
-                completion(result.error as? HippoError ?? HippoError.general)
+                completion(result.error as? HippoError ?? HippoError.general, nil)
                 return
             }
-            completion(nil)
+            completion(nil, nil)
             getUserUnreadCount()
            // getAllData()
             UnreadCount.getAgentTotalUnreadCount { (result) in

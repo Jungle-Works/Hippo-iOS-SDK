@@ -679,7 +679,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         self.updateErrorLabelView(isHiding: true)
     }
 
-    
+
     // MARK: - HELPER
     func updateErrorLabelView(isHiding: Bool) {
         if isHiding{

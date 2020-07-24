@@ -71,6 +71,9 @@ class FayeConnection: NSObject {
     
     // MARK: - Methods
     func enviromentSwitchedWith(urlString: String) {
+        if localFaye.isConnected && URL(string: urlString) == localFaye.url{
+            return
+        }
         localFaye = MZFayeClient(url: URL(string: urlString))
         setConnectionRetryAttemptConfig()
         setupFayeClient()
