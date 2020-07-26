@@ -1196,24 +1196,24 @@ struct BotAction {
             }
             
             if channel_Type == channelType.BROADCAST_CHANNEL.rawValue {
-                let conVC = ConversationsViewController.getWith(labelId: "\(labelId)")
-                let navVC = UINavigationController(rootViewController: conVC)
-                navVC.isNavigationBarHidden = true
-                visibleController?.modalPresentationStyle = .fullScreen
-                visibleController?.present(navVC, animated: true, completion: nil)
-            } else if channelId > 0 {
-                let conVC = ConversationsViewController.getWith(channelID: channelId, channelName: channelName)
-                let navVC = UINavigationController(rootViewController: conVC)
-                navVC.isNavigationBarHidden = true
-                visibleController?.modalPresentationStyle = .fullScreen
-                visibleController?.present(navVC, animated: true, completion: nil)
-            } else if labelId > 0 {
-                let conVC = ConversationsViewController.getWith(labelId: "\(labelId)")
-                let navVC = UINavigationController(rootViewController: conVC)
-                navVC.isNavigationBarHidden = true
-                visibleController?.modalPresentationStyle = .fullScreen
-                visibleController?.present(navVC, animated: true, completion: nil)
-            }
+                   let conVC = ConversationsViewController.getWith(labelId: "\(labelId)")
+                   let navVC = UINavigationController(rootViewController: conVC)
+                   navVC.isNavigationBarHidden = true
+                   navVC.modalPresentationStyle = .fullScreen
+                   visibleController?.present(navVC, animated: true, completion: nil)
+               } else if channelId > 0 {
+                   let conVC = ConversationsViewController.getWith(channelID: channelId, channelName: channelName)
+                   let navVC = UINavigationController(rootViewController: conVC)
+                   navVC.isNavigationBarHidden = true
+                   navVC.modalPresentationStyle = .fullScreen
+                   visibleController?.present(navVC, animated: true, completion: nil)
+               } else if labelId > 0 {
+                   let conVC = ConversationsViewController.getWith(labelId: "\(labelId)")
+                   let navVC = UINavigationController(rootViewController: conVC)
+                   navVC.isNavigationBarHidden = true
+                   navVC.modalPresentationStyle = .fullScreen
+                   visibleController?.present(navVC, animated: true, completion: nil)
+               }
         }
     }
 }
