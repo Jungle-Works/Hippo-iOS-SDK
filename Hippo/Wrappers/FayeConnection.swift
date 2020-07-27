@@ -169,6 +169,15 @@ class FayeConnection: NSObject {
             channelID = FayeConnection.channelPrefix + channelID
         }
     }
+    
+    func disconnectFaye(){
+        localFaye?.disconnect({
+            
+        }, failure: { (Error) in
+            print(Error.debugDescription)
+        })
+    }
+    
 }
 
 //MARK: - MZFayeClient Delegate

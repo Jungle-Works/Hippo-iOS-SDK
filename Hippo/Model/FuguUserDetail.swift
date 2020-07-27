@@ -470,6 +470,7 @@ public class UserTag: NSObject {
         
         FuguDefaults.removeAllPersistingData()
         
+        FayeConnection.shared.disconnectFaye()
         //Clear agent data
         clearAgentData()
         
@@ -501,7 +502,7 @@ public class UserTag: NSObject {
         
         FuguDefaults.removeAllPersistingData()
         
-         CallManager.shared.hungupCall()
+        CallManager.shared.hungupCall()
         
         let defaults = UserDefaults.standard
         defaults.removeObject(forKey: Hippo_User_Channel_Id)
