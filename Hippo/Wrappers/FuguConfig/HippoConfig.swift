@@ -1025,7 +1025,7 @@ struct BotAction {
         FayeConnection.shared.subscribeTo(channelId: "\(channelId)", completion: {(success) in
             if !success{
                 if !FayeConnection.shared.isConnected && FuguNetworkHandler.shared.isNetworkConnected{
-                    FayeConnection.shared.enviromentSwitchedWith(urlString: self.fayeBaseURLString)
+                    //FayeConnection.shared.enviromentSwitchedWith(urlString: self.fayeBaseURLString)
                     var retryAttempt = 0
                     fuguDelay(0.2) {
                         if retryAttempt <= 3{
