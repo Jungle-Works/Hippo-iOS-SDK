@@ -138,15 +138,17 @@ class AgentConversation: HippoConversation {
         }
         
         if self.lastMessage?.senderId == AgentDetail.id {
-            title = HippoStrings.you
-        } else if self.lastMessage?.userType == UserType.customer {
-            let nameArray = self.lastMessage?.senderFullName.components(separatedBy: " ") ?? []
-            let count = nameArray.count
-            let name = nameArray[0]
-            if !name.isEmpty {
-             title = count > 0 ? "\(name):" : ""
-            }
+            title = HippoStrings.you + ":"
         }
+        
+//        else if self.lastMessage?.userType == UserType.customer {
+//            let nameArray = self.lastMessage?.senderFullName.components(separatedBy: " ") ?? []
+//            let count = nameArray.count
+//            let name = nameArray[0]
+//            if !name.isEmpty {
+//             title = count > 0 ? "\(name):" : ""
+//            }
+//        }
         
         if let messageObject = self.lastMessage {
             switch messageObject.type {
