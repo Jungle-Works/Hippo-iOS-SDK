@@ -132,7 +132,7 @@ class PaymentItemDescriptionCell: UITableViewCell,UIPickerViewDelegate,UIPickerV
         textviewPlaceHolderLabel.text = item.descriptionField.placeHolder
         textviewPlaceHolderLabel.isHidden = !descriptionTextView.text.isEmpty
         
-        updateHeightOf(textView: self.descriptionTextView)
+        //updateHeightOf(textView: self.descriptionTextView)
     }
     
     private func updateHeightOf(textView: UITextView) {
@@ -148,7 +148,7 @@ class PaymentItemDescriptionCell: UITableViewCell,UIPickerViewDelegate,UIPickerV
             heightOfTextView = self.max_height_textview
         }
         self.textviewHeightConstraint.constant = heightOfTextView
-        self.delegate?.updateHeightFor(self)
+        //self.delegate?.updateHeightFor(self)
         self.layoutIfNeeded()
     }
     
@@ -207,7 +207,7 @@ extension PaymentItemDescriptionCell {
 extension PaymentItemDescriptionCell: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         item.descriptionField.value = textView.text
-        updateHeightOf(textView: textView)
+       // updateHeightOf(textView: textView)
         textviewPlaceHolderLabel.isHidden = !textView.text.isEmpty
     }
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {

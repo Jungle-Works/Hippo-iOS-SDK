@@ -11,6 +11,7 @@ import UIKit
 
 protocol ShowMoreTableViewCellDelegate: class {
     func buttonClicked(with form: PaymentField)
+    func savePaymentPlanClicked(shouldSavePlan : Bool)
 }
 class ShowMoreTableViewCell: UITableViewCell {
 
@@ -18,9 +19,12 @@ class ShowMoreTableViewCell: UITableViewCell {
     weak var delegate: ShowMoreTableViewCellDelegate?
     var form: PaymentField!
     var store: PaymentStore?
+    var savePaymentPlanClicked : ((Bool)->())?
+    
     
     @IBOutlet weak var totalPriceLabel: UILabel!
     @IBOutlet weak var showMoreButton: UIButton!
+    @IBOutlet weak var button_CheckBox : UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -34,17 +38,20 @@ class ShowMoreTableViewCell: UITableViewCell {
     @IBAction func showMoreClicked(_ sender: Any) {
         delegate?.buttonClicked(with: form)
     }
+    
+    @IBAction func action_SavePlanCheckbox(){
+        button_CheckBox.isSelected = !button_CheckBox.isSelected
+        button_CheckBox.setImage(button_CheckBox.isSelected ? HippoConfig.shared.theme.checkBoxActive : HippoConfig.shared.theme.checkBoxInActive, for: .normal)
+        delegate?.savePaymentPlanClicked(shouldSavePlan: button_CheckBox.isSelected)
+    }
+    
 
     func setUI() {
 //        let theme = HippoTheme.theme
         totalPriceLabel.textColor = HippoConfig.shared.theme.broadcastTitleColor
         totalPriceLabel.font = UIFont.regular(ofSize: 15)
-        
-//        backgroundColor = .clear
-        
-//        showMoreButton.setTitleColor(Color.themeColor, for: .normal)
-//        showMoreButton.tintColor = Color.themeColor
-        showMoreButton.setTitleColor(HippoConfig.shared.theme.themeTextcolor, for: .normal)
+        showMoreButton.setTitleColor(HippoConfig.shared.theme.broadcastTitleColor, for: .normal)
+        showMoreButton.titleLabel?.font = UIFont.regular(ofSize: 15)
         showMoreButton.tintColor = HippoConfig.shared.theme.themeTextcolor
     }
     func setupCell(form: PaymentField, store: PaymentStore) {
@@ -54,8 +61,9 @@ class ShowMoreTableViewCell: UITableViewCell {
         self.store = store
         
         showMoreButton.setTitle(form.title, for: .normal)
-        subscribeCallback()
-        setTotalCostLabel()
+        
+        //subscribeCallback()
+        //setTotalCostLabel()
     }
     
     

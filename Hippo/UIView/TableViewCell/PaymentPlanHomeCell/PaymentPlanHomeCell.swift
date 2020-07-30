@@ -23,7 +23,12 @@ class PaymentPlanHomeCell: UITableViewCell {
     @IBOutlet weak var planeOwnerLabel: UILabel!
     @IBOutlet weak var planNameLabel: UILabel!
     @IBOutlet weak var planIdLabel: UILabel!
+    @IBOutlet weak var button_DeletePlan : UIButton!
+    @IBOutlet weak var button_EditPlan : UIButton!
     
+    var deletePlanClicked : (()->())?
+    var editPlanClicked : (()->())?
+    var sendPlanClicked : (()->())?
     var plan: PaymentPlan?
     
     override func awakeFromNib() {
@@ -44,8 +49,8 @@ class PaymentPlanHomeCell: UITableViewCell {
         bgView.layer.borderWidth = HippoConfig.shared.theme.chatBoxBorderWidth
         bgView.layer.borderColor = HippoConfig.shared.theme.chatBoxBorderColor.cgColor
         
-        forwardImageView.tintColor = HippoConfig.shared.theme.titleTextColor//UIColor.themeColor
-        forwardImageView.image = HippoConfig.shared.theme.forwardIcon
+        //forwardImageView.tintColor = HippoConfig.shared.theme.titleTextColor//UIColor.themeColor
+       // forwardImageView.image = HippoConfig.shared.theme.forwardIcon
         
         let font = UIFont.regular(ofSize: 15)//UIFont.regularProximaNova(withSize: 15)
         
@@ -53,20 +58,20 @@ class PaymentPlanHomeCell: UITableViewCell {
         planNameLabel.font = font
         planeOwnerLabel.font = font
         updatedAtLabel.font = font
-        
-//        planIdLabel.textColor = theme.label.primary
-//        planNameLabel.textColor = theme.label.primary
-//        planeOwnerLabel.textColor = theme.label.primary
-//        updatedAtLabel.textColor = theme.label.primary
-//
-//        keyPlanIdLabel.textColor = theme.label.secondary
-//        keyPlanNameLabel.textColor = theme.label.secondary
-//        keyPlanOwnerLabel.textColor = theme.label.secondary
-//        keyUpdatedAtLabel.textColor = theme.label.secondary
-//
-//        
-//        bgView.backgroundColor = theme.systemBackgroundColor.tertiary
     }
+    
+    @IBAction func action_DeletePlan(){
+        self.deletePlanClicked?()
+    }
+    
+    @IBAction func action_EditPlan(){
+        self.editPlanClicked?()
+    }
+    
+    @IBAction func action_SendPlan(){
+        self.sendPlanClicked?()
+    }
+    
 }
 
 extension PaymentPlanHomeCell {
@@ -89,6 +94,16 @@ extension PaymentPlanHomeCell {
         } else {
             updatedAtStackView.isHidden = true
         }
-
+        button_DeletePlan.layer.borderColor = UIColor.clear.cgColor
+        button_DeletePlan.layer.borderWidth = 1
+        button_DeletePlan.setImage(HippoConfig.shared.theme.deleteIcon, for: .normal)
+        button_DeletePlan.isHidden = plan.type == .agentPlan ? false : true
+        button_DeletePlan.isEnabled = plan.type == .agentPlan ? true : false
+        
+        button_EditPlan.layer.borderColor =  UIColor.clear.cgColor
+        button_EditPlan.layer.borderWidth = 1
+        button_EditPlan.imageView?.tintColor = .darkGray
+        button_EditPlan.setImage(plan.type == .agentPlan ? HippoConfig.shared.theme.editIcon : HippoConfig.shared.theme.eyeIcon, for: .normal)
+        
     }
 }

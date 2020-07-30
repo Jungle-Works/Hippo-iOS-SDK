@@ -111,6 +111,10 @@ public class HippoStrings {
     static var clear = "Clear".localized
     static var cancelPayment = "Are you sure you want to cancel the payment?".localized
     static var cancelPaymentTitle = "Cancel Payment".localized
+    static var sendPaymentRequestPopup = "Are you sure you want to send Payment request?".localized
+    static var deletePaymentPlan = "Are you sure you want to delete Payment Plan?".localized
+    static var editPaymentPlan = "Are you sure you want to edit Payment Plan?".localized
+    static var savePaymentPlan = "Save Payment Plan".localized
     
     /// Agent sdk
     static var thanksForFeedback = "Thank you for your comments!".localized

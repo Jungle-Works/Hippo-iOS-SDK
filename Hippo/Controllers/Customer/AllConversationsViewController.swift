@@ -784,6 +784,10 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
             return
         }
         
+        if let notificationType = pushInfo["notification_type"] as? Int, notificationType == 23 || notificationType == 20{
+            return
+        }
+        
         if let notificationType = pushInfo["notification_type"] as? Int, notificationType == 5 {
             getAllConversations()
             return

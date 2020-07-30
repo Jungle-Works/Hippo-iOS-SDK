@@ -51,10 +51,13 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="Kxh-Rn-dD0">
-                    <rect key="frame" x="443" y="28.5" width="30" height="50"/>
+                    <rect key="frame" x="433" y="28.5" width="40" height="50"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oEA-g4-A1P">
-                            <rect key="frame" x="0.0" y="0.0" width="30" height="50"/>
+                            <rect key="frame" x="0.0" y="0.0" width="40" height="50"/>
+                            <constraints>
+                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="40" id="otF-Ig-n6R"/>
+                            </constraints>
                         </button>
                         <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IqM-bH-2t2">
                             <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>

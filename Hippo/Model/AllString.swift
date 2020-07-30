@@ -604,6 +604,8 @@ class AllString{
             HippoStrings.selectaPlan = hippo_select_a_plan
         }
         
+        
+        
     }
     
     class func agentParsing(_ response: [String: Any]){
@@ -2226,6 +2228,17 @@ class AllString{
             
         }
         
+        if let hippo_savePaymentPlan = response["hippo_savePaymentPlan"] as? String{
+            HippoStrings.savePaymentPlan = hippo_savePaymentPlan
+        }
+        
+        if let hippo_EditPaymentPlanPopup = response["hippo_EditPaymentPlanPopup"] as? String{
+            HippoStrings.editPaymentPlan = hippo_EditPaymentPlanPopup
+        }
+        
+        if let hippo_DeletePaymentPlanPopup = response["hippo_DeletePaymentPlanPopup"] as? String{
+            HippoStrings.deletePaymentPlan = hippo_DeletePaymentPlanPopup
+        }
     }
     
     class func updateLanguageApi() {

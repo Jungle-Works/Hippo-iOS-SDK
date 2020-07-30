@@ -15,6 +15,7 @@ class HippoProperty: NSObject {
     var formCollectorTitle: String = ""
     var botGroupId: Int = -1
     var singleChatApp: Bool = false
+    var paymentPlanType : [Int] = [PaymentPlanType.agentPlan.rawValue]
     private(set) var newConversationButtonTags: [String] = []
     private(set) var enableNewConversationButton: Bool = false
     private(set) var newconversationBotGroupId: String? = nil
@@ -38,6 +39,10 @@ class HippoProperty: NSObject {
         current.botGroupId = id
     }
     
+    class func setPaymentPlanType(type : [Int]){
+        current.paymentPlanType = type
+    }
+ 
     func shouldSendBotGroupId() -> Bool {
         return botGroupId > 0
     }
