@@ -587,8 +587,9 @@
 "Are you sure, you want to assign this chat to you?" = "¿Seguro, que desea asignar este chat para usted?";
 "Saved!" = "¡Salvado!";
 "Image has been saved to your photos." = "La imagen se ha guardado en sus fotos.";
-
-
+"Are you sure you want to delete Payment Plan?" = "¿Está seguro de que desea eliminar el Plan de pago?";
+"Are you sure you want to edit Payment Plan?" = "¿Estás segura de que quieres editar el Plan de pago?";
+"Save Payment Plan" = "Guardar plan de pago";
 
 
 
