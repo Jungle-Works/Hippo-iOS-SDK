@@ -50,6 +50,19 @@ class PaymentField: FormData {
         return buttons
     }
     
+    class func getButtonsWithouAddMore() -> [PaymentField] {
+        var buttons: [PaymentField] = []
+        
+        for each in defaultButtonsWithoutAddMore() {
+            guard let button = PaymentField(json: each) else {
+                continue
+            }
+            buttons.append(button)
+        }
+        
+        return buttons
+    }
+
     
     static func initalPaymentField()-> [[String: Any]] {
        let initialPaymentField = [[

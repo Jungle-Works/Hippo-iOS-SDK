@@ -23,14 +23,24 @@
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="jpl-xy-QnM">
                                 <rect key="frame" x="0.0" y="0.0" width="277" height="40"/>
                                 <subviews>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2dC-Cm-F0H">
+                                        <rect key="frame" x="-40" y="0.0" width="40" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="40" id="lDc-cq-kBp"/>
+                                            <constraint firstAttribute="width" secondItem="2dC-Cm-F0H" secondAttribute="height" multiplier="1:1" id="x4c-F5-0qS"/>
+                                        </constraints>
+                                        <connections>
+                                            <action selector="action_SavePlanCheckbox" destination="KGk-i7-Jjw" eventType="touchUpInside" id="S1f-ea-nYN"/>
+                                        </connections>
+                                    </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="bAK-ei-Dc2">
-                                        <rect key="frame" x="0.0" y="0.0" width="152" height="40"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="101" height="40"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MEm-dq-i3c">
-                                        <rect key="frame" x="157" y="0.0" width="120" height="40"/>
+                                        <rect key="frame" x="106" y="0.0" width="171" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="D9g-Pz-IiL"/>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="120" id="gCZ-Kq-oNC"/>
@@ -65,6 +75,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="button_CheckBox" destination="2dC-Cm-F0H" id="ZS9-XL-Th3"/>
                 <outlet property="showMoreButton" destination="MEm-dq-i3c" id="ip4-cx-sEO"/>
                 <outlet property="totalPriceLabel" destination="bAK-ei-Dc2" id="uZ5-YS-ta1"/>
             </connections>

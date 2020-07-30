@@ -143,7 +143,6 @@
                             <constraint firstAttribute="width" constant="30" id="DfX-ec-P6D"/>
                             <constraint firstAttribute="height" constant="30" id="HAN-2l-MHn"/>
                         </constraints>
-                        <state key="normal" image="cancel_btn_navigation_bar"/>
                         <connections>
                             <action selector="cancelButtonClicked:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="0fB-Cj-and"/>
                         </connections>
@@ -176,7 +175,4 @@
             <point key="canvasLocation" x="113.59999999999999" y="129.98500749625188"/>
         </tableViewCell>
     </objects>
-    <resources>
-        <image name="cancel_btn_navigation_bar" width="14" height="14"/>
-    </resources>
 </document>

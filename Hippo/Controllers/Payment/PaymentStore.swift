@@ -27,6 +27,18 @@ class PaymentStore: NSObject {
     
     var displayEditButton: Bool = false
     var isUpdating: Bool = false
+    var shouldSavePaymentPlan : Bool = false{
+        didSet{
+            if shouldSavePaymentPlan{
+                fields = PaymentField.getPlanNameField(plan: plan)
+            }else{
+                fields.removeAll()
+            }
+            delegate?.dataUpdate()
+        }
+    }
+    var canEditPlan : Bool?
+    
     
     var isEditing: Bool = true {
         didSet {
@@ -63,14 +75,18 @@ class PaymentStore: NSObject {
             selectedCurrency = PaymentStore.currencies.first
         }
     }
-    init(plan: PaymentPlan?, channelId: UInt? = nil, isEditing: Bool, isSending: Bool) {
+    init(plan: PaymentPlan?, channelId: UInt? = nil, isEditing: Bool, isSending: Bool, shouldSavePaymentPlan: Bool = false, canEditPlan : Bool = false) {
         self.plan = plan
         self.channelId = channelId
         self.isEditing = isEditing
+        self.shouldSavePaymentPlan = shouldSavePaymentPlan
+        self.canEditPlan = canEditPlan
         self.displayEditButton = (plan?.canEdit ?? false && channelId == nil)
         items = plan?.options ?? PaymentItem.getInitalItems()
-        if !isSending {
+        if shouldSavePaymentPlan{
             fields = PaymentField.getPlanNameField(plan: plan)
+        }else{
+            fields.removeAll()
         }
         selectedCurrency = plan?.currency ?? PaymentCurrency.findCurrency(code: "INR", symbol: nil) ?? PaymentStore.currencies.first
         title = plan?.planName ?? "Plan"
@@ -102,10 +118,18 @@ class PaymentStore: NSObject {
     
     internal func editingValueUpdated() {
         if isEditing {
-            buttons = PaymentField.getStaticButtons()
+            if canEditPlan ?? false{
+                buttons =  PaymentField.getButtonsWithouAddMore()
+            }else{
+                buttons = PaymentField.getStaticButtons()
+            }
             let text: String
             if channelId != nil  {
-                text = HippoStrings.requestPayment
+                if canEditPlan ?? false{
+                    text = HippoStrings.updatePlan
+                }else{
+                    text = HippoStrings.requestPayment
+                }
             } else if plan == nil && channelId == nil {
                 text = HippoStrings.savePlan
             } else {
@@ -242,11 +266,14 @@ class PaymentStore: NSObject {
 extension PaymentStore {
     
     func takeAction(completion: @escaping ((_ success: Bool, _ error: Error?) -> ())) {
-        if channelId != nil {
-            sendPayment(completion: completion)
-        } else {
-            addUpdatePlan(completion: completion)
+        if shouldSavePaymentPlan || (canEditPlan ?? false){
+            addPaymentPlan { (success, error) in
+                if (error != nil){
+                    print(error.debugDescription)
+                }
+            }
         }
+        sendPayment(completion: completion)
     }
     
     
@@ -290,7 +317,7 @@ extension PaymentStore {
         
     }
     
-    func addUpdatePlan(completion: @escaping ((_ success: Bool, _ error: Error?) -> ())) {
+    func addPaymentPlan(completion: @escaping ((_ success: Bool, _ error: Error?) -> ())) {
 //        guard let accessToken = PersonInfo.getAccessToken() else {
 //            completion(false, nil)
 //            return
@@ -305,7 +332,6 @@ extension PaymentStore {
             param += each.getRequestJson()
         }
         param["type"] = self.plan?.type.rawValue ?? PaymentPlanType.agentPlan.rawValue
-        
         if let plan = plan, plan.planId > 0 {
             param["plan_id"] = plan.planId
             param["operation_type"] = 1
@@ -313,6 +339,7 @@ extension PaymentStore {
         
         let items = getItems(withTransactionId: false)
         param["plans"] = items
+        
 //        Helper.log.debug("Parama == \(param)", level: .request)
         HippoConfig.shared.log.debug("Parama == \(param)", level: .request)
         
