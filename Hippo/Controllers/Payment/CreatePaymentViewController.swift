@@ -30,6 +30,7 @@ class CreatePaymentViewController: UIViewController {
     
     var messageType = MessageType.none
     var shouldSavePaymentPlan : Bool?
+    var isEditScreen : Bool?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,7 +43,7 @@ class CreatePaymentViewController: UIViewController {
     
     @IBAction func backButtonAction(_ sender: Any) {
         if self.messageType == .paymentCard{
-            delegate?.backButtonPressed(shouldUpdate: false)
+            delegate?.backButtonPressed(shouldUpdate: (isEditScreen ?? false) ? true : false)
         }
         self.navigationController?.popViewController(animated: true)
     }
@@ -148,10 +149,11 @@ class CreatePaymentViewController: UIViewController {
         return customView
     }
 
-    class func get(store: PaymentStore) -> CreatePaymentViewController {
+    class func get(store: PaymentStore, shouldSavePlan: Bool = false) -> CreatePaymentViewController {
         let vc = generateView()
         vc.messageType = .paymentCard
         vc.store = store
+        vc.shouldSavePaymentPlan = shouldSavePlan
         vc.initalizeView()
         return vc
     }

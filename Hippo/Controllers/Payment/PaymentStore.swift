@@ -118,11 +118,7 @@ class PaymentStore: NSObject {
     
     internal func editingValueUpdated() {
         if isEditing {
-            if canEditPlan ?? false{
-                buttons =  PaymentField.getButtonsWithouAddMore()
-            }else{
-                buttons = PaymentField.getStaticButtons()
-            }
+            buttons = PaymentField.getStaticButtons()
             let text: String
             if channelId != nil  {
                 if canEditPlan ?? false{
@@ -270,10 +266,18 @@ extension PaymentStore {
             addPaymentPlan { (success, error) in
                 if (error != nil){
                     print(error.debugDescription)
+                    if self.canEditPlan ?? false{
+                        completion(false, error)
+                    }
+                }
+                if self.canEditPlan ?? false{
+                    completion(true, nil)
                 }
             }
         }
-        sendPayment(completion: completion)
+        if !(canEditPlan ?? false){
+           sendPayment(completion: completion)
+        }
     }
     
     

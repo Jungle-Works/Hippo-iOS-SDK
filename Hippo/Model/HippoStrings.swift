@@ -115,6 +115,11 @@ public class HippoStrings {
     static var deletePaymentPlan = "Are you sure you want to delete Payment Plan?".localized
     static var editPaymentPlan = "Are you sure you want to edit Payment Plan?".localized
     static var savePaymentPlan = "Save Payment Plan".localized
+    static var planId = "Plan id:".localized
+    static var planNameTitle = "Plan name:".localized
+    static var planOwner = "Plan Owner:".localized
+    static var updatedAt = "Updated at:".localized
+    
     
     /// Agent sdk
     static var thanksForFeedback = "Thank you for your comments!".localized
@@ -186,7 +191,9 @@ public class HippoStrings {
     static var reasignChatToYou = "Are you sure, you want to reassign this chat to you?".localized
     static var saved = "Saved!".localized
     static var imageSaved = "Image has been saved to your photos.".localized
-    
+    static var isRequired = "is required".localized
+    static var enterPlanName = "Enter plan name".localized
+    static var invalidPriceAmount = "Invalid Price".localized
     
     open var disbaledCameraErrorMessage = "Access to Camera is denied. Please enable from setings."
     open var cameraString = "New Image via Camera"

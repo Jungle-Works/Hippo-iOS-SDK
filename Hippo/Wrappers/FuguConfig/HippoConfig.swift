@@ -883,7 +883,7 @@ struct BotAction {
     public func registerDeviceToken(deviceToken: Data) {
         log.debug("registerDeviceToken:\(deviceToken)", level: .custom)
         guard let token = parseDeviceToken(deviceToken: deviceToken) else {
-            showAlertWith(message: "cannot parse tokan, error in parsing", action: nil)
+            //showAlertWith(message: "cannot parse tokan, error in parsing", action: nil)
             return
         }
         log.debug("registerDeviceToken parsing token:\(token)", level: .custom)
@@ -894,7 +894,7 @@ struct BotAction {
         TokenManager.deviceToken = token
         log.debug("registerDeviceToken save token:\(TokenManager.deviceToken)", level: .custom)
         //updateDeviceToken(deviceToken: token)
-        showAlertWith(message: "Device Tokan saved", action: nil)
+        //showAlertWith(message: "Device Tokan saved", action: nil)
     }
     
     func checkForChannelSubscribe(completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {

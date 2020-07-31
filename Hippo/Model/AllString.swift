@@ -1855,7 +1855,7 @@ class AllString{
         }
         
         if let saved_plan = response["saved_plan"] as? String{
-            
+            HippoStrings.savedPlans = saved_plan
         }
         
         if let hippo_plan_title = response["hippo_plan_title"] as? String{
@@ -1863,7 +1863,7 @@ class AllString{
         }
         
         if let plan_name = response["plan_name"] as? String{
-            
+            HippoStrings.planName = plan_name
         }
         
         if let no_plan_available = response["no_plan_available"] as? String{
@@ -2043,19 +2043,19 @@ class AllString{
         }
         
         if let hippo_plan_id = response["hippo_plan_id"] as? String{
-            
+            HippoStrings.planId = hippo_plan_id
         }
         
         if let hippo_plan_name = response["hippo_plan_name"] as? String{
-            
+            HippoStrings.planNameTitle = hippo_plan_name
         }
         
         if let hippo_plan_type = response["hippo_plan_type"] as? String{
-            
+            HippoStrings.planOwner = hippo_plan_type
         }
         
         if let hippo_updated_at = response["hippo_updated_at"] as? String{
-            
+            HippoStrings.updatedAt = hippo_updated_at
         }
         
         if let file_not_supported = response["file_not_supported"] as? String{
@@ -2237,6 +2237,20 @@ class AllString{
         if let hippo_DeletePaymentPlanPopup = response["hippo_DeletePaymentPlanPopup"] as? String{
             HippoStrings.deletePaymentPlan = hippo_DeletePaymentPlanPopup
         }
+        
+        if let hippo_send_this_plan = response["hippo_send_this_plan"] as? String{
+            HippoStrings.sendPaymentRequestPopup = hippo_send_this_plan
+        }
+        if let hippo_is_required = response["hippo_is_required"] as? String{
+            HippoStrings.isRequired = hippo_is_required
+        }
+        if let hippo_enter_planname = response["hippo_enter_planname"] as? String{
+            HippoStrings.enterPlanName = hippo_enter_planname
+        }
+        if let hippo_invalid_price = response["hippo_invalid_price"] as? String{
+            HippoStrings.invalidPriceAmount = hippo_invalid_price
+        }
+        
     }
     
     class func updateLanguageApi() {

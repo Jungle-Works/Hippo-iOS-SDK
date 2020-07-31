@@ -115,7 +115,7 @@ class PaymentItemDescriptionCell: UITableViewCell,UIPickerViewDelegate,UIPickerV
         priceLabel.text = item.priceField.title
         textField_Currency.text = item.currency == nil ? BussinessProperty.current.currencyArr?.first?.currencySymbol ?? "" : item.currency?.symbol
         if BussinessProperty.current.currencyArr?.count ?? 0 == 1 && item.currency == nil{
-            item.currency = PaymentCurrency(BussinessProperty.current.currencyArr?[0].currencySymbol ?? "", BussinessProperty.current.currencyArr?[0].currency ?? "")
+            self.item.currency = PaymentCurrency(BussinessProperty.current.currencyArr?[0].currencySymbol ?? "", BussinessProperty.current.currencyArr?[0].currency ?? "")
         }
         
         
