@@ -161,7 +161,7 @@ class FormData: NSObject {
         }
         
         if value.isEmpty, isRequired {
-            errorMessage = "\(title) is required"
+            errorMessage = "\(title) \(HippoStrings.isRequired)"
             return
         }
         

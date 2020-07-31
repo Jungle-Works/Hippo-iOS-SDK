@@ -590,7 +590,8 @@
 "Are you sure you want to delete Payment Plan?" = "¿Está seguro de que desea eliminar el Plan de pago?";
 "Are you sure you want to edit Payment Plan?" = "¿Estás segura de que quieres editar el Plan de pago?";
 "Save Payment Plan" = "Guardar plan de pago";
-
+"is required" = "es requerido";
+"Enter plan name" = "Ingrese el nombre del plan";
 
 
 

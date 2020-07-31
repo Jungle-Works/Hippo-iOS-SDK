@@ -87,7 +87,7 @@ class PaymentField: FormData {
     static func planNameFields() -> [String: Any] {
         let planNameFields = [
             "validation_type": "ANY",
-            "placeholder": "Enter Plan Name",
+            "placeholder": HippoStrings.enterPlanName,
             "title": HippoStrings.planName,
             "is_required": true,
             "type": "TEXTFIELD",
