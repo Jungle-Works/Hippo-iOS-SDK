@@ -609,6 +609,10 @@ class AllString{
     }
     
     class func agentParsing(_ response: [String: Any]){
+        if let hippo_save_plan = response["hippo_save_plan"] as? String{
+            HippoStrings.savePlan = hippo_save_plan
+        }
+        
         if let hippo_pending = response["hippo_pending"] as? String{
             HippoStrings.paymentPending = hippo_pending
         }
@@ -1305,7 +1309,7 @@ class AllString{
         }
         
         if let empty_msg = response["empty_msg"] as? String{
-            
+            HippoStrings.fieldEmpty = empty_msg
         }
         
         if let phone_empty_msg = response["phone_empty_msg"] as? String{
@@ -1821,7 +1825,7 @@ class AllString{
         }
         
         if let hippo_send_payment = response["hippo_send_payment"] as? String{
-            
+            HippoStrings.sendPayment = hippo_send_payment
         }
         
         if let notes = response["notes"] as? String{

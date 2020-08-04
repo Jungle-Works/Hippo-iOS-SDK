@@ -103,6 +103,8 @@ class PaymentItem: NSObject {
             errorMessage = priceField.errorMessage
         }else if !((Double(priceField.value) ?? 0.0) >= 0.01){
             errorMessage = HippoStrings.invalidPriceAmount
+        }else if !((Double(priceField.value) ?? 0.0) <= 999999.99){
+            errorMessage = HippoStrings.invalidPriceAmount
         }else {
             errorMessage = ""
         }

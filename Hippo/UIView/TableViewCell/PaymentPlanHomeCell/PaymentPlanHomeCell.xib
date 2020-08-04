@@ -20,35 +20,6 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tnn-3y-NgJ">
                         <rect key="frame" x="10" y="5" width="349" height="144.5"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="nZ9-f8-sXZ">
-                                <rect key="frame" x="279" y="10" width="60" height="25"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aDR-AK-CXj">
-                                        <rect key="frame" x="0.0" y="0.0" width="25" height="25"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="25" id="IOW-TU-n22"/>
-                                            <constraint firstAttribute="width" secondItem="aDR-AK-CXj" secondAttribute="height" multiplier="1:1" id="xVi-6s-mc8"/>
-                                        </constraints>
-                                        <state key="normal" image="edit"/>
-                                        <connections>
-                                            <action selector="action_EditPlan" destination="KGk-i7-Jjw" eventType="touchUpInside" id="cAi-GO-HS2"/>
-                                            <action selector="action_EditPlan" destination="KGk-i7-Jjw" eventType="touchUpOutside" id="pi4-dc-BUf"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7eD-Xz-pdl">
-                                        <rect key="frame" x="35" y="0.0" width="25" height="25"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="25" id="7b1-or-ufB"/>
-                                            <constraint firstAttribute="width" secondItem="7eD-Xz-pdl" secondAttribute="height" multiplier="1:1" id="UyI-XV-1wj"/>
-                                        </constraints>
-                                        <state key="normal" image="delete"/>
-                                        <connections>
-                                            <action selector="action_DeletePlan" destination="KGk-i7-Jjw" eventType="touchUpOutside" id="bXf-FW-vsw"/>
-                                            <action selector="action_DeletePlan" destination="KGk-i7-Jjw" eventType="touchUpInside" id="g9k-Bd-vSE"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                            </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="U6W-We-Se4">
                                 <rect key="frame" x="10" y="35" width="329" height="99.5"/>
                                 <subviews>
@@ -77,7 +48,7 @@
                                             </label>
                                         </subviews>
                                     </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="WlV-zi-SOB">
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="WlV-zi-SOB">
                                         <rect key="frame" x="0.0" y="22" width="329" height="17"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Plan Name:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s0p-GZ-j8D">
@@ -94,7 +65,7 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cDR-KX-UQI">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cDR-KX-UQI">
                                                 <rect key="frame" x="145" y="0.0" width="184" height="17"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <nil key="textColor"/>
@@ -153,7 +124,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="p2U-Dl-4lg">
-                                        <rect key="frame" x="0.0" y="99.5" width="14654" height="0.0"/>
+                                        <rect key="frame" x="0.0" y="99.5" width="1134456.5" height="0.0"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fallback Name:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VSH-zw-jJD">
                                                 <rect key="frame" x="0.0" y="0.0" width="110" height="0.0"/>
@@ -170,7 +141,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="MessageMessageMessageMessageMessageMessageMessageMessageMessageMessageMessageMessageMessageMessageMessageMessageMessageMessage" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HGm-AF-TcE">
-                                                <rect key="frame" x="115" y="0.0" width="14539" height="0.0"/>
+                                                <rect key="frame" x="115" y="0.0" width="1134341.5" height="0.0"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -211,23 +182,52 @@
                                 </constraints>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fKO-wk-8Wn">
-                                <rect key="frame" x="10" y="35" width="329" height="99.5"/>
+                                <rect key="frame" x="0.0" y="0.0" width="349" height="144.5"/>
                                 <connections>
                                     <action selector="action_SendPlan" destination="KGk-i7-Jjw" eventType="touchUpInside" id="gd2-oc-okH"/>
                                 </connections>
                             </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="nZ9-f8-sXZ">
+                                <rect key="frame" x="279" y="10" width="60" height="25"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aDR-AK-CXj">
+                                        <rect key="frame" x="0.0" y="0.0" width="25" height="25"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="25" id="IOW-TU-n22"/>
+                                            <constraint firstAttribute="width" secondItem="aDR-AK-CXj" secondAttribute="height" multiplier="1:1" id="xVi-6s-mc8"/>
+                                        </constraints>
+                                        <state key="normal" image="edit"/>
+                                        <connections>
+                                            <action selector="action_EditPlan" destination="KGk-i7-Jjw" eventType="touchUpInside" id="cAi-GO-HS2"/>
+                                            <action selector="action_EditPlan" destination="KGk-i7-Jjw" eventType="touchUpOutside" id="pi4-dc-BUf"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7eD-Xz-pdl">
+                                        <rect key="frame" x="35" y="0.0" width="25" height="25"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="25" id="7b1-or-ufB"/>
+                                            <constraint firstAttribute="width" secondItem="7eD-Xz-pdl" secondAttribute="height" multiplier="1:1" id="UyI-XV-1wj"/>
+                                        </constraints>
+                                        <state key="normal" image="delete"/>
+                                        <connections>
+                                            <action selector="action_DeletePlan" destination="KGk-i7-Jjw" eventType="touchUpOutside" id="bXf-FW-vsw"/>
+                                            <action selector="action_DeletePlan" destination="KGk-i7-Jjw" eventType="touchUpInside" id="g9k-Bd-vSE"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="fKO-wk-8Wn" secondAttribute="trailing" id="FG3-XP-gIn"/>
                             <constraint firstAttribute="bottom" secondItem="U6W-We-Se4" secondAttribute="bottom" constant="10" id="JS9-DV-p0G"/>
                             <constraint firstAttribute="trailing" secondItem="U6W-We-Se4" secondAttribute="trailing" constant="10" id="Jji-4m-kUG"/>
                             <constraint firstItem="nZ9-f8-sXZ" firstAttribute="top" secondItem="tnn-3y-NgJ" secondAttribute="top" constant="10" id="TOZ-hL-mQf"/>
+                            <constraint firstItem="fKO-wk-8Wn" firstAttribute="leading" secondItem="tnn-3y-NgJ" secondAttribute="leading" id="cZO-Zk-mcU"/>
                             <constraint firstItem="U6W-We-Se4" firstAttribute="top" secondItem="nZ9-f8-sXZ" secondAttribute="bottom" id="dhl-90-wJO"/>
-                            <constraint firstItem="fKO-wk-8Wn" firstAttribute="top" secondItem="U6W-We-Se4" secondAttribute="top" id="egW-sc-mh1"/>
                             <constraint firstItem="U6W-We-Se4" firstAttribute="leading" secondItem="tnn-3y-NgJ" secondAttribute="leading" constant="10" id="f9R-4S-WEM"/>
                             <constraint firstAttribute="trailing" secondItem="nZ9-f8-sXZ" secondAttribute="trailing" constant="10" id="iHY-YA-aMJ"/>
-                            <constraint firstItem="fKO-wk-8Wn" firstAttribute="trailing" secondItem="U6W-We-Se4" secondAttribute="trailing" id="oB3-eR-T4I"/>
-                            <constraint firstItem="fKO-wk-8Wn" firstAttribute="bottom" secondItem="U6W-We-Se4" secondAttribute="bottom" id="oyu-oP-cHG"/>
-                            <constraint firstItem="fKO-wk-8Wn" firstAttribute="leading" secondItem="U6W-We-Se4" secondAttribute="leading" id="wrg-Pd-Ae4"/>
+                            <constraint firstItem="fKO-wk-8Wn" firstAttribute="top" secondItem="tnn-3y-NgJ" secondAttribute="top" id="lZk-Pp-etR"/>
+                            <constraint firstAttribute="bottom" secondItem="fKO-wk-8Wn" secondAttribute="bottom" id="qhp-7z-giE"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="boolean" keyPath="shadow" value="YES"/>

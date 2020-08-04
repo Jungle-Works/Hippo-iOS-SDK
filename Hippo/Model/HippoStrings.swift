@@ -119,6 +119,7 @@ public class HippoStrings {
     static var planNameTitle = "Plan name:".localized
     static var planOwner = "Plan Owner:".localized
     static var updatedAt = "Updated at:".localized
+    static var sendPayment = "Send Payment".localized
     
     
     
@@ -198,7 +199,8 @@ public class HippoStrings {
     static var isRequired = "is required".localized
     static var enterPlanName = "Enter plan name".localized
     static var invalidPriceAmount = "Invalid Price".localized
-   
+    static var fieldEmpty = "Field cannot be empty".localized
+    
     open var disbaledCameraErrorMessage = "Access to Camera is denied. Please enable from setings."
     open var cameraString = "New Image via Camera"
     open var displayNameForCustomers = "Fleet"
@@ -244,11 +246,11 @@ public class HippoStrings {
         if versionCode > 320{
             #if canImport(HippoCallClient)
             
-//            HippoCallClientStrings.calling = HippoStrings.calling
-//            HippoCallClientStrings.ringing = HippoStrings.ringing
-//            HippoCallClientStrings.callingYou = HippoStrings.isCallingYou
-//            HippoCallClientStrings.callDeclined = HippoStrings.callDeclined
-//            HippoCallClientStrings.busyOnOtherCall = HippoStrings.busyAnotherCall
+            HippoCallClientStrings.calling = HippoStrings.calling
+            HippoCallClientStrings.ringing = HippoStrings.ringing
+            HippoCallClientStrings.callingYou = HippoStrings.isCallingYou
+            HippoCallClientStrings.callDeclined = HippoStrings.callDeclined
+            HippoCallClientStrings.busyOnOtherCall = HippoStrings.busyAnotherCall
             
             #else
             

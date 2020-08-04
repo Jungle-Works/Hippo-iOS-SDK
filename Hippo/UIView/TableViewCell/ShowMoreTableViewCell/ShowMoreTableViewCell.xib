@@ -20,7 +20,7 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jdo-x1-O9K">
                         <rect key="frame" x="10" y="5" width="277" height="40"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="jpl-xy-QnM">
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="jpl-xy-QnM">
                                 <rect key="frame" x="0.0" y="0.0" width="277" height="40"/>
                                 <subviews>
                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2dC-Cm-F0H">
@@ -34,16 +34,19 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="bAK-ei-Dc2">
-                                        <rect key="frame" x="0.0" y="0.0" width="101" height="40"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="172" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="pkN-lh-MAX"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MEm-dq-i3c">
-                                        <rect key="frame" x="106" y="0.0" width="171" height="40"/>
+                                        <rect key="frame" x="177" y="0.0" width="100" height="40"/>
                                         <constraints>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="439-mX-wwf"/>
                                             <constraint firstAttribute="height" constant="40" id="D9g-Pz-IiL"/>
-                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="120" id="gCZ-Kq-oNC"/>
                                         </constraints>
                                         <state key="normal" title="Show More"/>
                                         <userDefinedRuntimeAttributes>

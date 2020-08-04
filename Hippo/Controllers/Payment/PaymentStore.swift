@@ -83,7 +83,7 @@ class PaymentStore: NSObject {
         self.canEditPlan = canEditPlan
         self.displayEditButton = (plan?.canEdit ?? false && channelId == nil)
         items = plan?.options ?? PaymentItem.getInitalItems()
-        if shouldSavePaymentPlan{
+        if shouldSavePaymentPlan || canEditPlan{
             fields = PaymentField.getPlanNameField(plan: plan)
         }else{
             fields.removeAll()
@@ -124,7 +124,7 @@ class PaymentStore: NSObject {
                 if canEditPlan ?? false{
                     text = HippoStrings.updatePlan
                 }else{
-                    text = HippoStrings.requestPayment
+                    text = HippoStrings.sendPayment
                 }
             } else if plan == nil && channelId == nil {
                 text = HippoStrings.savePlan
