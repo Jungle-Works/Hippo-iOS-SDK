@@ -15,6 +15,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NavigationBar" customModule="Hippo" customModuleProvider="target">
             <connections>
+                <outlet property="constraint_RightWidth" destination="otF-Ig-n6R" id="hkT-1R-OlG"/>
                 <outlet property="image_back" destination="sHE-cu-ZOR" id="vlC-Tx-HbV"/>
                 <outlet property="leftButton" destination="HR0-Xt-n2K" id="VSs-CW-ZhJ"/>
                 <outlet property="rightButton" destination="oEA-g4-A1P" id="mBR-DB-zMV"/>
@@ -50,13 +51,13 @@
                     <color key="textColor" red="0.16862745100000001" green="0.2274509804" blue="0.3294117647" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="Kxh-Rn-dD0">
+                <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kxh-Rn-dD0">
                     <rect key="frame" x="433" y="28.5" width="40" height="50"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oEA-g4-A1P">
                             <rect key="frame" x="0.0" y="0.0" width="40" height="50"/>
                             <constraints>
-                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="40" id="otF-Ig-n6R"/>
+                                <constraint firstAttribute="width" constant="40" id="otF-Ig-n6R"/>
                             </constraints>
                         </button>
                         <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IqM-bH-2t2">
@@ -84,7 +85,6 @@
                 <constraint firstAttribute="bottom" secondItem="HR0-Xt-n2K" secondAttribute="bottom" id="H63-yh-hie"/>
                 <constraint firstAttribute="trailing" secondItem="Kxh-Rn-dD0" secondAttribute="trailing" constant="15" id="IDD-nA-bkm"/>
                 <constraint firstItem="G01-tg-7hU" firstAttribute="centerY" secondItem="YNn-bR-0b8" secondAttribute="centerY" id="Itv-h3-VMu"/>
-                <constraint firstItem="G01-tg-7hU" firstAttribute="centerX" secondItem="YNn-bR-0b8" secondAttribute="centerX" id="SkB-9p-5A4"/>
                 <constraint firstItem="sHE-cu-ZOR" firstAttribute="leading" secondItem="YNn-bR-0b8" secondAttribute="leading" constant="15" id="W6S-4x-MTf"/>
                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="G01-tg-7hU" secondAttribute="bottom" id="a0m-gU-tqU"/>
                 <constraint firstItem="HR0-Xt-n2K" firstAttribute="top" secondItem="zgO-lO-xc9" secondAttribute="top" id="de4-Em-IHx"/>
