@@ -49,15 +49,15 @@ class BroadCastTextFieldCell: UITableViewCell {
     
     func setErrorLabelView(isHidden: Bool, message: String? = nil) {
         
-        let newHiddenValue = isHidden //cellTextField.text!.isEmpty ? isHidden : true
-        let displayError = message == nil ? errorText : message!
-        errorLabel.textColor = UIColor.red
-//        errorLabelHeightConstraint.constant = newHiddenValue ? 18 : 18
-        errorLabel.text = newHiddenValue ? "" : displayError
-        errorLabel.isHidden = newHiddenValue
-        
-        titleLabel.textColor = HippoConfig.shared.theme.broadcastTitleColor
-        titleLabel.font = UIFont.regular(ofSize: 14)
+//        let newHiddenValue = isHidden //cellTextField.text!.isEmpty ? isHidden : true
+//        let displayError = message == nil ? errorText : message!
+//        errorLabel.textColor = UIColor.red
+////        errorLabelHeightConstraint.constant = newHiddenValue ? 18 : 18
+//        errorLabel.text = newHiddenValue ? "" : displayError
+//        errorLabel.isHidden = newHiddenValue
+//
+//        titleLabel.textColor = HippoConfig.shared.theme.broadcastTitleColor
+//        titleLabel.font = UIFont.regular(ofSize: 14)
     }
     
     

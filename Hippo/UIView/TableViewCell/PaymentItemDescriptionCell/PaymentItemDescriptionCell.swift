@@ -230,7 +230,7 @@ extension PaymentItemDescriptionCell: UITextFieldDelegate {
         
         
         
-        let maxCount = 10
+        let maxCount = 6
         
         switch textField {
         case priceTextField:

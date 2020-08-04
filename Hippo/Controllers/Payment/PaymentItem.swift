@@ -101,7 +101,11 @@ class PaymentItem: NSObject {
             errorMessage = descriptionField.errorMessage
         } else if !priceField.errorMessage.isEmpty {
             errorMessage = priceField.errorMessage
-        } else {
+        }else if !((Double(priceField.value) ?? 0.0) >= 0.01){
+            errorMessage = HippoStrings.invalidPriceAmount
+        }else if !((Double(priceField.value) ?? 0.0) < 100000.0){
+            errorMessage = HippoStrings.invalidPriceAmount
+        }else {
             errorMessage = ""
         }
         
