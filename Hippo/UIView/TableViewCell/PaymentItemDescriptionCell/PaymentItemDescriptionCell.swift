@@ -30,7 +30,9 @@ class PaymentItemDescriptionCell: UITableViewCell,UIPickerViewDelegate,UIPickerV
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var textviewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var textField_Currency : UITextField!
-    
+    @IBOutlet weak var label_TitleCount : UILabel!
+    @IBOutlet weak var label_DescriptionCount : UILabel!
+
     
     //MARK:
     let min_height_textview: CGFloat = 50
@@ -115,7 +117,7 @@ class PaymentItemDescriptionCell: UITableViewCell,UIPickerViewDelegate,UIPickerV
         priceLabel.text = item.priceField.title
         textField_Currency.text = item.currency == nil ? BussinessProperty.current.currencyArr?.first?.currencySymbol ?? "" : item.currency?.symbol
         if BussinessProperty.current.currencyArr?.count ?? 0 == 1 && item.currency == nil{
-            item.currency = PaymentCurrency(BussinessProperty.current.currencyArr?[0].currencySymbol ?? "", BussinessProperty.current.currencyArr?[0].currency ?? "")
+            self.item.currency = PaymentCurrency(BussinessProperty.current.currencyArr?[0].currencySymbol ?? "", BussinessProperty.current.currencyArr?[0].currency ?? "")
         }
         
         
@@ -132,6 +134,8 @@ class PaymentItemDescriptionCell: UITableViewCell,UIPickerViewDelegate,UIPickerV
         textviewPlaceHolderLabel.text = item.descriptionField.placeHolder
         textviewPlaceHolderLabel.isHidden = !descriptionTextView.text.isEmpty
         
+        label_TitleCount.text = "\(titleTextField.text?.count ?? 0)" + "/60"
+        label_DescriptionCount.text = "\(descriptionTextView.text?.count ?? 0)" + "/160"
         //updateHeightOf(textView: self.descriptionTextView)
     }
     
@@ -207,14 +211,14 @@ extension PaymentItemDescriptionCell {
 extension PaymentItemDescriptionCell: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         item.descriptionField.value = textView.text
-       // updateHeightOf(textView: textView)
         textviewPlaceHolderLabel.isHidden = !textView.text.isEmpty
+        label_DescriptionCount.text = "\(textView.text?.count ?? 0)" + "/160"
     }
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         let updatedString = (textView.text as NSString?)?.replacingCharacters(in: range, with: text)
         let countForNewString = updatedString?.count ?? 0
         
-        let maxCount = 250
+        let maxCount = 160
         
         guard countForNewString <= maxCount else {
             return false
@@ -227,19 +231,46 @@ extension PaymentItemDescriptionCell: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let updatedString = (textField.text as NSString?)?.replacingCharacters(in: range, with: string)
         let countForNewString = updatedString?.count ?? 0
-        
-        
-        
+
         let maxCount = 6
+        let maxCountWithDecimal = 9
         
         switch textField {
         case priceTextField:
-            guard countForNewString <= maxCount else {
+            var limit = 0
+            if textField.text?.contains(".") ?? false{
+                limit = maxCountWithDecimal
+            }else{
+                if string == "."{
+                    limit = maxCountWithDecimal
+                    return true
+                }
+                limit = maxCount
+            }
+            
+            guard countForNewString <= limit else {
                 return false
             }
-            item.priceField.value = updatedString ?? ""
-            delegate?.itemPriceUpdated()
+            guard let oldText = textField.text, let r = Range(range, in: oldText) else {
+                return true
+            }
+            let newText = oldText.replacingCharacters(in: r, with: string)
+            let isNumeric = newText.isEmpty || (Double(newText) != nil)
+            let numberOfDots = newText.components(separatedBy: ".").count - 1
+
+            let numberOfDecimalDigits: Int
+            if let dotIndex = newText.index(of: ".") {
+                numberOfDecimalDigits = newText.distance(from: dotIndex, to: newText.endIndex) - 1
+            } else {
+                numberOfDecimalDigits = 0
+            }
+
+            return isNumeric && numberOfDots <= 1 && numberOfDecimalDigits <= 2
+            
         case titleTextField:
+            guard countForNewString <= 60 else {
+                return false
+            }
             item.titleField.value = updatedString ?? ""
         default:
             break
@@ -247,4 +278,17 @@ extension PaymentItemDescriptionCell: UITextFieldDelegate {
         
         return true
     }
+    
+    @IBAction func textFieldChange(_ textField : UITextField){
+        switch textField {
+        case titleTextField:
+            label_TitleCount.text = "\(titleTextField.text?.count ?? 0)" + "/60"
+        case priceTextField:
+            item.priceField.value = textField.text ?? ""
+            delegate?.itemPriceUpdated()
+        default:
+            break
+        }
+    }
+    
 }

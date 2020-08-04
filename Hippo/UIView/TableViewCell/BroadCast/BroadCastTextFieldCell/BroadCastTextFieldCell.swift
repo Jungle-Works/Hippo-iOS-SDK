@@ -24,6 +24,8 @@ class BroadCastTextFieldCell: UITableViewCell {
     @IBOutlet weak var bottomLineView: UIView!
     @IBOutlet weak var cellTextField: UITextField!
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var label_TextCount : UILabel!
+    
     
     weak var delegate: BroadCastTextFieldCellDelegate?
     var form: FormData?
@@ -89,6 +91,7 @@ class BroadCastTextFieldCell: UITableViewCell {
             currency = PaymentCurrency.getAllCurrency()
             setPickerView()
         default:
+            label_TextCount.text = "\(cellTextField.text?.count ?? 0)" + "/60"
             cellTextField.inputView = nil
         }
         
@@ -145,14 +148,19 @@ extension BroadCastTextFieldCell: UITextFieldDelegate {
         let updatedString = (textField.text as NSString?)?.replacingCharacters(in: range, with: string)
         let countForNewString = updatedString?.count ?? 0
         
-        guard countForNewString < 100 else {
+        guard countForNewString <= 60 else {
             return false
         }
         form?.value = updatedString ?? form?.value ?? ""
-        form?.validate()
-        setErrorMessageIfNeed()
+        //form?.validate()
+        //setErrorMessageIfNeed()
+        
         delegate?.textFieldTextChanged(newText: updatedString ?? "")
         return true
+    }
+
+    @IBAction func textFieldChange(_ textField : UITextField){
+        label_TextCount.text = "\(cellTextField.text?.count ?? 0)" + "/60"
     }
 }
 

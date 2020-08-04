@@ -32,6 +32,9 @@
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
+                        <connections>
+                            <action selector="textFieldChange:" destination="KGk-i7-Jjw" eventType="editingChanged" id="0rP-sb-IFI"/>
+                        </connections>
                     </textField>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y9m-ru-R3Y">
                         <rect key="frame" x="10" y="58.5" width="300" height="1"/>
@@ -49,10 +52,18 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NvK-Jz-TwD">
+                        <rect key="frame" x="308" y="65.5" width="0.0" height="0.0"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="Ej8-TM-Hrd" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="5nU-cG-LyD"/>
+                    <constraint firstItem="NvK-Jz-TwD" firstAttribute="trailing" secondItem="Ej8-TM-Hrd" secondAttribute="trailing" id="Bk6-TA-4GE"/>
                     <constraint firstItem="y9m-ru-R3Y" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="EBE-Sf-DWa"/>
+                    <constraint firstItem="NvK-Jz-TwD" firstAttribute="top" secondItem="Ej8-TM-Hrd" secondAttribute="bottom" constant="5" id="ERc-pi-Il7"/>
                     <constraint firstAttribute="trailing" secondItem="Ej8-TM-Hrd" secondAttribute="trailing" constant="12" id="JBb-L0-7yE"/>
                     <constraint firstItem="1AW-3Q-U6s" firstAttribute="top" secondItem="y9m-ru-R3Y" secondAttribute="bottom" id="Ku6-Y5-slN"/>
                     <constraint firstItem="1AW-3Q-U6s" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="MCF-zb-iHd"/>
@@ -71,6 +82,7 @@
                 <outlet property="cellTextField" destination="Ej8-TM-Hrd" id="ctw-V1-mTT"/>
                 <outlet property="errorLabel" destination="1AW-3Q-U6s" id="TFD-hh-Uhz"/>
                 <outlet property="errorLabelHeightConstraint" destination="mPe-n5-d1r" id="tow-lI-Ioc"/>
+                <outlet property="label_TextCount" destination="NvK-Jz-TwD" id="YyT-uE-ISQ"/>
                 <outlet property="titleLabel" destination="zFo-xT-8SA" id="HKN-Bl-rvq"/>
             </connections>
             <point key="canvasLocation" x="34" y="263.5"/>

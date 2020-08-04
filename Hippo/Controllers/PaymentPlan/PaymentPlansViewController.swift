@@ -114,7 +114,7 @@ class PaymentPlansViewController: UIViewController {
         view_Navigation.rightButton.addTarget(self, action: #selector(addButtonClicked), for: .touchUpInside)
     }
     @objc internal func addButtonClicked() {
-        pushCreatePayment(with: nil, animated: true)
+        pushCreatePayment(with: nil,isForAddPlan: true, animated: true)
     }
     
     internal func registerCell() {
@@ -143,9 +143,10 @@ class PaymentPlansViewController: UIViewController {
 //        return view
         return customView
     }
-    internal func pushCreatePayment(with plan: PaymentPlan?,isFromEditPlan : Bool = false, animated: Bool) {
-        let paymentStore = PaymentStore(plan: plan, channelId: channelId, isEditing: (plan == nil || channelId != nil), isSending: channelId != nil, canEditPlan: isFromEditPlan)
-        let vc = CreatePaymentViewController.get(store: paymentStore)
+    internal func pushCreatePayment(with plan: PaymentPlan?,isForAddPlan : Bool = false, isFromEditPlan : Bool = false, animated: Bool) {
+        let paymentStore = PaymentStore(plan: plan, channelId: channelId, isEditing: (plan == nil || channelId != nil), isSending: channelId != nil, shouldSavePaymentPlan: isForAddPlan, canEditPlan: isFromEditPlan)
+        let vc = CreatePaymentViewController.get(store: paymentStore, shouldSavePlan: isForAddPlan)
+        vc.isEditScreen = isFromEditPlan
         vc.delegate = self
         self.navigationController?.pushViewController(vc, animated: animated)
     }
@@ -171,7 +172,7 @@ extension PaymentPlansViewController: PaymentPlansViewDelegate {
         self.stopLoaderAnimation()
         
         if plans.isEmpty, channelId != nil {
-            pushCreatePayment(with: nil, animated: false)
+            pushCreatePayment(with: nil,isForAddPlan: true, animated: false)
         }
         datasource.plans = plans
         tableView.reloadData()
