@@ -154,6 +154,10 @@ class AgentUserChannel {
                         CallManager.shared.voipNotificationRecieved(payloadDict: messageDict)
                     }
                 }
+            }else if let messageType = messageDict["message_type"] as? Int, messageType == MessageType.groupCall.rawValue{
+                if messageDict["video_call_type"] as? String == "END_GROUP_CALL"{
+                    CallManager.shared.voipNotificationRecievedForGroupCall(payloadDict: messageDict)
+                }
             }
             let conversation = AgentConversation(json: messageDict)
             //paas data to parent app if chat is assigned to self

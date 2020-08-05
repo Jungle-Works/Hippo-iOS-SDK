@@ -30,6 +30,7 @@ class CreatePaymentViewController: UIViewController {
     
     var messageType = MessageType.none
     var shouldSavePaymentPlan : Bool?
+    var isEditScreen : Bool?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,7 +43,7 @@ class CreatePaymentViewController: UIViewController {
     
     @IBAction func backButtonAction(_ sender: Any) {
         if self.messageType == .paymentCard{
-            delegate?.backButtonPressed(shouldUpdate: false)
+            delegate?.backButtonPressed(shouldUpdate: (isEditScreen ?? false) ? true : false)
         }
         self.navigationController?.popViewController(animated: true)
     }
@@ -79,11 +80,7 @@ class CreatePaymentViewController: UIViewController {
     }
     
     func setUI() {
-        if self.messageType == .paymentCard{
-            view_Navigation.title = store?.title ?? ""
-        }else{
-            title = HippoStrings.paymentRequest
-        }
+        view_Navigation.title = HippoStrings.savedPlans
         if HippoConfig.shared.theme.leftBarButtonImage != nil {
             view_Navigation.image_back.image = HippoConfig.shared.theme.leftBarButtonImage
             view_Navigation.image_back.tintColor = HippoConfig.shared.theme.headerTextColor
@@ -148,10 +145,11 @@ class CreatePaymentViewController: UIViewController {
         return customView
     }
 
-    class func get(store: PaymentStore) -> CreatePaymentViewController {
+    class func get(store: PaymentStore, shouldSavePlan: Bool = false) -> CreatePaymentViewController {
         let vc = generateView()
         vc.messageType = .paymentCard
         vc.store = store
+        vc.shouldSavePaymentPlan = shouldSavePlan
         vc.initalizeView()
         return vc
     }
@@ -261,6 +259,10 @@ extension CreatePaymentViewController: ShowMoreTableViewCellDelegate {
     }
     
     func buttonClicked(with form: PaymentField) {
+        if let errorMesaage = store.validateStore() {
+            showAlert(title: "", message: errorMesaage, actionComplete: nil)
+            return
+        }
         store.addNewItem()
     }
 }

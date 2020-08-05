@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -15,7 +13,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="463"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="462.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="463"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title*" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="zFo-xT-8SA">
@@ -32,9 +30,11 @@
                         <constraints>
                             <constraint firstAttribute="height" constant="40" id="XFN-S5-VG9"/>
                         </constraints>
-                        <nil key="textColor"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
+                        <connections>
+                            <action selector="textFieldChange:" destination="KGk-i7-Jjw" eventType="editingChanged" id="0rP-sb-IFI"/>
+                        </connections>
                     </textField>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y9m-ru-R3Y">
                         <rect key="frame" x="10" y="58.5" width="300" height="1"/>
@@ -43,7 +43,7 @@
                             <constraint firstAttribute="height" constant="1" id="B03-Cz-dEs"/>
                         </constraints>
                     </view>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="1AW-3Q-U6s">
+                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="1AW-3Q-U6s">
                         <rect key="frame" x="12" y="59.5" width="298" height="18"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="18" id="mPe-n5-d1r"/>
@@ -52,10 +52,18 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NvK-Jz-TwD">
+                        <rect key="frame" x="308" y="65.5" width="0.0" height="0.0"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="Ej8-TM-Hrd" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="5nU-cG-LyD"/>
+                    <constraint firstItem="NvK-Jz-TwD" firstAttribute="trailing" secondItem="Ej8-TM-Hrd" secondAttribute="trailing" id="Bk6-TA-4GE"/>
                     <constraint firstItem="y9m-ru-R3Y" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="EBE-Sf-DWa"/>
+                    <constraint firstItem="NvK-Jz-TwD" firstAttribute="top" secondItem="Ej8-TM-Hrd" secondAttribute="bottom" constant="5" id="ERc-pi-Il7"/>
                     <constraint firstAttribute="trailing" secondItem="Ej8-TM-Hrd" secondAttribute="trailing" constant="12" id="JBb-L0-7yE"/>
                     <constraint firstItem="1AW-3Q-U6s" firstAttribute="top" secondItem="y9m-ru-R3Y" secondAttribute="bottom" id="Ku6-Y5-slN"/>
                     <constraint firstItem="1AW-3Q-U6s" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="MCF-zb-iHd"/>
@@ -74,6 +82,7 @@
                 <outlet property="cellTextField" destination="Ej8-TM-Hrd" id="ctw-V1-mTT"/>
                 <outlet property="errorLabel" destination="1AW-3Q-U6s" id="TFD-hh-Uhz"/>
                 <outlet property="errorLabelHeightConstraint" destination="mPe-n5-d1r" id="tow-lI-Ioc"/>
+                <outlet property="label_TextCount" destination="NvK-Jz-TwD" id="YyT-uE-ISQ"/>
                 <outlet property="titleLabel" destination="zFo-xT-8SA" id="HKN-Bl-rvq"/>
             </connections>
             <point key="canvasLocation" x="34" y="263.5"/>
