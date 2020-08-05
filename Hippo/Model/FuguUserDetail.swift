@@ -501,7 +501,7 @@ public class UserTag: NSObject {
         
         FuguDefaults.removeAllPersistingData()
         
-         CallManager.shared.hungupCall()
+        CallManager.shared.hungupCall()
         
         let defaults = UserDefaults.standard
         defaults.removeObject(forKey: Hippo_User_Channel_Id)
@@ -530,6 +530,9 @@ public class UserTag: NSObject {
         let voipToken = TokenManager.voipToken
         
         HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: FuguEndPoints.API_CLEAR_USER_DATA_LOGOUT.rawValue) { (responseObject, error, tag, statusCode) in
+            if currentUserType() == .customer{
+                unSubscribe(userChannelId: HippoUserDetail.HippoUserChannelId ?? "")
+            }
             clearAllData()
             TokenManager.deviceToken = deviceToken
             TokenManager.voipToken = voipToken

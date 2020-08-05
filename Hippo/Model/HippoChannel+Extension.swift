@@ -91,18 +91,6 @@ extension HippoChannel: SignalingClient {
                 completion(success, error)
                 print(success)
                 print(error)
-    //            if success {
-    //                completion(true,nil)
-    //            }else{
-    //                let responseData = response.data
-    //                guard let statusCode = responseData["statusCode"] as? Int else{
-    //                    completion(false,response.error as NSError?)
-    //                    return
-    //                }
-    //                if statusCode == 415 {
-    //                    completion(false, NSError.init(domain: responseData["type"] as? String ?? "FuguSocketResponse", code: 415, userInfo: responseData))
-    //                }
-    //            }
             }
         }
     
