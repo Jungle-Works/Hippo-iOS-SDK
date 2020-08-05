@@ -45,8 +45,8 @@ static let betaFaye = "https://beta-live-api.fuguchat.com:3001/faye"
 // static let betaUrl = "https://hippo-api-dev.fuguchat.com:3002/"
 // static let betaFaye = "https://hippo-api-dev.fuguchat.com:3002/faye"
 
-static let devUrl = "https://hippo-api-dev.fuguchat.com:3002/"//"https://hippo-api-dev.fuguchat.com:3002/"//
-static let devFaye = "https://hippo-api-dev.fuguchat.com:3002/faye"//"https://hippo-api-dev.fuguchat.com:3002/faye"//
+static let devUrl = "https://hippo-api-dev.fuguchat.com:3004/"//"https://hippo-api-dev.fuguchat.com:3002/"//
+static let devFaye = "https://hippo-api-dev.fuguchat.com:3004/faye"//"https://hippo-api-dev.fuguchat.com:3002/faye"//
 
 // static let devUrl = "https://hippo-api-dev.fuguchat.com:3011/"
 // static let devFaye = "https://hippo-api-dev.fuguchat.com:3012/faye"
@@ -988,18 +988,6 @@ struct BotAction {
         if let id = userInfo["channelId"], let channelId = Int("\(id)"){
             HippoNotification.removeAllnotificationFor(channelId: channelId)
         }
-        //        UIApplication.shared.clearNotificationCenter()
-        
-//        if let announcementPush = userInfo["is_announcement_push"] as? Int, announcementPush == 1 {
-//            DispatchQueue.main.async {
-//                //HippoChat.isSingleChatApp = false
-//                HippoConfig.shared.presentPromotionalPushController()
-//                return
-//            }
-//        }
-//        if userInfo["notification_type"] as? Int == 20{
-//            return
-//        }
         
         switch HippoConfig.shared.appUserType {
         case .agent:
@@ -1047,7 +1035,12 @@ struct BotAction {
             print("channel subscribed", success)
         }) {(messageDict) in
             print(messageDict)
-            CallManager.shared.voipNotificationRecieved(payloadDict: messageDict)
+            if let messageType = messageDict["message_type"] as? Int, messageType == MessageType.groupCall.rawValue{
+                CallManager.shared.voipNotificationRecievedForGroupCall(payloadDict: messageDict)
+                unSubscribe(userChannelId: "\(channelId)")
+            }else if let messageType = messageDict["message_type"] as? Int, messageType == MessageType.call.rawValue {
+                CallManager.shared.voipNotificationRecieved(payloadDict: messageDict)
+            }
         }
     }
     
@@ -1115,7 +1108,10 @@ struct BotAction {
     }
     func handleCustomerNotification(userInfo: [String: Any]) {
         if userInfo["notification_type"] as? Int == 25{
-            CallManager.shared.voipNotificationRecievedForGroupCall(payloadDict: userInfo)
+            if let channelId = userInfo["user_channel_id"] as? String{
+                subscribeCustomerUserChannel(userChannelId: channelId)
+                return
+            }
             return
         }else if userInfo["notification_type"] as? Int == 20{
            CallManager.shared.voipNotificationRecieved(payloadDict: userInfo)

@@ -138,11 +138,11 @@ extension GroupCallChannel: SignalingClient {
             "app_version": versionCode,
             "device_details": AgentDetail.getDeviceDetails()
         ]
-        fayeDict["device_token"] = HippoConfig.shared.deviceToken
+       // fayeDict["device_token"] = HippoConfig.shared.deviceToken
         
-        if !HippoConfig.shared.voipToken.isEmpty {
-            fayeDict["voip_token"] = HippoConfig.shared.voipToken
-        }
+//        if !HippoConfig.shared.voipToken.isEmpty {
+//            fayeDict["voip_token"] = HippoConfig.shared.voipToken
+//        }
         send(dict: fayeDict) { (error, success)  in
             completion(error,success)
             print(success)
@@ -166,15 +166,25 @@ extension GroupCallChannel: SignalingClient {
                 completion(result.success,result.error?.error as NSError?)
             }
         }else{
-            FayeConnection.shared.send(messageDict: json, toChannelID: "\(channelId)") { (result) in
-
-            }
-            FayeConnection.shared.send(messageDict: json, toChannelID: userChannelId ?? "") { (result) in
-                completion(result.success,result.error?.error as NSError?)
+            if json["video_call_type"] as? String != "START_GROUP_CALL"{
+                FayeConnection.shared.send(messageDict: json, toChannelID: "\(channelId)") { (result) in
+                }
+                sendOnUserChannel(json, completion: completion)
             }
         }
-       
     }
+    
+    func sendOnUserChannel(_ json : [String: Any],completion: @escaping  (Bool, NSError?) -> Void){
+        var json = json
+        
+        json["server_push"] = true
+        
+        FayeConnection.shared.send(messageDict: json, toChannelID: userChannelId ?? "") { (result) in
+            completion(result.success,result.error?.error as NSError?)
+        }
+    }
+    
+    
   
 }
 #endif
