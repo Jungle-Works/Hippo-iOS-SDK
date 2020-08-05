@@ -531,9 +531,9 @@ public class UserTag: NSObject {
         let voipToken = TokenManager.voipToken
         
         HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: FuguEndPoints.API_CLEAR_USER_DATA_LOGOUT.rawValue) { (responseObject, error, tag, statusCode) in
-            if currentUserType() == .customer{
-                unSubscribe(userChannelId: HippoUserDetail.HippoUserChannelId ?? "")
-            }
+//            if currentUserType() == .customer{
+//                unSubscribe(userChannelId: HippoUserDetail.HippoUserChannelId ?? "")
+//            }
             clearAllData()
             TokenManager.deviceToken = deviceToken
             TokenManager.voipToken = voipToken
