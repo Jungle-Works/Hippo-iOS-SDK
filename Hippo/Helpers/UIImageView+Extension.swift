@@ -29,7 +29,7 @@ extension UIImageView {
         switch status {
         case AgentStatus.available.rawValue:
             self.backgroundColor = UIColor.availableStatusColor
-            self.image = HippoConfig.shared.theme.availableStatusIcon
+            self.image = nil
             self.contentMode = .center
             
         case AgentStatus.offline.rawValue:

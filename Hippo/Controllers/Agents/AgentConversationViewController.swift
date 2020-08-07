@@ -2597,9 +2597,7 @@ extension AgentConversationViewController: UIGestureRecognizerDelegate {
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         guard gestureRecognizer.isEqual(self.navigationController?.interactivePopGestureRecognizer) else{ return true }
         messageTextView.resignFirstResponder()
-        channel?.send(message: HippoMessage.stopTyping, completion: {
-            self.channel?.deinitObservers()
-        })
+        channel?.send(message: HippoMessage.stopTyping, completion: {})
         let channelID = self.channel?.id ?? -1
         clearUnreadCountForChannel(id: channelID)
         if let lastMessage = getLastMessage() {

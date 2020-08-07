@@ -78,7 +78,7 @@ class FilterViewController: UIViewController {
         if FilterManager.shared.chatStatusArray.count > 0{
             var tempStatusArr = [labelWithId]()
             tempStatusArr.append(labelWithId(label: HippoStrings.openChat, id: 1, isSelected: FilterManager.shared.chatStatusArray.filter{$0.id == 1}.first?.isSelected ?? false))
-            tempStatusArr.append(labelWithId(label: HippoStrings.closeChat, id: 2, isSelected: FilterManager.shared.chatStatusArray.filter{$0.id == 2}.first?.isSelected ?? false))
+            tempStatusArr.append(labelWithId(label: HippoStrings.closedChat, id: 2, isSelected: FilterManager.shared.chatStatusArray.filter{$0.id == 2}.first?.isSelected ?? false))
             FilterManager.shared.chatStatusArray = tempStatusArr
         }
         

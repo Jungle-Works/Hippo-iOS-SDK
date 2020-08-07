@@ -957,7 +957,7 @@ class AllString{
         }
         
         if let closed_chats = response["closed_chats"] as? String{
-            HippoStrings.closeChat = closed_chats
+            HippoStrings.closedChat = closed_chats
         }
         
         if let open_chats = response["open_chats"] as? String{
@@ -1633,7 +1633,7 @@ class AllString{
         }
         
         if let no_data_found = response["no_data_found"] as? String{
-            
+            HippoStrings.noDataFound = no_data_found
         }
         
         if let search_here = response["search_here"] as? String{
