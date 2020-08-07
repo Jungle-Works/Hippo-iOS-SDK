@@ -19,6 +19,7 @@ class ShowImageViewController: UIViewController , UIScrollViewDelegate, UIGestur
     }
     @IBOutlet weak var downloadButton: UIButton!
     @IBOutlet var backgroundBlackColorView: UIView!
+    @IBOutlet var constraint_headerheight : NSLayoutConstraint!
     
     var imageToShow: UIImage?
     var imageURLString = ""
@@ -29,6 +30,7 @@ class ShowImageViewController: UIViewController , UIScrollViewDelegate, UIGestur
 
     var fixedCenter = CGPoint()
     var dismissRatio = CGFloat(0.5)
+    var shouldHidetopHeader : Bool?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,6 +45,9 @@ class ShowImageViewController: UIViewController , UIScrollViewDelegate, UIGestur
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        if shouldHidetopHeader ?? false{
+            downloadButton.isHidden = true
+        }
         if imageToShow != nil {
             self.imageView.image = imageToShow
         } else if imageURLString.isEmpty == false,

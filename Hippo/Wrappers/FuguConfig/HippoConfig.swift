@@ -1280,6 +1280,7 @@ extension HippoConfig {
     }
     
     func sendUnreadCount(_ totalCount: Int) {
+        //showAlertWith(message: "\(totalCount)", action: nil)
         HippoConfig.shared.unreadCount?(totalCount)
         HippoConfig.shared.delegate?.hippoUnreadCount(totalCount)
     }

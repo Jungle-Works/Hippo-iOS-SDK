@@ -52,7 +52,7 @@ class PromotionsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = HippoStrings.notifications
+       // self.title = HippoStrings.notifications
         
         FuguNetworkHandler.shared.fuguConnectionChangesStartNotifier()
         
@@ -317,6 +317,14 @@ extension PromotionsViewController: UITableViewDelegate,UITableViewDataSource
             
             cell.selectionStyle = .none
             cell.backgroundColor = .clear
+            cell.previewImage = {[weak self]() in
+                DispatchQueue.main.async {
+                    let showImageVC: ShowImageViewController = ShowImageViewController.getFor(imageUrlString: self?.data[indexPath.row].imageUrlString ?? "")
+                    showImageVC.shouldHidetopHeader = true
+                    self?.modalPresentationStyle = .overCurrentContext
+                    self?.present(showImageVC, animated: true, completion: nil)
+                }
+            }
             
             cell.set(data: data[indexPath.row])
             

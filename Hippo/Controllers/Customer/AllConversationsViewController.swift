@@ -747,13 +747,18 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
             }
         }
         
-        if chatObj?.lastMessage?.messageUniqueID != conversationObj.lastMessage?.messageUniqueID{
-            self.getAllConversations()
-        }
+//        if chatObj?.lastMessage?.messageUniqueID != conversationObj.lastMessage?.messageUniqueID{
+//            self.getAllConversations()
+//        }
         
         chatObj?.unreadCount = conversationObj.unreadCount
         chatObj?.lastMessage = conversationObj.lastMessage
         
+        let obj = arrayOfFullConversation.filter{$0.channelId == conversationObj.channelId}.first
+        obj?.unreadCount = 0
+        resetPushCount()
+        saveConversationsInCache()
+        pushTotalUnreadCount()
         
         guard isViewLoaded else {
             return
@@ -798,14 +803,23 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         
         var channelIdIndex: Int?
         var labelIdIndex: Int?
+        var fullArraychannelIdIndex : Int?
+        var fullArraylabelIdIndex: Int?
+        
         
         if pushChannelId > 0 {
             channelIdIndex = arrayOfConversation.firstIndex { (f) -> Bool in
                 return f.channelId ?? -1 == pushChannelId
             }
+            fullArraychannelIdIndex = arrayOfFullConversation.firstIndex { (f) -> Bool in
+                return f.channelId ?? -1 == pushChannelId
+            }
         }
         if pushLabelId > 0 {
             labelIdIndex = arrayOfConversation.firstIndex { (f) -> Bool in
+                return f.labelId ?? -1 == pushLabelId
+            }
+            fullArraylabelIdIndex = arrayOfFullConversation.firstIndex { (f) -> Bool in
                 return f.labelId ?? -1 == pushLabelId
             }
         }
@@ -823,7 +837,6 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         let convObj = arrayOfConversation[index]
         let lastMessage = HippoMessage(convoDict: pushInfo)
         
-       
         
         if let lastMuid = convObj.lastMessage?.messageUniqueID, let newMuid = lastMessage?.messageUniqueID, lastMuid == newMuid {
             return
@@ -837,11 +850,21 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
             convObj.unreadCount = unreadCount + 1
         }
         arrayOfConversation[index] = convObj
+        let fullrawIndex: Int? = fullArraychannelIdIndex ?? fullArraylabelIdIndex
+        
+        guard fullrawIndex != nil else {
+            return
+        }
+        guard let fullArrIndex = fullrawIndex, arrayOfFullConversation.count > fullrawIndex ?? -1 else {
+            return
+        }
+        
+        arrayOfFullConversation[fullArrIndex] = convObj
         
         if (convObj.unreadCount ?? 0) > 0 {
 //            convObj.channelStatus = .open
         }
-       // saveConversationsInCache()
+        saveConversationsInCache()
         resetPushCount()
         pushTotalUnreadCount()
         
@@ -942,10 +965,13 @@ extension AllConversationsViewController: UITableViewDelegate, UITableViewDataSo
         }
         
         let conversationObj = arrayOfConversation[indexPath.row]
+        let fullconversationObj = arrayOfFullConversation.filter{$0.channelId == arrayOfConversation[indexPath.row].channelId}
         moveToChatViewController(chatObj: conversationObj)
         if let unreadCount = conversationObj.unreadCount, unreadCount > 0 {
             resetPushCount()
             conversationObj.unreadCount = 0
+            fullconversationObj.first?.unreadCount = 0
+            saveConversationsInCache()
             pushTotalUnreadCount()
             showConversationsTableView.reloadRows(at: [indexPath], with: .none)
         }
