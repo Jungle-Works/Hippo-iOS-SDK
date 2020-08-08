@@ -204,6 +204,7 @@ extension FayeConnection: MZFayeClientDelegate {
     }
     
     func fayeClient(_ client: MZFayeClient!, didFailWithError error: Error!) {
+        HippoConfig.shared.socketsFailed = true
         let errorMessage = error?.localizedDescription ?? ""
         HippoConfig.shared.log.debug("didFailWithError==>\(errorMessage)", level: .info)
         NotificationCenter.default.post(name: .fayeDisconnected, object: nil)

@@ -203,7 +203,9 @@ class AgentUserChannel {
         //if channel id is not equal to current channel id
 
         if HippoConfig.shared.getCurrentAgentSdkChannelId() != newConversation.channel_id && type == .message{
-            calculateTotalAgentUnreadCount(newConversation.channel_id ?? -1, newConversation.unreadCount ?? 0)
+            if newConversation.lastMessage?.senderId != currentUserId(){
+                calculateTotalAgentUnreadCount(newConversation.channel_id ?? -1, newConversation.unreadCount ?? 0)
+            }
         }
         
         switch type {

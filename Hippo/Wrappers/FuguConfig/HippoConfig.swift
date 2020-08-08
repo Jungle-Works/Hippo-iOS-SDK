@@ -176,6 +176,7 @@ struct BotAction {
     internal let FuguColor = #colorLiteral(red: 0.3843137255, green: 0.4901960784, blue: 0.8823529412, alpha: 1)
     internal let poweredByFont: UIFont = UIFont.regular(ofSize: 10.0)
     internal let FuguStringFont: UIFont = UIFont.regular(ofSize: 10.0)
+    var socketsFailed : Bool?
     
     public let navigationTitleTextAlignMent: NSTextAlignment? = .center
     public var shouldOpenDefaultChannel = true
@@ -342,7 +343,13 @@ struct BotAction {
 //        isNewConversationButtonHidden = true
 //    }
     
-    
+    public func refreshUnreadCount(){
+        if socketsFailed ?? false && currentUserType() == .agent{
+            UnreadCount.getAgentTotalUnreadCount { (result) in
+            
+            }
+        }
+    }
     
     public func isSuggestionNeeded(setValue: Bool) {
         isSuggestionNeeded = setValue
@@ -1274,6 +1281,7 @@ extension HippoConfig {
     func sendAgentUnreadCount(_ totalCount: Int) {
         HippoConfig.shared.delegate?.hippoAgentTotalUnreadCount(totalCount)
         print("sendAgentUnreadCount====================",totalCount)
+        showAlertWith(message: "\(totalCount)", action: nil)
     }
     
     func sendAgentChannelsUnreadCount(_ totalCount: Int) {        HippoConfig.shared.delegate?.hippoAgentTotalChannelsUnreadCount(totalCount)

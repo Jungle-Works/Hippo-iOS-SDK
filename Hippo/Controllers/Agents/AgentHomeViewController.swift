@@ -238,12 +238,12 @@ extension AgentHomeViewController {
         if  HippoConfig.shared.agentDetail == nil || HippoConfig.shared.agentDetail!.oAuthToken.isEmpty {
             message = "Auth token is not found or found Empty"
         } else if !AgentConversationManager.isAnyApiOnGoing() && conversationList.isEmpty {
-            message =  HippoStrings.noDataFound//"No chat found for your business."
+            //message =  HippoStrings.noDataFound//"No chat found for your business."
             enableButton = true
         }
         
         if let error = AgentConversationManager.errorMessage {
-            message = error
+            //message = error
             enableButton = true
         }
         guard !message.isEmpty, conversationList.isEmpty, !AgentConversationManager.isAnyApiOnGoing() else {
@@ -830,8 +830,12 @@ extension AgentHomeViewController: AgentUserChannelDelegate {
         guard myChatIndex != nil || allChatIndex != nil else {
             return
         }
-        ConversationStore.shared.myChats[myChatIndex!].isBotInProgress = chatDetail.isBotInProgress
-        ConversationStore.shared.allChats[allChatIndex!].isBotInProgress = chatDetail.isBotInProgress
+        if let mychatIndex = myChatIndex, mychatIndex < ConversationStore.shared.myChats.count{
+            ConversationStore.shared.myChats[mychatIndex].isBotInProgress = chatDetail.isBotInProgress
+        }
+        if let allChatIndex = allChatIndex, allChatIndex < ConversationStore.shared.allChats.count{
+            ConversationStore.shared.allChats[allChatIndex].isBotInProgress = chatDetail.isBotInProgress
+        }
         setData()
         self.tableView.reloadData()
     }

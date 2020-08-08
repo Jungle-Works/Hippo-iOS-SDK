@@ -391,6 +391,7 @@ class HippoConversationViewController: UIViewController {
     @objc func fayeDisconnected(_ notification: Notification) {
         
     }
+    
     func getAllNewMessages() {
         var totalCount: Int? = channel?.messages.count
         

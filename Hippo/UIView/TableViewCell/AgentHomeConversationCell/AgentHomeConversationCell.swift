@@ -96,7 +96,9 @@ extension AgentHomeConversationCell {
         }
         cellData?.unreadCountupdated = {
             DispatchQueue.main.async {
-                self.setUnreadCount()
+                if self.cellData?.lastMessage?.senderId != currentUserId(){
+                    self.setUnreadCount()
+                }
             }
         }
         
@@ -104,7 +106,9 @@ extension AgentHomeConversationCell {
         timeLabel.text = cellData?.formattedTime
         
         //Setting unreadCount
-        setUnreadCount()
+        if self.cellData?.lastMessage?.senderId != currentUserId(){
+            self.setUnreadCount()
+        }
         
         //Setting setting close label
         if let cellChatStatus = cellInfo.status, cellChatStatus == ChatStatus.close.rawValue {
