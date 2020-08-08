@@ -1281,7 +1281,6 @@ extension HippoConfig {
     func sendAgentUnreadCount(_ totalCount: Int) {
         HippoConfig.shared.delegate?.hippoAgentTotalUnreadCount(totalCount)
         print("sendAgentUnreadCount====================",totalCount)
-        showAlertWith(message: "\(totalCount)", action: nil)
     }
     
     func sendAgentChannelsUnreadCount(_ totalCount: Int) {        HippoConfig.shared.delegate?.hippoAgentTotalChannelsUnreadCount(totalCount)
@@ -1289,10 +1288,10 @@ extension HippoConfig {
     }
     
     func sendUnreadCount(_ totalCount: Int) {
-        //showAlertWith(message: "\(totalCount)", action: nil)
         HippoConfig.shared.unreadCount?(totalCount)
         HippoConfig.shared.delegate?.hippoUnreadCount(totalCount)
     }
+    
     func notifyUserUnreadCount(_ usersCount: [String: Int]) {
         HippoConfig.shared.usersUnreadCount?(usersCount)
         HippoConfig.shared.delegate?.hippoUserUnreadCount(usersCount)
