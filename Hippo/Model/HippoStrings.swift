@@ -250,7 +250,7 @@ public class HippoStrings {
             
             HippoCallClientStrings.calling = HippoStrings.calling
             HippoCallClientStrings.ringing = HippoStrings.ringing
-            HippoCallClientStrings.callingYou = HippoStrings.isCallingYou
+            HippoCallClientStrings.callingYou = HippoStrings.isCallingYou.lowercased()
             HippoCallClientStrings.callDeclined = HippoStrings.callDeclined
             HippoCallClientStrings.busyOnOtherCall = HippoStrings.busyAnotherCall
             
