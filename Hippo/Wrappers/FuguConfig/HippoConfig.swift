@@ -348,6 +348,9 @@ struct BotAction {
             UnreadCount.getAgentTotalUnreadCount { (result) in
             
             }
+            if getLastVisibleController() is AgentHomeViewController{
+              AgentConversationManager.getAllData()
+            }
         }
     }
     
@@ -1279,6 +1282,7 @@ extension HippoConfig {
     }
     
     func sendAgentUnreadCount(_ totalCount: Int) {
+        //showAlertWith(message: "\(totalCount)", action: nil)
         HippoConfig.shared.delegate?.hippoAgentTotalUnreadCount(totalCount)
         print("sendAgentUnreadCount====================",totalCount)
     }

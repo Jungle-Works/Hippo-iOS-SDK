@@ -118,6 +118,8 @@ class HippoConversationViewController: UIViewController {
         removeKeyboardNotificationObserver()
         removeAppDidEnterForegroundObserver()
         removeNotificationObserverToKnowWhenAppIsKilledOrMovedToBackground()
+        NotificationCenter.default.removeObserver(self, name: .fayeConnected, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .fayeDisconnected, object: nil)
     }
     
     //Set Delegate For channels
@@ -1836,3 +1838,4 @@ extension HippoConversationViewController : paymentCardPaymentOfCreatePaymentDel
         }
     }
 }
+
