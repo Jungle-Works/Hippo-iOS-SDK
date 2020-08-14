@@ -1233,6 +1233,15 @@ struct BotAction {
     }
 }
 
+extension HippoConfig{
+    
+    public func getPaymentGateways(_ appSecretKey : String){
+        HippoConfig.shared.appSecretKey = appSecretKey
+        HippoUserDetail.getPaymentGateway { (success) in
+            
+        }
+    }
+}
 
 //MARK: Ticket System Methods
 public extension HippoConfig {

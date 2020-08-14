@@ -103,8 +103,8 @@ public class UserTag: NSObject {
     var customRequest: [String: Any] = [:]
     var userImage: URL?
     var selectedlanguage : String?
-    
     var userChannel: String?
+    static var shouldGetPaymentGateways : Bool = true
     
     class var HippoUserChannelId: String? {
         get {
@@ -143,7 +143,7 @@ public class UserTag: NSObject {
     // MARK: - Intializer
     override init() {}
     
-    public init(fullName: String, email: String, phoneNumber: String, userUniqueKey: String, addressAttribute: HippoAttributes? = nil, customAttributes: [String: Any]? = nil, userTags: [UserTag]? = nil, userImage: String? = nil, selectedlanguage : String? = nil) {
+    public init(fullName: String, email: String, phoneNumber: String, userUniqueKey: String, addressAttribute: HippoAttributes? = nil, customAttributes: [String: Any]? = nil, userTags: [UserTag]? = nil, userImage: String? = nil, selectedlanguage : String? = nil, getPaymentGateways : Bool = true) {
         super.init()
         
         self.fullName = fullName.trimWhiteSpacesAndNewLine()
@@ -160,6 +160,7 @@ public class UserTag: NSObject {
         }
         
        self.selectedlanguage = selectedlanguage
+        HippoUserDetail.shouldGetPaymentGateways = getPaymentGateways
         
         UserDefaults.standard.set(selectedlanguage, forKey: DefaultName.selectedLanguage.rawValue)
     }
@@ -381,9 +382,9 @@ public class UserTag: NSObject {
             NotificationCenter.default.post(name: .putUserSuccess, object:self)
 
             let isAskPaymentAllowed = Bool.parse(key: "is_ask_payment_allowed", json: userDetailData, defaultValue: false)
-            if isAskPaymentAllowed == true{
-                let params = getParamsForPaymentGateway()
-                self.getPaymentGateway(withParams: params) { (success) in
+            if isAskPaymentAllowed == true && self.shouldGetPaymentGateways{
+                
+                self.getPaymentGateway() { (success) in
                     //guard success == true else { return }
                 }
             }
@@ -394,9 +395,11 @@ public class UserTag: NSObject {
         }
     }
     
-    class func getPaymentGateway(withParams params: [String: Any], completion: @escaping (Bool) -> Void) {
+    class func getPaymentGateway(completion: @escaping (Bool) -> Void) {
+        let params = getParamsForPaymentGateway()
         getPaymentGateway(params: params, completion: completion)
     }
+    
     private class func getPaymentGateway(params: [String: Any],  completion: @escaping (Bool) -> Void) {
         HippoConfig.shared.log.debug("API_GetPaymentGateway.....\(params)", level: .request)
         HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: FuguEndPoints.getPaymentGateway.rawValue) { (response, error, _, statusCode) in
