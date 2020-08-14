@@ -1235,11 +1235,9 @@ struct BotAction {
 
 extension HippoConfig{
     
-    public func getPaymentGateways(_ appSecretKey : String){
+    public func getPaymentGateways(_ appSecretKey : String, completion: @escaping (Bool) -> Void){
         HippoConfig.shared.appSecretKey = appSecretKey
-        HippoUserDetail.getPaymentGateway { (success) in
-            
-        }
+        HippoUserDetail.getPaymentGateway(completion: completion)
     }
 }
 
