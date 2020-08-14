@@ -127,6 +127,7 @@ public class CoreMediaSelector: NSObject, UINavigationControllerDelegate, UIImag
             let picker = getImagePicker()
             setPickerForCamera(picker: picker, forFileType: fileTypes)
             vc.present(picker, animated: true, completion: nil)
+            HippoConfig.shared.HideJitsiView()
         } else {
             let result = Result(isSuccessful: false, error: SelectImageError.cameraNotFound, info: nil, filePath: nil, mediaType: nil, soucreType: .camera, image: nil)
             self.delegate?.imageViewPickerDidFinish(mediaSelector: self, with: result)
@@ -140,6 +141,7 @@ public class CoreMediaSelector: NSObject, UINavigationControllerDelegate, UIImag
             let picker = getImagePicker()
             self.setPickerForPhotoLibrary(picker: picker, forFileType: fileTypes)
             vc.present(picker, animated: true, completion: nil)
+            HippoConfig.shared.HideJitsiView()
         } else {
             let result = Result(isSuccessful: false, error: SelectImageError.photoLibraryNotFound, info: nil, filePath: nil, mediaType: nil, soucreType: .photoLibrary, image: nil)
             self.delegate?.imageViewPickerDidFinish(mediaSelector: self, with: result)
@@ -349,6 +351,7 @@ public class CoreMediaSelector: NSObject, UINavigationControllerDelegate, UIImag
     #endif
     
     public func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        HippoConfig.shared.UnhideJitsiView()
         picker.dismiss(animated: true, completion: nil)
     }
     

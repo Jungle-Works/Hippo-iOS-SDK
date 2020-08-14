@@ -171,6 +171,8 @@ struct BotAction {
     open var HippoPrePaymentSuccessful: ((Bool)->())?
     public var HippoLanguageChanged : ((Error?)->())?
     public var HippoSessionStatus: ((GroupCallStatus)->())?
+    public var announcementUnreadCount : ((Int)->())?
+    
     
     internal let powererdByColor = #colorLiteral(red: 0.4980392157, green: 0.4980392157, blue: 0.4980392157, alpha: 1)
     internal let FuguColor = #colorLiteral(red: 0.3843137255, green: 0.4901960784, blue: 0.8823529412, alpha: 1)
@@ -1282,7 +1284,7 @@ extension HippoConfig {
     }
     
     func sendAgentUnreadCount(_ totalCount: Int) {
-        //showAlertWith(message: "\(totalCount)", action: nil)
+       // showAlertWith(message: "\(totalCount)", action: nil)
         HippoConfig.shared.delegate?.hippoAgentTotalUnreadCount(totalCount)
         print("sendAgentUnreadCount====================",totalCount)
     }
@@ -1322,4 +1324,18 @@ extension HippoConfig {
         return HippoConfig.shared.delegate?.loadCallPresenterView(request: request)
     }
     #endif
+}
+extension HippoConfig{
+    
+    func HideJitsiView(){
+         #if canImport(HippoCallClient)
+            HippoCallClient.shared.hideViewInPip()
+         #endif
+    }
+    
+    func UnhideJitsiView(){
+         #if canImport(HippoCallClient)
+            HippoCallClient.shared.unHideViewInPip()
+         #endif
+    }
 }

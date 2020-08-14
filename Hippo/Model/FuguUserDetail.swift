@@ -387,6 +387,8 @@ public class UserTag: NSObject {
                     //guard success == true else { return }
                 }
             }
+            let announcementCount = ((responseObject as? NSDictionary)?.value(forKey: "data") as? NSDictionary)?.value(forKey: "unread_announcements_count") as? Int ?? 0
+            HippoConfig.shared.announcementUnreadCount?(announcementCount)
             
             completion?(true, nil)
         }
@@ -446,7 +448,7 @@ public class UserTag: NSObject {
 ////            params["neglect_conversations"] = true
 //        }
         params["neglect_conversations"] = true
-       
+        params["fetch_announcements_unread_count"] = 1
         
         return params
     }

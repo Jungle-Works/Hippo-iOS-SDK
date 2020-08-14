@@ -39,6 +39,7 @@ class AgentUserChannel {
         }
         
         subscribe()
+        subscribeMarkConversation()
         addObservers()
     }
     

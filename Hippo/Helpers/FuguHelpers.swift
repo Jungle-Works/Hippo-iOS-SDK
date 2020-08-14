@@ -90,6 +90,7 @@ struct UserDefaultkeys {
     static let isAskPaymentAllowed = "is_ask_payment_allowed"
     static let onlineStatus = "online_status"
     static let filterApplied = "filterApplied"
+    static let hideAllChat = "hideAllChat"
 }
 
 var FUGU_SCREEN_WIDTH: CGFloat {
@@ -352,7 +353,12 @@ func subscribeCustomerUserChannel(userChannelId: String) {
 }
 
 func subscribeMarkConversation(){
-    let markConversationChannel = HippoConfig.shared.appSecretKey + "/" + "markConversation"
+    var markConversationChannel = ""
+    if currentUserType() == .customer{
+        markConversationChannel = HippoConfig.shared.appSecretKey + "/" + "markConversation"
+    }else{
+        markConversationChannel = (HippoConfig.shared.agentDetail?.appSecrectKey ?? "") + "/" + "markConversation"
+    }
     
     guard !isSubscribed(userChannelId: markConversationChannel) else {
         return
@@ -375,6 +381,12 @@ func subscribeMarkConversation(){
                 if controller is AllConversationsViewController{
                     (controller as? AllConversationsViewController)?.closeChat(messageDict["channel_id"] as? Int ?? -1)
                     return
+                }
+            }
+            
+            if currentUserType() == .agent{
+                if let channelId = messageDict["channel_id"] as? Int{
+                   removeChannelForUnreadCount(channelId)
                 }
             }
         }

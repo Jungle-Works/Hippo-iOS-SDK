@@ -216,16 +216,16 @@ extension AgentHomeViewController {
         guard let agent = HippoConfig.shared.agentDetail, agent.id > 0 else {
             return
         }
-        if agent.agentUserType == .admin{
-            self.buttonContainerViewHeightConstraint.constant = 45
-            self.myChatButton.isHidden = false
-            self.allChatButton.isHidden = false
-            self.bottomLineView.isHidden = false
-        }else{
+        if agent.agentUserType != .admin && (BussinessProperty.current.hideAllChat ?? false){
             self.buttonContainerViewHeightConstraint.constant = 0
             self.myChatButton.isHidden = true
             self.allChatButton.isHidden = true
             self.bottomLineView.isHidden = true
+        }else{
+            self.buttonContainerViewHeightConstraint.constant = 45
+            self.myChatButton.isHidden = false
+            self.allChatButton.isHidden = false
+            self.bottomLineView.isHidden = false
         }
     }
     

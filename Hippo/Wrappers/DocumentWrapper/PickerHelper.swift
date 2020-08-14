@@ -121,6 +121,7 @@ class PickerHelper {
             self.performActionBasedOnGalleryPermission()
         case HippoStrings.document:
             controller.view.endEditing(true)
+            HippoConfig.shared.HideJitsiView()
             self.documentPicker = CoreDocumentPicker(controller: self.currentViewController)
             self.documentPicker?.delegate = self.delegate
             self.documentPicker?.presentIn(viewController: self.currentViewController, completion: nil)

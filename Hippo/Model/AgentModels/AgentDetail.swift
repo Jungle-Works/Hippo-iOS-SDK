@@ -283,6 +283,9 @@ extension AgentDetail {
                 
                 BussinessProperty.current.isAskPaymentAllowed = Bool.parse(key: "is_ask_payment_allowed", json: businessProperty)
                 
+                BussinessProperty.current.hideAllChat = Bool.parse(key: "hide_all_chat_tab", json: businessProperty)
+                
+                
                 BussinessProperty.current.currencyArr = BuisnessCurrency().getCurrenyData(businessProperty["business_currency"] as? [[String : Any]] ?? [[String : Any]]())
                 
             }

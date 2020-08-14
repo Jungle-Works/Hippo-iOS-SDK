@@ -907,6 +907,7 @@ extension HippoConversationViewController: PickerHelperDelegate {
     }
     
     func didPickDocumentWith(url: URL) {
+        HippoConfig.shared.UnhideJitsiView()
         sendSelectedDocumentWith(filePath: url.path, fileName: url.lastPathComponent, messageType: .attachment, fileType: .document)
     }
 }
@@ -927,10 +928,14 @@ extension HippoConversationViewController: SelectImageViewControllerDelegate {
             } else {
                 self.sendConfirmedImage(image: selectedImage, mediaType: .imageType)
             }
+            HippoConfig.shared.UnhideJitsiView()
         }
+        
     }
     
-    func goToConversationViewController() {}
+    func goToConversationViewController() {
+        HippoConfig.shared.UnhideJitsiView()
+    }
 }
 
 extension HippoConversationViewController {

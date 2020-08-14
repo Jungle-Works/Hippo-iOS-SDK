@@ -13,6 +13,20 @@ class BussinessProperty: NSObject {
     var currencyArr : [BuisnessCurrency]?
     var buisnessLanguageArr : [BuisnessLanguage]?
     
+    var hideAllChat: Bool? {
+         get {
+             
+             guard let hideAllChat = UserDefaults.standard.value(forKey: UserDefaultkeys.hideAllChat) as? Bool else {
+                 return nil
+             }
+             return hideAllChat
+         }
+         set {
+             UserDefaults.standard.set(newValue, forKey: UserDefaultkeys.hideAllChat)
+         }
+     }
+    
+    
     var botImageUrl: String? {
         get {
             

@@ -632,6 +632,9 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     }
     
     override func openCustomSheet(){
+        
+        HippoConfig.shared.HideJitsiView()
+        
         self.customTableView.reloadData()
         let window = UIApplication.shared.keyWindow
         transparentView.backgroundColor = UIColor.black.withAlphaComponent(0.9)
@@ -669,6 +672,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         }, completion: nil)
     }
     @objc func onClickTransparentView() {
+        HippoConfig.shared.UnhideJitsiView()
         let screenSize = UIScreen.main.bounds.size
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, options: .curveEaseInOut, animations: {
             self.transparentView.alpha = 0
