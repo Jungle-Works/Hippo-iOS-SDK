@@ -255,7 +255,7 @@ extension AgentDetail {
                 let result = ResponseResult(isSuccessful: false, error: error)
                 print("Login errror: \(error?.localizedDescription ?? HippoStrings.somethingWentWrong)")
                 postLoginUpdated()
-                HippoUserDetail.clearAllData()
+               // HippoUserDetail.clearAllData()
                 AgentConversationManager.errorMessage = error?.localizedDescription ?? HippoStrings.somethingWentWrong
                 completion(result)
                 return

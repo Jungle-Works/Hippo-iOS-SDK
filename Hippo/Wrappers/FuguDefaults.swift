@@ -18,6 +18,7 @@ enum DefaultName: String {
     case agentUnreadCount = "agentUnreadCount"
     case p2pUnreadCount = "cusUnreadCount"
     case selectedLanguage = "hippoSelectedLanguage"
+    case announcementUnreadCount = "announcementUnreadCount"
 }
 
 struct DefaultKey {

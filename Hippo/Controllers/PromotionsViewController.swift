@@ -54,6 +54,10 @@ class PromotionsViewController: UIViewController {
         super.viewDidLoad()
        // self.title = HippoStrings.notifications
         
+        let updatedCount = 0
+        UserDefaults.standard.set(updatedCount, forKey: DefaultName.announcementUnreadCount.rawValue)
+        HippoConfig.shared.announcementUnreadCount?(updatedCount)
+        
         FuguNetworkHandler.shared.fuguConnectionChangesStartNotifier()
         
         if shouldUseCache {
