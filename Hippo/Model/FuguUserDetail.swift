@@ -390,6 +390,7 @@ public class UserTag: NSObject {
             }
             let announcementCount = ((responseObject as? NSDictionary)?.value(forKey: "data") as? NSDictionary)?.value(forKey: "unread_announcements_count") as? Int ?? 0
             HippoConfig.shared.announcementUnreadCount?(announcementCount)
+            UserDefaults.standard.set(announcementCount, forKey: DefaultName.announcementUnreadCount.rawValue)
             
             completion?(true, nil)
         }
@@ -474,8 +475,9 @@ public class UserTag: NSObject {
         
         
         FuguDefaults.removeAllPersistingData()
-        
-        FayeConnection.shared.disconnectFaye()
+        if FayeConnection.shared.isConnected{
+            FayeConnection.shared.disconnectFaye()
+        }
         //Clear agent data
         clearAgentData()
         

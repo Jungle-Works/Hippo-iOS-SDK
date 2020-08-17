@@ -943,6 +943,18 @@ struct BotAction {
     public func setStrings(stringsObject: HippoStrings) {
         HippoConfig.shared.strings = stringsObject
     }
+    
+    public func managePromotionCount(_ userInfo: [String:Any]){
+        if userInfo["is_announcement_push"] as? Bool == true{
+            if !(getLastVisibleController() is PromotionsViewController){
+                if let count = UserDefaults.standard.value(forKey: DefaultName.announcementUnreadCount.rawValue) as? Int{
+                    let updatedCount = count + 1
+                    UserDefaults.standard.set(updatedCount, forKey: DefaultName.announcementUnreadCount.rawValue)
+                    HippoConfig.shared.announcementUnreadCount?(updatedCount)
+                }
+            }
+        }
+    }
     public func showNotification(userInfo: [String: Any]) -> Bool {
         let notificationType = Int.parse(values: userInfo, key: "notification_type") ?? -1
         
