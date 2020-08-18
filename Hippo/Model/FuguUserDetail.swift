@@ -389,9 +389,14 @@ public class UserTag: NSObject {
                 }
             }
             let announcementCount = ((responseObject as? NSDictionary)?.value(forKey: "data") as? NSDictionary)?.value(forKey: "unread_announcements_count") as? Int ?? 0
-            HippoConfig.shared.announcementUnreadCount?(announcementCount)
-            UserDefaults.standard.set(announcementCount, forKey: DefaultName.announcementUnreadCount.rawValue)
-            
+            if !(HippoConfig.shared.isOpenedFromPush ?? false){
+               HippoConfig.shared.announcementUnreadCount?(announcementCount)
+               UserDefaults.standard.set(announcementCount, forKey: DefaultName.announcementUnreadCount.rawValue)
+            }else{
+                let updatedCount = 0
+                UserDefaults.standard.set(updatedCount, forKey: DefaultName.announcementUnreadCount.rawValue)
+                HippoConfig.shared.announcementUnreadCount?(updatedCount)
+            }
             completion?(true, nil)
         }
     }

@@ -191,6 +191,7 @@ struct BotAction {
             }
         }
     }
+    var isOpenedFromPush : Bool?
     
     // MARK: - Intialization
     private override init() {
@@ -998,6 +999,7 @@ struct BotAction {
         }
         
         if let announcementPush = userInfo["is_announcement_push"] as? Int, announcementPush == 1 {
+            self.isOpenedFromPush = true
             self.handleAnnouncementsNotification(userInfo: userInfo)
             return
         }
