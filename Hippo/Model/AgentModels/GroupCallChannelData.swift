@@ -135,7 +135,7 @@ extension GroupCallChannel: SignalingClient {
         fayeDict["device_payload"] = [
             "device_id": UIDevice.current.identifierForVendor?.uuidString ?? 0,
             "device_type": Device_Type_iOS,
-            "app_version": versionCode,
+            "app_version": fuguAppVersion,
             "device_details": AgentDetail.getDeviceDetails()
         ]
        // fayeDict["device_token"] = HippoConfig.shared.deviceToken

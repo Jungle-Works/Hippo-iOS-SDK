@@ -324,7 +324,7 @@ extension PromotionsViewController: UITableViewDelegate,UITableViewDataSource
             cell.previewImage = {[weak self]() in
                 DispatchQueue.main.async {
                     let showImageVC: ShowImageViewController = ShowImageViewController.getFor(imageUrlString: self?.data[indexPath.row].imageUrlString ?? "")
-                    showImageVC.shouldHidetopHeader = true
+                    //showImageVC.shouldHidetopHeader = true
                     self?.modalPresentationStyle = .overCurrentContext
                     self?.present(showImageVC, animated: true, completion: nil)
                 }

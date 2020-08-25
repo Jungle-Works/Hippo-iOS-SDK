@@ -56,9 +56,9 @@ class AgentHomeViewController: HippoHomeViewController {
         setupTableView()
         addObservers()
         setUpView()
-        setData()
         setAgentStatusForToggle()
         ConversationStore.shared.fetchAllCachedConversation()
+        setData()
         AgentConversationManager.getAllData()
         Business.shared.restoreAllSavedInfo()
         
@@ -507,7 +507,7 @@ extension AgentHomeViewController {
             checkForAnyError()
             return
         }
-        startLoading()
+        stopLoading()
         checkForAnyError()
     }
     func startLoading() {
@@ -746,7 +746,18 @@ extension AgentHomeViewController: AgentChatDeleagate {
 
 extension AgentHomeViewController: AgentUserChannelDelegate {
     func readAllNotificationFor(channelID: Int) {
+        let myChatIndex = AgentConversation.getIndex(in: ConversationStore.shared.myChats, for: channelID)
+        let allChatIndex = AgentConversation.getIndex(in: ConversationStore.shared.allChats, for: channelID)
         
+        if myChatIndex != nil {
+            ConversationStore.shared.myChats[myChatIndex!].unreadCount = 0
+        }
+        
+        if allChatIndex != nil {
+            ConversationStore.shared.allChats[allChatIndex!].unreadCount = 0
+        }
+        setData()
+        self.tableView.reloadData()
     }
     
     
@@ -788,9 +799,6 @@ extension AgentHomeViewController: AgentUserChannelDelegate {
                 ConversationStore.shared.allChats.insert(existingConversation, at: 0)
             }
         }
-        
-        
-        
         setData()
         self.tableView.reloadData()
     }
@@ -805,7 +813,7 @@ extension AgentHomeViewController: AgentUserChannelDelegate {
             return
         }
         
-        newConversation.unreadCount = newConversation.updateUnreadCountBy
+        //newConversation.unreadCount = 1
         
         ConversationStore.shared.myChats.insert(newConversation, at: 0)
         
@@ -815,7 +823,7 @@ extension AgentHomeViewController: AgentUserChannelDelegate {
         }
     }
     func handleALLChatInsertion(with newConversation: AgentConversation) {
-        newConversation.unreadCount = newConversation.updateUnreadCountBy
+        //newConversation.unreadCount = 1
         ConversationStore.shared.allChats.insert(newConversation, at: 0)
         
         if conversationType == .allChat {
@@ -853,6 +861,12 @@ extension AgentHomeViewController: AgentUserChannelDelegate {
         
         
         guard myChatIndex != nil || allChatIndex != nil else {
+            newConversation.unreadCount = 1
+            if let vc = getLastVisibleController() as? AgentConversationViewController,let id = vc.channel?.id, id == channelID {
+                newConversation.unreadCount = 0
+            }else if newConversation.lastMessage?.senderId == currentUserId(){
+                newConversation.unreadCount = 0
+            }
             insertNewConversation(with: newConversation)
             return
         }
@@ -911,6 +925,7 @@ extension AgentHomeViewController : FilterScreenButtonsDelegate{
     }
 
     func applyButtonPressed() {
+        startLoading()
         self.setDataForViewDidAppear()
     }
 }

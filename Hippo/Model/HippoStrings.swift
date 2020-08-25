@@ -245,7 +245,7 @@ public class HippoStrings {
     }
     
     class func updateHippoCallClientStrings(){
-        if versionCode > 320{
+        if versionCode >= 350{
             #if canImport(HippoCallClient)
             
             HippoCallClientStrings.calling = HippoStrings.calling

@@ -348,6 +348,8 @@ extension AgentDirectViewController: AgentUserChannelDelegate {
         
         if let vc = getLastVisibleController() as? AgentConversationViewController,let id = vc.channel?.id, id == channelID {
             newConversation.unreadCount = 0
+        }else if newConversation.lastMessage?.senderId == currentUserId(){
+            newConversation.unreadCount = 0
         }
         
         conversationList.insert(newConversation, at: 0)

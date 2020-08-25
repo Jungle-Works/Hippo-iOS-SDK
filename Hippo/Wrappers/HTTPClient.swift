@@ -132,7 +132,7 @@ class HTTPClient {
         }
         
         var additionalParams: [String: Any] = [
-            "app_version": versionCode,
+            "app_version": fuguAppVersion,
             "device_type": Device_Type_iOS,
             "source_type": SourceType.SDK.rawValue,
             "device_id":  UIDevice.current.identifierForVendor?.uuidString ?? 0,
@@ -201,7 +201,7 @@ class HTTPClient {
         showActivityIndicator ? HTTPClient.startAnimatingActivityIndicator(): ()
         
         var additionalParams: [String: Any] = [
-            "app_version": versionCode,
+            "app_version": fuguAppVersion,
             "device_type": Device_Type_iOS,
             "source_type": SourceType.SDK.rawValue,
             "device_id":  UIDevice.current.identifierForVendor?.uuidString ?? 0,

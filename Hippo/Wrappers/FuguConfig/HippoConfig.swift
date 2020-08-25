@@ -114,6 +114,8 @@ struct BotAction {
     internal var ticketDetails = HippoTicketAtrributes(categoryName: "")
     internal var theme = HippoTheme.defaultTheme()
     internal var userDetail: HippoUserDetail?
+    internal var jitsiUrl : String?
+    internal var jitsiOngoingCall : Bool?
     internal var agentDetail: AgentDetail?
     public var strings = HippoStrings()
     private(set)  open var newConversationButtonBorderWidth: Float = 0.0
@@ -160,7 +162,6 @@ struct BotAction {
     internal var referenceId = -1
     internal var appType: String?
     internal var credentialType = FuguCredentialType.defaultType
-
     var isSkipBot:Bool = false
     internal var baseUrl =      SERVERS.liveUrl     // SERVERS.betaUrl//
     internal var fayeBaseURLString: String =     SERVERS.liveFaye   // SERVERS.betaFaye//
@@ -185,12 +186,13 @@ struct BotAction {
     public var shouldUseNewCalling : Bool?{
         didSet{
             if shouldUseNewCalling ?? false{
-                versionCode = 350
+                versionCode = 350 + 1
             }else{
-                versionCode = 320
+                versionCode = 320 - 1
             }
         }
     }
+    var isOpenedFromPush : Bool?
     
     // MARK: - Intialization
     private override init() {
@@ -353,6 +355,7 @@ struct BotAction {
             if getLastVisibleController() is AgentHomeViewController{
               AgentConversationManager.getAllData()
             }
+            socketsFailed = false
         }
     }
     
@@ -933,8 +936,6 @@ struct BotAction {
     }
     
     public func isHippoNotification(withUserInfo userInfo: [String: Any]) -> Bool {
-        
-        
         if let pushSource = userInfo["push_source"] as? String, (pushSource == "FUGU" || pushSource == "HIPPO") {
             return true
         }
@@ -959,6 +960,10 @@ struct BotAction {
         let notificationType = Int.parse(values: userInfo, key: "notification_type") ?? -1
         
         if notificationType == NotificationType.call.rawValue && UIApplication.shared.applicationState != .inactive {
+            return false
+        }
+        
+        if notificationType == NotificationType.call.rawValue && jitsiOngoingCall == true{
             return false
         }
         
@@ -998,6 +1003,7 @@ struct BotAction {
         }
         
         if let announcementPush = userInfo["is_announcement_push"] as? Int, announcementPush == 1 {
+            self.isOpenedFromPush = true
             self.handleAnnouncementsNotification(userInfo: userInfo)
             return
         }

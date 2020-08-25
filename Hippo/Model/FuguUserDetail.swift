@@ -306,6 +306,10 @@ public class UserTag: NSObject {
             
             userDetailData = data
             
+            if let jitsiUrl = userDetailData["jitsi_url"] as? String{
+                HippoConfig.shared.jitsiUrl = jitsiUrl
+            }
+            
             if let rawUserChannel = userDetailData["user_channel"] as? String {
                 HippoUserDetail.HippoUserChannelId = rawUserChannel
                 subscribeCustomerUserChannel(userChannelId: rawUserChannel)
@@ -389,9 +393,10 @@ public class UserTag: NSObject {
                 }
             }
             let announcementCount = ((responseObject as? NSDictionary)?.value(forKey: "data") as? NSDictionary)?.value(forKey: "unread_announcements_count") as? Int ?? 0
-            HippoConfig.shared.announcementUnreadCount?(announcementCount)
-            UserDefaults.standard.set(announcementCount, forKey: DefaultName.announcementUnreadCount.rawValue)
-            
+            if !(HippoConfig.shared.isOpenedFromPush ?? false){
+               HippoConfig.shared.announcementUnreadCount?(announcementCount)
+               UserDefaults.standard.set(announcementCount, forKey: DefaultName.announcementUnreadCount.rawValue)
+            }
             completion?(true, nil)
         }
     }
@@ -418,7 +423,7 @@ public class UserTag: NSObject {
     private class func getParamsForPaymentGateway() -> [String: Any] {
         var params = [String: Any]()
         params["app_secret_key"] = HippoConfig.shared.appSecretKey
-        params["app_version"] = versionCode
+        params["app_version"] = fuguAppVersion
         params["device_type"] = Device_Type_iOS
         params["source_type"] = SourceType.SDK.rawValue
         params["app_version_code"] = versionCode

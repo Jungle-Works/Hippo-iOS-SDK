@@ -56,7 +56,7 @@ extension HippoChannel: SignalingClient {
         fayeDict["device_payload"] = [
             "device_id": UIDevice.current.identifierForVendor?.uuidString ?? 0,
             "device_type": Device_Type_iOS,
-            "app_version": versionCode,
+            "app_version": fuguAppVersion,
             "device_details": AgentDetail.getDeviceDetails()
         ]
         fayeDict["device_token"] = TokenManager.deviceToken
@@ -71,28 +71,44 @@ extension HippoChannel: SignalingClient {
     }
     
     func sendJitsiObject(json: [String : Any], completion: @escaping (Bool, NSError?) -> Void) {
-            var fayeDict = json
-            
-            fayeDict["message_type"] = MessageType.call.rawValue
-            fayeDict["user_type"] = currentUserType().rawValue
-            fayeDict["device_payload"] = [
-                "device_id": UIDevice.current.identifierForVendor?.uuidString ?? 0,
-                "device_type": Device_Type_iOS,
-                "app_version": versionCode,
-                "device_details": AgentDetail.getDeviceDetails()
-            ]
-            fayeDict["device_token"] = HippoConfig.shared.deviceToken
-            
-            if !HippoConfig.shared.voipToken.isEmpty {
-                fayeDict["voip_token"] = HippoConfig.shared.voipToken
-            }
-            
-            send(dict: fayeDict) { (success, error)  in
-                completion(success, error)
-                print(success)
-                print(error)
-            }
+        var fayeDict = json
+        
+        fayeDict["message_type"] = MessageType.call.rawValue
+        fayeDict["user_type"] = currentUserType().rawValue
+        fayeDict["device_payload"] = [
+            "device_id": UIDevice.current.identifierForVendor?.uuidString ?? 0,
+            "device_type": Device_Type_iOS,
+            "app_version": fuguAppVersion,
+            "device_details": AgentDetail.getDeviceDetails()
+        ]
+        fayeDict["device_token"] = HippoConfig.shared.deviceToken
+        
+        if !HippoConfig.shared.voipToken.isEmpty {
+            fayeDict["voip_token"] = HippoConfig.shared.voipToken
         }
+        
+        send(dict: fayeDict) { (success, error)  in
+            completion(success, error)
+            print(success)
+            print(error)
+        }
+        
+        if json["video_call_type"] as? String == "USER_BUSY_CONFERENCE"{
+            sendOnUserChannel(json, completion: completion)
+        }
+    }
     
+    
+    func sendOnUserChannel(_ json : [String: Any],completion: @escaping  (Bool, NSError?) -> Void){
+        var json = json
+        
+        json["server_push"] = true
+        
+        let userChannelId = currentUserType() == .agent ? HippoConfig.shared.agentDetail?.userChannel : HippoUserDetail.HippoUserChannelId
+        
+        FayeConnection.shared.send(messageDict: json, toChannelID: userChannelId ?? "") { (result) in
+            completion(result.success,result.error?.error as NSError?)
+        }
+    }
 }
 #endif

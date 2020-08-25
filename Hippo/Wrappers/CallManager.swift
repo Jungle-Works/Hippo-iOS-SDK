@@ -59,9 +59,9 @@ class CallManager {
         guard let currentUser = getCurrentUser() else {
             return
         }
-        let callToMake = Call(peer: peer, signalingClient: call.signallingClient, uID: call.muid, currentUser: currentUser, type: getCallTypeWith(localType: call.callType), link: "", isGroupCall: true)
+        let callToMake = Call(peer: peer, signalingClient: call.signallingClient, uID: call.muid, currentUser: currentUser, type: getCallTypeWith(localType: call.callType), link: "", isGroupCall: true, jitsiUrl: HippoConfig.shared.jitsiUrl ?? "")
         
-        let groupCallData = CallClientGroupCallData(roomTitle: groupCallChannelData.roomTitle ?? "", roomUniqueId: groupCallChannelData.roomUniqueId ?? "", transactionId :groupCallChannelData.transactionId ?? "")
+        let groupCallData = CallClientGroupCallData(roomTitle: groupCallChannelData.roomTitle ?? "", roomUniqueId: groupCallChannelData.roomUniqueId ?? "", transactionId :groupCallChannelData.transactionId ?? "", userType: currentUserType() == .agent ? "agent" : "customer")
         
         HippoCallClient.shared.startGroupCall(call: callToMake, groupCallData: groupCallData)
         #else
@@ -80,7 +80,7 @@ class CallManager {
         guard let currentUser = getCurrentUser() else {
             return
         }
-        let callToMake = Call(peer: peer, signalingClient: call.signallingClient, uID: call.muid, currentUser: currentUser, type: getCallTypeWith(localType: call.callType), link: "")
+        let callToMake = Call(peer: peer, signalingClient: call.signallingClient, uID: call.muid, currentUser: currentUser, type: getCallTypeWith(localType: call.callType), link: "", jitsiUrl: HippoConfig.shared.jitsiUrl ?? "")
         HippoCallClient.shared.startCall(call: callToMake, completion: completion)
         #else
         completion(false,nil)
@@ -97,7 +97,7 @@ class CallManager {
         guard let currentUser = getCurrentUser() else {
             return
         }
-        let callToMake = Call(peer: peer, signalingClient: call.signallingClient, uID: call.muid, currentUser: currentUser, type: getCallTypeWith(localType: call.callType), link: "")
+        let callToMake = Call(peer: peer, signalingClient: call.signallingClient, uID: call.muid, currentUser: currentUser, type: getCallTypeWith(localType: call.callType), link: "", jitsiUrl: HippoConfig.shared.jitsiUrl ?? "")
         HippoCallClient.shared.startWebRTCCall(call: callToMake, completion: completion)
         #else
         completion(false)
@@ -257,6 +257,10 @@ class CallManager {
 
 #if canImport(HippoCallClient)
 extension CallManager: HippoCallClientDelegate {
+    func callStarted(isCallStarted: Bool) {
+         HippoConfig.shared.jitsiOngoingCall = isCallStarted
+    }
+    
     func loadCallPresenterView(request: CallPresenterRequest) -> CallPresenter? {
         return HippoConfig.shared.notifyCallRequest(request)
     }

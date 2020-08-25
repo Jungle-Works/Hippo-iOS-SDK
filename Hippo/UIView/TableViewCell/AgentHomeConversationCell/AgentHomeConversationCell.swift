@@ -60,7 +60,7 @@ extension AgentHomeConversationCell {
         counterLabelContainerView.isHidden = true
         counterLabel.isHidden = true
         
-        channelImageView.image = nil
+        //channelImageView.image = nil
         channelImageView.layer.masksToBounds = true
         channelImageView.layer.cornerRadius = 5
         channelImageView.contentMode = .scaleAspectFill
@@ -70,7 +70,7 @@ extension AgentHomeConversationCell {
         
         transitionView.isHidden = true
         transitionLabel.text = ""
-        transitionImageView.image = nil
+        //transitionImageView.image = nil
         
 //        nameLabel.font = UIFont(name:"HelveticaNeue", size: 15.0)
 //        lastMessageLabel.font = UIFont(name:"HelveticaNeue", size: 12.0)
@@ -96,9 +96,7 @@ extension AgentHomeConversationCell {
         }
         cellData?.unreadCountupdated = {
             DispatchQueue.main.async {
-                if self.cellData?.lastMessage?.senderId != currentUserId(){
-                    self.setUnreadCount()
-                }
+                self.setUnreadCount()
             }
         }
         
@@ -106,10 +104,8 @@ extension AgentHomeConversationCell {
         timeLabel.text = cellData?.formattedTime
         
         //Setting unreadCount
-        if self.cellData?.lastMessage?.senderId != currentUserId(){
-            self.setUnreadCount()
-        }
-        
+        self.setUnreadCount()
+            
         //Setting setting close label
         if let cellChatStatus = cellInfo.status, cellChatStatus == ChatStatus.close.rawValue {
             closedLabel.text = HippoStrings.closed
