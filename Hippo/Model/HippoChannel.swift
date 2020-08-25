@@ -510,7 +510,7 @@ class HippoChannel {
         params["agent_email"] = agentEmail
         params["app_secret_key"] = HippoConfig.shared.appSecretKey
         params["chat_type"] = 0
-        params["app_version"] = versionCode
+        params["app_version"] = fuguAppVersion
         params["device_type"] = Device_Type_iOS
         params["source_type"] = SourceType.SDK.rawValue
 //        params["in_app_support_channel"] = 0

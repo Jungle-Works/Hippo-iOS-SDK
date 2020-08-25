@@ -39,6 +39,7 @@ class AgentConversation: HippoConversation {
     var isMyChat: Bool?
     var mutiLanguageMsg : String?
     var isBotInProgress: Bool = false
+    var chatStatus : Int?
 
     var updateUnreadCountBy: Int {
         return isMyChat ?? false ? 1 : 0
@@ -63,6 +64,7 @@ class AgentConversation: HippoConversation {
     
     init(json: [String: Any]) {
         super.init()
+        chatStatus = json["chat_status"] as? Int
         isBotInProgress = Bool.parse(key: "is_bot_in_progress", json: json, defaultValue: false)
         labelId = json["label_id"] as? Int ?? -1
         agent_id = json["agent_id"] as? Int
@@ -129,7 +131,7 @@ class AgentConversation: HippoConversation {
         let lastMessage = self.lastMessage?.message ?? ""
 
         var title = ""
-        var end = lastMessage
+        var end = lastMessage.trimWhiteSpacesAndNewLine()
         
         
         if lastMessage.isEmpty {
@@ -139,6 +141,10 @@ class AgentConversation: HippoConversation {
         
         if self.lastMessage?.senderId == AgentDetail.id {
             title = HippoStrings.you + ":"
+        }
+        
+        if notificationType  == NotificationType.assigned || self.lastMessage?.type == .assignAgent{
+            title = ""
         }
         
 //        else if self.lastMessage?.userType == UserType.customer {
@@ -212,10 +218,10 @@ class AgentConversation: HippoConversation {
         
         if let type = newConversation.notificationType, type == .assigned {
             self.agent_name = newConversation.assigned_to_name
-            self.unreadCount = 0
+            self.status = newConversation.chatStatus
         }
         
-        self.displayingMessage = getDisplayMessage()
+        self.displayingMessage = getDisplayMessage().trimWhiteSpacesAndNewLine()
         setTime()
         
         self.messageUpdated?()

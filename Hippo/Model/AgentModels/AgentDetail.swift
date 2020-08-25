@@ -287,7 +287,7 @@ extension AgentDetail {
                 
                 
                 BussinessProperty.current.currencyArr = BuisnessCurrency().getCurrenyData(businessProperty["business_currency"] as? [[String : Any]] ?? [[String : Any]]())
-                
+                HippoConfig.shared.jitsiUrl = businessProperty["jitsi_url"] as? String
             }
             
             BussinessProperty.current.unsupportedMessageString = data["unsupported_message"] as? String ?? ""

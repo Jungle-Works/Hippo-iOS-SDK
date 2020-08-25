@@ -113,10 +113,17 @@ class AgentConversationManager {
             }
         }
         if !isAllChatInProgress {
-            isAllChatInProgress = true
-            getConversations(with: .allChatDefaultRequest) { (result) in
-                isAllChatInProgress = false
-                NotificationCenter.default.post(name: .allChatDataUpdated, object:self)
+            guard let agent = HippoConfig.shared.agentDetail, agent.id > 0 else {
+                return
+            }
+            if agent.agentUserType != .admin && (BussinessProperty.current.hideAllChat ?? false){
+                
+            }else{
+                isAllChatInProgress = true
+                getConversations(with: .allChatDefaultRequest) { (result) in
+                    isAllChatInProgress = false
+                    NotificationCenter.default.post(name: .allChatDataUpdated, object:self)
+                }
             }
         }
         
@@ -465,7 +472,7 @@ extension AgentConversationManager {
         }
         var dict: [String: Any] = ["access_token": agent.fuguToken,
                                    "device_type": Device_Type_iOS,
-                                   "app_version": versionCode]
+                                   "app_version": fuguAppVersion]
         
 //        dict["page_offset"] = request.startPage ?? 1
 //        if let pageEnd = request.endPage, let startPage = request.startPage, pageEnd > startPage  {

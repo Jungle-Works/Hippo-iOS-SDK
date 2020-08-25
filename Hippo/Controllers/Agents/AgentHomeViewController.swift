@@ -56,9 +56,9 @@ class AgentHomeViewController: HippoHomeViewController {
         setupTableView()
         addObservers()
         setUpView()
-        setData()
         setAgentStatusForToggle()
         ConversationStore.shared.fetchAllCachedConversation()
+        setData()
         AgentConversationManager.getAllData()
         Business.shared.restoreAllSavedInfo()
         
@@ -507,7 +507,7 @@ extension AgentHomeViewController {
             checkForAnyError()
             return
         }
-        startLoading()
+        stopLoading()
         checkForAnyError()
     }
     func startLoading() {
@@ -746,7 +746,18 @@ extension AgentHomeViewController: AgentChatDeleagate {
 
 extension AgentHomeViewController: AgentUserChannelDelegate {
     func readAllNotificationFor(channelID: Int) {
+        let myChatIndex = AgentConversation.getIndex(in: ConversationStore.shared.myChats, for: channelID)
+        let allChatIndex = AgentConversation.getIndex(in: ConversationStore.shared.allChats, for: channelID)
         
+        if myChatIndex != nil {
+            ConversationStore.shared.myChats[myChatIndex!].unreadCount = 0
+        }
+        
+        if allChatIndex != nil {
+            ConversationStore.shared.allChats[allChatIndex!].unreadCount = 0
+        }
+        setData()
+        self.tableView.reloadData()
     }
     
     
@@ -788,9 +799,6 @@ extension AgentHomeViewController: AgentUserChannelDelegate {
                 ConversationStore.shared.allChats.insert(existingConversation, at: 0)
             }
         }
-        
-        
-        
         setData()
         self.tableView.reloadData()
     }
@@ -917,6 +925,7 @@ extension AgentHomeViewController : FilterScreenButtonsDelegate{
     }
 
     func applyButtonPressed() {
+        startLoading()
         self.setDataForViewDidAppear()
     }
 }

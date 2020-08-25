@@ -222,6 +222,7 @@ class AgentUserChannel {
                 handleChannelRefresh(chatDetail: chatDetail)
                 break
             case .assigned:
+                delegate?.newConversationRecieved(newConversation, channelID: receivedChannelId)
                 handleAssignmentNotificationForChat(newConversation, channelID: receivedChannelId)
                 break
             default:
