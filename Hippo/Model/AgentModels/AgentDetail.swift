@@ -221,6 +221,7 @@ extension AgentDetail {
                 postLoginUpdated()
                 HippoUserDetail.clearAllData()
                 AgentConversationManager.errorMessage = error?.localizedDescription
+                showAlertWith(message: error?.localizedDescription ?? "", action: nil)
                 print(error.debugDescription)
                 completion(result)
                 return

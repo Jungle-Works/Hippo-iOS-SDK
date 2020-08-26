@@ -296,6 +296,8 @@ public struct ConversationListTheme {
     var facebookSourceIcon = UIImage(named: "facebookIcon", in: FuguFlowManager.bundle, compatibleWith: nil)
     var emailSourceIcon = UIImage(named: "emailIntegrationIcon", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     var smsSourceIcon = UIImage(named: "smsIntegrationIcon", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+     var whatsappIcon = UIImage(named: "whatsapp", in: FuguFlowManager.bundle, compatibleWith: nil)
+    
     
     open var sourceIconColor: UIColor = UIColor(red: 34/255, green: 150/255, blue: 255/255, alpha: 1)
     

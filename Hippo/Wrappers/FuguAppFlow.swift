@@ -289,7 +289,7 @@ class FuguFlowManager: NSObject {
         if let lastVisibleCtrl = visibleController as? AllConversationsViewController {
             lastVisibleCtrl.updateChannelsWithrespectToPush(pushInfo: userInfo)
             if UIApplication.shared.applicationState == .inactive {
-                HippoConfig.shared.handleRemoteNotification(userInfo: userInfo)
+               // HippoConfig.shared.handleRemoteNotification(userInfo: userInfo)
                 return false
             }
             return true
@@ -313,7 +313,7 @@ class FuguFlowManager: NSObject {
             return true
         }
         if UIApplication.shared.applicationState == .inactive {
-            HippoConfig.shared.handleRemoteNotification(userInfo: userInfo)
+           // HippoConfig.shared.handleRemoteNotification(userInfo: userInfo)
             return false
         }
         
@@ -364,13 +364,11 @@ class FuguFlowManager: NSObject {
          }
          
          if UIApplication.shared.applicationState == .inactive {
-            HippoConfig.shared.handleRemoteNotification(userInfo: userInfo)
             return false
          }
          return isPresent
       }
       if UIApplication.shared.applicationState == .inactive {
-         HippoConfig.shared.handleRemoteNotification(userInfo: userInfo)
          return false
       }
       

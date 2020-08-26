@@ -74,6 +74,7 @@ enum IntegrationSource: Int {
     case email = 5
     case facebook = 6
     case sms = 7
+    case whatsApp = 9
     
     func getIcon() -> UIImage? {
         switch self {
@@ -83,6 +84,8 @@ enum IntegrationSource: Int {
             return HippoConfig.shared.theme.emailSourceIcon
         case .sms:
             return HippoConfig.shared.theme.smsSourceIcon
+        case .whatsApp:
+            return HippoConfig.shared.theme.whatsappIcon
         case .normal:
             return nil
         }

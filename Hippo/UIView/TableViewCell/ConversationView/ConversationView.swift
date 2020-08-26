@@ -57,8 +57,6 @@ extension ConversationView {
         headingLabel.text = ""
         chatTextLabel.text = ""
         timeLabel.text = ""
-        
-        channelImageView.image = nil
         channelImageView.layer.masksToBounds = true
         channelImageView.layer.cornerRadius = 5
         channelImageView.contentMode = .scaleAspectFill
@@ -144,28 +142,25 @@ extension ConversationView {
         chatTextLabel.setTheme(theme: theme.lastMessageTheme)
         timeLabel.setTheme(theme: theme.timeTheme)
         unreadCountLabel.font = theme.timeTheme.textFont
-        
-        channelImageView.image = nil
         channelImageView.alpha = isThisChatOpened(opened: isOpened)
         
         if let channelImage = conersationObj.channelImageUrl, channelImage.isEmpty == false, let url = URL(string: channelImage) {
             channelImageView.kf.setImage(with: url)
-            channelImageView.backgroundColor = nil
-        } else if let channelName = conersationObj.label, channelName.isEmpty == false {
-            placeHolderImageButton?.alpha = isThisChatOpened(opened: isOpened)
-            placeHolderImageButton?.isHidden = false
-            placeHolderImageButton?.setImage(nil, for: .normal)
-            placeHolderImageButton?.backgroundColor = .lightGray
-            
-            let channelNameInitials = channelName.trimWhiteSpacesAndNewLine()
-//            placeHolderImageButton?.setTitle(String(channelNameInitials.remove(at: channelNameInitials.startIndex)).capitalized, for: .normal)
-//            placeHolderImageButton?.layer.cornerRadius = 15.0
-            let color = conersationObj.channelBackgroundColor
-            channelImageView.setTextInImage(string: channelNameInitials, color: color, circular: false, textAttributes: nil)
-           
         }
         
-        //      chatTextLabel.textColor = HippoConfig.shared.theme.conversationLastMsgColor.withAlphaComponent(isThisChatOpened(opened: isOpened))
+        if channelImageView.image == nil{
+             if let channelName = conersationObj.label, channelName.isEmpty == false {
+                placeHolderImageButton?.alpha = isThisChatOpened(opened: isOpened)
+                placeHolderImageButton?.isHidden = false
+                placeHolderImageButton?.setImage(nil, for: .normal)
+                placeHolderImageButton?.backgroundColor = .lightGray
+                let channelNameInitials = channelName.trimWhiteSpacesAndNewLine()
+                let color = conersationObj.channelBackgroundColor
+                channelImageView.setTextInImage(string: channelNameInitials, color: color, circular: false, textAttributes: nil)
+               
+             }
+        }
+        
         
         var messageString = ""
         if let last_sent_by_id = conersationObj.lastMessage?.senderId, let userId = HippoUserDetail.fuguUserID, last_sent_by_id == userId {
