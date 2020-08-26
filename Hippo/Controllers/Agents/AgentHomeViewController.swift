@@ -59,7 +59,16 @@ class AgentHomeViewController: HippoHomeViewController {
         setAgentStatusForToggle()
         ConversationStore.shared.fetchAllCachedConversation()
         setData()
-        AgentConversationManager.getAllData()
+        if HippoConfig.shared.agentDetail?.id == -1 || HippoConfig.shared.agentDetail?.id == nil{
+            HippoChecker.checkForAgentIntialization { (success, error) in
+                guard success else {
+                    return
+                }
+                AgentConversationManager.getAllData()
+            }
+        }else{
+            AgentConversationManager.getAllData()
+        }
         Business.shared.restoreAllSavedInfo()
         
     }
@@ -236,7 +245,7 @@ extension AgentHomeViewController {
         var message = ""
         var enableButton = false
         if  HippoConfig.shared.agentDetail == nil || HippoConfig.shared.agentDetail!.oAuthToken.isEmpty {
-            message = "Auth token is not found or found Empty"
+           // message = "Auth token is not found or found Empty"
         } else if !AgentConversationManager.isAnyApiOnGoing() && conversationList.isEmpty {
             //message =  HippoStrings.noDataFound//"No chat found for your business."
             enableButton = true

@@ -128,15 +128,14 @@ extension AgentHomeConversationCell {
         if let channelImage = cellData?.user_image, channelImage.isEmpty == false, channelImage.contains("http"), let url = URL(string: channelImage) {
             channelImageView.kf.setImage(with: url)
             channelImageView.backgroundColor = nil
-        } else if let channelName = cellData?.label, channelName.isEmpty == false {
-            //            placeHolderImageButton?.alpha = isThisChatOpened(opened: isOpened)
-            //            placeHolderImageButton?.isHidden = false
-            //            placeHolderImageButton?.setImage(nil, for: .normal)
-            //            placeHolderImageButton?.backgroundColor = .lightGray
-            
-            let channelNameInitials = channelName.trimWhiteSpacesAndNewLine()
-            let color = cellData?.channelBackgroundColor
-            channelImageView.setTextInImage(string: channelNameInitials, color: color, circular: false, textAttributes: nil)
+        }
+        
+        if channelImageView.image == nil{
+            if let channelName = cellData?.label, channelName.isEmpty == false {
+                let channelNameInitials = channelName.trimWhiteSpacesAndNewLine()
+                let color = cellData?.channelBackgroundColor
+                channelImageView.setTextInImage(string: channelNameInitials, color: color, circular: false, textAttributes: nil)
+            }
         }
         
     }
