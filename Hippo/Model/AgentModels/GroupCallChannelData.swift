@@ -115,7 +115,7 @@ extension GroupCallChannel: SignalingClient {
         FayeConnection.shared.subscribeTo(channelId: "\(channelId)", completion: {(success) in
             completion(nil,true)
         }) {[weak self] (messageDict) in
-            
+            print("Active channel*********** \(messageDict)")
         }
     }
     

@@ -1839,7 +1839,6 @@ extension AgentConversationViewController: UITableViewDelegate, UITableViewDataS
             if messagesArray.count > indexPath.row {
                 let message = messagesArray[indexPath.row]
                 let messageType = message.type
-                print("-------------------- MESSAGE TYPE = \(messageType)------------------")
                 if messageType == .leadForm {
                     print("leadForm")
                 }
@@ -1854,14 +1853,9 @@ extension AgentConversationViewController: UITableViewDelegate, UITableViewDataS
                 case MessageType.imageFile:
                     return 288
                 case MessageType.normal, .privateNote, .botText:
-//                    var rowHeight = expectedHeight(OfMessageObject: message)
-//                    rowHeight += returnRetryCancelButtonHeight(chatMessageObject: message)
-//                    rowHeight += getTopDistanceOfCell(atIndexPath: indexPath)
-//                    return rowHeight
                     return UIView.tableAutoDimensionHeight
                 case .attachment:
                     switch message.concreteFileType! {
-                        
                     case .video:
                         return 234
                     default:
