@@ -247,7 +247,7 @@ extension AgentHomeViewController {
         if  HippoConfig.shared.agentDetail == nil || HippoConfig.shared.agentDetail!.oAuthToken.isEmpty {
            // message = "Auth token is not found or found Empty"
         } else if !AgentConversationManager.isAnyApiOnGoing() && conversationList.isEmpty {
-            //message =  HippoStrings.noDataFound//"No chat found for your business."
+            message =  HippoStrings.noChatInCatagory//"No chat found for your business."
             enableButton = true
         }
         
@@ -506,7 +506,7 @@ extension AgentHomeViewController {
     }
     
     func showLoaderIfRequired() {
-        guard (!AgentConversationManager.isAllChatInProgress && conversationType == .allChat) ||  (!AgentConversationManager.isMyChatInProgress && conversationType == .myChat) else {
+        guard (!AgentConversationManager.isAllChatInProgress && conversationType == .allChat) || (!AgentConversationManager.isMyChatInProgress && conversationType == .myChat) else {
             stopLoading()
             checkForAnyError()
             return
