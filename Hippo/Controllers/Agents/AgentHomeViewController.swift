@@ -247,7 +247,7 @@ extension AgentHomeViewController {
         if  HippoConfig.shared.agentDetail == nil || HippoConfig.shared.agentDetail!.oAuthToken.isEmpty {
            // message = "Auth token is not found or found Empty"
         } else if !AgentConversationManager.isAnyApiOnGoing() && conversationList.isEmpty {
-            message =  HippoStrings.noChatInCatagory//"No chat found for your business."
+            message =  HippoStrings.noConversationFound//"No chat found for your business."
             enableButton = true
         }
         
@@ -646,7 +646,12 @@ extension AgentHomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return true
+        if conversationList[indexPath.row].status == 1{
+           return true
+        }else{
+           return false
+        }
+        
     }
 
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
@@ -867,8 +872,11 @@ extension AgentHomeViewController: AgentUserChannelDelegate {
         let myChatIndex = AgentConversation.getIndex(in: ConversationStore.shared.myChats, for: channelID)
         let allChatIndex = AgentConversation.getIndex(in: ConversationStore.shared.allChats, for: channelID)
         
-        
-        
+        //donot append rating message after chat close if closed filter is not applied
+        if newConversation.chatStatus == 2 && (FilterManager.shared.chatStatusArray.filter{$0.id == 2}.first?.isSelected == false){
+            return
+        }
+        //
         guard myChatIndex != nil || allChatIndex != nil else {
             newConversation.unreadCount = 1
             if let vc = getLastVisibleController() as? AgentConversationViewController,let id = vc.channel?.id, id == channelID {
