@@ -37,12 +37,14 @@ class AgentConversation: HippoConversation {
     var assigned_by_name: String?
     var assigned_to_name: String?
     var isMyChat: Bool?
+    var mutiLanguageMsg : String?
     var isBotInProgress: Bool = false
-    
-    
+    var chatStatus : Int?
+
     var updateUnreadCountBy: Int {
         return isMyChat ?? false ? 1 : 0
     }
+    
     
     init?(channelId: Int, unreadCount: Int, lastMessage: HippoMessage) {
         super.init()
@@ -62,6 +64,7 @@ class AgentConversation: HippoConversation {
     
     init(json: [String: Any]) {
         super.init()
+        chatStatus = json["chat_status"] as? Int
         isBotInProgress = Bool.parse(key: "is_bot_in_progress", json: json, defaultValue: false)
         labelId = json["label_id"] as? Int ?? -1
         agent_id = json["agent_id"] as? Int
@@ -112,6 +115,13 @@ class AgentConversation: HippoConversation {
             lastMessage = message
         }
         
+        if let mutiLanguageMsg = json["multi_lang_message"] as? String{
+            self.mutiLanguageMsg = MultiLanguageMsg().matchString(mutiLanguageMsg)
+            if self.mutiLanguageMsg != nil{
+                lastMessage?.message = self.mutiLanguageMsg ?? ""
+            }
+        }
+        
         self.displayingMessage = getDisplayMessage()
         setTime()
     }
@@ -121,31 +131,37 @@ class AgentConversation: HippoConversation {
         let lastMessage = self.lastMessage?.message ?? ""
 
         var title = ""
-        var end = lastMessage
+        var end = lastMessage.trimWhiteSpacesAndNewLine()
         
         
         if lastMessage.isEmpty {
-            title = "Customer"
-            end = "sent a photo"
+            title = HippoStrings.customer
+            end = HippoStrings.sentAPhoto
         }
         
         if self.lastMessage?.senderId == AgentDetail.id {
-            title = "You:"
-        } else if self.lastMessage?.userType == UserType.customer {
-            let nameArray = self.lastMessage?.senderFullName.components(separatedBy: " ") ?? []
-            let count = nameArray.count
-            let name = nameArray[0]
-            if !name.isEmpty {
-             title = count > 0 ? "\(name):" : ""
-            }
+            title = HippoStrings.you + ":"
         }
+        
+        if notificationType  == NotificationType.assigned || self.lastMessage?.type == .assignAgent{
+            title = ""
+        }
+        
+//        else if self.lastMessage?.userType == UserType.customer {
+//            let nameArray = self.lastMessage?.senderFullName.components(separatedBy: " ") ?? []
+//            let count = nameArray.count
+//            let name = nameArray[0]
+//            if !name.isEmpty {
+//             title = count > 0 ? "\(name):" : ""
+//            }
+//        }
         
         if let messageObject = self.lastMessage {
             switch messageObject.type {
             case .call:
                 return messageObject.getVideoCallMessage(otherUserName: "")
             case .attachment:
-                end = "sent a file"
+                end = HippoStrings.sentAFile
             case .hippoPay, .actionableMessage:
                 return "Payment initiated"
             default:
@@ -202,10 +218,10 @@ class AgentConversation: HippoConversation {
         
         if let type = newConversation.notificationType, type == .assigned {
             self.agent_name = newConversation.assigned_to_name
-            self.unreadCount = 0
+            self.status = newConversation.chatStatus
         }
         
-        self.displayingMessage = getDisplayMessage()
+        self.displayingMessage = getDisplayMessage().trimWhiteSpacesAndNewLine()
         setTime()
         
         self.messageUpdated?()
@@ -214,7 +230,7 @@ class AgentConversation: HippoConversation {
         var json = super.getJsonToStore()
         
         if let channel_id = channel_id {
-            if channel_id == -1 {
+            if channel_id != -1 {
                 json["channel_id"] = channel_id
             }
         }

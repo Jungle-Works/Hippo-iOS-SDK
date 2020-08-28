@@ -24,7 +24,7 @@ class ChatInfoAgentTableViewCell: UITableViewCell {
     }
     
     func setUpData(agentId: Int, agentName: String) -> ChatInfoAgentTableViewCell {
-        agentNameLabel.text = agentName.isEmpty ? "Unassigned" : agentName
+        agentNameLabel.text = agentName.isEmpty ? HippoStrings.unassigned : agentName
         //containerView.layer.borderColor = UIColor.paleGrey.cgColor
         containerView.layer.borderColor = UIColor.clear.cgColor
         return self
@@ -34,6 +34,7 @@ class ChatInfoAgentTableViewCell: UITableViewCell {
         selectionStyle = .none
         agentProfileImage.image = UIImage()
         agentNameLabel.text = ""
+        assignedToTextLabel.text = HippoStrings.assignedTo
     }
     
     func setFonts(){

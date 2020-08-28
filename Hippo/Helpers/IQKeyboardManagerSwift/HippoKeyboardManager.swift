@@ -370,7 +370,7 @@ internal class HippoKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         didSet {
             resignFirstResponderGesture.isEnabled = privateShouldResignOnTouchOutside()
 
-            let shouldResign = shouldResignOnTouchOutside ? "Yes" : "NO"
+            let shouldResign = shouldResignOnTouchOutside ? HippoStrings.yes : HippoStrings.no
 
             showLog("shouldResignOnTouchOutside: \(shouldResign)")
         }

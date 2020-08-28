@@ -29,7 +29,7 @@ extension UIImageView {
         switch status {
         case AgentStatus.available.rawValue:
             self.backgroundColor = UIColor.availableStatusColor
-            self.image = HippoConfig.shared.theme.availableStatusIcon//#imageLiteral(resourceName: "available_status_icon")
+            self.image = nil
             self.contentMode = .center
             
         case AgentStatus.offline.rawValue:
@@ -39,7 +39,7 @@ extension UIImageView {
             
         case AgentStatus.away.rawValue:
             self.backgroundColor = UIColor.awayStatusColor
-            self.image = HippoConfig.shared.theme.awayStatusIcon//#imageLiteral(resourceName: "away_status_icon")
+            self.image = HippoConfig.shared.theme.awayStatusIcon
             self.contentMode = .center
             
         default:
@@ -54,7 +54,7 @@ extension UIImageView {
                        circular: Bool = false,
                        textAttributes: [NSAttributedString.Key: Any]? = nil) {
         
-        let image = imageSnap(text: string != nil ? string?.initials : "",
+        let image = imageSnap(text: string != nil ? string?.trimWhiteSpacesAndNewLine().initials : "",
                               color: color ?? .random,
                               circular: circular,
                               textAttributes:textAttributes)

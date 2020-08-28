@@ -18,13 +18,15 @@ HippoChat is available through CocoaPods. To add HippoChat to your project, add 
 
 Once you have updated your Podfile run `pod install`(terminal command) to automatically download and install the SDK in your project.
 
-Please note: HippoChat SDK supports apps targeting iOS 9.0+. The SDK itself is compatible with all the above iOS 9.0
+Please note: HippoChat SDK supports apps targeting iOS 10.0+. The SDK itself is compatible with all the above iOS 10.0
 
 #### Upgrading the HippoChat SDK?
 
 Run `pod update Hippo`(terminal command) in your project directory.
 
 Note:  `Hippo dose not support bitcode when using it with Call SDK, to continue with hippo disable bitcode from app target setting .i.e., app_target > build setting > Enable Bitcode > No` 
+
+Note: `Permission required for using Hippo:->> Privacy - Camera Usage Description, Privacy - Microphone Usage Description, Privacy - Photo Library Additions Usage Description, Privacy - Photo Library Usage Description. Add these permissions in info.plist for avoiding crashes.` 
 
 
 
@@ -88,17 +90,25 @@ appType: YOUR-APP-TYPE)
 # Step 3: Updating User Information
 Update Identified or logged in user information by passing user data whenever you update/edit user profile on your server like this:
 ```sh
-//Get the user object for the current installation
+//Get the user object for the current installation (for customers)
 let HippoUserDetail = HippoUserDetail(fullName: "<Full_name_string>",
 email: "<Email_string>",
 phoneNumber: "<phone_number_string>",
 userUniqueKey: "<your_unique_identifier_for_user>",
 addressAttribute: <initialize_HippoAttributes>,
-customAttributes: <set_custom_attributes>)
+customAttributes: <set_custom_attributes>,
+selectedlanguage: <selected_language>
+)
 
 //Call updateUserDetails so that
 //the user information is synced with Hippo servers 
 HippoConfig.shared.updateUserDetail(userDetail: HippoUserDetail)
+
+//For initialization of Hippo Manager
+  HippoConfig.shared.initManager(authToken: "<User_auth_Token>", 
+  app_type: "<App_Type>", 
+  selectedLanguage: <selected_language>)
+
 ```
 
 Note : If you don't have a unique user identifier to use here, or if you have a userId and an email you can use Email/Phone number on the Registration object as unique key.
@@ -239,6 +249,34 @@ HippoConfig.shared.setCustomisedHippoTheme(theme: hippotheme)
 ...
 }
 ```
+####  Pass fonts with Hippo Theme
+
+Use `HippoTheme.defaultTheme(fontRegular: "", fontBold: "")` to paas your app fonts  in Hippo Theme
+
+```sh
+/**
+- parameter fontRegular: Pass app regular font here
+fontBold: Pass app Bold/Semi-Bold font here
+*/
+```
+### Miltilingual Support
+Use `HippoConfig.shared.setLanguage(_ code : String)` to paas  selected language code from your application for using language in particular language
+
+```sh
+/**
+- parameter code: Pass language code here. For example: "en" for English or "es" For Spanish
+*/
+```
+
+### Initialize Bot ( Not available for managers)
+Use ` HippoConfig.shared.setNewConversationBotGroupId(botGroupId:)` to paas your botgroupid
+
+
+### Annoucements Section ( Not available for managers)
+Use `HippoConfig.shared.presentPromotionalPushController()` for opening Annoucements section from your application
+
+
+
 # Setup Video call For Hippo SDK
 To enable video call in Hippo SDK, enable it from hippo dashboard setting > add on > video call
 

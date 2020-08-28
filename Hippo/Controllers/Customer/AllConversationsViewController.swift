@@ -165,7 +165,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     func putUserDetails() {
         HippoUserDetail.getUserDetailsAndConversation(completion: { [weak self] (success, error) in
             guard success else {
-                let errorMessage = error?.localizedDescription ?? "Something went wrong."
+                let errorMessage = error?.localizedDescription ?? HippoStrings.somethingWentWrong
                 
                 //self?.tableViewDefaultText = errorMessage + "\n Please tap to retry."
                 self?.arrayOfConversation = []
@@ -192,9 +192,9 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
                     return
                 }
                 
-                if self?.ongoingConversationArr.count == 0 && self?.closedConversationArr.count == 0 && HippoConfig.shared.theme.shouldShowBtnOnChatList == true{ self?.noConversationFound(true,HippoConfig.shared.theme.noOpenAndcloseChatError)
-                }else if self?.ongoingConversationArr.count == 0 && self?.closedConversationArr.count == 0{ self?.noConversationFound(false,HippoConfig.shared.theme.noOpenAndcloseChatError)
-                }else{ self?.noConversationFound(false,HippoConfig.shared.theme.noChatUnderCatagoryError)
+                if self?.ongoingConversationArr.count == 0 && self?.closedConversationArr.count == 0 && HippoConfig.shared.theme.shouldShowBtnOnChatList == true{ self?.noConversationFound(true,HippoConfig.shared.theme.noOpenAndcloseChatError == nil ? HippoStrings.noChatStarted : HippoConfig.shared.theme.noOpenAndcloseChatError ?? "")
+                }else if self?.ongoingConversationArr.count == 0 && self?.closedConversationArr.count == 0{ self?.noConversationFound(false,HippoConfig.shared.theme.noOpenAndcloseChatError == nil ? HippoStrings.noChatStarted : HippoConfig.shared.theme.noOpenAndcloseChatError ?? "")
+                }else{ self?.noConversationFound(false,HippoConfig.shared.theme.noChatUnderCatagoryError == nil ? HippoStrings.noChatInCatagory : HippoConfig.shared.theme.noChatUnderCatagoryError ?? "")
                 }
             }
         })
@@ -276,12 +276,12 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         self.navigationItem.rightBarButtonItems = [logoutButton]
     }
     @objc func logoutButtonClicked() {
-        showOptionAlert(title: "", message: "Are you sure, you want to logout?", successButtonName: "YES", successComplete: { (_) in
+        showOptionAlert(title: "", message: HippoStrings.logout, successButtonName: HippoStrings.yes, successComplete: { (_) in
             HippoConfig.shared.clearHippoUserData { (s) in
                 HippoUserDetail.clearAllData()
                 HippoConfig.shared.delegate?.hippoUserLogOut()
             }
-        }, failureButtonName: "NOT NOW", failureComplete: nil)
+        }, failureButtonName: HippoStrings.no.capitalized, failureComplete: nil)
     }
     
     @objc func notificationButtonClicked()
@@ -304,8 +304,8 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
 //        navigationBackgroundView.layer.shadowOffset = CGSize(width: 0, height: 1.0)
 //        navigationBackgroundView.layer.shadowRadius = 4
 //
-//        navigationBackgroundView.backgroundColor = HippoConfig.shared.theme.headerBackgroundColor
-        
+        navigationBackgroundView.backgroundColor = HippoConfig.shared.theme.headerBackgroundColor
+
         backButton.tintColor = HippoConfig.shared.theme.headerTextColor
         
         if HippoConfig.shared.theme.leftBarButtonImage != nil {
@@ -316,7 +316,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
             backButton.isEnabled = false
             backButton.image = nil
         }
-        title = config.title ?? HippoConfig.shared.theme.headerText
+      //  title = config.title ?? HippoConfig.shared.theme.headerText
     }
     
     func addObservers() {
@@ -360,7 +360,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
            // width_NewConversation.constant = 210
             let chatImage = UIImage(named: "chat", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
             self.newConversationBiutton.setImage(chatImage, for: .normal)
-            self.newConversationBiutton.setTitle("  " + HippoConfig.shared.theme.newConversationText, for: .normal)
+            self.newConversationBiutton.setTitle("  " + HippoConfig.shared.strings.newConversation, for: .normal)
             self.newConversationBiutton.tintColor = .white//HippoConfig.shared.theme.themeTextcolor
             self.newConversationBiutton.backgroundColor = HippoConfig.shared.theme.themeColor
         }else{
@@ -473,11 +473,11 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         //            }
         //        }else{
         if ongoingConversationArr.count == 0 && closedConversationArr.count == 0 && HippoConfig.shared.theme.shouldShowBtnOnChatList == true{
-            self.noConversationFound(true,HippoConfig.shared.theme.noOpenAndcloseChatError)
+            self.noConversationFound(true,HippoConfig.shared.theme.noOpenAndcloseChatError == nil ? HippoStrings.noChatStarted : HippoConfig.shared.theme.noOpenAndcloseChatError ?? "")
         }else if ongoingConversationArr.count == 0 && closedConversationArr.count == 0{
-            self.noConversationFound(false,HippoConfig.shared.theme.noOpenAndcloseChatError)
+            self.noConversationFound(false,HippoConfig.shared.theme.noOpenAndcloseChatError == nil ? HippoStrings.noChatStarted : HippoConfig.shared.theme.noOpenAndcloseChatError ?? "")
         }else{
-            self.noConversationFound(false,HippoConfig.shared.theme.noChatUnderCatagoryError)
+            self.noConversationFound(false,HippoConfig.shared.theme.noChatUnderCatagoryError == nil ? HippoStrings.noChatInCatagory : HippoConfig.shared.theme.noChatUnderCatagoryError ?? "")
         }
         if self.arrayOfConversation.count > 0{
             self.showConversationsTableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: .top, animated: true)
@@ -492,11 +492,11 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         self.showConversationsTableView.reloadData()
         //        if self.arrayOfConversation.count <= 0 {
         if ongoingConversationArr.count == 0 && closedConversationArr.count == 0 && HippoConfig.shared.theme.shouldShowBtnOnChatList == true{
-            self.noConversationFound(true,HippoConfig.shared.theme.noOpenAndcloseChatError)
+            self.noConversationFound(true,HippoConfig.shared.theme.noOpenAndcloseChatError == nil ? HippoStrings.noChatStarted : HippoConfig.shared.theme.noOpenAndcloseChatError ?? "")
         }else if ongoingConversationArr.count == 0 && closedConversationArr.count == 0{
-            self.noConversationFound(false,HippoConfig.shared.theme.noOpenAndcloseChatError)
+            self.noConversationFound(false,HippoConfig.shared.theme.noOpenAndcloseChatError == nil ? HippoStrings.noChatStarted : HippoConfig.shared.theme.noOpenAndcloseChatError ?? "")
         }else{
-            self.noConversationFound(false,HippoConfig.shared.theme.noChatUnderCatagoryError)
+            self.noConversationFound(false,HippoConfig.shared.theme.noChatUnderCatagoryError == nil ? HippoStrings.noChatInCatagory : HippoConfig.shared.theme.noChatUnderCatagoryError ?? "")
         }
         if self.arrayOfConversation.count > 0{
             self.showConversationsTableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: .top, animated: true)
@@ -553,14 +553,11 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
             pushTotalUnreadCount()
             
             guard result.isSuccessful else {
-                let errorMessage = result.error?.localizedDescription ?? "Something went wrong."
-                
+                let errorMessage = result.error?.localizedDescription ?? HippoStrings.somethingWentWrong
                 self?.showErrorMessageInTopErrorLabel(withMessage: errorMessage)
                 return
             }
-            //
-            
-            //self?.noConversationFound()
+          
             var conversation = result.conversations!
             if self?.config.isStaticRemoveConversation ?? false, let status = self?.config.enabledChatStatus, !status.isEmpty {
                 let lastChannelId = self?.config.lastChannelId ?? -12
@@ -587,8 +584,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
             if result.conversations?.count == 0 {
                 self?.closedConversationArr.removeAll()
                 self?.ongoingConversationArr.removeAll()
-                if HippoConfig.shared.theme.shouldShowBtnOnChatList == true{ self?.noConversationFound(true,HippoConfig.shared.theme.noOpenAndcloseChatError)
-                }else{ self?.noConversationFound(false,HippoConfig.shared.theme.noOpenAndcloseChatError)
+                if HippoConfig.shared.theme.shouldShowBtnOnChatList == true{ self?.noConversationFound(true,HippoConfig.shared.theme.noOpenAndcloseChatError == nil ? HippoStrings.noChatStarted : HippoConfig.shared.theme.noOpenAndcloseChatError ?? "")
                 }
                 if HippoConfig.shared.shouldOpenDefaultChannel{
                     self?.openDefaultChannel()
@@ -623,11 +619,12 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         }else{}
         
         if ongoingConversationArr.count == 0 && closedConversationArr.count == 0 && HippoConfig.shared.theme.shouldShowBtnOnChatList == true{
-            self.noConversationFound(true,HippoConfig.shared.theme.noOpenAndcloseChatError)
+            self.noConversationFound(true,HippoConfig.shared.theme.noOpenAndcloseChatError == nil ? HippoStrings.noChatStarted : HippoConfig.shared.theme.noOpenAndcloseChatError ?? "")
         }else if ongoingConversationArr.count == 0 && closedConversationArr.count == 0{
-            self.noConversationFound(false,HippoConfig.shared.theme.noOpenAndcloseChatError)
+            self.noConversationFound(false,HippoConfig.shared.theme.noOpenAndcloseChatError == nil ? HippoStrings.noChatStarted : HippoConfig.shared.theme.noOpenAndcloseChatError ?? "")
         }else{
-            self.noConversationFound(false,HippoConfig.shared.theme.noChatUnderCatagoryError)
+            
+            self.noConversationFound(false,HippoConfig.shared.theme.noChatUnderCatagoryError == nil ? HippoStrings.noChatInCatagory : HippoConfig.shared.theme.noChatUnderCatagoryError ?? "")
         }
         
     }
@@ -643,7 +640,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
             //self.showConversationsTableView.isHidden = true
             self.informationView?.informationImageView.image = HippoConfig.shared.theme.noChatImage
             self.informationView?.isButtonInfoHidden = !shouldShowBtn
-        self.informationView?.button_Info.setTitle(HippoConfig.shared.theme.chatListRetryBtnText, for: .normal)
+            self.informationView?.button_Info.setTitle(HippoConfig.shared.theme.chatListRetryBtnText == nil ? HippoStrings.retry : HippoConfig.shared.theme.chatListRetryBtnText, for: .normal)
             
             self.informationView?.isHidden = false
             self.showConversationsTableView.addSubview(informationView!)
@@ -682,7 +679,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         self.updateErrorLabelView(isHiding: true)
     }
 
-    
+
     // MARK: - HELPER
     func updateErrorLabelView(isHiding: Bool) {
         if isHiding{
@@ -750,13 +747,18 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
             }
         }
         
-        if chatObj?.lastMessage?.messageUniqueID != conversationObj.lastMessage?.messageUniqueID{
-            self.getAllConversations()
-        }
+//        if chatObj?.lastMessage?.messageUniqueID != conversationObj.lastMessage?.messageUniqueID{
+//            self.getAllConversations()
+//        }
         
         chatObj?.unreadCount = conversationObj.unreadCount
         chatObj?.lastMessage = conversationObj.lastMessage
         
+        let obj = arrayOfFullConversation.filter{$0.channelId == conversationObj.channelId}.first
+        obj?.unreadCount = 0
+        resetPushCount()
+        saveConversationsInCache()
+        pushTotalUnreadCount()
         
         guard isViewLoaded else {
             return
@@ -787,6 +789,10 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
             return
         }
         
+        if let notificationType = pushInfo["notification_type"] as? Int, notificationType == 23 || notificationType == 20{
+            return
+        }
+        
         if let notificationType = pushInfo["notification_type"] as? Int, notificationType == 5 {
             getAllConversations()
             return
@@ -797,14 +803,23 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         
         var channelIdIndex: Int?
         var labelIdIndex: Int?
+        var fullArraychannelIdIndex : Int?
+        var fullArraylabelIdIndex: Int?
+        
         
         if pushChannelId > 0 {
             channelIdIndex = arrayOfConversation.firstIndex { (f) -> Bool in
                 return f.channelId ?? -1 == pushChannelId
             }
+            fullArraychannelIdIndex = arrayOfFullConversation.firstIndex { (f) -> Bool in
+                return f.channelId ?? -1 == pushChannelId
+            }
         }
         if pushLabelId > 0 {
             labelIdIndex = arrayOfConversation.firstIndex { (f) -> Bool in
+                return f.labelId ?? -1 == pushLabelId
+            }
+            fullArraylabelIdIndex = arrayOfFullConversation.firstIndex { (f) -> Bool in
                 return f.labelId ?? -1 == pushLabelId
             }
         }
@@ -822,7 +837,6 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         let convObj = arrayOfConversation[index]
         let lastMessage = HippoMessage(convoDict: pushInfo)
         
-       
         
         if let lastMuid = convObj.lastMessage?.messageUniqueID, let newMuid = lastMessage?.messageUniqueID, lastMuid == newMuid {
             return
@@ -836,11 +850,21 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
             convObj.unreadCount = unreadCount + 1
         }
         arrayOfConversation[index] = convObj
+        let fullrawIndex: Int? = fullArraychannelIdIndex ?? fullArraylabelIdIndex
+        
+        guard fullrawIndex != nil else {
+            return
+        }
+        guard let fullArrIndex = fullrawIndex, arrayOfFullConversation.count > fullrawIndex ?? -1 else {
+            return
+        }
+        
+        arrayOfFullConversation[fullArrIndex] = convObj
         
         if (convObj.unreadCount ?? 0) > 0 {
 //            convObj.channelStatus = .open
         }
-       // saveConversationsInCache()
+        saveConversationsInCache()
         resetPushCount()
         pushTotalUnreadCount()
         
@@ -941,10 +965,13 @@ extension AllConversationsViewController: UITableViewDelegate, UITableViewDataSo
         }
         
         let conversationObj = arrayOfConversation[indexPath.row]
+        let fullconversationObj = arrayOfFullConversation.filter{$0.channelId == arrayOfConversation[indexPath.row].channelId}
         moveToChatViewController(chatObj: conversationObj)
         if let unreadCount = conversationObj.unreadCount, unreadCount > 0 {
             resetPushCount()
             conversationObj.unreadCount = 0
+            fullconversationObj.first?.unreadCount = 0
+            saveConversationsInCache()
             pushTotalUnreadCount()
             showConversationsTableView.reloadRows(at: [indexPath], with: .none)
         }

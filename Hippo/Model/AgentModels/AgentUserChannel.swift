@@ -39,6 +39,7 @@ class AgentUserChannel {
         }
         
         subscribe()
+        subscribeMarkConversation()
         addObservers()
     }
     
@@ -154,6 +155,10 @@ class AgentUserChannel {
                         CallManager.shared.voipNotificationRecieved(payloadDict: messageDict)
                     }
                 }
+            }else if let messageType = messageDict["message_type"] as? Int, messageType == MessageType.groupCall.rawValue{
+                if messageDict["video_call_type"] as? String == "END_GROUP_CALL"{
+                    CallManager.shared.voipNotificationRecievedForGroupCall(payloadDict: messageDict)
+                }
             }
             let conversation = AgentConversation(json: messageDict)
             //paas data to parent app if chat is assigned to self
@@ -199,7 +204,9 @@ class AgentUserChannel {
         //if channel id is not equal to current channel id
 
         if HippoConfig.shared.getCurrentAgentSdkChannelId() != newConversation.channel_id && type == .message{
-            calculateTotalAgentUnreadCount(newConversation.channel_id ?? -1, newConversation.unreadCount ?? 0)
+            if newConversation.lastMessage?.senderId != currentUserId(){
+                calculateTotalAgentUnreadCount(newConversation.channel_id ?? -1, newConversation.unreadCount ?? 0)
+            }
         }
         
         switch type {
@@ -215,6 +222,7 @@ class AgentUserChannel {
                 handleChannelRefresh(chatDetail: chatDetail)
                 break
             case .assigned:
+                delegate?.newConversationRecieved(newConversation, channelID: receivedChannelId)
                 handleAssignmentNotificationForChat(newConversation, channelID: receivedChannelId)
                 break
             default:

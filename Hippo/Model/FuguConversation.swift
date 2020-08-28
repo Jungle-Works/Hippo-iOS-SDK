@@ -13,6 +13,7 @@ class FuguConversation: HippoConversation {
     
     var channelImage: String?
     var defaultMessage: String?
+    var mutiLanguageMsg : String?
     
     init?(channelId: Int, unreadCount: Int, lastMessage: HippoMessage, labelID: Int?) {
         guard channelId > 0 else {
@@ -27,6 +28,10 @@ class FuguConversation: HippoConversation {
     
     init?(conversationDict: [String: Any]) {
         super.init()
+        
+        if let mutiLanguageMsg = conversationDict["multi_lang_message"] as? String{
+            self.mutiLanguageMsg = MultiLanguageMsg().matchString(mutiLanguageMsg) 
+        }
         
         if let channel_status = conversationDict["channel_status"] as? Int, let channelStatus = ChatStatus(rawValue: channel_status) {
             self.channelStatus = channelStatus
@@ -69,9 +74,17 @@ class FuguConversation: HippoConversation {
             self.lastMessage = message
         }
         //For default channel
-        if channelId == nil {
+        if channelId == nil, let otherLanguageDic = conversationDict["channel_other_lang_data"] as? [String : Any]{
+            self.lastMessage?.message = otherLanguageDic["channel_message"] as? String ?? conversationDict["message"] as? String ?? self.lastMessage?.message ?? ""
+            self.label = otherLanguageDic["channel_name"] as? String ?? conversationDict["label"] as? String
+        }else if channelId == nil {
             self.lastMessage?.message = conversationDict["message"] as? String ?? self.lastMessage?.message ?? ""
         }
+        
+        if self.mutiLanguageMsg != nil{
+            self.lastMessage?.message = mutiLanguageMsg ?? ""
+        }
+        
     }
     
     override func getJsonToStore() -> [String: Any] {

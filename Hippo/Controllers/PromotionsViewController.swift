@@ -52,7 +52,11 @@ class PromotionsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Notifications"
+       // self.title = HippoStrings.notifications
+        
+        let updatedCount = 0
+        UserDefaults.standard.set(updatedCount, forKey: DefaultName.announcementUnreadCount.rawValue)
+        HippoConfig.shared.announcementUnreadCount?(updatedCount)
         
         FuguNetworkHandler.shared.fuguConnectionChangesStartNotifier()
         
@@ -132,7 +136,7 @@ class PromotionsViewController: UIViewController {
    
         navigationBar.title = HippoConfig.shared.theme.promotionsAnnouncementsHeaderText
         navigationBar.leftButton.addTarget(self, action: #selector(backButtonClicked), for: .touchUpInside)
-        navigationBar.rightButton.setTitle("Clear All", for: .normal)
+        navigationBar.rightButton.setTitle(HippoStrings.clearAll, for: .normal)
         navigationBar.rightButton.titleLabel?.font = UIFont.regular(ofSize: 14)
         navigationBar.rightButton.setTitleColor(UIColor(red: 95/255, green: 95/255, blue: 95/255, alpha: 1.0), for: .normal)
         navigationBar.rightButton.addTarget(self, action: #selector(deleteAllAnnouncementsButtonClicked), for: .touchUpInside)
@@ -178,8 +182,7 @@ class PromotionsViewController: UIViewController {
         guard self.navigationItem.rightBarButtonItem?.tintColor != .clear else {
             return
         }
-//        showOptionAlert(title: "", message: "Are you sure, you want to clear all Notifications?", successButtonName: "YES", successComplete: { (_) in
-//
+
             self.clearAnnouncements(indexPath: IndexPath(row: 0, section: 0), isDeleteAllStatus: 1)
             FuguDefaults.removeObject(forKey: DefaultName.appointmentData.rawValue)
             
@@ -226,7 +229,7 @@ class PromotionsViewController: UIViewController {
            // self.navigationItem.rightBarButtonItem?.tintColor = .clear
             if informationView == nil {
                 informationView = InformationView.loadView(self.promotionsTableView.bounds, delegate: self)
-                informationView?.informationLabel.text = "No Notifications found"
+                informationView?.informationLabel.text = HippoStrings.noNotificationFound
             }
 
             self.informationView?.isHidden = false
@@ -318,6 +321,14 @@ extension PromotionsViewController: UITableViewDelegate,UITableViewDataSource
             
             cell.selectionStyle = .none
             cell.backgroundColor = .clear
+            cell.previewImage = {[weak self]() in
+                DispatchQueue.main.async {
+                    let showImageVC: ShowImageViewController = ShowImageViewController.getFor(imageUrlString: self?.data[indexPath.row].imageUrlString ?? "")
+                    //showImageVC.shouldHidetopHeader = true
+                    self?.modalPresentationStyle = .overCurrentContext
+                    self?.present(showImageVC, animated: true, completion: nil)
+                }
+            }
             
             cell.set(data: data[indexPath.row])
             
@@ -349,14 +360,14 @@ extension PromotionsViewController: UITableViewDelegate,UITableViewDataSource
                 //                     NSAttributedString.Key.underlineColor: UIColor(red:109.0/255.0, green:212.0/255.0, blue:0.0, alpha:1.0),
                 //                     NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue])
                 //                cell.showReadMoreLessButton.setAttributedTitle(attrs, for: .normal)
-                cell.showReadMoreLessButton.setTitle("Read More", for: .normal)
+                cell.showReadMoreLessButton.setTitle(HippoStrings.readMore, for: .normal)
                 cell.showReadMoreLessButton.titleLabel?.font = UIFont.regular(ofSize: 14.0)
                 cell.showReadMoreLessButton.setTitleColor(HippoConfig.shared.theme.themeColor, for: .normal)
                 
             }else if states[indexPath.row] == false{
                 cell.descriptionLabel.isHidden = true
                 cell.fullDescriptionLabel.isHidden = false
-                cell.showReadMoreLessButton.setTitle("Read Less", for: .normal)
+                cell.showReadMoreLessButton.setTitle(HippoStrings.readLess, for: .normal)
                 cell.showReadMoreLessButton.titleLabel?.font = UIFont.regular(ofSize: 14.0)
                 cell.showReadMoreLessButton.setTitleColor(HippoConfig.shared.theme.themeColor, for: .normal)
                 //                let attrs = NSAttributedString(string: "Read less",
@@ -411,13 +422,12 @@ extension PromotionsViewController: UITableViewDelegate,UITableViewDataSource
         return true
     }
     func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
-        return "Clear"
+        return HippoStrings.clear
     }
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if (editingStyle == .delete) {
             
-//            showOptionAlert(title: "", message: "Are you sure, you want to clear Notification?", successButtonName: "YES", successComplete: { (_) in
-//
+
                 self.clearAnnouncements(indexPath: indexPath, isDeleteAllStatus: 0)
                 
  //           }, failureButtonName: "NO", failureComplete: nil)

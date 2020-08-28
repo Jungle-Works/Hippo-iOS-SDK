@@ -739,6 +739,7 @@
                     </view>
                     <connections>
                         <outlet property="backgroundBlackColorView" destination="9Cx-lZ-GRJ" id="H4j-M8-EkJ"/>
+                        <outlet property="constraint_headerheight" destination="V6g-Ir-bfO" id="lzD-1X-6Nc"/>
                         <outlet property="crossButton" destination="Wpa-3a-4N0" id="PCv-4d-2Np"/>
                         <outlet property="downloadButton" destination="Z43-MJ-DCV" id="YWT-dZ-x0t"/>
                         <outlet property="imageView" destination="vvN-Gl-BZQ" id="1tv-44-fat"/>
@@ -1208,6 +1209,7 @@
                         <outlet property="errorLabel" destination="pyU-lu-mcX" id="Q1R-At-yu6"/>
                         <outlet property="height_errorView" destination="3dg-dn-6hz" id="dGP-Hc-Vlq"/>
                         <outlet property="labelViewRetryButton" destination="yTc-4O-JxL" id="NtK-Bz-wyh"/>
+                        <outlet property="label_slowInternet" destination="wUb-Ah-pXI" id="NSe-Sy-ErB"/>
                         <outlet property="loadMoreActivityIndicator" destination="RbX-1l-Ixu" id="krL-Hj-Web"/>
                         <outlet property="loadMoreActivityTopContraint" destination="v7A-P9-nHQ" id="7K7-Bp-mdY"/>
                         <outlet property="loaderView" destination="Fld-6h-IW2" id="x8W-rm-C0e"/>
@@ -1311,6 +1313,7 @@
                     <connections>
                         <outlet property="cancelButtonOutlet" destination="ESk-vJ-sRn" id="qco-2Q-2F2"/>
                         <outlet property="selectImageView" destination="zhH-mV-hRL" id="Ril-Cp-XBh"/>
+                        <outlet property="sendButtonOutlet" destination="7SC-Oa-1Hy" id="hXG-Bt-AEW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Nr0-7g-mDn" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1724,10 +1727,10 @@
             </objects>
             <point key="canvasLocation" x="1865" y="-1962"/>
         </scene>
-        <!--Checkout View Controller-->
+        <!--Pre Payment View Controller-->
         <scene sceneID="zjR-sj-HGh">
             <objects>
-                <viewController storyboardIdentifier="CheckoutViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="W7R-NT-0ws" customClass="CheckoutViewController" customModule="Hippo" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CheckoutViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="W7R-NT-0ws" customClass="PrePaymentViewController" customModule="Hippo" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="S6N-DR-WDx"/>
                         <viewControllerLayoutGuide type="bottom" id="e0M-p7-ttp"/>
@@ -1774,30 +1777,9 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Oxj-by-MDK" userLabel="HeaderView" customClass="NavigationBar" customModule="Hippo" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="44" width="375" height="50"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sgz-wq-nfP">
-                                        <rect key="frame" x="46" y="4" width="283" height="46"/>
-                                        <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
-                                        <color key="textColor" red="0.26274509800000001" green="0.35686274509999999" blue="0.50196078430000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="11F-Bw-Ae4">
-                                        <rect key="frame" x="0.0" y="4" width="46" height="46"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="46" id="1PY-Ym-pTT"/>
-                                            <constraint firstAttribute="width" constant="46" id="qju-vt-xkL"/>
-                                        </constraints>
-                                    </button>
-                                </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="11F-Bw-Ae4" firstAttribute="leading" secondItem="Oxj-by-MDK" secondAttribute="leading" id="1qh-gV-OdT"/>
-                                    <constraint firstItem="Sgz-wq-nfP" firstAttribute="height" secondItem="11F-Bw-Ae4" secondAttribute="height" id="4aV-ia-cuV"/>
-                                    <constraint firstAttribute="bottom" secondItem="11F-Bw-Ae4" secondAttribute="bottom" id="Boc-sC-rkU"/>
-                                    <constraint firstItem="Sgz-wq-nfP" firstAttribute="leading" secondItem="11F-Bw-Ae4" secondAttribute="trailing" id="E2G-aM-jCR"/>
                                     <constraint firstAttribute="height" constant="50" id="QYJ-oy-WVu"/>
-                                    <constraint firstAttribute="bottom" secondItem="Sgz-wq-nfP" secondAttribute="bottom" id="R4l-sQ-B3b"/>
-                                    <constraint firstAttribute="trailing" secondItem="Sgz-wq-nfP" secondAttribute="trailing" constant="46" id="oVA-Me-LKw"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Mb-TI-CqX" userLabel="errorContentView">

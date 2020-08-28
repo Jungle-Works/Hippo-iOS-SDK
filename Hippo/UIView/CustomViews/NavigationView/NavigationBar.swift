@@ -19,6 +19,8 @@ final class NavigationBar: UIView {
     @IBOutlet weak var image_back : UIImageView!
     @IBOutlet weak var rightSwitchButtonContainerView: UIView!
     @IBOutlet weak var rightSwitchButton: UISwitch!
+    @IBOutlet weak var constraint_RightWidth : NSLayoutConstraint!
+    
     
     
     var setupNavigationBar : (()->())?

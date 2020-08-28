@@ -18,6 +18,7 @@ public enum HippoError: LocalizedError {
     case invalidAppSecretKey
     case updateUserDetail
     case threwError(message: String)
+    case ChannelIdNotFound
     
     public var errorDescription: String? {
         switch self {
@@ -32,18 +33,20 @@ public enum HippoError: LocalizedError {
         case .callClientNotFound:
             return HippoConfig.shared.strings.callClientNotFound
         case .updateUserDetail:
-            return  "Something went wrong., please updateUserDetail again!!!"
+            return HippoStrings.somethingWentWrong
         case .invalidAppSecretKey:
             return "Invalid appsecret key"
         case .networkError:
             return HippoStrings.noNetworkConnection
+        case .ChannelIdNotFound:
+            return "Channel id is empty"
         default:
             return HippoStrings.somethingWentWrong
         }
     }
 }
 
-enum AgentStatus: String {
+enum AgentStatus: String , CaseIterable{
     case available = "AVAILABLE"
     case offline = "OFFLINE"
     case away = "AWAY"
@@ -74,11 +77,12 @@ class AgentDetail: NSObject {
     var businessName = ""
     var number = ""
     var userImage: String?
-    
+    var languageCode : String?
 //    var status = AgentStatus.offline
     var agentUserType = AgentUserType.agent
     
     var oAuthToken = ""
+    var authTokenInitManager = ""
     var app_type = AgentDetail.defaultAppType
     var customAttributes: [String: Any]? = nil
     var businessCurrency : [BuisnessCurrency]?
@@ -106,9 +110,24 @@ class AgentDetail: NSObject {
         email = dict["email"] as? String ?? ""
         businessId = dict["business_id"] as? Int ?? -1
         businessName = dict["business_name"] as? String ?? ""
+        if let buisnessLanguageArr = dict["business_languages"] as? [[String : Any]]{
+            BussinessProperty.current.buisnessLanguageArr = BuisnessLanguage().getLanguageData(buisnessLanguageArr)
+        }
         number = dict["phone_number"] as? String ?? ""
         userImage = dict["user_image"] as? String
+        languageCode = dict["lang_code"] as? String
         
+        if (languageCode?.trimWhiteSpacesAndNewLine() ?? "") != ""{
+            for (index,_) in (BussinessProperty.current.buisnessLanguageArr ?? [BuisnessLanguage]()).enumerated(){
+                if BussinessProperty.current.buisnessLanguageArr?[index].lang_code == languageCode{
+                    BussinessProperty.current.buisnessLanguageArr?[index].is_default = true
+                }else{
+                    BussinessProperty.current.buisnessLanguageArr?[index].is_default = false
+                }
+            }
+        }
+        
+      
 //        if let online_status = dict["online_status"] as? String, let status = AgentStatus.init(rawValue: online_status) {
 //            self.status = status
 //        }
@@ -140,6 +159,7 @@ class AgentDetail: NSObject {
         self.customAttributes = customAttributes
         let type = appType.trimWhiteSpacesAndNewLine()
         self.app_type = type.isEmpty ? AgentDetail.defaultAppType : type
+        self.authTokenInitManager = oAuthToken
     }
     
     func toJson() -> [String: Any] {
@@ -164,6 +184,7 @@ class AgentDetail: NSObject {
         if customAttributes != nil {
          dict["self_custom_attributes"] = customAttributes!
         }
+        
         return dict
     }
     class func setAgentStoredData() {
@@ -200,8 +221,8 @@ extension AgentDetail {
             guard let unwrappedStatusCode = statusCode, let response = responseObject as? [String: Any], let data = response["data"] as? [String: Any], unwrappedStatusCode == STATUS_CODE_SUCCESS else {
                 let result = ResponseResult(isSuccessful: false, error: error)
                 postLoginUpdated()
-                HippoUserDetail.clearAllData()
                 AgentConversationManager.errorMessage = error?.localizedDescription
+                showAlertWith(message: error?.localizedDescription ?? "", action: nil)
                 print(error.debugDescription)
                 completion(result)
                 return
@@ -234,10 +255,10 @@ extension AgentDetail {
             
             guard let unwrappedStatusCode = statusCode, let response = responseObject as? [String: Any], let data = response["data"] as? [String: Any], unwrappedStatusCode == STATUS_CODE_SUCCESS else {
                 let result = ResponseResult(isSuccessful: false, error: error)
-                print("Login errror: \(error?.localizedDescription ?? "Something went wrong")")
+                print("Login errror: \(error?.localizedDescription ?? HippoStrings.somethingWentWrong)")
                 postLoginUpdated()
-                HippoUserDetail.clearAllData()
-                AgentConversationManager.errorMessage = error?.localizedDescription ?? "Something went wrong"
+               // HippoUserDetail.clearAllData()
+                AgentConversationManager.errorMessage = error?.localizedDescription ?? HippoStrings.somethingWentWrong
                 completion(result)
                 return
             }
@@ -264,8 +285,11 @@ extension AgentDetail {
                 
                 BussinessProperty.current.isAskPaymentAllowed = Bool.parse(key: "is_ask_payment_allowed", json: businessProperty)
                 
-                BussinessProperty.current.currencyArr = BuisnessCurrency().getCurrenyData(businessProperty["business_currency"] as? [[String : Any]] ?? [[String : Any]]())
+                BussinessProperty.current.hideAllChat = Bool.parse(key: "hide_all_chat_tab", json: businessProperty)
                 
+                
+                BussinessProperty.current.currencyArr = BuisnessCurrency().getCurrenyData(businessProperty["business_currency"] as? [[String : Any]] ?? [[String : Any]]())
+                HippoConfig.shared.jitsiUrl = businessProperty["jitsi_url"] as? String
             }
             
             BussinessProperty.current.unsupportedMessageString = data["unsupported_message"] as? String ?? ""
@@ -368,6 +392,9 @@ extension AgentDetail {
             params["voip_token"] = TokenManager.voipToken
         }
         params["app_version_code"] = "\(versionCode)"
+        
+        params["fetch_business_lang"] = 1
+        
         return params
     }
     internal static func getParamsForAuthLogin() -> [String: Any] {

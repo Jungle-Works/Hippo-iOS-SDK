@@ -58,12 +58,8 @@ public struct ConversationListTheme {
     open var infoIconTintColor = #colorLiteral(red: 0.3843137255, green: 0.4901960784, blue: 0.8823529412, alpha: 1)
     open var headerBackgroundColor = UIColor.white
     open var headerTextColor = #colorLiteral(red: 0.9882352941, green: 0.9882352941, blue: 0.9882352941, alpha: 1)//UIColor.black
-    open var headerText = HippoStrings.support//"My Recent Consultations"
-    open var directChatHeader = "Conversation List"
-    open var broadcastHeader = "Broadcast Message"
-    open var broadcastHistoryHeader = "Broadcast Message history"
-    open var promotionsAnnouncementsHeaderText = "Announcements"
-    open var takeOverButtonText = "Take Over"
+  
+    
     open var unreadCountColor : UIColor = UIColor(red: 244/255, green: 64/255, blue: 67/255, alpha: 1.0)//UIColor(red: 91/255, green: 159/255, blue: 13/255, alpha: 1.0)
     open var themeColor: UIColor = UIColor(red: 91/255, green: 159/255, blue: 13/255, alpha: 1.0)//.white//UIColor(red: 109/255, green: 212/255, blue: 0/255, alpha: 1)//
     open var recievingBubbleColor : UIColor = UIColor(red: 225/255, green: 240/255, blue: 255/255, alpha: 1.0)
@@ -85,19 +81,22 @@ public struct ConversationListTheme {
     open var paymentIcon: UIImage? = UIImage(named: "makePayment", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysOriginal)
     open var AddFileIcon: UIImage? = UIImage(named: "AddFile", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     open var editIcon: UIImage? = UIImage(named: "edit", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+    open var eyeIcon: UIImage? = UIImage(named: "eye", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
 //    open var paymentIcon: UIImage? = UIImage(named: "makePayment", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     open var botIcon: UIImage? = UIImage(named: "bot", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysOriginal)
 //    open var botIcon: UIImage? = UIImage(named: "bot", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     open var alphabetSymbolIcon: UIImage? = UIImage(named: "alphabet_symbol_icon", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysOriginal)
 //    open var alphabetSymbolIcon: UIImage? = UIImage(named: "alphabet_symbol_icon", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     open var privateInternalNotesIcon: UIImage? = UIImage(named: "private+message_icon_chat_box", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysOriginal)
+    open var deleteIcon: UIImage? = UIImage(named: "delete", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysOriginal)
+    
+    
 //    open var privateInternalNotesIcon: UIImage? = UIImage(named: "private+message_icon_chat_box", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     
     open var missedCallMessageColor: UIColor = UIColor.red
     
 //    open var headerTextFont: UIFont? = UIFont.boldregular(ofSize: 18.0)
-    open var myChatBtnText = "My Chats"
-    open var allChatBtnText = "All Chats"
+
     
     open var headerTextFont: UIFont? = UIFont.bold(ofSize: 17.0)
     open var actionableMessageHeaderTextFont: UIFont? = UIFont.bold(ofSize: 16.0)
@@ -120,7 +119,6 @@ public struct ConversationListTheme {
     open var homeBarButtonTextColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
     open var homeBarButtonText = String()
     
-    open var broadcastBarButtonImage: UIImage? = UIImage(named: "broadcastIcon", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     open var broadcastBarButtonFont: UIFont? = UIFont.regular(ofSize: 13.0)
     open var broadcastBarButtonTextColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
     open var broadcastBarButtonText = String()
@@ -142,7 +140,6 @@ public struct ConversationListTheme {
     
     open var sendBtnIcon: UIImage? = UIImage(named: "send", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     
-    open var chatArrowIcon: UIImage? = UIImage(named: "chat_arrow", in: FuguFlowManager.bundle, compatibleWith: nil)
     
     open var sendBtnIconTintColor: UIColor?
     
@@ -218,7 +215,6 @@ public struct ConversationListTheme {
     open var typingTextColor = #colorLiteral(red: 0.1725490196, green: 0.137254902, blue: 0.2, alpha: 1)
     
     open var newConversationButtonFont: UIFont? = UIFont(name:  HippoFont.boldFont, size: 18.0)
-    open var newConversationText = "New Conversation"//"Consult Now >"
 
     open var chatbackgroundImage: UIImage?
     
@@ -242,7 +238,7 @@ public struct ConversationListTheme {
     open var broadcastTitleInfoFont: UIFont? = UIFont.regular(ofSize: 10.0)
     open var broadcastTitleInfoColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
     
-//    open var checkBoxActive = UIImage(named: "checkbox_active_icon", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysOriginal)
+
     open var checkBoxActive = UIImage(named: "checkbox_active_icon", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     open var checkBoxActiveTintColor = UIColor.black
 //    open var checkBoxInActive = UIImage(named: "checkbox_inactive_icon", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysOriginal)
@@ -283,7 +279,7 @@ public struct ConversationListTheme {
     open var uploadIcon = UIImage(named: "uploadIcon", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     open var chatReOpenIcon = UIImage(named: "reopen_conversation_icon", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysOriginal)
     open var chatReOpenIconWithTemplateMode = UIImage(named: "reopen_conversation_icon", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
-    open var chatCloseIcon = UIImage(named: "close_conversation_icon", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysOriginal)
+    open var chatCloseIcon = UIImage(named: "cancel_icon", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysOriginal)
     open var chatAssignIcon = UIImage(named: "assigned_conversation_icon", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysOriginal)
     
     
@@ -300,6 +296,8 @@ public struct ConversationListTheme {
     var facebookSourceIcon = UIImage(named: "facebookIcon", in: FuguFlowManager.bundle, compatibleWith: nil)
     var emailSourceIcon = UIImage(named: "emailIntegrationIcon", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     var smsSourceIcon = UIImage(named: "smsIntegrationIcon", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+     var whatsappIcon = UIImage(named: "whatsapp", in: FuguFlowManager.bundle, compatibleWith: nil)
+    
     
     open var sourceIconColor: UIColor = UIColor(red: 34/255, green: 150/255, blue: 255/255, alpha: 1)
     
@@ -332,12 +330,22 @@ public struct ConversationListTheme {
     open var securePaymentIcon: UIImage? = UIImage(named: "securePayment", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     open var securePaymentTintColor: UIColor?
     open var secureTextFont: UIFont = UIFont.regular(ofSize: 10)
+    open var shouldShowBtnOnChatList : Bool = true
     
-    open var shouldShowBtnOnChatList : Bool = false
-    open var chatListRetryBtnText : String = HippoStrings.retry
-    open var noOpenAndcloseChatError : String = HippoStrings.noChatStarted
-    open var noChatUnderCatagoryError : String = HippoStrings.noChatInCatagory
+    //MARK:- Open Strings Parent app can set
     
+    open var headerText = "My Recent Consultations"
+    open var directChatHeader = "Conversation List"
+    open var broadcastHeader = "Broadcast Message"
+    open var broadcastHistoryHeader = "Broadcast Message history"
+    open var promotionsAnnouncementsHeaderText = "Announcements"
+    open var takeOverButtonText : String?
+    open var myChatBtnText : String?
+    open var allChatBtnText : String?
+    open var messagePlaceHolderText : String?
+    open var noOpenAndcloseChatError : String?
+    open var noChatUnderCatagoryError : String?
+    open var chatListRetryBtnText : String?
 }
 
 

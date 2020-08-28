@@ -20,7 +20,7 @@ class PaymentField: FormData {
     class func getInitalFields() -> [PaymentField] {
         var fields: [PaymentField] = []
         
-        for each in initalPaymentField {
+        for each in initalPaymentField() {
             guard let field = PaymentField(json: each) else {
                 continue
             }
@@ -30,7 +30,7 @@ class PaymentField: FormData {
     }
     class func getPlanNameField(plan: PaymentPlan?) -> [PaymentField] {
         
-        guard let field = PaymentField(json: planNameFields) else {
+        guard let field = PaymentField(json: planNameFields()) else {
             return []
         }
         field.value = plan?.planName ?? field.value
@@ -40,7 +40,7 @@ class PaymentField: FormData {
     class func getStaticButtons() -> [PaymentField] {
         var buttons: [PaymentField] = []
         
-        for each in defaultButtons {
+        for each in defaultButtons() {
             guard let button = PaymentField(json: each) else {
                 continue
             }
@@ -50,52 +50,78 @@ class PaymentField: FormData {
         return buttons
     }
     
+    class func getButtonsWithouAddMore() -> [PaymentField] {
+        var buttons: [PaymentField] = []
+        
+        for each in defaultButtonsWithoutAddMore() {
+            guard let button = PaymentField(json: each) else {
+                continue
+            }
+            buttons.append(button)
+        }
+        
+        return buttons
+    }
+
     
-    static let initalPaymentField: [[String: Any]] = [[
-        "validation_type": "ANY",
-        "placeholder": "Enter Title",
-        "title": "Title",
-        "is_required": true,
-        "type": "TEXTFIELD",
-        "key": "title"
-        ], [
-            "validation_type": "CURRENCY",
-            "placeholder": "Currency",
-            "title": "Currency",
-            "action_value": "United States dollar ($)",
+    static func initalPaymentField()-> [[String: Any]] {
+       let initialPaymentField = [[
+               "validation_type": "ANY",
+               "placeholder": HippoStrings.enterTitle,
+               "title": HippoStrings.title,
+               "is_required": true,
+               "type": "TEXTFIELD",
+               "key": "title"
+               ], [
+                   "validation_type": "CURRENCY",
+                   "placeholder": HippoStrings.currency,
+                   "title": HippoStrings.currency,
+                   "action_value": "United States dollar ($)",
+                   "is_required": true,
+                   "type": "TEXTFIELD",
+                   "key": ""
+               ]]
+        return initialPaymentField
+    }
+    
+    static func planNameFields() -> [String: Any] {
+        let planNameFields = [
+            "validation_type": "ANY",
+            "placeholder": HippoStrings.enterPlanName,
+            "title": HippoStrings.planName,
             "is_required": true,
             "type": "TEXTFIELD",
-            "key": ""
-        ]]
-    static let planNameFields: [String: Any] = [
-        "validation_type": "ANY",
-        "placeholder": "Enter Plan Name",
-        "title": "Plan Name",
-        "is_required": true,
-        "type": "TEXTFIELD",
-        "key": "plan_name"
-    ]
+            "key": "plan_name"
+            ] as [String : Any]
+        return planNameFields
+    }
     
     
-    static let defaultButtons: [[String: Any]] = [[
-        "type": "BUTTON",
-        "action": "ADD_MORE",
-        "title": "+ Add an option",
-        "title_color": "#000000",
-        "background_color": "#ffffff"
-        ], [
+    static func defaultButtons() -> [[String: Any]] {
+        let defaultButtons =  [[
             "type": "BUTTON",
-            "action": "SUBMIT",
-            "title": "Request Payment",
+            "action": "ADD_MORE",
+            "title": "\(HippoStrings.addOption)",
             "title_color": "#000000",
             "background_color": "#ffffff"
-        ]]
+            ], [
+                "type": "BUTTON",
+                "action": "SUBMIT",
+                "title": HippoStrings.sendPayment,
+                "title_color": "#000000",
+                "background_color": "#ffffff"
+            ]]
+        return defaultButtons
+    }
     
-    static let defaultButtonsWithoutAddMore: [[String: Any]] = [[
+    static func defaultButtonsWithoutAddMore() -> [[String: Any]] {
+        let defaultButtonsWithoutAddMore = [[
         "type": "BUTTON",
         "action": "SUBMIT",
-        "title": "Request Payment",
+        "title": HippoStrings.sendPayment,
         "title_color": "#000000",
         "background_color": "#ffffff"
         ]]
+        return defaultButtonsWithoutAddMore
+    }
 }

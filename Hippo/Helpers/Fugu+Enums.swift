@@ -74,6 +74,7 @@ enum IntegrationSource: Int {
     case email = 5
     case facebook = 6
     case sms = 7
+    case whatsApp = 9
     
     func getIcon() -> UIImage? {
         switch self {
@@ -83,6 +84,8 @@ enum IntegrationSource: Int {
             return HippoConfig.shared.theme.emailSourceIcon
         case .sms:
             return HippoConfig.shared.theme.smsSourceIcon
+        case .whatsApp:
+            return HippoConfig.shared.theme.whatsappIcon
         case .normal:
             return nil
         }
@@ -151,7 +154,7 @@ struct labelWithId {
 }
 
 enum MessageType: Int {
-    case none = 0, normal = 1, assignAgent = 2, privateNote = 3, imageFile = 10, attachment = 11, actionableMessage = 12, feedback = 14, botText = 15, quickReply = 16, leadForm = 17, call = 18, hippoPay = 19, consent = 20, card = 21, paymentCard = 22, multipleSelect = 23, embeddedVideoUrl = 24//, address = 25, dateTime = 26
+    case none = 0, normal = 1, assignAgent = 2, privateNote = 3, imageFile = 10, attachment = 11, actionableMessage = 12, feedback = 14, botText = 15, quickReply = 16, leadForm = 17, call = 18, hippoPay = 19, consent = 20, card = 21, paymentCard = 22, multipleSelect = 23, embeddedVideoUrl = 24, groupCall = 27//, address = 25, dateTime = 26
 
     
 //    BUSINESS_SPECIFIC_MESSAGE : 4,
@@ -368,13 +371,15 @@ enum FuguEndPoints: String {
     case getInfoV2 = "api/agent/v1/getInfo"
     case getPaymentGateway = "api/payment/getPaymentGateway"
     case getPrePayment = "api/conversation/createOperationalChannel"
+    case getLanguage = "api/apps/fetchAppLanguageData"
+    case updateLanguage = "api/apps/updateUserLanguage"
 }
 
 enum AgentEndPoints: String {
     case conversationUnread = "api/conversation/getAgentTotalUnreadCount"
     case getAgentLoginInfo = "api/agent/getAgentLoginInfo"
-    case loginViaAuthToken = "api/agent/agentLoginViaAuthToken"
-    case loginViaToken = "api/agent/agentLogin"
+    case loginViaAuthToken = "api/agent/v1/agentLoginViaAuthToken"
+    case loginViaToken = "api/agent/v1/agentLogin"
 //    case getConversation = "api/conversation/v1/getConversations"
     case getConversation = "api/conversation/v2/getConversations"
     case markConversation = "api/conversation/markConversation"
@@ -401,10 +406,96 @@ enum AgentEndPoints: String {
     case getPaymentPlans = "api/agent/getPaymentPlans"
     case editPaymentPlans = "api/agent/editPaymentPlans"
     case getBotActions = "api/agent/getAllBotActions"
-    
     case getAgents = "api/agent/getAgents"
+    case createGroupCallChannel = "api/conversation/createGroupCallChannel"
+    case getGroupCallChannelDetals = "api/conversation/getGroupCallChannelDetails"
+    
 }
 
+struct MultiLanguageMsg{
+    
+    //MARK:- Variables
+ 
+    //MARK:- Functions
+    private func getMultiLanguageMsg(_ tag : String) -> String{
+        switch tag{
+        case MultiLanguageTags.RATING_AND_REVIEW.rawValue:
+            return HippoStrings.ratingReview
+        case MultiLanguageTags.PAYMENT_REQUESTED.rawValue:
+            return HippoStrings.paymentRequested
+        case MultiLanguageTags.ASSIGNED_TO_THEMSELVES.rawValue:
+            return HippoStrings.assignedToThemselves
+        case MultiLanguageTags.NEW_CHAT_ASSIGNED_TO_YOU.rawValue:
+            return HippoStrings.newChatAssignedToYou
+        case MultiLanguageTags.ASSIGNED_CHAT_TO.rawValue:
+            return HippoStrings.chatAssigned
+        case MultiLanguageTags.CHAT_REOPENED_BY.rawValue:
+            return HippoStrings.chatReopenedby
+        case MultiLanguageTags.CHAT_WAS_AUTO_OPENED.rawValue:
+            return HippoStrings.chatAutoOpened
+        case MultiLanguageTags.CHAT_WAS_AUTO_CLOSED.rawValue:
+            return HippoStrings.chatAutoClosed
+        case MultiLanguageTags.CHAT_WAS_RE_OPENED.rawValue:
+            return HippoStrings.chatReopened
+        case MultiLanguageTags.CHAT_WAS_CLOSED.rawValue:
+            return HippoStrings.chatClosedBy
+        case MultiLanguageTags.WAS_AUTO_ASSIGNED.rawValue:
+            return HippoStrings.chatAutoAssigned
+        case MultiLanguageTags.WAS_FORCE_ASSIGNED.rawValue:
+            return HippoStrings.forceAssigned
+        case MultiLanguageTags.TAGGED.rawValue:
+            return HippoStrings.tagged
+        case MultiLanguageTags.MENTIONED_YOU.rawValue:
+            return HippoStrings.mentionedYou
+        case MultiLanguageTags.CALLING_YOU.rawValue:
+            return HippoStrings.isCallingYou
+        case MultiLanguageTags.newCustomer.rawValue:
+            return HippoStrings.newCustomer
+        case MultiLanguageTags.botSkipped.rawValue:
+            return HippoStrings.botSkipped
+        case MultiLanguageTags.missedCallFrom.rawValue:
+            return HippoStrings.missedCallFrom
+        case MultiLanguageTags.fileImage.rawValue:
+            return HippoStrings.sentAPhoto
+        case MultiLanguageTags.fileAttachment.rawValue:
+            return HippoStrings.sentAFile
+            
+        default:
+            return ""
+        }
+    }
+    
+    func matchString(_ str : String) -> String{
+        let tag = MultiLanguageTags.allCases.filter{str.contains($0.rawValue)}
+        let replacementStr = self.getMultiLanguageMsg(tag.first?.rawValue ?? "")
+        return str.replacingOccurrences(of: tag.first?.rawValue ?? "", with: " " + replacementStr, options: .caseInsensitive, range: nil)
+    }
+}
+
+enum MultiLanguageTags : String, CaseIterable{
+    case RATING_AND_REVIEW = "{{{RATING_AND_REVIEW}}}"
+    case PAYMENT_REQUESTED = "{{{PAYMENT_REQUESTED}}}"
+    case ASSIGNED_TO_THEMSELVES = "{{{ASSIGNED_TO_THEMSELVES}}}"
+    case NEW_CHAT_ASSIGNED_TO_YOU = "{{{NEW_CHAT_ASSIGNED_TO_YOU}}}"
+    case ASSIGNED_CHAT_TO = "{{{ASSIGNED_CHAT_TO}}}"
+    case CHAT_REOPENED_BY = "{{{CHAT_REOPENED_BY}}}"
+    case CHAT_WAS_AUTO_OPENED = "{{{CHAT_WAS_AUTO_OPENED}}}"
+    case CHAT_WAS_AUTO_CLOSED = "{{{CHAT_WAS_AUTO_CLOSED}}}"
+    case CHAT_WAS_RE_OPENED = "{{{CHAT_WAS_RE_OPENED}}}"
+    case CHAT_WAS_CLOSED = "{{{CHAT_WAS_CLOSED}}}"
+    case WAS_AUTO_ASSIGNED = "{{{WAS_AUTO_ASSIGNED}}}"
+    case WAS_FORCE_ASSIGNED = "{{{WAS_FORCE_ASSIGNED}}}"
+    case TAGGED = "{{{TAGGED}}}"
+    case MENTIONED_YOU = "{{{MENTIONED_YOU}}}"
+    case CALLING_YOU = "{{{CALLING_YOU}}}"
+    case newCustomer = "{{{NEW_CUSTOMER}}}"
+    case botSkipped = "{{{BOT_SKIPPED_FOR_THIS_SESSION}}}"
+    case missedCallFrom = "{{{MISSED_CALL_FROM}}}"
+    case fileImage = "{{{FILE_IMAGE}}}"
+    case fileAttachment = "{{{FILE_ATTACHMENT}}}"
+}
+      
+        
 enum BroadcastType: String, CaseCountable {
     case unknown = ""
     case none = "Broadcast"
@@ -415,11 +506,11 @@ enum BroadcastType: String, CaseCountable {
     var description: String {
         switch self {
         case .email:
-            return "Email"
+            return HippoStrings.email
         case .unknown:
             return ""
         default:
-            return "In App"
+            return HippoStrings.inApp
         }
     }
 }
@@ -448,13 +539,13 @@ enum FileType: String {
     func getTypeString() -> String {
         switch self {
         case .image:
-            return "Image"
+            return HippoStrings.image
         case .audio:
-            return "Audio"
+            return HippoStrings.audio
         case .video:
-            return "Video"
+            return HippoStrings.video
         case .document:
-            return "Document"
+            return HippoStrings.document
         }
     }
 }

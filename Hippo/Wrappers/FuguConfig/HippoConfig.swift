@@ -105,9 +105,7 @@ struct BotAction {
     internal var log = CoreLogger(formatter: Formatter.defaultFormat, theme: nil, minLevels: [.all])
     internal var muidList: [String] = []
     internal var pushArray = [PushInfo]()
-    
     internal var checker: HippoChecker = HippoChecker()
-    
     private(set)  open var isBroadcastEnabled: Bool = false
     open weak var messageDelegate: HippoMessageRecievedDelegate?
     internal weak var delegate: HippoDelegate?
@@ -116,10 +114,10 @@ struct BotAction {
     internal var ticketDetails = HippoTicketAtrributes(categoryName: "")
     internal var theme = HippoTheme.defaultTheme()
     internal var userDetail: HippoUserDetail?
+    internal var jitsiUrl : String?
+    internal var jitsiOngoingCall : Bool?
     internal var agentDetail: AgentDetail?
-    internal var strings = HippoStrings()
-    
-//    private(set)  open var isNewConversationButtonHidden: Bool = true
+    public var strings = HippoStrings()
     private(set)  open var newConversationButtonBorderWidth: Float = 0.0
 
     private(set)  open var isSuggestionNeeded = false
@@ -129,11 +127,21 @@ struct BotAction {
     private(set)  open var mapping = [Int: [Int]]()//Dictionary<Int, Array<Int>>()
     
     private(set)  open var hasChannelTabs = true//false
-    private(set)  open var emptyChannelListText = "No Conversation found"
     
     open var isPaymentRequestEnabled: Bool {
         return HippoProperty.current.isPaymentRequestEnabled
     }
+    internal var groupCallData: [String : Any] {
+         get {
+            guard let groupCallData = UserDefaults.standard.value(forKey: Fugu_groupCallData) as? [String : Any] else {
+                 return [String : Any]()
+             }
+             return groupCallData
+         }
+         set {
+             UserDefaults.standard.set(newValue, forKey: Fugu_groupCallData)
+         }
+     }
     
     internal var appSecretKey: String {
         get {
@@ -154,7 +162,6 @@ struct BotAction {
     internal var referenceId = -1
     internal var appType: String?
     internal var credentialType = FuguCredentialType.defaultType
-
     var isSkipBot:Bool = false
     internal var baseUrl =      SERVERS.liveUrl     // SERVERS.betaUrl//
     internal var fayeBaseURLString: String =     SERVERS.liveFaye   // SERVERS.betaFaye//
@@ -163,27 +170,34 @@ struct BotAction {
     open var HippoDismissed: ((_ isDismissed: Bool) -> ())?
     open var HippoPrePaymentCancelled: (()->())?
     open var HippoPrePaymentSuccessful: ((Bool)->())?
+    public var HippoLanguageChanged : ((Error?)->())?
+    public var HippoSessionStatus: ((GroupCallStatus)->())?
+    public var announcementUnreadCount : ((Int)->())?
+    
     
     internal let powererdByColor = #colorLiteral(red: 0.4980392157, green: 0.4980392157, blue: 0.4980392157, alpha: 1)
     internal let FuguColor = #colorLiteral(red: 0.3843137255, green: 0.4901960784, blue: 0.8823529412, alpha: 1)
     internal let poweredByFont: UIFont = UIFont.regular(ofSize: 10.0)
     internal let FuguStringFont: UIFont = UIFont.regular(ofSize: 10.0)
+    var socketsFailed : Bool?
     
     public let navigationTitleTextAlignMent: NSTextAlignment? = .center
     public var shouldOpenDefaultChannel = true
     public var shouldUseNewCalling : Bool?{
         didSet{
             if shouldUseNewCalling ?? false{
-                versionCode = 350
+                versionCode = 350 + 1
             }else{
-                versionCode = 320
+                versionCode = 320 - 1
             }
         }
     }
+
     ///turn its value true to show slow internet bar on chat screen
     public var shouldShowSlowInternetBar : Bool?
     
-    
+    var isOpenedFromPush : Bool?
+
     // MARK: - Intialization
     private override init() {
         super.init()
@@ -291,6 +305,21 @@ struct BotAction {
         
     }
     
+    func getAllStrings(){
+        AllString.getAllStrings{(error,response) in
+            self.HippoLanguageChanged?(error)
+            if error == nil{
+                if self.appUserType == .customer{
+                    AllString.updateLanguageApi()
+                }else{
+                    let status = AgentStatus.allCases.filter{$0.rawValue == BussinessProperty.current.agentStatusForToggle}
+                    AgentConversationManager.agentStatusUpdate(newStatus: status.first ?? .available, completion: {_ in })
+                }
+            }
+        }
+    }
+    
+    
     public static func setSkipBot(enable: Bool, reason: String) {
         HippoProperty.current.skipBot = enable
         HippoProperty.current.skipBotReason = reason
@@ -300,7 +329,12 @@ struct BotAction {
         self.userDetail = userDetail
         self.appUserType = .customer
         AgentDetail.agentLoginData = nil
-        HippoUserDetail.getUserDetailsAndConversation()
+        HippoUserDetail.getUserDetailsAndConversation { (status, error) in
+            if (self.userDetail?.selectedlanguage ?? "") == ""{
+               self.userDetail?.selectedlanguage = BussinessProperty.current.buisnessLanguageArr?.filter{$0.is_default == true}.first?.lang_code
+            }
+            self.setLanguage(self.userDetail?.selectedlanguage ?? "en")
+        }
     }
     
     public func enableBroadcast() {
@@ -316,6 +350,18 @@ struct BotAction {
 //    public func hideNewConversationButton() {
 //        isNewConversationButtonHidden = true
 //    }
+    
+    public func refreshUnreadCount(){
+        if socketsFailed ?? false && currentUserType() == .agent{
+            UnreadCount.getAgentTotalUnreadCount { (result) in
+            
+            }
+            if getLastVisibleController() is AgentHomeViewController{
+              AgentConversationManager.getAllData()
+            }
+            socketsFailed = false
+        }
+    }
     
     public func isSuggestionNeeded(setValue: Bool) {
         isSuggestionNeeded = setValue
@@ -336,9 +382,9 @@ struct BotAction {
     public func hasChannelTabs(setValue: Bool) {
         hasChannelTabs = setValue
     }
-    public func setEmptyChannelListText(text: String) {
-        emptyChannelListText = text
-    }
+//    public func setEmptyChannelListText(text: String) {
+//        emptyChannelListText = text
+//    }
     
     public func showNewConversationButtonBorderWithWidth(borderWidth:Float = 1.0) {
         newConversationButtonBorderWidth = borderWidth
@@ -358,12 +404,16 @@ struct BotAction {
         HippoProperty.current.ticketCustomAttributes = attributes
     }
     
-    public func initManager(agentToken: String, app_type: String, customAttributes: [String: Any]? = nil) {
+    public func initManager(agentToken: String, app_type: String, customAttributes: [String: Any]? = nil,selectedLanguage : String? = nil, completion: @escaping HippoResponseRecieved) {
         let detail = AgentDetail(oAuthToken: agentToken.trimWhiteSpacesAndNewLine(), appType: app_type, customAttributes: customAttributes)
         detail.isForking = true
         self.appUserType = .agent
         self.agentDetail = detail
-        AgentConversationManager.updateAgentChannel()
+        AgentConversationManager.updateAgentChannel(completion: {(error,response) in
+            if (selectedLanguage ?? "") == ""{ self.setLanguage(BussinessProperty.current.buisnessLanguageArr?.filter{$0.is_default == true}.first?.lang_code ?? "")
+            }
+            completion(error,response)
+        })
     }
     
     /********
@@ -375,11 +425,18 @@ struct BotAction {
      device_type: Int = your device type on your system.
      *******/
     
-    public func initManager(authToken: String, app_type: String, customAttributes: [String: Any]? = nil) {
+    public func initManager(authToken: String, app_type: String, customAttributes: [String: Any]? = nil, selectedLanguage : String? = nil, completion: @escaping HippoResponseRecieved) {
         let detail = AgentDetail(oAuthToken: authToken.trimWhiteSpacesAndNewLine(), appType: app_type, customAttributes: customAttributes)
         self.appUserType = .agent
         self.agentDetail = detail
-        AgentConversationManager.updateAgentChannel()
+        AgentConversationManager.updateAgentChannel(completion: {(error,response) in
+            if (selectedLanguage ?? "") == ""{ self.setLanguage(BussinessProperty.current.buisnessLanguageArr?.filter{$0.is_default == true}.first?.lang_code ?? "en")
+                completion(error,response)
+                return
+            }
+            self.setLanguage(selectedLanguage ?? "en")
+            completion(error,response)
+        })
     }
     // MARK: - Open Chat UI Methods
     public func presentChatsViewController() {
@@ -569,9 +626,9 @@ struct BotAction {
     public func openChatWith(channelId: Int, completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
         switch appUserType {
         case .agent:
-            openCustomerConversationWith(channelId: channelId, completion: completion)
-        case .customer:
             openAgentConversationWith(channelId: channelId, completion: completion)
+        case .customer:
+            openCustomerConversationWith(channelId: channelId, completion: completion)
         }
     }
     public func startCall(data: PeerToPeerChat, callType: CallType, completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
@@ -611,7 +668,7 @@ struct BotAction {
         HippoChannel.get(withFuguChatAttributes: attributes, completion: {(result) in
             guard result.isSuccessful, let channel = result.channel else {
                 CallManager.shared.hungupCall()
-                completion(false, HippoError.threwError(message: "Something went wrong while creating channel."))
+                completion(false, HippoError.threwError(message: HippoStrings.somethingWentWrong))
                 return
             }
             let call = CallData.init(peerData: peer, callType: callType, muid: uuid, signallingClient: channel)
@@ -672,7 +729,7 @@ struct BotAction {
         HippoChannel.getToCallAgent(withFuguChatAttributes: attributes, agentEmail: agentEmail, completion: {(result) in
             guard result.isSuccessful, let channel = result.channel else {
                 CallManager.shared.hungupCall()
-                completion(false, HippoError.threwError(message: "Something went wrong while creating channel."))
+                completion(false, HippoError.threwError(message: HippoStrings.somethingWentWrong))
                 return
             }
             let call = CallData.init(peerData: peer, callType: callType, muid: uuid, signallingClient: channel)
@@ -706,17 +763,19 @@ struct BotAction {
         }
     }
     internal func openAgentConversationWith(channelId: Int, completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
-        completion(false, HippoError.notAllowedForAgent)
-//        HippoChecker.checkForAgentIntialization { (success, error) in
-//            guard success else {
-//                completion(false, error)
-//                return
-//            }
-//
-//            let conVC = AgentConversationViewController.getWith(channelID: channelId, channelName: "Channel")
-//            let lastVC = getLastVisibleController()
-//            lastVC?.present(conVC, animated: true, completion: nil)
-//        }
+        HippoChecker.checkForAgentIntialization { (success, error) in
+            guard success else {
+                completion(false, error)
+                return
+            }
+
+            let conVC = AgentConversationViewController.getWith(channelID: channelId, channelName: "")
+            let lastVC = getLastVisibleController()
+            let navVC = UINavigationController(rootViewController: conVC)
+            navVC.setTheme()
+            navVC.modalPresentationStyle = .fullScreen
+            lastVC?.present(navVC, animated: true, completion: nil)
+        }
     }
     public func openAgentChatWith(channelId: Int, completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
             HippoChecker.checkForAgentIntialization { (success, error) in
@@ -755,7 +814,18 @@ struct BotAction {
         })
     }
     
-
+    //MARK:- Set Language
+    
+    public func setLanguage(_ code : String){
+        if BussinessProperty.current.buisnessLanguageArr?.contains(where: {$0.lang_code == code}) ?? false{
+            UserDefaults.standard.set(code, forKey: DefaultName.selectedLanguage.rawValue)
+            getAllStrings()
+        }else if BussinessProperty.current.buisnessLanguageArr?.contains(where: {$0.lang_code == code}) ?? false == false{
+            let defaultLang = BussinessProperty.current.buisnessLanguageArr?.filter{$0.is_default == true}.first?.lang_code
+            UserDefaults.standard.set(defaultLang, forKey: DefaultName.selectedLanguage.rawValue)
+            getAllStrings()
+        }
+    }
     
     
     // MARK: - Helpers
@@ -799,6 +869,11 @@ struct BotAction {
         HippoProperty.setBotGroupID(id: id)
     }
     
+    public func selectedPaymentPlanType(type: [Int]) {
+        HippoProperty.setPaymentPlanType(type: type)
+    }
+    
+    
     public func setNewConversationBotGroupId(botGroupId: String){
         HippoProperty.setNewConversationBotGroupId(botGroupId: botGroupId)
     }
@@ -813,7 +888,7 @@ struct BotAction {
             return
         }
         TokenManager.voipToken = token
-        //updateDeviceToken(deviceToken: token)
+       // updateDeviceToken(deviceToken: token)
     }
     
     public func getDeviceTokenKey() -> String {
@@ -827,6 +902,7 @@ struct BotAction {
     public func registerDeviceToken(deviceToken: Data) {
         log.debug("registerDeviceToken:\(deviceToken)", level: .custom)
         guard let token = parseDeviceToken(deviceToken: deviceToken) else {
+            //showAlertWith(message: "cannot parse tokan, error in parsing", action: nil)
             return
         }
         log.debug("registerDeviceToken parsing token:\(token)", level: .custom)
@@ -837,6 +913,7 @@ struct BotAction {
         TokenManager.deviceToken = token
         log.debug("registerDeviceToken save token:\(TokenManager.deviceToken)", level: .custom)
         //updateDeviceToken(deviceToken: token)
+        //showAlertWith(message: "Device Tokan saved", action: nil)
     }
     
     func checkForChannelSubscribe(completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
@@ -863,8 +940,6 @@ struct BotAction {
     }
     
     public func isHippoNotification(withUserInfo userInfo: [String: Any]) -> Bool {
-        
-        
         if let pushSource = userInfo["push_source"] as? String, (pushSource == "FUGU" || pushSource == "HIPPO") {
             return true
         }
@@ -873,10 +948,26 @@ struct BotAction {
     public func setStrings(stringsObject: HippoStrings) {
         HippoConfig.shared.strings = stringsObject
     }
+    
+    public func managePromotionCount(_ userInfo: [String:Any]){
+        if userInfo["is_announcement_push"] as? Bool == true{
+            if !(getLastVisibleController() is PromotionsViewController){
+                if let count = UserDefaults.standard.value(forKey: DefaultName.announcementUnreadCount.rawValue) as? Int{
+                    let updatedCount = count + 1
+                    UserDefaults.standard.set(updatedCount, forKey: DefaultName.announcementUnreadCount.rawValue)
+                    HippoConfig.shared.announcementUnreadCount?(updatedCount)
+                }
+            }
+        }
+    }
     public func showNotification(userInfo: [String: Any]) -> Bool {
         let notificationType = Int.parse(values: userInfo, key: "notification_type") ?? -1
         
         if notificationType == NotificationType.call.rawValue && UIApplication.shared.applicationState != .inactive {
+            return false
+        }
+        
+        if notificationType == NotificationType.call.rawValue && jitsiOngoingCall == true{
             return false
         }
         
@@ -887,24 +978,24 @@ struct BotAction {
     }
     
     public func handleVoipNotification(payload: [AnyHashable: Any]) {
-            guard let json = payload as? [String: Any] else {
-                return
-            }
-            guard isHippoUserChannelSubscribe() else {
-                self.handleVoipNotification(payloadDict: json)
-                return
-            }
-            
+        guard let json = payload as? [String: Any] else {
+            return
+        }
+        guard isHippoUserChannelSubscribe() else {
+            self.handleVoipNotification(payloadDict: json)
+            return
         }
         
-        public func handleVoipNotification(payloadDict: [String: Any]) {
-            
-            guard isHippoUserChannelSubscribe() else {
-                CallManager.shared.voipNotificationRecieved(payloadDict: payloadDict)
-                return
-            }
-    //        CallManager.shared.voipNotificationRecieved(payloadDict: payloadDict)
+    }
+        
+    public func handleVoipNotification(payloadDict: [String: Any]) {
+        
+        guard isHippoUserChannelSubscribe() else {
+            CallManager.shared.voipNotificationRecieved(payloadDict: payloadDict)
+            return
         }
+        //        CallManager.shared.voipNotificationRecieved(payloadDict: payloadDict)
+    }
     
     public func handleRemoteNotification(userInfo: [String: Any]) {
         setAgentStoredData()
@@ -916,6 +1007,7 @@ struct BotAction {
         }
         
         if let announcementPush = userInfo["is_announcement_push"] as? Int, announcementPush == 1 {
+            self.isOpenedFromPush = true
             self.handleAnnouncementsNotification(userInfo: userInfo)
             return
         }
@@ -929,18 +1021,6 @@ struct BotAction {
         pushTotalUnreadCount()
         if let id = userInfo["channelId"], let channelId = Int("\(id)"){
             HippoNotification.removeAllnotificationFor(channelId: channelId)
-        }
-        //        UIApplication.shared.clearNotificationCenter()
-        
-//        if let announcementPush = userInfo["is_announcement_push"] as? Int, announcementPush == 1 {
-//            DispatchQueue.main.async {
-//                //HippoChat.isSingleChatApp = false
-//                HippoConfig.shared.presentPromotionalPushController()
-//                return
-//            }
-//        }
-        if userInfo["notification_type"] as? Int == 20{
-            return
         }
         
         switch HippoConfig.shared.appUserType {
@@ -970,7 +1050,44 @@ struct BotAction {
         }
     
     
+    func subscribeChannelAndStartListening(_ channelId : Int){
+        FayeConnection.shared.subscribeTo(channelId: "\(channelId)", completion: {(success) in
+            if !success{
+                if !FayeConnection.shared.isConnected && FuguNetworkHandler.shared.isNetworkConnected{
+                    //FayeConnection.shared.enviromentSwitchedWith(urlString: self.fayeBaseURLString)
+                    var retryAttempt = 0
+                    fuguDelay(0.2) {
+                        if retryAttempt <= 3{
+                            self.subscribeChannelAndStartListening(channelId)
+                            retryAttempt += 1
+                        }else{
+                            return
+                        }
+                    }
+                }
+            }
+            print("channel subscribed", success)
+        }) {(messageDict) in
+            print(messageDict)
+            if let messageType = messageDict["message_type"] as? Int, messageType == MessageType.groupCall.rawValue{
+                CallManager.shared.voipNotificationRecievedForGroupCall(payloadDict: messageDict)
+                unSubscribe(userChannelId: "\(channelId)")
+            }else if let messageType = messageDict["message_type"] as? Int, messageType == MessageType.call.rawValue {
+                CallManager.shared.voipNotificationRecieved(payloadDict: messageDict)
+            }
+        }
+    }
+    
     func handleAgentNotification(userInfo: [String: Any]) {
+        if userInfo["notification_type"] as? Int == 25{
+            return
+        }else if userInfo["notification_type"] as? Int == 20{
+            if let channelId = userInfo["channel_id"] as? Int{
+                subscribeChannelAndStartListening(channelId)
+                return
+            }
+        }
+        
         let visibleController = getLastVisibleController()
         let channelId = (userInfo["channel_id"] as? Int) ?? -1
         let channelName = (userInfo["label"] as? String) ?? ""
@@ -1024,6 +1141,17 @@ struct BotAction {
         
     }
     func handleCustomerNotification(userInfo: [String: Any]) {
+        if userInfo["notification_type"] as? Int == 25{
+            if let channelId = userInfo["user_channel_id"] as? String{
+                subscribeCustomerUserChannel(userChannelId: channelId)
+                return
+            }
+            return
+        }else if userInfo["notification_type"] as? Int == 20{
+           CallManager.shared.voipNotificationRecieved(payloadDict: userInfo)
+           return
+        }
+        
         let visibleController = getLastVisibleController()
         
         let channelId = (userInfo["channel_id"] as? Int) ?? -1
@@ -1105,28 +1233,37 @@ struct BotAction {
             }
             
             if channel_Type == channelType.BROADCAST_CHANNEL.rawValue {
-                let conVC = ConversationsViewController.getWith(labelId: "\(labelId)")
-                let navVC = UINavigationController(rootViewController: conVC)
-                navVC.isNavigationBarHidden = true
-                visibleController?.modalPresentationStyle = .fullScreen
-                visibleController?.present(navVC, animated: true, completion: nil)
-            } else if channelId > 0 {
-                let conVC = ConversationsViewController.getWith(channelID: channelId, channelName: channelName)
-                let navVC = UINavigationController(rootViewController: conVC)
-                navVC.isNavigationBarHidden = true
-                visibleController?.modalPresentationStyle = .fullScreen
-                visibleController?.present(navVC, animated: true, completion: nil)
-            } else if labelId > 0 {
-                let conVC = ConversationsViewController.getWith(labelId: "\(labelId)")
-                let navVC = UINavigationController(rootViewController: conVC)
-                navVC.isNavigationBarHidden = true
-                visibleController?.modalPresentationStyle = .fullScreen
-                visibleController?.present(navVC, animated: true, completion: nil)
-            }
+                   let conVC = ConversationsViewController.getWith(labelId: "\(labelId)")
+                   let navVC = UINavigationController(rootViewController: conVC)
+                   navVC.isNavigationBarHidden = true
+                   navVC.modalPresentationStyle = .fullScreen
+                   visibleController?.present(navVC, animated: true, completion: nil)
+               } else if channelId > 0 {
+                   let conVC = ConversationsViewController.getWith(channelID: channelId, channelName: channelName)
+                   let navVC = UINavigationController(rootViewController: conVC)
+                   navVC.isNavigationBarHidden = true
+                   navVC.modalPresentationStyle = .fullScreen
+                   visibleController?.present(navVC, animated: true, completion: nil)
+               } else if labelId > 0 {
+                   let conVC = ConversationsViewController.getWith(labelId: "\(labelId)")
+                   let navVC = UINavigationController(rootViewController: conVC)
+                   navVC.isNavigationBarHidden = true
+                   navVC.modalPresentationStyle = .fullScreen
+                   visibleController?.present(navVC, animated: true, completion: nil)
+               }
         }
     }
 }
 
+extension HippoConfig{
+    
+    public func getPaymentGateways(_ appSecretKey : String){
+        HippoConfig.shared.appSecretKey = appSecretKey
+        HippoUserDetail.getPaymentGateway { (success) in
+            
+        }
+    }
+}
 
 //MARK: Ticket System Methods
 public extension HippoConfig {
@@ -1145,6 +1282,29 @@ public extension HippoConfig {
     }
 }
 
+extension HippoConfig{
+    //MARK:- Create channel for group calling
+    /// - Get data from parent app  as GroupCallModel for create new channel for group calling
+   
+    public func createGroupCallChannel(request: GroupCallModel, callback: @escaping HippoResponseRecieved){
+        GroupCall.createGroupCallChannel(request: request, callback: callback)
+    }
+    
+    public func joinGroupCall(request: GroupCallModel, callback: @escaping HippoResponseRecieved){
+        GroupCall.getGroupCallChannelDetails(request: request, callback: callback)
+    }
+    
+    public func restoreSession(_ transactionId : String){
+         groupCallData.removeValue(forKey: transactionId)
+    }
+    
+    #if canImport(HippoCallClient)
+    public func forceKillOnTermination(){
+        HippoCallClient.shared.terminateSessionIfAny()
+    }
+    #endif
+    
+}
 extension HippoConfig {
     func sendp2pUnreadCount(_ unreadCount : Int, _ channelId : Int){
         HippoConfig.shared.delegate?.sendp2pUnreadCount(unreadCount: unreadCount,channelId: channelId)
@@ -1155,6 +1315,7 @@ extension HippoConfig {
     }
     
     func sendAgentUnreadCount(_ totalCount: Int) {
+       // showAlertWith(message: "\(totalCount)", action: nil)
         HippoConfig.shared.delegate?.hippoAgentTotalUnreadCount(totalCount)
         print("sendAgentUnreadCount====================",totalCount)
     }
@@ -1167,6 +1328,7 @@ extension HippoConfig {
         HippoConfig.shared.unreadCount?(totalCount)
         HippoConfig.shared.delegate?.hippoUnreadCount(totalCount)
     }
+    
     func notifyUserUnreadCount(_ usersCount: [String: Int]) {
         HippoConfig.shared.usersUnreadCount?(usersCount)
         HippoConfig.shared.delegate?.hippoUserUnreadCount(usersCount)
@@ -1193,4 +1355,18 @@ extension HippoConfig {
         return HippoConfig.shared.delegate?.loadCallPresenterView(request: request)
     }
     #endif
+}
+extension HippoConfig{
+    
+    func HideJitsiView(){
+         #if canImport(HippoCallClient)
+            HippoCallClient.shared.hideViewInPip()
+         #endif
+    }
+    
+    func UnhideJitsiView(){
+         #if canImport(HippoCallClient)
+            HippoCallClient.shared.unHideViewInPip()
+         #endif
+    }
 }

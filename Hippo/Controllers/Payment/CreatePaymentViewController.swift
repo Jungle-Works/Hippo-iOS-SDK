@@ -29,22 +29,21 @@ class CreatePaymentViewController: UIViewController {
     weak var delegate: CreatePaymentDelegate?
     
     var messageType = MessageType.none
+    var shouldSavePaymentPlan : Bool?
+    var isEditScreen : Bool?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        setupTableView()
-//        self.navigationController?.setTheme()
-//        HippoKeyboardManager.shared.enable = true
-//        setUI()
-//        store.delegate = self
+        self.tableView.remembersLastFocusedIndexPath = true
     }
+    
     override func viewDidDisappear(_ animated: Bool) {
         HippoKeyboardManager.shared.enable = false
     }
     
     @IBAction func backButtonAction(_ sender: Any) {
         if self.messageType == .paymentCard{
-            delegate?.backButtonPressed(shouldUpdate: false)
+            delegate?.backButtonPressed(shouldUpdate: (isEditScreen ?? false) ? true : false)
         }
         self.navigationController?.popViewController(animated: true)
     }
@@ -81,11 +80,7 @@ class CreatePaymentViewController: UIViewController {
     }
     
     func setUI() {
-        if self.messageType == .paymentCard{
-            view_Navigation.title = store?.title ?? ""
-        }else{
-            view_Navigation.title = "Payment Request"
-        }
+        view_Navigation.title = HippoStrings.savedPlans
         if HippoConfig.shared.theme.leftBarButtonImage != nil {
             view_Navigation.image_back.image = HippoConfig.shared.theme.leftBarButtonImage
             view_Navigation.image_back.tintColor = HippoConfig.shared.theme.headerTextColor
@@ -100,6 +95,7 @@ class CreatePaymentViewController: UIViewController {
     
     func setupTableView() {
         datasource = CreatePaymentDataSource(store: store)
+        datasource?.shouldSavePaymentPlan = self.shouldSavePaymentPlan
         tableView.dataSource = datasource
         tableView.delegate = self
 //        tableView.backgroundColor = .clear
@@ -130,6 +126,7 @@ class CreatePaymentViewController: UIViewController {
         let vc = generateView()
         vc.messageType = .paymentCard
         vc.store = PaymentStore(channelId: channelId)
+        vc.store.shouldSavePaymentPlan = vc.shouldSavePaymentPlan ?? false
         vc.initalizeView()
         return vc
     }
@@ -148,10 +145,11 @@ class CreatePaymentViewController: UIViewController {
         return customView
     }
 
-    class func get(store: PaymentStore) -> CreatePaymentViewController {
+    class func get(store: PaymentStore, shouldSavePlan: Bool = false) -> CreatePaymentViewController {
         let vc = generateView()
         vc.messageType = .paymentCard
         vc.store = store
+        vc.shouldSavePaymentPlan = shouldSavePlan
         vc.initalizeView()
         return vc
     }
@@ -218,7 +216,7 @@ extension CreatePaymentViewController: BroadcastButtonCellDelegate {
                     showAlertWith(message: error?.localizedDescription ?? "", action: nil)
                     return
                 }
-                if self?.store.isSending ?? false {
+                if self?.store.isSending ?? false && !(self?.store.canEditPlan ?? false){
                     self?.delegate?.paymentCardPayment(isSuccessful: true)
                     self?.dismiss(animated: true, completion: nil)
                 } else {
@@ -255,14 +253,26 @@ extension CreatePaymentViewController: PaymentItemDescriptionCellDelegate {
 
 
 extension CreatePaymentViewController: ShowMoreTableViewCellDelegate {
+    func savePaymentPlanClicked(shouldSavePlan: Bool) {
+        self.shouldSavePaymentPlan = shouldSavePlan
+        store.shouldSavePaymentPlan = shouldSavePlan
+    }
+    
     func buttonClicked(with form: PaymentField) {
+        if let errorMesaage = store.validateStore() {
+            showAlert(title: "", message: errorMesaage, actionComplete: nil)
+            return
+        }
         store.addNewItem()
     }
 }
 
 extension CreatePaymentViewController: PaymentStoreDelegate {
     func dataUpdate() {
-        tableView.reloadData()
+        datasource?.shouldSavePaymentPlan = self.shouldSavePaymentPlan
+        UIView.performWithoutAnimation {
+            self.tableView.reloadData()
+        }
     }
 }
 

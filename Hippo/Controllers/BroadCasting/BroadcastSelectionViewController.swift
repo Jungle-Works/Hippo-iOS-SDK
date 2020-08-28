@@ -135,7 +135,7 @@ extension BroadcastSelectionViewController {
         case .selectAgent:
             
             applyButton.isHidden = false
-            self.navigationItem.title = HippoConfig.shared.strings.selectString.trimWhiteSpacesAndNewLine() + " " + HippoConfig.shared.strings.displayNameForCustomers.trimWhiteSpacesAndNewLine()
+            self.navigationItem.title = HippoStrings.selectString.trimWhiteSpacesAndNewLine() + " " + HippoConfig.shared.strings.displayNameForCustomers.trimWhiteSpacesAndNewLine()
         case .showAgent:
             applyButton.isHidden = true
             self.navigationItem.title = HippoConfig.shared.strings.selectedString.trimWhiteSpacesAndNewLine() + " " + HippoConfig.shared.strings.displayNameForCustomers.trimWhiteSpacesAndNewLine()

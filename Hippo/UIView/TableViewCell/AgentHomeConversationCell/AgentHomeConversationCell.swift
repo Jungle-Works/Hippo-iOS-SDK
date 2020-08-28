@@ -60,7 +60,7 @@ extension AgentHomeConversationCell {
         counterLabelContainerView.isHidden = true
         counterLabel.isHidden = true
         
-        channelImageView.image = nil
+        //channelImageView.image = nil
         channelImageView.layer.masksToBounds = true
         channelImageView.layer.cornerRadius = 5
         channelImageView.contentMode = .scaleAspectFill
@@ -70,7 +70,7 @@ extension AgentHomeConversationCell {
         
         transitionView.isHidden = true
         transitionLabel.text = ""
-        transitionImageView.image = nil
+        //transitionImageView.image = nil
         
 //        nameLabel.font = UIFont(name:"HelveticaNeue", size: 15.0)
 //        lastMessageLabel.font = UIFont(name:"HelveticaNeue", size: 12.0)
@@ -104,11 +104,11 @@ extension AgentHomeConversationCell {
         timeLabel.text = cellData?.formattedTime
         
         //Setting unreadCount
-        setUnreadCount()
-        
+        self.setUnreadCount()
+            
         //Setting setting close label
         if let cellChatStatus = cellInfo.status, cellChatStatus == ChatStatus.close.rawValue {
-            closedLabel.text = "   Closed   "
+            closedLabel.text = HippoStrings.closed
             closedViewWidthConstraint.constant = 55
         } else {
             closedLabel.text = ""
@@ -128,15 +128,14 @@ extension AgentHomeConversationCell {
         if let channelImage = cellData?.user_image, channelImage.isEmpty == false, channelImage.contains("http"), let url = URL(string: channelImage) {
             channelImageView.kf.setImage(with: url)
             channelImageView.backgroundColor = nil
-        } else if let channelName = cellData?.label, channelName.isEmpty == false {
-            //            placeHolderImageButton?.alpha = isThisChatOpened(opened: isOpened)
-            //            placeHolderImageButton?.isHidden = false
-            //            placeHolderImageButton?.setImage(nil, for: .normal)
-            //            placeHolderImageButton?.backgroundColor = .lightGray
-            
-            let channelNameInitials = channelName.trimWhiteSpacesAndNewLine()
-            let color = cellData?.channelBackgroundColor
-            channelImageView.setTextInImage(string: channelNameInitials, color: color, circular: false, textAttributes: nil)
+        }
+        
+        if channelImageView.image == nil{
+            if let channelName = cellData?.label, channelName.isEmpty == false {
+                let channelNameInitials = channelName.trimWhiteSpacesAndNewLine()
+                let color = cellData?.channelBackgroundColor
+                channelImageView.setTextInImage(string: channelNameInitials, color: color, circular: false, textAttributes: nil)
+            }
         }
         
     }
@@ -244,9 +243,9 @@ extension AgentHomeConversationCell {
         if agentID <= 0 {
             if let closedString = closedLabel.text, closedString.isEmpty == false {
 //                tag = TagBoxInfo(labelText: "Unassigned", textColor: .purpleGrey, containerBackgroundColor: .veryLightBlue, containerBorderColor: unassignedColorForClosedChat)
-                tag = TagBoxInfo(labelText: "Unassigned", textColor: .darkGrayColorForTag, containerBackgroundColor: .lightGrayBgColorForTag, containerBorderColor: unassignedColorForClosedChat)
+                tag = TagBoxInfo(labelText: HippoStrings.unassigned, textColor: .darkGrayColorForTag, containerBackgroundColor: .lightGrayBgColorForTag, containerBorderColor: unassignedColorForClosedChat)
             } else {
-                tag = TagBoxInfo(labelText: "Unassigned", textColor: .white, containerBackgroundColor: .pumpkinOrange)
+                tag = TagBoxInfo(labelText: HippoStrings.unassigned, textColor: .white, containerBackgroundColor: .pumpkinOrange)
             }
         }
 //        else if let agentName = info.agent_name {

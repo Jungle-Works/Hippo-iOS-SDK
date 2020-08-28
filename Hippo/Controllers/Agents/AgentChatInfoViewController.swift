@@ -1,6 +1,6 @@
 //
 //  AgentChatInfoViewController.swift
-//  SDKDemo1
+//  SDKtags1
 //
 //  Created by Vishal on 19/06/18.
 //  Copyright © 2018 CL-macmini-88. All rights reserved.
@@ -79,9 +79,9 @@ extension AgentChatInfoViewController {
         let closeImage = HippoConfig.shared.theme.closeChatImage
         let reopenImage = HippoConfig.shared.theme.chatReOpenIconWithTemplateMode
         if channelDetail?.channelStatus == .open {
-            actionArray.append(ChatInfoCell(infoImage: closeImage, nameOfCell: "Close Chat"))
+            actionArray.append(ChatInfoCell(infoImage: closeImage, nameOfCell: HippoStrings.closeChat))
         } else {
-            actionArray.append(ChatInfoCell(infoImage: reopenImage, nameOfCell: "Reopen Chat"))
+            actionArray.append(ChatInfoCell(infoImage: reopenImage, nameOfCell: HippoStrings.reopenChat))
         }
     }
     
@@ -101,7 +101,7 @@ extension AgentChatInfoViewController {
 //                backButton.tintColor = HippoConfig.shared.theme.headerTextColor
 //            }
 //        }
-        view_NavigationBar.title = "Info"
+        view_NavigationBar.title = HippoStrings.info
         view_NavigationBar.leftButton.addTarget(self, action: #selector(backButtonClicked(_:)), for: .touchUpInside)
         view_NavigationBar.view.layer.shadowOffset = CGSize(width: 0.0, height: 0.5)
         view_NavigationBar.view.layer.shadowRadius = 2.0
@@ -132,9 +132,9 @@ extension AgentChatInfoViewController {
             return message
         }
         if channelDetail!.channelStatus == .open {
-            message = "Are you sure, you want to Close this conversation?"
+            message = HippoStrings.closeChatPopup
         } else {
-            message = "Are you sure, you want to Reopen this conversation?"
+            message = HippoStrings.reopenChatPopup
         }
         return message
     }
@@ -148,9 +148,9 @@ extension AgentChatInfoViewController {
         let message = getPopupMessage()
         let status = channelDetail!.channelStatus == .open ? ChatStatus.close : ChatStatus.open
         
-        showOptionAlert(title: "", message: message, preferredStyle: .alert, successButtonName: "YES", successComplete: { (_) in
+        showOptionAlert(title: "", message: message, preferredStyle: .alert, successButtonName: HippoStrings.yes.capitalized, successComplete: { (_) in
             self.changeChannelStatus(channelId: channelId, status: status)
-        }, failureButtonName: "NO", failureComplete: nil)
+        }, failureButtonName: HippoStrings.no.capitalized, failureComplete: nil)
     }
     func changeChannelStatus(channelId: Int, status: ChatStatus) {
         AgentConversationManager.updateChannelStatus(for: channelId, newStatus: status.rawValue) {[weak self] (result) in
@@ -205,11 +205,11 @@ extension AgentChatInfoViewController: UITableViewDelegate  {
         var sectionHeaderName = ""
         switch value {
         case .channelActions:
-            sectionHeaderName = "Actions"
+            sectionHeaderName = HippoStrings.actions
         case .chatInfo:
-            sectionHeaderName = "Channel Info"
+            sectionHeaderName = HippoStrings.channelInfo
         case .userInfo:
-            sectionHeaderName = "User Profile"
+            sectionHeaderName = HippoStrings.userProfile
         }
         return ChatInfoHeader.configureSectionHeader(headerInfo: ChatInfoCell(infoImage: nil, nameOfCell: sectionHeaderName))
     }

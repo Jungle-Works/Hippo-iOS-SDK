@@ -34,45 +34,58 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     @IBOutlet weak var audioCAllButtonWidthConstraint: NSLayoutConstraint!
     @IBOutlet var backgroundView: UIView!
     @IBOutlet var navigationBackgroundView: UIView!
-//   @IBOutlet var navigationTitleLabel: UILabel!
-//   @IBOutlet var backButton: UIButton!
-   
-   @IBOutlet var sendMessageButton: UIButton!
-   @IBOutlet var messageTextView: UITextView!
-//   @IBOutlet weak var errorContentView: UIView!
-//   @IBOutlet var errorLabel: UILabel!
-   @IBOutlet var textViewBgView: UIView!
-   @IBOutlet var placeHolderLabel: UILabel!
-   @IBOutlet var addFileButtonAction: UIButton!
-   @IBOutlet var seperatorView: UIView!
-   @IBOutlet weak var loaderView: So_UIImageView!
-   
+    //   @IBOutlet var navigationTitleLabel: UILabel!
+    //   @IBOutlet var backButton: UIButton!
+    
+    @IBOutlet var sendMessageButton: UIButton!
+    @IBOutlet var messageTextView: UITextView!
+    //   @IBOutlet weak var errorContentView: UIView!
+    //   @IBOutlet var errorLabel: UILabel!
+    @IBOutlet var textViewBgView: UIView!
+    @IBOutlet var placeHolderLabel: UILabel!
+    @IBOutlet var addFileButtonAction: UIButton!
+    @IBOutlet var seperatorView: UIView!
+    @IBOutlet weak var loaderView: So_UIImageView!
+    
     @IBOutlet weak var actionButton: UIBarButtonItem!
     @IBOutlet weak var audioCallButton: UIBarButtonItem!
     @IBOutlet weak var videoButton: UIBarButtonItem!
-   @IBOutlet var textViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet var textViewBottomConstraint: NSLayoutConstraint!
     
-//   @IBOutlet weak var hieghtOfNavigationBar: NSLayoutConstraint!
+    //   @IBOutlet weak var hieghtOfNavigationBar: NSLayoutConstraint!
     
-   @IBOutlet weak var loadMoreActivityTopContraint: NSLayoutConstraint!
-   @IBOutlet weak var loadMoreActivityIndicator: UIActivityIndicatorView!
-   @IBOutlet weak var suggestionContainerView: UIView!
+    @IBOutlet weak var loadMoreActivityTopContraint: NSLayoutConstraint!
+    @IBOutlet weak var loadMoreActivityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var suggestionContainerView: UIView!
     
     //New conversation view
     @IBOutlet weak var newConversationContainer: So_UIView!
     @IBOutlet weak var newConversationLabel: So_CustomLabel!
     @IBOutlet weak var newConversationShadow: So_UIView!
     @IBOutlet weak var newConversationCountButton: UIButton!
-
-    
     @IBOutlet weak var retryLabelView: UIView!
     @IBOutlet weak var retryLabelViewHeight: NSLayoutConstraint!
     @IBOutlet weak var chatScreenTableViewTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var retryLoader: UIActivityIndicatorView!
-    @IBOutlet weak var labelViewRetryButton: UIButton!
+    @IBOutlet weak var labelViewRetryButton: UIButton!{
+        didSet{
+            let attributedString = NSAttributedString(string: HippoConfig.shared.theme.chatListRetryBtnText == nil ? HippoStrings.retry : HippoConfig.shared.theme.chatListRetryBtnText ?? "", attributes:[
+                NSAttributedString.Key.font : UIFont.bold(ofSize: 15.0),
+                NSAttributedString.Key.foregroundColor : UIColor.black,
+                NSAttributedString.Key.underlineStyle:1.0
+            ])
+            labelViewRetryButton.setAttributedTitle(attributedString, for: .normal)
+        }
+    }
     
     @IBOutlet weak var collectionViewOptions: UICollectionView!
     @IBOutlet weak var attachmentViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var label_slowInternet : UILabel!{
+        didSet{
+            label_slowInternet.font = UIFont.regular(ofSize: 15.0)
+            label_slowInternet.text = HippoStrings.slowInternet
+        }
+    }
     
     var suggestionCollectionView = SuggestionView()
     var suggestionList: [String] = []
@@ -80,25 +93,25 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     var transparentView = UIView()
     var lineLabel = UILabel()
     var customTableView = UITableView()
-//    let height: CGFloat = 175//125//250
-//    var actionSheetTitleArr = ["Photo & Video Library","Camera","Document"]
-//    var actionSheetImageArr = ["Library","Camera","Library"]
+    //    let height: CGFloat = 175//125//250
+    //    var actionSheetTitleArr = ["Photo & Video Library","Camera","Document"]
+    //    var actionSheetImageArr = ["Library","Camera","Library"]
     
     var hieghtOfNavigationBar: CGFloat = 0
     
-//    var initialTouchPoint: CGPoint = CGPoint(x: 0, y: 0)
-
-   // MARK: - Computed Properties
-   var localFilePath: String {
-      get {
-         let existingImageCounter = FuguDefaults.totalImagesInImagesFlder() + 1
-         guard
-            let documentImageUrl = FuguDefaults.fuguImagesDirectory(),
-            existingImageCounter > 0
-            else { return "" }
-         return documentImageUrl.appendingPathComponent("\(existingImageCounter).jpg").path
-      }
-   }
+    //    var initialTouchPoint: CGPoint = CGPoint(x: 0, y: 0)
+    
+    // MARK: - Computed Properties
+    var localFilePath: String {
+        get {
+            let existingImageCounter = FuguDefaults.totalImagesInImagesFlder() + 1
+            guard
+                let documentImageUrl = FuguDefaults.fuguImagesDirectory(),
+                existingImageCounter > 0
+                else { return "" }
+            return documentImageUrl.appendingPathComponent("\(existingImageCounter).jpg").path
+        }
+    }
 
    
     deinit {
@@ -343,7 +356,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
             }
             sendMessageButton.setImage(HippoConfig.shared.theme.sendBtnIcon, for: .normal)
             sendMessageButton.setTitle("", for: .normal)
-        } else { sendMessageButton.setTitle("SEND", for: .normal) }
+        } else { sendMessageButton.setTitle(HippoStrings.send, for: .normal) }
         
         if HippoConfig.shared.theme.addButtonIcon != nil {
             
@@ -619,6 +632,9 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     }
     
     override func openCustomSheet(){
+        
+        HippoConfig.shared.HideJitsiView()
+        
         self.customTableView.reloadData()
         let window = UIApplication.shared.keyWindow
         transparentView.backgroundColor = UIColor.black.withAlphaComponent(0.9)
@@ -656,6 +672,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         }, completion: nil)
     }
     @objc func onClickTransparentView() {
+        HippoConfig.shared.UnhideJitsiView()
         let screenSize = UIScreen.main.bounds.size
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, options: .curveEaseInOut, animations: {
             self.transparentView.alpha = 0
@@ -1209,7 +1226,6 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
             return
         }
         weakSelf.storeResponse = result
-        
         weakSelf.labelId = result.labelID
         weakSelf.botGroupID = result.botGroupID
         
@@ -1264,7 +1280,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
       }
       
       if isDefaultChannel() {
-        let request = CreateConversationWithLabelId(replyMessage: replyMessage, botGroupId: botGroupID, labelId: labelId, initalMessages: getAllLocalMessages())
+        let request = CreateConversationWithLabelId(replyMessage: replyMessage, botGroupId: botGroupID, labelId: labelId, initalMessages: getAllLocalMessages(), channelName: label)
         HippoChannel.get(request: request) { [weak self] (r) in
             var result = r
             if result.isSuccessful, request.shouldSendInitalMessages(), request.replyMessage != nil {
@@ -1459,7 +1475,7 @@ extension ConversationsViewController {
         self.messageTextView.backgroundColor = .clear
         self.messageTextView.tintColor = HippoConfig.shared.theme.messageTextViewTintColor//
         
-        placeHolderLabel.text = HippoConfig.shared.strings.messagePlaceHolderText
+        placeHolderLabel.text = HippoConfig.shared.theme.messagePlaceHolderText == nil ? HippoStrings.messagePlaceHolderText : HippoConfig.shared.theme.messagePlaceHolderText
         
         errorLabel.text = ""
         if errorLabelTopConstraint != nil {
@@ -3028,14 +3044,14 @@ extension ConversationsViewController {
     func presentActionsForCustomer(sender: UIView) {
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertController.Style.actionSheet)
         
-        let logoutOption = UIAlertAction(title: "Logout", style: .default, handler: { (alert: UIAlertAction!) -> Void in
+        let logoutOption = UIAlertAction(title: HippoStrings.logoutTitle, style: .default, handler: { (alert: UIAlertAction!) -> Void in
             self.logoutOptionClicked()
         })
-        let chatHistory = UIAlertAction(title: HippoConfig.shared.strings.chatHistory, style: .default, handler: { (alert: UIAlertAction!) -> Void in
+        let chatHistory = UIAlertAction(title: HippoStrings.chatHistory, style: .default, handler: { (alert: UIAlertAction!) -> Void in
             self.pushToChatHistory()
         })
         
-        let cancelAction = UIAlertAction(title: HippoStrings.attachmentCancel, style: .cancel, handler: { (alert: UIAlertAction!) -> Void in })
+        let cancelAction = UIAlertAction(title: HippoStrings.cancel, style: .cancel, handler: { (alert: UIAlertAction!) -> Void in })
         
         actionSheet.addAction(chatHistory)
         actionSheet.addAction(logoutOption)
@@ -3051,7 +3067,7 @@ extension ConversationsViewController {
     }
     
     func pushToChatHistory() {
-        let config = AllConversationsConfig(enabledChatStatus: [ChatStatus.close], title: HippoConfig.shared.strings.chatHistory, shouldUseCache: false, shouldHandlePush: false, shouldPopVc: true, forceDisableReply: true, forceHideActionButton: true, isStaticRemoveConversation: true, lastChannelId: channel?.id, disbaleBackButton: false)
+        let config = AllConversationsConfig(enabledChatStatus: [ChatStatus.close], title: HippoStrings.chatHistory, shouldUseCache: false, shouldHandlePush: false, shouldPopVc: true, forceDisableReply: true, forceHideActionButton: true, isStaticRemoveConversation: true, lastChannelId: channel?.id, disbaleBackButton: false)
         guard let vc = AllConversationsViewController.get(config: config) else {
             return
         }
@@ -3071,7 +3087,6 @@ extension ConversationsViewController: UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
     }
-    
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         guard gestureRecognizer.isEqual(self.navigationController?.interactivePopGestureRecognizer) else{ return true }
         messageTextView.resignFirstResponder()
@@ -3093,7 +3108,6 @@ extension ConversationsViewController: UIGestureRecognizerDelegate {
         }
         return true
     }
-    
 }
 
 

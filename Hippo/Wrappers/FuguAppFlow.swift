@@ -193,10 +193,10 @@ class FuguFlowManager: NSObject {
         var transactionId = ""
         if let id = consultNowInfoDict["transactionId"] as? Int {
             transactionId = "\(id)"
-        }else if let id = consultNowInfoDict["transactionId"] as? Int {
-                   transactionId = "\(id)"
+        }else if let id = consultNowInfoDict["transactionId"] as? String{
+            transactionId = id
         }
-               
+          
         var fuguNewChatAttributes = FuguNewChatAttributes(transactionId: transactionId, userUniqueKey: HippoConfig.shared.userDetail?.userUniqueKey, otherUniqueKey: nil, tags: HippoProperty.current.newConversationButtonTags, channelName: nil, preMessage: "", groupingTag: nil)
         print("bodID******* \(HippoProperty.current.newconversationBotGroupId ?? "")")
         print("bodID*******FuguAppFlow")
@@ -240,16 +240,9 @@ class FuguFlowManager: NSObject {
     }
    
     func presentPrePaymentController(_ url : String, _ channelId : Int){
-        //        guard let prepaymentVC = PrePaymentController.get() else {
-        //            return
-        //        }
-        //        let navVC = UINavigationController(rootViewController: prepaymentVC)
-        //        navVC.setNavigationBarHidden(true, animated: false)
-        //        let visibleController = getLastVisibleController()
-        //        navVC.modalPresentationStyle = .fullScreen
-        //        visibleController?.present(navVC, animated: true, completion: nil)
-        guard let config = WebViewConfig(url: url, title: HippoStrings.payment) else { return }
-        let vc = CheckoutViewController.getNewInstance(config: config)
+        guard let urlString = url.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else { return }
+        guard let config = WebViewConfig(url: urlString, title: HippoStrings.payment) else { return }
+        let vc = PrePaymentViewController.getNewInstance(config: config)
         vc.isComingForPayment = true
         let navVC = UINavigationController(rootViewController: vc)
         navVC.setNavigationBarHidden(true, animated: false)
@@ -296,7 +289,7 @@ class FuguFlowManager: NSObject {
         if let lastVisibleCtrl = visibleController as? AllConversationsViewController {
             lastVisibleCtrl.updateChannelsWithrespectToPush(pushInfo: userInfo)
             if UIApplication.shared.applicationState == .inactive {
-                HippoConfig.shared.handleRemoteNotification(userInfo: userInfo)
+               // HippoConfig.shared.handleRemoteNotification(userInfo: userInfo)
                 return false
             }
             return true
@@ -320,7 +313,7 @@ class FuguFlowManager: NSObject {
             return true
         }
         if UIApplication.shared.applicationState == .inactive {
-            HippoConfig.shared.handleRemoteNotification(userInfo: userInfo)
+           // HippoConfig.shared.handleRemoteNotification(userInfo: userInfo)
             return false
         }
         
@@ -371,13 +364,11 @@ class FuguFlowManager: NSObject {
          }
          
          if UIApplication.shared.applicationState == .inactive {
-            HippoConfig.shared.handleRemoteNotification(userInfo: userInfo)
             return false
          }
          return isPresent
       }
       if UIApplication.shared.applicationState == .inactive {
-         HippoConfig.shared.handleRemoteNotification(userInfo: userInfo)
          return false
       }
       

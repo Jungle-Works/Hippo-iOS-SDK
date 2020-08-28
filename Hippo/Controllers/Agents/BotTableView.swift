@@ -28,6 +28,8 @@ class BotTableView: UIView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        sendButton.setTitle(HippoStrings.sendTitle, for: .normal)
+        cancelButton.setTitle(HippoStrings.cancel, for: .normal)
         addGesture()
         setLayer()
         setTheme()
@@ -45,6 +47,7 @@ class BotTableView: UIView {
     @IBAction func cancelButtonClicked(_ sender: Any) {
         dismiss()
     }
+    
     
     class func loadView(_ frame: CGRect) -> BotTableView {
         let array = FuguFlowManager.bundle?.loadNibNamed("BotTableView", owner: self, options: nil)
@@ -64,6 +67,7 @@ class BotTableView: UIView {
 //        let theme = HippoTheme.defaultTheme()
         pickerView.backgroundColor = UIColor.veryLightBlue
         pickerView.tintColor = UIColor.gray
+        
     }
     func setLayer() {
         pickerSelectorView.backgroundColor = UIColor.lightGray

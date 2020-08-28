@@ -52,7 +52,7 @@ class FeedbackTableViewCell: MessageTableViewCell {
     @IBOutlet weak var submitButton: UIButton! {
         didSet {
             submitButton.titleLabel?.font = UIFont.bold(ofSize: 16.0)
-            submitButton.setTitle("Submit", for: .normal)
+            submitButton.setTitle(HippoStrings.submit, for: .normal)
             submitButton.setTitleColor(.white, for: .normal)
             submitButton.backgroundColor = HippoConfig.shared.theme.themeColor
             submitButton.layer.cornerRadius = 6
@@ -116,7 +116,7 @@ class FeedbackTableViewCell: MessageTableViewCell {
 
     func setDataForAgent(with params: FeedbackParams) {
         self.data = params
-        label_ReviewSubmitted.text = data.messageObject?.feedbackMessages.line_after_feedback_2
+        label_ReviewSubmitted.text = HippoStrings.thanksForFeedback
         textviewHeightConstraint?.isActive = true
         textviewHeightConstraint?.constant = 80
         if let message = params.messageObject {
@@ -124,7 +124,7 @@ class FeedbackTableViewCell: MessageTableViewCell {
         }
         
         data.cellTextView = cellTextView
-        titleLabel.text = message?.message
+        titleLabel.text = HippoStrings.ratingReview
 
         
         if params.messageObject!.is_rating_given {
@@ -161,7 +161,7 @@ class FeedbackTableViewCell: MessageTableViewCell {
     
     func setData(params: FeedbackParams) {
         self.data = params
-        label_ReviewSubmitted.text = data.messageObject?.feedbackMessages.line_after_feedback_2
+        label_ReviewSubmitted.text = HippoStrings.thanksForFeedback
         textviewHeightConstraint?.isActive = true
         textviewHeightConstraint?.constant = 80
         if let message = params.messageObject {
@@ -169,7 +169,7 @@ class FeedbackTableViewCell: MessageTableViewCell {
         }
         
         data.cellTextView = cellTextView
-        titleLabel.text = message?.message
+        titleLabel.text = HippoStrings.ratingReview
         placeholderLabel.text = HippoStrings.writeReview
         
         if params.messageObject!.is_rating_given {
@@ -227,7 +227,7 @@ class FeedbackTableViewCell: MessageTableViewCell {
             cellTextView.text = data.messageObject!.comment
             label_Rating.text = "\(data.messageObject?.rating_given ?? 0)" + "/" + "\(data.messageObject?.total_rating ?? 0)"
             if cellTextView.text.isEmpty {
-                placeholderLabel.text = "No Comment..."
+                placeholderLabel.text = HippoStrings.noComment
                 placeholderLabel.isHidden = false
             }
         }

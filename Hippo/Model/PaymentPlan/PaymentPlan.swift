@@ -8,7 +8,9 @@
 
 import Foundation
 
-class PaymentPlan {
+class PaymentPlan : NSCopying{
+   
+    
     let planId: Int
     let planName: String
     
@@ -23,6 +25,26 @@ class PaymentPlan {
     var currency: PaymentCurrency?
     
     var canEdit: Bool = false
+    
+  
+    
+    func copy(with zone: NSZone? = nil) -> Any {
+        let copy = PaymentPlan(planId: planId, planName: planName, options: options, type: type, updatedAt: updatedAt, ownerName: ownerName, ownerID: ownerID, displayOwner: displayOwner, currency: currency, canEdit: canEdit)
+        return copy
+    }
+    
+    init(planId: Int, planName: String, options : [PaymentItem], type : PaymentPlanType, updatedAt : Date?, ownerName : String?, ownerID : Int?, displayOwner : String?, currency : PaymentCurrency?, canEdit : Bool) {
+        self.planId = planId
+        self.planName = planName
+        self.options = options
+        self.type = type
+        self.updatedAt = updatedAt
+        self.ownerName = ownerName
+        self.ownerID = ownerID
+        self.displayOwner = displayOwner
+        self.currency = currency
+        self.canEdit = canEdit
+    }
     
     init?(json: [String: Any]) {
         guard let id = Int.parse(values: json, key: "plan_id"), let planName = String.parse(values: json, key: "plan_name") else {
@@ -48,7 +70,7 @@ class PaymentPlan {
         ownerID = Int.parse(values: json, key: "user_id")
         
 //        displayOwner = (ownerID ?? -100) == (PersonInfo.current?.userID ?? -10) ? "Self" : ownerName
-        displayOwner = (ownerID ?? -100) == (currentUserId() ?? -10) ? "Self" : ownerName
+        displayOwner = (ownerID ?? -100) == (currentUserId() ?? -10) ? HippoStrings.selfTag : ownerName
         displayOwner = displayOwner?.capitalized
         
 //        canEdit = (ownerID ?? -100) == (PersonInfo.current?.userID ?? -10)

@@ -23,19 +23,19 @@ struct ConversationState {
     }
     
     static func getReassignedState() -> ConversationState {
-        let obj = ConversationState(labelString: "Conversation Assigned", image: HippoConfig.shared.theme.chatAssignIcon, transitionBckgroundColor: UIColor.pumpkinOrange.withAlphaComponent(0.95))
+        let obj = ConversationState(labelString: HippoStrings.conversationAssigned, image: HippoConfig.shared.theme.chatAssignIcon, transitionBckgroundColor: UIColor.pumpkinOrange.withAlphaComponent(0.95))
         return obj
     }
     static func getNewConversationState() -> ConversationState {
-        let obj = ConversationState(labelString: "New Conversation", image: HippoConfig.shared.theme.chatReOpenIcon, transitionBckgroundColor: UIColor.greenApple.withAlphaComponent(0.95))
+        let obj = ConversationState(labelString: HippoStrings.newConversation, image: HippoConfig.shared.theme.chatReOpenIcon, transitionBckgroundColor: UIColor.greenApple.withAlphaComponent(0.95))
         return obj
     }
     static func getClosedState() -> ConversationState {
-        let obj = ConversationState(labelString: "Conversation closed", image: HippoConfig.shared.theme.chatCloseIcon, transitionBckgroundColor: UIColor.dirtyPurple.withAlphaComponent(0.95))
+        let obj = ConversationState(labelString: HippoStrings.coversationClosed, image: HippoConfig.shared.theme.chatCloseIcon, transitionBckgroundColor: UIColor.dirtyPurple.withAlphaComponent(0.95))
         return obj
     }
     static func getReopenState() -> ConversationState {
-        let obj = ConversationState(labelString: "Conversation Re-opened", image: HippoConfig.shared.theme.chatReOpenIcon, transitionBckgroundColor: UIColor.greenApple.withAlphaComponent(0.95))
+        let obj = ConversationState(labelString: HippoStrings.conversationReopened, image: HippoConfig.shared.theme.chatReOpenIcon, transitionBckgroundColor: UIColor.greenApple.withAlphaComponent(0.95))
         return obj
     }
 }

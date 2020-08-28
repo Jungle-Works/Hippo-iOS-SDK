@@ -15,7 +15,7 @@ class HippoDescriptionContent {
     var textViewText = ""
     var isQueryFormEnabled = false
     var responseText = ""
-    var defaultText = "Your request has been submitted successfully"
+    var defaultText = HippoStrings.hippoDefaultText
     
     var chatButton = buttonContent()
     var callButton = buttonContent()

@@ -11,9 +11,15 @@ import UIKit
 class ShowImageViewController: UIViewController , UIScrollViewDelegate, UIGestureRecognizerDelegate {
     @IBOutlet weak var imageView: So_UIImageView!
     @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet var crossButton: UIButton!
+    @IBOutlet var crossButton: UIButton!{
+        didSet{
+            crossButton.imageView?.tintColor = .white
+            crossButton.setImage(HippoConfig.shared.theme.closeChatImage, for: .normal)
+        }
+    }
     @IBOutlet weak var downloadButton: UIButton!
     @IBOutlet var backgroundBlackColorView: UIView!
+    @IBOutlet var constraint_headerheight : NSLayoutConstraint!
     
     var imageToShow: UIImage?
     var imageURLString = ""
@@ -24,6 +30,7 @@ class ShowImageViewController: UIViewController , UIScrollViewDelegate, UIGestur
 
     var fixedCenter = CGPoint()
     var dismissRatio = CGFloat(0.5)
+    var shouldHidetopHeader : Bool?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,6 +45,9 @@ class ShowImageViewController: UIViewController , UIScrollViewDelegate, UIGestur
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        if shouldHidetopHeader ?? false{
+            downloadButton.isHidden = true
+        }
         if imageToShow != nil {
             self.imageView.image = imageToShow
         } else if imageURLString.isEmpty == false,
@@ -85,10 +95,10 @@ class ShowImageViewController: UIViewController , UIScrollViewDelegate, UIGestur
     @objc func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
         if let error = error {
             //            print(error.localizedDescription)
-            showAlert(title: "Alert!", message: error.localizedDescription, actionComplete: nil)
+            showAlert(title: HippoStrings.alert, message: error.localizedDescription, actionComplete: nil)
         } else {
             //            print("Success")
-            showAlert(title: "Saved!", message: "Image has been saved to your photos.", actionComplete: nil)
+            showAlert(title: HippoStrings.saved, message: "Image has been saved to your photos.", actionComplete: nil)
         }
     }
     

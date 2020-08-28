@@ -15,6 +15,13 @@ struct CallData {
     var signallingClient: HippoChannel
 }
 
+struct GroupCallData{
+    var peerData: User
+    var callType: CallType
+    var muid: String
+    var signallingClient : GroupCallChannel
+}
+
 #if canImport(HippoCallClient)
 import HippoCallClient
 #endif
@@ -41,6 +48,27 @@ class CallManager {
 //        #endif
 //    }
     
+    
+    
+    func startGroupCall(call: GroupCallData, groupCallChannelData : GroupCallChannelData, completion: @escaping (Bool, NSError?) -> Void){
+        #if canImport(HippoCallClient)
+        let peerUser = call.peerData
+        guard let peer = HippoUser(name: peerUser.fullName, userID: peerUser.userID, imageURL: peerUser.image) else {
+            return
+        }
+        guard let currentUser = getCurrentUser() else {
+            return
+        }
+        let callToMake = Call(peer: peer, signalingClient: call.signallingClient, uID: call.muid, currentUser: currentUser, type: getCallTypeWith(localType: call.callType), link: "", isGroupCall: true, jitsiUrl: HippoConfig.shared.jitsiUrl ?? "")
+        
+        let groupCallData = CallClientGroupCallData(roomTitle: groupCallChannelData.roomTitle ?? "", roomUniqueId: groupCallChannelData.roomUniqueId ?? "", transactionId :groupCallChannelData.transactionId ?? "", userType: currentUserType() == .agent ? "agent" : "customer")
+        
+        HippoCallClient.shared.startGroupCall(call: callToMake, groupCallData: groupCallData)
+        #else
+        completion(false,nil)
+        #endif
+    }
+    
     // use this method if you are using jitsi branch for calling feature
 
     func startCall(call: CallData, completion: @escaping (Bool, NSError?) -> Void) {
@@ -52,7 +80,7 @@ class CallManager {
         guard let currentUser = getCurrentUser() else {
             return
         }
-        let callToMake = Call(peer: peer, signalingClient: call.signallingClient, uID: call.muid, currentUser: currentUser, type: getCallTypeWith(localType: call.callType), link: "")
+        let callToMake = Call(peer: peer, signalingClient: call.signallingClient, uID: call.muid, currentUser: currentUser, type: getCallTypeWith(localType: call.callType), link: "", jitsiUrl: HippoConfig.shared.jitsiUrl ?? "")
         HippoCallClient.shared.startCall(call: callToMake, completion: completion)
         #else
         completion(false,nil)
@@ -69,7 +97,7 @@ class CallManager {
         guard let currentUser = getCurrentUser() else {
             return
         }
-        let callToMake = Call(peer: peer, signalingClient: call.signallingClient, uID: call.muid, currentUser: currentUser, type: getCallTypeWith(localType: call.callType), link: "")
+        let callToMake = Call(peer: peer, signalingClient: call.signallingClient, uID: call.muid, currentUser: currentUser, type: getCallTypeWith(localType: call.callType), link: "", jitsiUrl: HippoConfig.shared.jitsiUrl ?? "")
         HippoCallClient.shared.startWebRTCCall(call: callToMake, completion: completion)
         #else
         completion(false)
@@ -139,6 +167,35 @@ class CallManager {
         HippoCallClient.shared.registerHippoCallClient(delegate: self)
         #endif
     }
+    
+    func voipNotificationRecievedForGroupCall(payloadDict: [String: Any]){
+        #if canImport(HippoCallClient)
+        guard let peer = HippoUser(json: payloadDict) else {
+            return
+        }
+        var channelId : Int?
+        
+        if let channelID = payloadDict["channel_id"] as? Int{
+            channelId = channelID
+        }else if let channelID = Int.parse(values: payloadDict, key: "channel_id"){
+            channelId = channelID
+        }
+        guard let channel_id = channelId else {
+            return
+        }
+        
+        let groupCallChannel = GroupCallChannel(channel_id)
+        guard let currentUser = getCurrentUser() else {
+            return
+        }
+        HippoCallClient.shared.voipNotificationRecievedForGroupCall(dictionary: payloadDict, peer: peer, signalingClient: groupCallChannel, currentUser: currentUser)
+        
+        #else
+        print("cannot import HippoCallClient")
+        #endif
+    }
+    
+    
     func voipNotificationRecieved(payloadDict: [String: Any]) {
         #if canImport(HippoCallClient)
         guard let peer = HippoUser(json: payloadDict), let channelID = Int.parse(values: payloadDict, key: "channel_id") else {
@@ -200,6 +257,10 @@ class CallManager {
 
 #if canImport(HippoCallClient)
 extension CallManager: HippoCallClientDelegate {
+    func callStarted(isCallStarted: Bool) {
+         HippoConfig.shared.jitsiOngoingCall = isCallStarted
+    }
+    
     func loadCallPresenterView(request: CallPresenterRequest) -> CallPresenter? {
         return HippoConfig.shared.notifyCallRequest(request)
     }

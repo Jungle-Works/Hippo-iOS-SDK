@@ -10,6 +10,10 @@ import UIKit
 
 class PaymentPlansDataSource: NSObject {
     var plans: [PaymentPlan] = []
+    var deletePlanClicked : ((PaymentPlan)->())?
+    var editPlanClicked : ((PaymentPlan)->())?
+    var sendPlanClicked : ((PaymentPlan)->())?
+    var viewPlanClicked : ((PaymentPlan)->())?
 }
 
 extension PaymentPlansDataSource: UITableViewDataSource {
@@ -23,6 +27,34 @@ extension PaymentPlansDataSource: UITableViewDataSource {
         }
         let plan = plans[indexPath.row]
         cell.set(plan: plan)
+        cell.deletePlanClicked = {[weak self]() in
+            DispatchQueue.main.async {
+                if (self?.plans.count ?? 0) > indexPath.row, let plan = self?.plans[indexPath.row]{
+                    self?.deletePlanClicked?(plan)
+                }
+            }
+        }
+        
+        cell.editPlanClicked = {[weak self]() in
+            DispatchQueue.main.async {
+                if (self?.plans.count ?? 0) > indexPath.row, let plan = self?.plans[indexPath.row]{
+                    if self?.plans[indexPath.row].type == .agentPlan{
+                       self?.editPlanClicked?(plan)
+                    }else{
+                        self?.viewPlanClicked?(plan)
+                    }
+                }
+            }
+        }
+        
+        cell.sendPlanClicked = {[weak self]() in
+            DispatchQueue.main.async {
+                if (self?.plans.count ?? 0) > indexPath.row, let plan = self?.plans[indexPath.row]{
+                    self?.sendPlanClicked?(plan)
+                }
+            }
+        }
+        
         return cell
     }
     

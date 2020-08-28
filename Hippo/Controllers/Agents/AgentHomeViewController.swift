@@ -24,15 +24,14 @@ class AgentHomeViewController: HippoHomeViewController {
     //MARK: Varibles
     fileprivate var conversationList = [AgentConversation]()
     fileprivate var conversationType: ConversationType = .myChat
-    fileprivate var refreshControl = UIRefreshControl()
+    var refreshControl = UIRefreshControl()
     fileprivate var isMoreToLoad = false
     fileprivate var allowPagination = true
     
     //MARK: Outlets
     @IBOutlet weak var errorLabel: UILabel!
     @IBOutlet weak var errorView: UIView!
-    @IBOutlet weak var errorLabelTopConstraint: NSLayoutConstraint!
-    @IBOutlet weak var errorViewTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var height_ErrorLabel : NSLayoutConstraint!
     @IBOutlet weak var paginationActivityLoader: UIActivityIndicatorView!
     @IBOutlet weak var buttonContainerView: UIView!
     @IBOutlet weak var bottomLineView: UIView!
@@ -57,9 +56,21 @@ class AgentHomeViewController: HippoHomeViewController {
         setupTableView()
         addObservers()
         setUpView()
-        setData()
         setAgentStatusForToggle()
         ConversationStore.shared.fetchAllCachedConversation()
+        setData()
+        if HippoConfig.shared.agentDetail?.id == -1 || HippoConfig.shared.agentDetail?.id == nil{
+            HippoChecker.checkForAgentIntialization { (success, error) in
+                guard success else {
+                    return
+                }
+                AgentConversationManager.getAllData()
+            }
+        }else{
+            AgentConversationManager.getAllData()
+        }
+        Business.shared.restoreAllSavedInfo()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -68,13 +79,13 @@ class AgentHomeViewController: HippoHomeViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        self.setDataForViewDidAppear()
+        isInitalLoad = false
     }
     
     func setDataForViewDidAppear(){
         isInitalLoad = false
         AgentConversationManager.getAllData()
-        Business.shared.restoreAllSavedInfo()//
+        Business.shared.restoreAllSavedInfo()
         setFilterButtonIcon()
     }
     
@@ -214,16 +225,16 @@ extension AgentHomeViewController {
         guard let agent = HippoConfig.shared.agentDetail, agent.id > 0 else {
             return
         }
-        if agent.agentUserType == .admin{
-            self.buttonContainerViewHeightConstraint.constant = 45
-            self.myChatButton.isHidden = false
-            self.allChatButton.isHidden = false
-            self.bottomLineView.isHidden = false
-        }else{
+        if agent.agentUserType != .admin && (BussinessProperty.current.hideAllChat ?? false){
             self.buttonContainerViewHeightConstraint.constant = 0
             self.myChatButton.isHidden = true
             self.allChatButton.isHidden = true
             self.bottomLineView.isHidden = true
+        }else{
+            self.buttonContainerViewHeightConstraint.constant = 45
+            self.myChatButton.isHidden = false
+            self.allChatButton.isHidden = false
+            self.bottomLineView.isHidden = false
         }
     }
     
@@ -234,14 +245,14 @@ extension AgentHomeViewController {
         var message = ""
         var enableButton = false
         if  HippoConfig.shared.agentDetail == nil || HippoConfig.shared.agentDetail!.oAuthToken.isEmpty {
-            message = "Auth token is not found or found Empty"
+           // message = "Auth token is not found or found Empty"
         } else if !AgentConversationManager.isAnyApiOnGoing() && conversationList.isEmpty {
-            message = "You have no chats"//"No chat found for your business."
+            //message =  HippoStrings.noDataFound//"No chat found for your business."
             enableButton = true
         }
         
         if let error = AgentConversationManager.errorMessage {
-            message = error
+            //message = error
             enableButton = true
         }
         guard !message.isEmpty, conversationList.isEmpty, !AgentConversationManager.isAnyApiOnGoing() else {
@@ -291,38 +302,28 @@ extension AgentHomeViewController {
         errorLabel.backgroundColor = UIColor.red
         if FuguNetworkHandler.shared.isNetworkConnected {
             errorLabel.text = ""
-            hideErrorLabelView()
+            updateErrorLabelView(isHiding: true)
         } else {
             errorLabel.text = HippoStrings.noNetworkConnection
-            showErrorLabelView()
+            updateErrorLabelView(isHiding: false)
         }
     }
     
-    func hideErrorLabelView() {
-        guard errorLabelTopConstraint.constant > -20 else {
-            return
-        }
-        
-        DispatchQueue.main.async {
-            self.errorLabelTopConstraint.constant = -20
+    func updateErrorLabelView(isHiding: Bool) {
+         if isHiding{
             UIView.animate(withDuration: 0.2) {
+                self.height_ErrorLabel.constant = 0
                 self.errorView.layoutIfNeeded()
             }
-        }
-    }
+            errorLabel.text = ""
+         }else{
+            UIView.animate(withDuration: 0.2) {
+                self.height_ErrorLabel.constant = 20
+                self.errorView.layoutIfNeeded()
+            }
+         }
+     }
     
-    func showErrorLabelView() {
-        guard errorLabelTopConstraint.constant < 0 else {
-            return
-        }
-        
-        DispatchQueue.main.async {
-            self.errorLabelTopConstraint.constant = 0
-            UIView.animate(withDuration: 0.2) {
-                self.errorView.layoutIfNeeded()
-            }
-        }
-    }
     func setUpView() {
         setupRefreshController()
         
@@ -392,8 +393,8 @@ extension AgentHomeViewController {
         self.allChatButton.setBackgroundColor(color: #colorLiteral(red: 0.8156862745, green: 0.8156862745, blue: 0.8156862745, alpha: 1), forState: UIControl.State.highlighted)
         self.myChatButton.titleLabel?.font = UIFont.bold(ofSize: 15)
         self.allChatButton.titleLabel?.font = UIFont.regular(ofSize: 15)
-        self.myChatButton.setTitle(HippoConfig.shared.theme.myChatBtnText, for: .normal)
-        self.allChatButton.setTitle(HippoConfig.shared.theme.allChatBtnText, for: .normal)
+        self.myChatButton.setTitle(HippoConfig.shared.theme.myChatBtnText == nil ? HippoStrings.myChats : HippoConfig.shared.theme.myChatBtnText, for: .normal)
+        self.allChatButton.setTitle(HippoConfig.shared.theme.allChatBtnText == nil ? HippoStrings.allChats : HippoConfig.shared.theme.allChatBtnText, for: .normal)
         self.bottomLineView.backgroundColor = HippoConfig.shared.theme.themeColor
         self.view.backgroundColor = HippoConfig.shared.theme.backgroundColor
         view_NavigationBar.title = HippoConfig.shared.theme.headerText
@@ -515,7 +516,7 @@ extension AgentHomeViewController {
             checkForAnyError()
             return
         }
-        startLoading()
+        stopLoading()
         checkForAnyError()
     }
     func startLoading() {
@@ -656,19 +657,14 @@ extension AgentHomeViewController: UITableViewDelegate, UITableViewDataSource {
         
         if let status = conversationList[indexPath.row].status {
             if status == 1{
-                let deleteAction = UITableViewRowAction(style: .default, title: "End chat") { (action, indexpath) in
-                    self.showOptionAlert(title: "", message: "Are you sure, you want to Close this conversation?", preferredStyle: .alert, successButtonName: "YES", successComplete: { (_) in
+                let deleteAction = UITableViewRowAction(style: .default, title: HippoStrings.closeChat) { (action, indexpath) in
+                    self.showOptionAlert(title: "", message: HippoStrings.closeChatPopup, preferredStyle: .alert, successButtonName: HippoStrings.yes, successComplete: { (_) in
                         self.updateChannelStatus(for: indexPath.row)
-                    }, failureButtonName: "NO", failureComplete: nil)
+                    }, failureButtonName: HippoStrings.no.capitalized, failureComplete: nil)
                 }
                 return [deleteAction]
             }else if status == 2{
-//                let reopenAction = UITableViewRowAction(style: .default, title: "Reopen chat") { (action, indexpath) in
-//                    self.showOptionAlert(title: "", message: "Are you sure, you want to Reopen this conversation?", preferredStyle: .alert, successButtonName: "YES", successComplete: { (_) in
-//                        self.updateChannelStatus(for: indexPath.row)
-//                    }, failureButtonName: "NO", failureComplete: nil)
-//                }
-//                return [reopenAction]
+
                 return nil
             }
             return nil
@@ -719,7 +715,9 @@ extension AgentHomeViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension AgentHomeViewController: AgentHomeCollectionViewCellDelegate {
     func placholderButtonClicked() {
-        AgentConversationManager.updateAgentChannel()
+        AgentConversationManager.updateAgentChannel { (error,response)  in
+            
+        }
     }
     
     func moveToConversationWith(_ conversationObject: AgentConversation) {
@@ -757,7 +755,18 @@ extension AgentHomeViewController: AgentChatDeleagate {
 
 extension AgentHomeViewController: AgentUserChannelDelegate {
     func readAllNotificationFor(channelID: Int) {
+        let myChatIndex = AgentConversation.getIndex(in: ConversationStore.shared.myChats, for: channelID)
+        let allChatIndex = AgentConversation.getIndex(in: ConversationStore.shared.allChats, for: channelID)
         
+        if myChatIndex != nil {
+            ConversationStore.shared.myChats[myChatIndex!].unreadCount = 0
+        }
+        
+        if allChatIndex != nil {
+            ConversationStore.shared.allChats[allChatIndex!].unreadCount = 0
+        }
+        setData()
+        self.tableView.reloadData()
     }
     
     
@@ -799,9 +808,6 @@ extension AgentHomeViewController: AgentUserChannelDelegate {
                 ConversationStore.shared.allChats.insert(existingConversation, at: 0)
             }
         }
-        
-        
-        
         setData()
         self.tableView.reloadData()
     }
@@ -816,7 +822,7 @@ extension AgentHomeViewController: AgentUserChannelDelegate {
             return
         }
         
-        newConversation.unreadCount = newConversation.updateUnreadCountBy
+        //newConversation.unreadCount = 1
         
         ConversationStore.shared.myChats.insert(newConversation, at: 0)
         
@@ -826,7 +832,7 @@ extension AgentHomeViewController: AgentUserChannelDelegate {
         }
     }
     func handleALLChatInsertion(with newConversation: AgentConversation) {
-        newConversation.unreadCount = newConversation.updateUnreadCountBy
+        //newConversation.unreadCount = 1
         ConversationStore.shared.allChats.insert(newConversation, at: 0)
         
         if conversationType == .allChat {
@@ -841,8 +847,12 @@ extension AgentHomeViewController: AgentUserChannelDelegate {
         guard myChatIndex != nil || allChatIndex != nil else {
             return
         }
-        ConversationStore.shared.myChats[myChatIndex!].isBotInProgress = chatDetail.isBotInProgress
-        ConversationStore.shared.allChats[allChatIndex!].isBotInProgress = chatDetail.isBotInProgress
+        if let mychatIndex = myChatIndex, mychatIndex < ConversationStore.shared.myChats.count{
+            ConversationStore.shared.myChats[mychatIndex].isBotInProgress = chatDetail.isBotInProgress
+        }
+        if let allChatIndex = allChatIndex, allChatIndex < ConversationStore.shared.allChats.count{
+            ConversationStore.shared.allChats[allChatIndex].isBotInProgress = chatDetail.isBotInProgress
+        }
         setData()
         self.tableView.reloadData()
     }
@@ -860,6 +870,12 @@ extension AgentHomeViewController: AgentUserChannelDelegate {
         
         
         guard myChatIndex != nil || allChatIndex != nil else {
+            newConversation.unreadCount = 1
+            if let vc = getLastVisibleController() as? AgentConversationViewController,let id = vc.channel?.id, id == channelID {
+                newConversation.unreadCount = 0
+            }else if newConversation.lastMessage?.senderId == currentUserId(){
+                newConversation.unreadCount = 0
+            }
             insertNewConversation(with: newConversation)
             return
         }
@@ -918,6 +934,7 @@ extension AgentHomeViewController : FilterScreenButtonsDelegate{
     }
 
     func applyButtonPressed() {
+        startLoading()
         self.setDataForViewDidAppear()
     }
 }

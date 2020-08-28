@@ -40,6 +40,7 @@ struct CreateConversationWithLabelId {
     var botGroupId: Int?
     var labelId: Int
     var initalMessages: [HippoMessage]
+    var channelName : String?
     
     func shouldSendInitalMessages() -> Bool {
         guard let gID = botGroupId else {
@@ -264,7 +265,6 @@ class HippoChannel {
         default:
             createNewConversationWith(params: params, completion: completion)
         }
-        
     }
     
     private class func createOneToOneConversation(params: [String: Any], completion: @escaping HippoChannelCreationHandler) {
@@ -488,6 +488,13 @@ class HippoChannel {
             params["multi_channel_label_mapping_app"] = 1
         }
         
+        //if getCurrentLanguageLocale() != "en"{
+        if (labelRequest?.botGroupId ?? 0) <= 0{
+            params["multi_language_default_message"] = labelRequest?.initalMessages.first?.message
+        }
+        params["multi_language_label"] = labelRequest?.channelName
+        //}
+        
         return params
     }
     
@@ -503,7 +510,7 @@ class HippoChannel {
         params["agent_email"] = agentEmail
         params["app_secret_key"] = HippoConfig.shared.appSecretKey
         params["chat_type"] = 0
-        params["app_version"] = versionCode
+        params["app_version"] = fuguAppVersion
         params["device_type"] = Device_Type_iOS
         params["source_type"] = SourceType.SDK.rawValue
 //        params["in_app_support_channel"] = 0
@@ -955,6 +962,13 @@ class HippoChannel {
         saveMessagesInCache()
         print("Channel with \(id) Deintialized")
     }
+    
+    func deinitObservers(){
+        NotificationCenter.default.removeObserver(self)
+        unSubscribe()
+        saveMessagesInCache()
+    }
+    
     
 }
 

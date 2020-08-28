@@ -71,6 +71,9 @@ class FayeConnection: NSObject {
     
     // MARK: - Methods
     func enviromentSwitchedWith(urlString: String) {
+        if localFaye.isConnected && URL(string: urlString) == localFaye.url{
+            return
+        }
         localFaye = MZFayeClient(url: URL(string: urlString))
         setConnectionRetryAttemptConfig()
         setupFayeClient()
@@ -166,6 +169,15 @@ class FayeConnection: NSObject {
             channelID = FayeConnection.channelPrefix + channelID
         }
     }
+    
+    func disconnectFaye(){
+        localFaye?.disconnect({
+            
+        }, failure: { (Error) in
+            print(Error.debugDescription)
+        })
+    }
+    
 }
 
 //MARK: - MZFayeClient Delegate
@@ -192,6 +204,7 @@ extension FayeConnection: MZFayeClientDelegate {
     }
     
     func fayeClient(_ client: MZFayeClient!, didFailWithError error: Error!) {
+        HippoConfig.shared.socketsFailed = true
         let errorMessage = error?.localizedDescription ?? ""
         HippoConfig.shared.log.debug("didFailWithError==>\(errorMessage)", level: .info)
         NotificationCenter.default.post(name: .fayeDisconnected, object: nil)

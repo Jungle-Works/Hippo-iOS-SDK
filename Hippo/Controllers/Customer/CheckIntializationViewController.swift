@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CheckIntializationViewController: UIViewController {
+/*class CheckIntializationViewController: UIViewController {
 
    // MARK: - Properties
    var completion: ((_ presentingViewController: UIViewController) -> Void)?
@@ -66,7 +66,7 @@ class CheckIntializationViewController: UIViewController {
     func retryPutUser() {
         HippoUserDetail.getUserDetailsAndConversation { [weak self] (success, error) in
             guard success else {
-                self?.errorLabel.text = error?.localizedDescription ?? "Something went wrong."
+                self?.errorLabel.text = error?.localizedDescription ??  HippoStrings.somethingWentWrong
                 self?.updateUIWhen(isRetrying: false)
                 return
             }
@@ -101,3 +101,4 @@ class CheckIntializationViewController: UIViewController {
     }
     
 }
+*/

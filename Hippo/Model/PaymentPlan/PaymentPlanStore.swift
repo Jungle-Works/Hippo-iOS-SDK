@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+import UIKit
 
 class PaymentPlanStore {
     var plans: [PaymentPlan] = [] {
@@ -24,7 +24,7 @@ class PaymentPlanStore {
     func getPlans() {
         guard let param = generateParam() else {
 //            showAlert(title: "", message: "Something went wrong", actionComplete: nil)
-            showAlertWith(message: "Something went wrong", action: nil)
+            showAlertWith(message: HippoStrings.somethingWentWrong, action: nil)
             return
         }
 //        HTTPRequest.init(method: .post, path: EndPoints.getPaymentPlans, parameters: param, encoding: .json, files: nil)
@@ -46,7 +46,9 @@ class PaymentPlanStore {
             guard let responseDict = response as? [String: Any],
                 let statusCode = responseDict["statusCode"] as? Int, statusCode == 200 else {
                     HippoConfig.shared.log.debug("API_GetPaymentPlans ERROR.....\(error?.localizedDescription ?? "")", level: .error)
-//                    completion(false, error)
+                    getLastVisibleController()?.showAlert(title: "", message: (error?.localizedDescription ?? ""), buttonTitle: HippoStrings.ok, completion: nil)
+                    self.delegate?.plansUpdated()
+                    //                    completion(false, error)
                     return
             }
 //            completion(true, nil)
@@ -73,7 +75,7 @@ class PaymentPlanStore {
         }
         
         let param: [String: Any] = ["access_token": access_token,
-                                    "type_array": [PaymentPlanType.agentPlan.rawValue]]
+                                    "type_array": HippoProperty.current.paymentPlanType]
         
         return param
     }

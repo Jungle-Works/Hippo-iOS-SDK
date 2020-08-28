@@ -44,16 +44,17 @@ class PaymentPlansViewController: UIViewController {
     internal func setTheme() {
         store.delegate = self
 //        setupCustomThemeOnNavigationBar(hideNavigationBar: false)
+
         view_Navigation.setupNavigationBar = {[weak self]() in
             DispatchQueue.main.async {
                 self?.view_Navigation.image_back.tintColor = HippoConfig.shared.theme.headerTextColor
                 self?.view_Navigation.image_back.image = HippoConfig.shared.theme.crossBarButtonImage
-                self?.view_Navigation.title = "Saved Plans"
+                self?.view_Navigation.title = HippoStrings.savedPlans
                 self?.view_Navigation.leftButton.addTarget(self, action: #selector(self?.cancelButtonClicked(_:)), for: .touchUpInside)
                 self?.setaddIcon()
             }
         }
-     
+    
 //        self.view.backgroundColor = HippoTheme.theme.systemBackgroundColor.secondary
         loaderView.tintColor = HippoConfig.shared.theme.headerTextColor
     }
@@ -62,6 +63,43 @@ class PaymentPlansViewController: UIViewController {
         registerCell()
         tableView.tableFooterView = UIView()
         datasource.plans = store.plans
+        datasource.deletePlanClicked = {[weak self](plan) in
+            DispatchQueue.main.async {
+                self?.showOptionAlert(title: "", message: HippoStrings.deletePaymentPlan, successButtonName: HippoStrings.yes, successComplete: { (_) in
+                self?.DeletePaymentPlan(plan: plan, completion: { (success, error) in
+                    if success{
+                        self?.store.plans.removeAll(where: {$0.planId == plan.planId})
+                        self?.datasource.plans = self?.store.plans ?? [PaymentPlan]()
+                        self?.tableView.dataSource = self?.datasource
+                        self?.tableView.reloadData()
+                    }else{
+                        self?.showAlert(title: "Error", message: error.debugDescription, actionComplete: nil)
+                    }
+                })
+            }, failureButtonName: HippoStrings.no.capitalized, failureComplete: nil)
+            }
+        }
+        
+        datasource.editPlanClicked = {[weak self](plan) in
+            DispatchQueue.main.async {
+               self?.pushCreatePayment(with: plan,isFromEditPlan: true, animated: true)
+            }
+        }
+        
+        datasource.sendPlanClicked = {[weak self](plan) in
+            DispatchQueue.main.async {
+                self?.sendPlan(plan)
+            }
+        }
+        
+        datasource.viewPlanClicked = {[weak self](plan) in
+            DispatchQueue.main.async {
+                let paymentStore = PaymentStore(plan: plan, channelId: self?.channelId, isEditing: false, isSending: self?.channelId != nil)
+                let vc = CreatePaymentViewController.get(store: paymentStore)
+                vc.delegate = self
+                self?.navigationController?.pushViewController(vc, animated: true)
+            }
+        }
         tableView.separatorStyle = .none
         tableView.backgroundColor = .clear
         
@@ -76,7 +114,7 @@ class PaymentPlansViewController: UIViewController {
         view_Navigation.rightButton.addTarget(self, action: #selector(addButtonClicked), for: .touchUpInside)
     }
     @objc internal func addButtonClicked() {
-        pushCreatePayment(with: nil, animated: true)
+        pushCreatePayment(with: nil,isForAddPlan: true, animated: true)
     }
     
     internal func registerCell() {
@@ -105,9 +143,10 @@ class PaymentPlansViewController: UIViewController {
 //        return view
         return customView
     }
-    internal func pushCreatePayment(with plan: PaymentPlan?, animated: Bool) {
-        let paymentStore = PaymentStore(plan: plan, channelId: channelId, isEditing: (plan == nil || channelId != nil), isSending: channelId != nil)
-        let vc = CreatePaymentViewController.get(store: paymentStore)
+    internal func pushCreatePayment(with plan: PaymentPlan?,isForAddPlan : Bool = false, isFromEditPlan : Bool = false, animated: Bool) {
+        let paymentStore = PaymentStore(plan: plan, channelId: channelId, isEditing: (plan == nil || channelId != nil), isSending: channelId != nil, shouldSavePaymentPlan: isForAddPlan, canEditPlan: isFromEditPlan)
+        let vc = CreatePaymentViewController.get(store: paymentStore, shouldSavePlan: isForAddPlan)
+        vc.isEditScreen = isFromEditPlan
         vc.delegate = self
         self.navigationController?.pushViewController(vc, animated: animated)
     }
@@ -133,7 +172,7 @@ extension PaymentPlansViewController: PaymentPlansViewDelegate {
         self.stopLoaderAnimation()
         
         if plans.isEmpty, channelId != nil {
-            pushCreatePayment(with: nil, animated: false)
+            pushCreatePayment(with: nil,isForAddPlan: true, animated: false)
         }
         datasource.plans = plans
         tableView.reloadData()
@@ -142,11 +181,28 @@ extension PaymentPlansViewController: PaymentPlansViewDelegate {
 }
 extension PaymentPlansViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let plans = store.plans
-        let plan = plans[indexPath.row]
-        
-        pushCreatePayment(with: plan, animated: true)
+      
+    
     }
+    
+    func sendPlan(_ plan : PaymentPlan){
+        showOptionAlert(title: "", message: HippoStrings.sendPaymentRequestPopup, successButtonName: HippoStrings.yes, successComplete: { (_) in
+            let paymentStore = PaymentStore(plan: plan, channelId: self.channelId, isEditing: false, isSending: self.channelId != nil)
+            paymentStore.takeAction { (success, error) in
+                guard success else {
+                    showAlertWith(message: error?.localizedDescription ?? "", action: nil)
+                    return
+                }
+                if paymentStore.isSending{
+                    self.sendNewPaymentDelegate?.paymentCardPaymentOfCreatePayment(isSuccessful: true)
+                    self.dismiss(animated: true, completion: nil)
+                } else {
+                    self.navigationController?.popViewController(animated: true)
+                }
+            }
+        }, failureButtonName: HippoStrings.no.capitalized, failureComplete: nil)
+    }
+    
 }
 extension PaymentPlansViewController: CreatePaymentDelegate {
     func sendMessage(for store: PaymentStore) {
@@ -167,4 +223,31 @@ extension PaymentPlansViewController: CreatePaymentDelegate {
             self.sendNewPaymentDelegate?.paymentCardPaymentOfCreatePayment(isSuccessful: true)
         }
     }
+}
+extension PaymentPlansViewController{
+    
+    //MARK:- Delete Plan
+    
+    
+    func DeletePaymentPlan(plan : PaymentPlan, completion: @escaping ((_ success: Bool, _ error: Error?) -> ())) {
+        
+        guard let accessToken = HippoConfig.shared.agentDetail?.fuguToken else {
+            completion(false, nil)
+            return
+        }
+        var param: [String: Any] = ["access_token": accessToken]
+        param["plan_id"] = plan.planId
+        param["operation_type"] = 2
+        //        }
+        HTTPClient.makeConcurrentConnectionWith(method: .POST, para: param, extendedUrl: AgentEndPoints.editPaymentPlans.rawValue) { (response, error, _, statusCode) in
+            guard let responseDict = response as? [String: Any],
+                let statusCode = responseDict["statusCode"] as? Int, statusCode == 200 else {
+                    HippoConfig.shared.log.debug("API_EditPaymentPlans ERROR.....\(error?.localizedDescription ?? "")", level: .error)
+                    completion(false, error)
+                    return
+            }
+            completion(true, nil)
+        }
+    }
+    
 }

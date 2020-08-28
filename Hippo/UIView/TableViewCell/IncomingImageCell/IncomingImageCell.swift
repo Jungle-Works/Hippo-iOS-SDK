@@ -68,19 +68,9 @@ class IncomingImageCell: MessageTableViewCell {
     
     func adjustShadow() {
         shadowView.layoutIfNeeded()
-        mainContentView.layoutIfNeeded()
-        
-        shadowView.layer.cornerRadius = mainContentView.layer.cornerRadius
         shadowView.clipsToBounds = true
         shadowView.backgroundColor = HippoConfig.shared.theme.chatBoxBorderColor
-        
-        
-        if #available(iOS 11.0, *) {
-            thumbnailImageView.layer.maskedCorners = [.layerMaxXMinYCorner]
-            mainContentView.layer.maskedCorners = [.layerMaxXMinYCorner,.layerMinXMaxYCorner,.layerMaxXMaxYCorner]
-        } else {
-            // Fallback on earlier versions
-        }
+
     }
 }
 
@@ -91,18 +81,20 @@ extension IncomingImageCell {
         thumbnailImageView.image = nil
         selectionStyle = .none
         timeLabel.text = ""
-        timeLabel.textColor = UIColor.white
+        timeLabel.textColor = HippoConfig.shared.theme.incomingMsgDateTextColor
         
         retryButton.isHidden = true
         retryButton.backgroundColor = HippoConfig.shared.theme.backgroundColor
         
         mainContentView.layer.cornerRadius = 10
         thumbnailImageView.layer.cornerRadius = mainContentView.layer.cornerRadius
+        shadowView.layer.cornerRadius = mainContentView.layer.cornerRadius
         thumbnailImageView.clipsToBounds = true
-        
+        mainContentView.clipsToBounds = true
         if #available(iOS 11.0, *) {
-            thumbnailImageView.layer.maskedCorners = [.layerMaxXMinYCorner]
+            thumbnailImageView.layer.maskedCorners = [.layerMaxXMinYCorner,.layerMinXMaxYCorner,.layerMaxXMaxYCorner]
             mainContentView.layer.maskedCorners = [.layerMaxXMinYCorner,.layerMinXMaxYCorner,.layerMaxXMaxYCorner]
+            shadowView.layer.maskedCorners = [.layerMaxXMinYCorner,.layerMinXMaxYCorner,.layerMaxXMaxYCorner]
         } else {
             // Fallback on earlier versions
         }
@@ -153,7 +145,7 @@ extension IncomingImageCell {
 //        setupBoxBackground(messageType: messageType)
 //        
 //        if channelId <= 0 {}
-//        else {
+//        ese {
 //            let timeOfMessage = changeDateToParticularFormat(chatMessageObject.creationDateTime, dateFormat: "h:mm a", showInFormat: true)
 //            timeLabel.text = "\t" + "\(timeOfMessage)"
 //        }

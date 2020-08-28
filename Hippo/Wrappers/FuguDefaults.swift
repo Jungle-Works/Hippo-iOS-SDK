@@ -17,6 +17,8 @@ enum DefaultName: String {
     case agentTotalUnreadHashMap = "agentTotalUnreadHashMap"
     case agentUnreadCount = "agentUnreadCount"
     case p2pUnreadCount = "cusUnreadCount"
+    case selectedLanguage = "hippoSelectedLanguage"
+    case announcementUnreadCount = "announcementUnreadCount"
 }
 
 struct DefaultKey {
@@ -50,7 +52,7 @@ class FuguDefaults: NSObject {
         do {
             let data = try Data(contentsOf: fileUrl, options: [])
             return try JSONSerialization.jsonObject(with: data, options: [])
-        } catch { HippoConfig.shared.log.trace(error, level: .customError) }
+        } catch { print(error.localizedDescription) }
         return nil
     }
     

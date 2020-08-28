@@ -21,6 +21,7 @@ class User: NSObject {
     var userType: UserType = .customer
     var image: String?
     
+    
     init?(dict: [String: Any]) {
         guard let rawUserId = Int.parse(values: dict, key: "user_id") else {
             return nil
@@ -101,8 +102,9 @@ public class UserTag: NSObject {
     var userTags: [UserTag] = []
     var customRequest: [String: Any] = [:]
     var userImage: URL?
-    
+    var selectedlanguage : String?
     var userChannel: String?
+    static var shouldGetPaymentGateways : Bool = true
     
     class var HippoUserChannelId: String? {
         get {
@@ -141,7 +143,7 @@ public class UserTag: NSObject {
     // MARK: - Intializer
     override init() {}
     
-    public init(fullName: String, email: String, phoneNumber: String, userUniqueKey: String, addressAttribute: HippoAttributes? = nil, customAttributes: [String: Any]? = nil, userTags: [UserTag]? = nil, userImage: String? = nil) {
+    public init(fullName: String, email: String, phoneNumber: String, userUniqueKey: String, addressAttribute: HippoAttributes? = nil, customAttributes: [String: Any]? = nil, userTags: [UserTag]? = nil, userImage: String? = nil, selectedlanguage : String? = nil, getPaymentGateways : Bool = true) {
         super.init()
         
         self.fullName = fullName.trimWhiteSpacesAndNewLine()
@@ -156,6 +158,11 @@ public class UserTag: NSObject {
         if let parsedUserImage = userImage?.trimWhiteSpacesAndNewLine(), let url = URL(string: parsedUserImage) {
             self.userImage = url
         }
+        
+       self.selectedlanguage = selectedlanguage
+        HippoUserDetail.shouldGetPaymentGateways = getPaymentGateways
+        
+        UserDefaults.standard.set(selectedlanguage, forKey: DefaultName.selectedLanguage.rawValue)
     }
     
     func getUserTagsJSON() -> [[String: Any]] {
@@ -263,9 +270,10 @@ public class UserTag: NSObject {
         }
         
         params["device_details"] = AgentDetail.getDeviceDetails()
-        
+        params["fetch_business_lang"] = 1
         params += customRequest
         print("PUT USER PARAMS:\(params)")
+        
         return params
     }
     
@@ -297,6 +305,10 @@ public class UserTag: NSObject {
             HippoConfig.shared.log.trace("PutUserData: \(data)", level: .response)
             
             userDetailData = data
+            
+            if let jitsiUrl = userDetailData["jitsi_url"] as? String{
+                HippoConfig.shared.jitsiUrl = jitsiUrl
+            }
             
             if let rawUserChannel = userDetailData["user_channel"] as? String {
                 HippoUserDetail.HippoUserChannelId = rawUserChannel
@@ -374,20 +386,26 @@ public class UserTag: NSObject {
             NotificationCenter.default.post(name: .putUserSuccess, object:self)
 
             let isAskPaymentAllowed = Bool.parse(key: "is_ask_payment_allowed", json: userDetailData, defaultValue: false)
-            if isAskPaymentAllowed == true{
-                let params = getParamsForPaymentGateway()
-                self.getPaymentGateway(withParams: params) { (success) in
+            if isAskPaymentAllowed == true && self.shouldGetPaymentGateways{
+                
+                self.getPaymentGateway() { (success) in
                     //guard success == true else { return }
                 }
             }
-            
+            let announcementCount = ((responseObject as? NSDictionary)?.value(forKey: "data") as? NSDictionary)?.value(forKey: "unread_announcements_count") as? Int ?? 0
+            if !(HippoConfig.shared.isOpenedFromPush ?? false){
+               HippoConfig.shared.announcementUnreadCount?(announcementCount)
+               UserDefaults.standard.set(announcementCount, forKey: DefaultName.announcementUnreadCount.rawValue)
+            }
             completion?(true, nil)
         }
     }
     
-    class func getPaymentGateway(withParams params: [String: Any], completion: @escaping (Bool) -> Void) {
+    class func getPaymentGateway(completion: @escaping (Bool) -> Void) {
+        let params = getParamsForPaymentGateway()
         getPaymentGateway(params: params, completion: completion)
     }
+    
     private class func getPaymentGateway(params: [String: Any],  completion: @escaping (Bool) -> Void) {
         HippoConfig.shared.log.debug("API_GetPaymentGateway.....\(params)", level: .request)
         HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: FuguEndPoints.getPaymentGateway.rawValue) { (response, error, _, statusCode) in
@@ -405,7 +423,7 @@ public class UserTag: NSObject {
     private class func getParamsForPaymentGateway() -> [String: Any] {
         var params = [String: Any]()
         params["app_secret_key"] = HippoConfig.shared.appSecretKey
-        params["app_version"] = versionCode
+        params["app_version"] = fuguAppVersion
         params["device_type"] = Device_Type_iOS
         params["source_type"] = SourceType.SDK.rawValue
         params["app_version_code"] = versionCode
@@ -439,6 +457,7 @@ public class UserTag: NSObject {
 ////            params["neglect_conversations"] = true
 //        }
         params["neglect_conversations"] = true
+        params["fetch_announcements_unread_count"] = 1
         
         return params
     }
@@ -461,10 +480,14 @@ public class UserTag: NSObject {
         
         
         FuguDefaults.removeAllPersistingData()
-        
+        if FayeConnection.shared.isConnected{
+            FayeConnection.shared.disconnectFaye()
+        }
         //Clear agent data
         clearAgentData()
-        //unSubscribe(userChannelId: HippoConfig.shared.userDetail?.userChannel ?? "")
+        
+        //unSubscribe(userChannelId: HippoUserDetail.HippoUserChannelId ?? "")
+        HippoConfig.shared.groupCallData.removeAll()
         HippoProperty.current = HippoProperty()
         //FuguConfig.shared.deviceToken = ""
         HippoConfig.shared.appSecretKey = ""
@@ -482,6 +505,8 @@ public class UserTag: NSObject {
         
         FuguDefaults.removeObject(forKey: DefaultKey.myChatConversations)
         FuguDefaults.removeObject(forKey: DefaultKey.allChatConversations)
+        FuguDefaults.removeObject(forKey: DefaultKey.allChatConversations)
+        
         
         FuguDefaults.removeObject(forKey: DefaultName.conversationData.rawValue)
         FuguDefaults.removeObject(forKey: DefaultName.appointmentData.rawValue)
@@ -489,7 +514,7 @@ public class UserTag: NSObject {
         
         FuguDefaults.removeAllPersistingData()
         
-         CallManager.shared.hungupCall()
+        CallManager.shared.hungupCall()
         
         let defaults = UserDefaults.standard
         defaults.removeObject(forKey: Hippo_User_Channel_Id)
@@ -518,6 +543,9 @@ public class UserTag: NSObject {
         let voipToken = TokenManager.voipToken
         
         HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: FuguEndPoints.API_CLEAR_USER_DATA_LOGOUT.rawValue) { (responseObject, error, tag, statusCode) in
+//            if currentUserType() == .customer{
+//                unSubscribe(userChannelId: HippoUserDetail.HippoUserChannelId ?? "")
+//            }
             clearAllData()
             TokenManager.deviceToken = deviceToken
             TokenManager.voipToken = voipToken

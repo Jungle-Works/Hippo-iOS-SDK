@@ -15,6 +15,7 @@ let FUGU_USER_ID = "fuguUserId"
 let Fugu_AppSecret_Key = "fugu_app_secret_key"
 let Fugu_en_user_id = "fuguEnUserId"
 let Hippo_User_Channel_Id = "userChannelId"
+let Fugu_groupCallData = "groupCallData"
 
 
 extension UInt {
@@ -89,6 +90,7 @@ struct UserDefaultkeys {
     static let isAskPaymentAllowed = "is_ask_payment_allowed"
     static let onlineStatus = "online_status"
     static let filterApplied = "filterApplied"
+    static let hideAllChat = "hideAllChat"
 }
 
 var FUGU_SCREEN_WIDTH: CGFloat {
@@ -262,13 +264,13 @@ func changeDateToParticularFormat(_ dateTobeConverted: Date, dateFormat: String,
         let comparisonResult = Calendar.current.compare(dateTobeConverted, to: Date(), toGranularity: .day)
         switch comparisonResult {
         case .orderedSame:
-            return "Today"
+            return HippoStrings.today
         default:
             let calendar = NSCalendar.current
             let dateOfMsg = calendar.startOfDay(for: dateTobeConverted)
             let currentDate = calendar.startOfDay(for: Date())
             let dateDifference = calendar.dateComponents([.day], from: dateOfMsg, to: currentDate).day
-            if dateDifference == 1 { return "Yesterday" }
+            if dateDifference == 1 { return HippoStrings.yesterday }
             return formatter.string(from: dateTobeConverted)
         }
     }
@@ -318,17 +320,19 @@ func subscribeCustomerUserChannel(userChannelId: String) {
             }
         }
     }) {  (messageDict) in
-        if let messageType = messageDict["message_type"] as? Int, messageType == 18 {
-            if let channel_id = messageDict["channel_id"] as? Int{ 
+         HippoConfig.shared.log.trace("UserChannel:: --->\(messageDict)", level: .socket)
+        if let messageType = messageDict["message_type"] as? Int, messageType == MessageType.call.rawValue {
+            if let channel_id = messageDict["channel_id"] as? Int{ //isSubscribed(userChannelId: "\(channel_id)") == false {
+                
                 let channel = FuguChannelPersistancyManager.shared.getChannelBy(id: channel_id)
-                if versionCode < 350{
-                   channel.signalReceivedFromPeer?(messageDict)
+                if versionCode < 350{//call for old version
+                    channel.signalReceivedFromPeer?(messageDict)
                 }
-                HippoConfig.shared.log.trace("UserChannel:: --->\(messageDict)", level: .socket)
                 CallManager.shared.voipNotificationRecieved(payloadDict: messageDict)
             }
+        }else if let messageType = messageDict["message_type"] as? Int, messageType == MessageType.groupCall.rawValue{
+            CallManager.shared.voipNotificationRecievedForGroupCall(payloadDict: messageDict)
         }
-        
         
         if let notificationType = messageDict["notification_type"] as? Int{
             var unreadData = FuguDefaults.object(forKey: DefaultName.p2pUnreadCount.rawValue) as? [String: Any]
@@ -349,7 +353,12 @@ func subscribeCustomerUserChannel(userChannelId: String) {
 }
 
 func subscribeMarkConversation(){
-    let markConversationChannel = HippoConfig.shared.appSecretKey + "/" + "markConversation"
+    var markConversationChannel = ""
+    if currentUserType() == .customer{
+        markConversationChannel = HippoConfig.shared.appSecretKey + "/" + "markConversation"
+    }else{
+        markConversationChannel = (HippoConfig.shared.agentDetail?.appSecrectKey ?? "") + "/" + "markConversation"
+    }
     
     guard !isSubscribed(userChannelId: markConversationChannel) else {
         return
@@ -358,11 +367,26 @@ func subscribeMarkConversation(){
     FayeConnection.shared.subscribeTo(channelId: markConversationChannel, completion: { (success) in
     }) {  (messageDict) in
         print(messageDict)
-        if let notificationType = messageDict["notification_type"] as? Int, notificationType == 12, let status = messageDict["status"] as? String, status == "2"{
+        if let notificationType = messageDict["notification_type"] as? Int, notificationType == 12{
+            if let status = messageDict["status"] as? String{
+                if status != "2"{
+                    return
+                }
+            }else if let status = messageDict["status"] as? Int{
+                if status != 2{
+                    return
+                }
+            }
             for controller in getLastVisibleController()?.navigationController?.viewControllers ?? [UIViewController](){
                 if controller is AllConversationsViewController{
                     (controller as? AllConversationsViewController)?.closeChat(messageDict["channel_id"] as? Int ?? -1)
                     return
+                }
+            }
+            
+            if currentUserType() == .agent{
+                if let channelId = messageDict["channel_id"] as? Int{
+                   removeChannelForUnreadCount(channelId)
                 }
             }
         }
@@ -751,7 +775,8 @@ func parseDeviceToken(deviceToken: Data) -> String? {
 func updateDeviceToken(deviceToken: String) {
     switch HippoConfig.shared.appUserType {
     case .agent:
-        AgentConversationManager.updateAgentChannel()
+        AgentConversationManager.updateAgentChannel{ (error,response) in
+        }
     case .customer:
         HippoUserDetail.getUserDetailsAndConversation()
     }
@@ -788,8 +813,12 @@ func validateFuguCredential() -> Bool {
 }
 
 func getCurrentLanguageLocale() -> String {
-      return "en"
-  }
+    if UserDefaults.standard.value(forKey: DefaultName.selectedLanguage.rawValue) as? String == ""{
+        return "en"
+    }else{
+        return UserDefaults.standard.value(forKey: DefaultName.selectedLanguage.rawValue) as? String ?? "en"
+    }
+}
 
 
 func showAlertWith(message: String, action: (() -> Void)?) {
@@ -833,9 +862,9 @@ func currentEnUserId() -> String {
 func currentUserName() -> String {
     switch HippoConfig.shared.appUserType {
     case .agent:
-        return HippoConfig.shared.agentDetail?.fullName ?? "Agent"
+        return HippoConfig.shared.agentDetail?.fullName ?? HippoStrings.agent
     case .customer:
-        return HippoConfig.shared.userDetail?.fullName ?? "Visitor"
+        return HippoConfig.shared.userDetail?.fullName ?? HippoStrings.visitor
     }
 }
 

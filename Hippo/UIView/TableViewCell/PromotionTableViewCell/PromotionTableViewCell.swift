@@ -32,6 +32,7 @@ class PromotionTableViewCell: UITableViewCell {
     @IBOutlet weak var constraint_timeLabelBottom : NSLayoutConstraint!
     
     var data: PromotionCellDataModel?
+    var previewImage : (()->())?
 //    weak var delegate: PromotionTableViewCellDelegate?
     
     override func awakeFromNib() {
@@ -113,6 +114,10 @@ class PromotionTableViewCell: UITableViewCell {
     
 
         self.layoutIfNeeded()
+    }
+    
+    @IBAction func action_PreviewImage(){
+        self.previewImage?()
     }
     
     

@@ -91,12 +91,15 @@ extension AgentListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        self.showOptionAlert(title: "", message: "Are you sure you want to assign this chat?", preferredStyle: .alert, successButtonName: "YES", successComplete: { (_) in
+        let messageToShow = agentList[indexPath.row].userId == currentUserId() ? HippoStrings.reasignChatToYou : HippoStrings.reasignChat
+        
+        
+        self.showOptionAlert(title: "", message: messageToShow, preferredStyle: .alert, successButtonName: HippoStrings.yes.capitalized, successComplete: { (_) in
             self.assignChatToAgent(agent: self.agentList[indexPath.row])
-        }, failureButtonName: "NO", failureComplete: nil)
+        }, failureButtonName: HippoStrings.no, failureComplete: nil)
     }
     
-//    func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
+//    func tableView(_ tableView: UITableView, didHighlightRowAt i.ndexPath: IndexPath) {
 //        guard let cell = tableView.cellForRow(at: indexPath) as? AgentListTableViewCell else { return }
 //        cell.mainContentView.backgroundColor = UIColor.clear
 //        cell.verticalSelectionLine.isHidden = false
@@ -147,7 +150,7 @@ extension AgentListViewController {
 //            }
 //        }
         self.navigationController?.isNavigationBarHidden = true
-        view_NavigationBar.title = "Assign Conversation"
+        view_NavigationBar.title = HippoStrings.assignConversation
         view_NavigationBar.leftButton.addTarget(self, action: #selector(backButtonClicked(_:)), for: .touchUpInside)
         view_NavigationBar.view.layer.shadowOffset = CGSize(width: 0.0, height: 0.5)
         view_NavigationBar.view.layer.shadowRadius = 2.0
@@ -190,7 +193,7 @@ extension AgentListViewController {
     func setUpSearchBar() {
         searchBar.sizeToFit()
         
-        searchBar.placeholder = "Search"
+        searchBar.placeholder = HippoStrings.search
         searchBar.barTintColor = HippoConfig.shared.theme.searchBarBackgroundColor//HippoConfig.shared.theme.backgroundColor//
         searchBar.returnKeyType = .done
         searchBar.delegate = self
@@ -203,7 +206,7 @@ extension AgentListViewController {
         textFieldInsideSearchBar?.backgroundColor = HippoConfig.shared.theme.searchBarBackgroundColor//HippoConfig.shared.theme.backgroundColor//
         
         titleSearchBar.sizeToFit()
-        titleSearchBar.placeholder = "Search"
+        titleSearchBar.placeholder = HippoStrings.search
         titleSearchBar.barTintColor = HippoConfig.shared.theme.searchBarBackgroundColor//HippoConfig.shared.theme.backgroundColor//
         titleSearchBar.returnKeyType = .done
         titleSearchBar.delegate = self
