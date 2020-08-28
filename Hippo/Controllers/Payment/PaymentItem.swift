@@ -50,7 +50,8 @@ class PaymentItem: NSObject {
         id = String.parse(values: option, key: "id")
         let currencyCode: String? = String.parse(values: option, key: "currency")
         let currencySymbol: String? = String.parse(values: option, key: "currency_symbol")
-        currency = PaymentCurrency.findCurrency(code: currencyCode, symbol: currencySymbol)
+        currency = PaymentCurrency(currencySymbol ?? "$", currencyCode ?? "INR")
+            //PaymentCurrency.findCurrency(code: currencyCode, symbol: currencySymbol)
         
     }
     
