@@ -24,20 +24,20 @@
                         <rect key="frame" x="254" y="7" width="122" height="81"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" text="jhsdh" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="z42-eL-Oml">
-                                <rect key="frame" x="10" y="10" width="45.5" height="59"/>
+                                <rect key="frame" x="10" y="5" width="45.5" height="69"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="752" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ipH-IM-FTG">
-                                <rect key="frame" x="65.5" y="59" width="26.5" height="12"/>
+                                <rect key="frame" x="65.5" y="64" width="26.5" height="12"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="readMessageImage" translatesAutoresizingMaskIntoConstraints="NO" id="hJh-ZE-L50">
-                                <rect key="frame" x="96" y="59" width="16" height="12"/>
+                                <rect key="frame" x="96" y="64" width="16" height="12"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="12" id="7R4-Oy-8B0"/>
                                     <constraint firstAttribute="width" constant="16" id="93J-Pq-Hwu"/>
@@ -47,9 +47,9 @@
                         <constraints>
                             <constraint firstItem="hJh-ZE-L50" firstAttribute="centerY" secondItem="ipH-IM-FTG" secondAttribute="centerY" id="3Q5-0Z-85H"/>
                             <constraint firstItem="z42-eL-Oml" firstAttribute="leading" secondItem="Hxj-9Y-swx" secondAttribute="leading" constant="10" id="AaH-4X-xCH"/>
-                            <constraint firstAttribute="bottom" secondItem="ipH-IM-FTG" secondAttribute="bottom" constant="10" id="DL9-4w-EJV"/>
+                            <constraint firstAttribute="bottom" secondItem="ipH-IM-FTG" secondAttribute="bottom" constant="5" id="DL9-4w-EJV"/>
                             <constraint firstItem="hJh-ZE-L50" firstAttribute="leading" secondItem="ipH-IM-FTG" secondAttribute="trailing" constant="4" id="Irf-Na-4wc"/>
-                            <constraint firstItem="z42-eL-Oml" firstAttribute="top" secondItem="Hxj-9Y-swx" secondAttribute="top" constant="10" id="VMr-9g-467"/>
+                            <constraint firstItem="z42-eL-Oml" firstAttribute="top" secondItem="Hxj-9Y-swx" secondAttribute="top" constant="5" id="VMr-9g-467"/>
                             <constraint firstAttribute="trailing" secondItem="hJh-ZE-L50" secondAttribute="trailing" constant="10" id="ekV-fZ-mWD"/>
                             <constraint firstItem="ipH-IM-FTG" firstAttribute="leading" secondItem="z42-eL-Oml" secondAttribute="trailing" constant="10" id="gri-Sz-KDf"/>
                             <constraint firstItem="ipH-IM-FTG" firstAttribute="top" secondItem="z42-eL-Oml" secondAttribute="bottom" constant="-10" id="y6t-49-WnU"/>
