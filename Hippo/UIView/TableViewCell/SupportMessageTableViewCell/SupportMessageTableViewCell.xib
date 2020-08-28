@@ -17,13 +17,13 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y0x-5w-qls" customClass="So_UIView" customModule="Hippo" customModuleProvider="target">
-                        <rect key="frame" x="43.5" y="24.5" width="69.5" height="62.5"/>
+                        <rect key="frame" x="43.5" y="24.5" width="71.5" height="62.5"/>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RFF-lq-dWC">
-                        <rect key="frame" x="45" y="26" width="66.5" height="59.5"/>
+                        <rect key="frame" x="45" y="26" width="68.5" height="59.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Pd-1R-qeY">
-                                <rect key="frame" x="30" y="42.5" width="26.5" height="12"/>
+                                <rect key="frame" x="32" y="37.5" width="26.5" height="12"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="12" id="FzE-wa-Yuw"/>
@@ -38,7 +38,7 @@
                                 </variation>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="wh8-HF-jZb">
-                                <rect key="frame" x="10" y="5" width="10" height="47.5"/>
+                                <rect key="frame" x="12" y="10" width="10" height="37.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -46,17 +46,17 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="wh8-HF-jZb" firstAttribute="top" secondItem="RFF-lq-dWC" secondAttribute="top" constant="5" id="3gf-2W-NbD"/>
+                            <constraint firstItem="wh8-HF-jZb" firstAttribute="top" secondItem="RFF-lq-dWC" secondAttribute="top" constant="10" id="3gf-2W-NbD"/>
                             <constraint firstAttribute="trailing" secondItem="6Pd-1R-qeY" secondAttribute="trailing" constant="10" id="GEq-2U-S35"/>
                             <constraint firstItem="6Pd-1R-qeY" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="RFF-lq-dWC" secondAttribute="leading" constant="10" id="IKb-xR-Zrh"/>
-                            <constraint firstAttribute="bottom" secondItem="6Pd-1R-qeY" secondAttribute="bottom" constant="5" id="TNt-Oh-fP0"/>
+                            <constraint firstAttribute="bottom" secondItem="6Pd-1R-qeY" secondAttribute="bottom" constant="10" id="TNt-Oh-fP0"/>
                             <constraint firstItem="6Pd-1R-qeY" firstAttribute="leading" secondItem="wh8-HF-jZb" secondAttribute="trailing" constant="10" id="X4e-CO-bi5"/>
-                            <constraint firstItem="wh8-HF-jZb" firstAttribute="leading" secondItem="RFF-lq-dWC" secondAttribute="leading" constant="10" id="jKl-ER-42R"/>
+                            <constraint firstItem="wh8-HF-jZb" firstAttribute="leading" secondItem="RFF-lq-dWC" secondAttribute="leading" constant="12" id="jKl-ER-42R"/>
                             <constraint firstItem="6Pd-1R-qeY" firstAttribute="top" secondItem="wh8-HF-jZb" secondAttribute="bottom" constant="-10" id="vEv-NC-igi"/>
                         </constraints>
                     </view>
                     <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="aaa-iX-koP">
-                        <rect key="frame" x="111.5" y="60.5" width="25" height="25"/>
+                        <rect key="frame" x="113.5" y="60.5" width="25" height="25"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="25" id="CjB-J5-0Zt"/>
                             <constraint firstAttribute="width" secondItem="aaa-iX-koP" secondAttribute="height" multiplier="1:1" id="XhK-Ip-cuE"/>
