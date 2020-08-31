@@ -43,7 +43,11 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     //   @IBOutlet var errorLabel: UILabel!
     @IBOutlet var textViewBgView: UIView!
     @IBOutlet var placeHolderLabel: UILabel!
-    @IBOutlet var addFileButtonAction: UIButton!
+    @IBOutlet var addFileButtonAction: UIButton!{
+        didSet{
+            addFileButtonAction.imageView?.contentMode = .scaleAspectFit
+        }
+    }
     @IBOutlet var seperatorView: UIView!
     @IBOutlet weak var loaderView: So_UIImageView!
     

@@ -186,9 +186,9 @@ struct BotAction {
     public var shouldUseNewCalling : Bool?{
         didSet{
             if shouldUseNewCalling ?? false{
-                versionCode = 350 + 1
+                versionCode = 350 + 2
             }else{
-                versionCode = 320 - 1
+                versionCode = 320 - 2
             }
         }
     }
