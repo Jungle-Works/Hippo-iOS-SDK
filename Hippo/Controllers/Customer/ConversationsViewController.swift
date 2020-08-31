@@ -2241,7 +2241,8 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                         return 80
                     }
                 case MessageType.actionableMessage, MessageType.hippoPay:
-                    return self.getHeightOfActionableMessageAt(indexPath: indexPath, chatObject: message) + heightOfDateLabel
+                    return UIView.tableAutoDimensionHeight
+                //self.getHeightOfActionableMessageAt(indexPath: indexPath, chatObject: message) + heightOfDateLabel
                 case MessageType.feedback:
                     
 //                    guard let muid = message.messageUniqueID, var rowHeight: CGFloat = heightForFeedBackCell["\(muid)"] else {

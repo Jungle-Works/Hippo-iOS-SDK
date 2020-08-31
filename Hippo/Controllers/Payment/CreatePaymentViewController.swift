@@ -80,7 +80,7 @@ class CreatePaymentViewController: UIViewController {
     }
     
     func setUI() {
-        view_Navigation.title = HippoStrings.savedPlans
+        view_Navigation.title = store?.isCustomisedPayment ?? false ? HippoStrings.paymentRequest : HippoStrings.savedPlans
         if HippoConfig.shared.theme.leftBarButtonImage != nil {
             view_Navigation.image_back.image = HippoConfig.shared.theme.leftBarButtonImage
             view_Navigation.image_back.tintColor = HippoConfig.shared.theme.headerTextColor

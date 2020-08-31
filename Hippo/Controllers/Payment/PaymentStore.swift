@@ -89,6 +89,7 @@ class PaymentStore: NSObject {
         }else if isCustomisedPayment{
             fields = PaymentField.getInitalFields()
             selectedCurrency = PaymentCurrency.getAllCurrency().first
+            totalCostEnabled = true
         }else{
             fields.removeAll()
         }
