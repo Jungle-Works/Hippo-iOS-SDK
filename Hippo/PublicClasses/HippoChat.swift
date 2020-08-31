@@ -47,7 +47,9 @@ public class HippoChat {
     }
     
     public static func setUser(_ user: HippoUserDetail) {
-        HippoConfig.shared.updateUserDetail(userDetail: user)
+        HippoConfig.shared.updateUserDetail(userDetail: user){ (success, error) in
+    
+        }
     }
     
     public static func setUserWithCompletion(user: HippoUserDetail , completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {

@@ -325,11 +325,12 @@ struct BotAction {
         HippoProperty.current.skipBotReason = reason
     }
     
-    public func updateUserDetail(userDetail: HippoUserDetail) {
+    public func updateUserDetail(userDetail: HippoUserDetail , completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
         self.userDetail = userDetail
         self.appUserType = .customer
         AgentDetail.agentLoginData = nil
         HippoUserDetail.getUserDetailsAndConversation { (status, error) in
+            completion(status,error)
             if (self.userDetail?.selectedlanguage ?? "") == ""{
                self.userDetail?.selectedlanguage = BussinessProperty.current.buisnessLanguageArr?.filter{$0.is_default == true}.first?.lang_code
             }
