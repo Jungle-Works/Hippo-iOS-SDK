@@ -29,15 +29,24 @@ class HippoDataCollectorController: UIViewController {
         setUI()
     }
     
+    override func viewWillLayoutSubviews() {
+        self.tabBarController?.hidesBottomBarWhenPushed = true
+        self.tabBarController?.tabBar.isHidden = true
+        self.tabBarController?.tabBar.layer.zPosition = -1
+    }
+    
     @IBAction func backButtonAction(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
     func setUI() {
         title = HippoProperty.current.formCollectorTitle
-        if HippoConfig.shared.theme.leftBarButtonImage != nil {
-            backButton.image = HippoConfig.shared.theme.leftBarButtonImage
-            backButton.tintColor = HippoConfig.shared.theme.headerTextColor
-        }
+//        if HippoConfig.shared.theme.leftBarButtonImage != nil {
+//            backButton.image = HippoConfig.shared.theme.leftBarButtonImage
+//            backButton.tintColor = HippoConfig.shared.theme.headerTextColor
+//        }
+        backButton.image = nil
+        backButton.tintColor = nil
+        backButton.isEnabled = false
     }
     func setupTableView() {
         datasource = HippoDataCollectorDataSource(forms: forms)
@@ -128,6 +137,17 @@ extension HippoDataCollectorController: BroadcastButtonCellDelegate {
             HippoConfig.shared.userDetail?.email = email
         }
         user.customRequest = createRequestJson()
+        //user.phoneNumber = user.phoneNumber?.fullNumber ?? ""//
+        if let appUserData = UserDefaults.standard.value(forKey: "customer_login_data") as? [String: Any]{
+            if let phoneNumberLocal = appUserData["phoneNumberLocal"] as? [String: Any] {
+                let number = phoneNumberLocal["phone_number"] as? String ?? ""
+                let countryCode = phoneNumberLocal["country_code"] as? String ?? ""
+                if !number.isEmpty && !countryCode.isEmpty {
+                    let fullNumber = countryCode + number
+                    user.phoneNumber = fullNumber
+                }
+            }
+        }else{}
         delegate?.userUpdated()
         self.navigationController?.popViewController(animated: false)
     }

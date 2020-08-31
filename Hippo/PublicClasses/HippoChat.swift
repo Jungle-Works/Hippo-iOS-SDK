@@ -50,6 +50,12 @@ public class HippoChat {
         HippoConfig.shared.updateUserDetail(userDetail: user)
     }
     
+    public static func setUserWithCompletion(user: HippoUserDetail , completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
+        HippoConfig.shared.updateUserDetailWithCompletion(userDetail: user) { (success, error) in
+            completion(success, error)
+        }
+    }
+    
     public static func set(botGroupID: Int) {
         HippoConfig.setBotGroupID(id: botGroupID)
     }

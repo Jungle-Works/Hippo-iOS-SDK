@@ -12,7 +12,7 @@
         <array key="HelveticaNeue.ttc">
             <string>HelveticaNeue</string>
         </array>
-        <array key="Montserrat-Regular.ttf">
+        <array key="Montserrat-Regular.otf">
             <string>Montserrat-Regular</string>
         </array>
     </customFonts>
@@ -536,7 +536,7 @@
                                 </constraints>
                             </view>
                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" image="app_loader_shape" translatesAutoresizingMaskIntoConstraints="NO" id="eZG-Yq-Sel">
-                                <rect key="frame" x="167.5" y="313.5" width="40" height="40"/>
+                                <rect key="frame" x="179.5" y="325.5" width="16" height="16"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q6z-xO-SMj">
                                 <rect key="frame" x="164.5" y="322.5" width="46.5" height="22.5"/>
