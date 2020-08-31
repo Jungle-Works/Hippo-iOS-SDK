@@ -79,6 +79,7 @@ class BroadCastTextFieldCell: UITableViewCell {
     func setupCell(form: PaymentField) {
         self.form = form
         cellTextField.text = form.value
+        
         titleLabel.text = form.title
         cellTextField.placeholder = form.placeHolder
         

@@ -245,19 +245,15 @@ public class HippoStrings {
     }
     
     class func updateHippoCallClientStrings(){
-        if versionCode >= 350{
-            #if canImport(HippoCallClient)
-            
-            HippoCallClientStrings.calling = HippoStrings.calling
-            HippoCallClientStrings.ringing = HippoStrings.ringing
-            HippoCallClientStrings.callingYou = HippoStrings.isCallingYou.lowercased()
-            HippoCallClientStrings.callDeclined = HippoStrings.callDeclined
-            HippoCallClientStrings.busyOnOtherCall = HippoStrings.busyAnotherCall
-            
-            #else
-            
-            #endif
-        }
+        #if canImport(JitsiMeet)
+        
+        HippoCallClientStrings.calling = HippoStrings.calling
+        HippoCallClientStrings.ringing = HippoStrings.ringing
+        HippoCallClientStrings.callingYou = HippoStrings.isCallingYou.lowercased()
+        HippoCallClientStrings.callDeclined = HippoStrings.callDeclined
+        HippoCallClientStrings.busyOnOtherCall = HippoStrings.busyAnotherCall
+        
+        #endif
     }
     
 }

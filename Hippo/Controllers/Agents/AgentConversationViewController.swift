@@ -2066,7 +2066,7 @@ extension AgentConversationViewController: UITableViewDelegate, UITableViewDataS
             let heightOfContent = (titleText?.height(withConstrainedWidth: (FUGU_SCREEN_WIDTH - actionableMessageRightMargin - 20), font: descriptionFont!))!
             cellHeight += heightOfContent
         }
-        let collectionViewHeight = self.getHeighOfButtonCollectionView(actionableMessage: chatMessageObject.actionableMessage!)
+        let collectionViewHeight = self.getHeighOfButtonCollectionView(actionableMessage: chatMessageObject.actionableMessage ?? FuguActionableMessage())
         cellHeight += collectionViewHeight
         
         if chatMessageObject.actionableMessage?.descriptionArray != nil, (chatMessageObject.actionableMessage?.descriptionArray.count)! > 0 {

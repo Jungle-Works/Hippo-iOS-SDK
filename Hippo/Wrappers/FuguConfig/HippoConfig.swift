@@ -1298,11 +1298,12 @@ extension HippoConfig{
          groupCallData.removeValue(forKey: transactionId)
     }
     
-    #if canImport(HippoCallClient)
+   
     public func forceKillOnTermination(){
+        #if canImport(JitsiMeet)
         HippoCallClient.shared.terminateSessionIfAny()
+        #endif
     }
-    #endif
     
 }
 extension HippoConfig {
@@ -1359,13 +1360,13 @@ extension HippoConfig {
 extension HippoConfig{
     
     func HideJitsiView(){
-         #if canImport(HippoCallClient)
+         #if canImport(JitsiMeet)
             HippoCallClient.shared.hideViewInPip()
          #endif
     }
     
     func UnhideJitsiView(){
-         #if canImport(HippoCallClient)
+         #if canImport(JitsiMeet)
             HippoCallClient.shared.unHideViewInPip()
          #endif
     }

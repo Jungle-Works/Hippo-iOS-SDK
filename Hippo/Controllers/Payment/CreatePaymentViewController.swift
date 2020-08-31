@@ -144,6 +144,16 @@ class CreatePaymentViewController: UIViewController {
 //        return view
         return customView
     }
+    
+    class func get(store: PaymentStore) -> CreatePaymentViewController {
+        let vc = generateView()
+        vc.messageType = .none
+        vc.store = store
+        vc.shouldSavePaymentPlan = false
+        vc.initalizeView()
+        return vc
+    }
+    
 
     class func get(store: PaymentStore, shouldSavePlan: Bool = false) -> CreatePaymentViewController {
         let vc = generateView()

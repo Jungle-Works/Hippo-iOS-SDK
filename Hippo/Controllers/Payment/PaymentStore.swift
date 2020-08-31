@@ -49,7 +49,7 @@ class PaymentStore: NSObject {
     var plan: PaymentPlan?
     var title: String = "Payment Plan"
     var isSending: Bool = true
-    
+    var isCustomisedPayment : Bool?
     
     weak var delegate: PaymentStoreDelegate?
     
@@ -75,16 +75,20 @@ class PaymentStore: NSObject {
             selectedCurrency = PaymentStore.currencies.first
         }
     }
-    init(plan: PaymentPlan?, channelId: UInt? = nil, isEditing: Bool, isSending: Bool, shouldSavePaymentPlan: Bool = false, canEditPlan : Bool = false) {
+    init(plan: PaymentPlan?, channelId: UInt? = nil, isEditing: Bool, isSending: Bool, shouldSavePaymentPlan: Bool = false, canEditPlan : Bool = false, isCustomisedPayment : Bool = false) {
         self.plan = plan
         self.channelId = channelId
         self.isEditing = isEditing
         self.shouldSavePaymentPlan = shouldSavePaymentPlan
         self.canEditPlan = canEditPlan
+        self.isCustomisedPayment = isCustomisedPayment
         self.displayEditButton = (plan?.canEdit ?? false && channelId == nil)
         items = plan?.options ?? PaymentItem.getInitalItems()
         if shouldSavePaymentPlan || canEditPlan{
             fields = PaymentField.getPlanNameField(plan: plan)
+        }else if isCustomisedPayment{
+            fields = PaymentField.getInitalFields()
+            selectedCurrency = PaymentCurrency.getAllCurrency().first
         }else{
             fields.removeAll()
         }
@@ -151,7 +155,7 @@ class PaymentStore: NSObject {
             }
         }
         for each in items {
-            each.validate()
+            each.validate(isCustomisedPayment ?? false)
             if !each.errorMessage.isEmpty {
                 return each.errorMessage
             }
