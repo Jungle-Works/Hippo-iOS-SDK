@@ -121,21 +121,16 @@ class PromotionsViewController: UIViewController {
     }
     
     func setUpTabBar(){
-        //        self.tabBarController?.hidesBottomBarWhenPushed = true
-        //        self.tabBarController?.tabBar.isHidden = false
-        //        self.tabBarController?.tabBar.layer.zPosition = 0
-        //        self.tabBarController?.tabBar.items?[1].title = "Notifications"
-        
-        //hide
-        //self.tabBarController?.hidesBottomBarWhenPushed = true
-        self.tabBarController?.tabBar.isHidden = true
-        //self.tabBarController?.tabBar.layer.zPosition = -1
+        self.tabBarController?.hidesBottomBarWhenPushed = true
+        self.tabBarController?.tabBar.isHidden = false
+        self.tabBarController?.tabBar.layer.zPosition = 0
+        self.tabBarController?.tabBar.items?[1].title = "Notifications"
     }
     
     func setUpViewWithNav() {
    
         navigationBar.title = HippoConfig.shared.theme.promotionsAnnouncementsHeaderText
-        navigationBar.leftButton.addTarget(self, action: #selector(backButtonClicked), for: .touchUpInside)
+        navigationBar.isLeftButtonHidden = true
         navigationBar.rightButton.setTitle(HippoStrings.clearAll, for: .normal)
         navigationBar.rightButton.titleLabel?.font = UIFont.regular(ofSize: 14)
         navigationBar.rightButton.setTitleColor(UIColor(red: 95/255, green: 95/255, blue: 95/255, alpha: 1.0), for: .normal)

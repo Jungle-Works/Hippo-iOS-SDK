@@ -97,7 +97,7 @@ class AllString{
         }
         
         if let newConversation = response["fugu_new_conversation"] as? String{
-            HippoConfig.shared.strings.newConversation = newConversation
+            //HippoConfig.shared.strings.newConversation = newConversation
         }
         
         if let noDataFound = response["fugu_no_data_found"] as? String{
@@ -737,7 +737,7 @@ class AllString{
         }
         
         if let fugu_new_conversation = response["fugu_new_conversation"] as? String{
-            HippoStrings.newConversation = fugu_new_conversation
+           // HippoStrings.newConversation = fugu_new_conversation
         }
         
         if let fugu_new_conversations = response["fugu_new_conversations"] as? String{

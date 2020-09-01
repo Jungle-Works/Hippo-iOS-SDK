@@ -106,6 +106,12 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         self.closeChatButton.setTitle(HippoStrings.past, for: .normal)
         
         self.bottomLineView.backgroundColor = HippoConfig.shared.theme.themeColor
+        if HippoUserDetail.fuguUserID == nil {
+            putUserDetails()
+        } else {
+            getAllConversations()
+        }
+        
         view_NavigationBar.title = config.title ?? HippoConfig.shared.theme.headerText
         view_NavigationBar.image_back.isHidden = true
         view_NavigationBar.isLeftButtonHidden = true
@@ -128,15 +134,10 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     }
     
     func setUpTabBar(){
-        //        self.tabBarController?.hidesBottomBarWhenPushed = true
-        //        self.tabBarController?.tabBar.isHidden = false
-        //        self.tabBarController?.tabBar.layer.zPosition = 0
-        //        self.tabBarController?.tabBar.items?[0].title = "Chats"
-        
-        //hide
         self.tabBarController?.hidesBottomBarWhenPushed = true
-        self.tabBarController?.tabBar.isHidden = true
-        self.tabBarController?.tabBar.layer.zPosition = -1
+        self.tabBarController?.tabBar.isHidden = false
+        self.tabBarController?.tabBar.layer.zPosition = 0
+        self.tabBarController?.tabBar.items?[0].title = "Chats"
     }
     
     @IBAction func newConversationClicked(_ sender: Any) {
@@ -254,7 +255,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
 //    newConversationBiutton.isHidden = !HippoProperty.current.enableNewConversationButton
     
     showConversationsTableView.contentInset.bottom = 70
-//    addLogoutButton()
+    addLogoutButton()
     
     //poweredByFuguLabel.attributedText = attributedStringForLabelForTwoStrings("Runs on ", secondString: "Hippo", colorOfFirstString: HippoConfig.shared.powererdByColor, colorOfSecondString: HippoConfig.shared.FuguColor, fontOfFirstString: HippoConfig.shared.poweredByFont, fontOfSecondString: HippoConfig.shared.FuguStringFont, textAlighnment: .center, dateAlignment: .center)
     
@@ -265,21 +266,26 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     
     }
     func addLogoutButton() {
-        let theme = HippoConfig.shared.theme
-        guard let logoutButtonIcon = theme.logoutButtonIcon else {
-            return
-        }
-        let logoutButton = UIBarButtonItem(image: logoutButtonIcon, landscapeImagePhone: nil, style: .done, target: self, action: #selector(logoutButtonClicked))
-        
-        logoutButton.tintColor = theme.logoutButtonTintColor ?? theme.headerTextColor
-        self.navigationItem.rightBarButtonItem = logoutButton
-        
-        
-        let notificationButton = UIBarButtonItem(image: theme.notificationButtonIcon, landscapeImagePhone: nil, style: .done, target: self, action: #selector(notificationButtonClicked))
-        
-        notificationButton.tintColor = theme.notificationButtonTintColor ?? theme.headerTextColor
-        
-        self.navigationItem.rightBarButtonItems = [logoutButton]
+     
+        view_NavigationBar.rightButton.addTarget(self, action: #selector(logoutButtonClicked), for: .touchUpInside)
+        view_NavigationBar.rightButton.imageView?.tintColor = .black
+        view_NavigationBar.rightButton.tintColor = .black
+        view_NavigationBar.rightButton.setImage(HippoConfig.shared.theme.logoutButtonIcon, for: .normal)
+//        let theme = HippoConfig.shared.theme
+//        guard let logoutButtonIcon = theme.logoutButtonIcon else {
+//            return
+//        }
+//        let logoutButton = UIBarButtonItem(image: logoutButtonIcon, landscapeImagePhone: nil, style: .done, target: self, action: #selector(logoutButtonClicked))
+//
+//        logoutButton.tintColor = theme.logoutButtonTintColor ?? theme.headerTextColor
+//        self.navigationItem.rightBarButtonItem = logoutButton
+//
+//
+//        let notificationButton = UIBarButtonItem(image: theme.notificationButtonIcon, landscapeImagePhone: nil, style: .done, target: self, action: #selector(notificationButtonClicked))
+//
+//        notificationButton.tintColor = theme.notificationButtonTintColor ?? theme.headerTextColor
+//
+//        self.navigationItem.rightBarButtonItems = [logoutButton]
     }
     @objc func logoutButtonClicked() {
         showOptionAlert(title: "", message: HippoStrings.logout, successButtonName: HippoStrings.yes, successComplete: { (_) in
@@ -546,7 +552,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     // MARK: - SERVER HIT
     func getAllConversations() {
         
-        if HippoConfig.shared.appSecretKey.isEmpty {
+         if HippoConfig.shared.appSecretKey.isEmpty {
             arrayOfConversation = []
             showConversationsTableView.reloadData()
             showErrorMessageInTopErrorLabel(withMessage: "Invalid app secret key")
