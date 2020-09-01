@@ -259,7 +259,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     
     //poweredByFuguLabel.attributedText = attributedStringForLabelForTwoStrings("Runs on ", secondString: "Hippo", colorOfFirstString: HippoConfig.shared.powererdByColor, colorOfSecondString: HippoConfig.shared.FuguColor, fontOfFirstString: HippoConfig.shared.poweredByFont, fontOfSecondString: HippoConfig.shared.FuguStringFont, textAlighnment: .center, dateAlignment: .center)
     
-//    let tap = UITapGestureRecognizer(target: self, action: #selector(self.openFuguChatWebLink(_:)))
+//    let tap = UITapGesture Recognizer(target: self, action: #selector(self.openFuguChatWebLink(_:)))
 //    poweredByFuguLabel.addGestureRecognizer(tap)
     
 //    updateBottomLabel()

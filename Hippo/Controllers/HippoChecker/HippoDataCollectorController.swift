@@ -22,11 +22,17 @@ class HippoDataCollectorController: UIViewController {
     var forms: [FormData] = []
     weak var delegate: HippoDataCollectorControllerDelegate?
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
         self.navigationController?.setTheme()
+        HippoKeyboardManager.shared.enable = true
         setUI()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+         HippoKeyboardManager.shared.enable = false
     }
     
     override func viewWillLayoutSubviews() {
