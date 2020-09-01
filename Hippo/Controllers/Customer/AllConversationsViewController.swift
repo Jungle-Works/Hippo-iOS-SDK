@@ -106,21 +106,16 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         self.closeChatButton.setTitle(HippoStrings.past, for: .normal)
         
         self.bottomLineView.backgroundColor = HippoConfig.shared.theme.themeColor
-        
-
+        view_NavigationBar.title = config.title ?? HippoConfig.shared.theme.headerText
+        view_NavigationBar.image_back.isHidden = true
+        view_NavigationBar.isLeftButtonHidden = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        self.height_ErrorLabel.constant = 0
         checkNetworkConnection()
-        newConversationBiutton.isHidden = true
-        if HippoUserDetail.fuguUserID == nil {
-            putUserDetails()
-        } else {
-            getAllConversations()
-        }
-        
-        view_NavigationBar.title = config.title ?? HippoConfig.shared.theme.headerText
-        view_NavigationBar.leftButton.addTarget(self, action: #selector(backButtonAction(_:)), for: .touchUpInside)
+        self.navigationController?.isNavigationBarHidden = true
+        self.setUpTabBar()
     }
     
     override func viewDidAppear(_ animated: Bool) {
