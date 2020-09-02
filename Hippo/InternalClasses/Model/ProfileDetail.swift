@@ -10,7 +10,7 @@ import Foundation
 
 class ProfileDetail {
     var fullName: String?
-    var rating: Double?
+    var rating: String?
     var image: String?
     var id: String?
     var desc: String?
@@ -22,7 +22,7 @@ class ProfileDetail {
     
     init(json: [String: Any]) {
         fullName = String.parse(values: json, key: "full_name")
-        rating = Double.parse(values: json, key: "rating")
+        rating = json["rating"] as? String//String.parse(values: json, key: "rating")
         image = String.parse(values: json, key: "user_image")
         desc = String.parse(values: json, key: "description")
         id = String.parse(values: json, key: "agent_id") ?? String.parse(values: json, key: "user_id")

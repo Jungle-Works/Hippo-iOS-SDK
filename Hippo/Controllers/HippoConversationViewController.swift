@@ -1567,9 +1567,9 @@ extension HippoConversationViewController: NavigationTitleViewDelegate {
         }
     }
     func openProfile(for channelId: Int, agentId: String?, profile: ProfileDetail?) {
-//        let presenter = AgentProfilePresenter(channelID: channelId, agentID: agentId, profile: profile)
-//        let vc = AgentProfileViewController.get(presenter: presenter)
-//        self.navigationController?.pushViewController(vc, animated: true)
+        let presenter = AgentProfilePresenter(channelID: channelId, agentID: agentId, profile: profile)
+        let vc = AgentProfileViewController.get(presenter: presenter)
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }
 extension HippoConversationViewController: CardMessageDelegate {
@@ -1587,7 +1587,7 @@ extension HippoConversationViewController: CardMessageDelegate {
         let profile = ProfileDetail(json: [:])
         profile.image = card.image?.url.path
         profile.fullName = card.title
-        profile.rating = card.rating
+        profile.rating = String(card.rating ?? 0.0)
         
         openProfile(for: -1, agentId: card.id, profile: profile)
     }

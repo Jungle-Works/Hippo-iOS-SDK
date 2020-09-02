@@ -11,6 +11,8 @@ import UIKit
 class AgentProfileViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet var view_Navigation : NavigationBar!
+    
     
     var presenter: AgentProfilePresenter?
     var datasource = AgentProfileViewDatasource()
@@ -19,8 +21,20 @@ class AgentProfileViewController: UIViewController {
         super.viewDidLoad()
         setTheme()
         setUpTableView()
+        view_Navigation.setupNavigationBar = {[weak self]() in
+            DispatchQueue.main.async {
+                self?.view_Navigation.title = "Profile"
+                self?.view_Navigation.leftButton.addTarget(self, action: #selector(self?.backButtonClicked), for: .touchUpInside)
+            }
+        }
+        view_Navigation.initMethod()
     }
 
+    
+    @IBAction func backButtonClicked(){
+        self.navigationController?.popViewController(animated: true)
+    }
+    
     internal func setTheme() {
         let theme = HippoConfig.shared.theme
         view.backgroundColor = theme.profileBackgroundColor
@@ -63,6 +77,9 @@ class AgentProfileViewController: UIViewController {
     }
     @objc func profileClicked() {
         guard let imageUrl = presenter?.profile?.image else {
+            return
+        }
+        guard let url = URL(string: imageUrl) else {
             return
         }
         let showImageVC: ShowImageViewController = ShowImageViewController.getFor(imageUrlString: imageUrl)

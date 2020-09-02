@@ -47,6 +47,8 @@ final class NavigationBarChat: UIView {
         }
     }
     @IBOutlet weak var info_button : UIButton!
+    @IBOutlet weak var button_OpenProfile : UIButton!
+    
     
    // @IBOutlet weak var descLabel : UILabel!
     

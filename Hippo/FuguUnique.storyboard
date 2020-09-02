@@ -332,7 +332,7 @@
                                 </connections>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Eou-zT-IiY">
-                                <rect key="frame" x="149" y="528" width="206" height="50"/>
+                                <rect key="frame" x="84.5" y="528" width="206" height="50"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TLz-yO-8eF">
                                         <rect key="frame" x="10" y="0.0" width="186" height="50"/>
@@ -368,12 +368,12 @@
                             <constraint firstItem="YFU-ux-sP4" firstAttribute="trailing" secondItem="RBz-02-GYo" secondAttribute="trailing" id="SYF-G0-NNs"/>
                             <constraint firstItem="YFU-ux-sP4" firstAttribute="leading" secondItem="RBz-02-GYo" secondAttribute="leading" id="bIN-Pb-38P"/>
                             <constraint firstItem="AGz-KM-Bgo" firstAttribute="top" secondItem="VQh-u2-e0K" secondAttribute="bottom" id="bNc-D3-xf1"/>
-                            <constraint firstAttribute="trailing" secondItem="Eou-zT-IiY" secondAttribute="trailing" constant="20" id="jVf-m2-rOM"/>
                             <constraint firstItem="YFU-ux-sP4" firstAttribute="top" secondItem="RBz-02-GYo" secondAttribute="bottom" id="jqL-wm-bjV"/>
+                            <constraint firstItem="Iu6-hl-MJm" firstAttribute="top" secondItem="Eou-zT-IiY" secondAttribute="bottom" constant="40" id="mEA-TO-ztU"/>
                             <constraint firstItem="RBz-02-GYo" firstAttribute="leading" secondItem="FDm-eP-Q4U" secondAttribute="leading" id="ocS-Lf-3Jy"/>
                             <constraint firstAttribute="trailing" secondItem="RBz-02-GYo" secondAttribute="trailing" id="p0X-eL-PXP"/>
                             <constraint firstItem="vat-na-7yK" firstAttribute="leading" secondItem="YFU-ux-sP4" secondAttribute="leading" id="yva-pU-Sa4"/>
-                            <constraint firstItem="Iu6-hl-MJm" firstAttribute="top" secondItem="Eou-zT-IiY" secondAttribute="bottom" constant="40" id="zJu-iD-xaR"/>
+                            <constraint firstItem="Eou-zT-IiY" firstAttribute="centerX" secondItem="FDm-eP-Q4U" secondAttribute="centerX" id="zIN-Px-GOq"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Cd5-pH-z5c"/>

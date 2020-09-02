@@ -368,21 +368,21 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     }
     
     func updateNewConversationBtnUI(isSelected : Bool){
-        if isSelected{
+   //     if isSelected{
            // width_NewConversation.constant = 210
             let chatImage = UIImage(named: "chat", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
             self.newConversationBiutton.setImage(chatImage, for: .normal)
             self.newConversationBiutton.setTitle("  " + HippoConfig.shared.strings.newConversation, for: .normal)
             self.newConversationBiutton.tintColor = .white//HippoConfig.shared.theme.themeTextcolor
             self.newConversationBiutton.backgroundColor = HippoConfig.shared.theme.themeColor
-        }else{
-          //  width_NewConversation.constant = 50
-            let chatImage = UIImage(named: "chat", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
-            self.newConversationBiutton.tintColor = .white//HippoConfig.shared.theme.themeTextcolor
-            self.newConversationBiutton.setImage(chatImage, for: .normal)
-            self.newConversationBiutton.setTitle("", for: .normal)
-            self.newConversationBiutton.backgroundColor = HippoConfig.shared.theme.themeColor
-        }
+//        }else{
+//          //  width_NewConversation.constant = 50
+//            let chatImage = UIImage(named: "chat", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+//            self.newConversationBiutton.tintColor = .white//HippoConfig.shared.theme.themeTextcolor
+//            self.newConversationBiutton.setImage(chatImage, for: .normal)
+//            self.newConversationBiutton.setTitle("", for: .normal)
+//            self.newConversationBiutton.backgroundColor = HippoConfig.shared.theme.themeColor
+//        }
     }
     
     
@@ -421,13 +421,13 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     @IBAction func newConversationButtonClicked(_ sender: UIButton) {
         //After Merge func
         
-        sender.isSelected = !sender.isSelected
-        if sender.isSelected{
-            UIView.animate(withDuration: 0.2, delay: 0, options: [.curveEaseOut], animations: {
-                self.updateNewConversationBtnUI(isSelected: sender.isSelected)
-            })
-            
-        }else{
+//        sender.isSelected = !sender.isSelected
+//        if sender.isSelected{
+//            UIView.animate(withDuration: 0.2, delay: 0, options: [.curveEaseOut], animations: {
+//                self.updateNewConversationBtnUI(isSelected: sender.isSelected)
+//            })
+//
+//        }else{
             
             var fuguNewChatAttributes = FuguNewChatAttributes(transactionId: "", userUniqueKey: HippoConfig.shared.userDetail?.userUniqueKey, otherUniqueKey: nil, tags: nil, channelName: nil, preMessage: "", groupingTag: nil)
             
@@ -441,8 +441,8 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
             let conversation = ConversationsViewController.getWith(chatAttributes: fuguNewChatAttributes)
             conversation.createConversationOnStart = true
             self.navigationController?.pushViewController(conversation, animated: true)
-             self.updateNewConversationBtnUI(isSelected: sender.isSelected)
-        }
+     //        self.updateNewConversationBtnUI(isSelected: sender.isSelected)
+    //    }
         
         
     }

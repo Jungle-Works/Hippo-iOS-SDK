@@ -126,7 +126,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         super.viewDidLoad()
         view_Navigation.call_button.addTarget(self, action: #selector(audiCallButtonClicked(_:)), for: .touchUpInside)
         view_Navigation.video_button.addTarget(self, action: #selector(videoButtonClicked(_:)), for: .touchUpInside)
-        
+        view_Navigation.button_OpenProfile.addTarget(self, action: #selector(openAgentProfileClicked(_:)), for: .touchUpInside)
         collectionViewOptions?.delegate = self
         collectionViewOptions?.dataSource = self
         customTableView.isScrollEnabled = false//true
@@ -580,6 +580,12 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     @IBAction func videoButtonClicked(_ sender: Any) {
      startVideoCall()
    }
+    @IBAction func openAgentProfileClicked(_ sender: Any) {
+        if let id = channel?.chatDetail?.assignedAgentID, id > 0 {
+            openProfile(for: -1, agentId: "\(id)", profile: nil)
+        }
+    }
+    
     
     @IBAction func addAttachmentButtonAction(_ sender: UIButton) {
         attachmentViewHeightConstraint.constant = attachmentViewHeightConstraint.constant == 128 ? 0 : 128

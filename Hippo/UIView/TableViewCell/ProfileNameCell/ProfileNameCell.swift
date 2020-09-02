@@ -58,7 +58,7 @@ class ProfileNameCell: UITableViewCell {
         }
     }
     private func setRating() {
-        guard let rating = profile?.rating, rating > 0 else {
+        guard let rating = Double(profile?.rating ?? "0.0"), rating > 0 else {
             hideRatingView()
             return
         }

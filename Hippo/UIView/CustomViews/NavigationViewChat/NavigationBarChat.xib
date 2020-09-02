@@ -15,6 +15,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NavigationBarChat" customModule="Hippo" customModuleProvider="target">
             <connections>
+                <outlet property="button_OpenProfile" destination="a4w-ZV-bMl" id="dbC-V6-ilp"/>
                 <outlet property="call_button" destination="i2f-CG-dFd" id="wnm-Ee-UAc"/>
                 <outlet property="image_back" destination="2BX-Lh-fkl" id="TPk-bG-Qer"/>
                 <outlet property="image_profile" destination="z7l-ty-HKT" id="oQp-nd-2ak"/>
@@ -71,6 +72,9 @@
                         </stackView>
                     </subviews>
                 </stackView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a4w-ZV-bMl">
+                    <rect key="frame" x="38" y="76" width="52.5" height="35"/>
+                </button>
                 <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jrQ-CH-Wi7">
                     <rect key="frame" x="462" y="76" width="70" height="35"/>
                     <subviews>
@@ -103,8 +107,12 @@
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="7hR-Qt-lyZ" firstAttribute="top" secondItem="ak3-Nx-eMw" secondAttribute="top" id="4RG-Hy-XrY"/>
+                <constraint firstItem="a4w-ZV-bMl" firstAttribute="width" secondItem="z7l-ty-HKT" secondAttribute="width" multiplier="1.5" id="Dba-6N-1f5"/>
+                <constraint firstItem="a4w-ZV-bMl" firstAttribute="leading" secondItem="u6w-pZ-spi" secondAttribute="leading" id="E0a-OD-mkG"/>
                 <constraint firstItem="2BX-Lh-fkl" firstAttribute="centerY" secondItem="xaR-2g-JC8" secondAttribute="centerY" id="GIB-sh-SFU"/>
                 <constraint firstItem="u6w-pZ-spi" firstAttribute="leading" secondItem="2BX-Lh-fkl" secondAttribute="trailing" constant="10" id="IUh-zF-AdS"/>
+                <constraint firstItem="a4w-ZV-bMl" firstAttribute="top" secondItem="u6w-pZ-spi" secondAttribute="top" id="Jb0-Fu-yWJ"/>
+                <constraint firstItem="a4w-ZV-bMl" firstAttribute="bottom" secondItem="u6w-pZ-spi" secondAttribute="bottom" id="NNw-Zc-kBa"/>
                 <constraint firstItem="jrQ-CH-Wi7" firstAttribute="centerY" secondItem="2BX-Lh-fkl" secondAttribute="centerY" id="PQv-jQ-WVl"/>
                 <constraint firstItem="jrQ-CH-Wi7" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="u6w-pZ-spi" secondAttribute="trailing" constant="2" id="YEy-6s-3sg"/>
                 <constraint firstAttribute="bottom" secondItem="7hR-Qt-lyZ" secondAttribute="bottom" id="Zo7-ER-5wc"/>

@@ -340,7 +340,7 @@ public struct ConversationListTheme {
     open var directChatHeader = "Conversation List"
     open var broadcastHeader = "Broadcast Message"
     open var broadcastHistoryHeader = "Broadcast Message history"
-    open var promotionsAnnouncementsHeaderText = "Announcements"
+    open var promotionsAnnouncementsHeaderText = "Notifications"
     open var takeOverButtonText : String?
     open var myChatBtnText : String?
     open var allChatBtnText : String?
