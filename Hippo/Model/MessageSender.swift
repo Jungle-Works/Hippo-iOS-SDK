@@ -136,7 +136,8 @@ class MessageSender {
                         self?.messagesToBeSent.removeFirst()
                     }
                     break
-                    
+                case .personalInfoSharedError:
+                    self?.messageSendingFailed(result: result)
                 default:
                     break
                 }

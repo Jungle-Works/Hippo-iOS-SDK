@@ -686,6 +686,13 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     }
     
     func sendMessageButtonAction(messageTextStr: String){
+        if messageTextStr.matches(for: phoneNumberRegex).count > 0 || messageTextStr.isValidEmail(){
+            messageTextView.text = ""
+            showErrorMessage(messageString: HippoStrings.donotAlloePersonalInfo)
+            updateErrorLabelView(isHiding: true)
+            return
+        }
+        
         if channel != nil, !channel.isSubscribed()  {
             buttonClickedOnNetworkOff()
             return
