@@ -31,7 +31,7 @@ protocol HippoChannelDelegate: class {
     func newMessageReceived(newMessage: HippoMessage)
     func typingMessageReceived(newMessage: HippoMessage)
     func sendingFailedFor(message: HippoMessage)
-    func cancelSendingMessage(message: HippoMessage, errorMessage: String?)
+    func cancelSendingMessage(message: HippoMessage, errorMessage: String?,errorCode : FayeConnection.FayeError?)
     func channelDataRefreshed()
     func closeChatActionFromRefreshChannel()
 }
@@ -1008,7 +1008,7 @@ extension HippoChannel: MessageSenderDelegate {
         message.wasMessageSendingFailed = true
         let showErrorMessage = result.error?.showError ?? false
         let messageToShow: String? = showErrorMessage ? result.error?.message : nil
-        delegate?.cancelSendingMessage(message: message, errorMessage: messageToShow)
+        delegate?.cancelSendingMessage(message: message, errorMessage: messageToShow, errorCode: result.error?.error)
     }
     
 }

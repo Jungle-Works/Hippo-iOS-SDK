@@ -690,6 +690,14 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     }
     
     func sendMessageButtonAction(messageTextStr: String){
+        if storeResponse?.restrictPersonalInfo ?? false{
+            if messageTextStr.matches(for: phoneNumberRegex).count > 0 || messageTextStr.isValidEmail(){
+                showErrorMessage(messageString: HippoStrings.donotAllowPersonalInfo)
+                updateErrorLabelView(isHiding: true)
+                return
+            }
+        }
+        
         if channel != nil, !channel.isSubscribed()  {
             buttonClickedOnNetworkOff()
             return
@@ -2688,12 +2696,16 @@ extension ConversationsViewController: HippoChannelDelegate {
         tableViewChat.reloadData()
     }
     
-    func cancelSendingMessage(message: HippoMessage, errorMessage: String?) {
+    func cancelSendingMessage(message: HippoMessage, errorMessage: String?,errorCode : FayeConnection.FayeError?) {
         self.cancelMessage(message: message)
         
         if let message = errorMessage {
             showErrorMessage(messageString: message)
             updateErrorLabelView(isHiding: true)
+        }
+        
+        if errorCode == FayeConnection.FayeError.personalInfoSharedError{
+            self.messageTextView.text = message.message
         }
     }
     

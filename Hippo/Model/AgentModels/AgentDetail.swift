@@ -287,6 +287,7 @@ extension AgentDetail {
                 
                 BussinessProperty.current.hideAllChat = Bool.parse(key: "hide_all_chat_tab", json: businessProperty)
                 
+                BussinessProperty.current.shouldHideCustomerData = Bool.parse(key: "hide_customer_data", json: businessProperty)
                 
                 BussinessProperty.current.currencyArr = BuisnessCurrency().getCurrenyData(businessProperty["business_currency"] as? [[String : Any]] ?? [[String : Any]]())
                 HippoConfig.shared.jitsiUrl = businessProperty["jitsi_url"] as? String

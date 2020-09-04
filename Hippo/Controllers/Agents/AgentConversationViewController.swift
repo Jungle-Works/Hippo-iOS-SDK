@@ -298,7 +298,7 @@ class AgentConversationViewController: HippoConversationViewController {
             return
         }
         
-        guard let vc = AgentChatInfoViewController.get(chatDetail: channelDetail) else {
+        guard let vc = AgentChatInfoViewController.get(chatDetail: channelDetail, userImage: self.userImage) else {
             return
         }
         self.navigationController?.pushViewController(vc, animated: true)
@@ -488,7 +488,7 @@ class AgentConversationViewController: HippoConversationViewController {
             return
         }
         
-        guard let vc = AgentChatInfoViewController.get(chatDetail: channelDetail) else {
+        guard let vc = AgentChatInfoViewController.get(chatDetail: channelDetail, userImage: userImage) else {
             return
         }
         self.navigationController?.pushViewController(vc, animated: true)
@@ -583,8 +583,11 @@ class AgentConversationViewController: HippoConversationViewController {
         }  else if !isPaginationInProgress()  {
             //            startGettingNewMessages()
         }
+        storeResponse = nil
         
         let request = MessageStore.messageRequest(pageStart: pageStart, showLoader: false, pageEnd: pageEnd, channelId: channel.id, labelId: -1)
+        
+        storeRequest = request
         
         MessageStore.getMessages(requestParam: request, ignoreIfInProgress: false) {[weak self] (response, isCreateConversationRequired)  in
             guard self != nil else {
@@ -606,6 +609,7 @@ class AgentConversationViewController: HippoConversationViewController {
                 self?.goForApiRetry()
                 return
             }
+            weakself.storeResponse = result
             weakself.hideRetryLabelView()
             weakself.handleSuccessCompletionOfGetMessages(result: result, request: request, completion: completion)
         }
@@ -764,6 +768,7 @@ class AgentConversationViewController: HippoConversationViewController {
         }
         
         self.label = chatObj.label ?? ""
+        self.userImage = chatObj.user_image ?? ""
     }
     
     // MARK: - Type Methods
@@ -1472,7 +1477,14 @@ extension AgentConversationViewController {
 //        } else {
 //            self.sendMessageToFaye(mentions: mentions, messageString: messageString, isPrivate: isPrivate)
 //        }
-    
+        if storeResponse?.restrictPersonalInfo ?? false{
+            if message.matches(for: phoneNumberRegex).count > 0 || message.isValidEmail(){
+                showErrorMessage(messageString: HippoStrings.donotAllowPersonalInfo)
+                updateErrorLabelView(isHiding: true)
+                return
+            }
+        }
+        
        if channel != nil, !channel.isSubscribed() {
             buttonClickedOnNetworkOff()
             return
@@ -2465,12 +2477,15 @@ extension AgentConversationViewController: HippoChannelDelegate {
     }
     
     
-    func cancelSendingMessage(message: HippoMessage, errorMessage: String?) {
+    func cancelSendingMessage(message: HippoMessage, errorMessage: String?, errorCode: FayeConnection.FayeError?) {
         self.cancelMessage(message: message)
         
         if let message = errorMessage {
             showErrorMessage(messageString: message)
             updateErrorLabelView(isHiding: true)
+        }
+        if errorCode == FayeConnection.FayeError.personalInfoSharedError{
+            self.messageTextView.text = message.message
         }
     }
     

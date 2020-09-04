@@ -12,6 +12,7 @@ class BussinessProperty: NSObject {
     static let current = BussinessProperty()
     var currencyArr : [BuisnessCurrency]?
     var buisnessLanguageArr : [BuisnessLanguage]?
+    var shouldHideCustomerData : Bool?
     
     var hideAllChat: Bool? {
          get {
