@@ -335,18 +335,24 @@ func subscribeCustomerUserChannel(userChannelId: String) {
         }
         
         if let notificationType = messageDict["notification_type"] as? Int{
-            var unreadData = FuguDefaults.object(forKey: DefaultName.p2pUnreadCount.rawValue) as? [String: Any]
-            if notificationType == NotificationType.message.rawValue && messageDict["channel_id"] as? Int == Int(unreadData?.keys.first ?? "") && messageDict["channel_id"] as? Int != HippoConfig.shared.getCurrentChannelId(){
-                let unreadCount = (unreadData?["\(messageDict["channel_id"] as? Int ?? -1)"] as? Int ?? 0) + 1
-                unreadData?["\(messageDict["channel_id"] as? Int ?? -1)"] = unreadCount
-                FuguDefaults.set(value: unreadData, forKey: DefaultName.p2pUnreadCount.rawValue)
-                HippoConfig.shared.sendp2pUnreadCount(unreadCount, messageDict["channel_id"] as? Int ?? -1)
-                
-            }else if notificationType == NotificationType.readAll.rawValue && messageDict["channel_id"] as? Int == Int(unreadData?.keys.first ?? ""){
+            if notificationType == NotificationType.message.rawValue && messageDict["channel_id"] as? Int != HippoConfig.shared.getCurrentChannelId(){
+                if let channelId = messageDict["channel_id"] as? Int{
+                    let transactionId = P2PUnreadData.shared.getTransactionId(with: channelId)
+                    if let data = P2PUnreadData.shared.getData(with: transactionId){
+                        let unreadCount = (data.count ?? 0) + 1
+                        P2PUnreadData.shared.updateChannelId(transactionId: transactionId, channelId: channelId, count: unreadCount)
+                         HippoConfig.shared.sendp2pUnreadCount(unreadCount, channelId)
+                    }
+                }
+            }else if notificationType == NotificationType.readAll.rawValue{
                 let unreadCount = 0
-                unreadData?["\(messageDict["channel_id"] as? Int ?? -1)"] = unreadCount
-                FuguDefaults.set(value: unreadData, forKey: DefaultName.p2pUnreadCount.rawValue)
-                HippoConfig.shared.sendp2pUnreadCount(unreadCount, messageDict["channel_id"] as? Int ?? -1)
+                if let channelId = messageDict["channel_id"] as? Int{
+                    let transactionId = P2PUnreadData.shared.getTransactionId(with: channelId)
+                    if transactionId != ""{
+                        P2PUnreadData.shared.updateChannelId(transactionId: transactionId, channelId: channelId, count: unreadCount)
+                        HippoConfig.shared.sendp2pUnreadCount(unreadCount, channelId)
+                    }
+                }
             }
         }
     }

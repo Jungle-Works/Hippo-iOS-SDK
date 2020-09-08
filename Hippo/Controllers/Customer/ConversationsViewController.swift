@@ -1317,6 +1317,13 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
             result.isReplyMessageSent = false
             self?.enableSendingNewMessages()
             self?.channelCreatedSuccessfullyWith(result: result)
+            
+            // * save data for p2punread count if transaction id is saved in local 
+            if let data = P2PUnreadData.shared.getData(with: self?.directChatDetail?.transactionId ?? ""){
+                if (data.channelId ?? -1) < 0{
+                    P2PUnreadData.shared.updateChannelId(transactionId: self?.directChatDetail?.transactionId ?? "", channelId: result.channel?.id ?? -1, count: 0)
+                }
+            }
             completion?(result.isSuccessful, result)
          }
       } else {

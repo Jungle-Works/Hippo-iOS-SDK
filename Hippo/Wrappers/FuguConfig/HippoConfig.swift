@@ -613,13 +613,9 @@ struct BotAction {
         UnreadCount.fetchP2PUnreadCount(request: request, callback: completion)
     }
     
-    public func registerNewChannelId(_ channelId : Int){
-        var unreadHashMap = FuguDefaults.object(forKey: DefaultName.p2pUnreadCount.rawValue) as? [String: Any] ?? [String : Any]()
-        if unreadHashMap.values.count == 0 || unreadHashMap.keys.contains("\(channelId)") == false{
-            unreadHashMap.removeAll()
-            unreadHashMap["\(channelId)"] = 1
-            FuguDefaults.set(value: unreadHashMap, forKey: DefaultName.p2pUnreadCount.rawValue)
-            HippoConfig.shared.sendp2pUnreadCount(1, channelId)
+    public func registerNewChannelId(_ transactionId: String, _ channelId : Int){
+        if P2PUnreadData.shared.getData(with: transactionId) == nil{
+            P2PUnreadData.shared.updateChannelId(transactionId: transactionId, channelId: channelId, count: 1)
         }
     }
     
