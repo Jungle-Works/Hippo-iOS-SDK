@@ -32,7 +32,8 @@ class AgentChatInfoViewController: UIViewController {
     //MARK: Variables
     var actionArray = [ChatInfoCell]()
     var channelDetail: ChatDetail?
-
+    var userImage : String?
+    
     //MARK: Outlets
     @IBOutlet weak var tableView: UITableView!
 //    @IBOutlet weak var backButton: UIButton!
@@ -61,11 +62,12 @@ class AgentChatInfoViewController: UIViewController {
     }
     
     //MARK: Class methods
-    class func get(chatDetail: ChatDetail) -> AgentChatInfoViewController? {
+    class func get(chatDetail: ChatDetail, userImage : String?) -> AgentChatInfoViewController? {
 //        let storyboard = UIStoryboard(name: "FuguUnique", bundle: FuguFlowManager.bundle)
         let storyboard = UIStoryboard(name: "AgentSdk", bundle: FuguFlowManager.bundle)
         let vc = storyboard.instantiateViewController(withIdentifier: "AgentChatInfoViewController") as? AgentChatInfoViewController
         vc?.channelDetail = chatDetail
+        vc?.userImage = userImage
         return vc
     }
 }
@@ -342,6 +344,12 @@ extension AgentChatInfoViewController: UITableViewDataSource {
             return ChatProfileTableViewCell()
         }
         cell.setupCell(with: channelDetail!)
+        if let url = URL(string: self.userImage ?? ""){
+            cell.userImage.kf.setImage(with: url, placeholder: HippoConfig.shared.theme.userPlaceHolderImage, options: nil, progressBlock: nil, completionHandler: nil)
+        }else{
+            cell.userImage.image = HippoConfig.shared.theme.userPlaceHolderImage
+        }
+    
         cell.containerViewForStatus.isHidden = true
         cell.selectionStyle = .none
         return cell

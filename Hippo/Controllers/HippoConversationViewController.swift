@@ -864,7 +864,7 @@ class HippoConversationViewController: UIViewController {
 
 extension HippoConversationViewController: PickerHelperDelegate {
     func payOptionClicked() {
-        let paymentStore = PaymentStore(plan: nil, channelId: UInt(channelId), isEditing: (channelId != -1), isSending: channelId != -1)
+        let paymentStore = PaymentStore(plan: nil, channelId: UInt(channelId), isEditing: (channelId != -1), isSending: channelId != -1, isCustomisedPayment : true)
         let vc = CreatePaymentViewController.get(store: paymentStore)
         vc.delegate = self
         //self.navigationController?.isNavigationBarHidden = false

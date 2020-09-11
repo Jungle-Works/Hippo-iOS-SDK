@@ -61,9 +61,10 @@ class ShowMoreTableViewCell: UITableViewCell {
         self.store = store
         
         showMoreButton.setTitle(form.title, for: .normal)
-        
-        //subscribeCallback()
-        //setTotalCostLabel()
+        if store.isCustomisedPayment ?? false{
+            subscribeCallback()
+            setTotalCostLabel()
+        }
     }
     
     

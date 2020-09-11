@@ -604,11 +604,18 @@ class AllString{
             HippoStrings.selectaPlan = hippo_select_a_plan
         }
         
-        
+        if let hippo_message_not_allow = response["hippo_message_not_allow"] as? String{
+            HippoStrings.donotAllowPersonalInfo = hippo_message_not_allow
+        }
         
     }
     
     class func agentParsing(_ response: [String: Any]){
+        
+        if let hippo_message_not_allow = response["hippo_message_not_allow"] as? String{
+            HippoStrings.donotAllowPersonalInfo = hippo_message_not_allow
+        }
+        
         if let hippo_save_plan = response["hippo_save_plan"] as? String{
             HippoStrings.savePlan = hippo_save_plan
         }
