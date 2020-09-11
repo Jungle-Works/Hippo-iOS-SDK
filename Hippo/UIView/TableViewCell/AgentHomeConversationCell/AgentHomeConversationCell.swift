@@ -124,18 +124,19 @@ extension AgentHomeConversationCell {
         //Setting tags
         setTags()
         
-//        if let channelImage = cellData?.user_image, channelImage.isEmpty == false, let url = URL(string: channelImage) {
-        if let channelImage = cellData?.user_image, channelImage.isEmpty == false, channelImage.contains("http"), let url = URL(string: channelImage) {
-            channelImageView.kf.setImage(with: url)
-            channelImageView.backgroundColor = nil
-        }
-        
-        if channelImageView.image == nil{
-            if let channelName = cellData?.label, channelName.isEmpty == false {
-                let channelNameInitials = channelName.trimWhiteSpacesAndNewLine()
-                let color = cellData?.channelBackgroundColor
-                channelImageView.setTextInImage(string: channelNameInitials, color: color, circular: false, textAttributes: nil)
-            }
+        if let imageUrl = cellData?.user_image{
+              let url = URL(string: imageUrl)
+              let channelNameInitials = cellData?.label?.trimWhiteSpacesAndNewLine()
+              let color = cellData?.channelBackgroundColor
+              let imageViewNew = UIImageView.init(frame: channelImageView.frame)
+              imageViewNew.setTextInImage(string: channelNameInitials, color: color, circular: false, textAttributes: nil)
+              channelImageView.kf.setImage(with: url, placeholder: imageViewNew.image, options: nil, progressBlock: nil, completionHandler: nil)
+          }else{
+              let channelName = cellData?.label
+              let channelNameInitials = channelName?.trimWhiteSpacesAndNewLine()
+              let color = cellData?.channelBackgroundColor
+              channelImageView.setTextInImage(string: channelNameInitials, color: color, circular: false, textAttributes: nil)
+              
         }
         
     }

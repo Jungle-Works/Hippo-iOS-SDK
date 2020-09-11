@@ -95,7 +95,7 @@ class PaymentPlansViewController: UIViewController {
         datasource.viewPlanClicked = {[weak self](plan) in
             DispatchQueue.main.async {
                 let paymentStore = PaymentStore(plan: plan, channelId: self?.channelId, isEditing: false, isSending: self?.channelId != nil)
-                let vc = CreatePaymentViewController.get(store: paymentStore)
+                let vc = CreatePaymentViewController.get(store: paymentStore, shouldSavePlan: false)
                 vc.delegate = self
                 self?.navigationController?.pushViewController(vc, animated: true)
             }

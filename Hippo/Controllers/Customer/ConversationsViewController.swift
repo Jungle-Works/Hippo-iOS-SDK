@@ -43,7 +43,11 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     //   @IBOutlet var errorLabel: UILabel!
     @IBOutlet var textViewBgView: UIView!
     @IBOutlet var placeHolderLabel: UILabel!
-    @IBOutlet var addFileButtonAction: UIButton!
+    @IBOutlet var addFileButtonAction: UIButton!{
+        didSet{
+            addFileButtonAction.imageView?.contentMode = .scaleAspectFit
+        }
+    }
     @IBOutlet var seperatorView: UIView!
     @IBOutlet weak var loaderView: So_UIImageView!
     
@@ -686,11 +690,14 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     }
     
     func sendMessageButtonAction(messageTextStr: String){
-        if messageTextStr.matches(for: phoneNumberRegex).count > 0 || messageTextStr.isValidEmail(){
-            messageTextView.text = ""
-            showErrorMessage(messageString: HippoStrings.donotAlloePersonalInfo)
-            updateErrorLabelView(isHiding: true)
-            return
+
+        if storeResponse?.restrictPersonalInfo ?? false && channel?.chatDetail?.chatType == .other{
+            if messageTextStr.isValidPhoneNumber() || messageTextStr.isValidEmail(){
+                showErrorMessage(messageString: HippoStrings.donotAllowPersonalInfo)
+                updateErrorLabelView(isHiding: true)
+                return
+            }
+
         }
         
         if channel != nil, !channel.isSubscribed()  {
@@ -998,7 +1005,9 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
             
             guard let result = response, result.isSuccessFull, let weakself = self else {
                 completion?(false)
-                self?.goForApiRetry()
+                if HippoConfig.shared.shouldShowSlowInternetBar ?? true{
+                  self?.goForApiRetry()
+                }
                 return
             }
             weakself.storeResponse = result
@@ -1239,6 +1248,11 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
             weakSelf.channel.delegate = self
             weakSelf.populateTableViewWithChannelData()
         }
+        
+        if ((result.channelID < 0) && (result.createNewChannel == true)){
+            weakSelf.startNewConversation(replyMessage: nil, completion: nil)
+        }
+        
         weakSelf.handleSuccessCompletionOfGetMessages(result: result, request: request, completion: completion)
     }
     
@@ -1310,6 +1324,15 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
             result.isReplyMessageSent = false
             self?.enableSendingNewMessages()
             self?.channelCreatedSuccessfullyWith(result: result)
+            
+            if self?.channel?.chatDetail?.chatType == .p2p{
+                // * save data for p2punread count if transaction id is saved in local
+                if let data = P2PUnreadData.shared.getData(with: self?.directChatDetail?.transactionId ?? ""){
+                    if (data.channelId ?? -1) < 0{
+                        P2PUnreadData.shared.updateChannelId(transactionId: self?.directChatDetail?.transactionId ?? "", channelId: result.channel?.id ?? -1, count: 0)
+                    }
+                }
+            }
             completion?(result.isSuccessful, result)
          }
       } else {
@@ -1804,8 +1827,6 @@ extension ConversationsViewController {
     
     func hideRetryLabelView() {
         chatScreenTableViewTopConstraint.constant = 0
-        
-//        retryView.isHidden = true
         labelViewRetryButton.isHidden = false
         retryLoader.isHidden = true
         retryLabelView.isHidden = true
@@ -1813,19 +1834,10 @@ extension ConversationsViewController {
     
     func goForApiRetry(){
         if FuguNetworkHandler.shared.isNetworkConnected{
-            //If There are No Cached Msg
-            if self.messagesGroupedByDate.count == 0{
-//                super.textViewBottomConstraint.constant = -100
-//                retryView.isHidden = false
-//                view.bringSubview(toFront: retryView)
-            }
-            else{
-                //If there are cached msgs
-                chatScreenTableViewTopConstraint.constant = 25
-                retryLabelView.isHidden = false
-                retryLoader.isHidden = true
-                labelViewRetryButton.isHidden = false
-            }
+            chatScreenTableViewTopConstraint.constant = 25
+            retryLabelView.isHidden = false
+            retryLoader.isHidden = true
+            labelViewRetryButton.isHidden = false
         }
     }
 
@@ -2257,7 +2269,8 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                         return 80
                     }
                 case MessageType.actionableMessage, MessageType.hippoPay:
-                    return self.getHeightOfActionableMessageAt(indexPath: indexPath, chatObject: message) + heightOfDateLabel
+                    return UIView.tableAutoDimensionHeight
+                //self.getHeightOfActionableMessageAt(indexPath: indexPath, chatObject: message) + heightOfDateLabel
                 case MessageType.feedback:
                     
 //                    guard let muid = message.messageUniqueID, var rowHeight: CGFloat = heightForFeedBackCell["\(muid)"] else {
@@ -2699,12 +2712,16 @@ extension ConversationsViewController: HippoChannelDelegate {
         tableViewChat.reloadData()
     }
     
-    func cancelSendingMessage(message: HippoMessage, errorMessage: String?) {
+    func cancelSendingMessage(message: HippoMessage, errorMessage: String?,errorCode : FayeConnection.FayeError?) {
         self.cancelMessage(message: message)
         
         if let message = errorMessage {
             showErrorMessage(messageString: message)
             updateErrorLabelView(isHiding: true)
+        }
+        
+        if errorCode == FayeConnection.FayeError.personalInfoSharedError{
+            self.messageTextView.text = message.message
         }
     }
     

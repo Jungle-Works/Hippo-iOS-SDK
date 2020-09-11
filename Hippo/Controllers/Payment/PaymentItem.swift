@@ -91,10 +91,12 @@ class PaymentItem: NSObject {
         return [singleItem]
     }
     
-    func validate() {
+    func validate(_ isCustomisedPayment : Bool) {
         descriptionField.validate()
         priceField.validate()
-        titleField.validate()
+        if !isCustomisedPayment{
+            titleField.validate()
+        }
         
         if !titleField.errorMessage.isEmpty {
             errorMessage = titleField.errorMessage

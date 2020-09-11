@@ -66,6 +66,8 @@ class MessageStore {
         var requestType: Int = 0
         
         var isBotInProgress: Bool = false
+        var restrictPersonalInfo : Bool = false
+        var createNewChannel : Bool?
     }
     
     
@@ -243,6 +245,14 @@ class MessageStore {
             result.channelName = channelName
         } else if let fullName = data["full_name"] as? String, fullName.count > 0 {
             result.channelName = fullName
+        }
+        
+        //
+        if let isPersonalInfoRestricted = data["restrict_personal_info_sharing"] as? Bool{
+            result.restrictPersonalInfo = isPersonalInfoRestricted
+        }
+        if let createChannel = data["create_new_channel"] as? Bool{
+            result.createNewChannel = createChannel
         }
         
         //Sending

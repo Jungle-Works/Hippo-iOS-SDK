@@ -120,8 +120,8 @@ public class HippoStrings {
     static var planOwner = "Plan Owner:".localized
     static var updatedAt = "Updated at:".localized
     static var sendPayment = "Send Payment".localized
-    static var donotAlloePersonalInfo = "You are not allowed to share personal details.".localized
-    
+    static var donotAllowPersonalInfo = "You are not allowed to share personal details.".localized
+   
     
     /// Agent sdk
     static var thanksForFeedback = "Thank you for your comments!".localized
@@ -245,19 +245,15 @@ public class HippoStrings {
     }
     
     class func updateHippoCallClientStrings(){
-        if versionCode >= 350{
-            #if canImport(HippoCallClient)
-            
-            HippoCallClientStrings.calling = HippoStrings.calling
-            HippoCallClientStrings.ringing = HippoStrings.ringing
-            HippoCallClientStrings.callingYou = HippoStrings.isCallingYou.lowercased()
-            HippoCallClientStrings.callDeclined = HippoStrings.callDeclined
-            HippoCallClientStrings.busyOnOtherCall = HippoStrings.busyAnotherCall
-            
-            #else
-            
-            #endif
-        }
+        #if canImport(JitsiMeet)
+        
+        HippoCallClientStrings.calling = HippoStrings.calling
+        HippoCallClientStrings.ringing = HippoStrings.ringing
+        HippoCallClientStrings.callingYou = HippoStrings.isCallingYou.lowercased()
+        HippoCallClientStrings.callDeclined = HippoStrings.callDeclined
+        HippoCallClientStrings.busyOnOtherCall = HippoStrings.busyAnotherCall
+        
+        #endif
     }
     
 }
