@@ -1604,6 +1604,15 @@ extension HippoConversationViewController: PaymentMessageCellDelegate {
 //            return
 //        }
 //        initatePayment(for: url)
+        self.addedPaymentGatewaysArr = fetchAddedPaymentGatewaysData() ?? [PaymentGateway]()
+        if addedPaymentGatewaysArr.count == 0{
+                self.startLoaderAnimation()
+            HippoUserDetail.getPaymentGateway { (status) in
+                self.stopLoaderAnimation()
+                self.addedPaymentGatewaysArr = self.fetchAddedPaymentGatewaysData() ?? [PaymentGateway]()
+            }
+        }
+        
         if let channel = self.channel, channel.isSendingDisabled {
             print("isSendingDisabled disabled")
             return
@@ -1779,7 +1788,14 @@ extension HippoConversationViewController: submitButtonTableViewDelegate
         }
     }
     
-    
+    func fetchAddedPaymentGatewaysData() -> [PaymentGateway]? {
+        if let addedPaymentGatewaysData = FuguDefaults.object(forKey: DefaultName.addedPaymentGatewaysData.rawValue) as? [[String: Any]]{
+            let addedPaymentGatewaysArr = PaymentGateway.parse(addedPaymentGateways: addedPaymentGatewaysData)
+            return addedPaymentGatewaysArr
+        }else{
+            return nil
+        }
+    }
 }
 
 //MARK:- COLLECTION VIEW DELEAGATE/DATASOURCE

@@ -1506,10 +1506,6 @@ extension ConversationsViewController {
         //        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
         //        view.addGestureRecognizer(panGesture)
         
-        if fetchAddedPaymentGatewaysData() != nil, let getArr = fetchAddedPaymentGatewaysData(){
-            self.addedPaymentGatewaysArr = getArr
-        }
-        
     }
    
    func addTapGestureInTableView() {
@@ -1818,17 +1814,6 @@ extension ConversationsViewController {
             labelViewRetryButton.isHidden = false
         }
     }
-
-    func fetchAddedPaymentGatewaysData() -> [PaymentGateway]? {
-        if let addedPaymentGatewaysData = FuguDefaults.object(forKey: DefaultName.addedPaymentGatewaysData.rawValue) as? [[String: Any]]{
-            let addedPaymentGatewaysArr = PaymentGateway.parse(addedPaymentGateways: addedPaymentGatewaysData)
-            return addedPaymentGatewaysArr
-        }else{
-            return nil
-        }
-    }
-    
-
     
 }
 
