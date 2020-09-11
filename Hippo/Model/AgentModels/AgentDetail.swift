@@ -82,6 +82,7 @@ class AgentDetail: NSObject {
     var agentUserType = AgentUserType.agent
     
     var oAuthToken = ""
+    var authTokenInitManager = ""
     var app_type = AgentDetail.defaultAppType
     var customAttributes: [String: Any]? = nil
     var businessCurrency : [BuisnessCurrency]?
@@ -158,6 +159,7 @@ class AgentDetail: NSObject {
         self.customAttributes = customAttributes
         let type = appType.trimWhiteSpacesAndNewLine()
         self.app_type = type.isEmpty ? AgentDetail.defaultAppType : type
+        self.authTokenInitManager = oAuthToken
     }
     
     func toJson() -> [String: Any] {
@@ -219,7 +221,6 @@ extension AgentDetail {
             guard let unwrappedStatusCode = statusCode, let response = responseObject as? [String: Any], let data = response["data"] as? [String: Any], unwrappedStatusCode == STATUS_CODE_SUCCESS else {
                 let result = ResponseResult(isSuccessful: false, error: error)
                 postLoginUpdated()
-                HippoUserDetail.clearAllData()
                 AgentConversationManager.errorMessage = error?.localizedDescription
                 showAlertWith(message: error?.localizedDescription ?? "", action: nil)
                 print(error.debugDescription)
@@ -286,6 +287,7 @@ extension AgentDetail {
                 
                 BussinessProperty.current.hideAllChat = Bool.parse(key: "hide_all_chat_tab", json: businessProperty)
                 
+                BussinessProperty.current.shouldHideCustomerData = Bool.parse(key: "hide_customer_data", json: businessProperty)
                 
                 BussinessProperty.current.currencyArr = BuisnessCurrency().getCurrenyData(businessProperty["business_currency"] as? [[String : Any]] ?? [[String : Any]]())
                 HippoConfig.shared.jitsiUrl = businessProperty["jitsi_url"] as? String

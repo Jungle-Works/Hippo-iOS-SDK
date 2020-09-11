@@ -230,7 +230,7 @@ class AgentConversation: HippoConversation {
         var json = super.getJsonToStore()
         
         if let channel_id = channel_id {
-            if channel_id == -1 {
+            if channel_id != -1 {
                 json["channel_id"] = channel_id
             }
         }

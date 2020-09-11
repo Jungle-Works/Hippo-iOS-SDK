@@ -40,6 +40,7 @@ class PaymentItemDescriptionCell: UITableViewCell,UIPickerViewDelegate,UIPickerV
     weak var delegate: PaymentItemDescriptionCellDelegate?
     var item: PaymentItem!
     var pickerView: UIPickerView?
+    var isCustomPayment : Bool?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -102,6 +103,14 @@ class PaymentItemDescriptionCell: UITableViewCell,UIPickerViewDelegate,UIPickerV
         textViewBottomLineView.isHidden = true
     }
 
+    func hideTitleTextField(_ shouldHide : Bool){
+        titleTextField.isHidden = shouldHide ? true : false
+        titleLabel.isHidden = shouldHide ? true : false
+        label_TitleCount.isHidden = shouldHide ? true : false
+        textField_Currency.isHidden = shouldHide ? true : false
+    }
+    
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
@@ -115,9 +124,14 @@ class PaymentItemDescriptionCell: UITableViewCell,UIPickerViewDelegate,UIPickerV
         priceTextField.text = item.priceField.value
         priceTextField.placeholder = item.priceField.placeHolder
         priceLabel.text = item.priceField.title
-        textField_Currency.text = item.currency == nil ? BussinessProperty.current.currencyArr?.first?.currencySymbol ?? "" : item.currency?.symbol
-        if BussinessProperty.current.currencyArr?.count ?? 0 == 1 && item.currency == nil{
-            self.item.currency = PaymentCurrency(BussinessProperty.current.currencyArr?[0].currencySymbol ?? "", BussinessProperty.current.currencyArr?[0].currency ?? "")
+        if isCustomPayment ?? false{
+            textField_Currency.text = item.currency == nil ? PaymentCurrency.getAllCurrency().first?.symbol : item.currency?.symbol
+            self.item.currency =  item.currency == nil ? PaymentCurrency.getAllCurrency().first : item.currency
+        }else{
+            textField_Currency.text = item.currency == nil ? BussinessProperty.current.currencyArr?.first?.currencySymbol ?? "" : item.currency?.symbol
+            if BussinessProperty.current.currencyArr?.count ?? 0 > 1 && item.currency == nil{
+                self.item.currency = PaymentCurrency(BussinessProperty.current.currencyArr?[0].currencySymbol ?? "", BussinessProperty.current.currencyArr?[0].currency ?? "")
+            }
         }
         
         
@@ -193,16 +207,26 @@ extension PaymentItemDescriptionCell {
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return BussinessProperty.current.currencyArr?.count ?? 0
+        return isCustomPayment ?? false ? PaymentCurrency.getAllCurrency().count : BussinessProperty.current.currencyArr?.count ?? 0
     }
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        let value = BussinessProperty.current.currencyArr?[row]
-        return value?.currencySymbol
+        if isCustomPayment ?? false{
+            let value = PaymentCurrency.getAllCurrency()[row]
+            return value.symbol
+        }else{
+            let value = BussinessProperty.current.currencyArr?[row]
+            return value?.currencySymbol
+        }
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        textField_Currency.text = BussinessProperty.current.currencyArr?[row].currencySymbol
-        item.currency = PaymentCurrency(BussinessProperty.current.currencyArr?[row].currencySymbol ?? "", BussinessProperty.current.currencyArr?[row].currency ?? "")
+        if isCustomPayment ?? false{
+            textField_Currency.text = PaymentCurrency.getAllCurrency()[row].symbol
+            item.currency = PaymentCurrency.getAllCurrency()[row]
+        }else{
+            textField_Currency.text = BussinessProperty.current.currencyArr?[row].currencySymbol
+            item.currency = PaymentCurrency(BussinessProperty.current.currencyArr?[row].currencySymbol ?? "", BussinessProperty.current.currencyArr?[row].currency ?? "")
+        }
     }
 }
 

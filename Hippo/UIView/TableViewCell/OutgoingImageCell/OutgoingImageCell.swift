@@ -16,7 +16,7 @@ protocol ImageCellDelegate: class {
 class OutgoingImageCell: MessageTableViewCell {
     
     @IBOutlet weak var shadowView: So_UIView!
-    @IBOutlet weak var mainContentView: So_UIView!
+    @IBOutlet weak var mainContentView: UIView!
     @IBOutlet weak var thumbnailImageView: So_UIImageView!
 //    @IBOutlet weak var timeLabel: So_CustomLabel!
     @IBOutlet weak var readUnreadImageView: So_UIImageView!
@@ -65,10 +65,7 @@ extension OutgoingImageCell {
     }
     
     func adjustShadow() {
-        shadowView.layoutIfNeeded()
         mainContentView.layoutIfNeeded()
-        
-        shadowView.layer.cornerRadius = self.mainContentView.layer.cornerRadius
         shadowView.clipsToBounds = true
         shadowView.backgroundColor = HippoConfig.shared.theme.chatBoxBorderColor
     }
@@ -78,14 +75,17 @@ extension OutgoingImageCell {
         selectionStyle = .none
         timeLabel.text = ""
         mainContentView.layer.cornerRadius = 10
+        mainContentView.clipsToBounds = true
         
         thumbnailImageView.image = nil
         thumbnailImageView.layer.cornerRadius = mainContentView.layer.cornerRadius
+        shadowView.layer.cornerRadius = mainContentView.layer.cornerRadius
         thumbnailImageView.clipsToBounds = true
         
         if #available(iOS 11.0, *) {
-            thumbnailImageView.layer.maskedCorners = [.layerMinXMinYCorner]
             mainContentView.layer.maskedCorners = [.layerMinXMinYCorner,.layerMinXMaxYCorner,.layerMaxXMaxYCorner]
+            thumbnailImageView.layer.maskedCorners = [.layerMinXMinYCorner,.layerMinXMaxYCorner,.layerMaxXMaxYCorner]
+            shadowView.layer.maskedCorners = [.layerMinXMinYCorner,.layerMinXMaxYCorner,.layerMaxXMaxYCorner]
         } else {
             // Fallback on earlier versions
         }

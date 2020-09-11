@@ -10,6 +10,7 @@
 		47B12417C887BBD208902F39 /* Pods_Hippo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C0A922564912516EF04B93F /* Pods_Hippo.framework */; };
 		6B1011F2248128D2007FC8EC /* loader.gif in Resources */ = {isa = PBXBuildFile; fileRef = 6B1011F1248128D2007FC8EC /* loader.gif */; };
 		6B45484A249B89C8006F84C7 /* HippoLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6B45484C249B89C8006F84C7 /* HippoLocalizable.strings */; };
+		6B584EF52502369800A7633A /* P2PUnreadData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B584EF42502369800A7633A /* P2PUnreadData.swift */; };
 		6B87979424BEDAB80093EA90 /* GroupCall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B87979324BEDAB80093EA90 /* GroupCall.swift */; };
 		6B87979624BEDBF10093EA90 /* AgentGroupCallChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B87979524BEDBF10093EA90 /* AgentGroupCallChat.swift */; };
 		6B91A93E24780AF4008AB4CC /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B91A93C24780AF4008AB4CC /* NavigationBar.swift */; };
@@ -422,6 +423,7 @@
 		6B454849249B89BD006F84C7 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		6B45484B249B89C8006F84C7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/HippoLocalizable.strings; sourceTree = "<group>"; };
 		6B45484D249B89D0006F84C7 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/HippoLocalizable.strings; sourceTree = "<group>"; };
+		6B584EF42502369800A7633A /* P2PUnreadData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = P2PUnreadData.swift; sourceTree = "<group>"; };
 		6B87979324BEDAB80093EA90 /* GroupCall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupCall.swift; sourceTree = "<group>"; };
 		6B87979524BEDBF10093EA90 /* AgentGroupCallChat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentGroupCallChat.swift; sourceTree = "<group>"; };
 		6B91A93C24780AF4008AB4CC /* NavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
@@ -949,6 +951,14 @@
 				6B45484C249B89C8006F84C7 /* HippoLocalizable.strings */,
 			);
 			path = Language;
+			sourceTree = "<group>";
+		};
+		6B584EF32502361200A7633A /* P2PUnread */ = {
+			isa = PBXGroup;
+			children = (
+				6B584EF42502369800A7633A /* P2PUnreadData.swift */,
+			);
+			path = P2PUnread;
 			sourceTree = "<group>";
 		};
 		6B91A93B24780AF4008AB4CC /* NavigationView */ = {
@@ -1654,6 +1664,7 @@
 		C9B77D8921A01B060092848D /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				6B584EF32502361200A7633A /* P2PUnread */,
 				D848D1AD245EEE9700235322 /* PaymentPlan */,
 				D8F6D2152419549E00B168C5 /* Messages */,
 				D8F6D1E22419547400B168C5 /* BussinessProperty.swift */,
@@ -2801,6 +2812,7 @@
 				D8F6D2662419591500B168C5 /* TagView.swift in Sources */,
 				D8F6D2D224195DC500B168C5 /* PaymentField.swift in Sources */,
 				D8F6D14724194CD200B168C5 /* ImageTableViewCell.swift in Sources */,
+				6B584EF52502369800A7633A /* P2PUnreadData.swift in Sources */,
 				D8F6D2042419547C00B168C5 /* BussinessProperty.swift in Sources */,
 				D8F6D0AF241943D900B168C5 /* QuickReplyButtonCollectionViewCell.swift in Sources */,
 				D8F6D2A924195B1200B168C5 /* IQKeyboardManagerConstants.swift in Sources */,

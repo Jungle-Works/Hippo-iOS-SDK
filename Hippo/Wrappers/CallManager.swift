@@ -51,7 +51,7 @@ class CallManager {
     
     
     func startGroupCall(call: GroupCallData, groupCallChannelData : GroupCallChannelData, completion: @escaping (Bool, NSError?) -> Void){
-        #if canImport(HippoCallClient)
+        #if canImport(JitsiMeet)
         let peerUser = call.peerData
         guard let peer = HippoUser(name: peerUser.fullName, userID: peerUser.userID, imageURL: peerUser.image) else {
             return
@@ -80,7 +80,11 @@ class CallManager {
         guard let currentUser = getCurrentUser() else {
             return
         }
+        #if canImport(JitsiMeet)
         let callToMake = Call(peer: peer, signalingClient: call.signallingClient, uID: call.muid, currentUser: currentUser, type: getCallTypeWith(localType: call.callType), link: "", jitsiUrl: HippoConfig.shared.jitsiUrl ?? "")
+        #else
+        let callToMake = Call(peer: peer, signalingClient: call.signallingClient, uID: call.muid, currentUser: currentUser, type: getCallTypeWith(localType: call.callType), link: "")
+         #endif
         HippoCallClient.shared.startCall(call: callToMake, completion: completion)
         #else
         completion(false,nil)
@@ -97,7 +101,12 @@ class CallManager {
         guard let currentUser = getCurrentUser() else {
             return
         }
+        #if canImport(JitsiMeet)
         let callToMake = Call(peer: peer, signalingClient: call.signallingClient, uID: call.muid, currentUser: currentUser, type: getCallTypeWith(localType: call.callType), link: "", jitsiUrl: HippoConfig.shared.jitsiUrl ?? "")
+         #else
+         let callToMake = Call(peer: peer, signalingClient: call.signallingClient, uID: call.muid, currentUser: currentUser, type: getCallTypeWith(localType: call.callType), link: "")
+        
+         #endif
         HippoCallClient.shared.startWebRTCCall(call: callToMake, completion: completion)
         #else
         completion(false)
@@ -116,7 +125,7 @@ class CallManager {
     }
     
     func hungupCall() {
-        #if canImport(HippoCallClient)
+        #if canImport(JitsiMeet)
         HippoCallClient.shared.hangupCall()
         #endif
     }
@@ -168,8 +177,10 @@ class CallManager {
         #endif
     }
     
+ 
     func voipNotificationRecievedForGroupCall(payloadDict: [String: Any]){
-        #if canImport(HippoCallClient)
+        #if canImport(JitsiMeet)
+
         guard let peer = HippoUser(json: payloadDict) else {
             return
         }

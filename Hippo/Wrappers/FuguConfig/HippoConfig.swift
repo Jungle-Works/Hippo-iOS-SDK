@@ -45,8 +45,8 @@ static let betaFaye = "https://beta-live-api.fuguchat.com:3001/faye"
 // static let betaUrl = "https://hippo-api-dev.fuguchat.com:3002/"
 // static let betaFaye = "https://hippo-api-dev.fuguchat.com:3002/faye"
 
-static let devUrl = "https://hippo-api-dev.fuguchat.com:3004/"//"https://hippo-api-dev.fuguchat.com:3002/"//
-static let devFaye = "https://hippo-api-dev.fuguchat.com:3004/faye"//"https://hippo-api-dev.fuguchat.com:3002/faye"//
+static let devUrl = "https://hippo-api-dev.fuguchat.com:3002/"//"https://hippo-api-dev.fuguchat.com:3002/"//
+static let devFaye = "https://hippo-api-dev.fuguchat.com:3002/faye"//"https://hippo-api-dev.fuguchat.com:3002/faye"//
 
 // static let devUrl = "https://hippo-api-dev.fuguchat.com:3011/"
 // static let devFaye = "https://hippo-api-dev.fuguchat.com:3012/faye"
@@ -186,14 +186,18 @@ struct BotAction {
     public var shouldUseNewCalling : Bool?{
         didSet{
             if shouldUseNewCalling ?? false{
-                versionCode = 350 + 1
+                versionCode = 350 + 2
             }else{
-                versionCode = 320 - 1
+                versionCode = 320 - 2
             }
         }
     }
-    var isOpenedFromPush : Bool?
+
+    ///turn its value true to show slow internet bar on chat screen
+    public var shouldShowSlowInternetBar : Bool?
     
+    var isOpenedFromPush : Bool?
+
     // MARK: - Intialization
     private override init() {
         super.init()
@@ -609,13 +613,9 @@ struct BotAction {
         UnreadCount.fetchP2PUnreadCount(request: request, callback: completion)
     }
     
-    public func registerNewChannelId(_ channelId : Int){
-        var unreadHashMap = FuguDefaults.object(forKey: DefaultName.p2pUnreadCount.rawValue) as? [String: Any] ?? [String : Any]()
-        if unreadHashMap.values.count == 0 || unreadHashMap.keys.contains("\(channelId)") == false{
-            unreadHashMap.removeAll()
-            unreadHashMap["\(channelId)"] = 1
-            FuguDefaults.set(value: unreadHashMap, forKey: DefaultName.p2pUnreadCount.rawValue)
-            HippoConfig.shared.sendp2pUnreadCount(1, channelId)
+    public func registerNewChannelId(_ transactionId: String, _ channelId : Int){
+        if P2PUnreadData.shared.getData(with: transactionId) == nil{
+            P2PUnreadData.shared.updateChannelId(transactionId: transactionId, channelId: channelId, count: 1)
         }
     }
     
@@ -945,13 +945,19 @@ struct BotAction {
         HippoConfig.shared.strings = stringsObject
     }
     
-    public func managePromotionCount(_ userInfo: [String:Any]){
+    public func managePromotionOrP2pCount(_ userInfo: [String:Any]){
         if userInfo["is_announcement_push"] as? Bool == true{
             if !(getLastVisibleController() is PromotionsViewController){
                 if let count = UserDefaults.standard.value(forKey: DefaultName.announcementUnreadCount.rawValue) as? Int{
                     let updatedCount = count + 1
                     UserDefaults.standard.set(updatedCount, forKey: DefaultName.announcementUnreadCount.rawValue)
                     HippoConfig.shared.announcementUnreadCount?(updatedCount)
+                }
+            }
+        }else{
+            if let data = P2PUnreadData.shared.getData(with: userInfo["chat_transaction_id"] as? String ?? ""){
+                if (data.channelId ?? -1) < 0{
+                    P2PUnreadData.shared.updateChannelId(transactionId: userInfo["chat_transaction_id"] as? String ?? "", channelId: userInfo["channel_id"] as? Int ?? -1, count: 1, muid: userInfo["muid"] as? String ?? "")
                 }
             }
         }
@@ -1292,11 +1298,12 @@ extension HippoConfig{
          groupCallData.removeValue(forKey: transactionId)
     }
     
-    #if canImport(HippoCallClient)
+   
     public func forceKillOnTermination(){
+        #if canImport(JitsiMeet)
         HippoCallClient.shared.terminateSessionIfAny()
+        #endif
     }
-    #endif
     
 }
 extension HippoConfig {
@@ -1353,13 +1360,13 @@ extension HippoConfig {
 extension HippoConfig{
     
     func HideJitsiView(){
-         #if canImport(HippoCallClient)
+         #if canImport(JitsiMeet)
             HippoCallClient.shared.hideViewInPip()
          #endif
     }
     
     func UnhideJitsiView(){
-         #if canImport(HippoCallClient)
+         #if canImport(JitsiMeet)
             HippoCallClient.shared.unHideViewInPip()
          #endif
     }

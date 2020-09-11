@@ -31,7 +31,7 @@ protocol HippoChannelDelegate: class {
     func newMessageReceived(newMessage: HippoMessage)
     func typingMessageReceived(newMessage: HippoMessage)
     func sendingFailedFor(message: HippoMessage)
-    func cancelSendingMessage(message: HippoMessage, errorMessage: String?)
+    func cancelSendingMessage(message: HippoMessage, errorMessage: String?,errorCode : FayeConnection.FayeError?)
     func channelDataRefreshed()
     func closeChatActionFromRefreshChannel()
 }
@@ -80,9 +80,16 @@ struct CreateConversationWithLabelId {
         if let botGroupId = botGroupId {
             params["initiate_bot_group_id"] = botGroupId
         }
-        if !messagesList.isEmpty {
+      
+        if let vc = getLastVisibleController() as? HippoConversationViewController{
+            if vc.storeResponse?.createNewChannel == true{
+                params["initial_bot_messages"] = []
+            }
+        }else if !messagesList.isEmpty {
             params["initial_bot_messages"] = messagesList
         }
+        
+        
         return params
     }
 }
@@ -730,6 +737,9 @@ class HippoChannel {
 
         chatDetail.assignedAgentID = users.first?.userID ?? chatDetail.assignedAgentID
         chatDetail.assignedAgentName = users.first?.fullName ?? chatDetail.assignedAgentName
+        if let vc = getLastVisibleController() as? HippoConversationViewController{
+            vc.storeResponse?.restrictPersonalInfo = dict["restrict_personal_info_sharing"] as? Bool ?? false
+        }
         
         delegate?.channelDataRefreshed()
     }
@@ -1008,7 +1018,7 @@ extension HippoChannel: MessageSenderDelegate {
         message.wasMessageSendingFailed = true
         let showErrorMessage = result.error?.showError ?? false
         let messageToShow: String? = showErrorMessage ? result.error?.message : nil
-        delegate?.cancelSendingMessage(message: message, errorMessage: messageToShow)
+        delegate?.cancelSendingMessage(message: message, errorMessage: messageToShow, errorCode: result.error?.error)
     }
     
 }

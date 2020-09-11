@@ -16,7 +16,6 @@ enum DefaultName: String {
     case addedPaymentGatewaysData = "added_payment_gateways"
     case agentTotalUnreadHashMap = "agentTotalUnreadHashMap"
     case agentUnreadCount = "agentUnreadCount"
-    case p2pUnreadCount = "cusUnreadCount"
     case selectedLanguage = "hippoSelectedLanguage"
     case announcementUnreadCount = "announcementUnreadCount"
 }

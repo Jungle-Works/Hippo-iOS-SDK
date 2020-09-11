@@ -144,23 +144,25 @@ extension ConversationView {
         unreadCountLabel.font = theme.timeTheme.textFont
         channelImageView.alpha = isThisChatOpened(opened: isOpened)
         
-        if let channelImage = conersationObj.channelImageUrl, channelImage.isEmpty == false, let url = URL(string: channelImage) {
-            channelImageView.kf.setImage(with: url)
+        if let imageUrl = conersationObj.channelImageUrl{
+            let url = URL(string: imageUrl)
+            let channelNameInitials = conersationObj.label?.trimWhiteSpacesAndNewLine()
+            let color = conersationObj.channelBackgroundColor
+            let imageViewNew = UIImageView.init(frame: channelImageView.frame)
+            imageViewNew.setTextInImage(string: channelNameInitials, color: color, circular: false, textAttributes: nil)
+            channelImageView.kf.setImage(with: url, placeholder: imageViewNew.image, options: nil, progressBlock: nil, completionHandler: nil)
+        }else{
+            let channelName = conersationObj.label
+            placeHolderImageButton?.alpha = isThisChatOpened(opened: isOpened)
+            placeHolderImageButton?.isHidden = false
+            placeHolderImageButton?.setImage(nil, for: .normal)
+            placeHolderImageButton?.backgroundColor = .lightGray
+            let channelNameInitials = channelName?.trimWhiteSpacesAndNewLine()
+            let color = conersationObj.channelBackgroundColor
+            channelImageView.setTextInImage(string: channelNameInitials, color: color, circular: false, textAttributes: nil)
+            
         }
-        
-        if channelImageView.image == nil{
-             if let channelName = conersationObj.label, channelName.isEmpty == false {
-                placeHolderImageButton?.alpha = isThisChatOpened(opened: isOpened)
-                placeHolderImageButton?.isHidden = false
-                placeHolderImageButton?.setImage(nil, for: .normal)
-                placeHolderImageButton?.backgroundColor = .lightGray
-                let channelNameInitials = channelName.trimWhiteSpacesAndNewLine()
-                let color = conersationObj.channelBackgroundColor
-                channelImageView.setTextInImage(string: channelNameInitials, color: color, circular: false, textAttributes: nil)
-               
-             }
-        }
-        
+            
         
         var messageString = ""
         if let last_sent_by_id = conersationObj.lastMessage?.senderId, let userId = HippoUserDetail.fuguUserID, last_sent_by_id == userId {

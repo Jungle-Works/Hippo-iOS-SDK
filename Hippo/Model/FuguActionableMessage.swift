@@ -18,7 +18,9 @@ import UIKit
     
     // MARK: - Intializer
 //     public override init() {}
-    
+    public override init() {
+        
+    }
     public init(dict: [String: Any]) {
       //  super.init()
         if let buttonActionArray = dict["action_buttons"] as? [Any] {

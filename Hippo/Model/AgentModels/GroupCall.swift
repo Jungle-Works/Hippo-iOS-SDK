@@ -91,9 +91,11 @@ extension GroupCall{
         
         
         let groupCallData = GroupCallData.init(peerData: user, callType: callType, muid: muid, signallingClient: groupCallChannel)
-        CallManager.shared.startGroupCall(call: groupCallData, groupCallChannelData: groupCall) { (status, error) in
-            
-        }
+         #if canImport(JitsiMeet)
+            CallManager.shared.startGroupCall(call: groupCallData, groupCallChannelData: groupCall) { (status, error) in
+            }
+         #endif
+        
     }
     
 }
