@@ -336,9 +336,9 @@ extension PromotionsViewController: UITableViewDelegate,UITableViewDataSource
             cell.showReadMoreLessButton.addTarget(self, action: #selector(expandCellSize(_:)), for: .touchUpInside)
             //cell.descriptionLabel.numberOfLines = 2
             let values = data[indexPath.row]
-            cell.promotionTitle.text = values.title ?? ""
+            cell.promotionTitle.attributedText = NSAttributedString(string:  values.title ?? "")
             
-            cell.fullDescriptionLabel.text = values.description
+            cell.fullDescriptionLabel.attributedText = NSAttributedString(string:  values.title ?? "")
             
             cell.descriptionLabel.text = values.description
             if (values.description?.count)! > 150{
@@ -347,7 +347,6 @@ extension PromotionsViewController: UITableViewDelegate,UITableViewDataSource
             }else{
                 cell.showReadMoreLessButton.isHidden = true
                 cell.showReadMoreLessButtonHeightConstraint.constant = 0
-                
             }
             if states[indexPath.row] == true{
                 cell.descriptionLabel.isHidden = false

@@ -10,45 +10,45 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="120" id="KGk-i7-Jjw" customClass="PromotionTableViewCell" customModule="Hippo" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="319" height="120"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="272" id="KGk-i7-Jjw" customClass="PromotionTableViewCell" customModule="Hippo" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="365" height="272"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="319" height="120"/>
+                <rect key="frame" x="0.0" y="0.0" width="365" height="272"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xud-Uu-5dH">
-                        <rect key="frame" x="8" y="2" width="303" height="110"/>
+                        <rect key="frame" x="8" y="2" width="349" height="262"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0ey-sI-pmH">
-                                <rect key="frame" x="10" y="95" width="283" height="0.0"/>
+                                <rect key="frame" x="10" y="247" width="329" height="0.0"/>
                                 <connections>
                                     <action selector="action_PreviewImage" destination="KGk-i7-Jjw" eventType="touchUpInside" id="gy9-Va-Fu0"/>
                                 </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholderImg" translatesAutoresizingMaskIntoConstraints="NO" id="B24-ZH-lMi">
-                                <rect key="frame" x="10" y="95" width="283" height="0.0"/>
+                                <rect key="frame" x="10" y="247" width="329" height="0.0"/>
                                 <constraints>
                                     <constraint firstAttribute="height" id="s8O-Ql-0u4"/>
                                 </constraints>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="WhG-y0-qES">
-                                <rect key="frame" x="15" y="15" width="273" height="43"/>
+                                <rect key="frame" x="15" y="15" width="319" height="195"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6S2-SK-Yv7">
-                                        <rect key="frame" x="0.0" y="0.0" width="273" height="16"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="319" height="72.5"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="15"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P9E-VN-wq9">
-                                        <rect key="frame" x="0.0" y="26" width="273" height="17"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P9E-VN-wq9">
+                                        <rect key="frame" x="0.0" y="82.5" width="319" height="112.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jmI-G4-zxm">
-                                        <rect key="frame" x="0.0" y="43" width="273" height="0.0"/>
+                                        <rect key="frame" x="0.0" y="195" width="319" height="0.0"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -56,7 +56,7 @@
                                 </subviews>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fcn-By-Hj8">
-                                <rect key="frame" x="15" y="68" width="31" height="20"/>
+                                <rect key="frame" x="15" y="220" width="31" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="f8M-8z-ioF"/>
                                 </constraints>
@@ -65,7 +65,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="whS-wa-wq1">
-                                <rect key="frame" x="214" y="63" width="79" height="30"/>
+                                <rect key="frame" x="260" y="215" width="79" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="4cP-y5-avz"/>
                                 </constraints>
@@ -122,7 +122,7 @@
                 <outlet property="showReadMoreLessButton" destination="whS-wa-wq1" id="1qR-qH-1UJ"/>
                 <outlet property="showReadMoreLessButtonHeightConstraint" destination="4cP-y5-avz" id="ady-Ub-xuc"/>
             </connections>
-            <point key="canvasLocation" x="132.60869565217394" y="131.91964285714286"/>
+            <point key="canvasLocation" x="165.94202898550725" y="182.8125"/>
         </tableViewCell>
     </objects>
     <resources>
