@@ -160,7 +160,7 @@ class AgentDetail: NSObject {
         let type = appType.trimWhiteSpacesAndNewLine()
         self.app_type = type.isEmpty ? AgentDetail.defaultAppType : type
         self.authTokenInitManager = oAuthToken
-        self.id = userId
+        self.id = userId ?? -1
     }
     
     func toJson() -> [String: Any] {
