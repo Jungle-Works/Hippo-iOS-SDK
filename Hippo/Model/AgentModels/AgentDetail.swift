@@ -154,12 +154,13 @@ class AgentDetail: NSObject {
         
     }
        
-    init(oAuthToken: String, appType: String, customAttributes: [String: Any]?) {
+    init(oAuthToken: String, appType: String, customAttributes: [String: Any]?, userId : Int? = nil) {
         self.oAuthToken = oAuthToken
         self.customAttributes = customAttributes
         let type = appType.trimWhiteSpacesAndNewLine()
         self.app_type = type.isEmpty ? AgentDetail.defaultAppType : type
         self.authTokenInitManager = oAuthToken
+        self.id = userId
     }
     
     func toJson() -> [String: Any] {
