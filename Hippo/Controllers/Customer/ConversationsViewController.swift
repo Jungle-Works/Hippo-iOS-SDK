@@ -2285,7 +2285,7 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                 case .card:
                     return 230
                 case .paymentCard:
-                    return message.calculatedHeight ?? 0.1
+                    return ((message.calculatedHeight ?? 0.1) + 50)
                 case .multipleSelect:
                    return message.calculatedHeight ?? 0.01
                 case .embeddedVideoUrl:

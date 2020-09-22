@@ -7,9 +7,10 @@
 
 import Foundation
 import UIKit
-
+import AVFoundation
 #if canImport(HippoCallClient)
   import HippoCallClient
+  import JitsiMeet
 #endif
 
 public protocol HippoMessageRecievedDelegate: class {
@@ -186,7 +187,7 @@ struct BotAction {
     public var shouldUseNewCalling : Bool?{
         didSet{
             if shouldUseNewCalling ?? false{
-                versionCode = 350 + 2
+                versionCode = 450
             }else{
                 versionCode = 320 - 2
             }
@@ -979,24 +980,54 @@ struct BotAction {
         return false
     }
     
-    public func handleVoipNotification(payload: [AnyHashable: Any]) {
+    public func handleVoipNotification(payload: [AnyHashable: Any], completion: @escaping () -> Void) {
         guard let json = payload as? [String: Any] else {
             return
         }
-        guard isHippoUserChannelSubscribe() else {
-            self.handleVoipNotification(payloadDict: json)
-            return
-        }
+        
+        HippoNotification.showLocalNotificationForVoip(json)
+        self.handleVoipNotification(payloadDict: json, completion: completion)
         
     }
         
-    public func handleVoipNotification(payloadDict: [String: Any]) {
+    public func handleVoipNotification(payloadDict: [String: Any], completion: @escaping () -> Void) {
         
-        guard isHippoUserChannelSubscribe() else {
+        if let messageType = payloadDict["message_type"] as? Int, messageType == MessageType.groupCall.rawValue{
+            CallManager.shared.voipNotificationRecievedForGroupCall(payloadDict: payloadDict)
+        }else if let messageType = payloadDict["message_type"] as? Int, messageType == MessageType.call.rawValue {
             CallManager.shared.voipNotificationRecieved(payloadDict: payloadDict)
-            return
         }
-        //        CallManager.shared.voipNotificationRecieved(payloadDict: payloadDict)
+        
+        handleRemoteNotification(userInfo: payloadDict)
+        reportIncomingCallOnCallKit(userInfo: payloadDict, completion: completion)
+    }
+    
+    func reportIncomingCallOnCallKit(userInfo: [String : Any], completion: @escaping () -> Void){
+        if let uuid = userInfo["muid"] as? String, let name = userInfo["last_sent_by_full_name"] as? String, let isVideo = userInfo["call_type"] as? String == "AUDIO" ? false : true{
+            guard let UUID = UUID(uuidString: uuid) else {
+                return
+            }
+            if JMCallKitProxy.hasActiveCallForUUID(uuid){
+                completion()
+                return
+            }
+            enableAudioSession()
+            JMCallKitProxy.reportNewIncomingCall(UUID: UUID, handle: name, displayName: name, hasVideo: isVideo) { (error) in
+                completion()
+            }
+        }
+      }
+    
+    func enableAudioSession(){
+//      let session = AVAudioSession.sharedInstance()
+//        do{
+//            try session.setCategory(.playAndRecord)
+//            try session.setMode(.voiceChat)
+//            try session.setActive(true)
+//            try session.overrideOutputAudioPort(AVAudioSession.PortOverride.speaker)
+//        }catch {
+//            print ("\(#file) - \(#function) error: \(error.localizedDescription)")
+//        }
     }
     
     public func handleRemoteNotification(userInfo: [String: Any]) {
