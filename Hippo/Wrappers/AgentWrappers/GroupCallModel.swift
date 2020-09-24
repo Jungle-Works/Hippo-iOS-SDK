@@ -96,6 +96,7 @@ extension GroupCallModel{
             params["access_token"] = HippoConfig.shared.agentDetail?.fuguToken
         }else{
             params["app_secret_key"] = HippoConfig.shared.appSecretKey
+            
         }
         params["user_id"] = currentUserId()
         params["en_user_id"] = currentEnUserId()

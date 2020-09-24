@@ -1329,7 +1329,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
                 // * save data for p2punread count if transaction id is saved in local
                 if let data = P2PUnreadData.shared.getData(with: self?.directChatDetail?.transactionId ?? ""){
                     if (data.channelId ?? -1) < 0{
-                        P2PUnreadData.shared.updateChannelId(transactionId: self?.directChatDetail?.transactionId ?? "", channelId: result.channel?.id ?? -1, count: 0)
+                        P2PUnreadData.shared.updateChannelId(transactionId: self?.directChatDetail?.transactionId ?? "", channelId: result.channel?.id ?? -1, count: 0, otherUserUniqueKey: self?.directChatDetail?.otherUniqueKey?.first)
                     }
                 }
             }

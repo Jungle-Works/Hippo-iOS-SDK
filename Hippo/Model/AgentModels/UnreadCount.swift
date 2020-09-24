@@ -186,7 +186,7 @@ extension UnreadCount {
         HTTPClient.makeConcurrentConnectionWith(method: .POST, enCodingType: .json, para: params, extendedUrl: FuguEndPoints.fetchP2PUnreadCount.rawValue) { (responseObject, error, tag, statusCode) in
             
             guard let unwrappedStatusCode = statusCode, error == nil, unwrappedStatusCode == STATUS_CODE_SUCCESS, error == nil  else {
-                P2PUnreadData.shared.updateChannelId(transactionId: request.uniqueChatId ?? "", channelId: -2, count: 0)
+                //P2PUnreadData.shared.updateChannelId(transactionId: request.uniqueChatId ?? "", channelId: -2, count: 0)
                 callback(HippoError.general, nil)
                 print("Error",error ?? "")
                 return
@@ -203,7 +203,7 @@ extension UnreadCount {
                   let unreadCount = unreadDic["unread_count"] as? Int
 //                unreadHashMap["\(channelId)"] = unreadCount
 //                FuguDefaults.set(value: unreadHashMap, forKey: DefaultName.p2pUnreadCount.rawValue)
-                P2PUnreadData.shared.updateChannelId(transactionId: request.uniqueChatId ?? "", channelId: channelId, count: unreadCount ?? 0)
+               // P2PUnreadData.shared.updateChannelId(transactionId: request.uniqueChatId ?? "", channelId: channelId, count: unreadCount ?? 0)
             }
         
           
