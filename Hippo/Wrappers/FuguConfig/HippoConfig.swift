@@ -10,7 +10,7 @@ import UIKit
 import AVFoundation
 #if canImport(HippoCallClient)
   import HippoCallClient
-  import JitsiMeet
+// import JitsiMeet
 #endif
 
 public protocol HippoMessageRecievedDelegate: class {
@@ -46,8 +46,8 @@ static let betaFaye = "https://beta-live-api.fuguchat.com:3001/faye"
 // static let betaUrl = "https://hippo-api-dev.fuguchat.com:3002/"
 // static let betaFaye = "https://hippo-api-dev.fuguchat.com:3002/faye"
 
-static let devUrl = "https://hippo-api-dev.fuguchat.com:3004/"//"https://hippo-api-dev.fuguchat.com:3002/"//
-static let devFaye = "https://hippo-api-dev.fuguchat.com:3004/faye"//"https://hippo-api-dev.fuguchat.com:3002/faye"//
+static let devUrl = "https://hippo-api-dev.fuguchat.com:3002/"//"https://hippo-api-dev.fuguchat.com:3002/"//
+static let devFaye = "https://hippo-api-dev.fuguchat.com:3002/faye"//"https://hippo-api-dev.fuguchat.com:3002/faye"//
 
 // static let devUrl = "https://hippo-api-dev.fuguchat.com:3011/"
 // static let devFaye = "https://hippo-api-dev.fuguchat.com:3012/faye"
@@ -956,9 +956,15 @@ struct BotAction {
                 }
             }
         }else{
-            if let data = P2PUnreadData.shared.getData(with: userInfo["chat_transaction_id"] as? String ?? ""){
-                if (data.channelId ?? -1) < 0{
-                   // P2PUnreadData.shared.updateChannelId(transactionId: userInfo["chat_transaction_id"] as? String ?? "", channelId: userInfo["channel_id"] as? Int ?? -1, count: 1, muid: userInfo["muid"] as? String ?? "")
+            if let data = P2PUnreadData.shared.getData(with: userInfo["chat_transaction_id"] as? String ?? ""), let otherUserUniqueKey = ((userInfo["user_unique_key"] as? [String])?.filter{$0 != HippoConfig.shared.userDetail?.userUniqueKey}.first){
+                if (data.channelId ?? -1) < 0, otherUserUniqueKey != ""{
+                    let id = ((userInfo["chat_transaction_id"] as? String ?? "") + "-" + otherUserUniqueKey)
+                    if data.id == id{
+                       P2PUnreadData.shared.updateChannelId(transactionId: userInfo["chat_transaction_id"] as? String ?? "", channelId: userInfo["channel_id"] as? Int ?? -1, count: 1, muid: userInfo["muid"] as? String ?? "", otherUserUniqueKey: otherUserUniqueKey)
+                        
+                    }
+                }else if (data.channelId ?? -1) < 0{
+                    P2PUnreadData.shared.updateChannelId(transactionId: userInfo["chat_transaction_id"] as? String ?? "", channelId: userInfo["channel_id"] as? Int ?? -1, count: 1, muid: userInfo["muid"] as? String ?? "", otherUserUniqueKey: nil)
                 }
             }
         }
@@ -1011,24 +1017,12 @@ struct BotAction {
                 completion()
                 return
             }
-            enableAudioSession()
             JMCallKitProxy.reportNewIncomingCall(UUID: UUID, handle: name, displayName: name, hasVideo: isVideo) { (error) in
                 completion()
             }
         }
       }
     
-    func enableAudioSession(){
-//      let session = AVAudioSession.sharedInstance()
-//        do{
-//            try session.setCategory(.playAndRecord)
-//            try session.setMode(.voiceChat)
-//            try session.setActive(true)
-//            try session.overrideOutputAudioPort(AVAudioSession.PortOverride.speaker)
-//        }catch {
-//            print ("\(#file) - \(#function) error: \(error.localizedDescription)")
-//        }
-    }
     
     public func handleRemoteNotification(userInfo: [String: Any]) {
         setAgentStoredData()

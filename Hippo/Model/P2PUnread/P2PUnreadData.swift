@@ -32,8 +32,9 @@ class P2PUnreadData {
     
     
     func updateChannelId(transactionId : String, channelId : Int, count : Int, muid : String? = nil, otherUserUniqueKey: String?){
-        let data = P2PData(channelId: channelId, count: count, muid: muid, id: (transactionId + (otherUserUniqueKey ?? "")))
+        let data = P2PData(channelId: channelId, count: count, muid: muid, id: (transactionId + "-" + (otherUserUniqueKey ?? "")))
         p2pChannelCount[transactionId] = data
+        HippoConfig.shared.sendp2pUnreadCount(count, channelId)
     }
     
     /**

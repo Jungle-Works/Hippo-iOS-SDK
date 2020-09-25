@@ -236,6 +236,19 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         
     }
     
+    
+    func clearp2pdata(){
+        if self.channel?.chatDetail?.chatType == .p2p{
+            // * save data for p2punread count if transaction id is saved in local
+            if let data = P2PUnreadData.shared.getData(with: self.directChatDetail?.transactionId ?? ""){
+                let id = ((self.directChatDetail?.transactionId ?? "") + "-" + (self.directChatDetail?.otherUniqueKey?.first ?? ""))
+                if data.id == id{
+                    P2PUnreadData.shared.updateChannelId(transactionId: self.directChatDetail?.transactionId ?? "", channelId: self.channelId, count: 0, otherUserUniqueKey: self.directChatDetail?.otherUniqueKey?.first)
+                }
+            }
+        }
+    }
+    
     //    @objc func handlePanGesture(_ sender: UIPanGestureRecognizer) {
     //        let touchPoint = sender.location(in: self.view?.window)
     //        let percent = max(sender.translation(in: view).x, 0) / view.frame.width
@@ -994,7 +1007,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         
         storeRequest = request
         storeResponse = nil
-        
+        clearp2pdata()
         MessageStore.getMessages(requestParam: request, ignoreIfInProgress: false) {[weak self] (response, isCreateConversationRequired)  in
             
             self?.hideErrorMessage()
@@ -1328,7 +1341,8 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
             if self?.channel?.chatDetail?.chatType == .p2p{
                 // * save data for p2punread count if transaction id is saved in local
                 if let data = P2PUnreadData.shared.getData(with: self?.directChatDetail?.transactionId ?? ""){
-                    if (data.channelId ?? -1) < 0{
+                    let id = ((self?.directChatDetail?.transactionId ?? "") + "-" + (self?.directChatDetail?.otherUniqueKey?.first ?? ""))
+                    if ((data.channelId ?? -1) < 0 && (data.id == id)){
                         P2PUnreadData.shared.updateChannelId(transactionId: self?.directChatDetail?.transactionId ?? "", channelId: result.channel?.id ?? -1, count: 0, otherUserUniqueKey: self?.directChatDetail?.otherUniqueKey?.first)
                     }
                 }

@@ -336,21 +336,11 @@ func subscribeCustomerUserChannel(userChannelId: String) {
         
         if let notificationType = messageDict["notification_type"] as? Int{
             if notificationType == NotificationType.message.rawValue && messageDict["channel_id"] as? Int != HippoConfig.shared.getCurrentChannelId(){
-                if let channelId = messageDict["channel_id"] as? Int{
+                if let channelId = messageDict["channel_id"] as? Int, let otherUserUniqueKey = ((messageDict["user_unique_keys"] as? [String])?.filter{$0 != HippoConfig.shared.userDetail?.userUniqueKey}.first){
                     let transactionId = P2PUnreadData.shared.getTransactionId(with: channelId)
-                    if let data = P2PUnreadData.shared.getData(with: transactionId){
+                    if let data = P2PUnreadData.shared.getData(with: transactionId) , data.id == (transactionId + "-" + otherUserUniqueKey){
                         let unreadCount = (data.count ?? 0) + 1
-                        //P2PUnreadData.shared.updateChannelId(transactionId: transactionId, channelId: channelId, count: unreadCount)
-                         HippoConfig.shared.sendp2pUnreadCount(unreadCount, channelId)
-                    }
-                }
-            }else if notificationType == NotificationType.readAll.rawValue{
-                let unreadCount = 0
-                if let channelId = messageDict["channel_id"] as? Int{
-                    let transactionId = P2PUnreadData.shared.getTransactionId(with: channelId)
-                    if transactionId != ""{
-                        //P2PUnreadData.shared.updateChannelId(transactionId: transactionId, channelId: channelId, count: unreadCount)
-                        HippoConfig.shared.sendp2pUnreadCount(unreadCount, channelId)
+                        P2PUnreadData.shared.updateChannelId(transactionId: transactionId, channelId: channelId, count: unreadCount, otherUserUniqueKey: otherUserUniqueKey)
                     }
                 }
             }
