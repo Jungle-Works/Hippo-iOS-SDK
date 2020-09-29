@@ -41,7 +41,6 @@ class PaymentMessageCell: UITableViewCell {
         selectionStyle = .none
     }
     private func setupTableView() {
-        tableView.register(UINib(nibName: "SupportMessageTableViewCell", bundle: FuguFlowManager.bundle), forCellReuseIdentifier: "SupportMessageTableViewCell")
         tableView.register(UINib(nibName: "CustomerPaymentCardCell", bundle: FuguFlowManager.bundle), forCellReuseIdentifier: "CustomerPaymentCardCell")
         tableView.register(UINib(nibName: "ActionButtonViewCell", bundle: FuguFlowManager.bundle), forCellReuseIdentifier: "ActionButtonViewCell")
         tableView.register(UINib(nibName: "AssignedAgentTableViewCell", bundle: FuguFlowManager.bundle), forCellReuseIdentifier: "AssignedAgentTableViewCell")
@@ -59,9 +58,9 @@ extension PaymentMessageCell {
     func set(message: HippoMessage) {
         self.message = message
         let cards = (message.cards) ?? []
-        self.datasource.update(cards: cards, message: message)
+        self.datasource.update(cards: cards)
         self.datasource.delegate = self
-        self.heightConstraint.constant = ((message.calculatedHeight ?? 0) + 50)
+        self.heightConstraint.constant = message.calculatedHeight ?? 0
         self.layoutIfNeeded()
         
         self.tableView.reloadData()

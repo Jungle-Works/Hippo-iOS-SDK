@@ -10,7 +10,7 @@ import UIKit
 import AVFoundation
 #if canImport(HippoCallClient)
   import HippoCallClient
-// import JitsiMeet
+  import JitsiMeet
 #endif
 
 public protocol HippoMessageRecievedDelegate: class {
@@ -947,12 +947,14 @@ struct BotAction {
     }
     
     public func managePromotionOrP2pCount(_ userInfo: [String:Any]){
-        if userInfo["is_announcement_push"] as? Bool == true{
+        if userInfo["is_announcement_push"] as? Bool == true, let channel_id = userInfo["channel_id"] as? Int{
             if !(getLastVisibleController() is PromotionsViewController){
-                if let count = UserDefaults.standard.value(forKey: DefaultName.announcementUnreadCount.rawValue) as? Int{
-                    let updatedCount = count + 1
-                    UserDefaults.standard.set(updatedCount, forKey: DefaultName.announcementUnreadCount.rawValue)
-                    HippoConfig.shared.announcementUnreadCount?(updatedCount)
+                if var channelArr = UserDefaults.standard.value(forKey: DefaultName.announcementUnreadCount.rawValue) as? [String]{
+                    if !channelArr.contains(String(channel_id)){
+                        channelArr.append(String(channel_id))
+                    }
+                    UserDefaults.standard.set(channelArr, forKey: DefaultName.announcementUnreadCount.rawValue)
+                    HippoConfig.shared.announcementUnreadCount?(channelArr.count)
                 }
             }
         }else{
@@ -1009,6 +1011,8 @@ struct BotAction {
     }
     
     func reportIncomingCallOnCallKit(userInfo: [String : Any], completion: @escaping () -> Void){
+        #if canImport(JitsiMeet)
+        enableAudioSession()
         if let uuid = userInfo["muid"] as? String, let name = userInfo["last_sent_by_full_name"] as? String, let isVideo = userInfo["call_type"] as? String == "AUDIO" ? false : true{
             guard let UUID = UUID(uuidString: uuid) else {
                 return
@@ -1021,8 +1025,18 @@ struct BotAction {
                 completion()
             }
         }
+        #endif
       }
     
+    func enableAudioSession(){
+         do{
+             try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playAndRecord, mode: AVAudioSession.Mode.videoChat, options: .mixWithOthers)
+             try AVAudioSession.sharedInstance().overrideOutputAudioPort(.speaker)
+             try AVAudioSession.sharedInstance().setActive(true)
+         }catch {
+             print ("\(#file) - \(#function) error: \(error.localizedDescription)")
+         }
+     }
     
     public func handleRemoteNotification(userInfo: [String: Any]) {
         setAgentStoredData()

@@ -52,12 +52,7 @@ class PromotionsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       // self.title = HippoStrings.notifications
-        
-        let updatedCount = 0
-        UserDefaults.standard.set(updatedCount, forKey: DefaultName.announcementUnreadCount.rawValue)
-        HippoConfig.shared.announcementUnreadCount?(updatedCount)
-        
+      
         FuguNetworkHandler.shared.fuguConnectionChangesStartNotifier()
         
         if shouldUseCache {
@@ -216,6 +211,14 @@ class PromotionsViewController: UIViewController {
                     if startOffset == 0{
                         self.savePromotionsInCache(arr as? [[String : Any]] ?? [[String : Any]]())
                     }
+                    
+                    let channelIdArr = self.data.map{String($0.channelID)}
+                    if let channelArr = UserDefaults.standard.value(forKey: DefaultName.announcementUnreadCount.rawValue) as? [String]{
+                        let result = channelArr.filter { !channelIdArr.contains($0) }
+                        UserDefaults.standard.set(result, forKey: DefaultName.announcementUnreadCount.rawValue)
+                        HippoConfig.shared.announcementUnreadCount?(result.count)
+                    }
+                    
                     
                 }
                 self.noNotificationsFound()
