@@ -993,7 +993,7 @@ struct BotAction {
             return
         }
         
-        HippoNotification.showLocalNotificationForVoip(json)
+        //HippoNotification.showLocalNotificationForVoip(json)
         self.handleVoipNotification(payloadDict: json, completion: completion)
         
     }
