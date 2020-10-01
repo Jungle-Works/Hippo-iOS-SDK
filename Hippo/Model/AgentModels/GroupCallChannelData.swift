@@ -42,12 +42,12 @@ struct GroupCallChannelData {
                 this.callType = isVideoEnabled ? .video : .audio
             }
             
-            if let isAudioMuted = data["is_audio_enabled"] as? String{
-                this.isAudioMuted = isAudioMuted == "1" ? false : true
-            }else if let isAudioMuted = data["is_audio_enabled"] as? Int{
-                this.isAudioMuted = isAudioMuted == 1 ? false : true
-            }else if let isAudioMuted = data["is_audio_enabled"] as? Bool{
-                this.isAudioMuted = isAudioMuted ? false : isAudioMuted
+            if let isAudioEnabled = data["is_audio_enabled"] as? String{
+                this.isAudioMuted = isAudioEnabled == "1" ? false : true
+            }else if let isAudioEnabled = data["is_audio_enabled"] as? Int{
+                this.isAudioMuted = isAudioEnabled == 1 ? false : true
+            }else if let isAudioEnabled = data["is_audio_enabled"] as? Bool{
+                this.isAudioMuted = isAudioEnabled ? false : true
             }
         }
         this.channelId = dic["channel_id"] as? Int
