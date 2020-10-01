@@ -44,9 +44,9 @@ struct GroupCallChannelData {
             
             if let isAudioMuted = data["is_audio_enabled"] as? String{
                 this.isAudioMuted = isAudioMuted == "1" ? false : true
-            }else if let isAudioMuted = data["is_video_enabled"] as? Int{
+            }else if let isAudioMuted = data["is_audio_enabled"] as? Int{
                 this.isAudioMuted = isAudioMuted == 1 ? false : true
-            }else if let isAudioMuted = data["is_video_enabled"] as? Bool{
+            }else if let isAudioMuted = data["is_audio_enabled"] as? Bool{
                 this.isAudioMuted = isAudioMuted ? false : isAudioMuted
             }
         }
