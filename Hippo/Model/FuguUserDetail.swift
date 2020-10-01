@@ -478,7 +478,6 @@ public class UserTag: NSObject {
     
     class func clearAllData(completion: ((Bool) -> Void)? = nil) {
         
-        
         FuguDefaults.removeAllPersistingData()
 //        if FayeConnection.shared.isConnected{
 //            FayeConnection.shared.disconnectFaye()

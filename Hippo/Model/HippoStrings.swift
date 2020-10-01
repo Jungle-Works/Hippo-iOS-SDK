@@ -200,7 +200,7 @@ public class HippoStrings {
     static var invalidPriceAmount = "Invalid Price".localized
     static var fieldEmpty = "Field cannot be empty".localized
     static var closedChat = "Closed Chats".localized
-    
+    static var noConversationFound = "No conversations found.".localized
     
     
     open var disbaledCameraErrorMessage = "Access to Camera is denied. Please enable from setings."
