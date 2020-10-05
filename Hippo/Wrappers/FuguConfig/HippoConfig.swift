@@ -116,7 +116,6 @@ struct BotAction {
     internal var userDetail: HippoUserDetail?
     internal var jitsiUrl : String?
     internal var jitsiOngoingCall : Bool?
-    internal var supportCustomer : HippoUserDetail?
     internal var agentDetail: AgentDetail?
     public var strings = HippoStrings()
     private(set)  open var newConversationButtonBorderWidth: Float = 0.0
@@ -341,13 +340,12 @@ struct BotAction {
     //MARK:- Function to initiate customer from Agent sdk
     ///Support chat func for Agent
     
-    public func initCustomerForSupport(userDetail: HippoUserDetail){
-        self.supportCustomer = userDetail
+    public func initCustomerForSupport(){
+        self.userDetail = HippoUserDetail(fullName: "", email: "", phoneNumber: "", userUniqueKey: "test123")
+        self.appSecretKey = HippoConfig.shared.agentDetail?.appSecrectKey ?? ""
         HippoUserDetail.getUserDetailsAndConversation { (status, error) in
-            if (self.userDetail?.selectedlanguage ?? "") == ""{
-                self.userDetail?.selectedlanguage = BussinessProperty.current.buisnessLanguageArr?.filter{$0.is_default == true}.first?.lang_code
-            }
-            self.setLanguage(self.userDetail?.selectedlanguage ?? "en")
+           //197750
+            self.openChatScreen(withLabelId: 197750, isSupportCustomer: true)
         }
     }
     
@@ -484,8 +482,8 @@ struct BotAction {
         HippoConfig.shared.strings.displayNameForCustomers = name
         FuguFlowManager.shared.presentBroadcastController()
     }
-    public func openChatScreen(on viewController: UIViewController? = nil, withLabelId labelId: Int, hideBackButton: Bool = false, animation: Bool = true) {
-        guard appUserType == .customer else {
+    public func openChatScreen(on viewController: UIViewController? = nil, withLabelId labelId: Int, hideBackButton: Bool = false, animation: Bool = true, isSupportCustomer : Bool = false) {
+        guard appUserType == .customer || isSupportCustomer == true else {
             return
         }
         if let vc = viewController {
