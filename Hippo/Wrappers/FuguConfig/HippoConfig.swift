@@ -341,12 +341,23 @@ struct BotAction {
     ///Support chat func for Agent
     
     public func initCustomerForSupport(){
-        self.userDetail = HippoUserDetail(fullName: "", email: "", phoneNumber: "", userUniqueKey: "test123")
-        self.appSecretKey = HippoConfig.shared.agentDetail?.appSecrectKey ?? ""
-        HippoUserDetail.getUserDetailsAndConversation { (status, error) in
-           //197750
+        guard self.appUserType == .agent else {
+            return
+        }
+        
+        if self.userDetail == nil{
+            
+            self.userDetail = HippoUserDetail(fullName: "", email: "", phoneNumber: "", userUniqueKey: "test123")
+            self.userDetail?.isSupportUser = true
+            self.appSecretKey = HippoConfig.shared.agentDetail?.appSecrectKey ?? ""
+            HippoUserDetail.getUserDetailsAndConversation { (status, error) in
+                //197750
+                self.openChatScreen(withLabelId: 197750, isSupportCustomer: true)
+            }
+        }else{
             self.openChatScreen(withLabelId: 197750, isSupportCustomer: true)
         }
+      
     }
     
     ///

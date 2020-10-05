@@ -104,6 +104,8 @@ public class UserTag: NSObject {
     var userImage: URL?
     var selectedlanguage : String?
     var userChannel: String?
+    var isSupportUser : Bool = false
+    
     static var shouldGetPaymentGateways : Bool = true
     
     class var HippoUserChannelId: String? {
