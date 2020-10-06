@@ -218,6 +218,9 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         }
     }
     
+    var isSupportCustomer : Bool?
+    
+    
     // MARK: - Intializer
     init?(dict: [String: Any]) {
         guard let userId = dict["user_id"] ?? dict["last_sent_by_id"] else {

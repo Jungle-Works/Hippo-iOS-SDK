@@ -104,6 +104,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     var hieghtOfNavigationBar: CGFloat = 0
     
     //    var initialTouchPoint: CGPoint = CGPoint(x: 0, y: 0)
+    var isSupportCustomer : Bool = HippoConfig.shared.userDetail?.isSupportUser ?? false
     
     // MARK: - Computed Properties
     var localFilePath: String {
@@ -717,6 +718,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         channel?.unsentMessages.append(message)
         if channel != nil {
             addMessageToUIBeforeSending(message: message)
+            channel.isSupportCustomer = isSupportCustomer
             self.sendMessage(message: message)
         } else {
             //TODO: - Loader animation
@@ -1299,7 +1301,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
       }
       
       if isDefaultChannel() {
-        let request = CreateConversationWithLabelId(replyMessage: replyMessage, botGroupId: botGroupID, labelId: labelId, initalMessages: getAllLocalMessages(), channelName: label)
+        let request = CreateConversationWithLabelId(replyMessage: replyMessage, botGroupId: botGroupID, labelId: labelId, initalMessages: getAllLocalMessages(), channelName: label, createChatForSupportCustomer: isSupportCustomer)
         HippoChannel.get(request: request) { [weak self] (r) in
             var result = r
             if result.isSuccessful, request.shouldSendInitalMessages(), request.replyMessage != nil {
