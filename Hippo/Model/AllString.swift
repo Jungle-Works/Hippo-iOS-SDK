@@ -1164,7 +1164,7 @@ class AllString{
         }
         
         if let tags = response["tags"] as? String{
-            
+            HippoStrings.tags = tags
         }
         
         if let channel_info = response["channel_info"] as? String{
@@ -2200,7 +2200,7 @@ class AllString{
         }
         
         if let hippo_bot_in_progress = response["hippo_bot_in_progress"] as? String{
-            
+            HippoStrings.botInProgress = hippo_bot_in_progress
         }
         
         if let hippo_no_internet_connected = response["hippo_no_internet_connected"] as? String{
@@ -2236,7 +2236,7 @@ class AllString{
         }
         
         if let hippo_Bot = response["hippo_Bot"] as? String{
-            
+            HippoStrings.bot = hippo_Bot
         }
         
         if let hippo_savePaymentPlan = response["hippo_savePaymentPlan"] as? String{
@@ -2263,6 +2263,10 @@ class AllString{
         if let hippo_invalid_price = response["hippo_invalid_price"] as? String{
             HippoStrings.invalidPriceAmount = hippo_invalid_price
         }
+        if let hippo_takeover_chat = response["hippo_takeover_chat"] as? String{
+            HippoStrings.takeOverChat = hippo_takeover_chat
+        }
+        
         
     }
     

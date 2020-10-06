@@ -229,7 +229,7 @@ extension AgentHomeConversationCell {
         var tag: TagBoxInfo?
         let botInProgress = info.isBotInProgress
         if botInProgress{
-            tag = TagBoxInfo(labelText: "Bot in progress", textColor: .darkGrayColorForTag, containerBackgroundColor: .lightGrayBgColorForTag, containerBorderColor: UIColor.makeColor(red: 228, green: 228, blue: 237, alpha: 1))
+            tag = TagBoxInfo(labelText: HippoStrings.botInProgress, textColor: .darkGrayColorForTag, containerBackgroundColor: .lightGrayBgColorForTag, containerBorderColor: UIColor.makeColor(red: 228, green: 228, blue: 237, alpha: 1))
             return tag
         }else{
             return nil

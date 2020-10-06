@@ -201,7 +201,7 @@ public class HippoStrings {
     static var fieldEmpty = "Field cannot be empty".localized
     static var closedChat = "Closed Chats".localized
     static var noConversationFound = "No conversations found.".localized
-    
+    static var botInProgress = "Bot in progress".localized
     
     open var disbaledCameraErrorMessage = "Access to Camera is denied. Please enable from setings."
     open var cameraString = "New Image via Camera"
