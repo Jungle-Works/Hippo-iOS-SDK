@@ -87,6 +87,9 @@ class AllString{
         if let leaveComment = response["fugu_leave_comment"] as? String{
             
         }
+        if let error_msg_yellow_bar = response["error_msg_yellow_bar"] as? String{
+            HippoStrings.slowInternet = error_msg_yellow_bar
+        }
         
         if let loading = response["fugu_loading"] as? String{
             HippoStrings.loading = loading
@@ -571,6 +574,11 @@ class AllString{
         if let vw_confirm = response["vw_confirm"] as? String{
             HippoStrings.Done = vw_confirm
         }
+        
+        if let hippo_call_ended = response["hippo_call_ended"] as? String{
+            HippoStrings.callEnded = hippo_call_ended
+        }
+        
         if let vw_no_photo_app = response["vw_no_photo_app"] as? String{
             
         }
@@ -1924,7 +1932,7 @@ class AllString{
         }
         
         if let error_msg_yellow_bar = response["error_msg_yellow_bar"] as? String{
-            
+            HippoStrings.slowInternet = error_msg_yellow_bar
         }
         
         if let fugu_connecting = response["fugu_connecting"] as? String{
