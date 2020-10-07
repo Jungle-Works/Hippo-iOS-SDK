@@ -1359,11 +1359,11 @@ extension AgentConversationViewController {
         let isBotButtonHidden = isPrivate || self.messageSendingViewConfig.shouldHideBottonButtons()
         
         if isBotButtonHidden == true{
-            if let index = self.attachments.firstIndex(where: {$0.title?.lowercased() == "bot"}), index < self.attachments.count{
+            if let index = self.attachments.firstIndex(where: {$0.title == HippoStrings.bot}), index < self.attachments.count{
                self.attachments.remove(at: index)
             }
         }else{
-            self.attachments.append(Attachment(icon : HippoConfig.shared.theme.botIcon  , title : "Bot"))
+            self.attachments.append(Attachment(icon : HippoConfig.shared.theme.botIcon  , title : HippoStrings.bot))
         }
         collectionViewOptions.reloadData()
         

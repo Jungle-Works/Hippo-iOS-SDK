@@ -2275,7 +2275,9 @@ class AllString{
             HippoStrings.takeOverChat = hippo_takeover_chat
         }
         
-        
+        if let video = response["video"] as? String{
+            HippoStrings.video = video
+        }
     }
     
     class func updateLanguageApi() {
