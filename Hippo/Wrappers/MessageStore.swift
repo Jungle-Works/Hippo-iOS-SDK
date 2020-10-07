@@ -67,6 +67,7 @@ class MessageStore {
         
         var isBotInProgress: Bool = false
         var restrictPersonalInfo : Bool = false
+        var createNewChannel : Bool?
     }
     
     
@@ -85,7 +86,7 @@ class MessageStore {
         isInProgress = true
         
         HTTPClient.shared.makeSingletonConnectionWith(method: .POST, identifier: RequestIdenfier.getMessagesIdentifier + "\(requestParam.channelId)",para: params, extendedUrl: FuguEndPoints.API_GET_MESSAGES.rawValue) { (responseObject, error, tag, statusCode) in
-
+       
             isInProgress = false
             let rawStatusCode = statusCode ?? -1
             
@@ -249,6 +250,9 @@ class MessageStore {
         //
         if let isPersonalInfoRestricted = data["restrict_personal_info_sharing"] as? Bool{
             result.restrictPersonalInfo = isPersonalInfoRestricted
+        }
+        if let createChannel = data["create_new_channel"] as? Bool{
+            result.createNewChannel = createChannel
         }
         
         //Sending

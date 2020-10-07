@@ -51,6 +51,8 @@ class PaymentItem: NSObject {
         let currencyCode: String? = String.parse(values: option, key: "currency")
         let currencySymbol: String? = String.parse(values: option, key: "currency_symbol")
         currency = PaymentCurrency(currencySymbol ?? "$", currencyCode ?? "INR")
+            //PaymentCurrency.findCurrency(code: currencyCode, symbol: currencySymbol)
+        
     }
     
     class func getDefaultForm() -> PaymentItem? {

@@ -48,16 +48,13 @@ class PromotionsViewController: UIViewController {
     var states = [Bool]()
     var shouldUseCache : Bool = true
     var page = 1
-    var limit = 19
+    var limit = 20
+    var shouldFetchData = true
+    var previousPage = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       // self.title = HippoStrings.notifications
-        
-        let updatedCount = 0
-        UserDefaults.standard.set(updatedCount, forKey: DefaultName.announcementUnreadCount.rawValue)
-        HippoConfig.shared.announcementUnreadCount?(updatedCount)
-        
+      
         FuguNetworkHandler.shared.fuguConnectionChangesStartNotifier()
         
         if shouldUseCache {
@@ -93,7 +90,7 @@ class PromotionsViewController: UIViewController {
         isMoreData = false
         self.page = 1
         if FuguNetworkHandler.shared.isNetworkConnected {
-            self.getAnnouncements(endOffset:19, startOffset: 0)
+            self.getAnnouncements(endOffset:limit, startOffset: 0)
         }else{
             self.refreshControl.endRefreshing()
         }
@@ -113,7 +110,7 @@ class PromotionsViewController: UIViewController {
     func callGetAnnouncementsApi(){
         // self.startLoaderAnimation()
         self.page = 1
-        self.getAnnouncements(endOffset: 19, startOffset: 0)
+        self.getAnnouncements(endOffset: limit, startOffset: 0)
     }
     
     override func viewWillLayoutSubviews() {
@@ -201,6 +198,9 @@ class PromotionsViewController: UIViewController {
                 self.refreshControl.endRefreshing()
                 let r = response as? NSDictionary
                 if let arr = r!["data"] as? NSArray{
+                    if arr.count == 0{
+                        self.shouldFetchData = false
+                    }
                     if startOffset == 0 && self.data.count > 0{
                         self.data.removeAll()
                         self.states.removeAll()
@@ -216,6 +216,14 @@ class PromotionsViewController: UIViewController {
                     if startOffset == 0{
                         self.savePromotionsInCache(arr as? [[String : Any]] ?? [[String : Any]]())
                     }
+                    
+                    let channelIdArr = self.data.map{String($0.channelID)}
+                    if let channelArr = UserDefaults.standard.value(forKey: DefaultName.announcementUnreadCount.rawValue) as? [String]{
+                        let result = channelArr.filter { !channelIdArr.contains($0) }
+                        UserDefaults.standard.set(result, forKey: DefaultName.announcementUnreadCount.rawValue)
+                        HippoConfig.shared.announcementUnreadCount?(result.count)
+                    }
+                    
                     
                 }
                 self.noNotificationsFound()
@@ -476,11 +484,12 @@ extension PromotionsViewController : UIScrollViewDelegate {
     
     func reloadProducts(_ scrollView: UIScrollView) {
         if scrollView == promotionsTableView{
-            if scrollView.frame.size.height + scrollView.contentOffset.y >= scrollView.contentSize.height, (data.count) % limit == 0 {
-                if self.page != Int((data.count)/limit + 1){
-                    self.page = Int((data.count)/limit + 1)
-                    let previousOffset = data.count + 1 // add 1 manually to both start offeset and end offset
-                    getAnnouncements(endOffset: data.count + limit + 1, startOffset: previousOffset)
+            if scrollView.frame.size.height + scrollView.contentOffset.y >= scrollView.contentSize.height, shouldFetchData{
+                if page > previousPage{
+                    self.previousPage = page
+                    self.page += 1
+                    let previousOffset = data.count
+                    getAnnouncements(endOffset: limit, startOffset: previousOffset)
                 }else{
                     return
                 }

@@ -80,9 +80,17 @@ struct CreateConversationWithLabelId {
         if let botGroupId = botGroupId {
             params["initiate_bot_group_id"] = botGroupId
         }
-        if !messagesList.isEmpty {
+      
+        if let vc = getLastVisibleController() as? HippoConversationViewController{
+            if vc.storeResponse?.createNewChannel == true{
+                //params["initial_bot_messages"] = []
+            }else if !messagesList.isEmpty {
+                params["initial_bot_messages"] = messagesList
+            }
+        }else if !messagesList.isEmpty {
             params["initial_bot_messages"] = messagesList
         }
+        
         return params
     }
 }
@@ -730,6 +738,9 @@ class HippoChannel {
 
         chatDetail.assignedAgentID = users.first?.userID ?? chatDetail.assignedAgentID
         chatDetail.assignedAgentName = users.first?.fullName ?? chatDetail.assignedAgentName
+        if let vc = getLastVisibleController() as? HippoConversationViewController{
+            vc.storeResponse?.restrictPersonalInfo = dict["restrict_personal_info_sharing"] as? Bool ?? false
+        }
         
         delegate?.channelDataRefreshed()
     }

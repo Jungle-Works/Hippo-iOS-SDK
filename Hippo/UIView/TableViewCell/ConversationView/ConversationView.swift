@@ -164,7 +164,6 @@ extension ConversationView {
         }
             
         
-        
         var messageString = ""
         if let last_sent_by_id = conersationObj.lastMessage?.senderId, let userId = HippoUserDetail.fuguUserID, last_sent_by_id == userId {
             messageString = "\(HippoStrings.you): "

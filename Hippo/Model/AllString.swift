@@ -604,7 +604,9 @@ class AllString{
             HippoStrings.selectaPlan = hippo_select_a_plan
         }
         
-        
+        if let hippo_message_not_allow = response["hippo_message_not_allow"] as? String{
+            HippoStrings.donotAllowPersonalInfo = hippo_message_not_allow
+        }
         
     }
     

@@ -28,9 +28,15 @@ class P2PUnreadData {
         * Used for saving data from fetch p2p unread count API
     */
     
-    func updateChannelId(transactionId : String, channelId : Int, count : Int){
-        let data = P2PData(channelId: channelId, count: count)
+    
+    
+    
+    func updateChannelId(transactionId : String, channelId : Int, count : Int, muid : String? = nil, otherUserUniqueKey: String?){
+        let data = P2PData(channelId: channelId, count: count, muid: muid, id: (transactionId + "-" + (otherUserUniqueKey ?? "")))
         p2pChannelCount[transactionId] = data
+        if count >= 0{
+            HippoConfig.shared.sendp2pUnreadCount(count, channelId)
+        }
     }
     
     /**
@@ -51,4 +57,6 @@ class P2PUnreadData {
 struct P2PData {
     var channelId : Int?
     var count : Int?
+    var muid : String?
+    var id : String?
 }
