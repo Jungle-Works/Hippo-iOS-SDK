@@ -589,7 +589,7 @@ class AgentConversationViewController: HippoConversationViewController {
         
         storeRequest = request
         
-        MessageStore.getMessages(requestParam: request, ignoreIfInProgress: false) {[weak self] (response, isCreateConversationRequired)  in
+        MessageStore.getMessages(requestParam: request, ignoreIfInProgress: false, isSupportCustomer: false) {[weak self] (response, isCreateConversationRequired)  in
             guard self != nil else {
                 completion?(false)
                 return

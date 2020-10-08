@@ -105,7 +105,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     
     //    var initialTouchPoint: CGPoint = CGPoint(x: 0, y: 0)
     var isSupportCustomer : Bool = HippoConfig.shared.userDetail?.isSupportUser ?? false
-    
+    override var getSavedUserId: Int{ return (isSupportCustomer ? HippoUserDetail.fuguUserID : currentUserId()) ?? currentUserId()}
     // MARK: - Computed Properties
     var localFilePath: String {
         get {
@@ -997,7 +997,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         storeRequest = request
         storeResponse = nil
         
-        MessageStore.getMessages(requestParam: request, ignoreIfInProgress: false) {[weak self] (response, isCreateConversationRequired)  in
+        MessageStore.getMessages(requestParam: request, ignoreIfInProgress: false, isSupportCustomer: isSupportCustomer) {[weak self] (response, isCreateConversationRequired)  in
             
             self?.hideErrorMessage()
             self?.enableSendingNewMessages()
@@ -1224,7 +1224,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
      let request = MessageStore.messageRequest(pageStart: 1, showLoader: false, pageEnd: nil, channelId: -1, labelId: labelId)
      storeRequest = request
      storeResponse = nil
-     MessageStore.getMessagesByLabelID(requestParam: request, ignoreIfInProgress: false) {[weak self] (response, error)  in
+    MessageStore.getMessagesByLabelID(requestParam: request, ignoreIfInProgress: false, isSupportCustomer : isSupportCustomer) {[weak self] (response, error)  in
         
         if self?.storeRequest?.id == request.id {
           self?.stopLoaderAnimation()

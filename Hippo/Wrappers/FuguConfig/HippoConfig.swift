@@ -45,8 +45,8 @@ static let betaFaye = "https://beta-live-api.fuguchat.com:3001/faye"
 // static let betaUrl = "https://hippo-api-dev.fuguchat.com:3002/"
 // static let betaFaye = "https://hippo-api-dev.fuguchat.com:3002/faye"
 
-static let devUrl = "https://hippo-api-dev.fuguchat.com:3002/"//"https://hippo-api-dev.fuguchat.com:3002/"//
-static let devFaye = "https://hippo-api-dev.fuguchat.com:3002/faye"//"https://hippo-api-dev.fuguchat.com:3002/faye"//
+static let devUrl = "https://hippo-api-dev.fuguchat.com:3003/"//"https://hippo-api-dev.fuguchat.com:3002/"//
+static let devFaye = "https://hippo-api-dev.fuguchat.com:3003/faye"//"https://hippo-api-dev.fuguchat.com:3002/faye"//
 
 // static let devUrl = "https://hippo-api-dev.fuguchat.com:3011/"
 // static let devFaye = "https://hippo-api-dev.fuguchat.com:3012/faye"
@@ -347,7 +347,7 @@ struct BotAction {
         
         if self.userDetail == nil{
             
-            self.userDetail = HippoUserDetail(fullName: "", email: "", phoneNumber: "", userUniqueKey: "test123")
+            self.userDetail = HippoUserDetail(fullName: "", email: "", phoneNumber: "", userUniqueKey: "arohi123")
             self.userDetail?.isSupportUser = true
             self.appSecretKey = HippoConfig.shared.agentDetail?.appSecrectKey ?? ""
             HippoUserDetail.getUserDetailsAndConversation { (status, error) in
