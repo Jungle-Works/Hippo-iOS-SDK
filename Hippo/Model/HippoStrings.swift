@@ -202,6 +202,8 @@ public class HippoStrings {
     static var closedChat = "Closed Chats".localized
     static var noConversationFound = "No conversations found.".localized
     static var botInProgress = "Bot in progress".localized
+    static var connectingToMeeting = "Connecting you to your meeting".localized
+    
     
     open var disbaledCameraErrorMessage = "Access to Camera is denied. Please enable from setings."
     open var cameraString = "New Image via Camera"
@@ -252,6 +254,7 @@ public class HippoStrings {
         HippoCallClientStrings.callingYou = HippoStrings.isCallingYou.lowercased()
         HippoCallClientStrings.callDeclined = HippoStrings.callDeclined
         HippoCallClientStrings.busyOnOtherCall = HippoStrings.busyAnotherCall
+        HippoCallClientStrings.connectingToMeeting = HippoStrings.connectingToMeeting
         
         #endif
     }

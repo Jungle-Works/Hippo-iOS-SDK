@@ -217,6 +217,11 @@ class AllString{
         if let hippo_call_rejected = response["hippo_call_rejected"] as? String{
             
         }
+        
+        if let hippo_calling_connection = response["hippo_calling_connection"] as? String{
+            HippoStrings.connectingToMeeting = hippo_calling_connection
+        }
+        
         if let hippo_call_ringing = response["hippo_call_ringing"] as? String{
             HippoStrings.ringing = hippo_call_ringing
         }
@@ -1326,30 +1331,7 @@ class AllString{
         if let empty_msg = response["empty_msg"] as? String{
             HippoStrings.fieldEmpty = empty_msg
         }
-        
-        if let phone_empty_msg = response["phone_empty_msg"] as? String{
-            
-        }
-        
-        if let name_empty_msg = response["name_empty_msg"] as? String{
-            
-        }
-        
-        if let old_pass_empty_msg = response["old_pass_empty_msg"] as? String{
-            
-        }
-        
-        if let new_pass_empty_msg = response["new_pass_empty_msg"] as? String{
-            
-        }
-        
-        if let conf_pass_empty_msg = response["conf_pass_empty_msg"] as? String{
-            
-        }
-        
-        if let PleaseEnterConfrimPassword = response["PleaseEnterConfrimPassword"] as? String{
-            
-        }
+     
         
         if let PleaseEnterAddressType = response["PleaseEnterAddressType"] as? String{
             
@@ -1567,7 +1549,7 @@ class AllString{
         }
         
         if let hippo_rated_message = response["hippo_rated_message"] as? String{
-            
+            HippoStrings.thanksForFeedback = hippo_rated_message
         }
         
         if let feedback_pending = response["feedback_pending"] as? String{
@@ -2278,6 +2260,16 @@ class AllString{
         if let video = response["video"] as? String{
             HippoStrings.video = video
         }
+        if let hippo_assigned_to = response["hippo_assigned_to"] as? String{
+            HippoStrings.assignedTo = hippo_assigned_to
+        }
+        if let hippo_calling_connection = response["hippo_calling_connection"] as? String{
+            HippoStrings.connectingToMeeting = hippo_calling_connection
+        }
+        if let hippo_emptymessage = response["hippo_emptymessage"] as? String{
+            HippoStrings.enterSomeText = hippo_emptymessage
+        }
+        
     }
     
     class func updateLanguageApi() {
