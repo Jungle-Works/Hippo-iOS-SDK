@@ -187,7 +187,7 @@ class FuguFlowManager: NSObject {
         viewController.navigationController?.pushViewController(convVC, animated: true)
     }
     
-    func consultNowButtonClicked(consultNowInfoDict: [String: Any]){
+    func consultNowButtonClicked(consultNowInfoDict: [String: Any], isSupportCustomer : Bool = false){
         
 //        var fuguNewChatAttributes = FuguNewChatAttributes(transactionId: "", userUniqueKey: HippoConfig.shared.userDetail?.userUniqueKey, otherUniqueKey: nil, tags: HippoProperty.current.newConversationButtonTags, channelName: nil, preMessage: "", groupingTag: nil)
         var transactionId = ""
@@ -210,7 +210,7 @@ class FuguFlowManager: NSObject {
         navVC.setNavigationBarHidden(true, animated: false)
         convVC.createConversationOnStart = true
         convVC.consultNowInfoDict = consultNowInfoDict
-        convVC.isComingFromConsultNowButton = true
+        convVC.isComingFromConsultNowButton = isSupportCustomer ? false : true
         navVC.modalPresentationStyle = .fullScreen
         visibleViewController?.present(navVC, animated: false, completion: nil)
         

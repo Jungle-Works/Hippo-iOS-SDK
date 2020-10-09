@@ -340,22 +340,25 @@ struct BotAction {
     //MARK:- Function to initiate customer from Agent sdk
     ///Support chat func for Agent
     
-    public func initCustomerForSupport(){
+    public func initCustomerForSupport(_ transactionId : String){
         guard self.appUserType == .agent else {
             return
         }
         
         if self.userDetail == nil{
             
-            self.userDetail = HippoUserDetail(fullName: "", email: "", phoneNumber: "", userUniqueKey: "arohi123")
+            self.userDetail = HippoUserDetail(fullName: "", email: "", phoneNumber: "", userUniqueKey: "arohi123", getPaymentGateways: false)
             self.userDetail?.isSupportUser = true
             self.appSecretKey = HippoConfig.shared.agentDetail?.appSecrectKey ?? ""
             HippoUserDetail.getUserDetailsAndConversation { (status, error) in
                 //197750
-                self.openChatScreen(withLabelId: 197750, isSupportCustomer: true)
+                let dic = ["transactionId" : transactionId]
+                self.consultNowButtonClicked(consultNowInfoDict: dic)
+                //self.openChatScreen(withLabelId: 197750, isSupportCustomer: true)
             }
         }else{
-            self.openChatScreen(withLabelId: 197750, isSupportCustomer: true)
+            let dic = ["transactionId" : transactionId]
+            consultNowButtonClicked(consultNowInfoDict: dic)
         }
       
     }
@@ -478,7 +481,7 @@ struct BotAction {
     }
     
     public func consultNowButtonClicked(consultNowInfoDict: [String: Any]){
-        FuguFlowManager.shared.consultNowButtonClicked(consultNowInfoDict: consultNowInfoDict)
+        FuguFlowManager.shared.consultNowButtonClicked(consultNowInfoDict: consultNowInfoDict, isSupportCustomer: HippoConfig.shared.userDetail?.isSupportUser ?? false)
     }
     
     public func presentPromotionalPushController(){

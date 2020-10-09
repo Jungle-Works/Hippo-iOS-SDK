@@ -1072,7 +1072,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         
         //image icon name = tiny-video-symbol
         
-        if isDirectCallingEnabledFor(type: .video) {
+        if isDirectCallingEnabledFor(type: .video) && !isSupportCustomer{
             
             view_Navigation.video_button.tintColor = HippoConfig.shared.theme.headerTextColor
             view_Navigation.video_button.isEnabled = true
@@ -1089,7 +1089,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         
         //image icon name = audioCallIcon
         
-        if isDirectCallingEnabledFor(type: .audio) {
+        if isDirectCallingEnabledFor(type: .audio) && !isSupportCustomer{
             view_Navigation.call_button.tintColor = HippoConfig.shared.theme.headerTextColor
             view_Navigation.call_button.isEnabled = true
             view_Navigation.call_button.setImage(HippoConfig.shared.theme.audioCallIcon, for: .normal)
