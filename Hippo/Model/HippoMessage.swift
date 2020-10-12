@@ -642,8 +642,8 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
     func getDicForCustomAction() -> [String : Any]{
         var dic = [String : Any]()
         dic["is_replied"] = 1 // Need to send 1 for message
-        dic["max_selection"] = 1
-        dic["min_selection"] = 1
+        dic["max_selection"] = customAction?.maxSelection ?? 1
+        dic["min_selection"] = customAction?.minSelection ?? 1
         dic["multi_select_buttons"] = getArrOfCustomActionBtn()
         
         return dic
@@ -656,7 +656,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
             var dic = [String : Any]()
             dic["btn_id"] = btn.btnId
             dic["btn_title"] = btn.btnTitle
-            dic["status"] = btn.status
+            dic["status"] = btn.status?.intValue()
             btnArr.append(dic)
         }
         return btnArr
