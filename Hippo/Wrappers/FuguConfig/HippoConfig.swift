@@ -235,6 +235,12 @@ struct BotAction {
         return nil
     }
     
+    public func callMissedFromUser(userInfo : [String : Any]){
+        if userInfo["notification_type"] as? Int == NotificationType.call.rawValue{
+            CallManager.shared.voipNotificationRecieved(payloadDict: userInfo)
+        }
+    }
+    
     internal func setAgentStoredData() {
         guard let storedData = AgentDetail.agentLoginData else {
             return
