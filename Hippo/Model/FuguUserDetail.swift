@@ -478,7 +478,6 @@ public class UserTag: NSObject {
     
     class func clearAllData(completion: ((Bool) -> Void)? = nil) {
         
-        
         FuguDefaults.removeAllPersistingData()
 //        if FayeConnection.shared.isConnected{
 //            FayeConnection.shared.disconnectFaye()
@@ -543,6 +542,7 @@ public class UserTag: NSObject {
         let voipToken = TokenManager.voipToken
         
         HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: FuguEndPoints.API_CLEAR_USER_DATA_LOGOUT.rawValue) { (responseObject, error, tag, statusCode) in
+
             if currentUserType() == .customer{
                 unSubscribe(userChannelId: HippoUserDetail.HippoUserChannelId ?? "")
             }else{
