@@ -83,12 +83,13 @@ struct CreateConversationWithLabelId {
       
         if let vc = getLastVisibleController() as? HippoConversationViewController{
             if vc.storeResponse?.createNewChannel == true{
-                params["initial_bot_messages"] = []
+                //params["initial_bot_messages"] = []
+            }else if !messagesList.isEmpty {
+                params["initial_bot_messages"] = messagesList
             }
         }else if !messagesList.isEmpty {
             params["initial_bot_messages"] = messagesList
         }
-        
         
         return params
     }
