@@ -621,6 +621,10 @@ class AllString{
             HippoStrings.donotAllowPersonalInfo = hippo_message_not_allow
         }
         
+        if let hippo_Thankyou_Feedback = response["hippo_Thankyou_Feedback"] as? String{
+            HippoStrings.thanksForFeedback = hippo_Thankyou_Feedback
+        }
+        
     }
     
     class func agentParsing(_ response: [String: Any]){
