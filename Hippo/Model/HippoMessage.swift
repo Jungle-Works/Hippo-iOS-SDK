@@ -484,11 +484,14 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         if currentUserType() == .agent && getLastVisibleController() is ConversationsViewController{
             let vc = getLastVisibleController() as? ConversationsViewController
             self.senderId = ((vc?.isSupportCustomer ?? false) ? HippoUserDetail.fuguUserID : senderId ?? currentUserId()) ?? senderId ?? currentUserId()
+            self.senderFullName = HippoConfig.shared.userDetail?.fullName ?? HippoStrings.visitor
+            self.senderImage = HippoConfig.shared.userDetail?.userImage?.absoluteString
         }else{
             self.senderId = senderId ?? currentUserId()
+            self.senderFullName = senderName ?? currentUserName()//.formatName()
+            self.senderImage = currentUserImage()
         }
-        self.senderFullName = senderName ?? currentUserName()//.formatName()
-        self.senderImage = currentUserImage()
+       
         self.chatType = chatType ?? .none
 
         // Bot feedback handling ?
