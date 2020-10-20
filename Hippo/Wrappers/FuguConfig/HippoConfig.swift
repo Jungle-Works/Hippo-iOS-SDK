@@ -45,8 +45,8 @@ static let betaFaye = "https://beta-live-api.fuguchat.com:3001/faye"
 // static let betaUrl = "https://hippo-api-dev.fuguchat.com:3002/"
 // static let betaFaye = "https://hippo-api-dev.fuguchat.com:3002/faye"
 
-static let devUrl = "https://hippo-api-dev.fuguchat.com:3002/"//"https://hippo-api-dev.fuguchat.com:3002/"//
-static let devFaye = "https://hippo-api-dev.fuguchat.com:3002/faye"//"https://hippo-api-dev.fuguchat.com:3002/faye"//
+static let devUrl = "https://hippo-api-dev.fuguchat.com:3003/"//"https://hippo-api-dev.fuguchat.com:3002/"//
+static let devFaye = "https://hippo-api-dev.fuguchat.com:3003/faye"//"https://hippo-api-dev.fuguchat.com:3002/faye"//
 
 // static let devUrl = "https://hippo-api-dev.fuguchat.com:3011/"
 // static let devFaye = "https://hippo-api-dev.fuguchat.com:3012/faye"
@@ -215,11 +215,19 @@ struct BotAction {
     }
     
     //Function to get current channel id
-    open func getCurrentChannelId()->Int?{
-        let topViewController = getLastVisibleController()
-        //will return channel id if we have some active chat else return nil
-        if topViewController is ConversationsViewController{
-            return (topViewController as? ConversationsViewController)?.channelId
+    public func getCurrentChannelId()->Int?{
+        if currentUserType() == .customer{
+            let topViewController = getLastVisibleController()
+            //will return channel id if we have some active chat else return nil
+            if topViewController is ConversationsViewController{
+                return (topViewController as? ConversationsViewController)?.channelId
+            }
+        }else{
+            let topViewController = getLastVisibleController()
+            //will return channel id if we have some active chat else return nil
+            if topViewController is AgentConversationViewController{
+                return (topViewController as? AgentConversationViewController)?.channelId
+            }
         }
         return nil
     }

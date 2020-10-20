@@ -13,6 +13,24 @@ class OutgoingDocumentTableViewCell: DocumentTableViewCell {
     @IBOutlet weak var tickImage: UIImageView!
     
     weak var delegate: RetryMessageUploadingDelegate?
+    var messageLongPressed : ((HippoMessage)->())?
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        let longPressGesture = UILongPressGestureRecognizer.init(target: self, action: #selector(longPressGestureFired))
+        longPressGesture.minimumPressDuration = 0.3
+        bgView?.addGestureRecognizer(longPressGesture)
+        // Initialization code
+    }
+    
+    @objc func longPressGestureFired(sender: UIGestureRecognizer) {
+       guard sender.state == .began else {
+          return
+       }
+        if let message = message{
+            messageLongPressed?(message)
+        }
+    }
     
     func setCellWith(message: HippoMessage) {
         

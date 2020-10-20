@@ -25,10 +25,12 @@ class OutgoingImageCell: MessageTableViewCell {
     @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var retryButton: UIButton!
+    @IBOutlet weak var btn_OpenImage : UIButton!
     
     
     var indexPath: IndexPath?
     weak var delegate: ImageCellDelegate?
+    var messageLongPressed : ((HippoMessage)->())?
     
     @IBAction func retryButtonClicked(_ sender: UIButton) {
         guard let messageObject = message, FuguNetworkHandler.shared.isNetworkConnected else {
@@ -51,6 +53,21 @@ class OutgoingImageCell: MessageTableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         adjustShadow()
+    }
+    override func awakeFromNib() {
+        let longPressGesture = UILongPressGestureRecognizer.init(target: self, action: #selector(longPressGestureFired))
+        longPressGesture.minimumPressDuration = 0.3
+        btn_OpenImage?.addGestureRecognizer(longPressGesture)
+        mainContentView?.addGestureRecognizer(longPressGesture)
+    }
+    
+    @objc func longPressGestureFired(sender: UIGestureRecognizer) {
+       guard sender.state == .began else {
+          return
+       }
+        if let message = message{
+            messageLongPressed?(message)
+        }
     }
     
     deinit { stopIndicatorAnimation() }

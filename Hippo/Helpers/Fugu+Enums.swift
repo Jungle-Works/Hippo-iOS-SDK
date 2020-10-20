@@ -274,7 +274,7 @@ enum NotificationType: Int {
     case markConversation = 12
     case channelRefreshed = 13
     case call = 14
-    
+    case messageModified = 24
     case channelRefresh = 17
     
     var isNotificationTypeHandled: Bool {
@@ -409,7 +409,7 @@ enum AgentEndPoints: String {
     case getAgents = "api/agent/getAgents"
     case createGroupCallChannel = "api/conversation/createGroupCallChannel"
     case getGroupCallChannelDetals = "api/conversation/getGroupCallChannelDetails"
-    
+    case editDeleteMessage = "api/conversation/deleteOrEditMessage"
 }
 
 struct MultiLanguageMsg{
@@ -514,6 +514,13 @@ enum BroadcastType: String, CaseCountable {
         }
     }
 }
+
+enum MessageState : Int{
+    case Call = 2
+    case MessageDeleted = 4
+    case MessageEdited = 5
+}
+
 
 enum FileType: String {
     case image = "image"

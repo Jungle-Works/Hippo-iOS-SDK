@@ -14,14 +14,26 @@ class OutgoingVideoTableViewCell: VideoTableViewCell {
    @IBOutlet weak var retryUploadButton: UIButton!
    @IBOutlet weak var messageStatusImageView: UIImageView!
    
-   weak var retryDelegate: RetryMessageUploadingDelegate?
-   
+    weak var retryDelegate: RetryMessageUploadingDelegate?
+    var messageLongPressed : ((HippoMessage)->())?
+    
    // MARK: - View Life Cycle
     override func awakeFromNib() {
         super.awakeFromNib()
+        let longPressGesture = UILongPressGestureRecognizer.init(target: self, action: #selector(longPressGestureFired))
+        longPressGesture.minimumPressDuration = 0.3
+        messageBackgroundView?.addGestureRecognizer(longPressGesture)
         // Initialization code
     }
    
+    @objc func longPressGestureFired(sender: UIGestureRecognizer) {
+       guard sender.state == .began else {
+          return
+       }
+        if let message = message{
+            messageLongPressed?(message)
+        }
+    }
    // MARK: - IBAction
    @IBAction func retryUploadButtonPressed() {
       guard let unwrappedMessage = message else {
