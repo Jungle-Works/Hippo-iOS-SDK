@@ -207,7 +207,8 @@ public class HippoStrings {
     static var edited = "Edited".localized
     static var copy = "Copy".localized
     static var deleteMessage = "deleted this message.".localized
-    
+    static var noConversationFound = "No conversations found.".localized
+   
     open var disbaledCameraErrorMessage = "Access to Camera is denied. Please enable from setings."
     open var cameraString = "New Image via Camera"
     open var displayNameForCustomers = "Fleet"

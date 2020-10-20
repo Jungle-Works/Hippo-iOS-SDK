@@ -41,6 +41,7 @@ struct CreateConversationWithLabelId {
     var labelId: Int
     var initalMessages: [HippoMessage]
     var channelName : String?
+    var createChatForSupportCustomer : Bool?
     
     func shouldSendInitalMessages() -> Bool {
         guard let gID = botGroupId else {
@@ -120,6 +121,7 @@ class HippoChannel {
     var messageHashMap = [String: Int]()
     var sentMessages = [HippoMessage]()
     var unsentMessages = [HippoMessage]()
+    var isSupportCustomer : Bool = false
     
     private var messageSender: MessageSender!
     
@@ -370,7 +372,7 @@ class HippoChannel {
             print("API_CREATE_CONVERSATION_RESPONSE******* ", response)
             let channel = FuguChannelPersistancyManager.shared.getChannelBy(id: channelID)
             channel.chatDetail?.agentAlreadyAssigned = data["agent_already_assigned"] as? Bool ?? false
-            
+            channel.messageSender.isSupportCustomer = channel.isSupportCustomer
             if channel.chatDetail == nil {
                 channel.chatDetail = ChatDetail(json: data)
             } else if channel.chatDetail?.channelId == nil {
@@ -488,6 +490,10 @@ class HippoChannel {
             params["skip_bot"] = skipBot.intValue()
             params["skip_bot_reason"] = HippoProperty.current.skipBotReason ?? ""
         }
+        if currentUserType() == .agent {
+            params["skip_bot"] = 1
+        }
+        
         if let ticketCustomAttributes = HippoProperty.current.ticketCustomAttributes, !ticketCustomAttributes.isEmpty {
             params["ticket_custom_attributes"] = ticketCustomAttributes
         }
@@ -951,6 +957,7 @@ class HippoChannel {
             set(message: message, positionInHashMap: value)
         }
         message.creationDateTime = Date()
+        messageSender.isSupportCustomer = isSupportCustomer
         messageSender.addMessagesInQueueToSend(message: message)
         completion?()
     }

@@ -104,6 +104,8 @@ public class UserTag: NSObject {
     var userImage: URL?
     var selectedlanguage : String?
     var userChannel: String?
+    var isSupportUser : Bool = false
+    
     static var shouldGetPaymentGateways : Bool = true
     
     class var HippoUserChannelId: String? {
@@ -309,12 +311,14 @@ public class UserTag: NSObject {
             if let jitsiUrl = userDetailData["jitsi_url"] as? String{
                 HippoConfig.shared.jitsiUrl = jitsiUrl
             }
-            
+           
             if let rawUserChannel = userDetailData["user_channel"] as? String {
                 HippoUserDetail.HippoUserChannelId = rawUserChannel
-                subscribeCustomerUserChannel(userChannelId: rawUserChannel)
-                
+                if HippoConfig.shared.userDetail?.isSupportUser == false{
+                    subscribeCustomerUserChannel(userChannelId: rawUserChannel)
+                }
             }
+            
             if let tags = data["grouping_tags"] as? [[String: Any]] {
                 HippoConfig.shared.userDetail?.userTags.removeAll()
                 for each in tags {
@@ -324,7 +328,9 @@ public class UserTag: NSObject {
             
             if let appSecretKey = userDetailData["app_secret_key"] as? String {
                 HippoConfig.shared.appSecretKey = appSecretKey
-                subscribeMarkConversation()
+                if HippoConfig.shared.userDetail?.isSupportUser == false{
+                     subscribeMarkConversation()
+                }
             }
             
             BussinessProperty.current.editDeleteExpiryTime = CGFloat(Int.parse(values: userDetailData, key: "edit_delete_message_duration") ?? 0)
@@ -478,13 +484,12 @@ public class UserTag: NSObject {
         AgentUserChannel.shared = nil
     }
     
-    class func clearAllData() {
-        
+    class func clearAllData(completion: ((Bool) -> Void)? = nil) {
         
         FuguDefaults.removeAllPersistingData()
-        if FayeConnection.shared.isConnected{
-            FayeConnection.shared.disconnectFaye()
-        }
+//        if FayeConnection.shared.isConnected{
+//            FayeConnection.shared.disconnectFaye()
+//        }
         //Clear agent data
         clearAgentData()
         
@@ -524,7 +529,7 @@ public class UserTag: NSObject {
         defaults.removeObject(forKey: Fugu_en_user_id)
 
         defaults.synchronize()
-        
+        completion?(true)
     }
     
     class func logoutFromFugu(completion: ((Bool) -> Void)? = nil) {
@@ -545,16 +550,18 @@ public class UserTag: NSObject {
         let voipToken = TokenManager.voipToken
         
         HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: FuguEndPoints.API_CLEAR_USER_DATA_LOGOUT.rawValue) { (responseObject, error, tag, statusCode) in
-//            if currentUserType() == .customer{
-//                unSubscribe(userChannelId: HippoUserDetail.HippoUserChannelId ?? "")
-//            }
-            clearAllData()
+            if currentUserType() == .customer{
+                unSubscribe(userChannelId: HippoUserDetail.HippoUserChannelId ?? "")
+            }else{
+                unSubscribe(userChannelId: HippoConfig.shared.agentDetail?.userChannel ?? "")
+            }
+            clearAllData(completion: completion)
             TokenManager.deviceToken = deviceToken
             TokenManager.voipToken = voipToken
             unSubscribe(userChannelId: HippoConfig.shared.appSecretKey + "/" + "markConversation")
-            let tempStatusCode = statusCode ?? 0
-            let success = (200 <= tempStatusCode) && (300 > tempStatusCode)
-            completion?(success)
+//            let tempStatusCode = statusCode ?? 0
+//            let success = (200 <= tempStatusCode) && (300 > tempStatusCode)
+//            completion?(success)
         }
     }
 }

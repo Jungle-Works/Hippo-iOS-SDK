@@ -167,18 +167,20 @@ class BussinessProperty: NSObject {
     
     func updateData(loginData: [String: Any]) {
         let userDetailData = loginData
+        if HippoConfig.shared.userDetail?.isSupportUser == false{
+            isVideoCallEnabled = Bool.parse(key: "is_video_call_enabled", json: userDetailData)
+            isAudioCallEnabled = Bool.parse(key: "is_audio_call_enabled", json: userDetailData, defaultValue: false)
+            encodeToHTMLEntities = Bool.parse(key: "encode_to_html_entites", json: userDetailData)
+            buisnessLanguageArr = BuisnessLanguage().getLanguageData(loginData["business_languages"] as? [[String : Any]] ?? [[String : Any]]())
+        }
         
-       isVideoCallEnabled = Bool.parse(key: "is_video_call_enabled", json: userDetailData)
-       isAudioCallEnabled = Bool.parse(key: "is_audio_call_enabled", json: userDetailData, defaultValue: false)
-       encodeToHTMLEntities = Bool.parse(key: "encode_to_html_entites", json: userDetailData)
-       botImageUrl = String.parse(values: userDetailData, key: "bot_image_url")
-
-       unsupportedMessageString = userDetailData["unsupported_message"] as? String ?? ""
-       maxUploadLimitForBusiness = userDetailData["max_file_size"] as? UInt ?? 10
+        botImageUrl = String.parse(values: userDetailData, key: "bot_image_url")
+        
+        unsupportedMessageString = userDetailData["unsupported_message"] as? String ?? ""
+        maxUploadLimitForBusiness = userDetailData["max_file_size"] as? UInt ?? 10
         
         hideCallIconOnNavigationForCustomer = Bool.parse(key: "hide_direct_call_button", json: userDetailData)
         multiChannelLabelMapping = Bool.parse(key: "multi_channel_label_mapping", json: userDetailData) ?? false
-        buisnessLanguageArr = BuisnessLanguage().getLanguageData(loginData["business_languages"] as? [[String : Any]] ?? [[String : Any]]())
     }
 }
 

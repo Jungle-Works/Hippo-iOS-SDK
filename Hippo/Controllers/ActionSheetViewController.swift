@@ -160,14 +160,14 @@ class ActionSheetTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         titleLabel.font = UIFont.regular(ofSize: 16.0)
-        titleLabel.textColor = UIColor.iLightBlack
+        titleLabel.textColor = UIColor.black
     }
     
     func setData(with action: ActionSheetAction) {
         if #available(iOS 13.0, *) {
-            iconImgView.image = action.icon?.withTintColor(UIColor.iLightBlack)
+            iconImgView.image = action.icon?.withTintColor(UIColor.black)
         } else {
-            iconImgView.tintColor = UIColor.iLightBlack
+            iconImgView.tintColor = UIColor.black
             iconImgView.image = action.icon
         }
         titleLabel.text = action.title

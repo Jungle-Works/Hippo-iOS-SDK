@@ -24,6 +24,7 @@ class MessageSender {
     let channelID: Int
     weak var delegate: MessageSenderDelegate!
     var isSendingMessages = false
+    var isSupportCustomer : Bool?
     
     // MARK: - Intializer
     init(messagesToSend: [HippoMessage], forChannelID channelID: Int, delegate: MessageSenderDelegate) {
@@ -85,7 +86,7 @@ class MessageSender {
             isSendingMessages = false
             return
         }
-        
+        message.isSupportCustomer = isSupportCustomer
         let messageJSON: [String: Any]
         
         switch message {

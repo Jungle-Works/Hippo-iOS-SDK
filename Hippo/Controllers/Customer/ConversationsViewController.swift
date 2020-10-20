@@ -117,7 +117,8 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     var messageInEditing : HippoMessage?
     var editingMessageIndex : IndexPath?
     //    var initialTouchPoint: CGPoint = CGPoint(x: 0, y: 0)
-    
+    var isSupportCustomer : Bool = HippoConfig.shared.userDetail?.isSupportUser ?? false
+    override var getSavedUserId: Int{ return (isSupportCustomer ? HippoUserDetail.fuguUserID : currentUserId()) ?? currentUserId()}
     // MARK: - Computed Properties
     var localFilePath: String {
         get {
@@ -747,6 +748,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         channel?.unsentMessages.append(message)
         if channel != nil {
             addMessageToUIBeforeSending(message: message)
+            channel.isSupportCustomer = isSupportCustomer
             self.sendMessage(message: message)
         } else {
             //TODO: - Loader animation
@@ -1025,7 +1027,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         storeRequest = request
         storeResponse = nil
         clearp2pdata()
-        MessageStore.getMessages(requestParam: request, ignoreIfInProgress: false) {[weak self] (response, isCreateConversationRequired)  in
+        MessageStore.getMessages(requestParam: request, ignoreIfInProgress: false, isSupportCustomer: isSupportCustomer) {[weak self] (response, isCreateConversationRequired)  in
             
             self?.hideErrorMessage()
             self?.enableSendingNewMessages()
@@ -1100,7 +1102,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         
         //image icon name = tiny-video-symbol
         
-        if isDirectCallingEnabledFor(type: .video) {
+        if isDirectCallingEnabledFor(type: .video) && !isSupportCustomer{
             
             view_Navigation.video_button.tintColor = HippoConfig.shared.theme.headerTextColor
             view_Navigation.video_button.isEnabled = true
@@ -1117,7 +1119,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         
         //image icon name = audioCallIcon
         
-        if isDirectCallingEnabledFor(type: .audio) {
+        if isDirectCallingEnabledFor(type: .audio) && !isSupportCustomer{
             view_Navigation.call_button.tintColor = HippoConfig.shared.theme.headerTextColor
             view_Navigation.call_button.isEnabled = true
             view_Navigation.call_button.setImage(HippoConfig.shared.theme.audioCallIcon, for: .normal)
@@ -1252,7 +1254,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
      let request = MessageStore.messageRequest(pageStart: 1, showLoader: false, pageEnd: nil, channelId: -1, labelId: labelId)
      storeRequest = request
      storeResponse = nil
-     MessageStore.getMessagesByLabelID(requestParam: request, ignoreIfInProgress: false) {[weak self] (response, error)  in
+    MessageStore.getMessagesByLabelID(requestParam: request, ignoreIfInProgress: false, isSupportCustomer : isSupportCustomer) {[weak self] (response, error)  in
         
         if self?.storeRequest?.id == request.id {
           self?.stopLoaderAnimation()
@@ -1329,7 +1331,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
       }
       
       if isDefaultChannel() {
-        let request = CreateConversationWithLabelId(replyMessage: replyMessage, botGroupId: botGroupID, labelId: labelId, initalMessages: getAllLocalMessages(), channelName: label)
+        let request = CreateConversationWithLabelId(replyMessage: replyMessage, botGroupId: botGroupID, labelId: labelId, initalMessages: getAllLocalMessages(), channelName: label, createChatForSupportCustomer: isSupportCustomer)
         HippoChannel.get(request: request) { [weak self] (r) in
             var result = r
             if result.isSuccessful, request.shouldSendInitalMessages(), request.replyMessage != nil {

@@ -219,6 +219,9 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         }
     }
     
+    var isSupportCustomer : Bool?
+    
+    
     // MARK: - Intializer
     init?(dict: [String: Any]) {
         guard let userId = dict["user_id"] ?? dict["last_sent_by_id"] else {
@@ -407,20 +410,20 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
 //                self.cards = [header] + cards
 //                self.cards?.append(securePayment)
 //                self.cards?.append(buttonView)                
-                if HippoConfig.shared.appUserType == .agent{
-                    self.cards = cards
+                if HippoConfig.shared.appUserType == .customer || (getLastVisibleController() as? ConversationsViewController)?.isSupportCustomer == true{
+                        let firstCard = cards.first
+                        firstCard?.isLocalySelected = true
+                        let buttonView = PayementButton.createPaymentOption()
+                        buttonView.selectedCardDetail = firstCard
+                        
+                        let header = PaymentHeader()
+                        let securePayment = PaymentSecurely.secrurePaymentOption()
+                        
+                        self.cards = [header] + cards
+                        self.cards?.append(securePayment)
+                        self.cards?.append(buttonView)
                 }else{
-                    let firstCard = cards.first
-                    firstCard?.isLocalySelected = true
-                    let buttonView = PayementButton.createPaymentOption()
-                    buttonView.selectedCardDetail = firstCard
-                    
-                    let header = PaymentHeader()
-                    let securePayment = PaymentSecurely.secrurePaymentOption()
-                    
-                    self.cards = [header] + cards
-                    self.cards?.append(securePayment)
-                    self.cards?.append(buttonView)
+                        self.cards = cards
                 }
                 
             }
@@ -486,9 +489,17 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
     init(message: String, type: MessageType, uniqueID: String? = nil,bot: BotAction? = nil, imageUrl: String? = nil, thumbnailUrl: String? = nil, localFilePath: String? = nil, taggedUserArray: [Int]? = nil, senderName: String? = nil, senderId: Int? = nil, chatType: ChatType?) {
 
         self.message = message
-        self.senderId = senderId ?? currentUserId()
-        self.senderFullName = senderName ?? currentUserName()//.formatName()
-        self.senderImage = currentUserImage()
+        if currentUserType() == .agent && getLastVisibleController() is ConversationsViewController{
+            let vc = getLastVisibleController() as? ConversationsViewController
+            self.senderId = ((vc?.isSupportCustomer ?? false) ? HippoUserDetail.fuguUserID : senderId ?? currentUserId()) ?? senderId ?? currentUserId()
+            self.senderFullName = HippoConfig.shared.userDetail?.fullName ?? HippoStrings.visitor
+            self.senderImage = HippoConfig.shared.userDetail?.userImage?.absoluteString
+        }else{
+            self.senderId = senderId ?? currentUserId()
+            self.senderFullName = senderName ?? currentUserName()//.formatName()
+            self.senderImage = currentUserImage()
+        }
+       
         self.chatType = chatType ?? .none
 
         // Bot feedback handling ?
@@ -509,7 +520,13 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         self.taggedUsers = taggedUserArray
         self.localImagePath = localFilePath
         
-        self.userType = currentUserType()
+        if currentUserType() == .agent && getLastVisibleController() is ConversationsViewController{
+            let vc = getLastVisibleController() as? ConversationsViewController
+            self.userType = vc?.isSupportCustomer ?? false ? UserType.customer : currentUserType()
+        }else{
+            self.userType = currentUserType()
+        }
+        
         
         attributtedMessage = MessageUIAttributes(message: message, senderName: senderFullName, isSelfMessage: userType.isMyUserType)
     }
@@ -752,7 +769,11 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
     }
     
     func isSentByMe() -> Bool {
-        return senderId == currentUserId()
+        if currentUserType() == .agent && getLastVisibleController() is ConversationsViewController{
+            return senderId == HippoUserDetail.fuguUserID
+        }else{
+             return senderId == currentUserId()
+        }
     }
     
     

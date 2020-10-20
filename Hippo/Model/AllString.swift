@@ -980,7 +980,7 @@ class AllString{
         }
         
         if let no_conversation_found = response["no_conversation_found"] as? String{
-            
+            HippoStrings.noConversationFound = no_conversation_found
         }
         
         if let no_previous_conversation_found = response["no_previous_conversation_found"] as? String{
