@@ -620,15 +620,56 @@ class AllString{
         if let hippo_message_not_allow = response["hippo_message_not_allow"] as? String{
             HippoStrings.donotAllowPersonalInfo = hippo_message_not_allow
         }
-        
+
         if let hippo_Thankyou_Feedback = response["hippo_Thankyou_Feedback"] as? String{
             HippoStrings.thanksForFeedback = hippo_Thankyou_Feedback
         }
-        
+
+        if let hippo_edit_text = response["hippo_edit_text"] as? String{
+            HippoStrings.edit = hippo_edit_text
+        }
+        if let hippo_delete_text = response["hippo_delete_text"] as? String{
+            HippoStrings.delete = hippo_delete_text
+        }
+        if let hippo_edited = response["hippo_edited"] as? String{
+            HippoStrings.edited = hippo_edited
+        }
+        if let hippo_delete_for_everyone = response["hippo_delete_for_everyone"] as? String{
+            HippoStrings.deleteForEveryone = hippo_delete_for_everyone
+        }
+        if let hippo_copy_text = response["hippo_copy_text"] as? String{
+            HippoStrings.copy = hippo_copy_text
+        }
+        if let hippo_delete_this_message = response["hippo_delete_this_message"] as? String{
+            HippoStrings.deleteMessagePopup = hippo_delete_this_message
+        }
+        if let hippo_message_deleted = response["hippo_message_deleted"] as? String{
+            HippoStrings.deleteMessage = hippo_message_deleted
+        }
     }
     
     class func agentParsing(_ response: [String: Any]){
-        
+        if let hippo_message_deleted = response["hippo_message_deleted"] as? String{
+            HippoStrings.deleteMessage = hippo_message_deleted
+        }
+        if let hippo_edit_text = response["hippo_edit_text"] as? String{
+            HippoStrings.edit = hippo_edit_text
+        }
+        if let hippo_delete_text = response["hippo_delete_text"] as? String{
+            HippoStrings.delete = hippo_delete_text
+        }
+        if let hippo_edited = response["hippo_edited"] as? String{
+            HippoStrings.edited = hippo_edited
+        }
+        if let hippo_delete_for_everyone = response["hippo_delete_for_everyone"] as? String{
+            HippoStrings.deleteForEveryone = hippo_delete_for_everyone
+        }
+        if let hippo_copy_text = response["hippo_copy_text"] as? String{
+            HippoStrings.copy = hippo_copy_text
+        }
+        if let hippo_delete_this_message = response["hippo_delete_this_message"] as? String{
+            HippoStrings.deleteMessagePopup = hippo_delete_this_message
+        }
         if let hippo_message_not_allow = response["hippo_message_not_allow"] as? String{
             HippoStrings.donotAllowPersonalInfo = hippo_message_not_allow
         }
