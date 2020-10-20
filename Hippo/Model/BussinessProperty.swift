@@ -13,7 +13,8 @@ class BussinessProperty: NSObject {
     var currencyArr : [BuisnessCurrency]?
     var buisnessLanguageArr : [BuisnessLanguage]?
     var shouldHideCustomerData : Bool?
-    
+    var editDeleteExpiryTime : CGFloat? // in minutes from backend
+        
     var hideAllChat: Bool? {
          get {
              
