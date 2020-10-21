@@ -72,13 +72,13 @@ class MessageStore {
     
     
     
-    class func getMessages(requestParam: messageRequest, ignoreIfInProgress: Bool = false, completion: @escaping ChannelMessagesCallBack) {
+    class func getMessages(requestParam: messageRequest, ignoreIfInProgress: Bool = false, isSupportCustomer: Bool, completion: @escaping ChannelMessagesCallBack) {
         
         if ignoreIfInProgress, isInProgress {
             handleGetMessageError(response: nil, completion: completion)
             return
         }
-        guard let params = createParamForGetMessages(requestParam: requestParam) else {
+        guard let params = createParamForGetMessages(requestParam: requestParam, isSupportCustomer: isSupportCustomer) else {
             handleGetMessageError(response: nil, completion: completion)
             return
         }
@@ -112,14 +112,14 @@ class MessageStore {
         
     }
     
-    class func getMessagesByLabelID(requestParam: messageRequest, ignoreIfInProgress: Bool = false, completion: @escaping ChannelMessagesCallBack) {
+    class func getMessagesByLabelID(requestParam: messageRequest, ignoreIfInProgress: Bool = false, isSupportCustomer : Bool, completion: @escaping ChannelMessagesCallBack) {
         
         if ignoreIfInProgress, isInProgress {
             handleGetMessageError(response: nil, completion: completion)
             return
         }
         
-        guard let params = createParamForGetMessages(requestParam: requestParam) else {
+        guard let params = createParamForGetMessages(requestParam: requestParam, isSupportCustomer: isSupportCustomer) else {
             handleGetMessageError(response: nil, completion: completion)
             return
         }
@@ -149,7 +149,7 @@ class MessageStore {
         
     }
     
-    private class func createParamForGetMessages(requestParam: messageRequest) -> [String: Any]? {
+    private class func createParamForGetMessages(requestParam: messageRequest, isSupportCustomer: Bool) -> [String: Any]? {
         var params: [String : Any] = ["page_start": requestParam.pageStart]
         
         
@@ -161,11 +161,26 @@ class MessageStore {
         
         switch HippoConfig.shared.appUserType {
         case .agent:
-            guard let token = HippoConfig.shared.agentDetail?.fuguToken else {
-                return nil
+            if isSupportCustomer{
+                guard !HippoConfig.shared.appSecretKey.isEmpty else {
+                    return nil
+                }
+                guard let enUserID = HippoUserDetail.fuguEnUserID else {
+                    return nil
+                }
+                params["app_secret_key"] = HippoConfig.shared.appSecretKey
+                params["en_user_id"] = enUserID
+                
+                if HippoProperty.current.singleChatApp {
+                    params["multi_channel_label_mapping_app"] = 1
+                }
+            }else{
+                guard let token = HippoConfig.shared.agentDetail?.fuguToken else {
+                    return nil
+                }
+                params["access_token"] = token
+                params["en_user_id"] = HippoConfig.shared.agentDetail?.enUserId ?? ""
             }
-            params["access_token"] = token
-            params["en_user_id"] = HippoConfig.shared.agentDetail?.enUserId ?? ""
         case .customer:
             guard !HippoConfig.shared.appSecretKey.isEmpty else {
                 return nil

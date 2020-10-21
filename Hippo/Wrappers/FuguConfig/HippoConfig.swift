@@ -216,11 +216,21 @@ struct BotAction {
     }
     
     //Function to get current channel id
-    open func getCurrentChannelId()->Int?{
-        let topViewController = getLastVisibleController()
-        //will return channel id if we have some active chat else return nil
-        if topViewController is ConversationsViewController{
-            return (topViewController as? ConversationsViewController)?.channelId
+    public func getCurrentChannelId()->Int?{
+        if currentUserType() == .customer{
+            let topViewController = getLastVisibleController()
+            //will return channel id if we have some active chat else return nil
+            if topViewController is ConversationsViewController{
+                return (topViewController as? ConversationsViewController)?.channelId
+            }
+        }else{
+            let topViewController = getLastVisibleController()
+            //will return channel id if we have some active chat else return nil
+            if topViewController is AgentConversationViewController{
+                return (topViewController as? AgentConversationViewController)?.channelId
+            }else if topViewController is ConversationsViewController ,(topViewController as? ConversationsViewController)?.isSupportCustomer ?? false{
+                return (topViewController as? ConversationsViewController)?.channelId
+            }
         }
         return nil
     }
@@ -344,6 +354,33 @@ struct BotAction {
         }
     }
     
+    //MARK:- Function to initiate customer from Agent sdk
+    ///Support chat func for Agent
+    
+    public func initCustomerForSupport(_ userUniqueKey : String, _ transactionId : String){
+        guard self.appUserType == .agent && agentDetail?.agentUserType != .admin else {
+            return
+        }
+        
+        if self.userDetail == nil{
+            
+            self.userDetail = HippoUserDetail(fullName: agentDetail?.fullName ?? "", email: agentDetail?.email ?? "", phoneNumber: agentDetail?.number ?? "", userUniqueKey: userUniqueKey, getPaymentGateways: false)
+            self.userDetail?.isSupportUser = true
+            self.appSecretKey = HippoConfig.shared.agentDetail?.appSecrectKey ?? ""
+            HippoUserDetail.getUserDetailsAndConversation { (status, error) in
+                //197750
+                let dic = ["transactionId" : transactionId]
+                self.consultNowButtonClicked(consultNowInfoDict: dic)
+                //self.openChatScreen(withLabelId: 197750, isSupportCustomer: true)
+            }
+        }else{
+            let dic = ["transactionId" : transactionId]
+            consultNowButtonClicked(consultNowInfoDict: dic)
+        }
+      
+    }
+    
+    ///
     public func enableBroadcast() {
         isBroadcastEnabled = true
     }
@@ -416,6 +453,7 @@ struct BotAction {
         detail.isForking = true
         self.appUserType = .agent
         self.agentDetail = detail
+        self.appType = app_type
         AgentConversationManager.updateAgentChannel(completion: {(error,response) in
             if (selectedLanguage ?? "") == ""{ self.setLanguage(BussinessProperty.current.buisnessLanguageArr?.filter{$0.is_default == true}.first?.lang_code ?? "")
             }
@@ -436,6 +474,7 @@ struct BotAction {
         let detail = AgentDetail(oAuthToken: authToken.trimWhiteSpacesAndNewLine(), appType: app_type, customAttributes: customAttributes, userId: self.agentDetail?.id)
         self.appUserType = .agent
         self.agentDetail = detail
+        self.appType = app_type
         AgentConversationManager.updateAgentChannel(completion: {(error,response) in
             if (selectedLanguage ?? "") == ""{ self.setLanguage(BussinessProperty.current.buisnessLanguageArr?.filter{$0.is_default == true}.first?.lang_code ?? "en")
                 completion(error,response)
@@ -461,7 +500,7 @@ struct BotAction {
     }
     
     public func consultNowButtonClicked(consultNowInfoDict: [String: Any]){
-        FuguFlowManager.shared.consultNowButtonClicked(consultNowInfoDict: consultNowInfoDict)
+        FuguFlowManager.shared.consultNowButtonClicked(consultNowInfoDict: consultNowInfoDict, isSupportCustomer: HippoConfig.shared.userDetail?.isSupportUser ?? false)
     }
     
     public func presentPromotionalPushController(){
@@ -476,8 +515,8 @@ struct BotAction {
         HippoConfig.shared.strings.displayNameForCustomers = name
         FuguFlowManager.shared.presentBroadcastController()
     }
-    public func openChatScreen(on viewController: UIViewController? = nil, withLabelId labelId: Int, hideBackButton: Bool = false, animation: Bool = true) {
-        guard appUserType == .customer else {
+    public func openChatScreen(on viewController: UIViewController? = nil, withLabelId labelId: Int, hideBackButton: Bool = false, animation: Bool = true, isSupportCustomer : Bool = false) {
+        guard appUserType == .customer || isSupportCustomer == true else {
             return
         }
         if let vc = viewController {
@@ -988,6 +1027,13 @@ struct BotAction {
             return false
         }
         
+        if currentUserType() == .agent && userInfo.keys.contains("chat_transaction_id"){
+            // if its support customer and chat screen is open return false
+            if getLastVisibleController() is ConversationsViewController{
+                return false
+            }
+        }
+        
         if HippoConfig.shared.isHippoNotification(withUserInfo: userInfo) {
             return FuguFlowManager.shared.toShowInAppNotification(userInfo: userInfo)
         }
@@ -1172,6 +1218,12 @@ struct BotAction {
             if channelId > 0 {
                 FuguFlowManager.shared.pushAgentConversationViewController(channelId: channelId, channelName: channelName)
             }
+            return
+        }
+        
+        if let transactionId = userInfo["chat_transaction_id"] as? String, HippoConfig.shared.userDetail != nil{
+            let dic = ["transactionId" : transactionId]
+            consultNowButtonClicked(consultNowInfoDict: dic)
             return
         }
         

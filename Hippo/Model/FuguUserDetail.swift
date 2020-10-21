@@ -104,6 +104,8 @@ public class UserTag: NSObject {
     var userImage: URL?
     var selectedlanguage : String?
     var userChannel: String?
+    var isSupportUser : Bool = false
+    
     static var shouldGetPaymentGateways : Bool = true
     
     class var HippoUserChannelId: String? {
@@ -309,12 +311,14 @@ public class UserTag: NSObject {
             if let jitsiUrl = userDetailData["jitsi_url"] as? String{
                 HippoConfig.shared.jitsiUrl = jitsiUrl
             }
-            
+           
             if let rawUserChannel = userDetailData["user_channel"] as? String {
                 HippoUserDetail.HippoUserChannelId = rawUserChannel
-                subscribeCustomerUserChannel(userChannelId: rawUserChannel)
-                
+                if HippoConfig.shared.userDetail?.isSupportUser == false{
+                    subscribeCustomerUserChannel(userChannelId: rawUserChannel)
+                }
             }
+            
             if let tags = data["grouping_tags"] as? [[String: Any]] {
                 HippoConfig.shared.userDetail?.userTags.removeAll()
                 for each in tags {
@@ -324,8 +328,12 @@ public class UserTag: NSObject {
             
             if let appSecretKey = userDetailData["app_secret_key"] as? String {
                 HippoConfig.shared.appSecretKey = appSecretKey
-                subscribeMarkConversation()
+                if HippoConfig.shared.userDetail?.isSupportUser == false{
+                     subscribeMarkConversation()
+                }
             }
+            
+            BussinessProperty.current.editDeleteExpiryTime = CGFloat(Int.parse(values: userDetailData, key: "edit_delete_message_duration") ?? 0)
             
             if let userId = userDetailData["user_id"] as? Int {
                 HippoUserDetail.fuguUserID = userId
@@ -524,36 +532,36 @@ public class UserTag: NSObject {
         completion?(true)
     }
     
-       class func logoutFromFugu(completion: ((Bool) -> Void)? = nil) {
-            if HippoConfig.shared.appSecretKey.isEmpty {
-                completion?(false)
-                return
-                
-            }
-            var params: [String: Any] = [
-                "app_secret_key": HippoConfig.shared.appSecretKey
-            ]
+    class func logoutFromFugu(completion: ((Bool) -> Void)? = nil) {
+        if HippoConfig.shared.appSecretKey.isEmpty {
+            completion?(false)
+            return
             
-            if let savedUserId = HippoUserDetail.fuguEnUserID {
-                params["en_user_id"] = savedUserId
-            }
-            
-            let deviceToken = TokenManager.deviceToken
-            let voipToken = TokenManager.voipToken
-            
-            HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: FuguEndPoints.API_CLEAR_USER_DATA_LOGOUT.rawValue) { (responseObject, error, tag, statusCode) in
-                if currentUserType() == .customer{
-                    unSubscribe(userChannelId: HippoUserDetail.HippoUserChannelId ?? "")
-                }else{
-                    unSubscribe(userChannelId: HippoConfig.shared.agentDetail?.userChannel ?? "")
-                }
-                clearAllData(completion: completion)
-                TokenManager.deviceToken = deviceToken
-                TokenManager.voipToken = voipToken
-                unSubscribe(userChannelId: HippoConfig.shared.appSecretKey + "/" + "markConversation")
-    //            let tempStatusCode = statusCode ?? 0
-    //            let success = (200 <= tempStatusCode) && (300 > tempStatusCode)
-    //            completion?(success)
-            }
         }
+        var params: [String: Any] = [
+            "app_secret_key": HippoConfig.shared.appSecretKey
+        ]
+        
+        if let savedUserId = HippoUserDetail.fuguEnUserID {
+            params["en_user_id"] = savedUserId
+        }
+        
+        let deviceToken = TokenManager.deviceToken
+        let voipToken = TokenManager.voipToken
+        
+        HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: FuguEndPoints.API_CLEAR_USER_DATA_LOGOUT.rawValue) { (responseObject, error, tag, statusCode) in
+            if currentUserType() == .customer{
+                unSubscribe(userChannelId: HippoUserDetail.HippoUserChannelId ?? "")
+            }else{
+                unSubscribe(userChannelId: HippoConfig.shared.agentDetail?.userChannel ?? "")
+            }
+            clearAllData(completion: completion)
+            TokenManager.deviceToken = deviceToken
+            TokenManager.voipToken = voipToken
+            unSubscribe(userChannelId: HippoConfig.shared.appSecretKey + "/" + "markConversation")
+                //            let tempStatusCode = statusCode ?? 0
+                //            let success = (200 <= tempStatusCode) && (300 > tempStatusCode)
+                //            completion?(success)
+        }
+    }
 }

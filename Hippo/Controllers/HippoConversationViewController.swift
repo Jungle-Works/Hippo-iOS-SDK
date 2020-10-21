@@ -72,11 +72,15 @@ class HippoConversationViewController: UIViewController {
     var proceedToPaySelectedCard : CustomerPayment?
     var proceedToPayChannel: HippoChannel?
     var attachments: [Attachment]  = []
-    
+    var isMessageEditing : Bool = false
     
 
     //MARK:
-    @IBOutlet var tableViewChat: UITableView!
+    @IBOutlet var tableViewChat: UITableView!{
+        didSet{
+            tableViewChat.allowsSelection = false
+        }
+    }
     
     @IBOutlet weak var errorContentView: UIView!
     @IBOutlet var errorLabel: UILabel!
@@ -142,7 +146,7 @@ class HippoConversationViewController: UIViewController {
     func openCustomSheet() { }
     
     func paymentCardPaymentOfCreatePaymentCalled() { }
-
+    func startEditing(with message : HippoMessage, indexPath : IndexPath){}
     func checkNetworkConnection() {
         if FuguNetworkHandler.shared.isNetworkConnected {
             hideErrorMessage()
@@ -1433,6 +1437,40 @@ extension HippoConversationViewController: DocumentTableViewCellDelegate {
 // MARK: - SelfMessageDelegate
 extension HippoConversationViewController: SelfMessageDelegate {
     
+    func longPressOnMessage(message: HippoMessage, indexPath: IndexPath) {
+        if message.messageState == MessageState.MessageDeleted || message.isDateExpired(timeInterval: TimeInterval((BussinessProperty.current.editDeleteExpiryTime ?? 0.0) * 60.0)){
+            return
+        }
+        
+        var options = [ActionSheetAction]()
+        
+        if let edit = editOption(for: message, atIndexPath: indexPath)  {
+            options.append(edit)
+        }
+        
+        if let delete = addDeleteOption(for: message, at: indexPath) {
+            options.append(delete)
+        }
+        
+        let type: ActionSheetViewController.ActionType = ActionSheetViewController.ActionType.none
+        if options.count == 0{
+            return
+        }
+        
+        let actionView = ActionSheetViewController.get(with: options, type: type, emojiSelected: { (emojiString) in
+            
+        }) { (action) in
+            
+        }
+        
+        actionView.modalPresentationStyle = .overCurrentContext
+        self.present(actionView, animated: false) {
+           // actionView.addEmojiInStackView()
+            actionView.showViewAnimation()
+        }
+        
+    }
+    
     func cancelMessage(message: HippoMessage) {
         for (index, tempMessage) in channel.unsentMessages.enumerated() {
             if tempMessage.messageUniqueID == message.messageUniqueID, message.messageUniqueID != nil {
@@ -1543,6 +1581,11 @@ extension HippoConversationViewController {
             cell.delegate = self
             let bottomSpace = getBottomSpaceOfMessageAt(indexPath: indexPath, message: message)
             cell.updateBottomConstraint(bottomSpace)
+            cell.messageLongPressed = {[weak self](message) in
+                DispatchQueue.main.async {
+                    self?.longPressOnMessage(message: message, indexPath: indexPath)
+                }
+            }
             return cell.configureIncomingMessageCell(resetProperties: true, chatMessageObject: message, indexPath: indexPath)
         }
     }
@@ -1844,3 +1887,86 @@ extension HippoConversationViewController : paymentCardPaymentOfCreatePaymentDel
     }
 }
 
+extension HippoConversationViewController{
+    
+    //MARK:- Edit / Delete functions
+    func editOption(for message: HippoMessage, atIndexPath indexPath: IndexPath)-> ActionSheetAction? {
+        if message.type != .normal{
+            return nil
+        }
+        
+        let edit = ActionSheetAction(icon: HippoConfig.shared.theme.editIcon, title: HippoStrings.edit, subTitle: nil, attTitle: nil, tag: nil) { (action) in
+            
+            self.sendTypingStatusMessage(isTyping: TypingMessage.stopTyping)
+            self.highlightMessageAt(indexPath: indexPath)
+            self.startEditing(with: message, indexPath: indexPath)
+            
+        }
+        return edit
+    }
+
+    func addDeleteOption(for message: HippoMessage, at indexPath: IndexPath)-> ActionSheetAction? {
+        if message.type == .normal || message.type == .imageFile || message.type == .attachment{
+            
+        }else{
+            return nil
+        }
+        
+        let delete = ActionSheetAction(icon: HippoConfig.shared.theme.deleteIcon, title: HippoStrings.delete, subTitle: nil, attTitle: nil, tag: nil) { (action) in
+            self.showOptionAlert(title: nil, message: HippoStrings.deleteMessagePopup, successButtonName: HippoStrings.deleteForEveryone, successComplete: { (successAction) in
+                self.apiHitToEditDeleteMsg(message: message, isDeleted: true) { (status) in
+                    if status{
+                        
+                    }
+                }
+            }, failureButtonName: HippoStrings.cancel) { (failureAction) in
+                //do nothing
+            }
+        }
+        return delete
+    }
+    
+    
+    func apiHitToEditDeleteMsg(message : HippoMessage, isDeleted : Bool, completion: ((_ success: Bool) -> Void)?){
+        if FuguNetworkHandler.shared.isNetworkConnected == false {
+           checkNetworkConnection()
+           completion?(false)
+           return
+        }
+        
+        var params = [String : Any]()
+        if currentUserType() == .agent{
+            if let vc = getLastVisibleController() as? ConversationsViewController, vc.isSupportCustomer{
+                params["app_secret_key"] = HippoConfig.shared.appSecretKey
+
+            }else{
+                params["access_token"] = HippoConfig.shared.agentDetail?.fuguToken
+            }
+        }else{
+            params["app_secret_key"] = HippoConfig.shared.appSecretKey
+        }
+        params["en_user_id"] = currentEnUserId()
+        params["channel_id"] = channelId
+        params["message_muid"] = message.messageUniqueID
+        params["task_status"] = isDeleted ? 1 : 2
+        if isDeleted == false{
+            params["new_message"] = message.message
+        }
+        
+        HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: AgentEndPoints.editDeleteMessage.rawValue) { (response, error, _, statusCode) in
+            if statusCode == 200{
+                completion?(true)
+            }else{
+                completion?(false)
+            }
+        }
+    }
+    
+    func highlightMessageAt(indexPath: IndexPath) {
+        tableViewChat.allowsSelection = true
+        tableViewChat.selectRow(at: indexPath, animated: true, scrollPosition: .middle)
+        tableViewChat.allowsSelection = false
+    }
+    
+    
+}

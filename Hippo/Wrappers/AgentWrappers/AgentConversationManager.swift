@@ -575,7 +575,7 @@ extension AgentConversationManager {
         
         var params: [String: Any] = conversationParam
         params["search_user_unique_key"] = searchUserUniqueKeys
-        
+        params["fetch_all_chats"] = true
         return params
     }
 }

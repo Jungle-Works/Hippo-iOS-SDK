@@ -236,6 +236,7 @@ extension UIStoryboard {
         case fuguUnique = "FuguUnique"
         case moreOptions = "MoreOptions"
         case inviteGuest = "InviteGuest"
+        case agentSDK = "AgentSdk"
     }
 }
 

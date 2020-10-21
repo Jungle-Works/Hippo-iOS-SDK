@@ -200,11 +200,19 @@ public class HippoStrings {
     static var invalidPriceAmount = "Invalid Price".localized
     static var fieldEmpty = "Field cannot be empty".localized
     static var closedChat = "Closed Chats".localized
+    static var deleteMessagePopup = "Are you sure you want to delete this message?".localized
+    static var deleteForEveryone = "Delete for Everyone".localized
+    static var edit = "Edit".localized
+    static var delete = "Delete".localized
+    static var edited = "Edited".localized
+    static var copy = "Copy".localized
+    static var deleteMessage = "deleted this message.".localized
     static var noConversationFound = "No conversations found.".localized
+
     static var botInProgress = "Bot in progress".localized
     static var connectingToMeeting = "Connecting you to your meeting".localized
     
-    
+
     open var disbaledCameraErrorMessage = "Access to Camera is denied. Please enable from setings."
     open var cameraString = "New Image via Camera"
     open var displayNameForCustomers = "Fleet"

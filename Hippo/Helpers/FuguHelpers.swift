@@ -829,6 +829,9 @@ func showAlertWith(message: String, action: (() -> Void)?) {
 
 
 func currentUserId() -> Int {
+    if let vc = getLastVisibleController() as? ConversationsViewController, vc.isSupportCustomer{
+        return HippoUserDetail.fuguUserID ?? -1
+    }
     switch HippoConfig.shared.appUserType {
     case .agent:
         return HippoConfig.shared.agentDetail?.id ?? -1
@@ -847,6 +850,9 @@ func currentUserImage() -> String? {
 }
 
 func currentEnUserId() -> String {
+    if let vc = getLastVisibleController() as? ConversationsViewController, vc.isSupportCustomer{
+        return HippoUserDetail.fuguEnUserID ?? ""
+    }
     switch HippoConfig.shared.appUserType {
     case .agent:
         return HippoConfig.shared.agentDetail?.enUserId ?? ""
