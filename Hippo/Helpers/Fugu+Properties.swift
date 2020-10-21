@@ -12,8 +12,8 @@ let HippoSDKSource = 1
 let Device_Type_iOS = 2
 var userDetailData = [String: Any]()
 
-let fuguAppVersion = "2.1.33"
-var versionCode = 450
+let fuguAppVersion = "2.1.42"
+var versionCode = 320
 
 /*
  201 = Bot messages
@@ -127,5 +127,11 @@ var versionCode = 450
  
  331 *** 2.1.33 = Bugs fixes, UI changes and localization
  
+ 332 *** 2.1.33 = Bugs fixes
  
+ 334 *** 2.1.35 = Bug fixes
+
+ 334 *** 2.1.41 = Search user unique key issues
+ 
+ 334 *** 2.1.42 = Edit and delete messages functionality
  */

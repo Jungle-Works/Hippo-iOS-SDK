@@ -7,10 +7,9 @@
 
 import Foundation
 import UIKit
-import AVFoundation
+
 #if canImport(HippoCallClient)
   import HippoCallClient
-  import JitsiMeet
 #endif
 
 public protocol HippoMessageRecievedDelegate: class {
@@ -46,8 +45,8 @@ static let betaFaye = "https://beta-live-api.fuguchat.com:3001/faye"
 // static let betaUrl = "https://hippo-api-dev.fuguchat.com:3002/"
 // static let betaFaye = "https://hippo-api-dev.fuguchat.com:3002/faye"
 
-static let devUrl = "https://hippo-api-dev.fuguchat.com:3002/"//"https://hippo-api-dev.fuguchat.com:3002/"//
-static let devFaye = "https://hippo-api-dev.fuguchat.com:3002/faye"//"https://hippo-api-dev.fuguchat.com:3002/faye"//
+static let devUrl = "https://hippo-api-dev.fuguchat.com:3003/"//"https://hippo-api-dev.fuguchat.com:3002/"//
+static let devFaye = "https://hippo-api-dev.fuguchat.com:3003/faye"//"https://hippo-api-dev.fuguchat.com:3002/faye"//
 
 // static let devUrl = "https://hippo-api-dev.fuguchat.com:3011/"
 // static let devFaye = "https://hippo-api-dev.fuguchat.com:3012/faye"
@@ -187,9 +186,9 @@ struct BotAction {
     public var shouldUseNewCalling : Bool?{
         didSet{
             if shouldUseNewCalling ?? false{
-                versionCode = 450
+                versionCode = 350 + 5
             }else{
-                versionCode = 320 - 2
+                versionCode = 320 - 5
             }
         }
     }
@@ -216,11 +215,19 @@ struct BotAction {
     }
     
     //Function to get current channel id
-    open func getCurrentChannelId()->Int?{
-        let topViewController = getLastVisibleController()
-        //will return channel id if we have some active chat else return nil
-        if topViewController is ConversationsViewController{
-            return (topViewController as? ConversationsViewController)?.channelId
+    public func getCurrentChannelId()->Int?{
+        if currentUserType() == .customer{
+            let topViewController = getLastVisibleController()
+            //will return channel id if we have some active chat else return nil
+            if topViewController is ConversationsViewController{
+                return (topViewController as? ConversationsViewController)?.channelId
+            }
+        }else{
+            let topViewController = getLastVisibleController()
+            //will return channel id if we have some active chat else return nil
+            if topViewController is AgentConversationViewController{
+                return (topViewController as? AgentConversationViewController)?.channelId
+            }
         }
         return nil
     }
@@ -614,11 +621,11 @@ struct BotAction {
         UnreadCount.fetchP2PUnreadCount(request: request, callback: completion)
     }
     
-    public func registerNewChannelId(_ transactionId: String, _ channelId : Int){
-        if P2PUnreadData.shared.getData(with: transactionId) == nil{
-            //P2PUnreadData.shared.updateChannelId(transactionId: transactionId, channelId: channelId, count: 1)
-        }
-    }
+//    public func registerNewChannelId(_ transactionId: String, _ channelId : Int){
+//        if P2PUnreadData.shared.getData(with: transactionId) == nil{
+//            //P2PUnreadData.shared.updateChannelId(transactionId: transactionId, channelId: channelId, count: 1)
+//        }
+//    }
     
     public func openChatWith(channelId: Int, completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
         switch appUserType {
@@ -988,55 +995,25 @@ struct BotAction {
         return false
     }
     
-    public func handleVoipNotification(payload: [AnyHashable: Any], completion: @escaping () -> Void) {
+    public func handleVoipNotification(payload: [AnyHashable: Any]) {
         guard let json = payload as? [String: Any] else {
             return
         }
-        
-        //HippoNotification.showLocalNotificationForVoip(json)
-        self.handleVoipNotification(payloadDict: json, completion: completion)
+        guard isHippoUserChannelSubscribe() else {
+            self.handleVoipNotification(payloadDict: json)
+            return
+        }
         
     }
         
-    public func handleVoipNotification(payloadDict: [String: Any], completion: @escaping () -> Void) {
+    public func handleVoipNotification(payloadDict: [String: Any]) {
         
-        if let messageType = payloadDict["message_type"] as? Int, messageType == MessageType.groupCall.rawValue{
-            CallManager.shared.voipNotificationRecievedForGroupCall(payloadDict: payloadDict)
-        }else if let messageType = payloadDict["message_type"] as? Int, messageType == MessageType.call.rawValue {
+        guard isHippoUserChannelSubscribe() else {
             CallManager.shared.voipNotificationRecieved(payloadDict: payloadDict)
+            return
         }
-        
-        handleRemoteNotification(userInfo: payloadDict)
-        reportIncomingCallOnCallKit(userInfo: payloadDict, completion: completion)
+        //        CallManager.shared.voipNotificationRecieved(payloadDict: payloadDict)
     }
-    
-    func reportIncomingCallOnCallKit(userInfo: [String : Any], completion: @escaping () -> Void){
-        #if canImport(JitsiMeet)
-        enableAudioSession()
-        if let uuid = userInfo["muid"] as? String, let name = userInfo["last_sent_by_full_name"] as? String, let isVideo = userInfo["call_type"] as? String == "AUDIO" ? false : true{
-            guard let UUID = UUID(uuidString: uuid) else {
-                return
-            }
-            if JMCallKitProxy.hasActiveCallForUUID(uuid){
-                completion()
-                return
-            }
-            JMCallKitProxy.reportNewIncomingCall(UUID: UUID, handle: name, displayName: name, hasVideo: isVideo) { (error) in
-                completion()
-            }
-        }
-        #endif
-      }
-    
-    func enableAudioSession(){
-         do{
-             try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playAndRecord, mode: AVAudioSession.Mode.videoChat, options: .mixWithOthers)
-             try AVAudioSession.sharedInstance().overrideOutputAudioPort(.speaker)
-             try AVAudioSession.sharedInstance().setActive(true)
-         }catch {
-             print ("\(#file) - \(#function) error: \(error.localizedDescription)")
-         }
-     }
     
     public func handleRemoteNotification(userInfo: [String: Any]) {
         setAgentStoredData()

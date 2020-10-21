@@ -31,11 +31,15 @@ class SelfMessageTableViewCell: MessageTableViewCell {
     
     var indexPath: IndexPath?
     weak var delegate: SelfMessageDelegate?
+    var messageLongPressed : ((HippoMessage)->())?
     
     override func awakeFromNib() {
         selfMessageTextView.backgroundColor = .clear
         selfMessageTextView.textContainer.lineFragmentPadding = 0
         selfMessageTextView.textContainerInset = .zero
+        let longPressGesture = UILongPressGestureRecognizer.init(target: self, action: #selector(longPressGestureFired))
+        longPressGesture.minimumPressDuration = 0.3
+        bgView?.addGestureRecognizer(longPressGesture)
     }
     
     override func didMoveToSuperview() {
@@ -45,6 +49,15 @@ class SelfMessageTableViewCell: MessageTableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+    }
+    
+    @objc func longPressGestureFired(sender: UIGestureRecognizer) {
+       guard sender.state == .began else {
+          return
+       }
+        if let message = message{
+            messageLongPressed?(message)
+        }
     }
     
     func setupBoxBackground(messageType: MessageType) {
@@ -75,7 +88,7 @@ class SelfMessageTableViewCell: MessageTableViewCell {
     }
     
     func resetPropertiesOfOutgoingMessage() {
-        selectionStyle = .none
+        //selectionStyle = .none
         
         selfMessageTextView.text = ""
         selfMessageTextView.isEditable = false

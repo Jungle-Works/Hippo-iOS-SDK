@@ -276,11 +276,13 @@ extension AgentDetail {
                 BussinessProperty.current.agentStatusForToggle = status.rawValue
             }
             
+          
             BussinessProperty.current.isVideoCallEnabled = Bool.parse(key: "is_video_call_enabled", json: data)
             BussinessProperty.current.isAudioCallEnabled = Bool.parse(key: "is_audio_call_enabled", json: data)
             
             if let businessProperty = data["business_property"] as? [String: Any] {
-                
+                BussinessProperty.current.editDeleteExpiryTime = CGFloat(Int.parse(values: businessProperty, key: "edit_delete_message_duration") ?? 0)
+            
                 BussinessProperty.current.encodeToHTMLEntities = Bool.parse(key: "encode_to_html_entites", json: businessProperty)
                 
                 BussinessProperty.current.isAskPaymentAllowed = Bool.parse(key: "is_ask_payment_allowed", json: businessProperty)

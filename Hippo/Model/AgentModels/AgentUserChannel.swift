@@ -177,7 +177,6 @@ class AgentUserChannel {
         }
     }
     
-    
     fileprivate func unSubscribe(completion: UserChannelHandler? = nil) {
         guard id != nil else {
             return

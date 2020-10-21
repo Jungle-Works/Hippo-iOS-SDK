@@ -137,7 +137,7 @@ public class UserTag: NSObject {
         let appSecretKey = HippoConfig.shared.appSecretKey
         let enUserID = fuguEnUserID?.trimWhiteSpacesAndNewLine() ?? ""
         
-        return !appSecretKey.isEmpty && !enUserID.isEmpty 
+        return !appSecretKey.isEmpty && !enUserID.isEmpty
     }
     
     // MARK: - Intializer
@@ -327,6 +327,8 @@ public class UserTag: NSObject {
                 subscribeMarkConversation()
             }
             
+            BussinessProperty.current.editDeleteExpiryTime = CGFloat(Int.parse(values: userDetailData, key: "edit_delete_message_duration") ?? 0)
+            
             if let userId = userDetailData["user_id"] as? Int {
                 HippoUserDetail.fuguUserID = userId
             }
@@ -361,7 +363,7 @@ public class UserTag: NSObject {
             
             if let cusstomerBotID = String.parse(values: userDetailData, key: "customer_conversation_bot_id") {
                 HippoProperty.setNewConversationBotGroupId(botGroupId: cusstomerBotID)
-            } 
+            }
             
             BussinessProperty.current.updateData(loginData: userDetailData)
             

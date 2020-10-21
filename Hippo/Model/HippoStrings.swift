@@ -121,7 +121,7 @@ public class HippoStrings {
     static var updatedAt = "Updated at:".localized
     static var sendPayment = "Send Payment".localized
     static var donotAllowPersonalInfo = "You are not allowed to share personal details.".localized
-   
+    
     
     /// Agent sdk
     static var thanksForFeedback = "Thank you for your comments!".localized
@@ -200,8 +200,13 @@ public class HippoStrings {
     static var invalidPriceAmount = "Invalid Price".localized
     static var fieldEmpty = "Field cannot be empty".localized
     static var closedChat = "Closed Chats".localized
-    
-    
+    static var deleteMessagePopup = "Are you sure you want to delete this message?".localized
+    static var deleteForEveryone = "Delete for Everyone".localized
+    static var edit = "Edit".localized
+    static var delete = "Delete".localized
+    static var edited = "Edited".localized
+    static var copy = "Copy".localized
+    static var deleteMessage = "deleted this message.".localized
     
     open var disbaledCameraErrorMessage = "Access to Camera is denied. Please enable from setings."
     open var cameraString = "New Image via Camera"

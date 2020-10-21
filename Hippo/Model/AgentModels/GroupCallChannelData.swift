@@ -23,7 +23,6 @@ struct GroupCallChannelData {
     var status : Bool?
     var callType : CallType?
     var transactionId : String?
-    var isAudioMuted : Bool?
    
     //
     
@@ -34,21 +33,6 @@ struct GroupCallChannelData {
             this.roomUniqueId = data["room_unique_id"] as? String
             this.sessionStartTime = data["session_start_time"] as? String
             this.sessionEndTime = data["session_start_time"] as? String
-            if let isVideoEnabled = data["is_video_enabled"] as? String{
-                this.callType = isVideoEnabled == "1" ? .video : .audio
-            }else if let isVideoEnabled = data["is_video_enabled"] as? Int{
-                this.callType = isVideoEnabled == 1 ? .video : .audio
-            }else if let isVideoEnabled = data["is_video_enabled"] as? Bool{
-                this.callType = isVideoEnabled ? .video : .audio
-            }
-            
-            if let isAudioEnabled = data["is_audio_enabled"] as? String{
-                this.isAudioMuted = isAudioEnabled == "1" ? false : true
-            }else if let isAudioEnabled = data["is_audio_enabled"] as? Int{
-                this.isAudioMuted = isAudioEnabled == 1 ? false : true
-            }else if let isAudioEnabled = data["is_audio_enabled"] as? Bool{
-                this.isAudioMuted = isAudioEnabled ? false : true
-            }
         }
         this.channelId = dic["channel_id"] as? Int
         return this

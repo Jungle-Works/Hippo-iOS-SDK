@@ -33,7 +33,7 @@ class MessageTableViewCell: UITableViewCell {
     }
     func setTime() {
         let timeOfMessage = getTimeString()
-        timeLabel.text = timeOfMessage
+        timeLabel.text = message?.messageState == MessageState.MessageEdited ? "(\(HippoStrings.edited)) " + timeOfMessage : timeOfMessage
     }
     func intalizeCell(with message: HippoMessage, isIncomingView: Bool) {
         self.message?.messageRefresed = nil
