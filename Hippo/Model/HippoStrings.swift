@@ -200,6 +200,9 @@ public class HippoStrings {
     static var invalidPriceAmount = "Invalid Price".localized
     static var fieldEmpty = "Field cannot be empty".localized
     static var closedChat = "Closed Chats".localized
+    static var noConversationFound = "No conversations found.".localized
+    static var botInProgress = "Bot in progress".localized
+    static var connectingToMeeting = "Connecting you to your meeting".localized
     static var deleteMessagePopup = "Are you sure you want to delete this message?".localized
     static var deleteForEveryone = "Delete for Everyone".localized
     static var edit = "Edit".localized
@@ -257,6 +260,7 @@ public class HippoStrings {
         HippoCallClientStrings.callingYou = HippoStrings.isCallingYou.lowercased()
         HippoCallClientStrings.callDeclined = HippoStrings.callDeclined
         HippoCallClientStrings.busyOnOtherCall = HippoStrings.busyAnotherCall
+        HippoCallClientStrings.connectingToMeeting = HippoStrings.connectingToMeeting
         
         #endif
     }

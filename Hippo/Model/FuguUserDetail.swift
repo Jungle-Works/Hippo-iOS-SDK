@@ -480,7 +480,6 @@ public class UserTag: NSObject {
     
     class func clearAllData(completion: ((Bool) -> Void)? = nil) {
         
-        
         FuguDefaults.removeAllPersistingData()
         //        if FayeConnection.shared.isConnected{
         //            FayeConnection.shared.disconnectFaye()
@@ -522,7 +521,7 @@ public class UserTag: NSObject {
         defaults.removeObject(forKey: Hippo_User_Channel_Id)
         defaults.removeObject(forKey: FUGU_USER_ID)
         defaults.removeObject(forKey: Fugu_en_user_id)
-        
+
         defaults.synchronize()
         completion?(true)
     }

@@ -87,6 +87,9 @@ class AllString{
         if let leaveComment = response["fugu_leave_comment"] as? String{
             
         }
+        if let error_msg_yellow_bar = response["error_msg_yellow_bar"] as? String{
+            HippoStrings.slowInternet = error_msg_yellow_bar
+        }
         
         if let loading = response["fugu_loading"] as? String{
             HippoStrings.loading = loading
@@ -214,6 +217,11 @@ class AllString{
         if let hippo_call_rejected = response["hippo_call_rejected"] as? String{
             
         }
+        
+        if let hippo_calling_connection = response["hippo_calling_connection"] as? String{
+            HippoStrings.connectingToMeeting = hippo_calling_connection
+        }
+        
         if let hippo_call_ringing = response["hippo_call_ringing"] as? String{
             HippoStrings.ringing = hippo_call_ringing
         }
@@ -571,6 +579,11 @@ class AllString{
         if let vw_confirm = response["vw_confirm"] as? String{
             HippoStrings.Done = vw_confirm
         }
+        
+        if let hippo_call_ended = response["hippo_call_ended"] as? String{
+            HippoStrings.callEnded = hippo_call_ended
+        }
+        
         if let vw_no_photo_app = response["vw_no_photo_app"] as? String{
             
         }
@@ -606,6 +619,10 @@ class AllString{
         
         if let hippo_message_not_allow = response["hippo_message_not_allow"] as? String{
             HippoStrings.donotAllowPersonalInfo = hippo_message_not_allow
+        }
+
+        if let hippo_Thankyou_Feedback = response["hippo_Thankyou_Feedback"] as? String{
+            HippoStrings.thanksForFeedback = hippo_Thankyou_Feedback
         }
         if let hippo_edit_text = response["hippo_edit_text"] as? String{
             HippoStrings.edit = hippo_edit_text
@@ -980,7 +997,7 @@ class AllString{
         }
         
         if let no_conversation_found = response["no_conversation_found"] as? String{
-            
+            HippoStrings.noConversationFound = no_conversation_found
         }
         
         if let no_previous_conversation_found = response["no_previous_conversation_found"] as? String{
@@ -1204,7 +1221,7 @@ class AllString{
         }
         
         if let tags = response["tags"] as? String{
-            
+            HippoStrings.tags = tags
         }
         
         if let channel_info = response["channel_info"] as? String{
@@ -1358,30 +1375,7 @@ class AllString{
         if let empty_msg = response["empty_msg"] as? String{
             HippoStrings.fieldEmpty = empty_msg
         }
-        
-        if let phone_empty_msg = response["phone_empty_msg"] as? String{
-            
-        }
-        
-        if let name_empty_msg = response["name_empty_msg"] as? String{
-            
-        }
-        
-        if let old_pass_empty_msg = response["old_pass_empty_msg"] as? String{
-            
-        }
-        
-        if let new_pass_empty_msg = response["new_pass_empty_msg"] as? String{
-            
-        }
-        
-        if let conf_pass_empty_msg = response["conf_pass_empty_msg"] as? String{
-            
-        }
-        
-        if let PleaseEnterConfrimPassword = response["PleaseEnterConfrimPassword"] as? String{
-            
-        }
+     
         
         if let PleaseEnterAddressType = response["PleaseEnterAddressType"] as? String{
             
@@ -1599,7 +1593,7 @@ class AllString{
         }
         
         if let hippo_rated_message = response["hippo_rated_message"] as? String{
-            
+            HippoStrings.thanksForFeedback = hippo_rated_message
         }
         
         if let feedback_pending = response["feedback_pending"] as? String{
@@ -1964,7 +1958,7 @@ class AllString{
         }
         
         if let error_msg_yellow_bar = response["error_msg_yellow_bar"] as? String{
-            
+            HippoStrings.slowInternet = error_msg_yellow_bar
         }
         
         if let fugu_connecting = response["fugu_connecting"] as? String{
@@ -2240,7 +2234,7 @@ class AllString{
         }
         
         if let hippo_bot_in_progress = response["hippo_bot_in_progress"] as? String{
-            
+            HippoStrings.botInProgress = hippo_bot_in_progress
         }
         
         if let hippo_no_internet_connected = response["hippo_no_internet_connected"] as? String{
@@ -2276,7 +2270,7 @@ class AllString{
         }
         
         if let hippo_Bot = response["hippo_Bot"] as? String{
-            
+            HippoStrings.bot = hippo_Bot
         }
         
         if let hippo_savePaymentPlan = response["hippo_savePaymentPlan"] as? String{
@@ -2302,6 +2296,22 @@ class AllString{
         }
         if let hippo_invalid_price = response["hippo_invalid_price"] as? String{
             HippoStrings.invalidPriceAmount = hippo_invalid_price
+        }
+        if let hippo_takeover_chat = response["hippo_takeover_chat"] as? String{
+            HippoStrings.takeOverChat = hippo_takeover_chat
+        }
+        
+        if let video = response["video"] as? String{
+            HippoStrings.video = video
+        }
+        if let hippo_assigned_to = response["hippo_assigned_to"] as? String{
+            HippoStrings.assignedTo = hippo_assigned_to
+        }
+        if let hippo_calling_connection = response["hippo_calling_connection"] as? String{
+            HippoStrings.connectingToMeeting = hippo_calling_connection
+        }
+        if let hippo_emptymessage = response["hippo_emptymessage"] as? String{
+            HippoStrings.enterSomeText = hippo_emptymessage
         }
         
     }

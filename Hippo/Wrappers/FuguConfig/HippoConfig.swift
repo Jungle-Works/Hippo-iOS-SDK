@@ -186,7 +186,7 @@ struct BotAction {
     public var shouldUseNewCalling : Bool?{
         didSet{
             if shouldUseNewCalling ?? false{
-                versionCode = 350 + 5
+                versionCode = 450
             }else{
                 versionCode = 320 - 5
             }
@@ -240,6 +240,12 @@ struct BotAction {
             return (topViewController as? AgentConversationViewController)?.channelId
         }
         return nil
+    }
+    
+    public func callMissedFromUser(userInfo : [String : Any]){
+        if userInfo["notification_type"] as? Int == NotificationType.call.rawValue{
+            CallManager.shared.voipNotificationRecieved(payloadDict: userInfo)
+        }
     }
     
     internal func setAgentStoredData() {
@@ -413,7 +419,7 @@ struct BotAction {
     }
     
     public func initManager(agentToken: String, app_type: String, customAttributes: [String: Any]? = nil,selectedLanguage : String? = nil, completion: @escaping HippoResponseRecieved) {
-        let detail = AgentDetail(oAuthToken: agentToken.trimWhiteSpacesAndNewLine(), appType: app_type, customAttributes: customAttributes)
+        let detail = AgentDetail(oAuthToken: agentToken.trimWhiteSpacesAndNewLine(), appType: app_type, customAttributes: customAttributes, userId: agentDetail?.id)
         detail.isForking = true
         self.appUserType = .agent
         self.agentDetail = detail
@@ -434,7 +440,7 @@ struct BotAction {
      *******/
     
     public func initManager(authToken: String, app_type: String, customAttributes: [String: Any]? = nil, selectedLanguage : String? = nil, completion: @escaping HippoResponseRecieved) {
-        let detail = AgentDetail(oAuthToken: authToken.trimWhiteSpacesAndNewLine(), appType: app_type, customAttributes: customAttributes)
+        let detail = AgentDetail(oAuthToken: authToken.trimWhiteSpacesAndNewLine(), appType: app_type, customAttributes: customAttributes, userId: self.agentDetail?.id)
         self.appUserType = .agent
         self.agentDetail = detail
         AgentConversationManager.updateAgentChannel(completion: {(error,response) in
@@ -1275,11 +1281,9 @@ struct BotAction {
 
 extension HippoConfig{
     
-    public func getPaymentGateways(_ appSecretKey : String){
+    public func getPaymentGateways(_ appSecretKey : String, completion: @escaping (Bool) -> Void){
         HippoConfig.shared.appSecretKey = appSecretKey
-        HippoUserDetail.getPaymentGateway { (success) in
-            
-        }
+        HippoUserDetail.getPaymentGateway(completion: completion)
     }
 }
 
