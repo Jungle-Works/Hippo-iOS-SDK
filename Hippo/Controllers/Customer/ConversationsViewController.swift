@@ -1042,6 +1042,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
                 }
                 return
             }
+            weakself.channel.isSendingDisabled = result.isSendingDisabled
             weakself.storeResponse = result
             weakself.hideRetryLabelView()
             weakself.handleSuccessCompletionOfGetMessages(result: result, request: request, completion: completion)

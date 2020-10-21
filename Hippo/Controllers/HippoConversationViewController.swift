@@ -1936,7 +1936,12 @@ extension HippoConversationViewController{
         
         var params = [String : Any]()
         if currentUserType() == .agent{
-            params["access_token"] = HippoConfig.shared.agentDetail?.fuguToken
+            if let vc = getLastVisibleController() as? ConversationsViewController, vc.isSupportCustomer{
+                params["app_secret_key"] = HippoConfig.shared.appSecretKey
+
+            }else{
+                params["access_token"] = HippoConfig.shared.agentDetail?.fuguToken
+            }
         }else{
             params["app_secret_key"] = HippoConfig.shared.appSecretKey
         }

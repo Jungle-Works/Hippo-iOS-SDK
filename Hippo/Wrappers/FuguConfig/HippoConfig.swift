@@ -46,8 +46,8 @@ static let betaFaye = "https://beta-live-api.fuguchat.com:3001/faye"
 // static let betaUrl = "https://hippo-api-dev.fuguchat.com:3002/"
 // static let betaFaye = "https://hippo-api-dev.fuguchat.com:3002/faye"
 
-static let devUrl = "https://hippo-api-dev.fuguchat.com:3003/"//"https://hippo-api-dev.fuguchat.com:3002/"//
-static let devFaye = "https://hippo-api-dev.fuguchat.com:3003/faye"//"https://hippo-api-dev.fuguchat.com:3002/faye"//
+static let devUrl = "https://hippo-api-dev.fuguchat.com:3002/"//"https://hippo-api-dev.fuguchat.com:3002/"//
+static let devFaye = "https://hippo-api-dev.fuguchat.com:3002/faye"//"https://hippo-api-dev.fuguchat.com:3002/faye"//
 
 // static let devUrl = "https://hippo-api-dev.fuguchat.com:3011/"
 // static let devFaye = "https://hippo-api-dev.fuguchat.com:3012/faye"
@@ -228,6 +228,8 @@ struct BotAction {
             //will return channel id if we have some active chat else return nil
             if topViewController is AgentConversationViewController{
                 return (topViewController as? AgentConversationViewController)?.channelId
+            }else if topViewController is ConversationsViewController ,(topViewController as? ConversationsViewController)?.isSupportCustomer ?? false{
+                return (topViewController as? ConversationsViewController)?.channelId
             }
         }
         return nil
@@ -1019,6 +1021,13 @@ struct BotAction {
             return false
         }
         
+        if currentUserType() == .agent && userInfo.keys.contains("chat_transaction_id"){
+            // if its support customer and chat screen is open return false
+            if getLastVisibleController() is ConversationsViewController{
+                return false
+            }
+        }
+        
         if HippoConfig.shared.isHippoNotification(withUserInfo: userInfo) {
             return FuguFlowManager.shared.toShowInAppNotification(userInfo: userInfo)
         }
@@ -1209,6 +1218,7 @@ struct BotAction {
         if let transactionId = userInfo["chat_transaction_id"] as? String, HippoConfig.shared.userDetail != nil{
             let dic = ["transactionId" : transactionId]
             consultNowButtonClicked(consultNowInfoDict: dic)
+            return
         }
         
         HippoChecker.checkForAgentIntialization { (success, error) in
