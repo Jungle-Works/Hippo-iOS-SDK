@@ -289,7 +289,7 @@ func fuguDelay(_ withDuration: Double, completion: @escaping () -> ()) {
 
 func isSubscribed(userChannelId: String) -> Bool {
     
-    return FayeConnection.shared.isChannelSubscribed(channelID: userChannelId)
+    return SocketClient.shared. //FayeConnection.shared.isChannelSubscribed(channelID: userChannelId)
 }
 
 func unSubscribe(userChannelId: String) {
@@ -303,49 +303,37 @@ func subscribeCustomerUserChannel(userChannelId: String) {
     guard !isSubscribed(userChannelId: userChannelId) else {
         return
     }
-    
-    FayeConnection.shared.subscribeTo(channelId: userChannelId, completion: { (success) in
-        if !success{
-            if !FayeConnection.shared.isConnected && FuguNetworkHandler.shared.isNetworkConnected{
-                // wait for faye and try again
-                var retryAttempt = 0
-                fuguDelay(0.5) {
-                    if retryAttempt <= 2{
-                        subscribeCustomerUserChannel(userChannelId: userChannelId)
-                        retryAttempt += 1
-                    }else{
-                        return
+    let listener = SocketListner()
+    SocketClient.shared.subscribeSocketChannel(channel: userChannelId)
+    listener.startListening(event: SocketEvent.SERVER_PUSH.rawValue, callback: { (data) in
+        if let messageDict = data as? [String : Any]{
+            HippoConfig.shared.log.trace("UserChannel:: --->\(messageDict)", level: .socket)
+            if let messageType = messageDict["message_type"] as? Int, messageType == MessageType.call.rawValue {
+                if let channel_id = messageDict["channel_id"] as? Int{ //isSubscribed(userChannelId: "\(channel_id)") == false {
+                    
+                    let channel = FuguChannelPersistancyManager.shared.getChannelBy(id: channel_id)
+                    if versionCode < 350{//call for old version
+                        channel.signalReceivedFromPeer?(messageDict)
+                    }
+                    CallManager.shared.voipNotificationRecieved(payloadDict: messageDict)
+                }
+            }else if let messageType = messageDict["message_type"] as? Int, messageType == MessageType.groupCall.rawValue{
+                CallManager.shared.voipNotificationRecievedForGroupCall(payloadDict: messageDict)
+            }
+            
+            if let notificationType = messageDict["notification_type"] as? Int{
+                if notificationType == NotificationType.message.rawValue && messageDict["channel_id"] as? Int != HippoConfig.shared.getCurrentChannelId(){
+                    if let channelId = messageDict["channel_id"] as? Int, let otherUserUniqueKey = ((messageDict["user_unique_keys"] as? [String])?.filter{$0 != HippoConfig.shared.userDetail?.userUniqueKey}.first){
+                        let transactionId = P2PUnreadData.shared.getTransactionId(with: channelId)
+                        if let data = P2PUnreadData.shared.getData(with: transactionId) , data.id == (transactionId + "-" + otherUserUniqueKey){
+                            let unreadCount = (data.count ?? 0) + 1
+                            P2PUnreadData.shared.updateChannelId(transactionId: transactionId, channelId: channelId, count: unreadCount, otherUserUniqueKey: otherUserUniqueKey)
+                        }
                     }
                 }
             }
         }
-    }) {  (messageDict) in
-         HippoConfig.shared.log.trace("UserChannel:: --->\(messageDict)", level: .socket)
-        if let messageType = messageDict["message_type"] as? Int, messageType == MessageType.call.rawValue {
-            if let channel_id = messageDict["channel_id"] as? Int{ //isSubscribed(userChannelId: "\(channel_id)") == false {
-                
-                let channel = FuguChannelPersistancyManager.shared.getChannelBy(id: channel_id)
-                if versionCode < 350{//call for old version
-                    channel.signalReceivedFromPeer?(messageDict)
-                }
-                CallManager.shared.voipNotificationRecieved(payloadDict: messageDict)
-            }
-        }else if let messageType = messageDict["message_type"] as? Int, messageType == MessageType.groupCall.rawValue{
-            CallManager.shared.voipNotificationRecievedForGroupCall(payloadDict: messageDict)
-        }
-        
-        if let notificationType = messageDict["notification_type"] as? Int{
-            if notificationType == NotificationType.message.rawValue && messageDict["channel_id"] as? Int != HippoConfig.shared.getCurrentChannelId(){
-                if let channelId = messageDict["channel_id"] as? Int, let otherUserUniqueKey = ((messageDict["user_unique_keys"] as? [String])?.filter{$0 != HippoConfig.shared.userDetail?.userUniqueKey}.first){
-                    let transactionId = P2PUnreadData.shared.getTransactionId(with: channelId)
-                    if let data = P2PUnreadData.shared.getData(with: transactionId) , data.id == (transactionId + "-" + otherUserUniqueKey){
-                        let unreadCount = (data.count ?? 0) + 1
-                        P2PUnreadData.shared.updateChannelId(transactionId: transactionId, channelId: channelId, count: unreadCount, otherUserUniqueKey: otherUserUniqueKey)
-                    }
-                }
-            }
-        }
-    }
+    })
 }
 
 func subscribeMarkConversation(){

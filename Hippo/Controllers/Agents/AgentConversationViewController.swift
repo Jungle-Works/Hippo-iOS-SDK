@@ -1503,10 +1503,10 @@ extension AgentConversationViewController {
             }
         }
         
-       if channel != nil, !channel.isSubscribed() {
-            buttonClickedOnNetworkOff()
-            return
-        }
+//       if channel != nil, !channel.isSubscribed() {
+//            buttonClickedOnNetworkOff()
+//            return
+//        }
         if isMessageInvalid(messageText: messageTextView.text) {
             return
         }
@@ -2510,14 +2510,14 @@ extension AgentConversationViewController: HippoChannelDelegate {
     }
     
     
-    func cancelSendingMessage(message: HippoMessage, errorMessage: String?, errorCode: FayeConnection.FayeError?) {
+    func cancelSendingMessage(message: HippoMessage, errorMessage: String?, errorCode: SocketClient.SocketError?) {
         self.cancelMessage(message: message)
         
         if let message = errorMessage {
             showErrorMessage(messageString: message)
             updateErrorLabelView(isHiding: true)
         }
-        if errorCode == FayeConnection.FayeError.personalInfoSharedError{
+        if errorCode == SocketClient.SocketError.personalInfoSharedError{
             self.messageTextView.text = message.message
         }
     }
@@ -2540,7 +2540,7 @@ extension AgentConversationViewController: HippoChannelDelegate {
     }
     
     func newMessageReceived(newMessage message: HippoMessage) {
-        message.status = .read
+        message.status = message.isSentByMe() ? message.status : .read
         message.wasMessageSendingFailed = false
         
         switch message.type {

@@ -12,7 +12,7 @@ protocol MessageSenderDelegate: class {
     func messageExpired(message: HippoMessage)
     func duplicateMuidOf(message: HippoMessage)
     func subscribeChannel(completion: @escaping (_ success: Bool) -> Void)
-    func messageSendingFailed(message: HippoMessage, result: FayeConnection.FayeResult)
+    func messageSendingFailed(message: HippoMessage, result: SocketClient.EventAckResponse)
 }
 
 class MessageSender {
@@ -35,9 +35,9 @@ class MessageSender {
         startSending()
         
         NotificationCenter.default.addObserver(self, selector: #selector(fayeConnected), name: .channelSubscribed, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(fayeConnected), name: .fayeConnected, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(fayeConnected), name: .socketConnected, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(fayeDisconnected), name: .internetDisconnected, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(fayeDisconnected), name: .fayeDisconnected, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(fayeDisconnected), name: .socketDisconnected, object: nil)
     }
     
     // MARK: - Methods
@@ -81,10 +81,10 @@ class MessageSender {
         }
         message.wasMessageSendingFailed = false
         
-        guard FayeConnection.shared.isChannelSubscribed(channelID: channelID.description) else {
-            isSendingMessages = false
-            return
-        }
+//        guard FayeConnection.shared.isChannelSubscribed(channelID: channelID.description) else {
+//            isSendingMessages = false
+//            return
+//        }
         
         let messageJSON: [String: Any]
         
@@ -95,9 +95,10 @@ class MessageSender {
             messageJSON = message.getJsonToSendToFaye()
         }
         
-        FayeConnection.shared.send(messageDict: messageJSON, toChannelID: channelID.description, completion: { [weak self] (result) in
+        SocketClient.shared.send(messageDict: messageJSON, toChannelID: channelID.description, completion: { [weak self] (result) in
             
-            if result.success {
+            
+            if result.isSuccess {
                 guard self?.messagesToBeSent.count != 0 else {
                     self?.isSendingMessages = false
                     return
@@ -111,8 +112,8 @@ class MessageSender {
                 self?.startSending()
                 HippoConfig.shared.log.debug("-->\(self?.channelID.description ?? "no channel id") == messageSent == \(messageJSON) ", level: .socket)
             } else {
-                print("FayeConnection.shared.send****:", result.error?.error)
-                guard let errorType = result.error?.error else {
+                print("FayeConnection.shared.send****:", result.error)
+                guard let errorType = result.error else {
                     self?.retryWithDelay()
                     return
                 }
@@ -165,7 +166,7 @@ class MessageSender {
             self.delegate?.messageExpired(message: message)
         }
     }
-    private func messageSendingFailed(result: FayeConnection.FayeResult) {
+    private func messageSendingFailed(result: SocketClient.EventAckResponse) {
         guard let message = messagesToBeSent.first else {
             return
         }

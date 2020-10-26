@@ -523,6 +523,12 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
     // MARK: - Methods
     func getJsonToSendToFaye() -> [String: Any] {
         var json = [String: Any]()
+        json["data"] = getSocketJsonData()
+        return json
+    }
+    
+    func getSocketJsonData()->[String : Any]{
+        var json = [String: Any]()
         if let parsedRawJsonToSend = rawJsonToSend {
             json += parsedRawJsonToSend
         }
@@ -638,12 +644,9 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         if customAction != nil{
             json["custom_action"] = getDicForCustomAction()
         }
-        
-        //send selected language
-        json["lang"] = getCurrentLanguageLocale()
-        
         return json
     }
+    
     
     //dic for multiselection message
     

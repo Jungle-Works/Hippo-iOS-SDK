@@ -2758,7 +2758,7 @@ extension ConversationsViewController: HippoChannelDelegate {
         tableViewChat.reloadData()
     }
     
-    func cancelSendingMessage(message: HippoMessage, errorMessage: String?,errorCode : FayeConnection.FayeError?) {
+    func cancelSendingMessage(message: HippoMessage, errorMessage: String?,errorCode : SocketClient.SocketError?) {
         self.cancelMessage(message: message)
         
         if let message = errorMessage {
@@ -2766,7 +2766,7 @@ extension ConversationsViewController: HippoChannelDelegate {
             updateErrorLabelView(isHiding: true)
         }
         
-        if errorCode == FayeConnection.FayeError.personalInfoSharedError{
+        if errorCode == SocketClient.SocketError.personalInfoSharedError{
             self.messageTextView.text = message.message
         }
     }

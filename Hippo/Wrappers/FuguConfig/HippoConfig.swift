@@ -852,6 +852,7 @@ struct BotAction {
             fayeBaseURLString = SERVERS.liveFaye
         }
         FayeConnection.shared.enviromentSwitchedWith(urlString: fayeBaseURLString)
+        SocketClient.shared.connect()
     }
     
     
