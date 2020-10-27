@@ -222,6 +222,10 @@ class AllString{
             HippoStrings.connectingToMeeting = hippo_calling_connection
         }
         
+        if let hippo_establishing_connection = response["hippo_establishing_connection"] as? String{
+            HippoStrings.establishingConnection = hippo_establishing_connection
+        }
+        
         if let hippo_call_ringing = response["hippo_call_ringing"] as? String{
             HippoStrings.ringing = hippo_call_ringing
         }
@@ -2311,6 +2315,11 @@ class AllString{
         if let hippo_calling_connection = response["hippo_calling_connection"] as? String{
             HippoStrings.connectingToMeeting = hippo_calling_connection
         }
+        
+        if let hippo_establishing_connection = response["hippo_establishing_connection"] as? String{
+            HippoStrings.establishingConnection = hippo_establishing_connection
+        }
+        
         if let hippo_emptymessage = response["hippo_emptymessage"] as? String{
             HippoStrings.enterSomeText = hippo_emptymessage
         }
