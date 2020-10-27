@@ -211,7 +211,9 @@ public class HippoStrings {
 
     static var botInProgress = "Bot in progress".localized
     static var connectingToMeeting = "Connecting you to your meeting".localized
-    
+
+    static var establishingConnection = "Please wait while we are establishing the connection.."
+
 
     open var disbaledCameraErrorMessage = "Access to Camera is denied. Please enable from setings."
     open var cameraString = "New Image via Camera"
@@ -263,6 +265,7 @@ public class HippoStrings {
         HippoCallClientStrings.callDeclined = HippoStrings.callDeclined
         HippoCallClientStrings.busyOnOtherCall = HippoStrings.busyAnotherCall
         HippoCallClientStrings.connectingToMeeting = HippoStrings.connectingToMeeting
+        HippoCallClientStrings.establishingConnection = HippoStrings.establishingConnection
         
         #endif
     }
