@@ -63,7 +63,7 @@ class AgentUserChannel {
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self, selector: #selector(internetDisConnected), name: .internetDisconnected, object: nil)
         notificationCenter.addObserver(self, selector: #selector(internetConnected), name: .internetConnected, object: nil)
-        notificationCenter.addObserver(self, selector: #selector(checkForReconnection), name: .fayeConnected, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(checkForReconnection), name: .socketConnected, object: nil)
     }
     @objc fileprivate func checkForReconnection() {
         guard !isSubscribed() else {
@@ -172,9 +172,7 @@ class AgentUserChannel {
         guard !id.isEmpty else {
             return
         }
-        FayeConnection.shared.unsubscribe(fromChannelId: id, completion: { (success, error) in
-            completion?(success, error)
-        })
+        SocketClient.shared.unsubscribeSocketChannel(fromChannelId: id)
     }
     //    fileprivate func conversationRecieved(_ newConversation: AgentConversation) {
     fileprivate func conversationRecieved(_ newConversation: AgentConversation, dict: [String: Any]) {
@@ -266,7 +264,7 @@ class AgentUserChannel {
         //    }
         
         func isSubscribed() -> Bool {
-            return FayeConnection.shared.isChannelSubscribed(channelID: id)
+            return SocketClient.shared.isChannelSubscribed(channel: id)
         }
         
         deinit {

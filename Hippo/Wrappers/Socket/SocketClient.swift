@@ -17,7 +17,7 @@ class SocketClient: NSObject {
     private var manager: SocketManager?
     var socket: SocketIOClient?
     let channelPrefix = "/"
-    var subscribedChannel = [String : Any]()
+    var subscribedChannel = [String : Bool]()
     //MARK:- Listeners
     
     private var onConnectCallBack : ((Array<Any>, SocketAckEmitter) -> ())!
@@ -74,7 +74,9 @@ class SocketClient: NSObject {
         handshakeListener = {(arr, ack) in
             
         }
-        subscribeChannelListener = {(arr, ack) in}
+        subscribeChannelListener = {(arr, ack) in
+            NotificationCenter.default.post(name: .channelSubscribed, object: nil)
+        }
         unsubscribeChannelListener = {(arr, ack) in}
     }
     
@@ -129,6 +131,10 @@ class SocketClient: NSObject {
         socket?.off(name)
     }
     
+    func isChannelSubscribed(channel : String)-> Bool{
+        return subscribedChannel.keys.contains(channel) && subscribedChannel[channel] == true
+    }
+    
     deinit {
         deinitializeListeners()
         manager = nil
@@ -171,5 +177,6 @@ extension SocketClient {
 extension Notification.Name {
     public static var socketConnected = Notification.Name.init("socketConnected")
     public static var socketDisconnected = Notification.Name.init("socketDisconnected")
+    public static var channelSubscribed = Notification.Name.init("channelSubscribed")
 }
 

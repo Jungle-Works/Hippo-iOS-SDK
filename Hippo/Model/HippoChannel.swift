@@ -951,9 +951,9 @@ class HippoChannel {
             return
         }
         
-//        if !isSubscribed() {
-//            subscribe()
-//        }
+        if !isSubscribed() {
+            subscribe()
+        }
         
         if message.messageUniqueID != nil {
             let value = messageHashMap[message.messageUniqueID!] ?? self.messages.count - 1
@@ -1002,9 +1002,7 @@ class HippoChannel {
         return true
     }
     fileprivate func unSubscribe(completion: HippoChannelHandler? = nil) {
-        FayeConnection.shared.unsubscribe(fromChannelId: id.description, completion: { (success, error) in
-            completion?(success, error)
-        })
+        SocketClient.shared.unsubscribeSocketChannel(fromChannelId: id.description)
     }
     func send(dict: [String: Any], completion: @escaping  (Bool, NSError?) -> Void) {
         var json = dict
@@ -1028,11 +1026,11 @@ class HippoChannel {
     }
     
     func isSubscribed() -> Bool {
-        return FayeConnection.shared.isChannelSubscribed(channelID: id.description)
+        return SocketClient.shared.isChannelSubscribed(channel: id.description)
     }
     
     func isConnected() -> Bool {
-        return isSubscribed() && FayeConnection.shared.isConnected && FuguNetworkHandler.shared.isNetworkConnected
+        return isSubscribed() && SocketClient.shared.isConnected() && FuguNetworkHandler.shared.isNetworkConnected
     }
     
     

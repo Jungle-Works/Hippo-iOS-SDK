@@ -50,7 +50,7 @@ class MessageSender {
     }
     
     @objc func fayeConnected() {
-        if !isSendingMessages, FayeConnection.shared.isChannelSubscribed(channelID: channelID.description) {
+        if !isSendingMessages, SocketClient.shared.isChannelSubscribed(channel: channelID.description) {
             isSendingMessages = true
             startSending()
         }

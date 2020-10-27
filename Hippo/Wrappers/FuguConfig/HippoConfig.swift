@@ -851,7 +851,7 @@ struct BotAction {
             baseUrl = SERVERS.liveUrl
             fayeBaseURLString = SERVERS.liveFaye
         }
-        FayeConnection.shared.enviromentSwitchedWith(urlString: fayeBaseURLString)
+//        FayeConnection.shared.enviromentSwitchedWith(urlString: fayeBaseURLString)
         SocketClient.shared.connect()
     }
     
@@ -1002,25 +1002,35 @@ struct BotAction {
         return false
     }
     
-    public func handleVoipNotification(payload: [AnyHashable: Any]) {
-        guard let json = payload as? [String: Any] else {
-            return
-        }
-        guard isHippoUserChannelSubscribe() else {
-            self.handleVoipNotification(payloadDict: json)
-            return
-        }
+    public func handleVoipNotification(payloadDict: [String: Any], completion: @escaping () -> Void) {
         
-    }
-        
-    public func handleVoipNotification(payloadDict: [String: Any]) {
-        
-        guard isHippoUserChannelSubscribe() else {
+        if let messageType = payloadDict["message_type"] as? Int, messageType == MessageType.groupCall.rawValue{
+            CallManager.shared.voipNotificationRecievedForGroupCall(payloadDict: payloadDict)
+        }else if let messageType = payloadDict["message_type"] as? Int, messageType == MessageType.call.rawValue {
             CallManager.shared.voipNotificationRecieved(payloadDict: payloadDict)
-            return
         }
-        //        CallManager.shared.voipNotificationRecieved(payloadDict: payloadDict)
+        
+        handleRemoteNotification(userInfo: payloadDict)
+        reportIncomingCallOnCallKit(userInfo: payloadDict, completion: completion)
     }
+    func reportIncomingCallOnCallKit(userInfo: [String : Any], completion: @escaping () -> Void){
+        #if canImport(JitsiMeet)
+        enableAudioSession()
+        if let uuid = userInfo["muid"] as? String, let name = userInfo["last_sent_by_full_name"] as? String, let isVideo = userInfo["call_type"] as? String == "AUDIO" ? false : true{
+            guard let UUID = UUID(uuidString: uuid) else {
+                return
+            }
+            if JMCallKitProxy.hasActiveCallForUUID(uuid){
+                completion()
+                return
+            }
+            JMCallKitProxy.reportNewIncomingCall(UUID: UUID, handle: name, displayName: name, hasVideo: isVideo) { (error) in
+                completion()
+            }
+        }
+        #endif
+    }
+    
     
     public func handleRemoteNotification(userInfo: [String: Any]) {
         setAgentStoredData()
@@ -1076,31 +1086,18 @@ struct BotAction {
     
     
     func subscribeChannelAndStartListening(_ channelId : Int){
-        FayeConnection.shared.subscribeTo(channelId: "\(channelId)", completion: {(success) in
-            if !success{
-                if !FayeConnection.shared.isConnected && FuguNetworkHandler.shared.isNetworkConnected{
-                    //FayeConnection.shared.enviromentSwitchedWith(urlString: self.fayeBaseURLString)
-                    var retryAttempt = 0
-                    fuguDelay(0.2) {
-                        if retryAttempt <= 3{
-                            self.subscribeChannelAndStartListening(channelId)
-                            retryAttempt += 1
-                        }else{
-                            return
-                        }
-                    }
+        SocketClient.shared.subscribeSocketChannel(channel: "\(channelId)")
+        let listener = SocketListner()
+        listener.startListening(event: SocketEvent.SERVER_PUSH.rawValue, callback: {(data) in
+            if let messageDict = data as? [String : Any]{
+                if let messageType = messageDict["message_type"] as? Int, messageType == MessageType.groupCall.rawValue{
+                    CallManager.shared.voipNotificationRecievedForGroupCall(payloadDict: messageDict)
+                    unSubscribe(userChannelId: "\(channelId)")
+                }else if let messageType = messageDict["message_type"] as? Int, messageType == MessageType.call.rawValue {
+                    CallManager.shared.voipNotificationRecieved(payloadDict: messageDict)
                 }
             }
-            print("channel subscribed", success)
-        }) {(messageDict) in
-            print(messageDict)
-            if let messageType = messageDict["message_type"] as? Int, messageType == MessageType.groupCall.rawValue{
-                CallManager.shared.voipNotificationRecievedForGroupCall(payloadDict: messageDict)
-                unSubscribe(userChannelId: "\(channelId)")
-            }else if let messageType = messageDict["message_type"] as? Int, messageType == MessageType.call.rawValue {
-                CallManager.shared.voipNotificationRecieved(payloadDict: messageDict)
-            }
-        }
+        })
     }
     
     func handleAgentNotification(userInfo: [String: Any]) {

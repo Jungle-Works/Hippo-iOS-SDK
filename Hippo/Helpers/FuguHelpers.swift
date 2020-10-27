@@ -289,13 +289,12 @@ func fuguDelay(_ withDuration: Double, completion: @escaping () -> ()) {
 
 func isSubscribed(userChannelId: String) -> Bool {
     
-    return SocketClient.shared. //FayeConnection.shared.isChannelSubscribed(channelID: userChannelId)
+    return SocketClient.shared.isChannelSubscribed(channel: userChannelId) //FayeConnection.shared.isChannelSubscribed(channelID: userChannelId)
 }
 
 func unSubscribe(userChannelId: String) {
     
-    FayeConnection.shared.unsubscribe(fromChannelId: userChannelId, completion: { (success, error) in
-    })
+    SocketClient.shared.unsubscribeSocketChannel(fromChannelId: userChannelId)
 }
 
 func subscribeCustomerUserChannel(userChannelId: String) {
@@ -348,33 +347,33 @@ func subscribeMarkConversation(){
         return
     }
     
-    FayeConnection.shared.subscribeTo(channelId: markConversationChannel, completion: { (success) in
-    }) {  (messageDict) in
-        print(messageDict)
-        if let notificationType = messageDict["notification_type"] as? Int, notificationType == 12{
-            if let status = messageDict["status"] as? String{
-                if status != "2"{
-                    return
-                }
-            }else if let status = messageDict["status"] as? Int{
-                if status != 2{
-                    return
-                }
-            }
-            for controller in getLastVisibleController()?.navigationController?.viewControllers ?? [UIViewController](){
-                if controller is AllConversationsViewController{
-                    (controller as? AllConversationsViewController)?.closeChat(messageDict["channel_id"] as? Int ?? -1)
-                    return
-                }
-            }
-            
-            if currentUserType() == .agent{
-                if let channelId = messageDict["channel_id"] as? Int{
-                   removeChannelForUnreadCount(channelId)
-                }
-            }
-        }
-    }
+//    SocketClient.shared.subscribedChannel(channelId: markConversationChannel, completion: { (success) in
+//    }) {  (messageDict) in
+//        print(messageDict)
+//        if let notificationType = messageDict["notification_type"] as? Int, notificationType == 12{
+//            if let status = messageDict["status"] as? String{
+//                if status != "2"{
+//                    return
+//                }
+//            }else if let status = messageDict["status"] as? Int{
+//                if status != 2{
+//                    return
+//                }
+//            }
+//            for controller in getLastVisibleController()?.navigationController?.viewControllers ?? [UIViewController](){
+//                if controller is AllConversationsViewController{
+//                    (controller as? AllConversationsViewController)?.closeChat(messageDict["channel_id"] as? Int ?? -1)
+//                    return
+//                }
+//            }
+//
+//            if currentUserType() == .agent{
+//                if let channelId = messageDict["channel_id"] as? Int{
+//                   removeChannelForUnreadCount(channelId)
+//                }
+//            }
+//        }
+//    }
     
 }
 
