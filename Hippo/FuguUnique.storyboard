@@ -402,9 +402,8 @@
         <!--Navigation Controller-->
         <scene sceneID="mRO-eI-R8e">
             <objects>
-                <navigationController storyboardIdentifier="FuguAgentDirectNavigationController" id="SEw-21-kSb" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="FuguAgentDirectNavigationController" navigationBarHidden="YES" id="SEw-21-kSb" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="qa1-Yh-iD0">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -427,15 +426,22 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7uR-t1-o9M" customClass="NavigationBar" customModule="Hippo" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="1e7-Y9-lUO"/>
+                                </constraints>
+                            </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="i6H-s2-IoR">
-                                <rect key="frame" x="0.0" y="44" width="375" height="623"/>
+                                <rect key="frame" x="0.0" y="50" width="375" height="617"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ikm-nm-s2D">
-                                <rect key="frame" x="0.0" y="44" width="375" height="623"/>
+                                <rect key="frame" x="0.0" y="50" width="375" height="617"/>
                                 <subviews>
                                     <imageView hidden="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="app_loader_shape" translatesAutoresizingMaskIntoConstraints="NO" id="Y22-DA-qgw" customClass="So_UIImageView" customModule="Hippo" customModuleProvider="target">
-                                        <rect key="frame" x="167.5" y="291.5" width="40" height="40"/>
+                                        <rect key="frame" x="167.5" y="288.5" width="40" height="40"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </imageView>
                                 </subviews>
@@ -446,7 +452,7 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Something went wrong" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0uj-Zn-vQd">
-                                <rect key="frame" x="0.0" y="44" width="375" height="623"/>
+                                <rect key="frame" x="0.0" y="50" width="375" height="617"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="15"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -458,15 +464,18 @@
                             <constraint firstItem="0uj-Zn-vQd" firstAttribute="leading" secondItem="m3M-DS-wNM" secondAttribute="leading" id="7U8-Ct-odn"/>
                             <constraint firstAttribute="trailing" secondItem="Ikm-nm-s2D" secondAttribute="trailing" id="BGc-q4-gX0"/>
                             <constraint firstItem="i6H-s2-IoR" firstAttribute="leading" secondItem="m3M-DS-wNM" secondAttribute="leading" id="BI1-Vs-lX9"/>
-                            <constraint firstItem="i6H-s2-IoR" firstAttribute="top" secondItem="Nrc-yK-yQB" secondAttribute="bottom" id="L1V-hg-enH"/>
+                            <constraint firstItem="Ikm-nm-s2D" firstAttribute="top" secondItem="i6H-s2-IoR" secondAttribute="top" id="Bb1-Zq-FF4"/>
+                            <constraint firstItem="7uR-t1-o9M" firstAttribute="leading" secondItem="m3M-DS-wNM" secondAttribute="leading" id="EbX-by-JYv"/>
                             <constraint firstAttribute="trailing" secondItem="0uj-Zn-vQd" secondAttribute="trailing" id="MH3-vg-d6j"/>
-                            <constraint firstItem="0uj-Zn-vQd" firstAttribute="top" secondItem="Nrc-yK-yQB" secondAttribute="bottom" id="amV-kw-QQk"/>
-                            <constraint firstItem="Ikm-nm-s2D" firstAttribute="top" secondItem="Nrc-yK-yQB" secondAttribute="bottom" id="kvH-W9-aVg"/>
+                            <constraint firstItem="i6H-s2-IoR" firstAttribute="top" secondItem="7uR-t1-o9M" secondAttribute="bottom" id="dbZ-Cg-qFS"/>
                             <constraint firstItem="Ikm-nm-s2D" firstAttribute="leading" secondItem="m3M-DS-wNM" secondAttribute="leading" id="ljV-un-Lil"/>
                             <constraint firstAttribute="trailing" secondItem="i6H-s2-IoR" secondAttribute="trailing" id="rfq-0Q-Frg"/>
                             <constraint firstItem="Cja-Z6-oOB" firstAttribute="top" secondItem="0uj-Zn-vQd" secondAttribute="bottom" id="tpR-ng-EIa"/>
+                            <constraint firstItem="0uj-Zn-vQd" firstAttribute="top" secondItem="Ikm-nm-s2D" secondAttribute="top" id="wax-Lc-T3q"/>
+                            <constraint firstItem="7uR-t1-o9M" firstAttribute="top" secondItem="Nrc-yK-yQB" secondAttribute="bottom" id="xRr-7M-Jz3"/>
                             <constraint firstItem="Cja-Z6-oOB" firstAttribute="top" secondItem="Ikm-nm-s2D" secondAttribute="bottom" id="zBz-aP-B6W"/>
                             <constraint firstItem="Cja-Z6-oOB" firstAttribute="top" secondItem="i6H-s2-IoR" secondAttribute="bottom" id="zTH-Sj-XOW"/>
+                            <constraint firstAttribute="trailing" secondItem="7uR-t1-o9M" secondAttribute="trailing" id="zox-Tq-mjA"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="bcx-Ck-AOH">
@@ -496,6 +505,7 @@
                         <outlet property="homeButton" destination="O83-N6-HL8" id="vDt-p4-t3W"/>
                         <outlet property="loaderImage" destination="Y22-DA-qgw" id="Gid-Jw-JoP"/>
                         <outlet property="loaderView" destination="Ikm-nm-s2D" id="rbU-q6-gSN"/>
+                        <outlet property="navigationBar" destination="7uR-t1-o9M" id="idX-Dn-buy"/>
                         <outlet property="tableView" destination="i6H-s2-IoR" id="lyl-Ru-0y4"/>
                     </connections>
                 </viewController>

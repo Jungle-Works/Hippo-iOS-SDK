@@ -121,7 +121,7 @@ public class HippoStrings {
     static var updatedAt = "Updated at:".localized
     static var sendPayment = "Send Payment".localized
     static var donotAllowPersonalInfo = "You are not allowed to share personal details.".localized
-   
+    
     
     /// Agent sdk
     static var thanksForFeedback = "Thank you for your comments!".localized
@@ -203,7 +203,6 @@ public class HippoStrings {
     static var noConversationFound = "No conversations found.".localized
     static var botInProgress = "Bot in progress".localized
     static var connectingToMeeting = "Connecting you to your meeting".localized
-
     static var deleteMessagePopup = "Are you sure you want to delete this message?".localized
     static var deleteForEveryone = "Delete for Everyone".localized
     static var edit = "Edit".localized

@@ -92,6 +92,16 @@ enum IntegrationSource: Int {
     }
 }
 
+enum SocketEvent : String{
+    case HANDSHAKE_CHANNEL = "/socketio/handshake"
+    case SUBSCRIBE_USER = "/socketio/subscribe/user" //
+    case UNSUBSCRIBE_USER = "/socketio/unsubscribe/user"
+    case SUBSCRIBE_CHAT = "/socketio/subscribe/chat" //active channel
+    case UNSUBSCRIBE_CHAT = "/socketio/unsubscribe/chat"
+    case MESSAGE_CHANNEL = "/socketio/message"
+    case SERVER_PUSH = "/socketio/server/push"
+}
+
 enum FilterOptionSection: Int, CaseCountable {
 //    case people = 0
     case status

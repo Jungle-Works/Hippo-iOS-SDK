@@ -104,6 +104,8 @@ public class UserTag: NSObject {
     var userImage: URL?
     var selectedlanguage : String?
     var userChannel: String?
+    var listener : SocketListner?
+    
     static var shouldGetPaymentGateways : Bool = true
     
     class var HippoUserChannelId: String? {
@@ -137,7 +139,7 @@ public class UserTag: NSObject {
         let appSecretKey = HippoConfig.shared.appSecretKey
         let enUserID = fuguEnUserID?.trimWhiteSpacesAndNewLine() ?? ""
         
-        return !appSecretKey.isEmpty && !enUserID.isEmpty 
+        return !appSecretKey.isEmpty && !enUserID.isEmpty
     }
     
     // MARK: - Intializer
@@ -160,9 +162,9 @@ public class UserTag: NSObject {
         }
         
        self.selectedlanguage = selectedlanguage
-        HippoUserDetail.shouldGetPaymentGateways = getPaymentGateways
-        
-        UserDefaults.standard.set(selectedlanguage, forKey: DefaultName.selectedLanguage.rawValue)
+       self.listener = SocketListner()
+       HippoUserDetail.shouldGetPaymentGateways = getPaymentGateways
+       UserDefaults.standard.set(selectedlanguage, forKey: DefaultName.selectedLanguage.rawValue)
     }
     
     func getUserTagsJSON() -> [[String: Any]] {
@@ -363,7 +365,7 @@ public class UserTag: NSObject {
             
             if let cusstomerBotID = String.parse(values: userDetailData, key: "customer_conversation_bot_id") {
                 HippoProperty.setNewConversationBotGroupId(botGroupId: cusstomerBotID)
-            } 
+            }
             
             BussinessProperty.current.updateData(loginData: userDetailData)
             

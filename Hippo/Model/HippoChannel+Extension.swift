@@ -87,7 +87,10 @@ extension HippoChannel: SignalingClient {
             fayeDict["voip_token"] = HippoConfig.shared.voipToken
         }
         
-        send(dict: fayeDict) { (success, error)  in
+        var data = [String : Any]()
+        data["data"] = fayeDict
+        
+        send(dict: data) { (success, error)  in
             completion(success, error)
             print(success)
             print(error)
@@ -106,8 +109,8 @@ extension HippoChannel: SignalingClient {
         
         let userChannelId = currentUserType() == .agent ? HippoConfig.shared.agentDetail?.userChannel : HippoUserDetail.HippoUserChannelId
         
-        FayeConnection.shared.send(messageDict: json, toChannelID: userChannelId ?? "") { (result) in
-            completion(result.success,result.error?.error as NSError?)
+        SocketClient.shared.send(messageDict: json, toChannelID: userChannelId ?? "") { (result) in
+            completion(result.isSuccess,result.error as NSError?)
         }
     }
 }

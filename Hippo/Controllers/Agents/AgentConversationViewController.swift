@@ -1503,10 +1503,10 @@ extension AgentConversationViewController {
             }
         }
         
-       if channel != nil, !channel.isSubscribed() {
-            buttonClickedOnNetworkOff()
-            return
-        }
+//       if channel != nil, !channel.isSubscribed() {
+//            buttonClickedOnNetworkOff()
+//            return
+//        }
         if isMessageInvalid(messageText: messageTextView.text) {
             return
         }
@@ -2072,6 +2072,10 @@ extension AgentConversationViewController: UITableViewDelegate, UITableViewDataS
     }
     
     func getHeightOfActionableMessageAt(indexPath: IndexPath, chatObject: HippoMessage)-> CGFloat {
+        if let cell = tableViewChat.cellForRow(at: indexPath) as? ActionableMessageTableViewCell{
+            return cell.tableViewHeightConstraint.constant
+        }
+        
         let chatMessageObject = chatObject
         var cellHeight = CGFloat(0)
         let bottomSpace = CGFloat(10)
@@ -2104,7 +2108,7 @@ extension AgentConversationViewController: UITableViewDelegate, UITableViewDataS
             let heightOfContent = (titleText?.height(withConstrainedWidth: (FUGU_SCREEN_WIDTH - actionableMessageRightMargin - 20), font: headerFont!))! + margin + marginBetweenHeaderAndDescription +  bottomSpace + 1
             cellHeight += heightOfContent
         }
-        
+
         if chatMessageObject.actionableMessage?.titleDescription.isEmpty == false {
             let titleText = chatMessageObject.actionableMessage?.titleDescription
             let heightOfContent = (titleText?.height(withConstrainedWidth: (FUGU_SCREEN_WIDTH - actionableMessageRightMargin - 20), font: descriptionFont!))!
@@ -2112,29 +2116,29 @@ extension AgentConversationViewController: UITableViewDelegate, UITableViewDataS
         }
         let collectionViewHeight = self.getHeighOfButtonCollectionView(actionableMessage: chatMessageObject.actionableMessage ?? FuguActionableMessage())
         cellHeight += collectionViewHeight
-        
+
         if chatMessageObject.actionableMessage?.descriptionArray != nil, (chatMessageObject.actionableMessage?.descriptionArray.count)! > 0 {
-            
+
             for info in (chatMessageObject.actionableMessage?.descriptionArray)! {
                 if let messageInfo = info as? [String: Any] {
                     if let priceText = messageInfo["content"] as? String {
-                        
+
                         let heightOFPriceLabel = priceText.height(withConstrainedWidth: (FUGU_SCREEN_WIDTH - actionableMessageRightMargin - 20 ), font: priceFont!)
-                        
+
                         let widthOfPriceLabel = priceText.width(withConstraintedHeight: heightOFPriceLabel, font: priceFont!)
-                        
+
                         if let priceText = messageInfo["header"] as? String {
                             let heightOfContent = priceText.height(withConstrainedWidth: (FUGU_SCREEN_WIDTH - actionableMessageRightMargin - 10 - widthOfPriceLabel), font: descriptionFont!) + marginBetweenHeaderAndDescription + (margin)
                             cellHeight += heightOfContent
                         }
-                        
-                        
-                        
+
+
+
                     }
                 }
             }
         }
-        
+
         return cellHeight - 3
     }
 }
@@ -2510,14 +2514,14 @@ extension AgentConversationViewController: HippoChannelDelegate {
     }
     
     
-    func cancelSendingMessage(message: HippoMessage, errorMessage: String?, errorCode: FayeConnection.FayeError?) {
+    func cancelSendingMessage(message: HippoMessage, errorMessage: String?, errorCode: SocketClient.SocketError?) {
         self.cancelMessage(message: message)
         
         if let message = errorMessage {
             showErrorMessage(messageString: message)
             updateErrorLabelView(isHiding: true)
         }
-        if errorCode == FayeConnection.FayeError.personalInfoSharedError{
+        if errorCode == SocketClient.SocketError.personalInfoSharedError{
             self.messageTextView.text = message.message
         }
     }
@@ -2540,7 +2544,7 @@ extension AgentConversationViewController: HippoChannelDelegate {
     }
     
     func newMessageReceived(newMessage message: HippoMessage) {
-        message.status = .read
+        message.status = message.isSentByMe() ? message.status : .read
         message.wasMessageSendingFailed = false
         
         switch message.type {

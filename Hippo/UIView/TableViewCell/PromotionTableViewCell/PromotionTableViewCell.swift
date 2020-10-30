@@ -15,8 +15,8 @@ import UIKit
 class PromotionTableViewCell: UITableViewCell {
 
     @IBOutlet weak var bgView: UIView!
-    @IBOutlet weak var descriptionLabel: UILabel!
-    @IBOutlet weak var fullDescriptionLabel: UILabel!
+    @IBOutlet weak var descriptionLabel: UITextView!
+    @IBOutlet weak var fullDescriptionLabel: UITextView!
     //@IBOutlet weak var descriptionLabel: HippoLabel!
     @IBOutlet weak var dateTimeLabel: UILabel!
     @IBOutlet weak var promotionTitle: UILabel!
