@@ -12,7 +12,7 @@ let HippoSDKSource = 1
 let Device_Type_iOS = 2
 var userDetailData = [String: Any]()
 
-let fuguAppVersion = "2.1.42"
+let fuguAppVersion = "2.1.43"
 var versionCode = 320
 
 /*
@@ -134,4 +134,6 @@ var versionCode = 320
  334 *** 2.1.41 = Search user unique key issues
  
  334 *** 2.1.42 = Edit and delete messages functionality
+ 
+ 335 *** 2.1.43 = Payment cell ui fixes
  */
