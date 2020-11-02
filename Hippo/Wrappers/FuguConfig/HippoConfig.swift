@@ -1096,30 +1096,7 @@ struct BotAction {
         }
     
     
-    func subscribeChannelAndStartListening(_ channelId : Int){
-        SocketClient.shared.subscribeSocketChannel(channel: "\(channelId)")
-        let listener = SocketListner()
-        listener.startListening(event: SocketEvent.SERVER_PUSH.rawValue, callback: {(data) in
-            if let messageDict = data as? [String : Any]{
-                if let messageType = messageDict["message_type"] as? Int, messageType == MessageType.groupCall.rawValue{
-                    CallManager.shared.voipNotificationRecievedForGroupCall(payloadDict: messageDict)
-                    unSubscribe(userChannelId: "\(channelId)")
-                }else if let messageType = messageDict["message_type"] as? Int, messageType == MessageType.call.rawValue {
-                    CallManager.shared.voipNotificationRecieved(payloadDict: messageDict)
-                }
-            }
-        })
-    }
-    
     func handleAgentNotification(userInfo: [String: Any]) {
-        if userInfo["notification_type"] as? Int == 25{
-            return
-        }else if userInfo["notification_type"] as? Int == 20{
-            if let channelId = userInfo["channel_id"] as? Int{
-                subscribeChannelAndStartListening(channelId)
-                return
-            }
-        }
         
         let visibleController = getLastVisibleController()
         let channelId = (userInfo["channel_id"] as? Int) ?? -1

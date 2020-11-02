@@ -731,9 +731,13 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         }
         
         if channel != nil, !channel.isSubscribed()  {
-            buttonClickedOnNetworkOff()
+            channel.subscribe()
+        }
+        
+        if FuguNetworkHandler.shared.isNetworkConnected == false || SocketClient.shared.isConnected() == false{
             return
         }
+        
         if isMessageInvalid(messageText: messageTextStr) {
             return
         }
@@ -872,8 +876,8 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         
         if channel != nil {
             self.channel.saveMessagesInCache()
+            self.channel.deinitObservers()
         }
-        
     }
     
  override func clearUnreadCountForChannel(id: Int) {

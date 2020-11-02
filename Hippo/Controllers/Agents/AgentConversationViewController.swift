@@ -117,20 +117,7 @@ class AgentConversationViewController: HippoConversationViewController {
             return documentImageUrl.appendingPathComponent("\(existingImageCounter).jpg").path
         }
     }
-    
-    
-    
-    //    var getSavedUserId: Int {
-    //        return FuguConfig.shared.agentDetail?.id ?? -1
-    //    }
-    
-    deinit {
-        if channel != nil {
-            self.channel.saveMessagesInCache()
-        }
-        NotificationCenter.default.removeObserver(self)
-    }
-    
+
     // MARK: - LIFECYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -191,6 +178,15 @@ class AgentConversationViewController: HippoConversationViewController {
         AgentConversationManager.getUserUnreadCount()
         reloadVisibleCellsToStartActivityIndicator()
         
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if channel != nil {
+            self.channel.saveMessagesInCache()
+            self.channel.deinitObservers()
+        }
+        NotificationCenter.default.removeObserver(self)
     }
     
     override func startEditing(with message : HippoMessage, indexPath : IndexPath){
@@ -1467,34 +1463,6 @@ extension AgentConversationViewController {
     }
     
     func sendButtonClicked(mentions: [Mention], message: String, isPrivateMessage isPrivate: Bool, config: MessageSendingViewConfig) {
-//        if config.mode == .editMessage {
-//            editMessage(mentions: mentions, message: message, isPrivateMessage: isPrivate, config: config)
-//            return
-//        }
-//        guard isAgentCanSendMsg else {
-//            self.assignAlertView.shakeAnimation()
-//            return
-//        }
-//        googleAnalytics(category: Category_Chat_Screen, action: Action_Send_Button_Clicked, label: Label_Send_Chat)
-//        self.isTaggingStart = false
-//        let messageString = messageTextView.text.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-//        guard !messageString.isEmpty else {
-//            showNoMessageAlert()
-//            return
-//        }
-//        if channelId == -1 {
-//            messageSendingView?.disableSendButton()
-//            self.startNewConversation() {[weak self] (result) in
-//                guard result else {
-//                    self?.messageSendingView?.enableSendButton()
-//                    return
-//                }
-//                self?.sendMessageToFaye(mentions: mentions, messageString: messageString, isPrivate: isPrivate)
-//                self?.messageSendingView?.enableSendButton()
-//            }
-//        } else {
-//            self.sendMessageToFaye(mentions: mentions, messageString: messageString, isPrivate: isPrivate)
-//        }
         if storeResponse?.restrictPersonalInfo ?? false{
             if message.matches(for: phoneNumberRegex).count > 0 || message.isValidEmail(){
                 showErrorMessage(messageString: HippoStrings.donotAllowPersonalInfo)
@@ -1503,10 +1471,10 @@ extension AgentConversationViewController {
             }
         }
         
-//       if channel != nil, !channel.isSubscribed() {
-//            buttonClickedOnNetworkOff()
-//            return
-//        }
+       if channel != nil, !channel.isSubscribed() {
+            channel.subscribe()
+        }
+        
         if isMessageInvalid(messageText: messageTextView.text) {
             return
         }

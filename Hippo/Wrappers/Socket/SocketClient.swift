@@ -36,6 +36,7 @@ class SocketClient: NSObject {
     // MARK: Init
     private override init() {
         super.init()
+        addObserver()
         deinitializeListeners()
         manager = nil
         socket = nil
@@ -91,15 +92,9 @@ class SocketClient: NSObject {
         socket?.on(clientEvent: .error, callback: { (data, ack) in
             print("error", data)
         })
-        socket?.on(clientEvent: .pong, callback: { (data, ack) in
-            print(data)
-        })
-        socket?.on(clientEvent: .ping, callback: { (data, ack) in
-            print(data)
-        })
-        socket?.on(SocketEvent.MESSAGE_CHANNEL.rawValue, callback: { (data, ack) in
-            print(data)
-        })
+        socket?.on(clientEvent: .pong, callback: { (data, ack) in })
+        socket?.on(clientEvent: .ping, callback: { (data, ack) in })
+        socket?.on(SocketEvent.MESSAGE_CHANNEL.rawValue, callback: { (data, ack) in })
     }
     
     private func deinitializeListeners(){
@@ -180,3 +175,25 @@ extension Notification.Name {
     public static var channelSubscribed = Notification.Name.init("channelSubscribed")
 }
 
+extension SocketClient {
+    func addObserver() {
+        removeObserver()
+        NotificationCenter.default.addObserver(self, selector: #selector(applicationWillEnterForeground), name: HippoVariable.willEnterForegroundNotification, object: nil)
+    }
+    
+    @objc private func applicationWillEnterForeground() {
+        if SocketClient.shared.socket != nil{
+            if !SocketClient.shared.isConnectionActive {
+                SocketClient.shared.connect() //tearDownPreviousConnectionAndCreateNew
+            }
+        }
+    }
+    
+    func removeObserver() {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    var isConnectionActive: Bool {
+        return socket?.status.active ?? false
+    }
+}
