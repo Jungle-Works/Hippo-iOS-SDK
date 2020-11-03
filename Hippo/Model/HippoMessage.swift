@@ -522,9 +522,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
     
     // MARK: - Methods
     func getJsonToSendToFaye() -> [String: Any] {
-        var json = [String: Any]()
-        json["data"] = getSocketJsonData()
-        return json
+        return getSocketJsonData()
     }
     
     func getSocketJsonData()->[String : Any]{

@@ -157,10 +157,8 @@ extension GroupCallChannel: SignalingClient {
             "app_version": fuguAppVersion,
             "device_details": AgentDetail.getDeviceDetails()
         ]
-        var data = [String : Any]()
-        data["data"] = fayeDict
-        
-        send(dict: data) { (success, error)  in
+  
+        send(dict: fayeDict) { (success, error)  in
             completion(success,error)
             print(success)
             print(error)
@@ -194,11 +192,7 @@ extension GroupCallChannel: SignalingClient {
     
     func sendOnUserChannel(_ json : [String: Any],completion: @escaping  (Bool, NSError?) -> Void){
         var json = json
-        
-        var dic = json["data"] as? [String : Any]
-        dic?["server_push"] = true
-        json["data"] = dic
-        
+        json["server_push"] = true
         SocketClient.shared.send(messageDict: json, toChannelID: userChannelId ?? "") { (result) in
             completion(result.isSuccess,result.error as NSError?)
         }
