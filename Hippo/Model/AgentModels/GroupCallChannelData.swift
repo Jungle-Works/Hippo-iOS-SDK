@@ -133,7 +133,9 @@ extension GroupCallChannel: SignalingClient {
             completion(HippoError.ChannelIdNotFound,false)
             return
         }
-        SocketClient.shared.subscribeSocketChannel(channel: "\(channelId)")
+        SocketClient.shared.subscribeSocketChannel(channel: "\(channelId)"){(error,success) in
+            completion(error,success)
+        }
     }
     
     func checkIfReadyForCommunication() -> Bool {
@@ -155,9 +157,11 @@ extension GroupCallChannel: SignalingClient {
             "app_version": fuguAppVersion,
             "device_details": AgentDetail.getDeviceDetails()
         ]
- 
-        send(dict: fayeDict) { (error, success)  in
-            completion(error,success)
+        var data = [String : Any]()
+        data["data"] = fayeDict
+        
+        send(dict: data) { (success, error)  in
+            completion(success,error)
             print(success)
             print(error)
             
@@ -181,6 +185,7 @@ extension GroupCallChannel: SignalingClient {
         }else{
             if json["video_call_type"] as? String != "START_GROUP_CALL"{
                 SocketClient.shared.send(messageDict: json, toChannelID: "\(channelId)") { (result) in
+                    
                 }
                 sendOnUserChannel(json, completion: completion)
             }
@@ -190,14 +195,14 @@ extension GroupCallChannel: SignalingClient {
     func sendOnUserChannel(_ json : [String: Any],completion: @escaping  (Bool, NSError?) -> Void){
         var json = json
         
-        json["server_push"] = true
+        var dic = json["data"] as? [String : Any]
+        dic?["server_push"] = true
+        json["data"] = dic
         
         SocketClient.shared.send(messageDict: json, toChannelID: userChannelId ?? "") { (result) in
             completion(result.isSuccess,result.error as NSError?)
         }
     }
-    
-    
   
 }
 #endif

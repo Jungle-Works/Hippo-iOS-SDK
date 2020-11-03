@@ -356,14 +356,14 @@ extension PromotionsViewController: UITableViewDelegate,UITableViewDataSource
                 cell.showReadMoreLessButton.isHidden = true
                 cell.showReadMoreLessButtonHeightConstraint.constant = 0
             }
-            if states[indexPath.row] == true{
+            if indexPath.row < states.count, states[indexPath.row] == true{
                 cell.descriptionLabel.isHidden = false
                 cell.fullDescriptionLabel.isHidden = true
                 cell.showReadMoreLessButton.setTitle(HippoStrings.readMore, for: .normal)
                 cell.showReadMoreLessButton.titleLabel?.font = UIFont.regular(ofSize: 14.0)
                 cell.showReadMoreLessButton.setTitleColor(HippoConfig.shared.theme.themeColor, for: .normal)
                 
-            }else if states[indexPath.row] == false{
+            }else if indexPath.row < states.count, states[indexPath.row] == false{
                 cell.descriptionLabel.isHidden = true
                 cell.fullDescriptionLabel.isHidden = false
                 cell.showReadMoreLessButton.setTitle(HippoStrings.readLess, for: .normal)

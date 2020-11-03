@@ -20,7 +20,7 @@ extension SocketClient {
     }
     
     ///Subscribe socket channel
-    func subscribeSocketChannel(channel: String){
+    func subscribeSocketChannel(channel: String,completion: ((Error?,Bool) -> Void)? = nil){
         if let someSocket = socket, someSocket.status.active {
             var eventToSubscribe = ""
             if currentUserType() == .agent{
@@ -43,7 +43,12 @@ extension SocketClient {
             json["channel"] = channelIdForValidation
             
             socket?.emitWithAck(eventToSubscribe, json).timingOut(after: 20, callback: { (data) in
-                self.subscribedChannel[channel] = true
+                if (data.first as? [String : Any])?.isEmpty ?? false{
+                    completion?(nil, false)
+                }else{
+                    self.subscribedChannel[channel] = true
+                    completion?(nil, true)
+                }
             })
         }else{
             SocketClient.shared.connect()
