@@ -148,6 +148,9 @@ class AgentConversationViewController: HippoConversationViewController {
     
     override func didSetChannel() {
         channel?.delegate = self
+        if !channel.isSubscribed(){
+            channel?.subscribe()
+        }
     }
     
     override func closeKeyBoard() {
@@ -178,15 +181,6 @@ class AgentConversationViewController: HippoConversationViewController {
         AgentConversationManager.getUserUnreadCount()
         reloadVisibleCellsToStartActivityIndicator()
         
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        if channel != nil {
-            self.channel.saveMessagesInCache()
-            self.channel.deinitObservers()
-        }
-        NotificationCenter.default.removeObserver(self)
     }
     
     override func startEditing(with message : HippoMessage, indexPath : IndexPath){
@@ -441,6 +435,12 @@ class AgentConversationViewController: HippoConversationViewController {
             self.navigationController?.dismiss(animated: true, completion: nil)
             return
         }
+        
+        if channel != nil {
+            self.channel.saveMessagesInCache()
+            self.channel.deinitObservers()
+        }
+        NotificationCenter.default.removeObserver(self)
         
         if self.navigationController == nil {
             HippoConfig.shared.notifiyDeinit()
@@ -771,6 +771,9 @@ class AgentConversationViewController: HippoConversationViewController {
         }
         channel = result.channel
         channel.delegate = self
+        if !channel.isSubscribed(){
+            channel?.subscribe()
+        }
         stopLoaderAnimation()
         fetchMessagesFrom1stPage()
     }
@@ -2616,6 +2619,12 @@ extension AgentConversationViewController: UIGestureRecognizerDelegate {
         if let lastMessage = getLastMessage() {
             agentConversationDelegate?.updateConversationWith(channelId: channel?.id ?? -1, lastMessage: lastMessage, unreadCount: 0)
         }
+        
+        if channel != nil {
+            self.channel.saveMessagesInCache()
+            self.channel.deinitObservers()
+        }
+        NotificationCenter.default.removeObserver(self)
         
         if isSingleChat {
             HippoConfig.shared.notifiyDeinit()
