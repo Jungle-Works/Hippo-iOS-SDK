@@ -46,8 +46,8 @@ static let betaFaye = "https://beta-live-api.fuguchat.com:3001/faye"
 // static let betaUrl = "https://hippo-api-dev.fuguchat.com:3002/"
 // static let betaFaye = "https://hippo-api-dev.fuguchat.com:3002/faye"
 
-static let devUrl = "https://hippo-api-dev.fuguchat.com:3002/"//"https://hippo-api-dev.fuguchat.com:3002/"//
-static let devFaye = "https://hippo-api-dev.fuguchat.com:3002/faye"//"https://hippo-api-dev.fuguchat.com:3002/faye"//
+static let devUrl = "https://hippo-api-dev.fuguchat.com:3003/"//"https://hippo-api-dev.fuguchat.com:3002/"//
+static let devFaye = "https://hippo-api-dev.fuguchat.com:3003/faye"//"https://hippo-api-dev.fuguchat.com:3002/faye"//
 
 // static let devUrl = "https://hippo-api-dev.fuguchat.com:3011/"
 // static let devFaye = "https://hippo-api-dev.fuguchat.com:3012/faye"
@@ -189,7 +189,7 @@ struct BotAction {
             if shouldUseNewCalling ?? false{
                 versionCode = 450
             }else{
-                versionCode = 250
+                versionCode = 320 - 5
             }
         }
     }
@@ -659,11 +659,11 @@ struct BotAction {
         UnreadCount.fetchP2PUnreadCount(request: request, callback: completion)
     }
     
-    public func registerNewChannelId(_ transactionId: String, _ channelId : Int){
-        if P2PUnreadData.shared.getData(with: transactionId) == nil{
-            //P2PUnreadData.shared.updateChannelId(transactionId: transactionId, channelId: channelId, count: 1)
-        }
-    }
+//    public func registerNewChannelId(_ transactionId: String, _ channelId : Int){
+//        if P2PUnreadData.shared.getData(with: transactionId) == nil{
+//            //P2PUnreadData.shared.updateChannelId(transactionId: transactionId, channelId: channelId, count: 1)
+//        }
+//    }
     
     public func openChatWith(channelId: Int, completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
         switch appUserType {
@@ -883,7 +883,8 @@ struct BotAction {
             baseUrl = SERVERS.liveUrl
             fayeBaseURLString = SERVERS.liveFaye
         }
-        FayeConnection.shared.enviromentSwitchedWith(urlString: fayeBaseURLString)
+//        FayeConnection.shared.enviromentSwitchedWith(urlString: fayeBaseURLString)
+        SocketClient.shared.connect()
     }
     
     
@@ -1050,7 +1051,7 @@ struct BotAction {
         
     }
         
-    public func handleVoipNotification(payloadDict: [String: Any], completion: @escaping () -> Void) {
+    func handleVoipNotification(payloadDict: [String: Any], completion: @escaping () -> Void) {
         
         if let messageType = payloadDict["message_type"] as? Int, messageType == MessageType.groupCall.rawValue{
             CallManager.shared.voipNotificationRecievedForGroupCall(payloadDict: payloadDict)
@@ -1143,43 +1144,7 @@ struct BotAction {
         }
     
     
-    func subscribeChannelAndStartListening(_ channelId : Int){
-        FayeConnection.shared.subscribeTo(channelId: "\(channelId)", completion: {(success) in
-            if !success{
-                if !FayeConnection.shared.isConnected && FuguNetworkHandler.shared.isNetworkConnected{
-                    //FayeConnection.shared.enviromentSwitchedWith(urlString: self.fayeBaseURLString)
-                    var retryAttempt = 0
-                    fuguDelay(0.2) {
-                        if retryAttempt <= 3{
-                            self.subscribeChannelAndStartListening(channelId)
-                            retryAttempt += 1
-                        }else{
-                            return
-                        }
-                    }
-                }
-            }
-            print("channel subscribed", success)
-        }) {(messageDict) in
-            print(messageDict)
-            if let messageType = messageDict["message_type"] as? Int, messageType == MessageType.groupCall.rawValue{
-                CallManager.shared.voipNotificationRecievedForGroupCall(payloadDict: messageDict)
-                unSubscribe(userChannelId: "\(channelId)")
-            }else if let messageType = messageDict["message_type"] as? Int, messageType == MessageType.call.rawValue {
-                CallManager.shared.voipNotificationRecieved(payloadDict: messageDict)
-            }
-        }
-    }
-    
     func handleAgentNotification(userInfo: [String: Any]) {
-        if userInfo["notification_type"] as? Int == 25{
-            return
-        }else if userInfo["notification_type"] as? Int == 20{
-            if let channelId = userInfo["channel_id"] as? Int{
-                subscribeChannelAndStartListening(channelId)
-                return
-            }
-        }
         
         let visibleController = getLastVisibleController()
         let channelId = (userInfo["channel_id"] as? Int) ?? -1

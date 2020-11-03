@@ -125,8 +125,8 @@ class AgentHomeViewController: HippoHomeViewController {
         guard conversationType != .allChat else {
             return
         }
-        self.myChatButton.titleLabel?.font = UIFont.regular(ofSize: 16)
-        self.allChatButton.titleLabel?.font = UIFont.bold(ofSize: 16)
+        self.myChatButton.titleLabel?.font = UIFont.regular(ofSize: 15)
+        self.allChatButton.titleLabel?.font = UIFont.bold(ofSize: 15)
         conversationType = .allChat
         animateBottomLineView()
         setData()

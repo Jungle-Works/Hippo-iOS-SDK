@@ -1,9 +1,8 @@
 //
-//  MZFayeMessage.h
-//  MZFayeClient
+//  SocketAnyEvent.swift
+//  Socket.IO-Client-Swift
 //
-//  Created by Michał Zaborowski on 12.12.2013.
-//  Copyright (c) 2013 Michał Zaborowski. All rights reserved.
+//  Created by Erik Little on 3/28/15.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -23,25 +22,27 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-#import <Foundation/Foundation.h>
+import Foundation
 
-@interface MZFayeMessage : NSObject
+/// Represents some event that was received.
+public final class SocketAnyEvent : NSObject {
+    // MARK: Properties
 
-@property (nonatomic, strong) NSString *Id;
-@property (nonatomic, strong) NSString *channel;
-@property (nonatomic, strong) NSString *clientId;
-@property (nonatomic, strong) NSNumber *successful;
-@property (nonatomic, strong) NSNumber *authSuccessful;
-@property (nonatomic, strong) NSString *version;
-@property (nonatomic, strong) NSString *minimumVersion;
-@property (nonatomic, strong) NSArray *supportedConnectionTypes;
-@property (nonatomic, strong) NSDictionary *advice;
-@property (nonatomic, strong) NSString *error;
-@property (nonatomic, strong) NSString *subscription;
-@property (nonatomic, strong) NSDate *timestamp;
-@property (nonatomic, strong) NSDictionary *data;
-@property (nonatomic, strong) NSDictionary *ext;
+    /// The event name.
+    @objc
+    public let event: String
 
-+ (instancetype)messageFromDictionary:(NSDictionary *)dictionary;
+    /// The data items for this event.
+    @objc
+    public let items: [Any]?
 
-@end
+    /// The description of this event.
+    override public var description: String {
+        return "SocketAnyEvent: Event: \(event) items: \(String(describing: items))"
+    }
+
+    init(event: String, items: [Any]?) {
+        self.event = event
+        self.items = items
+    }
+}

@@ -121,7 +121,7 @@ public class HippoStrings {
     static var updatedAt = "Updated at:".localized
     static var sendPayment = "Send Payment".localized
     static var donotAllowPersonalInfo = "You are not allowed to share personal details.".localized
-   
+    
     
     /// Agent sdk
     static var thanksForFeedback = "Thank you for your comments!".localized

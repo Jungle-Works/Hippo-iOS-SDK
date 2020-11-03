@@ -21,6 +21,7 @@ class ActionableMessageTableViewCell: UITableViewCell {
     var rootViewController: UIViewController?
     override func awakeFromNib() {
         super.awakeFromNib()
+        registerNib()
         self.timeLabel.font = HippoConfig.shared.theme.dateTimeFontSize
         self.timeLabel.textColor = HippoConfig.shared.theme.incomingMsgDateTextColor
         actionableMessageTableView.addObserver(self, forKeyPath: "contentSize", options: NSKeyValueObservingOptions(rawValue: 0), context: nil)
@@ -85,8 +86,6 @@ class ActionableMessageTableViewCell: UITableViewCell {
         let timeOfMessage = changeDateToParticularFormat(messageObject.creationDateTime, dateFormat: "h:mm a", showInFormat: true)
         timeLabel.text = "\t" + "\(timeOfMessage)"
         actionableMessageTableView.reloadData()
-        self.layoutIfNeeded()
-        self.layoutSubviews()
     }
     
     func registerNib() {

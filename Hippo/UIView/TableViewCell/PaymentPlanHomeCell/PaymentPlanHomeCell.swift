@@ -101,6 +101,7 @@ extension PaymentPlanHomeCell {
         }
         button_DeletePlan.layer.borderColor = UIColor.clear.cgColor
         button_DeletePlan.layer.borderWidth = 1
+        button_DeletePlan.imageView?.tintColor = .darkGray
         button_DeletePlan.setImage(HippoConfig.shared.theme.deleteIcon, for: .normal)
         button_DeletePlan.isHidden = plan.type == .agentPlan ? false : true
         button_DeletePlan.isEnabled = plan.type == .agentPlan ? true : false

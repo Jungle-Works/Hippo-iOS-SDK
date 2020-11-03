@@ -31,7 +31,7 @@ class PromotionCellDataModel
         self.channelID = Int.parse(values: dict, key: "channel_id") ?? 1
         self.title = (dict["title"] as? String) ?? ""
         self.disableReply = Bool.parse(key: "disable_reply", json: dict) ?? true
-        self.description = dict["description"] as? String ?? ""
+        self.description = (dict["description"] as? String ?? "")
         self.createdAt = dict["created_at"] as? String ?? ""
         self.userID = Int.parse(values: dict, key: "user_id") ?? 1
         
