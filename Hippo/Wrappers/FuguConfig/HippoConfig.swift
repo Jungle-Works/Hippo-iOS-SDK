@@ -461,6 +461,16 @@ struct BotAction {
         })
     }
     
+    func getAgentChatVC() -> UIViewController?{
+        guard HippoConfig.shared.appUserType == .agent else {
+            return nil
+        }
+        guard let nav = AgentHomeViewController.get() else {
+            return nil
+        }
+        return nav.viewControllers.first
+    }
+    
     /********
      Key for customAttributes:
      
