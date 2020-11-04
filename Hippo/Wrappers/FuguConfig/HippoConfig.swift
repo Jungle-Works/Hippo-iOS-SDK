@@ -458,6 +458,15 @@ struct BotAction {
         AgentDetail.setAgentStoredData()
         checker.presentChatsViewController()
     }
+    func getAgentChatVC() -> UIViewController?{
+         guard HippoConfig.shared.appUserType == .agent else {
+             return nil
+         }
+         guard let nav = AgentHomeViewController.get() else {
+             return nil
+         }
+         return nav.viewControllers.first
+     }
 
     func presentPrePaymentController(){
         
