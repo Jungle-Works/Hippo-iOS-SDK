@@ -628,7 +628,6 @@ class AllString{
         if let hippo_Thankyou_Feedback = response["hippo_Thankyou_Feedback"] as? String{
             HippoStrings.thanksForFeedback = hippo_Thankyou_Feedback
         }
-
         if let hippo_edit_text = response["hippo_edit_text"] as? String{
             HippoStrings.edit = hippo_edit_text
         }

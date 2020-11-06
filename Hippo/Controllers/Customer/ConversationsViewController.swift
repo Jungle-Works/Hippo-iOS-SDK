@@ -731,9 +731,13 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         }
         
         if channel != nil, !channel.isSubscribed()  {
-            buttonClickedOnNetworkOff()
+            channel.subscribe()
+        }
+        
+        if FuguNetworkHandler.shared.isNetworkConnected == false || SocketClient.shared.isConnected() == false{
             return
         }
+        
         if isMessageInvalid(messageText: messageTextStr) {
             return
         }
@@ -872,8 +876,8 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         
         if channel != nil {
             self.channel.saveMessagesInCache()
+            self.channel.deinitObservers()
         }
-        
     }
     
  override func clearUnreadCountForChannel(id: Int) {
@@ -2105,13 +2109,15 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                      cell.backgroundColor = .clear
                      return cell
                  }
-                 cell.tableViewHeightConstraint.constant = self.getHeightOfActionableMessageAt(indexPath: indexPath, chatObject: message)
+               //  cell.tableViewHeightConstraint.constant = self.getHeightOfActionableMessageAt(indexPath: indexPath, chatObject: message)
                  cell.timeLabel.text = ""
                  cell.rootViewController = self
-                 cell.registerNib()
                  cell.setUpData(messageObject: message, isIncomingMessage: !isOutgoingMsg)
-                 cell.actionableMessageTableView.reloadData()
-                 cell.tableViewHeightConstraint.constant = self.getHeightOfActionableMessageAt(indexPath: indexPath, chatObject: message)
+                 cell.layoutIfNeeded()
+                 cell.layoutSubviews()
+                 tableView.layoutIfNeeded()
+//                 cell.actionableMessageTableView.reloadData()
+//                 cell.tableViewHeightConstraint.constant = self.getHeightOfActionableMessageAt(indexPath: indexPath, chatObject: message)
                  cell.backgroundColor = UIColor.clear
                  return cell
              case .attachment:
@@ -2315,8 +2321,8 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                         return 80
                     }
                 case MessageType.actionableMessage, MessageType.hippoPay:
-                    return UIView.tableAutoDimensionHeight
-                //self.getHeightOfActionableMessageAt(indexPath: indexPath, chatObject: message) + heightOfDateLabel
+                    return UIView.tableAutoDimensionHeight > -1 ? UIView.tableAutoDimensionHeight : self.getHeightOfActionableMessageAt(indexPath: indexPath, chatObject: message) + 20
+
                 case MessageType.feedback:
                     
 //                    guard let muid = message.messageUniqueID, var rowHeight: CGFloat = heightForFeedBackCell["\(muid)"] else {
@@ -2364,6 +2370,8 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                 return 85
             case .card:
                 return 190
+            case .actionableMessage, .hippoPay:
+                return 100
             default:
                 return self.tableView(tableView, heightForRowAt: indexPath)
             }
@@ -2492,6 +2500,10 @@ func getHeighOfButtonCollectionView(actionableMessage: FuguActionableMessage) ->
     }
     
     func getHeightOfActionableMessageAt(indexPath: IndexPath, chatObject: HippoMessage)-> CGFloat {
+        if let cell = tableViewChat.cellForRow(at: indexPath) as? ActionableMessageTableViewCell{
+            return cell.tableViewHeightConstraint.constant
+        }
+        
         let chatMessageObject = chatObject
         var cellHeight = CGFloat(0)
         let bottomSpace = CGFloat(15)
@@ -2758,7 +2770,7 @@ extension ConversationsViewController: HippoChannelDelegate {
         tableViewChat.reloadData()
     }
     
-    func cancelSendingMessage(message: HippoMessage, errorMessage: String?,errorCode : FayeConnection.FayeError?) {
+    func cancelSendingMessage(message: HippoMessage, errorMessage: String?,errorCode : SocketClient.SocketError?) {
         self.cancelMessage(message: message)
         
         if let message = errorMessage {
@@ -2766,7 +2778,7 @@ extension ConversationsViewController: HippoChannelDelegate {
             updateErrorLabelView(isHiding: true)
         }
         
-        if errorCode == FayeConnection.FayeError.personalInfoSharedError{
+        if errorCode == SocketClient.SocketError.personalInfoSharedError{
             self.messageTextView.text = message.message
         }
     }

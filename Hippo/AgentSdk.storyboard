@@ -420,7 +420,7 @@
                                         </subviews>
                                     </stackView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Send a message..." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Gj-e4-N76">
-                                        <rect key="frame" x="73" y="3" width="116.5" height="50"/>
+                                        <rect key="frame" x="75" y="3" width="116.5" height="50"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                         <color key="textColor" red="0.28627450980000002" green="0.28627450980000002" blue="0.28627450980000002" alpha="0.5" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -496,7 +496,7 @@
                                     <constraint firstAttribute="height" relation="lessThanOrEqual" constant="150" id="7By-TL-bxh"/>
                                     <constraint firstItem="z7L-h6-k2g" firstAttribute="leading" secondItem="mF9-lG-KfK" secondAttribute="leading" constant="5" id="BMw-wu-lQ7"/>
                                     <constraint firstItem="MB6-uF-kEa" firstAttribute="top" secondItem="9Gj-e4-N76" secondAttribute="top" id="COY-g6-dtj"/>
-                                    <constraint firstItem="9Gj-e4-N76" firstAttribute="leading" secondItem="z7L-h6-k2g" secondAttribute="trailing" constant="6" id="K8f-15-qMy"/>
+                                    <constraint firstItem="9Gj-e4-N76" firstAttribute="leading" secondItem="MB6-uF-kEa" secondAttribute="leading" constant="3" id="R3y-F7-n9R"/>
                                     <constraint firstItem="9Gj-e4-N76" firstAttribute="centerY" secondItem="mF9-lG-KfK" secondAttribute="centerY" id="YxU-ot-0ho"/>
                                     <constraint firstItem="MB6-uF-kEa" firstAttribute="top" secondItem="mF9-lG-KfK" secondAttribute="top" constant="3" id="e6y-c8-2cC"/>
                                     <constraint firstItem="z7L-h6-k2g" firstAttribute="top" secondItem="mF9-lG-KfK" secondAttribute="top" id="fXO-Lr-dGd"/>

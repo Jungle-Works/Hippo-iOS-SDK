@@ -74,6 +74,10 @@ class GroupCallChannel{
     init(_ id : Int) {
         self.channelId = id
     }
+    
+    deinit {
+        SocketClient.shared.unsubscribeSocketChannel(fromChannelId: channelId?.description ?? "")
+    }
 }
 
 #if canImport(HippoCallClient)
@@ -114,14 +118,14 @@ extension GroupCallChannel: SignalingClient {
     
     
     private func isConnected() -> Bool {
-        return FayeConnection.shared.isConnected && FuguNetworkHandler.shared.isNetworkConnected
+        return SocketClient.shared.isConnected() && FuguNetworkHandler.shared.isNetworkConnected
     }
     
     private func isSubscribed() -> Bool {
         guard let channelId = channelId else{
             return false
         }
-        return FayeConnection.shared.isChannelSubscribed(channelID: "\(channelId)")
+        return SocketClient.shared.isChannelSubscribed(channel: "\(channelId)")
     }
        
     private func subscribeChannel(completion: @escaping (Error?,Bool) -> Void){
@@ -129,15 +133,13 @@ extension GroupCallChannel: SignalingClient {
             completion(HippoError.ChannelIdNotFound,false)
             return
         }
-        FayeConnection.shared.subscribeTo(channelId: "\(channelId)", completion: {(success) in
-            completion(nil,true)
-        }) {[weak self] (messageDict) in
-            print("Active channel*********** \(messageDict)")
+        SocketClient.shared.subscribeSocketChannel(channel: "\(channelId)"){(error,success) in
+            completion(error,success)
         }
     }
     
     func checkIfReadyForCommunication() -> Bool {
-        return FayeConnection.shared.isConnected && FuguNetworkHandler.shared.isNetworkConnected
+        return SocketClient.shared.isConnected() && FuguNetworkHandler.shared.isNetworkConnected
     }
     
     func sendSignalToPeer(signal: CallSignal, completion: @escaping (Bool, NSError?) -> Void) {
@@ -155,13 +157,9 @@ extension GroupCallChannel: SignalingClient {
             "app_version": fuguAppVersion,
             "device_details": AgentDetail.getDeviceDetails()
         ]
-       // fayeDict["device_token"] = HippoConfig.shared.deviceToken
-        
-//        if !HippoConfig.shared.voipToken.isEmpty {
-//            fayeDict["voip_token"] = HippoConfig.shared.voipToken
-//        }
-        send(dict: fayeDict) { (error, success)  in
-            completion(error,success)
+  
+        send(dict: fayeDict) { (success, error)  in
+            completion(success,error)
             print(success)
             print(error)
             
@@ -179,12 +177,13 @@ extension GroupCallChannel: SignalingClient {
         
         if currentUserType() == .agent{
             
-            FayeConnection.shared.send(messageDict: json, toChannelID: "\(channelId)") { (result) in
-                completion(result.success,result.error?.error as NSError?)
+            SocketClient.shared.send(messageDict: json, toChannelID: "\(channelId)") { (result) in
+                completion(result.isSuccess,result.error as NSError?)
             }
         }else{
             if json["video_call_type"] as? String != "START_GROUP_CALL"{
-                FayeConnection.shared.send(messageDict: json, toChannelID: "\(channelId)") { (result) in
+                SocketClient.shared.send(messageDict: json, toChannelID: "\(channelId)") { (result) in
+                    
                 }
                 sendOnUserChannel(json, completion: completion)
             }
@@ -193,15 +192,11 @@ extension GroupCallChannel: SignalingClient {
     
     func sendOnUserChannel(_ json : [String: Any],completion: @escaping  (Bool, NSError?) -> Void){
         var json = json
-        
         json["server_push"] = true
-        
-        FayeConnection.shared.send(messageDict: json, toChannelID: userChannelId ?? "") { (result) in
-            completion(result.success,result.error?.error as NSError?)
+        SocketClient.shared.send(messageDict: json, toChannelID: userChannelId ?? "") { (result) in
+            completion(result.isSuccess,result.error as NSError?)
         }
     }
-    
-    
   
 }
 #endif

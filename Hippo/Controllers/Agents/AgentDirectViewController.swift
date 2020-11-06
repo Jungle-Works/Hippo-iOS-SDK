@@ -21,7 +21,7 @@ class AgentDirectViewController: HippoHomeViewController {
     @IBOutlet weak var loaderImage: So_UIImageView!
     @IBOutlet weak var homeButton: UIButton!
     @IBOutlet weak var errorLabel: UILabel!
-    
+    @IBOutlet weak var navigationBar : NavigationBar!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -150,39 +150,46 @@ extension AgentDirectViewController {
     
     
     internal func setUpView() {
-        self.navigationController?.setTheme()
+        navigationBar.title = HippoConfig.shared.theme.directChatHeader
+        navigationBar.leftButton.addTarget(self, action: #selector(backButtonAction(_:)), for: .touchUpInside)
+        navigationBar.rightButton.setTitle("", for: .normal)
+        navigationBar.rightButton.tintColor = HippoConfig.shared.theme.headerTextColor
+        navigationBar.rightButton.setImage(HippoConfig.shared.theme.homeBarButtonImage, for: .normal)
+        navigationBar.rightButton.addTarget(self, action: #selector(homeButtonAction(_:)), for: .touchUpInside)
         
-        self.navigationItem.title = HippoConfig.shared.theme.directChatHeader
-        self.view.backgroundColor = HippoConfig.shared.theme.backgroundColor
-        
-        backButton.tintColor = HippoConfig.shared.theme.headerTextColor
-        if HippoConfig.shared.theme.leftBarButtonText.count > 0 {
-            backButton.setTitle((" " + HippoConfig.shared.theme.leftBarButtonText), for: .normal)
-            if HippoConfig.shared.theme.leftBarButtonFont != nil {
-                backButton.titleLabel?.font = HippoConfig.shared.theme.leftBarButtonFont
-            }
-            backButton.setTitleColor(HippoConfig.shared.theme.leftBarButtonTextColor, for: .normal)
-        } else {
-            if HippoConfig.shared.theme.leftBarButtonImage != nil {
-                backButton.setImage(HippoConfig.shared.theme.leftBarButtonImage, for: .normal)
-                backButton.tintColor = HippoConfig.shared.theme.headerTextColor
-            }
-        }
-        //Configuring homeButton
-        homeButton.setTitle("", for: .normal)
-        homeButton.tintColor = HippoConfig.shared.theme.headerTextColor
-        if HippoConfig.shared.theme.homeBarButtonText.count > 0 {
-            homeButton.setTitle((" " + HippoConfig.shared.theme.homeBarButtonText), for: .normal)
-            if HippoConfig.shared.theme.homeBarButtonFont != nil {
-                homeButton.titleLabel?.font = HippoConfig.shared.theme.homeBarButtonFont
-            }
-            homeButton.setTitleColor(HippoConfig.shared.theme.homeBarButtonTextColor, for: .normal)
-        } else {
-            if HippoConfig.shared.theme.homeBarButtonImage != nil {
-                homeButton.setImage(HippoConfig.shared.theme.homeBarButtonImage, for: .normal)
-                homeButton.tintColor = HippoConfig.shared.theme.headerTextColor
-            }
-        }
+//        self.navigationController?.setTheme()
+//
+//        self.navigationItem.title = HippoConfig.shared.theme.directChatHeader
+//        self.view.backgroundColor = HippoConfig.shared.theme.backgroundColor
+//
+//        backButton.tintColor = HippoConfig.shared.theme.headerTextColor
+//        if HippoConfig.shared.theme.leftBarButtonText.count > 0 {
+//            backButton.setTitle((" " + HippoConfig.shared.theme.leftBarButtonText), for: .normal)
+//            if HippoConfig.shared.theme.leftBarButtonFont != nil {
+//                backButton.titleLabel?.font = HippoConfig.shared.theme.leftBarButtonFont
+//            }
+//            backButton.setTitleColor(HippoConfig.shared.theme.leftBarButtonTextColor, for: .normal)
+//        } else {
+//            if HippoConfig.shared.theme.leftBarButtonImage != nil {
+//                backButton.setImage(HippoConfig.shared.theme.leftBarButtonImage, for: .normal)
+//                backButton.tintColor = HippoConfig.shared.theme.headerTextColor
+//            }
+//        }
+//        //Configuring homeButton
+//        homeButton.setTitle("", for: .normal)
+//        homeButton.tintColor = HippoConfig.shared.theme.headerTextColor
+//        if HippoConfig.shared.theme.homeBarButtonText.count > 0 {
+//            homeButton.setTitle((" " + HippoConfig.shared.theme.homeBarButtonText), for: .normal)
+//            if HippoConfig.shared.theme.homeBarButtonFont != nil {
+//                homeButton.titleLabel?.font = HippoConfig.shared.theme.homeBarButtonFont
+//            }
+//            homeButton.setTitleColor(HippoConfig.shared.theme.homeBarButtonTextColor, for: .normal)
+//        } else {
+//            if HippoConfig.shared.theme.homeBarButtonImage != nil {
+//                homeButton.setImage(HippoConfig.shared.theme.homeBarButtonImage, for: .normal)
+//                homeButton.tintColor = HippoConfig.shared.theme.headerTextColor
+//            }
+//        }
     }
     internal func setupRefreshController() {
         refreshControl.backgroundColor = .clear
