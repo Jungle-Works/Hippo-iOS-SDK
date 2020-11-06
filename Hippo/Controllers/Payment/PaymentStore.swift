@@ -248,6 +248,7 @@ class PaymentStore: NSObject {
         if let selectedPaymentGatewayId = selectedPaymentGateway?.gateway_id{
             param["payment_gateway_id"] = selectedPaymentGatewayId
         }
+        param["is_sdk_flow"] = 1
         
         HTTPClient.makeConcurrentConnectionWith(method: .POST, enCodingType: .json, para: param, extendedUrl: FuguEndPoints.makeSelectedPayment.rawValue) { (response, error, tag, status) in
             if let err = error {
@@ -369,4 +370,30 @@ extension PaymentStore {
         }
         
     }
+    
+    
+}
+
+struct RazorPayData{
+    var amount : Double?
+    var referenceId : String?
+    var orderId : String?
+    var currency : String?
+    var apiKey : String?
+    var authOrderId : String?
+    var description : String?
+
+    
+    func getRazorPayDic(_ dic : [String : Any]) -> RazorPayData?{
+        var this = RazorPayData()
+        this.amount = Double.parse(values: dic, key: "amount")
+        this.referenceId = String.parse(values: dic, key: "reference_id")
+        this.orderId = String.parse(values: dic, key: "order_id")
+        this.currency = String.parse(values: dic, key: "currency")
+        this.apiKey = String.parse(values: dic, key: "api_key")
+        this.authOrderId = String.parse(values: dic, key: "auth_order_id")
+        this.description = String.parse(values: dic, key: "description")
+        return this
+    }
+
 }
