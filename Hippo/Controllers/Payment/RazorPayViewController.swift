@@ -25,7 +25,15 @@ class RazorPayViewController : UIView, RazorpayPaymentCompletionProtocol {
             "amount": razorPayDic?.amount ?? 0.0, //This is in currency subunits. 100 = 100 paise= INR 1.
             "currency": razorPayDic?.currency ?? "",//We support more that 92 international currencies.
             "description": razorPayDic?.description ?? "",
-            "order_id": razorPayDic?.orderId ?? ""
+            "order_id": razorPayDic?.orderId ?? "",
+            "prefill": [
+                "contact": razorPayDic?.phone,
+                "email": razorPayDic?.email
+            ],
+            "name": razorPayDic?.name ?? "",
+            "theme": [
+                "color": HippoConfig.shared.theme.themeColor.hippoToHexString()
+            ]
                 ]
         razorpay.open(options, displayController: viewController)
     }

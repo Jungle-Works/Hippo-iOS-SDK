@@ -382,6 +382,9 @@ struct RazorPayData{
     var apiKey : String?
     var authOrderId : String?
     var description : String?
+    var email : String?
+    var phone : String?
+    var name : String?
 
     
     func getRazorPayDic(_ dic : [String : Any]) -> RazorPayData?{
@@ -393,6 +396,9 @@ struct RazorPayData{
         this.apiKey = String.parse(values: dic, key: "api_key")
         this.authOrderId = String.parse(values: dic, key: "auth_order_id")
         this.description = String.parse(values: dic, key: "description")
+        this.email = String.parse(values: dic, key: "user_email")
+        this.phone = String.parse(values: dic, key: "phone_no")
+        this.name = String.parse(values: dic, key: "name")
         return this
     }
 
