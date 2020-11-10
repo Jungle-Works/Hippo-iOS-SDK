@@ -73,7 +73,7 @@ class HippoConversationViewController: UIViewController {
     var proceedToPayChannel: HippoChannel?
     var attachments: [Attachment]  = []
     var isMessageEditing : Bool = false
-    
+    let razorPay = RazorPayViewController()
 
     //MARK:
     @IBOutlet var tableViewChat: UITableView!{
@@ -1724,6 +1724,12 @@ extension HippoConversationViewController: PaymentMessageCellDelegate {
         vc.isComingForPayment = true
         self.navigationController?.pushViewController(vc, animated: true)
     }
+    
+    func initatePayment(for razorPayDic: RazorPayData) {
+        razorPay.razorPayDic = razorPayDic
+        razorPay.showPaymentForm(self)
+    }
+    
     func generatePaymentUrl(for message: HippoMessage, card: HippoCard, selectedPaymentGateway: PaymentGateway?) {
         guard let selectedCard = (card as? PayementButton)?.selectedCardDetail, let channelId = channel?.id else {
             HippoConfig.shared.log.error("cannot find selected card.... Please select the card", level: .error)
@@ -1797,6 +1803,13 @@ extension HippoConversationViewController: PaymentMessageCellDelegate {
             guard success, let result = data else {
                 return
             }
+            if let razorPayDic = RazorPayData().getRazorPayDic(result){
+                if razorPayDic.amount != nil{
+                    self.initatePayment(for: razorPayDic)
+                    return
+                }
+            }
+            
             guard let paymentUrl = result["payment_url"] as? String else {
                 return
             }

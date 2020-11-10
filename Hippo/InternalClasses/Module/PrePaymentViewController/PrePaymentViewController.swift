@@ -100,7 +100,7 @@ class PrePaymentViewController: UIViewController {
     //Payfort redirects through several URLs.
     func handleForUrlKeys(webUrl: String) {
         print(webUrl)
-        if webUrl.contains("success.html"){
+        if webUrl.contains("success.html") || webUrl.contains("Success"){
             self.isPaymentSuccess?(true)
             DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: {
                 self.backAction(UIButton())

@@ -26,7 +26,8 @@ Pod::Spec.new do |s|
     s.preserve_paths = ['README.md']
     
     s.dependency 'Socket.IO-Client-Swift'
-    
+    s.dependency 'razorpay-pod'
+ 
     s.default_subspec = 'Chat'
     
     s.subspec 'Chat' do |chat|
