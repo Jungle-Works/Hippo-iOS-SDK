@@ -437,6 +437,7 @@ public class UserTag: NSObject {
         params["source_type"] = SourceType.SDK.rawValue
         params["app_version_code"] = versionCode
         params["get_enabled_gateways"] = 1
+        params["is_sdk_flow"] = 1
         return params
     }
     

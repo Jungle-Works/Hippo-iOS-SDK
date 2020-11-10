@@ -57,7 +57,7 @@ public struct GroupCallModel {
     ///resellerToken,referenceid and email are optional params
     
     
-    public init?(email : String?, transactionId : String, callType : CallType){
+    public init?(email : String?, transactionId : String){
         self.email = email
         self.transactionId = transactionId
     }

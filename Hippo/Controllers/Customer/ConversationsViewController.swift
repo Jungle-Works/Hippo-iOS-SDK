@@ -1509,8 +1509,6 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
       let vc = storyboard.instantiateViewController(withIdentifier: "ConversationsViewController") as! ConversationsViewController
       return vc
    }
-   
-   
 }
 
 // MARK: - HELPERS

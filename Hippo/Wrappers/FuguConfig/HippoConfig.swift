@@ -482,10 +482,7 @@ struct BotAction {
         checker.presentChatsViewController()
     }
 
-    func presentPrePaymentController(){
-        
-    }
-    
+
     class public func showChats(on viewController: UIViewController) {
         AgentDetail.setAgentStoredData()
         HippoConfig.shared.checker.presentChatsViewController(on: viewController)

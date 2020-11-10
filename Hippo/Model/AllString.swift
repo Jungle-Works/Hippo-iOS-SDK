@@ -650,7 +650,6 @@ class AllString{
         if let hippo_message_deleted = response["hippo_message_deleted"] as? String{
             HippoStrings.deleteMessage = hippo_message_deleted
         }
-
     }
     
     class func agentParsing(_ response: [String: Any]){
