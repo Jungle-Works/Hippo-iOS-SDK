@@ -10,14 +10,12 @@ import Razorpay
 
 class RazorPayViewController : UIView, RazorpayPaymentCompletionProtocol {
 
-    //MARK:- IBOutlets
-    @IBOutlet weak var view_NavBar :NavigationBar!
-    
+
     //MARK:- Variables
     var razorpay: RazorpayCheckout!
     var razorPayDic : RazorPayData?
-    
-   
+    var isPaymentSuccess : ((Bool)->())?
+    var isPaymentCancelled : ((Bool)->())?
     
     internal func showPaymentForm(_ viewController : UIViewController){
         razorpay = RazorpayCheckout.initWithKey(razorPayDic?.apiKey ?? "", andDelegate: self)
@@ -40,10 +38,14 @@ class RazorPayViewController : UIView, RazorpayPaymentCompletionProtocol {
     
 
     func onPaymentError(_ code: Int32, description str: String) {
-        
+        if str == "Payment cancelled by user"{
+            isPaymentCancelled?(true)
+        }else{
+            isPaymentSuccess?(false)
+        }
     }
     
     func onPaymentSuccess(_ payment_id: String) {
-        
+        isPaymentSuccess?(true)
     }
 }
