@@ -447,7 +447,7 @@ struct BotAction {
         guard HippoConfig.shared.appUserType == .agent else {
             return nil
         }
-        guard let nav = AgentHomeViewController.get() else {
+        guard let nav = AgentHomeViewController.get(true) else {
             return nil
         }
         return nav.viewControllers.first
