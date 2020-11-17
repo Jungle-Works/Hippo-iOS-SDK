@@ -205,7 +205,7 @@ enum ChatType: Int {
         return ChatType.allowedImageViewFor.contains(self)
     }
     
-    private static let allowedImageViewFor: [ChatType] = [.other]
+    private static let allowedImageViewFor: [ChatType] = [.other, .o2o]
 }
 
 enum FuguUserIntializationError: LocalizedError {
@@ -337,6 +337,7 @@ enum ActionType: Int {
 enum ConversationType {
     case myChat
     case allChat
+    case o2oChat
 }
 
 enum ButtonType: String {

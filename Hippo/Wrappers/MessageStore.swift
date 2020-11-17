@@ -13,6 +13,7 @@ struct RequestIdenfier {
     static let getMessagesIdentifier = "HIPPO_GET_MESSAGES_IDENTIFIER"
     static let getMyConversationIdentfier = "HIPPO_GET_MY_CONVERSATION_IDENTIFIER"
     static let getAllConversationIdentfier = "HIPPO_GET_ALL_CONVERSATION_IDENTIFIER"
+    static let geto2oChatConversationIdentfier = "HIPPO_o2oCHAT_IDENTIFIER"
     static let authLoginIdentifier = "HIPPO_AUTH_LOGIN_IDENTIFIER"
     static let agentLoginIdentifier = "HIPPO_AGENT_LOGIN1_IDENTIFIER"
     static let getCountrycode = "tookanGetCountrycode"

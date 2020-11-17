@@ -555,7 +555,7 @@ class HippoConversationViewController: UIViewController {
 //            navigationView = NavigationTitleView.loadView(rectForNavigationTitle, delegate: self)
 //            titleForNavigation = navigationView
 //        }
-        if let chatType = channel?.chatDetail?.chatType, chatType == .other {
+        if let chatType = channel?.chatDetail?.chatType, (chatType == .other || chatType == .o2o){
             let title: String? = channel?.chatDetail?.channelName ?? label
              view_Navigation.setData(imageUrl: userImage, name: title)
         } else if labelId > 0, channel == nil {

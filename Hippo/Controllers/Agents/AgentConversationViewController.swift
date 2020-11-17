@@ -1286,8 +1286,10 @@ extension AgentConversationViewController {
 //        if channel?.channelInfo?.chatType == .o2o {
         if channel?.chatDetail?.chatType == .o2o {
             config.normalMessagePlaceHolder = HippoConfig.shared.theme.messagePlaceHolderText == nil ? HippoStrings.messagePlaceHolderText : HippoConfig.shared.theme.messagePlaceHolderText ?? ""
+            moreOptionsButton.isHidden = true
+        }else{
+            moreOptionsButton.isHidden = false
         }
-        
         let dataManager = MentionDataManager(mentions: Business.shared.agents)
         let request = IntializationRequest(config: config, dataManager: dataManager)
         self.messageSendingViewConfig = request.config
