@@ -322,9 +322,9 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     override func viewWillLayoutSubviews() {
         
         //hide
-        self.tabBarController?.hidesBottomBarWhenPushed = true
-        self.tabBarController?.tabBar.isHidden = true
-        self.tabBarController?.tabBar.layer.zPosition = -1
+//        self.tabBarController?.hidesBottomBarWhenPushed = true
+//        self.tabBarController?.tabBar.isHidden = true
+//        self.tabBarController?.tabBar.layer.zPosition = -1
     }
 
     override func closeKeyBoard() {

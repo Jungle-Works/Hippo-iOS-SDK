@@ -56,6 +56,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     var closedConversationArr = [FuguConversation]()
     var config: AllConversationsConfig = AllConversationsConfig.defaultConfig
     var conversationChatType: ConversationChatType = .openChat
+    var shouldHideBackBtn : Bool = false
     
     // MARK: - LIFECYCLE
     override func viewDidLoad() {
@@ -98,6 +99,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         }
         
         view_NavigationBar.title = config.title ?? HippoConfig.shared.theme.headerText
+        view_NavigationBar.isLeftButtonHidden = true
         view_NavigationBar.leftButton.addTarget(self, action: #selector(backButtonAction(_:)), for: .touchUpInside)
     }
     
@@ -129,9 +131,9 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         //        self.tabBarController?.tabBar.items?[0].title = "Chats"
         
         //hide
-        self.tabBarController?.hidesBottomBarWhenPushed = true
-        self.tabBarController?.tabBar.isHidden = true
-        self.tabBarController?.tabBar.layer.zPosition = -1
+//        self.tabBarController?.hidesBottomBarWhenPushed = true
+//        self.tabBarController?.tabBar.isHidden = true
+//        self.tabBarController?.tabBar.layer.zPosition = -1
     }
     
     @IBAction func newConversationClicked(_ sender: Any) {
@@ -146,6 +148,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         
         let conversation = ConversationsViewController.getWith(chatAttributes: fuguNewChatAttributes)
         conversation.createConversationOnStart = true
+        conversation.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(conversation, animated: true)
     }
     
@@ -387,11 +390,11 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         
         saveConversationsInCache()
         HippoConfig.shared.notifiyDeinit()
-        if let navigationController = UIApplication.shared.keyWindow?.rootViewController as? UINavigationController{
-            if let tabBarController = navigationController.viewControllers[0] as? UITabBarController{
-                tabBarController.selectedIndex = 0
-            }
-        }
+//        if let navigationController = UIApplication.shared.keyWindow?.rootViewController as? UINavigationController{
+//            if let tabBarController = navigationController.viewControllers[0] as? UITabBarController{
+//                tabBarController.selectedIndex = 0
+//            }
+//        }
         if config.shouldPopVc {
             self.navigationController?.popViewController(animated: true)
         } else {
@@ -773,6 +776,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         HippoConfig.shared.notifyDidLoad()
         let conversationVC = ConversationsViewController.getWith(conversationObj: chatObj, allConversationConfig: config)
         conversationVC.delegate = self
+        conversationVC.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(conversationVC, animated: true)
     }
     
@@ -780,6 +784,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         HippoConfig.shared.notifyDidLoad()
         let conversationVC = ConversationsViewController.getWith(labelId: "\(labelId)")
         conversationVC.delegate = self
+        conversationVC.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(conversationVC, animated: false)
     }
     //MARK: - HANDLE PUSH NOTIFICATION

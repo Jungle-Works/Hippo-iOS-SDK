@@ -10,7 +10,7 @@ import UIKit
 import AVFoundation
 #if canImport(HippoCallClient)
   import HippoCallClient
-  import JitsiMeet
+//  import JitsiMeet
 #endif
 
 public protocol HippoMessageRecievedDelegate: class {
@@ -440,7 +440,7 @@ struct BotAction {
         AgentDetail.setAgentStoredData()
         checker.presentChatsViewController()
     }
-    func getAgentChatVC() -> UIViewController?{
+    public func getAgentChatVC() -> UIViewController?{
          guard HippoConfig.shared.appUserType == .agent else {
              return nil
          }
@@ -450,6 +450,20 @@ struct BotAction {
          return nav.viewControllers.first
      }
 
+    public func getCustomerChatVC() -> UINavigationController?{
+        guard HippoConfig.shared.appUserType == .customer else {
+            return nil
+        }
+        guard let navigationController = UIStoryboard(name: "FuguUnique", bundle: FuguFlowManager.bundle).instantiateViewController(withIdentifier: "FuguCustomerNavigationController") as? UINavigationController else {
+            return nil
+        }
+        (navigationController.viewControllers.first as? AllConversationsViewController)?.shouldHideBackBtn = true
+        
+        return navigationController
+    }
+    
+    
+    
     func presentPrePaymentController(){
         
     }
