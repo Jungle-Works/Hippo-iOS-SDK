@@ -10,7 +10,7 @@ import UIKit
 import AVFoundation
 #if canImport(HippoCallClient)
   import HippoCallClient
-  import JitsiMeet
+//  import JitsiMeet
 #endif
 
 public protocol HippoMessageRecievedDelegate: class {
@@ -443,7 +443,7 @@ struct BotAction {
         })
     }
     
-    func getAgentChatVC() -> UIViewController?{
+    public func getAgentChatVC() -> UIViewController?{
         guard HippoConfig.shared.appUserType == .agent else {
             return nil
         }

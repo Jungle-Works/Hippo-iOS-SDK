@@ -27,6 +27,7 @@ class AgentHomeViewController: HippoHomeViewController {
     var refreshControl = UIRefreshControl()
     fileprivate var isMoreToLoad = false
     fileprivate var allowPagination = true
+    var shouldHideBackBtn : Bool = false
     
     //MARK: Outlets
     @IBOutlet weak var errorLabel: UILabel!
@@ -156,7 +157,7 @@ class AgentHomeViewController: HippoHomeViewController {
         guard let navigationController = storyboard.instantiateViewController(withIdentifier: "FuguAgentNavigationController") as? UINavigationController else {
             return nil
         }
-        (navigationController.viewControllers.first as? AgentHomeViewController)?.view_NavigationBar.isLeftButtonHidden = true
+        (navigationController.viewControllers.first as? AgentHomeViewController)?.shouldHideBackBtn = shouldHideBackBtn
         return navigationController
     }
     class func getController() -> UIViewController? {
@@ -195,7 +196,7 @@ extension AgentHomeViewController {
             guard success, let strongSelf = self else {
                 return
             }
-            AgentConversationManager.getAgentsList(showLoader: false) {[weak self] (_) in                
+            AgentConversationManager.getAgentsList(showLoader: false) {[weak self] (_) in
             }
         }
     }
@@ -400,6 +401,7 @@ extension AgentHomeViewController {
         self.view.backgroundColor = HippoConfig.shared.theme.backgroundColor
         view_NavigationBar.title = HippoConfig.shared.theme.headerText
         view_NavigationBar.leftButton.addTarget(self, action: #selector(backButtonClicked(_:)), for: .touchUpInside)
+        view_NavigationBar.isLeftButtonHidden = shouldHideBackBtn
         //Configuring FilterButton
         view_NavigationBar.rightButton.setTitle("", for: .normal)
         view_NavigationBar.rightButton.tintColor = HippoConfig.shared.theme.headerTextColor
