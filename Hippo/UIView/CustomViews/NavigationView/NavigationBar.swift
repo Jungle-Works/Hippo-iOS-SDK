@@ -35,6 +35,7 @@ final class NavigationBar: UIView {
     var isLeftButtonHidden: Bool {
         set {
             leftButton.isHidden = newValue
+            image_back.isHidden = newValue
         }
         get {
             return leftButton.isHidden

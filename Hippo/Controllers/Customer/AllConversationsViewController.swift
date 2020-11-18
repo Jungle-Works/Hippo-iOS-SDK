@@ -99,7 +99,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         }
         
         view_NavigationBar.title = config.title ?? HippoConfig.shared.theme.headerText
-        view_NavigationBar.isLeftButtonHidden = true
+        view_NavigationBar.isLeftButtonHidden = shouldHideBackBtn
         view_NavigationBar.leftButton.addTarget(self, action: #selector(backButtonAction(_:)), for: .touchUpInside)
     }
     
