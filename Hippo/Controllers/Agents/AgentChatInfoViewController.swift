@@ -176,6 +176,15 @@ extension AgentChatInfoViewController {
             if let vc = each as? AgentDirectViewController, vc.conversationList.count > 1 {
                 break
             }
+            
+            for child in each.children{
+                if child is AgentHomeViewController{
+                    if let vc = child as? HippoHomeViewController {
+                        vc.channelStatusChanged(channelId: channelId, newStatus: status)
+                        break
+                    }
+                }
+            }
         }
     }
     
@@ -192,6 +201,13 @@ extension AgentChatInfoViewController {
             if let vc = each as? AgentDirectViewController, vc.conversationList.count > 1 {
                 self.navigationController?.popToRootViewController(animated: true)
                 return
+            }
+            
+            for child in each.children{
+                if child is AgentHomeViewController{
+                    self.navigationController?.popToRootViewController(animated: true)
+                    return
+                }
             }
         }
         HippoConfig.shared.notifiyDeinit()
