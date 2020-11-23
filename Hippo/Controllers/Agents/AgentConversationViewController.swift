@@ -2290,7 +2290,7 @@ extension AgentConversationViewController: UIImagePickerControllerDelegate, UINa
         self.channel?.isSendingDisabled = true
         //        self.textViewBottomConstraint.constant = -self.textViewBgView.frame.height
 //        self.bottomContentViewBottomConstraint.constant = -self.textViewBgView.frame.height
-        self.bottomContentViewBottomConstraint.constant = -self.textViewBgView.frame.height-50
+        self.bottomContentViewBottomConstraint.constant = -self.textViewBgView.frame.height
         self.textViewBgView.isHidden = true
     }
     

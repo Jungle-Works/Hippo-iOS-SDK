@@ -409,7 +409,7 @@
                                                     <constraint firstAttribute="width" constant="45" id="pgT-JZ-NcB"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                <state key="normal" title="Send">
+                                                <state key="normal">
                                                     <color key="titleColor" red="0.12941176469999999" green="0.58823529409999997" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
                                                 <connections>
@@ -422,7 +422,7 @@
                                                     <constraint firstAttribute="width" constant="45" id="WRB-sW-GMG"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                <state key="normal" title="Send">
+                                                <state key="normal">
                                                     <color key="titleColor" red="0.12941176469999999" green="0.58823529409999997" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
                                                 <connections>
@@ -432,13 +432,13 @@
                                         </subviews>
                                     </stackView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Send a message..." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Gj-e4-N76">
-                                        <rect key="frame" x="35" y="3" width="116.5" height="50"/>
+                                        <rect key="frame" x="45" y="3" width="285" height="50"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                         <color key="textColor" red="0.28627450980000002" green="0.28627450980000002" blue="0.28627450980000002" alpha="0.5" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="MB6-uF-kEa" customClass="HippoMessageTextView" customModule="Hippo" customModuleProvider="target">
-                                        <rect key="frame" x="34" y="3" width="296" height="50"/>
+                                        <rect key="frame" x="40" y="3" width="290" height="50"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="ubg-ie-nz4"/>
@@ -451,7 +451,7 @@
                                         </connections>
                                     </textView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="z7L-h6-k2g">
-                                        <rect key="frame" x="5" y="0.0" width="24" height="56"/>
+                                        <rect key="frame" x="5" y="0.0" width="30" height="56"/>
                                         <subviews>
                                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YDA-eT-bGJ">
                                                 <rect key="frame" x="0.0" y="0.0" width="30" height="56"/>
@@ -471,7 +471,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O4f-k1-wWi">
-                                                <rect key="frame" x="0.0" y="0.0" width="24" height="56"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="30" height="56"/>
                                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="28"/>
                                                 <inset key="titleEdgeInsets" minX="0.0" minY="-3" maxX="0.0" maxY="0.0"/>
                                                 <state key="normal" image="AddFile">
@@ -485,7 +485,7 @@
                                                 </connections>
                                             </button>
                                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FxY-Jp-ayQ">
-                                                <rect key="frame" x="0.0" y="0.0" width="0.0" height="56"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="30" height="56"/>
                                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="28"/>
                                                 <inset key="titleEdgeInsets" minX="0.0" minY="-3" maxX="0.0" maxY="0.0"/>
                                                 <state key="normal" image="AddFile">
@@ -499,6 +499,10 @@
                                                 </connections>
                                             </button>
                                         </subviews>
+                                        <constraints>
+                                            <constraint firstItem="FxY-Jp-ayQ" firstAttribute="width" secondItem="YDA-eT-bGJ" secondAttribute="width" id="ITV-2b-Yhx"/>
+                                            <constraint firstItem="O4f-k1-wWi" firstAttribute="width" secondItem="YDA-eT-bGJ" secondAttribute="width" id="NjI-4g-45f"/>
+                                        </constraints>
                                     </stackView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.90196078430000004" green="0.90980392160000001" blue="0.91372549020000005" alpha="1" colorSpace="calibratedRGB"/>
@@ -508,8 +512,9 @@
                                     <constraint firstAttribute="height" relation="lessThanOrEqual" constant="150" id="7By-TL-bxh"/>
                                     <constraint firstItem="z7L-h6-k2g" firstAttribute="leading" secondItem="mF9-lG-KfK" secondAttribute="leading" constant="5" id="BMw-wu-lQ7"/>
                                     <constraint firstItem="MB6-uF-kEa" firstAttribute="top" secondItem="9Gj-e4-N76" secondAttribute="top" id="COY-g6-dtj"/>
-                                    <constraint firstItem="9Gj-e4-N76" firstAttribute="leading" secondItem="z7L-h6-k2g" secondAttribute="trailing" constant="6" id="K8f-15-qMy"/>
+                                    <constraint firstItem="9Gj-e4-N76" firstAttribute="trailing" secondItem="MB6-uF-kEa" secondAttribute="trailing" id="Wa7-VL-7aj"/>
                                     <constraint firstItem="9Gj-e4-N76" firstAttribute="centerY" secondItem="mF9-lG-KfK" secondAttribute="centerY" id="YxU-ot-0ho"/>
+                                    <constraint firstItem="9Gj-e4-N76" firstAttribute="leading" secondItem="MB6-uF-kEa" secondAttribute="leading" constant="5" id="afA-My-odZ"/>
                                     <constraint firstItem="MB6-uF-kEa" firstAttribute="top" secondItem="mF9-lG-KfK" secondAttribute="top" constant="3" id="e6y-c8-2cC"/>
                                     <constraint firstItem="z7L-h6-k2g" firstAttribute="top" secondItem="mF9-lG-KfK" secondAttribute="top" id="fXO-Lr-dGd"/>
                                     <constraint firstAttribute="trailing" secondItem="8v1-aY-upr" secondAttribute="trailing" id="hbj-bg-J7z"/>
