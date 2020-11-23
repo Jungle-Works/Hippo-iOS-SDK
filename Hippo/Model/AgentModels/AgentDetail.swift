@@ -400,7 +400,7 @@ extension AgentDetail {
         params["app_version_code"] = "\(versionCode)"
         
         params["fetch_business_lang"] = 1
-        
+        params["fetch_tags"] = 0
         return params
     }
     internal static func getParamsForAuthLogin() -> [String: Any] {
@@ -414,6 +414,7 @@ extension AgentDetail {
         } else {
             params["auth_token"] = agentDetail.oAuthToken
         }
+        params["fetch_tags"] = 0
         return params
     }
 }
