@@ -430,6 +430,7 @@ public class UserTag: NSObject {
         params["source_type"] = SourceType.SDK.rawValue
         params["app_version_code"] = versionCode
         params["get_enabled_gateways"] = 1
+        params["is_sdk_flow"] = 1
         return params
     }
     
@@ -480,11 +481,11 @@ public class UserTag: NSObject {
     
     class func clearAllData(completion: ((Bool) -> Void)? = nil) {
         
-        
         FuguDefaults.removeAllPersistingData()
-//        if FayeConnection.shared.isConnected{
-//            FayeConnection.shared.disconnectFaye()
-//        }
+        //        if FayeConnection.shared.isConnected{
+        //            FayeConnection.shared.disconnectFaye()
+        //        }
+
         //Clear agent data
         clearAgentData()
         
@@ -554,9 +555,10 @@ public class UserTag: NSObject {
             TokenManager.deviceToken = deviceToken
             TokenManager.voipToken = voipToken
             unSubscribe(userChannelId: HippoConfig.shared.appSecretKey + "/" + "markConversation")
-//            let tempStatusCode = statusCode ?? 0
-//            let success = (200 <= tempStatusCode) && (300 > tempStatusCode)
-//            completion?(success)
+            //            let tempStatusCode = statusCode ?? 0
+            //            let success = (200 <= tempStatusCode) && (300 > tempStatusCode)
+            //            completion?(success)
         }
     }
+
 }

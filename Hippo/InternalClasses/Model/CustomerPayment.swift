@@ -157,7 +157,7 @@ extension PaymentSecurely: HippoCard {
 }
 
 class PaymentHeader {
-    var text: String = "Select a Plan".localized
+    var text: String = HippoStrings.selectaPlan
 }
 
 extension PaymentHeader: HippoCard {

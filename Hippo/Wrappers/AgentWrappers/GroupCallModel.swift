@@ -40,9 +40,11 @@ public struct GroupCallModel {
     /// * Optional parameter
     public var message : String?
     
+    public var isAudioMuted : Bool?
+    
     //init for creating group session
     ///*init for these parameters for creating channel for group calling from parent app*
-    public init?(email: String, roomTitle: String, sessionStartTime: String, sessionEndTime: String, uniqueIds : [String], transactionId : String, userIds : [String]?, agentIds : [String]?, message : String?){
+    public init?(email: String, roomTitle: String, sessionStartTime: String, sessionEndTime: String, uniqueIds : [String], transactionId : String, userIds : [String]?, agentIds : [String]?, message : String?,isMuted : Bool){
         self.email = email
         self.roomTitle = roomTitle
         self.sessionStartTime = sessionStartTime
@@ -50,6 +52,7 @@ public struct GroupCallModel {
         self.uniqueIds = uniqueIds
         self.message = message
         self.transactionId = transactionId
+        self.isAudioMuted = isMuted
     }
     
     //init for getting session details
@@ -57,7 +60,7 @@ public struct GroupCallModel {
     ///resellerToken,referenceid and email are optional params
     
     
-    public init?(email : String?, transactionId : String, callType : CallType){
+    public init?(email : String?, transactionId : String){
         self.email = email
         self.transactionId = transactionId
     }
@@ -84,6 +87,8 @@ extension GroupCallModel{
         params["user_unique_ids"] = uniqueIds
         params["transaction_id"] = transactionId
         params["message"] = message
+        params["is_audio_enabled"] = isAudioMuted
+        params["is_video_enabled"] = callType == .audio ? false : true
        
         return params
     }

@@ -13,9 +13,11 @@ class ConversationStore {
     
     var myChats = [AgentConversation]()
     var allChats = [AgentConversation]()
+    var o2oChats = [AgentConversation]()
     var activeDirectChats = [AgentConversation]()
     var isMoreMyChatToLoad = false
     var isMoreAllChatToLoad = false
+    var isMoreo2oChatToLoad = false
     
     var channelUnreadHashMap: [Int: AgentConversation] = [:]
     
@@ -32,6 +34,7 @@ class ConversationStore {
     func storeConversationToCache() {
         var myChatsJson = [[String: Any]]()
         var allChatsJson = [[String: Any]]()
+        var o2oChatsJson = [[String: Any]]()
         
         for each in myChats {
             let json = each.getJsonToStore()
@@ -41,13 +44,20 @@ class ConversationStore {
             let json = each.getJsonToStore()
             allChatsJson.append(json)
         }
+        for each in o2oChats {
+            let json = each.getJsonToStore()
+            o2oChatsJson.append(json)
+        }
+        
         FuguDefaults.set(value: myChatsJson, forKey: DefaultKey.myChatConversations)
         FuguDefaults.set(value: allChatsJson, forKey: DefaultKey.allChatConversations)
+        FuguDefaults.set(value: o2oChatsJson, forKey: DefaultKey.o2oChatConversations)
     }
     
     func fetchAllCachedConversation() {
         loadCacheForMyChat()
         loadCacheForAllChat()
+        loadCacheForO2OChat()
     }
     
     func loadCacheForMyChat() {
@@ -62,6 +72,13 @@ class ConversationStore {
             return
         }
          self.allChats = AgentConversation.getConversationArray(jsonArray: allChatsJson)
+    }
+    
+    func loadCacheForO2OChat() {
+        guard let o2oChatJson = FuguDefaults.object(forKey: DefaultKey.o2oChatConversations) as? [[String: Any]] else {
+            return
+        }
+         self.o2oChats = AgentConversation.getConversationArray(jsonArray: o2oChatJson)
     }
 }
 

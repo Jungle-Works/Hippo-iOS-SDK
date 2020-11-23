@@ -8,6 +8,7 @@ target 'Hippo' do
   # Pods for Fugu
   
   pod 'MZFayeClient'
+  pod 'razorpay-pod'
 
     post_install do |installer|
       

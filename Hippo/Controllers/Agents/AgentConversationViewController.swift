@@ -1286,8 +1286,10 @@ extension AgentConversationViewController {
 //        if channel?.channelInfo?.chatType == .o2o {
         if channel?.chatDetail?.chatType == .o2o {
             config.normalMessagePlaceHolder = HippoConfig.shared.theme.messagePlaceHolderText == nil ? HippoStrings.messagePlaceHolderText : HippoConfig.shared.theme.messagePlaceHolderText ?? ""
+            moreOptionsButton.isHidden = true
+        }else{
+            moreOptionsButton.isHidden = false
         }
-        
         let dataManager = MentionDataManager(mentions: Business.shared.agents)
         let request = IntializationRequest(config: config, dataManager: dataManager)
         self.messageSendingViewConfig = request.config
@@ -1377,11 +1379,11 @@ extension AgentConversationViewController {
         let isBotButtonHidden = isPrivate || self.messageSendingViewConfig.shouldHideBottonButtons()
         
         if isBotButtonHidden == true{
-            if let index = self.attachments.firstIndex(where: {$0.title?.lowercased() == "bot"}), index < self.attachments.count{
+            if let index = self.attachments.firstIndex(where: {$0.title == HippoStrings.bot}), index < self.attachments.count{
                self.attachments.remove(at: index)
             }
         }else{
-            self.attachments.append(Attachment(icon : HippoConfig.shared.theme.botIcon  , title : "Bot"))
+            self.attachments.append(Attachment(icon : HippoConfig.shared.theme.botIcon  , title : HippoStrings.bot))
         }
         collectionViewOptions.reloadData()
         
@@ -2288,7 +2290,7 @@ extension AgentConversationViewController: UIImagePickerControllerDelegate, UINa
         self.channel?.isSendingDisabled = true
         //        self.textViewBottomConstraint.constant = -self.textViewBgView.frame.height
 //        self.bottomContentViewBottomConstraint.constant = -self.textViewBgView.frame.height
-        self.bottomContentViewBottomConstraint.constant = -self.textViewBgView.frame.height-50
+        self.bottomContentViewBottomConstraint.constant = -self.textViewBgView.frame.height
         self.textViewBgView.isHidden = true
     }
     

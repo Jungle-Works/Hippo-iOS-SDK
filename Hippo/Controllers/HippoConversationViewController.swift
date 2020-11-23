@@ -73,7 +73,7 @@ class HippoConversationViewController: UIViewController {
     var proceedToPayChannel: HippoChannel?
     var attachments: [Attachment]  = []
     var isMessageEditing : Bool = false
-    
+    let razorPay = RazorPayViewController()
 
     //MARK:
     @IBOutlet var tableViewChat: UITableView!{
@@ -555,7 +555,7 @@ class HippoConversationViewController: UIViewController {
 //            navigationView = NavigationTitleView.loadView(rectForNavigationTitle, delegate: self)
 //            titleForNavigation = navigationView
 //        }
-        if let chatType = channel?.chatDetail?.chatType, chatType == .other {
+        if let chatType = channel?.chatDetail?.chatType, (chatType == .other || chatType == .o2o){
             let title: String? = channel?.chatDetail?.channelName ?? label
              view_Navigation.setData(imageUrl: userImage, name: title)
         } else if labelId > 0, channel == nil {
@@ -1724,6 +1724,12 @@ extension HippoConversationViewController: PaymentMessageCellDelegate {
         vc.isComingForPayment = true
         self.navigationController?.pushViewController(vc, animated: true)
     }
+    
+    func initatePayment(for razorPayDic: RazorPayData) {
+        razorPay.razorPayDic = razorPayDic
+        razorPay.showPaymentForm(self)
+    }
+    
     func generatePaymentUrl(for message: HippoMessage, card: HippoCard, selectedPaymentGateway: PaymentGateway?) {
         guard let selectedCard = (card as? PayementButton)?.selectedCardDetail, let channelId = channel?.id else {
             HippoConfig.shared.log.error("cannot find selected card.... Please select the card", level: .error)
@@ -1797,6 +1803,13 @@ extension HippoConversationViewController: PaymentMessageCellDelegate {
             guard success, let result = data else {
                 return
             }
+            if let razorPayDic = RazorPayData().getRazorPayDic(result){
+                if razorPayDic.amount != nil{
+                    self.initatePayment(for: razorPayDic)
+                    return
+                }
+            }
+            
             guard let paymentUrl = result["payment_url"] as? String else {
                 return
             }
