@@ -374,6 +374,7 @@ enum FuguEndPoints: String {
     case getPrePayment = "api/conversation/createOperationalChannel"
     case getLanguage = "api/apps/fetchAppLanguageData"
     case updateLanguage = "api/apps/updateUserLanguage"
+    case getUploadFileUrl = "api/conversation/getUploadFile"
 }
 
 enum AgentEndPoints: String {
