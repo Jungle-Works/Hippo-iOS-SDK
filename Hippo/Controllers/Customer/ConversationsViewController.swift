@@ -825,6 +825,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
    
    
    @IBAction func backButtonAction(_ sender: UIButton) {
+       HippoConfig.shared.hideTabbar?(false)
        backButtonClicked()
    }
     func setThemeForBusiness() {

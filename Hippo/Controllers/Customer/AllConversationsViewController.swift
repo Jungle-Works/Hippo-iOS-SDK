@@ -149,7 +149,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         let conversation = ConversationsViewController.getWith(chatAttributes: fuguNewChatAttributes)
         conversation.createConversationOnStart = true
         conversation.hidesBottomBarWhenPushed = true
-        HippoConfig.shared.hideTabbar?()
+        HippoConfig.shared.hideTabbar?(true)
         self.navigationController?.pushViewController(conversation, animated: true)
     }
     
@@ -778,7 +778,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         let conversationVC = ConversationsViewController.getWith(conversationObj: chatObj, allConversationConfig: config)
         conversationVC.delegate = self
         conversationVC.hidesBottomBarWhenPushed = true
-        HippoConfig.shared.hideTabbar?()
+        HippoConfig.shared.hideTabbar?(true)
         self.navigationController?.pushViewController(conversationVC, animated: true)
     }
     
@@ -787,7 +787,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         let conversationVC = ConversationsViewController.getWith(labelId: "\(labelId)")
         conversationVC.delegate = self
         conversationVC.hidesBottomBarWhenPushed = true
-        HippoConfig.shared.hideTabbar?()
+        HippoConfig.shared.hideTabbar?(true)
         self.navigationController?.pushViewController(conversationVC, animated: false)
     }
     //MARK: - HANDLE PUSH NOTIFICATION
