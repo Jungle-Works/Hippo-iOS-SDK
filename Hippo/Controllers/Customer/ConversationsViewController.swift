@@ -825,7 +825,6 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
    
    
    @IBAction func backButtonAction(_ sender: UIButton) {
-       HippoConfig.shared.hideTabbar?(false)
        backButtonClicked()
    }
     func setThemeForBusiness() {
@@ -837,6 +836,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     }
     
    override func backButtonClicked() {
+         HippoConfig.shared.hideTabbar?(false)
         super.backButtonClicked()
         backNavigationDataSaving()
         if self.navigationController == nil {

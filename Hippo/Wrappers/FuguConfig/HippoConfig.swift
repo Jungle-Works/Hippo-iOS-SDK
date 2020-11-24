@@ -10,7 +10,10 @@ import UIKit
 import AVFoundation
 #if canImport(HippoCallClient)
   import HippoCallClient
-//  import JitsiMeet
+ 
+#endif
+#if canImport(JitsiMeet)
+   import JitsiMeet
 #endif
 
 public protocol HippoMessageRecievedDelegate: class {

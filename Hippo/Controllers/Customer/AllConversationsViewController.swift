@@ -110,7 +110,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     override func viewWillAppear(_ animated: Bool) {
         self.height_ErrorLabel.constant = 0
         checkNetworkConnection()
-
+        HippoConfig.shared.hideTabbar?(false)
       //  self.navigationController?.setTheme()
         self.navigationController?.isNavigationBarHidden = true
         self.setUpTabBar()
