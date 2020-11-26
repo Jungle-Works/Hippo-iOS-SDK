@@ -48,7 +48,7 @@ class PromotionCellDataModel
         
         if let deepLink = self.customAttributes!["deeplink"] as? String
         {
-            self.deepLink = deepLink as String ?? ""
+            self.deepLink = deepLink as String 
             print("deep link>>> \(deepLink)")
         }
         
