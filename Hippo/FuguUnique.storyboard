@@ -759,7 +759,7 @@
         <!--Conversations View Controller-->
         <scene sceneID="6fj-1T-McG">
             <objects>
-                <viewController storyboardIdentifier="ConversationsViewController" id="sYd-aP-0RS" customClass="ConversationsViewController" customModule="Hippo" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ConversationsViewController" hidesBottomBarWhenPushed="YES" id="sYd-aP-0RS" customClass="ConversationsViewController" customModule="Hippo" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="rGI-UZ-sV0"/>
                         <viewControllerLayoutGuide type="bottom" id="Gv8-tp-tsC"/>
