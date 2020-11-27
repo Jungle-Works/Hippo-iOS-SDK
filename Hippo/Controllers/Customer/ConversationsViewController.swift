@@ -295,6 +295,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     
    override  func viewWillAppear(_ animated: Bool) {
       super.viewWillAppear(animated)
+     HippoConfig.shared.hideTabbar?(true)
       tableViewChat.contentInset.top = 12
       messageTextView.contentInset.top = 8
       self.navigationController?.isNavigationBarHidden = true
@@ -324,10 +325,10 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     override func viewWillLayoutSubviews() {
         
         //hide
-        self.tabBarController?.hidesBottomBarWhenPushed = true
-        self.tabBarController?.tabBar.isHidden = true
-        self.tabBarController?.tabBar.layer.zPosition = -1
-        HippoConfig.shared.hideTabbar?(true)
+//        self.tabBarController?.hidesBottomBarWhenPushed = true
+//        self.tabBarController?.tabBar.isHidden = true
+//        self.tabBarController?.tabBar.layer.zPosition = -1
+ //       HippoConfig.shared.hideTabbar?(true)
     }
 
     override func closeKeyBoard() {
