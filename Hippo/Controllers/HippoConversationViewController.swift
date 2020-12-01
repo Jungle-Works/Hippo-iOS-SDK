@@ -137,7 +137,7 @@ class HippoConversationViewController: UIViewController {
     func startNewConversation(replyMessage: HippoMessage?, completion: ((_ success: Bool, _ result: HippoChannelCreationResult?) -> Void)?) { }
     func startLoaderAnimation() { }
     func stopLoaderAnimation() { }
-    
+    func callGetMessagesApi() { }
     
     func clearUnreadCountForChannel(id: Int) { }
     @objc func titleButtonclicked() { }
@@ -1155,7 +1155,12 @@ extension HippoConversationViewController {
                 let isReplyMessageSent = result?.isReplyMessageSent ?? false
                 
                 if !isReplyMessageSent {
-                    self?.channel?.send(message: message, completion: {})
+                    message.status = .none
+                    self?.channel?.send(message: message, completion: {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5, execute: {
+                            self?.callGetMessagesApi()
+                        })
+                    })
                 }
             }
         } else {

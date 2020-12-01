@@ -796,6 +796,11 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         }
     }
    
+    override func callGetMessagesApi(){
+        self.getMessagesAfterCreateConversation(callback: { (success) in
+        })
+    }
+    
     func sendQuickReplyReposeIfRequired() {
         guard self.channel != nil else {
             return
