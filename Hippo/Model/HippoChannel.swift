@@ -31,7 +31,7 @@ protocol HippoChannelDelegate: class {
     func newMessageReceived(newMessage: HippoMessage)
     func typingMessageReceived(newMessage: HippoMessage)
     func sendingFailedFor(message: HippoMessage)
-    func cancelSendingMessage(message: HippoMessage, errorMessage: String?)
+    func cancelSendingMessage(message: HippoMessage, errorMessage: String?,errorCode : FayeConnection.FayeError?)
     func channelDataRefreshed()
     func closeChatActionFromRefreshChannel()
 }
@@ -80,9 +80,17 @@ struct CreateConversationWithLabelId {
         if let botGroupId = botGroupId {
             params["initiate_bot_group_id"] = botGroupId
         }
-        if !messagesList.isEmpty {
+      
+        if let vc = getLastVisibleController() as? HippoConversationViewController{
+            if vc.storeResponse?.createNewChannel == true{
+                //params["initial_bot_messages"] = []
+            }else if !messagesList.isEmpty {
+                params["initial_bot_messages"] = messagesList
+            }
+        }else if !messagesList.isEmpty {
             params["initial_bot_messages"] = messagesList
         }
+        
         return params
     }
 }
@@ -668,6 +676,7 @@ class HippoChannel {
             self?.messageReceived(message: message)
         }
     }
+    
     //should Continue after handling NotificationType
     func handleByNotification(dict: [String: Any]) -> Bool {
         guard let rawNotificationType = Int.parse(values: dict, key: "notification_type"), let notificationType = NotificationType(rawValue: rawNotificationType) else {
@@ -677,6 +686,9 @@ class HippoChannel {
         case .channelRefreshed:
             channelRefreshed(dict: dict)
             return false
+        case .messageModified://message modified if its edit or deleted
+            messageModified(dict: dict)
+            return false
         case .message:
             print("***** \(notificationType)")
             return true
@@ -685,6 +697,58 @@ class HippoChannel {
         }
         return true
     }
+    
+    func messageModified(dict: [String: Any]){
+        let chatType = self.chatDetail?.chatType
+        guard let message = HippoMessage.createMessage(rawMessage: dict, chatType: chatType) else {
+            return
+        }
+        
+        
+        if let channelId = dict["channel_id"] as? String{
+            if channelId != String(HippoConfig.shared.getCurrentChannelId() ?? -1){
+                return
+            }
+        }else if let channelId = dict["channel_id"] as? Int{
+            if channelId != HippoConfig.shared.getCurrentChannelId(){
+                return
+            }
+        }
+
+        
+        if let status = dict["status"] as? Int{
+            switch status {
+            case 1:
+                ///*Deleted Message*/
+                if dict["last_sent_by_id"] as? Int == currentUserId(){
+                    message.message = HippoStrings.you + " " + HippoStrings.deleteMessage
+                }else{
+                    message.message = (dict["last_sent_by_full_name"] as? String ?? "") + " " + HippoStrings.deleteMessage
+                }
+                message.messageState = MessageState.MessageDeleted
+            case 2:
+                ///*Edited Message*/
+                message.message = dict["edited_message"] as? String ?? ""
+                message.messageState = MessageState.MessageEdited
+            
+            default:
+                break
+            }
+            
+            let messageReference = findAnyReferenceOf(message: message)
+            
+            if message.isSentByMe(), let refernece = messageReference {
+                refernece.status = .sent
+            }
+            if let oldMessage = messageReference {
+                let result = updateReferenceMessage(oldMessage: oldMessage, newMessage: message)
+                if result {
+                    return
+                }
+            }
+        }
+    }
+    
     
     func channelRefreshed(dict: [String: Any]) {
         //ChannelId should be same as current channelId
@@ -730,6 +794,9 @@ class HippoChannel {
 
         chatDetail.assignedAgentID = users.first?.userID ?? chatDetail.assignedAgentID
         chatDetail.assignedAgentName = users.first?.fullName ?? chatDetail.assignedAgentName
+        if let vc = getLastVisibleController() as? HippoConversationViewController{
+            vc.storeResponse?.restrictPersonalInfo = dict["restrict_personal_info_sharing"] as? Bool ?? false
+        }
         
         delegate?.channelDataRefreshed()
     }
@@ -796,6 +863,11 @@ class HippoChannel {
             }
             oldMessage.selectedCardId = newMessage.selectedCardId
             return false
+        case .normal:
+            if newMessage.notification == NotificationType.messageModified{
+                oldMessage.updateMessageForEditDelete(with: newMessage)
+                delegate?.channelDataRefreshed()
+            }
         default:
             break
         }
@@ -1008,7 +1080,7 @@ extension HippoChannel: MessageSenderDelegate {
         message.wasMessageSendingFailed = true
         let showErrorMessage = result.error?.showError ?? false
         let messageToShow: String? = showErrorMessage ? result.error?.message : nil
-        delegate?.cancelSendingMessage(message: message, errorMessage: messageToShow)
+        delegate?.cancelSendingMessage(message: message, errorMessage: messageToShow, errorCode: result.error?.error)
     }
     
 }

@@ -12,7 +12,7 @@ let HippoSDKSource = 1
 let Device_Type_iOS = 2
 var userDetailData = [String: Any]()
 
-let fuguAppVersion = "2.1.34"
+let fuguAppVersion = "2.1.44"
 var versionCode = 320
 
 /*
@@ -125,4 +125,17 @@ var versionCode = 320
  
  330 *** 2.1.32 = Agent sdk issues fixed , show slow internet bar made configurable from parent app
  
+ 331 *** 2.1.33 = Bugs fixes, UI changes and localization
+ 
+ 332 *** 2.1.33 = Bugs fixes
+ 
+ 334 *** 2.1.35 = Bug fixes
+
+ 334 *** 2.1.41 = Search user unique key issues
+ 
+ 334 *** 2.1.42 = Edit and delete messages functionality
+ 
+ 335 *** 2.1.43 = Payment cell ui fixes
+ 
+  335 *** 2.1.44 = O2O chat and razor pay sdk functionality added
  */

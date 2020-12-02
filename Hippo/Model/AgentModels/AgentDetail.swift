@@ -154,12 +154,13 @@ class AgentDetail: NSObject {
         
     }
        
-    init(oAuthToken: String, appType: String, customAttributes: [String: Any]?) {
+    init(oAuthToken: String, appType: String, customAttributes: [String: Any]?, userId : Int? = nil) {
         self.oAuthToken = oAuthToken
         self.customAttributes = customAttributes
         let type = appType.trimWhiteSpacesAndNewLine()
         self.app_type = type.isEmpty ? AgentDetail.defaultAppType : type
         self.authTokenInitManager = oAuthToken
+        self.id = userId ?? -1
     }
     
     func toJson() -> [String: Any] {
@@ -276,17 +277,22 @@ extension AgentDetail {
                 BussinessProperty.current.agentStatusForToggle = status.rawValue
             }
             
+          
             BussinessProperty.current.isVideoCallEnabled = Bool.parse(key: "is_video_call_enabled", json: data)
             BussinessProperty.current.isAudioCallEnabled = Bool.parse(key: "is_audio_call_enabled", json: data)
             
             if let businessProperty = data["business_property"] as? [String: Any] {
-                
+                BussinessProperty.current.editDeleteExpiryTime = CGFloat(Int.parse(values: businessProperty, key: "edit_delete_message_duration") ?? 0)
+            
                 BussinessProperty.current.encodeToHTMLEntities = Bool.parse(key: "encode_to_html_entites", json: businessProperty)
                 
                 BussinessProperty.current.isAskPaymentAllowed = Bool.parse(key: "is_ask_payment_allowed", json: businessProperty)
                 
                 BussinessProperty.current.hideAllChat = Bool.parse(key: "hide_all_chat_tab", json: businessProperty)
                 
+                BussinessProperty.current.shouldHideCustomerData = Bool.parse(key: "hide_customer_data", json: businessProperty)
+                
+                BussinessProperty.current.hideo2oChat = !(Bool.parse(key: "o2o_in_dashboard_enabled", json: businessProperty))
                 
                 BussinessProperty.current.currencyArr = BuisnessCurrency().getCurrenyData(businessProperty["business_currency"] as? [[String : Any]] ?? [[String : Any]]())
                 HippoConfig.shared.jitsiUrl = businessProperty["jitsi_url"] as? String
@@ -394,7 +400,7 @@ extension AgentDetail {
         params["app_version_code"] = "\(versionCode)"
         
         params["fetch_business_lang"] = 1
-        
+        params["fetch_tags"] = 0
         return params
     }
     internal static func getParamsForAuthLogin() -> [String: Any] {
@@ -408,6 +414,7 @@ extension AgentDetail {
         } else {
             params["auth_token"] = agentDetail.oAuthToken
         }
+        params["fetch_tags"] = 0
         return params
     }
 }

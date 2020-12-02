@@ -21,8 +21,10 @@ class ActionableMessageTableViewCell: UITableViewCell {
     var rootViewController: UIViewController?
     override func awakeFromNib() {
         super.awakeFromNib()
+        registerNib()
         self.timeLabel.font = HippoConfig.shared.theme.dateTimeFontSize
         self.timeLabel.textColor = HippoConfig.shared.theme.incomingMsgDateTextColor
+        actionableMessageTableView.addObserver(self, forKeyPath: "contentSize", options: NSKeyValueObservingOptions(rawValue: 0), context: nil)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -32,7 +34,6 @@ class ActionableMessageTableViewCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         adjustShadow()
-        actionableMessageTableView.estimatedRowHeight = 300
         actionableMessageTableView.rowHeight = UIView.tableAutoDimensionHeight
     }
     
@@ -84,8 +85,7 @@ class ActionableMessageTableViewCell: UITableViewCell {
         actionableMessageTableView.dataSource = actionableMessageTableCellHandler
         let timeOfMessage = changeDateToParticularFormat(messageObject.creationDateTime, dateFormat: "h:mm a", showInFormat: true)
         timeLabel.text = "\t" + "\(timeOfMessage)"
-        actionableMessageTableView.layoutIfNeeded()
-        
+        actionableMessageTableView.reloadData()
     }
     
     func registerNib() {
@@ -96,4 +96,22 @@ class ActionableMessageTableViewCell: UITableViewCell {
         actionableMessageTableView.register(UINib(nibName: "SenderNameTableCell", bundle: FuguFlowManager.bundle), forCellReuseIdentifier: "SenderNameTableCell")
         
     }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+         tableView.estimatedRowHeight = 100
+         return UITableView.automaticDimension
+     }
+    
+    //MARK:- Observers
+      override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+          tableViewHeightConstraint.constant = actionableMessageTableView.contentSize.height
+          print(tableViewHeightConstraint.constant)
+      }
+
+    deinit{
+        if actionableMessageTableView.observationInfo != nil {
+            actionableMessageTableView.removeObserver(self, forKeyPath: "contentSize")
+        }
+    }
 }
+

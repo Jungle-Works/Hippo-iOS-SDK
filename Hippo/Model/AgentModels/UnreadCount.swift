@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 class UnreadCountInteracter {
     
@@ -17,7 +18,8 @@ public typealias PrePaymentCompletion = ((_ response: HippoError?) -> ())
 
 
 class PrePayment{
-    
+    static var razorPayView : RazorPayViewController?
+  
     class func callPrePaymentApi(paymentGatewayId : Int, prePaymentDic: [String : Any], completion: @escaping ((_ result: HippoError?) -> Void)) {
          
         let params = PrePayment.getPrePaymentParams(paymentGatewayId,prePaymentDic)
@@ -35,10 +37,15 @@ class PrePayment{
                 completion(HippoError.general)
                 return
             }
-            
-            let channelId = data["channel_id"] as? Int
-            let paymentUrl = (data["payment_url"] as? NSDictionary)?.value(forKey: "payment_url") as? String
-            FuguFlowManager.shared.presentPrePaymentController(paymentUrl ?? "", channelId ?? -1)
+            let razorPayDic = RazorPayData().getRazorPayDic(data["payment_url"] as? [String : Any] ?? [String : Any]()) ?? RazorPayData()
+            if razorPayDic.amount != nil{
+                PrePayment.presentRazorPayScreen(with: razorPayDic)
+                return
+            }else{
+                let channelId = data["channel_id"] as? Int
+                let paymentUrl = (data["payment_url"] as? NSDictionary)?.value(forKey: "payment_url") as? String
+                FuguFlowManager.shared.presentPrePaymentController(paymentUrl ?? "", channelId ?? -1)
+            }
             completion(nil)
         }
      }
@@ -57,9 +64,25 @@ class PrePayment{
             json["user_id"] = currentUserId()
             json["transaction_id"] = String.generateUniqueId()
             json["payment_gateway_id"] = paymentGatewayId
+            json["is_sdk_flow"] = 1
             
             return json
     }
+    
+    
+    static func presentRazorPayScreen(with razorPayDic : RazorPayData){
+        PrePayment.razorPayView = RazorPayViewController()
+        PrePayment.razorPayView?.isPaymentCancelled = {(sucess) in
+            HippoConfig.shared.HippoPrePaymentCancelled?()
+        }
+        PrePayment.razorPayView?.isPaymentSuccess = {(success) in
+            HippoConfig.shared.HippoPrePaymentSuccessful?(success)
+        }
+        let vc = getLastVisibleController()
+        PrePayment.razorPayView?.razorPayDic = razorPayDic
+        PrePayment.razorPayView?.showPaymentForm(vc ?? UIViewController())
+    }
+    
 }
 
 
@@ -162,6 +185,21 @@ class UnreadCount {
 }
 extension UnreadCount {
     class func fetchP2PUnreadCount(request: PeerToPeerChat, callback: @escaping P2PUnreadCountCompletion) {
+        let data = P2PUnreadData.shared.getData(with: request.uniqueChatId ?? "")
+        if let p2pdata = data{
+            let id = ((request.uniqueChatId ?? "") + "-" + (request.idsOfPeers.first ?? ""))
+            if ((p2pdata.id ?? "") == id){
+                if (p2pdata.channelId ?? -1) > 0{
+                    //if channel id is greater than 0
+                    HippoConfig.shared.sendp2pUnreadCount(p2pdata.count ?? 0, p2pdata.channelId ?? -1)
+                    return
+                }else{
+                    callback(HippoError.general, nil)
+                    return
+                }
+            }
+        }
+        
         let params: [String: Any]
         
         do {
@@ -174,7 +212,7 @@ extension UnreadCount {
         HTTPClient.makeConcurrentConnectionWith(method: .POST, enCodingType: .json, para: params, extendedUrl: FuguEndPoints.fetchP2PUnreadCount.rawValue) { (responseObject, error, tag, statusCode) in
             
             guard let unwrappedStatusCode = statusCode, error == nil, unwrappedStatusCode == STATUS_CODE_SUCCESS, error == nil  else {
-//                HippoConfig.shared.log.error(error ?? "Something went Wrong!!", level: .error)
+                P2PUnreadData.shared.updateChannelId(transactionId: request.uniqueChatId ?? "", channelId: -2, count: 0, otherUserUniqueKey: request.idsOfPeers.first ?? "")
                 callback(HippoError.general, nil)
                 print("Error",error ?? "")
                 return
@@ -186,11 +224,12 @@ extension UnreadCount {
             }
             
             if let unreadDic = (responseObject as? [String: Any])?["data"] as? [String : Any]{
-                var unreadHashMap = [String : Any]()
-                let channelId = unreadDic["channel_id"] as? Int ?? -1
-                let unreadCount = unreadDic["unread_count"] as? Int
-                unreadHashMap["\(channelId)"] = unreadCount
-                FuguDefaults.set(value: unreadHashMap, forKey: DefaultName.p2pUnreadCount.rawValue)
+//                var unreadHashMap = [String : Any]()
+                  let channelId = unreadDic["channel_id"] as? Int ?? -1
+                  let unreadCount = unreadDic["unread_count"] as? Int
+//                unreadHashMap["\(channelId)"] = unreadCount
+//                FuguDefaults.set(value: unreadHashMap, forKey: DefaultName.p2pUnreadCount.rawValue)
+                P2PUnreadData.shared.updateChannelId(transactionId: request.uniqueChatId ?? "", channelId: channelId, count: unreadCount ?? 0, otherUserUniqueKey: request.idsOfPeers.first ?? "")
             }
         
           

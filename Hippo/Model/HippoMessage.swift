@@ -74,6 +74,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         }
     }
     var isDeleted = false
+    var messageState : MessageState?    
     
     //MARK: Bot variables
     var feedbackMessages = FeedbackMessage(json: [:])
@@ -290,7 +291,14 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         if let state = dict["message_state"] as? Int {
             isDeleted = state == 0
             isMissedCall = state == 2
+            // New status keys added
+            messageState = MessageState(rawValue: state)
         }
+        
+        if messageState == MessageState.MessageDeleted{
+            self.message = senderId == currentUserId() ? HippoStrings.you + " " + HippoStrings.deleteMessage : senderFullName + " " + HippoStrings.deleteMessage
+        }
+        
         if let rawCallType = dict["call_type"] as? String, let callType = CallType(rawValue: rawCallType.uppercased()) {
             self.callType = callType
         }
@@ -642,8 +650,8 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
     func getDicForCustomAction() -> [String : Any]{
         var dic = [String : Any]()
         dic["is_replied"] = 1 // Need to send 1 for message
-        dic["max_selection"] = 1
-        dic["min_selection"] = 1
+        dic["max_selection"] = customAction?.maxSelection ?? 1
+        dic["min_selection"] = customAction?.minSelection ?? 1
         dic["multi_select_buttons"] = getArrOfCustomActionBtn()
         
         return dic
@@ -656,7 +664,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
             var dic = [String : Any]()
             dic["btn_id"] = btn.btnId
             dic["btn_title"] = btn.btnTitle
-            dic["status"] = btn.status
+            dic["status"] = btn.status?.intValue()
             btnArr.append(dic)
         }
         return btnArr
@@ -871,6 +879,13 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         feedbackMessages.line_after_feedback_2 = line_after_feedback_2
     }
     
+    func updateMessageForEditDelete(with newObject: HippoMessage){
+        message = newObject.message
+        messageState = newObject.messageState
+        type = newObject.type
+        messageRefresed?()
+    }
+   
     func updateObject(with newObject: HippoMessage) {
         //Updating for Feedback
         total_rating = newObject.total_rating
@@ -1018,6 +1033,16 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
             tempMessage = HippoMessage(dict: messageJson)
         }
         return tempMessage
+    }
+    
+    func isDateExpired(timeInterval: TimeInterval) -> Bool {
+       guard timeInterval > 0 else {
+          return false
+       }
+       
+       let deletionExpiry = creationDateTime.addingTimeInterval(timeInterval)
+       
+       return Date().compare(deletionExpiry) == .orderedDescending
     }
     
 }

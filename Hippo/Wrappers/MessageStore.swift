@@ -13,6 +13,7 @@ struct RequestIdenfier {
     static let getMessagesIdentifier = "HIPPO_GET_MESSAGES_IDENTIFIER"
     static let getMyConversationIdentfier = "HIPPO_GET_MY_CONVERSATION_IDENTIFIER"
     static let getAllConversationIdentfier = "HIPPO_GET_ALL_CONVERSATION_IDENTIFIER"
+    static let geto2oChatConversationIdentfier = "HIPPO_o2oCHAT_IDENTIFIER"
     static let authLoginIdentifier = "HIPPO_AUTH_LOGIN_IDENTIFIER"
     static let agentLoginIdentifier = "HIPPO_AGENT_LOGIN1_IDENTIFIER"
     static let getCountrycode = "tookanGetCountrycode"
@@ -66,6 +67,8 @@ class MessageStore {
         var requestType: Int = 0
         
         var isBotInProgress: Bool = false
+        var restrictPersonalInfo : Bool = false
+        var createNewChannel : Bool?
     }
     
     
@@ -84,7 +87,7 @@ class MessageStore {
         isInProgress = true
         
         HTTPClient.shared.makeSingletonConnectionWith(method: .POST, identifier: RequestIdenfier.getMessagesIdentifier + "\(requestParam.channelId)",para: params, extendedUrl: FuguEndPoints.API_GET_MESSAGES.rawValue) { (responseObject, error, tag, statusCode) in
-
+       
             isInProgress = false
             let rawStatusCode = statusCode ?? -1
             
@@ -243,6 +246,14 @@ class MessageStore {
             result.channelName = channelName
         } else if let fullName = data["full_name"] as? String, fullName.count > 0 {
             result.channelName = fullName
+        }
+        
+        //
+        if let isPersonalInfoRestricted = data["restrict_personal_info_sharing"] as? Bool{
+            result.restrictPersonalInfo = isPersonalInfoRestricted
+        }
+        if let createChannel = data["create_new_channel"] as? Bool{
+            result.createNewChannel = createChannel
         }
         
         //Sending

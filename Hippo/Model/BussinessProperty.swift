@@ -12,7 +12,9 @@ class BussinessProperty: NSObject {
     static let current = BussinessProperty()
     var currencyArr : [BuisnessCurrency]?
     var buisnessLanguageArr : [BuisnessLanguage]?
-    
+    var shouldHideCustomerData : Bool?
+    var editDeleteExpiryTime : CGFloat? // in minutes from backend
+        
     var hideAllChat: Bool? {
          get {
              
@@ -23,6 +25,19 @@ class BussinessProperty: NSObject {
          }
          set {
              UserDefaults.standard.set(newValue, forKey: UserDefaultkeys.hideAllChat)
+         }
+     }
+    
+    var hideo2oChat: Bool? {
+         get {
+             
+             guard let hideo2oChat = UserDefaults.standard.value(forKey: UserDefaultkeys.hideO2OChat) as? Bool else {
+                 return nil
+             }
+             return hideo2oChat
+         }
+         set {
+             UserDefaults.standard.set(newValue, forKey: UserDefaultkeys.hideO2OChat)
          }
      }
     

@@ -33,7 +33,7 @@ class ActionButtonViewCell: ActionViewCell {
         if buttonInfo != nil {
           delegate?.buttonClick(buttonInfo: buttonInfo)
         } else if let data = data {
-            delegate?.buttonClick(buttonInfo: data)
+                delegate?.buttonClick(buttonInfo: data)
         }
     }
     

@@ -43,7 +43,11 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     //   @IBOutlet var errorLabel: UILabel!
     @IBOutlet var textViewBgView: UIView!
     @IBOutlet var placeHolderLabel: UILabel!
-    @IBOutlet var addFileButtonAction: UIButton!
+    @IBOutlet var addFileButtonAction: UIButton!{
+        didSet{
+            addFileButtonAction.imageView?.contentMode = .scaleAspectFit
+        }
+    }
     @IBOutlet var seperatorView: UIView!
     @IBOutlet weak var loaderView: So_UIImageView!
     
@@ -86,6 +90,18 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
             label_slowInternet.text = HippoStrings.slowInternet
         }
     }
+    @IBOutlet weak var Button_CancelEdit : UIButton!{
+        didSet{
+            Button_CancelEdit.imageView?.tintColor = .black
+            Button_CancelEdit.setImage(HippoConfig.shared.theme.cancelIcon, for: .normal)
+        }
+    }
+    @IBOutlet weak var Button_EditMessage : UIButton!{
+        didSet{
+            Button_EditMessage.imageView?.tintColor = .black
+            Button_EditMessage.setImage(UIImage(named: "tick_green", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate), for: .normal)
+        }
+    }
     
     var suggestionCollectionView = SuggestionView()
     var suggestionList: [String] = []
@@ -98,7 +114,8 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     //    var actionSheetImageArr = ["Library","Camera","Library"]
     
     var hieghtOfNavigationBar: CGFloat = 0
-    
+    var messageInEditing : HippoMessage?
+    var editingMessageIndex : IndexPath?
     //    var initialTouchPoint: CGPoint = CGPoint(x: 0, y: 0)
     
     // MARK: - Computed Properties
@@ -230,6 +247,23 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         fetchMessagesFrom1stPage()
         //HippoConfig.shared.notifyDidLoad()//
         
+    }
+    
+    override func startEditing(with message : HippoMessage, indexPath : IndexPath){
+        self.editingMessageIndex = indexPath
+        self.messageEditingStarted(with: message)
+    }
+    
+    func clearp2pdata(){
+        if self.channel?.chatDetail?.chatType == .p2p{
+            // * save data for p2punread count if transaction id is saved in local
+            if let data = P2PUnreadData.shared.getData(with: self.directChatDetail?.transactionId ?? ""){
+                let id = ((self.directChatDetail?.transactionId ?? "") + "-" + (self.directChatDetail?.otherUniqueKey?.first ?? ""))
+                if data.id == id{
+                    P2PUnreadData.shared.updateChannelId(transactionId: self.directChatDetail?.transactionId ?? "", channelId: self.channelId, count: 0, otherUserUniqueKey: self.directChatDetail?.otherUniqueKey?.first)
+                }
+            }
+        }
     }
     
     //    @objc func handlePanGesture(_ sender: UIPanGestureRecognizer) {
@@ -692,6 +726,16 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     }
     
     func sendMessageButtonAction(messageTextStr: String){
+
+        if storeResponse?.restrictPersonalInfo ?? false && channel?.chatDetail?.chatType == .other{
+            if messageTextStr.isValidPhoneNumber() || messageTextStr.isValidEmail(){
+                showErrorMessage(messageString: HippoStrings.donotAllowPersonalInfo)
+                updateErrorLabelView(isHiding: true)
+                return
+            }
+
+        }
+        
         if channel != nil, !channel.isSubscribed()  {
             buttonClickedOnNetworkOff()
             return
@@ -986,7 +1030,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         
         storeRequest = request
         storeResponse = nil
-        
+        clearp2pdata()
         MessageStore.getMessages(requestParam: request, ignoreIfInProgress: false) {[weak self] (response, isCreateConversationRequired)  in
             
             self?.hideErrorMessage()
@@ -1240,6 +1284,11 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
             weakSelf.channel.delegate = self
             weakSelf.populateTableViewWithChannelData()
         }
+        
+        if ((result.channelID < 0) && (result.createNewChannel == true)){
+            weakSelf.startNewConversation(replyMessage: nil, completion: nil)
+        }
+        
         weakSelf.handleSuccessCompletionOfGetMessages(result: result, request: request, completion: completion)
     }
     
@@ -1311,6 +1360,16 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
             result.isReplyMessageSent = false
             self?.enableSendingNewMessages()
             self?.channelCreatedSuccessfullyWith(result: result)
+            
+            if self?.channel?.chatDetail?.chatType == .p2p{
+                // * save data for p2punread count if transaction id is saved in local
+                if let data = P2PUnreadData.shared.getData(with: self?.directChatDetail?.transactionId ?? ""){
+                    let id = ((self?.directChatDetail?.transactionId ?? "") + "-" + (self?.directChatDetail?.otherUniqueKey?.first ?? ""))
+                    if ((data.channelId ?? -1) < 0 && (data.id == id)){
+                        P2PUnreadData.shared.updateChannelId(transactionId: self?.directChatDetail?.transactionId ?? "", channelId: result.channel?.id ?? -1, count: 0, otherUserUniqueKey: self?.directChatDetail?.otherUniqueKey?.first)
+                    }
+                }
+            }
             completion?(result.isSuccessful, result)
          }
       } else {
@@ -1449,8 +1508,6 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
       let vc = storyboard.instantiateViewController(withIdentifier: "ConversationsViewController") as! ConversationsViewController
       return vc
    }
-   
-   
 }
 
 // MARK: - HELPERS
@@ -1938,18 +1995,23 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
              
              switch messageType {
              case MessageType.imageFile:
-                 if isOutgoingMsg == true {
-                     guard
-                         let cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingImageCell", for: indexPath) as? OutgoingImageCell
-                         else {
-                             let cell = UITableViewCell()
-                             cell.backgroundColor = .clear
-                             return cell
-                     }
-                     cell.delegate = self
-                     cell.configureCellOfOutGoingImageCell(resetProperties: true, chatMessageObject: message, indexPath: indexPath)
-                     return cell
-                 } else {
+                if isOutgoingMsg == true {
+                    guard
+                        let cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingImageCell", for: indexPath) as? OutgoingImageCell
+                    else {
+                        let cell = UITableViewCell()
+                        cell.backgroundColor = .clear
+                        return cell
+                    }
+                    cell.messageLongPressed = {[weak self](message) in
+                        DispatchQueue.main.async {
+                            self?.longPressOnMessage(message: message, indexPath: indexPath)
+                        }
+                    }
+                    cell.delegate = self
+                    cell.configureCellOfOutGoingImageCell(resetProperties: true, chatMessageObject: message, indexPath: indexPath)
+                    return cell
+                } else {
                      guard let cell = tableView.dequeueReusableCell(withIdentifier: "IncomingImageCell", for: indexPath) as? IncomingImageCell
                          else {
                              let cell = UITableViewCell()
@@ -2032,13 +2094,14 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                      cell.backgroundColor = .clear
                      return cell
                  }
-                 cell.tableViewHeightConstraint.constant = self.getHeightOfActionableMessageAt(indexPath: indexPath, chatObject: message)
+                 //cell.tableViewHeightConstraint.constant = self.getHeightOfActionableMessageAt(indexPath: indexPath, chatObject: message)
                  cell.timeLabel.text = ""
                  cell.rootViewController = self
-                 cell.registerNib()
                  cell.setUpData(messageObject: message, isIncomingMessage: !isOutgoingMsg)
-                 cell.actionableMessageTableView.reloadData()
-                 cell.tableViewHeightConstraint.constant = self.getHeightOfActionableMessageAt(indexPath: indexPath, chatObject: message)
+                 cell.layoutIfNeeded()
+                 cell.layoutSubviews()
+                 //cell.actionableMessageTableView.reloadData()
+                 //cell.tableViewHeightConstraint.constant = self.getHeightOfActionableMessageAt(indexPath: indexPath, chatObject: message)
                  cell.backgroundColor = UIColor.clear
                  return cell
              case .attachment:
@@ -2046,12 +2109,22 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                      switch message.concreteFileType! {
                      case .video:
                          let cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingVideoTableViewCell", for: indexPath) as! OutgoingVideoTableViewCell
+                        cell.messageLongPressed = {[weak self](message) in
+                            DispatchQueue.main.async {
+                                self?.longPressOnMessage(message: message, indexPath: indexPath)
+                            }
+                        }
                          cell.setCellWith(message: message)
                          cell.retryDelegate = self
                          cell.delegate = self
                          return cell
                      default:
                          let cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingDocumentTableViewCell") as! OutgoingDocumentTableViewCell
+                        cell.messageLongPressed = {[weak self](message) in
+                            DispatchQueue.main.async {
+                                self?.longPressOnMessage(message: message, indexPath: indexPath)
+                            }
+                        }
                          cell.setCellWith(message: message)
                          cell.actionDelegate = self
                          cell.delegate = self
@@ -2231,8 +2304,9 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                     default:
                         return 80
                     }
-                case MessageType.actionableMessage, MessageType.hippoPay:
-                    return self.getHeightOfActionableMessageAt(indexPath: indexPath, chatObject: message) + heightOfDateLabel
+                case .actionableMessage,.hippoPay:
+                    return UIView.tableAutoDimensionHeight > -1 ? UIView.tableAutoDimensionHeight : self.getHeightOfActionableMessageAt(indexPath: indexPath, chatObject: message) + 20
+                
                 case MessageType.feedback:
                     
 //                    guard let muid = message.messageUniqueID, var rowHeight: CGFloat = heightForFeedBackCell["\(muid)"] else {
@@ -2280,6 +2354,8 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                 return 85
             case .card:
                 return 190
+            case .actionableMessage:
+                return 100
             default:
                 return self.tableView(tableView, heightForRowAt: indexPath)
             }
@@ -2674,12 +2750,16 @@ extension ConversationsViewController: HippoChannelDelegate {
         tableViewChat.reloadData()
     }
     
-    func cancelSendingMessage(message: HippoMessage, errorMessage: String?) {
+    func cancelSendingMessage(message: HippoMessage, errorMessage: String?,errorCode : FayeConnection.FayeError?) {
         self.cancelMessage(message: message)
         
         if let message = errorMessage {
             showErrorMessage(messageString: message)
             updateErrorLabelView(isHiding: true)
+        }
+        
+        if errorCode == FayeConnection.FayeError.personalInfoSharedError{
+            self.messageTextView.text = message.message
         }
     }
     
@@ -3100,7 +3180,52 @@ extension ConversationsViewController: UIGestureRecognizerDelegate {
         return true
     }
 }
-
+extension ConversationsViewController{
+    
+    @IBAction func action_CancelEditMessage(){
+        messageEditingStopped()
+    }
+    
+    @IBAction func action_SendEditedMessage(){
+        if messageInEditing?.message == messageTextView.text{
+            self.messageEditingStopped()
+            return
+        }
+        messageInEditing?.message = messageTextView.text
+        guard let message = messageInEditing else {
+            return
+        }
+        
+        self.apiHitToEditDeleteMsg(message: message, isDeleted: false) { (status) in
+            if status{
+                self.messageEditingStopped()
+            }
+        }
+    }
+    
+    func messageEditingStarted(with message : HippoMessage){
+        self.messageInEditing = message
+        self.addFileButtonAction.isHidden = true
+        self.sendMessageButton.isHidden = true
+        self.Button_CancelEdit.isHidden = false
+        self.Button_EditMessage.isHidden = false
+        self.messageTextView.text = message.message
+        self.messageTextView.becomeFirstResponder()
+       
+    }
+    
+    func messageEditingStopped(){
+        self.messageInEditing = nil
+        self.addFileButtonAction.isHidden = false
+        self.sendMessageButton.isHidden = false
+        self.Button_CancelEdit.isHidden = true
+        self.Button_EditMessage.isHidden = true
+        self.messageTextView.text = ""
+        self.tableViewChat.deselectRow(at: editingMessageIndex ?? IndexPath(), animated: true)
+        self.messageTextView.resignFirstResponder()
+    }
+    
+}
 
 
 

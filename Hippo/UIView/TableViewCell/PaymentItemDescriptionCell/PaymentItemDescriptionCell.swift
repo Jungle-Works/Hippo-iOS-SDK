@@ -124,7 +124,6 @@ class PaymentItemDescriptionCell: UITableViewCell,UIPickerViewDelegate,UIPickerV
         priceTextField.text = item.priceField.value
         priceTextField.placeholder = item.priceField.placeHolder
         priceLabel.text = item.priceField.title
-        
         if isCustomPayment ?? false{
             textField_Currency.text = item.currency == nil ? PaymentCurrency.getAllCurrency().first?.symbol : item.currency?.symbol
             self.item.currency =  item.currency == nil ? PaymentCurrency.getAllCurrency().first : item.currency

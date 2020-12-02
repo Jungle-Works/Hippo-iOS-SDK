@@ -40,6 +40,11 @@ struct GetConversationRequestParam {
         return GetConversationRequestParam(pageStart: 1, pageEnd: nil, showLoader: false, type: .searchUser, identifier: String.generateUniqueId())
     }
     
+    static var o2oDefaultRequest: GetConversationRequestParam {
+        return GetConversationRequestParam(pageStart: 1, pageEnd: nil, showLoader: false, type: .o2oChat, identifier: String.generateUniqueId())
+    }
+    
+    
     var apiRequestIdentifier: String {
         switch type {
         case .allChat:
@@ -48,12 +53,15 @@ struct GetConversationRequestParam {
             return RequestIdenfier.getMyConversationIdentfier
         case .searchUser:
             return RequestIdenfier.getAllConversationIdentfier
+        case .o2oChat:
+            return RequestIdenfier.geto2oChatConversationIdentfier
         }
     }
     enum RequestType {
         case myChat
         case allChat
         case searchUser
+        case o2oChat
         
         
         init(conversationType: ConversationType) {
@@ -62,6 +70,8 @@ struct GetConversationRequestParam {
                 self = .allChat
             case .myChat:
                 self = .myChat
+            case .o2oChat:
+                self = .o2oChat
             }
         }
     }
@@ -77,6 +87,7 @@ class AgentConversationManager {
     static var isAllChatInProgress = false
     static var isMyChatInProgress = false
     static var isLoginInProgess = false
+    static var iso2oChatInProgress = false
     static let maxPageSize = 20//30
     
     static var allChatHttpRequest: URLSessionDataTask?
@@ -124,6 +135,19 @@ class AgentConversationManager {
                     isAllChatInProgress = false
                     NotificationCenter.default.post(name: .allChatDataUpdated, object:self)
                 }
+            }
+        }
+        
+        if !iso2oChatInProgress{
+            if BussinessProperty.current.hideo2oChat ?? false{
+                return
+            }
+            
+            iso2oChatInProgress = true
+            
+            getConversations(with: .o2oDefaultRequest) { (result) in
+                iso2oChatInProgress = false
+                
             }
         }
         
@@ -272,6 +296,14 @@ class AgentConversationManager {
             }
         case .searchUser:
             break
+        case .o2oChat:
+            iso2oChatInProgress = false
+            ConversationStore.shared.isMoreo2oChatToLoad = isMoreToLoad
+            if request.pageStart == 1 {
+                ConversationStore.shared.o2oChats = conversations
+            } else {
+                ConversationStore.shared.o2oChats.append(contentsOf: conversations)
+            }
         }
         resetPushCount()
         pushTotalUnreadCount()
@@ -530,29 +562,6 @@ extension AgentConversationManager {
 //    func parsedChatTypes() -> [String: Any] {
     fileprivate static func parsedChatTypes(request: GetConversationRequestParam) -> [String: Any] {
         var chatJson = [String: Any]()
-//        let selectedChatTypes = FilterManager.shared.selectedChatType
-//        switch (LeftSideMenuPresenter.shared.currentScreenActive, selectedChatTypes.isEmpty) {
-//        case (.myChat, true):
-//            chatJson["fetch_my_chats"] = true
-//        case (.allChat, _):
-//            chatJson["fetch_all_chats"] = true
-//        case (.p2p, _):
-//            chatJson["fetch_p2p_chats"] = true
-//        default:
-//            break
-//        }
-//        for each in selectedChatTypes {
-//            switch each {
-//            case ChatTypeDefault.myChat:
-//                chatJson["fetch_my_chats_only"] = true
-//            case ChatTypeDefault.unAssigned:
-//                chatJson["show_unassigned_chats"] = true
-//            case ChatTypeDefault.tagged:
-//                chatJson["fetch_my_tagged_chats"] = true
-//            default:
-//                break
-//            }
-//        }
         switch request.type {
         case .allChat:
             chatJson["fetch_all_chats"] = true
@@ -560,6 +569,8 @@ extension AgentConversationManager {
             chatJson["fetch_my_chats"] = true
         case .searchUser:
             print("searchUser")
+        case .o2oChat:
+            chatJson["fetch_o2o_chats"] = true
         }
         
         return chatJson
@@ -575,7 +586,7 @@ extension AgentConversationManager {
         
         var params: [String: Any] = conversationParam
         params["search_user_unique_key"] = searchUserUniqueKeys
-        
+        params["fetch_all_chats"] = true
         return params
     }
 }

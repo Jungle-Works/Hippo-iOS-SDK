@@ -72,12 +72,26 @@ class AgentConversationViewController: HippoConversationViewController {
     //MARK: - Outlets for MessageSendingView
     @IBOutlet weak var mentionsListTableView: UITableView!
     @IBOutlet weak var mentionsListTableViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var Button_CancelEdit : UIButton!{
+        didSet{
+            Button_CancelEdit.imageView?.tintColor = .black
+            Button_CancelEdit.setImage(HippoConfig.shared.theme.cancelIcon, for: .normal)
+        }
+    }
+    @IBOutlet weak var Button_EditMessage : UIButton!{
+        didSet{
+            Button_EditMessage.imageView?.tintColor = .black
+            Button_EditMessage.setImage(UIImage(named: "tick_green", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate), for: .normal)
+        }
+    }
     
     // MARK: - PROPERTIES
     var heightOfNavigation: CGFloat = 0
     var isSingleChat = false
     var botActionView = BotTableView.loadView(CGRect.zero)
     var custombarbuttonParam : CGFloat = 32.0
+    var messageInEditing : HippoMessage?
+    var editingMessageIndex : IndexPath?
     
     //MARK: - Variables for MessageSendingView
     private let animationDuration: TimeInterval = 0.3
@@ -179,6 +193,10 @@ class AgentConversationViewController: HippoConversationViewController {
         
     }
     
+    override func startEditing(with message : HippoMessage, indexPath : IndexPath){
+        self.editingMessageIndex = indexPath
+        self.messageEditingStarted(with: message)
+    }
     override func reloadVisibleCellsToStartActivityIndicator() {
         let visibleCellsIndexPath = tableViewChat.visibleCells
         
@@ -298,7 +316,7 @@ class AgentConversationViewController: HippoConversationViewController {
             return
         }
         
-        guard let vc = AgentChatInfoViewController.get(chatDetail: channelDetail) else {
+        guard let vc = AgentChatInfoViewController.get(chatDetail: channelDetail, userImage: self.userImage) else {
             return
         }
         self.navigationController?.pushViewController(vc, animated: true)
@@ -488,7 +506,7 @@ class AgentConversationViewController: HippoConversationViewController {
             return
         }
         
-        guard let vc = AgentChatInfoViewController.get(chatDetail: channelDetail) else {
+        guard let vc = AgentChatInfoViewController.get(chatDetail: channelDetail, userImage: userImage) else {
             return
         }
         self.navigationController?.pushViewController(vc, animated: true)
@@ -583,8 +601,11 @@ class AgentConversationViewController: HippoConversationViewController {
         }  else if !isPaginationInProgress()  {
             //            startGettingNewMessages()
         }
+        storeResponse = nil
         
         let request = MessageStore.messageRequest(pageStart: pageStart, showLoader: false, pageEnd: pageEnd, channelId: channel.id, labelId: -1)
+        
+        storeRequest = request
         
         MessageStore.getMessages(requestParam: request, ignoreIfInProgress: false) {[weak self] (response, isCreateConversationRequired)  in
             guard self != nil else {
@@ -606,6 +627,7 @@ class AgentConversationViewController: HippoConversationViewController {
                 self?.goForApiRetry()
                 return
             }
+            weakself.storeResponse = result
             weakself.hideRetryLabelView()
             weakself.handleSuccessCompletionOfGetMessages(result: result, request: request, completion: completion)
         }
@@ -764,6 +786,7 @@ class AgentConversationViewController: HippoConversationViewController {
         }
         
         self.label = chatObj.label ?? ""
+        self.userImage = chatObj.user_image ?? ""
     }
     
     // MARK: - Type Methods
@@ -1264,8 +1287,10 @@ extension AgentConversationViewController {
 //        if channel?.channelInfo?.chatType == .o2o {
         if channel?.chatDetail?.chatType == .o2o {
             config.normalMessagePlaceHolder = HippoConfig.shared.theme.messagePlaceHolderText == nil ? HippoStrings.messagePlaceHolderText : HippoConfig.shared.theme.messagePlaceHolderText ?? ""
+            moreOptionsButton.isHidden = true
+        }else{
+            moreOptionsButton.isHidden = false
         }
-        
         let dataManager = MentionDataManager(mentions: Business.shared.agents)
         let request = IntializationRequest(config: config, dataManager: dataManager)
         self.messageSendingViewConfig = request.config
@@ -1355,11 +1380,11 @@ extension AgentConversationViewController {
         let isBotButtonHidden = isPrivate || self.messageSendingViewConfig.shouldHideBottonButtons()
         
         if isBotButtonHidden == true{
-            if let index = self.attachments.firstIndex(where: {$0.title?.lowercased() == "bot"}), index < self.attachments.count{
+            if let index = self.attachments.firstIndex(where: {$0.title == HippoStrings.bot}), index < self.attachments.count{
                self.attachments.remove(at: index)
             }
         }else{
-            self.attachments.append(Attachment(icon : HippoConfig.shared.theme.botIcon  , title : "Bot"))
+            self.attachments.append(Attachment(icon : HippoConfig.shared.theme.botIcon  , title : HippoStrings.bot))
         }
         collectionViewOptions.reloadData()
         
@@ -1473,7 +1498,14 @@ extension AgentConversationViewController {
 //        } else {
 //            self.sendMessageToFaye(mentions: mentions, messageString: messageString, isPrivate: isPrivate)
 //        }
-    
+        if storeResponse?.restrictPersonalInfo ?? false{
+            if message.matches(for: phoneNumberRegex).count > 0 || message.isValidEmail(){
+                showErrorMessage(messageString: HippoStrings.donotAllowPersonalInfo)
+                updateErrorLabelView(isHiding: true)
+                return
+            }
+        }
+        
        if channel != nil, !channel.isSubscribed() {
             buttonClickedOnNetworkOff()
             return
@@ -1680,6 +1712,11 @@ extension AgentConversationViewController: UITableViewDelegate, UITableViewDataS
                                 return getDefaultCell()
                         }
                         cell.delegate = self
+                        cell.messageLongPressed = {[weak self](message) in
+                            DispatchQueue.main.async {
+                                self?.longPressOnMessage(message: message, indexPath: indexPath)
+                            }
+                        }
                         cell.configureCellOfOutGoingImageCell(resetProperties: true, chatMessageObject: message, indexPath: indexPath)
                         return cell
                     } else {
@@ -1729,13 +1766,11 @@ extension AgentConversationViewController: UITableViewDelegate, UITableViewDataS
                         cell.backgroundColor = .clear
                         return cell
                     }
-                    cell.tableViewHeightConstraint.constant = self.getHeightOfActionableMessageAt(indexPath: indexPath, chatObject: message)
+                    //cell.tableViewHeightConstraint.constant = self.getHeightOfActionableMessageAt(indexPath: indexPath, chatObject: message)
                     cell.timeLabel.text = ""
                     cell.rootViewController = self
                     cell.registerNib()
                     cell.setUpData(messageObject: message, isIncomingMessage: !isOutgoingMsg)
-                    cell.actionableMessageTableView.reloadData()
-                    cell.tableViewHeightConstraint.constant = self.getHeightOfActionableMessageAt(indexPath: indexPath, chatObject: message)
                     cell.backgroundColor = UIColor.clear
                     return cell
                 case .attachment:
@@ -1743,12 +1778,22 @@ extension AgentConversationViewController: UITableViewDelegate, UITableViewDataS
                         switch message.concreteFileType! {
                         case .video:
                             let cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingVideoTableViewCell", for: indexPath) as! OutgoingVideoTableViewCell
+                            cell.messageLongPressed = {[weak self](message) in
+                                DispatchQueue.main.async {
+                                    self?.longPressOnMessage(message: message, indexPath: indexPath)
+                                }
+                            }
                             cell.setCellWith(message: message)
                             cell.retryDelegate = self
                             cell.delegate = self
                             return cell
                         default:
                             let cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingDocumentTableViewCell") as! OutgoingDocumentTableViewCell
+                            cell.messageLongPressed = {[weak self](message) in
+                                DispatchQueue.main.async {
+                                    self?.longPressOnMessage(message: message, indexPath: indexPath)
+                                }
+                            }
                             cell.setCellWith(message: message)
                             cell.actionDelegate = self
                             cell.delegate = self
@@ -1869,7 +1914,8 @@ extension AgentConversationViewController: UITableViewDelegate, UITableViewDataS
                 case .consent:
                     return message.cellDetail?.cellHeight ?? 0.01
                 case .actionableMessage, .hippoPay:
-                    return self.getHeightOfActionableMessageAt(indexPath: indexPath, chatObject: message) + heightOfDateLabel
+                    return UIView.tableAutoDimensionHeight
+                        //self.getHeightOfActionableMessageAt(indexPath: indexPath, chatObject: message) + heightOfDateLabel
                 case .leadForm:
                     return getHeightForLeadFormCell(message: message)
                 case .multipleSelect:
@@ -2245,7 +2291,7 @@ extension AgentConversationViewController: UIImagePickerControllerDelegate, UINa
         self.channel?.isSendingDisabled = true
         //        self.textViewBottomConstraint.constant = -self.textViewBgView.frame.height
 //        self.bottomContentViewBottomConstraint.constant = -self.textViewBgView.frame.height
-        self.bottomContentViewBottomConstraint.constant = -self.textViewBgView.frame.height-50
+        self.bottomContentViewBottomConstraint.constant = -self.textViewBgView.frame.height
         self.textViewBgView.isHidden = true
     }
     
@@ -2467,12 +2513,15 @@ extension AgentConversationViewController: HippoChannelDelegate {
     }
     
     
-    func cancelSendingMessage(message: HippoMessage, errorMessage: String?) {
+    func cancelSendingMessage(message: HippoMessage, errorMessage: String?, errorCode: FayeConnection.FayeError?) {
         self.cancelMessage(message: message)
         
         if let message = errorMessage {
             showErrorMessage(messageString: message)
             updateErrorLabelView(isHiding: true)
+        }
+        if errorCode == FayeConnection.FayeError.personalInfoSharedError{
+            self.messageTextView.text = message.message
         }
     }
     
@@ -2625,6 +2674,55 @@ extension AgentConversationViewController {
         }
         setFooterView(isReplyDisabled: channel?.chatDetail?.disableReply ?? false, isBotInProgress: channel?.chatDetail?.isBotInProgress ?? false)
 
+    }
+    
+}
+
+extension AgentConversationViewController{
+    
+    @IBAction func action_CancelEditMessage(){
+        messageEditingStopped()
+    }
+    
+    @IBAction func action_SendEditedMessage(){
+        if messageInEditing?.message == messageTextView.text{
+            self.messageEditingStopped()
+            return
+        }
+        messageInEditing?.message = messageTextView.text
+        guard let message = messageInEditing else {
+            return
+        }
+        
+        self.apiHitToEditDeleteMsg(message: message, isDeleted: false) { (status) in
+            if status{
+                self.messageEditingStopped()
+            }
+        }
+    }
+    
+    func messageEditingStarted(with message : HippoMessage){
+        self.messageInEditing = message
+        self.moreOptionsButton.isHidden = true
+        self.addFileButtonAction.isHidden = true
+        self.sendMessageButton.isHidden = true
+        self.Button_CancelEdit.isHidden = false
+        self.Button_EditMessage.isHidden = false
+        self.messageTextView.text = message.message
+        self.messageTextView.becomeFirstResponder()
+       
+    }
+    
+    func messageEditingStopped(){
+        self.messageInEditing = nil
+        self.moreOptionsButton.isHidden = false
+        self.addFileButtonAction.isHidden = false
+        self.sendMessageButton.isHidden = false
+        self.Button_CancelEdit.isHidden = true
+        self.Button_EditMessage.isHidden = true
+        self.messageTextView.text = ""
+        self.tableViewChat.deselectRow(at: editingMessageIndex ?? IndexPath(), animated: true)
+        self.messageTextView.resignFirstResponder()
     }
     
 }

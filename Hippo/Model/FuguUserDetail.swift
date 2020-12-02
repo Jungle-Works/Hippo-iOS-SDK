@@ -138,7 +138,7 @@ public class UserTag: NSObject {
         let appSecretKey = HippoConfig.shared.appSecretKey
         let enUserID = fuguEnUserID?.trimWhiteSpacesAndNewLine() ?? ""
         
-        return !appSecretKey.isEmpty && !enUserID.isEmpty 
+        return !appSecretKey.isEmpty && !enUserID.isEmpty
     }
     
     // MARK: - Intializer
@@ -336,6 +336,8 @@ public class UserTag: NSObject {
                 subscribeMarkConversation()
             }
             
+            BussinessProperty.current.editDeleteExpiryTime = CGFloat(Int.parse(values: userDetailData, key: "edit_delete_message_duration") ?? 0)
+            
             if let userId = userDetailData["user_id"] as? Int {
                 HippoUserDetail.fuguUserID = userId
             }
@@ -370,7 +372,7 @@ public class UserTag: NSObject {
             
             if let cusstomerBotID = String.parse(values: userDetailData, key: "customer_conversation_bot_id") {
                 HippoProperty.setNewConversationBotGroupId(botGroupId: cusstomerBotID)
-            } 
+            }
             
             BussinessProperty.current.updateData(loginData: userDetailData)
             
@@ -401,9 +403,9 @@ public class UserTag: NSObject {
                     //guard success == true else { return }
                 }
             }
-            let announcementCount = ((responseObject as? NSDictionary)?.value(forKey: "data") as? NSDictionary)?.value(forKey: "unread_announcements_count") as? Int ?? 0
+            let announcementCount = ((responseObject as? NSDictionary)?.value(forKey: "data") as? NSDictionary)?.value(forKey: "unread_channels") as? [String] ?? [String]()
             if !(HippoConfig.shared.isOpenedFromPush ?? false){
-               HippoConfig.shared.announcementUnreadCount?(announcementCount)
+                HippoConfig.shared.announcementUnreadCount?(announcementCount.count)
                UserDefaults.standard.set(announcementCount, forKey: DefaultName.announcementUnreadCount.rawValue)
             }
             completion?(true, nil)
@@ -437,6 +439,7 @@ public class UserTag: NSObject {
         params["source_type"] = SourceType.SDK.rawValue
         params["app_version_code"] = versionCode
         params["get_enabled_gateways"] = 1
+        params["is_sdk_flow"] = 1
         return params
     }
     
@@ -485,13 +488,13 @@ public class UserTag: NSObject {
         AgentUserChannel.shared = nil
     }
     
-    class func clearAllData() {
-        
+    class func clearAllData(completion: ((Bool) -> Void)? = nil) {
         
         FuguDefaults.removeAllPersistingData()
-        if FayeConnection.shared.isConnected{
-            FayeConnection.shared.disconnectFaye()
-        }
+        //        if FayeConnection.shared.isConnected{
+        //            FayeConnection.shared.disconnectFaye()
+        //        }
+
         //Clear agent data
         clearAgentData()
         
@@ -531,7 +534,7 @@ public class UserTag: NSObject {
         defaults.removeObject(forKey: Fugu_en_user_id)
 
         defaults.synchronize()
-        
+        completion?(true)
     }
     
     class func logoutFromFugu(completion: ((Bool) -> Void)? = nil) {
@@ -552,16 +555,19 @@ public class UserTag: NSObject {
         let voipToken = TokenManager.voipToken
         
         HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: FuguEndPoints.API_CLEAR_USER_DATA_LOGOUT.rawValue) { (responseObject, error, tag, statusCode) in
-//            if currentUserType() == .customer{
-//                unSubscribe(userChannelId: HippoUserDetail.HippoUserChannelId ?? "")
-//            }
-            clearAllData()
+            if currentUserType() == .customer{
+                unSubscribe(userChannelId: HippoUserDetail.HippoUserChannelId ?? "")
+            }else{
+                unSubscribe(userChannelId: HippoConfig.shared.agentDetail?.userChannel ?? "")
+            }
+            clearAllData(completion: completion)
             TokenManager.deviceToken = deviceToken
             TokenManager.voipToken = voipToken
             unSubscribe(userChannelId: HippoConfig.shared.appSecretKey + "/" + "markConversation")
-            let tempStatusCode = statusCode ?? 0
-            let success = (200 <= tempStatusCode) && (300 > tempStatusCode)
-            completion?(success)
+            //            let tempStatusCode = statusCode ?? 0
+            //            let success = (200 <= tempStatusCode) && (300 > tempStatusCode)
+            //            completion?(success)
         }
     }
+
 }

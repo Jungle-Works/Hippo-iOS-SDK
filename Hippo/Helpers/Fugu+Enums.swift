@@ -181,7 +181,7 @@ enum MessageType: Int {
 ////        let botMessages: [MessageType] = [.leadForm, .quickReply, .botText, .consent, .card , .multipleSelect,.normal]
         
 //        let botMessages: [MessageType] = [.leadForm, .quickReply, .botText, .consent, .hippoPay, .actionableMessage, .card , .multipleSelect, .embeddedVideoUrl]//, .address, .dateTime]
-        let botMessages: [MessageType] = [.leadForm, .quickReply, .botText, .consent, .hippoPay, .actionableMessage, .card , .multipleSelect, .normal, .embeddedVideoUrl]//, .address, .dateTime]
+        let botMessages: [MessageType] = [.leadForm, .quickReply, .botText, .consent, .hippoPay, .actionableMessage, .card , .multipleSelect, .normal, .embeddedVideoUrl, .paymentCard]//, .address, .dateTime]
 
         return botMessages.contains(self)
     }
@@ -205,7 +205,7 @@ enum ChatType: Int {
         return ChatType.allowedImageViewFor.contains(self)
     }
     
-    private static let allowedImageViewFor: [ChatType] = [.other]
+    private static let allowedImageViewFor: [ChatType] = [.other, .o2o]
 }
 
 enum FuguUserIntializationError: LocalizedError {
@@ -274,7 +274,7 @@ enum NotificationType: Int {
     case markConversation = 12
     case channelRefreshed = 13
     case call = 14
-    
+    case messageModified = 24
     case channelRefresh = 17
     
     var isNotificationTypeHandled: Bool {
@@ -337,6 +337,7 @@ enum ActionType: Int {
 enum ConversationType {
     case myChat
     case allChat
+    case o2oChat
 }
 
 enum ButtonType: String {
@@ -409,7 +410,7 @@ enum AgentEndPoints: String {
     case getAgents = "api/agent/getAgents"
     case createGroupCallChannel = "api/conversation/createGroupCallChannel"
     case getGroupCallChannelDetals = "api/conversation/getGroupCallChannelDetails"
-    
+    case editDeleteMessage = "api/conversation/deleteOrEditMessage"
 }
 
 struct MultiLanguageMsg{
@@ -514,6 +515,13 @@ enum BroadcastType: String, CaseCountable {
         }
     }
 }
+
+enum MessageState : Int{
+    case Call = 2
+    case MessageDeleted = 4
+    case MessageEdited = 5
+}
+
 
 enum FileType: String {
     case image = "image"

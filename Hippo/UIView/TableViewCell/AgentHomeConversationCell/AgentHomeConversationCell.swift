@@ -124,18 +124,19 @@ extension AgentHomeConversationCell {
         //Setting tags
         setTags()
         
-//        if let channelImage = cellData?.user_image, channelImage.isEmpty == false, let url = URL(string: channelImage) {
-        if let channelImage = cellData?.user_image, channelImage.isEmpty == false, channelImage.contains("http"), let url = URL(string: channelImage) {
-            channelImageView.kf.setImage(with: url)
-            channelImageView.backgroundColor = nil
-        }
-        
-        if channelImageView.image == nil{
-            if let channelName = cellData?.label, channelName.isEmpty == false {
-                let channelNameInitials = channelName.trimWhiteSpacesAndNewLine()
-                let color = cellData?.channelBackgroundColor
-                channelImageView.setTextInImage(string: channelNameInitials, color: color, circular: false, textAttributes: nil)
-            }
+        if let imageUrl = cellData?.user_image{
+              let url = URL(string: imageUrl)
+              let channelNameInitials = cellData?.label?.trimWhiteSpacesAndNewLine()
+              let color = cellData?.channelBackgroundColor
+              let imageViewNew = UIImageView.init(frame: channelImageView.frame)
+              imageViewNew.setTextInImage(string: channelNameInitials, color: color, circular: false, textAttributes: nil)
+              channelImageView.kf.setImage(with: url, placeholder: imageViewNew.image, options: nil, progressBlock: nil, completionHandler: nil)
+          }else{
+              let channelName = cellData?.label
+              let channelNameInitials = channelName?.trimWhiteSpacesAndNewLine()
+              let color = cellData?.channelBackgroundColor
+              channelImageView.setTextInImage(string: channelNameInitials, color: color, circular: false, textAttributes: nil)
+              
         }
         
     }
@@ -228,7 +229,7 @@ extension AgentHomeConversationCell {
         var tag: TagBoxInfo?
         let botInProgress = info.isBotInProgress
         if botInProgress{
-            tag = TagBoxInfo(labelText: "Bot in progress", textColor: .darkGrayColorForTag, containerBackgroundColor: .lightGrayBgColorForTag, containerBorderColor: UIColor.makeColor(red: 228, green: 228, blue: 237, alpha: 1))
+            tag = TagBoxInfo(labelText: HippoStrings.botInProgress, textColor: .darkGrayColorForTag, containerBackgroundColor: .lightGrayBgColorForTag, containerBorderColor: UIColor.makeColor(red: 228, green: 228, blue: 237, alpha: 1))
             return tag
         }else{
             return nil

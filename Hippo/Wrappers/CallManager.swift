@@ -20,6 +20,7 @@ struct GroupCallData{
     var callType: CallType
     var muid: String
     var signallingClient : GroupCallChannel
+    var isMuted : Bool
 }
 
 #if canImport(HippoCallClient)
@@ -61,7 +62,7 @@ class CallManager {
         }
         let callToMake = Call(peer: peer, signalingClient: call.signallingClient, uID: call.muid, currentUser: currentUser, type: getCallTypeWith(localType: call.callType), link: "", isGroupCall: true, jitsiUrl: HippoConfig.shared.jitsiUrl ?? "")
         
-        let groupCallData = CallClientGroupCallData(roomTitle: groupCallChannelData.roomTitle ?? "", roomUniqueId: groupCallChannelData.roomUniqueId ?? "", transactionId :groupCallChannelData.transactionId ?? "", userType: currentUserType() == .agent ? "agent" : "customer")
+        let groupCallData = CallClientGroupCallData(roomTitle: groupCallChannelData.roomTitle ?? "", roomUniqueId: groupCallChannelData.roomUniqueId ?? "", transactionId :groupCallChannelData.transactionId ?? "", userType: currentUserType() == .agent ? "agent" : "customer", isMuted : call.isMuted)
         
         HippoCallClient.shared.startGroupCall(call: callToMake, groupCallData: groupCallData)
         #else

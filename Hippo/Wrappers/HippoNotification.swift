@@ -123,6 +123,31 @@ class HippoNotification {
         channelIdentifierHashmap[channelId] = []
     }
     
+    class func showLocalNotificationForVoip(_ userData : [String: Any]){
+        let content = UNMutableNotificationContent() // Содержимое уведомления
+        if let data = (userData["aps"] as? NSDictionary)?.value(forKey: "alert") as? NSDictionary{
+            content.title = "[Voip]" + (data.value(forKey: "title") as? String ?? "")
+            content.body = data.value(forKey: "body") as? String ?? ""
+            content.sound = UNNotificationSound.default
+        }
+        let identifier = "Voip Notification"
+        let request = UNNotificationRequest(identifier: identifier, content: content, trigger: nil)
+
+        UNUserNotificationCenter.current().add(request) { (error) in
+            if let error = error {
+                print("Error \(error.localizedDescription)")
+            }
+        }
+        
+    }
+    
+    
+    
+    
+    
+    
+    
+    
 //    @available(iOS 10.0, *)
 //    class func newNotificationArrived(with notification: UNNotification) {
 //        guard let info = notification.request.content.userInfo as? [String: Any], let conversation = AgentConversation(JSON: info), let message = conversation.messageObject, let channelId = message.channelId else {

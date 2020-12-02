@@ -62,12 +62,12 @@ extension CreatePaymentDataSource: UITableViewDataSource {
             switch value.action {
             case .addMore:
                 let customCell = tableView.dequeueReusableCell(withIdentifier: "ShowMoreTableViewCell", for: indexPath) as! ShowMoreTableViewCell
-                customCell.setupCell(form: value, store: store)
                 customCell.button_CheckBox.isHidden = ((store.canEditPlan ?? false) || (store.isCustomisedPayment ?? false)) ? true : false
                 customCell.button_CheckBox.imageView?.tintColor = .black
                 customCell.button_CheckBox.isSelected = shouldSavePaymentPlan ?? false
                 customCell.button_CheckBox.setImage((shouldSavePaymentPlan ?? false) ? HippoConfig.shared.theme.checkBoxActive : HippoConfig.shared.theme.checkBoxInActive, for: .normal)
                 customCell.totalPriceLabel.text = ((store.canEditPlan ?? false) || (store.isCustomisedPayment ?? false)) ? " " : HippoStrings.savePlan
+                customCell.setupCell(form: value, store: store)
                
                 return customCell
             default:

@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
     s.name         = 'Hippo'
 
-    s.version      = '2.1.32'
+    s.version      = '2.1.44'
 
     s.summary      = 'Now add Agent in app for quick support.'
     s.homepage     = 'https://github.com/Jungle-Works/Hippo-iOS-SDK'
@@ -26,6 +26,7 @@ Pod::Spec.new do |s|
     s.preserve_paths = ['README.md']
     
     s.dependency 'MZFayeClient'
+    s.dependency 'razorpay-pod'
     
     s.default_subspec = 'Chat'
     
