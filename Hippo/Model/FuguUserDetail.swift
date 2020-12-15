@@ -162,7 +162,7 @@ public class UserTag: NSObject {
         }
         
        self.selectedlanguage = selectedlanguage
-       self.listener = SocketListner()
+       self.listener = HippoConfig.shared.listener
        HippoUserDetail.shouldGetPaymentGateways = getPaymentGateways
        UserDefaults.standard.set(selectedlanguage, forKey: DefaultName.selectedLanguage.rawValue)
     }
