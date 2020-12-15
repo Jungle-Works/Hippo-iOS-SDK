@@ -11,6 +11,9 @@
 		6B1011F2248128D2007FC8EC /* loader.gif in Resources */ = {isa = PBXBuildFile; fileRef = 6B1011F1248128D2007FC8EC /* loader.gif */; };
 		6B45484A249B89C8006F84C7 /* HippoLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6B45484C249B89C8006F84C7 /* HippoLocalizable.strings */; };
 		6B584EF52502369800A7633A /* P2PUnreadData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B584EF42502369800A7633A /* P2PUnreadData.swift */; };
+		6B7C5FB32587A17000D85BA2 /* SearchAgentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B7C5FB12587A16F00D85BA2 /* SearchAgentTableViewCell.swift */; };
+		6B7C5FB42587A17000D85BA2 /* SearchAgentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6B7C5FB22587A16F00D85BA2 /* SearchAgentTableViewCell.xib */; };
+		6B7C5FB72587AC3F00D85BA2 /* SearchAgentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B7C5FB62587AC3F00D85BA2 /* SearchAgentViewController.swift */; };
 		6B87979424BEDAB80093EA90 /* GroupCall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B87979324BEDAB80093EA90 /* GroupCall.swift */; };
 		6B87979624BEDBF10093EA90 /* AgentGroupCallChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B87979524BEDBF10093EA90 /* AgentGroupCallChat.swift */; };
 		6B91A93E24780AF4008AB4CC /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B91A93C24780AF4008AB4CC /* NavigationBar.swift */; };
@@ -424,6 +427,9 @@
 		6B45484B249B89C8006F84C7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/HippoLocalizable.strings; sourceTree = "<group>"; };
 		6B45484D249B89D0006F84C7 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/HippoLocalizable.strings; sourceTree = "<group>"; };
 		6B584EF42502369800A7633A /* P2PUnreadData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = P2PUnreadData.swift; sourceTree = "<group>"; };
+		6B7C5FB12587A16F00D85BA2 /* SearchAgentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAgentTableViewCell.swift; sourceTree = "<group>"; };
+		6B7C5FB22587A16F00D85BA2 /* SearchAgentTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchAgentTableViewCell.xib; sourceTree = "<group>"; };
+		6B7C5FB62587AC3F00D85BA2 /* SearchAgentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAgentViewController.swift; sourceTree = "<group>"; };
 		6B87979324BEDAB80093EA90 /* GroupCall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupCall.swift; sourceTree = "<group>"; };
 		6B87979524BEDBF10093EA90 /* AgentGroupCallChat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentGroupCallChat.swift; sourceTree = "<group>"; };
 		6B91A93C24780AF4008AB4CC /* NavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
@@ -961,6 +967,15 @@
 			path = P2PUnread;
 			sourceTree = "<group>";
 		};
+		6B7C5FB52587A18300D85BA2 /* SeachAgentCell */ = {
+			isa = PBXGroup;
+			children = (
+				6B7C5FB12587A16F00D85BA2 /* SearchAgentTableViewCell.swift */,
+				6B7C5FB22587A16F00D85BA2 /* SearchAgentTableViewCell.xib */,
+			);
+			path = SeachAgentCell;
+			sourceTree = "<group>";
+		};
 		6B91A93B24780AF4008AB4CC /* NavigationView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1058,6 +1073,7 @@
 				C93600D622EEC5EA00A6C291 /* AgentProfileTableViewCell */,
 				C93600D922EEC5EA00A6C291 /* BroadCast */,
 				C93600EF22EEC5EA00A6C291 /* FeedbackTableCell */,
+				6B7C5FB52587A18300D85BA2 /* SeachAgentCell */,
 			);
 			path = TableViewCell;
 			sourceTree = "<group>";
@@ -1770,6 +1786,7 @@
 				C9B77DB021A01B060092848D /* BroadCasting */,
 				C9B77DB721A01B060092848D /* Agents */,
 				C9B77DBD21A01B060092848D /* Customer */,
+				6B7C5FB62587AC3F00D85BA2 /* SearchAgentViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -2657,6 +2674,7 @@
 				D8F6D0DB2419470000B168C5 /* PromotionTableViewCell.xib in Resources */,
 				D8F6D13F24194C9300B168C5 /* ItemTableViewCell.xib in Resources */,
 				D8F6D1B02419510F00B168C5 /* TitilliumWeb-Bold.ttf in Resources */,
+				6B7C5FB42587A17000D85BA2 /* SearchAgentTableViewCell.xib in Resources */,
 				C9B77E6121A01B060092848D /* Assets.xcassets in Resources */,
 				6B45484A249B89C8006F84C7 /* HippoLocalizable.strings in Resources */,
 				D8F6D01E2418FA7300B168C5 /* MultiSelectTableViewCell.xib in Resources */,
@@ -2780,6 +2798,7 @@
 				D8F6D2092419547C00B168C5 /* FuguChannelTag.swift in Sources */,
 				D88B20DF24619F90007FD382 /* Resource.swift in Sources */,
 				D8F6D11724194A3200B168C5 /* LeadTableViewCell.swift in Sources */,
+				6B7C5FB32587A17000D85BA2 /* SearchAgentTableViewCell.swift in Sources */,
 				D8F6D0C42419465000B168C5 /* CardMessageTableViewCell.swift in Sources */,
 				D8F6D2132419547C00B168C5 /* MessageContent.swift in Sources */,
 				D8F6D2A324195AE200B168C5 /* HippoKeyboardManager.swift in Sources */,
@@ -2952,6 +2971,7 @@
 				D88B20E124619F90007FD382 /* RequestModifier.swift in Sources */,
 				D8F6D1CE241951D000B168C5 /* UIColor+Extension.swift in Sources */,
 				D848D1B1245EEEDF00235322 /* PaymentPlan.swift in Sources */,
+				6B7C5FB72587AC3F00D85BA2 /* SearchAgentViewController.swift in Sources */,
 				D8CD684524866EF1000F4097 /* MentionsArray.swift in Sources */,
 				D8F6D0662418FDF300B168C5 /* FuguDefaults.swift in Sources */,
 				D8F6D0392418FB1C00B168C5 /* HippoRatingView.swift in Sources */,

@@ -263,7 +263,7 @@ public class HippoStrings {
         HippoCallClientStrings.callDeclined = HippoStrings.callDeclined
         HippoCallClientStrings.busyOnOtherCall = HippoStrings.busyAnotherCall
         HippoCallClientStrings.connectingToMeeting = HippoStrings.connectingToMeeting
-        HippoCallClientStrings.establishingConnection = HippoStrings.establishingConnection
+//        HippoCallClientStrings.establishingConnection = HippoStrings.establishingConnection
         
         #endif
     }

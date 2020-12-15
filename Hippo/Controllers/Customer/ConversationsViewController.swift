@@ -2167,12 +2167,23 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                  cell.setCellData(message: actionMessage)
                  return cell
              case .card:
-                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "CardMessageTableViewCell", for: indexPath) as? CardMessageTableViewCell else {
-                     return UITableView.defaultCell()
-                 }
-                 cell.delegate = self
-                 cell.set(message: message)
-                 return cell
+                if (message.isSearchFlow && (message.selectedCardId ?? "") == ""){
+                    guard let cell = tableView.dequeueReusableCell(withIdentifier: "SearchAgentTableViewCell", for: indexPath) as? SearchAgentTableViewCell else {
+                        return UITableView.defaultCell()
+                    }
+                    cell.textFieldClicked = {[weak self]() in
+                        self?.openSearchAgentScreen()
+                    }
+                    return cell
+                }else{
+                    guard let cell = tableView.dequeueReusableCell(withIdentifier: "CardMessageTableViewCell", for: indexPath) as? CardMessageTableViewCell else {
+                        return UITableView.defaultCell()
+                    }
+                    cell.delegate = self
+                    cell.set(message: message)
+                    return cell
+                }
+                
              case .paymentCard:
                  guard let cell = tableView.dequeueReusableCell(withIdentifier: "PaymentMessageCell", for: indexPath) as? PaymentMessageCell else {
                      return UITableView.defaultCell()
@@ -2332,6 +2343,9 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                 case MessageType.call:
                     return UIView.tableAutoDimensionHeight
                 case .card:
+                    if (message.isSearchFlow && (message.selectedCardId ?? "") == ""){
+                     return 50
+                    }
                     return 230
                 case .paymentCard:
                     return message.calculatedHeight ?? 0.1
@@ -2366,6 +2380,9 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
             case .call:
                 return 85
             case .card:
+                if (message.isSearchFlow && (message.selectedCardId ?? "") == ""){
+                    return 50
+                }
                 return 190
             default:
                 return self.tableView(tableView, heightForRowAt: indexPath)
@@ -2579,6 +2596,13 @@ func getHeighOfButtonCollectionView(actionableMessage: FuguActionableMessage) ->
     }
 }
 
+extension ConversationsViewController{
+    func openSearchAgentScreen(){
+        let vc = SearchAgentViewController.getNewInstance()
+        self.navigationController?.present(vc, animated: true, completion: nil)
+    }
+    
+}
 
 extension ConversationsViewController {
     
