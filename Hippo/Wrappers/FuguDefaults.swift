@@ -24,6 +24,7 @@ struct DefaultKey {
     static let myChatConversations = "Agent_My_Chat_Data"
     static let allChatConversations = "Agent_All_chat_Data"
     static let AgentsList = "Hippo_agent_data"
+    static let o2oChatConversations = "Agent_O2O_Chat_Data"
 }
 class FuguDefaults: NSObject {
     class func set(value: Any?, forKey keyName: String) {

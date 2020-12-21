@@ -137,6 +137,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
     var isSkipBotEnabled: Bool = false
     var isSkipEvent: Bool = false
     var isFromBot: Int?
+    var isSearchFlow : Bool = false
     
     var mimeType: String? {
         guard parsedMimeType == nil else {
@@ -233,7 +234,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         self.senderId = senderId
         let parsedMessage = (dict["message"] as? String ?? "").trimWhiteSpacesAndNewLine()
         message = parsedMessage.removeHtmlEntities()
-        
+        isSearchFlow = dict["is_search_flow"] as? Bool ?? false
         if let mutiLanguageMsg = dict["multi_lang_message"] as? String{
             self.message = MultiLanguageMsg().matchString(mutiLanguageMsg)
         }
@@ -1002,7 +1003,11 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
             let fallbackText = self.fallbackText ?? HippoConfig.shared.strings.defaultFallbackText
             message = fallbackText.isEmpty ? HippoConfig.shared.strings.defaultFallbackText : fallbackText
             attributtedMessage = MessageUIAttributes(message: message, senderName: senderFullName, isSelfMessage: userType.isMyUserType)
-            return cards?.isEmpty ?? true
+            if (isSearchFlow && (selectedCardId ?? "") == ""){
+                return false
+            }else{
+                return cards?.isEmpty ?? true
+            }
         default:
             return false
         }

@@ -28,6 +28,19 @@ class BussinessProperty: NSObject {
          }
      }
     
+    var hideo2oChat: Bool? {
+         get {
+             
+             guard let hideo2oChat = UserDefaults.standard.value(forKey: UserDefaultkeys.hideO2OChat) as? Bool else {
+                 return nil
+             }
+             return hideo2oChat
+         }
+         set {
+             UserDefaults.standard.set(newValue, forKey: UserDefaultkeys.hideO2OChat)
+         }
+     }
+    
     
     var botImageUrl: String? {
         get {

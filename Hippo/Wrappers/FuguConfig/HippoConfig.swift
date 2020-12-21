@@ -10,6 +10,8 @@ import UIKit
 import AVFoundation
 #if canImport(HippoCallClient)
   import HippoCallClient
+#endif
+#if canImport(JitsiMeet)
   import JitsiMeet
 #endif
 
@@ -28,15 +30,16 @@ enum AgentUserType: Int {
 }
 
 struct SERVERS {
-    
+
     static let liveUrl = "https://api.hippochat.io/"
     static let liveFaye = "https://socketv2.hippochat.io/faye"
     
     static let betaUrl = "https://beta-live-api.fuguchat.com:3001/"
     static let betaFaye = "https://beta-live-api.fuguchat.com:3001/faye"
     
-    static let devUrl = "https://hippo-api-dev.fuguchat.com:3003/"//"https://hippo-api-dev.fuguchat.com:3002/"//
-    static let devFaye = "https://hippo-api-dev.fuguchat.com:3003/faye"//"https://hippo-api-dev.fuguchat.com:3002/faye"//
+    static let devUrl = "https://hippo-api-dev.fuguchat.com:3003/"
+    static let devFaye = "https://hippo-api-dev.fuguchat.com:3003/faye"
+
 }
 
 struct BotAction {

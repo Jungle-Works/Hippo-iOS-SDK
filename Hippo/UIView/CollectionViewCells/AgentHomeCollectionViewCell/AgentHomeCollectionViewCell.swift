@@ -47,7 +47,9 @@ class AgentHomeCollectionViewCell: UICollectionViewCell {
             conversationList = ConversationStore.shared.allChats
         case .myChat:
             conversationList = ConversationStore.shared.myChats
-        }
+        case .o2oChat:
+            conversationList = ConversationStore.shared.o2oChats
+         }
         setupCellView()
         self.tableView.reloadData()
         fuguDelay(1.5, completion: {
@@ -69,6 +71,8 @@ extension AgentHomeCollectionViewCell {
             self.isMoreToLoad = ConversationStore.shared.isMoreAllChatToLoad
         case .myChat:
             self.isMoreToLoad = ConversationStore.shared.isMoreMyChatToLoad
+        case .o2oChat:
+            self.isMoreToLoad = ConversationStore.shared.isMoreo2oChatToLoad
         }
     }
     func setupCellView() {

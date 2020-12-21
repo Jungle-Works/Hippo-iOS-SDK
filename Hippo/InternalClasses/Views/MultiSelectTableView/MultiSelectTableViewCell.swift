@@ -320,7 +320,7 @@ extension MultiSelectTableViewCell : UITableViewDelegate
                 button?.status = !button!.status!
                 message?.customAction?.buttonsArray![indexPath.row] = button!
                 
-                for item in message?.customAction?.buttonsArray! as! [MultiselectButtons]
+                for item in message?.customAction?.buttonsArray as! [MultiselectButtons]
                {
                     if item != button
                     {

@@ -137,7 +137,7 @@ class HippoConversationViewController: UIViewController {
     func startNewConversation(replyMessage: HippoMessage?, completion: ((_ success: Bool, _ result: HippoChannelCreationResult?) -> Void)?) { }
     func startLoaderAnimation() { }
     func stopLoaderAnimation() { }
-    
+    func callGetMessagesApi() { }
     
     func clearUnreadCountForChannel(id: Int) { }
     @objc func titleButtonclicked() { }
@@ -324,7 +324,7 @@ class HippoConversationViewController: UIViewController {
         
         tableViewChat.register(UINib(nibName: "ActionTableView", bundle: bundle), forCellReuseIdentifier: "ActionTableView")
         tableViewChat.register(UINib(nibName: "CardMessageTableViewCell", bundle: bundle), forCellReuseIdentifier: "CardMessageTableViewCell")
-        
+        tableViewChat.register(UINib(nibName: "SearchAgentTableViewCell", bundle: bundle), forCellReuseIdentifier: "SearchAgentTableViewCell")
         
     }
     
@@ -555,7 +555,7 @@ class HippoConversationViewController: UIViewController {
 //            navigationView = NavigationTitleView.loadView(rectForNavigationTitle, delegate: self)
 //            titleForNavigation = navigationView
 //        }
-        if let chatType = channel?.chatDetail?.chatType, chatType == .other {
+        if let chatType = channel?.chatDetail?.chatType, (chatType == .other || chatType == .o2o){
             let title: String? = channel?.chatDetail?.channelName ?? label
              view_Navigation.setData(imageUrl: userImage, name: title)
         } else if labelId > 0, channel == nil {
@@ -1155,7 +1155,12 @@ extension HippoConversationViewController {
                 let isReplyMessageSent = result?.isReplyMessageSent ?? false
                 
                 if !isReplyMessageSent {
-                    self?.channel?.send(message: message, completion: {})
+                    message.status = .none
+                    self?.channel?.send(message: message, completion: {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5, execute: {
+                            self?.callGetMessagesApi()
+                        })
+                    })
                 }
             }
         } else {

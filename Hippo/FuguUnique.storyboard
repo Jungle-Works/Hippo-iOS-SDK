@@ -1383,6 +1383,95 @@
             </objects>
             <point key="canvasLocation" x="3236" y="-153"/>
         </scene>
+        <!--Search Agent View Controller-->
+        <scene sceneID="Qx1-fY-kaM">
+            <objects>
+                <viewController storyboardIdentifier="SearchAgentViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="6pB-c8-YAm" customClass="SearchAgentViewController" customModule="Hippo" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="5BA-HN-pE7"/>
+                        <viewControllerLayoutGuide type="bottom" id="d6M-On-rYc"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="MgY-r2-Bom">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="azJ-3z-5vn">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Search" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="T1S-Pr-R7f">
+                                        <rect key="frame" x="50" y="0.0" width="284" height="60"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="whiteBackButton" translatesAutoresizingMaskIntoConstraints="NO" id="BX6-AP-Ksw">
+                                        <rect key="frame" x="20" y="22.5" width="10" height="15"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="BX6-AP-Ksw" secondAttribute="height" multiplier="2:3" id="IMQ-no-dHk"/>
+                                            <constraint firstAttribute="width" constant="10" id="Qso-QB-UgQ"/>
+                                        </constraints>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EFu-V6-IPR">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="60"/>
+                                        <connections>
+                                            <action selector="action_BackBtn" destination="6pB-c8-YAm" eventType="touchUpInside" id="aZt-k4-Lpz"/>
+                                        </connections>
+                                    </button>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YRn-p9-AWr">
+                                        <rect key="frame" x="0.0" y="59" width="375" height="1"/>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="1" id="e8L-Ol-57D"/>
+                                        </constraints>
+                                    </view>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="search" translatesAutoresizingMaskIntoConstraints="NO" id="41J-BF-ppp">
+                                        <rect key="frame" x="339" y="-11.5" width="20" height="83"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="20" id="Rqu-Ww-FPp"/>
+                                            <constraint firstAttribute="width" secondItem="41J-BF-ppp" secondAttribute="height" multiplier="15:62" id="hfe-Sh-DHh"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="EFu-V6-IPR" secondAttribute="bottom" id="0Ng-jH-D3P"/>
+                                    <constraint firstAttribute="bottom" secondItem="YRn-p9-AWr" secondAttribute="bottom" id="26R-WW-O99"/>
+                                    <constraint firstItem="T1S-Pr-R7f" firstAttribute="leading" secondItem="BX6-AP-Ksw" secondAttribute="trailing" constant="20" id="DnE-Zo-Rgs"/>
+                                    <constraint firstItem="EFu-V6-IPR" firstAttribute="leading" secondItem="azJ-3z-5vn" secondAttribute="leading" id="EIw-4C-TRg"/>
+                                    <constraint firstItem="T1S-Pr-R7f" firstAttribute="leading" secondItem="EFu-V6-IPR" secondAttribute="trailing" id="ISD-5U-tDf"/>
+                                    <constraint firstItem="EFu-V6-IPR" firstAttribute="top" secondItem="azJ-3z-5vn" secondAttribute="top" id="Jo4-hU-bD8"/>
+                                    <constraint firstItem="41J-BF-ppp" firstAttribute="leading" secondItem="T1S-Pr-R7f" secondAttribute="trailing" constant="5" id="Kgy-NN-Guv"/>
+                                    <constraint firstItem="41J-BF-ppp" firstAttribute="centerY" secondItem="T1S-Pr-R7f" secondAttribute="centerY" id="MY3-46-1Ku"/>
+                                    <constraint firstItem="T1S-Pr-R7f" firstAttribute="top" secondItem="azJ-3z-5vn" secondAttribute="top" id="Rkn-hp-8Mz"/>
+                                    <constraint firstAttribute="trailing" secondItem="YRn-p9-AWr" secondAttribute="trailing" id="bOJ-ye-p3B"/>
+                                    <constraint firstItem="BX6-AP-Ksw" firstAttribute="leading" secondItem="azJ-3z-5vn" secondAttribute="leading" constant="20" id="dA6-iy-7pa"/>
+                                    <constraint firstAttribute="trailing" secondItem="41J-BF-ppp" secondAttribute="trailing" constant="16" id="nAd-9T-Mxj"/>
+                                    <constraint firstItem="YRn-p9-AWr" firstAttribute="leading" secondItem="azJ-3z-5vn" secondAttribute="leading" id="nEs-f8-IBb"/>
+                                    <constraint firstAttribute="bottom" secondItem="T1S-Pr-R7f" secondAttribute="bottom" id="nxL-t1-amk"/>
+                                    <constraint firstItem="BX6-AP-Ksw" firstAttribute="centerY" secondItem="T1S-Pr-R7f" secondAttribute="centerY" id="qMy-NK-SA1"/>
+                                    <constraint firstAttribute="height" constant="60" id="qoF-tK-9ab"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="aC2-8l-e8V">
+                                <rect key="frame" x="0.0" y="60" width="375" height="607"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="aC2-8l-e8V" secondAttribute="trailing" id="10f-dD-pJp"/>
+                            <constraint firstItem="azJ-3z-5vn" firstAttribute="top" secondItem="5BA-HN-pE7" secondAttribute="bottom" id="6RK-5b-5yz"/>
+                            <constraint firstItem="d6M-On-rYc" firstAttribute="top" secondItem="aC2-8l-e8V" secondAttribute="bottom" id="6ub-Vt-oZd"/>
+                            <constraint firstAttribute="trailing" secondItem="azJ-3z-5vn" secondAttribute="trailing" id="828-Hd-QhE"/>
+                            <constraint firstItem="aC2-8l-e8V" firstAttribute="top" secondItem="azJ-3z-5vn" secondAttribute="bottom" id="Bj3-23-xwz"/>
+                            <constraint firstItem="azJ-3z-5vn" firstAttribute="leading" secondItem="MgY-r2-Bom" secondAttribute="leading" id="bjn-PF-CvW"/>
+                            <constraint firstItem="aC2-8l-e8V" firstAttribute="leading" secondItem="MgY-r2-Bom" secondAttribute="leading" id="tNb-xL-eIh"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8YK-oc-1Rf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4000.8000000000002" y="-146.17691154422789"/>
+        </scene>
         <!--Level View Controller-->
         <scene sceneID="GfF-z1-9Zj">
             <objects>
@@ -2058,8 +2147,8 @@
         <image name="newChat" width="30" height="30"/>
         <image name="new_chat_icon" width="18" height="19"/>
         <image name="notification" width="21.5" height="25"/>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
+        <image name="search" width="128" height="128"/>
+        <image name="whiteBackButton" width="8" height="12"/>
+
     </resources>
 </document>
