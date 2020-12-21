@@ -52,6 +52,7 @@ enum channelType: Int {
     case DEFAULT = 4
     case HELP_CHANNEL = 5
     case BROADCAST_CHANNEL = 6
+    case SUPPORT_CHAT_CHANNEL = 9
 }
 
 enum SourceType: Int {
@@ -374,6 +375,8 @@ enum FuguEndPoints: String {
     case getPrePayment = "api/conversation/createOperationalChannel"
     case getLanguage = "api/apps/fetchAppLanguageData"
     case updateLanguage = "api/apps/updateUserLanguage"
+    case createAgentConversation = "api/conversation/createAgentSupportChannel"
+    case getAgentSupportChannelListing = "api/conversation/getAgentSupportChannels"
 }
 
 enum AgentEndPoints: String {

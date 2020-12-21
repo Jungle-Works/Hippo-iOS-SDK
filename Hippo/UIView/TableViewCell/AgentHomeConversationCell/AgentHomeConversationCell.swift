@@ -185,6 +185,11 @@ extension AgentHomeConversationCell {
         if let botChannelTag = self.getBotChannelTag(info: data) {
             arrayTagList.append(botChannelTag)
         }
+        
+        if cellData?.channel_type == channelType.SUPPORT_CHAT_CHANNEL.rawValue, cellData?.chatType == ChatType.o2o{
+            getSupportChatTag(data: data)
+        }
+        
         self.setTagView()
     }
     func getUnassignedTag(data: AgentConversation){
@@ -192,9 +197,16 @@ extension AgentHomeConversationCell {
             arrayTagList.append(unassignedTag)
         }
     }
+    
+    func getSupportChatTag(data: AgentConversation){
+        if currentUserId() == data.user_id{
+            arrayTagList.append(TagBoxInfo(labelText: HippoStrings.supportChats, textColor: .white, containerBackgroundColor: UIColor(red: 47/255, green: 137/255, blue: 64/255, alpha: 1.0)))
+        }
+    }
+
     func setTagView() {
         setTagViewDefault()
-        guard !arrayTagList.isEmpty, cellData?.chatType != .o2o else {
+        guard !arrayTagList.isEmpty else {
             return
         }
         heightOfLeftContainer.constant = tagViewHeight
@@ -248,7 +260,15 @@ extension AgentHomeConversationCell {
             } else {
                 tag = TagBoxInfo(labelText: HippoStrings.unassigned, textColor: .white, containerBackgroundColor: .pumpkinOrange)
             }
+        }else{
+            if agentID == currentUserId(){
+                tag = TagBoxInfo(labelText: HippoStrings.me, textColor: .white, containerBackgroundColor: .pumpkinOrange)
+            }else{
+                tag = TagBoxInfo(labelText: cellData?.agent_name ?? "", textColor: .white, containerBackgroundColor: .pumpkinOrange)
+            }
         }
+        
+        
 //        else if let agentName = info.agent_name {
 ////                tag = TagBoxInfo(labelText: agentName, textColor: .purpleGrey, containerBackgroundColor: .veryLightBlue, containerBorderColor: UIColor.makeColor(red: 228, green: 228, blue: 237, alpha: 1))
 //            guard let loginAgent = HippoConfig.shared.agentDetail, loginAgent.id > 0 else {

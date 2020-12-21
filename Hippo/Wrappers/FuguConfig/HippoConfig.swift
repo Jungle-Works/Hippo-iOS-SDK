@@ -160,7 +160,7 @@ struct BotAction {
     public var HippoLanguageChanged : ((Error?)->())?
     public var HippoSessionStatus: ((GroupCallStatus)->())?
     public var announcementUnreadCount : ((Int)->())?
-    
+    var supportChatFilter : [SupportFilter]?
     
     internal let powererdByColor = #colorLiteral(red: 0.4980392157, green: 0.4980392157, blue: 0.4980392157, alpha: 1)
     internal let FuguColor = #colorLiteral(red: 0.3843137255, green: 0.4901960784, blue: 0.8823529412, alpha: 1)
@@ -1419,3 +1419,23 @@ extension HippoConfig{
          #endif
     }
 }
+extension HippoConfig{
+    public func createSupportChat(o2oModel : O2OChatModel){
+        O2OChat.createO2OChat(request: o2oModel) { (error, data) in
+            
+        }
+    }
+    
+    public func openSupportChatListing(){
+        let supportChatVC = UIStoryboard(name: "AgentSdk", bundle: FuguFlowManager.bundle).instantiateViewController(withIdentifier: "SupportChatViewController") as! SupportChatViewController
+        guard let topVC = getLastVisibleController() else { return }
+        let navVC = UINavigationController(rootViewController: supportChatVC)
+        navVC.setTheme()
+        navVC.navigationBar.isHidden = true
+        navVC.modalPresentationStyle = .fullScreen
+        topVC.present(navVC, animated: true, completion: nil)
+    }
+}
+
+
+

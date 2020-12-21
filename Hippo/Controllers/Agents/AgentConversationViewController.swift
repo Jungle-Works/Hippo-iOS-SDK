@@ -92,7 +92,7 @@ class AgentConversationViewController: HippoConversationViewController {
     var custombarbuttonParam : CGFloat = 32.0
     var messageInEditing : HippoMessage?
     var editingMessageIndex : IndexPath?
-    
+    var channelType : Int?
     //MARK: - Variables for MessageSendingView
     private let animationDuration: TimeInterval = 0.3
     var maxMentionViewHeight: CGFloat = windowScreenHeight
@@ -784,7 +784,7 @@ class AgentConversationViewController: HippoConversationViewController {
         if let channelId = chatObj.channel_id, channelId > 0 {
             self.channel = AgentChannelPersistancyManager.shared.getChannelBy(id: channelId)
         }
-        
+        self.channelType = chatObj.channel_type
         self.label = chatObj.label ?? ""
         self.userImage = chatObj.user_image ?? ""
     }
@@ -792,6 +792,7 @@ class AgentConversationViewController: HippoConversationViewController {
     // MARK: - Type Methods
     class func getWith(conversationObj: AgentConversation) -> AgentConversationViewController {
         let vc = getNewInstance()
+        vc.channelType = conversationObj.channel_type
         vc.updateChatInfoWith(chatObj: conversationObj)
         return vc
     }
@@ -804,7 +805,7 @@ class AgentConversationViewController: HippoConversationViewController {
         return vc
     }
     
-    class func getWith(channelID: Int, channelName: String) -> AgentConversationViewController {
+    class func getWith(channelID: Int, channelName: String, channelType : channelType? = .DEFAULT) -> AgentConversationViewController {
         let vc = getNewInstance()
         vc.channel = AgentChannelPersistancyManager.shared.getChannelBy(id: channelID)
 //        vc.label = channelName
@@ -813,6 +814,7 @@ class AgentConversationViewController: HippoConversationViewController {
         }else{
             vc.label = vc.channel.chatDetail?.customerName ?? ""
         }
+        vc.channelType = channelType?.rawValue
         return vc
     }
     
