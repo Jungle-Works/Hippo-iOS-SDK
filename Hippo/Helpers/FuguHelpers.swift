@@ -91,6 +91,7 @@ struct UserDefaultkeys {
     static let onlineStatus = "online_status"
     static let filterApplied = "filterApplied"
     static let hideAllChat = "hideAllChat"
+    static let hideO2OChat = "hideO2OChat"
 }
 
 var FUGU_SCREEN_WIDTH: CGFloat {

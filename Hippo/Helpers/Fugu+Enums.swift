@@ -215,7 +215,7 @@ enum ChatType: Int {
         return ChatType.allowedImageViewFor.contains(self)
     }
     
-    private static let allowedImageViewFor: [ChatType] = [.other]
+    private static let allowedImageViewFor: [ChatType] = [.other, .o2o]
 }
 
 enum FuguUserIntializationError: LocalizedError {
@@ -347,6 +347,7 @@ enum ActionType: Int {
 enum ConversationType {
     case myChat
     case allChat
+    case o2oChat
 }
 
 enum ButtonType: String {
@@ -383,6 +384,7 @@ enum FuguEndPoints: String {
     case getPrePayment = "api/conversation/createOperationalChannel"
     case getLanguage = "api/apps/fetchAppLanguageData"
     case updateLanguage = "api/apps/updateUserLanguage"
+    case getUploadFileUrl = "api/conversation/getUploadFile"
 }
 
 enum AgentEndPoints: String {

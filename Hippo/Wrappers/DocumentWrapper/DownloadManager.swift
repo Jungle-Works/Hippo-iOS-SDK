@@ -47,7 +47,9 @@ class DownloadManager {
         
         let nameOfTheFileToBeSavedInCache = DownloadManager.generateNameWhichDoestNotExistInCacheDirectoryWith(name: name)
         
-        TWRDownloadManager.shared()?.downloadFile(forURL: url, withName: nameOfTheFileToBeSavedInCache, inDirectoryNamed: nil, progressBlock: nil, remainingTime: nil, completionBlock: { (success) in
+        let updatedUrl = url.replacingOccurrences(of: " ", with: "%20")
+        
+        TWRDownloadManager.shared()?.downloadFile(forURL: updatedUrl, withName: nameOfTheFileToBeSavedInCache, inDirectoryNamed: nil, progressBlock: nil, remainingTime: nil, completionBlock: { (success) in
             if success {
                 self.fileDownloadedWith(url: url, name: nameOfTheFileToBeSavedInCache)
             }

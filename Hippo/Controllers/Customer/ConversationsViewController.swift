@@ -810,6 +810,11 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         }
     }
    
+    override func callGetMessagesApi(){
+        self.getMessagesAfterCreateConversation(callback: { (success) in
+        })
+    }
+    
     func sendQuickReplyReposeIfRequired() {
         guard self.channel != nil else {
             return
@@ -2349,6 +2354,9 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                 case MessageType.call:
                     return UIView.tableAutoDimensionHeight
                 case .card:
+                    if (message.isSearchFlow && (message.selectedCardId ?? "") == ""){
+                     return 50
+                    }
                     return 230
                 case .paymentCard:
                     return message.calculatedHeight ?? 0.1
@@ -2383,6 +2391,9 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
             case .call:
                 return 85
             case .card:
+                if (message.isSearchFlow && (message.selectedCardId ?? "") == ""){
+                    return 50
+                }
                 return 190
             case .actionableMessage, .hippoPay:
                 return 100
@@ -2602,6 +2613,13 @@ func getHeighOfButtonCollectionView(actionableMessage: FuguActionableMessage) ->
     }
 }
 
+extension ConversationsViewController{
+    func openSearchAgentScreen(){
+        let vc = SearchAgentViewController.getNewInstance()
+        self.navigationController?.present(vc, animated: true, completion: nil)
+    }
+    
+}
 
 extension ConversationsViewController {
     
