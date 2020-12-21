@@ -752,15 +752,6 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
     }
     
     func isSentByMe() -> Bool {
-        let vc = (getLastVisibleController() as? AgentConversationViewController)
-        
-        if HippoConfig.shared.appUserType == .agent && chatType == .o2o && vc?.channelType == channelType.SUPPORT_CHAT_CHANNEL.rawValue{
-            if vc?.channel.chatDetail?.customerID == currentUserId(){ // if owner id == current user id
-                return true
-            }else{
-                return false
-            }
-        }
         return senderId == currentUserId()
     }
     

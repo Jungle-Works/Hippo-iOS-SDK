@@ -654,6 +654,7 @@ class AgentConversationViewController: HippoConversationViewController {
         handleInfoIcon()
         handleVideoIcon()
         handleAudioIcon()
+        handleMoreButton()
         
         var messages = result.newMessages
         let newMessagesHashMap = result.newMessageHashmap
@@ -1283,15 +1284,9 @@ extension AgentConversationViewController {
     
     //MARK: - funcs for MessageSendingView
     func intalizeMessageSendingView() {
-        var config = MessageSendingViewConfig()
+        let config = MessageSendingViewConfig()
         
-//        if channel?.channelInfo?.chatType == .o2o {
-        if channel?.chatDetail?.chatType == .o2o {
-            config.normalMessagePlaceHolder = HippoConfig.shared.theme.messagePlaceHolderText == nil ? HippoStrings.messagePlaceHolderText : HippoConfig.shared.theme.messagePlaceHolderText ?? ""
-            moreOptionsButton.isHidden = true
-        }else{
-            moreOptionsButton.isHidden = false
-        }
+        handleMoreButton()
         let dataManager = MentionDataManager(mentions: Business.shared.agents)
         let request = IntializationRequest(config: config, dataManager: dataManager)
         self.messageSendingViewConfig = request.config
@@ -1299,6 +1294,19 @@ extension AgentConversationViewController {
         self.setUpUI()
         self.intalizeMention()
     }
+    
+    
+    func handleMoreButton(){
+        var config = MessageSendingViewConfig()
+        if channel?.chatDetail?.chatType == .o2o {
+            config.normalMessagePlaceHolder = HippoConfig.shared.theme.messagePlaceHolderText == nil ? HippoStrings.messagePlaceHolderText : HippoConfig.shared.theme.messagePlaceHolderText ?? ""
+            moreOptionsButton.isHidden = true
+        }else{
+            moreOptionsButton.isHidden = false
+        }
+    }
+    
+    
     fileprivate func setUpUI() {
         setupTableView()
         setupTextView()
