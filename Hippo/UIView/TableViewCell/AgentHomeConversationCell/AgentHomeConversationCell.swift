@@ -255,29 +255,19 @@ extension AgentHomeConversationCell {
         
         if agentID <= 0 {
             if let closedString = closedLabel.text, closedString.isEmpty == false {
-//                tag = TagBoxInfo(labelText: "Unassigned", textColor: .purpleGrey, containerBackgroundColor: .veryLightBlue, containerBorderColor: unassignedColorForClosedChat)
                 tag = TagBoxInfo(labelText: HippoStrings.unassigned, textColor: .darkGrayColorForTag, containerBackgroundColor: .lightGrayBgColorForTag, containerBorderColor: unassignedColorForClosedChat)
             } else {
                 tag = TagBoxInfo(labelText: HippoStrings.unassigned, textColor: .white, containerBackgroundColor: .pumpkinOrange)
             }
         }else{
-            if agentID == currentUserId(){
-                tag = TagBoxInfo(labelText: HippoStrings.me, textColor: .white, containerBackgroundColor: .pumpkinOrange)
-            }else{
-                tag = TagBoxInfo(labelText: cellData?.agent_name ?? "", textColor: .white, containerBackgroundColor: .pumpkinOrange)
+            if cellData?.chatType == ChatType.o2o && cellData?.channel_type == channelType.SUPPORT_CHAT_CHANNEL.rawValue{
+                if agentID == currentUserId(){
+                    tag = TagBoxInfo(labelText: HippoStrings.me, textColor: .white, containerBackgroundColor: .pumpkinOrange)
+                }else{
+                    tag = TagBoxInfo(labelText: cellData?.agent_name ?? "", textColor: .white, containerBackgroundColor: .pumpkinOrange)
+                }
             }
         }
-        
-        
-//        else if let agentName = info.agent_name {
-////                tag = TagBoxInfo(labelText: agentName, textColor: .purpleGrey, containerBackgroundColor: .veryLightBlue, containerBorderColor: UIColor.makeColor(red: 228, green: 228, blue: 237, alpha: 1))
-//            guard let loginAgent = HippoConfig.shared.agentDetail, loginAgent.id > 0 else {
-//                return tag
-//            }
-//            if loginAgent.agentUserType == .admin{
-//                tag = TagBoxInfo(labelText: agentName, textColor: .darkGrayColorForTag, containerBackgroundColor: .lightGrayBgColorForTag, containerBorderColor: UIColor.makeColor(red: 228, green: 228, blue: 237, alpha: 1))
-//            }
-//        }
         return tag
     }
 }

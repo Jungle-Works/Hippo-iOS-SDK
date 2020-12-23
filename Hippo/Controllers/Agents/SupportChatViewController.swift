@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SupportChatViewController: HippoHomeViewController {
+class SupportChatViewController: HippoHomeViewController, InformationViewDelegate {
     
     //MARK: Variables
     var supportChatVM : SupportChatViewModel?
@@ -22,6 +22,7 @@ class SupportChatViewController: HippoHomeViewController {
         }
     }
     var page = 0
+    var informationView: InformationView?
     
     //MARK:- IBOutlets
     @IBOutlet var tableView_SupportChat : UITableView!{
@@ -46,6 +47,7 @@ class SupportChatViewController: HippoHomeViewController {
         supportChatVM = SupportChatViewModel()
         supportChatVM?.responseRecieved = {[weak self]() in
             DispatchQueue.main.async {
+                self?.noConversationFound(errorMessage: HippoStrings.noConversationFound)
                 self?.tableView_SupportChat.reloadData()
             }
         }
@@ -64,7 +66,9 @@ class SupportChatViewController: HippoHomeViewController {
                 self?.refreshControl.endRefreshing()
             }
         }
+        
         self.supportChatVM?.isRefreshing = false
+        supportChatVM?.isLoading = false
         supportChatVM?.getListing = true
     }
 
@@ -74,6 +78,15 @@ class SupportChatViewController: HippoHomeViewController {
         AgentUserChannel.shared?.delegate = self
     }
     
+    override func deleteConversation(channelId: Int) {
+        let supportChannelIndex = supportChatVM?.conversationList.firstIndex(where: {
+            $0.channel_id == channelId
+        })
+        if let supportIndex = supportChannelIndex, supportIndex < supportChatVM?.conversationList.count ?? 0{
+           supportChatVM?.conversationList.remove(at: supportIndex)
+           self.tableView_SupportChat.reloadData()
+        }
+    }
     
     //MARK:- Private Functions
     
@@ -110,6 +123,28 @@ class SupportChatViewController: HippoHomeViewController {
         supportChatVM?.isRefreshing = true
         supportChatVM?.getListing = true
     }
+    
+    private func noConversationFound(errorMessage : String){
+        if (self.supportChatVM?.conversationList.count ?? 0) <= 0{
+            if informationView == nil {
+                informationView = InformationView.loadView(self.tableView_SupportChat.bounds, delegate: self)
+            }
+            self.informationView?.informationLabel.text = errorMessage
+            self.informationView?.informationImageView.image = HippoConfig.shared.theme.noChatImage
+            self.informationView?.isButtonInfoHidden = true
+            self.informationView?.isHidden = false
+            self.tableView_SupportChat.addSubview(informationView!)
+            self.tableView_SupportChat.layoutSubviews()
+        }else{
+            for view in tableView_SupportChat.subviews{
+                if view is InformationView{
+                     view.removeFromSuperview()
+                }
+            }
+            self.tableView_SupportChat.layoutSubviews()
+            self.informationView?.isHidden = true
+        }
+    }
 }
 extension SupportChatViewController : AgentUserChannelDelegate {
     
@@ -129,7 +164,20 @@ extension SupportChatViewController : AgentUserChannelDelegate {
     
     
     func handleAssignmentNotification(with conversation: AgentConversation, channelID: Int) {
-        
+        let supportChannelIndex = supportChatVM?.conversationList.firstIndex(where: {
+            $0.channel_id == channelID
+        })
+        guard let supportIndex = supportChannelIndex else{
+            return
+        }
+        if supportIndex >= 0 && supportIndex < (supportChatVM?.conversationList.count ?? 0) {
+            let existingConversation = supportChatVM?.conversationList[supportIndex]
+            existingConversation?.update(newConversation: conversation)
+        }else{
+            conversation.update(newConversation: conversation)
+            supportChatVM?.conversationList.insert(conversation, at: 0)
+        }
+        self.tableView_SupportChat.reloadData()
     }
     
     func insertNewConversation(with newConversation: AgentConversation) {
@@ -138,7 +186,12 @@ extension SupportChatViewController : AgentUserChannelDelegate {
     }
     
     func newConversationRecieved(_ newConversation: AgentConversation, channelID: Int) {
+      
         if !(newConversation.chatType == .o2o && newConversation.channel_type == channelType.SUPPORT_CHAT_CHANNEL.rawValue){
+            return
+        }
+        if AgentConversation.isAssignmentNotification(for: newConversation) {
+            handleAssignmentNotification(with: newConversation, channelID: channelID)
             return
         }
         let supportChannelIndex = supportChatVM?.conversationList.firstIndex(where: {
@@ -207,6 +260,7 @@ extension SupportChatViewController: UIScrollViewDelegate {
             if page != upcomingPage{
                 self.page = upcomingPage
                 self.supportChatVM?.isRefreshing = false
+                self.supportChatVM?.isLoading = true
                 self.supportChatVM?.getListing = true
             }else{
                 return
@@ -248,10 +302,13 @@ extension SupportChatViewController{
         if let vc = SupportChatFilterViewController.getNewInstance(){
             let navVC = UINavigationController(rootViewController: vc)
             vc.filterApplied = {[weak self]() in
-                self?.supportChatVM?.isRefreshing = false
-                self?.supportChatVM?.conversationList.removeAll()
-                self?.supportChatVM?.getListing = true
-                self?.setFilterButtonIcon()
+                DispatchQueue.main.async {
+                    self?.supportChatVM?.isRefreshing = false
+                    self?.supportChatVM?.conversationList.removeAll()
+                    self?.supportChatVM?.isLoading = false
+                    self?.supportChatVM?.getListing = true
+                    self?.setFilterButtonIcon()
+                }
             }
             self.present(navVC, animated: true, completion: nil)
         }

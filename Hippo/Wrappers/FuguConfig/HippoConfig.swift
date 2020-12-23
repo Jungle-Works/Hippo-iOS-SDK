@@ -38,8 +38,8 @@ static let liveFaye = "wss://faye.hippochat.io/faye"
 static let betaUrl = "https://beta-live-api.fuguchat.com:3001/"
 static let betaFaye = "https://beta-live-api.fuguchat.com:3001/faye"
 
-static let devUrl = "https://hippo-api-dev.fuguchat.com:3002/"
-static let devFaye = "https://hippo-api-dev.fuguchat.com:3002/faye"
+static let devUrl = "https://hippo-api-dev.fuguchat.com:3004/"
+static let devFaye = "https://hippo-api-dev.fuguchat.com:3004/faye"
 
 }
 

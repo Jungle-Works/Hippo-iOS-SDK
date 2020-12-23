@@ -693,7 +693,10 @@ class HippoConversationViewController: UIViewController {
         
         switch HippoConfig.shared.appUserType {
         case .agent:
-            return assignemdAgentID == currentUserId() || channel?.chatDetail?.chatType == .o2o
+            if channel?.chatDetail?.chatType == .o2o{
+                return assignemdAgentID == currentUserId() || channel?.chatDetail?.customerID == currentUserId()
+            }
+            return assignemdAgentID == currentUserId()
         case .customer:
             return true
         }

@@ -20,6 +20,7 @@ class SupportChatViewModel{
     var page = 1
     var limit = 20
     var isRefreshing : Bool = false
+    var isLoading = false
     var isLoadMoreRequired = true
     
     //MARK:- Clousers
@@ -27,22 +28,27 @@ class SupportChatViewModel{
     var startLoading : ((Bool)->())?
     var endRefreshClausre:(()->())?
     
+    
     private func getSupportChatListing(){
         page = conversationList.count == 0 ? 1 : conversationList.count
         if isRefreshing {
             page = 1
         }else{
-            self.startLoading?(true)
+            if !isLoading{
+               self.startLoading?(true)
+            }
         }
         
         let params = generateGetO2OSupportParams()
         
         HippoConfig.shared.log.trace(params, level: .request)
-        HTTPClient.makeConcurrentConnectionWith(method: .POST, enCodingType: .json, para: params, extendedUrl: FuguEndPoints.getAgentSupportChannelListing.rawValue) { (responseObject, error, tag, statusCode) in
+        HTTPClient.makeConcurrentConnectionWith(method: .POST, enCodingType: .json, para: params, extendedUrl: AgentEndPoints.getAgentSupportChannelListing.rawValue) { (responseObject, error, tag, statusCode) in
             if self.isRefreshing {
                 self.endRefreshClausre?()
             }else{
-                self.startLoading?(false)
+                if !self.isLoading{
+                    self.startLoading?(false)
+                }
             }
             guard let unwrappedStatusCode = statusCode, error == nil, unwrappedStatusCode == STATUS_CODE_SUCCESS, error == nil  else {
                 print("Error",error ?? "")

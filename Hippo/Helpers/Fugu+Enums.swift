@@ -376,7 +376,7 @@ enum FuguEndPoints: String {
     case getLanguage = "api/apps/fetchAppLanguageData"
     case updateLanguage = "api/apps/updateUserLanguage"
     case createAgentConversation = "api/conversation/createAgentSupportChannel"
-    case getAgentSupportChannelListing = "api/conversation/getAgentSupportChannels"
+    
 }
 
 enum AgentEndPoints: String {
@@ -414,6 +414,8 @@ enum AgentEndPoints: String {
     case createGroupCallChannel = "api/conversation/createGroupCallChannel"
     case getGroupCallChannelDetals = "api/conversation/getGroupCallChannelDetails"
     case editDeleteMessage = "api/conversation/deleteOrEditMessage"
+    case getAgentSupportChannelListing = "api/conversation/getAgentSupportChannels"
+    case getAgentInfo = "api/users/getUserDetails"
 }
 
 struct MultiLanguageMsg{

@@ -658,15 +658,10 @@ class AgentConversationViewController: HippoConversationViewController {
         
         var messages = result.newMessages
         let newMessagesHashMap = result.newMessageHashmap
-        
-//        label = result.channelName
-//        setNavigationTitle(title: label)
-        let previousLabel = label
+
         label = result.channelName
-        setNavigationTitle(title: label)
-        if previousLabel == "" && label != ""{
-            setTitleForCustomNavigationBar()
-        }
+
+        setTitleForCustomNavigationBar()
         
         if request.pageStart == 1 && messages.count > 0 {
             filterMessages(newMessagesHashMap: newMessagesHashMap, lastMessage: messages.last!)

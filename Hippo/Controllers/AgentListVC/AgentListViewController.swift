@@ -307,28 +307,9 @@ extension AgentListViewController {
         }
     }
     func handleAgentAssignmentSuccess(for agent: Agent) {
-//        guard let mainNavigationController = appNavigationController else {
-//            return
-//        }
-//        if let vc = mainNavigationController.isControllerExist(controller: ChannelInfoViewController.self) as? ChannelInfoViewController, !channelInfo.isFirstLevel {
-//            mainNavigationController.popToViewController(vc, animated: true)
-//            delay(0.1, completion: {
-//                vc.chatHistoryController?.manuallyReassignChat(user: agent, channelId: self.channelId)
-//            })
-//        } else if let homeVC = mainNavigationController.isControllerExist(controller: HomeViewController.self) as? HomeViewController {
-//            mainNavigationController.popToViewController(homeVC, animated: true)
-//            delay(0.1, completion: {
-//                homeVC.manuallyReassignChat(user: agent, channelId: self.channelId)
-//            })
-//        } else {
-//            mainNavigationController.popViewController(animated: true)
-//        }
-       
-        
-//        self.navigationController?.popViewController(animated: true)
         var isAgentHomeViewController : UIViewController?
         for controller in self.navigationController!.viewControllers as Array {
-            if controller.isKind(of: AgentHomeViewController.self) {
+            if controller.isKind(of: HippoHomeViewController.self) {
                 isAgentHomeViewController = controller
                 break
             }
