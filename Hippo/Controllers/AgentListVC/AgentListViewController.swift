@@ -264,17 +264,26 @@ extension AgentListViewController {
         }
         
         var filteredArray = [Agent]()
+        var agentArr = Business.shared.agents
         if let info = channelInfo {
-//            let assignedAgentId = info.agentId
+            
+            //remove owner from list
+            if info.chatType == .o2o{
+                let index = agentArr.firstIndex(where: {$0.userId == channelInfo.customerID})
+                if let index = index , index >= 0 , index < agentArr.count{
+                    agentArr.remove(at: index)
+                }
+            }
+            
             let assignedAgentId = info.assignedAgentID
             if assignedAgentId == -1 || assignedAgentId != currentUserId() {
-                filteredArray = Business.shared.agents.filter() { $0.userId == currentUserId()}
+                filteredArray = agentArr.filter() { $0.userId == currentUserId()}
             } else if assignedAgentId == currentUserId() {
                 
             }
         }
-        self.agentList = Business.shared.agents
-        self.agentListForSearch = Business.shared.agents
+        self.agentList = agentArr
+        self.agentListForSearch = agentArr
         let onlineAgents = agentList.filter() { $0.onlineStatus == AgentStatus.available.rawValue && $0.userId != currentUserId() }
         let offlineAgents = agentList.filter() { ($0.onlineStatus == AgentStatus.offline.rawValue || $0.onlineStatus == AgentStatus.away.rawValue) && $0.userId != currentUserId() }
         let newSortedArray = onlineAgents.sorted() { $0.name < $1.name }
