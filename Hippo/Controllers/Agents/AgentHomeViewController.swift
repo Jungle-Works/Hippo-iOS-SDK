@@ -278,7 +278,7 @@ extension AgentHomeViewController {
             self.bottomLineView.isHidden = false
             numberOfBtns = 3
         }
-        width_bottomLineView.constant = self.view.frame.size.width/CGFloat(numberOfBtns)
+        width_bottomLineView.constant = numberOfBtns > 0 ? self.view.frame.size.width/CGFloat(numberOfBtns) : 0
     }
     
     func checkForAnyError() {
