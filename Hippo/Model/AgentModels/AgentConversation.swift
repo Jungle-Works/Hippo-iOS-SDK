@@ -20,7 +20,7 @@ class AgentConversation: HippoConversation {
     var channel_id: Int?
     var channel_name: String?
     var created_at: String?
-    
+    var channel_type : Int?
     
     var status: Int?
     var user_image: String?
@@ -45,6 +45,9 @@ class AgentConversation: HippoConversation {
         return isMyChat ?? false ? 1 : 0
     }
     
+    override init() {
+        
+    }
     
     init?(channelId: Int, unreadCount: Int, lastMessage: HippoMessage) {
         super.init()
@@ -72,6 +75,7 @@ class AgentConversation: HippoConversation {
         bot_channel_name = json["bot_channel_name"]  as? String
         channel_id = json["channel_id"] as? Int ?? -1 //Int.parse(values: json, key: "channel_id") //json["channel_id"] as? Int
         channel_name = json["channel_name"] as? String
+        channel_type = json["channel_type"] as? Int
         created_at = json["created_at"] as? String
         label = json["label"] as? String
         status = json["status"] as? Int

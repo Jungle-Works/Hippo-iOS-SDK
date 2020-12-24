@@ -114,7 +114,7 @@ extension GroupCallChannel: SignalingClient {
     
     
     private func isConnected() -> Bool {
-        return FayeConnection.shared.isConnected && FuguNetworkHandler.shared.isNetworkConnected
+        return FayeConnection.shared.isConnected && FuguNetworkHandler.shared.isNetworkConnected 
     }
     
     private func isSubscribed() -> Bool {

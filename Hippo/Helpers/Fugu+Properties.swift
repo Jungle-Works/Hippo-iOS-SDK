@@ -12,7 +12,7 @@ let HippoSDKSource = 1
 let Device_Type_iOS = 2
 var userDetailData = [String: Any]()
 
-let fuguAppVersion = "2.1.45"
+let fuguAppVersion = "2.1.46"
 var versionCode = 320
 
 /*
@@ -140,4 +140,6 @@ var versionCode = 320
  336 *** 2.1.44 = O2O chat and razor pay sdk functionality added
  
  337 *** 2.1.45 = Bug Fixes
+ 
+ 338 *** 2.1.46 = Support Chat (O2o new flow)
  */

@@ -264,17 +264,26 @@ extension AgentListViewController {
         }
         
         var filteredArray = [Agent]()
+        var agentArr = Business.shared.agents
         if let info = channelInfo {
-//            let assignedAgentId = info.agentId
+            
+            //remove owner from list
+            if info.chatType == .o2o{
+                let index = agentArr.firstIndex(where: {$0.userId == channelInfo.customerID})
+                if let index = index , index >= 0 , index < agentArr.count{
+                    agentArr.remove(at: index)
+                }
+            }
+            
             let assignedAgentId = info.assignedAgentID
             if assignedAgentId == -1 || assignedAgentId != currentUserId() {
-                filteredArray = Business.shared.agents.filter() { $0.userId == currentUserId()}
+                filteredArray = agentArr.filter() { $0.userId == currentUserId()}
             } else if assignedAgentId == currentUserId() {
                 
             }
         }
-        self.agentList = Business.shared.agents
-        self.agentListForSearch = Business.shared.agents
+        self.agentList = agentArr
+        self.agentListForSearch = agentArr
         let onlineAgents = agentList.filter() { $0.onlineStatus == AgentStatus.available.rawValue && $0.userId != currentUserId() }
         let offlineAgents = agentList.filter() { ($0.onlineStatus == AgentStatus.offline.rawValue || $0.onlineStatus == AgentStatus.away.rawValue) && $0.userId != currentUserId() }
         let newSortedArray = onlineAgents.sorted() { $0.name < $1.name }
@@ -307,28 +316,9 @@ extension AgentListViewController {
         }
     }
     func handleAgentAssignmentSuccess(for agent: Agent) {
-//        guard let mainNavigationController = appNavigationController else {
-//            return
-//        }
-//        if let vc = mainNavigationController.isControllerExist(controller: ChannelInfoViewController.self) as? ChannelInfoViewController, !channelInfo.isFirstLevel {
-//            mainNavigationController.popToViewController(vc, animated: true)
-//            delay(0.1, completion: {
-//                vc.chatHistoryController?.manuallyReassignChat(user: agent, channelId: self.channelId)
-//            })
-//        } else if let homeVC = mainNavigationController.isControllerExist(controller: HomeViewController.self) as? HomeViewController {
-//            mainNavigationController.popToViewController(homeVC, animated: true)
-//            delay(0.1, completion: {
-//                homeVC.manuallyReassignChat(user: agent, channelId: self.channelId)
-//            })
-//        } else {
-//            mainNavigationController.popViewController(animated: true)
-//        }
-       
-        
-//        self.navigationController?.popViewController(animated: true)
         var isAgentHomeViewController : UIViewController?
         for controller in self.navigationController!.viewControllers as Array {
-            if controller.isKind(of: AgentHomeViewController.self) {
+            if controller.isKind(of: HippoHomeViewController.self) {
                 isAgentHomeViewController = controller
                 break
             }

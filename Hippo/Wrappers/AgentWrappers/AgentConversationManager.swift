@@ -512,9 +512,12 @@ extension AgentConversationManager {
 //        } else {
 //            dict["row_count"] = defaultPageSize
 //        }
-        dict["page_offset"] = request.pageStart ?? 1
-        if let pageEnd = request.pageEnd, let startPage : Int = request.pageStart, pageEnd > startPage  {
+        dict["page_offset"] = request.pageStart
+        if let pageEnd = request.pageEnd{
+            let startPage = request.pageStart
+            if pageEnd > startPage{
             dict["row_count"] =  pageEnd - startPage + 1
+            }
         } else {
             dict["row_count"] = maxPageSize
         }

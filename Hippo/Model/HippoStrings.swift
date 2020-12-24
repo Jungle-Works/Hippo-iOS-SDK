@@ -214,6 +214,13 @@ public class HippoStrings {
     static var establishingConnection = "Please wait while we are establishing the connection.."
  
     open var disbaledCameraErrorMessage = "Access to Camera is denied. Please enable from setings."
+    
+    static var myChatsOnly = "My Chats Only".localized
+    static var unassignedChats = "Unassigned Chats".localized
+    static var mySupportChats = "My Support Chats".localized
+    static var type = "Type".localized
+    static var supportChats = "Support Chats".localized
+  
     open var cameraString = "New Image via Camera"
     open var displayNameForCustomers = "Fleet"
     open var broadCastTitle = "This will send message to your active*"

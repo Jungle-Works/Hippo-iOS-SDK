@@ -202,7 +202,7 @@ class AgentUserChannel {
         
         //update count
         //if channel id is not equal to current channel id
-
+        
         if HippoConfig.shared.getCurrentAgentSdkChannelId() != newConversation.channel_id && type == .message{
             if newConversation.lastMessage?.senderId != currentUserId(){
                 calculateTotalAgentUnreadCount(newConversation.channel_id ?? -1, newConversation.unreadCount ?? 0)
@@ -210,80 +210,80 @@ class AgentUserChannel {
         }
         
         switch type {
-            case .message:
-                delegate?.newConversationRecieved(newConversation, channelID: receivedChannelId)
-                break
-            case .readAll:
-                removeChannelForUnreadCount(newConversation.channel_id ?? -1)
-                handleReadAllForHome(newConversation: newConversation)
-                break
-            case .channelRefresh:
-                let chatDetail = ChatDetail(json: dict)
-                handleChannelRefresh(chatDetail: chatDetail)
-                break
-            case .assigned:
-                delegate?.newConversationRecieved(newConversation, channelID: receivedChannelId)
-                handleAssignmentNotificationForChat(newConversation, channelID: receivedChannelId)
-                break
-            default:
-                break
+        case .message:
+            delegate?.newConversationRecieved(newConversation, channelID: receivedChannelId)
+            break
+        case .readAll:
+            removeChannelForUnreadCount(newConversation.channel_id ?? -1)
+            handleReadAllForHome(newConversation: newConversation)
+            break
+        case .channelRefresh:
+            let chatDetail = ChatDetail(json: dict)
+            handleChannelRefresh(chatDetail: chatDetail)
+            break
+        case .assigned:
+            delegate?.newConversationRecieved(newConversation, channelID: receivedChannelId)
+            handleAssignmentNotificationForChat(newConversation, channelID: receivedChannelId)
+            break
+        default:
+            break
         }
         
     }
-        
-        func handleChannelRefresh(chatDetail: ChatDetail) {
-            if let chatVC = getLastVisibleController() as? AgentConversationViewController {
-                if chatVC.channelId == chatDetail.channelId {
-                    chatVC.handleChannelRefresh(detail: chatDetail)
-                }
-            }else if let chatHomeVC = getLastVisibleController() as? AgentHomeViewController{
-                chatHomeVC.channelRefresh(chatDetail: chatDetail, chatDetail.channelId)
+    
+    func handleChannelRefresh(chatDetail: ChatDetail) {
+        if let chatVC = getLastVisibleController() as? AgentConversationViewController {
+            if chatVC.channelId == chatDetail.channelId {
+                chatVC.handleChannelRefresh(detail: chatDetail)
             }
+        }else if let chatHomeVC = getLastVisibleController() as? AgentHomeViewController{
+            chatHomeVC.channelRefresh(chatDetail: chatDetail, chatDetail.channelId)
         }
-        
-        func handleReadAllForHome(newConversation: AgentConversation) {
-            guard let receivedChannelId = newConversation.channel_id, receivedChannelId > 0 else {
-                return
-            }
-            guard newConversation.user_id == currentUserId() else {
-                return
-            }
-            storeInteracter.readAllNotificationFor(channelID: receivedChannelId)
-            delegate?.readAllNotificationFor(channelID: receivedChannelId)
+    }
+    
+    func handleReadAllForHome(newConversation: AgentConversation) {
+        guard let receivedChannelId = newConversation.channel_id, receivedChannelId > 0 else {
+            return
         }
-        
-        func handleAssignmentNotificationForChat(_ newConversation: AgentConversation, channelID: Int) {
-            guard let chatVC = getLastVisibleController() as? AgentConversationViewController, newConversation.notificationType  == NotificationType.assigned else {
-                return
-            }
-            guard chatVC.channelId == channelID, let message = newConversation.lastMessage else {
-                return
-            }
-            chatVC.channel?.messageReceived(message: message)
-            //        chatVC.setAssignAlert(conversation: newConversation)
+        guard newConversation.user_id == currentUserId() else {
+            return
         }
-        
-        //    func handleBotMessages(_ newConversation: AgentConversation, channelID: Int) {
-        //        guard let chatVC = getLastVisibleController() as? AgentConversationViewController else {
-        //            return
-        //        }
-        //        guard chatVC.channelId == channelID else {
-        //            return
-        //        }
-        //
-        //        guard let message = newConversation.lastMessage, (message.type == .botFormMessage || message.type == .botText) else {
-        //            return
-        //        }
-        //        message.status = .sent
-        //        chatVC.handleBotFaye(message: message, channelId: channelID)
-        //    }
-        
-        func isSubscribed() -> Bool {
-            return FayeConnection.shared.isChannelSubscribed(channelID: id)
+        storeInteracter.readAllNotificationFor(channelID: receivedChannelId)
+        delegate?.readAllNotificationFor(channelID: receivedChannelId)
+    }
+    
+    func handleAssignmentNotificationForChat(_ newConversation: AgentConversation, channelID: Int) {
+        guard let chatVC = getLastVisibleController() as? AgentConversationViewController, newConversation.notificationType  == NotificationType.assigned else {
+            return
         }
-        
-        deinit {
-            unSubscribe()
-            NotificationCenter.default.removeObserver(self)
+        guard chatVC.channelId == channelID, let message = newConversation.lastMessage else {
+            return
         }
+        chatVC.channel?.messageReceived(message: message)
+        //        chatVC.setAssignAlert(conversation: newConversation)
+    }
+    
+    //    func handleBotMessages(_ newConversation: AgentConversation, channelID: Int) {
+    //        guard let chatVC = getLastVisibleController() as? AgentConversationViewController else {
+    //            return
+    //        }
+    //        guard chatVC.channelId == channelID else {
+    //            return
+    //        }
+    //
+    //        guard let message = newConversation.lastMessage, (message.type == .botFormMessage || message.type == .botText) else {
+    //            return
+    //        }
+    //        message.status = .sent
+    //        chatVC.handleBotFaye(message: message, channelId: channelID)
+    //    }
+    
+    func isSubscribed() -> Bool {
+        return FayeConnection.shared.isChannelSubscribed(channelID: id)
+    }
+    
+    deinit {
+        unSubscribe()
+        NotificationCenter.default.removeObserver(self)
+    }
 }

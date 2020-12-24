@@ -274,7 +274,7 @@ extension AgentHomeViewController {
             self.bottomLineView.isHidden = false
             numberOfBtns = 3
         }
-        width_bottomLineView.constant = self.view.frame.size.width/CGFloat(numberOfBtns)
+        width_bottomLineView.constant = numberOfBtns > 0 ? self.view.frame.size.width/CGFloat(numberOfBtns) : 0
     }
     
     func checkForAnyError() {
@@ -921,6 +921,9 @@ extension AgentHomeViewController: AgentUserChannelDelegate {
     
     func newConversationRecieved(_ newConversation: AgentConversation, channelID: Int) {
         if AgentConversation.isAssignmentNotification(for: newConversation) {
+            if newConversation.chatType == .o2o || newConversation.channel_type == channelType.SUPPORT_CHAT_CHANNEL.rawValue{
+                return
+            }
             handleAssignmentNotification(with: newConversation, channelID: channelID)
             return
         }
