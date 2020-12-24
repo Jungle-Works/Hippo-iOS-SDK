@@ -297,11 +297,6 @@ func unSubscribe(userChannelId: String) {
 }
 
 func subscribeCustomerUserChannel(userChannelId: String) {
-    
-    guard !isSubscribed(userChannelId: userChannelId) else {
-        return
-    }
-    
     SocketClient.shared.subscribeSocketChannel(channel: userChannelId)
     HippoConfig.shared.userDetail?.listener?.startListening(event: SocketEvent.SERVER_PUSH.rawValue, callback: { (data) in
         if let messageDict = data as? [String : Any]{

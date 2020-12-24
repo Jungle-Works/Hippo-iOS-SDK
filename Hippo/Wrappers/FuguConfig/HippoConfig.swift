@@ -1018,8 +1018,6 @@ struct BotAction {
         }else if let messageType = payloadDict["message_type"] as? Int, messageType == MessageType.call.rawValue {
             CallManager.shared.voipNotificationRecieved(payloadDict: payloadDict)
         }
-        
-        handleRemoteNotification(userInfo: payloadDict)
         reportIncomingCallOnCallKit(userInfo: payloadDict, completion: completion)
     }
     
@@ -1159,16 +1157,6 @@ struct BotAction {
         
     }
     func handleCustomerNotification(userInfo: [String: Any]) {
-        if userInfo["notification_type"] as? Int == 25{
-            if let channelId = userInfo["user_channel_id"] as? String{
-                subscribeCustomerUserChannel(userChannelId: channelId)
-                return
-            }
-            return
-        }else if userInfo["notification_type"] as? Int == 20{
-           CallManager.shared.voipNotificationRecieved(payloadDict: userInfo)
-           return
-        }
         
         let visibleController = getLastVisibleController()
         
