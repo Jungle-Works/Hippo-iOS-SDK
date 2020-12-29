@@ -572,8 +572,8 @@ struct BotAction {
         }
     }
     
-    public func openPrePayment(paymentGatewayId : Int, prePaymentDic: [String : Any], completion: @escaping PrePaymentCompletion){
-        PrePayment.callPrePaymentApi(paymentGatewayId: paymentGatewayId, prePaymentDic: prePaymentDic, completion: completion)
+    public func openPrePayment(paymentGatewayId : Int, paymentType : Int?, prePaymentDic: [String : Any], completion: @escaping PrePaymentCompletion){
+        PrePayment.callPrePaymentApi(paymentGatewayId: paymentGatewayId, paymentType : paymentType, prePaymentDic: prePaymentDic, completion: completion)
     }
     
     public func getUnreadCountFor(with userUniqueKeys: [String]) {
