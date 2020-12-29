@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="vAr-Qq-z1C">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="vAr-Qq-z1C">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -1284,9 +1283,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PpZ-wt-1uB" sceneMemberID="firstResponder"/>
             </objects>
-
             <point key="canvasLocation" x="846" y="-145"/>
-
         </scene>
         <!--Select Image View Controller-->
         <scene sceneID="eyY-oJ-Kkw">
@@ -1385,6 +1382,54 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="K7N-5J-1b8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3236" y="-153"/>
+        </scene>
+        <!--Select Presciption Template Controller-->
+        <scene sceneID="zDL-Ql-HwH">
+            <objects>
+                <viewController id="58Q-sN-zfE" customClass="SelectPresciptionTemplateController" customModule="Hippo" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="IPN-g9-oUb"/>
+                        <viewControllerLayoutGuide type="bottom" id="0XB-7I-SaC"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Klm-XW-hap">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="had-uj-tyo" customClass="NavigationBar" customModule="Hippo" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="SwT-a2-UJT"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bSA-MM-dBx">
+                                <rect key="frame" x="0.0" y="50" width="375" height="617"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="58Q-sN-zfE" id="BLv-fO-omF"/>
+                                    <outlet property="delegate" destination="58Q-sN-zfE" id="bQe-66-S8g"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="bSA-MM-dBx" firstAttribute="leading" secondItem="Klm-XW-hap" secondAttribute="leading" id="2hY-DV-iuF"/>
+                            <constraint firstItem="had-uj-tyo" firstAttribute="top" secondItem="IPN-g9-oUb" secondAttribute="bottom" id="4pJ-x0-pdH"/>
+                            <constraint firstAttribute="trailing" secondItem="bSA-MM-dBx" secondAttribute="trailing" id="Ove-No-ojn"/>
+                            <constraint firstItem="had-uj-tyo" firstAttribute="leading" secondItem="Klm-XW-hap" secondAttribute="leading" id="dWk-mD-4gK"/>
+                            <constraint firstAttribute="trailing" secondItem="had-uj-tyo" secondAttribute="trailing" id="g1x-gk-ebV"/>
+                            <constraint firstItem="bSA-MM-dBx" firstAttribute="top" secondItem="had-uj-tyo" secondAttribute="bottom" id="vVH-Kj-pI1"/>
+                            <constraint firstItem="0XB-7I-SaC" firstAttribute="top" secondItem="bSA-MM-dBx" secondAttribute="bottom" id="woZ-XO-PuS"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="table_SelectTemplate" destination="bSA-MM-dBx" id="kpY-Hw-Hll"/>
+                        <outlet property="view_NavigationBar" destination="had-uj-tyo" id="rgt-3i-yCS"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="k6o-ie-ytD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4063.1999999999998" y="-143.47826086956522"/>
         </scene>
         <!--Level View Controller-->
         <scene sceneID="GfF-z1-9Zj">

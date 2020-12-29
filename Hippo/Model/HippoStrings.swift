@@ -164,6 +164,7 @@ public class HippoStrings {
     static var text = "Text".localized
     static var internalNotes = "Internal Notes".localized
     static var bot = "Bot".localized
+    static var presciption = "Presciption".localized
     static var privateMessagePlaceHolder = "Send an internal note to your team, use @name to tag".localized
     static var delivered = "Delivered".localized
     static var me = "Me".localized

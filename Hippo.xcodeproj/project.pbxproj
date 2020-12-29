@@ -14,6 +14,9 @@
 		6B45484A249B89C8006F84C7 /* HippoLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6B45484C249B89C8006F84C7 /* HippoLocalizable.strings */; };
 		6B584EF52502369800A7633A /* P2PUnreadData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B584EF42502369800A7633A /* P2PUnreadData.swift */; };
 		6B7C5FBA2588E30400D85BA2 /* O2OChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B7C5FB92588E30400D85BA2 /* O2OChat.swift */; };
+		6B84F0782599FD4700B6E349 /* SelectPresciptionTemplateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B84F0772599FD4700B6E349 /* SelectPresciptionTemplateController.swift */; };
+		6B84F07B259A00C500B6E349 /* PresciptionTemplateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B84F079259A00C500B6E349 /* PresciptionTemplateCell.swift */; };
+		6B84F07C259A00C500B6E349 /* PresciptionTemplateCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6B84F07A259A00C500B6E349 /* PresciptionTemplateCell.xib */; };
 		6B87979424BEDAB80093EA90 /* GroupCall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B87979324BEDAB80093EA90 /* GroupCall.swift */; };
 		6B87979624BEDBF10093EA90 /* AgentGroupCallChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B87979524BEDBF10093EA90 /* AgentGroupCallChat.swift */; };
 		6B888613258B6F8100EC79F1 /* SupportChatFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B888612258B6F8100EC79F1 /* SupportChatFilterViewController.swift */; };
@@ -431,6 +434,9 @@
 		6B45484D249B89D0006F84C7 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/HippoLocalizable.strings; sourceTree = "<group>"; };
 		6B584EF42502369800A7633A /* P2PUnreadData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = P2PUnreadData.swift; sourceTree = "<group>"; };
 		6B7C5FB92588E30400D85BA2 /* O2OChat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = O2OChat.swift; sourceTree = "<group>"; };
+		6B84F0772599FD4700B6E349 /* SelectPresciptionTemplateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPresciptionTemplateController.swift; sourceTree = "<group>"; };
+		6B84F079259A00C500B6E349 /* PresciptionTemplateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresciptionTemplateCell.swift; sourceTree = "<group>"; };
+		6B84F07A259A00C500B6E349 /* PresciptionTemplateCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PresciptionTemplateCell.xib; sourceTree = "<group>"; };
 		6B87979324BEDAB80093EA90 /* GroupCall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupCall.swift; sourceTree = "<group>"; };
 		6B87979524BEDBF10093EA90 /* AgentGroupCallChat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentGroupCallChat.swift; sourceTree = "<group>"; };
 		6B888612258B6F8100EC79F1 /* SupportChatFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportChatFilterViewController.swift; sourceTree = "<group>"; };
@@ -978,6 +984,23 @@
 			path = O2OChatModel;
 			sourceTree = "<group>";
 		};
+		6B84F0762599FD1400B6E349 /* SelectPresciptionTemplate */ = {
+			isa = PBXGroup;
+			children = (
+				6B84F0772599FD4700B6E349 /* SelectPresciptionTemplateController.swift */,
+			);
+			path = SelectPresciptionTemplate;
+			sourceTree = "<group>";
+		};
+		6B84F07D259A00D500B6E349 /* PresciptionTemplateCell */ = {
+			isa = PBXGroup;
+			children = (
+				6B84F079259A00C500B6E349 /* PresciptionTemplateCell.swift */,
+				6B84F07A259A00C500B6E349 /* PresciptionTemplateCell.xib */,
+			);
+			path = PresciptionTemplateCell;
+			sourceTree = "<group>";
+		};
 		6B91A93B24780AF4008AB4CC /* NavigationView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1075,6 +1098,7 @@
 				C93600D622EEC5EA00A6C291 /* AgentProfileTableViewCell */,
 				C93600D922EEC5EA00A6C291 /* BroadCast */,
 				C93600EF22EEC5EA00A6C291 /* FeedbackTableCell */,
+				6B84F07D259A00D500B6E349 /* PresciptionTemplateCell */,
 			);
 			path = TableViewCell;
 			sourceTree = "<group>";
@@ -1772,6 +1796,7 @@
 		C9B77DAD21A01B060092848D /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				6B84F0762599FD1400B6E349 /* SelectPresciptionTemplate */,
 				6BBBEA8124991C5900C3E1CE /* Popup */,
 				D88B900024657E2400E3093F /* FilterViewController.swift */,
 				D8F6D2BA24195D5800B168C5 /* NLevelViewController.swift */,
@@ -2663,6 +2688,7 @@
 				D85273CE2487E982006FC5CE /* AgentSdk.storyboard in Resources */,
 				D8F6D13224194C2200B168C5 /* ButtonTableViewCell.xib in Resources */,
 				D8F6D11624194A3200B168C5 /* LeadTableViewCell.xib in Resources */,
+				6B84F07C259A00C500B6E349 /* PresciptionTemplateCell.xib in Resources */,
 				C9B77EDB21A01B070092848D /* Info.plist in Resources */,
 				D8F6D0C52419465000B168C5 /* CardMessageTableViewCell.xib in Resources */,
 				D8F6D1062419498D00B168C5 /* BroadcastUserStatusCell.xib in Resources */,
@@ -2987,6 +3013,7 @@
 				D8F6D03A2418FB1C00B168C5 /* HippoImageView.swift in Sources */,
 				D8F6D24D2419588300B168C5 /* FuguHelpers.swift in Sources */,
 				D8F6D2DC24195E1000B168C5 /* BroadCastViewController.swift in Sources */,
+				6B84F0782599FD4700B6E349 /* SelectPresciptionTemplateController.swift in Sources */,
 				D8F6D1CA241951D000B168C5 /* UITableView+Extension.swift in Sources */,
 				D8F6D25E241958E200B168C5 /* HTML+Utilities.swift in Sources */,
 				D84F79F5245F49AC00B36168 /* PaymentItemDescriptionCell.swift in Sources */,
@@ -2994,6 +3021,7 @@
 				D8CD684824866EF1000F4097 /* NSAttributedString.swift in Sources */,
 				6B3C8F8E258A3FAA0086BD7F /* SupportChatViewModel.swift in Sources */,
 				6BB2E0D224BF50E900DCC6E7 /* GroupCallChannelData.swift in Sources */,
+				6B84F07B259A00C500B6E349 /* PresciptionTemplateCell.swift in Sources */,
 				D8F6D2642419591500B168C5 /* CloseButton.swift in Sources */,
 				D8F6D0842419000100B168C5 /* Benchmarker.swift in Sources */,
 				D8F6D0062418F9E600B168C5 /* CheckoutViewController.swift in Sources */,

@@ -1325,6 +1325,21 @@ extension HippoConversationViewController {
         self.present(navVC, animated: true, completion: nil)
     }
     
+    func openSelectTemplate(){
+        guard channelId > 0 else {
+            return
+        }
+        
+        let id = UInt(channelId)
+        
+        let vc = PaymentPlansViewController.get(channelId: id)
+        vc.sendNewPaymentDelegate = self
+        let navVC = UINavigationController(rootViewController: vc)
+        navVC.modalPresentationStyle = .fullScreen
+        navVC.navigationBar.isHidden = true
+//        navVC.setupCustomThemeOnNavigationController(hideNavigationBar: false)
+        self.present(navVC, animated: true, completion: nil)
+    }
 }
 
 

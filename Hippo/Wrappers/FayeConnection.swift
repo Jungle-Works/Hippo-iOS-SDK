@@ -165,6 +165,9 @@ class FayeConnection: NSObject {
     // MARK: - Helpers
     
     private func validate(channelID: inout String) {
+        if channelID == ""{
+            return
+        }
         if "\(channelID.first!)" != FayeConnection.channelPrefix {
             channelID = FayeConnection.channelPrefix + channelID
         }
