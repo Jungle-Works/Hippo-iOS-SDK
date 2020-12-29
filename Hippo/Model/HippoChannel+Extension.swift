@@ -106,8 +106,8 @@ extension HippoChannel: SignalingClient {
         
         let userChannelId = currentUserType() == .agent ? HippoConfig.shared.agentDetail?.userChannel : HippoUserDetail.HippoUserChannelId
         
-        FayeConnection.shared.send(messageDict: json, toChannelID: userChannelId ?? "") { (result) in
-            completion(result.success,result.error?.error as NSError?)
+        SocketClient.shared.send(messageDict: json, toChannelID: userChannelId ?? "") { (result) in
+            completion(result.isSuccess,result.error as NSError?)
         }
     }
 }

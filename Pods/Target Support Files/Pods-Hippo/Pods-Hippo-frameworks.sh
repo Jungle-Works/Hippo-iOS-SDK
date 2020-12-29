@@ -198,13 +198,23 @@ fi
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/MZFayeClient/MZFayeClient.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/Socket.IO-Client-Swift/SocketIO.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SocketRocket/SocketRocket.framework"
+<<<<<<< HEAD
   install_framework "${PODS_ROOT}/razorpay-pod/Pod/Razorpay.framework"
+=======
+  install_framework "${BUILT_PRODUCTS_DIR}/Starscream/Starscream.framework"
+>>>>>>> 8e2578b9ac4e296adb6f4f8e3af016be671955ac
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/MZFayeClient/MZFayeClient.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/Socket.IO-Client-Swift/SocketIO.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SocketRocket/SocketRocket.framework"
+<<<<<<< HEAD
   install_framework "${PODS_ROOT}/razorpay-pod/Pod/Razorpay.framework"
+=======
+  install_framework "${BUILT_PRODUCTS_DIR}/Starscream/Starscream.framework"
+>>>>>>> 8e2578b9ac4e296adb6f4f8e3af016be671955ac
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then
   wait

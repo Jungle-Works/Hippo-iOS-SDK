@@ -43,7 +43,7 @@ class FuguNetworkHandler: NSObject {
 //                print(">>>>>>connected")
                 
                 weakSelf.errorMessage(errorLabelColor: UIColor.orange, errorLabelMessage: HippoStrings.connecting, isToLoadFirstTime: false, needToBeHidden: false)
-                if FayeConnection.shared.isConnected == true {
+                if SocketClient.shared.isConnected() == true {
                     fuguDelay(0.5, completion: {
                         weakSelf.updateConnectedStatus()
                     })

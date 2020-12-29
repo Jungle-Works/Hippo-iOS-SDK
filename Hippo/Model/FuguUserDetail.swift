@@ -104,6 +104,8 @@ public class UserTag: NSObject {
     var userImage: URL?
     var selectedlanguage : String?
     var userChannel: String?
+    var listener : SocketListner?
+    
     static var shouldGetPaymentGateways : Bool = true
     
     class var HippoUserChannelId: String? {
@@ -160,9 +162,9 @@ public class UserTag: NSObject {
         }
         
        self.selectedlanguage = selectedlanguage
-        HippoUserDetail.shouldGetPaymentGateways = getPaymentGateways
-        
-        UserDefaults.standard.set(selectedlanguage, forKey: DefaultName.selectedLanguage.rawValue)
+       self.listener = HippoConfig.shared.listener
+       HippoUserDetail.shouldGetPaymentGateways = getPaymentGateways
+       UserDefaults.standard.set(selectedlanguage, forKey: DefaultName.selectedLanguage.rawValue)
     }
     
     func getUserTagsJSON() -> [[String: Any]] {
@@ -485,7 +487,6 @@ public class UserTag: NSObject {
         //        if FayeConnection.shared.isConnected{
         //            FayeConnection.shared.disconnectFaye()
         //        }
-
         //Clear agent data
         clearAgentData()
         

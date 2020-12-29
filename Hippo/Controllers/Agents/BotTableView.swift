@@ -113,7 +113,7 @@ extension BotTableView: UIPickerViewDelegate, UIPickerViewDataSource {
         return listArray.count
     }
     func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
-        let attributedText = NSMutableAttributedString(string: listArray[row].botName ?? "")
+        let attributedText = NSMutableAttributedString(string: listArray[row].botName )
         
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = .center

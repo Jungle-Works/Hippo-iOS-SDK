@@ -13,10 +13,9 @@
 		6B3C8F8E258A3FAA0086BD7F /* SupportChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B3C8F8D258A3FAA0086BD7F /* SupportChatViewModel.swift */; };
 		6B45484A249B89C8006F84C7 /* HippoLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6B45484C249B89C8006F84C7 /* HippoLocalizable.strings */; };
 		6B584EF52502369800A7633A /* P2PUnreadData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B584EF42502369800A7633A /* P2PUnreadData.swift */; };
-		6B7C5FBA2588E30400D85BA2 /* O2OChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B7C5FB92588E30400D85BA2 /* O2OChat.swift */; };
-		6B84F0782599FD4700B6E349 /* SelectPresciptionTemplateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B84F0772599FD4700B6E349 /* SelectPresciptionTemplateController.swift */; };
-		6B84F07B259A00C500B6E349 /* PresciptionTemplateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B84F079259A00C500B6E349 /* PresciptionTemplateCell.swift */; };
-		6B84F07C259A00C500B6E349 /* PresciptionTemplateCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6B84F07A259A00C500B6E349 /* PresciptionTemplateCell.xib */; };
+		6B7C5FB32587A17000D85BA2 /* SearchAgentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B7C5FB12587A16F00D85BA2 /* SearchAgentTableViewCell.swift */; };
+		6B7C5FB42587A17000D85BA2 /* SearchAgentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6B7C5FB22587A16F00D85BA2 /* SearchAgentTableViewCell.xib */; };
+		6B7C5FB72587AC3F00D85BA2 /* SearchAgentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B7C5FB62587AC3F00D85BA2 /* SearchAgentViewController.swift */; };
 		6B87979424BEDAB80093EA90 /* GroupCall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B87979324BEDAB80093EA90 /* GroupCall.swift */; };
 		6B87979624BEDBF10093EA90 /* AgentGroupCallChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B87979524BEDBF10093EA90 /* AgentGroupCallChat.swift */; };
 		6B888613258B6F8100EC79F1 /* SupportChatFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B888612258B6F8100EC79F1 /* SupportChatFilterViewController.swift */; };
@@ -28,6 +27,7 @@
 		6BBBEA8324991C7300C3E1CE /* BottomPopupController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BBBEA8224991C7300C3E1CE /* BottomPopupController.swift */; };
 		6BCCD5902490B86600C5CA0D /* FloatRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCCD58F2490B86600C5CA0D /* FloatRatingView.swift */; };
 		6BCD891324A2590800FD0A22 /* AllString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCD891224A2590800FD0A22 /* AllString.swift */; };
+		6BFC612625405EE9008BE42F /* SocketClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BFC612525405EE9008BE42F /* SocketClient.swift */; };
 		6BFF4B2024ED0F4E0062E6F7 /* HippoNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BFF4B1F24ED0F4E0062E6F7 /* HippoNotificationService.swift */; };
 		C9B77E6121A01B060092848D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9B77D7A21A01B060092848D /* Assets.xcassets */; };
 		C9B77E6321A01B060092848D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9B77D7C21A01B060092848D /* LaunchScreen.storyboard */; };
@@ -433,10 +433,15 @@
 		6B45484B249B89C8006F84C7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/HippoLocalizable.strings; sourceTree = "<group>"; };
 		6B45484D249B89D0006F84C7 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/HippoLocalizable.strings; sourceTree = "<group>"; };
 		6B584EF42502369800A7633A /* P2PUnreadData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = P2PUnreadData.swift; sourceTree = "<group>"; };
+
 		6B7C5FB92588E30400D85BA2 /* O2OChat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = O2OChat.swift; sourceTree = "<group>"; };
 		6B84F0772599FD4700B6E349 /* SelectPresciptionTemplateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPresciptionTemplateController.swift; sourceTree = "<group>"; };
 		6B84F079259A00C500B6E349 /* PresciptionTemplateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresciptionTemplateCell.swift; sourceTree = "<group>"; };
 		6B84F07A259A00C500B6E349 /* PresciptionTemplateCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PresciptionTemplateCell.xib; sourceTree = "<group>"; };
+		6B7C5FB12587A16F00D85BA2 /* SearchAgentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAgentTableViewCell.swift; sourceTree = "<group>"; };
+		6B7C5FB22587A16F00D85BA2 /* SearchAgentTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchAgentTableViewCell.xib; sourceTree = "<group>"; };
+		6B7C5FB62587AC3F00D85BA2 /* SearchAgentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAgentViewController.swift; sourceTree = "<group>"; };
+
 		6B87979324BEDAB80093EA90 /* GroupCall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupCall.swift; sourceTree = "<group>"; };
 		6B87979524BEDBF10093EA90 /* AgentGroupCallChat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentGroupCallChat.swift; sourceTree = "<group>"; };
 		6B888612258B6F8100EC79F1 /* SupportChatFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportChatFilterViewController.swift; sourceTree = "<group>"; };
@@ -448,6 +453,7 @@
 		6BBBEA8224991C7300C3E1CE /* BottomPopupController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomPopupController.swift; sourceTree = "<group>"; };
 		6BCCD58F2490B86600C5CA0D /* FloatRatingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatRatingView.swift; sourceTree = "<group>"; };
 		6BCD891224A2590800FD0A22 /* AllString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllString.swift; sourceTree = "<group>"; };
+		6BFC612525405EE9008BE42F /* SocketClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketClient.swift; sourceTree = "<group>"; };
 		6BFF4B1F24ED0F4E0062E6F7 /* HippoNotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HippoNotificationService.swift; sourceTree = "<group>"; };
 		6F7645C36ABF77183FAD526B /* Pods-Hippo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hippo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Hippo/Pods-Hippo.debug.xcconfig"; sourceTree = "<group>"; };
 		717BE1731EC1BE11003EA321 /* Hippo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hippo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -999,6 +1005,15 @@
 				6B84F07A259A00C500B6E349 /* PresciptionTemplateCell.xib */,
 			);
 			path = PresciptionTemplateCell;
+
+		6B7C5FB52587A18300D85BA2 /* SeachAgentCell */ = {
+			isa = PBXGroup;
+			children = (
+				6B7C5FB12587A16F00D85BA2 /* SearchAgentTableViewCell.swift */,
+				6B7C5FB22587A16F00D85BA2 /* SearchAgentTableViewCell.xib */,
+			);
+			path = SeachAgentCell;
+
 			sourceTree = "<group>";
 		};
 		6B91A93B24780AF4008AB4CC /* NavigationView */ = {
@@ -1033,6 +1048,14 @@
 				6BCCD58F2490B86600C5CA0D /* FloatRatingView.swift */,
 			);
 			path = "Rating View";
+			sourceTree = "<group>";
+		};
+		6BFC612425405E81008BE42F /* Socket */ = {
+			isa = PBXGroup;
+			children = (
+				6BFC612525405EE9008BE42F /* SocketClient.swift */,
+			);
+			path = Socket;
 			sourceTree = "<group>";
 		};
 		717BE16A1EC1BE11003EA321 = {
@@ -1099,6 +1122,7 @@
 				C93600D922EEC5EA00A6C291 /* BroadCast */,
 				C93600EF22EEC5EA00A6C291 /* FeedbackTableCell */,
 				6B84F07D259A00D500B6E349 /* PresciptionTemplateCell */,
+				6B7C5FB52587A18300D85BA2 /* SeachAgentCell */,
 			);
 			path = TableViewCell;
 			sourceTree = "<group>";
@@ -1570,6 +1594,7 @@
 		C9B77CF621A01B050092848D /* Wrappers */ = {
 			isa = PBXGroup;
 			children = (
+				6BFC612425405E81008BE42F /* Socket */,
 				D8F6D0442418FC3800B168C5 /* ParallexView */,
 				D8F6D04B2418FC4C00B168C5 /* MZFayeClient */,
 				D8F6D0552418FCA300B168C5 /* SocketRocket */,
@@ -1813,6 +1838,7 @@
 				C9B77DB021A01B060092848D /* BroadCasting */,
 				C9B77DB721A01B060092848D /* Agents */,
 				C9B77DBD21A01B060092848D /* Customer */,
+				6B7C5FB62587AC3F00D85BA2 /* SearchAgentViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -2703,6 +2729,7 @@
 				D8F6D0DB2419470000B168C5 /* PromotionTableViewCell.xib in Resources */,
 				D8F6D13F24194C9300B168C5 /* ItemTableViewCell.xib in Resources */,
 				D8F6D1B02419510F00B168C5 /* TitilliumWeb-Bold.ttf in Resources */,
+				6B7C5FB42587A17000D85BA2 /* SearchAgentTableViewCell.xib in Resources */,
 				C9B77E6121A01B060092848D /* Assets.xcassets in Resources */,
 				6B45484A249B89C8006F84C7 /* HippoLocalizable.strings in Resources */,
 				D8F6D01E2418FA7300B168C5 /* MultiSelectTableViewCell.xib in Resources */,
@@ -2772,14 +2799,16 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Hippo/Pods-Hippo-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/MZFayeClient/MZFayeClient.framework",
+				"${BUILT_PRODUCTS_DIR}/Socket.IO-Client-Swift/SocketIO.framework",
 				"${BUILT_PRODUCTS_DIR}/SocketRocket/SocketRocket.framework",
-				"${PODS_ROOT}/razorpay-pod/Pod/Razorpay.framework",
+				"${BUILT_PRODUCTS_DIR}/Starscream/Starscream.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MZFayeClient.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SocketIO.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SocketRocket.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Razorpay.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Starscream.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -2821,6 +2850,7 @@
 				D8F6D2BE24195D5900B168C5 /* PromotionsViewController.swift in Sources */,
 				D8F6D07E2418FFED00B168C5 /* Themes.swift in Sources */,
 				D8F6D2012419547C00B168C5 /* FuguAttributes.swift in Sources */,
+				6BFC612625405EE9008BE42F /* SocketClient.swift in Sources */,
 				D8F6D21D241954B400B168C5 /* HippoActionButton.swift in Sources */,
 				D8F6D2EE24195E9500B168C5 /* AllConversationsViewController.swift in Sources */,
 				D8F6D2B024195C3300B168C5 /* IQUIView+Hierarchy.swift in Sources */,
@@ -2828,6 +2858,7 @@
 				D8F6D2092419547C00B168C5 /* FuguChannelTag.swift in Sources */,
 				D88B20DF24619F90007FD382 /* Resource.swift in Sources */,
 				D8F6D11724194A3200B168C5 /* LeadTableViewCell.swift in Sources */,
+				6B7C5FB32587A17000D85BA2 /* SearchAgentTableViewCell.swift in Sources */,
 				D8F6D0C42419465000B168C5 /* CardMessageTableViewCell.swift in Sources */,
 				D8F6D2132419547C00B168C5 /* MessageContent.swift in Sources */,
 				D8F6D2A324195AE200B168C5 /* HippoKeyboardManager.swift in Sources */,
@@ -3003,6 +3034,7 @@
 				D88B20E124619F90007FD382 /* RequestModifier.swift in Sources */,
 				D8F6D1CE241951D000B168C5 /* UIColor+Extension.swift in Sources */,
 				D848D1B1245EEEDF00235322 /* PaymentPlan.swift in Sources */,
+				6B7C5FB72587AC3F00D85BA2 /* SearchAgentViewController.swift in Sources */,
 				D8CD684524866EF1000F4097 /* MentionsArray.swift in Sources */,
 				D8F6D0662418FDF300B168C5 /* FuguDefaults.swift in Sources */,
 				D8F6D0392418FB1C00B168C5 /* HippoRatingView.swift in Sources */,

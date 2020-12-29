@@ -20,9 +20,9 @@ public typealias PrePaymentCompletion = ((_ response: HippoError?) -> ())
 class PrePayment{
     static var razorPayView : RazorPayViewController?
   
-    class func callPrePaymentApi(paymentGatewayId : Int, prePaymentDic: [String : Any], completion: @escaping ((_ result: HippoError?) -> Void)) {
+    class func callPrePaymentApi(paymentGatewayId : Int, paymentType : Int?, prePaymentDic: [String : Any], completion: @escaping ((_ result: HippoError?) -> Void)) {
          
-        let params = PrePayment.getPrePaymentParams(paymentGatewayId,prePaymentDic)
+        let params = PrePayment.getPrePaymentParams(paymentGatewayId,paymentType, prePaymentDic)
          HippoConfig.shared.log.trace(params, level: .request)
          
         HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: FuguEndPoints.getPrePayment.rawValue) { (responseObject, error, tag, statusCode) in
@@ -50,23 +50,25 @@ class PrePayment{
         }
      }
     
-    static func getPrePaymentParams(_ paymentGatewayId : Int, _ prePaymentDic : [String : Any]) -> [String : Any]{
-
-            var json: [String: Any] = [:]
-            
-            let appSecretKey = HippoConfig.shared.appSecretKey
-            json["app_secret_key"] = appSecretKey
-            let enUserId: String = currentEnUserId()
-            json["en_user_id"] = enUserId
-            json["fetch_payment_url"] = 1
-            json["operation_type"] = 1
-            json["payment_items"] = [prePaymentDic]
-            json["user_id"] = currentUserId()
-            json["transaction_id"] = String.generateUniqueId()
-            json["payment_gateway_id"] = paymentGatewayId
-            json["is_sdk_flow"] = 1
-            
-            return json
+    static func getPrePaymentParams(_ paymentGatewayId : Int, _ paymentType : Int?, _ prePaymentDic : [String : Any]) -> [String : Any]{
+        
+        var json: [String: Any] = [:]
+        
+        let appSecretKey = HippoConfig.shared.appSecretKey
+        json["app_secret_key"] = appSecretKey
+        let enUserId: String = currentEnUserId()
+        json["en_user_id"] = enUserId
+        json["fetch_payment_url"] = 1
+        json["operation_type"] = 1
+        json["payment_items"] = [prePaymentDic]
+        json["user_id"] = currentUserId()
+        json["transaction_id"] = String.generateUniqueId()
+        json["payment_gateway_id"] = paymentGatewayId
+        json["is_sdk_flow"] = 1
+        if (paymentType ?? 0) > 0{
+            json["payment_type"] = paymentType
+        }
+        return json
     }
     
     

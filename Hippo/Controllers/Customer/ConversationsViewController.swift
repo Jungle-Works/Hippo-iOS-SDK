@@ -242,7 +242,9 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         }
         
         channel.delegate = self
-        
+        if !channel.isSubscribed(){
+            channel?.subscribe()
+        }
         populateTableViewWithChannelData()
         fetchMessagesFrom1stPage()
         //HippoConfig.shared.notifyDidLoad()//
@@ -293,6 +295,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     
    override  func viewWillAppear(_ animated: Bool) {
       super.viewWillAppear(animated)
+     HippoConfig.shared.hideTabbar?(true)
       tableViewChat.contentInset.top = 12
       messageTextView.contentInset.top = 8
       self.navigationController?.isNavigationBarHidden = true
@@ -322,9 +325,10 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     override func viewWillLayoutSubviews() {
         
         //hide
-        self.tabBarController?.hidesBottomBarWhenPushed = true
-        self.tabBarController?.tabBar.isHidden = true
-        self.tabBarController?.tabBar.layer.zPosition = -1
+//        self.tabBarController?.hidesBottomBarWhenPushed = true
+//        self.tabBarController?.tabBar.isHidden = true
+//        self.tabBarController?.tabBar.layer.zPosition = -1
+ //       HippoConfig.shared.hideTabbar?(true)
     }
 
     override func closeKeyBoard() {
@@ -367,7 +371,11 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
    
     override func didSetChannel() {
         channel?.delegate = self
+        if !channel.isSubscribed(){
+            channel?.subscribe()
+        }
     }
+    
     func navigationSetUp() {
         /*navigationBackgroundView.layer.shadowColor = UIColor.black.cgColor
         navigationBackgroundView.layer.shadowOpacity = 0.25
@@ -567,7 +575,9 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
          }
         
         channel.delegate = self
-
+        if !channel.isSubscribed(){
+            channel?.subscribe()
+        }
         populateTableViewWithChannelData()
         fetchMessagesFrom1stPage()
         HippoConfig.shared.notifyDidLoad()
@@ -731,9 +741,13 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         }
         
         if channel != nil, !channel.isSubscribed()  {
-            buttonClickedOnNetworkOff()
+            channel.subscribe()
+        }
+        
+        if FuguNetworkHandler.shared.isNetworkConnected == false || SocketClient.shared.isConnected() == false{
             return
         }
+        
         if isMessageInvalid(messageText: messageTextStr) {
             return
         }
@@ -796,6 +810,11 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         }
     }
    
+    override func callGetMessagesApi(){
+        self.getMessagesAfterCreateConversation(callback: { (success) in
+        })
+    }
+    
     func sendQuickReplyReposeIfRequired() {
         guard self.channel != nil else {
             return
@@ -832,6 +851,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     }
     
    override func backButtonClicked() {
+         HippoConfig.shared.hideTabbar?(false)
         super.backButtonClicked()
         backNavigationDataSaving()
         if self.navigationController == nil {
@@ -872,8 +892,8 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         
         if channel != nil {
             self.channel.saveMessagesInCache()
+            self.channel.deinitObservers()
         }
-        
     }
     
  override func clearUnreadCountForChannel(id: Int) {
@@ -1276,6 +1296,9 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         if result.channelID > 0 {
             weakSelf.channel = FuguChannelPersistancyManager.shared.getChannelBy(id: result.channelID)
             weakSelf.channel.delegate = self
+            if !weakSelf.channel.isSubscribed(){
+                weakSelf.channel?.subscribe()
+            }
             weakSelf.populateTableViewWithChannelData()
         }
         
@@ -1424,7 +1447,9 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         userImage = result.channel?.chatDetail?.channelImageUrl
         channel = result.channel
         channel.delegate = self
-        
+        if !channel.isSubscribed(){
+            channel?.subscribe()
+        }
         setTitleForCustomNavigationBar()
         
         let (sentMessage, unsentMessage) = getMessageFromGrouped(messages: messagesGroupedByDate)
@@ -2109,8 +2134,10 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                  cell.setUpData(messageObject: message, isIncomingMessage: !isOutgoingMsg)
                  cell.layoutIfNeeded()
                  cell.layoutSubviews()
-                 //cell.actionableMessageTableView.reloadData()
-                 //cell.tableViewHeightConstraint.constant = self.getHeightOfActionableMessageAt(indexPath: indexPath, chatObject: message)
+                 tableView.layoutIfNeeded()
+//                 cell.actionableMessageTableView.reloadData()
+//                 cell.tableViewHeightConstraint.constant = self.getHeightOfActionableMessageAt(indexPath: indexPath, chatObject: message)
+
                  cell.backgroundColor = UIColor.clear
                  return cell
              case .attachment:
@@ -2315,7 +2342,6 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                     }
                 case .actionableMessage,.hippoPay:
                     return UIView.tableAutoDimensionHeight > -1 ? UIView.tableAutoDimensionHeight : self.getHeightOfActionableMessageAt(indexPath: indexPath, chatObject: message) + 20
-                
                 case MessageType.feedback:
                     
 //                    guard let muid = message.messageUniqueID, var rowHeight: CGFloat = heightForFeedBackCell["\(muid)"] else {
@@ -2328,6 +2354,9 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                 case MessageType.call:
                     return UIView.tableAutoDimensionHeight
                 case .card:
+                    if (message.isSearchFlow && (message.selectedCardId ?? "") == ""){
+                     return 50
+                    }
                     return 230
                 case .paymentCard:
                     return message.calculatedHeight ?? 0.1
@@ -2362,8 +2391,11 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
             case .call:
                 return 85
             case .card:
+                if (message.isSearchFlow && (message.selectedCardId ?? "") == ""){
+                    return 50
+                }
                 return 190
-            case .actionableMessage:
+            case .actionableMessage, .hippoPay:
                 return 100
             default:
                 return self.tableView(tableView, heightForRowAt: indexPath)
@@ -2493,6 +2525,10 @@ func getHeighOfButtonCollectionView(actionableMessage: FuguActionableMessage) ->
     }
     
     func getHeightOfActionableMessageAt(indexPath: IndexPath, chatObject: HippoMessage)-> CGFloat {
+        if let cell = tableViewChat.cellForRow(at: indexPath) as? ActionableMessageTableViewCell{
+            return cell.tableViewHeightConstraint.constant
+        }
+        
         let chatMessageObject = chatObject
         var cellHeight = CGFloat(0)
         let bottomSpace = CGFloat(15)
@@ -2577,6 +2613,13 @@ func getHeighOfButtonCollectionView(actionableMessage: FuguActionableMessage) ->
     }
 }
 
+extension ConversationsViewController{
+    func openSearchAgentScreen(){
+        let vc = SearchAgentViewController.getNewInstance()
+        self.navigationController?.present(vc, animated: true, completion: nil)
+    }
+    
+}
 
 extension ConversationsViewController {
     
@@ -2759,7 +2802,7 @@ extension ConversationsViewController: HippoChannelDelegate {
         tableViewChat.reloadData()
     }
     
-    func cancelSendingMessage(message: HippoMessage, errorMessage: String?,errorCode : FayeConnection.FayeError?) {
+    func cancelSendingMessage(message: HippoMessage, errorMessage: String?,errorCode : SocketClient.SocketError?) {
         self.cancelMessage(message: message)
         
         if let message = errorMessage {
@@ -2767,7 +2810,7 @@ extension ConversationsViewController: HippoChannelDelegate {
             updateErrorLabelView(isHiding: true)
         }
         
-        if errorCode == FayeConnection.FayeError.personalInfoSharedError{
+        if errorCode == SocketClient.SocketError.personalInfoSharedError{
             self.messageTextView.text = message.message
         }
     }

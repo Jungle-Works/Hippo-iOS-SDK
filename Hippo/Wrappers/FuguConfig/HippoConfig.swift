@@ -10,6 +10,10 @@ import UIKit
 import AVFoundation
 #if canImport(HippoCallClient)
   import HippoCallClient
+ 
+#endif
+#if canImport(JitsiMeet)
+   import JitsiMeet
 #endif
 
 #if canImport(JitsiMeet)
@@ -33,7 +37,7 @@ enum AgentUserType: Int {
 struct SERVERS {
 
 static let liveUrl = "https://api.hippochat.io/"
-static let liveFaye = "wss://faye.hippochat.io/faye"
+static let liveFaye = "https://socketv2.hippochat.io/faye"
 
 static let betaUrl = "https://beta-live-api.fuguchat.com:3001/"
 static let betaFaye = "https://beta-live-api.fuguchat.com:3001/faye"
@@ -161,7 +165,8 @@ struct BotAction {
     public var HippoSessionStatus: ((GroupCallStatus)->())?
     public var announcementUnreadCount : ((Int)->())?
     var supportChatFilter : [SupportFilter]?
-    
+    public var hideTabbar : ((Bool)->())?
+   
     internal let powererdByColor = #colorLiteral(red: 0.4980392157, green: 0.4980392157, blue: 0.4980392157, alpha: 1)
     internal let FuguColor = #colorLiteral(red: 0.3843137255, green: 0.4901960784, blue: 0.8823529412, alpha: 1)
     internal let poweredByFont: UIFont = UIFont.regular(ofSize: 10.0)
@@ -179,7 +184,7 @@ struct BotAction {
             }
         }
     }
-
+    internal let listener = SocketListner()
     ///turn its value true to show slow internet bar on chat screen
     public var shouldShowSlowInternetBar : Bool?
     
@@ -444,7 +449,7 @@ struct BotAction {
         AgentDetail.setAgentStoredData()
         checker.presentChatsViewController()
     }
-    func getAgentChatVC() -> UIViewController?{
+    public func getAgentChatVC() -> UIViewController?{
          guard HippoConfig.shared.appUserType == .agent else {
              return nil
          }
@@ -454,6 +459,20 @@ struct BotAction {
          return nav.viewControllers.first
      }
 
+    public func getCustomerChatVC() -> UINavigationController?{
+        guard HippoConfig.shared.appUserType == .customer else {
+            return nil
+        }
+        guard let navigationController = UIStoryboard(name: "FuguUnique", bundle: FuguFlowManager.bundle).instantiateViewController(withIdentifier: "FuguCustomerNavigationController") as? UINavigationController else {
+            return nil
+        }
+        (navigationController.viewControllers.first as? AllConversationsViewController)?.shouldHideBackBtn = true
+        
+        return navigationController
+    }
+    
+    
+    
     func presentPrePaymentController(){
         
     }
@@ -559,8 +578,8 @@ struct BotAction {
         }
     }
     
-    public func openPrePayment(paymentGatewayId : Int, prePaymentDic: [String : Any], completion: @escaping PrePaymentCompletion){
-        PrePayment.callPrePaymentApi(paymentGatewayId: paymentGatewayId, prePaymentDic: prePaymentDic, completion: completion)
+    public func openPrePayment(paymentGatewayId : Int, paymentType : Int?, prePaymentDic: [String : Any], completion: @escaping PrePaymentCompletion){
+        PrePayment.callPrePaymentApi(paymentGatewayId: paymentGatewayId, paymentType : paymentType, prePaymentDic: prePaymentDic, completion: completion)
     }
     
     public func getUnreadCountFor(with userUniqueKeys: [String]) {
@@ -847,7 +866,8 @@ struct BotAction {
             baseUrl = SERVERS.liveUrl
             fayeBaseURLString = SERVERS.liveFaye
         }
-        FayeConnection.shared.enviromentSwitchedWith(urlString: fayeBaseURLString)
+//        FayeConnection.shared.enviromentSwitchedWith(urlString: fayeBaseURLString)
+        SocketClient.shared.connect()
     }
     
     
@@ -997,16 +1017,6 @@ struct BotAction {
         return false
     }
     
-    public func handleVoipNotification(payload: [AnyHashable: Any], completion: @escaping () -> Void) {
-        guard let json = payload as? [String: Any] else {
-            return
-        }
-        
-        //HippoNotification.showLocalNotificationForVoip(json)
-        self.handleVoipNotification(payloadDict: json, completion: completion)
-        
-    }
-        
     public func handleVoipNotification(payloadDict: [String: Any], completion: @escaping () -> Void) {
         
         if let messageType = payloadDict["message_type"] as? Int, messageType == MessageType.groupCall.rawValue{
@@ -1014,8 +1024,6 @@ struct BotAction {
         }else if let messageType = payloadDict["message_type"] as? Int, messageType == MessageType.call.rawValue {
             CallManager.shared.voipNotificationRecieved(payloadDict: payloadDict)
         }
-        
-        handleRemoteNotification(userInfo: payloadDict)
         reportIncomingCallOnCallKit(userInfo: payloadDict, completion: completion)
     }
     
@@ -1100,43 +1108,7 @@ struct BotAction {
         }
     
     
-    func subscribeChannelAndStartListening(_ channelId : Int){
-        FayeConnection.shared.subscribeTo(channelId: "\(channelId)", completion: {(success) in
-            if !success{
-                if !FayeConnection.shared.isConnected && FuguNetworkHandler.shared.isNetworkConnected{
-                    //FayeConnection.shared.enviromentSwitchedWith(urlString: self.fayeBaseURLString)
-                    var retryAttempt = 0
-                    fuguDelay(0.2) {
-                        if retryAttempt <= 3{
-                            self.subscribeChannelAndStartListening(channelId)
-                            retryAttempt += 1
-                        }else{
-                            return
-                        }
-                    }
-                }
-            }
-            print("channel subscribed", success)
-        }) {(messageDict) in
-            print(messageDict)
-            if let messageType = messageDict["message_type"] as? Int, messageType == MessageType.groupCall.rawValue{
-                CallManager.shared.voipNotificationRecievedForGroupCall(payloadDict: messageDict)
-                unSubscribe(userChannelId: "\(channelId)")
-            }else if let messageType = messageDict["message_type"] as? Int, messageType == MessageType.call.rawValue {
-                CallManager.shared.voipNotificationRecieved(payloadDict: messageDict)
-            }
-        }
-    }
-    
     func handleAgentNotification(userInfo: [String: Any]) {
-        if userInfo["notification_type"] as? Int == 25{
-            return
-        }else if userInfo["notification_type"] as? Int == 20{
-            if let channelId = userInfo["channel_id"] as? Int{
-                subscribeChannelAndStartListening(channelId)
-                return
-            }
-        }
         
         let visibleController = getLastVisibleController()
         let channelId = (userInfo["channel_id"] as? Int) ?? -1
@@ -1191,16 +1163,6 @@ struct BotAction {
         
     }
     func handleCustomerNotification(userInfo: [String: Any]) {
-        if userInfo["notification_type"] as? Int == 25{
-            if let channelId = userInfo["user_channel_id"] as? String{
-                subscribeCustomerUserChannel(userChannelId: channelId)
-                return
-            }
-            return
-        }else if userInfo["notification_type"] as? Int == 20{
-           CallManager.shared.voipNotificationRecieved(payloadDict: userInfo)
-           return
-        }
         
         let visibleController = getLastVisibleController()
         

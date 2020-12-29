@@ -5,8 +5,10 @@ target 'Hippo' do
   # Comment this line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
 
-  # Pods for Fugu
+  pod 'Socket.IO-Client-Swift'
   
+<<<<<<< HEAD
+=======
   pod 'MZFayeClient'
   pod 'razorpay-pod'
 
@@ -23,5 +25,6 @@ target 'Hippo' do
       end
       
   end
+>>>>>>> b7e0a00ee294148bc6934e971fe932e342358688
   
 end
