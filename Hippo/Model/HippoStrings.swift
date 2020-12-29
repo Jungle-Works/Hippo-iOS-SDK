@@ -210,9 +210,8 @@ public class HippoStrings {
     static var edited = "Edited".localized
     static var copy = "Copy".localized
     static var deleteMessage = "deleted this message.".localized
-
     static var establishingConnection = "Please wait while we are establishing the connection.."
- 
+    
     open var disbaledCameraErrorMessage = "Access to Camera is denied. Please enable from setings."
     
     static var myChatsOnly = "My Chats Only".localized
@@ -270,7 +269,7 @@ public class HippoStrings {
         HippoCallClientStrings.callDeclined = HippoStrings.callDeclined
         HippoCallClientStrings.busyOnOtherCall = HippoStrings.busyAnotherCall
         HippoCallClientStrings.connectingToMeeting = HippoStrings.connectingToMeeting
-        HippoCallClientStrings.establishingConnection = HippoStrings.establishingConnection
+//        HippoCallClientStrings.establishingConnection = HippoStrings.establishingConnection
         
         #endif
     }

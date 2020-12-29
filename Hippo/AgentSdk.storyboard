@@ -198,7 +198,7 @@
                                 </state>
                             </button>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qXQ-cI-C7R">
-                                <rect key="frame" x="0.0" y="90" width="375" height="577"/>
+                                <rect key="frame" x="0.0" y="40" width="375" height="627"/>
                                 <subviews>
                                     <imageView hidden="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="app_loader_shape" translatesAutoresizingMaskIntoConstraints="NO" id="F3C-jv-Sxi" customClass="So_UIImageView" customModule="Hippo" customModuleProvider="target">
                                         <rect key="frame" x="167.5" y="268.5" width="40" height="40"/>
@@ -212,7 +212,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6XP-nX-Ex8">
-                                <rect key="frame" x="0.0" y="90" width="375" height="0.0"/>
+                                <rect key="frame" x="0.0" y="40" width="375" height="0.0"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Internet Connection" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VJ9-9Q-lTV">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="0.0"/>
@@ -565,7 +565,6 @@
                                     <constraint firstItem="MB6-uF-kEa" firstAttribute="top" secondItem="9Gj-e4-N76" secondAttribute="top" id="COY-g6-dtj"/>
                                     <constraint firstItem="9Gj-e4-N76" firstAttribute="trailing" secondItem="MB6-uF-kEa" secondAttribute="trailing" id="Wa7-VL-7aj"/>
                                     <constraint firstItem="9Gj-e4-N76" firstAttribute="centerY" secondItem="mF9-lG-KfK" secondAttribute="centerY" id="YxU-ot-0ho"/>
-                                    <constraint firstItem="9Gj-e4-N76" firstAttribute="leading" secondItem="MB6-uF-kEa" secondAttribute="leading" constant="5" id="afA-My-odZ"/>
                                     <constraint firstItem="MB6-uF-kEa" firstAttribute="top" secondItem="mF9-lG-KfK" secondAttribute="top" constant="3" id="e6y-c8-2cC"/>
                                     <constraint firstItem="z7L-h6-k2g" firstAttribute="top" secondItem="mF9-lG-KfK" secondAttribute="top" id="fXO-Lr-dGd"/>
                                     <constraint firstAttribute="trailing" secondItem="8v1-aY-upr" secondAttribute="trailing" id="hbj-bg-J7z"/>

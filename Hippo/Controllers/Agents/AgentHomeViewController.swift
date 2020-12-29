@@ -131,11 +131,13 @@ class AgentHomeViewController: HippoHomeViewController {
         guard conversationType != .allChat else {
             return
         }
+
         reloadrefreshData(refreshCtrler: UIRefreshControl())
         self.myChatButton.titleLabel?.font = UIFont.regular(ofSize: 15)
         self.allChatButton.titleLabel?.font = UIFont.bold(ofSize: 15)
         self.o2oChatButton.titleLabel?.font = UIFont.regular(ofSize: 15)
         view_NavigationBar.rightButton.isHidden = false
+
         conversationType = .allChat
         animateBottomLineView()
         setData()

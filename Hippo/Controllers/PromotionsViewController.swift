@@ -344,48 +344,35 @@ extension PromotionsViewController: UITableViewDelegate,UITableViewDataSource
             cell.showReadMoreLessButton.addTarget(self, action: #selector(expandCellSize(_:)), for: .touchUpInside)
             //cell.descriptionLabel.numberOfLines = 2
             let values = data[indexPath.row]
+            let croppedDescription = values.description?.count ?? 0 > 150 ? String(values.description?.prefix(150) ?? "") : values.description ?? ""
             cell.promotionTitle.attributedText = NSAttributedString(string:  values.title ?? "")
-            
             cell.fullDescriptionLabel.attributedText = NSAttributedString(string:  values.description ?? "")
-            
-            cell.descriptionLabel.text = values.description
+            cell.descriptionLabel.attributedText = NSAttributedString(string:  croppedDescription)
+            cell.descriptionLabel.dataDetectorTypes = UIDataDetectorTypes.all
+            cell.fullDescriptionLabel.dataDetectorTypes = UIDataDetectorTypes.all
             if (values.description?.count)! > 150{
-                cell.descriptionLabel.numberOfLines = 2
+            
                 cell.showReadMoreLessButton.isHidden = false
                 cell.showReadMoreLessButtonHeightConstraint.constant = 30
             }else{
-                cell.descriptionLabel.numberOfLines = 0
+                
                 cell.showReadMoreLessButton.isHidden = true
                 cell.showReadMoreLessButtonHeightConstraint.constant = 0
             }
-            if states[indexPath.row] == true{
+            if indexPath.row < states.count, states[indexPath.row] == true{
                 cell.descriptionLabel.isHidden = false
                 cell.fullDescriptionLabel.isHidden = true
-                //cell.showReadMoreLessButton.setTitle("Read More", for: .normal)
-                //                let attrs = NSAttributedString(string: "Read more",
-                //                                               attributes:
-                //                    [NSAttributedString.Key.foregroundColor: UIColor(red:109.0/255.0, green:212.0/255.0, blue:0.0/255.0, alpha:1.0),
-                //                     NSAttributedString.Key.font: UIFont.regular(ofSize: 16.0),
-                //                     NSAttributedString.Key.underlineColor: UIColor(red:109.0/255.0, green:212.0/255.0, blue:0.0, alpha:1.0),
-                //                     NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue])
-                //                cell.showReadMoreLessButton.setAttributedTitle(attrs, for: .normal)
                 cell.showReadMoreLessButton.setTitle(HippoStrings.readMore, for: .normal)
                 cell.showReadMoreLessButton.titleLabel?.font = UIFont.regular(ofSize: 14.0)
                 cell.showReadMoreLessButton.setTitleColor(HippoConfig.shared.theme.themeColor, for: .normal)
                 
-            }else if states[indexPath.row] == false{
+            }else if indexPath.row < states.count, states[indexPath.row] == false{
                 cell.descriptionLabel.isHidden = true
                 cell.fullDescriptionLabel.isHidden = false
                 cell.showReadMoreLessButton.setTitle(HippoStrings.readLess, for: .normal)
                 cell.showReadMoreLessButton.titleLabel?.font = UIFont.regular(ofSize: 14.0)
                 cell.showReadMoreLessButton.setTitleColor(HippoConfig.shared.theme.themeColor, for: .normal)
-                //                let attrs = NSAttributedString(string: "Read less",
-                //                                               attributes:
-                //                    [NSAttributedString.Key.foregroundColor: UIColor(red:109.0/255.0, green:212.0/255.0, blue:0.0, alpha:1.0),
-                //                     NSAttributedString.Key.font: UIFont.regular(ofSize: 16.0),
-                //                     NSAttributedString.Key.underlineColor: UIColor(red:109.0/255.0, green:212.0/255.0, blue:0.0, alpha:1.0),
-                //                     NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue])
-                //                cell.showReadMoreLessButton.setAttributedTitle(attrs, for: .normal)
+
             }else{}
             
             return cell
@@ -409,11 +396,13 @@ extension PromotionsViewController: UITableViewDelegate,UITableViewDataSource
             UIView.setAnimationsEnabled(true)
            // self.promotionsTableView.setContentOffset(currentOffset, animated: false)
             self.promotionsTableView.scrollToRow(at: indexpath, at: .top, animated: false)
+
         }else if states[row] == false{
             states[row] = true
             UIView.setAnimationsEnabled(false)
             self.promotionsTableView.beginUpdates()
             self.promotionsTableView.reloadRows(at: [indexpath], with: .none)
+
             self.promotionsTableView.layoutIfNeeded()
             self.promotionsTableView.endUpdates()
             UIView.setAnimationsEnabled(true)

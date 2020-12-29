@@ -122,8 +122,8 @@ class HippoConversationViewController: UIViewController {
         removeKeyboardNotificationObserver()
         removeAppDidEnterForegroundObserver()
         removeNotificationObserverToKnowWhenAppIsKilledOrMovedToBackground()
-        NotificationCenter.default.removeObserver(self, name: .fayeConnected, object: nil)
-        NotificationCenter.default.removeObserver(self, name: .fayeDisconnected, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .socketConnected, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .socketDisconnected, object: nil)
     }
     
     //Set Delegate For channels
@@ -137,7 +137,7 @@ class HippoConversationViewController: UIViewController {
     func startNewConversation(replyMessage: HippoMessage?, completion: ((_ success: Bool, _ result: HippoChannelCreationResult?) -> Void)?) { }
     func startLoaderAnimation() { }
     func stopLoaderAnimation() { }
-    
+    func callGetMessagesApi() { }
     
     func clearUnreadCountForChannel(id: Int) { }
     @objc func titleButtonclicked() { }
@@ -260,8 +260,8 @@ class HippoConversationViewController: UIViewController {
     }
     
     func registerFayeNotification() {
-        NotificationCenter.default.addObserver(self, selector: #selector(self.fayeConnected), name: .fayeConnected, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.fayeDisconnected), name: .fayeDisconnected, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.fayeConnected), name: .socketConnected, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.fayeDisconnected), name: .socketDisconnected, object: nil)
     }
     func registerNotificationToKnowWhenAppIsKilledOrMovedToBackground() {
         #if swift(>=4.2)
@@ -324,7 +324,7 @@ class HippoConversationViewController: UIViewController {
         
         tableViewChat.register(UINib(nibName: "ActionTableView", bundle: bundle), forCellReuseIdentifier: "ActionTableView")
         tableViewChat.register(UINib(nibName: "CardMessageTableViewCell", bundle: bundle), forCellReuseIdentifier: "CardMessageTableViewCell")
-        
+        tableViewChat.register(UINib(nibName: "SearchAgentTableViewCell", bundle: bundle), forCellReuseIdentifier: "SearchAgentTableViewCell")
         
     }
     
@@ -1158,7 +1158,12 @@ extension HippoConversationViewController {
                 let isReplyMessageSent = result?.isReplyMessageSent ?? false
                 
                 if !isReplyMessageSent {
-                    self?.channel?.send(message: message, completion: {})
+                    message.status = .none
+                    self?.channel?.send(message: message, completion: {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5, execute: {
+                            self?.callGetMessagesApi()
+                        })
+                    })
                 }
             }
         } else {

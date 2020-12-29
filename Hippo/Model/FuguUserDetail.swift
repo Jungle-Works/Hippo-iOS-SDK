@@ -104,6 +104,8 @@ public class UserTag: NSObject {
     var userImage: URL?
     var selectedlanguage : String?
     var userChannel: String?
+    var listener : SocketListner?
+    
     static var shouldGetPaymentGateways : Bool = true
     
     class var HippoUserChannelId: String? {
@@ -160,9 +162,9 @@ public class UserTag: NSObject {
         }
         
        self.selectedlanguage = selectedlanguage
-        HippoUserDetail.shouldGetPaymentGateways = getPaymentGateways
-        
-        UserDefaults.standard.set(selectedlanguage, forKey: DefaultName.selectedLanguage.rawValue)
+       self.listener = HippoConfig.shared.listener
+       HippoUserDetail.shouldGetPaymentGateways = getPaymentGateways
+       UserDefaults.standard.set(selectedlanguage, forKey: DefaultName.selectedLanguage.rawValue)
     }
     
     func getUserTagsJSON() -> [[String: Any]] {
@@ -485,7 +487,6 @@ public class UserTag: NSObject {
         //        if FayeConnection.shared.isConnected{
         //            FayeConnection.shared.disconnectFaye()
         //        }
-
         //Clear agent data
         clearAgentData()
         
@@ -528,37 +529,36 @@ public class UserTag: NSObject {
         completion?(true)
     }
     
-    class func logoutFromFugu(completion: ((Bool) -> Void)? = nil) {
-        if HippoConfig.shared.appSecretKey.isEmpty {
-            completion?(false)
-            return
-            
-        }
-        var params: [String: Any] = [
-            "app_secret_key": HippoConfig.shared.appSecretKey
-        ]
-        
-        if let savedUserId = HippoUserDetail.fuguEnUserID {
-            params["en_user_id"] = savedUserId
-        }
-        
-        let deviceToken = TokenManager.deviceToken
-        let voipToken = TokenManager.voipToken
-        
-        HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: FuguEndPoints.API_CLEAR_USER_DATA_LOGOUT.rawValue) { (responseObject, error, tag, statusCode) in
-            if currentUserType() == .customer{
-                unSubscribe(userChannelId: HippoUserDetail.HippoUserChannelId ?? "")
-            }else{
-                unSubscribe(userChannelId: HippoConfig.shared.agentDetail?.userChannel ?? "")
+       class func logoutFromFugu(completion: ((Bool) -> Void)? = nil) {
+            if HippoConfig.shared.appSecretKey.isEmpty {
+                completion?(false)
+                return
+                
             }
-            clearAllData(completion: completion)
-            TokenManager.deviceToken = deviceToken
-            TokenManager.voipToken = voipToken
-            unSubscribe(userChannelId: HippoConfig.shared.appSecretKey + "/" + "markConversation")
-            //            let tempStatusCode = statusCode ?? 0
-            //            let success = (200 <= tempStatusCode) && (300 > tempStatusCode)
-            //            completion?(success)
+            var params: [String: Any] = [
+                "app_secret_key": HippoConfig.shared.appSecretKey
+            ]
+            
+            if let savedUserId = HippoUserDetail.fuguEnUserID {
+                params["en_user_id"] = savedUserId
+            }
+            
+            let deviceToken = TokenManager.deviceToken
+            let voipToken = TokenManager.voipToken
+            
+            HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: FuguEndPoints.API_CLEAR_USER_DATA_LOGOUT.rawValue) { (responseObject, error, tag, statusCode) in
+                if currentUserType() == .customer{
+                    unSubscribe(userChannelId: HippoUserDetail.HippoUserChannelId ?? "")
+                }else{
+                    unSubscribe(userChannelId: HippoConfig.shared.agentDetail?.userChannel ?? "")
+                }
+                clearAllData(completion: completion)
+                TokenManager.deviceToken = deviceToken
+                TokenManager.voipToken = voipToken
+                unSubscribe(userChannelId: HippoConfig.shared.appSecretKey + "/" + "markConversation")
+    //            let tempStatusCode = statusCode ?? 0
+    //            let success = (200 <= tempStatusCode) && (300 > tempStatusCode)
+    //            completion?(success)
+            }
         }
-    }
-
 }
