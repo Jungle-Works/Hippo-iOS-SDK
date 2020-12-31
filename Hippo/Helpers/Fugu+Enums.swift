@@ -427,6 +427,7 @@ enum AgentEndPoints: String {
     case editDeleteMessage = "api/conversation/deleteOrEditMessage"
     case getAgentSupportChannelListing = "api/conversation/getAgentSupportChannels"
     case getAgentInfo = "api/users/getUserDetails"
+    case getTemplates = "api/business/getTemplates"
 }
 
 struct MultiLanguageMsg{

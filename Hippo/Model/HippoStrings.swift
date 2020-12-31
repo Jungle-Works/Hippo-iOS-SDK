@@ -232,6 +232,7 @@ public class HippoStrings {
     open var seePreviousMessges = "See Previous Messages"
     open var noBroadcastAvailable = "No broadcast found!"
     open var allTeamString = "All Teams"
+    static var presciption = "Presciption".localized
     
    
     

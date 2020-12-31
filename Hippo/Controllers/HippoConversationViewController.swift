@@ -1984,5 +1984,8 @@ extension HippoConversationViewController{
         tableViewChat.allowsSelection = false
     }
     
-    
+    func openSelectTemplate(){
+        let vc = SelectPresciptionTemplateController.getNewInstance()
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
 }

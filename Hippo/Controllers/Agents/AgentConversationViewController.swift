@@ -1389,6 +1389,8 @@ extension AgentConversationViewController {
         }else{
             self.attachments.append(Attachment(icon : HippoConfig.shared.theme.botIcon  , title : HippoStrings.bot))
         }
+        self.attachments.append(Attachment(icon : HippoConfig.shared.theme.botIcon  , title : HippoStrings.presciption))
+        
         collectionViewOptions.reloadData()
         
         textViewBgView.backgroundColor = isPrivate ? HippoConfig.shared.theme.privateNoteChatBoxColor : UIColor.white
@@ -2464,6 +2466,9 @@ extension AgentConversationViewController{
             AgentConversationManager.getBotsAction(userId: self.channel.chatDetail?.customerID ?? 0, channelId: self.channelId) { (botActions) in
                 self.addBotActionView(with: botActions)
             }
+        case HippoStrings.presciption:
+            self.openSelectTemplate()
+            
         default:
             print("default")
         }
