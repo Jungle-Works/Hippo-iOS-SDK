@@ -12,6 +12,8 @@ class SelectPresciptionViewModel{
     //MARK:- Clousers
     
     var responseRecieved : (()->())?
+    var pdfUploaded : ((Error?,UploadResult?)->())?
+    var startLoading : ((Bool)->())?
     
     //MARK:- Variables
     
@@ -20,17 +22,25 @@ class SelectPresciptionViewModel{
             getTemplate()
         }
     }
+    var createPresciptionParams : [String : Any]?{
+        didSet{
+            createAndSendPresciption()
+        }
+    }
+    
+    
+    
     var templateArr = [Template]()
+    var channelID : Int?
+    
     
     //MARK:- Functions
   
     private func getTemplate(){
-     
-        
         let params = generateGetTemplateParams()
         
         HippoConfig.shared.log.trace(params, level: .request)
-        HTTPClient.makeConcurrentConnectionWith(method: .POST, enCodingType: .url, para: params, extendedUrl: AgentEndPoints.getTemplates.rawValue) { (responseObject, error, tag, statusCode) in
+        HTTPClient.makeConcurrentConnectionWith(method: .POST, enCodingType: .json, para: params, extendedUrl: AgentEndPoints.getTemplates.rawValue) { (responseObject, error, tag, statusCode) in
     
             guard let unwrappedStatusCode = statusCode, error == nil, unwrappedStatusCode == STATUS_CODE_SUCCESS, error == nil  else {
                 print("Error",error ?? "")
@@ -53,11 +63,35 @@ class SelectPresciptionViewModel{
         }
     }
     
+    private func createAndSendPresciption(){
+        self.startLoading?(true)
+        HippoConfig.shared.log.trace(createPresciptionParams as Any, level: .request)
+        HTTPClient.makeConcurrentConnectionWith(method: .POST, enCodingType: .json, para: createPresciptionParams, extendedUrl: AgentEndPoints.createAndSendPresciption.rawValue) { (responseObject, error, tag, statusCode) in
+            self.startLoading?(false)
+            guard let unwrappedStatusCode = statusCode, error == nil, unwrappedStatusCode == STATUS_CODE_SUCCESS, error == nil  else {
+                print("Error",error ?? "")
+                self.pdfUploaded?(error, nil)
+                return
+            }
+            
+            HippoConfig.shared.log.debug("\(responseObject ?? [:])", level: .response)
+            if let response = responseObject as? [String : Any], let data = response["data"] as? [String : Any]{
+                let data = self.jsonToNSData(json: data)
+                let result = try? JSONDecoder().decode(UploadResult.self, from: data ?? Data())
+                self.pdfUploaded?(nil, result)
+            }
+
+        }
+    }
+    
+    
     
     private func generateGetTemplateParams() -> [String : Any]{
         var params = [String : Any]()
         params["access_token"] = HippoConfig.shared.agentDetail?.fuguToken
         params["template_type"] = 1
+        params["fetch_predefined_labels"] = 1
+        params["channel_id"] = channelID
         return params
     }
     
@@ -70,6 +104,22 @@ class SelectPresciptionViewModel{
         }
         return nil;
     }
+    
+    func createParam(withTemplate template : Template) -> (String?, [String : Any]?){
+        var dic = [String : Any]()
+        var customAttributes = [String : Any]()
+        for key in template.body_keys ?? [BodyKeys()]{
+            if (key.value ?? "") == ""{
+                return ("Please Enter \(key.key?.replacingOccurrences(of: "_", with: " ").capitalized ?? "")",nil)
+            }
+            customAttributes[key.key ?? ""] = key.value
+        }
+        dic["custom_attributes"] = customAttributes
+        dic["access_token"] = HippoConfig.shared.agentDetail?.fuguToken
+        dic["template_id"] = template.template_id
+        return (nil,dic)
+    }
+    
 }
 
 struct Template : Codable{
@@ -88,4 +138,40 @@ struct Template : Codable{
 struct BodyKeys : Codable{
     var key : String?
     var type : String?
+    var value : String?
+    var placeholder : String?
+}
+
+struct UploadResult : Codable{
+    var file_name : String
+    var thumbnail_url : String
+    var url : String
+}
+
+
+enum PresciptionValidationType: String {
+    case text = "text"
+    case email = "email"
+    case textArea = "textarea"
+    case date = "date"
+    case contact_number = "phonenumber"
+    case number = "number"
+    
+    
+    var keyBoardType: UIKeyboardType {
+        switch self {
+        case .email:
+            return .emailAddress
+        case .text:
+            return .default
+        case .textArea:
+            return .default
+        case .date:
+            return .default
+        case .contact_number:
+            return .phonePad
+        case .number:
+            return .decimalPad
+        }
+    }
 }

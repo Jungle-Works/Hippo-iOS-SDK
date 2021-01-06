@@ -11,12 +11,12 @@
 		6B1011F2248128D2007FC8EC /* loader.gif in Resources */ = {isa = PBXBuildFile; fileRef = 6B1011F1248128D2007FC8EC /* loader.gif */; };
 		6B3C8F8C258A3D920086BD7F /* SupportChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B3C8F8B258A3D920086BD7F /* SupportChatViewController.swift */; };
 		6B3C8F8E258A3FAA0086BD7F /* SupportChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B3C8F8D258A3FAA0086BD7F /* SupportChatViewModel.swift */; };
-		6B417118259B50CE007B2A16 /* SelectTemplateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B417116259B50CE007B2A16 /* SelectTemplateCell.swift */; };
-		6B417119259B50CE007B2A16 /* SelectTemplateCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6B417117259B50CE007B2A16 /* SelectTemplateCell.xib */; };
 		6B41711E259B5222007B2A16 /* SelectPresciptionTemplateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B41711D259B5222007B2A16 /* SelectPresciptionTemplateController.swift */; };
 		6B45484A249B89C8006F84C7 /* HippoLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6B45484C249B89C8006F84C7 /* HippoLocalizable.strings */; };
 		6B584EF52502369800A7633A /* P2PUnreadData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B584EF42502369800A7633A /* P2PUnreadData.swift */; };
 		6B6DC29F259B5793009A0E47 /* SelectPresciptionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B6DC29E259B5793009A0E47 /* SelectPresciptionViewModel.swift */; };
+		6B7264E425A31EF300EEC13F /* PrescipionTextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B7264E225A31EF300EEC13F /* PrescipionTextFieldCell.swift */; };
+		6B7264E525A31EF300EEC13F /* PrescipionTextFieldCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6B7264E325A31EF300EEC13F /* PrescipionTextFieldCell.xib */; };
 		6B7C5FB32587A17000D85BA2 /* SearchAgentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B7C5FB12587A16F00D85BA2 /* SearchAgentTableViewCell.swift */; };
 		6B7C5FB42587A17000D85BA2 /* SearchAgentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6B7C5FB22587A16F00D85BA2 /* SearchAgentTableViewCell.xib */; };
 		6B7C5FB72587AC3F00D85BA2 /* SearchAgentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B7C5FB62587AC3F00D85BA2 /* SearchAgentViewController.swift */; };
@@ -433,8 +433,6 @@
 		6B1011F1248128D2007FC8EC /* loader.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = loader.gif; sourceTree = "<group>"; };
 		6B3C8F8B258A3D920086BD7F /* SupportChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportChatViewController.swift; sourceTree = "<group>"; };
 		6B3C8F8D258A3FAA0086BD7F /* SupportChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportChatViewModel.swift; sourceTree = "<group>"; };
-		6B417116259B50CE007B2A16 /* SelectTemplateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTemplateCell.swift; sourceTree = "<group>"; };
-		6B417117259B50CE007B2A16 /* SelectTemplateCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelectTemplateCell.xib; sourceTree = "<group>"; };
 		6B41711D259B5222007B2A16 /* SelectPresciptionTemplateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPresciptionTemplateController.swift; sourceTree = "<group>"; };
 		6B454848249B89B0006F84C7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		6B454849249B89BD006F84C7 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
@@ -442,6 +440,8 @@
 		6B45484D249B89D0006F84C7 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/HippoLocalizable.strings; sourceTree = "<group>"; };
 		6B584EF42502369800A7633A /* P2PUnreadData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = P2PUnreadData.swift; sourceTree = "<group>"; };
 		6B6DC29E259B5793009A0E47 /* SelectPresciptionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPresciptionViewModel.swift; sourceTree = "<group>"; };
+		6B7264E225A31EF300EEC13F /* PrescipionTextFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrescipionTextFieldCell.swift; sourceTree = "<group>"; };
+		6B7264E325A31EF300EEC13F /* PrescipionTextFieldCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PrescipionTextFieldCell.xib; sourceTree = "<group>"; };
 		6B7C5FB12587A16F00D85BA2 /* SearchAgentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAgentTableViewCell.swift; sourceTree = "<group>"; };
 		6B7C5FB22587A16F00D85BA2 /* SearchAgentTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchAgentTableViewCell.xib; sourceTree = "<group>"; };
 		6B7C5FB62587AC3F00D85BA2 /* SearchAgentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAgentViewController.swift; sourceTree = "<group>"; };
@@ -979,15 +979,6 @@
 			path = EPresciption;
 			sourceTree = "<group>";
 		};
-		6B417115259B50AA007B2A16 /* SelectTemplate */ = {
-			isa = PBXGroup;
-			children = (
-				6B417116259B50CE007B2A16 /* SelectTemplateCell.swift */,
-				6B417117259B50CE007B2A16 /* SelectTemplateCell.xib */,
-			);
-			path = SelectTemplate;
-			sourceTree = "<group>";
-		};
 		6B45483D249B84A3006F84C7 /* Language */ = {
 			isa = PBXGroup;
 			children = (
@@ -1002,6 +993,15 @@
 				6B584EF42502369800A7633A /* P2PUnreadData.swift */,
 			);
 			path = P2PUnread;
+			sourceTree = "<group>";
+		};
+		6B7264E125A31E9900EEC13F /* FillPresciptionCell */ = {
+			isa = PBXGroup;
+			children = (
+				6B7264E225A31EF300EEC13F /* PrescipionTextFieldCell.swift */,
+				6B7264E325A31EF300EEC13F /* PrescipionTextFieldCell.xib */,
+			);
+			path = FillPresciptionCell;
 			sourceTree = "<group>";
 		};
 		6B7C5FB52587A18300D85BA2 /* SeachAgentCell */ = {
@@ -2277,7 +2277,7 @@
 		D8F6CFF52418F94F00B168C5 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				6B417115259B50AA007B2A16 /* SelectTemplate */,
+				6B7264E125A31E9900EEC13F /* FillPresciptionCell */,
 				D8F6D0162418FA5B00B168C5 /* MultiSelectHeaderCell */,
 				D8F6D0152418FA4F00B168C5 /* MultiSelectTableView */,
 				D8F6D0142418FA4600B168C5 /* MultipleSelectCell */,
@@ -2693,7 +2693,6 @@
 				D8F6D0D42419469000B168C5 /* PaymentSecureView.xib in Resources */,
 				D8F6D0DF2419472800B168C5 /* OutgoingImageCell.xib in Resources */,
 				D8F6D0B72419444900B168C5 /* ChatInfoHeader.xib in Resources */,
-				6B417119259B50CE007B2A16 /* SelectTemplateCell.xib in Resources */,
 				D8F6D1022419496900B168C5 /* IncomingImageCell.xib in Resources */,
 				D8F6D14624194CD200B168C5 /* ImageTableViewCell.xib in Resources */,
 				D8F6D0F72419486300B168C5 /* ActionTagTableViewCell.xib in Resources */,
@@ -2736,6 +2735,7 @@
 				D8F6D16624194E1200B168C5 /* SelfMessageTableViewCell.xib in Resources */,
 				D8F6D1B12419510F00B168C5 /* TitilliumWeb-BoldItalic.ttf in Resources */,
 				C9B77E6321A01B060092848D /* LaunchScreen.storyboard in Resources */,
+				6B7264E525A31EF300EEC13F /* PrescipionTextFieldCell.xib in Resources */,
 				D8F6D02C2418FA9400B168C5 /* CustomerPaymentCardCell.xib in Resources */,
 				C9B77E6421A01B060092848D /* Montserrat-Medium.otf in Resources */,
 				D8F6D1B82419510F00B168C5 /* TitilliumWeb-Light.ttf in Resources */,
@@ -2878,6 +2878,7 @@
 				D8F6D1C7241951D000B168C5 /* OperatorOverloading.swift in Sources */,
 				D8F6D2C124195D5900B168C5 /* NLevelViewController.swift in Sources */,
 				D8F6D0622418FD4800B168C5 /* ConversationPresenter.swift in Sources */,
+				6B7264E425A31EF300EEC13F /* PrescipionTextFieldCell.swift in Sources */,
 				D8CD682624863C75000F4097 /* MessageSendingViewConfig.swift in Sources */,
 				6BE70B19259C3F8700ECA4FC /* FillPresciptionViewController.swift in Sources */,
 				D8F6D17824194ED700B168C5 /* VideoCallMessageTableViewCell.swift in Sources */,
@@ -2907,7 +2908,6 @@
 				6B41711E259B5222007B2A16 /* SelectPresciptionTemplateController.swift in Sources */,
 				D8F6D2052419547C00B168C5 /* FuguAddress.swift in Sources */,
 				D8F6D2A624195AEE00B168C5 /* IQKeyboardReturnKeyHandler.swift in Sources */,
-				6B417118259B50CE007B2A16 /* SelectTemplateCell.swift in Sources */,
 				D86028B123F6AFFA009540D3 /* SuggestionViewDataSource.swift in Sources */,
 				D8F6D18D24194F9300B168C5 /* BroadCastTitleCell.swift in Sources */,
 				D88B20E524619F90007FD382 /* ImageCache.swift in Sources */,

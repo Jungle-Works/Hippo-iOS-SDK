@@ -232,9 +232,10 @@ public class HippoStrings {
     open var seePreviousMessges = "See Previous Messages"
     open var noBroadcastAvailable = "No broadcast found!"
     open var allTeamString = "All Teams"
-    static var presciption = "Presciption".localized
-    
-   
+    open var presciption = "Send E-form"
+    open var selectPresciptionHeader = "Select E-form Template"
+    open var sendPrescription = "Send Prescription"
+    open var noCustomField = "No custom field found."
     
 //    open var checkingNewMessages = "Updating new messages..."
     

@@ -153,6 +153,10 @@ class AgentConversationViewController: HippoConversationViewController {
         }
     }
     
+    override func closeAttachment(){
+        self.attachmentViewHeightConstraint.constant = 0
+    }
+    
     override func closeKeyBoard() {
         if messageTextView.isFirstResponder {
             messageTextView.resignFirstResponder()
@@ -314,11 +318,7 @@ class AgentConversationViewController: HippoConversationViewController {
     
     @IBAction func addAttachmentButtonAction(_ sender: UIButton) {
         attachmentViewHeightConstraint.constant = attachmentViewHeightConstraint.constant == 128 ? 0 : 128
-        
     }
-    
-    
-    
     
     @IBAction func addImagesButtonAction(_ sender: UIButton) {
         if (channel != nil && !channel.isSubscribed()) || !FuguNetworkHandler.shared.isNetworkConnected {
@@ -937,7 +937,10 @@ extension AgentConversationViewController {
         if BussinessProperty.current.isAskPaymentAllowed{
             self.attachments.append(Attachment(icon : HippoConfig.shared.theme.paymentIcon , title : HippoStrings.payment))
         }
-//        self.attachments.append(Attachment(icon : HippoConfig.shared.theme.botIcon  , title : "Bot"))
+        
+        if BussinessProperty.current.eFormEnabled ?? false{
+            self.attachments.append(Attachment(icon : HippoConfig.shared.theme.eFormIcon  , title : HippoConfig.shared.strings.presciption))
+        }
         
         self.newConversationCountButton.roundCorner(cornerRect: [.topLeft, .bottomLeft], cornerRadius: 5)
         self.newConversationShadow.layer.cornerRadius = 5
@@ -1389,7 +1392,6 @@ extension AgentConversationViewController {
         }else{
             self.attachments.append(Attachment(icon : HippoConfig.shared.theme.botIcon  , title : HippoStrings.bot))
         }
-        self.attachments.append(Attachment(icon : HippoConfig.shared.theme.botIcon  , title : HippoStrings.presciption))
         
         collectionViewOptions.reloadData()
         
@@ -2466,7 +2468,7 @@ extension AgentConversationViewController{
             AgentConversationManager.getBotsAction(userId: self.channel.chatDetail?.customerID ?? 0, channelId: self.channelId) { (botActions) in
                 self.addBotActionView(with: botActions)
             }
-        case HippoStrings.presciption:
+        case HippoConfig.shared.strings.presciption:
             self.openSelectTemplate()
             
         default:

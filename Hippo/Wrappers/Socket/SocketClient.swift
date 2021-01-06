@@ -107,6 +107,8 @@ class SocketClient: NSObject {
         socket?.off(SocketEvent.UNSUBSCRIBE_CHAT.rawValue)
         socket?.off(SocketEvent.UNSUBSCRIBE_USER.rawValue)
         socket?.off(SocketEvent.MESSAGE_CHANNEL.rawValue)
+        socket?.off(SocketEvent.SERVER_PUSH.rawValue)
+        
         //release memory of calbacks
         onConnectCallBack = nil
         onDisconnectCallBack = nil

@@ -294,6 +294,8 @@ extension AgentDetail {
                 
                 BussinessProperty.current.hideo2oChat = !(Bool.parse(key: "o2o_in_dashboard_enabled", json: businessProperty))
                 
+                BussinessProperty.current.eFormEnabled = (Bool.parse(key: "is_eform_enabled", json: businessProperty))
+                
                 BussinessProperty.current.currencyArr = BuisnessCurrency().getCurrenyData(businessProperty["business_currency"] as? [[String : Any]] ?? [[String : Any]]())
                 HippoConfig.shared.jitsiUrl = businessProperty["jitsi_url"] as? String
             }
