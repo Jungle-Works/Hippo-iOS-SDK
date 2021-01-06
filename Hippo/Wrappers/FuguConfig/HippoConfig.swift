@@ -12,9 +12,6 @@ import AVFoundation
   import HippoCallClient
  
 #endif
-#if canImport(JitsiMeet)
-   import JitsiMeet
-#endif
 
 #if canImport(JitsiMeet)
 import JitsiMeet
@@ -180,13 +177,15 @@ struct BotAction {
     public var shouldOpenDefaultChannel = true
     public var shouldUseNewCalling : Bool?{
         didSet{
-            if shouldUseNewCalling ?? false{
-                versionCode = 450
-            }else{
-                versionCode = 350
-            }
+            versionCode = 350
         }
     }
+    public var shouldUseNewCallingWithCallkit : Bool?{
+        didSet{
+            versionCode = 450
+        }
+    }
+    
     internal let listener = SocketListner()
     ///turn its value true to show slow internet bar on chat screen
     public var shouldShowSlowInternetBar : Bool?

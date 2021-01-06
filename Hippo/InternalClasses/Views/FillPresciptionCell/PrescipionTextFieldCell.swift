@@ -52,7 +52,7 @@ class PrescipionTextFieldCell: UITableViewCell, UITextViewDelegate, UITextFieldD
         textField.keyboardType = PresciptionValidationType(rawValue: (bodyKeys?.type ?? "")?.lowercased() ?? "")?.keyBoardType ?? .default
         
         //Set heading
-        label_Name.text = bodyKeys?.key?.replacingOccurrences(of: "_", with: " ").capitalized
+        label_Name.text = bodyKeys?.key?.replacingOccurrences(of: "_", with: " ").uppercased()
         updateAttributedStringWithCharacter(title: label_Name.text ?? "", uilabel: label_Name)
         
         //Set default value
