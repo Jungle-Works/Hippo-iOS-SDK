@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
     s.name         = 'Hippo'
 
-    s.version      = '2.1.46'
+    s.version      = '2.1.47'
 
     s.summary      = 'Now add Agent in app for quick support.'
     s.homepage     = 'https://github.com/Jungle-Works/Hippo-iOS-SDK'
@@ -12,7 +12,7 @@ Pod::Spec.new do |s|
     s.author             = { 'Vishal Jhanjhri' => 'jhanjhri.vishal@gmail.com' }
     
     s.source       = { :git => 'https://github.com/Jungle-Works/Hippo-iOS-SDK.git', :tag => s.version }
-    s.ios.deployment_target = '11.0'
+    s.ios.deployment_target = '10.0'
     s.source_files = 'Hippo/**/*.{swift,h,m}'
     s.exclude_files = 'Classes/Exclude'
     s.static_framework = false
