@@ -81,18 +81,18 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
 //        if let labelId = HippoProperty.current.openLabelIdOnHome, labelId > 0 {
 //            moveToChatViewcontroller(labelId: labelId)
 //        }
-        if let labelId = HippoProperty.current.openLabelIdOnHome, labelId > 0 {
-            //        guard HippoChecker().shouldCollectDataFromUser() else {
-            //            return false
-            //        }
-            if HippoChecker().shouldCollectDataFromUser() {
-                moveToChatViewcontroller(labelId: labelId)
-            }else{
-                if self.arrayOfConversation.count <= 0{
-                    moveToChatViewcontroller(labelId: labelId)
-                }
-            }
-        }
+//        if let labelId = HippoProperty.current.openLabelIdOnHome, labelId > 0 {
+//            //        guard HippoChecker().shouldCollectDataFromUser() else {
+//            //            return false
+//            //        }
+//            if HippoChecker().shouldCollectDataFromUser() {
+//                moveToChatViewcontroller(labelId: labelId)
+//            }else{
+//                if self.arrayOfConversation.count <= 0{
+//                    moveToChatViewcontroller(labelId: labelId)
+//                }
+//            }
+//        }
         
 
 //        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
