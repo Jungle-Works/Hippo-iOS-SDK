@@ -18,11 +18,7 @@
 			<key>orderHint</key>
 			<integer>2</integer>
 		</dict>
-<<<<<<< HEAD
-		<key>Socket.IO-Client-Swift.xcscheme</key>
-=======
 		<key>Starscream.xcscheme</key>
->>>>>>> 9fdd07102d38c8a0785c93c9d3f6c5a7ce8dd9aa
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -35,20 +31,6 @@
 			<false/>
 			<key>orderHint</key>
 			<integer>1</integer>
-		</dict>
-		<key>SocketRocket.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-			<key>orderHint</key>
-			<integer>3</integer>
-		</dict>
-		<key>Starscream.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-			<key>orderHint</key>
-			<integer>4</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>

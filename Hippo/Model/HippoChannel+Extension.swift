@@ -87,10 +87,7 @@ extension HippoChannel: SignalingClient {
             fayeDict["voip_token"] = HippoConfig.shared.voipToken
         }
         
-        var data = [String : Any]()
-        data["data"] = fayeDict
-        
-        send(dict: data) { (success, error)  in
+        send(dict: fayeDict) { (success, error)  in
             completion(success, error)
             print(success)
             print(error)

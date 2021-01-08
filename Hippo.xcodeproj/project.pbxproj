@@ -31,10 +31,8 @@
 		6BBBEA8324991C7300C3E1CE /* BottomPopupController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BBBEA8224991C7300C3E1CE /* BottomPopupController.swift */; };
 		6BCCD5902490B86600C5CA0D /* FloatRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCCD58F2490B86600C5CA0D /* FloatRatingView.swift */; };
 		6BCD891324A2590800FD0A22 /* AllString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCD891224A2590800FD0A22 /* AllString.swift */; };
-<<<<<<< HEAD
-=======
+
 		6BE70B19259C3F8700ECA4FC /* FillPresciptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BE70B18259C3F8700ECA4FC /* FillPresciptionViewController.swift */; };
->>>>>>> 9fdd07102d38c8a0785c93c9d3f6c5a7ce8dd9aa
 		6BFC612625405EE9008BE42F /* SocketClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BFC612525405EE9008BE42F /* SocketClient.swift */; };
 		6BFF4B2024ED0F4E0062E6F7 /* HippoNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BFF4B1F24ED0F4E0062E6F7 /* HippoNotificationService.swift */; };
 		C9B77E6121A01B060092848D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9B77D7A21A01B060092848D /* Assets.xcassets */; };
@@ -459,10 +457,9 @@
 		6BBBEA8224991C7300C3E1CE /* BottomPopupController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomPopupController.swift; sourceTree = "<group>"; };
 		6BCCD58F2490B86600C5CA0D /* FloatRatingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatRatingView.swift; sourceTree = "<group>"; };
 		6BCD891224A2590800FD0A22 /* AllString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllString.swift; sourceTree = "<group>"; };
-<<<<<<< HEAD
-=======
+
 		6BE70B18259C3F8700ECA4FC /* FillPresciptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FillPresciptionViewController.swift; sourceTree = "<group>"; };
->>>>>>> 9fdd07102d38c8a0785c93c9d3f6c5a7ce8dd9aa
+
 		6BFC612525405EE9008BE42F /* SocketClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketClient.swift; sourceTree = "<group>"; };
 		6BFF4B1F24ED0F4E0062E6F7 /* HippoNotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HippoNotificationService.swift; sourceTree = "<group>"; };
 		6F7645C36ABF77183FAD526B /* Pods-Hippo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hippo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Hippo/Pods-Hippo.debug.xcconfig"; sourceTree = "<group>"; };
@@ -2801,19 +2798,7 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Hippo/Pods-Hippo-frameworks.sh",
-<<<<<<< HEAD
-				"${BUILT_PRODUCTS_DIR}/MZFayeClient/MZFayeClient.framework",
-				"${BUILT_PRODUCTS_DIR}/Socket.IO-Client-Swift/SocketIO.framework",
-				"${BUILT_PRODUCTS_DIR}/SocketRocket/SocketRocket.framework",
-				"${BUILT_PRODUCTS_DIR}/Starscream/Starscream.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MZFayeClient.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SocketIO.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SocketRocket.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Starscream.framework",
-=======
+
 				"${BUILT_PRODUCTS_DIR}/Socket.IO-Client-Swift/SocketIO.framework",
 				"${BUILT_PRODUCTS_DIR}/Starscream/Starscream.framework",
 				"${PODS_ROOT}/razorpay-pod/Pod/Razorpay.framework",
@@ -2823,7 +2808,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SocketIO.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Starscream.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Razorpay.framework",
->>>>>>> 9fdd07102d38c8a0785c93c9d3f6c5a7ce8dd9aa
+
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
