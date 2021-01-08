@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
     s.name         = 'Hippo'
 
-    s.version      = '2.1.38'
+    s.version      = '2.1.48'
 
     s.summary      = 'Now add Agent in app for quick support.'
     s.homepage     = 'https://github.com/Jungle-Works/Hippo-iOS-SDK'
@@ -27,7 +27,6 @@ Pod::Spec.new do |s|
     
     s.dependency 'Socket.IO-Client-Swift'
     s.dependency 'razorpay-pod'
-  
     s.default_subspec = 'Chat'
     
     s.subspec 'Chat' do |chat|

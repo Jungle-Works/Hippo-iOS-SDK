@@ -25,7 +25,7 @@ class FuguFlowManager: NSObject {
     fileprivate let storyboard = UIStoryboard(name: "FuguUnique", bundle: bundle)
    
     //MARK: AgentNavigation methods
-    func pushAgentConversationViewController(channelId: Int, channelName: String) {
+    func pushAgentConversationViewController(channelId: Int, channelName: String, channelType : channelType? = .DEFAULT) {
         let conVC = AgentConversationViewController.getWith(channelID: channelId, channelName: channelName)
         let navVc = UINavigationController(rootViewController: conVC)
         navVc.setTheme()

@@ -11,8 +11,9 @@ import AVFoundation
 #if canImport(HippoCallClient)
   import HippoCallClient
 #endif
+
 #if canImport(JitsiMeet)
-  import JitsiMeet
+import JitsiMeet
 #endif
 
 public protocol HippoMessageRecievedDelegate: class {
@@ -31,14 +32,14 @@ enum AgentUserType: Int {
 
 struct SERVERS {
 
-    static let liveUrl = "https://api.hippochat.io/"
-    static let liveFaye = "https://socketv2.hippochat.io/faye"
-    
-    static let betaUrl = "https://beta-live-api.fuguchat.com:3001/"
-    static let betaFaye = "https://beta-live-api.fuguchat.com:3001/faye"
-    
-    static let devUrl = "https://hippo-api-dev.fuguchat.com:3003/"
-    static let devFaye = "https://hippo-api-dev.fuguchat.com:3003/faye"
+static let liveUrl = "https://api.hippochat.io/"
+static let liveFaye = "https://socketv2.hippochat.io/faye"
+
+static let betaUrl = "https://beta-live-api.fuguchat.com:3001/"
+static let betaFaye = "https://beta-live-api.fuguchat.com:3001/faye"
+
+static let devUrl = "https://hippo-api-dev.fuguchat.com:3003/"
+static let devFaye = "https://hippo-api-dev.fuguchat.com:3003/faye"
 
 }
 
@@ -159,7 +160,10 @@ struct BotAction {
     public var HippoLanguageChanged : ((Error?)->())?
     public var HippoSessionStatus: ((GroupCallStatus)->())?
     public var announcementUnreadCount : ((Int)->())?
-    
+
+    var supportChatFilter : [SupportFilter]?
+
+    public var hideTabbar : ((Bool)->())?
     
     internal let powererdByColor = #colorLiteral(red: 0.4980392157, green: 0.4980392157, blue: 0.4980392157, alpha: 1)
     internal let FuguColor = #colorLiteral(red: 0.3843137255, green: 0.4901960784, blue: 0.8823529412, alpha: 1)
@@ -171,14 +175,16 @@ struct BotAction {
     public var shouldOpenDefaultChannel = true
     public var shouldUseNewCalling : Bool?{
         didSet{
-            if shouldUseNewCalling ?? false{
-                versionCode = 450
-            }else{
-                versionCode = 320 - 5
-            }
+            versionCode = 350
         }
     }
-
+    public var shouldUseNewCallingWithCallkit : Bool?{
+        didSet{
+            versionCode = 450
+        }
+    }
+    
+    internal let listener = SocketListner()
     ///turn its value true to show slow internet bar on chat screen
     public var shouldShowSlowInternetBar : Bool?
     
@@ -587,8 +593,8 @@ struct BotAction {
         }
     }
     
-    public func openPrePayment(paymentGatewayId : Int, prePaymentDic: [String : Any], completion: @escaping PrePaymentCompletion){
-        PrePayment.callPrePaymentApi(paymentGatewayId: paymentGatewayId, prePaymentDic: prePaymentDic, completion: completion)
+    public func openPrePayment(paymentGatewayId : Int, paymentType : Int?, prePaymentDic: [String : Any], completion: @escaping PrePaymentCompletion){
+        PrePayment.callPrePaymentApi(paymentGatewayId: paymentGatewayId, paymentType : paymentType, prePaymentDic: prePaymentDic, completion: completion)
     }
     
     public func getUnreadCountFor(with userUniqueKeys: [String]) {
@@ -1033,6 +1039,7 @@ struct BotAction {
         return false
     }
     
+
     public func handleVoipNotification(payload: [AnyHashable: Any], completion: @escaping () -> Void) {
         guard let json = payload as? [String: Any] else {
             return
@@ -1412,3 +1419,23 @@ extension HippoConfig{
          #endif
     }
 }
+extension HippoConfig{
+    public func createSupportChat(o2oModel : O2OChatModel){
+        O2OChat.createO2OChat(request: o2oModel) { (error, data) in
+            
+        }
+    }
+    
+    public func openSupportChatListing(){
+        let supportChatVC = UIStoryboard(name: "AgentSdk", bundle: FuguFlowManager.bundle).instantiateViewController(withIdentifier: "SupportChatViewController") as! SupportChatViewController
+        guard let topVC = getLastVisibleController() else { return }
+        let navVC = UINavigationController(rootViewController: supportChatVC)
+        navVC.setTheme()
+        navVC.navigationBar.isHidden = true
+        navVC.modalPresentationStyle = .fullScreen
+        topVC.present(navVC, animated: true, completion: nil)
+    }
+}
+
+
+

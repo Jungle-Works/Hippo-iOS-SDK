@@ -144,7 +144,7 @@ class HippoConversationViewController: UIViewController {
     func addMessageToUIBeforeSending(message: HippoMessage) { }
     
     func openCustomSheet() { }
-    
+    func closeAttachment(){}
     func paymentCardPaymentOfCreatePaymentCalled() { }
     func startEditing(with message : HippoMessage, indexPath : IndexPath){}
     func checkNetworkConnection() {
@@ -693,7 +693,10 @@ class HippoConversationViewController: UIViewController {
         
         switch HippoConfig.shared.appUserType {
         case .agent:
-            return assignemdAgentID == currentUserId() || channel?.chatDetail?.chatType == .o2o
+            if channel?.chatDetail?.chatType == .o2o{
+                return assignemdAgentID == currentUserId() || channel?.chatDetail?.customerID == currentUserId()
+            }
+            return assignemdAgentID == currentUserId()
         case .customer:
             return true
         }
@@ -1986,5 +1989,26 @@ extension HippoConversationViewController{
         tableViewChat.allowsSelection = false
     }
     
-    
+    func openSelectTemplate(){
+        let vc = SelectPresciptionTemplateController.getNewInstance(channelId: channelId)
+        vc.pdfUploadResult = {[weak self](result) in
+            DispatchQueue.main.async {
+                self?.closeAttachment()
+                let message = HippoMessage(message: "", type: .attachment, uniqueID: self?.generateUniqueId(), imageUrl: result.url, thumbnailUrl: result.thumbnail_url, localFilePath: nil, chatType: self?.channel?.chatDetail?.chatType)
+                message.fileName = result.file_name
+                message.localImagePath = self?.getCacheDirectoryUrlForFileWith(name: result.file_name).path
+                message.fileUrl = result.url
+                self?.addMessageInUnsentArray(message: message)
+                self?.updateMessagesArrayLocallyForUIUpdation(message)
+                self?.scrollToBottomWithIndexPath(animated: true)
+                self?.handleUploadSuccessOfFileIn(message: message)
+            }
+        }
+        let navController = UINavigationController(rootViewController: vc)
+        navController.navigationBar.isHidden = true
+        navController.modalPresentationStyle = .overCurrentContext
+        self.present(navController, animated: true, completion: {
+            vc.showViewAnimation()
+        })
+    }
 }

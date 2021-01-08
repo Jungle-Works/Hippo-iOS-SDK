@@ -12,8 +12,8 @@ let HippoSDKSource = 1
 let Device_Type_iOS = 2
 var userDetailData = [String: Any]()
 
-let fuguAppVersion = "2.1.42"
-var versionCode = 320
+let fuguAppVersion = "2.1.48"
+var versionCode = 250
 
 /*
  201 = Bot messages
@@ -127,11 +127,24 @@ var versionCode = 320
  
  331 *** 2.1.33 = Bugs fixes, UI changes and localization
  
- 332 *** 2.1.33 = Bugs fixes
+ 332 *** 2.1.34 = Bugs fixes
  
  334 *** 2.1.35 = Bug fixes
 
  334 *** 2.1.41 = Search user unique key issues
  
  334 *** 2.1.42 = Edit and delete messages functionality
+ 
+ 335 *** 2.1.43 = Payment cell ui fixes
+ 
+ 336 *** 2.1.44 = O2O chat and razor pay sdk functionality added
+ 
+ 337 *** 2.1.45 = Bug Fixes
+ 
+ 338 *** 2.1.46 = Support Chat (O2o new flow)
+ 
+ 339 *** 2.1.47 = Sockets and E-prescription
+ 
+ 340 *** 2.1.48 = Support Chat (O2o new flow)
+
  */

@@ -297,11 +297,6 @@ func unSubscribe(userChannelId: String) {
 }
 
 func subscribeCustomerUserChannel(userChannelId: String) {
-    
-    guard !isSubscribed(userChannelId: userChannelId) else {
-        return
-    }
-    
     SocketClient.shared.subscribeSocketChannel(channel: userChannelId)
     HippoConfig.shared.userDetail?.listener?.startListening(event: SocketEvent.SERVER_PUSH.rawValue, callback: { (data) in
         if let messageDict = data as? [String : Any]{
@@ -447,24 +442,24 @@ func pushTotalUnreadCount() {
     chatCounter += getPushUnreadCount()
     HippoConfig.shared.sendUnreadCount(chatCounter)
     
-    if let allConversationVC = getLastVisibleController() as? AllConversationsViewController{
-        let totalNotifyCount = chatCounter
-        if totalNotifyCount > 0{
-            if let tabItems = allConversationVC.tabBarController?.tabBar.items {
-                // In this case we want to modify the badge number of the third tab:
-                let tabItem = tabItems[0]
-                tabItem.badgeValue = "\(totalNotifyCount)"
-                //tabItem.badgeValue = nil
-                //UserDefaults.standard.set(totalNotifyCount, forKey: "totalNotify")
-            }
-        }else{
-            if let tabItems = allConversationVC.tabBarController?.tabBar.items {
-                // In this case we want to modify the badge number of the third tab:
-                let tabItem = tabItems[0]
-                tabItem.badgeValue = nil
-            }
-        }
-    }
+//    if let allConversationVC = getLastVisibleController() as? AllConversationsViewController{
+//        let totalNotifyCount = chatCounter
+//        if totalNotifyCount > 0{
+//            if let tabItems = allConversationVC.tabBarController?.tabBar.items {
+//                // In this case we want to modify the badge number of the third tab:
+//                let tabItem = tabItems[0]
+//                tabItem.badgeValue = "\(totalNotifyCount)"
+//                //tabItem.badgeValue = nil
+//                //UserDefaults.standard.set(totalNotifyCount, forKey: "totalNotify")
+//            }
+//        }else{
+//            if let tabItems = allConversationVC.tabBarController?.tabBar.items {
+//                // In this case we want to modify the badge number of the third tab:
+//                let tabItem = tabItems[0]
+//                tabItem.badgeValue = nil
+//            }
+//        }
+//    }
     
 }
 

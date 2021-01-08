@@ -349,10 +349,15 @@ extension PromotionsViewController: UITableViewDelegate,UITableViewDataSource
             cell.fullDescriptionLabel.attributedText = NSAttributedString(string:  values.description ?? "")
             cell.descriptionLabel.attributedText = NSAttributedString(string:  croppedDescription)
             cell.descriptionLabel.dataDetectorTypes = UIDataDetectorTypes.all
+
+            cell.fullDescriptionLabel.dataDetectorTypes = UIDataDetectorTypes.all
+
             if (values.description?.count)! > 150{
+            
                 cell.showReadMoreLessButton.isHidden = false
                 cell.showReadMoreLessButtonHeightConstraint.constant = 30
             }else{
+                
                 cell.showReadMoreLessButton.isHidden = true
                 cell.showReadMoreLessButtonHeightConstraint.constant = 0
             }
@@ -385,12 +390,26 @@ extension PromotionsViewController: UITableViewDelegate,UITableViewDataSource
         guard let cell = self.promotionsTableView.cellForRow(at: indexpath) as? PromotionTableViewCell else { return }
         if states[row] == true{
             states[row] = false
+            UIView.setAnimationsEnabled(false)
+            self.promotionsTableView.beginUpdates()
             self.promotionsTableView.reloadRows(at: [indexpath], with: .none)
-            //self.promotionsTableView.scrollToRow(at: indexpath, at: .bottom, animated: true)
+            self.promotionsTableView.layoutIfNeeded()
+            self.promotionsTableView.endUpdates()
+            UIView.setAnimationsEnabled(true)
+           // self.promotionsTableView.setContentOffset(currentOffset, animated: false)
+            self.promotionsTableView.scrollToRow(at: indexpath, at: .top, animated: false)
+
         }else if states[row] == false{
             states[row] = true
+            UIView.setAnimationsEnabled(false)
+            self.promotionsTableView.beginUpdates()
             self.promotionsTableView.reloadRows(at: [indexpath], with: .none)
-           // self.promotionsTableView.scrollToRow(at: indexpath, at: .top, animated: true)
+            self.promotionsTableView.layoutIfNeeded()
+            self.promotionsTableView.endUpdates()
+            UIView.setAnimationsEnabled(true)
+           // self.promotionsTableView.setContentOffset(currentOffset, animated: false)
+            self.promotionsTableView.scrollToRow(at: indexpath, at: .middle, animated: false)
+
         }else{}
         
     }

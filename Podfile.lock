@@ -1,4 +1,5 @@
 PODS:
+<<<<<<< HEAD
   - MZFayeClient (1.0.3):
     - SocketRocket
   - Socket.IO-Client-Swift (15.2.0):
@@ -8,10 +9,20 @@ PODS:
 
 DEPENDENCIES:
   - MZFayeClient
+=======
+  - razorpay-pod (1.0.22)
+  - Socket.IO-Client-Swift (15.2.0):
+    - Starscream (~> 3.1)
+  - Starscream (3.1.1)
+
+DEPENDENCIES:
+  - razorpay-pod
+>>>>>>> 9fdd07102d38c8a0785c93c9d3f6c5a7ce8dd9aa
   - Socket.IO-Client-Swift
 
 SPEC REPOS:
   trunk:
+<<<<<<< HEAD
     - MZFayeClient
     - Socket.IO-Client-Swift
     - SocketRocket
@@ -24,5 +35,17 @@ SPEC CHECKSUMS:
   Starscream: 4bb2f9942274833f7b4d296a55504dcfc7edb7b0
 
 PODFILE CHECKSUM: 8555c5a4d37468a8704672d0f5a4e60567f7e565
+=======
+    - razorpay-pod
+    - Socket.IO-Client-Swift
+    - Starscream
+
+SPEC CHECKSUMS:
+  razorpay-pod: 7646a46bb4b2d2c6ded69555c4e1d6ae6aa717a8
+  Socket.IO-Client-Swift: 1e3e3a1f09f3312a167f0d781eb2f383d477357c
+  Starscream: 4bb2f9942274833f7b4d296a55504dcfc7edb7b0
+
+PODFILE CHECKSUM: 644dbfc4ecc68f426e8a7b2cd84d14cf1b7cc27a
+>>>>>>> 9fdd07102d38c8a0785c93c9d3f6c5a7ce8dd9aa
 
 COCOAPODS: 1.9.3

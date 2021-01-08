@@ -7,7 +7,11 @@
 		<key>Hippo.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
+<<<<<<< HEAD
 			<integer>5</integer>
+=======
+			<integer>4</integer>
+>>>>>>> 9fdd07102d38c8a0785c93c9d3f6c5a7ce8dd9aa
 		</dict>
 	</dict>
 </dict>

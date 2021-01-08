@@ -121,6 +121,7 @@ class HippoChannel {
     var messageHashMap = [String: Int]()
     var sentMessages = [HippoMessage]()
     var unsentMessages = [HippoMessage]()
+
     var isSupportCustomer : Bool = false
     var listener : SocketListner?
   

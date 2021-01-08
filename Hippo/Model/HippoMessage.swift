@@ -540,9 +540,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
     
     // MARK: - Methods
     func getJsonToSendToFaye() -> [String: Any] {
-        var json = [String: Any]()
-        json["data"] = getSocketJsonData()
-        return json
+        return getSocketJsonData()
     }
     
     func getSocketJsonData()->[String : Any]{
@@ -699,8 +697,6 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         
         return (wasMessageSendingInProgress && typeIsMedia) || wasMessageSendingFailed
     }
-    
-    
     
     
     func getDictToSaveInCache() -> [String: Any] {
@@ -1035,6 +1031,19 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         case .agent:
             switch chatType {
             case .o2o:
+                let vc = (getLastVisibleController() as? AgentConversationViewController)
+                if HippoConfig.shared.appUserType == .agent && chatType == .o2o && vc?.channelType == channelType.SUPPORT_CHAT_CHANNEL.rawValue{
+                    if vc?.channel.chatDetail?.customerID == currentUserId(){ // if owner id == current user id
+                        return senderId == currentUserId()// message with logged in user on right and other on left
+                    }else{
+                        if senderId == vc?.channel.chatDetail?.customerID{
+                            return false // Message with owner_id on LEFT
+                        }else{
+                            return true //Message with all other user Ids on RIGHT
+                        }
+                    }
+                }
+                
                 return senderId == currentUserId()
             default:
                 return userType.isMyUserType

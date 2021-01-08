@@ -46,7 +46,7 @@ class SocketListner {
     }
     
     deinit {
-        removeAllCallbacks()
+        //removeAllCallbacks()
         NotificationCenter.default.removeObserver(self)
     }
 }

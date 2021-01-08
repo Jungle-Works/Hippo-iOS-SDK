@@ -92,7 +92,8 @@ extension SocketClient {
             var channelIdForValidation = channelID
             validate(channelID: &channelIdForValidation)
             
-            var json = messageDict
+            var json = [String : Any]()
+            json["data"] = messageDict
             json += getJson()
             json["channel"] = channelIdForValidation
             

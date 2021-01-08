@@ -178,6 +178,8 @@ class BussinessProperty: NSObject {
         }
     }
     
+    var eFormEnabled : Bool?
+    
     func updateData(loginData: [String: Any]) {
         let userDetailData = loginData
         if HippoConfig.shared.userDetail?.isSupportUser == false{

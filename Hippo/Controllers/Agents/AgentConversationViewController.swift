@@ -92,7 +92,7 @@ class AgentConversationViewController: HippoConversationViewController {
     var custombarbuttonParam : CGFloat = 32.0
     var messageInEditing : HippoMessage?
     var editingMessageIndex : IndexPath?
-    
+    var channelType : Int?
     //MARK: - Variables for MessageSendingView
     private let animationDuration: TimeInterval = 0.3
     var maxMentionViewHeight: CGFloat = windowScreenHeight
@@ -151,6 +151,10 @@ class AgentConversationViewController: HippoConversationViewController {
         if !channel.isSubscribed(){
             channel?.subscribe()
         }
+    }
+    
+    override func closeAttachment(){
+        self.attachmentViewHeightConstraint.constant = 0
     }
     
     override func closeKeyBoard() {
@@ -314,11 +318,7 @@ class AgentConversationViewController: HippoConversationViewController {
     
     @IBAction func addAttachmentButtonAction(_ sender: UIButton) {
         attachmentViewHeightConstraint.constant = attachmentViewHeightConstraint.constant == 128 ? 0 : 128
-        
     }
-    
-    
-    
     
     @IBAction func addImagesButtonAction(_ sender: UIButton) {
         if (channel != nil && !channel.isSubscribed()) || !FuguNetworkHandler.shared.isNetworkConnected {
@@ -650,18 +650,14 @@ class AgentConversationViewController: HippoConversationViewController {
         handleInfoIcon()
         handleVideoIcon()
         handleAudioIcon()
+        handleMoreButton()
         
         var messages = result.newMessages
         let newMessagesHashMap = result.newMessageHashmap
-        
-//        label = result.channelName
-//        setNavigationTitle(title: label)
-        let previousLabel = label
+
         label = result.channelName
-        setNavigationTitle(title: label)
-        if previousLabel == "" && label != ""{
-            setTitleForCustomNavigationBar()
-        }
+
+        setTitleForCustomNavigationBar()
         
         if request.pageStart == 1 && messages.count > 0 {
             filterMessages(newMessagesHashMap: newMessagesHashMap, lastMessage: messages.last!)
@@ -783,7 +779,7 @@ class AgentConversationViewController: HippoConversationViewController {
         if let channelId = chatObj.channel_id, channelId > 0 {
             self.channel = AgentChannelPersistancyManager.shared.getChannelBy(id: channelId)
         }
-        
+        self.channelType = chatObj.channel_type
         self.label = chatObj.label ?? ""
         self.userImage = chatObj.user_image ?? ""
     }
@@ -791,6 +787,7 @@ class AgentConversationViewController: HippoConversationViewController {
     // MARK: - Type Methods
     class func getWith(conversationObj: AgentConversation) -> AgentConversationViewController {
         let vc = getNewInstance()
+        vc.channelType = conversationObj.channel_type
         vc.updateChatInfoWith(chatObj: conversationObj)
         return vc
     }
@@ -803,7 +800,7 @@ class AgentConversationViewController: HippoConversationViewController {
         return vc
     }
     
-    class func getWith(channelID: Int, channelName: String) -> AgentConversationViewController {
+    class func getWith(channelID: Int, channelName: String, channelType : channelType? = .DEFAULT) -> AgentConversationViewController {
         let vc = getNewInstance()
         vc.channel = AgentChannelPersistancyManager.shared.getChannelBy(id: channelID)
 //        vc.label = channelName
@@ -812,6 +809,7 @@ class AgentConversationViewController: HippoConversationViewController {
         }else{
             vc.label = vc.channel.chatDetail?.customerName ?? ""
         }
+        vc.channelType = channelType?.rawValue
         return vc
     }
     
@@ -939,7 +937,10 @@ extension AgentConversationViewController {
         if BussinessProperty.current.isAskPaymentAllowed{
             self.attachments.append(Attachment(icon : HippoConfig.shared.theme.paymentIcon , title : HippoStrings.payment))
         }
-//        self.attachments.append(Attachment(icon : HippoConfig.shared.theme.botIcon  , title : "Bot"))
+        
+        if BussinessProperty.current.eFormEnabled ?? false{
+            self.attachments.append(Attachment(icon : HippoConfig.shared.theme.eFormIcon  , title : HippoConfig.shared.strings.presciption))
+        }
         
         self.newConversationCountButton.roundCorner(cornerRect: [.topLeft, .bottomLeft], cornerRadius: 5)
         self.newConversationShadow.layer.cornerRadius = 5
@@ -1280,15 +1281,9 @@ extension AgentConversationViewController {
     
     //MARK: - funcs for MessageSendingView
     func intalizeMessageSendingView() {
-        var config = MessageSendingViewConfig()
+        let config = MessageSendingViewConfig()
         
-//        if channel?.channelInfo?.chatType == .o2o {
-        if channel?.chatDetail?.chatType == .o2o {
-            config.normalMessagePlaceHolder = HippoConfig.shared.theme.messagePlaceHolderText == nil ? HippoStrings.messagePlaceHolderText : HippoConfig.shared.theme.messagePlaceHolderText ?? ""
-            moreOptionsButton.isHidden = true
-        }else{
-            moreOptionsButton.isHidden = false
-        }
+        handleMoreButton()
         let dataManager = MentionDataManager(mentions: Business.shared.agents)
         let request = IntializationRequest(config: config, dataManager: dataManager)
         self.messageSendingViewConfig = request.config
@@ -1296,6 +1291,19 @@ extension AgentConversationViewController {
         self.setUpUI()
         self.intalizeMention()
     }
+    
+    
+    func handleMoreButton(){
+        var config = MessageSendingViewConfig()
+        if channel?.chatDetail?.chatType == .o2o {
+            config.normalMessagePlaceHolder = HippoConfig.shared.theme.messagePlaceHolderText == nil ? HippoStrings.messagePlaceHolderText : HippoConfig.shared.theme.messagePlaceHolderText ?? ""
+            moreOptionsButton.isHidden = true
+        }else{
+            moreOptionsButton.isHidden = false
+        }
+    }
+    
+    
     fileprivate func setUpUI() {
         setupTableView()
         setupTextView()
@@ -1384,6 +1392,7 @@ extension AgentConversationViewController {
         }else{
             self.attachments.append(Attachment(icon : HippoConfig.shared.theme.botIcon  , title : HippoStrings.bot))
         }
+        
         collectionViewOptions.reloadData()
         
         textViewBgView.backgroundColor = isPrivate ? HippoConfig.shared.theme.privateNoteChatBoxColor : UIColor.white
@@ -2459,6 +2468,9 @@ extension AgentConversationViewController{
             AgentConversationManager.getBotsAction(userId: self.channel.chatDetail?.customerID ?? 0, channelId: self.channelId) { (botActions) in
                 self.addBotActionView(with: botActions)
             }
+        case HippoConfig.shared.strings.presciption:
+            self.openSelectTemplate()
+            
         default:
             print("default")
         }

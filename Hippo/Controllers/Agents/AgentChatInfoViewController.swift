@@ -36,15 +36,15 @@ class AgentChatInfoViewController: UIViewController {
     
     //MARK: Outlets
     @IBOutlet weak var tableView: UITableView!
-//    @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var view_NavigationBar: NavigationBar!
+    @IBOutlet weak var loaderView: So_UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        fillData()
-//        self.navigationController?.setTheme()
-        setUpView()
-        setupTableView()
+        self.setUpView()
+        self.setupTableView()
+        getAgentInfo()
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -52,8 +52,7 @@ class AgentChatInfoViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-//        self.navigationController?.navigationBar.isHidden = false
-//        self.navigationController?.isNavigationBarHidden = false
+        
         self.navigationController?.isNavigationBarHidden = true
     }
     
@@ -61,6 +60,45 @@ class AgentChatInfoViewController: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
+    func getAgentInfo(){
+        let params = generateGetAgentInfoParams()
+        self.startLoaderAnimation()
+        HTTPClient.makeConcurrentConnectionWith(method: .POST, enCodingType: .json, para: params, extendedUrl: AgentEndPoints.getAgentInfo.rawValue) { (responseObject, error, tag, statusCode) in
+            self.stopLoaderAnimation()
+            if error == nil{
+                if let response = responseObject as? [String : Any], let data = (response["data"] as? [[String : Any]])?.first{
+                    self.channelDetail?.customerEmail = data["email"] as? String ?? ""
+                    self.channelDetail?.customerName = data["full_name"] as? String ?? ""
+                    self.channelDetail?.customerContactNumber = data["phone_number"] as? String ?? ""
+                    self.userImage = data["user_image"] as? String
+                    self.fillData()
+                    self.tableView.reloadData()
+                }
+            }else{
+                
+            }
+           
+        }
+    }
+    
+    func generateGetAgentInfoParams() -> [String : Any]{
+        var params = [String : Any]()
+        params["user_id"] = channelDetail?.customerID
+        params["channel_id"] = channelDetail?.channelId
+        params["access_token"] = HippoConfig.shared.agentDetail?.fuguToken
+        return params
+    }
+    
+    func startLoaderAnimation() {
+        DispatchQueue.main.async {
+            self.loaderView?.startRotationAnimation()
+        }
+    }
+    func stopLoaderAnimation() {
+        DispatchQueue.main.async {
+            self.loaderView?.stopRotationAnimation()
+        }
+    }
     //MARK: Class methods
     class func get(chatDetail: ChatDetail, userImage : String?) -> AgentChatInfoViewController? {
 //        let storyboard = UIStoryboard(name: "FuguUnique", bundle: FuguFlowManager.bundle)
@@ -88,21 +126,6 @@ extension AgentChatInfoViewController {
     }
     
     func setUpView() {
-//        self.navigationItem.title = "Info"
-//
-//        backButton.tintColor = HippoConfig.shared.theme.headerTextColor
-//        if HippoConfig.shared.theme.leftBarButtonText.count > 0 {
-//            backButton.setTitle((" " + HippoConfig.shared.theme.leftBarButtonText), for: .normal)
-//            if HippoConfig.shared.theme.leftBarButtonFont != nil {
-//                backButton.titleLabel?.font = HippoConfig.shared.theme.leftBarButtonFont
-//            }
-//            backButton.setTitleColor(HippoConfig.shared.theme.leftBarButtonTextColor, for: .normal)
-//        } else {
-//            if HippoConfig.shared.theme.leftBarButtonArrowImage != nil {
-//                backButton.setImage(HippoConfig.shared.theme.leftBarButtonArrowImage, for: .normal)
-//                backButton.tintColor = HippoConfig.shared.theme.headerTextColor
-//            }
-//        }
         view_NavigationBar.title = HippoStrings.info
         view_NavigationBar.leftButton.addTarget(self, action: #selector(backButtonClicked(_:)), for: .touchUpInside)
         view_NavigationBar.view.layer.shadowOffset = CGSize(width: 0.0, height: 0.5)
@@ -194,7 +217,7 @@ extension AgentChatInfoViewController {
             return
         }
         for each in controllers {
-            if each as? AgentHomeViewController != nil {
+            if each as? HippoHomeViewController != nil {
                 self.navigationController?.popToRootViewController(animated: true)
                 return
             }
@@ -287,6 +310,9 @@ extension AgentChatInfoViewController: UITableViewDataSource {
         let chatType = channelDetail?.chatType ?? .other
         switch chatType {
         case .o2o:
+            if HippoConfig.shared.agentDetail?.agentUserType == .admin{
+                return AgentChatInfoSections.count
+            }
             return 1
         default:
             return AgentChatInfoSections.count

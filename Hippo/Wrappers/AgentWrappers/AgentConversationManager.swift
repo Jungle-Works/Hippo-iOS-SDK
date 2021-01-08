@@ -506,6 +506,7 @@ extension AgentConversationManager {
                                    "device_type": Device_Type_iOS,
                                    "app_version": fuguAppVersion]
         
+
         dict["page_offset"] = request.pageStart
         if let pageEnd = request.pageEnd{
             let startPage = request.pageStart

@@ -216,6 +216,13 @@ public class HippoStrings {
 
 
     open var disbaledCameraErrorMessage = "Access to Camera is denied. Please enable from setings."
+    
+    static var myChatsOnly = "My Chats Only".localized
+    static var unassignedChats = "Unassigned Chats".localized
+    static var mySupportChats = "My Support Chats".localized
+    static var type = "Type".localized
+    static var supportChats = "Support Chats".localized
+  
     open var cameraString = "New Image via Camera"
     open var displayNameForCustomers = "Fleet"
     open var broadCastTitle = "This will send message to your active*"
@@ -228,8 +235,10 @@ public class HippoStrings {
     open var seePreviousMessges = "See Previous Messages"
     open var noBroadcastAvailable = "No broadcast found!"
     open var allTeamString = "All Teams"
-    
-   
+    open var presciption = "Send E-form"
+    open var selectPresciptionHeader = "Select E-form Template"
+    open var sendPrescription = "Send Prescription"
+    open var noCustomField = "No custom field found."
     
 //    open var checkingNewMessages = "Updating new messages..."
     

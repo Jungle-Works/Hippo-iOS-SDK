@@ -243,7 +243,9 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         }
         
         channel.delegate = self
-        
+        if !channel.isSubscribed(){
+            channel?.subscribe()
+        }
         populateTableViewWithChannelData()
         fetchMessagesFrom1stPage()
         //HippoConfig.shared.notifyDidLoad()//
@@ -294,6 +296,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     
    override  func viewWillAppear(_ animated: Bool) {
       super.viewWillAppear(animated)
+     HippoConfig.shared.hideTabbar?(true)
       tableViewChat.contentInset.top = 12
       messageTextView.contentInset.top = 8
       self.navigationController?.isNavigationBarHidden = true
@@ -323,9 +326,10 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     override func viewWillLayoutSubviews() {
         
         //hide
-        self.tabBarController?.hidesBottomBarWhenPushed = true
-        self.tabBarController?.tabBar.isHidden = true
-        self.tabBarController?.tabBar.layer.zPosition = -1
+//        self.tabBarController?.hidesBottomBarWhenPushed = true
+//        self.tabBarController?.tabBar.isHidden = true
+//        self.tabBarController?.tabBar.layer.zPosition = -1
+ //       HippoConfig.shared.hideTabbar?(true)
     }
 
     override func closeKeyBoard() {
@@ -368,7 +372,11 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
    
     override func didSetChannel() {
         channel?.delegate = self
+        if !channel.isSubscribed(){
+            channel?.subscribe()
+        }
     }
+    
     func navigationSetUp() {
         /*navigationBackgroundView.layer.shadowColor = UIColor.black.cgColor
         navigationBackgroundView.layer.shadowOpacity = 0.25
@@ -568,7 +576,9 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
          }
         
         channel.delegate = self
-
+        if !channel.isSubscribed(){
+            channel?.subscribe()
+        }
         populateTableViewWithChannelData()
         fetchMessagesFrom1stPage()
         HippoConfig.shared.notifyDidLoad()
@@ -843,6 +853,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     }
     
    override func backButtonClicked() {
+         HippoConfig.shared.hideTabbar?(false)
         super.backButtonClicked()
         backNavigationDataSaving()
         if self.navigationController == nil {
@@ -1288,6 +1299,9 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         if result.channelID > 0 {
             weakSelf.channel = FuguChannelPersistancyManager.shared.getChannelBy(id: result.channelID)
             weakSelf.channel.delegate = self
+            if !weakSelf.channel.isSubscribed(){
+                weakSelf.channel?.subscribe()
+            }
             weakSelf.populateTableViewWithChannelData()
         }
         
@@ -1436,7 +1450,9 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         userImage = result.channel?.chatDetail?.channelImageUrl
         channel = result.channel
         channel.delegate = self
-        
+        if !channel.isSubscribed(){
+            channel?.subscribe()
+        }
         setTitleForCustomNavigationBar()
         
         let (sentMessage, unsentMessage) = getMessageFromGrouped(messages: messagesGroupedByDate)
@@ -2326,6 +2342,7 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                     default:
                         return 80
                     }
+
                 case MessageType.actionableMessage, MessageType.hippoPay:
                     return UIView.tableAutoDimensionHeight > -1 ? UIView.tableAutoDimensionHeight : self.getHeightOfActionableMessageAt(indexPath: indexPath, chatObject: message) + 20
 
