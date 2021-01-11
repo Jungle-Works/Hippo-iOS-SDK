@@ -2190,12 +2190,24 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                  cell.setCellData(message: actionMessage)
                  return cell
              case .card:
-                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "CardMessageTableViewCell", for: indexPath) as? CardMessageTableViewCell else {
-                     return UITableView.defaultCell()
-                 }
-                 cell.delegate = self
-                 cell.set(message: message)
-                 return cell
+                if (message.isSearchFlow && (message.selectedCardId ?? "") == ""){
+                    guard let cell = tableView.dequeueReusableCell(withIdentifier: "SearchAgentTableViewCell", for: indexPath) as? SearchAgentTableViewCell else {
+                        return UITableView.defaultCell()
+                    }
+                    cell.textFieldClicked = {[weak self]() in
+                        DispatchQueue.main.async {
+                            self?.openSearchAgentScreen()
+                        }
+                    }
+                    return cell
+                }else{
+                    guard let cell = tableView.dequeueReusableCell(withIdentifier: "CardMessageTableViewCell", for: indexPath) as? CardMessageTableViewCell else {
+                        return UITableView.defaultCell()
+                    }
+                    cell.delegate = self
+                    cell.set(message: message)
+                    return cell
+                }
              case .paymentCard:
                  guard let cell = tableView.dequeueReusableCell(withIdentifier: "PaymentMessageCell", for: indexPath) as? PaymentMessageCell else {
                      return UITableView.defaultCell()
