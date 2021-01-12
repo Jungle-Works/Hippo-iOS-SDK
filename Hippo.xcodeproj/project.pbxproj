@@ -17,6 +17,7 @@
 		6B6DC29F259B5793009A0E47 /* SelectPresciptionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B6DC29E259B5793009A0E47 /* SelectPresciptionViewModel.swift */; };
 		6B7264E425A31EF300EEC13F /* PrescipionTextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B7264E225A31EF300EEC13F /* PrescipionTextFieldCell.swift */; };
 		6B7264E525A31EF300EEC13F /* PrescipionTextFieldCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6B7264E325A31EF300EEC13F /* PrescipionTextFieldCell.xib */; };
+		6B76EE2125AC851200A3E5B7 /* SearchAgentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B76EE2025AC851200A3E5B7 /* SearchAgentViewModel.swift */; };
 		6B7C5FB32587A17000D85BA2 /* SearchAgentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B7C5FB12587A16F00D85BA2 /* SearchAgentTableViewCell.swift */; };
 		6B7C5FB42587A17000D85BA2 /* SearchAgentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6B7C5FB22587A16F00D85BA2 /* SearchAgentTableViewCell.xib */; };
 		6B7C5FB72587AC3F00D85BA2 /* SearchAgentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B7C5FB62587AC3F00D85BA2 /* SearchAgentViewController.swift */; };
@@ -442,6 +443,7 @@
 		6B6DC29E259B5793009A0E47 /* SelectPresciptionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPresciptionViewModel.swift; sourceTree = "<group>"; };
 		6B7264E225A31EF300EEC13F /* PrescipionTextFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrescipionTextFieldCell.swift; sourceTree = "<group>"; };
 		6B7264E325A31EF300EEC13F /* PrescipionTextFieldCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PrescipionTextFieldCell.xib; sourceTree = "<group>"; };
+		6B76EE2025AC851200A3E5B7 /* SearchAgentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAgentViewModel.swift; sourceTree = "<group>"; };
 		6B7C5FB12587A16F00D85BA2 /* SearchAgentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAgentTableViewCell.swift; sourceTree = "<group>"; };
 		6B7C5FB22587A16F00D85BA2 /* SearchAgentTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchAgentTableViewCell.xib; sourceTree = "<group>"; };
 		6B7C5FB62587AC3F00D85BA2 /* SearchAgentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAgentViewController.swift; sourceTree = "<group>"; };
@@ -1002,6 +1004,14 @@
 				6B7264E325A31EF300EEC13F /* PrescipionTextFieldCell.xib */,
 			);
 			path = FillPresciptionCell;
+			sourceTree = "<group>";
+		};
+		6B76EE1D25AC83D500A3E5B7 /* SearchAgent */ = {
+			isa = PBXGroup;
+			children = (
+				6B76EE2025AC851200A3E5B7 /* SearchAgentViewModel.swift */,
+			);
+			path = SearchAgent;
 			sourceTree = "<group>";
 		};
 		6B7C5FB52587A18300D85BA2 /* SeachAgentCell */ = {
@@ -1726,6 +1736,7 @@
 		C9B77D8921A01B060092848D /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				6B76EE1D25AC83D500A3E5B7 /* SearchAgent */,
 				6B584EF32502361200A7633A /* P2PUnread */,
 				D848D1AD245EEE9700235322 /* PaymentPlan */,
 				D8F6D2152419549E00B168C5 /* Messages */,
@@ -2927,6 +2938,7 @@
 				6B91A93E24780AF4008AB4CC /* NavigationBar.swift in Sources */,
 				D8F6D0B42419440C00B168C5 /* EmojiCollectionViewCell.swift in Sources */,
 				D8F6D1C8241951D000B168C5 /* Double+Extension.swift in Sources */,
+				6B76EE2125AC851200A3E5B7 /* SearchAgentViewModel.swift in Sources */,
 				D8F6D2652419591500B168C5 /* TagListView.swift in Sources */,
 				D8F6D16724194E1200B168C5 /* SelfMessageTableViewCell.swift in Sources */,
 				D8F6D09B2419015500B168C5 /* DownloadManager.swift in Sources */,
