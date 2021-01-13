@@ -1991,7 +1991,7 @@ extension HippoConversationViewController{
                 self?.closeAttachment()
                 let message = HippoMessage(message: "", type: .attachment, uniqueID: self?.generateUniqueId(), imageUrl: result.url, thumbnailUrl: result.thumbnail_url, localFilePath: nil, chatType: self?.channel?.chatDetail?.chatType)
                 message.fileName = result.file_name
-                message.localImagePath = self?.getCacheDirectoryUrlForFileWith(name: result.file_name).path
+                message.localImagePath = self?.getCacheDirectoryUrlForFileWith(name: result.file_name ?? "").path
                 message.fileUrl = result.url
                 self?.addMessageInUnsentArray(message: message)
                 self?.updateMessagesArrayLocallyForUIUpdation(message)
