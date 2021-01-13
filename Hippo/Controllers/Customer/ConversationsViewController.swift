@@ -2632,7 +2632,10 @@ func getHeighOfButtonCollectionView(actionableMessage: FuguActionableMessage) ->
 extension ConversationsViewController{
     func openSearchAgentScreen(){
         let vc = SearchAgentViewController.getNewInstance()
-        self.navigationController?.present(vc, animated: true, completion: nil)
+        let navController = UINavigationController(rootViewController: vc)
+        navController.navigationBar.isHidden = true
+        navController.modalPresentationStyle = .overCurrentContext
+        self.present(navController, animated: true, completion: nil)
     }
     
 }

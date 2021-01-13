@@ -42,8 +42,6 @@ class SearchAgentViewController: UIViewController {
                 
             }
         }
-        
-        // Do any additional setup after loading the view.
     }
     
     
@@ -102,6 +100,17 @@ extension SearchAgentViewController : UITableViewDelegate, UITableViewDataSource
         let cell = UITableViewCell()
         cell.textLabel?.text = searchAgentVM.tagArr[indexPath.row].tag_name
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = SelectAgentController.getNewInstance()
+        var idArr = [String]()
+        if let id = searchAgentVM.countryTag?.tag_id{
+            idArr.append(String(id))
+        }
+        idArr.append(String(searchAgentVM.tagArr[indexPath.row].tag_id ?? -1))
+        vc.selectAgentVM.tagIds = idArr
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }
 
