@@ -462,6 +462,19 @@ struct BotAction {
         return nav.viewControllers.first
     }
     
+    public func getCustomerChatVC() -> UINavigationController?{
+        guard HippoConfig.shared.appUserType == .customer else {
+            return nil
+        }
+        guard let navigationController = UIStoryboard(name: "FuguUnique", bundle: FuguFlowManager.bundle).instantiateViewController(withIdentifier: "FuguCustomerNavigationController") as? UINavigationController else {
+            return nil
+        }
+        (navigationController.viewControllers.first as? AllConversationsViewController)?.shouldHideBackBtn = true
+        
+        return navigationController
+    }
+    
+    
     /********
      Key for customAttributes:
      

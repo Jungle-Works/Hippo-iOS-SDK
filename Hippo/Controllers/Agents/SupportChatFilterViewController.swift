@@ -139,9 +139,11 @@ extension SupportChatFilterViewController : UITableViewDelegate, UITableViewData
 }
 
 
+
 struct SupportFilter {
     var type : FilterHeader = .status
     var value : [SupportFilterValues]?
+    
 }
 
 struct SupportFilterValues{
