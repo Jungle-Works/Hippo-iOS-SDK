@@ -313,6 +313,12 @@ func subscribeCustomerUserChannel(userChannelId: String) {
                         channel.signalReceivedFromPeer?(messageDict)
                     }
                     CallManager.shared.voipNotificationRecieved(payloadDict: messageDict)
+                }else if let channel_id = messageDict["channel_id"] as? String{
+                    let channel = FuguChannelPersistancyManager.shared.getChannelBy(id: Int(channel_id) ?? -1)
+                    if versionCode < 350{//call for old version
+                        channel.signalReceivedFromPeer?(messageDict)
+                    }
+                    CallManager.shared.voipNotificationRecieved(payloadDict: messageDict)
                 }
             }else if let messageType = messageDict["message_type"] as? Int, messageType == MessageType.groupCall.rawValue{
                 CallManager.shared.voipNotificationRecievedForGroupCall(payloadDict: messageDict)
