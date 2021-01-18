@@ -1140,7 +1140,15 @@ extension HippoConversationViewController {
             message.isFileUploading = false
             
             guard result.isSuccessful else {
-                message.wasMessageSendingFailed = true
+                if result.status == 400{
+                   message.wasMessageSendingFailed = true
+                   message.status = .none
+                    self?.showErrorMessage(messageString: (result.error?.localizedDescription) ?? "" , bgColor: .red)
+                    self?.updateErrorLabelView(isHiding: true)
+                   self?.cancelMessage(message: message)
+                }else{
+                  message.wasMessageSendingFailed = true
+                }
                 self?.tableViewChat.reloadData()
                 completion(false)
                 return

@@ -300,7 +300,13 @@ func subscribeCustomerUserChannel(userChannelId: String) {
     SocketClient.shared.subscribeSocketChannel(channel: userChannelId)
     HippoConfig.shared.userDetail?.listener?.startListening(event: SocketEvent.SERVER_PUSH.rawValue, callback: { (data) in
         if let messageDict = data as? [String : Any]{
+           
+            if (messageDict["channel"] as? String)?.replacingOccurrences(of: "/", with: "") != userChannelId{
+                return
+            }
+            
             HippoConfig.shared.log.trace("UserChannel:: --->\(messageDict)", level: .socket)
+            
             if let messageType = messageDict["message_type"] as? Int, messageType == MessageType.call.rawValue {
                 if let channel_id = messageDict["channel_id"] as? Int{ //isSubscribed(userChannelId: "\(channel_id)") == false {
                     
