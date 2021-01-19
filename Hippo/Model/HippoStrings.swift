@@ -219,6 +219,11 @@ public class HippoStrings {
     static var mySupportChats = "My Support Chats".localized
     static var type = "Type".localized
     static var supportChats = "Support Chats".localized
+    static var requiredField = "Field is required"
+    static var enterValidEmail = "Enter valid email"
+    
+    
+    
   
     open var cameraString = "New Image via Camera"
     open var displayNameForCustomers = "Fleet"

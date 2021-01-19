@@ -108,7 +108,7 @@ extension SelectPresciptionTemplateController : UITableViewDelegate, UITableView
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = FillPresciptionViewController.getNewInstance(template: selectPresciptionVM.templateArr[indexPath.row])
+        let vc = FillPresciptionViewController.getNewInstance(template: selectPresciptionVM.templateArr[indexPath.row], channelId : selectPresciptionVM.channelID ?? -1)
         vc.pdfUploadResult = {[weak self](result) in
             DispatchQueue.main.async {
                 if let result = result{

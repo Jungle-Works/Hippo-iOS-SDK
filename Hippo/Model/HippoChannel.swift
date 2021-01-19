@@ -134,6 +134,7 @@ class HippoChannel {
         listener = SocketListner()
         addObserver()
         subscribe()
+        startListening()
         addObserverIfAppIsKilled()
         loadCachedMessages()
         loadCachedHashMap()
@@ -656,6 +657,9 @@ class HippoChannel {
     }
     func subscribe(completion: HippoChannelHandler? = nil) {
         SocketClient.shared.subscribeSocketChannel(channel: id.description)
+    }
+    
+    func startListening(){
         listener?.startListening(event: SocketEvent.SERVER_PUSH.rawValue, callback: { [weak self](data) in
             if let messageDict = data as? [String : Any]{
                 
@@ -685,6 +689,7 @@ class HippoChannel {
             }
         })
     }
+    
     
     //should Continue after handling NotificationType
     func handleByNotification(dict: [String: Any]) -> Bool {

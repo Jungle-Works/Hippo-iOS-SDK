@@ -12,6 +12,7 @@ class FillPresciptionViewController: UIViewController, InformationViewDelegate {
 
     //MARK:- Variables
     var template : Template?
+    var channelId : Int?
     var pdfUploadResult : ((UploadResult?)->())?
     let datePickerView:UIDatePicker = UIDatePicker()
     var informationView: InformationView?
@@ -89,6 +90,7 @@ extension FillPresciptionViewController{
     
     @IBAction func action_CreatePrescription(){
         let selectPresciptionVM = SelectPresciptionViewModel()
+        selectPresciptionVM.channelID = channelId
         let error = selectPresciptionVM.createParam(withTemplate: template ?? Template()).0
         let params = selectPresciptionVM.createParam(withTemplate: template ?? Template()).1
         if error != nil{
@@ -122,10 +124,11 @@ extension FillPresciptionViewController{
 extension FillPresciptionViewController{
     //MARK:- Functions
     
-    class func getNewInstance(template : Template) -> FillPresciptionViewController {
+    class func getNewInstance(template : Template,channelId : Int) -> FillPresciptionViewController {
         let storyboard = UIStoryboard(name: "AgentSdk", bundle: FuguFlowManager.bundle)
         let vc = storyboard.instantiateViewController(withIdentifier: "FillPresciptionViewController") as! FillPresciptionViewController
         vc.template = template
+        vc.channelId = channelId
         return vc
     }
     
