@@ -638,6 +638,8 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
             json["user_id"] = currentUserId()
             json["values"] = [selectedActionId]
             json["content_value"] = contentValues
+        }else if type == .card && isSearchFlow{
+            json["content_value"] = contentValues
         }
         
         if customAction != nil{

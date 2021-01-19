@@ -78,6 +78,22 @@ struct MessageCard: HippoCard {
         message.messageUniqueID = mockMuID
         return message
     }
+    
+    static func getJson(card : [MessageCard]) -> [String : Any]{
+        var dic = [String : Any]()
+        var valueDicArr = [[String : Any]]()
+        for value in card{
+            var valueDic = [String : Any]()
+            var nameValuePairs = [String : Any]()
+            nameValuePairs["id"] = value.id
+            nameValuePairs["image_url"] = value.image?.url.absoluteString
+            nameValuePairs["title"] = value.title
+            valueDic["nameValuePairs"] = nameValuePairs
+            valueDicArr.append(valueDic)
+        }
+        dic["values"] = valueDicArr
+        return dic
+    }
 }
 
 extension MessageCard {

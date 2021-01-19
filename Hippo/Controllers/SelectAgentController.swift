@@ -13,13 +13,14 @@ class SelectAgentController: UIViewController {
     //MARK:- IBOutlets
     @IBOutlet var tableView : UITableView!{
         didSet{
-            tableView.register(UINib(nibName: "SearchAgentTableViewCell", bundle: FuguFlowManager.bundle), forCellReuseIdentifier: "SearchAgentTableViewCell")
+            tableView.register(UINib(nibName: "SelectAgentCell", bundle: FuguFlowManager.bundle), forCellReuseIdentifier: "SelectAgentCell")
         }
     }
     @IBOutlet var view_NavigationBar : NavigationBarChat!
     
     //MARK:- Variables
     var selectAgentVM = SelectAgentViewModel()
+    var cardSelected : ((MessageCard)->())?
     
     //MARK:- Life Cycle
     override func viewDidLoad() {
@@ -48,7 +49,7 @@ class SelectAgentController: UIViewController {
     //MARK:- IBAction
     
     @IBAction func action_BackBtn(){
-        self.navigationController?.popViewController(animated: false)
+        self.navigationController?.popViewController(animated: true)
     }
 }
 extension SelectAgentController : UITableViewDelegate, UITableViewDataSource{
@@ -57,7 +58,19 @@ extension SelectAgentController : UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "SearchAgentTableViewCell", for: indexPath) as? SearchAgentTableViewCell
-        return cell ?? SearchAgentTableViewCell()
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "SelectAgentCell", for: indexPath) as? SelectAgentCell else{
+            return SelectAgentCell()
+        }
+        if let card = selectAgentVM.agentCard?[indexPath.row]{
+            cell.config(card: card)
+        }
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let card = selectAgentVM.agentCard?[indexPath.row]{
+            self.cardSelected?(card)
+        }
+        self.navigationController?.popViewController(animated: false)
     }
 }

@@ -25,6 +25,7 @@ class SearchAgentViewController: UIViewController {
     var countryList : [String] = ["All","India","USA","China","Japan"]
     var pickerView: UIPickerView?
     var searchAgentVM = SearchAgentViewModel()
+    var cardSelected : ((MessageCard)->())?
     
     //MARK:- UIViewController Life Cycle Methods
     
@@ -110,6 +111,13 @@ extension SearchAgentViewController : UITableViewDelegate, UITableViewDataSource
         }
         idArr.append(String(searchAgentVM.tagArr[indexPath.row].tag_id ?? -1))
         vc.selectAgentVM.tagIds = idArr
+        vc.cardSelected = {[weak self](card) in
+            DispatchQueue.main.async {
+                self?.cardSelected?(card)
+                self?.dismiss(animated: false, completion: nil)
+            }
+        }
+        
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }

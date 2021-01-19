@@ -2196,7 +2196,7 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                     }
                     cell.textFieldClicked = {[weak self]() in
                         DispatchQueue.main.async {
-                            self?.openSearchAgentScreen()
+                            self?.openSearchAgentScreen(message: message)
                         }
                     }
                     return cell
@@ -2630,8 +2630,19 @@ func getHeighOfButtonCollectionView(actionableMessage: FuguActionableMessage) ->
 }
 
 extension ConversationsViewController{
-    func openSearchAgentScreen(){
+    func openSearchAgentScreen(message : HippoMessage){
         let vc = SearchAgentViewController.getNewInstance()
+        vc.cardSelected = {[weak self](card) in
+            DispatchQueue.main.async {
+                let contentDic = MessageCard.getJson(card: [card])
+                message.contentValues = [contentDic]
+                message.selectedCard = card
+                message.selectedCardId = card.id
+                message.senderId = currentUserId()
+                self?.sendMessage(message: message)
+                self?.tableViewChat.reloadData()
+            }
+        }
         let navController = UINavigationController(rootViewController: vc)
         navController.navigationBar.isHidden = true
         navController.modalPresentationStyle = .overCurrentContext
