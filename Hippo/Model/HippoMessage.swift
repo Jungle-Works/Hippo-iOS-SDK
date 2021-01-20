@@ -138,6 +138,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
     var isSkipEvent: Bool = false
     var isFromBot: Int?
     var isSearchFlow : Bool = false
+    var cardMaxHeight : CGFloat = 180
     
     var mimeType: String? {
         guard parsedMimeType == nil else {
@@ -368,7 +369,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
                 let (cards, selectedCard) = MessageCard.parseList(cardsJson: content_value, selectedCardID: selectedCardId)
                 self.cards = cards
                 self.selectedCard = selectedCard
-                
+                self.cardMaxHeight = (cards.max{($0.height ?? 0.0) < ($1.height ?? 0.0)})?.height ?? 0.0
 //                if cards.isEmpty {
 //                    message = fallbackText ?? HippoConfig.shared.strings.defaultFallbackText
 //                    type = .botText

@@ -41,7 +41,7 @@ class SearchAgentViewModel{
             self.tagArr.removeAll()
             if let data = ((responseObject as? [String : Any])?["data"] as? [[String : Any]]){
                 if self.isCountrySearch{
-                    let data = self.jsonToNSData(json: data)
+                    let data = self.jsonToNSData(json: data.first ?? [String : Any]())
                     self.countryTag = try? JSONDecoder().decode(Tag.self, from: data ?? Data())
                 }else{
                     for tag in data{

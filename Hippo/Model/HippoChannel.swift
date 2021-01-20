@@ -877,6 +877,14 @@ class HippoChannel {
             }
             oldMessage.selectedCardId = newMessage.selectedCardId
             return false
+        case .card:
+            if oldMessage.isSearchFlow{
+                oldMessage.cards = newMessage.cards
+                oldMessage.selectedCard = newMessage.selectedCard
+                oldMessage.selectedCardId = newMessage.selectedCardId
+                oldMessage.cardMaxHeight = newMessage.cardMaxHeight
+                return true
+            }
         case .normal:
             if newMessage.notification == NotificationType.messageModified{
                 oldMessage.updateMessageForEditDelete(with: newMessage)

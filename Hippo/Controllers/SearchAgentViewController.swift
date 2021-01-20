@@ -13,12 +13,13 @@ class SearchAgentViewController: UIViewController {
     //MARK:- IBOutlets
     
     @IBOutlet var textField_SelectCountry : UITextField!
-    @IBOutlet var textField_SearchSkill : UITextField!{
-        didSet{
-            
-        }
-    }
+    @IBOutlet var textField_SearchSkill : UITextField!
     @IBOutlet var table_SearchAgent : UITableView!
+    @IBOutlet var view_SelectCountry : UIView!
+    @IBOutlet var view_SearchSkill: UIView!
+    @IBOutlet weak var image_Loader : So_UIImageView!
+    @IBOutlet weak var view_Navigation : UIView!
+    @IBOutlet weak var button_Skip : UIButton!
     
     //MARK:- Variables
     
@@ -26,6 +27,7 @@ class SearchAgentViewController: UIViewController {
     var pickerView: UIPickerView?
     var searchAgentVM = SearchAgentViewModel()
     var cardSelected : ((MessageCard)->())?
+    var informationView: InformationView?
     
     //MARK:- UIViewController Life Cycle Methods
     
@@ -34,15 +36,36 @@ class SearchAgentViewController: UIViewController {
         setPickerView()
         searchAgentVM.responseRecieved = {[weak self]() in
             DispatchQueue.main.async {
+                self?.noFieldsFound(errorMessage: HippoStrings.noDataFound)
+                if self?.searchAgentVM.isCountrySearch ?? false{
+                    if self?.searchAgentVM.countryTag == nil || self?.searchAgentVM.countryTag?.tag_id == nil{
+                        return
+                    }
+                    self?.view_SearchSkill.isHidden = false
+                    self?.view_SelectCountry.isHidden = true
+                    self?.button_Skip.isHidden = true
+                }else{
+                    self?.view_SearchSkill.isHidden = false
+                    self?.view_SelectCountry.isHidden = true
+                }
                 self?.table_SearchAgent.reloadData()
             }
         }
         
-        searchAgentVM.startLoading = {[weak self](status) in
+        searchAgentVM.startLoading = {[weak self](isLoading) in
             DispatchQueue.main.async {
-                
+                if isLoading{
+                    self?.startLoaderAnimation()
+                }else{
+                    self?.stopLoaderAnimation()
+                }
             }
         }
+        view_SearchSkill.isHidden = true
+        button_Skip.isHidden = false
+        button_Skip.titleLabel?.font = UIFont.regular(ofSize: 15.0)
+        button_Skip.setTitleColor(HippoConfig.shared.theme.themeColor, for: .normal)
+        self.noFieldsFound(errorMessage: HippoStrings.noDataFound)
     }
     
     
@@ -50,6 +73,18 @@ class SearchAgentViewController: UIViewController {
     
     @IBAction func action_BackBtn(){
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func action_SkipBtn(){
+        self.view_SearchSkill.isHidden = false
+        self.view_SelectCountry.isHidden = true
+        self.button_Skip.isHidden = true
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        view_Navigation.setNeedsLayout()
+        view_Navigation.layoutIfNeeded()
     }
     
     //MARK:- Function
@@ -60,6 +95,38 @@ class SearchAgentViewController: UIViewController {
         return vc
     }
     
+    private func startLoaderAnimation() {
+        image_Loader.isHidden = false
+        image_Loader.startRotationAnimation()
+    }
+    
+    private func stopLoaderAnimation() {
+        image_Loader.isHidden = true
+        image_Loader.stopRotationAnimation()
+    }
+    
+    private func noFieldsFound(errorMessage : String){
+        if (self.searchAgentVM.isCountrySearch == true && (self.searchAgentVM.countryTag == nil || self.searchAgentVM.countryTag?.tag_id == nil)) || (self.searchAgentVM.isCountrySearch == false && self.searchAgentVM.tagArr.count == 0){
+            if informationView == nil {
+                informationView = InformationView.loadView(self.table_SearchAgent.bounds, delegate: self)
+            }
+            self.informationView?.informationLabel.text = errorMessage
+            self.informationView?.informationImageView.image = HippoConfig.shared.theme.noPrescription
+            self.informationView?.isButtonInfoHidden = true
+            self.informationView?.isHidden = false
+            self.table_SearchAgent.addSubview(informationView!)
+            self.table_SearchAgent.layoutSubviews()
+        }else{
+            for view in table_SearchAgent.subviews{
+                if view is InformationView{
+                    view.removeFromSuperview()
+                }
+            }
+            self.table_SearchAgent.layoutSubviews()
+            self.informationView?.isHidden = true
+        }
+    }
+
     private func setPickerView() {
         pickerView = UIPickerView()
         pickerView?.delegate = self
@@ -81,15 +148,21 @@ class SearchAgentViewController: UIViewController {
         
         textField_SelectCountry.inputView = pickerView
         textField_SelectCountry.inputAccessoryView = toolBar
+        textField_SelectCountry.text = countryList.first ?? ""
     }
     
     @objc func prickerDoneButtonClicked() {
-        if textField_SelectCountry.text != "All"{
+        if textField_SelectCountry.text?.trimWhiteSpacesAndNewLine() != "" || textField_SelectCountry.text != "All"{
             searchAgentVM.isCountrySearch = true
             searchAgentVM.searchKey = textField_SelectCountry.text
         }
         textField_SelectCountry.resignFirstResponder()
     }
+}
+
+extension SearchAgentViewController : InformationViewDelegate{
+
+    
 }
 
 extension SearchAgentViewController : UITableViewDelegate, UITableViewDataSource{

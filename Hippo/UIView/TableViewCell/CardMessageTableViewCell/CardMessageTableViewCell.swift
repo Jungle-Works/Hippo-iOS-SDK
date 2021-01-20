@@ -82,7 +82,7 @@ extension CardMessageTableViewCell: UICollectionViewDelegate, UICollectionViewDe
         }
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 160, height: collectionView.bounds.height - 10)
+        return CGSize(width: collectionView.bounds.width, height: collectionView.bounds.height)
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

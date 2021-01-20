@@ -11,16 +11,28 @@ import UIKit
 class AgentProfileViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var view_NavigationBar : NavigationBar!
     
     var presenter: AgentProfilePresenter?
     var datasource = AgentProfileViewDatasource()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view_NavigationBar.setupNavigationBar = {[weak self]() in
+            DispatchQueue.main.async {
+                self?.view_NavigationBar.title = HippoStrings.profile
+                self?.view_NavigationBar.leftButton.addTarget(self, action: #selector(self?.action_BackBtn), for: .touchUpInside)
+            }
+        }
+        
         setTheme()
         setUpTableView()
     }
 
+    @IBAction func action_BackBtn(){
+        self.navigationController?.popViewController(animated: true)
+    }
+    
     internal func setTheme() {
         let theme = HippoConfig.shared.theme
         view.backgroundColor = theme.profileBackgroundColor

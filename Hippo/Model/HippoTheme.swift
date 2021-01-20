@@ -256,7 +256,7 @@ public struct ConversationListTheme {
     open var radioActive = UIImage(named: "radio_button_active", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysOriginal)
     open var radioInActive = UIImage(named: "radio_button_deactive", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysOriginal)
     
-    open var infoIcon: UIImage?
+    open var infoIcon =  UIImage(named: "info_button_icon_on_navigation_bar", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     
     /// MARK: Theme For Support
     

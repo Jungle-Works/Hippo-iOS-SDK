@@ -2371,7 +2371,7 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                     if (message.isSearchFlow && (message.selectedCardId ?? "") == ""){
                      return 50
                     }
-                    return 230
+                    return message.cardMaxHeight
                 case .paymentCard:
                     return message.calculatedHeight ?? 0.1
                 case .multipleSelect:
@@ -2635,7 +2635,7 @@ extension ConversationsViewController{
         vc.cardSelected = {[weak self](card) in
             DispatchQueue.main.async {
                 let contentDic = MessageCard.getJson(card: [card])
-                message.contentValues = [contentDic]
+                message.contentValues = contentDic
                 message.selectedCard = card
                 message.selectedCardId = card.id
                 message.senderId = currentUserId()

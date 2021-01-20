@@ -1626,9 +1626,9 @@ extension HippoConversationViewController: NavigationTitleViewDelegate {
         }
     }
     func openProfile(for channelId: Int, agentId: String?, profile: ProfileDetail?) {
-//        let presenter = AgentProfilePresenter(channelID: channelId, agentID: agentId, profile: profile)
-//        let vc = AgentProfileViewController.get(presenter: presenter)
-//        self.navigationController?.pushViewController(vc, animated: true)
+        let presenter = AgentProfilePresenter(channelID: channelId, agentID: agentId, profile: profile)
+        let vc = AgentProfileViewController.get(presenter: presenter)
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }
 extension HippoConversationViewController: CardMessageDelegate {
@@ -1637,7 +1637,7 @@ extension HippoConversationViewController: CardMessageDelegate {
             print("isSendingDisabled disabled")
             return
         }
-        
+        message.senderId = currentUserId()
         message.selectedCardId = card.id
         sendMessage(message: message)
         cell.set(message: message)

@@ -15,8 +15,9 @@ protocol HippoCard {
 
 struct MessageCard: HippoCard {
     var cardHeight: CGFloat {
-        return 230
+        return 170
     }
+    var height : CGFloat?
     
     let image: HippoResource?
     let title: String
@@ -43,6 +44,7 @@ struct MessageCard: HippoCard {
         if let online_status = json["online_status"] as? String, let status = AgentStatus.init(rawValue: online_status){
             self.onlineStatus = status
         }
+        self.height = self.description.trimWhiteSpacesAndNewLine() == "" ? 170 : 150 + 60
     }
     static func parseList(cardsJson: [[String: Any]]) -> [MessageCard] {
         var cards: [MessageCard] = []
@@ -79,20 +81,16 @@ struct MessageCard: HippoCard {
         return message
     }
     
-    static func getJson(card : [MessageCard]) -> [String : Any]{
-        var dic = [String : Any]()
+    static func getJson(card : [MessageCard]) -> [[String : Any]]{
         var valueDicArr = [[String : Any]]()
         for value in card{
-            var valueDic = [String : Any]()
             var nameValuePairs = [String : Any]()
             nameValuePairs["id"] = value.id
             nameValuePairs["image_url"] = value.image?.url.absoluteString
             nameValuePairs["title"] = value.title
-            valueDic["nameValuePairs"] = nameValuePairs
-            valueDicArr.append(valueDic)
+            valueDicArr.append(nameValuePairs)
         }
-        dic["values"] = valueDicArr
-        return dic
+        return valueDicArr
     }
 }
 
