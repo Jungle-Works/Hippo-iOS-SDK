@@ -43,7 +43,7 @@ extension SocketClient {
             json["channel"] = channelIdForValidation
             
             socket?.emitWithAck(eventToSubscribe, json).timingOut(after: 20, callback: { (data) in
-                if (data.first as? [String : Any])?.isEmpty ?? false{
+                if data.isEmpty{
                     completion?(nil, false)
                 }else{
                     self.subscribedChannel[channel] = true

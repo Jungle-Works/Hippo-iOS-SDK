@@ -67,6 +67,11 @@ class SocketClient: NSObject {
     private func initListeners(){
         onConnectCallBack = {[weak self](arr, ack) in
             NotificationCenter.default.post(name: .socketConnected, object: nil)
+            if let userChannelId = HippoUserDetail.HippoUserChannelId, currentUserType() == .customer, self?.isChannelSubscribed(channel: userChannelId) == false{
+                SocketClient.shared.subscribeSocketChannel(channel: userChannelId)
+            }else if let userChannelId = HippoConfig.shared.agentDetail?.userChannel, currentUserType() == .agent, self?.isChannelSubscribed(channel: userChannelId) == false{
+                SocketClient.shared.subscribeSocketChannel(channel: userChannelId)
+            }
             self?.handshake()
         }
         onDisconnectCallBack = {(arr, ack) in
