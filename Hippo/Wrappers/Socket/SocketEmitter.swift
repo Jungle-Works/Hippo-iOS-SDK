@@ -136,6 +136,10 @@ extension SocketClient {
      }
     
     private func validate(channelID: inout String) {
+        guard channelID.first != nil else {
+            return
+        }
+        
         if "\(channelID.first ?? Character(""))" != SocketClient.shared.channelPrefix {
             channelID = SocketClient.shared.channelPrefix + channelID
         }
