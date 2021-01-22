@@ -12,7 +12,7 @@ let HippoSDKSource = 1
 let Device_Type_iOS = 2
 var userDetailData = [String: Any]()
 
-let fuguAppVersion = "2.1.48"
+let fuguAppVersion = "2.1.49"
 var versionCode = 250
 
 /*
@@ -146,5 +146,7 @@ var versionCode = 250
  339 *** 2.1.47 = Sockets and E-prescription
  
  340 *** 2.1.48 = Support Chat (O2o new flow)
+ 
+ 341 *** 2.1.49 = eprescription, mimetype restriction and socket issues fixed
  
  */
