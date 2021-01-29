@@ -1328,6 +1328,11 @@ extension HippoConfig{
         #endif
     }
     
+    public func keyWindowChangedFromParent(){
+        #if canImport(JitsiMeet)
+        HippoCallClient.shared.keyWindowChangedFromParent()
+        #endif
+    }
 }
 extension HippoConfig {
     func sendp2pUnreadCount(_ unreadCount : Int, _ channelId : Int){
