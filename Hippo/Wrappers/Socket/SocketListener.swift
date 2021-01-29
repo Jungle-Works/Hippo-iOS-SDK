@@ -21,7 +21,7 @@ class SocketListner {
     }
     
     func startListening(event: String, callback: @escaping (Any?) -> Void) {
-        let uuid = SocketClient.shared.on(event: event) { (dataArray) in
+        let uuid = SocketClient.shared.on(event: event) {(dataArray) in
             let data = dataArray.first
             callback(data)
         }

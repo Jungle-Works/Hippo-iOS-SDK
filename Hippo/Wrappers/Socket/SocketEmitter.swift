@@ -42,11 +42,16 @@ extension SocketClient {
             var json = getJson()
             json["channel"] = channelIdForValidation
             
+            if currentEnUserId().trimWhiteSpacesAndNewLine() == ""{
+                return
+            }
+            
             socket?.emitWithAck(eventToSubscribe, json).timingOut(after: 20, callback: { (data) in
-                if (data.first as? [String : Any])?.isEmpty ?? false{
+                if data.isEmpty{
                     completion?(nil, false)
                 }else{
                     self.subscribedChannel[channel] = true
+                    NotificationCenter.default.post(name: .channelSubscribed, object: nil)
                     completion?(nil, true)
                 }
             })
@@ -78,6 +83,10 @@ extension SocketClient {
             var json = getJson()
             json["channel"] = channelIdForValidation
             
+            if currentEnUserId().trimWhiteSpacesAndNewLine() == ""{
+                return
+            }
+            
             socket?.emitWithAck(eventToSubscribe, json).timingOut(after: 20, callback: { (data) in
                 self.subscribedChannel[channel] = false
             })
@@ -97,6 +106,10 @@ extension SocketClient {
             json += getJson()
             json["channel"] = channelIdForValidation
             
+            if currentEnUserId().trimWhiteSpacesAndNewLine() == ""{
+                return
+            }
+            
             socket.emitWithAck(SocketEvent.MESSAGE_CHANNEL.rawValue, json).timingOut(after: 20, callback: { (data) in
                 let ack = EventAckResponse(with: data)
                 completion(ack)
@@ -110,6 +123,11 @@ extension SocketClient {
     func handshake(){
         if let someSocket = socket, someSocket.status.active {
             let json = getJson()
+            
+            if currentEnUserId().trimWhiteSpacesAndNewLine() == ""{
+                return
+            }
+            
             socket?.emitWithAck(SocketEvent.HANDSHAKE_CHANNEL.rawValue, json).timingOut(after: 20, callback: { (data) in
                 print(data)
             })
@@ -119,6 +137,10 @@ extension SocketClient {
      }
     
     private func validate(channelID: inout String) {
+        guard channelID.first != nil else {
+            return
+        }
+        
         if "\(channelID.first ?? Character(""))" != SocketClient.shared.channelPrefix {
             channelID = SocketClient.shared.channelPrefix + channelID
         }

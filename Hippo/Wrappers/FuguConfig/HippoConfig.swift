@@ -1404,6 +1404,12 @@ extension HippoConfig {
         return HippoConfig.shared.delegate?.loadCallPresenterView(request: request)
     }
     #endif
+    
+    public func keyWindowChangedFromParent(){
+         #if canImport(JitsiMeet)
+         HippoCallClient.shared.keyWindowChangedFromParent()
+         #endif
+     }
 }
 extension HippoConfig{
     

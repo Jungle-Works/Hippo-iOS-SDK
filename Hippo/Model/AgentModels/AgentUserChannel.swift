@@ -47,17 +47,17 @@ class AgentUserChannel {
     
     class func reIntializeIfRequired() {
         guard shared == nil else {
+            shared?.checkForReconnection()
             return
         }
         
         if let newReference = AgentUserChannel() {
             shared = newReference
         }
-        
-        //        if shared != nil {
-        //            NotificationCenter.default.post(name: .userChannelChanged, object: nil)
-        //        }
     }
+    
+    
+    
     
     func addObservers() {
         let notificationCenter = NotificationCenter.default
@@ -111,7 +111,7 @@ class AgentUserChannel {
     //    }
     
     func subscribe(completion: UserChannelHandler? = nil) {
-        guard id != nil, HippoConfig.shared.appUserType == .agent else {
+        guard id != nil, HippoConfig.shared.agentDetail?.userChannel != "", HippoConfig.shared.appUserType == .agent else {
             completion?(false, nil)
             return
         }

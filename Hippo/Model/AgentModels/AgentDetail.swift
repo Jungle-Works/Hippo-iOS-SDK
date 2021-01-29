@@ -305,7 +305,7 @@ extension AgentDetail {
             
             AgentDetail.agentLoginData = detail.toJson()
             
-            fuguDelay(3, completion: {
+            fuguDelay(1, completion: {
                 AgentUserChannel.reIntializeIfRequired()
             })
             
