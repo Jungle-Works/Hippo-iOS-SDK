@@ -56,6 +56,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     var closedConversationArr = [FuguConversation]()
     var config: AllConversationsConfig = AllConversationsConfig.defaultConfig
     var conversationChatType: ConversationChatType = .openChat
+    var shouldHideBackBtn : Bool = false
     
     // MARK: - LIFECYCLE
     override func viewDidLoad() {
@@ -153,6 +154,8 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         fuguNewChatAttributes.botGroupId = HippoProperty.current.newconversationBotGroupId
         let conversation = ConversationsViewController.getWith(chatAttributes: fuguNewChatAttributes)
         conversation.createConversationOnStart = true
+        conversation.hidesBottomBarWhenPushed = true
+        HippoConfig.shared.hideTabbar?(true)
         self.navigationController?.pushViewController(conversation, animated: true)
     }
     
@@ -785,6 +788,8 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         HippoConfig.shared.notifyDidLoad()
         let conversationVC = ConversationsViewController.getWith(conversationObj: chatObj, allConversationConfig: config)
         conversationVC.delegate = self
+        conversationVC.hidesBottomBarWhenPushed = true
+        HippoConfig.shared.hideTabbar?(true)
         self.navigationController?.pushViewController(conversationVC, animated: true)
     }
     
@@ -792,6 +797,8 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         HippoConfig.shared.notifyDidLoad()
         let conversationVC = ConversationsViewController.getWith(labelId: "\(labelId)")
         conversationVC.delegate = self
+        conversationVC.hidesBottomBarWhenPushed = true
+        HippoConfig.shared.hideTabbar?(true)
         self.navigationController?.pushViewController(conversationVC, animated: false)
     }
     //MARK: - HANDLE PUSH NOTIFICATION

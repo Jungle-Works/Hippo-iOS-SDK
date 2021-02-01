@@ -22,6 +22,8 @@ extension Double {
             return Double(integerLiteral: val)
         case let val as NSNumber:
             return Double(exactly: val)
+        case let val as String:
+            return Double(val)
         default:
             return nil
         }

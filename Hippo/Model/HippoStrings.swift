@@ -210,10 +210,21 @@ public class HippoStrings {
     static var edited = "Edited".localized
     static var copy = "Copy".localized
     static var deleteMessage = "deleted this message.".localized
-
     static var establishingConnection = "Please wait while we are establishing the connection.."
- 
+    
     open var disbaledCameraErrorMessage = "Access to Camera is denied. Please enable from setings."
+    
+    static var myChatsOnly = "My Chats Only".localized
+    static var unassignedChats = "Unassigned Chats".localized
+    static var mySupportChats = "My Support Chats".localized
+    static var type = "Type".localized
+    static var supportChats = "Support Chats".localized
+    static var requiredField = "Field is required"
+    static var enterValidEmail = "Enter valid email"
+    
+    
+    
+  
     open var cameraString = "New Image via Camera"
     open var displayNameForCustomers = "Fleet"
     open var broadCastTitle = "This will send message to your active*"
@@ -226,8 +237,10 @@ public class HippoStrings {
     open var seePreviousMessges = "See Previous Messages"
     open var noBroadcastAvailable = "No broadcast found!"
     open var allTeamString = "All Teams"
-    
-   
+    open var presciption = "Send E-form"
+    open var selectPresciptionHeader = "Select E-form Template"
+    open var sendPrescription = "Send Prescription"
+    open var noCustomField = "No custom field found."
     
 //    open var checkingNewMessages = "Updating new messages..."
     
@@ -263,7 +276,7 @@ public class HippoStrings {
         HippoCallClientStrings.callDeclined = HippoStrings.callDeclined
         HippoCallClientStrings.busyOnOtherCall = HippoStrings.busyAnotherCall
         HippoCallClientStrings.connectingToMeeting = HippoStrings.connectingToMeeting
-        HippoCallClientStrings.establishingConnection = HippoStrings.establishingConnection
+//        HippoCallClientStrings.establishingConnection = HippoStrings.establishingConnection
         
         #endif
     }

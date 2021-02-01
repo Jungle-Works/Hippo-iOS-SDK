@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
     s.name         = 'Hippo'
 
-    s.version      = '2.1.44'
+    s.version      = '2.1.48'
 
     s.summary      = 'Now add Agent in app for quick support.'
     s.homepage     = 'https://github.com/Jungle-Works/Hippo-iOS-SDK'
@@ -12,7 +12,7 @@ Pod::Spec.new do |s|
     s.author             = { 'Vishal Jhanjhri' => 'jhanjhri.vishal@gmail.com' }
     
     s.source       = { :git => 'https://github.com/Jungle-Works/Hippo-iOS-SDK.git', :tag => s.version }
-    s.ios.deployment_target = '10.0'
+    s.ios.deployment_target = '11.0'
     s.source_files = 'Hippo/**/*.{swift,h,m}'
     s.exclude_files = 'Classes/Exclude'
     s.static_framework = false
@@ -25,9 +25,9 @@ Pod::Spec.new do |s|
     s.resources = ['Hippo/*.xcassets']
     s.preserve_paths = ['README.md']
     
-    s.dependency 'MZFayeClient'
+    s.dependency 'Socket.IO-Client-Swift'
     s.dependency 'razorpay-pod'
-    
+ 
     s.default_subspec = 'Chat'
     
     s.subspec 'Chat' do |chat|

@@ -15,8 +15,9 @@ protocol HippoCard {
 
 struct MessageCard: HippoCard {
     var cardHeight: CGFloat {
-        return 230
+        return 170
     }
+    var height : CGFloat?
     
     let image: HippoResource?
     let title: String
@@ -24,6 +25,7 @@ struct MessageCard: HippoCard {
     
     let id: String
     let rating: Double?
+    var onlineStatus : AgentStatus? = .none
     
     init?(json: [String: Any]) {
         guard json["id"] != nil else {
@@ -39,6 +41,10 @@ struct MessageCard: HippoCard {
         
         self.id = String.parse(values: json, key: "id")
         self.rating = Double.parse(values: json, key: "rating")
+        if let online_status = json["online_status"] as? String, let status = AgentStatus.init(rawValue: online_status){
+            self.onlineStatus = status
+        }
+        self.height = self.description.trimWhiteSpacesAndNewLine() == "" ? 170 : 150 + 60
     }
     static func parseList(cardsJson: [[String: Any]]) -> [MessageCard] {
         var cards: [MessageCard] = []
@@ -73,6 +79,18 @@ struct MessageCard: HippoCard {
         message.cards = MessageCard.getMockData()
         message.messageUniqueID = mockMuID
         return message
+    }
+    
+    static func getJson(card : [MessageCard]) -> [[String : Any]]{
+        var valueDicArr = [[String : Any]]()
+        for value in card{
+            var nameValuePairs = [String : Any]()
+            nameValuePairs["id"] = value.id
+            nameValuePairs["image_url"] = value.image?.url.absoluteString
+            nameValuePairs["title"] = value.title
+            valueDicArr.append(nameValuePairs)
+        }
+        return valueDicArr
     }
 }
 

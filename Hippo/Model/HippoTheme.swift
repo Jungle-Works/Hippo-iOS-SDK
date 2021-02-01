@@ -80,6 +80,7 @@ public struct ConversationListTheme {
     open var videoCallIcon: UIImage? = UIImage(named: "video", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
 
     open var noChatImage : UIImage? = UIImage(named: "noChats", in: FuguFlowManager.bundle, compatibleWith: nil)
+    open var noPrescription : UIImage? = UIImage(named: "emptyprescription", in: FuguFlowManager.bundle, compatibleWith: nil)
     open var paymentIcon: UIImage? = UIImage(named: "makePayment", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysOriginal)
     open var AddFileIcon: UIImage? = UIImage(named: "AddFile", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     open var editIcon: UIImage? = UIImage(named: "edit", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
@@ -91,6 +92,7 @@ public struct ConversationListTheme {
 //    open var alphabetSymbolIcon: UIImage? = UIImage(named: "alphabet_symbol_icon", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     open var privateInternalNotesIcon: UIImage? = UIImage(named: "private+message_icon_chat_box", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysOriginal)
     open var deleteIcon: UIImage? = UIImage(named: "delete", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+    open var eFormIcon: UIImage? = UIImage(named: "eform", in: FuguFlowManager.bundle, compatibleWith: nil)
     
     
 //    open var privateInternalNotesIcon: UIImage? = UIImage(named: "private+message_icon_chat_box", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
@@ -173,7 +175,7 @@ public struct ConversationListTheme {
     
     open var dateTimeTextColor = UIColor.black40
     open var dateTimeFontSize: UIFont? = UIFont.regular(ofSize: 11.0)
-    
+    open var applePlaceHolderColor = UIColor(red: 0/255, green: 0/255, blue: 0.0980392/255, alpha: 0.22)
     open var senderNameColor = UIColor.black40//UIColor.black
     open var senderNameFont: UIFont = UIFont.regular(ofSize: 16.0)
     open var itmDescriptionNameFont: UIFont? = UIFont.regular(ofSize: 14.0)
@@ -256,7 +258,7 @@ public struct ConversationListTheme {
     open var radioActive = UIImage(named: "radio_button_active", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysOriginal)
     open var radioInActive = UIImage(named: "radio_button_deactive", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysOriginal)
     
-    open var infoIcon: UIImage?
+    open var infoIcon =  UIImage(named: "info_button_icon_on_navigation_bar", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     
     /// MARK: Theme For Support
     

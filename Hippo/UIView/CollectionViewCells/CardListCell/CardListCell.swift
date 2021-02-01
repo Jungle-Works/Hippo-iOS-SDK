@@ -51,7 +51,7 @@ class CardListCell: UICollectionViewCell {
         ratingLabel.textColor = .white
         descriptionLabel.font = UIFont.bold(ofSize: 11)//UIFont.boldSystemFont(ofSize: 11)
         infoImageView.image = theme.infoIcon
-        infoImageView.tintColor = theme.infoIconTintColor
+        infoImageView.tintColor = .white//theme.infoIconTintColor
         bgView.layer.borderColor = theme.themeColor.cgColor
         bgView.layer.borderWidth = 1
         ratingViewContainer.isUserInteractionEnabled = false
@@ -61,19 +61,24 @@ class CardListCell: UICollectionViewCell {
     private func setDescriptionLabel() {
         let desc = (card?.description ?? "")
         descriptionLabel.text = desc
-        let readmoreFont = descriptionLabel.font //If font changes calculation is to be changed
-        let readmoreFontColor = UIColor.blue
-        
-        let isTrailingAdded = self.descriptionLabel.addTrailing(with: "...", moreText: HippoStrings.readMore, moreTextFont: readmoreFont!, moreTextColor: readmoreFontColor)
-        
-        
-        if isTrailingAdded {
-            descriptionLabel.isUserInteractionEnabled = true
-            addGesture()
-        } else {
-            descriptionLabel.isUserInteractionEnabled = false
-            removeGesture()
+        if desc.length() == 0{
+            bottomContainer.isHidden = true
+            return
         }
+        bottomContainer.isHidden = false
+//        let readmoreFont = descriptionLabel.font //If font changes calculation is to be changed
+//        let readmoreFontColor = UIColor.blue
+//
+//        let isTrailingAdded = self.descriptionLabel.addTrailing(with: "...", moreText: HippoStrings.readMore, moreTextFont: readmoreFont!, moreTextColor: readmoreFontColor)
+//
+//
+//        if isTrailingAdded {
+//            descriptionLabel.isUserInteractionEnabled = true
+//            addGesture()
+//        } else {
+//            descriptionLabel.isUserInteractionEnabled = false
+//            removeGesture()
+//        }
     }
     
     private func addGesture() {

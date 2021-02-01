@@ -131,11 +131,13 @@ class AgentHomeViewController: HippoHomeViewController {
         guard conversationType != .allChat else {
             return
         }
+
         reloadrefreshData(refreshCtrler: UIRefreshControl())
         self.myChatButton.titleLabel?.font = UIFont.regular(ofSize: 15)
         self.allChatButton.titleLabel?.font = UIFont.bold(ofSize: 15)
         self.o2oChatButton.titleLabel?.font = UIFont.regular(ofSize: 15)
         view_NavigationBar.rightButton.isHidden = false
+
         conversationType = .allChat
         animateBottomLineView()
         setData()
@@ -274,7 +276,7 @@ extension AgentHomeViewController {
             self.bottomLineView.isHidden = false
             numberOfBtns = 3
         }
-        width_bottomLineView.constant = self.view.frame.size.width/CGFloat(numberOfBtns)
+        width_bottomLineView.constant = numberOfBtns > 0 ? self.view.frame.size.width/CGFloat(numberOfBtns) : 0
     }
     
     func checkForAnyError() {
@@ -921,6 +923,9 @@ extension AgentHomeViewController: AgentUserChannelDelegate {
     
     func newConversationRecieved(_ newConversation: AgentConversation, channelID: Int) {
         if AgentConversation.isAssignmentNotification(for: newConversation) {
+            if newConversation.chatType == .o2o || newConversation.channel_type == channelType.SUPPORT_CHAT_CHANNEL.rawValue{
+                return
+            }
             handleAssignmentNotification(with: newConversation, channelID: channelID)
             return
         }

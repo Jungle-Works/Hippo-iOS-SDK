@@ -52,6 +52,7 @@ enum channelType: Int {
     case DEFAULT = 4
     case HELP_CHANNEL = 5
     case BROADCAST_CHANNEL = 6
+    case SUPPORT_CHAT_CHANNEL = 9
 }
 
 enum SourceType: Int {
@@ -90,6 +91,16 @@ enum IntegrationSource: Int {
             return nil
         }
     }
+}
+
+enum SocketEvent : String{
+    case HANDSHAKE_CHANNEL = "/socketio/handshake"
+    case SUBSCRIBE_USER = "/socketio/subscribe/user" //
+    case UNSUBSCRIBE_USER = "/socketio/unsubscribe/user"
+    case SUBSCRIBE_CHAT = "/socketio/subscribe/chat" //active channel
+    case UNSUBSCRIBE_CHAT = "/socketio/unsubscribe/chat"
+    case MESSAGE_CHANNEL = "/socketio/message"
+    case SERVER_PUSH = "/socketio/server/push"
 }
 
 enum FilterOptionSection: Int, CaseCountable {
@@ -374,6 +385,10 @@ enum FuguEndPoints: String {
     case getPrePayment = "api/conversation/createOperationalChannel"
     case getLanguage = "api/apps/fetchAppLanguageData"
     case updateLanguage = "api/apps/updateUserLanguage"
+    case createAgentConversation = "api/conversation/createAgentSupportChannel"
+    case getUploadFileUrl = "api/conversation/getUploadFile"
+    case agentSearchTeam = "api/agent/searchTeams"
+    case getAgentCard = "api/agent/getTeamAgentsCard"
 }
 
 enum AgentEndPoints: String {
@@ -411,6 +426,10 @@ enum AgentEndPoints: String {
     case createGroupCallChannel = "api/conversation/createGroupCallChannel"
     case getGroupCallChannelDetals = "api/conversation/getGroupCallChannelDetails"
     case editDeleteMessage = "api/conversation/deleteOrEditMessage"
+    case getAgentSupportChannelListing = "api/conversation/getAgentSupportChannels"
+    case getAgentInfo = "api/users/getUserDetails"
+    case getTemplates = "api/business/getTemplates"
+    case createAndSendPresciption = "api/conversation/createAndSendPrescription"
 }
 
 struct MultiLanguageMsg{

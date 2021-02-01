@@ -104,8 +104,6 @@ class BroadCastTextFieldCell: UITableViewCell {
         pickerView = UIPickerView()
         pickerView?.delegate = self
         pickerView?.dataSource = self
-        
-        
         pickerView?.showsSelectionIndicator = true
         
         let toolBar = UIToolbar()

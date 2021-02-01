@@ -137,6 +137,8 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
     var isSkipBotEnabled: Bool = false
     var isSkipEvent: Bool = false
     var isFromBot: Int?
+    var isSearchFlow : Bool = false
+    var cardMaxHeight : CGFloat = 180
     
     var mimeType: String? {
         guard parsedMimeType == nil else {
@@ -230,7 +232,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         self.senderId = senderId
         let parsedMessage = (dict["message"] as? String ?? "").trimWhiteSpacesAndNewLine()
         message = parsedMessage.removeHtmlEntities()
-        
+        isSearchFlow = dict["is_search_flow"] as? Bool ?? false
         if let mutiLanguageMsg = dict["multi_lang_message"] as? String{
             self.message = MultiLanguageMsg().matchString(mutiLanguageMsg)
         }
@@ -367,7 +369,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
                 let (cards, selectedCard) = MessageCard.parseList(cardsJson: content_value, selectedCardID: selectedCardId)
                 self.cards = cards
                 self.selectedCard = selectedCard
-                
+                self.cardMaxHeight = (cards.max{($0.height ?? 0.0) < ($1.height ?? 0.0)})?.height ?? 0.0
 //                if cards.isEmpty {
 //                    message = fallbackText ?? HippoConfig.shared.strings.defaultFallbackText
 //                    type = .botText
@@ -522,6 +524,10 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
     
     // MARK: - Methods
     func getJsonToSendToFaye() -> [String: Any] {
+        return getSocketJsonData()
+    }
+    
+    func getSocketJsonData()->[String : Any]{
         var json = [String: Any]()
         if let parsedRawJsonToSend = rawJsonToSend {
             json += parsedRawJsonToSend
@@ -633,17 +639,16 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
             json["user_id"] = currentUserId()
             json["values"] = [selectedActionId]
             json["content_value"] = contentValues
+        }else if type == .card && isSearchFlow{
+            json["content_value"] = contentValues
         }
         
         if customAction != nil{
             json["custom_action"] = getDicForCustomAction()
         }
-        
-        //send selected language
-        json["lang"] = getCurrentLanguageLocale()
-        
         return json
     }
+    
     
     //dic for multiselection message
     
@@ -978,7 +983,11 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
             let fallbackText = self.fallbackText ?? HippoConfig.shared.strings.defaultFallbackText
             message = fallbackText.isEmpty ? HippoConfig.shared.strings.defaultFallbackText : fallbackText
             attributtedMessage = MessageUIAttributes(message: message, senderName: senderFullName, isSelfMessage: userType.isMyUserType)
-            return cards?.isEmpty ?? true
+            if (isSearchFlow && (selectedCardId ?? "") == ""){
+                return false
+            }else{
+                return cards?.isEmpty ?? true
+            }
         default:
             return false
         }
@@ -1006,6 +1015,19 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         case .agent:
             switch chatType {
             case .o2o:
+                let vc = (getLastVisibleController() as? AgentConversationViewController)
+                if HippoConfig.shared.appUserType == .agent && chatType == .o2o && vc?.channelType == channelType.SUPPORT_CHAT_CHANNEL.rawValue{
+                    if vc?.channel.chatDetail?.customerID == currentUserId(){ // if owner id == current user id
+                        return senderId == currentUserId()// message with logged in user on right and other on left
+                    }else{
+                        if senderId == vc?.channel.chatDetail?.customerID{
+                            return false // Message with owner_id on LEFT
+                        }else{
+                            return true //Message with all other user Ids on RIGHT
+                        }
+                    }
+                }
+                
                 return senderId == currentUserId()
             default:
                 return userType.isMyUserType
