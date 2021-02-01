@@ -22,7 +22,7 @@ class PrePaymentViewController: UIViewController {
     var isPaymentCancelled : ((Bool)->())?
     var channelId : Int?
     let transparentView = UIView()
-    var listener : SocketListner?
+    //var listener : SocketListner?
     
     
     override func viewDidLoad() {
@@ -41,20 +41,20 @@ class PrePaymentViewController: UIViewController {
         navigationBar.rightButton.isEnabled = isPrePayment ?? false ? true : false
         navigationBar.rightButton.tintColor = .black
         SocketClient.shared.subscribeSocketChannel(channel: "\(channelId ?? -1)")
-        listener = SocketListner()
-        listener?.startListening(event: SocketEvent.SERVER_PUSH.rawValue, callback: { (data) in
-            if let messageDict = data as? [String : Any]{
-                if messageDict["message_type"] as? Int == 22{
-                    if (messageDict["custom_action"] as? NSDictionary)?.value(forKey: "selected_id") as? Int == 1{
-                        self.isPaymentSuccess?(true)
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: {
-                            self.backAction(UIButton())
-                        })
-                        SocketClient.shared.unsubscribeSocketChannel(fromChannelId: "\(self.channelId ?? -1)")
-                    }
-                }
-            }
-        })
+//        listener = SocketListner()
+//        listener?.startListening(event: SocketEvent.SERVER_PUSH.rawValue, callback: { (data) in
+//            if let messageDict = data as? [String : Any]{
+//                if messageDict["message_type"] as? Int == 22{
+//                    if (messageDict["custom_action"] as? NSDictionary)?.value(forKey: "selected_id") as? Int == 1{
+//                        self.isPaymentSuccess?(true)
+//                        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: {
+//                            self.backAction(UIButton())
+//                        })
+//                        SocketClient.shared.unsubscribeSocketChannel(fromChannelId: "\(self.channelId ?? -1)")
+//                    }
+//                }
+//            }
+//        })
     }
     
     private func initalizeWebView() {
@@ -128,9 +128,7 @@ class PrePaymentViewController: UIViewController {
         }
     }
     
-    deinit {
-        listener = nil
-    }
+   
 }
 extension PrePaymentViewController{
     func addTransparentView(){

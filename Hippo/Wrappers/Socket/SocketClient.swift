@@ -69,8 +69,6 @@ class SocketClient: NSObject {
             NotificationCenter.default.post(name: .socketConnected, object: nil)
             if let userChannelId = HippoUserDetail.HippoUserChannelId, currentUserType() == .customer, self?.isChannelSubscribed(channel: userChannelId) == false{
                 SocketClient.shared.subscribeSocketChannel(channel: userChannelId)
-            }else if let userChannelId = HippoConfig.shared.agentDetail?.userChannel, currentUserType() == .agent, self?.isChannelSubscribed(channel: userChannelId) == false{
-                SocketClient.shared.subscribeSocketChannel(channel: userChannelId)
             }
             self?.handshake()
         }
@@ -187,6 +185,7 @@ extension SocketClient {
     func addObserver() {
         removeObserver()
         NotificationCenter.default.addObserver(self, selector: #selector(applicationWillEnterForeground), name: HippoVariable.willEnterForegroundNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(applicationWillEnterForeground), name: HippoVariable.didBecomeActiveNotification, object: nil)
     }
     
     @objc private func applicationWillEnterForeground() {

@@ -8,45 +8,73 @@
 
 import Foundation
 
-fileprivate struct EventCallback {
-    let uuid: UUID?
-    let handler: (Any) -> Void
+@objc protocol HippoChannelSocketDelegate : class {
+    @objc optional func socketRecieved(dict : [String : Any])
+}
+@objc protocol UserChannelDelegate : class {
+    @objc optional func socketRecieved(dict : [String : Any])
 }
 
+
 class SocketListner {
-    private var eventCallbacks = [String: EventCallback]()
     
-    init() {
-        NotificationCenter.default.addObserver(self, selector: #selector(socketConnected), name: .socketConnected, object: nil)
-    }
+    //MARK:- Variables
     
-    func startListening(event: String, callback: @escaping (Any?) -> Void) {
-        let uuid = SocketClient.shared.on(event: event) { (dataArray) in
-            let data = dataArray.first
-            callback(data)
+    static var shared: SocketListner?
+    weak var channelDelegate : HippoChannelSocketDelegate?
+    weak var userChannelDelegate : UserChannelDelegate?
+    
+    
+    //MARK:- Functions
+    class func reIntializeIfRequired() {
+        guard shared == nil else {
+            return
         }
         
-        eventCallbacks[event] = EventCallback(uuid: uuid, handler: callback)
+        if let newReference = SocketListner() {
+            shared = newReference
+        }
     }
     
-    func stopListening(event: String) {
-        SocketClient.shared.offEvent(for: event)
+    private init?() {
+        NotificationCenter.default.addObserver(self, selector: #selector(socketConnected), name: .socketConnected, object: nil)
+        self.stopListening()
+        self.startListening()
+    }
+    
+    private func startListening() {
+        SocketClient.shared.on(event: SocketEvent.SERVER_PUSH.rawValue) { [weak self] (dataArray) in
+            DispatchQueue.main.async {
+                if let data = dataArray.first as? [String : Any], let channel = (data["channel"] as? String)?.replacingOccurrences(of: "/", with: ""){
+                    if currentUserType() == .agent{
+                        if channel == HippoConfig.shared.agentDetail?.userChannel{
+                            self?.userChannelDelegate?.socketRecieved?(dict: data)
+                        }else{
+                            self?.channelDelegate?.socketRecieved?(dict: data)
+                        }
+                    }else{
+                        if channel == HippoUserDetail.HippoUserChannelId ?? ""{
+                            self?.userChannelDelegate?.socketRecieved?(dict: data)
+                        }else{
+                            self?.channelDelegate?.socketRecieved?(dict: data)
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    private func stopListening() {
+        SocketClient.shared.offEvent(for: SocketEvent.SERVER_PUSH.rawValue)
     }
     
     @objc private func socketConnected()  {
-        for (event, callback) in eventCallbacks {
-            startListening(event: event, callback: callback.handler)
-        }
-    }
-    
-    private func removeAllCallbacks() {
-        for event in eventCallbacks {
-            stopListening(event: event.key)
-        }
+        self.stopListening()
+        self.startListening()
     }
     
     deinit {
-        //removeAllCallbacks()
+        self.stopListening()
         NotificationCenter.default.removeObserver(self)
     }
 }

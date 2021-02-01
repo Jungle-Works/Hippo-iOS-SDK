@@ -104,7 +104,7 @@ public class UserTag: NSObject {
     var userImage: URL?
     var selectedlanguage : String?
     var userChannel: String?
-    var listener : SocketListner?
+   // var listener : SocketListner?
     
     static var shouldGetPaymentGateways : Bool = true
     
@@ -162,7 +162,7 @@ public class UserTag: NSObject {
         }
         
        self.selectedlanguage = selectedlanguage
-       self.listener = HippoConfig.shared.listener
+     //  self.listener = HippoConfig.shared.listener
        HippoUserDetail.shouldGetPaymentGateways = getPaymentGateways
        UserDefaults.standard.set(selectedlanguage, forKey: DefaultName.selectedLanguage.rawValue)
     }
