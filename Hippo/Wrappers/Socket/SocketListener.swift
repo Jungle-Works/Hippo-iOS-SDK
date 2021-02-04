@@ -74,6 +74,7 @@ class SocketListner {
     }
     
     deinit {
+        print("***************** SocketListner deinit ***********************")
         self.stopListening()
         NotificationCenter.default.removeObserver(self)
     }

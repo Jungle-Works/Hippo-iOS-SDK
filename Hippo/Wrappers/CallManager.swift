@@ -208,7 +208,7 @@ class CallManager {
     }
     
     
-    func voipNotificationRecieved(payloadDict: [String: Any]) {
+    func  voipNotificationRecieved(payloadDict: [String: Any]) {
         #if canImport(HippoCallClient)
         guard let peer = HippoUser(json: payloadDict), let channelID = Int.parse(values: payloadDict, key: "channel_id") else {
             return

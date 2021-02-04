@@ -296,6 +296,8 @@ public class UserTag: NSObject {
             return
         }
         
+        HippoConfig.shared.log.trace("Parama: \(params)", level: .request)
+        
         HTTPClient.shared.makeSingletonConnectionWith(method: .POST, identifier: RequestIdenfier.putUser, para: params, extendedUrl: endPointName) { (responseObject, error, tag, statusCode) in
             
             guard let response = (responseObject as? [String: Any]), statusCode == STATUS_CODE_SUCCESS, let data = response["data"] as? [String: Any] else {
@@ -336,7 +338,7 @@ public class UserTag: NSObject {
             
             if let rawUserChannel = userDetailData["user_channel"] as? String {
                 HippoUserDetail.HippoUserChannelId = rawUserChannel
-                subscribeCustomerUserChannel(userChannelId: rawUserChannel)
+                CustomerUserChannel.reIntializeIfRequired()
             }
             
             if let rawEmail = userDetailData["email"] as? String {

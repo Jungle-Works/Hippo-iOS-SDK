@@ -217,21 +217,6 @@ class AgentUserChannel {
             //        chatVC.setAssignAlert(conversation: newConversation)
         }
         
-        //    func handleBotMessages(_ newConversation: AgentConversation, channelID: Int) {
-        //        guard let chatVC = getLastVisibleController() as? AgentConversationViewController else {
-        //            return
-        //        }
-        //        guard chatVC.channelId == channelID else {
-        //            return
-        //        }
-        //
-        //        guard let message = newConversation.lastMessage, (message.type == .botFormMessage || message.type == .botText) else {
-        //            return
-        //        }
-        //        message.status = .sent
-        //        chatVC.handleBotFaye(message: message, channelId: channelID)
-        //    }
-        
         func isSubscribed() -> Bool {
             return SocketClient.shared.isChannelSubscribed(channel: id)
         }
