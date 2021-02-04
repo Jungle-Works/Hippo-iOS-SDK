@@ -300,11 +300,12 @@ func subscribeCustomerUserChannel(userChannelId: String) {
     SocketClient.shared.subscribeSocketChannel(channel: userChannelId)
     HippoConfig.shared.userDetail?.listener?.startListening(event: SocketEvent.SERVER_PUSH.rawValue, callback: { (data) in
         if let messageDict = data as? [String : Any]{
-            
+           
             if (messageDict["channel"] as? String)?.replacingOccurrences(of: "/", with: "") != userChannelId{
                 return
             }
             HippoConfig.shared.log.trace("UserChannel:: --->\(messageDict)", level: .socket)
+            
             if let messageType = messageDict["message_type"] as? Int, messageType == MessageType.call.rawValue {
                 if let channel_id = messageDict["channel_id"] as? Int{ //isSubscribed(userChannelId: "\(channel_id)") == false {
                     
@@ -328,9 +329,9 @@ func subscribeCustomerUserChannel(userChannelId: String) {
                 if notificationType == NotificationType.message.rawValue && messageDict["channel_id"] as? Int != HippoConfig.shared.getCurrentChannelId(){
                     if let channelId = messageDict["channel_id"] as? Int, let otherUserUniqueKey = ((messageDict["user_unique_keys"] as? [String])?.filter{$0 != HippoConfig.shared.userDetail?.userUniqueKey}.first){
                         let transactionId = P2PUnreadData.shared.getTransactionId(with: channelId)
-                        if let data = P2PUnreadData.shared.getData(with: transactionId) , data.id == (transactionId + "-" + otherUserUniqueKey){
+                        if let data = P2PUnreadData.shared.getData(with: transactionId) , data.id == (transactionId + "-" + otherUserUniqueKey) {
                             let unreadCount = (data.count ?? 0) + 1
-                            P2PUnreadData.shared.updateChannelId(transactionId: transactionId, channelId: channelId, count: unreadCount, otherUserUniqueKey: otherUserUniqueKey)
+                            P2PUnreadData.shared.updateChannelId(transactionId: transactionId, channelId: channelId, count: unreadCount,muid: messageDict["muid"] as? String ,otherUserUniqueKey: otherUserUniqueKey)
                         }
                     }
                 }

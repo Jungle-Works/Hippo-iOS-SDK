@@ -137,6 +137,7 @@ class SocketClient: NSObject {
     
     deinit {
         deinitializeListeners()
+        socket?.removeAllHandlers()
         manager = nil
         socket = nil
         NotificationCenter.default.removeObserver(self)

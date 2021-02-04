@@ -1140,7 +1140,15 @@ extension HippoConversationViewController {
             message.isFileUploading = false
             
             guard result.isSuccessful else {
-                message.wasMessageSendingFailed = true
+                if result.status == 400{
+                    message.wasMessageSendingFailed = true
+                    message.status = .none
+                    self?.showErrorMessage(messageString: (result.error?.localizedDescription) ?? "" , bgColor: .red)
+                    self?.updateErrorLabelView(isHiding: true)
+                    self?.cancelMessage(message: message)
+                }else{
+                  message.wasMessageSendingFailed = true
+                }
                 self?.tableViewChat.reloadData()
                 completion(false)
                 return
@@ -1480,15 +1488,16 @@ extension HippoConversationViewController: SelfMessageDelegate {
     }
     
     func cancelMessage(message: HippoMessage) {
-        for (index, tempMessage) in channel.unsentMessages.enumerated() {
-            if tempMessage.messageUniqueID == message.messageUniqueID, message.messageUniqueID != nil {
-                channel.unsentMessages.remove(at: index)
-                messagesGroupedByDate = []
-                updateMessagesGroupedByDate(channel.messages)
-                break
+        if channel != nil{
+            for (index, tempMessage) in channel.unsentMessages.enumerated() {
+                if tempMessage.messageUniqueID == message.messageUniqueID, message.messageUniqueID != nil {
+                    channel.unsentMessages.remove(at: index)
+                    messagesGroupedByDate = []
+                    updateMessagesGroupedByDate(channel.messages)
+                    break
+                }
             }
         }
-        
         tableViewChat.reloadData()
     }
     
@@ -1996,7 +2005,7 @@ extension HippoConversationViewController{
                 self?.closeAttachment()
                 let message = HippoMessage(message: "", type: .attachment, uniqueID: self?.generateUniqueId(), imageUrl: result.url, thumbnailUrl: result.thumbnail_url, localFilePath: nil, chatType: self?.channel?.chatDetail?.chatType)
                 message.fileName = result.file_name
-                message.localImagePath = self?.getCacheDirectoryUrlForFileWith(name: result.file_name).path
+                message.localImagePath = self?.getCacheDirectoryUrlForFileWith(name: result.file_name ?? "").path
                 message.fileUrl = result.url
                 self?.addMessageInUnsentArray(message: message)
                 self?.updateMessagesArrayLocallyForUIUpdation(message)

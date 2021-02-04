@@ -26,5 +26,8 @@ class HippoQLDataSource: NSObject, QLPreviewControllerDelegate, QLPreviewControl
         return previewItems[index]
     }
     
+    func previewController(_ controller: QLPreviewController, shouldOpen url: URL, for item: QLPreviewItem) -> Bool {
+        return true
+    }
     
 }

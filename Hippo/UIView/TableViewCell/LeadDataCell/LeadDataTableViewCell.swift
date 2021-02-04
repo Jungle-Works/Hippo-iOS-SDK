@@ -56,11 +56,11 @@ class LeadDataTableViewCell: UITableViewCell {
 
     @IBAction func didTapSend(_ sender: UIButton) {
         guard let text = self.valueTextfield.text else {
-            self.delegate?.enableError(isEnabled: true, cell: self, text: "This field is mendatory.")
+            self.delegate?.enableError(isEnabled: true, cell: self, text: HippoStrings.requiredField)
             return
         }
         guard text != "" else {
-            self.delegate?.enableError(isEnabled: true, cell: self, text: "This field is mendatory.")
+            self.delegate?.enableError(isEnabled: true, cell: self, text: HippoStrings.requiredField)
             return
         }
         guard self.isValidData(dataType: self.dataType, data: text) else {
@@ -154,7 +154,7 @@ class LeadDataTableViewCell: UITableViewCell {
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
         let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
         if !emailTest.evaluate(with: string) {
-            return "Please enter valid email."
+            return HippoStrings.enterValidEmail
         } else {
             return nil
         }

@@ -27,9 +27,6 @@ class SelectPresciptionViewModel{
             createAndSendPresciption()
         }
     }
-    
-    
-    
     var templateArr = [Template]()
     var channelID : Int?
     
@@ -80,7 +77,6 @@ class SelectPresciptionViewModel{
                 let result = try? JSONDecoder().decode(UploadResult.self, from: data ?? Data())
                 self.pdfUploaded?(nil, result)
             }
-
         }
     }
     
@@ -109,14 +105,20 @@ class SelectPresciptionViewModel{
         var dic = [String : Any]()
         var customAttributes = [String : Any]()
         for key in template.body_keys ?? [BodyKeys()]{
+            
             if (key.value ?? "") == ""{
                 return ("Please Enter \(key.key?.replacingOccurrences(of: "_", with: " ").capitalized ?? "")",nil)
             }
-            customAttributes[key.key ?? ""] = key.value
+            if PresciptionValidationType(rawValue: key.type ?? "") == .deeplink{
+                customAttributes[key.key ?? ""] = "<a href=\(key.value ?? "") > \(key.value ?? "") </a>"
+            }else{
+                 customAttributes[key.key ?? ""] = key.value
+            }
         }
         dic["custom_attributes"] = customAttributes
         dic["access_token"] = HippoConfig.shared.agentDetail?.fuguToken
         dic["template_id"] = template.template_id
+        dic["channel_id"] = channelID
         return (nil,dic)
     }
     
@@ -128,11 +130,9 @@ struct Template : Codable{
     var preview : String?
     var body_keys : [BodyKeys]?
     
-    
     init(){
         
     }
-
 }
 
 struct BodyKeys : Codable{
@@ -143,9 +143,9 @@ struct BodyKeys : Codable{
 }
 
 struct UploadResult : Codable{
-    var file_name : String
-    var thumbnail_url : String
-    var url : String
+    var file_name : String?
+    var thumbnail_url : String?
+    var url : String?
 }
 
 
@@ -156,6 +156,7 @@ enum PresciptionValidationType: String {
     case date = "date"
     case contact_number = "phonenumber"
     case number = "number"
+    case deeplink = "href"
     
     
     var keyBoardType: UIKeyboardType {
@@ -172,6 +173,8 @@ enum PresciptionValidationType: String {
             return .phonePad
         case .number:
             return .decimalPad
+        case .deeplink:
+            return .default
         }
     }
 }

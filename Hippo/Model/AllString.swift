@@ -297,7 +297,7 @@ class AllString{
         }
         
         if let hippo_enter_valid_email = response["hippo_enter_valid_email"] as? String{
-            
+            HippoStrings.enterValidEmail = hippo_enter_valid_email
         }
         if let hippo_enter_valid_phn_no = response["hippo_enter_valid_phn_no"] as? String{
             
@@ -318,7 +318,7 @@ class AllString{
             
         }
         if let hippo_field_cant_empty = response["hippo_field_cant_empty"] as? String{
-            
+            HippoStrings.requiredField = hippo_field_cant_empty
         }
         if let hippo_file_already_in_queue = response["hippo_file_already_in_queue"] as? String{
             
@@ -2055,7 +2055,7 @@ class AllString{
         }
         
         if let hippo_field_cant_empty = response["hippo_field_cant_empty"] as? String{
-            
+             HippoStrings.requiredField = hippo_field_cant_empty
         }
         
         if let hippo_invalid_price = response["hippo_invalid_price"] as? String{
