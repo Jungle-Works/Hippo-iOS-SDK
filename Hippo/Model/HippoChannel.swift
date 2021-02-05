@@ -254,7 +254,7 @@ class HippoChannel {
     }
     class func getHashMapTransactionIdToChannelIDFromCache() -> [String: Int] {
         return (FuguDefaults.object(forKey: "hashmapTransactionIdToChannelID") as? [String: Int] ?? [:])
-    }    
+    }
     
     class func get(request: CreateConversationWithLabelId, completion: @escaping HippoChannelCreationHandler) {
         
@@ -663,7 +663,9 @@ class HippoChannel {
         }
     }
     func subscribe(completion: HippoChannelHandler? = nil) {
-        SocketClient.shared.subscribeSocketChannel(channel: id.description)
+        SocketClient.shared.subscribeSocketChannel(channel: id.description, completion: {(error,status) in
+            completion?(status,error)
+        })
     }
     
     func startListening(){
