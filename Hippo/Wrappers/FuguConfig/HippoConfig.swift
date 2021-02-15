@@ -602,6 +602,12 @@ struct BotAction {
         return obj == nil ? 0 : obj!.count
     }
     
+    public func getUnreadCountForAgent(){
+        UnreadCount.getAgentTotalUnreadCount { (result) in
+        
+        }
+    }
+    
     public func openChatByTransactionId(on viewController: UIViewController? = nil, data: GeneralChat, completion: ((_ success: Bool, _ error: Error?) -> Void)? ) {
         guard appUserType == .customer else {
             return
