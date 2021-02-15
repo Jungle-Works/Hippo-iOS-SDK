@@ -18,12 +18,13 @@ class PromotionCellDataModel
     var action:[String:Any]?
     var customAttributes: [String:Any]?
     var channelID:Int
-    var userID:Int
+    var userID:Int?
     var disableReply:Bool?
     var deepLink:String = ""
     var cellHeight:CGFloat = 0.01
     var skipBot:String = ""
     var customAttributeData : [String : Any]?
+    var isAddedFromPush : Bool = false
     
     
     init?(dict: [String: Any])
@@ -61,7 +62,41 @@ class PromotionCellDataModel
         }
     }
         
-        self.cellHeight = calculateHeightForCell(title: self.title!, description: self.description!)
+        //self.cellHeight = calculateHeightForCell(title: self.title!, description: self.description!)
+    }
+    
+    init?(pushDic : [String : Any]) {
+        self.channelID = Int.parse(values: pushDic, key: "channel_id") ?? 1
+        self.title = (pushDic["label"] as? String) ?? ""
+        self.description = (((pushDic["aps"] as? [String : Any])?["alert"] as? [String : Any])?["body"] as? String ?? "")
+        self.createdAt = pushDic["date_time"] as? String ?? ""
+        self.disableReply = Bool.parse(key: "disable_reply", json: pushDic) ?? true
+        self.isAddedFromPush = true
+        if let tempDict = pushDic["custom_attributes"] as? [String:Any]
+        {
+            self.customAttributes = tempDict
+            // print("customAttributes>>> \(customAttributes)")
+            
+            if let imageDict = self.customAttributes?["image"] as? [String:Any]
+            {
+                self.imageUrlString = imageDict["image_url"] as? String ?? ""
+                // print("imageUrlString>>> \(imageUrlString)")
+            }
+            
+            if let deepLink = self.customAttributes?["deeplink"] as? String
+            {
+                self.deepLink = deepLink as String
+                print("deep link>>> \(deepLink)")
+            }
+            
+            self.customAttributeData = self.customAttributes?["data"] as? [String : Any]
+            
+            if let data = self.customAttributes?["data"] as? [String:Any]
+            {
+                self.skipBot = data["skip_bot"] as? String ?? ""
+                print("skipBot>>> \(skipBot)")
+            }
+        }
     }
     
     

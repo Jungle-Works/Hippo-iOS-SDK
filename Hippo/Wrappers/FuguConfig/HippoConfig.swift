@@ -200,6 +200,7 @@ struct BotAction {
         HippoObservers.shared.enable = true
         FuguNetworkHandler.shared.fuguConnectionChangesStartNotifier()
         CallManager.shared.initCallClientIfPresent()
+        
     }
     
     //MARK:- Function to pass Deep link Dic
@@ -987,6 +988,17 @@ struct BotAction {
                     UserDefaults.standard.set(channelArr, forKey: DefaultName.announcementUnreadCount.rawValue)
                     HippoConfig.shared.announcementUnreadCount?(channelArr.count)
                 }
+            }else{
+                let visibleController = getLastVisibleController()
+                if let promotionVC = visibleController as? PromotionsViewController {
+                    if let promotion = PromotionCellDataModel(pushDic: userInfo){
+                        promotion.isAddedFromPush = true
+                        promotionVC.data.insert(promotion, at: 0)
+                        promotionVC.states.insert(true, at: 0)
+                        promotionVC.noNotificationsFound()
+                    }
+                }
+                HippoNotification.removeAllAnnouncementNotification()
             }
         }else{
             if let data = P2PUnreadData.shared.getData(with: userInfo["chat_transaction_id"] as? String ?? ""), let otherUserUniqueKey = ((userInfo["user_unique_key"] as? [String])?.filter{$0 != HippoConfig.shared.userDetail?.userUniqueKey}.first){
@@ -1105,14 +1117,34 @@ struct BotAction {
     
     func handleAnnouncementsNotification(userInfo: [String: Any]) {
             let visibleController = getLastVisibleController()
-            if let promotionsVC = visibleController as? PromotionsViewController {
-                promotionsVC.callGetAnnouncementsApi()
+            if let _ = visibleController as? PromotionsViewController {
+                HippoNotification.promotionPushDic.removeAll()
+                if let promotion = PromotionCellDataModel(pushDic: userInfo){
+                    HippoNotification.promotionPushDic.append(promotion)
+                }
+                HippoNotification.getAllAnnouncementNotifications()
+                //promotionsVC.callGetAnnouncementsApi()
                 return
             }else{
                 checkForIntialization { (success, error) in
                     guard success else {
                         return
                     }
+                    guard let navigationController = UIStoryboard(name: "FuguUnique", bundle: FuguFlowManager.bundle).instantiateViewController(withIdentifier: "FuguPromotionalNavigationController") as? UINavigationController else {
+                        return
+                    }
+                    let visibleController = getLastVisibleController()
+                    guard ((visibleController as? PromotionsViewController) == nil) else {
+                        return
+                    }
+
+                    if let promotion = PromotionCellDataModel(pushDic: userInfo){
+                        HippoNotification.promotionPushDic.append(promotion)
+                        HippoNotification.getAllAnnouncementNotifications()
+                    }
+                    
+                    navigationController.modalPresentationStyle = .fullScreen
+                    visibleController?.present(navigationController, animated: true, completion: nil)
     //                HippoChat.isSingleChatApp = false
                     HippoConfig.shared.presentPromotionalPushController()
                     return

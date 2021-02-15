@@ -51,6 +51,7 @@ class PromotionsViewController: UIViewController {
     var limit = 20
     var shouldFetchData = true
     var previousPage = 0
+    var showMoreIndex : IndexPath?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,7 +77,13 @@ class PromotionsViewController: UIViewController {
         if let c = customCell {
             promotionsTableView.register(UINib(nibName: c.cellIdentifier, bundle: c.bundle), forCellReuseIdentifier: c.cellIdentifier)
         }
-        self.callGetAnnouncementsApi()
+        if !(HippoConfig.shared.isOpenedFromPush ?? false){
+            self.callGetAnnouncementsApi()
+            HippoNotification.removeAllAnnouncementNotification()
+        }else{
+            refreshData()
+            HippoConfig.shared.isOpenedFromPush = false
+        }
     }
     
     internal func setupRefreshController() {
@@ -94,6 +101,12 @@ class PromotionsViewController: UIViewController {
         }else{
             self.refreshControl.endRefreshing()
         }
+    }
+    
+    func refreshData(){
+        self.data.insert(contentsOf: HippoNotification.promotionPushDic, at: 0)
+        HippoNotification.promotionPushDic.removeAll()
+        self.promotionsTableView.reloadData()
     }
     
     override  func viewWillAppear(_ animated: Bool) {
@@ -253,7 +266,16 @@ class PromotionsViewController: UIViewController {
         }
         
         DispatchQueue.main.async {
-            self.promotionsTableView.reloadData()
+            if self.showMoreIndex == nil{
+                self.promotionsTableView.reloadData()
+            }else{
+                if let index = self.showMoreIndex,index.row >= 0, index.row < self.data.count{
+                    self.promotionsTableView.reloadRows(at: [index], with: .none)
+                    let btn = UIButton()
+                    btn.tag = index.row
+                    self.expandCellSize(btn)
+                }
+            }
         }
         
     }
@@ -385,6 +407,12 @@ extension PromotionsViewController: UITableViewDelegate,UITableViewDataSource
         let row = sender.tag
         //let values = data[row]
         let indexpath = IndexPath(row: row, section: 0)
+        if data[row].isAddedFromPush == true{
+            self.getAnnouncements(endOffset: limit, startOffset: 0)
+            self.showMoreIndex = indexpath
+            return
+        }
+        
         guard let cell = self.promotionsTableView.cellForRow(at: indexpath) as? PromotionTableViewCell else { return }
         if states[row] == true{
             states[row] = false
