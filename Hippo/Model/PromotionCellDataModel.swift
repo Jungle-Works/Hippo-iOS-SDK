@@ -160,6 +160,27 @@ class PromotionCellDataModel
             return arrayOfConversation
         }
     
+    static func getJsonFromAnnouncementArr(_ arr : [PromotionCellDataModel]) ->[[String : Any]]{
+        var dic = [[String : Any]]()
+        for data in arr{
+            var json = [String : Any]()
+            json["channel_id"] = data.channelID
+            json["title"] = data.title
+            json["disable_reply"] = data.disableReply
+            json["created_at"] = data.createdAt
+            json["user_id"] = data.userID
+            var customAttributes = [String : Any]()
+            var image = [String : Any]()
+            image["image_url"] = data.imageUrlString
+            customAttributes["deeplink"] = data.deepLink
+            customAttributes["image"] = image
+            json["custom_attributes"] = customAttributes
+            json["description"] = data.description
+            dic.append(json)
+        }
+        return dic
+    }
+    
 }
 
 

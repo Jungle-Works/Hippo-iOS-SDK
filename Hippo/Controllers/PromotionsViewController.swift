@@ -104,9 +104,18 @@ class PromotionsViewController: UIViewController {
     }
     
     func refreshData(){
-        self.data.insert(contentsOf: HippoNotification.promotionPushDic, at: 0)
+        for value in HippoNotification.promotionPushDic.values.enumerated(){
+            self.data.insert(value.element, at: 0)
+            self.states.insert(true, at: 0)
+        }
         HippoNotification.promotionPushDic.removeAll()
-        self.promotionsTableView.reloadData()
+        let channelIdArr = self.data.map{String($0.channelID)}
+        if let channelArr = UserDefaults.standard.value(forKey: DefaultName.announcementUnreadCount.rawValue) as? [String]{
+            let result = channelArr.filter { !channelIdArr.contains($0) }
+            UserDefaults.standard.set(result, forKey: DefaultName.announcementUnreadCount.rawValue)
+            HippoConfig.shared.announcementUnreadCount?(result.count)
+        }
+        self.noNotificationsFound()
     }
     
     override  func viewWillAppear(_ animated: Bool) {
@@ -175,6 +184,8 @@ class PromotionsViewController: UIViewController {
         _ = self.navigationController?.dismiss(animated: true, completion: nil)
         //        }
         
+        let json = PromotionCellDataModel.getJsonFromAnnouncementArr(self.data)
+        self.savePromotionsInCache(json)
     }
     
     func startLoaderAnimation() {
@@ -246,6 +257,9 @@ class PromotionsViewController: UIViewController {
     }
     
     func noNotificationsFound(){
+        guard let _ = promotionsTableView else {
+            return
+        }
         if self.data.count <= 0{
            // self.navigationItem.rightBarButtonItem?.tintColor = .clear
             if informationView == nil {
@@ -256,7 +270,7 @@ class PromotionsViewController: UIViewController {
             self.informationView?.isHidden = false
             self.promotionsTableView.addSubview(informationView!)
         }else{
-            for view in promotionsTableView.subviews{
+            for view in promotionsTableView?.subviews ?? [UIView](){
                 if view is InformationView{
                     view.removeFromSuperview()
                 }
@@ -274,6 +288,7 @@ class PromotionsViewController: UIViewController {
                     let btn = UIButton()
                     btn.tag = index.row
                     self.expandCellSize(btn)
+                    self.showMoreIndex = nil
                 }
             }
         }

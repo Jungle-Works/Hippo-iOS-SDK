@@ -12,7 +12,7 @@ import UserNotifications
 class HippoNotification {
     static var channelIdentifierHashmap: [Int: [String]] = [:]
     static var otherIdentifiers: [String] = []
-    static var promotionPushDic : [PromotionCellDataModel] = []
+    static var promotionPushDic : [Int: PromotionCellDataModel] = [:]
     
     static func clearAllNotificationCenter() {
         DispatchQueue.main.async {
@@ -39,18 +39,22 @@ class HippoNotification {
         return identifiers
     }
     
-    class func getAllAnnouncementNotifications(){
+    class func getAllAnnouncementNotifications(completion: (()->())? = nil){
         UNUserNotificationCenter.current().getDeliveredNotifications { (notifications) in
             for notification in notifications{
                 if let data = notification.request.content.userInfo as? [String : Any]{
                     if let isAnnouncement = data["is_announcement_push"] as? Bool, isAnnouncement == true{
                         if let promotion = PromotionCellDataModel(pushDic: data){
                             promotion.isAddedFromPush = true
-                            promotionPushDic.append(promotion)
+                            promotionPushDic[promotion.channelID] = promotion
                             UNUserNotificationCenter.current().removeDeliveredNotifications(withIdentifiers: [notification.request.identifier])
+                            completion?()
                         }
                     }
                 }
+            }
+            if notifications.count == 0{
+                completion?()
             }
         }
     }

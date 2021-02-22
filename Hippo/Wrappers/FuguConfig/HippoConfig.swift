@@ -1118,35 +1118,26 @@ struct BotAction {
     func handleAnnouncementsNotification(userInfo: [String: Any]) {
             let visibleController = getLastVisibleController()
             if let _ = visibleController as? PromotionsViewController {
-                HippoNotification.promotionPushDic.removeAll()
-                if let promotion = PromotionCellDataModel(pushDic: userInfo){
-                    HippoNotification.promotionPushDic.append(promotion)
-                }
-                HippoNotification.getAllAnnouncementNotifications()
+//                HippoNotification.promotionPushDic.removeAll()
+//                if let promotion = PromotionCellDataModel(pushDic: userInfo){
+//                    HippoNotification.promotionPushDic.append(promotion)
+//                }
+//                HippoNotification.getAllAnnouncementNotifications()
                 //promotionsVC.callGetAnnouncementsApi()
                 return
             }else{
-                checkForIntialization { (success, error) in
+                checkForIntialization {[weak self] (success, error) in
                     guard success else {
                         return
                     }
-                    guard let navigationController = UIStoryboard(name: "FuguUnique", bundle: FuguFlowManager.bundle).instantiateViewController(withIdentifier: "FuguPromotionalNavigationController") as? UINavigationController else {
-                        return
-                    }
-                    let visibleController = getLastVisibleController()
-                    guard ((visibleController as? PromotionsViewController) == nil) else {
-                        return
-                    }
-
                     if let promotion = PromotionCellDataModel(pushDic: userInfo){
-                        HippoNotification.promotionPushDic.append(promotion)
-                        HippoNotification.getAllAnnouncementNotifications()
+                        HippoNotification.promotionPushDic[promotion.channelID] = promotion
+                        HippoNotification.getAllAnnouncementNotifications{[weak self]() in
+                            DispatchQueue.main.async {
+                                self?.presentPromotionalPushController()
+                            }
+                        }
                     }
-                    
-                    navigationController.modalPresentationStyle = .fullScreen
-                    visibleController?.present(navigationController, animated: true, completion: nil)
-    //                HippoChat.isSingleChatApp = false
-                    HippoConfig.shared.presentPromotionalPushController()
                     return
                 }
             }
