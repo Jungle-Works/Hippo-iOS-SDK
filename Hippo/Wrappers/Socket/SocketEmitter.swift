@@ -21,7 +21,7 @@ extension SocketClient {
     
     ///Subscribe socket channel
     func subscribeSocketChannel(channel: String,completion: ((Error?,Bool) -> Void)? = nil){
-        if let someSocket = socket, someSocket.status.active {
+        if let someSocket = socket, isConnected() {
             var eventToSubscribe = ""
             if currentUserType() == .agent{
                 if channel == HippoConfig.shared.agentDetail?.userChannel{
@@ -46,7 +46,7 @@ extension SocketClient {
                 return
             }
             
-            socket?.emitWithAck(eventToSubscribe, json).timingOut(after: 20, callback: { (data) in
+            someSocket.emitWithAck(eventToSubscribe, json).timingOut(after: 20, callback: { (data) in
                 if data.isEmpty{
                     completion?(nil, false)
                 }else{
@@ -61,7 +61,7 @@ extension SocketClient {
     
     ///Unsubscribe socket channel
     func unsubscribeSocketChannel(fromChannelId channel : String){
-        if let someSocket = socket, someSocket.status.active {
+        if let someSocket = socket, isConnected() {
             var eventToSubscribe = ""
             if currentUserType() == .agent{
                 if channel == HippoConfig.shared.agentDetail?.userChannel{
@@ -86,7 +86,7 @@ extension SocketClient {
                 return
             }
             
-            socket?.emitWithAck(eventToSubscribe, json).timingOut(after: 20, callback: { (data) in
+            someSocket.emitWithAck(eventToSubscribe, json).timingOut(after: 20, callback: { (data) in
                 self.subscribedChannel[channel] = false
             })
         }else{
@@ -96,7 +96,7 @@ extension SocketClient {
     
     ///Send message
     func send(messageDict: [String: Any], toChannelID channelID: String, completion: @escaping(EventAckResponse)->Void) {
-        if let socket = socket, socket.status.active {
+        if let socket = socket, isConnected() {
             var channelIdForValidation = channelID
             validate(channelID: &channelIdForValidation)
             
@@ -120,14 +120,14 @@ extension SocketClient {
  
     ///Returns Handshake dic for HANDSHAKE_CHANNEL after channel connect
     func handshake(){
-        if let someSocket = socket, someSocket.status.active {
+        if let someSocket = socket, isConnected() {
             let json = getJson()
             
             if currentEnUserId().trimWhiteSpacesAndNewLine() == ""{
                 return
             }
             
-            socket?.emitWithAck(SocketEvent.HANDSHAKE_CHANNEL.rawValue, json).timingOut(after: 20, callback: { (data) in
+            someSocket.emitWithAck(SocketEvent.HANDSHAKE_CHANNEL.rawValue, json).timingOut(after: 20, callback: { (data) in
                 print(data)
             })
         }else{

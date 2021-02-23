@@ -18,6 +18,7 @@ class SocketClient: NSObject {
     var socket: SocketIOClient?
     let channelPrefix = "/"
     var subscribedChannel = [String : Bool]()
+    var shouldStartSendingPing = false
     //MARK:- Listeners
     
     private var onConnectCallBack : ((Array<Any>, SocketAckEmitter) -> ())!
@@ -25,6 +26,7 @@ class SocketClient: NSObject {
     private var handshakeListener : ((Array<Any>, SocketAckEmitter) -> ())!
     private var subscribeChannelListener : ((Array<Any>, SocketAckEmitter) -> ())!
     private var unsubscribeChannelListener : ((Array<Any>, SocketAckEmitter) -> ())!
+    private var messageChannelListener : ((Array<Any>, SocketAckEmitter) -> ())!
 
     // MARK: Computed properties
     private var socketURL: String {
@@ -44,17 +46,24 @@ class SocketClient: NSObject {
     }
     
     func connect(){
-        SocketClient.shared = SocketClient()
+        if !(isConnected()) && (socket?.status != .connecting){
+            socket?.connect()
+        }else if isConnected() && socket?.manager?.engine?.connected == false{
+            socket?.disconnect()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                self.socket?.connect()
+            }
+        }
     }
     
     func isConnected() -> Bool{
-        SocketClient.shared.socket?.status == .connected
+        socket?.status == .connected
     }
     
     // MARK: Methods
     private func socketSetup(){
         if let url = URL(string: socketURL){
-            manager = SocketManager(socketURL: url, config: [.reconnectWait(Int(2)), .reconnectAttempts(0), .compress, .forcePolling(false), .forceWebsockets(true)])
+            manager = SocketManager(socketURL: url, config: [.log(true), .reconnectWait(Int(5)), .reconnectAttempts(0), .reconnects(true), .compress, .forcePolling(false), .forceWebsockets(true), .forceNew(true)])
         }
         
         socket = manager?.defaultSocket
@@ -79,6 +88,10 @@ class SocketClient: NSObject {
             NotificationCenter.default.post(name: .channelSubscribed, object: nil)
         }
         unsubscribeChannelListener = {(arr, ack) in}
+        
+        messageChannelListener = {(arr, ack) in
+            print(arr)
+        }
     }
     
     private func initInitializer(){
@@ -89,12 +102,22 @@ class SocketClient: NSObject {
         socket?.on(SocketEvent.SUBSCRIBE_USER.rawValue, callback: subscribeChannelListener)
         socket?.on(SocketEvent.UNSUBSCRIBE_CHAT.rawValue, callback: unsubscribeChannelListener)
         socket?.on(SocketEvent.UNSUBSCRIBE_USER.rawValue, callback: unsubscribeChannelListener)
-        socket?.on(clientEvent: .error, callback: { (data, ack) in
+        socket?.on(clientEvent: .error, callback: {[weak self] (data, ack) in
+            if self?.socket?.status != .disconnected{
+                self?.socket?.disconnect()
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                self?.connect()
+            }
             print("error", data)
         })
         socket?.on(clientEvent: .pong, callback: { (data, ack) in })
         socket?.on(clientEvent: .ping, callback: { (data, ack) in })
-        socket?.on(SocketEvent.MESSAGE_CHANNEL.rawValue, callback: { (data, ack) in })
+        socket?.on(SocketEvent.MESSAGE_CHANNEL.rawValue, callback: messageChannelListener)
+        socket?.on(SocketEvent.SERVER_PUSH.rawValue, callback: { (data, ack) in
+            print(data)
+            
+        })
     }
     
     private func deinitializeListeners(){
@@ -115,6 +138,7 @@ class SocketClient: NSObject {
         handshakeListener = nil
         subscribeChannelListener = nil
         unsubscribeChannelListener = nil
+        messageChannelListener = nil
     }
     
     @discardableResult
@@ -182,15 +206,23 @@ extension SocketClient {
     func addObserver() {
         removeObserver()
         NotificationCenter.default.addObserver(self, selector: #selector(applicationWillEnterForeground), name: HippoVariable.willEnterForegroundNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(applicationWillEnterForeground), name: HippoVariable.didBecomeActiveNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(applicationWillEnterBackground), name: HippoVariable.willResignActiveNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(applicationWillEnterBackground), name: HippoVariable.didEnterBackgroundNotification, object: nil)
     }
     
     @objc private func applicationWillEnterForeground() {
-        if SocketClient.shared.socket != nil{
-            if !SocketClient.shared.isConnectionActive {
-                SocketClient.shared.connect() //tearDownPreviousConnectionAndCreateNew
-            }
-        }
+        shouldStartSendingPing = false
+        connect()
+    }
+    
+    @objc private func applicationWillEnterBackground() {
+//        shouldStartSendingPing = true
+//        if shouldStartSendingPing{
+//            SocketClient.shared.socket?.emit("ping", getJson())
+//            DispatchQueue.global().asyncAfter(deadline: .now() + 2.0, execute: {
+//                self.applicationWillEnterBackground()
+//            })
+//        }
     }
     
     func removeObserver() {
