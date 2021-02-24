@@ -991,12 +991,7 @@ struct BotAction {
             }else{
                 let visibleController = getLastVisibleController()
                 if let promotionVC = visibleController as? PromotionsViewController {
-                    if let promotion = PromotionCellDataModel(pushDic: userInfo){
-                        promotion.isAddedFromPush = true
-                        promotionVC.data.insert(promotion, at: 0)
-                        promotionVC.states.insert(true, at: 0)
-                        promotionVC.noNotificationsFound()
-                    }
+                    promotionVC.getDataOrUpdateAnnouncement([channel_id], isforReadMore: false)
                 }
                 HippoNotification.removeAllAnnouncementNotification()
             }

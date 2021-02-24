@@ -104,18 +104,30 @@ class PromotionsViewController: UIViewController {
     }
     
     func refreshData(){
-        for value in HippoNotification.promotionPushDic.values.enumerated(){
-            self.data.insert(value.element, at: 0)
-            self.states.insert(true, at: 0)
-        }
+        getDataOrUpdateAnnouncement(HippoNotification.promotionPushDic.map{$0.value.channelID}, isforReadMore: false)
         HippoNotification.promotionPushDic.removeAll()
-        let channelIdArr = self.data.map{String($0.channelID)}
-        if let channelArr = UserDefaults.standard.value(forKey: DefaultName.announcementUnreadCount.rawValue) as? [String]{
-            let result = channelArr.filter { !channelIdArr.contains($0) }
-            UserDefaults.standard.set(result, forKey: DefaultName.announcementUnreadCount.rawValue)
-            HippoConfig.shared.announcementUnreadCount?(result.count)
+    }
+    
+    func getDataOrUpdateAnnouncement(_ channelIdArr : [Int], isforReadMore : Bool, indexRow : Int? = nil){
+        let params = ["app_secret_key" : HippoConfig.shared.appSecretKey, "channel_ids" : channelIdArr, "user_id" : currentUserId()] as [String : Any]
+        
+        HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: FuguEndPoints.getAndUpdateAnnouncement.rawValue) { (response, error, _, statusCode) in
+            if let response = response as? [String : Any], let data = response["data"] as? [[String : Any]]{
+                for value in data{
+                    if let announcement = PromotionCellDataModel(dict: value){
+                        self.data.insert(announcement, at: 0)
+                        self.states.insert(true, at: 0)
+                    }
+                }
+                let channelIdArr = self.data.map{String($0.channelID)}
+                if let channelArr = UserDefaults.standard.value(forKey: DefaultName.announcementUnreadCount.rawValue) as? [String]{
+                    let result = channelArr.filter { !channelIdArr.contains($0) }
+                    UserDefaults.standard.set(result, forKey: DefaultName.announcementUnreadCount.rawValue)
+                    HippoConfig.shared.announcementUnreadCount?(result.count)
+                }
+                self.noNotificationsFound()
+            }
         }
-        self.noNotificationsFound()
     }
     
     override  func viewWillAppear(_ animated: Bool) {
@@ -280,17 +292,7 @@ class PromotionsViewController: UIViewController {
         }
         
         DispatchQueue.main.async {
-            if self.showMoreIndex == nil{
-                self.promotionsTableView.reloadData()
-            }else{
-                if let index = self.showMoreIndex,index.row >= 0, index.row < self.data.count{
-                    self.promotionsTableView.reloadRows(at: [index], with: .none)
-                    let btn = UIButton()
-                    btn.tag = index.row
-                    self.expandCellSize(btn)
-                    self.showMoreIndex = nil
-                }
-            }
+            self.promotionsTableView.reloadData()
         }
         
     }
@@ -422,11 +424,6 @@ extension PromotionsViewController: UITableViewDelegate,UITableViewDataSource
         let row = sender.tag
         //let values = data[row]
         let indexpath = IndexPath(row: row, section: 0)
-        if data[row].isAddedFromPush == true{
-            self.getAnnouncements(endOffset: limit, startOffset: 0)
-            self.showMoreIndex = indexpath
-            return
-        }
         
         guard let cell = self.promotionsTableView.cellForRow(at: indexpath) as? PromotionTableViewCell else { return }
         if states[row] == true{

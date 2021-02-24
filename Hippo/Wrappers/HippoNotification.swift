@@ -48,14 +48,11 @@ class HippoNotification {
                             promotion.isAddedFromPush = true
                             promotionPushDic[promotion.channelID] = promotion
                             UNUserNotificationCenter.current().removeDeliveredNotifications(withIdentifiers: [notification.request.identifier])
-                            completion?()
                         }
                     }
                 }
             }
-            if notifications.count == 0{
-                completion?()
-            }
+            completion?()
         }
     }
     
