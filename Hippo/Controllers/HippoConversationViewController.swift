@@ -1141,11 +1141,11 @@ extension HippoConversationViewController {
             
             guard result.isSuccessful else {
                 if result.status == 400{
-                   message.wasMessageSendingFailed = true
-                   message.status = .none
+                    message.wasMessageSendingFailed = true
+                    message.status = .none
                     self?.showErrorMessage(messageString: (result.error?.localizedDescription) ?? "" , bgColor: .red)
                     self?.updateErrorLabelView(isHiding: true)
-                   self?.cancelMessage(message: message)
+                    self?.cancelMessage(message: message)
                 }else{
                   message.wasMessageSendingFailed = true
                 }
@@ -1488,15 +1488,16 @@ extension HippoConversationViewController: SelfMessageDelegate {
     }
     
     func cancelMessage(message: HippoMessage) {
-        for (index, tempMessage) in channel.unsentMessages.enumerated() {
-            if tempMessage.messageUniqueID == message.messageUniqueID, message.messageUniqueID != nil {
-                channel.unsentMessages.remove(at: index)
-                messagesGroupedByDate = []
-                updateMessagesGroupedByDate(channel.messages)
-                break
+        if channel != nil{
+            for (index, tempMessage) in channel.unsentMessages.enumerated() {
+                if tempMessage.messageUniqueID == message.messageUniqueID, message.messageUniqueID != nil {
+                    channel.unsentMessages.remove(at: index)
+                    messagesGroupedByDate = []
+                    updateMessagesGroupedByDate(channel.messages)
+                    break
+                }
             }
         }
-        
         tableViewChat.reloadData()
     }
     

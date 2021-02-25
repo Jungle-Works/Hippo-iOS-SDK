@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
     s.name         = 'Hippo'
 
-    s.version      = '2.1.48'
+    s.version      = '2.1.51'
 
     s.summary      = 'Now add Agent in app for quick support.'
     s.homepage     = 'https://github.com/Jungle-Works/Hippo-iOS-SDK'
@@ -25,7 +25,7 @@ Pod::Spec.new do |s|
     s.resources = ['Hippo/*.xcassets']
     s.preserve_paths = ['README.md']
     
-    s.dependency 'Socket.IO-Client-Swift'
+    s.dependency 'Socket.IO-Client-Swift', '~> 15.2.0'
     s.dependency 'razorpay-pod'
  
     s.default_subspec = 'Chat'

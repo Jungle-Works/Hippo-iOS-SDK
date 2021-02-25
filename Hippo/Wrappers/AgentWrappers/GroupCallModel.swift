@@ -44,7 +44,7 @@ public struct GroupCallModel {
     
     //init for creating group session
     ///*init for these parameters for creating channel for group calling from parent app*
-    public init?(email: String, roomTitle: String, sessionStartTime: String, sessionEndTime: String, uniqueIds : [String], transactionId : String, userIds : [String]?, agentIds : [String]?, message : String?,isMuted : Bool){
+    public init?(email: String, roomTitle: String, sessionStartTime: String, sessionEndTime: String, uniqueIds : [String], transactionId : String, userIds : [String]?, agentIds : [String]?, message : String?){
         self.email = email
         self.roomTitle = roomTitle
         self.sessionStartTime = sessionStartTime
@@ -52,7 +52,6 @@ public struct GroupCallModel {
         self.uniqueIds = uniqueIds
         self.message = message
         self.transactionId = transactionId
-        self.isAudioMuted = isMuted
     }
     
     //init for getting session details

@@ -43,16 +43,18 @@ public struct O2OChatModel{
     public var initiatedByAgent : Bool?
     public var otherUserEmail : String?
     public var groupingTag = [String]()
+    public var singleChannelByTransactionId : Int?
     
     public init(){
         
     }
     
-    public init(transactionId : String?, initiatedByAgent : Bool?, otherUserEmail : String, groupingTag : [String]){
+    public init(transactionId : String?, initiatedByAgent : Bool?, otherUserEmail : String, groupingTag : [String], singleChannelByTransactionId : Int?){
         self.transactionId = transactionId
         self.initiatedByAgent = initiatedByAgent
         self.otherUserEmail = otherUserEmail
         self.groupingTag = groupingTag
+        self.singleChannelByTransactionId = singleChannelByTransactionId
     }
     
     func generateParamO2OSupportChat() throws -> [String: Any] {
@@ -71,6 +73,7 @@ public struct O2OChatModel{
         
         json["transaction_id"] = transactionId
         json["grouping_tags"] = groupingTag
+        json["single_channel_by_transaction_id"] = singleChannelByTransactionId
         
         return json
     }

@@ -320,12 +320,7 @@ public class UserTag: NSObject {
             if let jitsiUrl = userDetailData["jitsi_url"] as? String{
                 HippoConfig.shared.jitsiUrl = jitsiUrl
             }
-            
-            if let rawUserChannel = userDetailData["user_channel"] as? String {
-                HippoUserDetail.HippoUserChannelId = rawUserChannel
-                subscribeCustomerUserChannel(userChannelId: rawUserChannel)
-                
-            }
+        
             if let tags = data["grouping_tags"] as? [[String: Any]] {
                 HippoConfig.shared.userDetail?.userTags.removeAll()
                 for each in tags {
@@ -347,6 +342,12 @@ public class UserTag: NSObject {
             if let enUserId = userDetailData["en_user_id"] as? String {
                 HippoUserDetail.fuguEnUserID = enUserId
             }
+            
+            if let rawUserChannel = userDetailData["user_channel"] as? String {
+                HippoUserDetail.HippoUserChannelId = rawUserChannel
+                subscribeCustomerUserChannel(userChannelId: rawUserChannel)
+            }
+            
             if let rawEmail = userDetailData["email"] as? String {
                 HippoConfig.shared.userDetail?.email = rawEmail
             }

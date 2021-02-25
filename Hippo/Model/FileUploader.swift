@@ -146,7 +146,14 @@ struct FileUploader {
         } else if let token = HippoConfig.shared.agentDetail?.fuguToken {
             params["access_token"] = token
         }
-        //params["allow_all_mime_type"] = true
+        params["allow_all_mime_type"] = true
+        
+        if HippoProperty.current.restrictMimeType{
+            params["restrict_mime_type"] = true
+        }else{
+            params["restrict_mime_type"] = false
+        }
+        
         params["file_type"] = request.mimeType
         return params
     }

@@ -74,6 +74,9 @@ public class HippoChat {
         HippoProperty.setNewConversationButtonTags(tags: tags)
     }
     
+    public static func shouldRestrictMimeType(allow: Bool) {
+        HippoProperty.shouldRestrictMimeType(allow: allow)
+    }
     
 }
 
