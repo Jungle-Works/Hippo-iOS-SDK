@@ -215,11 +215,13 @@ class PromotionsViewController: UIViewController {
         guard self.navigationItem.rightBarButtonItem?.tintColor != .clear else {
             return
         }
-
-            self.clearAnnouncements(indexPath: IndexPath(row: 0, section: 0), isDeleteAllStatus: 1)
-            FuguDefaults.removeObject(forKey: DefaultName.appointmentData.rawValue)
-            
-     //   }, failureButtonName: "NO", failureComplete: nil)
+        UserDefaults.standard.set([], forKey: DefaultName.announcementUnreadCount.rawValue)
+        HippoConfig.shared.announcementUnreadCount?(0)
+        
+        self.clearAnnouncements(indexPath: IndexPath(row: 0, section: 0), isDeleteAllStatus: 1)
+        FuguDefaults.removeObject(forKey: DefaultName.appointmentData.rawValue)
+        
+        //   }, failureButtonName: "NO", failureComplete: nil)
     }
     
     func getAnnouncements(endOffset:Int,startOffset:Int) {
@@ -331,8 +333,7 @@ class PromotionsViewController: UIViewController {
                     //    self.promotionsTableView.reloadData()
                     //}
                 }
-                
-                
+              
                 self.noNotificationsFound()
                 
             }

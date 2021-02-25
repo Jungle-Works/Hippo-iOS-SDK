@@ -130,17 +130,14 @@ class HTTPClient {
             callback(nil, error, nil, 404)
             return nil
         }
-        var additionalParams = [String: Any]()
-        if extendedUrl != FuguEndPoints.getAndUpdateAnnouncement.rawValue{
-            additionalParams = [
+        var additionalParams = [
                 "app_version": fuguAppVersion,
                 "device_type": Device_Type_iOS,
                 "source_type": SourceType.SDK.rawValue,
                 "device_id":  UIDevice.current.identifierForVendor?.uuidString ?? 0,
                 "device_details": AgentDetail.getDeviceDetails(),
                 "lang" : getCurrentLanguageLocale()
-            ]
-        }
+                ]
         
         additionalParams += para ?? [:]
         
