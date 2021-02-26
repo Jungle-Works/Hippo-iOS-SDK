@@ -76,9 +76,11 @@ class SearchAgentViewController: UIViewController {
     }
     
     @IBAction func action_SkipBtn(){
-        self.view_SearchSkill.isHidden = false
-        self.view_SelectCountry.isHidden = true
-        self.button_Skip.isHidden = true
+        DispatchQueue.main.async {
+            self.view_SearchSkill.isHidden = false
+            self.view_SelectCountry.isHidden = true
+            self.button_Skip.isHidden = true
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -152,7 +154,9 @@ class SearchAgentViewController: UIViewController {
     }
     
     @objc func prickerDoneButtonClicked() {
-        if textField_SelectCountry.text?.trimWhiteSpacesAndNewLine() != "" || textField_SelectCountry.text != "All"{
+        if textField_SelectCountry.text == "All"{
+            self.action_SkipBtn()
+        }else{
             searchAgentVM.isCountrySearch = true
             searchAgentVM.searchKey = textField_SelectCountry.text
         }
