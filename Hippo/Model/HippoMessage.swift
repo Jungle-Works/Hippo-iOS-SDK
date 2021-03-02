@@ -1056,7 +1056,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
     
     func isDateExpired(timeInterval: TimeInterval) -> Bool {
        guard timeInterval > 0 else {
-          return false
+          return true
        }
        
        let deletionExpiry = creationDateTime.addingTimeInterval(timeInterval)
