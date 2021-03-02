@@ -28,6 +28,7 @@ class SearchAgentViewController: UIViewController {
     var searchAgentVM = SearchAgentViewModel()
     var cardSelected : ((MessageCard)->())?
     var informationView: InformationView?
+    var handler : ((ActionSheetAction)->(Void))?
     
     //MARK:- UIViewController Life Cycle Methods
     
@@ -130,27 +131,28 @@ class SearchAgentViewController: UIViewController {
     }
 
     private func setPickerView() {
-        pickerView = UIPickerView()
-        pickerView?.delegate = self
-        pickerView?.dataSource = self
-        pickerView?.showsSelectionIndicator = true
-        
-        let toolBar = UIToolbar()
-        toolBar.barStyle = UIBarStyle.default
-        toolBar.isTranslucent = true
-        toolBar.tintColor = UIColor.black
-        toolBar.sizeToFit()
-        
-        
-        let doneButton = UIBarButtonItem(title: HippoStrings.Done, style: UIBarButtonItem.Style.plain, target: self, action: #selector(prickerDoneButtonClicked))
-        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
-        
-        toolBar.setItems([spaceButton, doneButton], animated: false)
-        toolBar.isUserInteractionEnabled = true
-        
-        textField_SelectCountry.inputView = pickerView
-        textField_SelectCountry.inputAccessoryView = toolBar
-        textField_SelectCountry.text = countryList.first ?? ""
+//        pickerView = UIPickerView()
+//        pickerView?.delegate = self
+//        pickerView?.dataSource = self
+//        pickerView?.showsSelectionIndicator = true
+//
+//        let toolBar = UIToolbar()
+//        toolBar.barStyle = UIBarStyle.default
+//        toolBar.isTranslucent = true
+//        toolBar.tintColor = UIColor.black
+//        toolBar.sizeToFit()
+//
+//
+//        let doneButton = UIBarButtonItem(title: HippoStrings.Done, style: UIBarButtonItem.Style.plain, target: self, action: #selector(prickerDoneButtonClicked))
+//        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
+//
+//        toolBar.setItems([spaceButton, doneButton], animated: false)
+//        toolBar.isUserInteractionEnabled = true
+//
+//        textField_SelectCountry.inputView = pickerView
+//        textField_SelectCountry.inputAccessoryView = toolBar
+//        textField_SelectCountry.text = countryList.first ?? ""
+        actionSheet()
     }
     
     @objc func prickerDoneButtonClicked() {
@@ -222,19 +224,43 @@ extension SearchAgentViewController : UITextFieldDelegate{
     
 }
 
-extension SearchAgentViewController: UIPickerViewDataSource {
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
+extension SearchAgentViewController {
+//    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+//        return 1
+//    }
+//
+//    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+//        return countryList.count
+//    }
+//
+//    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+//        let value = countryList[row]
+//        return value
+//    }
+//
+    func actionSheet() {
+        var options = [ActionSheetAction]()
+        handler = {(value) in
+            print(value.title)
+        }
+        for value in countryList {
+            let action = ActionSheetAction(icon: nil, title: value, subTitle: nil, attTitle: nil, tag: nil, handler: handler)
+            options.append(action)
+        }
+        let type: ActionSheetViewController.ActionType = ActionSheetViewController.ActionType.none
+        let actionView = ActionSheetViewController.get(with: options, type: type, emojiSelected: { (_) in
+            
+        }) { _ in
+            
+        }
+        actionView.modalPresentationStyle = .overCurrentContext
+        self.present(actionView, animated: false) {
+           // actionView.addEmojiInStackView()
+            actionView.showViewAnimation()
+        }
+        
     }
     
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return countryList.count
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        let value = countryList[row]
-        return value
-    }
 }
 
 extension SearchAgentViewController : UIPickerViewDelegate {
