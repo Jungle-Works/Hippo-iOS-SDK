@@ -116,7 +116,7 @@ class CardListCell: UICollectionViewCell {
         ratingView?.removeFromSuperview()
         ratingView = nil
         
-        ratingContainerViewHeightConstraint.constant = CardListCell.ratingViewHeight
+        //ratingContainerViewHeightConstraint.constant = CardListCell.ratingViewHeight
         ratingViewContainer.isHidden = false
         self.layoutIfNeeded()
         let containerBound = ratingViewContainer.bounds
@@ -145,7 +145,7 @@ class CardListCell: UICollectionViewCell {
     private func hideRatingView() {
         ratingView?.removeFromSuperview()
         ratingView = nil
-        ratingContainerViewHeightConstraint.constant = 0
+        //ratingContainerViewHeightConstraint.constant = 0
         ratingViewContainer.isHidden = true
     }
 }
