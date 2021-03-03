@@ -8,16 +8,21 @@
 import Foundation
 import UIKit
 
-class ActionSheetViewController: UIViewController {
+protocol ActionSheet : class{
+    func actionSkipButton()
+}
 
-    @IBOutlet var optionViewHeightContraint: NSLayoutConstraint!
-    @IBOutlet var bgView: UIView!
-    @IBOutlet var nochBGView: UIView!
-    @IBOutlet var nochView: UIView!
-    @IBOutlet var optionContaintView: UIView!
-    @IBOutlet var optionTableView: UITableView!
+final class ActionSheetViewController: UIViewController {
     
-   
+    @IBOutlet private var optionViewHeightContraint: NSLayoutConstraint!
+    @IBOutlet private var bgView: UIView!
+    @IBOutlet private var nochBGView: UIView!
+    @IBOutlet private var nochView: UIView!
+    @IBOutlet private var optionContaintView: UIView!
+    @IBOutlet private var optionTableView: UITableView!
+    @IBOutlet private var buttonSkip: UIButton!
+    @IBOutlet private var constraintSkipBtnHeight : NSLayoutConstraint!
+    
     enum ActionType: Int {
         case none = 0
         case emoji
@@ -30,9 +35,14 @@ class ActionSheetViewController: UIViewController {
     var height: CGFloat = 0
     var tap: UITapGestureRecognizer!
     var swipe:UISwipeGestureRecognizer!
+    var shouldShowSkipBtn : Bool = false
+    weak var delegate : ActionSheet?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        constraintSkipBtnHeight.constant = shouldShowSkipBtn ? 30 : 0
+        buttonSkip.titleLabel?.font = UIFont.regular(ofSize: 14.0)
+        buttonSkip.titleLabel?.textColor = HippoConfig.shared.theme.themeColor
         tap = UITapGestureRecognizer(target: self, action: #selector(tapOnView))
         bgView.addGestureRecognizer(tap)
         swipe = UISwipeGestureRecognizer(target: self, action: #selector(tapOnView))
@@ -47,7 +57,7 @@ class ActionSheetViewController: UIViewController {
     }
     
 
-    class func get(with options: [ActionSheetAction], type: ActionType, emojiSelected: @escaping (_ reactionString: String) -> Void , optionSelected: @escaping(_ action: ActionSheetAction)->Void ) -> ActionSheetViewController {
+    class func get(with options: [ActionSheetAction], type: ActionType,shouldShowSkip : Bool = false, emojiSelected: @escaping (_ reactionString: String) -> Void, optionSelected: @escaping(_ action: ActionSheetAction)->Void ) -> ActionSheetViewController {
         
         guard let vc = UIStoryboard(name: "AgentSdk", bundle: FuguFlowManager.bundle).instantiateViewController(withIdentifier: "ActionSheetViewController") as? ActionSheetViewController else{
             return ActionSheetViewController()
@@ -57,6 +67,7 @@ class ActionSheetViewController: UIViewController {
         vc.type = type
         vc.options = options
         vc.heightCalculation()
+        vc.shouldShowSkipBtn = shouldShowSkip
         return vc
     }
     
@@ -97,6 +108,14 @@ class ActionSheetViewController: UIViewController {
     }
     
     @objc func tapOnView() {
+        if shouldShowSkipBtn == false{//donot allow dismiss for searchagentscreen
+            bgView.alpha = 0
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
+    
+    @IBAction func action_SkipBtn(){
+        self.delegate?.actionSkipButton()
         bgView.alpha = 0
         self.dismiss(animated: true, completion: nil)
     }

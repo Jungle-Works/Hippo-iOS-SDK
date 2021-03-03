@@ -30,6 +30,10 @@
                         <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="selectedImageTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
+                    <connections>
+                        <segue destination="qyf-B6-nJL" kind="relationship" relationship="viewControllers" id="Ilw-je-Tiu"/>
+                        <segue destination="uxO-Mf-Abt" kind="relationship" relationship="viewControllers" id="RCd-a9-pV5"/>
+                    </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="O8k-OG-ooO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -56,7 +60,7 @@
         <!--Chats-->
         <scene sceneID="EwH-an-rCy">
             <objects>
-                <navigationController storyboardIdentifier="FuguCustomerNavigationController" navigationBarHidden="YES" id="qyf-B6-nJL" sceneMemberID="viewController">
+                <navigationController navigationBarHidden="YES" id="qyf-B6-nJL" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Chats" image="newChat" selectedImage="newChat" id="2QI-fY-N9q"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="lFC-md-xjQ">
                         <autoresizingMask key="autoresizingMask"/>
@@ -170,7 +174,7 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="84" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="vat-na-7yK">
-                                <rect key="frame" x="0.0" y="85" width="375" height="582"/>
+                                <rect key="frame" x="0.0" y="85" width="375" height="533"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ConversationView" rowHeight="84" id="JjR-TJ-Qgl" customClass="ConversationView" customModule="Hippo" customModuleProvider="target">
@@ -328,7 +332,7 @@
                                 </connections>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Eou-zT-IiY">
-                                <rect key="frame" x="149" y="577" width="206" height="50"/>
+                                <rect key="frame" x="149" y="528" width="206" height="50"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TLz-yO-8eF">
                                         <rect key="frame" x="10" y="0.0" width="186" height="50"/>
@@ -631,7 +635,7 @@
         <!--Navigation Controller-->
         <scene sceneID="k7W-kR-WwX">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="vAr-Qq-z1C" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="FuguCustomerNavigationController" automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="vAr-Qq-z1C" sceneMemberID="viewController">
                     <toolbarItems/>
                     <nil key="simulatedTopBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="eWF-Fl-1M8">
@@ -2031,7 +2035,7 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="01T-cv-WrQ">
-                                <rect key="frame" x="0.0" y="94" width="375" height="573"/>
+                                <rect key="frame" x="0.0" y="94" width="375" height="524"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <outlet property="dataSource" destination="EJI-9R-RFa" id="HEA-aI-rHH"/>

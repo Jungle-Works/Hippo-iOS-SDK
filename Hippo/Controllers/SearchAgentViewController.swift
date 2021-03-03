@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SearchAgentViewController: UIViewController {
+final class SearchAgentViewController: UIViewController {
     
     //MARK:- IBOutlets
     
@@ -34,7 +34,7 @@ class SearchAgentViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setPickerView()
+        showActionSheet()
         searchAgentVM.responseRecieved = {[weak self]() in
             DispatchQueue.main.async {
                 self?.noFieldsFound(errorMessage: HippoStrings.noDataFound)
@@ -66,7 +66,6 @@ class SearchAgentViewController: UIViewController {
         button_Skip.isHidden = false
         button_Skip.titleLabel?.font = UIFont.regular(ofSize: 15.0)
         button_Skip.setTitleColor(HippoConfig.shared.theme.themeColor, for: .normal)
-        self.noFieldsFound(errorMessage: HippoStrings.noDataFound)
     }
     
     
@@ -129,31 +128,6 @@ class SearchAgentViewController: UIViewController {
             self.informationView?.isHidden = true
         }
     }
-
-    private func setPickerView() {
-//        pickerView = UIPickerView()
-//        pickerView?.delegate = self
-//        pickerView?.dataSource = self
-//        pickerView?.showsSelectionIndicator = true
-//
-//        let toolBar = UIToolbar()
-//        toolBar.barStyle = UIBarStyle.default
-//        toolBar.isTranslucent = true
-//        toolBar.tintColor = UIColor.black
-//        toolBar.sizeToFit()
-//
-//
-//        let doneButton = UIBarButtonItem(title: HippoStrings.Done, style: UIBarButtonItem.Style.plain, target: self, action: #selector(prickerDoneButtonClicked))
-//        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
-//
-//        toolBar.setItems([spaceButton, doneButton], animated: false)
-//        toolBar.isUserInteractionEnabled = true
-//
-//        textField_SelectCountry.inputView = pickerView
-//        textField_SelectCountry.inputAccessoryView = toolBar
-//        textField_SelectCountry.text = countryList.first ?? ""
-        actionSheet()
-    }
     
     @objc func prickerDoneButtonClicked() {
         if textField_SelectCountry.text == "All"{
@@ -203,6 +177,14 @@ extension SearchAgentViewController : UITableViewDelegate, UITableViewDataSource
 
 extension SearchAgentViewController : UITextFieldDelegate{
     
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        if textField == textField_SelectCountry{
+            self.showActionSheet()
+            return false
+        }
+        return true
+    }
+    
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if textField == textField_SelectCountry{
@@ -225,22 +207,11 @@ extension SearchAgentViewController : UITextFieldDelegate{
 }
 
 extension SearchAgentViewController {
-//    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-//        return 1
-//    }
-//
-//    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-//        return countryList.count
-//    }
-//
-//    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-//        let value = countryList[row]
-//        return value
-//    }
-//
-    func actionSheet() {
+    func showActionSheet() {
         var options = [ActionSheetAction]()
-        handler = {(value) in
+        handler = {[weak self](value) in
+            self?.textField_SelectCountry.text = value.title
+            self?.prickerDoneButtonClicked()
             print(value.title)
         }
         for value in countryList {
@@ -248,11 +219,13 @@ extension SearchAgentViewController {
             options.append(action)
         }
         let type: ActionSheetViewController.ActionType = ActionSheetViewController.ActionType.none
-        let actionView = ActionSheetViewController.get(with: options, type: type, emojiSelected: { (_) in
+        
+        let actionView =  ActionSheetViewController.get(with: options, type: type ,shouldShowSkip: true, emojiSelected: { (_) in
             
-        }) { _ in
+        }) { (_) in
             
         }
+        actionView.delegate = self
         actionView.modalPresentationStyle = .overCurrentContext
         self.present(actionView, animated: false) {
            // actionView.addEmojiInStackView()
@@ -263,8 +236,8 @@ extension SearchAgentViewController {
     
 }
 
-extension SearchAgentViewController : UIPickerViewDelegate {
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        textField_SelectCountry.text = countryList[row]
+extension SearchAgentViewController : ActionSheet{
+    func actionSkipButton(){
+        self.action_SkipBtn()
     }
 }

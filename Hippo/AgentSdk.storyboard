@@ -1190,8 +1190,18 @@
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Rj-oo-aFl">
                                 <rect key="frame" x="0.0" y="367" width="375" height="300"/>
                                 <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MVM-3o-Be9">
+                                        <rect key="frame" x="335" y="0.0" width="30" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="tSg-rx-T25"/>
+                                        </constraints>
+                                        <state key="normal" title="Skip"/>
+                                        <connections>
+                                            <action selector="action_SkipBtn" destination="W0n-82-Jkc" eventType="touchUpInside" id="Ky4-Fc-nLx"/>
+                                        </connections>
+                                    </button>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="c29-w5-QmH">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="300"/>
+                                        <rect key="frame" x="0.0" y="30" width="375" height="270"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ActionSheetTableViewCell" id="trF-ef-ljd" customClass="ActionSheetTableViewCell" customModule="Hippo" customModuleProvider="target">
@@ -1242,10 +1252,12 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstItem="MVM-3o-Be9" firstAttribute="top" secondItem="3Rj-oo-aFl" secondAttribute="top" id="NXE-Ui-UpL"/>
+                                    <constraint firstAttribute="trailing" secondItem="MVM-3o-Be9" secondAttribute="trailing" constant="10" id="VUM-2d-CpL"/>
                                     <constraint firstAttribute="height" constant="300" id="ZDI-TM-QF4"/>
                                     <constraint firstAttribute="bottom" secondItem="c29-w5-QmH" secondAttribute="bottom" id="gBs-rb-2P0"/>
                                     <constraint firstAttribute="trailing" secondItem="c29-w5-QmH" secondAttribute="trailing" id="hyw-DL-d1Q"/>
-                                    <constraint firstItem="c29-w5-QmH" firstAttribute="top" secondItem="3Rj-oo-aFl" secondAttribute="top" id="jfo-V7-xtK"/>
+                                    <constraint firstItem="c29-w5-QmH" firstAttribute="top" secondItem="MVM-3o-Be9" secondAttribute="bottom" id="jGf-kK-sae"/>
                                     <constraint firstItem="c29-w5-QmH" firstAttribute="leading" secondItem="3Rj-oo-aFl" secondAttribute="leading" id="n6e-sp-BG5"/>
                                 </constraints>
                             </view>
@@ -1267,6 +1279,8 @@
                     </view>
                     <connections>
                         <outlet property="bgView" destination="2Mz-G8-Im7" id="2as-Vd-uPN"/>
+                        <outlet property="buttonSkip" destination="MVM-3o-Be9" id="IUL-Lk-S5t"/>
+                        <outlet property="constraintSkipBtnHeight" destination="tSg-rx-T25" id="qEv-py-vRh"/>
                         <outlet property="nochBGView" destination="jSL-5N-oc8" id="Hld-qc-c6k"/>
                         <outlet property="nochView" destination="O2U-Z8-Omt" id="Nyz-5X-drd"/>
                         <outlet property="optionContaintView" destination="3Rj-oo-aFl" id="Sgz-Q2-gQZ"/>
