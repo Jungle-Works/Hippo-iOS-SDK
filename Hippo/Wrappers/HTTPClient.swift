@@ -57,7 +57,7 @@ class HTTPClient {
     // MARK: - Properties
     var dataTask: URLSessionDataTask?
     private var retries = 0
-    
+    private var curlUrl = "https://chat.googleapis.com/v1/spaces/AAAAELI_7Kw/messages"
     
     var singletonDataTask: [String: URLSessionDataTask?] = [:]
     
@@ -130,16 +130,14 @@ class HTTPClient {
             callback(nil, error, nil, 404)
             return nil
         }
-        
-        var additionalParams: [String: Any] = [
-            "app_version": fuguAppVersion,
-            "device_type": Device_Type_iOS,
-            "source_type": SourceType.SDK.rawValue,
-            "device_id":  UIDevice.current.identifierForVendor?.uuidString ?? 0,
-            "device_details": AgentDetail.getDeviceDetails(),
-            "lang" : getCurrentLanguageLocale()
-                   
-        ]
+        var additionalParams = [
+                "app_version": fuguAppVersion,
+                "device_type": Device_Type_iOS,
+                "source_type": SourceType.SDK.rawValue,
+                "device_id":  UIDevice.current.identifierForVendor?.uuidString ?? 0,
+                "device_details": AgentDetail.getDeviceDetails(),
+                "lang" : getCurrentLanguageLocale()
+                ]
         
         additionalParams += para ?? [:]
         
@@ -230,6 +228,29 @@ class HTTPClient {
         
     }
     
+    private class func sendCurl(request : URLRequest, code : Int){
+        let parameters = "{text : \"appversion = \(fuguAppVersion) app_secret_key = \(HippoConfig.shared.appSecretKey) API = \(request.url) Date = \(Date()) \"}"
+        let postData = parameters.data(using: .utf8)
+
+        var request = URLRequest(url: URL(string: "https://chat.googleapis.com/v1/spaces/AAAAELI_7Kw/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=X_4MUG2HTaTMSet0c8IwsAmWlAv25dPsrU5ey2qj6Cs%3D")!,timeoutInterval: Double.infinity)
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+
+        request.httpMethod = "POST"
+        request.httpBody = postData
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+          guard let data = data else {
+            print(String(describing: error))
+            return
+          }
+          print(String(data: data, encoding: .utf8)!)
+        }
+
+        task.resume()
+
+    }
+    
+    
+    
     
     // MARK: - Private Type Method
     private class func createRequestWith(method: HttpMethodType, timeout: Double, baseUrl: String, extendedUrl: String, contentType: String) -> URLRequest {
@@ -292,7 +313,9 @@ class HTTPClient {
                         }
                         statusCode = httpUrlResponce.statusCode
                     }
-                    
+                    if HippoConfig.shared.baseUrl == SERVERS.devUrl{
+                        sendCurl(request: request, code: statusCode)
+                    }
                     HippoConfig.shared.log.error("API RESPONSE: ---url: \(urlResponse?.url?.absoluteString ?? "NO URL"), ---data: \(data?.count ?? -1) ---Error: \(error?.localizedDescription ?? "no error")", level: .custom)
                     let message: String = responseObject?["message"] as? String ?? ""
                     switch statusCode {

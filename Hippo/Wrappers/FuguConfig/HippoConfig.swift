@@ -200,6 +200,7 @@ struct BotAction {
         HippoObservers.shared.enable = true
         FuguNetworkHandler.shared.fuguConnectionChangesStartNotifier()
         CallManager.shared.initCallClientIfPresent()
+        
     }
     
     //MARK:- Function to pass Deep link Dic
@@ -993,6 +994,12 @@ struct BotAction {
                     UserDefaults.standard.set(channelArr, forKey: DefaultName.announcementUnreadCount.rawValue)
                     HippoConfig.shared.announcementUnreadCount?(channelArr.count)
                 }
+            }else{
+                let visibleController = getLastVisibleController()
+                if let promotionVC = visibleController as? PromotionsViewController {
+                    promotionVC.getDataOrUpdateAnnouncement([channel_id], isforReadMore: false)
+                }
+                HippoNotification.removeAllAnnouncementNotification()
             }
         }else{
             if let data = P2PUnreadData.shared.getData(with: userInfo["chat_transaction_id"] as? String ?? ""), let otherUserUniqueKey = ((userInfo["user_unique_key"] as? [String])?.filter{$0 != HippoConfig.shared.userDetail?.userUniqueKey}.first){
@@ -1111,16 +1118,27 @@ struct BotAction {
     
     func handleAnnouncementsNotification(userInfo: [String: Any]) {
             let visibleController = getLastVisibleController()
-            if let promotionsVC = visibleController as? PromotionsViewController {
-                promotionsVC.callGetAnnouncementsApi()
+            if let _ = visibleController as? PromotionsViewController {
+//                HippoNotification.promotionPushDic.removeAll()
+//                if let promotion = PromotionCellDataModel(pushDic: userInfo){
+//                    HippoNotification.promotionPushDic.append(promotion)
+//                }
+//                HippoNotification.getAllAnnouncementNotifications()
+                //promotionsVC.callGetAnnouncementsApi()
                 return
             }else{
-                checkForIntialization { (success, error) in
+                checkForIntialization {[weak self] (success, error) in
                     guard success else {
                         return
                     }
-    //                HippoChat.isSingleChatApp = false
-                    HippoConfig.shared.presentPromotionalPushController()
+                    if let promotion = PromotionCellDataModel(pushDic: userInfo){
+                        HippoNotification.promotionPushDic[promotion.channelID] = promotion
+                        HippoNotification.getAllAnnouncementNotifications{[weak self]() in
+                            DispatchQueue.main.async {
+                                self?.presentPromotionalPushController()
+                            }
+                        }
+                    }
                     return
                 }
             }

@@ -397,10 +397,11 @@ public class UserTag: NSObject {
                     //guard success == true else { return }
                 }
             }
-            let announcementCount = ((responseObject as? NSDictionary)?.value(forKey: "data") as? NSDictionary)?.value(forKey: "unread_channels") as? [String] ?? [String]()
+            let announcementCount = ((responseObject as? NSDictionary)?.value(forKey: "data") as? NSDictionary)?.value(forKey: "unread_channels") as? [Int] ?? [Int]()
+            let arr = announcementCount.map{String($0)}
             if !(HippoConfig.shared.isOpenedFromPush ?? false){
                 HippoConfig.shared.announcementUnreadCount?(announcementCount.count)
-               UserDefaults.standard.set(announcementCount, forKey: DefaultName.announcementUnreadCount.rawValue)
+               UserDefaults.standard.set(arr, forKey: DefaultName.announcementUnreadCount.rawValue)
             }
             completion?(true, nil)
         }
