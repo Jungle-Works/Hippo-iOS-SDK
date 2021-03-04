@@ -320,7 +320,7 @@ public struct ConversationListTheme {
     open var profileFieldTitleColor: UIColor = .black
     
     open var profileFieldValueFont: UIFont? =  UIFont(name: "HelveticaNeue-Medium", size: 16)
-    open var prfoileFieldValueColor: UIColor? = .lightText
+    open var prfoileFieldValueColor: UIColor? = .black
     
     open var profileBackgroundColor: UIColor? = UIColor.veryLightBlue
     

@@ -145,7 +145,7 @@ extension ActionSheetViewController: UITableViewDelegate, UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 50
+        return 40
     }
     
 }
@@ -175,6 +175,7 @@ struct ActionSheetAction {
 class ActionSheetTableViewCell: UITableViewCell {
     @IBOutlet var iconImgView: UIImageView!
     @IBOutlet var titleLabel: UILabel!
+    @IBOutlet var constraintWidth: NSLayoutConstraint!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -189,6 +190,7 @@ class ActionSheetTableViewCell: UITableViewCell {
             iconImgView.tintColor = UIColor.black
             iconImgView.image = action.icon
         }
+        constraintWidth.constant = action.icon == nil ? 0 : 25
         titleLabel.text = action.title
     }
 }

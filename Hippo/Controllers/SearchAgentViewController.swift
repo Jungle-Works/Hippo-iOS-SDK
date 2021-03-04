@@ -23,7 +23,8 @@ final class SearchAgentViewController: UIViewController {
     
     //MARK:- Variables
     
-    var countryList : [String] = ["All","India","USA","China","Japan"]
+    var countryList : [String] = ["All","Austria", "Belgium", "Bulgaria", "Croatia", "Republic of Cyprus", "Czech Republic", "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary", "Ireland", "Italy", "Latvia", "Lithuania", "Luxembourg", "Malta", "Netherlands", "Poland", "Portugal", "Romania", "Slovakia", "Slovenia", "Spain and Sweden"]
+    
     var pickerView: UIPickerView?
     var searchAgentVM = SearchAgentViewModel()
     var cardSelected : ((MessageCard)->())?

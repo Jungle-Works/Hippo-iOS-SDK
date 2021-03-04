@@ -1212,17 +1212,17 @@
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7NK-BV-Pbg">
-                                                            <rect key="frame" x="24" y="10" width="24" height="24"/>
+                                                            <rect key="frame" x="10" y="10" width="24" height="24"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="height" constant="24" id="Q8N-WI-ju6"/>
+                                                                <constraint firstAttribute="width" secondItem="7NK-BV-Pbg" secondAttribute="height" multiplier="1:1" id="nCa-V8-uNP"/>
                                                                 <constraint firstAttribute="width" constant="24" id="noX-hQ-bi0"/>
                                                             </constraints>
                                                         </imageView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="paF-bE-7Hb">
-                                                            <rect key="frame" x="60" y="12" width="315" height="20.5"/>
+                                                            <rect key="frame" x="46" y="12" width="329" height="20.5"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jco-AC-9ne">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="315" height="20.5"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="329" height="20.5"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
@@ -1232,13 +1232,14 @@
                                                     </subviews>
                                                     <constraints>
                                                         <constraint firstItem="paF-bE-7Hb" firstAttribute="centerY" secondItem="F13-tj-GqA" secondAttribute="centerY" id="VUp-0i-1Ot"/>
-                                                        <constraint firstItem="7NK-BV-Pbg" firstAttribute="leading" secondItem="F13-tj-GqA" secondAttribute="leading" constant="24" id="XsN-iV-c1h"/>
+                                                        <constraint firstItem="7NK-BV-Pbg" firstAttribute="leading" secondItem="F13-tj-GqA" secondAttribute="leading" constant="10" id="XsN-iV-c1h"/>
                                                         <constraint firstItem="7NK-BV-Pbg" firstAttribute="centerY" secondItem="F13-tj-GqA" secondAttribute="centerY" id="YFj-gv-vc7"/>
                                                         <constraint firstAttribute="trailing" secondItem="paF-bE-7Hb" secondAttribute="trailing" id="q6y-dK-kXg"/>
                                                         <constraint firstItem="paF-bE-7Hb" firstAttribute="leading" secondItem="7NK-BV-Pbg" secondAttribute="trailing" constant="12" id="srd-fC-Vf5"/>
                                                     </constraints>
                                                 </tableViewCellContentView>
                                                 <connections>
+                                                    <outlet property="constraintWidth" destination="noX-hQ-bi0" id="MZn-3V-f4u"/>
                                                     <outlet property="iconImgView" destination="7NK-BV-Pbg" id="Pio-38-31d"/>
                                                     <outlet property="titleLabel" destination="Jco-AC-9ne" id="0GA-d1-lUr"/>
                                                 </connections>

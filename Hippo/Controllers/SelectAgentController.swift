@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SelectAgentController: UIViewController {
+final class SelectAgentController: UIViewController {
     
     //MARK:- IBOutlets
     @IBOutlet var tableView : UITableView!{
@@ -51,6 +51,12 @@ class SelectAgentController: UIViewController {
     @IBAction func action_BackBtn(){
         self.navigationController?.popViewController(animated: true)
     }
+    
+    private func openProfile(for channelId: Int, agentId: String?, profile: ProfileDetail?) {
+        let presenter = AgentProfilePresenter(channelID: channelId, agentID: agentId, profile: profile)
+        let vc = AgentProfileViewController.get(presenter: presenter)
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
 }
 extension SelectAgentController : UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -63,6 +69,9 @@ extension SelectAgentController : UITableViewDelegate, UITableViewDataSource{
         }
         if let card = selectAgentVM.agentCard?[indexPath.row]{
             cell.config(card: card)
+        }
+        cell.openProfile = {[weak self](profile) in
+            self?.openProfile(for: -1, agentId: self?.selectAgentVM.agentCard?[indexPath.row].id, profile: profile)
         }
         return cell
     }

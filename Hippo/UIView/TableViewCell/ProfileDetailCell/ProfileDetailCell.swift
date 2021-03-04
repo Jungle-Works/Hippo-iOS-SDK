@@ -10,7 +10,7 @@ import UIKit
 
 class ProfileDetailCell: UITableViewCell {
 
-    @IBOutlet weak var valueLabel: UILabel!
+    @IBOutlet weak var valueLabel: UITextView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var labelStackView: UIStackView!
     @IBOutlet weak var labelContainer: UIView!
@@ -36,6 +36,8 @@ class ProfileDetailCell: UITableViewCell {
         valueLabel.font = theme.profileFieldValueFont
         labelContainer.backgroundColor = .clear
         bgView.backgroundColor = .white
+        valueLabel.isEditable = false
+        valueLabel.dataDetectorTypes = .all
     }
 
 }
