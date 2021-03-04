@@ -137,7 +137,7 @@ class HTTPClient {
                 "device_id":  UIDevice.current.identifierForVendor?.uuidString ?? 0,
                 "device_details": AgentDetail.getDeviceDetails(),
                 "lang" : getCurrentLanguageLocale()
-                ]
+            ] as [String : Any]
         
         additionalParams += para ?? [:]
         
