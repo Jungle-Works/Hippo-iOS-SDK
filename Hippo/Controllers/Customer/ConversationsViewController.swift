@@ -1414,7 +1414,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     }
     func shouldHitGetMessagesAfterCreateConversation() -> Bool {
         let formCount = channel?.messages.filter({ (h) -> Bool in
-            return (h.type == MessageType.leadForm || h.type == .consent)
+            return (h.type == MessageType.leadForm || h.type == MessageType.createTicket || h.type == .consent)
         }).count ?? 0
         
         let isFormPresent = formCount > 0 ? true : false
@@ -2080,7 +2080,7 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                  cell.updateBottomConstraint(bottomSpace)
                  let incomingAttributedString = Helper.getIncomingAttributedStringWithLastUserCheck(chatMessageObject: message)
                  return cell.configureCellOfSupportIncomingCell(resetProperties: true, attributedString: incomingAttributedString, channelId: channel?.id ?? labelId, chatMessageObject: message)
-             case .leadForm:
+             case .leadForm, .createTicket:
                  guard let cell = tableView.dequeueReusableCell(withIdentifier: "LeadTableViewCell", for: indexPath) as? LeadTableViewCell else {
                      return UITableViewCell()
                  }
@@ -2326,7 +2326,7 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                         rowHeight = rowHeight + 50
                     }
                     return rowHeight
-                case MessageType.leadForm:
+                case MessageType.leadForm, MessageType.createTicket:
                     if message.content.questionsArray.count == 0 {
                         return 0.001
                     }
@@ -2884,7 +2884,7 @@ extension ConversationsViewController: HippoChannelDelegate {
             sendQuickReplyReposeIfRequired()
         }
         
-        if message.type == MessageType.leadForm {
+        if message.type == MessageType.leadForm || message.type == MessageType.createTicket {
             self.replaceLastQuickReplyIncaseofBotForm()
         }
     }
