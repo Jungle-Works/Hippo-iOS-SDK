@@ -109,7 +109,12 @@ class PromotionsViewController: UIViewController {
     }
     
     func getDataOrUpdateAnnouncement(_ channelIdArr : [Int], isforReadMore : Bool, indexRow : Int? = nil){
-        let params = ["app_secret_key" : HippoConfig.shared.appSecretKey, "channel_ids" : channelIdArr, "user_id" : currentUserId()] as [String : Any]
+        var params = [String : Any]()
+        if currentUserType() == .customer{
+            params = ["app_secret_key" : HippoConfig.shared.appSecretKey, "channel_ids" : channelIdArr, "user_id" : currentUserId()] as [String : Any]
+        }else{
+            params = ["access_token" : HippoConfig.shared.agentDetail?.fuguToken ?? "", "channel_ids" : channelIdArr, "user_id" : currentUserId()] as [String : Any]
+        }
         
         HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: FuguEndPoints.getAndUpdateAnnouncement.rawValue) { (response, error, _, statusCode) in
             if let response = response as? [String : Any], let data = response["data"] as? [[String : Any]]{
@@ -225,8 +230,12 @@ class PromotionsViewController: UIViewController {
     }
     
     func getAnnouncements(endOffset:Int,startOffset:Int) {
-        
-        let params = ["end_offset":"\(endOffset)","start_offset":"\(startOffset)","en_user_id":HippoUserDetail.fuguEnUserID,"app_secret_key":HippoConfig.shared.appSecretKey]
+        var params = [String : Any]()
+        if currentUserType() == .customer{
+            params = ["end_offset":"\(endOffset)","start_offset":"\(startOffset)","en_user_id":HippoUserDetail.fuguEnUserID ?? "","app_secret_key":HippoConfig.shared.appSecretKey]
+        }else{
+            params = ["end_offset":"\(endOffset)","start_offset":"\(startOffset)","user_id": "\(currentUserId())" ,"access_token":HippoConfig.shared.agentDetail?.fuguToken ?? ""]
+        }
         
         HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: AgentEndPoints.getAnnouncements.rawValue) { (response, error, _, statusCode) in
             

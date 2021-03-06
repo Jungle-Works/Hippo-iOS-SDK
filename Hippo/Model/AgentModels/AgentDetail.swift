@@ -312,6 +312,13 @@ extension AgentDetail {
             let result = ResponseResult(isSuccessful: true, error: HippoError.general)
             AgentConversationManager.errorMessage = nil
             postLoginUpdated()
+            let announcementCount = ((responseObject as? NSDictionary)?.value(forKey: "data") as? NSDictionary)?.value(forKey: "unread_channels") as? [Int] ?? [Int]()
+            let arr = announcementCount.map{String($0)}
+            if !(HippoConfig.shared.isOpenedFromPush ?? false){
+                HippoConfig.shared.announcementUnreadCount?(announcementCount.count)
+                UserDefaults.standard.set(arr, forKey: DefaultName.announcementUnreadCount.rawValue)
+            }
+            
             completion(result)
         }
     }
@@ -403,6 +410,7 @@ extension AgentDetail {
         
         params["fetch_business_lang"] = 1
         params["fetch_tags"] = 0
+        params["fetch_announcements_unread_count"] = 1
         return params
     }
     internal static func getParamsForAuthLogin() -> [String: Any] {
