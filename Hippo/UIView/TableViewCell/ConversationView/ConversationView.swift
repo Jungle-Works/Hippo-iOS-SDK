@@ -208,7 +208,17 @@ extension ConversationView {
                 }
                 messageToBeShown += message
             }
+    
+            if conersationObj.lastMessage?.messageState == .MessageDeleted {
+                if lastMessage.senderId == currentUserId(){
+                    messageToBeShown = HippoStrings.you + " " + HippoStrings.deleteMessage
+                }else{
+                    messageToBeShown = lastMessage.senderFullName + " " + HippoStrings.deleteMessage
+                }
+            }
+            
             chatTextLabel.text = messageToBeShown
+            
         }
         
       //  timeLabel.textColor = HippoConfig.shared.theme.timeTextColor.withAlphaComponent(isThisChatOpened(opened: isOpened))
