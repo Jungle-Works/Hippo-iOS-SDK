@@ -18,7 +18,6 @@ public typealias PrePaymentCompletion = ((_ response: HippoError?) -> ())
 
 
 class PrePayment{
-    static var razorPayView : RazorPayViewController?
   
     class func callPrePaymentApi(paymentGatewayId : Int, paymentType : Int?, prePaymentDic: [String : Any], completion: @escaping ((_ result: HippoError?) -> Void)) {
          
@@ -39,7 +38,7 @@ class PrePayment{
             }
             let razorPayDic = RazorPayData().getRazorPayDic(data["payment_url"] as? [String : Any] ?? [String : Any]()) ?? RazorPayData()
             if razorPayDic.amount != nil{
-                PrePayment.presentRazorPayScreen(with: razorPayDic)
+    
                 return
             }else{
                 let channelId = data["channel_id"] as? Int
@@ -69,20 +68,6 @@ class PrePayment{
             json["payment_type"] = paymentType
         }
         return json
-    }
-    
-    
-    static func presentRazorPayScreen(with razorPayDic : RazorPayData){
-        PrePayment.razorPayView = RazorPayViewController()
-        PrePayment.razorPayView?.isPaymentCancelled = {(sucess) in
-            HippoConfig.shared.HippoPrePaymentCancelled?()
-        }
-        PrePayment.razorPayView?.isPaymentSuccess = {(success) in
-            HippoConfig.shared.HippoPrePaymentSuccessful?(success)
-        }
-        let vc = getLastVisibleController()
-        PrePayment.razorPayView?.razorPayDic = razorPayDic
-        PrePayment.razorPayView?.showPaymentForm(vc ?? UIViewController())
     }
     
 }

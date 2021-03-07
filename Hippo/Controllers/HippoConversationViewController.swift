@@ -73,7 +73,7 @@ class HippoConversationViewController: UIViewController {
     var proceedToPayChannel: HippoChannel?
     var attachments: [Attachment]  = []
     var isMessageEditing : Bool = false
-    let razorPay = RazorPayViewController()
+
 
     //MARK:
     @IBOutlet var tableViewChat: UITableView!{
@@ -1743,8 +1743,7 @@ extension HippoConversationViewController: PaymentMessageCellDelegate {
     }
     
     func initatePayment(for razorPayDic: RazorPayData) {
-        razorPay.razorPayDic = razorPayDic
-        razorPay.showPaymentForm(self)
+    
     }
     
     func generatePaymentUrl(for message: HippoMessage, card: HippoCard, selectedPaymentGateway: PaymentGateway?) {
