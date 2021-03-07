@@ -7,28 +7,30 @@
 This repository implements pod for Razorpay's iOS Framework.
 
 ## Usage
-
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
 ## Installation | Docs
 
+### Note:
+If your integrating this on Objective-C please replace the line
+```
+#import <Razorpay/Razorpay.h>
+```
+with 
+```
+# import <Razorpay/Razorpay-Swift.h> in your viewcontroller.m file
+```
+
 razorpay-pod is available through [CocoaPods]. To install
 it, simply add the following line to your Podfile
 
-For version 1.0.21 (Framework Compiled in Swift version 3.1, Use it if you are using Xcode version below 9)
-
 ```ruby
-pod 'razorpay-pod', '1.0.21'
+pod 'razorpay-pod', '1.1.12'
 ```
+### Note:
+for older cocoapod versions check [CHANGELOG](https://github.com/razorpay/razorpay-pod/blob/1.1.12/CHANGELOG.md).
 
-For version 1.0.22 (Framework Compiled in Swift version 4.1, Use it if you are using Xcode version 9.3 and above)
-
-```ruby
-pod 'razorpay-pod', '1.0.22'
-```
-
-
-Refer to the documentation from [here](https://razorpay.com/docs/ios/) 
+Refer to the documentation from [here](https://razorpay.com/docs/payment-gateway/ios-integration/standard/) 
 
 ## Contributing
 
@@ -37,7 +39,7 @@ Thank you, [contributors]!
 
 ## License
 
-razorpay-pod  is free software, and may be redistributed
+razorpay-pod is free software, and may be redistributed
 under the terms specified in the [LICENSE] file.
 
 We :heart: open source software!
