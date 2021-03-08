@@ -315,10 +315,25 @@ class PromotionsViewController: UIViewController {
             //self.channelIdsArr.append(data[indexPath.row].channelID)
             //self.channelIdsArr[0] = data[indexPath.row].channelID
             self.channelIdsArr.insert(data[indexPath.row].channelID, at: 0)
-            
-            params = ["app_secret_key":HippoConfig.shared.appSecretKey,"en_user_id":HippoUserDetail.fuguEnUserID ?? "","channel_ids":self.channelIdsArr,"delete_all_announcements":isDeleteAllStatus] as [String : Any]
+            if currentUserType() == .customer{
+                params = ["app_secret_key":HippoConfig.shared.appSecretKey,
+                    "en_user_id":HippoUserDetail.fuguEnUserID ?? "",
+                    "channel_ids":self.channelIdsArr,
+                    "delete_all_announcements":isDeleteAllStatus] as [String : Any]
+            }else{
+                ["access_token": HippoConfig.shared.agentDetail?.fuguToken ?? "",
+                 "user_id": "\(currentUserId())",
+                 "channel_ids":self.channelIdsArr,
+                 "delete_all_announcements":isDeleteAllStatus] as [String : Any]
+            }
         }else{
-            params = ["app_secret_key":HippoConfig.shared.appSecretKey,"en_user_id":HippoUserDetail.fuguEnUserID ?? "","delete_all_announcements":isDeleteAllStatus] as [String : Any]
+            if currentUserType() == .customer{
+                params = ["app_secret_key":HippoConfig.shared.appSecretKey,"en_user_id":HippoUserDetail.fuguEnUserID ?? "","delete_all_announcements":isDeleteAllStatus] as [String : Any]
+            }else{
+                params = ["access_token": HippoConfig.shared.agentDetail?.fuguToken ?? "",
+                    "user_id": "\(currentUserId())",
+                    "delete_all_announcements":isDeleteAllStatus] as [String : Any]
+            }
         }
         
         HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: AgentEndPoints.clearAnnouncements.rawValue) { (response, error, _, statusCode) in
