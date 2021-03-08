@@ -32,6 +32,9 @@ class FormData: NSObject {
     
     var backgroundColor: UIColor?
     var titleColor: UIColor?
+    var paramId : Int?
+    var param : String?
+    var announcementUrl : [String] = []
     
     override init() {
         
@@ -123,6 +126,8 @@ class FormData: NSObject {
                 isCompleteFlow = false
             }
             temp.dataType = object.dataType[i]
+            temp.paramId = object.paramId[i]
+            temp.param = object.params[i]
             arr.append(temp)
         }
         return arr

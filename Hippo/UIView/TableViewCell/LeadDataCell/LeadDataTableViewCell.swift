@@ -15,7 +15,8 @@ protocol LeadDataCellDelegate: class {
     func textfieldShouldEndEditing(textfield: UITextField)
 }
 
-class LeadDataTableViewCell: UITableViewCell {
+class LeadDataTableViewCell: UITableViewCell{
+    
     static let rowHeight: CGFloat = 90.0
     fileprivate enum TextfieldType: String {
         case string = "string"
@@ -24,7 +25,20 @@ class LeadDataTableViewCell: UITableViewCell {
         case name = "name"
     }
     
+    fileprivate enum CreateTicketFields: Int {
+        case email = 0
+        case name = 1
+        case subject = 2
+        case description = 3
+        case attachments = 6
+        case issueType = 4
+        case priority = 5
+    }
+ 
     fileprivate var dataType: String = ""
+    private var paramId : Int?
+    private var announcementUrl: [String] = []
+    var announcementClicked: (()->())?
     
     weak var delegate: LeadDataCellDelegate?
     @IBOutlet weak var buttonSend: UIButton!
@@ -40,10 +54,18 @@ class LeadDataTableViewCell: UITableViewCell {
     @IBOutlet var constraintValidationTop: NSLayoutConstraint!
     @IBOutlet var constraintValidationBottom: NSLayoutConstraint!
     @IBOutlet var constraintViewTop: NSLayoutConstraint!
+    @IBOutlet var tableView : UITableView!{
+        didSet{
+            tableView.dataSource = self
+            tableView.delegate = self
+            tableView.register(UINib(nibName: "UrlTableCell", bundle: FuguFlowManager.bundle), forCellReuseIdentifier: "UrlTableCell")
+        }
+    }
+    @IBOutlet var constraintTableHeight : NSLayoutConstraint!
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+        self.tableView.addObserver(self, forKeyPath: "contentSize", options: NSKeyValueObservingOptions.new, context: nil)
         setupCellView()
     }
     
@@ -54,6 +76,11 @@ class LeadDataTableViewCell: UITableViewCell {
         return false
     }
 
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        constraintTableHeight.constant = tableView.contentSize.height
+    }
+    
+    
     @IBAction func didTapSend(_ sender: UIButton) {
         guard let text = self.valueTextfield.text else {
             self.delegate?.enableError(isEnabled: true, cell: self, text: HippoStrings.requiredField)
@@ -78,7 +105,7 @@ class LeadDataTableViewCell: UITableViewCell {
     func setData(data: FormData) {
         titleLabel.text = data.title
         valueTextfield.text = data.value
-        valueTextfield.placeholder = data.value
+        valueTextfield.placeholder = data.paramId == CreateTicketFields.attachments.rawValue ? "Click to upload file" : data.title
         DispatchQueue.main.async {
             if data.isCompleted {
                 let image = UIImage(named: "tick_green", in: FuguFlowManager.bundle, compatibleWith: nil)
@@ -102,6 +129,9 @@ class LeadDataTableViewCell: UITableViewCell {
         }
         setTextFieldType(data: data)
         self.dataType = data.dataType
+        self.paramId = data.paramId
+        self.announcementUrl = data.announcementUrl
+        tableView.reloadData()
     }
     
     func setTextFieldType(data: FormData) {
@@ -148,7 +178,6 @@ class LeadDataTableViewCell: UITableViewCell {
         self.valueTextfield.delegate = self
         backgroundColor = UIColor.clear
     }
-
     
     func isValidEmail(string: String) -> String? {
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
@@ -162,8 +191,36 @@ class LeadDataTableViewCell: UITableViewCell {
     
 }
 
+extension LeadDataTableViewCell : UITableViewDataSource{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.announcementUrl.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "UrlTableCell", for: indexPath) as? UrlTableCell else{
+            return UrlTableCell()
+        }
+        return cell
+    }
+}
+extension LeadDataTableViewCell : UITableViewDelegate{
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return paramId == CreateTicketFields.attachments.rawValue ? 40 : 0
+    }
+}
 extension LeadDataTableViewCell: UITextFieldDelegate {
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+ 
+        if paramId == CreateTicketFields.attachments.rawValue{
+            self.announcementClicked?()
+            return false
+        }else if paramId == CreateTicketFields.issueType.rawValue{
+            return false
+        }else if paramId == CreateTicketFields.priority.rawValue{
+            return false
+        }
+        
+        
         HippoKeyboardManager.shared.enable = true
         self.delegate?.textfieldShouldBeginEditing(textfield: textField)
         return true

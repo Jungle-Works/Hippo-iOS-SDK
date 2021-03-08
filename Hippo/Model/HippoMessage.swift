@@ -616,7 +616,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
             json["line_after_feedback_2"] = feedbackMessages.line_after_feedback_2
             json["line_before_feedback"] = feedbackMessages.line_before_feedback
             json["multi_lang_message"] = MultiLanguageTags.RATING_AND_REVIEW.rawValue
-        } else if type == .leadForm {
+        } else if type == .leadForm || type == .createTicket{
             var arrayOfMessages: [String] = []
             for lead in leadsDataArray {
                 if lead.value.isEmpty {

@@ -2491,6 +2491,7 @@ func getHeighOfButtonCollectionView(actionableMessage: FuguActionableMessage) ->
     func getHeightForLeadFormCell(message: HippoMessage) -> CGFloat {
         var count = 0
         var buttonAction: [FormData] = []
+        var announcementHeight = 0
         for lead in message.leadsDataArray {
             if lead.isShow  && lead.type != .button {
                 count += 1
@@ -2498,8 +2499,12 @@ func getHeighOfButtonCollectionView(actionableMessage: FuguActionableMessage) ->
             if lead.type == .button {
                 buttonAction.append(lead)
             }
+            if lead.announcementUrl.count > 0{
+                announcementHeight = lead.announcementUrl.count * 40
+            }
         }
         var height = LeadDataTableViewCell.rowHeight * CGFloat(count)
+        height += CGFloat(announcementHeight)
         if count > 1 {
             height -= CGFloat(5*(count))
         }
@@ -2970,6 +2975,10 @@ extension ConversationsViewController: HippoChannelDelegate {
 }
 // MARK: Bot Form Cell Delegates
 extension ConversationsViewController: LeadTableViewCellDelegate {
+    func actionAttachmentClick(data: FormData) {
+        self.attachmentButtonclicked(UIButton())
+    }
+    
     func leadSkipButtonClicked(message: HippoMessage, cell: LeadTableViewCell) {
         message.isSkipBotEnabled = false
         message.isSkipEvent = true

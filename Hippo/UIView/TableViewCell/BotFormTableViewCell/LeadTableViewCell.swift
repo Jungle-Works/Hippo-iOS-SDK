@@ -14,6 +14,7 @@ protocol LeadTableViewCellDelegate: class {
     func textfieldShouldBeginEditing(textfield: UITextField)
     func textfieldShouldEndEditing(textfield: UITextField)
     func leadSkipButtonClicked(message: HippoMessage, cell: LeadTableViewCell)
+    func actionAttachmentClick(data: FormData)
 }
 
 class LeadTableViewCell: MessageTableViewCell {
@@ -134,6 +135,9 @@ extension LeadTableViewCell: UITableViewDataSource, UITableViewDelegate {
             cell.labelNoOfQuestions.isHidden = true
             cell.constraintViewTop.constant = 0
         }
+        cell.announcementClicked = {[weak self]() in
+            self?.delegate?.actionAttachmentClick(data: self?.filterFileArray[indexPath.section] ?? FormData())
+        }
         cell.delegate = self
         return cell
     }
@@ -190,6 +194,10 @@ extension LeadTableViewCell: LeadDataCellDelegate {
         filterFileArray[indexPath.section].value = reply
         self.tableView.reloadData()
         self.delegate?.sendReply(forCell: self, data: filterFileArray)
+    }
+    
+    func attachmentClick(){
+        
     }
     
 }
