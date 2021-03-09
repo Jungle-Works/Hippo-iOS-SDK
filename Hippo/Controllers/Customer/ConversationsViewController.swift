@@ -1528,6 +1528,9 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
       return vc
    }
 }
+extension ConversationsViewController: CreateTicketAttachmentHelperDelegate {
+   
+}
 
 // MARK: - HELPERS
 extension ConversationsViewController {
@@ -2499,8 +2502,8 @@ func getHeighOfButtonCollectionView(actionableMessage: FuguActionableMessage) ->
             if lead.type == .button {
                 buttonAction.append(lead)
             }
-            if lead.announcementUrl.count > 0{
-                announcementHeight = lead.announcementUrl.count * 40
+            if lead.attachmentUrl.count > 0{
+                announcementHeight = lead.attachmentUrl.count * 40
             }
         }
         var height = LeadDataTableViewCell.rowHeight * CGFloat(count)
@@ -2976,7 +2979,18 @@ extension ConversationsViewController: HippoChannelDelegate {
 // MARK: Bot Form Cell Delegates
 extension ConversationsViewController: LeadTableViewCellDelegate {
     func actionAttachmentClick(data: FormData) {
-        self.attachmentButtonclicked(UIButton())
+        if data.attachmentUrl.count == 5{
+            showAlert(title: nil, message: "Cannot add more than 5 attachments", actionComplete: nil)
+            return
+        }
+        attachmentObj.delegate = self
+        attachmentObj.urlUploaded = {[weak self](ticket) in
+            data.attachmentUrl.append(ticket)
+            DispatchQueue.main.async {
+                self?.tableViewChat.reloadData()
+            }
+        }
+        attachmentObj.openAttachment = true
     }
     
     func leadSkipButtonClicked(message: HippoMessage, cell: LeadTableViewCell) {

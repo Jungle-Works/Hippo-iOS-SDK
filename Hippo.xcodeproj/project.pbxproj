@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		192D0AA525F68FA90065C828 /* CreateTicketViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 192D0AA425F68FA90065C828 /* CreateTicketViewModel.swift */; };
+		192D0AA925F68FBF0065C828 /* CreateTicketAttachmentHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 192D0AA825F68FBF0065C828 /* CreateTicketAttachmentHelper.swift */; };
 		1964B42E25F623B200DC2D6F /* UrlTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1964B42C25F623B200DC2D6F /* UrlTableCell.swift */; };
 		1964B42F25F623B200DC2D6F /* UrlTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1964B42D25F623B200DC2D6F /* UrlTableCell.xib */; };
 		47B12417C887BBD208902F39 /* Pods_Hippo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C0A922564912516EF04B93F /* Pods_Hippo.framework */; };
@@ -431,6 +433,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		192D0AA425F68FA90065C828 /* CreateTicketViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTicketViewModel.swift; sourceTree = "<group>"; };
+		192D0AA825F68FBF0065C828 /* CreateTicketAttachmentHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTicketAttachmentHelper.swift; sourceTree = "<group>"; };
 		1964B42C25F623B200DC2D6F /* UrlTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlTableCell.swift; sourceTree = "<group>"; };
 		1964B42D25F623B200DC2D6F /* UrlTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UrlTableCell.xib; sourceTree = "<group>"; };
 		6B01EEB324B899B100B778C7 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/HippoLocalizable.strings; sourceTree = "<group>"; };
@@ -940,6 +944,15 @@
 				8C0A922564912516EF04B93F /* Pods_Hippo.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		192D0AA325F68F8E0065C828 /* CreateTicket */ = {
+			isa = PBXGroup;
+			children = (
+				192D0AA425F68FA90065C828 /* CreateTicketViewModel.swift */,
+				192D0AA825F68FBF0065C828 /* CreateTicketAttachmentHelper.swift */,
+			);
+			path = CreateTicket;
 			sourceTree = "<group>";
 		};
 		1964B42B25F6237300DC2D6F /* UrlCell */ = {
@@ -1889,6 +1902,7 @@
 		C9B77DC321A01B060092848D /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				192D0AA325F68F8E0065C828 /* CreateTicket */,
 				D88B9010246672EA00E3093F /* FilterManager.swift */,
 				D8F6D23C2419587C00B168C5 /* UIImageView+Extension.swift */,
 				D8F6D23D2419587D00B168C5 /* FuguNetworkHandler.swift */,
@@ -3036,6 +3050,7 @@
 				D8F6D00D2418FA0300B168C5 /* CustomField.swift in Sources */,
 				D8F6D17D24194EFC00B168C5 /* ShowMoreTableViewCell.swift in Sources */,
 				D8F6D15B24194D8600B168C5 /* IncomingVideoTableViewCell.swift in Sources */,
+				192D0AA525F68FA90065C828 /* CreateTicketViewModel.swift in Sources */,
 				D8F6D15124194D4D00B168C5 /* TypingViewTableViewCell.swift in Sources */,
 				D8F6D2282419552B00B168C5 /* UserDetail.swift in Sources */,
 				D8F6D0012418F9CF00B168C5 /* AgentProfileViewDatasource.swift in Sources */,
@@ -3080,6 +3095,7 @@
 				C9B77ECF21A01B070092848D /* IQKeyboardManagerConstantsInternal.swift in Sources */,
 				C9B77EC221A01B070092848D /* Filter.swift in Sources */,
 				C9B77E6F21A01B060092848D /* MessageSender.swift in Sources */,
+				192D0AA925F68FBF0065C828 /* CreateTicketAttachmentHelper.swift in Sources */,
 				1964B42E25F623B200DC2D6F /* UrlTableCell.swift in Sources */,
 				D88B20E024619F90007FD382 /* UIButton+Kingfisher.swift in Sources */,
 				C9B77EC721A01B070092848D /* IQTextView.swift in Sources */,

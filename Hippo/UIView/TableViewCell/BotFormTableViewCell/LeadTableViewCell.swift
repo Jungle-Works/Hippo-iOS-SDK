@@ -16,6 +16,12 @@ protocol LeadTableViewCellDelegate: class {
     func leadSkipButtonClicked(message: HippoMessage, cell: LeadTableViewCell)
     func actionAttachmentClick(data: FormData)
 }
+extension LeadTableViewCellDelegate{
+    func actionAttachmentClick(data: FormData) {
+        
+    }
+}
+
 
 class LeadTableViewCell: MessageTableViewCell {
     // MARK: Properties
@@ -59,6 +65,8 @@ class LeadTableViewCell: MessageTableViewCell {
     // MARK: Functions
     private func setup() {
         self.tableView.register(UINib(nibName: leadCellIdentifier, bundle: FuguFlowManager.bundle), forCellReuseIdentifier: leadCellIdentifier)
+        self.tableView.register(UINib(nibName: "UrlTableCell", bundle: FuguFlowManager.bundle), forCellReuseIdentifier: "UrlTableCell")
+        
         tableView.layer.cornerRadius = 10
         
         tableView.backgroundColor = HippoConfig.shared.theme.gradientBackgroundColor //.clear
@@ -111,35 +119,51 @@ extension LeadTableViewCell: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if filterFileArray[section].isShow {
-            return 1
+            return filterFileArray[section].paramId == CreateTicketFields.attachments.rawValue ? filterFileArray[section].attachmentUrl.count + 1 : 1
         }
         return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: leadCellIdentifier, for: indexPath) as? LeadDataTableViewCell else {
-            fatalError("No cell with identifier \(self.leadCellIdentifier) found.")
-        }
-        cell.setData(data: filterFileArray[indexPath.section])
-        if indexPath.section == 0 {
-            cell.labelNoOfQuestions.isHidden = false
-            var count = 1
-            for lead in filterFileArray {
-                if lead.isShow {
-                    cell.labelNoOfQuestions.text = "(\(count) of \(filterFileArray.count))"
-                    count += 1
+        if (filterFileArray[indexPath.section].paramId == CreateTicketFields.attachments.rawValue && filterFileArray[indexPath.section].attachmentUrl.count != 0 && filterFileArray[indexPath.section].attachmentUrl.count != indexPath.row){
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "UrlTableCell", for: indexPath) as? UrlTableCell else {
+                fatalError("No cell with identifier \(UrlTableCell.self) found.")
+            }
+            cell.crossBtnTapped = {[weak self] in
+                if indexPath.row >= 0, indexPath.row <  self?.filterFileArray[indexPath.section].attachmentUrl.count ?? 0{
+                    self?.filterFileArray[indexPath.section].attachmentUrl.remove(at: indexPath.row)
+                    tableView.reloadData()
                 }
             }
-            cell.constraintViewTop.constant = 8
-        } else {
-            cell.labelNoOfQuestions.isHidden = true
-            cell.constraintViewTop.constant = 0
+            cell.config(url: filterFileArray[indexPath.section].attachmentUrl[indexPath.row])
+            return cell
+        }else{
+            
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: leadCellIdentifier, for: indexPath) as? LeadDataTableViewCell else {
+                fatalError("No cell with identifier \(self.leadCellIdentifier) found.")
+            }
+            cell.setData(data: filterFileArray[indexPath.section])
+            if indexPath.section == 0 {
+                cell.labelNoOfQuestions.isHidden = false
+                var count = 1
+                for lead in filterFileArray {
+                    if lead.isShow {
+                        cell.labelNoOfQuestions.text = "(\(count) of \(filterFileArray.count))"
+                        count += 1
+                    }
+                }
+                cell.constraintViewTop.constant = 8
+            } else {
+                cell.labelNoOfQuestions.isHidden = true
+                cell.constraintViewTop.constant = 0
+            }
+            
+            cell.attachmentClicked = {[weak self]() in
+                self?.delegate?.actionAttachmentClick(data: self?.filterFileArray[indexPath.section] ?? FormData())
+            }
+            cell.delegate = self
+            return cell
         }
-        cell.announcementClicked = {[weak self]() in
-            self?.delegate?.actionAttachmentClick(data: self?.filterFileArray[indexPath.section] ?? FormData())
-        }
-        cell.delegate = self
-        return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -150,7 +174,9 @@ extension LeadTableViewCell: UITableViewDataSource, UITableViewDelegate {
                 } else {
                     return LeadDataTableViewCell.rowHeight
                 }
-            } else {
+            } else if (filterFileArray[indexPath.section].paramId == CreateTicketFields.attachments.rawValue && filterFileArray[indexPath.section].attachmentUrl.count != 0 && filterFileArray[indexPath.section].attachmentUrl.count != indexPath.row) {
+                return 40
+            }else {
                 if self.filterFileArray[indexPath.section].isCompleted {
                     return LeadDataTableViewCell.rowHeight - 8.0 - 10.0
                 } else {
@@ -191,14 +217,29 @@ extension LeadTableViewCell: LeadDataCellDelegate {
             filterFileArray[indexPath.section + 1].isShow = true
         }
         filterFileArray[indexPath.section].isCompleted = true
-        filterFileArray[indexPath.section].value = reply
+        filterFileArray[indexPath.section].value = cell.paramId == CreateTicketFields.attachments.rawValue ? getDataForAttachments(data: filterFileArray[indexPath.section].attachmentUrl) : reply
+        filterFileArray[indexPath.section].attachmentUrl.removeAll()
         self.tableView.reloadData()
         self.delegate?.sendReply(forCell: self, data: filterFileArray)
     }
     
-    func attachmentClick(){
-        
+    
+    private func getDataForAttachments(data: [TicketUrl]) -> String {
+        var dic = [[String : Any]]()
+        for url in data{
+            var urlDic = [String : Any]()
+            urlDic["fileName"] = url.name
+            urlDic["url"] = url.url
+            dic.append(urlDic)
+        }
+        return json(from: dic) ?? ""
     }
     
+    func json(from object:Any) -> String? {
+        guard let data = try? JSONSerialization.data(withJSONObject: object, options: []) else {
+            return nil
+        }
+        return String(data: data, encoding: String.Encoding.utf8)
+    }
 }
 

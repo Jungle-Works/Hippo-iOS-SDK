@@ -56,6 +56,7 @@ class HippoConversationViewController: UIViewController {
     
     var qldataSource: HippoQLDataSource?
     var pickerHelper: PickerHelper?
+    var isAttachmentOpenedForTicket: Bool?
     var titleForNavigation: NavigationTitleView?
     
     var errorMessage: String = ""
@@ -73,7 +74,7 @@ class HippoConversationViewController: UIViewController {
     var proceedToPayChannel: HippoChannel?
     var attachments: [Attachment]  = []
     var isMessageEditing : Bool = false
-
+    let attachmentObj = CreateTicketAttachmentHelper()
 
     //MARK:
     @IBOutlet var tableViewChat: UITableView!{
@@ -832,6 +833,7 @@ class HippoConversationViewController: UIViewController {
     }
     func attachmentButtonclicked(_ sender: UIButton)
     {
+        isAttachmentOpenedForTicket = false
         let showPaymentOption = channel == nil ? false : HippoProperty.current.isPaymentRequestEnabled
         pickerHelper = PickerHelper(viewController: self, enablePayment: showPaymentOption)
         pickerHelper?.present(sender: sender, controller: self)
@@ -839,6 +841,7 @@ class HippoConversationViewController: UIViewController {
     }
     
     func attachmentButtonclickedOfCustomSheet(_ sender: UIView, openType: String){
+        isAttachmentOpenedForTicket = false
         let showPaymentOption = channel == nil ? false : HippoProperty.current.isPaymentRequestEnabled
         pickerHelper = PickerHelper(viewController: self, enablePayment: showPaymentOption)
         pickerHelper?.delegate = self
@@ -1153,6 +1156,7 @@ extension HippoConversationViewController {
                 completion(false)
                 return
             }
+            
             message.wasMessageSendingFailed = false
             message.imageUrl = result.imageUrl
             message.thumbnailUrl = result.imageThumbnailUrl

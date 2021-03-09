@@ -4,7 +4,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -50,13 +49,6 @@
                                     <constraint firstItem="Alj-tD-zlb" firstAttribute="top" secondItem="2Mp-ai-p05" secondAttribute="top" id="qhk-Ts-Kdd"/>
                                 </constraints>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Fm0-mq-WBE">
-                                <rect key="frame" x="0.0" y="29" width="478" height="0.0"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" id="HAj-iG-zf5"/>
-                                </constraints>
-                            </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sjk-z9-QKg">
                                 <rect key="frame" x="0.0" y="29" width="478" height="37"/>
                                 <subviews>
@@ -99,19 +91,18 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="Fm0-mq-WBE" firstAttribute="leading" secondItem="2Mp-ai-p05" secondAttribute="leading" id="8aJ-m7-5fk"/>
+                            <constraint firstItem="Sjk-z9-QKg" firstAttribute="trailing" secondItem="2Mp-ai-p05" secondAttribute="trailing" id="5RK-Ip-Ahh"/>
                             <constraint firstItem="6MO-4x-sa9" firstAttribute="leading" secondItem="AjU-g1-0Dr" secondAttribute="leading" id="EHP-Wb-SrU"/>
-                            <constraint firstItem="Fm0-mq-WBE" firstAttribute="trailing" secondItem="2Mp-ai-p05" secondAttribute="trailing" id="Efd-PG-cfe"/>
                             <constraint firstAttribute="trailing" secondItem="2Mp-ai-p05" secondAttribute="trailing" id="LPp-F2-xjM"/>
                             <constraint firstAttribute="trailing" secondItem="6MO-4x-sa9" secondAttribute="trailing" id="Pu5-oE-VgA"/>
-                            <constraint firstItem="Fm0-mq-WBE" firstAttribute="top" secondItem="2Mp-ai-p05" secondAttribute="bottom" constant="9" id="VuR-26-iC6"/>
                             <constraint firstItem="6MO-4x-sa9" firstAttribute="top" secondItem="Sjk-z9-QKg" secondAttribute="bottom" constant="2.5" id="WUI-oi-2XH"/>
-                            <constraint firstItem="Sjk-z9-QKg" firstAttribute="top" secondItem="Fm0-mq-WBE" secondAttribute="bottom" id="gcP-8M-e6u"/>
                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="6MO-4x-sa9" secondAttribute="bottom" constant="2" id="oC2-gF-nWY"/>
                             <constraint firstItem="2Mp-ai-p05" firstAttribute="top" secondItem="AjU-g1-0Dr" secondAttribute="top" id="sqN-rp-Ewe"/>
                             <constraint firstAttribute="trailing" secondItem="Sjk-z9-QKg" secondAttribute="trailing" id="sxf-m8-VpI"/>
+                            <constraint firstItem="Sjk-z9-QKg" firstAttribute="leading" secondItem="2Mp-ai-p05" secondAttribute="leading" id="uNC-Ts-Bkg"/>
                             <constraint firstItem="Sjk-z9-QKg" firstAttribute="leading" secondItem="AjU-g1-0Dr" secondAttribute="leading" id="xHh-ZY-zh7"/>
                             <constraint firstItem="2Mp-ai-p05" firstAttribute="leading" secondItem="AjU-g1-0Dr" secondAttribute="leading" id="xYe-EI-DKg"/>
+                            <constraint firstItem="Sjk-z9-QKg" firstAttribute="top" secondItem="2Mp-ai-p05" secondAttribute="bottom" constant="9" id="ztQ-rw-O6f"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -124,12 +115,10 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="buttonSend" destination="kU3-po-xoM" id="z1A-b0-Phh"/>
-                <outlet property="constraintTableHeight" destination="HAj-iG-zf5" id="GmS-gn-2i5"/>
                 <outlet property="constraintValidationTop" destination="WUI-oi-2XH" id="ej2-ts-YQp"/>
                 <outlet property="constraintViewTop" destination="JtH-qI-yzT" id="0Ck-lD-23c"/>
                 <outlet property="labelNoOfQuestions" destination="Alj-tD-zlb" id="rxg-Ye-8tY"/>
                 <outlet property="labelValidationError" destination="6MO-4x-sa9" id="10J-iM-a2Q"/>
-                <outlet property="tableView" destination="Fm0-mq-WBE" id="NSW-SU-4fp"/>
                 <outlet property="titleLabel" destination="f9C-AP-9xG" id="6JM-W7-7Fz"/>
                 <outlet property="valueContainer" destination="Sjk-z9-QKg" id="2RR-z0-LNn"/>
                 <outlet property="valueTextfield" destination="u7J-TA-5G1" id="Laj-Jj-C0p"/>
@@ -139,8 +128,5 @@
     </objects>
     <resources>
         <image name="tick_green" width="42.5" height="42.5"/>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
     </resources>
 </document>
