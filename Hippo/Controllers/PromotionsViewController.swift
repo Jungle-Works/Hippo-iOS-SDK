@@ -321,10 +321,10 @@ class PromotionsViewController: UIViewController {
                     "channel_ids":self.channelIdsArr,
                     "delete_all_announcements":isDeleteAllStatus] as [String : Any]
             }else{
-                ["access_token": HippoConfig.shared.agentDetail?.fuguToken ?? "",
-                 "user_id": "\(currentUserId())",
-                 "channel_ids":self.channelIdsArr,
-                 "delete_all_announcements":isDeleteAllStatus] as [String : Any]
+                params = ["access_token": HippoConfig.shared.agentDetail?.fuguToken ?? "",
+                          "user_id": "\(currentUserId())",
+                          "channel_ids":self.channelIdsArr,
+                          "delete_all_announcements":isDeleteAllStatus] as [String : Any]
             }
         }else{
             if currentUserType() == .customer{
