@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -53,7 +53,7 @@
                                 <rect key="frame" x="0.0" y="29" width="478" height="37"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="u7J-TA-5G1">
-                                        <rect key="frame" x="5" y="0.0" width="423" height="37"/>
+                                        <rect key="frame" x="5" y="0.0" width="436" height="37"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="37" id="2WJ-Mc-YVW"/>
                                         </constraints>
@@ -63,9 +63,9 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kU3-po-xoM">
                                         <rect key="frame" x="441" y="0.0" width="37" height="37"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" secondItem="kU3-po-xoM" secondAttribute="height" id="bFJ-ZJ-OYg"/>
+                                            <constraint firstAttribute="width" secondItem="kU3-po-xoM" secondAttribute="height" multiplier="1:1" id="TiH-Vx-Kvf"/>
                                         </constraints>
-                                        <state key="normal" image="tick_green"/>
+                                        <state key="normal" title="Done" image="tick_green"/>
                                         <connections>
                                             <action selector="didTapSend:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Xv9-UR-fkr"/>
                                         </connections>
@@ -75,7 +75,7 @@
                                 <constraints>
                                     <constraint firstItem="kU3-po-xoM" firstAttribute="height" secondItem="u7J-TA-5G1" secondAttribute="height" id="0Ie-Gm-Pyn"/>
                                     <constraint firstItem="kU3-po-xoM" firstAttribute="centerY" secondItem="Sjk-z9-QKg" secondAttribute="centerY" id="BlQ-Nf-B9G"/>
-                                    <constraint firstAttribute="trailing" secondItem="u7J-TA-5G1" secondAttribute="trailing" constant="50" id="DJf-es-UdJ"/>
+                                    <constraint firstItem="kU3-po-xoM" firstAttribute="leading" secondItem="u7J-TA-5G1" secondAttribute="trailing" id="I0u-Kn-Z9x"/>
                                     <constraint firstItem="u7J-TA-5G1" firstAttribute="top" secondItem="Sjk-z9-QKg" secondAttribute="top" id="U3c-S6-j3Z"/>
                                     <constraint firstAttribute="trailing" secondItem="kU3-po-xoM" secondAttribute="trailing" id="XTs-Fa-FRP"/>
                                     <constraint firstItem="u7J-TA-5G1" firstAttribute="leading" secondItem="Sjk-z9-QKg" secondAttribute="leading" constant="5" id="kuj-8Y-Nw2"/>
@@ -115,6 +115,7 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="buttonSend" destination="kU3-po-xoM" id="z1A-b0-Phh"/>
+                <outlet property="constraintButtonAspectRatio" destination="TiH-Vx-Kvf" id="VkF-dU-ETE"/>
                 <outlet property="constraintValidationTop" destination="WUI-oi-2XH" id="ej2-ts-YQp"/>
                 <outlet property="constraintViewTop" destination="JtH-qI-yzT" id="0Ck-lD-23c"/>
                 <outlet property="labelNoOfQuestions" destination="Alj-tD-zlb" id="rxg-Ye-8tY"/>

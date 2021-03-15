@@ -1031,8 +1031,18 @@ extension HippoConversationViewController {
         }
     }
     func scroll(toIndexPath indexPath: IndexPath, animated: Bool) {
-        tableViewChat.scrollToRow(at: indexPath, at: .bottom, animated: animated)
+         let indexPath = IndexPath(
+            row: tableViewChat.numberOfRows(inSection: tableViewChat.numberOfSections - 1) - 1,
+                section: tableViewChat.numberOfSections - 1)
+        if hasRowAtIndexPath(indexPath: indexPath) {
+            tableViewChat.scrollToRow(at: indexPath, at: .bottom, animated: animated)
+        }
     }
+    
+    func hasRowAtIndexPath(indexPath: IndexPath) -> Bool {
+        return indexPath.section < tableViewChat.numberOfSections && indexPath.row < tableViewChat.numberOfRows(inSection: indexPath.section)
+    }
+    
     
     func getLastMessageIndexPath() -> IndexPath? {
         if self.messagesGroupedByDate.count > 0 {
@@ -1226,22 +1236,23 @@ extension HippoConversationViewController {
             if self.messagesGroupedByDate.count == 0 {
                 return
             }
-            self.tableViewChat.beginUpdates()
-            
-            if countOfDateGroupedArrayBeforeUpdate == self.messagesGroupedByDate.count {
-                
-                let currentLastSectionRows = self.messagesGroupedByDate.last!.count
-                
-                if previousLastSectionRows != currentLastSectionRows {
-                    let lastIndexPath = IndexPath(row: currentLastSectionRows - 1, section: self.messagesGroupedByDate.count - 1)
-                    self.tableViewChat.insertRows(at: [lastIndexPath], with: .none)
-                }
-                
-            } else {
-                let newSectionsOfTableView = IndexSet([self.messagesGroupedByDate.count - 1])
-                self.tableViewChat.insertSections(newSectionsOfTableView, with: .none)
-            }
-            self.tableViewChat.endUpdates()
+            self.tableViewChat.reloadData()
+//            self.tableViewChat.beginUpdates()
+//
+//            if countOfDateGroupedArrayBeforeUpdate == self.messagesGroupedByDate.count {
+//
+//                let currentLastSectionRows = self.messagesGroupedByDate.last!.count
+//
+//                if previousLastSectionRows != currentLastSectionRows {
+//                    let lastIndexPath = IndexPath(row: currentLastSectionRows - 1, section: self.messagesGroupedByDate.count - 1)
+//                    self.tableViewChat.insertRows(at: [lastIndexPath], with: .none)
+//                }
+//
+//            } else {
+//                let newSectionsOfTableView = IndexSet([self.messagesGroupedByDate.count - 1])
+//                self.tableViewChat.insertSections(newSectionsOfTableView, with: .none)
+//            }
+//            self.tableViewChat.endUpdates()
         }
         
     }

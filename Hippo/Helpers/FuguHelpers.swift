@@ -152,67 +152,28 @@ func convertDateTimeToUTC(date: Date? = nil) -> String {
 }
 
 
-func attributedStringForLabel(_ firstString: String, secondString: String, thirdString: String, colorOfFirstString: UIColor, colorOfSecondString: UIColor, colorOfThirdString: UIColor, fontOfFirstString: UIFont?, fontOfSecondString: UIFont?, fontOfThirdString: UIFont, textAlighnment: NSTextAlignment, dateAlignment: NSTextAlignment) -> NSMutableAttributedString {
-    
-    let combinedString = "\(firstString)\(secondString)\(thirdString)" as NSString
-    
-    let rangeOfFirstString = combinedString.range(of: firstString)
-    let rangeOfSecondString = combinedString.range(of: secondString)
-    let rangeOfThirdString = combinedString.range(of: thirdString)
-    
+func attributedStringForLabel(_ firstString: String, secondString: String, thirdString: String, colorOfFirstString: UIColor, colorOfSecondString: UIColor, colorOfThirdString: UIColor, fontOfFirstString: UIFont = UIFont.regular(ofSize: 14.0), fontOfSecondString: UIFont = UIFont.regular(ofSize: 14.0), fontOfThirdString: UIFont, textAlighnment: NSTextAlignment, dateAlignment: NSTextAlignment) -> NSMutableAttributedString {
     let firstStringStyle = NSMutableParagraphStyle()
     firstStringStyle.alignment = textAlighnment
     
     let thirdStringStyle = NSMutableParagraphStyle()
     thirdStringStyle.alignment = dateAlignment
     
-    let attributedTitle = NSMutableAttributedString(string: combinedString as String)
-    
-    #if swift(>=4.0)
-    
-    attributedTitle.addAttribute(NSAttributedString.Key.foregroundColor, value: colorOfFirstString, range: rangeOfFirstString)
-    if let sendeNameFont = fontOfFirstString {
-        attributedTitle.addAttribute(NSAttributedString.Key.font, value: sendeNameFont, range: rangeOfFirstString)
-    }
-    
-    attributedTitle.addAttribute(NSAttributedString.Key.paragraphStyle, value: firstStringStyle, range: rangeOfFirstString)
-    
-    attributedTitle.addAttribute(NSAttributedString.Key.foregroundColor, value: colorOfSecondString, range: rangeOfSecondString)
-    
-    if let incomingMsgFont = fontOfSecondString {
-        attributedTitle.addAttribute(NSAttributedString.Key.font, value: incomingMsgFont, range: rangeOfSecondString)
-    }
-    
-    attributedTitle.addAttribute(NSAttributedString.Key.paragraphStyle, value: firstStringStyle, range: rangeOfSecondString)
-    
-    attributedTitle.addAttribute(NSAttributedString.Key.foregroundColor, value: colorOfThirdString, range: rangeOfThirdString)
-    
-    attributedTitle.addAttribute(NSAttributedString.Key.font, value: fontOfThirdString, range: rangeOfThirdString)
-    attributedTitle.addAttribute(NSAttributedString.Key.paragraphStyle, value: thirdStringStyle, range: rangeOfThirdString)
-    
-    #else
-    attributedTitle.addAttribute(NSForegroundColorAttributeName, value: colorOfFirstString, range: rangeOfFirstString)
-    if let sendeNameFont = fontOfFirstString {
-        attributedTitle.addAttribute(NSFontAttributeName, value: sendeNameFont, range: rangeOfFirstString)
-    }
-    
-    attributedTitle.addAttribute(NSParagraphStyleAttributeName, value: firstStringStyle, range: rangeOfFirstString)
-    
-    attributedTitle.addAttribute(NSForegroundColorAttributeName, value: colorOfSecondString, range: rangeOfSecondString)
-    
-    if let incomingMsgFont = fontOfSecondString {
-        attributedTitle.addAttribute(NSFontAttributeName, value: incomingMsgFont, range: rangeOfSecondString)
-    }
-    
-    attributedTitle.addAttribute(NSParagraphStyleAttributeName, value: firstStringStyle, range: rangeOfSecondString)
-    
-    attributedTitle.addAttribute(NSForegroundColorAttributeName, value: colorOfThirdString, range: rangeOfThirdString)
-    
-    attributedTitle.addAttribute(NSFontAttributeName, value: fontOfThirdString, range: rangeOfThirdString)
-    attributedTitle.addAttribute(NSParagraphStyleAttributeName, value: thirdStringStyle, range: rangeOfThirdString)
-    
-    #endif
-    return attributedTitle
+    let firstAttributedString = NSMutableAttributedString(string:firstString, attributes: [NSAttributedString.Key.foregroundColor: colorOfFirstString,
+        NSAttributedString.Key.font: fontOfFirstString,
+        NSAttributedString.Key.paragraphStyle: firstStringStyle,
+        ])
+    guard let secondAttributedString = secondString.hippoHtmlAttributedString(font: fontOfSecondString, color: colorOfSecondString, alignment: textAlighnment) else { return firstAttributedString}
+    let thirdAttributedString = NSMutableAttributedString(string:thirdString, attributes: [NSAttributedString.Key.foregroundColor: colorOfThirdString,
+        NSAttributedString.Key.font: fontOfThirdString,
+        NSAttributedString.Key.paragraphStyle: thirdStringStyle,
+        ])
+    let combinedString = NSMutableAttributedString()
+    combinedString.append(firstAttributedString)
+    combinedString.append(secondAttributedString)
+    combinedString.append(thirdAttributedString)
+ 
+    return combinedString
 }
 
 func attributedStringForLabelForTwoStrings(_ firstString: String, secondString: String, colorOfFirstString: UIColor, colorOfSecondString: UIColor, fontOfFirstString: UIFont, fontOfSecondString: UIFont, textAlighnment: NSTextAlignment, dateAlignment: NSTextAlignment) -> NSMutableAttributedString {

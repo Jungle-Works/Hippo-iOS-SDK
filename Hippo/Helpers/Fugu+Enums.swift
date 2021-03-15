@@ -388,6 +388,8 @@ enum FuguEndPoints: String {
     case createAgentConversation = "api/conversation/createAgentSupportChannel"
     case getUploadFileUrl = "api/conversation/getUploadFile"
     case getAndUpdateAnnouncement = "api/broadcast/getAndUpdateAnnouncement"
+    case searchErp = "api/erpnext/search"
+    case checkAndCreateCustomer = "api/erpnext/checkAndCreateCustomer"
 }
 
 enum AgentEndPoints: String {

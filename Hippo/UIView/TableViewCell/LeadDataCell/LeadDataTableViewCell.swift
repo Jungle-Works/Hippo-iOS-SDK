@@ -13,6 +13,11 @@ protocol LeadDataCellDelegate: class {
     func enableError(isEnabled: Bool, cell: LeadDataTableViewCell, text: String?)
     func textfieldShouldBeginEditing(textfield: UITextField)
     func textfieldShouldEndEditing(textfield: UITextField)
+    func issueTypeStartEditing(textfield: UITextField)
+    func priorityTypeStartEditing(textfield: UITextField)
+    func issueTypeValueChanged(textfield: UITextField)
+    func priorityTypeValueChanged(textfield: UITextField)
+
 }
 
 enum CreateTicketFields: Int {
@@ -53,7 +58,7 @@ class LeadDataTableViewCell: UITableViewCell{
     @IBOutlet var constraintValidationTop: NSLayoutConstraint!
     @IBOutlet var constraintValidationBottom: NSLayoutConstraint!
     @IBOutlet var constraintViewTop: NSLayoutConstraint!
-
+    @IBOutlet var constraintButtonAspectRatio : NSLayoutConstraint!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -94,17 +99,29 @@ class LeadDataTableViewCell: UITableViewCell{
         titleLabel.text = data.title
         valueTextfield.text = data.value
         valueTextfield.placeholder = data.paramId == CreateTicketFields.attachments.rawValue ? "Click to upload file" : data.title
+        self.buttonSend.setTitle(nil, for: .normal)
         DispatchQueue.main.async {
-            if data.isCompleted {
+            if data.isCompleted && data.shouldBeEditable == false {
                 let image = UIImage(named: "tick_green", in: FuguFlowManager.bundle, compatibleWith: nil)
                 self.buttonSend.setImage(image, for: .normal)
                 self.buttonSend.isUserInteractionEnabled = false
                 self.valueTextfield.isUserInteractionEnabled = false
                 self.buttonSend.backgroundColor = UIColor.clear
+                self.constraintButtonAspectRatio.isActive = true
             } else {
-                let image = UIImage(named: "next_dark_icon", in: FuguFlowManager.bundle, compatibleWith: nil)
-                self.buttonSend.setImage(image!.withRenderingMode(.alwaysTemplate), for: .normal)
-                self.buttonSend.tintColor = UIColor.white
+                if data.paramId == CreateTicketFields.attachments.rawValue{
+                    self.constraintButtonAspectRatio.isActive = false
+                    self.buttonSend.setTitle(" " + HippoStrings.Done + " ", for: .normal)
+                    self.buttonSend.setTitleColor(.white, for: .normal)
+                    self.buttonSend.setImage(nil, for: .normal)
+                    self.buttonSend.titleLabel?.font = UIFont.bold(ofSize: 13.0)
+                }else{
+                    self.constraintButtonAspectRatio.isActive = true
+                    let image = UIImage(named: "next_dark_icon", in: FuguFlowManager.bundle, compatibleWith: nil)
+                    self.buttonSend.setImage(image!.withRenderingMode(.alwaysTemplate), for: .normal)
+                    self.buttonSend.tintColor = UIColor.white
+                }
+               
                 self.buttonSend.isUserInteractionEnabled = true
                 self.valueTextfield.isUserInteractionEnabled = true
                 self.buttonSend.backgroundColor = #colorLiteral(red: 0.1333333333, green: 0.5882352941, blue: 1, alpha: 1)
@@ -185,9 +202,11 @@ extension LeadDataTableViewCell: UITextFieldDelegate {
             self.attachmentClicked?()
             return false
         }else if paramId == CreateTicketFields.issueType.rawValue{
-            return false
+            self.delegate?.issueTypeStartEditing(textfield: textField)
+            return true
         }else if paramId == CreateTicketFields.priority.rawValue{
-            return false
+            self.delegate?.priorityTypeStartEditing(textfield: textField)
+            return true
         }
         
         
@@ -213,6 +232,11 @@ extension LeadDataTableViewCell: UITextFieldDelegate {
             let characterSet = CharacterSet(charactersIn: string)
             return allowedCharacters.isSuperset(of: characterSet)
         default:
+            if paramId == CreateTicketFields.issueType.rawValue{
+                self.delegate?.issueTypeValueChanged(textfield: textField)
+            }else if paramId == CreateTicketFields.priority.rawValue{
+                self.delegate?.priorityTypeValueChanged(textfield: textField)
+            }
             return true
         }
     }

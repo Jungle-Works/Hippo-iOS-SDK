@@ -17,6 +17,7 @@ class MessageContent: NSObject {
     var actionId: [String] = []
     var paramId: [Int] = []
     var params: [String] = []
+    var erpCustomerName: String?
     override init() {
         
     }

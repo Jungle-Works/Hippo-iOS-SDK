@@ -28,6 +28,8 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     
     var consultNowInfoDict = [String: Any]()
     var isComingFromConsultNowButton = false
+    var createTicketVM = CreateTicketVM()
+    var popover : LCPopover?
     
     // MARK: -  IBOutlets
     @IBOutlet weak var backgroundImageView: UIImageView!
@@ -1086,6 +1088,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         }
         
         updateMessagesInLocalArrays(messages: messages)
+        
         if channel != nil {
             self.channel.saveMessagesInCache()
         }
@@ -1102,7 +1105,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         if request.pageStart > 1 {
             keepTableViewWhereItWasBeforeReload(oldContentHeight: contentHeightBeforeNewMessages, oldYOffset: contentOffsetBeforeNewMessages)
         }
-        if result.isSendingDisabled || forceDisableReply {
+        if result.isSendingDisabled || forceDisableReply || checkIfShouldDisableReplyForCreateTicket(messages: messages){
             disableSendingReply()
         }
         if request.pageStart == 1, request.pageEnd == nil {
@@ -1113,6 +1116,18 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         willPaginationWork = result.isMoreDataToLoad
         
         completion?(true)
+    }
+    
+    private func checkIfShouldDisableReplyForCreateTicket(messages: [HippoMessage]) -> Bool{
+        if let message = messages.last, message.type == .createTicket{
+            let completedArr = message.leadsDataArray.filter{$0.isCompleted == true}
+            if completedArr.count == message.leadsDataArray.count{
+                return false
+            }else{
+                return true
+            }
+        }
+        return false
     }
     
     func handleVideoIcon() {
@@ -2892,9 +2907,13 @@ extension ConversationsViewController: HippoChannelDelegate {
             sendQuickReplyReposeIfRequired()
         }
         
-        if message.type == MessageType.leadForm || message.type == MessageType.createTicket {
+        if message.type == MessageType.leadForm {
             self.replaceLastQuickReplyIncaseofBotForm()
         }
+        if message.type == MessageType.createTicket {
+            self.disableSendingReply()
+        }
+        
     }
     func getMessageForQuickReply(messages: [HippoMessage]) -> HippoMessage? {
         var quickReplyMessage: HippoMessage?
@@ -2947,14 +2966,17 @@ extension ConversationsViewController: HippoChannelDelegate {
       }
    }
    
-   func deleteTypingLabelSection() {
-      guard isTypingLabelHidden, isTypingSectionPresent() else {
-         return
-      }
-      
-      let typingSectionIndex = IndexSet([tableViewChat.numberOfSections - 1])
-      tableViewChat.deleteSections(typingSectionIndex, with: .none)
-   }
+    func deleteTypingLabelSection() {
+        guard isTypingLabelHidden, isTypingSectionPresent() else {
+            return
+        }
+        if tableViewChat.numberOfSections == 1{
+            return
+        }
+        
+        let typingSectionIndex = IndexSet([tableViewChat.numberOfSections - 1])
+        tableViewChat.deleteSections(typingSectionIndex, with: .none)
+    }
    
    func isTypingSectionPresent() -> Bool {
       return self.messagesGroupedByDate.count < tableViewChat.numberOfSections
@@ -2978,6 +3000,113 @@ extension ConversationsViewController: HippoChannelDelegate {
 }
 // MARK: Bot Form Cell Delegates
 extension ConversationsViewController: LeadTableViewCellDelegate {
+    func reloadDataOnAttachmentRemove(){
+        self.tableViewChat.reloadData()
+    }
+    
+    func priorityTypeStartEditing(textfield: UITextField) {
+        HippoKeyboardManager.shared.enable = true
+        setupvm(textfield: textfield)
+        createTicketVM.erpSearch(type: .issuePriority, text: textfield.text ?? "")
+    }
+    
+    func issueTypeValueChanged(textfield: UITextField) {
+        HippoKeyboardManager.shared.enable = true
+        setupvm(textfield: textfield)
+        DispatchQueue.main.asyncAfter(deadline:.now() + 0.2) {
+            self.createTicketVM.erpSearch(type: .issueType, text: textfield.text ?? "")
+        }
+    }
+    
+    func priorityTypeValueChanged(textfield: UITextField) {
+        HippoKeyboardManager.shared.enable = true
+        setupvm(textfield: textfield)
+        DispatchQueue.main.asyncAfter(deadline:.now() + 0.2) {
+            self.createTicketVM.erpSearch(type: .issuePriority, text: textfield.text ?? "")
+        }
+    }
+    
+    func issueTypeStartEditing(textfield: UITextField) {
+        HippoKeyboardManager.shared.enable = true
+        setupvm(textfield: textfield)
+        createTicketVM.erpSearch(type: .issueType, text: textfield.text ?? "")
+    }
+    
+    func setupvm(textfield: UITextField){
+        createTicketVM.searchDataUpdated = {[weak self](type) in
+            DispatchQueue.main.async {
+                if type == .issueType && ((textfield.isFirstResponder) == true){
+                    if textfield.text == ""{
+                        if self?.popover == nil || (getLastVisibleController() != self?.popover){
+                            self?.setupCustomPopover(for: textfield, data: self?.createTicketVM.initialIssueTypeData ?? [String]())
+                        }else{
+                            self?.popover?.dataList = self?.createTicketVM.initialIssueTypeData ?? [String]()
+                            self?.popover?.reloadData()
+                        }
+                    }else{
+                        if self?.popover == nil || (getLastVisibleController() != self?.popover){
+                            self?.setupCustomPopover(for: textfield, data: self?.createTicketVM.issueTypeData ?? [String]())
+                        }else{
+                            self?.popover?.dataList = self?.createTicketVM.issueTypeData ?? [String]()
+                            self?.popover?.reloadData()
+                        }
+                    }
+                }else if type == .issuePriority && ((textfield.isFirstResponder) == true){
+                    if textfield.text == ""{
+                        if self?.popover == nil || (getLastVisibleController() != self?.popover){
+                            self?.setupCustomPopover(for: textfield, data: self?.createTicketVM.initialPriorityData ?? [String]())
+                        }else{
+                            self?.popover?.dataList = self?.createTicketVM.initialPriorityData ?? [String]()
+                            self?.popover?.reloadData()
+                        }
+                    }else{
+                        if self?.popover == nil || (getLastVisibleController() != self?.popover){
+                            self?.setupCustomPopover(for: textfield , data: self?.createTicketVM.priorityTypeData ?? [String]())
+                        }else{
+                            self?.popover?.dataList = self?.createTicketVM.priorityTypeData ?? [String]()
+                            self?.popover?.reloadData()
+                        }
+                    }
+                }
+            }
+        }
+        
+    }
+    
+    @objc func setupCustomPopover(for sender: UITextField, data : [String]) {
+        // Init a popover with a callback closure after selecting data
+        if data.count == 0{
+            return
+        }
+        
+        popover = LCPopover(for: sender, title: "") { tuple in
+            // Use of the selected tuple
+            guard let value = tuple else { return }
+            sender.text = value
+        }
+        
+        guard let popover = popover else {
+            return
+        }
+        
+        // Assign data to the dataList
+        popover.dataList = data
+        
+        // Set popover properties
+        popover.size = CGSize(width: Int(sender.frame.size.width), height: (popover.dataList.count * 45) < 200 ? (popover.dataList.count * 45) : 200)
+        popover.arrowDirection = .unknown
+        popover.barHeight = 0
+        popover.borderWidth = 0.5
+        popover.borderColor = .black
+        popover.textFont = UIFont.regular(ofSize: 14)
+        popover.textColor = .black
+        
+        // Present the popover
+        present(popover, animated: true, completion: nil)
+    }
+
+    
+    
     func actionAttachmentClick(data: FormData) {
         if data.attachmentUrl.count == 5{
             showAlert(title: nil, message: "Cannot add more than 5 attachments", actionComplete: nil)
@@ -3021,8 +3150,7 @@ extension ConversationsViewController: LeadTableViewCellDelegate {
     }
     
     func textfieldShouldEndEditing(textfield: UITextField) {
-        
-        
+        HippoKeyboardManager.shared.enable = false
     }
     
     func cellUpdated(for cell: LeadTableViewCell, data: [FormData], isSkipAction: Bool) {
@@ -3034,8 +3162,7 @@ extension ConversationsViewController: LeadTableViewCellDelegate {
         }
         messagesGroupedByDate[indexPath.section][indexPath.row].leadsDataArray = data
         DispatchQueue.main.async {
-            self.tableViewChat.beginUpdates()
-            self.tableViewChat.endUpdates()
+            self.tableViewChat.reloadData()
         }
         var count = 0
         for message in data {
@@ -3057,13 +3184,67 @@ extension ConversationsViewController: LeadTableViewCellDelegate {
             return
         }
         let message = messagesGroupedByDate[indexPath.section][indexPath.row]
+        
+        ///*change editable status if we are sending description*/
+        if message.type == .createTicket{
+            if let index = data.lastIndex(where: {$0.isCompleted == true}), index < data.count , data[index].paramId == CreateTicketFields.description.rawValue{
+                data.forEach{$0.shouldBeEditable = false}
+                
+                ///*Call function to create customer if we are sending description/
+                if index == message.content.questionsArray.count - 1{
+                    // if description is last question wait for creating customer before publishing
+                    self.createCustomer(shouldWaitForData: true, data: data){(status) in
+                        self.startSendingLeadForm(forCell: cell, message: message, data: data)
+                    }
+                }else{
+                    //call api in background thread
+                    self.createCustomer(shouldWaitForData: false, data: data){(status) in
+                        self.startSendingLeadForm(forCell: cell, message: message, data: data)
+                    }
+                }
+                
+            }else{
+                self.startSendingLeadForm(forCell: cell, message: message, data: data)
+            }
+        }else{
+            self.startSendingLeadForm(forCell: cell, message: message, data: data)
+        }
+       
+    }
+    
+    private func createCustomer(shouldWaitForData: Bool, data: [FormData], completion: @escaping (Bool) -> Void){
+        var name = ""
+        var email = ""
+        for value in data{
+            if value.paramId == CreateTicketFields.name.rawValue {
+                name = value.value
+            }else if value.paramId == CreateTicketFields.email.rawValue {
+                email = value.value
+            }
+            if name != "" && email != ""{
+                break
+            }
+        }
+        if shouldWaitForData{
+            createTicketVM.checkAndCreateCustomer(name: name, email: email, completion: completion)
+        }else{
+            completion(true)
+            //call in background thread, donot disturb UI
+            DispatchQueue.global().async {
+                self.createTicketVM.checkAndCreateCustomer(name: name, email: email)
+            }
+        }
+    }
+    
+    private func startSendingLeadForm(forCell cell: LeadTableViewCell, message: HippoMessage, data: [FormData]){
+        message.content.erpCustomerName = self.createTicketVM.customerName
         message.leadsDataArray = data
         HippoChannel.botMessageMUID = message.messageUniqueID ?? String.generateUniqueId()
         message.messageUniqueID = HippoChannel.botMessageMUID
         
         createChannelIfRequiredAndContinue(replyMessage: message) {[weak self] (success, result) in
             if let botMessageID = result?.botMessageID {
-               message.messageId = Int(botMessageID)
+                message.messageId = Int(botMessageID)
             }
             message.messageUniqueID = HippoChannel.botMessageMUID
             message.botFormMessageUniqueID = HippoChannel.botMessageMUID
@@ -3075,12 +3256,26 @@ extension ConversationsViewController: LeadTableViewCellDelegate {
                 self?.channel?.sendFormValues(message: message, completion: {
                     message.botFormMessageUniqueID =  nil
                     cell.checkAndDisableSkipButton()
+                    
                     self?.cellUpdated(for: cell, data: data, isSkipAction: false)
+                    
+                    if message.type == .createTicket{
+                        var arrayOfMessages: [String] = []
+                        for lead in message.leadsDataArray {
+                            if lead.value.isEmpty {
+                                break
+                            }
+                            arrayOfMessages.append(lead.value)
+                        }
+                        if arrayOfMessages.count == message.content.questionsArray.count{
+                            self?.createTicketVM.isCustomerCreated = false
+                            self?.enableSendingReply()
+                        }
+                    }
                 })
             }
         }
     }
-    
     
 }
 

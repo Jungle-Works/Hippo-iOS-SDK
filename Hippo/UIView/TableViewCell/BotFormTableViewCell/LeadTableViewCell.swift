@@ -15,11 +15,19 @@ protocol LeadTableViewCellDelegate: class {
     func textfieldShouldEndEditing(textfield: UITextField)
     func leadSkipButtonClicked(message: HippoMessage, cell: LeadTableViewCell)
     func actionAttachmentClick(data: FormData)
+    func issueTypeStartEditing(textfield: UITextField)
+    func priorityTypeStartEditing(textfield: UITextField)
+    func issueTypeValueChanged(textfield: UITextField)
+    func priorityTypeValueChanged(textfield: UITextField)
+    func reloadDataOnAttachmentRemove()
 }
 extension LeadTableViewCellDelegate{
-    func actionAttachmentClick(data: FormData) {
-        
-    }
+    func actionAttachmentClick(data: FormData) {}
+    func issueTypeStartEditing(textfield: UITextField){}
+    func priorityTypeStartEditing(textfield: UITextField) {}
+    func issueTypeValueChanged(textfield: UITextField) {}
+    func priorityTypeValueChanged(textfield: UITextField) {}
+    func reloadDataOnAttachmentRemove(){}
 }
 
 
@@ -60,6 +68,24 @@ class LeadTableViewCell: MessageTableViewCell {
         guard let message = self.message else {
             return
         }
+        if message.type == .createTicket{
+            if let index = filterFileArray.lastIndex(where: {$0.isCompleted == true}){
+                if index + 1 < filterFileArray.count{
+                    if filterFileArray[index + 1].paramId == CreateTicketFields.attachments.rawValue || filterFileArray[index + 1].paramId == CreateTicketFields.priority.rawValue{
+                        if (filterFileArray.count > index + 2) {
+                            filterFileArray[index + 2].isShow = true
+                        }
+                        filterFileArray[index + 1].isCompleted = true
+                        filterFileArray[index + 1].value = "N/A"
+                        filterFileArray[indexPath.section].attachmentUrl.removeAll()
+                        self.tableView.reloadData()
+                        self.delegate?.sendReply(forCell: self, data: filterFileArray)
+                    }
+                }
+            }
+            return
+        }
+        
         delegate?.leadSkipButtonClicked(message: message, cell: self)
     }
     // MARK: Functions
@@ -190,6 +216,22 @@ extension LeadTableViewCell: UITableViewDataSource, UITableViewDelegate {
     
 }
 extension LeadTableViewCell: LeadDataCellDelegate {
+    func priorityTypeStartEditing(textfield: UITextField) {
+        self.delegate?.priorityTypeStartEditing(textfield: textfield)
+    }
+    
+    func issueTypeValueChanged(textfield: UITextField) {
+        self.delegate?.issueTypeValueChanged(textfield: textfield)
+    }
+    
+    func priorityTypeValueChanged(textfield: UITextField) {
+        self.delegate?.priorityTypeValueChanged(textfield: textfield)
+    }
+    
+    func issueTypeStartEditing(textfield: UITextField) {
+        self.delegate?.issueTypeStartEditing(textfield: textfield)
+    }
+    
     func enableError(isEnabled: Bool, cell: LeadDataTableViewCell, text: String?) {
         guard let indexPath: IndexPath = self.tableView.indexPath(for: cell) else {
             return

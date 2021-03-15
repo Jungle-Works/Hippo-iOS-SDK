@@ -221,7 +221,7 @@ public class HippoStrings {
     static var supportChats = "Support Chats".localized
     static var requiredField = "Field is required"
     static var enterValidEmail = "Enter valid email"
-    
+    static var more = "more"
     
     
   

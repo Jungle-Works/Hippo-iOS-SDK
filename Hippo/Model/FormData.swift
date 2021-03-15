@@ -16,6 +16,7 @@ class FormData: NSObject {
     var isErrorEnabled = false
     var dataType: String = ""
     var errorMessage: String = ""
+    var shouldBeEditable: Bool = false
     
     //Dynamic fields
     var validationType: FormValidationType = .any
@@ -116,7 +117,16 @@ class FormData: NSObject {
                 temp.title = object.questionsArray[i]
             }
             if object.values.count > i {
-                temp.value = object.values[i]
+                if object.paramId.count > i, object.paramId[i] == CreateTicketFields.attachments.rawValue{
+                    let dic = getJson(data: object.values[i])
+                    if dic.count > 0{
+                        temp.value = (dic.first?["fileName"] as? String ?? "") + " and \(dic.count)" + HippoStrings.more
+                    }else{
+                        temp.value = object.values[i]
+                    }
+                }else{
+                    temp.value = object.values[i]
+                }
             }
             if isCompleteFlow {
                 temp.isShow = true
@@ -132,6 +142,7 @@ class FormData: NSObject {
             if object.params.count > i{
                 temp.param = object.params[i]
             }
+            temp.shouldBeEditable = false
             arr.append(temp)
         }
         return arr
@@ -272,6 +283,21 @@ class FormData: NSObject {
                                                          "title": "skip",
                                                          "title_color": "#000000",
                                                          "background_color": "#ffffff"]
+    
+    static private func getJson(data: String) -> [[String:Any]] {
+        let data = data.data(using: .utf8)!
+        do {
+            if let jsonArray = try JSONSerialization.jsonObject(with: data, options : .allowFragments) as? [Dictionary<String,Any>]
+            {
+               return jsonArray
+            } else {
+                print("bad json")
+            }
+        } catch let error as NSError {
+            print(error)
+        }
+        return [[String : Any]]()
+    }
 }
 
 let formDataJson: [String: Any] = [

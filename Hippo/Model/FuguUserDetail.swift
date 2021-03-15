@@ -333,6 +333,7 @@ public class UserTag: NSObject {
             if let enUserId = userDetailData["en_user_id"] as? String {
                 HippoUserDetail.fuguEnUserID = enUserId
             }
+            BussinessProperty.current.id = userDetailData["business_id"] as? Int
             
             if let rawUserChannel = userDetailData["user_channel"] as? String {
                 HippoUserDetail.HippoUserChannelId = rawUserChannel
