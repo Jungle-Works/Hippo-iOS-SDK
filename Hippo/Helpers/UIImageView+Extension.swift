@@ -189,7 +189,7 @@ extension String {
         
         return finalString.uppercased()
     }
-    func hippoHtmlAttributedString(font: UIFont, color: UIColor, alignment: NSTextAlignment) -> NSAttributedString? {
+    func hippoHtmlAttributedString(font: UIFont, color: UIColor, alignment: NSTextAlignment) -> NSMutableAttributedString? {
         let htmlTemplate = """
             <!doctype html>
             <html>
@@ -228,4 +228,7 @@ extension String {
         return attributedString
     }
     
+    var containsHtmlTags: Bool {
+        return self.contains("<") && self.contains(">")
+    }
 }

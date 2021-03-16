@@ -122,7 +122,7 @@ class SupportMessageTableViewCell: MessageTableViewCell {
         setTime()
         
 
-        supportMessageTextView.attributedText = attributedString
+        supportMessageTextView.attributedText = message?.attributtedMessage.attributedMessageString
         setSenderImageView()
         return self
     }

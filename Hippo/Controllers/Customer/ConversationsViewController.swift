@@ -2096,7 +2096,7 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                  }
                  let bottomSpace = getBottomSpaceOfMessageAt(indexPath: indexPath, message: message)
                  cell.updateBottomConstraint(bottomSpace)
-                 let incomingAttributedString = Helper.getIncomingAttributedStringWithLastUserCheck(chatMessageObject: message)
+                let incomingAttributedString = message.attributtedMessage.attributedMessageString
                  return cell.configureCellOfSupportIncomingCell(resetProperties: true, attributedString: incomingAttributedString, channelId: channel?.id ?? labelId, chatMessageObject: message)
              case .leadForm, .createTicket:
                  guard let cell = tableView.dequeueReusableCell(withIdentifier: "LeadTableViewCell", for: indexPath) as? LeadTableViewCell else {
