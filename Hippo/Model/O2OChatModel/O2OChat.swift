@@ -40,7 +40,14 @@ class O2OChat{
 
 public struct O2OChatModel{
     public var transactionId : String?
+    //send transactionid 1 for single chat
+    
     public var initiatedByAgent : Bool?
+    /*
+     if agent is creating chat with admin (support chat) send initiatedByAgent 0 otherwise 1
+     agent to agent 1
+     agent to admin 0
+     */
     public var otherUserEmail : String?
     public var groupingTag = [String]()
     
