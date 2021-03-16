@@ -163,6 +163,7 @@ class LCPopover: UIViewController, UITableViewDelegate, UITableViewDataSource, U
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if dataList.count == 0{
+            removeLabel()
             addLabel()
             tableView.isHidden = true
         }else{

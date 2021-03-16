@@ -3173,7 +3173,7 @@ extension ConversationsViewController: LeadTableViewCellDelegate {
         guard let cell = cell.tableView.cellForRow(at: IndexPath(row: 0, section: count - 1)) as? LeadDataTableViewCell, !isSkipAction else {
             return
         }
-        cell.valueTextfield.becomeFirstResponder()
+       
     }
     
     func sendReply(forCell cell: LeadTableViewCell, data: [FormData]) {

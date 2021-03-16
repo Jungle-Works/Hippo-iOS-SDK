@@ -101,7 +101,14 @@ class LeadDataTableViewCell: UITableViewCell{
         valueTextfield.placeholder = data.paramId == CreateTicketFields.attachments.rawValue ? "Click to upload file" : data.title
         self.buttonSend.setTitle(nil, for: .normal)
         DispatchQueue.main.async {
-            if data.isCompleted && data.shouldBeEditable == false {
+            if data.isCompleted && data.shouldBeEditable{
+                self.buttonSend.isUserInteractionEnabled = true
+                self.valueTextfield.isUserInteractionEnabled = true
+                self.buttonSend.backgroundColor = #colorLiteral(red: 0.1333333333, green: 0.5882352941, blue: 1, alpha: 1)
+                let image = HippoConfig.shared.theme.editIcon
+                self.buttonSend.setImage(image!.withRenderingMode(.alwaysTemplate), for: .normal)
+                self.buttonSend.tintColor = UIColor.white
+            }else if data.isCompleted{
                 let image = UIImage(named: "tick_green", in: FuguFlowManager.bundle, compatibleWith: nil)
                 self.buttonSend.setImage(image, for: .normal)
                 self.buttonSend.isUserInteractionEnabled = false
@@ -199,6 +206,7 @@ extension LeadDataTableViewCell: UITextFieldDelegate {
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
  
         if paramId == CreateTicketFields.attachments.rawValue{
+            self.delegate?.enableError(isEnabled: false, cell: self, text: nil)
             self.attachmentClicked?()
             return false
         }else if paramId == CreateTicketFields.issueType.rawValue{
@@ -227,6 +235,13 @@ extension LeadDataTableViewCell: UITextFieldDelegate {
         
         let type = TextfieldType(rawValue: dataType)  ?? .string
         switch type {
+        case .email, .name:
+            if self.buttonSend.imageView?.image == HippoConfig.shared.theme.editIcon{
+                let image = UIImage(named: "next_dark_icon", in: FuguFlowManager.bundle, compatibleWith: nil)
+                self.buttonSend.setImage(image!.withRenderingMode(.alwaysTemplate), for: .normal)
+                self.buttonSend.tintColor = UIColor.white
+            }
+            return true
         case .phone:
             let allowedCharacters = CharacterSet(charactersIn: "0123456789+")
             let characterSet = CharacterSet(charactersIn: string)

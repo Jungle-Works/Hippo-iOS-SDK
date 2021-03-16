@@ -255,6 +255,10 @@ extension LeadTableViewCell: LeadDataCellDelegate {
         guard let indexPath: IndexPath = self.tableView.indexPath(for: cell) else {
             return
         }
+        if cell.paramId == CreateTicketFields.attachments.rawValue && filterFileArray[indexPath.section].attachmentUrl.count == 0 {
+            self.enableError(isEnabled: true, cell: cell, text: HippoStrings.requiredField)
+            return
+        }
         if (filterFileArray.count - 1) != indexPath.section {
             filterFileArray[indexPath.section + 1].isShow = true
         }
