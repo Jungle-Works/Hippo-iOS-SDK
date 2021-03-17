@@ -45,7 +45,9 @@ class CreateTicketAttachmentHelper {
              completion(false)
              return
          }
-         
+         let ticketUrl = TicketUrl(name: message.fileName ?? "", url: message.fileUrl, isUploaded: false)
+         self.urlUploaded?(ticketUrl)
+
          let request = FileUploader.RequestParams(path: message.localImagePath!, mimeType: message.mimeType ?? "application/octet-stream", fileName: message.fileName ?? "")
          
          let pathURL = URL.init(fileURLWithPath: message.localImagePath!)
@@ -59,8 +61,8 @@ class CreateTicketAttachmentHelper {
                  completion(false)
                  return
              }
-             let ticketUrl = TicketUrl(name: message.fileName ?? "", url: result.fileUrl)
-            self?.urlUploaded?(ticketUrl)
+             let ticketUrl = TicketUrl(name: message.fileName ?? "", url: result.fileUrl, isUploaded: true)
+             self?.urlUploaded?(ticketUrl)
              completion(true)
          })
      }
@@ -201,4 +203,5 @@ extension CreateTicketAttachmentHelper: PickerHelperDelegate  {
 struct TicketUrl{
     var name : String?
     var url : String?
+    var isUploaded : Bool?
 }

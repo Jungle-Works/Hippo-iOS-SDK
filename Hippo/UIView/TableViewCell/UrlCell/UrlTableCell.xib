@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -35,21 +35,27 @@
                             <action selector="action_crossbtn" destination="KGk-i7-Jjw" eventType="touchUpInside" id="nnC-gE-KvW"/>
                         </connections>
                     </button>
+                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="qyV-Px-HTQ">
+                        <rect key="frame" x="320" y="25" width="20" height="20"/>
+                    </activityIndicatorView>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="UbE-7A-3d1" secondAttribute="trailing" constant="10" id="3Mk-oD-5cV"/>
                     <constraint firstItem="UbE-7A-3d1" firstAttribute="centerY" secondItem="aFQ-a7-rJp" secondAttribute="centerY" id="PwV-7a-ZIt"/>
                     <constraint firstItem="aFQ-a7-rJp" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="UA2-G0-ik1"/>
+                    <constraint firstAttribute="trailing" secondItem="qyV-Px-HTQ" secondAttribute="trailing" constant="15" id="Wx2-pn-aPe"/>
                     <constraint firstItem="aFQ-a7-rJp" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="bwd-F0-egI"/>
                     <constraint firstItem="UbE-7A-3d1" firstAttribute="leading" secondItem="aFQ-a7-rJp" secondAttribute="trailing" constant="10" id="eyg-nD-Wnn"/>
+                    <constraint firstItem="qyV-Px-HTQ" firstAttribute="centerY" secondItem="aFQ-a7-rJp" secondAttribute="centerY" id="pOK-ks-3B3"/>
                     <constraint firstAttribute="bottom" secondItem="aFQ-a7-rJp" secondAttribute="bottom" constant="5" id="vqc-Ed-T2o"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
-                <outlet property="button_Cross" destination="UbE-7A-3d1" id="XF9-LK-eZp"/>
+                <outlet property="activityIndicator" destination="qyV-Px-HTQ" id="gWs-8Z-lmm"/>
+                <outlet property="buttonCross" destination="UbE-7A-3d1" id="XF9-LK-eZp"/>
                 <outlet property="label_Url" destination="aFQ-a7-rJp" id="2pT-88-IQV"/>
             </connections>
             <point key="canvasLocation" x="92.028985507246389" y="84.375"/>

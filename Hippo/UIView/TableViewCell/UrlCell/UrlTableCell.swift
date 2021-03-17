@@ -17,7 +17,14 @@ class UrlTableCell: UITableViewCell {
             label_Url.font = UIFont.regular(ofSize: 14.0)
         }
     }
-    @IBOutlet private var button_Cross : UIButton!
+    @IBOutlet private var buttonCross : UIButton!
+    @IBOutlet private var activityIndicator : UIActivityIndicatorView!{
+        didSet{
+            activityIndicator.color = .black
+            activityIndicator.isHidden = true
+            activityIndicator.hidesWhenStopped = true
+        }
+    }
     
     //MARK:- Clousers
     var crossBtnTapped: (()->())?
@@ -36,6 +43,13 @@ class UrlTableCell: UITableViewCell {
     //MARK:- Functions
     
     func config(url: TicketUrl){
+        activityIndicator.isHidden = url.isUploaded ?? true
+        buttonCross.isHidden = !(url.isUploaded ?? true)
+        if url.isUploaded ?? true{
+            activityIndicator.stopAnimating()
+        }else{
+            activityIndicator.startAnimating()
+        }
         label_Url.text = url.name ?? ""
     }
     

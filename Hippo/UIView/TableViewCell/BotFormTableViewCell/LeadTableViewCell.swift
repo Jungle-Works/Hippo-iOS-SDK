@@ -159,6 +159,7 @@ extension LeadTableViewCell: UITableViewDataSource, UITableViewDelegate {
                 if indexPath.row >= 0, indexPath.row <  self?.filterFileArray[indexPath.section].attachmentUrl.count ?? 0{
                     self?.filterFileArray[indexPath.section].attachmentUrl.remove(at: indexPath.row)
                     tableView.reloadData()
+                    self?.delegate?.reloadDataOnAttachmentRemove()
                 }
             }
             cell.config(url: filterFileArray[indexPath.section].attachmentUrl[indexPath.row])

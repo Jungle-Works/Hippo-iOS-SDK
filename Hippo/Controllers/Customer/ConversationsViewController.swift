@@ -3114,7 +3114,17 @@ extension ConversationsViewController: LeadTableViewCellDelegate {
         }
         attachmentObj.delegate = self
         attachmentObj.urlUploaded = {[weak self](ticket) in
-            data.attachmentUrl.append(ticket)
+            var isValueChanged : Bool = false
+            for (index, value) in data.attachmentUrl.enumerated(){
+                if value.name == ticket.name{
+                    data.attachmentUrl[index].isUploaded = ticket.isUploaded
+                    data.attachmentUrl[index].url = ticket.url
+                    isValueChanged = true
+                }
+            }
+            if !isValueChanged{
+                data.attachmentUrl.append(ticket)
+            }
             DispatchQueue.main.async {
                 self?.tableViewChat.reloadData()
             }
