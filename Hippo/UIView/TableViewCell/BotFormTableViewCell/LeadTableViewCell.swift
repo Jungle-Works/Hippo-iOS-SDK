@@ -77,7 +77,7 @@ class LeadTableViewCell: MessageTableViewCell {
                         }
                         filterFileArray[index + 1].isCompleted = true
                         filterFileArray[index + 1].value = "N/A"
-                        filterFileArray[indexPath.section].attachmentUrl.removeAll()
+                        filterFileArray[index + 1].attachmentUrl.removeAll()
                         self.tableView.reloadData()
                         self.delegate?.sendReply(forCell: self, data: filterFileArray)
                     }

@@ -37,8 +37,7 @@ class SupportMessageTableViewCell: MessageTableViewCell {
         switch messageType {
         default:
             print("default")
-            //bgView.backgroundColor = HippoConfig.shared.theme.incomingChatBoxColor
-            bgView.backgroundColor = HippoConfig.shared.theme.recievingBubbleColor
+            bgView.backgroundColor = HippoConfig.shared.theme.incomingChatBoxColor
         }
     }
     
