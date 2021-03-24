@@ -483,90 +483,65 @@ public class UserTag: NSObject {
             if params["reseller_token"] == nil {
                 throw FuguUserIntializationError.invalidResellerToken
             }
-            
-            if params["reference_id"] == nil {
-                throw FuguUserIntializationError.invalidResellerToken
-            }
-        default:
-            if params["app_secret_key"] == nil {
-                throw FuguUserIntializationError.invalidAppSecretKey
-            }
+=======
+            AgentDetail.agentLoginData = nil
+            UnreadCount.clearAllStoredUnreadCount()
+            AgentConversationManager.searchUserUniqueKeys.removeAll()
+            AgentConversationManager.transactionID = nil
+            ConversationStore.shared.clearData()
+            AgentUserChannel.shared = nil
         }
-        params["app_version_code"] = versionCode
-        params["source"] = HippoSDKSource
         
-//        if HippoProperty.current.singleChatApp {
-////            params["neglect_conversations"] = true
-//        }
-        params["neglect_conversations"] = true
-        params["fetch_announcements_unread_count"] = 1
+        class func clearAllData(completion: ((Bool) -> Void)? = nil) {
+            
+            FuguDefaults.removeAllPersistingData()
+            //        if FayeConnection.shared.isConnected{
+            //            FayeConnection.shared.disconnectFaye()
+            //        }
+            //Clear agent data
+            clearAgentData()
+            
+            //unSubscribe(userChannelId: HippoUserDetail.HippoUserChannelId ?? "")
+            HippoConfig.shared.groupCallData.removeAll()
+            HippoProperty.current = HippoProperty()
+            //FuguConfig.shared.deviceToken = ""
+            HippoConfig.shared.appSecretKey = ""
+            HippoConfig.shared.resellerToken = ""
+            HippoConfig.shared.referenceId = -1
+            HippoConfig.shared.appType = nil
+            HippoConfig.shared.userDetail = nil
+            HippoConfig.shared.muidList = []
+            resetPushCount()
+            
+            userDetailData = [String: Any]()
+            FuguChannelPersistancyManager.shared.clearChannels()
+            HippoChannel.hashmapTransactionIdToChannelID = [:]
+            FuguDefaults.removeObject(forKey: "hashmapTransactionIdToChannelID")
+            
+            FuguDefaults.removeObject(forKey: DefaultKey.myChatConversations)
+            FuguDefaults.removeObject(forKey: DefaultKey.allChatConversations)
+            FuguDefaults.removeObject(forKey: DefaultKey.allChatConversations)
+            
+            
+            FuguDefaults.removeObject(forKey: DefaultName.conversationData.rawValue)
+            FuguDefaults.removeObject(forKey: DefaultName.appointmentData.rawValue)
+            FuguDefaults.removeObject(forKey: DefaultName.addedPaymentGatewaysData.rawValue)
+            
+            FuguDefaults.removeAllPersistingData()
+            
+            CallManager.shared.hungupCall()
+>>>>>>> unread in progresss
+            
+            let defaults = UserDefaults.standard
+            defaults.removeObject(forKey: Hippo_User_Channel_Id)
+            defaults.removeObject(forKey: FUGU_USER_ID)
+            defaults.removeObject(forKey: Fugu_en_user_id)
+            
+            defaults.synchronize()
+            completion?(true)
+        }
         
-        return params
-    }
-    class func clearAgentData() {
-        HippoConfig.shared.agentDetail = nil
-        AgentConversationManager.errorMessage = nil
-        AgentChannelPersistancyManager.shared.clearChannels()
-        HippoChannel.hashmapTransactionIdToChannelID = [:]
-        FuguDefaults.removeObject(forKey: "hashmapTransactionIdToChannelID")
-        
-        AgentDetail.agentLoginData = nil
-        UnreadCount.clearAllStoredUnreadCount()
-        AgentConversationManager.searchUserUniqueKeys.removeAll()
-        AgentConversationManager.transactionID = nil
-        ConversationStore.shared.clearData()
-        AgentUserChannel.shared = nil
-    }
-    
-    class func clearAllData(completion: ((Bool) -> Void)? = nil) {
-        
-        FuguDefaults.removeAllPersistingData()
-        //        if FayeConnection.shared.isConnected{
-        //            FayeConnection.shared.disconnectFaye()
-        //        }
-        //Clear agent data
-        clearAgentData()
-        
-        //unSubscribe(userChannelId: HippoUserDetail.HippoUserChannelId ?? "")
-        HippoConfig.shared.groupCallData.removeAll()
-        HippoProperty.current = HippoProperty()
-        //FuguConfig.shared.deviceToken = ""
-        HippoConfig.shared.appSecretKey = ""
-        HippoConfig.shared.resellerToken = ""
-        HippoConfig.shared.referenceId = -1
-        HippoConfig.shared.appType = nil
-        HippoConfig.shared.userDetail = nil
-        HippoConfig.shared.muidList = []
-        resetPushCount()
-        
-        userDetailData = [String: Any]()
-        FuguChannelPersistancyManager.shared.clearChannels()
-        HippoChannel.hashmapTransactionIdToChannelID = [:]
-        FuguDefaults.removeObject(forKey: "hashmapTransactionIdToChannelID")
-        
-        FuguDefaults.removeObject(forKey: DefaultKey.myChatConversations)
-        FuguDefaults.removeObject(forKey: DefaultKey.allChatConversations)
-        FuguDefaults.removeObject(forKey: DefaultKey.allChatConversations)
-        
-        
-        FuguDefaults.removeObject(forKey: DefaultName.conversationData.rawValue)
-        FuguDefaults.removeObject(forKey: DefaultName.appointmentData.rawValue)
-        FuguDefaults.removeObject(forKey: DefaultName.addedPaymentGatewaysData.rawValue)
-        
-        FuguDefaults.removeAllPersistingData()
-        
-        CallManager.shared.hungupCall()
-        
-        let defaults = UserDefaults.standard
-        defaults.removeObject(forKey: Hippo_User_Channel_Id)
-        defaults.removeObject(forKey: FUGU_USER_ID)
-        defaults.removeObject(forKey: Fugu_en_user_id)
-
-        defaults.synchronize()
-        completion?(true)
-    }
-    
-       class func logoutFromFugu(completion: ((Bool) -> Void)? = nil) {
+        class func logoutFromFugu(completion: ((Bool) -> Void)? = nil) {
             if HippoConfig.shared.appSecretKey.isEmpty {
                 completion?(false)
                 return
@@ -593,9 +568,9 @@ public class UserTag: NSObject {
                 TokenManager.deviceToken = deviceToken
                 TokenManager.voipToken = voipToken
                 unSubscribe(userChannelId: HippoConfig.shared.appSecretKey + "/" + "markConversation")
-    //            let tempStatusCode = statusCode ?? 0
-    //            let success = (200 <= tempStatusCode) && (300 > tempStatusCode)
-    //            completion?(success)
+                //            let tempStatusCode = statusCode ?? 0
+                //            let success = (200 <= tempStatusCode) && (300 > tempStatusCode)
+                //            completion?(success)
             }
         }
-}
+    }

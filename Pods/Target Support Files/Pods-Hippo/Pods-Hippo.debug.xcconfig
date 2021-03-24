@@ -1,5 +1,6 @@
 ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES
 <<<<<<< HEAD
+<<<<<<< HEAD
 CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO
 <<<<<<< HEAD
 FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/Socket.IO-Client-Swift" "${PODS_CONFIGURATION_BUILD_DIR}/Starscream"
@@ -8,8 +9,9 @@ FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/Socket.IO
 =======
 <<<<<<< HEAD
 =======
+=======
+>>>>>>> unread in progresss
 CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO
->>>>>>> CreateTicketCustomer
 FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/Socket.IO-Client-Swift" "${PODS_CONFIGURATION_BUILD_DIR}/Starscream"
 >>>>>>> code merged with create ticket in customer sdk
 >>>>>>> code merged with create ticket in customer sdk

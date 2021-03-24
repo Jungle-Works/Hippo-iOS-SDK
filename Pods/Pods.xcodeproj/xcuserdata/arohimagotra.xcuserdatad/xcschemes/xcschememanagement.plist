@@ -7,6 +7,7 @@
 		<key>Pods-Hippo.xcscheme</key>
 		<dict>
 <<<<<<< HEAD
+<<<<<<< HEAD
 			<key>isShown</key>
 			<false/>
 		</dict>
@@ -16,20 +17,35 @@
 			<false/>
 <<<<<<< HEAD
 =======
+=======
+>>>>>>> unread in progresss
 			<key>orderHint</key>
 <<<<<<< HEAD
 			<integer>2</integer>
 =======
 			<integer>1</integer>
+<<<<<<< HEAD
 >>>>>>> CreateTicketCustomer
 >>>>>>> code merged with create ticket in customer sdk
 =======
 			<key>orderHint</key>
 			<integer>1</integer>
 >>>>>>> date and time handling
+=======
+=======
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Socket.IO-Client-Swift.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+>>>>>>> unread in progresss
+>>>>>>> unread in progresss
 		</dict>
 		<key>Pods-Hippo.xcscheme_^#shared#^_</key>
 		<dict>
+<<<<<<< HEAD
 <<<<<<< HEAD
 			<key>isShown</key>
 			<false/>
@@ -53,6 +69,14 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 >>>>>>> date and time handling
+=======
+			<key>orderHint</key>
+			<integer>0</integer>
+=======
+			<key>isShown</key>
+			<false/>
+>>>>>>> unread in progresss
+>>>>>>> unread in progresss
 		</dict>
 	</dict>
 </dict>

@@ -1948,10 +1948,18 @@
 			isa = PBXGroup;
 			children = (
 <<<<<<< HEAD
+<<<<<<< HEAD
 				193FD9492609B389007FF4B1 /* CustomerUnread */,
 =======
 				1928D1CD26397BC4003BACC5 /* SearchAddress */,
 >>>>>>> address handling done
+=======
+
+				1928D1CD26397BC4003BACC5 /* SearchAddress */,
+
+				193FD9492609B389007FF4B1 /* CustomerUnread */,
+
+>>>>>>> unread in progresss
 				6B584EF32502361200A7633A /* P2PUnread */,
 				D848D1AD245EEE9700235322 /* PaymentPlan */,
 				D8F6D2152419549E00B168C5 /* Messages */,

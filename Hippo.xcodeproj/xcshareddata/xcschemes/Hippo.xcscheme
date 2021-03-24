@@ -14,10 +14,23 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD:Pods/Pods.xcodeproj/xcuserdata/arohimagotra.xcuserdatad/xcschemes/Starscream.xcscheme
+               BlueprintIdentifier = "9B78EE4AF6AE03E79D88886319853FF7"
+               BuildableName = "Starscream.framework"
+               BlueprintName = "Starscream"
+               ReferencedContainer = "container:Pods.xcodeproj">
+=======
+>>>>>>> unread in progresss
                BlueprintIdentifier = "717BE1721EC1BE11003EA321"
                BuildableName = "Hippo.app"
                BlueprintName = "Hippo"
                ReferencedContainer = "container:Hippo.xcodeproj">
+<<<<<<< HEAD
+=======
+>>>>>>> unread in progresss:Hippo.xcodeproj/xcshareddata/xcschemes/Hippo.xcscheme
+>>>>>>> unread in progresss
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

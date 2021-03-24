@@ -805,7 +805,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         }
         self.sendMessage(message: message)
         messageTextView.text = ""
->>>>>>> address handling done
+
     }
     
     
