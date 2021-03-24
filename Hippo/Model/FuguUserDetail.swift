@@ -281,7 +281,11 @@ public class UserTag: NSObject {
     
     
     // MARK: - Type Methods
-    class func getUserDetailsAndConversation(completion: FuguUserDetailCallback? = nil) {
+    class func getUserDetailsAndConversation(isOpenedFromPush: Bool = false, completion: FuguUserDetailCallback? = nil) {
+        if isOpenedFromPush, let userDetailData = FuguDefaults.object(forKey: DefaultName.putUserData.rawValue) as? [String: Any]{
+            self.handlePutUserResponse(userDetailData: userDetailData, completion: completion)
+            return
+        }
         var endPointName = FuguEndPoints.API_PUT_USER_DETAILS.rawValue
         
         if HippoConfig.shared.credentialType == .reseller {
@@ -307,106 +311,110 @@ public class UserTag: NSObject {
             HippoConfig.shared.log.trace("PutUserData: \(data)", level: .response)
             
             userDetailData = data
-            
-            if let jitsiUrl = userDetailData["jitsi_url"] as? String{
-                HippoConfig.shared.jitsiUrl = jitsiUrl
-            }
-        
-            if let tags = data["grouping_tags"] as? [[String: Any]] {
-                HippoConfig.shared.userDetail?.userTags.removeAll()
-                for each in tags {
-                    HippoConfig.shared.userDetail?.userTags.append(UserTag(json: each))
-                }
-            }
-            
-            if let appSecretKey = userDetailData["app_secret_key"] as? String {
-                HippoConfig.shared.appSecretKey = appSecretKey
-                subscribeMarkConversation()
-            }
-            
-            BussinessProperty.current.editDeleteExpiryTime = CGFloat(Int.parse(values: userDetailData, key: "edit_delete_message_duration") ?? 0)
-            
-            if let userId = userDetailData["user_id"] as? Int {
-                HippoUserDetail.fuguUserID = userId
-            }
-            
-            if let enUserId = userDetailData["en_user_id"] as? String {
-                HippoUserDetail.fuguEnUserID = enUserId
-            }
-            BussinessProperty.current.id = userDetailData["business_id"] as? Int
-            
-            if let rawUserChannel = userDetailData["user_channel"] as? String {
-                HippoUserDetail.HippoUserChannelId = rawUserChannel
-                subscribeCustomerUserChannel(userChannelId: rawUserChannel)
-            }
-            
-            if let rawEmail = userDetailData["email"] as? String {
-                HippoConfig.shared.userDetail?.email = rawEmail
-            }
-            
-            if let rawName = userDetailData["full_name"] as? String {
-                let existingName = HippoConfig.shared.userDetail?.fullName ?? ""
-                if existingName.trimWhiteSpacesAndNewLine().isEmpty {
-                   HippoConfig.shared.userDetail?.fullName = rawName.trimWhiteSpacesAndNewLine()
-                }
-            }
-            if let customer_initial_form_info = userDetailData["customer_initial_form_info"] as? [String: Any] {
-                HippoProperty.current.forms = FormData.getFormDataList(from: customer_initial_form_info)
-                HippoProperty.current.formCollectorTitle = customer_initial_form_info["page_title"] as? String ?? HippoStrings.support.capitalized
-            } else {
-                HippoProperty.current.forms = []
-            }
-            
-            HippoProperty.current.showMessageSourceIcon = Bool.parse(key: "show_message_source", json: userDetailData, defaultValue: false)
-            
-            var isFaqEnabled = false
-            if let is_faq_enabled = userDetailData["is_faq_enabled"] as? Bool {
-                isFaqEnabled = is_faq_enabled
-            }
-            HippoConfig.shared.log.trace("User Login Data\(userDetailData)", level: .response)
-            
-            if let cusstomerBotID = String.parse(values: userDetailData, key: "customer_conversation_bot_id") {
-                HippoProperty.setNewConversationBotGroupId(botGroupId: cusstomerBotID)
-            }
-            
-            BussinessProperty.current.updateData(loginData: userDetailData)
-            
-            
-            if let in_app_support_panel_version = userDetailData["in_app_support_panel_version"] as? Int, in_app_support_panel_version > HippoSupportList.currentFAQVersion, isFaqEnabled {
-                HippoSupportList.getListForBusiness(completion: { (success, list) in
-                    if success {
-                        HippoSupportList.currentFAQVersion = in_app_support_panel_version
-                    }
-                })
-            }
-//            if let botChannelsArray = userDetailData["conversations"] as? [[String: Any]] {
-//                FuguDefaults.set(value: botChannelsArray, forKey: DefaultName.conversationData.rawValue)
-//            }
-            resetPushCount()
-            
-            if let lastVisibleController = getLastVisibleController() as? ConversationsViewController, let channelId = lastVisibleController.channel?.id {
-                lastVisibleController.clearUnreadCountForChannel(id: channelId)
-            } else {
-                pushTotalUnreadCount()
-            }
-            NotificationCenter.default.post(name: .putUserSuccess, object:self)
-
-            let isAskPaymentAllowed = Bool.parse(key: "is_ask_payment_allowed", json: userDetailData, defaultValue: false)
-            if isAskPaymentAllowed == true && self.shouldGetPaymentGateways{
-                
-                self.getPaymentGateway() { (success) in
-                    //guard success == true else { return }
-                }
-            }
-            let announcementCount = ((responseObject as? NSDictionary)?.value(forKey: "data") as? NSDictionary)?.value(forKey: "unread_channels") as? [Int] ?? [Int]()
-            let arr = announcementCount.map{String($0)}
-            if !(HippoConfig.shared.isOpenedFromPush ?? false){
-                HippoConfig.shared.announcementUnreadCount?(announcementCount.count)
-               UserDefaults.standard.set(arr, forKey: DefaultName.announcementUnreadCount.rawValue)
-            }
-            completion?(true, nil)
+            FuguDefaults.set(value: userDetailData, forKey: DefaultName.putUserData.rawValue)
+            self.handlePutUserResponse(userDetailData: userDetailData, completion: completion)
         }
     }
+    
+    class func handlePutUserResponse(userDetailData: [String : Any],completion: FuguUserDetailCallback? = nil) {
+        if let jitsiUrl = userDetailData["jitsi_url"] as? String{
+            HippoConfig.shared.jitsiUrl = jitsiUrl
+        }
+    
+        if let tags = userDetailData["grouping_tags"] as? [[String: Any]] {
+            HippoConfig.shared.userDetail?.userTags.removeAll()
+            for each in tags {
+                HippoConfig.shared.userDetail?.userTags.append(UserTag(json: each))
+            }
+        }
+        
+        if let appSecretKey = userDetailData["app_secret_key"] as? String {
+            HippoConfig.shared.appSecretKey = appSecretKey
+            subscribeMarkConversation()
+        }
+        
+        BussinessProperty.current.editDeleteExpiryTime = CGFloat(Int.parse(values: userDetailData, key: "edit_delete_message_duration") ?? 0)
+        
+        if let userId = userDetailData["user_id"] as? Int {
+            HippoUserDetail.fuguUserID = userId
+        }
+        
+        if let enUserId = userDetailData["en_user_id"] as? String {
+            HippoUserDetail.fuguEnUserID = enUserId
+        }
+        
+        if let rawUserChannel = userDetailData["user_channel"] as? String {
+            HippoUserDetail.HippoUserChannelId = rawUserChannel
+            subscribeCustomerUserChannel(userChannelId: rawUserChannel)
+        }
+        
+        if let rawEmail = userDetailData["email"] as? String {
+            HippoConfig.shared.userDetail?.email = rawEmail
+        }
+        
+        if let rawName = userDetailData["full_name"] as? String {
+            let existingName = HippoConfig.shared.userDetail?.fullName ?? ""
+            if existingName.trimWhiteSpacesAndNewLine().isEmpty {
+               HippoConfig.shared.userDetail?.fullName = rawName.trimWhiteSpacesAndNewLine()
+            }
+        }
+        if let customer_initial_form_info = userDetailData["customer_initial_form_info"] as? [String: Any] {
+            HippoProperty.current.forms = FormData.getFormDataList(from: customer_initial_form_info)
+            HippoProperty.current.formCollectorTitle = customer_initial_form_info["page_title"] as? String ?? HippoStrings.support.capitalized
+        } else {
+            HippoProperty.current.forms = []
+        }
+        
+        HippoProperty.current.showMessageSourceIcon = Bool.parse(key: "show_message_source", json: userDetailData, defaultValue: false)
+        
+        var isFaqEnabled = false
+        if let is_faq_enabled = userDetailData["is_faq_enabled"] as? Bool {
+            isFaqEnabled = is_faq_enabled
+        }
+        HippoConfig.shared.log.trace("User Login Data\(userDetailData)", level: .response)
+        
+        if let cusstomerBotID = String.parse(values: userDetailData, key: "customer_conversation_bot_id") {
+            HippoProperty.setNewConversationBotGroupId(botGroupId: cusstomerBotID)
+        }
+        
+        BussinessProperty.current.updateData(loginData: userDetailData)
+        
+        
+        if let in_app_support_panel_version = userDetailData["in_app_support_panel_version"] as? Int, in_app_support_panel_version > HippoSupportList.currentFAQVersion, isFaqEnabled {
+            HippoSupportList.getListForBusiness(completion: { (success, list) in
+                if success {
+                    HippoSupportList.currentFAQVersion = in_app_support_panel_version
+                }
+            })
+        }
+
+        resetPushCount()
+        
+        if let lastVisibleController = getLastVisibleController() as? ConversationsViewController, let channelId = lastVisibleController.channel?.id {
+            lastVisibleController.clearUnreadCountForChannel(id: channelId)
+        } else {
+            pushTotalUnreadCount()
+        }
+        NotificationCenter.default.post(name: .putUserSuccess, object:self)
+
+        let isAskPaymentAllowed = Bool.parse(key: "is_ask_payment_allowed", json: userDetailData, defaultValue: false)
+        if isAskPaymentAllowed == true && self.shouldGetPaymentGateways{
+            
+            self.getPaymentGateway() { (success) in
+                //guard success == true else { return }
+            }
+        }
+        let announcementCount = userDetailData["unread_channels"] as? [Int] ?? [Int]()
+        let arr = announcementCount.map{String($0)}
+        if !(HippoConfig.shared.isOpenedFromPush ?? false){
+            HippoConfig.shared.announcementUnreadCount?(announcementCount.count)
+           UserDefaults.standard.set(arr, forKey: DefaultName.announcementUnreadCount.rawValue)
+        }
+        completion?(true, nil)
+        
+    }
+    
+    
     
     class func getPaymentGateway(completion: @escaping (Bool) -> Void) {
         let params = getParamsForPaymentGateway()
