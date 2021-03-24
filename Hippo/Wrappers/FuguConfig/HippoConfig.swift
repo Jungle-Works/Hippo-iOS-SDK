@@ -200,7 +200,9 @@ struct BotAction {
         HippoObservers.shared.enable = true
         FuguNetworkHandler.shared.fuguConnectionChangesStartNotifier()
         CallManager.shared.initCallClientIfPresent()
-        
+        HippoNotification.getAllPendingNotification {
+            
+        }
     }
     
     //MARK:- Function to pass Deep link Dic
@@ -334,11 +336,11 @@ struct BotAction {
         HippoProperty.current.skipBotReason = reason
     }
     
-    public func updateUserDetail(userDetail: HippoUserDetail) {
+    public func updateUserDetail(isOpenedFromPush: Bool = false, userDetail: HippoUserDetail) {
         self.userDetail = userDetail
         self.appUserType = .customer
         AgentDetail.agentLoginData = nil
-        HippoUserDetail.getUserDetailsAndConversation { (status, error) in
+        HippoUserDetail.getUserDetailsAndConversation(isOpenedFromPush: isOpenedFromPush) { (status, error) in
             if (self.userDetail?.selectedlanguage ?? "") == ""{
                self.userDetail?.selectedlanguage = BussinessProperty.current.buisnessLanguageArr?.filter{$0.is_default == true}.first?.lang_code
             }
@@ -1011,6 +1013,13 @@ struct BotAction {
                     }
                 }else if (data.channelId ?? -1) < 0{
                     P2PUnreadData.shared.updateChannelId(transactionId: userInfo["chat_transaction_id"] as? String ?? "", channelId: userInfo["channel_id"] as? Int ?? -1, count: 1, muid: userInfo["muid"] as? String ?? "", otherUserUniqueKey: nil)
+                }
+            }
+            if currentUserType() == .customer{
+                if let vc = getLastVisibleController() as? AllConversationsViewController{
+                    vc.updateChannelsWithrespectToPush(pushInfo: userInfo)
+                }else{
+                    
                 }
             }
         }
