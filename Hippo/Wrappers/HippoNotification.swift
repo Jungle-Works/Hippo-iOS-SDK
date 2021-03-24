@@ -13,6 +13,7 @@ class HippoNotification {
     static var channelIdentifierHashmap: [Int: [String]] = [:]
     static var otherIdentifiers: [String] = []
     static var promotionPushDic : [Int: PromotionCellDataModel] = [:]
+    static var pendingPushDic : [[String : Any]] = [[:]]
     
     static func clearAllNotificationCenter() {
         DispatchQueue.main.async {
@@ -56,7 +57,18 @@ class HippoNotification {
         }
     }
     
- 
+    class func getAllPendingNotification(completion: (()->())? = nil){
+        UNUserNotificationCenter.current().getDeliveredNotifications { (notifications) in
+            for notification in notifications{
+                if let data = notification.request.content.userInfo as? [String : Any]{
+                    let vc = AllConversationsViewController()
+                    vc.updateChannelsWithrespectToPush(pushInfo: data)
+                }
+            }
+            completion?()
+        }
+    }
+
     class func removeAllAnnouncementNotification(){
         UNUserNotificationCenter.current().getDeliveredNotifications { (notifications) in
             for notification in notifications{

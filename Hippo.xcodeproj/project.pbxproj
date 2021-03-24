@@ -1776,6 +1776,7 @@
 		C9B77D8921A01B060092848D /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				193FD9492609B389007FF4B1 /* CustomerUnread */,
 				6B584EF32502361200A7633A /* P2PUnread */,
 				D848D1AD245EEE9700235322 /* PaymentPlan */,
 				D8F6D2152419549E00B168C5 /* Messages */,
@@ -3117,6 +3118,7 @@
 				D8F6D21A241954B400B168C5 /* HippoCellDetail.swift in Sources */,
 				D86028B623F6C9D0009540D3 /* SuggestionViewFlowLayout.swift in Sources */,
 				D86028B023F6AFFA009540D3 /* SuggestionViewDelegate.swift in Sources */,
+				193FD94C2609B3A7007FF4B1 /* CustomerUnreadCount.swift in Sources */,
 				C9B77ECF21A01B070092848D /* IQKeyboardManagerConstantsInternal.swift in Sources */,
 				C9B77EC221A01B070092848D /* Filter.swift in Sources */,
 				C9B77E6F21A01B060092848D /* MessageSender.swift in Sources */,

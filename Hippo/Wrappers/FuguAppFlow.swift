@@ -276,11 +276,10 @@ class FuguFlowManager: NSObject {
             return false
         }
         
-        updatePushCount(pushInfo: userInfo)
         if let keys = userInfo["user_unique_key"] as? [String] {
             UnreadCount.increaseUnreadCounts(for: keys)
         }
-        pushTotalUnreadCount()
+        
         
         switch HippoConfig.shared.appUserType {
         case .agent:
