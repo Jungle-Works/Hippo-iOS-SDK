@@ -9,12 +9,18 @@
 			<key>orderHint</key>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> code merged with create ticket in customer sdk
 			<integer>0</integer>
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> code merged with create ticket in customer sdk
 =======
 >>>>>>> unread in progresss
 =======
@@ -22,6 +28,8 @@
 =======
 >>>>>>> version 2.1.53
 >>>>>>> version 2.1.53
+=======
+>>>>>>> code merged with create ticket in customer sdk
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
@@ -54,7 +62,19 @@
 =======
 =======
 >>>>>>> version 2.1.53
+<<<<<<< HEAD
 >>>>>>> version 2.1.53
+=======
+=======
+=======
+<<<<<<< HEAD
+			<integer>4</integer>
+=======
+			<integer>3</integer>
+>>>>>>> CreateTicketCustomer
+>>>>>>> code merged with create ticket in customer sdk
+>>>>>>> code merged with create ticket in customer sdk
+>>>>>>> code merged with create ticket in customer sdk
 		</dict>
 	</dict>
 </dict>

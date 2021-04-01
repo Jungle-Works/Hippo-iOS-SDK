@@ -337,6 +337,10 @@ public class UserTag: NSObject {
             HippoConfig.shared.jitsiUrl = jitsiUrl
         }
         
+<<<<<<< HEAD
+=======
+
+>>>>>>> code merged with create ticket in customer sdk
         if let tags = userDetailData["grouping_tags"] as? [[String: Any]] {
             HippoConfig.shared.userDetail?.userTags.removeAll()
             for each in tags {

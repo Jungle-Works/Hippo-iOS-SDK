@@ -17,7 +17,7 @@
 
 		192D0AA525F68FA90065C828 /* CreateTicketViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 192D0AA425F68FA90065C828 /* CreateTicketViewModel.swift */; };
 		192D0AA925F68FBF0065C828 /* CreateTicketAttachmentHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 192D0AA825F68FBF0065C828 /* CreateTicketAttachmentHelper.swift */; };
-<<<<<<< HEAD
+
 		1955B9CC267084F5007DB921 /* IncomingShareUrlCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1955B9CA267084F5007DB921 /* IncomingShareUrlCell.swift */; };
 		1955B9CD267084F5007DB921 /* IncomingShareUrlCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1955B9CB267084F5007DB921 /* IncomingShareUrlCell.xib */; };
 		1964B42E25F623B200DC2D6F /* UrlTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1964B42C25F623B200DC2D6F /* UrlTableCell.swift */; };
@@ -28,12 +28,12 @@
 		1967A7062670F5440010613D /* SharedMediaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1967A7042670F5440010613D /* SharedMediaCell.swift */; };
 		1967A7072670F5440010613D /* SharedMediaCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1967A7052670F5440010613D /* SharedMediaCell.xib */; };
 		197B2C3A2671E03B002E062E /* SharedMediaModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 197B2C392671E03B002E062E /* SharedMediaModel.swift */; };
-=======
+
 		194BCCA1263AB8D6007E4F53 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 194BCCA0263AB8D6007E4F53 /* Address.swift */; };
 		1964B42E25F623B200DC2D6F /* UrlTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1964B42C25F623B200DC2D6F /* UrlTableCell.swift */; };
 		1964B42F25F623B200DC2D6F /* UrlTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1964B42D25F623B200DC2D6F /* UrlTableCell.xib */; };
 		1971A92726397684004E55B2 /* SearchAddressController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1971A92626397684004E55B2 /* SearchAddressController.swift */; };
->>>>>>> address handling done
+
 		19818C9A25F76B79005417D6 /* Popover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19818C9925F76B79005417D6 /* Popover.swift */; };
 		199B7DF7267B608200B571B1 /* RecordingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 199B7DF6267B608200B571B1 /* RecordingHelper.swift */; };
 		19AE532B266F597C00342DA0 /* ShareUrlHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19AE532A266F597C00342DA0 /* ShareUrlHelper.swift */; };
@@ -476,7 +476,7 @@
 
 		192D0AA425F68FA90065C828 /* CreateTicketViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTicketViewModel.swift; sourceTree = "<group>"; };
 		192D0AA825F68FBF0065C828 /* CreateTicketAttachmentHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTicketAttachmentHelper.swift; sourceTree = "<group>"; };
-<<<<<<< HEAD
+
 		1955B9CA267084F5007DB921 /* IncomingShareUrlCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomingShareUrlCell.swift; sourceTree = "<group>"; };
 		1955B9CB267084F5007DB921 /* IncomingShareUrlCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IncomingShareUrlCell.xib; sourceTree = "<group>"; };
 		1964B42C25F623B200DC2D6F /* UrlTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlTableCell.swift; sourceTree = "<group>"; };
@@ -487,12 +487,12 @@
 		1967A7042670F5440010613D /* SharedMediaCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharedMediaCell.swift; sourceTree = "<group>"; };
 		1967A7052670F5440010613D /* SharedMediaCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SharedMediaCell.xib; sourceTree = "<group>"; };
 		197B2C392671E03B002E062E /* SharedMediaModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharedMediaModel.swift; sourceTree = "<group>"; };
-=======
+
 		194BCCA0263AB8D6007E4F53 /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		1964B42C25F623B200DC2D6F /* UrlTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlTableCell.swift; sourceTree = "<group>"; };
 		1964B42D25F623B200DC2D6F /* UrlTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UrlTableCell.xib; sourceTree = "<group>"; };
 		1971A92626397684004E55B2 /* SearchAddressController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAddressController.swift; sourceTree = "<group>"; };
->>>>>>> address handling done
+
 		19818C9925F76B79005417D6 /* Popover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Popover.swift; sourceTree = "<group>"; };
 		199B7DF6267B608200B571B1 /* RecordingHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingHelper.swift; sourceTree = "<group>"; };
 		19AE532A266F597C00342DA0 /* ShareUrlHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareUrlHelper.swift; sourceTree = "<group>"; };
@@ -1055,7 +1055,7 @@
 			path = UrlCell;
 			sourceTree = "<group>";
 		};
-<<<<<<< HEAD
+
 		1967A6FB2670F52E0010613D /* SharedMediaController */ = {
 			isa = PBXGroup;
 			children = (
@@ -1081,7 +1081,7 @@
 				197B2C392671E03B002E062E /* SharedMediaModel.swift */,
 			);
 			path = SharedMediaModel;
-=======
+
 		1971A9242639759E004E55B2 /* SearchAgent */ = {
 			isa = PBXGroup;
 			children = (
@@ -1096,7 +1096,7 @@
 				1971A92626397684004E55B2 /* SearchAddressController.swift */,
 			);
 			path = SearchAddress;
->>>>>>> address handling done
+
 			sourceTree = "<group>";
 		};
 		19818C9825F76B66005417D6 /* PopOver */ = {
@@ -1947,19 +1947,13 @@
 		C9B77D8921A01B060092848D /* Model */ = {
 			isa = PBXGroup;
 			children = (
-<<<<<<< HEAD
-<<<<<<< HEAD
-				193FD9492609B389007FF4B1 /* CustomerUnread */,
-=======
-				1928D1CD26397BC4003BACC5 /* SearchAddress */,
->>>>>>> address handling done
-=======
+
 
 				1928D1CD26397BC4003BACC5 /* SearchAddress */,
 
 				193FD9492609B389007FF4B1 /* CustomerUnread */,
 
->>>>>>> unread in progresss
+
 				6B584EF32502361200A7633A /* P2PUnread */,
 				D848D1AD245EEE9700235322 /* PaymentPlan */,
 				D8F6D2152419549E00B168C5 /* Messages */,
@@ -2051,16 +2045,14 @@
 		C9B77DAD21A01B060092848D /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 				1967A6FB2670F52E0010613D /* SharedMediaController */,
-=======
-=======
+
 				192393B4263FFC2E009712FA /* PreviewController */,
->>>>>>> address handling
+
 				1971A92526397664004E55B2 /* SearchAddress */,
 				1971A9242639759E004E55B2 /* SearchAgent */,
->>>>>>> address handling done
+
 				6BBBEA8124991C5900C3E1CE /* Popup */,
 				D88B900024657E2400E3093F /* FilterViewController.swift */,
 				D8F6D2BA24195D5800B168C5 /* NLevelViewController.swift */,
@@ -2119,19 +2111,11 @@
 		C9B77DC321A01B060092848D /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-<<<<<<< HEAD
-
-				190671822652A04900DC00C7 /* Encryption */,
 
 				19AE5329266F596400342DA0 /* ShareUrl */,
 
-=======
-<<<<<<< HEAD
-				19AE5329266F596400342DA0 /* ShareUrl */,
-=======
 				190671822652A04900DC00C7 /* Encryption */,
->>>>>>> socket encryption changes
->>>>>>> socket encryption changes
+
 				192D0AA325F68F8E0065C828 /* CreateTicket */,
 				D88B9010246672EA00E3093F /* FilterManager.swift */,
 				190671832652A06600DC00C7 /* aes.js */,
