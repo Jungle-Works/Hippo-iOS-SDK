@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class SelectAgentController: UIViewController {
+final class SelectAgentController: UIViewController, InformationViewDelegate {
     
     //MARK:- IBOutlets
     @IBOutlet var tableView : UITableView!{
@@ -21,19 +21,21 @@ final class SelectAgentController: UIViewController {
     //MARK:- Variables
     var selectAgentVM = SelectAgentViewModel()
     var cardSelected : ((MessageCard)->())?
+    private var informationView: InformationView?
     
     //MARK:- Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        view_NavigationBar.setTitle(title: "")
-        view_NavigationBar.leftButton.addTarget(self, action: #selector(action_BackBtn), for: .touchUpInside)
-        view_NavigationBar.call_button.isHidden = true
-        view_NavigationBar.video_button.isHidden = true
-        
+
+    }
+    
+    func reloadData(){
+        selectAgentVM.agentCard?.removeAll()
+        tableView.reloadData()
         selectAgentVM.responseRecieved = {[weak self]() in
             DispatchQueue.main.async {
                 self?.tableView.reloadData()
+                self?.noFieldsFound(errorMessage: HippoStrings.noDataFound)
             }
         }
         selectAgentVM.getList = true
@@ -45,6 +47,28 @@ final class SelectAgentController: UIViewController {
          let vc = storyboard.instantiateViewController(withIdentifier: "SelectAgentController") as! SelectAgentController
          return vc
      }
+    
+    private func noFieldsFound(errorMessage : String){
+        if (selectAgentVM.agentCard?.count == 0){
+            if informationView == nil {
+                informationView = InformationView.loadView(self.tableView.bounds, delegate: self)
+            }
+            self.informationView?.informationLabel.text = errorMessage
+            self.informationView?.informationImageView.image = HippoConfig.shared.theme.noPrescription
+            self.informationView?.isButtonInfoHidden = true
+            self.informationView?.isHidden = false
+            self.tableView.addSubview(informationView!)
+            self.tableView.layoutSubviews()
+        }else{
+            for view in tableView.subviews{
+                if view is InformationView{
+                    view.removeFromSuperview()
+                }
+            }
+            self.tableView.layoutSubviews()
+            self.informationView?.isHidden = true
+        }
+    }
     
     //MARK:- IBAction
     

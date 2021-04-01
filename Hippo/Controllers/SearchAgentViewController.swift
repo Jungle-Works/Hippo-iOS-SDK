@@ -12,29 +12,54 @@ final class SearchAgentViewController: UIViewController {
     
     //MARK:- IBOutlets
     
-    @IBOutlet var textField_SelectCountry : UITextField!
-    @IBOutlet var textField_SearchSkill : UITextField!
-    @IBOutlet var table_SearchAgent : UITableView!
-    @IBOutlet var view_SelectCountry : UIView!
-    @IBOutlet var view_SearchSkill: UIView!
-    @IBOutlet weak var image_Loader : So_UIImageView!
-    @IBOutlet weak var view_Navigation : UIView!
-    @IBOutlet weak var button_Skip : UIButton!
+    @IBOutlet private var textField_SelectCountry : UITextField!
+    @IBOutlet private var textField_SearchSkill : UITextField!
+    @IBOutlet private var table_SearchAgent : UITableView!
+    @IBOutlet private var view_SelectCountry : UIView!
+    @IBOutlet private var view_SearchSkill: UIView!
+    @IBOutlet private var image_Loader : So_UIImageView!
+    @IBOutlet private var view_Navigation : UIView!
+    @IBOutlet private var button_Skip : UIButton!
+    @IBOutlet private var collectionView : UICollectionView!{
+        didSet{
+            collectionView.delegate = self
+            collectionView.dataSource = self
+            collectionView.register(UINib(nibName: "AgentTagCellCollectionViewCell", bundle: FuguFlowManager.bundle), forCellWithReuseIdentifier: "AgentTagCell")
+        }
+    }
+    @IBOutlet private var buttonApply : UIButton!{
+        didSet{
+            buttonApply.titleLabel?.font = UIFont.regular(ofSize: 14)
+            buttonApply.backgroundColor = HippoConfig.shared.theme.themeColor
+            buttonApply.setTitleColor(.white, for: .normal)
+            buttonApply.setTitle("   Apply   ", for: .normal)
+        }
+    }
+    @IBOutlet var constraintViewHeight : NSLayoutConstraint!
+    @IBOutlet weak var selectAgent: UIView!
     
     //MARK:- Variables
     
-    var countryList : [String] = ["All","Austria", "Belgium", "Bulgaria", "Croatia", "Republic of Cyprus", "Czech Republic", "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary", "Ireland", "Italy", "Latvia", "Lithuania", "Luxembourg", "Malta", "Netherlands", "Poland", "Portugal", "Romania", "Slovakia", "Slovenia", "Spain and Sweden"]
+    private var countryList : [String] = ["All","Austria", "Belgium", "Bulgaria", "Croatia", "Republic of Cyprus", "Czech Republic", "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary", "Ireland", "Italy", "Latvia", "Lithuania", "Luxembourg", "Malta", "Netherlands", "Poland", "Portugal", "Romania", "Slovakia", "Slovenia", "Spain and Sweden"]
     
-    var pickerView: UIPickerView?
-    var searchAgentVM = SearchAgentViewModel()
+    private var pickerView: UIPickerView?
+    private var searchAgentVM = SearchAgentViewModel()
     var cardSelected : ((MessageCard)->())?
-    var informationView: InformationView?
-    var handler : ((ActionSheetAction)->(Void))?
+    private var informationView: InformationView?
+    private var handler : ((ActionSheetAction)->(Void))?
+    var skillTagArr = [Tag]()
+    lazy var selectAgentViewController = SelectAgentController()
     
     //MARK:- UIViewController Life Cycle Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if skillTagArr.count == 0{
+            constraintViewHeight.constant = 0
+        }
+        textField_SelectCountry.shouldResignOnTouchOutsideMode = IQEnableMode.enabled
+        textField_SearchSkill.shouldResignOnTouchOutsideMode = IQEnableMode.enabled
+        selectAgent.isHidden = true
         showActionSheet()
         searchAgentVM.responseRecieved = {[weak self]() in
             DispatchQueue.main.async {
@@ -139,11 +164,69 @@ final class SearchAgentViewController: UIViewController {
         }
         textField_SelectCountry.resignFirstResponder()
     }
+    
+    @IBAction private func actionApplySearch(){
+        var idArr = [String]()
+        if let id = searchAgentVM.countryTag?.tag_id{
+            idArr.append(String(id))
+        }
+        for value in self.skillTagArr{
+            idArr.append(String(value.tag_id ?? -1))
+        }
+        selectAgentViewController.selectAgentVM.tagIds = idArr
+        selectAgentViewController.cardSelected = {[weak self](card) in
+            DispatchQueue.main.async {
+                self?.cardSelected?(card)
+                self?.dismiss(animated: false, completion: nil)
+            }
+        }
+        selectAgentViewController.reloadData()
+        selectAgent.isHidden = false
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == "selectagent") {
+            let container = segue.destination  as! SelectAgentController
+            selectAgentViewController = container
+        }
+    }
 }
 
-extension SearchAgentViewController : InformationViewDelegate{
-
+extension SearchAgentViewController : UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout,InformationViewDelegate{
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return skillTagArr.count
+    }
     
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AgentTagCell", for: indexPath) as? AgentTagCell else {
+            return UICollectionViewCell()
+        }
+        cell.crossBtnTapped = {[weak self]() in
+            if self?.skillTagArr.count ?? 0 > indexPath.row{
+                self?.skillTagArr.remove(at: indexPath.row)
+            }
+            
+            DispatchQueue.main.async {
+                if self?.skillTagArr.count == 0{
+                    self?.selectAgent.isHidden = true
+                    self?.collectionView.reloadData()
+                    self?.constraintViewHeight.constant = 0
+                }
+                self?.collectionView.reloadData()
+            }
+        }
+        cell.config(skillTagArr[indexPath.row])
+        return cell
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let text = skillTagArr[indexPath.row].tag_name ?? ""
+        
+        let cellWidth = text.size(withAttributes:[.font: UIFont.regular(ofSize: 14.0)]).width + 30.0
+        
+        return CGSize(width: cellWidth + 35, height: 30.0)
+    }
 }
 
 extension SearchAgentViewController : UITableViewDelegate, UITableViewDataSource{
@@ -158,25 +241,20 @@ extension SearchAgentViewController : UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = SelectAgentController.getNewInstance()
-        var idArr = [String]()
-        if let id = searchAgentVM.countryTag?.tag_id{
-            idArr.append(String(id))
+        if skillTagArr.contains(where: {$0.tag_id == searchAgentVM.tagArr[indexPath.row].tag_id}) == false{
+            self.skillTagArr.append(searchAgentVM.tagArr[indexPath.row])
+            self.constraintViewHeight.constant = 100
         }
-        idArr.append(String(searchAgentVM.tagArr[indexPath.row].tag_id ?? -1))
-        vc.selectAgentVM.tagIds = idArr
-        vc.cardSelected = {[weak self](card) in
-            DispatchQueue.main.async {
-                self?.cardSelected?(card)
-                self?.dismiss(animated: false, completion: nil)
-            }
-        }
-        
-        self.navigationController?.pushViewController(vc, animated: true)
+        self.collectionView.reloadData()
     }
 }
 
 extension SearchAgentViewController : UITextFieldDelegate{
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         if textField == textField_SelectCountry{
@@ -198,6 +276,7 @@ extension SearchAgentViewController : UITextFieldDelegate{
                 searchAgentVM.isCountrySearch = false
                 searchAgentVM.searchKey = updatedString
             }else if updatedString.count == 0 && searchAgentVM.tagArr.count != 0{
+                selectAgent.isHidden = true
                 searchAgentVM.tagArr.removeAll()
                 table_SearchAgent.reloadData()
             }
