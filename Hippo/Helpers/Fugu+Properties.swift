@@ -12,7 +12,7 @@ let HippoSDKSource = 1
 let Device_Type_iOS = 2
 var userDetailData = [String: Any]()
 
-let fuguAppVersion = "2.1.52"
+let fuguAppVersion = "2.1.53"
 var versionCode = 250
 
 /*
@@ -153,6 +153,7 @@ var versionCode = 250
  
  342 *** 2.1.51 = Unread api optimisation
  
- 343 *** 2.1.53 = P2P optimisation and razor pay sdk remove
+ 343 *** 2.1.52 = P2P optimisation and razor pay sdk remove
  
+ 343 *** 2.1.53 = P2P in agent sdk
  */
