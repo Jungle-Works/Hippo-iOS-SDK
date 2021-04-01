@@ -323,7 +323,14 @@ public class UserTag: NSObject {
         if let jitsiUrl = userDetailData["jitsi_url"] as? String{
             HippoConfig.shared.jitsiUrl = jitsiUrl
         }
-    
+        
+        if let tags = userDetailData["grouping_tags"] as? [[String: Any]] {
+            HippoConfig.shared.userDetail?.userTags.removeAll()
+            for each in tags {
+                HippoConfig.shared.userDetail?.userTags.append(UserTag(json: each))
+            }
+        }
+        
         if let tags = userDetailData["grouping_tags"] as? [[String: Any]] {
             HippoConfig.shared.userDetail?.userTags.removeAll()
             for each in tags {
@@ -345,6 +352,7 @@ public class UserTag: NSObject {
         if let enUserId = userDetailData["en_user_id"] as? String {
             HippoUserDetail.fuguEnUserID = enUserId
         }
+        BussinessProperty.current.id = userDetailData["business_id"] as? Int
         
         if let rawUserChannel = userDetailData["user_channel"] as? String {
             HippoUserDetail.HippoUserChannelId = rawUserChannel
@@ -355,12 +363,6 @@ public class UserTag: NSObject {
             HippoConfig.shared.userDetail?.email = rawEmail
         }
         
-        if let rawName = userDetailData["full_name"] as? String {
-            let existingName = HippoConfig.shared.userDetail?.fullName ?? ""
-            if existingName.trimWhiteSpacesAndNewLine().isEmpty {
-               HippoConfig.shared.userDetail?.fullName = rawName.trimWhiteSpacesAndNewLine()
-            }
-        }
         if let customer_initial_form_info = userDetailData["customer_initial_form_info"] as? [String: Any] {
             HippoProperty.current.forms = FormData.getFormDataList(from: customer_initial_form_info)
             HippoProperty.current.formCollectorTitle = customer_initial_form_info["page_title"] as? String ?? HippoStrings.support.capitalized
@@ -390,7 +392,7 @@ public class UserTag: NSObject {
                 }
             })
         }
-
+        
         resetPushCount()
         
         if let lastVisibleController = getLastVisibleController() as? ConversationsViewController, let channelId = lastVisibleController.channel?.id {
@@ -399,7 +401,7 @@ public class UserTag: NSObject {
             pushTotalUnreadCount()
         }
         NotificationCenter.default.post(name: .putUserSuccess, object:self)
-
+        
         let isAskPaymentAllowed = Bool.parse(key: "is_ask_payment_allowed", json: userDetailData, defaultValue: false)
         if isAskPaymentAllowed == true && self.shouldGetPaymentGateways{
             
@@ -411,7 +413,7 @@ public class UserTag: NSObject {
         let arr = announcementCount.map{String($0)}
         if !(HippoConfig.shared.isOpenedFromPush ?? false){
             HippoConfig.shared.announcementUnreadCount?(announcementCount.count)
-           UserDefaults.standard.set(arr, forKey: DefaultName.announcementUnreadCount.rawValue)
+            UserDefaults.standard.set(arr, forKey: DefaultName.announcementUnreadCount.rawValue)
         }
         completion?(true, nil)
         

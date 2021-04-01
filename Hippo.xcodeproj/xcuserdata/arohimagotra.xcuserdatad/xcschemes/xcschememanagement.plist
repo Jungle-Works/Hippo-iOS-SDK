@@ -7,7 +7,9 @@
 		<key>Hippo.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
+<<<<<<< HEAD
 			<integer>0</integer>
+<<<<<<< HEAD
 <<<<<<< HEAD
 		</dict>
 	</dict>
@@ -19,6 +21,15 @@
 			<true/>
 =======
 >>>>>>> version 2.1.53
+=======
+=======
+<<<<<<< HEAD
+			<integer>4</integer>
+=======
+			<integer>3</integer>
+>>>>>>> CreateTicketCustomer
+>>>>>>> code merged with create ticket in customer sdk
+>>>>>>> code merged with create ticket in customer sdk
 		</dict>
 	</dict>
 </dict>
