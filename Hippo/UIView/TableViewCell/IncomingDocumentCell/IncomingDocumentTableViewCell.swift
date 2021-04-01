@@ -33,7 +33,7 @@ class IncomingDocumentTableViewCell: DocumentTableViewCell {
         timeLabel.textColor = HippoConfig.shared.theme.dateTimeTextColor
         
         bgView.layer.cornerRadius = HippoConfig.shared.theme.chatBoxCornerRadius
-        bgView.backgroundColor = HippoConfig.shared.theme.recievingBubbleColor
+        bgView.backgroundColor = HippoConfig.shared.theme.incomingChatBoxColor
         bgView.layer.borderWidth = HippoConfig.shared.theme.chatBoxBorderWidth
         bgView.layer.borderColor = HippoConfig.shared.theme.chatBoxBorderColor.cgColor
         

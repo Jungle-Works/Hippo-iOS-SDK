@@ -16,13 +16,18 @@
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
+<<<<<<< HEAD
 			<integer>2</integer>
+=======
+			<integer>1</integer>
+>>>>>>> CreateTicketCustomer
 		</dict>
 		<key>Starscream.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
+<<<<<<< HEAD
 			<integer>3</integer>
 		</dict>
 		<key>razorpay-pod.xcscheme</key>
@@ -31,6 +36,9 @@
 			<false/>
 			<key>orderHint</key>
 			<integer>1</integer>
+=======
+			<integer>2</integer>
+>>>>>>> CreateTicketCustomer
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>

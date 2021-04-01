@@ -96,7 +96,10 @@ struct MessageUIAttributes {
     }
     
     private func getAttributedStringWithThemeFont(aString: NSMutableAttributedString) -> NSMutableAttributedString {
-        
+        var aString = aString
+        if aString.string.trimWhiteSpacesAndNewLine() == ""{
+            return NSMutableAttributedString()
+        }
         let range = NSRange.init(location: 0, length: aString.length)
         
         let style = NSMutableParagraphStyle()
@@ -110,9 +113,14 @@ struct MessageUIAttributes {
             return aString
         } else {
             let font = HippoConfig.shared.theme.incomingMsgFont
-            aString.addAttribute(NSAttributedString.Key.font, value: font, range: range)
-            aString.addAttribute(NSAttributedString.Key.foregroundColor, value: HippoConfig.shared.theme.incomingMsgColor, range: range)
-            aString.addAttribute(NSAttributedString.Key.paragraphStyle, value: style, range: range)
+            let message = aString.string
+            if message.containsHtmlTags{
+                aString = message.hippoHtmlAttributedString(font: HippoConfig.shared.theme.incomingMsgFont, color: HippoConfig.shared.theme.incomingMsgColor, alignment: .left) ?? NSMutableAttributedString()
+            }else{
+                aString.addAttribute(NSAttributedString.Key.font, value: font, range: range)
+                aString.addAttribute(NSAttributedString.Key.foregroundColor, value: HippoConfig.shared.theme.incomingMsgColor, range: range)
+                aString.addAttribute(NSAttributedString.Key.paragraphStyle, value: style, range: range)
+            }
             return aString
         }
     }

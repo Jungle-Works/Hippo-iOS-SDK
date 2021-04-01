@@ -378,7 +378,41 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
                 content = MessageContent(param: content_value)
                 content.values = dict["values"] as? [String] ?? []//content.values
                 let forms = FormData.getArray(object: content)
+               //change form values to set email and name empty
+                if type == .createTicket{
+                    var isEmailValid = true
+                    for index in 0..<forms.count{
+                        if forms[index].paramId == CreateTicketFields.email.rawValue{
+                            if forms[index].value.isValidEmail() == false{
+                                isEmailValid = false
+                                forms[index].value = ""
+                                forms[index].isCompleted = false
+                                if index + 1 < forms.count{
+                                    forms[index + 1].value = ""
+                                    forms[index + 1].isShow = false
+                                }
+                            }else if forms[index + 1].value.lowercased() == "visitor"{
+                                if index + 1 < forms.count{
+                                    forms[index + 1].value = ""
+                                    forms[index + 1].isCompleted = false
+                                }
+                            }
+                        }
+                        
+                    }
+                    if isEmailValid == false{
+                        content.values.removeAll()
+                    }
+                }
+                
                 leadsDataArray = forms
+                if forms.first(where: {$0.paramId == CreateTicketFields.description.rawValue && $0.value == ""}) != nil{
+                    leadsDataArray.forEach{
+                        if $0.paramId == CreateTicketFields.email.rawValue || $0.paramId == CreateTicketFields.name.rawValue{
+                            $0.shouldBeEditable = true
+                        }
+                    }
+                }
             }
         }
         switch type {
@@ -616,7 +650,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
             json["line_after_feedback_2"] = feedbackMessages.line_after_feedback_2
             json["line_before_feedback"] = feedbackMessages.line_before_feedback
             json["multi_lang_message"] = MultiLanguageTags.RATING_AND_REVIEW.rawValue
-        } else if type == .leadForm {
+        } else if type == .leadForm || type == .createTicket{
             var arrayOfMessages: [String] = []
             for lead in leadsDataArray {
                 if lead.value.isEmpty {
@@ -624,6 +658,12 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
                 }
                 arrayOfMessages.append(lead.value)
             }
+            
+            if arrayOfMessages.count == content.questionsArray.count && type == .createTicket{
+               json["is_ticket_creation"] = 1
+               json["erp_customer_name"] = content.erpCustomerName
+            }
+            
             json["values"] = arrayOfMessages
             
             json["user_id"] = currentUserId()
@@ -970,7 +1010,15 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
                 isAllFieldCompleted = false
             }
         }
-        
+        if type == .createTicket{
+            if let index = leadsDataArray.firstIndex(where: {$0.isCompleted == false}), index < leadsDataArray.count{
+                if leadsDataArray[index].paramId == CreateTicketFields.attachments.rawValue || leadsDataArray[index].paramId == CreateTicketFields.priority.rawValue{
+                    return true
+                }else{
+                    return false
+                }
+            }
+        }
         return (!isSkipEvent && isSkipBotEnabled && !isAllFieldCompleted)
     }
     
