@@ -18,7 +18,7 @@ public typealias PrePaymentCompletion = ((_ response: HippoError?) -> ())
 
 
 class PrePayment{
-    static var razorPayView : RazorPayViewController?
+    //static var razorPayView : RazorPayViewController?
   
     class func callPrePaymentApi(paymentGatewayId : Int, paymentType : Int?, prePaymentDic: [String : Any], completion: @escaping ((_ result: HippoError?) -> Void)) {
          
@@ -37,15 +37,11 @@ class PrePayment{
                 completion(HippoError.general)
                 return
             }
-            let razorPayDic = RazorPayData().getRazorPayDic(data["payment_url"] as? [String : Any] ?? [String : Any]()) ?? RazorPayData()
-            if razorPayDic.amount != nil{
-                PrePayment.presentRazorPayScreen(with: razorPayDic)
-                return
-            }else{
-                let channelId = data["channel_id"] as? Int
-                let paymentUrl = (data["payment_url"] as? NSDictionary)?.value(forKey: "payment_url") as? String
-                FuguFlowManager.shared.presentPrePaymentController(paymentUrl ?? "", channelId ?? -1)
-            }
+            
+            let channelId = data["channel_id"] as? Int
+            let paymentUrl = (data["payment_url"] as? NSDictionary)?.value(forKey: "payment_url") as? String
+            FuguFlowManager.shared.presentPrePaymentController(paymentUrl ?? "", channelId ?? -1)
+            
             completion(nil)
         }
      }
@@ -72,18 +68,18 @@ class PrePayment{
     }
     
     
-    static func presentRazorPayScreen(with razorPayDic : RazorPayData){
-        PrePayment.razorPayView = RazorPayViewController()
-        PrePayment.razorPayView?.isPaymentCancelled = {(sucess) in
-            HippoConfig.shared.HippoPrePaymentCancelled?()
-        }
-        PrePayment.razorPayView?.isPaymentSuccess = {(success) in
-            HippoConfig.shared.HippoPrePaymentSuccessful?(success)
-        }
-        let vc = getLastVisibleController()
-        PrePayment.razorPayView?.razorPayDic = razorPayDic
-        PrePayment.razorPayView?.showPaymentForm(vc ?? UIViewController())
-    }
+//    static func presentRazorPayScreen(with razorPayDic : RazorPayData){
+//        PrePayment.razorPayView = RazorPayViewController()
+//        PrePayment.razorPayView?.isPaymentCancelled = {(sucess) in
+//            HippoConfig.shared.HippoPrePaymentCancelled?()
+//        }
+//        PrePayment.razorPayView?.isPaymentSuccess = {(success) in
+//            HippoConfig.shared.HippoPrePaymentSuccessful?(success)
+//        }
+//        let vc = getLastVisibleController()
+//        PrePayment.razorPayView?.razorPayDic = razorPayDic
+//        PrePayment.razorPayView?.showPaymentForm(vc ?? UIViewController())
+//    }
     
 }
 
