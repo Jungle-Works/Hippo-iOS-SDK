@@ -24,7 +24,7 @@ class CustomerUnreadCount{
 }
 
 
-struct UnreadData : Codable{
+struct UnreadData {
     let channel_id : Int
     let label_id : Int
     let count : Int

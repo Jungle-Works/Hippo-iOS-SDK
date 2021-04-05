@@ -208,9 +208,6 @@ struct BotAction {
         HippoObservers.shared.enable = true
         FuguNetworkHandler.shared.fuguConnectionChangesStartNotifier()
         CallManager.shared.initCallClientIfPresent()
-        HippoNotification.getAllPendingNotification {
-            
-        }
     }
     
     //MARK:- Function to pass Deep link Dic
@@ -1027,7 +1024,8 @@ struct BotAction {
                 if let vc = getLastVisibleController() as? AllConversationsViewController{
                     vc.updateChannelsWithrespectToPush(pushInfo: userInfo)
                 }else{
-                    
+                    updateStoredUnreadCountFor(toIncreaseCount: true, with : userInfo)
+                    pushTotalUnreadCount()
                 }
             }
         }

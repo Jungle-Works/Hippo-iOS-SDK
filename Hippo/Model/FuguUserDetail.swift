@@ -309,7 +309,10 @@ public class UserTag: NSObject {
                 return
             }
             HippoConfig.shared.log.trace("PutUserData: \(data)", level: .response)
-            
+            if userDetailData.isEmpty && HippoNotification.containsNotification(){
+                let allConversationObj = AllConversationsViewController()
+                allConversationObj.getAllConversations()
+            }
             userDetailData = data
             FuguDefaults.set(value: userDetailData, forKey: DefaultName.putUserData.rawValue)
             self.handlePutUserResponse(userDetailData: userDetailData, completion: completion)
