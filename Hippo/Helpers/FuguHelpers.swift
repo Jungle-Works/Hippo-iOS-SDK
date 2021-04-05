@@ -479,13 +479,10 @@ func pushTotalUnreadCount() {
     
 }
 
-func updateStoredUnreadCountFor(with userInfo: [String: Any]) {
+func updateStoredUnreadCountFor(toIncreaseCount : Bool = false, with userInfo: [String: Any]) {
     let recievedChannelId = userInfo["channel_id"] as? Int ?? -1
     let recievedLabelId = userInfo["label_id"] as? Int ?? -1
     
-    guard recievedChannelId > 0, recievedLabelId > 0 else {
-        return
-    }
     
     switch HippoConfig.shared.appUserType {
     case .agent:
@@ -522,20 +519,27 @@ func updateStoredUnreadCountFor(with userInfo: [String: Any]) {
         guard var chatCachedArray = FuguDefaults.object(forKey: DefaultName.conversationData.rawValue) as? [[String: Any]] else {
             return
         }
-        
-        let rawIndex = getIndexOf(objects: chatCachedArray, with: recievedChannelId, with: recievedLabelId)
+        let muid = userInfo["muid"] as? String ?? ""
+        let rawIndex = getIndexOf(muid: muid, objects: chatCachedArray, with: recievedChannelId, with: recievedLabelId)
         if let index = rawIndex {
-            var obj = chatCachedArray[index]
-            obj["unread_count"] = 0
-            chatCachedArray[index] = obj
-            FuguDefaults.set(value: chatCachedArray, forKey: DefaultName.conversationData.rawValue)
+            if toIncreaseCount{
+                var obj = chatCachedArray[index]
+                obj["unread_count"] = (obj["unread_count"] as? Int ?? 0) + 1
+                chatCachedArray[index] = obj
+                FuguDefaults.set(value: chatCachedArray, forKey: DefaultName.conversationData.rawValue)
+            }else {
+                var obj = chatCachedArray[index]
+                obj["unread_count"] = 0
+                chatCachedArray[index] = obj
+                FuguDefaults.set(value: chatCachedArray, forKey: DefaultName.conversationData.rawValue)
+            }
         }
     }
     
 }
 
 
-func getIndexOf(objects: [[String: Any]], with channelId: Int, with labelId: Int) -> Int? {
+func getIndexOf(muid : String, objects: [[String: Any]], with channelId: Int, with labelId: Int) -> Int? {
     guard channelId > 0 || labelId > 0 else {
         return nil
     }
@@ -559,6 +563,10 @@ func getIndexOf(objects: [[String: Any]], with channelId: Int, with labelId: Int
         }
         if labelId < 1 {
             isLabelIdPresent = false
+        }
+        
+        if each["muid"] as? String ?? "" == muid {
+            continue
         }
         
         guard isLabelIdPresent || isChannelIdPresent else {
