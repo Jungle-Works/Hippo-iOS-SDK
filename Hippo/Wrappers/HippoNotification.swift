@@ -57,16 +57,16 @@ class HippoNotification {
         }
     }
     
-    class func getAllPendingNotification(completion: (()->())? = nil){
+    class func containsNotification()->Bool {
+        var isPresent = false
         UNUserNotificationCenter.current().getDeliveredNotifications { (notifications) in
-            for notification in notifications{
-                if let data = notification.request.content.userInfo as? [String : Any]{
-                    let vc = AllConversationsViewController()
-                    vc.updateChannelsWithrespectToPush(pushInfo: data)
-                }
+            if notifications.count > 0 {
+                isPresent = true
+            }else {
+                isPresent = false
             }
-            completion?()
         }
+        return isPresent
     }
 
     class func removeAllAnnouncementNotification(){
