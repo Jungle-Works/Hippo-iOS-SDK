@@ -15,7 +15,7 @@ Pod::Spec.new do |s|
     s.ios.deployment_target = '11.0'
     s.source_files = 'Hippo/**/*.{swift,h,m}'
     s.exclude_files = 'Classes/Exclude'
-    s.static_framework = false
+    s.static_framework = true
     
     s.swift_version = '4.2'
     
