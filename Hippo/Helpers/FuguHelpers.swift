@@ -533,6 +533,10 @@ func updateStoredUnreadCountFor(toIncreaseCount : Bool = false, with userInfo: [
                 chatCachedArray[index] = obj
                 FuguDefaults.set(value: chatCachedArray, forKey: DefaultName.conversationData.rawValue)
             }
+        }else {
+            if toIncreaseCount {
+                updatePushCount(pushInfo: userInfo)
+            }
         }
     }
     
@@ -701,11 +705,20 @@ func updatePushCount(pushInfo: [String: Any]) {
     guard let channelId = pushInfo["channel_id"] as? Int else {
         return
     }
-    guard channelId > 0 else {
+    guard let labelId = pushInfo["label_id"] as? Int else {
         return
     }
-    let index = HippoConfig.shared.pushArray.firstIndex { (p) -> Bool in
+    
+    guard channelId > 0 || labelId > 0 else {
+        return
+    }
+    var index = HippoConfig.shared.pushArray.firstIndex { (p) -> Bool in
         return p.channelId == channelId
+    }
+    if index == nil{
+        index = HippoConfig.shared.pushArray.firstIndex { (p) -> Bool in
+            return p.labelId == labelId
+        }
     }
     var newObj = PushInfo(json: pushInfo)
     guard index != nil else {
