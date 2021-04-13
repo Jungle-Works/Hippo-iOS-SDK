@@ -934,6 +934,7 @@ extension AgentConversationViewController {
 
         self.attachments.append(Attachment(icon : HippoConfig.shared.theme.alphabetSymbolIcon , title : HippoStrings.text))
         self.attachments.append(Attachment(icon : HippoConfig.shared.theme.privateInternalNotesIcon  , title : HippoStrings.internalNotes))
+        
         if BussinessProperty.current.isAskPaymentAllowed{
             self.attachments.append(Attachment(icon : HippoConfig.shared.theme.paymentIcon , title : HippoStrings.payment))
         }
@@ -941,7 +942,7 @@ extension AgentConversationViewController {
         if BussinessProperty.current.eFormEnabled ?? false{
             self.attachments.append(Attachment(icon : HippoConfig.shared.theme.eFormIcon  , title : HippoConfig.shared.strings.presciption))
         }
-        
+        self.attachments.append(Attachment(icon : HippoConfig.shared.theme.privatesavedPlansIcon  , title : HippoStrings.savedPlans))
         self.newConversationCountButton.roundCorner(cornerRect: [.topLeft, .bottomLeft], cornerRadius: 5)
         self.newConversationShadow.layer.cornerRadius = 5
         self.newConversationShadow.showShadow(shadowSideAngles: ShadowSideView(topSide: true, leftSide: true, bottomSide: true))
@@ -2470,7 +2471,9 @@ extension AgentConversationViewController{
             }
         case HippoConfig.shared.strings.presciption:
             self.openSelectTemplate()
-            
+        case HippoStrings.savedPlans:
+            SavedButtonClicked()
+            break
         default:
             print("default")
         }
@@ -2716,5 +2719,40 @@ extension AgentConversationViewController{
         self.tableViewChat.deselectRow(at: editingMessageIndex ?? IndexPath(), animated: true)
         self.messageTextView.resignFirstResponder()
     }
+    func pushToSavedReplies() {
+        guard chatType != .o2o else {
+            return
+        }
+        
+        let vc = CannedRepliesViewController.get()
+        vc.delegate = self
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func SavedButtonClicked(){
+        guard !messageTextView.isPrivateMode else {
+            return
+        }
+        resetMention()
+         let vc = storyboard?.instantiateViewController(withIdentifier: "CannedRepliesViewController") as! CannedRepliesViewController
+            //isCannedBtnClicked = false
+
+           // pushToSavedReplies()
+            
+            self.navigationController?.pushViewController(vc, animated: true)
+                           
+        
+    }
+    
+}
+extension AgentConversationViewController : CannedRepliesVCDelegate {
+    func cannedMessage(_ cannedMessageVC: CannedRepliesViewController, cannedObject: CannedReply) {
+        
+    }
+    
+    func cannedClosed() {
+        
+    }
+    
     
 }

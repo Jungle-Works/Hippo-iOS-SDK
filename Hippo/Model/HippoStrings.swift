@@ -173,6 +173,7 @@ public class HippoStrings {
     static var assignConversation = "Assign Conversation".localized
     static var reset = "Reset".localized
     static var filter = "Filter".localized
+    static var SavedReplies = "SavedReplies".localized
     static var apply = "Apply".localized
     static var send = "SEND".localized
     static var noBotActionAvailable = "No Bot Action Available.".localized

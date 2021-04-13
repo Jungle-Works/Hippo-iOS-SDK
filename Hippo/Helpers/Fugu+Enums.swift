@@ -412,7 +412,7 @@ enum AgentEndPoints: String {
     case createOneToOneChat = "api/chat/createOneToOneChat"
     
     case clearAnnouncements = "api/broadcast/clearAnnouncements"
-    
+    case getCannedMessages = "api/business/getCannedMessages"
     case assignAgent = "api/agent/assignAgent"
     case agentStatus = "api/agent/editInfo"
     

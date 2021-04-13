@@ -1,24 +1,20 @@
 PODS:
-  - razorpay-pod (1.1.12)
   - Socket.IO-Client-Swift (16.0.1):
     - Starscream (~> 4.0)
   - Starscream (4.0.4)
 
 DEPENDENCIES:
-  - razorpay-pod
   - Socket.IO-Client-Swift
 
 SPEC REPOS:
   trunk:
-    - razorpay-pod
     - Socket.IO-Client-Swift
     - Starscream
 
 SPEC CHECKSUMS:
-  razorpay-pod: e2e8cf25aea59eef51c6851716f188df71adab86
   Socket.IO-Client-Swift: c116d6dc9fd6be9c259bacfe143f8725bce7d79e
   Starscream: 5178aed56b316f13fa3bc55694e583d35dd414d9
 
-PODFILE CHECKSUM: 644dbfc4ecc68f426e8a7b2cd84d14cf1b7cc27a
+PODFILE CHECKSUM: 5d708913b08a3febb53aa371b5136e9f790bc4d6
 
 COCOAPODS: 1.10.1

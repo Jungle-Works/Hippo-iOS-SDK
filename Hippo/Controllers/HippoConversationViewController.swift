@@ -73,7 +73,7 @@ class HippoConversationViewController: UIViewController {
     var proceedToPayChannel: HippoChannel?
     var attachments: [Attachment]  = []
     var isMessageEditing : Bool = false
-
+    var isCannedBtnClicked = false
 
     //MARK:
     @IBOutlet var tableViewChat: UITableView!{

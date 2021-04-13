@@ -18,6 +18,7 @@ public struct HippoLabelTheme {
     
 }
 
+
 public struct ConversationListTheme {
     public var titleTheme: HippoLabelTheme
     public var lastMessageTheme: HippoLabelTheme
@@ -46,7 +47,7 @@ public struct ConversationListTheme {
          HippoFont.regularFont = fontRegular
         return HippoTheme()
     }
-    
+   
     var chatBoxCornerRadius: CGFloat = 5
     var shouldEnableDisplayUserImage: Bool = true
     open var gradientTopColor =  #colorLiteral(red: 0.9725490196, green: 0.9764705882, blue: 1, alpha: 1)//UIColor(red: 109/255, green: 212/255, blue: 0/255, alpha: 1)//UIColor(red: 77/255, green: 124/255, blue: 254/255, alpha: 1)//
@@ -85,10 +86,17 @@ public struct ConversationListTheme {
     open var eyeIcon: UIImage? = UIImage(named: "eye", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
 //    open var paymentIcon: UIImage? = UIImage(named: "makePayment", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     open var botIcon: UIImage? = UIImage(named: "bot", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysOriginal)
+    
+    open var privatesavedPlansIcon: UIImage? = UIImage(named: "home-bubble", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysOriginal)
+    
 //    open var botIcon: UIImage? = UIImage(named: "bot", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     open var alphabetSymbolIcon: UIImage? = UIImage(named: "alphabet_symbol_icon", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysOriginal)
 //    open var alphabetSymbolIcon: UIImage? = UIImage(named: "alphabet_symbol_icon", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     open var privateInternalNotesIcon: UIImage? = UIImage(named: "private+message_icon_chat_box", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysOriginal)
+    
+    
+    
+    
     open var deleteIcon: UIImage? = UIImage(named: "delete", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     open var eFormIcon: UIImage? = UIImage(named: "eform", in: FuguFlowManager.bundle, compatibleWith: nil)
     

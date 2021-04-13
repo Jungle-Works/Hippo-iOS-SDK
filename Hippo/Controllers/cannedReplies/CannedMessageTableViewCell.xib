@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="74" id="KGk-i7-Jjw" customClass="CannedMessageTableViewCell" customModule="Demo_3002" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="74"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="74"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="12V-w4-3S9">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="74"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" id="NxQ-6S-nGF" userLabel="LabelContentView">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="87"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IoC-zQ-nSe" userLabel="Description" customClass="So_CustomLabel" customModule="HippoAgent" customModuleProvider="target">
+                                        <rect key="frame" x="16" y="45" width="288" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="RegularFontSizee">
+                                                <real key="value" value="16"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="keH-uc-ZfD">
+                                        <rect key="frame" x="-25" y="36.5" width="370" height="1"/>
+                                        <color key="backgroundColor" red="0.89411764709999997" green="0.89411764709999997" blue="0.92941176469999998" alpha="1" colorSpace="calibratedRGB"/>
+                                    </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aqI-yu-pmH" userLabel="Title" customClass="So_CustomLabel" customModule="HippoAgent" customModuleProvider="target">
+                                        <rect key="frame" x="16" y="8" width="288" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="SemiBoldFontSize">
+                                                <real key="value" value="16"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                </subviews>
+                                <viewLayoutGuide key="safeArea" id="HO3-Cg-Gef"/>
+                                <constraints>
+                                    <constraint firstItem="HO3-Cg-Gef" firstAttribute="trailing" secondItem="IoC-zQ-nSe" secondAttribute="trailing" constant="16" id="0RX-Pj-9yP"/>
+                                    <constraint firstItem="HO3-Cg-Gef" firstAttribute="leading" secondItem="keH-uc-ZfD" secondAttribute="leading" constant="25" id="4CT-bE-hoT"/>
+                                    <constraint firstItem="HO3-Cg-Gef" firstAttribute="trailing" secondItem="aqI-yu-pmH" secondAttribute="trailing" constant="16" id="4DE-Ga-dhA"/>
+                                    <constraint firstItem="IoC-zQ-nSe" firstAttribute="leading" secondItem="HO3-Cg-Gef" secondAttribute="leading" constant="16" id="F63-bV-yfP"/>
+                                    <constraint firstItem="aqI-yu-pmH" firstAttribute="leading" secondItem="HO3-Cg-Gef" secondAttribute="leading" constant="16" id="R7q-JD-IIg"/>
+                                    <constraint firstItem="aqI-yu-pmH" firstAttribute="top" secondItem="HO3-Cg-Gef" secondAttribute="top" constant="8" id="aMB-Lq-ecb"/>
+                                    <constraint firstItem="IoC-zQ-nSe" firstAttribute="top" secondItem="keH-uc-ZfD" secondAttribute="bottom" constant="7.5" id="eSi-4T-MdC"/>
+                                    <constraint firstItem="keH-uc-ZfD" firstAttribute="top" secondItem="HO3-Cg-Gef" secondAttribute="top" constant="36.5" id="jED-x0-cUu"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </subviews>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <constraints>
+                <constraint firstItem="keH-uc-ZfD" firstAttribute="centerX" secondItem="njF-e1-oar" secondAttribute="centerX" id="1Ob-KK-lzl"/>
+                <constraint firstItem="keH-uc-ZfD" firstAttribute="centerY" secondItem="njF-e1-oar" secondAttribute="centerY" id="MCa-1c-goB"/>
+            </constraints>
+            <connections>
+                <outlet property="descriptionLabel" destination="IoC-zQ-nSe" id="Z6p-c4-Mlx"/>
+                <outlet property="horizontalLine" destination="keH-uc-ZfD" id="wEa-44-6g5"/>
+                <outlet property="mainContentView" destination="NxQ-6S-nGF" id="fkz-Ei-GyI"/>
+                <outlet property="titleLabel" destination="aqI-yu-pmH" id="0c9-Ok-yFX"/>
+            </connections>
+            <point key="canvasLocation" x="-197.10144927536234" y="101.78571428571428"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

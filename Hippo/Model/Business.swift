@@ -12,7 +12,7 @@ class Business {
     static let shared = Business()
     
     var agents: [Agent] = []
-//    var savedReplies: [CannedReply] = []
+    var savedReplies: [CannedReply] = []
 //    var tags: [TagDetail] = []
 //    var channels: [ChannelDetail] = []
 //

@@ -2277,6 +2277,9 @@ class AllString{
         if let hippo_Bot = response["hippo_Bot"] as? String{
             HippoStrings.bot = hippo_Bot
         }
+        if let hippo_saved_plans = response["hippo_saved_plans"] as? String{
+            HippoStrings.savedPlans = hippo_saved_plans
+        }
         
         if let hippo_savePaymentPlan = response["hippo_savePaymentPlan"] as? String{
             HippoStrings.savePaymentPlan = hippo_savePaymentPlan

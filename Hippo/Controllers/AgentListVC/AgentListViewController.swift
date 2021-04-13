@@ -131,7 +131,7 @@ extension AgentListViewController {
 //        //titleOfNavigationItem(barTitle: "Assign Conversation")
 ////        setCustomTitle(barTitle: "Assign Conversation")
 ////        setupCustomThemeOnNavigationBar(hideNavigationBar: false)
-////        navigationItem.hidesBackButton = false
+       navigationItem.hidesBackButton = false
 //        self.navigationController?.setTheme()
 //        self.navigationController?.isNavigationBarHidden = false
 //
@@ -149,6 +149,7 @@ extension AgentListViewController {
 //                backButton.tintColor = HippoConfig.shared.theme.headerTextColor
 //            }
 //        }
+        
         self.navigationController?.isNavigationBarHidden = true
         view_NavigationBar.title = HippoStrings.assignConversation
         view_NavigationBar.leftButton.addTarget(self, action: #selector(backButtonClicked(_:)), for: .touchUpInside)
