@@ -226,9 +226,13 @@ public class HippoStrings {
     static var requiredField = "Field is required"
     static var enterValidEmail = "Enter valid email"
     static var more = "more"
+
     static var meeting = "Meeting"
     static var businessMeet = "Business Meet"
     static var joinCallNow = "Join Call Now"
+
+    static var selectDate = "Select Date"
+
     
   
     open var cameraString = "New Image via Camera"

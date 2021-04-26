@@ -900,6 +900,23 @@
                                                     <action selector="action_CancelEditMessage" destination="sYd-aP-0RS" eventType="touchUpInside" id="jQm-kH-uFE"/>
                                                 </connections>
                                             </button>
+                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IsN-aU-gQ3">
+                                                <rect key="frame" x="0.0" y="0.0" width="40" height="56"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="40" id="Wtc-f2-QeH"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="28"/>
+                                                <inset key="titleEdgeInsets" minX="0.0" minY="-3" maxX="0.0" maxY="0.0"/>
+                                                <state key="normal" image="AddFile">
+                                                    <color key="titleColor" red="0.12941176469999999" green="0.58823529409999997" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <state key="highlighted">
+                                                    <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="actionCalendar" destination="sYd-aP-0RS" eventType="touchUpInside" id="u8f-fs-LmX"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                     </stackView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Send a message..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FQc-qg-FUN">
@@ -1268,7 +1285,11 @@
                         <outlet property="attachmentViewHeightConstraint" destination="U6B-Jk-ZZY" id="5P5-9O-krx"/>
                         <outlet property="backgroundImageView" destination="jyg-ET-R2Q" id="gU4-ZQ-Ajh"/>
                         <outlet property="backgroundView" destination="S9M-dE-hY2" id="cRY-ya-Ihv"/>
+<<<<<<< HEAD
                         <outlet property="button_Recording" destination="8dN-2R-hrU" id="jcp-du-Gyr"/>
+=======
+                        <outlet property="buttonCalendar" destination="IsN-aU-gQ3" id="wZV-C5-V6b"/>
+>>>>>>> date and time handling
                         <outlet property="chatScreenTableViewTopConstraint" destination="3CI-1w-KDN" id="DF6-38-IIW"/>
                         <outlet property="collectionViewOptions" destination="vQA-3A-IYd" id="0Ei-KX-9L2"/>
                         <outlet property="errorContentView" destination="cvX-d1-Pra" id="bxU-YD-M2T"/>
@@ -2150,6 +2171,72 @@
             </objects>
             <point key="canvasLocation" x="2272.8000000000002" y="1706.8965517241381"/>
         </scene>
+        <!--Date Time Picker-->
+        <scene sceneID="x3e-bl-wdr">
+            <objects>
+                <viewController storyboardIdentifier="DateTimePicker" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Lkr-6e-0Fb" customClass="DateTimePicker" customModule="Hippo" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="X3F-Xw-8xw"/>
+                        <viewControllerLayoutGuide type="bottom" id="fmY-Zh-wTs"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ab1-e3-bVH">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l98-EA-UkV">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ow1-W7-eX4">
+                                        <rect key="frame" x="20" y="104" width="335" height="34"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gjN-cN-9KH">
+                                        <rect key="frame" x="316" y="20" width="39" height="32"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <state key="normal" title="Done">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="dismissView" destination="Lkr-6e-0Fb" eventType="touchUpInside" id="xJ4-oZ-Vjb"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="gjN-cN-9KH" firstAttribute="top" secondItem="l98-EA-UkV" secondAttribute="top" constant="20" id="I8Q-QM-niI"/>
+                                    <constraint firstAttribute="trailing" secondItem="gjN-cN-9KH" secondAttribute="trailing" constant="20" id="t7b-qa-f7b"/>
+                                </constraints>
+                            </view>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" style="inline" translatesAutoresizingMaskIntoConstraints="NO" id="rnE-oi-0H3">
+                                <rect key="frame" x="20" y="158" width="335" height="351"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </datePicker>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Ow1-W7-eX4" firstAttribute="leading" secondItem="rnE-oi-0H3" secondAttribute="leading" id="AFr-IC-Ziv"/>
+                            <constraint firstItem="rnE-oi-0H3" firstAttribute="top" secondItem="Ow1-W7-eX4" secondAttribute="bottom" constant="20" id="Ehf-Q4-FXj"/>
+                            <constraint firstItem="rnE-oi-0H3" firstAttribute="centerY" secondItem="ab1-e3-bVH" secondAttribute="centerY" id="I7N-3Q-Ia1"/>
+                            <constraint firstItem="l98-EA-UkV" firstAttribute="leading" secondItem="ab1-e3-bVH" secondAttribute="leading" id="OKK-dK-At9"/>
+                            <constraint firstItem="l98-EA-UkV" firstAttribute="top" secondItem="X3F-Xw-8xw" secondAttribute="bottom" id="UeX-dG-qV7"/>
+                            <constraint firstItem="Ow1-W7-eX4" firstAttribute="trailing" secondItem="rnE-oi-0H3" secondAttribute="trailing" id="WgI-Bz-2Yz"/>
+                            <constraint firstItem="rnE-oi-0H3" firstAttribute="centerX" secondItem="ab1-e3-bVH" secondAttribute="centerX" id="Ysk-sf-Kxx"/>
+                            <constraint firstItem="fmY-Zh-wTs" firstAttribute="top" secondItem="l98-EA-UkV" secondAttribute="bottom" id="k4j-ed-JfF"/>
+                            <constraint firstAttribute="right" secondItem="l98-EA-UkV" secondAttribute="right" id="sap-O5-YfT"/>
+                            <constraint firstItem="rnE-oi-0H3" firstAttribute="leading" secondItem="ab1-e3-bVH" secondAttribute="leading" constant="20" id="vHr-0T-gax"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="picker" destination="rnE-oi-0H3" id="9D7-9o-WFT"/>
+                        <outlet property="textField" destination="Ow1-W7-eX4" id="dnP-II-Dp6"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ED5-yR-xRQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3080.8000000000002" y="1736.5817091454273"/>
+        </scene>
     </scenes>
     <resources>
         <image name="AddFile" width="24" height="24"/>
@@ -2167,7 +2254,15 @@
         <image name="search" width="14.5" height="14"/>
         <image name="whiteBackButton" width="8" height="12"/>
         <systemColor name="systemBackgroundColor">
+<<<<<<< HEAD
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+=======
+<<<<<<< HEAD
+            <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+=======
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+>>>>>>> date and time handling
+>>>>>>> date and time handling
         </systemColor>
     </resources>
 </document>

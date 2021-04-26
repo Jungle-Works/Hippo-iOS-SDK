@@ -166,7 +166,7 @@ struct labelWithId {
 }
 
 enum MessageType: Int {
-    case none = 0, normal = 1, assignAgent = 2, privateNote = 3, imageFile = 10, attachment = 11, actionableMessage = 12, feedback = 14, botText = 15, quickReply = 16, leadForm = 17, call = 18, hippoPay = 19, consent = 20, card = 21, paymentCard = 22, multipleSelect = 23, embeddedVideoUrl = 24, groupCall = 27, createTicket = 29//, address = 25, dateTime = 26
+    case none = 0, normal = 1, assignAgent = 2, privateNote = 3, imageFile = 10, attachment = 11, actionableMessage = 12, feedback = 14, botText = 15, quickReply = 16, leadForm = 17, call = 18, hippoPay = 19, consent = 20, card = 21, paymentCard = 22, multipleSelect = 23, embeddedVideoUrl = 24, groupCall = 27, createTicket = 29, address = 25, dateTime = 26
 
     
 //    BUSINESS_SPECIFIC_MESSAGE : 4,
@@ -175,7 +175,7 @@ enum MessageType: Int {
    
     
     var customerHandledMessages: [MessageType] {
-        return [.normal, .imageFile, .feedback, .actionableMessage, .leadForm, .quickReply, .botText, .call, .hippoPay, .attachment, .consent, .card, .paymentCard , .multipleSelect, .embeddedVideoUrl, .createTicket]//, .address, .dateTime]
+        return [.normal, .imageFile, .feedback, .actionableMessage, .leadForm, .quickReply, .botText, .call, .hippoPay, .attachment, .consent, .card, .paymentCard , .multipleSelect, .embeddedVideoUrl, .createTicket, .dateTime, .address]
     }
     var agentHandledMessages: [MessageType] {
 //        return [.normal, .imageFile, .privateNote, .assignAgent, .botText, .call, .attachment, .consent, .actionableMessage, .hippoPay]
@@ -193,7 +193,7 @@ enum MessageType: Int {
 ////        let botMessages: [MessageType] = [.leadForm, .quickReply, .botText, .consent, .card , .multipleSelect,.normal]
         
 //        let botMessages: [MessageType] = [.leadForm, .quickReply, .botText, .consent, .hippoPay, .actionableMessage, .card , .multipleSelect, .embeddedVideoUrl]//, .address, .dateTime]
-        let botMessages: [MessageType] = [.leadForm, .quickReply, .botText, .consent, .hippoPay, .actionableMessage, .card , .multipleSelect, .normal, .embeddedVideoUrl, .paymentCard, .createTicket]//, .address, .dateTime]
+        let botMessages: [MessageType] = [.leadForm, .quickReply, .botText, .consent, .hippoPay, .actionableMessage, .card , .multipleSelect, .normal, .embeddedVideoUrl, .paymentCard, .createTicket,.address, .dateTime]//, .address, .dateTime]
 
         return botMessages.contains(self)
     }

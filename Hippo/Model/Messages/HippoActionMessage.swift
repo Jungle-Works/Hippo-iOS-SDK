@@ -31,7 +31,11 @@ class HippoActionMessage: HippoMessage {
             self.contentValues = content_value
             let selectedId = selectedBtnId.isEmpty ? nil : selectedBtnId
             let (buttons, selectedButton) = HippoActionButton.getArray(array: contentValues, selectedId: selectedId)
-            tryToSetResponseMessage(selectedButton: selectedButton)
+            if type == .dateTime {
+                tryToSetResponseMessage()
+            }else {
+                tryToSetResponseMessage(selectedButton: selectedButton)
+            }
             self.buttons = buttons
         }
         setHeight()
@@ -47,6 +51,16 @@ class HippoActionMessage: HippoMessage {
         responseMessage?.creationDateTime = self.creationDateTime
         responseMessage?.status = status
         cellDetail?.actionHeight = nil
+    }
+    
+    func tryToSetResponseMessage() {
+        if let dic = self.contentValues.first {
+            responseMessage = HippoMessage(message: dic["date_time_message"] as? String ?? "", type: .dateTime, senderName: repliedBy, senderId: repliedById, chatType: chatType)
+            responseMessage?.userType = .customer
+            responseMessage?.creationDateTime = self.creationDateTime
+            responseMessage?.status = status
+            cellDetail?.actionHeight = nil
+        }
     }
     
     func setHeight() {
@@ -111,12 +125,12 @@ class HippoActionMessage: HippoMessage {
     
     override func getJsonToSendToFaye() -> [String : Any] {
         var json = super.getJsonToSendToFaye()
-        
-        json["selected_btn_id"] = selectedBtnId
-        json["is_active"] = isActive.intValue()
+        if type != .dateTime {
+            json["selected_btn_id"] = selectedBtnId
+            json["is_active"] = isActive.intValue()
+        }
         json["content_value"] = contentValues
         json["user_id"] = currentUserId()
-        
         json["replied_by"] = currentUserName()
         json["replied_by_id"] = currentUserId()
         
@@ -131,12 +145,16 @@ class HippoActionMessage: HippoMessage {
         repliedBy = currentUserName()
         
         let selectedId = selectedBtnId.isEmpty ? nil : selectedBtnId
-        if !contentValues.isEmpty {
-            contentValues.append(contentsOf: customButtons)
-            let list = contentValues
-            let (buttons, selectedButton) = HippoActionButton.getArray(array: list, selectedId: selectedId)
-            self.tryToSetResponseMessage(selectedButton: selectedButton)
-            self.buttons = buttons
+        if type == .dateTime {
+            tryToSetResponseMessage()
+        } else{
+            if !contentValues.isEmpty {
+                contentValues.append(contentsOf: customButtons)
+                let list = contentValues
+                let (buttons, selectedButton) = HippoActionButton.getArray(array: list, selectedId: selectedId)
+                self.tryToSetResponseMessage(selectedButton: selectedButton)
+                self.buttons = buttons
+            }
         }
         setHeight()
     }
@@ -150,10 +168,14 @@ class HippoActionMessage: HippoMessage {
         self.repliedBy = newObject.repliedBy
         
         let selectedId = selectedBtnId.isEmpty ? nil : selectedBtnId
-        if !contentValues.isEmpty {
-            let (buttons, selectedButton) = HippoActionButton.getArray(array: contentValues, selectedId: selectedId)
-            self.tryToSetResponseMessage(selectedButton: selectedButton)
-            self.buttons = buttons
+        if type == .dateTime {
+            tryToSetResponseMessage()
+        }else {
+            if !contentValues.isEmpty {
+                let (buttons, selectedButton) = HippoActionButton.getArray(array: contentValues, selectedId: selectedId)
+                self.tryToSetResponseMessage(selectedButton: selectedButton)
+                self.buttons = buttons
+            }
         }
         setHeight()
         

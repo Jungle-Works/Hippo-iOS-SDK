@@ -627,10 +627,12 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         json["image_width"] = imageWidth
         json["image_height"] = imageHeight
         
-        if let documentType = documentType {
-            json["document_type"] = documentType.rawValue
-        } else if let concreteFileType = concreteFileType {
-            json["document_type"] = concreteFileType.rawValue
+        if type != .dateTime {
+            if let documentType = documentType {
+                json["document_type"] = documentType.rawValue
+            } else if let concreteFileType = concreteFileType {
+                json["document_type"] = concreteFileType.rawValue
+            }
         }
         
         if let id = messageId {
@@ -683,6 +685,8 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
             json["user_id"] = currentUserId()
             json["values"] = [selectedActionId]
             json["content_value"] = contentValues
+        } else if type == .dateTime {
+            json["custom_action"] = actionableMessage?.customActionJson
         }
         
         if customAction != nil{
@@ -1101,7 +1105,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         var tempMessage: HippoMessage?
         
         switch type {
-        case .consent:
+        case .consent, .dateTime:
             tempMessage = HippoActionMessage(dict: messageJson)
         default:
             tempMessage = HippoMessage(dict: messageJson)
