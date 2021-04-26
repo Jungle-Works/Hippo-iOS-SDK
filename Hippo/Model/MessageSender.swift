@@ -67,13 +67,13 @@ class MessageSender {
             return
         }
         
-        guard (message.status == .none || message.type == .feedback || message.type == .consent || message.type == .card || message.type == .multipleSelect) && !message.isDeleted else {
+        guard (message.status == .none || message.type == .feedback || message.type == .consent || message.type == .dateTime || message.type == .card || message.type == .multipleSelect) && !message.isDeleted else {
             messagesToBeSent.removeFirst()
             startSending()
             return
         }
         
-        guard (!message.isMessageExpired() && message.isSentByMe()) || message.type == .feedback || message.type == .consent || message.type == .card || message.type == .multipleSelect else {
+        guard (!message.isMessageExpired() && message.isSentByMe()) || message.type == .feedback || message.type == .consent || message.type == .dateTime || message.type == .card || message.type == .multipleSelect else {
             invalidateCurrentMessageWhichIsBeingSent()
             self.isSendingMessages = true
             startSending()
@@ -104,6 +104,9 @@ class MessageSender {
                     return
                 }
                 message.status = .sent
+                if let customMessage = message as? HippoActionMessage {
+                    customMessage.responseMessage?.status = .sent
+                }
                 SoundPlayer.messageSentSucessfully()
                 DispatchQueue.main.async {
                     self?.delegate?.messageSent(message: message)

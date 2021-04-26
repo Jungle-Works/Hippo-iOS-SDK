@@ -67,8 +67,6 @@ class ActionTableView: MessageTableViewCell {
         tableView.register(UINib(nibName: "ActionLabelViewCell", bundle: FuguFlowManager.bundle), forCellReuseIdentifier: "ActionLabelViewCell")
         tableView.register(UINib(nibName: "ActionButtonViewCell", bundle: FuguFlowManager.bundle), forCellReuseIdentifier: "ActionButtonViewCell")
         tableView.register(UINib(nibName: "ActionTagTableViewCell", bundle: FuguFlowManager.bundle), forCellReuseIdentifier: "ActionTagTableViewCell")
-        
-        
         tableView.register(UINib(nibName: "SelfMessageTableViewCell", bundle: FuguFlowManager.bundle), forCellReuseIdentifier: "SelfMessageTableViewCell")
         tableView.register(UINib(nibName: "SupportMessageTableViewCell", bundle: FuguFlowManager.bundle), forCellReuseIdentifier: "SupportMessageTableViewCell")
         
