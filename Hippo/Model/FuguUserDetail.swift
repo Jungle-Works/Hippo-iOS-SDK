@@ -105,6 +105,7 @@ public class UserTag: NSObject {
     var selectedlanguage : String?
     var userChannel: String?
     var listener : SocketListner?
+    var userIdenficationSecret : String?
     
     static var shouldGetPaymentGateways : Bool = true
     
@@ -145,9 +146,10 @@ public class UserTag: NSObject {
     // MARK: - Intializer
     override init() {}
     
-    public init(fullName: String, email: String, phoneNumber: String, userUniqueKey: String, addressAttribute: HippoAttributes? = nil, customAttributes: [String: Any]? = nil, userTags: [UserTag]? = nil, userImage: String? = nil, selectedlanguage : String? = nil, getPaymentGateways : Bool = true) {
+    public init(fullName: String, email: String, phoneNumber: String, userUniqueKey: String, addressAttribute: HippoAttributes? = nil, customAttributes: [String: Any]? = nil, userTags: [UserTag]? = nil, userImage: String? = nil, userIdenficationSecret : String?, selectedlanguage : String? = nil, getPaymentGateways : Bool = true) {
         super.init()
         
+        self.userIdenficationSecret = userIdenficationSecret
         self.fullName = fullName.trimWhiteSpacesAndNewLine()
         self.email = email.trimWhiteSpacesAndNewLine()
         self.phoneNumber = phoneNumber.trimWhiteSpacesAndNewLine()
@@ -271,6 +273,10 @@ public class UserTag: NSObject {
             params["user_image"] = image.absoluteString
         }
         
+        if let userIdenficationSecret = userIdenficationSecret {
+            params["user_identification_secret"] = userIdenficationSecret
+        }
+        
         params["device_details"] = AgentDetail.getDeviceDetails()
         params["fetch_business_lang"] = 1
         params += customRequest
@@ -303,6 +309,13 @@ public class UserTag: NSObject {
         HTTPClient.shared.makeSingletonConnectionWith(method: .POST, identifier: RequestIdenfier.putUser, para: params, extendedUrl: endPointName) { (responseObject, error, tag, statusCode) in
             
             guard let response = (responseObject as? [String: Any]), statusCode == STATUS_CODE_SUCCESS, let data = response["data"] as? [String: Any] else {
+                
+                if statusCode == 400 {
+                    if let message = (responseObject as? [String: Any])?["message"] as? String {
+                        HippoConfig.shared.sendSecurityError(message: message)
+                    }
+                }
+                
                 HippoConfig.shared.log.error("PutUserError: \(error.debugDescription)", level: .error)
                 NotificationCenter.default.post(name: .putUserFailure, object:self)
                 completion?(false, (error ?? APIErrors.statusCodeNotFound))

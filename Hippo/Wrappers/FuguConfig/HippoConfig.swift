@@ -1384,6 +1384,10 @@ extension HippoConfig{
     }
 }
 extension HippoConfig {
+    func sendSecurityError(message: String) {
+        HippoConfig.shared.delegate?.passSecurityCheckError(error: message)
+    }
+    
     func sendp2pUnreadCount(_ unreadCount : Int, _ channelId : Int){
         HippoConfig.shared.delegate?.sendp2pUnreadCount(unreadCount: unreadCount,channelId: channelId)
     }
