@@ -20,6 +20,8 @@ class DateTimePicker : UIViewController{
     private var outputDateFormat = ""
     var message : HippoMessage?
     weak var delegate : DateTimePickerDelegate?
+    var dateFormatHash = [String : String]()
+    
     
     //MARK:- IBOutlets
     @IBOutlet private var picker : UIDatePicker!
@@ -27,6 +29,8 @@ class DateTimePicker : UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        dateFormatHash["YYYY-MM-DD HH:mm:ss"] = "yyyy-MM-dd HH:mm:ss"
+        dateFormatHash["YYYY-MM-DD"] = "yyyy-MM-dd"
         
         picker?.locale = .current
         if #available(iOS 14.0, *) {
@@ -62,18 +66,38 @@ class DateTimePicker : UIViewController{
         }
         
         outputDateFormat = message?.actionableMessage?.dateTimeFormat ?? ""
-        textField.text = picker.date.toString(with: outputDateFormat)
+        if let format = dateFormatHash[outputDateFormat] {
+            textField.text = picker.date.toString(with: format)
+        }else {
+            if outputDateFormat == "milliseconds" {
+                textField.text = String(picker.date.toMillis())
+            }else {
+                textField.text = picker.date.toString(with: outputDateFormat)
+            }
+        }
     }
     
     
     @objc func handleDateSelection() {
         guard let picker = picker else { return }
-        textField.text = picker.date.toString(with: outputDateFormat)
+        if let format = dateFormatHash[outputDateFormat] {
+            textField.text = picker.date.toString(with: format)
+        }else {
+            if outputDateFormat == "milliseconds" {
+                textField.text = String(picker.date.toMillis())
+            }else {
+                textField.text = picker.date.toString(with: outputDateFormat)
+            }
+        }
         print("Selected date/time:", picker.date)
     }
     
     @IBAction func dismissView(){
         self.delegate?.dateSelected(selectedDate: textField.text ?? "")
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func cancelAction() {
         self.dismiss(animated: true, completion: nil)
     }
 }

@@ -233,7 +233,8 @@ public class HippoStrings {
 
     static var selectDate = "Select Date"
 
-    
+    static var selectTime = "Select Time"
+
   
     open var cameraString = "New Image via Camera"
     open var displayNameForCustomers = "Fleet"

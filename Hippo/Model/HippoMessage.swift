@@ -261,7 +261,9 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         self.senderFullName = ((dict["full_name"] as? String) ?? "").trimWhiteSpacesAndNewLine()
         self.messageUniqueID = dict["muid"] as? String
         self.parsedMimeType = dict["mime_type"] as? String
-        
+        if let user_type = dict["user_type"] as? Int, let type = UserType(rawValue: user_type) {
+            self.userType = type
+        }
         var senderImage: String? = dict["user_image"] as? String ?? ""
         var type: MessageType = .none
         if let rawType = dict["message_type"] as? Int {
@@ -270,6 +272,8 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         }
         
         if (senderImage ?? "").isEmpty, (senderId <= 0  && type.isBotMessage) {
+            senderImage = BussinessProperty.current.botImageUrl
+        }else if (senderImage ?? "").isEmpty, type.isBotMessage {
             senderImage = BussinessProperty.current.botImageUrl
         }
         
@@ -309,9 +313,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         self.fallbackText = dict["fallback_text"] as? String
 
         self.callDurationInSeconds = dict["video_call_duration"] as? Double
-        if let user_type = dict["user_type"] as? Int, let type = UserType(rawValue: user_type) {
-            self.userType = type
-        }
+       
         if let actionableData = dict["custom_action"] as? [String: Any] {
             self.actionableMessage = FuguActionableMessage(dict: actionableData)
         }
