@@ -730,7 +730,8 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     }
     
     @IBAction func sendMessageButtonAction(_ sender: UIButton) {
-        if placeHolderLabel.text != HippoStrings.selectDate {
+        if placeHolderLabel.text != HippoStrings.selectDate &&
+            placeHolderLabel.text != HippoStrings.selectTime {
             self.sendMessageButtonAction(messageTextStr: messageTextView.text)
         }else {
             self.sendDateMessage()
@@ -1155,8 +1156,10 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         if result.isSendingDisabled || forceDisableReply || checkIfShouldDisableReplyForCreateTicket(messages: messages){
             disableSendingReply()
         }
-        if messages.last?.type == .dateTime {
-            self.updateUIForCalendar()
+        if let message = messages.last {
+            if message.type == .dateTime {
+                self.updateUIForCalendar(message: message)
+            }
         }
         
         if request.pageStart == 1, request.pageEnd == nil {
@@ -2758,7 +2761,7 @@ extension ConversationsViewController: UITextViewDelegate {
    }
    
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
-        if placeHolderLabel.text == HippoStrings.selectDate {
+        if placeHolderLabel.text == HippoStrings.selectDate ||  placeHolderLabel.text == HippoStrings.selectTime {
             self.actionCalendar()
             return false
         }
@@ -2925,10 +2928,10 @@ extension ConversationsViewController: HippoChannelDelegate {
         
     }
     
-    private func updateUIForCalendar() {
+    private func updateUIForCalendar(message : HippoMessage) {
         buttonCalendar.isHidden = false
         addFileButtonAction.isHidden = true
-        placeHolderLabel.text = HippoStrings.selectDate
+        placeHolderLabel.text = message.actionableMessage?.botResponseType == .time ? HippoStrings.selectTime : HippoStrings.selectDate
     }
     
     @IBAction func actionCalendar() {
@@ -2960,7 +2963,7 @@ extension ConversationsViewController: HippoChannelDelegate {
         isTypingLabelHidden = message.typingStatus != .startTyping
         switch message.type {
         case .dateTime:
-            self.updateUIForCalendar()
+            self.updateUIForCalendar(message: message)
         case .paymentCard:
             if (message.cards ?? []).isEmpty {
                 return

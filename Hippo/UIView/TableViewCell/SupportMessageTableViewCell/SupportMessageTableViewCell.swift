@@ -108,7 +108,7 @@ class SupportMessageTableViewCell: MessageTableViewCell {
         
         //self.nameLabel.text = message?.senderFullName
         
-        let isMessageAllowedForImage = chatMessageObject.type == .consent  || chatMessageObject.belowMessageType == .card || chatMessageObject.belowMessageType == .paymentCard || chatMessageObject.aboveMessageType == .consent
+        let isMessageAllowedForImage = chatMessageObject.type == .consent  || chatMessageObject.belowMessageType == .card || chatMessageObject.belowMessageType == .paymentCard || chatMessageObject.aboveMessageType == .consent || chatMessageObject.type == .dateTime
         
         if (chatMessageObject.aboveMessageUserId == chatMessageObject.senderId && !isMessageAllowedForImage) {
             self.nameLabel.text = ""
