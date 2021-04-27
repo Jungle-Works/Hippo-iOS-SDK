@@ -273,7 +273,7 @@ public class UserTag: NSObject {
             params["user_image"] = image.absoluteString
         }
         
-        if let userIdenficationSecret = userIdenficationSecret {
+        if let userIdenficationSecret = userIdenficationSecret, userIdenficationSecret.trimWhiteSpacesAndNewLine().isEmpty == false {
             params["user_identification_secret"] = userIdenficationSecret
         }
         
