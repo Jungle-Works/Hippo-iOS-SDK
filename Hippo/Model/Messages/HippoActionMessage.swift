@@ -31,7 +31,7 @@ class HippoActionMessage: HippoMessage {
             self.contentValues = content_value
             let selectedId = selectedBtnId.isEmpty ? nil : selectedBtnId
             let (buttons, selectedButton) = HippoActionButton.getArray(array: contentValues, selectedId: selectedId)
-            if type == .dateTime {
+            if type == .dateTime || type == .address {
                 tryToSetResponseMessage()
             }else {
                 tryToSetResponseMessage(selectedButton: selectedButton)
@@ -55,7 +55,11 @@ class HippoActionMessage: HippoMessage {
     
     func tryToSetResponseMessage() {
         if let dic = self.contentValues.first {
-            responseMessage = HippoMessage(message: dic["date_time_message"] as? String ?? "", type: .dateTime, senderName: repliedBy, senderId: repliedById, chatType: chatType)
+            if type == .dateTime {
+                responseMessage = HippoMessage(message: dic["date_time_message"] as? String ?? "", type: .normal, senderName: repliedBy, senderId: repliedById, chatType: chatType)
+            }else {
+                responseMessage = HippoMessage(message: dic["address"] as? String ?? "", type: .normal, senderName: repliedBy, senderId: repliedById, chatType: chatType)
+            }
             responseMessage?.userType = .customer
             responseMessage?.creationDateTime = self.creationDateTime
             responseMessage?.status = status
@@ -125,7 +129,7 @@ class HippoActionMessage: HippoMessage {
     
     override func getJsonToSendToFaye() -> [String : Any] {
         var json = super.getJsonToSendToFaye()
-        if type != .dateTime {
+        if type != .dateTime && type != .address{
             json["selected_btn_id"] = selectedBtnId
             json["is_active"] = isActive.intValue()
         }
@@ -145,7 +149,7 @@ class HippoActionMessage: HippoMessage {
         repliedBy = currentUserName()
         
         let selectedId = selectedBtnId.isEmpty ? nil : selectedBtnId
-        if type == .dateTime {
+        if type == .dateTime || type == .address {
             tryToSetResponseMessage()
         } else{
             if !contentValues.isEmpty {
@@ -168,7 +172,7 @@ class HippoActionMessage: HippoMessage {
         self.repliedBy = newObject.repliedBy
         
         let selectedId = selectedBtnId.isEmpty ? nil : selectedBtnId
-        if type == .dateTime {
+        if type == .dateTime || type == .address {
             tryToSetResponseMessage()
         }else {
             if !contentValues.isEmpty {

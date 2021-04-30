@@ -13,8 +13,11 @@
 
 		19099224263145350031F0E9 /* DateTimePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19099223263145350031F0E9 /* DateTimePicker.swift */; };
 
+		1928D1CF26397BDC003BACC5 /* SearchAdressVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1928D1CE26397BDC003BACC5 /* SearchAdressVM.swift */; };
+
 		192D0AA525F68FA90065C828 /* CreateTicketViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 192D0AA425F68FA90065C828 /* CreateTicketViewModel.swift */; };
 		192D0AA925F68FBF0065C828 /* CreateTicketAttachmentHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 192D0AA825F68FBF0065C828 /* CreateTicketAttachmentHelper.swift */; };
+<<<<<<< HEAD
 		1955B9CC267084F5007DB921 /* IncomingShareUrlCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1955B9CA267084F5007DB921 /* IncomingShareUrlCell.swift */; };
 		1955B9CD267084F5007DB921 /* IncomingShareUrlCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1955B9CB267084F5007DB921 /* IncomingShareUrlCell.xib */; };
 		1964B42E25F623B200DC2D6F /* UrlTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1964B42C25F623B200DC2D6F /* UrlTableCell.swift */; };
@@ -25,6 +28,12 @@
 		1967A7062670F5440010613D /* SharedMediaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1967A7042670F5440010613D /* SharedMediaCell.swift */; };
 		1967A7072670F5440010613D /* SharedMediaCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1967A7052670F5440010613D /* SharedMediaCell.xib */; };
 		197B2C3A2671E03B002E062E /* SharedMediaModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 197B2C392671E03B002E062E /* SharedMediaModel.swift */; };
+=======
+		194BCCA1263AB8D6007E4F53 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 194BCCA0263AB8D6007E4F53 /* Address.swift */; };
+		1964B42E25F623B200DC2D6F /* UrlTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1964B42C25F623B200DC2D6F /* UrlTableCell.swift */; };
+		1964B42F25F623B200DC2D6F /* UrlTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1964B42D25F623B200DC2D6F /* UrlTableCell.xib */; };
+		1971A92726397684004E55B2 /* SearchAddressController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1971A92626397684004E55B2 /* SearchAddressController.swift */; };
+>>>>>>> address handling done
 		19818C9A25F76B79005417D6 /* Popover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19818C9925F76B79005417D6 /* Popover.swift */; };
 		199B7DF7267B608200B571B1 /* RecordingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 199B7DF6267B608200B571B1 /* RecordingHelper.swift */; };
 		19AE532B266F597C00342DA0 /* ShareUrlHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19AE532A266F597C00342DA0 /* ShareUrlHelper.swift */; };
@@ -83,7 +92,6 @@
 		C9B77E8321A01B060092848D /* FuguImageUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DA121A01B060092848D /* FuguImageUploader.swift */; };
 		C9B77E8621A01B060092848D /* HippoChannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DA421A01B060092848D /* HippoChannel.swift */; };
 		C9B77E8C21A01B060092848D /* HippoDescriptionContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DAA21A01B060092848D /* HippoDescriptionContent.swift */; };
-		C9B77E8E21A01B070092848D /* MavenPro-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C9B77DAC21A01B060092848D /* MavenPro-Medium.ttf */; };
 		C9B77EAA21A01B070092848D /* Fugu+Properties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DCF21A01B060092848D /* Fugu+Properties.swift */; };
 		C9B77EC221A01B070092848D /* Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DEA21A01B060092848D /* Filter.swift */; };
 		C9B77EC321A01B070092848D /* Placeholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B77DEB21A01B060092848D /* Placeholder.swift */; };
@@ -204,8 +212,6 @@
 		D8F6D0512418FC7500B168C5 /* MZFayeClient.m in Sources */ = {isa = PBXBuildFile; fileRef = D8F6D04E2418FC7400B168C5 /* MZFayeClient.m */; };
 		D8F6D0522418FC7500B168C5 /* MZFayeMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = D8F6D0502418FC7400B168C5 /* MZFayeMessage.m */; };
 		D8F6D0542418FC8000B168C5 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = D8F6D0532418FC8000B168C5 /* README.md */; };
-		D8F6D05A2418FCC200B168C5 /* SRWebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = D8F6D0572418FCC100B168C5 /* SRWebSocket.m */; };
-		D8F6D05C2418FCD200B168C5 /* README.rst in Resources */ = {isa = PBXBuildFile; fileRef = D8F6D05B2418FCD100B168C5 /* README.rst */; };
 		D8F6D0602418FD4800B168C5 /* ConversationStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F6D05D2418FD4700B168C5 /* ConversationStore.swift */; };
 		D8F6D0622418FD4800B168C5 /* ConversationPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F6D05F2418FD4700B168C5 /* ConversationPresenter.swift */; };
 		D8F6D0652418FDF300B168C5 /* CallManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F6D0632418FDF200B168C5 /* CallManager.swift */; };
@@ -223,9 +229,7 @@
 		D8F6D0842419000100B168C5 /* Benchmarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F6D0802418FFFF00B168C5 /* Benchmarker.swift */; };
 		D8F6D0852419000100B168C5 /* LoggerConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F6D0812418FFFF00B168C5 /* LoggerConfig.swift */; };
 		D8F6D0862419000100B168C5 /* Formatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F6D0822419000000B168C5 /* Formatter.swift */; };
-		D8F6D08A241900D500B168C5 /* Hippo+Variable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F6D087241900D300B168C5 /* Hippo+Variable.swift */; };
 		D8F6D08B241900D500B168C5 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F6D088241900D400B168C5 /* HTTPClient.swift */; };
-		D8F6D0912419010F00B168C5 /* MessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F6D08D2419010D00B168C5 /* MessageTableViewCell.swift */; };
 		D8F6D0922419010F00B168C5 /* FuguAppFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F6D08E2419010D00B168C5 /* FuguAppFlow.swift */; };
 		D8F6D0932419010F00B168C5 /* HippoNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F6D08F2419010D00B168C5 /* HippoNotification.swift */; };
 		D8F6D0942419010F00B168C5 /* FayeConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F6D0902419010E00B168C5 /* FayeConnection.swift */; };
@@ -468,8 +472,11 @@
 
 		19099223263145350031F0E9 /* DateTimePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTimePicker.swift; sourceTree = "<group>"; };
 
+		1928D1CE26397BDC003BACC5 /* SearchAdressVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAdressVM.swift; sourceTree = "<group>"; };
+
 		192D0AA425F68FA90065C828 /* CreateTicketViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTicketViewModel.swift; sourceTree = "<group>"; };
 		192D0AA825F68FBF0065C828 /* CreateTicketAttachmentHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTicketAttachmentHelper.swift; sourceTree = "<group>"; };
+<<<<<<< HEAD
 		1955B9CA267084F5007DB921 /* IncomingShareUrlCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomingShareUrlCell.swift; sourceTree = "<group>"; };
 		1955B9CB267084F5007DB921 /* IncomingShareUrlCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IncomingShareUrlCell.xib; sourceTree = "<group>"; };
 		1964B42C25F623B200DC2D6F /* UrlTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlTableCell.swift; sourceTree = "<group>"; };
@@ -480,6 +487,12 @@
 		1967A7042670F5440010613D /* SharedMediaCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharedMediaCell.swift; sourceTree = "<group>"; };
 		1967A7052670F5440010613D /* SharedMediaCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SharedMediaCell.xib; sourceTree = "<group>"; };
 		197B2C392671E03B002E062E /* SharedMediaModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharedMediaModel.swift; sourceTree = "<group>"; };
+=======
+		194BCCA0263AB8D6007E4F53 /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
+		1964B42C25F623B200DC2D6F /* UrlTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlTableCell.swift; sourceTree = "<group>"; };
+		1964B42D25F623B200DC2D6F /* UrlTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UrlTableCell.xib; sourceTree = "<group>"; };
+		1971A92626397684004E55B2 /* SearchAddressController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAddressController.swift; sourceTree = "<group>"; };
+>>>>>>> address handling done
 		19818C9925F76B79005417D6 /* Popover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Popover.swift; sourceTree = "<group>"; };
 		199B7DF6267B608200B571B1 /* RecordingHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingHelper.swift; sourceTree = "<group>"; };
 		19AE532A266F597C00342DA0 /* ShareUrlHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareUrlHelper.swift; sourceTree = "<group>"; };
@@ -553,7 +566,6 @@
 		C9B77DA921A01B060092848D /* HippoSupportList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HippoSupportList.swift; sourceTree = "<group>"; };
 		C9B77DAA21A01B060092848D /* HippoDescriptionContent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HippoDescriptionContent.swift; sourceTree = "<group>"; };
 		C9B77DAB21A01B060092848D /* FuguUserDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuguUserDetail.swift; sourceTree = "<group>"; };
-		C9B77DAC21A01B060092848D /* MavenPro-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MavenPro-Medium.ttf"; sourceTree = "<group>"; };
 		C9B77DCF21A01B060092848D /* Fugu+Properties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Fugu+Properties.swift"; sourceTree = "<group>"; };
 		C9B77DEA21A01B060092848D /* Filter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Filter.swift; sourceTree = "<group>"; };
 		C9B77DEB21A01B060092848D /* Placeholder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Placeholder.swift; sourceTree = "<group>"; };
@@ -678,10 +690,6 @@
 		D8F6D04F2418FC7400B168C5 /* MZFayeMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MZFayeMessage.h; sourceTree = "<group>"; };
 		D8F6D0502418FC7400B168C5 /* MZFayeMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MZFayeMessage.m; sourceTree = "<group>"; };
 		D8F6D0532418FC8000B168C5 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		D8F6D0572418FCC100B168C5 /* SRWebSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRWebSocket.m; sourceTree = "<group>"; };
-		D8F6D0582418FCC200B168C5 /* SocketRocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketRocket.h; sourceTree = "<group>"; };
-		D8F6D0592418FCC200B168C5 /* SRWebSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRWebSocket.h; sourceTree = "<group>"; };
-		D8F6D05B2418FCD100B168C5 /* README.rst */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.rst; sourceTree = "<group>"; };
 		D8F6D05D2418FD4700B168C5 /* ConversationStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationStore.swift; sourceTree = "<group>"; };
 		D8F6D05E2418FD4700B168C5 /* AgentConversationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgentConversationManager.swift; sourceTree = "<group>"; };
 		D8F6D05F2418FD4700B168C5 /* ConversationPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationPresenter.swift; sourceTree = "<group>"; };
@@ -703,10 +711,8 @@
 		D8F6D0802418FFFF00B168C5 /* Benchmarker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Benchmarker.swift; sourceTree = "<group>"; };
 		D8F6D0812418FFFF00B168C5 /* LoggerConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoggerConfig.swift; sourceTree = "<group>"; };
 		D8F6D0822419000000B168C5 /* Formatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Formatter.swift; sourceTree = "<group>"; };
-		D8F6D087241900D300B168C5 /* Hippo+Variable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Hippo+Variable.swift"; path = "../../../current/Hippo-iOS-SDK/Hippo/Wrappers/Hippo+Variable.swift"; sourceTree = "<group>"; };
 		D8F6D088241900D400B168C5 /* HTTPClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
 		D8F6D089241900D500B168C5 /* MessageStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageStore.swift; sourceTree = "<group>"; };
-		D8F6D08D2419010D00B168C5 /* MessageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MessageTableViewCell.swift; path = "../../../current/Hippo-iOS-SDK/Hippo/Wrappers/MessageTableViewCell.swift"; sourceTree = "<group>"; };
 		D8F6D08E2419010D00B168C5 /* FuguAppFlow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuguAppFlow.swift; sourceTree = "<group>"; };
 		D8F6D08F2419010D00B168C5 /* HippoNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HippoNotification.swift; sourceTree = "<group>"; };
 		D8F6D0902419010E00B168C5 /* FayeConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FayeConnection.swift; sourceTree = "<group>"; };
@@ -1004,12 +1010,22 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+
 		190671822652A04900DC00C7 /* Encryption */ = {
 			isa = PBXGroup;
 			children = (
 				190671862652A0B300DC00C7 /* CryptoJS.swift */,
 			);
 			path = Encryption;
+
+		1928D1CD26397BC4003BACC5 /* SearchAddress */ = {
+			isa = PBXGroup;
+			children = (
+				1928D1CE26397BDC003BACC5 /* SearchAdressVM.swift */,
+				194BCCA0263AB8D6007E4F53 /* Address.swift */,
+			);
+			path = SearchAddress;
+
 			sourceTree = "<group>";
 		};
 		192D0AA325F68F8E0065C828 /* CreateTicket */ = {
@@ -1030,6 +1046,7 @@
 			path = UrlCell;
 			sourceTree = "<group>";
 		};
+<<<<<<< HEAD
 		1967A6FB2670F52E0010613D /* SharedMediaController */ = {
 			isa = PBXGroup;
 			children = (
@@ -1055,6 +1072,22 @@
 				197B2C392671E03B002E062E /* SharedMediaModel.swift */,
 			);
 			path = SharedMediaModel;
+=======
+		1971A9242639759E004E55B2 /* SearchAgent */ = {
+			isa = PBXGroup;
+			children = (
+				6B7C5FB62587AC3F00D85BA2 /* SearchAgentViewController.swift */,
+			);
+			path = SearchAgent;
+			sourceTree = "<group>";
+		};
+		1971A92526397664004E55B2 /* SearchAddress */ = {
+			isa = PBXGroup;
+			children = (
+				1971A92626397684004E55B2 /* SearchAddressController.swift */,
+			);
+			path = SearchAddress;
+>>>>>>> address handling done
 			sourceTree = "<group>";
 		};
 		19818C9825F76B66005417D6 /* PopOver */ = {
@@ -1759,7 +1792,6 @@
 				C9B77D7E21A01B060092848D /* Montserrat-Medium.otf */,
 				C9B77D7F21A01B060092848D /* Extensions */,
 				C9B77D8921A01B060092848D /* Model */,
-				C9B77DAC21A01B060092848D /* MavenPro-Medium.ttf */,
 				C9B77DAD21A01B060092848D /* Controllers */,
 				C9B77DC321A01B060092848D /* Helpers */,
 				C9B77E0A21A01B060092848D /* Info.plist */,
@@ -1775,13 +1807,11 @@
 				6BFC612425405E81008BE42F /* Socket */,
 				D8F6D0442418FC3800B168C5 /* ParallexView */,
 				D8F6D04B2418FC4C00B168C5 /* MZFayeClient */,
-				D8F6D0552418FCA300B168C5 /* SocketRocket */,
 				C9B77CF721A01B050092848D /* AgentWrappers */,
 				D8F6D0632418FDF200B168C5 /* CallManager.swift */,
 				D8C9E8E3247E320900F18C6C /* CacheManager.swift */,
 				D8F6D0642418FDF300B168C5 /* FuguDefaults.swift */,
 				C9FB6F8F21EE10CD00B72CEA /* CoreKit */,
-				D8F6D087241900D300B168C5 /* Hippo+Variable.swift */,
 				D8F6D088241900D400B168C5 /* HTTPClient.swift */,
 				D8F6D089241900D500B168C5 /* MessageStore.swift */,
 				C9FB6F8621EE0B6400B72CEA /* DocumentWrapper */,
@@ -1789,7 +1819,6 @@
 				D8F6D0902419010E00B168C5 /* FayeConnection.swift */,
 				D8F6D08E2419010D00B168C5 /* FuguAppFlow.swift */,
 				D8F6D08F2419010D00B168C5 /* HippoNotification.swift */,
-				D8F6D08D2419010D00B168C5 /* MessageTableViewCell.swift */,
 			);
 			path = Wrappers;
 			sourceTree = "<group>";
@@ -1909,7 +1938,11 @@
 		C9B77D8921A01B060092848D /* Model */ = {
 			isa = PBXGroup;
 			children = (
+<<<<<<< HEAD
 				193FD9492609B389007FF4B1 /* CustomerUnread */,
+=======
+				1928D1CD26397BC4003BACC5 /* SearchAddress */,
+>>>>>>> address handling done
 				6B584EF32502361200A7633A /* P2PUnread */,
 				D848D1AD245EEE9700235322 /* PaymentPlan */,
 				D8F6D2152419549E00B168C5 /* Messages */,
@@ -2001,7 +2034,12 @@
 		C9B77DAD21A01B060092848D /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+<<<<<<< HEAD
 				1967A6FB2670F52E0010613D /* SharedMediaController */,
+=======
+				1971A92526397664004E55B2 /* SearchAddress */,
+				1971A9242639759E004E55B2 /* SearchAgent */,
+>>>>>>> address handling done
 				6BBBEA8124991C5900C3E1CE /* Popup */,
 				D88B900024657E2400E3093F /* FilterViewController.swift */,
 				D8F6D2BA24195D5800B168C5 /* NLevelViewController.swift */,
@@ -2018,7 +2056,6 @@
 				C9B77DB021A01B060092848D /* BroadCasting */,
 				C9B77DB721A01B060092848D /* Agents */,
 				C9B77DBD21A01B060092848D /* Customer */,
-				6B7C5FB62587AC3F00D85BA2 /* SearchAgentViewController.swift */,
 				6B417114259B504C007B2A16 /* EPresciption */,
 			);
 			path = Controllers;
@@ -2642,25 +2679,6 @@
 			path = MZFayeClient;
 			sourceTree = "<group>";
 		};
-		D8F6D0552418FCA300B168C5 /* SocketRocket */ = {
-			isa = PBXGroup;
-			children = (
-				D8F6D0562418FCB700B168C5 /* SocketRocket */,
-				D8F6D05B2418FCD100B168C5 /* README.rst */,
-			);
-			path = SocketRocket;
-			sourceTree = "<group>";
-		};
-		D8F6D0562418FCB700B168C5 /* SocketRocket */ = {
-			isa = PBXGroup;
-			children = (
-				D8F6D0572418FCC100B168C5 /* SRWebSocket.m */,
-				D8F6D0582418FCC200B168C5 /* SocketRocket.h */,
-				D8F6D0592418FCC200B168C5 /* SRWebSocket.h */,
-			);
-			path = SocketRocket;
-			sourceTree = "<group>";
-		};
 		D8F6D0682418FF5000B168C5 /* CoreKit+Extension */ = {
 			isa = PBXGroup;
 			children = (
@@ -2911,7 +2929,6 @@
 				D8F6D1B32419510F00B168C5 /* TitilliumWeb-SemiBoldItalic.ttf in Resources */,
 				D8F6D19C2419500F00B168C5 /* BoardCastSelectionCell.xib in Resources */,
 				D8F6D11A24194A9300B168C5 /* ConversationView.xib in Resources */,
-				C9B77E8E21A01B070092848D /* MavenPro-Medium.ttf in Resources */,
 				D8A2EDFE245F2F480090E283 /* PaymentPlansViewController.xib in Resources */,
 				D88B90062465818600E3093F /* FilterTableViewCell.xib in Resources */,
 				1955B9CD267084F5007DB921 /* IncomingShareUrlCell.xib in Resources */,
@@ -2990,7 +3007,6 @@
 				D8F6D14224194CB300B168C5 /* SenderNameTableCell.xib in Resources */,
 				D8F6D0CF2419467600B168C5 /* ProfileDetailCell.xib in Resources */,
 				D8F6D0CA2419466200B168C5 /* ProfileNameCell.xib in Resources */,
-				D8F6D05C2418FCD200B168C5 /* README.rst in Resources */,
 				D8F6D17724194ED700B168C5 /* OutgoingVideoCallMessageTableViewCell.xib in Resources */,
 				C9FB6FAE21EE10CD00B72CEA /* Info.plist in Resources */,
 				D8F6D19424194FD000B168C5 /* BroadCastTextFieldCell.xib in Resources */,
@@ -3095,7 +3111,6 @@
 				6BE70B19259C3F8700ECA4FC /* FillPresciptionViewController.swift in Sources */,
 				D8F6D17824194ED700B168C5 /* VideoCallMessageTableViewCell.swift in Sources */,
 				D8F6D0272418FA8A00B168C5 /* PaymentMessageCell.swift in Sources */,
-				D8F6D05A2418FCC200B168C5 /* SRWebSocket.m in Sources */,
 				D8F6D29D24195AA200B168C5 /* IQBarButtonItem.swift in Sources */,
 				D8F6D2662419591500B168C5 /* TagView.swift in Sources */,
 				D8F6D2D224195DC500B168C5 /* PaymentField.swift in Sources */,
@@ -3109,7 +3124,6 @@
 				D8F6D0792418FFDC00B168C5 /* CoreLogger.swift in Sources */,
 				D8F6D0DE2419472800B168C5 /* OutgoingImageCell.swift in Sources */,
 				D8F6D00F2418FA0300B168C5 /* ProfileDetail.swift in Sources */,
-				D8F6D08A241900D500B168C5 /* Hippo+Variable.swift in Sources */,
 				D8F6D0422418FB5B00B168C5 /* HippoSoundManager.swift in Sources */,
 				D848D1B0245EEEDF00235322 /* PaymentPlanStore.swift in Sources */,
 				D8F6D16224194DE600B168C5 /* AgentHomeConversationCell.swift in Sources */,
@@ -3184,6 +3198,7 @@
 				D8F6D11B24194A9300B168C5 /* ConversationView.swift in Sources */,
 				D8F6D0512418FC7500B168C5 /* MZFayeClient.m in Sources */,
 				D8F6D1FB2419547C00B168C5 /* FuguActionableMessage.swift in Sources */,
+				1928D1CF26397BDC003BACC5 /* SearchAdressVM.swift in Sources */,
 				D8CD683A24866EDC000F4097 /* MentionsManagerDelegate.swift in Sources */,
 				D8F6D2032419547C00B168C5 /* HippoTicketAtrributes.swift in Sources */,
 				D8F6D1032419496900B168C5 /* IncomingImageCell.swift in Sources */,
@@ -3201,7 +3216,6 @@
 				D8F6D01D2418FA7300B168C5 /* MultiSelectTableViewCell.swift in Sources */,
 				D8F6D1072419498D00B168C5 /* BroadcastUserStatusCell.swift in Sources */,
 				D8F6D2272419552B00B168C5 /* CustomerInfo.swift in Sources */,
-				D8F6D0912419010F00B168C5 /* MessageTableViewCell.swift in Sources */,
 				D8F6D24B2419588300B168C5 /* FrameObserverAccessaryView.swift in Sources */,
 				D8F6D0832419000100B168C5 /* LoggerTheme.swift in Sources */,
 				D8F6D15824194D8600B168C5 /* OutgoingVideoTableViewCell.swift in Sources */,
@@ -3315,6 +3329,7 @@
 				D8F6D03F2418FB4E00B168C5 /* HippoMessageSound.swift in Sources */,
 				D8F6D0B82419444900B168C5 /* ChatInfoHeader.swift in Sources */,
 				D8F6D1FA2419547C00B168C5 /* HippoSupportList.swift in Sources */,
+				1971A92726397684004E55B2 /* SearchAddressController.swift in Sources */,
 				D8F6D1FF2419547C00B168C5 /* PushInfo.swift in Sources */,
 				D88B20D724619F90007FD382 /* KingfisherManager.swift in Sources */,
 				D8F6D0852419000100B168C5 /* LoggerConfig.swift in Sources */,
@@ -3340,6 +3355,7 @@
 				19E72FE9267C8212006C8EF6 /* BucketImageView.swift in Sources */,
 				D8F6D0F52419486300B168C5 /* ActionButtonViewCell.swift in Sources */,
 				D8F6D1A02419503300B168C5 /* FeedbackTableViewCell.swift in Sources */,
+				194BCCA1263AB8D6007E4F53 /* Address.swift in Sources */,
 				D8F6D1FC2419547C00B168C5 /* FormData.swift in Sources */,
 				D8F6D24E2419588300B168C5 /* TookanHelper.swift in Sources */,
 				D8F6D2D424195DC500B168C5 /* CreatePaymentDataSource.swift in Sources */,

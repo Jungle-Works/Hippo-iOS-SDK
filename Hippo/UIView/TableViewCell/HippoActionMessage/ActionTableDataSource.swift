@@ -32,7 +32,7 @@ class ActionTableDataSource: NSObject, UITableViewDataSource {
         guard message != nil else {
             return 0
         }
-        return message?.type == .dateTime && message?.responseMessage == nil ? ActionTableSections.count - 1 : ActionTableSections.count
+        return (message?.type == .dateTime || message?.type == .address) && message?.responseMessage == nil ? ActionTableSections.count - 1 : ActionTableSections.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

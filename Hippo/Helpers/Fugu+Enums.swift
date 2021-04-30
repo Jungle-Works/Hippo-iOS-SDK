@@ -193,7 +193,7 @@ enum MessageType: Int {
 ////        let botMessages: [MessageType] = [.leadForm, .quickReply, .botText, .consent, .card , .multipleSelect,.normal]
         
 //        let botMessages: [MessageType] = [.leadForm, .quickReply, .botText, .consent, .hippoPay, .actionableMessage, .card , .multipleSelect, .embeddedVideoUrl]//, .address, .dateTime]
-        let botMessages: [MessageType] = [.leadForm, .quickReply, .botText, .consent, .hippoPay, .actionableMessage, .card , .multipleSelect, .normal, .embeddedVideoUrl, .paymentCard, .createTicket,.address, .dateTime]//, .address, .dateTime]
+        let botMessages: [MessageType] = [.leadForm, .quickReply, .botText, .consent, .hippoPay, .actionableMessage, .card , .multipleSelect, .normal, .embeddedVideoUrl, .paymentCard, .createTicket,.address, .dateTime]
 
         return botMessages.contains(self)
     }
@@ -393,7 +393,9 @@ enum FuguEndPoints: String {
     case checkAndCreateCustomer = "api/erpnext/checkAndCreateCustomer"
     case shareMeetLink = "api/meet/createInviteLink"
     case joinJitsiLink = "api/meet/joinInviteLink"
-    
+
+    case searchAddress = "https://nominatim-api-live.jungleworks.com/search"
+
 }
 
 enum AgentEndPoints: String {
