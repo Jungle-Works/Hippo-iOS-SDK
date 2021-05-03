@@ -1018,6 +1018,15 @@
 			);
 			path = Encryption;
 
+
+		192393B4263FFC2E009712FA /* PreviewController */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = PreviewController;
+			sourceTree = "<group>";
+		};
+
 		1928D1CD26397BC4003BACC5 /* SearchAddress */ = {
 			isa = PBXGroup;
 			children = (
@@ -2035,8 +2044,12 @@
 			isa = PBXGroup;
 			children = (
 <<<<<<< HEAD
+<<<<<<< HEAD
 				1967A6FB2670F52E0010613D /* SharedMediaController */,
 =======
+=======
+				192393B4263FFC2E009712FA /* PreviewController */,
+>>>>>>> address handling
 				1971A92526397664004E55B2 /* SearchAddress */,
 				1971A9242639759E004E55B2 /* SearchAgent */,
 >>>>>>> address handling done
