@@ -217,7 +217,7 @@ extension ConversationView {
                 }
             }
             
-            chatTextLabel.text = messageToBeShown
+            chatTextLabel.text = messageToBeShown.withoutHtmlTags
             
         }
         
