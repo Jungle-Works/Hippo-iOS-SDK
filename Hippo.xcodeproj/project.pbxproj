@@ -12,6 +12,7 @@
 		1964B42E25F623B200DC2D6F /* UrlTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1964B42C25F623B200DC2D6F /* UrlTableCell.swift */; };
 		1964B42F25F623B200DC2D6F /* UrlTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1964B42D25F623B200DC2D6F /* UrlTableCell.xib */; };
 		19818C9A25F76B79005417D6 /* Popover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19818C9925F76B79005417D6 /* Popover.swift */; };
+		1999A62A26401BC400F4AF87 /* PreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1999A62926401BC400F4AF87 /* PreviewViewController.swift */; };
 		47B12417C887BBD208902F39 /* Pods_Hippo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C0A922564912516EF04B93F /* Pods_Hippo.framework */; };
 		6B1011F2248128D2007FC8EC /* loader.gif in Resources */ = {isa = PBXBuildFile; fileRef = 6B1011F1248128D2007FC8EC /* loader.gif */; };
 		6B3C8F8C258A3D920086BD7F /* SupportChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B3C8F8B258A3D920086BD7F /* SupportChatViewController.swift */; };
@@ -439,6 +440,7 @@
 		1964B42C25F623B200DC2D6F /* UrlTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlTableCell.swift; sourceTree = "<group>"; };
 		1964B42D25F623B200DC2D6F /* UrlTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UrlTableCell.xib; sourceTree = "<group>"; };
 		19818C9925F76B79005417D6 /* Popover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Popover.swift; sourceTree = "<group>"; };
+		1999A62926401BC400F4AF87 /* PreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewViewController.swift; sourceTree = "<group>"; };
 		6B01EEB324B899B100B778C7 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/HippoLocalizable.strings; sourceTree = "<group>"; };
 		6B1011F1248128D2007FC8EC /* loader.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = loader.gif; sourceTree = "<group>"; };
 		6B3C8F8B258A3D920086BD7F /* SupportChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportChatViewController.swift; sourceTree = "<group>"; };
@@ -972,6 +974,14 @@
 				19818C9925F76B79005417D6 /* Popover.swift */,
 			);
 			path = PopOver;
+			sourceTree = "<group>";
+		};
+		1999A62826401B7B00F4AF87 /* Preview */ = {
+			isa = PBXGroup;
+			children = (
+				1999A62926401BC400F4AF87 /* PreviewViewController.swift */,
+			);
+			path = Preview;
 			sourceTree = "<group>";
 		};
 		2147B1B6158113464954FE5C /* Pods */ = {
@@ -1854,6 +1864,7 @@
 		C9B77DAD21A01B060092848D /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				1999A62826401B7B00F4AF87 /* Preview */,
 				6BBBEA8124991C5900C3E1CE /* Popup */,
 				D88B900024657E2400E3093F /* FilterViewController.swift */,
 				D8F6D2BA24195D5800B168C5 /* NLevelViewController.swift */,
@@ -3106,6 +3117,7 @@
 				C9B77E6F21A01B060092848D /* MessageSender.swift in Sources */,
 				192D0AA925F68FBF0065C828 /* CreateTicketAttachmentHelper.swift in Sources */,
 				1964B42E25F623B200DC2D6F /* UrlTableCell.swift in Sources */,
+				1999A62A26401BC400F4AF87 /* PreviewViewController.swift in Sources */,
 				D88B20E024619F90007FD382 /* UIButton+Kingfisher.swift in Sources */,
 				C9B77EC721A01B070092848D /* IQTextView.swift in Sources */,
 				D88B20E724619F90007FD382 /* ImageDownloader.swift in Sources */,
