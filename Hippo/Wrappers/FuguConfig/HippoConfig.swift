@@ -150,6 +150,7 @@ struct BotAction {
     internal var resellerToken = ""
     internal var referenceId = -1
     internal var appType: String?
+    internal var offering: Int?
     internal var credentialType = FuguCredentialType.defaultType
     var isSkipBot:Bool = false
     internal var baseUrl =      SERVERS.liveUrl     // SERVERS.betaUrl//
@@ -268,10 +269,11 @@ struct BotAction {
         self.theme = theme
     }
     
-    public func setCredential(withAppSecretKey appSecretKey: String, appType: String? = nil) {
+    public func setCredential(withAppSecretKey appSecretKey: String, appType: String? = nil, offering: Int = 0) {
         self.credentialType = FuguCredentialType.defaultType
         self.appSecretKey = appSecretKey
         self.appType = appType
+        self.offering = offering
     }
     
     public func setCredential(withToken token: String, referenceId: Int, appType: String) {

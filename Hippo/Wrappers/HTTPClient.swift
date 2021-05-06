@@ -142,6 +142,10 @@ class HTTPClient {
                ] as [String : Any]
         }
         
+        if currentUserType() == .customer {
+            additionalParams["offering"] = HippoConfig.shared.offering
+        }
+        
         additionalParams += para ?? [:]
         
         var newExtendedURL = extendedUrl
@@ -209,6 +213,10 @@ class HTTPClient {
             "device_details": AgentDetail.getDeviceDetails(),
             "lang" : getCurrentLanguageLocale()
         ]
+        
+        if currentUserType() == .customer {
+            additionalParams["offering"] = HippoConfig.shared.offering
+        }
         
         //appending parameters
         additionalParams += para ?? [:]
