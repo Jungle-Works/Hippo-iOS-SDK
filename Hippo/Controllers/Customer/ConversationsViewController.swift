@@ -2239,6 +2239,9 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                  return cell
                  
              default:
+                if message.fileUrl != nil{
+                   return getCellForMessageWithAttachment(tableView: tableView, isOutgoingMessage: isOutgoingMsg, message: message, indexPath: indexPath)
+                }
                  return getNormalMessageTableViewCell(tableView: tableView, isOutgoingMessage: isOutgoingMsg, message: message, indexPath: indexPath)
              }
           }
@@ -2254,6 +2257,35 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
          
      }
     }
+    
+    func getCellForMessageWithAttachment(tableView: UITableView, isOutgoingMessage: Bool, message: HippoMessage, indexPath: IndexPath) -> UITableViewCell{
+        
+        if isOutgoingMessage {
+            if message.documentType == .image {
+                guard
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingImageCell", for: indexPath) as? OutgoingImageCell
+                else {
+                    let cell = UITableViewCell()
+                    cell.backgroundColor = .clear
+                    return cell
+                }
+                cell.messageLongPressed = {[weak self](message) in
+                    DispatchQueue.main.async {
+                        self?.longPressOnMessage(message: message, indexPath: indexPath)
+                    }
+                }
+                cell.delegate = self
+                cell.configureCellOfOutGoingImageCell(resetProperties: true, chatMessageObject: message, indexPath: indexPath)
+                return cell
+            }
+        }
+        
+        return UITableViewCell()
+        
+    }
+    
+    
+    
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView == customTableView{
@@ -2325,7 +2357,7 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                 
                 switch messageType {
                 case MessageType.imageFile:
-                    return 288
+                    return UITableView.automaticDimension
 //                case MessageType.botText:
 //                    var rowHeight = expectedHeight(OfMessageObject: message)
 //

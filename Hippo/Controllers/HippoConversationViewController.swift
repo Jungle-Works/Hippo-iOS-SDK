@@ -932,13 +932,24 @@ extension HippoConversationViewController: SelectImageViewControllerDelegate {
         //            }
         //        }
         selectedImageVC.dismiss(animated: true) {
-            if self.presentedViewController == self.imagePicker {
-                self.imagePicker.dismiss(animated: false) {
-                    self.sendConfirmedImage(image: selectedImage, mediaType: .imageType)
-                }
-            } else {
-                self.sendConfirmedImage(image: selectedImage, mediaType: .imageType)
+            guard let vc = UIStoryboard(name: "FuguUnique", bundle: FuguFlowManager.bundle).instantiateViewController(withIdentifier: "PreviewViewController") as? PreviewViewController else {
+                return
             }
+            vc.fileType = .image
+            vc.image = selectedImage
+            vc.sendBtnTapped = {[weak self](message) in
+                DispatchQueue.main.async {
+                    if self?.presentedViewController == self?.imagePicker {
+                        self?.imagePicker.dismiss(animated: false) {
+                            self?.sendConfirmedImage(message: message, image: selectedImage, mediaType: .imageType)
+                        }
+                    } else {
+                        self?.sendConfirmedImage(message: message, image: selectedImage, mediaType: .imageType)
+                    }
+                }
+            }
+            self.navigationController?.present(vc, animated: true, completion: nil)
+        
             HippoConfig.shared.UnhideJitsiView()
         }
         
@@ -1063,7 +1074,7 @@ extension HippoConversationViewController {
         publishMessageOnChannel(message: message)
     }
     
-    func sendConfirmedImage(image confirmedImage: UIImage, mediaType: CoreMediaSelector.Result.MediaType ) {
+    func sendConfirmedImage(message : String?, image confirmedImage: UIImage, mediaType: CoreMediaSelector.Result.MediaType) {
         var imageExtention: String = ".jpg"
         let imageData: Data?
         
@@ -1097,7 +1108,7 @@ extension HippoConversationViewController {
         ((try? imageData?.write(to: URL(fileURLWithPath: imageFilePath), options: [.atomic])) as ()??)
         
         if imageFilePath.isEmpty == false {
-            self.imageSelectedToSendWith(localPath: imageFilePath, imageSize: confirmedImage.size)
+            self.imageSelectedToSendWith(message: message, localPath: imageFilePath, imageSize: confirmedImage.size)
         }
     }
     func PrepareUploadAndSendImage(message: HippoMessage) {
@@ -1113,8 +1124,8 @@ extension HippoConversationViewController {
         }
     }
     
-    func imageSelectedToSendWith(localPath: String, imageSize: CGSize) {
-        let message = HippoMessage(message: "", type: .imageFile, uniqueID: generateUniqueId(), localFilePath: localPath, chatType: channel?.chatDetail?.chatType)
+    func imageSelectedToSendWith(message : String?, localPath: String, imageSize: CGSize) {
+        let message = HippoMessage(message: message ?? "", type: message == "" ? .imageFile : .normal, uniqueID: generateUniqueId(), localFilePath: localPath, chatType: channel?.chatDetail?.chatType)
         message.fileName = localPath.fileName()
         message.imageWidth = Float(imageSize.width)
         message.imageHeight = Float(imageSize.height)

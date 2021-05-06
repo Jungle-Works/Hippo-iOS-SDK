@@ -15,8 +15,12 @@ class PreviewViewController: UIViewController {
     
     var image : UIImage?
     var fileType : FileType?
+    var sendBtnTapped : ((String?)->())?
     
     //MARK:- IBOutlet
+    
+    @IBOutlet private var viewNavigation : NavigationBar!
+    
     @IBOutlet var textView_PrivateNotes : UITextView!{
         didSet{
             textView_PrivateNotes.delegate = self
@@ -25,12 +29,15 @@ class PreviewViewController: UIViewController {
     @IBOutlet var imageView_Preview : UIImageView!
     @IBOutlet var label_Placeholder : UILabel!{
         didSet{
-            label_Placeholder.text = HippoStrings.privateMessagePlaceHolder
+            label_Placeholder.text = HippoStrings.messagePlaceHolderText
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        HippoKeyboardManager.shared.enable = true
+        viewNavigation.title = "Preview"
+        viewNavigation.leftButton.addTarget(self, action: #selector(action_BackBtn), for: .touchUpInside)
         
         if fileType == .document{
             imageView_Preview.contentMode = .center
@@ -42,7 +49,11 @@ class PreviewViewController: UIViewController {
     
     }
     
-
+    override func viewDidDisappear(_ animated: Bool) {
+        HippoKeyboardManager.shared.enable = false
+        HippoKeyboardManager.shared.keyboardDistanceFromTextField = 0
+    }
+    
 }
 extension PreviewViewController : UITextViewDelegate{
     func textViewDidChange(_ textView: UITextView) {
@@ -52,11 +63,11 @@ extension PreviewViewController : UITextViewDelegate{
 
 extension PreviewViewController{
     @IBAction func action_SendBtn(){
-       // sendTapped?(textView_PrivateNotes.text ?? "" == "" ? "N/A" : textView_PrivateNotes.text, mentionListener.mentions)
+        sendBtnTapped?(textView_PrivateNotes.text)
         action_BackBtn()
     }
     
     @IBAction func action_BackBtn(){
-        self.navigationController?.popViewController(animated: true)
+        self.dismiss(animated: true, completion: nil)
     }
 }
