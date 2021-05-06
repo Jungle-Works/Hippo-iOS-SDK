@@ -109,7 +109,13 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     @IBOutlet private var viewRecord : RecordView!
     @IBOutlet private var stackViewButton : UIStackView!
 
-    @IBOutlet var buttonCalendar : UIButton!
+
+    @IBOutlet var buttonCalendar : UIButton!{
+        didSet{
+            buttonCalendar.imageView?.tintColor = HippoConfig.shared.theme.themeColor
+            buttonCalendar.setImage(UIImage(named: "Datetime", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate), for: .normal)
+        }
+    }
 
     
     
@@ -3050,6 +3056,7 @@ extension ConversationsViewController: HippoChannelDelegate {
         
         if message.type != .dateTime && message.type != .address {
             buttonCalendar.isHidden = true
+            addFileButtonAction.isHidden = false
             addFileButtonAction.isEnabled = true
             placeHolderLabel.text = HippoStrings.messagePlaceHolderText
         }
