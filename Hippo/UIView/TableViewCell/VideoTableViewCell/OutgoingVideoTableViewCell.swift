@@ -10,10 +10,12 @@ import UIKit
 
 class OutgoingVideoTableViewCell: VideoTableViewCell {
    
-   @IBOutlet weak var uploadActivityIndicator: UIActivityIndicatorView!
-   @IBOutlet weak var retryUploadButton: UIButton!
-   @IBOutlet weak var messageStatusImageView: UIImageView!
-   
+    @IBOutlet weak var uploadActivityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var retryUploadButton: UIButton!
+    @IBOutlet weak var messageStatusImageView: UIImageView!
+    @IBOutlet var constraintHeightTextView : NSLayoutConstraint!
+    @IBOutlet weak var textView: UITextView!
+    
     weak var retryDelegate: RetryMessageUploadingDelegate?
     var messageLongPressed : ((HippoMessage)->())?
     
@@ -46,26 +48,33 @@ class OutgoingVideoTableViewCell: VideoTableViewCell {
    }
 
    
-   func setCellWith(message: HippoMessage) {
-      self.message?.statusChanged = nil
-    
-    super.intalizeCell(with: message, isIncomingView: false)
-    
-//      self.forwardButtonView.isHidden = message.status == .none
-      
-      message.statusChanged = { [weak self] in
-         DispatchQueue.main.async {
-            self?.setCellWith(message: message)
-         }
-         
-      }
-      
-      setDisplayView()
-      setUploadingView()
-      setMessageStatusView()
-      setDownloadView()
-      setBottomDistance()
-   }
+    func setCellWith(message: HippoMessage) {
+        self.message?.statusChanged = nil
+        
+        super.intalizeCell(with: message, isIncomingView: false)
+        
+        //      self.forwardButtonView.isHidden = message.status == .none
+        
+        message.statusChanged = { [weak self] in
+            DispatchQueue.main.async {
+                self?.setCellWith(message: message)
+            }
+            
+        }
+        
+        setDisplayView()
+        setUploadingView()
+        setMessageStatusView()
+        setDownloadView()
+        setBottomDistance()
+        if message.message != "" {
+            constraintHeightTextView.isActive = false
+            textView.text = message.message
+        }else {
+            constraintHeightTextView.isActive = true
+        }
+        
+    }
    
    func setUploadingView() {
       retryUploadButton.isHidden = true

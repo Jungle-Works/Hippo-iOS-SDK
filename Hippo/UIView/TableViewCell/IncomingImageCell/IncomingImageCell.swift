@@ -21,6 +21,8 @@ class IncomingImageCell: MessageTableViewCell {
     @IBOutlet weak var topConstraint: NSLayoutConstraint!
     @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var retryButton: UIButton!
+    @IBOutlet weak var textView: UITextView!
+    @IBOutlet weak var constraintHeight: NSLayoutConstraint!
     
     // MARK: - Variables
     weak var delegate: ImageCellDelegate?
@@ -120,7 +122,7 @@ extension IncomingImageCell {
             timeLabel.text = "\t" + "\(timeOfMessage)"
         }
         
-        if let thumbnailUrl = chatMessageObject.thumbnailUrl, thumbnailUrl.isEmpty == false, let url = URL(string: thumbnailUrl) {
+        if let thumbnailUrl = chatMessageObject.thumbnailUrl ?? chatMessageObject.fileUrl, thumbnailUrl.isEmpty == false, let url = URL(string: thumbnailUrl) {
             setupIndicatorView(true)
             let placeHolderImage = HippoConfig.shared.theme.placeHolderImage
             
@@ -131,7 +133,11 @@ extension IncomingImageCell {
                 }
             })
         }
-        
+        textView.text = message?.message
+       // constraintHeight.isActive = message?.message ?? "" == "" ? true : false
+//        if message?.message ?? "" == "" {
+//            constraintHeight.constant = 0
+//        }
         return self
     }
     

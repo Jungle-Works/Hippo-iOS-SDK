@@ -11,6 +11,8 @@ import UIKit
 class IncomingVideoTableViewCell: VideoTableViewCell {
     
     @IBOutlet weak var senderNameLabel: UILabel!
+    @IBOutlet var constraintHeightTextView : NSLayoutConstraint!
+    @IBOutlet weak var textView: UITextView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -56,6 +58,13 @@ class IncomingVideoTableViewCell: VideoTableViewCell {
         setDisplayView()
         setDownloadView()
         setBottomDistance()
+        
+        if message.message != "" {
+            constraintHeightTextView.isActive = false
+            textView.text = message.message
+        }else {
+            constraintHeightTextView.isActive = true
+        }
     }
     
 }
