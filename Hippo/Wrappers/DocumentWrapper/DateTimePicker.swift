@@ -33,9 +33,7 @@ class DateTimePicker : UIViewController{
         dateFormatHash["YYYY-MM-DD"] = "yyyy-MM-dd"
         
         picker?.locale = .current
-        if #available(iOS 14.0, *) {
-            picker?.preferredDatePickerStyle = .inline
-        }
+
         picker?.addTarget(self, action: #selector(handleDateSelection), for: .valueChanged)
         setDateMode()
     }
