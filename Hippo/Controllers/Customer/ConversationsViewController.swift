@@ -1183,6 +1183,8 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
                 self.updateUIForCalendar(message: message)
             }else if message.type == .address {
                 setUIForAddress()
+            }else if message.type == .botAttachment {
+                setUIForBotAttachment()
             }
         }
         
@@ -2302,7 +2304,7 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                          return cell
                      }
                  }
-             case .consent, .dateTime, .address:
+             case .consent, .dateTime, .address, .botAttachment:
                  guard let cell = tableView.dequeueReusableCell(withIdentifier: "ActionTableView", for: indexPath) as? ActionTableView, let actionMessage = message as? HippoActionMessage else {
                      return UITableView.defaultCell()
                  }
@@ -2471,7 +2473,7 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
 //                    }
                  //   rowHeight += 7 //Height for bottom view
                     return UIView.tableAutoDimensionHeight
-                case .consent, .dateTime, .address:
+                case .consent, .dateTime, .address, .botAttachment:
                     return (message.cellDetail?.cellHeight ?? 0.01 + 20)
                 case MessageType.call:
                     return UIView.tableAutoDimensionHeight
@@ -2982,6 +2984,12 @@ extension ConversationsViewController: HippoChannelDelegate {
         self.placeHolderLabel.text = HippoStrings.selectAddress
     }
     
+    private func setUIForBotAttachment() {
+        buttonCalendar.isHidden = true
+        addFileButtonAction.isEnabled = true
+        self.messageTextView.isUserInteractionEnabled = false
+        self.placeHolderLabel.text = HippoStrings.chooseFile
+    }
     
     @IBAction func actionCalendar() {
         let dateTimePicker = UIStoryboard(name: "FuguUnique", bundle: FuguFlowManager.bundle).instantiateViewController(withIdentifier: "DateTimePicker") as! DateTimePicker
@@ -3018,6 +3026,8 @@ extension ConversationsViewController: HippoChannelDelegate {
         
         isTypingLabelHidden = message.typingStatus != .startTyping
         switch message.type {
+        case .botAttachment:
+            setUIForBotAttachment()
         case .address:
             setUIForAddress()
         case .dateTime:

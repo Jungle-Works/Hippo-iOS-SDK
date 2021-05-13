@@ -682,7 +682,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
             json["user_id"] = currentUserId()
             json["values"] = [selectedActionId]
             json["content_value"] = contentValues
-        } else if type == .dateTime || type == .address {
+        } else if type == .dateTime || type == .address || type == .botAttachment{
             json["custom_action"] = actionableMessage?.customActionJson
         }
         
@@ -1100,7 +1100,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         var tempMessage: HippoMessage?
         
         switch type {
-        case .consent, .dateTime, .address:
+        case .consent, .dateTime, .address, .botAttachment:
             tempMessage = HippoActionMessage(dict: messageJson)
         default:
             tempMessage = HippoMessage(dict: messageJson)

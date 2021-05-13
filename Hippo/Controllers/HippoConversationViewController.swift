@@ -957,25 +957,34 @@ extension HippoConversationViewController {
         }
         let uniqueName = DownloadManager.generateNameWhichDoestNotExistInCacheDirectoryWith(name: fileName)
         saveDocumentInCacheDirectoryWith(name: uniqueName, orignalFilePath: filePath)
-        
-        let message = HippoMessage(message: "", type: messageType, uniqueID: generateUniqueId(), imageUrl: nil, thumbnailUrl: nil, localFilePath: filePath, chatType: channel?.chatDetail?.chatType)
-        
-        message.fileName = uniqueName
-        message.localImagePath = getCacheDirectoryUrlForFileWith(name: uniqueName).path
-        
-        //Changing messageType in case if new selected file is of image type
-        let concreteType = message.concreteFileType ?? .document
-        switch concreteType {
-        case .image:
-            message.type = .imageFile
-            if let image = UIImage(contentsOfFile: filePath) {
-                let size = image.size
-                message.imageHeight = Float(size.height)
-                message.imageWidth = Float(size.width)
+        if let message = messagesGroupedByDate.last?.last as? HippoActionMessage, message.type == .botAttachment {
+            message.fileName = uniqueName
+            message.localImagePath = getCacheDirectoryUrlForFileWith(name: uniqueName).path
+            self.UploadAndSendMessage(message: message)
+        }else {
+            let message = HippoMessage(message: "", type: messageType, uniqueID: generateUniqueId(), imageUrl: nil, thumbnailUrl: nil, localFilePath: filePath, chatType: channel?.chatDetail?.chatType)
+            
+            message.fileName = uniqueName
+            message.localImagePath = getCacheDirectoryUrlForFileWith(name: uniqueName).path
+            
+            //Changing messageType in case if new selected file is of image type
+            let concreteType = message.concreteFileType ?? .document
+            switch concreteType {
+            case .image:
+                message.type = .imageFile
+                if let image = UIImage(contentsOfFile: filePath) {
+                    let size = image.size
+                    message.imageHeight = Float(size.height)
+                    message.imageWidth = Float(size.width)
+                }
+            default:
+                break
             }
-        default:
-            break
+            self.UploadAndSendMessage(message: message)
         }
+        
+        
+        
         //Checking if channel is created or not
 //        if channel != nil {
 //            self.UploadAndSendMessage(message: message)
@@ -984,7 +993,7 @@ extension HippoConversationViewController {
 //                guard success else {
 //                    return
 //                }
-                self.UploadAndSendMessage(message: message)
+                
 //            }
 //        }
         
@@ -1058,7 +1067,17 @@ extension HippoConversationViewController {
     }
     
     func handleUploadSuccessOfFileIn(message: HippoMessage) {
-        DownloadManager.shared.addAlreadyDownloadedFileWith(name: message.fileName!, WRTurl: message.fileUrl!)
+        var url = ""
+        var name = ""
+        if let message = message as? HippoActionMessage {
+            url = message.responseMessage?.fileUrl ?? ""
+            name = message.responseMessage?.fileName ?? ""
+        }else {
+            url = message.fileUrl ?? ""
+            name = message.fileName ?? ""
+        }
+        
+        DownloadManager.shared.addAlreadyDownloadedFileWith(name: name, WRTurl: url)
         message.localImagePath = nil
         publishMessageOnChannel(message: message)
     }
@@ -1114,11 +1133,31 @@ extension HippoConversationViewController {
     }
     
     func imageSelectedToSendWith(localPath: String, imageSize: CGSize) {
-        let message = HippoMessage(message: "", type: .imageFile, uniqueID: generateUniqueId(), localFilePath: localPath, chatType: channel?.chatDetail?.chatType)
-        message.fileName = localPath.fileName()
-        message.imageWidth = Float(imageSize.width)
-        message.imageHeight = Float(imageSize.height)
-        PrepareUploadAndSendImage(message: message)
+        if let message = messagesGroupedByDate.last?.last as? HippoActionMessage, message.type == .botAttachment {
+            message.localImagePath = localPath
+            message.selectBtnWith(btnId: "")
+            PrepareUploadAndSendImage(message: message)
+        }else {
+            let message = HippoMessage(message: "", type: .imageFile, uniqueID: generateUniqueId(), localFilePath: localPath, chatType: channel?.chatDetail?.chatType)
+            message.fileName = localPath.fileName()
+            message.imageWidth = Float(imageSize.width)
+            message.imageHeight = Float(imageSize.height)
+            PrepareUploadAndSendImage(message: message)
+        }
+    }
+    
+    
+    func getBotAttachmentContent(path: String, thumnailUrl: String, name: String) -> [[String : Any]]{
+        var dic = [[String : Any]]()
+        var dateDic = [String : Any]()
+        dateDic["attachment_url"] = path
+        dateDic["file_name"] = name
+        dateDic["thumbnail_url"] = thumnailUrl
+        dateDic["url"] = path
+        dateDic["file_type"] = path.mimeTypeForPath()
+        dateDic["document_type"] = FileType(mimeType: path.mimeTypeForPath()).rawValue
+        dic.append(dateDic)
+        return dic
     }
     
     func saveImageInKingfisherCacheFor(message: HippoMessage) {
@@ -1168,10 +1207,15 @@ extension HippoConversationViewController {
                 return
             }
             
-            message.wasMessageSendingFailed = false
-            message.imageUrl = result.imageUrl
-            message.thumbnailUrl = result.imageThumbnailUrl
-            message.fileUrl = result.fileUrl
+            if message.type == .botAttachment {
+                message.contentValues = self?.getBotAttachmentContent(path: result.fileUrl ?? "", thumnailUrl: result.imageThumbnailUrl ?? "", name: result.fileUrl?.fileName() ?? "") ?? [[String : Any]]()
+                (message as? HippoActionMessage)?.selectBtnWith(btnId: "")
+            }else {
+                message.wasMessageSendingFailed = false
+                message.imageUrl = result.imageUrl
+                message.thumbnailUrl = result.imageThumbnailUrl
+                message.fileUrl = result.fileUrl
+            }
             completion(true)
         })
     }

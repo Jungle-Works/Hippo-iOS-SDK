@@ -74,7 +74,7 @@ class MessageTableViewCell: UITableViewCell {
 //            setNameAsTitle(message.senderFullName)
 //        }
         
-        let isMessageAllowedForImage = message.type == .consent  || message.belowMessageType == .card || message.belowMessageType == .paymentCard || message.aboveMessageType == .consent || message.type == .dateTime || message.type == .address
+        let isMessageAllowedForImage = message.type == .consent  || message.belowMessageType == .card || message.belowMessageType == .paymentCard || message.aboveMessageType == .consent || message.type == .dateTime || message.type == .botAttachment || message.type == .address
         
         if (message.aboveMessageUserId == message.senderId && !isMessageAllowedForImage) {
             unsetImageInSender()

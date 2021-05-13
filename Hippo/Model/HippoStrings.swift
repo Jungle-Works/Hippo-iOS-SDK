@@ -225,7 +225,8 @@ public class HippoStrings {
     static var selectDate = "Select Date"
     static var selectTime = "Select Time"
     static var selectAddress = "Enter Address"
-    
+    static var chooseFile = "Choose your file"
+
     open var cameraString = "New Image via Camera"
     open var displayNameForCustomers = "Fleet"
     open var broadCastTitle = "This will send message to your active*"
