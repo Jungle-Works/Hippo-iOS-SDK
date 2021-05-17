@@ -10,6 +10,11 @@ import UIKit
 
 class IncomingDocumentTableViewCell: DocumentTableViewCell {
     
+    //MARK:- IBOutlets
+    @IBOutlet var constraintHeightTextView : NSLayoutConstraint!
+    @IBOutlet weak var textView: UITextView!
+    
+    
     override func awakeFromNib() {
       super.awakeFromNib()
       
@@ -24,6 +29,12 @@ class IncomingDocumentTableViewCell: DocumentTableViewCell {
         
         
         updateUI()
+        if message.message != "" {
+            constraintHeightTextView.isActive = false
+            textView.text = message.message
+        }else {
+            constraintHeightTextView.isActive = true
+        }
     }
     
     func setUIAccordingToTheme() {
