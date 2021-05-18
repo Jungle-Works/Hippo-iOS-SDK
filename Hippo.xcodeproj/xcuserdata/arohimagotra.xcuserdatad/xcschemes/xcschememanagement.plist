@@ -8,6 +8,7 @@
 		<dict>
 			<key>orderHint</key>
 <<<<<<< HEAD
+<<<<<<< HEAD
 			<integer>0</integer>
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -30,6 +31,9 @@
 >>>>>>> CreateTicketCustomer
 >>>>>>> code merged with create ticket in customer sdk
 >>>>>>> code merged with create ticket in customer sdk
+=======
+			<integer>0</integer>
+>>>>>>> socket encryption changes
 		</dict>
 	</dict>
 </dict>

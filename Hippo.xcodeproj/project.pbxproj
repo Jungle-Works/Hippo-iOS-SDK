@@ -2053,11 +2053,19 @@
 		C9B77DC321A01B060092848D /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+<<<<<<< HEAD
 
 				190671822652A04900DC00C7 /* Encryption */,
 
 				19AE5329266F596400342DA0 /* ShareUrl */,
 
+=======
+<<<<<<< HEAD
+				19AE5329266F596400342DA0 /* ShareUrl */,
+=======
+				190671822652A04900DC00C7 /* Encryption */,
+>>>>>>> socket encryption changes
+>>>>>>> socket encryption changes
 				192D0AA325F68F8E0065C828 /* CreateTicket */,
 				D88B9010246672EA00E3093F /* FilterManager.swift */,
 				190671832652A06600DC00C7 /* aes.js */,
