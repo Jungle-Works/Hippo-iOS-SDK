@@ -25,6 +25,20 @@ class SocketClient: NSObject {
     private var handshakeListener : ((Array<Any>, SocketAckEmitter) -> ())!
     private var subscribeChannelListener : ((Array<Any>, SocketAckEmitter) -> ())!
     private var unsubscribeChannelListener : ((Array<Any>, SocketAckEmitter) -> ())!
+    private var authentication: [String: Any]{
+        get {
+            var authData = [String : Any]()
+            authData["en_user_id"] = currentEnUserId()
+            authData["created_at"] = "\(Date())"
+            authData["user_type"] = currentUserType().rawValue
+            if currentUserType() == .agent {
+                authData["access_token"] = HippoConfig.shared.agentDetail?.fuguToken ?? ""
+            }else {
+                authData["device_key"] = HippoConfig.shared.deviceKey
+            }
+            return authData
+        }
+    }
 
     // MARK: Computed properties
     private var socketURL: String {
@@ -36,6 +50,13 @@ class SocketClient: NSObject {
     // MARK: Init
     private override init() {
         super.init()
+        if currentUserType() == .customer && HippoConfig.shared.deviceKey == "" {
+            return
+        }else {
+            if HippoConfig.shared.agentDetail?.fuguToken ?? "" == "" {
+                return
+            }
+        }
         addObserver()
         deinitializeListeners()
         manager = nil
@@ -53,8 +74,12 @@ class SocketClient: NSObject {
     
     // MARK: Methods
     private func socketSetup(){
+        let auth = jsonToString(json: authentication)
+        let encryptedAuth = CryptoJS.AES().encrypt(auth, password: getSecretKey())
+        
+        
         if let url = URL(string: socketURL){
-            manager = SocketManager(socketURL: url, config: [.reconnectWait(Int(2)), .reconnectAttempts(0), .compress, .forcePolling(false), .forceWebsockets(true)])
+            manager = SocketManager(socketURL: url, config: [.reconnectWait(Int(2)), .reconnectAttempts(0), .compress, .forcePolling(false), .forceWebsockets(true), .connectParams(["auth_token" : encryptedAuth, "device_type" : Device_Type_iOS])])
         }
         
         socket = manager?.defaultSocket
@@ -63,7 +88,14 @@ class SocketClient: NSObject {
         socket?.connect()
     }
     
-    
+    private func getSecretKey() -> String {
+        if HippoConfig.shared.baseUrl == SERVERS.betaUrl  {
+            return PrivateSocketKeys.beta.rawValue
+        }else {
+            return PrivateSocketKeys.dev.rawValue
+        }
+    }
+
     private func initListeners(){
         onConnectCallBack = {[weak self](arr, ack) in
             NotificationCenter.default.post(name: .socketConnected, object: nil)
@@ -143,6 +175,17 @@ class SocketClient: NSObject {
         manager = nil
         socket = nil
         NotificationCenter.default.removeObserver(self)
+    }
+    
+    func jsonToString(json: [String : Any]) -> String{
+        do {
+            let data1 =  try JSONSerialization.data(withJSONObject: json, options: JSONSerialization.WritingOptions.prettyPrinted) // first of all convert json to the data
+            guard let convertedString = String(data: data1, encoding: String.Encoding.utf8) else { return "" } // the data will be converted to the string
+            return convertedString // <-- here is ur string
+            
+        } catch _ {
+            return ""
+        }
     }
 }
 

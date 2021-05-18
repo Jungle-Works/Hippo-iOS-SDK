@@ -31,16 +31,23 @@ enum AgentUserType: Int {
     case admin = 13
 }
 
+enum PrivateSocketKeys: String {
+    case dev = "aTT%qC>i2to<AANI"
+    case beta = "aTbetaT%qC>i2to<AANI"
+  
+}
+
+
 struct SERVERS {
 
 static let liveUrl = "https://api.hippochat.io/"
 static let liveFaye = "https://socketv2.hippochat.io/faye"
 
-static let betaUrl = "https://beta-live-api.fuguchat.com:3001/"
-static let betaFaye = "https://beta-live-api.fuguchat.com:3001/faye"
+static let betaUrl = "https://beta-live-api1.fuguchat.com:3003/"
+static let betaFaye = "https://beta-live-api1.fuguchat.com:3003"
 
-static let devUrl = "https://hippo-api-dev.fuguchat.com:3004/"
-static let devFaye = "https://hippo-api-dev.fuguchat.com:3004/faye"
+static let devUrl = "https://hippo-api-dev1.fuguchat.com:3002/"
+static let devFaye = "https://hippo-api-dev1.fuguchat.com:3002"
 
 
 }
@@ -144,7 +151,7 @@ struct BotAction {
         }
     }
     
-    
+    var deviceKey : String = ""
     open var appName: String = ""
     internal var appUserType = AppUserType.customer
     internal var resellerToken = ""

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		190671842652A06600DC00C7 /* aes.js in Resources */ = {isa = PBXBuildFile; fileRef = 190671832652A06600DC00C7 /* aes.js */; };
+		190671872652A0B300DC00C7 /* CryptoJS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 190671862652A0B300DC00C7 /* CryptoJS.swift */; };
 		192D0AA525F68FA90065C828 /* CreateTicketViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 192D0AA425F68FA90065C828 /* CreateTicketViewModel.swift */; };
 		192D0AA925F68FBF0065C828 /* CreateTicketAttachmentHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 192D0AA825F68FBF0065C828 /* CreateTicketAttachmentHelper.swift */; };
 		1964B42E25F623B200DC2D6F /* UrlTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1964B42C25F623B200DC2D6F /* UrlTableCell.swift */; };
@@ -434,6 +436,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		190671832652A06600DC00C7 /* aes.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = aes.js; sourceTree = "<group>"; };
+		190671862652A0B300DC00C7 /* CryptoJS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CryptoJS.swift; sourceTree = "<group>"; };
 		192D0AA425F68FA90065C828 /* CreateTicketViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTicketViewModel.swift; sourceTree = "<group>"; };
 		192D0AA825F68FBF0065C828 /* CreateTicketAttachmentHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTicketAttachmentHelper.swift; sourceTree = "<group>"; };
 		1964B42C25F623B200DC2D6F /* UrlTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlTableCell.swift; sourceTree = "<group>"; };
@@ -946,6 +950,14 @@
 				8C0A922564912516EF04B93F /* Pods_Hippo.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		190671822652A04900DC00C7 /* Encryption */ = {
+			isa = PBXGroup;
+			children = (
+				190671862652A0B300DC00C7 /* CryptoJS.swift */,
+			);
+			path = Encryption;
 			sourceTree = "<group>";
 		};
 		192D0AA325F68F8E0065C828 /* CreateTicket */ = {
@@ -1913,8 +1925,10 @@
 		C9B77DC321A01B060092848D /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				190671822652A04900DC00C7 /* Encryption */,
 				192D0AA325F68F8E0065C828 /* CreateTicket */,
 				D88B9010246672EA00E3093F /* FilterManager.swift */,
+				190671832652A06600DC00C7 /* aes.js */,
 				D8F6D23C2419587C00B168C5 /* UIImageView+Extension.swift */,
 				D8F6D23D2419587D00B168C5 /* FuguNetworkHandler.swift */,
 				D8F6D23F2419587E00B168C5 /* CountryCode.swift */,
@@ -2783,6 +2797,7 @@
 				6BA8B19E24784E1B00E7E087 /* NavigationBarChat.xib in Resources */,
 				D8F6D1AE2419510F00B168C5 /* TitilliumWeb-SemiBold.ttf in Resources */,
 				D848D1BB245EEF9700235322 /* PaymentPlanHomeCell.xib in Resources */,
+				190671842652A06600DC00C7 /* aes.js in Resources */,
 				D8F6D12B24194B6500B168C5 /* ActionableMessageTableViewCell.xib in Resources */,
 				D8F6D12224194B0700B168C5 /* AssignedAgentTableViewCell.xib in Resources */,
 				D8F6D16E24194E8700B168C5 /* ChatInfoActionCell.xib in Resources */,
@@ -2889,6 +2904,7 @@
 				D8F6D2B024195C3300B168C5 /* IQUIView+Hierarchy.swift in Sources */,
 				D8F6D2122419547C00B168C5 /* HippoMessage.swift in Sources */,
 				D8F6D2092419547C00B168C5 /* FuguChannelTag.swift in Sources */,
+				190671872652A0B300DC00C7 /* CryptoJS.swift in Sources */,
 				D88B20DF24619F90007FD382 /* Resource.swift in Sources */,
 				D8F6D11724194A3200B168C5 /* LeadTableViewCell.swift in Sources */,
 				6B7C5FB32587A17000D85BA2 /* SearchAgentTableViewCell.swift in Sources */,

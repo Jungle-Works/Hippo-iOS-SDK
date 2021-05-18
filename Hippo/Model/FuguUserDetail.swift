@@ -324,6 +324,11 @@ public class UserTag: NSObject {
                 subscribeMarkConversation()
             }
             
+            if let deviceKey = userDetailData["device_key"] as? String {
+                HippoConfig.shared.deviceKey = deviceKey
+                SocketClient.shared.connect()
+            }
+            
             BussinessProperty.current.editDeleteExpiryTime = CGFloat(Int.parse(values: userDetailData, key: "edit_delete_message_duration") ?? 0)
             
             if let userId = userDetailData["user_id"] as? Int {
