@@ -324,6 +324,11 @@ public class UserTag: NSObject {
                 subscribeMarkConversation()
             }
             
+            if let serverTime = userDetailData["updateAt"] as? Int {
+                let difference = serverTime - Int(NSDate().timeIntervalSince1970 * 1000)
+                HippoConfig.shared.serverTimeDifference = difference
+            }
+            
             if let deviceKey = userDetailData["device_key"] as? String {
                 HippoConfig.shared.deviceKey = deviceKey
                 SocketClient.shared.connect()

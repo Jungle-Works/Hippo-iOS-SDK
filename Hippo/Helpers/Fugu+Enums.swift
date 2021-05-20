@@ -100,6 +100,7 @@ enum SocketEvent : String{
     case SUBSCRIBE_CHAT = "/socketio/subscribe/chat" //active channel
     case UNSUBSCRIBE_CHAT = "/socketio/unsubscribe/chat"
     case MESSAGE_CHANNEL = "/socketio/message"
+    case MESSAGE_EVENT = "/socketio/event"
     case SERVER_PUSH = "/socketio/server/push"
 }
 

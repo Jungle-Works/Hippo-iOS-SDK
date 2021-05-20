@@ -29,7 +29,11 @@ class SocketClient: NSObject {
         get {
             var authData = [String : Any]()
             authData["en_user_id"] = currentEnUserId()
-            authData["created_at"] = "\(Date())"
+            let currentTimeInterval = Int(NSDate().timeIntervalSince1970 * 1000)
+            let difference = HippoConfig.shared.serverTimeDifference
+            let timeToSend = (currentTimeInterval + difference) + (2 * 1000)
+            
+            authData["created_at"] = "\(timeToSend)"
             authData["user_type"] = currentUserType().rawValue
             if currentUserType() == .agent {
                 authData["access_token"] = HippoConfig.shared.agentDetail?.fuguToken ?? ""
@@ -52,11 +56,10 @@ class SocketClient: NSObject {
         super.init()
         if currentUserType() == .customer && HippoConfig.shared.deviceKey == "" {
             return
-        }else {
-            if HippoConfig.shared.agentDetail?.fuguToken ?? "" == "" {
-                return
-            }
+        }else if currentUserType() == .agent && HippoConfig.shared.agentDetail?.fuguToken ?? "" == ""{
+            return
         }
+        
         addObserver()
         deinitializeListeners()
         manager = nil
@@ -88,7 +91,7 @@ class SocketClient: NSObject {
         socket?.connect()
     }
     
-    private func getSecretKey() -> String {
+    func getSecretKey() -> String {
         if HippoConfig.shared.baseUrl == SERVERS.betaUrl  {
             return PrivateSocketKeys.beta.rawValue
         }else {
@@ -230,6 +233,7 @@ extension SocketClient {
     func addObserver() {
         removeObserver()
         NotificationCenter.default.addObserver(self, selector: #selector(applicationWillEnterForeground), name: HippoVariable.willEnterForegroundNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(applicationEnterBackground), name: HippoVariable.didEnterBackgroundNotification, object: nil)
     }
     
     @objc private func applicationWillEnterForeground() {
@@ -237,6 +241,12 @@ extension SocketClient {
             if !SocketClient.shared.isConnectionActive {
                 SocketClient.shared.connect() //tearDownPreviousConnectionAndCreateNew
             }
+        }
+    }
+    
+    @objc private func applicationEnterBackground() {
+        if SocketClient.shared.socket?.status != .connected {
+            SocketClient.shared.connect()
         }
     }
     

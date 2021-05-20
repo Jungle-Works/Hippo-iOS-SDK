@@ -34,7 +34,6 @@ enum AgentUserType: Int {
 enum PrivateSocketKeys: String {
     case dev = "aTT%qC>i2to<AANI"
     case beta = "aTbetaT%qC>i2to<AANI"
-  
 }
 
 
@@ -152,6 +151,7 @@ struct BotAction {
     }
     
     var deviceKey : String = ""
+    var serverTimeDifference : Int = 0
     open var appName: String = ""
     internal var appUserType = AppUserType.customer
     internal var resellerToken = ""
