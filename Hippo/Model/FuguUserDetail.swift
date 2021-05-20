@@ -329,6 +329,7 @@ public class UserTag: NSObject {
             for each in tags {
                 HippoConfig.shared.userDetail?.userTags.append(UserTag(json: each))
             }
+
         }
         
         if let serverTime = userDetailData["updateAt"] as? Int {
@@ -339,6 +340,7 @@ public class UserTag: NSObject {
         if let deviceKey = userDetailData["device_key"] as? String {
             HippoConfig.shared.deviceKey = deviceKey
             SocketClient.shared.connect()
+
         }
         
         if let appSecretKey = userDetailData["app_secret_key"] as? String {
