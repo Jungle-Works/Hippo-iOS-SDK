@@ -922,6 +922,8 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
     }
     
     func updateMessageForEditDelete(with newObject: HippoMessage){
+        let isCellHavingImage = chatType.isImageViewAllowed && !userType.isMyUserType && HippoConfig.shared.appUserType != .agent
+        attributtedMessage = MessageUIAttributes(message: newObject.message, senderName: newObject.senderFullName, isSelfMessage: userType.isMyUserType, isShowingImage: isCellHavingImage)
         message = newObject.message
         messageState = newObject.messageState
         type = newObject.type

@@ -32,8 +32,9 @@ class SocketClient: NSObject {
             let currentTimeInterval = Int(NSDate().timeIntervalSince1970 * 1000)
             let difference = HippoConfig.shared.serverTimeDifference
             let timeToSend = (currentTimeInterval + difference) + (2 * 1000)
+            let dateToSend = (Date(timeIntervalSince1970: TimeInterval(timeToSend/1000))).toString(with: .serverTime)
             
-            authData["created_at"] = "\(timeToSend)"
+            authData["created_at"] = "\(dateToSend)"
             authData["user_type"] = currentUserType().rawValue
             if currentUserType() == .agent {
                 authData["access_token"] = HippoConfig.shared.agentDetail?.fuguToken ?? ""
@@ -54,7 +55,9 @@ class SocketClient: NSObject {
     // MARK: Init
     private override init() {
         super.init()
-        if currentUserType() == .customer && HippoConfig.shared.deviceKey == "" {
+        if currentUserType() == .customer && HippoConfig.shared.deviceKey == ""{
+            return
+        }else if currentEnUserId() == ""{
             return
         }else if currentUserType() == .agent && HippoConfig.shared.agentDetail?.fuguToken ?? "" == ""{
             return

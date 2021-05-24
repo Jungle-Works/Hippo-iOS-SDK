@@ -9,6 +9,7 @@ import Foundation
 
 enum DateFormat: String {
     case onlyDate = "yyyy/MM/d"
+    case serverTime = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z"
     case broadcastDate = "MMM d, yyyy, hh:mm a"
 }
 
