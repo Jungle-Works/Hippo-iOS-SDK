@@ -8,7 +8,7 @@
 
 import Foundation
 import SocketIO
-
+import MapKit
 
 class SocketClient: NSObject {
     
@@ -32,7 +32,8 @@ class SocketClient: NSObject {
             let currentTimeInterval = Int(NSDate().timeIntervalSince1970 * 1000)
             let difference = HippoConfig.shared.serverTimeDifference
             let timeToSend = (currentTimeInterval + difference) + (2 * 1000)
-            let dateToSend = (Date(timeIntervalSince1970: TimeInterval(timeToSend/1000))).toString(with: .serverTime)
+            let dateToSend = (Date(timeIntervalSince1970: TimeInterval(timeToSend/1000))).toUTCFormatString
+            
             
             authData["created_at"] = "\(dateToSend)"
             authData["user_type"] = currentUserType().rawValue
