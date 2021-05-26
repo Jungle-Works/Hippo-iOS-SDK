@@ -8,7 +8,6 @@
 
 import Foundation
 import SocketIO
-import MapKit
 
 class SocketClient: NSObject {
     
