@@ -33,7 +33,8 @@ enum AgentUserType: Int {
 
 enum PrivateSocketKeys: String {
     case dev = "aTT%qC>i2to<AANI"
-    case beta = "q4t7w!z%C*F-J@NcRfUjXn2r5u8x/A?D"
+    case live = "q4t7w!z%C*F-J@NcRfUjXn2r5u8x/A?D"
+    case beta = "aTbetaT%qC>i2to<AANI"
 }
 
 

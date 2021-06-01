@@ -95,10 +95,18 @@ class SocketClient: NSObject {
     }
     
     func getSecretKey() -> String {
-        if HippoConfig.shared.baseUrl == SERVERS.betaUrl  {
+        let url = HippoConfig.shared.fayeBaseURLString
+        switch url {
+        case SERVERS.liveFaye:
+            return PrivateSocketKeys.live.rawValue
+            
+        case SERVERS.betaFaye:
             return PrivateSocketKeys.beta.rawValue
-        }else {
+            
+        case SERVERS.devFaye:
             return PrivateSocketKeys.dev.rawValue
+        default:
+            return ""
         }
     }
 
