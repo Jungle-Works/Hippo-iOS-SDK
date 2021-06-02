@@ -249,8 +249,8 @@ extension SocketClient {
     
     @objc private func applicationWillEnterForeground() {
         if SocketClient.shared.socket != nil{
-            if !SocketClient.shared.isConnectionActive {
-                SocketClient.shared.connect() //tearDownPreviousConnectionAndCreateNew
+            if SocketClient.shared.socket?.status != .connected && SocketClient.shared.socket?.status != .connecting{
+                SocketClient.shared.connect()
             }
         }
     }

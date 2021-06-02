@@ -51,6 +51,7 @@ extension SocketClient {
                     completion?(nil, false)
                 }else{
                     self.subscribedChannel[channel] = true
+                    NotificationCenter.default.post(name: .channelSubscribed, object: nil)
                     completion?(nil, true)
                 }
             })

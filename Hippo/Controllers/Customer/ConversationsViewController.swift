@@ -746,8 +746,12 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
             channel.subscribe()
         }
         
-        if FuguNetworkHandler.shared.isNetworkConnected == false || SocketClient.shared.isConnected() == false{
+        if FuguNetworkHandler.shared.isNetworkConnected == false {
             return
+        }
+        
+        if SocketClient.shared.isConnected() == false {
+            SocketClient.shared.connect()
         }
         
         if isMessageInvalid(messageText: messageTextStr) {

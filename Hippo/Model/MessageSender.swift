@@ -81,10 +81,10 @@ class MessageSender {
         }
         message.wasMessageSendingFailed = false
         
-//        guard FayeConnection.shared.isChannelSubscribed(channelID: channelID.description) else {
-//            isSendingMessages = false
-//            return
-//        }
+        guard SocketClient.shared.isChannelSubscribed(channel: channelID.description) else {
+            isSendingMessages = false
+            return
+        }
         
         let messageJSON: [String: Any]
         
@@ -179,7 +179,7 @@ class MessageSender {
             self.delegate?.messageSendingFailed(message: message, result: result)
         }
     }
-    private func retryWithDelay(_ delay: TimeInterval = 5) {
+    private func retryWithDelay(_ delay: TimeInterval = 2) {
         // delay to wait before retrying
         fuguDelay(delay, completion: { [weak self] in
             self?.startSending()
