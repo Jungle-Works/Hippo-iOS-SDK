@@ -1175,9 +1175,14 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         if request.pageStart > 1 {
             keepTableViewWhereItWasBeforeReload(oldContentHeight: contentHeightBeforeNewMessages, oldYOffset: contentOffsetBeforeNewMessages)
         }
-        if result.isSendingDisabled || forceDisableReply || checkIfShouldDisableReplyForCreateTicket(messages: messages){
+        if result.isSendingDisabled || forceDisableReply {
             disableSendingReply()
         }
+        
+        if checkIfShouldDisableReplyForCreateTicket(messages: messages) {
+            disableSendingNewMessages()
+        }
+        
         if let message = messages.last {
             if message.type == .dateTime {
                 self.updateUIForCalendar(message: message)
@@ -3008,7 +3013,7 @@ extension ConversationsViewController: HippoChannelDelegate {
     }
     
     func newMessageReceived(newMessage message: HippoMessage) {
-        
+        enableSendingNewMessages()
         if message.type != .dateTime && message.type != .address {
             buttonCalendar.isHidden = true
             addFileButtonAction.isHidden = false
@@ -3073,7 +3078,7 @@ extension ConversationsViewController: HippoChannelDelegate {
             self.replaceLastQuickReplyIncaseofBotForm()
         }
         if message.type == MessageType.createTicket {
-            self.disableSendingReply()
+            disableSendingNewMessages()
         }
        
         
@@ -3450,7 +3455,7 @@ extension ConversationsViewController: LeadTableViewCellDelegate {
                         }
                         if arrayOfMessages.count == message.content.questionsArray.count{
                             self?.createTicketVM.isCustomerCreated = false
-                            self?.enableSendingReply()
+                            self?.enableSendingNewMessages()
                         }
                     }
                 })
