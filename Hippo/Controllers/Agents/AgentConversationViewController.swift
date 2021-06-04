@@ -2270,6 +2270,8 @@ extension AgentConversationViewController: UIImagePickerControllerDelegate, UINa
         return UIImage.init(contentsOfFile: filePath) != nil
     }
     
+    
+    
     func disableSendingReply() {
         self.channel?.isSendingDisabled = true
         //        self.textViewBottomConstraint.constant = -self.textViewBgView.frame.height

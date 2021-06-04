@@ -25,10 +25,12 @@ class SearchAddressController: UIViewController {
     //MARK:- Variables
     private var viewModel = SearchAdressVM()
     weak var delegate : SearchAddressControllerProtocol?
-    
+    private var informationView: InformationView?
     override func viewDidLoad() {
         super.viewDidLoad()
+        noAddressFound(true)
         viewModel.responseRecieved = {[weak self]() in
+            self?.noAddressFound()
             DispatchQueue.main.async {
                 self?.tableView.reloadData()
             }
@@ -73,6 +75,39 @@ extension SearchAddressController : UITableViewDelegate, UITableViewDataSource {
         }
     }
 }
+
+extension SearchAddressController {
+    
+    func noAddressFound(_ isCalledFromViewDidLoad : Bool = false){
+        if viewModel.getAddressCount() == 0{
+            if informationView == nil {
+                informationView = InformationView.loadView(self.tableView.bounds)
+            }
+            self.informationView?.informationLabel.text = HippoStrings.noDataFound
+            self.informationView?.informationLabel.isHidden = isCalledFromViewDidLoad
+            self.informationView?.informationImageView.image = HippoConfig.shared.theme.emplyAddressImage
+            self.informationView?.isButtonInfoHidden = true
+            self.informationView?.isHidden = false
+            DispatchQueue.main.async {
+                self.tableView.addSubview(self.informationView!)
+                self.tableView.layoutSubviews()
+            }
+        }else{
+            for view in tableView.subviews{
+                if view is InformationView{
+                     view.removeFromSuperview()
+                }
+            }
+            DispatchQueue.main.async {
+                self.tableView.layoutSubviews()
+            }
+            self.informationView?.isHidden = true
+        }
+    }
+    
+}
+
+
 extension SearchAddressController : UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let updatedString = (textField.text as NSString?)?.replacingCharacters(in: range, with: string) ?? textField.text ?? ""
