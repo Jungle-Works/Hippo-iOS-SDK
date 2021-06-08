@@ -10,6 +10,8 @@ import UIKit
 
 protocol PickerHelperDelegate: CoreDocumentPickerDelegate, CoreMediaSelectorDelegate {
     func payOptionClicked()
+    func shareVideoUrlClicked()
+    func shareAudioUrlClicked()
 }
 
 class PickerHelper {
@@ -58,7 +60,13 @@ class PickerHelper {
             self.delegate?.payOptionClicked()
         })
 
-
+      
+        let shareOption = UIAlertAction(title: HippoStrings.shareCallUrl, style: .default, handler: { (alert: UIAlertAction!) -> Void in
+            controller.view.endEditing(true)
+            self.delegate?.shareUrlOptionClicked()
+        })
+        
+        
         let cameraAction = UIAlertAction(title: HippoStrings.camera, style: .default, handler: { (alert: UIAlertAction!) -> Void in
             controller.view.endEditing(true)
             if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) {
@@ -86,7 +94,7 @@ class PickerHelper {
         }
         actionSheet.addAction(photoLibraryAction)
         actionSheet.addAction(cameraAction)
-
+        actionSheet.addAction(shareOption)
 //        //Check if iCloud is enabled in capablities
 //        if FileManager.default.ubiquityIdentityToken != nil {
 //            if CoreKit.shared.filesConfig.enabledFileTypes.contains(.document) || CoreKit.shared.filesConfig.enabledFileTypes.contains(.other) {            actionSheet.addAction(documentAction)
@@ -111,6 +119,9 @@ class PickerHelper {
         case HippoStrings.requestPayment:
             controller.view.endEditing(true)
             self.delegate?.payOptionClicked()
+        case HippoStrings.shareCallUrl:
+            self.delegate?.shareUrlOptionClicked()
+            
         case HippoStrings.camera:
             controller.view.endEditing(true)
             if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) {

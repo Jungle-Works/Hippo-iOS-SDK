@@ -121,7 +121,8 @@ public class HippoStrings {
     static var updatedAt = "Updated at:".localized
     static var sendPayment = "Send Payment".localized
     static var donotAllowPersonalInfo = "You are not allowed to share personal details.".localized
-    
+    static var shareAudioUrl = "Share Video Call Link"
+    static var shareVideoUrl = "Share Audio Call Link"
     
     /// Agent sdk
     static var thanksForFeedback = "Thank you for your comments!".localized
@@ -268,7 +269,7 @@ public class HippoStrings {
     }
     
     class func updateHippoCallClientStrings(){
-        #if canImport(JitsiMeet)
+        #if canImport(JitsiMeetSDK)
         
         HippoCallClientStrings.calling = HippoStrings.calling
         HippoCallClientStrings.ringing = HippoStrings.ringing

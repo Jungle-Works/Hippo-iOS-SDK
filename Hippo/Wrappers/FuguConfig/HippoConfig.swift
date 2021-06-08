@@ -13,8 +13,8 @@ import AVFoundation
  
 #endif
 
-#if canImport(JitsiMeet)
-import JitsiMeet
+#if canImport(JitsiMeetSDK)
+import JitsiMeetSDK
 #endif
 
 public protocol HippoMessageRecievedDelegate: class {
@@ -39,8 +39,8 @@ static let liveFaye = "https://socketv2.hippochat.io/faye"
 static let betaUrl = "https://beta-live-api.fuguchat.com:3001/"
 static let betaFaye = "https://beta-live-api.fuguchat.com:3001/faye"
 
-static let devUrl = "https://hippo-api-dev.fuguchat.com:3004/"
-static let devFaye = "https://hippo-api-dev.fuguchat.com:3004/faye"
+static let devUrl = "https://hippo-api-dev.fuguchat.com:3002/"
+static let devFaye = "https://hippo-api-dev.fuguchat.com:3002/faye"
 
 
 }
@@ -1061,7 +1061,7 @@ struct BotAction {
     }
     
     func reportIncomingCallOnCallKit(userInfo: [String : Any], completion: @escaping () -> Void){
-        #if canImport(JitsiMeet)
+        #if canImport(JitsiMeetSDK)
         enableAudioSession()
         if let uuid = userInfo["muid"] as? String, let name = userInfo["last_sent_by_full_name"] as? String, let isVideo = userInfo["call_type"] as? String == "AUDIO" ? false : true{
             guard let UUID = UUID(uuidString: uuid) else {
@@ -1354,13 +1354,13 @@ extension HippoConfig{
     
    
     public func forceKillOnTermination(){
-        #if canImport(JitsiMeet)
+        #if canImport(JitsiMeetSDK)
         HippoCallClient.shared.terminateSessionIfAny()
         #endif
     }
     
     public func keyWindowChangedFromParent(){
-        #if canImport(JitsiMeet)
+        #if canImport(JitsiMeetSDK)
         HippoCallClient.shared.keyWindowChangedFromParent()
         #endif
     }
@@ -1419,13 +1419,13 @@ extension HippoConfig {
 extension HippoConfig{
     
     func HideJitsiView(){
-         #if canImport(JitsiMeet)
+         #if canImport(JitsiMeetSDK)
             HippoCallClient.shared.hideViewInPip()
          #endif
     }
     
     func UnhideJitsiView(){
-         #if canImport(JitsiMeet)
+         #if canImport(JitsiMeetSDK)
             HippoCallClient.shared.unHideViewInPip()
          #endif
     }

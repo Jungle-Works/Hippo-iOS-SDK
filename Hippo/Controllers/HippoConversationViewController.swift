@@ -921,6 +921,9 @@ extension HippoConversationViewController: PickerHelperDelegate {
         HippoConfig.shared.UnhideJitsiView()
         sendSelectedDocumentWith(filePath: url.path, fileName: url.lastPathComponent, messageType: .attachment, fileType: .document)
     }
+    func shareUrlOptionClicked() {
+        
+    }
 }
 
 // MARK: - SelectImageViewControllerDelegate Delegates
