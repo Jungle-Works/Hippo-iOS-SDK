@@ -391,6 +391,8 @@ enum FuguEndPoints: String {
     case searchErp = "api/erpnext/search"
     case checkAndCreateCustomer = "api/erpnext/checkAndCreateCustomer"
     case shareMeetLink = "api/meet/createInviteLink"
+    case joinJitsiLink = "api/meet/joinInviteLink"
+    
 }
 
 enum AgentEndPoints: String {

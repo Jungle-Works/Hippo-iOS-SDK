@@ -327,7 +327,8 @@ class HippoConversationViewController: UIViewController {
         tableViewChat.register(UINib(nibName: "ActionTableView", bundle: bundle), forCellReuseIdentifier: "ActionTableView")
         tableViewChat.register(UINib(nibName: "CardMessageTableViewCell", bundle: bundle), forCellReuseIdentifier: "CardMessageTableViewCell")
         tableViewChat.register(UINib(nibName: "SearchAgentTableViewCell", bundle: bundle), forCellReuseIdentifier: "SearchAgentTableViewCell")
-        
+        tableViewChat.register(UINib(nibName: "OutgoingShareUrlCell", bundle: bundle), forCellReuseIdentifier: "OutgoingShareUrlCell")
+        tableViewChat.register(UINib(nibName: "IncomingShareUrlCell", bundle: bundle), forCellReuseIdentifier: "IncomingShareUrlCell")
     }
     
     func registerNotificationWhenAppEntersForeground() {
@@ -872,8 +873,39 @@ class HippoConversationViewController: UIViewController {
     }
 }
 
+extension HippoConversationViewController {
+    
+    func shareUrlInSocket(url : String) {
+        let message = HippoMessage(message: url, type: .normal,uniqueID: String.generateUniqueId(), chatType: channel?.chatDetail?.chatType)
+        message.message_sub_type = 1
+        channel?.unsentMessages.append(message)
+        if channel != nil {
+            addMessageToUIBeforeSending(message: message)
+            self.sendMessage(message: message)
+        }
+    }
+    
+}
+
+
 
 extension HippoConversationViewController: PickerHelperDelegate {
+    func shareVideoUrlClicked() {
+        let shareUrlHelper = ShareUrlHelper()
+        let link = shareUrlHelper.createLink(callType: CallType.video)
+        shareUrlHelper.shareUrlApiCall(url: (link.1) == "" ? (link.0) : (link.1), completion: {[weak self] (url) in
+            self?.shareUrlInSocket(url: url)
+        })
+    }
+    
+    func shareAudioUrlClicked() {
+        let shareUrlHelper = ShareUrlHelper()
+        let link = shareUrlHelper.createLink(callType: CallType.audio)
+        shareUrlHelper.shareUrlApiCall(url: (link.1) == "" ? (link.0) : (link.1), completion: {[weak self] (url) in
+            self?.shareUrlInSocket(url: url)
+        })
+    }
+    
     func payOptionClicked() {
         let paymentStore = PaymentStore(plan: nil, channelId: UInt(channelId), isEditing: (channelId != -1), isSending: channelId != -1, isCustomisedPayment : true)
         let vc = CreatePaymentViewController.get(store: paymentStore)
@@ -921,9 +953,7 @@ extension HippoConversationViewController: PickerHelperDelegate {
         HippoConfig.shared.UnhideJitsiView()
         sendSelectedDocumentWith(filePath: url.path, fileName: url.lastPathComponent, messageType: .attachment, fileType: .document)
     }
-    func shareUrlOptionClicked() {
-        
-    }
+   
 }
 
 // MARK: - SelectImageViewControllerDelegate Delegates
@@ -1607,26 +1637,49 @@ extension HippoConversationViewController {
     func getNormalMessageTableViewCell(tableView: UITableView, isOutgoingMessage: Bool, message: HippoMessage, indexPath: IndexPath) -> UITableViewCell {
         switch isOutgoingMessage {
         case false:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "SupportMessageTableViewCell", for: indexPath) as! SupportMessageTableViewCell
-            let bottomSpace = getBottomSpaceOfMessageAt(indexPath: indexPath, message: message)
-            cell.updateBottomConstraint(bottomSpace)
-            let incomingAttributedString = Helper.getIncomingAttributedStringWithLastUserCheck(chatMessageObject: message)
-            return cell.configureCellOfSupportIncomingCell(resetProperties: true, attributedString: incomingAttributedString, channelId: channel?.id ?? labelId, chatMessageObject: message)
-        case true:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "SelfMessageTableViewCell", for: indexPath) as! SelfMessageTableViewCell
-            cell.delegate = self
-            let bottomSpace = getBottomSpaceOfMessageAt(indexPath: indexPath, message: message)
-            cell.updateBottomConstraint(bottomSpace)
-            cell.messageLongPressed = {[weak self](message) in
-                DispatchQueue.main.async {
-                    self?.longPressOnMessage(message: message, indexPath: indexPath)
-                }
+            if message.message_sub_type == 1 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "IncomingShareUrlCell", for: indexPath) as! OutgoingShareUrlCell
+                cell.delegate = self
+                return cell.configureCellOfShareUrlCell(isIncoming: true, resetProperties: true, chatMessageObject: message, indexPath: indexPath)
+                
+            }else {
+                
+                let cell = tableView.dequeueReusableCell(withIdentifier: "SupportMessageTableViewCell", for: indexPath) as! SupportMessageTableViewCell
+                let bottomSpace = getBottomSpaceOfMessageAt(indexPath: indexPath, message: message)
+                cell.updateBottomConstraint(bottomSpace)
+                let incomingAttributedString = Helper.getIncomingAttributedStringWithLastUserCheck(chatMessageObject: message)
+                return cell.configureCellOfSupportIncomingCell(resetProperties: true, attributedString: incomingAttributedString, channelId: channel?.id ?? labelId, chatMessageObject: message)
             }
-            return cell.configureIncomingMessageCell(resetProperties: true, chatMessageObject: message, indexPath: indexPath)
+        case true:
+            if message.message_sub_type == 1 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingShareUrlCell", for: indexPath) as! OutgoingShareUrlCell
+                cell.delegate = self
+                return cell.configureCellOfShareUrlCell(isIncoming: false, resetProperties: true, chatMessageObject: message, indexPath: indexPath)
+                
+            }else {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "SelfMessageTableViewCell", for: indexPath) as! SelfMessageTableViewCell
+                cell.delegate = self
+                let bottomSpace = getBottomSpaceOfMessageAt(indexPath: indexPath, message: message)
+                cell.updateBottomConstraint(bottomSpace)
+                cell.messageLongPressed = {[weak self](message) in
+                    DispatchQueue.main.async {
+                        self?.longPressOnMessage(message: message, indexPath: indexPath)
+                    }
+                }
+                return cell.configureIncomingMessageCell(resetProperties: true, chatMessageObject: message, indexPath: indexPath)
+                
+            }
         }
     }
 }
-
+extension HippoConversationViewController : OutgoingShareUrlDelegate {
+    func openJitsiUrl(url: String) {
+        let shareUrlHelper = ShareUrlHelper()
+        shareUrlHelper.getUrlToJoinJitsiCall(url: url, completion: {(url) in
+            HippoConfig.shared.joinCallFromLink(url: url)
+        })
+    }
+}
 
 extension HippoConversationViewController: NavigationTitleViewDelegate {
     func backButtonClicked() {

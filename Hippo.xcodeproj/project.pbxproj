@@ -9,9 +9,14 @@
 /* Begin PBXBuildFile section */
 		192D0AA525F68FA90065C828 /* CreateTicketViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 192D0AA425F68FA90065C828 /* CreateTicketViewModel.swift */; };
 		192D0AA925F68FBF0065C828 /* CreateTicketAttachmentHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 192D0AA825F68FBF0065C828 /* CreateTicketAttachmentHelper.swift */; };
+		1955B9CC267084F5007DB921 /* IncomingShareUrlCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1955B9CA267084F5007DB921 /* IncomingShareUrlCell.swift */; };
+		1955B9CD267084F5007DB921 /* IncomingShareUrlCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1955B9CB267084F5007DB921 /* IncomingShareUrlCell.xib */; };
 		1964B42E25F623B200DC2D6F /* UrlTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1964B42C25F623B200DC2D6F /* UrlTableCell.swift */; };
 		1964B42F25F623B200DC2D6F /* UrlTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1964B42D25F623B200DC2D6F /* UrlTableCell.xib */; };
 		19818C9A25F76B79005417D6 /* Popover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19818C9925F76B79005417D6 /* Popover.swift */; };
+		19AE532B266F597C00342DA0 /* ShareUrlHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19AE532A266F597C00342DA0 /* ShareUrlHelper.swift */; };
+		19AE5344266F800500342DA0 /* OutgoingShareUrlCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19AE5342266F800500342DA0 /* OutgoingShareUrlCell.swift */; };
+		19AE5345266F800500342DA0 /* OutgoingShareUrlCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19AE5343266F800500342DA0 /* OutgoingShareUrlCell.xib */; };
 		47B12417C887BBD208902F39 /* Pods_Hippo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C0A922564912516EF04B93F /* Pods_Hippo.framework */; };
 		6B1011F2248128D2007FC8EC /* loader.gif in Resources */ = {isa = PBXBuildFile; fileRef = 6B1011F1248128D2007FC8EC /* loader.gif */; };
 		6B3C8F8C258A3D920086BD7F /* SupportChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B3C8F8B258A3D920086BD7F /* SupportChatViewController.swift */; };
@@ -436,9 +441,14 @@
 /* Begin PBXFileReference section */
 		192D0AA425F68FA90065C828 /* CreateTicketViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTicketViewModel.swift; sourceTree = "<group>"; };
 		192D0AA825F68FBF0065C828 /* CreateTicketAttachmentHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTicketAttachmentHelper.swift; sourceTree = "<group>"; };
+		1955B9CA267084F5007DB921 /* IncomingShareUrlCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomingShareUrlCell.swift; sourceTree = "<group>"; };
+		1955B9CB267084F5007DB921 /* IncomingShareUrlCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IncomingShareUrlCell.xib; sourceTree = "<group>"; };
 		1964B42C25F623B200DC2D6F /* UrlTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlTableCell.swift; sourceTree = "<group>"; };
 		1964B42D25F623B200DC2D6F /* UrlTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UrlTableCell.xib; sourceTree = "<group>"; };
 		19818C9925F76B79005417D6 /* Popover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Popover.swift; sourceTree = "<group>"; };
+		19AE532A266F597C00342DA0 /* ShareUrlHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareUrlHelper.swift; sourceTree = "<group>"; };
+		19AE5342266F800500342DA0 /* OutgoingShareUrlCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutgoingShareUrlCell.swift; sourceTree = "<group>"; };
+		19AE5343266F800500342DA0 /* OutgoingShareUrlCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OutgoingShareUrlCell.xib; sourceTree = "<group>"; };
 		6B01EEB324B899B100B778C7 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/HippoLocalizable.strings; sourceTree = "<group>"; };
 		6B1011F1248128D2007FC8EC /* loader.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = loader.gif; sourceTree = "<group>"; };
 		6B3C8F8B258A3D920086BD7F /* SupportChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportChatViewController.swift; sourceTree = "<group>"; };
@@ -974,6 +984,25 @@
 			path = PopOver;
 			sourceTree = "<group>";
 		};
+		19AE5329266F596400342DA0 /* ShareUrl */ = {
+			isa = PBXGroup;
+			children = (
+				19AE532A266F597C00342DA0 /* ShareUrlHelper.swift */,
+			);
+			path = ShareUrl;
+			sourceTree = "<group>";
+		};
+		19AE5341266F7FA000342DA0 /* ShareUrlCell */ = {
+			isa = PBXGroup;
+			children = (
+				19AE5342266F800500342DA0 /* OutgoingShareUrlCell.swift */,
+				19AE5343266F800500342DA0 /* OutgoingShareUrlCell.xib */,
+				1955B9CA267084F5007DB921 /* IncomingShareUrlCell.swift */,
+				1955B9CB267084F5007DB921 /* IncomingShareUrlCell.xib */,
+			);
+			path = ShareUrlCell;
+			sourceTree = "<group>";
+		};
 		2147B1B6158113464954FE5C /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -1115,6 +1144,7 @@
 		C936006722EEC5EA00A6C291 /* TableViewCell */ = {
 			isa = PBXGroup;
 			children = (
+				19AE5341266F7FA000342DA0 /* ShareUrlCell */,
 				1964B42B25F6237300DC2D6F /* UrlCell */,
 				D830D811247DE9CE00EDC774 /* AgentListCell */,
 				D88B900A2466110000E3093F /* FilterOptionCell */,
@@ -1764,7 +1794,6 @@
 		C9B77D8921A01B060092848D /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				193FD9492609B389007FF4B1 /* CustomerUnread */,
 				6B584EF32502361200A7633A /* P2PUnread */,
 				D848D1AD245EEE9700235322 /* PaymentPlan */,
 				D8F6D2152419549E00B168C5 /* Messages */,
@@ -1914,6 +1943,7 @@
 		C9B77DC321A01B060092848D /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				19AE5329266F596400342DA0 /* ShareUrl */,
 				192D0AA325F68F8E0065C828 /* CreateTicket */,
 				D88B9010246672EA00E3093F /* FilterManager.swift */,
 				D8F6D23C2419587C00B168C5 /* UIImageView+Extension.swift */,
@@ -2749,6 +2779,7 @@
 				C9B77E8E21A01B070092848D /* MavenPro-Medium.ttf in Resources */,
 				D8A2EDFE245F2F480090E283 /* PaymentPlansViewController.xib in Resources */,
 				D88B90062465818600E3093F /* FilterTableViewCell.xib in Resources */,
+				1955B9CD267084F5007DB921 /* IncomingShareUrlCell.xib in Resources */,
 				D85273CE2487E982006FC5CE /* AgentSdk.storyboard in Resources */,
 				D8F6D13224194C2200B168C5 /* ButtonTableViewCell.xib in Resources */,
 				D8F6D11624194A3200B168C5 /* LeadTableViewCell.xib in Resources */,
@@ -2811,6 +2842,7 @@
 				D8F6D13624194C4A00B168C5 /* ButtonCollectionCell.xib in Resources */,
 				D8F6D15724194D8600B168C5 /* IncomingVideoTableViewCell.xib in Resources */,
 				D8F6D0B32419440C00B168C5 /* EmojiCollectionViewCell.xib in Resources */,
+				19AE5345266F800500342DA0 /* OutgoingShareUrlCell.xib in Resources */,
 				D8F6D0542418FC8000B168C5 /* README.md in Resources */,
 				C9FB6FA921EE10CD00B72CEA /* Assets.xcassets in Resources */,
 				D8F6D18124194F1F00B168C5 /* ChatInfoAgentTableViewCell.xib in Resources */,
@@ -2957,6 +2989,7 @@
 				D8F6D0AB241943A600B168C5 /* AgentHomeCollectionViewCell.swift in Sources */,
 				D88B20E424619F90007FD382 /* Image.swift in Sources */,
 				D8F6D20A2419547C00B168C5 /* MessageCard.swift in Sources */,
+				19AE5344266F800500342DA0 /* OutgoingShareUrlCell.swift in Sources */,
 				D8F6D21C241954B400B168C5 /* MessageUIAttributes.swift in Sources */,
 				D8F6D1F72419547C00B168C5 /* FuguChannelPersistancyManager.swift in Sources */,
 				D8F6D2332419557600B168C5 /* ChatDetail.swift in Sources */,
@@ -3102,13 +3135,13 @@
 				D8F6D21A241954B400B168C5 /* HippoCellDetail.swift in Sources */,
 				D86028B623F6C9D0009540D3 /* SuggestionViewFlowLayout.swift in Sources */,
 				D86028B023F6AFFA009540D3 /* SuggestionViewDelegate.swift in Sources */,
-				193FD94C2609B3A7007FF4B1 /* CustomerUnreadCount.swift in Sources */,
 				C9B77ECF21A01B070092848D /* IQKeyboardManagerConstantsInternal.swift in Sources */,
 				C9B77EC221A01B070092848D /* Filter.swift in Sources */,
 				C9B77E6F21A01B060092848D /* MessageSender.swift in Sources */,
 				192D0AA925F68FBF0065C828 /* CreateTicketAttachmentHelper.swift in Sources */,
 				1964B42E25F623B200DC2D6F /* UrlTableCell.swift in Sources */,
 				D88B20E024619F90007FD382 /* UIButton+Kingfisher.swift in Sources */,
+				1955B9CC267084F5007DB921 /* IncomingShareUrlCell.swift in Sources */,
 				C9B77EC721A01B070092848D /* IQTextView.swift in Sources */,
 				D88B20E724619F90007FD382 /* ImageDownloader.swift in Sources */,
 				C9B77E6921A01B060092848D /* Socomo+Date.swift in Sources */,
@@ -3171,6 +3204,7 @@
 				D8F6D15924194D8600B168C5 /* VideoTableViewCell.swift in Sources */,
 				D8F6D09A2419015500B168C5 /* PickerHelper.swift in Sources */,
 				D8F6D1CC241951D000B168C5 /* UIView+Extension.swift in Sources */,
+				19AE532B266F597C00342DA0 /* ShareUrlHelper.swift in Sources */,
 				D8F6D2EF24195E9500B168C5 /* ConversationsViewController.swift in Sources */,
 				D8F6D29E24195AA200B168C5 /* IQInvocation.swift in Sources */,
 				D8F6D0522418FC7500B168C5 /* MZFayeMessage.m in Sources */,

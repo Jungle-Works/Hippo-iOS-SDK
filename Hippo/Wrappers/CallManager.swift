@@ -70,6 +70,14 @@ class CallManager {
         #endif
     }
     
+    func joinCallLink(customerName: String, customerImage: String, url: String) {
+        #if canImport(JitsiMeetSDK)
+        HippoCallClient.shared.joinCallLink(customerName: customerName, customerImage: customerImage, url: url)
+        #else
+        #endif
+    }
+    
+    
     // use this method if you are using jitsi branch for calling feature
 
     func startCall(call: CallData, completion: @escaping (Bool, NSError?) -> Void) {

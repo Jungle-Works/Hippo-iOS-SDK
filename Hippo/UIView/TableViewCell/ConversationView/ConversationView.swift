@@ -191,7 +191,8 @@ extension ConversationView {
             var messageToBeShown = messageString
             switch lastMessage.type {
             case .normal:
-                messageToBeShown += lastMessage.message.removeNewLine()
+                messageToBeShown += conersationObj.message_sub_type == 1 ? HippoStrings.sentACallInvite :
+                lastMessage.message.removeNewLine()
             case .imageFile:
                 messageToBeShown += HippoStrings.attachmentImage
             case .attachment:
@@ -209,6 +210,8 @@ extension ConversationView {
                 messageToBeShown += message
             }
     
+            
+            
             if conersationObj.lastMessage?.messageState == .MessageDeleted {
                 if lastMessage.senderId == currentUserId(){
                     messageToBeShown = HippoStrings.you + " " + HippoStrings.deleteMessage
@@ -216,6 +219,8 @@ extension ConversationView {
                     messageToBeShown = lastMessage.senderFullName + " " + HippoStrings.deleteMessage
                 }
             }
+            
+            
             
             chatTextLabel.text = messageToBeShown
             

@@ -13,6 +13,11 @@ protocol PickerHelperDelegate: CoreDocumentPickerDelegate, CoreMediaSelectorDele
     func shareVideoUrlClicked()
     func shareAudioUrlClicked()
 }
+extension PickerHelperDelegate {
+    func shareVideoUrlClicked(){}
+    func shareAudioUrlClicked(){}
+}
+
 
 class PickerHelper {
     private var documentPicker: CoreDocumentPicker?
@@ -61,9 +66,14 @@ class PickerHelper {
         })
 
       
-        let shareOption = UIAlertAction(title: HippoStrings.shareCallUrl, style: .default, handler: { (alert: UIAlertAction!) -> Void in
+        let shareVideoUrlOption = UIAlertAction(title: HippoStrings.shareVideoUrl, style: .default, handler: { (alert: UIAlertAction!) -> Void in
             controller.view.endEditing(true)
-            self.delegate?.shareUrlOptionClicked()
+            self.delegate?.shareVideoUrlClicked()
+        })
+        
+        let shareAudioUrlOption = UIAlertAction(title: HippoStrings.shareAudioUrl, style: .default, handler: { (alert: UIAlertAction!) -> Void in
+            controller.view.endEditing(true)
+            self.delegate?.shareAudioUrlClicked()
         })
         
         
@@ -94,7 +104,10 @@ class PickerHelper {
         }
         actionSheet.addAction(photoLibraryAction)
         actionSheet.addAction(cameraAction)
-        actionSheet.addAction(shareOption)
+        if BussinessProperty.current.isCallInviteEnabled ?? false {
+            actionSheet.addAction(shareVideoUrlOption)
+            actionSheet.addAction(shareAudioUrlOption)
+        }
 //        //Check if iCloud is enabled in capablities
 //        if FileManager.default.ubiquityIdentityToken != nil {
 //            if CoreKit.shared.filesConfig.enabledFileTypes.contains(.document) || CoreKit.shared.filesConfig.enabledFileTypes.contains(.other) {            actionSheet.addAction(documentAction)
@@ -119,9 +132,10 @@ class PickerHelper {
         case HippoStrings.requestPayment:
             controller.view.endEditing(true)
             self.delegate?.payOptionClicked()
-        case HippoStrings.shareCallUrl:
-            self.delegate?.shareUrlOptionClicked()
-            
+        case HippoStrings.shareAudioUrl:
+            self.delegate?.shareAudioUrlClicked()
+        case HippoStrings.shareVideoUrl:
+            self.delegate?.shareVideoUrlClicked()
         case HippoStrings.camera:
             controller.view.endEditing(true)
             if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) {
