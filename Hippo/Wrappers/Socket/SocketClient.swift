@@ -85,7 +85,7 @@ class SocketClient: NSObject {
         
         
         if let url = URL(string: socketURL){
-            manager = SocketManager(socketURL: url, config: [.reconnectWait(Int(2)), .reconnectAttempts(0), .compress, .forcePolling(false), .forceWebsockets(true), .connectParams(["auth_token" : encryptedAuth, "device_type" : Device_Type_iOS])])
+            manager = SocketManager(socketURL: url, config: [.reconnectWait(Int(2)), .reconnectAttempts(0), .compress, .forcePolling(false), .forceWebsockets(true), .connectParams(["auth_token" : encryptedAuth, "device_type" : Device_Type_iOS, "device_details" : AgentDetail.getDeviceDetails()])])
         }
         
         socket = manager?.defaultSocket

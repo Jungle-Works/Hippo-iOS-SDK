@@ -32,7 +32,7 @@ enum AgentUserType: Int {
 }
 
 enum PrivateSocketKeys: String {
-    case dev = "aTT%qC>i2to<AANI"
+    case dev = "aTT%qC>i2to<AANI$mdq"
     case live = "q4t7w!z%C*F-J@NcRfUjXn2r5u8x/A?D"
     case beta = "aTbetaT%qC>i2to<AANI"
 }
@@ -46,8 +46,8 @@ static let liveFaye = "https://socketv2.hippochat.io/faye"
 static let betaUrl = "https://beta-live-api1.fuguchat.com:3003/"
 static let betaFaye = "https://beta-live-api1.fuguchat.com:3003"
 
-static let devUrl = "https://hippo-api-dev1.fuguchat.com:3002/"
-static let devFaye = "https://hippo-api-dev1.fuguchat.com:3002"
+static let devUrl = "https://hippo-api-dev1.fuguchat.com:3004/"
+static let devFaye = "https://hippo-api-dev1.fuguchat.com:3004"
 
 
 }
