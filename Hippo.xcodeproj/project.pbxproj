@@ -18,6 +18,7 @@
 		1967A7012670F52E0010613D /* SharedMediaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1967A6FE2670F52E0010613D /* SharedMediaViewController.swift */; };
 		1967A7062670F5440010613D /* SharedMediaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1967A7042670F5440010613D /* SharedMediaCell.swift */; };
 		1967A7072670F5440010613D /* SharedMediaCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1967A7052670F5440010613D /* SharedMediaCell.xib */; };
+		197B2C3A2671E03B002E062E /* SharedMediaModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 197B2C392671E03B002E062E /* SharedMediaModel.swift */; };
 		19818C9A25F76B79005417D6 /* Popover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19818C9925F76B79005417D6 /* Popover.swift */; };
 		19AE532B266F597C00342DA0 /* ShareUrlHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19AE532A266F597C00342DA0 /* ShareUrlHelper.swift */; };
 		19AE5344266F800500342DA0 /* OutgoingShareUrlCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19AE5342266F800500342DA0 /* OutgoingShareUrlCell.swift */; };
@@ -455,6 +456,7 @@
 		1967A6FE2670F52E0010613D /* SharedMediaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharedMediaViewController.swift; sourceTree = "<group>"; };
 		1967A7042670F5440010613D /* SharedMediaCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharedMediaCell.swift; sourceTree = "<group>"; };
 		1967A7052670F5440010613D /* SharedMediaCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SharedMediaCell.xib; sourceTree = "<group>"; };
+		197B2C392671E03B002E062E /* SharedMediaModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharedMediaModel.swift; sourceTree = "<group>"; };
 		19818C9925F76B79005417D6 /* Popover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Popover.swift; sourceTree = "<group>"; };
 		19AE532A266F597C00342DA0 /* ShareUrlHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareUrlHelper.swift; sourceTree = "<group>"; };
 		19AE5342266F800500342DA0 /* OutgoingShareUrlCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutgoingShareUrlCell.swift; sourceTree = "<group>"; };
@@ -1003,6 +1005,14 @@
 				1967A7052670F5440010613D /* SharedMediaCell.xib */,
 			);
 			path = SharedMedia;
+			sourceTree = "<group>";
+		};
+		197B2C382671E03B002E062E /* SharedMediaModel */ = {
+			isa = PBXGroup;
+			children = (
+				197B2C392671E03B002E062E /* SharedMediaModel.swift */,
+			);
+			path = SharedMediaModel;
 			sourceTree = "<group>";
 		};
 		19818C9825F76B66005417D6 /* PopOver */ = {
@@ -1827,6 +1837,7 @@
 				6B584EF32502361200A7633A /* P2PUnread */,
 				D848D1AD245EEE9700235322 /* PaymentPlan */,
 				D8F6D2152419549E00B168C5 /* Messages */,
+				197B2C382671E03B002E062E /* SharedMediaModel */,
 				D8F6D1E22419547400B168C5 /* BussinessProperty.swift */,
 				D8C9E8E1247E181A00F18C6C /* Business.swift */,
 				D8C9E8DF247DFCD200F18C6C /* Agent.swift */,
@@ -3133,6 +3144,7 @@
 				D8F6D0012418F9CF00B168C5 /* AgentProfileViewDatasource.swift in Sources */,
 				D8F6D2382419557600B168C5 /* AgentDirectChatAttributes.swift in Sources */,
 				D8F6D0712418FF8600B168C5 /* CoreMediaSelector.swift in Sources */,
+				197B2C3A2671E03B002E062E /* SharedMediaModel.swift in Sources */,
 				D8F6D2E024195E2500B168C5 /* BroadcastDetailDataSource.swift in Sources */,
 				D8F6D0102418FA0300B168C5 /* MockCustomField.swift in Sources */,
 				D88B20E124619F90007FD382 /* RequestModifier.swift in Sources */,

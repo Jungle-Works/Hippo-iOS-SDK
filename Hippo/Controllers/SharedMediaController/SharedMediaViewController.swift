@@ -7,15 +7,16 @@
 //
 
 import UIKit
-import AXPhotoViewer
+import QuickLook
+
 final
 class SharedMediaViewController: UIViewController {
     
     
-    @IBOutlet weak var backBtnClick: UIBarButtonItem!
-    @IBOutlet weak var collectionView: UICollectionView! {
+    @IBOutlet private var viewNavigationBar : NavigationBar!
+    @IBOutlet private weak var collectionView: UICollectionView! {
         didSet {
-            collectionView.register(UINib(nibName: "SharedMediaCell", bundle: nil), forCellWithReuseIdentifier: "SharedMediaCell")
+            collectionView.register(UINib(nibName: "SharedMediaCell", bundle: FuguFlowManager.bundle), forCellWithReuseIdentifier: "SharedMediaCell")
         }
     }
     
@@ -25,6 +26,8 @@ class SharedMediaViewController: UIViewController {
    private var mediaArr = [ShareMediaModel]()
     
    var channelId : Int?
+   var downloadingDoc = [String:String]()
+   var qldataSource: HippoQLDataSource?
     
     //MARK:- Life Cycle
     override func viewDidLoad() {
@@ -38,55 +41,67 @@ class SharedMediaViewController: UIViewController {
         getMediaData()
         setupNavigationBar()
         self.collectionView.reloadData()
-       
+        addNotificationObservers()
         
     }
+    
+    func addNotificationObservers() {
+       NotificationCenter.default.addObserver(self, selector: #selector(fileDownloadCompleted(_:)), name: Notification.Name.fileDownloadCompleted, object: nil)
+    }
+    
+    @objc func fileDownloadCompleted(_ notification: Notification) {
+       guard let url = notification.userInfo?[DownloadManager.urlUserInfoKey] as? String else {
+          return
+       }
+       openFile(url: url, name: downloadingDoc[url] ?? "")
+       
+    }
+    
+    
     @IBAction func backBtn(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
     
     func setupNavigationBar() {
-        titleOfNavigationItem(barTitle: "Shared Media")
-        setupCustomThemeOnNavigationBar(hideNavigationBar: false)
+        self.navigationController?.isNavigationBarHidden = true
+        viewNavigationBar.title = HippoStrings.sharedMediaTitle
+        viewNavigationBar.leftButton.addTarget(self, action: #selector(backBtn), for: .touchUpInside)
     }
     
 
     //MARK:- Private Functions
 
     private func getMediaData(){
-        guard let accessToken = PersonInfo.getAccessToken() else {
-            return
-        }
-        
+      
         guard let channelId = channelId else {
             return
         }
         
         
-        let params: [String : Any] = ["access_token": accessToken,
-                                      "channel_id" : channelId]
+        var params: [String : Any] = ["channel_id" : channelId]
+        if currentUserType() == .agent {
+            params["access_token"] = HippoConfig.shared.agentDetail?.fuguToken
+        }else {
+            params["app_secret_key"] = HippoConfig.shared.appSecretKey
+        }
         
-        HTTPRequest(path: EndPoints.SharedMedia, parameters: params)
-            .config(isIndicatorEnable: true, isAlertEnable: true)
-            .handler { (response) in
-                
-                guard response.isSuccess,
-                      let value = response.value as? [String: Any],
-                      let data = value["data"] as? Array<Any> else {
-                    
-                    return
-                }
-                
-                guard let jsonData = try? JSONSerialization.data(withJSONObject: data, options: .prettyPrinted) else{ return }
-                
-                let jsonDecoder = JSONDecoder()
-                let decodedData = try? jsonDecoder.decode([ShareMediaModel].self, from: jsonData)
-                
-                self.mediaArr = decodedData ?? [ShareMediaModel]()
-                
-                self.collectionView.reloadData()
+        HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: AgentEndPoints.SharedMedia.rawValue) { (response, error, _, statusCode) in
+            guard error == nil,
+                  let response = response as? [String: Any],
+                  let data = response["data"] as? Array<Any> else {
+                return
             }
-        
+            
+            guard let jsonData = try? JSONSerialization.data(withJSONObject: data, options: .prettyPrinted) else{ return }
+            
+            let jsonDecoder = JSONDecoder()
+            let decodedData = try? jsonDecoder.decode([ShareMediaModel].self, from: jsonData)
+            
+            self.mediaArr = decodedData ?? [ShareMediaModel]()
+            
+            self.collectionView.reloadData()
+            
+        }
     }
 }
 extension SharedMediaViewController: UICollectionViewDelegate,UICollectionViewDataSource{
@@ -97,6 +112,7 @@ extension SharedMediaViewController: UICollectionViewDelegate,UICollectionViewDa
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SharedMediaCell", for: indexPath) as! SharedMediaCell
         cell.buttonPlay.isHidden = true
+        cell.imageViewMedia.tintColor = nil
         switch mediaArr[indexPath.row].document_type {
             case FileType.image.rawValue:
                 cell.imageViewMedia.kf.setImage(with: URL(string: mediaArr[indexPath.row].image_url ?? mediaArr[indexPath.row].url ?? ""))
@@ -104,11 +120,13 @@ extension SharedMediaViewController: UICollectionViewDelegate,UICollectionViewDa
                 cell.imageViewMedia.kf.setImage(with: URL(string: mediaArr[indexPath.row].thumbnail_url ?? ""))
                 cell.buttonPlay.isHidden = false
             case FileType.audio.rawValue:
+                cell.imageViewMedia.tintColor = .black
                 cell.imageViewMedia.contentMode = .scaleAspectFit
-                cell.imageViewMedia.image = UIImage(named: "defaultDoc")
+                cell.imageViewMedia.image = HippoConfig.shared.theme.defaultDocIcon
                 
             case FileType.document.rawValue:
-                cell.imageViewMedia.image = UIImage(named: "defaultDoc")
+                cell.imageViewMedia.tintColor = .black
+                cell.imageViewMedia.image = HippoConfig.shared.theme.defaultDocIcon
             
         default:
             cell.imageViewMedia.kf.setImage(with: URL(string: mediaArr[indexPath.row].image_url ?? mediaArr[indexPath.row].url ?? ""))
@@ -118,30 +136,64 @@ extension SharedMediaViewController: UICollectionViewDelegate,UICollectionViewDa
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if mediaArr[indexPath.row].document_type == nil || mediaArr[indexPath.row].document_type == FileType.image.rawValue{
-            let d  = AXPhoto(attributedTitle: nil, attributedDescription: nil, attributedCredit: nil, imageData: nil, image: nil, url: URL(string: mediaArr[indexPath.row].image_url ?? mediaArr[indexPath.row].url ?? ""))
-            //let dataSource = AXPhotosDataSource(photos: [d])
-            var transitionInfo: AXTransitionInfo?
-            let pagingConfig = AXPagingConfig(navigationOrientation: .horizontal, interPhotoSpacing: 10)
-            let datasource = AXPhotosDataSource(photos: [d], initialPhotoIndex: 0, prefetchBehavior: .aggressive)
-            let photosViewController = AXPhotosViewController(dataSource: datasource, pagingConfig: pagingConfig, transitionInfo: transitionInfo)
-            self.present(photosViewController, animated: true)
-        }else {
+            var showImageVC: ShowImageViewController?
+            if let originalUrl = mediaArr[indexPath.row].image_url ?? mediaArr[indexPath.row].url, originalUrl.count > 0 {
+                showImageVC = ShowImageViewController.getFor(imageUrlString: originalUrl)
+            }
             
-            guard let appNavigationCtrlr = appNavigationController else {
+            guard showImageVC != nil else {
                 return
             }
+            
+            self.modalPresentationStyle = .overFullScreen
+            self.present(showImageVC!, animated: true, completion: nil)
+        }else {
+           
             guard let url = mediaArr[indexPath.row].url else {
-                showAlert(title: "", message: HippoStrings.someThingWentWrong, actionComplete: nil)
+                showAlert(title: "", message: HippoStrings.somethingWentWrong, actionComplete: nil)
                 return
             }
-            guard let config = WebViewConfig(url: url, title: mediaArr[indexPath.row].file_name ?? "") else { return  }
-            let vc = MediaWebViewController.getNewInstance(config: config)
-            let navVC = UINavigationController(rootViewController: vc)
-            navVC.setupCustomThemeOnNavigationController(hideNavigationBar: false)
-            appNavigationCtrlr.present(navVC, animated: true, completion: nil)
+            guard DownloadManager.shared.isFileDownloadedWith(url: url) else {
+                DownloadManager.shared.downloadFileWith(url: url, name: mediaArr[indexPath.row].file_name ?? "")
+                downloadingDoc[url] = mediaArr[indexPath.row].file_name ?? ""
+                return
+            }
+            
+            openFile(url: url, name: mediaArr[indexPath.row].file_name ?? "")
         }
     }
 
+    func openFile(url: String, name: String) {
+        guard  DownloadManager.shared.isFileDownloadedWith(url: url) else {
+            print("-------\nERROR\nFile is not downloaded\n--------")
+            return
+        }
+        var fileName = name
+        if fileName.count > 10 {
+            let stringIndex = fileName.index(fileName.startIndex, offsetBy: 9)
+            fileName = String(fileName[..<stringIndex])
+        }
+        openQuicklookFor(fileURL: url, fileName: fileName)
+    }
+    
+    func openQuicklookFor(fileURL: String, fileName: String) {
+        guard let localPath = DownloadManager.shared.getLocalPathOf(url: fileURL) else {
+            return
+        }
+        let url = URL(fileURLWithPath: localPath)
+        
+        let qlItem = QuickLookItem(previewItemURL: url, previewItemTitle: fileName)
+        
+        let qlPreview = QLPreviewController()
+        self.qldataSource = HippoQLDataSource(previewItems: [qlItem])
+        qlPreview.delegate = self.qldataSource
+        qlPreview.dataSource = self.qldataSource
+        qlPreview.title = fileName
+        //        qlPreview.setupCustomThemeOnNavigationBar(hideNavigationBar: false)
+        qlPreview.navigationItem.hidesBackButton = false
+        qlPreview.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(qlPreview, animated: true)
+    }
 }
 
 

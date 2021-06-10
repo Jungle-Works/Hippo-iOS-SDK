@@ -434,6 +434,7 @@ enum AgentEndPoints: String {
     case getAgentInfo = "api/users/getUserDetails"
     case getTemplates = "api/business/getTemplates"
     case createAndSendPresciption = "api/conversation/createAndSendPrescription"
+    case SharedMedia = "api/conversation/getAttachments"
 }
 
 struct MultiLanguageMsg{

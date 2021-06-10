@@ -145,7 +145,8 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         super.viewDidLoad()
         view_Navigation.call_button.addTarget(self, action: #selector(audiCallButtonClicked(_:)), for: .touchUpInside)
         view_Navigation.video_button.addTarget(self, action: #selector(videoButtonClicked(_:)), for: .touchUpInside)
-        
+        handleInfoIcon()
+       
         collectionViewOptions?.delegate = self
         collectionViewOptions?.dataSource = self
         customTableView.isScrollEnabled = false//true
@@ -251,6 +252,15 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         fetchMessagesFrom1stPage()
         //HippoConfig.shared.notifyDidLoad()//
         
+    }
+    
+    func handleInfoIcon() {
+        setTitleButton()
+        view_Navigation.info_button.isHidden = false
+        view_Navigation.info_button.setImage(HippoConfig.shared.theme.informationIcon, for: .normal)
+        view_Navigation.info_button.addTarget(self, action:  #selector(openSharedMedia), for: UIControl.Event.touchUpInside)
+        view_Navigation.info_button.tintColor = HippoConfig.shared.theme.headerTextColor
+        view_Navigation.info_button.isEnabled = true
     }
     
     override func startEditing(with message : HippoMessage, indexPath : IndexPath){
@@ -626,6 +636,14 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     @IBAction func videoButtonClicked(_ sender: Any) {
      startVideoCall()
    }
+    @IBAction func openSharedMedia(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "AgentSdk", bundle: FuguFlowManager.bundle)
+        if let vc = storyboard.instantiateViewController(withIdentifier: "SharedMediaViewController") as? SharedMediaViewController{
+            vc.channelId = self.channelId
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+   }
+    
     
     @IBAction func addAttachmentButtonAction(_ sender: UIButton) {
         attachmentViewHeightConstraint.constant = attachmentViewHeightConstraint.constant == 128 ? 0 : 128

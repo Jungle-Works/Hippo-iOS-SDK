@@ -124,6 +124,7 @@ public class HippoStrings {
     static var shareAudioUrl = "Share Audio Call Link"
     static var shareVideoUrl = "Share Video Call Link"
     static var sentACallInvite = "Sent a Call Invite"
+    static var sharedMediaTitle = "Shared Media"
     
     /// Agent sdk
     static var thanksForFeedback = "Thank you for your comments!".localized

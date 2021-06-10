@@ -228,7 +228,8 @@ extension ConversationView {
         
       //  timeLabel.textColor = HippoConfig.shared.theme.timeTextColor.withAlphaComponent(isThisChatOpened(opened: isOpened))
         let channelID = conersationObj.channelId ?? -1
-        if channelID <= 0 {
+        if channelID <= 0 && channelID != -3{ //donot show default and help channel
+            //channel -3 == broadcast channel , show for that
             timeLabel.text = ""
         } else if let dateTime = conersationObj.lastMessage?.creationDateTime {
             timeLabel.text = dateTime.toString
