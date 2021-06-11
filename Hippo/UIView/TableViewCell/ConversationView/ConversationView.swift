@@ -191,7 +191,7 @@ extension ConversationView {
             var messageToBeShown = messageString
             switch lastMessage.type {
             case .normal:
-                messageToBeShown += conersationObj.message_sub_type == 1 ? HippoStrings.sentACallInvite :
+                messageToBeShown += conersationObj.message_sub_type == 1 ? HippoStrings.recievedACallInvite :
                 lastMessage.message.removeNewLine()
             case .imageFile:
                 messageToBeShown += HippoStrings.attachmentImage

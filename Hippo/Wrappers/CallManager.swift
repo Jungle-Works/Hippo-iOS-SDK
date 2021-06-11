@@ -286,22 +286,19 @@ extension CallManager: HippoCallClientDelegate {
     }
     
     func shareUrlApiCall(url : String) {
-        let dic = ["app_secret_key" : HippoConfig.shared.appSecretKey, "en_creator_id" : currentEnUserId(), "creator_id" : currentUserId(), "meet_url" : url] as [String : Any]
-        
-        HTTPClient.shared.makeSingletonConnectionWith(method: .POST, identifier: "Share_Url",para: dic, extendedUrl: FuguEndPoints.shareMeetLink.rawValue) { (response, error, message, status) in
-            if let response = response as? [String : Any], let data = response["data"] as? [String : Any], let url = data["meet_url"] as? String {
+        let shareUrlHelper = ShareUrlHelper()
+        shareUrlHelper.shareUrlApiCall(url: url) { (url) in
+            if let view = UIApplication.shared.keyWindow?.subviews.last {
+                let text = url
                 
-                if let view = UIApplication.shared.keyWindow?.subviews.last {
-                    let text = url
-                    
-                    // set up activity view controller
-                    let textToShare = [ text ]
-                    let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
-                    activityViewController.popoverPresentationController?.sourceView = view // so that iPads won't crash
-                    
-                    // exclude some activity types from the list (optional)
-                    activityViewController.excludedActivityTypes = [ UIActivity.ActivityType.airDrop, UIActivity.ActivityType.postToFacebook ]
-                    
+                // set up activity view controller
+                let textToShare = [ text ]
+                let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
+                activityViewController.popoverPresentationController?.sourceView = view // so that iPads won't crash
+                
+                // exclude some activity types from the list (optional)
+                activityViewController.excludedActivityTypes = [ UIActivity.ActivityType.airDrop, UIActivity.ActivityType.postToFacebook ]
+                DispatchQueue.main.async {
                     getLastVisibleController()?.present(activityViewController, animated: true, completion: nil)
                 }
             }

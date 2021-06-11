@@ -63,11 +63,12 @@ final class OutgoingShareUrlCell: MessageTableViewCell {
         
         message?.statusChanged = nil
         
-        super.intalizeCell(with: chatMessageObject, isIncomingView: false)
+        super.intalizeCell(with: chatMessageObject, isIncomingView: isIncoming)
         self.message = chatMessageObject
         self.indexPath = indexPath
         labelHeading.text = HippoStrings.meeting
-        labelBusinessName.text = currentUserType() == .customer ? (userDetailData["business_name"] as? String ?? "") : (HippoConfig.shared.agentDetail?.businessName ?? "") + " " + HippoStrings.businessMeet
+        let businessName = currentUserType() == .customer ? (userDetailData["business_name"] as? String ?? "") : (HippoConfig.shared.agentDetail?.businessName ?? "")
+        labelBusinessName.text = businessName + " " + HippoStrings.businessMeet
         buttonJoinCall.setTitle(HippoStrings.joinCallNow, for: .normal)
         
         message?.statusChanged = {[weak self]() in

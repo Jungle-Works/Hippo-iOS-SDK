@@ -1068,6 +1068,10 @@ struct BotAction {
         #if canImport(JitsiMeetSDK)
         enableAudioSession()
         if let uuid = userInfo["muid"] as? String, let name = userInfo["last_sent_by_full_name"] as? String, let isVideo = userInfo["call_type"] as? String == "AUDIO" ? false : true{
+            if HippoCallClient.shared.checkIfUserIsBusy(newCallUID: uuid) {
+                return
+            }
+            
             guard let UUID = UUID(uuidString: uuid) else {
                 return
             }
