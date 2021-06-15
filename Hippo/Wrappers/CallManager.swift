@@ -70,9 +70,9 @@ class CallManager {
         #endif
     }
     
-    func joinCallLink(customerName: String, customerImage: String, url: String) {
+    func joinCallLink(customerName: String, customerImage: String, url: String, isInviteEnabled: Bool) {
         #if canImport(JitsiMeetSDK)
-        HippoCallClient.shared.joinCallLink(customerName: customerName, customerImage: customerImage, url: url)
+        HippoCallClient.shared.joinCallLink(customerName: customerName, customerImage: customerImage, url: url, isInviteEnabled: isInviteEnabled)
         #else
         #endif
     }

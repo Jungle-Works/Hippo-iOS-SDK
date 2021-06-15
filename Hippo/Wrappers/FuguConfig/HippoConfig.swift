@@ -243,7 +243,7 @@ struct BotAction {
     }
     
     public func joinCallFromLink(url: String) {
-        CallManager.shared.joinCallLink(customerName: currentUserName(), customerImage: currentUserImage() ?? "", url: url)
+        CallManager.shared.joinCallLink(customerName: currentUserName(), customerImage: currentUserImage() ?? "", url: url, isInviteEnabled: BussinessProperty.current.isCallInviteEnabled ?? false)
     }
     
     internal func setAgentStoredData() {
