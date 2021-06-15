@@ -21,6 +21,7 @@ class SearchAddressController: UIViewController {
             textField.delegate = self
         }
     }
+    @IBOutlet private var buttonCancel : UIButton!
     
     //MARK:- Variables
     private var viewModel = SearchAdressVM()
@@ -28,10 +29,14 @@ class SearchAddressController: UIViewController {
     private var informationView: InformationView?
     override func viewDidLoad() {
         super.viewDidLoad()
-        noAddressFound(true)
+        buttonCancel.isHidden = true
+        noAddressFound()
         viewModel.responseRecieved = {[weak self]() in
             self?.noAddressFound()
             DispatchQueue.main.async {
+                if self?.textField.text?.isEmpty ?? false && self?.viewModel.getAddressCount() != 0 {
+                    self?.viewModel.removeAllAddress()
+                }
                 self?.tableView.reloadData()
             }
         }
@@ -50,6 +55,15 @@ class SearchAddressController: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
+    @IBAction func actionCancelBtn() {
+        self.textField.text = ""
+        self.viewModel.removeAllAddress()
+        NSObject.cancelPreviousPerformRequests(
+              withTarget: self,
+              selector: #selector(callApi),
+              object: textField)
+        buttonCancel.isHidden = true
+    }
 }
 extension SearchAddressController : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -78,13 +92,13 @@ extension SearchAddressController : UITableViewDelegate, UITableViewDataSource {
 
 extension SearchAddressController {
     
-    func noAddressFound(_ isCalledFromViewDidLoad : Bool = false){
+    func noAddressFound(){
         if viewModel.getAddressCount() == 0{
             if informationView == nil {
                 informationView = InformationView.loadView(self.tableView.bounds)
             }
             self.informationView?.informationLabel.text = HippoStrings.noDataFound
-            self.informationView?.informationLabel.isHidden = isCalledFromViewDidLoad
+            self.informationView?.informationLabel.isHidden = textField.text == "" ? true : false
             self.informationView?.informationImageView.image = HippoConfig.shared.theme.emplyAddressImage
             self.informationView?.isButtonInfoHidden = true
             self.informationView?.isHidden = false
@@ -111,7 +125,9 @@ extension SearchAddressController {
 extension SearchAddressController : UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let updatedString = (textField.text as NSString?)?.replacingCharacters(in: range, with: string) ?? textField.text ?? ""
+        buttonCancel.isHidden = updatedString.isEmpty
         if updatedString.isEmpty {
+            textField.text = ""
             viewModel.removeAllAddress()
             NSObject.cancelPreviousPerformRequests(
                   withTarget: self,
