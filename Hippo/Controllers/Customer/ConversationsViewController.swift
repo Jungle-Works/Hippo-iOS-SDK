@@ -638,10 +638,15 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
    }
     @IBAction func openSharedMedia(_ sender: Any) {
         let storyboard = UIStoryboard(name: "AgentSdk", bundle: FuguFlowManager.bundle)
-        if let vc = storyboard.instantiateViewController(withIdentifier: "SharedMediaViewController") as? SharedMediaViewController{
-            vc.channelId = self.channelId
-            self.navigationController?.pushViewController(vc, animated: true)
-        }
+        let alert = UIAlertController(title: nil, message: "Please select an option", preferredStyle: .actionSheet)
+
+        alert.addAction(UIAlertAction(title: HippoStrings.sharedMediaTitle, style: UIAlertAction.Style.default, handler: { _ in
+            if let vc = storyboard.instantiateViewController(withIdentifier: "SharedMediaViewController") as? SharedMediaViewController{
+                vc.channelId = self.channelId
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+        }))
+        self.present(alert, animated: true, completion: nil)
    }
     
     

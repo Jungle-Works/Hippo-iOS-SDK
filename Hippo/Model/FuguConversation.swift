@@ -48,10 +48,8 @@ class FuguConversation: HippoConversation {
         if let unread_count = conversationDict["unread_count"] as? Int {
             unreadCount = unread_count
         }
-        if let channel_id = conversationDict["channel_id"] as? Int, channel_id > 0 {
+        if let channel_id = conversationDict["channel_id"] as? Int {
             self.channelId = channel_id
-        } else {
-            self.channelId = nil
         }
         
         if let rawChatType = Int.parse(values: conversationDict, key: "chat_type"), let parsedChatType = ChatType(rawValue: rawChatType) {

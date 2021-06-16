@@ -10,7 +10,7 @@ import UIKit
 import QuickLook
 
 final
-class SharedMediaViewController: UIViewController {
+class SharedMediaViewController: UIViewController, InformationViewDelegate {
     
     
     @IBOutlet private var viewNavigationBar : NavigationBar!
@@ -28,6 +28,9 @@ class SharedMediaViewController: UIViewController {
    var channelId : Int?
    var downloadingDoc = [String:String]()
    var qldataSource: HippoQLDataSource?
+   var informationView: InformationView?
+    var counter = 5
+    
     
     //MARK:- Life Cycle
     override func viewDidLoad() {
@@ -89,6 +92,7 @@ class SharedMediaViewController: UIViewController {
             guard error == nil,
                   let response = response as? [String: Any],
                   let data = response["data"] as? Array<Any> else {
+                self.noConversationFound(false,HippoStrings.noDataFound)
                 return
             }
             
@@ -98,12 +102,41 @@ class SharedMediaViewController: UIViewController {
             let decodedData = try? jsonDecoder.decode([ShareMediaModel].self, from: jsonData)
             
             self.mediaArr = decodedData ?? [ShareMediaModel]()
-            
+            self.noConversationFound(false,HippoStrings.noDataFound)
             self.collectionView.reloadData()
             
         }
     }
 }
+
+extension SharedMediaViewController {
+    func noConversationFound(_ shouldShowBtn : Bool, _ errorMessage : String){
+        if self.mediaArr.count <= 0{
+            //self.navigationItem.rightBarButtonItem?.tintColor = .clear
+            if informationView == nil {
+                informationView = InformationView.loadView(self.collectionView.bounds, delegate: self)
+            }
+            self.informationView?.informationLabel.text = errorMessage
+            //self.showConversationsTableView.isHidden = true
+            self.informationView?.informationImageView.image = nil
+            self.informationView?.isButtonInfoHidden = !shouldShowBtn
+            self.informationView?.button_Info.setTitle(HippoConfig.shared.theme.chatListRetryBtnText == nil ? HippoStrings.retry : HippoConfig.shared.theme.chatListRetryBtnText, for: .normal)
+            
+            self.informationView?.isHidden = false
+            self.collectionView.addSubview(informationView!)
+            collectionView.layoutSubviews()
+        }else{
+            for view in collectionView.subviews{
+                if view is InformationView{
+                     view.removeFromSuperview()
+                }
+            }
+            collectionView.layoutSubviews()
+            self.informationView?.isHidden = true
+        }
+    }
+}
+
 extension SharedMediaViewController: UICollectionViewDelegate,UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return mediaArr.count
