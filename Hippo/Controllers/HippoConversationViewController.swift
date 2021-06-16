@@ -2007,8 +2007,6 @@ extension HippoConversationViewController{
         let navController = UINavigationController(rootViewController: vc)
         navController.navigationBar.isHidden = true
         navController.modalPresentationStyle = .overCurrentContext
-        self.present(navController, animated: true, completion: {
-            vc.showViewAnimation()
-        })
+        self.present(navController, animated: false)
     }
 }

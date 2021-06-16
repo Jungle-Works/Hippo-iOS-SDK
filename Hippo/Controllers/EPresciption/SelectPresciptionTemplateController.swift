@@ -13,7 +13,6 @@ class SelectPresciptionTemplateController: UIViewController {
     //MARK:- Variables
     var selectPresciptionVM = SelectPresciptionViewModel()
     var tap: UITapGestureRecognizer!
-    var swipe:UISwipeGestureRecognizer!
     var pdfUploadResult : ((UploadResult)->())?
     
     //MARK:- IBOutlets
@@ -34,14 +33,11 @@ class SelectPresciptionTemplateController: UIViewController {
         super.viewDidLoad()
         tap = UITapGestureRecognizer(target: self, action: #selector(tapOnView))
         view_Background.addGestureRecognizer(tap)
-        swipe = UISwipeGestureRecognizer(target: self, action: #selector(tapOnView))
-        swipe.direction = .down
-        view_Background.addGestureRecognizer(swipe)
-        view_Background.isHidden = true
-        view_Container.isHidden = true
         constraint_TableHeight.constant = 0
+        self.round()
         selectPresciptionVM.responseRecieved = {[weak self]() in
             DispatchQueue.main.async {
+                self?.view_Background.isHidden = false
                 self?.constraint_TableHeight.constant = CGFloat((self?.selectPresciptionVM.templateArr.count ?? 0) * 50) + 60
                 self?.table_SelectTemplate.reloadData()
             }
@@ -50,7 +46,10 @@ class SelectPresciptionTemplateController: UIViewController {
         // Do any additional setup after loading the view.
     }
 
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        //showViewAnimation()
+    }
     
     class func getNewInstance(channelId : Int) -> SelectPresciptionTemplateController {
         let storyboard = UIStoryboard(name: "AgentSdk", bundle: FuguFlowManager.bundle)
