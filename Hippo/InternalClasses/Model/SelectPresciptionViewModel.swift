@@ -144,7 +144,7 @@ struct BodyKeys : Codable{
 
 struct UploadResult : Codable{
     var file_name : String
-    var thumbnail_url : String
+    var thumbnail_url : String?
     var url : String
 }
 
