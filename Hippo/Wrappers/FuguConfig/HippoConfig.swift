@@ -46,8 +46,8 @@ static let liveFaye = "https://socketv2.hippochat.io/faye"
 static let betaUrl = "https://beta-live-api1.fuguchat.com:3003/"
 static let betaFaye = "https://beta-live-api1.fuguchat.com:3003"
 
-static let devUrl = "https://hippo-api-dev1.fuguchat.com:3004/"
-static let devFaye = "https://hippo-api-dev1.fuguchat.com:3004"
+static let devUrl = "https://hippo-graviton3002port.officechat.io:3002/"
+static let devFaye = "https://hippo-graviton3002port.officechat.io:3002"
 
 
 }

@@ -320,6 +320,17 @@ public class UserTag: NSObject {
     }
     
     class func handlePutUserResponse(userDetailData: [String : Any],completion: FuguUserDetailCallback? = nil) {
+        
+        if let serverTime = userDetailData["updateAt"] as? Int {
+            let difference = serverTime - Int(NSDate().timeIntervalSince1970 * 1000)
+            HippoConfig.shared.serverTimeDifference = difference
+        }
+        
+        if let deviceKey = userDetailData["device_key"] as? String {
+            HippoConfig.shared.deviceKey = deviceKey
+            SocketClient.shared.connect()
+        }
+        
         if let jitsiUrl = userDetailData["jitsi_url"] as? String{
             HippoConfig.shared.jitsiUrl = jitsiUrl
         }
