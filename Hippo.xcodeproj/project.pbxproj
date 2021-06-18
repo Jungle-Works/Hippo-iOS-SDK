@@ -22,6 +22,7 @@
 		1967A7072670F5440010613D /* SharedMediaCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1967A7052670F5440010613D /* SharedMediaCell.xib */; };
 		197B2C3A2671E03B002E062E /* SharedMediaModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 197B2C392671E03B002E062E /* SharedMediaModel.swift */; };
 		19818C9A25F76B79005417D6 /* Popover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19818C9925F76B79005417D6 /* Popover.swift */; };
+		199B7DF7267B608200B571B1 /* RecordingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 199B7DF6267B608200B571B1 /* RecordingHelper.swift */; };
 		19AE532B266F597C00342DA0 /* ShareUrlHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19AE532A266F597C00342DA0 /* ShareUrlHelper.swift */; };
 		19AE5344266F800500342DA0 /* OutgoingShareUrlCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19AE5342266F800500342DA0 /* OutgoingShareUrlCell.swift */; };
 		19AE5345266F800500342DA0 /* OutgoingShareUrlCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19AE5343266F800500342DA0 /* OutgoingShareUrlCell.xib */; };
@@ -462,6 +463,7 @@
 		1967A7052670F5440010613D /* SharedMediaCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SharedMediaCell.xib; sourceTree = "<group>"; };
 		197B2C392671E03B002E062E /* SharedMediaModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharedMediaModel.swift; sourceTree = "<group>"; };
 		19818C9925F76B79005417D6 /* Popover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Popover.swift; sourceTree = "<group>"; };
+		199B7DF6267B608200B571B1 /* RecordingHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingHelper.swift; sourceTree = "<group>"; };
 		19AE532A266F597C00342DA0 /* ShareUrlHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareUrlHelper.swift; sourceTree = "<group>"; };
 		19AE5342266F800500342DA0 /* OutgoingShareUrlCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutgoingShareUrlCell.swift; sourceTree = "<group>"; };
 		19AE5343266F800500342DA0 /* OutgoingShareUrlCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OutgoingShareUrlCell.xib; sourceTree = "<group>"; };
@@ -1033,6 +1035,14 @@
 				19818C9925F76B79005417D6 /* Popover.swift */,
 			);
 			path = PopOver;
+			sourceTree = "<group>";
+		};
+		199B7DF5267B604A00B571B1 /* Recording */ = {
+			isa = PBXGroup;
+			children = (
+				199B7DF6267B608200B571B1 /* RecordingHelper.swift */,
+			);
+			path = Recording;
 			sourceTree = "<group>";
 		};
 		19AE5329266F596400342DA0 /* ShareUrl */ = {
@@ -2407,6 +2417,7 @@
 		D8F6CFF52418F94F00B168C5 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				199B7DF5267B604A00B571B1 /* Recording */,
 				6B7264E125A31E9900EEC13F /* FillPresciptionCell */,
 				D8F6D0162418FA5B00B168C5 /* MultiSelectHeaderCell */,
 				D8F6D0152418FA4F00B168C5 /* MultiSelectTableView */,
@@ -3291,6 +3302,7 @@
 				D8F6D0C92419466200B168C5 /* ProfileNameCell.swift in Sources */,
 				D8F6D2C824195D9200B168C5 /* HippoDataCollectorController.swift in Sources */,
 				D8F6D0492418FC4400B168C5 /* ParallaxHeaderMode.swift in Sources */,
+				199B7DF7267B608200B571B1 /* RecordingHelper.swift in Sources */,
 				D8F6D0742418FF8600B168C5 /* CoreFilesConfig.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
