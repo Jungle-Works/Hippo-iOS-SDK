@@ -75,7 +75,7 @@ class HippoConversationViewController: UIViewController {
     var attachments: [Attachment]  = []
     var isMessageEditing : Bool = false
     let attachmentObj = CreateTicketAttachmentHelper()
-
+    let recordingHelper = RecordingHelper()
 
     //MARK:
     @IBOutlet var tableViewChat: UITableView!{
@@ -2086,4 +2086,8 @@ extension HippoConversationViewController{
             vc.showViewAnimation()
         })
     }
+}
+extension HippoConversationViewController {
+    
+   
 }

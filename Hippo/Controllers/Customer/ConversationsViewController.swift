@@ -104,6 +104,8 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
             Button_EditMessage.setImage(UIImage(named: "tick_green", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate), for: .normal)
         }
     }
+    @IBOutlet private var button_Recording : UIButton!
+    
     
     var suggestionCollectionView = SuggestionView()
     var suggestionList: [String] = []
@@ -2758,6 +2760,8 @@ extension ConversationsViewController: UITextViewDelegate {
                                                                          with: text))!
         if newText.trimmingCharacters(in: .whitespacesAndNewlines).count == 0 {
             self.sendMessageButton.isEnabled = false
+            self.sendMessageButton.isHidden = true
+            self.button_Recording.isHidden = false
             
             if text == "\n" {
                 textView.resignFirstResponder()
@@ -2772,6 +2776,8 @@ extension ConversationsViewController: UITextViewDelegate {
             }
         } else {
             self.sendMessageButton.isEnabled = true
+            self.sendMessageButton.isHidden = false
+            self.button_Recording.isHidden = true
             if typingMessageValue == TypingMessage.startTyping.rawValue, channel != nil {
                 sendTypingStatusMessage(isTyping: TypingMessage.startTyping)
                 self.typingMessageValue = TypingMessage.stopTyping.rawValue
@@ -3533,7 +3539,13 @@ extension ConversationsViewController{
     }
     
 }
-
+extension ConversationsViewController {
+    
+    @IBAction func startRecording(_ sender : UIButton) {
+        recordingHelper.recordAudioButtonTapped(sender)
+    }
+    
+}
 
 
 
