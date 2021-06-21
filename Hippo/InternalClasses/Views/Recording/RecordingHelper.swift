@@ -10,13 +10,18 @@
 
 import AVFoundation
 
+protocol RecordingHelperDelegate : class{
+    func recordingFinished(url: URL)
+}
+
+
 final
 class RecordingHelper: UIView, AVAudioRecorderDelegate {
     
     //MARK:- Variables
     var recordingSession: AVAudioSession!
     var audioRecorder: AVAudioRecorder!
-    var audioPlayer:AVAudioPlayer!
+    weak var delegate: RecordingHelperDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -27,7 +32,7 @@ class RecordingHelper: UIView, AVAudioRecorderDelegate {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupView() {
+    private func setupView() {
         recordingSession = AVAudioSession.sharedInstance()
         do {
             try recordingSession.setCategory(.playAndRecord, mode: .default)
@@ -46,14 +51,7 @@ class RecordingHelper: UIView, AVAudioRecorderDelegate {
         }
     }
     
-    
-    @objc func recordAudioButtonTapped(_ sender: UIButton) {
-        if audioRecorder == nil {
-            startRecording()
-        } else {
-            finishRecording(success: true)
-        }
-    }
+
     
     func startRecording() {
         let audioFilename = getFileURL()
@@ -77,13 +75,17 @@ class RecordingHelper: UIView, AVAudioRecorderDelegate {
     }
     
     func finishRecording(success: Bool) {
+        if audioRecorder == nil {
+            return
+        }
+        
         audioRecorder.stop()
-        audioRecorder = nil
         
         if success {
-            
+            delegate?.recordingFinished(url: audioRecorder.url)
+            audioRecorder = nil
         } else {
-            
+            audioRecorder = nil
             // recording failed :(
         }
     }
@@ -94,7 +96,7 @@ class RecordingHelper: UIView, AVAudioRecorderDelegate {
     }
     
     private func getFileURL() -> URL {
-        let path = getDocumentsDirectory().appendingPathComponent("hipporecording.m4a")
+        let path = getDocumentsDirectory().appendingPathComponent("AUD_\(Date().toUTCFormatString).m4a")
         return path as URL
     }
     

@@ -104,7 +104,9 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
             Button_EditMessage.setImage(UIImage(named: "tick_green", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate), for: .normal)
         }
     }
-    @IBOutlet private var button_Recording : UIButton!
+    @IBOutlet private var button_Recording : RecordButton!
+    @IBOutlet private var viewRecord : RecordView!
+    @IBOutlet private var stackViewButton : UIStackView!
     
     
     var suggestionCollectionView = SuggestionView()
@@ -143,8 +145,14 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
    
     // MARK: - LIFECYCLE
     override func viewDidLoad() {
-        
         super.viewDidLoad()
+        button_Recording.recordView = viewRecord
+        viewRecord.delegate = self
+        button_Recording.buttonTouched = {[weak self]() in
+            DispatchQueue.main.async {
+                self?.addRecordView()
+            }
+        }
         view_Navigation.call_button.addTarget(self, action: #selector(audiCallButtonClicked(_:)), for: .touchUpInside)
         view_Navigation.video_button.addTarget(self, action: #selector(videoButtonClicked(_:)), for: .touchUpInside)
         handleInfoIcon()
@@ -255,6 +263,11 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         //HippoConfig.shared.notifyDidLoad()//
         
     }
+    
+    func addRecordView() {
+        viewRecord.isHidden = false
+    }
+    
     
     func handleInfoIcon() {
         setTitleButton()
@@ -753,6 +766,8 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     }
     
     @IBAction func sendMessageButtonAction(_ sender: UIButton) {
+        self.sendMessageButton.isHidden = true
+        self.button_Recording.isHidden = false
         self.sendMessageButtonAction(messageTextStr: messageTextView.text)
     }
     
@@ -2759,10 +2774,6 @@ extension ConversationsViewController: UITextViewDelegate {
         let newText = ((textView.text as NSString?)?.replacingCharacters(in: range,
                                                                          with: text))!
         if newText.trimmingCharacters(in: .whitespacesAndNewlines).count == 0 {
-            self.sendMessageButton.isEnabled = false
-            self.sendMessageButton.isHidden = true
-            self.button_Recording.isHidden = false
-            
             if text == "\n" {
                 textView.resignFirstResponder()
             }
@@ -2775,14 +2786,17 @@ extension ConversationsViewController: UITextViewDelegate {
                 return false
             }
         } else {
-            self.sendMessageButton.isEnabled = true
-            self.sendMessageButton.isHidden = false
-            self.button_Recording.isHidden = true
             if typingMessageValue == TypingMessage.startTyping.rawValue, channel != nil {
                 sendTypingStatusMessage(isTyping: TypingMessage.startTyping)
                 self.typingMessageValue = TypingMessage.stopTyping.rawValue
             }
         }
+        
+        self.sendMessageButton.isEnabled = textView.text.count > 0
+        self.sendMessageButton.isHidden = !(textView.text.count > 0)
+        self.button_Recording.isHidden = textView.text.count > 0
+    
+        
         return true
     }
 }
@@ -3519,7 +3533,7 @@ extension ConversationsViewController{
     func messageEditingStarted(with message : HippoMessage){
         self.messageInEditing = message
         self.addFileButtonAction.isHidden = true
-        self.sendMessageButton.isHidden = true
+        //self.sendMessageButton.isHidden = true
         self.Button_CancelEdit.isHidden = false
         self.Button_EditMessage.isHidden = false
         self.messageTextView.text = message.message
@@ -3530,7 +3544,7 @@ extension ConversationsViewController{
     func messageEditingStopped(){
         self.messageInEditing = nil
         self.addFileButtonAction.isHidden = false
-        self.sendMessageButton.isHidden = false
+        //self.sendMessageButton.isHidden = false
         self.Button_CancelEdit.isHidden = true
         self.Button_EditMessage.isHidden = true
         self.messageTextView.text = ""
@@ -3539,10 +3553,27 @@ extension ConversationsViewController{
     }
     
 }
-extension ConversationsViewController {
+extension ConversationsViewController : RecordViewDelegate {
+
+    func onStart() {
+        recordingHelper.startRecording()
+    }
     
-    @IBAction func startRecording(_ sender : UIButton) {
-        recordingHelper.recordAudioButtonTapped(sender)
+    func onCancel() {
+        recordingHelper.finishRecording(success: false)
+    }
+    
+    func onFinished(duration: CGFloat) {
+        if duration > 0.0 {
+            recordingHelper.finishRecording(success: true)
+        }else {
+            recordingHelper.finishRecording(success: false)
+        }
+        viewRecord.isHidden = true
+    }
+    
+    func onAnimationEnd() {
+        viewRecord.isHidden = true
     }
     
 }

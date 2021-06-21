@@ -909,6 +909,10 @@
                                         <color key="textColor" red="0.28627450980000002" green="0.28627450980000002" blue="0.28627450980000002" alpha="0.5" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JIA-bQ-6Q1" customClass="RecordView" customModule="Hippo" customModuleProvider="target">
+                                        <rect key="frame" x="40" y="3" width="290" height="50"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    </view>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="5wO-zE-y4K">
                                         <rect key="frame" x="40" y="3" width="285" height="50"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -922,17 +926,20 @@
                                             <outlet property="delegate" destination="sYd-aP-0RS" id="llW-3H-v7I"/>
                                         </connections>
                                     </textView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nvq-jc-yaa">
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="Nvq-jc-yaa">
                                         <rect key="frame" x="330" y="0.0" width="45" height="56"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b04-j8-c03">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8dN-2R-hrU" customClass="RecordButton" customModule="Hippo" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="45" height="56"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="45" id="cJU-8B-fve"/>
+                                                    <constraint firstAttribute="width" constant="45" id="J8C-XE-6Ax"/>
                                                 </constraints>
-                                                <state key="normal" image="mic"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <state key="normal" image="mic">
+                                                    <color key="titleColor" red="0.12941176469999999" green="0.58823529409999997" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
                                                 <connections>
-                                                    <action selector="startRecording:" destination="sYd-aP-0RS" eventType="touchUpInside" id="0V9-Qc-Ni5"/>
+                                                    <action selector="sendMessageButtonAction:" destination="sYd-aP-0RS" eventType="touchUpInside" id="Ymg-Ej-yPC"/>
                                                 </connections>
                                             </button>
                                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ClS-Vk-bw0">
@@ -948,7 +955,7 @@
                                                     <action selector="sendMessageButtonAction:" destination="sYd-aP-0RS" eventType="touchUpInside" id="Iwe-sN-Pjm"/>
                                                 </connections>
                                             </button>
-                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wt6-oG-vXw">
+                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wt6-oG-vXw" customClass="RecordButton" customModule="Hippo" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="45" height="56"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="45" id="fbS-du-9YX"/>
@@ -966,8 +973,12 @@
                                     <constraint firstItem="5wO-zE-y4K" firstAttribute="leading" secondItem="bsk-G0-oNk" secondAttribute="trailing" id="1GW-oh-HIK"/>
                                     <constraint firstItem="Nvq-jc-yaa" firstAttribute="leading" secondItem="5wO-zE-y4K" secondAttribute="trailing" constant="5" id="1eR-Rz-5j3"/>
                                     <constraint firstItem="bsk-G0-oNk" firstAttribute="leading" secondItem="mDW-au-gnL" secondAttribute="trailing" id="4m1-0t-puh"/>
+                                    <constraint firstItem="JIA-bQ-6Q1" firstAttribute="top" secondItem="5wO-zE-y4K" secondAttribute="top" id="BeZ-OB-lTW"/>
                                     <constraint firstItem="mDW-au-gnL" firstAttribute="leading" secondItem="HOO-xV-gYe" secondAttribute="leading" id="Djv-zP-iq7"/>
+                                    <constraint firstItem="JIA-bQ-6Q1" firstAttribute="bottom" secondItem="5wO-zE-y4K" secondAttribute="bottom" id="GVt-8w-4nO"/>
                                     <constraint firstItem="5wO-zE-y4K" firstAttribute="top" secondItem="HOO-xV-gYe" secondAttribute="top" constant="3" id="IXD-pd-vcQ"/>
+                                    <constraint firstItem="Nvq-jc-yaa" firstAttribute="leading" secondItem="JIA-bQ-6Q1" secondAttribute="trailing" id="K4t-En-Npl"/>
+                                    <constraint firstItem="JIA-bQ-6Q1" firstAttribute="leading" secondItem="5wO-zE-y4K" secondAttribute="leading" id="LxZ-1t-V2c"/>
                                     <constraint firstAttribute="bottom" secondItem="bsk-G0-oNk" secondAttribute="bottom" id="NsQ-wl-HCf"/>
                                     <constraint firstItem="FQc-qg-FUN" firstAttribute="trailing" secondItem="5wO-zE-y4K" secondAttribute="trailing" id="WLX-UG-6kd"/>
                                     <constraint firstItem="Nvq-jc-yaa" firstAttribute="top" secondItem="HOO-xV-gYe" secondAttribute="top" id="ZF7-xT-aXL"/>
@@ -1256,7 +1267,7 @@
                         <outlet property="attachmentViewHeightConstraint" destination="U6B-Jk-ZZY" id="5P5-9O-krx"/>
                         <outlet property="backgroundImageView" destination="jyg-ET-R2Q" id="gU4-ZQ-Ajh"/>
                         <outlet property="backgroundView" destination="S9M-dE-hY2" id="cRY-ya-Ihv"/>
-                        <outlet property="button_Recording" destination="b04-j8-c03" id="11Q-eu-9UW"/>
+                        <outlet property="button_Recording" destination="8dN-2R-hrU" id="jcp-du-Gyr"/>
                         <outlet property="chatScreenTableViewTopConstraint" destination="3CI-1w-KDN" id="DF6-38-IIW"/>
                         <outlet property="collectionViewOptions" destination="vQA-3A-IYd" id="0Ei-KX-9L2"/>
                         <outlet property="errorContentView" destination="cvX-d1-Pra" id="bxU-YD-M2T"/>
@@ -1278,10 +1289,12 @@
                         <outlet property="retryLoader" destination="deC-Oh-OPD" id="Kgz-KA-JXo"/>
                         <outlet property="sendMessageButton" destination="ClS-Vk-bw0" id="SJ1-4B-Qu1"/>
                         <outlet property="seperatorView" destination="7N2-B4-4Ya" id="2Ti-gO-tRo"/>
+                        <outlet property="stackViewButton" destination="Nvq-jc-yaa" id="6bu-AO-W8D"/>
                         <outlet property="suggestionContainerView" destination="Yna-5k-1Ro" id="aE4-HQ-cQg"/>
                         <outlet property="tableViewChat" destination="wqZ-OS-hnt" id="I02-2s-lfn"/>
                         <outlet property="textViewBgView" destination="HOO-xV-gYe" id="d6R-FJ-AfE"/>
                         <outlet property="textViewBottomConstraint" destination="xs9-J1-xKA" id="DrI-gf-cD4"/>
+                        <outlet property="viewRecord" destination="JIA-bQ-6Q1" id="RgZ-yb-gOi"/>
                         <outlet property="view_Navigation" destination="qaz-sc-1L7" id="hV4-DL-K35"/>
                     </connections>
                 </viewController>
@@ -2147,7 +2160,7 @@
         <image name="close_conversation_icon" width="32" height="32"/>
         <image name="download_white" width="21" height="21"/>
         <image name="makePayment" width="45" height="45"/>
-        <image name="mic" width="32" height="32"/>
+        <image name="mic" width="36" height="36"/>
         <image name="moreOptions" width="24" height="24"/>
         <image name="newChat" width="30" height="30"/>
         <image name="new_chat_icon" width="18" height="19"/>

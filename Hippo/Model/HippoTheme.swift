@@ -178,7 +178,8 @@ public struct ConversationListTheme {
     open var itmDescriptionNameFont: UIFont? = UIFont.regular(ofSize: 14.0)
     open var incomingMsgColor = UIColor.black//UIColor.white//
     open var incomingMsgFont: UIFont = UIFont.regular(ofSize: 16.0)
-    open var incomingChatBoxColor = UIColor(red: 237/255, green: 237/255, blue: 237/255, alpha: 1)
+    open var incomingChatBoxColor = UIColor.blue
+    //UIColor(red: 237/255, green: 237/255, blue: 237/255, alpha: 1)
     open var incomingMsgDateTextColor = UIColor.black40//UIColor.white//
     
     open var searchBarBackgroundColor = UIColor(red: 243/255, green: 243/255, blue: 243/255, alpha: 1)

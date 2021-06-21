@@ -1,17 +1,16 @@
 {
   "images" : [
     {
-      "filename" : "mic_blue@1x.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "mic_blue@2x.png",
+      "filename" : "bucket_lid.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "mic_blue@3x.png",
+      "filename" : "bucket_lid-1.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
