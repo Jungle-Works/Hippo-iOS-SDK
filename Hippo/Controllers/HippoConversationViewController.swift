@@ -92,7 +92,7 @@ class HippoConversationViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        recordingHelper.delegate = self
         navigationController?.setTheme()
         
 //        tableViewChat.backgroundView = UIImageView(image: UIImage(named: "background"))
@@ -870,6 +870,12 @@ class HippoConversationViewController: UIViewController {
         }
         
         return true
+    }
+}
+
+extension HippoConversationViewController: RecordingHelperDelegate {
+    func recordingFinished(url: URL) {
+        sendSelectedDocumentWith(filePath: url.path, fileName: url.lastPathComponent, messageType: .attachment, fileType: .document)
     }
 }
 
