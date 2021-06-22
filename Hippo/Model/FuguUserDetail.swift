@@ -331,11 +331,14 @@ public class UserTag: NSObject {
             }
         }
         
-        if let tags = userDetailData["grouping_tags"] as? [[String: Any]] {
-            HippoConfig.shared.userDetail?.userTags.removeAll()
-            for each in tags {
-                HippoConfig.shared.userDetail?.userTags.append(UserTag(json: each))
-            }
+        if let serverTime = userDetailData["updateAt"] as? Int {
+            let difference = serverTime - Int(NSDate().timeIntervalSince1970 * 1000)
+            HippoConfig.shared.serverTimeDifference = difference
+        }
+        
+        if let deviceKey = userDetailData["device_key"] as? String {
+            HippoConfig.shared.deviceKey = deviceKey
+            SocketClient.shared.connect()
         }
         
         if let appSecretKey = userDetailData["app_secret_key"] as? String {
@@ -343,7 +346,7 @@ public class UserTag: NSObject {
             subscribeMarkConversation()
         }
         
-
+        
         BussinessProperty.current.isCallInviteEnabled = Bool.parse(key: "is_call_invite_enabled", json: userDetailData)
         
         BussinessProperty.current.editDeleteExpiryTime = CGFloat(Int.parse(values: userDetailData, key: "edit_delete_message_duration") ?? 0)

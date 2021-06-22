@@ -57,10 +57,7 @@ class RecordingHelper: UIView, AVAudioRecorderDelegate {
         let audioFilename = getFileURL()
         
         let settings = [
-            AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
-            AVSampleRateKey: 12000,
-            AVNumberOfChannelsKey: 1,
-            AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
+            AVFormatIDKey:kAudioFormatMPEG4AAC
         ]
         
         do {
@@ -96,7 +93,7 @@ class RecordingHelper: UIView, AVAudioRecorderDelegate {
     }
     
     private func getFileURL() -> URL {
-        let path = getDocumentsDirectory().appendingPathComponent("AUD_\(Date().toUTCFormatString).m4a")
+        let path = getDocumentsDirectory().appendingPathComponent("AUD_\(Date().timeIntervalSince1970).aac")
         return path as URL
     }
     
