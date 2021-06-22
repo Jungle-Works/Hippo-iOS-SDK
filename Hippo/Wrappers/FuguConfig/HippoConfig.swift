@@ -13,8 +13,8 @@ import AVFoundation
  
 #endif
 
-#if canImport(JitsiMeet)
-import JitsiMeet
+#if canImport(JitsiMeetSDK)
+import JitsiMeetSDK
 #endif
 
 public protocol HippoMessageRecievedDelegate: class {
@@ -248,6 +248,10 @@ struct BotAction {
         if userInfo["notification_type"] as? Int == NotificationType.call.rawValue{
             CallManager.shared.voipNotificationRecieved(payloadDict: userInfo)
         }
+    }
+    
+    public func joinCallFromLink(url: String) {
+        CallManager.shared.joinCallLink(customerName: currentUserName(), customerImage: currentUserImage() ?? "", url: url, isInviteEnabled: BussinessProperty.current.isCallInviteEnabled ?? false)
     }
     
     internal func setAgentStoredData() {
@@ -1069,9 +1073,13 @@ struct BotAction {
     }
     
     func reportIncomingCallOnCallKit(userInfo: [String : Any], completion: @escaping () -> Void){
-        #if canImport(JitsiMeet)
+        #if canImport(JitsiMeetSDK)
         enableAudioSession()
         if let uuid = userInfo["muid"] as? String, let name = userInfo["last_sent_by_full_name"] as? String, let isVideo = userInfo["call_type"] as? String == "AUDIO" ? false : true{
+            if HippoCallClient.shared.checkIfUserIsBusy(newCallUID: uuid) {
+                return
+            }
+            
             guard let UUID = UUID(uuidString: uuid) else {
                 return
             }
@@ -1362,13 +1370,13 @@ extension HippoConfig{
     
    
     public func forceKillOnTermination(){
-        #if canImport(JitsiMeet)
+        #if canImport(JitsiMeetSDK)
         HippoCallClient.shared.terminateSessionIfAny()
         #endif
     }
     
     public func keyWindowChangedFromParent(){
-        #if canImport(JitsiMeet)
+        #if canImport(JitsiMeetSDK)
         HippoCallClient.shared.keyWindowChangedFromParent()
         #endif
     }
@@ -1427,13 +1435,13 @@ extension HippoConfig {
 extension HippoConfig{
     
     func HideJitsiView(){
-         #if canImport(JitsiMeet)
+         #if canImport(JitsiMeetSDK)
             HippoCallClient.shared.hideViewInPip()
          #endif
     }
     
     func UnhideJitsiView(){
-         #if canImport(JitsiMeet)
+         #if canImport(JitsiMeetSDK)
             HippoCallClient.shared.unHideViewInPip()
          #endif
     }

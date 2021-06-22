@@ -391,6 +391,9 @@ enum FuguEndPoints: String {
     case getAndUpdateAnnouncement = "api/broadcast/getAndUpdateAnnouncement"
     case searchErp = "api/erpnext/search"
     case checkAndCreateCustomer = "api/erpnext/checkAndCreateCustomer"
+    case shareMeetLink = "api/meet/createInviteLink"
+    case joinJitsiLink = "api/meet/joinInviteLink"
+    
 }
 
 enum AgentEndPoints: String {
@@ -432,6 +435,7 @@ enum AgentEndPoints: String {
     case getAgentInfo = "api/users/getUserDetails"
     case getTemplates = "api/business/getTemplates"
     case createAndSendPresciption = "api/conversation/createAndSendPrescription"
+    case SharedMedia = "api/conversation/getAttachments"
 }
 
 struct MultiLanguageMsg{

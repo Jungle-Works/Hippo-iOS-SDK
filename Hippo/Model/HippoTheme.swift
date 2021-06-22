@@ -321,6 +321,10 @@ public struct ConversationListTheme {
     
     open var profileBackgroundColor: UIColor? = UIColor.veryLightBlue
     
+    open var shareUrlTextColor: UIColor? = .white
+
+    
+    
     open var logoutButtonIcon: UIImage?
     open var logoutButtonTintColor: UIColor?
 //    open var logoutButtonTintColor: UIColor = .black

@@ -121,7 +121,11 @@ public class HippoStrings {
     static var updatedAt = "Updated at:".localized
     static var sendPayment = "Send Payment".localized
     static var donotAllowPersonalInfo = "You are not allowed to share personal details.".localized
-    
+    static var shareAudioUrl = "Share Audio Call Link"
+    static var shareVideoUrl = "Share Video Call Link"
+    static var sentACallInvite = "Sent a Call Invite"
+    static var recievedACallInvite = "Recieved a Call Invite"
+    static var sharedMediaTitle = "Shared Media"
     
     /// Agent sdk
     static var thanksForFeedback = "Thank you for your comments!".localized
@@ -222,7 +226,9 @@ public class HippoStrings {
     static var requiredField = "Field is required"
     static var enterValidEmail = "Enter valid email"
     static var more = "more"
-    
+    static var meeting = "Meeting"
+    static var businessMeet = "Business Meet"
+    static var joinCallNow = "Join Call Now"
     
   
     open var cameraString = "New Image via Camera"
@@ -268,7 +274,7 @@ public class HippoStrings {
     }
     
     class func updateHippoCallClientStrings(){
-        #if canImport(JitsiMeet)
+        #if canImport(JitsiMeetSDK)
         
         HippoCallClientStrings.calling = HippoStrings.calling
         HippoCallClientStrings.ringing = HippoStrings.ringing

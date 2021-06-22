@@ -125,7 +125,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
     var belowMessageUserId: Int?
     var aboveMessageType: MessageType?
     var belowMessageType: MessageType?
-
+    var message_sub_type : Int?
    
   
     var cards: [HippoCard]?
@@ -249,6 +249,9 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
             let status = ReadUnReadStatus(rawValue: rawStatus) {
             self.status = status
         }
+        
+        self.message_sub_type = dict["message_sub_type"] as? Int
+        
 //        channelId = UIInt.parse
        
         self.rawJsonToSend = dict["rawJsonToSend"] as? [String: Any]
@@ -586,6 +589,8 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         json["device_type"] = Device_Type_iOS
         
         json["selected_agent_id"] = selectedCardId
+        
+        json["message_sub_type"] = message_sub_type
         
         if let parsedBotFormMUID = self.botFormMessageUniqueID {
             json["bot_form_muid"] = parsedBotFormMUID

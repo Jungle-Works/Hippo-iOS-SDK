@@ -119,7 +119,7 @@ extension AgentHomeConversationCell {
         nameLabel.text = (closedLabel.text!.isEmpty ? "" : "  ") + (cellInfo.label ?? "")
         
         //Setting last message
-        lastMessageLabel.text = cellInfo.displayingMessage
+        lastMessageLabel.text = cellInfo.message_sub_type == 1 ? HippoStrings.sentACallInvite : cellInfo.displayingMessage
         
         //Setting tags
         setTags()
