@@ -361,6 +361,7 @@ struct BotAction {
         self.appUserType = .customer
         AgentDetail.agentLoginData = nil
         HippoUserDetail.getUserDetailsAndConversation(isOpenedFromPush: isOpenedFromPush) { (status, error) in
+            completion(status)
             if (self.userDetail?.selectedlanguage ?? "") == ""{
                self.userDetail?.selectedlanguage = BussinessProperty.current.buisnessLanguageArr?.filter{$0.is_default == true}.first?.lang_code
             }
