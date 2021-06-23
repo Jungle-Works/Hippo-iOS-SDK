@@ -39,8 +39,8 @@ static let liveFaye = "https://socketv2.hippochat.io/faye"
 static let betaUrl = "https://beta-live-api.fuguchat.com:3001/"
 static let betaFaye = "https://beta-live-api.fuguchat.com:3001/faye"
 
-static let devUrl = "https://hippo-api-dev.fuguchat.com:3004/"
-static let devFaye = "https://hippo-api-dev.fuguchat.com:3004/faye"
+static let devUrl = "https://hippo-api-dev.fuguchat.com:3011/"
+static let devFaye = "https://hippo-api-dev.fuguchat.com:3011/faye"
 
 
 }
@@ -333,11 +333,12 @@ struct BotAction {
         HippoProperty.current.skipBotReason = reason
     }
     
-    public func updateUserDetail(isOpenedFromPush: Bool = false, userDetail: HippoUserDetail) {
+    public func updateUserDetail(isOpenedFromPush: Bool = false, userDetail: HippoUserDetail, completion: @escaping (Bool) -> Void) {
         self.userDetail = userDetail
         self.appUserType = .customer
         AgentDetail.agentLoginData = nil
         HippoUserDetail.getUserDetailsAndConversation(isOpenedFromPush: isOpenedFromPush) { (status, error) in
+            completion(status)
             if (self.userDetail?.selectedlanguage ?? "") == ""{
                self.userDetail?.selectedlanguage = BussinessProperty.current.buisnessLanguageArr?.filter{$0.is_default == true}.first?.lang_code
             }

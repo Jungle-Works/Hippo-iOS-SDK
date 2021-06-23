@@ -28,12 +28,18 @@ public struct PeerToPeerChat {
     
   // Name Of Peer
     public var peerName: String
+  
+    //Channel id
+    
+    public var channelId: Int?
+    
+    
    /**
     - parameter uniqueChatId: Unique ID you will use to recognize seprate chats between same peers. Could be set to `nil` if there is no need to create seprate chat between same peers.
     - parameter idsOfPeers: Unique IDs of peers with whom you want to start chat.
     - parameter channelName: Name you want to give your chat
     */
-    public init?(uniqueChatId: String?, myUniqueId: String, idsOfPeers: [String], channelName: String, peerName: String = "", otherUserImage: String? = nil) {
+    public init?(uniqueChatId: String?, myUniqueId: String, idsOfPeers: [String], channelName: String, peerName: String = "", otherUserImage: String? = nil, channelId: Int? = nil) {
         
         
         
@@ -60,6 +66,7 @@ public struct PeerToPeerChat {
         if let parsedImage = otherUserImage?.trimWhiteSpacesAndNewLine(), let parsedURL = URL(string: parsedImage) {
             self.otherUserImage = parsedURL
         }
+        self.channelId = channelId
     }
     
     func generateParamForUnreadCount() throws -> [String: Any] {
@@ -89,7 +96,7 @@ public struct PeerToPeerChat {
         json["user_unique_key"] = HippoConfig.shared.userDetail?.userUniqueKey ?? userUniqueId
         json["other_user_unique_key"] = idsOfPeers
         json["transaction_id"] = uniqueChatId
-        
+        json["channel_id"] = channelId
         return json
         
         
