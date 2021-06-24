@@ -214,9 +214,6 @@ struct BotAction {
         FuguNetworkHandler.shared.fuguConnectionChangesStartNotifier()
         CallManager.shared.initCallClientIfPresent()
 
-        HippoNotification.getAllPendingNotification {
-            
-        }
 
     }
     

@@ -95,7 +95,7 @@ extension SearchAddressController {
     func noAddressFound(){
         if viewModel.getAddressCount() == 0{
             if informationView == nil {
-                informationView = InformationView.loadView(self.tableView.bounds)
+                informationView = InformationView.loadView(self.view.bounds)
             }
             self.informationView?.informationLabel.text = HippoStrings.noDataFound
             self.informationView?.informationLabel.isHidden = textField.text == "" ? true : false
@@ -118,7 +118,10 @@ extension SearchAddressController {
             self.informationView?.isHidden = true
         }
     }
-    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return false
+    }
 }
 
 

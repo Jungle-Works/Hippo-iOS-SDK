@@ -94,7 +94,7 @@ class CallManager {
         #else
         let callToMake = Call(peer: peer, signalingClient: call.signallingClient, uID: call.muid, currentUser: currentUser, type: getCallTypeWith(localType: call.callType), link: "")
          #endif
-        HippoCallClient.shared.startCall(call: callToMake, completion: completion)
+        HippoCallClient.shared.startCall(call: callToMake, isInviteEnabled: BussinessProperty.current.isCallInviteEnabled ?? false, completion: completion)
         #else
         completion(false,nil)
         #endif
@@ -208,7 +208,7 @@ class CallManager {
         guard let currentUser = getCurrentUser() else {
             return
         }
-        HippoCallClient.shared.voipNotificationRecievedForGroupCall(dictionary: payloadDict, peer: peer, signalingClient: groupCallChannel, currentUser: currentUser)
+        HippoCallClient.shared.voipNotificationRecievedForGroupCall(dictionary: payloadDict, peer: peer, signalingClient: groupCallChannel, currentUser: currentUser, isInviteEnabled: BussinessProperty.current.isCallInviteEnabled ?? false)
         
         #else
         print("cannot import HippoCallClient")
@@ -232,7 +232,7 @@ class CallManager {
         guard let currentUser = getCurrentUser() else {
             return
         }
-        HippoCallClient.shared.voipNotificationRecieved(dictionary: payloadDict, peer: peer, signalingClient: channel, currentUser: currentUser)
+        HippoCallClient.shared.voipNotificationRecieved(dictionary: payloadDict, peer: peer, signalingClient: channel, currentUser: currentUser, isInviteEnabled: BussinessProperty.current.isCallInviteEnabled ?? false)
         #else
         print("cannot import HippoCallClient")
         #endif

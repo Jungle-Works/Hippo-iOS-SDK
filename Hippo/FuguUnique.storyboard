@@ -42,6 +42,7 @@
                 <navigationController storyboardIdentifier="FuguPromotionalNavigationController" id="uxO-Mf-Abt" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Notifications" image="notification" selectedImage="notification" id="EBS-Kg-a8d"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="e1E-4N-jsG">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </navigationBar>
@@ -1176,10 +1177,8 @@
                                                 </collectionViewFlowLayout>
                                                 <cells>
                                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="AttachmentOptionCollectionViewCell" reuseIdentifier="AttachmentOptionCollectionViewCell" id="Wh8-44-4eZ" customClass="AttachmentOptionCollectionViewCell" customModule="Hippo" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" id="uXo-6S-Bf5">
-                                                            <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <subviews>
                                                                 <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="a8f-hg-gsK">
@@ -1285,11 +1284,8 @@
                         <outlet property="attachmentViewHeightConstraint" destination="U6B-Jk-ZZY" id="5P5-9O-krx"/>
                         <outlet property="backgroundImageView" destination="jyg-ET-R2Q" id="gU4-ZQ-Ajh"/>
                         <outlet property="backgroundView" destination="S9M-dE-hY2" id="cRY-ya-Ihv"/>
-<<<<<<< HEAD
-                        <outlet property="button_Recording" destination="8dN-2R-hrU" id="jcp-du-Gyr"/>
-=======
                         <outlet property="buttonCalendar" destination="IsN-aU-gQ3" id="wZV-C5-V6b"/>
->>>>>>> date and time handling
+                        <outlet property="button_Recording" destination="8dN-2R-hrU" id="jcp-du-Gyr"/>
                         <outlet property="chatScreenTableViewTopConstraint" destination="3CI-1w-KDN" id="DF6-38-IIW"/>
                         <outlet property="collectionViewOptions" destination="vQA-3A-IYd" id="0Ei-KX-9L2"/>
                         <outlet property="errorContentView" destination="cvX-d1-Pra" id="bxU-YD-M2T"/>
@@ -1414,6 +1410,7 @@
             <objects>
                 <navigationController id="RpE-1N-YN1" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="y4n-Z4-NbO">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                 </navigationController>
@@ -1437,9 +1434,12 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Search" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="T1S-Pr-R7f">
-                                        <rect key="frame" x="50" y="0.0" width="45" height="60"/>
+                                        <rect key="frame" x="50" y="0.0" width="275" height="60"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="6pB-c8-YAm" id="3Cd-xe-jrK"/>
+                                        </connections>
                                     </textField>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="whiteBackButton" translatesAutoresizingMaskIntoConstraints="NO" id="BX6-AP-Ksw">
                                         <rect key="frame" x="20" y="22.5" width="10" height="15"/>
@@ -1477,19 +1477,20 @@
                                     <constraint firstAttribute="bottom" secondItem="EFu-V6-IPR" secondAttribute="bottom" id="0Ng-jH-D3P"/>
                                     <constraint firstAttribute="bottom" secondItem="YRn-p9-AWr" secondAttribute="bottom" id="26R-WW-O99"/>
                                     <constraint firstItem="CFV-06-E8k" firstAttribute="top" secondItem="azJ-3z-5vn" secondAttribute="top" id="AcZ-w5-R9v"/>
-                                    <constraint firstItem="T1S-Pr-R7f" firstAttribute="leading" secondItem="BX6-AP-Ksw" secondAttribute="trailing" constant="20" id="DnE-Zo-Rgs"/>
                                     <constraint firstItem="EFu-V6-IPR" firstAttribute="leading" secondItem="azJ-3z-5vn" secondAttribute="leading" id="EIw-4C-TRg"/>
                                     <constraint firstItem="T1S-Pr-R7f" firstAttribute="leading" secondItem="EFu-V6-IPR" secondAttribute="trailing" id="ISD-5U-tDf"/>
                                     <constraint firstItem="EFu-V6-IPR" firstAttribute="top" secondItem="azJ-3z-5vn" secondAttribute="top" id="Jo4-hU-bD8"/>
                                     <constraint firstAttribute="trailing" secondItem="CFV-06-E8k" secondAttribute="trailing" id="LCQ-cW-lpf"/>
                                     <constraint firstAttribute="bottom" secondItem="CFV-06-E8k" secondAttribute="bottom" id="Lbs-f0-6B4"/>
                                     <constraint firstItem="T1S-Pr-R7f" firstAttribute="top" secondItem="azJ-3z-5vn" secondAttribute="top" id="Rkn-hp-8Mz"/>
+                                    <constraint firstItem="EFu-V6-IPR" firstAttribute="trailing" secondItem="BX6-AP-Ksw" secondAttribute="trailing" constant="20" id="ZHU-yU-a1f"/>
                                     <constraint firstAttribute="trailing" secondItem="YRn-p9-AWr" secondAttribute="trailing" id="bOJ-ye-p3B"/>
                                     <constraint firstItem="BX6-AP-Ksw" firstAttribute="leading" secondItem="azJ-3z-5vn" secondAttribute="leading" constant="20" id="dA6-iy-7pa"/>
                                     <constraint firstItem="YRn-p9-AWr" firstAttribute="leading" secondItem="azJ-3z-5vn" secondAttribute="leading" id="nEs-f8-IBb"/>
                                     <constraint firstAttribute="bottom" secondItem="T1S-Pr-R7f" secondAttribute="bottom" id="nxL-t1-amk"/>
                                     <constraint firstItem="BX6-AP-Ksw" firstAttribute="centerY" secondItem="T1S-Pr-R7f" secondAttribute="centerY" id="qMy-NK-SA1"/>
                                     <constraint firstAttribute="height" constant="60" id="qoF-tK-9ab"/>
+                                    <constraint firstItem="CFV-06-E8k" firstAttribute="leading" secondItem="T1S-Pr-R7f" secondAttribute="trailing" id="ryE-Jg-a95"/>
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="aC2-8l-e8V">
@@ -1877,6 +1878,7 @@
             <objects>
                 <navigationController id="VeR-0t-2Rq" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="x3o-cy-0V3">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.24086651210000001" green="0.27939924599999999" blue="0.94049584870000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
@@ -2323,15 +2325,7 @@
         <image name="notification" width="21.5" height="25"/>
         <image name="whiteBackButton" width="8" height="12"/>
         <systemColor name="systemBackgroundColor">
-<<<<<<< HEAD
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-=======
-<<<<<<< HEAD
-            <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-=======
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
->>>>>>> date and time handling
->>>>>>> date and time handling
         </systemColor>
     </resources>
 </document>

@@ -671,6 +671,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
                 self.navigationController?.pushViewController(vc, animated: true)
             }
         }))
+        alert.addAction(UIAlertAction(title: HippoStrings.cancel, style: .cancel, handler: nil))
         self.present(alert, animated: true, completion: nil)
    }
     
@@ -1685,6 +1686,8 @@ extension ConversationsViewController : SearchAddressControllerProtocol {
     func addressSelected(address: Address) {
         messageTextView.text = address.address ?? ""
         sendMessageButton.isEnabled = true
+        sendMessageButton.isHidden = false
+        button_Recording.isHidden = true
         var dic = [[String : Any]]()
         let obj = ["address": address.address ?? "", "latitude": address.lat ?? 0.0, "longitude": address.lng ?? 0.0] as [String : Any]
         dic.append(obj)

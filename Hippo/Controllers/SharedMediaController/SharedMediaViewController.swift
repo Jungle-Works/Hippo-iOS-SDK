@@ -10,7 +10,7 @@ import UIKit
 import QuickLook
 
 final
-class SharedMediaViewController: UIViewController, InformationViewDelegate {
+class SharedMediaViewController: UIViewController {
     
     
     @IBOutlet private var viewNavigationBar : NavigationBar!
@@ -114,7 +114,7 @@ extension SharedMediaViewController {
         if self.mediaArr.count <= 0{
             //self.navigationItem.rightBarButtonItem?.tintColor = .clear
             if informationView == nil {
-                informationView = InformationView.loadView(self.collectionView.bounds, delegate: self)
+                informationView = InformationView.loadView(self.collectionView.bounds)
             }
             self.informationView?.informationLabel.text = errorMessage
             //self.showConversationsTableView.isHidden = true
