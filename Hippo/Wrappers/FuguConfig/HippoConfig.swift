@@ -345,7 +345,7 @@ struct BotAction {
         HippoProperty.current.skipBotReason = reason
     }
     
-    public func updateUserDetail(isOpenedFromPush: Bool = false, userDetail: HippoUserDetail) {
+    public func updateUserDetail(isOpenedFromPush: Bool = false, userDetail: HippoUserDetail, completion: @escaping (Bool) -> Void) {
         self.userDetail = userDetail
         self.appUserType = .customer
         AgentDetail.agentLoginData = nil
