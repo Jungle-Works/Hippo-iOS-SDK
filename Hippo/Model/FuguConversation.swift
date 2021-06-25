@@ -15,6 +15,7 @@ class FuguConversation: HippoConversation {
     var defaultMessage: String?
     var mutiLanguageMsg : String?
     var message_sub_type : Int?
+    var original_transaction_id : String?
     
     init?(channelId: Int, unreadCount: Int, lastMessage: HippoMessage, labelID: Int?) {
         guard channelId > 0 else {
@@ -29,6 +30,10 @@ class FuguConversation: HippoConversation {
     
     init?(conversationDict: [String: Any]) {
         super.init()
+        
+        if let original_transaction_id = String.parse(values: conversationDict, key: "original_transaction_id") {
+            self.original_transaction_id = original_transaction_id
+        }
         
         if let message_sub_type = Int.parse(values: conversationDict, key: "message_sub_type") {
             self.message_sub_type = message_sub_type

@@ -725,7 +725,7 @@ struct BotAction {
                 completion(false, HippoError.threwError(message: HippoStrings.somethingWentWrong))
                 return
             }
-            let call = CallData.init(peerData: peer, callType: callType, muid: uuid, signallingClient: channel)
+            let call = CallData.init(peerData: peer, callType: callType, muid: uuid, signallingClient: channel, transactionId: nil)
   
 //            CallManager.shared.startCall(call: call, completion: { (success)  in
 //                if !success {
@@ -786,7 +786,7 @@ struct BotAction {
                 completion(false, HippoError.threwError(message: HippoStrings.somethingWentWrong))
                 return
             }
-            let call = CallData.init(peerData: peer, callType: callType, muid: uuid, signallingClient: channel)
+            let call = CallData.init(peerData: peer, callType: callType, muid: uuid, signallingClient: channel, transactionId: nil)
   
 //            CallManager.shared.startCall(call: call, completion: { (success)  in
 //                if !success {
@@ -1236,7 +1236,7 @@ struct BotAction {
     func handleCustomerNotification(userInfo: [String: Any]) {
         
         let visibleController = getLastVisibleController()
-        
+        let transactionId = String.parse(values: userInfo, key: "chat_transaction_id")
         let channelId = (userInfo["channel_id"] as? Int) ?? -1
         let channelName = (userInfo["label"] as? String) ?? ""
         let labelId = (userInfo["label_id"] as? Int) ?? -1
@@ -1322,7 +1322,7 @@ struct BotAction {
                    navVC.modalPresentationStyle = .fullScreen
                    visibleController?.present(navVC, animated: true, completion: nil)
                } else if channelId > 0 {
-                   let conVC = ConversationsViewController.getWith(channelID: channelId, channelName: channelName)
+                let conVC = ConversationsViewController.getWith(channelID: channelId, channelName: channelName, transactionId: transactionId)
                    let navVC = UINavigationController(rootViewController: conVC)
                    navVC.isNavigationBarHidden = true
                    navVC.modalPresentationStyle = .fullScreen
