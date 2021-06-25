@@ -603,7 +603,7 @@ class HippoConversationViewController: UIViewController {
             self.navigationTitleButton?.sizeToFit()
         }
     }
-    func startAudioCall() {
+    func startAudioCall(transactionId: String? = nil) {
         guard canStartAudioCall() else {
             return
         }
@@ -613,7 +613,7 @@ class HippoConversationViewController: UIViewController {
         
         self.view.endEditing(true)
         
-        let call = CallData.init(peerData: peerDetail, callType: .audio, muid: String.uuid(), signallingClient: channel)
+        let call = CallData.init(peerData: peerDetail, callType: .audio, muid: String.uuid(), signallingClient: channel, transactionId: transactionId)
         
         if versionCode < 350{
             CallManager.shared.startCall(call: call) { (success,error) in
@@ -647,7 +647,7 @@ class HippoConversationViewController: UIViewController {
             }
         }
     }
-    func startVideoCall() {
+    func startVideoCall(transactionId: String? = nil) {
         guard canStartVideoCall() else {
             return
         }
@@ -656,7 +656,7 @@ class HippoConversationViewController: UIViewController {
         }
         self.view.endEditing(true)
         
-        let call = CallData.init(peerData: peerDetail, callType: .video, muid: String.uuid(), signallingClient: channel)
+        let call = CallData.init(peerData: peerDetail, callType: .video, muid: String.uuid(), signallingClient: channel, transactionId: transactionId)
         if versionCode < 350{
             CallManager.shared.startCall(call: call) { (success,error) in
                 if !success {

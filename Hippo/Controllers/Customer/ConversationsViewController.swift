@@ -30,6 +30,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     var isComingFromConsultNowButton = false
     var createTicketVM = CreateTicketVM()
     var popover : LCPopover?
+    var original_transaction_id : String?
     
     // MARK: -  IBOutlets
     @IBOutlet weak var backgroundImageView: UIImageView!
@@ -656,10 +657,10 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
 //        presentActionsForCustomer(sender: self.view)
     }
     @IBAction func audiCallButtonClicked(_ sender: Any) {
-        startAudioCall()
+        startAudioCall(transactionId: self.original_transaction_id)
     }
     @IBAction func videoButtonClicked(_ sender: Any) {
-     startVideoCall()
+        startVideoCall(transactionId: self.original_transaction_id)
    }
     @IBAction func openSharedMedia(_ sender: Any) {
         let storyboard = UIStoryboard(name: "AgentSdk", bundle: FuguFlowManager.bundle)
@@ -1637,6 +1638,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     class func getWith(conversationObj: FuguConversation, allConversationConfig: AllConversationsConfig) -> ConversationsViewController {
       let vc = getNewInstance()
         vc.updateChatInfoWith(chatObj: conversationObj, allConversationConfig: allConversationConfig)
+        vc.original_transaction_id = conversationObj.original_transaction_id
       return vc
    }
    
@@ -1650,6 +1652,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
       let vc = getNewInstance()
       vc.directChatDetail = chatAttributes
       vc.label = chatAttributes.channelName ?? ""
+      vc.original_transaction_id = chatAttributes.transactionId
       return vc
     
     /* testing:
@@ -1669,10 +1672,11 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     
    }
    
-   class func getWith(channelID: Int, channelName: String) -> ConversationsViewController {
+    class func getWith(channelID: Int, channelName: String, transactionId: String? = nil) -> ConversationsViewController {
       let vc = getNewInstance()
       vc.channel = FuguChannelPersistancyManager.shared.getChannelBy(id: channelID)
       vc.label = channelName
+      vc.original_transaction_id = transactionId
       return vc
    }
    
