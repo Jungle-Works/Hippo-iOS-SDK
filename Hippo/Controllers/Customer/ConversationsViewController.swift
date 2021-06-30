@@ -1231,6 +1231,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         }
         
         if checkIfShouldDisableReplyForCreateTicket(messages: messages) {
+            button_Recording.isEnabled = false
             disableSendingNewMessages()
         }
         
@@ -1578,7 +1579,8 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
    func enableSendingNewMessages() {
       addFileButtonAction.isUserInteractionEnabled = true
       messageTextView.isEditable = true
-      //sendMessageButton.isEnabled = true
+      button_Recording.isHidden = false
+      button_Recording.isEnabled = true
    }
    
    func disableSendingNewMessages() {
@@ -2890,7 +2892,10 @@ extension ConversationsViewController: UITextViewDelegate {
    }
    
     func textViewDidChange(_ textView: UITextView) {
-
+        if textView.text.isEmpty {
+            button_Recording.isHidden = false
+            sendMessageButton.isHidden = true
+        }
    }
    
     func textViewDidEndEditing(_ textView: UITextView) {
@@ -3134,6 +3139,7 @@ extension ConversationsViewController: HippoChannelDelegate {
             self.replaceLastQuickReplyIncaseofBotForm()
         }
         if message.type == MessageType.createTicket {
+            button_Recording.isEnabled = false
             disableSendingNewMessages()
         }
        
@@ -3224,6 +3230,9 @@ extension ConversationsViewController: HippoChannelDelegate {
 }
 extension ConversationsViewController : DateTimePickerDelegate{
     func dateSelected(selectedDate: String) {
+        sendMessageButton.isEnabled = true
+        sendMessageButton.isHidden = false
+        button_Recording.isHidden = true
         self.messageTextView.text = selectedDate
         sendMessageButton.isEnabled = true
     }
