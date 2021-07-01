@@ -1579,12 +1579,14 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
    func enableSendingNewMessages() {
       addFileButtonAction.isUserInteractionEnabled = true
       messageTextView.isEditable = true
+    messageTextView.isUserInteractionEnabled = true
       button_Recording.isHidden = false
       button_Recording.isEnabled = true
    }
    
    func disableSendingNewMessages() {
       addFileButtonAction.isUserInteractionEnabled = false
+    messageTextView.isUserInteractionEnabled = false
       messageTextView.isEditable = false
       sendMessageButton.isEnabled = false
    }
@@ -2927,9 +2929,9 @@ extension ConversationsViewController: UITextViewDelegate {
             }
         }
         
-        self.sendMessageButton.isEnabled = textView.text.count > 0
-        self.sendMessageButton.isHidden = !(textView.text.count > 0)
-        self.button_Recording.isHidden = textView.text.count > 0
+        self.sendMessageButton.isEnabled = !(newText == "")
+        self.sendMessageButton.isHidden = (newText == "")
+        self.button_Recording.isHidden = !(newText == "")
     
         
         return true
@@ -3045,6 +3047,7 @@ extension ConversationsViewController: HippoChannelDelegate {
     
     private func setUIForAddress() {
         buttonCalendar.isHidden = true
+        addFileButtonAction.isHidden = false
         addFileButtonAction.isEnabled = false
         self.messageTextView.resignFirstResponder()
         self.placeHolderLabel.text = HippoStrings.selectAddress

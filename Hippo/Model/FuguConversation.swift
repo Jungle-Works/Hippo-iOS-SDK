@@ -113,6 +113,7 @@ class FuguConversation: HippoConversation {
                     let result = GetConversationFromServerResult(isSuccessful: false, error: error, conversations: nil)
                     
                     completion(result)
+                print(result)
                     return
             }
             
