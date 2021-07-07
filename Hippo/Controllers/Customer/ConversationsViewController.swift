@@ -1168,7 +1168,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         storeRequest = request
         storeResponse = nil
         clearp2pdata()
-        MessageStore.getMessages(requestParam: request, ignoreIfInProgress: false) {[weak self] (response, isCreateConversationRequired)  in
+        MessageStore.getMessages(requestParam: request, ignoreIfInProgress: false) {[weak self] (data,response, isCreateConversationRequired)  in
             
             self?.hideErrorMessage()
             self?.enableSendingNewMessages()
@@ -1426,7 +1426,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
      let request = MessageStore.messageRequest(pageStart: 1, showLoader: false, pageEnd: nil, channelId: -1, labelId: labelId)
      storeRequest = request
      storeResponse = nil
-     MessageStore.getMessagesByLabelID(requestParam: request, ignoreIfInProgress: false) {[weak self] (response, error)  in
+     MessageStore.getMessagesByLabelID(requestParam: request, ignoreIfInProgress: false) {[weak self] (data, response, error)  in
         
         if self?.storeRequest?.id == request.id {
           self?.stopLoaderAnimation()

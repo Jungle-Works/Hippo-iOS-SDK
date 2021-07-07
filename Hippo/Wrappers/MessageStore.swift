@@ -21,7 +21,7 @@ struct RequestIdenfier {
 }
 
 class MessageStore {
-    typealias ChannelMessagesCallBack = ((_ result: ChannelMessagesResult?, _ error: GetMessagesError?) -> ())
+    typealias ChannelMessagesCallBack = ((_ response: [String: Any]?, _ result: ChannelMessagesResult?, _ error: GetMessagesError?) -> ())
     static var isInProgress: Bool = false
     //TODO: Refactor pagination logic
     static var iOSPageLimit = 100
@@ -257,15 +257,15 @@ class MessageStore {
         }
         
         //Sending
-        completion(result, nil)
+        completion(data,result, nil)
     }
     private class func handleGetMessageError(response: Any?, completion: @escaping ChannelMessagesCallBack) {
         guard let rawReponse = response as? [String : Any] else {
-            completion(nil, GetMessagesError.defaultError)
+            completion(nil, nil, GetMessagesError.defaultError)
             return
         }
         let error = GetMessagesError(json: rawReponse)
-        completion(nil, error)
+        completion(nil, nil, error)
     }
     
     
