@@ -105,7 +105,12 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         }
     }
 
-    @IBOutlet private var button_Recording : RecordButton!
+    @IBOutlet private var button_Recording : RecordButton! {
+        didSet {
+            button_Recording.imageView?.tintColor = HippoConfig.shared.theme.themeColor
+            button_Recording.setImage(UIImage(named: "mic", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate), for: .normal)
+        }
+    }
     @IBOutlet private var viewRecord : RecordView!
     @IBOutlet private var stackViewButton : UIStackView!
 
