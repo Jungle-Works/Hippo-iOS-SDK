@@ -216,6 +216,33 @@ HippoConfig.shared.showPeerChatWith(data: peerChatInfo, completion: { (success, 
 })
 ```
 
+#### Start direct chat from Agent
+
+Use ` public func startOneToOneChat(otherUserEmail: String, completion: @escaping commonHippoCallback) {` to open direct chat with email
+
+```sh
+/**
+- parameter otherUserEmail: Email id of the user with which you want to start the chat
+*/
+
+let attributes = AgentDirectChatAttributes(otherUserEmail: Other-user-email)
+
+FuguFlowManager.shared.pushAgentConversationViewControllel(chatAttributes: attributes)
+
+```
+#### Open Prepayment (for getting payment done through parent app)
+
+Use ` public func openPrePayment(paymentGatewayId : Int, paymentType : Int?, prePaymentDic: [String : Any], completion: @escaping PrePaymentCompletion){`
+
+```sh
+/**
+
+paymentGatewayId: Gateway id from the available payment gateways in hippo
+paymentType: type of payment choosen
+prePaymentDic: ["id" : Payment Id, "title" : Title, "description" : Payment Description, "amount" : Payment Amount, "currency" : Currency, "currency_symbol" : Currency Symbol, "transaction_id" : Transaction Id]
+
+```
+
 ### Switch Enviroment Between Development and Live(Production)
 
 Use `HippoConfig.shared.switchEnvironment(_ envType: HippoEnvironment)` to switch between development and Live enviroments
@@ -268,6 +295,26 @@ Use `HippoConfig.shared.setLanguage(_ code : String)` to paas  selected language
 */
 ```
 
+### Create Support Chat
+Use `public func createSupportChat(o2oModel : O2OChatModel)` to create support chat i.e from agent to agent or agent to admin
+
+```sh
+/**
+- parameter transactionId: Pass unique transaction id for creating a new chat
+- parameter initiatedByAgent: Pass initiatedByAgent true for creating chat with admin otherwise false
+- parameter otherUserEmail: Pass other agent email, if you are creating a chat from agent to agent
+- parameter groupingTag: Pass grouping tag of an agent, if any.
+- parameter singleChannelByTransactionId: Pass singleChannelByTransactionId 1, if you want to create single support chat otherwise 0, for opening different support chat everytime
+
+let o2oModel = O2OChatModel(transactionId: "TRANSACTION-ID", initiatedByAgent: "INITIATED-BY-AGENT", otherUserEmail: "OTHER-AGENT-EMAIL", groupingTag: "ARRAY-OF-GROUPING-TAGS", singleChannelByTransactionId: "1/0")
+
+HippoConfig.shared.createSupportChat(o2oModel : o2oModel)
+
+*/
+```
+### Open Support Chat Listing
+Use `public func openSupportChatListing()` to open support chat list
+
 ### Initialize Bot ( Not available for managers)
 Use ` HippoConfig.shared.setNewConversationBotGroupId(botGroupId:)` to paas your botgroupid
 
@@ -317,9 +364,9 @@ HippoConfig.shared.handleVoipNotification(payloadDict: payload.dictionaryPayload
 }
 }
 ```
-#### 5: Start peer to peer video chat
+#### 5: Start peer to peer call
 
-Use `HippoConfig.shared.startVideoCall(data: PeerToPeerChat, completion: @escaping (_ success: Bool, _ error: Error?) -> Void)` to open chat screen with Peer.
+Use ` public func startCall(data: PeerToPeerChat, callType: CallType, completion: @escaping (_ success: Bool, _ error: Error?) -> Void)` to open chat screen with Peer.
 
 ```sh
 /**
@@ -328,10 +375,73 @@ Use `HippoConfig.shared.startVideoCall(data: PeerToPeerChat, completion: @escapi
 - parameter idsOfPeers: Unique IDs of peers with whom you want to start chat.
 - parameter channelName: Name you want to give your chat, If you want peers name to show pass empty string.
 - parameter peerName: Other peer name to show on screen.
+- parameter callType: Call type audio/video
+
 */
 let peerChatInfo = PeerToPeerChat(uniqueChatId: "YOUR-UNIQUE-CHAT-ID", myUniqueId: "YOUR-UNIQUE-ID", idsOfPeers: ["PEER-UNIQUE-ID"], channelName: "CHANNEL-NAME", peerName: "Peer name")
 
-HippoConfig.shared.startVideoCall(data: peerChatInfo, completion: { (success, error) in
+HippoConfig.shared.startCall(data: peerChatInfo, completion: { (success, error) in
 //handle success or error
 })
+```
+#### 5: Start call with Agent
+
+Use `  public func startCallToAgent(data: PeerToPeerChat, agentEmail: String, callType: CallType, completion: @escaping (_ success: Bool, _ error: Error?) -> Void) ` to open chat screen with Peer.
+
+```sh
+/**
+- parameter uniqueChatId: Unique ID you will use to recognize seprate chats between same peers. Could be set to `nil` if there is no need to create seprate chat between same peers.
+- parameter myUniqueId: ID which your systems uses to recognize you uniquely.
+- parameter idsOfPeers: Unique IDs of peers with whom you want to start chat.
+- parameter channelName: Name you want to give your chat, If you want peers name to show pass empty string.
+- parameter peerName: Other peer name to show on screen.
+- parameter callType: Call type audio/video
+- parameter agentEmail: Email of the agnet with which you want to start call
+
+*/
+let peerChatInfo = PeerToPeerChat(uniqueChatId: "YOUR-UNIQUE-CHAT-ID", myUniqueId: "YOUR-UNIQUE-ID", idsOfPeers: ["PEER-UNIQUE-ID"], channelName: "CHANNEL-NAME", peerName: "Peer name")
+
+HippoConfig.shared.startCallToAgent(data: peerChatInfo, agentEmail: agentEmail, callType: calltype completion: { (success, error) in
+//handle success or error
+})
+```
+#### 6: Create group call
+
+Use ` public func createGroupCallChannel(request: GroupCallModel, callback: @escaping HippoResponseRecieved) `
+
+```sh
+/**
+- parameter email: Email id of the user creating group call session
+- parameter callType: AudioCall/VideoCall
+- parameter roomTitle: Set Group call room title
+- parameter sessionStartTime: Send Start session date time in format yyyy-dd-mmT00.00
+- parameter sessionEndTime: Send End session date time in format yyyy-dd-mmT00.00S
+- parameter uniqueIds: customer unique ids which should be present to attend
+- parameter transactionId: unique transactionId for initiating group call
+- parameter isAudioMuted: send is Audiomuted true to start call with audio muted 
+
+///resellerToken, message, referenceid are optional params
+
+let request = GroupCallModel(email: "Email-Id", roomTitle: "TITLE", sessionStartTime: "SESSION-START-TIME", sessionEndTime: "SESSION-END-TIME", uniqueIds: "CUSTOMER-UNIQUE-IDS", transactionId: "TRANSACTION-ID", userIds: OPTIONAL, agentIds: OPTIONAL, message: OPTIONAL)
+
+HippoConfig.shared.createGroupCallChannel(request: request) { (error,response) in
+ //handle success or error
+}
+
+```
+#### 6: Join group call
+
+Use ` public func joinGroupCall(request: GroupCallModel, callback: @escaping HippoResponseRecieved){ `
+
+```sh
+/**
+- parameter email: Email id of the user creating group call session
+- parameter transactionId: unique transactionId for used for creating group call
+
+
+guard let request = GroupCallModel(email: "AGENT-EMAIL", transactionId: "TRANSACTION-ID") else { return }
+HippoConfig.shared.joinGroupCall(request: request) { (error,response) in
+
+}
+
 ```
