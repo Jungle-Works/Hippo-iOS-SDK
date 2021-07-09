@@ -15,7 +15,6 @@ public class OpenBot {
     public var conversationCreated: ((_ response: [String : Any])->())?
     public var messageRecieved: ((_ response: [String : Any])->())?
 
-    private var listener : SocketListner?
     ///Send params if you want to create a new chat, otherwise subscribe old channel with channel id and hit get messages
     
     public init(params: [String: Any]? = nil, channelId: Int) {
@@ -23,17 +22,29 @@ public class OpenBot {
             SocketClient.shared.connect()
         }
         self.channelId = channelId
-        listener = SocketListner()
         if channelId < 0 {
             createNewConversationWith(params: params ?? [String : Any]())
         }else {
             if !isSubscribed() {
                 subscribe()
             }
-            startListening()
         }
-        
+        addObservers()
     }
+    
+    private func addObservers() {
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self, selector: #selector(checkForReconnection), name: .socketConnected, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(startListening), name: .messageRecieved, object: nil)
+    }
+    
+    @objc fileprivate func checkForReconnection() {
+        guard !isSubscribed() else {
+            return
+        }
+        subscribe()
+    }
+    
     
     public func sendMessage(messageJson: [String : Any], completion: @escaping (_ response: [String : Any]?,  _ error : Error?) -> Void) {
         if channelId > 0 {
@@ -60,7 +71,6 @@ public class OpenBot {
                 if !(self?.isSubscribed() ?? true) {
                     self?.subscribe()
                 }
-                self?.startListening()
                 self?.conversationCreated?(response)
             }
         }
@@ -96,11 +106,24 @@ public class OpenBot {
         SocketClient.shared.subscribeSocketChannel(channel: "\(channelId)")
     }
     
-    private func startListening(){
-        listener?.startListening(event: SocketEvent.SERVER_PUSH.rawValue, callback: { [weak self] (data) in
-            if let messageDict = data as? [String : Any]{
-                self?.messageRecieved?(messageDict)
+    @objc private func startListening(notification: NSNotification){
+        if let messageDict = notification.userInfo as? [String : Any] {
+            if (messageDict["channel"] as? String)?.replacingOccurrences(of: "/", with: "") != "\(channelId)"{
+                return
             }
-        })
+            self.messageRecieved?(messageDict)
+        }
+    }
+    
+    public func unSubscribe() {
+        guard channelId != -1 else {
+            return
+        }
+        SocketClient.shared.unsubscribeSocketChannel(fromChannelId: "\(channelId)")
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    deinit {
+        unSubscribe()
     }
 }

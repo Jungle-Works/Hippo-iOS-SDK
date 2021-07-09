@@ -130,6 +130,15 @@ class SocketClient: NSObject {
             NotificationCenter.default.post(name: .channelSubscribed, object: nil)
         }
         unsubscribeChannelListener = {(arr, ack) in}
+        initMessageListener()
+    }
+    
+    private func initMessageListener(){
+        socket?.off(SocketEvent.SERVER_PUSH.rawValue)
+        socket?.on(SocketEvent.SERVER_PUSH.rawValue, callback: { (dataArray, ack) in
+           let data = dataArray.first
+           NotificationCenter.default.post(name: .messageRecieved, object: nil, userInfo: data as? [AnyHashable : Any])
+        })
     }
     
     private func initInitializer(){
@@ -238,6 +247,7 @@ extension Notification.Name {
     public static var socketConnected = Notification.Name.init("socketConnected")
     public static var socketDisconnected = Notification.Name.init("socketDisconnected")
     public static var channelSubscribed = Notification.Name.init("channelSubscribed")
+    public static var messageRecieved = Notification.Name.init("messageRecieved")
 }
 
 extension SocketClient {

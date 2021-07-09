@@ -120,8 +120,7 @@ class HippoChannel {
     var messageHashMap = [String: Int]()
     var sentMessages = [HippoMessage]()
     var unsentMessages = [HippoMessage]()
-    var listener : SocketListner?
-    
+  
     private var messageSender: MessageSender!
     
     //TODO: - Auto Subscription Logic
@@ -131,10 +130,8 @@ class HippoChannel {
         guard id != -1 else {
             return
         }
-        listener = SocketListner()
         addObserver()
         subscribe()
-        startListening()
         addObserverIfAppIsKilled()
         loadCachedMessages()
         loadCachedHashMap()
@@ -151,7 +148,37 @@ class HippoChannel {
     }
     func addObserver() {
         NotificationCenter.default.addObserver(self, selector: #selector(checkForReconnection), name: .socketConnected, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleActiveChannelNotification), name: .messageRecieved, object: nil)
     }
+    
+    @objc private func handleActiveChannelNotification(notification: NSNotification) {
+        if let messageDict = notification.userInfo as? [String : Any] {
+            if (messageDict["channel"] as? String)?.replacingOccurrences(of: "/", with: "") != self.id.description{
+                return
+            }
+            
+            HippoConfig.shared.log.trace("Active channel Recieveddddd -\(self.id) >>>>> \(messageDict)", level: .socket)
+            guard self.handleByNotification(dict: messageDict) else {
+                return
+            }
+            let chatType = self.chatDetail?.chatType
+            guard let message = HippoMessage.createMessage(rawMessage: messageDict, chatType: chatType) else {
+                return
+            }
+            if message.type == .call {
+                if versionCode < 350 && HippoConfig.shared.appUserType == .agent{
+                    DispatchQueue.main.async {
+                        self.signalReceivedFromPeer?(messageDict)
+                        CallManager.shared.voipNotificationRecieved(payloadDict: messageDict)
+                    }
+                }
+                return
+            }
+            
+            self.messageReceived(message: message)
+        }
+    }
+    
     private func loadCachedHashMap() {
         messageHashMap = HippoChannel.getCachedHashMapFor(channelId: id)
     }
@@ -657,37 +684,6 @@ class HippoChannel {
     }
     func subscribe(completion: HippoChannelHandler? = nil) {
         SocketClient.shared.subscribeSocketChannel(channel: id.description)
-    }
-    
-    func startListening(){
-        listener?.startListening(event: SocketEvent.SERVER_PUSH.rawValue, callback: { [weak self](data) in
-            if let messageDict = data as? [String : Any]{
-                
-                if (messageDict["channel"] as? String)?.replacingOccurrences(of: "/", with: "") != self?.id.description{
-                    return
-                }
-                
-                HippoConfig.shared.log.trace("Active channel Recieveddddd -\(self?.id ?? 0000) >>>>> \(messageDict)", level: .socket)
-                guard let weakSelf = self, weakSelf.handleByNotification(dict: messageDict) else {
-                    return
-                }
-                let chatType = self?.chatDetail?.chatType
-                guard let message = HippoMessage.createMessage(rawMessage: messageDict, chatType: chatType) else {
-                    return
-                }
-                if message.type == .call {
-                    if versionCode < 350 && HippoConfig.shared.appUserType == .agent{
-                        DispatchQueue.main.async {
-                            self?.signalReceivedFromPeer?(messageDict)
-                            CallManager.shared.voipNotificationRecieved(payloadDict: messageDict)
-                        }
-                    }
-                    return
-                }
-                
-                self?.messageReceived(message: message)
-            }
-        })
     }
     
     

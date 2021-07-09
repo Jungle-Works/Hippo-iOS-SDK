@@ -104,8 +104,7 @@ public class UserTag: NSObject {
     var userImage: URL?
     var selectedlanguage : String?
     var userChannel: String?
-    var listener : SocketListner?
-    
+   
     static var shouldGetPaymentGateways : Bool = true
     
     class var HippoUserChannelId: String? {
@@ -162,7 +161,6 @@ public class UserTag: NSObject {
         }
         
        self.selectedlanguage = selectedlanguage
-       self.listener = HippoConfig.shared.listener
        HippoUserDetail.shouldGetPaymentGateways = getPaymentGateways
        UserDefaults.standard.set(selectedlanguage, forKey: DefaultName.selectedLanguage.rawValue)
     }
@@ -362,7 +360,7 @@ public class UserTag: NSObject {
         
         if let rawUserChannel = userDetailData["user_channel"] as? String {
             HippoUserDetail.HippoUserChannelId = rawUserChannel
-            subscribeCustomerUserChannel(userChannelId: rawUserChannel)
+            CustomerUserChannel.reIntializeIfRequired()
         }
         
         if let rawEmail = userDetailData["email"] as? String {
@@ -501,6 +499,7 @@ public class UserTag: NSObject {
         AgentConversationManager.transactionID = nil
         ConversationStore.shared.clearData()
         AgentUserChannel.shared = nil
+        CustomerUserChannel.shared = nil
     }
     
     class func clearAllData(completion: ((Bool) -> Void)? = nil) {

@@ -21,7 +21,7 @@ class AgentUserChannel {
     weak var delegate: AgentUserChannelDelegate?
     
     var storeInteracter = ConversationStoreManager()
-    var listener : SocketListner!
+ 
     
     static var shared: AgentUserChannel? {
         didSet {
@@ -38,7 +38,6 @@ class AgentUserChannel {
         guard id != nil, HippoConfig.shared.appUserType == .agent, !id.isEmpty else {
             return nil
         }
-        listener = SocketListner()
         subscribe()
         subscribeMarkConversation()
         addObservers()
@@ -64,6 +63,7 @@ class AgentUserChannel {
         notificationCenter.addObserver(self, selector: #selector(internetDisConnected), name: .internetDisconnected, object: nil)
         notificationCenter.addObserver(self, selector: #selector(internetConnected), name: .internetConnected, object: nil)
         notificationCenter.addObserver(self, selector: #selector(checkForReconnection), name: .socketConnected, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(handleUserChannelNotification), name: .messageRecieved, object: nil)
     }
     @objc fileprivate func checkForReconnection() {
         guard !isSubscribed() else {
@@ -124,44 +124,45 @@ class AgentUserChannel {
         }
        
         SocketClient.shared.subscribeSocketChannel(channel: id)
-        listener.startListening(event: SocketEvent.SERVER_PUSH.rawValue, callback: { (data) in
-            if let messageDict = data as? [String : Any]{
-                
-                if (messageDict["channel"] as? String)?.replacingOccurrences(of: "/", with: "") != self.id{
-                   return
-                }
-                
-                HippoConfig.shared.log.trace("UserChannel:: --->\(messageDict)", level: .socket)
-                
-                if let messageType = messageDict["message_type"] as? Int, messageType == 18 {
-                    
-                    if HippoConfig.shared.appUserType == .agent  {
-                        if versionCode >= 350 {
-                            HippoConfig.shared.log.trace("UserChannel:: --->\(messageDict)", level: .socket)
-                            CallManager.shared.voipNotificationRecieved(payloadDict: messageDict)
-                        }
-                    }
-                }else if let messageType = messageDict["message_type"] as? Int, messageType == MessageType.groupCall.rawValue{
-                    if messageDict["video_call_type"] as? String == "END_GROUP_CALL"{
-                        CallManager.shared.voipNotificationRecievedForGroupCall(payloadDict: messageDict)
-                    }
-                }
-                let conversation = AgentConversation(json: messageDict)
-                //paas data to parent app if chat is assigned to self
-                
-                if conversation.notificationType == .assigned {
-                    if conversation.assigned_to == currentUserId(){
-                        //pass data
-                        HippoConfig.shared.sendDataIfChatIsAssignedToSelfAgent(messageDict)
-                    }else{
-                        removeChannelForUnreadCount(conversation.channel_id ?? -1)
-                    }
-                }
-                
-                self.conversationRecieved(conversation, dict: messageDict)
-            }
-        })
        
+    }
+    
+    @objc private func handleUserChannelNotification(notification: NSNotification) {
+        
+        if let messageDict = notification.userInfo as? [String : Any] {
+            if (messageDict["channel"] as? String)?.replacingOccurrences(of: "/", with: "") != self.id{
+                return
+            }
+            
+            HippoConfig.shared.log.trace("Agent UserChannel:: --->\(messageDict)", level: .socket)
+            
+            if let messageType = messageDict["message_type"] as? Int, messageType == 18 {
+                
+                if HippoConfig.shared.appUserType == .agent  {
+                    if versionCode >= 350 {
+                        HippoConfig.shared.log.trace("UserChannel:: --->\(messageDict)", level: .socket)
+                        CallManager.shared.voipNotificationRecieved(payloadDict: messageDict)
+                    }
+                }
+            }else if let messageType = messageDict["message_type"] as? Int, messageType == MessageType.groupCall.rawValue{
+                if messageDict["video_call_type"] as? String == "END_GROUP_CALL"{
+                    CallManager.shared.voipNotificationRecievedForGroupCall(payloadDict: messageDict)
+                }
+            }
+            let conversation = AgentConversation(json: messageDict)
+            //paas data to parent app if chat is assigned to self
+            
+            if conversation.notificationType == .assigned {
+                if conversation.assigned_to == currentUserId(){
+                    //pass data
+                    HippoConfig.shared.sendDataIfChatIsAssignedToSelfAgent(messageDict)
+                }else{
+                    removeChannelForUnreadCount(conversation.channel_id ?? -1)
+                }
+            }
+            
+            self.conversationRecieved(conversation, dict: messageDict)
+        }
     }
     
     fileprivate func unSubscribe(completion: UserChannelHandler? = nil) {

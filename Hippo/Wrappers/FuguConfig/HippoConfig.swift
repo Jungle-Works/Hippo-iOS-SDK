@@ -199,7 +199,6 @@ struct BotAction {
         }
     }
     
-    internal let listener = SocketListner()
     ///turn its value true to show slow internet bar on chat screen
     public var shouldShowSlowInternetBar : Bool?
     
@@ -975,7 +974,7 @@ struct BotAction {
         
         if let hippoUserChannelId = HippoUserDetail.HippoUserChannelId {
             guard isSubscribed(userChannelId: hippoUserChannelId) else {
-                subscribeCustomerUserChannel(userChannelId: hippoUserChannelId)
+                SocketClient.shared.subscribeSocketChannel(channel: hippoUserChannelId)
                 completion(false, nil)
                 return
             }

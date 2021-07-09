@@ -22,8 +22,7 @@ class PrePaymentViewController: UIViewController {
     var isPaymentCancelled : ((Bool)->())?
     var channelId : Int?
     let transparentView = UIView()
-    var listener : SocketListner?
-    
+ 
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,9 +40,18 @@ class PrePaymentViewController: UIViewController {
         navigationBar.rightButton.isEnabled = isPrePayment ?? false ? true : false
         navigationBar.rightButton.tintColor = .black
         SocketClient.shared.subscribeSocketChannel(channel: "\(channelId ?? -1)")
-        listener = SocketListner()
-        listener?.startListening(event: SocketEvent.SERVER_PUSH.rawValue, callback: { (data) in
-            if let messageDict = data as? [String : Any]{
+    }
+    
+    private func addObserver() {
+        NotificationCenter.default.addObserver(self, selector: #selector(handleMessageRecieved), name: .messageRecieved, object: nil)
+    }
+    
+    @objc private func handleMessageRecieved(notification: NSNotification) {
+        if let messageDict = notification.userInfo as? [String : Any] {
+            if let messageDict = notification.userInfo as? [String : Any] {
+                if (messageDict["channel"] as? String)?.replacingOccurrences(of: "/", with: "") != "\(self.channelId)"{
+                    return
+                }
                 if messageDict["message_type"] as? Int == 22{
                     if (messageDict["custom_action"] as? NSDictionary)?.value(forKey: "selected_id") as? Int == 1{
                         self.isPaymentSuccess?(true)
@@ -54,7 +62,11 @@ class PrePaymentViewController: UIViewController {
                     }
                 }
             }
-        })
+        }
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        NotificationCenter.default.removeObserver(self)
     }
     
     private func initalizeWebView() {
@@ -126,10 +138,6 @@ class PrePaymentViewController: UIViewController {
             HippoConfig.shared.notifiyDeinit()
             self.navigationController?.dismiss(animated: true, completion: nil)
         }
-    }
-    
-    deinit {
-        listener = nil
     }
 }
 extension PrePaymentViewController{

@@ -108,7 +108,7 @@ extension GroupCallChannel: SignalingClient {
         }
       
         if currentUserType() == .customer{
-            subscribeCustomerUserChannel(userChannelId: userChannelId ?? "")
+            CustomerUserChannel.reIntializeIfRequired()
         }
         
         subscribeChannel { (error,success)  in
