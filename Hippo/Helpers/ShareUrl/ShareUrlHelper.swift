@@ -47,6 +47,9 @@ final class ShareUrlHelper {
         #endif
         let randomStr = randomString(length: 11) + "iOS"
         var link = url + randomStr
+        if HippoConfig.shared.jitsiUrl?.last == "/" {
+            HippoConfig.shared.jitsiUrl?.removeLast()
+        }
         var jitsiLink = (HippoConfig.shared.jitsiUrl ?? "") != "" ? (HippoConfig.shared.jitsiUrl ?? "") + "/" + randomStr : ""
         if callType == .audio {
             link += "#config.startWithVideoMuted=true"
