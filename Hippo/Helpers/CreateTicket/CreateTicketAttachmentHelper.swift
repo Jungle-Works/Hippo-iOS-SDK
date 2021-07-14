@@ -72,6 +72,7 @@ extension CreateTicketAttachmentHelper: PickerHelperDelegate  {
     func payOptionClicked() {
         
     }
+
     
     func imagePickingError(mediaSelector: CoreMediaSelector, error: Error) {
         self.delegate?.imagePickingError(mediaSelector: mediaSelector, error: error)

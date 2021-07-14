@@ -15,6 +15,7 @@ class BussinessProperty: NSObject {
     var shouldHideCustomerData : Bool?
     var editDeleteExpiryTime : CGFloat? // in minutes from backend
     var id : Int?
+    var isCallInviteEnabled: Bool?
     
     var hideAllChat: Bool? {
          get {

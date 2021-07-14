@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FillPresciptionViewController: UIViewController, InformationViewDelegate {
+class FillPresciptionViewController: UIViewController {
 
     //MARK:- Variables
     var template : Template?
@@ -145,7 +145,7 @@ extension FillPresciptionViewController{
     private func noFieldsFound(errorMessage : String){
         if (self.template?.body_keys?.count ?? 0) <= 0{
             if informationView == nil {
-                informationView = InformationView.loadView(self.tableView_Template.bounds, delegate: self)
+                informationView = InformationView.loadView(self.tableView_Template.bounds)
             }
             self.informationView?.informationLabel.text = errorMessage
             self.informationView?.informationImageView.image = HippoConfig.shared.theme.noPrescription

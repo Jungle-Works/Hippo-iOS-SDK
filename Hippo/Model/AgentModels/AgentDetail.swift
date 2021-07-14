@@ -277,11 +277,19 @@ extension AgentDetail {
                 BussinessProperty.current.agentStatusForToggle = status.rawValue
             }
             
-          
+            if let time = data["updateAt"] as? Int {
+                let difference = time - Int(NSDate().timeIntervalSince1970 * 1000)
+                HippoConfig.shared.serverTimeDifference = difference
+                SocketClient.shared.connect()
+            }
+    
             BussinessProperty.current.isVideoCallEnabled = Bool.parse(key: "is_video_call_enabled", json: data)
             BussinessProperty.current.isAudioCallEnabled = Bool.parse(key: "is_audio_call_enabled", json: data)
             
+            
             if let businessProperty = data["business_property"] as? [String: Any] {
+                BussinessProperty.current.isCallInviteEnabled = Bool.parse(key: "is_call_invite_enabled", json: businessProperty)
+                
                 BussinessProperty.current.editDeleteExpiryTime = CGFloat(Int.parse(values: businessProperty, key: "edit_delete_message_duration") ?? 0)
             
                 BussinessProperty.current.encodeToHTMLEntities = Bool.parse(key: "encode_to_html_entites", json: businessProperty)

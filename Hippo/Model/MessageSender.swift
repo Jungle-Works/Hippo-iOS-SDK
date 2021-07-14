@@ -67,13 +67,13 @@ class MessageSender {
             return
         }
         
-        guard (message.status == .none || message.type == .feedback || message.type == .consent || message.type == .card || message.type == .multipleSelect) && !message.isDeleted else {
+        guard (message.status == .none || message.type == .feedback || message.type == .consent || message.type == .dateTime || message.type == .address || message.type == .card || message.type == .multipleSelect || message.type == .botAttachment) && !message.isDeleted else {
             messagesToBeSent.removeFirst()
             startSending()
             return
         }
         
-        guard (!message.isMessageExpired() && message.isSentByMe()) || message.type == .feedback || message.type == .consent || message.type == .card || message.type == .multipleSelect else {
+        guard (!message.isMessageExpired() && message.isSentByMe()) || message.type == .feedback || message.type == .consent || message.type == .dateTime || message.type == .address || message.type == .card || message.type == .multipleSelect || message.type == .botAttachment else {
             invalidateCurrentMessageWhichIsBeingSent()
             self.isSendingMessages = true
             startSending()
@@ -81,10 +81,10 @@ class MessageSender {
         }
         message.wasMessageSendingFailed = false
         
-//        guard FayeConnection.shared.isChannelSubscribed(channelID: channelID.description) else {
-//            isSendingMessages = false
-//            return
-//        }
+        guard SocketClient.shared.isChannelSubscribed(channel: channelID.description) else {
+            isSendingMessages = false
+            return
+        }
         
         let messageJSON: [String: Any]
         
@@ -104,6 +104,9 @@ class MessageSender {
                     return
                 }
                 message.status = .sent
+                if let customMessage = message as? HippoActionMessage {
+                    customMessage.responseMessage?.status = .sent
+                }
                 SoundPlayer.messageSentSucessfully()
                 DispatchQueue.main.async {
                     self?.delegate?.messageSent(message: message)
@@ -179,7 +182,7 @@ class MessageSender {
             self.delegate?.messageSendingFailed(message: message, result: result)
         }
     }
-    private func retryWithDelay(_ delay: TimeInterval = 5) {
+    private func retryWithDelay(_ delay: TimeInterval = 2) {
         // delay to wait before retrying
         fuguDelay(delay, completion: { [weak self] in
             self?.startSending()

@@ -40,7 +40,8 @@ class AgentConversation: HippoConversation {
     var mutiLanguageMsg : String?
     var isBotInProgress: Bool = false
     var chatStatus : Int?
-
+    var message_sub_type : Int?
+    
     var updateUnreadCountBy: Int {
         return isMyChat ?? false ? 1 : 0
     }
@@ -67,6 +68,9 @@ class AgentConversation: HippoConversation {
     
     init(json: [String: Any]) {
         super.init()
+        if let message_sub_type = Int.parse(values: json, key: "message_sub_type") {
+            self.message_sub_type = message_sub_type
+        }
         chatStatus = json["chat_status"] as? Int
         isBotInProgress = Bool.parse(key: "is_bot_in_progress", json: json, defaultValue: false)
         labelId = json["label_id"] as? Int ?? -1
@@ -132,7 +136,7 @@ class AgentConversation: HippoConversation {
     
     
     func getDisplayMessage() -> String {
-        let lastMessage = self.lastMessage?.message ?? ""
+        var lastMessage = self.lastMessage?.message ?? ""
 
         var title = ""
         var end = lastMessage.trimWhiteSpacesAndNewLine()
@@ -141,6 +145,9 @@ class AgentConversation: HippoConversation {
         if lastMessage.isEmpty {
             title = HippoStrings.customer
             end = HippoStrings.sentAPhoto
+        }
+        if notificationType == .message && message_sub_type == 1 {
+            lastMessage = HippoStrings.sentACallInvite
         }
         
         if self.lastMessage?.senderId == AgentDetail.id {

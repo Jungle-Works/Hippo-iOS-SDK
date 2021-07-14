@@ -30,6 +30,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     var isComingFromConsultNowButton = false
     var createTicketVM = CreateTicketVM()
     var popover : LCPopover?
+    var original_transaction_id : String?
     
     // MARK: -  IBOutlets
     @IBOutlet weak var backgroundImageView: UIImageView!
@@ -104,6 +105,20 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
             Button_EditMessage.setImage(UIImage(named: "tick_green", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate), for: .normal)
         }
     }
+
+    @IBOutlet private var button_Recording : RecordButton!
+    @IBOutlet private var viewRecord : RecordView!
+    @IBOutlet private var stackViewButton : UIStackView!
+
+
+    @IBOutlet var buttonCalendar : UIButton!{
+        didSet{
+            buttonCalendar.imageView?.tintColor = HippoConfig.shared.theme.themeColor
+            buttonCalendar.setImage(UIImage(named: "Datetime", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate), for: .normal)
+        }
+    }
+
+    
     
     var suggestionCollectionView = SuggestionView()
     var suggestionList: [String] = []
@@ -141,11 +156,18 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
    
     // MARK: - LIFECYCLE
     override func viewDidLoad() {
-        
         super.viewDidLoad()
+        button_Recording.recordView = viewRecord
+        viewRecord.delegate = self
+        button_Recording.buttonTouched = {[weak self]() in
+            DispatchQueue.main.async {
+                self?.addRecordView()
+            }
+        }
         view_Navigation.call_button.addTarget(self, action: #selector(audiCallButtonClicked(_:)), for: .touchUpInside)
         view_Navigation.video_button.addTarget(self, action: #selector(videoButtonClicked(_:)), for: .touchUpInside)
-        
+        handleInfoIcon()
+       
         collectionViewOptions?.delegate = self
         collectionViewOptions?.dataSource = self
         customTableView.isScrollEnabled = false//true
@@ -251,6 +273,20 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         fetchMessagesFrom1stPage()
         //HippoConfig.shared.notifyDidLoad()//
         
+    }
+    
+    func addRecordView() {
+        viewRecord.isHidden = false
+    }
+    
+    
+    func handleInfoIcon() {
+        setTitleButton()
+        view_Navigation.info_button.isHidden = false
+        view_Navigation.info_button.setImage(HippoConfig.shared.theme.informationIcon, for: .normal)
+        view_Navigation.info_button.addTarget(self, action:  #selector(openSharedMedia), for: UIControl.Event.touchUpInside)
+        view_Navigation.info_button.tintColor = HippoConfig.shared.theme.headerTextColor
+        view_Navigation.info_button.isEnabled = true
     }
     
     override func startEditing(with message : HippoMessage, indexPath : IndexPath){
@@ -621,11 +657,25 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
 //        presentActionsForCustomer(sender: self.view)
     }
     @IBAction func audiCallButtonClicked(_ sender: Any) {
-        startAudioCall()
+        startAudioCall(transactionId: self.original_transaction_id)
     }
     @IBAction func videoButtonClicked(_ sender: Any) {
-     startVideoCall()
+        startVideoCall(transactionId: self.original_transaction_id)
    }
+    @IBAction func openSharedMedia(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "AgentSdk", bundle: FuguFlowManager.bundle)
+        let alert = UIAlertController(title: nil, message: "Please select an option", preferredStyle: .actionSheet)
+
+        alert.addAction(UIAlertAction(title: HippoStrings.sharedMediaTitle, style: UIAlertAction.Style.default, handler: { _ in
+            if let vc = storyboard.instantiateViewController(withIdentifier: "SharedMediaViewController") as? SharedMediaViewController{
+                vc.channelId = self.channelId
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+        }))
+        alert.addAction(UIAlertAction(title: HippoStrings.cancel, style: .cancel, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+   }
+    
     
     @IBAction func addAttachmentButtonAction(_ sender: UIButton) {
         attachmentViewHeightConstraint.constant = attachmentViewHeightConstraint.constant == 128 ? 0 : 128
@@ -728,8 +778,76 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     }
     
     @IBAction func sendMessageButtonAction(_ sender: UIButton) {
+
+        self.sendMessageButton.isHidden = true
+        self.button_Recording.isHidden = false
+
+        if let message = messagesGroupedByDate.last?.last as? HippoActionMessage {
+            if message.type == .dateTime {
+                sendDateMessage()
+                return
+            }else if message.type == .address {
+                sendAddress()
+                return
+            }
+        }
         self.sendMessageButtonAction(messageTextStr: messageTextView.text)
     }
+    
+    private func sendAddress() {
+        guard let message = messagesGroupedByDate.last?.last as? HippoActionMessage else {
+            return
+        }
+        message.responseMessage = HippoMessage(message: messageTextView.text, type: .normal, senderName: message.repliedBy, senderId: message.repliedById, chatType: chatType)
+        message.responseMessage?.userType = .customer
+        message.documentType = nil
+        message.selectBtnWith(btnId: "")
+        DispatchQueue.main.async {
+            self.tableViewChat.reloadData()
+        }
+        self.sendMessage(message: message)
+        messageTextView.text = ""
+
+    }
+    
+    
+    private func sendDateMessage() {
+        if channel != nil, !channel.isSubscribed()  {
+            channel.subscribe()
+        }
+        
+        if FuguNetworkHandler.shared.isNetworkConnected == false || SocketClient.shared.isConnected() == false{
+            return
+        }
+        
+        if isMessageInvalid(messageText: messageTextView.text.trimWhiteSpacesAndNewLine()) {
+            return
+        }
+        
+        if let message = messagesGroupedByDate.last?.last as? HippoActionMessage{
+            var dic = [[String : Any]]()
+            var dateDic = [String : Any]()
+            dateDic["date_time"] = messageTextView.text
+            dateDic["date_time_message"] = messageTextView.text
+            dateDic["time_zone"] = TimeZone.current.secondsFromGMT()
+            dic.append(dateDic)
+            message.contentValues = dic
+            message.selectBtnWith(btnId: "")
+            DispatchQueue.main.async {
+                self.tableViewChat.reloadData()
+            }
+            self.sendMessage(message: message)
+            messageTextView.text = ""
+            //                responseMessage?.userType = .customer
+            //                responseMessage?.creationDateTime = self.creationDateTime
+            //                responseMessage?.status = status
+            //                cellDetail?.actionHeight = nil
+            
+            //            addMessageToUIBeforeSending(message: dateTimeMessage)
+            //            self.sendMessage(message: dateTimeMessage)
+        }
+    }
+    
     
     func sendMessageButtonAction(messageTextStr: String){
 
@@ -746,8 +864,12 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
             channel.subscribe()
         }
         
-        if FuguNetworkHandler.shared.isNetworkConnected == false || SocketClient.shared.isConnected() == false{
+        if FuguNetworkHandler.shared.isNetworkConnected == false {
             return
+        }
+        
+        if SocketClient.shared.isConnected() == false {
+            SocketClient.shared.connect()
         }
         
         if isMessageInvalid(messageText: messageTextStr) {
@@ -1105,9 +1227,25 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         if request.pageStart > 1 {
             keepTableViewWhereItWasBeforeReload(oldContentHeight: contentHeightBeforeNewMessages, oldYOffset: contentOffsetBeforeNewMessages)
         }
-        if result.isSendingDisabled || forceDisableReply || checkIfShouldDisableReplyForCreateTicket(messages: messages){
+        if result.isSendingDisabled || forceDisableReply {
             disableSendingReply()
         }
+        
+        if checkIfShouldDisableReplyForCreateTicket(messages: messages) {
+            button_Recording.isEnabled = false
+            disableSendingNewMessages()
+        }
+        
+        if let message = messages.last {
+            if message.type == .dateTime {
+                self.updateUIForCalendar(message: message)
+            }else if message.type == .address {
+                setUIForAddress()
+            }else if message.type == .botAttachment {
+                setUIForBotAttachment()
+            }
+        }
+        
         if request.pageStart == 1, request.pageEnd == nil {
             newScrollToBottom(animated: true)
             sendReadAllNotification()
@@ -1129,6 +1267,9 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         }
         return false
     }
+    
+    
+    
     
     func handleVideoIcon() {
         setTitleButton()
@@ -1439,11 +1580,14 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
    func enableSendingNewMessages() {
       addFileButtonAction.isUserInteractionEnabled = true
       messageTextView.isEditable = true
-      //sendMessageButton.isEnabled = true
+    messageTextView.isUserInteractionEnabled = true
+      button_Recording.isHidden = false
+      button_Recording.isEnabled = true
    }
    
    func disableSendingNewMessages() {
       addFileButtonAction.isUserInteractionEnabled = false
+    messageTextView.isUserInteractionEnabled = false
       messageTextView.isEditable = false
       sendMessageButton.isEnabled = false
    }
@@ -1498,6 +1642,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     class func getWith(conversationObj: FuguConversation, allConversationConfig: AllConversationsConfig) -> ConversationsViewController {
       let vc = getNewInstance()
         vc.updateChatInfoWith(chatObj: conversationObj, allConversationConfig: allConversationConfig)
+        vc.original_transaction_id = conversationObj.original_transaction_id
       return vc
    }
    
@@ -1511,6 +1656,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
       let vc = getNewInstance()
       vc.directChatDetail = chatAttributes
       vc.label = chatAttributes.channelName ?? ""
+      vc.original_transaction_id = chatAttributes.transactionId
       return vc
     
     /* testing:
@@ -1530,10 +1676,11 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     
    }
    
-   class func getWith(channelID: Int, channelName: String) -> ConversationsViewController {
+    class func getWith(channelID: Int, channelName: String, transactionId: String? = nil) -> ConversationsViewController {
       let vc = getNewInstance()
       vc.channel = FuguChannelPersistancyManager.shared.getChannelBy(id: channelID)
       vc.label = channelName
+      vc.original_transaction_id = transactionId
       return vc
    }
    
@@ -1543,6 +1690,22 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
       return vc
    }
 }
+extension ConversationsViewController : SearchAddressControllerProtocol {
+    func addressSelected(address: Address) {
+        messageTextView.text = address.address ?? ""
+        sendMessageButton.isEnabled = true
+        sendMessageButton.isHidden = false
+        button_Recording.isHidden = true
+        var dic = [[String : Any]]()
+        let obj = ["address": address.address ?? "", "latitude": address.lat ?? 0.0, "longitude": address.lng ?? 0.0] as [String : Any]
+        dic.append(obj)
+        guard let message = messagesGroupedByDate.last?.last as? HippoActionMessage else {
+            return
+        }
+        message.contentValues = dic
+    }
+}
+
 extension ConversationsViewController: CreateTicketAttachmentHelperDelegate {
    
 }
@@ -2046,6 +2209,13 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
              }
              
              switch messageType {
+//             case MessageType.dateTime:
+//                if message.senderId != currentUserId() || message.userType == .system {
+//                    return getNormalMessageTableViewCell(tableView: tableView, isOutgoingMessage: false, message: message, indexPath: indexPath)
+//                }else {
+//                    return getNormalMessageTableViewCell(tableView: tableView, isOutgoingMessage: true, message: message, indexPath: indexPath)
+//                }
+//
              case MessageType.imageFile:
                 if isOutgoingMsg == true {
                     guard
@@ -2200,7 +2370,7 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                          return cell
                      }
                  }
-             case .consent:
+             case .consent, .dateTime, .address, .botAttachment:
                  guard let cell = tableView.dequeueReusableCell(withIdentifier: "ActionTableView", for: indexPath) as? ActionTableView, let actionMessage = message as? HippoActionMessage else {
                      return UITableView.defaultCell()
                  }
@@ -2369,8 +2539,8 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
 //                    }
                  //   rowHeight += 7 //Height for bottom view
                     return UIView.tableAutoDimensionHeight
-                case .consent:
-                    return message.cellDetail?.cellHeight ?? 0.01
+                case .consent, .dateTime, .address, .botAttachment:
+                    return (message.cellDetail?.cellHeight ?? 0.01 + 20)
                 case MessageType.call:
                     return UIView.tableAutoDimensionHeight
                 case .card:
@@ -2697,15 +2867,23 @@ extension ConversationsViewController: UITextViewDelegate {
    }
    
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
-      self.addRemoveShadowInTextView(toAdd: true)
-      
-      placeHolderLabel.textColor = #colorLiteral(red: 0.2862745098, green: 0.2862745098, blue: 0.2862745098, alpha: 0.8)
-      textInTextField = textView.text
-      textViewBgView.backgroundColor = .white
-      timer = Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(self.watcherOnTextView), userInfo: nil, repeats: true)
-      
-      return true
-   }
+        if placeHolderLabel.text == HippoStrings.selectDate ||  placeHolderLabel.text == HippoStrings.selectTime {
+            self.actionCalendar()
+            return false
+        }else if placeHolderLabel.text == HippoStrings.selectAddress {
+            self.openSearchAddress()
+            return false
+        }
+        
+        self.addRemoveShadowInTextView(toAdd: true)
+        
+        placeHolderLabel.textColor = #colorLiteral(red: 0.2862745098, green: 0.2862745098, blue: 0.2862745098, alpha: 0.8)
+        textInTextField = textView.text
+        textViewBgView.backgroundColor = .white
+        timer = Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(self.watcherOnTextView), userInfo: nil, repeats: true)
+        
+        return true
+    }
    
     func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
       textViewBgView.backgroundColor = UIColor.white
@@ -2720,7 +2898,10 @@ extension ConversationsViewController: UITextViewDelegate {
    }
    
     func textViewDidChange(_ textView: UITextView) {
-
+        if textView.text.isEmpty {
+            button_Recording.isHidden = false
+            sendMessageButton.isHidden = true
+        }
    }
    
     func textViewDidEndEditing(_ textView: UITextView) {
@@ -2734,8 +2915,6 @@ extension ConversationsViewController: UITextViewDelegate {
         let newText = ((textView.text as NSString?)?.replacingCharacters(in: range,
                                                                          with: text))!
         if newText.trimmingCharacters(in: .whitespacesAndNewlines).count == 0 {
-            self.sendMessageButton.isEnabled = false
-            
             if text == "\n" {
                 textView.resignFirstResponder()
             }
@@ -2748,12 +2927,17 @@ extension ConversationsViewController: UITextViewDelegate {
                 return false
             }
         } else {
-            self.sendMessageButton.isEnabled = true
             if typingMessageValue == TypingMessage.startTyping.rawValue, channel != nil {
                 sendTypingStatusMessage(isTyping: TypingMessage.startTyping)
                 self.typingMessageValue = TypingMessage.stopTyping.rawValue
             }
         }
+        
+        self.sendMessageButton.isEnabled = !(newText == "")
+        self.sendMessageButton.isHidden = (newText == "")
+        self.button_Recording.isHidden = !(newText == "")
+    
+        
         return true
     }
 }
@@ -2859,18 +3043,69 @@ extension ConversationsViewController: HippoChannelDelegate {
         
     }
     
+    private func updateUIForCalendar(message : HippoMessage) {
+        buttonCalendar.isHidden = false
+        addFileButtonAction.isHidden = true
+        placeHolderLabel.text = message.actionableMessage?.botResponseType == .time ? HippoStrings.selectTime : HippoStrings.selectDate
+    }
+    
+    private func setUIForAddress() {
+        buttonCalendar.isHidden = true
+        addFileButtonAction.isHidden = false
+        addFileButtonAction.isEnabled = false
+        self.messageTextView.resignFirstResponder()
+        self.placeHolderLabel.text = HippoStrings.selectAddress
+    }
+    
+    private func setUIForBotAttachment() {
+        buttonCalendar.isHidden = true
+        addFileButtonAction.isEnabled = true
+        self.messageTextView.isUserInteractionEnabled = false
+        self.placeHolderLabel.text = HippoStrings.chooseFile
+    }
+    
+    @IBAction func actionCalendar() {
+        let dateTimePicker = UIStoryboard(name: "FuguUnique", bundle: FuguFlowManager.bundle).instantiateViewController(withIdentifier: "DateTimePicker") as! DateTimePicker
+        if let message = self.messagesGroupedByDate.last?.last {
+            dateTimePicker.message = message
+        }
+        dateTimePicker.modalPresentationStyle = .overFullScreen
+        dateTimePicker.delegate = self
+        self.present(dateTimePicker, animated: true, completion: nil)
+    }
+    
+    private func openSearchAddress() {
+        let vc = SearchAddressController.getNewInstance()
+        vc.delegate = self
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
     func newMessageReceived(newMessage message: HippoMessage) {
+        enableSendingNewMessages()
+        if message.type != .dateTime && message.type != .address {
+            buttonCalendar.isHidden = true
+            addFileButtonAction.isHidden = false
+            addFileButtonAction.isEnabled = true
+            placeHolderLabel.text = HippoStrings.messagePlaceHolderText
+        }
+        
         guard !isSentByMe(senderId: message.senderId) || message.type.isBotMessage  else {
             HippoConfig.shared.log.debug("Yahaa se nahi nikla", level: .custom)
             return
         }
-        
         
         self.setKeyboardType(message: message)
         
         
         isTypingLabelHidden = message.typingStatus != .startTyping
         switch message.type {
+        case .botAttachment:
+            setUIForBotAttachment()
+        case .address:
+            setUIForAddress()
+        case .dateTime:
+            self.messageTextView.resignFirstResponder()
+            self.updateUIForCalendar(message: message)
         case .paymentCard:
             if (message.cards ?? []).isEmpty {
                 return
@@ -2911,8 +3146,10 @@ extension ConversationsViewController: HippoChannelDelegate {
             self.replaceLastQuickReplyIncaseofBotForm()
         }
         if message.type == MessageType.createTicket {
-            self.disableSendingReply()
+            button_Recording.isEnabled = false
+            disableSendingNewMessages()
         }
+       
         
     }
     func getMessageForQuickReply(messages: [HippoMessage]) -> HippoMessage? {
@@ -2998,6 +3235,17 @@ extension ConversationsViewController: HippoChannelDelegate {
 //    }
     
 }
+extension ConversationsViewController : DateTimePickerDelegate{
+    func dateSelected(selectedDate: String) {
+        sendMessageButton.isEnabled = true
+        sendMessageButton.isHidden = false
+        button_Recording.isHidden = true
+        self.messageTextView.text = selectedDate
+        sendMessageButton.isEnabled = true
+    }
+}
+
+
 // MARK: Bot Form Cell Delegates
 extension ConversationsViewController: LeadTableViewCellDelegate {
     func reloadDataOnAttachmentRemove(){
@@ -3279,7 +3527,7 @@ extension ConversationsViewController: LeadTableViewCellDelegate {
                         }
                         if arrayOfMessages.count == message.content.questionsArray.count{
                             self?.createTicketVM.isCustomerCreated = false
-                            self?.enableSendingReply()
+                            self?.enableSendingNewMessages()
                         }
                     }
                 })
@@ -3490,7 +3738,7 @@ extension ConversationsViewController{
     func messageEditingStarted(with message : HippoMessage){
         self.messageInEditing = message
         self.addFileButtonAction.isHidden = true
-        self.sendMessageButton.isHidden = true
+        //self.sendMessageButton.isHidden = true
         self.Button_CancelEdit.isHidden = false
         self.Button_EditMessage.isHidden = false
         self.messageTextView.text = message.message
@@ -3501,7 +3749,7 @@ extension ConversationsViewController{
     func messageEditingStopped(){
         self.messageInEditing = nil
         self.addFileButtonAction.isHidden = false
-        self.sendMessageButton.isHidden = false
+        //self.sendMessageButton.isHidden = false
         self.Button_CancelEdit.isHidden = true
         self.Button_EditMessage.isHidden = true
         self.messageTextView.text = ""
@@ -3510,7 +3758,30 @@ extension ConversationsViewController{
     }
     
 }
+extension ConversationsViewController : RecordViewDelegate {
 
+    func onStart() {
+        recordingHelper.startRecording()
+    }
+    
+    func onCancel() {
+        recordingHelper.finishRecording(success: false)
+    }
+    
+    func onFinished(duration: CGFloat) {
+        if duration > 0.0 {
+            recordingHelper.finishRecording(success: true)
+        }else {
+            recordingHelper.finishRecording(success: false)
+        }
+        viewRecord.isHidden = true
+    }
+    
+    func onAnimationEnd() {
+        viewRecord.isHidden = true
+    }
+    
+}
 
 
 

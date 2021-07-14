@@ -105,6 +105,7 @@ public class UserTag: NSObject {
     var selectedlanguage : String?
     var userChannel: String?
     var listener : SocketListner?
+    var userIdenficationSecret : String?
     
     static var shouldGetPaymentGateways : Bool = true
     
@@ -145,9 +146,9 @@ public class UserTag: NSObject {
     // MARK: - Intializer
     override init() {}
     
-    public init(fullName: String, email: String, phoneNumber: String, userUniqueKey: String, addressAttribute: HippoAttributes? = nil, customAttributes: [String: Any]? = nil, userTags: [UserTag]? = nil, userImage: String? = nil, selectedlanguage : String? = nil, getPaymentGateways : Bool = true) {
+    public init(fullName: String, email: String, phoneNumber: String, userUniqueKey: String, addressAttribute: HippoAttributes? = nil, customAttributes: [String: Any]? = nil, userTags: [UserTag]? = nil, userImage: String? = nil,userIdenficationSecret : String?, selectedlanguage : String? = nil, getPaymentGateways : Bool = true) {
         super.init()
-        
+        self.userIdenficationSecret = userIdenficationSecret
         self.fullName = fullName.trimWhiteSpacesAndNewLine()
         self.email = email.trimWhiteSpacesAndNewLine()
         self.phoneNumber = phoneNumber.trimWhiteSpacesAndNewLine()
@@ -221,6 +222,10 @@ public class UserTag: NSObject {
             if HippoConfig.shared.appSecretKey.isEmpty == false {
                 params["app_secret_key"] = HippoConfig.shared.appSecretKey
             }
+        }
+        
+        if let userIdenficationSecret = userIdenficationSecret, userIdenficationSecret.trimWhiteSpacesAndNewLine().isEmpty == false {
+            params["user_identification_secret"] = userIdenficationSecret
         }
         
         if let applicationType = HippoConfig.shared.appType,
@@ -304,6 +309,12 @@ public class UserTag: NSObject {
             
             guard let response = (responseObject as? [String: Any]), statusCode == STATUS_CODE_SUCCESS, let data = response["data"] as? [String: Any] else {
                 HippoConfig.shared.log.error("PutUserError: \(error.debugDescription)", level: .error)
+                if statusCode == 400 {
+                    if let message = (responseObject as? [String: Any])?["message"] as? String {
+                        HippoConfig.shared.sendSecurityError(message: message)
+                    }
+                }
+                
                 NotificationCenter.default.post(name: .putUserFailure, object:self)
                 completion?(false, (error ?? APIErrors.statusCodeNotFound))
                 return
@@ -331,17 +342,23 @@ public class UserTag: NSObject {
             }
         }
         
-        if let tags = userDetailData["grouping_tags"] as? [[String: Any]] {
-            HippoConfig.shared.userDetail?.userTags.removeAll()
-            for each in tags {
-                HippoConfig.shared.userDetail?.userTags.append(UserTag(json: each))
-            }
+        if let serverTime = userDetailData["updateAt"] as? Int {
+            let difference = serverTime - Int(NSDate().timeIntervalSince1970 * 1000)
+            HippoConfig.shared.serverTimeDifference = difference
+        }
+        
+        if let deviceKey = userDetailData["device_key"] as? String {
+            HippoConfig.shared.deviceKey = deviceKey
+            SocketClient.shared.connect()
         }
         
         if let appSecretKey = userDetailData["app_secret_key"] as? String {
             HippoConfig.shared.appSecretKey = appSecretKey
             subscribeMarkConversation()
         }
+        
+        
+        BussinessProperty.current.isCallInviteEnabled = Bool.parse(key: "is_call_invite_enabled", json: userDetailData)
         
         BussinessProperty.current.editDeleteExpiryTime = CGFloat(Int.parse(values: userDetailData, key: "edit_delete_message_duration") ?? 0)
         

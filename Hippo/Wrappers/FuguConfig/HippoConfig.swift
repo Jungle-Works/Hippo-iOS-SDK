@@ -13,8 +13,8 @@ import AVFoundation
  
 #endif
 
-#if canImport(JitsiMeet)
-import JitsiMeet
+#if canImport(JitsiMeetSDK)
+import JitsiMeetSDK
 #endif
 
 public protocol HippoMessageRecievedDelegate: class {
@@ -31,17 +31,26 @@ enum AgentUserType: Int {
     case admin = 13
 }
 
+enum PrivateSocketKeys: String {
+
+    case dev = "aTT%qC>i2to<AANI$mdq"
+    case live = "q4t7w!z%C*F-J@NcRfUjXn2r5u8x/A?D"
+    case beta = "aTbetaT%qC>i2to<AANI"
+
+}
+
+
 struct SERVERS {
 
 static let liveUrl = "https://api.hippochat.io/"
 static let liveFaye = "https://socketv2.hippochat.io/faye"
 
-static let betaUrl = "https://beta-live-api.fuguchat.com:3001/"
-static let betaFaye = "https://beta-live-api.fuguchat.com:3001/faye"
+static let betaUrl = "https://beta-live-api1.fuguchat.com:3003/"
+static let betaFaye = "https://beta-live-api1.fuguchat.com:3003"
 
-static let devUrl = "https://hippo-api-dev.fuguchat.com:3011/"
-static let devFaye = "https://hippo-api-dev.fuguchat.com:3011/faye"
 
+static let devUrl = "https://hippo-api-dev1.fuguchat.com:3002/"
+static let devFaye = "https://hippo-api-dev1.fuguchat.com:3002"
 
 }
 
@@ -144,12 +153,14 @@ struct BotAction {
         }
     }
     
-    
+    var deviceKey : String = ""
+    var serverTimeDifference : Int = 0
     open var appName: String = ""
     internal var appUserType = AppUserType.customer
     internal var resellerToken = ""
     internal var referenceId = -1
     internal var appType: String?
+    internal var offering: Int?
     internal var credentialType = FuguCredentialType.defaultType
     var isSkipBot:Bool = false
     internal var baseUrl =      SERVERS.liveUrl     // SERVERS.betaUrl//
@@ -200,6 +211,8 @@ struct BotAction {
         HippoObservers.shared.enable = true
         FuguNetworkHandler.shared.fuguConnectionChangesStartNotifier()
         CallManager.shared.initCallClientIfPresent()
+
+
     }
     
     //MARK:- Function to pass Deep link Dic
@@ -242,6 +255,10 @@ struct BotAction {
         }
     }
     
+    public func joinCallFromLink(url: String) {
+        CallManager.shared.joinCallLink(customerName: currentUserName(), customerImage: currentUserImage() ?? "", url: url, isInviteEnabled: BussinessProperty.current.isCallInviteEnabled ?? false)
+    }
+    
     internal func setAgentStoredData() {
         guard let storedData = AgentDetail.agentLoginData else {
             return
@@ -267,10 +284,11 @@ struct BotAction {
         self.theme = theme
     }
     
-    public func setCredential(withAppSecretKey appSecretKey: String, appType: String? = nil) {
+    public func setCredential(withAppSecretKey appSecretKey: String, appType: String? = nil, offering: Int = 0) {
         self.credentialType = FuguCredentialType.defaultType
         self.appSecretKey = appSecretKey
         self.appType = appType
+        self.offering = offering
     }
     
     public func setCredential(withToken token: String, referenceId: Int, appType: String) {
@@ -705,7 +723,7 @@ struct BotAction {
                 completion(false, HippoError.threwError(message: HippoStrings.somethingWentWrong))
                 return
             }
-            let call = CallData.init(peerData: peer, callType: callType, muid: uuid, signallingClient: channel)
+            let call = CallData.init(peerData: peer, callType: callType, muid: uuid, signallingClient: channel, transactionId: nil)
   
 //            CallManager.shared.startCall(call: call, completion: { (success)  in
 //                if !success {
@@ -766,7 +784,7 @@ struct BotAction {
                 completion(false, HippoError.threwError(message: HippoStrings.somethingWentWrong))
                 return
             }
-            let call = CallData.init(peerData: peer, callType: callType, muid: uuid, signallingClient: channel)
+            let call = CallData.init(peerData: peer, callType: callType, muid: uuid, signallingClient: channel, transactionId: nil)
   
 //            CallManager.shared.startCall(call: call, completion: { (success)  in
 //                if !success {
@@ -1017,8 +1035,10 @@ struct BotAction {
                 if let vc = getLastVisibleController() as? AllConversationsViewController{
                     vc.updateChannelsWithrespectToPush(pushInfo: userInfo)
                 }else{
+
                     updateStoredUnreadCountFor(toIncreaseCount: true, with : userInfo)
                     pushTotalUnreadCount()
+
                 }
             }
         }
@@ -1062,9 +1082,13 @@ struct BotAction {
     }
     
     func reportIncomingCallOnCallKit(userInfo: [String : Any], completion: @escaping () -> Void){
-        #if canImport(JitsiMeet)
+        #if canImport(JitsiMeetSDK)
         enableAudioSession()
         if let uuid = userInfo["muid"] as? String, let name = userInfo["last_sent_by_full_name"] as? String, let isVideo = userInfo["call_type"] as? String == "AUDIO" ? false : true{
+            if HippoCallClient.shared.checkIfUserIsBusy(newCallUID: uuid) {
+                return
+            }
+            
             guard let UUID = UUID(uuidString: uuid) else {
                 return
             }
@@ -1210,7 +1234,7 @@ struct BotAction {
     func handleCustomerNotification(userInfo: [String: Any]) {
         
         let visibleController = getLastVisibleController()
-        
+        let transactionId = String.parse(values: userInfo, key: "chat_transaction_id")
         let channelId = (userInfo["channel_id"] as? Int) ?? -1
         let channelName = (userInfo["label"] as? String) ?? ""
         let labelId = (userInfo["label_id"] as? Int) ?? -1
@@ -1296,7 +1320,7 @@ struct BotAction {
                    navVC.modalPresentationStyle = .fullScreen
                    visibleController?.present(navVC, animated: true, completion: nil)
                } else if channelId > 0 {
-                   let conVC = ConversationsViewController.getWith(channelID: channelId, channelName: channelName)
+                let conVC = ConversationsViewController.getWith(channelID: channelId, channelName: channelName, transactionId: transactionId)
                    let navVC = UINavigationController(rootViewController: conVC)
                    navVC.isNavigationBarHidden = true
                    navVC.modalPresentationStyle = .fullScreen
@@ -1355,18 +1379,22 @@ extension HippoConfig{
     
    
     public func forceKillOnTermination(){
-        #if canImport(JitsiMeet)
+        #if canImport(JitsiMeetSDK)
         HippoCallClient.shared.terminateSessionIfAny()
         #endif
     }
     
     public func keyWindowChangedFromParent(){
-        #if canImport(JitsiMeet)
+        #if canImport(JitsiMeetSDK)
         HippoCallClient.shared.keyWindowChangedFromParent()
         #endif
     }
 }
 extension HippoConfig {
+    func sendSecurityError(message: String) {
+        HippoConfig.shared.delegate?.passSecurityCheckError(error: message)
+    }
+    
     func sendp2pUnreadCount(_ unreadCount : Int, _ channelId : Int){
         HippoConfig.shared.delegate?.sendp2pUnreadCount(unreadCount: unreadCount,channelId: channelId)
     }
@@ -1420,13 +1448,13 @@ extension HippoConfig {
 extension HippoConfig{
     
     func HideJitsiView(){
-         #if canImport(JitsiMeet)
+         #if canImport(JitsiMeetSDK)
             HippoCallClient.shared.hideViewInPip()
          #endif
     }
     
     func UnhideJitsiView(){
-         #if canImport(JitsiMeet)
+         #if canImport(JitsiMeetSDK)
             HippoCallClient.shared.unHideViewInPip()
          #endif
     }

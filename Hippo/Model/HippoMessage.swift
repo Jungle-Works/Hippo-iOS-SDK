@@ -125,7 +125,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
     var belowMessageUserId: Int?
     var aboveMessageType: MessageType?
     var belowMessageType: MessageType?
-
+    var message_sub_type : Int?
    
   
     var cards: [HippoCard]?
@@ -249,6 +249,9 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
             let status = ReadUnReadStatus(rawValue: rawStatus) {
             self.status = status
         }
+        
+        self.message_sub_type = dict["message_sub_type"] as? Int
+        
 //        channelId = UIInt.parse
        
         self.rawJsonToSend = dict["rawJsonToSend"] as? [String: Any]
@@ -258,7 +261,9 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         self.senderFullName = ((dict["full_name"] as? String) ?? "").trimWhiteSpacesAndNewLine()
         self.messageUniqueID = dict["muid"] as? String
         self.parsedMimeType = dict["mime_type"] as? String
-        
+        if let user_type = dict["user_type"] as? Int, let type = UserType(rawValue: user_type) {
+            self.userType = type
+        }
         var senderImage: String? = dict["user_image"] as? String ?? ""
         var type: MessageType = .none
         if let rawType = dict["message_type"] as? Int {
@@ -267,6 +272,8 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         }
         
         if (senderImage ?? "").isEmpty, (senderId <= 0  && type.isBotMessage) {
+            senderImage = BussinessProperty.current.botImageUrl
+        }else if (senderImage ?? "").isEmpty, type.isBotMessage {
             senderImage = BussinessProperty.current.botImageUrl
         }
         
@@ -306,9 +313,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         self.fallbackText = dict["fallback_text"] as? String
 
         self.callDurationInSeconds = dict["video_call_duration"] as? Double
-        if let user_type = dict["user_type"] as? Int, let type = UserType(rawValue: user_type) {
-            self.userType = type
-        }
+       
         if let actionableData = dict["custom_action"] as? [String: Any] {
             self.actionableMessage = FuguActionableMessage(dict: actionableData)
         }
@@ -587,6 +592,8 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         
         json["selected_agent_id"] = selectedCardId
         
+        json["message_sub_type"] = message_sub_type
+        
         if let parsedBotFormMUID = self.botFormMessageUniqueID {
             json["bot_form_muid"] = parsedBotFormMUID
         }
@@ -622,10 +629,12 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         json["image_width"] = imageWidth
         json["image_height"] = imageHeight
         
-        if let documentType = documentType {
-            json["document_type"] = documentType.rawValue
-        } else if let concreteFileType = concreteFileType {
-            json["document_type"] = concreteFileType.rawValue
+        if type != .dateTime && type != .address{
+            if let documentType = documentType {
+                json["document_type"] = documentType.rawValue
+            } else if let concreteFileType = concreteFileType {
+                json["document_type"] = concreteFileType.rawValue
+            }
         }
         
         if let id = messageId {
@@ -678,6 +687,8 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
             json["user_id"] = currentUserId()
             json["values"] = [selectedActionId]
             json["content_value"] = contentValues
+        } else if type == .dateTime || type == .address || type == .botAttachment{
+            json["custom_action"] = actionableMessage?.customActionJson
         }
         
         if customAction != nil{
@@ -922,6 +933,8 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
     }
     
     func updateMessageForEditDelete(with newObject: HippoMessage){
+        let isCellHavingImage = chatType.isImageViewAllowed && !userType.isMyUserType && HippoConfig.shared.appUserType != .agent
+        attributtedMessage = MessageUIAttributes(message: newObject.message, senderName: newObject.senderFullName, isSelfMessage: userType.isMyUserType, isShowingImage: isCellHavingImage)
         message = newObject.message
         messageState = newObject.messageState
         type = newObject.type
@@ -1094,7 +1107,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         var tempMessage: HippoMessage?
         
         switch type {
-        case .consent:
+        case .consent, .dateTime, .address, .botAttachment:
             tempMessage = HippoActionMessage(dict: messageJson)
         default:
             tempMessage = HippoMessage(dict: messageJson)

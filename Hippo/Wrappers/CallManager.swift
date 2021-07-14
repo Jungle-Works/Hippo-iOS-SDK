@@ -13,6 +13,7 @@ struct CallData {
     var callType: CallType
     var muid: String
     var signallingClient: HippoChannel
+    var transactionId: String?
 }
 
 struct GroupCallData{
@@ -52,7 +53,7 @@ class CallManager {
     
     
     func startGroupCall(call: GroupCallData, groupCallChannelData : GroupCallChannelData, completion: @escaping (Bool, NSError?) -> Void){
-        #if canImport(JitsiMeet)
+        #if canImport(JitsiMeetSDK)
         let peerUser = call.peerData
         guard let peer = HippoUser(name: peerUser.fullName, userID: peerUser.userID, imageURL: peerUser.image) else {
             return
@@ -60,7 +61,7 @@ class CallManager {
         guard let currentUser = getCurrentUser() else {
             return
         }
-        let callToMake = Call(peer: peer, signalingClient: call.signallingClient, uID: call.muid, currentUser: currentUser, type: getCallTypeWith(localType: call.callType), link: "", isGroupCall: true, jitsiUrl: HippoConfig.shared.jitsiUrl ?? "")
+        let callToMake = Call(peer: peer, signalingClient: call.signallingClient, uID: call.muid, currentUser: currentUser, type: getCallTypeWith(localType: call.callType), link: "", isGroupCall: true, jitsiUrl: HippoConfig.shared.jitsiUrl ?? "", transactionId: nil)
         
         let groupCallData = CallClientGroupCallData(roomTitle: groupCallChannelData.roomTitle ?? "", roomUniqueId: groupCallChannelData.roomUniqueId ?? "", transactionId :groupCallChannelData.transactionId ?? "", userType: currentUserType() == .agent ? "agent" : "customer", isMuted : call.isMuted)
         
@@ -69,6 +70,14 @@ class CallManager {
         completion(false,nil)
         #endif
     }
+    
+    func joinCallLink(customerName: String, customerImage: String, url: String, isInviteEnabled: Bool) {
+        #if canImport(JitsiMeetSDK)
+        HippoCallClient.shared.joinCallLink(customerName: customerName, customerImage: customerImage, url: url, isInviteEnabled: isInviteEnabled)
+        #else
+        #endif
+    }
+    
     
     // use this method if you are using jitsi branch for calling feature
 
@@ -81,12 +90,12 @@ class CallManager {
         guard let currentUser = getCurrentUser() else {
             return
         }
-        #if canImport(JitsiMeet)
-        let callToMake = Call(peer: peer, signalingClient: call.signallingClient, uID: call.muid, currentUser: currentUser, type: getCallTypeWith(localType: call.callType), link: "", jitsiUrl: HippoConfig.shared.jitsiUrl ?? "")
+        #if canImport(JitsiMeetSDK)
+        let callToMake = Call(peer: peer, signalingClient: call.signallingClient, uID: call.muid, currentUser: currentUser, type: getCallTypeWith(localType: call.callType), link: "", jitsiUrl: HippoConfig.shared.jitsiUrl ?? "", transactionId: call.transactionId)
         #else
         let callToMake = Call(peer: peer, signalingClient: call.signallingClient, uID: call.muid, currentUser: currentUser, type: getCallTypeWith(localType: call.callType), link: "")
          #endif
-        HippoCallClient.shared.startCall(call: callToMake, completion: completion)
+        HippoCallClient.shared.startCall(call: callToMake, isInviteEnabled: BussinessProperty.current.isCallInviteEnabled ?? false, completion: completion)
         #else
         completion(false,nil)
         #endif
@@ -102,8 +111,8 @@ class CallManager {
         guard let currentUser = getCurrentUser() else {
             return
         }
-        #if canImport(JitsiMeet)
-        let callToMake = Call(peer: peer, signalingClient: call.signallingClient, uID: call.muid, currentUser: currentUser, type: getCallTypeWith(localType: call.callType), link: "", jitsiUrl: HippoConfig.shared.jitsiUrl ?? "")
+        #if canImport(JitsiMeetSDK)
+        let callToMake = Call(peer: peer, signalingClient: call.signallingClient, uID: call.muid, currentUser: currentUser, type: getCallTypeWith(localType: call.callType), link: "", jitsiUrl: HippoConfig.shared.jitsiUrl ?? "", transactionId: nil)
          #else
          let callToMake = Call(peer: peer, signalingClient: call.signallingClient, uID: call.muid, currentUser: currentUser, type: getCallTypeWith(localType: call.callType), link: "")
         
@@ -126,7 +135,7 @@ class CallManager {
     }
     
     func hungupCall() {
-        #if canImport(JitsiMeet)
+        #if canImport(JitsiMeetSDK)
         HippoCallClient.shared.hangupCall()
         #endif
     }
@@ -180,7 +189,7 @@ class CallManager {
     
  
     func voipNotificationRecievedForGroupCall(payloadDict: [String: Any]){
-        #if canImport(JitsiMeet)
+        #if canImport(JitsiMeetSDK)
 
         guard let peer = HippoUser(json: payloadDict) else {
             return
@@ -200,7 +209,7 @@ class CallManager {
         guard let currentUser = getCurrentUser() else {
             return
         }
-        HippoCallClient.shared.voipNotificationRecievedForGroupCall(dictionary: payloadDict, peer: peer, signalingClient: groupCallChannel, currentUser: currentUser)
+        HippoCallClient.shared.voipNotificationRecievedForGroupCall(dictionary: payloadDict, peer: peer, signalingClient: groupCallChannel, currentUser: currentUser, isInviteEnabled: BussinessProperty.current.isCallInviteEnabled ?? false)
         
         #else
         print("cannot import HippoCallClient")
@@ -224,7 +233,7 @@ class CallManager {
         guard let currentUser = getCurrentUser() else {
             return
         }
-        HippoCallClient.shared.voipNotificationRecieved(dictionary: payloadDict, peer: peer, signalingClient: channel, currentUser: currentUser)
+        HippoCallClient.shared.voipNotificationRecieved(dictionary: payloadDict, peer: peer, signalingClient: channel, currentUser: currentUser, isInviteEnabled: BussinessProperty.current.isCallInviteEnabled ?? false)
         #else
         print("cannot import HippoCallClient")
         #endif
@@ -275,6 +284,26 @@ extension CallManager: HippoCallClientDelegate {
     
     func loadCallPresenterView(request: CallPresenterRequest) -> CallPresenter? {
         return HippoConfig.shared.notifyCallRequest(request)
+    }
+    
+    func shareUrlApiCall(url : String) {
+        let shareUrlHelper = ShareUrlHelper()
+        shareUrlHelper.shareUrlApiCall(url: url) { (url) in
+            if let view = UIApplication.shared.keyWindow?.subviews.last {
+                let text = url
+                
+                // set up activity view controller
+                let textToShare = [ text ]
+                let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
+                activityViewController.popoverPresentationController?.sourceView = view // so that iPads won't crash
+                
+                // exclude some activity types from the list (optional)
+                activityViewController.excludedActivityTypes = [ UIActivity.ActivityType.airDrop, UIActivity.ActivityType.postToFacebook ]
+                DispatchQueue.main.async {
+                    getLastVisibleController()?.present(activityViewController, animated: true, completion: nil)
+                }
+            }
+        }
     }
 }
 #endif

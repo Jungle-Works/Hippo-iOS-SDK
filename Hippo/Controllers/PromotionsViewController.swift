@@ -286,7 +286,7 @@ class PromotionsViewController: UIViewController {
         if self.data.count <= 0{
            // self.navigationItem.rightBarButtonItem?.tintColor = .clear
             if informationView == nil {
-                informationView = InformationView.loadView(self.promotionsTableView.bounds, delegate: self)
+                informationView = InformationView.loadView(self.promotionsTableView.bounds)
                 informationView?.informationLabel.text = HippoStrings.noNotificationFound
             }
 
@@ -512,9 +512,6 @@ extension PromotionsViewController: UITableViewDelegate,UITableViewDataSource
     
 }
 
-extension PromotionsViewController: InformationViewDelegate {
-    
-}
 
 extension PromotionsViewController{
     

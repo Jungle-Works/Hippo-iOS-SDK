@@ -191,7 +191,8 @@ extension ConversationView {
             var messageToBeShown = messageString
             switch lastMessage.type {
             case .normal:
-                messageToBeShown += lastMessage.message.removeNewLine()
+                messageToBeShown += conersationObj.message_sub_type == 1 ? HippoStrings.recievedACallInvite :
+                lastMessage.message.removeNewLine()
             case .imageFile:
                 messageToBeShown += HippoStrings.attachmentImage
             case .attachment:
@@ -209,6 +210,8 @@ extension ConversationView {
                 messageToBeShown += message
             }
     
+            
+            
             if conersationObj.lastMessage?.messageState == .MessageDeleted {
                 if lastMessage.senderId == currentUserId(){
                     messageToBeShown = HippoStrings.you + " " + HippoStrings.deleteMessage
@@ -217,13 +220,16 @@ extension ConversationView {
                 }
             }
             
-            chatTextLabel.text = messageToBeShown
+
+            chatTextLabel.text = messageToBeShown.withoutHtmlTags
+
             
         }
         
       //  timeLabel.textColor = HippoConfig.shared.theme.timeTextColor.withAlphaComponent(isThisChatOpened(opened: isOpened))
         let channelID = conersationObj.channelId ?? -1
-        if channelID <= 0 {
+        if channelID <= 0 && channelID != -3{ //donot show default and help channel
+            //channel -3 == broadcast channel , show for that
             timeLabel.text = ""
         } else if let dateTime = conersationObj.lastMessage?.creationDateTime {
             timeLabel.text = dateTime.toString

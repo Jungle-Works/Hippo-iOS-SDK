@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SharedMediaCell" id="gTV-IL-0wX" customClass="SharedMediaCell" customModule="HippoAgent" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="147" height="145"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="147" height="145"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Z8W-WN-c0L">
+                        <rect key="frame" x="0.0" y="0.0" width="147" height="145"/>
+                    </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P5v-TX-w9i">
+                        <rect key="frame" x="51" y="50" width="44" height="44"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.84999999999999998" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="44" id="5ER-Hd-orb"/>
+                            <constraint firstAttribute="width" constant="44" id="xKN-9w-ZTl"/>
+                        </constraints>
+                        <inset key="imageEdgeInsets" minX="3" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        <state key="normal" image="playIcon">
+                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </state>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="_cornerRadius">
+                                <real key="value" value="22"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </button>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="Z8W-WN-c0L" secondAttribute="bottom" id="039-9t-ABX"/>
+                <constraint firstItem="Z8W-WN-c0L" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="0J5-5q-4XD"/>
+                <constraint firstItem="P5v-TX-w9i" firstAttribute="centerX" secondItem="Z8W-WN-c0L" secondAttribute="centerX" id="JNX-VV-5VU"/>
+                <constraint firstAttribute="trailing" secondItem="Z8W-WN-c0L" secondAttribute="trailing" id="KKs-x6-msm"/>
+                <constraint firstItem="P5v-TX-w9i" firstAttribute="centerY" secondItem="Z8W-WN-c0L" secondAttribute="centerY" id="MR1-q1-uqd"/>
+                <constraint firstItem="Z8W-WN-c0L" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="lIE-Al-NGE"/>
+            </constraints>
+            <size key="customSize" width="147" height="145"/>
+            <connections>
+                <outlet property="buttonPlay" destination="P5v-TX-w9i" id="yTI-OJ-AnV"/>
+                <outlet property="imageViewMedia" destination="Z8W-WN-c0L" id="xVV-1l-FI2"/>
+            </connections>
+            <point key="canvasLocation" x="115.21739130434783" y="70.647321428571431"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="playIcon" width="21" height="21"/>
+    </resources>
+</document>

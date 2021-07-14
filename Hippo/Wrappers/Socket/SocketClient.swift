@@ -9,7 +9,6 @@
 import Foundation
 import SocketIO
 
-
 class SocketClient: NSObject {
     
     // MARK: Properties
@@ -25,6 +24,26 @@ class SocketClient: NSObject {
     private var handshakeListener : ((Array<Any>, SocketAckEmitter) -> ())!
     private var subscribeChannelListener : ((Array<Any>, SocketAckEmitter) -> ())!
     private var unsubscribeChannelListener : ((Array<Any>, SocketAckEmitter) -> ())!
+    private var authentication: [String: Any]{
+        get {
+            var authData = [String : Any]()
+            authData["en_user_id"] = currentEnUserId()
+            let currentTimeInterval = Int(NSDate().timeIntervalSince1970 * 1000)
+            let difference = HippoConfig.shared.serverTimeDifference
+            let timeToSend = (currentTimeInterval + difference) + (2 * 1000)
+            let dateToSend = (Date(timeIntervalSince1970: TimeInterval(timeToSend/1000))).toUTCFormatString
+            
+            
+            authData["created_at"] = "\(dateToSend)"
+            authData["user_type"] = currentUserType().rawValue
+            if currentUserType() == .agent {
+                authData["access_token"] = HippoConfig.shared.agentDetail?.fuguToken ?? ""
+            }else {
+                authData["device_key"] = HippoConfig.shared.deviceKey
+            }
+            return authData
+        }
+    }
 
     // MARK: Computed properties
     private var socketURL: String {
@@ -36,6 +55,14 @@ class SocketClient: NSObject {
     // MARK: Init
     private override init() {
         super.init()
+        if currentUserType() == .customer && HippoConfig.shared.deviceKey == ""{
+            return
+        }else if currentEnUserId() == ""{
+            return
+        }else if currentUserType() == .agent && HippoConfig.shared.agentDetail?.fuguToken ?? "" == ""{
+            return
+        }
+        
         addObserver()
         deinitializeListeners()
         manager = nil
@@ -53,8 +80,12 @@ class SocketClient: NSObject {
     
     // MARK: Methods
     private func socketSetup(){
+        let auth = jsonToString(json: authentication)
+        let encryptedAuth = CryptoJS.AES().encrypt(auth, password: getSecretKey())
+        
+        
         if let url = URL(string: socketURL){
-            manager = SocketManager(socketURL: url, config: [.reconnectWait(Int(2)), .reconnectAttempts(0), .compress, .forcePolling(false), .forceWebsockets(true)])
+            manager = SocketManager(socketURL: url, config: [.reconnectWait(Int(2)), .reconnectAttempts(0), .compress, .forcePolling(false), .forceWebsockets(true), .connectParams(["auth_token" : encryptedAuth, "device_type" : Device_Type_iOS, "device_details" : AgentDetail.getDeviceDetails()])])
         }
         
         socket = manager?.defaultSocket
@@ -63,7 +94,22 @@ class SocketClient: NSObject {
         socket?.connect()
     }
     
-    
+    func getSecretKey() -> String {
+        let url = HippoConfig.shared.fayeBaseURLString
+        switch url {
+        case SERVERS.liveFaye:
+            return PrivateSocketKeys.live.rawValue
+            
+        case SERVERS.betaFaye:
+            return PrivateSocketKeys.beta.rawValue
+            
+        case SERVERS.devFaye:
+            return PrivateSocketKeys.dev.rawValue
+        default:
+            return ""
+        }
+    }
+
     private func initListeners(){
         onConnectCallBack = {[weak self](arr, ack) in
             NotificationCenter.default.post(name: .socketConnected, object: nil)
@@ -144,6 +190,17 @@ class SocketClient: NSObject {
         socket = nil
         NotificationCenter.default.removeObserver(self)
     }
+    
+    func jsonToString(json: [String : Any]) -> String{
+        do {
+            let data1 =  try JSONSerialization.data(withJSONObject: json, options: JSONSerialization.WritingOptions.prettyPrinted) // first of all convert json to the data
+            guard let convertedString = String(data: data1, encoding: String.Encoding.utf8) else { return "" } // the data will be converted to the string
+            return convertedString // <-- here is ur string
+            
+        } catch _ {
+            return ""
+        }
+    }
 }
 
 extension SocketClient {
@@ -187,13 +244,20 @@ extension SocketClient {
     func addObserver() {
         removeObserver()
         NotificationCenter.default.addObserver(self, selector: #selector(applicationWillEnterForeground), name: HippoVariable.willEnterForegroundNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(applicationEnterBackground), name: HippoVariable.didEnterBackgroundNotification, object: nil)
     }
     
     @objc private func applicationWillEnterForeground() {
         if SocketClient.shared.socket != nil{
-            if !SocketClient.shared.isConnectionActive {
-                SocketClient.shared.connect() //tearDownPreviousConnectionAndCreateNew
+            if SocketClient.shared.socket?.status != .connected && SocketClient.shared.socket?.status != .connecting{
+                SocketClient.shared.connect()
             }
+        }
+    }
+    
+    @objc private func applicationEnterBackground() {
+        if SocketClient.shared.socket?.status != .connected {
+            SocketClient.shared.connect()
         }
     }
     

@@ -75,7 +75,7 @@ class HippoConversationViewController: UIViewController {
     var attachments: [Attachment]  = []
     var isMessageEditing : Bool = false
     let attachmentObj = CreateTicketAttachmentHelper()
-
+    let recordingHelper = RecordingHelper()
 
     //MARK:
     @IBOutlet var tableViewChat: UITableView!{
@@ -92,7 +92,7 @@ class HippoConversationViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        recordingHelper.delegate = self
         navigationController?.setTheme()
         
 //        tableViewChat.backgroundView = UIImageView(image: UIImage(named: "background"))
@@ -327,7 +327,8 @@ class HippoConversationViewController: UIViewController {
         tableViewChat.register(UINib(nibName: "ActionTableView", bundle: bundle), forCellReuseIdentifier: "ActionTableView")
         tableViewChat.register(UINib(nibName: "CardMessageTableViewCell", bundle: bundle), forCellReuseIdentifier: "CardMessageTableViewCell")
         tableViewChat.register(UINib(nibName: "SearchAgentTableViewCell", bundle: bundle), forCellReuseIdentifier: "SearchAgentTableViewCell")
-        
+        tableViewChat.register(UINib(nibName: "OutgoingShareUrlCell", bundle: bundle), forCellReuseIdentifier: "OutgoingShareUrlCell")
+        tableViewChat.register(UINib(nibName: "IncomingShareUrlCell", bundle: bundle), forCellReuseIdentifier: "IncomingShareUrlCell")
     }
     
     func registerNotificationWhenAppEntersForeground() {
@@ -602,7 +603,7 @@ class HippoConversationViewController: UIViewController {
             self.navigationTitleButton?.sizeToFit()
         }
     }
-    func startAudioCall() {
+    func startAudioCall(transactionId: String? = nil) {
         guard canStartAudioCall() else {
             return
         }
@@ -612,7 +613,7 @@ class HippoConversationViewController: UIViewController {
         
         self.view.endEditing(true)
         
-        let call = CallData.init(peerData: peerDetail, callType: .audio, muid: String.uuid(), signallingClient: channel)
+        let call = CallData.init(peerData: peerDetail, callType: .audio, muid: String.uuid(), signallingClient: channel, transactionId: transactionId)
         
         if versionCode < 350{
             CallManager.shared.startCall(call: call) { (success,error) in
@@ -646,7 +647,7 @@ class HippoConversationViewController: UIViewController {
             }
         }
     }
-    func startVideoCall() {
+    func startVideoCall(transactionId: String? = nil) {
         guard canStartVideoCall() else {
             return
         }
@@ -655,7 +656,7 @@ class HippoConversationViewController: UIViewController {
         }
         self.view.endEditing(true)
         
-        let call = CallData.init(peerData: peerDetail, callType: .video, muid: String.uuid(), signallingClient: channel)
+        let call = CallData.init(peerData: peerDetail, callType: .video, muid: String.uuid(), signallingClient: channel, transactionId: transactionId)
         if versionCode < 350{
             CallManager.shared.startCall(call: call) { (success,error) in
                 if !success {
@@ -872,8 +873,45 @@ class HippoConversationViewController: UIViewController {
     }
 }
 
+extension HippoConversationViewController: RecordingHelperDelegate {
+    func recordingFinished(url: URL) {
+        sendSelectedDocumentWith(filePath: url.path, fileName: url.lastPathComponent, messageType: .attachment, fileType: .document)
+    }
+}
+
+extension HippoConversationViewController {
+    
+    func shareUrlInSocket(url : String) {
+        let message = HippoMessage(message: url, type: .normal,uniqueID: String.generateUniqueId(), chatType: channel?.chatDetail?.chatType)
+        message.message_sub_type = 1
+        channel?.unsentMessages.append(message)
+        if channel != nil {
+            addMessageToUIBeforeSending(message: message)
+            self.sendMessage(message: message)
+        }
+    }
+    
+}
+
+
 
 extension HippoConversationViewController: PickerHelperDelegate {
+    func shareVideoUrlClicked() {
+        let shareUrlHelper = ShareUrlHelper()
+        let link = shareUrlHelper.createLink(callType: CallType.video)
+        shareUrlHelper.shareUrlApiCall(url: (link.1) == "" ? (link.0) : (link.1), completion: {[weak self] (url) in
+            self?.shareUrlInSocket(url: url)
+        })
+    }
+    
+    func shareAudioUrlClicked() {
+        let shareUrlHelper = ShareUrlHelper()
+        let link = shareUrlHelper.createLink(callType: CallType.audio)
+        shareUrlHelper.shareUrlApiCall(url: (link.1) == "" ? (link.0) : (link.1), completion: {[weak self] (url) in
+            self?.shareUrlInSocket(url: url)
+        })
+    }
+    
     func payOptionClicked() {
         let paymentStore = PaymentStore(plan: nil, channelId: UInt(channelId), isEditing: (channelId != -1), isSending: channelId != -1, isCustomisedPayment : true)
         let vc = CreatePaymentViewController.get(store: paymentStore)
@@ -921,6 +959,7 @@ extension HippoConversationViewController: PickerHelperDelegate {
         HippoConfig.shared.UnhideJitsiView()
         sendSelectedDocumentWith(filePath: url.path, fileName: url.lastPathComponent, messageType: .attachment, fileType: .document)
     }
+   
 }
 
 // MARK: - SelectImageViewControllerDelegate Delegates
@@ -957,25 +996,34 @@ extension HippoConversationViewController {
         }
         let uniqueName = DownloadManager.generateNameWhichDoestNotExistInCacheDirectoryWith(name: fileName)
         saveDocumentInCacheDirectoryWith(name: uniqueName, orignalFilePath: filePath)
-        
-        let message = HippoMessage(message: "", type: messageType, uniqueID: generateUniqueId(), imageUrl: nil, thumbnailUrl: nil, localFilePath: filePath, chatType: channel?.chatDetail?.chatType)
-        
-        message.fileName = uniqueName
-        message.localImagePath = getCacheDirectoryUrlForFileWith(name: uniqueName).path
-        
-        //Changing messageType in case if new selected file is of image type
-        let concreteType = message.concreteFileType ?? .document
-        switch concreteType {
-        case .image:
-            message.type = .imageFile
-            if let image = UIImage(contentsOfFile: filePath) {
-                let size = image.size
-                message.imageHeight = Float(size.height)
-                message.imageWidth = Float(size.width)
+        if let message = messagesGroupedByDate.last?.last as? HippoActionMessage, message.type == .botAttachment {
+            message.fileName = uniqueName
+            message.localImagePath = getCacheDirectoryUrlForFileWith(name: uniqueName).path
+            self.UploadAndSendMessage(message: message)
+        }else {
+            let message = HippoMessage(message: "", type: messageType, uniqueID: generateUniqueId(), imageUrl: nil, thumbnailUrl: nil, localFilePath: filePath, chatType: channel?.chatDetail?.chatType)
+            
+            message.fileName = uniqueName
+            message.localImagePath = getCacheDirectoryUrlForFileWith(name: uniqueName).path
+            
+            //Changing messageType in case if new selected file is of image type
+            let concreteType = message.concreteFileType ?? .document
+            switch concreteType {
+            case .image:
+                message.type = .imageFile
+                if let image = UIImage(contentsOfFile: filePath) {
+                    let size = image.size
+                    message.imageHeight = Float(size.height)
+                    message.imageWidth = Float(size.width)
+                }
+            default:
+                break
             }
-        default:
-            break
+            self.UploadAndSendMessage(message: message)
         }
+        
+        
+        
         //Checking if channel is created or not
 //        if channel != nil {
 //            self.UploadAndSendMessage(message: message)
@@ -984,7 +1032,7 @@ extension HippoConversationViewController {
 //                guard success else {
 //                    return
 //                }
-                self.UploadAndSendMessage(message: message)
+                
 //            }
 //        }
         
@@ -1058,7 +1106,17 @@ extension HippoConversationViewController {
     }
     
     func handleUploadSuccessOfFileIn(message: HippoMessage) {
-        DownloadManager.shared.addAlreadyDownloadedFileWith(name: message.fileName!, WRTurl: message.fileUrl!)
+        var url = ""
+        var name = ""
+        if let message = message as? HippoActionMessage {
+            url = message.responseMessage?.fileUrl ?? ""
+            name = message.responseMessage?.fileName ?? ""
+        }else {
+            url = message.fileUrl ?? ""
+            name = message.fileName ?? ""
+        }
+        
+        DownloadManager.shared.addAlreadyDownloadedFileWith(name: name, WRTurl: url)
         message.localImagePath = nil
         publishMessageOnChannel(message: message)
     }
@@ -1114,11 +1172,31 @@ extension HippoConversationViewController {
     }
     
     func imageSelectedToSendWith(localPath: String, imageSize: CGSize) {
-        let message = HippoMessage(message: "", type: .imageFile, uniqueID: generateUniqueId(), localFilePath: localPath, chatType: channel?.chatDetail?.chatType)
-        message.fileName = localPath.fileName()
-        message.imageWidth = Float(imageSize.width)
-        message.imageHeight = Float(imageSize.height)
-        PrepareUploadAndSendImage(message: message)
+        if let message = messagesGroupedByDate.last?.last as? HippoActionMessage, message.type == .botAttachment {
+            message.localImagePath = localPath
+            message.selectBtnWith(btnId: "")
+            PrepareUploadAndSendImage(message: message)
+        }else {
+            let message = HippoMessage(message: "", type: .imageFile, uniqueID: generateUniqueId(), localFilePath: localPath, chatType: channel?.chatDetail?.chatType)
+            message.fileName = localPath.fileName()
+            message.imageWidth = Float(imageSize.width)
+            message.imageHeight = Float(imageSize.height)
+            PrepareUploadAndSendImage(message: message)
+        }
+    }
+    
+    
+    func getBotAttachmentContent(path: String, thumnailUrl: String, name: String) -> [[String : Any]]{
+        var dic = [[String : Any]]()
+        var dateDic = [String : Any]()
+        dateDic["attachment_url"] = path
+        dateDic["file_name"] = name
+        dateDic["thumbnail_url"] = thumnailUrl
+        dateDic["url"] = path
+        dateDic["file_type"] = path.mimeTypeForPath()
+        dateDic["document_type"] = FileType(mimeType: path.mimeTypeForPath()).rawValue
+        dic.append(dateDic)
+        return dic
     }
     
     func saveImageInKingfisherCacheFor(message: HippoMessage) {
@@ -1168,10 +1246,15 @@ extension HippoConversationViewController {
                 return
             }
             
-            message.wasMessageSendingFailed = false
-            message.imageUrl = result.imageUrl
-            message.thumbnailUrl = result.imageThumbnailUrl
-            message.fileUrl = result.fileUrl
+            if message.type == .botAttachment {
+                message.contentValues = self?.getBotAttachmentContent(path: result.fileUrl ?? "", thumnailUrl: result.imageThumbnailUrl ?? "", name: result.fileUrl?.fileName() ?? "") ?? [[String : Any]]()
+                (message as? HippoActionMessage)?.selectBtnWith(btnId: "")
+            }else {
+                message.wasMessageSendingFailed = false
+                message.imageUrl = result.imageUrl
+                message.thumbnailUrl = result.imageThumbnailUrl
+                message.fileUrl = result.fileUrl
+            }
             completion(true)
         })
     }
@@ -1604,26 +1687,49 @@ extension HippoConversationViewController {
     func getNormalMessageTableViewCell(tableView: UITableView, isOutgoingMessage: Bool, message: HippoMessage, indexPath: IndexPath) -> UITableViewCell {
         switch isOutgoingMessage {
         case false:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "SupportMessageTableViewCell", for: indexPath) as! SupportMessageTableViewCell
-            let bottomSpace = getBottomSpaceOfMessageAt(indexPath: indexPath, message: message)
-            cell.updateBottomConstraint(bottomSpace)
-            let incomingAttributedString = Helper.getIncomingAttributedStringWithLastUserCheck(chatMessageObject: message)
-            return cell.configureCellOfSupportIncomingCell(resetProperties: true, attributedString: incomingAttributedString, channelId: channel?.id ?? labelId, chatMessageObject: message)
-        case true:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "SelfMessageTableViewCell", for: indexPath) as! SelfMessageTableViewCell
-            cell.delegate = self
-            let bottomSpace = getBottomSpaceOfMessageAt(indexPath: indexPath, message: message)
-            cell.updateBottomConstraint(bottomSpace)
-            cell.messageLongPressed = {[weak self](message) in
-                DispatchQueue.main.async {
-                    self?.longPressOnMessage(message: message, indexPath: indexPath)
-                }
+            if message.message_sub_type == 1 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "IncomingShareUrlCell", for: indexPath) as! OutgoingShareUrlCell
+                cell.delegate = self
+                return cell.configureCellOfShareUrlCell(isIncoming: true, resetProperties: true, chatMessageObject: message, indexPath: indexPath)
+                
+            }else {
+                
+                let cell = tableView.dequeueReusableCell(withIdentifier: "SupportMessageTableViewCell", for: indexPath) as! SupportMessageTableViewCell
+                let bottomSpace = getBottomSpaceOfMessageAt(indexPath: indexPath, message: message)
+                cell.updateBottomConstraint(bottomSpace)
+                let incomingAttributedString = Helper.getIncomingAttributedStringWithLastUserCheck(chatMessageObject: message)
+                return cell.configureCellOfSupportIncomingCell(resetProperties: true, attributedString: incomingAttributedString, channelId: channel?.id ?? labelId, chatMessageObject: message)
             }
-            return cell.configureIncomingMessageCell(resetProperties: true, chatMessageObject: message, indexPath: indexPath)
+        case true:
+            if message.message_sub_type == 1 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingShareUrlCell", for: indexPath) as! OutgoingShareUrlCell
+                cell.delegate = self
+                return cell.configureCellOfShareUrlCell(isIncoming: false, resetProperties: true, chatMessageObject: message, indexPath: indexPath)
+                
+            }else {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "SelfMessageTableViewCell", for: indexPath) as! SelfMessageTableViewCell
+                cell.delegate = self
+                let bottomSpace = getBottomSpaceOfMessageAt(indexPath: indexPath, message: message)
+                cell.updateBottomConstraint(bottomSpace)
+                cell.messageLongPressed = {[weak self](message) in
+                    DispatchQueue.main.async {
+                        self?.longPressOnMessage(message: message, indexPath: indexPath)
+                    }
+                }
+                return cell.configureIncomingMessageCell(resetProperties: true, chatMessageObject: message, indexPath: indexPath)
+                
+            }
         }
     }
 }
-
+extension HippoConversationViewController : OutgoingShareUrlDelegate {
+    func openJitsiUrl(url: String) {
+        let shareUrlHelper = ShareUrlHelper()
+        shareUrlHelper.getUrlToJoinJitsiCall(url: url, completion: {(url) in
+            HippoConfig.shared.joinCallFromLink(url: url)
+        })
+    }
+}
 
 extension HippoConversationViewController: NavigationTitleViewDelegate {
     func backButtonClicked() {
@@ -2030,4 +2136,8 @@ extension HippoConversationViewController{
             vc.showViewAnimation()
         })
     }
+}
+extension HippoConversationViewController {
+    
+   
 }

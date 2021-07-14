@@ -57,6 +57,7 @@ class HippoNotification {
         }
     }
     
+
     class func containsNotification()->Bool {
         var isPresent = false
         UNUserNotificationCenter.current().getDeliveredNotifications { (notifications) in
