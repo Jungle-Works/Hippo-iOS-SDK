@@ -78,6 +78,7 @@ class AgentHomeViewController: HippoHomeViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 //        self.navigationController?.navigationBar.isHidden = false
+        reloadrefreshData(refreshCtrler: UIRefreshControl())
     }
     
     override func viewDidAppear(_ animated: Bool) {

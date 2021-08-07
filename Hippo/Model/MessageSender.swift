@@ -134,12 +134,13 @@ class MessageSender {
                 case .invalidSending:
                     self?.messageSendingFailed(result: result)
                     
-                case .resendSameMessage:
+                case .resendSameMessage, .invalidFileUrl:
                     message.status = .sent
                     if self?.messagesToBeSent.count ?? 0 > 0 {
                         self?.messagesToBeSent.removeFirst()
                     }
                     break
+                    
                 case .personalInfoSharedError:
                     self?.messageSendingFailed(result: result)
                 default:

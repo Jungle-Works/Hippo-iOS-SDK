@@ -786,7 +786,7 @@ struct BotAction {
                 completion(false, HippoError.threwError(message: HippoStrings.somethingWentWrong))
                 return
             }
-            let call = CallData.init(peerData: peer, callType: callType, muid: uuid, signallingClient: channel, transactionId: nil)
+            let call = CallData.init(peerData: peer, callType: callType, muid: uuid, signallingClient: channel, transactionId: data.uniqueChatId) 
   
 //            CallManager.shared.startCall(call: call, completion: { (success)  in
 //                if !success {

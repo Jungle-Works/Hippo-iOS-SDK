@@ -852,7 +852,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     func sendMessageButtonAction(messageTextStr: String){
 
         if storeResponse?.restrictPersonalInfo ?? false && channel?.chatDetail?.chatType == .other{
-            if messageTextStr.isValidPhoneNumber() || messageTextStr.isValidEmail(){
+            if messageTextStr.matches(for: phoneNumberRegex).count > 0 || messageTextStr.isValidPhoneNumber() || messageTextStr.isValidEmail(){
                 showErrorMessage(messageString: HippoStrings.donotAllowPersonalInfo)
                 updateErrorLabelView(isHiding: true)
                 return

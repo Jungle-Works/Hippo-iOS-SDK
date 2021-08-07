@@ -215,6 +215,7 @@ extension SocketClient {
         case duplicateMuid = 412
         case invalidSending = 413
         case channelNotSubscribed = 4000
+        case invalidFileUrl = 418
         case resendSameMessage = 420
         case versionMismatch = 415
         case personalInfoSharedError = 417
