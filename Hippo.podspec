@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
     s.name         = 'Hippo'
 
-    s.version      = '2.1.54'
+    s.version      = '2.1.55'
 
     s.summary      = 'Now add Agent in app for quick support.'
     s.homepage     = 'https://github.com/Jungle-Works/Hippo-iOS-SDK'
@@ -27,7 +27,6 @@ Pod::Spec.new do |s|
 
     }
     s.resources = ['Hippo/*.xcassets']
-    s.preserve_paths = ['README.md']
     
     s.dependency 'Socket.IO-Client-Swift'
  
@@ -35,11 +34,6 @@ Pod::Spec.new do |s|
     
     s.subspec 'Chat' do |chat|
         
-    end
-    
-    s.subspec 'Call' do |callClient|
-        s.pod_target_xcconfig = { "ENABLE_BITCODE" => "No" }
-        callClient.dependency 'HippoCallClient'
     end
     
 end
