@@ -51,6 +51,7 @@ extension SocketClient {
                     completion?(nil, false)
                 }else{
                     self.subscribedChannel[channel] = true
+                    NotificationCenter.default.post(name: .channelSubscribed, object: nil)
                     completion?(nil, true)
                 }
             })
@@ -104,12 +105,15 @@ extension SocketClient {
             json["data"] = messageDict
             json += getJson()
             json["channel"] = channelIdForValidation
-            
+            let authDic = ["user_id" : "\(currentUserId())","muid" : messageDict["muid"] as? String ?? ""] as [String : Any]
+            let auth = jsonToString(json: authDic)
+            let encryptedAuth = CryptoJS.AES().encrypt(auth, password: getSecretKey())
+            json["auth0"] = encryptedAuth
             if currentEnUserId().trimWhiteSpacesAndNewLine() == ""{
                 return
             }
             
-            socket.emitWithAck(SocketEvent.MESSAGE_CHANNEL.rawValue, json).timingOut(after: 20, callback: { (data) in
+            socket.emitWithAck(SocketEvent.MESSAGE_EVENT.rawValue, json).timingOut(after: 20, callback: { (data) in
                 let ack = EventAckResponse(with: data)
                 completion(ack)
             })

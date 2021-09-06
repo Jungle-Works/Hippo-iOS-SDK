@@ -53,7 +53,7 @@ class IncomingImageCell: MessageTableViewCell {
     
     // MARK: - Methods
     func setupBoxBackground(messageType: Int) {
-        mainContentView.backgroundColor = HippoConfig.shared.theme.recievingBubbleColor //HippoConfig.shared.theme.incomingChatBoxColor
+        mainContentView.backgroundColor = HippoConfig.shared.theme.incomingChatBoxColor //HippoConfig.shared.theme.incomingChatBoxColor
 
 //       // mainContentView.backgroundColor = HippoConfig.shared.theme.incomingChatBoxColor
 //        DispatchQueue.main.async {

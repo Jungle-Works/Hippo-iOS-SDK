@@ -100,6 +100,7 @@ enum SocketEvent : String{
     case SUBSCRIBE_CHAT = "/socketio/subscribe/chat" //active channel
     case UNSUBSCRIBE_CHAT = "/socketio/unsubscribe/chat"
     case MESSAGE_CHANNEL = "/socketio/message"
+    case MESSAGE_EVENT = "/socketio/event"
     case SERVER_PUSH = "/socketio/server/push"
 }
 
@@ -165,7 +166,7 @@ struct labelWithId {
 }
 
 enum MessageType: Int {
-    case none = 0, normal = 1, assignAgent = 2, privateNote = 3, imageFile = 10, attachment = 11, actionableMessage = 12, feedback = 14, botText = 15, quickReply = 16, leadForm = 17, call = 18, hippoPay = 19, consent = 20, card = 21, paymentCard = 22, multipleSelect = 23, embeddedVideoUrl = 24, groupCall = 27//, address = 25, dateTime = 26
+    case none = 0, normal = 1, assignAgent = 2, privateNote = 3, imageFile = 10, attachment = 11, actionableMessage = 12, feedback = 14, botText = 15, quickReply = 16, leadForm = 17, call = 18, hippoPay = 19, consent = 20, card = 21, paymentCard = 22, multipleSelect = 23, embeddedVideoUrl = 24, groupCall = 27, createTicket = 29, address = 25, dateTime = 26, botAttachment = 28
 
     
 //    BUSINESS_SPECIFIC_MESSAGE : 4,
@@ -174,7 +175,7 @@ enum MessageType: Int {
    
     
     var customerHandledMessages: [MessageType] {
-        return [.normal, .imageFile, .feedback, .actionableMessage, .leadForm, .quickReply, .botText, .call, .hippoPay, .attachment, .consent, .card, .paymentCard , .multipleSelect, .embeddedVideoUrl]//, .address, .dateTime]
+        return [.normal, .imageFile, .feedback, .actionableMessage, .leadForm, .quickReply, .botText, .call, .hippoPay, .attachment, .consent, .card, .paymentCard , .multipleSelect, .embeddedVideoUrl, .createTicket, .dateTime, .address, .botAttachment]
     }
     var agentHandledMessages: [MessageType] {
 //        return [.normal, .imageFile, .privateNote, .assignAgent, .botText, .call, .attachment, .consent, .actionableMessage, .hippoPay]
@@ -192,7 +193,7 @@ enum MessageType: Int {
 ////        let botMessages: [MessageType] = [.leadForm, .quickReply, .botText, .consent, .card , .multipleSelect,.normal]
         
 //        let botMessages: [MessageType] = [.leadForm, .quickReply, .botText, .consent, .hippoPay, .actionableMessage, .card , .multipleSelect, .embeddedVideoUrl]//, .address, .dateTime]
-        let botMessages: [MessageType] = [.leadForm, .quickReply, .botText, .consent, .hippoPay, .actionableMessage, .card , .multipleSelect, .normal, .embeddedVideoUrl, .paymentCard]//, .address, .dateTime]
+        let botMessages: [MessageType] = [.leadForm, .quickReply, .botText, .consent, .hippoPay, .actionableMessage, .card , .multipleSelect, .normal, .embeddedVideoUrl, .paymentCard, .createTicket,.address, .dateTime, .botAttachment]
 
         return botMessages.contains(self)
     }
@@ -387,6 +388,13 @@ enum FuguEndPoints: String {
     case updateLanguage = "api/apps/updateUserLanguage"
     case createAgentConversation = "api/conversation/createAgentSupportChannel"
     case getUploadFileUrl = "api/conversation/getUploadFile"
+    case getAndUpdateAnnouncement = "api/broadcast/getAndUpdateAnnouncement"
+    case searchErp = "api/erpnext/search"
+    case checkAndCreateCustomer = "api/erpnext/checkAndCreateCustomer"
+    case shareMeetLink = "api/meet/createInviteLink"
+    case joinJitsiLink = "api/meet/joinInviteLink"
+
+    case searchAddress = "https://nominatim-api-live.jungleworks.com/search"
 
 }
 
@@ -429,6 +437,7 @@ enum AgentEndPoints: String {
     case getAgentInfo = "api/users/getUserDetails"
     case getTemplates = "api/business/getTemplates"
     case createAndSendPresciption = "api/conversation/createAndSendPrescription"
+    case SharedMedia = "api/conversation/getAttachments"
 }
 
 struct MultiLanguageMsg{

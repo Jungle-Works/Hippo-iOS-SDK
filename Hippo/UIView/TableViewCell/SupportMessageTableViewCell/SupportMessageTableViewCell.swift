@@ -37,8 +37,7 @@ class SupportMessageTableViewCell: MessageTableViewCell {
         switch messageType {
         default:
             print("default")
-            //bgView.backgroundColor = HippoConfig.shared.theme.incomingChatBoxColor
-            bgView.backgroundColor = HippoConfig.shared.theme.recievingBubbleColor
+            bgView.backgroundColor = HippoConfig.shared.theme.incomingChatBoxColor
         }
     }
     
@@ -109,7 +108,7 @@ class SupportMessageTableViewCell: MessageTableViewCell {
         
         //self.nameLabel.text = message?.senderFullName
         
-        let isMessageAllowedForImage = chatMessageObject.type == .consent  || chatMessageObject.belowMessageType == .card || chatMessageObject.belowMessageType == .paymentCard || chatMessageObject.aboveMessageType == .consent
+        let isMessageAllowedForImage = chatMessageObject.type == .consent  || chatMessageObject.belowMessageType == .card || chatMessageObject.belowMessageType == .paymentCard || chatMessageObject.aboveMessageType == .consent || chatMessageObject.type == .dateTime || chatMessageObject.type == .botAttachment || chatMessageObject.type == .address
         
         if (chatMessageObject.aboveMessageUserId == chatMessageObject.senderId && !isMessageAllowedForImage) {
             self.nameLabel.text = ""
@@ -122,7 +121,7 @@ class SupportMessageTableViewCell: MessageTableViewCell {
         setTime()
         
 
-        supportMessageTextView.attributedText = attributedString
+        supportMessageTextView.attributedText = message?.attributtedMessage.attributedMessageString
         setSenderImageView()
         return self
     }

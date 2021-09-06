@@ -233,7 +233,7 @@ extension MultiSelectTableViewCell: UITableViewDataSource
 //            cell.cellButton.setTitleColor(.white, for: .normal)
             cell.cellButton.setTitleColor(HippoConfig.shared.theme.headerTextColor, for: .normal)
             cell.cellButton.setTitleColor(.paleGrey, for: .disabled)
-            cell.cellButton.backgroundColor = theme.recievingBubbleColor
+            cell.cellButton.backgroundColor = theme.incomingChatBoxColor
             cell.cellButton.layer.borderWidth = 0
             cell.cellButton.hippoCornerRadius = cell.cellButton.bounds.height / 2
             

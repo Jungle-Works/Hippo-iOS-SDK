@@ -9,6 +9,7 @@ import Foundation
 
 enum DateFormat: String {
     case onlyDate = "yyyy/MM/d"
+    case serverTime = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z"
     case broadcastDate = "MMM d, yyyy, hh:mm a"
 }
 
@@ -62,6 +63,15 @@ extension Date {
         
          return formatter.string(from: self)
     }
+    
+    func toString(with format: String) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = format
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.timeZone = TimeZone.current
+        return formatter.string(from: self)
+    }
+    
    var toUTCFormatString: String {
       return convertDateTimeToUTC(date: self)
    }

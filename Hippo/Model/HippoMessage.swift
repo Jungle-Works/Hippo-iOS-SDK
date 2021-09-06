@@ -125,7 +125,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
     var belowMessageUserId: Int?
     var aboveMessageType: MessageType?
     var belowMessageType: MessageType?
-
+    var message_sub_type : Int?
    
   
     var cards: [HippoCard]?
@@ -252,6 +252,9 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
             let status = ReadUnReadStatus(rawValue: rawStatus) {
             self.status = status
         }
+        
+        self.message_sub_type = dict["message_sub_type"] as? Int
+        
 //        channelId = UIInt.parse
        
         self.rawJsonToSend = dict["rawJsonToSend"] as? [String: Any]
@@ -261,7 +264,9 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         self.senderFullName = ((dict["full_name"] as? String) ?? "").trimWhiteSpacesAndNewLine()
         self.messageUniqueID = dict["muid"] as? String
         self.parsedMimeType = dict["mime_type"] as? String
-        
+        if let user_type = dict["user_type"] as? Int, let type = UserType(rawValue: user_type) {
+            self.userType = type
+        }
         var senderImage: String? = dict["user_image"] as? String ?? ""
         var type: MessageType = .none
         if let rawType = dict["message_type"] as? Int {
@@ -270,6 +275,8 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         }
         
         if (senderImage ?? "").isEmpty, (senderId <= 0  && type.isBotMessage) {
+            senderImage = BussinessProperty.current.botImageUrl
+        }else if (senderImage ?? "").isEmpty, type.isBotMessage {
             senderImage = BussinessProperty.current.botImageUrl
         }
         
@@ -309,9 +316,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         self.fallbackText = dict["fallback_text"] as? String
 
         self.callDurationInSeconds = dict["video_call_duration"] as? Double
-        if let user_type = dict["user_type"] as? Int, let type = UserType(rawValue: user_type) {
-            self.userType = type
-        }
+       
         if let actionableData = dict["custom_action"] as? [String: Any] {
             self.actionableMessage = FuguActionableMessage(dict: actionableData)
         }
@@ -381,7 +386,41 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
                 content = MessageContent(param: content_value)
                 content.values = dict["values"] as? [String] ?? []//content.values
                 let forms = FormData.getArray(object: content)
+               //change form values to set email and name empty
+                if type == .createTicket{
+                    var isEmailValid = true
+                    for index in 0..<forms.count{
+                        if forms[index].paramId == CreateTicketFields.email.rawValue{
+                            if forms[index].value.isValidEmail() == false{
+                                isEmailValid = false
+                                forms[index].value = ""
+                                forms[index].isCompleted = false
+                                if index + 1 < forms.count{
+                                    forms[index + 1].value = ""
+                                    forms[index + 1].isShow = false
+                                }
+                            }else if forms[index + 1].value.lowercased() == "visitor"{
+                                if index + 1 < forms.count{
+                                    forms[index + 1].value = ""
+                                    forms[index + 1].isCompleted = false
+                                }
+                            }
+                        }
+                        
+                    }
+                    if isEmailValid == false{
+                        content.values.removeAll()
+                    }
+                }
+                
                 leadsDataArray = forms
+                if forms.first(where: {$0.paramId == CreateTicketFields.description.rawValue && $0.value == ""}) != nil{
+                    leadsDataArray.forEach{
+                        if $0.paramId == CreateTicketFields.email.rawValue || $0.paramId == CreateTicketFields.name.rawValue{
+                            $0.shouldBeEditable = true
+                        }
+                    }
+                }
             }
         }
         switch type {
@@ -570,6 +609,8 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         
         json["selected_agent_id"] = selectedCardId
         
+        json["message_sub_type"] = message_sub_type
+        
         if let parsedBotFormMUID = self.botFormMessageUniqueID {
             json["bot_form_muid"] = parsedBotFormMUID
         }
@@ -605,10 +646,12 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         json["image_width"] = imageWidth
         json["image_height"] = imageHeight
         
-        if let documentType = documentType {
-            json["document_type"] = documentType.rawValue
-        } else if let concreteFileType = concreteFileType {
-            json["document_type"] = concreteFileType.rawValue
+        if type != .dateTime && type != .address{
+            if let documentType = documentType {
+                json["document_type"] = documentType.rawValue
+            } else if let concreteFileType = concreteFileType {
+                json["document_type"] = concreteFileType.rawValue
+            }
         }
         
         if let id = messageId {
@@ -633,7 +676,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
             json["line_after_feedback_2"] = feedbackMessages.line_after_feedback_2
             json["line_before_feedback"] = feedbackMessages.line_before_feedback
             json["multi_lang_message"] = MultiLanguageTags.RATING_AND_REVIEW.rawValue
-        } else if type == .leadForm {
+        } else if type == .leadForm || type == .createTicket{
             var arrayOfMessages: [String] = []
             for lead in leadsDataArray {
                 if lead.value.isEmpty {
@@ -641,6 +684,12 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
                 }
                 arrayOfMessages.append(lead.value)
             }
+            
+            if arrayOfMessages.count == content.questionsArray.count && type == .createTicket{
+               json["is_ticket_creation"] = 1
+               json["erp_customer_name"] = content.erpCustomerName
+            }
+            
             json["values"] = arrayOfMessages
             
             json["user_id"] = currentUserId()
@@ -655,6 +704,8 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
             json["user_id"] = currentUserId()
             json["values"] = [selectedActionId]
             json["content_value"] = contentValues
+        } else if type == .dateTime || type == .address || type == .botAttachment{
+            json["custom_action"] = actionableMessage?.customActionJson
         }
         
         if customAction != nil{
@@ -901,6 +952,8 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
     }
     
     func updateMessageForEditDelete(with newObject: HippoMessage){
+        let isCellHavingImage = chatType.isImageViewAllowed && !userType.isMyUserType && HippoConfig.shared.appUserType != .agent
+        attributtedMessage = MessageUIAttributes(message: newObject.message, senderName: newObject.senderFullName, isSelfMessage: userType.isMyUserType, isShowingImage: isCellHavingImage)
         message = newObject.message
         messageState = newObject.messageState
         type = newObject.type
@@ -989,7 +1042,15 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
                 isAllFieldCompleted = false
             }
         }
-        
+        if type == .createTicket{
+            if let index = leadsDataArray.firstIndex(where: {$0.isCompleted == false}), index < leadsDataArray.count{
+                if leadsDataArray[index].paramId == CreateTicketFields.attachments.rawValue || leadsDataArray[index].paramId == CreateTicketFields.priority.rawValue{
+                    return true
+                }else{
+                    return false
+                }
+            }
+        }
         return (!isSkipEvent && isSkipBotEnabled && !isAllFieldCompleted)
     }
     
@@ -1065,7 +1126,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         var tempMessage: HippoMessage?
         
         switch type {
-        case .consent:
+        case .consent, .dateTime, .address, .botAttachment:
             tempMessage = HippoActionMessage(dict: messageJson)
         default:
             tempMessage = HippoMessage(dict: messageJson)
@@ -1075,7 +1136,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
     
     func isDateExpired(timeInterval: TimeInterval) -> Bool {
        guard timeInterval > 0 else {
-          return false
+          return true
        }
        
        let deletionExpiry = creationDateTime.addingTimeInterval(timeInterval)

@@ -47,7 +47,7 @@ public class HippoChat {
     }
     
     public static func setUser(_ user: HippoUserDetail) {
-        HippoConfig.shared.updateUserDetail(userDetail: user)
+        HippoConfig.shared.updateUserDetail(userDetail: user){_ in }
     }
     
     public static func set(botGroupID: Int) {

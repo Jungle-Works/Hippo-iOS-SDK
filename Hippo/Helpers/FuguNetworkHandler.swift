@@ -135,8 +135,10 @@ class FuguNetworkHandler: NSObject {
             }
             
             if hidden {
-                chatBoxVC.updateErrorLabelView(isHiding: hidden)
-                chatBoxVC.callGetAnnouncementsApi()
+                if chatBoxVC.viewError_Height.constant != 0{
+                    chatBoxVC.updateErrorLabelView(isHiding: hidden)
+                    chatBoxVC.callGetAnnouncementsApi()
+                }
             }
         }else if let conversationVC = getLastVisibleController() as? AllConversationsViewController, conversationVC.isViewLoaded {
             if hidden == false {

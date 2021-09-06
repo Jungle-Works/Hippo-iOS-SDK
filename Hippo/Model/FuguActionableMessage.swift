@@ -14,7 +14,10 @@ import UIKit
     var messageImageURL = ""
     var messageTitle = ""
     var titleDescription = ""
-    
+    var botResponseType : BotResponseType?
+    var allowedDateTime : AllowedDateTimeType?
+    var dateTimeFormat = ""
+    var customActionJson = [String : Any]()
     
     // MARK: - Intializer
 //     public override init() {}
@@ -38,6 +41,26 @@ import UIKit
         if let title = dict["title_description"] as? String {
             titleDescription = title
         }
+        if let botResponse = dict["bot_response_type"] as? String {
+            botResponseType = BotResponseType(rawValue: botResponse)
+        }
+        customActionJson = dict
+        if let calendarTime = dict["calendar_time"] as? [String : Any] {
+            if let allowedDteTime = calendarTime["allowed_date_time"] as? String {
+                allowedDateTime = AllowedDateTimeType(rawValue: allowedDteTime)
+            }
+            dateTimeFormat = calendarTime["date_time_format"] as? String ?? ""
+        } else if let calendarTime = dict["date_scroller"] as? [String : Any] {
+            if let allowedDteTime = calendarTime["allowed_date_time"] as? String {
+                allowedDateTime = AllowedDateTimeType(rawValue: allowedDteTime)
+            }
+            dateTimeFormat = calendarTime["date_time_format"] as? String ?? ""
+        } else if let calendarTime = dict["time_scroller"] as? [String : Any] {
+            if let allowedDteTime = calendarTime["allowed_date_time"] as? String {
+                allowedDateTime = AllowedDateTimeType(rawValue: allowedDteTime)
+            }
+            dateTimeFormat = calendarTime["date_time_format"] as? String ?? ""
+        }
     }
     
     func getDictToSaveToCache()-> [String: Any] {
@@ -54,3 +77,14 @@ import UIKit
 }
 
 
+enum BotResponseType : String {
+    case date = "18"
+    case time = "19"
+    case dateTime = "20"
+}
+
+enum AllowedDateTimeType : String {
+    case all = "0"
+    case future = "1"
+    case past = "2"
+}

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SupportChatViewController: HippoHomeViewController, InformationViewDelegate {
+class SupportChatViewController: HippoHomeViewController {
     
     //MARK: Variables
     var supportChatVM : SupportChatViewModel?
@@ -127,7 +127,7 @@ class SupportChatViewController: HippoHomeViewController, InformationViewDelegat
     private func noConversationFound(errorMessage : String){
         if (self.supportChatVM?.conversationList.count ?? 0) <= 0{
             if informationView == nil {
-                informationView = InformationView.loadView(self.tableView_SupportChat.bounds, delegate: self)
+                informationView = InformationView.loadView(self.tableView_SupportChat.bounds)
             }
             self.informationView?.informationLabel.text = errorMessage
             self.informationView?.informationImageView.image = HippoConfig.shared.theme.noChatImage

@@ -51,6 +51,7 @@ class PromotionsViewController: UIViewController {
     var limit = 20
     var shouldFetchData = true
     var previousPage = 0
+    var showMoreIndex : IndexPath?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,7 +77,13 @@ class PromotionsViewController: UIViewController {
         if let c = customCell {
             promotionsTableView.register(UINib(nibName: c.cellIdentifier, bundle: c.bundle), forCellReuseIdentifier: c.cellIdentifier)
         }
-        self.callGetAnnouncementsApi()
+        if !(HippoConfig.shared.isOpenedFromPush ?? false){
+            self.callGetAnnouncementsApi()
+            HippoNotification.removeAllAnnouncementNotification()
+        }else{
+            refreshData()
+            HippoConfig.shared.isOpenedFromPush = false
+        }
     }
     
     internal func setupRefreshController() {
@@ -93,6 +100,38 @@ class PromotionsViewController: UIViewController {
             self.getAnnouncements(endOffset:limit, startOffset: 0)
         }else{
             self.refreshControl.endRefreshing()
+        }
+    }
+    
+    func refreshData(){
+        getDataOrUpdateAnnouncement(HippoNotification.promotionPushDic.map{$0.value.channelID}, isforReadMore: false)
+        HippoNotification.promotionPushDic.removeAll()
+    }
+    
+    func getDataOrUpdateAnnouncement(_ channelIdArr : [Int], isforReadMore : Bool, indexRow : Int? = nil){
+        var params = [String : Any]()
+        if currentUserType() == .customer{
+            params = ["app_secret_key" : HippoConfig.shared.appSecretKey, "channel_ids" : channelIdArr, "user_id" : currentUserId()] as [String : Any]
+        }else{
+            params = ["access_token" : HippoConfig.shared.agentDetail?.fuguToken ?? "", "channel_ids" : channelIdArr, "user_id" : currentUserId()] as [String : Any]
+        }
+        
+        HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: FuguEndPoints.getAndUpdateAnnouncement.rawValue) { (response, error, _, statusCode) in
+            if let response = response as? [String : Any], let data = response["data"] as? [[String : Any]]{
+                for value in data{
+                    if let announcement = PromotionCellDataModel(dict: value){
+                        self.data.insert(announcement, at: 0)
+                        self.states.insert(true, at: 0)
+                    }
+                }
+                let channelIdArr = self.data.map{String($0.channelID)}
+                if let channelArr = UserDefaults.standard.value(forKey: DefaultName.announcementUnreadCount.rawValue) as? [String]{
+                    let result = channelArr.filter { !channelIdArr.contains($0) }
+                    UserDefaults.standard.set(result, forKey: DefaultName.announcementUnreadCount.rawValue)
+                    HippoConfig.shared.announcementUnreadCount?(result.count)
+                }
+                self.noNotificationsFound()
+            }
         }
     }
     
@@ -162,6 +201,8 @@ class PromotionsViewController: UIViewController {
         _ = self.navigationController?.dismiss(animated: true, completion: nil)
         //        }
         
+        let json = PromotionCellDataModel.getJsonFromAnnouncementArr(self.data)
+        self.savePromotionsInCache(json)
     }
     
     func startLoaderAnimation() {
@@ -179,16 +220,22 @@ class PromotionsViewController: UIViewController {
         guard self.navigationItem.rightBarButtonItem?.tintColor != .clear else {
             return
         }
-
-            self.clearAnnouncements(indexPath: IndexPath(row: 0, section: 0), isDeleteAllStatus: 1)
-            FuguDefaults.removeObject(forKey: DefaultName.appointmentData.rawValue)
-            
-     //   }, failureButtonName: "NO", failureComplete: nil)
+        UserDefaults.standard.set([], forKey: DefaultName.announcementUnreadCount.rawValue)
+        HippoConfig.shared.announcementUnreadCount?(0)
+        
+        self.clearAnnouncements(indexPath: IndexPath(row: 0, section: 0), isDeleteAllStatus: 1)
+        FuguDefaults.removeObject(forKey: DefaultName.appointmentData.rawValue)
+        
+        //   }, failureButtonName: "NO", failureComplete: nil)
     }
     
     func getAnnouncements(endOffset:Int,startOffset:Int) {
-        
-        let params = ["end_offset":"\(endOffset)","start_offset":"\(startOffset)","en_user_id":HippoUserDetail.fuguEnUserID,"app_secret_key":HippoConfig.shared.appSecretKey]
+        var params = [String : Any]()
+        if currentUserType() == .customer{
+            params = ["end_offset":"\(endOffset)","start_offset":"\(startOffset)","en_user_id":HippoUserDetail.fuguEnUserID ?? "","app_secret_key":HippoConfig.shared.appSecretKey]
+        }else{
+            params = ["end_offset":"\(endOffset)","start_offset":"\(startOffset)","user_id": "\(currentUserId())" ,"access_token":HippoConfig.shared.agentDetail?.fuguToken ?? ""]
+        }
         
         HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: AgentEndPoints.getAnnouncements.rawValue) { (response, error, _, statusCode) in
             
@@ -233,17 +280,20 @@ class PromotionsViewController: UIViewController {
     }
     
     func noNotificationsFound(){
+        guard let _ = promotionsTableView else {
+            return
+        }
         if self.data.count <= 0{
            // self.navigationItem.rightBarButtonItem?.tintColor = .clear
             if informationView == nil {
-                informationView = InformationView.loadView(self.promotionsTableView.bounds, delegate: self)
+                informationView = InformationView.loadView(self.promotionsTableView.bounds)
                 informationView?.informationLabel.text = HippoStrings.noNotificationFound
             }
 
             self.informationView?.isHidden = false
             self.promotionsTableView.addSubview(informationView!)
         }else{
-            for view in promotionsTableView.subviews{
+            for view in promotionsTableView?.subviews ?? [UIView](){
                 if view is InformationView{
                     view.removeFromSuperview()
                 }
@@ -265,10 +315,25 @@ class PromotionsViewController: UIViewController {
             //self.channelIdsArr.append(data[indexPath.row].channelID)
             //self.channelIdsArr[0] = data[indexPath.row].channelID
             self.channelIdsArr.insert(data[indexPath.row].channelID, at: 0)
-            
-            params = ["app_secret_key":HippoConfig.shared.appSecretKey,"en_user_id":HippoUserDetail.fuguEnUserID ?? "","channel_ids":self.channelIdsArr,"delete_all_announcements":isDeleteAllStatus] as [String : Any]
+            if currentUserType() == .customer{
+                params = ["app_secret_key":HippoConfig.shared.appSecretKey,
+                    "en_user_id":HippoUserDetail.fuguEnUserID ?? "",
+                    "channel_ids":self.channelIdsArr,
+                    "delete_all_announcements":isDeleteAllStatus] as [String : Any]
+            }else{
+                params = ["access_token": HippoConfig.shared.agentDetail?.fuguToken ?? "",
+                          "user_id": "\(currentUserId())",
+                          "channel_ids":self.channelIdsArr,
+                          "delete_all_announcements":isDeleteAllStatus] as [String : Any]
+            }
         }else{
-            params = ["app_secret_key":HippoConfig.shared.appSecretKey,"en_user_id":HippoUserDetail.fuguEnUserID ?? "","delete_all_announcements":isDeleteAllStatus] as [String : Any]
+            if currentUserType() == .customer{
+                params = ["app_secret_key":HippoConfig.shared.appSecretKey,"en_user_id":HippoUserDetail.fuguEnUserID ?? "","delete_all_announcements":isDeleteAllStatus] as [String : Any]
+            }else{
+                params = ["access_token": HippoConfig.shared.agentDetail?.fuguToken ?? "",
+                    "user_id": "\(currentUserId())",
+                    "delete_all_announcements":isDeleteAllStatus] as [String : Any]
+            }
         }
         
         HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: AgentEndPoints.clearAnnouncements.rawValue) { (response, error, _, statusCode) in
@@ -292,8 +357,7 @@ class PromotionsViewController: UIViewController {
                     //    self.promotionsTableView.reloadData()
                     //}
                 }
-                
-                
+              
                 self.noNotificationsFound()
                 
             }
@@ -387,6 +451,7 @@ extension PromotionsViewController: UITableViewDelegate,UITableViewDataSource
         let row = sender.tag
         //let values = data[row]
         let indexpath = IndexPath(row: row, section: 0)
+        
         guard let cell = self.promotionsTableView.cellForRow(at: indexpath) as? PromotionTableViewCell else { return }
         if states[row] == true{
             states[row] = false
@@ -449,9 +514,6 @@ extension PromotionsViewController: UITableViewDelegate,UITableViewDataSource
     
 }
 
-extension PromotionsViewController: InformationViewDelegate {
-    
-}
 
 extension PromotionsViewController{
     

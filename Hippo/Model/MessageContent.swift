@@ -15,7 +15,9 @@ class MessageContent: NSObject {
     var values = [String]()
     var buttonTitles: [String] = []
     var actionId: [String] = []
-    
+    var paramId: [Int] = []
+    var params: [String] = []
+    var erpCustomerName: String?
     override init() {
         
     }
@@ -25,6 +27,8 @@ class MessageContent: NSObject {
             return
         }
         let json = param[0]
+        paramId = json["params_id"] as? [Int] ?? [Int]()
+        params = json["params"] as? [String] ?? [String]()
         questionsArray = json["questions"] as? [String] ?? [String]()
         dataType = json["data_type"] as? [String] ?? []
         values = json["values"] as? [String] ?? [String]()

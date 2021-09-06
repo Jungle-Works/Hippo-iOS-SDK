@@ -862,7 +862,7 @@ class HippoChannel {
     //This function  return the value so the tableView should reload
     func updateReferenceMessage(oldMessage: HippoMessage, newMessage: HippoMessage) -> Bool {
         switch newMessage.type {
-        case .consent:
+        case .consent,.dateTime,.address,.botAttachment:
             if let oldActionMessage = oldMessage as? HippoActionMessage, let newActionMessage = newMessage as? HippoActionMessage {
                 oldActionMessage.updateObject(with: newActionMessage)
             }
