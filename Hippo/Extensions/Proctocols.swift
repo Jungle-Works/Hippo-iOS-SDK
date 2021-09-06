@@ -50,7 +50,7 @@ public protocol HippoDelegate: class {
     func sendDataIfChatIsAssignedToSelfAgent(_ dic : [String : Any])
     func sendp2pUnreadCount(unreadCount : Int, channelId : Int)
     func chatListButtonAction()
-    
+    func passSecurityCheckError(error : String)
     
     #if canImport(HippoCallClient)
      func loadCallPresenterView(request: CallPresenterRequest) -> CallPresenter?

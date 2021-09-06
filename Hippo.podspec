@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
     s.name         = 'Hippo'
 
-    s.version      = '2.1.50'
+    s.version      = '2.1.55'
 
     s.summary      = 'Now add Agent in app for quick support.'
     s.homepage     = 'https://github.com/Jungle-Works/Hippo-iOS-SDK'
@@ -20,13 +20,18 @@ Pod::Spec.new do |s|
     s.swift_version = '4.2'
     
     s.resource_bundles = {
-        'Hippo' => ['Hippo/*.{lproj,storyboard,xcassets,gif}','Hippo/Assets/**/*.imageset','Hippo/UIView/TableViewCell/**/*.xib','Hippo/UIView/CollectionViewCells/**/*.xib','Hippo/UIView/CustomViews/**/*.xib','Hippo/InternalClasses/Views/**/*.xib','Hippo/InternalClasses/Module/**/*.xib', 'Hippo/**/*.gif','Hippo/Language/**/*.strings', 'README.md']
+
+
+        'Hippo' => ['Hippo/*.{lproj,storyboard,xcassets,gif}','Hippo/Assets/**/*.imageset','Hippo/UIView/TableViewCell/**/*.xib','Hippo/UIView/CollectionViewCells/**/*.xib','Hippo/UIView/CustomViews/**/*.xib','Hippo/InternalClasses/Views/**/*.xib','Hippo/InternalClasses/Module/**/*.xib', 'Hippo/**/*.gif','Hippo/**/*.wav','Hippo/Language/**/*.strings', 'Hippo/**/*.js','README.md']
+
+
     }
     s.resources = ['Hippo/*.xcassets']
-    s.preserve_paths = ['README.md']
     
     s.dependency 'Socket.IO-Client-Swift'
+
     s.dependency 'razorpay-pod'
+
     s.default_subspec = 'Chat'
     
     s.subspec 'Chat' do |chat|

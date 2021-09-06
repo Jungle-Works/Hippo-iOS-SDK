@@ -13,9 +13,25 @@ protocol LeadDataCellDelegate: class {
     func enableError(isEnabled: Bool, cell: LeadDataTableViewCell, text: String?)
     func textfieldShouldBeginEditing(textfield: UITextField)
     func textfieldShouldEndEditing(textfield: UITextField)
+    func issueTypeStartEditing(textfield: UITextField)
+    func priorityTypeStartEditing(textfield: UITextField)
+    func issueTypeValueChanged(textfield: UITextField)
+    func priorityTypeValueChanged(textfield: UITextField)
+
 }
 
-class LeadDataTableViewCell: UITableViewCell {
+enum CreateTicketFields: Int {
+    case email = 0
+    case name = 1
+    case subject = 2
+    case description = 3
+    case attachments = 6
+    case issueType = 4
+    case priority = 5
+}
+
+class LeadDataTableViewCell: UITableViewCell{
+    
     static let rowHeight: CGFloat = 90.0
     fileprivate enum TextfieldType: String {
         case string = "string"
@@ -23,8 +39,10 @@ class LeadDataTableViewCell: UITableViewCell {
         case email = "email"
         case name = "name"
     }
-    
+ 
     fileprivate var dataType: String = ""
+    var paramId : Int?
+    var attachmentClicked: (()->())?
     
     weak var delegate: LeadDataCellDelegate?
     @IBOutlet weak var buttonSend: UIButton!
@@ -40,10 +58,11 @@ class LeadDataTableViewCell: UITableViewCell {
     @IBOutlet var constraintValidationTop: NSLayoutConstraint!
     @IBOutlet var constraintValidationBottom: NSLayoutConstraint!
     @IBOutlet var constraintViewTop: NSLayoutConstraint!
+    @IBOutlet var constraintButtonAspectRatio : NSLayoutConstraint!
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+      
         setupCellView()
     }
     
@@ -54,12 +73,13 @@ class LeadDataTableViewCell: UITableViewCell {
         return false
     }
 
+    
     @IBAction func didTapSend(_ sender: UIButton) {
         guard let text = self.valueTextfield.text else {
             self.delegate?.enableError(isEnabled: true, cell: self, text: HippoStrings.requiredField)
             return
         }
-        guard text != "" else {
+        guard text != "" || paramId == CreateTicketFields.attachments.rawValue else {
             self.delegate?.enableError(isEnabled: true, cell: self, text: HippoStrings.requiredField)
             return
         }
@@ -78,18 +98,37 @@ class LeadDataTableViewCell: UITableViewCell {
     func setData(data: FormData) {
         titleLabel.text = data.title
         valueTextfield.text = data.value
-        valueTextfield.placeholder = data.value
+        valueTextfield.placeholder = data.paramId == CreateTicketFields.attachments.rawValue ? "Click to upload file" : data.title
+        self.buttonSend.setTitle(nil, for: .normal)
         DispatchQueue.main.async {
-            if data.isCompleted {
+            if data.isCompleted && data.shouldBeEditable{
+                self.buttonSend.isUserInteractionEnabled = true
+                self.valueTextfield.isUserInteractionEnabled = true
+                self.buttonSend.backgroundColor = #colorLiteral(red: 0.1333333333, green: 0.5882352941, blue: 1, alpha: 1)
+                let image = HippoConfig.shared.theme.editIcon
+                self.buttonSend.setImage(image!.withRenderingMode(.alwaysTemplate), for: .normal)
+                self.buttonSend.tintColor = UIColor.white
+            }else if data.isCompleted{
                 let image = UIImage(named: "tick_green", in: FuguFlowManager.bundle, compatibleWith: nil)
                 self.buttonSend.setImage(image, for: .normal)
                 self.buttonSend.isUserInteractionEnabled = false
                 self.valueTextfield.isUserInteractionEnabled = false
                 self.buttonSend.backgroundColor = UIColor.clear
+                self.constraintButtonAspectRatio.isActive = true
             } else {
-                let image = UIImage(named: "next_dark_icon", in: FuguFlowManager.bundle, compatibleWith: nil)
-                self.buttonSend.setImage(image!.withRenderingMode(.alwaysTemplate), for: .normal)
-                self.buttonSend.tintColor = UIColor.white
+                if data.paramId == CreateTicketFields.attachments.rawValue{
+                    self.constraintButtonAspectRatio.isActive = false
+                    self.buttonSend.setTitle(" " + HippoStrings.Done + " ", for: .normal)
+                    self.buttonSend.setTitleColor(.white, for: .normal)
+                    self.buttonSend.setImage(nil, for: .normal)
+                    self.buttonSend.titleLabel?.font = UIFont.bold(ofSize: 13.0)
+                }else{
+                    self.constraintButtonAspectRatio.isActive = true
+                    let image = UIImage(named: "next_dark_icon", in: FuguFlowManager.bundle, compatibleWith: nil)
+                    self.buttonSend.setImage(image!.withRenderingMode(.alwaysTemplate), for: .normal)
+                    self.buttonSend.tintColor = UIColor.white
+                }
+               
                 self.buttonSend.isUserInteractionEnabled = true
                 self.valueTextfield.isUserInteractionEnabled = true
                 self.buttonSend.backgroundColor = #colorLiteral(red: 0.1333333333, green: 0.5882352941, blue: 1, alpha: 1)
@@ -102,6 +141,8 @@ class LeadDataTableViewCell: UITableViewCell {
         }
         setTextFieldType(data: data)
         self.dataType = data.dataType
+        self.paramId = data.paramId
+        
     }
     
     func setTextFieldType(data: FormData) {
@@ -148,7 +189,6 @@ class LeadDataTableViewCell: UITableViewCell {
         self.valueTextfield.delegate = self
         backgroundColor = UIColor.clear
     }
-
     
     func isValidEmail(string: String) -> String? {
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
@@ -164,6 +204,20 @@ class LeadDataTableViewCell: UITableViewCell {
 
 extension LeadDataTableViewCell: UITextFieldDelegate {
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+ 
+        if paramId == CreateTicketFields.attachments.rawValue{
+            self.delegate?.enableError(isEnabled: false, cell: self, text: nil)
+            self.attachmentClicked?()
+            return false
+        }else if paramId == CreateTicketFields.issueType.rawValue{
+            self.delegate?.issueTypeStartEditing(textfield: textField)
+            return true
+        }else if paramId == CreateTicketFields.priority.rawValue{
+            self.delegate?.priorityTypeStartEditing(textfield: textField)
+            return true
+        }
+        
+        
         HippoKeyboardManager.shared.enable = true
         self.delegate?.textfieldShouldBeginEditing(textfield: textField)
         return true
@@ -181,11 +235,23 @@ extension LeadDataTableViewCell: UITextFieldDelegate {
         
         let type = TextfieldType(rawValue: dataType)  ?? .string
         switch type {
+        case .email, .name:
+            if self.buttonSend.imageView?.image == HippoConfig.shared.theme.editIcon{
+                let image = UIImage(named: "next_dark_icon", in: FuguFlowManager.bundle, compatibleWith: nil)
+                self.buttonSend.setImage(image!.withRenderingMode(.alwaysTemplate), for: .normal)
+                self.buttonSend.tintColor = UIColor.white
+            }
+            return true
         case .phone:
             let allowedCharacters = CharacterSet(charactersIn: "0123456789+")
             let characterSet = CharacterSet(charactersIn: string)
             return allowedCharacters.isSuperset(of: characterSet)
         default:
+            if paramId == CreateTicketFields.issueType.rawValue{
+                self.delegate?.issueTypeValueChanged(textfield: textField)
+            }else if paramId == CreateTicketFields.priority.rawValue{
+                self.delegate?.priorityTypeValueChanged(textfield: textField)
+            }
             return true
         }
     }

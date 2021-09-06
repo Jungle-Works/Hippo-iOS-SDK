@@ -79,6 +79,7 @@ class AgentHomeViewController: HippoHomeViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 //        self.navigationController?.navigationBar.isHidden = false
+        reloadrefreshData(refreshCtrler: UIRefreshControl())
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -270,7 +271,13 @@ extension AgentHomeViewController {
             self.bottomLineView.isHidden = false
             self.allChatButton.isHidden = true
             numberOfBtns = 2
-        } else{
+        } else if (BussinessProperty.current.hideo2oChat ?? false){
+            self.myChatButton.isHidden = false
+            self.o2oChatButton.isHidden = true
+            self.bottomLineView.isHidden = false
+            self.allChatButton.isHidden = false
+            numberOfBtns = 2
+        }else{
             self.buttonContainerViewHeightConstraint.constant = 50
             self.myChatButton.isHidden = false
             self.allChatButton.isHidden = false

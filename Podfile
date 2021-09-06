@@ -6,7 +6,6 @@ target 'Hippo' do
   use_frameworks!
 
   pod 'Socket.IO-Client-Swift'
-  pod 'razorpay-pod'
 
 
 end

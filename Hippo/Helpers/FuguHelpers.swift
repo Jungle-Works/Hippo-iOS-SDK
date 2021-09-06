@@ -16,6 +16,7 @@ let Fugu_AppSecret_Key = "fugu_app_secret_key"
 let Fugu_en_user_id = "fuguEnUserId"
 let Hippo_User_Channel_Id = "userChannelId"
 let Fugu_groupCallData = "groupCallData"
+let Fugu_User_Data = "fuguUserData"
 let phoneNumberRegex = "1?W*([2-9][0-8][0-9])W*([2-9][0-9]{2})W*([0-9]{4})(se?x?t?(d*))?"
 
 extension UInt {
@@ -431,6 +432,7 @@ func calculateTotalAgentUnreadCount(_ channelId : Int, _ unreadCount : Int){
 
 func pushTotalUnreadCount() {
     var chatCounter = 0
+    var noDataFound = false
     
     switch HippoConfig.shared.appUserType {
     case .agent:
@@ -447,7 +449,15 @@ func pushTotalUnreadCount() {
                     chatCounter += conversationCounter
                 }
             }
+        }else{
+            noDataFound = true
         }
+    }
+    
+    if noDataFound{
+        let allConversationObj = AllConversationsViewController()
+        allConversationObj.getAllConversations()
+        return
     }
     
     chatCounter += getPushUnreadCount()
@@ -474,13 +484,10 @@ func pushTotalUnreadCount() {
     
 }
 
-func updateStoredUnreadCountFor(with userInfo: [String: Any]) {
+func updateStoredUnreadCountFor(toIncreaseCount : Bool = false, with userInfo: [String: Any]) {
     let recievedChannelId = userInfo["channel_id"] as? Int ?? -1
     let recievedLabelId = userInfo["label_id"] as? Int ?? -1
     
-    guard recievedChannelId > 0, recievedLabelId > 0 else {
-        return
-    }
     
     switch HippoConfig.shared.appUserType {
     case .agent:
@@ -517,20 +524,31 @@ func updateStoredUnreadCountFor(with userInfo: [String: Any]) {
         guard var chatCachedArray = FuguDefaults.object(forKey: DefaultName.conversationData.rawValue) as? [[String: Any]] else {
             return
         }
-        
-        let rawIndex = getIndexOf(objects: chatCachedArray, with: recievedChannelId, with: recievedLabelId)
+        let muid = userInfo["muid"] as? String ?? ""
+        let rawIndex = getIndexOf(muid: muid, objects: chatCachedArray, with: recievedChannelId, with: recievedLabelId)
         if let index = rawIndex {
-            var obj = chatCachedArray[index]
-            obj["unread_count"] = 0
-            chatCachedArray[index] = obj
-            FuguDefaults.set(value: chatCachedArray, forKey: DefaultName.conversationData.rawValue)
+            if toIncreaseCount{
+                var obj = chatCachedArray[index]
+                obj["unread_count"] = (obj["unread_count"] as? Int ?? 0) + 1
+                chatCachedArray[index] = obj
+                FuguDefaults.set(value: chatCachedArray, forKey: DefaultName.conversationData.rawValue)
+            }else {
+                var obj = chatCachedArray[index]
+                obj["unread_count"] = 0
+                chatCachedArray[index] = obj
+                FuguDefaults.set(value: chatCachedArray, forKey: DefaultName.conversationData.rawValue)
+            }
+        }else {
+            if toIncreaseCount {
+                updatePushCount(pushInfo: userInfo)
+            }
         }
     }
     
 }
 
 
-func getIndexOf(objects: [[String: Any]], with channelId: Int, with labelId: Int) -> Int? {
+func getIndexOf(muid : String, objects: [[String: Any]], with channelId: Int, with labelId: Int) -> Int? {
     guard channelId > 0 || labelId > 0 else {
         return nil
     }
@@ -554,6 +572,10 @@ func getIndexOf(objects: [[String: Any]], with channelId: Int, with labelId: Int
         }
         if labelId < 1 {
             isLabelIdPresent = false
+        }
+        
+        if each["muid"] as? String ?? "" == muid {
+            continue
         }
         
         guard isLabelIdPresent || isChannelIdPresent else {
@@ -688,11 +710,20 @@ func updatePushCount(pushInfo: [String: Any]) {
     guard let channelId = pushInfo["channel_id"] as? Int else {
         return
     }
-    guard channelId > 0 else {
+    guard let labelId = pushInfo["label_id"] as? Int else {
         return
     }
-    let index = HippoConfig.shared.pushArray.firstIndex { (p) -> Bool in
+    
+    guard channelId > 0 || labelId > 0 else {
+        return
+    }
+    var index = HippoConfig.shared.pushArray.firstIndex { (p) -> Bool in
         return p.channelId == channelId
+    }
+    if index == nil{
+        index = HippoConfig.shared.pushArray.firstIndex { (p) -> Bool in
+            return p.labelId == labelId
+        }
     }
     var newObj = PushInfo(json: pushInfo)
     guard index != nil else {
@@ -870,4 +901,3 @@ func currentUserType() -> UserType {
         return UserType.customer
     }
 }
-

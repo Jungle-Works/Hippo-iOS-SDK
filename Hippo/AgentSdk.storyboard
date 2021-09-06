@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -1454,6 +1454,102 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NRv-bF-dyn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2983.1999999999998" y="1560.2698650674663"/>
+        </scene>
+        <!--Shared Media View Controller-->
+        <scene sceneID="NxE-0I-NeK">
+            <objects>
+                <viewController storyboardIdentifier="SharedMediaViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="59F-D0-HGJ" customClass="SharedMediaViewController" customModule="Hippo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="CTa-j2-clK">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uRB-Xi-7fF" customClass="NavigationBar" customModule="Hippo" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="ou0-ww-FLa"/>
+                                </constraints>
+                            </view>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="WP1-HI-rnc">
+                                <rect key="frame" x="0.0" y="50" width="375" height="617"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="VaU-kC-HvH">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells/>
+                                <connections>
+                                    <outlet property="dataSource" destination="59F-D0-HGJ" id="ota-rB-XIc"/>
+                                    <outlet property="delegate" destination="59F-D0-HGJ" id="969-IZ-De7"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="AA0-op-l15"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="WP1-HI-rnc" firstAttribute="top" secondItem="uRB-Xi-7fF" secondAttribute="bottom" id="HMQ-bp-d0Q"/>
+                            <constraint firstItem="uRB-Xi-7fF" firstAttribute="trailing" secondItem="AA0-op-l15" secondAttribute="trailing" id="OhQ-Bb-iFN"/>
+                            <constraint firstItem="WP1-HI-rnc" firstAttribute="leading" secondItem="AA0-op-l15" secondAttribute="leading" id="TVA-Ks-h6a"/>
+                            <constraint firstItem="AA0-op-l15" firstAttribute="bottom" secondItem="WP1-HI-rnc" secondAttribute="bottom" id="VKy-xR-BfG"/>
+                            <constraint firstItem="uRB-Xi-7fF" firstAttribute="top" secondItem="AA0-op-l15" secondAttribute="top" id="X4H-5J-FdB"/>
+                            <constraint firstItem="AA0-op-l15" firstAttribute="trailing" secondItem="WP1-HI-rnc" secondAttribute="trailing" id="bPc-ae-1cy"/>
+                            <constraint firstItem="uRB-Xi-7fF" firstAttribute="leading" secondItem="AA0-op-l15" secondAttribute="leading" id="uAk-9v-Ve0"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="collectionView" destination="WP1-HI-rnc" id="sML-5K-5Ih"/>
+                        <outlet property="viewNavigationBar" destination="uRB-Xi-7fF" id="Yst-Id-HTg"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PfK-WJ-g3v" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3770.4000000000001" y="1573.7631184407796"/>
+        </scene>
+        <!--Media Web View Controller-->
+        <scene sceneID="Q6Q-d8-Jul">
+            <objects>
+                <viewController storyboardIdentifier="MediaWebViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Jhl-jy-38w" customClass="MediaWebViewController" customModule="Hippo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="zCv-cq-Eeu">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1kQ-kj-ddq" customClass="NavigationBar" customModule="Hippo" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="OtR-lM-8ss"/>
+                                </constraints>
+                            </view>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HI9-c7-YAz">
+                                <rect key="frame" x="0.0" y="50" width="375" height="617"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="BHs-7Q-3Xr"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="HI9-c7-YAz" firstAttribute="bottom" secondItem="zCv-cq-Eeu" secondAttribute="bottomMargin" id="Nzi-I1-5Rr"/>
+                            <constraint firstItem="BHs-7Q-3Xr" firstAttribute="trailing" secondItem="HI9-c7-YAz" secondAttribute="trailing" id="VeS-N4-1TY"/>
+                            <constraint firstItem="HI9-c7-YAz" firstAttribute="top" secondItem="1kQ-kj-ddq" secondAttribute="bottom" id="Z0t-NM-CBV"/>
+                            <constraint firstItem="1kQ-kj-ddq" firstAttribute="leading" secondItem="BHs-7Q-3Xr" secondAttribute="leading" id="ZkO-sI-c8G"/>
+                            <constraint firstItem="1kQ-kj-ddq" firstAttribute="top" secondItem="zCv-cq-Eeu" secondAttribute="topMargin" id="fJq-ni-aud"/>
+                            <constraint firstItem="HI9-c7-YAz" firstAttribute="leading" secondItem="BHs-7Q-3Xr" secondAttribute="leading" id="pIR-QY-pox"/>
+                            <constraint firstItem="BHs-7Q-3Xr" firstAttribute="trailing" secondItem="1kQ-kj-ddq" secondAttribute="trailing" id="rwH-0l-l3U"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="viewNavigationBar" destination="1kQ-kj-ddq" id="2Ye-63-KZh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2Eu-l5-NHl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4511.1999999999998" y="1576.4617691154424"/>
         </scene>
         <!--Select Presciption Template Controller-->
         <scene sceneID="vRb-JF-fOv">

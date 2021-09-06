@@ -31,12 +31,41 @@ class HippoActionMessage: HippoMessage {
             self.contentValues = content_value
             let selectedId = selectedBtnId.isEmpty ? nil : selectedBtnId
             let (buttons, selectedButton) = HippoActionButton.getArray(array: contentValues, selectedId: selectedId)
-            tryToSetResponseMessage(selectedButton: selectedButton)
+            if type == .dateTime || type == .address {
+                tryToSetResponseMessage()
+            }else if type == .botAttachment {
+                tryToSetResponseMessageForAttachment()
+            }else {
+                tryToSetResponseMessage(selectedButton: selectedButton)
+            }
             self.buttons = buttons
         }
         setHeight()
         isUserInteractionEnbled = isActive
     }
+    
+    func tryToSetResponseMessageForAttachment() {
+        if let dic = self.contentValues.first {
+            responseMessage = HippoMessage(message: "", type: .normal, senderName: repliedBy, senderId: repliedById, chatType: chatType)
+            if let rawFileType = dic["file_type"] as? String {
+                responseMessage?.documentType = FileType(mimeType: rawFileType)
+            }
+            responseMessage?.thumbnailUrl = dic["thumbnail_url"] as? String
+            responseMessage?.fileUrl = dic["url"] as? String ?? dic["attachment_url"] as? String
+            responseMessage?.fileName = dic["file_name"] as? String
+            responseMessage?.imageUrl = dic["attachment_url"] as? String
+            if responseMessage?.documentType == .document || responseMessage?.documentType == .video {
+                responseMessage?.type = .attachment
+            }else {
+                responseMessage?.type = .imageFile
+            }
+            responseMessage?.userType = .customer
+            responseMessage?.creationDateTime = self.creationDateTime
+            responseMessage?.status = status
+            cellDetail?.actionHeight = nil
+        }
+    }
+    
     
     func tryToSetResponseMessage(selectedButton: HippoActionButton?)  {
         guard let parsedSelectedButton = selectedButton else {
@@ -49,14 +78,39 @@ class HippoActionMessage: HippoMessage {
         cellDetail?.actionHeight = nil
     }
     
+    func tryToSetResponseMessage() {
+        if let dic = self.contentValues.first {
+            if type == .dateTime {
+                responseMessage = HippoMessage(message: dic["date_time_message"] as? String ?? "", type: .normal, senderName: repliedBy, senderId: repliedById, chatType: chatType)
+            }else {
+                responseMessage = HippoMessage(message: dic["address"] as? String ?? "", type: .normal, senderName: repliedBy, senderId: repliedById, chatType: chatType)
+            }
+            responseMessage?.userType = .customer
+            responseMessage?.creationDateTime = self.creationDateTime
+            responseMessage?.status = status
+            cellDetail?.actionHeight = nil
+        }
+    }
+    
     func setHeight() {
         cellDetail = HippoCellDetail()
         cellDetail?.headerHeight = attributtedMessage.messageHeight + attributtedMessage.nameHeight + attributtedMessage.timeHeight
         cellDetail?.showSenderName = false
         
         if let attributtedMessage = responseMessage?.attributtedMessage {
-            let nameHeight: CGFloat = HippoConfig.shared.appUserType == .agent ? attributtedMessage.nameHeight : 0
-            cellDetail?.responseHeight = attributtedMessage.messageHeight + attributtedMessage.timeHeight + nameHeight + 10
+            if responseMessage?.type == .imageFile {
+                cellDetail?.responseHeight = 250
+            }else if responseMessage?.type == .attachment {
+                switch responseMessage?.concreteFileType {
+                case .video:
+                    cellDetail?.responseHeight = 234
+                default:
+                    cellDetail?.responseHeight = 80
+                }
+            }else {
+                let nameHeight: CGFloat = HippoConfig.shared.appUserType == .agent ? attributtedMessage.nameHeight : 0
+                cellDetail?.responseHeight = attributtedMessage.messageHeight + attributtedMessage.timeHeight + nameHeight + 10
+            }
             cellDetail?.actionHeight = nil
         } else {
             let buttonHeight = buttonsHeight() //(buttons?.count ?? 0) * 50
@@ -111,12 +165,12 @@ class HippoActionMessage: HippoMessage {
     
     override func getJsonToSendToFaye() -> [String : Any] {
         var json = super.getJsonToSendToFaye()
-        
-        json["selected_btn_id"] = selectedBtnId
-        json["is_active"] = isActive.intValue()
+        if type != .dateTime && type != .address && type != .botAttachment{
+            json["selected_btn_id"] = selectedBtnId
+            json["is_active"] = isActive.intValue()
+        }
         json["content_value"] = contentValues
         json["user_id"] = currentUserId()
-        
         json["replied_by"] = currentUserName()
         json["replied_by_id"] = currentUserId()
         
@@ -131,12 +185,18 @@ class HippoActionMessage: HippoMessage {
         repliedBy = currentUserName()
         
         let selectedId = selectedBtnId.isEmpty ? nil : selectedBtnId
-        if !contentValues.isEmpty {
-            contentValues.append(contentsOf: customButtons)
-            let list = contentValues
-            let (buttons, selectedButton) = HippoActionButton.getArray(array: list, selectedId: selectedId)
-            self.tryToSetResponseMessage(selectedButton: selectedButton)
-            self.buttons = buttons
+        if type == .dateTime || type == .address {
+            tryToSetResponseMessage()
+        } else if type == .botAttachment {
+            tryToSetResponseMessageForAttachment()
+        }else{
+            if !contentValues.isEmpty {
+                contentValues.append(contentsOf: customButtons)
+                let list = contentValues
+                let (buttons, selectedButton) = HippoActionButton.getArray(array: list, selectedId: selectedId)
+                self.tryToSetResponseMessage(selectedButton: selectedButton)
+                self.buttons = buttons
+            }
         }
         setHeight()
     }
@@ -150,10 +210,16 @@ class HippoActionMessage: HippoMessage {
         self.repliedBy = newObject.repliedBy
         
         let selectedId = selectedBtnId.isEmpty ? nil : selectedBtnId
-        if !contentValues.isEmpty {
-            let (buttons, selectedButton) = HippoActionButton.getArray(array: contentValues, selectedId: selectedId)
-            self.tryToSetResponseMessage(selectedButton: selectedButton)
-            self.buttons = buttons
+        if type == .dateTime || type == .address {
+            tryToSetResponseMessage()
+        }else if type == .botAttachment {
+            tryToSetResponseMessageForAttachment()
+        }else {
+            if !contentValues.isEmpty {
+                let (buttons, selectedButton) = HippoActionButton.getArray(array: contentValues, selectedId: selectedId)
+                self.tryToSetResponseMessage(selectedButton: selectedButton)
+                self.buttons = buttons
+            }
         }
         setHeight()
         
