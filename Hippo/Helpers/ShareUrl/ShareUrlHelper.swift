@@ -19,7 +19,9 @@ import JitsiMeetSDK
 #endif
 
 
-final class ShareUrlHelper {
+public final class ShareUrlHelper {
+    
+    public init() {}
     
     func shareUrlApiCall(url : String, completion: @escaping (String) -> Void) {
         
@@ -63,7 +65,7 @@ final class ShareUrlHelper {
         return String((0..<length).map{ _ in letters.randomElement()! })
     }
     
-    func getUrlToJoinJitsiCall(url : String, completion: @escaping (String) -> Void) {
+    public func getUrlToJoinJitsiCall(url : String, completion: @escaping (String) -> Void) {
         #if canImport(JitsiMeetSDK)
         let urlSubstringArr = url.split(separator: "/")
         let roomId = urlSubstringArr.last
