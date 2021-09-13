@@ -638,7 +638,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         if self.arrayOfConversation.count <= 0{
             //self.navigationItem.rightBarButtonItem?.tintColor = .clear
             if informationView == nil {
-                informationView = InformationView.loadView(self.showConversationsTableView.bounds, delegate: self)
+                informationView = InformationView.loadView(self.showConversationsTableView.bounds)
             }
             self.informationView?.informationLabel.text = errorMessage
             //self.showConversationsTableView.isHidden = true
@@ -1040,9 +1040,7 @@ extension AllConversationsViewController: UIScrollViewDelegate {
     
 }
 
-extension AllConversationsViewController: InformationViewDelegate {
-    
-}
+
 
 //extension AllConversationsViewController:UIGestureRecognizerDelegate {
 ////    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {

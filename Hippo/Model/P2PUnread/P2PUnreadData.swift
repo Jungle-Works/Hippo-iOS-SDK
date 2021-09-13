@@ -32,6 +32,10 @@ class P2PUnreadData {
     
     
     func updateChannelId(transactionId : String, channelId : Int, count : Int, muid : String? = nil, otherUserUniqueKey: String?){
+        let previousData = getData(with: transactionId)
+        if previousData?.muid != nil, muid != nil, previousData?.muid == muid{
+            return
+        }
         let data = P2PData(channelId: channelId, count: count, muid: muid, id: (transactionId + "-" + (otherUserUniqueKey ?? "")))
         p2pChannelCount[transactionId] = data
         if count >= 0{

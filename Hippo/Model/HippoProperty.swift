@@ -21,6 +21,7 @@ class HippoProperty: NSObject {
     private(set) var newconversationBotGroupId: String? = nil
 
     private(set) var openLabelIdOnHome: Int?
+    private(set) var restrictMimeType: Bool = false
     
     var skipBot: Bool?
     var skipBotReason: String?
@@ -60,6 +61,11 @@ class HippoProperty: NSObject {
     class func setOpenLabelIdOnHome(label: Int?) {
         current.openLabelIdOnHome = label
     }
+    
+    class func shouldRestrictMimeType(allow: Bool){
+        current.restrictMimeType = allow
+    }
+    
 }
 
 

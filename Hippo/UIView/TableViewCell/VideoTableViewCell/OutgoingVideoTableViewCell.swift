@@ -49,7 +49,7 @@ class OutgoingVideoTableViewCell: VideoTableViewCell {
    func setCellWith(message: HippoMessage) {
       self.message?.statusChanged = nil
     
-    super.intalizeCell(with: message, isIncomingView: false)
+      super.intalizeCell(with: message, isIncomingView: false)
     
 //      self.forwardButtonView.isHidden = message.status == .none
       

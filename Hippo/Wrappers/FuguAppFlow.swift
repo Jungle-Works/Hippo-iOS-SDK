@@ -272,11 +272,14 @@ class FuguFlowManager: NSObject {
             HippoConfig.shared.muidList.append(muid)
         }
         
-        updatePushCount(pushInfo: userInfo)
+        if getLastVisibleController() is PromotionsViewController{
+            return false
+        }
+        
         if let keys = userInfo["user_unique_key"] as? [String] {
             UnreadCount.increaseUnreadCounts(for: keys)
         }
-        pushTotalUnreadCount()
+        
         
         switch HippoConfig.shared.appUserType {
         case .agent:
@@ -367,9 +370,6 @@ class FuguFlowManager: NSObject {
             return false
          }
          return isPresent
-      }
-      if UIApplication.shared.applicationState == .inactive {
-         return false
       }
       
       return true

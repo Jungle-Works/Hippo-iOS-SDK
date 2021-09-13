@@ -95,8 +95,9 @@ public class CoreDocumentPicker: NSObject, UIDocumentPickerDelegate {
             }
             return
         }
-        picker.dismiss(animated: true, completion: nil)
+        
         DispatchQueue.main.async {
+            self.picker.dismiss(animated: true, completion: nil)
             self.delegate?.didPickDocumentWith(url: urls.first!)
         }
     }

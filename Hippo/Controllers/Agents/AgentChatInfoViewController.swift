@@ -22,8 +22,10 @@ struct ChatInfoCell {
 }
 
 enum AgentChatInfoSections: Int, CaseCountable {
-    case channelActions = 2
-    case chatInfo = 1
+    
+    case channelActions = 3
+    case chatInfo = 2
+    case media = 1
     case userInfo = 0
 }
 
@@ -251,6 +253,8 @@ extension AgentChatInfoViewController: UITableViewDelegate  {
             sectionHeaderName = HippoStrings.channelInfo
         case .userInfo:
             sectionHeaderName = HippoStrings.userProfile
+        case .media:
+            sectionHeaderName = "Media"
         }
         return ChatInfoHeader.configureSectionHeader(headerInfo: ChatInfoCell(infoImage: nil, nameOfCell: sectionHeaderName))
     }
@@ -285,6 +289,12 @@ extension AgentChatInfoViewController: UITableViewDelegate  {
             case 1: //for channel tags
                 print("case 1")
             default:break
+            }
+        case .media:
+            let storyboard = UIStoryboard(name: "AgentSdk", bundle: FuguFlowManager.bundle)
+            if let vc = storyboard.instantiateViewController(withIdentifier: "SharedMediaViewController") as? SharedMediaViewController{
+                vc.channelId = channelDetail?.channelId
+                self.navigationController?.pushViewController(vc, animated: true)
             }
         default:
             break
@@ -332,6 +342,8 @@ extension AgentChatInfoViewController: UITableViewDataSource {
             return 2
         case .userInfo:
             return 1
+        case .media:
+            return 1
         }
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -349,6 +361,12 @@ extension AgentChatInfoViewController: UITableViewDataSource {
             }
         case .userInfo:
             return returnUserInfoCell(indexPath: indexPath)
+        case .media:
+            let cell = UITableViewCell()
+            cell.selectionStyle = .none
+            cell.textLabel?.font = UIFont.regular(ofSize: 14.0)
+            cell.textLabel?.text = HippoStrings.sharedMediaTitle
+            return cell
         }
         return UITableViewCell()
     }

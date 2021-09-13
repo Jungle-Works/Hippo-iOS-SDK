@@ -8,10 +8,11 @@
 
 import UIKit
 
-class FillPresciptionViewController: UIViewController, InformationViewDelegate {
+class FillPresciptionViewController: UIViewController {
 
     //MARK:- Variables
     var template : Template?
+    var channelId : Int?
     var pdfUploadResult : ((UploadResult?)->())?
     let datePickerView:UIDatePicker = UIDatePicker()
     var informationView: InformationView?
@@ -89,6 +90,7 @@ extension FillPresciptionViewController{
     
     @IBAction func action_CreatePrescription(){
         let selectPresciptionVM = SelectPresciptionViewModel()
+        selectPresciptionVM.channelID = channelId
         let error = selectPresciptionVM.createParam(withTemplate: template ?? Template()).0
         let params = selectPresciptionVM.createParam(withTemplate: template ?? Template()).1
         if error != nil{
@@ -122,10 +124,11 @@ extension FillPresciptionViewController{
 extension FillPresciptionViewController{
     //MARK:- Functions
     
-    class func getNewInstance(template : Template) -> FillPresciptionViewController {
+    class func getNewInstance(template : Template,channelId : Int) -> FillPresciptionViewController {
         let storyboard = UIStoryboard(name: "AgentSdk", bundle: FuguFlowManager.bundle)
         let vc = storyboard.instantiateViewController(withIdentifier: "FillPresciptionViewController") as! FillPresciptionViewController
         vc.template = template
+        vc.channelId = channelId
         return vc
     }
     
@@ -142,7 +145,7 @@ extension FillPresciptionViewController{
     private func noFieldsFound(errorMessage : String){
         if (self.template?.body_keys?.count ?? 0) <= 0{
             if informationView == nil {
-                informationView = InformationView.loadView(self.tableView_Template.bounds, delegate: self)
+                informationView = InformationView.loadView(self.tableView_Template.bounds)
             }
             self.informationView?.informationLabel.text = errorMessage
             self.informationView?.informationImageView.image = HippoConfig.shared.theme.noPrescription

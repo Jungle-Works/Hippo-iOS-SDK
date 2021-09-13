@@ -7,9 +7,7 @@
 //
 
 import UIKit
-protocol InformationViewDelegate: class {
-    
-}
+
 
 class InformationView: UIView {
     @IBOutlet weak var mainContainer: UIView!
@@ -24,7 +22,6 @@ class InformationView: UIView {
     @IBOutlet weak var constraint_BtnHeight : NSLayoutConstraint!
     
     
-    weak var delegate: InformationViewDelegate?
       
     var isButtonInfoHidden : Bool?{
         didSet{
@@ -53,14 +50,14 @@ class InformationView: UIView {
         button_Info.setTitleColor(.white, for: .normal)
     }
     
-    class func loadView(_ frame: CGRect, delegate: InformationViewDelegate) -> InformationView {
+    class func loadView(_ frame: CGRect) -> InformationView {
         let array = FuguFlowManager.bundle?.loadNibNamed("InformationView", owner: self, options: nil)
         let view: InformationView? = array?.first as? InformationView
         view?.frame = frame
         guard let customView = view else {
             return InformationView()
         }
-        customView.delegate = delegate
+       
         customView.setTheme()
         return customView
     }

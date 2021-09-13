@@ -12,6 +12,8 @@ import UserNotifications
 class HippoNotification {
     static var channelIdentifierHashmap: [Int: [String]] = [:]
     static var otherIdentifiers: [String] = []
+    static var promotionPushDic : [Int: PromotionCellDataModel] = [:]
+    static var pendingPushDic : [[String : Any]] = [[:]]
     
     static func clearAllNotificationCenter() {
         DispatchQueue.main.async {
@@ -38,31 +40,47 @@ class HippoNotification {
         return identifiers
     }
     
+    class func getAllAnnouncementNotifications(completion: (()->())? = nil){
+        UNUserNotificationCenter.current().getDeliveredNotifications { (notifications) in
+            for notification in notifications{
+                if let data = notification.request.content.userInfo as? [String : Any]{
+                    if let isAnnouncement = data["is_announcement_push"] as? Bool, isAnnouncement == true{
+                        if let promotion = PromotionCellDataModel(pushDic: data){
+                            promotion.isAddedFromPush = true
+                            promotionPushDic[promotion.channelID] = promotion
+                            UNUserNotificationCenter.current().removeDeliveredNotifications(withIdentifiers: [notification.request.identifier])
+                        }
+                    }
+                }
+            }
+            completion?()
+        }
+    }
     
-//    class func getMessagesForNotificationBar(completion: @escaping ((_ messages: [HippoMessage]) -> Void)) {
-//        if #available(iOS 10.0, *) {
-//            UNUserNotificationCenter.current().getDeliveredNotifications {(notifications) in
-//                var messages: [HippoMessage] = []
-//                var channelHashMap: [Int: [String]] = [:]
-//                for notification in notifications {
-//                    guard let messageDict = notification.request.content.userInfo as? [String: Any], let conversation = AgentConversation(json: messageDict), let message = conversation.messageObject, let channelId = message.channelId else {
-//                        continue
-//                    }
-//                    var currentIdentifier: [String] = channelHashMap[channelId] ?? []
-//                    let identifier = notification.request.identifier
-//                    if !currentIdentifier.contains(identifier) {
-//                        currentIdentifier.append(identifier)
-//                        channelHashMap[channelId] = currentIdentifier
-//                    }
-//                    messages.append(message)
-//                }
-//                HippoNotification.channelIdentifierHashmap = channelHashMap
-//                completion(messages)
-//            }
-//        } else {
-//            // Fallback on earlier versions
-//        }
-//    }
+
+    class func containsNotification()->Bool {
+        var isPresent = false
+        UNUserNotificationCenter.current().getDeliveredNotifications { (notifications) in
+            if notifications.count > 0 {
+                isPresent = true
+            }else {
+                isPresent = false
+            }
+        }
+        return isPresent
+    }
+
+    class func removeAllAnnouncementNotification(){
+        UNUserNotificationCenter.current().getDeliveredNotifications { (notifications) in
+            for notification in notifications{
+                if let data = notification.request.content.userInfo as? [String : Any]{
+                    if let isAnnouncement = data["is_announcement_push"] as? Bool, isAnnouncement == true{
+                            UNUserNotificationCenter.current().removeDeliveredNotifications(withIdentifiers: [notification.request.identifier])
+                    }
+                }
+            }
+        }
+    }
     
     class func refreshHashMap() {
         if #available(iOS 10.0, *) {

@@ -105,17 +105,12 @@ class AgentConversationManager {
                 return
             }
             completion(nil, nil)
-            getUserUnreadCount()
-           // getAllData()
-            UnreadCount.getAgentTotalUnreadCount { (result) in
-                
-            }
+         
         }
     }
+    
     class func getAllData() {
-        
-        getUserUnreadCount()
-        
+     
         if !isMyChatInProgress {
             isMyChatInProgress = true
             getConversations(with: .myChatDefaultRequest) { (result) in

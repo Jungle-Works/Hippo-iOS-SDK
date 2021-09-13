@@ -67,10 +67,12 @@ class ActionTableView: MessageTableViewCell {
         tableView.register(UINib(nibName: "ActionLabelViewCell", bundle: FuguFlowManager.bundle), forCellReuseIdentifier: "ActionLabelViewCell")
         tableView.register(UINib(nibName: "ActionButtonViewCell", bundle: FuguFlowManager.bundle), forCellReuseIdentifier: "ActionButtonViewCell")
         tableView.register(UINib(nibName: "ActionTagTableViewCell", bundle: FuguFlowManager.bundle), forCellReuseIdentifier: "ActionTagTableViewCell")
-        
-        
         tableView.register(UINib(nibName: "SelfMessageTableViewCell", bundle: FuguFlowManager.bundle), forCellReuseIdentifier: "SelfMessageTableViewCell")
         tableView.register(UINib(nibName: "SupportMessageTableViewCell", bundle: FuguFlowManager.bundle), forCellReuseIdentifier: "SupportMessageTableViewCell")
+        tableView.register(UINib(nibName: "OutgoingImageCell", bundle: FuguFlowManager.bundle), forCellReuseIdentifier: "OutgoingImageCell")
+        tableView.register(UINib(nibName: "OutgoingDocumentTableViewCell", bundle: FuguFlowManager.bundle), forCellReuseIdentifier: "OutgoingDocumentTableViewCell")
+        tableView.register(UINib(nibName: "OutgoingVideoTableViewCell", bundle: FuguFlowManager.bundle), forCellReuseIdentifier: "OutgoingVideoTableViewCell")
+        
         
     }
     private func setUIData() {

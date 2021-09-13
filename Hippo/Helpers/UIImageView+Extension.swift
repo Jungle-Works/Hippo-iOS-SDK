@@ -183,10 +183,52 @@ extension String {
             words.removeFirst()
         }
         
-//        if let lastCharacter = words.last?.first {
-//            finalString.append(String(lastCharacter))
-//        }
+        //        if let lastCharacter = words.last?.first {
+        //            finalString.append(String(lastCharacter))
+        //        }
         
         return finalString.uppercased()
+    }
+    func hippoHtmlAttributedString(font: UIFont, color: UIColor, alignment: NSTextAlignment) -> NSMutableAttributedString? {
+        let htmlTemplate = """
+            <!doctype html>
+            <html>
+              <head>
+                <style>
+                  body {
+                    color: \(color.hippoToHexString());
+                    font-family: \(font.fontName);
+                    font-size: \(font.pointSize)px;
+                  }
+                </style>
+              </head>
+              <body>
+                \(self)
+              </body>
+            </html>
+            """
+        
+        guard let data = htmlTemplate.data(using: .utf8) else {
+            return nil
+        }
+        
+        guard let attributedString = try? NSMutableAttributedString(
+            data: data,
+            options: [.documentType: NSAttributedString.DocumentType.html],
+            documentAttributes: nil
+        ) else {
+            return nil
+        }
+        
+        let alignmentStyle = NSMutableParagraphStyle()
+        alignmentStyle.alignment = alignment
+        
+        attributedString.addAttribute(NSAttributedString.Key.paragraphStyle, value: alignmentStyle, range: NSMakeRange(0, attributedString.length))
+        
+        return attributedString
+    }
+    
+    var containsHtmlTags: Bool {
+        return self.contains("<") && self.contains(">")
     }
 }

@@ -16,6 +16,7 @@ struct FileUploader {
         let imageUrl: String?
         let imageThumbnailUrl: String?
         let fileUrl: String?
+        let status: Int?
     }
     struct RequestParams {
         public let path: String
@@ -50,6 +51,12 @@ struct FileUploader {
             
             let parameters = getParamsToUploadImageWith(for: request)
             HTTPClient.makeConcurrentConnectionWith(method: .POST, para: parameters, extendedUrl: FuguEndPoints.getUploadFileUrl.rawValue) { (response, error, _, statusCode) in
+                if error != nil, let statusCode = (response as? NSDictionary)?.value(forKey: "statusCode") as? Int{
+                    if statusCode == 400{
+                        completion(Result(isSuccessful: false, error: error, imageUrl: nil, imageThumbnailUrl: nil, fileUrl: nil, status: statusCode))
+                    }
+                }
+                
                 var fileData = FileUploadData()
                 if let data = (response as? NSDictionary)?.value(forKey: "data") as? NSDictionary{
                     fileData.fileName = data.value(forKey: "file_name") as? String
@@ -60,7 +67,7 @@ struct FileUploader {
                 }
                 let pathURL = URL.init(fileURLWithPath: request.path)
                 guard let dataOfFile = try? Data.init(contentsOf: pathURL, options: []) else {
-                    let result = Result(isSuccessful: false, error: nil, imageUrl: nil, imageThumbnailUrl: nil, fileUrl: nil)
+                    let result = Result(isSuccessful: false, error: nil, imageUrl: nil, imageThumbnailUrl: nil, fileUrl: nil, status: nil)
                     DispatchQueue.main.async {
                         completion(result)
                     }
@@ -70,33 +77,12 @@ struct FileUploader {
                     fileData.thumbnailImage = generateThumbnail(path: pathURL)
                 }
                 
-                self.hitFileUrlAndUpload(data: dataOfFile, fileData: fileData, request: request, completion: completion)
+                self.hitFileUrlAndUploadThumbnail(data: dataOfFile, fileData: fileData, request: request, completion: completion)
             }
         }
     }
     
-    static func hitFileUrlAndUpload(data: Data, fileData : FileUploadData, request: RequestParams, completion: @escaping (FileUploader.Result) -> Void) {
-        guard let url = URL(string: fileData.fileUploadUrl ?? "") else{
-            return
-        }
-        var urlRequest = URLRequest.init(url: url, cachePolicy: .reloadIgnoringCacheData, timeoutInterval: 60)
-        
-        urlRequest.httpMethod = "PUT"
-        urlRequest.setValue("binary/octet-stream", forHTTPHeaderField: "Content-Type")
-        
-        URLSession.shared.uploadTask(with: urlRequest, from:data) { (data, response, error) in
-            if error != nil {
-                let result = Result(isSuccessful: false, error: nil, imageUrl: nil, imageThumbnailUrl: nil, fileUrl: nil)
-                DispatchQueue.main.async {
-                    completion(result)
-                }
-            }else{
-                let result = Result(isSuccessful: true, error: nil, imageUrl: fileData.fileUrl, imageThumbnailUrl: fileData.thumbnailUrl ?? fileData.fileUrl , fileUrl: fileData.fileUrl)
-                DispatchQueue.main.async {
-                    completion(result)
-                }
-            }
-        }.resume();
+    static func hitFileUrlAndUploadThumbnail(data: Data, fileData : FileUploadData, request: RequestParams, completion: @escaping (FileUploader.Result) -> Void) {
         
         if let thumnailUploadUrl = URL(string: fileData.thumbnailUploadUrl ?? ""){
             var urlRequest = URLRequest.init(url: thumnailUploadUrl, cachePolicy: .reloadIgnoringCacheData, timeoutInterval: 60)
@@ -107,27 +93,43 @@ struct FileUploader {
             if let thumnailData = fileData.thumbnailImage?.pngData(){
                 URLSession.shared.uploadTask(with: urlRequest, from:thumnailData) { (data, response, error) in
                     if error != nil {
-                        let result = Result(isSuccessful: false, error: nil, imageUrl: nil, imageThumbnailUrl: nil, fileUrl: nil)
-                        DispatchQueue.main.async {
-                            completion(result)
-                        }
+                        let result = Result(isSuccessful: false, error: nil, imageUrl: nil, imageThumbnailUrl: nil, fileUrl: nil, status: nil)
+                        completion(result)
                     }else{
-                        let result = Result(isSuccessful: true, error: nil, imageUrl: fileData.fileUrl, imageThumbnailUrl: fileData.thumbnailUrl ?? fileData.fileUrl , fileUrl: fileData.fileUrl)
-                        DispatchQueue.main.async {
-                            completion(result)
-                        }
+                        self.hitFileUrlAndUploadFile(data: data ?? Data(), fileData: fileData, request: request, completion: completion)
                     }
                 }.resume();
             }
+        }else{
+            self.hitFileUrlAndUploadFile(data: data , fileData: fileData, request: request, completion: completion)
         }
-     
     }
     
     
-    
-    
-    
-    
+    static func hitFileUrlAndUploadFile(data: Data, fileData : FileUploadData, request: RequestParams, completion: @escaping (FileUploader.Result) -> Void) {
+        
+        guard let url = URL(string: fileData.fileUploadUrl ?? "") else{
+            return
+        }
+        var urlRequest = URLRequest.init(url: url, cachePolicy: .reloadIgnoringCacheData, timeoutInterval: 60)
+        
+        urlRequest.httpMethod = "PUT"
+        urlRequest.setValue("binary/octet-stream", forHTTPHeaderField: "Content-Type")
+        
+        URLSession.shared.uploadTask(with: urlRequest, from:data) { (data, response, error) in
+            if error != nil {
+                let result = Result(isSuccessful: false, error: nil, imageUrl: nil, imageThumbnailUrl: nil, fileUrl: nil, status: nil)
+                DispatchQueue.main.async {
+                    completion(result)
+                }
+            }else{
+                let result = Result(isSuccessful: true, error: nil, imageUrl: fileData.fileUrl, imageThumbnailUrl: fileData.thumbnailUrl ?? fileData.fileUrl , fileUrl: fileData.fileUrl, status: nil)
+                DispatchQueue.main.async {
+                    completion(result)
+                }
+            }
+        }.resume();
+    }
     
     
     private static func getParamsToUploadImageWith(for request: RequestParams) -> [String: Any] {
@@ -140,6 +142,13 @@ struct FileUploader {
             params["access_token"] = token
         }
         params["allow_all_mime_type"] = true
+        
+        if HippoProperty.current.restrictMimeType{
+            params["restrict_mime_type"] = true
+        }else{
+            params["restrict_mime_type"] = false
+        }
+        
         params["file_type"] = request.mimeType
         return params
     }
