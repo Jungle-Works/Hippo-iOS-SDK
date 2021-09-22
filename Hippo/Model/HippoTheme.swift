@@ -62,6 +62,7 @@ public struct ConversationListTheme {
     
     open var unreadCountColor : UIColor = UIColor(red: 244/255, green: 64/255, blue: 67/255, alpha: 1.0)//UIColor(red: 91/255, green: 159/255, blue: 13/255, alpha: 1.0)
     open var themeColor: UIColor = UIColor(red: 91/255, green: 159/255, blue: 13/255, alpha: 1.0)//.white//UIColor(red: 109/255, green: 212/255, blue: 0/255, alpha: 1)//
+    open var recievingBubbleColor : UIColor = UIColor(red: 225/255, green: 240/255, blue: 255/255, alpha: 1.0)
     
     open var themeTextcolor: UIColor = .black//.white//UIColor(red: 109/255, green: 212/255, blue: 0/255, alpha: 1)//
     
@@ -179,8 +180,7 @@ public struct ConversationListTheme {
     open var itmDescriptionNameFont: UIFont? = UIFont.regular(ofSize: 14.0)
     open var incomingMsgColor = UIColor.black//UIColor.white//
     open var incomingMsgFont: UIFont = UIFont.regular(ofSize: 16.0)
-    open var incomingChatBoxColor = UIColor.blue
-    //UIColor(red: 237/255, green: 237/255, blue: 237/255, alpha: 1)
+    open var incomingChatBoxColor = UIColor(red: 237/255, green: 237/255, blue: 237/255, alpha: 1)
     open var incomingMsgDateTextColor = UIColor.black40//UIColor.white//
     
     open var searchBarBackgroundColor = UIColor(red: 243/255, green: 243/255, blue: 243/255, alpha: 1)

@@ -86,7 +86,7 @@ class FeedbackTableViewCell: MessageTableViewCell {
         didSet{
             view_ReviewSubmitted.layer.cornerRadius = 10
             view_ReviewSubmitted.clipsToBounds = true
-            view_ReviewSubmitted.backgroundColor = HippoConfig.shared.theme.incomingChatBoxColor
+            view_ReviewSubmitted.backgroundColor = HippoConfig.shared.theme.recievingBubbleColor
             if #available(iOS 11.0, *) {
                 view_ReviewSubmitted.layer.maskedCorners = [.layerMaxXMinYCorner,.layerMinXMaxYCorner,.layerMaxXMaxYCorner]
             } else {
