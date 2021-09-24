@@ -12,7 +12,7 @@ let HippoSDKSource = 1
 let Device_Type_iOS = 2
 var userDetailData = [String: Any]()
 
-let fuguAppVersion = "2.1.57"
+let fuguAppVersion = "2.1.58"
 var versionCode = 250
 
 /*
@@ -162,4 +162,6 @@ var versionCode = 250
  356 *** 2.1.55 = Bug Fixes
  
  357 *** 2.1.57 = Call dependency added
+ 
+ 358 *** 2.1.58 = Call dependency added with arm64 architecture removed
  */
