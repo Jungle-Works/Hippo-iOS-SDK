@@ -17,7 +17,7 @@ let Fugu_en_user_id = "fuguEnUserId"
 let Hippo_User_Channel_Id = "userChannelId"
 let Fugu_groupCallData = "groupCallData"
 let Fugu_User_Data = "fuguUserData"
-let phoneNumberRegex = "1?W*([2-9][0-8][0-9])W*([2-9][0-9]{2})W*([0-9]{4})(se?x?t?(d*))?"
+let phoneNumberRegex = "1?W*([2-9][0-9][0-9])W*([2-9][0-9]{2})W*([0-9]{4})(se?x?t?(d*))?"
 
 extension UInt {
     func toString() -> String {
