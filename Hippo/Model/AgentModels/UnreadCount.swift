@@ -67,6 +67,14 @@ class PrePayment{
         if (paymentType ?? 0) > 0{
             json["payment_type"] = paymentType
         }
+        json["offering"] = HippoConfig.shared.offering
+        json["device_type"] =  Device_Type_iOS
+        
+        if let userIdenficationSecret = HippoConfig.shared.userDetail?.userIdenficationSecret{
+            if userIdenficationSecret.trimWhiteSpacesAndNewLine().isEmpty == false {
+                json["user_identification_secret"] = userIdenficationSecret
+            }
+        }
         return json
     }
     

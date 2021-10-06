@@ -398,7 +398,6 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
          if let inImageCell = cell as? IncomingImageCell, !inImageCell.customIndicator.isHidden {
             inImageCell.startIndicatorAnimation()
          }
-         
       }
    }
       

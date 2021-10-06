@@ -74,9 +74,20 @@ struct FuguNewChatAttributes {
     if let botGroupId = self.botGroupId {
         params["initiate_bot_group_id"] = botGroupId
     }
-      params["chat_type"] = fuguChatType.rawValue
+    
+    params["chat_type"] = fuguChatType.rawValue
       
-      return params
+    params["offering"] = HippoConfig.shared.offering
+    
+    if let userIdenficationSecret = HippoConfig.shared.userDetail?.userIdenficationSecret{
+        if userIdenficationSecret.trimWhiteSpacesAndNewLine().isEmpty == false {
+            params["user_identification_secret"] = userIdenficationSecret
+        }
+    }
+        
+    params["en_user_id"] = HippoUserDetail.fuguEnUserID ?? -1
+    params["device_type"] =  Device_Type_iOS
+    return params
    }
    
    private func isPreMessageValid() -> Bool {

@@ -138,6 +138,16 @@ struct FileUploader {
         
         if HippoConfig.shared.appUserType == .customer {
             params["app_secret_key"] = HippoConfig.shared.appSecretKey
+            params["offering"] = HippoConfig.shared.offering
+            if let enUserID = HippoUserDetail.fuguEnUserID{
+                params["en_user_id"] = enUserID
+            }
+            if let userIdenficationSecret = HippoConfig.shared.userDetail?.userIdenficationSecret{
+                if userIdenficationSecret.trimWhiteSpacesAndNewLine().isEmpty == false {
+                    params["user_identification_secret"] = userIdenficationSecret
+                }
+            }
+            
         } else if let token = HippoConfig.shared.agentDetail?.fuguToken {
             params["access_token"] = token
         }
@@ -150,6 +160,7 @@ struct FileUploader {
         }
         
         params["file_type"] = request.mimeType
+        params["device_type"] =  Device_Type_iOS
         return params
     }
     static func saveImageInKingfisherCacheFor(thumbnailUrl: String, originalUrl: String, localPath: String) {

@@ -180,6 +180,13 @@ class MessageStore {
             if HippoProperty.current.singleChatApp {
                 params["multi_channel_label_mapping_app"] = 1
             }
+            params["offering"] = HippoConfig.shared.offering
+            params["device_type"] =  Device_Type_iOS
+            if let userIdenficationSecret = HippoConfig.shared.userDetail?.userIdenficationSecret{
+                if userIdenficationSecret.trimWhiteSpacesAndNewLine().isEmpty == false {
+                    params["user_identification_secret"] = userIdenficationSecret
+                }
+            }
         }
         
         let endPage = requestParam.pageEnd == nil ? requestParam.pageStart + iOSPageLimit : requestParam.pageEnd!

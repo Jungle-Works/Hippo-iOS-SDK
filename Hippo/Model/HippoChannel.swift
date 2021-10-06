@@ -351,6 +351,7 @@ class HippoChannel {
     
     private class func createNewConversationWith(params: [String: Any], chatType: ChatType? = nil, completion: @escaping HippoChannelCreationHandler) {
         var requestParam = params
+        requestParam["offering"] = HippoConfig.shared.offering
         if let parsedBotMessageMUID = botMessageMUID {
             requestParam["bot_form_muid"] = parsedBotMessageMUID
         }
@@ -455,7 +456,6 @@ class HippoChannel {
        
         var params = [String: Any]()
         params["app_secret_key"] = HippoConfig.shared.appSecretKey
-        params["en_user_id"] = HippoUserDetail.fuguEnUserID ?? -1
         
         if HippoConfig.shared.isSkipBot
         {
@@ -524,6 +524,13 @@ class HippoChannel {
         params["app_version"] = fuguAppVersion
         params["device_type"] = Device_Type_iOS
         params["source_type"] = SourceType.SDK.rawValue
+        params["offering"] = HippoConfig.shared.offering
+        if let userIdenficationSecret = HippoConfig.shared.userDetail?.userIdenficationSecret{
+            if userIdenficationSecret.trimWhiteSpacesAndNewLine().isEmpty == false {
+                params["user_identification_secret"] = userIdenficationSecret
+            }
+        }
+        params["en_user_id"] = HippoUserDetail.fuguEnUserID ?? -1
 //        params["in_app_support_channel"] = 0
 //        params["label_id"] = -1
 //        params["grouping_tags"] = []

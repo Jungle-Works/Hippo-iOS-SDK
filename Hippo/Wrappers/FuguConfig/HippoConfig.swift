@@ -160,7 +160,7 @@ struct BotAction {
     internal var resellerToken = ""
     internal var referenceId = -1
     internal var appType: String?
-    internal var offering: Int?
+    internal var offering: Int = 0
     internal var credentialType = FuguCredentialType.defaultType
     var isSkipBot:Bool = false
     internal var baseUrl =      SERVERS.liveUrl     // SERVERS.betaUrl//

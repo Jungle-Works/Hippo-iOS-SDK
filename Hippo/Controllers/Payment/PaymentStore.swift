@@ -240,7 +240,8 @@ class PaymentStore: NSObject {
         }
         var param: [String: Any] = ["channel_id": channelId,
                                     "en_user_id": enUserId,
-                                    "app_secret_key": HippoConfig.shared.appSecretKey]
+                                    "app_secret_key": HippoConfig.shared.appSecretKey,
+                                    "device_type" : Device_Type_iOS]
         
         param["items"] = [selectedCard.getJsonForMakePayment()]
         
@@ -249,6 +250,13 @@ class PaymentStore: NSObject {
             param["payment_gateway_id"] = selectedPaymentGatewayId
         }
         param["is_sdk_flow"] = 1
+        param["offering"] = HippoConfig.shared.offering
+        
+        if let userIdenficationSecret = HippoConfig.shared.userDetail?.userIdenficationSecret{
+            if userIdenficationSecret.trimWhiteSpacesAndNewLine().isEmpty == false {
+                param["user_identification_secret"] = userIdenficationSecret
+            }
+        }
         
         HTTPClient.makeConcurrentConnectionWith(method: .POST, enCodingType: .json, para: param, extendedUrl: FuguEndPoints.makeSelectedPayment.rawValue) { (response, error, tag, status) in
             if let err = error {
