@@ -456,7 +456,7 @@ class HippoConversationViewController: UIViewController {
         var showImageVC: ShowImageViewController?
         if let localPath = message.localImagePath {
             showImageVC = ShowImageViewController.getFor(localPath: localPath)
-        } else  if let originalUrl = message.imageUrl, originalUrl.count > 0  {
+        } else  if let originalUrl = message.imageUrl ?? message.fileUrl, originalUrl.count > 0  {
             showImageVC = ShowImageViewController.getFor(imageUrlString: originalUrl)
         }
         
@@ -910,8 +910,18 @@ extension HippoConversationViewController: PickerHelperDelegate {
                 showAlert(title: "", message: HippoStrings.somethingWentWrong, actionComplete: nil)
                 return
             }
-            let filePathUrl = URL(fileURLWithPath: filePath)
-            sendSelectedDocumentWith(filePath: filePathUrl.path, fileName: filePathUrl.lastPathComponent, messageType: .attachment, fileType: FileType.video)
+            guard let vc = UIStoryboard(name: "FuguUnique", bundle: FuguFlowManager.bundle).instantiateViewController(withIdentifier: "PreviewViewController") as? PreviewViewController else {
+                return
+            }
+            vc.fileType = .video
+            vc.sendBtnTapped = {[weak self](message) in
+                DispatchQueue.main.async {
+                    let filePathUrl = URL(fileURLWithPath: filePath)
+                    self?.sendSelectedDocumentWith(messageStr: message ?? "", filePath: filePathUrl.path, fileName: filePathUrl.lastPathComponent, messageType: .attachment, fileType: FileType.video)
+                }
+            }
+            self.navigationController?.present(vc, animated: true, completion: nil)
+           
         }
         
         
@@ -919,7 +929,17 @@ extension HippoConversationViewController: PickerHelperDelegate {
     
     func didPickDocumentWith(url: URL) {
         HippoConfig.shared.UnhideJitsiView()
-        sendSelectedDocumentWith(filePath: url.path, fileName: url.lastPathComponent, messageType: .attachment, fileType: .document)
+        guard let vc = UIStoryboard(name: "FuguUnique", bundle: FuguFlowManager.bundle).instantiateViewController(withIdentifier: "PreviewViewController") as? PreviewViewController else {
+            return
+        }
+        vc.fileType = .document
+        vc.sendBtnTapped = {[weak self](message) in
+            DispatchQueue.main.async {
+                self?.sendSelectedDocumentWith(messageStr: message ?? "", filePath: url.path, fileName: url.lastPathComponent, messageType: .attachment, fileType: FileType.document)
+            }
+        }
+        self.navigationController?.present(vc, animated: true, completion: nil)
+        
     }
 }
 
@@ -932,13 +952,24 @@ extension HippoConversationViewController: SelectImageViewControllerDelegate {
         //            }
         //        }
         selectedImageVC.dismiss(animated: true) {
-            if self.presentedViewController == self.imagePicker {
-                self.imagePicker.dismiss(animated: false) {
-                    self.sendConfirmedImage(image: selectedImage, mediaType: .imageType)
-                }
-            } else {
-                self.sendConfirmedImage(image: selectedImage, mediaType: .imageType)
+            guard let vc = UIStoryboard(name: "FuguUnique", bundle: FuguFlowManager.bundle).instantiateViewController(withIdentifier: "PreviewViewController") as? PreviewViewController else {
+                return
             }
+            vc.fileType = .image
+            vc.image = selectedImage
+            vc.sendBtnTapped = {[weak self](message) in
+                DispatchQueue.main.async {
+                    if self?.presentedViewController == self?.imagePicker {
+                        self?.imagePicker.dismiss(animated: false) {
+                            self?.sendConfirmedImage(message: message, image: selectedImage, mediaType: .imageType)
+                        }
+                    } else {
+                        self?.sendConfirmedImage(message: message, image: selectedImage, mediaType: .imageType)
+                    }
+                }
+            }
+            self.navigationController?.present(vc, animated: true, completion: nil)
+        
             HippoConfig.shared.UnhideJitsiView()
         }
         
@@ -951,17 +982,19 @@ extension HippoConversationViewController: SelectImageViewControllerDelegate {
 
 extension HippoConversationViewController {
     
-    func sendSelectedDocumentWith(filePath: String, fileName: String, messageType: MessageType, fileType: FileType) {
+    func sendSelectedDocumentWith(messageStr: String, filePath: String, fileName: String, messageType: MessageType, fileType: FileType) {
         guard doesFileExistsAt(filePath: filePath) else {
             return
         }
         let uniqueName = DownloadManager.generateNameWhichDoestNotExistInCacheDirectoryWith(name: fileName)
         saveDocumentInCacheDirectoryWith(name: uniqueName, orignalFilePath: filePath)
         
-        let message = HippoMessage(message: "", type: messageType, uniqueID: generateUniqueId(), imageUrl: nil, thumbnailUrl: nil, localFilePath: filePath, chatType: channel?.chatDetail?.chatType)
+        let message = HippoMessage(message: messageStr, type: messageStr == "" ? messageType : .normal, uniqueID: generateUniqueId(), imageUrl: nil, thumbnailUrl: nil, localFilePath: filePath, chatType: channel?.chatDetail?.chatType)
         
         message.fileName = uniqueName
         message.localImagePath = getCacheDirectoryUrlForFileWith(name: uniqueName).path
+        message.isMessageWithImage = message.message == "" ? false : true
+        message.documentType = fileType
         
         //Changing messageType in case if new selected file is of image type
         let concreteType = message.concreteFileType ?? .document
@@ -1063,7 +1096,7 @@ extension HippoConversationViewController {
         publishMessageOnChannel(message: message)
     }
     
-    func sendConfirmedImage(image confirmedImage: UIImage, mediaType: CoreMediaSelector.Result.MediaType ) {
+    func sendConfirmedImage(message : String?, image confirmedImage: UIImage, mediaType: CoreMediaSelector.Result.MediaType) {
         var imageExtention: String = ".jpg"
         let imageData: Data?
         
@@ -1097,7 +1130,7 @@ extension HippoConversationViewController {
         ((try? imageData?.write(to: URL(fileURLWithPath: imageFilePath), options: [.atomic])) as ()??)
         
         if imageFilePath.isEmpty == false {
-            self.imageSelectedToSendWith(localPath: imageFilePath, imageSize: confirmedImage.size)
+            self.imageSelectedToSendWith(messageStr: message, localPath: imageFilePath, imageSize: confirmedImage.size)
         }
     }
     func PrepareUploadAndSendImage(message: HippoMessage) {
@@ -1113,11 +1146,13 @@ extension HippoConversationViewController {
         }
     }
     
-    func imageSelectedToSendWith(localPath: String, imageSize: CGSize) {
-        let message = HippoMessage(message: "", type: .imageFile, uniqueID: generateUniqueId(), localFilePath: localPath, chatType: channel?.chatDetail?.chatType)
+    func imageSelectedToSendWith(messageStr : String?, localPath: String, imageSize: CGSize) {
+        let message = HippoMessage(message: messageStr ?? "", type: messageStr == "" ? .imageFile : .normal, uniqueID: generateUniqueId(), localFilePath: localPath, chatType: channel?.chatDetail?.chatType)
         message.fileName = localPath.fileName()
         message.imageWidth = Float(imageSize.width)
         message.imageHeight = Float(imageSize.height)
+        message.isMessageWithImage = (messageStr ?? "") == "" ? false : true
+        message.documentType = .image
         PrepareUploadAndSendImage(message: message)
     }
     

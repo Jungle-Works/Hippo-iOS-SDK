@@ -26,6 +26,7 @@ class OutgoingImageCell: MessageTableViewCell {
     
     @IBOutlet weak var retryButton: UIButton!
     @IBOutlet weak var btn_OpenImage : UIButton!
+    @IBOutlet weak var textView : UITextView!
     
     
     var indexPath: IndexPath?
@@ -175,7 +176,8 @@ extension OutgoingImageCell {
         let timeOfMessage = changeDateToParticularFormat(chatMessageObject.creationDateTime, dateFormat: "h:mm a", showInFormat: true)
         timeLabel.text = "\(timeOfMessage)"
         timeLabel.textColor = HippoConfig.shared.theme.outgoingMsgDateTextColor//UIColor.white
-        
+        textView.text = message?.message
+        textView.isHidden = message?.message ?? "" == "" ? true : false
     }
     
     

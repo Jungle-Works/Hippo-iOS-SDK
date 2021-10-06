@@ -51,10 +51,20 @@ class SocketClient: NSObject {
         SocketClient.shared.socket?.status == .connected
     }
     
+    private var authentication: [String: Any ]{
+        get {
+            var authData = [String : Any]()
+            authData["device_type"] = Device_Type_iOS
+            return authData
+        }
+    }
+
+    
+    
     // MARK: Methods
     private func socketSetup(){
         if let url = URL(string: socketURL){
-            manager = SocketManager(socketURL: url, config: [.reconnectWait(Int(2)), .reconnectAttempts(0), .compress, .forcePolling(false), .forceWebsockets(true)])
+            manager = SocketManager(socketURL: url, config: [.reconnectWait(Int(2)), .reconnectAttempts(0), .compress, .forcePolling(false), .forceWebsockets(true),.connectParams(authentication)])
         }
         
         socket = manager?.defaultSocket
