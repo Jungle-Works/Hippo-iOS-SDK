@@ -952,17 +952,30 @@ extension HippoConversationViewController: PickerHelperDelegate {
                 return
             }
             vc.fileType = .video
+            let filePathUrl = URL(fileURLWithPath: filePath)
+            vc.thumbnailImage = generateThumbnail(path: filePathUrl)
             vc.sendBtnTapped = {[weak self](message) in
-                DispatchQueue.main.async {
-                    let filePathUrl = URL(fileURLWithPath: filePath)
+                DispatchQueue.main.async {                    
                     self?.sendSelectedDocumentWith(messageStr: message ?? "", filePath: filePathUrl.path, fileName: filePathUrl.lastPathComponent, messageType: .attachment, fileType: FileType.video)
                 }
             }
             self.navigationController?.present(vc, animated: true, completion: nil)
            
         }
-        
-        
+    }
+    
+    func generateThumbnail(path: URL) -> UIImage? {
+        do {
+            let asset = AVURLAsset(url: path, options: nil)
+            let imgGenerator = AVAssetImageGenerator(asset: asset)
+            imgGenerator.appliesPreferredTrackTransform = true
+            let cgImage = try imgGenerator.copyCGImage(at: CMTimeMake(value: 0, timescale: 1), actualTime: nil)
+            let thumbnail = UIImage(cgImage: cgImage)
+            return thumbnail
+        } catch let error {
+            print("*** Error generating thumbnail: \(error.localizedDescription)")
+            return nil
+        }
     }
     
     func didPickDocumentWith(url: URL) {
@@ -1027,31 +1040,6 @@ extension HippoConversationViewController {
         }
         let uniqueName = DownloadManager.generateNameWhichDoestNotExistInCacheDirectoryWith(name: fileName)
         saveDocumentInCacheDirectoryWith(name: uniqueName, orignalFilePath: filePath)
-        if let message = messagesGroupedByDate.last?.last as? HippoActionMessage, message.type == .botAttachment {
-            message.fileName = uniqueName
-            message.localImagePath = getCacheDirectoryUrlForFileWith(name: uniqueName).path
-            self.UploadAndSendMessage(message: message)
-        }else {
-            let message = HippoMessage(message: "", type: messageType, uniqueID: generateUniqueId(), imageUrl: nil, thumbnailUrl: nil, localFilePath: filePath, chatType: channel?.chatDetail?.chatType)
-            
-            message.fileName = uniqueName
-            message.localImagePath = getCacheDirectoryUrlForFileWith(name: uniqueName).path
-            
-            //Changing messageType in case if new selected file is of image type
-            let concreteType = message.concreteFileType ?? .document
-            switch concreteType {
-            case .image:
-                message.type = .imageFile
-                if let image = UIImage(contentsOfFile: filePath) {
-                    let size = image.size
-                    message.imageHeight = Float(size.height)
-                    message.imageWidth = Float(size.width)
-                }
-            default:
-                break
-            }
-            self.UploadAndSendMessage(message: message)
-        }
         
         let message = HippoMessage(message: messageStr, type: messageStr == "" ? messageType : .normal, uniqueID: generateUniqueId(), imageUrl: nil, thumbnailUrl: nil, localFilePath: filePath, chatType: channel?.chatDetail?.chatType)
         
@@ -1060,6 +1048,19 @@ extension HippoConversationViewController {
         message.isMessageWithImage = message.message == "" ? false : true
         message.documentType = fileType
         
+        //Changing messageType in case if new selected file is of image type
+        let concreteType = message.concreteFileType ?? .document
+        switch concreteType {
+        case .image:
+            message.type = .imageFile
+            if let image = UIImage(contentsOfFile: filePath) {
+                let size = image.size
+                message.imageHeight = Float(size.height)
+                message.imageWidth = Float(size.width)
+            }
+        default:
+            break
+        }
         //Checking if channel is created or not
 //        if channel != nil {
 //            self.UploadAndSendMessage(message: message)
@@ -1068,7 +1069,7 @@ extension HippoConversationViewController {
 //                guard success else {
 //                    return
 //                }
-                
+                self.UploadAndSendMessage(message: message)
 //            }
 //        }
         
@@ -1276,6 +1277,10 @@ extension HippoConversationViewController {
         
         FileUploader.uploadFileWith(request: request, completion: {[weak self] (result) in
             message.isFileUploading = false
+            
+            if SocketClient.shared.isConnected() == false {
+                SocketClient.shared.connect()
+            }
             
             guard result.isSuccessful else {
                 if result.status == 400{

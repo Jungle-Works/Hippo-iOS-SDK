@@ -16,7 +16,7 @@ class PreviewViewController: UIViewController {
     var image : UIImage?
     var fileType : FileType?
     var sendBtnTapped : ((String?)->())?
-    
+    var thumbnailImage: UIImage?
     //MARK:- IBOutlet
     
     @IBOutlet private var viewNavigation : NavigationBar!
@@ -42,6 +42,9 @@ class PreviewViewController: UIViewController {
         if fileType == .document{
             imageView_Preview.contentMode = .center
             imageView_Preview.image = UIImage(named: "defaultDoc")
+        }else if fileType == .video{
+            imageView_Preview.image = thumbnailImage
+            imageView_Preview.contentMode = .scaleAspectFit
         }else{
             imageView_Preview.image = image
             imageView_Preview.contentMode = .scaleAspectFit

@@ -47,7 +47,7 @@ struct FileUploader {
     
     static func uploadFileWith(request: RequestParams, completion: @escaping (FileUploader.Result) -> Void) {
         
-        DispatchQueue.global(qos: .userInitiated).async {
+        DispatchQueue.global(qos: .userInteractive).async {
             
             let parameters = getParamsToUploadImageWith(for: request)
             HTTPClient.makeConcurrentConnectionWith(method: .POST, para: parameters, extendedUrl: FuguEndPoints.getUploadFileUrl.rawValue) { (response, error, _, statusCode) in
