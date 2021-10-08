@@ -47,6 +47,17 @@ extension String {
             return true
         }
     }
+  
+    func isValidUrl() -> Bool{
+        let urlRegex = "((?:http|https)://)?(?:www\\.)?[\\w\\d\\-_]+\\.\\w{2,3}(\\.\\w{2})?(/(?<=/)(?:[\\w\\d\\-./_]+)?)?"
+        let predicate = NSPredicate(format:"SELF MATCHES %@", urlRegex)
+        if !predicate.evaluate(with: self) {
+            return false
+        } else {
+            return true
+        }
+    }
+    
     var localized: String {
         if let path = FuguFlowManager.bundle?.path(forResource: getCurrentLanguageLocale(), ofType: "lproj") {
               let bundle = Bundle(path: path)
