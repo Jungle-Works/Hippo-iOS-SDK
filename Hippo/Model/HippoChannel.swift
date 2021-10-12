@@ -684,7 +684,9 @@ class HippoChannel {
                     }
                     return
                 }
-                
+                let error = messageDict["error"] as? [String:Any]
+                // if active channel sends error we donot append the message
+                guard error == nil else { return }
                 self?.messageReceived(message: message)
             }
         })
