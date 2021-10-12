@@ -25,8 +25,22 @@ final class ShareUrlHelper {
         
         #if canImport(JitsiMeetSDK)
         
-        let dic = ["app_secret_key" : HippoConfig.shared.appUserType == .agent ? (HippoConfig.shared.agentDetail?.appSecrectKey ?? "") : HippoConfig.shared.appSecretKey, "en_creator_id" : currentEnUserId(), "creator_id" : currentUserId(), "meet_url" : url] as [String : Any]
+        var dic = ["app_secret_key" : HippoConfig.shared.appUserType == .agent ? (HippoConfig.shared.agentDetail?.appSecrectKey ?? "") : HippoConfig.shared.appSecretKey, "en_creator_id" : currentEnUserId(), "creator_id" : currentUserId(), "meet_url" : url, "device_type" : Device_Type_iOS] as [String : Any]
         
+        if HippoConfig.shared.appUserType == .customer{
+            
+            dic["offering"] = HippoConfig.shared.offering
+            
+            if let enUserID = HippoUserDetail.fuguEnUserID{
+                dic["en_user_id"] = enUserID
+            }
+            
+            if let userIdenficationSecret = HippoConfig.shared.userDetail?.userIdenficationSecret{
+                if userIdenficationSecret.trimWhiteSpacesAndNewLine().isEmpty == false {
+                    dic["user_identification_secret"] = userIdenficationSecret
+                }
+            }
+        }
         HTTPClient.shared.makeSingletonConnectionWith(method: .POST, identifier: "Share_Url",para: dic, extendedUrl: FuguEndPoints.shareMeetLink.rawValue) { (response, error, message, status) in
             if let response = response as? [String : Any], let data = response["data"] as? [String : Any], let url = data["meet_url"] as? String {
                 completion(url)
@@ -70,8 +84,22 @@ final class ShareUrlHelper {
         let newUrlSubstringArr = urlSubstringArr.dropLast()
         let appSecretKey = newUrlSubstringArr.last
         
-        let dic = ["app_secret_key" : appSecretKey ?? "", "en_room_id" : roomId ?? ""] as [String : Any]
+        var dic = ["app_secret_key" : appSecretKey ?? "", "en_room_id" : roomId ?? "", "offering" : HippoConfig.shared.offering, "device_type" : Device_Type_iOS] as [String : Any]
         
+        if HippoConfig.shared.appUserType == .customer{
+            
+            dic["offering"] = HippoConfig.shared.offering
+            
+            if let enUserID = HippoUserDetail.fuguEnUserID{
+                dic["en_user_id"] = enUserID
+            }
+            
+            if let userIdenficationSecret = HippoConfig.shared.userDetail?.userIdenficationSecret{
+                if userIdenficationSecret.trimWhiteSpacesAndNewLine().isEmpty == false {
+                    dic["user_identification_secret"] = userIdenficationSecret
+                }
+            }
+        }
         HTTPClient.shared.makeSingletonConnectionWith(method: .POST, identifier: "Join_Jitsi_Url",para: dic, extendedUrl: FuguEndPoints.joinJitsiLink.rawValue) { (response, error, message, status) in
             if let response = response as? [String : Any], let data = response["data"] as? [String : Any], let meet_url = data["meet_url"] as? String {
                 completion(meet_url)

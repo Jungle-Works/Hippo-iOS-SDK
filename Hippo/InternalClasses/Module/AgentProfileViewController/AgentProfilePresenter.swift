@@ -44,7 +44,14 @@ class AgentProfilePresenter {
         }
         json["app_secret_key"] = HippoConfig.shared.appSecretKey
         json["en_user_id"] = enUserID
+        json["offering"] = HippoConfig.shared.offering
+        json["device_type"] =  Device_Type_iOS
         
+        if let userIdenficationSecret = HippoConfig.shared.userDetail?.userIdenficationSecret{
+            if userIdenficationSecret.trimWhiteSpacesAndNewLine().isEmpty == false {
+                json["user_identification_secret"] = userIdenficationSecret
+            }
+        }
         return json
     }
     

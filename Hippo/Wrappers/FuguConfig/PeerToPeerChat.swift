@@ -97,6 +97,13 @@ public struct PeerToPeerChat {
         json["other_user_unique_key"] = idsOfPeers
         json["transaction_id"] = uniqueChatId
         json["channel_id"] = channelId
+        json["offering"] = HippoConfig.shared.offering
+        json["device_type"] =  Device_Type_iOS
+        if let userIdenficationSecret = HippoConfig.shared.userDetail?.userIdenficationSecret{
+            if userIdenficationSecret.trimWhiteSpacesAndNewLine().isEmpty == false {
+                json["user_identification_secret"] = userIdenficationSecret
+            }
+        }
         return json
         
         

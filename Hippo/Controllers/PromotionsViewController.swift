@@ -111,7 +111,12 @@ class PromotionsViewController: UIViewController {
     func getDataOrUpdateAnnouncement(_ channelIdArr : [Int], isforReadMore : Bool, indexRow : Int? = nil){
         var params = [String : Any]()
         if currentUserType() == .customer{
-            params = ["app_secret_key" : HippoConfig.shared.appSecretKey, "channel_ids" : channelIdArr, "user_id" : currentUserId()] as [String : Any]
+            params = ["app_secret_key" : HippoConfig.shared.appSecretKey, "channel_ids" : channelIdArr, "en_user_id" : currentUserId(), "offering" : HippoConfig.shared.offering, "device_type": Device_Type_iOS] as [String : Any]
+            if let userIdenficationSecret = HippoConfig.shared.userDetail?.userIdenficationSecret{
+                if userIdenficationSecret.trimWhiteSpacesAndNewLine().isEmpty == false {
+                    params["user_identification_secret"] = userIdenficationSecret
+                }
+            }
         }else{
             params = ["access_token" : HippoConfig.shared.agentDetail?.fuguToken ?? "", "channel_ids" : channelIdArr, "user_id" : currentUserId()] as [String : Any]
         }
@@ -232,7 +237,13 @@ class PromotionsViewController: UIViewController {
     func getAnnouncements(endOffset:Int,startOffset:Int) {
         var params = [String : Any]()
         if currentUserType() == .customer{
-            params = ["end_offset":"\(endOffset)","start_offset":"\(startOffset)","en_user_id":HippoUserDetail.fuguEnUserID ?? "","app_secret_key":HippoConfig.shared.appSecretKey]
+            params = ["end_offset":"\(endOffset)","start_offset":"\(startOffset)","en_user_id":HippoUserDetail.fuguEnUserID ?? "","app_secret_key":HippoConfig.shared.appSecretKey, "offering" : HippoConfig.shared.offering, "device_type": Device_Type_iOS]
+            
+            if let userIdenficationSecret = HippoConfig.shared.userDetail?.userIdenficationSecret{
+                if userIdenficationSecret.trimWhiteSpacesAndNewLine().isEmpty == false {
+                    params["user_identification_secret"] = userIdenficationSecret
+                }
+            }
         }else{
             params = ["end_offset":"\(endOffset)","start_offset":"\(startOffset)","user_id": "\(currentUserId())" ,"access_token":HippoConfig.shared.agentDetail?.fuguToken ?? ""]
         }

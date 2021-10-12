@@ -14,6 +14,20 @@ class AllString{
         params["request_source"] = HippoConfig.shared.appUserType == .agent ? 1 : 0
         params["app_secret_key"] = HippoConfig.shared.appUserType == .agent ? HippoConfig.shared.agentDetail?.appSecrectKey : HippoConfig.shared.appSecretKey
         params["lang"] = getCurrentLanguageLocale()
+        params["offering"] = HippoConfig.shared.offering
+        params["device_type"] =  Device_Type_iOS
+    
+        if HippoConfig.shared.appUserType == .customer{
+            if let enUserID = HippoUserDetail.fuguEnUserID{
+                params["en_user_id"] = enUserID
+            }
+
+            if let userIdenficationSecret = HippoConfig.shared.userDetail?.userIdenficationSecret{
+                if userIdenficationSecret.trimWhiteSpacesAndNewLine().isEmpty == false {
+                    params["user_identification_secret"] = userIdenficationSecret
+                }
+            }
+        }
         
         HippoConfig.shared.log.trace(params, level: .request)
         HTTPClient.makeConcurrentConnectionWith(method: .POST, enCodingType: .json, para: params, extendedUrl: FuguEndPoints.getLanguage.rawValue) { (responseObject, error, tag, statusCode) in
@@ -2328,11 +2342,17 @@ class AllString{
     
     class func updateLanguageApi() {
         var params = [String: Any]()
-        params["user_id"] = HippoUserDetail.fuguUserID
         params["en_user_id"] = HippoUserDetail.fuguEnUserID
         params["app_secret_key"] = HippoConfig.shared.appSecretKey
         params["update_lang"] = getCurrentLanguageLocale()
-        
+        params["offering"] = HippoConfig.shared.offering
+        params["device_type"] =  Device_Type_iOS
+        if let userIdenficationSecret = HippoConfig.shared.userDetail?.userIdenficationSecret{
+            if userIdenficationSecret.trimWhiteSpacesAndNewLine().isEmpty == false {
+                params["user_identification_secret"] = userIdenficationSecret
+            }
+        }
+
         HippoConfig.shared.log.trace(params, level: .request)
         HTTPClient.makeConcurrentConnectionWith(method: .POST, enCodingType: .json, para: params, extendedUrl: FuguEndPoints.updateLanguage.rawValue) { (responseObject, error, tag, statusCode) in
         }

@@ -210,6 +210,12 @@ public class UserTag: NSObject {
             "device_type" : Device_Type_iOS
         ]
         
+        if let userIdenficationSecret = userIdenficationSecret{
+            if userIdenficationSecret.trimWhiteSpacesAndNewLine().isEmpty == false {
+                params["user_identification_secret"] = userIdenficationSecret
+            }
+        }
+        
         switch HippoConfig.shared.credentialType {
         case FuguCredentialType.reseller:
             if HippoConfig.shared.resellerToken.isEmpty == false &&
@@ -224,9 +230,9 @@ public class UserTag: NSObject {
             }
         }
         
-        if let userIdenficationSecret = userIdenficationSecret, userIdenficationSecret.trimWhiteSpacesAndNewLine().isEmpty == false {
-            params["user_identification_secret"] = userIdenficationSecret
-        }
+//        if let userIdenficationSecret = userIdenficationSecret, userIdenficationSecret.trimWhiteSpacesAndNewLine().isEmpty == false {
+//            params["user_identification_secret"] = userIdenficationSecret
+//        }
         
         if let applicationType = HippoConfig.shared.appType,
             applicationType.isEmpty == false {
@@ -466,6 +472,17 @@ public class UserTag: NSObject {
         params["app_version_code"] = versionCode
         params["get_enabled_gateways"] = 1
         params["is_sdk_flow"] = 1
+        params["offering"] = HippoConfig.shared.offering
+        if let enUserID = HippoUserDetail.fuguEnUserID{
+            params["en_user_id"] = enUserID
+        }
+        
+        if let userIdenficationSecret = HippoConfig.shared.userDetail?.userIdenficationSecret{
+            if userIdenficationSecret.trimWhiteSpacesAndNewLine().isEmpty == false {
+                params["user_identification_secret"] = userIdenficationSecret
+            }
+        }
+
         return params
     }
     
@@ -473,6 +490,8 @@ public class UserTag: NSObject {
         guard var params = HippoConfig.shared.userDetail?.toJson() else {
             throw FuguUserIntializationError.invalidUserUniqueKey
         }
+        params["offering"] = HippoConfig.shared.offering
+        params["en_user_id"] = HippoUserDetail.fuguEnUserID
         
         switch HippoConfig.shared.credentialType {
         case FuguCredentialType.reseller:
@@ -496,7 +515,6 @@ public class UserTag: NSObject {
 //        }
         params["neglect_conversations"] = true
         params["fetch_announcements_unread_count"] = 1
-        
         return params
     }
     class func clearAgentData() {
@@ -569,13 +587,20 @@ public class UserTag: NSObject {
                 
             }
             var params: [String: Any] = [
-                "app_secret_key": HippoConfig.shared.appSecretKey
+                "app_secret_key": HippoConfig.shared.appSecretKey,
+                "offering" : HippoConfig.shared.offering,
+                "device_type" : Device_Type_iOS
             ]
             
             if let savedUserId = HippoUserDetail.fuguEnUserID {
                 params["en_user_id"] = savedUserId
             }
             
+            if let userIdenficationSecret = HippoConfig.shared.userDetail?.userIdenficationSecret{
+                if userIdenficationSecret.trimWhiteSpacesAndNewLine().isEmpty == false {
+                    params["user_identification_secret"] = userIdenficationSecret
+                }
+            }
             let deviceToken = TokenManager.deviceToken
             let voipToken = TokenManager.voipToken
             

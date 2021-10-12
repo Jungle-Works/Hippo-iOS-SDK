@@ -377,7 +377,7 @@ enum FuguEndPoints: String {
     case API_Reseller_Put_User = "api/reseller/putUserDetails"
     case API_UPLOAD_FILE = "api/conversation/uploadFile"
     case API_CREATE_TICKET = "api/support/createConversation"
-    case API_FEEDBACK = "api/deal/feedback"
+    //case API_FEEDBACK = "api/deal/feedback" - not being used anywhere
     case updateRideStatus = "api/users/inRideStatus"
     case fetchP2PUnreadCount = "api/conversation/fetchP2PUnreadCount"
     case makeSelectedPayment = "api/payment/makeSelectedPayment"

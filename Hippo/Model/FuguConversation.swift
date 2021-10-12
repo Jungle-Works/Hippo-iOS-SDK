@@ -143,7 +143,14 @@ class FuguConversation: HippoConversation {
         if !config.enabledChatStatus.isEmpty {
             params["status"] = config.getChatStatusToSend()
         }
+        params["offering"] = HippoConfig.shared.offering
+        params["device_type"] =  Device_Type_iOS
         
+        if let userIdenficationSecret = HippoConfig.shared.userDetail?.userIdenficationSecret{
+            if userIdenficationSecret.trimWhiteSpacesAndNewLine().isEmpty == false {
+                params["user_identification_secret"] = userIdenficationSecret
+            }
+        }
         return params
     }
     

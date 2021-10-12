@@ -32,6 +32,8 @@ class CreateTicketVM{
         param["reference"] = "Issue"
         param["text"] = text
         param["type"] = type.rawValue
+        param["offering"] = HippoConfig.shared.offering
+        param["device_type"] =  Device_Type_iOS
         
         if text == "" && type == .issueType && initialIssueTypeData.count != 0{
             self.searchDataUpdated?(type)
@@ -74,6 +76,16 @@ class CreateTicketVM{
         param["app_secret_key"] = HippoConfig.shared.appSecretKey
         param["customer_name"] = name
         param["customer_email"] = email
+        param["offering"] = HippoConfig.shared.offering
+        param["device_type"] =  Device_Type_iOS
+        if let enUserID = HippoUserDetail.fuguEnUserID{
+            param["en_user_id"] = enUserID
+        }
+        if let userIdenficationSecret = HippoConfig.shared.userDetail?.userIdenficationSecret{
+            if userIdenficationSecret.trimWhiteSpacesAndNewLine().isEmpty == false {
+                param["user_identification_secret"] = userIdenficationSecret
+            }
+        }
         HTTPClient.makeConcurrentConnectionWith(method: .POST, enCodingType: .json, para: param, extendedUrl: FuguEndPoints.checkAndCreateCustomer.rawValue){[weak self](responseObject, error, tag, statusCode) in
             guard let unwrappedStatusCode = statusCode, error == nil, unwrappedStatusCode == STATUS_CODE_SUCCESS, error == nil  else {
                 print("Error",error ?? "")
