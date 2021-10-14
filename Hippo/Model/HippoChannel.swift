@@ -692,8 +692,20 @@ class HippoChannel {
                     return
                 }
                 let error = messageDict["error"] as? [String:Any]
+                let userIdReceivedInSocket = messageDict["user_id"] as? Int
                 // if active channel sends error we donot append the message
-                guard error == nil else { return }
+                guard error == nil else {
+                    let errorCode = error!["errorCode"]
+                    let errorMessage = error!["message"]
+                    if let userIdExists = userIdReceivedInSocket{
+                        if  currentUserId() == userIdExists{
+                            DispatchQueue.main.async {
+                                self?.delegate?.cancelSendingMessage(message: message, errorMessage: errorMessage as? String, errorCode: errorCode as? SocketClient.SocketError)
+                            }
+                        }
+                    }
+                    return
+                }
                 self?.messageReceived(message: message)
             }
         })
@@ -928,8 +940,7 @@ class HippoChannel {
         guard let muid = message.messageUniqueID, let _ = messageHashMap[muid] else {
             return false
         }
-        return true
-        
+        return true        
     }
     func updateMessageIfRequired(recievedMessage: HippoMessage) {
         if recievedMessage.type == .feedback, let muid = recievedMessage.messageUniqueID, let oldMessage = getMessageWith(muid: muid) {
@@ -960,6 +971,16 @@ class HippoChannel {
             SocketClient.shared.send(messageDict: message.getJsonToSendToFaye(), toChannelID: id.description, completion: {_ in completion?()})
             return
         }
+//               let data = response.data
+//               let error = data["error"] as? [String:Any]
+//                guard error == nil else {
+//                    let errorCode = error!["errorCode"]
+//                    let errorMessage = error!["message"]
+//                    DispatchQueue.main.async {
+//                        self.delegate?.cancelSendingMessage(message: message, errorMessage: errorMessage as? String, errorCode: errorCode as? SocketClient.SocketError)
+//                    }
+//                    return
+//                }
         if isSendingDisabled && !(message.type == .feedback){
             print("----sending is disabled")
             return

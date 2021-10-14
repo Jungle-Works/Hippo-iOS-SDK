@@ -1478,7 +1478,7 @@ extension AgentConversationViewController {
     
     func sendButtonClicked(mentions: [Mention], message: String, isPrivateMessage isPrivate: Bool, config: MessageSendingViewConfig) {
         if storeResponse?.restrictPersonalInfo ?? false{
-            if message.matches(for: phoneNumberRegex).count > 0 || message.isValidEmail() || message.isValidUrl() || message.matches(for: urlRegex).count > 0{
+            if message.trimmingCharacters(in: .whitespaces).matches(for: phoneRegex).count > 0  || message.isValidEmail() || message.isValidUrl() || message.matches(for: urlRegex).count > 0{
                 showErrorMessage(messageString: HippoStrings.donotAllowPersonalInfo)
                 updateErrorLabelView(isHiding: true)
                 return
