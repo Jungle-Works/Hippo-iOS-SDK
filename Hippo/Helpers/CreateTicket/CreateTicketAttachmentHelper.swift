@@ -30,6 +30,7 @@ class CreateTicketAttachmentHelper {
     
     private func handleAttachmentButtonClicked() {
         pickerHelper = PickerHelper(viewController: getLastVisibleController() ?? UIViewController(), enablePayment: false)
+        pickerHelper?.isBotInProgress = true
         pickerHelper?.present(sender: UIView(), controller: getLastVisibleController() ?? UIViewController())
         pickerHelper?.delegate = self
     }

@@ -26,6 +26,7 @@ class PickerHelper {
     
     weak var delegate: PickerHelperDelegate?
     var enablePayment: Bool = false
+    var isBotInProgress: Bool = false
     
     init(viewController: UIViewController, enablePayment: Bool) {
         var config = CoreFilesConfig()
@@ -105,8 +106,10 @@ class PickerHelper {
         actionSheet.addAction(photoLibraryAction)
         actionSheet.addAction(cameraAction)
         if BussinessProperty.current.isCallInviteEnabled ?? false {
-            actionSheet.addAction(shareVideoUrlOption)
-            actionSheet.addAction(shareAudioUrlOption)
+            if !isBotInProgress{
+                actionSheet.addAction(shareVideoUrlOption)
+                actionSheet.addAction(shareAudioUrlOption)
+            }
         }
 //        //Check if iCloud is enabled in capablities
 //        if FileManager.default.ubiquityIdentityToken != nil {

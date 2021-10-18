@@ -838,6 +838,7 @@ class HippoConversationViewController: UIViewController {
         isAttachmentOpenedForTicket = false
         let showPaymentOption = channel == nil ? false : HippoProperty.current.isPaymentRequestEnabled
         pickerHelper = PickerHelper(viewController: self, enablePayment: showPaymentOption)
+        pickerHelper?.isBotInProgress = false
         pickerHelper?.present(sender: sender, controller: self)
         pickerHelper?.delegate = self
     }
