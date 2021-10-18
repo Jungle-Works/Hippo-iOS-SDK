@@ -35,6 +35,7 @@ class AgentChatInfoViewController: UIViewController {
     var actionArray = [ChatInfoCell]()
     var channelDetail: ChatDetail?
     var userImage : String?
+    var botAttributes : [String:Any]?
     
     //MARK: Outlets
     @IBOutlet weak var tableView: UITableView!
@@ -73,6 +74,7 @@ class AgentChatInfoViewController: UIViewController {
                     self.channelDetail?.customerName = data["full_name"] as? String ?? ""
                     self.channelDetail?.customerContactNumber = data["phone_number"] as? String ?? ""
                     self.userImage = data["user_image"] as? String
+                    self.botAttributes = data["bot_attributes"] as? [String:Any]
                     self.fillData()
                     self.tableView.reloadData()
                 }
@@ -101,6 +103,14 @@ class AgentChatInfoViewController: UIViewController {
             self.loaderView?.stopRotationAnimation()
         }
     }
+    
+    func hideUserInfo() -> Bool{
+        if self.channelDetail?.channelId != -1 && botAttributes?.count ?? 0 > 0{
+            return true
+        }
+        return false
+    }
+    
     //MARK: Class methods
     class func get(chatDetail: ChatDetail, userImage : String?) -> AgentChatInfoViewController? {
 //        let storyboard = UIStoryboard(name: "FuguUnique", bundle: FuguFlowManager.bundle)
@@ -325,7 +335,7 @@ extension AgentChatInfoViewController: UITableViewDataSource {
             }
             return 2
         case .userInfo:
-            return 1
+            return hideUserInfo() ? 0 : 1
         case .media:
             return 1
         }
