@@ -352,6 +352,13 @@ class HippoChannel {
     private class func createNewConversationWith(params: [String: Any], chatType: ChatType? = nil, completion: @escaping HippoChannelCreationHandler) {
         var requestParam = params
         requestParam["offering"] = HippoConfig.shared.offering
+        if let userIdenficationSecret = HippoConfig.shared.userDetail?.userIdenficationSecret{
+            if userIdenficationSecret.trimWhiteSpacesAndNewLine().isEmpty == false {
+                requestParam["user_identification_secret"] = userIdenficationSecret
+            }
+        }
+            
+        requestParam["en_user_id"] = HippoUserDetail.fuguEnUserID ?? -1
         if let parsedBotMessageMUID = botMessageMUID {
             requestParam["bot_form_muid"] = parsedBotMessageMUID
         }
