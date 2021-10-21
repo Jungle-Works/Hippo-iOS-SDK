@@ -36,7 +36,7 @@ class AgentChatInfoViewController: UIViewController {
     var channelDetail: ChatDetail?
     var userImage : String?
     var botAttributes : [String:Any]?
-    
+    var agentChatInfoSections = [AgentChatInfoSections]()
     //MARK: Outlets
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var view_NavigationBar: NavigationBar!
@@ -45,7 +45,6 @@ class AgentChatInfoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUpView()
-        self.setupTableView()
         getAgentInfo()
         
     }
@@ -76,7 +75,8 @@ class AgentChatInfoViewController: UIViewController {
                     self.userImage = data["user_image"] as? String
                     self.botAttributes = data["bot_attributes"] as? [String:Any]
                     self.fillData()
-                    self.tableView.reloadData()
+                    self.setupTableView()
+                    //self.tableView.reloadData()
                 }
             }else{
                 
@@ -104,10 +104,12 @@ class AgentChatInfoViewController: UIViewController {
         }
     }
     
-    func hideUserInfo() -> Bool{
-        if self.channelDetail?.channelId != -1 && botAttributes?.count ?? 0 > 0{
+   func hideUserInfo() -> Bool{
+        if (self.channelDetail?.isBotInProgress == true){
+              return true
+        }else if (self.channelDetail?.channelId != -1 && botAttributes?.count ?? 0 > 0){
             return true
-        }
+      }
         return false
     }
     
@@ -161,6 +163,11 @@ extension AgentChatInfoViewController {
         tableView.register(nib, forCellReuseIdentifier: "ChatInfoAgentTableViewCell")
         nib = UINib(nibName: "ChatInfoTagViewCell", bundle: FuguFlowManager.bundle)
         tableView.register(nib, forCellReuseIdentifier: "ChatInfoTagViewCell")
+        if hideUserInfo(){
+            self.agentChatInfoSections = [.media, .chatInfo, .channelActions]
+        }else{
+            self.agentChatInfoSections = [.userInfo,.media, .chatInfo, .channelActions]
+        }
     }
     
     func getPopupMessage() -> String {
@@ -236,11 +243,11 @@ extension AgentChatInfoViewController {
 //MARK: TableView delegates
 extension AgentChatInfoViewController: UITableViewDelegate  {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let value = AgentChatInfoSections(rawValue: section) else {
-            return nil
-        }
+//        guard let value = AgentChatInfoSections(rawValue: section) else {
+//            return nil
+//        }
         var sectionHeaderName = ""
-        switch value {
+        switch agentChatInfoSections[section] {
         case .channelActions:
             sectionHeaderName = HippoStrings.actions
         case .chatInfo:
@@ -256,11 +263,11 @@ extension AgentChatInfoViewController: UITableViewDelegate  {
         return UIView.tableAutoDimensionHeight
     }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        guard let value = AgentChatInfoSections(rawValue: section) else {
-            return 0
-        }
-        
-        switch value {
+//        guard let value = AgentChatInfoSections(rawValue: section) else {
+//            return 0
+//        }
+//
+        switch agentChatInfoSections[section] {
         case .userInfo:
             return 0
         default:
@@ -269,10 +276,10 @@ extension AgentChatInfoViewController: UITableViewDelegate  {
        
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let value = AgentChatInfoSections(rawValue: indexPath.section) else {
-            return
-        }
-        switch value {
+//        guard let value = AgentChatInfoSections(rawValue: indexPath.section) else {
+//            return
+//        }
+        switch agentChatInfoSections[indexPath.section] {
         case .channelActions:
             channelActionClicked()
         case .chatInfo:
@@ -315,18 +322,15 @@ extension AgentChatInfoViewController: UITableViewDataSource {
         switch chatType {
         case .o2o:
             if HippoConfig.shared.agentDetail?.agentUserType == .admin{
-                return AgentChatInfoSections.count
+                return agentChatInfoSections.count
             }
             return 1
         default:
-            return AgentChatInfoSections.count
+            return agentChatInfoSections.count
         }
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let value = AgentChatInfoSections(rawValue: section) else {
-            return 0
-        }
-        switch value {
+        switch self.agentChatInfoSections[section] {
         case .channelActions:
             return actionArray.count
         case .chatInfo:
@@ -335,16 +339,16 @@ extension AgentChatInfoViewController: UITableViewDataSource {
             }
             return 2
         case .userInfo:
-            return hideUserInfo() ? 0 : 1
+            return 1
         case .media:
             return 1
         }
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let value = AgentChatInfoSections(rawValue: indexPath.section) else {
-            return UITableViewCell()
-        }
-        switch value {
+//        guard let value = AgentChatInfoSections(rawValue: indexPath.section) else {
+//            return UITableViewCell()
+//        }
+        switch self.agentChatInfoSections[indexPath.section] {
         case .channelActions:
             return returnActionViewCell(indexPath: indexPath)
         case .chatInfo:
