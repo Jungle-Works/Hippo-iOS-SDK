@@ -10,7 +10,7 @@ import Foundation
 
 class ConversationStore {
     static let shared = ConversationStore()
-    
+    let fuguDefaults = FuguDefaults()
     var myChats = [AgentConversation]()
     var allChats = [AgentConversation]()
     var o2oChats = [AgentConversation]()
@@ -49,9 +49,9 @@ class ConversationStore {
             o2oChatsJson.append(json)
         }
         
-        FuguDefaults.set(value: myChatsJson, forKey: DefaultKey.myChatConversations)
-        FuguDefaults.set(value: allChatsJson, forKey: DefaultKey.allChatConversations)
-        FuguDefaults.set(value: o2oChatsJson, forKey: DefaultKey.o2oChatConversations)
+        fuguDefaults.set(value: myChatsJson, forKey: DefaultKey.myChatConversations)
+        fuguDefaults.set(value: allChatsJson, forKey: DefaultKey.allChatConversations)
+        fuguDefaults.set(value: o2oChatsJson, forKey: DefaultKey.o2oChatConversations)
     }
     
     func fetchAllCachedConversation() {
@@ -61,21 +61,21 @@ class ConversationStore {
     }
     
     func loadCacheForMyChat() {
-        guard let myChatsJson = FuguDefaults.object(forKey: DefaultKey.myChatConversations) as? [[String: Any]] else {
+        guard let myChatsJson = fuguDefaults.object(forKey: DefaultKey.myChatConversations) as? [[String: Any]] else {
             return
         }
         self.myChats = AgentConversation.getConversationArray(jsonArray: myChatsJson)
     }
     
     func loadCacheForAllChat() {
-        guard let allChatsJson = FuguDefaults.object(forKey: DefaultKey.allChatConversations) as? [[String: Any]] else {
+        guard let allChatsJson = fuguDefaults.object(forKey: DefaultKey.allChatConversations) as? [[String: Any]] else {
             return
         }
          self.allChats = AgentConversation.getConversationArray(jsonArray: allChatsJson)
     }
     
     func loadCacheForO2OChat() {
-        guard let o2oChatJson = FuguDefaults.object(forKey: DefaultKey.o2oChatConversations) as? [[String: Any]] else {
+        guard let o2oChatJson = fuguDefaults.object(forKey: DefaultKey.o2oChatConversations) as? [[String: Any]] else {
             return
         }
          self.o2oChats = AgentConversation.getConversationArray(jsonArray: o2oChatJson)

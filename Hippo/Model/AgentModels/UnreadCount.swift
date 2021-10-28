@@ -93,7 +93,7 @@ class UnreadCount {
     var hippoId: Int = -1
     var userUniqueKey: String = ""
     var count: Int = 0
-    
+    let fuguDefaults = FuguDefaults()
     init(json: [String: Any]) {
         hippoId = json["user_id"] as? Int ?? -1
         userUniqueKey = json["user_unique_key"] as? String ?? ""
@@ -304,7 +304,7 @@ extension UnreadCount {
 }
 extension UnreadCount{
     class func getAgentTotalUnreadCount(completion: @escaping ((_ result: ResponseResult) -> Void)) {
-         
+        let fuguDefault = FuguDefaults()
          guard HippoConfig.shared.appUserType == .agent, HippoConfig.shared.agentDetail != nil else {
              completion(ResponseResult(isSuccessful: false, error: HippoError.general))
              return
@@ -334,7 +334,7 @@ extension UnreadCount{
                     unreadHashMap["\(channelId ?? 0)"] = unreadCount
                 }
                
-                FuguDefaults.set(value: unreadHashMap, forKey: DefaultName.agentTotalUnreadHashMap.rawValue)
+                fuguDefault.set(value: unreadHashMap, forKey: DefaultName.agentTotalUnreadHashMap.rawValue)
                 UserDefaults.standard.set(unreadCount, forKey: DefaultName.agentUnreadCount.rawValue)
                 HippoConfig.shared.sendAgentUnreadCount(unreadCount)
                 HippoConfig.shared.sendAgentChannelsUnreadCount(unreadHashMap.count)

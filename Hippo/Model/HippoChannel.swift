@@ -175,19 +175,23 @@ class HippoChannel {
     }
     
     class func getChannelInfoFor(channelId: Int) -> [String: Any] {
-        return (FuguDefaults.object(forKey: "infoObject\(channelId)") as? [String: Any] ?? [:])
+        let fuguDefaults = FuguDefaults()
+        return (fuguDefaults.object(forKey: "infoObject\(channelId)") as? [String: Any] ?? [:])
     }
     class func saveHashMapInCache(hashMap: [String: Int], forChannelID id: Int) {
-        FuguDefaults.set(value: hashMap, forKey: "messageHashMap\(id)")
+        let fuguDefaults = FuguDefaults()
+        fuguDefaults.set(value: hashMap, forKey: "messageHashMap\(id)")
     }
     class func saveSentMessagesCache(json: [[String: Any]], forChannelID id: Int) {
+        let fuguDefaults = FuguDefaults()
         var allSentCache = getAllChannelsSentMessagesCache()
         allSentCache[id.description] = json
-        FuguDefaults.set(value: allSentCache, forKey: DefaultName.sentMessagesData.rawValue)
+        fuguDefaults.set(value: allSentCache, forKey: DefaultName.sentMessagesData.rawValue)
     }
     
     class func getCachedHashMapFor(channelId: Int) -> [String: Int] {
-        return (FuguDefaults.object(forKey: "messageHashMap\(channelId)") as? [String: Int] ?? [:])
+        let fuguDefaults = FuguDefaults()
+        return (fuguDefaults.object(forKey: "messageHashMap\(channelId)") as? [String: Int] ?? [:])
     }
     class func getChannelUnsentMessageCacheFrom(withID id: Int) -> [[String: Any]] {
         let allChannelUnsentCache = getAllChannelsUnSentMessagesCache()
@@ -203,12 +207,14 @@ class HippoChannel {
         return thisChannelCache
     }
     class func getAllChannelsSentMessagesCache() -> [String: Any] {
-        let cache = FuguDefaults.object(forKey: DefaultName.sentMessagesData.rawValue) as? [String: Any]
+        let fuguDefaults = FuguDefaults()
+        let cache = fuguDefaults.object(forKey: DefaultName.sentMessagesData.rawValue) as? [String: Any]
         return cache ?? [:]
     }
     
     class func getAllChannelsUnSentMessagesCache() -> [String: Any] {
-        let cache = FuguDefaults.object(forKey: DefaultName.unsentMessagesData.rawValue) as? [String: Any]
+        let fuguDefaults = FuguDefaults()
+        let cache = fuguDefaults.object(forKey: DefaultName.unsentMessagesData.rawValue) as? [String: Any]
         return cache ?? [:]
     }
     class func getUnsentCachedMessagesFor(channelID: Int) -> MessagesAndHashMap {
@@ -244,13 +250,14 @@ class HippoChannel {
                 resultDict[key] = value
             }
         }
-        
+        let fuguDefaults = FuguDefaults()
 //        FuguDefaults.set(value: hashMap, forKey: "hashmapTransactionIdToChannelID")
-        FuguDefaults.set(value: resultDict, forKey: "hashmapTransactionIdToChannelID")
+        fuguDefaults.set(value: resultDict, forKey: "hashmapTransactionIdToChannelID")
         
     }
     class func getHashMapTransactionIdToChannelIDFromCache() -> [String: Int] {
-        return (FuguDefaults.object(forKey: "hashmapTransactionIdToChannelID") as? [String: Int] ?? [:])
+        let fuguDefaults = FuguDefaults()
+        return (fuguDefaults.object(forKey: "hashmapTransactionIdToChannelID") as? [String: Int] ?? [:])
     }    
     
     class func get(request: CreateConversationWithLabelId, completion: @escaping HippoChannelCreationHandler) {
@@ -581,6 +588,7 @@ class HippoChannel {
     }
     
     @objc func saveMessagesInCache() {
+        let fuguDefaults = FuguDefaults()
         var arrayOfSentMessages = [[String: Any]]()
         var arrayOfUnsentMessages = [[String: Any]]()
         
@@ -595,18 +603,18 @@ class HippoChannel {
         }
         //TODO: Refactor this
         
-        var sentMessageObject = (FuguDefaults.object(forKey: DefaultName.sentMessagesData.rawValue) as? [String: Any]) ?? [String: Any]()
-        var unsentMessageObject = FuguDefaults.object(forKey: DefaultName.unsentMessagesData.rawValue) as? [String: Any] ?? [String: Any]()
+        var sentMessageObject = (fuguDefaults.object(forKey: DefaultName.sentMessagesData.rawValue) as? [String: Any]) ?? [String: Any]()
+        var unsentMessageObject = fuguDefaults.object(forKey: DefaultName.unsentMessagesData.rawValue) as? [String: Any] ?? [String: Any]()
         
         sentMessageObject[id.description] = arrayOfSentMessages
         unsentMessageObject[id.description] = arrayOfUnsentMessages
         
         let infoJson = chatDetail?.getJsonToStore() ?? [:]
         
-        FuguDefaults.set(value: sentMessageObject, forKey: DefaultName.sentMessagesData.rawValue)
-        FuguDefaults.set(value: unsentMessageObject, forKey: DefaultName.unsentMessagesData.rawValue)
-        FuguDefaults.set(value: messageHashMap, forKey: "messageHashMap\(id)")
-        FuguDefaults.set(value: infoJson, forKey: "infoObject\(id)")
+        fuguDefaults.set(value: sentMessageObject, forKey: DefaultName.sentMessagesData.rawValue)
+        fuguDefaults.set(value: unsentMessageObject, forKey: DefaultName.unsentMessagesData.rawValue)
+        fuguDefaults.set(value: messageHashMap, forKey: "messageHashMap\(id)")
+        fuguDefaults.set(value: infoJson, forKey: "infoObject\(id)")
     }
     
     

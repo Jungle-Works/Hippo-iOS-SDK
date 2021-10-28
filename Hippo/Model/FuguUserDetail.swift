@@ -293,7 +293,8 @@ public class UserTag: NSObject {
     
     // MARK: - Type Methods
     class func getUserDetailsAndConversation(isOpenedFromPush: Bool = false, completion: FuguUserDetailCallback? = nil) {
-        if isOpenedFromPush, let userDetailData = FuguDefaults.object(forKey: DefaultName.putUserData.rawValue) as? [String: Any]{
+        let fuguDefaults = FuguDefaults()
+        if isOpenedFromPush, let userDetailData = fuguDefaults.object(forKey: DefaultName.putUserData.rawValue) as? [String: Any]{
             self.handlePutUserResponse(userDetailData: userDetailData, completion: completion)
             return
         }
@@ -331,7 +332,7 @@ public class UserTag: NSObject {
                 allConversationObj.getAllConversations()
             }
             userDetailData = data
-            FuguDefaults.set(value: userDetailData, forKey: DefaultName.putUserData.rawValue)
+            fuguDefaults.set(value: userDetailData, forKey: DefaultName.putUserData.rawValue)
             self.handlePutUserResponse(userDetailData: userDetailData, completion: completion)
         }
     }
@@ -450,6 +451,7 @@ public class UserTag: NSObject {
     }
     
     private class func getPaymentGateway(params: [String: Any],  completion: @escaping (Bool) -> Void) {
+        let fuguDefaults = FuguDefaults()
         HippoConfig.shared.log.debug("API_GetPaymentGateway.....\(params)", level: .request)
         HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: FuguEndPoints.getPaymentGateway.rawValue) { (response, error, _, statusCode) in
             guard let responseDict = response as? [String: Any],
@@ -459,7 +461,7 @@ public class UserTag: NSObject {
                     return
             }
 //            let addedPaymentGatewaysArr = PaymentGateway.parse(addedPaymentGateways: addedPaymentGateways)
-            FuguDefaults.set(value: addedPaymentGateways, forKey: DefaultName.addedPaymentGatewaysData.rawValue)
+            fuguDefaults.set(value: addedPaymentGateways, forKey: DefaultName.addedPaymentGatewaysData.rawValue)
             completion(true)
         }
     }
@@ -518,11 +520,12 @@ public class UserTag: NSObject {
         return params
     }
     class func clearAgentData() {
+        let fuguDefaults = FuguDefaults()
         HippoConfig.shared.agentDetail = nil
         AgentConversationManager.errorMessage = nil
         AgentChannelPersistancyManager.shared.clearChannels()
         HippoChannel.hashmapTransactionIdToChannelID = [:]
-        FuguDefaults.removeObject(forKey: "hashmapTransactionIdToChannelID")
+        fuguDefaults.removeObject(forKey: "hashmapTransactionIdToChannelID")
         
         AgentDetail.agentLoginData = nil
         UnreadCount.clearAllStoredUnreadCount()
@@ -533,7 +536,7 @@ public class UserTag: NSObject {
     }
     
     class func clearAllData(completion: ((Bool) -> Void)? = nil) {
-        
+        let fuguDefaults = FuguDefaults()
         FuguDefaults.removeAllPersistingData()
         //        if FayeConnection.shared.isConnected{
         //            FayeConnection.shared.disconnectFaye()
@@ -556,16 +559,16 @@ public class UserTag: NSObject {
         userDetailData = [String: Any]()
         FuguChannelPersistancyManager.shared.clearChannels()
         HippoChannel.hashmapTransactionIdToChannelID = [:]
-        FuguDefaults.removeObject(forKey: "hashmapTransactionIdToChannelID")
+        fuguDefaults.removeObject(forKey: "hashmapTransactionIdToChannelID")
         
-        FuguDefaults.removeObject(forKey: DefaultKey.myChatConversations)
-        FuguDefaults.removeObject(forKey: DefaultKey.allChatConversations)
-        FuguDefaults.removeObject(forKey: DefaultKey.allChatConversations)
+        fuguDefaults.removeObject(forKey: DefaultKey.myChatConversations)
+        fuguDefaults.removeObject(forKey: DefaultKey.allChatConversations)
+        fuguDefaults.removeObject(forKey: DefaultKey.allChatConversations)
         
         
-        FuguDefaults.removeObject(forKey: DefaultName.conversationData.rawValue)
-        FuguDefaults.removeObject(forKey: DefaultName.appointmentData.rawValue)
-        FuguDefaults.removeObject(forKey: DefaultName.addedPaymentGatewaysData.rawValue)
+        fuguDefaults.removeObject(forKey: DefaultName.conversationData.rawValue)
+        fuguDefaults.removeObject(forKey: DefaultName.appointmentData.rawValue)
+        fuguDefaults.removeObject(forKey: DefaultName.addedPaymentGatewaysData.rawValue)
         
         FuguDefaults.removeAllPersistingData()
         

@@ -105,7 +105,7 @@ class FuguConversation: HippoConversation {
     }
     
     static func getAllConversationFromServer(config: AllConversationsConfig, completion: @escaping (_ result: GetConversationFromServerResult) -> Void) {
-        
+        let fuguDefaults = FuguDefaults()
         let params = getParamsToGetAllConversation(config: config)
         
         HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: FuguEndPoints.API_GET_CONVERSATIONS.rawValue) { (responseObject, error, tag, statusCode) in
@@ -122,7 +122,7 @@ class FuguConversation: HippoConversation {
                     return
             }
             
-            FuguDefaults.set(value: conversationArrayJson, forKey: DefaultName.conversationData.rawValue)
+            fuguDefaults.set(value: conversationArrayJson, forKey: DefaultName.conversationData.rawValue)
             let arrayOfConversation = getConversationArrayFrom(json: conversationArrayJson)
             
             if let lastVisibleController = getLastVisibleController() as? ConversationsViewController, let channelId = lastVisibleController.channel?.id {

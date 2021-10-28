@@ -27,40 +27,69 @@ struct DefaultKey {
     static let AgentsList = "Hippo_agent_data"
     static let o2oChatConversations = "Agent_O2O_Chat_Data"
 }
-class FuguDefaults: NSObject {
-    class func set(value: Any?, forKey keyName: String) {
+class FuguDefaults: NSObject,NSSecureCoding{
+    var myData: Any?
+    var keyName: String?
+    
+    static var supportsSecureCoding: Bool{
+        return true
+    }
+    
+    func encode(with coder: NSCoder) {
+        if let keyNameExists = self.keyName{
+            coder.encode(myData,forKey: keyNameExists)
+        }
+    }
+    
+    required init?(coder: NSCoder) {
+        if let keyNameExists = self.keyName{
+            self.myData = coder.decodeObject(of: [NSArray.self, NSDictionary.self, NSDate.self, FuguDefaults.self], forKey: keyNameExists)
+        }
+    }
+    
+    override init() {
+        super.init()
+        self.myData = []
+    }
+    
+    func set(value: Any?, forKey keyName: String) {
+        self.keyName = keyName
         if value == nil || ((value as? [Any]) == nil && (value as? [String: Any]) == nil) {
-            FuguDefaults.removeObject(forKey: keyName)
+            self.removeObject(forKey: self.keyName!)
             return
         }
         // Get the url of <keyName>.json in document directory
         guard let documentDirectoryUrl = FuguDefaults.fuguContentDirectoryURL() else { return }
-        let fileUrl = documentDirectoryUrl.appendingPathComponent("\(keyName).json")
-        
+        let fileUrl = documentDirectoryUrl.appendingPathComponent("\(self.keyName!).json")
+        self.myData = value
         // Transform <value> into data and save it into file
         do {
-            let data = try JSONSerialization.data(withJSONObject: value as Any, options: [])
+           // let data = try JSONSerialization.data(withJSONObject: value as Any, options: [])
+            let data = try NSKeyedArchiver.archivedData(withRootObject: self.myData as Any, requiringSecureCoding: true)
             try data.write(to: fileUrl, options: [])
         } catch { HippoConfig.shared.log.trace(error, level: .customError) }
     }
     
-    class func object(forKey keyName: String) -> Any? {
+    func object(forKey keyName: String) -> Any? {
+        self.keyName = keyName
         // Get the url of <keyName>.json in document directory
         guard let documentsDirectoryUrl = FuguDefaults.fuguContentDirectoryURL() else { return nil }
-        let fileUrl = documentsDirectoryUrl.appendingPathComponent("\(keyName).json")
+        let fileUrl = documentsDirectoryUrl.appendingPathComponent("\(self.keyName!).json")
         
         // Read data from <keyName>.json file and transform data into an 'Any'
         do {
             let data = try Data(contentsOf: fileUrl, options: [])
-            return try JSONSerialization.jsonObject(with: data, options: [])
+            return try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data)
+           // return try JSONSerialization.jsonObject(with: data, options: [])
         } catch { print(error.localizedDescription) }
         return nil
     }
     
-    class func removeObject(forKey keyName: String) {
+    func removeObject(forKey keyName: String) {
+        self.keyName = keyName
         let fileManager = FileManager.default
         guard let documentDirectoryUrl = FuguDefaults.fuguContentDirectoryURL() else { return }
-        let fileUrl = documentDirectoryUrl.appendingPathComponent("\(keyName).json")
+        let fileUrl = documentDirectoryUrl.appendingPathComponent("\(self.keyName!).json")
         
         if fileManager.fileExists(atPath: fileUrl.path) {
             do {

@@ -44,13 +44,15 @@ class CacheManager {
     
     //MARK: Agents
     class func storeAgents(agents: [Agent]) {
+        let fuguDefaults = FuguDefaults()
 //        let list: [[String: Any]] = Agent.getJsonToStore(agents: agents)
         let list = Agent.getJsonToStore(agents: agents)
-        FuguDefaults.set(value: list, forKey: DefaultKey.AgentsList)
+        fuguDefaults.set(value: list, forKey: DefaultKey.AgentsList)
     }
     class func getStoredAgents() -> [Agent] {
+        let fuguDefaults = FuguDefaults()
         var agents = [Agent]()
-        guard let json = FuguDefaults.object(forKey: DefaultKey.AgentsList) as? [[String: Any]] else {
+        guard let json = fuguDefaults.object(forKey: DefaultKey.AgentsList) as? [[String: Any]] else {
             return agents
         }
         agents = Agent.getArrayfrom(jsonArray: json)

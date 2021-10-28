@@ -1019,11 +1019,11 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     }
     
  override func clearUnreadCountForChannel(id: Int) {
-        
+        let fuguDefaults = FuguDefaults()
         let channelRaw: [String: Any] = ["channel_id": id]
         resetForChannel(pushInfo: channelRaw)
         
-        var chats = FuguDefaults.object(forKey: DefaultName.conversationData.rawValue) as? [[String: Any]] ?? [[:]]
+        var chats = fuguDefaults.object(forKey: DefaultName.conversationData.rawValue) as? [[String: Any]] ?? [[:]]
         let index = chats.firstIndex { (o) -> Bool in
             return (o["channel_id"] as? Int) ?? -2 == id
         }
@@ -1032,7 +1032,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
             var obj = chats[index!]
             obj["unread_count"] = 0
             chats[index!] = obj
-            FuguDefaults.set(value: chats, forKey: DefaultName.conversationData.rawValue)
+            fuguDefaults.set(value: chats, forKey: DefaultName.conversationData.rawValue)
             pushTotalUnreadCount()
         }
     }
@@ -2075,7 +2075,8 @@ extension ConversationsViewController {
     }
 
     func fetchAddedPaymentGatewaysData() -> [PaymentGateway]? {
-        if let addedPaymentGatewaysData = FuguDefaults.object(forKey: DefaultName.addedPaymentGatewaysData.rawValue) as? [[String: Any]]{
+        let fuguDefaults = FuguDefaults()
+        if let addedPaymentGatewaysData = fuguDefaults.object(forKey: DefaultName.addedPaymentGatewaysData.rawValue) as? [[String: Any]]{
             let addedPaymentGatewaysArr = PaymentGateway.parse(addedPaymentGateways: addedPaymentGatewaysData)
             return addedPaymentGatewaysArr
         }else{

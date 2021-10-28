@@ -590,7 +590,8 @@ struct BotAction {
     }
     
     public func fetchAddedPaymentGatewaysData() -> [PaymentGateway]? {
-        if let addedPaymentGatewaysData = FuguDefaults.object(forKey: DefaultName.addedPaymentGatewaysData.rawValue) as? [[String: Any]]{
+        let fuguDefaults = FuguDefaults()
+        if let addedPaymentGatewaysData = fuguDefaults.object(forKey: DefaultName.addedPaymentGatewaysData.rawValue) as? [[String: Any]]{
             let addedPaymentGatewaysArr = PaymentGateway.parse(addedPaymentGateways: addedPaymentGatewaysData)
             return addedPaymentGatewaysArr
         }else{

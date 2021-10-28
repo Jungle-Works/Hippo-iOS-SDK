@@ -383,14 +383,15 @@ func subscribeMarkConversation(){
 
 
 func removeChannelForUnreadCount(_ channelId : Int){
-    if var channelList = FuguDefaults.object(forKey: DefaultName.agentTotalUnreadHashMap.rawValue) as? [String : Any], let totalUnreadCount = UserDefaults.standard.value(forKey: DefaultName.agentUnreadCount.rawValue) as? Int{
+    let fuguDefaults = FuguDefaults()
+    if var channelList = fuguDefaults.object(forKey: DefaultName.agentTotalUnreadHashMap.rawValue) as? [String : Any], let totalUnreadCount = UserDefaults.standard.value(forKey: DefaultName.agentUnreadCount.rawValue) as? Int{
        //find if the channel exists in list
         if let channelUnreadCount = channelList["\(channelId)"] as? Int{
             let newUnreadCount = totalUnreadCount - channelUnreadCount
             HippoConfig.shared.sendAgentUnreadCount(newUnreadCount)
             channelList.removeValue(forKey: "\(channelId)")
             HippoConfig.shared.sendAgentChannelsUnreadCount(channelList.count)
-            FuguDefaults.set(value: channelList, forKey: DefaultName.agentTotalUnreadHashMap.rawValue)
+            fuguDefaults.set(value: channelList, forKey: DefaultName.agentTotalUnreadHashMap.rawValue)
             UserDefaults.standard.set(newUnreadCount, forKey: DefaultName.agentUnreadCount.rawValue)
         }
     }
@@ -399,13 +400,14 @@ func removeChannelForUnreadCount(_ channelId : Int){
 
 
 func calculateTotalAgentUnreadCount(_ channelId : Int, _ unreadCount : Int){
-    if var channelList = FuguDefaults.object(forKey: DefaultName.agentTotalUnreadHashMap.rawValue) as? [String : Any], var totalUnreadCount = UserDefaults.standard.value(forKey: DefaultName.agentUnreadCount.rawValue) as? Int{
+    let fuguDefaults = FuguDefaults()
+    if var channelList = fuguDefaults.object(forKey: DefaultName.agentTotalUnreadHashMap.rawValue) as? [String : Any], var totalUnreadCount = UserDefaults.standard.value(forKey: DefaultName.agentUnreadCount.rawValue) as? Int{
        //find if the channel exists in list
         if let channelUnreadCount = channelList["\(channelId)"] as? Int{
             let newUnreadCount = channelUnreadCount + 1
             channelList["\(channelId)"] = newUnreadCount
            // set value in hash
-            FuguDefaults.set(value: channelList, forKey: DefaultName.agentTotalUnreadHashMap.rawValue)
+            fuguDefaults.set(value: channelList, forKey: DefaultName.agentTotalUnreadHashMap.rawValue)
             //set total unread
             totalUnreadCount = totalUnreadCount + 1
             UserDefaults.standard.set(totalUnreadCount, forKey: DefaultName.agentUnreadCount.rawValue)
@@ -415,7 +417,7 @@ func calculateTotalAgentUnreadCount(_ channelId : Int, _ unreadCount : Int){
         }else{
             // if channel id doesnot exist in list
             channelList["\(channelId)"] = 1
-            FuguDefaults.set(value: channelList, forKey: DefaultName.agentTotalUnreadHashMap.rawValue)
+            fuguDefaults.set(value: channelList, forKey: DefaultName.agentTotalUnreadHashMap.rawValue)
             
             totalUnreadCount = totalUnreadCount + 1
             UserDefaults.standard.set(totalUnreadCount, forKey: DefaultName.agentUnreadCount.rawValue)
@@ -427,6 +429,7 @@ func calculateTotalAgentUnreadCount(_ channelId : Int, _ unreadCount : Int){
 }
 
 func pushTotalUnreadCount() {
+    let fuguDefaults = FuguDefaults()
     var chatCounter = 0
     var noDataFound = false
     
@@ -439,7 +442,7 @@ func pushTotalUnreadCount() {
             }
         }
     case .customer:
-        if let chatCachedArray = FuguDefaults.object(forKey: DefaultName.conversationData.rawValue) as? [[String: Any]] {
+        if let chatCachedArray = fuguDefaults.object(forKey: DefaultName.conversationData.rawValue) as? [[String: Any]] {
             for conversationInfo in chatCachedArray {
                 if let conversationCounter = conversationInfo["unread_count"] as? Int {
                     chatCounter += conversationCounter
@@ -517,7 +520,8 @@ func updateStoredUnreadCountFor(toIncreaseCount : Bool = false, with userInfo: [
             return
         }
     case .customer:
-        guard var chatCachedArray = FuguDefaults.object(forKey: DefaultName.conversationData.rawValue) as? [[String: Any]] else {
+        let fuguDefaults = FuguDefaults()
+        guard var chatCachedArray = fuguDefaults.object(forKey: DefaultName.conversationData.rawValue) as? [[String: Any]] else {
             return
         }
         let muid = userInfo["muid"] as? String ?? ""
@@ -527,12 +531,12 @@ func updateStoredUnreadCountFor(toIncreaseCount : Bool = false, with userInfo: [
                 var obj = chatCachedArray[index]
                 obj["unread_count"] = (obj["unread_count"] as? Int ?? 0) + 1
                 chatCachedArray[index] = obj
-                FuguDefaults.set(value: chatCachedArray, forKey: DefaultName.conversationData.rawValue)
+                fuguDefaults.set(value: chatCachedArray, forKey: DefaultName.conversationData.rawValue)
             }else {
                 var obj = chatCachedArray[index]
                 obj["unread_count"] = 0
                 chatCachedArray[index] = obj
-                FuguDefaults.set(value: chatCachedArray, forKey: DefaultName.conversationData.rawValue)
+                fuguDefaults.set(value: chatCachedArray, forKey: DefaultName.conversationData.rawValue)
             }
         }else {
             if toIncreaseCount {

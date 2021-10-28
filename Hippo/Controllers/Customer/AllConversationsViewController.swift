@@ -57,7 +57,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     var config: AllConversationsConfig = AllConversationsConfig.defaultConfig
     var conversationChatType: ConversationChatType = .openChat
     var shouldHideBackBtn : Bool = false
-    
+    var fuguDefaults = FuguDefaults()
     // MARK: - LIFECYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -709,12 +709,12 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
             return
         }
         let conversationJson = FuguConversation.getJsonFrom(conversations: arrayOfFullConversation)
-        FuguDefaults.set(value: conversationJson, forKey: DefaultName.conversationData.rawValue)
+        fuguDefaults.set(value: conversationJson, forKey: DefaultName.conversationData.rawValue)
         //FuguDefaults.set(value: self.conversationChatType, forKey: "conversationType")
     }
     
     func fetchAllConversationCache() -> [FuguConversation] {
-        guard let convCache = FuguDefaults.object(forKey: DefaultName.conversationData.rawValue) as? [[String: Any]] else {
+        guard let convCache = fuguDefaults.object(forKey: DefaultName.conversationData.rawValue) as? [[String: Any]] else {
             return []
         }
         

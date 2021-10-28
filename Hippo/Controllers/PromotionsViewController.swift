@@ -222,6 +222,7 @@ class PromotionsViewController: UIViewController {
     }
     
     @objc func deleteAllAnnouncementsButtonClicked() {
+        let fuguDefaults = FuguDefaults()
         guard self.navigationItem.rightBarButtonItem?.tintColor != .clear else {
             return
         }
@@ -229,7 +230,7 @@ class PromotionsViewController: UIViewController {
         HippoConfig.shared.announcementUnreadCount?(0)
         
         self.clearAnnouncements(indexPath: IndexPath(row: 0, section: 0), isDeleteAllStatus: 1)
-        FuguDefaults.removeObject(forKey: DefaultName.appointmentData.rawValue)
+        fuguDefaults.removeObject(forKey: DefaultName.appointmentData.rawValue)
         
         //   }, failureButtonName: "NO", failureComplete: nil)
     }
@@ -529,15 +530,17 @@ extension PromotionsViewController{
     //MARK:- Save Promotions data in cache
     
     func savePromotionsInCache(_ json: [[String: Any]]) {
+        let fuguDefaults = FuguDefaults()
         guard shouldUseCache else {
             return
         }
-        FuguDefaults.set(value: json, forKey: DefaultName.appointmentData.rawValue)
+        fuguDefaults.set(value: json, forKey: DefaultName.appointmentData.rawValue)
         //FuguDefaults.set(value: self.conversationChatType, forKey: "conversationType")
     }
     
     func fetchAllAnnouncementCache() -> [PromotionCellDataModel] {
-        guard let convCache = FuguDefaults.object(forKey: DefaultName.appointmentData.rawValue) as? [[String: Any]] else {
+        let fuguDefaults = FuguDefaults()
+        guard let convCache = fuguDefaults.object(forKey: DefaultName.appointmentData.rawValue) as? [[String: Any]] else {
             return []
         }
         

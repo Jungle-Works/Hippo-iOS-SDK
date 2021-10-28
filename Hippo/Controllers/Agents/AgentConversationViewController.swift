@@ -93,6 +93,7 @@ class AgentConversationViewController: HippoConversationViewController {
     var messageInEditing : HippoMessage?
     var editingMessageIndex : IndexPath?
     var channelType : Int?
+    var fuguDefaults = FuguDefaults()
     //MARK: - Variables for MessageSendingView
     private let animationDuration: TimeInterval = 0.3
     var maxMentionViewHeight: CGFloat = windowScreenHeight
@@ -216,9 +217,10 @@ class AgentConversationViewController: HippoConversationViewController {
 //        var dict = HippoConfig.folder.object(forKey: "StoredUnsendMessages") as? [String: Any] ?? [:]
 //        dict["\(channelId)"] = messageTextView.text
 //        HippoConfig.folder.set(value: dict, forKey: "StoredUnsendMessages")
-        var dict = FuguDefaults.object(forKey: "StoredUnsendMessages") as? [String: Any] ?? [:]
+        var dict = fuguDefaults.object(forKey: "StoredUnsendMessages") as? [String: Any] ?? [:]
         dict["\(channelId)"] = messageTextView.text
-        FuguDefaults.set(value: dict, forKey: "StoredUnsendMessages")
+        let fuguDefaults = FuguDefaults()
+        fuguDefaults.set(value: dict, forKey: "StoredUnsendMessages")
         
     }
     
@@ -396,7 +398,7 @@ class AgentConversationViewController: HippoConversationViewController {
     
     func getUnsentMessage() -> String{
 //        let unsentCache = HippoConfig.folder.object(forKey: "StoredUnsendMessages") as? [String: Any]
-        let unsentCache = FuguDefaults.object(forKey: "StoredUnsendMessages") as? [String: Any] ?? [:]
+        let unsentCache = fuguDefaults.object(forKey: "StoredUnsendMessages") as? [String: Any] ?? [:]
 //        print(unsentCache ?? [:])
         let value = (unsentCache["\(channelId)"]) ?? ""
         return value as! String

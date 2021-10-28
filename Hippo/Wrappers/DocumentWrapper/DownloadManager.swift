@@ -15,9 +15,9 @@ class DownloadManager {
     private var urlWRTFileName = [String: String]()
     private var allotedNames = [String]()
     static let urlUserInfoKey = "url"
-    
+    var fuguDefaults = FuguDefaults()
     init() {
-        if let urlWRTFileName = FuguDefaults.object(forKey: "DownloadManager.urlWRTFileName") as? [String: String] {
+        if let urlWRTFileName = fuguDefaults.object(forKey: "DownloadManager.urlWRTFileName") as? [String: String] {
             self.urlWRTFileName = urlWRTFileName
         }
         NotificationCenter.default.addObserver(self, selector: #selector(appEnteredBackground), name: HippoVariable.didEnterBackgroundNotification, object: nil)
@@ -25,7 +25,7 @@ class DownloadManager {
     }
     
     @objc private func appEnteredBackground() {
-        FuguDefaults.set(value: urlWRTFileName, forKey: "DownloadManager.urlWRTFileName")
+        fuguDefaults.set(value: urlWRTFileName, forKey: "DownloadManager.urlWRTFileName")
     }
     
     func isFileDownloadedWith(url: String) -> Bool {

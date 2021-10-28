@@ -142,8 +142,8 @@ class FuguNetworkHandler: NSObject {
             }
         }else if let conversationVC = getLastVisibleController() as? AllConversationsViewController, conversationVC.isViewLoaded {
             if hidden == false {
-                
-                guard let chatCachedArray = FuguDefaults.object(forKey: DefaultName.conversationData.rawValue) as? [[String: Any]], chatCachedArray.isEmpty == false else {
+                let fuguDefaults = FuguDefaults()
+                guard let chatCachedArray = fuguDefaults.object(forKey: DefaultName.conversationData.rawValue) as? [[String: Any]], chatCachedArray.isEmpty == false else {
                     
                     return
                 }
