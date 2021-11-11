@@ -97,6 +97,7 @@ public class UserTag: NSObject {
     var email: String?
     var phoneNumber: String?
     var userUniqueKey: String?
+    var callingType:Int?
     var addressAttribute: HippoAttributes?
     var customAttributes: [String: Any]?
     var userTags: [UserTag] = []
@@ -127,6 +128,16 @@ public class UserTag: NSObject {
             UserDefaults.standard.set(newValue, forKey: FUGU_USER_ID)
         }
     }
+    
+    class var callingType: Int? {
+        get {
+            return UserDefaults.standard.value(forKey: calling_Type) as? Int
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: calling_Type)
+        }
+    }
+    
     
     class var fuguEnUserID: String? {
         get {
@@ -252,6 +263,8 @@ public class UserTag: NSObject {
         if userUniqueKey.isEmpty == false {
             params["user_unique_key"] = userUniqueKey
         }
+        
+//        callingType = Int(Int.parse(values: callingType, key: "calling_type") ?? 0)
         params["grouping_tags"] = getUserTagsJSON()
         if let addressInfo = addressAttribute?.toJSON() {
             params["attributes"] = addressInfo
@@ -370,6 +383,10 @@ public class UserTag: NSObject {
         
         if let userId = userDetailData["user_id"] as? Int {
             HippoUserDetail.fuguUserID = userId
+        }
+        
+        if let callingType = userDetailData["calling_type"] as? String{
+            HippoUserDetail.callingType = Int(callingType)
         }
         
         if let enUserId = userDetailData["en_user_id"] as? String {

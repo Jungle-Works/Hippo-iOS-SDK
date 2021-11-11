@@ -12,6 +12,7 @@ import ImageIO
 import AVFoundation
 
 let FUGU_USER_ID = "fuguUserId"
+let calling_Type = "callingType"
 let Fugu_AppSecret_Key = "fugu_app_secret_key"
 let Fugu_en_user_id = "fuguEnUserId"
 let Hippo_User_Channel_Id = "userChannelId"
