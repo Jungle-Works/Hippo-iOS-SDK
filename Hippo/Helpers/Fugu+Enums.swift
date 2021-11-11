@@ -393,9 +393,8 @@ enum FuguEndPoints: String {
     case checkAndCreateCustomer = "api/erpnext/checkAndCreateCustomer"
     case shareMeetLink = "api/meet/createInviteLink"
     case joinJitsiLink = "api/meet/joinInviteLink"
-
     case searchAddress = "https://nominatim-api-live.jungleworks.com/search"
-
+    case videoSDKToken = "api/meet/videoSdkToken"
 }
 
 enum AgentEndPoints: String {

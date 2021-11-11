@@ -657,6 +657,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
 //        presentActionsForCustomer(sender: self.view)
     }
     @IBAction func audiCallButtonClicked(_ sender: Any) {
+        getTokenForVidSDK()
         startAudioCall(transactionId: self.original_transaction_id)
     }
     @IBAction func videoButtonClicked(_ sender: Any) {

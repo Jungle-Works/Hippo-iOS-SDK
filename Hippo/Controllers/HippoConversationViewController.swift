@@ -76,7 +76,9 @@ class HippoConversationViewController: UIViewController {
     var isMessageEditing : Bool = false
     let attachmentObj = CreateTicketAttachmentHelper()
     let recordingHelper = RecordingHelper()
-
+    private var serverVidToken = ""
+    var meetingID = ""
+    var url = ""
     //MARK:
     @IBOutlet var tableViewChat: UITableView!{
         didSet{
@@ -603,6 +605,55 @@ class HippoConversationViewController: UIViewController {
             self.navigationTitleButton?.sizeToFit()
         }
     }
+    
+    func getParamsForVideoToken() -> [String : Any]{
+           var params = [String : Any]()
+           params["app_secret_key"] = HippoConfig.shared.appSecretKey
+           params["request_token"] = 1
+           return params
+       }
+    
+    func meetIdParams() -> [String:Any]{
+        var params = [String : Any]()
+        params["app_secret_key"] = HippoConfig.shared.appSecretKey
+        params["meet_token"] = self.serverVidToken
+        params["create_meet"] = 1
+        return params
+        
+    }
+    
+    func getTokenForVidSDK(){
+        if FuguNetworkHandler.shared.isNetworkConnected == false {
+           checkNetworkConnection()
+           return
+        }
+        let params = getParamsForVideoToken()
+        HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: FuguEndPoints.videoSDKToken.rawValue) { [self] (response, error, _, statusCode) in
+            guard let parsedResponse = response as? [String : Any], let data = parsedResponse["data"] as? [String : Any], let token = data["token"] as? String else{
+                print(error.debugDescription)
+                return
+            }
+            self.serverVidToken = token
+            self.getMeetId()
+        }
+    }
+    
+    func getMeetId(){
+        if FuguNetworkHandler.shared.isNetworkConnected == false {
+           checkNetworkConnection()
+           return
+        }
+        let params = meetIdParams()
+        HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: FuguEndPoints.videoSDKToken.rawValue) { (response, error, _, statusCode) in
+            guard let parsedResponse = response as? [String : Any], let data = parsedResponse["data"] as? [String : Any], let meetingID = data["meeting_id"] as? String, let url = data["url"] as? String else{
+                print(error.debugDescription)
+                return
+            }
+            self.meetingID = meetingID
+            self.url = url
+        }
+    }
+    
     func startAudioCall(transactionId: String? = nil) {
         guard canStartAudioCall() else {
             return
