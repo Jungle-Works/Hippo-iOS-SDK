@@ -9,6 +9,7 @@
 import UIKit
 import NotificationCenter
 
+
 enum ConversationChatType {
     case openChat
     case closeChat
@@ -57,6 +58,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     var config: AllConversationsConfig = AllConversationsConfig.defaultConfig
     var conversationChatType: ConversationChatType = .openChat
     var shouldHideBackBtn : Bool = false
+    var whatsappWidgetConfig: WhatsappWidgetConfig?
     
     // MARK: - LIFECYCLE
     override func viewDidLoad() {
@@ -101,10 +103,19 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         view_NavigationBar.title = config.title ?? HippoConfig.shared.theme.headerText
         view_NavigationBar.isLeftButtonHidden = shouldHideBackBtn
         view_NavigationBar.leftButton.addTarget(self, action: #selector(backButtonAction(_:)), for: .touchUpInside)
+        
+        
+        //Configuring SwitchButton
+        if let whatsappData = HippoConfig.shared.whatsappWidgetConfig{
+            self.whatsappWidgetConfig = whatsappData
+            view_NavigationBar.whtsappBtn.isHidden = false
+            view_NavigationBar.whtsappBtn.addTarget(self, action: #selector(btnWhatsappTapped), for: .touchUpInside)
+        }
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
-      
+    
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -166,6 +177,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         self.navigationController?.pushViewController(vc, animated: false)
         return true
     }
+    
     func putUserDetails() {
         HippoUserDetail.getUserDetailsAndConversation(completion: { [weak self] (success, error) in
             guard success else {
@@ -262,6 +274,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
 //    updateBottomLabel()
     
     }
+    
     func addLogoutButton() {
         let theme = HippoConfig.shared.theme
         guard let logoutButtonIcon = theme.logoutButtonIcon else {
@@ -391,7 +404,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         
         saveConversationsInCache()
         HippoConfig.shared.notifiyDeinit()
-//        if let navigationController = UIApplication.shared.keyWindow?.rootViewController as? UINavigationController{
+//        if let navigationController = UIApplication.shared.windows.first?.rootViewController as? UINavigationController{
 //            if let tabBarController = navigationController.viewControllers[0] as? UITabBarController{
 //                tabBarController.selectedIndex = 0
 //            }
@@ -406,7 +419,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     @IBAction func backButtonAction(_ sender: UIButton) {
         saveConversationsInCache()
         HippoConfig.shared.notifiyDeinit()
-        _ = self.navigationController?.dismiss(animated: true, completion: nil)
+        self.navigationController?.dismiss(animated: true, completion: nil)
         
     }
     
@@ -462,7 +475,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         self.view_NewConversationBtn.isHidden = true
         conversationChatType = .closeChat
         animateBottomLineView()
-        //getAllConversations()
+//        getAllConversations()
         self.showcloseChatData()
     }
     
@@ -541,12 +554,43 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         getAllConversations()
     }
     
+    // MARK: - Action for whatsapp open button
+    @objc func btnWhatsappTapped(){
+        openWhatsapp(with: self.whatsappWidgetConfig?.whatsappContactNumber ?? "", message: self.whatsappWidgetConfig?.defaultMessage ?? "")
+    }
+    
+    // MARK: - Function to open whatsapp
+    func openWhatsapp(with number: String, message: String){
+        let urlWhats = "whatsapp://send?phone=\(number)&text=\(message)"
+        if let urlString = urlWhats.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed){
+            if let whatsappURL = URL(string: urlString) {
+                if UIApplication.shared.canOpenURL(whatsappURL){
+                    if #available(iOS 10.0, *) {
+                        UIApplication.shared.open(whatsappURL, options: [:], completionHandler: nil)
+                    } else {
+                        UIApplication.shared.openURL(whatsappURL)
+                    }
+                }
+                else {
+                    let appURL = URL(string: "https://api.whatsapp.com/send?phone=\(number)&text=\(message)")!
+                    if UIApplication.shared.canOpenURL(appURL) {
+                        if #available(iOS 10.0, *) {
+                            UIApplication.shared.open(appURL, options: [:], completionHandler: nil)
+                        } else {
+                            UIApplication.shared.openURL(appURL)
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
     // MARK: - SERVER HIT
     func getAllConversations() {
         
         if HippoConfig.shared.appSecretKey.isEmpty {
             arrayOfConversation = []
-            showConversationsTableView.reloadData()
+            showConversationsTableView?.reloadData()
             showErrorMessageInTopErrorLabel(withMessage: "Invalid app secret key")
             return
         }
@@ -597,6 +641,12 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
             }
         }
     }
+    
+//    func getVideoSdkToken(){
+//        FuguConversation.getVideoSdkToken(config: config){[weak self] (result) in
+//            print(result)
+//        }
+//    }
     
     func filterConversationArr(conversationArr:[FuguConversation]){
         //        if conversationArr.count <= 0 {
@@ -687,10 +737,10 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     // MARK: - HELPER
     func updateErrorLabelView(isHiding: Bool) {
         if isHiding{
-           self.height_ErrorLabel.constant = 0
+           self.height_ErrorLabel?.constant = 0
            errorLabel.text = ""
         }else{
-            self.height_ErrorLabel.constant = 20
+            self.height_ErrorLabel?.constant = 20
         }
     }
     

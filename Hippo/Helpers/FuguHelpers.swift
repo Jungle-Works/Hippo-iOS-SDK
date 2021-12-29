@@ -13,6 +13,7 @@ import AVFoundation
 
 let FUGU_USER_ID = "fuguUserId"
 let calling_Type = "callingType"
+let full_name = "fullName"
 let Fugu_AppSecret_Key = "fugu_app_secret_key"
 let Fugu_en_user_id = "fuguEnUserId"
 let Hippo_User_Channel_Id = "userChannelId"
@@ -50,6 +51,7 @@ extension Int {
 }
 
 extension Bool {
+    
     static func parse(key: String, json: [String: Any], defaultValue: Bool = false) -> Bool {
         if let raw = json[key] as? Int {
             return raw == 1
@@ -769,7 +771,7 @@ func getLastVisibleController(ofParent parent: UIViewController? = nil) -> UIVie
             return vc
         }
     } else {
-        if let rootVC = UIApplication.shared.keyWindow?.rootViewController {
+        if let rootVC = UIApplication.shared.windows.first?.rootViewController {
             return getLastVisibleController(ofParent: rootVC)
         } else {
             return nil
@@ -880,7 +882,7 @@ func currentUserName() -> String {
     case .agent:
         return HippoConfig.shared.agentDetail?.fullName ?? HippoStrings.agent
     case .customer:
-        return HippoConfig.shared.userDetail?.fullName ?? HippoStrings.visitor
+        return HippoUserDetail.fullName ?? HippoStrings.visitor
     }
 }
 

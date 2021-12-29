@@ -150,7 +150,6 @@ extension GroupCallChannel: SignalingClient {
     
     func sendJitsiObject(json: [String : Any], completion: @escaping (Bool, NSError?) -> Void) {
         var fayeDict = json
-        
         fayeDict["message_type"] = MessageType.groupCall.rawValue
         fayeDict["user_type"] = currentUserType().rawValue
         fayeDict["device_payload"] = [

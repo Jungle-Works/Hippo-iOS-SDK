@@ -55,7 +55,7 @@ class CallManager {
     func startGroupCall(call: GroupCallData, groupCallChannelData : GroupCallChannelData, completion: @escaping (Bool, NSError?) -> Void){
         #if canImport(JitsiMeetSDK)
         let peerUser = call.peerData
-        guard let peer = HippoUser(name: peerUser.fullName, userID: peerUser.userID, imageURL: peerUser.image) else {
+        guard let peer = HippoUser(name: peerUser.fullName, userID: peerUser.userID, enUserID: peerUser.enUserID, imageURL: peerUser.image) else {
             return
         }
         guard let currentUser = getCurrentUser() else {
@@ -71,9 +71,9 @@ class CallManager {
         #endif
     }
     
-    func joinCallLink(customerName: String, customerImage: String, url: String, isInviteEnabled: Bool) {
+    func joinCallLink(customerName: String, customerImage: String, url: String, isInviteEnabled: Bool,callType:String) {
         #if canImport(JitsiMeetSDK)
-        HippoCallClient.shared.joinCallLink(customerName: customerName, customerImage: customerImage, url: url, isInviteEnabled: isInviteEnabled)
+        HippoCallClient.shared.joinCallLink(customerName: customerName, customerImage: customerImage, url: url, isInviteEnabled: isInviteEnabled, callType: callType)
         #else
         #endif
     }
@@ -84,7 +84,7 @@ class CallManager {
     func startCall(call: CallData, completion: @escaping (Bool, NSError?) -> Void) {
         #if canImport(HippoCallClient)
         let peerUser = call.peerData
-        guard let peer = HippoUser(name: peerUser.fullName, userID: peerUser.userID, imageURL: peerUser.image) else {
+        guard let peer = HippoUser(name: peerUser.fullName, userID: peerUser.userID, enUserID: peerUser.enUserID, imageURL: peerUser.image) else {
             return
         }
         guard let currentUser = getCurrentUser() else {
@@ -95,6 +95,7 @@ class CallManager {
         #else
         let callToMake = Call(peer: peer, signalingClient: call.signallingClient, uID: call.muid, currentUser: currentUser, type: getCallTypeWith(localType: call.callType), link: "")
          #endif
+        
         HippoCallClient.shared.startCall(call: callToMake, isInviteEnabled: BussinessProperty.current.isCallInviteEnabled ?? false, completion: completion)
         #else
         completion(false,nil)
@@ -105,7 +106,7 @@ class CallManager {
     func startWebRTCCall(call: CallData, completion: @escaping (Bool) -> Void) {
         #if canImport(HippoCallClient)
         let peerUser = call.peerData
-        guard let peer = HippoUser(name: peerUser.fullName, userID: peerUser.userID, imageURL: peerUser.image) else {
+        guard let peer = HippoUser(name: peerUser.fullName, userID: peerUser.userID, enUserID: peerUser.enUserID, imageURL: peerUser.image) else {
             return
         }
         guard let currentUser = getCurrentUser() else {
@@ -125,7 +126,7 @@ class CallManager {
     
     func startConnection(peerUser: User, muid: String, callType: CallType, completion: (Bool) -> Void) {
         #if canImport(HippoCallClient)
-        guard let peer = HippoUser(name: peerUser.fullName, userID: peerUser.userID, imageURL: peerUser.image) else {
+        guard let peer = HippoUser(name: peerUser.fullName, userID: peerUser.userID, enUserID: peerUser.enUserID, imageURL: peerUser.image) else {
             return
         }
         let type = getCallTypeWith(localType: callType)
@@ -234,9 +235,14 @@ class CallManager {
             return
         }
         HippoCallClient.shared.voipNotificationRecieved(dictionary: payloadDict, peer: peer, signalingClient: channel, currentUser: currentUser, isInviteEnabled: BussinessProperty.current.isCallInviteEnabled ?? false)
+        
         #else
         print("cannot import HippoCallClient")
         #endif
+    }
+    
+    func passAppSecret(key: String){
+        HippoCallClient.shared.appSecretkeyFromCallManager(key: key)
     }
     
     private func testCredentials() -> [String :Any] {
@@ -265,12 +271,13 @@ class CallManager {
             let name = user.fullName ?? ""
             let userID = HippoUserDetail.fuguUserID ?? -1
             let userImage = user.userImage
-            return HippoUser(name: name, userID: userID, imageURL: userImage?.absoluteString)
+            let enUserID = HippoUserDetail.fuguEnUserID ?? ""
+            return HippoUser(name: name, userID: userID, enUserID: enUserID, imageURL: userImage?.absoluteString)
         case .agent:
             guard let agentDetail = HippoConfig.shared.agentDetail else {
                 return nil
             }
-            return HippoUser(name: agentDetail.fullName, userID: agentDetail.id, imageURL: agentDetail.userImage)
+            return HippoUser(name: agentDetail.fullName, userID: agentDetail.id, enUserID: agentDetail.enUserId, imageURL: agentDetail.userImage)
         }
     }
     #endif
@@ -289,7 +296,7 @@ extension CallManager: HippoCallClientDelegate {
     func shareUrlApiCall(url : String) {
         let shareUrlHelper = ShareUrlHelper()
         shareUrlHelper.shareUrlApiCall(url: url) { (url) in
-            if let view = UIApplication.shared.keyWindow?.subviews.last {
+            if let view = UIApplication.shared.windows.first?.subviews.last {
                 let text = url
                 
                 // set up activity view controller

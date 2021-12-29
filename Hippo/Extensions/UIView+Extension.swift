@@ -56,7 +56,7 @@ extension UIView {
     class var safeAreaInsetsForAllOS: UIEdgeInsets {
         var insets: UIEdgeInsets
         if #available(iOS 11.0, *) {
-            insets = UIApplication.shared.keyWindow?.safeAreaInsets ?? UIEdgeInsets()
+            insets = UIApplication.shared.windows.first?.safeAreaInsets ?? UIEdgeInsets()
         } else {
             insets = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
         }
