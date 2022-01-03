@@ -8,6 +8,10 @@
 
 import Foundation
 
+#if canImport(HippoCallClient)
+import HippoCallClient
+#endif
+
 class GroupCall{
     
     //MARK:- API Call for create group calling session from Agent SDK

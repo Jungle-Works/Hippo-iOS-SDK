@@ -9,6 +9,10 @@
 import UIKit
 import Photos
 
+#if canImport(HippoCallClient)
+import HippoCallClient
+#endif
+
 class LeadDataTextfield: UITextField {
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
         return false
@@ -656,12 +660,28 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     @IBAction func actionButtonClicked(_ sender: Any) {
 //        presentActionsForCustomer(sender: self.view)
     }
+    
     @IBAction func audiCallButtonClicked(_ sender: Any) {
+        
+        #if canImport(HippoCallClient)
+        HippoCallClientUrl.shared.channelId = "\(self.channelId)"
+        #endif
+        
+        
+//        startAudioCall()
         startAudioCall(transactionId: self.original_transaction_id)
     }
+    
     @IBAction func videoButtonClicked(_ sender: Any) {
+        
+        #if canImport(HippoCallClient)
+        HippoCallClientUrl.shared.channelId = "\(self.channelId)"
+        #endif
+        
+//        startVideoCall()
         startVideoCall(transactionId: self.original_transaction_id)
    }
+    
     @IBAction func openSharedMedia(_ sender: Any) {
         let storyboard = UIStoryboard(name: "AgentSdk", bundle: FuguFlowManager.bundle)
         let alert = UIAlertController(title: nil, message: "Please select an option", preferredStyle: .actionSheet)
@@ -732,7 +752,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         HippoConfig.shared.HideJitsiView()
         
         self.customTableView.reloadData()
-        let window = UIApplication.shared.keyWindow
+        let window = UIApplication.shared.windows.first
         transparentView.backgroundColor = UIColor.black.withAlphaComponent(0.9)
         let screenSize = UIScreen.main.bounds.size
         transparentView.frame = CGRect(x: 0, y: 0, width: screenSize.width, height: screenSize.height)
@@ -1125,6 +1145,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     func isPaginationInProgress() -> Bool {
         return loadMoreActivityTopContraint.constant == 10
     }
+    
     override func startLoaderAnimation() {
         DispatchQueue.main.async {
             self.loaderView?.startRotationAnimation()
@@ -1478,7 +1499,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         //dict["access_token"] = ""
         //dict["user_id"] = ""
         
-        HippoChannel.callAssignAgentApi(withParams: dict) { [weak self] (bool) in
+        HippoChannel.callAssignAgentApi(withParams: dict) { (bool) in
             completion?(bool)
         }
         
@@ -1575,13 +1596,13 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         let botMessageMUID = HippoChannel.botMessageMUID ?? ""
         return (isFormPresent && botMessageMUID.isEmpty) || isDefaultChannel()
     }
-   func enableSendingNewMessages() {
-      addFileButtonAction.isUserInteractionEnabled = true
-      messageTextView.isEditable = true
-    messageTextView.isUserInteractionEnabled = true
-      button_Recording.isHidden = false
-      button_Recording.isEnabled = true
-   }
+    func enableSendingNewMessages() {
+        addFileButtonAction.isUserInteractionEnabled = true
+        messageTextView.isEditable = true
+        messageTextView.isUserInteractionEnabled = true
+        button_Recording.isHidden = false
+        button_Recording.isEnabled = true
+    }
    
    func disableSendingNewMessages() {
       addFileButtonAction.isUserInteractionEnabled = false
@@ -2195,7 +2216,7 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
           
           return cell
        case let chatSection where chatSection < self.messagesGroupedByDate.count:
-          var messagesArray = messagesGroupedByDate[chatSection]
+           let messagesArray = messagesGroupedByDate[chatSection]
           
           if messagesArray.count > indexPath.row {
              let message = messagesArray[indexPath.row]

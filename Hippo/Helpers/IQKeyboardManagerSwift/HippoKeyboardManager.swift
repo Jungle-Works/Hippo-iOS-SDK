@@ -934,7 +934,7 @@ internal class HippoKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             }
 
             //If original key window is not nil and the cached keywindow is also not original keywindow then changing keywindow.
-            if let originalKeyWindow = UIApplication.shared.keyWindow,
+            if let originalKeyWindow = UIApplication.shared.windows.first,
                 (Static.keyWindow == nil || Static.keyWindow != originalKeyWindow) {
                 Static.keyWindow = originalKeyWindow
             }

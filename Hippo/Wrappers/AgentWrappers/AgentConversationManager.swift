@@ -105,8 +105,8 @@ class AgentConversationManager {
                 return
             }
             completion(nil, nil)
-         
         }
+        
     }
     
     class func getAllData() {

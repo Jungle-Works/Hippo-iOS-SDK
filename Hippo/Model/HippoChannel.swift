@@ -1043,9 +1043,11 @@ class HippoChannel {
         }
         return true
     }
+    
     fileprivate func unSubscribe(completion: HippoChannelHandler? = nil) {
         SocketClient.shared.unsubscribeSocketChannel(fromChannelId: id.description)
     }
+    
     func send(dict: [String: Any], completion: @escaping  (Bool, NSError?) -> Void) {
         var json = dict
         json["channel_id"] = id.description
@@ -1054,6 +1056,7 @@ class HippoChannel {
             completion(result.isSuccess, result.error as NSError?)
         }
     }
+    
     func send(publishable: FuguPublishable, completion: @escaping  (Bool, NSError?) -> Void) {
         var json = publishable.getJsonToSendToFaye()
         json["channel_id"] = id.description

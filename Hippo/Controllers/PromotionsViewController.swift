@@ -194,7 +194,7 @@ class PromotionsViewController: UIViewController {
     
     @objc func backButtonClicked() {
         
-        if let navigationController = UIApplication.shared.keyWindow?.rootViewController as? UINavigationController{
+        if let navigationController = UIApplication.shared.windows.first?.rootViewController as? UINavigationController{
             if let tabBarController = navigationController.viewControllers[0] as? UITabBarController{
                 tabBarController.selectedIndex = 0
             }

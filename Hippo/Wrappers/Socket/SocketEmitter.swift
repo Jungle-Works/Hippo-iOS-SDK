@@ -21,7 +21,9 @@ extension SocketClient {
     
     ///Subscribe socket channel
     func subscribeSocketChannel(channel: String,completion: ((Error?,Bool) -> Void)? = nil){
+        print("subscribeSocketChannel")
         if let someSocket = socket, someSocket.status.active {
+            
             var eventToSubscribe = ""
             if currentUserType() == .agent{
                 if channel == HippoConfig.shared.agentDetail?.userChannel{
@@ -43,10 +45,14 @@ extension SocketClient {
             json["channel"] = channelIdForValidation
             
             if currentEnUserId().trimWhiteSpacesAndNewLine() == ""{
+                print("returndddddddddddddddddd")
                 return
             }
             
+            print("status of socket ------->>>>>>>>\(SocketClient.shared.socket?.status)")
+            
             socket?.emitWithAck(eventToSubscribe, json).timingOut(after: 20, callback: { (data) in
+                print("DAATA IN SUCCESS OF EMITTTTTT\(data)")
                 if data.isEmpty{
                     completion?(nil, false)
                 }else{
@@ -57,6 +63,8 @@ extension SocketClient {
             })
         }else{
             SocketClient.shared.connect()
+            print("OUT DUE TO NO CONNECTION FOR CONNECT CLIENT")
+//            subscribeSocketChannel(channel: channel, completion: completion)
         }
     }
     
@@ -112,16 +120,17 @@ extension SocketClient {
             if currentEnUserId().trimWhiteSpacesAndNewLine() == ""{
                 return
             }
-            
-            socket.emitWithAck(SocketEvent.MESSAGE_EVENT.rawValue, json).timingOut(after: 20, callback: { (data) in
+
+            socket.emitWithAck(SocketEvent.MESSAGE_EVENT.rawValue, json).timingOut(after: 30, callback: { (data) in
                 let ack = EventAckResponse(with: data)
                 completion(ack)
             })
         }else{
-           SocketClient.shared.connect()
+            SocketClient.shared.connect()
+            send(messageDict: messageDict, toChannelID: channelID, completion: completion)
         }
     }
- 
+    
     ///Returns Handshake dic for HANDSHAKE_CHANNEL after channel connect
     func handshake(){
         if let someSocket = socket, someSocket.status.active {

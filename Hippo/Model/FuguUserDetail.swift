@@ -20,6 +20,7 @@ class User: NSObject {
     var phoneNumber: String = ""
     var userType: UserType = .customer
     var image: String?
+   
     
     
     init?(dict: [String: Any]) {
@@ -98,6 +99,7 @@ public class UserTag: NSObject {
     var phoneNumber: String?
     var userUniqueKey: String?
     var callingType:Int?
+    public var nCallingType = 2
     var addressAttribute: HippoAttributes?
     var customAttributes: [String: Any]?
     var userTags: [UserTag] = []
@@ -107,7 +109,7 @@ public class UserTag: NSObject {
     var userChannel: String?
     var listener : SocketListner?
     var userIdenficationSecret : String?
-    
+    var callAudioTypeorNot : String?
     static var shouldGetPaymentGateways : Bool = true
     
     class var HippoUserChannelId: String? {
@@ -135,6 +137,16 @@ public class UserTag: NSObject {
         }
         set {
             UserDefaults.standard.set(newValue, forKey: calling_Type)
+        }
+    }
+    
+    
+    class var fullName: String? {
+        get {
+            return UserDefaults.standard.value(forKey: full_name) as? String
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: full_name)
         }
     }
     
@@ -306,6 +318,7 @@ public class UserTag: NSObject {
     
     // MARK: - Type Methods
     class func getUserDetailsAndConversation(isOpenedFromPush: Bool = false, completion: FuguUserDetailCallback? = nil) {
+        
         if isOpenedFromPush, let userDetailData = FuguDefaults.object(forKey: DefaultName.putUserData.rawValue) as? [String: Any]{
             self.handlePutUserResponse(userDetailData: userDetailData, completion: completion)
             return
@@ -374,6 +387,15 @@ public class UserTag: NSObject {
         if let appSecretKey = userDetailData["app_secret_key"] as? String {
             HippoConfig.shared.appSecretKey = appSecretKey
             subscribeMarkConversation()
+        }
+        
+        if let whatsappConfig = userDetailData["whatsapp_widget_config"] as? [String: Any], let whatsappEnabled = whatsappConfig["whatsappEnabled"] as? Int, whatsappEnabled == 1{
+            let title = whatsappConfig["title"] as? String ?? ""
+            let subTitle = whatsappConfig["subTitle"] as? String ?? ""
+            let defaultMessage = whatsappConfig["defaultMessage"] as? String ?? ""
+            let defaultUserReply = whatsappConfig["defaultUserReply"] as? String ?? ""
+            let whatsappContactNumber = whatsappConfig["whatsappContactNumber"] as? String ?? ""
+            HippoConfig.shared.whatsappWidgetConfig = WhatsappWidgetConfig(defaultMessage: defaultMessage, title: title, subTitle: subTitle, defaultUserReply: defaultUserReply, whatsappContactNumber: whatsappContactNumber)
         }
         
         
@@ -530,6 +552,7 @@ public class UserTag: NSObject {
 //        if HippoProperty.current.singleChatApp {
 ////            params["neglect_conversations"] = true
 //        }
+        params["fetch_whatsapp_config"] = 1
         params["neglect_conversations"] = true
         params["fetch_announcements_unread_count"] = 1
         return params

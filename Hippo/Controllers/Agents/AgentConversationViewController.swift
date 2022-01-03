@@ -376,7 +376,7 @@ class AgentConversationViewController: HippoConversationViewController {
     }
 
     func addBotActionView(with botArray: [BotAction]) {
-        guard let window = UIApplication.shared.keyWindow else {
+        guard let window = UIApplication.shared.windows.first else {
             return
         }
         if botArray.isEmpty {

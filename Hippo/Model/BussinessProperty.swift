@@ -109,6 +109,7 @@ class BussinessProperty: NSObject {
             UserDefaults.standard.set(newValue, forKey: UserDefaultkeys.hideCallIconOnNavigationForCustomer)
         }
     }
+    
     var multiChannelLabelMapping: Bool {
         get {
             guard let status = UserDefaults.standard.value(forKey: UserDefaultkeys.multiChannelLabelMapping) as? Bool else {

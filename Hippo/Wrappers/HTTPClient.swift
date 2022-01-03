@@ -74,6 +74,7 @@ class HTTPClient {
         }
         singletonDataTask[identifier] = nil
     }
+    
     func makeSingletonConnectionWith(method: HttpMethodType, identifier: String, showAlert: Bool = true, showAlertInDefaultCase: Bool = true, showActivityIndicator: Bool = true, para: [String: Any]? = nil, baseUrl: String = HippoConfig.shared.baseUrl, extendedUrl: String, callback: @escaping ServiceResponse) {
         
         if let tempDataTask = singletonDataTask[identifier] {

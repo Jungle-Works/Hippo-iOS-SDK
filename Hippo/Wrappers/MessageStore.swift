@@ -56,6 +56,7 @@ class MessageStore {
         var isMoreDataToLoad = false
         var newMessages = [HippoMessage]()
         var userSubscribedValue = UserSubscriptionStatus.notSubscribed
+        var fullName:String = ""
         var tags: [TagDetail]?
         var isSendingDisabled: Bool = false
         var newMessageHashmap: [String: Int] = [:]
@@ -214,6 +215,10 @@ class MessageStore {
         //Checking subscribtion status
         if let on_subscribe = data["on_subscribe"] as? Int {
             result.userSubscribedValue = UserSubscriptionStatus(rawValue: on_subscribe) ?? UserSubscriptionStatus.notSubscribed
+        }
+        
+        if let full_name = data["full_name"] as? String {
+            result.fullName = full_name
         }
         //Checking for pagination
         if requestParam.pageEnd == nil {

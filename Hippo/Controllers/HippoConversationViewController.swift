@@ -10,6 +10,10 @@ import Photos
 import QuickLook
 import SafariServices
 
+#if canImport(HippoCallClient)
+import HippoCallClient
+#endif
+
 class HippoConversationViewController: UIViewController {
     //MARK: Constants
     let heightOfActionableMessageImage = 103.5
@@ -76,6 +80,7 @@ class HippoConversationViewController: UIViewController {
     var isMessageEditing : Bool = false
     let attachmentObj = CreateTicketAttachmentHelper()
     let recordingHelper = RecordingHelper()
+    let shareurlhelper = ShareUrlHelper()
 
     //MARK:
     @IBOutlet var tableViewChat: UITableView!{
@@ -397,6 +402,7 @@ class HippoConversationViewController: UIViewController {
         }
         
     }
+    
     @objc func fayeDisconnected(_ notification: Notification) {
         
     }
@@ -603,13 +609,14 @@ class HippoConversationViewController: UIViewController {
             self.navigationTitleButton?.sizeToFit()
         }
     }
+    
     func startAudioCall(transactionId: String? = nil) {
-        guard canStartAudioCall() else {
+        guard canStartAudioCall(), let peerDetail = channel?.chatDetail?.peerDetail else {
             return
         }
-        guard let peerDetail = channel?.chatDetail?.peerDetail else {
-            return
-        }
+//        guard let peerDetail = channel?.chatDetail?.peerDetail else {
+//            return
+//        }
         
         self.view.endEditing(true)
         
@@ -647,6 +654,7 @@ class HippoConversationViewController: UIViewController {
             }
         }
     }
+    
     func startVideoCall(transactionId: String? = nil) {
         guard canStartVideoCall() else {
             return
@@ -1657,12 +1665,14 @@ extension HippoConversationViewController: ActionTableViewDelegate {
             }
         }
     }
+    
     func presentSafariViewcontorller(for url: URL) {
         let safariVC = SFSafariViewController(url: url)
         safariVC.navigationController?.setTheme()
         self.navigationController?.pushViewController(safariVC, animated: true)
     }
 }
+
 extension HippoConversationViewController: CreatePaymentDelegate {
     func sendMessage(for store: PaymentStore) {
         let message = HippoMessage(message: "", type: .hippoPay, uniqueID: String.generateUniqueId(), chatType: channel?.chatDetail?.chatType)
@@ -1723,12 +1733,30 @@ extension HippoConversationViewController {
         }
     }
 }
+
 extension HippoConversationViewController : OutgoingShareUrlDelegate {
     func openJitsiUrl(url: String) {
         let shareUrlHelper = ShareUrlHelper()
-        shareUrlHelper.getUrlToJoinJitsiCall(url: url, completion: {(url) in
-            HippoConfig.shared.joinCallFromLink(url: url)
+        
+        if HippoUserDetail.callingType != 3{
+            shareUrlHelper.getUrlToJoinJitsiCall(url: url, completion: {(url,callType) in
+            HippoConfig.shared.joinCallFromLink(url: url, callType: callType)
         })
+        }else{
+            
+            #if canImport(HippoCallClient)
+            HippoCallClientUrl.shared.channelId = "\(self.channelId)"
+            HippoCallClientUrl.shared.enUserId = currentEnUserId()
+            HippoCallClientUrl.shared.id = currentUserId()
+            HippoCallClientUrl.shared.userName = currentUserName()
+            #endif
+            
+            
+            shareUrlHelper.getUrlToJoinJitsiCall(url: url, completion: {(url, callType) in
+                HippoConfig.shared.joinCallFromLink(url: url,callType: callType)
+            })
+        }
+            
     }
 }
 

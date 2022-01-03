@@ -21,6 +21,7 @@ import JitsiMeetSDK
 
 final class ShareUrlHelper {
     
+    var customAttributesData = ""
     func shareUrlApiCall(url : String, completion: @escaping (String) -> Void) {
         
         #if canImport(JitsiMeetSDK)
@@ -77,7 +78,7 @@ final class ShareUrlHelper {
         return String((0..<length).map{ _ in letters.randomElement()! })
     }
     
-    func getUrlToJoinJitsiCall(url : String, completion: @escaping (String) -> Void) {
+    func getUrlToJoinJitsiCall(url : String,completion: @escaping (String,String) -> Void) {
         #if canImport(JitsiMeetSDK)
         let urlSubstringArr = url.split(separator: "/")
         let roomId = urlSubstringArr.last
@@ -100,9 +101,20 @@ final class ShareUrlHelper {
                 }
             }
         }
-        HTTPClient.shared.makeSingletonConnectionWith(method: .POST, identifier: "Join_Jitsi_Url",para: dic, extendedUrl: FuguEndPoints.joinJitsiLink.rawValue) { (response, error, message, status) in
-            if let response = response as? [String : Any], let data = response["data"] as? [String : Any], let meet_url = data["meet_url"] as? String {
-                completion(meet_url)
+        
+        if HippoUserDetail.callingType != 3{
+            HTTPClient.shared.makeSingletonConnectionWith(method: .POST, identifier: "Join_Jitsi_Url",para: dic, extendedUrl: FuguEndPoints.joinJitsiLink.rawValue) { (response, error, message, status) in
+                if let response = response as? [String : Any], let data = response["data"] as? [String : Any], let meet_url = data["meet_url"] as? String {
+                    completion(meet_url, self.customAttributesData)
+                }
+            }
+        }else{
+            HTTPClient.shared.makeSingletonConnectionWith(method: .POST, identifier: "Join_Jitsi_Url",para: dic, extendedUrl: FuguEndPoints.joinJitsiLink.rawValue) { (response, error, message, status) in
+                if let response = response as? [String : Any], let data = response["data"] as? [String : Any], let meet_url = data["meet_url"] as? String ,let customAttributes = data["custom_attributes"] as? [String:Any], let callType = customAttributes["call_type"] as? String{
+                    self.customAttributesData = callType
+                    
+                    completion(meet_url, self.customAttributesData)
+                }
             }
         }
         #else
