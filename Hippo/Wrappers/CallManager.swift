@@ -242,7 +242,11 @@ class CallManager {
     }
     
     func passAppSecret(key: String){
+        
+        #if canImport(HippoCallClient)
         HippoCallClient.shared.appSecretkeyFromCallManager(key: key)
+        #endif
+        
     }
     
     private func testCredentials() -> [String :Any] {

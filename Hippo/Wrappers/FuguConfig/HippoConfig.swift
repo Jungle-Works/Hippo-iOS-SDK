@@ -43,7 +43,8 @@ enum PrivateSocketKeys: String {
 struct SERVERS {
     
     static let liveUrl = "https://api.hippochat.io/"
-    static let liveFaye = "https://socketv2.hippochat.io/faye"
+    static let liveFaye = "event.hippochat.io"//"https://socketv2.hippochat.io/faye"
+
     
     static let betaUrl = "https://beta-live-api1.fuguchat.com:3001/"
     static let betaFaye = "https://socket-temp.hippochat.io"
@@ -909,18 +910,21 @@ struct WhatsappWidgetConfig{
         case .dev:
             baseUrl = SERVERS.devUrl
             fayeBaseURLString = SERVERS.devFaye
-            HippoCallClientUrl.urlType = .dev
+       
         case .beta:
             baseUrl = SERVERS.betaUrl
             fayeBaseURLString = SERVERS.betaFaye
-            HippoCallClientUrl.urlType = .beta
+//            HippoCallClientUrl.urlType = .beta
         case .live:
             baseUrl = SERVERS.liveUrl
             fayeBaseURLString = SERVERS.liveFaye
-            HippoCallClientUrl.urlType = .live
+//            HippoCallClientUrl.urlType = .live
         }
         //        FayeConnection.shared.enviromentSwitchedWith(urlString: fayeBaseURLString)
+        
+        #if canImport(HippoCallClient)
         HippoCallClientUrl.baseUrl = baseUrl
+        #endif
         
         SocketClient.shared.connect()
     }

@@ -99,6 +99,7 @@ public class UserTag: NSObject {
     var phoneNumber: String?
     var userUniqueKey: String?
     var callingType:Int?
+    public var nCallingType = 2
     var addressAttribute: HippoAttributes?
     var customAttributes: [String: Any]?
     var userTags: [UserTag] = []
@@ -108,6 +109,8 @@ public class UserTag: NSObject {
     var userChannel: String?
     var listener : SocketListner?
     var userIdenficationSecret : String?
+    
+    var callAudioTypeorNot : String?
 
     static var shouldGetPaymentGateways : Bool = true
     

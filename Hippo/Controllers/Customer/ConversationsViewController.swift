@@ -10,6 +10,10 @@ import UIKit
 import Photos
 import HippoCallClient
 
+#if canImport(HippoCallClient)
+import HippoCallClient
+#endif
+
 class LeadDataTextfield: UITextField {
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
         return false
@@ -659,8 +663,10 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     }
     
     @IBAction func audiCallButtonClicked(_ sender: Any) {
-
+        
+        #if canImport(HippoCallClient)
         HippoCallClientUrl.shared.channelId = "\(self.channelId)"
+        #endif
         
 //        startAudioCall()
         startAudioCall(transactionId: self.original_transaction_id)
@@ -668,7 +674,11 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     
     @IBAction func videoButtonClicked(_ sender: Any) {
         
+        
+        #if canImport(HippoCallClient)
         HippoCallClientUrl.shared.channelId = "\(self.channelId)"
+        #endif
+
         
 //        startVideoCall()
         startVideoCall(transactionId: self.original_transaction_id)

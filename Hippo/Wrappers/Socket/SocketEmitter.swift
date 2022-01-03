@@ -21,6 +21,7 @@ extension SocketClient {
     
     ///Subscribe socket channel
     func subscribeSocketChannel(channel: String,completion: ((Error?,Bool) -> Void)? = nil){
+        print("subscribeSocketChannel")
         if let someSocket = socket, someSocket.status.active {
             
             var eventToSubscribe = ""
@@ -44,12 +45,14 @@ extension SocketClient {
             json["channel"] = channelIdForValidation
             
             if currentEnUserId().trimWhiteSpacesAndNewLine() == ""{
+                print("returndddddddddddddddddd")
                 return
             }
             
             print("status of socket ------->>>>>>>>\(SocketClient.shared.socket?.status)")
             
             socket?.emitWithAck(eventToSubscribe, json).timingOut(after: 20, callback: { (data) in
+                print("DAATA IN SUCCESS OF EMITTTTTT\(data)")
                 if data.isEmpty{
                     completion?(nil, false)
                 }else{
@@ -60,6 +63,7 @@ extension SocketClient {
             })
         }else{
             SocketClient.shared.connect()
+            
 //            subscribeSocketChannel(channel: channel, completion: completion)
         }
     }
@@ -116,13 +120,13 @@ extension SocketClient {
             if currentEnUserId().trimWhiteSpacesAndNewLine() == ""{
                 return
             }
-            print("EMITTING")
+
             socket.emitWithAck(SocketEvent.MESSAGE_EVENT.rawValue, json).timingOut(after: 30, callback: { (data) in
                 let ack = EventAckResponse(with: data)
                 completion(ack)
             })
         }else{
-            print("Tried emmiting \(messageDict), but wasn't connected !!!!!!!!")
+            
             SocketClient.shared.connect()
             send(messageDict: messageDict, toChannelID: channelID, completion: completion)
         }

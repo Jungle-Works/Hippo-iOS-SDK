@@ -11,6 +11,10 @@ import QuickLook
 import SafariServices
 import HippoCallClient
 
+#if canImport(HippoCallClient)
+import HippoCallClient
+#endif
+
 class HippoConversationViewController: UIViewController {
     //MARK: Constants
     let heightOfActionableMessageImage = 103.5
@@ -77,7 +81,7 @@ class HippoConversationViewController: UIViewController {
     var isMessageEditing : Bool = false
     let attachmentObj = CreateTicketAttachmentHelper()
     let recordingHelper = RecordingHelper()
-//    let shareurlhelper = ShareUrlHelper()
+    let shareurlhelper = ShareUrlHelper()
 
     //MARK:
     @IBOutlet var tableViewChat: UITableView!{
@@ -1740,10 +1744,12 @@ extension HippoConversationViewController : OutgoingShareUrlDelegate {
             HippoConfig.shared.joinCallFromLink(url: url, callType: callType)
         })
         }else{
+            #if canImport(HippoCallClient)
             HippoCallClientUrl.shared.channelId = "\(self.channelId)"
             HippoCallClientUrl.shared.enUserId = currentEnUserId()
             HippoCallClientUrl.shared.id = currentUserId()
             HippoCallClientUrl.shared.userName = currentUserName()
+            #endif
             
             shareUrlHelper.getUrlToJoinJitsiCall(url: url, completion: {(url, callType) in
                 HippoConfig.shared.joinCallFromLink(url: url,callType: callType)
