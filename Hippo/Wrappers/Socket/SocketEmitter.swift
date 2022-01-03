@@ -122,11 +122,10 @@ extension SocketClient {
             }
 
             socket.emitWithAck(SocketEvent.MESSAGE_EVENT.rawValue, json).timingOut(after: 30, callback: { (data) in
-                let ack = EventAckResponse(with: data)
+                let ack = EventAckResponse(with: data)
                 completion(ack)
             })
         }else{
-            
             SocketClient.shared.connect()
             send(messageDict: messageDict, toChannelID: channelID, completion: completion)
         }

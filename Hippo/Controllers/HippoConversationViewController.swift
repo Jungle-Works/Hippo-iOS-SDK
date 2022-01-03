@@ -9,7 +9,6 @@ import UIKit
 import Photos
 import QuickLook
 import SafariServices
-import HippoCallClient
 
 #if canImport(HippoCallClient)
 import HippoCallClient

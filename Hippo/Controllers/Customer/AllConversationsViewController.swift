@@ -272,11 +272,8 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         //    poweredByFuguLabel.addGestureRecognizer(tap)
         
         //    updateBottomLabel()
-        
     }
-//    updateBottomLabel()
-    
-    }
+    //    updateBottomLabel()
     
     func addLogoutButton() {
         let theme = HippoConfig.shared.theme
@@ -407,8 +404,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         
         saveConversationsInCache()
         HippoConfig.shared.notifiyDeinit()
-
-        //        if let navigationController = UIApplication.shared.windows.first?.rootViewController as? UINavigationController{
+        //        if let navigationController = UIApplication.shared.windows.first?.rootViewController as? UINavigationController{
 //            if let tabBarController = navigationController.viewControllers[0] as? UITabBarController{
 //                tabBarController.selectedIndex = 0
 //            }
@@ -646,11 +642,11 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         }
     }
     
-//    func getVideoSdkToken(){
-//        FuguConversation.getVideoSdkToken(config: config){[weak self] (result) in
-//            print(result)
-//        }
-//    }
+    //    func getVideoSdkToken(){
+    //        FuguConversation.getVideoSdkToken(config: config){[weak self] (result) in
+    //            print(result)
+    //        }
+    //    }
     
     func filterConversationArr(conversationArr:[FuguConversation]){
         //        if conversationArr.count <= 0 {
@@ -741,8 +737,8 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     // MARK: - HELPER
     func updateErrorLabelView(isHiding: Bool) {
         if isHiding{
-           self.height_ErrorLabel?.constant = 0
-           errorLabel.text = ""
+            self.height_ErrorLabel?.constant = 0
+            errorLabel.text = ""
         }else{
             self.height_ErrorLabel?.constant = 20
         }

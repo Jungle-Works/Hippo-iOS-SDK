@@ -8,7 +8,10 @@
 
 import UIKit
 import Photos
+
+#if canImport(HippoCallClient)
 import HippoCallClient
+#endif
 
 #if canImport(HippoCallClient)
 import HippoCallClient
