@@ -43,14 +43,17 @@ class FuguFlowManager: NSObject {
     
     
    // MARK: - Navigation Methods
-   func presentCustomerConversations(animation: Bool = true) {
-      guard let navigationController = storyboard.instantiateViewController(withIdentifier: "FuguCustomerNavigationController") as? UINavigationController else {
-         return
-      }
-      let visibleController = getLastVisibleController()
-      navigationController.modalPresentationStyle = .fullScreen
-      visibleController?.present(navigationController, animated: animation, completion: nil)
-   }
+    func presentCustomerConversations(animation: Bool = true) {
+        guard let navigationController = storyboard.instantiateViewController(withIdentifier: "FuguCustomerNavigationController") as? UINavigationController else {
+            return
+        }
+        let visibleController = getLastVisibleController()
+        navigationController.modalPresentationStyle = .fullScreen
+        visibleController?.present(navigationController, animated: animation, completion: nil)
+//        let vc = self.storyboard.instantiateViewController(withIdentifier: "ALLViewController") as! ALLViewController
+//        vc.modalPresentationStyle = .fullScreen
+//        visibleController?.present(vc, animated: true, completion: nil)
+    }
     func presentCustomerConversations(on viewController: UIViewController, animation: Bool = true) {
        guard let navigationController = storyboard.instantiateViewController(withIdentifier: "FuguCustomerNavigationController") as? UINavigationController, let topVC = navigationController.topViewController else {
           return
@@ -177,6 +180,7 @@ class FuguFlowManager: NSObject {
         navVC.modalPresentationStyle = .fullScreen
         visibleViewController?.present(navVC, animated: false, completion: nil)
     }
+    
     func showFuguChat(on viewController: UIViewController, chat: FuguNewChatAttributes, createConversationOnStart: Bool = false) {
 //        let visibleViewController = getLastVisibleController()
         let convVC = ConversationsViewController.getWith(chatAttributes: chat)

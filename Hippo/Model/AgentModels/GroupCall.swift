@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import HippoCallClient
 
 class GroupCall{
     
@@ -91,10 +92,8 @@ extension GroupCall{
         
         
         let groupCallData = GroupCallData.init(peerData: user, callType: groupCall.callType ?? .audio, muid: muid, signallingClient: groupCallChannel, isMuted: groupCall.isAudioMuted ?? false)
-         #if canImport(JitsiMeetSDK)
             CallManager.shared.startGroupCall(call: groupCallData, groupCallChannelData: groupCall) { (status, error) in
             }
-         #endif
         
     }
     

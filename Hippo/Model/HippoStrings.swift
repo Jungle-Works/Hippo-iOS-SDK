@@ -282,8 +282,6 @@ public class HippoStrings {
     }
     
     class func updateHippoCallClientStrings(){
-        #if canImport(JitsiMeetSDK)
-        
         HippoCallClientStrings.calling = HippoStrings.calling
         HippoCallClientStrings.ringing = HippoStrings.ringing
         HippoCallClientStrings.callingYou = HippoStrings.isCallingYou.lowercased()
@@ -292,7 +290,6 @@ public class HippoStrings {
         HippoCallClientStrings.connectingToMeeting = HippoStrings.connectingToMeeting
 //        HippoCallClientStrings.establishingConnection = HippoStrings.establishingConnection
         
-        #endif
     }
     
 }

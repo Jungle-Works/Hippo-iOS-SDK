@@ -105,6 +105,7 @@ class AgentConversationViewController: HippoConversationViewController {
     private var messageSendingViewConfig: MessageSendingViewConfig = MessageSendingViewConfig()
 //    private var timer: Timer?
 //    var lastUnsendMessage:String?
+    var original_transaction_id = ""
     
     // MARK: - Computed Properties
     var localFilePath: String {
@@ -144,6 +145,8 @@ class AgentConversationViewController: HippoConversationViewController {
         
         populateTableViewWithChannelData()
         fetchMessagesFrom1stPage()
+        
+        transactionID = self.original_transaction_id
     }
     
     override func didSetChannel() {
@@ -303,6 +306,7 @@ class AgentConversationViewController: HippoConversationViewController {
     @IBAction func videoCallButtonClicked(_ sender: Any) {
         startVideoCall()
     }
+    
     @IBAction func infoButtonClicked(_ sender: UIButton) {
         
         guard let channelDetail = channel?.chatDetail else {
@@ -325,8 +329,9 @@ class AgentConversationViewController: HippoConversationViewController {
             buttonClickedOnNetworkOff()
             return
         }
-        self.attachmentButtonclicked(sender)
+        self.attachmentButtonclicked(sender, transactionId: self.original_transaction_id)
     }
+    
     func buttonClickedOnNetworkOff() {
         guard !FuguNetworkHandler.shared.isNetworkConnected else {
             return
@@ -376,7 +381,7 @@ class AgentConversationViewController: HippoConversationViewController {
     }
 
     func addBotActionView(with botArray: [BotAction]) {
-        guard let window = UIApplication.shared.keyWindow else {
+        guard let window = UIApplication.shared.windows.first else {
             return
         }
         if botArray.isEmpty {
@@ -789,6 +794,7 @@ class AgentConversationViewController: HippoConversationViewController {
         let vc = getNewInstance()
         vc.channelType = conversationObj.channel_type
         vc.updateChatInfoWith(chatObj: conversationObj)
+        vc.original_transaction_id = conversationObj.transactionId ?? ""
         return vc
     }
     

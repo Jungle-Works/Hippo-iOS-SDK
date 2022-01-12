@@ -188,6 +188,7 @@ class AgentDetail: NSObject {
         
         return dict
     }
+    
     class func setAgentStoredData() {
         guard let storedData = AgentDetail.agentLoginData else {
             return
@@ -217,6 +218,7 @@ extension AgentDetail {
         } else {
             endpoint = AgentEndPoints.loginViaAuthToken.rawValue
         }
+        
         HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: endpoint) { (responseObject, error, tag, statusCode) in
             
             guard let unwrappedStatusCode = statusCode, let response = responseObject as? [String: Any], let data = response["data"] as? [String: Any], unwrappedStatusCode == STATUS_CODE_SUCCESS else {
@@ -430,7 +432,8 @@ extension AgentDetail {
         if agentDetail.isForking {
             params["agent_secret_key"] = agentDetail.oAuthToken
         } else {
-            params["auth_token"] = agentDetail.oAuthToken
+//            params["auth_token"] = agentDetail.oAuthToken
+            params["auth_token"] = "b3ef183fc89d3ee890dd7d35168c2529"
         }
         params["fetch_tags"] = 0
         return params

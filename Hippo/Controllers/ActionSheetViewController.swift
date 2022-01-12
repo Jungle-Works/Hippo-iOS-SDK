@@ -8,6 +8,8 @@
 import Foundation
 import UIKit
 
+import VideoSDKRTC
+
 class ActionSheetViewController: UIViewController {
 
     @IBOutlet var optionViewHeightContraint: NSLayoutConstraint!

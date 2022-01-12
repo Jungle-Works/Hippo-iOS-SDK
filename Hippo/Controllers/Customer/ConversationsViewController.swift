@@ -8,6 +8,7 @@
 
 import UIKit
 import Photos
+import HippoCallClient
 
 class LeadDataTextfield: UITextField {
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
@@ -656,12 +657,23 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     @IBAction func actionButtonClicked(_ sender: Any) {
 //        presentActionsForCustomer(sender: self.view)
     }
+    
     @IBAction func audiCallButtonClicked(_ sender: Any) {
+
+        HippoCallClientUrl.shared.channelId = "\(self.channelId)"
+        
+//        startAudioCall()
         startAudioCall(transactionId: self.original_transaction_id)
     }
+    
     @IBAction func videoButtonClicked(_ sender: Any) {
+        
+        HippoCallClientUrl.shared.channelId = "\(self.channelId)"
+        
+//        startVideoCall()
         startVideoCall(transactionId: self.original_transaction_id)
    }
+    
     @IBAction func openSharedMedia(_ sender: Any) {
         let storyboard = UIStoryboard(name: "AgentSdk", bundle: FuguFlowManager.bundle)
         let alert = UIAlertController(title: nil, message: "Please select an option", preferredStyle: .actionSheet)
@@ -679,7 +691,6 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     
     @IBAction func addAttachmentButtonAction(_ sender: UIButton) {
         attachmentViewHeightConstraint.constant = attachmentViewHeightConstraint.constant == 128 ? 0 : 128
-        
     }
     
    @IBAction func addImagesButtonAction(_ sender: UIButton) {
@@ -732,7 +743,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         HippoConfig.shared.HideJitsiView()
         
         self.customTableView.reloadData()
-        let window = UIApplication.shared.keyWindow
+        let window = UIApplication.shared.windows.first
         transparentView.backgroundColor = UIColor.black.withAlphaComponent(0.9)
         let screenSize = UIScreen.main.bounds.size
         transparentView.frame = CGRect(x: 0, y: 0, width: screenSize.width, height: screenSize.height)
@@ -1125,6 +1136,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     func isPaginationInProgress() -> Bool {
         return loadMoreActivityTopContraint.constant == 10
     }
+    
     override func startLoaderAnimation() {
         DispatchQueue.main.async {
             self.loaderView?.startRotationAnimation()
@@ -1478,7 +1490,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         //dict["access_token"] = ""
         //dict["user_id"] = ""
         
-        HippoChannel.callAssignAgentApi(withParams: dict) { [weak self] (bool) in
+        HippoChannel.callAssignAgentApi(withParams: dict) { (bool) in
             completion?(bool)
         }
         
@@ -1575,13 +1587,13 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         let botMessageMUID = HippoChannel.botMessageMUID ?? ""
         return (isFormPresent && botMessageMUID.isEmpty) || isDefaultChannel()
     }
-   func enableSendingNewMessages() {
-      addFileButtonAction.isUserInteractionEnabled = true
-      messageTextView.isEditable = true
-    messageTextView.isUserInteractionEnabled = true
-      button_Recording.isHidden = false
-      button_Recording.isEnabled = true
-   }
+    func enableSendingNewMessages() {
+        addFileButtonAction.isUserInteractionEnabled = true
+        messageTextView.isEditable = true
+        messageTextView.isUserInteractionEnabled = true
+        button_Recording.isHidden = false
+        button_Recording.isEnabled = true
+    }
    
    func disableSendingNewMessages() {
       addFileButtonAction.isUserInteractionEnabled = false
@@ -2195,7 +2207,7 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
           
           return cell
        case let chatSection where chatSection < self.messagesGroupedByDate.count:
-          var messagesArray = messagesGroupedByDate[chatSection]
+           let messagesArray = messagesGroupedByDate[chatSection]
           
           if messagesArray.count > indexPath.row {
              let message = messagesArray[indexPath.row]
@@ -2467,101 +2479,101 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
         }
     }
    
-     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
         if tableView == customTableView{
             return 50
         }else{
-        
-        
-        switch indexPath.section {
-        case let typingSection where typingSection == self.messagesGroupedByDate.count && !isTypingLabelHidden:
-            return 34
-        case let chatSection where chatSection < self.messagesGroupedByDate.count:
-            let messagesArray = self.messagesGroupedByDate[chatSection]
-            if messagesArray.count > indexPath.row {
-                let message = messagesArray[indexPath.row]
-                let messageType = message.type
-                
-                guard messageType.isMessageTypeHandled() && !message.isInValidMessage() else {
-                    var rowHeight = expectedHeight(OfMessageObject: message)
+            
+            
+            switch indexPath.section {
+            case let typingSection where typingSection == self.messagesGroupedByDate.count && !isTypingLabelHidden:
+                return 34
+            case let chatSection where chatSection < self.messagesGroupedByDate.count:
+                let messagesArray = self.messagesGroupedByDate[chatSection]
+                if messagesArray.count > indexPath.row {
+                    let message = messagesArray[indexPath.row]
+                    let messageType = message.type
                     
-                    rowHeight += returnRetryCancelButtonHeight(chatMessageObject: message)
-                    rowHeight += getTopDistanceOfCell(atIndexPath: indexPath)
-                    return rowHeight
-                }
-                
-                switch messageType {
-                case MessageType.imageFile:
-                    return 288
-//                case MessageType.botText:
-//                    var rowHeight = expectedHeight(OfMessageObject: message)
-//
-//                    rowHeight += returnRetryCancelButtonHeight(chatMessageObject: message)
-//                    rowHeight += getTopDistanceOfCell(atIndexPath: indexPath)
-//                    return rowHeight
-//
-                case MessageType.normal, MessageType.botText:
-                    return UIView.tableAutoDimensionHeight
-                case MessageType.quickReply:
-                    var rowHeight: CGFloat = 0
-                    if message.values.count > 0 {
+                    guard messageType.isMessageTypeHandled() && !message.isInValidMessage() else {
+                        var rowHeight = expectedHeight(OfMessageObject: message)
+                        
+                        rowHeight += returnRetryCancelButtonHeight(chatMessageObject: message)
+                        rowHeight += getTopDistanceOfCell(atIndexPath: indexPath)
                         return rowHeight
                     }
-                    if message.isQuickReplyEnabled {
-                        rowHeight = rowHeight + 50
-                    }
-                    return rowHeight
-                case MessageType.leadForm, MessageType.createTicket:
-                    if message.content.questionsArray.count == 0 {
-                        return 0.001
-                    }
-                    //TODO: Change it later on
-                    //let count = chatMessageObject.content.values.count == chatMessageObject.content.questionsArray.count ? chatMessageObject.content.values.count : chatMessageObject.content.values.count + 1
-                    return getHeightForLeadFormCell(message: message)
-                case .attachment:
-                    switch message.concreteFileType! {
-                    case .video:
+                    
+                    switch messageType {
+                    case MessageType.imageFile:
+                        return 288
+                        //                case MessageType.botText:
+                        //                    var rowHeight = expectedHeight(OfMessageObject: message)
+                        //
+                        //                    rowHeight += returnRetryCancelButtonHeight(chatMessageObject: message)
+                        //                    rowHeight += getTopDistanceOfCell(atIndexPath: indexPath)
+                        //                    return rowHeight
+                        //
+                    case MessageType.normal, MessageType.botText:
+                        return UIView.tableAutoDimensionHeight
+                    case MessageType.quickReply:
+                        var rowHeight: CGFloat = 0
+                        if message.values.count > 0 {
+                            return rowHeight
+                        }
+                        if message.isQuickReplyEnabled {
+                            rowHeight = rowHeight + 50
+                        }
+                        return rowHeight
+                    case MessageType.leadForm, MessageType.createTicket:
+                        if message.content.questionsArray.count == 0 {
+                            return 0.001
+                        }
+                        //TODO: Change it later on
+                        //let count = chatMessageObject.content.values.count == chatMessageObject.content.questionsArray.count ? chatMessageObject.content.values.count : chatMessageObject.content.values.count + 1
+                        return getHeightForLeadFormCell(message: message)
+                    case .attachment:
+                        switch message.concreteFileType! {
+                        case .video:
+                            return 234
+                        default:
+                            return 80
+                        }
+                        
+                    case MessageType.actionableMessage, MessageType.hippoPay:
+                        return UIView.tableAutoDimensionHeight > -1 ? UIView.tableAutoDimensionHeight : self.getHeightOfActionableMessageAt(indexPath: indexPath, chatObject: message) + 20
+                        
+                    case MessageType.feedback:
+                        
+                        //                    guard let muid = message.messageUniqueID, var rowHeight: CGFloat = heightForFeedBackCell["\(muid)"] else {
+                        //                        return 0.001
+                        //                    }
+                        //   rowHeight += 7 //Height for bottom view
+                        return UIView.tableAutoDimensionHeight
+                    case .consent, .dateTime, .address, .botAttachment:
+                        return (message.cellDetail?.cellHeight ?? 0.01 + 20)
+                    case MessageType.call:
+                        return UIView.tableAutoDimensionHeight
+                    case .card:
+                        if (message.isSearchFlow && (message.selectedCardId ?? "") == ""){
+                            return 50
+                        }
+                        return 230
+                    case .paymentCard:
+                        return message.calculatedHeight ?? 0.1
+                    case .multipleSelect:
+                        return message.calculatedHeight ?? 0.01
+                    case .embeddedVideoUrl:
                         return 234
                     default:
-                        return 80
+                        return 0.01
+                        
                     }
-
-                case MessageType.actionableMessage, MessageType.hippoPay:
-                    return UIView.tableAutoDimensionHeight > -1 ? UIView.tableAutoDimensionHeight : self.getHeightOfActionableMessageAt(indexPath: indexPath, chatObject: message) + 20
-
-                case MessageType.feedback:
-                    
-//                    guard let muid = message.messageUniqueID, var rowHeight: CGFloat = heightForFeedBackCell["\(muid)"] else {
-//                        return 0.001
-//                    }
-                 //   rowHeight += 7 //Height for bottom view
-                    return UIView.tableAutoDimensionHeight
-                case .consent, .dateTime, .address, .botAttachment:
-                    return (message.cellDetail?.cellHeight ?? 0.01 + 20)
-                case MessageType.call:
-                    return UIView.tableAutoDimensionHeight
-                case .card:
-                    if (message.isSearchFlow && (message.selectedCardId ?? "") == ""){
-                     return 50
-                    }
-                    return 230
-                case .paymentCard:
-                    return message.calculatedHeight ?? 0.1
-                case .multipleSelect:
-                   return message.calculatedHeight ?? 0.01
-                case .embeddedVideoUrl:
-                    return 234
-                default:
-                    return 0.01
-                    
                 }
+            default: break
             }
-        default: break
+            return UIView.tableAutoDimensionHeight
+            
         }
-        return UIView.tableAutoDimensionHeight
-        
-    }
     }
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {

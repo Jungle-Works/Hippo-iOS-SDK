@@ -8,9 +8,9 @@
 import Foundation
 import UIKit
 import AVFoundation
+
 #if canImport(HippoCallClient)
-  import HippoCallClient
- 
+import HippoCallClient
 #endif
 
 #if canImport(JitsiMeetSDK)
@@ -93,6 +93,23 @@ struct BotAction {
     }
 }
 
+struct WhatsappWidgetConfig{
+    var defaultMessage: String = ""
+    var title: String = ""
+    var subTitle: String = ""
+    var defaultUserReply: String = ""
+    var whatsappContactNumber: String = ""
+    
+//    init(defaultMessage: String, title: String, subTitle: String, defaultUserReply: String, whatsappContactNumber: String) {
+//        defaultMessage = defaultMessage
+//        title = title
+//        subTitle = subTitle
+//        defaultUserReply = defaultUserReply
+//        whatsappContactNumber = whatsappContactNumber
+//    }
+}
+
+
 @objcMembers public class HippoConfig : NSObject {
     
     public static var shared = HippoConfig()
@@ -128,6 +145,7 @@ struct BotAction {
     open var isPaymentRequestEnabled: Bool {
         return HippoProperty.current.isPaymentRequestEnabled
     }
+    
     internal var groupCallData: [String : Any] {
          get {
             guard let groupCallData = UserDefaults.standard.value(forKey: Fugu_groupCallData) as? [String : Any] else {
@@ -140,7 +158,7 @@ struct BotAction {
          }
      }
     
-    internal var appSecretKey: String {
+    public var appSecretKey: String {
         get {
             guard let appSecretKey = UserDefaults.standard.value(forKey: Fugu_AppSecret_Key) as? String else {
                 return ""
@@ -200,6 +218,8 @@ struct BotAction {
     ///turn its value true to show slow internet bar on chat screen
     public var shouldShowSlowInternetBar : Bool?
     
+    
+    var whatsappWidgetConfig: WhatsappWidgetConfig?
     var isOpenedFromPush : Bool?
 
     // MARK: - Intialization
@@ -254,8 +274,8 @@ struct BotAction {
         }
     }
     
-    public func joinCallFromLink(url: String) {
-        CallManager.shared.joinCallLink(customerName: currentUserName(), customerImage: currentUserImage() ?? "", url: url, isInviteEnabled: BussinessProperty.current.isCallInviteEnabled ?? false)
+    public func joinCallFromLink(url: String,callType: String) {
+        CallManager.shared.joinCallLink(customerName: currentUserName(), customerImage: currentUserImage() ?? "", url: url, isInviteEnabled: BussinessProperty.current.isCallInviteEnabled ?? false,callType: callType)
     }
     
     internal func setAgentStoredData() {
@@ -464,11 +484,13 @@ struct BotAction {
             completion(error,response)
         })
     }
+    
     // MARK: - Open Chat UI Methods
     public func presentChatsViewController() {
         AgentDetail.setAgentStoredData()
         checker.presentChatsViewController()
     }
+    
     public func getAgentChatVC() -> UIViewController?{
          guard HippoConfig.shared.appUserType == .agent else {
              return nil
@@ -682,6 +704,7 @@ struct BotAction {
             openCustomerConversationWith(channelId: channelId, completion: completion)
         }
     }
+    
     public func startCall(data: PeerToPeerChat, callType: CallType, completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
         guard FuguNetworkHandler.shared.isNetworkConnected else {
             completion(false, HippoError.networkError)
@@ -775,7 +798,9 @@ struct BotAction {
     private func findChannelAndStartCallToAgent(data: PeerToPeerChat, agentEmail: String, callType: CallType, completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
         let uuid: String = String.uuid()
         let peer = User(name: data.peerName, imageURL: data.otherUserImage?.absoluteString, userId: -222)
+        if HippoUserDetail.callingType != 3{
         CallManager.shared.startConnection(peerUser: peer, muid: uuid, callType: callType, completion: { success in })
+        }
         let attributes = FuguNewChatAttributes(transactionId: data.uniqueChatId ?? "", userUniqueKey: nil, otherUniqueKey: [data.userUniqueId], tags: nil, channelName: data.channelName, preMessage: "", groupingTag: nil)
         HippoChannel.getToCallAgent(withFuguChatAttributes: attributes, agentEmail: agentEmail, completion: {(result) in
             guard result.isSuccessful, let channel = result.channel else {
@@ -885,14 +910,19 @@ struct BotAction {
         case .dev:
             baseUrl = SERVERS.devUrl
             fayeBaseURLString = SERVERS.devFaye
+            HippoCallClientUrl.urlType = .dev
         case .beta:
             baseUrl = SERVERS.betaUrl
             fayeBaseURLString = SERVERS.betaFaye
+            HippoCallClientUrl.urlType = .beta
         case .live:
             baseUrl = SERVERS.liveUrl
             fayeBaseURLString = SERVERS.liveFaye
+            HippoCallClientUrl.urlType = .live
         }
 //        FayeConnection.shared.enviromentSwitchedWith(urlString: fayeBaseURLString)
+        HippoCallClientUrl.baseUrl = baseUrl
+        
         SocketClient.shared.connect()
     }
     
@@ -1080,10 +1110,17 @@ struct BotAction {
         reportIncomingCallOnCallKit(userInfo: payloadDict, completion: completion)
     }
     
+    public func passAppSecretKeyToHippoConfig(key: String? = nil){
+        
+        CallManager.shared.passAppSecret(key : HippoConfig.shared.appSecretKey.isEmpty ? key ?? "" : HippoConfig.shared.appSecretKey)
+    }
+    
+
     func reportIncomingCallOnCallKit(userInfo: [String : Any], completion: @escaping () -> Void){
-        #if canImport(JitsiMeetSDK)
+        
         enableAudioSession()
-        if let uuid = userInfo["muid"] as? String, let name = userInfo["last_sent_by_full_name"] as? String, let isVideo = userInfo["call_type"] as? String == "AUDIO" ? false : true{
+        
+        if let uuid = userInfo["muid"] as? String, let isVideo = userInfo["call_type"] as? String == "AUDIO" ? false : true{
             if HippoCallClient.shared.checkIfUserIsBusy(newCallUID: uuid) {
                 return
             }
@@ -1091,20 +1128,28 @@ struct BotAction {
             guard let UUID = UUID(uuidString: uuid) else {
                 return
             }
-            if JMCallKitProxy.hasActiveCallForUUID(uuid){
-                completion()
+            
+            guard let peer = HippoUser(json: userInfo) else {
                 return
             }
-            JMCallKitProxy.reportNewIncomingCall(UUID: UUID, handle: name, displayName: name, hasVideo: isVideo) { (error) in
-                completion()
-            }
+            
+            let callType = isVideo ? Call.CallType.video : Call.CallType.audio
+            
+            let request = PresentCallRequest(peer: peer, callType: callType, callUUID: "\(UUID)")
+            
+            CallKitManager.shared.reportIncomingCallWith(request: request, completion: completion)
+            
         }
-        #endif
-      }
+    }
     
     func enableAudioSession(){
          do{
-             try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playAndRecord, mode: AVAudioSession.Mode.videoChat, options: .mixWithOthers)
+            if #available(iOS 14.5, *) {
+                try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playAndRecord, mode: AVAudioSession.Mode.videoChat, options: [.mixWithOthers, .interruptSpokenAudioAndMixWithOthers, .overrideMutedMicrophoneInterruption])
+            } else {
+                // Fallback on earlier versions
+                try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playAndRecord, mode: AVAudioSession.Mode.videoChat, options: [.mixWithOthers, .interruptSpokenAudioAndMixWithOthers])
+            }
              try AVAudioSession.sharedInstance().overrideOutputAudioPort(.speaker)
              try AVAudioSession.sharedInstance().setActive(true)
          }catch {
@@ -1378,15 +1423,11 @@ extension HippoConfig{
     
    
     public func forceKillOnTermination(){
-        #if canImport(JitsiMeetSDK)
         HippoCallClient.shared.terminateSessionIfAny()
-        #endif
     }
     
     public func keyWindowChangedFromParent(){
-        #if canImport(JitsiMeetSDK)
         HippoCallClient.shared.keyWindowChangedFromParent()
-        #endif
     }
 }
 extension HippoConfig {
@@ -1444,20 +1485,18 @@ extension HippoConfig {
     }
     #endif
 }
+
 extension HippoConfig{
     
     func HideJitsiView(){
-         #if canImport(JitsiMeetSDK)
-            HippoCallClient.shared.hideViewInPip()
-         #endif
+        HippoCallClient.shared.hideViewInPip()
     }
     
     func UnhideJitsiView(){
-         #if canImport(JitsiMeetSDK)
-            HippoCallClient.shared.unHideViewInPip()
-         #endif
+        HippoCallClient.shared.unHideViewInPip()
     }
 }
+
 extension HippoConfig{
     public func createSupportChat(o2oModel : O2OChatModel){
         O2OChat.createO2OChat(request: o2oModel) { (error, data) in

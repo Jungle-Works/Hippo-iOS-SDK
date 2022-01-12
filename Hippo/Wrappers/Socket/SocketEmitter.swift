@@ -21,7 +21,9 @@ extension SocketClient {
     
     ///Subscribe socket channel
     func subscribeSocketChannel(channel: String,completion: ((Error?,Bool) -> Void)? = nil){
+        
         if let someSocket = socket, someSocket.status.active {
+            
             var eventToSubscribe = ""
             if currentUserType() == .agent{
                 if channel == HippoConfig.shared.agentDetail?.userChannel{
@@ -57,6 +59,7 @@ extension SocketClient {
             })
         }else{
             SocketClient.shared.connect()
+//            subscribeSocketChannel(channel: channel, completion: completion)
         }
     }
     
@@ -112,16 +115,16 @@ extension SocketClient {
             if currentEnUserId().trimWhiteSpacesAndNewLine() == ""{
                 return
             }
-            
-            socket.emitWithAck(SocketEvent.MESSAGE_EVENT.rawValue, json).timingOut(after: 20, callback: { (data) in
+            socket.emitWithAck(SocketEvent.MESSAGE_EVENT.rawValue, json).timingOut(after: 30, callback: { (data) in
                 let ack = EventAckResponse(with: data)
                 completion(ack)
             })
         }else{
-           SocketClient.shared.connect()
+            SocketClient.shared.connect()
+//            send(messageDict: messageDict, toChannelID: channelID, completion: completion)
         }
     }
- 
+    
     ///Returns Handshake dic for HANDSHAKE_CHANNEL after channel connect
     func handshake(){
         if let someSocket = socket, someSocket.status.active {

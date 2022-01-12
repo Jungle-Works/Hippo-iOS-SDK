@@ -9,6 +9,7 @@ import UIKit
 import Photos
 import QuickLook
 import SafariServices
+import HippoCallClient
 
 class HippoConversationViewController: UIViewController {
     //MARK: Constants
@@ -76,6 +77,8 @@ class HippoConversationViewController: UIViewController {
     var isMessageEditing : Bool = false
     let attachmentObj = CreateTicketAttachmentHelper()
     let recordingHelper = RecordingHelper()
+    let shareurlhelper = ShareUrlHelper()
+    var transactionID: String? = ""
 
     //MARK:
     @IBOutlet var tableViewChat: UITableView!{
@@ -397,6 +400,7 @@ class HippoConversationViewController: UIViewController {
         }
         
     }
+    
     @objc func fayeDisconnected(_ notification: Notification) {
         
     }
@@ -603,17 +607,18 @@ class HippoConversationViewController: UIViewController {
             self.navigationTitleButton?.sizeToFit()
         }
     }
+    
     func startAudioCall(transactionId: String? = nil) {
-        guard canStartAudioCall() else {
+        guard canStartAudioCall(), let peerDetail = channel?.chatDetail?.peerDetail else {
             return
         }
-        guard let peerDetail = channel?.chatDetail?.peerDetail else {
-            return
-        }
+//        guard let peerDetail = channel?.chatDetail?.peerDetail else {
+//            return
+//        }
         
         self.view.endEditing(true)
         
-        let call = CallData.init(peerData: peerDetail, callType: .audio, muid: String.uuid(), signallingClient: channel, transactionId: transactionId)
+        let call = CallData.init(peerData: peerDetail, callType: .audio, muid: String.uuid(), signallingClient: channel, transactionId: transactionId?.isEmpty ?? true ? self.transactionID : transactionId)
         
         if versionCode < 350{
             CallManager.shared.startCall(call: call) { (success,error) in
@@ -647,6 +652,7 @@ class HippoConversationViewController: UIViewController {
             }
         }
     }
+    
     func startVideoCall(transactionId: String? = nil) {
         guard canStartVideoCall() else {
             return
@@ -656,7 +662,7 @@ class HippoConversationViewController: UIViewController {
         }
         self.view.endEditing(true)
         
-        let call = CallData.init(peerData: peerDetail, callType: .video, muid: String.uuid(), signallingClient: channel, transactionId: transactionId)
+        let call = CallData.init(peerData: peerDetail, callType: .video, muid: String.uuid(), signallingClient: channel, transactionId: transactionId?.isEmpty ?? true ? self.transactionID : transactionId)
         if versionCode < 350{
             CallManager.shared.startCall(call: call) { (success,error) in
                 if !success {
@@ -830,11 +836,13 @@ class HippoConversationViewController: UIViewController {
         
         return groupsFirstMessage.creationDateTime
     }
+    
     func isSentByMe(senderId: Int) -> Bool {
         return getSavedUserId == senderId
     }
-    func attachmentButtonclicked(_ sender: UIButton)
-    {
+    
+    func attachmentButtonclicked(_ sender: UIButton, transactionId: String? = nil){
+        self.transactionID = transactionId
         isAttachmentOpenedForTicket = false
         let showPaymentOption = channel == nil ? false : HippoProperty.current.isPaymentRequestEnabled
         pickerHelper = PickerHelper(viewController: self, enablePayment: showPaymentOption)
@@ -892,6 +900,10 @@ extension HippoConversationViewController {
         }
     }
     
+    func randomString(length: Int = 10) -> String {
+        let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        return String((0..<length).map{ _ in letters.randomElement()! })
+    }
 }
 
 
@@ -900,17 +912,25 @@ extension HippoConversationViewController: PickerHelperDelegate {
     func shareVideoUrlClicked() {
         let shareUrlHelper = ShareUrlHelper()
         let link = shareUrlHelper.createLink(callType: CallType.video)
-        shareUrlHelper.shareUrlApiCall(url: (link.1) == "" ? (link.0) : (link.1), completion: {[weak self] (url) in
+        shareUrlHelper.shareUrlApiCall(url: (link.1) == "" ? (link.0) : (link.1), isAudio: false, completion: {[weak self] (url) in
             self?.shareUrlInSocket(url: url)
         })
+//        let id = (transactionID?.isEmpty ?? true) ? randomString(length: 8) : transactionID
+//        shareUrlHelper.shareUrlApiCall(url: id ?? "", isAudio: false, completion: {[weak self] (url) in
+//            self?.shareUrlInSocket(url: url)
+//        })
     }
     
     func shareAudioUrlClicked() {
         let shareUrlHelper = ShareUrlHelper()
         let link = shareUrlHelper.createLink(callType: CallType.audio)
-        shareUrlHelper.shareUrlApiCall(url: (link.1) == "" ? (link.0) : (link.1), completion: {[weak self] (url) in
+        shareUrlHelper.shareUrlApiCall(url: (link.1) == "" ? (link.0) : (link.1), isAudio: true, completion: {[weak self] (url) in
             self?.shareUrlInSocket(url: url)
         })
+//        let id = (transactionID?.isEmpty ?? true) ? randomString(length: 8) : transactionID
+//        shareUrlHelper.shareUrlApiCall(url: id ?? "", isAudio: true, completion: {[weak self] (url) in
+//            self?.shareUrlInSocket(url: url)
+//        })
     }
     
     func payOptionClicked() {
@@ -1657,12 +1677,14 @@ extension HippoConversationViewController: ActionTableViewDelegate {
             }
         }
     }
+    
     func presentSafariViewcontorller(for url: URL) {
         let safariVC = SFSafariViewController(url: url)
         safariVC.navigationController?.setTheme()
         self.navigationController?.pushViewController(safariVC, animated: true)
     }
 }
+
 extension HippoConversationViewController: CreatePaymentDelegate {
     func sendMessage(for store: PaymentStore) {
         let message = HippoMessage(message: "", type: .hippoPay, uniqueID: String.generateUniqueId(), chatType: channel?.chatDetail?.chatType)
@@ -1723,12 +1745,26 @@ extension HippoConversationViewController {
         }
     }
 }
+
 extension HippoConversationViewController : OutgoingShareUrlDelegate {
     func openJitsiUrl(url: String) {
         let shareUrlHelper = ShareUrlHelper()
-        shareUrlHelper.getUrlToJoinJitsiCall(url: url, completion: {(url) in
-            HippoConfig.shared.joinCallFromLink(url: url)
+        
+        if HippoUserDetail.callingType != 3{
+            shareUrlHelper.getUrlToJoinJitsiCall(url: url, completion: {(url,callType) in
+            HippoConfig.shared.joinCallFromLink(url: url, callType: callType)
         })
+        }else{
+            HippoCallClientUrl.shared.channelId = "\(self.channelId)"
+            HippoCallClientUrl.shared.enUserId = currentEnUserId()
+            HippoCallClientUrl.shared.id = currentUserId()
+            HippoCallClientUrl.shared.userName = currentUserName()
+            
+            shareUrlHelper.getUrlToJoinJitsiCall(url: url, completion: {(url, callType) in
+                HippoConfig.shared.joinCallFromLink(url: url,callType: callType)
+            })
+        }
+            
     }
 }
 

@@ -20,6 +20,7 @@ final class NavigationBar: UIView {
     @IBOutlet weak var rightSwitchButtonContainerView: UIView!
     @IBOutlet weak var rightSwitchButton: UISwitch!
     @IBOutlet weak var constraint_RightWidth : NSLayoutConstraint!
+    @IBOutlet weak var whtsappBtn: UIButton!
     
     
     

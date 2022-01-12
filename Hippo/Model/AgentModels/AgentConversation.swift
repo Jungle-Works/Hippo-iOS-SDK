@@ -41,6 +41,7 @@ class AgentConversation: HippoConversation {
     var isBotInProgress: Bool = false
     var chatStatus : Int?
     var message_sub_type : Int?
+    var transactionId : String?
     
     var updateUnreadCountBy: Int {
         return isMyChat ?? false ? 1 : 0
@@ -94,6 +95,7 @@ class AgentConversation: HippoConversation {
         assigned_by = Int.parse(values: json, key: "assigned_by")
         unreadCount = Int.parse(values: json, key: "unread_count")
         isMyChat = Bool.parse(key: "is_my_chat", json: json)
+        transactionId = json["original_transaction_id"] as? String
         
         
         if let customer_unique_keys = json["customer_unique_keys"] as? [[String: Any]] {
@@ -226,6 +228,7 @@ class AgentConversation: HippoConversation {
         self.assigned_to_name = newConversation.assigned_to_name
         self.assigned_by = newConversation.assigned_by
         self.assigned_by_name = newConversation.assigned_by_name
+        self.transactionId = newConversation.transactionId
         
         if let type = newConversation.notificationType, type == .assigned {
             self.agent_name = newConversation.assigned_to_name
@@ -237,6 +240,7 @@ class AgentConversation: HippoConversation {
         
         self.messageUpdated?()
     }
+    
     override func getJsonToStore() -> [String : Any] {
         var json = super.getJsonToStore()
         
@@ -279,6 +283,10 @@ class AgentConversation: HippoConversation {
         json["customerUserUniqueKeys"] = customerUserUniqueKeys
         if let isMyChat = self.isMyChat {
             json["is_my_chat"] = isMyChat.intValue()
+        }
+        
+        if let transactionId = transactionId {
+            json["original_transaction_id"] = transactionId
         }
 
         return json

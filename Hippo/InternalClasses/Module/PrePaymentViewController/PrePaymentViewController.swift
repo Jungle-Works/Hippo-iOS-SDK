@@ -135,7 +135,7 @@ class PrePaymentViewController: UIViewController {
 extension PrePaymentViewController{
     func addTransparentView(){
       
-        let window = UIApplication.shared.keyWindow
+        let window = UIApplication.shared.windows.first
         transparentView.backgroundColor = UIColor.black.withAlphaComponent(0.9)
         let screenSize = UIScreen.main.bounds.size
         transparentView.frame = CGRect(x: 0, y: 0, width: screenSize.width, height: screenSize.height)
