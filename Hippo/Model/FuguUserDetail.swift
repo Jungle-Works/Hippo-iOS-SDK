@@ -7,6 +7,7 @@
 //
 
 import UIKit
+//import Demo_3002
 
 typealias FuguUserDetailCallback = (_ success: Bool, _ error: Error?) -> Void
 
@@ -20,7 +21,6 @@ class User: NSObject {
     var phoneNumber: String = ""
     var userType: UserType = .customer
     var image: String?
-   
     
     
     init?(dict: [String: Any]) {
@@ -504,6 +504,7 @@ public class UserTag: NSObject {
             completion(true)
         }
     }
+    
     private class func getParamsForPaymentGateway() -> [String: Any] {
         var params = [String: Any]()
         params["app_secret_key"] = HippoConfig.shared.appSecretKey
@@ -559,6 +560,70 @@ public class UserTag: NSObject {
         params["fetch_announcements_unread_count"] = 1
         return params
     }
+    
+    class func hitStatsAPi(pushContent: [String: Any]?, sendSessionTym: Bool = false, sendSeen: Bool = false) {
+                
+        if !sendSessionTym{
+            HippoConfig.shared.sessionStartTime = Date()
+        }
+        
+        if sendSessionTym && HippoConfig.shared.sessionStartTime == nil{
+            return
+        }
+        
+        let params = getParamsForStats(from: pushContent, sendSessionTym: sendSessionTym, sendSeen: sendSeen)
+        
+        HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: FuguEndPoints.statsUpdate.rawValue) { (response, error, _, statusCode) in
+            if let responseDict = response as? [String: Any],
+               let statusCode = responseDict["statusCode"] as? Int,
+               let data = responseDict["data"] as? [String: Any], statusCode == 200 {
+                if sendSessionTym{
+                    HippoConfig.shared.sessionStartTime = nil
+                    HippoConfig.shared.tempChannelId = nil
+                }
+                print(data)
+            }else {
+                print("FAILED  ------------>>>>>>>>>>>>>>")
+                guard error?.localizedDescription == "The network connection was lost." else{ return }
+//                hitStatsAPi(pushContent: pushContent, sendSessionTym: sendSessionTym, sendSeen: sendSeen)
+            }
+        }
+    }
+    
+    private class func getParamsForStats(from data: [String: Any]?, sendSessionTym: Bool = false, sendSeen: Bool ) -> [String: Any] {
+        var params = [String: Any]()
+        
+        params["en_user_id"] = currentEnUserId()
+        
+        if currentUserType() == .agent{
+            params["access_token"] = HippoConfig.shared.agentDetail?.fuguToken
+        }else{
+            params["app_secret_key"] = HippoConfig.shared.appSecretKey
+        }
+        
+        if data == nil{
+            params["channel_id"] = HippoConfig.shared.tempChannelId
+        }else{
+            params["channel_id"] = data?["channel_id"] as? Int
+            HippoConfig.shared.tempChannelId = !sendSeen ? data?["channel_id"] as? Int : HippoConfig.shared.tempChannelId
+        }
+        
+        if sendSessionTym{
+            let sessionTym = Int(Date().timeIntervalSince(HippoConfig.shared.sessionStartTime ?? Date()))
+            print("session tym ----->>>>>>>>", sessionTym)
+            params["ctr_session_time"] = "\(sessionTym)"
+        }else{
+            if sendSeen{
+                params["is_delivered"] = 1
+                params["seen_status"] = 1
+            }else{
+                params["app_opened_through_push"] = 1
+            }
+        }
+        
+        return params
+    }
+    
     class func clearAgentData() {
         HippoConfig.shared.agentDetail = nil
         AgentConversationManager.errorMessage = nil

@@ -49,8 +49,8 @@ struct SERVERS {
     static let betaUrl = "https://beta-live-api1.fuguchat.com:3001/"
     static let betaFaye = "https://socket-temp.hippochat.io"
     
-    static let devUrl = "https://hippo-api-dev1.fuguchat.com:3002/"
-    static let devFaye = "https://hippo-api-dev1.fuguchat.com:3002"
+    static let devUrl = "https://hippo-api-dev1.fuguchat.com:3004/"
+    static let devFaye = "https://hippo-api-dev1.fuguchat.com:3004"
     
 }
 
@@ -221,6 +221,9 @@ struct WhatsappWidgetConfig{
     var whatsappWidgetConfig: WhatsappWidgetConfig?
     
     var isOpenedFromPush : Bool?
+    var sessionStartTime: Date?
+    var tempChannelId: Int?
+    
     
     // MARK: - Intialization
     private override init() {
@@ -278,6 +281,10 @@ struct WhatsappWidgetConfig{
         CallManager.shared.joinCallLink(customerName: currentUserName(), customerImage: currentUserImage() ?? "", url: url, isInviteEnabled: BussinessProperty.current.isCallInviteEnabled ?? false,callType: callType)
     }
     
+    public func hitStatsApi(userInfo : [String : Any]?, sendSessionTym: Bool = false, sendSeen: Bool = false){
+        HippoUserDetail.hitStatsAPi(pushContent: userInfo, sendSessionTym: sendSessionTym, sendSeen: sendSeen)
+    }
+    
     internal func setAgentStoredData() {
         guard let storedData = AgentDetail.agentLoginData else {
             return
@@ -312,7 +319,6 @@ struct WhatsappWidgetConfig{
     
     public func setCredential(withToken token: String, referenceId: Int, appType: String) {
         self.credentialType = FuguCredentialType.reseller
-        
         self.resellerToken = token
         self.referenceId = referenceId
         self.appType = appType
@@ -628,9 +634,11 @@ struct WhatsappWidgetConfig{
         UnreadCount.userUniqueKeyList = userUniqueKeys
         AgentConversationManager.getUserUnreadCount()
     }
+    
     public func clearHostNotification() {
         HippoNotification.removeHostNotification()
     }
+    
     public func getUnreadCountFor(userUniqueKey: String) -> Int {
         guard !UnreadCount.unreadCountList.isEmpty else {
             AgentConversationManager.getUserUnreadCount()
@@ -795,12 +803,11 @@ struct WhatsappWidgetConfig{
             self.findChannelAndStartCallToAgent(data: data, agentEmail: agentEmail, callType: callType, completion: completion)
         }
     }
+    
     private func findChannelAndStartCallToAgent(data: PeerToPeerChat, agentEmail: String, callType: CallType, completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
         let uuid: String = String.uuid()
         let peer = User(name: data.peerName, imageURL: data.otherUserImage?.absoluteString, userId: -222)
-        if HippoUserDetail.callingType != 3{
-            CallManager.shared.startConnection(peerUser: peer, muid: uuid, callType: callType, completion: { success in })
-        }
+        CallManager.shared.startConnection(peerUser: peer, muid: uuid, callType: callType, completion: { success in })
         let attributes = FuguNewChatAttributes(transactionId: data.uniqueChatId ?? "", userUniqueKey: nil, otherUniqueKey: [data.userUniqueId], tags: nil, channelName: data.channelName, preMessage: "", groupingTag: nil)
         HippoChannel.getToCallAgent(withFuguChatAttributes: attributes, agentEmail: agentEmail, completion: {(result) in
             guard result.isSuccessful, let channel = result.channel else {
@@ -910,22 +917,14 @@ struct WhatsappWidgetConfig{
         case .dev:
             baseUrl = SERVERS.devUrl
             fayeBaseURLString = SERVERS.devFaye
-       
         case .beta:
             baseUrl = SERVERS.betaUrl
             fayeBaseURLString = SERVERS.betaFaye
-//            HippoCallClientUrl.urlType = .beta
         case .live:
             baseUrl = SERVERS.liveUrl
             fayeBaseURLString = SERVERS.liveFaye
-//            HippoCallClientUrl.urlType = .live
         }
         //        FayeConnection.shared.enviromentSwitchedWith(urlString: fayeBaseURLString)
-        
-        #if canImport(HippoCallClient)
-        HippoCallClientUrl.baseUrl = baseUrl
-        #endif
-        
         SocketClient.shared.connect()
     }
     
@@ -1193,6 +1192,9 @@ struct WhatsappWidgetConfig{
     
     
     func handleAnnouncementsNotification(userInfo: [String: Any]) {
+        
+        hitStatsApi(userInfo: userInfo)
+        
         let visibleController = getLastVisibleController()
         if let _ = visibleController as? PromotionsViewController {
             //                HippoNotification.promotionPushDic.removeAll()
@@ -1273,8 +1275,8 @@ struct WhatsappWidgetConfig{
     
     func handleNotificationForChatInfoScreen(with info: [String: Any], lastController: UIViewController) {
         
-        
     }
+    
     func handleCustomerNotification(userInfo: [String: Any]) {
         
         let visibleController = getLastVisibleController()

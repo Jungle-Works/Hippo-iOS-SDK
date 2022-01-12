@@ -335,6 +335,7 @@ class HTTPClient {
                         callback(json, nil, extendedUrl, statusCode)
                         return
                     default:
+                        callback(nil, error, extendedUrl, nil)
                         break
                         //                  showAlertInDefaultCase ? ErrorView.showWith(message: message, isErrorMessage: true, removed: nil) : ()
                     }

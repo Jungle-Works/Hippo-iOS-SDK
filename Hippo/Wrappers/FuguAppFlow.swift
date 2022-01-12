@@ -77,6 +77,7 @@ class FuguFlowManager: NSObject {
     func presentNLevelViewController(animation: Bool = true) {
         self.openFAQScreen(animation: animation)
     }
+    
     func openFAQScreen(animation: Bool) {
         guard let vc = NLevelViewController.get(with: [HippoSupportList](), title: HippoSupportList.FAQName) else {
             return
@@ -99,6 +100,14 @@ class FuguFlowManager: NSObject {
         
     }
     
+    func presentOfferPopUp() {
+        let visibleController = getLastVisibleController()
+        let storyboard = UIStoryboard(name: "FuguUnique", bundle: FuguFlowManager.bundle)
+        let vc = storyboard.instantiateViewController(withIdentifier: "OfferPopUpVC") as? OfferPopUpVC
+//        vc?.modalPresentationStyle = .fullScreen
+        vc?.modalPresentationStyle = .overCurrentContext
+        visibleController?.present(vc!, animated: true, completion: nil)
+    }
     
     func openDirectConversationHome() {
         guard HippoConfig.shared.appUserType == .agent else {
@@ -111,8 +120,6 @@ class FuguFlowManager: NSObject {
         nav.modalPresentationStyle = .fullScreen
         visibleController?.present(nav, animated: true, completion: nil)
     }
-    
-    
     
     func openDirectAgentConversation(channelTitle: String?) {
         guard HippoConfig.shared.appUserType == .agent else {

@@ -45,7 +45,6 @@ class HippoChecker {
     }
     
     
-    
     func shouldCollectDataFromUser() -> Bool {
         let form = HippoProperty.current.forms
         guard !form.isEmpty else {
@@ -64,6 +63,7 @@ class HippoChecker {
         }
     }
 }
+
 extension HippoChecker {
     
 }

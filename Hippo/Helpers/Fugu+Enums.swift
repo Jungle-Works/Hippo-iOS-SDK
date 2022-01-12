@@ -396,6 +396,7 @@ enum FuguEndPoints: String {
     case joinVideoSDKMeet  = "api/meet/videoSdkToken"
     case callHangup = "api/call/endCall?channel_id="
     case searchAddress = "https://nominatim-api-live.jungleworks.com/search"
+    case statsUpdate = "api/users/updateUserToChannel"
 
 }
 

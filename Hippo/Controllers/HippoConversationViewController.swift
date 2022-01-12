@@ -81,6 +81,8 @@ class HippoConversationViewController: UIViewController {
     let attachmentObj = CreateTicketAttachmentHelper()
     let recordingHelper = RecordingHelper()
     let shareurlhelper = ShareUrlHelper()
+    
+    var transactionID: String? = ""
 
     //MARK:
     @IBOutlet var tableViewChat: UITableView!{
@@ -620,7 +622,7 @@ class HippoConversationViewController: UIViewController {
         
         self.view.endEditing(true)
         
-        let call = CallData.init(peerData: peerDetail, callType: .audio, muid: String.uuid(), signallingClient: channel, transactionId: transactionId)
+        let call = CallData.init(peerData: peerDetail, callType: .audio, muid: String.uuid(), signallingClient: channel, transactionId: transactionId?.isEmpty ?? true ? self.transactionID : transactionId)
         
         if versionCode < 350{
             CallManager.shared.startCall(call: call) { (success,error) in
@@ -664,7 +666,7 @@ class HippoConversationViewController: UIViewController {
         }
         self.view.endEditing(true)
         
-        let call = CallData.init(peerData: peerDetail, callType: .video, muid: String.uuid(), signallingClient: channel, transactionId: transactionId)
+        let call = CallData.init(peerData: peerDetail, callType: .video, muid: String.uuid(), signallingClient: channel, transactionId: transactionId?.isEmpty ?? true ? self.transactionID : transactionId)
         if versionCode < 350{
             CallManager.shared.startCall(call: call) { (success,error) in
                 if !success {
@@ -1737,24 +1739,9 @@ extension HippoConversationViewController {
 extension HippoConversationViewController : OutgoingShareUrlDelegate {
     func openJitsiUrl(url: String) {
         let shareUrlHelper = ShareUrlHelper()
-        
-        if HippoUserDetail.callingType != 3{
             shareUrlHelper.getUrlToJoinJitsiCall(url: url, completion: {(url,callType) in
             HippoConfig.shared.joinCallFromLink(url: url, callType: callType)
         })
-        }else{
-            #if canImport(HippoCallClient)
-            HippoCallClientUrl.shared.channelId = "\(self.channelId)"
-            HippoCallClientUrl.shared.enUserId = currentEnUserId()
-            HippoCallClientUrl.shared.id = currentUserId()
-            HippoCallClientUrl.shared.userName = currentUserName()
-            #endif
-            
-            shareUrlHelper.getUrlToJoinJitsiCall(url: url, completion: {(url, callType) in
-                HippoConfig.shared.joinCallFromLink(url: url,callType: callType)
-            })
-        }
-            
     }
 }
 
