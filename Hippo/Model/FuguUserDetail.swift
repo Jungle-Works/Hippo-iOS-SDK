@@ -561,7 +561,7 @@ public class UserTag: NSObject {
         return params
     }
     
-    class func hitStatsAPi(pushContent: [String: Any]?, sendSessionTym: Bool = false, sendSeen: Bool = false) {
+    class func hitStatsAPi(pushContent: [String: Any]?, sendSessionTym: Bool = false, sendSeen: Bool = false, completion: ((Bool) -> Void)? = nil) {
                 
         if !sendSessionTym{
             HippoConfig.shared.sessionStartTime = Date()
@@ -582,10 +582,11 @@ public class UserTag: NSObject {
                     HippoConfig.shared.tempChannelId = nil
                 }
                 print(data)
+                completion?(true)
             }else {
                 print("FAILED  ------------>>>>>>>>>>>>>>")
-                guard error?.localizedDescription == "The network connection was lost." else{ return }
-//                hitStatsAPi(pushContent: pushContent, sendSessionTym: sendSessionTym, sendSeen: sendSeen)
+//                guard error?.localizedDescription == "The network connection was lost." else{ return }
+                completion?(false)
             }
         }
     }
