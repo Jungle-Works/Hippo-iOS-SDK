@@ -1017,7 +1017,8 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         if delegate == nil{
             for controller in self.navigationController?.viewControllers ?? [UIViewController](){
                 if controller is AllConversationsViewController{
-                    (controller as? AllConversationsViewController)?.getAllConversations()
+//                    (controller as? AllConversationsViewController)?.getAllConversations()
+                    (controller as? AllConversationsViewController)?.getAllConvo()
                     break
                 }
             }
@@ -1029,21 +1030,41 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         }
     }
     
- override func clearUnreadCountForChannel(id: Int) {
+    override func clearUnreadCountForChannel(id: Int) {
+        
+        var index: Int? = nil
+        var chats: [[String: Any]]?
+        var chatType = DefaultName.defaultConversationData.rawValue
         
         let channelRaw: [String: Any] = ["channel_id": id]
         resetForChannel(pushInfo: channelRaw)
         
-        var chats = FuguDefaults.object(forKey: DefaultName.conversationData.rawValue) as? [[String: Any]] ?? [[:]]
-        let index = chats.firstIndex { (o) -> Bool in
+        chats = FuguDefaults.object(forKey: DefaultName.defaultConversationData.rawValue) as? [[String: Any]] ?? [[:]]
+        index = chats?.firstIndex { (o) -> Bool in
             return (o["channel_id"] as? Int) ?? -2 == id
         }
         
+        if index == nil{
+            chatType = DefaultName.broadcastConversationData.rawValue
+            chats = FuguDefaults.object(forKey: DefaultName.broadcastConversationData.rawValue) as? [[String: Any]] ?? [[:]]
+            index = chats?.firstIndex { (o) -> Bool in
+                return (o["channel_id"] as? Int) ?? -2 == id
+            }
+        }
+        
+        if index == nil{
+            chatType = DefaultName.p2pConversationData.rawValue
+            chats = FuguDefaults.object(forKey: DefaultName.p2pConversationData.rawValue) as? [[String: Any]] ?? [[:]]
+            index = chats?.firstIndex { (o) -> Bool in
+                return (o["channel_id"] as? Int) ?? -2 == id
+            }
+        }
+        
         if index != nil {
-            var obj = chats[index!]
-            obj["unread_count"] = 0
-            chats[index!] = obj
-            FuguDefaults.set(value: chats, forKey: DefaultName.conversationData.rawValue)
+            var obj = chats?[index!]
+            obj?["unread_count"] = 0
+            chats?[index!] = obj!
+            FuguDefaults.set(value: chats, forKey: chatType)
             pushTotalUnreadCount()
         }
     }
@@ -3700,6 +3721,7 @@ extension ConversationsViewController: UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
     }
+    
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         guard gestureRecognizer.isEqual(self.navigationController?.interactivePopGestureRecognizer) else{ return true }
         messageTextView.resignFirstResponder()
@@ -3714,7 +3736,8 @@ extension ConversationsViewController: UIGestureRecognizerDelegate {
         if delegate == nil {
             for controller in self.navigationController?.viewControllers ?? [UIViewController](){
                 if controller is AllConversationsViewController{
-                    (controller as? AllConversationsViewController)?.getAllConversations()
+//                    (controller as? AllConversationsViewController)?.getAllConversations()
+                    (controller as? AllConversationsViewController)?.getAllConvo()
                     break
                 }
             }

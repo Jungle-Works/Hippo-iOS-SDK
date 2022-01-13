@@ -442,7 +442,7 @@ func pushTotalUnreadCount() {
             }
         }
     case .customer:
-        if let chatCachedArray = FuguDefaults.object(forKey: DefaultName.conversationData.rawValue) as? [[String: Any]] {
+        if let chatCachedArray = FuguDefaults.object(forKey: DefaultName.defaultConversationData.rawValue) as? [[String: Any]] {
             for conversationInfo in chatCachedArray {
                 if let conversationCounter = conversationInfo["unread_count"] as? Int {
                     chatCounter += conversationCounter
@@ -455,7 +455,8 @@ func pushTotalUnreadCount() {
     
     if noDataFound{
         let allConversationObj = AllConversationsViewController()
-        allConversationObj.getAllConversations()
+//        allConversationObj.getAllConversations()
+        allConversationObj.getAllConvo()
         return
     }
     

@@ -356,7 +356,8 @@ public class UserTag: NSObject {
             HippoConfig.shared.log.trace("PutUserData: \(data)", level: .response)
             if userDetailData.isEmpty && HippoNotification.containsNotification(){
                 let allConversationObj = AllConversationsViewController()
-                allConversationObj.getAllConversations()
+//                allConversationObj.getAllConversations()
+                allConversationObj.getAllConvo()
             }
             userDetailData = data
             FuguDefaults.set(value: userDetailData, forKey: DefaultName.putUserData.rawValue)
@@ -608,6 +609,10 @@ public class UserTag: NSObject {
         FuguDefaults.removeObject(forKey: DefaultName.conversationData.rawValue)
         FuguDefaults.removeObject(forKey: DefaultName.appointmentData.rawValue)
         FuguDefaults.removeObject(forKey: DefaultName.addedPaymentGatewaysData.rawValue)
+        
+        FuguDefaults.removeObject(forKey: DefaultName.defaultConversationData.rawValue)
+        FuguDefaults.removeObject(forKey: DefaultName.broadcastConversationData.rawValue)
+        FuguDefaults.removeObject(forKey: DefaultName.p2pConversationData.rawValue)
         
         FuguDefaults.removeAllPersistingData()
         

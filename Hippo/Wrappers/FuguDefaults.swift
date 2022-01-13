@@ -19,6 +19,10 @@ enum DefaultName: String {
     case selectedLanguage = "hippoSelectedLanguage"
     case announcementUnreadCount = "announcementUnreadCount"
     case putUserData = "putUserData"
+    
+    case defaultConversationData = "fugu_default_conversation_data"
+    case broadcastConversationData = "fugu_broadcast_conversation_data"
+    case p2pConversationData = "fugu_p2p_conversation_data"
 }
 
 struct DefaultKey {

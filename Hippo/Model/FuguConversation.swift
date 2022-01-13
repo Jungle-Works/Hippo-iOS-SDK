@@ -22,7 +22,7 @@ class FuguConversation: HippoConversation {
     var mutiLanguageMsg : String?
     var message_sub_type : Int?
     var original_transaction_id : String?
-   static var paginationData: [PaginationData] = [PaginationData(), PaginationData(), PaginationData()]
+    static var paginationData: [PaginationData] = [PaginationData(), PaginationData(), PaginationData()]
     
     init?(channelId: Int, unreadCount: Int, lastMessage: HippoMessage, labelID: Int?) {
         guard channelId > 0 else {
@@ -47,7 +47,7 @@ class FuguConversation: HippoConversation {
         }
         
         if let mutiLanguageMsg = conversationDict["multi_lang_message"] as? String{
-            self.mutiLanguageMsg = MultiLanguageMsg().matchString(mutiLanguageMsg) 
+            self.mutiLanguageMsg = MultiLanguageMsg().matchString(mutiLanguageMsg)
         }
         
         if let channel_status = conversationDict["channel_status"] as? Int, let channelStatus = ChatStatus(rawValue: channel_status) {
@@ -111,35 +111,35 @@ class FuguConversation: HippoConversation {
         return params
     }
     
-    static func getAllConversationFromServer(config: AllConversationsConfig, completion: @escaping (_ result: GetConversationFromServerResult) -> Void) {
-        
-        let params = getParamsToGetAllConversation(config: config)
-        
-        HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: FuguEndPoints.API_GET_CONVERSATIONS.rawValue) { (responseObject, error, tag, statusCode) in
-            
-            guard let unwrappedStatusCode = statusCode,
-                let response = responseObject as? [String: Any],
-                let data = response["data"] as? [String: Any],
-                let conversationArrayJson = data["conversation_list"] as? [[String: Any]],
-                unwrappedStatusCode == STATUS_CODE_SUCCESS else {
-                    let result = GetConversationFromServerResult(isSuccessful: false, error: error, conversations: nil)
-                    
-                    completion(result)
-                print(result)
-                    return
-            }
-            
-            FuguDefaults.set(value: conversationArrayJson, forKey: DefaultName.conversationData.rawValue)
-            let arrayOfConversation = getConversationArrayFrom(json: conversationArrayJson)
-            
-            if let lastVisibleController = getLastVisibleController() as? ConversationsViewController, let channelId = lastVisibleController.channel?.id {
-                lastVisibleController.clearUnreadCountForChannel(id: channelId)
-            }
-
-            let result = GetConversationFromServerResult(isSuccessful: true, error: HippoError.general, conversations: arrayOfConversation)
-            completion(result)
-        }
-    }
+//    static func getAllConversationFromServer(config: AllConversationsConfig, completion: @escaping (_ result: GetConversationFromServerResult) -> Void) {
+//        
+//        let params = getParamsToGetAllConversation(config: config)
+//        
+//        HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: FuguEndPoints.API_GET_CONVERSATIONS.rawValue) { (responseObject, error, tag, statusCode) in
+//            
+//            guard let unwrappedStatusCode = statusCode,
+//                  let response = responseObject as? [String: Any],
+//                  let data = response["data"] as? [String: Any],
+//                  let conversationArrayJson = data["conversation_list"] as? [[String: Any]],
+//                  unwrappedStatusCode == STATUS_CODE_SUCCESS else {
+//                      let result = GetConversationFromServerResult(isSuccessful: false, error: error, conversations: nil)
+//                      
+//                      completion(result)
+//                      print(result)
+//                      return
+//                  }
+//            
+//            FuguDefaults.set(value: conversationArrayJson, forKey: DefaultName.conversationData.rawValue)
+//            let arrayOfConversation = getConversationArrayFrom(json: conversationArrayJson)
+//            
+//            if let lastVisibleController = getLastVisibleController() as? ConversationsViewController, let channelId = lastVisibleController.channel?.id {
+//                lastVisibleController.clearUnreadCountForChannel(id: channelId)
+//            }
+//            
+//            let result = GetConversationFromServerResult(isSuccessful: true, error: HippoError.general, conversations: arrayOfConversation)
+//            completion(result)
+//        }
+//    }
     
     private static func getParamsToGetAllConversation(config: AllConversationsConfig) -> [String: Any] {
         var params = [String: Any]()
@@ -177,15 +177,23 @@ class FuguConversation: HippoConversation {
                       return
                   }
             
-//            FuguDefaults.set(value: conversationArrayJson, forKey: DefaultName.conversationData.rawValue)
-//            let arrayOfConversation = getConversationArrayFrom(json: conversationArrayJson)
-//            
-//            if let lastVisibleController = getLastVisibleController() as? ConversationsViewController, let channelId = lastVisibleController.channel?.id {
-//                lastVisibleController.clearUnreadCountForChannel(id: channelId)
-//            }
-//            
-//            let result = GetConversationFromServerResult(isSuccessful: true, error: HippoError.general, conversations: arrayOfConversation)
-//            completion(result)
+            switch chatType {
+            case .defaultChat:
+                FuguDefaults.set(value: conversationArrayJson, forKey: DefaultName.defaultConversationData.rawValue)
+            case .broadcast:
+                FuguDefaults.set(value: conversationArrayJson, forKey: DefaultName.broadcastConversationData.rawValue)
+            case .p2p:
+                FuguDefaults.set(value: conversationArrayJson, forKey: DefaultName.p2pConversationData.rawValue)
+            }
+            
+            let arrayOfConversation = getConversationArrayFrom(json: conversationArrayJson)
+            
+            if let lastVisibleController = getLastVisibleController() as? ConversationsViewController, let channelId = lastVisibleController.channel?.id {
+                lastVisibleController.clearUnreadCountForChannel(id: channelId)
+            }
+            
+            let result = GetConversationFromServerResult(isSuccessful: true, error: HippoError.general, conversations: arrayOfConversation)
+            completion(result)
         }
         
     }
@@ -222,7 +230,6 @@ class FuguConversation: HippoConversation {
         for rawConversation in json {
             if let conversation = FuguConversation(conversationDict: rawConversation) {
                 if (conversation.unreadCount ?? 0) > 0 {
-//                    conversation.channelStatus = .open
                 }
                 arrayOfConversation.append(conversation)
             }

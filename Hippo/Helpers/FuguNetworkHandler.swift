@@ -141,10 +141,10 @@ class FuguNetworkHandler: NSObject {
         }else if let conversationVC = getLastVisibleController() as? AllConversationsViewController, conversationVC.isViewLoaded {
             if hidden == false {
                 
-                guard let chatCachedArray = FuguDefaults.object(forKey: DefaultName.conversationData.rawValue) as? [[String: Any]], chatCachedArray.isEmpty == false else {
-                    
-                    return
-                }
+//                guard let chatCachedArray = FuguDefaults.object(forKey: DefaultName.conversationData.rawValue) as? [[String: Any]], chatCachedArray.isEmpty == false else {
+//                    
+//                    return
+//                }
                 
                 conversationVC.refreshControl.endRefreshing()
                 
@@ -162,7 +162,8 @@ class FuguNetworkHandler: NSObject {
                     conversationVC.updateErrorLabelView(isHiding: hidden)
                 }
             } else {
-                conversationVC.getAllConversations()
+//                conversationVC.getAllConversations()
+                conversationVC.getAllConvo()
                 conversationVC.updateErrorLabelView(isHiding: hidden)
             }
         }else if let agentVC = getLastVisibleController() as? AgentHomeViewController, agentVC.isViewLoaded {
