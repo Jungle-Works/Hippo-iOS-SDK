@@ -370,6 +370,7 @@ enum UserSubscriptionStatus: Int {
 enum FuguEndPoints: String {
     case API_PUT_USER_DETAILS = "api/users/putUserDetails"
     case API_GET_CONVERSATIONS = "api/conversation/getConversations"
+    case API_GET_CUSTOMER_CONVERSATIONS = "/api/conversation/v1/getCustomerConversations"
     case API_GET_MESSAGES = "api/conversation/getMessages"
     case API_CREATE_CONVERSATION = "api/conversation/createConversation"
     case API_GET_MESSAGES_BASED_ON_LABEL = "api/conversation/getByLabelId"

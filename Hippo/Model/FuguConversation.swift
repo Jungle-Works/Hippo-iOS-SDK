@@ -11,7 +11,7 @@ import UIKit
 
 struct PaginationData{
     var canPaginate = true
-    var pageNumber = 1
+    var pageNumber = 0
     var isApiHitting = false
 }
 
@@ -22,7 +22,7 @@ class FuguConversation: HippoConversation {
     var mutiLanguageMsg : String?
     var message_sub_type : Int?
     var original_transaction_id : String?
-    var canPaginate: [PaginationData]?
+   static var paginationData: [PaginationData] = [PaginationData(), PaginationData(), PaginationData()]
     
     init?(channelId: Int, unreadCount: Int, lastMessage: HippoMessage, labelID: Int?) {
         guard channelId > 0 else {
@@ -161,11 +161,36 @@ class FuguConversation: HippoConversation {
         return params
     }
     
-    static func getConversationsFromServer(for chatType: ConversationChatType, and filter: Int? = nil, with config: AllConversationsConfig, completion: @escaping (_ result: GetConversationFromServerResult) -> Void){
-        let params = getParamsToGetAllConversation(config: config)
+    static func getConversationsFromServer(for chatType: ConversationChatType, and filter: Int? = nil, completion: @escaping (_ result: GetConversationFromServerResult) -> Void){
+        let params = getParamsToGetConversations(for:  chatType, and: filter)
+        
+        HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: FuguEndPoints.API_GET_CUSTOMER_CONVERSATIONS.rawValue) { (responseObject, error, tag, statusCode) in
+            
+            guard let unwrappedStatusCode = statusCode,
+                  let response = responseObject as? [String: Any],
+                  let data = response["data"] as? [String: Any],
+                  let conversationArrayJson = data["conversation_list"] as? [[String: Any]],
+                  unwrappedStatusCode == STATUS_CODE_SUCCESS else {
+                      let result = GetConversationFromServerResult(isSuccessful: false, error: error, conversations: nil)
+                      completion(result)
+                      print(result)
+                      return
+                  }
+            
+//            FuguDefaults.set(value: conversationArrayJson, forKey: DefaultName.conversationData.rawValue)
+//            let arrayOfConversation = getConversationArrayFrom(json: conversationArrayJson)
+//            
+//            if let lastVisibleController = getLastVisibleController() as? ConversationsViewController, let channelId = lastVisibleController.channel?.id {
+//                lastVisibleController.clearUnreadCountForChannel(id: channelId)
+//            }
+//            
+//            let result = GetConversationFromServerResult(isSuccessful: true, error: HippoError.general, conversations: arrayOfConversation)
+//            completion(result)
+        }
+        
     }
     
-    private static func getParamsToGetConversations(for chatType: ConversationChatType, and filter: Int? = nil, with config: AllConversationsConfig) -> [String: Any] {
+    private static func getParamsToGetConversations(for chatType: ConversationChatType, and filter: Int? = nil) -> [String: Any] {
         var params = [String: Any]()
         
         params["app_secret_key"] = HippoConfig.shared.appSecretKey
@@ -174,14 +199,18 @@ class FuguConversation: HippoConversation {
         params["app_version"] = versionCode
         params["offering"] = HippoConfig.shared.offering
         params["device_type"] =  Device_Type_iOS
+        params["row_count"] = 10
+        params["source_type"] = 1
+        params["lang"] = getCurrentLanguageLocale()
         
-        switch chatType {
-        case .defaultChat:
-            <#code#>
-        case .broadcast:
-            <#code#>
-        case .p2p:
-            <#code#>
+        if paginationData[chatType.rawValue].canPaginate {
+            paginationData[chatType.rawValue].pageNumber += 1
+        }
+        
+        params["page_start"] = paginationData[chatType.rawValue].pageNumber
+        
+        if let appliedFilter = filter{
+            params["chat_status"] = appliedFilter
         }
         
         return params

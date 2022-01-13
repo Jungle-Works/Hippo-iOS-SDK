@@ -755,6 +755,7 @@ func resetForChannel(channelId: Int) {
     HippoConfig.shared.pushArray.remove(at: index!)
     
 }
+
 func resetPushCount() {
     HippoConfig.shared.pushArray = []
 }

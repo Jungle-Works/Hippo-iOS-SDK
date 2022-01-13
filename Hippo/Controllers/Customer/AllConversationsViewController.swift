@@ -16,6 +16,7 @@ enum ConversationChatType: Int {
     case p2p = 2
 }
 
+
 class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     
     // MARK: - IBOutlets
@@ -59,6 +60,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     var closedConversationArr = [FuguConversation]()
     var config: AllConversationsConfig = AllConversationsConfig.defaultConfig
     var conversationChatType: ConversationChatType = .defaultChat
+    var conversationFilter: ChatStatus = .open
     var shouldHideBackBtn : Bool = false
     var whatsappWidgetConfig: WhatsappWidgetConfig?
     
@@ -123,7 +125,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        
+        getAllConvo()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -766,7 +768,65 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         DispatchQueue.main.async {
             self.showConversationsTableView.reloadData()
         }
+    }
+    
+    func getAllConvo(){
+        if HippoConfig.shared.appSecretKey.isEmpty {
+            arrayOfConversation = []
+            showConversationsTableView?.reloadData()
+            showErrorMessageInTopErrorLabel(withMessage: "Invalid app secret key")
+            return
+        }
         
+        FuguConversation.getConversationsFromServer(for: conversationChatType, and: conversationFilter.rawValue){ [weak self] (result) in
+            self?.refreshControl.endRefreshing()
+            resetPushCount()
+            pushTotalUnreadCount()
+            
+            guard result.isSuccessful else {
+                let errorMessage = result.error?.localizedDescription ?? HippoStrings.somethingWentWrong
+                self?.showErrorMessageInTopErrorLabel(withMessage: errorMessage)
+                return
+            }
+            
+//            var conversation = result.conversations!
+//            if self?.config.isStaticRemoveConversation ?? false, let status = self?.config.enabledChatStatus, !status.isEmpty {
+//                let lastChannelId = self?.config.lastChannelId ?? -12
+//                conversation = conversation.filter({ (con) -> Bool in
+//                    print(con.channelStatus)
+//                    return (status.contains(con.channelStatus) && lastChannelId != con.channelId)
+//                })
+//            }
+//
+//
+//            self?.arrayOfConversation = conversation
+//            self?.arrayOfFullConversation = conversation
+//            let conversationData = conversation
+//
+//            if !conversationData.isEmpty{
+//                self?.filterConversationArr(conversationArr: conversationData)
+//            }
+//
+//            if self?.conversationChatType == .defaultChat{
+//                self?.view_NewConversationBtn.isHidden = !HippoProperty.current.enableNewConversationButton
+//            }else if self?.conversationChatType == .p2p{
+//                self?.view_NewConversationBtn.isHidden = true
+//            }else{
+//
+//            }
+//
+//            if result.conversations?.count == 0 {
+//                self?.closedConversationArr.removeAll()
+//                self?.ongoingConversationArr.removeAll()
+//                if HippoConfig.shared.theme.shouldShowBtnOnChatList == true{
+//                    self?.noConversationFound(true,HippoConfig.shared.theme.noOpenAndcloseChatError == nil ? HippoStrings.noChatStarted : HippoConfig.shared.theme.noOpenAndcloseChatError ?? "")
+//                }
+//                if HippoConfig.shared.shouldOpenDefaultChannel{
+//                    self?.openDefaultChannel()
+//                    return
+//                }
+//            }
+        }
     }
     
     func setFilterButtonIcon(){
