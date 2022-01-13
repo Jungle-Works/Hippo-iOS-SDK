@@ -15,6 +15,9 @@ public class HippoStrings {
     //cp sdk
     static var ongoing = "Current".localized
     static var past = "Past".localized
+    static var Default = "Default".localized
+    static var broadcast = "Broadcast".localized
+    static var p2p = "P2p".localized
     open var newConversation = "New Conversation".localized
     static var noNetworkConnection = "No internet connected".localized
     static var connected = "Connected".localized

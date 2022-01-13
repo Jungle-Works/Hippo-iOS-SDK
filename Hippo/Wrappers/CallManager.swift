@@ -55,7 +55,7 @@ class CallManager {
     func startGroupCall(call: GroupCallData, groupCallChannelData : GroupCallChannelData, completion: @escaping (Bool, NSError?) -> Void){
         #if canImport(JitsiMeetSDK)
         let peerUser = call.peerData
-        guard let peer = HippoUser(name: peerUser.fullName, userID: peerUser.userID, enUserID: peerUser.enUserID, imageURL: peerUser.image) else {
+        guard let peer = HippoUser(name: peerUser.fullName, userID: peerUser.userID, imageURL: peerUser.image) else {
             return
         }
         guard let currentUser = getCurrentUser() else {
@@ -84,7 +84,7 @@ class CallManager {
     func startCall(call: CallData, completion: @escaping (Bool, NSError?) -> Void) {
         #if canImport(HippoCallClient)
         let peerUser = call.peerData
-        guard let peer = HippoUser(name: peerUser.fullName, userID: peerUser.userID, enUserID: peerUser.enUserID, imageURL: peerUser.image) else {
+        guard let peer = HippoUser(name: peerUser.fullName, userID: peerUser.userID, imageURL: peerUser.image) else {
             return
         }
         guard let currentUser = getCurrentUser() else {
@@ -106,7 +106,7 @@ class CallManager {
     func startWebRTCCall(call: CallData, completion: @escaping (Bool) -> Void) {
         #if canImport(HippoCallClient)
         let peerUser = call.peerData
-        guard let peer = HippoUser(name: peerUser.fullName, userID: peerUser.userID, enUserID: peerUser.enUserID, imageURL: peerUser.image) else {
+        guard let peer = HippoUser(name: peerUser.fullName, userID: peerUser.userID, imageURL: peerUser.image) else {
             return
         }
         guard let currentUser = getCurrentUser() else {
@@ -126,7 +126,7 @@ class CallManager {
     
     func startConnection(peerUser: User, muid: String, callType: CallType, completion: (Bool) -> Void) {
         #if canImport(HippoCallClient)
-        guard let peer = HippoUser(name: peerUser.fullName, userID: peerUser.userID, enUserID: peerUser.enUserID, imageURL: peerUser.image) else {
+        guard let peer = HippoUser(name: peerUser.fullName, userID: peerUser.userID, imageURL: peerUser.image) else {
             return
         }
         let type = getCallTypeWith(localType: callType)
@@ -275,13 +275,12 @@ class CallManager {
             let name = user.fullName ?? ""
             let userID = HippoUserDetail.fuguUserID ?? -1
             let userImage = user.userImage
-            let enUserID = HippoUserDetail.fuguEnUserID ?? ""
-            return HippoUser(name: name, userID: userID, enUserID: enUserID, imageURL: userImage?.absoluteString)
+            return HippoUser(name: name, userID: userID, imageURL: userImage?.absoluteString)
         case .agent:
             guard let agentDetail = HippoConfig.shared.agentDetail else {
                 return nil
             }
-            return HippoUser(name: agentDetail.fullName, userID: agentDetail.id, enUserID: agentDetail.enUserId, imageURL: agentDetail.userImage)
+            return HippoUser(name: agentDetail.fullName, userID: agentDetail.id, imageURL: agentDetail.userImage)
         }
     }
     #endif

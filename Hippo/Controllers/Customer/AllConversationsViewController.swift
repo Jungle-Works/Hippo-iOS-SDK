@@ -10,9 +10,10 @@ import UIKit
 import NotificationCenter
 
 
-enum ConversationChatType {
-    case openChat
-    case closeChat
+enum ConversationChatType: Int {
+    case defaultChat = 0
+    case broadcast = 1
+    case p2p = 2
 }
 
 class AllConversationsViewController: UIViewController, NewChatSentDelegate {
@@ -35,8 +36,9 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     //   @IBOutlet weak var heightofNavigationBar: NSLayoutConstraint!
     
     @IBOutlet weak var buttonContainerView: UIView!
-    @IBOutlet weak var openChatButton: UIButton!
-    @IBOutlet weak var closeChatButton: UIButton!
+    @IBOutlet weak var defaultChatButton: UIButton!
+    @IBOutlet weak var broadcastChatButton: UIButton!
+    @IBOutlet weak var p2pChatButton: UIButton!
     @IBOutlet weak var bottomLineView: UIView!
     @IBOutlet weak var buttonContainerViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var bottomViewLeadingConstraint: NSLayoutConstraint!
@@ -56,7 +58,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     var ongoingConversationArr = [FuguConversation]()
     var closedConversationArr = [FuguConversation]()
     var config: AllConversationsConfig = AllConversationsConfig.defaultConfig
-    var conversationChatType: ConversationChatType = .openChat
+    var conversationChatType: ConversationChatType = .defaultChat
     var shouldHideBackBtn : Bool = false
     var whatsappWidgetConfig: WhatsappWidgetConfig?
     
@@ -78,19 +80,24 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
                 self.filterConversationArr(conversationArr: fetchAllConversationCacheData)
             }
         }
+        
         if let labelId = HippoProperty.current.openLabelIdOnHome, labelId > 0 {
             moveToChatViewcontroller(labelId: labelId)
         }
         
         //        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
         
-        self.openChatButton.setBackgroundColor(color: #colorLiteral(red: 0.8156862745, green: 0.8156862745, blue: 0.8156862745, alpha: 1), forState: UIControl.State.highlighted)
-        self.closeChatButton.setBackgroundColor(color: #colorLiteral(red: 0.8156862745, green: 0.8156862745, blue: 0.8156862745, alpha: 1), forState: UIControl.State.highlighted)
+        self.defaultChatButton.setBackgroundColor(color: #colorLiteral(red: 0.8156862745, green: 0.8156862745, blue: 0.8156862745, alpha: 1), forState: UIControl.State.highlighted)
+        self.p2pChatButton.setBackgroundColor(color: #colorLiteral(red: 0.8156862745, green: 0.8156862745, blue: 0.8156862745, alpha: 1), forState: UIControl.State.highlighted)
+        self.broadcastChatButton.setBackgroundColor(color: #colorLiteral(red: 0.8156862745, green: 0.8156862745, blue: 0.8156862745, alpha: 1), forState: UIControl.State.highlighted)
         
-        self.openChatButton.titleLabel?.font = UIFont.bold(ofSize: 15)
-        self.closeChatButton.titleLabel?.font = UIFont.regular(ofSize: 15)
-        self.openChatButton.setTitle(HippoStrings.ongoing, for: .normal)
-        self.closeChatButton.setTitle(HippoStrings.past, for: .normal)
+        self.defaultChatButton.titleLabel?.font = UIFont.bold(ofSize: 15)
+        self.p2pChatButton.titleLabel?.font = UIFont.regular(ofSize: 15)
+        self.broadcastChatButton.titleLabel?.font = UIFont.regular(ofSize: 15)
+        
+        self.defaultChatButton.setTitle(HippoStrings.Default, for: .normal)
+        self.p2pChatButton.setTitle(HippoStrings.p2p, for: .normal)
+        self.broadcastChatButton.setTitle(HippoStrings.broadcast, for: .normal)
         
         self.bottomLineView.backgroundColor = HippoConfig.shared.theme.themeColor
         
@@ -105,13 +112,14 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         view_NavigationBar.leftButton.addTarget(self, action: #selector(backButtonAction(_:)), for: .touchUpInside)
         
         
-        //Configuring SwitchButton
+        //Configuring whatsapp button
         if let whatsappData = HippoConfig.shared.whatsappWidgetConfig{
             self.whatsappWidgetConfig = whatsappData
             view_NavigationBar.whtsappBtn.isHidden = false
             view_NavigationBar.whtsappBtn.addTarget(self, action: #selector(btnWhatsappTapped), for: .touchUpInside)
         }
         
+        self.setFilterButtonIcon()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -195,9 +203,9 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
             }
             
             self?.showConversationsTableView.reloadData()
-            if self?.conversationChatType == .openChat{
+            if self?.conversationChatType == .defaultChat{
                 self?.view_NewConversationBtn.isHidden = !HippoProperty.current.enableNewConversationButton
-            }else if self?.conversationChatType == .closeChat{
+            }else if self?.conversationChatType == .p2p{
                 self?.view_NewConversationBtn.isHidden = true
             }else{}
             if let result = self?.handleIntialCustomerForm(), result {
@@ -220,12 +228,12 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     func uiSetup() {
         if HippoConfig.shared.hasChannelTabs == true{
             self.buttonContainerViewHeightConstraint.constant = 45
-            self.openChatButton.isHidden = !HippoConfig.shared.hasChannelTabs
-            self.closeChatButton.isHidden = !HippoConfig.shared.hasChannelTabs
+            self.defaultChatButton.isHidden = !HippoConfig.shared.hasChannelTabs
+            self.p2pChatButton.isHidden = !HippoConfig.shared.hasChannelTabs
         }else{
             self.buttonContainerViewHeightConstraint.constant = 0
-            self.openChatButton.isHidden = !HippoConfig.shared.hasChannelTabs
-            self.closeChatButton.isHidden = !HippoConfig.shared.hasChannelTabs
+            self.defaultChatButton.isHidden = !HippoConfig.shared.hasChannelTabs
+            self.p2pChatButton.isHidden = !HippoConfig.shared.hasChannelTabs
         }
         automaticallyAdjustsScrollViewInsets = false
         updateErrorLabelView(isHiding: true)
@@ -235,9 +243,9 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         let theme = HippoConfig.shared.theme
         
         //    newConversationBiutton.isEnabled = HippoProperty.current.enableNewConversationButton
-        if self.conversationChatType == .openChat{
+        if self.conversationChatType == .defaultChat{
             view_NewConversationBtn.isHidden = !HippoProperty.current.enableNewConversationButton
-        }else if self.conversationChatType == .closeChat{
+        }else if self.conversationChatType == .p2p{
             view_NewConversationBtn.isHidden = true
         }else{}
         
@@ -416,6 +424,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         }
         
     }
+    
     @IBAction func backButtonAction(_ sender: UIButton) {
         saveConversationsInCache()
         HippoConfig.shared.notifiyDeinit()
@@ -452,30 +461,48 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         
     }
     
-    @IBAction func openChatButtonClicked(_ sender: UIButton) {
-        guard conversationChatType != .openChat else {
+    @IBAction func defaultChatButtonClicked(_ sender: UIButton) {
+        guard conversationChatType != .defaultChat else {
             return
         }
-        self.openChatButton.titleLabel?.font = UIFont.bold(ofSize: 15)
-        self.closeChatButton.titleLabel?.font = UIFont.regular(ofSize: 15)
-        //        self.newConversationBiutton.isHidden = false
+        
+        self.view_NavigationBar.rightButton.isHidden = false
+        self.defaultChatButton.titleLabel?.font = UIFont.bold(ofSize: 15)
+        self.p2pChatButton.titleLabel?.font = UIFont.regular(ofSize: 15)
+        self.broadcastChatButton.titleLabel?.font = UIFont.regular(ofSize: 15)
+        
         self.view_NewConversationBtn.isHidden = !HippoProperty.current.enableNewConversationButton
-        conversationChatType = .openChat
+        conversationChatType = .defaultChat
         animateBottomLineView()
         //getAllConversations()
         self.showOpenChatData()
     }
     
-    @IBAction func closeChatButtonClicked(_ sender: Any) {
-        guard conversationChatType != .closeChat else {
+    @IBAction func broadcastChatButtonClicked(_ sender: Any) {
+        guard conversationChatType != .broadcast else {
             return
         }
-        self.openChatButton.titleLabel?.font = UIFont.regular(ofSize: 16)
-        self.closeChatButton.titleLabel?.font = UIFont.bold(ofSize: 16)
-        self.view_NewConversationBtn.isHidden = true
-        conversationChatType = .closeChat
+        self.view_NavigationBar.rightButton.isHidden = true
+        self.defaultChatButton.titleLabel?.font = UIFont.regular(ofSize: 15)
+        self.p2pChatButton.titleLabel?.font = UIFont.regular(ofSize: 15)
+        self.broadcastChatButton.titleLabel?.font = UIFont.bold(ofSize: 15)
+        
+        conversationChatType = .broadcast
         animateBottomLineView()
-        //        getAllConversations()
+    }
+    
+    @IBAction func p2pChatButtonClicked(_ sender: Any) {
+        guard conversationChatType != .p2p else {
+            return
+        }
+        self.view_NavigationBar.rightButton.isHidden = true
+        self.defaultChatButton.titleLabel?.font = UIFont.regular(ofSize: 16)
+        self.p2pChatButton.titleLabel?.font = UIFont.bold(ofSize: 16)
+        self.broadcastChatButton.titleLabel?.font = UIFont.regular(ofSize: 15)
+        
+        self.view_NewConversationBtn.isHidden = true
+        conversationChatType = .p2p
+        animateBottomLineView()
         self.showcloseChatData()
     }
     
@@ -527,7 +554,17 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     }
     
     func animateBottomLineView() {
-        let leading = conversationChatType == .openChat ? 0 : openChatButton.bounds.width
+        var leading = 0.0
+        
+        switch conversationChatType {
+        case .defaultChat:
+            leading = 0.0
+        case .broadcast:
+            leading = broadcastChatButton.frame.minX
+        case .p2p:
+            leading = p2pChatButton.frame.minX
+        }
+        
         bottomViewLeadingConstraint.constant = leading
         UIView.animate(withDuration: 0.4) {
             self.buttonContainerView.layoutIfNeeded()
@@ -585,6 +622,15 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         }
     }
     
+    
+    @IBAction func filterBtnAction(_ sender: Any) {
+        if let vc = FilterViewController.getNewInstance(){
+            vc.filterScreenButtonsDelegate = self
+            let navVC = UINavigationController(rootViewController: vc)
+            self.present(navVC, animated: true, completion: nil)
+        }
+    }
+    
     // MARK: - SERVER HIT
     func getAllConversations() {
         
@@ -619,20 +665,24 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
             self?.arrayOfConversation = conversation
             self?.arrayOfFullConversation = conversation
             let conversationData = conversation
+            
             if !conversationData.isEmpty{
                 self?.filterConversationArr(conversationArr: conversationData)
             }
             
-            if self?.conversationChatType == .openChat{
+            if self?.conversationChatType == .defaultChat{
                 self?.view_NewConversationBtn.isHidden = !HippoProperty.current.enableNewConversationButton
-            }else if self?.conversationChatType == .closeChat{
+            }else if self?.conversationChatType == .p2p{
                 self?.view_NewConversationBtn.isHidden = true
-            }else{}
+            }else{
+                
+            }
             
             if result.conversations?.count == 0 {
                 self?.closedConversationArr.removeAll()
                 self?.ongoingConversationArr.removeAll()
-                if HippoConfig.shared.theme.shouldShowBtnOnChatList == true{ self?.noConversationFound(true,HippoConfig.shared.theme.noOpenAndcloseChatError == nil ? HippoStrings.noChatStarted : HippoConfig.shared.theme.noOpenAndcloseChatError ?? "")
+                if HippoConfig.shared.theme.shouldShowBtnOnChatList == true{
+                    self?.noConversationFound(true,HippoConfig.shared.theme.noOpenAndcloseChatError == nil ? HippoStrings.noChatStarted : HippoConfig.shared.theme.noOpenAndcloseChatError ?? "")
                 }
                 if HippoConfig.shared.shouldOpenDefaultChannel{
                     self?.openDefaultChannel()
@@ -642,11 +692,15 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         }
     }
     
-    //    func getVideoSdkToken(){
-    //        FuguConversation.getVideoSdkToken(config: config){[weak self] (result) in
-    //            print(result)
-    //        }
-    //    }
+    func getConversations(){
+        if HippoConfig.shared.appSecretKey.isEmpty {
+            arrayOfConversation = []
+            showConversationsTableView?.reloadData()
+            showErrorMessageInTopErrorLabel(withMessage: "Invalid app secret key")
+            return
+        }
+    }
+    
     
     func filterConversationArr(conversationArr:[FuguConversation]){
         //        if conversationArr.count <= 0 {
@@ -666,9 +720,9 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         self.closedConversationArr.removeAll()
         self.closedConversationArr = tempArrayOfConversation.filter{$0.channelStatus.rawValue == 2}
         
-        if self.conversationChatType == .openChat{
+        if self.conversationChatType == .defaultChat{
             self.showOpenChatData()
-        }else if self.conversationChatType == .closeChat{
+        }else if self.conversationChatType == .p2p{
             self.showcloseChatData()
         }else{}
         
@@ -680,7 +734,6 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
             
             self.noConversationFound(false,HippoConfig.shared.theme.noChatUnderCatagoryError == nil ? HippoStrings.noChatInCatagory : HippoConfig.shared.theme.noChatUnderCatagoryError ?? "")
         }
-        
     }
     
     func noConversationFound(_ shouldShowBtn : Bool, _ errorMessage : String){
@@ -716,7 +769,18 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         
     }
     
-    
+    func setFilterButtonIcon(){
+        if BussinessProperty.current.isFilterApplied == true {
+            if HippoConfig.shared.theme.filterSelectedBarButtonImage != nil {                view_NavigationBar.rightButton.setImage(HippoConfig.shared.theme.filterSelectedBarButtonImage, for: .normal)
+                view_NavigationBar.rightButton.tintColor = HippoConfig.shared.theme.headerTextColor
+            }
+        }else{
+            if HippoConfig.shared.theme.filterUnselectedBarButtonImage != nil {                view_NavigationBar.rightButton.setImage(HippoConfig.shared.theme.filterUnselectedBarButtonImage, for: .normal)
+                view_NavigationBar.rightButton.tintColor = HippoConfig.shared.theme.headerTextColor
+            }
+        }
+        view_NavigationBar.rightButton.addTarget(self, action: #selector(filterBtnAction(_:)), for: .touchUpInside)
+    }
     
     func openDefaultChannel() {
         HippoConfig.shared.notifyDidLoad()
@@ -1116,5 +1180,21 @@ extension AllConversationsViewController{
         }
         self.filterConversationArr(conversationArr: arrayOfFullConversation)
     }
+    
+}
+
+extension AllConversationsViewController: FilterScreenButtonsDelegate{
+    func cancelButtonPressed() {
+        
+    }
+    
+    func resetButtonPressed() {
+        setFilterButtonIcon()
+    }
+    
+    func applyButtonPressed() {
+        setFilterButtonIcon()
+    }
+    
     
 }

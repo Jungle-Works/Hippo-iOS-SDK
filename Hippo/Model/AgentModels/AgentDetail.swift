@@ -432,8 +432,8 @@ extension AgentDetail {
         if agentDetail.isForking {
             params["agent_secret_key"] = agentDetail.oAuthToken
         } else {
-            params["auth_token"] = agentDetail.oAuthToken
-//            params["auth_token"] = "319d7f03887895b7a39998b6f8d773f9"
+//            params["auth_token"] = agentDetail.oAuthToken
+            params["auth_token"] = "319d7f03887895b7a39998b6f8d773f9"
         }
         params["fetch_tags"] = 0
         return params

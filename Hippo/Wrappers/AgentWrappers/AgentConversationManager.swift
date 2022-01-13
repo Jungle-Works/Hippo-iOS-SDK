@@ -514,6 +514,7 @@ extension AgentConversationManager {
         
         return dict
     }
+    
     fileprivate static func paramsForGetConversation(with request: GetConversationRequestParam) -> [String: Any]? {
         guard var dict = generateDefaultParam(with: request) else {
             return nil

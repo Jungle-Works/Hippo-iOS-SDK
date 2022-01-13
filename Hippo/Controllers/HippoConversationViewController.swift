@@ -1743,13 +1743,6 @@ extension HippoConversationViewController : OutgoingShareUrlDelegate {
             HippoConfig.shared.joinCallFromLink(url: url, callType: callType)
         })
         }else{
-            #if canImport(HippoCallClient)
-            HippoCallClientUrl.shared.channelId = "\(self.channelId)"
-            HippoCallClientUrl.shared.enUserId = currentEnUserId()
-            HippoCallClientUrl.shared.id = currentUserId()
-            HippoCallClientUrl.shared.userName = currentUserName()
-            #endif
-            
             shareUrlHelper.getUrlToJoinJitsiCall(url: url, completion: {(url, callType) in
                 HippoConfig.shared.joinCallFromLink(url: url,callType: callType)
             })

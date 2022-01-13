@@ -910,22 +910,15 @@ struct WhatsappWidgetConfig{
         case .dev:
             baseUrl = SERVERS.devUrl
             fayeBaseURLString = SERVERS.devFaye
-       
         case .beta:
             baseUrl = SERVERS.betaUrl
             fayeBaseURLString = SERVERS.betaFaye
-//            HippoCallClientUrl.urlType = .beta
         case .live:
             baseUrl = SERVERS.liveUrl
             fayeBaseURLString = SERVERS.liveFaye
-//            HippoCallClientUrl.urlType = .live
         }
         //        FayeConnection.shared.enviromentSwitchedWith(urlString: fayeBaseURLString)
-        
-        #if canImport(HippoCallClient)
-        HippoCallClientUrl.baseUrl = baseUrl
-        #endif
-        
+
         SocketClient.shared.connect()
     }
     
