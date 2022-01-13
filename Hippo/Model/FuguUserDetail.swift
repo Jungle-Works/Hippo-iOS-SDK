@@ -563,7 +563,7 @@ public class UserTag: NSObject {
     
     class func hitStatsAPi(pushContent: [String: Any]?, sendSessionTym: Bool = false, sendSeen: Bool = false, completion: ((Bool) -> Void)? = nil) {
                 
-        if !sendSessionTym{
+        if !sendSessionTym && !sendSeen{
             HippoConfig.shared.sessionStartTime = Date()
         }
         
@@ -616,8 +616,8 @@ public class UserTag: NSObject {
         }else{
             if sendSeen{
                 params["is_delivered"] = 1
-                params["seen_status"] = 1
             }else{
+                params["seen_status"] = 1
                 params["app_opened_through_push"] = 1
             }
         }
