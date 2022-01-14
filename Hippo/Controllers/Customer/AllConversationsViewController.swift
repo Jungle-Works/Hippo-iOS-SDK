@@ -116,6 +116,8 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     override func viewDidAppear(_ animated: Bool) {
         if config.shouldUseCache {
             arrayOfConversations[conversationChatType.rawValue] = fetchAllConversationCache(with: conversationChatType)
+            arrayOfConversation = arrayOfConversations[conversationChatType.rawValue]
+            showConversationsTableView.reloadData()
         }
     }
     
@@ -401,15 +403,18 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
 //                tabBarController.selectedIndex = 0
 //            }
 //        }
+        
         if config.shouldPopVc {
             self.navigationController?.popViewController(animated: true)
         } else {
-            _ = self.navigationController?.dismiss(animated: true, completion: nil)
+            self.navigationController?.dismiss(animated: true, completion: nil)
         }
         
     }
     
     @IBAction func backButtonAction(_ sender: UIButton) {
+        FuguConversation.paginationData = [PaginationData(), PaginationData(), PaginationData()]
+        FilterManager.shared.resetData()
         saveConversationsInCache()
         HippoConfig.shared.notifiyDeinit()
         self.navigationController?.dismiss(animated: true, completion: nil)
@@ -450,7 +455,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
             return
         }
         
-        self.view_NavigationBar.rightButton.isHidden = false
+        self.view_NavigationBar.rightButton.isEnabled = true
         self.defaultChatButton.titleLabel?.font = UIFont.bold(ofSize: 15)
         self.p2pChatButton.titleLabel?.font = UIFont.regular(ofSize: 15)
         self.broadcastChatButton.titleLabel?.font = UIFont.regular(ofSize: 15)
@@ -465,20 +470,21 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         guard conversationChatType != .broadcast else {
             return
         }
-        self.view_NavigationBar.rightButton.isHidden = true
+        self.view_NavigationBar.rightButton.isEnabled = false
         self.defaultChatButton.titleLabel?.font = UIFont.regular(ofSize: 15)
         self.p2pChatButton.titleLabel?.font = UIFont.regular(ofSize: 15)
         self.broadcastChatButton.titleLabel?.font = UIFont.bold(ofSize: 15)
         
         conversationChatType = .broadcast
         animateBottomLineView()
+        showBroadcastChatData()
     }
     
     @IBAction func p2pChatButtonClicked(_ sender: Any) {
         guard conversationChatType != .p2p else {
             return
         }
-        self.view_NavigationBar.rightButton.isHidden = true
+        self.view_NavigationBar.rightButton.isEnabled = false
         self.defaultChatButton.titleLabel?.font = UIFont.regular(ofSize: 16)
         self.p2pChatButton.titleLabel?.font = UIFont.bold(ofSize: 16)
         self.broadcastChatButton.titleLabel?.font = UIFont.regular(ofSize: 15)
@@ -494,7 +500,19 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         self.arrayOfConversation = self.arrayOfConversations[0]
         self.showConversationsTableView.reloadData()
         
-        self.handleNoChatData()
+        if self.arrayOfConversation.count > 0{
+            self.showConversationsTableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: .top, animated: true)
+        }
+    }
+    
+    func showBroadcastChatData(){
+        self.arrayOfConversation.removeAll()
+        self.arrayOfConversation = self.arrayOfConversations[1]
+        self.showConversationsTableView.reloadData()
+        
+        if self.arrayOfConversations[1].isEmpty{
+            self.getAllConvo()
+        }
         
         if self.arrayOfConversation.count > 0{
             self.showConversationsTableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: .top, animated: true)
@@ -506,7 +524,9 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         self.arrayOfConversation = self.arrayOfConversations[2]
         self.showConversationsTableView.reloadData()
 
-        self.handleNoChatData()
+        if self.arrayOfConversations[2].isEmpty{
+            self.getAllConvo()
+        }
         
         if self.arrayOfConversation.count > 0{
             self.showConversationsTableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: .top, animated: true)
@@ -550,6 +570,8 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     // MARK: - UIRefreshControl
     @objc func refresh(_ refreshControl: UIRefreshControl) {
 //        getAllConversations()
+        FuguConversation.paginationData[self.conversationChatType.rawValue].pageNumber = 0
+        FuguConversation.paginationData[self.conversationChatType.rawValue].canPaginate = true
         getAllConvo()
     }
     
@@ -654,14 +676,14 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
 //        }
 //    }
     
-    func getConversations(){
-        if HippoConfig.shared.appSecretKey.isEmpty {
-            arrayOfConversation = []
-            showConversationsTableView?.reloadData()
-            showErrorMessageInTopErrorLabel(withMessage: "Invalid app secret key")
-            return
-        }
-    }
+//    func getConversations(){
+//        if HippoConfig.shared.appSecretKey.isEmpty {
+//            arrayOfConversation = []
+//            showConversationsTableView?.reloadData()
+//            showErrorMessageInTopErrorLabel(withMessage: "Invalid app secret key")
+//            return
+//        }
+//    }
     
     
 //    func filterConversationArr(conversationArr:[FuguConversation]){
@@ -767,23 +789,29 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
                 
             case .defaultChat:
                 self?.view_NewConversationBtn.isHidden = !HippoProperty.current.enableNewConversationButton
-            case .broadcast:
-                self?.view_NewConversationBtn.isHidden = true
-            case .p2p:
+            case .broadcast, .p2p:
                 self?.view_NewConversationBtn.isHidden = true
             case .none:
                 return
             }
             
-            if result.conversations?.count == 0 {
+            self?.arrayOfConversation = (self?.arrayOfConversations[self?.conversationChatType.rawValue ?? 0])!
+            
+            if result.conversations?.count == 0{
                 self?.arrayOfConversations = [[],[],[]]
                 if HippoConfig.shared.theme.shouldShowBtnOnChatList == true{
                     self?.noConversationFound(true,HippoConfig.shared.theme.noOpenAndcloseChatError == nil ? HippoStrings.noChatStarted : HippoConfig.shared.theme.noOpenAndcloseChatError ?? "")
                 }
-                if HippoConfig.shared.shouldOpenDefaultChannel{
+                if HippoConfig.shared.shouldOpenDefaultChannel &&  self?.conversationChatType == .defaultChat && self?.conversationFilter == .open{
                     self?.openDefaultChannel()
                     return
                 }
+            }
+            
+            self?.handleNoChatData()
+            
+            DispatchQueue.main.async {
+                self?.showConversationsTableView.reloadData()
             }
         }
     }
@@ -941,6 +969,68 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     }
     
     //MARK: - HANDLE PUSH NOTIFICATION
+    fileprivate func getChannelIdData(from pushChannelId: Int) -> (Int?, Int?, [FuguConversation]?) {
+        
+        var channelIdIndex: Int?
+        
+        channelIdIndex = arrayOfConversations[0].firstIndex { (f) -> Bool in
+            return f.channelId ?? -1 == pushChannelId
+        }
+        
+        if channelIdIndex != nil{
+            return (channelIdIndex, 0, arrayOfConversations[0])
+        }
+        
+        channelIdIndex = arrayOfConversations[1].firstIndex { (f) -> Bool in
+            return f.channelId ?? -1 == pushChannelId
+        }
+        
+        if channelIdIndex != nil{
+            return (channelIdIndex, 1, arrayOfConversations[1])
+        }
+        
+        channelIdIndex = arrayOfConversations[2].firstIndex { (f) -> Bool in
+            return f.channelId ?? -1 == pushChannelId
+        }
+        
+        if channelIdIndex != nil{
+            return (channelIdIndex, 2, arrayOfConversations[2])
+        }
+        
+        return (nil, nil, nil)
+    }
+    
+    fileprivate func getLabelIdData(from pushLabelId: Int) -> (Int?, Int?, [FuguConversation]?) {
+        
+        var labelIdIndex: Int?
+        
+        labelIdIndex = arrayOfConversations[0].firstIndex { (f) -> Bool in
+            return f.labelId ?? -1 == pushLabelId
+        }
+        
+        if labelIdIndex != nil{
+            return (labelIdIndex, 0, arrayOfConversations[0])
+        }
+        
+        labelIdIndex = arrayOfConversations[1].firstIndex { (f) -> Bool in
+            return f.labelId ?? -1 == pushLabelId
+        }
+        
+        if labelIdIndex != nil{
+            return (labelIdIndex, 1, arrayOfConversations[1])
+        }
+        
+        labelIdIndex = arrayOfConversations[2].firstIndex { (f) -> Bool in
+            return f.labelId ?? -1 == pushLabelId
+        }
+        
+        if labelIdIndex != nil{
+            return (labelIdIndex, 2, arrayOfConversations[2])
+        }
+        
+        return (nil, nil, nil)
+    }
+    
     func updateChannelsWithrespectToPush(pushInfo: [String: Any]) {
         
         guard config.shouldHandlePush else {
@@ -952,7 +1042,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         }
         
         if let notificationType = pushInfo["notification_type"] as? Int, notificationType == 5 {
-//            getAllConversations()
+            //            getAllConversations()
             getAllConvo()
             return
         }
@@ -962,96 +1052,56 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         
         var channelIdIndex: Int?
         var labelIdIndex: Int?
-        var fullArraychannelIdIndex : Int?
-        var fullArraylabelIdIndex: Int?
+        var arrayWhereChannelIdFound: [FuguConversation]?
+        var arrayWhereLabelIdFound: [FuguConversation]?
+        var arrIndex: Int?
         
         
         if pushChannelId > 0 {
-            channelIdIndex = arrayOfConversation.firstIndex { (f) -> Bool in
-                return f.channelId ?? -1 == pushChannelId
-            }
-            
-            fullArraychannelIdIndex = arrayOfConversations[0].firstIndex { (f) -> Bool in
-                return f.channelId ?? -1 == pushChannelId
-            }
-            
-            fullArraychannelIdIndex = arrayOfConversations[1].firstIndex { (f) -> Bool in
-                return f.channelId ?? -1 == pushChannelId
-            }
-            
-            fullArraychannelIdIndex = arrayOfConversations[2].firstIndex { (f) -> Bool in
-                return f.channelId ?? -1 == pushChannelId
-            }
-        }
-        
-        if pushLabelId > 0 {
-            labelIdIndex = arrayOfConversation.firstIndex { (f) -> Bool in
-                return f.labelId ?? -1 == pushLabelId
-            }
-            fullArraylabelIdIndex = arrayOfConversations[0].firstIndex { (f) -> Bool in
-                return f.labelId ?? -1 == pushLabelId
-            }
-            fullArraylabelIdIndex = arrayOfConversations[1].firstIndex { (f) -> Bool in
-                return f.labelId ?? -1 == pushLabelId
-            }
-            fullArraylabelIdIndex = arrayOfConversations[2].firstIndex { (f) -> Bool in
-                return f.labelId ?? -1 == pushLabelId
-            }
+           (channelIdIndex, arrIndex, arrayWhereChannelIdFound) = getChannelIdData(from: pushChannelId)
+        }else if pushLabelId > 0 {
+            (labelIdIndex, arrIndex, arrayWhereLabelIdFound) = getLabelIdData(from: pushLabelId)
         }
         
         guard channelIdIndex != nil || labelIdIndex != nil else {
-//            getAllConversations()
             getAllConvo()
             return
         }
         
         let rawIndex: Int? = channelIdIndex ?? labelIdIndex
+        let rawArr = arrayWhereChannelIdFound ?? arrayWhereLabelIdFound
         
-        guard let index = rawIndex, arrayOfConversation.count > index else {
-//            getAllConversations()
+        
+        guard let index = rawIndex, rawArr?.count ?? 0 > index else {
             getAllConvo()
             return
         }
         
-        let convObj = arrayOfConversation[index]
+        let convObj = rawArr?[index]
         let lastMessage = HippoMessage(convoDict: pushInfo)
         
         
-        if let lastMuid = convObj.lastMessage?.messageUniqueID, let newMuid = lastMessage?.messageUniqueID, lastMuid == newMuid {
+        if let lastMuid = convObj?.lastMessage?.messageUniqueID, let newMuid = lastMessage?.messageUniqueID, lastMuid == newMuid {
             return
         }
         
-        convObj.lastMessage = lastMessage
+        convObj?.lastMessage = lastMessage
         
         if let unreadCount = pushInfo["unread_count"] as? Int, unreadCount > 0 {
-            convObj.unreadCount = unreadCount
-        } else if let unreadCount = convObj.unreadCount, UIApplication.shared.applicationState != .inactive {
-            convObj.unreadCount = unreadCount + 1
-        }
-        arrayOfConversation[index] = convObj
-        let fullrawIndex: Int? = fullArraychannelIdIndex ?? fullArraylabelIdIndex
-        
-        guard fullrawIndex != nil else {
-            return
+            convObj?.unreadCount = unreadCount
+        } else if let unreadCount = convObj?.unreadCount, UIApplication.shared.applicationState != .inactive {
+            convObj?.unreadCount = unreadCount + 1
         }
         
-        let totalChats = arrayOfConversations[0].count + arrayOfConversations[1].count + arrayOfConversations[2].count
+        arrayOfConversations[arrIndex ?? 0][index] = convObj!
+        arrayOfConversation = arrayOfConversations[conversationChatType.rawValue]
         
-        guard let fullArrIndex = fullrawIndex, totalChats > fullrawIndex ?? -1 else {
-            return
-        }
-        
-//        arrayOfFullConversation[fullArrIndex] = convObj
-        
-        if (convObj.unreadCount ?? 0) > 0 {
-            //            convObj.channelStatus = .open
-        }
         saveConversationsInCache()
         resetPushCount()
         pushTotalUnreadCount()
         
-        if showConversationsTableView != nil {
-            showConversationsTableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .none)
+        if arrIndex == conversationChatType.rawValue{
+            showConversationsTableView?.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
         }
     }
     
@@ -1109,36 +1159,29 @@ extension AllConversationsViewController: UITableViewDelegate, UITableViewDataSo
         return 30
     }
     
-    //    public func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-    //
-    //        tableView.isScrollEnabled = true
-    //        guard arrayOfConversation.count > 0 else {
-    //            tableView.isScrollEnabled = false
-    //            return tableView.frame.height
-    //        }
-    //
-    //        return 0
-    //    }
-    //
-    //    public func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-    //        let footerView = UIView()
-    //        footerView.frame = CGRect(x: 0.0, y: 0.0, width: tableView.frame.size.width, height: tableView.frame.size.height)
-    //
-    //        let footerLabel:UILabel = UILabel(frame: CGRect(x: 0, y: (tableView.frame.height / 2) - 90, width: tableView.frame.width, height: 90))
-    //        footerLabel.textAlignment = NSTextAlignment.center
-    //        footerLabel.textColor = #colorLiteral(red: 0.3490196078, green: 0.3490196078, blue: 0.4078431373, alpha: 1)
-    //        footerLabel.numberOfLines = 0
-    //        footerLabel.font = UIFont.regular(ofSize: 16.0)
-    //
-    //        footerLabel.text = tableViewDefaultText
-    //
-    //        footerView.addSubview(footerLabel)
-    //
-    //        let emptyAction = UITapGestureRecognizer(target: self, action: #selector(headerEmptyAction(_:)))
-    //        footerView.addGestureRecognizer(emptyAction)
-    //
-    //        return footerView
-    //    }
+    public func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return arrayOfConversation.count > 0 ? 0 : tableView.frame.height
+    }
+
+    public func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let footerView = UIView()
+        footerView.frame = CGRect(x: 0.0, y: 0.0, width: tableView.frame.size.width, height: tableView.frame.size.height)
+
+        let footerLabel:UILabel = UILabel(frame: CGRect(x: 0, y: (tableView.frame.height / 2) - 90, width: tableView.frame.width, height: 90))
+        footerLabel.textAlignment = NSTextAlignment.center
+        footerLabel.textColor = #colorLiteral(red: 0.3490196078, green: 0.3490196078, blue: 0.4078431373, alpha: 1)
+        footerLabel.numberOfLines = 0
+        footerLabel.font = UIFont.regular(ofSize: 16.0)
+
+        footerLabel.text = tableViewDefaultText
+
+        footerView.addSubview(footerLabel)
+
+        let emptyAction = UITapGestureRecognizer(target: self, action: #selector(headerEmptyAction(_:)))
+        footerView.addGestureRecognizer(emptyAction)
+
+        return footerView
+    }
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
@@ -1251,11 +1294,20 @@ extension AllConversationsViewController: FilterScreenButtonsDelegate{
     
     func resetButtonPressed() {
         setFilterButtonIcon()
+        
+        self.conversationFilter = .open
+        FuguConversation.paginationData[self.conversationChatType.rawValue].pageNumber = 0
+        FuguConversation.paginationData[self.conversationChatType.rawValue].canPaginate = true
+        self.getAllConvo()
     }
     
     func applyButtonPressed() {
         setFilterButtonIcon()
+        
+        self.conversationFilter = FilterManager.shared.selectedChatStatus.first == 1 ? .open : .close
+        FuguConversation.paginationData[self.conversationChatType.rawValue].pageNumber = 0
+        FuguConversation.paginationData[self.conversationChatType.rawValue].canPaginate = true
+        self.getAllConvo()
     }
-    
     
 }

@@ -441,7 +441,11 @@ func pushTotalUnreadCount() {
                 chatCounter += unreadCount
             }
         }
+        
     case .customer:
+        
+        var isNoChatAvailable = [false, false, false]
+        
         if let chatCachedArray = FuguDefaults.object(forKey: DefaultName.defaultConversationData.rawValue) as? [[String: Any]] {
             for conversationInfo in chatCachedArray {
                 if let conversationCounter = conversationInfo["unread_count"] as? Int {
@@ -449,13 +453,37 @@ func pushTotalUnreadCount() {
                 }
             }
         }else{
+            isNoChatAvailable[0] = true
+        }
+        
+        if let chatCachedArray = FuguDefaults.object(forKey: DefaultName.broadcastConversationData.rawValue) as? [[String: Any]] {
+            for conversationInfo in chatCachedArray {
+                if let conversationCounter = conversationInfo["unread_count"] as? Int {
+                    chatCounter += conversationCounter
+                }
+            }
+        }else{
+            isNoChatAvailable[1] = true
+        }
+        
+        if let chatCachedArray = FuguDefaults.object(forKey: DefaultName.p2pConversationData.rawValue) as? [[String: Any]] {
+            for conversationInfo in chatCachedArray {
+                if let conversationCounter = conversationInfo["unread_count"] as? Int {
+                    chatCounter += conversationCounter
+                }
+            }
+        }else{
+            isNoChatAvailable[2] = true
+        }
+        
+        if isNoChatAvailable[0] == true && isNoChatAvailable[1] == true && isNoChatAvailable[1] == true{
             noDataFound = true
         }
+        
     }
     
     if noDataFound{
         let allConversationObj = AllConversationsViewController()
-//        allConversationObj.getAllConversations()
         allConversationObj.getAllConvo()
         return
     }
@@ -521,22 +549,46 @@ func updateStoredUnreadCountFor(toIncreaseCount : Bool = false, with userInfo: [
             return
         }
     case .customer:
-        guard var chatCachedArray = FuguDefaults.object(forKey: DefaultName.conversationData.rawValue) as? [[String: Any]] else {
+        guard var defaultChatCachedArray = FuguDefaults.object(forKey: DefaultName.conversationData.rawValue) as? [[String: Any]] else {
             return
         }
+        guard var broadcastChatCachedArray = FuguDefaults.object(forKey: DefaultName.conversationData.rawValue) as? [[String: Any]] else {
+            return
+        }
+        guard var p2pChatCachedArray = FuguDefaults.object(forKey: DefaultName.conversationData.rawValue) as? [[String: Any]] else {
+            return
+        }
+        
         let muid = userInfo["muid"] as? String ?? ""
-        let rawIndex = getIndexOf(muid: muid, objects: chatCachedArray, with: recievedChannelId, with: recievedLabelId)
+        var rawIndex: Int?
+        var arr = defaultChatCachedArray
+        var key = DefaultName.defaultConversationData.rawValue
+        
+        rawIndex = getIndexOf(muid: muid, objects: defaultChatCachedArray, with: recievedChannelId, with: recievedLabelId)
+        
+        if rawIndex == nil{
+            rawIndex = getIndexOf(muid: muid, objects: broadcastChatCachedArray, with: recievedChannelId, with: recievedLabelId)
+            arr = broadcastChatCachedArray
+            key = DefaultName.broadcastConversationData.rawValue
+        }
+        if rawIndex == nil{
+            rawIndex = getIndexOf(muid: muid, objects: p2pChatCachedArray, with: recievedChannelId, with: recievedLabelId)
+            arr = p2pChatCachedArray
+            key = DefaultName.p2pConversationData.rawValue
+        }
+            
+        
         if let index = rawIndex {
             if toIncreaseCount{
-                var obj = chatCachedArray[index]
+                var obj = arr[index]
                 obj["unread_count"] = (obj["unread_count"] as? Int ?? 0) + 1
-                chatCachedArray[index] = obj
-                FuguDefaults.set(value: chatCachedArray, forKey: DefaultName.conversationData.rawValue)
+                arr[index] = obj
+                FuguDefaults.set(value: arr, forKey: key)
             }else {
-                var obj = chatCachedArray[index]
+                var obj = arr[index]
                 obj["unread_count"] = 0
-                chatCachedArray[index] = obj
-                FuguDefaults.set(value: chatCachedArray, forKey: DefaultName.conversationData.rawValue)
+                arr[index] = obj
+                FuguDefaults.set(value: arr, forKey: key)
             }
         }else {
             if toIncreaseCount {
@@ -738,6 +790,7 @@ func updatePushCount(pushInfo: [String: Any]) {
     HippoConfig.shared.pushArray[index!].count += 1
     HippoConfig.shared.pushArray[index!].muid = newObj.muid
 }
+
 func resetForChannel(pushInfo: [String: Any]) {
     guard let channelId = pushInfo["channel_id"] as? Int else {
         return

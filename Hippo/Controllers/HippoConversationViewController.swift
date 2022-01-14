@@ -696,6 +696,7 @@ class HippoConversationViewController: UIViewController {
             }
         }
     }
+    
     func canMakeAnyCall() -> Bool {
         guard channel?.chatDetail?.peerDetail != nil else {
             return false

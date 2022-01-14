@@ -101,10 +101,12 @@ class FilterViewController: UIViewController {
             self.reloadConversationData()
         }
     }
+    
     @IBAction func dismissButtonClicked(_ sender: UIButton) {
         self.filterScreenButtonsDelegate?.cancelButtonPressed()
         dismissView()
     }
+    
     @IBAction func applyButtonClicked(_ sender: UIButton) {
 //        guard isValidateCustomDatePicker() else {
 //            return
@@ -340,13 +342,25 @@ extension FilterViewController: UITableViewDelegate {
 //                self.reloadConversationData()
 //            }
         case .status:
-            statusList[indexPath.row].isSelected = !statusList[indexPath.row].isSelected
+            
             let id =  statusList[indexPath.row].id
-            if statusList[indexPath.row].isSelected, !selectedStatus.contains(id) {
+            
+            if HippoConfig.shared.appUserType == .customer{
+                let kId = ((statusList.filter() { $0.id != statusList[indexPath.row].id}.first)?.id ?? 0) - 1
+                statusList[kId].isSelected = false
+                statusList[indexPath.row].isSelected = true
+                selectedStatus.removeAll()
                 selectedStatus.append(id)
-            } else if !statusList[indexPath.row].isSelected, selectedStatus.contains(id)  {
-                selectedStatus = selectedStatus.filter() { $0 != id }
+                
+            }else{
+                statusList[indexPath.row].isSelected = !statusList[indexPath.row].isSelected
+                if statusList[indexPath.row].isSelected, !selectedStatus.contains(id) {
+                    selectedStatus.append(id)
+                } else if !statusList[indexPath.row].isSelected, selectedStatus.contains(id)  {
+                    selectedStatus = selectedStatus.filter() { $0 != id }
+                }
             }
+            
             reloadResultTable()
 //        case .chatType:
 //            chatTypeList[indexPath.row].isSelected = !chatTypeList[indexPath.row].isSelected

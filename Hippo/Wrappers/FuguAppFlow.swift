@@ -289,6 +289,7 @@ class FuguFlowManager: NSObject {
         case .customer:
             break
         }
+        
         let visibleController: UIViewController? = getLastVisibleController()
         
         if let lastVisibleCtrl = visibleController as? AllConversationsViewController {

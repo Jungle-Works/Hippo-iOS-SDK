@@ -192,6 +192,10 @@ class FuguConversation: HippoConversation {
                 lastVisibleController.clearUnreadCountForChannel(id: channelId)
             }
             
+            if arrayOfConversation.count < 10 {
+                paginationData[chatType.rawValue].canPaginate = false
+            }
+            
             let result = GetConversationFromServerResult(isSuccessful: true, error: HippoError.general, conversations: arrayOfConversation)
             completion(result)
         }
@@ -217,7 +221,7 @@ class FuguConversation: HippoConversation {
         
         params["page_start"] = paginationData[chatType.rawValue].pageNumber
         
-        if let appliedFilter = filter{
+        if let appliedFilter = filter, chatType == .defaultChat{
             params["chat_status"] = appliedFilter
         }
         

@@ -479,6 +479,7 @@ extension AgentHomeViewController {
             tableView.backgroundView = refreshControl
             refreshControl.addTarget(self, action: #selector(reloadrefreshData(refreshCtrler:)), for: .valueChanged)
         }
+    
         @objc func reloadrefreshData(refreshCtrler: UIRefreshControl) {
             if (AgentConversationManager.isAllChatInProgress && conversationType == .allChat) ||  (AgentConversationManager.isMyChatInProgress && conversationType == .myChat) || (AgentConversationManager.isMyChatInProgress && conversationType == .o2oChat){
                 refreshControl.endRefreshing()
