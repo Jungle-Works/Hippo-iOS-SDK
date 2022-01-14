@@ -114,7 +114,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        if config.shouldUseCache {
+        if config.shouldUseCache && arrayOfConversation.isEmpty{
             arrayOfConversations[conversationChatType.rawValue] = fetchAllConversationCache(with: conversationChatType)
             arrayOfConversation = arrayOfConversations[conversationChatType.rawValue]
             showConversationsTableView.reloadData()
@@ -759,8 +759,12 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
             return
         }
         
+        FuguConversation.paginationData[conversationChatType.rawValue].isApiHitting = true
+        
         FuguConversation.getConversationsFromServer(for: conversationChatType, and: conversationFilter.rawValue){ [weak self] (result) in
             self?.refreshControl.endRefreshing()
+            self?.showConversationsTableView.tableFooterView = nil
+            FuguConversation.paginationData[self?.conversationChatType.rawValue ?? 0].isApiHitting = false
             resetPushCount()
             pushTotalUnreadCount()
             
@@ -877,12 +881,21 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
             if chat == 0{
                 key = DefaultName.defaultConversationData.rawValue
                 arr = arrayOfConversations[chat]
-            }else if chat == 1{
-                key = DefaultName.broadcastConversationData.rawValue
-                arr = arrayOfConversations[chat]
+            }else if chat == 1 {
+                if !(arrayOfConversations[safe: chat]?.isEmpty ?? true){
+                    key = DefaultName.broadcastConversationData.rawValue
+                    arr = arrayOfConversations[chat]
+                }else{
+                    continue
+                }
+                
             }else{
-                key = DefaultName.p2pConversationData.rawValue
-                arr = arrayOfConversations[chat]
+                if !(arrayOfConversations[safe: chat]?.isEmpty ?? true){
+                    key = DefaultName.p2pConversationData.rawValue
+                    arr = arrayOfConversations[chat]
+                }else{
+                    continue
+                }
             }
             
             let conversationJson = FuguConversation.getJsonFrom(conversations: arr)
@@ -1202,6 +1215,33 @@ extension AllConversationsViewController: UITableViewDelegate, UITableViewDataSo
             saveConversationsInCache()
             pushTotalUnreadCount()
             showConversationsTableView.reloadRows(at: [indexPath], with: .none)
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let lastSectionIndex = tableView.numberOfSections - 1
+        let lastRowIndex = tableView.numberOfRows(inSection: lastSectionIndex) - 1
+        if indexPath.section ==  lastSectionIndex && indexPath.row == lastRowIndex {
+           // print("this is the last cell")
+            
+            let spinner = UIActivityIndicatorView()
+            
+            if #available(iOS 13.0, *) {
+                spinner.style = .large
+            } else {
+                spinner.style = .whiteLarge
+            }
+            spinner.startAnimating()
+            spinner.frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: tableView.bounds.width, height: CGFloat(44))
+
+            self.showConversationsTableView.tableFooterView = spinner
+            self.showConversationsTableView.tableFooterView?.isHidden = false
+            
+            if FuguConversation.paginationData[conversationChatType.rawValue].canPaginate && !FuguConversation.paginationData[conversationChatType.rawValue].isApiHitting{
+                self.getAllConvo()
+            }else{
+                self.showConversationsTableView.tableFooterView = nil
+            }
         }
     }
     

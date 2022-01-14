@@ -177,14 +177,25 @@ class FuguConversation: HippoConversation {
                       return
                   }
             
+            var key = ""
+            
             switch chatType {
             case .defaultChat:
-                FuguDefaults.set(value: conversationArrayJson, forKey: DefaultName.defaultConversationData.rawValue)
+                key = DefaultName.defaultConversationData.rawValue
             case .broadcast:
-                FuguDefaults.set(value: conversationArrayJson, forKey: DefaultName.broadcastConversationData.rawValue)
+                key = DefaultName.broadcastConversationData.rawValue
             case .p2p:
-                FuguDefaults.set(value: conversationArrayJson, forKey: DefaultName.p2pConversationData.rawValue)
+                key = DefaultName.p2pConversationData.rawValue
             }
+            
+            if paginationData[chatType.rawValue].pageNumber == 1{
+                FuguDefaults.set(value: conversationArrayJson, forKey: key)
+            }else{
+                var con = FuguDefaults.object(forKey: key) as? [[String: Any]]
+                con?.append(contentsOf: conversationArrayJson)
+                FuguDefaults.set(value: con, forKey: key)
+            }
+            
             
             let arrayOfConversation = getConversationArrayFrom(json: conversationArrayJson)
             
