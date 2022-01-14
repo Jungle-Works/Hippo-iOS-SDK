@@ -165,6 +165,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     // MARK: - LIFECYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         button_Recording.recordView = viewRecord
         viewRecord.delegate = self
         button_Recording.buttonTouched = {[weak self]() in
@@ -417,7 +418,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
    
     override func didSetChannel() {
         channel?.delegate = self
-        if !channel.isSubscribed(){
+        if !(channel?.isSubscribed() ?? false){
             channel?.subscribe()
         }
     }
@@ -1411,70 +1412,70 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     }
     
     override func getMessagesWith(labelId: Int, completion: ((_ success: Bool) -> Void)?) {
-      
-    startLoaderAnimation()//
         
-      if FuguNetworkHandler.shared.isNetworkConnected == false {
-        stopLoaderAnimation()//
-         checkNetworkConnection()
-         completion?(false)
-         return
-      }
-      
-      if HippoConfig.shared.appSecretKey.isEmpty {
-        stopLoaderAnimation()//
-         completion?(false)
-         return
-      }
+        startLoaderAnimation()//
         
-      if channel?.messages.count == 0  || channel == nil {
-        stopLoaderAnimation()//
-         startLoaderAnimation()
-      } else if !isPaginationInProgress() {
-        stopLoaderAnimation()//
-//         startGettingNewMessages()
-      }
-
-     let request = MessageStore.messageRequest(pageStart: 1, showLoader: false, pageEnd: nil, channelId: -1, labelId: labelId)
-     storeRequest = request
-     storeResponse = nil
-     MessageStore.getMessagesByLabelID(requestParam: request, ignoreIfInProgress: false) {[weak self] (response, error)  in
-        
-        if self?.storeRequest?.id == request.id {
-          self?.stopLoaderAnimation()
-        }
-        self?.hideErrorMessage()
-        
-        guard error == nil else {
-            self?.handleRequestForCreateConersationForGetMessages(error: error, completion: completion)
-            return
-        }
-        
-        guard let result = response, result.isSuccessFull, let weakSelf = self else {
+        if FuguNetworkHandler.shared.isNetworkConnected == false {
+            stopLoaderAnimation()//
+            checkNetworkConnection()
             completion?(false)
-            self?.goForApiRetry()
             return
         }
-        weakSelf.storeResponse = result
-        weakSelf.labelId = result.labelID
-        weakSelf.botGroupID = result.botGroupID
         
-        if result.channelID > 0 {
-            weakSelf.channel = FuguChannelPersistancyManager.shared.getChannelBy(id: result.channelID)
-            weakSelf.channel.delegate = self
-            if !weakSelf.channel.isSubscribed(){
-                weakSelf.channel?.subscribe()
+        if HippoConfig.shared.appSecretKey.isEmpty {
+            stopLoaderAnimation()//
+            completion?(false)
+            return
+        }
+        
+        if channel?.messages.count == 0  || channel == nil {
+            stopLoaderAnimation()//
+            startLoaderAnimation()
+        } else if !isPaginationInProgress() {
+            stopLoaderAnimation()//
+            //         startGettingNewMessages()
+        }
+        
+        let request = MessageStore.messageRequest(pageStart: 1, showLoader: false, pageEnd: nil, channelId: -1, labelId: labelId)
+        storeRequest = request
+        storeResponse = nil
+        MessageStore.getMessagesByLabelID(requestParam: request, ignoreIfInProgress: false) {[weak self] (response, error)  in
+            
+            if self?.storeRequest?.id == request.id {
+                self?.stopLoaderAnimation()
             }
-            weakSelf.populateTableViewWithChannelData()
+            self?.hideErrorMessage()
+            
+            guard error == nil else {
+                self?.handleRequestForCreateConersationForGetMessages(error: error, completion: completion)
+                return
+            }
+            
+            guard let result = response, result.isSuccessFull, let weakSelf = self else {
+                completion?(false)
+                self?.goForApiRetry()
+                return
+            }
+            weakSelf.storeResponse = result
+            weakSelf.labelId = result.labelID
+            weakSelf.botGroupID = result.botGroupID
+            
+            if result.channelID > 0 {
+                weakSelf.channel = FuguChannelPersistancyManager.shared.getChannelBy(id: result.channelID)
+                weakSelf.channel.delegate = self
+                if !weakSelf.channel.isSubscribed(){
+                    weakSelf.channel?.subscribe()
+                }
+                weakSelf.populateTableViewWithChannelData()
+            }
+            
+            if ((result.channelID < 0) && (result.createNewChannel == true)){
+                weakSelf.startNewConversation(replyMessage: nil, completion: nil)
+            }
+            
+            weakSelf.handleSuccessCompletionOfGetMessages(result: result, request: request, completion: completion)
         }
         
-        if ((result.channelID < 0) && (result.createNewChannel == true)){
-            weakSelf.startNewConversation(replyMessage: nil, completion: nil)
-        }
-        
-        weakSelf.handleSuccessCompletionOfGetMessages(result: result, request: request, completion: completion)
-    }
-    
     }
    
     func callAssignAgentApi(completion: ((_ success: Bool) -> Void)?) {

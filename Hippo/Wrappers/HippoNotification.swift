@@ -71,6 +71,9 @@ class HippoNotification {
     }
 
     class func removeAllAnnouncementNotification(){
+        if UIApplication.shared.applicationState == .background{
+            return
+        }
         UNUserNotificationCenter.current().getDeliveredNotifications { (notifications) in
             for notification in notifications{
                 if let data = notification.request.content.userInfo as? [String : Any]{

@@ -1035,7 +1035,7 @@ struct WhatsappWidgetConfig{
         HippoConfig.shared.strings = stringsObject
     }
     
-    public func managePromotionOrP2pCount(_ userInfo: [String:Any]){
+    public func managePromotionOrP2pCount(_ userInfo: [String:Any], isOpenendFromPush: Bool = false){
         if userInfo["is_announcement_push"] as? Bool == true, let channel_id = userInfo["channel_id"] as? Int{
             if !(getLastVisibleController() is PromotionsViewController){
                 if var channelArr = UserDefaults.standard.value(forKey: DefaultName.announcementUnreadCount.rawValue) as? [String]{
@@ -1048,7 +1048,7 @@ struct WhatsappWidgetConfig{
             }else{
                 let visibleController = getLastVisibleController()
                 if let promotionVC = visibleController as? PromotionsViewController {
-                    promotionVC.getDataOrUpdateAnnouncement([channel_id], isforReadMore: false)
+                    promotionVC.getDataOrUpdateAnnouncement([channel_id], isforReadMore: false, isOpenedFromPush: isOpenendFromPush)
                 }
                 HippoNotification.removeAllAnnouncementNotification()
             }
@@ -1173,6 +1173,10 @@ struct WhatsappWidgetConfig{
             return
         }
         
+        if userInfo["channel_type"] as? Int != nil && userInfo["channel_type"] as? Int == 6{
+            self.isOpenedFromPush = true
+        }
+        
         //Check to append all muid of push list
         if let muid = userInfo["muid"] as? String, !HippoConfig.shared.muidList.contains(muid) {
             HippoConfig.shared.muidList.append(muid)
@@ -1194,8 +1198,6 @@ struct WhatsappWidgetConfig{
     
     
     func handleAnnouncementsNotification(userInfo: [String: Any]) {
-        
-        hitStatsApi(userInfo: userInfo)
         
         let visibleController = getLastVisibleController()
         if let _ = visibleController as? PromotionsViewController {
