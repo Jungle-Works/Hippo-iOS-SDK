@@ -1200,13 +1200,15 @@ struct WhatsappWidgetConfig{
     func handleAnnouncementsNotification(userInfo: [String: Any]) {
         
         let visibleController = getLastVisibleController()
-        if let _ = visibleController as? PromotionsViewController {
+        if let promotionVC = visibleController as? PromotionsViewController {
             //                HippoNotification.promotionPushDic.removeAll()
             //                if let promotion = PromotionCellDataModel(pushDic: userInfo){
             //                    HippoNotification.promotionPushDic.append(promotion)
             //                }
             //                HippoNotification.getAllAnnouncementNotifications()
             //promotionsVC.callGetAnnouncementsApi()
+            promotionVC.refreshData(isOpenedFromPush: HippoConfig.shared.isOpenedFromPush ?? false)
+            HippoConfig.shared.isOpenedFromPush = false
             return
         }else{
             //                checkForIntialization {[weak self] (success, error) in
