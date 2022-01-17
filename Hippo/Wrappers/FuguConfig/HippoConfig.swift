@@ -282,9 +282,7 @@ struct WhatsappWidgetConfig{
     }
     
     public func hitStatsApi(userInfo : [String : Any]?, sendSessionTym: Bool = false, sendSeen: Bool = false, completion: ((Bool) -> Void)? = nil){
-        HippoUserDetail.hitStatsAPi(pushContent: userInfo, sendSessionTym: sendSessionTym, sendSeen: sendSeen) { success in
-            completion?(success)
-        }
+        HippoUserDetail.hitStatsAPi(pushContent: userInfo, sendSessionTym: sendSessionTym) 
     }
     
     internal func setAgentStoredData() {
@@ -1169,12 +1167,14 @@ struct WhatsappWidgetConfig{
         
         if let announcementPush = userInfo["is_announcement_push"] as? Int, announcementPush == 1 {
             self.isOpenedFromPush = true
+            self.tempChannelId = userInfo["channel_id"] as? Int ?? 0
             self.handleAnnouncementsNotification(userInfo: userInfo)
             return
         }
         
         if userInfo["channel_type"] as? Int != nil && userInfo["channel_type"] as? Int == 6{
             self.isOpenedFromPush = true
+            self.tempChannelId = userInfo["channel_id"] as? Int ?? 0
         }
         
         //Check to append all muid of push list
@@ -1184,7 +1184,8 @@ struct WhatsappWidgetConfig{
         updateStoredUnreadCountFor(with: userInfo)
         resetForChannel(pushInfo: userInfo)
         pushTotalUnreadCount()
-        if let id = userInfo["channelId"], let channelId = Int("\(id)"){
+        
+        if let id = userInfo["channel_id"], let channelId = Int("\(id)"){
             HippoNotification.removeAllnotificationFor(channelId: channelId)
         }
         
@@ -1205,11 +1206,12 @@ struct WhatsappWidgetConfig{
             //                if let promotion = PromotionCellDataModel(pushDic: userInfo){
             //                    HippoNotification.promotionPushDic.append(promotion)
             //                }
-            //                HippoNotification.getAllAnnouncementNotifications()
+            HippoNotification.getAllAnnouncementNotifications {
+                promotionVC.refreshData(isOpenedFromPush: HippoConfig.shared.isOpenedFromPush ?? false)
+                HippoConfig.shared.isOpenedFromPush = false
+                return
+            }
             //promotionsVC.callGetAnnouncementsApi()
-            promotionVC.refreshData(isOpenedFromPush: HippoConfig.shared.isOpenedFromPush ?? false)
-            HippoConfig.shared.isOpenedFromPush = false
-            return
         }else{
             //                checkForIntialization {[weak self] (success, error) in
             //                    guard success else {

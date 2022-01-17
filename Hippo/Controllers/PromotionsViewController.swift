@@ -126,9 +126,16 @@ class PromotionsViewController: UIViewController {
                 HippoConfig.shared.sessionStartTime = Date()
             }
             
+            if var channelArr = params["channel_ids"] as? [Int]{
+                channelArr.append(HippoConfig.shared.tempChannelId ?? 0)
+                params["channel_ids"] = channelArr
+            }
+            
         }else{
             params = ["access_token" : HippoConfig.shared.agentDetail?.fuguToken ?? "", "channel_ids" : channelIdArr, "user_id" : currentUserId()] as [String : Any]
         }
+        
+        print("params sent in announcments ---------->>>>>>>>>>>>>", params)
         
         HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: FuguEndPoints.getAndUpdateAnnouncement.rawValue) { (response, error, _, statusCode) in
             if let response = response as? [String : Any], let data = response["data"] as? [[String : Any]]{

@@ -561,17 +561,13 @@ public class UserTag: NSObject {
         return params
     }
     
-    class func hitStatsAPi(pushContent: [String: Any]?, sendSessionTym: Bool = false, sendSeen: Bool = false, completion: ((Bool) -> Void)? = nil) {
-                
-        if !sendSessionTym && !sendSeen{
-            HippoConfig.shared.sessionStartTime = Date()
-        }
+    class func hitStatsAPi(pushContent: [String: Any]?, sendSessionTym: Bool = false) {
         
         if sendSessionTym && HippoConfig.shared.sessionStartTime == nil{
             return
         }
         
-        let params = getParamsForStats(from: pushContent, sendSessionTym: sendSessionTym, sendSeen: sendSeen)
+        let params = getParamsForStats(from: pushContent, sendSessionTym: sendSessionTym)
         
         HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: FuguEndPoints.statsUpdate.rawValue) { (response, error, _, statusCode) in
             if let responseDict = response as? [String: Any],
@@ -582,19 +578,18 @@ public class UserTag: NSObject {
                     HippoConfig.shared.tempChannelId = nil
                 }
                 print(data)
-                completion?(true)
             }else {
                 print("FAILED  ------------>>>>>>>>>>>>>>")
 //                guard error?.localizedDescription == "The network connection was lost." else{ return }
-                completion?(false)
             }
         }
     }
     
-    private class func getParamsForStats(from data: [String: Any]?, sendSessionTym: Bool = false, sendSeen: Bool ) -> [String: Any] {
+    private class func getParamsForStats(from data: [String: Any]?, sendSessionTym: Bool = false) -> [String: Any] {
         var params = [String: Any]()
         
         params["en_user_id"] = currentEnUserId()
+        params["channel_id"] = HippoConfig.shared.tempChannelId
         
         if currentUserType() == .agent{
             params["access_token"] = HippoConfig.shared.agentDetail?.fuguToken
@@ -602,24 +597,10 @@ public class UserTag: NSObject {
             params["app_secret_key"] = HippoConfig.shared.appSecretKey
         }
         
-        if data == nil{
-            params["channel_id"] = HippoConfig.shared.tempChannelId
-        }else{
-            params["channel_id"] = data?["channel_id"] as? Int
-            HippoConfig.shared.tempChannelId = !sendSeen ? data?["channel_id"] as? Int : HippoConfig.shared.tempChannelId
-        }
-        
         if sendSessionTym{
             let sessionTym = Int(Date().timeIntervalSince(HippoConfig.shared.sessionStartTime ?? Date()))
-            print("session tym ----->>>>>>>>", sessionTym)
+            print("session tym ----->>>>>>>>", sessionTym, "\n channel id - \(HippoConfig.shared.tempChannelId)")
             params["ctr_session_time"] = "\(sessionTym)"
-        }else{
-            if sendSeen{
-                params["is_delivered"] = 1
-            }else{
-                params["seen_status"] = 1
-                params["app_opened_through_push"] = 1
-            }
         }
         
         return params

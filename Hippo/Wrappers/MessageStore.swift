@@ -140,6 +140,7 @@ class MessageStore {
                     handleGetMessageError(response: nil, completion: completion)
                     return
                 }
+                HippoConfig.shared.isOpenedFromPush = false
                 handleGetMessagesCompletion(for: requestParam, data: data, completion: completion)
             case 406:
                 handleGetMessageError(response: responseObject, completion: completion)
@@ -191,12 +192,11 @@ class MessageStore {
             }
             
             if HippoConfig.shared.isOpenedFromPush ?? false{
-                params["seen_status"] = 1
                 params["app_opened_through_push"] = 1
                 HippoConfig.shared.sessionStartTime = Date()
-                HippoConfig.shared.isOpenedFromPush = false
             }
             
+            print("pppppppppppppppppppppppppppp", params)
         }
         
         let endPage = requestParam.pageEnd == nil ? requestParam.pageStart + iOSPageLimit : requestParam.pageEnd!
