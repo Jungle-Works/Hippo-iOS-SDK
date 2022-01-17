@@ -821,7 +821,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     }
     
     func setFilterButtonIcon(){
-        if BussinessProperty.current.isFilterApplied == true {
+        if conversationFilter == .close {
             if HippoConfig.shared.theme.filterSelectedBarButtonImage != nil {                view_NavigationBar.rightButton.setImage(HippoConfig.shared.theme.filterSelectedBarButtonImage, for: .normal)
                 view_NavigationBar.rightButton.tintColor = HippoConfig.shared.theme.headerTextColor
             }
@@ -1333,18 +1333,28 @@ extension AllConversationsViewController: FilterScreenButtonsDelegate{
     }
     
     func resetButtonPressed() {
-        setFilterButtonIcon()
         
+        guard self.conversationFilter != .open else {
+            return
+        }
+    
         self.conversationFilter = .open
+        setFilterButtonIcon()
+    
         FuguConversation.paginationData[self.conversationChatType.rawValue].pageNumber = 0
         FuguConversation.paginationData[self.conversationChatType.rawValue].canPaginate = true
         self.getAllConvo()
     }
     
     func applyButtonPressed() {
-        setFilterButtonIcon()
+        
+        guard self.conversationFilter.rawValue != FilterManager.shared.selectedChatStatus.first else {
+            return
+        }
         
         self.conversationFilter = FilterManager.shared.selectedChatStatus.first == 1 ? .open : .close
+        setFilterButtonIcon()
+        
         FuguConversation.paginationData[self.conversationChatType.rawValue].pageNumber = 0
         FuguConversation.paginationData[self.conversationChatType.rawValue].canPaginate = true
         self.getAllConvo()
