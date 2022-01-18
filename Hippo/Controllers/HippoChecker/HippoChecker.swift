@@ -39,8 +39,7 @@ class HippoChecker {
            }
        }
     
-    func presentPromotionalPushController()
-    {
+    func presentPromotionalPushController(){
         FuguFlowManager.shared.presentPromotionalpushController()
     }
     

@@ -519,7 +519,9 @@ struct WhatsappWidgetConfig{
         return navigationController
     }
     
-    
+    public func presentPromotionalPopUp(on viewController: UIViewController){
+        FuguFlowManager.shared.presentOfferPopUp(on: viewController)
+    }
     
     func presentPrePaymentController(){
         

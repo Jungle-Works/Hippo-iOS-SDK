@@ -196,7 +196,6 @@ class MessageStore {
                 HippoConfig.shared.sessionStartTime = Date()
             }
             
-            print("pppppppppppppppppppppppppppp", params)
         }
         
         let endPage = requestParam.pageEnd == nil ? requestParam.pageStart + iOSPageLimit : requestParam.pageEnd!
