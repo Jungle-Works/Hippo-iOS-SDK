@@ -9,13 +9,6 @@
 import UIKit
 import Photos
 
-#if canImport(HippoCallClient)
-import HippoCallClient
-#endif
-
-#if canImport(HippoCallClient)
-import HippoCallClient
-#endif
 
 class LeadDataTextfield: UITextField {
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
