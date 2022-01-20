@@ -1321,11 +1321,11 @@ internal class HippoKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                     }
 
                     //Animating content if needed (Bug ID: #204)
-                  //  if self.layoutIfNeededOnUpdate == true {
+                    if self.layoutIfNeededOnUpdate == true {
                         //Animating content (Bug ID: #160)
                         rootViewController.view.setNeedsLayout()
                         rootViewController.view.layoutIfNeeded()
-                  //  }
+                    }
                 }) { (finished) -> Void in }
 
                 _rootViewController = nil
