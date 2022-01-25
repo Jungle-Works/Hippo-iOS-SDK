@@ -373,6 +373,7 @@ struct WhatsappWidgetConfig{
     public func updateUserDetail(isOpenedFromPush: Bool = false, userDetail: HippoUserDetail, completion: @escaping (Bool) -> Void) {
         self.userDetail = userDetail
         self.appUserType = .customer
+        self.passAppSecretKeyToHippoConfig()
         AgentDetail.agentLoginData = nil
         HippoUserDetail.getUserDetailsAndConversation(isOpenedFromPush: isOpenedFromPush) { (status, error) in
             completion(status)
@@ -471,10 +472,11 @@ struct WhatsappWidgetConfig{
      device_type: Int = your device type on your system.
      *******/
     
-    public func initManager(authToken: String, app_type: String, customAttributes: [String: Any]? = nil, selectedLanguage : String? = nil, completion: @escaping HippoResponseRecieved) {
+    public func initManager(authToken: String, app_type: String, customAttributes: [String: Any]? = nil, selectedLanguage : String? = nil, appSecretKey: String,  completion: @escaping HippoResponseRecieved) {
         let detail = AgentDetail(oAuthToken: authToken.trimWhiteSpacesAndNewLine(), appType: app_type, customAttributes: customAttributes, userId: self.agentDetail?.id)
         self.appUserType = .agent
         self.agentDetail = detail
+        self.passAppSecretKeyToHippoConfig(key: appSecretKey)
         AgentConversationManager.updateAgentChannel(completion: {(error,response) in
             if (selectedLanguage ?? "") == ""{ self.setLanguage(BussinessProperty.current.buisnessLanguageArr?.filter{$0.is_default == true}.first?.lang_code ?? "en")
                 completion(error,response)
