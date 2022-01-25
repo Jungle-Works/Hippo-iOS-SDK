@@ -15,6 +15,7 @@ import HippoCallClient
 #endif
 
 class HippoConversationViewController: UIViewController {
+    
     //MARK: Constants
     let heightOfActionableMessageImage = 103.5
     let textViewFixedHeight = 50
@@ -83,7 +84,7 @@ class HippoConversationViewController: UIViewController {
     let shareurlhelper = ShareUrlHelper()
     
     var transactionID: String? = ""
-
+    
     //MARK:
     @IBOutlet var tableViewChat: UITableView!{
         didSet{
@@ -102,7 +103,7 @@ class HippoConversationViewController: UIViewController {
         recordingHelper.delegate = self
         navigationController?.setTheme()
         
-//        tableViewChat.backgroundView = UIImageView(image: UIImage(named: "background"))
+        //        tableViewChat.backgroundView = UIImageView(image: UIImage(named: "background"))
         
         removeNotificationsFromNotificationCenter(channelId: channelId)
         registerFayeNotification()
@@ -111,8 +112,8 @@ class HippoConversationViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        checkNetworkConnection()
-         
+        //        checkNetworkConnection()
+        
         
         registerFayeNotification()
         registerKeyBoardNotification()
@@ -176,10 +177,10 @@ class HippoConversationViewController: UIViewController {
         return labelId > -1
     }
     
-//    func startGettingNewMessages() {
-//        let color = HippoConfig.shared.theme.processingGreenColor
-//        showErrorMessage(messageString: HippoConfig.shared.strings.checkingNewMessages, bgColor: color)
-//    }
+    //    func startGettingNewMessages() {
+    //        let color = HippoConfig.shared.theme.processingGreenColor
+    //        showErrorMessage(messageString: HippoConfig.shared.strings.checkingNewMessages, bgColor: color)
+    //    }
     
     func isMessageInvalid(messageText: String) -> Bool {
         if messageText.replacingOccurrences(of: " ", with: "").count == 0 ||
@@ -199,14 +200,14 @@ class HippoConversationViewController: UIViewController {
     func showErrorMessage(messageString: String = "", bgColor: UIColor = UIColor.red) {
         var message = messageString.trimWhiteSpacesAndNewLine()
         message = message.isEmpty ? errorMessage  : messageString
-
+        
         guard !message.isEmpty else {
             hideErrorMessage()
             return
         }
         errorLabel.text = message
         errorLabel.backgroundColor = bgColor
-
+        
         if height_errorView != nil && height_errorView.constant != 20 {
             height_errorView.constant = 20
             view.layoutIfNeeded()
@@ -251,21 +252,21 @@ class HippoConversationViewController: UIViewController {
             return
         }
         self.updateMessagesInLocalArrays(messages: [])
-//        self.updateMessagesGroupedByDate(self.channel.messages)
-//        if tableViewChat.numberOfSections == 0 {
-//            self.tableViewChat.isHidden = true
-//            self.tableViewChat.alpha = 0
-//        }
+        //        self.updateMessagesGroupedByDate(self.channel.messages)
+        //        if tableViewChat.numberOfSections == 0 {
+        //            self.tableViewChat.isHidden = true
+        //            self.tableViewChat.alpha = 0
+        //        }
         
         self.tableViewChat.reloadData()
         self.scrollToBottomWithIndexPath(animated: false)
         
-//        fuguDelay(0.2) {
-//            self.tableViewChat.isHidden = false
-//            UIView.animate(withDuration: 0.3) {
-//                self.tableViewChat.alpha = 1
-//            }
-//        }
+        //        fuguDelay(0.2) {
+        //            self.tableViewChat.isHidden = false
+        //            UIView.animate(withDuration: 0.3) {
+        //                self.tableViewChat.alpha = 1
+        //            }
+        //        }
     }
     
     func registerFayeNotification() {
@@ -273,29 +274,29 @@ class HippoConversationViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(self.fayeDisconnected), name: .socketDisconnected, object: nil)
     }
     func registerNotificationToKnowWhenAppIsKilledOrMovedToBackground() {
-        #if swift(>=4.2)
+#if swift(>=4.2)
         NotificationCenter.default.addObserver(self, selector: #selector(self.appMovedToBackground), name: UIApplication.willTerminateNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.appMovedToBackground), name: UIApplication.willResignActiveNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.appMovedToBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
-        #else
+#else
         NotificationCenter.default.addObserver(self, selector: #selector(self.appMovedToBackground), name: NSNotification.Name.UIApplicationWillTerminate, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.appMovedToBackground), name: NSNotification.Name.UIApplicationWillResignActive, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.appMovedToBackground), name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
-        #endif
+#endif
         
         
     }
     func registerKeyBoardNotification() {
         
-        #if swift(>=4.2)
+#if swift(>=4.2)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
-        #else
+#else
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-        #endif
+#endif
     }
-
+    
     func tableViewSetUp() {
         automaticallyAdjustsScrollViewInsets = false
         tableViewChat.contentInset.bottom = 3
@@ -377,7 +378,7 @@ class HippoConversationViewController: UIViewController {
             fetchMessagesFrom1stPage()
             return
         }
-    
+        
         if storeResponse == nil {
             fetchMessagesFrom1stPage()
         }
@@ -465,7 +466,7 @@ class HippoConversationViewController: UIViewController {
         var showImageVC: ShowImageViewController?
         if let localPath = message.localImagePath {
             showImageVC = ShowImageViewController.getFor(localPath: localPath)
-        } else  if let originalUrl = message.imageUrl, originalUrl.count > 0  {
+        } else  if let originalUrl = message.imageUrl ?? message.fileUrl, originalUrl.count > 0  {
             showImageVC = ShowImageViewController.getFor(imageUrlString: originalUrl)
         }
         
@@ -513,8 +514,8 @@ class HippoConversationViewController: UIViewController {
                 guard let localPathOfImage = message.localImagePath, !localPathOfImage.isEmpty else {
                     return false
                 }
-//                print("====== \(message.getDictToSaveInCache())")
-//                print("====== \(self.doesFileExistsAt(filePath: localPathOfImage))")
+                //                print("====== \(message.getDictToSaveInCache())")
+                //                print("====== \(self.doesFileExistsAt(filePath: localPathOfImage))")
                 return self.doesFileExistsAt(filePath: localPathOfImage)
             }
             
@@ -547,7 +548,7 @@ class HippoConversationViewController: UIViewController {
         button.titleLabel?.font = HippoConfig.shared.theme.headerTextFont//
         
         button.addTarget(self, action: #selector(self.titleButtonclicked), for: .touchUpInside)
-
+        
         self.navigationItem.titleView = button
         self.navigationItem.titleView?.isUserInteractionEnabled = true
         self.navigationTitleButton = button
@@ -555,26 +556,26 @@ class HippoConversationViewController: UIViewController {
     }
     
     func setTitleForCustomNavigationBar() {
-//        guard HippoConfig.shared.appUserType == .customer else {
-//            return
-//        }
-//        let rectForNavigationTitle: CGRect = CGRect(x: 0, y: 0, width: 500, height: 100)
-//        let navigationView: NavigationTitleView
-//        if let parsedTitleForNavigation = titleForNavigation {
-//            navigationView = parsedTitleForNavigation
-//        } else {
-//            navigationView = NavigationTitleView.loadView(rectForNavigationTitle, delegate: self)
-//            titleForNavigation = navigationView
-//        }
+        //        guard HippoConfig.shared.appUserType == .customer else {
+        //            return
+        //        }
+        //        let rectForNavigationTitle: CGRect = CGRect(x: 0, y: 0, width: 500, height: 100)
+        //        let navigationView: NavigationTitleView
+        //        if let parsedTitleForNavigation = titleForNavigation {
+        //            navigationView = parsedTitleForNavigation
+        //        } else {
+        //            navigationView = NavigationTitleView.loadView(rectForNavigationTitle, delegate: self)
+        //            titleForNavigation = navigationView
+        //        }
         if let chatType = channel?.chatDetail?.chatType, (chatType == .other || chatType == .o2o){
             let title: String? = channel?.chatDetail?.channelName ?? label
-             view_Navigation.setData(imageUrl: userImage, name: title)
+            view_Navigation.setData(imageUrl: userImage, name: title)
         } else if labelId > 0, channel == nil {
-             view_Navigation.setData(imageUrl: userImage, name: label)
+            view_Navigation.setData(imageUrl: userImage, name: label)
         } else {
-             view_Navigation.hideProfileImage()
+            view_Navigation.hideProfileImage()
         }
-  //      navigationView.removeFromSuperview()
+        //      navigationView.removeFromSuperview()
         view_Navigation.setTitle(title: label)
         title = nil
         //let button = UIBarButtonItem(customView: navigationView)
@@ -582,7 +583,7 @@ class HippoConversationViewController: UIViewController {
             view_Navigation.hideProfileImage()
         }
         view_Navigation.delegate = self
-   //     navigationItem.leftBarButtonItem = button
+        //     navigationItem.leftBarButtonItem = button
     }
     
     
@@ -599,14 +600,14 @@ class HippoConversationViewController: UIViewController {
         let attachmentString: NSAttributedString = NSAttributedString(attachment: attachment)
         let myString: NSMutableAttributedString = NSMutableAttributedString(string: title)
         
-        #if swift(>=4.0)
-          myString.append(attachmentString)
-        #else
-          myString.append(attachmentString)
-        #endif
+#if swift(>=4.0)
+        myString.append(attachmentString)
+#else
+        myString.append(attachmentString)
+#endif
         navigationTitleButton?.setTitle(title, for: .normal)
         navigationTitleButton?.titleLabel?.lineBreakMode = .byTruncatingTail
-//        navigationTitleButton?.setAttributedTitle(myString, for: .normal)
+        //        navigationTitleButton?.setAttributedTitle(myString, for: .normal)
         DispatchQueue.main.async {
             self.navigationTitleButton?.sizeToFit()
         }
@@ -616,9 +617,9 @@ class HippoConversationViewController: UIViewController {
         guard canStartAudioCall(), let peerDetail = channel?.chatDetail?.peerDetail else {
             return
         }
-//        guard let peerDetail = channel?.chatDetail?.peerDetail else {
-//            return
-//        }
+        //        guard let peerDetail = channel?.chatDetail?.peerDetail else {
+        //            return
+        //        }
         
         self.view.endEditing(true)
         
@@ -820,7 +821,7 @@ class HippoConversationViewController: UIViewController {
         belowMessage?.aboveMessageMuid = aboveMessage?.messageUniqueID
         belowMessage?.aboveMessageUserId = aboveMessage?.senderId
         belowMessage?.aboveMessageType = aboveMessage?.type
-    
+        
         aboveMessage?.messageRefresed?()
     }
     
@@ -930,6 +931,7 @@ extension HippoConversationViewController: PickerHelperDelegate {
         //self.navigationController?.isNavigationBarHidden = false
         self.navigationController?.pushViewController(vc, animated: true)
     }
+    
     func imagePickingError(mediaSelector: CoreMediaSelector, error: Error) {
         showAlert(title: "", message: error.localizedDescription, actionComplete: nil)
     }
@@ -950,10 +952,20 @@ extension HippoConversationViewController: PickerHelperDelegate {
                 showAlert(title: "", message: HippoStrings.somethingWentWrong, actionComplete: nil)
                 return
             }
-//            sendConfirmedImage(image: selectedImage, mediaType: mediaType)
-            let vc = SelectImageViewController.getWith(pickedImage: selectedImage, imageFormat: nil, delegate: self, isMentioningEnabled: false, gifData: nil, mediaType: mediaType)
-            self.present(vc, animated: true, completion: nil)
-
+//            let vc = SelectImageViewController.getWith(pickedImage: selectedImage, imageFormat: nil, delegate: self, isMentioningEnabled: false, gifData: nil, mediaType: mediaType)
+//            self.present(vc, animated: true, completion: nil)
+            guard let vc = UIStoryboard(name: "FuguUnique", bundle: FuguFlowManager.bundle).instantiateViewController(withIdentifier: "PreviewViewController") as? PreviewViewController else {
+                return
+            }
+            vc.fileType = .image
+            vc.image = selectedImage
+            self.navigationController?.present(vc, animated: true, completion: nil)
+            
+            vc.sendBtnTapped = {[weak self](message) in
+                self?.sendConfirmedImage(message: message ,image: selectedImage, mediaType: .imageType)
+                HippoConfig.shared.UnhideJitsiView()
+            }
+            
         case .movieType:
             guard let filePath = result.filePath else {
                 showAlert(title: "", message: HippoStrings.somethingWentWrong, actionComplete: nil)
@@ -963,18 +975,30 @@ extension HippoConversationViewController: PickerHelperDelegate {
             sendSelectedDocumentWith(filePath: filePathUrl.path, fileName: filePathUrl.lastPathComponent, messageType: .attachment, fileType: FileType.video)
         }
         
-        
     }
     
     func didPickDocumentWith(url: URL) {
+        
         HippoConfig.shared.UnhideJitsiView()
-        sendSelectedDocumentWith(filePath: url.path, fileName: url.lastPathComponent, messageType: .attachment, fileType: .document)
+        guard let vc = UIStoryboard(name: "FuguUnique", bundle: FuguFlowManager.bundle).instantiateViewController(withIdentifier: "PreviewViewController") as? PreviewViewController else {
+            return
+        }
+        vc.fileType = .document
+        vc.path = url
+        self.navigationController?.present(vc, animated: true, completion: nil)
+        
+        vc.sendBtnTapped = {[weak self](message) in
+            DispatchQueue.main.async {
+                self?.sendSelectedDocumentWith(messageStr: message ?? "", filePath: url.path, fileName: url.lastPathComponent, messageType: .attachment, fileType: FileType.document)
+            }
+        }
     }
-   
+    
 }
 
 // MARK: - SelectImageViewControllerDelegate Delegates
 extension HippoConversationViewController: SelectImageViewControllerDelegate {
+    
     func selectImageVC(_ selectedImageVC: SelectImageViewController, selectedImage: UIImage) {
         //        selectedImageVC.dismiss(animated: false) {
         //            self.imagePicker.dismiss(animated: false) {
@@ -1001,21 +1025,25 @@ extension HippoConversationViewController: SelectImageViewControllerDelegate {
 
 extension HippoConversationViewController {
     
-    func sendSelectedDocumentWith(filePath: String, fileName: String, messageType: MessageType, fileType: FileType) {
+    func sendSelectedDocumentWith(messageStr: String? = "", filePath: String, fileName: String, messageType: MessageType, fileType: FileType) {
         guard doesFileExistsAt(filePath: filePath) else {
             return
         }
+        
         let uniqueName = DownloadManager.generateNameWhichDoestNotExistInCacheDirectoryWith(name: fileName)
         saveDocumentInCacheDirectoryWith(name: uniqueName, orignalFilePath: filePath)
+        
         if let message = messagesGroupedByDate.last?.last as? HippoActionMessage, message.type == .botAttachment {
             message.fileName = uniqueName
             message.localImagePath = getCacheDirectoryUrlForFileWith(name: uniqueName).path
             self.UploadAndSendMessage(message: message)
         }else {
-            let message = HippoMessage(message: "", type: messageType, uniqueID: generateUniqueId(), imageUrl: nil, thumbnailUrl: nil, localFilePath: filePath, chatType: channel?.chatDetail?.chatType)
+            let message = HippoMessage(message: messageStr ?? "", type: messageStr == "" ? messageType : .normal, uniqueID: generateUniqueId(), imageUrl: nil, thumbnailUrl: nil, localFilePath: filePath, chatType: channel?.chatDetail?.chatType)
             
             message.fileName = uniqueName
             message.localImagePath = getCacheDirectoryUrlForFileWith(name: uniqueName).path
+            message.documentType = fileType
+            message.isMessageWithImage = message.message == "" ? false : true
             
             //Changing messageType in case if new selected file is of image type
             let concreteType = message.concreteFileType ?? .document
@@ -1036,16 +1064,16 @@ extension HippoConversationViewController {
         
         
         //Checking if channel is created or not
-//        if channel != nil {
-//            self.UploadAndSendMessage(message: message)
-//        } else {
-//            startNewConversation(replyMessage: nil) { (success, result) in
-//                guard success else {
-//                    return
-//                }
-                
-//            }
-//        }
+        //        if channel != nil {
+        //            self.UploadAndSendMessage(message: message)
+        //        } else {
+        //            startNewConversation(replyMessage: nil) { (success, result) in
+        //                guard success else {
+        //                    return
+        //                }
+        
+        //            }
+        //        }
         
     }
     //This function will upload ant file and send it on channel
@@ -1091,9 +1119,9 @@ extension HippoConversationViewController {
         }
     }
     func scroll(toIndexPath indexPath: IndexPath, animated: Bool) {
-         let indexPath = IndexPath(
+        let indexPath = IndexPath(
             row: tableViewChat.numberOfRows(inSection: tableViewChat.numberOfSections - 1) - 1,
-                section: tableViewChat.numberOfSections - 1)
+            section: tableViewChat.numberOfSections - 1)
         if hasRowAtIndexPath(indexPath: indexPath) {
             tableViewChat.scrollToRow(at: indexPath, at: .bottom, animated: animated)
         }
@@ -1132,7 +1160,7 @@ extension HippoConversationViewController {
         publishMessageOnChannel(message: message)
     }
     
-    func sendConfirmedImage(image confirmedImage: UIImage, mediaType: CoreMediaSelector.Result.MediaType ) {
+    func sendConfirmedImage(message : String? = "", image confirmedImage: UIImage, mediaType: CoreMediaSelector.Result.MediaType ) {
         var imageExtention: String = ".jpg"
         let imageData: Data?
         
@@ -1153,11 +1181,11 @@ extension HippoConversationViewController {
         default:
             imageExtention = ".jpg"
             
-            #if swift(>=4.2)
+        #if swift(>=4.2)
             imageData = confirmedImage.jpegData(compressionQuality: compressionRate)
-            #else
+        #else
             imageData = UIImageJPEGRepresentation(confirmedImage, compressionRate)
-            #endif
+        #endif
         }
         
         let imageName = Date.timeIntervalSinceReferenceDate.description + imageExtention
@@ -1166,9 +1194,10 @@ extension HippoConversationViewController {
         ((try? imageData?.write(to: URL(fileURLWithPath: imageFilePath), options: [.atomic])) as ()??)
         
         if imageFilePath.isEmpty == false {
-            self.imageSelectedToSendWith(localPath: imageFilePath, imageSize: confirmedImage.size)
+            self.imageSelectedToSendWith(messageStr: message, localPath: imageFilePath, imageSize: confirmedImage.size)
         }
     }
+    
     func PrepareUploadAndSendImage(message: HippoMessage) {
         channel?.unsentMessages.append(message)
         self.addMessageToUIBeforeSending(message: message)
@@ -1182,14 +1211,17 @@ extension HippoConversationViewController {
         }
     }
     
-    func imageSelectedToSendWith(localPath: String, imageSize: CGSize) {
+    func imageSelectedToSendWith(messageStr : String? = "", localPath: String, imageSize: CGSize) {
         if let message = messagesGroupedByDate.last?.last as? HippoActionMessage, message.type == .botAttachment {
             message.localImagePath = localPath
             message.selectBtnWith(btnId: "")
             PrepareUploadAndSendImage(message: message)
         }else {
-            let message = HippoMessage(message: "", type: .imageFile, uniqueID: generateUniqueId(), localFilePath: localPath, chatType: channel?.chatDetail?.chatType)
+            let message = HippoMessage(message: messageStr ?? "", type: .imageFile, uniqueID: generateUniqueId(), localFilePath: localPath, chatType: channel?.chatDetail?.chatType)
+            message.isMessageWithImage = messageStr == "" ? false : true
+            message.documentType = .image
             message.fileName = localPath.fileName()
+            message.isMessageWithImage = (messageStr ?? "") == "" ? false : true
             message.imageWidth = Float(imageSize.width)
             message.imageHeight = Float(imageSize.height)
             PrepareUploadAndSendImage(message: message)
@@ -1250,7 +1282,7 @@ extension HippoConversationViewController {
                     self?.updateErrorLabelView(isHiding: true)
                     self?.cancelMessage(message: message)
                 }else{
-                  message.wasMessageSendingFailed = true
+                    message.wasMessageSendingFailed = true
                 }
                 self?.tableViewChat.reloadData()
                 completion(false)
@@ -1319,12 +1351,12 @@ extension HippoConversationViewController {
         
         DispatchQueue.main.async {
             
-            let countOfDateGroupedArrayBeforeUpdate = self.messagesGroupedByDate.count
-            var previousLastSectionRows = 0
-            
-            if countOfDateGroupedArrayBeforeUpdate > 0 {
-                previousLastSectionRows = self.messagesGroupedByDate.last!.count
-            }
+//            let countOfDateGroupedArrayBeforeUpdate = self.messagesGroupedByDate.count
+//            var previousLastSectionRows = 0
+//
+//            if countOfDateGroupedArrayBeforeUpdate > 0 {
+//                previousLastSectionRows = self.messagesGroupedByDate.last!.count
+//            }
             
             self.updateMessagesGroupedByDate([messageDict])
             
@@ -1332,60 +1364,61 @@ extension HippoConversationViewController {
                 return
             }
             self.tableViewChat.reloadData()
-//            self.tableViewChat.beginUpdates()
-//
-//            if countOfDateGroupedArrayBeforeUpdate == self.messagesGroupedByDate.count {
-//
-//                let currentLastSectionRows = self.messagesGroupedByDate.last!.count
-//
-//                if previousLastSectionRows != currentLastSectionRows {
-//                    let lastIndexPath = IndexPath(row: currentLastSectionRows - 1, section: self.messagesGroupedByDate.count - 1)
-//                    self.tableViewChat.insertRows(at: [lastIndexPath], with: .none)
-//                }
-//
-//            } else {
-//                let newSectionsOfTableView = IndexSet([self.messagesGroupedByDate.count - 1])
-//                self.tableViewChat.insertSections(newSectionsOfTableView, with: .none)
-//            }
-//            self.tableViewChat.endUpdates()
+            //            self.tableViewChat.beginUpdates()
+            //
+            //            if countOfDateGroupedArrayBeforeUpdate == self.messagesGroupedByDate.count {
+            //
+            //                let currentLastSectionRows = self.messagesGroupedByDate.last!.count
+            //
+            //                if previousLastSectionRows != currentLastSectionRows {
+            //                    let lastIndexPath = IndexPath(row: currentLastSectionRows - 1, section: self.messagesGroupedByDate.count - 1)
+            //                    self.tableViewChat.insertRows(at: [lastIndexPath], with: .none)
+            //                }
+            //
+            //            } else {
+            //                let newSectionsOfTableView = IndexSet([self.messagesGroupedByDate.count - 1])
+            //                self.tableViewChat.insertSections(newSectionsOfTableView, with: .none)
+            //            }
+            //            self.tableViewChat.endUpdates()
         }
         
     }
     func openQuicklookFor(fileURL: String, fileName: String) {
-//        if message?.type == .embeddedVideoUrl{
-//            guard let fileURL = message?.customAction?.videoLink else {
-//                return
-//            }
-//            let url = URL(string: fileURL)//URL(fileURLWithPath: fileURL)
-//            let qlItem = QuickLookItem(previewItemURL: url, previewItemTitle: fileName)
-//            let qlPreview = QLPreviewController()
-//            self.qldataSource = HippoQLDataSource(previewItems: [qlItem])
-//            qlPreview.delegate = self.qldataSource
-//            qlPreview.dataSource = self.qldataSource
-//            qlPreview.title = fileName
-//            //        qlPreview.setupCustomThemeOnNavigationBar(hideNavigationBar: false)
-//            qlPreview.navigationItem.hidesBackButton = false
-//            qlPreview.hidesBottomBarWhenPushed = true
-//            self.navigationController?.pushViewController(qlPreview, animated: true)
-//        }else{
-            guard let localPath = DownloadManager.shared.getLocalPathOf(url: fileURL) else {
-                return
-            }
-            let url = URL(fileURLWithPath: localPath)
-            
-            let qlItem = QuickLookItem(previewItemURL: url, previewItemTitle: fileName)
-            
-            let qlPreview = QLPreviewController()
-            self.qldataSource = HippoQLDataSource(previewItems: [qlItem])
-            qlPreview.delegate = self.qldataSource
-            qlPreview.dataSource = self.qldataSource
-            qlPreview.title = fileName
-            //        qlPreview.setupCustomThemeOnNavigationBar(hideNavigationBar: false)
-            qlPreview.navigationItem.hidesBackButton = false
-            qlPreview.hidesBottomBarWhenPushed = true
-            self.navigationController?.pushViewController(qlPreview, animated: true)
-//        }
+        //        if message?.type == .embeddedVideoUrl{
+        //            guard let fileURL = message?.customAction?.videoLink else {
+        //                return
+        //            }
+        //            let url = URL(string: fileURL)//URL(fileURLWithPath: fileURL)
+        //            let qlItem = QuickLookItem(previewItemURL: url, previewItemTitle: fileName)
+        //            let qlPreview = QLPreviewController()
+        //            self.qldataSource = HippoQLDataSource(previewItems: [qlItem])
+        //            qlPreview.delegate = self.qldataSource
+        //            qlPreview.dataSource = self.qldataSource
+        //            qlPreview.title = fileName
+        //            //        qlPreview.setupCustomThemeOnNavigationBar(hideNavigationBar: false)
+        //            qlPreview.navigationItem.hidesBackButton = false
+        //            qlPreview.hidesBottomBarWhenPushed = true
+        //            self.navigationController?.pushViewController(qlPreview, animated: true)
+        //        }else{
+        guard let localPath = DownloadManager.shared.getLocalPathOf(url: fileURL) else {
+            return
+        }
+        let url = URL(fileURLWithPath: localPath)
+        
+        let qlItem = QuickLookItem(previewItemURL: url, previewItemTitle: fileName)
+        
+        let qlPreview = QLPreviewController()
+        self.qldataSource = HippoQLDataSource(previewItems: [qlItem])
+        qlPreview.delegate = self.qldataSource
+        qlPreview.dataSource = self.qldataSource
+        qlPreview.title = fileName
+        //        qlPreview.setupCustomThemeOnNavigationBar(hideNavigationBar: false)
+        qlPreview.navigationItem.hidesBackButton = false
+        qlPreview.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(qlPreview, animated: true)
+        //        }
     }
+    
     func sendMessage(message: HippoMessage) {
         channel?.send(message: message, completion: { [weak self] in
             //TODO: Reload Table View Cell
@@ -1444,7 +1477,7 @@ extension HippoConversationViewController {
         let navVC = UINavigationController(rootViewController: vc)
         navVC.modalPresentationStyle = .fullScreen
         navVC.navigationBar.isHidden = true
-//        navVC.setupCustomThemeOnNavigationController(hideNavigationBar: false)
+        //        navVC.setupCustomThemeOnNavigationController(hideNavigationBar: false)
         self.present(navVC, animated: true, completion: nil)
     }
     
@@ -1507,18 +1540,18 @@ extension HippoConversationViewController: VideoTableViewCellDelegate {
                 let stringIndex = fileName.index(fileName.startIndex, offsetBy: 9)
                 fileName = String(fileName[..<stringIndex])
             }
-//            //openQuicklookFor(fileURL: fileURL, fileName: fileName)
-//            let url = URL(string: fileURL)//URL(fileURLWithPath: fileURL)
-//            let qlItem = QuickLookItem(previewItemURL: url, previewItemTitle: fileName)
-//            let qlPreview = QLPreviewController()
-//            self.qldataSource = HippoQLDataSource(previewItems: [qlItem])
-//            qlPreview.delegate = self.qldataSource
-//            qlPreview.dataSource = self.qldataSource
-//            qlPreview.title = fileName
-//            //        qlPreview.setupCustomThemeOnNavigationBar(hideNavigationBar: false)
-//            qlPreview.navigationItem.hidesBackButton = false
-//            qlPreview.hidesBottomBarWhenPushed = true
-//            self.navigationController?.pushViewController(qlPreview, animated: true)
+            //            //openQuicklookFor(fileURL: fileURL, fileName: fileName)
+            //            let url = URL(string: fileURL)//URL(fileURLWithPath: fileURL)
+            //            let qlItem = QuickLookItem(previewItemURL: url, previewItemTitle: fileName)
+            //            let qlPreview = QLPreviewController()
+            //            self.qldataSource = HippoQLDataSource(previewItems: [qlItem])
+            //            qlPreview.delegate = self.qldataSource
+            //            qlPreview.dataSource = self.qldataSource
+            //            qlPreview.title = fileName
+            //            //        qlPreview.setupCustomThemeOnNavigationBar(hideNavigationBar: false)
+            //            qlPreview.navigationItem.hidesBackButton = false
+            //            qlPreview.hidesBottomBarWhenPushed = true
+            //            self.navigationController?.pushViewController(qlPreview, animated: true)
             if let url = URL(string: fileURL){
                 let config = WebViewConfig(url: url, title: fileName)
                 let vc = PrePaymentViewController.getNewInstance(config: config)
@@ -1591,7 +1624,7 @@ extension HippoConversationViewController: SelfMessageDelegate {
         
         actionView.modalPresentationStyle = .overCurrentContext
         self.present(actionView, animated: false) {
-           // actionView.addEmojiInStackView()
+            // actionView.addEmojiInStackView()
             actionView.showViewAnimation()
         }
         
@@ -1647,15 +1680,15 @@ extension HippoConversationViewController: ActionTableViewDelegate {
             let isReplyMessageSent = result?.isReplyMessageSent ?? false
             
             if !isReplyMessageSent {
-               self.sendMessage(message: customMessage)
+                self.sendMessage(message: customMessage)
             }
             if let button = customMessage.getButtonWithId(id: selectionId), let action = button.action, button.buttonType == .action {
                 switch action {
                 case .audioCall:
-//                    self.showAlert(title: "", message: "Audio call", actionComplete: nil)
+                    //                    self.showAlert(title: "", message: "Audio call", actionComplete: nil)
                     self.startAudioCall()
                 case .videoCall:
-//                    self.showAlert(title: "", message: "Video call", actionComplete: nil)
+                    //                    self.showAlert(title: "", message: "Video call", actionComplete: nil)
                     self.startVideoCall()
                 case .openUrl:
                     if let link = button.getUrlToOpen() {
@@ -1739,7 +1772,7 @@ extension HippoConversationViewController {
 extension HippoConversationViewController : OutgoingShareUrlDelegate {
     func openJitsiUrl(url: String) {
         let shareUrlHelper = ShareUrlHelper()
-            shareUrlHelper.getUrlToJoinJitsiCall(url: url, completion: {(url,callType) in
+        shareUrlHelper.getUrlToJoinJitsiCall(url: url, completion: {(url,callType) in
             HippoConfig.shared.joinCallFromLink(url: url, callType: callType)
         })
     }
@@ -1763,9 +1796,9 @@ extension HippoConversationViewController: NavigationTitleViewDelegate {
         }
     }
     func openProfile(for channelId: Int, agentId: String?, profile: ProfileDetail?) {
-//        let presenter = AgentProfilePresenter(channelID: channelId, agentID: agentId, profile: profile)
-//        let vc = AgentProfileViewController.get(presenter: presenter)
-//        self.navigationController?.pushViewController(vc, animated: true)
+        //        let presenter = AgentProfilePresenter(channelID: channelId, agentID: agentId, profile: profile)
+        //        let vc = AgentProfileViewController.get(presenter: presenter)
+        //        self.navigationController?.pushViewController(vc, animated: true)
     }
 }
 extension HippoConversationViewController: CardMessageDelegate {
@@ -1791,15 +1824,15 @@ extension HippoConversationViewController: CardMessageDelegate {
 
 extension HippoConversationViewController: PaymentMessageCellDelegate {
     func cellButtonPressed(message: HippoMessage, card: HippoCard) {
-//        if let channel = self.channel, channel.isSendingDisabled {
-//            print("isSendingDisabled disabled")
-//            return
-//        }
-//        guard let selectedCard = (card as? PayementButton)?.selectedCardDetail, let url = URL(string: selectedCard.paymentUrlString ?? "") else {
-//            generatePaymentUrl(for: message, card: card)
-//            return
-//        }
-//        initatePayment(for: url)
+        //        if let channel = self.channel, channel.isSendingDisabled {
+        //            print("isSendingDisabled disabled")
+        //            return
+        //        }
+        //        guard let selectedCard = (card as? PayementButton)?.selectedCardDetail, let url = URL(string: selectedCard.paymentUrlString ?? "") else {
+        //            generatePaymentUrl(for: message, card: card)
+        //            return
+        //        }
+        //        initatePayment(for: url)
         if let channel = self.channel, channel.isSendingDisabled {
             print("isSendingDisabled disabled")
             return
@@ -1827,7 +1860,7 @@ extension HippoConversationViewController: PaymentMessageCellDelegate {
                             return
                         }
                     }else{
-                       showAlertWith(message: HippoStrings.noPaymentMethod, action: nil)
+                        showAlertWith(message: HippoStrings.noPaymentMethod, action: nil)
                     }
                 }
                 break
@@ -1852,7 +1885,7 @@ extension HippoConversationViewController: PaymentMessageCellDelegate {
                         isProceedToPayActionSheet = true
                         openCustomSheet()
                     }else{
-                      showAlertWith(message: HippoStrings.noPaymentMethod, action: nil)
+                        showAlertWith(message: HippoStrings.noPaymentMethod, action: nil)
                     }
                 }
                 
@@ -1879,7 +1912,7 @@ extension HippoConversationViewController: PaymentMessageCellDelegate {
     }
     
     func initatePayment(for razorPayDic: RazorPayData) {
-    
+        
     }
     
     func generatePaymentUrl(for message: HippoMessage, card: HippoCard, selectedPaymentGateway: PaymentGateway?) {
@@ -1909,11 +1942,11 @@ extension HippoConversationViewController: PaymentMessageCellDelegate {
         
     }
     
-
+    
     func getNextMessageInDateGroupOfMessageAt(indexPath: IndexPath) -> HippoMessage? {
         let row = indexPath.row
         let section = indexPath.section
-
+        
         guard messagesGroupedByDate.count > section else {
             return nil
         }
@@ -1937,12 +1970,12 @@ extension HippoConversationViewController: PaymentMessageCellDelegate {
         
         if nextMessage.senderId != message.senderId {
             return 10 // bottom space from other user massage
-         }
+        }
         
         return 0 // onle top pennding for same user message extra bottom space is 0
     }
     
-
+    
     func generatePaymentUrlWithSelectedPaymentGateway(for message: HippoMessage, card: CustomerPayment, selectedPaymentGateway: PaymentGateway?, proceedToPayChannel: HippoChannel?) {
         let selectedCard = card
         guard let channelId = proceedToPayChannel?.id else {
@@ -1973,7 +2006,7 @@ extension HippoConversationViewController: PaymentMessageCellDelegate {
             self.initatePayment(for: url)
         }
     }
-
+    
 }
 
 extension HippoConversationViewController: submitButtonTableViewDelegate
@@ -1999,7 +2032,7 @@ extension HippoConversationViewController : UICollectionViewDelegate , UICollect
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-
+        
         guard let attachmentOptionCVCell  = collectionView.dequeueReusableCell(withReuseIdentifier: "AttachmentOptionCollectionViewCell", for: indexPath) as? AttachmentOptionCollectionViewCell else { return UICollectionViewCell() }
         attachmentOptionCVCell.attachmentDetail = attachments[indexPath.item]
         return attachmentOptionCVCell
@@ -2069,7 +2102,7 @@ extension HippoConversationViewController{
         }
         return edit
     }
-
+    
     func addDeleteOption(for message: HippoMessage, at indexPath: IndexPath)-> ActionSheetAction? {
         if message.type == .normal || message.type == .imageFile || message.type == .attachment{
             
@@ -2094,9 +2127,9 @@ extension HippoConversationViewController{
     
     func apiHitToEditDeleteMsg(message : HippoMessage, isDeleted : Bool, completion: ((_ success: Bool) -> Void)?){
         if FuguNetworkHandler.shared.isNetworkConnected == false {
-           checkNetworkConnection()
-           completion?(false)
-           return
+            checkNetworkConnection()
+            completion?(false)
+            return
         }
         
         var params = [String : Any]()
@@ -2151,7 +2184,4 @@ extension HippoConversationViewController{
         })
     }
 }
-extension HippoConversationViewController {
-    
-   
-}
+

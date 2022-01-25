@@ -21,6 +21,7 @@ class IncomingImageCell: MessageTableViewCell {
     @IBOutlet weak var topConstraint: NSLayoutConstraint!
     @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var retryButton: UIButton!
+    @IBOutlet weak var textView: UITextView!
     
     // MARK: - Variables
     weak var delegate: ImageCellDelegate?
@@ -131,7 +132,8 @@ extension IncomingImageCell {
                 }
             })
         }
-        
+        textView.text = message?.message
+        textView.isHidden = message?.message ?? "" == "" ? true : false
         return self
     }
     

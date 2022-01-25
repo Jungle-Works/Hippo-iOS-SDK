@@ -432,13 +432,14 @@ extension AgentDetail {
         if agentDetail.isForking {
             params["agent_secret_key"] = agentDetail.oAuthToken
         } else {
-            params["auth_token"] = agentDetail.oAuthToken
-//            params["auth_token"] = "b3ef183fc89d3ee890dd7d35168c2529"
+//            params["auth_token"] = agentDetail.oAuthToken
+            params["auth_token"] = "b3ef183fc89d3ee890dd7d35168c2529"
         }
         params["fetch_tags"] = 0
         return params
     }
 }
+
 //MARK: Class variables
 extension AgentDetail {
     class var id: Int {

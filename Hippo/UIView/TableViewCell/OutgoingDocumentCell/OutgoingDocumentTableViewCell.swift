@@ -11,6 +11,8 @@ import UIKit
 class OutgoingDocumentTableViewCell: DocumentTableViewCell {
     
     @IBOutlet weak var tickImage: UIImageView!
+    @IBOutlet var constraintHeightTextView : NSLayoutConstraint!
+    @IBOutlet weak var textView: UITextView!
     
     weak var delegate: RetryMessageUploadingDelegate?
     var messageLongPressed : ((HippoMessage)->())?
@@ -50,6 +52,13 @@ class OutgoingDocumentTableViewCell: DocumentTableViewCell {
         setUIAccordingToTheme()
         updateUIAccordingToStatus()
         updateUI()
+        
+        if message.message != "" {
+            constraintHeightTextView.isActive = false
+            textView.text = message.message
+        }else {
+            constraintHeightTextView.isActive = true
+        }
     }
     
     override func updateUIAccordingToFileDownloadStatus() {
