@@ -49,8 +49,8 @@ struct SERVERS {
     static let betaUrl = "https://beta-live-api1.fuguchat.com:3001/"
     static let betaFaye = "https://socket-temp.hippochat.io"
     
-    static let devUrl = "https://hippo-api-dev1.fuguchat.com:3002/"
-    static let devFaye = "https://hippo-api-dev1.fuguchat.com:3002"
+    static let devUrl = "https://hippo-api-dev1.fuguchat.com:3004/"
+    static let devFaye = "https://hippo-api-dev1.fuguchat.com:3004"
     
 }
 
@@ -221,6 +221,9 @@ struct WhatsappWidgetConfig{
     var whatsappWidgetConfig: WhatsappWidgetConfig?
     
     var isOpenedFromPush : Bool?
+    var sessionStartTime: Date?
+    var tempChannelId: Int?
+    
     
     // MARK: - Intialization
     private override init() {
@@ -278,6 +281,10 @@ struct WhatsappWidgetConfig{
         CallManager.shared.joinCallLink(customerName: currentUserName(), customerImage: currentUserImage() ?? "", url: url, isInviteEnabled: BussinessProperty.current.isCallInviteEnabled ?? false,callType: callType)
     }
     
+    public func hitStatsApi(userInfo : [String : Any]?, sendSessionTym: Bool = false, sendSeen: Bool = false, completion: ((Bool) -> Void)? = nil){
+        HippoUserDetail.hitStatsAPi(pushContent: userInfo, sendSessionTym: sendSessionTym) 
+    }
+    
     internal func setAgentStoredData() {
         guard let storedData = AgentDetail.agentLoginData else {
             return
@@ -312,7 +319,6 @@ struct WhatsappWidgetConfig{
     
     public func setCredential(withToken token: String, referenceId: Int, appType: String) {
         self.credentialType = FuguCredentialType.reseller
-        
         self.resellerToken = token
         self.referenceId = referenceId
         self.appType = appType
@@ -513,7 +519,13 @@ struct WhatsappWidgetConfig{
         return navigationController
     }
     
-    
+    public func presentPromotionalPopUp(on viewController: UIViewController, onButtonOneClick: @escaping ([String: Any]) -> Void, onButtonTwoClick: @escaping ([String: Any]) -> Void){
+        HippoUserDetail.getPromotionalPopUpData() { data in
+            if let data = data, !(data.data?.isEmpty ?? true) {
+                FuguFlowManager.shared.presentOfferPopUp(on: viewController, popUpData: data, onButtonOneClick: onButtonOneClick, onButtonTwoClick: onButtonTwoClick)
+            }
+        }
+    }
     
     func presentPrePaymentController(){
         
@@ -628,9 +640,11 @@ struct WhatsappWidgetConfig{
         UnreadCount.userUniqueKeyList = userUniqueKeys
         AgentConversationManager.getUserUnreadCount()
     }
+    
     public func clearHostNotification() {
         HippoNotification.removeHostNotification()
     }
+    
     public func getUnreadCountFor(userUniqueKey: String) -> Int {
         guard !UnreadCount.unreadCountList.isEmpty else {
             AgentConversationManager.getUserUnreadCount()
@@ -795,12 +809,11 @@ struct WhatsappWidgetConfig{
             self.findChannelAndStartCallToAgent(data: data, agentEmail: agentEmail, callType: callType, completion: completion)
         }
     }
+    
     private func findChannelAndStartCallToAgent(data: PeerToPeerChat, agentEmail: String, callType: CallType, completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
         let uuid: String = String.uuid()
         let peer = User(name: data.peerName, imageURL: data.otherUserImage?.absoluteString, userId: -222)
-        if HippoUserDetail.callingType != 3{
-            CallManager.shared.startConnection(peerUser: peer, muid: uuid, callType: callType, completion: { success in })
-        }
+        CallManager.shared.startConnection(peerUser: peer, muid: uuid, callType: callType, completion: { success in })
         let attributes = FuguNewChatAttributes(transactionId: data.uniqueChatId ?? "", userUniqueKey: nil, otherUniqueKey: [data.userUniqueId], tags: nil, channelName: data.channelName, preMessage: "", groupingTag: nil)
         HippoChannel.getToCallAgent(withFuguChatAttributes: attributes, agentEmail: agentEmail, completion: {(result) in
             guard result.isSuccessful, let channel = result.channel else {
@@ -910,22 +923,14 @@ struct WhatsappWidgetConfig{
         case .dev:
             baseUrl = SERVERS.devUrl
             fayeBaseURLString = SERVERS.devFaye
-       
         case .beta:
             baseUrl = SERVERS.betaUrl
             fayeBaseURLString = SERVERS.betaFaye
-//            HippoCallClientUrl.urlType = .beta
         case .live:
             baseUrl = SERVERS.liveUrl
             fayeBaseURLString = SERVERS.liveFaye
-//            HippoCallClientUrl.urlType = .live
         }
         //        FayeConnection.shared.enviromentSwitchedWith(urlString: fayeBaseURLString)
-        
-        #if canImport(HippoCallClient)
-        HippoCallClientUrl.baseUrl = baseUrl
-        #endif
-        
         SocketClient.shared.connect()
     }
     
@@ -1034,7 +1039,7 @@ struct WhatsappWidgetConfig{
         HippoConfig.shared.strings = stringsObject
     }
     
-    public func managePromotionOrP2pCount(_ userInfo: [String:Any]){
+    public func managePromotionOrP2pCount(_ userInfo: [String:Any], isOpenendFromPush: Bool = false){
         if userInfo["is_announcement_push"] as? Bool == true, let channel_id = userInfo["channel_id"] as? Int{
             if !(getLastVisibleController() is PromotionsViewController){
                 if var channelArr = UserDefaults.standard.value(forKey: DefaultName.announcementUnreadCount.rawValue) as? [String]{
@@ -1047,7 +1052,7 @@ struct WhatsappWidgetConfig{
             }else{
                 let visibleController = getLastVisibleController()
                 if let promotionVC = visibleController as? PromotionsViewController {
-                    promotionVC.getDataOrUpdateAnnouncement([channel_id], isforReadMore: false)
+                    promotionVC.getDataOrUpdateAnnouncement([channel_id], isforReadMore: false, isOpenedFromPush: isOpenendFromPush)
                 }
                 HippoNotification.removeAllAnnouncementNotification()
             }
@@ -1168,8 +1173,14 @@ struct WhatsappWidgetConfig{
         
         if let announcementPush = userInfo["is_announcement_push"] as? Int, announcementPush == 1 {
             self.isOpenedFromPush = true
+            self.tempChannelId = userInfo["channel_id"] as? Int ?? 0
             self.handleAnnouncementsNotification(userInfo: userInfo)
             return
+        }
+        
+        if userInfo["channel_type"] as? Int != nil && userInfo["channel_type"] as? Int == 6{
+            self.isOpenedFromPush = true
+            self.tempChannelId = userInfo["channel_id"] as? Int ?? 0
         }
         
         //Check to append all muid of push list
@@ -1179,7 +1190,8 @@ struct WhatsappWidgetConfig{
         updateStoredUnreadCountFor(with: userInfo)
         resetForChannel(pushInfo: userInfo)
         pushTotalUnreadCount()
-        if let id = userInfo["channelId"], let channelId = Int("\(id)"){
+        
+        if let id = userInfo["channel_id"], let channelId = Int("\(id)"){
             HippoNotification.removeAllnotificationFor(channelId: channelId)
         }
         
@@ -1193,15 +1205,19 @@ struct WhatsappWidgetConfig{
     
     
     func handleAnnouncementsNotification(userInfo: [String: Any]) {
+        
         let visibleController = getLastVisibleController()
-        if let _ = visibleController as? PromotionsViewController {
+        if let promotionVC = visibleController as? PromotionsViewController {
             //                HippoNotification.promotionPushDic.removeAll()
             //                if let promotion = PromotionCellDataModel(pushDic: userInfo){
             //                    HippoNotification.promotionPushDic.append(promotion)
             //                }
-            //                HippoNotification.getAllAnnouncementNotifications()
+            HippoNotification.getAllAnnouncementNotifications {
+                promotionVC.refreshData(isOpenedFromPush: HippoConfig.shared.isOpenedFromPush ?? false)
+                HippoConfig.shared.isOpenedFromPush = false
+                return
+            }
             //promotionsVC.callGetAnnouncementsApi()
-            return
         }else{
             //                checkForIntialization {[weak self] (success, error) in
             //                    guard success else {
@@ -1273,8 +1289,8 @@ struct WhatsappWidgetConfig{
     
     func handleNotificationForChatInfoScreen(with info: [String: Any], lastController: UIViewController) {
         
-        
     }
+    
     func handleCustomerNotification(userInfo: [String: Any]) {
         
         let visibleController = getLastVisibleController()

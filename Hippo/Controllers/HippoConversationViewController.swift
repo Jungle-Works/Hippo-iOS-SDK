@@ -966,7 +966,19 @@ extension HippoConversationViewController: PickerHelperDelegate {
     
     func didPickDocumentWith(url: URL) {
         HippoConfig.shared.UnhideJitsiView()
-        sendSelectedDocumentWith(filePath: url.path, fileName: url.lastPathComponent, messageType: .attachment, fileType: .document)
+        
+        guard let vc = UIStoryboard(name: "FuguUnique", bundle: FuguFlowManager.bundle).instantiateViewController(withIdentifier: "PreviewViewController") as? PreviewViewController else {
+            return
+        }
+        vc.fileType = .document
+        vc.path = url
+        self.navigationController?.present(vc, animated: true, completion: nil)
+        
+        vc.sendBtnTapped = {[weak self](message) in
+            DispatchQueue.main.async {
+                self?.sendSelectedDocumentWith(messageStr: message ?? "", filePath: url.path, fileName: url.lastPathComponent, messageType: message?.isEmpty ?? true ? .attachment : .normal, fileType: FileType.document)
+            }
+        }
     }
    
 }
@@ -1186,7 +1198,8 @@ extension HippoConversationViewController {
             message.selectBtnWith(btnId: "")
             PrepareUploadAndSendImage(message: message)
         }else {
-            let message = HippoMessage(message: "", type: .imageFile, uniqueID: generateUniqueId(), localFilePath: localPath, chatType: channel?.chatDetail?.chatType)
+            let message = HippoMessage(message: messageStr ?? "", type: messageStr?.isEmpty ?? true ? .imageFile : .normal, uniqueID: generateUniqueId(), localFilePath: localPath, chatType: channel?.chatDetail?.chatType)
+            message.documentType = .image
             message.fileName = localPath.fileName()
             message.imageWidth = Float(imageSize.width)
             message.imageHeight = Float(imageSize.height)
