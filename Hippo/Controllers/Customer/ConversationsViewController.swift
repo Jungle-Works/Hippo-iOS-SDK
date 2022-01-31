@@ -2414,7 +2414,7 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                         return cell
                         
                     default:
-                        if message.fileUrl != nil || (message.isMessageWithImage ?? false) {
+                        if (message.fileUrl != nil || (message.isMessageWithImage ?? false) && messageType == .normal) {
                             return self.getCellForMessageWithAttachment(tableView: tableView, isOutgoingMessage: isOutgoingMsg, message: message, indexPath: indexPath)
                         }
                         return getNormalMessageTableViewCell(tableView: tableView, isOutgoingMessage: isOutgoingMsg, message: message, indexPath: indexPath)

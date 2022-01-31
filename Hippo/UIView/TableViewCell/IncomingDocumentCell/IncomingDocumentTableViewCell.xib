@@ -9,11 +9,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="IncomingDocumentTableViewCell" rowHeight="98" id="Ffc-we-xMN" customClass="IncomingDocumentTableViewCell" customModule="Hippo" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="474" height="98"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="IncomingDocumentTableViewCell" rowHeight="144" id="Ffc-we-xMN" customClass="IncomingDocumentTableViewCell" customModule="Hippo" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="474" height="144"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Ffc-we-xMN" id="Nsh-Za-UrK">
-                <rect key="frame" x="0.0" y="0.0" width="474" height="98"/>
+                <rect key="frame" x="0.0" y="0.0" width="474" height="144"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xJz-8S-jkL">
@@ -195,7 +195,7 @@
                 <outlet property="textView" destination="I48-A5-Du9" id="hqk-lB-qyu"/>
                 <outlet property="timeLabel" destination="c0A-7w-op2" id="fbQ-hW-VlN"/>
             </connections>
-            <point key="canvasLocation" x="211.59420289855075" y="-32.8125"/>
+            <point key="canvasLocation" x="204.34782608695653" y="6.0267857142857144"/>
         </tableViewCell>
     </objects>
     <resources>

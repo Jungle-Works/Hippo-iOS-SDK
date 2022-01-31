@@ -561,13 +561,13 @@ public class UserTag: NSObject {
         return params
     }
     
-    class func hitStatsAPi(pushContent: [String: Any]?, sendSessionTym: Bool = false) {
+    class func hitStatsAPi(pushContent: [String: Any]?, sendSessionTym: Bool = false, linkClicked: String? = nil, channelId: Int? = nil, actionType: Int? = nil) {
         
         if sendSessionTym && HippoConfig.shared.sessionStartTime == nil{
             return
         }
         
-        let params = getParamsForStats(from: pushContent, sendSessionTym: sendSessionTym)
+        let params = getParamsForStats(from: pushContent, sendSessionTym: sendSessionTym, linkClicked: linkClicked, channelId: channelId, actionType: actionType)
         
         HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: FuguEndPoints.statsUpdate.rawValue) { (response, error, _, statusCode) in
             if let responseDict = response as? [String: Any],
@@ -585,11 +585,11 @@ public class UserTag: NSObject {
         }
     }
     
-    private class func getParamsForStats(from data: [String: Any]?, sendSessionTym: Bool = false) -> [String: Any] {
+    private class func getParamsForStats(from data: [String: Any]?, sendSessionTym: Bool = false, linkClicked: String? = nil, channelId: Int? = nil, actionType: Int? = nil) -> [String: Any] {
         var params = [String: Any]()
         
         params["en_user_id"] = currentEnUserId()
-        params["channel_id"] = HippoConfig.shared.tempChannelId
+        params["channel_id"] = sendSessionTym ? HippoConfig.shared.tempChannelId : channelId
         
         if currentUserType() == .agent{
             params["access_token"] = HippoConfig.shared.agentDetail?.fuguToken
@@ -599,11 +599,60 @@ public class UserTag: NSObject {
         
         if sendSessionTym{
             let sessionTym = Int(Date().timeIntervalSince(HippoConfig.shared.sessionStartTime ?? Date()))
-            print("session tym ----->>>>>>>>", sessionTym, "\n channel id - \(HippoConfig.shared.tempChannelId)")
+            print("session tym ----->>>>>>>>", sessionTym, "\n channel id - \(HippoConfig.shared.tempChannelId ?? 0)")
             params["ctr_session_time"] = "\(sessionTym)"
+        }else{
+            if actionType != 2{
+                let date = "\(Date())"
+                params["open_links"] = [["time": date, "link": linkClicked ?? ""]]
+            }
+            params["is_clicked"] = 1
         }
         
         return params
+    }
+    
+    class func getPromotionalPopUpData(completion: @escaping (PromotionalPopUpData?) -> Void){
+        let params = getParamsForPromotionalPopUp()
+        
+        HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: FuguEndPoints.promotionalPopUp.rawValue, callback: { (response, error, _, statusCode) in
+            if let responseDict = response as? [String: Any],
+               let statusCode = responseDict["statusCode"] as? Int, statusCode == 200 {
+                completion(decodeJson(from: response as Any))
+            }else {
+                completion(nil)
+            }
+        })
+    }
+    
+    private class func getParamsForPromotionalPopUp() -> [String: Any]{
+        var params: [String : Any] = [
+            "en_user_id" : currentEnUserId(),
+            "start_offset" : 0,
+            "end_offset" : 10
+        ]
+        
+        if currentUserType() == .agent{
+            params["access_token"] = HippoConfig.shared.agentDetail?.fuguToken
+        }else{
+            params["app_secret_key"] = HippoConfig.shared.appSecretKey
+        }
+        
+        return params
+    }
+    
+    private class func decodeJson(from data: Any) -> PromotionalPopUpData? {
+        
+        let decoder = JSONDecoder()
+        let jsonData = try? JSONSerialization.data(withJSONObject: data)
+        
+        do {
+            let people = try decoder.decode(PromotionalPopUpData.self, from: jsonData ?? Data())
+            return people
+        } catch {
+            print(error.localizedDescription)
+            return nil
+        }
     }
     
     class func clearAgentData() {

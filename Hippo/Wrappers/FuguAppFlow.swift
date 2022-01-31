@@ -100,13 +100,15 @@ class FuguFlowManager: NSObject {
         
     }
     
-    func presentOfferPopUp(on viewController: UIViewController) {
+    func presentOfferPopUp(on viewController: UIViewController, popUpData: PromotionalPopUpData, onButtonOneClick: @escaping ([String: Any]) -> Void, onButtonTwoClick: @escaping ([String: Any]) -> Void) {
         let visibleController = viewController
         let storyboard = UIStoryboard(name: "FuguUnique", bundle: FuguFlowManager.bundle)
         let vc = storyboard.instantiateViewController(withIdentifier: "OfferPopUpVC") as? OfferPopUpVC
-//        vc?.modalPresentationStyle = .fullScreen
         vc?.modalPresentationStyle = .overCurrentContext
+        vc?.popUpData = popUpData
         visibleController.present(vc!, animated: true, completion: nil)
+        vc?.onButtonOneClick = onButtonOneClick
+        vc?.onButtonTwoClick = onButtonTwoClick
     }
     
     func openDirectConversationHome() {

@@ -989,7 +989,7 @@ extension HippoConversationViewController: PickerHelperDelegate {
         
         vc.sendBtnTapped = {[weak self](message) in
             DispatchQueue.main.async {
-                self?.sendSelectedDocumentWith(messageStr: message ?? "", filePath: url.path, fileName: url.lastPathComponent, messageType: .attachment, fileType: FileType.document)
+                self?.sendSelectedDocumentWith(messageStr: message ?? "", filePath: url.path, fileName: url.lastPathComponent, messageType: message?.isEmpty ?? true ? .attachment : .normal, fileType: FileType.document)
             }
         }
     }
@@ -1217,8 +1217,7 @@ extension HippoConversationViewController {
             message.selectBtnWith(btnId: "")
             PrepareUploadAndSendImage(message: message)
         }else {
-            let message = HippoMessage(message: messageStr ?? "", type: .imageFile, uniqueID: generateUniqueId(), localFilePath: localPath, chatType: channel?.chatDetail?.chatType)
-            message.isMessageWithImage = messageStr == "" ? false : true
+            let message = HippoMessage(message: messageStr ?? "", type: messageStr?.isEmpty ?? true ? .imageFile : .normal, uniqueID: generateUniqueId(), localFilePath: localPath, chatType: channel?.chatDetail?.chatType)
             message.documentType = .image
             message.fileName = localPath.fileName()
             message.isMessageWithImage = (messageStr ?? "") == "" ? false : true

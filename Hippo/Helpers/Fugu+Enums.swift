@@ -397,7 +397,9 @@ enum FuguEndPoints: String {
     case callHangup = "api/call/endCall?channel_id="
     case searchAddress = "https://nominatim-api-live.jungleworks.com/search"
     case statsUpdate = "api/users/updateUserToChannel"
-
+    case promotionalPopUp = "api/broadcast/getUserToCampaign"
+//    case promotionalPopUp = "api/broadcast/getUserCampaign"
+    
 }
 
 enum AgentEndPoints: String {
