@@ -32,6 +32,7 @@ class NavigationTitleView: UIView {
         setupDefaultUI()
         addGesture()
     }
+    
     @IBAction func backButtonClicked(_ sender: Any) {
         delegate?.backButtonClicked()
     }
@@ -64,6 +65,7 @@ class NavigationTitleView: UIView {
         descLabel.text = "tap to view info"
         titleLabel.text = ""
     }
+    
     func setTitle(title: String) {
         titleLabel.text = "  " + title.trimWhiteSpacesAndNewLine()
     }
@@ -75,9 +77,11 @@ class NavigationTitleView: UIView {
         let imageTapGesture = UITapGestureRecognizer(target: self, action: #selector(imageClicked))
         profileImageView.addGestureRecognizer(imageTapGesture)
     }
+    
     @objc func titleViewClicked() {
         delegate?.titleClicked?()
     }
+    
     @objc func imageClicked() {
 //        if backButton.isEnabled {
             delegate?.imageIconClicked?()

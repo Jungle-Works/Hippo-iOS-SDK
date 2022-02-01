@@ -105,6 +105,7 @@ class AgentConversationViewController: HippoConversationViewController {
     private var messageSendingViewConfig: MessageSendingViewConfig = MessageSendingViewConfig()
 //    private var timer: Timer?
 //    var lastUnsendMessage:String?
+    var original_transaction_id = ""
     
     // MARK: - Computed Properties
     var localFilePath: String {
@@ -144,6 +145,8 @@ class AgentConversationViewController: HippoConversationViewController {
         
         populateTableViewWithChannelData()
         fetchMessagesFrom1stPage()
+        
+        transactionID = self.original_transaction_id
     }
     
     override func didSetChannel() {
@@ -303,6 +306,7 @@ class AgentConversationViewController: HippoConversationViewController {
     @IBAction func videoCallButtonClicked(_ sender: Any) {
         startVideoCall()
     }
+    
     @IBAction func infoButtonClicked(_ sender: UIButton) {
         
         guard let channelDetail = channel?.chatDetail else {
@@ -789,6 +793,7 @@ class AgentConversationViewController: HippoConversationViewController {
         let vc = getNewInstance()
         vc.channelType = conversationObj.channel_type
         vc.updateChatInfoWith(chatObj: conversationObj)
+        vc.original_transaction_id = conversationObj.transactionId ?? ""
         return vc
     }
     

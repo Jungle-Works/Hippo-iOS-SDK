@@ -125,6 +125,7 @@ class MessageStore {
             handleGetMessageError(response: nil, completion: completion)
             return
         }
+        
         HippoConfig.shared.log.trace(params, level: .request)
         isInProgress = true
         
@@ -139,6 +140,7 @@ class MessageStore {
                     handleGetMessageError(response: nil, completion: completion)
                     return
                 }
+                HippoConfig.shared.isOpenedFromPush = false
                 handleGetMessagesCompletion(for: requestParam, data: data, completion: completion)
             case 406:
                 handleGetMessageError(response: responseObject, completion: completion)
@@ -188,6 +190,12 @@ class MessageStore {
                     params["user_identification_secret"] = userIdenficationSecret
                 }
             }
+            
+            if HippoConfig.shared.isOpenedFromPush ?? false{
+                params["app_opened_through_push"] = 1
+                HippoConfig.shared.sessionStartTime = Date()
+            }
+            
         }
         
         let endPage = requestParam.pageEnd == nil ? requestParam.pageStart + iOSPageLimit : requestParam.pageEnd!

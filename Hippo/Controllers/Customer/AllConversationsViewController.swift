@@ -115,7 +115,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        
+//        FuguFlowManager.shared.presentOfferPopUp()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -405,10 +405,10 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         saveConversationsInCache()
         HippoConfig.shared.notifiyDeinit()
         //        if let navigationController = UIApplication.shared.windows.first?.rootViewController as? UINavigationController{
-//            if let tabBarController = navigationController.viewControllers[0] as? UITabBarController{
-//                tabBarController.selectedIndex = 0
-//            }
-//        }
+        //            if let tabBarController = navigationController.viewControllers[0] as? UITabBarController{
+        //                tabBarController.selectedIndex = 0
+        //            }
+        //        }
         if config.shouldPopVc {
             self.navigationController?.popViewController(animated: true)
         } else {
@@ -985,36 +985,29 @@ extension AllConversationsViewController: UITableViewDelegate, UITableViewDataSo
         return 30
     }
     
-    //    public func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-    //
-    //        tableView.isScrollEnabled = true
-    //        guard arrayOfConversation.count > 0 else {
-    //            tableView.isScrollEnabled = false
-    //            return tableView.frame.height
-    //        }
-    //
-    //        return 0
-    //    }
-    //
-    //    public func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-    //        let footerView = UIView()
-    //        footerView.frame = CGRect(x: 0.0, y: 0.0, width: tableView.frame.size.width, height: tableView.frame.size.height)
-    //
-    //        let footerLabel:UILabel = UILabel(frame: CGRect(x: 0, y: (tableView.frame.height / 2) - 90, width: tableView.frame.width, height: 90))
-    //        footerLabel.textAlignment = NSTextAlignment.center
-    //        footerLabel.textColor = #colorLiteral(red: 0.3490196078, green: 0.3490196078, blue: 0.4078431373, alpha: 1)
-    //        footerLabel.numberOfLines = 0
-    //        footerLabel.font = UIFont.regular(ofSize: 16.0)
-    //
-    //        footerLabel.text = tableViewDefaultText
-    //
-    //        footerView.addSubview(footerLabel)
-    //
-    //        let emptyAction = UITapGestureRecognizer(target: self, action: #selector(headerEmptyAction(_:)))
-    //        footerView.addGestureRecognizer(emptyAction)
-    //
-    //        return footerView
-    //    }
+    public func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return arrayOfConversation.count < 0 ? tableView.frame.height : 0
+    }
+    
+    public func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let footerView = UIView()
+        footerView.frame = CGRect(x: 0.0, y: 0.0, width: tableView.frame.size.width, height: tableView.frame.size.height)
+        
+        let footerLabel:UILabel = UILabel(frame: CGRect(x: 0, y: (tableView.frame.height / 2) - 90, width: tableView.frame.width, height: 90))
+        footerLabel.textAlignment = NSTextAlignment.center
+        footerLabel.textColor = #colorLiteral(red: 0.3490196078, green: 0.3490196078, blue: 0.4078431373, alpha: 1)
+        footerLabel.numberOfLines = 0
+        footerLabel.font = UIFont.regular(ofSize: 16.0)
+        
+        footerLabel.text = tableViewDefaultText
+        
+        footerView.addSubview(footerLabel)
+        
+        let emptyAction = UITapGestureRecognizer(target: self, action: #selector(headerEmptyAction(_:)))
+        footerView.addGestureRecognizer(emptyAction)
+        
+        return footerView
+    }
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
