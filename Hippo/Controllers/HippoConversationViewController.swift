@@ -1730,8 +1730,7 @@ extension HippoConversationViewController: ActionTableViewDelegate {
                     }
                 case .callBack:
                     if let jsonData = button.getJsonToSend() {
-                        print(jsonData)
-                        print("call back hittttttttttttttttttttttttt")
+                        HippoConfig.shared.botButtonActionCallBack?(jsonData)
                     }
                     
                 default:

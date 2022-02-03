@@ -223,6 +223,7 @@ struct WhatsappWidgetConfig{
     var isOpenedFromPush : Bool?
     var sessionStartTime: Date?
     var tempChannelId: Int?
+    var botButtonActionCallBack: ((Any) -> Void)?
     
     
     // MARK: - Intialization
