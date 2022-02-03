@@ -17,10 +17,11 @@ class OfferPopUpVC: UIViewController {
     // MARK: - Properties
     var currentPage = 0
     var popUpData: PromotionalPopUpData?
+    var rawData: [String: Any]?
     var onButtonOneClick: (([String: Any]) -> Void)?
     var onButtonTwoClick: (([String: Any]) -> Void)?
-    var btnOneCallbackData: [String: String]?
-    var btnTwoCallbackData: [String: String]?
+    var btnOneCallbackData: [String: Any]?
+    var btnTwoCallbackData: [String: Any]?
 
     
     override func viewDidLoad() {
@@ -131,8 +132,11 @@ extension OfferPopUpVC {
             openUrl(with: url)
         }
         
-        if let btnSendData = btnData?.callbackData, btnData?.actionType == 2{
-            self.onButtonOneClick?(btnSendData)
+//        if let btnSendData = btnData?.callbackData, btnData?.actionType == 2{
+//            self.onButtonOneClick?(btnSendData)
+//        }
+        if let data = getDataToSendCallBackIfExists(for: sender.tag, for: 0){
+            self.onButtonOneClick?(data)
         }
         
         HippoUserDetail.hitStatsAPi(pushContent: nil, linkClicked: btnData?.url, channelId: popUpData?.data![sender.tag].channelID, actionType: btnData?.actionType)
@@ -144,11 +148,29 @@ extension OfferPopUpVC {
             openUrl(with: url)
         }
         
-        if let btnSendData = btnData?.callbackData, btnData?.actionType == 2{
-            self.onButtonTwoClick?(btnSendData)
+//        if let btnSendData = btnData?.callbackData, btnData?.actionType == 2{
+//            self.onButtonTwoClick?(btnSendData)
+//        }
+        if let data = getDataToSendCallBackIfExists(for: sender.tag, for: 1){
+            self.onButtonOneClick?(data)
         }
         
         HippoUserDetail.hitStatsAPi(pushContent: nil, linkClicked: btnData?.url, channelId: popUpData?.data![sender.tag].channelID, actionType: btnData?.actionType)
+    }
+    
+    func getDataToSendCallBackIfExists(for buttonTag: Int, for buttonNumber: Int) -> [String: Any]? {
+        guard let rawData = rawData else {return nil}
+        guard let data = rawData["data"] as? [[String: Any]] else {return nil}
+        guard data.indices.contains(buttonTag) else {return nil}
+        guard let attr = data[buttonTag]["custom_attributes"] as? [String:Any] else {return nil}
+        guard let buttonData = attr["buttons"] as? [[String: Any]] else {return nil}
+        guard buttonData.indices.contains(buttonNumber) else {return nil}
+        let selectedButton = buttonData[buttonNumber]
+        guard let actionType = selectedButton["action_type"] as? Int, actionType == 2 else {return nil}
+        guard let callBackData = selectedButton["callback_data"] as? [String: Any] else {return nil}
+        return callBackData
+        
+//        ((((((rawData as! [String: Any])["data"] as! [[String: Any]]).first as! [String : Any])["custom_attributes"] as! [String: Any])["buttons"] as! [[String: Any]]).first!)["callback_data"]
     }
 }
 

@@ -952,8 +952,7 @@ extension HippoConversationViewController: PickerHelperDelegate {
                 showAlert(title: "", message: HippoStrings.somethingWentWrong, actionComplete: nil)
                 return
             }
-//            let vc = SelectImageViewController.getWith(pickedImage: selectedImage, imageFormat: nil, delegate: self, isMentioningEnabled: false, gifData: nil, mediaType: mediaType)
-//            self.present(vc, animated: true, completion: nil)
+            
             guard let vc = UIStoryboard(name: "FuguUnique", bundle: FuguFlowManager.bundle).instantiateViewController(withIdentifier: "PreviewViewController") as? PreviewViewController else {
                 return
             }
@@ -971,6 +970,31 @@ extension HippoConversationViewController: PickerHelperDelegate {
                 showAlert(title: "", message: HippoStrings.somethingWentWrong, actionComplete: nil)
                 return
             }
+//            let filePathUrl = URL(fileURLWithPath: filePath)
+//            var msg: HippoMessage?
+//
+//            self.sendSelectedDocumentWith(filePath: filePathUrl.path, fileName: filePathUrl.lastPathComponent, messageType: .attachment, fileType: FileType.video, getMsgBack: { [weak self] message in
+//                msg = message
+//
+//            })
+//
+//            guard let vc = UIStoryboard(name: "FuguUnique", bundle: FuguFlowManager.bundle).instantiateViewController(withIdentifier: "PreviewViewController") as? PreviewViewController else {
+//                return
+//            }
+//            vc.fileType = .document
+//            vc.path = filePathUrl
+//            self.navigationController?.present(vc, animated: true, completion: nil)
+//
+////            vc.sendBtnTapped = {[weak self](message) in
+////                self?.sendSelectedDocumentWith(messageStr: message, filePath: filePathUrl.path, fileName: filePathUrl.lastPathComponent, messageType: message?.isEmpty ?? true ? .attachment : .normal, fileType: FileType.video)
+////            }
+//
+//            vc.sendBtnTapped = {[weak self] (message) in
+//                        msg?.message = message ?? ""
+//                        msg?.type =  message?.isEmpty ?? true ? .attachment : .normal
+//                        self?.UploadAndSendMessage(message: msg!)
+//                    }
+            
             let filePathUrl = URL(fileURLWithPath: filePath)
             sendSelectedDocumentWith(filePath: filePathUrl.path, fileName: filePathUrl.lastPathComponent, messageType: .attachment, fileType: FileType.video)
         }
@@ -1025,7 +1049,7 @@ extension HippoConversationViewController: SelectImageViewControllerDelegate {
 
 extension HippoConversationViewController {
     
-    func sendSelectedDocumentWith(messageStr: String? = "", filePath: String, fileName: String, messageType: MessageType, fileType: FileType) {
+    func sendSelectedDocumentWith(messageStr: String? = "", filePath: String, fileName: String, messageType: MessageType, fileType: FileType, getMsgBack: ((HippoMessage) -> Void)? = nil) {
         guard doesFileExistsAt(filePath: filePath) else {
             return
         }
@@ -1058,7 +1082,12 @@ extension HippoConversationViewController {
             default:
                 break
             }
-            self.UploadAndSendMessage(message: message)
+            
+            if getMsgBack != nil{
+                getMsgBack?(message)
+            }else{
+                self.UploadAndSendMessage(message: message)
+            }
         }
         
         
@@ -1074,8 +1103,8 @@ extension HippoConversationViewController {
         
         //            }
         //        }
-        
     }
+    
     //This function will upload ant file and send it on channel
     func UploadAndSendMessage(message: HippoMessage) {
         switch message.type {
@@ -1109,6 +1138,7 @@ extension HippoConversationViewController {
         
         try? FileManager.default.copyItem(at: orignalFilePathURL, to: fileUrl)
     }
+    
     func scrollToBottomWithIndexPath(animated: Bool) {
         DispatchQueue.main.async {
             if self.tableViewChat.numberOfSections == 0 { return }
@@ -1118,6 +1148,7 @@ extension HippoConversationViewController {
             }
         }
     }
+    
     func scroll(toIndexPath indexPath: IndexPath, animated: Bool) {
         let indexPath = IndexPath(
             row: tableViewChat.numberOfRows(inSection: tableViewChat.numberOfSections - 1) - 1,
@@ -1300,6 +1331,7 @@ extension HippoConversationViewController {
             completion(true)
         })
     }
+    
     func publishMessageOnChannel(message: HippoMessage) {
         if channelId == -1 {
             self.startNewConversation(replyMessage: message) {[weak self] (success, result) in
@@ -1325,12 +1357,15 @@ extension HippoConversationViewController {
         fileUrl.appendPathComponent(name)
         return fileUrl
     }
+    
     func generateUniqueId() -> String {
         return String.generateUniqueId()
     }
+    
     func doesFileExistsAt(filePath: String) -> Bool {
         return (try? Data(contentsOf: URL(fileURLWithPath: filePath))) != nil
     }
+    
     func getCompressonRateForImageWith(size: Int) -> CGFloat {
         var compressionRate: CGFloat = 1
         
@@ -1693,6 +1728,12 @@ extension HippoConversationViewController: ActionTableViewDelegate {
                     if let link = button.getUrlToOpen() {
                         self.presentSafariViewcontorller(for: link)
                     }
+                case .callBack:
+                    if let jsonData = button.getJsonToSend() {
+                        print(jsonData)
+                        print("call back hittttttttttttttttttttttttt")
+                    }
+                    
                 default:
                     break
                 }
@@ -1766,6 +1807,8 @@ extension HippoConversationViewController {
             }
         }
     }
+    
+    
 }
 
 extension HippoConversationViewController : OutgoingShareUrlDelegate {

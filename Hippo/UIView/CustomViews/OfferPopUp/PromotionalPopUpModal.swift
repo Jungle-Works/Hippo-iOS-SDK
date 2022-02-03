@@ -53,14 +53,14 @@ struct ButtonPopUP: Codable {
     let label, textColor, url: String?
     let actionType: Int?
     let backgroundColor: String?
-    let callbackData: [String: String]?
+//    let callbackData: [String: String]?
 
     enum CodingKeys: String, CodingKey{
         case label,url
         case textColor = "text_color"
         case actionType = "action_type"
         case backgroundColor = "background_color"
-        case callbackData = "callback_data"
+//        case callbackData = "callback_data"
     }
 }
 

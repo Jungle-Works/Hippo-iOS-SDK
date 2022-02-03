@@ -520,9 +520,9 @@ struct WhatsappWidgetConfig{
     }
     
     public func presentPromotionalPopUp(on viewController: UIViewController, onButtonOneClick: @escaping ([String: Any]) -> Void, onButtonTwoClick: @escaping ([String: Any]) -> Void){
-        HippoUserDetail.getPromotionalPopUpData() { data in
-            if let data = data, !(data.data?.isEmpty ?? true) {
-                FuguFlowManager.shared.presentOfferPopUp(on: viewController, popUpData: data, onButtonOneClick: onButtonOneClick, onButtonTwoClick: onButtonTwoClick)
+        HippoUserDetail.getPromotionalPopUpData() { data, rawData  in
+            if let data = data, !(data.data?.isEmpty ?? true), let rawData = rawData {
+                FuguFlowManager.shared.presentOfferPopUp(on: viewController, popUpData: data, rawData: rawData, onButtonOneClick: onButtonOneClick, onButtonTwoClick: onButtonTwoClick)
             }
         }
     }

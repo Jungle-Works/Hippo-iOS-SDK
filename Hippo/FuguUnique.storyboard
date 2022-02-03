@@ -2600,8 +2600,8 @@
                                     <constraint firstItem="Mjr-4b-j3H" firstAttribute="leading" secondItem="Ufp-7m-cs8" secondAttribute="leading" constant="5" id="sTC-4Y-ARc"/>
                                 </constraints>
                             </view>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vjb-dW-TNh">
-                                <rect key="frame" x="167" y="373.5" width="41.5" height="20.5"/>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vjb-dW-TNh">
+                                <rect key="frame" x="32" y="373.5" width="311" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -2609,6 +2609,7 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="vjb-dW-TNh" secondAttribute="trailing" constant="16" id="1Tk-lK-k2H"/>
                             <constraint firstAttribute="trailing" secondItem="anl-Fh-7OT" secondAttribute="trailing" id="8WF-MK-EZx"/>
                             <constraint firstItem="aNN-5K-3PM" firstAttribute="leading" secondItem="5Fp-pf-UcW" secondAttribute="leading" id="CfW-Sc-XHI"/>
                             <constraint firstAttribute="bottomMargin" secondItem="Mb5-ns-VFL" secondAttribute="bottom" id="Elj-Gu-grY"/>
@@ -2617,7 +2618,7 @@
                             <constraint firstItem="anl-Fh-7OT" firstAttribute="leading" secondItem="5Fp-pf-UcW" secondAttribute="leading" id="RGi-Xf-Tx7"/>
                             <constraint firstItem="Mb5-ns-VFL" firstAttribute="top" secondItem="aNN-5K-3PM" secondAttribute="bottom" id="bdC-c2-3aa"/>
                             <constraint firstItem="anl-Fh-7OT" firstAttribute="top" secondItem="NMb-cB-pxT" secondAttribute="bottom" id="bjl-21-8yp"/>
-                            <constraint firstItem="vjb-dW-TNh" firstAttribute="centerX" secondItem="aNN-5K-3PM" secondAttribute="centerX" id="imR-2o-h93"/>
+                            <constraint firstItem="vjb-dW-TNh" firstAttribute="leading" secondItem="5Fp-pf-UcW" secondAttribute="leadingMargin" constant="16" id="mih-BX-uy5"/>
                             <constraint firstItem="aNN-5K-3PM" firstAttribute="top" secondItem="anl-Fh-7OT" secondAttribute="bottom" id="scz-BC-Xup"/>
                             <constraint firstAttribute="trailing" secondItem="aNN-5K-3PM" secondAttribute="trailing" id="skX-lK-y9Y"/>
                             <constraint firstItem="vjb-dW-TNh" firstAttribute="centerY" secondItem="aNN-5K-3PM" secondAttribute="centerY" multiplier="1.15" id="t8x-M0-ASU"/>

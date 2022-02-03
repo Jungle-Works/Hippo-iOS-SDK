@@ -612,15 +612,15 @@ public class UserTag: NSObject {
         return params
     }
     
-    class func getPromotionalPopUpData(completion: @escaping (PromotionalPopUpData?) -> Void){
+    class func getPromotionalPopUpData(completion: @escaping (PromotionalPopUpData?, [String: Any]?) -> Void){
         let params = getParamsForPromotionalPopUp()
         
         HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: FuguEndPoints.promotionalPopUp.rawValue, callback: { (response, error, _, statusCode) in
             if let responseDict = response as? [String: Any],
                let statusCode = responseDict["statusCode"] as? Int, statusCode == 200 {
-                completion(decodeJson(from: response as Any))
+                completion(decodeJson(from: response as Any), responseDict)
             }else {
-                completion(nil)
+                completion(nil, nil)
             }
         })
     }

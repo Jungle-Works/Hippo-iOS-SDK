@@ -561,24 +561,24 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     
     // MARK: - Function to open whatsapp
     func openWhatsapp(with number: String, message: String){
-        let urlWhats = "whatsapp://send?phone=\(number)&text=\(message)"
-        if let urlString = urlWhats.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed){
-            if let whatsappURL = URL(string: urlString) {
-                if UIApplication.shared.canOpenURL(whatsappURL){
-                    if #available(iOS 10.0, *) {
-                        UIApplication.shared.open(whatsappURL, options: [:], completionHandler: nil)
-                    } else {
-                        UIApplication.shared.openURL(whatsappURL)
-                    }
+        let txtAppend = message.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
+        
+        let urlWhats = "whatsapp://send?phone=\(number)&text=\(txtAppend)"
+        if let whatsappURL = URL(string: urlWhats) {
+            if UIApplication.shared.canOpenURL(whatsappURL){
+                if #available(iOS 10.0, *) {
+                    UIApplication.shared.open(whatsappURL, options: [:], completionHandler: nil)
+                } else {
+                    UIApplication.shared.openURL(whatsappURL)
                 }
-                else {
-                    let appURL = URL(string: "https://api.whatsapp.com/send?phone=\(number)&text=\(message)")!
-                    if UIApplication.shared.canOpenURL(appURL) {
-                        if #available(iOS 10.0, *) {
-                            UIApplication.shared.open(appURL, options: [:], completionHandler: nil)
-                        } else {
-                            UIApplication.shared.openURL(appURL)
-                        }
+            }
+            else {
+                let url = URL(string: "https://api.whatsapp.com/send?phone=\(number)&text=\(txtAppend)") ?? URL(string: "")
+                if let appURL = url, UIApplication.shared.canOpenURL(appURL) {
+                    if #available(iOS 10.0, *) {
+                        UIApplication.shared.open(appURL, options: [:], completionHandler: nil)
+                    } else {
+                        UIApplication.shared.openURL(appURL)
                     }
                 }
             }

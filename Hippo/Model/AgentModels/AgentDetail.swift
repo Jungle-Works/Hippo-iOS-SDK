@@ -433,7 +433,7 @@ extension AgentDetail {
             params["agent_secret_key"] = agentDetail.oAuthToken
         } else {
 //            params["auth_token"] = agentDetail.oAuthToken
-            params["auth_token"] = "b3ef183fc89d3ee890dd7d35168c2529"
+            params["auth_token"] = "4b5519a88d6fbe9148c100ce12d330e1"
         }
         params["fetch_tags"] = 0
         return params
