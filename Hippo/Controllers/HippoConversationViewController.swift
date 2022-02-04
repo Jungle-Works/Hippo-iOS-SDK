@@ -911,26 +911,16 @@ extension HippoConversationViewController {
 extension HippoConversationViewController: PickerHelperDelegate {
     func shareVideoUrlClicked() {
         let shareUrlHelper = ShareUrlHelper()
-        let link = shareUrlHelper.createLink(callType: CallType.video)
-        shareUrlHelper.shareUrlApiCall(url: (link.1) == "" ? (link.0) : (link.1), isAudio: false, completion: {[weak self] (url) in
+        shareUrlHelper.shareUrlApiCall(url: randomString(length: 8), isAudio: false, completion: {[weak self] (url) in
             self?.shareUrlInSocket(url: url)
         })
-//        let id = (transactionID?.isEmpty ?? true) ? randomString(length: 8) : transactionID
-//        shareUrlHelper.shareUrlApiCall(url: id ?? "", isAudio: false, completion: {[weak self] (url) in
-//            self?.shareUrlInSocket(url: url)
-//        })
     }
     
     func shareAudioUrlClicked() {
         let shareUrlHelper = ShareUrlHelper()
-        let link = shareUrlHelper.createLink(callType: CallType.audio)
-        shareUrlHelper.shareUrlApiCall(url: (link.1) == "" ? (link.0) : (link.1), isAudio: true, completion: {[weak self] (url) in
+        shareUrlHelper.shareUrlApiCall(url: randomString(length: 8), isAudio: true, completion: {[weak self] (url) in
             self?.shareUrlInSocket(url: url)
         })
-//        let id = (transactionID?.isEmpty ?? true) ? randomString(length: 8) : transactionID
-//        shareUrlHelper.shareUrlApiCall(url: id ?? "", isAudio: true, completion: {[weak self] (url) in
-//            self?.shareUrlInSocket(url: url)
-//        })
     }
     
     func payOptionClicked() {

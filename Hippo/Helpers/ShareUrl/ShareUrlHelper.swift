@@ -7,15 +7,9 @@
 //
 
 import Foundation
+
 #if canImport(HippoCallClient)
 import HippoCallClient
-#else
-
-#endif
-#if canImport(JitsiMeetSDK)
-import JitsiMeetSDK
-#else
-
 #endif
 
 

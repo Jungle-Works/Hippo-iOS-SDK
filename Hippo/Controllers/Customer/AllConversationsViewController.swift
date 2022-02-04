@@ -726,7 +726,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
             return
         }
         self.updateErrorLabelView(isHiding: false)
-        self.errorLabel.text = message
+        self.errorLabel?.text = message
         self.updateErrorLabelView(isHiding: true)
     }
 

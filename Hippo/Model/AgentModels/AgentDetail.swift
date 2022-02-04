@@ -284,9 +284,15 @@ extension AgentDetail {
                 HippoConfig.shared.serverTimeDifference = difference
                 SocketClient.shared.connect()
             }
-    
+            
+            // MARK: - Passing app secret explicitly only for demo agent, in parent app - app secret key will be already there
+            if let appSecretKey = data["app_secret_key"] as? String {
+                HippoConfig.shared.appSecretKey = appSecretKey
+            }
+            
             BussinessProperty.current.isVideoCallEnabled = Bool.parse(key: "is_video_call_enabled", json: data)
             BussinessProperty.current.isAudioCallEnabled = Bool.parse(key: "is_audio_call_enabled", json: data)
+            BussinessProperty.current.enableChatInCall = Bool.parse(key: "enable_chat_in_call", json: data)
             
             
             if let businessProperty = data["business_property"] as? [String: Any] {
@@ -435,7 +441,7 @@ extension AgentDetail {
             params["agent_secret_key"] = agentDetail.oAuthToken
         } else {
            params["auth_token"] = agentDetail.oAuthToken
-//             params["auth_token"] = "b3ef183fc89d3ee890dd7d35168c2529"
+//             params["auth_token"] = "c5f8c938df0f9421ef6dca05a64e166e"
         }
         params["fetch_tags"] = 0
         return params

@@ -48,8 +48,8 @@ static let liveFaye = "https://socketv2.hippochat.io/faye"
 static let betaUrl = "https://beta-live-api1.fuguchat.com:3001/"
 static let betaFaye = "https://socket-temp.hippochat.io"
 
-static let devUrl = "https://hippo-api-dev1.fuguchat.com:3002/"
-static let devFaye = "https://hippo-api-dev1.fuguchat.com:3002"
+static let devUrl = "https://hippo-api-dev1.fuguchat.com:3004/"
+static let devFaye = "https://hippo-api-dev1.fuguchat.com:3004"
 
 }
 
@@ -221,6 +221,7 @@ struct WhatsappWidgetConfig{
     
     var whatsappWidgetConfig: WhatsappWidgetConfig?
     var isOpenedFromPush : Bool?
+    
 
     // MARK: - Intialization
     private override init() {
@@ -476,8 +477,9 @@ struct WhatsappWidgetConfig{
         let detail = AgentDetail(oAuthToken: authToken.trimWhiteSpacesAndNewLine(), appType: app_type, customAttributes: customAttributes, userId: self.agentDetail?.id)
         self.appUserType = .agent
         self.agentDetail = detail
-        self.passAppSecretKeyToHippoConfig(key: appSecretKey)
         AgentConversationManager.updateAgentChannel(completion: {(error,response) in
+            self.passAppSecretKeyToHippoConfig(key: appSecretKey)
+            
             if (selectedLanguage ?? "") == ""{ self.setLanguage(BussinessProperty.current.buisnessLanguageArr?.filter{$0.is_default == true}.first?.lang_code ?? "en")
                 completion(error,response)
                 return
