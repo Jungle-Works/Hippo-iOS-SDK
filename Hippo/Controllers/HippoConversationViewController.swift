@@ -1732,7 +1732,6 @@ extension HippoConversationViewController: ActionTableViewDelegate {
                     if let jsonData = button.getJsonToSend() {
                         HippoConfig.shared.botButtonActionCallBack?(jsonData)
                     }
-                    
                 default:
                     break
                 }

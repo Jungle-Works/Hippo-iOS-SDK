@@ -43,7 +43,7 @@ enum PrivateSocketKeys: String {
 struct SERVERS {
     
     static let liveUrl = "https://api.hippochat.io/"
-    static let liveFaye = "event.hippochat.io"//"https://socketv2.hippochat.io/faye"
+    static let liveFaye = "https://event.hippochat.io"//"https://socketv2.hippochat.io/faye"//
 
     
     static let betaUrl = "https://beta-live-api1.fuguchat.com:3001/"
@@ -61,6 +61,7 @@ struct BotAction {
     var messageType = MessageType.none
     var contentValues = [[String: Any]]()
     var rawDict = [String: Any]()
+    
     var values = [Any]()
     
     init(dict: [String: Any]) {
