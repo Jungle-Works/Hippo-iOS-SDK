@@ -140,6 +140,8 @@ extension OfferPopUpVC {
         }
         
         HippoUserDetail.hitStatsAPi(pushContent: nil, linkClicked: btnData?.url, channelId: popUpData?.data![sender.tag].channelID, actionType: btnData?.actionType)
+        
+        self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func btnTwoTapped(sender: UIButton){
@@ -156,6 +158,8 @@ extension OfferPopUpVC {
         }
         
         HippoUserDetail.hitStatsAPi(pushContent: nil, linkClicked: btnData?.url, channelId: popUpData?.data![sender.tag].channelID, actionType: btnData?.actionType)
+        
+        self.dismiss(animated: true, completion: nil)
     }
     
     func getDataToSendCallBackIfExists(for buttonTag: Int, for buttonNumber: Int) -> [String: Any]? {
