@@ -152,7 +152,7 @@ extension OfferPopUpVC {
 //            self.onButtonTwoClick?(btnSendData)
 //        }
         if let data = getDataToSendCallBackIfExists(for: sender.tag, for: 1){
-            self.onButtonOneClick?(data)
+            self.onButtonTwoClick?(data)
         }
         
         HippoUserDetail.hitStatsAPi(pushContent: nil, linkClicked: btnData?.url, channelId: popUpData?.data![sender.tag].channelID, actionType: btnData?.actionType)

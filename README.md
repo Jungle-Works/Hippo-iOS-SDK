@@ -15,10 +15,10 @@ If you have any queries during the integration, please reach out to us at suppor
 HippoChat is available through CocoaPods. To add HippoChat to your project, add the SDK to your Podfile as shown below.
 
 - If you want to use hippo without calling or if you want to use jitsi calling add the below line to your prject's pod file
-`pod 'Hippo-iOS-SDK', :git => 'https://github.com/Jungle-Works/Hippo-iOS-SDK', :branch => 'master'`
+`pod 'Hippo', :git => 'https://github.com/Jungle-Works/Hippo-iOS-SDK', :branch => 'master'`
 
 - If you want to use hippo with Video sdk calling add the below line to your prject's pod file
-`pod 'Hippo-iOS-SDK', :git => 'https://github.com/Jungle-Works/Hippo-iOS-SDK', :branch => 'VideoSDKRelease'`
+`pod 'Hippo', :git => 'https://github.com/Jungle-Works/Hippo-iOS-SDK', :branch => 'VideoSDKRelease'`
 
 Once you have updated your Podfile run `pod install`(terminal command) to automatically download and install the SDK in your project.
 
@@ -108,6 +108,7 @@ selectedlanguage: <selected_language>
 //Call updateUserDetails so that
 //the user information is synced with Hippo servers 
 HippoConfig.shared.updateUserDetail(userDetail: HippoUserDetail)
+HippoConfig.shared.setCredential(withAppSecretKey: YOUR-APP-SECRET-KEY, appType: YOUR-APP-TYPE)
 
 //For initialization of Hippo Manager
   HippoConfig.shared.initManager(authToken: "<User_auth_Token>", 

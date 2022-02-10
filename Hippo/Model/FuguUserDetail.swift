@@ -533,7 +533,7 @@ public class UserTag: NSObject {
             throw FuguUserIntializationError.invalidUserUniqueKey
         }
         params["offering"] = HippoConfig.shared.offering
-        params["en_user_id"] = HippoUserDetail.fuguEnUserID
+//        params["en_user_id"] = HippoUserDetail.fuguEnUserID
         
         switch HippoConfig.shared.credentialType {
         case FuguCredentialType.reseller:
@@ -713,7 +713,6 @@ public class UserTag: NSObject {
         defaults.removeObject(forKey: Hippo_User_Channel_Id)
         defaults.removeObject(forKey: FUGU_USER_ID)
         defaults.removeObject(forKey: Fugu_en_user_id)
-
         defaults.synchronize()
         completion?(true)
     }
