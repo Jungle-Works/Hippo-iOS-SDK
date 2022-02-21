@@ -94,10 +94,7 @@ extension HippoChannel: SignalingClient {
         }
         
         send(dict: fayeDict) { (success, error)  in
-            print("at line 93 \(success),\(error)")
             completion(success, error)
-            print(success)
-            print(error)
         }
         
         if json["video_call_type"] as? String == "USER_BUSY_CONFERENCE"{

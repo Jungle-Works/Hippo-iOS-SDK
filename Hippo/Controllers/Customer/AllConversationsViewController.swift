@@ -162,6 +162,8 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         conversation.hidesBottomBarWhenPushed = true
         HippoConfig.shared.hideTabbar?(true)
         self.navigationController?.pushViewController(conversation, animated: true)
+        
+        HippoConfig.shared.newChatCallback?()
     }
     
     func handleIntialCustomerForm() -> Bool {

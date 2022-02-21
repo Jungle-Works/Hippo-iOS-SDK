@@ -225,6 +225,7 @@ struct WhatsappWidgetConfig{
     var sessionStartTime: Date?
     var tempChannelId: Int?
     var botButtonActionCallBack: ((Any) -> Void)?
+    var newChatCallback: (() -> Void)?
     
     
     // MARK: - Intialization
@@ -1104,10 +1105,7 @@ struct WhatsappWidgetConfig{
         guard let json = payload as? [String: Any] else {
             return
         }
-        
-        //HippoNotification.showLocalNotificationForVoip(json)
         self.handleVoipNotification(payloadDict: json, completion: completion)
-        
     }
     
     public func handleVoipNotification(payloadDict: [String: Any], completion: @escaping () -> Void) {
@@ -1117,7 +1115,7 @@ struct WhatsappWidgetConfig{
         }else if let messageType = payloadDict["message_type"] as? Int, messageType == MessageType.call.rawValue {
             CallManager.shared.voipNotificationRecieved(payloadDict: payloadDict)
         }
-        reportIncomingCallOnCallKit(userInfo: payloadDict, completion: completion)
+        self.reportIncomingCallOnCallKit(userInfo: payloadDict, completion: completion)
     }
     
     public func passAppSecretKeyToHippoConfig(){
@@ -1128,12 +1126,16 @@ struct WhatsappWidgetConfig{
     func reportIncomingCallOnCallKit(userInfo: [String : Any], completion: @escaping () -> Void){
         #if canImport(JitsiMeetSDK)
         enableAudioSession()
+
         if let uuid = userInfo["muid"] as? String, let name = userInfo["last_sent_by_full_name"] as? String, let isVideo = userInfo["call_type"] as? String == "AUDIO" ? false : true{
+            
             if HippoCallClient.shared.checkIfUserIsBusy(newCallUID: uuid) {
+                completion()
                 return
             }
             
             guard let UUID = UUID(uuidString: uuid) else {
+                completion()
                 return
             }
             
@@ -1141,7 +1143,7 @@ struct WhatsappWidgetConfig{
                 completion()
                 return
             }
-            
+
             JMCallKitProxy.reportNewIncomingCall(UUID: UUID, handle: name, displayName: name, hasVideo: isVideo) { (error) in
                 completion()
             }
@@ -1151,12 +1153,7 @@ struct WhatsappWidgetConfig{
     
     func enableAudioSession(){
         do{
-//            if #available(iOS 14.5, *) {
-//                try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playAndRecord, mode: AVAudioSession.Mode.videoChat, options: [.mixWithOthers, .interruptSpokenAudioAndMixWithOthers, .overrideMutedMicrophoneInterruption])
-//            } else {
-                // Fallback on earlier versions
-                try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playAndRecord, mode: AVAudioSession.Mode.videoChat, options: .mixWithOthers)
-//            }
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playAndRecord, mode: AVAudioSession.Mode.videoChat, options: .mixWithOthers)
             try AVAudioSession.sharedInstance().overrideOutputAudioPort(.speaker)
             try AVAudioSession.sharedInstance().setActive(true)
         }catch {
