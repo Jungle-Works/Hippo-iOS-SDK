@@ -774,10 +774,11 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         transparentView.alpha = 0
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, options: .curveEaseInOut, animations: {
             self.transparentView.alpha = 0.5
-            self.customTableView.frame = CGRect(x: 0, y: screenSize.height - self.heightForActionSheet, width: screenSize.width, height: self.heightForActionSheet)
+            self.customTableView.frame = CGRect(x: 0, y: screenSize.height - self.heightForActionSheet - self.view.safeAreaBottom, width: screenSize.width, height: self.heightForActionSheet + self.view.safeAreaBottom)
             self.lineLabel.frame = CGRect(x: (screenSize.width/2) - ((screenSize.width/5)/2) , y: (screenSize.height - self.heightForActionSheet) - 20, width: screenSize.width/5, height: 6)
         }, completion: nil)
     }
+    
     @objc func onClickTransparentView() {
         HippoConfig.shared.UnhideJitsiView()
         let screenSize = UIScreen.main.bounds.size
@@ -3794,5 +3795,30 @@ extension ConversationsViewController : RecordViewDelegate {
 }
 
 
+extension UIApplication {
+    var keyWindowInConnectedScenes: UIWindow? {
+        return windows.first(where: { $0.isKeyWindow })
+    }
+}
 
+extension UIView {
+    
+    var safeAreaBottom: CGFloat {
+        if #available(iOS 11, *) {
+            if let window = UIApplication.shared.keyWindowInConnectedScenes {
+                return window.safeAreaInsets.bottom
+            }
+        }
+        return 0
+    }
+    
+    var safeAreaTop: CGFloat {
+        if #available(iOS 11, *) {
+            if let window = UIApplication.shared.keyWindowInConnectedScenes {
+                return window.safeAreaInsets.top
+            }
+        }
+        return 0
+    }
+}
 

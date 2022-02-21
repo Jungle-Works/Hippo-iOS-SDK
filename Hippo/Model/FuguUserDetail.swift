@@ -530,7 +530,7 @@ public class UserTag: NSObject {
             throw FuguUserIntializationError.invalidUserUniqueKey
         }
         params["offering"] = HippoConfig.shared.offering
-        params["en_user_id"] = HippoUserDetail.fuguEnUserID
+//        params["en_user_id"] = HippoUserDetail.fuguEnUserID
         
         switch HippoConfig.shared.credentialType {
         case FuguCredentialType.reseller:
