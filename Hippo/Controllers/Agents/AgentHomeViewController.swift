@@ -73,6 +73,7 @@ class AgentHomeViewController: HippoHomeViewController {
         }
         Business.shared.restoreAllSavedInfo()
         setUpButtonContainerView()
+        openAlertIfNotificationsNotAllowed()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -1043,5 +1044,31 @@ extension AgentHomeViewController : FilterScreenButtonsDelegate{
     func applyButtonPressed() {
         startLoading()
         self.setDataForViewDidAppear()
+    }
+}
+
+extension AgentHomeViewController{
+    // MARK: - Show alert if user didn't provide permission for notifications
+    fileprivate func openAlertForNotification() {
+        self.showOptionAlert(title: "Turn on notifications", message: "This way you will be notified when anyone send you message or call instantly.\nPlease allow permission from settings app.", successButtonName: "Setings", successComplete: { action in
+            if let bundle = Bundle.main.bundleIdentifier,
+               let settings = URL(string: UIApplication.openSettingsURLString + bundle) {
+                if UIApplication.shared.canOpenURL(settings) {
+                    UIApplication.shared.open(settings)
+                }
+            }
+        }, failureButtonName: "Cancel") { action in }
+    }
+    
+    func openAlertIfNotificationsNotAllowed(){
+        UNUserNotificationCenter.current().getNotificationSettings { (settings) in
+            if settings.authorizationStatus != .authorized && !HippoUserDetail.NotificationNotAllowedAlert{
+                // Notifications are not allowed
+                fuguDelay(0.0) {
+                    self.openAlertForNotification()
+                    HippoUserDetail.NotificationNotAllowedAlert = true
+                }
+            }
+        }
     }
 }

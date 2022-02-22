@@ -152,6 +152,14 @@ public class UserTag: NSObject {
         }
     }
     
+    class var NotificationNotAllowedAlert: Bool {
+        set {
+            UserDefaults.standard.setValue(newValue, forKey: NotificationDisabledAlert)
+        }
+        get {
+            return UserDefaults.standard.value(forKey: NotificationDisabledAlert) as? Bool ?? false
+        }
+    }
     
     class var fuguEnUserID: String? {
         get {
@@ -161,6 +169,7 @@ public class UserTag: NSObject {
             UserDefaults.standard.set(newValue, forKey: Fugu_en_user_id)
         }
     }
+    
     static func isValidDetails() -> Bool {
         let appSecretKey = HippoConfig.shared.appSecretKey
         let enUserID = fuguEnUserID?.trimWhiteSpacesAndNewLine() ?? ""

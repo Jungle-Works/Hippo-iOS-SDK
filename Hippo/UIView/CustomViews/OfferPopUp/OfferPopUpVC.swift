@@ -30,6 +30,8 @@ class OfferPopUpVC: UIViewController {
         pageControll.numberOfPages = popUpData?.data?.count ?? 0
         pageControll.currentPageIndicatorTintColor = UIColor.hexStringToUIColor(hex: popUpData?.data?.first?.customAttributes?.buttons?.first?.backgroundColor ?? "")
         setUpCollView()
+        
+        pageControll.isHidden = popUpData?.data?.count ?? 0 == 1
     }
     
     @IBAction func btnCloseTapped(_ sender: Any) {

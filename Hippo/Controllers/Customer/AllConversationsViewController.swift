@@ -112,10 +112,10 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
             view_NavigationBar.whtsappBtn.addTarget(self, action: #selector(btnWhatsappTapped), for: .touchUpInside)
         }
         
+        openAlertIfNotificationsNotAllowed()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-//        FuguFlowManager.shared.presentOfferPopUp()
+    override func viewDidAppear(_ animated: Bool){
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -1103,7 +1103,6 @@ extension AllConversationsViewController: UIScrollViewDelegate {
 extension AllConversationsViewController{
     
     //MARK:- Put conversation in closed based on Faye
-    
     func closeChat(_ channelId : Int){
         let index = arrayOfFullConversation.firstIndex(where: {$0.channelId == channelId})
         if let index = index , index < arrayOfFullConversation.count{
@@ -1112,4 +1111,27 @@ extension AllConversationsViewController{
         self.filterConversationArr(conversationArr: arrayOfFullConversation)
     }
     
+    // MARK: - Show alert if user didn't provide permission for notifications
+    fileprivate func openAlertForNotification() {
+        self.showOptionAlert(title: "Turn on notifications", message: "This way you will be notified when anyone send you message or call instantly.\nPlease allow permission from settings app.", successButtonName: "Setings", successComplete: { action in
+            if let bundle = Bundle.main.bundleIdentifier,
+               let settings = URL(string: UIApplication.openSettingsURLString + bundle) {
+                if UIApplication.shared.canOpenURL(settings) {
+                    UIApplication.shared.open(settings)
+                }
+            }
+        }, failureButtonName: "Cancel") { action in }
+    }
+    
+    func openAlertIfNotificationsNotAllowed(){
+        UNUserNotificationCenter.current().getNotificationSettings { (settings) in
+            if settings.authorizationStatus != .authorized && !HippoUserDetail.NotificationNotAllowedAlert {
+                // Notifications are not allowed
+                fuguDelay(0.0) {
+                    self.openAlertForNotification()
+                    HippoUserDetail.NotificationNotAllowedAlert = true
+                }
+            }
+        }
+    }
 }

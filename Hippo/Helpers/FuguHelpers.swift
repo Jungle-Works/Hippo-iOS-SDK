@@ -16,12 +16,14 @@ let calling_Type = "callingType"
 let full_name = "fullName"
 let Fugu_AppSecret_Key = "fugu_app_secret_key"
 let Fugu_en_user_id = "fuguEnUserId"
+let NotificationDisabledAlert = "NotificationDisabledAlert"
 let Hippo_User_Channel_Id = "userChannelId"
 let Fugu_groupCallData = "groupCallData"
 let Fugu_User_Data = "fuguUserData"
 let phoneNumberRegex = "1?W*([2-9][0-9][0-9])W*([2-9][0-9]{2})W*([0-9]{4})(se?x?t?(d*))?"
 let phoneRegex = "[0-9]{10,13}"
 let urlRegex = "((?:http|https)://)?(?:www\\.)?[\\w\\d\\-_]+\\.\\w{2,3}(\\.\\w{2})?(/(?<=/)(?:[\\w\\d\\-./_]+)?)?"
+
 extension UInt {
     func toString() -> String {
         return "\(self)"
