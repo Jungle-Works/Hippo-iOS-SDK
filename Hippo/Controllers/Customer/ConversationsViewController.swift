@@ -2503,7 +2503,7 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                     
                     switch messageType {
                     case MessageType.imageFile:
-                        return message.message == "" ? 288 : UITableView.automaticDimension
+                        return (message.message == "" || message.message.lowercased() == "image") ? 288 : UITableView.automaticDimension
                         //                case MessageType.botText:
                         //                    var rowHeight = expectedHeight(OfMessageObject: message)
                         //

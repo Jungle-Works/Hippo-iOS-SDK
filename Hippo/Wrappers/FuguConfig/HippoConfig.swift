@@ -49,8 +49,8 @@ struct SERVERS {
     static let betaUrl = "https://beta-live-api1.fuguchat.com:3001/"
     static let betaFaye = "https://socket-temp.hippochat.io"
     
-    static let devUrl = "https://hippo-api-dev1.fuguchat.com:3004/"
-    static let devFaye = "https://hippo-api-dev1.fuguchat.com:3004"
+    static let devUrl = ["https://hippo-api-dev1.fuguchat.com:3002/", "https://hippo-api-dev1.fuguchat.com:3003/", "https://hippo-api-dev1.fuguchat.com:3004/"]
+    static let devFaye = ["https://hippo-api-dev1.fuguchat.com:3002/", "https://hippo-api-dev1.fuguchat.com:3003/", "https://hippo-api-dev1.fuguchat.com:3004/"]
     
 }
 
@@ -921,11 +921,11 @@ struct WhatsappWidgetConfig{
     
     
     // MARK: - Helpers
-    public func switchEnvironment(_ envType: HippoEnvironment) {
+    public func switchEnvironment(_ envType: HippoEnvironment, devDomain: Int = 0) {
         switch envType {
         case .dev:
-            baseUrl = SERVERS.devUrl
-            fayeBaseURLString = SERVERS.devFaye
+            baseUrl = SERVERS.devUrl[devDomain]
+            fayeBaseURLString = SERVERS.devFaye[devDomain]
         case .beta:
             baseUrl = SERVERS.betaUrl
             fayeBaseURLString = SERVERS.betaFaye

@@ -132,8 +132,17 @@ extension IncomingImageCell {
                 }
             })
         }
+        
         textView.text = message?.message
-        textView.isHidden = message?.message ?? "" == "" ? true : false
+        
+        if (message?.message.isEmpty ?? true) || (message?.type == .imageFile && message?.message.lowercased() == "image"){
+            textView.isHidden = true
+        }else{
+            textView.isHidden = false
+        }
+        
+//        textView.isHidden = message?.message ?? "" == "" ? true : false
+        
         return self
     }
     

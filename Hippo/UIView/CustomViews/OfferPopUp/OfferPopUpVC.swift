@@ -95,7 +95,7 @@ extension OfferPopUpVC : UICollectionViewDelegate, UICollectionViewDataSource, U
     func centerItemsInCollectionView(cellHeight: Double) -> UIEdgeInsets {
         let topInset = (collView.frame.height - CGFloat(cellHeight)) / 2 - 20
         let bottomInset = topInset + 20
-        return UIEdgeInsets(top: topInset, left: 0, bottom: bottomInset, right: 0)
+        return UIEdgeInsets(top: topInset, left: 0, bottom: bottomInset, right:0)
     }
     
     func getCellHeight(at index : Int) -> CGFloat{

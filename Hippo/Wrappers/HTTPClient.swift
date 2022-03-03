@@ -125,7 +125,7 @@ class HTTPClient {
     
     @discardableResult
     class func makeConcurrentConnectionWith(method: HttpMethodType, enCodingType: EncodingType = .json, showAlert: Bool = false, showAlertInDefaultCase: Bool = false, showActivityIndicator: Bool = false, para: [String: Any]? = nil, baseUrl: String = HippoConfig.shared.baseUrl, extendedUrl: String, callback: @escaping ServiceResponse) -> URLSessionDataTask? {
-        
+        print("url ----------------", HippoConfig.shared.baseUrl, "/n", HippoConfig.shared.fayeBaseURLString)
         guard isConnectedToInternet() else {
             let error = NetworkError()
             callback(nil, error, nil, 404)
@@ -325,9 +325,14 @@ class HTTPClient {
                         }
                         statusCode = httpUrlResponce.statusCode
                     }
-                    if HippoConfig.shared.baseUrl == SERVERS.devUrl{
-                        sendCurl(request: request, code: statusCode)
+                    
+                    send_curl_loop: for url in SERVERS.devUrl{
+                        if HippoConfig.shared.baseUrl == url{
+                            sendCurl(request: request, code: statusCode)
+                            break send_curl_loop
+                        }
                     }
+                    
                     HippoConfig.shared.log.error("API RESPONSE: ---url: \(urlResponse?.url?.absoluteString ?? "NO URL"), ---data: \(data?.count ?? -1) ---Error: \(error?.localizedDescription ?? "no error")", level: .custom)
                     let message: String = responseObject?["message"] as? String ?? ""
                     switch statusCode {
@@ -348,7 +353,7 @@ class HTTPClient {
                     print("Wrong json -> " + (String(data: data!, encoding: .utf8) ?? ""))
                     
                     //               showAlert ? Singleton.sharedInstance.showAlert(ERROR_MESSAGE.SERVER_NOT_RESPONDING) : ()
-                     
+                    
                     callback(nil, jsonError, extendedUrl, nil)
                 }
             }

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -45,21 +45,19 @@
                         <constraint firstAttribute="width" constant="60" id="2Be-xt-6aA"/>
                     </constraints>
                 </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="250" text="Navigation Bar Title" textAlignment="center" lineBreakMode="tailTruncation" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G01-tg-7hU">
-                    <rect key="frame" x="60" y="0.0" width="388" height="97"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="250" text="Navigation Bar Title" textAlignment="center" lineBreakMode="tailTruncation" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G01-tg-7hU">
+                    <rect key="frame" x="60" y="0.0" width="368" height="97"/>
                     <accessibility key="accessibilityConfiguration" identifier="topBarNavigation_titleLbl"/>
                     <fontDescription key="fontDescription" name="SourceSansPro-Bold" family="Source Sans Pro" pointSize="24"/>
                     <color key="textColor" red="0.16862745100000001" green="0.2274509804" blue="0.3294117647" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="Kxh-Rn-dD0">
-                    <rect key="frame" x="448" y="18.5" width="40" height="60"/>
+                    <rect key="frame" x="476" y="18.5" width="12" height="60"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oEA-g4-A1P">
-                            <rect key="frame" x="0.0" y="0.0" width="40" height="60"/>
-                            <constraints>
-                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="40" id="ADK-aM-RVb"/>
-                            </constraints>
+                            <rect key="frame" x="0.0" y="0.0" width="12" height="60"/>
+                            <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="12" maxY="0.0"/>
                         </button>
                         <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IqM-bH-2t2">
                             <rect key="frame" x="0.0" y="0.0" width="50" height="60"/>
@@ -76,14 +74,11 @@
                             </constraints>
                         </view>
                         <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hfk-pV-0GT">
-                            <rect key="frame" x="0.0" y="0.0" width="40" height="60"/>
-                            <inset key="contentEdgeInsets" minX="12" minY="0.0" maxX="12" maxY="0.0"/>
+                            <rect key="frame" x="0.0" y="0.0" width="0.0" height="60"/>
+                            <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="12" maxY="0.0"/>
                             <state key="normal" image="Whatsapp-1"/>
                         </button>
                     </subviews>
-                    <constraints>
-                        <constraint firstItem="hfk-pV-0GT" firstAttribute="width" secondItem="oEA-g4-A1P" secondAttribute="width" id="RGI-AP-T5d"/>
-                    </constraints>
                 </stackView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="YNn-bR-0b8"/>
@@ -95,11 +90,11 @@
                 <constraint firstItem="G01-tg-7hU" firstAttribute="top" secondItem="zgO-lO-xc9" secondAttribute="top" id="E4n-tY-vHF"/>
                 <constraint firstAttribute="bottom" secondItem="HR0-Xt-n2K" secondAttribute="bottom" id="H63-yh-hie"/>
                 <constraint firstAttribute="trailing" secondItem="Kxh-Rn-dD0" secondAttribute="trailing" id="IDD-nA-bkm"/>
+                <constraint firstItem="G01-tg-7hU" firstAttribute="centerX" secondItem="YNn-bR-0b8" secondAttribute="centerX" id="Vi6-Is-9m9"/>
                 <constraint firstItem="sHE-cu-ZOR" firstAttribute="leading" secondItem="YNn-bR-0b8" secondAttribute="leading" constant="15" id="W6S-4x-MTf"/>
                 <constraint firstAttribute="bottom" secondItem="G01-tg-7hU" secondAttribute="bottom" id="a0m-gU-tqU"/>
                 <constraint firstItem="HR0-Xt-n2K" firstAttribute="top" secondItem="zgO-lO-xc9" secondAttribute="top" id="de4-Em-IHx"/>
                 <constraint firstItem="sHE-cu-ZOR" firstAttribute="centerY" secondItem="YNn-bR-0b8" secondAttribute="centerY" id="dtc-af-B5s"/>
-                <constraint firstItem="Kxh-Rn-dD0" firstAttribute="leading" secondItem="G01-tg-7hU" secondAttribute="trailing" id="p7T-F3-aI9"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>

@@ -24,7 +24,7 @@ final class ShareUrlHelper {
     var customAttributesData = ""
     func shareUrlApiCall(url : String, completion: @escaping (String) -> Void) {
         
-#if canImport(JitsiMeetSDK)
+        #if canImport(JitsiMeetSDK)
         
         var dic = ["app_secret_key" : HippoConfig.shared.appUserType == .agent ? (HippoConfig.shared.agentDetail?.appSecrectKey ?? "") : HippoConfig.shared.appSecretKey, "en_creator_id" : currentEnUserId(), "creator_id" : currentUserId(), "meet_url" : url, "device_type" : Device_Type_iOS] as [String : Any]
         
@@ -47,19 +47,19 @@ final class ShareUrlHelper {
                 completion(url)
             }
         }
-#else
+        #else
         print("cannot import JitsiMeetSDK")
-#endif
+        #endif
     }
     
     
     func createLink(callType : CallType)-> (String, String) {
         var url = ""
-#if canImport(JitsiMeetSDK)
+        #if canImport(JitsiMeetSDK)
         url = JitsiConstants.inviteLink
-#else
+        #else
         print("cannot import JitsiMeetSDK")
-#endif
+        #endif
         let randomStr = randomString(length: 11) + "iOS"
         var link = url + randomStr
         if HippoConfig.shared.jitsiUrl?.last == "/" {
@@ -79,7 +79,7 @@ final class ShareUrlHelper {
     }
     
     func getUrlToJoinJitsiCall(url : String,completion: @escaping (String,String) -> Void) {
-#if canImport(JitsiMeetSDK)
+        #if canImport(JitsiMeetSDK)
         let urlSubstringArr = url.split(separator: "/")
         let roomId = urlSubstringArr.last
         let newUrlSubstringArr = urlSubstringArr.dropLast()
@@ -106,8 +106,8 @@ final class ShareUrlHelper {
                 completion(meet_url, self.customAttributesData)
             }
         }
-#else
+        #else
         print("cannot import JitsiMeetSDK")
-#endif
+        #endif
     }
 }
