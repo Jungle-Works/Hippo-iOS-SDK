@@ -168,5 +168,7 @@ var versionCode = 250
  359 *** 2.1.59 = ios 15 issues fixes
  
  360 *** 2.1.60 = push stats added and promotional popup added
+ 
+ 361 *** 2.1.61 = Pod spec updated
 
  */
