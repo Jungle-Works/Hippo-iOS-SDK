@@ -1,7 +1,7 @@
     Pod::Spec.new do |s|
     s.name         = 'Hippo'
 
-    s.version      = '2.1.61'
+    s.version      = '2.1.58'
 
     s.summary      = 'Now add Agent in app for quick support.'
     s.homepage     = 'https://github.com/Jungle-Works/Hippo-iOS-SDK'
@@ -27,14 +27,21 @@
 
     }
     s.resources = ['Hippo/*.xcassets']
-
+    
     s.dependency 'Socket.IO-Client-Swift'
-
+    
+    s.default_subspec = 'Chat'
+    
+    s.pod_target_xcconfig = {
+      "EXCLUDED_ARCHS[sdk=iphonesimulator*]" => "arm64"
+    }
+    
     s.subspec 'Chat' do |chat|
-
+      
     end
-
+    
     s.subspec 'Call' do |callClient|
-
+      s.pod_target_xcconfig = { "ENABLE_BITCODE" => "No" }
+      callClient.dependency 'HippoCallClient'
     end
-    end
+  end
