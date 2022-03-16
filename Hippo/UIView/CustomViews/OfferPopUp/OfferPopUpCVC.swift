@@ -28,6 +28,10 @@ class OfferPopUpCVC: UICollectionViewCell {
             imgView.isHidden = true
         }
         
+        imgView.clipsToBounds = true
+        imgView.layer.cornerRadius = 8
+        imgView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+        
         lblTitle.text = data.title
         lblDesc.text = data.datumDescription
         self.layer.cornerRadius = 8

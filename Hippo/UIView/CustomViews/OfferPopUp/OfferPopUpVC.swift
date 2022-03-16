@@ -28,7 +28,7 @@ class OfferPopUpVC: UIViewController {
         super.viewDidLoad()
         
         pageControll.numberOfPages = popUpData?.data?.count ?? 0
-        pageControll.currentPageIndicatorTintColor = UIColor.hexStringToUIColor(hex: popUpData?.data?.first?.customAttributes?.buttons?.first?.backgroundColor ?? "")
+        pageControll.currentPageIndicatorTintColor = HippoConfig.shared.theme.themeColor//UIColor.hexStringToUIColor(hex: popUpData?.data?.first?.customAttributes?.buttons?.first?.backgroundColor ?? "")
         setUpCollView()
         
         pageControll.isHidden = popUpData?.data?.count ?? 0 == 1
@@ -88,7 +88,7 @@ extension OfferPopUpVC : UICollectionViewDelegate, UICollectionViewDataSource, U
         if page != currentPage{
             currentPage = page
             self.pageControll.currentPage = currentPage
-            self.pageControll.currentPageIndicatorTintColor = UIColor.hexStringToUIColor(hex: popUpData?.data?[currentPage].customAttributes?.buttons?.first?.backgroundColor ?? "")
+//            self.pageControll.currentPageIndicatorTintColor = UIColor.hexStringToUIColor(hex: popUpData?.data?[currentPage].customAttributes?.buttons?.first?.backgroundColor ?? "")
         }
     }
     
@@ -99,16 +99,16 @@ extension OfferPopUpVC : UICollectionViewDelegate, UICollectionViewDataSource, U
     }
     
     func getCellHeight(at index : Int) -> CGFloat{
-        let imgHt = popUpData?.data?[index].customAttributes?.image?.thumbnailURL?.isEmpty ?? true ? 0 : 240
+        let imgHt = popUpData?.data?[index].customAttributes?.image?.thumbnailURL?.isEmpty ?? true ? 0 : self.collView.frame.width - 56
         let titleHt = 18
-        let descHt = min(popUpData?.data?[index].datumDescription?.height(constraintedWidth: view.frame.width - 24, font: UIFont.regular(ofSize: 12)) ?? 0, 80)
+        let descHt = min(popUpData?.data?[index].datumDescription?.height(constraintedWidth: view.frame.width - 36, font: UIFont.regular(ofSize: 16)) ?? 0, 80)
         let btnOneHt = popUpData?.data?[index].customAttributes?.buttons?.count ?? 0 == 0 ? 0 : 40
         let btnTwoHt = popUpData?.data?[index].customAttributes?.buttons?.count ?? 0 > 1 ? 40 : 0
         var space = 0
         space += imgHt > 0 ? 12 : 0
         space += btnOneHt > 0 ? 12 : 0
         space += btnTwoHt > 0 ? 12 : 0
-        let height = imgHt + titleHt + Int(descHt) + btnOneHt + btnTwoHt + space + 24
+        let height = Int(imgHt) + titleHt + Int(descHt) + btnOneHt + btnTwoHt + space + 24
         return CGFloat(height)
     }
     

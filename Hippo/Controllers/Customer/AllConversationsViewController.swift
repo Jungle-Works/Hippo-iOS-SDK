@@ -116,6 +116,10 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     }
     
     override func viewDidAppear(_ animated: Bool){
+//        HippoConfig.shared.newChatCallback = {
+//            print("CallBackReceived")
+//            return(2, true)
+//        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -145,25 +149,6 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         //        self.tabBarController?.hidesBottomBarWhenPushed = true
         //        self.tabBarController?.tabBar.isHidden = true
         //        self.tabBarController?.tabBar.layer.zPosition = -1
-    }
-    
-    @IBAction func newConversationClicked(_ sender: Any) {
-        var fuguNewChatAttributes = FuguNewChatAttributes(transactionId: "", userUniqueKey: HippoConfig.shared.userDetail?.userUniqueKey, otherUniqueKey: nil, tags: HippoProperty.current.newConversationButtonTags, channelName: nil, preMessage: "", groupingTag: nil)
-        
-        print("bodID******* \(HippoProperty.current.newconversationBotGroupId ?? "")")
-        print("bodID*******First")
-        //        fuguNewChatAttributes.botGroupId = HippoProperty.current.newconversationBotGroupId//"72"//
-        if let botID = HippoProperty.current.newconversationBotGroupId, botID != ""{
-            fuguNewChatAttributes.botGroupId = botID
-        }
-        
-        let conversation = ConversationsViewController.getWith(chatAttributes: fuguNewChatAttributes)
-        conversation.createConversationOnStart = true
-        conversation.hidesBottomBarWhenPushed = true
-        HippoConfig.shared.hideTabbar?(true)
-        self.navigationController?.pushViewController(conversation, animated: true)
-        
-        HippoConfig.shared.newChatCallback?()
     }
     
     func handleIntialCustomerForm() -> Bool {
@@ -426,8 +411,8 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     }
     
     @IBAction func newConversationButtonClicked(_ sender: UIButton) {
+
         //After Merge func
-        
         sender.isSelected = !sender.isSelected
         if sender.isSelected{
             UIView.animate(withDuration: 0.2, delay: 0, options: [.curveEaseOut], animations: {
@@ -436,6 +421,19 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
             
         }else{
             
+            // MARK: - Send call back to parent app for new chat creation if max chat not reached
+            if let (maxChats, closeHippo) = HippoConfig.shared.newChatCallback?(){
+                let arrayOfConvo = arrayOfFullConversation
+                let chatsAlready = arrayOfConvo.filter { convo in
+                    return (convo.channelType != 2 || convo.channelType != 6)
+                }
+                if maxChats <= chatsAlready.count {
+                    if closeHippo{
+                        self.dismiss(animated: true)
+                    }
+                    return
+                }
+            }
             var fuguNewChatAttributes = FuguNewChatAttributes(transactionId: "", userUniqueKey: HippoConfig.shared.userDetail?.userUniqueKey, otherUniqueKey: nil, tags: nil, channelName: nil, preMessage: "", groupingTag: nil)
             
             print("bodID******* \(HippoProperty.current.newconversationBotGroupId ?? "")")
@@ -450,8 +448,6 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
             self.navigationController?.pushViewController(conversation, animated: true)
             self.updateNewConversationBtnUI(isSelected: sender.isSelected)
         }
-        
-        
     }
     
     @IBAction func openChatButtonClicked(_ sender: UIButton) {

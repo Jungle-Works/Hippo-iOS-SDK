@@ -225,7 +225,7 @@ struct WhatsappWidgetConfig{
     var sessionStartTime: Date?
     var tempChannelId: Int?
     var botButtonActionCallBack: ((Any) -> Void)?
-    var newChatCallback: (() -> Void)?
+    var newChatCallback: (() -> (Int, Bool))?
     
     
     // MARK: - Intialization

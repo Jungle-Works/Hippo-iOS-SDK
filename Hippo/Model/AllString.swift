@@ -12,7 +12,6 @@ class AllString{
     class func getAllStrings(completion: @escaping HippoResponseRecieved) {
         var params = [String: Any]()
         params["request_source"] = HippoConfig.shared.appUserType == .agent ? 1 : 0
-        params["app_secret_key"] = HippoConfig.shared.appUserType == .agent ? HippoConfig.shared.agentDetail?.appSecrectKey : HippoConfig.shared.appSecretKey
         params["lang"] = getCurrentLanguageLocale()
         params["offering"] = HippoConfig.shared.offering
         params["device_type"] =  Device_Type_iOS
@@ -27,7 +26,14 @@ class AllString{
                     params["user_identification_secret"] = userIdenficationSecret
                 }
             }
+            
+            params["app_secret_key"] = HippoConfig.shared.appSecretKey
         }
+        
+        if HippoConfig.shared.appUserType == .agent{
+            params["access_token"] = HippoConfig.shared.agentDetail?.fuguToken
+        }
+               
         
         HippoConfig.shared.log.trace(params, level: .request)
         HTTPClient.makeConcurrentConnectionWith(method: .POST, enCodingType: .json, para: params, extendedUrl: FuguEndPoints.getLanguage.rawValue) { (responseObject, error, tag, statusCode) in
