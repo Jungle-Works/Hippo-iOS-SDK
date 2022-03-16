@@ -431,6 +431,20 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
             
         }else{
             
+            // MARK: - Send call back to parent app for new chat creation if max chat not reached
+            if let (maxChats, closeHippo) = HippoConfig.shared.newChatCallback?(){
+                let arrayOfConvo = arrayOfFullConversation
+                let chatsAlready = arrayOfConvo.filter { convo in
+                    return (convo.channelType != 2 || convo.channelType != 6)
+                }
+                if maxChats <= chatsAlready.count {
+                    if closeHippo{
+                        self.dismiss(animated: true)
+                    }
+                    return
+                }
+            }
+            
             var fuguNewChatAttributes = FuguNewChatAttributes(transactionId: "", userUniqueKey: HippoConfig.shared.userDetail?.userUniqueKey, otherUniqueKey: nil, tags: nil, channelName: nil, preMessage: "", groupingTag: nil)
             
             print("bodID******* \(HippoProperty.current.newconversationBotGroupId ?? "")")

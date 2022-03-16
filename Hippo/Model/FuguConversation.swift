@@ -16,6 +16,7 @@ class FuguConversation: HippoConversation {
     var mutiLanguageMsg : String?
     var message_sub_type : Int?
     var original_transaction_id : String?
+    var channelType: Int?
     
     init?(channelId: Int, unreadCount: Int, lastMessage: HippoMessage, labelID: Int?) {
         guard channelId > 0 else {
@@ -75,7 +76,9 @@ class FuguConversation: HippoConversation {
         if let channel_image = conversationDict["channel_image"] as? String {
             self.channelImage = channel_image
         }
-        
+        if let channel_type = conversationDict["channel_type"] as? Int {
+            self.channelType = channel_type
+        }
         if let message = HippoMessage.init(convoDict: conversationDict) {
             self.lastMessage = message
         } else if let message = HippoMessage(dict: conversationDict) {

@@ -7,7 +7,10 @@
 //
 
 import Foundation
+
+#if canImport(HippoCallClient)
 import HippoCallClient
+#endif
 
 class GroupCall{
     
@@ -92,8 +95,8 @@ extension GroupCall{
         
         
         let groupCallData = GroupCallData.init(peerData: user, callType: groupCall.callType ?? .audio, muid: muid, signallingClient: groupCallChannel, isMuted: groupCall.isAudioMuted ?? false)
-            CallManager.shared.startGroupCall(call: groupCallData, groupCallChannelData: groupCall) { (status, error) in
-            }
+        CallManager.shared.startGroupCall(call: groupCallData, groupCallChannelData: groupCall) { (status, error) in
+        }
         
     }
     

@@ -221,6 +221,7 @@ struct WhatsappWidgetConfig{
     
     var whatsappWidgetConfig: WhatsappWidgetConfig?
     var isOpenedFromPush : Bool?
+    var newChatCallback: (() -> (Int, Bool))?
     
 
     // MARK: - Intialization
@@ -374,7 +375,7 @@ struct WhatsappWidgetConfig{
     public func updateUserDetail(isOpenedFromPush: Bool = false, userDetail: HippoUserDetail, completion: @escaping (Bool) -> Void) {
         self.userDetail = userDetail
         self.appUserType = .customer
-        self.passAppSecretKeyToHippoConfig()
+        self.passAppSecretKeyToHippoConfig(userType: .customer)
         AgentDetail.agentLoginData = nil
         HippoUserDetail.getUserDetailsAndConversation(isOpenedFromPush: isOpenedFromPush) { (status, error) in
             completion(status)
@@ -478,7 +479,7 @@ struct WhatsappWidgetConfig{
         self.appUserType = .agent
         self.agentDetail = detail
         AgentConversationManager.updateAgentChannel(completion: {(error,response) in
-            self.passAppSecretKeyToHippoConfig(key: appSecretKey)
+            self.passAppSecretKeyToHippoConfig(key: appSecretKey, agentToken: HippoConfig.shared.agentDetail?.fuguToken ?? "", userType: .agent)
             
             if (selectedLanguage ?? "") == ""{ self.setLanguage(BussinessProperty.current.buisnessLanguageArr?.filter{$0.is_default == true}.first?.lang_code ?? "en")
                 completion(error,response)
@@ -914,18 +915,20 @@ struct WhatsappWidgetConfig{
         case .dev:
             baseUrl = SERVERS.devUrl
             fayeBaseURLString = SERVERS.devFaye
-            HippoCallClientUrl.urlType = .dev
+//            HippoCallClientUrl.urlType = .dev
         case .beta:
             baseUrl = SERVERS.betaUrl
             fayeBaseURLString = SERVERS.betaFaye
-            HippoCallClientUrl.urlType = .beta
+//            HippoCallClientUrl.urlType = .beta
         case .live:
             baseUrl = SERVERS.liveUrl
             fayeBaseURLString = SERVERS.liveFaye
-            HippoCallClientUrl.urlType = .live
+//            HippoCallClientUrl.urlType = .live
         }
 //        FayeConnection.shared.enviromentSwitchedWith(urlString: fayeBaseURLString)
+        #if canImport(HippoCallClient)
         HippoCallClientUrl.baseUrl = baseUrl
+        #endif
         
         SocketClient.shared.connect()
     }
@@ -1114,14 +1117,14 @@ struct WhatsappWidgetConfig{
         reportIncomingCallOnCallKit(userInfo: payloadDict, completion: completion)
     }
     
-    public func passAppSecretKeyToHippoConfig(key: String? = nil){
+    public func passAppSecretKeyToHippoConfig(key: String? = nil, agentToken: String? = nil, userType: userType){
         
-        CallManager.shared.passAppSecret(key : HippoConfig.shared.appSecretKey.isEmpty ? key ?? "" : HippoConfig.shared.appSecretKey)
+        CallManager.shared.passAppSecret(key : HippoConfig.shared.appSecretKey.isEmpty ? key ?? "" : HippoConfig.shared.appSecretKey, agentToken: agentToken ?? "", userType: userType == .customer ? .customer : .agent)
     }
     
 
     func reportIncomingCallOnCallKit(userInfo: [String : Any], completion: @escaping () -> Void){
-        
+        #if canImport(HippoCallClient)
         enableAudioSession()
         
         if let uuid = userInfo["muid"] as? String, let isVideo = userInfo["call_type"] as? String == "AUDIO" ? false : true{
@@ -1142,8 +1145,11 @@ struct WhatsappWidgetConfig{
             let request = PresentCallRequest(peer: peer, callType: callType, callUUID: "\(UUID)")
             
             CallKitManager.shared.reportIncomingCallWith(request: request, completion: completion)
-            
         }
+        
+        #else
+            print("cannot import HippoCallClient")
+        #endif
     }
     
     func enableAudioSession(){
@@ -1427,11 +1433,15 @@ extension HippoConfig{
     
    
     public func forceKillOnTermination(){
+        #if canImport(HippoCallClient)
         HippoCallClient.shared.terminateSessionIfAny()
+        #endif
     }
     
     public func keyWindowChangedFromParent(){
+        #if canImport(HippoCallClient)
         HippoCallClient.shared.keyWindowChangedFromParent()
+        #endif
     }
 }
 extension HippoConfig {
@@ -1493,11 +1503,15 @@ extension HippoConfig {
 extension HippoConfig{
     
     func HideJitsiView(){
+        #if canImport(HippoCallClient)
         HippoCallClient.shared.hideViewInPip()
+        #endif
     }
     
     func UnhideJitsiView(){
+        #if canImport(HippoCallClient)
         HippoCallClient.shared.unHideViewInPip()
+        #endif
     }
 }
 

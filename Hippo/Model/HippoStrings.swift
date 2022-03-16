@@ -282,14 +282,16 @@ public class HippoStrings {
     }
     
     class func updateHippoCallClientStrings(){
+#if canImport(HippoCallClient)
+        
         HippoCallClientStrings.calling = HippoStrings.calling
         HippoCallClientStrings.ringing = HippoStrings.ringing
         HippoCallClientStrings.callingYou = HippoStrings.isCallingYou.lowercased()
         HippoCallClientStrings.callDeclined = HippoStrings.callDeclined
         HippoCallClientStrings.busyOnOtherCall = HippoStrings.busyAnotherCall
         HippoCallClientStrings.connectingToMeeting = HippoStrings.connectingToMeeting
-//        HippoCallClientStrings.establishingConnection = HippoStrings.establishingConnection
-        
+        //        HippoCallClientStrings.establishingConnection = HippoStrings.establishingConnection
+#endif
     }
     
 }

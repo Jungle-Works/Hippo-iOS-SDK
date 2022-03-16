@@ -286,9 +286,9 @@ extension AgentDetail {
             }
             
             // MARK: - Passing app secret explicitly only for demo agent, in parent app - app secret key will be already there
-            if let appSecretKey = data["app_secret_key"] as? String {
-                HippoConfig.shared.appSecretKey = appSecretKey
-            }
+//            if let appSecretKey = data["app_secret_key"] as? String {
+//                HippoConfig.shared.appSecretKey = appSecretKey
+//            }
             
             BussinessProperty.current.isVideoCallEnabled = Bool.parse(key: "is_video_call_enabled", json: data)
             BussinessProperty.current.isAudioCallEnabled = Bool.parse(key: "is_audio_call_enabled", json: data)

@@ -20,7 +20,6 @@ class User: NSObject {
     var phoneNumber: String = ""
     var userType: UserType = .customer
     var image: String?
-   
     
     
     init?(dict: [String: Any]) {
