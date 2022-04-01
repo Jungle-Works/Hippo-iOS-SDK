@@ -357,8 +357,16 @@ class HippoChannel {
                 requestParam["user_identification_secret"] = userIdenficationSecret
             }
         }
-            
-        requestParam["en_user_id"] = HippoUserDetail.fuguEnUserID ?? -1
+        
+        
+        if let enUserID = HippoUserDetail.fuguEnUserID{
+            requestParam["en_user_id"] = enUserID
+        }
+        
+        if HippoConfig.shared.appUserType == .agent{
+            requestParam["access_token"] = HippoConfig.shared.agentDetail?.fuguToken
+        }
+        
         if let parsedBotMessageMUID = botMessageMUID {
             requestParam["bot_form_muid"] = parsedBotMessageMUID
         }

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -18,12 +18,12 @@
             <connections>
                 <outlet property="image_back" destination="sHE-cu-ZOR" id="vlC-Tx-HbV"/>
                 <outlet property="leftButton" destination="HR0-Xt-n2K" id="VSs-CW-ZhJ"/>
-                <outlet property="rightButton" destination="oEA-g4-A1P" id="mBR-DB-zMV"/>
-                <outlet property="rightSwitchButton" destination="g9T-V1-IH1" id="trz-2P-BrU"/>
-                <outlet property="rightSwitchButtonContainerView" destination="IqM-bH-2t2" id="daw-p9-6O8"/>
+                <outlet property="rightButton" destination="dsC-rC-ofP" id="3L8-H0-spc"/>
+                <outlet property="rightSwitchButton" destination="j7e-CL-7IU" id="df8-rt-b82"/>
+                <outlet property="rightSwitchButtonContainerView" destination="hy7-uN-62X" id="6Jl-bj-3lx"/>
                 <outlet property="titleLabel" destination="G01-tg-7hU" id="Zsk-ry-MVR"/>
                 <outlet property="view" destination="zgO-lO-xc9" id="0AK-07-Vd3"/>
-                <outlet property="whtsappBtn" destination="hfk-pV-0GT" id="3zS-sp-QPR"/>
+                <outlet property="whtsappBtn" destination="tnW-bo-IxG" id="oVd-gz-8hu"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -46,59 +46,54 @@
                     </constraints>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="250" text="Navigation Bar Title" textAlignment="center" lineBreakMode="tailTruncation" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G01-tg-7hU">
-                    <rect key="frame" x="60" y="0.0" width="388" height="97"/>
+                    <rect key="frame" x="139" y="0.0" width="210" height="97"/>
                     <accessibility key="accessibilityConfiguration" identifier="topBarNavigation_titleLbl"/>
                     <fontDescription key="fontDescription" name="SourceSansPro-Bold" family="Source Sans Pro" pointSize="24"/>
                     <color key="textColor" red="0.16862745100000001" green="0.2274509804" blue="0.3294117647" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="Kxh-Rn-dD0">
-                    <rect key="frame" x="448" y="23.5" width="40" height="50"/>
+                <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="wc0-jG-956">
+                    <rect key="frame" x="476" y="23.5" width="12" height="60"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oEA-g4-A1P">
-                            <rect key="frame" x="0.0" y="0.0" width="40" height="50"/>
-                            <constraints>
-                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="40" id="ADK-aM-RVb"/>
-                            </constraints>
+                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dsC-rC-ofP">
+                            <rect key="frame" x="0.0" y="0.0" width="12" height="60"/>
+                            <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="12" maxY="0.0"/>
                         </button>
-                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IqM-bH-2t2">
-                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hy7-uN-62X">
+                            <rect key="frame" x="0.0" y="0.0" width="50" height="60"/>
                             <subviews>
-                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="g9T-V1-IH1">
-                                    <rect key="frame" x="0.5" y="9.5" width="51" height="31"/>
+                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="j7e-CL-7IU">
+                                    <rect key="frame" x="0.5" y="14.5" width="51" height="31"/>
                                 </switch>
                             </subviews>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="50" id="J5f-l9-dON"/>
-                                <constraint firstItem="g9T-V1-IH1" firstAttribute="centerX" secondItem="IqM-bH-2t2" secondAttribute="centerX" id="o0q-mx-xgQ"/>
-                                <constraint firstItem="g9T-V1-IH1" firstAttribute="centerY" secondItem="IqM-bH-2t2" secondAttribute="centerY" id="qB6-US-vr8"/>
+                                <constraint firstAttribute="width" constant="50" id="83T-G7-IQp"/>
+                                <constraint firstItem="j7e-CL-7IU" firstAttribute="centerX" secondItem="hy7-uN-62X" secondAttribute="centerX" id="8Dj-Tp-xEb"/>
+                                <constraint firstItem="j7e-CL-7IU" firstAttribute="centerY" secondItem="hy7-uN-62X" secondAttribute="centerY" id="sPp-xF-lID"/>
                             </constraints>
                         </view>
-                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hfk-pV-0GT">
-                            <rect key="frame" x="0.0" y="0.0" width="40" height="50"/>
+                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tnW-bo-IxG">
+                            <rect key="frame" x="0.0" y="0.0" width="0.0" height="60"/>
+                            <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="12" maxY="0.0"/>
                             <state key="normal" image="Whatsapp-1"/>
                         </button>
                     </subviews>
-                    <constraints>
-                        <constraint firstItem="hfk-pV-0GT" firstAttribute="width" secondItem="oEA-g4-A1P" secondAttribute="width" id="RGI-AP-T5d"/>
-                    </constraints>
                 </stackView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="YNn-bR-0b8"/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="Kxh-Rn-dD0" firstAttribute="centerY" secondItem="G01-tg-7hU" secondAttribute="centerY" id="2xP-Le-58p"/>
                 <constraint firstItem="HR0-Xt-n2K" firstAttribute="leading" secondItem="zgO-lO-xc9" secondAttribute="leading" id="4sK-GR-ERm"/>
-                <constraint firstItem="G01-tg-7hU" firstAttribute="leading" secondItem="HR0-Xt-n2K" secondAttribute="trailing" id="DDx-mf-Ixs"/>
+                <constraint firstItem="YNn-bR-0b8" firstAttribute="trailing" secondItem="wc0-jG-956" secondAttribute="trailing" id="8ak-wQ-IIn"/>
+                <constraint firstItem="G01-tg-7hU" firstAttribute="centerX" secondItem="YNn-bR-0b8" secondAttribute="centerX" id="Bfb-mZ-pRd"/>
                 <constraint firstItem="G01-tg-7hU" firstAttribute="top" secondItem="zgO-lO-xc9" secondAttribute="top" id="E4n-tY-vHF"/>
                 <constraint firstAttribute="bottom" secondItem="HR0-Xt-n2K" secondAttribute="bottom" id="H63-yh-hie"/>
-                <constraint firstAttribute="trailing" secondItem="Kxh-Rn-dD0" secondAttribute="trailing" id="IDD-nA-bkm"/>
                 <constraint firstItem="sHE-cu-ZOR" firstAttribute="leading" secondItem="YNn-bR-0b8" secondAttribute="leading" constant="15" id="W6S-4x-MTf"/>
                 <constraint firstAttribute="bottom" secondItem="G01-tg-7hU" secondAttribute="bottom" id="a0m-gU-tqU"/>
                 <constraint firstItem="HR0-Xt-n2K" firstAttribute="top" secondItem="zgO-lO-xc9" secondAttribute="top" id="de4-Em-IHx"/>
                 <constraint firstItem="sHE-cu-ZOR" firstAttribute="centerY" secondItem="YNn-bR-0b8" secondAttribute="centerY" id="dtc-af-B5s"/>
-                <constraint firstItem="Kxh-Rn-dD0" firstAttribute="leading" secondItem="G01-tg-7hU" secondAttribute="trailing" id="p7T-F3-aI9"/>
+                <constraint firstItem="wc0-jG-956" firstAttribute="centerY" secondItem="YNn-bR-0b8" secondAttribute="centerY" id="oEK-ah-i1y"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>

@@ -1676,7 +1676,7 @@ extension AgentConversationViewController: UITableViewDelegate, UITableViewDataS
             
             return cell
         case let chatSection where chatSection < self.messagesGroupedByDate.count:
-            var messagesArray = messagesGroupedByDate[chatSection]
+            let messagesArray = messagesGroupedByDate[chatSection]
             
             if messagesArray.count > indexPath.row {
                 let message = messagesArray[indexPath.row]

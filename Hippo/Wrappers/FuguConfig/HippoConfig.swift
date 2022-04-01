@@ -221,7 +221,7 @@ struct WhatsappWidgetConfig{
     
     var whatsappWidgetConfig: WhatsappWidgetConfig?
     var isOpenedFromPush : Bool?
-    var newChatCallback: (() -> (Int, Bool))?
+    public var newChatCallback: ((Int) -> (Int?, Bool?))?
     
 
     // MARK: - Intialization
@@ -459,8 +459,13 @@ struct WhatsappWidgetConfig{
         self.appUserType = .agent
         self.agentDetail = detail
         AgentConversationManager.updateAgentChannel(completion: {(error,response) in
-            if (selectedLanguage ?? "") == ""{ self.setLanguage(BussinessProperty.current.buisnessLanguageArr?.filter{$0.is_default == true}.first?.lang_code ?? "")
+            self.passAppSecretKeyToHippoConfig(key: "", agentToken: HippoConfig.shared.agentDetail?.fuguToken ?? "", userType: .agent)
+            if (selectedLanguage ?? "") == ""{
+                self.setLanguage(BussinessProperty.current.buisnessLanguageArr?.filter{$0.is_default == true}.first?.lang_code ?? "")
+                completion(error,response)
+                return
             }
+            self.setLanguage(selectedLanguage ?? "en")
             completion(error,response)
         })
     }
@@ -1114,6 +1119,7 @@ struct WhatsappWidgetConfig{
         }else if let messageType = payloadDict["message_type"] as? Int, messageType == MessageType.call.rawValue {
             CallManager.shared.voipNotificationRecieved(payloadDict: payloadDict)
         }
+        print("Socket status !!!!!!!!!\(SocketClient.shared.socket?.status)")
         reportIncomingCallOnCallKit(userInfo: payloadDict, completion: completion)
     }
     
@@ -1204,14 +1210,19 @@ struct WhatsappWidgetConfig{
     
     func handleAnnouncementsNotification(userInfo: [String: Any]) {
             let visibleController = getLastVisibleController()
-            if let _ = visibleController as? PromotionsViewController {
+            if let promotionVC = visibleController as? PromotionsViewController {
 //                HippoNotification.promotionPushDic.removeAll()
 //                if let promotion = PromotionCellDataModel(pushDic: userInfo){
 //                    HippoNotification.promotionPushDic.append(promotion)
 //                }
 //                HippoNotification.getAllAnnouncementNotifications()
                 //promotionsVC.callGetAnnouncementsApi()
-                return
+//                return
+                HippoNotification.getAllAnnouncementNotifications {
+                    promotionVC.refreshData()
+                    HippoConfig.shared.isOpenedFromPush = false
+                    return
+                }
             }else{
 //                checkForIntialization {[weak self] (success, error) in
 //                    guard success else {

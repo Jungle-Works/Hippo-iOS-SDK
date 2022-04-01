@@ -1749,9 +1749,9 @@ extension HippoConversationViewController : OutgoingShareUrlDelegate {
         })
         }else{
             #if canImport(HippoCallClient)
-            HippoCallClientUrl.shared.channelId = "\(self.channelId)"
-            HippoCallClientUrl.shared.enUserId = currentEnUserId()
-            HippoCallClientUrl.shared.id = currentUserId()
+//            HippoCallClientUrl.shared.channelId = "\(self.channelId)"
+//            HippoCallClientUrl.shared.enUserId = currentEnUserId()
+//            HippoCallClientUrl.shared.id = currentUserId()
             HippoCallClientUrl.shared.userName = currentUserName()
             #endif
             shareUrlHelper.getUrlToJoinJitsiCall(url: url, completion: {(url, callType) in

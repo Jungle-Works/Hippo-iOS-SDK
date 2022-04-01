@@ -120,8 +120,10 @@ class SocketClient: NSObject {
             }
             self?.handshake()
         }
-        onDisconnectCallBack = {(arr, ack) in
+        onDisconnectCallBack = { [weak self]  (arr, ack) in
             NotificationCenter.default.post(name: .socketDisconnected, object: nil)
+            print("SOCKET DISCONNECTED !!!!!!!!!!!!!!!!")
+            self?.connect()
         }
         handshakeListener = {(arr, ack) in
             
@@ -141,7 +143,7 @@ class SocketClient: NSObject {
         socket?.on(SocketEvent.UNSUBSCRIBE_CHAT.rawValue, callback: unsubscribeChannelListener)
         socket?.on(SocketEvent.UNSUBSCRIBE_USER.rawValue, callback: unsubscribeChannelListener)
         socket?.on(clientEvent: .error, callback: { (data, ack) in
-            print("error", data)
+            print("error socket error hai bhenchod", data)
         })
         socket?.on(clientEvent: .pong, callback: { (data, ack) in })
         socket?.on(clientEvent: .ping, callback: { (data, ack) in })
@@ -260,6 +262,7 @@ extension SocketClient {
         if SocketClient.shared.socket?.status != .connected {
             SocketClient.shared.connect()
         }
+        print("Socket status !!!!!!!!!\(SocketClient.shared.socket?.status)")
     }
     
     func removeObserver() {

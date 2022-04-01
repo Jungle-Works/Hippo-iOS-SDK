@@ -21,7 +21,7 @@ extension SocketClient {
     
     ///Subscribe socket channel
     func subscribeSocketChannel(channel: String,completion: ((Error?,Bool) -> Void)? = nil){
-        
+        print("subscribeSocketChannel")
         if let someSocket = socket, someSocket.status.active {
             
             var eventToSubscribe = ""
@@ -47,6 +47,8 @@ extension SocketClient {
             if currentEnUserId().trimWhiteSpacesAndNewLine() == ""{
                 return
             }
+            
+            print("status of socket ------->>>>>>>>\(SocketClient.shared.socket?.status)") 
             
             socket?.emitWithAck(eventToSubscribe, json).timingOut(after: 20, callback: { (data) in
                 if data.isEmpty{

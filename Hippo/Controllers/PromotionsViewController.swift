@@ -111,7 +111,7 @@ class PromotionsViewController: UIViewController {
     func getDataOrUpdateAnnouncement(_ channelIdArr : [Int], isforReadMore : Bool, indexRow : Int? = nil){
         var params = [String : Any]()
         if currentUserType() == .customer{
-            params = ["app_secret_key" : HippoConfig.shared.appSecretKey, "channel_ids" : channelIdArr, "en_user_id" : currentUserId(), "offering" : HippoConfig.shared.offering, "device_type": Device_Type_iOS] as [String : Any]
+            params = ["app_secret_key" : HippoConfig.shared.appSecretKey, "channel_ids" : channelIdArr, "en_user_id" : currentEnUserId(), "offering" : HippoConfig.shared.offering, "device_type": Device_Type_iOS] as [String : Any]
             if let userIdenficationSecret = HippoConfig.shared.userDetail?.userIdenficationSecret{
                 if userIdenficationSecret.trimWhiteSpacesAndNewLine().isEmpty == false {
                     params["user_identification_secret"] = userIdenficationSecret
