@@ -8,6 +8,7 @@
 
 import UIKit
 import NotificationCenter
+import UserNotifications
 
 
 enum ConversationChatType {
@@ -116,9 +117,10 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     }
     
     override func viewDidAppear(_ animated: Bool){
-//        HippoConfig.shared.newChatCallback = {
-//            print("CallBackReceived")
-//            return(2, true)
+//        HippoConfig.shared.newChatCallback = { [weak self] totalChats in
+//            print("CallBackReceived", totalChats)
+//            self?.sendNotification(with: totalChats)
+//            return(14, false)
 //        }
     }
     
@@ -411,7 +413,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     }
     
     @IBAction func newConversationButtonClicked(_ sender: UIButton) {
-
+        
         //After Merge func
         sender.isSelected = !sender.isSelected
         if sender.isSelected{
@@ -422,16 +424,21 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         }else{
             
             // MARK: - Send call back to parent app for new chat creation if max chat not reached
-            if let (maxChats, closeHippo) = HippoConfig.shared.newChatCallback?(){
+            
+            if HippoConfig.shared.newChatCallback != nil{
+                
                 let arrayOfConvo = arrayOfFullConversation
                 let chatsAlready = arrayOfConvo.filter { convo in
-                    return (convo.channelType != 2 || convo.channelType != 6)
+                    return !((convo.channelId ?? 0) <= 0 && convo.labelId != nil) // (convo.channelType != 2 && convo.channelType != 6)
                 }
-                if maxChats <= chatsAlready.count {
-                    if closeHippo{
-                        self.dismiss(animated: true)
+                
+                if let (maxChats, closeHippo) = HippoConfig.shared.newChatCallback?(chatsAlready.count), let maxChats = maxChats{
+                    if maxChats <= chatsAlready.count {
+                        if closeHippo ?? false{
+                            self.dismiss(animated: true)
+                        }
+                        return
                     }
-                    return
                 }
             }
             var fuguNewChatAttributes = FuguNewChatAttributes(transactionId: "", userUniqueKey: HippoConfig.shared.userDetail?.userUniqueKey, otherUniqueKey: nil, tags: nil, channelName: nil, preMessage: "", groupingTag: nil)
@@ -799,14 +806,15 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
             }
         }
         
-        //        if chatObj?.lastMessage?.messageUniqueID != conversationObj.lastMessage?.messageUniqueID{
-        //            self.getAllConversations()
-        //        }
+        if chatObj?.lastMessage?.messageUniqueID != conversationObj.lastMessage?.messageUniqueID{
+            self.getAllConversations()
+        }
         
         chatObj?.unreadCount = conversationObj.unreadCount
         chatObj?.lastMessage = conversationObj.lastMessage
+        chatObj?.channelType = conversationObj.channelType
         
-        let obj = arrayOfFullConversation.filter{$0.channelId == conversationObj.channelId}.first
+        let obj = arrayOfFullConversation.filter{$0.labelId == conversationObj.labelId}.first
         obj?.unreadCount = 0
         resetPushCount()
         saveConversationsInCache()

@@ -884,7 +884,7 @@ func currentUserName() -> String {
     case .agent:
         return HippoConfig.shared.agentDetail?.fullName ?? HippoStrings.agent
     case .customer:
-        return HippoUserDetail.fullName ?? HippoStrings.visitor
+        return HippoConfig.shared.userDetail?.fullName ?? HippoStrings.visitor
     }
 }
 

@@ -161,7 +161,7 @@ class AgentConversationManager {
             if let _ = error {
                 handler([BotAction]())
             } else {
-                if let response = response as? [String: Any], let data = response["data"] as? [[String: Any]] {
+                if let response = response as? [String: Any], let kData = response["data"] as? [String: Any], let data = kData["botList"] as? [[String: Any]] {
                     var actionsArray = [BotAction]()
                     for action in data {
                         actionsArray.append(BotAction(dict: action))
