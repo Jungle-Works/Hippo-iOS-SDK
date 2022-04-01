@@ -77,10 +77,6 @@ class FuguConversation: HippoConversation {
             self.channelImage = channel_image
         }
         
-        if let channel_type = conversationDict["channel_type"] as? Int {
-            self.channelType = channel_type
-        }
-        
         if let message = HippoMessage.init(convoDict: conversationDict) {
             self.lastMessage = message
         } else if let message = HippoMessage(dict: conversationDict) {

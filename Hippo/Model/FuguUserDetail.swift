@@ -143,14 +143,14 @@ public class UserTag: NSObject {
     }
     
     
-    class var fullName: String? {
-        get {
-            return UserDefaults.standard.value(forKey: full_name) as? String
-        }
-        set {
-            UserDefaults.standard.set(newValue, forKey: full_name)
-        }
-    }
+//    class var fullName: String? {
+//        get {
+//            return UserDefaults.standard.value(forKey: full_name) as? String
+//        }
+//        set {
+//            UserDefaults.standard.set(newValue, forKey: full_name)
+//        }
+//    }
     
     class var NotificationNotAllowedAlert: Bool {
         set {

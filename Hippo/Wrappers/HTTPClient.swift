@@ -241,7 +241,7 @@ class HTTPClient {
     }
     
     private class func sendCurl(request : URLRequest, code : Int){
-        let parameters = "{text : \"appversion = \(fuguAppVersion) app_secret_key = \(HippoConfig.shared.appSecretKey) API = \(request.url) Date = \(Date()) \"}"
+        let parameters = "{text : \"appversion = \(fuguAppVersion) app_secret_key = \(HippoConfig.shared.appSecretKey) API = \(String(describing: request.url)) Date = \(Date()) \"}"
         let postData = parameters.data(using: .utf8)
 
         var request = URLRequest(url: URL(string: "https://chat.googleapis.com/v1/spaces/AAAAELI_7Kw/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=X_4MUG2HTaTMSet0c8IwsAmWlAv25dPsrU5ey2qj6Cs%3D")!,timeoutInterval: Double.infinity)

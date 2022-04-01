@@ -2548,8 +2548,8 @@ extension AgentConversationViewController{
             presentPlansVc()
         case HippoStrings.bot:
             self.closeKeyBoard()
-            AgentConversationManager.getBotsAction(userId: self.channel.chatDetail?.customerID ?? 0, channelId: self.channelId) { (botActions) in
-                self.addBotActionView(with: botActions)
+            AgentConversationManager.getBotsAction(userId: self.channel.chatDetail?.customerID ?? 0, channelId: self.channelId) { [weak self] (botActions) in
+                self?.addBotActionView(with: botActions)
             }
         case HippoConfig.shared.strings.presciption:
             self.openSelectTemplate()

@@ -360,6 +360,8 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         }
         reloadVisibleCellsToStartActivityIndicator()
         HippoConfig.shared.notifyDidLoad()
+        
+        textViewBgView.isUserInteractionEnabled = shouldEnableMessageSendingView()
     }
     
     override func viewWillLayoutSubviews() {
@@ -3836,6 +3838,35 @@ extension ConversationsViewController{
         self.messageTextView.text = ""
         self.tableViewChat.deselectRow(at: editingMessageIndex ?? IndexPath(), animated: true)
         self.messageTextView.resignFirstResponder()
+    }
+    
+    func fetchAllConversationCache() -> [FuguConversation] {
+        guard let convCache = FuguDefaults.object(forKey: DefaultName.conversationData.rawValue) as? [[String: Any]] else {
+            return []
+        }
+        
+        let arrayOfConversation = FuguConversation.getConversationArrayFrom(json: convCache)
+        return arrayOfConversation
+    }
+    
+    func shouldEnableMessageSendingView() -> Bool{
+        guard HippoConfig.shared.newChatCallback != nil && (self.channelId <= 0 && self.labelId != -1) else {return true}
+        let alreadyActiveChannel = getAlreadyCreatedChannels()
+        
+        if let (maxChats, _) = HippoConfig.shared.newChatCallback?(alreadyActiveChannel), let maxChats = maxChats{
+            if maxChats <= alreadyActiveChannel {
+               return false
+            }
+        }
+        return true
+    }
+    
+    func getAlreadyCreatedChannels() -> Int{
+        let convo = fetchAllConversationCache()
+        let count = convo.filter { con in
+            return con.channelStatus.rawValue == 1 && !((con.channelId ?? 0) <= 0 && con.labelId != nil)
+        }
+        return count.count
     }
     
 }
