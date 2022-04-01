@@ -106,8 +106,7 @@ class AgentConversationViewController: HippoConversationViewController {
     //    private var timer: Timer?
     //    var lastUnsendMessage:String?
     var original_transaction_id = ""
-    var isFirstLevel: Bool = true
-
+    
     // MARK: - Computed Properties
     var localFilePath: String {
         get {
@@ -314,15 +313,10 @@ class AgentConversationViewController: HippoConversationViewController {
             handleInfoIcon()
             return
         }
-        channelDetail.isFirstLevel = self.isFirstLevel
         
-//        guard let vc = AgentChatInfoViewController.get(chatDetail: channelDetail, userImage: self.userImage) else {
-//            return
-//        }
-        guard let vc = ChannelInfoViewController.get(info: channelDetail) else {
+        guard let vc = AgentChatInfoViewController.get(chatDetail: channelDetail, userImage: self.userImage) else {
             return
         }
-        vc.delegate = self
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -380,12 +374,12 @@ class AgentConversationViewController: HippoConversationViewController {
     
     @IBAction func getBotActions(_ sender: Any) {
         self.closeKeyBoard()
-        AgentConversationManager.getBotsAction(userId: self.channel.chatDetail?.customerID ?? 0, channelId: self.channelId) { [weak self] (botActions, customBots)  in
-            self?.addBotActionView(with: botActions, customBot: customBots)
+        AgentConversationManager.getBotsAction(userId: self.channel.chatDetail?.customerID ?? 0, channelId: self.channelId) { (botActions) in
+            self.addBotActionView(with: botActions)
         }
     }
     
-    func addBotActionView(with botArray: [BotAction], customBot: [CustomBot]?) {
+    func addBotActionView(with botArray: [BotAction]) {
         guard let window = UIApplication.shared.windows.first else {
             return
         }
@@ -396,7 +390,7 @@ class AgentConversationViewController: HippoConversationViewController {
         self.botActionView.removeFromSuperview()
         self.botActionView.frame = window.frame
         self.botActionView.delegate = self
-        self.botActionView.setupCell(botArray, customBot: customBot)
+        self.botActionView.setupCell(botArray)
         self.botActionView.alpha = 0.0
         window.addSubview(self.botActionView)
         UIView.animate(withDuration: 0.25) { () -> Void in
@@ -512,7 +506,7 @@ class AgentConversationViewController: HippoConversationViewController {
             return
         }
         
-        guard let vc = AgentChatInfoViewController.get(tags: channelDetail.channelTags, chatDetail: channelDetail, userImage: userImage) else {
+        guard let vc = AgentChatInfoViewController.get(chatDetail: channelDetail, userImage: userImage) else {
             return
         }
         self.navigationController?.pushViewController(vc, animated: true)
@@ -803,16 +797,11 @@ class AgentConversationViewController: HippoConversationViewController {
         return vc
     }
     
+    
     class func getWith(chatAttributes: AgentDirectChatAttributes) -> AgentConversationViewController {
         let vc = getNewInstance()
         vc.agentDirectChatDetail = chatAttributes
         vc.label = chatAttributes.channelName
-        return vc
-    }
-    
-    class func getWith(conversationObj: SearchCustomerData) -> AgentConversationViewController {
-        let vc = getNewInstance()
-        vc.agentDirectChatDetail = AgentDirectChatAttributes(otherUserUniqueKey: "", channelName: nil, otherUserId: conversationObj.user_id)
         return vc
     }
     
@@ -2487,38 +2476,14 @@ extension AgentConversationViewController: LeadTableViewCellDelegate {
 }
 
 extension AgentConversationViewController: BotTableDelegate {
-    func sendButtonClicked(with object: BotAction?, customObj: CustomBot?) {
-        
-        if let object = object {
-            switch object.messageType {
-            case .feedback:
-                sendFeedbackMessageToFaye()
-            default:
-                sendBotFormFaye(object: object)
-            }
+    func sendButtonClicked(with object: BotAction) {
+        switch object.messageType {
+        case .feedback:
+            sendFeedbackMessageToFaye()
+        default:
+            sendBotFormFaye(object: object)
         }
-        
-        if let customObj = customObj {
-            self.attachmentViewHeightConstraint.constant = 0
-            self.sendCustomBotApi(botId: customObj.bot_group_id) { isBotAlreadyInProgress in
-                if isBotAlreadyInProgress{
-                    
-                    let alert = UIAlertController(title: "Alert", message: "Already a bot in progress at this channel. Want to override?", preferredStyle: UIAlertController.Style.alert)
-                    
-                    // add the actions (buttons)
-                    alert.addAction(UIAlertAction(title: "Yes", style: UIAlertAction.Style.default, handler: { _ in
-                        self.sendCustomBotApi(botId: customObj.bot_group_id, overrideCrntBot: true, completion: nil)
-                    }))
-                    alert.addAction(UIAlertAction(title: "No", style: UIAlertAction.Style.cancel, handler: nil))
-                    
-                    // show the alert
-                    self.present(alert, animated: true, completion: nil)
-                }
-            }
-        }
-        
     }
-    
     func sendFeedbackMessageToFaye() {
         //        let message = HippoMessage(message: "Please provide a feedback for our conversation", type: .feedback, uniqueID: generateUniqueId(), chatType: chatType)
         let message = HippoMessage(message: HippoStrings.ratingReview, type: .feedback, uniqueID: generateUniqueId(), chatType: chatType)
@@ -2555,9 +2520,6 @@ extension AgentConversationViewController: BotTableDelegate {
         default:
             break
         }
-    }
-    
-    func sendCustomBot(){
         
     }
     
@@ -2586,8 +2548,8 @@ extension AgentConversationViewController{
             presentPlansVc()
         case HippoStrings.bot:
             self.closeKeyBoard()
-            AgentConversationManager.getBotsAction(userId: self.channel.chatDetail?.customerID ?? 0, channelId: self.channelId) { [weak self] (botActions, customBots) in
-                self?.addBotActionView(with: botActions, customBot: customBots)
+            AgentConversationManager.getBotsAction(userId: self.channel.chatDetail?.customerID ?? 0, channelId: self.channelId) { [weak self] (botActions) in
+                self?.addBotActionView(with: botActions)
             }
         case HippoConfig.shared.strings.presciption:
             self.openSelectTemplate()
@@ -2839,10 +2801,3 @@ extension AgentConversationViewController{
     }
     
 }
-    
-extension AgentConversationViewController: ChatInfoDelegate {
-    func backButtonAction(tagsArray: [TagDetail]) {
-        self.channel?.chatDetail?.channelTags = tagsArray
-    }
-}
-
