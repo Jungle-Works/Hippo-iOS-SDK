@@ -408,6 +408,16 @@ To enable advance stats to update when user click on notification and time user 
 
 # To receive call back on bot button action
 To receive call back on bot button tap with the data add the following code - 
-   HippoConfig.shared.botButtonActionCallBack = { [weak self] (data) in
-   
-}
+    HippoConfig.shared.newChatCallback = { [weak self] totalChats in
+        print("CallBackReceived", totalChats)
+        return(maxChats, closeHippo)
+    }
+--
+Here you have to pass the maxChats you want to enable the user can create, and pass a boolean value to close hippo if the max limit passed will reach, you will receive a callback everytime when user creates a new chat.
+
+
+
+# Setup Custom notification view for changing notification background color or text font
+1. Create notification content extension as described here (https://riptutorial.com/ios/example/32292/creating-a-simple-unnotificationcontentextension)
+2. Go to the info plist file of the extension created and change the value for key - "UNNotificationExtensionCategory" to "ColorNotification"
+3. Go to the view controller associated with the extension and add this code - 

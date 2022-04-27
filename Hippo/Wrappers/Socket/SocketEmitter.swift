@@ -63,7 +63,6 @@ extension SocketClient {
             })
         }else{
             SocketClient.shared.connect()
-            
 //            subscribeSocketChannel(channel: channel, completion: completion)
         }
     }

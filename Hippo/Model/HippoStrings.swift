@@ -214,7 +214,8 @@ public class HippoStrings {
     static var edited = "Edited".localized
     static var copy = "Copy".localized
     static var deleteMessage = "deleted this message.".localized
-    static var establishingConnection = "Please wait while we are establishing the connection.."
+    static var establishingConnection = "Please wait while we are establishing the connection..".localized
+    static var botAdded = "Bot added by ".localized
     
     open var disbaledCameraErrorMessage = "Access to Camera is denied. Please enable from setings."
     

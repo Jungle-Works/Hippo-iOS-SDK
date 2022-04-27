@@ -21,6 +21,7 @@ class HippoVariable {
     static let keyboardFrameEndUserInfoKey = UIResponder.keyboardFrameEndUserInfoKey
     static let pickerInfoMediaURL = UIImagePickerController.InfoKey.mediaURL
     static let pickerInfoOriginalImage = UIImagePickerController.InfoKey.originalImage
+    static let pickerInfoEditedImage = UIImagePickerController.InfoKey.editedImage
     static let pickerInfoMediaType = UIImagePickerController.InfoKey.mediaType
     
     static let keyboardWillShowNotification = UIResponder.keyboardWillShowNotification
