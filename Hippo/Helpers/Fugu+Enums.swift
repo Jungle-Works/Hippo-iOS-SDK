@@ -105,13 +105,13 @@ enum SocketEvent : String{
 }
 
 enum FilterOptionSection: Int, CaseCountable {
-    case people = 0
+//    case people = 0
     case status
-    case chatType
-    case channels
-    case labels
-    case agents
-    case date
+//    case chatType
+//    case channels
+//    case labels
+//    case agents
+//    case date
 }
 struct FilterField {
     var nameOfField: String = ""
@@ -131,27 +131,27 @@ struct FilterField {
         self.selected = data.isSelected
         self.id = data.id
     }
-    init(data: ChannelDetail) {
-        self.nameOfField = data.channelName
-        self.selected = data.isSelected
-        self.id = data.id
-    }
-    init(data: TagDetail) {
-        isSectionTitle = false
-        self.nameOfField = data.tagName ?? ""
-        self.selected = data.isSelected
-        self.id = data.tagId ?? -1
-    }
-    init(data: Agent, selectedAgentID: [Int]) {
-        isSectionTitle = false
-        self.nameOfField = data.fullName ?? ""
-        self.selected = false
-        self.id = data.userId ?? data.inviteId ?? -1
-
-        if id > 0 {
-            self.selected = selectedAgentID.contains(id)
-        }
-    }
+//    init(data: ChannelDetail) {
+//        self.nameOfField = data.channelName
+//        self.selected = data.isSelected
+//        self.id = data.id
+//    }
+//    init(data: TagDetail) {
+//        isSectionTitle = false
+//        self.nameOfField = data.tagName ?? ""
+//        self.selected = data.isSelected
+//        self.id = data.tagId ?? -1
+//    }
+//    init(data: Agent, selectedAgentID: [Int]) {
+//        isSectionTitle = false
+//        self.nameOfField = data.fullName ?? ""
+//        self.selected = false
+//        self.id = data.userId ?? data.inviteId ?? -1
+//
+//        if id > 0 {
+//            self.selected = selectedAgentID.contains(id)
+//        }
+//    }
 }
 struct labelWithId {
     var label: String
@@ -350,7 +350,6 @@ enum ConversationType {
     case myChat
     case allChat
     case o2oChat
-    case historyChat
 }
 
 enum ButtonType: String {
@@ -444,15 +443,6 @@ enum AgentEndPoints: String {
     case createAndSendPresciption = "api/conversation/createAndSendPrescription"
     case SharedMedia = "api/conversation/getAttachments"
     case sendCustomBot = "api/conversation/addBotToChannel"
-    case getChannelIds = "api/channel/getChannels"
-    case search = "api/v2/conversation/search"
-    case customAttributes = "api/business/getCustomAttributes"
-    
-    // MARK:-Tags Endpoints
-    case getAllTags = "api/tags/getTags"
-    case createTags = "api/tags/createTags"
-    case assignTags = "api/tags/assignTagsToChannel"
-    case assignTagsV2 = "api/tags/v2/assignTagsToChannel"
 }
 
 struct MultiLanguageMsg{
