@@ -46,7 +46,7 @@ static let liveUrl = "https://api.hippochat.io/"
 static let liveFaye = "https://event.hippochat.io"
 
 static let betaUrl = "https://beta-live-api1.fuguchat.com:3001/"
-static let betaFaye = "https://socket-temp.hippochat.io"
+static let betaFaye = "https://beta-live-api1.fuguchat.com:3003"
 
 static let devUrl = "https://hippo-api-dev1.fuguchat.com:3004/"
 static let devFaye = "https://hippo-api-dev1.fuguchat.com:3004"
@@ -90,6 +90,22 @@ struct BotAction {
         self.rawDict = dict
 
 
+    }
+}
+
+struct CustomBot{
+    var bot_group_id = Int()
+    var group_name = String()
+    
+    init(dict: [String: Any]) {
+        
+        if let bot_group_id = dict["bot_group_id"] as? Int {
+            self.bot_group_id = bot_group_id
+        }
+        
+        if let group_name = dict["group_name"] as? String {
+            self.group_name = group_name
+        }
     }
 }
 

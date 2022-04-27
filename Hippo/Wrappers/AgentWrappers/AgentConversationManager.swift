@@ -173,6 +173,36 @@ class AgentConversationManager {
         }
     }
 
+    class func getBotsAction(userId: Int, channelId: Int, handler: @escaping (([BotAction], [CustomBot]?) -> Void)) {
+        guard let agent = HippoConfig.shared.agentDetail else {
+            return
+        }
+        let params: [String: Any] = ["access_token": agent.fuguToken,
+                                     "user_id": userId,
+                                     "channel_id": "\(channelId)",
+                                     "fetch_custom_bots": 1]
+        HTTPClient.shared.makeSingletonConnectionWith(method: .POST, identifier: RequestIdenfier.getAllConversationIdentfier, para: params, extendedUrl: AgentEndPoints.getBotActions.rawValue) { (response, error, tag, statusCode) in
+            if let _ = error {
+                handler([BotAction](), nil)
+            } else {
+                if let response = response as? [String: Any], let kData = response["data"] as? [String: Any], let data = kData["botList"] as? [[String: Any]] {
+                    var actionsArray = [BotAction]()
+                    for action in data {
+                        actionsArray.append(BotAction(dict: action))
+                    }
+                    
+                    var customBot = [CustomBot]()
+                    if let customBots = kData["custom_bots"] as? [[String: Any]]{
+                        for action in customBots {
+                            customBot.append(CustomBot(dict: action))
+                        }
+                    }
+                    
+                    handler(actionsArray, customBot)
+                }
+            }
+        }
+    }
 
 //    class func agentStatusUpdate(newStatus: AgentStatus) {
     class func agentStatusUpdate(newStatus: AgentStatus, completion: @escaping ((_ result: Bool) -> Void)) {

@@ -953,9 +953,22 @@ extension HippoConversationViewController: PickerHelperDelegate {
                 showAlert(title: "", message: HippoStrings.somethingWentWrong, actionComplete: nil)
                 return
             }
-//            sendConfirmedImage(image: selectedImage, mediaType: mediaType)
-            let vc = SelectImageViewController.getWith(pickedImage: selectedImage, imageFormat: nil, delegate: self, isMentioningEnabled: false, gifData: nil, mediaType: mediaType)
-            self.present(vc, animated: true, completion: nil)
+            
+            guard let vc = UIStoryboard(name: "FuguUnique", bundle: FuguFlowManager.bundle).instantiateViewController(withIdentifier: "PreviewViewController") as? PreviewViewController else {
+                return
+            }
+            vc.fileType = .image
+            vc.image = selectedImage
+            self.navigationController?.present(vc, animated: true, completion: nil)
+            
+            vc.sendBtnTapped = {[weak self](message, img) in
+                var imgToSend = selectedImage
+                if let image = img {
+                    imgToSend = image
+                }
+                self?.sendConfirmedImage(message: message ,image: imgToSend, mediaType: .imageType)
+                HippoConfig.shared.UnhideJitsiView()
+            }
 
         case .movieType:
             guard let filePath = result.filePath else {
@@ -971,7 +984,20 @@ extension HippoConversationViewController: PickerHelperDelegate {
     
     func didPickDocumentWith(url: URL) {
         HippoConfig.shared.UnhideJitsiView()
-        sendSelectedDocumentWith(filePath: url.path, fileName: url.lastPathComponent, messageType: .attachment, fileType: .document)
+//        sendSelectedDocumentWith(filePath: url.path, fileName: url.lastPathComponent, messageType: .attachment, fileType: .document)
+        
+        guard let vc = UIStoryboard(name: "FuguUnique", bundle: FuguFlowManager.bundle).instantiateViewController(withIdentifier: "PreviewViewController") as? PreviewViewController else {
+            return
+        }
+        vc.fileType = .document
+        vc.path = url
+        self.navigationController?.present(vc, animated: true, completion: nil)
+        
+        vc.sendBtnTapped = {[weak self](message, _) in
+            DispatchQueue.main.async {
+                self?.sendSelectedDocumentWith(messageStr: message ?? "", filePath: url.path, fileName: url.lastPathComponent, messageType: message?.isEmpty ?? true ? .attachment : .normal, fileType: FileType.document)
+            }
+        }
     }
    
 }
@@ -1004,21 +1030,25 @@ extension HippoConversationViewController: SelectImageViewControllerDelegate {
 
 extension HippoConversationViewController {
     
-    func sendSelectedDocumentWith(filePath: String, fileName: String, messageType: MessageType, fileType: FileType) {
+    func sendSelectedDocumentWith(messageStr: String? = "", filePath: String, fileName: String, messageType: MessageType, fileType: FileType, getMsgBack: ((HippoMessage) -> Void)? = nil) {
         guard doesFileExistsAt(filePath: filePath) else {
             return
         }
+        
         let uniqueName = DownloadManager.generateNameWhichDoestNotExistInCacheDirectoryWith(name: fileName)
         saveDocumentInCacheDirectoryWith(name: uniqueName, orignalFilePath: filePath)
+        
         if let message = messagesGroupedByDate.last?.last as? HippoActionMessage, message.type == .botAttachment {
             message.fileName = uniqueName
             message.localImagePath = getCacheDirectoryUrlForFileWith(name: uniqueName).path
             self.UploadAndSendMessage(message: message)
         }else {
-            let message = HippoMessage(message: "", type: messageType, uniqueID: generateUniqueId(), imageUrl: nil, thumbnailUrl: nil, localFilePath: filePath, chatType: channel?.chatDetail?.chatType)
+            let message = HippoMessage(message: messageStr ?? "", type: messageStr == "" ? messageType : .normal, uniqueID: generateUniqueId(), imageUrl: nil, thumbnailUrl: nil, localFilePath: filePath, chatType: channel?.chatDetail?.chatType)
             
             message.fileName = uniqueName
             message.localImagePath = getCacheDirectoryUrlForFileWith(name: uniqueName).path
+            message.documentType = fileType
+            message.isMessageWithImage = message.message == "" ? false : true
             
             //Changing messageType in case if new selected file is of image type
             let concreteType = message.concreteFileType ?? .document
@@ -1033,9 +1063,13 @@ extension HippoConversationViewController {
             default:
                 break
             }
-            self.UploadAndSendMessage(message: message)
+            
+            if getMsgBack != nil{
+                getMsgBack?(message)
+            }else{
+                self.UploadAndSendMessage(message: message)
+            }
         }
-        
         
         
         //Checking if channel is created or not
@@ -1135,7 +1169,7 @@ extension HippoConversationViewController {
         publishMessageOnChannel(message: message)
     }
     
-    func sendConfirmedImage(image confirmedImage: UIImage, mediaType: CoreMediaSelector.Result.MediaType ) {
+    func sendConfirmedImage(message : String? = "", image confirmedImage: UIImage, mediaType: CoreMediaSelector.Result.MediaType ) {
         var imageExtention: String = ".jpg"
         let imageData: Data?
         
@@ -1156,11 +1190,11 @@ extension HippoConversationViewController {
         default:
             imageExtention = ".jpg"
             
-            #if swift(>=4.2)
+        #if swift(>=4.2)
             imageData = confirmedImage.jpegData(compressionQuality: compressionRate)
-            #else
+        #else
             imageData = UIImageJPEGRepresentation(confirmedImage, compressionRate)
-            #endif
+        #endif
         }
         
         let imageName = Date.timeIntervalSinceReferenceDate.description + imageExtention
@@ -1169,9 +1203,10 @@ extension HippoConversationViewController {
         ((try? imageData?.write(to: URL(fileURLWithPath: imageFilePath), options: [.atomic])) as ()??)
         
         if imageFilePath.isEmpty == false {
-            self.imageSelectedToSendWith(localPath: imageFilePath, imageSize: confirmedImage.size)
+            self.imageSelectedToSendWith(messageStr: message, localPath: imageFilePath, imageSize: confirmedImage.size)
         }
     }
+    
     func PrepareUploadAndSendImage(message: HippoMessage) {
         channel?.unsentMessages.append(message)
         self.addMessageToUIBeforeSending(message: message)
@@ -1185,14 +1220,16 @@ extension HippoConversationViewController {
         }
     }
     
-    func imageSelectedToSendWith(localPath: String, imageSize: CGSize) {
+    func imageSelectedToSendWith(messageStr : String? = "", localPath: String, imageSize: CGSize) {
         if let message = messagesGroupedByDate.last?.last as? HippoActionMessage, message.type == .botAttachment {
             message.localImagePath = localPath
             message.selectBtnWith(btnId: "")
             PrepareUploadAndSendImage(message: message)
         }else {
-            let message = HippoMessage(message: "", type: .imageFile, uniqueID: generateUniqueId(), localFilePath: localPath, chatType: channel?.chatDetail?.chatType)
+            let message = HippoMessage(message: messageStr ?? "", type: messageStr?.isEmpty ?? true ? .imageFile : .normal, uniqueID: generateUniqueId(), localFilePath: localPath, chatType: channel?.chatDetail?.chatType)
+            message.documentType = .image
             message.fileName = localPath.fileName()
+            message.isMessageWithImage = (messageStr ?? "") == "" ? false : true
             message.imageWidth = Float(imageSize.width)
             message.imageHeight = Float(imageSize.height)
             PrepareUploadAndSendImage(message: message)
@@ -2168,7 +2205,36 @@ extension HippoConversationViewController{
         })
     }
 }
+
 extension HippoConversationViewController {
-    
+    func sendCustomBotApi(botId : Int, overrideCrntBot: Bool? = false, completion: ((_ inProgress: Bool) -> Void)?){
+        if FuguNetworkHandler.shared.isNetworkConnected == false {
+            checkNetworkConnection()
+            completion?(false)
+            return
+        }
+        
+        var params = [String : Any]()
+        
+        if currentUserType() == .agent{
+            params["access_token"] = HippoConfig.shared.agentDetail?.fuguToken
+        }else{
+            params["app_secret_key"] = HippoConfig.shared.appSecretKey
+        }
+        
+        params["channel_id"] = channelId
+        params["bot_group_id"] = botId
+        
+        if let overrideCrntBot = overrideCrntBot, overrideCrntBot == true {
+            params["override_bot"] = 1
+        }
+        
+        HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: AgentEndPoints.sendCustomBot.rawValue) { (response, error, _, statusCode) in
+            print(response)
+            if let response = response as? [String: Any], let data = response["data"] as? [String: Any], let inProgress = data["bot_in_progress"] as? Int{
+                completion?(inProgress == 1)
+            }
+        }
+    }
    
 }

@@ -29,6 +29,7 @@ Pod::Spec.new do |s|
     s.resources = ['Hippo/*.xcassets']
     
     s.dependency 'Socket.IO-Client-Swift'
+    s.dependency 'CropViewController'
  
     s.default_subspec = 'Chat'
     
