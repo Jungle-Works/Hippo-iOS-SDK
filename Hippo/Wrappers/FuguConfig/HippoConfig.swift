@@ -32,26 +32,21 @@ enum AgentUserType: Int {
 }
 
 enum PrivateSocketKeys: String {
-    
     case dev = "aTT%qC>i2to<AANI$mdq"
     case live = "q4t7w!z%C*F-J@NcRfUjXn2r5u8x/A?D"
     case beta = "aTbetaT%qC>i2to<AANI"
-    
 }
 
 
 struct SERVERS {
-    
     static let liveUrl = "https://api.hippochat.io/"
     static let liveFaye = "https://event.hippochat.io"//"https://socketv2.hippochat.io/faye"//
-
     
     static let betaUrl = "https://beta-live-api1.fuguchat.com:3001/"
-    static let betaFaye = "https://socket-temp.hippochat.io"
+    static let betaFaye = "https://beta-live-api1.fuguchat.com:3003/"
     
     static let devUrl = ["https://hippo-api-dev1.fuguchat.com:3002/", "https://hippo-api-dev1.fuguchat.com:3003/", "https://hippo-api-dev1.fuguchat.com:3004/"]
     static let devFaye = ["https://hippo-api-dev1.fuguchat.com:3002/", "https://hippo-api-dev1.fuguchat.com:3003/", "https://hippo-api-dev1.fuguchat.com:3004/"]
-    
 }
 
 struct BotAction {
@@ -91,7 +86,22 @@ struct BotAction {
         
         self.rawDict = dict
         
+    }
+}
+
+struct CustomBot{
+    var bot_group_id = Int()
+    var group_name = String()
+    
+    init(dict: [String: Any]) {
         
+        if let bot_group_id = dict["bot_group_id"] as? Int {
+            self.bot_group_id = bot_group_id
+        }
+        
+        if let group_name = dict["group_name"] as? String {
+            self.group_name = group_name
+        }
     }
 }
 
@@ -236,8 +246,6 @@ struct WhatsappWidgetConfig{
         HippoObservers.shared.enable = true
         FuguNetworkHandler.shared.fuguConnectionChangesStartNotifier()
         CallManager.shared.initCallClientIfPresent()
-        
-        
     }
     
     //MARK:- Function to pass Deep link Dic
@@ -356,7 +364,6 @@ struct WhatsappWidgetConfig{
             }
             FuguFlowManager.shared.pushAgentConversationViewController(chatAttributes: attributes)
         }
-        
     }
     
     func getAllStrings(){

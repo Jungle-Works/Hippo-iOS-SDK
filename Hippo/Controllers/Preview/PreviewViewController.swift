@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import CropViewController
 
 class PreviewViewController: UIViewController {
     
@@ -26,11 +26,12 @@ class PreviewViewController: UIViewController {
         }
     }
     @IBOutlet weak var lblDocumentName: UILabel!
+    @IBOutlet weak var btnEdit: UIButton!
     
     //MARK:- Properties
     var image : UIImage?
     var fileType : FileType?
-    var sendBtnTapped : ((String?)->())?
+    var sendBtnTapped : ((String?, UIImage?)->())?
     var path: URL?
     
     override func viewDidLoad() {
@@ -52,6 +53,7 @@ class PreviewViewController: UIViewController {
         }
         
         lblDocumentName.isHidden = !(fileType == .document)
+        btnEdit.isHidden = (fileType == .document)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -62,19 +64,19 @@ class PreviewViewController: UIViewController {
     func drawPDFfromURL(url: URL) -> UIImage? {
         guard let document = CGPDFDocument(url as CFURL) else { return nil }
         guard let page = document.page(at: 1) else { return nil }
-
+        
         let pageRect = page.getBoxRect(.mediaBox)
         let renderer = UIGraphicsImageRenderer(size: pageRect.size)
         let img = renderer.image { ctx in
             UIColor.white.set()
             ctx.fill(pageRect)
-
+            
             ctx.cgContext.translateBy(x: 0.0, y: pageRect.size.height)
             ctx.cgContext.scaleBy(x: 1.0, y: -1.0)
-
+            
             ctx.cgContext.drawPDFPage(page)
         }
-
+        
         return img
     }
     
@@ -88,7 +90,7 @@ extension PreviewViewController : UITextViewDelegate{
 
 extension PreviewViewController{
     @IBAction func action_SendBtn(){
-        sendBtnTapped?(textView_PrivateNotes.text.trimWhiteSpacesAndNewLine())
+        sendBtnTapped?(textView_PrivateNotes.text.trimWhiteSpacesAndNewLine(), self.image)
         action_BackBtn()
     }
     
@@ -96,5 +98,26 @@ extension PreviewViewController{
         self.dismiss(animated: true, completion: nil)
     }
     
+    @IBAction func btnEditTapped(_ sender: Any) {
+        self.presentCropViewController()
+    }
+    
+    func presentCropViewController() {
+        guard let image = image else {return}
+        let cropViewController = CropViewController(image: image)
+        cropViewController.delegate = self
+        cropViewController.modalPresentationStyle = .fullScreen
+        let nav = UINavigationController(rootViewController: cropViewController)
+        present(nav, animated: true, completion: nil)
+    }
+    
 }
 
+extension PreviewViewController : CropViewControllerDelegate{
+    func cropViewController(_ cropViewController: CropViewController, didCropToImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
+        // 'image' is the newly cropped version of the original image
+        self.image = image
+        imageView_Preview.image = image
+        self.dismiss(animated: true, completion: nil)
+    }
+}

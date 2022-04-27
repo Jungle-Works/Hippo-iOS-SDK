@@ -2545,6 +2545,16 @@
                                     <constraint firstAttribute="height" constant="50" id="Spa-TQ-hU8"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EoP-Ja-JXm">
+                                <rect key="frame" x="326.5" y="2" width="48.5" height="46.5"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <inset key="contentEdgeInsets" minX="12" minY="12" maxX="12" maxY="12"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="crop" catalog="system"/>
+                                <connections>
+                                    <action selector="btnEditTapped:" destination="SNG-fS-tyf" eventType="touchUpInside" id="OYb-4s-Y6W"/>
+                                </connections>
+                            </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="aNN-5K-3PM">
                                 <rect key="frame" x="0.0" y="50" width="375" height="567"/>
                             </imageView>
@@ -2613,9 +2623,11 @@
                             <constraint firstAttribute="trailing" secondItem="anl-Fh-7OT" secondAttribute="trailing" id="8WF-MK-EZx"/>
                             <constraint firstItem="aNN-5K-3PM" firstAttribute="leading" secondItem="5Fp-pf-UcW" secondAttribute="leading" id="CfW-Sc-XHI"/>
                             <constraint firstAttribute="bottomMargin" secondItem="Mb5-ns-VFL" secondAttribute="bottom" id="Elj-Gu-grY"/>
+                            <constraint firstItem="EoP-Ja-JXm" firstAttribute="centerY" secondItem="anl-Fh-7OT" secondAttribute="centerY" id="GyD-dW-13a"/>
                             <constraint firstItem="Mb5-ns-VFL" firstAttribute="leading" secondItem="5Fp-pf-UcW" secondAttribute="leading" id="Kt4-lj-ECa"/>
                             <constraint firstAttribute="trailing" secondItem="Mb5-ns-VFL" secondAttribute="trailing" id="QWJ-9m-NQc"/>
                             <constraint firstItem="anl-Fh-7OT" firstAttribute="leading" secondItem="5Fp-pf-UcW" secondAttribute="leading" id="RGi-Xf-Tx7"/>
+                            <constraint firstItem="EoP-Ja-JXm" firstAttribute="trailing" secondItem="anl-Fh-7OT" secondAttribute="trailing" id="Uc0-bD-dYE"/>
                             <constraint firstItem="Mb5-ns-VFL" firstAttribute="top" secondItem="aNN-5K-3PM" secondAttribute="bottom" id="bdC-c2-3aa"/>
                             <constraint firstItem="anl-Fh-7OT" firstAttribute="top" secondItem="NMb-cB-pxT" secondAttribute="bottom" id="bjl-21-8yp"/>
                             <constraint firstItem="vjb-dW-TNh" firstAttribute="leading" secondItem="5Fp-pf-UcW" secondAttribute="leadingMargin" constant="16" id="mih-BX-uy5"/>
@@ -2625,6 +2637,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="btnEdit" destination="EoP-Ja-JXm" id="scc-dS-bJL"/>
                         <outlet property="imageView_Preview" destination="aNN-5K-3PM" id="KRk-KF-ilc"/>
                         <outlet property="label_Placeholder" destination="Mjr-4b-j3H" id="pQF-5e-sCs"/>
                         <outlet property="lblDocumentName" destination="vjb-dW-TNh" id="mV8-IL-eJi"/>
@@ -2644,6 +2657,7 @@
         <image name="cancel_icon" width="16" height="16"/>
         <image name="chat" width="20" height="21"/>
         <image name="close_conversation_icon" width="32" height="32"/>
+        <image name="crop" catalog="system" width="32" height="32"/>
         <image name="download_white" width="21" height="21"/>
         <image name="makePayment" width="45" height="45"/>
         <image name="mic" width="36" height="36"/>

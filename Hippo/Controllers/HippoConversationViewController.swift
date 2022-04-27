@@ -960,8 +960,12 @@ extension HippoConversationViewController: PickerHelperDelegate {
             vc.image = selectedImage
             self.navigationController?.present(vc, animated: true, completion: nil)
             
-            vc.sendBtnTapped = {[weak self](message) in
-                self?.sendConfirmedImage(message: message ,image: selectedImage, mediaType: .imageType)
+            vc.sendBtnTapped = {[weak self](message, img) in
+                var imgToSend = selectedImage
+                if let image = img {
+                    imgToSend = image
+                }
+                self?.sendConfirmedImage(message: message ,image: imgToSend, mediaType: .imageType)
                 HippoConfig.shared.UnhideJitsiView()
             }
             
@@ -1011,7 +1015,7 @@ extension HippoConversationViewController: PickerHelperDelegate {
         vc.path = url
         self.navigationController?.present(vc, animated: true, completion: nil)
         
-        vc.sendBtnTapped = {[weak self](message) in
+        vc.sendBtnTapped = {[weak self](message, _) in
             DispatchQueue.main.async {
                 self?.sendSelectedDocumentWith(messageStr: message ?? "", filePath: url.path, fileName: url.lastPathComponent, messageType: message?.isEmpty ?? true ? .attachment : .normal, fileType: FileType.document)
             }
@@ -1624,9 +1628,8 @@ extension HippoConversationViewController: DocumentTableViewCellDelegate {
             DownloadManager.shared.downloadFileWith(url: fileUrl, name: message.fileName ?? "")
         }
     }
-    
-    
 }
+
 // MARK: - SelfMessageDelegate
 extension HippoConversationViewController: SelfMessageDelegate {
     
@@ -2222,6 +2225,37 @@ extension HippoConversationViewController{
         self.present(navController, animated: true, completion: {
             vc.showViewAnimation()
         })
+    }
+    
+    
+    func sendCustomBotApi(botId : Int, overrideCrntBot: Bool? = false, completion: ((_ inProgress: Bool) -> Void)?){
+        if FuguNetworkHandler.shared.isNetworkConnected == false {
+            checkNetworkConnection()
+            completion?(false)
+            return
+        }
+        
+        var params = [String : Any]()
+        
+        if currentUserType() == .agent{
+            params["access_token"] = HippoConfig.shared.agentDetail?.fuguToken
+        }else{
+            params["app_secret_key"] = HippoConfig.shared.appSecretKey
+        }
+        
+        params["channel_id"] = channelId
+        params["bot_group_id"] = botId
+        
+        if let overrideCrntBot = overrideCrntBot, overrideCrntBot == true {
+            params["override_bot"] = 1
+        }
+        
+        HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: AgentEndPoints.sendCustomBot.rawValue) { (response, error, _, statusCode) in
+            print(response)
+            if let response = response as? [String: Any], let data = response["data"] as? [String: Any], let inProgress = data["bot_in_progress"] as? Int{
+                completion?(inProgress == 1)
+            }
+        }
     }
 }
 
