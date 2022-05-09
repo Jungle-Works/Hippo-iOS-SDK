@@ -48,8 +48,8 @@ static let liveFaye = "https://event.hippochat.io"
 static let betaUrl = "https://beta-live-api1.fuguchat.com:3001/"
 static let betaFaye = "https://beta-live-api1.fuguchat.com:3003"
 
-static let devUrl = "https://hippo-api-dev1.fuguchat.com:3004/"
-static let devFaye = "https://hippo-api-dev1.fuguchat.com:3004"
+static let devUrl = "https://hippo-api-dev1.fuguchat.com:3002/"
+static let devFaye = "https://hippo-api-dev1.fuguchat.com:3002"
 
 }
 
@@ -234,7 +234,8 @@ struct WhatsappWidgetConfig{
     ///turn its value true to show slow internet bar on chat screen
     public var shouldShowSlowInternetBar : Bool?
     
-    
+    var sessionStartTime: Date?
+    var tempChannelId: Int?
     var whatsappWidgetConfig: WhatsappWidgetConfig?
     var isOpenedFromPush : Bool?
     public var newChatCallback: ((Int) -> (Int?, Bool?))?
@@ -539,7 +540,13 @@ struct WhatsappWidgetConfig{
         return navigationController
     }
     
-    
+    public func presentPromotionalPopUp(on viewController: UIViewController, onButtonOneClick: @escaping ([String: Any]) -> Void, onButtonTwoClick: @escaping ([String: Any]) -> Void){
+        HippoUserDetail.getPromotionalPopUpData() { data, rawData  in
+            if let data = data, !(data.data?.isEmpty ?? true), let rawData = rawData {
+                FuguFlowManager.shared.presentOfferPopUp(on: viewController, popUpData: data, rawData: rawData, onButtonOneClick: onButtonOneClick, onButtonTwoClick: onButtonTwoClick)
+            }
+        }
+    }
     
     func presentPrePaymentController(){
         
