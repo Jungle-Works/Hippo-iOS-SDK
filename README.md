@@ -408,6 +408,26 @@ To enable advance stats to update when user click on notification and time user 
 
 # To receive call back on bot button action
 To receive call back on bot button tap with the data add the following code - 
-   HippoConfig.shared.botButtonActionCallBack = { [weak self] (data) in
-   
-}
+    HippoConfig.shared.newChatCallback = { [weak self] totalChats in
+        print("CallBackReceived", totalChats)
+        return(maxChats, closeHippo)
+    }
+--
+Here you have to pass the maxChats you want to enable the user can create, and pass a boolean value to close hippo if the max limit passed will reach, you will receive a callback everytime when user creates a new chat.
+
+
+
+# Setup Custom notification view for changing notification background color or text font
+1. Create notification content extension as described here (https://riptutorial.com/ios/example/32292/creating-a-simple-unnotificationcontentextension)
+2. Go to the info plist file of the extension created and change the value for key - "UNNotificationExtensionCategory" to "ColorNotification"
+3. In the info plist file of the extension add this key - "UNNotificationExtensionDefaultContentHidden" and set it's value "Yes\No", according to your UI preferences 
+4. Go to the view controller associated with the extension and in the function "func didReceive(_ notification: UNNotification)" add this code - 
+
+       "
+        if let notifData = notification.request.content.userInfo as? [String: Any], let customAttr = notifData["custom_attributes"] as? [String: Any], let notiColor = customAttr["notification_color"] as? String, let textColor = customAttr["font_color"] as? String, let text = customAttr["description"] as? String{
+            self.view.backgroundColor = UIColor(notiColor)
+            self.label?.textColor = UIColor(textColor)
+            self.label?.text = notification.request.content.title + "\n" + text
+        }
+        "
+😍 🥳 🤩 Notifications are good to go now use it 😍 🥳 🤩

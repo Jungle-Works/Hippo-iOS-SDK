@@ -106,7 +106,8 @@ class AgentConversationViewController: HippoConversationViewController {
     //    private var timer: Timer?
     //    var lastUnsendMessage:String?
     var original_transaction_id = ""
-    
+    var isFirstLevel: Bool = true
+
     // MARK: - Computed Properties
     var localFilePath: String {
         get {
@@ -313,10 +314,15 @@ class AgentConversationViewController: HippoConversationViewController {
             handleInfoIcon()
             return
         }
+        channelDetail.isFirstLevel = self.isFirstLevel
         
-        guard let vc = AgentChatInfoViewController.get(chatDetail: channelDetail, userImage: self.userImage) else {
+//        guard let vc = AgentChatInfoViewController.get(chatDetail: channelDetail, userImage: self.userImage) else {
+//            return
+//        }
+        guard let vc = ChannelInfoViewController.get(info: channelDetail) else {
             return
         }
+        vc.delegate = self
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -506,7 +512,7 @@ class AgentConversationViewController: HippoConversationViewController {
             return
         }
         
-        guard let vc = AgentChatInfoViewController.get(chatDetail: channelDetail, userImage: userImage) else {
+        guard let vc = AgentChatInfoViewController.get(tags: channelDetail.channelTags, chatDetail: channelDetail, userImage: userImage) else {
             return
         }
         self.navigationController?.pushViewController(vc, animated: true)
@@ -2801,3 +2807,10 @@ extension AgentConversationViewController{
     }
     
 }
+    
+extension AgentConversationViewController: ChatInfoDelegate {
+    func backButtonAction(tagsArray: [TagDetail]) {
+        self.channel?.chatDetail?.channelTags = tagsArray
+    }
+}
+
