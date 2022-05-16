@@ -306,8 +306,6 @@ extension AgentDetail {
                 
                 BussinessProperty.current.eFormEnabled = (Bool.parse(key: "is_eform_enabled", json: businessProperty))
                 
-                BussinessProperty.current.showCustomerChatHistory = Bool.parse(key: "show_customer_chat_history", json: businessProperty, defaultValue: false)
-                
                 BussinessProperty.current.currencyArr = BuisnessCurrency().getCurrenyData(businessProperty["business_currency"] as? [[String : Any]] ?? [[String : Any]]())
                 HippoConfig.shared.jitsiUrl = businessProperty["jitsi_url"] as? String
             }

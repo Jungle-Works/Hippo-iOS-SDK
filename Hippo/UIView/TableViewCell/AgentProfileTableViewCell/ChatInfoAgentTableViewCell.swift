@@ -38,7 +38,6 @@ class ChatInfoAgentTableViewCell: UITableViewCell {
     }
     
     func setFonts(){
-        agentNameLabel.textColor = .black
         agentNameLabel.font = UIFont.regular(ofSize: 18.0)
         assignedToTextLabel.font = UIFont.regular(ofSize: 15.0)
     }

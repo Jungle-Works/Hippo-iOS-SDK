@@ -169,19 +169,6 @@ extension OutgoingImageCell {
                 hideUnhideRetryButton(hide: !chatMessageObject.wasMessageSendingFailed)
             }
             thumbnailImageView.image = UIImage(contentsOfFile: imageFile)
-        }else if let fileURL = chatMessageObject.fileUrl, !fileURL.isEmpty, let url = URL(string: fileURL) {
-            setupIndicatorView(true)
-            hideUnhideRetryButton(hide: true)
-            let placeHolderImage = HippoConfig.shared.theme.placeHolderImage
-            
-            thumbnailImageView.kf.setImage(with: url, placeholder: placeHolderImage,  completionHandler: { [weak self] (_, error, _, _) in
-                self?.retryButton.isHidden = !chatMessageObject.wasMessageSendingFailed
-                self?.setupIndicatorView(false)
-                if error != nil {
-                    self?.setupIndicatorView(true)
-                    self?.retryButton.isHidden = true
-                }
-            })
         } else {
             hideUnhideRetryButton(hide: false)
             self.setupIndicatorView(false)
@@ -190,14 +177,8 @@ extension OutgoingImageCell {
         let timeOfMessage = changeDateToParticularFormat(chatMessageObject.creationDateTime, dateFormat: "h:mm a", showInFormat: true)
         timeLabel.text = "\(timeOfMessage)"
         timeLabel.textColor = HippoConfig.shared.theme.outgoingMsgDateTextColor//UIColor.white
-        
         textView.text = message?.message
-        
-        if (message?.message.isEmpty ?? true) || (message?.type == .imageFile && message?.message.lowercased() == "image"){
-            textView.isHidden = true
-        }else{
-            textView.isHidden = false
-        }
+        textView.isHidden = message?.message ?? "" == "" ? true : false
     }
     
     

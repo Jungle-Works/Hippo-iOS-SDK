@@ -39,7 +39,6 @@ class ChatDetail: NSObject {
     var agentAlreadyAssigned: Bool = false
     
     var disableReply = false
-    var isFirstLevel = true
     
     init(channelID: Int) {
         self.channelId = channelID

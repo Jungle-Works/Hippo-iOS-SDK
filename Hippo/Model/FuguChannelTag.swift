@@ -8,7 +8,7 @@
 
 import Foundation
 
-class TagDetail: NSObject, Copying {
+class TagDetail: NSObject {
     
     var colorCode: String?
     var status: Int?
@@ -16,6 +16,7 @@ class TagDetail: NSObject, Copying {
     var tagName: String?
     var isSelected = false
     var tagType = 1 //1 for normal tag and 2 for grouping tag
+    
 
     init(json: [String: Any]) {
         colorCode = json["color_code"] as? String
@@ -24,7 +25,7 @@ class TagDetail: NSObject, Copying {
         tagName = json["tag_name"] as? String
         tagType = json["tag_type"] as? Int ?? 1
     }
-    required init(original: TagDetail) {
+    init(original: TagDetail) {
         tagId = original.tagId
         tagName = original.tagName
         isSelected = original.isSelected
@@ -60,7 +61,6 @@ class TagDetail: NSObject, Copying {
         }
         return dictArray
     }
-    
     func getDictToStore() -> [String: Any] {
         var json: [String: Any] = [:]
         
@@ -81,85 +81,4 @@ class TagDetail: NSObject, Copying {
         
         return json
     }
-    
-    class func parseTagDetailWithSelected(data: [[String:Any]], sortList: Bool, existingTagsArray: [TagDetail]) -> [TagDetail] {
-        let allTags = parseTagDetail(data: data)
-        
-        var index = -1
-        for each in allTags {
-            index += 1
-            let isPresent = existingTagsArray.contains(where: { (t) -> Bool in
-                t.tagId == each.tagId
-            })
-            guard isPresent else {
-                continue
-            }
-            allTags[index].isSelected = true
-            allTags[index].status = 1
-        }
-        
-        let sortedTags = allTags.sorted { (t1, t2) -> Bool in
-            t1.isSelected && (t2.isSelected == false)
-        }
-        return sortedTags
-    }
-}
-
-extension TagDetail: Storing {
-    func getJsonToStore() -> [String: Any]? {
-        var json: [String: Any] = [:]
-        
-        if let color_code = colorCode {
-            json["color_code"] = color_code
-        }
-        if let status = self.status {
-            json["status"] = status
-        }
-        if let tag_id = tagId {
-            json["tag_id"] = tag_id
-        }
-        if let tag_name = tagName {
-            json["tag_name"] = tag_name
-        }
-        return json
-    }
-}
-
-
-protocol Copying {
-    init(original: Self)
-}
-
-extension Copying {
-    func copy() -> Self {
-        return Self.init(original: self)
-    }
-}
-
-extension Array where Element: Copying {
-    func clone() -> Array {
-        var copiedArray = Array<Element>()
-        for element in self {
-            copiedArray.append(element.copy())
-        }
-        return copiedArray
-    }
-}
-
-
-extension Array where Element: Storing {
-    func getJsonToStore() -> [[String: Any]] {
-        var copiedArray: [[String: Any]] = []
-        for element in self {
-            guard let obj = element.getJsonToStore() else {
-                continue
-            }
-            copiedArray.append(obj)
-        }
-        return copiedArray
-    }
-}
-
-protocol Storing: class {
-    func getJsonToStore() -> [String: Any]?
 }
