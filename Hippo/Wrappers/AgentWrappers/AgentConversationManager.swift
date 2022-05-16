@@ -155,11 +155,11 @@ class AgentConversationManager {
         
     }
     
-    class func getHistoryChats(pageNum: Int, showLoader: Bool = false, completion: @escaping ((_ result: AgentGetConversationFromServerResult) -> ())){
+    class func getHistoryChats(pageNum: Int, showLoader: Bool = false, visitorId: Int, completion: @escaping ((_ result: AgentGetConversationFromServerResult) -> ())){
         var defaultReq:GetConversationRequestParam = .historyDefaultRequest
         defaultReq.pageStart = pageNum
         defaultReq.showLoader = showLoader
-        getHistoryConversations(with: defaultReq, completion: completion)
+        getHistoryConversations(with: defaultReq, visitorId: visitorId, completion: completion)
     }
 
     class func getBotsAction(userId: Int, channelId: Int, handler: @escaping (([BotAction], [CustomBot]?) -> Void)) {
@@ -359,9 +359,9 @@ class AgentConversationManager {
         
     }
     
-    class func getHistoryConversations(with request: GetConversationRequestParam, completion: @escaping ((_ result: AgentGetConversationFromServerResult) -> ())) {
+    class func getHistoryConversations(with request: GetConversationRequestParam, visitorId: Int, completion: @escaping ((_ result: AgentGetConversationFromServerResult) -> ())) {
 
-        guard let params = generateParamForHistory(with: request) else {
+        guard let params = generateParamForHistory(with: request, visitorId: visitorId) else {
             completion(AgentGetConversationFromServerResult(isSuccessful: false, error: HippoError.general, conversations: nil))
             return
         }
@@ -597,17 +597,14 @@ extension AgentConversationManager {
         return dict
     }
     
-    fileprivate static func generateParamForHistory(with request: GetConversationRequestParam) -> [String: Any]? {
+    fileprivate static func generateParamForHistory(with request: GetConversationRequestParam, visitorId: Int) -> [String: Any]? {
         guard var dict = generateDefaultParam(with: request) else {
             return nil
         }
         dict["fetch_all_chats"] = true
         dict["ignore_unread_count"] = 1
         dict["channel_status"] = [ChatStatus.open.rawValue, ChatStatus.close.rawValue]
-        
-        if let agent = HippoConfig.shared.agentDetail {
-           dict["search_user_id"] = agent.id
-        }
+        dict["search_user_id"] = visitorId
         
         return dict
     }

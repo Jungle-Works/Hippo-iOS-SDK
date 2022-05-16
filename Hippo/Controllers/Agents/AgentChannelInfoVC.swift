@@ -85,6 +85,7 @@ extension ChannelInfoViewController{
             return
         }
         vc.navController = self.navigationController
+        vc.visitorId = detail.customerID
         self.chatHistoryController = vc
         self.addChatHistoryView()
     }
