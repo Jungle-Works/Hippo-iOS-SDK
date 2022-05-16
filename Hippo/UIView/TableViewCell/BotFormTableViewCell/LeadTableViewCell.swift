@@ -253,9 +253,10 @@ extension LeadTableViewCell: LeadDataCellDelegate {
     }
     
     func didTapSend(withReply reply: String, cell: LeadDataTableViewCell) {
-        guard let indexPath: IndexPath = self.tableView.indexPath(for: cell) else {
-            return
-        }
+        guard let index = filterFileArray.enumerated().filter({$0.element.isShow}).last.map({ $0.offset }) else { return  }
+        
+//        guard let indexPath: IndexPath = self.tableView.indexPath(for: cell) else { return }
+        let indexPath: IndexPath = IndexPath(row: 0, section: index)
         if cell.paramId == CreateTicketFields.attachments.rawValue && filterFileArray[indexPath.section].attachmentUrl.count == 0 {
             self.enableError(isEnabled: true, cell: cell, text: HippoStrings.requiredField)
             return

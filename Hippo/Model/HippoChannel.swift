@@ -879,6 +879,9 @@ class HippoChannel {
         if let oldMessage = messageReference {
             let result = updateReferenceMessage(oldMessage: oldMessage, newMessage: message)
             if result {
+                if oldMessage.messageId == nil {
+                    oldMessage.messageId = message.messageId
+                }
                 return
             }
         }

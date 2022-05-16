@@ -1713,6 +1713,9 @@ extension AgentConversationViewController: UITableViewDelegate, UITableViewDataS
                         return cell.configureIncomingCell(resetProperties: true, channelId: channel.id, chatMessageObject: message, indexPath: indexPath)
                     }
                 case .normal, .privateNote, .botText:
+                    if (message.fileUrl != nil || (message.isMessageWithImage ?? false) && messageType == .normal) {
+                        return self.getCellForMessageWithAttachment(tableView: tableView, isOutgoingMessage: isOutgoingMsg, message: message, indexPath: indexPath)
+                    }
                     return getNormalMessageTableViewCell(tableView: tableView, isOutgoingMessage: isOutgoingMsg, message: message, indexPath: indexPath)
                 case .call:
                     if isOutgoingMsg {
@@ -2162,6 +2165,79 @@ extension AgentConversationViewController {
     
     func sendReadAllNotification() {
         channel?.send(message: HippoMessage.readAllNotification, completion: {})
+    }
+    
+    func getCellForMessageWithAttachment(tableView: UITableView, isOutgoingMessage: Bool, message: HippoMessage, indexPath: IndexPath) -> UITableViewCell{
+        if message.documentType == .image {
+            if isOutgoingMessage {
+                guard
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingImageCell", for: indexPath) as? OutgoingImageCell
+                else {
+                    let cell = UITableViewCell()
+                    cell.backgroundColor = .clear
+                    return cell
+                }
+                cell.messageLongPressed = {[weak self](message) in
+                    DispatchQueue.main.async {
+                        self?.longPressOnMessage(message: message, indexPath: indexPath)
+                    }
+                }
+                cell.delegate = self
+                cell.configureCellOfOutGoingImageCell(resetProperties: true, chatMessageObject: message, indexPath: indexPath)
+                return cell
+            }else {
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: "IncomingImageCell", for: indexPath) as? IncomingImageCell
+                else {
+                    let cell = UITableViewCell()
+                    cell.backgroundColor = .clear
+                    return cell
+                }
+                cell.delegate = self
+                return cell.configureIncomingCell(resetProperties: true, channelId: channel.id, chatMessageObject: message, indexPath: indexPath)
+            }
+        }else {
+            if isOutgoingMessage {
+                switch message.concreteFileType! {
+                case .video:
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingVideoTableViewCell", for: indexPath) as! OutgoingVideoTableViewCell
+                    cell.messageLongPressed = {[weak self](message) in
+                        DispatchQueue.main.async {
+                            self?.longPressOnMessage(message: message, indexPath: indexPath)
+                        }
+                    }
+                    cell.setCellWith(message: message)
+                    cell.retryDelegate = self
+                    cell.delegate = self
+                    return cell
+                default:
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingDocumentTableViewCell") as! OutgoingDocumentTableViewCell
+                    cell.messageLongPressed = {[weak self](message) in
+                        DispatchQueue.main.async {
+                            self?.longPressOnMessage(message: message, indexPath: indexPath)
+                        }
+                    }
+                    cell.setCellWith(message: message)
+                    cell.actionDelegate = self
+                    cell.delegate = self
+                    cell.nameLabel.isHidden = true
+                    return cell
+                }
+            } else {
+                switch message.concreteFileType! {
+                case .video:
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "IncomingVideoTableViewCell", for: indexPath) as! IncomingVideoTableViewCell
+                    cell.setCellWith(message: message)
+                    cell.delegate = self
+                    return cell
+                default:
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "IncomingDocumentTableViewCell") as! IncomingDocumentTableViewCell
+                    cell.setCellWith(message: message)
+                    cell.actionDelegate = self
+                    cell.nameLabel.isHidden = false
+                    return cell
+                }
+            }
+        }
     }
 }
 

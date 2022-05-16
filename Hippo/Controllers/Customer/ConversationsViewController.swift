@@ -663,21 +663,13 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     }
     
     @IBAction func audiCallButtonClicked(_ sender: Any) {
-        
-    #if canImport(HippoCallClient)
-//        HippoCallClientUrl.shared.channelId = "\(self.channelId)"
-    #endif
-        
+
 //        startAudioCall()
         startAudioCall(transactionId: self.original_transaction_id)
     }
     
     @IBAction func videoButtonClicked(_ sender: Any) {
-        
-    #if canImport(HippoCallClient)
-//        HippoCallClientUrl.shared.channelId = "\(self.channelId)"
-    #endif
-        
+    
 //        startVideoCall()
         startVideoCall(transactionId: self.original_transaction_id)
    }
@@ -2428,6 +2420,9 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                  return cell
                  
              default:
+                 if (message.fileUrl != nil || (message.isMessageWithImage ?? false) && messageType == .normal) {
+                     return self.getCellForMessageWithAttachment(tableView: tableView, isOutgoingMessage: isOutgoingMsg, message: message, indexPath: indexPath)
+                 }
                  return getNormalMessageTableViewCell(tableView: tableView, isOutgoingMessage: isOutgoingMsg, message: message, indexPath: indexPath)
              }
           }
@@ -2514,7 +2509,7 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                     
                     switch messageType {
                     case MessageType.imageFile:
-                        return 288
+                        return (message.message == "" || message.message.lowercased() == "image") ? 288 : UITableView.automaticDimension
                         //                case MessageType.botText:
                         //                    var rowHeight = expectedHeight(OfMessageObject: message)
                         //
@@ -2840,43 +2835,116 @@ extension ConversationsViewController{
 extension ConversationsViewController {
     
     
-   func shouldScrollToBottomInCaseOfSomeoneElseTyping() -> Bool {
-      guard let visibleIndexPaths = tableViewChat.indexPathsForVisibleRows,
-         visibleIndexPaths.count > 0,
-         messagesGroupedByDate.count > 0 else {
+    func shouldScrollToBottomInCaseOfSomeoneElseTyping() -> Bool {
+        guard let visibleIndexPaths = tableViewChat.indexPathsForVisibleRows,
+              visibleIndexPaths.count > 0,
+              messagesGroupedByDate.count > 0 else {
+                  return false
+              }
+        
+        let lastVisibleIndexPath = visibleIndexPaths.last!
+        
+        guard lastVisibleIndexPath.section >= (messagesGroupedByDate.count - 1) else {
             return false
-      }
-      
-      let lastVisibleIndexPath = visibleIndexPaths.last!
-      
-      guard lastVisibleIndexPath.section >= (messagesGroupedByDate.count - 1) else {
+        }
+        
+        if lastVisibleIndexPath.section == (messagesGroupedByDate.count - 1) && lastVisibleIndexPath.row < (messagesGroupedByDate.last!.count - 1) {
             return false
-      }
-      
-      if lastVisibleIndexPath.section == (messagesGroupedByDate.count - 1) && lastVisibleIndexPath.row < (messagesGroupedByDate.last!.count - 1) {
-         return false
-      }
-      
-      return true
-   }
-   
-//   func isSentByMe(senderId: Int) -> Bool {
-//      return getSavedUserId == senderId
-//   }
-   
-   
-   func sendNotificaionAfterReceivingMsg(senderUserId: Int) {
-    if senderUserId != getSavedUserId {
-        sendReadAllNotification()
+        }
+        
+        return true
     }
-   }
-   
-   func sendReadAllNotification() {
-      channel?.send(message: HippoMessage.readAllNotification, completion: {})
     
-    setUpSuggestionsDataAndUI()//
+    //   func isSentByMe(senderId: Int) -> Bool {
+    //      return getSavedUserId == senderId
+    //   }
     
-   }
+    
+    func sendNotificaionAfterReceivingMsg(senderUserId: Int) {
+        if senderUserId != getSavedUserId {
+            sendReadAllNotification()
+        }
+    }
+    
+    func sendReadAllNotification() {
+        channel?.send(message: HippoMessage.readAllNotification, completion: {})
+        
+        setUpSuggestionsDataAndUI()//
+        
+    }
+    
+    func getCellForMessageWithAttachment(tableView: UITableView, isOutgoingMessage: Bool, message: HippoMessage, indexPath: IndexPath) -> UITableViewCell{
+        if message.documentType == .image {
+            if isOutgoingMessage {
+                guard
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingImageCell", for: indexPath) as? OutgoingImageCell
+                else {
+                    let cell = UITableViewCell()
+                    cell.backgroundColor = .clear
+                    return cell
+                }
+                cell.messageLongPressed = {[weak self](message) in
+                    DispatchQueue.main.async {
+                        self?.longPressOnMessage(message: message, indexPath: indexPath)
+                    }
+                }
+                cell.delegate = self
+                cell.configureCellOfOutGoingImageCell(resetProperties: true, chatMessageObject: message, indexPath: indexPath)
+                return cell
+            }else {
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: "IncomingImageCell", for: indexPath) as? IncomingImageCell
+                else {
+                    let cell = UITableViewCell()
+                    cell.backgroundColor = .clear
+                    return cell
+                }
+                cell.delegate = self
+                return cell.configureIncomingCell(resetProperties: true, channelId: channel.id, chatMessageObject: message, indexPath: indexPath)
+            }
+        }else {
+            if isOutgoingMessage {
+                switch message.concreteFileType! {
+                case .video:
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingVideoTableViewCell", for: indexPath) as! OutgoingVideoTableViewCell
+                    cell.messageLongPressed = {[weak self](message) in
+                        DispatchQueue.main.async {
+                            self?.longPressOnMessage(message: message, indexPath: indexPath)
+                        }
+                    }
+                    cell.setCellWith(message: message)
+                    cell.retryDelegate = self
+                    cell.delegate = self
+                    return cell
+                default:
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingDocumentTableViewCell") as! OutgoingDocumentTableViewCell
+                    cell.messageLongPressed = {[weak self](message) in
+                        DispatchQueue.main.async {
+                            self?.longPressOnMessage(message: message, indexPath: indexPath)
+                        }
+                    }
+                    cell.setCellWith(message: message)
+                    cell.actionDelegate = self
+                    cell.delegate = self
+                    cell.nameLabel.isHidden = true
+                    return cell
+                }
+            } else {
+                switch message.concreteFileType! {
+                case .video:
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "IncomingVideoTableViewCell", for: indexPath) as! IncomingVideoTableViewCell
+                    cell.setCellWith(message: message)
+                    cell.delegate = self
+                    return cell
+                default:
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "IncomingDocumentTableViewCell") as! IncomingDocumentTableViewCell
+                    cell.setCellWith(message: message)
+                    cell.actionDelegate = self
+                    cell.nameLabel.isHidden = false
+                    return cell
+                }
+            }
+        }
+    }
 }
 
 // MARK: - UITextViewDelegates

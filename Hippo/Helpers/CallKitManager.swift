@@ -25,11 +25,13 @@ class CallKitManager: NSObject, CXProviderDelegate {
         configuration.maximumCallGroups = 1
         configuration.maximumCallsPerCallGroup = 1
 //        configuration.ringtoneSound = "incoming_call.mp3"
+        configuration.supportsVideo = true
         let provider = CXProvider(configuration: configuration)
         return provider
     }()
     
     private var provider = CallKitManager.provider
+    private var callKitController = CXCallController()
     
     // MARK: - Intializer
     override init() {
@@ -42,6 +44,7 @@ class CallKitManager: NSObject, CXProviderDelegate {
     func reportIncomingCallWith(request: PresentCallRequest, completion: @escaping () -> Void) {
         
         let update = CXCallUpdate()
+        update.remoteHandle = CXHandle(type: .generic, value: request.peer.name)
         update.hasVideo = request.callType == .video ? true : false
         update.supportsDTMF = false
         update.supportsHolding = false
@@ -57,8 +60,28 @@ class CallKitManager: NSObject, CXProviderDelegate {
             }
             completion()
         }
-        
         HippoCallClient.shared.updateProviderInJitsi(with: self.provider)
+    }
+    
+    func startNewOutgoingCall(request: PresentCallRequest, completion: @escaping (Bool) -> Void) {
+        if #available(iOS 12.0, *) {
+            os_log(.error, "OS_HIPPO>>>", "startNewOutgoingCall")
+        }
+        
+        let handle = CXHandle(type: .generic, value: request.peer.name)
+        let startCallAction = CXStartCallAction(call: UUID(uuidString: request.callUuid) ?? UUID(), handle: handle)
+        let transaction = CXTransaction(action: startCallAction)
+        
+        callKitController.request(transaction) { [weak self] (error) in
+            DispatchQueue.main.async {
+                guard error == nil else {
+                    print("Call Kit Error in starting call -> \(error.debugDescription)")
+                    completion(false)
+                    return
+                }
+                completion(true)
+            }
+        }
     }
     
     // MARK: - CXProviderDelegate

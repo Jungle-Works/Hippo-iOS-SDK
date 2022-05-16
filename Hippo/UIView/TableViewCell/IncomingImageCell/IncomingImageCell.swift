@@ -21,6 +21,7 @@ class IncomingImageCell: MessageTableViewCell {
     @IBOutlet weak var topConstraint: NSLayoutConstraint!
     @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var retryButton: UIButton!
+    @IBOutlet weak var textView: UITextView!
     
     // MARK: - Variables
     weak var delegate: ImageCellDelegate?
@@ -130,6 +131,24 @@ extension IncomingImageCell {
                     self?.retryButton.isHidden = false
                 }
             })
+        }  else if let thumbnailUrl = chatMessageObject.fileUrl, !thumbnailUrl.isEmpty, let url = URL(string: thumbnailUrl) {
+            setupIndicatorView(true)
+            let placeHolderImage = HippoConfig.shared.theme.placeHolderImage
+            
+            thumbnailImageView.kf.setImage(with: url, placeholder: placeHolderImage, completionHandler: { [weak self]  (_, error, _, _) in
+                self?.setupIndicatorView(false)
+                if error != nil {
+                    self?.retryButton.isHidden = false
+                }
+            })
+        }
+        
+        textView.text = message?.message
+        
+        if (message?.message.isEmpty ?? true) || (message?.type == .imageFile && message?.message.lowercased() == "image"){
+            textView.isHidden = true
+        }else{
+            textView.isHidden = false
         }
         
         return self

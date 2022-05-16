@@ -27,7 +27,6 @@ class PreviewViewController: UIViewController {
     }
     @IBOutlet weak var lblDocumentName: UILabel!
     @IBOutlet weak var btnEdit: UIButton!
-    @IBOutlet weak var viewText: UIView!
     
     //MARK:- Properties
     var image : UIImage?
@@ -37,9 +36,6 @@ class PreviewViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        textView_PrivateNotes.isHidden = true
-        label_Placeholder.isHidden = true
         
         HippoKeyboardManager.shared.enable = true
         viewNavigation.leftButton.addTarget(self, action: #selector(action_BackBtn), for: .touchUpInside)
