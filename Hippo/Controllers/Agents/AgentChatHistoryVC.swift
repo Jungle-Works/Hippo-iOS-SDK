@@ -18,6 +18,7 @@ class AgentChatHistoryVC: HippoHomeViewController {
     fileprivate var isLoading = false
     var navController: UINavigationController?
     var visitorId: Int = 0
+    var excludedChannelid: [Int] = []
     
     //MARK: Outlets
     @IBOutlet weak var errorLabel: UILabel!
@@ -107,7 +108,7 @@ extension AgentChatHistoryVC {
     func getConversations(isFrstPage: Bool){
         self.isLoading = true
         let page = isFrstPage ? 1 : pageNum+20
-        AgentConversationManager.getHistoryChats(pageNum: page, showLoader: isFrstPage, visitorId: visitorId) { [weak self] (result) in
+        AgentConversationManager.getHistoryChats(pageNum: page, showLoader: isFrstPage, visitorId: visitorId, excludedChannelId: self.excludedChannelid) { [weak self] (result) in
             guard result.isSuccessful else{
                 print(result.error ?? "")
                 self?.refreshControl.endRefreshing()
