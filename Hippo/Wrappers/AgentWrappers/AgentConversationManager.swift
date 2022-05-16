@@ -155,11 +155,11 @@ class AgentConversationManager {
         
     }
     
-    class func getHistoryChats(pageNum: Int, showLoader: Bool = false, visitorId: Int, completion: @escaping ((_ result: AgentGetConversationFromServerResult) -> ())){
+    class func getHistoryChats(pageNum: Int, showLoader: Bool = false, visitorId: Int, excludedChannelId: [Int]? = nil, completion: @escaping ((_ result: AgentGetConversationFromServerResult) -> ())){
         var defaultReq:GetConversationRequestParam = .historyDefaultRequest
         defaultReq.pageStart = pageNum
         defaultReq.showLoader = showLoader
-        getHistoryConversations(with: defaultReq, visitorId: visitorId, completion: completion)
+        getHistoryConversations(with: defaultReq, visitorId: visitorId, excludedChannelId: excludedChannelId, completion: completion)
     }
 
     class func getBotsAction(userId: Int, channelId: Int, handler: @escaping (([BotAction], [CustomBot]?) -> Void)) {
@@ -359,8 +359,8 @@ class AgentConversationManager {
         
     }
     
-    class func getHistoryConversations(with request: GetConversationRequestParam, visitorId: Int, completion: @escaping ((_ result: AgentGetConversationFromServerResult) -> ())) {
-
+    class func getHistoryConversations(with request: GetConversationRequestParam, visitorId: Int, excludedChannelId: [Int]? = nil, completion: @escaping ((_ result: AgentGetConversationFromServerResult) -> ())) {
+        
         guard let params = generateParamForHistory(with: request, visitorId: visitorId) else {
             completion(AgentGetConversationFromServerResult(isSuccessful: false, error: HippoError.general, conversations: nil))
             return
@@ -378,7 +378,16 @@ class AgentConversationManager {
                 completion(result)
                 return
             }
-            completion(result)
+            
+            if let excludedChannelId = excludedChannelId {
+                let conversationArray = result.conversations?.filter({ (c) -> Bool in
+                    guard let channelId = c.channel_id else {  return false }
+                    return !excludedChannelId.contains(channelId)
+                })
+                completion(AgentGetConversationFromServerResult(isSuccessful: result.isSuccessful, error: result.error, conversations: conversationArray) )
+            }else{
+                completion(result)
+            }
         }
     }
     
