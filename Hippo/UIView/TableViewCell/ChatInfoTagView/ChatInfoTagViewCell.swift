@@ -8,21 +8,14 @@
 
 import UIKit
 
-protocol  ChatInfoTagDelegate: class {
-    func addNewTag()
-}
-
 
 class ChatInfoTagViewCell: UITableViewCell {
 
     var tagDetailArray = [TagDetail]()
-    weak var delegate: ChatInfoTagDelegate?
-    
     @IBOutlet weak var collectionViewOutlet: UICollectionView!
     @IBOutlet weak var tagTextLabel: UILabel!    
     @IBOutlet weak var tagViewOutlet: TagListView!
     @IBOutlet weak var heightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var btnAddTag: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -45,9 +38,7 @@ class ChatInfoTagViewCell: UITableViewCell {
         
     }
     
-    @IBAction func addTagsAction(_ sender: UIButton) {
-        delegate?.addNewTag()
-    }
+    
 }
 
 

@@ -49,8 +49,6 @@ class AgentHomeCollectionViewCell: UICollectionViewCell {
             conversationList = ConversationStore.shared.myChats
         case .o2oChat:
             conversationList = ConversationStore.shared.o2oChats
-        case .historyChat:
-            return
          }
         setupCellView()
         self.tableView.reloadData()
@@ -75,11 +73,8 @@ extension AgentHomeCollectionViewCell {
             self.isMoreToLoad = ConversationStore.shared.isMoreMyChatToLoad
         case .o2oChat:
             self.isMoreToLoad = ConversationStore.shared.isMoreo2oChatToLoad
-        case .historyChat:
-            print("history chat")
         }
     }
-    
     func setupCellView() {
         var message = ""
         var enableButton = false

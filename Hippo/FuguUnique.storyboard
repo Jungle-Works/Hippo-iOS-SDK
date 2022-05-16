@@ -2657,7 +2657,7 @@
         <image name="cancel_icon" width="16" height="16"/>
         <image name="chat" width="20" height="21"/>
         <image name="close_conversation_icon" width="32" height="32"/>
-        <image name="crop" catalog="system" width="128" height="116"/>
+        <image name="crop" catalog="system" width="32" height="32"/>
         <image name="download_white" width="21" height="21"/>
         <image name="makePayment" width="45" height="45"/>
         <image name="mic" width="36" height="36"/>

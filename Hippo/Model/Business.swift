@@ -13,7 +13,7 @@ class Business {
     
     var agents: [Agent] = []
 //    var savedReplies: [CannedReply] = []
-    var tags: [TagDetail] = []
+//    var tags: [TagDetail] = []
 //    var channels: [ChannelDetail] = []
 //
 //    var properties = BusinessProperty(loginData: [:])
@@ -40,17 +40,6 @@ class Business {
 //        }
 ////        CacheManager.storeTags(tags: tags)
 ////        CacheManager.storeChannelDetails(tags: channels)
-        if CacheManager.getStoredTagDetail().isEmpty{
-              ChatInfoManager.sharedInstance.getAllTags(showLoader: false, sortList: true, exsitingTagsArray: [TagDetail]()) { (result) in
-                guard let tags = result else {
-                    return
-                }
-                self.tags = tags
-                CacheManager.storeTags(tags: tags)
-            }
-        }else{
-            self.tags = CacheManager.getStoredTagDetail()
-        }
     }
     
     func restoreAllSavedInfo() {
