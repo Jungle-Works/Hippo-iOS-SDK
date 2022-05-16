@@ -17,7 +17,6 @@ class BussinessProperty: NSObject {
     var id : Int?
     var isCallInviteEnabled: Bool?
     var showCustomerChatHistory: Bool?
-    var isAgentToCustomerChatEnable: Bool?
     
     var hideAllChat: Bool? {
          get {
