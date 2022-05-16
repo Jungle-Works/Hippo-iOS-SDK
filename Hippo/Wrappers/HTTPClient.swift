@@ -126,6 +126,8 @@ class HTTPClient {
     @discardableResult
     class func makeConcurrentConnectionWith(method: HttpMethodType, enCodingType: EncodingType = .json, showAlert: Bool = false, showAlertInDefaultCase: Bool = false, showActivityIndicator: Bool = false, para: [String: Any]? = nil, baseUrl: String = HippoConfig.shared.baseUrl, extendedUrl: String, callback: @escaping ServiceResponse) -> URLSessionDataTask? {
         
+        print("Base server url ---------", HippoConfig.shared.baseUrl, "\nsocket url --------", HippoConfig.shared.fayeBaseURLString)
+        
         guard isConnectedToInternet() else {
             let error = NetworkError()
             callback(nil, error, nil, 404)

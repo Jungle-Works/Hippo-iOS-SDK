@@ -306,6 +306,8 @@ extension AgentDetail {
                 
                 BussinessProperty.current.hideAllChat = Bool.parse(key: "hide_all_chat_tab", json: businessProperty)
                 
+                BussinessProperty.current.showCustomerChatHistory = Bool.parse(key: "show_customer_chat_history", json: businessProperty, defaultValue: false)
+                
                 BussinessProperty.current.shouldHideCustomerData = Bool.parse(key: "hide_customer_data", json: businessProperty)
                 
                 BussinessProperty.current.hideo2oChat = !(Bool.parse(key: "o2o_in_dashboard_enabled", json: businessProperty))
