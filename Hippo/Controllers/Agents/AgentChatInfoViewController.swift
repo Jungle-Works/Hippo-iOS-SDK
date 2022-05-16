@@ -22,7 +22,6 @@ struct ChatInfoCell {
 }
 
 enum AgentChatInfoSections: Int, CaseCountable {
-    
     case channelActions = 3
     case chatInfo = 2
     case media = 1
@@ -34,17 +33,20 @@ class AgentChatInfoViewController: UIViewController {
     //MARK: Variables
     var actionArray = [ChatInfoCell]()
     var channelDetail: ChatDetail?
+    var tagsArray = [TagDetail]()
     var userImage : String?
     var botAttributes : [String:Any]?
     var agentChatInfoSections = [AgentChatInfoSections]()
+    var navigationCon: UINavigationController?
+    
     //MARK: Outlets
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var view_NavigationBar: NavigationBar!
+//    @IBOutlet weak var view_NavigationBar: NavigationBar!
     @IBOutlet weak var loaderView: So_UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.setUpView()
+//        self.setUpView()
         getAgentInfo()
         
     }
@@ -54,12 +56,7 @@ class AgentChatInfoViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        
-        self.navigationController?.isNavigationBarHidden = true
-    }
-    
-    @IBAction func backButtonClicked(_ sender: UIButton) {
-        self.navigationController?.popViewController(animated: true)
+        self.navigationCon?.isNavigationBarHidden = true
     }
     
     func getAgentInfo(){
@@ -114,10 +111,11 @@ class AgentChatInfoViewController: UIViewController {
     }
     
     //MARK: Class methods
-    class func get(chatDetail: ChatDetail, userImage : String?) -> AgentChatInfoViewController? {
+    class func get(tags: [TagDetail], chatDetail: ChatDetail, userImage : String?) -> AgentChatInfoViewController? {
 //        let storyboard = UIStoryboard(name: "FuguUnique", bundle: FuguFlowManager.bundle)
         let storyboard = UIStoryboard(name: "AgentSdk", bundle: FuguFlowManager.bundle)
         let vc = storyboard.instantiateViewController(withIdentifier: "AgentChatInfoViewController") as? AgentChatInfoViewController
+        vc?.tagsArray = tags
         vc?.channelDetail = chatDetail
         vc?.userImage = userImage
         return vc
@@ -140,17 +138,18 @@ extension AgentChatInfoViewController {
     }
     
     func setUpView() {
-        view_NavigationBar.title = HippoStrings.info
-        view_NavigationBar.leftButton.addTarget(self, action: #selector(backButtonClicked(_:)), for: .touchUpInside)
-        view_NavigationBar.view.layer.shadowOffset = CGSize(width: 0.0, height: 0.5)
-        view_NavigationBar.view.layer.shadowRadius = 2.0
-        view_NavigationBar.view.layer.shadowOpacity = 0.5
-        view_NavigationBar.view.layer.masksToBounds = false
-        view_NavigationBar.view.layer.shadowPath = UIBezierPath(rect: CGRect(x: 0,
-                                                                        y: view_NavigationBar.bounds.maxY - view_NavigationBar.layer.shadowRadius,
-                                                                        width: view_NavigationBar.bounds.width,
-                                                                        height: view_NavigationBar.layer.shadowRadius)).cgPath
+//        view_NavigationBar.title = HippoStrings.info
+//        view_NavigationBar.leftButton.addTarget(self, action: #selector(backButtonClicked(_:)), for: .touchUpInside)
+//        view_NavigationBar.view.layer.shadowOffset = CGSize(width: 0.0, height: 0.5)
+//        view_NavigationBar.view.layer.shadowRadius = 2.0
+//        view_NavigationBar.view.layer.shadowOpacity = 0.5
+//        view_NavigationBar.view.layer.masksToBounds = false
+//        view_NavigationBar.view.layer.shadowPath = UIBezierPath(rect: CGRect(x: 0,
+//                                                                        y: view_NavigationBar.bounds.maxY - view_NavigationBar.layer.shadowRadius,
+//                                                                        width: view_NavigationBar.bounds.width,
+//                                                                        height: view_NavigationBar.layer.shadowRadius)).cgPath
     }
+    
     func setupTableView() {
         tableView.delegate = self
         tableView.dataSource = self
@@ -182,6 +181,7 @@ extension AgentChatInfoViewController {
         }
         return message
     }
+    
     func channelActionClicked() {
         guard channelDetail != nil else {
             return
@@ -207,7 +207,7 @@ extension AgentChatInfoViewController {
         }
     }
     func updateHomeView(channelId: Int, status: ChatStatus) {
-        guard let controllers = self.navigationController?.viewControllers else {
+        guard let controllers = self.navigationCon?.viewControllers else {
             return
         }
         for each in controllers {
@@ -222,17 +222,17 @@ extension AgentChatInfoViewController {
     }
     
     func popToHomeIfExist() {
-        guard let controllers = self.navigationController?.viewControllers else {
-            self.navigationController?.popToRootViewController(animated: true)
+        guard let controllers = self.navigationCon?.viewControllers else {
+            self.navigationCon?.popToRootViewController(animated: true)
             return
         }
         for each in controllers {
             if each as? HippoHomeViewController != nil {
-                self.navigationController?.popToRootViewController(animated: true)
+                self.navigationCon?.popToRootViewController(animated: true)
                 return
             }
             if let vc = each as? AgentDirectViewController, vc.conversationList.count > 1 {
-                self.navigationController?.popToRootViewController(animated: true)
+                self.navigationCon?.popToRootViewController(animated: true)
                 return
             }
         }
@@ -295,12 +295,13 @@ extension AgentChatInfoViewController: UITableViewDelegate  {
             let storyboard = UIStoryboard(name: "AgentSdk", bundle: FuguFlowManager.bundle)
             if let vc = storyboard.instantiateViewController(withIdentifier: "SharedMediaViewController") as? SharedMediaViewController{
                 vc.channelId = channelDetail?.channelId
-                self.navigationController?.pushViewController(vc, animated: true)
+                self.navigationCon?.pushViewController(vc, animated: true)
             }
         default:
             break
         }
     }
+    
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         return 150
     }
@@ -310,11 +311,11 @@ extension AgentChatInfoViewController: UITableViewDelegate  {
             return
         }
         if let vc = AgentListViewController.get(channelInfo: channelDetail!){
-        self.navigationController?.pushViewController(vc, animated: true)
+            self.navigationCon?.pushViewController(vc, animated: true)
         }
     }
-    
 }
+
 //MARK: TableViewDataSource
 extension AgentChatInfoViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -364,6 +365,8 @@ extension AgentChatInfoViewController: UITableViewDataSource {
             cell.selectionStyle = .none
             cell.textLabel?.font = UIFont.regular(ofSize: 14.0)
             cell.textLabel?.text = HippoStrings.sharedMediaTitle
+            cell.textLabel?.textColor = .black
+            cell.backgroundColor = .white
             return cell
         }
         return UITableViewCell()
@@ -393,7 +396,9 @@ extension AgentChatInfoViewController: UITableViewDataSource {
             return ChatInfoTagViewCell()
         }
         cell.selectionStyle = .none
-        cell.setupCellData(tagsArray: channelDetail!.channelTags)
+        cell.contentView.backgroundColor = .white
+        cell.delegate = self
+        cell.setupCellData(tagsArray: tagsArray)
         return cell
     }
     
@@ -423,4 +428,24 @@ extension AgentChatInfoViewController: UITableViewDataSource {
     
 }
 
+extension AgentChatInfoViewController: ChatInfoTagDelegate {
+    func addNewTag() {
+        guard let info = channelDetail else {
+            return
+        }
+        let vc = AddLabelsViewController.get(channelId: info.channelId, existingTags: tagsArray)
+        vc.delegate = self
+        self.navigationCon?.pushViewController(vc, animated: true)
+    }
+}
 
+extension AgentChatInfoViewController: AddLabelProtocol {
+    func addLabelAction(tagsArray: [TagDetail]) {
+        self.tagsArray = tagsArray
+        self.tableView.reloadData()
+    }
+    
+    func cancelAction() {
+        
+    }
+}

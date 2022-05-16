@@ -11,16 +11,6 @@ import NotificationCenter
 
 class AgentHomeViewController: HippoHomeViewController {
     
-    //MARK: Screen Constants
-    private let maxErrorViewHeight: CGFloat = 25
-    private let minErrorViewHeight: CGFloat = 0
-    private var isInitalLoad = false
-    private let defaultSelectedOption = ConversationType.myChat
-    fileprivate let allChatIndexPath = IndexPath(row: 1, section: 0)
-    fileprivate let myChatIndexPath = IndexPath(row: 0, section: 0)
-    
-    let rows: [ConversationType] = [ConversationType.myChat, ConversationType.allChat]
-    
     //MARK: Varibles
     fileprivate var conversationList = [AgentConversation]()
     fileprivate var conversationType: ConversationType = .myChat
@@ -82,12 +72,7 @@ class AgentHomeViewController: HippoHomeViewController {
         reloadrefreshData(refreshCtrler: UIRefreshControl())
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        isInitalLoad = false
-    }
-    
     func setDataForViewDidAppear(){
-        isInitalLoad = false
         AgentConversationManager.getAllData()
         Business.shared.restoreAllSavedInfo()
         setFilterButtonIcon()
@@ -237,6 +222,8 @@ extension AgentHomeViewController {
         case .o2oChat:
             conversationList = ConversationStore.shared.o2oChats
             break
+        case .historyChat:
+            return
         }
 //        setAgentStatus()
         
@@ -610,6 +597,8 @@ extension AgentHomeViewController: UIScrollViewDelegate {
             self.isMoreToLoad = ConversationStore.shared.isMoreMyChatToLoad
         case .o2oChat:
             self.isMoreToLoad = ConversationStore.shared.isMoreo2oChatToLoad
+        case .historyChat:
+            print("History chat")
         }
     }
     

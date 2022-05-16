@@ -11,20 +11,20 @@ import Foundation
 class CacheManager {
     
 //    //MARK: Tags
-//    class func storeTags(tags: [TagDetail]) {
-//        let list = tags.getJsonToStore()
-//        HippoConfig.folder.set(value: list, forKey: HippoDefaultKeys.tagsList)
-//    }
-//
-//    class func getStoredTagDetail() -> [TagDetail] {
-//        var tags: [TagDetail] = []
-//
-//        guard let json = HippoConfig.folder.object(forKey: HippoDefaultKeys.tagsList) as? [[String: Any]] else {
-//            return tags
-//        }
-//        tags = TagDetail.parseTagDetail(data: json)
-//        return tags
-//    }
+    class func storeTags(tags: [TagDetail]) {
+        let list = tags.getJsonToStore()
+        FuguDefaults.set(value: list, forKey: DefaultKey.tagsList)
+    }
+
+    class func getStoredTagDetail() -> [TagDetail] {
+        var tags: [TagDetail] = []
+
+        guard let json = FuguDefaults.object(forKey: DefaultKey.tagsList) as? [[String: Any]] else {
+            return tags
+        }
+        tags = TagDetail.parseTagDetail(data: json)
+        return tags
+    }
 //
 //    //MARK: Channel Details
 //    class func storeChannelDetails(tags: [ChannelDetail]) {
