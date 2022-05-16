@@ -350,6 +350,7 @@ enum ConversationType {
     case myChat
     case allChat
     case o2oChat
+    case historyChat
 }
 
 enum ButtonType: String {
@@ -443,6 +444,12 @@ enum AgentEndPoints: String {
     case createAndSendPresciption = "api/conversation/createAndSendPrescription"
     case SharedMedia = "api/conversation/getAttachments"
     case sendCustomBot = "api/conversation/addBotToChannel"
+    
+    // MARK:-Tags Endpoints
+    case getAllTags = "api/tags/getTags"
+    case createTags = "api/tags/createTags"
+    case assignTags = "api/tags/assignTagsToChannel"
+    case assignTagsV2 = "api/tags/v2/assignTagsToChannel"
 }
 
 struct MultiLanguageMsg{
