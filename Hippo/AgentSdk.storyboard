@@ -946,7 +946,7 @@
         <!--Filter-->
         <scene sceneID="ow7-Zq-7kO">
             <objects>
-                <viewController storyboardIdentifier="FilterViewController" title="Filter" id="eN3-Ib-xrt" customClass="FilterViewController" customModule="Hippo" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Filter" id="eN3-Ib-xrt" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="scZ-wZ-cUa">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1271,7 +1271,7 @@
         <!--Filter-->
         <scene sceneID="KR7-Lh-02s">
             <objects>
-                <viewController title="Filter" useStoryboardIdentifierAsRestorationIdentifier="YES" id="0j3-SN-c3Z" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SupportChatFilterViewController" title="Filter" useStoryboardIdentifierAsRestorationIdentifier="YES" id="0j3-SN-c3Z" customClass="SupportChatFilterViewController" customModule="Hippo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="T2t-UI-jai">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2154,16 +2154,16 @@
         <!--Filter-->
         <scene sceneID="3eY-cM-ROH">
             <objects>
-                <viewController storyboardIdentifier="SupportChatFilterViewController" title="Filter" id="HAO-zd-zdD" customClass="SupportChatFilterViewController" customModule="Hippo" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FilterViewController" title="Filter" id="HAO-zd-zdD" customClass="FilterViewController" customModule="Hippo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Aud-aH-k25">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sVS-Nr-tWu">
-                                <rect key="frame" x="0.0" y="0.0" width="135" height="622"/>
+                                <rect key="frame" x="0.0" y="0.0" width="135" height="573"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="eCc-VG-2dA">
-                                        <rect key="frame" x="0.0" y="0.0" width="135" height="622"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="135" height="573"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <connections>
@@ -2182,10 +2182,10 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="854-2O-yjB">
-                                <rect key="frame" x="135" y="0.0" width="240" height="622"/>
+                                <rect key="frame" x="135" y="0.0" width="240" height="573"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="SKt-js-ReN">
-                                        <rect key="frame" x="0.0" y="0.0" width="240" height="622"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="240" height="573"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <connections>
@@ -2203,7 +2203,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eVp-TS-9o8">
-                                <rect key="frame" x="0.0" y="622" width="375" height="45"/>
+                                <rect key="frame" x="0.0" y="573" width="375" height="45"/>
                                 <color key="backgroundColor" red="0.1333333333" green="0.58823529409999997" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="cDV-oC-lxZ"/>
@@ -2231,19 +2231,20 @@
                             <constraint firstItem="n8N-YG-Pyh" firstAttribute="trailing" secondItem="eVp-TS-9o8" secondAttribute="trailing" id="she-dH-qeC"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Filter" id="VYa-L8-qRs">
-                        <barButtonItem key="leftBarButtonItem" style="plain" id="kdg-cP-NIX">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="6Ps-6b-5fd">
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Filter" id="GbO-B7-WtE">
+                        <barButtonItem key="leftBarButtonItem" style="plain" id="b3g-N7-epV">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Aom-z7-821">
                                 <rect key="frame" x="16" y="6" width="32" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="cancel_icon"/>
                                 <connections>
-                                    <action selector="button_Dismiss" destination="0j3-SN-c3Z" eventType="touchUpInside" id="OUB-NV-WO0"/>
+                                    <action selector="dismissButtonClicked:" destination="eN3-Ib-xrt" eventType="touchUpInside" id="zzW-6T-pmf"/>
                                 </connections>
                             </button>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="ANS-Rf-w6m">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="YQc-yt-XYe">
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="zfw-ly-qar">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="H8O-WZ-rR6">
                                 <rect key="frame" x="276" y="7" width="83" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -2259,16 +2260,19 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="button_ResetFilter" destination="0j3-SN-c3Z" eventType="touchUpInside" id="Wg9-S0-r96"/>
+                                    <action selector="resetButtonClicked:" destination="eN3-Ib-xrt" eventType="touchUpInside" id="7XE-5w-9uz"/>
                                 </connections>
                             </button>
                         </barButtonItem>
                     </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="applyButton" destination="eVp-TS-9o8" id="J7e-NT-ENa"/>
                         <outlet property="applyButtonBottomConstraint" destination="pgB-r5-DMI" id="7OZ-G9-DWv"/>
                         <outlet property="applyButtonHeightConstraint" destination="cDV-oC-lxZ" id="qeE-1J-sxv"/>
+                        <outlet property="crossButton" destination="Aom-z7-821" id="zfs-xt-ZSc"/>
                         <outlet property="optionsTableView" destination="eCc-VG-2dA" id="0Eb-bY-ZoV"/>
+                        <outlet property="resetButton" destination="H8O-WZ-rR6" id="pPO-rM-8V1"/>
                         <outlet property="resultTableview" destination="SKt-js-ReN" id="LZl-ca-Sv9"/>
                     </connections>
                 </viewController>
