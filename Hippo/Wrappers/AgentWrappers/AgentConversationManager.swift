@@ -100,6 +100,8 @@ class AgentConversationManager {
     
     static var allChatHttpRequest: URLSessionDataTask?
     static var myChatHttpRequest: URLSessionDataTask?
+    static var selectedCustomerObject: SearchCustomerData?
+    static var selectedChannelId = -1
     
     
     static var errorMessage: String?

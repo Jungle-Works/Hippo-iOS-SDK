@@ -310,6 +310,10 @@ extension AgentDetail {
                 
                 BussinessProperty.current.currencyArr = BuisnessCurrency().getCurrenyData(businessProperty["business_currency"] as? [[String : Any]] ?? [[String : Any]]())
                 HippoConfig.shared.jitsiUrl = businessProperty["jitsi_url"] as? String
+                
+                if let enable_agent_customer_chat = businessProperty["enable_agent_customer_chat"] as? String {
+                    BussinessProperty.current.isAgentToCustomerChatEnable = enable_agent_customer_chat == "1"
+                }
             }
             
             BussinessProperty.current.unsupportedMessageString = data["unsupported_message"] as? String ?? ""

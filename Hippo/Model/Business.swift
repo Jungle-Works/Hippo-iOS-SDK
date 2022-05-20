@@ -14,7 +14,7 @@ class Business {
     var agents: [Agent] = []
 //    var savedReplies: [CannedReply] = []
     var tags: [TagDetail] = []
-//    var channels: [ChannelDetail] = []
+    var channels: [ChannelDetail] = []
 //
 //    var properties = BusinessProperty(loginData: [:])
 //    var expiryInfo: ExpiryInfo?
@@ -38,6 +38,13 @@ class Business {
 //        if let channelList = data["channel_filter"] as? [[String: Any]] {
 //            self.channels = ChannelDetail.parselist(jsonList: channelList)
 //        }
+        
+        if CacheManager.getStoredChannelDetail().isEmpty{
+            self.getChannelIds()
+        }else{
+            self.channels = CacheManager.getStoredChannelDetail()
+        }
+        
 ////        CacheManager.storeTags(tags: tags)
 ////        CacheManager.storeChannelDetails(tags: channels)
         if CacheManager.getStoredTagDetail().isEmpty{
@@ -65,8 +72,24 @@ class Business {
 //        self.properties = BusinessProperty(loginData: [:])
 //
 //        self.tags.removeAll()
-//        self.channels.removeAll()
+        self.channels.removeAll()
 //        self.versionInfo = nil
 //        self.constants = BusinessConstants()
+    }
+    
+    func getChannelIds() {
+        guard let agent = HippoConfig.shared.agentDetail else {
+            return
+        }
+         
+        let params: [String : Any] = ["access_token": agent.fuguToken,
+                                      "business_id": agent.businessId]
+         
+        HTTPClient.shared.makeSingletonConnectionWith(method: .GET, identifier: RequestIdenfier.getAllChannelIdentfier, para: params, extendedUrl: AgentEndPoints.getChannelIds.rawValue) { [weak self] responseObject, error, extendedUrl, statusCode in
+            if let response = responseObject as? [String: Any], let kData = response["data"] as? [String: Any], let channels = kData["channels"] as? [[String : Any]], let weakSelf = self {
+                weakSelf.channels = ChannelDetail.parselist(jsonList: channels)
+                CacheManager.storeChannelDetails(tags: weakSelf.channels)
+            }
+        }
     }
 }

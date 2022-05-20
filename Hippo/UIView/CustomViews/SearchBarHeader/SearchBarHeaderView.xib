@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="SearchBarHeaderView" customModule="HippoAgent" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="350" height="60"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WuN-dz-eP4">
+                    <rect key="frame" x="0.0" y="0.0" width="350" height="54"/>
+                    <subviews>
+                        <searchBar clipsSubviews="YES" contentMode="redraw" searchBarStyle="minimal" placeholder="Search here" translatesAutoresizingMaskIntoConstraints="NO" id="08f-a2-SQ5">
+                            <rect key="frame" x="5" y="2" width="340" height="50"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="50" id="5Mm-bQ-aQw"/>
+                            </constraints>
+                            <textInputTraits key="textInputTraits" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
+                        </searchBar>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="08f-a2-SQ5" firstAttribute="top" secondItem="WuN-dz-eP4" secondAttribute="top" constant="2" id="hMx-tU-gdb"/>
+                        <constraint firstAttribute="trailing" secondItem="08f-a2-SQ5" secondAttribute="trailing" constant="5" id="hYo-uE-RDE"/>
+                        <constraint firstAttribute="bottom" secondItem="08f-a2-SQ5" secondAttribute="bottom" constant="2" id="ksb-hQ-mfR"/>
+                        <constraint firstItem="08f-a2-SQ5" firstAttribute="leading" secondItem="WuN-dz-eP4" secondAttribute="leading" constant="5" id="mXe-98-8LH"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <constraints>
+                <constraint firstItem="WuN-dz-eP4" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="ID8-dO-lCF"/>
+                <constraint firstItem="WuN-dz-eP4" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="JTQ-bx-Dde"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="WuN-dz-eP4" secondAttribute="trailing" id="JWb-gs-cxv"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="searchBar" destination="08f-a2-SQ5" id="bvy-h3-EbH"/>
+            </connections>
+            <point key="canvasLocation" x="-8" y="-430"/>
+        </view>
+    </objects>
+</document>

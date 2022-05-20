@@ -20,7 +20,6 @@ class AgentDirectChatAttributes: NSObject {
     private(set) var customChannelName: String?
     
     
-    
     init(otherUserUniqueKey: String, channelName: String?, transactionID: String? = nil) {
         self.otherUserUniqueKey = otherUserUniqueKey.trimWhiteSpacesAndNewLine()
         

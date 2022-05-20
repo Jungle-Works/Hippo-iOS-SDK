@@ -19,6 +19,9 @@ struct RequestIdenfier {
     static let agentLoginIdentifier = "HIPPO_AGENT_LOGIN1_IDENTIFIER"
     static let getCountrycode = "tookanGetCountrycode"
     static let putUser = "Hippo_Put_User"
+    static let getAllChannelIdentfier = "HIPO_GET_ALL_CHANNEL_IDENTIFIER"
+    static let searchPeople = "HIPPO_AGENT_SEARCH_PEOPLE"
+    static let customAttributes = "HIPPO_AGENT_CUSTOM_ATTRIBUTES"
 }
 
 class MessageStore {

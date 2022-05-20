@@ -326,11 +326,8 @@ class HTTPClient {
                         statusCode = httpUrlResponce.statusCode
                     }
                     
-                    send_curl_loop: for url in SERVERS.devUrl{
-                        if HippoConfig.shared.baseUrl == url{
-                            sendCurl(request: request, code: statusCode)
-                            break send_curl_loop
-                        }
+                    if SERVERS.devUrl.contains(HippoConfig.shared.baseUrl){
+                        sendCurl(request: request, code: statusCode)
                     }
                     
                     HippoConfig.shared.log.error("API RESPONSE: ---url: \(urlResponse?.url?.absoluteString ?? "NO URL"), ---data: \(data?.count ?? -1) ---Error: \(error?.localizedDescription ?? "no error")", level: .custom)
