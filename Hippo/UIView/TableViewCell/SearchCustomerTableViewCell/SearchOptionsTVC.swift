@@ -37,11 +37,11 @@ class SearchOptionsTVC: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         
-        lblTitle.textColor = HippoTheme.defaultTheme().headerTextColor
-        bgView.backgroundColor = HippoTheme.defaultTheme().backgroundColor
+        lblTitle.textColor = HippoConfig.shared.theme.conversationListNormalTheme.titleTheme.textColor
+        bgView.backgroundColor = HippoConfig.shared.theme.backgroundColor
         btnDropDown.setTitleColor(.themeColor, for: .normal)
-        btnAdvanceSearch.setTitleColor(HippoTheme.defaultTheme().headerTextColor, for: .normal)
-        btnAdvanceSearch.tintColor = HippoTheme.defaultTheme().headerTextColor
+        btnAdvanceSearch.setTitleColor(HippoConfig.shared.theme.conversationListNormalTheme.titleTheme.textColor, for: .normal)
+        btnAdvanceSearch.tintColor = HippoConfig.shared.theme.conversationListNormalTheme.titleTheme.textColor
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -81,8 +81,8 @@ extension SearchOptionsTVC {
         dropDown = DropDown(anchorView: btnDropDown, dataSource: dataSource)
         dropDown?.selectionBackgroundColor = .veryLightBlue
         dropDown?.selectRow(at: selectedIndex)
-        dropDown?.backgroundColor = HippoTheme.defaultTheme().backgroundColor
-        dropDown?.textColor = HippoTheme.defaultTheme().headerTextColor
+        dropDown?.backgroundColor = HippoConfig.shared.theme.backgroundColor
+        dropDown?.textColor = HippoConfig.shared.theme.conversationListNormalTheme.titleTheme.textColor
         dropDown?.selectedTextColor = .themeColor
         dropDown?.selectionAction = { [unowned self] (index: Int, item: String) in
             print("Selected item: \(item) at index: \(index)")

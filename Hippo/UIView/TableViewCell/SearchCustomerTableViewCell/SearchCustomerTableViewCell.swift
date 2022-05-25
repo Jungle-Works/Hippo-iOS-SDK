@@ -48,8 +48,8 @@ class SearchCustomerTableViewCell: UITableViewCell {
         customerEmail.text = ""
         addChatButton.isHidden = true
         
-        addChatButton.backgroundColor = HippoTheme.defaultTheme().themeTextcolor
-        addChatButton.setTitleColor(HippoTheme.defaultTheme().headerTextColor, for: .normal)
+        addChatButton.backgroundColor = HippoConfig.shared.theme.themeColor
+        addChatButton.setTitleColor(UIColor.white, for: .normal)
 //        profilePicture.image = nil
         
     }

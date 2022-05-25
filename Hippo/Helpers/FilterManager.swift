@@ -57,16 +57,15 @@ class FilterManager: NSObject {
         selectedChannelId = [Int]()
         
         chatStatusArray.append(labelWithId(label: HippoStrings.openChat , id: 1, isSelected: true))
-        chatStatusArray.append(labelWithId(label: HippoStrings.closeChat, id: 2))
-        chatStatusArray.append(labelWithId(label: "Open chats", id: 1))
-        chatStatusArray.append(labelWithId(label: "Closed chats", id: 2))
+        chatStatusArray.append(labelWithId(label: HippoStrings.closeChats, id: 2))
         
         dateList = DateFilterInfo.initalDate()
         
         BussinessProperty.current.isFilterApplied = false
     }
     
-    private func setChatArray(for type: ConversationType) {
+    func setChatArray(for type: ConversationType) {
+        chatTypeArray.removeAll()
         switch type {
         case .allChat:
             chatTypeArray.append(labelWithId(label: "Unassigned", id: 2))
@@ -199,7 +198,7 @@ class FilterManager: NSObject {
     class func getCustomAttr(callback: @escaping ((_ isSuccess: Bool, _ attributes: [SearchCustomAttr]?) -> Void)){
         let params = getParamsForCustomAttributes()
         
-        HTTPClient.shared.makeSingletonConnectionWith(method: .POST, identifier: RequestIdenfier.customAttributes, para: params, extendedUrl: AgentEndPoints.customAttributes.rawValue) { responseObject, error, extendedUrl, statusCode in
+        HTTPClient.shared.makeSingletonConnectionWith(method: .GET, enCodingType: .url, identifier: RequestIdenfier.customAttributes, para: params, extendedUrl: AgentEndPoints.customAttributes.rawValue) { responseObject, error, extendedUrl, statusCode in
             if let _ = error {
                 callback(false, nil)
             } else {

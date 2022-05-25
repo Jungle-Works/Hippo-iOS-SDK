@@ -29,7 +29,7 @@ class ChannelDetail: Copying {
             self.channelName = channelName
             self.searchableString = channelName.lowercased()
         }
-        if let id = json["id"] as? Int{
+        if let id = json["channel_id"] as? Int{
             self.id = id
         }
     }

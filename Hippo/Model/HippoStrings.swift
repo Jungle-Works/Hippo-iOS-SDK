@@ -134,6 +134,7 @@ public class HippoStrings {
     static var newConversation = "New Conversation".localized
     static var actions = "Actions".localized
     static var closeChat = "Close Chat".localized
+    static var closeChats = "Close Chats".localized
     static var attachmentImage = "Attachment: Image".localized
     static var status = "Status".localized
     static var myChats = "My Chats".localized

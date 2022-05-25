@@ -14,6 +14,18 @@ class FilterChannelCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+    
+        cellLabel.textColor = HippoConfig.shared.theme.headerTextColor
+        
+        if let btn = subviews.last as? UIButton{
+            btn.superview?.backgroundColor = .white
+            
+            if let imageVw = btn.subviews.first as? UIImageView, var image = imageVw.image{
+                image = image.withRenderingMode(.alwaysTemplate)
+                imageVw.image = image
+                imageVw.tintColor = HippoConfig.shared.theme.headerTextColor
+            }
+        }
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

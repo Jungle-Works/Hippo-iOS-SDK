@@ -30,7 +30,7 @@ class NoCustomersFoundTableViewCell: UITableViewCell {
     // MARK: Reset properties
     func resetPropertiesOfNoCustomerCell() {
         selectionStyle = .none
-        backgroundColor = .white
+        backgroundColor = HippoConfig.shared.theme.backgroundColor
         noCustomersLabel.text = ""
         
     }

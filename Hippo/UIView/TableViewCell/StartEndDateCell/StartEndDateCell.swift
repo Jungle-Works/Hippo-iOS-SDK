@@ -38,18 +38,31 @@ class StartEndDateCell: UITableViewCell {
     internal func setDateTimePicker() {
         startDatePicker.maximumDate = Date()
         startDatePicker.datePickerMode = .dateAndTime
-        startDatePicker.addTarget(self, action: #selector(startDateChanged(_:)), for: .valueChanged)
-
+        
         endDatePicker.maximumDate = Date()
         endDatePicker.datePickerMode = .dateAndTime
+        
+        if #available(iOS 13.4, *) {
+            startDatePicker.preferredDatePickerStyle = .wheels
+        }
+    
+        if #available(iOS 13.4, *) {
+        endDatePicker.preferredDatePickerStyle = .wheels
+        }
+        
+        startDatePicker.addTarget(self, action: #selector(startDateChanged(_:)), for: .valueChanged)
         endDatePicker.addTarget(self, action: #selector(endDateChanged(_:)), for: .valueChanged)
     }
     internal func setupFields() {
         textFieldTwo.inputView = endDatePicker
         textFieldTwo.placeholder = "Select End Date"
+        textFieldTwo.backgroundColor = HippoConfig.shared.theme.themeColor.withAlphaComponent(0.4)
+        textFieldTwo.textColor = HippoConfig.shared.theme.headerTextColor
         
         textFieldOne.inputView = startDatePicker
         textFieldOne.placeholder = "Select Start Date"
+        textFieldOne.backgroundColor = HippoConfig.shared.theme.themeColor.withAlphaComponent(0.4)
+        textFieldOne.textColor = HippoConfig.shared.theme.headerTextColor
     }
     
     func setupCell(dateInfo: DateFilterInfo) {

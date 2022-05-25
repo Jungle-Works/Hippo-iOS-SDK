@@ -18,6 +18,8 @@ class DateFilterTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
+        radioBtnImageView.tintColor = .themeColor
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -66,7 +68,6 @@ extension DateFilterTableViewCell {
         descriptionLabel.text = dateInfo.description
         
         if dateInfo.isSelected {
-            radioBtnImageView.tintColor = HippoTheme.defaultTheme().themeColor
             radioBtnImageView.image = UIImage(named: "radio_button_active-1", in: FuguFlowManager.bundle, compatibleWith: nil)
             descriptionLabel.font = UIFont.systemFont(ofSize: 15, weight: .semibold)
             titleLabel.font = UIFont.systemFont(ofSize: 17, weight: .semibold)

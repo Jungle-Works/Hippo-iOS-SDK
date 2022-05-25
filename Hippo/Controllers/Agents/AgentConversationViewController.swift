@@ -803,11 +803,16 @@ class AgentConversationViewController: HippoConversationViewController {
         return vc
     }
     
-    
     class func getWith(chatAttributes: AgentDirectChatAttributes) -> AgentConversationViewController {
         let vc = getNewInstance()
         vc.agentDirectChatDetail = chatAttributes
         vc.label = chatAttributes.channelName
+        return vc
+    }
+    
+    class func getWith(conversationObj: SearchCustomerData) -> AgentConversationViewController {
+        let vc = getNewInstance()
+        vc.agentDirectChatDetail = AgentDirectChatAttributes(otherUserUniqueKey: "", channelName: nil, otherUserId: conversationObj.user_id)
         return vc
     }
     

@@ -17,12 +17,19 @@ class RecentSearchedCustomerTableViewCell: UITableViewCell {
     @IBOutlet weak var emailContainer: UIView!
     @IBOutlet weak var emailLabel: UILabel!
     @IBOutlet weak var cancelButton: UIButton!
+    @IBOutlet weak var imgClose: UIImageView!
     
     weak var delegate: RecentSearchedProtocol?
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
         selectionStyle = .none
+        
+        if #available(iOS 13.0, *) {
+            imgClose.image = imgClose.image?.withRenderingMode(.alwaysTemplate)
+            imgClose.tintColor = .white
+        }
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

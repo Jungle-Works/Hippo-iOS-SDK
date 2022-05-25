@@ -2239,7 +2239,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="cancel_icon"/>
                                 <connections>
-                                    <action selector="dismissButtonClicked:" destination="eN3-Ib-xrt" eventType="touchUpInside" id="zzW-6T-pmf"/>
+                                    <action selector="dismissButtonClicked:" destination="HAO-zd-zdD" eventType="touchUpInside" id="uMq-S3-Msq"/>
                                 </connections>
                             </button>
                         </barButtonItem>
@@ -2260,7 +2260,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="resetButtonClicked:" destination="eN3-Ib-xrt" eventType="touchUpInside" id="7XE-5w-9uz"/>
+                                    <action selector="resetButtonClicked:" destination="HAO-zd-zdD" eventType="touchUpInside" id="ZRz-fw-uyC"/>
                                 </connections>
                             </button>
                         </barButtonItem>

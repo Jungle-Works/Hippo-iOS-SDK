@@ -32,12 +32,12 @@ class Business {
 //        if let rawVersion = data["version"] as? [String: Any], !rawVersion.isEmpty {
 //            self.versionInfo = VersionInfo(json: rawVersion)
 //        }
-//        if let tagList = data["tags"] as? [[String: Any]] {
-//            self.tags = TagDetail.parseTagDetail(data: tagList)
-//        }
-//        if let channelList = data["channel_filter"] as? [[String: Any]] {
-//            self.channels = ChannelDetail.parselist(jsonList: channelList)
-//        }
+        if let tagList = data["tags"] as? [[String: Any]] {
+            self.tags = TagDetail.parseTagDetail(data: tagList)
+        }
+        if let channelList = data["channel_filter"] as? [[String: Any]] {
+            self.channels = ChannelDetail.parselist(jsonList: channelList)
+        }
         
         if CacheManager.getStoredChannelDetail().isEmpty{
             self.getChannelIds()
@@ -61,7 +61,15 @@ class Business {
     }
     
     func restoreAllSavedInfo() {
-        agents = CacheManager.getStoredAgents()
+        let agents = CacheManager.getStoredAgents()
+        if agents.isEmpty{
+            AgentConversationManager.getAgentsList { [weak self] result in
+                self?.agents = CacheManager.getStoredAgents()
+            }
+        }else{
+            self.agents = agents
+        }
+        
 //        savedReplies = CacheManager.getStoredCannedReply()
     }
     
@@ -85,7 +93,7 @@ class Business {
         let params: [String : Any] = ["access_token": agent.fuguToken,
                                       "business_id": agent.businessId]
          
-        HTTPClient.shared.makeSingletonConnectionWith(method: .GET, identifier: RequestIdenfier.getAllChannelIdentfier, para: params, extendedUrl: AgentEndPoints.getChannelIds.rawValue) { [weak self] responseObject, error, extendedUrl, statusCode in
+        HTTPClient.shared.makeSingletonConnectionWith(method: .POST, identifier: RequestIdenfier.getAllChannelIdentfier, para: params, extendedUrl: AgentEndPoints.getChannelIds.rawValue) { [weak self] responseObject, error, extendedUrl, statusCode in
             if let response = responseObject as? [String: Any], let kData = response["data"] as? [String: Any], let channels = kData["channels"] as? [[String : Any]], let weakSelf = self {
                 weakSelf.channels = ChannelDetail.parselist(jsonList: channels)
                 CacheManager.storeChannelDetails(tags: weakSelf.channels)

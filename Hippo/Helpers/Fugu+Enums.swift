@@ -444,9 +444,9 @@ enum AgentEndPoints: String {
     case createAndSendPresciption = "api/conversation/createAndSendPrescription"
     case SharedMedia = "api/conversation/getAttachments"
     case sendCustomBot = "api/conversation/addBotToChannel"
-    case getChannelIds = "/api/channel/getChannels"
-    case search = "/api/v2/conversation/search"
-    case customAttributes = "/api/business/getCustomAttributes"
+    case getChannelIds = "api/channel/getChannels"
+    case search = "api/v2/conversation/search"
+    case customAttributes = "api/business/getCustomAttributes"
     
     // MARK:-Tags Endpoints
     case getAllTags = "api/tags/getTags"

@@ -32,14 +32,15 @@ class SearchBarHeaderView: UIView {
     }
     
     func setTheme() {
-        let theme = HippoTheme.defaultTheme()
+        let theme = HippoConfig.shared.theme
         self.backgroundColor = theme.backgroundColor
-        searchBar.backgroundColor = theme.searchBarBackgroundColor
+        searchBar.backgroundColor = theme.backgroundColor//theme.searchBarBackgroundColor
         searchBar.tintColor = theme.searchBarBackgroundColor
         searchBar.barTintColor = theme.searchBarBackgroundColor
         
         let textFieldInsideSearchBar = searchBar.value(forKey: "searchField") as? UITextField
         textFieldInsideSearchBar?.textColor = theme.headerTextColor
+        textFieldInsideSearchBar?.tintColor = theme.headerTextColor
     }
 }
 

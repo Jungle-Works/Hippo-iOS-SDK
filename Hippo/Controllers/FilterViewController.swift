@@ -71,6 +71,7 @@ class FilterViewController: UIViewController {
     var currentSelectedConvoType: ConversationType = .allChat
     
     var timer: Timer?
+    weak var homeController: AgentHomeViewController?
     
     //MARK: Outlets
     @IBOutlet weak var applyButtonHeightConstraint: NSLayoutConstraint!
@@ -158,14 +159,9 @@ class FilterViewController: UIViewController {
     }
     
     private func createNewConvo(selectedCustomerData: SearchCustomerData) {
-
-        let keyWindow = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
-
-        guard let navigationController = keyWindow?.rootViewController as? UINavigationController, let homeViewController = navigationController.isControllerExist(controller: AgentHomeViewController.self) as? AgentHomeViewController
-            else {
-                return
+        if let homeController = homeController {
+            homeController.moveToConversationWith(selectedCustomerData)
         }
-//        homeViewController.moveToConversationWith(selectedCustomerData)
     }
     
     fileprivate func selectOptionCell() {
@@ -190,6 +186,7 @@ class FilterViewController: UIViewController {
     }
     
     private func setData() {
+        FilterManager.shared.setChatArray(for: self.currentSelectedConvoType)
         chatTypeList = FilterManager.shared.chatTypeArray
         dateList = DateFilterInfo.cloneArray(list: FilterManager.shared.dateList)
         selectedDate = FilterManager.shared.selectedDate?.clone()
@@ -234,29 +231,16 @@ class FilterViewController: UIViewController {
         }
                 
         resetButton.setTitleColor(HippoConfig.shared.theme.titleColorOfFilterResetButton, for: .normal)
-        resetButton.backgroundColor = HippoConfig.shared.theme.backgroundColorOfFilterResetButton
-//        resetButton.font = UIFont.regular(ofSize: 15.0)
+        resetButton.backgroundColor = HippoConfig.shared.theme.themeColor
         resetButton.titleLabel?.font = UIFont.regular(ofSize: 15.0)
         resetButton.setTitle(HippoStrings.reset, for: .normal)
-//        applyButton.clipsToBounds = true
         
-//        let group = theme.primaryButtonGroup
-        let group = theme.actionableMessageButtonColor
-        
-//        applyButton.setTheme(type: [.fill(group: group), .text(group: group)])
-//        applyButton.backgroundColor = theme.themeColor
-        
-//        applyButton.backgroundColor = theme.themeColor
-//        applyButton.setTitleColor(theme.themeTextcolor, for: .normal)
-        applyButton.backgroundColor = theme.backgroundColorOfFilterApplyButton
-        applyButton.setTitleColor(theme.titleColorOfFilterApplyButton, for: .normal)
-//        applyButton.font = UIFont.regular(ofSize: 15.0)
+        applyButton.backgroundColor = HippoConfig.shared.theme.themeColor
+        applyButton.setTitleColor(HippoConfig.shared.theme.titleColorOfFilterResetButton, for: .normal)
         applyButton.titleLabel?.font = UIFont.regular(ofSize: 15.0)
         applyButton.setTitle(HippoStrings.apply, for: .normal)
         
         setTheme()
-//        applyButton.backgroundColor = HippoTheme.current.themeColor
-//        applyButton.setTitleColor(HippoTheme.current.headerTextColor, for: .normal)
     }
     
     func setTheme() {
@@ -305,19 +289,12 @@ class FilterViewController: UIViewController {
             FilterManager.shared.dateList = dateList
             FilterManager.shared.selectedDate = selectedDate
 
-            reloadConversationData()
         }
     }
     
     private func reloadConversationData(showLoader: Bool = true) {
-        let keyWindow = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
-
-        guard let navigationController = keyWindow?.rootViewController as? UINavigationController, let homeViewController = navigationController.isControllerExist(controller: AgentHomeViewController.self) as? AgentHomeViewController
-            else {
-                return
-        }
-        
-        homeViewController.callApi()
+        self.filterScreenButtonsDelegate?.applyButtonPressed()
+        BussinessProperty.current.isFilterApplied = true
     }
     
     private func updateDataOnDidSelect() {
@@ -448,7 +425,6 @@ extension FilterViewController: UITableViewDelegate {
             case .status, .chatType, .date:
                 return 10
             }
-            return 10
         }
     }
     
@@ -538,8 +514,6 @@ extension FilterViewController: UITableViewDataSource {
             default:
                 return UITableView.automaticDimension
             }
-            
-            return UITableView.automaticDimension
         }
     }
     
