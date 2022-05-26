@@ -1955,7 +1955,7 @@ extension HippoConversationViewController: PaymentMessageCellDelegate {
     }
     
     func initatePayment(for razorPayDic: RazorPayData) {
-        
+        FuguFlowManager.shared.presentRazorPayVc(with: razorPayDic)
     }
     
     func generatePaymentUrl(for message: HippoMessage, card: HippoCard, selectedPaymentGateway: PaymentGateway?) {

@@ -272,6 +272,16 @@ class FuguFlowManager: NSObject {
         visibleController?.present(navVC, animated: true, completion: nil)  
     }
     
+    func presentRazorPayVc(with options: RazorPayData){
+        let vc = RazorPayVC()
+        vc.paymentDict = options
+        let navVC = UINavigationController(rootViewController: vc)
+        navVC.setNavigationBarHidden(true, animated: false)
+        let visibleController = getLastVisibleController()
+        navVC.modalPresentationStyle = .fullScreen
+        visibleController?.present(navVC, animated: true, completion: nil)
+    }
+    
     func toShowInAppNotification(userInfo: [String: Any]) -> Bool {
         if validateFuguCredential() == false {
             return false

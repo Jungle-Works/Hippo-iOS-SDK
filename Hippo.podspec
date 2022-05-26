@@ -30,6 +30,7 @@
     
     s.dependency 'Socket.IO-Client-Swift'
     s.dependency 'CropViewController'
+    s.dependency 'razorpay-pod'
     
     s.default_subspec = 'Chat'
     

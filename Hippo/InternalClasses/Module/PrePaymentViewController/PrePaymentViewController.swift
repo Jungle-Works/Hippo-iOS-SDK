@@ -13,7 +13,6 @@ class PrePaymentViewController: UIViewController {
     
     @IBOutlet weak var navigationBar : NavigationBar!
     
-    
     var webView: WKWebView!
     var config: WebViewConfig!
     var isComingForPayment = false

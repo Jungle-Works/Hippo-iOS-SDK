@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Razorpay
 
 class UnreadCountInteracter {
     
@@ -18,7 +19,7 @@ public typealias PrePaymentCompletion = ((_ response: HippoError?) -> ())
 
 
 class PrePayment{
-  
+    
     class func callPrePaymentApi(paymentGatewayId : Int, paymentType : Int?, prePaymentDic: [String : Any], completion: @escaping ((_ result: HippoError?) -> Void)) {
          
         let params = PrePayment.getPrePaymentParams(paymentGatewayId,paymentType, prePaymentDic)
@@ -38,7 +39,7 @@ class PrePayment{
             }
             let razorPayDic = RazorPayData().getRazorPayDic(data["payment_url"] as? [String : Any] ?? [String : Any]()) ?? RazorPayData()
             if razorPayDic.amount != nil{
-    
+                FuguFlowManager.shared.presentRazorPayVc(with: razorPayDic)
                 return
             }else{
                 let channelId = data["channel_id"] as? Int
@@ -77,7 +78,6 @@ class PrePayment{
         }
         return json
     }
-    
 }
 
 

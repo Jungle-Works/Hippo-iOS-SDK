@@ -382,7 +382,7 @@ extension PaymentStore {
     
 }
 
-struct RazorPayData{
+struct RazorPayData: Encodable{
     var amount : Double?
     var referenceId : String?
     var orderId : String?
@@ -409,5 +409,20 @@ struct RazorPayData{
         this.name = String.parse(values: dic, key: "name")
         return this
     }
+    
+    func getRaw(from obj: RazorPayData) -> [String: Any]{
+        let dict = obj.dictionary
+        if let dict = dict{
+            return dict
+        }else{
+            return [:]
+        }
+    }
+}
 
+extension Encodable {
+  var dictionary: [String: Any]? {
+    guard let data = try? JSONEncoder().encode(self) else { return nil }
+    return (try? JSONSerialization.jsonObject(with: data, options: .allowFragments)).flatMap { $0 as? [String: Any] }
+  }
 }

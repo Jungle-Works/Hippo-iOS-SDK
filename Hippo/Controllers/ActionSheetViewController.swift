@@ -17,7 +17,6 @@ class ActionSheetViewController: UIViewController {
     @IBOutlet var optionContaintView: UIView!
     @IBOutlet var optionTableView: UITableView!
     
-   
     enum ActionType: Int {
         case none = 0
         case emoji
@@ -43,7 +42,6 @@ class ActionSheetViewController: UIViewController {
         bgView.isHidden = true
         optionContaintView.isHidden = true
         optionViewHeightContraint.constant = 0
-    
     }
     
 
