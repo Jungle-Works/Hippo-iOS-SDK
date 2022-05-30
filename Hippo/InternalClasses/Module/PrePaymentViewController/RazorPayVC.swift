@@ -16,7 +16,7 @@ class RazorPayVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        razorpay = RazorpayCheckout.initWithKey("rzp_live_66QvUFIhCnUZ06", andDelegate: self)
+        razorpay = RazorpayCheckout.initWithKey(paymentDict.apiKey ?? "", andDelegate: self)
     }
     
     
@@ -48,7 +48,7 @@ class RazorPayVC: UIViewController {
             "email": HippoConfig.shared.userDetail?.email ?? ""
         ]
         options["theme"] = [
-            "color": HippoConfig.shared.theme.themeColor.toHexString()
+            "color": HippoConfig.shared.theme.themeColor.hippoToHexString()
         ]
         
         razorpay.open(options, displayController: self)
