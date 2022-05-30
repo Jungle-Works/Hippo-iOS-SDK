@@ -152,6 +152,8 @@ class AgentHomeViewController: HippoHomeViewController {
 //        self.present(navVC, animated: true, completion: nil)
         if let vc = FilterViewController.getNewInstance(){
             vc.filterScreenButtonsDelegate = self
+            vc.currentSelectedConvoType = self.conversationType
+            vc.homeController = self
             let navVC = UINavigationController(rootViewController: vc)
 //        navVC.setupCustomThemeOnNavigationController(hideNavigationBar: false)
 //            navVC.modalPresentationStyle = .overFullScreen
@@ -775,6 +777,12 @@ extension AgentHomeViewController: AgentHomeCollectionViewCellDelegate {
     
     func moveToConversationWith(_ conversationObject: AgentConversation) {
         let vc = AgentConversationViewController.getWith(conversationObj: conversationObject)
+        vc.agentConversationDelegate = self
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func moveToConversationWith(_ conversationData: SearchCustomerData){
+        let vc = AgentConversationViewController.getWith(conversationObj: conversationData)
         vc.agentConversationDelegate = self
         self.navigationController?.pushViewController(vc, animated: true)
     }

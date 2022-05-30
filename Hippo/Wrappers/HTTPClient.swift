@@ -75,13 +75,13 @@ class HTTPClient {
         singletonDataTask[identifier] = nil
     }
     
-    func makeSingletonConnectionWith(method: HttpMethodType, identifier: String, showAlert: Bool = true, showAlertInDefaultCase: Bool = true, showActivityIndicator: Bool = true, para: [String: Any]? = nil, baseUrl: String = HippoConfig.shared.baseUrl, extendedUrl: String, callback: @escaping ServiceResponse) {
+    func makeSingletonConnectionWith(method: HttpMethodType, enCodingType: EncodingType = .json, identifier: String, showAlert: Bool = true, showAlertInDefaultCase: Bool = true, showActivityIndicator: Bool = true, para: [String: Any]? = nil, baseUrl: String = HippoConfig.shared.baseUrl, extendedUrl: String, callback: @escaping ServiceResponse) {
         
         if let tempDataTask = singletonDataTask[identifier] {
             tempDataTask?.cancel()
         }
         
-        let newDataRequest = HTTPClient.makeConcurrentConnectionWith(method: method, showAlert: showAlert, showAlertInDefaultCase: showAlertInDefaultCase, showActivityIndicator: showActivityIndicator, para: para, baseUrl: baseUrl, extendedUrl: extendedUrl, callback: callback)
+        let newDataRequest = HTTPClient.makeConcurrentConnectionWith(method: method, enCodingType: enCodingType, showAlert: showAlert, showAlertInDefaultCase: showAlertInDefaultCase, showActivityIndicator: showActivityIndicator, para: para, baseUrl: baseUrl, extendedUrl: extendedUrl, callback: callback)
         singletonDataTask[identifier] = newDataRequest
     }
     
@@ -326,11 +326,8 @@ class HTTPClient {
                         statusCode = httpUrlResponce.statusCode
                     }
                     
-                    send_curl_loop: for url in SERVERS.devUrl{
-                        if HippoConfig.shared.baseUrl == url{
-                            sendCurl(request: request, code: statusCode)
-                            break send_curl_loop
-                        }
+                    if SERVERS.devUrl.contains(HippoConfig.shared.baseUrl){
+                        sendCurl(request: request, code: statusCode)
                     }
                     
                     HippoConfig.shared.log.error("API RESPONSE: ---url: \(urlResponse?.url?.absoluteString ?? "NO URL"), ---data: \(data?.count ?? -1) ---Error: \(error?.localizedDescription ?? "no error")", level: .custom)

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -19,7 +19,7 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jBw-0M-WrS" userLabel="MainContainer">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fVT-lp-eMf">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkbox_inactive_icon" translatesAutoresizingMaskIntoConstraints="NO" id="fVT-lp-eMf">
                                 <rect key="frame" x="20" y="9.5" width="24" height="24"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="fVT-lp-eMf" secondAttribute="height" multiplier="1:1" id="ClS-3V-ENc"/>
@@ -39,10 +39,8 @@
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="9lb-b9-U2y" secondAttribute="trailing" constant="20" id="6nZ-26-BmU"/>
                             <constraint firstItem="fVT-lp-eMf" firstAttribute="leading" secondItem="jBw-0M-WrS" secondAttribute="leading" constant="20" id="FjN-hd-2Ch"/>
                             <constraint firstItem="9lb-b9-U2y" firstAttribute="top" relation="greaterThanOrEqual" secondItem="jBw-0M-WrS" secondAttribute="top" constant="5" id="KdJ-c0-D0v"/>
-                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="fVT-lp-eMf" secondAttribute="bottom" constant="5" id="WXB-4y-UDA"/>
                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="9lb-b9-U2y" secondAttribute="bottom" constant="5" id="cLn-yC-B17"/>
                             <constraint firstItem="fVT-lp-eMf" firstAttribute="centerY" secondItem="jBw-0M-WrS" secondAttribute="centerY" id="jVs-JM-Uvr"/>
-                            <constraint firstItem="fVT-lp-eMf" firstAttribute="top" relation="greaterThanOrEqual" secondItem="jBw-0M-WrS" secondAttribute="top" constant="5" id="luy-Xv-iL6"/>
                             <constraint firstItem="9lb-b9-U2y" firstAttribute="leading" secondItem="fVT-lp-eMf" secondAttribute="trailing" constant="10" id="ohR-2O-zpW"/>
                         </constraints>
                     </view>
@@ -75,4 +73,7 @@
             <point key="canvasLocation" x="139" y="117"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="checkbox_inactive_icon" width="27" height="26"/>
+    </resources>
 </document>
