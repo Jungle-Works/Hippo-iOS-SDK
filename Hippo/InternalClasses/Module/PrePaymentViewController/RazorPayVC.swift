@@ -44,8 +44,8 @@ class RazorPayVC: UIViewController {
         //        ]
         var options = RazorPayData().getRaw(from: paymentDict)
         options["prefill"] = [
-            "contact": HippoConfig.shared.userDetail?.phoneNumber ?? "",
-            "email": HippoConfig.shared.userDetail?.email ?? ""
+            "contact": paymentDict.phone ?? HippoConfig.shared.userDetail?.phoneNumber ?? "",
+            "email": paymentDict.email ?? HippoConfig.shared.userDetail?.email ?? ""
         ]
         options["theme"] = [
             "color": HippoConfig.shared.theme.themeColor.hippoToHexString()

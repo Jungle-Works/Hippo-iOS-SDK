@@ -290,16 +290,16 @@ extension PaymentStore {
             }
         }
         if !(canEditPlan ?? false){
-           sendPayment(completion: completion)
+            sendPayment(completion: completion)
         }
     }
     
     
     func sendPayment(completion: @escaping ((_ success: Bool, _ error: Error?) -> ())) {
-//        guard let accessToken = PersonInfo.getAccessToken(), let channelId = self.channelId else {
-//            completion(false, nil)
-//            return
-//        }
+        //        guard let accessToken = PersonInfo.getAccessToken(), let channelId = self.channelId else {
+        //            completion(false, nil)
+        //            return
+        //        }
         guard let accessToken = HippoConfig.shared.agentDetail?.fuguToken, let channelId = self.channelId else {
             completion(false, nil)
             return
@@ -311,24 +311,24 @@ extension PaymentStore {
         let items = getItems()
         param["items"] = items
         
-//        if items.count > 1 {
-//            param["is_message_only"] = 1
-//        }
+        //        if items.count > 1 {
+        //            param["is_message_only"] = 1
+        //        }
         param["is_message_only"] = 1
         
-//        HTTPRequest(method: .post, path: EndPoints.sendPayment, parameters: param, encoding: .json, files: nil)
-//            .config(isIndicatorEnable: true, isAlertEnable: true)
-//            .handler { (response) in
-//                completion(response.isSuccess, nil)
-//        }
+        //        HTTPRequest(method: .post, path: EndPoints.sendPayment, parameters: param, encoding: .json, files: nil)
+        //            .config(isIndicatorEnable: true, isAlertEnable: true)
+        //            .handler { (response) in
+        //                completion(response.isSuccess, nil)
+        //        }
         
         HTTPClient.makeConcurrentConnectionWith(method: .POST, para: param, extendedUrl: AgentEndPoints.sendPayment.rawValue) { (response, error, _, statusCode) in
             
             guard let responseDict = response as? [String: Any],
-                let statusCode = responseDict["statusCode"] as? Int, statusCode == 200 else {
-                    HippoConfig.shared.log.debug("API_SendPayment ERROR.....\(error?.localizedDescription ?? "")", level: .error)
-                    completion(false, error)
-                    return
+                  let statusCode = responseDict["statusCode"] as? Int, statusCode == 200 else {
+                HippoConfig.shared.log.debug("API_SendPayment ERROR.....\(error?.localizedDescription ?? "")", level: .error)
+                completion(false, error)
+                return
             }
             completion(true, nil)
         }
@@ -336,10 +336,10 @@ extension PaymentStore {
     }
     
     func addPaymentPlan(completion: @escaping ((_ success: Bool, _ error: Error?) -> ())) {
-//        guard let accessToken = PersonInfo.getAccessToken() else {
-//            completion(false, nil)
-//            return
-//        }
+        //        guard let accessToken = PersonInfo.getAccessToken() else {
+        //            completion(false, nil)
+        //            return
+        //        }
         guard let accessToken = HippoConfig.shared.agentDetail?.fuguToken else {
             completion(false, nil)
             return
@@ -358,21 +358,21 @@ extension PaymentStore {
         let items = getItems(withTransactionId: false)
         param["plans"] = items
         
-//        Helper.log.debug("Parama == \(param)", level: .request)
+        //        Helper.log.debug("Parama == \(param)", level: .request)
         HippoConfig.shared.log.debug("Parama == \(param)", level: .request)
         
-//        HTTPRequest.init(method: .post, path: EndPoints.editPaymentPlans, parameters: param, encoding: .json, files: nil)
-//            .config(isIndicatorEnable: true, isAlertEnable: true)
-//            .handler { (response) in
-//                //                print(response)
-//                completion(response.isSuccess, nil)
-//        }
+        //        HTTPRequest.init(method: .post, path: EndPoints.editPaymentPlans, parameters: param, encoding: .json, files: nil)
+        //            .config(isIndicatorEnable: true, isAlertEnable: true)
+        //            .handler { (response) in
+        //                //                print(response)
+        //                completion(response.isSuccess, nil)
+        //        }
         HTTPClient.makeConcurrentConnectionWith(method: .POST, para: param, extendedUrl: AgentEndPoints.editPaymentPlans.rawValue) { (response, error, _, statusCode) in
             guard let responseDict = response as? [String: Any],
-                let statusCode = responseDict["statusCode"] as? Int, statusCode == 200 else {
-                    HippoConfig.shared.log.debug("API_EditPaymentPlans ERROR.....\(error?.localizedDescription ?? "")", level: .error)
-                    completion(false, error)
-                    return
+                  let statusCode = responseDict["statusCode"] as? Int, statusCode == 200 else {
+                HippoConfig.shared.log.debug("API_EditPaymentPlans ERROR.....\(error?.localizedDescription ?? "")", level: .error)
+                completion(false, error)
+                return
             }
             completion(true, nil)
         }
@@ -393,7 +393,7 @@ struct RazorPayData: Encodable{
     var email : String?
     var phone : String?
     var name : String?
-
+    
     
     func getRazorPayDic(_ dic : [String : Any]) -> RazorPayData?{
         var this = RazorPayData()
@@ -421,8 +421,10 @@ struct RazorPayData: Encodable{
 }
 
 extension Encodable {
-  var dictionary: [String: Any]? {
-    guard let data = try? JSONEncoder().encode(self) else { return nil }
-    return (try? JSONSerialization.jsonObject(with: data, options: .allowFragments)).flatMap { $0 as? [String: Any] }
-  }
+    var dictionary: [String: Any]? {
+        let encoder = JSONEncoder()
+        encoder.keyEncodingStrategy = .convertToSnakeCase
+        guard let data = try? encoder.encode(self) else { return nil }
+        return (try? JSONSerialization.jsonObject(with: data, options: .allowFragments)).flatMap { $0 as? [String: Any] }
+    }
 }
