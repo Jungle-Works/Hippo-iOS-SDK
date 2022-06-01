@@ -25,22 +25,22 @@ class CacheManager {
         tags = TagDetail.parseTagDetail(data: json)
         return tags
     }
-//
-//    //MARK: Channel Details
-//    class func storeChannelDetails(tags: [ChannelDetail]) {
-//        let list = tags.getJsonToStore()
-//        HippoConfig.folder.set(value: list, forKey: HippoDefaultKeys.channelDetails)
-//    }
-//
-//    class func getStoredChannelDetail() -> [ChannelDetail] {
-//        var channels: [ChannelDetail] = []
-//
-//        guard let json = HippoConfig.folder.object(forKey: HippoDefaultKeys.channelDetails) as? [[String: Any]] else {
-//            return channels
-//        }
-//        channels = ChannelDetail.parselist(jsonList: json)
-//        return channels
-//    }
+
+    //MARK: Channel Details
+    class func storeChannelDetails(tags: [ChannelDetail]) {
+        let list = tags.getJsonToStore()
+        FuguDefaults.set(value: list, forKey: DefaultKey.channelDetails)
+    }
+
+    class func getStoredChannelDetail() -> [ChannelDetail] {
+        var channels: [ChannelDetail] = []
+
+        guard let json = FuguDefaults.object(forKey: DefaultKey.channelDetails) as? [[String: Any]] else {
+            return channels
+        }
+        channels = ChannelDetail.parselist(jsonList: json)
+        return channels
+    }
     
     //MARK: Agents
     class func storeAgents(agents: [Agent]) {

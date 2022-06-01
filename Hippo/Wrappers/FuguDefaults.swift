@@ -27,6 +27,7 @@ struct DefaultKey {
     static let AgentsList = "Hippo_agent_data"
     static let o2oChatConversations = "Agent_O2O_Chat_Data"
     static let tagsList = "Hippo_tags_details"
+    static let channelDetails = "Hippo_channel_details"
 }
 
 class FuguDefaults: NSObject {

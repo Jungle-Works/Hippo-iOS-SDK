@@ -100,6 +100,8 @@ class AgentConversationManager {
     
     static var allChatHttpRequest: URLSessionDataTask?
     static var myChatHttpRequest: URLSessionDataTask?
+    static var selectedCustomerObject: SearchCustomerData?
+    static var selectedChannelId = -1
     
     
     static var errorMessage: String?
@@ -574,31 +576,31 @@ extension AgentConversationManager {
         dict["channel_status"] = FilterManager.shared.selectedChatStatus
         
         
-//        if let search_user_id = ConversationManager.sharedInstance.selectedCustomerObject?.user_id {
-//            dict["search_user_id"] = search_user_id
-//        }
-//        if !FilterManager.shared.selectedAgentId.isEmpty {
-//            dict["agent_ids"] = FilterManager.shared.selectedAgentId
-//        }
-//        if !FilterManager.shared.selectedLabelId.isEmpty {
-//            dict["label_list"] = FilterManager.shared.selectedLabelId
-//        }
-//        if !FilterManager.shared.selectedChannelId.isEmpty {
-//            dict["default_channels"] = FilterManager.shared.selectedChannelId
-//        }
-//        if ConversationManager.sharedInstance.selectedChannelId != -1 {
-//            dict["search_custom_label"] = ConversationManager.sharedInstance.selectedChannelId
-//        }
-//        if let appendChannelID = ConversationManager.sharedInstance.appendChannelID  {
+        if let search_user_id = AgentConversationManager.selectedCustomerObject?.user_id {
+            dict["search_user_id"] = search_user_id
+        }
+        if !FilterManager.shared.selectedAgentId.isEmpty {
+            dict["agent_ids"] = FilterManager.shared.selectedAgentId
+        }
+        if !FilterManager.shared.selectedLabelId.isEmpty {
+            dict["label_list"] = FilterManager.shared.selectedLabelId
+        }
+        if !FilterManager.shared.selectedChannelId.isEmpty {
+            dict["default_channels"] = FilterManager.shared.selectedChannelId
+        }
+        if AgentConversationManager.selectedChannelId != -1 {
+            dict["search_custom_label"] = AgentConversationManager.selectedChannelId
+        }
+//        if let appendChannelID = AgentConversationManager.appendChannelID  {
 //            dict["append_channel_id"] = appendChannelID
 //        }
-//
-//        if let start_date = FilterManager.shared.selectedDate?.getStartDateString() {
-//            dict["start_date"] = start_date
-//        }
-//        if let end_date = FilterManager.shared.selectedDate?.getEndDateString() {
-//            dict["end_date"] = end_date
-//        }
+
+        if let start_date = FilterManager.shared.selectedDate?.getStartDateString() {
+            dict["start_date"] = start_date
+        }
+        if let end_date = FilterManager.shared.selectedDate?.getEndDateString() {
+            dict["end_date"] = end_date
+        }
         
 //        dict.appendDictionary(other: parsedChatTypes())
         dict.appendDictionary(other: parsedChatTypes(request: request))
@@ -620,26 +622,38 @@ extension AgentConversationManager {
     
     fileprivate static func parsedChatTypes(request: GetConversationRequestParam) -> [String: Any] {
         var chatJson = [String: Any]()
-        switch request.type {
-        case .allChat:
-            chatJson["fetch_all_chats"] = true
-        case .myChat:
+        
+        let selectedChatTypes = FilterManager.shared.selectedChatType
+        switch (request.type, selectedChatTypes.isEmpty) {
+        case (.myChat, true):
             chatJson["fetch_my_chats"] = true
-        case .searchUser:
-            print("searchUser")
-        case .o2oChat:
+        case (.allChat, _):
+            chatJson["fetch_all_chats"] = true
+        case (.searchUser, _), (.historyChat, _):
+            print(request.type)
+        case (.o2oChat, _):
             chatJson["fetch_o2o_chats"] = true
-        case .historyChat:
-            return [:]
+        default:
+            break
         }
         
+        for each in selectedChatTypes {
+            switch each {
+            case 1:
+                chatJson["fetch_my_chats_only"] = true
+            case 2:
+                chatJson["show_unassigned_chats"] = true
+            case 3:
+                chatJson["fetch_my_tagged_chats"] = true
+            default:
+                break
+            }
+        }
         return chatJson
     }
     
     fileprivate static func getParamsForSearchUser() -> [String: Any]? {
-//        guard let conversationParam = getParamsToGetConversation(with: GetConversationRequestParam.searchUserDefaultRequest) else {
-//            return nil
-//        }
+        
         guard let conversationParam = paramsForGetConversation(with: GetConversationRequestParam.searchUserDefaultRequest) else {
                    return nil
                }
