@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="KGk-i7-Jjw" customClass="FilterTableViewCell" customModule="Hippo" customModuleProvider="target">
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="Hdg-L1-goE" customClass="FilterTableViewCell" customModule="Hippo" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Hdg-L1-goE" id="LHD-nx-Tkh">
                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jBw-0M-WrS" userLabel="MainContainer">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FUx-Aq-hoP" userLabel="MainContainer">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fVT-lp-eMf">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkbox_inactive_icon" translatesAutoresizingMaskIntoConstraints="NO" id="x7D-e9-cSu">
                                 <rect key="frame" x="20" y="9.5" width="24" height="24"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="fVT-lp-eMf" secondAttribute="height" multiplier="1:1" id="ClS-3V-ENc"/>
-                                    <constraint firstAttribute="width" constant="24" id="FUO-St-HI4"/>
+                                    <constraint firstAttribute="width" secondItem="x7D-e9-cSu" secondAttribute="height" multiplier="1:1" id="3Cc-5m-zOo"/>
+                                    <constraint firstAttribute="width" constant="24" id="ioK-aT-Mnp"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9lb-b9-U2y">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EWD-6P-akY">
                                 <rect key="frame" x="54" y="11.5" width="42" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.31764705879999999" green="0.26847755909999999" blue="0.35941126940000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -35,44 +35,45 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="9lb-b9-U2y" firstAttribute="centerY" secondItem="fVT-lp-eMf" secondAttribute="centerY" id="4ln-bd-Cwa"/>
-                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="9lb-b9-U2y" secondAttribute="trailing" constant="20" id="6nZ-26-BmU"/>
-                            <constraint firstItem="fVT-lp-eMf" firstAttribute="leading" secondItem="jBw-0M-WrS" secondAttribute="leading" constant="20" id="FjN-hd-2Ch"/>
-                            <constraint firstItem="9lb-b9-U2y" firstAttribute="top" relation="greaterThanOrEqual" secondItem="jBw-0M-WrS" secondAttribute="top" constant="5" id="KdJ-c0-D0v"/>
-                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="fVT-lp-eMf" secondAttribute="bottom" constant="5" id="WXB-4y-UDA"/>
-                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="9lb-b9-U2y" secondAttribute="bottom" constant="5" id="cLn-yC-B17"/>
-                            <constraint firstItem="fVT-lp-eMf" firstAttribute="centerY" secondItem="jBw-0M-WrS" secondAttribute="centerY" id="jVs-JM-Uvr"/>
-                            <constraint firstItem="fVT-lp-eMf" firstAttribute="top" relation="greaterThanOrEqual" secondItem="jBw-0M-WrS" secondAttribute="top" constant="5" id="luy-Xv-iL6"/>
-                            <constraint firstItem="9lb-b9-U2y" firstAttribute="leading" secondItem="fVT-lp-eMf" secondAttribute="trailing" constant="10" id="ohR-2O-zpW"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="EWD-6P-akY" secondAttribute="trailing" constant="20" id="9oA-35-qAh"/>
+                            <constraint firstItem="x7D-e9-cSu" firstAttribute="leading" secondItem="FUx-Aq-hoP" secondAttribute="leading" constant="20" id="Qcy-xB-4DI"/>
+                            <constraint firstItem="EWD-6P-akY" firstAttribute="centerY" secondItem="x7D-e9-cSu" secondAttribute="centerY" id="Rxh-g8-Dva"/>
+                            <constraint firstItem="EWD-6P-akY" firstAttribute="leading" secondItem="x7D-e9-cSu" secondAttribute="trailing" constant="10" id="VCN-da-xaR"/>
+                            <constraint firstItem="EWD-6P-akY" firstAttribute="top" relation="greaterThanOrEqual" secondItem="FUx-Aq-hoP" secondAttribute="top" constant="5" id="pgO-bI-Z26"/>
+                            <constraint firstItem="x7D-e9-cSu" firstAttribute="centerY" secondItem="FUx-Aq-hoP" secondAttribute="centerY" id="rMs-UQ-ZCZ"/>
+                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="EWD-6P-akY" secondAttribute="bottom" constant="5" id="x30-m3-Wvs"/>
                         </constraints>
                     </view>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iCa-eS-Uhb">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dek-Ha-H0E">
                         <rect key="frame" x="0.0" y="43" width="320" height="1"/>
                         <color key="backgroundColor" red="0.90578371290000004" green="0.9059391618" blue="0.90588235289999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="1" id="Ofq-iC-3ki"/>
+                            <constraint firstAttribute="height" constant="1" id="aq5-ql-sM2"/>
                         </constraints>
                     </view>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="iCa-eS-Uhb" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="5Iv-BN-9LH"/>
-                    <constraint firstAttribute="bottom" secondItem="iCa-eS-Uhb" secondAttribute="bottom" id="6OV-X6-xwg"/>
-                    <constraint firstAttribute="trailing" secondItem="jBw-0M-WrS" secondAttribute="trailing" id="8V7-kH-9xT"/>
-                    <constraint firstAttribute="trailing" secondItem="iCa-eS-Uhb" secondAttribute="trailing" id="iTw-6E-c2n"/>
-                    <constraint firstItem="jBw-0M-WrS" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="oRa-r0-DHd"/>
-                    <constraint firstItem="iCa-eS-Uhb" firstAttribute="top" secondItem="jBw-0M-WrS" secondAttribute="bottom" id="w4o-nI-gDv"/>
-                    <constraint firstItem="jBw-0M-WrS" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="xw6-ib-EVk"/>
+                    <constraint firstAttribute="trailing" secondItem="FUx-Aq-hoP" secondAttribute="trailing" id="LdP-kV-aPo"/>
+                    <constraint firstItem="dek-Ha-H0E" firstAttribute="leading" secondItem="LHD-nx-Tkh" secondAttribute="leading" id="Xfa-x1-DLo"/>
+                    <constraint firstAttribute="trailing" secondItem="dek-Ha-H0E" secondAttribute="trailing" id="c6R-5P-Tdi"/>
+                    <constraint firstItem="dek-Ha-H0E" firstAttribute="top" secondItem="FUx-Aq-hoP" secondAttribute="bottom" id="cfK-3P-dAc"/>
+                    <constraint firstItem="FUx-Aq-hoP" firstAttribute="top" secondItem="LHD-nx-Tkh" secondAttribute="top" id="hhz-pE-bzX"/>
+                    <constraint firstItem="FUx-Aq-hoP" firstAttribute="leading" secondItem="LHD-nx-Tkh" secondAttribute="leading" id="kPn-IV-HUb"/>
+                    <constraint firstAttribute="bottom" secondItem="dek-Ha-H0E" secondAttribute="bottom" id="maS-ty-rVx"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="centerYTickImageView" destination="jVs-JM-Uvr" id="rEo-19-jsD"/>
-                <outlet property="filterLabel" destination="9lb-b9-U2y" id="CUq-39-rzy"/>
-                <outlet property="heightWidthOfImage" destination="FUO-St-HI4" id="SBp-M4-4p1"/>
-                <outlet property="horizontalLineColor" destination="iCa-eS-Uhb" id="MGe-aE-g15"/>
-                <outlet property="tickImageView" destination="fVT-lp-eMf" id="r22-L4-hBg"/>
-                <outlet property="topSpaceHorizontalLine" destination="w4o-nI-gDv" id="TM2-zv-XVA"/>
+                <outlet property="centerYTickImageView" destination="rMs-UQ-ZCZ" id="VEe-Qw-ZNV"/>
+                <outlet property="filterLabel" destination="EWD-6P-akY" id="dL1-yh-BgR"/>
+                <outlet property="heightWidthOfImage" destination="ioK-aT-Mnp" id="Qto-jn-Z91"/>
+                <outlet property="horizontalLineColor" destination="dek-Ha-H0E" id="aJa-fr-P1D"/>
+                <outlet property="tickImageView" destination="x7D-e9-cSu" id="4N4-HO-WSr"/>
+                <outlet property="topSpaceHorizontalLine" destination="cfK-3P-dAc" id="OKV-mm-xpx"/>
             </connections>
             <point key="canvasLocation" x="139" y="117"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="checkbox_inactive_icon" width="27" height="26"/>
+    </resources>
 </document>

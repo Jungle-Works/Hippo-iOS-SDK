@@ -25,6 +25,23 @@ class CacheManager {
         return tags
     }
     
+    
+    //MARK: Channel Details
+    class func storeChannelDetails(tags: [ChannelDetail]) {
+        let list = tags.getJsonToStore()
+        FuguDefaults.set(value: list, forKey: DefaultKey.channelDetails)
+    }
+
+    class func getStoredChannelDetail() -> [ChannelDetail] {
+        var channels: [ChannelDetail] = []
+
+        guard let json = FuguDefaults.object(forKey: DefaultKey.channelDetails) as? [[String: Any]] else {
+            return channels
+        }
+        channels = ChannelDetail.parselist(jsonList: json)
+        return channels
+    }
+    
     //MARK: Agents
     class func storeAgents(agents: [Agent]) {
 //        let list: [[String: Any]] = Agent.getJsonToStore(agents: agents)

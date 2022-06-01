@@ -811,6 +811,12 @@ class AgentConversationViewController: HippoConversationViewController {
         return vc
     }
     
+    class func getWith(conversationObj: SearchCustomerData) -> AgentConversationViewController {
+        let vc = getNewInstance()
+        vc.agentDirectChatDetail = AgentDirectChatAttributes(otherUserUniqueKey: "", channelName: nil, otherUserId: conversationObj.user_id)
+        return vc
+    }
+    
     class func getWith(channelID: Int, channelName: String, channelType : channelType? = .DEFAULT) -> AgentConversationViewController {
         let vc = getNewInstance()
         vc.channel = AgentChannelPersistancyManager.shared.getChannelBy(id: channelID)

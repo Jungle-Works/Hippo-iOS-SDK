@@ -318,6 +318,12 @@ extension AgentDetail {
                 HippoConfig.shared.jitsiUrl = businessProperty["jitsi_url"] as? String
                 
                 HippoUserDetail.callingType = (Int.parse(values: businessProperty, key: "calling_type") ?? 3)
+                
+                if let enable_agent_customer_chat = businessProperty["enable_agent_customer_chat"] as? String {
+                    BussinessProperty.current.isAgentToCustomerChatEnable = enable_agent_customer_chat == "1"
+                }
+                
+                Business.shared.updateDataFromLogin(data: businessProperty)
             }
             
             BussinessProperty.current.unsupportedMessageString = data["unsupported_message"] as? String ?? ""
