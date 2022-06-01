@@ -156,7 +156,6 @@ class SelfMessageTableViewCell: MessageTableViewCell {
         switch HippoConfig.shared.appUserType {
         case .agent:
             selfMessageTextView.text = ""
-            
             let newMsgObject = chatMessageObject
             newMsgObject.message = newMsgObject.message.replacingOccurrences(of: "<br>", with: "\n")
             let attrText = Helper.getIncomingAttributedStringWithLastUserCheck(chatMessageObject: newMsgObject)

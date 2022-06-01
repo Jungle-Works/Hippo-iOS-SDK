@@ -52,6 +52,7 @@ class PromotionsViewController: UIViewController {
     var shouldFetchData = true
     var previousPage = 0
     var showMoreIndex : IndexPath?
+    var isSendOpenened = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,11 +78,12 @@ class PromotionsViewController: UIViewController {
         if let c = customCell {
             promotionsTableView.register(UINib(nibName: c.cellIdentifier, bundle: c.bundle), forCellReuseIdentifier: c.cellIdentifier)
         }
+        
         if !(HippoConfig.shared.isOpenedFromPush ?? false){
             self.callGetAnnouncementsApi()
             HippoNotification.removeAllAnnouncementNotification()
         }else{
-            refreshData()
+            refreshData(isOpenedFromPush: HippoConfig.shared.isOpenedFromPush ?? false)
             HippoConfig.shared.isOpenedFromPush = false
         }
     }
@@ -103,12 +105,12 @@ class PromotionsViewController: UIViewController {
         }
     }
     
-    func refreshData(){
-        getDataOrUpdateAnnouncement(HippoNotification.promotionPushDic.map{$0.value.channelID}, isforReadMore: false)
+    func refreshData(isOpenedFromPush: Bool){
+        getDataOrUpdateAnnouncement(HippoNotification.promotionPushDic.map{$0.value.channelID}, isforReadMore: false, isOpenedFromPush: isOpenedFromPush)
         HippoNotification.promotionPushDic.removeAll()
     }
     
-    func getDataOrUpdateAnnouncement(_ channelIdArr : [Int], isforReadMore : Bool, indexRow : Int? = nil){
+    func getDataOrUpdateAnnouncement(_ channelIdArr : [Int], isforReadMore : Bool, indexRow : Int? = nil, isOpenedFromPush: Bool = false){
         var params = [String : Any]()
         if currentUserType() == .customer{
             params = ["app_secret_key" : HippoConfig.shared.appSecretKey, "channel_ids" : channelIdArr, "en_user_id" : currentEnUserId(), "offering" : HippoConfig.shared.offering, "device_type": Device_Type_iOS] as [String : Any]
@@ -117,9 +119,34 @@ class PromotionsViewController: UIViewController {
                     params["user_identification_secret"] = userIdenficationSecret
                 }
             }
+            
+            if isOpenedFromPush{
+                params["seen_status"] = 1
+                params["app_opened_through_push"] = 1
+                HippoConfig.shared.sessionStartTime = Date()
+            }
+            
+            if var channelArr = params["channel_ids"] as? [Int], !channelArr.contains(HippoConfig.shared.tempChannelId ?? 0){
+                channelArr.append(HippoConfig.shared.tempChannelId ?? 0)
+                params["channel_ids"] = channelArr
+            }
+            
         }else{
             params = ["access_token" : HippoConfig.shared.agentDetail?.fuguToken ?? "", "channel_ids" : channelIdArr, "user_id" : currentUserId()] as [String : Any]
+            
+            if isOpenedFromPush{
+                params["seen_status"] = 1
+                params["app_opened_through_push"] = 1
+                HippoConfig.shared.sessionStartTime = Date()
+            }
+            
+            if var channelArr = params["channel_ids"] as? [Int], !channelArr.contains(HippoConfig.shared.tempChannelId ?? 0){
+                channelArr.append(HippoConfig.shared.tempChannelId ?? 0)
+                params["channel_ids"] = channelArr
+            }
         }
+        
+        print("params sent in announcments ---------->>>>>>>>>>>>>", params)
         
         HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: FuguEndPoints.getAndUpdateAnnouncement.rawValue) { (response, error, _, statusCode) in
             if let response = response as? [String : Any], let data = response["data"] as? [[String : Any]]{

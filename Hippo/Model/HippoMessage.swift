@@ -116,7 +116,6 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
     var imageHeight : Float?
     var parsedMimeType: String?
     var isMessageWithImage: Bool?
-    
     var rawJsonToSend: [String: Any]?
     
     //MARK: Referncing detail

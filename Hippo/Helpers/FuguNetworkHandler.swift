@@ -35,12 +35,10 @@ class FuguNetworkHandler: NSObject {
             }
             switch status {
             case .notReachable:
-//                print(">>>>>>disconnected")
                 NotificationCenter.default.post(name: .internetDisconnected, object: nil)
                 weakSelf.errorMessage(errorLabelColor: UIColor.red, needToBeHidden: false)
             default:
                 NotificationCenter.default.post(name: .internetConnected, object: nil)
-//                print(">>>>>>connected")
                 
                 weakSelf.errorMessage(errorLabelColor: UIColor.orange, errorLabelMessage: HippoStrings.connecting, isToLoadFirstTime: false, needToBeHidden: false)
                 if SocketClient.shared.isConnected() == true {

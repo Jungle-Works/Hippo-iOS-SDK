@@ -48,6 +48,7 @@ struct GetConversationRequestParam {
        return GetConversationRequestParam(pageStart: 1, pageEnd: nil, showLoader: false, type: .historyChat, identifier: String.generateUniqueId())
     }
     
+    
     var apiRequestIdentifier: String {
         switch type {
         case .allChat:
@@ -59,7 +60,7 @@ struct GetConversationRequestParam {
         case .o2oChat:
             return RequestIdenfier.geto2oChatConversationIdentfier
         case .historyChat:
-                   return RequestIdenfier.getHistoryConversationIdentfier
+            return RequestIdenfier.getHistoryConversationIdentfier
         }
     }
     enum RequestType {
@@ -78,12 +79,12 @@ struct GetConversationRequestParam {
             case .o2oChat:
                 self = .o2oChat
             case .historyChat:
-                          self = .historyChat
+                self = .historyChat
             }
         }
     }
-    
 }
+
 class AgentConversationManager {
     
     static var searchUserUniqueKeys: [String] = []
@@ -99,6 +100,8 @@ class AgentConversationManager {
     
     static var allChatHttpRequest: URLSessionDataTask?
     static var myChatHttpRequest: URLSessionDataTask?
+    static var selectedCustomerObject: SearchCustomerData?
+    static var selectedChannelId = -1
     
     
     static var errorMessage: String?
@@ -149,43 +152,16 @@ class AgentConversationManager {
             
             getConversations(with: .o2oDefaultRequest) { (result) in
                 iso2oChatInProgress = false
-                
             }
         }
         
     }
-
+    
     class func getHistoryChats(pageNum: Int, showLoader: Bool = false, visitorId: Int, excludedChannelId: [Int]? = nil, completion: @escaping ((_ result: AgentGetConversationFromServerResult) -> ())){
         var defaultReq:GetConversationRequestParam = .historyDefaultRequest
         defaultReq.pageStart = pageNum
         defaultReq.showLoader = showLoader
         getHistoryConversations(with: defaultReq, visitorId: visitorId, excludedChannelId: excludedChannelId, completion: completion)
-    }
-
-    
-    class func getBotsAction(userId: Int, channelId: Int, handler: @escaping (([BotAction]) -> Void)) {
-        guard let agent = HippoConfig.shared.agentDetail else {
-            return
-        }
-        let params: [String: Any] = ["access_token": agent.fuguToken,
-                                     "user_id": userId,
-                                     "channel_id": "\(channelId)"]
-        print(params)
-        HTTPClient.shared.makeSingletonConnectionWith(method: .POST, identifier: RequestIdenfier.getAllConversationIdentfier, para: params, extendedUrl: AgentEndPoints.getBotActions.rawValue) { (response, error, tag, statusCode) in
-            print(response)
-            if let _ = error {
-                handler([BotAction]())
-            } else {
-                if let response = response as? [String: Any], let kData = response["data"] as? [String: Any], let data = kData["botList"] as? [[String: Any]] {
-                    var actionsArray = [BotAction]()
-                    for action in data {
-                        actionsArray.append(BotAction(dict: action))
-                    }
-                    handler(actionsArray)
-                }
-            }
-
-        }
     }
 
     class func getBotsAction(userId: Int, channelId: Int, handler: @escaping (([BotAction], [CustomBot]?) -> Void)) {
@@ -218,6 +194,7 @@ class AgentConversationManager {
             }
         }
     }
+
 
 //    class func agentStatusUpdate(newStatus: AgentStatus) {
     class func agentStatusUpdate(newStatus: AgentStatus, completion: @escaping ((_ result: Bool) -> Void)) {
@@ -263,11 +240,7 @@ class AgentConversationManager {
     }
     
     class func getConversations(with request: GetConversationRequestParam, completion: @escaping ((_ result: AgentGetConversationFromServerResult) -> ())) {
-        
-//        guard let params = getParamsToGetConversation(with: request) else {
-//            completion(AgentGetConversationFromServerResult(isSuccessful: false, error: HippoError.general, conversations: nil))
-//            return
-//        }
+
         guard let params = paramsForGetConversation(with: request) else {
             completion(AgentGetConversationFromServerResult(isSuccessful: false, error: HippoError.general, conversations: nil))
             return
@@ -344,6 +317,7 @@ class AgentConversationManager {
             } else {
                 ConversationStore.shared.o2oChats.append(contentsOf: conversations)
             }
+            
         case .historyChat:
             return
         }
@@ -387,7 +361,6 @@ class AgentConversationManager {
         
     }
     
-    
     class func getHistoryConversations(with request: GetConversationRequestParam, visitorId: Int, excludedChannelId: [Int]? = nil, completion: @escaping ((_ result: AgentGetConversationFromServerResult) -> ())) {
         
         guard let params = generateParamForHistory(with: request, visitorId: visitorId) else {
@@ -419,7 +392,7 @@ class AgentConversationManager {
             }
         }
     }
-      
+    
     class func updateChannelStatus(for channelID: Int, newStatus: Int, completion: @escaping ((_ result: ResponseResult) -> Void)) {
         guard HippoConfig.shared.appUserType == .agent, HippoConfig.shared.agentDetail != nil else {
             let result = ResponseResult(isSuccessful: false, error: HippoError.general)
@@ -571,19 +544,6 @@ extension AgentConversationManager {
 //    }
     
     
-    fileprivate static func generateParamForHistory(with request: GetConversationRequestParam, visitorId: Int) -> [String: Any]? {
-        guard var dict = generateDefaultParam(with: request) else {
-            return nil
-        }
-        dict["fetch_all_chats"] = true
-        dict["ignore_unread_count"] = 1
-        dict["channel_status"] = [ChatStatus.open.rawValue, ChatStatus.close.rawValue]
-        dict["search_user_id"] = visitorId
-        
-        return dict
-    }
-    
-    
     fileprivate static func generateDefaultParam(with request: GetConversationRequestParam) -> [String: Any]? {
         guard HippoConfig.shared.appUserType == .agent else {
             return nil
@@ -608,6 +568,7 @@ extension AgentConversationManager {
         
         return dict
     }
+    
     fileprivate static func paramsForGetConversation(with request: GetConversationRequestParam) -> [String: Any]? {
         guard var dict = generateDefaultParam(with: request) else {
             return nil
@@ -615,60 +576,84 @@ extension AgentConversationManager {
         dict["channel_status"] = FilterManager.shared.selectedChatStatus
         
         
-//        if let search_user_id = ConversationManager.sharedInstance.selectedCustomerObject?.user_id {
-//            dict["search_user_id"] = search_user_id
-//        }
-//        if !FilterManager.shared.selectedAgentId.isEmpty {
-//            dict["agent_ids"] = FilterManager.shared.selectedAgentId
-//        }
-//        if !FilterManager.shared.selectedLabelId.isEmpty {
-//            dict["label_list"] = FilterManager.shared.selectedLabelId
-//        }
-//        if !FilterManager.shared.selectedChannelId.isEmpty {
-//            dict["default_channels"] = FilterManager.shared.selectedChannelId
-//        }
-//        if ConversationManager.sharedInstance.selectedChannelId != -1 {
-//            dict["search_custom_label"] = ConversationManager.sharedInstance.selectedChannelId
-//        }
-//        if let appendChannelID = ConversationManager.sharedInstance.appendChannelID  {
+        if let search_user_id = AgentConversationManager.selectedCustomerObject?.user_id {
+            dict["search_user_id"] = search_user_id
+        }
+        if !FilterManager.shared.selectedAgentId.isEmpty {
+            dict["agent_ids"] = FilterManager.shared.selectedAgentId
+        }
+        if !FilterManager.shared.selectedLabelId.isEmpty {
+            dict["label_list"] = FilterManager.shared.selectedLabelId
+        }
+        if !FilterManager.shared.selectedChannelId.isEmpty {
+            dict["default_channels"] = FilterManager.shared.selectedChannelId
+        }
+        if AgentConversationManager.selectedChannelId != -1 {
+            dict["search_custom_label"] = AgentConversationManager.selectedChannelId
+        }
+//        if let appendChannelID = AgentConversationManager.appendChannelID  {
 //            dict["append_channel_id"] = appendChannelID
 //        }
-//
-//        if let start_date = FilterManager.shared.selectedDate?.getStartDateString() {
-//            dict["start_date"] = start_date
-//        }
-//        if let end_date = FilterManager.shared.selectedDate?.getEndDateString() {
-//            dict["end_date"] = end_date
-//        }
+
+        if let start_date = FilterManager.shared.selectedDate?.getStartDateString() {
+            dict["start_date"] = start_date
+        }
+        if let end_date = FilterManager.shared.selectedDate?.getEndDateString() {
+            dict["end_date"] = end_date
+        }
         
 //        dict.appendDictionary(other: parsedChatTypes())
         dict.appendDictionary(other: parsedChatTypes(request: request))
         
         return dict
     }
-//    func parsedChatTypes() -> [String: Any] {
+    
+    fileprivate static func generateParamForHistory(with request: GetConversationRequestParam, visitorId: Int) -> [String: Any]? {
+        guard var dict = generateDefaultParam(with: request) else {
+            return nil
+        }
+        dict["fetch_all_chats"] = true
+        dict["ignore_unread_count"] = 1
+        dict["channel_status"] = [ChatStatus.open.rawValue, ChatStatus.close.rawValue]
+        dict["search_user_id"] = visitorId
+        
+        return dict
+    }
+    
     fileprivate static func parsedChatTypes(request: GetConversationRequestParam) -> [String: Any] {
         var chatJson = [String: Any]()
-        switch request.type {
-        case .allChat:
-            chatJson["fetch_all_chats"] = true
-        case .myChat:
+        
+        let selectedChatTypes = FilterManager.shared.selectedChatType
+        switch (request.type, selectedChatTypes.isEmpty) {
+        case (.myChat, true):
             chatJson["fetch_my_chats"] = true
-        case .searchUser:
-            print("searchUser")
-        case .o2oChat:
+        case (.allChat, _):
+            chatJson["fetch_all_chats"] = true
+        case (.searchUser, _), (.historyChat, _):
+            print(request.type)
+        case (.o2oChat, _):
             chatJson["fetch_o2o_chats"] = true
-        case .historyChat:
-               return [:]
+        default:
+            break
         }
         
+        for each in selectedChatTypes {
+            switch each {
+            case 1:
+                chatJson["fetch_my_chats_only"] = true
+            case 2:
+                chatJson["show_unassigned_chats"] = true
+            case 3:
+                chatJson["fetch_my_tagged_chats"] = true
+            default:
+                break
+            }
+        }
         return chatJson
     }
     
     fileprivate static func getParamsForSearchUser() -> [String: Any]? {
-//        guard let conversationParam = getParamsToGetConversation(with: GetConversationRequestParam.searchUserDefaultRequest) else {
-//            return nil
-//        }
+        
         guard let conversationParam = paramsForGetConversation(with: GetConversationRequestParam.searchUserDefaultRequest) else {
                    return nil
                }

@@ -23,9 +23,12 @@ class HippoNotificationService: UNNotificationServiceExtension {
             bestAttemptContent.title = "\(bestAttemptContent.title)"
             
             var urlString:String? = nil
-            if let urlImageString = request.content.userInfo["urlImageString"] as? String {
+            if let customAttr = request.content.userInfo["custom_attributes"] as? [String: Any], let imageData = customAttr["image"] as? [String: Any], let urlImageString = imageData["thumbnail_url"] as? String {
                 urlString = urlImageString
             }
+//            if let urlImageString = request.content.userInfo["urlImageString"] as? String {
+//                urlString = urlImageString
+//            }
             
             if urlString != nil, let fileUrl = URL(string: urlString!) {
                 print("fileUrl: \(fileUrl)")

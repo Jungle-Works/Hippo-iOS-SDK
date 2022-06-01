@@ -41,7 +41,7 @@ class LeadTableViewCell: MessageTableViewCell {
     var indexPath: IndexPath!
     var lastVisibleCellIndex: Int = 0
     static let skipButtonHeightConstant: CGFloat = 30
-    
+
     // MARK: IBOutlets
     @IBOutlet weak var bgView: UIView!
     @IBOutlet weak var skipButton: UIButton!
@@ -253,17 +253,22 @@ extension LeadTableViewCell: LeadDataCellDelegate {
     }
     
     func didTapSend(withReply reply: String, cell: LeadDataTableViewCell) {
+        
         guard let index = filterFileArray.enumerated().filter({$0.element.isShow}).last.map({ $0.offset }) else { return  }
         
-//        guard let indexPath: IndexPath = self.tableView.indexPath(for: cell) else { return }
+//        guard let indexPath: IndexPath = self.tableView.indexPath(for: cell) else {
+//            return
+//        }
         let indexPath: IndexPath = IndexPath(row: 0, section: index)
         if cell.paramId == CreateTicketFields.attachments.rawValue && filterFileArray[indexPath.section].attachmentUrl.count == 0 {
             self.enableError(isEnabled: true, cell: cell, text: HippoStrings.requiredField)
             return
         }
+        
         if (filterFileArray.count - 1) != indexPath.section {
             filterFileArray[indexPath.section + 1].isShow = true
         }
+        
         filterFileArray[indexPath.section].isCompleted = true
         filterFileArray[indexPath.section].value = cell.paramId == CreateTicketFields.attachments.rawValue ? getDataForAttachments(data: filterFileArray[indexPath.section].attachmentUrl) : reply
         filterFileArray[indexPath.section].attachmentUrl.removeAll()
@@ -291,3 +296,10 @@ extension LeadTableViewCell: LeadDataCellDelegate {
     }
 }
 
+extension Collection {
+
+    /// Returns the element at the specified index if it is within bounds, otherwise nil.
+    subscript (safe index: Index) -> Element? {
+        return indices.contains(index) ? self[index] : nil
+    }
+}

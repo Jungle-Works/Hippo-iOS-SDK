@@ -53,18 +53,18 @@ class CallManager {
     
     
     func startGroupCall(call: GroupCallData, groupCallChannelData : GroupCallChannelData, completion: @escaping (Bool, NSError?) -> Void){
-        #if canImport(HippoCallClient)
+        #if canImport(JitsiMeetSDK)
         let peerUser = call.peerData
-        guard let peer = HippoUser(name: peerUser.fullName, userID: peerUser.userID, enUserID: peerUser.enUserID, imageURL: peerUser.image) else {
+        guard let peer = HippoUser(name: peerUser.fullName, userID: peerUser.userID, imageURL: peerUser.image) else {
             return
         }
         guard let currentUser = getCurrentUser() else {
             return
         }
         let callToMake = Call(peer: peer, signalingClient: call.signallingClient, uID: call.muid, currentUser: currentUser, type: getCallTypeWith(localType: call.callType), link: "", isGroupCall: true, jitsiUrl: HippoConfig.shared.jitsiUrl ?? "", transactionId: nil)
-
+        
         let groupCallData = CallClientGroupCallData(roomTitle: groupCallChannelData.roomTitle ?? "", roomUniqueId: groupCallChannelData.roomUniqueId ?? "", transactionId :groupCallChannelData.transactionId ?? "", userType: currentUserType() == .agent ? "agent" : "customer", isMuted : call.isMuted)
-
+        
         HippoCallClient.shared.startGroupCall(call: callToMake, groupCallData: groupCallData)
         #else
         completion(false,nil)
@@ -72,66 +72,60 @@ class CallManager {
     }
     
     func joinCallLink(customerName: String, customerImage: String, url: String, isInviteEnabled: Bool,callType:String) {
+        #if canImport(JitsiMeetSDK)
         HippoCallClient.shared.joinCallLink(customerName: customerName, customerImage: customerImage, url: url, isInviteEnabled: isInviteEnabled, callType: callType)
+        #else
+        #endif
     }
-    
     
     // use this method if you are using jitsi branch for calling feature
 
     func startCall(call: CallData, completion: @escaping (Bool, NSError?) -> Void) {
         #if canImport(HippoCallClient)
         let peerUser = call.peerData
-        guard let peer = HippoUser(name: peerUser.fullName, userID: peerUser.userID, enUserID: peerUser.enUserID, imageURL: peerUser.image) else {
+        guard let peer = HippoUser(name: peerUser.fullName, userID: peerUser.userID, imageURL: peerUser.image) else {
             return
         }
         guard let currentUser = getCurrentUser() else {
             return
         }
-//        #if canImport(JitsiMeetSDK)
-//        let callToMake = Call(peer: peer, signalingClient: call.signallingClient, uID: call.muid, currentUser: currentUser, type: getCallTypeWith(localType: call.callType), link: "", jitsiUrl: HippoConfig.shared.jitsiUrl ?? "", transactionId: call.transactionId)
-//        #else
+        #if canImport(JitsiMeetSDK)
         let callToMake = Call(peer: peer, signalingClient: call.signallingClient, uID: call.muid, currentUser: currentUser, type: getCallTypeWith(localType: call.callType), link: "", jitsiUrl: HippoConfig.shared.jitsiUrl ?? "", transactionId: call.transactionId)
-//         #endif
+        #else
+        let callToMake = Call(peer: peer, signalingClient: call.signallingClient, uID: call.muid, currentUser: currentUser, type: getCallTypeWith(localType: call.callType), link: "")
+         #endif
         
         HippoCallClient.shared.startCall(call: callToMake, isInviteEnabled: BussinessProperty.current.isCallInviteEnabled ?? false, completion: completion)
-        reportCallOnCallKit(call: call, peer: peer)
-//        #else
-//        completion(false,nil)
+        #else
+        completion(false,nil)
         #endif
     }
 
-    func reportCallOnCallKit(call: CallData, peer: HippoUser){
-        let callType: Call.CallType = call.callType == .audio ? .audio : .video
-        let request = PresentCallRequest(peer: peer, callType: callType, callUUID: call.muid)
-        CallKitManager.shared.startNewOutgoingCall(request: request) { isReportedSuccss in
-            print("is call successfully reported to callkit - \(isReportedSuccss)")
-        }
-    }
 
     func startWebRTCCall(call: CallData, completion: @escaping (Bool) -> Void) {
-//        #if canImport(HippoCallClient)
-//        let peerUser = call.peerData
-//        guard let peer = HippoUser(name: peerUser.fullName, userID: peerUser.userID, enUserID: peerUser.enUserID, imageURL: peerUser.image) else {
-//            return
-//        }
-//        guard let currentUser = getCurrentUser() else {
-//            return
-//        }
-//        #if canImport(JitsiMeetSDK)
-//        let callToMake = Call(peer: peer, signalingClient: call.signallingClient, uID: call.muid, currentUser: currentUser, type: getCallTypeWith(localType: call.callType), link: "", jitsiUrl: HippoConfig.shared.jitsiUrl ?? "", transactionId: nil)
-//         #else
-//         let callToMake = Call(peer: peer, signalingClient: call.signallingClient, uID: call.muid, currentUser: currentUser, type: getCallTypeWith(localType: call.callType), link: "")
-//
-//         #endif
-//        HippoCallClient.shared.startWebRTCCall(call: callToMake, completion: completion)
-//        #else
-//        completion(false)
-//        #endif
+        #if canImport(HippoCallClient)
+        let peerUser = call.peerData
+        guard let peer = HippoUser(name: peerUser.fullName, userID: peerUser.userID, imageURL: peerUser.image) else {
+            return
+        }
+        guard let currentUser = getCurrentUser() else {
+            return
+        }
+        #if canImport(JitsiMeetSDK)
+        let callToMake = Call(peer: peer, signalingClient: call.signallingClient, uID: call.muid, currentUser: currentUser, type: getCallTypeWith(localType: call.callType), link: "", jitsiUrl: HippoConfig.shared.jitsiUrl ?? "", transactionId: nil)
+         #else
+         let callToMake = Call(peer: peer, signalingClient: call.signallingClient, uID: call.muid, currentUser: currentUser, type: getCallTypeWith(localType: call.callType), link: "")
+        
+         #endif
+        HippoCallClient.shared.startWebRTCCall(call: callToMake, completion: completion)
+        #else
+        completion(false)
+        #endif
     }
     
     func startConnection(peerUser: User, muid: String, callType: CallType, completion: (Bool) -> Void) {
         #if canImport(HippoCallClient)
-        guard let peer = HippoUser(name: peerUser.fullName, userID: peerUser.userID, enUserID: peerUser.enUserID, imageURL: peerUser.image) else {
+        guard let peer = HippoUser(name: peerUser.fullName, userID: peerUser.userID, imageURL: peerUser.image) else {
             return
         }
         let type = getCallTypeWith(localType: callType)
@@ -141,7 +135,7 @@ class CallManager {
     }
     
     func hungupCall() {
-        #if canImport(HippoCallClient)
+        #if canImport(JitsiMeetSDK)
         HippoCallClient.shared.hangupCall()
         #endif
     }
@@ -195,7 +189,8 @@ class CallManager {
     
  
     func voipNotificationRecievedForGroupCall(payloadDict: [String: Any]){
-        #if canImport(HippoCallClient)
+        #if canImport(JitsiMeetSDK)
+
         guard let peer = HippoUser(json: payloadDict) else {
             return
         }
@@ -215,6 +210,7 @@ class CallManager {
             return
         }
         HippoCallClient.shared.voipNotificationRecievedForGroupCall(dictionary: payloadDict, peer: peer, signalingClient: groupCallChannel, currentUser: currentUser, isInviteEnabled: BussinessProperty.current.isCallInviteEnabled ?? false)
+        
         #else
         print("cannot import HippoCallClient")
         #endif
@@ -238,25 +234,18 @@ class CallManager {
             return
         }
         HippoCallClient.shared.voipNotificationRecieved(dictionary: payloadDict, peer: peer, signalingClient: channel, currentUser: currentUser, isInviteEnabled: BussinessProperty.current.isCallInviteEnabled ?? false)
+        
         #else
         print("cannot import HippoCallClient")
         #endif
     }
     
-    func actionFromCallKit(isAnswered: Bool, completion: @escaping (Bool) -> Void){
+    func passAppSecret(key: String){
+        
         #if canImport(HippoCallClient)
-        HippoCallClient.shared.actionFromCallKit(isAnswered: isAnswered, completion: completion)
-        #else
-        print("cannot import HippoCallClient")
+        HippoCallClient.shared.appSecretkeyFromCallManager(key: key)
         #endif
-    }
-    
-    func passAppSecret(key: String, agentToken: String, userType: UserType){
-        #if canImport(HippoCallClient)
-        HippoCallClient.shared.appSecretkeyFromCallManager(key: key, agentToken: agentToken, userType: userType == .customer ? .customer : .agent)
-        #else
-        print("cannot import HippoCallClient")
-        #endif
+        
     }
     
     private func testCredentials() -> [String :Any] {
@@ -285,13 +274,12 @@ class CallManager {
             let name = user.fullName ?? ""
             let userID = HippoUserDetail.fuguUserID ?? -1
             let userImage = user.userImage
-            let enUserID = HippoUserDetail.fuguEnUserID ?? ""
-            return HippoUser(name: name, userID: userID, enUserID: enUserID, imageURL: userImage?.absoluteString)
+            return HippoUser(name: name, userID: userID, imageURL: userImage?.absoluteString)
         case .agent:
             guard let agentDetail = HippoConfig.shared.agentDetail else {
                 return nil
             }
-            return HippoUser(name: agentDetail.fullName, userID: agentDetail.id, enUserID: agentDetail.enUserId, imageURL: agentDetail.userImage)
+            return HippoUser(name: agentDetail.fullName, userID: agentDetail.id, imageURL: agentDetail.userImage)
         }
     }
     #endif

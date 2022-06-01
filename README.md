@@ -4,7 +4,7 @@
 
 Install HippoChat to see and talk to users of your iPhone app. The HippoChat SDK is distributed via CocoaPods. This method is documented below:
 #### Pre Requisites : 
-1. Hippo SDK supports iOS 9.0 and above
+1. Hippo SDK supports iOS 11.0 and above
 2. Hippo App_Secret_Key/Reseller_token
 3. Xcode
 
@@ -14,7 +14,11 @@ If you have any queries during the integration, please reach out to us at suppor
 
 HippoChat is available through CocoaPods. To add HippoChat to your project, add the SDK to your Podfile as shown below.
 
-`pod 'Hippo'`
+- If you want to use hippo without calling or if you want to use jitsi calling add the below line to your prject's pod file
+`pod 'Hippo', :git => 'https://github.com/Jungle-Works/Hippo-iOS-SDK', :branch => 'master'`
+
+- If you want to use hippo with Video sdk calling add the below line to your prject's pod file
+`pod 'Hippo', :git => 'https://github.com/Jungle-Works/Hippo-iOS-SDK', :branch => 'VideoSDKRelease'`
 
 Once you have updated your Podfile run `pod install`(terminal command) to automatically download and install the SDK in your project.
 
@@ -28,6 +32,7 @@ Note:  `Hippo dose not support bitcode when using it with Call SDK, to continue 
 
 Note: `Permission required for using Hippo:->> Privacy - Camera Usage Description, Privacy - Microphone Usage Description, Privacy - Photo Library Additions Usage Description, Privacy - Photo Library Usage Description. Add these permissions in info.plist for avoiding crashes.` 
 
+Note: `Add capabiliteis "Background modes" in Hippo:->> signing and capabilities tab and enable remote notification, voice over IP, audio/picture in picture `
 
 
 # Step 2: Add HippoChat Credentials
@@ -103,12 +108,14 @@ selectedlanguage: <selected_language>
 //Call updateUserDetails so that
 //the user information is synced with Hippo servers 
 HippoConfig.shared.updateUserDetail(userDetail: HippoUserDetail)
+HippoConfig.shared.setCredential(withAppSecretKey: YOUR-APP-SECRET-KEY, appType: YOUR-APP-TYPE)
 
 //For initialization of Hippo Manager
   HippoConfig.shared.initManager(authToken: "<User_auth_Token>", 
   app_type: "<App_Type>", 
   selectedLanguage: <selected_language>)
 
+-> for video sdk implementation also pass (appSecretKey: YOUR-APP-SECRET-KEY) in the same function initManager
 ```
 
 Note : If you don't have a unique user identifier to use here, or if you have a userId and an email you can use Email/Phone number on the Registration object as unique key.
@@ -277,15 +284,20 @@ Use `HippoConfig.shared.presentPromotionalPushController()` for opening Annoucem
 
 
 
-# Setup Video call For Hippo SDK
-To enable video call in Hippo SDK, enable it from hippo dashboard setting > add on > video call
+# Setup Audio/Video call For Hippo SDK
+To enable audio/video call in Hippo SDK, enable it from hippo dashboard setting > add on > audio/video call
 
 > Note:  Please go through Other Infomation delegate paragraph, [Click Here](#other-infomation-delegate) , as you have to send video call/ Audio Call in app View.
 
 #### 1:  Installation Call SDK
 Install Call SubPod for video and audio call.
 
-`pod 'Hippo/Call'`
+- If you want to use hippo without calling or if you want to use jitsi calling add the below line to your prject's pod file
+`pod 'Hippo/Call', :git => 'https://github.com/Jungle-Works/Hippo-iOS-SDK', :branch => 'master'`
+
+- If you want to use hippo with Video sdk calling add the below line to your prject's pod file
+`pod 'Hippo/Call', :git => 'https://github.com/Jungle-Works/Hippo-iOS-SDK', :branch => 'VideoSDKRelease'`
+
 
 Once you have updated your Podfile run `pod install`(terminal command) to automatically download and install the SDK in your project.
 
@@ -331,16 +343,60 @@ Use `HippoConfig.shared.startVideoCall(data: PeerToPeerChat, completion: @escapi
 */
 let peerChatInfo = PeerToPeerChat(uniqueChatId: "YOUR-UNIQUE-CHAT-ID", myUniqueId: "YOUR-UNIQUE-ID", idsOfPeers: ["PEER-UNIQUE-ID"], channelName: "CHANNEL-NAME", peerName: "Peer name")
 
-HippoConfig.shared.startVideoCall(data: peerChatInfo, completion: { (success, error) in
+
+HippoConfig.shared.startVideoCall(data: peerChatInfo, callType: .(audio/video), completion: { (success, error) in
 //handle success or error
 })
 ```
-
 1. After installing hippo call client pod selecte pods in your project's root directory in xcode, below your project name
 2. In targets select HippoCallClient(Blue one) and in build phases select copy bundle resources click + icon and add VideoSDK.storyboard and ButtonControlsView.xib
 
 
 
+# Setup Advance stats updates
+
+To enable advance stats to update when user click on notification and time user spent in the app you have to add below mentioned code to your project's app delegate file.
+
+  -- In appDelegate file found didFinishLaunchWithOptions add the code:
+          if let lauchOptionInfo = launchOptions, let remoteNotification = lauchOptionInfo[UIApplication.LaunchOptionsKey.remoteNotification] as? [String: Any] {
+            userInfo = remoteNotification
+            
+            if (remoteNotification["is_announcement_push"] as? Int != nil && remoteNotification["is_announcement_push"] as? Int == 1) || (remoteNotification["channel_type"] as? Int != nil && remoteNotification["channel_type"] as? Int == 6) {
+                openendFromPush = true
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.7) {
+                    ChatSDK.shared.handelPush(userInfo: remoteNotification)
+                }
+            }
+        }
+
+ -- add this function in your appDelegate file:
+     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        
+        if openendFromPush || (UIApplication.shared.applicationState != .background && UIApplication.shared.applicationState != .active){
+            openendFromPush = false
+            return
+        }
+        
+        if let userInfo = userInfo as? [String : Any]{
+            HippoConfig.shared.managePromotionOrP2pCount(userInfo)
+            HippoConfig.shared.callMissedFromUser(userInfo: userInfo)
+            
+            completionHandler(UIBackgroundFetchResult.newData)
+        }else{
+            completionHandler(UIBackgroundFetchResult.failed)
+        }
+    }
+    
+-- In didReceiveResponse add: 
+        if HippoConfig.shared.isHippoNotification(withUserInfo: userInfo) {
+            HippoConfig.shared.handleRemoteNotification(userInfo: userInfo)
+        }
+        
+-- In app delegate add this function to update session time to backend:
+    func applicationWillResignActive(_ application: UIApplication) {
+        HippoConfig.shared.hitStatsApi(userInfo: nil, sendSessionTym: true)
+    }
+ 
 -- To show promotional pop up in your app on any screen and receive data on button click add below mentioned code:
         HippoConfig.shared.presentPromotionalPopUp(on: Your_View_Controller) { data in
             print("Button one call back received with \(data)")

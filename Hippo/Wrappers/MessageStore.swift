@@ -13,12 +13,16 @@ struct RequestIdenfier {
     static let getMessagesIdentifier = "HIPPO_GET_MESSAGES_IDENTIFIER"
     static let getMyConversationIdentfier = "HIPPO_GET_MY_CONVERSATION_IDENTIFIER"
     static let getAllConversationIdentfier = "HIPPO_GET_ALL_CONVERSATION_IDENTIFIER"
+    static let getHistoryConversationIdentfier = "HIPPO_GET_HISTORY_CONVERSATION_IDENTIFIER"
     static let geto2oChatConversationIdentfier = "HIPPO_o2oCHAT_IDENTIFIER"
     static let getHistoryConversationIdentfier = "HIPPO_GET_HISTORY_CONVERSATION_IDENTIFIER"
     static let authLoginIdentifier = "HIPPO_AUTH_LOGIN_IDENTIFIER"
     static let agentLoginIdentifier = "HIPPO_AGENT_LOGIN1_IDENTIFIER"
     static let getCountrycode = "tookanGetCountrycode"
     static let putUser = "Hippo_Put_User"
+    static let getAllChannelIdentfier = "HIPO_GET_ALL_CHANNEL_IDENTIFIER"
+    static let searchPeople = "HIPPO_AGENT_SEARCH_PEOPLE"
+    static let customAttributes = "HIPPO_AGENT_CUSTOM_ATTRIBUTES"
 }
 
 class MessageStore {
@@ -126,6 +130,7 @@ class MessageStore {
             handleGetMessageError(response: nil, completion: completion)
             return
         }
+        
         HippoConfig.shared.log.trace(params, level: .request)
         isInProgress = true
         
@@ -140,6 +145,7 @@ class MessageStore {
                     handleGetMessageError(response: nil, completion: completion)
                     return
                 }
+                HippoConfig.shared.isOpenedFromPush = false
                 handleGetMessagesCompletion(for: requestParam, data: data, completion: completion)
             case 406:
                 handleGetMessageError(response: responseObject, completion: completion)
@@ -189,6 +195,12 @@ class MessageStore {
                     params["user_identification_secret"] = userIdenficationSecret
                 }
             }
+            
+            if HippoConfig.shared.isOpenedFromPush ?? false{
+                params["app_opened_through_push"] = 1
+                HippoConfig.shared.sessionStartTime = Date()
+            }
+            
         }
         
         let endPage = requestParam.pageEnd == nil ? requestParam.pageStart + iOSPageLimit : requestParam.pageEnd!

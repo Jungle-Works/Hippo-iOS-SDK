@@ -33,6 +33,7 @@ class AllString{
         if HippoConfig.shared.appUserType == .agent{
             params["access_token"] = HippoConfig.shared.agentDetail?.fuguToken
         }
+               
         
         HippoConfig.shared.log.trace(params, level: .request)
         HTTPClient.makeConcurrentConnectionWith(method: .POST, enCodingType: .json, para: params, extendedUrl: FuguEndPoints.getLanguage.rawValue) { (responseObject, error, tag, statusCode) in

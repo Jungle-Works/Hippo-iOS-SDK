@@ -75,13 +75,13 @@ class HTTPClient {
         singletonDataTask[identifier] = nil
     }
     
-    func makeSingletonConnectionWith(method: HttpMethodType, identifier: String, showAlert: Bool = true, showAlertInDefaultCase: Bool = true, showActivityIndicator: Bool = true, para: [String: Any]? = nil, baseUrl: String = HippoConfig.shared.baseUrl, extendedUrl: String, callback: @escaping ServiceResponse) {
+    func makeSingletonConnectionWith(method: HttpMethodType, enCodingType: EncodingType = .json, identifier: String, showAlert: Bool = true, showAlertInDefaultCase: Bool = true, showActivityIndicator: Bool = true, para: [String: Any]? = nil, baseUrl: String = HippoConfig.shared.baseUrl, extendedUrl: String, callback: @escaping ServiceResponse) {
         
         if let tempDataTask = singletonDataTask[identifier] {
             tempDataTask?.cancel()
         }
         
-        let newDataRequest = HTTPClient.makeConcurrentConnectionWith(method: method, showAlert: showAlert, showAlertInDefaultCase: showAlertInDefaultCase, showActivityIndicator: showActivityIndicator, para: para, baseUrl: baseUrl, extendedUrl: extendedUrl, callback: callback)
+        let newDataRequest = HTTPClient.makeConcurrentConnectionWith(method: method, enCodingType: enCodingType, showAlert: showAlert, showAlertInDefaultCase: showAlertInDefaultCase, showActivityIndicator: showActivityIndicator, para: para, baseUrl: baseUrl, extendedUrl: extendedUrl, callback: callback)
         singletonDataTask[identifier] = newDataRequest
     }
     
@@ -125,9 +125,7 @@ class HTTPClient {
     
     @discardableResult
     class func makeConcurrentConnectionWith(method: HttpMethodType, enCodingType: EncodingType = .json, showAlert: Bool = false, showAlertInDefaultCase: Bool = false, showActivityIndicator: Bool = false, para: [String: Any]? = nil, baseUrl: String = HippoConfig.shared.baseUrl, extendedUrl: String, callback: @escaping ServiceResponse) -> URLSessionDataTask? {
-        
         print("Base server url ---------", HippoConfig.shared.baseUrl, "\nsocket url --------", HippoConfig.shared.fayeBaseURLString)
-        
         guard isConnectedToInternet() else {
             let error = NetworkError()
             callback(nil, error, nil, 404)
@@ -243,7 +241,7 @@ class HTTPClient {
     }
     
     private class func sendCurl(request : URLRequest, code : Int){
-        let parameters = "{text : \"appversion = \(fuguAppVersion) app_secret_key = \(HippoConfig.shared.appSecretKey) API = \(request.url) Date = \(Date()) \"}"
+        let parameters = "{text : \"appversion = \(fuguAppVersion) app_secret_key = \(HippoConfig.shared.appSecretKey) API = \(String(describing: request.url)) Date = \(Date()) \"}"
         let postData = parameters.data(using: .utf8)
 
         var request = URLRequest(url: URL(string: "https://chat.googleapis.com/v1/spaces/AAAAELI_7Kw/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=X_4MUG2HTaTMSet0c8IwsAmWlAv25dPsrU5ey2qj6Cs%3D")!,timeoutInterval: Double.infinity)
@@ -339,6 +337,7 @@ class HTTPClient {
                         callback(json, nil, extendedUrl, statusCode)
                         return
                     default:
+                        callback(nil, error, extendedUrl, nil)
                         break
                         //                  showAlertInDefaultCase ? ErrorView.showWith(message: message, isErrorMessage: true, removed: nil) : ()
                     }

@@ -76,9 +76,10 @@ extension AgentHomeCollectionViewCell {
         case .o2oChat:
             self.isMoreToLoad = ConversationStore.shared.isMoreo2oChatToLoad
         case .historyChat:
-                   print("history chat")
+            print("history chat")
         }
     }
+    
     func setupCellView() {
         var message = ""
         var enableButton = false

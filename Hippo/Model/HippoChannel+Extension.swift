@@ -28,18 +28,22 @@ extension HippoChannel: SignalingClient {
     }
     
     func connectClient(completion: @escaping (Bool) -> Void) {
+        print("come in connect client at line 31")
         guard !isConnected() else {
             completion(true)
+            print("connectClient 1")
             return
         }
         
         guard !isSubscribed() else {
             completion(false)
+            print("connectClient 2")
             return
         }
         
         subscribeChannel { (success) in
             completion(success)
+            print("connectClient 3")
         }
     }
     
@@ -73,6 +77,8 @@ extension HippoChannel: SignalingClient {
     func sendJitsiObject(json: [String : Any], completion: @escaping (Bool, NSError?) -> Void) {
         var fayeDict = json
         
+        print("come in sendJitsiObject at line 76 !!!!!!!!!!!")
+        
         fayeDict["message_type"] = MessageType.call.rawValue
         fayeDict["user_type"] = currentUserType().rawValue
         fayeDict["device_payload"] = [
@@ -89,8 +95,6 @@ extension HippoChannel: SignalingClient {
         
         send(dict: fayeDict) { (success, error)  in
             completion(success, error)
-            print(success)
-            print(error)
         }
         
         if json["video_call_type"] as? String == "USER_BUSY_CONFERENCE"{
