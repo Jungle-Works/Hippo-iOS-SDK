@@ -286,7 +286,6 @@ public class CoreMediaSelector: NSObject, UINavigationControllerDelegate, UIImag
                 }
                 return
             }
-            
             let type = Result.MediaType.movieType
             result = Result(isSuccessful: true, error: nil, info: info, filePath: parsedUrl.path, mediaType: type, soucreType: picker.sourceType, image: nil)
             

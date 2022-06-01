@@ -7,7 +7,6 @@
 //
 
 import UIKit
-//import Demo_3002
 
 typealias FuguUserDetailCallback = (_ success: Bool, _ error: Error?) -> Void
 
@@ -99,7 +98,6 @@ public class UserTag: NSObject {
     var phoneNumber: String?
     var userUniqueKey: String?
     var callingType:Int?
-    public var nCallingType = 2
     var addressAttribute: HippoAttributes?
     var customAttributes: [String: Any]?
     var userTags: [UserTag] = []
@@ -109,9 +107,7 @@ public class UserTag: NSObject {
     var userChannel: String?
     var listener : SocketListner?
     var userIdenficationSecret : String?
-    
     var callAudioTypeorNot : String?
-
     static var shouldGetPaymentGateways : Bool = true
     
     class var HippoUserChannelId: String? {
@@ -152,15 +148,6 @@ public class UserTag: NSObject {
 //        }
 //    }
     
-    class var NotificationNotAllowedAlert: Bool {
-        set {
-            UserDefaults.standard.setValue(newValue, forKey: NotificationDisabledAlert)
-        }
-        get {
-            return UserDefaults.standard.value(forKey: NotificationDisabledAlert) as? Bool ?? false
-        }
-    }
-    
     class var fuguEnUserID: String? {
         get {
             return UserDefaults.standard.value(forKey: Fugu_en_user_id) as? String
@@ -169,7 +156,6 @@ public class UserTag: NSObject {
             UserDefaults.standard.set(newValue, forKey: Fugu_en_user_id)
         }
     }
-    
     static func isValidDetails() -> Bool {
         let appSecretKey = HippoConfig.shared.appSecretKey
         let enUserID = fuguEnUserID?.trimWhiteSpacesAndNewLine() ?? ""
@@ -410,6 +396,7 @@ public class UserTag: NSObject {
         }
         
         
+        
         BussinessProperty.current.isCallInviteEnabled = Bool.parse(key: "is_call_invite_enabled", json: userDetailData)
         
         BussinessProperty.current.editDeleteExpiryTime = CGFloat(Int.parse(values: userDetailData, key: "edit_delete_message_duration") ?? 0)
@@ -513,7 +500,6 @@ public class UserTag: NSObject {
             completion(true)
         }
     }
-    
     private class func getParamsForPaymentGateway() -> [String: Any] {
         var params = [String: Any]()
         params["app_secret_key"] = HippoConfig.shared.appSecretKey
@@ -564,7 +550,6 @@ public class UserTag: NSObject {
 //        if HippoProperty.current.singleChatApp {
 ////            params["neglect_conversations"] = true
 //        }
-        params["fetch_whatsapp_config"] = 1
         params["neglect_conversations"] = true
         params["fetch_announcements_unread_count"] = 1
         return params
@@ -722,6 +707,7 @@ public class UserTag: NSObject {
         defaults.removeObject(forKey: Hippo_User_Channel_Id)
         defaults.removeObject(forKey: FUGU_USER_ID)
         defaults.removeObject(forKey: Fugu_en_user_id)
+
         defaults.synchronize()
         completion?(true)
     }

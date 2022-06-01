@@ -45,14 +45,12 @@ extension SocketClient {
             json["channel"] = channelIdForValidation
             
             if currentEnUserId().trimWhiteSpacesAndNewLine() == ""{
-                print("returndddddddddddddddddd")
                 return
             }
             
-            print("status of socket ------->>>>>>>>\(SocketClient.shared.socket?.status)")
+            print("status of socket ------->>>>>>>>\(SocketClient.shared.socket?.status)") 
             
             socket?.emitWithAck(eventToSubscribe, json).timingOut(after: 20, callback: { (data) in
-                print("DAATA IN SUCCESS OF EMITTTTTT\(data)")
                 if data.isEmpty{
                     completion?(nil, false)
                 }else{
@@ -119,14 +117,13 @@ extension SocketClient {
             if currentEnUserId().trimWhiteSpacesAndNewLine() == ""{
                 return
             }
-
             socket.emitWithAck(SocketEvent.MESSAGE_EVENT.rawValue, json).timingOut(after: 30, callback: { (data) in
                 let ack = EventAckResponse(with: data)
                 completion(ack)
             })
         }else{
             SocketClient.shared.connect()
-            send(messageDict: messageDict, toChannelID: channelID, completion: completion)
+//            send(messageDict: messageDict, toChannelID: channelID, completion: completion)
         }
     }
     

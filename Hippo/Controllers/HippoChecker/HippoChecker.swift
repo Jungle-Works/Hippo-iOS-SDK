@@ -39,9 +39,11 @@ class HippoChecker {
            }
        }
     
-    func presentPromotionalPushController(){
+    func presentPromotionalPushController()
+    {
         FuguFlowManager.shared.presentPromotionalpushController()
     }
+    
     
     
     func shouldCollectDataFromUser() -> Bool {
@@ -62,7 +64,6 @@ class HippoChecker {
         }
     }
 }
-
 extension HippoChecker {
     
 }

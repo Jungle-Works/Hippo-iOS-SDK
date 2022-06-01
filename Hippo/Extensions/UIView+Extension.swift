@@ -262,6 +262,7 @@ extension UIViewController {
         
         inController?.present(alertMessageController, animated: true, completion: nil)
     }
+
     
     func showOptionAlert(title: String?, message: String, preferredStyle: UIAlertController.Style = .alert, successButtonName: String, successComplete: ((_ action: UIAlertAction) -> Void)?, failureButtonName: String, failureComplete: ((_ action: UIAlertAction) -> Void)?) {
         let alertMessageController = UIAlertController(title: title, message: message, preferredStyle: preferredStyle)
@@ -282,11 +283,9 @@ extension UIViewController {
         
         self.present(alertMessageController, animated: true, completion: nil)
     }
-    
     func removeNotificationsFromNotificationCenter(channelId: Int) {
         HippoNotification.removeAllnotificationFor(channelId: channelId)
     }
-    
     func removeKeyboardNotificationObserver() {
         #if swift(>=4.2)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)

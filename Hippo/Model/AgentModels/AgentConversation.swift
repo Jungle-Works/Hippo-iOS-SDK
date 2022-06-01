@@ -289,10 +289,6 @@ class AgentConversation: HippoConversation {
             json["original_transaction_id"] = transactionId
         }
 
-        if let transactionId = transactionId {
-            json["original_transaction_id"] = transactionId
-        }
-        
         return json
     }
     func getUpdatedLabelFor(newConversation: AgentConversation) -> String {
@@ -304,7 +300,6 @@ class AgentConversation: HippoConversation {
             return newConversation.label ?? ""
         }
     }
-    
     func getUnreadCountFor(newConversation: AgentConversation) -> Int {
         if let lastMessage = newConversation.lastMessage, lastMessage.isSentByMe() {
             return 0

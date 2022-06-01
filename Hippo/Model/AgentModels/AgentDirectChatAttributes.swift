@@ -18,21 +18,16 @@ class AgentDirectChatAttributes: NSObject {
     private(set) var chatType: ChatType = .other
     private(set) var transactionID: String? = nil
     private(set) var customChannelName: String?
-    private(set) var otherUserId: Int?
     
     
-    init(otherUserUniqueKey: String, channelName: String?, transactionID: String? = nil, otherUserId: Int? = nil) {
+    
+    init(otherUserUniqueKey: String, channelName: String?, transactionID: String? = nil) {
         self.otherUserUniqueKey = otherUserUniqueKey.trimWhiteSpacesAndNewLine()
         
         if let name = channelName?.trimWhiteSpacesAndNewLine() {
             self.channelName = name
             self.customChannelName = name
         }
-        
-        if let otherUserId = otherUserId {
-            self.otherUserId = otherUserId
-        }
-        
         self.transactionID = transactionID
     }
     
@@ -60,11 +55,7 @@ class AgentDirectChatAttributes: NSObject {
         case .o2o:
             param["chat_with_email"] = otherUserEmail
         default:
-            
-            if !otherUserUniqueKey.isEmpty{
-                param["other_user_unique_key"] = [otherUserUniqueKey]
-            }
-            
+            param["other_user_unique_key"] = [otherUserUniqueKey]
             param["initiator_en_agent_id"] = detail.enUserId
             param["chat_type"] = 0
         }
@@ -74,10 +65,6 @@ class AgentDirectChatAttributes: NSObject {
         if let customChannelName = self.customChannelName {
             param["custom_label"] = customChannelName
         }
-        if let otherUserId = otherUserId {
-            param["user_id"] = otherUserId
-        }
-        
         return param
     }
 }

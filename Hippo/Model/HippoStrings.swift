@@ -134,7 +134,6 @@ public class HippoStrings {
     static var newConversation = "New Conversation".localized
     static var actions = "Actions".localized
     static var closeChat = "Close Chat".localized
-    static var closeChats = "Close Chats".localized
     static var attachmentImage = "Attachment: Image".localized
     static var status = "Status".localized
     static var myChats = "My Chats".localized
@@ -215,8 +214,7 @@ public class HippoStrings {
     static var edited = "Edited".localized
     static var copy = "Copy".localized
     static var deleteMessage = "deleted this message.".localized
-    static var establishingConnection = "Please wait while we are establishing the connection..".localized
-    static var botAdded = "Bot added by ".localized
+    static var establishingConnection = "Please wait while we are establishing the connection.."
     
     open var disbaledCameraErrorMessage = "Access to Camera is denied. Please enable from setings."
     

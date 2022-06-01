@@ -24,7 +24,6 @@ final class NavigationBarChat: UIView {
                                                                        height: layer.shadowRadius)).cgPath
         }
     }
-    
     @IBOutlet weak var leftButton: UIButton!
     @IBOutlet weak var titleLabel : UILabel!
     @IBOutlet weak var call_button : UIButton!{
@@ -33,14 +32,12 @@ final class NavigationBarChat: UIView {
             call_button.tintColor = HippoConfig.shared.theme.headerTextColor
         }
     }
-    
     @IBOutlet weak var video_button : UIButton!{
         didSet{
            video_button.setImage(HippoConfig.shared.theme.videoCallIcon, for: .normal)
            video_button.tintColor = HippoConfig.shared.theme.headerTextColor
         }
     }
-    
     @IBOutlet private weak var image_profile : UIImageView!
     
     @IBOutlet private weak var image_back : UIImageView!{
@@ -49,7 +46,6 @@ final class NavigationBarChat: UIView {
             image_back.image = HippoConfig.shared.theme.leftBarButtonImage
         }
     }
-    
     @IBOutlet weak var info_button : UIButton!
     
    // @IBOutlet weak var descLabel : UILabel!
@@ -124,7 +120,6 @@ final class NavigationBarChat: UIView {
         @objc func titleViewClicked() {
             delegate?.titleClicked?()
         }
-    
         @objc func imageClicked() {
     //        if backButton.isEnabled {
                 delegate?.imageIconClicked?()

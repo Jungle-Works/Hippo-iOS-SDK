@@ -12,10 +12,6 @@ import Foundation
 import HippoCallClient
 #endif
 
-#if canImport(HippoCallClient)
-import HippoCallClient
-#endif
-
 class GroupCall{
     
     //MARK:- API Call for create group calling session from Agent SDK
@@ -99,10 +95,8 @@ extension GroupCall{
         
         
         let groupCallData = GroupCallData.init(peerData: user, callType: groupCall.callType ?? .audio, muid: muid, signallingClient: groupCallChannel, isMuted: groupCall.isAudioMuted ?? false)
-         #if canImport(JitsiMeetSDK)
-            CallManager.shared.startGroupCall(call: groupCallData, groupCallChannelData: groupCall) { (status, error) in
-            }
-         #endif
+        CallManager.shared.startGroupCall(call: groupCallData, groupCallChannelData: groupCall) { (status, error) in
+        }
         
     }
     

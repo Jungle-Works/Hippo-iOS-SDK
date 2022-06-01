@@ -50,8 +50,10 @@ class FuguFlowManager: NSObject {
         let visibleController = getLastVisibleController()
         navigationController.modalPresentationStyle = .fullScreen
         visibleController?.present(navigationController, animated: animation, completion: nil)
+//        let vc = self.storyboard.instantiateViewController(withIdentifier: "ALLViewController") as! ALLViewController
+//        vc.modalPresentationStyle = .fullScreen
+//        visibleController?.present(vc, animated: true, completion: nil)
     }
-    
     func presentCustomerConversations(on viewController: UIViewController, animation: Bool = true) {
        guard let navigationController = storyboard.instantiateViewController(withIdentifier: "FuguCustomerNavigationController") as? UINavigationController, let topVC = navigationController.topViewController else {
           return
@@ -77,7 +79,6 @@ class FuguFlowManager: NSObject {
     func presentNLevelViewController(animation: Bool = true) {
         self.openFAQScreen(animation: animation)
     }
-    
     func openFAQScreen(animation: Bool) {
         guard let vc = NLevelViewController.get(with: [HippoSupportList](), title: HippoSupportList.FAQName) else {
             return
@@ -123,6 +124,8 @@ class FuguFlowManager: NSObject {
         nav.modalPresentationStyle = .fullScreen
         visibleController?.present(nav, animated: true, completion: nil)
     }
+    
+    
     
     func openDirectAgentConversation(channelTitle: String?) {
         guard HippoConfig.shared.appUserType == .agent else {

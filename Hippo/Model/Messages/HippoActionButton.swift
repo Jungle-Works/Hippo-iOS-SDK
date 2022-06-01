@@ -14,14 +14,11 @@ enum BotButtonAction: Int {
     case videoCall = 3
     case chat = 4
     case openUrl = 5
-    case callBack = 7
 }
-
 enum BotButtonType: Int {
-    case normal = 1
+   case normal = 1
     case action = 2
 }
-
 class HippoActionButton {
     static let defaultButtonActionJson: [String: Any] = ["link_url": "https://fb.com"]
     
@@ -100,19 +97,11 @@ class HippoActionButton {
     func getJson() -> [String : Any] {
         return self.json
     }
-    
     func getUrlToOpen() -> URL? {
         guard let linkURL = buttonActionJson["link_url"] as? String, let url = URL(string: linkURL) else {
             return nil
         }
         return url
-    }
-    
-    func getJsonToSend() -> Any? {
-        guard let jsonData = buttonActionJson["callback"] as? Any else {
-            return nil
-        }
-        return jsonData
     }
 }
 

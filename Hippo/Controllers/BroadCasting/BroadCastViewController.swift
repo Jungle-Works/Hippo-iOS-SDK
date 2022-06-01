@@ -65,13 +65,11 @@ class BroadCastViewController: UIViewController {
             self.navigationController?.dismiss(animated: true, completion: nil)
         }
     }
-    
     class func get() -> BroadCastViewController? {
         let storyboard = UIStoryboard(name: "HippoBroadCast", bundle: FuguFlowManager.bundle)
         let vc = storyboard.instantiateViewController(withIdentifier: "BroadCastViewController") as? BroadCastViewController
         return vc
     }
-    
     class func getNavigation() -> UINavigationController? {
         
         let storyboard = UIStoryboard(name: "HippoBroadCast", bundle: FuguFlowManager.bundle)

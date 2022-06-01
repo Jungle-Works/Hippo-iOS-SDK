@@ -36,8 +36,9 @@ class FilterOptionTableViewCell: UITableViewCell {
     }
     
     private func updateCellView(for selected: Bool) {
+        let theme = HippoConfig.shared.theme
         DispatchQueue.main.async {
-            self.cellBackgroundView.backgroundColor = selected ? .veryLightBlue : HippoConfig.shared.theme.backgroundColor//selected ? theme.systemBackgroundColor.secondary : theme.systemBackgroundColor.tertiary
+            self.cellBackgroundView.backgroundColor = theme.backgroundColor//selected ? theme.systemBackgroundColor.secondary : theme.systemBackgroundColor.tertiary
             self.verticleLineView.isHidden = !selected
         }
     }

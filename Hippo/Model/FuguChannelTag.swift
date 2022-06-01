@@ -16,8 +16,6 @@ class TagDetail: NSObject, Copying {
     var tagName: String?
     var isSelected = false
     var tagType = 1 //1 for normal tag and 2 for grouping tag
-    
-    var searchableString: String = ""
 
     init(json: [String: Any]) {
         colorCode = json["color_code"] as? String
@@ -25,10 +23,7 @@ class TagDetail: NSObject, Copying {
         tagId = json["tag_id"] as? Int
         tagName = json["tag_name"] as? String
         tagType = json["tag_type"] as? Int ?? 1
-        
-        searchableString = tagName?.lowercased() ?? ""
     }
-    
     required init(original: TagDetail) {
         tagId = original.tagId
         tagName = original.tagName
@@ -36,8 +31,6 @@ class TagDetail: NSObject, Copying {
         colorCode = original.colorCode
         status = original.status
         tagType = original.tagType
-        
-        searchableString = tagName?.lowercased() ?? ""
     }
     
     static func getAllTeamObject() -> TagDetail {

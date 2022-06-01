@@ -7,7 +7,6 @@
 //
 
 import UIKit
-
 protocol ImageCellDelegate: class {
     func reloadCell(withIndexPath indexPath: IndexPath)
     func retryUploadForImage(message: HippoMessage)

@@ -20,19 +20,19 @@ class TookanHelper: NSObject {
     }
     
     class func getCountryCode() {
-//        guard countryInfo == nil else {
-//            return
-//        }
-//        _ = HTTPClient.makeThirpartyCall(method: .GET, showAlert: false, showAlertInDefaultCase: false, showActivityIndicator: false, para: nil, baseUrl: tookanCountryCodeEndPoint, extendedUrl: "", callback: { (response, error, _, statusCode) in
-//            guard let parsedResponse = response as? [String: Any], let data = parsedResponse["data"] as? [String: Any] else {
+        guard countryInfo == nil else {
+            return
+        }
+        _ = HTTPClient.makeThirpartyCall(method: .GET, showAlert: false, showAlertInDefaultCase: false, showActivityIndicator: false, para: nil, baseUrl: tookanCountryCodeEndPoint, extendedUrl: "", callback: { (response, error, _, statusCode) in
+            guard let parsedResponse = response as? [String: Any], let data = parsedResponse["data"] as? [String: Any] else {
+                return
+            }
+            countryInfo = data
+//            guard HippoConfig.shared.userDetail != nil else {
 //                return
 //            }
-//            countryInfo = data
-////            guard HippoConfig.shared.userDetail != nil else {
-////                return
-////            }
-//           // HippoUserDetail.getUserDetailsAndConversation(completion: nil)
-//        })
+           // HippoUserDetail.getUserDetailsAndConversation(completion: nil)
+        })
     }
 }
 

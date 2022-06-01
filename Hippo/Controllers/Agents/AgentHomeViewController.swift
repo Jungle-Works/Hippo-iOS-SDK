@@ -63,7 +63,6 @@ class AgentHomeViewController: HippoHomeViewController {
         }
         Business.shared.restoreAllSavedInfo()
         setUpButtonContainerView()
-        openAlertIfNotificationsNotAllowed()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -152,8 +151,6 @@ class AgentHomeViewController: HippoHomeViewController {
 //        self.present(navVC, animated: true, completion: nil)
         if let vc = FilterViewController.getNewInstance(){
             vc.filterScreenButtonsDelegate = self
-            vc.currentSelectedConvoType = self.conversationType
-            vc.homeController = self
             let navVC = UINavigationController(rootViewController: vc)
 //        navVC.setupCustomThemeOnNavigationController(hideNavigationBar: false)
 //            navVC.modalPresentationStyle = .overFullScreen
@@ -781,12 +778,6 @@ extension AgentHomeViewController: AgentHomeCollectionViewCellDelegate {
         vc.agentConversationDelegate = self
         self.navigationController?.pushViewController(vc, animated: true)
     }
-    
-    func moveToConversationWith(_ conversationData: SearchCustomerData){
-        let vc = AgentConversationViewController.getWith(conversationObj: conversationData)
-        vc.agentConversationDelegate = self
-        self.navigationController?.pushViewController(vc, animated: true)
-    }
 }
 
 extension AgentHomeViewController: AgentChatDeleagate {
@@ -1042,31 +1033,5 @@ extension AgentHomeViewController : FilterScreenButtonsDelegate{
     func applyButtonPressed() {
         startLoading()
         self.setDataForViewDidAppear()
-    }
-}
-
-extension AgentHomeViewController{
-    // MARK: - Show alert if user didn't provide permission for notifications
-    fileprivate func openAlertForNotification() {
-        self.showOptionAlert(title: "Turn on notifications", message: "This way you will be notified when anyone send you message or call instantly.\nPlease allow permission from settings app.", successButtonName: "Setings", successComplete: { action in
-            if let bundle = Bundle.main.bundleIdentifier,
-               let settings = URL(string: UIApplication.openSettingsURLString + bundle) {
-                if UIApplication.shared.canOpenURL(settings) {
-                    UIApplication.shared.open(settings)
-                }
-            }
-        }, failureButtonName: "Cancel") { action in }
-    }
-    
-    func openAlertIfNotificationsNotAllowed(){
-        UNUserNotificationCenter.current().getNotificationSettings { (settings) in
-            if settings.authorizationStatus != .authorized && !HippoUserDetail.NotificationNotAllowedAlert{
-                // Notifications are not allowed
-                fuguDelay(0.0) {
-                    self.openAlertForNotification()
-                    HippoUserDetail.NotificationNotAllowedAlert = true
-                }
-            }
-        }
     }
 }

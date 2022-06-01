@@ -284,9 +284,15 @@ extension AgentDetail {
                 HippoConfig.shared.serverTimeDifference = difference
                 SocketClient.shared.connect()
             }
-    
+            
+            // MARK: - Passing app secret explicitly only for demo agent, in parent app - app secret key will be already there
+//            if let appSecretKey = data["app_secret_key"] as? String {
+//                HippoConfig.shared.appSecretKey = appSecretKey
+//            }
+            
             BussinessProperty.current.isVideoCallEnabled = Bool.parse(key: "is_video_call_enabled", json: data)
             BussinessProperty.current.isAudioCallEnabled = Bool.parse(key: "is_audio_call_enabled", json: data)
+            BussinessProperty.current.enableChatInCall = Bool.parse(key: "enable_chat_in_call", json: data)
             
             
             if let businessProperty = data["business_property"] as? [String: Any] {
@@ -300,22 +306,18 @@ extension AgentDetail {
                 
                 BussinessProperty.current.hideAllChat = Bool.parse(key: "hide_all_chat_tab", json: businessProperty)
                 
+                BussinessProperty.current.showCustomerChatHistory = Bool.parse(key: "show_customer_chat_history", json: businessProperty, defaultValue: false)
+                
                 BussinessProperty.current.shouldHideCustomerData = Bool.parse(key: "hide_customer_data", json: businessProperty)
                 
                 BussinessProperty.current.hideo2oChat = !(Bool.parse(key: "o2o_in_dashboard_enabled", json: businessProperty))
                 
                 BussinessProperty.current.eFormEnabled = (Bool.parse(key: "is_eform_enabled", json: businessProperty))
                 
-                BussinessProperty.current.showCustomerChatHistory = Bool.parse(key: "show_customer_chat_history", json: businessProperty, defaultValue: false)
-                
                 BussinessProperty.current.currencyArr = BuisnessCurrency().getCurrenyData(businessProperty["business_currency"] as? [[String : Any]] ?? [[String : Any]]())
                 HippoConfig.shared.jitsiUrl = businessProperty["jitsi_url"] as? String
                 
-                if let enable_agent_customer_chat = businessProperty["enable_agent_customer_chat"] as? String {
-                    BussinessProperty.current.isAgentToCustomerChatEnable = enable_agent_customer_chat == "1"
-                }
-                
-                Business.shared.updateDataFromLogin(data: businessProperty)
+                HippoUserDetail.callingType = (Int.parse(values: businessProperty, key: "calling_type") ?? 3)
             }
             
             BussinessProperty.current.unsupportedMessageString = data["unsupported_message"] as? String ?? ""
@@ -440,14 +442,13 @@ extension AgentDetail {
         if agentDetail.isForking {
             params["agent_secret_key"] = agentDetail.oAuthToken
         } else {
-            params["auth_token"] = agentDetail.oAuthToken
-//            params["auth_token"] = "4b5519a88d6fbe9148c100ce12d330e1"
+           params["auth_token"] = agentDetail.oAuthToken
+//             params["auth_token"] = "c5f8c938df0f9421ef6dca05a64e166e"
         }
         params["fetch_tags"] = 0
         return params
     }
 }
-
 //MARK: Class variables
 extension AgentDetail {
     class var id: Int {
