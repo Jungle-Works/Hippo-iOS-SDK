@@ -16,7 +16,7 @@ import HippoCallClient
 #if canImport(HippoCallClient)
 class CallKitManager: NSObject, CXProviderDelegate {
     
-    static var shared = CallKitManager()
+    static let shared = CallKitManager()
     
     // MARK: - Properties
     private static var provider: CXProvider = {
@@ -67,11 +67,11 @@ class CallKitManager: NSObject, CXProviderDelegate {
         if #available(iOS 12.0, *) {
             os_log(.error, "OS_HIPPO>>>", "startNewOutgoingCall")
         }
-        
+
         let handle = CXHandle(type: .generic, value: request.peer.name)
         let startCallAction = CXStartCallAction(call: UUID(uuidString: request.callUuid) ?? UUID(), handle: handle)
         let transaction = CXTransaction(action: startCallAction)
-        
+
         callKitController.request(transaction) { [weak self] (error) in
             DispatchQueue.main.async {
                 guard error == nil else {
@@ -79,13 +79,14 @@ class CallKitManager: NSObject, CXProviderDelegate {
                     completion(false)
                     return
                 }
+                self?.provider.reportOutgoingCall(with: UUID(uuidString: request.callUuid) ?? UUID(), connectedAt: Date())
                 completion(true)
             }
         }
+        HippoCallClient.shared.updateProviderInJitsi(with: self.provider)
     }
     
     // MARK: - CXProviderDelegate
-    
     func provider(_ provider: CXProvider, perform action: CXEndCallAction) {
         HippoCallClient.shared.actionFromCallKit(isAnswered: false, completion: { _ in })
         action.fulfill()

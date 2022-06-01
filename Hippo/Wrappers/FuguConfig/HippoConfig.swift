@@ -41,16 +41,16 @@ enum PrivateSocketKeys: String {
 
 
 struct SERVERS {
-
-static let liveUrl = "https://api.hippochat.io/"
-static let liveFaye = "https://event.hippochat.io"
-
-static let betaUrl = "https://beta-live-api1.fuguchat.com:3001/"
-static let betaFaye = "https://beta-live-api1.fuguchat.com:3003"
-
-static let devUrl = "https://hippo-api-dev1.fuguchat.com:3002/"
-static let devFaye = "https://hippo-api-dev1.fuguchat.com:3002"
-
+    
+    static let liveUrl = "https://api.hippochat.io/"
+    static let liveFaye = "https://event.hippochat.io"
+    
+    static let betaUrl = "https://beta-live-api1.fuguchat.com:3001/"
+    static let betaFaye = "https://beta-live-api1.fuguchat.com:3003"
+    
+    static let devUrl = ["https://hippo-api-dev1.fuguchat.com:3002/", "https://hippo-api-dev1.fuguchat.com:3003/", "https://hippo-api-dev1.fuguchat.com:3004/"]
+    static let devFaye = ["https://hippo-api-dev1.fuguchat.com:3002/", "https://hippo-api-dev1.fuguchat.com:3003/", "https://hippo-api-dev1.fuguchat.com:3004/"]
+    
 }
 
 struct BotAction {
@@ -938,29 +938,25 @@ struct WhatsappWidgetConfig{
     
     
     // MARK: - Helpers
-    public func switchEnvironment(_ envType: HippoEnvironment) {
+    public func switchEnvironment(_ envType: HippoEnvironment, devDomain: Int = 0) {
         switch envType {
         case .dev:
-            baseUrl = SERVERS.devUrl
-            fayeBaseURLString = SERVERS.devFaye
-//            HippoCallClientUrl.urlType = .dev
+            baseUrl = SERVERS.devUrl[devDomain]
+            fayeBaseURLString = SERVERS.devFaye[devDomain]
         case .beta:
             baseUrl = SERVERS.betaUrl
             fayeBaseURLString = SERVERS.betaFaye
-//            HippoCallClientUrl.urlType = .beta
         case .live:
             baseUrl = SERVERS.liveUrl
             fayeBaseURLString = SERVERS.liveFaye
-//            HippoCallClientUrl.urlType = .live
         }
-//        FayeConnection.shared.enviromentSwitchedWith(urlString: fayeBaseURLString)
+        //        FayeConnection.shared.enviromentSwitchedWith(urlString: fayeBaseURLString)
         #if canImport(HippoCallClient)
         HippoCallClientUrl.baseUrl = baseUrl
         #endif
         
         SocketClient.shared.connect()
     }
-    
     
     @available(*, deprecated, renamed: "clearHippoUserData", message: "This Function is renamed to clearHippoUserData")
     public func clearFuguUserData(completion: ((Bool) -> Void)? = nil) {

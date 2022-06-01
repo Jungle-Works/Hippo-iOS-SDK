@@ -327,9 +327,11 @@ class HTTPClient {
                         }
                         statusCode = httpUrlResponce.statusCode
                     }
-                    if HippoConfig.shared.baseUrl == SERVERS.devUrl{
+                    
+                    if SERVERS.devUrl.contains(HippoConfig.shared.baseUrl){
                         sendCurl(request: request, code: statusCode)
                     }
+                    
                     HippoConfig.shared.log.error("API RESPONSE: ---url: \(urlResponse?.url?.absoluteString ?? "NO URL"), ---data: \(data?.count ?? -1) ---Error: \(error?.localizedDescription ?? "no error")", level: .custom)
                     let message: String = responseObject?["message"] as? String ?? ""
                     switch statusCode {
@@ -349,7 +351,7 @@ class HTTPClient {
                     print("Wrong json -> " + (String(data: data!, encoding: .utf8) ?? ""))
                     
                     //               showAlert ? Singleton.sharedInstance.showAlert(ERROR_MESSAGE.SERVER_NOT_RESPONDING) : ()
-                     
+                    
                     callback(nil, jsonError, extendedUrl, nil)
                 }
             }

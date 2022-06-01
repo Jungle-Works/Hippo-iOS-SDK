@@ -103,10 +103,8 @@ class SocketClient: NSObject {
         case SERVERS.betaFaye:
             return PrivateSocketKeys.beta.rawValue
             
-        case SERVERS.devFaye:
-            return PrivateSocketKeys.dev.rawValue
         default:
-            return ""
+            return PrivateSocketKeys.dev.rawValue
         }
     }
 

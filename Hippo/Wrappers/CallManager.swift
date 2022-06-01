@@ -94,11 +94,19 @@ class CallManager {
 //         #endif
         
         HippoCallClient.shared.startCall(call: callToMake, isInviteEnabled: BussinessProperty.current.isCallInviteEnabled ?? false, completion: completion)
+        reportCallOnCallKit(call: call, peer: peer)
 //        #else
 //        completion(false,nil)
         #endif
     }
 
+    func reportCallOnCallKit(call: CallData, peer: HippoUser){
+        let callType: Call.CallType = call.callType == .audio ? .audio : .video
+        let request = PresentCallRequest(peer: peer, callType: callType, callUUID: call.muid)
+        CallKitManager.shared.startNewOutgoingCall(request: request) { isReportedSuccss in
+            print("is call successfully reported to callkit - \(isReportedSuccss)")
+        }
+    }
 
     func startWebRTCCall(call: CallData, completion: @escaping (Bool) -> Void) {
 //        #if canImport(HippoCallClient)
