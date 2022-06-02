@@ -30,6 +30,7 @@ Pod::Spec.new do |s|
     
     s.dependency 'Socket.IO-Client-Swift'
     s.dependency 'CropViewController'
+    s.dependency 'DropDown'
  
     s.default_subspec = 'Chat'
     
