@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import DropDown
 
 enum SearchOptionType{
     case searchBy
