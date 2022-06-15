@@ -431,3 +431,21 @@ Here you have to pass the maxChats you want to enable the user can create, and p
         }
         "
 😍 🥳 🤩 Notifications are good to go now use it 😍 🥳 🤩
+
+
+# Setup Screen Share with jitsi calling
+1. Add app group to your app
+2. Add new target to your app named - "Broadcast upload extension"
+3. Assign same app group to the newly added target
+4. Download the files from this url -  https://github.com/jitsi/jitsi-meet-sdk-samples/blob/master/ios/swift-screensharing/JitsiSDKScreenSharingTest/Broadcast%20Extension/Atomic.swift
+    https://github.com/jitsi/jitsi-meet-sdk-samples/blob/master/ios/swift-screensharing/JitsiSDKScreenSharingTest/Broadcast%20Extension/DarwinNotificationCenter.swift
+    https://github.com/jitsi/jitsi-meet-sdk-samples/blob/master/ios/swift-screensharing/JitsiSDKScreenSharingTest/Broadcast%20Extension/SampleHandler.swift
+    https://github.com/jitsi/jitsi-meet-sdk-samples/blob/master/ios/swift-screensharing/JitsiSDKScreenSharingTest/Broadcast%20Extension/SampleUploader.swift
+    https://github.com/jitsi/jitsi-meet-sdk-samples/blob/master/ios/swift-screensharing/JitsiSDKScreenSharingTest/Broadcast%20Extension/SocketConnection.swift
+    
+5. Drag the downlaoded files in the broadcast extension target
+6. Open sample handler and replace the app group with your app's app group
+7. Open JitsiConferenceCallView.swift and add this line below line number 66 - 
+            "ptionsBuilder.setFeatureFlag("ios.screensharing.enabled", withValue: true)"
+            
+😍 🥳 🤩 Screen sharing is good to go now use it 😍 🥳 🤩
