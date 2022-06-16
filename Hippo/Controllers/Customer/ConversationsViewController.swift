@@ -166,6 +166,8 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
                 self?.addRecordView()
             }
         }
+       button_Recording.isHidden = HippoConfig.shared.disableRecordingButton ?? false
+        
         view_Navigation.call_button.addTarget(self, action: #selector(audiCallButtonClicked(_:)), for: .touchUpInside)
         view_Navigation.video_button.addTarget(self, action: #selector(videoButtonClicked(_:)), for: .touchUpInside)
         handleInfoIcon()
@@ -789,6 +791,12 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         
         self.sendMessageButton.isHidden = true
         self.button_Recording.isHidden = false
+        
+        if let recordButtonDisabled = HippoConfig.shared.disableRecordingButton, recordButtonDisabled{
+            self.button_Recording.isHidden = true
+            self.sendMessageButton.isHidden = false
+            self.sendMessageButton.isEnabled = false
+        }
         
         if let message = messagesGroupedByDate.last?.last as? HippoActionMessage {
             if message.type == .dateTime {
@@ -1575,6 +1583,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
             callback(sucess)
         }
     }
+    
     func shouldHitGetMessagesAfterCreateConversation() -> Bool {
         let formCount = channel?.messages.filter({ (h) -> Bool in
             return (h.type == MessageType.leadForm || h.type == MessageType.createTicket || h.type == .consent)
@@ -1584,12 +1593,19 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         let botMessageMUID = HippoChannel.botMessageMUID ?? ""
         return (isFormPresent && botMessageMUID.isEmpty) || isDefaultChannel()
     }
+    
     func enableSendingNewMessages() {
         addFileButtonAction.isUserInteractionEnabled = true
         messageTextView.isEditable = true
         messageTextView.isUserInteractionEnabled = true
         button_Recording.isHidden = false
         button_Recording.isEnabled = true
+        
+        if let recordButtonDisabled = HippoConfig.shared.disableRecordingButton, recordButtonDisabled{
+            self.button_Recording.isHidden = true
+            self.sendMessageButton.isHidden = false
+            self.sendMessageButton.isEnabled = false
+        }
     }
     
     func disableSendingNewMessages() {
@@ -2984,6 +3000,12 @@ extension ConversationsViewController: UITextViewDelegate {
         if textView.text.isEmpty {
             button_Recording.isHidden = false
             sendMessageButton.isHidden = true
+            
+            if let recordButtonDisabled = HippoConfig.shared.disableRecordingButton, recordButtonDisabled{
+                self.button_Recording.isHidden = true
+                self.sendMessageButton.isHidden = false
+                self.sendMessageButton.isEnabled = false
+            }
         }
     }
     
@@ -3020,6 +3042,11 @@ extension ConversationsViewController: UITextViewDelegate {
         self.sendMessageButton.isHidden = (newText == "")
         self.button_Recording.isHidden = !(newText == "")
         
+        if let recordButtonDisabled = HippoConfig.shared.disableRecordingButton, recordButtonDisabled{
+            self.button_Recording.isHidden = true
+            self.sendMessageButton.isHidden = false
+            self.sendMessageButton.isEnabled = true
+        }
         
         return true
     }
@@ -3233,8 +3260,8 @@ extension ConversationsViewController: HippoChannelDelegate {
             disableSendingNewMessages()
         }
         
-        
     }
+    
     func getMessageForQuickReply(messages: [HippoMessage]) -> HippoMessage? {
         var quickReplyMessage: HippoMessage?
         for message in messages.reversed() {
