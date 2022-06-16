@@ -234,7 +234,9 @@ struct WhatsappWidgetConfig{
     var isOpenedFromPush : Bool?
     var sessionStartTime: Date?
     var tempChannelId: Int?
-    var botButtonActionCallBack: ((Any) -> Void)?
+    var disableRecordingButton: Bool?
+    
+    internal var botButtonActionCallBack: ((Any) -> Void)?
     public var newChatCallback: ((Int) -> (Int?, Bool?))?
     
     
@@ -670,6 +672,10 @@ struct WhatsappWidgetConfig{
         UnreadCount.getAgentTotalUnreadCount { (result) in
             
         }
+    }
+    
+    public func configureRecordingButtonOnChatScreen(is enabled: Bool){
+        self.disableRecordingButton = !enabled
     }
     
     public func openChatByTransactionId(on viewController: UIViewController? = nil, data: GeneralChat, completion: ((_ success: Bool, _ error: Error?) -> Void)? ) {
