@@ -32,11 +32,11 @@ enum AgentUserType: Int {
 }
 
 enum PrivateSocketKeys: String {
-
+    
     case dev = "aTT%qC>i2to<AANI$mdq"
     case live = "q4t7w!z%C*F-J@NcRfUjXn2r5u8x/A?D"
     case beta = "aTbetaT%qC>i2to<AANI"
-
+    
 }
 
 
@@ -61,35 +61,35 @@ struct BotAction {
     var contentValues = [[String: Any]]()
     var rawDict = [String: Any]()
     var values = [Any]()
-
+    
     init(dict: [String: Any]) {
         if let value = dict["bot_id"] as? Int {
             self.botId = value
         }
-
+        
         if let value = dict["bot_name"] as? String {
             self.botName = value
         }
-
+        
         if let value = dict["message"] as? String {
             self.message = value
         }
-
+        
         if let message_type = dict["message_type"] as? Int, let messageType = MessageType(rawValue: message_type) {
             self.messageType = messageType
         }
-
+        
         if let contentValues = dict["content_value"] as? [[String: Any]] {
             self.contentValues = contentValues
         }
-
+        
         if let values = dict["values"] as? [Any] {
             self.values = values
         }
-
+        
         self.rawDict = dict
-
-
+        
+        
     }
 }
 
@@ -116,13 +116,13 @@ struct WhatsappWidgetConfig{
     var defaultUserReply: String = ""
     var whatsappContactNumber: String = ""
     
-//    init(defaultMessage: String, title: String, subTitle: String, defaultUserReply: String, whatsappContactNumber: String) {
-//        defaultMessage = defaultMessage
-//        title = title
-//        subTitle = subTitle
-//        defaultUserReply = defaultUserReply
-//        whatsappContactNumber = whatsappContactNumber
-//    }
+    //    init(defaultMessage: String, title: String, subTitle: String, defaultUserReply: String, whatsappContactNumber: String) {
+    //        defaultMessage = defaultMessage
+    //        title = title
+    //        subTitle = subTitle
+    //        defaultUserReply = defaultUserReply
+    //        whatsappContactNumber = whatsappContactNumber
+    //    }
 }
 
 
@@ -149,7 +149,7 @@ struct WhatsappWidgetConfig{
     internal var agentDetail: AgentDetail?
     public var strings = HippoStrings()
     private(set)  open var newConversationButtonBorderWidth: Float = 0.0
-
+    
     private(set)  open var isSuggestionNeeded = false
     private(set)  open var maxSuggestionCount = 10
     private(set)  open var questions = [String: Int]()//Dictionary<String, Int>()
@@ -163,16 +163,16 @@ struct WhatsappWidgetConfig{
     }
     
     internal var groupCallData: [String : Any] {
-         get {
+        get {
             guard let groupCallData = UserDefaults.standard.value(forKey: Fugu_groupCallData) as? [String : Any] else {
-                 return [String : Any]()
-             }
-             return groupCallData
-         }
-         set {
-             UserDefaults.standard.set(newValue, forKey: Fugu_groupCallData)
-         }
-     }
+                return [String : Any]()
+            }
+            return groupCallData
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: Fugu_groupCallData)
+        }
+    }
     
     public var appSecretKey: String {
         get {
@@ -206,9 +206,9 @@ struct WhatsappWidgetConfig{
     public var HippoLanguageChanged : ((Error?)->())?
     public var HippoSessionStatus: ((GroupCallStatus)->())?
     public var announcementUnreadCount : ((Int)->())?
-
+    
     var supportChatFilter : [SupportFilter]?
-
+    
     public var hideTabbar : ((Bool)->())?
     
     internal let powererdByColor = #colorLiteral(red: 0.4980392157, green: 0.4980392157, blue: 0.4980392157, alpha: 1)
@@ -238,9 +238,10 @@ struct WhatsappWidgetConfig{
     var tempChannelId: Int?
     var whatsappWidgetConfig: WhatsappWidgetConfig?
     var isOpenedFromPush : Bool?
+    var disableRecordingButton: Bool?
     public var newChatCallback: ((Int) -> (Int?, Bool?))?
     
-
+    
     // MARK: - Intialization
     private override init() {
         super.init()
@@ -249,8 +250,8 @@ struct WhatsappWidgetConfig{
         HippoObservers.shared.enable = true
         FuguNetworkHandler.shared.fuguConnectionChangesStartNotifier()
         CallManager.shared.initCallClientIfPresent()
-
-
+        
+        
     }
     
     //MARK:- Function to pass Deep link Dic
@@ -397,7 +398,7 @@ struct WhatsappWidgetConfig{
         HippoUserDetail.getUserDetailsAndConversation(isOpenedFromPush: isOpenedFromPush) { (status, error) in
             completion(status)
             if (self.userDetail?.selectedlanguage ?? "") == ""{
-               self.userDetail?.selectedlanguage = BussinessProperty.current.buisnessLanguageArr?.filter{$0.is_default == true}.first?.lang_code
+                self.userDetail?.selectedlanguage = BussinessProperty.current.buisnessLanguageArr?.filter{$0.is_default == true}.first?.lang_code
             }
             self.setLanguage(self.userDetail?.selectedlanguage ?? "en")
         }
@@ -410,20 +411,20 @@ struct WhatsappWidgetConfig{
         isBroadcastEnabled = false
     }
     
-//    public func showNewConversationButton() {
-//        isNewConversationButtonHidden = false
-//    }
-//    public func hideNewConversationButton() {
-//        isNewConversationButtonHidden = true
-//    }
+    //    public func showNewConversationButton() {
+    //        isNewConversationButtonHidden = false
+    //    }
+    //    public func hideNewConversationButton() {
+    //        isNewConversationButtonHidden = true
+    //    }
     
     public func refreshUnreadCount(){
         if socketsFailed ?? false && currentUserType() == .agent{
             UnreadCount.getAgentTotalUnreadCount { (result) in
-            
+                
             }
             if getLastVisibleController() is AgentHomeViewController{
-              AgentConversationManager.getAllData()
+                AgentConversationManager.getAllData()
             }
             socketsFailed = false
         }
@@ -448,9 +449,9 @@ struct WhatsappWidgetConfig{
     public func hasChannelTabs(setValue: Bool) {
         hasChannelTabs = setValue
     }
-//    public func setEmptyChannelListText(text: String) {
-//        emptyChannelListText = text
-//    }
+    //    public func setEmptyChannelListText(text: String) {
+    //        emptyChannelListText = text
+    //    }
     
     public func showNewConversationButtonBorderWithWidth(borderWidth:Float = 1.0) {
         newConversationButtonBorderWidth = borderWidth
@@ -519,15 +520,15 @@ struct WhatsappWidgetConfig{
     }
     
     public func getAgentChatVC() -> UIViewController?{
-         guard HippoConfig.shared.appUserType == .agent else {
-             return nil
-         }
-         guard let nav = AgentHomeViewController.get() else {
-             return nil
-         }
-         return nav.viewControllers.first
-     }
-
+        guard HippoConfig.shared.appUserType == .agent else {
+            return nil
+        }
+        guard let nav = AgentHomeViewController.get() else {
+            return nil
+        }
+        return nav.viewControllers.first
+    }
+    
     public func getCustomerChatVC() -> UINavigationController?{
         guard HippoConfig.shared.appUserType == .customer else {
             return nil
@@ -586,8 +587,8 @@ struct WhatsappWidgetConfig{
     }
     
     public func setRideTime(estimatedTimeInSec: UInt) {
-       let detail = RideDetail(estimatedTime: estimatedTimeInSec)
-       RideDetail.current = detail
+        let detail = RideDetail(estimatedTime: estimatedTimeInSec)
+        RideDetail.current = detail
     }
     
     public func endRide() {
@@ -675,9 +676,13 @@ struct WhatsappWidgetConfig{
         return obj == nil ? 0 : obj!.count
     }
     
+    public func configureRecordingButtonOnChatScreen(is enabled: Bool){
+        self.disableRecordingButton = !enabled
+    }
+    
     public func getUnreadCountForAgent(){
         UnreadCount.getAgentTotalUnreadCount { (result) in
-        
+            
         }
     }
     
@@ -779,13 +784,13 @@ struct WhatsappWidgetConfig{
                 return
             }
             let call = CallData.init(peerData: peer, callType: callType, muid: uuid, signallingClient: channel, transactionId: nil)
-  
-//            CallManager.shared.startCall(call: call, completion: { (success)  in
-//                if !success {
-//                    CallManager.shared.hungupCall()
-//                }
-//                completion(true, nil)
-//            })
+            
+            //            CallManager.shared.startCall(call: call, completion: { (success)  in
+            //                if !success {
+            //                    CallManager.shared.hungupCall()
+            //                }
+            //                completion(true, nil)
+            //            })
             CallManager.shared.startCall(call: call, completion: { (success,error)  in
                 if !success {
                     CallManager.shared.hungupCall()
@@ -832,7 +837,7 @@ struct WhatsappWidgetConfig{
         let uuid: String = String.uuid()
         let peer = User(name: data.peerName, imageURL: data.otherUserImage?.absoluteString, userId: -222)
         if HippoUserDetail.callingType != 3{
-        CallManager.shared.startConnection(peerUser: peer, muid: uuid, callType: callType, completion: { success in })
+            CallManager.shared.startConnection(peerUser: peer, muid: uuid, callType: callType, completion: { success in })
         }
         let attributes = FuguNewChatAttributes(transactionId: data.uniqueChatId ?? "", userUniqueKey: nil, otherUniqueKey: [data.userUniqueId], tags: nil, channelName: data.channelName, preMessage: "", groupingTag: nil)
         HippoChannel.getToCallAgent(withFuguChatAttributes: attributes, agentEmail: agentEmail, completion: {(result) in
@@ -842,13 +847,13 @@ struct WhatsappWidgetConfig{
                 return
             }
             let call = CallData.init(peerData: peer, callType: callType, muid: uuid, signallingClient: channel, transactionId: data.uniqueChatId) 
-  
-//            CallManager.shared.startCall(call: call, completion: { (success)  in
-//                if !success {
-//                    CallManager.shared.hungupCall()
-//                }
-//                completion(true, nil)
-//            })
+            
+            //            CallManager.shared.startCall(call: call, completion: { (success)  in
+            //                if !success {
+            //                    CallManager.shared.hungupCall()
+            //                }
+            //                completion(true, nil)
+            //            })
             CallManager.shared.startCall(call: call, completion: { (success,error)  in
                 if !success {
                     CallManager.shared.hungupCall()
@@ -877,7 +882,7 @@ struct WhatsappWidgetConfig{
                 completion(false, error)
                 return
             }
-
+            
             let conVC = AgentConversationViewController.getWith(channelID: channelId, channelName: "")
             let lastVC = getLastVisibleController()
             let navVC = UINavigationController(rootViewController: conVC)
@@ -887,17 +892,17 @@ struct WhatsappWidgetConfig{
         }
     }
     public func openAgentChatWith(channelId: Int, completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
-            HippoChecker.checkForAgentIntialization { (success, error) in
-                guard success else {
-                    completion(false, error)
-                    return
-                }
-                guard channelId > 0 else {
-                    completion(false, HippoError.invalidInputData)
-                    return
-                }
-                FuguFlowManager.shared.pushAgentConversationViewController(channelId: channelId, channelName: "")
+        HippoChecker.checkForAgentIntialization { (success, error) in
+            guard success else {
+                completion(false, error)
+                return
             }
+            guard channelId > 0 else {
+                completion(false, HippoError.invalidInputData)
+                return
+            }
+            FuguFlowManager.shared.pushAgentConversationViewController(channelId: channelId, channelName: "")
+        }
     }
     
     internal func validateLogin(completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
@@ -951,9 +956,9 @@ struct WhatsappWidgetConfig{
             fayeBaseURLString = SERVERS.liveFaye
         }
         //        FayeConnection.shared.enviromentSwitchedWith(urlString: fayeBaseURLString)
-        #if canImport(HippoCallClient)
+#if canImport(HippoCallClient)
         HippoCallClientUrl.baseUrl = baseUrl
-        #endif
+#endif
         
         SocketClient.shared.connect()
     }
@@ -970,7 +975,7 @@ struct WhatsappWidgetConfig{
             AgentDetail.LogoutAgent(completion: completion)
         case .customer:
             HippoUserDetail.logoutFromFugu(completion: completion)
-//            print("customerLogout")
+            //            print("customerLogout")
         }
     }
     
@@ -1001,7 +1006,7 @@ struct WhatsappWidgetConfig{
             return
         }
         TokenManager.voipToken = token
-       // updateDeviceToken(deviceToken: token)
+        // updateDeviceToken(deviceToken: token)
     }
     
     public func getDeviceTokenKey() -> String {
@@ -1019,10 +1024,10 @@ struct WhatsappWidgetConfig{
             return
         }
         log.debug("registerDeviceToken parsing token:\(token)", level: .custom)
-//        guard TokenManager.deviceToken != token else  {
-//            log.debug("rejected", level: .custom)
-//            return
-//        }
+        //        guard TokenManager.deviceToken != token else  {
+        //            log.debug("rejected", level: .custom)
+        //            return
+        //        }
         TokenManager.deviceToken = token
         log.debug("registerDeviceToken save token:\(TokenManager.deviceToken)", level: .custom)
         //updateDeviceToken(deviceToken: token)
@@ -1046,7 +1051,7 @@ struct WhatsappWidgetConfig{
     public func isHippoUserChannelSubscribe() -> Bool {
         var checkStatus = false
         self.checkForChannelSubscribe(completion: { (success, error) in
-           checkStatus = success
+            checkStatus = success
         })
         
         return checkStatus
@@ -1084,7 +1089,7 @@ struct WhatsappWidgetConfig{
                 if (data.channelId ?? -1) < 0, otherUserUniqueKey != ""{
                     let id = ((userInfo["chat_transaction_id"] as? String ?? "") + "-" + otherUserUniqueKey)
                     if data.id == id{
-                       P2PUnreadData.shared.updateChannelId(transactionId: userInfo["chat_transaction_id"] as? String ?? "", channelId: userInfo["channel_id"] as? Int ?? -1, count: 1, muid: userInfo["muid"] as? String ?? "", otherUserUniqueKey: otherUserUniqueKey)
+                        P2PUnreadData.shared.updateChannelId(transactionId: userInfo["chat_transaction_id"] as? String ?? "", channelId: userInfo["channel_id"] as? Int ?? -1, count: 1, muid: userInfo["muid"] as? String ?? "", otherUserUniqueKey: otherUserUniqueKey)
                         
                     }
                 }else if (data.channelId ?? -1) < 0{
@@ -1095,10 +1100,10 @@ struct WhatsappWidgetConfig{
                 if let vc = getLastVisibleController() as? AllConversationsViewController{
                     vc.updateChannelsWithrespectToPush(pushInfo: userInfo)
                 }else{
-
+                    
                     updateStoredUnreadCountFor(toIncreaseCount: true, with : userInfo)
                     pushTotalUnreadCount()
-
+                    
                 }
             }
         }
@@ -1120,7 +1125,7 @@ struct WhatsappWidgetConfig{
         return false
     }
     
-
+    
     public func handleVoipNotification(payload: [AnyHashable: Any], completion: @escaping () -> Void) {
         guard let json = payload as? [String: Any] else {
             return
@@ -1130,7 +1135,7 @@ struct WhatsappWidgetConfig{
         self.handleVoipNotification(payloadDict: json, completion: completion)
         
     }
-        
+    
     public func handleVoipNotification(payloadDict: [String: Any], completion: @escaping () -> Void) {
         
         if let messageType = payloadDict["message_type"] as? Int, messageType == MessageType.groupCall.rawValue{
@@ -1147,9 +1152,9 @@ struct WhatsappWidgetConfig{
         CallManager.shared.passAppSecret(key : HippoConfig.shared.appSecretKey.isEmpty ? key ?? "" : HippoConfig.shared.appSecretKey, agentToken: agentToken ?? "", userType: userType == .customer ? .customer : .agent)
     }
     
-
+    
     func reportIncomingCallOnCallKit(userInfo: [String : Any], completion: @escaping () -> Void){
-        #if canImport(HippoCallClient)
+#if canImport(HippoCallClient)
         enableAudioSession()
         
         if let uuid = userInfo["muid"] as? String, let isVideo = userInfo["call_type"] as? String == "AUDIO" ? false : true{
@@ -1172,25 +1177,25 @@ struct WhatsappWidgetConfig{
             CallKitManager.shared.reportIncomingCallWith(request: request, completion: completion)
         }
         
-        #else
-            print("cannot import HippoCallClient")
-        #endif
+#else
+        print("cannot import HippoCallClient")
+#endif
     }
     
     func enableAudioSession(){
-         do{
+        do{
             if #available(iOS 14.5, *) {
                 try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playAndRecord, mode: AVAudioSession.Mode.videoChat, options: [.mixWithOthers, .interruptSpokenAudioAndMixWithOthers, .overrideMutedMicrophoneInterruption])
             } else {
                 // Fallback on earlier versions
                 try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playAndRecord, mode: AVAudioSession.Mode.videoChat, options: [.mixWithOthers, .interruptSpokenAudioAndMixWithOthers])
             }
-             try AVAudioSession.sharedInstance().overrideOutputAudioPort(.speaker)
-             try AVAudioSession.sharedInstance().setActive(true)
-         }catch {
-             print ("\(#file) - \(#function) error: \(error.localizedDescription)")
-         }
-     }
+            try AVAudioSession.sharedInstance().overrideOutputAudioPort(.speaker)
+            try AVAudioSession.sharedInstance().setActive(true)
+        }catch {
+            print ("\(#file) - \(#function) error: \(error.localizedDescription)")
+        }
+    }
     
     public func handleRemoteNotification(userInfo: [String: Any]) {
         setAgentStoredData()
@@ -1228,37 +1233,37 @@ struct WhatsappWidgetConfig{
     
     
     func handleAnnouncementsNotification(userInfo: [String: Any]) {
-            let visibleController = getLastVisibleController()
-            if let promotionVC = visibleController as? PromotionsViewController {
-//                HippoNotification.promotionPushDic.removeAll()
-//                if let promotion = PromotionCellDataModel(pushDic: userInfo){
-//                    HippoNotification.promotionPushDic.append(promotion)
-//                }
-//                HippoNotification.getAllAnnouncementNotifications()
-                //promotionsVC.callGetAnnouncementsApi()
-//                return
-                HippoNotification.getAllAnnouncementNotifications {
-                    promotionVC.refreshData()
-                    HippoConfig.shared.isOpenedFromPush = false
-                    return
-                }
-            }else{
-//                checkForIntialization {[weak self] (success, error) in
-//                    guard success else {
-//                        return
-//                    }
-                    if let promotion = PromotionCellDataModel(pushDic: userInfo){
-                        HippoNotification.promotionPushDic[promotion.channelID] = promotion
-                        HippoNotification.getAllAnnouncementNotifications{[weak self]() in
-                            DispatchQueue.main.async {
-                                self?.presentPromotionalPushController()
-                            }
-                        }
-                    }
-  //                  return
- //               }
+        let visibleController = getLastVisibleController()
+        if let promotionVC = visibleController as? PromotionsViewController {
+            //                HippoNotification.promotionPushDic.removeAll()
+            //                if let promotion = PromotionCellDataModel(pushDic: userInfo){
+            //                    HippoNotification.promotionPushDic.append(promotion)
+            //                }
+            //                HippoNotification.getAllAnnouncementNotifications()
+            //promotionsVC.callGetAnnouncementsApi()
+            //                return
+            HippoNotification.getAllAnnouncementNotifications {
+                promotionVC.refreshData()
+                HippoConfig.shared.isOpenedFromPush = false
+                return
             }
+        }else{
+            //                checkForIntialization {[weak self] (success, error) in
+            //                    guard success else {
+            //                        return
+            //                    }
+            if let promotion = PromotionCellDataModel(pushDic: userInfo){
+                HippoNotification.promotionPushDic[promotion.channelID] = promotion
+                HippoNotification.getAllAnnouncementNotifications{[weak self]() in
+                    DispatchQueue.main.async {
+                        self?.presentPromotionalPushController()
+                    }
+                }
+            }
+            //                  return
+            //               }
         }
+    }
     
     
     func handleAgentNotification(userInfo: [String: Any]) {
@@ -1266,8 +1271,8 @@ struct WhatsappWidgetConfig{
         let visibleController = getLastVisibleController()
         let channelId = (userInfo["channel_id"] as? Int) ?? -1
         let channelName = (userInfo["label"] as? String) ?? ""
-      //  let channel_Type = (userInfo["channel_type"] as? Int) ?? -1
-
+        //  let channel_Type = (userInfo["channel_type"] as? Int) ?? -1
+        
         let rawSendingReplyDisabled = (userInfo["disable_reply"] as? Int) ?? 0
         let isSendingDisabled = rawSendingReplyDisabled == 1 ? true : false
         
@@ -1345,7 +1350,7 @@ struct WhatsappWidgetConfig{
                 conVC.messagesGroupedByDate = []
                 conVC.populateTableViewWithChannelData()
                 conVC.label = channelName
-//                conVC.navigationTitleLabel?.text = channelName
+                //                conVC.navigationTitleLabel?.text = channelName
                 if isSendingDisabled {
                     conVC.disableSendingReply()
                 }
@@ -1358,7 +1363,7 @@ struct WhatsappWidgetConfig{
                 conVC.tableViewChat.reloadData()
                 conVC.label = channelName
                 conVC.labelId = labelId
-//                conVC.navigationTitleLabel?.text = channelName
+                //                conVC.navigationTitleLabel?.text = channelName
                 if isSendingDisabled {
                     conVC.disableSendingReply()
                 }
@@ -1369,7 +1374,7 @@ struct WhatsappWidgetConfig{
         
         if let allConVC = visibleController as? AllConversationsViewController {
             
-             if channel_Type == channelType.BROADCAST_CHANNEL.rawValue {
+            if channel_Type == channelType.BROADCAST_CHANNEL.rawValue {
                 let conVC = ConversationsViewController.getWith(labelId: "\(labelId)")
                 conVC.delegate = allConVC
                 allConVC.navigationController?.pushViewController(conVC, animated: true)
@@ -1398,24 +1403,24 @@ struct WhatsappWidgetConfig{
             }
             
             if channel_Type == channelType.BROADCAST_CHANNEL.rawValue {
-                   let conVC = ConversationsViewController.getWith(labelId: "\(labelId)")
-                   let navVC = UINavigationController(rootViewController: conVC)
-                   navVC.isNavigationBarHidden = true
-                   navVC.modalPresentationStyle = .fullScreen
-                   visibleController?.present(navVC, animated: true, completion: nil)
-               } else if channelId > 0 {
+                let conVC = ConversationsViewController.getWith(labelId: "\(labelId)")
+                let navVC = UINavigationController(rootViewController: conVC)
+                navVC.isNavigationBarHidden = true
+                navVC.modalPresentationStyle = .fullScreen
+                visibleController?.present(navVC, animated: true, completion: nil)
+            } else if channelId > 0 {
                 let conVC = ConversationsViewController.getWith(channelID: channelId, channelName: channelName, transactionId: transactionId)
-                   let navVC = UINavigationController(rootViewController: conVC)
-                   navVC.isNavigationBarHidden = true
-                   navVC.modalPresentationStyle = .fullScreen
-                   visibleController?.present(navVC, animated: true, completion: nil)
-               } else if labelId > 0 {
-                   let conVC = ConversationsViewController.getWith(labelId: "\(labelId)")
-                   let navVC = UINavigationController(rootViewController: conVC)
-                   navVC.isNavigationBarHidden = true
-                   navVC.modalPresentationStyle = .fullScreen
-                   visibleController?.present(navVC, animated: true, completion: nil)
-               }
+                let navVC = UINavigationController(rootViewController: conVC)
+                navVC.isNavigationBarHidden = true
+                navVC.modalPresentationStyle = .fullScreen
+                visibleController?.present(navVC, animated: true, completion: nil)
+            } else if labelId > 0 {
+                let conVC = ConversationsViewController.getWith(labelId: "\(labelId)")
+                let navVC = UINavigationController(rootViewController: conVC)
+                navVC.isNavigationBarHidden = true
+                navVC.modalPresentationStyle = .fullScreen
+                visibleController?.present(navVC, animated: true, completion: nil)
+            }
         }
     }
 }
@@ -1448,7 +1453,7 @@ public extension HippoConfig {
 extension HippoConfig{
     //MARK:- Create channel for group calling
     /// - Get data from parent app  as GroupCallModel for create new channel for group calling
-   
+    
     public func createGroupCallChannel(request: GroupCallModel, callback: @escaping HippoResponseRecieved){
         GroupCall.createGroupCallChannel(request: request, callback: callback)
     }
@@ -1458,20 +1463,20 @@ extension HippoConfig{
     }
     
     public func restoreSession(_ transactionId : String){
-         groupCallData.removeValue(forKey: transactionId)
+        groupCallData.removeValue(forKey: transactionId)
     }
     
-   
+    
     public func forceKillOnTermination(){
-        #if canImport(HippoCallClient)
+#if canImport(HippoCallClient)
         HippoCallClient.shared.terminateSessionIfAny()
-        #endif
+#endif
     }
     
     public func keyWindowChangedFromParent(){
-        #if canImport(HippoCallClient)
+#if canImport(HippoCallClient)
         HippoCallClient.shared.keyWindowChangedFromParent()
-        #endif
+#endif
     }
 }
 extension HippoConfig {
@@ -1488,7 +1493,7 @@ extension HippoConfig {
     }
     
     func sendAgentUnreadCount(_ totalCount: Int) {
-       // showAlertWith(message: "\(totalCount)", action: nil)
+        // showAlertWith(message: "\(totalCount)", action: nil)
         HippoConfig.shared.delegate?.hippoAgentTotalUnreadCount(totalCount)
         print("sendAgentUnreadCount====================",totalCount)
     }
@@ -1520,28 +1525,28 @@ extension HippoConfig {
         HippoConfig.shared.delegate?.hippoMessageRecievedWith(response: dict, viewController: contoller)
     }
     
-    #if canImport(HippoCallClient)
+#if canImport(HippoCallClient)
     func notifyCallRequest(_ request: CallPresenterRequest) -> CallPresenter? {
         if HippoConfig.shared.delegate == nil {
-           HippoConfig.shared.log.error("To Enable video/Audio CALL, SET  HippoConfig.shared.setHippoDelegate(delegate: HippoDelegate)", level: .error)
+            HippoConfig.shared.log.error("To Enable video/Audio CALL, SET  HippoConfig.shared.setHippoDelegate(delegate: HippoDelegate)", level: .error)
         }
         return HippoConfig.shared.delegate?.loadCallPresenterView(request: request)
     }
-    #endif
+#endif
 }
 
 extension HippoConfig{
     
     func HideJitsiView(){
-        #if canImport(HippoCallClient)
+#if canImport(HippoCallClient)
         HippoCallClient.shared.hideViewInPip()
-        #endif
+#endif
     }
     
     func UnhideJitsiView(){
-        #if canImport(HippoCallClient)
+#if canImport(HippoCallClient)
         HippoCallClient.shared.unHideViewInPip()
-        #endif
+#endif
     }
 }
 
