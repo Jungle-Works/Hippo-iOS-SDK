@@ -109,7 +109,7 @@ public class UserTag: NSObject {
     var userChannel: String?
     var listener : SocketListner?
     var userIdenficationSecret : String?
-    
+    var fetchAnnouncementsUnreadCount: Bool?
     var callAudioTypeorNot : String?
 
     static var shouldGetPaymentGateways : Bool = true
@@ -180,7 +180,7 @@ public class UserTag: NSObject {
     // MARK: - Intializer
     override init() {}
     
-    public init(fullName: String, email: String, phoneNumber: String, userUniqueKey: String, addressAttribute: HippoAttributes? = nil, customAttributes: [String: Any]? = nil, userTags: [UserTag]? = nil, userImage: String? = nil,userIdenficationSecret : String?, selectedlanguage : String? = nil, getPaymentGateways : Bool = true) {
+    public init(fullName: String, email: String, phoneNumber: String, userUniqueKey: String, addressAttribute: HippoAttributes? = nil, customAttributes: [String: Any]? = nil, userTags: [UserTag]? = nil, userImage: String? = nil,userIdenficationSecret : String?, selectedlanguage : String? = nil, getPaymentGateways: Bool = true, fetchAnnouncementsUnreadCount: Bool = false) {
         super.init()
         self.userIdenficationSecret = userIdenficationSecret
         self.fullName = fullName.trimWhiteSpacesAndNewLine()
@@ -189,6 +189,7 @@ public class UserTag: NSObject {
         self.userUniqueKey = userUniqueKey.trimWhiteSpacesAndNewLine()
         self.addressAttribute = addressAttribute ?? HippoAttributes()
         self.customAttributes = customAttributes
+        self.fetchAnnouncementsUnreadCount = fetchAnnouncementsUnreadCount
         
         self.userTags = userTags ?? []
         
@@ -244,10 +245,8 @@ public class UserTag: NSObject {
             "device_type" : Device_Type_iOS
         ]
         
-        if let userIdenficationSecret = userIdenficationSecret{
-            if userIdenficationSecret.trimWhiteSpacesAndNewLine().isEmpty == false {
-                params["user_identification_secret"] = userIdenficationSecret
-            }
+        if let userIdenficationSecret = userIdenficationSecret, userIdenficationSecret.trimWhiteSpacesAndNewLine().isEmpty == false{
+            params["user_identification_secret"] = userIdenficationSecret
         }
         
         switch HippoConfig.shared.credentialType {
@@ -264,12 +263,7 @@ public class UserTag: NSObject {
             }
         }
         
-//        if let userIdenficationSecret = userIdenficationSecret, userIdenficationSecret.trimWhiteSpacesAndNewLine().isEmpty == false {
-//            params["user_identification_secret"] = userIdenficationSecret
-//        }
-        
-        if let applicationType = HippoConfig.shared.appType,
-            applicationType.isEmpty == false {
+        if let applicationType = HippoConfig.shared.appType, applicationType.isEmpty == false {
             params["app_type"] = applicationType
         }
         
@@ -287,7 +281,7 @@ public class UserTag: NSObject {
             params["user_unique_key"] = userUniqueKey
         }
         
-//        callingType = Int(Int.parse(values: callingType, key: "calling_type") ?? 0)
+        //        callingType = Int(Int.parse(values: callingType, key: "calling_type") ?? 0)
         params["grouping_tags"] = getUserTagsJSON()
         if let addressInfo = addressAttribute?.toJSON() {
             params["attributes"] = addressInfo
@@ -299,23 +293,28 @@ public class UserTag: NSObject {
         if !attributes.isEmpty {
             params["custom_attributes"] = attributes
         }
-       
+        
         if TokenManager.deviceToken.isEmpty == false {
             params["device_token"] = TokenManager.deviceToken
         } else if let token = UserDefaults.standard.value(forKey: TokenManager.StoreKeys.normalToken) as? String, token.isEmpty == false {
             TokenManager.deviceToken = token
-             params["device_token"] = TokenManager.deviceToken
+            params["device_token"] = TokenManager.deviceToken
         }
-         print("TokenManager.deviceToken:", TokenManager.deviceToken)
+        print("TokenManager.deviceToken:", TokenManager.deviceToken)
+        
         if TokenManager.voipToken.isEmpty == false {
             params["voip_token"] = TokenManager.voipToken
         } else if let token = UserDefaults.standard.value(forKey: TokenManager.StoreKeys.voipToken) as? String, token.isEmpty == false {
             TokenManager.voipToken = token
-             params["voip_token"] = TokenManager.voipToken
+            params["voip_token"] = TokenManager.voipToken
         }
         
         if let image = userImage {
             params["user_image"] = image.absoluteString
+        }
+        
+        if let fetchAnnouncementsUnreadCount = fetchAnnouncementsUnreadCount, fetchAnnouncementsUnreadCount {
+            params["fetch_announcements_unread_count"] = 1
         }
         
         params["device_details"] = AgentDetail.getDeviceDetails()
@@ -411,6 +410,8 @@ public class UserTag: NSObject {
         
         
         BussinessProperty.current.isCallInviteEnabled = Bool.parse(key: "is_call_invite_enabled", json: userDetailData)
+        
+        BussinessProperty.current.isAutomationEnabled = Int.parse(values: userDetailData, key: "is_automation_client")
         
         BussinessProperty.current.editDeleteExpiryTime = CGFloat(Int.parse(values: userDetailData, key: "edit_delete_message_duration") ?? 0)
         
@@ -564,9 +565,10 @@ public class UserTag: NSObject {
 //        if HippoProperty.current.singleChatApp {
 ////            params["neglect_conversations"] = true
 //        }
+        
         params["fetch_whatsapp_config"] = 1
         params["neglect_conversations"] = true
-        params["fetch_announcements_unread_count"] = 1
+       
         return params
     }
     

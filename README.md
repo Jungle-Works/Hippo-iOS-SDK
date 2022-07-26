@@ -115,8 +115,6 @@ HippoConfig.shared.setCredential(withAppSecretKey: YOUR-APP-SECRET-KEY, appType:
   app_type: "<App_Type>", 
   selectedLanguage: <selected_language>)
 
--> for video sdk implementation also pass (appSecretKey: YOUR-APP-SECRET-KEY) in the same function initManager
-```
 
 Note : If you don't have a unique user identifier to use here, or if you have a userId and an email you can use Email/Phone number on the Registration object as unique key.
 

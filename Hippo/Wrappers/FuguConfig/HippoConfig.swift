@@ -235,6 +235,7 @@ struct WhatsappWidgetConfig{
     var sessionStartTime: Date?
     var tempChannelId: Int?
     var disableRecordingButton: Bool?
+    var isAutomationClient: Bool?
     
     internal var botButtonActionCallBack: ((Any) -> Void)?
     public var newChatCallback: ((Int) -> (Int?, Bool?))?
@@ -468,8 +469,8 @@ struct WhatsappWidgetConfig{
         HippoProperty.current.ticketCustomAttributes = attributes
     }
     
-    public func initManager(agentToken: String, app_type: String, customAttributes: [String: Any]? = nil,selectedLanguage : String? = nil, completion: @escaping HippoResponseRecieved) {
-        let detail = AgentDetail(oAuthToken: agentToken.trimWhiteSpacesAndNewLine(), appType: app_type, customAttributes: customAttributes, userId: agentDetail?.id)
+    public func initManager(agentToken: String, app_type: String, customAttributes: [String: Any]? = nil,selectedLanguage : String? = nil, fetchAnnouncementsUnreadCount: Bool = false, completion: @escaping HippoResponseRecieved) {
+        let detail = AgentDetail(oAuthToken: agentToken.trimWhiteSpacesAndNewLine(), appType: app_type, customAttributes: customAttributes, userId: agentDetail?.id, fetchAnnouncementsUnreadCount: fetchAnnouncementsUnreadCount)
         detail.isForking = true
         self.appUserType = .agent
         self.agentDetail = detail
@@ -489,8 +490,8 @@ struct WhatsappWidgetConfig{
      device_type: Int = your device type on your system.
      *******/
     
-    public func initManager(authToken: String, app_type: String, customAttributes: [String: Any]? = nil, selectedLanguage : String? = nil, completion: @escaping HippoResponseRecieved) {
-        let detail = AgentDetail(oAuthToken: authToken.trimWhiteSpacesAndNewLine(), appType: app_type, customAttributes: customAttributes, userId: self.agentDetail?.id)
+    public func initManager(authToken: String, app_type: String, customAttributes: [String: Any]? = nil, selectedLanguage : String? = nil, fetchAnnouncementsUnreadCount: Bool = false, completion: @escaping HippoResponseRecieved) {
+        let detail = AgentDetail(oAuthToken: authToken.trimWhiteSpacesAndNewLine(), appType: app_type, customAttributes: customAttributes, userId: self.agentDetail?.id, fetchAnnouncementsUnreadCount: fetchAnnouncementsUnreadCount)
         self.appUserType = .agent
         self.agentDetail = detail
         AgentConversationManager.updateAgentChannel(completion: {(error,response) in
@@ -532,6 +533,11 @@ struct WhatsappWidgetConfig{
     }
     
     public func presentPromotionalPopUp(on viewController: UIViewController, onButtonOneClick: @escaping ([String: Any]) -> Void, onButtonTwoClick: @escaping ([String: Any]) -> Void){
+        
+        guard let isAutomationClient = BussinessProperty.current.isAutomationEnabled, isAutomationClient == 1 else {
+            return
+        }
+        
         HippoUserDetail.getPromotionalPopUpData() { data, rawData  in
             if let data = data, !(data.data?.isEmpty ?? true), let rawData = rawData {
                 FuguFlowManager.shared.presentOfferPopUp(on: viewController, popUpData: data, rawData: rawData, onButtonOneClick: onButtonOneClick, onButtonTwoClick: onButtonTwoClick)

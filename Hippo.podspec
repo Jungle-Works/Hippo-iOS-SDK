@@ -13,7 +13,7 @@ Pod::Spec.new do |s|
   
   s.source       = { :git => 'https://github.com/Jungle-Works/Hippo-iOS-SDK.git', :tag => s.version }
   s.ios.deployment_target = '12.0'
-  s.source_files = 'Hippo/**/*.{swift,h,m}'
+  s.source_files = 'Hippo/**/*.{h,m,swift,xib,storyboard}'
   s.exclude_files = 'Classes/Exclude'
   s.static_framework = false
   
@@ -32,10 +32,6 @@ Pod::Spec.new do |s|
   s.dependency 'DropDown'
   
   s.default_subspec = 'Chat'
-  
-  s.pod_target_xcconfig = {
-    "EXCLUDED_ARCHS[sdk=iphonesimulator*]" => "arm64"
-  }
   
   s.subspec 'Chat' do |chat|
     

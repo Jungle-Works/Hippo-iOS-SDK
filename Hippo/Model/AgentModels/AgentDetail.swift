@@ -86,6 +86,7 @@ class AgentDetail: NSObject {
     var app_type = AgentDetail.defaultAppType
     var customAttributes: [String: Any]? = nil
     var businessCurrency : [BuisnessCurrency]?
+    var fetchAnnouncementsUnreadCount: Bool?
     
     static var agentLoginData: [String: Any]? {
         get {
@@ -142,25 +143,33 @@ class AgentDetail: NSObject {
         if let auth_token = dict["auth_token"] as? String {
             oAuthToken = auth_token
         }
+        
         if let type = dict["app_type"] as? String {
             app_type = type
         }
+        
         if let custom_attributes = dict["self_custom_attributes"] as? [String : Any] {
             self.customAttributes = custom_attributes
         }
+        
         if let agent_type = dict["agent_type"] as? Int, let agentType = AgentUserType.init(rawValue: agent_type){
             self.agentUserType = agentType
         }
         
+        if let fetchAnnouncementsUnreadCount = dict["fetch_announcements_unread_count"] as? Bool {
+            self.fetchAnnouncementsUnreadCount = fetchAnnouncementsUnreadCount
+        }
+        
     }
        
-    init(oAuthToken: String, appType: String, customAttributes: [String: Any]?, userId : Int? = nil) {
+    init(oAuthToken: String, appType: String, customAttributes: [String: Any]?, userId : Int? = nil, fetchAnnouncementsUnreadCount: Bool = false) {
         self.oAuthToken = oAuthToken
         self.customAttributes = customAttributes
         let type = appType.trimWhiteSpacesAndNewLine()
         self.app_type = type.isEmpty ? AgentDetail.defaultAppType : type
         self.authTokenInitManager = oAuthToken
         self.id = userId ?? -1
+        self.fetchAnnouncementsUnreadCount = fetchAnnouncementsUnreadCount
     }
     
     func toJson() -> [String: Any] {
@@ -182,8 +191,13 @@ class AgentDetail: NSObject {
         dict["agent_type"] = agentUserType.rawValue
         dict["user_image"] = userImage
         dict["app_type"] = app_type
+        
         if customAttributes != nil {
          dict["self_custom_attributes"] = customAttributes!
+        }
+        
+        if let fetchAnnouncementsUnreadCount = fetchAnnouncementsUnreadCount, fetchAnnouncementsUnreadCount {
+            dict["fetch_announcements_unread_count"] = 1
         }
         
         return dict
@@ -234,12 +248,14 @@ extension AgentDetail {
             let app_type = HippoConfig.shared.agentDetail?.app_type ?? AgentDetail.defaultAppType
             let attributes = HippoConfig.shared.agentDetail?.customAttributes
             let isForking = HippoConfig.shared.agentDetail?.isForking ?? false
+            let fetchAnnouncementsUnreadCount = HippoConfig.shared.agentDetail?.fetchAnnouncementsUnreadCount ?? false
             
             let detail = AgentDetail(dict: data)
             detail.oAuthToken = authToken ?? detail.fuguToken
             detail.app_type = app_type
             detail.customAttributes = attributes
             detail.isForking = isForking
+            detail.fetchAnnouncementsUnreadCount = fetchAnnouncementsUnreadCount
             
             HippoConfig.shared.agentDetail = detail
             loginAgentViaToken(completion: completion)
@@ -428,9 +444,14 @@ extension AgentDetail {
         
         params["fetch_business_lang"] = 1
         params["fetch_tags"] = 0
-        params["fetch_announcements_unread_count"] = 1
+        
+        if let fetchAnnouncementsUnreadCount = agentDetail.fetchAnnouncementsUnreadCount, fetchAnnouncementsUnreadCount {
+            params["fetch_announcements_unread_count"] = 1
+        }
+        
         return params
     }
+    
     internal static func getParamsForAuthLogin() -> [String: Any] {
         guard let agentDetail = HippoConfig.shared.agentDetail else {
             return [:]
