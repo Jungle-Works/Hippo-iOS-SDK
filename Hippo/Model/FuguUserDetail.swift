@@ -107,7 +107,10 @@ public class UserTag: NSObject {
     var userChannel: String?
     var listener : SocketListner?
     var userIdenficationSecret : String?
+    var fetchAnnouncementsUnreadCount: Bool?
     var callAudioTypeorNot : String?
+    
+    
     static var shouldGetPaymentGateways : Bool = true
     
     class var HippoUserChannelId: String? {
@@ -166,7 +169,7 @@ public class UserTag: NSObject {
     // MARK: - Intializer
     override init() {}
     
-    public init(fullName: String, email: String, phoneNumber: String, userUniqueKey: String, addressAttribute: HippoAttributes? = nil, customAttributes: [String: Any]? = nil, userTags: [UserTag]? = nil, userImage: String? = nil,userIdenficationSecret : String?, selectedlanguage : String? = nil, getPaymentGateways : Bool = true) {
+    public init(fullName: String, email: String, phoneNumber: String, userUniqueKey: String, addressAttribute: HippoAttributes? = nil, customAttributes: [String: Any]? = nil, userTags: [UserTag]? = nil, userImage: String? = nil,userIdenficationSecret : String?, selectedlanguage : String? = nil, getPaymentGateways : Bool = true, fetchAnnouncementsUnreadCount: Bool = false) {
         super.init()
         self.userIdenficationSecret = userIdenficationSecret
         self.fullName = fullName.trimWhiteSpacesAndNewLine()
@@ -175,6 +178,7 @@ public class UserTag: NSObject {
         self.userUniqueKey = userUniqueKey.trimWhiteSpacesAndNewLine()
         self.addressAttribute = addressAttribute ?? HippoAttributes()
         self.customAttributes = customAttributes
+        self.fetchAnnouncementsUnreadCount = fetchAnnouncementsUnreadCount
         
         self.userTags = userTags ?? []
         
@@ -304,6 +308,10 @@ public class UserTag: NSObject {
             params["user_image"] = image.absoluteString
         }
         
+        if let fetchAnnouncementsUnreadCount = fetchAnnouncementsUnreadCount, fetchAnnouncementsUnreadCount {
+            params["fetch_announcements_unread_count"] = 1
+        }
+        
         params["device_details"] = AgentDetail.getDeviceDetails()
         params["fetch_business_lang"] = 1
         params += customRequest
@@ -395,9 +403,9 @@ public class UserTag: NSObject {
             HippoConfig.shared.whatsappWidgetConfig = WhatsappWidgetConfig(defaultMessage: defaultMessage, title: title, subTitle: subTitle, defaultUserReply: defaultUserReply, whatsappContactNumber: whatsappContactNumber)
         }
         
-        
-        
         BussinessProperty.current.isCallInviteEnabled = Bool.parse(key: "is_call_invite_enabled", json: userDetailData)
+        
+        BussinessProperty.current.isAutomationEnabled = Int.parse(values: userDetailData, key: "is_automation_client")
         
         BussinessProperty.current.editDeleteExpiryTime = CGFloat(Int.parse(values: userDetailData, key: "edit_delete_message_duration") ?? 0)
         
