@@ -54,9 +54,12 @@ class CreateTicketVM{
                 return
             }
             var dataArr = [String]()
-            for value in results{
-                dataArr.append(value["value"] as? String ?? "")
-            }
+            
+           dataArr = results.map({$0["label"] as? String ?? ""})
+            
+//            for value in results{
+//                dataArr.append(value["label"] as? String ?? "")
+//            }
             
             if text == "" && type == .issueType{
                 self?.initialIssueTypeData = dataArr

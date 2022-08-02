@@ -32,9 +32,9 @@ extension LeadTableViewCellDelegate{
 
 
 class LeadTableViewCell: MessageTableViewCell {
+    
     // MARK: Properties
     lazy var leadCellIdentifier: String = String(describing: LeadDataTableViewCell.self)
-    
     
     var filterFileArray = [FormData]()
     weak var delegate: LeadTableViewCellDelegate?
