@@ -166,7 +166,7 @@ struct labelWithId {
 }
 
 enum MessageType: Int {
-    case none = 0, normal = 1, assignAgent = 2, privateNote = 3, imageFile = 10, attachment = 11, actionableMessage = 12, feedback = 14, botText = 15, quickReply = 16, leadForm = 17, call = 18, hippoPay = 19, consent = 20, card = 21, paymentCard = 22, multipleSelect = 23, embeddedVideoUrl = 24, groupCall = 27, createTicket = 29, address = 25, dateTime = 26, botAttachment = 28
+    case none = 0, normal = 1, assignAgent = 2, privateNote = 3, imageFile = 10, attachment = 11, actionableMessage = 12, feedback = 14, botText = 15, quickReply = 16, leadForm = 17, call = 18, hippoPay = 19, consent = 20, card = 21, paymentCard = 22, multipleSelect = 23, embeddedVideoUrl = 24, address = 25, dateTime = 26, groupCall = 27, botAttachment = 28, createTicket = 29
 
     
 //    BUSINESS_SPECIFIC_MESSAGE : 4,
@@ -179,7 +179,7 @@ enum MessageType: Int {
     }
     var agentHandledMessages: [MessageType] {
 //        return [.normal, .imageFile, .privateNote, .assignAgent, .botText, .call, .attachment, .consent, .actionableMessage, .hippoPay]
-        return [.normal, .imageFile, .privateNote, .assignAgent, .botText, .call, .attachment, .consent, .actionableMessage, .hippoPay, .feedback, .leadForm, .quickReply, .paymentCard, .multipleSelect, .embeddedVideoUrl]
+        return [.normal, .imageFile, .privateNote, .assignAgent, .botText, .call, .attachment, .consent, .actionableMessage, .hippoPay, .feedback, .leadForm, .quickReply, .paymentCard, .multipleSelect, .embeddedVideoUrl, .createTicket]
     }
    
     func isMessageTypeHandled() -> Bool {

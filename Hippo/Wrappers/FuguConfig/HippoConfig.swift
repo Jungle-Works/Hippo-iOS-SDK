@@ -1153,7 +1153,6 @@ struct WhatsappWidgetConfig{
     }
     
     public func passAppSecretKeyToHippoConfig(key: String? = nil, agentToken: String? = nil, userType: userType){
-        
         CallManager.shared.passAppSecret(key : HippoConfig.shared.appSecretKey.isEmpty ? key ?? "" : HippoConfig.shared.appSecretKey, agentToken: agentToken ?? "", userType: userType == .customer ? .customer : .agent)
     }
     

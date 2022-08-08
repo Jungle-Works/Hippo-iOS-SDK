@@ -1818,7 +1818,7 @@ extension AgentConversationViewController: UITableViewDelegate, UITableViewDataS
                     }
                     cell.setCellData(message: actionMessage)
                     return cell
-                case .leadForm:
+                case .leadForm, .createTicket:
                     guard let cell = tableView.dequeueReusableCell(withIdentifier: "LeadTableViewCell", for: indexPath) as? LeadTableViewCell else {
                         return UITableViewCell()
                     }
@@ -1915,7 +1915,7 @@ extension AgentConversationViewController: UITableViewDelegate, UITableViewDataS
                 case .actionableMessage, .hippoPay:
                     return UIView.tableAutoDimensionHeight
                         //self.getHeightOfActionableMessageAt(indexPath: indexPath, chatObject: message) + heightOfDateLabel
-                case .leadForm:
+                case .leadForm, .createTicket:
                     return getHeightForLeadFormCell(message: message)
                 case .multipleSelect:
                     return message.calculatedHeight ?? 0.01

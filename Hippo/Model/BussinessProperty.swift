@@ -208,7 +208,11 @@ class BussinessProperty: NSObject {
         
         isVideoCallEnabled = Bool.parse(key: "is_video_call_enabled", json: userDetailData)
         isAudioCallEnabled = Bool.parse(key: "is_audio_call_enabled", json: userDetailData, defaultValue: false)
-        enableChatInCall = Bool.parse(key: "enable_chat_in_call", json: userDetailData, defaultValue: false)
+        
+        if let enableChat = Int.parse(values: userDetailData, key: "enable_chat_in_call"){
+            enableChatInCall = enableChat == 1
+        }
+        
         encodeToHTMLEntities = Bool.parse(key: "encode_to_html_entites", json: userDetailData)
         botImageUrl = String.parse(values: userDetailData, key: "bot_image_url")
         
