@@ -75,8 +75,8 @@ class AudioPlayerManager {
             audioPlayer = try AVAudioPlayer(contentsOf: url)
             audioPlayer?.play()
             startTimer()
-        } catch  {
-            
+        } catch let error {
+            print(error)
         }
     }
     func startTimer() {

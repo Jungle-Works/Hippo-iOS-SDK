@@ -283,6 +283,17 @@ extension UIViewController {
         self.present(alertMessageController, animated: true, completion: nil)
     }
     
+    func showAlert(title: String?, message: String, buttonTitle: String, completion: ((_ action: UIAlertAction)-> Void)?, button2: String, completion2: ((_ action: UIAlertAction) -> Void)?){
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+        
+        // add the actions (buttons)
+        alert.addAction(UIAlertAction(title: buttonTitle, style: UIAlertAction.Style.default, handler: completion))
+        alert.addAction(UIAlertAction(title: button2, style: UIAlertAction.Style.cancel, handler: completion2))
+        
+        // show the alert
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     func removeNotificationsFromNotificationCenter(channelId: Int) {
         HippoNotification.removeAllnotificationFor(channelId: channelId)
     }

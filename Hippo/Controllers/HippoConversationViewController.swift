@@ -1421,6 +1421,7 @@ extension HippoConversationViewController {
         }
         
     }
+    
     func openQuicklookFor(fileURL: String, fileName: String) {
         //        if message?.type == .embeddedVideoUrl{
         //            guard let fileURL = message?.customAction?.videoLink else {
@@ -1441,8 +1442,14 @@ extension HippoConversationViewController {
         guard let localPath = DownloadManager.shared.getLocalPathOf(url: fileURL) else {
             return
         }
-        let url = URL(fileURLWithPath: localPath)
         
+        if fileURL.contains(".ogg") || fileURL.contains(".oga"){
+            let updatedUrl = fileURL.replacingOccurrences(of: " ", with: "%20")
+            showUnsupportedAlert(url: updatedUrl)
+            return
+        }
+        
+        let url = URL(fileURLWithPath: localPath)
         let qlItem = QuickLookItem(previewItemURL: url, previewItemTitle: fileName)
         
         let qlPreview = QLPreviewController()
@@ -1455,6 +1462,21 @@ extension HippoConversationViewController {
         qlPreview.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(qlPreview, animated: true)
         //        }
+    }
+    
+    func showUnsupportedAlert(url: String){
+        self.showAlert(title: "Uh-oh! \nUnsupported file type", message: "Open in VLC player?", buttonTitle: "Ok", completion: { [weak self] _ in
+            self?.openExternallyIfUnsupported(url: url)
+        }, button2: "Cancel", completion2: nil)
+    }
+    
+    func openExternallyIfUnsupported(url: String){
+        if let url = URL(string: "vlc://\(url)"),
+           UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url)
+        }else if let url = URL(string: "https://apps.apple.com/in/app/vlc-media-player/id650377962") {
+            UIApplication.shared.open(url)
+        }
     }
     
     func sendMessage(message: HippoMessage) {
@@ -1578,18 +1600,6 @@ extension HippoConversationViewController: VideoTableViewCellDelegate {
                 let stringIndex = fileName.index(fileName.startIndex, offsetBy: 9)
                 fileName = String(fileName[..<stringIndex])
             }
-            //            //openQuicklookFor(fileURL: fileURL, fileName: fileName)
-            //            let url = URL(string: fileURL)//URL(fileURLWithPath: fileURL)
-            //            let qlItem = QuickLookItem(previewItemURL: url, previewItemTitle: fileName)
-            //            let qlPreview = QLPreviewController()
-            //            self.qldataSource = HippoQLDataSource(previewItems: [qlItem])
-            //            qlPreview.delegate = self.qldataSource
-            //            qlPreview.dataSource = self.qldataSource
-            //            qlPreview.title = fileName
-            //            //        qlPreview.setupCustomThemeOnNavigationBar(hideNavigationBar: false)
-            //            qlPreview.navigationItem.hidesBackButton = false
-            //            qlPreview.hidesBottomBarWhenPushed = true
-            //            self.navigationController?.pushViewController(qlPreview, animated: true)
             if let url = URL(string: fileURL){
                 let config = WebViewConfig(url: url, title: fileName)
                 let vc = PrePaymentViewController.getNewInstance(config: config)
