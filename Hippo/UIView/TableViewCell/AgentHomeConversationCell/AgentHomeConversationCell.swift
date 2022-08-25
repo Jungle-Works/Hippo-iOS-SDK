@@ -124,7 +124,7 @@ extension AgentHomeConversationCell {
         //Setting tags
         setTags()
         
-        if let imageUrl = cellData?.user_image{
+        if let imageUrl = cellData?.user_image, imageUrl.isEmpty == false{
             let url = URL(string: imageUrl)
             let channelNameInitials = cellData?.label?.trimWhiteSpacesAndNewLine()
             let color = cellData?.channelBackgroundColor

@@ -1,43 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="SelfMessageTableViewCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="SelfMessageTableViewCell" rowHeight="135" id="3C7-pA-zEk" customClass="SelfMessageTableViewCell" customModule="Hippo" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="386" height="135"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="SelfMessageTableViewCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="SelfMessageTableViewCell" rowHeight="109" id="3C7-pA-zEk" customClass="SelfMessageTableViewCell" customModule="Hippo" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="281" height="109"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3C7-pA-zEk" id="1ex-sp-f9D">
-                <rect key="frame" x="0.0" y="0.0" width="386" height="135"/>
+                <rect key="frame" x="0.0" y="0.0" width="281" height="109"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zRm-ci-UkK" customClass="So_UIView" customModule="Hippo" customModuleProvider="target">
-                        <rect key="frame" x="252.5" y="11" width="125" height="78.5"/>
+                        <rect key="frame" x="147.5" y="11" width="125" height="52.5"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </view>
                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hxj-9Y-swx">
-                        <rect key="frame" x="254" y="7" width="122" height="81"/>
+                        <rect key="frame" x="149" y="7" width="122" height="55"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" text="jhsdh" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="z42-eL-Oml">
-                                <rect key="frame" x="10" y="5" width="45.5" height="69"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="751" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" text="jhsdh" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="z42-eL-Oml">
+                                <rect key="frame" x="10" y="5" width="45.5" height="41"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="752" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ipH-IM-FTG">
-                                <rect key="frame" x="65.5" y="64" width="26.5" height="12"/>
+                                <rect key="frame" x="65.5" y="38" width="26.5" height="12"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="readMessageImage" translatesAutoresizingMaskIntoConstraints="NO" id="hJh-ZE-L50">
-                                <rect key="frame" x="96" y="64" width="16" height="12"/>
+                                <rect key="frame" x="96" y="38" width="16" height="12"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="12" id="7R4-Oy-8B0"/>
                                     <constraint firstAttribute="width" constant="16" id="93J-Pq-Hwu"/>
@@ -52,27 +52,27 @@
                             <constraint firstItem="z42-eL-Oml" firstAttribute="top" secondItem="Hxj-9Y-swx" secondAttribute="top" constant="5" id="VMr-9g-467"/>
                             <constraint firstAttribute="trailing" secondItem="hJh-ZE-L50" secondAttribute="trailing" constant="10" id="ekV-fZ-mWD"/>
                             <constraint firstItem="ipH-IM-FTG" firstAttribute="leading" secondItem="z42-eL-Oml" secondAttribute="trailing" constant="10" id="gri-Sz-KDf"/>
-                            <constraint firstItem="ipH-IM-FTG" firstAttribute="top" secondItem="z42-eL-Oml" secondAttribute="bottom" constant="-10" id="y6t-49-WnU"/>
+                            <constraint firstItem="ipH-IM-FTG" firstAttribute="top" secondItem="z42-eL-Oml" secondAttribute="bottom" constant="-8" id="y6t-49-WnU"/>
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VGR-ha-gOM">
-                        <rect key="frame" x="0.0" y="90" width="386" height="45"/>
+                        <rect key="frame" x="0.0" y="64" width="281" height="45"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="warningIcon" translatesAutoresizingMaskIntoConstraints="NO" id="dL2-Ya-uaD" customClass="So_UIImageView" customModule="Hippo" customModuleProvider="target">
-                                <rect key="frame" x="187" y="3" width="16" height="16"/>
+                                <rect key="frame" x="82" y="3" width="16" height="16"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="16" id="1Ju-aF-wy5"/>
                                     <constraint firstAttribute="width" secondItem="dL2-Ya-uaD" secondAttribute="height" multiplier="1:1" id="hdy-i6-072"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Couldn't send the message" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PJ0-lR-oj6" customClass="So_CustomLabel" customModule="Hippo" customModuleProvider="target">
-                                <rect key="frame" x="205" y="3" width="176" height="16"/>
+                                <rect key="frame" x="100" y="3" width="176" height="16"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TFk-xx-xPe">
-                                <rect key="frame" x="252" y="4" width="70" height="44"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TFk-xx-xPe">
+                                <rect key="frame" x="148.5" y="4" width="70" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="QkM-6v-3M5"/>
                                 </constraints>
@@ -84,8 +84,8 @@
                                     <action selector="retryButtonAction:" destination="3C7-pA-zEk" eventType="touchUpInside" id="Vu4-qM-ceU"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v2h-Tp-nwf">
-                                <rect key="frame" x="339" y="4" width="42" height="44"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v2h-Tp-nwf">
+                                <rect key="frame" x="234" y="4" width="42" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="0wg-2L-tao"/>
                                 </constraints>
@@ -98,7 +98,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" | " textAlignment="justified" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="03p-Yq-a9Q">
-                                <rect key="frame" x="324" y="17.5" width="13" height="17"/>
+                                <rect key="frame" x="220.5" y="17.5" width="11.5" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -121,7 +121,7 @@
                         </constraints>
                     </view>
                     <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="21K-oK-uLQ">
-                        <rect key="frame" x="229" y="63" width="25" height="25"/>
+                        <rect key="frame" x="124" y="37" width="25" height="25"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="21K-oK-uLQ" secondAttribute="height" multiplier="1:1" id="1qb-qk-72f"/>
                             <constraint firstAttribute="height" constant="25" id="EtJ-WH-KY1"/>
@@ -162,7 +162,7 @@
                 <outlet property="warningView" destination="VGR-ha-gOM" id="nR6-le-TD6"/>
                 <outlet property="warningViewHeightConstraint" destination="UC1-kv-6Bw" id="kO0-rO-PZh"/>
             </connections>
-            <point key="canvasLocation" x="144.92753623188406" y="48.549107142857139"/>
+            <point key="canvasLocation" x="245.6521739130435" y="33.816964285714285"/>
         </tableViewCell>
     </objects>
     <resources>

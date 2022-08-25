@@ -1181,7 +1181,7 @@
                                 <rect key="frame" x="0.0" y="367" width="375" height="300"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="c29-w5-QmH">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="300"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="292"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ActionSheetTableViewCell" id="trF-ef-ljd" customClass="ActionSheetTableViewCell" customModule="Hippo" customModuleProvider="target">
@@ -1233,7 +1233,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="300" id="ZDI-TM-QF4"/>
-                                    <constraint firstAttribute="bottom" secondItem="c29-w5-QmH" secondAttribute="bottom" id="gBs-rb-2P0"/>
+                                    <constraint firstAttribute="bottomMargin" secondItem="c29-w5-QmH" secondAttribute="bottom" id="gBs-rb-2P0"/>
                                     <constraint firstAttribute="trailing" secondItem="c29-w5-QmH" secondAttribute="trailing" id="hyw-DL-d1Q"/>
                                     <constraint firstItem="c29-w5-QmH" firstAttribute="top" secondItem="3Rj-oo-aFl" secondAttribute="top" id="jfo-V7-xtK"/>
                                     <constraint firstItem="c29-w5-QmH" firstAttribute="leading" secondItem="3Rj-oo-aFl" secondAttribute="leading" id="n6e-sp-BG5"/>

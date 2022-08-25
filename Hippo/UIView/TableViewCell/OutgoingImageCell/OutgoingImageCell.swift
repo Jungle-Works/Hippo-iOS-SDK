@@ -187,8 +187,11 @@ extension OutgoingImageCell {
             self.setupIndicatorView(false)
         }
         
-        let timeOfMessage = changeDateToParticularFormat(chatMessageObject.creationDateTime, dateFormat: "h:mm a", showInFormat: true)
-        timeLabel.text = "\(timeOfMessage)"
+//        let timeOfMessage = changeDateToParticularFormat(chatMessageObject.creationDateTime, dateFormat: "h:mm a", showInFormat: true)
+//        let timeString = "\t" + "\(timeOfMessage)"
+//        timeLabel.text = message?.messageState == MessageState.MessageEdited ? "(\(HippoStrings.edited)) " + timeString : timeString
+        
+        self.setTime()
         timeLabel.textColor = HippoConfig.shared.theme.outgoingMsgDateTextColor//UIColor.white
         
         textView.text = message?.message

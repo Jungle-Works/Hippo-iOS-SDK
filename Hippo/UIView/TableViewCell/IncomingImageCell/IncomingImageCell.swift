@@ -117,8 +117,10 @@ extension IncomingImageCell {
         if channelId <= 0 {
             
         } else {
-            let timeOfMessage = changeDateToParticularFormat(chatMessageObject.creationDateTime, dateFormat: "h:mm a", showInFormat: true)
-            timeLabel.text = "\t" + "\(timeOfMessage)"
+//            let timeOfMessage = changeDateToParticularFormat(chatMessageObject.creationDateTime, dateFormat: "h:mm a", showInFormat: true)
+//            let timeString = "\t" + "\(timeOfMessage)"
+//            timeLabel.text = message?.messageState == MessageState.MessageEdited ? "(\(HippoStrings.edited)) " + timeString : timeString
+            self.setTime()
         }
         
         if let thumbnailUrl = chatMessageObject.thumbnailUrl, !thumbnailUrl.isEmpty, let url = URL(string: thumbnailUrl) {

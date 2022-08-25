@@ -64,9 +64,9 @@ class ActionSheetViewController: UIViewController {
     func heightCalculation() {
         height = 0
         if type == .emoji {
-            height = 64
+            height = 76
         }
-        height += CGFloat(options.count * 50)
+        height += (CGFloat(options.count * 50) + UIView.safeAreaInsetOfKeyWindow.bottom)
     }
     
     

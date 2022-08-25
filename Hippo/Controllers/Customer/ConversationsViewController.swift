@@ -352,6 +352,14 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         handleAudioIcon()
         HippoConfig.shared.notifyDidLoad()
         
+//        if let lastMessage = getLastMessage(){
+//            if lastMessage.type == MessageType.consent{
+//                fuguDelay(0.5) {
+//                    self.disableSendingReply(withOutUpdate: true)
+//                }
+//            }
+//        }
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -772,7 +780,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         transparentView.alpha = 0
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, options: .curveEaseInOut, animations: {
             self.transparentView.alpha = 0.5
-            self.customTableView.frame = CGRect(x: 0, y: screenSize.height - self.heightForActionSheet - self.view.safeAreaBottom, width: screenSize.width, height: self.heightForActionSheet + self.view.safeAreaBottom)
+            self.customTableView.frame = CGRect(x: 0, y: screenSize.height - self.heightForActionSheet - UIView.safeAreaInsetOfKeyWindow.bottom, width: screenSize.width, height: self.heightForActionSheet + UIView.safeAreaInsetOfKeyWindow.bottom)
             self.lineLabel.frame = CGRect(x: (screenSize.width/2) - ((screenSize.width/5)/2) , y: (screenSize.height - self.heightForActionSheet) - 20, width: screenSize.width/5, height: 6)
         }, completion: nil)
     }
@@ -1713,6 +1721,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         return vc
     }
 }
+
 extension ConversationsViewController : SearchAddressControllerProtocol {
     func addressSelected(address: Address) {
         messageTextView.text = address.address ?? ""
@@ -2432,7 +2441,7 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                         return cell
                         
                     default:
-                        if (message.fileUrl != nil || (message.isMessageWithImage ?? false) && messageType == .normal) {
+                        if ((message.fileUrl != nil || (message.isMessageWithImage ?? false) && messageType == .normal) && message.messageState != .MessageDeleted) {
                             return self.getCellForMessageWithAttachment(tableView: tableView, isOutgoingMessage: isOutgoingMsg, message: message, indexPath: indexPath)
                         }
                         return getNormalMessageTableViewCell(tableView: tableView, isOutgoingMessage: isOutgoingMsg, message: message, indexPath: indexPath)
@@ -2501,7 +2510,6 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
             return 50
         }else{
             
-            
             switch indexPath.section {
             case let typingSection where typingSection == self.messagesGroupedByDate.count && !isTypingLabelHidden:
                 return 34
@@ -2565,8 +2573,10 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                         //                    }
                         //   rowHeight += 7 //Height for bottom view
                         return UIView.tableAutoDimensionHeight
+                        
                     case .consent, .dateTime, .address, .botAttachment:
-                        return (message.cellDetail?.cellHeight ?? 0.01 + 20)
+                        //return UIView.tableAutoDimensionHeight
+                        return ((message.cellDetail?.cellHeight ?? 0.01) + 20)
                     case MessageType.call:
                         return UIView.tableAutoDimensionHeight
                     case .card:
@@ -2624,6 +2634,7 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
             }
         }
     }
+    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if tableView == customTableView{
             return 10
@@ -3017,8 +3028,7 @@ extension ConversationsViewController: UITextViewDelegate {
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         
-        let newText = ((textView.text as NSString?)?.replacingCharacters(in: range,
-                                                                         with: text))!
+        let newText = ((textView.text as NSString?)?.replacingCharacters(in: range, with: text))!
         if newText.trimmingCharacters(in: .whitespacesAndNewlines).count == 0 {
             if text == "\n" {
                 textView.resignFirstResponder()
@@ -3046,6 +3056,11 @@ extension ConversationsViewController: UITextViewDelegate {
             self.button_Recording.isHidden = true
             self.sendMessageButton.isHidden = false
             self.sendMessageButton.isEnabled = true
+        }
+        
+        if let _ = self.messageInEditing{
+            self.button_Recording.isHidden = true
+            self.sendMessageButton.isHidden = true
         }
         
         return true
@@ -3255,11 +3270,15 @@ extension ConversationsViewController: HippoChannelDelegate {
         if message.type == MessageType.leadForm {
             self.replaceLastQuickReplyIncaseofBotForm()
         }
-        if message.type == MessageType.createTicket {
+        
+        if message.type == MessageType.createTicket{
             button_Recording.isEnabled = false
             disableSendingNewMessages()
         }
         
+//        if message.type == MessageType.consent{
+//            self.disableSendingReply(withOutUpdate: true)
+//        }
     }
     
     func getMessageForQuickReply(messages: [HippoMessage]) -> HippoMessage? {
@@ -3849,17 +3868,18 @@ extension ConversationsViewController{
         self.messageInEditing = message
         self.addFileButtonAction.isHidden = true
         //self.sendMessageButton.isHidden = true
+        self.button_Recording.isHidden = true
         self.Button_CancelEdit.isHidden = false
         self.Button_EditMessage.isHidden = false
         self.messageTextView.text = message.message
         self.messageTextView.becomeFirstResponder()
-        
     }
     
     func messageEditingStopped(){
         self.messageInEditing = nil
         self.addFileButtonAction.isHidden = false
         //self.sendMessageButton.isHidden = false
+        self.button_Recording.isHidden = false
         self.Button_CancelEdit.isHidden = true
         self.Button_EditMessage.isHidden = true
         self.messageTextView.text = ""
@@ -3923,30 +3943,3 @@ extension ConversationsViewController : RecordViewDelegate {
     
 }
 
-
-extension UIView {
-    
-    var safeAreaBottom: CGFloat {
-        if #available(iOS 11, *) {
-            if let window = UIApplication.shared.keyWindowInConnectedScenes {
-                return window.safeAreaInsets.bottom
-            }
-        }
-        return 0
-    }
-    
-    var safeAreaTop: CGFloat {
-        if #available(iOS 11, *) {
-            if let window = UIApplication.shared.keyWindowInConnectedScenes {
-                return window.safeAreaInsets.top
-            }
-        }
-        return 0
-    }
-}
-
-extension UIApplication {
-    var keyWindowInConnectedScenes: UIWindow? {
-        return windows.first(where: { $0.isKeyWindow })
-    }
-}

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+
 protocol CreateTicketAttachmentHelperDelegate: class {
     func imagePickingError(mediaSelector: CoreMediaSelector, error: Error)
     func fileSelectedWithBiggerSize(maxSizeAllowed: UInt)
