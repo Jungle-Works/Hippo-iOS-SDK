@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -92,7 +92,7 @@
                             <constraint firstAttribute="bottom" secondItem="wet-BJ-3AV" secondAttribute="bottom" constant="5" id="7an-cm-zvd"/>
                             <constraint firstItem="IXS-rH-Wv5" firstAttribute="leading" secondItem="jEX-lx-0RZ" secondAttribute="leading" id="Bvp-Ot-DZJ"/>
                             <constraint firstItem="wuU-gV-3oI" firstAttribute="leading" secondItem="wet-BJ-3AV" secondAttribute="trailing" constant="2.5" id="LbR-rL-wWS"/>
-                            <constraint firstItem="wet-BJ-3AV" firstAttribute="top" relation="greaterThanOrEqual" secondItem="EOO-of-51t" secondAttribute="bottom" constant="5" id="RSY-zk-RNW"/>
+                            <constraint firstItem="wet-BJ-3AV" firstAttribute="top" relation="greaterThanOrEqual" secondItem="EOO-of-51t" secondAttribute="bottom" constant="-8" id="RSY-zk-RNW"/>
                             <constraint firstItem="EOO-of-51t" firstAttribute="leading" secondItem="8M9-5H-Pb6" secondAttribute="leading" constant="5" id="Tf7-88-D8P"/>
                             <constraint firstItem="EOO-of-51t" firstAttribute="top" secondItem="8M9-5H-Pb6" secondAttribute="top" constant="5" id="VD8-rd-Bim"/>
                             <constraint firstItem="IXS-rH-Wv5" firstAttribute="top" secondItem="jEX-lx-0RZ" secondAttribute="top" id="VrY-Tz-ZCc"/>

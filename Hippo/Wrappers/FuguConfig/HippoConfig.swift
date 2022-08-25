@@ -1158,7 +1158,7 @@ struct WhatsappWidgetConfig{
     
     
     func reportIncomingCallOnCallKit(userInfo: [String : Any], completion: @escaping () -> Void){
-#if canImport(HippoCallClient)
+    #if canImport(HippoCallClient)
         enableAudioSession()
         
         if let uuid = userInfo["muid"] as? String, let isVideo = userInfo["call_type"] as? String == "AUDIO" ? false : true{
@@ -1181,9 +1181,9 @@ struct WhatsappWidgetConfig{
             CallKitManager.shared.reportIncomingCallWith(request: request, completion: completion)
         }
         
-#else
+    #else
         print("cannot import HippoCallClient")
-#endif
+    #endif
     }
     
     func enableAudioSession(){

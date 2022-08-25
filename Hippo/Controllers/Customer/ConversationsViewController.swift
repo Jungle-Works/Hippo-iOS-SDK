@@ -777,7 +777,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         transparentView.alpha = 0
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, options: .curveEaseInOut, animations: {
             self.transparentView.alpha = 0.5
-            self.customTableView.frame = CGRect(x: 0, y: screenSize.height - self.heightForActionSheet - self.view.safeAreaBottom, width: screenSize.width, height: self.heightForActionSheet + self.view.safeAreaBottom)
+            self.customTableView.frame = CGRect(x: 0, y: screenSize.height - self.heightForActionSheet - UIView.safeAreaInsetOfKeyWindow.bottom, width: screenSize.width, height: self.heightForActionSheet + UIView.safeAreaInsetOfKeyWindow.bottom)
             self.lineLabel.frame = CGRect(x: (screenSize.width/2) - ((screenSize.width/5)/2) , y: (screenSize.height - self.heightForActionSheet) - 20, width: screenSize.width/5, height: 6)
         }, completion: nil)
     }
@@ -2005,7 +2005,7 @@ extension ConversationsViewController {
             
             let messageString = chatMessageObject.message
             
-#if swift(>=4.0)
+        #if swift(>=4.0)
             var attributes: [NSAttributedString.Key: Any]?
             attributes = [NSAttributedString.Key.font: HippoConfig.shared.theme.inOutChatTextFont]
             
@@ -2013,7 +2013,7 @@ extension ConversationsViewController {
                 cellTotalHeight += messageString.boundingRect(with: availableBoxSize, options: .usesLineFragmentOrigin, attributes: attributes, context: nil).size.height
             }
             
-#else
+        #else
             var attributes: [String: Any]?
             if let applicableFont = HippoConfig.shared.theme.inOutChatTextFont {
                 attributes = [NSFontAttributeName: applicableFont]
@@ -2022,7 +2022,7 @@ extension ConversationsViewController {
             if messageString.isEmpty == false {
                 cellTotalHeight += messageString.boundingRect(with: availableBoxSize, options: .usesLineFragmentOrigin, attributes: attributes, context: nil).size.height
             }
-#endif
+        #endif
             
         } else {
             let incomingAttributedString = Helper.getIncomingAttributedStringWithLastUserCheck(chatMessageObject: chatMessageObject)
@@ -2044,6 +2044,7 @@ extension ConversationsViewController {
     //            }
     //        }
     //    }
+    
     func scrollTableViewToBottom(_ animation: Bool = false) {
         
         DispatchQueue.main.async {
@@ -2435,7 +2436,7 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                         return cell
                         
                     default:
-                        if (message.fileUrl != nil || (message.isMessageWithImage ?? false) && messageType == .normal) {
+                        if ((message.fileUrl != nil || (message.isMessageWithImage ?? false) && messageType == .normal) && message.messageState != .MessageDeleted) {
                             return self.getCellForMessageWithAttachment(tableView: tableView, isOutgoingMessage: isOutgoingMsg, message: message, indexPath: indexPath)
                         }
                         return getNormalMessageTableViewCell(tableView: tableView, isOutgoingMessage: isOutgoingMsg, message: message, indexPath: indexPath)
@@ -2569,7 +2570,7 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                         //   rowHeight += 7 //Height for bottom view
                         return UIView.tableAutoDimensionHeight
                     case .consent, .dateTime, .address, .botAttachment:
-                        return (message.cellDetail?.cellHeight ?? 0.01 + 20)
+                        return ((message.cellDetail?.cellHeight ?? 0.01) + 20)
                     case MessageType.call:
                         return UIView.tableAutoDimensionHeight
                     case .card:
@@ -3050,6 +3051,11 @@ extension ConversationsViewController: UITextViewDelegate {
             self.button_Recording.isHidden = true
             self.sendMessageButton.isHidden = false
             self.sendMessageButton.isEnabled = true
+        }
+        
+        if let _ = self.messageInEditing{
+            self.button_Recording.isHidden = true
+            self.sendMessageButton.isHidden = true
         }
         
         return true
@@ -3882,6 +3888,7 @@ extension ConversationsViewController{
         self.messageInEditing = message
         self.addFileButtonAction.isHidden = true
         //self.sendMessageButton.isHidden = true
+        self.button_Recording.isHidden = true
         self.Button_CancelEdit.isHidden = false
         self.Button_EditMessage.isHidden = false
         self.messageTextView.text = message.message
@@ -3893,6 +3900,7 @@ extension ConversationsViewController{
         self.messageInEditing = nil
         self.addFileButtonAction.isHidden = false
         //self.sendMessageButton.isHidden = false
+        self.button_Recording.isHidden = false
         self.Button_CancelEdit.isHidden = true
         self.Button_EditMessage.isHidden = true
         self.messageTextView.text = ""
@@ -3925,32 +3933,3 @@ extension ConversationsViewController : RecordViewDelegate {
     }
     
 }
-
-
-extension UIApplication {
-    var keyWindowInConnectedScenes: UIWindow? {
-        return windows.first(where: { $0.isKeyWindow })
-    }
-}
-
-extension UIView {
-    
-    var safeAreaBottom: CGFloat {
-        if #available(iOS 11, *) {
-            if let window = UIApplication.shared.keyWindowInConnectedScenes {
-                return window.safeAreaInsets.bottom
-            }
-        }
-        return 0
-    }
-    
-    var safeAreaTop: CGFloat {
-        if #available(iOS 11, *) {
-            if let window = UIApplication.shared.keyWindowInConnectedScenes {
-                return window.safeAreaInsets.top
-            }
-        }
-        return 0
-    }
-}
-

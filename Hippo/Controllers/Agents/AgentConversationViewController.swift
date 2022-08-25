@@ -1724,7 +1724,7 @@ extension AgentConversationViewController: UITableViewDelegate, UITableViewDataS
                         return cell.configureIncomingCell(resetProperties: true, channelId: channel.id, chatMessageObject: message, indexPath: indexPath)
                     }
                 case .normal, .privateNote, .botText:
-                    if (message.fileUrl != nil || (message.isMessageWithImage ?? false) && messageType == .normal) {
+                    if ((message.fileUrl != nil || (message.isMessageWithImage ?? false) && messageType == .normal) && message.messageState != .MessageDeleted) {
                         return self.getCellForMessageWithAttachment(tableView: tableView, isOutgoingMessage: isOutgoingMsg, message: message, indexPath: indexPath)
                     }
                     return getNormalMessageTableViewCell(tableView: tableView, isOutgoingMessage: isOutgoingMsg, message: message, indexPath: indexPath)
