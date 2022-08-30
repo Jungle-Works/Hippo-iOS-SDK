@@ -1127,7 +1127,7 @@ struct WhatsappWidgetConfig{
         self.handleVoipNotification(payloadDict: json, completion: completion)
     }
     
-    public func handleVoipNotification(payloadDict: [String: Any], completion: @escaping () -> Void) {
+    private func handleVoipNotification(payloadDict: [String: Any], completion: @escaping () -> Void) {
         
         if let messageType = payloadDict["message_type"] as? Int, messageType == MessageType.groupCall.rawValue{
             CallManager.shared.voipNotificationRecievedForGroupCall(payloadDict: payloadDict)
@@ -1147,17 +1147,19 @@ struct WhatsappWidgetConfig{
         enableAudioSession()
 
         if let uuid = userInfo["muid"] as? String, let name = userInfo["last_sent_by_full_name"] as? String, let isVideo = userInfo["call_type"] as? String == "AUDIO" ? false : true{
-            
+
             if HippoCallClient.shared.checkIfUserIsBusy(newCallUID: uuid) {
                 completion()
                 return
             }
-            
+
             guard let UUID = UUID(uuidString: uuid) else {
                 completion()
                 return
             }
-            
+
+            JMCallKitProxy.enabled = true
+
             if JMCallKitProxy.hasActiveCallForUUID(uuid){
                 completion()
                 return
@@ -1166,6 +1168,8 @@ struct WhatsappWidgetConfig{
             JMCallKitProxy.reportNewIncomingCall(UUID: UUID, handle: name, displayName: name, hasVideo: isVideo) { (error) in
                 completion()
             }
+            
+            completion()
         }
         #endif
     }
