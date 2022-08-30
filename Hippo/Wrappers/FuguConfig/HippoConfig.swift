@@ -1163,14 +1163,17 @@ struct WhatsappWidgetConfig{
         
         if let uuid = userInfo["muid"] as? String, let isVideo = userInfo["call_type"] as? String == "AUDIO" ? false : true{
             if HippoCallClient.shared.checkIfUserIsBusy(newCallUID: uuid) {
+                completion()
                 return
             }
             
             guard let UUID = UUID(uuidString: uuid) else {
+                completion()
                 return
             }
             
             guard let peer = HippoUser(json: userInfo) else {
+                completion()
                 return
             }
             
