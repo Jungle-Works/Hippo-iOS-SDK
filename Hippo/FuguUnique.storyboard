@@ -372,7 +372,7 @@
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
-                                            <action selector="newConversationClicked:" destination="BSK-9a-rMw" eventType="touchUpInside" id="tph-kN-lUv"/>
+                                            <action selector="newConversationButtonClicked:" destination="BSK-9a-rMw" eventType="touchUpInside" id="xfW-G0-nzH"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -1911,6 +1911,7 @@
             <objects>
                 <navigationController id="VeR-0t-2Rq" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="x3o-cy-0V3">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.24086651210000001" green="0.27939924599999999" blue="0.94049584870000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>

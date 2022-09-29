@@ -58,7 +58,6 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     var config: AllConversationsConfig = AllConversationsConfig.defaultConfig
     var conversationChatType: ConversationChatType = .openChat
     var shouldHideBackBtn : Bool = false
-    var whatsappWidgetConfig: WhatsappWidgetConfig?
     
     // MARK: - LIFECYCLE
     override func viewDidLoad() {
@@ -109,8 +108,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         
         //Configuring SwitchButton
 
-        if let whatsappData = HippoConfig.shared.whatsappWidgetConfig{
-            self.whatsappWidgetConfig = whatsappData
+        if let whatsappData = HippoConfig.shared.whatsappWidgetConfig, whatsappData.whatsappEnabledForAll == 1{
             view_NavigationBar.whtsappBtn.isHidden = false
             view_NavigationBar.whtsappBtn.addTarget(self, action: #selector(btnWhatsappTapped), for: .touchUpInside)
         }
@@ -145,22 +143,22 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
 //        self.tabBarController?.tabBar.layer.zPosition = -1
     }
     
-    @IBAction func newConversationClicked(_ sender: Any) {
-        var fuguNewChatAttributes = FuguNewChatAttributes(transactionId: "", userUniqueKey: HippoConfig.shared.userDetail?.userUniqueKey, otherUniqueKey: nil, tags: HippoProperty.current.newConversationButtonTags, channelName: nil, preMessage: "", groupingTag: nil)
-        
-        print("bodID******* \(HippoProperty.current.newconversationBotGroupId ?? "")")
-        print("bodID*******First")
-//        fuguNewChatAttributes.botGroupId = HippoProperty.current.newconversationBotGroupId//"72"//
-        if let botID = HippoProperty.current.newconversationBotGroupId, botID != ""{
-//            fuguNewChatAttributes.botGroupId = botID
-        }
-        
-        let conversation = ConversationsViewController.getWith(chatAttributes: fuguNewChatAttributes)
-        conversation.createConversationOnStart = true
-        conversation.hidesBottomBarWhenPushed = true
-        HippoConfig.shared.hideTabbar?(true)
-        self.navigationController?.pushViewController(conversation, animated: true)
-    }
+//    @IBAction func newConversationClicked(_ sender: Any) {
+//        var fuguNewChatAttributes = FuguNewChatAttributes(transactionId: "", userUniqueKey: HippoConfig.shared.userDetail?.userUniqueKey, otherUniqueKey: nil, tags: HippoProperty.current.newConversationButtonTags, channelName: nil, preMessage: "", groupingTag: nil)
+//
+//        print("bodID******* \(HippoProperty.current.newconversationBotGroupId ?? "")")
+//        print("bodID*******First")
+////        fuguNewChatAttributes.botGroupId = HippoProperty.current.newconversationBotGroupId//"72"//
+//        if let botID = HippoProperty.current.newconversationBotGroupId, botID != ""{
+////            fuguNewChatAttributes.botGroupId = botID
+//        }
+//
+//        let conversation = ConversationsViewController.getWith(chatAttributes: fuguNewChatAttributes)
+//        conversation.createConversationOnStart = true
+//        conversation.hidesBottomBarWhenPushed = true
+//        HippoConfig.shared.hideTabbar?(true)
+//        self.navigationController?.pushViewController(conversation, animated: true)
+//    }
     
     func handleIntialCustomerForm() -> Bool {
         guard HippoUserDetail.fuguUserID != nil else {
@@ -453,7 +451,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
             
             print("bodID******* \(HippoProperty.current.newconversationBotGroupId ?? "")")
             print("bodID*******Second")
-//            fuguNewChatAttributes.botGroupId = HippoProperty.current.newconversationBotGroupId
+            //            fuguNewChatAttributes.botGroupId = HippoProperty.current.newconversationBotGroupId
             if let botID = HippoProperty.current.newconversationBotGroupId, botID != ""{
                 fuguNewChatAttributes.botGroupId = botID
             }
@@ -461,9 +459,8 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
             let conversation = ConversationsViewController.getWith(chatAttributes: fuguNewChatAttributes)
             conversation.createConversationOnStart = true
             self.navigationController?.pushViewController(conversation, animated: true)
-             self.updateNewConversationBtnUI(isSelected: sender.isSelected)
+            self.updateNewConversationBtnUI(isSelected: sender.isSelected)
         }
-        
         
     }
 
@@ -571,33 +568,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     
     // MARK: - Action for whatsapp open button
     @objc func btnWhatsappTapped(){
-        openWhatsapp(with: self.whatsappWidgetConfig?.whatsappContactNumber ?? "", message: self.whatsappWidgetConfig?.defaultMessage ?? "")
-    }
-    
-    // MARK: - Function to open whatsapp
-    func openWhatsapp(with number: String, message: String){
-        let urlWhats = "whatsapp://send?phone=\(number)&text=\(message)"
-        if let urlString = urlWhats.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed){
-            if let whatsappURL = URL(string: urlString) {
-                if UIApplication.shared.canOpenURL(whatsappURL){
-                    if #available(iOS 10.0, *) {
-                        UIApplication.shared.open(whatsappURL, options: [:], completionHandler: nil)
-                    } else {
-                        UIApplication.shared.openURL(whatsappURL)
-                    }
-                }
-                else {
-                    let appURL = URL(string: "https://api.whatsapp.com/send?phone=\(number)&text=\(message)")!
-                    if UIApplication.shared.canOpenURL(appURL) {
-                        if #available(iOS 10.0, *) {
-                            UIApplication.shared.open(appURL, options: [:], completionHandler: nil)
-                        } else {
-                            UIApplication.shared.openURL(appURL)
-                        }
-                    }
-                }
-            }
-        }
+        HippoConfig.shared.openWhatsappIfEnabled()
     }
     
     // MARK: - SERVER HIT

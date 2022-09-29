@@ -115,6 +115,7 @@ struct WhatsappWidgetConfig{
     var subTitle: String = ""
     var defaultUserReply: String = ""
     var whatsappContactNumber: String = ""
+    var whatsappEnabledForAll: Int = 0
     
     //    init(defaultMessage: String, title: String, subTitle: String, defaultUserReply: String, whatsappContactNumber: String) {
     //        defaultMessage = defaultMessage
@@ -477,7 +478,7 @@ struct WhatsappWidgetConfig{
         self.appUserType = .agent
         self.agentDetail = detail
         AgentConversationManager.updateAgentChannel(completion: {(error,response) in
-            self.passAppSecretKeyToHippoConfig(key: "", agentToken: HippoConfig.shared.agentDetail?.fuguToken ?? "", userType: .agent)
+            self.passAppSecretKeyToHippoConfig(agentToken: HippoConfig.shared.agentDetail?.fuguToken ?? "", userType: .agent)
             if (selectedLanguage ?? "") == ""{
                 self.setLanguage(BussinessProperty.current.buisnessLanguageArr?.filter{$0.is_default == true}.first?.lang_code ?? "")
                 completion(error,response)
@@ -497,12 +498,12 @@ struct WhatsappWidgetConfig{
      device_type: Int = your device type on your system.
      *******/
     
-    public func initManager(authToken: String, app_type: String, customAttributes: [String: Any]? = nil, selectedLanguage : String? = nil, appSecretKey: String, fetchAnnouncementsUnreadCount: Bool = false,  completion: @escaping HippoResponseRecieved) {
+    public func initManager(authToken: String, app_type: String, customAttributes: [String: Any]? = nil, selectedLanguage : String? = nil, fetchAnnouncementsUnreadCount: Bool = false,  completion: @escaping HippoResponseRecieved) {
         let detail = AgentDetail(oAuthToken: authToken.trimWhiteSpacesAndNewLine(), appType: app_type, customAttributes: customAttributes, userId: self.agentDetail?.id, fetchAnnouncementsUnreadCount: fetchAnnouncementsUnreadCount)
         self.appUserType = .agent
         self.agentDetail = detail
         AgentConversationManager.updateAgentChannel(completion: {(error,response) in
-            self.passAppSecretKeyToHippoConfig(key: appSecretKey, agentToken: HippoConfig.shared.agentDetail?.fuguToken ?? "", userType: .agent)
+            self.passAppSecretKeyToHippoConfig(agentToken: HippoConfig.shared.agentDetail?.fuguToken ?? "", userType: .agent)
             
             if (selectedLanguage ?? "") == ""{ self.setLanguage(BussinessProperty.current.buisnessLanguageArr?.filter{$0.is_default == true}.first?.lang_code ?? "en")
                 completion(error,response)
@@ -515,6 +516,11 @@ struct WhatsappWidgetConfig{
     
     // MARK: - Open Chat UI Methods
     public func presentChatsViewController() {
+        if let _ = whatsappWidgetConfig, let redirectDirectly = userDetail?.redirectToWhatsapp, redirectDirectly {
+            openWhatsappIfEnabled()
+            return
+        }
+        
         AgentDetail.setAgentStoredData()
         checker.presentChatsViewController()
     }
@@ -556,6 +562,36 @@ struct WhatsappWidgetConfig{
     
     func presentPrePaymentController(){
         
+    }
+    
+    // MARK: - Function to open whatsapp
+    func openWhatsappIfEnabled(){
+        guard let whatsappData = HippoConfig.shared.whatsappWidgetConfig else {return}
+        let message = whatsappData.defaultMessage
+        let number = whatsappData.whatsappContactNumber
+        
+        let txtAppend = message.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
+        
+        let urlWhats = "whatsapp://send?phone=\(number)&text=\(txtAppend)"
+        if let whatsappURL = URL(string: urlWhats) {
+            if UIApplication.shared.canOpenURL(whatsappURL){
+                if #available(iOS 10.0, *) {
+                    UIApplication.shared.open(whatsappURL, options: [:], completionHandler: nil)
+                } else {
+                    UIApplication.shared.openURL(whatsappURL)
+                }
+            }
+            else {
+                let url = URL(string: "https://api.whatsapp.com/send?phone=\(number)&text=\(txtAppend)") ?? URL(string: "")
+                if let appURL = url, UIApplication.shared.canOpenURL(appURL) {
+                    if #available(iOS 10.0, *) {
+                        UIApplication.shared.open(appURL, options: [:], completionHandler: nil)
+                    } else {
+                        UIApplication.shared.openURL(appURL)
+                    }
+                }
+            }
+        }
     }
     
     class public func showChats(on viewController: UIViewController) {

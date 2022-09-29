@@ -109,6 +109,7 @@ public class UserTag: NSObject {
     var userIdenficationSecret : String?
     var fetchAnnouncementsUnreadCount: Bool?
     var callAudioTypeorNot : String?
+    var redirectToWhatsapp: Bool = false
     
     
     static var shouldGetPaymentGateways : Bool = true
@@ -169,7 +170,7 @@ public class UserTag: NSObject {
     // MARK: - Intializer
     override init() {}
     
-    public init(fullName: String, email: String, phoneNumber: String, userUniqueKey: String, addressAttribute: HippoAttributes? = nil, customAttributes: [String: Any]? = nil, userTags: [UserTag]? = nil, userImage: String? = nil,userIdenficationSecret : String?, selectedlanguage : String? = nil, getPaymentGateways : Bool = true, fetchAnnouncementsUnreadCount: Bool = false) {
+    public init(fullName: String, email: String, phoneNumber: String, userUniqueKey: String, addressAttribute: HippoAttributes? = nil, customAttributes: [String: Any]? = nil, userTags: [UserTag]? = nil, userImage: String? = nil,userIdenficationSecret : String?, selectedlanguage : String? = nil, getPaymentGateways : Bool = true, fetchAnnouncementsUnreadCount: Bool = false, redirectToWhatsapp: Bool = false) {
         super.init()
         self.userIdenficationSecret = userIdenficationSecret
         self.fullName = fullName.trimWhiteSpacesAndNewLine()
@@ -179,6 +180,7 @@ public class UserTag: NSObject {
         self.addressAttribute = addressAttribute ?? HippoAttributes()
         self.customAttributes = customAttributes
         self.fetchAnnouncementsUnreadCount = fetchAnnouncementsUnreadCount
+        self.redirectToWhatsapp = redirectToWhatsapp
         
         self.userTags = userTags ?? []
         
@@ -186,10 +188,10 @@ public class UserTag: NSObject {
             self.userImage = url
         }
         
-       self.selectedlanguage = selectedlanguage
-       self.listener = HippoConfig.shared.listener
-       HippoUserDetail.shouldGetPaymentGateways = getPaymentGateways
-       UserDefaults.standard.set(selectedlanguage, forKey: DefaultName.selectedLanguage.rawValue)
+        self.selectedlanguage = selectedlanguage
+        self.listener = HippoConfig.shared.listener
+        HippoUserDetail.shouldGetPaymentGateways = getPaymentGateways
+        UserDefaults.standard.set(selectedlanguage, forKey: DefaultName.selectedLanguage.rawValue)
     }
     
     func getUserTagsJSON() -> [[String: Any]] {
@@ -400,7 +402,8 @@ public class UserTag: NSObject {
             let defaultMessage = whatsappConfig["defaultMessage"] as? String ?? ""
             let defaultUserReply = whatsappConfig["defaultUserReply"] as? String ?? ""
             let whatsappContactNumber = whatsappConfig["whatsappContactNumber"] as? String ?? ""
-            HippoConfig.shared.whatsappWidgetConfig = WhatsappWidgetConfig(defaultMessage: defaultMessage, title: title, subTitle: subTitle, defaultUserReply: defaultUserReply, whatsappContactNumber: whatsappContactNumber)
+            let whatsappEnabledForAll = whatsappConfig["whatsappEnabledForAll"] as? Int ?? 0
+            HippoConfig.shared.whatsappWidgetConfig = WhatsappWidgetConfig(defaultMessage: defaultMessage, title: title, subTitle: subTitle, defaultUserReply: defaultUserReply, whatsappContactNumber: whatsappContactNumber, whatsappEnabledForAll: whatsappEnabledForAll)
         }
         
         BussinessProperty.current.isCallInviteEnabled = Bool.parse(key: "is_call_invite_enabled", json: userDetailData)
@@ -559,7 +562,8 @@ public class UserTag: NSObject {
 ////            params["neglect_conversations"] = true
 //        }
         params["neglect_conversations"] = true
-        params["fetch_announcements_unread_count"] = 1
+//        params["fetch_announcements_unread_count"] = 1
+        params["fetch_whatsapp_config"] = 1
         return params
     }
     
@@ -691,6 +695,12 @@ public class UserTag: NSObject {
         HippoConfig.shared.appType = nil
         HippoConfig.shared.userDetail = nil
         HippoConfig.shared.muidList = []
+        
+        HippoConfig.shared.whatsappWidgetConfig = nil
+        HippoConfig.shared.isOpenedFromPush = nil
+        HippoConfig.shared.sessionStartTime = nil
+        HippoConfig.shared.tempChannelId = nil
+        HippoConfig.shared.disableRecordingButton = nil
         resetPushCount()
         
         userDetailData = [String: Any]()

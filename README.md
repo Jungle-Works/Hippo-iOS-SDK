@@ -341,17 +341,18 @@ HippoConfig.shared.startVideoCall(data: peerChatInfo, completion: { (success, er
 
 
 
--- To show promotional pop up in your app on any screen and receive data on button click add below mentioned code:
-        HippoConfig.shared.presentPromotionalPopUp(on: Your_View_Controller) { data in
-            print("Button one call back received with \(data)")
-        } onButtonTwoClick: { data in
-            print("Button two call back received with \(data)")
-        }
+# To show promotional pop up in your app on any screen and receive data on button click add below mentioned code:
+    HippoConfig.shared.presentPromotionalPopUp(on: Your_View_Controller) { data in
+    print("Button one call back received with \(data)")
+    } onButtonTwoClick: { data in
+    print("Button two call back received with \(data)")
+    }
 
 
 
 # To receive call back on bot button action
 To receive call back on bot button tap with the data add the following code - 
+
     HippoConfig.shared.newChatCallback = { [weak self] totalChats in
         print("CallBackReceived", totalChats)
         return(maxChats, closeHippo)
@@ -375,3 +376,22 @@ Here you have to pass the maxChats you want to enable the user can create, and p
         }
         "
 😍 🥳 🤩 Notifications are good to go now use it 😍 🥳 🤩
+
+
+
+# If you are facing crash on app launch - 
+1. Set "BuildLibraryForDistribution" = true in build settings of your project target
+2. If for some reason you are facing comile time issues by changing the above mentioned setting then simply just reverse this setting to what it was and put the below mentioned code at the end of your podfile - 
+
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    if ['Starscream'].include? target.name
+      target.build_configurations.each do |config|
+        config.build_settings['BUILD_LIBRARY_FOR_DISTRIBUTION'] = 'YES'
+      end
+    end
+  end
+end
+ 
+3. Clean build folder and derived data, your app will run without any issues.
+  
