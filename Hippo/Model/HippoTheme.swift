@@ -42,8 +42,8 @@ public struct ConversationListTheme {
 @objc public class HippoTheme: NSObject {
     
     public class func defaultTheme(fontRegular : String = "", fontBold : String = "") -> HippoTheme {
-         HippoFont.boldFont = fontBold
-         HippoFont.regularFont = fontRegular
+        HippoFont.boldFont = fontBold
+        HippoFont.regularFont = fontRegular
         return HippoTheme()
     }
     

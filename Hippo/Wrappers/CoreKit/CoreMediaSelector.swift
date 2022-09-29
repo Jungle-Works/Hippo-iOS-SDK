@@ -195,10 +195,8 @@ public class CoreMediaSelector: NSObject, UINavigationControllerDelegate, UIImag
         picker.mediaTypes = allowedTypes
         picker.delegate = self
     }
-    
-    //MARK: --
-    
-    
+
+    // MARK: -
     private func compressImage(originalImage: UIImage) -> (UIImage?, Error?) {
         guard CoreKit.shared.filesConfig.enableResizingImage else {
             return (originalImage, nil)

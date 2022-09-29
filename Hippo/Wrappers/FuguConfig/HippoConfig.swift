@@ -111,6 +111,7 @@ struct WhatsappWidgetConfig{
     var subTitle: String = ""
     var defaultUserReply: String = ""
     var whatsappContactNumber: String = ""
+    var whatsappEnabledForAll: Int = 0
     
 //    init(defaultMessage: String, title: String, subTitle: String, defaultUserReply: String, whatsappContactNumber: String) {
 //        defaultMessage = defaultMessage
@@ -234,10 +235,8 @@ struct WhatsappWidgetConfig{
     var isOpenedFromPush : Bool?
     var sessionStartTime: Date?
     var tempChannelId: Int?
-    var disableRecordingButton: Bool?
-    var isAutomationClient: Bool?
-    
-    internal var botButtonActionCallBack: ((Any) -> Void)?
+    private(set) public var isRecordingButtonEnabled: Bool = true
+    var botButtonActionCallBack: ((Any) -> Void)?
     public var newChatCallback: ((Int) -> (Int?, Bool?))?
     
     
@@ -506,6 +505,11 @@ struct WhatsappWidgetConfig{
     
     // MARK: - Open Chat UI Methods
     public func presentChatsViewController() {
+        if let _ = whatsappWidgetConfig, let redirectDirectly = userDetail?.redirectToWhatsapp, redirectDirectly {
+            openWhatsappIfEnabled()
+            return
+        }
+        
         AgentDetail.setAgentStoredData()
         checker.presentChatsViewController()
     }
@@ -547,6 +551,36 @@ struct WhatsappWidgetConfig{
     
     func presentPrePaymentController(){
         
+    }
+    
+    // MARK: - Function to open whatsapp
+    func openWhatsappIfEnabled(){
+        guard let whatsappData = HippoConfig.shared.whatsappWidgetConfig else {return}
+        let message = whatsappData.defaultMessage
+        let number = whatsappData.whatsappContactNumber
+        
+        let txtAppend = message.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
+        
+        let urlWhats = "whatsapp://send?phone=\(number)&text=\(txtAppend)"
+        if let whatsappURL = URL(string: urlWhats) {
+            if UIApplication.shared.canOpenURL(whatsappURL){
+                if #available(iOS 10.0, *) {
+                    UIApplication.shared.open(whatsappURL, options: [:], completionHandler: nil)
+                } else {
+                    UIApplication.shared.openURL(whatsappURL)
+                }
+            }
+            else {
+                let url = URL(string: "https://api.whatsapp.com/send?phone=\(number)&text=\(txtAppend)") ?? URL(string: "")
+                if let appURL = url, UIApplication.shared.canOpenURL(appURL) {
+                    if #available(iOS 10.0, *) {
+                        UIApplication.shared.open(appURL, options: [:], completionHandler: nil)
+                    } else {
+                        UIApplication.shared.openURL(appURL)
+                    }
+                }
+            }
+        }
     }
     
     class public func showChats(on viewController: UIViewController) {
@@ -681,7 +715,7 @@ struct WhatsappWidgetConfig{
     }
     
     public func configureRecordingButtonOnChatScreen(is enabled: Bool){
-        self.disableRecordingButton = !enabled
+        self.isRecordingButtonEnabled = enabled
     }
     
     public func openChatByTransactionId(on viewController: UIViewController? = nil, data: GeneralChat, completion: ((_ success: Bool, _ error: Error?) -> Void)? ) {

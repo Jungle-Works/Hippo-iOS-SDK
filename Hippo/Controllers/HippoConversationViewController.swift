@@ -274,27 +274,27 @@ class HippoConversationViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(self.fayeDisconnected), name: .socketDisconnected, object: nil)
     }
     func registerNotificationToKnowWhenAppIsKilledOrMovedToBackground() {
-#if swift(>=4.2)
+    #if swift(>=4.2)
         NotificationCenter.default.addObserver(self, selector: #selector(self.appMovedToBackground), name: UIApplication.willTerminateNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.appMovedToBackground), name: UIApplication.willResignActiveNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.appMovedToBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
-#else
+    #else
         NotificationCenter.default.addObserver(self, selector: #selector(self.appMovedToBackground), name: NSNotification.Name.UIApplicationWillTerminate, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.appMovedToBackground), name: NSNotification.Name.UIApplicationWillResignActive, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.appMovedToBackground), name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
-#endif
+    #endif
         
         
     }
     func registerKeyBoardNotification() {
         
-#if swift(>=4.2)
+    #if swift(>=4.2)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
-#else
+    #else
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-#endif
+    #endif
     }
     
     func tableViewSetUp() {
@@ -599,12 +599,8 @@ class HippoConversationViewController: UIViewController {
         
         let attachmentString: NSAttributedString = NSAttributedString(attachment: attachment)
         let myString: NSMutableAttributedString = NSMutableAttributedString(string: title)
+        myString.append(attachmentString)
         
-#if swift(>=4.0)
-        myString.append(attachmentString)
-#else
-        myString.append(attachmentString)
-#endif
         navigationTitleButton?.setTitle(title, for: .normal)
         navigationTitleButton?.titleLabel?.lineBreakMode = .byTruncatingTail
         //        navigationTitleButton?.setAttributedTitle(myString, for: .normal)
@@ -833,7 +829,7 @@ class HippoConversationViewController: UIViewController {
         guard !messagesGroupedByDate.isEmpty else {
             return nil
         }
-        guard var latestMessageGroup = messagesGroupedByDate.last, latestMessageGroup.count > 0 else {
+        guard let latestMessageGroup = messagesGroupedByDate.last, latestMessageGroup.count > 0 else {
             return nil
         }
         
@@ -2261,7 +2257,7 @@ extension HippoConversationViewController{
         }
         
         HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: AgentEndPoints.sendCustomBot.rawValue) { (response, error, _, statusCode) in
-            print(response)
+            print(response ?? "")
             if let response = response as? [String: Any], let data = response["data"] as? [String: Any], let inProgress = data["bot_in_progress"] as? Int{
                 completion?(inProgress == 1)
             }

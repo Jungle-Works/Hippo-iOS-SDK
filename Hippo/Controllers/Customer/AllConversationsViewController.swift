@@ -59,7 +59,6 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     var config: AllConversationsConfig = AllConversationsConfig.defaultConfig
     var conversationChatType: ConversationChatType = .openChat
     var shouldHideBackBtn : Bool = false
-    var whatsappWidgetConfig: WhatsappWidgetConfig?
     
     // MARK: - LIFECYCLE
     override func viewDidLoad() {
@@ -107,8 +106,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         
         
         //Configuring SwitchButton
-        if let whatsappData = HippoConfig.shared.whatsappWidgetConfig{
-            self.whatsappWidgetConfig = whatsappData
+        if let whatsappData = HippoConfig.shared.whatsappWidgetConfig, whatsappData.whatsappEnabledForAll == 1{
             view_NavigationBar.whtsappBtn.isHidden = false
             view_NavigationBar.whtsappBtn.addTarget(self, action: #selector(btnWhatsappTapped), for: .touchUpInside)
         }
@@ -561,33 +559,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     
     // MARK: - Action for whatsapp open button
     @objc func btnWhatsappTapped(){
-        openWhatsapp(with: self.whatsappWidgetConfig?.whatsappContactNumber ?? "", message: self.whatsappWidgetConfig?.defaultMessage ?? "")
-    }
-    
-    // MARK: - Function to open whatsapp
-    func openWhatsapp(with number: String, message: String){
-        let txtAppend = message.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
-        
-        let urlWhats = "whatsapp://send?phone=\(number)&text=\(txtAppend)"
-        if let whatsappURL = URL(string: urlWhats) {
-            if UIApplication.shared.canOpenURL(whatsappURL){
-                if #available(iOS 10.0, *) {
-                    UIApplication.shared.open(whatsappURL, options: [:], completionHandler: nil)
-                } else {
-                    UIApplication.shared.openURL(whatsappURL)
-                }
-            }
-            else {
-                let url = URL(string: "https://api.whatsapp.com/send?phone=\(number)&text=\(txtAppend)") ?? URL(string: "")
-                if let appURL = url, UIApplication.shared.canOpenURL(appURL) {
-                    if #available(iOS 10.0, *) {
-                        UIApplication.shared.open(appURL, options: [:], completionHandler: nil)
-                    } else {
-                        UIApplication.shared.openURL(appURL)
-                    }
-                }
-            }
-        }
+        HippoConfig.shared.openWhatsappIfEnabled()
     }
     
     // MARK: - SERVER HIT

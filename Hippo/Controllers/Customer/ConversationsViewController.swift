@@ -166,7 +166,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
                 self?.addRecordView()
             }
         }
-       button_Recording.isHidden = HippoConfig.shared.disableRecordingButton ?? false
+       button_Recording.isHidden = !HippoConfig.shared.isRecordingButtonEnabled
         
         view_Navigation.call_button.addTarget(self, action: #selector(audiCallButtonClicked(_:)), for: .touchUpInside)
         view_Navigation.video_button.addTarget(self, action: #selector(videoButtonClicked(_:)), for: .touchUpInside)
@@ -800,7 +800,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         self.sendMessageButton.isHidden = true
         self.button_Recording.isHidden = false
         
-        if let recordButtonDisabled = HippoConfig.shared.disableRecordingButton, recordButtonDisabled{
+        if HippoConfig.shared.isRecordingButtonEnabled == false{
             self.button_Recording.isHidden = true
             self.sendMessageButton.isHidden = false
             self.sendMessageButton.isEnabled = false
@@ -1609,7 +1609,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         button_Recording.isHidden = false
         button_Recording.isEnabled = true
         
-        if let recordButtonDisabled = HippoConfig.shared.disableRecordingButton, recordButtonDisabled{
+        if HippoConfig.shared.isRecordingButtonEnabled == false{
             self.button_Recording.isHidden = true
             self.sendMessageButton.isHidden = false
             self.sendMessageButton.isEnabled = false
@@ -3012,7 +3012,7 @@ extension ConversationsViewController: UITextViewDelegate {
             button_Recording.isHidden = false
             sendMessageButton.isHidden = true
             
-            if let recordButtonDisabled = HippoConfig.shared.disableRecordingButton, recordButtonDisabled{
+            if HippoConfig.shared.isRecordingButtonEnabled == false{
                 self.button_Recording.isHidden = true
                 self.sendMessageButton.isHidden = false
                 self.sendMessageButton.isEnabled = false
@@ -3052,7 +3052,7 @@ extension ConversationsViewController: UITextViewDelegate {
         self.sendMessageButton.isHidden = (newText == "")
         self.button_Recording.isHidden = !(newText == "")
         
-        if let recordButtonDisabled = HippoConfig.shared.disableRecordingButton, recordButtonDisabled{
+        if HippoConfig.shared.isRecordingButtonEnabled == false{
             self.button_Recording.isHidden = true
             self.sendMessageButton.isHidden = false
             self.sendMessageButton.isEnabled = true
