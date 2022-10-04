@@ -701,6 +701,7 @@ public class UserTag: NSObject {
         HippoConfig.shared.sessionStartTime = nil
         HippoConfig.shared.tempChannelId = nil
         HippoConfig.shared.disableRecordingButton = nil
+        HippoConfig.shared.newChatCallback = nil
         resetPushCount()
         
         userDetailData = [String: Any]()

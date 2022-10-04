@@ -151,7 +151,17 @@ extension UIView {
         layer.shadowPath = maskPath.cgPath
     }
 
+    func addBottomShadow() {
+        layer.shadowOffset = CGSize(width: 0.0, height: 1.0)
+        layer.shadowRadius = 3.0
+        layer.shadowOpacity = 0.5
+        layer.masksToBounds = false
+        layer.shadowPath = UIBezierPath(rect: CGRect(x: 0, y: bounds.maxY - layer.shadowRadius, width: UIScreen.main.bounds.width, height: layer.shadowRadius)).cgPath
+        
+    }
+    
 }
+
 
 extension UIView {
     @IBInspectable var hippoBorderWidth: CGFloat {

@@ -46,6 +46,13 @@ class ActionSheetViewController: UIViewController {
     
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if #available(iOS 13.0, *) {
+            self.view.overrideUserInterfaceStyle = .light
+        }
+    }
 
     class func get(with options: [ActionSheetAction], type: ActionType, emojiSelected: @escaping (_ reactionString: String) -> Void , optionSelected: @escaping(_ action: ActionSheetAction)->Void ) -> ActionSheetViewController {
         

@@ -178,6 +178,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         collectionViewOptions?.dataSource = self
         customTableView.isScrollEnabled = false//true
         customTableView.separatorStyle = .none
+        customTableView.backgroundColor = .white
         customTableView.delegate = self
         customTableView.dataSource = self
         customTableView.register(CustomTableViewCell.self, forCellReuseIdentifier: "CustomTableViewCell")
@@ -353,6 +354,10 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         handleVideoIcon()
         handleAudioIcon()
         HippoConfig.shared.notifyDidLoad()
+        
+        if #available(iOS 13.0, *) {
+            self.view.overrideUserInterfaceStyle = .light
+        }
         
     }
     

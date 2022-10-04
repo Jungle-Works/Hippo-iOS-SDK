@@ -124,7 +124,10 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         
 //        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
 //        self.navigationController?.interactivePopGestureRecognizer?.delegate = nil
-        
+     
+        if #available(iOS 13.0, *) {
+            self.view.overrideUserInterfaceStyle = .light
+        }
     }
     
     override func viewWillLayoutSubviews() {

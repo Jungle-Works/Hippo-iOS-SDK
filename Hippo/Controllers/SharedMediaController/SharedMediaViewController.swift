@@ -48,6 +48,14 @@ class SharedMediaViewController: UIViewController {
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if #available(iOS 13.0, *) {
+            self.view.overrideUserInterfaceStyle = .light
+        }
+    }
+    
     func addNotificationObservers() {
        NotificationCenter.default.addObserver(self, selector: #selector(fileDownloadCompleted(_:)), name: Notification.Name.fileDownloadCompleted, object: nil)
     }
@@ -69,6 +77,7 @@ class SharedMediaViewController: UIViewController {
         self.navigationController?.isNavigationBarHidden = true
         viewNavigationBar.title = HippoStrings.sharedMediaTitle
         viewNavigationBar.leftButton.addTarget(self, action: #selector(backBtn), for: .touchUpInside)
+        viewNavigationBar.addBottomShadow()
     }
     
 
