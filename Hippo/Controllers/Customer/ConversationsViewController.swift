@@ -178,6 +178,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         customTableView.separatorStyle = .none
         customTableView.delegate = self
         customTableView.dataSource = self
+        customTableView.backgroundColor = .white
         customTableView.register(CustomTableViewCell.self, forCellReuseIdentifier: "CustomTableViewCell")
         
         self.setTitleForCustomNavigationBar()
@@ -360,6 +361,10 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
 //            }
 //        }
         
+        if #available(iOS 13.0, *) {
+            self.view.overrideUserInterfaceStyle = .light
+        }
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -412,8 +417,8 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
             if let inImageCell = cell as? IncomingImageCell, !inImageCell.customIndicator.isHidden {
                 inImageCell.startIndicatorAnimation()
             }
-            
         }
+        
     }
     
     override  func viewWillDisappear(_ animated: Bool) {

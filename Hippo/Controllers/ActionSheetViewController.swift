@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 class ActionSheetViewController: UIViewController {
-
+    
     @IBOutlet var optionViewHeightContraint: NSLayoutConstraint!
     @IBOutlet var bgView: UIView!
     @IBOutlet var nochBGView: UIView!
@@ -17,7 +17,7 @@ class ActionSheetViewController: UIViewController {
     @IBOutlet var optionContaintView: UIView!
     @IBOutlet var optionTableView: UITableView!
     
-   
+    
     enum ActionType: Int {
         case none = 0
         case emoji
@@ -43,10 +43,17 @@ class ActionSheetViewController: UIViewController {
         bgView.isHidden = true
         optionContaintView.isHidden = true
         optionViewHeightContraint.constant = 0
-    
+        
     }
     
-
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if #available(iOS 13.0, *) {
+            self.view.overrideUserInterfaceStyle = .light
+        }
+    }
+    
     class func get(with options: [ActionSheetAction], type: ActionType, emojiSelected: @escaping (_ reactionString: String) -> Void , optionSelected: @escaping(_ action: ActionSheetAction)->Void ) -> ActionSheetViewController {
         
         guard let vc = UIStoryboard(name: "AgentSdk", bundle: FuguFlowManager.bundle).instantiateViewController(withIdentifier: "ActionSheetViewController") as? ActionSheetViewController else{
@@ -73,16 +80,16 @@ class ActionSheetViewController: UIViewController {
     
     
     func showViewAnimation() {
-         bgView.alpha = 0
-         bgView.isHidden = false
-         optionContaintView.isHidden = false
-      
+        bgView.alpha = 0
+        bgView.isHidden = false
+        optionContaintView.isHidden = false
+        
         self.optionViewHeightContraint.constant = self.view.frame.size.height - 60 > self.height ? self.height : self.view.frame.size.height - 60
         UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseIn, animations: {
             self.bgView.alpha = 1
             self.view.layoutIfNeeded()
         }) { (mark) in
-          self.round()
+            self.round()
         }
     }
     
@@ -100,7 +107,7 @@ class ActionSheetViewController: UIViewController {
         bgView.alpha = 0
         self.dismiss(animated: true, completion: nil)
     }
-
+    
 }
 
 

@@ -53,6 +53,7 @@ extension UIView {
         return UITableViewAutomaticDimension
         #endif
     }
+    
     class var safeAreaInsetsForAllOS: UIEdgeInsets {
         var insets: UIEdgeInsets
         if #available(iOS 11.0, *) {
@@ -62,49 +63,50 @@ extension UIView {
         }
         return insets
     }
-   static var safeAreaInsetOfKeyWindow: UIEdgeInsets {
-      return safeAreaInsetsForAllOS
-   }
     
-   // MARK: - Rotation Animation
-   private var rotationAnimationKey: String {
-      return "FuguRotationAnimation"
-   }
-   
-   func startRotationAnimation() {
-      isHidden = false
-      
-      guard !isRotationAnimationAlreadyHappning() else {
-         return
-      }
-      
-      UIView.animate(withDuration: 1) {
-         let rotationAnimation = self.getRotationAnimation()
-         self.layer.add(rotationAnimation, forKey: self.rotationAnimationKey)
-      }
-
-   }
-   
-   
-   func stopRotationAnimation() {
-      if isRotationAnimationAlreadyHappning() {
-         layer.removeAnimation(forKey: rotationAnimationKey)
-      }
-      isHidden = true
-   }
-   
-   private func isRotationAnimationAlreadyHappning() -> Bool {
-      return layer.animation(forKey: rotationAnimationKey) != nil
-   }
-   
-   private func getRotationAnimation() -> CABasicAnimation {
-      let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation")
-      rotationAnimation.fromValue = 0.0
-      rotationAnimation.toValue = Float(.pi * 2.0)
-      rotationAnimation.duration = 1
-      rotationAnimation.repeatCount = Float.infinity
-      return rotationAnimation
-   }
+    static var safeAreaInsetOfKeyWindow: UIEdgeInsets {
+        return safeAreaInsetsForAllOS
+    }
+    
+    // MARK: - Rotation Animation
+    private var rotationAnimationKey: String {
+        return "FuguRotationAnimation"
+    }
+    
+    func startRotationAnimation() {
+        isHidden = false
+        
+        guard !isRotationAnimationAlreadyHappning() else {
+            return
+        }
+        
+        UIView.animate(withDuration: 1) {
+            let rotationAnimation = self.getRotationAnimation()
+            self.layer.add(rotationAnimation, forKey: self.rotationAnimationKey)
+        }
+        
+    }
+    
+    
+    func stopRotationAnimation() {
+        if isRotationAnimationAlreadyHappning() {
+            layer.removeAnimation(forKey: rotationAnimationKey)
+        }
+        isHidden = true
+    }
+    
+    private func isRotationAnimationAlreadyHappning() -> Bool {
+        return layer.animation(forKey: rotationAnimationKey) != nil
+    }
+    
+    private func getRotationAnimation() -> CABasicAnimation {
+        let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation")
+        rotationAnimation.fromValue = 0.0
+        rotationAnimation.toValue = Float(.pi * 2.0)
+        rotationAnimation.duration = 1
+        rotationAnimation.repeatCount = Float.infinity
+        return rotationAnimation
+    }
     
     func roundCorner(cornerRect: UIRectCorner, cornerRadius: CGFloat, strokeColor: UIColor? = .clear) {
         let maskPath = UIBezierPath(roundedRect: bounds, byRoundingCorners: cornerRect, cornerRadii: CGSize(width: cornerRadius, height: cornerRadius))
@@ -150,7 +152,16 @@ extension UIView {
         layer.shadowRadius = 4
         layer.shadowPath = maskPath.cgPath
     }
-
+    
+    func addBottomShadow() {
+        layer.shadowOffset = CGSize(width: 0.0, height: 1.0)
+        layer.shadowRadius = 3.0
+        layer.shadowOpacity = 0.5
+        layer.masksToBounds = false
+        layer.shadowPath = UIBezierPath(rect: CGRect(x: 0, y: bounds.maxY - layer.shadowRadius, width: UIScreen.main.bounds.width, height: layer.shadowRadius)).cgPath
+        
+    }
+    
 }
 
 extension UIView {
@@ -172,15 +183,15 @@ extension UIView {
         }
     }
     
-//    @IBInspectable var cornerRadius: CGFloat {
-//        get {
-//            return layer.cornerRadius
-//        }
-//        set {
-//            layer.cornerRadius = newValue
-//            layer.masksToBounds = newValue > 0
-//        }
-//    }
+    //    @IBInspectable var cornerRadius: CGFloat {
+    //        get {
+    //            return layer.cornerRadius
+    //        }
+    //        set {
+    //            layer.cornerRadius = newValue
+    //            layer.masksToBounds = newValue > 0
+    //        }
+    //    }
 }
 
 extension TagListView {
@@ -252,7 +263,7 @@ extension UIViewController {
         }
         return vc
     }
-
+    
     func showAlert(_ inController: UIViewController? = getLastVisibleController(), buttonTitle: String = HippoStrings.ok, title: String?, message: String, preferredStyle: UIAlertController.Style = .alert, actionComplete: ((_ action: UIAlertAction) -> Void)?) {
         let alertMessageController = UIAlertController(title: title, message: message, preferredStyle: preferredStyle)
         
@@ -375,17 +386,17 @@ extension UIButton {
 
 extension UIBarButtonItem {
     
-//    func setBackgroundColor(color: UIColor, forState: UIControl.State) {
-//        //        self.clipsToBounds = true  // add this to maintain corner radius
-//        UIGraphicsBeginImageContext(CGSize(width: 1, height: 1))
-//        if let context = UIGraphicsGetCurrentContext() {
-//            context.setFillColor(color.cgColor)
-//            context.fill(CGRect(x: 0, y: 0, width: 1, height: 1))
-//            let colorImage = UIGraphicsGetImageFromCurrentImageContext()
-//            UIGraphicsEndImageContext()
-//            //            self.setBackgroundImage(colorImage, for: forState)
-//            self.setBackgroundImage(colorImage, for: forState, barMetrics: .default)
-//        }
-//    }
+    //    func setBackgroundColor(color: UIColor, forState: UIControl.State) {
+    //        //        self.clipsToBounds = true  // add this to maintain corner radius
+    //        UIGraphicsBeginImageContext(CGSize(width: 1, height: 1))
+    //        if let context = UIGraphicsGetCurrentContext() {
+    //            context.setFillColor(color.cgColor)
+    //            context.fill(CGRect(x: 0, y: 0, width: 1, height: 1))
+    //            let colorImage = UIGraphicsGetImageFromCurrentImageContext()
+    //            UIGraphicsEndImageContext()
+    //            //            self.setBackgroundImage(colorImage, for: forState)
+    //            self.setBackgroundImage(colorImage, for: forState, barMetrics: .default)
+    //        }
+    //    }
     
 }

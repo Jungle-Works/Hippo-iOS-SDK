@@ -264,7 +264,7 @@ Use `HippoTheme.defaultTheme(fontRegular: "", fontBold: "")` to paas your app fo
 fontBold: Pass app Bold/Semi-Bold font here
 */
 ```
-### Miltilingual Support
+### Multilingual Support
 Use `HippoConfig.shared.setLanguage(_ code : String)` to paas  selected language code from your application for using language in particular language
 
 ```sh

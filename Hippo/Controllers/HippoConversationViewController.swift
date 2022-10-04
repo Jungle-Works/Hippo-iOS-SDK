@@ -273,6 +273,7 @@ class HippoConversationViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(self.fayeConnected), name: .socketConnected, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.fayeDisconnected), name: .socketDisconnected, object: nil)
     }
+    
     func registerNotificationToKnowWhenAppIsKilledOrMovedToBackground() {
     #if swift(>=4.2)
         NotificationCenter.default.addObserver(self, selector: #selector(self.appMovedToBackground), name: UIApplication.willTerminateNotification, object: nil)
@@ -284,8 +285,8 @@ class HippoConversationViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(self.appMovedToBackground), name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
     #endif
         
-        
     }
+    
     func registerKeyBoardNotification() {
         
     #if swift(>=4.2)
@@ -362,8 +363,6 @@ class HippoConversationViewController: UIViewController {
         self.addRemoveShadowInTextView(toAdd: false)
     }
     
-    
-    
     @objc func willEnterForeground(_ notification: NSNotification!) {
         isTypingLabelHidden = true
         checkNetworkConnection()
@@ -393,6 +392,7 @@ class HippoConversationViewController: UIViewController {
             getAllNewMessages()
             return
         }
+        
         if channel.isSubscribed() {
             getAllNewMessages()
         } else {
@@ -403,7 +403,6 @@ class HippoConversationViewController: UIViewController {
                 self.getAllNewMessages()
             }
         }
-        
     }
     
     @objc func fayeDisconnected(_ notification: Notification) {
@@ -422,6 +421,7 @@ class HippoConversationViewController: UIViewController {
         sendTypingStatusMessage(isTyping: TypingMessage.stopTyping)
         closeKeyBoard()
     }
+    
     func sendTypingStatusMessage(isTyping: TypingMessage) {
         if isTyping == .startTyping {
             channel?.send(message: HippoMessage.startTyping, completion: {})
@@ -429,6 +429,7 @@ class HippoConversationViewController: UIViewController {
             channel?.send(message: HippoMessage.stopTyping, completion: {})
         }
     }
+    
     // MARK: Message Filtering Methods
     func filterMessages(newMessagesHashMap: [String: Int], lastMessage: HippoMessage) {
         let unsentMessages = getFilteredUnsentMessagesFromChannelMessageArray(newMessagesHashMap: newMessagesHashMap)
@@ -437,7 +438,6 @@ class HippoConversationViewController: UIViewController {
         channel?.sentMessages = sentMessages
         channel?.unsentMessages = unsentMessages
     }
-    
     
     func showAlertForNoInternetConnection() {
         showAlertWith(message: HippoStrings.noNetworkConnection) {
@@ -530,13 +530,16 @@ class HippoConversationViewController: UIViewController {
         
         return unsentMessges
     }
+    
     func getMessagesToBeFiltered() -> [HippoMessage] {
         return channel?.messages ?? []
     }
+    
     func isCustomerInfoAvailable() -> Bool {
         let customerId = channel?.chatDetail?.customerID ?? -1
         return customerId > 0
     }
+    
     func setTitleButton() {
         
         let color = HippoConfig.shared.theme.headerTextColor
@@ -585,7 +588,6 @@ class HippoConversationViewController: UIViewController {
         view_Navigation.delegate = self
         //     navigationItem.leftBarButtonItem = button
     }
-    
     
     func setNavigationTitle(title: String) {
         guard titleForNavigation == nil else {
@@ -695,6 +697,7 @@ class HippoConversationViewController: UIViewController {
             }
         }
     }
+    
     func canMakeAnyCall() -> Bool {
         guard channel?.chatDetail?.peerDetail != nil else {
             return false
@@ -723,7 +726,6 @@ class HippoConversationViewController: UIViewController {
             return false
         }
         return true
-        
     }
     
     func canStartVideoCall() -> Bool {
@@ -737,8 +739,8 @@ class HippoConversationViewController: UIViewController {
             return false
         }
         return true
-        
     }
+    
     func isCallingEnabledFor(type: CallType) -> Bool {
         switch type {
         case .video:
@@ -747,6 +749,7 @@ class HippoConversationViewController: UIViewController {
             return canStartAudioCall()
         }
     }
+    
     func isDirectCallingEnabledFor(type: CallType) -> Bool {
         let callingDisableOnNavigationForCustomer: Bool = BussinessProperty.current.hideCallIconOnNavigationForCustomer
         switch type {
@@ -837,11 +840,12 @@ class HippoConversationViewController: UIViewController {
         
         return groupsFirstMessage.creationDateTime
     }
+    
     func isSentByMe(senderId: Int) -> Bool {
         return getSavedUserId == senderId
     }
-    func attachmentButtonclicked(_ sender: UIButton)
-    {
+    
+    func attachmentButtonclicked(_ sender: UIButton) {
         isAttachmentOpenedForTicket = false
         let showPaymentOption = channel == nil ? false : HippoProperty.current.isPaymentRequestEnabled
         pickerHelper = PickerHelper(viewController: self, enablePayment: showPaymentOption)
@@ -900,7 +904,6 @@ extension HippoConversationViewController {
     }
     
 }
-
 
 
 extension HippoConversationViewController: PickerHelperDelegate {
@@ -1002,7 +1005,6 @@ extension HippoConversationViewController: PickerHelperDelegate {
     }
     
     func didPickDocumentWith(url: URL) {
-        
         HippoConfig.shared.UnhideJitsiView()
         guard let vc = UIStoryboard(name: "FuguUnique", bundle: FuguFlowManager.bundle).instantiateViewController(withIdentifier: "PreviewViewController") as? PreviewViewController else {
             return
@@ -1119,6 +1121,7 @@ extension HippoConversationViewController {
             }
         }
     }
+    
     func addMessageInUnsentArray(message: HippoMessage) {
         channel?.unsentMessages.append(message)
         channel?.messageHashMap[message.messageUniqueID!] = (channel?.messages.count ?? 1) - 1
@@ -1161,7 +1164,6 @@ extension HippoConversationViewController {
     func hasRowAtIndexPath(indexPath: IndexPath) -> Bool {
         return indexPath.section < tableViewChat.numberOfSections && indexPath.row < tableViewChat.numberOfRows(inSection: indexPath.section)
     }
-    
     
     func getLastMessageIndexPath() -> IndexPath? {
         if self.messagesGroupedByDate.count > 0 {
@@ -1258,7 +1260,6 @@ extension HippoConversationViewController {
         }
     }
     
-    
     func getBotAttachmentContent(path: String, thumnailUrl: String, name: String) -> [[String : Any]]{
         var dic = [[String : Any]]()
         var dateDic = [String : Any]()
@@ -1278,6 +1279,7 @@ extension HippoConversationViewController {
         }
         FileUploader.saveImageInKingfisherCacheFor(thumbnailUrl: thumbnailURL, originalUrl: originalURL, localPath: localPath)
     }
+    
     func uploadFileFor(message: HippoMessage, completion: @escaping (_ success: Bool) -> Void) {
         guard message.localImagePath != nil else {
             completion(false)
@@ -1380,7 +1382,6 @@ extension HippoConversationViewController {
         return compressionRate
     }
     
-    
     func updateMessagesArrayLocallyForUIUpdation(_ messageDict: HippoMessage) {
         
         DispatchQueue.main.async {
@@ -1467,8 +1468,7 @@ extension HippoConversationViewController {
     }
     
     func openExternallyIfUnsupported(url: String){
-        if let url = URL(string: "vlc://\(url)"),
-           UIApplication.shared.canOpenURL(url) {
+        if let url = URL(string: "vlc://\(url)"), UIApplication.shared.canOpenURL(url) {
             UIApplication.shared.open(url)
         }else if let url = URL(string: "https://apps.apple.com/in/app/vlc-media-player/id650377962") {
             UIApplication.shared.open(url)
@@ -1485,6 +1485,7 @@ extension HippoConversationViewController {
             }
         })
     }
+    
     func shouldScrollToBottomWhenStatusUpdatedOf(message: HippoMessage) -> Bool {
         guard let lastMessageUniqueID = getLastMessageOfAnyStatus()?.messageUniqueID else {
             return false
@@ -1494,6 +1495,7 @@ extension HippoConversationViewController {
         
         return message.wasMessageSendingFailed && isLastMessageVisible() && isMessageLastMessage
     }
+    
     func getLastMessageOfAnyStatus() -> HippoMessage? {
         guard let indexPath = getLastMessageIndexPath() else {
             return nil
@@ -1510,6 +1512,7 @@ extension HippoConversationViewController {
         let visibleIndexPaths = tableViewChat.indexPathsForVisibleRows
         return visibleIndexPaths?.contains(indexPath) ?? false
     }
+    
     func newScrollToBottom(animated: Bool) {
         DispatchQueue.main.async {
             if self.tableViewChat.numberOfSections == 0 { return }
@@ -1518,7 +1521,6 @@ extension HippoConversationViewController {
                 self.scroll(toIndexPath: lastCell, animated: animated)
             }
         }
-        
     }
     
     func presentPlansVc() {
@@ -1527,7 +1529,6 @@ extension HippoConversationViewController {
         }
         
         let id = UInt(channelId)
-        
         let vc = PaymentPlansViewController.get(channelId: id)
         vc.sendNewPaymentDelegate = self
         let navVC = UINavigationController(rootViewController: vc)
@@ -1544,6 +1545,7 @@ extension HippoConversationViewController: RetryMessageUploadingDelegate {
     func cancelImageUploadFor(message: HippoMessage) {
         
     }
+    
     func retryUploadFor(message: HippoMessage) {
         guard message.imageUrl == nil && message.fileUrl == nil else {
             publishMessageOnChannel(message: message)
@@ -1563,6 +1565,7 @@ extension HippoConversationViewController: RetryMessageUploadingDelegate {
         }
     }
 }
+
 extension HippoConversationViewController: VideoCallMessageTableViewCellDelegate {
     func callAgainButtonPressed(callType: CallType) {
         switch callType {
@@ -1693,6 +1696,7 @@ extension HippoConversationViewController: SelfMessageDelegate {
         tableViewChat.reloadData()
         sendMessage(message: message)
     }
+    
     func createChannelIfRequiredAndContinue(replyMessage: HippoMessage?, completion: @escaping ((_ success: Bool, _ result: HippoChannelCreationResult?) -> ())) {
         if channel != nil {
             completion(true, nil)
@@ -1753,6 +1757,7 @@ extension HippoConversationViewController: ActionTableViewDelegate {
         safariVC.navigationController?.setTheme()
         self.navigationController?.pushViewController(safariVC, animated: true)
     }
+    
 }
 
 extension HippoConversationViewController: CreatePaymentDelegate {
@@ -1815,7 +1820,6 @@ extension HippoConversationViewController {
         }
     }
     
-    
 }
 
 extension HippoConversationViewController : OutgoingShareUrlDelegate {
@@ -1850,6 +1854,7 @@ extension HippoConversationViewController: NavigationTitleViewDelegate {
         //        self.navigationController?.pushViewController(vc, animated: true)
     }
 }
+
 extension HippoConversationViewController: CardMessageDelegate {
     func cardSelected(cell: CardMessageTableViewCell, card: MessageCard, message: HippoMessage) {
         if let channel = self.channel, channel.isSendingDisabled {
@@ -1991,7 +1996,6 @@ extension HippoConversationViewController: PaymentMessageCellDelegate {
         
     }
     
-    
     func getNextMessageInDateGroupOfMessageAt(indexPath: IndexPath) -> HippoMessage? {
         let row = indexPath.row
         let section = indexPath.section
@@ -2010,8 +2014,6 @@ extension HippoConversationViewController: PaymentMessageCellDelegate {
         return nextMessage
     }
     
-    
-    
     func getBottomSpaceOfMessageAt(indexPath: IndexPath, message: HippoMessage) -> CGFloat {
         guard let nextMessage = getNextMessageInDateGroupOfMessageAt(indexPath: indexPath) else {
             return 1
@@ -2023,7 +2025,6 @@ extension HippoConversationViewController: PaymentMessageCellDelegate {
         
         return 0 // onle top pennding for same user message extra bottom space is 0
     }
-    
     
     func generatePaymentUrlWithSelectedPaymentGateway(for message: HippoMessage, card: CustomerPayment, selectedPaymentGateway: PaymentGateway?, proceedToPayChannel: HippoChannel?) {
         let selectedCard = card
@@ -2058,10 +2059,8 @@ extension HippoConversationViewController: PaymentMessageCellDelegate {
     
 }
 
-extension HippoConversationViewController: submitButtonTableViewDelegate
-{
+extension HippoConversationViewController: submitButtonTableViewDelegate {
     func submitButtonPressed(hippoMessage: HippoMessage) {
-        
         createChannelIfRequiredAndContinue(replyMessage: nil) { (success, result) in
             
             self.sendMessage(message: hippoMessage)
@@ -2069,12 +2068,10 @@ extension HippoConversationViewController: submitButtonTableViewDelegate
         }
     }
     
-    
 }
 
 //MARK:- COLLECTION VIEW DELEAGATE/DATASOURCE
 extension HippoConversationViewController : UICollectionViewDelegate , UICollectionViewDataSource , UICollectionViewDelegateFlowLayout{
-    
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return attachments.count
@@ -2092,10 +2089,7 @@ extension HippoConversationViewController : UICollectionViewDelegate , UICollect
         return CGSize(width: param, height: param)
     }
     
-    
 }
-
-
 
 
 //MARK:- COLLECTIONVIEW CELL

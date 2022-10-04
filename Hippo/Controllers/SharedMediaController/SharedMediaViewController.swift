@@ -9,9 +9,7 @@
 import UIKit
 import QuickLook
 
-final
-class SharedMediaViewController: UIViewController {
-    
+final class SharedMediaViewController: UIViewController {
     
     @IBOutlet private var viewNavigationBar : NavigationBar!
     @IBOutlet private weak var collectionView: UICollectionView! {
@@ -20,15 +18,13 @@ class SharedMediaViewController: UIViewController {
         }
     }
     
-   //MARK:- Variables
+    //MARK:- Variables
+    private var mediaArr = [ShareMediaModel]()
     
-    
-   private var mediaArr = [ShareMediaModel]()
-    
-   var channelId : Int?
-   var downloadingDoc = [String:String]()
-   var qldataSource: HippoQLDataSource?
-   var informationView: InformationView?
+    var channelId : Int?
+    var downloadingDoc = [String:String]()
+    var qldataSource: HippoQLDataSource?
+    var informationView: InformationView?
     var counter = 5
     
     
@@ -39,25 +35,30 @@ class SharedMediaViewController: UIViewController {
         layout.scrollDirection = .vertical
         layout.minimumLineSpacing = 5
         layout.minimumInteritemSpacing = 5
-        collectionView
-            .setCollectionViewLayout(layout, animated: true)
+        collectionView.setCollectionViewLayout(layout, animated: true)
         getMediaData()
         setupNavigationBar()
         self.collectionView.reloadData()
         addNotificationObservers()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
+        if #available(iOS 13.0, *) {
+            self.view.overrideUserInterfaceStyle = .light
+        }
     }
     
     func addNotificationObservers() {
-       NotificationCenter.default.addObserver(self, selector: #selector(fileDownloadCompleted(_:)), name: Notification.Name.fileDownloadCompleted, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(fileDownloadCompleted(_:)), name: Notification.Name.fileDownloadCompleted, object: nil)
     }
     
     @objc func fileDownloadCompleted(_ notification: Notification) {
-       guard let url = notification.userInfo?[DownloadManager.urlUserInfoKey] as? String else {
-          return
-       }
-       openFile(url: url, name: downloadingDoc[url] ?? "")
-       
+        guard let url = notification.userInfo?[DownloadManager.urlUserInfoKey] as? String else {
+            return
+        }
+        openFile(url: url, name: downloadingDoc[url] ?? "")
     }
     
     
@@ -69,17 +70,15 @@ class SharedMediaViewController: UIViewController {
         self.navigationController?.isNavigationBarHidden = true
         viewNavigationBar.title = HippoStrings.sharedMediaTitle
         viewNavigationBar.leftButton.addTarget(self, action: #selector(backBtn), for: .touchUpInside)
+        viewNavigationBar.addBottomShadow()
     }
     
-
     //MARK:- Private Functions
-
     private func getMediaData(){
-      
+        
         guard let channelId = channelId else {
             return
         }
-        
         
         var params: [String : Any] = ["channel_id" : channelId]
         if currentUserType() == .agent {
@@ -128,7 +127,7 @@ extension SharedMediaViewController {
         }else{
             for view in collectionView.subviews{
                 if view is InformationView{
-                     view.removeFromSuperview()
+                    view.removeFromSuperview()
                 }
             }
             collectionView.layoutSubviews()
@@ -147,19 +146,19 @@ extension SharedMediaViewController: UICollectionViewDelegate,UICollectionViewDa
         cell.buttonPlay.isHidden = true
         cell.imageViewMedia.tintColor = nil
         switch mediaArr[indexPath.row].document_type {
-            case FileType.image.rawValue:
-                cell.imageViewMedia.kf.setImage(with: URL(string: mediaArr[indexPath.row].image_url ?? mediaArr[indexPath.row].url ?? ""))
-            case FileType.video.rawValue:
-                cell.imageViewMedia.kf.setImage(with: URL(string: mediaArr[indexPath.row].thumbnail_url ?? ""))
-                cell.buttonPlay.isHidden = false
-            case FileType.audio.rawValue:
-                cell.imageViewMedia.tintColor = .black
-                cell.imageViewMedia.contentMode = .scaleAspectFit
-                cell.imageViewMedia.image = HippoConfig.shared.theme.defaultDocIcon
-                
-            case FileType.document.rawValue:
-                cell.imageViewMedia.tintColor = .black
-                cell.imageViewMedia.image = HippoConfig.shared.theme.defaultDocIcon
+        case FileType.image.rawValue:
+            cell.imageViewMedia.kf.setImage(with: URL(string: mediaArr[indexPath.row].image_url ?? mediaArr[indexPath.row].url ?? ""))
+        case FileType.video.rawValue:
+            cell.imageViewMedia.kf.setImage(with: URL(string: mediaArr[indexPath.row].thumbnail_url ?? ""))
+            cell.buttonPlay.isHidden = false
+        case FileType.audio.rawValue:
+            cell.imageViewMedia.tintColor = .black
+            cell.imageViewMedia.contentMode = .scaleAspectFit
+            cell.imageViewMedia.image = HippoConfig.shared.theme.defaultDocIcon
+            
+        case FileType.document.rawValue:
+            cell.imageViewMedia.tintColor = .black
+            cell.imageViewMedia.image = HippoConfig.shared.theme.defaultDocIcon
             
         default:
             cell.imageViewMedia.kf.setImage(with: URL(string: mediaArr[indexPath.row].image_url ?? mediaArr[indexPath.row].url ?? ""))
@@ -181,7 +180,7 @@ extension SharedMediaViewController: UICollectionViewDelegate,UICollectionViewDa
             self.modalPresentationStyle = .overFullScreen
             self.present(showImageVC!, animated: true, completion: nil)
         }else {
-           
+            
             guard let url = mediaArr[indexPath.row].url else {
                 showAlert(title: "", message: HippoStrings.somethingWentWrong, actionComplete: nil)
                 return
@@ -195,7 +194,7 @@ extension SharedMediaViewController: UICollectionViewDelegate,UICollectionViewDa
             openFile(url: url, name: mediaArr[indexPath.row].file_name ?? "")
         }
     }
-
+    
     func openFile(url: String, name: String) {
         guard  DownloadManager.shared.isFileDownloadedWith(url: url) else {
             print("-------\nERROR\nFile is not downloaded\n--------")
@@ -238,7 +237,6 @@ extension SharedMediaViewController: UICollectionViewDelegateFlowLayout{
         
     }
     
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return  UIEdgeInsets(top: 5, left: 5, bottom: 0, right: 5)
     }
@@ -247,5 +245,4 @@ extension SharedMediaViewController: UICollectionViewDelegateFlowLayout{
         return 5
     }
 }
-
 
