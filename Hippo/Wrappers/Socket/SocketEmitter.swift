@@ -126,7 +126,6 @@ extension SocketClient {
             })
         }else{
             SocketClient.shared.connect()
-            send(messageDict: messageDict, toChannelID: channelID, completion: completion)
         }
     }
     

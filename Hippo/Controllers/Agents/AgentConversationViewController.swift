@@ -1679,9 +1679,14 @@ extension AgentConversationViewController: UITableViewDelegate, UITableViewDataS
             cell.bgView.backgroundColor = .clear
             cell.gifImageView.layer.cornerRadius = 15.0
             
-            let imageBundle = FuguFlowManager.bundle ?? Bundle.main
-            if let getImagePath = imageBundle.path(forResource: "typingImage", ofType: ".gif") {
-                cell.gifImageView.image = UIImage.animatedImageWithData(try! Data(contentsOf: URL(fileURLWithPath: getImagePath)))!
+            if let imageBundle = FuguFlowManager.bundle, let getImagePath = imageBundle.path(forResource: "typingImage", ofType: ".gif") {
+                do {
+                    try cell.gifImageView.image = UIImage.gif(data: Data(contentsOf: URL(fileURLWithPath: getImagePath)))
+                } catch let error {
+                    print("image decoding error --", error)
+                }
+                
+//                    cell.gifImageView.image = UIImage.animatedImageWithData(try! Data(contentsOf: URL(fileURLWithPath: getImagePath)))!
             }
             
             return cell

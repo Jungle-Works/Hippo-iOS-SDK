@@ -8,76 +8,101 @@
 
 import UIKit
 import ImageIO
-// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
-// Consider refactoring the code to use the non-optional operators.
-fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l < r
-  case (nil, _?):
-    return true
-  default:
-    return false
-  }
+
+extension UIImageView {
+
+    public func loadGif(name: String) {
+        DispatchQueue.global().async {
+            let image = UIImage.gif(name: name)
+            DispatchQueue.main.async {
+                self.image = image
+            }
+        }
+    }
+
+    @available(iOS 9.0, *)
+    public func loadGif(asset: String) {
+        DispatchQueue.global().async {
+            let image = UIImage.gif(asset: asset)
+            DispatchQueue.main.async {
+                self.image = image
+            }
+        }
+    }
+
 }
 
-
 extension UIImage {
-    class func createImage(withColor color: UIColor, frameSize: CGSize) -> UIImage {
-        let rect = CGRect(x: 0, y: 0, width: frameSize.width, height: frameSize.height)
-        UIGraphicsBeginImageContextWithOptions(frameSize, false, 0)
-        color.setFill()
-        UIRectFill(rect)
-        let image: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
-        UIGraphicsEndImageContext()
-        return image
-    }
-    
-    public class func gifImageWithURL(_ gifUrl:String) -> UIImage? {
-        guard let bundleURL : URL = URL(string: gifUrl)
-            else {
-                print("image named \"\(gifUrl)\" doesn't exist")
-                return nil
-        }
-        guard let imageData = try? Data(contentsOf: bundleURL) else {
-            print("image named \"\(gifUrl)\" into NSData")
+
+    public class func gif(data: Data) -> UIImage? {
+        // Create source from data
+        guard let source = CGImageSourceCreateWithData(data as CFData, nil) else {
+            print("SwiftGif: Source for the image does not exist")
             return nil
         }
-        
-        return animatedImageWithData(imageData)
+
+        return UIImage.animatedImageWithSource(source)
     }
-    
-    public class func gifImageWithName(_ name: String) -> UIImage? {
-        guard let bundleURL = FuguFlowManager.bundle?.url(forResource: name, withExtension: "gif") else {
-                print("SwiftGif: This image named \"\(name)\" does not exist")
-                return nil
+
+    public class func gif(url: String) -> UIImage? {
+        // Validate URL
+        guard let bundleURL = URL(string: url) else {
+            print("SwiftGif: This image named \"\(url)\" does not exist")
+            return nil
         }
+
+        // Validate data
+        guard let imageData = try? Data(contentsOf: bundleURL) else {
+            print("SwiftGif: Cannot turn image named \"\(url)\" into NSData")
+            return nil
+        }
+
+        return gif(data: imageData)
+    }
+
+    public class func gif(name: String) -> UIImage? {
+        // Check for existance of gif
+        guard let bundleURL = Bundle.main
+          .url(forResource: name, withExtension: "gif") else {
+            print("SwiftGif: This image named \"\(name)\" does not exist")
+            return nil
+        }
+
+        // Validate data
         guard let imageData = try? Data(contentsOf: bundleURL) else {
             print("SwiftGif: Cannot turn image named \"\(name)\" into NSData")
             return nil
         }
-        return animatedImageWithData(imageData)
+
+        return gif(data: imageData)
     }
-    
-    
-    
-    class func animatedImageWithData(_ data: Data) -> UIImage? {
-        let source = CGImageSourceCreateWithData(data as CFData, nil)
-        let image = UIImage.animatedImageWithSource(source!)
-        
-        return image
+
+    @available(iOS 9.0, *)
+    public class func gif(asset: String) -> UIImage? {
+        // Create source from assets catalog
+        guard let dataAsset = NSDataAsset(name: asset) else {
+            print("SwiftGif: Cannot turn image named \"\(asset)\" into NSDataAsset")
+            return nil
+        }
+
+        return gif(data: dataAsset.data)
     }
-    
-    class func delayForImageAtIndex(_ index: Int, source: CGImageSource!)
-        -> Double {
+
+    internal class func delayForImageAtIndex(_ index: Int, source: CGImageSource!) -> Double {
         var delay = 0.1
-        
+
         // Get dictionaries
         let cfProperties = CGImageSourceCopyPropertiesAtIndex(source, index, nil)
-        let gifProperties: CFDictionary = unsafeBitCast(
-            CFDictionaryGetValue(cfProperties,
-                Unmanaged.passUnretained(kCGImagePropertyGIFDictionary).toOpaque()),
-            to: CFDictionary.self)
+        let gifPropertiesPointer = UnsafeMutablePointer<UnsafeRawPointer?>.allocate(capacity: 0)
+        defer {
+            gifPropertiesPointer.deallocate()
+        }
+        let unsafePointer = Unmanaged.passUnretained(kCGImagePropertyGIFDictionary).toOpaque()
+        if CFDictionaryGetValueIfPresent(cfProperties, unsafePointer, gifPropertiesPointer) == false {
+            return delay
+        }
+
+        let gifProperties: CFDictionary = unsafeBitCast(gifPropertiesPointer.pointee, to: CFDictionary.self)
 
         // Get delay time
         var delayObject: AnyObject = unsafeBitCast(
@@ -88,131 +113,114 @@ extension UIImage {
             delayObject = unsafeBitCast(CFDictionaryGetValue(gifProperties,
                 Unmanaged.passUnretained(kCGImagePropertyGIFDelayTime).toOpaque()), to: AnyObject.self)
         }
-        
-        delay = delayObject as! Double
-        
-        if delay < 0.1 {
+
+        if let delayObject = delayObject as? Double, delayObject > 0 {
+            delay = delayObject
+        } else {
             delay = 0.1 // Make sure they're not too fast
         }
 
-        
         return delay
     }
-    
-    class func gcdForPair(_ a: Int?, _ b: Int?) -> Int {
-        var a = a, b = b
+
+    internal class func gcdForPair(_ lhs: Int?, _ rhs: Int?) -> Int {
+        var lhs = lhs
+        var rhs = rhs
         // Check if one of them is nil
-        if b == nil || a == nil {
-            if b != nil {
-                return b!
-            } else if a != nil {
-                return a!
+        if rhs == nil || lhs == nil {
+            if rhs != nil {
+                return rhs!
+            } else if lhs != nil {
+                return lhs!
             } else {
                 return 0
             }
         }
-        
+
         // Swap for modulo
-        if a < b {
-            let c = a
-            a = b
-            b = c
+        if lhs! < rhs! {
+            let ctp = lhs
+            lhs = rhs
+            rhs = ctp
         }
-        
+
         // Get greatest common divisor
         var rest: Int
         while true {
-            rest = a! % b!
-            
+            rest = lhs! % rhs!
+
             if rest == 0 {
-                return b! // Found it
+                return rhs! // Found it
             } else {
-                a = b
-                b = rest
+                lhs = rhs
+                rhs = rest
             }
         }
     }
-    
-    class func gcdForArray(_ array: Array<Int>) -> Int {
+
+    internal class func gcdForArray(_ array: [Int]) -> Int {
         if array.isEmpty {
             return 1
         }
-        
+
         var gcd = array[0]
-        
+
         for val in array {
             gcd = UIImage.gcdForPair(val, gcd)
         }
-        
+
         return gcd
     }
-    
-    class func animatedImageWithSource(_ source: CGImageSource) -> UIImage? {
+
+    internal class func animatedImageWithSource(_ source: CGImageSource) -> UIImage? {
         let count = CGImageSourceGetCount(source)
         var images = [CGImage]()
         var delays = [Int]()
-        
+
         // Fill arrays
-        for i in 0..<count {
+        for index in 0..<count {
             // Add image
-            images.append(CGImageSourceCreateImageAtIndex(source, i, nil)!)
-            
+            if let image = CGImageSourceCreateImageAtIndex(source, index, nil) {
+                images.append(image)
+            }
+
             // At it's delay in cs
-            let delaySeconds = UIImage.delayForImageAtIndex(Int(i), source: source)
+            let delaySeconds = UIImage.delayForImageAtIndex(Int(index),
+                source: source)
             delays.append(Int(delaySeconds * 1000.0)) // Seconds to ms
         }
-        
+
         // Calculate full duration
         let duration: Int = {
             var sum = 0
-            
+
             for val: Int in delays {
                 sum += val
             }
-            
+
             return sum
             }()
-        
+
         // Get frames
         let gcd = gcdForArray(delays)
         var frames = [UIImage]()
-        
+
         var frame: UIImage
         var frameCount: Int
-        for i in 0..<count {
-            frame = UIImage(cgImage: images[Int(i)])
-            frameCount = Int(delays[Int(i)] / gcd)
-            
+        for index in 0..<count {
+            frame = UIImage(cgImage: images[Int(index)])
+            frameCount = Int(delays[Int(index)] / gcd)
+
             for _ in 0..<frameCount {
                 frames.append(frame)
             }
         }
-        
+
         // Heyhey
         let animation = UIImage.animatedImage(with: frames,
             duration: Double(duration) / 1000.0)
-        
+
         return animation
     }
-}
 
-extension UIImageView {
-    func downloadedFrom(url: URL, contentMode mode: UIView.ContentMode = .scaleAspectFit) {
-        contentMode = mode
-        URLSession.shared.dataTask(with: url) { (data, response, error) in
-            guard let httpURLResponse = response as? HTTPURLResponse, httpURLResponse.statusCode == 200, let mimeType = response?.mimeType,
-                  mimeType.hasPrefix("image"), let data = data, error == nil, let image = UIImage(data: data) else {
-                      return
-                  }
-            DispatchQueue.main.async() { () -> Void in
-                self.image = image
-            }
-        }.resume()
-    }
-    
-    func downloadedFrom(link: String,
-                        contentMode mode: UIView.ContentMode = .scaleAspectFit) {
-        guard let url = URL(string: link) else { return }
-        downloadedFrom(url: url, contentMode: mode)
-    }
 }
