@@ -414,7 +414,11 @@ public class UserTag: NSObject {
         
         BussinessProperty.current.isCallInviteEnabled = Bool.parse(key: "is_call_invite_enabled", json: userDetailData)
         
-        BussinessProperty.current.isAutomationEnabled = Int.parse(values: userDetailData, key: "is_automation_client")
+        if let automationEnabled = Int.parse(values: userDetailData, key: "is_automation_client"){
+            BussinessProperty.current.isAutomationEnabled = automationEnabled
+        }else{
+            BussinessProperty.current.isAutomationEnabled = 0
+        }
         
         BussinessProperty.current.editDeleteExpiryTime = CGFloat(Int.parse(values: userDetailData, key: "edit_delete_message_duration") ?? 0)
         
@@ -492,6 +496,12 @@ public class UserTag: NSObject {
             HippoConfig.shared.announcementUnreadCount?(announcementCount.count)
             UserDefaults.standard.set(arr, forKey: DefaultName.announcementUnreadCount.rawValue)
         }
+        
+        if HippoConfig.shared.isPopUpCalledBeforeCaching == true, let btnOneCallback = HippoConfig.shared.popupCallbacksCache?.first, let btnTwoCallback = HippoConfig.shared.popupCallbacksCache?.last, let screenToShowPopUpOn = HippoConfig.shared.screenToShowPopUpOn{
+            HippoConfig.shared.presentPromotionalPopUp(on: screenToShowPopUpOn, onButtonOneClick: btnOneCallback, onButtonTwoClick: btnTwoCallback)
+            HippoConfig.shared.isPopUpCalledBeforeCaching = false
+        }
+        
         completion?(true, nil)
         
     }

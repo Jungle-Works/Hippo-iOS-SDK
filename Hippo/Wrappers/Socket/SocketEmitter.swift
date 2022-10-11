@@ -49,7 +49,7 @@ extension SocketClient {
                 return
             }
             
-            print("status of socket ------->>>>>>>>\(SocketClient.shared.socket?.status)")
+            print("status of socket ------->>>>>>>>\(String(describing: SocketClient.shared.socket?.status))")
             
             socket?.emitWithAck(eventToSubscribe, json).timingOut(after: 20, callback: { (data) in
                 print("DAATA IN SUCCESS OF EMITTTTTT\(data)")

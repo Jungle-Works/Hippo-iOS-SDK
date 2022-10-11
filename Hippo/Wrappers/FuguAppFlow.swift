@@ -140,6 +140,7 @@ class FuguFlowManager: NSObject {
         naVC.modalPresentationStyle = .fullScreen
         visibleController?.present(naVC, animated: true, completion: nil)
     }
+    
     func openChatViewController(labelId: Int) {
         
         let conversationViewController = ConversationsViewController.getWith(labelId: labelId.description)
@@ -151,6 +152,7 @@ class FuguFlowManager: NSObject {
         conversationViewController.createConversationOnStart = true
         visibleController?.present(navVC, animated: false, completion: nil)
     }
+    
     func openChatViewControllerTempFunc(labelId: Int) {
         
         let conversationViewController = ConversationsViewController.getWith(labelId: labelId.description)

@@ -238,6 +238,9 @@ struct WhatsappWidgetConfig{
     private(set) public var isRecordingButtonEnabled: Bool = true
     var botButtonActionCallBack: ((Any) -> Void)?
     public var newChatCallback: ((Int) -> (Int?, Bool?))?
+    var isPopUpCalledBeforeCaching = false
+    var popupCallbacksCache: [([String: Any]) -> Void]?
+    var screenToShowPopUpOn: UIViewController?
     
     
     // MARK: - Intialization
@@ -538,10 +541,17 @@ struct WhatsappWidgetConfig{
     
     public func presentPromotionalPopUp(on viewController: UIViewController, onButtonOneClick: @escaping ([String: Any]) -> Void, onButtonTwoClick: @escaping ([String: Any]) -> Void){
         
-        guard let isAutomationClient = BussinessProperty.current.isAutomationEnabled, isAutomationClient == 1 else {
-            return
+        if BussinessProperty.current.isAutomationEnabled == nil {
+            isPopUpCalledBeforeCaching = true
+            screenToShowPopUpOn = viewController
+            popupCallbacksCache = [onButtonOneClick, onButtonTwoClick]
+        }else if let isAutomationClient = BussinessProperty.current.isAutomationEnabled, isAutomationClient == 1 {
+            showPromotion(on: viewController, onButtonOneClick: onButtonOneClick, onButtonTwoClick: onButtonTwoClick)
         }
         
+    }
+    
+    private func showPromotion(on viewController: UIViewController, onButtonOneClick: @escaping ([String: Any]) -> Void, onButtonTwoClick: @escaping ([String: Any]) -> Void){
         HippoUserDetail.getPromotionalPopUpData() { data, rawData  in
             if let data = data, !(data.data?.isEmpty ?? true), let rawData = rawData {
                 FuguFlowManager.shared.presentOfferPopUp(on: viewController, popUpData: data, rawData: rawData, onButtonOneClick: onButtonOneClick, onButtonTwoClick: onButtonTwoClick)
@@ -1003,6 +1013,7 @@ struct WhatsappWidgetConfig{
             AgentDetail.LogoutAgent(completion: completion)
         case .customer:
             HippoUserDetail.logoutFromFugu(completion: completion)
+            BussinessProperty.current.isAutomationEnabled = nil
         //            print("customerLogout")
         }
     }

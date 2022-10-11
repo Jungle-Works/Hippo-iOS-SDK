@@ -18,34 +18,44 @@ class BussinessProperty: NSObject {
     var isCallInviteEnabled: Bool?
     var showCustomerChatHistory: Bool?
     var isAgentToCustomerChatEnable: Bool?
-    var isAutomationEnabled: Int?
     
     var hideAllChat: Bool? {
-         get {
-             
-             guard let hideAllChat = UserDefaults.standard.value(forKey: UserDefaultkeys.hideAllChat) as? Bool else {
-                 return nil
-             }
-             return hideAllChat
-         }
-         set {
-             UserDefaults.standard.set(newValue, forKey: UserDefaultkeys.hideAllChat)
-         }
-     }
+        get {
+            
+            guard let hideAllChat = UserDefaults.standard.value(forKey: UserDefaultkeys.hideAllChat) as? Bool else {
+                return nil
+            }
+            return hideAllChat
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: UserDefaultkeys.hideAllChat)
+        }
+    }
+    
+    var isAutomationEnabled: Int? {
+        get {
+            guard let isAutomationEnabled = UserDefaults.standard.value(forKey: UserDefaultkeys.isAutomationEnabled) as? Int else {
+                return nil
+            }
+            return isAutomationEnabled
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: UserDefaultkeys.isAutomationEnabled)
+        }
+    }
     
     var hideo2oChat: Bool? {
-         get {
-             
-             guard let hideo2oChat = UserDefaults.standard.value(forKey: UserDefaultkeys.hideO2OChat) as? Bool else {
-                 return nil
-             }
-             return hideo2oChat
-         }
-         set {
-             UserDefaults.standard.set(newValue, forKey: UserDefaultkeys.hideO2OChat)
-         }
-     }
-    
+        get {
+            
+            guard let hideo2oChat = UserDefaults.standard.value(forKey: UserDefaultkeys.hideO2OChat) as? Bool else {
+                return nil
+            }
+            return hideo2oChat
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: UserDefaultkeys.hideO2OChat)
+        }
+    }
     
     var botImageUrl: String? {
         get {
@@ -100,7 +110,7 @@ class BussinessProperty: NSObject {
             UserDefaults.standard.set(newValue, forKey: UserDefaultkeys.audioCallStatus)
         }
     }
-
+    
     var hideCallIconOnNavigationForCustomer: Bool {
         get {
             guard let status = UserDefaults.standard.value(forKey: UserDefaultkeys.hideCallIconOnNavigationForCustomer) as? Bool else {
@@ -189,13 +199,13 @@ class BussinessProperty: NSObject {
     func updateData(loginData: [String: Any]) {
         let userDetailData = loginData
         
-       isVideoCallEnabled = Bool.parse(key: "is_video_call_enabled", json: userDetailData)
-       isAudioCallEnabled = Bool.parse(key: "is_audio_call_enabled", json: userDetailData, defaultValue: false)
-       encodeToHTMLEntities = Bool.parse(key: "encode_to_html_entites", json: userDetailData)
-       botImageUrl = String.parse(values: userDetailData, key: "bot_image_url")
-
-       unsupportedMessageString = userDetailData["unsupported_message"] as? String ?? ""
-       maxUploadLimitForBusiness = userDetailData["max_file_size"] as? UInt ?? 10
+        isVideoCallEnabled = Bool.parse(key: "is_video_call_enabled", json: userDetailData)
+        isAudioCallEnabled = Bool.parse(key: "is_audio_call_enabled", json: userDetailData, defaultValue: false)
+        encodeToHTMLEntities = Bool.parse(key: "encode_to_html_entites", json: userDetailData)
+        botImageUrl = String.parse(values: userDetailData, key: "bot_image_url")
+        
+        unsupportedMessageString = userDetailData["unsupported_message"] as? String ?? ""
+        maxUploadLimitForBusiness = userDetailData["max_file_size"] as? UInt ?? 10
         
         hideCallIconOnNavigationForCustomer = Bool.parse(key: "hide_direct_call_button", json: userDetailData)
         multiChannelLabelMapping = Bool.parse(key: "multi_channel_label_mapping", json: userDetailData) ?? false

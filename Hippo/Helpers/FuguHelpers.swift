@@ -99,6 +99,7 @@ struct UserDefaultkeys {
     static let filterApplied = "filterApplied"
     static let hideAllChat = "hideAllChat"
     static let hideO2OChat = "hideO2OChat"
+    static let isAutomationEnabled = "is_Automation_Enabled"
 }
 
 var FUGU_SCREEN_WIDTH: CGFloat {

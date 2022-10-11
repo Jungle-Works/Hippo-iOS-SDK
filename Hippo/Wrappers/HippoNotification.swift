@@ -56,7 +56,6 @@ class HippoNotification {
             completion?()
         }
     }
-    
 
     class func containsNotification()->Bool {
         var isPresent = false
