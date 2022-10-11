@@ -1013,7 +1013,6 @@ struct WhatsappWidgetConfig{
             AgentDetail.LogoutAgent(completion: completion)
         case .customer:
             HippoUserDetail.logoutFromFugu(completion: completion)
-            BussinessProperty.current.isAutomationEnabled = nil
         //            print("customerLogout")
         }
     }

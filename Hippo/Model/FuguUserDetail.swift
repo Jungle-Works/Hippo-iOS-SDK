@@ -706,6 +706,8 @@ public class UserTag: NSObject {
         //unSubscribe(userChannelId: HippoUserDetail.HippoUserChannelId ?? "")
         HippoConfig.shared.groupCallData.removeAll()
         HippoProperty.current = HippoProperty()
+        BussinessProperty.current.isAutomationEnabled = nil
+        
         //FuguConfig.shared.deviceToken = ""
         HippoConfig.shared.appSecretKey = ""
         HippoConfig.shared.resellerToken = ""
@@ -730,7 +732,6 @@ public class UserTag: NSObject {
         FuguDefaults.removeObject(forKey: DefaultKey.myChatConversations)
         FuguDefaults.removeObject(forKey: DefaultKey.allChatConversations)
         FuguDefaults.removeObject(forKey: DefaultKey.allChatConversations)
-        
         
         FuguDefaults.removeObject(forKey: DefaultName.conversationData.rawValue)
         FuguDefaults.removeObject(forKey: DefaultName.appointmentData.rawValue)
