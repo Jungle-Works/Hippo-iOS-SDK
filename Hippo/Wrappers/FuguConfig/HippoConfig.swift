@@ -385,7 +385,6 @@ struct WhatsappWidgetConfig{
         }
     }
     
-    
     public static func setSkipBot(enable: Bool, reason: String) {
         HippoProperty.current.skipBot = enable
         HippoProperty.current.skipBotReason = reason
@@ -570,8 +569,8 @@ struct WhatsappWidgetConfig{
         let number = whatsappData.whatsappContactNumber
         
         let txtAppend = message.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
-        
         let urlWhats = "whatsapp://send?phone=\(number)&text=\(txtAppend)"
+        
         if let whatsappURL = URL(string: urlWhats) {
             if UIApplication.shared.canOpenURL(whatsappURL){
                 if #available(iOS 10.0, *) {
@@ -713,7 +712,6 @@ struct WhatsappWidgetConfig{
             return 0
         }
         
-        
         let obj = UnreadCount.unreadCountList[userUniqueKey]
         return obj == nil ? 0 : obj!.count
     }
@@ -748,7 +746,6 @@ struct WhatsappWidgetConfig{
             completion?(true, nil)
         }
     }
-    
     
     public func showPeerChatWith(data: PeerToPeerChat, completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
         guard appUserType == .customer else {
@@ -970,7 +967,6 @@ struct WhatsappWidgetConfig{
     }
     
     //MARK:- Set Language
-    
     public func setLanguage(_ code : String){
         if BussinessProperty.current.buisnessLanguageArr?.contains(where: {$0.lang_code == code}) ?? false{
             UserDefaults.standard.set(code, forKey: DefaultName.selectedLanguage.rawValue)
@@ -981,7 +977,6 @@ struct WhatsappWidgetConfig{
             getAllStrings()
         }
     }
-    
     
     // MARK: - Helpers
     public func switchEnvironment(_ envType: HippoEnvironment, devDomain: Int = 0) {
@@ -999,7 +994,6 @@ struct WhatsappWidgetConfig{
         //        FayeConnection.shared.enviromentSwitchedWith(urlString: fayeBaseURLString)
         SocketClient.shared.connect()
     }
-    
     
     @available(*, deprecated, renamed: "clearHippoUserData", message: "This Function is renamed to clearHippoUserData")
     public func clearFuguUserData(completion: ((Bool) -> Void)? = nil) {
@@ -1028,7 +1022,6 @@ struct WhatsappWidgetConfig{
     public func selectedPaymentPlanType(type: [Int]) {
         HippoProperty.setPaymentPlanType(type: type)
     }
-    
     
     public func setNewConversationBotGroupId(botGroupId: String){
         HippoProperty.setNewConversationBotGroupId(botGroupId: botGroupId)
@@ -1084,7 +1077,6 @@ struct WhatsappWidgetConfig{
             return
         }
     }
-    
     
     public func isHippoUserChannelSubscribe() -> Bool {
         var checkStatus = false
@@ -1162,7 +1154,6 @@ struct WhatsappWidgetConfig{
         }
         return false
     }
-    
     
     public func handleVoipNotification(payload: [AnyHashable: Any], completion: @escaping () -> Void) {
         guard let json = payload as? [String: Any] else {
@@ -1603,6 +1594,4 @@ extension HippoConfig{
     }
 
 }
-
-
 

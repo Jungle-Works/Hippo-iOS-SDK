@@ -59,6 +59,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     var config: AllConversationsConfig = AllConversationsConfig.defaultConfig
     var conversationChatType: ConversationChatType = .openChat
     var shouldHideBackBtn : Bool = false
+    var isPutUserFailed = false
     
     // MARK: - LIFECYCLE
     override func viewDidLoad() {
@@ -174,6 +175,8 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
                 let errorMessage = error?.localizedDescription ?? HippoStrings.somethingWentWrong
                 
                 //self?.tableViewDefaultText = errorMessage + "\n Please tap to retry."
+                self?.noConversationFound(false, errorMessage)
+                self?.isPutUserFailed = !success
                 self?.arrayOfConversation = []
                 self?.showConversationsTableView?.reloadData()
                 return
@@ -184,12 +187,15 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
                 self?.filterConversationArr(conversationArr: fetchAllConversationCacheData)
             }
             
+            self?.isPutUserFailed = !success
             self?.showConversationsTableView.reloadData()
+            
             if self?.conversationChatType == .openChat{
                 self?.view_NewConversationBtn.isHidden = !HippoProperty.current.enableNewConversationButton
             }else if self?.conversationChatType == .closeChat{
                 self?.view_NewConversationBtn.isHidden = true
             }else{}
+            
             if let result = self?.handleIntialCustomerForm(), result {
                 return
             } else if self?.arrayOfConversation.count == 0 {
@@ -415,6 +421,8 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     
     @IBAction func newConversationButtonClicked(_ sender: UIButton) {
         
+        guard isPutUserFailed == false else {return}
+        
         //After Merge func
         sender.isSelected = !sender.isSelected
         if sender.isSelected{
@@ -612,7 +620,8 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
             if result.conversations?.count == 0 {
                 self?.closedConversationArr.removeAll()
                 self?.ongoingConversationArr.removeAll()
-                if HippoConfig.shared.theme.shouldShowBtnOnChatList == true{ self?.noConversationFound(true,HippoConfig.shared.theme.noOpenAndcloseChatError == nil ? HippoStrings.noChatStarted : HippoConfig.shared.theme.noOpenAndcloseChatError ?? "")
+                if HippoConfig.shared.theme.shouldShowBtnOnChatList == true{
+                    self?.noConversationFound(true,HippoConfig.shared.theme.noOpenAndcloseChatError == nil ? HippoStrings.noChatStarted : HippoConfig.shared.theme.noOpenAndcloseChatError ?? "")
                 }
                 if HippoConfig.shared.shouldOpenDefaultChannel{
                     self?.openDefaultChannel()
@@ -664,6 +673,8 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     }
     
     func noConversationFound(_ shouldShowBtn : Bool, _ errorMessage : String){
+        guard isPutUserFailed == false else {return}
+        
         tableViewDefaultText = ""
         if self.arrayOfConversation.count <= 0{
             //self.navigationItem.rightBarButtonItem?.tintColor = .clear
@@ -695,8 +706,6 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         }
         
     }
-    
-    
     
     func openDefaultChannel() {
         HippoConfig.shared.notifyDidLoad()
@@ -732,7 +741,6 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         }
         view.layoutIfNeeded()
     }
-    
     
     func saveConversationsInCache() {
         guard config.shouldUseCache else {
@@ -821,6 +829,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         HippoConfig.shared.hideTabbar?(true)
         self.navigationController?.pushViewController(conversationVC, animated: false)
     }
+    
     //MARK: - HANDLE PUSH NOTIFICATION
     func updateChannelsWithrespectToPush(pushInfo: [String: Any]) {
         
@@ -1020,6 +1029,7 @@ extension AllConversationsViewController: HippoDataCollectorControllerDelegate {
         }
     }
 }
+
 struct AllConversationsConfig {
     let enabledChatStatus: [ChatStatus]
     let title: String?

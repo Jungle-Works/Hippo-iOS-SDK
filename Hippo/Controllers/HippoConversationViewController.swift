@@ -1384,7 +1384,7 @@ extension HippoConversationViewController {
     
     func updateMessagesArrayLocallyForUIUpdation(_ messageDict: HippoMessage) {
         
-        DispatchQueue.main.async {
+       
             
 //            let countOfDateGroupedArrayBeforeUpdate = self.messagesGroupedByDate.count
 //            var previousLastSectionRows = 0
@@ -1398,6 +1398,8 @@ extension HippoConversationViewController {
             if self.messagesGroupedByDate.count == 0 {
                 return
             }
+        
+        fuguDelay(0.0) {
             self.tableViewChat.reloadData()
             //            self.tableViewChat.beginUpdates()
             //

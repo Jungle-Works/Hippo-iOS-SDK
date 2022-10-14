@@ -261,10 +261,10 @@ class PromotionsViewController: UIViewController {
         //   }, failureButtonName: "NO", failureComplete: nil)
     }
     
-    func getAnnouncements(endOffset:Int,startOffset:Int) {
+    func getAnnouncements(endOffset:Int, startOffset:Int) {
         var params = [String : Any]()
         if currentUserType() == .customer{
-            params = ["end_offset":"\(endOffset)","start_offset":"\(startOffset)","en_user_id":HippoUserDetail.fuguEnUserID ?? "","app_secret_key":HippoConfig.shared.appSecretKey, "offering" : HippoConfig.shared.offering, "device_type": Device_Type_iOS]
+            params = ["end_offset":"\(endOffset)", "start_offset":"\(startOffset)", "en_user_id":HippoUserDetail.fuguEnUserID ?? "", "app_secret_key":HippoConfig.shared.appSecretKey, "offering" : HippoConfig.shared.offering, "device_type": Device_Type_iOS]
             
             if let userIdenficationSecret = HippoConfig.shared.userDetail?.userIdenficationSecret{
                 if userIdenficationSecret.trimWhiteSpacesAndNewLine().isEmpty == false {
@@ -282,7 +282,7 @@ class PromotionsViewController: UIViewController {
             if error == nil{
                 self.refreshControl.endRefreshing()
                 let r = response as? NSDictionary
-                if let arr = r!["data"] as? NSArray{
+                if let arr = r?["data"] as? NSArray{
                     if arr.count == 0{
                         self.shouldFetchData = false
                     }

@@ -192,7 +192,6 @@ public class UserTag: NSObject {
         self.customAttributes = customAttributes
         self.fetchAnnouncementsUnreadCount = fetchAnnouncementsUnreadCount
         self.redirectToWhatsapp = redirectToWhatsapp
-        
         self.userTags = userTags ?? []
         
         if let parsedUserImage = userImage?.trimWhiteSpacesAndNewLine(), let url = URL(string: parsedUserImage) {

@@ -234,8 +234,6 @@ extension SocketClient {
     }
 }
 
-
-
 extension Notification.Name {
     public static var socketConnected = Notification.Name.init("socketConnected")
     public static var socketDisconnected = Notification.Name.init("socketDisconnected")
