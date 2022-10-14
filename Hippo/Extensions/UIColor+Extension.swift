@@ -11,9 +11,9 @@ import UIKit
 
 
 extension UIColor {
-    func createImage(withFrameSize frameSize: CGSize) -> UIImage {
-        return UIImage.createImage(withColor: self, frameSize: frameSize)
-    }
+//    func createImage(withFrameSize frameSize: CGSize) -> UIImage {
+//        return UIImage.createImage(withColor: self, frameSize: frameSize)
+//    }
     
 }
 

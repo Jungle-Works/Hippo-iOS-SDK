@@ -18,7 +18,6 @@ class BussinessProperty: NSObject {
     var isCallInviteEnabled: Bool?
     var showCustomerChatHistory: Bool?
     var isAgentToCustomerChatEnable: Bool?
-    var isAutomationEnabled: Int?
     
     var hideAllChat: Bool? {
          get {
@@ -32,6 +31,18 @@ class BussinessProperty: NSObject {
              UserDefaults.standard.set(newValue, forKey: UserDefaultkeys.hideAllChat)
          }
      }
+    
+    var isAutomationEnabled: Int? {
+        get {
+            guard let isAutomationEnabled = UserDefaults.standard.value(forKey: UserDefaultkeys.isAutomationEnabled) as? Int else {
+                return nil
+            }
+            return isAutomationEnabled
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: UserDefaultkeys.isAutomationEnabled)
+        }
+    }
     
     var hideo2oChat: Bool? {
          get {

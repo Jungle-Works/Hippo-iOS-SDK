@@ -61,11 +61,8 @@ class CustomLoader{
     
     
     func showLoader(message: String = "Please wait" , _ viewController : UIViewController) {
-        if let viewController = viewController as? UIViewController{
-            if viewController.view.subviews.contains(loader)
-            {
-                self.hideGifLoader(viewController)
-            }
+        if viewController.view.subviews.contains(loader){
+            self.hideGifLoader(viewController)
         }
         backgroundView.frame = viewController.view.frame
         backgroundView.backgroundColor = .black
@@ -80,16 +77,12 @@ class CustomLoader{
         //loaderView.layer.cornerRadius = 10
         //loader.center = loaderView.center
         loader = UIImageView(frame: CGRect(x: self.backgroundView.frame.size.width/2 - 40 , y: self.backgroundView.frame.size.height/2 - 40 , width: 80, height: 80))
-        loader.image = UIImage.gifImageWithName("loader")
+        loader.image = UIImage.gif(name: "loader")
         loader.isHidden = false
         //loaderView.addSubview(loader)
-       
         
-        if let viewController = viewController as? UIViewController{
-            viewController.view.addSubview(backgroundView)
-            viewController.view.addSubview(loader)
-        }
-        
+        viewController.view.addSubview(backgroundView)
+        viewController.view.addSubview(loader)
     }
     
     func hideGifLoader(_ viewController : UIViewController) {

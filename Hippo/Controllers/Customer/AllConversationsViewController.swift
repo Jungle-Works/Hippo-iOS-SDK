@@ -58,6 +58,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     var config: AllConversationsConfig = AllConversationsConfig.defaultConfig
     var conversationChatType: ConversationChatType = .openChat
     var shouldHideBackBtn : Bool = false
+    var isPutUserFailed = false
     
     // MARK: - LIFECYCLE
     override func viewDidLoad() {
@@ -183,6 +184,8 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
                 let errorMessage = error?.localizedDescription ?? HippoStrings.somethingWentWrong
                 
                 //self?.tableViewDefaultText = errorMessage + "\n Please tap to retry."
+                self?.noConversationFound(false, errorMessage)
+                self?.isPutUserFailed = !success
                 self?.arrayOfConversation = []
                 self?.showConversationsTableView?.reloadData()
                 return
@@ -193,12 +196,15 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
                 self?.filterConversationArr(conversationArr: fetchAllConversationCacheData)
             }
             
+            self?.isPutUserFailed = !success
             self?.showConversationsTableView.reloadData()
+            
             if self?.conversationChatType == .openChat{
                 self?.view_NewConversationBtn.isHidden = !HippoProperty.current.enableNewConversationButton
             }else if self?.conversationChatType == .closeChat{
                 self?.view_NewConversationBtn.isHidden = true
             }else{}
+            
             if let result = self?.handleIntialCustomerForm(), result {
                 return
             } else if self?.arrayOfConversation.count == 0 {
@@ -422,8 +428,10 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     }
     
     @IBAction func newConversationButtonClicked(_ sender: UIButton) {
-        //After Merge func
         
+        guard isPutUserFailed == false else {return}
+        
+        //After Merge func
         sender.isSelected = !sender.isSelected
         if sender.isSelected{
             UIView.animate(withDuration: 0.2, delay: 0, options: [.curveEaseOut], animations: {
@@ -673,6 +681,8 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     }
     
     func noConversationFound(_ shouldShowBtn : Bool, _ errorMessage : String){
+        guard isPutUserFailed == false else {return}
+        
         tableViewDefaultText = ""
         if self.arrayOfConversation.count <= 0{
             //self.navigationItem.rightBarButtonItem?.tintColor = .clear

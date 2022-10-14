@@ -408,9 +408,13 @@ public class UserTag: NSObject {
         
         BussinessProperty.current.isCallInviteEnabled = Bool.parse(key: "is_call_invite_enabled", json: userDetailData)
         
-        BussinessProperty.current.isAutomationEnabled = Int.parse(values: userDetailData, key: "is_automation_client")
-        
         BussinessProperty.current.editDeleteExpiryTime = CGFloat(Int.parse(values: userDetailData, key: "edit_delete_message_duration") ?? 0)
+        
+        if let automationEnabled = Int.parse(values: userDetailData, key: "is_automation_client"){
+            BussinessProperty.current.isAutomationEnabled = automationEnabled
+        }else{
+            BussinessProperty.current.isAutomationEnabled = 0
+        }
         
         if let userId = userDetailData["user_id"] as? Int {
             HippoUserDetail.fuguUserID = userId
@@ -688,6 +692,8 @@ public class UserTag: NSObject {
         //unSubscribe(userChannelId: HippoUserDetail.HippoUserChannelId ?? "")
         HippoConfig.shared.groupCallData.removeAll()
         HippoProperty.current = HippoProperty()
+        BussinessProperty.current.isAutomationEnabled = nil
+        
         //FuguConfig.shared.deviceToken = ""
         HippoConfig.shared.appSecretKey = ""
         HippoConfig.shared.resellerToken = ""

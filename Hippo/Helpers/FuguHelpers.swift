@@ -96,7 +96,8 @@ struct UserDefaultkeys {
     static let filterApplied = "filterApplied"
     static let hideAllChat = "hideAllChat"
     static let hideO2OChat = "hideO2OChat"
-    static let enableChatInCall = "enable_chat_in_call" 
+    static let enableChatInCall = "enable_chat_in_call"
+    static let isAutomationEnabled = "is_Automation_Enabled"
 }
 
 var FUGU_SCREEN_WIDTH: CGFloat {

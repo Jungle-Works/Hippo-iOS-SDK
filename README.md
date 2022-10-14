@@ -268,7 +268,7 @@ Use `HippoConfig.shared.setLanguage(_ code : String)` to paas  selected language
 */
 ```
 
-### Initialize Bot ( Not available for managers)
+### Initialize Bot (Not available for managers)
 Use ` HippoConfig.shared.setNewConversationBotGroupId(botGroupId:)` to paas your botgroupid
 
 
