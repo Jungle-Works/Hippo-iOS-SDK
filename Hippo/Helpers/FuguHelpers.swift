@@ -740,6 +740,7 @@ func updatePushCount(pushInfo: [String: Any]) {
     HippoConfig.shared.pushArray[index!].count += 1
     HippoConfig.shared.pushArray[index!].muid = newObj.muid
 }
+
 func resetForChannel(pushInfo: [String: Any]) {
     guard let channelId = pushInfo["channel_id"] as? Int else {
         return
