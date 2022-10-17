@@ -197,7 +197,7 @@ extension SharedMediaViewController: UICollectionViewDelegate,UICollectionViewDa
     
     func openFile(url: String, name: String) {
         guard  DownloadManager.shared.isFileDownloadedWith(url: url) else {
-            print("-------\nERROR\nFile is not downloaded\n--------")
+            HippoConfig.shared.log.debug("-------\nERROR\nFile is not downloaded\n--------", level: .error)
             return
         }
         var fileName = name

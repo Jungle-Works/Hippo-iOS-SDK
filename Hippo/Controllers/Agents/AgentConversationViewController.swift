@@ -1410,12 +1410,10 @@ extension AgentConversationViewController {
         mentionListener = MentionListener(mentionsTextView: messageTextView, delegate: self, mentionTextAttributes: { (c) -> [AttributeContainer] in
             return self.messageSendingViewConfig.mentionAttributes
         }, defaultTextAttributes: messageSendingViewConfig.defaultAttributes, spaceAfterMention: true, triggers: messageSendingViewConfig.allowedMentionForPrivate, cooldownInterval: 0, searchSpaces: true, hideMentions: {
-            print("+++++++++")
             DispatchQueue.main.async {
                 self.hideMentionsList()
             }
         }, didHandleMentionOnReturn: { () -> Bool in
-            print("------")
             return false
         }, showMentionsListWithString: {[weak self] (mentionString, triggerString) in
             //hanlde string
@@ -1667,7 +1665,7 @@ extension AgentConversationViewController: UITableViewDelegate, UITableViewDataS
                 do {
                     try cell.gifImageView.image = UIImage.gif(data: Data(contentsOf: URL(fileURLWithPath: getImagePath)))
                 } catch let error {
-                    print("image decoding error --", error)
+                    HippoConfig.shared.log.debug(("-------\nERROR\nimage decoding error\n--------",error), level: .error)
                 }
                 
 //                    cell.gifImageView.image = UIImage.animatedImageWithData(try! Data(contentsOf: URL(fileURLWithPath: getImagePath)))!
@@ -1872,9 +1870,10 @@ extension AgentConversationViewController: UITableViewDelegate, UITableViewDataS
             if messagesArray.count > indexPath.row {
                 let message = messagesArray[indexPath.row]
                 let messageType = message.type
-                if messageType == .leadForm {
-                    print("leadForm")
-                }
+                
+//                if messageType == .leadForm {
+//                    print("leadForm")
+//                }
                 
                 guard messageType.isMessageTypeHandled() else {
                     var rowHeight = expectedHeight(OfMessageObject: message)
@@ -1974,9 +1973,10 @@ extension AgentConversationViewController: UITableViewDelegate, UITableViewDataS
             var messagesArray = self.messagesGroupedByDate[chatSection]
             if messagesArray.count > indexPath.row {
                 let message = messagesArray[indexPath.row]
-                if message.type == .leadForm {
-                    print("leadform")
-                }
+                
+//                if message.type == .leadForm {
+//                    print("leadform")
+//                }
                 switch message.type {
                 case .call:
                     return 85
@@ -2379,7 +2379,7 @@ extension AgentConversationViewController: UIImagePickerControllerDelegate, UINa
             print(isReplyDisabled, isBotInProgress)
         case (true, true):
             //messageSendingView?.enableActionButton()
-            print(isReplyDisabled, isBotInProgress)
+//            print(isReplyDisabled, isBotInProgress)
             enableTakeOverButton()
         }
         
@@ -2574,7 +2574,7 @@ extension AgentConversationViewController{
             self.openSelectTemplate()
             
         default:
-            print("default")
+           return
         }
         
     }

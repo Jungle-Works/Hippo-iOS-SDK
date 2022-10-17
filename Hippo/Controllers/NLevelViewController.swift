@@ -49,7 +49,6 @@ class NLevelViewController: UIViewController {
     }
     
     deinit {
-        print("deinit")
         if !HippoSupportList.currentPathArray.isEmpty {
             HippoSupportList.currentPathArray.removeLast()
         }

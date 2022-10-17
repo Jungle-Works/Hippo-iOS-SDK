@@ -239,9 +239,7 @@ extension AddLabelsViewController: UITableViewDelegate, UITableViewDataSource {
         return cell.configureCustomerCell(resetProperties: false, tagsDetail: self.filteredTags[indexPath.row])
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print(self.filteredTags[indexPath.row].tagId ?? 0)
-        
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {        
         let tag = filteredTags[indexPath.row]
         
         handleSelectionOf(tag: tag)

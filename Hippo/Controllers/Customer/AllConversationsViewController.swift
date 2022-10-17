@@ -452,8 +452,8 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
             }
             var fuguNewChatAttributes = FuguNewChatAttributes(transactionId: "", userUniqueKey: HippoConfig.shared.userDetail?.userUniqueKey, otherUniqueKey: nil, tags: nil, channelName: nil, preMessage: "", groupingTag: nil)
             
-            print("bodID******* \(HippoProperty.current.newconversationBotGroupId ?? "")")
-            print("bodID*******Second")
+            HippoConfig.shared.log.debug(("bodID******* \(HippoProperty.current.newconversationBotGroupId ?? "")"), level: .info)
+            
             //            fuguNewChatAttributes.botGroupId = HippoProperty.current.newconversationBotGroupId
             if let botID = HippoProperty.current.newconversationBotGroupId, botID != ""{
                 fuguNewChatAttributes.botGroupId = botID
@@ -598,7 +598,6 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
             if self?.config.isStaticRemoveConversation ?? false, let status = self?.config.enabledChatStatus, !status.isEmpty {
                 let lastChannelId = self?.config.lastChannelId ?? -12
                 conversation = conversation.filter({ (con) -> Bool in
-                    print(con.channelStatus)
                     return (status.contains(con.channelStatus) && lastChannelId != con.channelId)
                 })
             }

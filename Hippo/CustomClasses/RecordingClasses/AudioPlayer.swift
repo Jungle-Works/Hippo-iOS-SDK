@@ -29,7 +29,7 @@ class AudioPlayer: NSObject {
         let bundle = FuguFlowManager.bundle
         
         guard let url = bundle?.url(forResource: getPathByType(soundType: soundType), withExtension: "wav") else{
-            print("error getting Sound URL")
+            HippoConfig.shared.log.debug("error getting Sound URL", level: .error)
             return
         }
 
@@ -42,9 +42,8 @@ class AudioPlayer: NSObject {
             player.delegate = self
             player.prepareToPlay()
             player.play()
-        } catch {
-
-            print("could not play audio file!")
+        } catch (let error) {
+            HippoConfig.shared.log.debug(("could not play audio file!", error), level: .error)
 
         }
 

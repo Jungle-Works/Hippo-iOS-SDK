@@ -54,11 +54,11 @@ class MediaWebViewController: UIViewController {
                 do {
                     try FileManager.default.copyItem(at: tempLocalUrl, to: documentUrl)
                 } catch (let writeError) {
-                    print("Error creating a file \(documentUrl) : \(writeError)")
+                    HippoConfig.shared.log.debug(("Error creating a file \(documentUrl) : \(writeError)"), level: .error)
                 }
                 self.launchRequest(documentUrl)
             } else {
-                print("Error took place while downloading a file. Error description: %@", error?.localizedDescription);
+                HippoConfig.shared.log.debug(("Error took place while downloading a file. Error description: %@", error?.localizedDescription), level: .error)
             }
         }
         task.resume()

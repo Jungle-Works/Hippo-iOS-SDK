@@ -46,7 +46,8 @@ class AgentChatHistoryVC: HippoHomeViewController {
     
     
     deinit {
-        print("Deinit Agent History view controller.....")
+        HippoConfig.shared.log.debug("-------\nERROR\nDeinit Agent History view controller.....\n--------", level: .info)
+        print("")
     }
     
     class func getController() -> AgentChatHistoryVC? {

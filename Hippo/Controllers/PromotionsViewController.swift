@@ -146,7 +146,7 @@ class PromotionsViewController: UIViewController {
             }
         }
         
-        print("params sent in announcments ---------->>>>>>>>>>>>>", params)
+        HippoConfig.shared.log.debug(("params sent in announcments ---------->>>>>>>>>>>>>", params), level: .info)
         
         HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: FuguEndPoints.getAndUpdateAnnouncement.rawValue) { (response, error, _, statusCode) in
             if let response = response as? [String : Any], let data = response["data"] as? [[String : Any]]{

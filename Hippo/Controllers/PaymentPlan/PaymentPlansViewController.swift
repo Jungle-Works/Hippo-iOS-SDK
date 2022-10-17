@@ -207,7 +207,6 @@ extension PaymentPlansViewController: UITableViewDelegate {
 extension PaymentPlansViewController: CreatePaymentDelegate {
     func sendMessage(for store: PaymentStore) {
         //code
-        print("")
     }
     func backButtonPressed(shouldUpdate: Bool) {
         if channelId != nil, store.plans.isEmpty {

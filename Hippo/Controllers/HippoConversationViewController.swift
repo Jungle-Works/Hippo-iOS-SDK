@@ -373,14 +373,13 @@ class HippoConversationViewController: UIViewController {
     }
     
     func recreateRequestIfRequired() {
-        guard let storeRequest = storeRequest else {
-            fetchMessagesFrom1stPage()
-            return
-        }
+        self.fetchMessagesFrom1stPage()
         
-        if storeResponse == nil {
-            fetchMessagesFrom1stPage()
-        }
+//        guard let _ = storeRequest else {
+//            fetchMessagesFrom1stPage()
+//            return
+//        }
+        
     }
     
     @objc func fayeConnected(_ notification: Notification) {
@@ -1583,7 +1582,8 @@ extension HippoConversationViewController: VideoCallMessageTableViewCellDelegate
 extension HippoConversationViewController: VideoTableViewCellDelegate {
     func downloadFileIn(message: HippoMessage) {
         guard let fileURL = message.fileUrl else {
-            print("-------\nERROR\nCannot Download File URL is Nil\n--------")
+            HippoConfig.shared.log.debug("-------\nERROR\nCannot Download File URL is Nil\n--------", level: .error)
+            print()
             return
         }
         
@@ -1593,7 +1593,7 @@ extension HippoConversationViewController: VideoTableViewCellDelegate {
     func openFileIn(message: HippoMessage) {
         if message.type == .embeddedVideoUrl{
             guard let fileURL = message.customAction?.videoLink else {
-                print("-------\nERROR\nEmbedded video link empty\n--------")
+                HippoConfig.shared.log.debug("-------\nERROR\nEmbedded video link empty\n--------", level: .error)
                 return
             }
             var fileName = message.fileName ?? ""
@@ -1611,7 +1611,7 @@ extension HippoConversationViewController: VideoTableViewCellDelegate {
             
         }else{
             guard let fileURL = message.fileUrl, DownloadManager.shared.isFileDownloadedWith(url: fileURL) else {
-                print("-------\nERROR\nFile is not downloaded\n--------")
+                HippoConfig.shared.log.debug("-------\nERROR\nFile is not downloaded\n--------", level: .error)
                 return
             }
             var fileName = message.fileName ?? ""
@@ -1711,7 +1711,6 @@ extension HippoConversationViewController: SelfMessageDelegate {
 extension HippoConversationViewController: ActionTableViewDelegate {
     func performActionFor(selectionId: String, message: HippoMessage) {
         if let channel = self.channel, channel.isSendingDisabled {
-            print("isSendingDisabled disabled")
             return
         }
         
@@ -1776,7 +1775,6 @@ extension HippoConversationViewController: CreatePaymentDelegate {
     }
     func backButtonPressed(shouldUpdate: Bool){
         //code
-        print("")
     }
     func paymentCardPayment(isSuccessful: Bool) {
         //code
@@ -1860,7 +1858,6 @@ extension HippoConversationViewController: NavigationTitleViewDelegate {
 extension HippoConversationViewController: CardMessageDelegate {
     func cardSelected(cell: CardMessageTableViewCell, card: MessageCard, message: HippoMessage) {
         if let channel = self.channel, channel.isSendingDisabled {
-            print("isSendingDisabled disabled")
             return
         }
         
@@ -1890,7 +1887,6 @@ extension HippoConversationViewController: PaymentMessageCellDelegate {
         //        }
         //        initatePayment(for: url)
         if let channel = self.channel, channel.isSendingDisabled {
-            print("isSendingDisabled disabled")
             return
         }
         guard let selectedCard = (card as? PayementButton)?.selectedCardDetail else {
@@ -1949,7 +1945,6 @@ extension HippoConversationViewController: PaymentMessageCellDelegate {
             }
         }else{
             if let channel = self.channel, channel.isSendingDisabled {
-                print("isSendingDisabled disabled")
                 return
             }
             guard let selectedCard = (card as? PayementButton)?.selectedCardDetail, let url = URL(string: selectedCard.paymentUrlString ?? "") else {
@@ -2253,7 +2248,6 @@ extension HippoConversationViewController{
         }
         
         HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: AgentEndPoints.sendCustomBot.rawValue) { (response, error, _, statusCode) in
-            print(response ?? "")
             if let response = response as? [String: Any], let data = response["data"] as? [String: Any], let inProgress = data["bot_in_progress"] as? Int{
                 completion?(inProgress == 1)
             }

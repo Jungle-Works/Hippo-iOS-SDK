@@ -162,7 +162,7 @@ class AgentHomeViewController: HippoHomeViewController {
     }
 
     deinit {
-        print("Deinit AgentHome.....")
+        HippoConfig.shared.log.debug("-------\nERROR\nDeinit AgentHome\n--------", level: .info)
     }
     
     //Class methods
@@ -600,7 +600,7 @@ extension AgentHomeViewController: UIScrollViewDelegate {
         case .o2oChat:
             self.isMoreToLoad = ConversationStore.shared.isMoreo2oChatToLoad
         case .historyChat:
-            print("History chat")
+            break
         }
     }
     
@@ -626,7 +626,6 @@ extension AgentHomeViewController: UIScrollViewDelegate {
         allowPagination = false
         isMoreToLoad = false
         startLoadingMore()
-        print(">>>>>>>>>\(currentBottom)")
         callApi()
     }
     

@@ -242,7 +242,6 @@ struct WhatsappWidgetConfig{
     var popupCallbacksCache: [([String: Any]) -> Void]?
     var screenToShowPopUpOn: UIViewController?
     
-    
     // MARK: - Intialization
     private override init() {
         super.init()
@@ -1126,14 +1125,13 @@ struct WhatsappWidgetConfig{
                     P2PUnreadData.shared.updateChannelId(transactionId: userInfo["chat_transaction_id"] as? String ?? "", channelId: userInfo["channel_id"] as? Int ?? -1, count: 1, muid: userInfo["muid"] as? String ?? "", otherUserUniqueKey: nil)
                 }
             }
+            
             if currentUserType() == .customer{
                 if let vc = getLastVisibleController() as? AllConversationsViewController{
                     vc.updateChannelsWithrespectToPush(pushInfo: userInfo)
                 }else{
-                    
                     updateStoredUnreadCountFor(toIncreaseCount: true, with : userInfo)
                     pushTotalUnreadCount()
-                    
                 }
             }
         }

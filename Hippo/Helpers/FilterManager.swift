@@ -213,7 +213,6 @@ class FilterManager: NSObject {
                     }
                     
                     callback(true, attributeArray)
-                    print(data, attributeArray)
                 }
             }
         }

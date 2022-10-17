@@ -60,7 +60,6 @@ class ListDescriptionViewController: UIViewController {
         checkNetworkConnection()
     }
     deinit {
-        print("deinit")
         if !HippoSupportList.currentPathArray.isEmpty {
             HippoSupportList.currentPathArray.removeLast()
         }

@@ -1120,7 +1120,6 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     override func adjustChatWhenKeyboardIsOpened(withHeight keyboardHeight: CGFloat) {
         // TODO: - Refactor
         guard tableViewChat.contentSize.height + keyboardHeight > UIScreen.main.bounds.height - hieghtOfNavigationBar else {
-            print("return****")
             return
         }
         
@@ -2231,7 +2230,7 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                     do {
                         try cell.gifImageView.image = UIImage.gif(data: Data(contentsOf: URL(fileURLWithPath: getImagePath)))
                     } catch let error {
-                        print("image decoding error --", error)
+                        HippoConfig.shared.log.debug(("-------\nERROR\nimage decoding error\n--------" , error), level: .error)
                     }
                     
 //                    cell.gifImageView.image = UIImage.animatedImageWithData(try! Data(contentsOf: URL(fileURLWithPath: getImagePath)))!
@@ -2841,13 +2840,7 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                             let heightOfContent = headerText.height(withConstrainedWidth: (itemWidthConstant), font: descriptionFont!)
                             cellHeight += max(heightOfContent, heightOFPriceLabel)
                             cellHeight += marginBetweenHeaderAndDescription + margin
-                            print("$$$$$$$---\(max(heightOfContent, heightOFPriceLabel))")
-                        } else {
-                            print("$$$$$$$---2")
                         }
-                        
-                    } else {
-                        print("$$$$$$$")
                     }
                 }
             }

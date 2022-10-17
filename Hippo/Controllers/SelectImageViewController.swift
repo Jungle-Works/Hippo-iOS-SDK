@@ -33,7 +33,6 @@ class SelectImageViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         selectImageView.image = nil
-        print("view will disappear ")
     }
     
     @IBAction func cancelButton(_ sender: Any) {
