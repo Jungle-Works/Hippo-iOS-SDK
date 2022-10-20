@@ -372,14 +372,13 @@ class HippoConversationViewController: UIViewController {
     }
     
     func recreateRequestIfRequired() {
-        guard let storeRequest = storeRequest else {
-            fetchMessagesFrom1stPage()
-            return
-        }
-    
-        if storeResponse == nil {
-            fetchMessagesFrom1stPage()
-        }
+        
+        fetchMessagesFrom1stPage
+        
+//        guard let storeRequest = storeRequest else {
+//            fetchMessagesFrom1stPage()
+//            return
+//        }
     }
     
     @objc func fayeConnected(_ notification: Notification) {
