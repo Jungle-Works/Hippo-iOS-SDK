@@ -216,7 +216,7 @@ class TagView: UIButton {
         if enableRemoveButton {
             size.width += removeButtonIconSize + paddingX
         }
-        size.width = min(size.width, UIScreen.main.bounds.width * maxWidthPerecentage)
+        size.width = min(size.width, FUGU_SCREEN_WIDTH * maxWidthPerecentage)
         return size
     }
     

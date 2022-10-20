@@ -80,7 +80,7 @@ class FrameObserverAccessaryView: UIView {
     var isObserverAdded = false
     var isKeyboardVisible: Bool {
         get {
-            return keyboardFrame.minY < UIScreen.main.bounds.height
+            return keyboardFrame.minY < FUGU_SCREEN_HEIGHT
         }
     }
     

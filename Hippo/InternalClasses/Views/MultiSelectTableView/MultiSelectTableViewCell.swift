@@ -79,13 +79,8 @@ class MultiSelectTableViewCell: UITableViewCell {
     }
     
     func getTimeString() -> String {
-        guard message != nil else {
-            return ""
-        }
-        
-        print(message!.creationDateTime)
+        guard message != nil else { return "" }
         let timeOfMessage = changeDateToParticularFormat(message!.creationDateTime, dateFormat: "h:mm a", showInFormat: true)
-      
         return timeOfMessage
     }
     
@@ -314,16 +309,13 @@ extension MultiSelectTableViewCell : UITableViewDelegate
                     message?.customAction?.buttonsArray![indexPath.row] = button!
                     cell.set(button: button!)
                 }
-            }
-            else
-            {
+                
+            }else {
                 button?.status = !button!.status!
                 message?.customAction?.buttonsArray![indexPath.row] = button!
                 
-                for item in message?.customAction?.buttonsArray as! [MultiselectButtons]
-               {
-                    if item != button
-                    {
+                for item in message?.customAction?.buttonsArray ?? [] {
+                    if item != button {
                        item.status = false
                     }
                 }

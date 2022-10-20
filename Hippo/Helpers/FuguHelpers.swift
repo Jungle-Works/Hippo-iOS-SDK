@@ -150,7 +150,6 @@ func getColor(char: String) -> Int {
     return index
 }
 
-
 func convertDateTimeToUTC(date: Date? = nil) -> String {
     let formatterUTC = DateFormatter()
     formatterUTC.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
@@ -158,7 +157,6 @@ func convertDateTimeToUTC(date: Date? = nil) -> String {
     
     return formatterUTC.string(from: date ?? Date())
 }
-
 
 func attributedStringForLabel(_ firstString: String, secondString: String, thirdString: String, colorOfFirstString: UIColor, colorOfSecondString: UIColor, colorOfThirdString: UIColor, fontOfFirstString: UIFont?, fontOfSecondString: UIFont?, fontOfThirdString: UIFont, textAlighnment: NSTextAlignment, dateAlignment: NSTextAlignment) -> NSMutableAttributedString {
     
@@ -401,8 +399,6 @@ func removeChannelForUnreadCount(_ channelId : Int){
         }
     }
 }
-
-
 
 func calculateTotalAgentUnreadCount(_ channelId : Int, _ unreadCount : Int){
     if var channelList = FuguDefaults.object(forKey: DefaultName.agentTotalUnreadHashMap.rawValue) as? [String : Any], var totalUnreadCount = UserDefaults.standard.value(forKey: DefaultName.agentUnreadCount.rawValue) as? Int{

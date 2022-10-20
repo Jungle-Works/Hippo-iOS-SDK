@@ -97,26 +97,21 @@ extension GroupCallChannel: SignalingClient {
     }
     
     func connectClient(completion: @escaping (Bool) -> Void) {
-        print("come in connect client at line 100")
         guard isConnected() else {
             completion(false)
-            print("connectClient 1")
             return
         }
         
         guard !isSubscribed() else {
-            print("connectClient 2")
             completion(true)
             return
         }
       
         if currentUserType() == .customer{
-            print("subscribeCustomerUserChannel-------")
             subscribeCustomerUserChannel(userChannelId: userChannelId ?? "")
         }
         
         subscribeChannel { (error,success)  in
-            print("connectClient 3")
             completion(success)
         }
     }
@@ -166,11 +161,7 @@ extension GroupCallChannel: SignalingClient {
         ]
   
         send(dict: fayeDict) { (success, error)  in
-            print("at line 166 \(success),\(error)")
             completion(success,error)
-            print(success)
-            print(error)
-            
         }
     }
     

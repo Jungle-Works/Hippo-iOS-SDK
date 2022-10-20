@@ -653,16 +653,11 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         case .numberKeyboard:
             enableSendingReply(withOutUpdate: true)
             messageTextView.keyboardType = .decimalPad
-            
             break
         case .defaultKeyboard :
             enableSendingReply(withOutUpdate: true)
             messageTextView.keyboardType = .default
-            
             break
-        default:
-            enableSendingReply(withOutUpdate: true)
-            messageTextView.keyboardType = .default
             
         }
         
@@ -993,8 +988,9 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     @IBAction func backButtonAction(_ sender: UIButton) {
         backButtonClicked()
     }
+    
     func setThemeForBusiness() {
-        let isMultiChannelLabelMapping = BussinessProperty.current.multiChannelLabelMapping && !forceHideActionButton
+//        let isMultiChannelLabelMapping = BussinessProperty.current.multiChannelLabelMapping && !forceHideActionButton
         
         //   actionButton.title = nil
         //        actionButton.image = isMultiChannelLabelMapping ? HippoConfig.shared.theme.actionButtonIcon : nil
@@ -1119,11 +1115,11 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     
     override func adjustChatWhenKeyboardIsOpened(withHeight keyboardHeight: CGFloat) {
         // TODO: - Refactor
-        guard tableViewChat.contentSize.height + keyboardHeight > UIScreen.main.bounds.height - hieghtOfNavigationBar else {
+        guard tableViewChat.contentSize.height + keyboardHeight > FUGU_SCREEN_HEIGHT - hieghtOfNavigationBar else {
             return
         }
         
-        let diff = ((tableViewChat.contentSize.height + keyboardHeight) - (UIScreen.main.bounds.height - hieghtOfNavigationBar))
+        let diff = ((tableViewChat.contentSize.height + keyboardHeight) - (FUGU_SCREEN_HEIGHT - hieghtOfNavigationBar))
         
         let keyboardHeightNew = keyboardHeight - textViewBgView.frame.height - UIView.safeAreaInsetOfKeyWindow.bottom
         
@@ -1865,7 +1861,7 @@ extension ConversationsViewController {
             messageTextView.inputAccessoryView = inputView
             
             inputView.changeKeyboardFrame { [weak self] (keyboardVisible, keyboardFrame) in
-                let value = UIScreen.main.bounds.height - keyboardFrame.minY - UIView.safeAreaInsetOfKeyWindow.bottom
+                let value = FUGU_SCREEN_HEIGHT - keyboardFrame.minY - UIView.safeAreaInsetOfKeyWindow.bottom
                 let maxValue = max(0, value)
                 self?.textViewBottomConstraint.constant = maxValue
                 
@@ -1920,12 +1916,11 @@ extension ConversationsViewController {
     func updateTopBottomSpace(cell: UITableViewCell, indexPath: IndexPath) {
         
         let topConstraint = getTopDistanceOfCell(atIndexPath: indexPath)
-        if let editedCell = cell as? SelfMessageTableViewCell {
+        if let _ = cell as? SelfMessageTableViewCell {
             //editedCell.topConstraint.constant = topConstraint
-        } else if let editedCell = cell as? SupportMessageTableViewCell {
+        } else if let _ = cell as? SupportMessageTableViewCell {
             //editedCell.topConstraint.constant = topConstraint
-        }
-        else if let editedCell = cell as? IncomingImageCell {
+        }else if let editedCell = cell as? IncomingImageCell {
             editedCell.topConstraint.constant = topConstraint + 2
         } else if let editedCell = cell as? OutgoingImageCell {
             editedCell.topConstraint.constant = topConstraint + 2
@@ -2007,15 +2002,13 @@ extension ConversationsViewController {
         let availableBoxSize = CGSize(width: availableWidthSpace,
                                       height: CGFloat.greatestFiniteMagnitude)
         
-        
-        
         var cellTotalHeight: CGFloat = 5 + 2.5 + 3.5 + 12 + 7 + 23
         
         if isOutgoingMsg == true {
             
             let messageString = chatMessageObject.message
             
-#if swift(>=4.0)
+            #if swift(>=4.0)
             var attributes: [NSAttributedString.Key: Any]?
             attributes = [NSAttributedString.Key.font: HippoConfig.shared.theme.inOutChatTextFont]
             
@@ -2023,7 +2016,7 @@ extension ConversationsViewController {
                 cellTotalHeight += messageString.boundingRect(with: availableBoxSize, options: .usesLineFragmentOrigin, attributes: attributes, context: nil).size.height
             }
             
-#else
+            #else
             var attributes: [String: Any]?
             if let applicableFont = HippoConfig.shared.theme.inOutChatTextFont {
                 attributes = [NSFontAttributeName: applicableFont]
@@ -2032,7 +2025,7 @@ extension ConversationsViewController {
             if messageString.isEmpty == false {
                 cellTotalHeight += messageString.boundingRect(with: availableBoxSize, options: .usesLineFragmentOrigin, attributes: attributes, context: nil).size.height
             }
-#endif
+            #endif
             
         } else {
             let incomingAttributedString = Helper.getIncomingAttributedStringWithLastUserCheck(chatMessageObject: chatMessageObject)
@@ -2056,7 +2049,7 @@ extension ConversationsViewController {
     //    }
     func scrollTableViewToBottom(_ animation: Bool = false) {
         
-        DispatchQueue.main.async {
+        fuguDelay(0.0) {
             
             var numberOfSections = -1
             if self.tableViewChat.numberOfSections > 1 {
@@ -2065,9 +2058,7 @@ extension ConversationsViewController {
                 numberOfSections = self.tableViewChat.numberOfSections
             }
             
-            guard numberOfSections > 0 else {
-                return
-            }
+            guard numberOfSections > 0 else { return }
             
             if self.messagesGroupedByDate.count > 0, let lastIndex = self.messagesGroupedByDate.last, lastIndex.count > 0 {
                 
@@ -3561,7 +3552,7 @@ extension ConversationsViewController: LeadTableViewCellDelegate {
                 count += 1
             }
         }
-        guard let cell = cell.tableView.cellForRow(at: IndexPath(row: 0, section: count - 1)) as? LeadDataTableViewCell, !isSkipAction else {
+        guard let _ = cell.tableView.cellForRow(at: IndexPath(row: 0, section: count - 1)) as? LeadDataTableViewCell, !isSkipAction else {
             return
         }
         
@@ -3679,7 +3670,7 @@ extension ConversationsViewController: BotOtgoingMessageCellDelegate {
         }
         switch indexPath.section {
         case let chatSection where chatSection < self.messagesGroupedByDate.count:
-            var messagesArray = messagesGroupedByDate[chatSection]
+            let messagesArray = messagesGroupedByDate[chatSection]
             let chat = messagesArray[indexPath.row]
             chat.selectedActionId = chat.content.actionId[index]
             self.sendQuickMessage(shouldSendButtonTitle: true, chat: chat, buttonIndex: index)

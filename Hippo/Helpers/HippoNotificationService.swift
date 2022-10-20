@@ -31,7 +31,6 @@ class HippoNotificationService: UNNotificationServiceExtension {
 //            }
             
             if urlString != nil, let fileUrl = URL(string: urlString!) {
-                print("fileUrl: \(fileUrl)")
                 
                 guard let imageData = NSData(contentsOf: fileUrl) else {
                     contentHandler(bestAttemptContent)
@@ -75,7 +74,7 @@ extension UNNotificationAttachment {
             let attachment = try UNNotificationAttachment(identifier: fileIdentifier, url: fileURL!, options: options)
             return attachment
         } catch let error {
-            print("error \(error)")
+            HippoConfig.shared.log.debug(error, level: .error)
         }
         
         return nil

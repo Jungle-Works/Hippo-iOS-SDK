@@ -70,8 +70,7 @@ class CustomAction: NSObject {
     }
     
     
-    func setJsonValue() -> [String:Any]
-    {
+    func setJsonValue() -> [String:Any] {
         var jsonDict:[String:Any] = [:]
         
         jsonDict["min_selection"] = self.minSelection
@@ -91,8 +90,6 @@ class CustomAction: NSObject {
         }
         
         jsonDict["multi_select_buttons"] = arr
-        
-        print(jsonDict)
         
         return jsonDict
     }
@@ -148,7 +145,7 @@ class MultiselectButtons: NSObject {
         let font = HippoConfig.shared.theme.multiSelectButtonFont
         attributedString.addAttribute(NSAttributedString.Key.font, value: font, range: range)
        
-        attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: HippoConfig.shared.theme.multiSelectTextColor, range: range)
+        attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: HippoConfig.shared.theme.multiSelectTextColor ?? UIColor(), range: range)
         attributedString.addAttribute(NSAttributedString.Key.paragraphStyle, value: style, range: range)
         
         let availableBoxSize = CGSize(width: width, height: CGFloat.greatestFiniteMagnitude)

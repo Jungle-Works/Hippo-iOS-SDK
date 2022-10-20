@@ -85,7 +85,6 @@ extension CreateTicketAttachmentHelper: PickerHelperDelegate  {
     }
     
     func imageViewPickerDidFinish(mediaSelector: CoreMediaSelector, with result: CoreMediaSelector.Result) {
-        print(result)
         guard result.isSuccessful else {
             
             return
@@ -109,8 +108,6 @@ extension CreateTicketAttachmentHelper: PickerHelperDelegate  {
     }
     
     func didPickDocumentWith(url: URL) {
-        print(url)
-        
         sendSelectedDocumentWith(filePath: url.path, fileName: url.lastPathComponent, messageType: .attachment, fileType: .document)
     }
     
@@ -118,9 +115,7 @@ extension CreateTicketAttachmentHelper: PickerHelperDelegate  {
         var imageExtention: String = ".jpg"
         let imageData: Data?
         
-        let imageSize =  confirmedImage.jpegData(compressionQuality: 1)!.count
-        print(imageSize)
-        
+        let imageSize =  confirmedImage.jpegData(compressionQuality: 1)!.count        
         let compressionRate = getCompressonRateForImageWith(size: imageSize)
         
         switch mediaType {

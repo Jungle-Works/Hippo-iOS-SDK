@@ -321,8 +321,6 @@ public class UserTag: NSObject {
         params["device_details"] = AgentDetail.getDeviceDetails()
         params["fetch_business_lang"] = 1
         params += customRequest
-        print("PUT USER PARAMS:\(params)")
-        
         return params
     }
     
@@ -602,8 +600,7 @@ public class UserTag: NSObject {
                 }
                 print(data)
             }else {
-                print("FAILED  ------------>>>>>>>>>>>>>>")
-                //                guard error?.localizedDescription == "The network connection was lost." else{ return }
+                HippoConfig.shared.log.debug((error, statusCode), level: .error)
             }
         }
     }
@@ -622,7 +619,7 @@ public class UserTag: NSObject {
         
         if sendSessionTym{
             let sessionTym = Int(Date().timeIntervalSince(HippoConfig.shared.sessionStartTime ?? Date()))
-            print("session tym ----->>>>>>>>", sessionTym, "\n channel id - \(HippoConfig.shared.tempChannelId ?? 0)")
+            HippoConfig.shared.log.debug(("session tym ----->>>>>>>>", sessionTym, "\n channel id - \(HippoConfig.shared.tempChannelId ?? 0)"), level: .info)
             params["ctr_session_time"] = "\(sessionTym)"
         }else{
             if actionType != 2{

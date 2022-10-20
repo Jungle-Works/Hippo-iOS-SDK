@@ -37,7 +37,7 @@ public struct HippoFile: CustomStringConvertible {
         self.mimeType = mimeType
         
         guard let fileData = try? Data(contentsOf: url) else {
-            print("ERROR -> File not found")
+            HippoConfig.shared.log.debug("ERROR -> File not found", level: .error)
             return nil
         }
         self.data = fileData
@@ -46,7 +46,7 @@ public struct HippoFile: CustomStringConvertible {
     public init?(url: URL, name: String) {
         
         guard let fileData = try? Data(contentsOf: url) else {
-            print("ERROR -> File not found")
+            HippoConfig.shared.log.debug("ERROR -> File not found", level: .error)
             return nil
         }
         self.data = fileData
@@ -55,7 +55,7 @@ public struct HippoFile: CustomStringConvertible {
         self.mimeType = ""
         
         guard let mime = self.findMimeType(for: url) else {
-            print("ERROR -> Cannot find mimetype")
+            HippoConfig.shared.log.debug("ERROR -> Cannot find mimetype", level: .error)
             return nil
         }
         self.mimeType = mime

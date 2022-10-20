@@ -207,10 +207,10 @@ extension AgentHomeViewController {
     func agentStatusChanged() {
 //        AgentConversationManager.agentStatusUpdate(newStatus: self.agentStatus.isOn ? AgentStatus.available : AgentStatus.away) {[weak self] (success) in
     AgentConversationManager.agentStatusUpdate(newStatus: view_NavigationBar.rightSwitchButton.isOn ? AgentStatus.available : AgentStatus.away) {[weak self] (success) in
-            guard success, let strongSelf = self else {
+            guard success, let _ = self else {
                 return
             }
-            AgentConversationManager.getAgentsList(showLoader: false) {[weak self] (_) in                
+        AgentConversationManager.getAgentsList(showLoader: false) { _ in
             }
         }
     }
@@ -289,7 +289,7 @@ extension AgentHomeViewController {
             enableButton = true
         }
         
-        if let error = AgentConversationManager.errorMessage {
+        if let _ = AgentConversationManager.errorMessage {
             //message = error
             enableButton = true
         }
@@ -741,7 +741,7 @@ extension AgentHomeViewController: UITableViewDelegate, UITableViewDataSource {
                     return
                 }
                 for each in controllers {
-                    if let vc = each as? HippoHomeViewController {
+                    if let _ = each as? HippoHomeViewController {
 //                        vc.channelStatusChanged(channelId: channelId, newStatus: ChatStatus(rawValue: newStatus) ?? ChatStatus.open)
                         self.stopLoading()
                         self.deleteConversation(channelId: channelId)

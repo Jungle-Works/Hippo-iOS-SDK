@@ -158,7 +158,7 @@ extension UIView {
         layer.shadowRadius = 3.0
         layer.shadowOpacity = 0.5
         layer.masksToBounds = false
-        layer.shadowPath = UIBezierPath(rect: CGRect(x: 0, y: bounds.maxY - layer.shadowRadius, width: UIScreen.main.bounds.width, height: layer.shadowRadius)).cgPath
+        layer.shadowPath = UIBezierPath(rect: CGRect(x: 0, y: bounds.maxY - layer.shadowRadius, width: FUGU_SCREEN_WIDTH, height: layer.shadowRadius)).cgPath
         
     }
     

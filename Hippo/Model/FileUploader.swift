@@ -192,7 +192,7 @@ extension FileUploader{
             let thumbnail = UIImage(cgImage: cgImage)
             return thumbnail
         } catch let error {
-            print("*** Error generating thumbnail: \(error.localizedDescription)")
+            HippoConfig.shared.log.debug(error.localizedDescription ?? "", level: .error)
             return nil
         }
     }

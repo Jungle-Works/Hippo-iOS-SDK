@@ -117,11 +117,9 @@ class SocketClient: NSObject {
                 SocketClient.shared.subscribeSocketChannel(channel: userChannelId)
             }
             self?.handshake()
-            print("SOCKET CONNECTED SUCCESSFULLY !!!!!!!!!!!!!!!!")
         }
         onDisconnectCallBack = { [weak self]  (arr, ack) in
             NotificationCenter.default.post(name: .socketDisconnected, object: nil)
-            print("SOCKET DISCONNECTED !!!!!!!!!!!!!!!!")
             self?.connect()
         }
         handshakeListener = {(arr, ack) in

@@ -299,7 +299,6 @@ class HippoConversationViewController: UIViewController {
     }
     
     func tableViewSetUp() {
-        automaticallyAdjustsScrollViewInsets = false
         tableViewChat.contentInset.bottom = 3
         
         tableViewChat.backgroundColor = HippoConfig.shared.theme.backgroundColor
@@ -2082,7 +2081,7 @@ extension HippoConversationViewController : UICollectionViewDelegate , UICollect
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let param = UIScreen.main.bounds.width/4 - 8
+        let param = FUGU_SCREEN_WIDTH/4 - 8
         return CGSize(width: param, height: param)
     }
     

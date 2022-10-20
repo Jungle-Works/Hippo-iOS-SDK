@@ -109,7 +109,7 @@ class HippoActionButton {
     }
     
     func getJsonToSend() -> Any? {
-        guard let jsonData = buttonActionJson["callback"] as? Any else {
+        guard let jsonData = buttonActionJson["callback"] else {
             return nil
         }
         return jsonData

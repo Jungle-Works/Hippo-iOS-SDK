@@ -46,7 +46,7 @@ class CreateTicketVM{
         HTTPClient.makeConcurrentConnectionWith(method: .POST, enCodingType: .json, para: param, extendedUrl: FuguEndPoints.searchErp.rawValue) {[weak self](responseObject, error, tag, statusCode) in
             
             guard let unwrappedStatusCode = statusCode, error == nil, unwrappedStatusCode == STATUS_CODE_SUCCESS, error == nil  else {
-                print("Error",error ?? "")
+                HippoConfig.shared.log.debug(error ?? "", level: .error)
                 return
             }
             
@@ -91,7 +91,7 @@ class CreateTicketVM{
         }
         HTTPClient.makeConcurrentConnectionWith(method: .POST, enCodingType: .json, para: param, extendedUrl: FuguEndPoints.checkAndCreateCustomer.rawValue){[weak self](responseObject, error, tag, statusCode) in
             guard let unwrappedStatusCode = statusCode, error == nil, unwrappedStatusCode == STATUS_CODE_SUCCESS, error == nil  else {
-                print("Error",error ?? "")
+                HippoConfig.shared.log.debug(error ?? "", level: .error)
                 return
             }
             guard let response = responseObject as? [String : Any], let data = response["data"] as? [String : Any] else{

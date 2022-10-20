@@ -231,7 +231,7 @@ class HippoChannel {
     
     class func saveHashMapTransactionIdToChannelIDInCache(hashMap: [String: Int]) {
         
-        var sourceDict = hashMap
+        let sourceDict = hashMap
         var uniqueValues = Set<Int>()
         var resultDict = [String: Int](minimumCapacity: sourceDict.count)
         //The reserveCapacity() function doesn't exist for Dictionaries, as pointed
@@ -385,7 +385,8 @@ class HippoChannel {
             }
             
 //            let channel = FuguChannelPersistancyManager.shared.getChannelBy(id: channelID)
-            print("API_CREATE_CONVERSATION_RESPONSE******* ", response)
+            HippoConfig.shared.log.debug("API_CREATE_CONVERSATION_RESPONSE*******", level: .info)
+
             let channel = FuguChannelPersistancyManager.shared.getChannelBy(id: channelID)
             channel.chatDetail?.agentAlreadyAssigned = data["agent_already_assigned"] as? Bool ?? false
             
@@ -999,7 +1000,7 @@ class HippoChannel {
 //                    return
 //                }
         if isSendingDisabled && !(message.type == .feedback){
-            print("----sending is disabled")
+            HippoConfig.shared.log.debug("----sending is disabled", level: .warning)
             return
         }
         

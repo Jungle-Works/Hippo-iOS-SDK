@@ -142,7 +142,7 @@ class NLevelViewController: UIViewController {
             UIApplication.shared.canOpenURL(hippoURL) else {
                 return
         }
-        UIApplication.shared.openURL(hippoURL)
+        UIApplication.shared.open(hippoURL, options: [:], completionHandler: nil)
     }
     func getData() {
         guard listObject.count == 0 else {

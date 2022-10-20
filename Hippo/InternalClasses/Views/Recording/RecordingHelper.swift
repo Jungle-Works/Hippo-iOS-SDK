@@ -37,7 +37,7 @@ class RecordingHelper: UIView, AVAudioRecorderDelegate {
         do {
             try recordingSession.setCategory(.playAndRecord, mode: .default)
             try recordingSession.setActive(true)
-            recordingSession.requestRecordPermission() { [unowned self] allowed in
+            recordingSession.requestRecordPermission() { allowed in
                 DispatchQueue.main.async {
                     if allowed {
                        
@@ -106,7 +106,7 @@ class RecordingHelper: UIView, AVAudioRecorderDelegate {
     }
     
     func audioRecorderEncodeErrorDidOccur(_ recorder: AVAudioRecorder, error: Error?) {
-        print("Error while recording audio \(error!.localizedDescription)")
+        HippoConfig.shared.log.debug(("Error while recording audio \(error!.localizedDescription)"), level: .error)
     }
     
     

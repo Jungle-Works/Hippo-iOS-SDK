@@ -112,15 +112,14 @@ class FuguConversation: HippoConversation {
         HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: FuguEndPoints.API_GET_CONVERSATIONS.rawValue) { (responseObject, error, tag, statusCode) in
             
             guard let unwrappedStatusCode = statusCode,
-                let response = responseObject as? [String: Any],
-                let data = response["data"] as? [String: Any],
-                let conversationArrayJson = data["conversation_list"] as? [[String: Any]],
-                unwrappedStatusCode == STATUS_CODE_SUCCESS else {
-                    let result = GetConversationFromServerResult(isSuccessful: false, error: error, conversations: nil)
-                    
-                    completion(result)
-                print(result)
-                    return
+                  let response = responseObject as? [String: Any],
+                  let data = response["data"] as? [String: Any],
+                  let conversationArrayJson = data["conversation_list"] as? [[String: Any]],
+                  unwrappedStatusCode == STATUS_CODE_SUCCESS else {
+                let result = GetConversationFromServerResult(isSuccessful: false, error: error, conversations: nil)
+                
+                completion(result)
+                return
             }
             
             FuguDefaults.set(value: conversationArrayJson, forKey: DefaultName.conversationData.rawValue)
@@ -129,7 +128,7 @@ class FuguConversation: HippoConversation {
             if let lastVisibleController = getLastVisibleController() as? ConversationsViewController, let channelId = lastVisibleController.channel?.id {
                 lastVisibleController.clearUnreadCountForChannel(id: channelId)
             }
-
+            
             let result = GetConversationFromServerResult(isSuccessful: true, error: HippoError.general, conversations: arrayOfConversation)
             completion(result)
         }

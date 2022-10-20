@@ -65,7 +65,6 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.automaticallyAdjustsScrollViewInsets = false
         // navigationSetUp()
         uiSetup()
         addObservers()
@@ -223,7 +222,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
             self.openChatButton.isHidden = !HippoConfig.shared.hasChannelTabs
             self.closeChatButton.isHidden = !HippoConfig.shared.hasChannelTabs
         }
-        automaticallyAdjustsScrollViewInsets = false
+
         updateErrorLabelView(isHiding: true)
         refreshControl.addTarget(self, action: #selector(refresh(_:)), for: .valueChanged)
         setTableView()
@@ -365,7 +364,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
                   return
               }
         
-        UIApplication.shared.openURL(fuguURL)
+        UIApplication.shared.open(fuguURL, options: [:], completionHandler: nil)
     }
     
     func updateNewConversationBtnUI(isSelected : Bool){
@@ -717,7 +716,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
             return
         }
         self.updateErrorLabelView(isHiding: false)
-        self.errorLabel.text = message
+        self.errorLabel?.text = message
         self.updateErrorLabelView(isHiding: true)
     }
     

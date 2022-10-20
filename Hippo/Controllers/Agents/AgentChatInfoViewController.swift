@@ -287,9 +287,10 @@ extension AgentChatInfoViewController: UITableViewDelegate  {
             case 0: //For agent info
                 pushToAgentAssignmentList()
                 break
-            case 1: //for channel tags
-                print("case 1")
-            default:break
+//            case 1: //for channel tags
+//                print("case 1")
+            default:
+                break
             }
         case .media:
             let storyboard = UIStoryboard(name: "AgentSdk", bundle: FuguFlowManager.bundle)

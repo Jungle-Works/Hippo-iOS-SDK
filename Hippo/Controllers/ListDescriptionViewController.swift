@@ -157,7 +157,7 @@ class ListDescriptionViewController: UIViewController {
             guard self != nil else {
                 return
             }
-            let value = UIScreen.main.bounds.height - keyboardFrame.minY - UIView.safeAreaInsetOfKeyWindow.bottom
+            let value = FUGU_SCREEN_HEIGHT - keyboardFrame.minY - UIView.safeAreaInsetOfKeyWindow.bottom
             let maxValue = max(0, value)
             self?.scrollView.contentInset.bottom = maxValue
             

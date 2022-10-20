@@ -132,8 +132,8 @@ struct WhatsappWidgetConfig{
     internal var muidList: [String] = []
     internal var pushArray = [PushInfo]()
     internal var checker: HippoChecker = HippoChecker()
-    private(set)  open var isBroadcastEnabled: Bool = false
-    open weak var messageDelegate: HippoMessageRecievedDelegate?
+    private(set) public var isBroadcastEnabled: Bool = false
+    public weak var messageDelegate: HippoMessageRecievedDelegate?
     internal weak var delegate: HippoDelegate?
     internal var deviceToken = ""
     internal var voipToken = ""
@@ -144,17 +144,17 @@ struct WhatsappWidgetConfig{
     internal var jitsiOngoingCall : Bool?
     internal var agentDetail: AgentDetail?
     public var strings = HippoStrings()
-    private(set)  open var newConversationButtonBorderWidth: Float = 0.0
+    private(set) public var newConversationButtonBorderWidth: Float = 0.0
     
-    private(set)  open var isSuggestionNeeded = false
-    private(set)  open var maxSuggestionCount = 10
-    private(set)  open var questions = [String: Int]()//Dictionary<String, Int>()
-    private(set)  open var suggestions = [Int: String]()//Dictionary<Int, String>()
-    private(set)  open var mapping = [Int: [Int]]()//Dictionary<Int, Array<Int>>()
+    private(set) public var isSuggestionNeeded = false
+    private(set) public var maxSuggestionCount = 10
+    private(set) public var questions = [String: Int]()//Dictionary<String, Int>()
+    private(set) public var suggestions = [Int: String]()//Dictionary<Int, String>()
+    private(set) public var mapping = [Int: [Int]]()//Dictionary<Int, Array<Int>>()
     
-    private(set)  open var hasChannelTabs = true//false
+    private(set) public var hasChannelTabs = true//false
     
-    open var isPaymentRequestEnabled: Bool {
+    public var isPaymentRequestEnabled: Bool {
         return HippoProperty.current.isPaymentRequestEnabled
     }
     
@@ -184,7 +184,7 @@ struct WhatsappWidgetConfig{
     
     var deviceKey : String = ""
     var serverTimeDifference : Int = 0
-    open var appName: String = ""
+    public var appName: String = ""
     internal var appUserType = AppUserType.customer
     internal var resellerToken = ""
     internal var referenceId = -1
@@ -194,11 +194,11 @@ struct WhatsappWidgetConfig{
     var isSkipBot:Bool = false
     internal var baseUrl =      SERVERS.liveUrl     // SERVERS.betaUrl//
     internal var fayeBaseURLString: String =     SERVERS.liveFaye   // SERVERS.betaFaye//
-    open var unreadCount: ((_ totalUnread: Int) -> ())?
-    open var usersUnreadCount: ((_ userUnreadCount: [String: Int]) -> ())?
-    open var HippoDismissed: ((_ isDismissed: Bool) -> ())?
-    open var HippoPrePaymentCancelled: (()->())?
-    open var HippoPrePaymentSuccessful: ((Bool)->())?
+    public var unreadCount: ((_ totalUnread: Int) -> ())?
+    public var usersUnreadCount: ((_ userUnreadCount: [String: Int]) -> ())?
+    public var HippoDismissed: ((_ isDismissed: Bool) -> ())?
+    public var HippoPrePaymentCancelled: (()->())?
+    public var HippoPrePaymentSuccessful: ((Bool)->())?
     public var HippoLanguageChanged : ((Error?)->())?
     public var HippoSessionStatus: ((GroupCallStatus)->())?
     public var announcementUnreadCount : ((Int)->())?
@@ -277,7 +277,7 @@ struct WhatsappWidgetConfig{
     }
     
     //Function to get current agent sdk channel id
-    open func getCurrentAgentSdkChannelId()->Int?{
+    public func getCurrentAgentSdkChannelId()->Int?{
         let topViewController = getLastVisibleController()
         //will return channel id if we have some active chat else return nil
         if topViewController is AgentConversationViewController{

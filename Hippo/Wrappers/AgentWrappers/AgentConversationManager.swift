@@ -214,15 +214,13 @@ class AgentConversationManager {
                 "online_status": newStatus.rawValue,
                 "lang_code" : getCurrentLanguageLocale()
              ]
-        print(param)
 
         HTTPClient.shared.makeSingletonConnectionWith(method: .POST, identifier: RequestIdenfier.getAllConversationIdentfier,para: param, extendedUrl: AgentEndPoints.agentStatus.rawValue) { (response, error, tag, statusCode) in
             if let _ = error {
                 completion(false)
                 return
             }
-            print("newStatus: ",newStatus)
-//            HippoConfig.shared.agentDetail?.status = newStatus
+            
             BussinessProperty.current.agentStatusForToggle = newStatus.rawValue
             completion(true)
         }
@@ -245,8 +243,6 @@ class AgentConversationManager {
             completion(AgentGetConversationFromServerResult(isSuccessful: false, error: HippoError.general, conversations: nil))
             return
         }
-        
-        print("Conversation Param: \(params)")
         
         HTTPClient.shared.makeSingletonConnectionWith(method: .POST, identifier: request.apiRequestIdentifier, para: params, extendedUrl: AgentEndPoints.getConversation.rawValue) { (responseObject, error, tag, statusCode) in
             
@@ -367,8 +363,6 @@ class AgentConversationManager {
             completion(AgentGetConversationFromServerResult(isSuccessful: false, error: HippoError.general, conversations: nil))
             return
         }
-        
-        print("Conversation Param for history: \(params)")
         
         HTTPClient.shared.makeSingletonConnectionWith(method: .POST, identifier: request.apiRequestIdentifier, para: params, extendedUrl: AgentEndPoints.getConversation.rawValue) { (responseObject, error, tag, statusCode) in
             

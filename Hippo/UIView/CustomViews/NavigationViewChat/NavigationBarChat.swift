@@ -20,7 +20,7 @@ final class NavigationBarChat: UIView {
             view.layer.masksToBounds = false
             view.layer.shadowPath = UIBezierPath(rect: CGRect(x: 0,
                                                                        y: bounds.maxY - layer.shadowRadius,
-                                                                       width: UIScreen.main.bounds.width,
+                                                                       width: FUGU_SCREEN_WIDTH,
                                                                        height: layer.shadowRadius)).cgPath
         }
     }
@@ -114,7 +114,7 @@ final class NavigationBarChat: UIView {
     }
     
     func addGesture() {
-         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(titleViewClicked))
+//         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(titleViewClicked))
         // labelContainer.addGestureRecognizer(tapGesture)
          image_profile.isUserInteractionEnabled = true
          let imageTapGesture = UITapGestureRecognizer(target: self, action: #selector(imageClicked))

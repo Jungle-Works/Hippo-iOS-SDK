@@ -40,7 +40,7 @@ class SelectPresciptionViewModel{
         HTTPClient.makeConcurrentConnectionWith(method: .POST, enCodingType: .json, para: params, extendedUrl: AgentEndPoints.getTemplates.rawValue) { (responseObject, error, tag, statusCode) in
     
             guard let unwrappedStatusCode = statusCode, error == nil, unwrappedStatusCode == STATUS_CODE_SUCCESS, error == nil  else {
-                print("Error",error ?? "")
+                HippoConfig.shared.log.debug(error ?? "", level: .error)
                 self.responseRecieved?()
                 return
             }
@@ -66,7 +66,7 @@ class SelectPresciptionViewModel{
         HTTPClient.makeConcurrentConnectionWith(method: .POST, enCodingType: .json, para: createPresciptionParams, extendedUrl: AgentEndPoints.createAndSendPresciption.rawValue) { (responseObject, error, tag, statusCode) in
             self.startLoading?(false)
             guard let unwrappedStatusCode = statusCode, error == nil, unwrappedStatusCode == STATUS_CODE_SUCCESS, error == nil  else {
-                print("Error",error ?? "")
+                HippoConfig.shared.log.debug(error ?? "", level: .error)
                 self.pdfUploaded?(error, nil)
                 return
             }

@@ -125,12 +125,15 @@ class HTTPClient {
     
     @discardableResult
     class func makeConcurrentConnectionWith(method: HttpMethodType, enCodingType: EncodingType = .json, showAlert: Bool = false, showAlertInDefaultCase: Bool = false, showActivityIndicator: Bool = false, para: [String: Any]? = nil, baseUrl: String = HippoConfig.shared.baseUrl, extendedUrl: String, callback: @escaping ServiceResponse) -> URLSessionDataTask? {
-        print("Base server url ---------", HippoConfig.shared.baseUrl, "\nsocket url --------", HippoConfig.shared.fayeBaseURLString , "\n Requested end point ---------", extendedUrl)
+        
+        HippoConfig.shared.log.debug(("Base server url ---------", HippoConfig.shared.baseUrl, "\nsocket url --------", HippoConfig.shared.fayeBaseURLString , "\n Requested end point ---------", extendedUrl), level: .info)
+
         guard isConnectedToInternet() else {
             let error = NetworkError()
             callback(nil, error, nil, 404)
             return nil
         }
+        
         var additionalParams = [String : Any]()
         if baseUrl != FuguEndPoints.searchAddress.rawValue {
             additionalParams = [
@@ -174,8 +177,6 @@ class HTTPClient {
         case .url:
             break
         }
-        
-        
         
         //DataTask
         let dataTask = HTTPClient.performDataTaskWith(request: mutableRequest, showAlert: showAlert, showAlertInDefaultCase: showAlertInDefaultCase, showActivityIndicator: showActivityIndicator, callback: callback, extendedUrl: extendedUrl)

@@ -39,7 +39,7 @@ class AllString{
         HTTPClient.makeConcurrentConnectionWith(method: .POST, enCodingType: .json, para: params, extendedUrl: FuguEndPoints.getLanguage.rawValue) { (responseObject, error, tag, statusCode) in
             
             guard let unwrappedStatusCode = statusCode, error == nil, unwrappedStatusCode == STATUS_CODE_SUCCESS, error == nil  else {
-                print("Error",error ?? "")
+                HippoConfig.shared.log.debug(error ?? "", level: .error)
                 completion(error as? HippoError, nil)
                 return
             }
@@ -57,7 +57,7 @@ class AllString{
     }
     
     class func customerParsing(_ response: [String : Any]){
-        if let appGurantee = response["app_guarantee"] as? String{
+        if response["app_guarantee"] is String{
             
         }
         if let callAgain = response["call_again"] as? String{
@@ -68,15 +68,15 @@ class AllString{
             HippoStrings.cancelPayment = cancelPayment
         }
         
-        if let label_StartChat = response["float_label_start_chat"] as? String{
+        if response["float_label_start_chat"] is String{
             
         }
         
-        if let label_Actions = response["fugu_agent_actions"] as? String{
+        if response["fugu_agent_actions"] is String{
             
         }
         
-        if let label_Actions = response["fugu_attachment"] as? String{
+        if response["fugu_attachment"] is String{
             
         }
         
@@ -100,11 +100,11 @@ class AllString{
             HippoStrings.document = document
         }
         
-        if let fileNotFound = response["fugu_file_not_found"] as? String{
+        if response["fugu_file_not_found"] is String{
             
         }
         
-        if let leaveComment = response["fugu_leave_comment"] as? String{
+        if response["fugu_leave_comment"] is String{
             
         }
         if let error_msg_yellow_bar = response["error_msg_yellow_bar"] as? String{
@@ -123,7 +123,7 @@ class AllString{
             HippoConfig.shared.strings.newConversation = newConversation
         }
         
-        if let noDataFound = response["fugu_no_data_found"] as? String{
+        if response["fugu_no_data_found"] is String{
             
         }
         
@@ -136,7 +136,7 @@ class AllString{
         if let document = response["fugu_pdf"] as? String{
             HippoStrings.document = document
         }
-        if let powered_by = response["fugu_powered_by"] as? String{
+        if response["fugu_powered_by"] is String{
             // HippoStrings.powered_by = powered_by
         }
         
@@ -144,7 +144,7 @@ class AllString{
             HippoStrings.messagePlaceHolderText = send_message
             
         }
-        if let show_more = response["fugu_show_more"] as? String{
+        if response["fugu_show_more"] is String{
             
         }
         if let support = response["fugu_support"] as? String{
@@ -152,10 +152,10 @@ class AllString{
             
         }
         
-        if let tap_to_view = response["fugu_tap_to_view"] as? String{
+        if response["fugu_tap_to_view"] is String{
             
         }
-        if let text = response["fugu_text"] as? String{
+        if response["fugu_text"] is String{
             
         }
         
@@ -163,7 +163,7 @@ class AllString{
             HippoStrings.title = title
         }
         
-        if let cant_connect = response["fugu_unable_to_connect_internet"] as? String{
+        if response["fugu_unable_to_connect_internet"] is String{
         }
         
         if let video = response["fugu_video"] as? String{
@@ -174,7 +174,7 @@ class AllString{
             HippoStrings.voice = voice
             
         }
-        if let hippo_activity_image_trans = response["hippo_activity_image_trans"] as? String{
+        if response["hippo_activity_image_trans"] is String{
             
         }
         if let hippo_add_an_option = response["hippo_add_an_option"] as? String{
@@ -183,22 +183,22 @@ class AllString{
         if let hippo_alert = response["hippo_alert"] as? String{
             HippoStrings.alert = hippo_alert
         }
-        if let hippo_all_agents_busy = response["hippo_all_agents_busy"] as? String{
+        if response["hippo_all_agents_busy"] is String{
             
         }
         if let hippo_at = response["hippo_at"] as? String{
             HippoStrings.at = hippo_at
         }
-        if let hippo_attachment_file = response["hippo_attachment_file"] as? String{
+        if response["hippo_attachment_file"] is String{
             
         }
-        if let hippo_audio_call = response["hippo_audio_call"] as? String{
+        if response["hippo_audio_call"] is String{
             
         }
         if let hippo_broadcast_detail = response["hippo_broadcast_detail"] as? String{
             HippoStrings.broadcastDetails = hippo_broadcast_detail
         }
-        if let hippo_browse_other_doc = response["hippo_browse_other_doc"] as? String{
+        if response["hippo_browse_other_doc"] is String{
             
         }
         if let hippo_busy_on_call = response["hippo_busy_on_call"] as? String{
@@ -216,25 +216,25 @@ class AllString{
         if let hippo_call_declined = response["hippo_call_declined"] as? String{
             HippoStrings.callDeclined = hippo_call_declined
         }
-        if let hippo_call_ended = response["hippo_call_ended"] as? String{
+        if response["hippo_call_ended"] is String{
             
         }
-        if let hippo_call_hungup = response["hippo_call_hungup"] as? String{
+        if response["hippo_call_hungup"] is String{
             
         }
-        if let hippo_call_incoming = response["hippo_call_incoming"] as? String{
+        if response["hippo_call_incoming"] is String{
             //HippoStrings.incomingCall = hippo_call_incoming
         }
-        if let hippo_call_incoming_audio_call = response["hippo_call_incoming_audio_call"] as? String{
+        if response["hippo_call_incoming_audio_call"] is String{
             
         }
-        if let hippo_call_incoming_video_call = response["hippo_call_incoming_video_call"] as? String{
+        if response["hippo_call_incoming_video_call"] is String{
             
         }
-        if let hippo_call_outgoing = response["hippo_call_outgoing"] as? String{
+        if response["hippo_call_outgoing"] is String{
             
         }
-        if let hippo_call_rejected = response["hippo_call_rejected"] as? String{
+        if response["hippo_call_rejected"] is String{
             
         }
         
@@ -249,10 +249,10 @@ class AllString{
         if let hippo_call_ringing = response["hippo_call_ringing"] as? String{
             HippoStrings.ringing = hippo_call_ringing
         }
-        if let hippo_call_with = response["hippo_call_with"] as? String{
+        if response["hippo_call_with"] is String{
             
         }
-        if let hippo_call_with_you = response["hippo_call_with_you"] as? String{
+        if response["hippo_call_with_you"] is String{
             
         }
         if let hippo_calling_from_old = response["hippo_calling_from_old"] as? String{
@@ -261,28 +261,28 @@ class AllString{
         if let hippo_cancel_payment = response["hippo_cancel_payment"] as? String{
             HippoStrings.cancelPaymentTitle = hippo_cancel_payment
         }
-        if let hippo_card = response["hippo_card"] as? String{
+        if response["hippo_card"] is String{
             
         }
-        if let hippo_chat = response["hippo_chat"] as? String{
+        if response["hippo_chat"] is String{
             
         }
-        if let hippo_chat_support = response["hippo_chat_support"] as? String{
+        if response["hippo_chat_support"] is String{
             
         }
-        if let hippo_chats = response["hippo_chats"] as? String{
+        if response["hippo_chats"] is String{
             
         }
         if let hippo_clear_all_notification = response["hippo_clear_all_notification"] as? String{
             HippoStrings.clearAll = hippo_clear_all_notification
         }
-        if let hippo_copy_to_clipboard = response["hippo_copy_to_clipboard"] as? String{
+        if response["hippo_copy_to_clipboard"] is String{
             
         }
-        if let hippo_could_not_send_message = response["hippo_could_not_send_message"] as? String{
+        if response["hippo_could_not_send_message"] is String{
             
         }
-        if let hippo_country_picker_header = response["hippo_country_picker_header"] as? String{
+        if response["hippo_country_picker_header"] is String{
             
         }
         if let hippo_currency = response["hippo_currency"] as? String{
@@ -291,25 +291,25 @@ class AllString{
         if let hippo_current = response["hippo_current"] as? String{
             HippoStrings.ongoing = hippo_current
         }
-        if let hippo_customer_missed_a = response["hippo_customer_missed_a"] as? String{
+        if response["hippo_customer_missed_a"] is String{
             
         }
-        if let hippo_disconnect = response["hippo_disconnect"] as? String{
+        if response["hippo_disconnect"] is String{
             
         }
-        if let hippo_empty_other_user_unique_keys = response["hippo_empty_other_user_unique_keys"] as? String{
+        if response["hippo_empty_other_user_unique_keys"] is String{
             
         }
-        if let hippo_empty_transaction_id = response["hippo_empty_transaction_id"] as? String{
+        if response["hippo_empty_transaction_id"] is String{
             
         }
         if let hippo_emptymessage = response["hippo_emptymessage"] as? String{
             HippoStrings.enterSomeText = hippo_emptymessage
         }
-        if let hippo_enter_number_only = response["hippo_enter_number_only"] as? String{
+        if response["hippo_enter_number_only"] is String{
             
         }
-        if let hippo_enter_phone_number = response["hippo_enter_phone_number"] as? String{
+        if response["hippo_enter_phone_number"] is String{
             
         }
         if let hippo_enter_title = response["hippo_enter_title"] as? String{
@@ -319,52 +319,52 @@ class AllString{
         if let hippo_enter_valid_email = response["hippo_enter_valid_email"] as? String{
             HippoStrings.enterValidEmail = hippo_enter_valid_email
         }
-        if let hippo_enter_valid_phn_no = response["hippo_enter_valid_phn_no"] as? String{
+        if response["hippo_enter_valid_phn_no"] is String{
             
         }
-        if let hippo_enter_valid_price = response["hippo_enter_valid_price"] as? String{
+        if response["hippo_enter_valid_price"] is String{
             
         }
-        if let hippo_error_msg_sending = response["hippo_error_msg_sending"] as? String{
+        if response["hippo_error_msg_sending"] is String{
             
         }
-        if let hippo_error_no_countries_found = response["hippo_error_no_countries_found"] as? String{
+        if response["hippo_error_no_countries_found"] is String{
             
         }
-        if let hippo_feature_no_supported = response["hippo_feature_no_supported"] as? String{
+        if response["hippo_feature_no_supported"] is String{
             
         }
-        if let hippo_fetching_payment_methods = response["hippo_fetching_payment_methods"] as? String{
+        if response["hippo_fetching_payment_methods"] is String{
             
         }
         if let hippo_field_cant_empty = response["hippo_field_cant_empty"] as? String{
             HippoStrings.requiredField = hippo_field_cant_empty
         }
-        if let hippo_file_already_in_queue = response["hippo_file_already_in_queue"] as? String{
+        if response["hippo_file_already_in_queue"] is String{
             
         }
-        if let hippo_file_not_supported = response["hippo_file_not_supported"] as? String{
+        if response["hippo_file_not_supported"] is String{
             
         }
-        if let hippo_files = response["hippo_files"] as? String{
+        if response["hippo_files"] is String{
             
         }
-        if let hippo_fill_pre_field = response["hippo_fill_pre_field"] as? String{
+        if response["hippo_fill_pre_field"] is String{
             
         }
-        if let hippo_find_an_expert = response["hippo_find_an_expert"] as? String{
+        if response["hippo_find_an_expert"] is String{
             
         }
         if let hippo_free = response["hippo_free"] as? String{
             HippoStrings.free = hippo_free
         }
-        if let hippo_grant_permission = response["hippo_grant_permission"] as? String{
+        if response["hippo_grant_permission"] is String{
             
         }
         if let hippo_history = response["hippo_history"] as? String{
             HippoStrings.chatHistory = hippo_history
         }
-        if let hippo_invalid_price = response["hippo_invalid_price"] as? String{
+        if response["hippo_invalid_price"] is String{
             
         }
         if let hippo_item_description = response["hippo_item_description"] as? String{
@@ -373,7 +373,7 @@ class AllString{
         if let hippo_item_price = response["hippo_item_price"] as? String{
             HippoStrings.enterPrice = hippo_item_price
         }
-        if let hippo_large_file = response["hippo_large_file"] as? String{
+        if response["hippo_large_file"] is String{
             
         }
         if let hippo_logout_msg = response["hippo_logout_msg"] as? String{
@@ -388,10 +388,10 @@ class AllString{
         if let hippo_missed = response["hippo_missed"] as? String{
             HippoStrings.missed = hippo_missed
         }
-        if let hippo_missed_call = response["hippo_missed_call"] as? String{
+        if response["hippo_missed_call"] is String{
             
         }
-        if let hippo_netbanking = response["hippo_netbanking"] as? String{
+        if response["hippo_netbanking"] is String{
             
         }
         if let hippo_no = response["hippo_no"] as? String{
@@ -400,7 +400,7 @@ class AllString{
         if let hippo_no_chat = response["hippo_no_chat"] as? String{
             HippoStrings.noChatStarted = hippo_no_chat
         }
-        if let hippo_no_chat_init = response["hippo_no_chat_init"] as? String{
+        if response["hippo_no_chat_init"] is String{
             
         }
         if let hippo_no_internet_connected = response["hippo_no_internet_connected"] as? String{
@@ -418,10 +418,10 @@ class AllString{
         if let hippo_notifications = response["hippo_notifications"] as? String{
             HippoStrings.notifications = hippo_notifications
         }
-        if let hippo_notifications_deleted = response["hippo_notifications_deleted"] as? String{
+        if response["hippo_notifications_deleted"] is String{
             
         }
-        if let hippo_notifications_title = response["hippo_notifications_title"] as? String{
+        if response["hippo_notifications_title"] is String{
             
         }
         if let hippo_ongoing = response["hippo_ongoing"] as? String{
@@ -436,28 +436,28 @@ class AllString{
         if let hippo_pay_btnText = response["hippo_pay_btnText"] as? String{
             HippoStrings.Pay = hippo_pay_btnText
         }
-        if let hippo_pay_with_netbanking = response["hippo_pay_with_netbanking"] as? String{
+        if response["hippo_pay_with_netbanking"] is String{
             
         }
-        if let hippo_pay_with_paymob = response["hippo_pay_with_paymob"] as? String{
+        if response["hippo_pay_with_paymob"] is String{
             
         }
-        if let hippo_pay_with_paytm = response["hippo_pay_with_paytm"] as? String{
+        if response["hippo_pay_with_paytm"] is String{
             
         }
-        if let hippo_pay_with_razorpay = response["hippo_pay_with_razorpay"] as? String{
+        if response["hippo_pay_with_razorpay"] is String{
             
         }
-        if let hippo_payfort = response["hippo_payfort"] as? String{
+        if response["hippo_payfort"] is String{
             
         }
-        if let hippo_payment_loader = response["hippo_payment_loader"] as? String{
+        if response["hippo_payment_loader"] is String{
             
         }
         if let hippo_payment_title = response["hippo_payment_title"] as? String{
             HippoStrings.payment = hippo_payment_title
         }
-        if let hippo_paytm = response["hippo_paytm"] as? String{
+        if response["hippo_paytm"] is String{
             
         }
         if let hippo_pending = response["hippo_pending"] as? String{
@@ -472,10 +472,10 @@ class AllString{
         if let hippo_rating_review = response["hippo_rating_review"] as? String{
             HippoStrings.ratingReview = hippo_rating_review
         }
-        if let hippo_rationale_ask = response["hippo_rationale_ask"] as? String{
+        if response["hippo_rationale_ask"] is String{
             
         }
-        if let hippo_rationale_ask_again = response["hippo_rationale_ask_again"] as? String{
+        if response["hippo_rationale_ask_again"] is String{
             
         }
         if let hippo_read_less = response["hippo_read_less"] as? String{
@@ -493,7 +493,7 @@ class AllString{
         if let hippo_save_plan = response["hippo_save_plan"] as? String{
             HippoStrings.savePlan = hippo_save_plan
         }
-        if let hippo_search = response["hippo_search"] as? String{
+        if response["hippo_search"] is String{
             
         }
         if let hippo_select_string = response["hippo_select_string"] as? String{
@@ -505,40 +505,40 @@ class AllString{
         if let hippo_something_went_wrong = response["hippo_something_went_wrong"] as? String{
             HippoStrings.somethingWentWrong = hippo_something_went_wrong
         }
-        if let hippo_something_wentwrong = response["hippo_something_wentwrong"] as? String{
+        if response["hippo_something_wentwrong"] is String{
             
         }
-        if let hippo_something_wrong = response["hippo_something_wrong"] as? String{
+        if response["hippo_something_wrong"] is String{
             
         }
-        if let hippo_storage_permission = response["hippo_storage_permission"] as? String{
+        if response["hippo_storage_permission"] is String{
             
         }
-        if let hippo_stripe = response["hippo_stripe"] as? String{
+        if response["hippo_stripe"] is String{
             
         }
         if let hippo_submit = response["hippo_submit"] as? String{
             HippoStrings.submit = hippo_submit
         }
-        if let hippo_tap_to_retry = response["hippo_tap_to_retry"] as? String{
+        if response["hippo_tap_to_retry"] is String{
             
         }
-        if let hippo_text = response["hippo_text"] as? String{
+        if response["hippo_text"] is String{
             
         }
         if let hippo_the = response["hippo_the"] as? String{
             HippoStrings.the = hippo_the
         }
-        if let hippo_the_video_call = response["hippo_the_video_call"] as? String{
+        if response["hippo_the_video_call"] is String{
             
         }
-        if let hippo_the_video_call_ended = response["hippo_the_video_call_ended"] as? String{
+        if response["hippo_the_video_call_ended"] is String{
             
         }
-        if let hippo_the_voice_call = response["hippo_the_voice_call"] as? String{
+        if response["hippo_the_voice_call"] is String{
             
         }
-        if let hippo_the_voice_call_ended = response["hippo_the_voice_call_ended"] as? String{
+        if response["hippo_the_voice_call_ended"] is String{
             
         }
         if let hippo_title_item_description = response["hippo_title_item_description"] as? String{
@@ -556,10 +556,10 @@ class AllString{
         if let hippo_update_plan = response["hippo_update_plan"] as? String{
             HippoStrings.updatePlan = hippo_update_plan
         }
-        if let hippo_video = response["hippo_video"] as? String{
+        if response["hippo_video"] is String{
             
         }
-        if let hippo_with_country_code = response["hippo_with_country_code"] as? String{
+        if response["hippo_with_country_code"] is String{
         }
         if let hippo_writereview = response["hippo_writereview"] as? String{
             HippoStrings.writeReview = hippo_writereview
@@ -576,25 +576,25 @@ class AllString{
         if let hippo_you = response["hippo_you"] as? String{
             HippoStrings.you = hippo_you
         }
-        if let hippo_you_have_no_chats = response["hippo_you_have_no_chats"] as? String{
+        if response["hippo_you_have_no_chats"] is String{
             
         }
-        if let hippo_you_missed_a = response["hippo_you_missed_a"] as? String{
+        if response["hippo_you_missed_a"] is String{
             
         }
         if let logout = response["logout"] as? String{
             HippoStrings.logoutTitle = logout
         }
-        if let talk_to = response["talk_to"] as? String{
+        if response["talk_to"] is String{
             
         }
-        if let title_settings_dialog = response["title_settings_dialog"] as? String{
+        if response["title_settings_dialog"] is String{
             
         }
         if let unknown_message = response["unknown_message"] as? String{
             HippoStrings.unknownMessage = unknown_message
         }
-        if let uploading_in_progress = response["uploading_in_progress"] as? String{
+        if response["uploading_in_progress"] is String{
             
         }
         if let vw_all = response["vw_all"] as? String{
@@ -608,16 +608,16 @@ class AllString{
             HippoStrings.callEnded = hippo_call_ended
         }
         
-        if let vw_no_photo_app = response["vw_no_photo_app"] as? String{
+        if response["vw_no_photo_app"] is String{
             
         }
-        if let vw_no_video_app = response["vw_no_video_app"] as? String{
+        if response["vw_no_video_app"] is String{
             
         }
-        if let vw_rationale_storage = response["vw_rationale_storage"] as? String{
+        if response["vw_rationale_storage"] is String{
             
         }
-        if let vw_up_to_max = response["vw_up_to_max"] as? String{
+        if response["vw_up_to_max"] is String{
             
         }
         
@@ -801,27 +801,27 @@ class AllString{
         if let hippo_Reopen_Chat = response["hippo_Reopen_Chat"] as? String{
             HippoStrings.reopenChat = hippo_Reopen_Chat
         }
-        if let hello_blank_fragment = response["hello_blank_fragment"] as? String{
+        if response["hello_blank_fragment"] is String{
             
         }
         
-        if let open_conversations = response["open_conversations"] as? String{
+        if response["open_conversations"] is String{
             
         }
         
-        if let closed_conversations = response["closed_conversations"] as? String{
+        if response["closed_conversations"] is String{
             
         }
         
-        if let fugu_unable_to_connect_internet = response["fugu_unable_to_connect_internet"] as? String{
+        if response["fugu_unable_to_connect_internet"] is String{
             
         }
         
-        if let fugu_no_internet_connection_retry = response["fugu_no_internet_connection_retry"] as? String{
+        if response["fugu_no_internet_connection_retry"] is String{
             
         }
         
-        if let hippo_something_wrong_api = response["hippo_something_wrong_api"] as? String{
+        if response["hippo_something_wrong_api"] is String{
             
         }
         
@@ -829,7 +829,7 @@ class AllString{
             HippoStrings.newConversation = fugu_new_conversation
         }
         
-        if let fugu_new_conversations = response["fugu_new_conversations"] as? String{
+        if response["fugu_new_conversations"] is String{
             
         }
         
@@ -837,99 +837,99 @@ class AllString{
             HippoStrings.loading = fugu_loading
         }
         
-        if let fugu_powered_by = response["fugu_powered_by"] as? String{
+        if response["fugu_powered_by"] is String{
             
         }
         
-        if let fugu_menu_refresh = response["fugu_menu_refresh"] as? String{
+        if response["fugu_menu_refresh"] is String{
             
         }
         
-        if let forgot_password = response["forgot_password"] as? String{
+        if response["forgot_password"] is String{
             
         }
         
-        if let dont_have_account = response["dont_have_account"] as? String{
+        if response["dont_have_account"] is String{
             
         }
         
-        if let confirmation = response["confirmation"] as? String{
+        if response["confirmation"] is String{
             
         }
         
-        if let register_your_business = response["register_your_business"] as? String{
+        if response["register_your_business"] is String{
             
         }
         
-        if let sign_in = response["sign_in"] as? String{
+        if response["sign_in"] is String{
             
         }
         
-        if let sign_up = response["sign_up"] as? String{
+        if response["sign_up"] is String{
             
         }
         
-        if let password = response["password"] as? String{
+        if response["password"] is String{
             
         }
         
-        if let business_name = response["business_name"] as? String{
+        if response["business_name"] is String{
             
         }
         
-        if let new_password = response["new_password"] as? String{
+        if response["new_password"] is String{
             
         }
         
-        if let old_password = response["old_password"] as? String{
+        if response["old_password"] is String{
             
         }
         
-        if let confirm_password = response["confirm_password"] as? String{
+        if response["confirm_password"] is String{
             
         }
         
-        if let email_address = response["email_address"] as? String{
+        if response["email_address"] is String{
             
         }
         
-        if let login_to_continue = response["login_to_continue"] as? String{
+        if response["login_to_continue"] is String{
             
         }
         
-        if let err_msg_email = response["err_msg_email"] as? String{
+        if response["err_msg_email"] is String{
             
         }
         
-        if let err_msg_search = response["err_msg_search"] as? String{
+        if response["err_msg_search"] is String{
             
         }
         
-        if let err_msg_password = response["err_msg_password"] as? String{
+        if response["err_msg_password"] is String{
             
         }
         
-        if let err_msg_name = response["err_msg_name"] as? String{
+        if response["err_msg_name"] is String{
             
         }
         
-        if let err_msg_business_name = response["err_msg_business_name"] as? String{
+        if response["err_msg_business_name"] is String{
             
         }
         
-        if let err_msg_phone = response["err_msg_phone"] as? String{
+        if response["err_msg_phone"] is String{
             
         }
         
-        if let err_msg_phone_invalid = response["err_msg_phone_invalid"] as? String{
+        if response["err_msg_phone_invalid"] is String{
             
         }
         
-        if let forgot_password_desc = response["forgot_password_desc"] as? String{
+        if response["forgot_password_desc"] is String{
             
         }
         
-        if let done = response["done"] as? String{
+        if response["done"] is String{
             
         }
         
@@ -937,11 +937,11 @@ class AllString{
             HippoStrings.you = hippo_you
         }
         
-        if let hippo_user = response["hippo_user"] as? String{
+        if response["hippo_user"] is String{
             
         }
         
-        if let details = response["details"] as? String{
+        if response["details"] is String{
             
         }
         
@@ -953,23 +953,23 @@ class AllString{
             HippoStrings.closeChat = close_conversation
         }
         
-        if let assign_conversation = response["assign_conversation"] as? String{
+        if response["assign_conversation"] is String{
             
         }
         
-        if let participants = response["participants"] as? String{
+        if response["participants"] is String{
             
         }
         
-        if let type_message_only = response["type_message_only"] as? String{
+        if response["type_message_only"] is String{
             
         }
         
-        if let type_a_message = response["type_a_message"] as? String{
+        if response["type_a_message"] is String{
             
         }
         
-        if let type_a_normal_message = response["type_a_normal_message"] as? String{
+        if response["type_a_normal_message"] is String{
             
         }
         
@@ -977,11 +977,11 @@ class AllString{
             HippoStrings.privateMessagePlaceHolder = type_a_internal_note
         }
         
-        if let reopen_conversation = response["reopen_conversation"] as? String{
+        if response["reopen_conversation"] is String{
             
         }
         
-        if let pick_image_from = response["pick_image_from"] as? String{
+        if response["pick_image_from"] is String{
             
         }
         
@@ -989,15 +989,15 @@ class AllString{
             HippoStrings.camera = camera
         }
         
-        if let gallery = response["gallery"] as? String{
+        if response["gallery"] is String{
             
         }
         
-        if let no_gallery = response["no_gallery"] as? String{
+        if response["no_gallery"] is String{
             
         }
         
-        if let permission_was_not_granted_text = response["permission_was_not_granted_text"] as? String{
+        if response["permission_was_not_granted_text"] is String{
             
         }
         
@@ -1013,11 +1013,11 @@ class AllString{
             HippoStrings.messagePlaceHolderText = send_message
         }
         
-        if let leave_an_internal_note = response["leave_an_internal_note"] as? String{
+        if response["leave_an_internal_note"] is String{
             
         }
         
-        if let saved_replies = response["saved_replies"] as? String{
+        if response["saved_replies"] is String{
             
         }
         
@@ -1025,19 +1025,19 @@ class AllString{
             HippoStrings.noConversationFound = no_conversation_found
         }
         
-        if let no_previous_conversation_found = response["no_previous_conversation_found"] as? String{
+        if response["no_previous_conversation_found"] is String{
             
         }
         
-        if let we_could_not_found_any_conversation = response["we_could_not_found_any_conversation"] as? String{
+        if response["we_could_not_found_any_conversation"] is String{
             
         }
         
-        if let we_could_not_found_previous_conversation = response["we_could_not_found_previous_conversation"] as? String{
+        if response["we_could_not_found_previous_conversation"] is String{
             
         }
         
-        if let enter_code = response["enter_code"] as? String{
+        if response["enter_code"] is String{
             
         }
         
@@ -1053,7 +1053,7 @@ class AllString{
             HippoStrings.openChat = open_chats
         }
         
-        if let type = response["type"] as? String{
+        if response["type"] is String{
             
         }
         
@@ -1065,19 +1065,19 @@ class AllString{
             HippoStrings.unassigned = unassigned
         }
         
-        if let tagged = response["tagged"] as? String{
+        if response["tagged"] is String{
             
         }
         
-        if let labels = response["labels"] as? String{
+        if response["labels"] is String{
             
         }
         
-        if let logout_message = response["logout_message"] as? String{
+        if response["logout_message"] is String{
             
         }
         
-        if let proceed = response["proceed"] as? String{
+        if response["proceed"] is String{
             
         }
         
@@ -1093,7 +1093,7 @@ class AllString{
             HippoStrings.reasignChatToYou = self_assign_agent_message
         }
         
-        if let confirm = response["confirm"] as? String{
+        if response["confirm"] is String{
             
         }
         
@@ -1101,7 +1101,7 @@ class AllString{
             HippoStrings.closeChatPopup = close_chat_message
         }
         
-        if let close = response["close"] as? String{
+        if response["close"] is String{
             
         }
         
@@ -1109,19 +1109,19 @@ class AllString{
             HippoStrings.reopenChatPopup = reopen_chat_message
         }
         
-        if let reopen_caps = response["reopen_caps"] as? String{
+        if response["reopen_caps"] is String{
             
         }
         
-        if let logout_caps = response["logout_caps"] as? String{
+        if response["logout_caps"] is String{
             
         }
         
-        if let logout = response["logout"] as? String{
+        if response["logout"] is String{
             
         }
         
-        if let tap_to_view = response["tap_to_view"] as? String{
+        if response["tap_to_view"] is String{
             
         }
         
@@ -1137,31 +1137,31 @@ class AllString{
             HippoStrings.conversationAssigned = conversation_assigned
         }
         
-        if let tool_tip_filter = response["tool_tip_filter"] as? String{
+        if response["tool_tip_filter"] is String{
             
         }
         
-        if let analytics = response["analytics"] as? String{
+        if response["analytics"] is String{
             
         }
         
-        if let volume_trends = response["volume_trends"] as? String{
+        if response["volume_trends"] is String{
             
         }
         
-        if let time_trends = response["time_trends"] as? String{
+        if response["time_trends"] is String{
             
         }
         
-        if let agent_wise_trends = response["agent_wise_trends"] as? String{
+        if response["agent_wise_trends"] is String{
             
         }
         
-        if let support = response["support"] as? String{
+        if response["support"] is String{
             
         }
         
-        if let chat_with_fugu = response["chat_with_fugu"] as? String{
+        if response["chat_with_fugu"] is String{
             
         }
         
@@ -1169,35 +1169,35 @@ class AllString{
             HippoStrings.allChats = all_chats
         }
         
-        if let profile = response["profile"] as? String{
+        if response["profile"] is String{
             
         }
         
-        if let all_agents = response["all_agents"] as? String{
+        if response["all_agents"] is String{
             
         }
         
-        if let all_channels = response["all_channels"] as? String{
+        if response["all_channels"] is String{
             
         }
         
-        if let all_tags = response["all_tags"] as? String{
+        if response["all_tags"] is String{
             
         }
         
-        if let agents = response["agents"] as? String{
+        if response["agents"] is String{
             
         }
         
-        if let new_text = response["new_text"] as? String{
+        if response["new_text"] is String{
             
         }
         
-        if let replied = response["replied"] as? String{
+        if response["replied"] is String{
             
         }
         
-        if let assigned = response["assigned"] as? String{
+        if response["assigned"] is String{
             
         }
         
@@ -1205,7 +1205,7 @@ class AllString{
             HippoStrings.apply = apply
         }
         
-        if let date = response["date"] as? String{
+        if response["date"] is String{
             
         }
         
@@ -1217,31 +1217,31 @@ class AllString{
             HippoStrings.yesterday = yesterday
         }
         
-        if let last_7_days = response["last_7_days"] as? String{
+        if response["last_7_days"] is String{
             
         }
         
-        if let last_30_days = response["last_30_days"] as? String{
+        if response["last_30_days"] is String{
             
         }
         
-        if let agent_wise_data = response["agent_wise_data"] as? String{
+        if response["agent_wise_data"] is String{
             
         }
         
-        if let avg_resp_time = response["avg_resp_time"] as? String{
+        if response["avg_resp_time"] is String{
             
         }
         
-        if let avg_close_time = response["avg_close_time"] as? String{
+        if response["avg_close_time"] is String{
             
         }
         
-        if let avg_response_time = response["avg_response_time"] as? String{
+        if response["avg_response_time"] is String{
             
         }
         
-        if let channels = response["channels"] as? String{
+        if response["channels"] is String{
             
         }
         
@@ -1253,95 +1253,95 @@ class AllString{
             HippoStrings.channelInfo = channel_info
         }
         
-        if let close_small = response["close_small"] as? String{
+        if response["close_small"] is String{
             
         }
         
-        if let my_analytics = response["my_analytics"] as? String{
+        if response["my_analytics"] is String{
             
         }
         
-        if let edit_profile = response["edit_profile"] as? String{
+        if response["edit_profile"] is String{
             
         }
         
-        if let first_visit = response["first_visit"] as? String{
+        if response["first_visit"] is String{
             
         }
         
-        if let url = response["url"] as? String{
+        if response["url"] is String{
             
         }
         
-        if let device = response["device"] as? String{
+        if response["device"] is String{
             
         }
         
-        if let no_of_visits = response["no_of_visits"] as? String{
+        if response["no_of_visits"] is String{
             
         }
         
-        if let last_visit = response["last_visit"] as? String{
+        if response["last_visit"] is String{
             
         }
         
-        if let business = response["business"] as? String{
+        if response["business"] is String{
             
         }
         
-        if let name = response["name"] as? String{
+        if response["name"] is String{
             
         }
         
-        if let name_caps = response["name_caps"] as? String{
+        if response["name_caps"] is String{
             
         }
         
-        if let phone_no_caps = response["phone_no_caps"] as? String{
+        if response["phone_no_caps"] is String{
             
         }
         
-        if let email_add_caps = response["email_add_caps"] as? String{
+        if response["email_add_caps"] is String{
             
         }
         
-        if let no_of_visitors = response["no_of_visitors"] as? String{
+        if response["no_of_visitors"] is String{
             
         }
         
-        if let social_profile = response["social_profile"] as? String{
+        if response["social_profile"] is String{
             
         }
         
-        if let past_chats = response["past_chats"] as? String{
+        if response["past_chats"] is String{
             
         }
         
-        if let view_more = response["view_more"] as? String{
+        if response["view_more"] is String{
             
         }
         
-        if let shared_images = response["shared_images"] as? String{
+        if response["shared_images"] is String{
             
         }
         
-        if let basic_info = response["basic_info"] as? String{
+        if response["basic_info"] is String{
             
         }
         
-        if let custom_data = response["custom_data"] as? String{
+        if response["custom_data"] is String{
             
         }
         
-        if let reassign_conversation = response["reassign_conversation"] as? String{
+        if response["reassign_conversation"] is String{
             
         }
         
-        if let ok = response["ok"] as? String{
+        if response["ok"] is String{
             
         }
         
-        if let user_info = response["user_info"] as? String{
+        if response["user_info"] is String{
             
         }
         
@@ -1349,51 +1349,51 @@ class AllString{
             HippoStrings.info = info
         }
         
-        if let change_password = response["change_password"] as? String{
+        if response["change_password"] is String{
             
         }
         
-        if let your_profile = response["your_profile"] as? String{
+        if response["your_profile"] is String{
             
         }
         
-        if let available = response["available"] as? String{
+        if response["available"] is String{
             
         }
         
-        if let offline = response["offline"] as? String{
+        if response["offline"] is String{
             
         }
         
-        if let away = response["away"] as? String{
+        if response["away"] is String{
             
         }
         
-        if let away_message = response["away_message"] as? String{
+        if response["away_message"] is String{
             
         }
         
-        if let updating_conversation = response["updating_conversation"] as? String{
+        if response["updating_conversation"] is String{
             
         }
         
-        if let available_message = response["available_message"] as? String{
+        if response["available_message"] is String{
             
         }
         
-        if let save = response["save"] as? String{
+        if response["save"] is String{
             
         }
         
-        if let profile_save_succ = response["profile_save_succ"] as? String{
+        if response["profile_save_succ"] is String{
             
         }
         
-        if let pass_save_succ = response["pass_save_succ"] as? String{
+        if response["pass_save_succ"] is String{
             
         }
         
-        if let same_pass_err = response["same_pass_err"] as? String{
+        if response["same_pass_err"] is String{
             
         }
         
@@ -1402,218 +1402,218 @@ class AllString{
         }
      
         
-        if let PleaseEnterAddressType = response["PleaseEnterAddressType"] as? String{
+        if response["PleaseEnterAddressType"] is String{
             
         }
         
-        if let PasswordDoesntMatch = response["PasswordDoesntMatch"] as? String{
+        if response["PasswordDoesntMatch"] is String{
             
         }
         
-        if let PleaseEnterFirstName = response["PleaseEnterFirstName"] as? String{
+        if response["PleaseEnterFirstName"] is String{
             
         }
         
-        if let PleaseEnterAddress = response["PleaseEnterAddress"] as? String{
+        if response["PleaseEnterAddress"] is String{
             
         }
         
-        if let PleaseEnterDob = response["PleaseEnterDob"] as? String{
+        if response["PleaseEnterDob"] is String{
             
         }
         
-        if let NameThreeCharLong = response["NameThreeCharLong"] as? String{
+        if response["NameThreeCharLong"] is String{
             
         }
         
-        if let NameCannotContainSpecialCharacters = response["NameCannotContainSpecialCharacters"] as? String{
+        if response["NameCannotContainSpecialCharacters"] is String{
             
         }
         
-        if let PleaseEnterLastName = response["PleaseEnterLastName"] as? String{
+        if response["PleaseEnterLastName"] is String{
             
         }
         
-        if let LastNameCannotContainSpecialChar = response["LastNameCannotContainSpecialChar"] as? String{
+        if response["LastNameCannotContainSpecialChar"] is String{
             
         }
         
-        if let PleaseEnterEmailId = response["PleaseEnterEmailId"] as? String{
+        if response["PleaseEnterEmailId"] is String{
             
         }
         
-        if let PleaseEnterValidEmail = response["PleaseEnterValidEmail"] as? String{
+        if response["PleaseEnterValidEmail"] is String{
             
         }
         
-        if let PleaseEnterPassword = response["PleaseEnterPassword"] as? String{
+        if response["PleaseEnterPassword"] is String{
             
         }
         
-        if let PasswordContainAtleastSixChar = response["PasswordContainAtleastSixChar"] as? String{
+        if response["PasswordContainAtleastSixChar"] is String{
             
         }
         
-        if let PleaseEnterPhoneNo = response["PleaseEnterPhoneNo"] as? String{
+        if response["PleaseEnterPhoneNo"] is String{
             
         }
         
-        if let PhoneNoCannotStartFromZero = response["PhoneNoCannotStartFromZero"] as? String{
+        if response["PhoneNoCannotStartFromZero"] is String{
             
         }
         
-        if let PhoneLengthAtmostfifteen = response["PhoneLengthAtmostfifteen"] as? String{
+        if response["PhoneLengthAtmostfifteen"] is String{
             
         }
         
-        if let PhoneLengthAtleastSix = response["PhoneLengthAtleastSix"] as? String{
+        if response["PhoneLengthAtleastSix"] is String{
             
         }
         
-        if let PleaseEnterValidPhoneNo = response["PleaseEnterValidPhoneNo"] as? String{
+        if response["PleaseEnterValidPhoneNo"] is String{
             
         }
         
-        if let PleaseEnterFourDigitOtp = response["PleaseEnterFourDigitOtp"] as? String{
+        if response["PleaseEnterFourDigitOtp"] is String{
             
         }
         
-        if let PleaseEnterCountryCode = response["PleaseEnterCountryCode"] as? String{
+        if response["PleaseEnterCountryCode"] is String{
             
         }
         
-        if let PleaseEnterValidCountryCode = response["PleaseEnterValidCountryCode"] as? String{
+        if response["PleaseEnterValidCountryCode"] is String{
             
         }
         
-        if let PleaseSelectYourRole = response["PleaseSelectYourRole"] as? String{
+        if response["PleaseSelectYourRole"] is String{
             
         }
         
-        if let EmailNotVerified = response["EmailNotVerified"] as? String{
+        if response["EmailNotVerified"] is String{
             
         }
-        if let PhoneNotVerified = response["PhoneNotVerified"] as? String{
-            
-        }
-        
-        if let RefNotVerify = response["RefNotVerify"] as? String{
+        if response["PhoneNotVerified"] is String{
             
         }
         
-        if let PleaseFenceMsg = response["PleaseFenceMsg"] as? String{
+        if response["RefNotVerify"] is String{
             
         }
         
-        if let PleaseEnterOtp = response["PleaseEnterOtp"] as? String{
+        if response["PleaseFenceMsg"] is String{
             
         }
         
-        if let Search = response["Search"] as? String{
+        if response["PleaseEnterOtp"] is String{
             
         }
         
-        if let people = response["people"] as? String{
+        if response["Search"] is String{
             
         }
         
-        if let custom_attributes = response["custom_attributes"] as? String{
+        if response["people"] is String{
             
         }
         
-        if let visitor_info = response["visitor_info"] as? String{
+        if response["custom_attributes"] is String{
             
         }
         
-        if let utm_source = response["utm_source"] as? String{
+        if response["visitor_info"] is String{
             
         }
         
-        if let utm_medium = response["utm_medium"] as? String{
+        if response["utm_source"] is String{
             
         }
         
-        if let utm_product = response["utm_product"] as? String{
+        if response["utm_medium"] is String{
             
         }
         
-        if let utm_continent_code = response["utm_continent_code"] as? String{
+        if response["utm_product"] is String{
             
         }
         
-        if let utm_referrer = response["utm_referrer"] as? String{
+        if response["utm_continent_code"] is String{
             
         }
         
-        if let utm_vertical_page = response["utm_vertical_page"] as? String{
+        if response["utm_referrer"] is String{
             
         }
         
-        if let utm_previous_page = response["utm_previous_page"] as? String{
+        if response["utm_vertical_page"] is String{
             
         }
         
-        if let utm_term = response["utm_term"] as? String{
+        if response["utm_previous_page"] is String{
             
         }
         
-        if let utm_web_referrer = response["utm_web_referrer"] as? String{
+        if response["utm_term"] is String{
             
         }
         
-        if let utm_old_source = response["utm_old_source"] as? String{
+        if response["utm_web_referrer"] is String{
             
         }
         
-        if let utm_old_medium = response["utm_old_medium"] as? String{
+        if response["utm_old_source"] is String{
             
         }
         
-        if let utm_gclid = response["utm_gclid"] as? String{
+        if response["utm_old_medium"] is String{
             
         }
         
-        if let old_utm_campaign = response["old_utm_campaign"] as? String{
+        if response["utm_gclid"] is String{
             
         }
         
-        if let utm_campaign = response["utm_campaign"] as? String{
+        if response["old_utm_campaign"] is String{
             
         }
         
-        if let utm_session_ip = response["utm_session_ip"] as? String{
+        if response["utm_campaign"] is String{
             
         }
         
-        if let show_more = response["show_more"] as? String{
+        if response["utm_session_ip"] is String{
             
         }
         
-        if let show_less = response["show_less"] as? String{
+        if response["show_more"] is String{
             
         }
         
-        if let day_list = response["day_list"] as? String{
+        if response["show_less"] is String{
             
         }
         
-        if let hippo_feedback_text = response["hippo_feedback_text"] as? String{
+        if response["day_list"] is String{
             
         }
         
-        if let default_feedback_msg = response["default_feedback_msg"] as? String{
+        if response["hippo_feedback_text"] is String{
             
         }
         
-        if let hippo_rating_title = response["hippo_rating_title"] as? String{
+        if response["default_feedback_msg"] is String{
             
         }
         
-        if let hippo_rating_title_text = response["hippo_rating_title_text"] as? String{
+        if response["hippo_rating_title"] is String{
             
         }
         
-        if let hippo_thanks = response["hippo_thanks"] as? String{
+        if response["hippo_rating_title_text"] is String{
+            
+        }
+        
+        if response["hippo_thanks"] is String{
             
         }
         
@@ -1621,72 +1621,72 @@ class AllString{
             HippoStrings.thanksForFeedback = hippo_rated_message
         }
         
-        if let feedback_pending = response["feedback_pending"] as? String{
+        if response["feedback_pending"] is String{
             
         }
         
-        if let feedback_popup = response["feedback_popup"] as? String{
+        if response["feedback_popup"] is String{
             
         }
         
-        if let feedback_sent = response["feedback_sent"] as? String{
+        if response["feedback_sent"] is String{
             
         }
         
-        if let terms_of_service = response["terms_of_service"] as? String{
+        if response["terms_of_service"] is String{
             
         }
         
-        if let privacy_policy = response["privacy_policy"] as? String{
+        if response["privacy_policy"] is String{
             
         }
         
-        if let tnc_title = response["tnc_title"] as? String{
+        if response["tnc_title"] is String{
             
         }
         
-        if let tnc_message = response["tnc_message"] as? String{
+        if response["tnc_message"] is String{
             
         }
         
-        if let decline = response["decline"] as? String{
+        if response["decline"] is String{
             
         }
         
-        if let accept = response["accept"] as? String{
+        if response["accept"] is String{
             
         }
         
-        if let no_bot_found = response["no_bot_found"] as? String{
+        if response["no_bot_found"] is String{
             
         }
         
-        if let next = response["next"] as? String{
+        if response["next"] is String{
             
         }
         
-        if let update_profile = response["update_profile"] as? String{
+        if response["update_profile"] is String{
             
         }
         
         
-        if let assign_the_deal_to_me = response["assign_the_deal_to_me"] as? String{
+        if response["assign_the_deal_to_me"] is String{
             
         }
         
-        if let could_not_send_message = response["could_not_send_message"] as? String{
+        if response["could_not_send_message"] is String{
             
         }
         
-        if let tap_to_retry = response["tap_to_retry"] as? String{
+        if response["tap_to_retry"] is String{
             
         }
         
-        if let no_internet_cancel = response["no_internet_cancel"] as? String{
+        if response["no_internet_cancel"] is String{
             
         }
         
-        if let load_more = response["load_more"] as? String{
+        if response["load_more"] is String{
             
         }
         
@@ -1702,15 +1702,15 @@ class AllString{
             HippoStrings.noDataFound = no_data_found
         }
         
-        if let search_here = response["search_here"] as? String{
+        if response["search_here"] is String{
             
         }
         
-        if let fetching_messages = response["fetching_messages"] as? String{
+        if response["fetching_messages"] is String{
             
         }
         
-        if let video_call = response["video_call"] as? String{
+        if response["video_call"] is String{
             
         }
         
@@ -1722,35 +1722,35 @@ class AllString{
             HippoStrings.callback = hippo_call_back
         }
         
-        if let agent_video_call = response["agent_video_call"] as? String{
+        if response["agent_video_call"] is String{
             
         }
         
-        if let fugu_audio = response["fugu_audio"] as? String{
+        if response["fugu_audio"] is String{
             
         }
         
-        if let fugu_document = response["fugu_document"] as? String{
+        if response["fugu_document"] is String{
             
         }
         
-        if let video = response["video"] as? String{
+        if response["video"] is String{
             
         }
         
-        if let no_handler = response["no_handler"] as? String{
+        if response["no_handler"] is String{
             
         }
         
-        if let hippo_large_file = response["hippo_large_file"] as? String{
+        if response["hippo_large_file"] is String{
             
         }
         
-        if let uploading = response["uploading"] as? String{
+        if response["uploading"] is String{
             
         }
         
-        if let uploading_in_progress = response["uploading_in_progress"] as? String{
+        if response["uploading_in_progress"] is String{
             
         }
         
@@ -1758,19 +1758,19 @@ class AllString{
             HippoStrings.somethingWentWrong = hippo_something_wrong
         }
         
-        if let broadcast_text = response["broadcast_text"] as? String{
+        if response["broadcast_text"] is String{
             
         }
         
-        if let broadcast = response["broadcast"] as? String{
+        if response["broadcast"] is String{
             
         }
         
-        if let broadcast_history = response["broadcast_history"] as? String{
+        if response["broadcast_history"] is String{
             
         }
         
-        if let recipients = response["recipients"] as? String{
+        if response["recipients"] is String{
             
         }
         
@@ -1778,31 +1778,31 @@ class AllString{
             HippoStrings.broadcastDetails = broadcast_detail
         }
         
-        if let no_broadcast_found = response["no_broadcast_found"] as? String{
+        if response["no_broadcast_found"] is String{
             
         }
         
-        if let peerchat = response["peerchat"] as? String{
+        if response["peerchat"] is String{
             
         }
         
-        if let members = response["members"] as? String{
+        if response["members"] is String{
             
         }
         
-        if let close_reason = response["close_reason"] as? String{
+        if response["close_reason"] is String{
             
         }
         
-        if let conversation_history = response["conversation_history"] as? String{
+        if response["conversation_history"] is String{
             
         }
         
-        if let history = response["history"] as? String{
+        if response["history"] is String{
             
         }
         
-        if let no_change_found = response["no_change_found"] as? String{
+        if response["no_change_found"] is String{
             
         }
         
@@ -1814,7 +1814,7 @@ class AllString{
             HippoStrings.camera = fugu_camera
         }
         
-        if let facing_connectivity_issues = response["facing_connectivity_issues"] as? String{
+        if response["facing_connectivity_issues"] is String{
             
         }
         
@@ -1822,15 +1822,15 @@ class AllString{
             HippoStrings.takeOver = take_over
         }
         
-        if let custom_date = response["custom_date"] as? String{
+        if response["custom_date"] is String{
             
         }
         
-        if let channel_journey = response["channel_journey"] as? String{
+        if response["channel_journey"] is String{
             
         }
         
-        if let update = response["update"] as? String{
+        if response["update"] is String{
             
         }
         
@@ -1850,7 +1850,7 @@ class AllString{
             HippoStrings.description = hippo_title_item_description
         }
         
-        if let hippo_total_count = response["hippo_total_count"] as? String{
+        if response["hippo_total_count"] is String{
             
         }
         
@@ -1858,7 +1858,7 @@ class AllString{
             HippoStrings.addOption = hippo_add_an_option
         }
         
-        if let hippo_request_payment = response["hippo_request_payment"] as? String{
+        if response["hippo_request_payment"] is String{
             
         }
         
@@ -1874,19 +1874,19 @@ class AllString{
             HippoStrings.currency = hippo_currency
         }
         
-        if let hippo_search = response["hippo_search"] as? String{
+        if response["hippo_search"] is String{
             
         }
         
-        if let hippo_no_sim_detected = response["hippo_no_sim_detected"] as? String{
+        if response["hippo_no_sim_detected"] is String{
             
         }
         
-        if let hippo_error_no_countries_found = response["hippo_error_no_countries_found"] as? String{
+        if response["hippo_error_no_countries_found"] is String{
             
         }
         
-        if let hippo_country_picker_header = response["hippo_country_picker_header"] as? String{
+        if response["hippo_country_picker_header"] is String{
             
         }
         
@@ -1894,35 +1894,35 @@ class AllString{
             HippoStrings.sendPayment = hippo_send_payment
         }
         
-        if let notes = response["notes"] as? String{
+        if response["notes"] is String{
             
         }
         
-        if let required = response["required"] as? String{
+        if response["required"] is String{
             
         }
         
-        if let add_text_here_text = response["add_text_here_text"] as? String{
+        if response["add_text_here_text"] is String{
             
         }
         
-        if let unverified_account = response["unverified_account"] as? String{
+        if response["unverified_account"] is String{
             
         }
         
-        if let pending_verification = response["pending_verification"] as? String{
+        if response["pending_verification"] is String{
             
         }
         
-        if let refresh = response["refresh"] as? String{
+        if response["refresh"] is String{
             
         }
         
-        if let hippo_additional_information = response["hippo_additional_information"] as? String{
+        if response["hippo_additional_information"] is String{
             
         }
         
-        if let hippo_verify = response["hippo_verify"] as? String{
+        if response["hippo_verify"] is String{
             
         }
         
@@ -1930,7 +1930,7 @@ class AllString{
             HippoStrings.savedPlans = saved_plan
         }
         
-        if let hippo_plan_title = response["hippo_plan_title"] as? String{
+        if response["hippo_plan_title"] is String{
             
         }
         
@@ -1938,11 +1938,11 @@ class AllString{
             HippoStrings.planName = plan_name
         }
         
-        if let no_plan_available = response["no_plan_available"] as? String{
+        if response["no_plan_available"] is String{
             
         }
         
-        if let deal_name = response["deal_name"] as? String{
+        if response["deal_name"] is String{
             
         }
         
@@ -1950,35 +1950,35 @@ class AllString{
             HippoStrings.email = email
         }
         
-        if let phone = response["phone"] as? String{
+        if response["phone"] is String{
             
         }
         
-        if let company = response["company"] as? String{
+        if response["company"] is String{
             
         }
         
-        if let pipe_line = response["pipe_line"] as? String{
+        if response["pipe_line"] is String{
             
         }
         
-        if let deal_owner = response["deal_owner"] as? String{
+        if response["deal_owner"] is String{
             
         }
         
-        if let deal_follow = response["deal_follow"] as? String{
+        if response["deal_follow"] is String{
             
         }
         
-        if let deal_location = response["deal_location"] as? String{
+        if response["deal_location"] is String{
             
         }
         
-        if let add_deal = response["add_deal"] as? String{
+        if response["add_deal"] is String{
             
         }
         
-        if let edit_deal = response["edit_deal"] as? String{
+        if response["edit_deal"] is String{
             
         }
         
@@ -1998,7 +1998,7 @@ class AllString{
             HippoStrings.support = hippo_support
         }
         
-        if let hippo_rating_review = response["hippo_rating_review"] as? String{
+        if response["hippo_rating_review"] is String{
             
         }
         
@@ -2006,27 +2006,27 @@ class AllString{
             HippoStrings.inApp = hippo_in_app
         }
         
-        if let hippo_sender_name = response["hippo_sender_name"] as? String{
+        if response["hippo_sender_name"] is String{
             
         }
         
-        if let hippo_date = response["hippo_date"] as? String{
+        if response["hippo_date"] is String{
             
         }
         
-        if let hippo_title = response["hippo_title"] as? String{
+        if response["hippo_title"] is String{
             
         }
         
-        if let hippo_message = response["hippo_message"] as? String{
+        if response["hippo_message"] is String{
             
         }
         
-        if let hippo_fallback_name = response["hippo_fallback_name"] as? String{
+        if response["hippo_fallback_name"] is String{
             
         }
         
-        if let hippo_broadcast_type = response["hippo_broadcast_type"] as? String{
+        if response["hippo_broadcast_type"] is String{
             
         }
         
@@ -2034,27 +2034,27 @@ class AllString{
             HippoStrings.channelInfo = hippo_channel_info
         }
         
-        if let hippo_no_channel_journey = response["hippo_no_channel_journey"] as? String{
+        if response["hippo_no_channel_journey"] is String{
             
         }
         
-        if let hippo_no_member_found = response["hippo_no_member_found"] as? String{
+        if response["hippo_no_member_found"] is String{
             
         }
         
-        if let hippo_please_select_valid_date = response["hippo_please_select_valid_date"] as? String{
+        if response["hippo_please_select_valid_date"] is String{
             
         }
         
-        if let hippo_no_user_found = response["hippo_no_user_found"] as? String{
+        if response["hippo_no_user_found"] is String{
             
         }
         
-        if let hippo_from = response["hippo_from"] as? String{
+        if response["hippo_from"] is String{
             
         }
         
-        if let hippo_to = response["hippo_to"] as? String{
+        if response["hippo_to"] is String{
             
         }
         
@@ -2062,7 +2062,7 @@ class AllString{
             HippoStrings.updatePlan = hippo_update_plan
         }
         
-        if let hippo_add_plan = response["hippo_add_plan"] as? String{
+        if response["hippo_add_plan"] is String{
             
         }
         
@@ -2070,7 +2070,7 @@ class AllString{
             HippoStrings.paymentRequest = hippo_payment_request
         }
         
-        if let hippo_fill_pre_field = response["hippo_fill_pre_field"] as? String{
+        if response["hippo_fill_pre_field"] is String{
             
         }
         
@@ -2078,7 +2078,7 @@ class AllString{
              HippoStrings.requiredField = hippo_field_cant_empty
         }
         
-        if let hippo_invalid_price = response["hippo_invalid_price"] as? String{
+        if response["hippo_invalid_price"] is String{
             
         }
         
@@ -2086,15 +2086,15 @@ class AllString{
             HippoStrings.payment = hippo_payment
         }
         
-        if let hippo_verify_details = response["hippo_verify_details"] as? String{
+        if response["hippo_verify_details"] is String{
             
         }
         
-        if let hippo_save_card = response["hippo_save_card"] as? String{
+        if response["hippo_save_card"] is String{
             
         }
         
-        if let hippo_delete_this_plan = response["hippo_delete_this_plan"] as? String{
+        if response["hippo_delete_this_plan"] is String{
             
         }
         
@@ -2106,7 +2106,7 @@ class AllString{
             HippoStrings.no = hippo_no
         }
         
-        if let hippo_business = response["hippo_business"] as? String{
+        if response["hippo_business"] is String{
             
         }
         
@@ -2130,27 +2130,27 @@ class AllString{
             HippoStrings.updatedAt = hippo_updated_at
         }
         
-        if let file_not_supported = response["file_not_supported"] as? String{
+        if response["file_not_supported"] is String{
             
         }
         
-        if let hippo_revoked = response["hippo_revoked"] as? String{
+        if response["hippo_revoked"] is String{
             
         }
         
-        if let hippo_active = response["hippo_active"] as? String{
+        if response["hippo_active"] is String{
             
         }
         
-        if let hippo_inactive = response["hippo_inactive"] as? String{
+        if response["hippo_inactive"] is String{
             
         }
         
-        if let hippo_invited = response["hippo_invited"] as? String{
+        if response["hippo_invited"] is String{
             
         }
         
-        if let hippo_read_at = response["hippo_read_at"] as? String{
+        if response["hippo_read_at"] is String{
             
         }
         
@@ -2162,7 +2162,7 @@ class AllString{
             HippoStrings.paymentPaid = hippo_paid
         }
         
-        if let hippo_new_chat = response["hippo_new_chat"] as? String{
+        if response["hippo_new_chat"] is String{
             
         }
         
@@ -2170,27 +2170,27 @@ class AllString{
             HippoStrings.me = hippo_me
         }
         
-        if let hippo_na = response["hippo_na"] as? String{
+        if response["hippo_na"] is String{
             
         }
         
-        if let hippo_no_saved_data_found = response["hippo_no_saved_data_found"] as? String{
+        if response["hippo_no_saved_data_found"] is String{
             
         }
         
-        if let hippo_files = response["hippo_files"] as? String{
+        if response["hippo_files"] is String{
             
         }
         
-        if let hippo_photos = response["hippo_photos"] as? String{
+        if response["hippo_photos"] is String{
             
         }
         
-        if let hippo_site_visit = response["hippo_site_visit"] as? String{
+        if response["hippo_site_visit"] is String{
             
         }
         
-        if let hippo_please_select_field = response["hippo_please_select_field"] as? String{
+        if response["hippo_please_select_field"] is String{
             
         }
         
@@ -2198,23 +2198,23 @@ class AllString{
             HippoStrings.sendTitle = hippo_send
         }
         
-        if let hippo_copy_text = response["hippo_copy_text"] as? String{
+        if response["hippo_copy_text"] is String{
             
         }
         
-        if let p2p_chats = response["p2p_chats"] as? String{
+        if response["p2p_chats"] is String{
             
         }
         
-        if let hippo_server_disconnected = response["hippo_server_disconnected"] as? String{
+        if response["hippo_server_disconnected"] is String{
             
         }
         
-        if let hippo_server_connecting = response["hippo_server_connecting"] as? String{
+        if response["hippo_server_connecting"] is String{
             
         }
         
-        if let hippo_you_sent_a_payment = response["hippo_you_sent_a_payment"] as? String{
+        if response["hippo_you_sent_a_payment"] is String{
             
         }
         
@@ -2222,11 +2222,11 @@ class AllString{
             HippoStrings.sentAPhoto = hippo_sent_a_photo
         }
         
-        if let you_receive_a_payment = response["you_receive_a_payment"] as? String{
+        if response["you_receive_a_payment"] is String{
             
         }
         
-        if let hippo_you_received_a_photo = response["hippo_you_received_a_photo"] as? String{
+        if response["hippo_you_received_a_photo"] is String{
             
         }
         
@@ -2246,7 +2246,7 @@ class AllString{
             HippoStrings.callEnded = hippo_call_ended
         }
         
-        if let hippo_call_with = response["hippo_call_with"] as? String{
+        if response["hippo_call_with"] is String{
             
         }
         
@@ -2266,19 +2266,19 @@ class AllString{
             HippoStrings.noNetworkConnection = hippo_no_internet_connected
         }
         
-        if let hippo_close_conversation = response["hippo_close_conversation"] as? String{
+        if response["hippo_close_conversation"] is String{
             
         }
         
-        if let hippo_closing_notes = response["hippo_closing_notes"] as? String{
+        if response["hippo_closing_notes"] is String{
             
         }
         
-        if let hippo_conversation_closed = response["hippo_conversation_closed"] as? String{
+        if response["hippo_conversation_closed"] is String{
             
         }
         
-        if let hippo_assigned_to = response["hippo_assigned_to"] as? String{
+        if response["hippo_assigned_to"] is String{
             
         }
         

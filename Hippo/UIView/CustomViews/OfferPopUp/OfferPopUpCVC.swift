@@ -19,16 +19,13 @@ class OfferPopUpCVC: UICollectionViewCell {
     
     func setUpCell(with data: Datum){
 
-        if let thumbnailUrl = data.customAttributes?.image?.thumbnailURL, thumbnailUrl.isEmpty == false, let url = URL(string: thumbnailUrl) {
+        if let thumbnailUrl = data.customAttributes?.image?.thumbnailURL, thumbnailUrl.isEmpty == false {
             let placeHolderImage = HippoConfig.shared.theme.placeHolderImage
-            
-            imgView.kf.setImage(with: url, placeholder: placeHolderImage, completionHandler: { [weak self]  (_, error, _, _) in
-            })
+            imgView.displayImage(imageString: thumbnailUrl, placeHolderImage: placeHolderImage)
         }else{
             imgView.isHidden = true
         }
         
-        imgView.clipsToBounds = true
         imgView.layer.cornerRadius = 8
         imgView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
         

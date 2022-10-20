@@ -121,7 +121,7 @@ class ActionTableDataSource: NSObject, UITableViewDataSource {
             switch message.concreteFileType! {
             case .video:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingVideoTableViewCell", for: indexPath) as! OutgoingVideoTableViewCell
-               cell.messageLongPressed = {[weak self](message) in
+               cell.messageLongPressed = { (message) in
                    
                }
                 cell.setCellWith(message: message)
@@ -130,7 +130,7 @@ class ActionTableDataSource: NSObject, UITableViewDataSource {
                 return cell
             default:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingDocumentTableViewCell") as! OutgoingDocumentTableViewCell
-               cell.messageLongPressed = {[weak self](message) in
+               cell.messageLongPressed = { (message) in
                    
                }
                 cell.setCellWith(message: message)

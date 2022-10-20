@@ -99,7 +99,7 @@ class HippoBroadcaster {
     }
     
     func unselectAllAgentsForSelectedTeam() {
-        guard let id = selectedTeam?.tagId, var rawAgents = agents[id] else {
+        guard let id = selectedTeam?.tagId, let rawAgents = agents[id] else {
             return
         }
         for (index, _) in rawAgents.enumerated() {
@@ -108,7 +108,7 @@ class HippoBroadcaster {
         agents[id] = rawAgents
     }
     func selectAllAgentsForSelectedTeam() {
-        guard let id = selectedTeam?.tagId, var rawAgents = agents[id] else {
+        guard let id = selectedTeam?.tagId, let rawAgents = agents[id] else {
             return
         }
         for (index, _) in rawAgents.enumerated() {

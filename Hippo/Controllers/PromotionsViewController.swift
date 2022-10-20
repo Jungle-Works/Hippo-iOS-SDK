@@ -488,7 +488,7 @@ extension PromotionsViewController: UITableViewDelegate,UITableViewDataSource
         //let values = data[row]
         let indexpath = IndexPath(row: row, section: 0)
         
-        guard let cell = self.promotionsTableView.cellForRow(at: indexpath) as? PromotionTableViewCell else { return }
+        guard let _ = self.promotionsTableView.cellForRow(at: indexpath) as? PromotionTableViewCell else { return }
         if states[row] == true{
             states[row] = false
             UIView.setAnimationsEnabled(false)
@@ -521,12 +521,10 @@ extension PromotionsViewController: UITableViewDelegate,UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let promotionData = data[indexPath.row] as? PromotionCellDataModel{
-            if let deepLink = promotionData.deepLink as? String{
-                if deepLink == "3x67AU1"{
-                    HippoConfig.shared.getDeepLinkData(promotionData.customAttributeData ?? [String : Any]())
-                }
-            }
+        let promotionData = data[indexPath.row]
+        let deepLink = promotionData.deepLink
+        if deepLink == "3x67AU1"{
+            HippoConfig.shared.getDeepLinkData(promotionData.customAttributeData ?? [String : Any]())
         }
     }
     

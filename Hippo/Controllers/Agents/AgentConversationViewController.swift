@@ -522,11 +522,11 @@ class AgentConversationViewController: HippoConversationViewController {
     
     override func adjustChatWhenKeyboardIsOpened(withHeight keyboardHeight: CGFloat) {
         // TODO: - Refactor
-        guard tableViewChat.contentSize.height + keyboardHeight > UIScreen.main.bounds.height - heightOfNavigation else {
+        guard tableViewChat.contentSize.height + keyboardHeight > FUGU_SCREEN_HEIGHT - heightOfNavigation else {
             return
         }
         
-        let diff = ((tableViewChat.contentSize.height + keyboardHeight) - (UIScreen.main.bounds.height - heightOfNavigation))
+        let diff = ((tableViewChat.contentSize.height + keyboardHeight) - (FUGU_SCREEN_HEIGHT - heightOfNavigation))
         
         let keyboardHeightNew = keyboardHeight - textViewBgView.frame.height - UIView.safeAreaInsetOfKeyWindow.bottom
         
@@ -1019,7 +1019,7 @@ extension AgentConversationViewController {
             messageTextView.inputAccessoryView = inputView
             
             inputView.changeKeyboardFrame { [weak self] (keyboardVisible, keyboardFrame) in
-                let value = UIScreen.main.bounds.height - keyboardFrame.minY - UIView.safeAreaInsetOfKeyWindow.bottom
+                let value = FUGU_SCREEN_HEIGHT - keyboardFrame.minY - UIView.safeAreaInsetOfKeyWindow.bottom
                 let maxValue = max(0, value)
                 //                self?.textViewBottomConstraint.constant = maxValue
                 self?.bottomContentViewBottomConstraint?.constant = maxValue
@@ -1970,7 +1970,7 @@ extension AgentConversationViewController: UITableViewDelegate, UITableViewDataS
         case let typingSection where typingSection == self.messagesGroupedByDate.count && !isTypingLabelHidden:
             return 34
         case let chatSection where chatSection < self.messagesGroupedByDate.count:
-            var messagesArray = self.messagesGroupedByDate[chatSection]
+            let messagesArray = self.messagesGroupedByDate[chatSection]
             if messagesArray.count > indexPath.row {
                 let message = messagesArray[indexPath.row]
                 
@@ -1992,7 +1992,6 @@ extension AgentConversationViewController: UITableViewDelegate, UITableViewDataS
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section < self.messagesGroupedByDate.count {
-            
             if section == 0 && channel == nil {
                 return 0
             }
@@ -2371,16 +2370,19 @@ extension AgentConversationViewController: UIImagePickerControllerDelegate, UINa
         disableTakeOverButton()
         
         switch (isReplyDisabled, isBotInProgress) {
-        case (false, _):
-            //messageSendingView?.disableActionButton()
-            print(isReplyDisabled, isBotInProgress)
-        case (true, false):
-            //messageSendingView?.hideMessageBox(withBottomBar: false, setUI: true)
-            print(isReplyDisabled, isBotInProgress)
+//        case (false, _):
+//            //messageSendingView?.disableActionButton()
+//            print(isReplyDisabled, isBotInProgress)
+//        case (true, false):
+//            //messageSendingView?.hideMessageBox(withBottomBar: false, setUI: true)
+//            print(isReplyDisabled, isBotInProgress)
         case (true, true):
             //messageSendingView?.enableActionButton()
 //            print(isReplyDisabled, isBotInProgress)
             enableTakeOverButton()
+            
+        default:
+            return
         }
         
     }
@@ -2483,17 +2485,9 @@ extension AgentConversationViewController: BotTableDelegate {
             self.attachmentViewHeightConstraint.constant = 0
             self.sendCustomBotApi(botId: customObj.bot_group_id) { isBotAlreadyInProgress in
                 if isBotAlreadyInProgress{
-                    
-                    let alert = UIAlertController(title: "Alert", message: "Already a bot in progress at this channel. Want to override?", preferredStyle: UIAlertController.Style.alert)
-                    
-                    // add the actions (buttons)
-                    alert.addAction(UIAlertAction(title: "Yes", style: UIAlertAction.Style.default, handler: { _ in
+                    self.showAlert(title: "Alert", message: "Already a bot in progress at this channel. Want to override?", buttonTitle: "Yes", completion: { _ in
                         self.sendCustomBotApi(botId: customObj.bot_group_id, overrideCrntBot: true, completion: nil)
-                    }))
-                    alert.addAction(UIAlertAction(title: "No", style: UIAlertAction.Style.cancel, handler: nil))
-                    
-                    // show the alert
-                    self.present(alert, animated: true, completion: nil)
+                    }, button2: "No") { _ in }
                 }
             }
         }

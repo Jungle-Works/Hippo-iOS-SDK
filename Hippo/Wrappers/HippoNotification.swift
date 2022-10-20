@@ -17,7 +17,6 @@ class HippoNotification {
     
     static func clearAllNotificationCenter() {
         DispatchQueue.main.async {
-            UIApplication.shared.cancelAllLocalNotifications()
             UIApplication.shared.applicationIconBadgeNumber = 1
             UIApplication.shared.applicationIconBadgeNumber = 0
         }
