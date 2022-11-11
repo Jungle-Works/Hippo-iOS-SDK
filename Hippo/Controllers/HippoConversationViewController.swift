@@ -373,7 +373,7 @@ class HippoConversationViewController: UIViewController {
     
     func recreateRequestIfRequired() {
         
-        fetchMessagesFrom1stPage
+        fetchMessagesFrom1stPage()
         
 //        guard let storeRequest = storeRequest else {
 //            fetchMessagesFrom1stPage()
