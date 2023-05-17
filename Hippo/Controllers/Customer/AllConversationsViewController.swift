@@ -699,7 +699,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
             //self.navigationItem.rightBarButtonItem?.tintColor = HippoConfig.shared.theme.logoutButtonTintColor ?? HippoConfig.shared.theme.headerTextColor
         }
         
-        DispatchQueue.main.async {
+        fuguDelay(0.0) {
             self.showConversationsTableView.reloadData()
         }
         
@@ -809,7 +809,6 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     
     
     // MARK: - Navigation
-    
     func moveToChatViewController(chatObj: FuguConversation) {
         HippoConfig.shared.notifyDidLoad()
         let conversationVC = ConversationsViewController.getWith(conversationObj: chatObj, allConversationConfig: config)

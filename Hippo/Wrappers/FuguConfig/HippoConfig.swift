@@ -42,11 +42,12 @@ struct SERVERS {
     static let liveUrl = "https://api.hippochat.io/"
     static let liveFaye = "https://event.hippochat.io"//"https://socketv2.hippochat.io/faye"//
     
-    static let betaUrl = "https://beta-live-api1.fuguchat.com:3001/"
-    static let betaFaye = "https://beta-live-api1.fuguchat.com:3003/"
-    
-    static let devUrl = ["https://hippo-api-dev1.fuguchat.com:3002/", "https://hippo-api-dev1.fuguchat.com:3003/", "https://hippo-api-dev1.fuguchat.com:3004/"]
-    static let devFaye = ["https://hippo-api-dev1.fuguchat.com:3002/", "https://hippo-api-dev1.fuguchat.com:3003/", "https://hippo-api-dev1.fuguchat.com:3004/"]
+    static let betaUrl = "https://hippog-server.fuguchat.com:3003/"
+    static let betaFaye = "https://hippog-server.fuguchat.com:3003/"
+    //3002 - for otpless
+    //3003 = for create ticket // https://api-graviton-multiple.fuguchat.com:3003/
+    static let devUrl = ["https://api-graviton-multiple.fuguchat.com:3002/", "https://hippo-api-dev1.fuguchat.com:3003/", "https://hippo-api-dev1.fuguchat.com:3004/"]
+    static let devFaye = ["https://api-graviton-multiple.fuguchat.com:3002/", "https://hippo-api-dev1.fuguchat.com:3003/", "https://hippo-api-dev1.fuguchat.com:3004/"]
 }
 
 struct BotAction {
@@ -56,7 +57,6 @@ struct BotAction {
     var messageType = MessageType.none
     var contentValues = [[String: Any]]()
     var rawDict = [String: Any]()
-    
     var values = [Any]()
     
     init(dict: [String: Any]) {
@@ -138,6 +138,7 @@ struct WhatsappWidgetConfig{
     internal var deviceToken = ""
     internal var voipToken = ""
     internal var ticketDetails = HippoTicketAtrributes(categoryName: "")
+    
     internal var theme = HippoTheme.defaultTheme()
     internal var userDetail: HippoUserDetail?
     internal var jitsiUrl : String?
@@ -241,7 +242,7 @@ struct WhatsappWidgetConfig{
     var isPopUpCalledBeforeCaching = false
     var popupCallbacksCache: [([String: Any]) -> Void]?
     var screenToShowPopUpOn: UIViewController?
-    
+    public var userTags = [String]()
     // MARK: - Intialization
     private override init() {
         super.init()
@@ -514,6 +515,16 @@ struct WhatsappWidgetConfig{
         AgentDetail.setAgentStoredData()
         checker.presentChatsViewController()
     }
+    
+    public func presentTicketViewController() {
+        checker.presentTicketController()
+    }
+    
+    public func presentOtpViewController() {
+        checker.presentOtpController()
+    }
+    
+    
     
     public func getAgentChatVC() -> UIViewController?{
         guard HippoConfig.shared.appUserType == .agent else {
@@ -965,7 +976,7 @@ struct WhatsappWidgetConfig{
         })
     }
     
-    //MARK:- Set Language
+    //MARK: - Set Language
     public func setLanguage(_ code : String){
         if BussinessProperty.current.buisnessLanguageArr?.contains(where: {$0.lang_code == code}) ?? false{
             UserDefaults.standard.set(code, forKey: DefaultName.selectedLanguage.rawValue)

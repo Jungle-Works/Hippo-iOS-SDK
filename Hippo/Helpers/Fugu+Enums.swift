@@ -415,7 +415,7 @@ enum AgentEndPoints: String {
     case getUnreadCount = "api/conversation/get_customer_unread_count"
 //    case getUnreadCount = "api/conversation/getUnreadCount"
     case createConversation = "api/conversation/createConversation"
-    
+    case createTicket = "api/ticketing/activities"
     //Broadcasting
     case getGroupingTag = "api/broadcast/getGroupingTag"
     case sendBroadcastMessage = "api/broadcast/sendBroadcastMessage"
@@ -447,7 +447,7 @@ enum AgentEndPoints: String {
     case getChannelIds = "api/channel/getChannels"
     case search = "api/v2/conversation/search"
     case customAttributes = "api/business/getCustomAttributes"
-    
+    case generateQrCode = "api/business/generateQrCode"
     // MARK:-Tags Endpoints
     case getAllTags = "api/tags/getTags"
     case createTags = "api/tags/createTags"

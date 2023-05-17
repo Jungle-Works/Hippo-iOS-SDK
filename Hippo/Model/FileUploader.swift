@@ -73,7 +73,7 @@ struct FileUploader {
                     }
                     return
                 }
-                if request.mimeType.contains("video") || request.mimeType.contains("mp4"){
+                if request.mimeType.contains("video") || request.mimeType.contains("mp4") || request.mimeType.contains("mov"){
                     fileData.thumbnailImage = generateThumbnail(path: pathURL)
                 }
                 

@@ -345,6 +345,7 @@ public struct ConversationListTheme {
     open var directChatHeader = "Conversation List"
     open var broadcastHeader = "Broadcast Message"
     open var broadcastHistoryHeader = "Broadcast Message history"
+    open var createTicketText = "Create Ticket"
     open var promotionsAnnouncementsHeaderText = "Announcements"
     open var takeOverButtonText : String?
     open var myChatBtnText : String?

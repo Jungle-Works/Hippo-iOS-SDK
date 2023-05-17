@@ -13,6 +13,7 @@ import HippoCallClient
 
 public class HippoStrings {
     //cp sdk
+    static var continue_to_whatsapp = "Continue with WhatsApp".localized
     static var ongoing = "Current".localized
     static var past = "Past".localized
     open var newConversation = "New Conversation".localized

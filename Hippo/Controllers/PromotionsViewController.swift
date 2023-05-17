@@ -355,9 +355,9 @@ class PromotionsViewController: UIViewController {
             self.channelIdsArr.insert(data[indexPath.row].channelID, at: 0)
             if currentUserType() == .customer{
                 params = ["app_secret_key":HippoConfig.shared.appSecretKey,
-                    "en_user_id":HippoUserDetail.fuguEnUserID ?? "",
-                    "channel_ids":self.channelIdsArr,
-                    "delete_all_announcements":isDeleteAllStatus] as [String : Any]
+                          "en_user_id":HippoUserDetail.fuguEnUserID ?? "",
+                          "channel_ids":self.channelIdsArr,
+                          "delete_all_announcements":isDeleteAllStatus] as [String : Any]
             }else{
                 params = ["access_token": HippoConfig.shared.agentDetail?.fuguToken ?? "",
                           "user_id": "\(currentUserId())",
@@ -504,6 +504,7 @@ extension PromotionsViewController: UITableViewDelegate,UITableViewDataSource
             states[row] = true
             UIView.setAnimationsEnabled(false)
             self.promotionsTableView.beginUpdates()
+            
             self.promotionsTableView.reloadRows(at: [indexpath], with: .none)
 
             self.promotionsTableView.layoutIfNeeded()

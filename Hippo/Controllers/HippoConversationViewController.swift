@@ -1327,6 +1327,7 @@ extension HippoConversationViewController {
                 message.imageUrl = result.imageUrl
                 message.thumbnailUrl = result.imageThumbnailUrl
                 message.fileUrl = result.fileUrl
+                print("checkkkk\(result.fileUrl)")
             }
             completion(true)
         })

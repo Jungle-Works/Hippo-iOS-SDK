@@ -74,6 +74,30 @@ class FuguFlowManager: NSObject {
         visibleController?.present(navigationController, animated: animation, completion: nil)
     }
     
+    func presentTicketPushController(animation: Bool = true) {
+
+        guard let navigationController = storyboard.instantiateViewController(withIdentifier: "FuguTicketsNavigationController") as? UINavigationController else {
+            return
+        }
+        let visibleController = getLastVisibleController()
+        navigationController.modalPresentationStyle = .fullScreen
+        visibleController?.present(navigationController, animated: animation, completion: nil)
+    }
+    
+    func presentOtpPushController(animation: Bool = true) {
+//        guard let navigationController = storyboard.instantiateViewController(withIdentifier: "WhatsAppViewController") as? WhatsAppViewController else {
+//            return
+//        }
+//        let visibleController = getLastVisibleController()
+//        guard ((visibleController as? WhatsAppViewController) == nil) else {
+//            return
+//        }
+//        navigationController.modalPresentationStyle = .fullScreen
+//        visibleController?.present(navigationController, animated: animation, completion: nil)
+    }
+    
+    
+    
     func presentNLevelViewController(animation: Bool = true) {
         self.openFAQScreen(animation: animation)
     }
@@ -279,7 +303,7 @@ class FuguFlowManager: NSObject {
             return false
         }
         
-        if let muid = userInfo["muid"] as? String {
+        if let muid = userInfo["muid"] as? String, muid.isEmpty == false {
             if HippoConfig.shared.muidList.contains(muid) {
                 return false
             }

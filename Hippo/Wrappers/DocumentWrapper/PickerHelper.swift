@@ -58,7 +58,7 @@ class PickerHelper {
         imagePicker?.openCameraFor(fileName: "name", fileTypes: [.image, .video], inViewController: self.currentViewController)
     }
     
-    func present(sender: UIView, controller: UIViewController) {
+    func present(sender: UIView, controller: UIViewController, isCreateTicket:Bool = false) {
         
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertController.Style.actionSheet)
         let paymentOption = UIAlertAction(title: HippoStrings.requestPayment, style: .default, handler: { (alert: UIAlertAction!) -> Void in
@@ -105,7 +105,7 @@ class PickerHelper {
         }
         actionSheet.addAction(photoLibraryAction)
         actionSheet.addAction(cameraAction)
-        if BussinessProperty.current.isCallInviteEnabled ?? false {
+        if BussinessProperty.current.isCallInviteEnabled ?? false && isCreateTicket == false {
             if !isBotInProgress{
                 actionSheet.addAction(shareVideoUrlOption)
                 actionSheet.addAction(shareAudioUrlOption)

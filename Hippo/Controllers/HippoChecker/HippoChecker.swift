@@ -43,6 +43,15 @@ class HippoChecker {
         FuguFlowManager.shared.presentPromotionalpushController()
     }
     
+    func presentTicketController(){
+        FuguFlowManager.shared.presentTicketPushController()
+    }
+    
+    func presentOtpController(){
+        FuguFlowManager.shared.presentOtpPushController()
+    }
+    
+    
     
     func shouldCollectDataFromUser() -> Bool {
         let form = HippoProperty.current.forms
