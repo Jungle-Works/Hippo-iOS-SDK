@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// This class inherits all the properties of the button
 public final class WhatsappLoginButton: UIButton, onVerifyWaidDelegate {
     
     
@@ -32,9 +33,6 @@ public final class WhatsappLoginButton: UIButton, onVerifyWaidDelegate {
     
     func setImageAndTitle() {
         
-        if !Otpless.sharedInstance.isWhatsappInstalled() {
-            self.isHidden = true
-        }
         
         Otpless.sharedInstance.delegateOnVerify = self
         if let image = UIImage(named: "otplesswhatsapp.png", in: Bundle(for: type(of: self)), compatibleWith: nil) {
@@ -74,52 +72,16 @@ public final class WhatsappLoginButton: UIButton, onVerifyWaidDelegate {
     
     
     @objc private func buttonClicked(){
-//        removeWaidAndContinueToWhatsapp()
-        //        self.loader.show()
-        let waIdExists = OtplessHelper.checkValueExists(forKey: OtplessHelper.waidDefaultKey)
-        if (waIdExists){
-            //            let waId = OtplessHelper.getValue(forKey:OtplessHelper.waidDefaultKey) as String?
-            //            let headers = ["Content-Type": "application/json","Accept":"application/json"]
-            //            let bodyParams = ["userId": waId, "api": "getUserDetail"]
-            //            OtplessNetworkHelper.shared.fetchData(method: "POST", headers: headers, bodyParams:bodyParams as [String : Any]) { [self] (data, response, error) in
-            //              guard let data = data else {
-            //                // handle error
-            //                  removeWaidAndContinueToWhatsapp()
-            //                return
-            //              }
-            //                do {
-            //                    let json = try JSONSerialization.jsonObject(with: data, options: [])
-            //                    // process the JSON data
-            //                    let jsonDictionary = json as? [String: Any]
-            //                    if let success = jsonDictionary?["success"] as? Bool {
-            //                        if success{
-            //                            if let jsonData = jsonDictionary?["data"] as? [String: Any]{
-            //                                if let mobile = jsonData["userMobile"] as? String {
-            //                                    DispatchQueue.main.async { [self] in
-            //                                        buttonText = mobile
-            //                                        manageLabelAndImage()
-            //                                        if((self.delegate) != nil){
-            //                                            delegate?.onCallbackResponse(waId: waId!, message: "success", error: nil)
-            //                                            self.loader.hide()
-            //                                        }
-            //                                    }
-            //                                } else {removeWaidAndContinueToWhatsapp()}
-            //                            } else {removeWaidAndContinueToWhatsapp()}
-            //                        } else {
-            //                            removeWaidAndContinueToWhatsapp()
-            //                        }
-            //                    } else {
-            //                        removeWaidAndContinueToWhatsapp()
-            //                    }
-            //
-            //                  } catch {
-            //                      removeWaidAndContinueToWhatsapp()
-            //                  }
-            //            }
+
+        if !Otpless.sharedInstance.isWhatsappInstalled() {
+            self.delegate?.isWhatsAppInstalled()
+        }else{
             
-            
-        } else {
-            self.generateQrCode()
+            let waIdExists = OtplessHelper.checkValueExists(forKey: OtplessHelper.waidDefaultKey)
+            if (waIdExists){
+            } else {
+                self.generateQrCode()
+            }
         }
     }
     
@@ -246,5 +208,6 @@ public final class WhatsappLoginButton: UIButton, onVerifyWaidDelegate {
 // Implement this protocol to recieve waid in your view controller class when using WhatsappLoginButton
 public protocol onCallbackResponseDelegate: AnyObject {
     func onCallbackResponse(waId : String?, message: String?,name:String?,phone: String?, error : String?)
+    func isWhatsAppInstalled()
 }
 
