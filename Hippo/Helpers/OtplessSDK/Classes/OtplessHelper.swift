@@ -85,12 +85,12 @@ class OtplessHelper {
             URLQueryItem(name: "appVersionCode", value: appVersionCode),
             URLQueryItem(name: "sdkVersion", value: sdkVersion)
         ]
-        queryItems.append(contentsOf: newQueryItems)
+//        queryItems.append(contentsOf: newQueryItems)
         components.queryItems = queryItems
-        let finalURL = components.url!
+//        let finalURL = components.url!
         print(queryItems)
-        print("finalURL   \(finalURL.absoluteString)")
-        return finalURL.absoluteString
+        let finalURL =  "\(baseURL)&deviceId=\(deviceId ?? "")&package=\(package ?? "")&platform=\(platform)&osVersion=\(osVersion)&manufacturer=\(manufacturer)&appVersionName=\(appVersionName ?? "")&appVersionCode=\(appVersionCode ?? "")&sdkVersion=\(sdkVersion)"
+        return finalURL
     }
     
     
@@ -114,7 +114,7 @@ class OtplessHelper {
                         let scheme = urlSchemes[0]
 //                        let urlScheme = String(scheme).replacingOccurrences(of: "otpless", with: "")
                         let domainUrl = String(link)
-                        let completeUrl = domainUrl + "&redirectUri=" + scheme + "://" + identifier
+                        let completeUrl = domainUrl + "&redirectUri=" + scheme + "%3A%2F%2F" + identifier
                         return completeUrl
                       }
                 }
