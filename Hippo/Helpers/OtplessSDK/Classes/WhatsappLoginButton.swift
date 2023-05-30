@@ -176,7 +176,7 @@ public final class WhatsappLoginButton: UIButton, onVerifyWaidDelegate {
     
     func generateQrCode(){
         var params = [String : Any]()
-        params = ["app_secret_key":HippoConfig.shared.appSecretKey,
+        params = ["app_secret_key":HippoConfig.shared.whatsappSecretKey,
                   "get_session": true] as [String : Any]
         print(params)
         HTTPClient.makeConcurrentConnectionWith(method: .POST, showActivityIndicator: true, para: params, extendedUrl: AgentEndPoints.generateQrCode.rawValue) { (response, error, _, statusCode) in
