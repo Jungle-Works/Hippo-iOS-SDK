@@ -19,7 +19,7 @@ public class Otpless {
     }()
     var loader : OtplessLoader? = nil
     private init(){}
-        
+    
     
     public func isWhatsappInstalled() -> Bool{
         if UIApplication.shared.canOpenURL(URL(string: "whatsapp://app")! as URL) {
@@ -63,7 +63,11 @@ public class Otpless {
                 if let waId = components.queryItems?.first(where: { $0.name == "waId" })?.value {
                     let mobile = components.queryItems?.first(where: { $0.name == "phone_number" })?.value ?? ""
                     let name = components.queryItems?.first(where: { $0.name == "name" })?.value ?? ""
-                    verifywaID(waId: waId, phone: mobile, name: name)
+                    if waId == OtplessHelper.session_ID{
+                        getAndUpdateOTPStatusAPI(waID:waId)
+                    }else{
+                        self.delegateOnVerify?.onVerifyWaid(mobile: "",countryCode:"", waId: "", name: "", message: "", error: "Session id and Whatsapp id does not match")
+                    }
                 } else {
                     
                 }
@@ -77,74 +81,63 @@ public class Otpless {
         OtplessHelper.removeUserMobileAndWaid()
     }
     
-    private func verifywaID(waId : String, phone: String, name: String){
-        OtplessHelper.saveUserMobileAndWaid(waId: waId, userMobile: phone, name: name)
+    private func verifywaID(waId : String,code:String, phone: String, name: String){
+        OtplessHelper.saveUserMobileAndWaid(waId: waId, countryCode:code, userMobile: phone, name: name)
         DispatchQueue.main.async { [self] in
             if((self.delegateOnVerify) != nil){
-                delegateOnVerify?.onVerifyWaid(mobile: phone, waId: waId, name: name, message: "success", error: nil)
+                delegateOnVerify?.onVerifyWaid(mobile: phone,countryCode:code, waId: waId, name: name, message: "success", error: nil)
             }
-            
             if((self.delegate) != nil){
                 loader?.hide()
                 delegate?.onResponse(waId: waId, message: "success", error: nil)
             }
         }
-//            let headers = ["Content-Type": "application/json","Accept":"application/json"]
-//            let bodyParams = ["userId": waId, "api": "getUserDetail"]
-//            OtplessNetworkHelper.shared.fetchData(method: "POST", headers: headers, bodyParams:bodyParams) { (data, response, error) in
-//              guard let data = data else {
-//
-//                  onError(mobile: nil, waId: nil, message: "error", error: "Error in verify waid api error")
-//                return
-//              }
-//                do {
-//
-//                    let json = try JSONSerialization.jsonObject(with: data, options: [])
-//                    // process the JSON data
-//                    let jsonDictionary = json as? [String: Any]
-//                    if let success = jsonDictionary?["success"] as? Bool {
-//                        if success{
-//                            if let jsonData = jsonDictionary?["data"] as? [String: Any]{
-//                                if let mobile = jsonData["userMobile"] as? String,
-//                                   let waid = jsonData["waId"] as? String {
-//                                    OtplessHelper.saveUserMobileAndWaid(waId: waid, userMobile: mobile)
-//                                    DispatchQueue.main.async { [self] in
-//                                        if((self.delegateOnVerify) != nil){
-//                                            delegateOnVerify?.onVerifyWaid(mobile: mobile, waId: waid, message: "success", error: nil)
-//                                        }
-//
-//                                        if((self.delegate) != nil){
-//                                                loader?.hide()
-//                                                delegate?.onResponse(waId: waid, message: "success", error: nil)
-//                                        }
-//
-//                                    }
-//                                } else {onError(mobile: nil, waId: nil, message: "error", error: "Error in verify waid parse error")}
-//                            } else {onError(mobile: nil, waId: nil, message: "error", error: "Error in verify waid parse error")}
-//                        } else {onError(mobile: nil, waId: nil, message: "error", error: "Error in verify waid parse error")}
-//                    } else {onError(mobile: nil, waId: nil, message: "error", error: "Error in verify waid parse error")}
-//                  } catch {
-//                      onError(mobile: nil, waId: nil, message: "error", error: "Exception occured verifying waid")
-//                  }
-//            }
     }
-}
-private func onError(mobile : String?, waId : String?,name:String?,message: String?, error : String?){
-    OtplessHelper.removeUserMobileAndWaid()
-    DispatchQueue.main.async {
-        if((Otpless.sharedInstance.delegateOnVerify) != nil){
-            Otpless.sharedInstance.delegateOnVerify?.onVerifyWaid(mobile: mobile, waId: waId, name: name, message: message, error: error)
+    
+    
+    func getAndUpdateOTPStatusAPI(waID:String){
+        var params = [String : Any]()
+        params = ["session_id":waID,
+                  "get_status": 1] as [String : Any]
+        print(params)
+        HTTPClient.makeConcurrentConnectionWith(method: .POST, showActivityIndicator: true, para: params, extendedUrl: AgentEndPoints.getUpdateOTPStatus.rawValue) { (response, error, _, statusCode) in
+            print("getUpdateOTPStatus \(String(describing: response))")
+            if error == nil{
+                if let messageDict = ((response) as? [String:Any]){
+                    if let data = messageDict["data"] as? [String:Any]{
+                        if let userData = data["user_data"] as? [String:Any]{
+                            let name = userData["name"] as? String ?? ""
+                            if let contactData = userData["contact_number"] as? [String:Any]{
+                                let countryCode = contactData["code"] as? String ?? ""
+                                let mobile = contactData["number"] as? String ?? ""
+                                self.verifywaID(waId: waID, code: countryCode, phone: mobile, name: name)
+                            }
+                        }
+                    }
+                }
+            }else{
+                self.delegateOnVerify?.onVerifyWaid(mobile: "",countryCode:"", waId: "", name: "", message: "", error: "getUpdateOTPStatus API Failure")
+            }
         }
-        if((Otpless.sharedInstance.delegate) != nil){
+    }
+    
+    private func onError(mobile : String?,countryCode :String?, waId : String?,name:String?,message: String?, error : String?){
+        OtplessHelper.removeUserMobileAndWaid()
+        DispatchQueue.main.async {
+            if((Otpless.sharedInstance.delegateOnVerify) != nil){
+                Otpless.sharedInstance.delegateOnVerify?.onVerifyWaid(mobile: mobile, countryCode: countryCode, waId: waId, name: name, message: message, error: error)
+            }
+            if((Otpless.sharedInstance.delegate) != nil){
                 Otpless.sharedInstance.loader?.hide()
                 Otpless.sharedInstance.delegate?.onResponse(waId: nil, message: "error", error: error)
             }
         }
-    
+        
+    }
 }
 // used for internal purpose by WhatsappLoginButton
 public protocol onVerifyWaidDelegate: AnyObject {
-    func onVerifyWaid(mobile : String?, waId : String?,name:String?, message: String?, error : String?)
+    func onVerifyWaid(mobile : String?,countryCode:String?, waId : String?,name:String?, message: String?, error : String?)
 }
 
 // When you want to do direct integration in which you will not be using WhatsappLoginButton

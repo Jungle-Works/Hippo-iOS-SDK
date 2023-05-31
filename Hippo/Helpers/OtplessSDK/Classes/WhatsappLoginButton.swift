@@ -10,10 +10,9 @@ import UIKit
 /// This class inherits all the properties of the button
 public final class WhatsappLoginButton: UIButton, onVerifyWaidDelegate {
     
-    
-    
     var otplessUrl: String = ""
     var apiRoute = "metaverse"
+    var redirectURI = ""
 //    var buttonText = HippoStrings.continue_to_whatsapp
     private var loader = OtplessLoader()
     public weak var delegate: onCallbackResponseDelegate?
@@ -58,25 +57,26 @@ public final class WhatsappLoginButton: UIButton, onVerifyWaidDelegate {
         return finalNumberToShow
     }
     
-    public func onVerifyWaid(mobile: String?, waId: String?, name: String?, message: String?, error: String?) {
-        //        DispatchQueue.main.async { [self] in
-        let number = starifyNumber(number: mobile ?? Otpless.sharedInstance.buttonText)
-        Otpless.sharedInstance.buttonText = number
+    public func onVerifyWaid(mobile: String?, countryCode:String?, waId: String?, name: String?, message: String?, error: String?) {
+        
+//        let number = starifyNumber(number: mobile ?? Otpless.sharedInstance.buttonText)
+        Otpless.sharedInstance.buttonText = Otpless.sharedInstance.buttonText
         self.loader.hide()
         manageLabelAndImage()
         if((self.delegate) != nil){
-            delegate?.onCallbackResponse(waId: waId, message: message, name: name, phone: mobile, error: error)
+            if error == nil{
+                delegate?.onCallbackResponse(waId: waId, message: message, name: name, phone: mobile, countryCode: countryCode, error: error)
+            }else{
+                delegate?.errorCallback(message: error ?? "")
+            }
         }
-        //        }
     }
     
     
     @objc private func buttonClicked(){
-
         if !Otpless.sharedInstance.isWhatsappInstalled() {
-            self.delegate?.isWhatsAppInstalled()
+            self.delegate?.errorCallback(message: "Please Install Whatsapp")
         }else{
-            
             let waIdExists = OtplessHelper.checkValueExists(forKey: OtplessHelper.waidDefaultKey)
             if (waIdExists){
             } else {
@@ -175,9 +175,22 @@ public final class WhatsappLoginButton: UIButton, onVerifyWaidDelegate {
     }
     
     func generateQrCode(){
+        
+        if let urlTypes = Bundle.main.object(forInfoDictionaryKey: "CFBundleURLTypes") as? [[String: Any]] {
+            for urlType in urlTypes {
+                if let urlSchemes = urlType["CFBundleURLSchemes"] as? [String], let identifier = urlType["CFBundleURLName"] as? String {
+                    if urlSchemes.count == 1 && urlSchemes[0].contains("otpless") && identifier.contains("otpless") {
+                        let scheme = urlSchemes[0]
+                        let completeUrl = scheme + "://" + identifier
+                        self.redirectURI = completeUrl
+                      }
+                }
+            }
+        }
+        
         var params = [String : Any]()
         params = ["app_secret_key":HippoConfig.shared.whatsappSecretKey,
-                  "get_session": true] as [String : Any]
+                  "get_session": true, "device_type": 2, "redirect_uri":redirectURI] as [String : Any]
         print(params)
         HTTPClient.makeConcurrentConnectionWith(method: .POST, showActivityIndicator: true, para: params, extendedUrl: AgentEndPoints.generateQrCode.rawValue) { (response, error, _, statusCode) in
             print("generateQrCode \(String(describing: response))")
@@ -186,9 +199,10 @@ public final class WhatsappLoginButton: UIButton, onVerifyWaidDelegate {
                     if let data = messageDict["data"] as? [String:Any]{
                         print(data)
                         let url = data["url"] as? String
+                        let sessionId = data["session_id"] as? String
                         OtplessHelper.link2 = url?.lastPathComponent ?? ""
                         OtplessHelper.link =  url ?? ""
-                        
+                        OtplessHelper.session_ID = sessionId ?? ""
                         //                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now(), execute: {
                         if let completeUrl = OtplessHelper.getCompleteUrl() {
                             self.otplessUrl = OtplessHelper.addEventDetails(url: completeUrl)
@@ -200,6 +214,8 @@ public final class WhatsappLoginButton: UIButton, onVerifyWaidDelegate {
                         self.loader.hide()
                     }
                 }
+            }else{
+                self.delegate?.errorCallback(message: "generateQrCode API Failure")
             }
         }
     }
@@ -207,7 +223,7 @@ public final class WhatsappLoginButton: UIButton, onVerifyWaidDelegate {
 }
 // Implement this protocol to recieve waid in your view controller class when using WhatsappLoginButton
 public protocol onCallbackResponseDelegate: AnyObject {
-    func onCallbackResponse(waId : String?, message: String?,name:String?,phone: String?, error : String?)
-    func isWhatsAppInstalled()
+    func onCallbackResponse(waId : String?, message: String?,name:String?,phone: String?,countryCode:String?, error : String?)
+    func errorCallback(message:String)
 }
 

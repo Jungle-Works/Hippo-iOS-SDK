@@ -7,12 +7,13 @@
 
 import Foundation
 class OtplessHelper {
-   public static let waidDefaultKey = "otpless_waId"
-   public static let userMobileDefaultKey = "otpless_user_mobile"
+    public static let waidDefaultKey = "otpless_waId"
+    public static let userMobileDefaultKey = "otpless_user_mobile"
+    public static let userCountryCodeDefaultKey = "otpless_user_country_code"
     public static let userNameDefaultKey = "otpless_user_name"
-   public static var link = ""
+    public static var link = ""
     public static var link2 = ""
-   
+    public static var session_ID = ""
     
   public static func checkValueExists(forKey key: String) -> Bool {
         return UserDefaults.standard.object(forKey: key) != nil
@@ -95,14 +96,16 @@ class OtplessHelper {
     
     
     
-    public static func saveUserMobileAndWaid(waId : String, userMobile : String, name: String) {
+    public static func saveUserMobileAndWaid(waId : String,countryCode:String, userMobile : String, name: String) {
         setValue(value: waId, forKey: waidDefaultKey)
         setValue(value: userMobile, forKey: userMobileDefaultKey)
+        setValue(value: countryCode, forKey: userCountryCodeDefaultKey)
         setValue(value: name, forKey: userNameDefaultKey)
     }
     public static func removeUserMobileAndWaid() {
         removeValue(forKey: waidDefaultKey)
         removeValue(forKey: userMobileDefaultKey)
+        removeValue(forKey: userCountryCodeDefaultKey)
         removeValue(forKey: userNameDefaultKey)
     }
     

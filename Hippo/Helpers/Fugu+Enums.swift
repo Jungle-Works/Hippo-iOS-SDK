@@ -448,6 +448,7 @@ enum AgentEndPoints: String {
     case search = "api/v2/conversation/search"
     case customAttributes = "api/business/getCustomAttributes"
     case generateQrCode = "api/business/generateQrCode"
+    case getUpdateOTPStatus = "api/business/getAndUpdateOtpStatus"
     // MARK:-Tags Endpoints
     case getAllTags = "api/tags/getTags"
     case createTags = "api/tags/createTags"
