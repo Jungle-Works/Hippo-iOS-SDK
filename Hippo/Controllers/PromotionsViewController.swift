@@ -152,9 +152,16 @@ class PromotionsViewController: UIViewController {
             if let response = response as? [String : Any], let data = response["data"] as? [[String : Any]]{
                 for value in data{
                     if let announcement = PromotionCellDataModel(dict: value){
+                        for i in 0..<self.data.count{
+                            if self.data[i].channelID == announcement.channelID{
+                                self.data.remove(at: i)
+                                self.states.insert(false, at: 0)
+                                return
+                            }
+                        }
                         self.data.insert(announcement, at: 0)
                         self.states.insert(true, at: 0)
-                    }
+                     }
                 }
                 let channelIdArr = self.data.map{String($0.channelID)}
                 if let channelArr = UserDefaults.standard.value(forKey: DefaultName.announcementUnreadCount.rawValue) as? [String]{

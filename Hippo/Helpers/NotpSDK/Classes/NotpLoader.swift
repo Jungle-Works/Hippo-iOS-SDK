@@ -1,14 +1,14 @@
 //
-//  OtplessLoader.swift
-//  OtplessSDK
+//  NotpLoader.swift
+//  NotpSDK
 //
-//  Created by Otpless on 07/02/23.
+//  Created by Notp on 07/02/23.
 //
 
 import UIKit
 
 
-class OtplessLoader: UIView {
+class NotpLoader: UIView {
         
         private var closeButton = UIButton(type: .system)
         private var label = UILabel()

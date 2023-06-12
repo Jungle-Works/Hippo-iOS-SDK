@@ -1,8 +1,8 @@
 //
 //  WhatsappLoginButton.swift
-//  OtplessSDK
+//  NotpSDK
 //
-//  Created by Otpless on 06/02/23.
+//  Created by Notp on 06/02/23.
 //
 
 import UIKit
@@ -10,11 +10,11 @@ import UIKit
 /// This class inherits all the properties of the button
 public final class WhatsappLoginButton: UIButton, onVerifyWaidDelegate {
     
-    var otplessUrl: String = ""
+    var notpUrl: String = ""
     var apiRoute = "metaverse"
     var redirectURI = ""
 //    var buttonText = HippoStrings.continue_to_whatsapp
-    private var loader = OtplessLoader()
+    private var loader = NotpLoader()
     public weak var delegate: onCallbackResponseDelegate?
     
     
@@ -33,14 +33,14 @@ public final class WhatsappLoginButton: UIButton, onVerifyWaidDelegate {
     func setImageAndTitle() {
         
         
-        Otpless.sharedInstance.delegateOnVerify = self
-        if let image = UIImage(named: "otplesswhatsapp.png", in: Bundle(for: type(of: self)), compatibleWith: nil) {
+        Notp.sharedInstance.delegateOnVerify = self
+        if let image = UIImage(named: "notpwhatsapp.png", in: Bundle(for: type(of: self)), compatibleWith: nil) {
             setImage(image, for: .normal)
         }
         checkWaidExistsAndVerified()
-        setTitle(Otpless.sharedInstance.buttonText, for: .normal)
+        setTitle(Notp.sharedInstance.buttonText, for: .normal)
         addTarget(self, action:#selector(self.buttonClicked), for: .touchUpInside)
-        backgroundColor = OtplessHelper.UIColorFromRGB(rgbValue: 0x23D366)
+        backgroundColor = NotpHelper.UIColorFromRGB(rgbValue: 0x23D366)
         setTitleColor(UIColor.white, for: UIControl.State.normal)
         titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
     }
@@ -59,8 +59,8 @@ public final class WhatsappLoginButton: UIButton, onVerifyWaidDelegate {
     
     public func onVerifyWaid(mobile: String?, countryCode:String?, waId: String?, name: String?, message: String?, error: String?) {
         
-//        let number = starifyNumber(number: mobile ?? Otpless.sharedInstance.buttonText)
-        Otpless.sharedInstance.buttonText = Otpless.sharedInstance.buttonText
+//        let number = starifyNumber(number: mobile ?? Notp.sharedInstance.buttonText)
+        Notp.sharedInstance.buttonText = Notp.sharedInstance.buttonText
         self.loader.hide()
         manageLabelAndImage()
         if((self.delegate) != nil){
@@ -74,10 +74,10 @@ public final class WhatsappLoginButton: UIButton, onVerifyWaidDelegate {
     
     
     @objc private func buttonClicked(){
-        if !Otpless.sharedInstance.isWhatsappInstalled() {
+        if !Notp.sharedInstance.isWhatsappInstalled() {
             self.delegate?.errorCallback(message: "Please Install Whatsapp")
         }else{
-            let waIdExists = OtplessHelper.checkValueExists(forKey: OtplessHelper.waidDefaultKey)
+            let waIdExists = NotpHelper.checkValueExists(forKey: NotpHelper.waidDefaultKey)
             if (waIdExists){
             } else {
                 self.generateQrCode()
@@ -86,8 +86,8 @@ public final class WhatsappLoginButton: UIButton, onVerifyWaidDelegate {
     }
     
     public func removeWaidAndContinueToWhatsapp (){
-        OtplessHelper.removeUserMobileAndWaid()
-        Otpless.sharedInstance.continueToWhatsapp(url: otplessUrl)
+        NotpHelper.removeUserMobileAndWaid()
+        Notp.sharedInstance.continueToWhatsapp(url: notpUrl)
     }
     
     public func show(){
@@ -117,8 +117,8 @@ public final class WhatsappLoginButton: UIButton, onVerifyWaidDelegate {
         let yForImgVw = (self.frame.height - imgVwWidthAndHeight)/2
         
         if let titleLabel = self.titleLabel ,let imageView = self.imageView  {
-            if titleLabel.text != Otpless.sharedInstance.buttonText{
-                setTitle(Otpless.sharedInstance.buttonText, for: .normal)
+            if titleLabel.text != Notp.sharedInstance.buttonText{
+                setTitle(Notp.sharedInstance.buttonText, for: .normal)
             }
             titleLabel.textAlignment = .center
             titleLabel.numberOfLines = 1
@@ -139,17 +139,17 @@ public final class WhatsappLoginButton: UIButton, onVerifyWaidDelegate {
     
     func checkWaidExistsAndVerified (){
         
-        let waIdExists = OtplessHelper.checkValueExists(forKey: OtplessHelper.waidDefaultKey);
+        let waIdExists = NotpHelper.checkValueExists(forKey: NotpHelper.waidDefaultKey);
         if (waIdExists){
-            let waId = OtplessHelper.getValue(forKey:OtplessHelper.waidDefaultKey) as String?
+            let waId = NotpHelper.getValue(forKey:NotpHelper.waidDefaultKey) as String?
             
             let headers = ["Content-Type": "application/json","Accept":"application/json"]
             let bodyParams = ["userId": waId, "api": "getUserDetail"]
-            OtplessNetworkHelper.shared.fetchData(method: "POST", headers: headers, bodyParams:bodyParams as [String : Any]) { (data, response, error) in
+            NotpNetworkHelper.shared.fetchData(method: "POST", headers: headers, bodyParams:bodyParams as [String : Any]) { (data, response, error) in
                 guard let data = data else {
                     // handle error
                     if (error != nil) {
-                        OtplessHelper.removeUserMobileAndWaid()
+                        NotpHelper.removeUserMobileAndWaid()
                     }
                     return
                 }
@@ -160,14 +160,14 @@ public final class WhatsappLoginButton: UIButton, onVerifyWaidDelegate {
                     if let jsonData = jsonDictionary?["data"] as? [String: Any]{
                         if let mobile = jsonData["userMobile"] as? String {
                             DispatchQueue.main.async {
-                                Otpless.sharedInstance.buttonText = mobile
+                                Notp.sharedInstance.buttonText = mobile
                                 self.manageLabelAndImage()
                             }
                         }
                     }
                     
                 } catch {
-                    OtplessHelper.removeUserMobileAndWaid()
+                    NotpHelper.removeUserMobileAndWaid()
                     // handle error
                 }
             }
@@ -179,7 +179,7 @@ public final class WhatsappLoginButton: UIButton, onVerifyWaidDelegate {
         if let urlTypes = Bundle.main.object(forInfoDictionaryKey: "CFBundleURLTypes") as? [[String: Any]] {
             for urlType in urlTypes {
                 if let urlSchemes = urlType["CFBundleURLSchemes"] as? [String], let identifier = urlType["CFBundleURLName"] as? String {
-                    if urlSchemes.count == 1 && urlSchemes[0].contains("otpless") && identifier.contains("otpless") {
+                    if urlSchemes.count == 1 && urlSchemes[0].contains("notp") && identifier.contains("notp") {
                         let scheme = urlSchemes[0]
                         let completeUrl = scheme + "://" + identifier
                         self.redirectURI = completeUrl
@@ -189,7 +189,7 @@ public final class WhatsappLoginButton: UIButton, onVerifyWaidDelegate {
         }
         
         var params = [String : Any]()
-        params = ["app_secret_key":HippoConfig.shared.whatsappSecretKey,
+        params = ["app_secret_key":"27cd2ada1363380005cfe85701313332",//HippoConfig.shared.whatsappSecretKey,
                   "get_session": true, "device_type": 2, "redirect_uri":redirectURI] as [String : Any]
         print(params)
         HTTPClient.makeConcurrentConnectionWith(method: .POST, showActivityIndicator: true, para: params, extendedUrl: AgentEndPoints.generateQrCode.rawValue) { (response, error, _, statusCode) in
@@ -200,17 +200,17 @@ public final class WhatsappLoginButton: UIButton, onVerifyWaidDelegate {
                         print(data)
                         let url = data["url"] as? String
                         let sessionId = data["session_id"] as? String
-                        OtplessHelper.link2 = url?.lastPathComponent ?? ""
-                        OtplessHelper.link =  url ?? ""
-                        OtplessHelper.session_ID = sessionId ?? ""
+                        NotpHelper.link2 = url?.lastPathComponent ?? ""
+                        NotpHelper.link =  url ?? ""
+                        NotpHelper.session_ID = sessionId ?? ""
                         //                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now(), execute: {
-                        if let completeUrl = OtplessHelper.getCompleteUrl() {
-                            self.otplessUrl = OtplessHelper.addEventDetails(url: completeUrl)
-                            OtplessNetworkHelper.shared.setBaseUrl(url: self.otplessUrl)
+                        if let completeUrl = NotpHelper.getCompleteUrl() {
+                            self.notpUrl = NotpHelper.addEventDetails(url: completeUrl)
+                            NotpNetworkHelper.shared.setBaseUrl(url: self.notpUrl)
                         }
                         //                        })
                         self.loader.show()
-                        Otpless.sharedInstance.continueToWhatsapp(url: self.otplessUrl)
+                        Notp.sharedInstance.continueToWhatsapp(url: self.notpUrl)
                         self.loader.hide()
                     }
                 }

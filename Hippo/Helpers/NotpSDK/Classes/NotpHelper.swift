@@ -1,16 +1,16 @@
 //
-//  OtplessHelper.swift
-//  OtplessSDK
+//  NotpHelper.swift
+//  NotpSDK
 //
-//  Created by Otpless on 06/02/23.
+//  Created by Notp on 06/02/23.
 //
 
 import Foundation
-class OtplessHelper {
-    public static let waidDefaultKey = "otpless_waId"
-    public static let userMobileDefaultKey = "otpless_user_mobile"
-    public static let userCountryCodeDefaultKey = "otpless_user_country_code"
-    public static let userNameDefaultKey = "otpless_user_name"
+class NotpHelper {
+    public static let waidDefaultKey = "notp_waId"
+    public static let userMobileDefaultKey = "notp_user_mobile"
+    public static let userCountryCodeDefaultKey = "notp_user_country_code"
+    public static let userNameDefaultKey = "notp_user_name"
     public static var link = ""
     public static var link2 = ""
     public static var session_ID = ""
@@ -113,9 +113,9 @@ class OtplessHelper {
         if let urlTypes = Bundle.main.object(forInfoDictionaryKey: "CFBundleURLTypes") as? [[String: Any]] {
             for urlType in urlTypes {
                 if let urlSchemes = urlType["CFBundleURLSchemes"] as? [String], let identifier = urlType["CFBundleURLName"] as? String {
-                    if urlSchemes.count == 1 && urlSchemes[0].contains("otpless") && identifier.contains("otpless") {
+                    if urlSchemes.count == 1 && urlSchemes[0].contains("notp") && identifier.contains("notp") {
                         let scheme = urlSchemes[0]
-//                        let urlScheme = String(scheme).replacingOccurrences(of: "otpless", with: "")
+//                        let urlScheme = String(scheme).replacingOccurrences(of: "notp", with: "")
                         let domainUrl = String(link)
                         let completeUrl = domainUrl + "&redirectUri=" + scheme + "%3A%2F%2F" + identifier
                         return completeUrl

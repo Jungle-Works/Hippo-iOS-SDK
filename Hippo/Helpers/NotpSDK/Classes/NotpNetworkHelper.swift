@@ -1,17 +1,17 @@
 //
-//  OtplessNetworkHelper.swift
-//  OtplessSDK
+//  NotpNetworkHelper.swift
+//  NotpSDK
 //
-//  Created by Otpless on 06/02/23.
+//  Created by Notp on 06/02/23.
 //
 
 import Foundation
- class OtplessNetworkHelper {
+ class NotpNetworkHelper {
     var baseurl : String = ""
      var apiRoute = "metaverse"
   typealias NetworkCompletion = (Data?, URLResponse?, Error?) -> Void
   
-  static let shared = OtplessNetworkHelper()
+  static let shared = NotpNetworkHelper()
   
   func fetchData(method: String , headers: [String: String]? = nil, bodyParams: [String: Any]? = nil, completion: @escaping NetworkCompletion) {
       var request = URLRequest(url:URL(string:baseurl + apiRoute)!)

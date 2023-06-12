@@ -32,6 +32,10 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     var createTicketVM = CreateTicketVM()
     var popover : LCPopover?
     var original_transaction_id : String?
+    private var dataSource: MentionTableDataSourceDelegate!
+    private var dataManager: MentionDataManager!
+    private var mentionListener: MentionListener!
+    private var messageSendingViewConfig: MessageSendingViewConfig = MessageSendingViewConfig()
     
     // MARK: -  IBOutlets
     @IBOutlet weak var backgroundImageView: UIImageView!
@@ -166,7 +170,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
                 self?.addRecordView()
             }
         }
-       button_Recording.isHidden = !HippoConfig.shared.isRecordingButtonEnabled
+        button_Recording.isHidden = !HippoConfig.shared.isRecordingButtonEnabled
         
         view_Navigation.call_button.addTarget(self, action: #selector(audiCallButtonClicked(_:)), for: .touchUpInside)
         view_Navigation.video_button.addTarget(self, action: #selector(videoButtonClicked(_:)), for: .touchUpInside)
@@ -284,6 +288,9 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         viewRecord.isHidden = false
     }
     
+    func resetMention() {
+        mentionListener?.reset()
+    }
     
     func handleInfoIcon() {
         setTitleButton()
@@ -353,13 +360,13 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         handleAudioIcon()
         HippoConfig.shared.notifyDidLoad()
         
-//        if let lastMessage = getLastMessage(){
-//            if lastMessage.type == MessageType.consent{
-//                fuguDelay(0.5) {
-//                    self.disableSendingReply(withOutUpdate: true)
-//                }
-//            }
-//        }
+        //        if let lastMessage = getLastMessage(){
+        //            if lastMessage.type == MessageType.consent{
+        //                fuguDelay(0.5) {
+        //                    self.disableSendingReply(withOutUpdate: true)
+        //                }
+        //            }
+        //        }
         
         if #available(iOS 13.0, *) {
             self.view.overrideUserInterfaceStyle = .light
@@ -727,13 +734,11 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     //MARK:- IBAction for retryBtn on label
     @IBAction func retryLabelButtonTapped(_ sender: Any) {
         chatScreenTableViewTopConstraint.constant = 0
-        
         retryLoader.isHidden = false
         labelViewRetryButton.isHidden = true
         fuguDelay(2.0) {
             self.fetchMessagesFrom1stPage()
         }
-        
     }
     
     func buttonClickedOnNetworkOff() {
@@ -747,14 +752,12 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     override func openCustomSheet(){
         
         HippoConfig.shared.HideJitsiView()
-        
         self.customTableView.reloadData()
         let window = UIApplication.shared.windows.first
         transparentView.backgroundColor = UIColor.black.withAlphaComponent(0.9)
         let screenSize = UIScreen.main.bounds.size
         transparentView.frame = CGRect(x: 0, y: 0, width: screenSize.width, height: screenSize.height)
         window?.addSubview(transparentView)
-        
         customTableView.frame = CGRect(x: 0, y: screenSize.height, width: screenSize.width, height: heightForActionSheet)
         customTableView.layer.cornerRadius = 10
         if #available(iOS 11.0, *) {
@@ -763,7 +766,6 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
             //Fallback on earlier versions
         }
         window?.addSubview(customTableView)
-        
         lineLabel.frame = CGRect(x: (screenSize.width/2) - ((screenSize.width/5)/2) , y: screenSize.height, width: screenSize.width/5, height: 6)
         lineLabel.backgroundColor = .white
         lineLabel.layer.masksToBounds = true
@@ -815,7 +817,13 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
                 return
             }
         }
-        self.sendMessageButtonAction(messageTextStr: messageTextView.text)
+        
+        if chatType?.rawValue ?? 0 == 4 /*&& channelType == .DEFAULT*/{
+            let mentions = mentionListener.mentions
+            self.sendButtonClicked(mentions: mentions, message: messageTextView.text, isPrivateMessage: false, config: self.messageSendingViewConfig)
+        }else{
+            self.sendMessageButtonAction(messageTextStr: messageTextView.text)
+        }
     }
     
     private func sendAddress() {
@@ -872,6 +880,90 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         }
     }
     
+    func sendButtonClicked(mentions: [Mention], message: String, isPrivateMessage isPrivate: Bool, config: MessageSendingViewConfig) {
+        if storeResponse?.restrictPersonalInfo ?? false  && channel?.chatDetail?.chatType == .other{
+            if message.trimmingCharacters(in: .whitespaces).matches(for: phoneRegex).count > 0  || message.isValidEmail() || message.isValidUrl() || message.matches(for: urlRegex).count > 0{
+                showErrorMessage(messageString: HippoStrings.donotAllowPersonalInfo)
+                updateErrorLabelView(isHiding: true)
+                return
+            }
+        }
+        
+        if channel != nil, !channel.isSubscribed() {
+            channel.subscribe()
+        }
+        
+        if FuguNetworkHandler.shared.isNetworkConnected == false {
+            return
+        }
+        
+        if SocketClient.shared.isConnected() == false {
+            SocketClient.shared.connect()
+        }
+        
+        if isMessageInvalid(messageText: messageTextView.text) {
+            return
+        }
+        let trimmedMessage = messageTextView.text.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+        
+        let message = HippoMessage(message: trimmedMessage, type: .normal, uniqueID: String.generateUniqueId(), chatType: channel?.chatDetail?.chatType)
+        channel?.unsentMessages.append(message)
+        
+        if channel != nil {
+            //                        addMessageToUIBeforeSending(message: message)
+            //                        self.sendMessage(message: message)
+            self.sendMessageToFaye(mentions: mentions, messageString: trimmedMessage, isPrivate: isPrivate)
+        } else {
+            //TODO: - Loader animation
+            startNewConversation(replyMessage: nil, completion: { [weak self] (success, result) in
+                if success {
+                    self?.populateTableViewWithChannelData()
+                    //                    self?.addMessageToUIBeforeSending(message: message)
+                    //                    self?.sendMessage(message: message)
+                    self?.sendMessageToFaye(mentions: mentions, messageString: trimmedMessage, isPrivate: isPrivate)
+                }
+            })
+        }
+    }
+    
+    func sendMessageToFaye(mentions: [Mention], messageString: String, isPrivate: Bool) {
+        guard channelId >= 0, currentUserId() >= 0 else {
+            return
+        }
+        let (text, ids) = addTag(mentions: mentions, messageString: messageString)
+        let messageType = isPrivate ? MessageType.privateNote : MessageType.normal
+        let muid = generateUniqueId()
+        //        resetVariables()
+        let message = HippoMessage(message: text, type: messageType, uniqueID: muid, taggedUserArray: ids, chatType: chatType)
+        
+        channel?.unsentMessages.append(message)
+        addMessageToUIBeforeSending(message: message)
+        
+        //        publishMessageOnChannel(message: message)
+        self.sendMessage(message: message)
+    }
+    
+    func addTag(mentions: [Mention], messageString: String) -> (String, [Int]) {
+        var finalString: NSString = ""
+        var ids: [Int] = []
+        finalString = (messageTextView.text ?? "").trimWhiteSpacesAndNewLine() as NSString
+        let filteredMention = mentions.sorted { (m1, m2) -> Bool in
+            return m1.range.location > m2.range.location
+        }
+        for mention in filteredMention {
+            guard let agent = mention.object as? Agent else {
+                continue
+            }
+            //            finalString = finalString.replacingOccurrences(of: agent.mentionName, with: agent.attributedFullName!, options: .regularExpression, range: mention.range) as NSString
+            guard let id = agent.userId else {
+                continue
+            }
+            if !ids.contains(id) {
+                ids.append(id)
+            }
+        }
+        return (finalString as String, ids)
+    }
     
     func sendMessageButtonAction(messageTextStr: String){
         if storeResponse?.restrictPersonalInfo ?? false && channel?.chatDetail?.chatType == .other{
@@ -990,7 +1082,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     }
     
     func setThemeForBusiness() {
-//        let isMultiChannelLabelMapping = BussinessProperty.current.multiChannelLabelMapping && !forceHideActionButton
+        //        let isMultiChannelLabelMapping = BussinessProperty.current.multiChannelLabelMapping && !forceHideActionButton
         
         //   actionButton.title = nil
         //        actionButton.image = isMultiChannelLabelMapping ? HippoConfig.shared.theme.actionButtonIcon : nil
@@ -2008,7 +2100,7 @@ extension ConversationsViewController {
             
             let messageString = chatMessageObject.message
             
-            #if swift(>=4.0)
+#if swift(>=4.0)
             var attributes: [NSAttributedString.Key: Any]?
             attributes = [NSAttributedString.Key.font: HippoConfig.shared.theme.inOutChatTextFont]
             
@@ -2016,7 +2108,7 @@ extension ConversationsViewController {
                 cellTotalHeight += messageString.boundingRect(with: availableBoxSize, options: .usesLineFragmentOrigin, attributes: attributes, context: nil).size.height
             }
             
-            #else
+#else
             var attributes: [String: Any]?
             if let applicableFont = HippoConfig.shared.theme.inOutChatTextFont {
                 attributes = [NSFontAttributeName: applicableFont]
@@ -2025,7 +2117,7 @@ extension ConversationsViewController {
             if messageString.isEmpty == false {
                 cellTotalHeight += messageString.boundingRect(with: availableBoxSize, options: .usesLineFragmentOrigin, attributes: attributes, context: nil).size.height
             }
-            #endif
+#endif
             
         } else {
             let incomingAttributedString = Helper.getIncomingAttributedStringWithLastUserCheck(chatMessageObject: chatMessageObject)
@@ -2224,7 +2316,7 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                         HippoConfig.shared.log.debug(("-------\nERROR\nimage decoding error\n--------" , error), level: .error)
                     }
                     
-//                    cell.gifImageView.image = UIImage.animatedImageWithData(try! Data(contentsOf: URL(fileURLWithPath: getImagePath)))!
+                    //                    cell.gifImageView.image = UIImage.animatedImageWithData(try! Data(contentsOf: URL(fileURLWithPath: getImagePath)))!
                 }
                 
                 return cell
@@ -2856,8 +2948,8 @@ extension ConversationsViewController {
         guard let visibleIndexPaths = tableViewChat.indexPathsForVisibleRows,
               visibleIndexPaths.count > 0,
               messagesGroupedByDate.count > 0 else {
-                  return false
-              }
+            return false
+        }
         
         let lastVisibleIndexPath = visibleIndexPaths.last!
         
@@ -3270,9 +3362,9 @@ extension ConversationsViewController: HippoChannelDelegate {
             disableSendingNewMessages()
         }
         
-//        if message.type == MessageType.consent{
-//            self.disableSendingReply(withOutUpdate: true)
-//        }
+        //        if message.type == MessageType.consent{
+        //            self.disableSendingReply(withOutUpdate: true)
+        //        }
     }
     
     func getMessageForQuickReply(messages: [HippoMessage]) -> HippoMessage? {
@@ -3896,7 +3988,7 @@ extension ConversationsViewController{
         
         if let (maxChats, _) = HippoConfig.shared.newChatCallback?(alreadyActiveChannel), let maxChats = maxChats{
             if maxChats <= alreadyActiveChannel {
-               return false
+                return false
             }
         }
         return true

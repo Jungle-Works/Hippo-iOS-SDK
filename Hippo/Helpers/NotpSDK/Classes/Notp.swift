@@ -1,23 +1,23 @@
 //
-//  Otpless.swift
-//  OtplessSDK
+//  Notp.swift
+//  NotpSDK
 //
-//  Created by Otpless on 05/02/23.
+//  Created by Notp on 05/02/23.
 //
 
 import Foundation
 
 
 
-public class Otpless {
+public class Notp {
     public var buttonText = HippoStrings.continue_to_whatsapp
     public weak var delegate: onResponseDelegate?
     public weak var delegateOnVerify: onVerifyWaidDelegate?
-    public static let sharedInstance: Otpless = {
-        let instance = Otpless()
+    public static let sharedInstance: Notp = {
+        let instance = Notp()
         return instance
     }()
-    var loader : OtplessLoader? = nil
+    var loader : NotpLoader? = nil
     private init(){}
     
     
@@ -34,19 +34,19 @@ public class Otpless {
     
     
     public func continueToWhatsapp(){
-        if let completeUrl = OtplessHelper.getCompleteUrl() {
-            OtplessNetworkHelper.shared.setBaseUrl(url: completeUrl)
-            continueToWhatsapp(url: OtplessHelper.addEventDetails(url: completeUrl))
-            loader = OtplessLoader()
+        if let completeUrl = NotpHelper.getCompleteUrl() {
+            NotpNetworkHelper.shared.setBaseUrl(url: completeUrl)
+            continueToWhatsapp(url: NotpHelper.addEventDetails(url: completeUrl))
+            loader = NotpLoader()
             loader?.show()
         }
     }
     
-    public func isOtplessDeeplink(url : URL) -> Bool{
+    public func isNotpDeeplink(url : URL) -> Bool{
         if let components = URLComponents(url: url, resolvingAgainstBaseURL: true){
             let host = components.host
             switch host {
-            case "hippootpless":
+            case "hipponotp":
                 return true
             default:
                 break
@@ -55,15 +55,15 @@ public class Otpless {
         return false
     }
     
-    public func processOtplessDeeplink(url : URL) {
+    public func processNotpDeeplink(url : URL) {
         if let components = URLComponents(url: url, resolvingAgainstBaseURL: true) {
             let host = components.host
             switch host {
-            case "hippootpless":
+            case "hipponotp":
                 if let waId = components.queryItems?.first(where: { $0.name == "waId" })?.value {
                     let mobile = components.queryItems?.first(where: { $0.name == "phone_number" })?.value ?? ""
                     let name = components.queryItems?.first(where: { $0.name == "name" })?.value ?? ""
-                    if waId == OtplessHelper.session_ID{
+                    if waId == NotpHelper.session_ID{
                         getAndUpdateOTPStatusAPI(waID:waId)
                     }else{
                         self.delegateOnVerify?.onVerifyWaid(mobile: "",countryCode:"", waId: "", name: "", message: "", error: "Session id and Whatsapp id does not match")
@@ -78,11 +78,11 @@ public class Otpless {
     }
     
     public func clearSession(){
-        OtplessHelper.removeUserMobileAndWaid()
+        NotpHelper.removeUserMobileAndWaid()
     }
     
     private func verifywaID(waId : String,code:String, phone: String, name: String){
-        OtplessHelper.saveUserMobileAndWaid(waId: waId, countryCode:code, userMobile: phone, name: name)
+        NotpHelper.saveUserMobileAndWaid(waId: waId, countryCode:code, userMobile: phone, name: name)
         DispatchQueue.main.async { [self] in
             if((self.delegateOnVerify) != nil){
                 delegateOnVerify?.onVerifyWaid(mobile: phone,countryCode:code, waId: waId, name: name, message: "success", error: nil)
@@ -122,14 +122,14 @@ public class Otpless {
     }
     
     private func onError(mobile : String?,countryCode :String?, waId : String?,name:String?,message: String?, error : String?){
-        OtplessHelper.removeUserMobileAndWaid()
+        NotpHelper.removeUserMobileAndWaid()
         DispatchQueue.main.async {
-            if((Otpless.sharedInstance.delegateOnVerify) != nil){
-                Otpless.sharedInstance.delegateOnVerify?.onVerifyWaid(mobile: mobile, countryCode: countryCode, waId: waId, name: name, message: message, error: error)
+            if((Notp.sharedInstance.delegateOnVerify) != nil){
+                Notp.sharedInstance.delegateOnVerify?.onVerifyWaid(mobile: mobile, countryCode: countryCode, waId: waId, name: name, message: message, error: error)
             }
-            if((Otpless.sharedInstance.delegate) != nil){
-                Otpless.sharedInstance.loader?.hide()
-                Otpless.sharedInstance.delegate?.onResponse(waId: nil, message: "error", error: error)
+            if((Notp.sharedInstance.delegate) != nil){
+                Notp.sharedInstance.loader?.hide()
+                Notp.sharedInstance.delegate?.onResponse(waId: nil, message: "error", error: error)
             }
         }
         

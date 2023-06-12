@@ -910,7 +910,6 @@ extension AgentConversationViewController {
         tableViewSetUp()
         configureFooterView()
         addTapGestureInTableView()
-        
         self.messageTextView.font = HippoConfig.shared.theme.typingTextFont
         self.messageTextView.textColor = HippoConfig.shared.theme.typingTextColor
         self.messageTextView.backgroundColor = .clear
