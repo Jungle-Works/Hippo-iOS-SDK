@@ -226,7 +226,7 @@ struct WhatsappWidgetConfig{
             versionCode = 450
         }
     }
-    
+   
     internal let listener = SocketListner()
     ///turn its value true to show slow internet bar on chat screen
     public var shouldShowSlowInternetBar : Bool?
@@ -243,6 +243,13 @@ struct WhatsappWidgetConfig{
     var popupCallbacksCache: [([String: Any]) -> Void]?
     var screenToShowPopUpOn: UIViewController?
     public var userTags = [String]()
+    public var attachments = [AttachmentData(path: "", type: "")]
+    public var customer_email: String?
+    public var customer_name: String?
+    public var subject: String?
+    public var issueDescription : String?
+    public var fileUrls = [String]()
+    public var fileType = [String]()
     // MARK: - Intialization
     private override init() {
         super.init()
@@ -516,15 +523,19 @@ struct WhatsappWidgetConfig{
         checker.presentChatsViewController()
     }
     
-    public func presentTicketViewController() {
+    public func createTicket(ticketData: CreateTicketDataModel?) {
+        HippoConfig.shared.customer_name = ticketData?.customer_name
+        HippoConfig.shared.customer_email = ticketData?.customer_email
+        HippoConfig.shared.subject = ticketData?.subject
+        HippoConfig.shared.issueDescription = ticketData?.issueDescription
+        HippoConfig.shared.userTags = ticketData?.userTags ?? []
+        HippoConfig.shared.attachments = ticketData?.attachments ?? []
         checker.presentTicketController()
     }
     
     public func presentOtpViewController() {
         checker.presentOtpController()
     }
-    
-    
     
     public func getAgentChatVC() -> UIViewController?{
         guard HippoConfig.shared.appUserType == .agent else {

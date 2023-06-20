@@ -87,7 +87,7 @@ extension AttachmentTableViewCell: UICollectionViewDataSource, UICollectionViewD
                 cell.thumbnailmage.image = HippoConfig.shared.theme.pdfIcon
             }else if attachments[indexPath.row - 1].type == "application/vnd.ms-excel"{
                 cell.thumbnailmage.image = HippoConfig.shared.theme.excelIcon
-            }else if attachments[indexPath.row - 1].type == "application/msword"{
+            }else if attachments[indexPath.row - 1].type == "application/msword" || attachments[indexPath.row - 1].type == "application/word"{
                 cell.thumbnailmage.image = HippoConfig.shared.theme.docIcon
             }else if attachments[indexPath.row - 1].type ==  "text/csv"{
                 cell.thumbnailmage.image = HippoConfig.shared.theme.csvIcon

@@ -46,8 +46,6 @@ class CreateTicketsViewController: UIViewController{
     var attachments = [AttachmentData]()
     var showImageVC = ShowImageViewController()
     var qldataSource: HippoQLDataSource?
-    var subject = ""
-    var issueDescription = ""
     var userTags = HippoConfig.shared.userTags
    
     
@@ -55,7 +53,7 @@ class CreateTicketsViewController: UIViewController{
     
     override func viewDidLoad() {
         getLists()
-        
+        print(userTags)
         self.tableViewSetUp()
         self.createSuperArray()
         self.setUpViewWithNav()
@@ -63,7 +61,11 @@ class CreateTicketsViewController: UIViewController{
         self.activityIndicator.startAnimating()
         self.activityIndicator.isHidden = false
         self.tableView.isUserInteractionEnabled = false
-        
+        attachments = HippoConfig.shared.attachments
+        for i in 0..<HippoConfig.shared.attachments.count{
+            attachmentData.append(["path": HippoConfig.shared.attachments[i].path, "type":HippoConfig.shared.attachments[i].type, "name": HippoConfig.shared.attachments[i].name])
+        }
+   
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -127,7 +129,7 @@ class CreateTicketsViewController: UIViewController{
     func getLists(){
         var params = [String : Any]()
         params = ["app_secret_key":HippoConfig.shared.appSecretKey,
-                  "fetch_list_items" : ["groups","Prioritys"]
+                  "fetch_list_items" : ["PRIORITIES","GROUPS"]
         ] as [String : Any]
 //        activityIndicator.startAnimating()
 //        self.activityIndicator.isHidden = false
@@ -190,20 +192,20 @@ class CreateTicketsViewController: UIViewController{
     //MARK: - IBAction
     
     @IBAction func createTicketPressed(_ sender: UIButton) {
-        if self.createTicketDataModel.customer_name == ""{
+        if self.createTicketDataModel.customer_name == "" || self.createTicketDataModel.customer_name == nil{
             self.showAlert(title: "", message: "Please enter customer name.", actionComplete: nil)
-        }else if self.createTicketDataModel.customer_email == ""{
+        }else if self.createTicketDataModel.customer_email == "" || self.createTicketDataModel.customer_email ==  nil{
             self.showAlert(title: "", message: "Please enter customer email.", actionComplete: nil)
-        }else if self.createTicketDataModel.subject == ""{
+        }else if self.createTicketDataModel.subject == "" || self.createTicketDataModel.subject == nil{
             self.showAlert(title: "", message: "Please enter subject.", actionComplete: nil)
-        }else if self.createTicketDataModel.issueDescription == nil{
+        }else if self.createTicketDataModel.issueDescription == "" || self.createTicketDataModel.issueDescription == nil{
             self.showAlert(title: "", message: "Please enter description.", actionComplete: nil)
         }else if self.createTicketDataModel.issue == nil{
             self.showAlert(title: "", message: "Please select group type.", actionComplete: nil)
         }else if self.createTicketDataModel.priority == nil{
             self.showAlert(title: "", message: "Please select priority.", actionComplete: nil)
-        }else if self.createTicketDataModel.subject?.count ?? 0 < 2 {
-            self.showAlert(title: "", message: "Please enter a valid Subject. Subject must contain at least 2 characters.", actionComplete: nil)
+        }else if self.createTicketDataModel.subject?.count ?? 0 < 10 {
+            self.showAlert(title: "", message: "Please enter a valid Subject. Subject must contain at least 10 characters.", actionComplete: nil)
         }else{
             if (self.createTicketDataModel.customer_email ?? "").isValidEmail(){
                 self.createTicket()
@@ -231,9 +233,9 @@ extension CreateTicketsViewController: UITableViewDelegate, UITableViewDataSourc
             }
             cell.textField.withImage(direction: .Left, image: UIImage(named: "user", in: FuguFlowManager.bundle, compatibleWith: nil) ?? UIImage(), colorSeparator: .clear, colorBorder: UIColor(red: 223/255, green: 230/255, blue: 236/255, alpha: 1))
             cell.textField.placeholder = "Enter Name"
-            if HippoConfig.shared.userDetail?.fullName != ""{
-                cell.textField.text = HippoConfig.shared.userDetail?.fullName
-                self.createTicketDataModel.customer_name = HippoConfig.shared.userDetail?.fullName
+            if HippoConfig.shared.customer_name != ""{
+                cell.textField.text = HippoConfig.shared.customer_name
+                self.createTicketDataModel.customer_name = HippoConfig.shared.customer_name
             }else{
                 cell.textField.text = self.createTicketDataModel.customer_name
             }
@@ -251,9 +253,9 @@ extension CreateTicketsViewController: UITableViewDelegate, UITableViewDataSourc
             cell.textField.withImage(direction: .Left, image: UIImage(named: "envelope", in: FuguFlowManager.bundle, compatibleWith: nil) ?? UIImage(), colorSeparator: UIColor.clear, colorBorder: UIColor(red: 223/255, green: 230/255, blue: 236/255, alpha: 1))
             
             cell.textField.placeholder = "Enter Email"
-            if HippoConfig.shared.userDetail?.email != ""{
-                cell.textField.text = HippoConfig.shared.userDetail?.email
-                self.createTicketDataModel.customer_email = HippoConfig.shared.userDetail?.email
+            if HippoConfig.shared.customer_email != ""{
+                cell.textField.text = HippoConfig.shared.customer_email
+                self.createTicketDataModel.customer_email = HippoConfig.shared.customer_email
             }else{
                 cell.textField.text = self.createTicketDataModel.customer_email
             }
@@ -268,8 +270,14 @@ extension CreateTicketsViewController: UITableViewDelegate, UITableViewDataSourc
             }
             
             cell.textField.withImage(direction: .Left, image: UIImage(named: "subject", in: FuguFlowManager.bundle, compatibleWith: nil) ?? UIImage(), colorSeparator: UIColor.clear, colorBorder: UIColor(red: 223/255, green: 230/255, blue: 236/255, alpha: 1))
-            self.createTicketDataModel.subject = ""
-            cell.textField.text = self.createTicketDataModel.subject
+           
+            if HippoConfig.shared.subject != ""{
+                cell.textField.text = HippoConfig.shared.subject
+                self.createTicketDataModel.subject = HippoConfig.shared.subject
+            }else{
+                cell.textField.text = self.createTicketDataModel.subject
+            }
+            
             cell.callBack = { text in
                 self.createTicketDataModel.subject = text
             }
@@ -281,7 +289,13 @@ extension CreateTicketsViewController: UITableViewDelegate, UITableViewDataSourc
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "DescriptionTableViewCell", for: indexPath) as? DescriptionTableViewCell else {
                 return UITableViewCell()
             }
-            cell.textView.text = ""
+            if HippoConfig.shared.issueDescription != ""{
+                cell.textView.text = HippoConfig.shared.issueDescription
+                self.createTicketDataModel.issueDescription = HippoConfig.shared.issueDescription
+            }else{
+                cell.textView.text = self.createTicketDataModel.issueDescription
+            }
+            
             cell.callBack = { text in
                 self.createTicketDataModel.issueDescription = text
             }

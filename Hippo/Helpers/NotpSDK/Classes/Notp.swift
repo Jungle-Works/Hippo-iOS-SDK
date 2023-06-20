@@ -64,7 +64,10 @@ public class Notp {
                     let mobile = components.queryItems?.first(where: { $0.name == "phone_number" })?.value ?? ""
                     let name = components.queryItems?.first(where: { $0.name == "name" })?.value ?? ""
                     if waId == NotpHelper.session_ID{
-                        getAndUpdateOTPStatusAPI(waID:waId)
+                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5, execute: {
+                            self.getAndUpdateOTPStatusAPI(waID:waId)
+                        })
+                        
                     }else{
                         self.delegateOnVerify?.onVerifyWaid(mobile: "",countryCode:"", waId: "", name: "", message: "", error: "Session id and Whatsapp id does not match")
                     }

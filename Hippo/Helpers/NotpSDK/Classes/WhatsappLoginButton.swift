@@ -189,7 +189,7 @@ public final class WhatsappLoginButton: UIButton, onVerifyWaidDelegate {
         }
         
         var params = [String : Any]()
-        params = ["app_secret_key":"27cd2ada1363380005cfe85701313332",//HippoConfig.shared.whatsappSecretKey,
+        params = ["app_secret_key":HippoConfig.shared.whatsappSecretKey,
                   "get_session": true, "device_type": 2, "redirect_uri":redirectURI] as [String : Any]
         print(params)
         HTTPClient.makeConcurrentConnectionWith(method: .POST, showActivityIndicator: true, para: params, extendedUrl: AgentEndPoints.generateQrCode.rawValue) { (response, error, _, statusCode) in
