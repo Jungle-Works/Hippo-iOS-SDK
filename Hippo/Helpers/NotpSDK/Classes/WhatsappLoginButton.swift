@@ -34,9 +34,16 @@ public final class WhatsappLoginButton: UIButton, onVerifyWaidDelegate {
         
         
         Notp.sharedInstance.delegateOnVerify = self
-        if let image = UIImage(named: "notpwhatsapp.png", in: Bundle(for: type(of: self)), compatibleWith: nil) {
-            setImage(image, for: .normal)
-        }
+//        if Notp.sharedInstance.buttonImage != ""{
+//            if let image = UIImage(named: Notp.sharedInstance.buttonImage, in: Bundle(for: type(of: self)), compatibleWith: nil) {
+//                setImage(image, for: .normal)
+//            }
+//        }else{
+            if let image = UIImage(named: "notpwhatsapp.png", in: Bundle(for: type(of: self)), compatibleWith: nil) {
+                setImage(image, for: .normal)
+            }
+           
+//        }
         checkWaidExistsAndVerified()
         setTitle(Notp.sharedInstance.buttonText, for: .normal)
         addTarget(self, action:#selector(self.buttonClicked), for: .touchUpInside)

@@ -11,6 +11,7 @@ import Foundation
 
 public class Notp {
     public var buttonText = HippoStrings.continue_to_whatsapp
+    public var buttonImage = ""
     public weak var delegate: onResponseDelegate?
     public weak var delegateOnVerify: onVerifyWaidDelegate?
     public static let sharedInstance: Notp = {
