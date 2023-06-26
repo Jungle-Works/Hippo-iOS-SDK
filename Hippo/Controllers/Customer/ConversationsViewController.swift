@@ -32,10 +32,6 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     var createTicketVM = CreateTicketVM()
     var popover : LCPopover?
     var original_transaction_id : String?
-    private var dataSource: MentionTableDataSourceDelegate!
-    private var dataManager: MentionDataManager!
-    private var mentionListener: MentionListener!
-    private var messageSendingViewConfig: MessageSendingViewConfig = MessageSendingViewConfig()
     
     // MARK: -  IBOutlets
     @IBOutlet weak var backgroundImageView: UIImageView!
@@ -288,9 +284,6 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         viewRecord.isHidden = false
     }
     
-    func resetMention() {
-        mentionListener?.reset()
-    }
     
     func handleInfoIcon() {
         setTitleButton()
@@ -818,12 +811,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
             }
         }
         
-        if chatType?.rawValue ?? 0 == 4 /*&& channelType == .DEFAULT*/{
-            let mentions = mentionListener.mentions
-            self.sendButtonClicked(mentions: mentions, message: messageTextView.text, isPrivateMessage: false, config: self.messageSendingViewConfig)
-        }else{
-            self.sendMessageButtonAction(messageTextStr: messageTextView.text)
-        }
+        self.sendMessageButtonAction(messageTextStr: messageTextView.text)
     }
     
     private func sendAddress() {
@@ -880,90 +868,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         }
     }
     
-    func sendButtonClicked(mentions: [Mention], message: String, isPrivateMessage isPrivate: Bool, config: MessageSendingViewConfig) {
-        if storeResponse?.restrictPersonalInfo ?? false  && channel?.chatDetail?.chatType == .other{
-            if message.trimmingCharacters(in: .whitespaces).matches(for: phoneRegex).count > 0  || message.isValidEmail() || message.isValidUrl() || message.matches(for: urlRegex).count > 0{
-                showErrorMessage(messageString: HippoStrings.donotAllowPersonalInfo)
-                updateErrorLabelView(isHiding: true)
-                return
-            }
-        }
-        
-        if channel != nil, !channel.isSubscribed() {
-            channel.subscribe()
-        }
-        
-        if FuguNetworkHandler.shared.isNetworkConnected == false {
-            return
-        }
-        
-        if SocketClient.shared.isConnected() == false {
-            SocketClient.shared.connect()
-        }
-        
-        if isMessageInvalid(messageText: messageTextView.text) {
-            return
-        }
-        let trimmedMessage = messageTextView.text.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-        
-        let message = HippoMessage(message: trimmedMessage, type: .normal, uniqueID: String.generateUniqueId(), chatType: channel?.chatDetail?.chatType)
-        channel?.unsentMessages.append(message)
-        
-        if channel != nil {
-            //                        addMessageToUIBeforeSending(message: message)
-            //                        self.sendMessage(message: message)
-            self.sendMessageToFaye(mentions: mentions, messageString: trimmedMessage, isPrivate: isPrivate)
-        } else {
-            //TODO: - Loader animation
-            startNewConversation(replyMessage: nil, completion: { [weak self] (success, result) in
-                if success {
-                    self?.populateTableViewWithChannelData()
-                    //                    self?.addMessageToUIBeforeSending(message: message)
-                    //                    self?.sendMessage(message: message)
-                    self?.sendMessageToFaye(mentions: mentions, messageString: trimmedMessage, isPrivate: isPrivate)
-                }
-            })
-        }
-    }
-    
-    func sendMessageToFaye(mentions: [Mention], messageString: String, isPrivate: Bool) {
-        guard channelId >= 0, currentUserId() >= 0 else {
-            return
-        }
-        let (text, ids) = addTag(mentions: mentions, messageString: messageString)
-        let messageType = isPrivate ? MessageType.privateNote : MessageType.normal
-        let muid = generateUniqueId()
-        //        resetVariables()
-        let message = HippoMessage(message: text, type: messageType, uniqueID: muid, taggedUserArray: ids, chatType: chatType)
-        
-        channel?.unsentMessages.append(message)
-        addMessageToUIBeforeSending(message: message)
-        
-        //        publishMessageOnChannel(message: message)
-        self.sendMessage(message: message)
-    }
-    
-    func addTag(mentions: [Mention], messageString: String) -> (String, [Int]) {
-        var finalString: NSString = ""
-        var ids: [Int] = []
-        finalString = (messageTextView.text ?? "").trimWhiteSpacesAndNewLine() as NSString
-        let filteredMention = mentions.sorted { (m1, m2) -> Bool in
-            return m1.range.location > m2.range.location
-        }
-        for mention in filteredMention {
-            guard let agent = mention.object as? Agent else {
-                continue
-            }
-            //            finalString = finalString.replacingOccurrences(of: agent.mentionName, with: agent.attributedFullName!, options: .regularExpression, range: mention.range) as NSString
-            guard let id = agent.userId else {
-                continue
-            }
-            if !ids.contains(id) {
-                ids.append(id)
-            }
-        }
-        return (finalString as String, ids)
-    }
+
     
     func sendMessageButtonAction(messageTextStr: String){
         if storeResponse?.restrictPersonalInfo ?? false && channel?.chatDetail?.chatType == .other{
