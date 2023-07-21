@@ -1925,7 +1925,7 @@ extension HippoConversationViewController: PaymentMessageCellDelegate {
                         }
                     }
                     if actionSheetTitleArr.count > 0{
-                        heightForActionSheet = CGFloat((actionSheetTitleArr.count * 60))
+                        heightForActionSheet = CGFloat((actionSheetTitleArr.count * 80))
                         isProceedToPayActionSheet = true
                         openCustomSheet()
                     }else{

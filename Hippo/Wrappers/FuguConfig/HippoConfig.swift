@@ -41,16 +41,15 @@ enum PrivateSocketKeys: String {
 
 
 struct SERVERS {
-    
     static let liveUrl = "https://api.hippochat.io/"
-    static let liveFaye = "https://event.hippochat.io"
-    
-    static let betaUrl = "https://beta-live-api1.fuguchat.com:3001/"
-    static let betaFaye = "https://beta-live-api1.fuguchat.com:3003"
-    
-    static let devUrl = ["https://hippo-api-dev1.fuguchat.com:3002/", "https://hippo-api-dev1.fuguchat.com:3003/", "https://hippo-api-dev1.fuguchat.com:3004/"]
-    static let devFaye = ["https://hippo-api-dev1.fuguchat.com:3002/", "https://hippo-api-dev1.fuguchat.com:3003/", "https://hippo-api-dev1.fuguchat.com:3004/"]
-    
+    static let liveFaye = "https://event.hippochat.io"//"https://socketv2.hippochat.io/faye"//
+
+    static let betaUrl = "https://hippog-server.fuguchat.com:3003/"
+    static let betaFaye = "https://hippog-server.fuguchat.com:3003/"
+    //3002 - for notp
+    //3003 = for create ticket // https://api-graviton-multiple.fuguchat.com:3003/
+    static let devUrl = ["https://api-graviton-multiple.fuguchat.com:3002/", "https://api-graviton-multiple.fuguchat.com:3003/", "https://api-graviton-multiple.fuguchat.com:3004/"]
+    static let devFaye = ["https://api-graviton-multiple.fuguchat.com:3002/", "https://api-graviton-multiple.fuguchat.com:3003/", "https://api-graviton-multiple.fuguchat.com:3004/"]
 }
 
 struct BotAction {
@@ -245,7 +244,7 @@ struct WhatsappWidgetConfig{
     var isPopUpCalledBeforeCaching = false
     var popupCallbacksCache: [([String: Any]) -> Void]?
     var screenToShowPopUpOn: UIViewController?
-    
+
     
     // MARK: - Intialization
     private override init() {

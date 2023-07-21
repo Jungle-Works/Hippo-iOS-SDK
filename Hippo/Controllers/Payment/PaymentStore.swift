@@ -249,7 +249,7 @@ class PaymentStore: NSObject {
         if let selectedPaymentGatewayId = selectedPaymentGateway?.gateway_id{
             param["payment_gateway_id"] = selectedPaymentGatewayId
         }
-        param["is_sdk_flow"] = 1
+//        param["is_sdk_flow"] = 1
         param["offering"] = HippoConfig.shared.offering
         
         if let userIdenficationSecret = HippoConfig.shared.userDetail?.userIdenficationSecret{

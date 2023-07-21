@@ -94,7 +94,7 @@ final class NavigationBarChat: UIView {
     
     func setupDefaultUI() {
         titleLabel.font = HippoConfig.shared.theme.headerTextFont
-        titleLabel.textColor = HippoConfig.shared.theme.headerTextColor
+        titleLabel.textColor = .black//HippoConfig.shared.theme.headerTextColor
     
         hideProfileImage()
         
