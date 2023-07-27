@@ -72,7 +72,8 @@ struct FuguNewChatAttributes {
       }
     
     if let botGroupId = self.botGroupId {
-        params["initiate_bot_group_id"] = botGroupId
+//        params["initiate_bot_group_id"] = botGroupId
+        params["bot_group_id"] = botGroupId
     }
     
     params["chat_type"] = fuguChatType.rawValue

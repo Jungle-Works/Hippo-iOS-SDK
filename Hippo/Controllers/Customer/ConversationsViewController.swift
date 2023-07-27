@@ -26,7 +26,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     //MARK: Constants
     var createConversationOnStart = false
     var hideBackButton: Bool = false
-    
+    var isFirst : Bool = false
     var consultNowInfoDict = [String: Any]()
     var isComingFromConsultNowButton = false
     var createTicketVM = CreateTicketVM()
@@ -35,6 +35,8 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     
     // MARK: -  IBOutlets
     @IBOutlet weak var backgroundImageView: UIImageView!
+    @IBOutlet weak var pleaseSelectOptionView: UIView!
+    @IBOutlet weak var pleaseSelectOptionLabel: UILabel!
     @IBOutlet weak var audioCAllButtonWidthConstraint: NSLayoutConstraint!
     @IBOutlet var backgroundView: UIView!
     @IBOutlet var navigationBackgroundView: UIView!
@@ -110,8 +112,6 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     @IBOutlet private var button_Recording : RecordButton!
     @IBOutlet private var viewRecord : RecordView!
     @IBOutlet private var stackViewButton : UIStackView!
-    
-    
     @IBOutlet var buttonCalendar : UIButton!{
         didSet{
             buttonCalendar.imageView?.tintColor = HippoConfig.shared.theme.themeColor
@@ -188,10 +188,13 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         configureChatScreen()
         setThemeForBusiness()
         HippoConfig.shared.notifyDidLoad()
-        
+
+        pleaseSelectOptionView.isHidden = true
+        pleaseSelectOptionLabel.isHidden = true
+        //Commented because we dont want to hit api just after 
         guard channel != nil else {
             if createConversationOnStart {
-                
+
                 if directChatDetail != nil {
                     //                    HippoChannel.get(withFuguChatAttributes: directChatDetail!) { [weak self] (r) in
                     HippoChannel.get(withFuguChatAttributes: directChatDetail!, isComingFromConsultNow: isComingFromConsultNowButton, methodIsOnlyCallForChannelAvailableInLocalOrNot: true) { [weak self] (r) in
@@ -353,13 +356,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         handleAudioIcon()
         HippoConfig.shared.notifyDidLoad()
         
-        //        if let lastMessage = getLastMessage(){
-        //            if lastMessage.type == MessageType.consent{
-        //                fuguDelay(0.5) {
-        //                    self.disableSendingReply(withOutUpdate: true)
-        //                }
-        //            }
-        //        }
+
         
         if #available(iOS 13.0, *) {
             self.view.overrideUserInterfaceStyle = .light
@@ -399,10 +396,10 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
             return
         }
         
-        self.seperatorView.isHidden = true
-        self.seperatorView.backgroundColor = #colorLiteral(red: 0.8941176471, green: 0.8941176471, blue: 0.9294117647, alpha: 1)
+//        self.seperatorView.isHidden = true
+//        self.seperatorView.backgroundColor = #colorLiteral(red: 0.8941176471, green: 0.8941176471, blue: 0.9294117647, alpha: 1)
         if toAdd {
-            self.seperatorView.isHidden = false
+//            self.seperatorView.isHidden = false
         }
     }
     
@@ -655,7 +652,20 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
             messageTextView.keyboardType = .decimalPad
             break
         case .defaultKeyboard :
-            enableSendingReply(withOutUpdate: true)
+            if let lastMessage = getLastMessage(){
+                if isFirst == false{
+                    if lastMessage.type == MessageType.consent{
+                        fuguDelay(0.5) {
+                            self.isFirst = true
+                            self.disableSendingReply(withOutUpdate: true)
+
+                        }
+                    }
+                }else{
+                    enableSendingReply(withOutUpdate: true)
+                }
+            }
+
             messageTextView.keyboardType = .default
             break
             
@@ -1060,6 +1070,8 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     }
     
     func disableSendingReply(withOutUpdate: Bool = false) {
+        self.pleaseSelectOptionView.isHidden = false
+        self.pleaseSelectOptionLabel.isHidden = false
         if !withOutUpdate {
             self.channel?.isSendingDisabled = true
         }
@@ -1071,6 +1083,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
             self.view.layoutIfNeeded()
         }
     }
+    
     
     func enableSendingReply(withOutUpdate: Bool = false) {
         if !withOutUpdate {
@@ -1089,6 +1102,8 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         DispatchQueue.main.async {
             self.view.layoutIfNeeded()
         }
+        self.pleaseSelectOptionView.isHidden = true
+        self.pleaseSelectOptionLabel.isHidden = true
     }
     func getLastMessage() -> HippoMessage? {
         
@@ -1243,7 +1258,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         let contentOffsetBeforeNewMessages = tableViewChat.contentOffset.y
         let contentHeightBeforeNewMessages = tableViewChat.contentSize.height
         tableViewChat.reloadData()
-        
+
         if request.pageStart > 1 {
             keepTableViewWhereItWasBeforeReload(oldContentHeight: contentHeightBeforeNewMessages, oldYOffset: contentOffsetBeforeNewMessages)
         }
@@ -1389,7 +1404,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         messagesGroupedByDate = []
         labelId = -1
         tableViewChat.reloadData()
-        
+
         directChatDetail = FuguNewChatAttributes.defaultChat
         label = (userDetailData["business_name"] as? String) ?? HippoStrings.support
         userImage = nil
@@ -1520,9 +1535,9 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
             disableSendingNewMessages()
             //         return
         }
-        
-        startLoaderAnimation()
-        
+        if !isDefaultChannel() {
+            startLoaderAnimation()
+        }
         if HippoConfig.shared.appSecretKey.isEmpty {
             return
         }
@@ -1644,7 +1659,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         channel?.unsentMessages = unsentMessage
         self.updateMessagesInLocalArrays(messages: [])
         tableViewChat.reloadData()
-        
+
         sendReadAllNotification()
         
         stopLoaderAnimation()
@@ -3267,9 +3282,10 @@ extension ConversationsViewController: HippoChannelDelegate {
             disableSendingNewMessages()
         }
         
-        //        if message.type == MessageType.consent{
-        //            self.disableSendingReply(withOutUpdate: true)
-        //        }
+        if message.type == MessageType.consent{
+            self.isFirst = true
+            self.disableSendingReply(withOutUpdate: true)
+        }
     }
     
     func getMessageForQuickReply(messages: [HippoMessage]) -> HippoMessage? {
@@ -3696,7 +3712,7 @@ extension ConversationsViewController: BotOtgoingMessageCellDelegate {
                 self?.channel?.sendFormValues(message: chat, completion: {
                     chat.isQuickReplyEnabled = false
                     self?.tableViewChat.reloadData()
-                    
+
                 })
             }
         }

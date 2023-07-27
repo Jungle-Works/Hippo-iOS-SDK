@@ -63,7 +63,7 @@ class PrePayment{
         json["user_id"] = currentUserId()
         json["transaction_id"] = String.generateUniqueId()
         json["payment_gateway_id"] = paymentGatewayId
-        json["is_sdk_flow"] = 1
+//        json["is_sdk_flow"] = 1
         if (paymentType ?? 0) > 0{
             json["payment_type"] = paymentType
         }

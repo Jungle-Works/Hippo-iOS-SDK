@@ -34,7 +34,6 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     @IBOutlet var poweredByFuguLabel: UILabel!
     @IBOutlet weak var heightOfBottomLabel: NSLayoutConstraint!
     //   @IBOutlet weak var heightofNavigationBar: NSLayoutConstraint!
-    
     @IBOutlet weak var buttonContainerView: UIView!
     @IBOutlet weak var openChatButton: UIButton!
     @IBOutlet weak var closeChatButton: UIButton!
@@ -49,7 +48,6 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     // MARK: - PROPERTIES
     let refreshControl = UIRefreshControl()
     var informationView: InformationView?
-    
     var tableViewDefaultText: String = ""
     let urlForFuguChat = "https://fuguchat.com/"
     var arrayOfFullConversation = [FuguConversation]()
@@ -136,6 +134,9 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         if #available(iOS 13.0, *) {
             self.view.overrideUserInterfaceStyle = .light
         }
+        UIView.animate(withDuration: 0.2, delay: 0, options: [.curveEaseOut], animations: {
+            self.updateNewConversationBtnUI(isSelected: true)
+        })
     }
     
     override func viewWillLayoutSubviews() {
@@ -424,13 +425,13 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         
         //After Merge func
         sender.isSelected = !sender.isSelected
-        if sender.isSelected{
-            UIView.animate(withDuration: 0.2, delay: 0, options: [.curveEaseOut], animations: {
-                self.updateNewConversationBtnUI(isSelected: sender.isSelected)
-            })
-            
-        }else{
-            
+//        if sender.isSelected{
+//            UIView.animate(withDuration: 0.2, delay: 0, options: [.curveEaseOut], animations: {
+//                self.updateNewConversationBtnUI(isSelected: sender.isSelected)
+//            })
+//
+//        }else{
+
             // MARK: - Send call back to parent app for new chat creation if max chat not reached
             
             if HippoConfig.shared.newChatCallback != nil{
@@ -450,7 +451,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
                 }
             }
             var fuguNewChatAttributes = FuguNewChatAttributes(transactionId: "", userUniqueKey: HippoConfig.shared.userDetail?.userUniqueKey, otherUniqueKey: nil, tags: nil, channelName: nil, preMessage: "", groupingTag: nil)
-            
+
             HippoConfig.shared.log.debug(("bodID******* \(HippoProperty.current.newconversationBotGroupId ?? "")"), level: .info)
             
             //            fuguNewChatAttributes.botGroupId = HippoProperty.current.newconversationBotGroupId
@@ -462,7 +463,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
             conversation.createConversationOnStart = true
             self.navigationController?.pushViewController(conversation, animated: true)
             self.updateNewConversationBtnUI(isSelected: sender.isSelected)
-        }
+//        }
     }
     
     @IBAction func openChatButtonClicked(_ sender: UIButton) {
