@@ -243,7 +243,7 @@ class AgentConversationManager {
             completion(AgentGetConversationFromServerResult(isSuccessful: false, error: HippoError.general, conversations: nil))
             return
         }
-        
+
         HTTPClient.shared.makeSingletonConnectionWith(method: .POST, identifier: request.apiRequestIdentifier, para: params, extendedUrl: AgentEndPoints.getConversation.rawValue) { (responseObject, error, tag, statusCode) in
             
             
@@ -363,7 +363,7 @@ class AgentConversationManager {
             completion(AgentGetConversationFromServerResult(isSuccessful: false, error: HippoError.general, conversations: nil))
             return
         }
-        
+
         HTTPClient.shared.makeSingletonConnectionWith(method: .POST, identifier: request.apiRequestIdentifier, para: params, extendedUrl: AgentEndPoints.getConversation.rawValue) { (responseObject, error, tag, statusCode) in
             
             

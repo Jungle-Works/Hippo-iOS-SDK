@@ -20,7 +20,6 @@ protocol NewChatSentDelegate: class {
     func updateConversationWith(conversationObj: FuguConversation)
 }
 
-
 class ConversationsViewController: HippoConversationViewController {//}, UIGestureRecognizerDelegate {
     
     //MARK: Constants
@@ -163,6 +162,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         viewRecord.delegate = self
         button_Recording.buttonTouched = {[weak self]() in
             DispatchQueue.main.async {
+                self?.messageTextView.resignFirstResponder()
                 self?.addRecordView()
             }
         }
@@ -1253,8 +1253,8 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         {
             self.setKeyboardType(message: messages.last!)
         }
-        
-        
+
+
         let contentOffsetBeforeNewMessages = tableViewChat.contentOffset.y
         let contentHeightBeforeNewMessages = tableViewChat.contentSize.height
         tableViewChat.reloadData()
@@ -1403,8 +1403,9 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         channel = nil
         messagesGroupedByDate = []
         labelId = -1
-        tableViewChat.reloadData()
-
+        DispatchQueue.main.async {
+            self.tableViewChat.reloadData()
+        }
         directChatDetail = FuguNewChatAttributes.defaultChat
         label = (userDetailData["business_name"] as? String) ?? HippoStrings.support
         userImage = nil
@@ -1658,8 +1659,9 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         channel?.sentMessages = sentMessage
         channel?.unsentMessages = unsentMessage
         self.updateMessagesInLocalArrays(messages: [])
-        tableViewChat.reloadData()
-
+        DispatchQueue.main.async {
+            self.tableViewChat.reloadData()
+        }
         sendReadAllNotification()
         
         stopLoaderAnimation()
