@@ -42,7 +42,7 @@ import Foundation
  When passed to image view set methods, Kingfisher will try to download the target 
  image from the `downloadURL`, and then store it with the `cacheKey` as the key in cache.
  */
-  struct ImageResource: Resource {
+  struct ImageResources: Resource {
     /// The key used in cache.
       let cacheKey: String
     
