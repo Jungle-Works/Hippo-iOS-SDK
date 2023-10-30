@@ -141,7 +141,7 @@ class SocketClient: NSObject {
         socket?.on(SocketEvent.UNSUBSCRIBE_CHAT.rawValue, callback: unsubscribeChannelListener)
         socket?.on(SocketEvent.UNSUBSCRIBE_USER.rawValue, callback: unsubscribeChannelListener)
         socket?.on(clientEvent: .error, callback: { (data, ack) in
-            print("error socket error hai bhenchod", data)
+            print("error socket error", data)
         })
         socket?.on(clientEvent: .pong, callback: { (data, ack) in })
         socket?.on(clientEvent: .ping, callback: { (data, ack) in })

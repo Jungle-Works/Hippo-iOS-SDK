@@ -28,7 +28,7 @@ Pod::Spec.new do |s|
     }
     s.resources = ['Hippo/*.xcassets']
     
-    s.dependency 'Socket.IO-Client-Swift', '~> 16.0.1'
+    s.dependency 'Socket.IO-Client-Swift', '~> 16.1.0'
     s.dependency 'CropViewController'
     s.dependency 'DropDown'
  
