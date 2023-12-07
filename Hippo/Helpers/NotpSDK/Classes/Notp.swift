@@ -7,19 +7,17 @@
 
 import Foundation
 
-
-
-public class Notp {
+@objc public class Notp: NSObject {
     public var buttonText = HippoStrings.continue_to_whatsapp
     public var buttonImage = ""
     public weak var delegate: onResponseDelegate?
     public weak var delegateOnVerify: onVerifyWaidDelegate?
-    public static let sharedInstance: Notp = {
+    @objc public static let sharedInstance: Notp = {
         let instance = Notp()
         return instance
     }()
     var loader : NotpLoader? = nil
-    private init(){}
+//    private init(){}
     
     
     public func isWhatsappInstalled() -> Bool{
@@ -43,7 +41,7 @@ public class Notp {
         }
     }
     
-    public func isNotpDeeplink(url : URL) -> Bool{
+    @objc  public func isNotpDeeplink(url : URL) -> Bool{
         if let components = URLComponents(url: url, resolvingAgainstBaseURL: true){
             let host = components.host
             switch host {
@@ -56,7 +54,7 @@ public class Notp {
         return false
     }
     
-    public func processNotpDeeplink(url : URL) {
+    @objc  public func processNotpDeeplink(url : URL) {
         if let components = URLComponents(url: url, resolvingAgainstBaseURL: true) {
             let host = components.host
             switch host {

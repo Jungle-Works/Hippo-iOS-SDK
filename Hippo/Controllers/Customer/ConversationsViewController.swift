@@ -640,8 +640,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         stopLoaderAnimation()
     }
     
-    func setKeyboardType(message:HippoMessage)
-    {
+    func setKeyboardType(message:HippoMessage){
         
         switch message.keyboardType {
         case .none:
@@ -839,7 +838,6 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         messageTextView.text = ""
         
     }
-    
     
     private func sendDateMessage() {
         if channel != nil, !channel.isSubscribed()  {
@@ -1175,6 +1173,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     }
     
     // MARK: - SERVER HIT
+
     override func getMessagesBasedOnChannel(fromMessage pageStart: Int, pageEnd: Int?, completion: ((_ success: Bool) -> Void)?) {
         guard channel != nil else {
             completion?(false)
@@ -2140,7 +2139,6 @@ extension ConversationsViewController {
             }
             showHideActivityIndicator(hide: false)
             isGettingMessageViaPaginationInProgress = true
-            
             self.getMessagesBasedOnChannel(fromMessage: self.channel.sentMessages.count + 1, pageEnd: nil, completion: { [weak self]  (success) in
                 self?.showHideActivityIndicator(hide: true)
                 self?.isGettingMessageViaPaginationInProgress = false

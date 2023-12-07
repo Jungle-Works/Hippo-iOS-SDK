@@ -1320,6 +1320,7 @@ extension HippoConversationViewController {
             }
             
             if message.type == .botAttachment {
+       
                 message.contentValues = self?.getBotAttachmentContent(path: result.fileUrl ?? "", thumnailUrl: result.imageThumbnailUrl ?? "", name: result.fileUrl?.fileName() ?? "") ?? [[String : Any]]()
                 (message as? HippoActionMessage)?.selectBtnWith(btnId: "")
             }else {
