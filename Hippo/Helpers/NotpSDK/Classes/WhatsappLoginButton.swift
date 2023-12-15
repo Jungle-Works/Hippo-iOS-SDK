@@ -1,49 +1,41 @@
 //
-//  WhatsappLoginButton.swift
-//  NotpSDK
+// WhatsappLoginButton.swift
+// NotpSDK
 //
-//  Created by Notp on 06/02/23.
+// Created by Notp on 06/02/23.
 //
 
 import UIKit
 
 /// This class inherits all the properties of the button
-public final class WhatsappLoginButton: UIButton, onVerifyWaidDelegate {
-    
+open class WhatsappLoginButton: UIButton, onVerifyWaidDelegate {
+
+    open var isWhatsAppEnabled = true
     var notpUrl: String = ""
     var apiRoute = "metaverse"
     var redirectURI = ""
-//    var buttonText = HippoStrings.continue_to_whatsapp
+    // var buttonText = HippoStrings.continue_to_whatsapp
     private var loader = NotpLoader()
     public weak var delegate: onCallbackResponseDelegate?
-    
-    
+
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         setImageAndTitle()
     }
-    
-    required init?(coder: NSCoder) {
+
+    required public init?(coder: NSCoder) {
         super.init(coder: coder)
         self.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         setImageAndTitle()
     }
-    
+
     func setImageAndTitle() {
-        
-        
         Notp.sharedInstance.delegateOnVerify = self
-//        if Notp.sharedInstance.buttonImage != ""{
-//            if let image = UIImage(named: Notp.sharedInstance.buttonImage, in: Bundle(for: type(of: self)), compatibleWith: nil) {
-//                setImage(image, for: .normal)
-//            }
-//        }else{
-            if let image = UIImage(named: "notpwhatsapp.png", in: Bundle(for: type(of: self)), compatibleWith: nil) {
-                setImage(image, for: .normal)
-            }
-           
-//        }
+        if let image = UIImage(named: "notpwhatsapp.png", in: Bundle(for: type(of: self)), compatibleWith: nil) {
+            setImage(image, for: .normal)
+        }
         checkWaidExistsAndVerified()
         setTitle(Notp.sharedInstance.buttonText, for: .normal)
         addTarget(self, action:#selector(self.buttonClicked), for: .touchUpInside)
@@ -51,7 +43,7 @@ public final class WhatsappLoginButton: UIButton, onVerifyWaidDelegate {
         setTitleColor(UIColor.white, for: UIControl.State.normal)
         titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
     }
-    
+
     func starifyNumber(number: String) -> String {
         let intLetters = number.prefix(3)
         let endLetters = number.suffix(2)
@@ -63,10 +55,8 @@ public final class WhatsappLoginButton: UIButton, onVerifyWaidDelegate {
         let finalNumberToShow: String = intLetters + starString + endLetters
         return finalNumberToShow
     }
-    
+
     public func onVerifyWaid(mobile: String?, countryCode:String?, waId: String?, name: String?, message: String?, error: String?) {
-        
-//        let number = starifyNumber(number: mobile ?? Notp.sharedInstance.buttonText)
         Notp.sharedInstance.buttonText = Notp.sharedInstance.buttonText
         self.loader.hide()
         manageLabelAndImage()
@@ -78,43 +68,46 @@ public final class WhatsappLoginButton: UIButton, onVerifyWaidDelegate {
             }
         }
     }
-    
-    
+
     @objc private func buttonClicked(){
-        if !Notp.sharedInstance.isWhatsappInstalled() {
-            self.delegate?.errorCallback(message: "Please Install Whatsapp")
-        }else{
-            let waIdExists = NotpHelper.checkValueExists(forKey: NotpHelper.waidDefaultKey)
-            if (waIdExists){
-            } else {
-                self.generateQrCode()
+        self.delegate?.didTapOnButton()
+
+        if isWhatsAppEnabled{
+            if !Notp.sharedInstance.isWhatsappInstalled() {
+                self.delegate?.errorCallback(message: "Please Install Whatsapp")
+            }else{
+                let waIdExists = NotpHelper.checkValueExists(forKey: NotpHelper.waidDefaultKey)
+                if (waIdExists){
+                } else {
+                    self.generateQrCode()
+                }
             }
+        }else{
+            return
         }
     }
-    
+
     public func removeWaidAndContinueToWhatsapp (){
         NotpHelper.removeUserMobileAndWaid()
         Notp.sharedInstance.continueToWhatsapp(url: notpUrl)
     }
-    
+
     public func show(){
         self.isHidden = false
     }
-    
+
     public func hide(){
         self.isHidden = true
     }
-    
+
     public override func layoutSubviews() {
         super.layoutSubviews()
         manageLabelAndImage()
     }
-    
+
     func manageLabelAndImage(){
-        
-        let imgVwWidthAndHeight =  self.frame.height/2
+        let imgVwWidthAndHeight = self.frame.height/2
         let expectedHeightForView = imgVwWidthAndHeight * 7
-        
         let marginBetweenImgVwAndLabel = self.frame.height/8
         let marginLeftAndRight = self.frame.height/4
         var labelWidth = self.frame.width - imgVwWidthAndHeight - marginBetweenImgVwAndLabel - (marginLeftAndRight * 2)
@@ -122,8 +115,7 @@ public final class WhatsappLoginButton: UIButton, onVerifyWaidDelegate {
             labelWidth = expectedHeightForView
         }
         let yForImgVw = (self.frame.height - imgVwWidthAndHeight)/2
-        
-        if let titleLabel = self.titleLabel ,let imageView = self.imageView  {
+        if let titleLabel = self.titleLabel ,let imageView = self.imageView {
             if titleLabel.text != Notp.sharedInstance.buttonText{
                 setTitle(Notp.sharedInstance.buttonText, for: .normal)
             }
@@ -134,22 +126,21 @@ public final class WhatsappLoginButton: UIButton, onVerifyWaidDelegate {
                 titleLabel.frame = CGRect(x: (self.frame.width - labelWidth + imgVwWidthAndHeight + marginBetweenImgVwAndLabel)/2 , y: yForImgVw, width: labelWidth , height: imgVwWidthAndHeight)
             }
             titleLabel.frame = CGRect(x: (self.frame.width - titleLabel.frame.width + imgVwWidthAndHeight + marginBetweenImgVwAndLabel)/2 , y: yForImgVw, width: titleLabel.frame.width , height: imgVwWidthAndHeight)
-            
+
             imageView.frame = CGRect(x:(self.frame.width - titleLabel.frame.width - imgVwWidthAndHeight - marginBetweenImgVwAndLabel)/2, y: yForImgVw, width: imgVwWidthAndHeight, height:imgVwWidthAndHeight)
-            
+
             titleLabel.adjustsFontSizeToFitWidth = true
             titleLabel.minimumScaleFactor=0.001
         }
         layer.cornerRadius = self.frame.height * 0.14
         layer.masksToBounds = true
     }
-    
+
     func checkWaidExistsAndVerified (){
-        
+
         let waIdExists = NotpHelper.checkValueExists(forKey: NotpHelper.waidDefaultKey);
         if (waIdExists){
             let waId = NotpHelper.getValue(forKey:NotpHelper.waidDefaultKey) as String?
-            
             let headers = ["Content-Type": "application/json","Accept":"application/json"]
             let bodyParams = ["userId": waId, "api": "getUserDetail"]
             NotpNetworkHelper.shared.fetchData(method: "POST", headers: headers, bodyParams:bodyParams as [String : Any]) { (data, response, error) in
@@ -172,7 +163,7 @@ public final class WhatsappLoginButton: UIButton, onVerifyWaidDelegate {
                             }
                         }
                     }
-                    
+
                 } catch {
                     NotpHelper.removeUserMobileAndWaid()
                     // handle error
@@ -180,9 +171,8 @@ public final class WhatsappLoginButton: UIButton, onVerifyWaidDelegate {
             }
         }
     }
-    
+
     func generateQrCode(){
-        
         if let urlTypes = Bundle.main.object(forInfoDictionaryKey: "CFBundleURLTypes") as? [[String: Any]] {
             for urlType in urlTypes {
                 if let urlSchemes = urlType["CFBundleURLSchemes"] as? [String], let identifier = urlType["CFBundleURLName"] as? String {
@@ -190,11 +180,11 @@ public final class WhatsappLoginButton: UIButton, onVerifyWaidDelegate {
                         let scheme = urlSchemes[0]
                         let completeUrl = scheme + "://" + identifier
                         self.redirectURI = completeUrl
-                      }
+                    }
                 }
             }
         }
-        
+
         var params = [String : Any]()
         params = ["app_secret_key":HippoConfig.shared.whatsappSecretKey,
                   "get_session": true, "device_type": 2, "redirect_uri":redirectURI] as [String : Any]
@@ -208,14 +198,14 @@ public final class WhatsappLoginButton: UIButton, onVerifyWaidDelegate {
                         let url = data["url"] as? String
                         let sessionId = data["session_id"] as? String
                         NotpHelper.link2 = url?.lastPathComponent ?? ""
-                        NotpHelper.link =  url ?? ""
+                        NotpHelper.link = url ?? ""
                         NotpHelper.session_ID = sessionId ?? ""
-                        //                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now(), execute: {
+                        // DispatchQueue.main.asyncAfter(deadline: DispatchTime.now(), execute: {
                         if let completeUrl = NotpHelper.getCompleteUrl() {
                             self.notpUrl = NotpHelper.addEventDetails(url: completeUrl)
                             NotpNetworkHelper.shared.setBaseUrl(url: self.notpUrl)
                         }
-                        //                        })
+                        // })
                         self.loader.show()
                         Notp.sharedInstance.continueToWhatsapp(url: self.notpUrl)
                         self.loader.hide()
@@ -226,11 +216,12 @@ public final class WhatsappLoginButton: UIButton, onVerifyWaidDelegate {
             }
         }
     }
-    
+
 }
+
 // Implement this protocol to recieve waid in your view controller class when using WhatsappLoginButton
 public protocol onCallbackResponseDelegate: AnyObject {
     func onCallbackResponse(waId : String?, message: String?,name:String?,phone: String?,countryCode:String?, error : String?)
     func errorCallback(message:String)
+    func didTapOnButton()
 }
-
