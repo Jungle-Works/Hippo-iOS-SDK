@@ -16,6 +16,8 @@ protocol ImageCellDelegate: class {
 
 class OutgoingImageCell: MessageTableViewCell {
     
+    @IBOutlet weak var nameLbl: UILabel!
+    @IBOutlet weak var nameView: UIView!
     @IBOutlet weak var shadowView: So_UIView!
     @IBOutlet weak var mainContentView: UIView!
     @IBOutlet weak var thumbnailImageView: So_UIImageView!
@@ -61,6 +63,7 @@ class OutgoingImageCell: MessageTableViewCell {
         longPressGesture.minimumPressDuration = 0.3
         btn_OpenImage?.addGestureRecognizer(longPressGesture)
         mainContentView?.addGestureRecognizer(longPressGesture)
+        nameLbl.font = HippoConfig.shared.theme.broadcastTitleInfoFont
     }
     
     @objc func longPressGestureFired(sender: UIGestureRecognizer) {
@@ -117,7 +120,7 @@ extension OutgoingImageCell {
         readUnreadImageView.tintColor = HippoConfig.shared.theme.unreadTintColor
     }
     
-    func configureCellOfOutGoingImageCell(resetProperties: Bool, chatMessageObject: HippoMessage, indexPath: IndexPath) {
+    func configureCellOfOutGoingImageCell(resetProperties: Bool, chatMessageObject: HippoMessage, indexPath: IndexPath, comingFrom: String = "You") {
         if resetProperties {
             resetPropertiesOfOutgoingCell()
         }
@@ -128,19 +131,19 @@ extension OutgoingImageCell {
         self.message = chatMessageObject
         self.indexPath = indexPath
         
-        
+
         message?.statusChanged = {
             DispatchQueue.main.async {
                 guard self.message != nil, self.indexPath != nil else {
                     return
                 }
-                self.configureCellOfOutGoingImageCell(resetProperties: true, chatMessageObject: self.message!, indexPath: self.indexPath!)
+                self.configureCellOfOutGoingImageCell(resetProperties: true, chatMessageObject: self.message!, indexPath: self.indexPath!, comingFrom: comingFrom)
             }
         }
         
         let messageType = chatMessageObject.type.rawValue
         setupBoxBackground(messageType: messageType)
-        
+        nameLbl.text = comingFrom
         setReadUnreadStatus()
         hideUnhideRetryButton(hide: true)
         self.setupIndicatorView(true)

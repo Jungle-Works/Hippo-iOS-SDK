@@ -2249,7 +2249,7 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                     let isOutgoingMsg = isSentByMe(senderId: message.senderId) && messageType != .card
                     
                     guard messageType.isMessageTypeHandled() && !message.isInValidMessage() else {
-                        return getNormalMessageTableViewCell(tableView: tableView, isOutgoingMessage: isOutgoingMsg, message: message, indexPath: indexPath)
+                        return getNormalMessageTableViewCell(tableView: tableView, isOutgoingMessage: isOutgoingMsg, message: message, indexPath: indexPath, comingFrom: "")
                     }
                     
                     switch messageType {
@@ -2393,7 +2393,7 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                                         self?.longPressOnMessage(message: message, indexPath: indexPath)
                                     }
                                 }
-                                cell.setCellWith(message: message)
+                                cell.setCellWith(message: message, comingFrom: message.senderFullName)
                                 cell.actionDelegate = self
                                 cell.delegate = self
                                 cell.nameLabel.isHidden = true
@@ -2456,7 +2456,7 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                         if ((message.fileUrl != nil || (message.isMessageWithImage ?? false) && messageType == .normal) && message.messageState != .MessageDeleted) {
                             return self.getCellForMessageWithAttachment(tableView: tableView, isOutgoingMessage: isOutgoingMsg, message: message, indexPath: indexPath)
                         }
-                        return getNormalMessageTableViewCell(tableView: tableView, isOutgoingMessage: isOutgoingMsg, message: message, indexPath: indexPath)
+                        return getNormalMessageTableViewCell(tableView: tableView, isOutgoingMessage: isOutgoingMsg, message: message, indexPath: indexPath, comingFrom: "")
                     }
                 }
             default:
@@ -2951,7 +2951,7 @@ extension ConversationsViewController {
                             self?.longPressOnMessage(message: message, indexPath: indexPath)
                         }
                     }
-                    cell.setCellWith(message: message)
+                    cell.setCellWith(message: message, comingFrom: message.senderFullName)
                     cell.actionDelegate = self
                     cell.delegate = self
                     cell.nameLabel.isHidden = true

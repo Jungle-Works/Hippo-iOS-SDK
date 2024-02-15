@@ -192,6 +192,7 @@ open class WhatsappLoginButton: UIButton, onVerifyWaidDelegate {
         HTTPClient.makeConcurrentConnectionWith(method: .POST, showActivityIndicator: true, para: params, extendedUrl: AgentEndPoints.generateQrCode.rawValue) { (response, error, _, statusCode) in
             print("generateQrCode \(String(describing: response))")
             if error == nil{
+//                NotpHelper.session_ID = ""
                 if let messageDict = ((response) as? [String:Any]){
                     if let data = messageDict["data"] as? [String:Any]{
                         print(data)

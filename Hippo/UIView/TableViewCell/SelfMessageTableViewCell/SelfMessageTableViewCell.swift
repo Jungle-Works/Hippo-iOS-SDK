@@ -14,6 +14,8 @@ protocol SelfMessageDelegate: class {
 
 class SelfMessageTableViewCell: MessageTableViewCell {
     
+    @IBOutlet weak var nameLbl: UILabel!
+    @IBOutlet weak var nameView: UIView!
     @IBOutlet weak var warningViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var cannelButtonOutlet: UIButton!
     @IBOutlet weak var retryButtonOutlet: UIButton!
@@ -123,14 +125,15 @@ class SelfMessageTableViewCell: MessageTableViewCell {
         bgView.backgroundColor = HippoConfig.shared.theme.outgoingChatBoxColor
         bgView.layer.borderWidth = HippoConfig.shared.theme.chatBoxBorderWidth
         bgView.layer.borderColor = HippoConfig.shared.theme.chatBoxBorderColor.cgColor
-        
+        nameLbl.font = HippoConfig.shared.theme.broadcastTitleInfoFont
+        nameLbl.text = "You"
         readUnreadImageView.image = HippoConfig.shared.theme.unreadMessageTick
         if let tintColor = HippoConfig.shared.theme.unreadMessageTintColor {
             readUnreadImageView.tintColor = tintColor
         }
     }
     
-    func configureIncomingMessageCell(resetProperties: Bool, chatMessageObject: HippoMessage, indexPath: IndexPath) -> SelfMessageTableViewCell {
+    func configureIncomingMessageCell(resetProperties: Bool, chatMessageObject: HippoMessage, indexPath: IndexPath, comingFrom: String) -> SelfMessageTableViewCell {
         if resetProperties {
             resetPropertiesOfOutgoingMessage()
         }
@@ -160,7 +163,9 @@ class SelfMessageTableViewCell: MessageTableViewCell {
             newMsgObject.message = newMsgObject.message.replacingOccurrences(of: "<br>", with: "\n")
             let attrText = Helper.getIncomingAttributedStringWithLastUserCheck(chatMessageObject: newMsgObject)
             selfMessageTextView.attributedText = attrText
+            nameLbl.text = comingFrom
         case .customer:
+
             selfMessageTextView.attributedText = nil
             selfMessageTextView.text =  chatMessageObject.message
         }

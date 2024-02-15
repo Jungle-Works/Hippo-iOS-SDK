@@ -22,7 +22,9 @@ private var dateComponentFormatter: DateComponentsFormatter = {
 class VideoCallMessageTableViewCell: MessageTableViewCell {
    
    // MARK: - Properties
-   @IBOutlet weak var dateTimeLabel: UILabel!
+    @IBOutlet weak var nameLbl: UILabel!
+    @IBOutlet weak var nameView: UIView!
+    @IBOutlet weak var dateTimeLabel: UILabel!
    @IBOutlet weak var messageLabel: UILabel!
    
     @IBOutlet weak var centerLineView: UIView!
@@ -47,7 +49,6 @@ class VideoCallMessageTableViewCell: MessageTableViewCell {
 
         messageBackgroundView.layer.masksToBounds = true
         messageBackgroundView.layer.cornerRadius = 5
-        
         messageBackgroundView.layer.borderWidth = HippoConfig.shared.theme.chatBoxBorderWidth
         messageBackgroundView.layer.borderColor = HippoConfig.shared.theme.chatBoxBorderColor.cgColor
     }
@@ -80,7 +81,6 @@ class IncomingVideoCallMessageTableViewCell: VideoCallMessageTableViewCell {
    
     func setCellWith(message: HippoMessage, isCallingEnabled: Bool) {
         super.intalizeCell(with: message, isIncomingView: true)
-        
         if message.isMissedCall {
             
             messageBackgroundView.backgroundColor = HippoConfig.shared.theme.missedCallColor
@@ -117,7 +117,7 @@ class IncomingVideoCallMessageTableViewCell: VideoCallMessageTableViewCell {
 class OutgoingVideoCallMessageTableViewCell: VideoCallMessageTableViewCell {
    override func awakeFromNib() {
       super.awakeFromNib()
-      
+    nameLbl.font = HippoConfig.shared.theme.broadcastTitleInfoFont
       messageBackgroundView.backgroundColor = HippoConfig.shared.theme.outgoingChatBoxColor
     
     messageBackgroundView.layer.cornerRadius = 10
@@ -133,7 +133,11 @@ class OutgoingVideoCallMessageTableViewCell: VideoCallMessageTableViewCell {
    
     func setCellWith(message: HippoMessage, otherUserName: String, isCallingEnabled: Bool) {
         self.message = message
-        
+        if message.senderFullName != HippoConfig.shared.agentDetail?.fullName ?? "" && message.senderFullName != "Visitor"{
+            nameLbl.text = message.senderFullName
+        }else{
+            nameLbl.text = "You"
+        }
         if message.isMissedCall {
            
             callAgainButton.setTitle(HippoStrings.callback, for: .normal)

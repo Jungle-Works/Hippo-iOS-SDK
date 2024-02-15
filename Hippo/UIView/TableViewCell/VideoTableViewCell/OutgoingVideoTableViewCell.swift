@@ -10,7 +10,9 @@ import UIKit
 
 class OutgoingVideoTableViewCell: VideoTableViewCell {
    
-   @IBOutlet weak var uploadActivityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var nameLbl: UILabel!
+    @IBOutlet weak var nameView: UIView!
+    @IBOutlet weak var uploadActivityIndicator: UIActivityIndicatorView!
    @IBOutlet weak var retryUploadButton: UIButton!
    @IBOutlet weak var messageStatusImageView: UIImageView!
    
@@ -23,6 +25,7 @@ class OutgoingVideoTableViewCell: VideoTableViewCell {
         let longPressGesture = UILongPressGestureRecognizer.init(target: self, action: #selector(longPressGestureFired))
         longPressGesture.minimumPressDuration = 0.3
         messageBackgroundView?.addGestureRecognizer(longPressGesture)
+        nameLbl.font = HippoConfig.shared.theme.broadcastTitleInfoFont
         // Initialization code
     }
    
@@ -48,7 +51,11 @@ class OutgoingVideoTableViewCell: VideoTableViewCell {
    
    func setCellWith(message: HippoMessage) {
       self.message?.statusChanged = nil
-    
+       if message.senderFullName != HippoConfig.shared.agentDetail?.fullName ?? ""{
+           nameLbl.text = message.senderFullName
+       }else{
+           nameLbl.text = "You"
+       }
       super.intalizeCell(with: message, isIncomingView: false)
     
 //      self.forwardButtonView.isHidden = message.status == .none

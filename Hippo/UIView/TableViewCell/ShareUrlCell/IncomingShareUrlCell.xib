@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -22,6 +22,7 @@
                         <rect key="frame" x="10" y="0.0" width="30" height="30"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="30" id="E4u-Zc-Gwu"/>
+                            <constraint firstAttribute="width" secondItem="Ayz-Ei-pMg" secondAttribute="height" multiplier="1:1" id="Yxs-A5-wCf"/>
                             <constraint firstAttribute="width" secondItem="Ayz-Ei-pMg" secondAttribute="height" multiplier="1:1" id="bg8-sC-bZW"/>
                         </constraints>
                     </imageView>
@@ -103,6 +104,23 @@
                             <constraint firstItem="jM2-ec-uVo" firstAttribute="top" secondItem="3Kb-ak-bec" secondAttribute="bottom" constant="5" id="xbR-Wl-9rX"/>
                         </constraints>
                     </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hxg-vb-8sW">
+                        <rect key="frame" x="7" y="113" width="440" height="18"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="upt-08-395">
+                                <rect key="frame" x="409.5" y="2" width="28.5" height="14"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="upt-08-395" secondAttribute="bottom" constant="2" id="UlN-pr-Zp4"/>
+                            <constraint firstItem="upt-08-395" firstAttribute="top" secondItem="hxg-vb-8sW" secondAttribute="top" constant="2" id="qwb-Rr-y2q"/>
+                            <constraint firstAttribute="trailing" secondItem="upt-08-395" secondAttribute="trailing" constant="2" id="xs8-Gv-pi8"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="kFB-MU-uBm" secondAttribute="trailing" constant="100" id="4gd-7K-Lc7"/>
@@ -112,11 +130,15 @@
                     <constraint firstItem="57P-Dh-J0T" firstAttribute="top" secondItem="kFB-MU-uBm" secondAttribute="top" constant="-0.5" id="OOB-OQ-m8n"/>
                     <constraint firstItem="Ayz-Ei-pMg" firstAttribute="top" secondItem="kFB-MU-uBm" secondAttribute="top" id="RFB-Hk-hfP"/>
                     <constraint firstItem="Ayz-Ei-pMg" firstAttribute="leading" secondItem="kqN-kH-2N5" secondAttribute="leading" constant="10" id="XiQ-AP-mYB"/>
-                    <constraint firstItem="Ayz-Ei-pMg" firstAttribute="width" secondItem="Ayz-Ei-pMg" secondAttribute="height" multiplier="1:1" id="Yxs-A5-wCf"/>
                     <constraint firstItem="57P-Dh-J0T" firstAttribute="trailing" secondItem="kFB-MU-uBm" secondAttribute="trailing" constant="0.5" id="bc4-bk-WWQ"/>
                     <constraint firstItem="57P-Dh-J0T" firstAttribute="leading" secondItem="kFB-MU-uBm" secondAttribute="leading" constant="-0.5" id="o83-jH-1Xd"/>
                     <constraint firstItem="57P-Dh-J0T" firstAttribute="bottom" secondItem="kFB-MU-uBm" secondAttribute="bottom" constant="0.5" id="tmd-zm-Pr6"/>
                 </constraints>
+                <variation key="default">
+                    <mask key="subviews">
+                        <exclude reference="hxg-vb-8sW"/>
+                    </mask>
+                </variation>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="8QB-kz-CUZ"/>
             <connections>
@@ -125,6 +147,8 @@
                 <outlet property="labelBusinessName" destination="Kte-vm-jF5" id="S4s-0k-x4c"/>
                 <outlet property="labelHeading" destination="bZx-pE-0pu" id="XTV-Og-POh"/>
                 <outlet property="mainContentView" destination="kFB-MU-uBm" id="nKb-S4-2BU"/>
+                <outlet property="nameLbl" destination="upt-08-395" id="P5X-tW-Fxh"/>
+                <outlet property="nameView" destination="hxg-vb-8sW" id="zRS-LW-EUE"/>
                 <outlet property="readUnreadImageView" destination="jM2-ec-uVo" id="xez-fU-IBN"/>
                 <outlet property="senderImageTraillingConstaints" destination="DyO-oZ-1U0" id="UTz-5X-9Jg"/>
                 <outlet property="senderImageView" destination="Ayz-Ei-pMg" id="iGQ-h9-FOC"/>

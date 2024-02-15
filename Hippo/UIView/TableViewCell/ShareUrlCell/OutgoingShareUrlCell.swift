@@ -15,6 +15,8 @@ protocol OutgoingShareUrlDelegate: class {
 final class OutgoingShareUrlCell: MessageTableViewCell {
 
     //MARK:- IBOutlets
+    @IBOutlet weak var nameLbl: UILabel!
+    @IBOutlet weak var nameView: UIView!
     @IBOutlet private weak var labelHeading : UILabel!
     @IBOutlet private weak var labelBusinessName : UILabel!
     @IBOutlet private weak var imageVideoIcon : UIImageView!
@@ -45,7 +47,6 @@ final class OutgoingShareUrlCell: MessageTableViewCell {
         labelBusinessName.font = UIFont.regular(ofSize: 14)
         labelHeading.textColor = HippoConfig.shared.theme.shareUrlTextColor
         labelBusinessName.textColor = HippoConfig.shared.theme.shareUrlTextColor
-        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -62,7 +63,15 @@ final class OutgoingShareUrlCell: MessageTableViewCell {
         }
         
         message?.statusChanged = nil
-        
+        if isIncoming == false{
+            if message?.senderFullName != HippoConfig.shared.agentDetail?.fullName ?? ""{
+                nameLbl.text = message?.senderFullName
+            }else{
+                nameLbl.text = "You"
+            }
+        }else{
+            nameLbl.text = ""
+        }
         super.intalizeCell(with: chatMessageObject, isIncomingView: isIncoming)
         self.message = chatMessageObject
         self.indexPath = indexPath

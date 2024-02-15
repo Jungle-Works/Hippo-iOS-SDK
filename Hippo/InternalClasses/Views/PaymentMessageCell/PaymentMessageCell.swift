@@ -14,6 +14,8 @@ protocol PaymentMessageCellDelegate: class {
 
 class PaymentMessageCell: UITableViewCell {
 
+    @IBOutlet weak var nameLbl: UILabel!
+    @IBOutlet weak var nameView: UIView!
     @IBOutlet weak var heightConstraint: NSLayoutConstraint!
     @IBOutlet weak var tableView: UITableView!{
         didSet{
@@ -35,6 +37,7 @@ class PaymentMessageCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     private func setTheme() {
+        nameLbl.font = HippoConfig.shared.theme.broadcastTitleInfoFont
         backgroundColor = .clear
         tableView.backgroundColor = HippoConfig.shared.theme.outgoingChatBoxColor//.clear
         tableView.separatorStyle = .none
@@ -56,6 +59,11 @@ class PaymentMessageCell: UITableViewCell {
 }
 extension PaymentMessageCell {
     func set(message: HippoMessage) {
+        if message.senderFullName != HippoConfig.shared.agentDetail?.fullName ?? ""{
+            nameLbl.text = message.senderFullName
+        }else{
+            nameLbl.text = "You"
+        }
         self.message = message
         let cards = (message.cards) ?? []
         self.datasource.update(cards: cards)

@@ -10,6 +10,8 @@ import UIKit
 
 class OutgoingDocumentTableViewCell: DocumentTableViewCell {
     
+    @IBOutlet weak var nameLbl: UILabel!
+    @IBOutlet weak var nameView: UIView!
     @IBOutlet weak var tickImage: UIImageView!
     @IBOutlet var constraintHeightTextView : NSLayoutConstraint!
     @IBOutlet weak var textView: UITextView!
@@ -22,6 +24,7 @@ class OutgoingDocumentTableViewCell: DocumentTableViewCell {
         let longPressGesture = UILongPressGestureRecognizer.init(target: self, action: #selector(longPressGestureFired))
         longPressGesture.minimumPressDuration = 0.3
         bgView?.addGestureRecognizer(longPressGesture)
+        nameLbl.font = HippoConfig.shared.theme.broadcastTitleInfoFont
         // Initialization code
     }
     
@@ -34,8 +37,8 @@ class OutgoingDocumentTableViewCell: DocumentTableViewCell {
         }
     }
     
-    func setCellWith(message: HippoMessage) {
-        
+    func setCellWith(message: HippoMessage, comingFrom: String) {
+
         self.message?.statusChanged = nil
         self.message = nil
         
@@ -48,7 +51,7 @@ class OutgoingDocumentTableViewCell: DocumentTableViewCell {
                 self?.updateUIAccordingToFileDownloadStatus()
             }
         }
-        
+        nameLbl.text = comingFrom
         setUIAccordingToTheme()
         updateUIAccordingToStatus()
         updateUI()
@@ -126,7 +129,12 @@ class OutgoingDocumentTableViewCell: DocumentTableViewCell {
         default:
             super.bgViewTaped()
         }
-        setCellWith(message: message!)
+        if message?.senderFullName ?? "" != HippoConfig.shared.agentDetail?.fullName ?? ""{
+            setCellWith(message: message!, comingFrom: message?.senderFullName ?? "")
+        }else{
+            setCellWith(message: message!, comingFrom: "You")
+        }
+
     }
     
 }
@@ -191,7 +199,7 @@ class DocumentTableViewCell: MessageTableViewCell {
         
         fileSizeLabel.text = displaySize
         docName.text = message?.fileName
-        nameLabel.text = message?.senderFullName
+        nameLabel.text = ""//message?.senderFullName
         setTime()
     }
     override func intalizeCell(with message: HippoMessage, isIncomingView: Bool) {

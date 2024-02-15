@@ -1,47 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="OutgoingVideoCallMessageTableViewCell" rowHeight="113" id="Hy6-Sl-HFn" customClass="OutgoingVideoCallMessageTableViewCell" customModule="HippoChat" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="326" height="113"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="OutgoingVideoCallMessageTableViewCell" rowHeight="150" id="Hy6-Sl-HFn" customClass="OutgoingVideoCallMessageTableViewCell" customModule="Hippo" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="368" height="150"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Hy6-Sl-HFn" id="DVu-sF-f3T">
-                <rect key="frame" x="0.0" y="0.0" width="326" height="112.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="368" height="150"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ygI-09-RJB">
+                        <rect key="frame" x="155" y="5" width="203" height="18"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BZP-7R-AWI">
+                                <rect key="frame" x="172.5" y="2" width="28.5" height="14"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="BZP-7R-AWI" secondAttribute="bottom" constant="2" id="BMu-O2-rCj"/>
+                            <constraint firstAttribute="trailing" secondItem="BZP-7R-AWI" secondAttribute="trailing" constant="2" id="Q2C-Ce-EkF"/>
+                            <constraint firstAttribute="height" constant="18" id="aqJ-B4-Pzm"/>
+                        </constraints>
+                    </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J4A-SL-NYj">
-                        <rect key="frame" x="112" y="5" width="204" height="88"/>
+                        <rect key="frame" x="155" y="23" width="203" height="88"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You missed a video call." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="izM-Wf-bBm">
-                                <rect key="frame" x="12" y="5" width="182" height="20.5"/>
+                                <rect key="frame" x="12" y="5" width="181" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nxE-Xa-Fai">
-                                <rect key="frame" x="120" y="28.5" width="74" height="20.5"/>
+                                <rect key="frame" x="119" y="28.5" width="74" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i6a-Iw-Z7I">
-                                <rect key="frame" x="15" y="52" width="174" height="1"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <rect key="frame" x="15" y="52" width="173" height="1"/>
+                                <color key="backgroundColor" systemColor="groupTableViewBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="xrq-Kt-c25"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3tJ-9g-G54">
-                                <rect key="frame" x="15" y="53" width="174" height="35"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3tJ-9g-G54">
+                                <rect key="frame" x="15" y="53" width="173" height="35"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="1X1-rg-qmT"/>
                                 </constraints>
@@ -51,7 +66,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Call Duration" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fFD-Af-TG9">
-                                <rect key="frame" x="18" y="28.5" width="99" height="20.5"/>
+                                <rect key="frame" x="18" y="28.5" width="98" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -86,10 +101,13 @@
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
+                    <constraint firstItem="ygI-09-RJB" firstAttribute="leading" secondItem="J4A-SL-NYj" secondAttribute="leading" id="0LC-T5-lkb"/>
                     <constraint firstItem="J4A-SL-NYj" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="DVu-sF-f3T" secondAttribute="leading" constant="60" id="EL8-kb-ewS"/>
                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="J4A-SL-NYj" secondAttribute="bottom" constant="5" id="HDa-H3-6YP"/>
                     <constraint firstAttribute="trailing" secondItem="J4A-SL-NYj" secondAttribute="trailing" constant="10" id="Ky7-0t-dxd"/>
-                    <constraint firstItem="J4A-SL-NYj" firstAttribute="top" secondItem="DVu-sF-f3T" secondAttribute="top" constant="5" id="TAm-3R-4NG"/>
+                    <constraint firstItem="ygI-09-RJB" firstAttribute="trailing" secondItem="J4A-SL-NYj" secondAttribute="trailing" id="W4b-k3-Ml8"/>
+                    <constraint firstItem="ygI-09-RJB" firstAttribute="top" secondItem="DVu-sF-f3T" secondAttribute="top" constant="5" id="bCb-fJ-6pX"/>
+                    <constraint firstItem="J4A-SL-NYj" firstAttribute="top" secondItem="ygI-09-RJB" secondAttribute="bottom" id="mfy-Jg-CGE"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -100,13 +118,18 @@
                 <outlet property="dateTimeLabel" destination="nxE-Xa-Fai" id="qUa-g2-Jjj"/>
                 <outlet property="messageBackgroundView" destination="J4A-SL-NYj" id="h9u-3z-LIG"/>
                 <outlet property="messageLabel" destination="izM-Wf-bBm" id="knn-33-78f"/>
+                <outlet property="nameLbl" destination="BZP-7R-AWI" id="Z7u-O8-LCc"/>
+                <outlet property="nameView" destination="ygI-09-RJB" id="y8e-cn-kmY"/>
                 <outlet property="phoneIcon" destination="4Dd-MG-9Ys" id="U2V-SL-TC2"/>
                 <outlet property="retryButtonHeight" destination="1X1-rg-qmT" id="GjW-CW-TC5"/>
             </connections>
-            <point key="canvasLocation" x="283.19999999999999" y="-40.929535232383813"/>
+            <point key="canvasLocation" x="316.80000000000001" y="-24.287856071964018"/>
         </tableViewCell>
     </objects>
     <resources>
         <image name="incomming" width="12" height="12"/>
+        <systemColor name="groupTableViewBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
     </resources>
 </document>

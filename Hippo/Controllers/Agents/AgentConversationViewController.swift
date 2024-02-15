@@ -1673,17 +1673,24 @@ extension AgentConversationViewController: UITableViewDelegate, UITableViewDataS
             return cell
         case let chatSection where chatSection < self.messagesGroupedByDate.count:
             let messagesArray = messagesGroupedByDate[chatSection]
-            
+            var comingFrom = ""
             if messagesArray.count > indexPath.row {
                 let message = messagesArray[indexPath.row]
                 let messageType = message.type
                 let chatType = channel?.chatDetail?.chatType ?? .other
                 let isOutgoingMsg = message.isSelfMessage(for: chatType) //isSentByMe(senderId: chatMessageObject.senderId)
-                
-                guard messageType.isMessageTypeHandled() else {
-                    return getNormalMessageTableViewCell(tableView: tableView, isOutgoingMessage: isOutgoingMsg, message: message, indexPath: indexPath)
+                if indexPath.row == 0 || messagesArray[indexPath.row].senderId != messagesArray[indexPath.row - 1].senderId {
+                    if message.senderFullName != HippoConfig.shared.agentDetail?.fullName ?? ""{
+                        comingFrom = message.senderFullName
+                    }else{
+                        comingFrom = "You"
+                    }
+                } else {
+                    comingFrom = ""
                 }
-                
+                guard messageType.isMessageTypeHandled() else {
+                    return getNormalMessageTableViewCell(tableView: tableView, isOutgoingMessage: isOutgoingMsg, message: message, indexPath: indexPath, comingFrom: comingFrom)
+                }
                 switch messageType {
                 case MessageType.imageFile:
                     if isOutgoingMsg == true {
@@ -1698,8 +1705,10 @@ extension AgentConversationViewController: UITableViewDelegate, UITableViewDataS
                                 self?.longPressOnMessage(message: message, indexPath: indexPath)
                             }
                         }
-                        cell.configureCellOfOutGoingImageCell(resetProperties: true, chatMessageObject: message, indexPath: indexPath)
-                        return cell
+//                        cell.configureCellOfOutGoingImageCell(resetProperties: true, chatMessageObject: message, indexPath: indexPath)
+
+                            cell.configureCellOfOutGoingImageCell(resetProperties: true, chatMessageObject: message, indexPath: indexPath, comingFrom: comingFrom)
+                    return cell
                     } else {
                         guard let cell = tableView.dequeueReusableCell(withIdentifier: "IncomingImageCell", for: indexPath) as? IncomingImageCell
                         else {
@@ -1712,7 +1721,13 @@ extension AgentConversationViewController: UITableViewDelegate, UITableViewDataS
                     if ((message.fileUrl != nil || (message.isMessageWithImage ?? false) && messageType == .normal) && message.messageState != .MessageDeleted) {
                         return self.getCellForMessageWithAttachment(tableView: tableView, isOutgoingMessage: isOutgoingMsg, message: message, indexPath: indexPath)
                     }
-                    return getNormalMessageTableViewCell(tableView: tableView, isOutgoingMessage: isOutgoingMsg, message: message, indexPath: indexPath)
+
+
+
+                        return getNormalMessageTableViewCell(tableView: tableView, isOutgoingMessage: isOutgoingMsg, message: message, indexPath: indexPath, comingFrom: comingFrom)
+
+
+
                 case .call:
                     if isOutgoingMsg {
                         guard let cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingVideoCallMessageTableViewCell", for: indexPath) as? OutgoingVideoCallMessageTableViewCell else {
@@ -1778,7 +1793,11 @@ extension AgentConversationViewController: UITableViewDelegate, UITableViewDataS
                                     self?.longPressOnMessage(message: message, indexPath: indexPath)
                                 }
                             }
-                            cell.setCellWith(message: message)
+                            if message.senderFullName != HippoConfig.shared.agentDetail?.fullName ?? ""{
+                                cell.setCellWith(message: message, comingFrom: message.senderFullName )
+                            }else{
+                                cell.setCellWith(message: message, comingFrom: "You")
+                            }
                             cell.actionDelegate = self
                             cell.delegate = self
                             return cell
@@ -1886,12 +1905,13 @@ extension AgentConversationViewController: UITableViewDelegate, UITableViewDataS
                 case MessageType.normal, .privateNote, .botText:
                     return UIView.tableAutoDimensionHeight
                 case .attachment:
-                    switch message.concreteFileType! {
-                    case .video:
-                        return 234
-                    default:
-                        return 80
-                    }
+                    return  UIView.tableAutoDimensionHeight
+//                    switch message.concreteFileType! {
+//                    case .video:
+//                        return 234
+//                    default:
+//                        return 80
+//                    }
                 case MessageType.assignAgent:
                     return UIView.tableAutoDimensionHeight
                 case MessageType.call:
@@ -1913,7 +1933,7 @@ extension AgentConversationViewController: UITableViewDelegate, UITableViewDataS
                     //                    rowHeight += 7 //Height for bottom view
                     //                    return rowHeight
                 case .paymentCard:
-                    return message.calculatedHeight ?? 0.01
+                    return UIView.tableAutoDimensionHeight//message.calculatedHeight ?? 0.01
                 default:
                     return 0.01//UITableViewAutomaticDimension
                     
@@ -2172,7 +2192,12 @@ extension AgentConversationViewController {
                     }
                 }
                 cell.delegate = self
-                cell.configureCellOfOutGoingImageCell(resetProperties: true, chatMessageObject: message, indexPath: indexPath)
+//                cell.configureCellOfOutGoingImageCell(resetProperties: true, chatMessageObject: message, indexPath: indexPath)
+                if message.senderFullName != HippoConfig.shared.agentDetail?.fullName ?? ""{
+                    cell.configureCellOfOutGoingImageCell(resetProperties: true, chatMessageObject: message, indexPath: indexPath,comingFrom: message.senderFullName)
+                }else{
+                    cell.configureCellOfOutGoingImageCell(resetProperties: true, chatMessageObject: message, indexPath: indexPath, comingFrom: "You")
+                }
                 return cell
             }else {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "IncomingImageCell", for: indexPath) as? IncomingImageCell
@@ -2205,7 +2230,12 @@ extension AgentConversationViewController {
                             self?.longPressOnMessage(message: message, indexPath: indexPath)
                         }
                     }
-                    cell.setCellWith(message: message)
+//                    cell.setCellWith(message: message)
+                    if message.senderFullName != HippoConfig.shared.agentDetail?.fullName ?? ""{
+                        cell.setCellWith(message: message, comingFrom: message.senderFullName )
+                    }else{
+                        cell.setCellWith(message: message, comingFrom: "You")
+                    }
                     cell.actionDelegate = self
                     cell.delegate = self
                     cell.nameLabel.isHidden = true

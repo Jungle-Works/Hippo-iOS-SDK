@@ -89,7 +89,12 @@ class ActionTableDataSource: NSObject, UITableViewDataSource {
         case true:
             let cell = tableView.dequeueReusableCell(withIdentifier: "SelfMessageTableViewCell", for: indexPath) as! SelfMessageTableViewCell
 //            cell.delegate = self
-            return cell.configureIncomingMessageCell(resetProperties: true, chatMessageObject: message, indexPath: indexPath)
+//            return cell.configureIncomingMessageCell(resetProperties: true, chatMessageObject: message, indexPath: indexPath, comingFrom: "")
+            if message.senderFullName != HippoConfig.shared.agentDetail?.fullName ?? ""{
+                return cell.configureIncomingMessageCell(resetProperties: true, chatMessageObject: message, indexPath: indexPath, comingFrom: message.senderFullName)
+            }else{
+                return cell.configureIncomingMessageCell(resetProperties: true, chatMessageObject: message, indexPath: indexPath, comingFrom: "You")
+            }
         }
     }
     
@@ -103,7 +108,12 @@ class ActionTableDataSource: NSObject, UITableViewDataSource {
                 cell.backgroundColor = .clear
                 return cell
             }
-            cell.configureCellOfOutGoingImageCell(resetProperties: true, chatMessageObject: message, indexPath: indexPath)
+//            cell.configureCellOfOutGoingImageCell(resetProperties: true, chatMessageObject: message, indexPath: indexPath)
+            if message.senderFullName != HippoConfig.shared.agentDetail?.fullName ?? ""{
+                cell.configureCellOfOutGoingImageCell(resetProperties: true, chatMessageObject: message, indexPath: indexPath,comingFrom: message.senderFullName)
+            }else{
+                cell.configureCellOfOutGoingImageCell(resetProperties: true, chatMessageObject: message, indexPath: indexPath, comingFrom: "You")
+            }
             return cell
         } else {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "IncomingImageCell", for: indexPath) as? IncomingImageCell
@@ -133,7 +143,7 @@ class ActionTableDataSource: NSObject, UITableViewDataSource {
                cell.messageLongPressed = { (message) in
                    
                }
-                cell.setCellWith(message: message)
+                cell.setCellWith(message: message, comingFrom: message.senderFullName)
                 cell.actionDelegate = getLastVisibleController() as? ConversationsViewController
                 cell.delegate = getLastVisibleController() as? ConversationsViewController
                 cell.nameLabel.isHidden = true

@@ -45,7 +45,6 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
     var message: String
     var senderId: Int
     var senderFullName: String
-    
     var status: ReadUnReadStatus = .none {
         didSet {
             statusChanged?()

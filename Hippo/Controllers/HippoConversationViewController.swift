@@ -1783,7 +1783,7 @@ extension HippoConversationViewController: CreatePaymentDelegate {
 }
 
 extension HippoConversationViewController {
-    func getNormalMessageTableViewCell(tableView: UITableView, isOutgoingMessage: Bool, message: HippoMessage, indexPath: IndexPath) -> UITableViewCell {
+    func getNormalMessageTableViewCell(tableView: UITableView, isOutgoingMessage: Bool, message: HippoMessage, indexPath: IndexPath, comingFrom: String) -> UITableViewCell {
         switch isOutgoingMessage {
         case false:
             if message.message_sub_type == 1 {
@@ -1815,8 +1815,8 @@ extension HippoConversationViewController {
                         self?.longPressOnMessage(message: message, indexPath: indexPath)
                     }
                 }
-                return cell.configureIncomingMessageCell(resetProperties: true, chatMessageObject: message, indexPath: indexPath)
-                
+                return cell.configureIncomingMessageCell(resetProperties: true, chatMessageObject: message, indexPath: indexPath, comingFrom: comingFrom)
+
             }
         }
     }
