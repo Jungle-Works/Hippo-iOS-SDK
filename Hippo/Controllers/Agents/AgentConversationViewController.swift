@@ -25,6 +25,8 @@ class AgentConversationViewController: HippoConversationViewController {
     // MARK: -  IBOutlets
     @IBOutlet weak var backgroundImageView: UIImageView!
     //    @IBOutlet weak var audioButton: UIBarButtonItem!
+    @IBOutlet weak var recordingView: RecordView!
+    @IBOutlet weak var recordingBtn: RecordButton!
     @IBOutlet var backgroundView: UIView!
     //    @IBOutlet var backButton: UIButton!
     @IBOutlet var sendMessageButton: UIButton!
@@ -123,6 +125,16 @@ class AgentConversationViewController: HippoConversationViewController {
     // MARK: - LIFECYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
+        recordingBtn.recordView = recordingView
+        recordingView.delegate = self
+        recordingBtn.buttonTouched = {[weak self]() in
+            DispatchQueue.main.async {
+                self?.messageTextView.resignFirstResponder()
+                self?.addRecordView()
+            }
+        }
+        recordingBtn.isHidden = !HippoConfig.shared.isRecordingButtonEnabled
+
         collectionViewOptions?.delegate = self
         collectionViewOptions?.dataSource = self
         HippoConfig.shared.notifyDidLoad()
@@ -251,8 +263,11 @@ class AgentConversationViewController: HippoConversationViewController {
     //        return super.hitTest(point, with: event)
     //    }
     
-    
-    
+    func addRecordView() {
+        recordingView.isHidden = false
+    }
+
+
     func navigationSetUp() {
         setTitleButton()
         if HippoConfig.shared.theme.sendBtnIcon != nil {
@@ -373,7 +388,13 @@ class AgentConversationViewController: HippoConversationViewController {
         //                }
         //            })
         //        }
-        
+        self.recordingBtn.isHidden = false
+
+        if HippoConfig.shared.isRecordingButtonEnabled == false{
+            self.recordingBtn.isHidden = true
+            self.sendMessageButton.isHidden = false
+            self.sendMessageButton.isEnabled = false
+        }
         let mentions = messageTextView.isPrivateMode ? mentionListener.mentions : []
         self.sendButtonClicked(mentions: mentions, message: messageTextView.text, isPrivateMessage: messageTextView.isPrivateMode, config: self.messageSendingViewConfig)
         
@@ -744,6 +765,14 @@ class AgentConversationViewController: HippoConversationViewController {
         addFileButtonAction.isUserInteractionEnabled = true
         moreOptionsButton.isUserInteractionEnabled = true
         messageTextView.isEditable = true
+        recordingBtn.isHidden = false
+        recordingBtn.isEnabled = true
+
+        if HippoConfig.shared.isRecordingButtonEnabled == false{
+            self.recordingBtn.isHidden = true
+            self.sendMessageButton.isHidden = false
+            self.sendMessageButton.isEnabled = false
+        }
     }
     
     func disableSendingNewMessages() {
@@ -930,13 +959,14 @@ extension AgentConversationViewController {
             backgroundImageView.image = HippoConfig.shared.theme.chatbackgroundImage
             backgroundImageView.contentMode = .scaleToFill
         }
-        
+
         self.attachments.append(Attachment(icon : HippoConfig.shared.theme.alphabetSymbolIcon , title : HippoStrings.text))
+
         self.attachments.append(Attachment(icon : HippoConfig.shared.theme.privateInternalNotesIcon  , title : HippoStrings.internalNotes))
         if BussinessProperty.current.isAskPaymentAllowed{
             self.attachments.append(Attachment(icon : HippoConfig.shared.theme.paymentIcon , title : HippoStrings.payment))
         }
-        
+        self.attachments.append(Attachment(icon : HippoConfig.shared.theme.homeBubble , title : HippoStrings.savedReplies))
         if BussinessProperty.current.eFormEnabled ?? false{
             self.attachments.append(Attachment(icon : HippoConfig.shared.theme.eFormIcon  , title : HippoConfig.shared.strings.presciption))
         }
@@ -2301,6 +2331,16 @@ extension AgentConversationViewController: UITextViewDelegate {
         placeHolderLabel.isHidden = textView.hasText
         //        manageSendButton()
         //        delegate?.updateMessContainerHeight(height: getHeightForTheView())
+        if textView.text.isEmpty {
+            recordingBtn.isHidden = false
+            sendMessageButton.isHidden = true
+
+            if HippoConfig.shared.isRecordingButtonEnabled == false{
+                self.recordingBtn.isHidden = true
+                self.sendMessageButton.isHidden = false
+                self.sendMessageButton.isEnabled = false
+            }
+        }
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
@@ -2330,6 +2370,21 @@ extension AgentConversationViewController: UITextViewDelegate {
                 sendTypingStatusMessage(isTyping: TypingMessage.startTyping)
                 self.typingMessageValue = TypingMessage.stopTyping.rawValue
             }
+        }
+
+        self.sendMessageButton.isEnabled = !(newText == "")
+        self.sendMessageButton.isHidden = (newText == "")
+        self.recordingBtn.isHidden = !(newText == "")
+
+        if HippoConfig.shared.isRecordingButtonEnabled == false{
+            self.recordingBtn.isHidden = true
+            self.sendMessageButton.isHidden = false
+            self.sendMessageButton.isEnabled = true
+        }
+
+        if let _ = self.messageInEditing{
+            self.recordingBtn.isHidden = true
+            self.sendMessageButton.isHidden = true
         }
         return true
     }
@@ -2593,9 +2648,11 @@ extension AgentConversationViewController{
             AgentConversationManager.getBotsAction(userId: self.channel.chatDetail?.customerID ?? 0, channelId: self.channelId) { [weak self] (botActions, customBots) in
                 self?.addBotActionView(with: botActions, customBot: customBots)
             }
+        case HippoStrings.savedReplies:
+            self.closeKeyBoard()
         case HippoConfig.shared.strings.presciption:
             self.openSelectTemplate()
-            
+
         default:
            return
         }
@@ -2822,7 +2879,8 @@ extension AgentConversationViewController{
         self.messageInEditing = message
         self.moreOptionsButton.isHidden = true
         self.addFileButtonAction.isHidden = true
-        self.sendMessageButton.isHidden = true
+//        self.sendMessageButton.isHidden = true
+        self.recordingBtn.isHidden = true
         self.Button_CancelEdit.isHidden = false
         self.Button_EditMessage.isHidden = false
         self.messageTextView.text = message.message
@@ -2834,7 +2892,8 @@ extension AgentConversationViewController{
         self.messageInEditing = nil
         self.moreOptionsButton.isHidden = false
         self.addFileButtonAction.isHidden = false
-        self.sendMessageButton.isHidden = false
+//        self.sendMessageButton.isHidden = false
+        self.recordingBtn.isHidden = false
         self.Button_CancelEdit.isHidden = true
         self.Button_EditMessage.isHidden = true
         self.messageTextView.text = ""
@@ -2848,5 +2907,30 @@ extension AgentConversationViewController: ChatInfoDelegate {
     func backButtonAction(tagsArray: [TagDetail]) {
         self.channel?.chatDetail?.channelTags = tagsArray
     }
+}
+
+extension AgentConversationViewController : RecordViewDelegate {
+
+    func onStart() {
+        recordingHelper.startRecording()
+    }
+
+    func onCancel() {
+        recordingHelper.finishRecording(success: false)
+    }
+
+    func onFinished(duration: CGFloat) {
+        if duration > 0.0 {
+            recordingHelper.finishRecording(success: true)
+        }else {
+            recordingHelper.finishRecording(success: false)
+        }
+        recordingView.isHidden = true
+    }
+
+    func onAnimationEnd() {
+        recordingView.isHidden = true
+    }
+
 }
 

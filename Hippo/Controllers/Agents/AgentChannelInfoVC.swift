@@ -49,7 +49,9 @@ class ChannelInfoViewController: UIViewController {
         intilizeChatInfoController()
         addChatInfoView()
     }
+
     
+
 }
 
 extension ChannelInfoViewController{

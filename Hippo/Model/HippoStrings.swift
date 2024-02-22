@@ -198,6 +198,7 @@ public class HippoStrings {
     static var reasignChat = "Are you sure, you want to reassign?".localized
     static var reasignChatToYou = "Are you sure, you want to reassign this chat to you?".localized
     static var saved = "Saved!".localized
+    static var savedReplies = "Saved Replies".localized
     static var imageSaved = "Image has been saved to your photos.".localized
     static var reopenChat = "Reopen Chat".localized
     static var noDataFound = "No data found!"

@@ -881,6 +881,8 @@ class HippoConversationViewController: UIViewController {
         
         return true
     }
+
+
 }
 
 extension HippoConversationViewController: RecordingHelperDelegate {
@@ -2256,3 +2258,43 @@ extension HippoConversationViewController{
     }
 }
 
+
+//MARK: CannedRepliesVCDelegate
+//extension HippoConversationViewController: CannedRepliesVCDelegate {
+//
+//    func cannedMessage(_ cannedMessageVC: CannedRepliesViewController, cannedObject: CannedReply) {
+//        if isTextviewIsEditing {
+//            messageSendingView.messageTextView.becomeFirstResponder()
+//        }
+//        if let selectedRange = messageSendingView.messageTextView.selectedTextRange, !isCannedBtnClicked, let cannedDescription = cannedObject.message {
+//            messageSendingView.messageTextView.replace(selectedRange, withText: cannedDescription)
+//        } else if let cannedDescription = cannedObject.message {
+//            messageSendingView.messageTextView.text = cannedDescription
+//        }
+//        if HippoTheme.isDarkModeEnabled == true{
+//            messageSendingView.messageTextView.textColor = .white
+//        }else{
+//            messageSendingView.messageTextView.textColor = .black
+//        }
+//
+//        var dict = HippoConfig.folder.object(forKey: "StoredUnsendMessages") as? [String: Any] ?? [:]
+//        dict["\(channelId)"] = messageSendingView.messageTextView.text
+//        HippoConfig.folder.set(value: dict, forKey: "StoredUnsendMessages")
+//
+//        isCannedBtnClicked = false
+//        isTextviewIsEditing = false
+//    }
+//
+//    func cannedClosed() {
+//        if let selectedRange = messageSendingView.messageTextView.selectedTextRange, !isCannedBtnClicked {
+//            messageSendingView.messageTextView.replace(selectedRange, withText: "/")
+//        }
+//        if isTextviewIsEditing {
+//            messageSendingView.messageTextView.becomeFirstResponder()
+//            isTextviewIsEditing = false
+//        }
+//
+//        isCannedBtnClicked = false
+//    }
+//
+//}
