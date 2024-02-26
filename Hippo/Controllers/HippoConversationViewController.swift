@@ -537,7 +537,8 @@ class HippoConversationViewController: UIViewController {
         let customerId = channel?.chatDetail?.customerID ?? -1
         return customerId > 0
     }
-    
+
+
     func setTitleButton() {
         
         let color = HippoConfig.shared.theme.headerTextColor
@@ -2259,8 +2260,7 @@ extension HippoConversationViewController{
 }
 
 
-//MARK: CannedRepliesVCDelegate
-//extension HippoConversationViewController: CannedRepliesVCDelegate {
+
 //
 //    func cannedMessage(_ cannedMessageVC: CannedRepliesViewController, cannedObject: CannedReply) {
 //        if isTextviewIsEditing {
@@ -2297,4 +2297,3 @@ extension HippoConversationViewController{
 //        isCannedBtnClicked = false
 //    }
 //
-//}

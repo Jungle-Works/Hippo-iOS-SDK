@@ -57,23 +57,23 @@ class CacheManager {
         return agents
     }
     
-//    //MARK: Saved or Canned replies
-//    class func storeCannedReply(replies: [CannedReply]) {
-//        let list: [[String: Any]] = CannedReply.getJsonToStore(replies: replies)
-//        HippoConfig.folder.set(value: list, forKey: HippoDefaultKeys.CannedReplyList)
-//    }
-//
-//    class func getStoredCannedReply() -> [CannedReply] {
-//        var replies = [CannedReply]()
-//
-//        guard let json = HippoConfig.folder.object(forKey: HippoDefaultKeys.CannedReplyList) as? [[String: Any]] else {
-//            return replies
-//        }
-//
-//        replies = CannedReply.getArrayfrom(jsonArray: json)
-//        return replies
-//
-//    }
+    //MARK: Saved or Canned replies
+    class func storeCannedReply(replies: [CannedReply]) {
+        let list: [[String: Any]] = CannedReply.getJsonToStore(replies: replies)
+        HippoConfig.folder.set(value: list, forKey: HippoDefaultKeys.CannedReplyList)
+    }
+
+   class func getStoredCannedReply() -> [CannedReply] {
+    var replies = [CannedReply]()
+
+    guard let json = HippoConfig.folder.object(forKey: HippoDefaultKeys.CannedReplyList) as? [[String: Any]] else {
+        return replies
+    }
+
+    replies = CannedReply.getArrayfrom(jsonArray: json)
+    return replies
+
+}
 //
 //    //MARK: Storing login and personalData
 //    class func storeLoginData(json: [String: Any]) {

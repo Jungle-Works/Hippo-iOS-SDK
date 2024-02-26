@@ -101,8 +101,9 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         view_NavigationBar.title = config.title ?? HippoConfig.shared.theme.headerText
         view_NavigationBar.isLeftButtonHidden = shouldHideBackBtn
         view_NavigationBar.leftButton.addTarget(self, action: #selector(backButtonAction(_:)), for: .touchUpInside)
-        
-        
+        view_NavigationBar.leftButton.setImage(HippoConfig.shared.theme.leftBarButtonImage, for: .normal)
+        view_NavigationBar.leftButton.tintColor = .black
+
         //Configuring SwitchButton
         if let whatsappData = HippoConfig.shared.whatsappWidgetConfig, whatsappData.whatsappEnabledForAll == 1{
             view_NavigationBar.whtsappBtn.isHidden = false

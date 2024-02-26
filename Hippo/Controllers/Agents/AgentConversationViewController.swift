@@ -485,7 +485,24 @@ class AgentConversationViewController: HippoConversationViewController {
             }
         }
     }
-    
+
+
+    func pushToSavedReplies() {
+        guard chatType != .o2o else {
+            return
+        }
+
+        let vc = CannedRepliesViewController.get()
+        vc.delegate = self
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+
+    func cannedButtonClicked() {
+//       messageSendingView.resignFirstResponder()
+//       isCannedBtnClicked = false
+       pushToSavedReplies()
+    }
+
     @IBAction func backButtonAction(_ sender: UIButton) {
         
     }
@@ -966,7 +983,7 @@ extension AgentConversationViewController {
         if BussinessProperty.current.isAskPaymentAllowed{
             self.attachments.append(Attachment(icon : HippoConfig.shared.theme.paymentIcon , title : HippoStrings.payment))
         }
-        self.attachments.append(Attachment(icon : HippoConfig.shared.theme.homeBubble , title : HippoStrings.savedReplies))
+        self.attachments.append(Attachment(icon : HippoConfig.shared.theme.privateInternalNotesIcon , title : HippoStrings.savedReplies))
         if BussinessProperty.current.eFormEnabled ?? false{
             self.attachments.append(Attachment(icon : HippoConfig.shared.theme.eFormIcon  , title : HippoConfig.shared.strings.presciption))
         }
@@ -2347,15 +2364,20 @@ extension AgentConversationViewController: UITextViewDelegate {
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        
+
+        if text == "/"  {
+            self.cannedButtonClicked()
+            return false
+        }
+
         let newText = ((textView.text as NSString?)?.replacingCharacters(in: range,
                                                                          with: text))!
         if newText.trimmingCharacters(in: .whitespacesAndNewlines).count == 0 {
             self.sendMessageButton.isEnabled = false
             
-            if text == "\n" {
-                textView.resignFirstResponder()
-            }
+//            if text == "\n" {
+//                textView.resignFirstResponder()
+//            }
             if channel != nil {
                 self.typingMessageValue = TypingMessage.stopTyping.rawValue
                 sendTypingStatusMessage(isTyping: TypingMessage.stopTyping)
@@ -2649,7 +2671,7 @@ extension AgentConversationViewController{
                 self?.addBotActionView(with: botActions, customBot: customBots)
             }
         case HippoStrings.savedReplies:
-            self.closeKeyBoard()
+            self.cannedButtonClicked()
         case HippoConfig.shared.strings.presciption:
             self.openSelectTemplate()
 
@@ -2934,3 +2956,18 @@ extension AgentConversationViewController : RecordViewDelegate {
 
 }
 
+//MARK: CannedRepliesVCDelegate
+extension AgentConversationViewController: CannedRepliesVCDelegate {
+    func cannedMessage(_ cannedMessageVC: CannedRepliesViewController, cannedObject: CannedReply) {
+        print(cannedObject.message ?? "")
+        self.messageTextView.text = cannedObject.message ?? ""
+        self.recordingBtn.isHidden = true
+        self.sendMessageButton.isHidden = false
+        self.sendMessageButton.isEnabled = true
+        attachmentViewHeightConstraint.constant = 0
+    }
+
+    func cannedClosed() {
+
+    }
+}

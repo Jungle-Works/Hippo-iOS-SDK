@@ -125,7 +125,7 @@ struct WhatsappWidgetConfig{
 @objcMembers public class HippoConfig : NSObject {
     
     public static var shared = HippoConfig()
-    
+    static let folder = FileDefault(folderName: "HippoContent", ext: "json")
     public typealias commonHippoCallback = ((_ success: Bool, _ error: Error?) -> ())
     // MARK: - Properties
     internal var log = CoreLogger(formatter: Formatter.defaultFormat, theme: nil, minLevels: [.all])

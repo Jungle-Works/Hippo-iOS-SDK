@@ -76,8 +76,6 @@ public struct ConversationListTheme {
     open var informationIcon: UIImage? = UIImage(named: "dots", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     open var audioCallIcon: UIImage? = UIImage(named: "call", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     open var videoCallIcon: UIImage? = UIImage(named: "video", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
-    open var homeBubble: UIImage? = UIImage(named: "home-bubble", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
-
     open var noChatImage : UIImage? = UIImage(named: "noChats", in: FuguFlowManager.bundle, compatibleWith: nil)
     open var emplyAddressImage : UIImage? = UIImage(named: "emplyAddress", in: FuguFlowManager.bundle, compatibleWith: nil)
     open var noPrescription : UIImage? = UIImage(named: "emptyprescription", in: FuguFlowManager.bundle, compatibleWith: nil)
@@ -93,7 +91,8 @@ public struct ConversationListTheme {
     open var privateInternalNotesIcon: UIImage? = UIImage(named: "private+message_icon_chat_box", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysOriginal)
     open var deleteIcon: UIImage? = UIImage(named: "delete", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     open var eFormIcon: UIImage? = UIImage(named: "eform", in: FuguFlowManager.bundle, compatibleWith: nil)
-    
+    open var homeBubble: UIImage? = UIImage(named: "home-bubble", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+
     
 //    open var privateInternalNotesIcon: UIImage? = UIImage(named: "private+message_icon_chat_box", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     
