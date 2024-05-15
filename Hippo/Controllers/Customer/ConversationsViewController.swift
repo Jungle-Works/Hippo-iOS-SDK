@@ -31,7 +31,8 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     var createTicketVM = CreateTicketVM()
     var popover : LCPopover?
     var original_transaction_id : String?
-    
+    var preMessage = ""
+
     // MARK: -  IBOutlets
     @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var pleaseSelectOptionView: UIView!
@@ -157,7 +158,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     // MARK: - LIFECYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        messageTextView.text = preMessage
         button_Recording.recordView = viewRecord
         viewRecord.delegate = self
         button_Recording.buttonTouched = {[weak self]() in
@@ -166,7 +167,15 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
                 self?.addRecordView()
             }
         }
-        button_Recording.isHidden = !HippoConfig.shared.isRecordingButtonEnabled
+        if preMessage.isEmpty{
+            button_Recording.isHidden = !HippoConfig.shared.isRecordingButtonEnabled
+            sendMessageButton.isEnabled = false
+        }else{
+            self.sendMessageButton.isHidden = false
+            self.sendMessageButton.isEnabled = true
+            self.button_Recording.isHidden = true
+        }
+//        button_Recording.isHidden = !HippoConfig.shared.isRecordingButtonEnabled
         
         view_Navigation.call_button.addTarget(self, action: #selector(audiCallButtonClicked(_:)), for: .touchUpInside)
         view_Navigation.video_button.addTarget(self, action: #selector(videoButtonClicked(_:)), for: .touchUpInside)
@@ -549,7 +558,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     func prepareSuggestionUI() {
         let theme = HippoConfig.shared.theme
         self.suggestionContainerView.addSubview(suggestionCollectionView)
-        suggestionCollectionView.backgroundColor = theme.themeColor
+        suggestionCollectionView.backgroundColor = .clear//theme.themeColor
         let bundle = FuguFlowManager.bundle
         suggestionCollectionView.register(UINib(nibName: "SuggestionCell", bundle: bundle) , forCellWithReuseIdentifier: "SuggestionCell")
         suggestionCollectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -1701,6 +1710,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         vc.directChatDetail = chatAttributes
         vc.label = chatAttributes.channelName ?? ""
         vc.original_transaction_id = chatAttributes.transactionId
+        vc.preMessage = chatAttributes.preMessage
         return vc
         
         /* testing:
@@ -1790,7 +1800,7 @@ extension ConversationsViewController {
             errorLabelTopConstraint.constant = -20
         }
         
-        sendMessageButton.isEnabled = false
+
         
         if (channel != nil && channel?.isSendingDisabled == true) || forceDisableReply {
             disableSendingReply()

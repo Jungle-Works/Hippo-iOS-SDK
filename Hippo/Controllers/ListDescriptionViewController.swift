@@ -30,7 +30,6 @@ class ListDescriptionViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var textViewOutlet: UITextView!
     @IBOutlet weak var scrollView: UIScrollView!
-    
     @IBOutlet weak var subHeadingLabel: UILabel!
     @IBOutlet weak var descLabel: UILabel!
     
