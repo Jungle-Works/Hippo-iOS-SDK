@@ -81,17 +81,21 @@ class SocketClient: NSObject {
     // MARK: Methods
     private func socketSetup(){
         let auth = jsonToString(json: authentication)
-        let encryptedAuth = CryptoJS.AES().encrypt(auth, password: getSecretKey())
-        
-        
-        if let url = URL(string: socketURL){
-            manager = SocketManager(socketURL: url, config: [.reconnectWait(Int(2)), .reconnectAttempts(0), .compress, .forcePolling(false), .forceWebsockets(true), .connectParams(["auth_token" : encryptedAuth, "device_type" : Device_Type_iOS, "device_details" : AgentDetail.getDeviceDetails()])])
+//        let encryptedAuth = CryptoJS.AES().encrypt(auth, password: getSecretKey())
+
+        do {
+            let encryptedAuth = try AESManager.shared.encrypt(data: [Data(auth.utf8),Data(getSecretKey().utf8)], key: AESManager.shared.generateAESKey())
+            if let url = URL(string: socketURL){
+                manager = SocketManager(socketURL: url, config: [.reconnectWait(Int(2)), .reconnectAttempts(0), .compress, .forcePolling(false), .forceWebsockets(true), .connectParams(["auth_token" : encryptedAuth, "device_type" : Device_Type_iOS, "device_details" : AgentDetail.getDeviceDetails()])])
+            }
+
+            socket = manager?.defaultSocket
+            initListeners()
+            initInitializer()
+            socket?.connect()
+        } catch {
+            print(error)
         }
-        
-        socket = manager?.defaultSocket
-        initListeners()
-        initInitializer()
-        socket?.connect()
     }
     
     func getSecretKey() -> String {

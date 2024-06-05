@@ -109,8 +109,18 @@ extension SocketClient {
             json["channel"] = channelIdForValidation
             let authDic = ["user_id" : "\(currentUserId())","muid" : messageDict["muid"] as? String ?? ""] as [String : Any]
             let auth = jsonToString(json: authDic)
-            let encryptedAuth = CryptoJS.AES().encrypt(auth, password: getSecretKey())
-            json["auth0"] = encryptedAuth
+            do {
+                let encryptedAuth =  try AESManager.shared.encrypt(data: [Data(auth.utf8),Data(getSecretKey().utf8)], key: AESManager.shared.generateAESKey())
+                let base64EncodedString = encryptedAuth.base64EncodedString()
+                let hexadecimalString = encryptedAuth.map { String(format: "%02hhx", $0) }.joined()
+                json["auth0"] = base64EncodedString // or hexadecimalString
+//                json["auth0"] = encryptedAuth
+//                print(encryptedAuth)
+            } catch {
+                print(error)
+            }
+              //CryptoJS.AES().encrypt(auth, password: getSecretKey())
+
             if currentEnUserId().trimWhiteSpacesAndNewLine() == ""{
                 return
             }
