@@ -82,7 +82,7 @@ class HippoConversationViewController: UIViewController {
     let attachmentObj = CreateTicketAttachmentHelper()
     let recordingHelper = RecordingHelper()
     let shareurlhelper = ShareUrlHelper()
-    
+    var fileExtension = ""
     var transactionID: String? = ""
     
     //MARK:
@@ -888,7 +888,7 @@ class HippoConversationViewController: UIViewController {
 
 extension HippoConversationViewController: RecordingHelperDelegate {
     func recordingFinished(url: URL) {
-        sendSelectedDocumentWith(filePath: url.path, fileName: url.lastPathComponent, messageType: .attachment, fileType: .document)
+        sendSelectedDocumentWith(filePath: url.path, fileName: url.lastPathComponent, messageType: .attachment, fileType: FileType.audio)
     }
 }
 
@@ -1016,7 +1016,15 @@ extension HippoConversationViewController: PickerHelperDelegate {
         
         vc.sendBtnTapped = {[weak self](message, _) in
             DispatchQueue.main.async {
-                self?.sendSelectedDocumentWith(messageStr: message ?? "", filePath: url.path, fileName: url.lastPathComponent, messageType: message?.isEmpty ?? true ? .attachment : .normal, fileType: FileType.document)
+                let urlString = "\(url)"
+                if let url = URL(string: urlString) {
+                    self?.fileExtension = url.pathExtension
+                }
+                if self?.fileExtension == "mp3" || self?.fileExtension == "aac"{
+                    self?.sendSelectedDocumentWith(messageStr: message ?? "", filePath: url.path, fileName: url.lastPathComponent, messageType: message?.isEmpty ?? true ? .attachment : .normal, fileType: FileType.audio)
+                }else{
+                    self?.sendSelectedDocumentWith(messageStr: message ?? "", filePath: url.path, fileName: url.lastPathComponent, messageType: message?.isEmpty ?? true ? .attachment : .normal, fileType: FileType.document)
+                }
             }
         }
     }

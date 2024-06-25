@@ -138,6 +138,11 @@ class ActionTableDataSource: NSObject, UITableViewDataSource {
                 cell.retryDelegate = getLastVisibleController() as? ConversationsViewController
                 cell.delegate = getLastVisibleController() as? ConversationsViewController
                 return cell
+            case .audio:
+                let cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingAudioTableViewCell", for: indexPath) as! OutgoingAudioTableViewCell
+                cell.setData(message: message)
+                cell.delegate = getLastVisibleController() as? ConversationsViewController
+                return cell
             default:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingDocumentTableViewCell") as! OutgoingDocumentTableViewCell
                cell.messageLongPressed = { (message) in
@@ -156,6 +161,11 @@ class ActionTableDataSource: NSObject, UITableViewDataSource {
                 cell.setCellWith(message: message)
                 cell.delegate = getLastVisibleController() as? ConversationsViewController
                 return cell
+            case .audio:
+                let cell = tableView.dequeueReusableCell(withIdentifier: "IncomingAudioTableViewCell", for: indexPath) as! IncomingAudioTableViewCell
+                cell.setData(message: message)
+                return cell
+                
             default:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "IncomingDocumentTableViewCell") as! IncomingDocumentTableViewCell
                 cell.setCellWith(message: message)

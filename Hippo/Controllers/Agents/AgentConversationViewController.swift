@@ -1833,6 +1833,11 @@ extension AgentConversationViewController: UITableViewDelegate, UITableViewDataS
                             cell.retryDelegate = self
                             cell.delegate = self
                             return cell
+                        case .audio:
+                            let cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingAudioTableViewCell", for: indexPath) as! OutgoingAudioTableViewCell
+                            cell.setData(message: message)
+                            cell.delegate = self
+                            return cell
                         default:
                             let cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingDocumentTableViewCell") as! OutgoingDocumentTableViewCell
                             cell.messageLongPressed = {[weak self](message) in
@@ -1856,6 +1861,11 @@ extension AgentConversationViewController: UITableViewDelegate, UITableViewDataS
                             cell.setCellWith(message: message)
                             cell.delegate = self
                             return cell
+                        case .audio:
+                            let cell = tableView.dequeueReusableCell(withIdentifier: "IncomingAudioTableViewCell", for: indexPath) as! IncomingAudioTableViewCell
+                            cell.setData(message: message)
+                            return cell
+                            
                         default:
                             let cell = tableView.dequeueReusableCell(withIdentifier: "IncomingDocumentTableViewCell") as! IncomingDocumentTableViewCell
                             cell.setCellWith(message: message)
@@ -2270,6 +2280,11 @@ extension AgentConversationViewController {
                     cell.retryDelegate = self
                     cell.delegate = self
                     return cell
+                case .audio:
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingAudioTableViewCell", for: indexPath) as! OutgoingAudioTableViewCell
+                    cell.setData(message: message)
+                    cell.delegate = self
+                    return cell
                 default:
                     let cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingDocumentTableViewCell") as! OutgoingDocumentTableViewCell
                     cell.messageLongPressed = {[weak self](message) in
@@ -2295,6 +2310,11 @@ extension AgentConversationViewController {
                     cell.setCellWith(message: message)
                     cell.delegate = self
                     return cell
+                case .audio:
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "IncomingAudioTableViewCell", for: indexPath) as! IncomingAudioTableViewCell
+                    cell.setData(message: message)
+                    return cell
+                    
                 default:
                     let cell = tableView.dequeueReusableCell(withIdentifier: "IncomingDocumentTableViewCell") as! IncomingDocumentTableViewCell
                     cell.setCellWith(message: message)

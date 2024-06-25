@@ -50,6 +50,7 @@ struct FileUploader {
         DispatchQueue.global(qos: .userInitiated).async {
             
             let parameters = getParamsToUploadImageWith(for: request)
+            print(parameters)
             HTTPClient.makeConcurrentConnectionWith(method: .POST, para: parameters, extendedUrl: FuguEndPoints.getUploadFileUrl.rawValue) { (response, error, _, statusCode) in
                 if error != nil, let statusCode = (response as? NSDictionary)?.value(forKey: "statusCode") as? Int{
                     if statusCode == 400{

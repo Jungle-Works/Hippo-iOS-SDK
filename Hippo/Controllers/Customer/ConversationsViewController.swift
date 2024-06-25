@@ -2396,6 +2396,11 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                                 cell.retryDelegate = self
                                 cell.delegate = self
                                 return cell
+                            case .audio:
+                                let cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingAudioTableViewCell", for: indexPath) as! OutgoingAudioTableViewCell
+                                cell.setData(message: message)
+                                cell.delegate = self
+                                return cell
                             default:
                                 let cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingDocumentTableViewCell") as! OutgoingDocumentTableViewCell
                                 cell.messageLongPressed = {[weak self](message) in
@@ -2416,6 +2421,11 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                                 cell.setCellWith(message: message)
                                 cell.delegate = self
                                 return cell
+                            case .audio:
+                                let cell = tableView.dequeueReusableCell(withIdentifier: "IncomingAudioTableViewCell", for: indexPath) as! IncomingAudioTableViewCell
+                                cell.setData(message: message)
+                                return cell
+                                
                             default:
                                 let cell = tableView.dequeueReusableCell(withIdentifier: "IncomingDocumentTableViewCell") as! IncomingDocumentTableViewCell
                                 cell.setCellWith(message: message)
@@ -2954,6 +2964,11 @@ extension ConversationsViewController {
                     cell.retryDelegate = self
                     cell.delegate = self
                     return cell
+                case .audio:
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingAudioTableViewCell", for: indexPath) as! OutgoingAudioTableViewCell
+                    cell.setData(message: message)
+                    cell.delegate = self
+                    return cell
                 default:
                     let cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingDocumentTableViewCell") as! OutgoingDocumentTableViewCell
                     cell.messageLongPressed = {[weak self](message) in
@@ -2974,6 +2989,11 @@ extension ConversationsViewController {
                     cell.setCellWith(message: message)
                     cell.delegate = self
                     return cell
+                case .audio:
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "IncomingAudioTableViewCell", for: indexPath) as! IncomingAudioTableViewCell
+                    cell.setData(message: message)
+                    return cell
+                    
                 default:
                     let cell = tableView.dequeueReusableCell(withIdentifier: "IncomingDocumentTableViewCell") as! IncomingDocumentTableViewCell
                     cell.setCellWith(message: message)
