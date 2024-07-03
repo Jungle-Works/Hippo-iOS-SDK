@@ -374,7 +374,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
             // width_NewConversation.constant = 210
             let chatImage = UIImage(named: "chat", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
             self.newConversationBiutton.setImage(chatImage, for: .normal)
-            self.newConversationBiutton.setTitle("  " + HippoConfig.shared.strings.newConversation, for: .normal)
+            self.newConversationBiutton.setTitle("  " + (HippoProperty.current.newConverstationButtonTitle ?? HippoConfig.shared.strings.newConversation), for: .normal)
             self.newConversationBiutton.tintColor = .white//HippoConfig.shared.theme.themeTextcolor
             self.newConversationBiutton.backgroundColor = HippoConfig.shared.theme.themeColor
         }else{

@@ -62,6 +62,10 @@ public class HippoChat {
         HippoProperty.setNewConversationButton(enable: enable)
     }
     
+    public static func setNewConversatonButtonTitle(title:String) {
+        HippoProperty.setNewConversationButtonTitle(title: title)
+    }
+    
     public static func setNewConversationButtonTags(tags: [String]) {
         HippoProperty.setNewConversationButtonTags(tags: tags)
     }

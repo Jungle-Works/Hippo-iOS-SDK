@@ -18,6 +18,7 @@ class HippoProperty: NSObject {
     var paymentPlanType : [Int] = [PaymentPlanType.agentPlan.rawValue]
     private(set) var newConversationButtonTags: [String] = []
     private(set) var enableNewConversationButton: Bool = false
+    private(set) var newConverstationButtonTitle: String? = HippoConfig.shared.strings.newConversation
     private(set) var newconversationBotGroupId: String? = nil
 
     private(set) var openLabelIdOnHome: Int?
@@ -53,6 +54,9 @@ class HippoProperty: NSObject {
     }
     class func setNewConversationButton(enable: Bool) {
         current.enableNewConversationButton = enable
+    }
+    class func setNewConversationButtonTitle(title: String) {
+        current.newConverstationButtonTitle = title
     }
     
     class func setNewConversationBotGroupId(botGroupId: String?) {

@@ -49,6 +49,7 @@ class AllString{
             if HippoConfig.shared.appUserType == .agent{
               agentParsing(response)
             }else{
+                print(response)
               customerParsing(response)
             }
             HippoStrings.updateHippoCallClientStrings()
