@@ -87,8 +87,8 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         
         self.openChatButton.titleLabel?.font = UIFont.bold(ofSize: 15)
         self.closeChatButton.titleLabel?.font = UIFont.regular(ofSize: 15)
-        self.openChatButton.setTitle(HippoStrings.ongoing, for: .normal)
-        self.closeChatButton.setTitle(HippoStrings.past, for: .normal)
+        self.openChatButton.setTitle(HippoProperty.current.currentBtnText ?? HippoStrings.ongoing, for: .normal)
+        self.closeChatButton.setTitle(HippoProperty.current.pastBtnText ?? HippoStrings.past, for: .normal)
         
         self.bottomLineView.backgroundColor = HippoConfig.shared.theme.themeColor
         
