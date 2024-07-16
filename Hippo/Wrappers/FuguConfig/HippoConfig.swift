@@ -250,6 +250,9 @@ struct WhatsappWidgetConfig{
     public var issueDescription : String?
     public var fileUrls = [String]()
     public var fileType = [String]()
+    public var agentEmail: String = ""
+    public var groupingTags = [String]()
+    
     // MARK: - Intialization
     private override init() {
         super.init()
@@ -745,6 +748,28 @@ struct WhatsappWidgetConfig{
     
     public func configureRecordingButtonOnChatScreen(is enabled: Bool){
         self.isRecordingButtonEnabled = enabled
+    }
+    
+    
+    public func openChatByAgentEmail(on viewController: UIViewController? = nil, data: GeneralChat, agentEmail: String? = "", completion: ((_ success: Bool, _ error: Error?) -> Void)? ) {
+        guard appUserType == .customer else {
+            return
+        }
+        
+        checkForIntialization { (success, error) in
+            guard success else {
+                completion?(success, error)
+                return
+            }
+            var fuguChat = FuguNewChatAttributes(transactionId: data.uniqueChatId, userUniqueKey: data.userUniqueId, otherUniqueKey: nil, tags: data.tags, channelName: data.channelName, preMessage: "", groupingTag: data.groupingTags, agentEmail: agentEmail ?? "")
+            fuguChat.hideBackButton = data.hideBackButton
+            if let vc = viewController {
+                FuguFlowManager.shared.showFuguChat(on: vc, chat: fuguChat, createConversationOnStart: true)
+            } else {
+                FuguFlowManager.shared.showFuguChat(fuguChat, createConversationOnStart: true)
+            }
+            completion?(true, nil)
+        }
     }
     
     public func openChatByTransactionId(on viewController: UIViewController? = nil, data: GeneralChat, completion: ((_ success: Bool, _ error: Error?) -> Void)? ) {

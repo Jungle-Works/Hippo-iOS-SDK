@@ -26,10 +26,10 @@ struct FuguNewChatAttributes {
    private var fuguChatType = ChatType.other
    var groupingTag: [String]?
    var botGroupId: String?
-    
+   var agentEmail: String?
     
    
-    init(transactionId: String, userUniqueKey: String? = nil, otherUniqueKey: [String]? = nil, tags: [String]? = nil, channelName: String? = nil, preMessage: String = "", groupingTag: [String]? = nil) {
+    init(transactionId: String, userUniqueKey: String? = nil, otherUniqueKey: [String]? = nil, tags: [String]? = nil, channelName: String? = nil, preMessage: String = "", groupingTag: [String]? = nil, agentEmail: String = "") {
       
       self.transactionId = transactionId
       self.userUniqueKey = userUniqueKey
@@ -38,7 +38,7 @@ struct FuguNewChatAttributes {
       self.channelName = channelName
       self.preMessage = preMessage
       self.groupingTag = groupingTag
-        
+        self.agentEmail = agentEmail
       let otherUserCount = otherUniqueKey?.count ?? 0
       self.fuguChatType = otherUserCount == 0 ? .other : .p2p
    }
@@ -62,6 +62,12 @@ struct FuguNewChatAttributes {
          params["tags"] = tempTags
       }
       
+       if let tempGroupingTag = groupingTag {
+           params["grouping_tags"] = tempGroupingTag
+       }
+       if let tempAgentEmail = agentEmail {
+           params["agent_email"] = agentEmail
+       }
       if let tempChannelName = channelName, !tempChannelName.isEmpty {
          params["custom_label"] = tempChannelName
       }
