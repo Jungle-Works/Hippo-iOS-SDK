@@ -47,7 +47,7 @@ open class RecordButton: UIButton, UIGestureRecognizerDelegate {
             let image = UIImage.fromPod("mic_blue").withRenderingMode(.alwaysTemplate)
             setImage(image, for: .normal)
             
-            tintColor = .blue
+            tintColor = HippoConfig.shared.theme.customColorforIcons
         }
         
 

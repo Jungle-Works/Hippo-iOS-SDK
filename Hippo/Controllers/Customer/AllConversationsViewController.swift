@@ -256,7 +256,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         newConversationBiutton.titleLabel?.font = theme.newConversationButtonFont
         newConversationBiutton.isSelected = false
         self.updateNewConversationBtnUI(isSelected: false)
-        newConversationBiutton.setTitleColor(.white, for: .normal)
+        newConversationBiutton.setTitleColor(theme.customColorforNewConversation, for: .normal)
         //    newConversationBiutton.isHidden = HippoConfig.shared.isNewConversationButtonHidden
         //    newConversationBiutton.isHidden = !HippoProperty.current.enableNewConversationButton
         
@@ -375,12 +375,12 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
             let chatImage = UIImage(named: "chat", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
             self.newConversationBiutton.setImage(chatImage, for: .normal)
             self.newConversationBiutton.setTitle("  " + (HippoProperty.current.newConverstationButtonTitle ?? HippoConfig.shared.strings.newConversation), for: .normal)
-            self.newConversationBiutton.tintColor = .white//HippoConfig.shared.theme.themeTextcolor
+            self.newConversationBiutton.tintColor = HippoConfig.shared.theme.customColorforNewConversation
             self.newConversationBiutton.backgroundColor = HippoConfig.shared.theme.themeColor
         }else{
             //  width_NewConversation.constant = 50
             let chatImage = UIImage(named: "chat", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
-            self.newConversationBiutton.tintColor = .white//HippoConfig.shared.theme.themeTextcolor
+            self.newConversationBiutton.tintColor = HippoConfig.shared.theme.customColorforNewConversation
             self.newConversationBiutton.setImage(chatImage, for: .normal)
             self.newConversationBiutton.setTitle("", for: .normal)
             self.newConversationBiutton.backgroundColor = HippoConfig.shared.theme.themeColor

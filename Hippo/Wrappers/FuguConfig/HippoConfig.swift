@@ -139,7 +139,7 @@ struct WhatsappWidgetConfig{
     internal var voipToken = ""
     internal var ticketDetails = HippoTicketAtrributes(categoryName: "")
     public var whatsappSecretKey: String = ""
-    internal var theme = HippoTheme.defaultTheme()
+    public var theme = HippoTheme.defaultTheme()
     internal var userDetail: HippoUserDetail?
     internal var jitsiUrl : String?
     internal var jitsiOngoingCall : Bool?

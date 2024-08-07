@@ -70,7 +70,8 @@ public struct ConversationListTheme {
     
     open var darkThemeTextColor = UIColor.white
     open var lightThemeTextColor = UIColor.black
-    
+    open var customColorforNewConversation = UIColor.white
+    open var customColorforIcons = UIColor(red: 91/255, green: 159/255, blue: 13/255, alpha: 1.0)
     open var conversationListNormalTheme: ConversationListTheme = ConversationListTheme.normalTheme()
     open var conversationListUnreadTheme: ConversationListTheme = ConversationListTheme.unReadTheme()
     open var informationIcon: UIImage? = UIImage(named: "dots", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)

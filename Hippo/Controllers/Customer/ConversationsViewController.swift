@@ -457,7 +457,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
             if let tintColor = HippoConfig.shared.theme.sendBtnIconTintColor {
                 sendMessageButton.imageView?.tintColor = tintColor
             }else{
-                sendMessageButton.imageView?.tintColor = HippoConfig.shared.theme.themeColor
+                sendMessageButton.imageView?.tintColor = HippoConfig.shared.theme.customColorforIcons
             }
             sendMessageButton.setImage(HippoConfig.shared.theme.sendBtnIcon, for: .normal)
             sendMessageButton.setTitle("", for: .normal)
@@ -468,13 +468,14 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
             if let tintColor = HippoConfig.shared.theme.addBtnTintColor {
                 addFileButtonAction.imageView?.tintColor = tintColor
             }else{
-                addFileButtonAction.imageView?.tintColor = HippoConfig.shared.theme.themeColor
+                addFileButtonAction.imageView?.tintColor = HippoConfig.shared.theme.customColorforIcons
             }
             addFileButtonAction.setImage(HippoConfig.shared.theme.addButtonIcon, for: .normal)
             addFileButtonAction.setTitle("", for: .normal)
         } else { addFileButtonAction.setTitle("ADD", for: .normal) }
-        
-        
+        button_Recording.setImage(UIImage(systemName: "mic")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        button_Recording.tintColor = HippoConfig.shared.theme.customColorforIcons
+       
         handleBackButton()
         if let businessName = userDetailData["business_name"] as? String, label.isEmpty {
             label = businessName
