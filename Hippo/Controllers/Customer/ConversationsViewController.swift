@@ -120,6 +120,10 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     }
     
     
+    @IBOutlet weak var okBtn: UIButton!
+    @IBOutlet weak var firstLineLbl: UILabel!
+    @IBOutlet weak var walletBgView: UIView!
+    @IBOutlet weak var secondLineLbl: UILabel!
     
     var suggestionCollectionView = SuggestionView()
     var suggestionList: [String] = []
@@ -158,6 +162,11 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     // MARK: - LIFECYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
+        if HippoConfig.shared.isFromPanther == true{
+            showWallet()
+        }else{
+            hideWallet()
+        }
         messageTextView.text = preMessage
         button_Recording.recordView = viewRecord
         viewRecord.delegate = self
@@ -683,8 +692,29 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         messageTextView.reloadInputViews()
     }
     
+    func hideWallet(){
+        okBtn.isHidden = true
+        firstLineLbl.isHidden = true
+        walletBgView.isHidden = true
+        secondLineLbl.isHidden = true
+    }
+    
+    func showWallet(){
+        okBtn.isHidden = false
+        firstLineLbl.isHidden = false
+        walletBgView.isHidden = false
+        secondLineLbl.isHidden = false
+        self.firstLineLbl.font = HippoConfig.shared.theme.typingTextFont
+        self.secondLineLbl.font = HippoConfig.shared.theme.typingTextFont
+        walletBgView.layer.cornerRadius = 20
+        okBtn.layer.cornerRadius = 6
+       
+    }
     
     // MARK: - UIButton Actions
+    @IBAction func wallectOkPressed(_ sender: Any) {
+        hideWallet()
+    }
     
     @IBAction func actionButtonClicked(_ sender: Any) {
         //        presentActionsForCustomer(sender: self.view)

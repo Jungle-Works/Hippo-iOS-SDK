@@ -252,6 +252,7 @@ struct WhatsappWidgetConfig{
     public var fileType = [String]()
     public var agentEmail: String = ""
     public var groupingTags = [String]()
+    public var isFromPanther: Bool = false
     
     // MARK: - Intialization
     private override init() {
@@ -664,6 +665,25 @@ struct WhatsappWidgetConfig{
             }
         }
         
+    }
+    
+    public func openChat(data: GeneralChat,preMessage: String, completion: ((_ success: Bool, _ error: Error?) -> Void)? ) {
+        guard appUserType == .customer else {
+            return
+        }
+        
+        checkForIntialization { (success, error) in
+            guard success else {
+                completion?(success, error)
+                return
+            }
+            var fuguChat = FuguNewChatAttributes(transactionId: data.uniqueChatId, userUniqueKey: data.userUniqueId, otherUniqueKey: nil, tags: data.tags, channelName: data.channelName, preMessage: preMessage, groupingTag: data.groupingTags)
+            fuguChat.hideBackButton = data.hideBackButton
+            
+                FuguFlowManager.shared.showFuguChat(fuguChat, createConversationOnStart: true)
+            
+            completion?(true, nil)
+        }
     }
     
     public func openChatScreen(withTransactionId transactionId: String, tags: [String]? = nil, channelName: String, message: String = "", userUniqueKey: String? = nil, isInAppMessage: Bool = false, completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
