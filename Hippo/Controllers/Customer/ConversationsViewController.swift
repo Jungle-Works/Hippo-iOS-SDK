@@ -162,11 +162,12 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     // MARK: - LIFECYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
-        if HippoConfig.shared.isFromPanther == true{
+        if HippoConfig.shared.isFromPantherFirstChat == true{
             showWallet()
         }else{
             hideWallet()
         }
+        
         messageTextView.text = preMessage
         button_Recording.recordView = viewRecord
         viewRecord.delegate = self
@@ -1276,7 +1277,13 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         setTitleForCustomNavigationBar()
         handleVideoIcon()
         handleAudioIcon()
-        
+        if HippoConfig.shared.isFromPantherCallBtn == true{
+            HippoConfig.shared.isFromPantherCallBtn = false
+            startAudioCall()
+           
+        }else{
+            
+        }
         if request.pageStart == 1 && messages.count > 0 {
             filterMessages(newMessagesHashMap: newMessagesHashMap, lastMessage: messages.last!)
         } else if messages.count > 0 {

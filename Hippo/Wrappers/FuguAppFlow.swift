@@ -56,10 +56,16 @@ class FuguFlowManager: NSObject {
        guard let navigationController = storyboard.instantiateViewController(withIdentifier: "FuguCustomerNavigationController") as? UINavigationController, let topVC = navigationController.topViewController else {
           return
        }
-//       let visibleController = getLastVisibleController()
-     
         viewController.navigationController?.pushViewController(topVC, animated: animation)
-//       visibleController?.present(navigationController, animated: animation, completion: nil)
+    }
+    
+    func presentNewCustomerConversations(animation: Bool = true) {
+        guard let navigationController = storyboard.instantiateViewController(withIdentifier: "NewFuguCustomerNavigationController") as? UINavigationController else {
+            return
+        }
+        let visibleController = getLastVisibleController()
+        navigationController.modalPresentationStyle = .fullScreen
+        visibleController?.present(navigationController, animated: animation, completion: nil)
     }
     
     func presentPromotionalpushController(animation: Bool = true) {

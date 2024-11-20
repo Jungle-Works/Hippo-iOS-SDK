@@ -252,8 +252,8 @@ struct WhatsappWidgetConfig{
     public var fileType = [String]()
     public var agentEmail: String = ""
     public var groupingTags = [String]()
-    public var isFromPanther: Bool = false
-    
+    public var isFromPantherFirstChat: Bool = false
+    public var isFromPantherCallBtn: Bool = false
     // MARK: - Intialization
     private override init() {
         super.init()
@@ -525,6 +525,16 @@ struct WhatsappWidgetConfig{
         
         AgentDetail.setAgentStoredData()
         checker.presentChatsViewController()
+    }
+    
+    public func presentNewChatsViewController() {
+        if let _ = whatsappWidgetConfig, let redirectDirectly = userDetail?.redirectToWhatsapp, redirectDirectly {
+            openWhatsappIfEnabled()
+            return
+        }
+        
+        AgentDetail.setAgentStoredData()
+        checker.presentNewChatsViewController()
     }
     
     public func createTicket(ticketData: CreateTicketDataModel?) {

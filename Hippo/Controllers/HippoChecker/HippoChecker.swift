@@ -29,6 +29,15 @@ class HippoChecker {
         }
     }
     
+    func presentNewChatsViewController() {
+        AgentDetail.setAgentStoredData()
+        switch config.appUserType {
+        case .customer:
+            FuguFlowManager.shared.presentNewCustomerConversations()
+        case .agent:
+            FuguFlowManager.shared.presentAgentConversations()
+        }
+    }
     func presentChatsViewController(on viewController: UIViewController) {
            AgentDetail.setAgentStoredData()
            switch config.appUserType {
