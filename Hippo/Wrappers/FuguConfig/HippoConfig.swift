@@ -527,14 +527,14 @@ struct WhatsappWidgetConfig{
         checker.presentChatsViewController()
     }
     
-    public func presentNewChatsViewController() {
+    public func presentFlutterChatsViewController() {
         if let _ = whatsappWidgetConfig, let redirectDirectly = userDetail?.redirectToWhatsapp, redirectDirectly {
             openWhatsappIfEnabled()
             return
         }
         
         AgentDetail.setAgentStoredData()
-        checker.presentNewChatsViewController()
+        checker.presentFlutterChatsViewController()
     }
     
     public func createTicket(ticketData: CreateTicketDataModel?) {

@@ -29,11 +29,11 @@ class HippoChecker {
         }
     }
     
-    func presentNewChatsViewController() {
+    func presentFlutterChatsViewController() {
         AgentDetail.setAgentStoredData()
         switch config.appUserType {
         case .customer:
-            FuguFlowManager.shared.presentNewCustomerConversations()
+            FuguFlowManager.shared.presentFlutterCustomerConversations()
         case .agent:
             FuguFlowManager.shared.presentAgentConversations()
         }

@@ -59,7 +59,7 @@ class FuguFlowManager: NSObject {
         viewController.navigationController?.pushViewController(topVC, animated: animation)
     }
     
-    func presentNewCustomerConversations(animation: Bool = true) {
+    func presentFlutterCustomerConversations(animation: Bool = true) {
         guard let navigationController = storyboard.instantiateViewController(withIdentifier: "NewFuguCustomerNavigationController") as? UINavigationController else {
             return
         }
