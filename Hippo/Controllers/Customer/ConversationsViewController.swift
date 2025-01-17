@@ -190,7 +190,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         view_Navigation.call_button.addTarget(self, action: #selector(audiCallButtonClicked(_:)), for: .touchUpInside)
         view_Navigation.video_button.addTarget(self, action: #selector(videoButtonClicked(_:)), for: .touchUpInside)
         handleInfoIcon()
-        
+        pleaseSelectOptionLabel.text = HippoProperty.current.pleaseSelectOptionText ?? "Please select an option"
         collectionViewOptions?.delegate = self
         collectionViewOptions?.dataSource = self
         customTableView.isScrollEnabled = false//true

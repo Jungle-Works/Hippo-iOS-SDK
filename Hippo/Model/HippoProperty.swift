@@ -21,6 +21,7 @@ class HippoProperty: NSObject {
     private(set) var newConverstationButtonTitle: String? = HippoConfig.shared.strings.newConversation
     private(set) var currentBtnText: String? = HippoStrings.ongoing
     private(set) var pastBtnText: String? = HippoStrings.past
+    private(set) var pleaseSelectOptionText: String? = "Please select an option"
     private(set) var newconversationBotGroupId: String? = nil
 
     private(set) var openLabelIdOnHome: Int?
@@ -58,10 +59,11 @@ class HippoProperty: NSObject {
         current.enableNewConversationButton = enable
     }
     
-    class func setNewConversationButtonTitle(title: String, currentText: String?, pastText: String?) {
+    class func setNewConversationButtonTitle(title: String, currentText: String?, pastText: String?, pleaseSelectOption: String?) {
         current.newConverstationButtonTitle = title
         current.currentBtnText = currentText
         current.pastBtnText = pastText
+        current.pleaseSelectOptionText = pleaseSelectOption
     }
     
     class func setNewConversationBotGroupId(botGroupId: String?) {
