@@ -150,6 +150,11 @@ class NewAllConversationViewController: UIViewController, NewChatSentDelegate {
         }
     }
     
+    // MARK: - Action for whatsapp open button
+    @objc func btnWhatsappTapped(){
+        HippoConfig.shared.openWhatsappIfEnabled()
+    }
+    
     func updateNewConversationBtnUI(isSelected : Bool){
 
             let chatImage = UIImage(named: "chat", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
