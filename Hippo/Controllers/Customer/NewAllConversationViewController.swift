@@ -143,6 +143,11 @@ class NewAllConversationViewController: UIViewController, NewChatSentDelegate {
         self.updateNewConversationBtnUI(isSelected: false)
         newConversationButton.setTitleColor(theme.customColorforNewConversation, for: .normal)
         tableView.contentInset.bottom = 70
+        //Configuring SwitchButton
+        if let whatsappData = HippoConfig.shared.whatsappWidgetConfig, whatsappData.whatsappEnabledForAll == 1{
+            view_NavigationBar.whtsappBtn.isHidden = false
+            view_NavigationBar.whtsappBtn.addTarget(self, action: #selector(btnWhatsappTapped), for: .touchUpInside)
+        }
     }
     
     func updateNewConversationBtnUI(isSelected : Bool){
