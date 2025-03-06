@@ -1339,7 +1339,7 @@ extension HippoConversationViewController {
                 message.imageUrl = result.imageUrl
                 message.thumbnailUrl = result.imageThumbnailUrl
                 message.fileUrl = result.fileUrl
-                print("checkkkk\(result.fileUrl)")
+                print("checkkkk\(String(describing: result.fileUrl))")
             }
             completion(true)
         })
@@ -1393,45 +1393,80 @@ extension HippoConversationViewController {
         return compressionRate
     }
     
-    func updateMessagesArrayLocallyForUIUpdation(_ messageDict: HippoMessage) {
-        
-       
-            
-//            let countOfDateGroupedArrayBeforeUpdate = self.messagesGroupedByDate.count
-//            var previousLastSectionRows = 0
-//
-//            if countOfDateGroupedArrayBeforeUpdate > 0 {
-//                previousLastSectionRows = self.messagesGroupedByDate.last!.count
+//    func updateMessagesArrayLocallyForUIUpdation(_ messageDict: HippoMessage) {
+//        
+//       
+//            
+////            let countOfDateGroupedArrayBeforeUpdate = self.messagesGroupedByDate.count
+////            var previousLastSectionRows = 0
+////
+////            if countOfDateGroupedArrayBeforeUpdate > 0 {
+////                previousLastSectionRows = self.messagesGroupedByDate.last!.count
+////            }
+//            
+//            self.updateMessagesGroupedByDate([messageDict])
+//            
+//            if self.messagesGroupedByDate.count == 0 {
+//                return
 //            }
+//        
+//        fuguDelay(0.0) {
+//            self.tableViewChat.reloadData()
+//            //            self.tableViewChat.beginUpdates()
+//            //
+//            //            if countOfDateGroupedArrayBeforeUpdate == self.messagesGroupedByDate.count {
+//            //
+//            //                let currentLastSectionRows = self.messagesGroupedByDate.last!.count
+//            //
+//            //                if previousLastSectionRows != currentLastSectionRows {
+//            //                    let lastIndexPath = IndexPath(row: currentLastSectionRows - 1, section: self.messagesGroupedByDate.count - 1)
+//            //                    self.tableViewChat.insertRows(at: [lastIndexPath], with: .none)
+//            //                }
+//            //
+//            //            } else {
+//            //                let newSectionsOfTableView = IndexSet([self.messagesGroupedByDate.count - 1])
+//            //                self.tableViewChat.insertSections(newSectionsOfTableView, with: .none)
+//            //            }
+//            //            self.tableViewChat.endUpdates()
+//        }
+//        
+//    }
+    func updateMessagesArrayLocallyForUIUpdation(_ messageDict: HippoMessage) {
             
-            self.updateMessagesGroupedByDate([messageDict])
-            
-            if self.messagesGroupedByDate.count == 0 {
-                return
+            DispatchQueue.main.async {
+                
+                let countOfDateGroupedArrayBeforeUpdate = self.messagesGroupedByDate.count
+                var previousLastSectionRows = 0
+                
+                if countOfDateGroupedArrayBeforeUpdate > 0 {
+                    previousLastSectionRows = self.messagesGroupedByDate.last!.count
+                }
+                
+                self.updateMessagesGroupedByDate([messageDict])
+                
+                if self.messagesGroupedByDate.count == 0 {
+                    return
+                }
+                self.tableViewChat.beginUpdates()
+                
+                if countOfDateGroupedArrayBeforeUpdate == self.messagesGroupedByDate.count {
+                    
+                    let currentLastSectionRows = self.messagesGroupedByDate.last!.count
+                    
+                    if previousLastSectionRows != currentLastSectionRows {
+                        let lastIndexPath = IndexPath(row: currentLastSectionRows - 1, section: self.messagesGroupedByDate.count - 1)
+                        self.tableViewChat.insertRows(at: [lastIndexPath], with: .none)
+                    }
+                    
+                } else {
+                    let newSectionsOfTableView = IndexSet([self.messagesGroupedByDate.count - 1])
+                    self.tableViewChat.insertSections(newSectionsOfTableView, with: .none)
+                }
+                self.tableViewChat.endUpdates()
             }
-        
-        fuguDelay(0.0) {
-            self.tableViewChat.reloadData()
-            //            self.tableViewChat.beginUpdates()
-            //
-            //            if countOfDateGroupedArrayBeforeUpdate == self.messagesGroupedByDate.count {
-            //
-            //                let currentLastSectionRows = self.messagesGroupedByDate.last!.count
-            //
-            //                if previousLastSectionRows != currentLastSectionRows {
-            //                    let lastIndexPath = IndexPath(row: currentLastSectionRows - 1, section: self.messagesGroupedByDate.count - 1)
-            //                    self.tableViewChat.insertRows(at: [lastIndexPath], with: .none)
-            //                }
-            //
-            //            } else {
-            //                let newSectionsOfTableView = IndexSet([self.messagesGroupedByDate.count - 1])
-            //                self.tableViewChat.insertSections(newSectionsOfTableView, with: .none)
-            //            }
-            //            self.tableViewChat.endUpdates()
+            
         }
-        
-    }
-    
+
     func openQuicklookFor(fileURL: String, fileName: String) {
         //        if message?.type == .embeddedVideoUrl{
         //            guard let fileURL = message?.customAction?.videoLink else {
