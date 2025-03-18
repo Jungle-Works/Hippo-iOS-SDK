@@ -229,7 +229,11 @@ class AudioTableViewCell: MessageTableViewCell {
     }
     
     @IBAction func controlButtonAction(_ sender: Any) {
-        
+        if message?.fileSize?.contains("KB") != true {
+            showErrorToast(message: "File size is too small to play!")
+            return
+        }
+
         guard isFileDownloaded() else {
             self.startDownloading()
             return
@@ -266,5 +270,34 @@ extension AudioTableViewCell: AudioPlayerManagerDelegate {
     func timer(_ player: AVAudioPlayer) {
         self.updateLabels()
         self.updateProgressBarView()
+    }
+}
+
+
+extension UITableViewCell {
+    func showErrorToast(message: String, duration: TimeInterval = 2.0) {
+        let toastLabel = UILabel(frame: CGRect(x: self.contentView.frame.size.width / 2 - 150,
+                                               y: self.contentView.frame.size.height / 2,
+                                               width: 300,
+                                               height: 40))
+        toastLabel.backgroundColor = UIColor.red.withAlphaComponent(0.8)
+        toastLabel.textColor = UIColor.white
+        toastLabel.textAlignment = .center
+        toastLabel.font = UIFont.systemFont(ofSize: 13, weight: .bold)
+        toastLabel.text = message
+        toastLabel.alpha = 0.0
+        toastLabel.clipsToBounds = true
+
+        self.contentView.addSubview(toastLabel)
+
+        UIView.animate(withDuration: 0.5, animations: {
+            toastLabel.alpha = 1.0
+        }) { _ in
+            UIView.animate(withDuration: 0.5, delay: duration, options: .curveEaseOut, animations: {
+                toastLabel.alpha = 0.0
+            }) { _ in
+                toastLabel.removeFromSuperview()
+            }
+        }
     }
 }
