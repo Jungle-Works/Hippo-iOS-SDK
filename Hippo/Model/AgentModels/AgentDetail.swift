@@ -271,7 +271,7 @@ extension AgentDetail {
         }
         let params = getParamsForLogin()
         HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: AgentEndPoints.loginViaToken.rawValue) { (responseObject, error, tag, statusCode) in
-            
+            print(responseObject)
             guard let unwrappedStatusCode = statusCode, let response = responseObject as? [String: Any], let data = response["data"] as? [String: Any], unwrappedStatusCode == STATUS_CODE_SUCCESS else {
                 let result = ResponseResult(isSuccessful: false, error: error)
                 print("Login errror: \(error?.localizedDescription ?? HippoStrings.somethingWentWrong)")
@@ -303,8 +303,7 @@ extension AgentDetail {
             
             BussinessProperty.current.isVideoCallEnabled = Bool.parse(key: "is_video_call_enabled", json: data)
             BussinessProperty.current.isAudioCallEnabled = Bool.parse(key: "is_audio_call_enabled", json: data)
-            
-            
+            BussinessProperty.current.videoSdkRecordingEnabled = Bool.parse(key: "video_sdk_recording_enabled", json: data)
             if let businessProperty = data["business_property"] as? [String: Any] {
                 BussinessProperty.current.isCallInviteEnabled = Bool.parse(key: "is_call_invite_enabled", json: businessProperty)
                 

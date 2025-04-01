@@ -520,7 +520,7 @@ class HippoChannel {
         }
         params["multi_language_label"] = labelRequest?.channelName
         //}
-        
+//        params["agent_email"] = "newsgn@yopmail.com"
         return params
     }
     

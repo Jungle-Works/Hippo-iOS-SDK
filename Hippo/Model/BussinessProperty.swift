@@ -18,7 +18,7 @@ class BussinessProperty: NSObject {
     var isCallInviteEnabled: Bool?
     var showCustomerChatHistory: Bool?
     var isAgentToCustomerChatEnable: Bool?
-    
+    var videoSdkRecordingEnabled:Bool?
     var hideAllChat: Bool? {
          get {
              
@@ -219,7 +219,7 @@ class BussinessProperty: NSObject {
         
         isVideoCallEnabled = Bool.parse(key: "is_video_call_enabled", json: userDetailData)
         isAudioCallEnabled = Bool.parse(key: "is_audio_call_enabled", json: userDetailData, defaultValue: false)
-        
+        videoSdkRecordingEnabled = Bool.parse(key: "video_sdk_recording_enabled", json: userDetailData)
         if let enableChat = Int.parse(values: userDetailData, key: "enable_chat_in_call"){
             enableChatInCall = enableChat == 1
         }
