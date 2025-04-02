@@ -18,7 +18,7 @@ socket.on("currentAmount") {data, ack in
     guard let cur = data[0] as? Double else { return }
     
     socket.emitWithAck("canUpdate", cur).timingOut(after: 0) {data in
-        if data.first as? String ?? "passed" == SocketAckValue.noAck {
+        if data.first as? String ?? "passed" == SocketAckStatus.noAck {
             // Handle ack timeout 
         }
 
@@ -61,7 +61,7 @@ let package = Package(
         .executable(name: "socket.io-test", targets: ["YourTargetName"])
     ],
     dependencies: [
-        .package(url: "https://github.com/socketio/socket.io-client-swift", .upToNextMinor(from: "15.0.0"))
+        .package(url: "https://github.com/socketio/socket.io-client-swift", .upToNextMinor(from: "16.1.1"))
     ],
     targets: [
         .target(name: "YourTargetName", dependencies: ["SocketIO"], path: "./Path/To/Your/Sources")
@@ -74,7 +74,7 @@ Then import `import SocketIO`.
 ### Carthage
 Add this line to your `Cartfile`:
 ```
-github "socketio/socket.io-client-swift" ~> 15.2.0
+github "socketio/socket.io-client-swift" ~> 16.1.1
 ```
 
 Run `carthage update --platform ios,macosx`.
@@ -88,7 +88,7 @@ Create `Podfile` and add `pod 'Socket.IO-Client-Swift'`:
 use_frameworks!
 
 target 'YourApp' do
-    pod 'Socket.IO-Client-Swift', '~> 15.2.0'
+    pod 'Socket.IO-Client-Swift', '~> 16.1.1'
 end
 ```
 
