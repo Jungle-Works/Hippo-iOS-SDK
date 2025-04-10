@@ -33,14 +33,16 @@ open class WhatsappLoginButton: UIButton, onVerifyWaidDelegate {
 
     func setImageAndTitle() {
         Notp.sharedInstance.delegateOnVerify = self
-        if let image = UIImage(named: "notpwhatsapp.png", in: Bundle(for: type(of: self)), compatibleWith: nil) {
-            setImage(image, for: .normal)
-        }
         checkWaidExistsAndVerified()
         setTitle(Notp.sharedInstance.buttonText, for: .normal)
         addTarget(self, action:#selector(self.buttonClicked), for: .touchUpInside)
         DispatchQueue.main.async {
             self.backgroundColor = Notp.sharedInstance.backgroundColor
+            if Notp.sharedInstance.isButtonImageHidden == false{
+                if let image = UIImage(named: Notp.sharedInstance.buttonImage, in: Bundle(for: type(of: self)), compatibleWith: nil) {
+                    self.setImage(image, for: .normal)
+                }
+            }
         }
         setTitleColor(UIColor.white, for: UIControl.State.normal)
         titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
