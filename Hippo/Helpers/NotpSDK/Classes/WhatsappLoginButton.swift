@@ -39,7 +39,9 @@ open class WhatsappLoginButton: UIButton, onVerifyWaidDelegate {
         checkWaidExistsAndVerified()
         setTitle(Notp.sharedInstance.buttonText, for: .normal)
         addTarget(self, action:#selector(self.buttonClicked), for: .touchUpInside)
-        backgroundColor = NotpHelper.UIColorFromRGB(rgbValue: 0x23D366)
+        DispatchQueue.main.async {
+            self.backgroundColor = Notp.sharedInstance.backgroundColor
+        }
         setTitleColor(UIColor.white, for: UIControl.State.normal)
         titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
     }

@@ -10,6 +10,7 @@ import Foundation
 @objc public class Notp: NSObject {
     public var buttonText = HippoStrings.continue_to_whatsapp
     public var buttonImage = ""
+    public var backgroundColor = NotpHelper.UIColorFromRGB(rgbValue: 0x23D366)
     public weak var delegate: onResponseDelegate?
     public weak var delegateOnVerify: onVerifyWaidDelegate?
     @objc public static let sharedInstance: Notp = {
