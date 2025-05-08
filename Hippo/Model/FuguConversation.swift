@@ -116,10 +116,14 @@ class FuguConversation: HippoConversation {
                   let data = response["data"] as? [String: Any],
                   let conversationArrayJson = data["conversation_list"] as? [[String: Any]],
                   unwrappedStatusCode == STATUS_CODE_SUCCESS else {
-                let result = GetConversationFromServerResult(isSuccessful: false, error: error, conversations: nil)
-                
-                completion(result)
-                return
+                if  statusCode != 400{
+                    let result = GetConversationFromServerResult(isSuccessful: false, error: error, conversations: nil)
+                    completion(result)
+                    return
+                }else{
+                    return
+                }
+               
             }
             
             FuguDefaults.set(value: conversationArrayJson, forKey: DefaultName.conversationData.rawValue)
@@ -131,6 +135,7 @@ class FuguConversation: HippoConversation {
             
             let result = GetConversationFromServerResult(isSuccessful: true, error: HippoError.general, conversations: arrayOfConversation)
             completion(result)
+            print("allconv \(String(describing: result.conversations))")
         }
     }
  

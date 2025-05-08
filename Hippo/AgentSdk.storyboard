@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -452,62 +452,94 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mF9-lG-KfK">
                                 <rect key="frame" x="0.0" y="498" width="375" height="56"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="dPf-fa-tJ6">
-                                        <rect key="frame" x="330" y="0.0" width="45" height="56"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="9cg-L3-e0k">
+                                        <rect key="frame" x="236" y="0.0" width="139" height="56"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="35a-5x-mEI" customClass="RecordButton" customModule="Hippo" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="45" height="56"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="45" id="mKD-B9-BAY"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                <state key="normal" image="mic">
-                                                    <color key="titleColor" red="0.12941176469999999" green="0.58823529409999997" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="sendMessageButtonAction:" destination="1EA-mR-cXN" eventType="touchUpInside" id="9CX-gh-ekA"/>
-                                                </connections>
-                                            </button>
-                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pt6-lN-awv">
-                                                <rect key="frame" x="0.0" y="0.0" width="45" height="56"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="45" id="yvU-ka-OZK"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                <state key="normal" title="Send">
-                                                    <color key="titleColor" red="0.12941176469999999" green="0.58823529409999997" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="sendMessageButtonAction:" destination="1EA-mR-cXN" eventType="touchUpInside" id="Mct-3q-YJz"/>
-                                                </connections>
-                                            </button>
-                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0tr-Uw-8C5">
-                                                <rect key="frame" x="0.0" y="0.0" width="45" height="56"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="45" id="8LF-MD-ro9"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                <state key="normal" image="tick_green">
-                                                    <color key="titleColor" red="0.12941176469999999" green="0.58823529409999997" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="action_SendEditedMessage" destination="1EA-mR-cXN" eventType="touchUpInside" id="iw3-3A-cZv"/>
-                                                </connections>
-                                            </button>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="aJk-De-XD7">
+                                                <rect key="frame" x="0.0" y="0.0" width="90" height="56"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HDU-N5-jKn">
+                                                        <rect key="frame" x="0.0" y="0.0" width="50" height="56"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="50" id="iQF-oR-IXw"/>
+                                                        </constraints>
+                                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                        <state key="normal" image="undo"/>
+                                                        <connections>
+                                                            <action selector="undoBtnPressed:" destination="1EA-mR-cXN" eventType="touchUpInside" id="jr9-ib-Nbb"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dIS-BA-DHu">
+                                                        <rect key="frame" x="50" y="0.0" width="40" height="56"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="40" id="epX-cS-xIZ"/>
+                                                        </constraints>
+                                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                        <state key="normal" image="fluent_pen-sparkle-48-filled"/>
+                                                        <connections>
+                                                            <action selector="aiBtnPressed:" destination="1EA-mR-cXN" eventType="touchUpInside" id="p98-Gq-Vxd"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="dPf-fa-tJ6">
+                                                <rect key="frame" x="94" y="0.0" width="45" height="56"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="35a-5x-mEI" customClass="RecordButton" customModule="Hippo" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="0.0" width="45" height="56"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="45" id="mKD-B9-BAY"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                        <state key="normal" image="mic">
+                                                            <color key="titleColor" red="0.12941176469999999" green="0.58823529409999997" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="sendMessageButtonAction:" destination="1EA-mR-cXN" eventType="touchUpInside" id="9CX-gh-ekA"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pt6-lN-awv">
+                                                        <rect key="frame" x="0.0" y="0.0" width="45" height="56"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="45" id="yvU-ka-OZK"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                        <state key="normal" title="Send">
+                                                            <color key="titleColor" red="0.12941176469999999" green="0.58823529409999997" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="sendMessageButtonAction:" destination="1EA-mR-cXN" eventType="touchUpInside" id="Mct-3q-YJz"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0tr-Uw-8C5">
+                                                        <rect key="frame" x="0.0" y="0.0" width="45" height="56"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="45" id="8LF-MD-ro9"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                        <state key="normal" image="tick_green">
+                                                            <color key="titleColor" red="0.12941176469999999" green="0.58823529409999997" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="action_SendEditedMessage" destination="1EA-mR-cXN" eventType="touchUpInside" id="iw3-3A-cZv"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
                                         </subviews>
                                     </stackView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Send a message..." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Gj-e4-N76">
-                                        <rect key="frame" x="40" y="3" width="290" height="50"/>
+                                        <rect key="frame" x="50" y="3" width="181" height="50"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                         <color key="textColor" red="0.28627450980000002" green="0.28627450980000002" blue="0.28627450980000002" alpha="0.5" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BoP-rH-Rzx" customClass="RecordView" customModule="Hippo" customModuleProvider="target">
-                                        <rect key="frame" x="40" y="3" width="290" height="50"/>
+                                        <rect key="frame" x="40" y="3" width="191" height="50"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     </view>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="MB6-uF-kEa" customClass="HippoMessageTextView" customModule="Hippo" customModuleProvider="target">
-                                        <rect key="frame" x="40" y="3" width="290" height="50"/>
+                                        <rect key="frame" x="40" y="3" width="191" height="50"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="ubg-ie-nz4"/>
@@ -576,25 +608,25 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.90196078430000004" green="0.90980392160000001" blue="0.91372549020000005" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstItem="9Gj-e4-N76" firstAttribute="leading" secondItem="MB6-uF-kEa" secondAttribute="leading" id="0aV-9Z-DkI"/>
+                                    <constraint firstItem="9Gj-e4-N76" firstAttribute="leading" secondItem="MB6-uF-kEa" secondAttribute="leading" constant="10" id="0aV-9Z-DkI"/>
                                     <constraint firstItem="MB6-uF-kEa" firstAttribute="centerY" secondItem="mF9-lG-KfK" secondAttribute="centerY" id="1ja-06-6IV"/>
                                     <constraint firstAttribute="bottom" secondItem="MB6-uF-kEa" secondAttribute="bottom" constant="3" id="3Co-Oi-zCQ"/>
+                                    <constraint firstItem="9cg-L3-e0k" firstAttribute="leading" secondItem="9Gj-e4-N76" secondAttribute="trailing" constant="5" id="3eu-hz-z4P"/>
                                     <constraint firstAttribute="height" relation="lessThanOrEqual" constant="150" id="7By-TL-bxh"/>
                                     <constraint firstItem="z7L-h6-k2g" firstAttribute="leading" secondItem="mF9-lG-KfK" secondAttribute="leading" constant="5" id="BMw-wu-lQ7"/>
                                     <constraint firstItem="MB6-uF-kEa" firstAttribute="top" secondItem="9Gj-e4-N76" secondAttribute="top" id="COY-g6-dtj"/>
-                                    <constraint firstAttribute="bottom" secondItem="dPf-fa-tJ6" secondAttribute="bottom" id="Dn5-y6-6zA"/>
-                                    <constraint firstAttribute="trailing" secondItem="dPf-fa-tJ6" secondAttribute="trailing" id="G48-Rb-nfl"/>
                                     <constraint firstItem="BoP-rH-Rzx" firstAttribute="leading" secondItem="MB6-uF-kEa" secondAttribute="leading" id="I5p-35-2kM"/>
+                                    <constraint firstAttribute="bottom" secondItem="9cg-L3-e0k" secondAttribute="bottom" id="Qzo-uo-KyJ"/>
                                     <constraint firstItem="9Gj-e4-N76" firstAttribute="trailing" secondItem="MB6-uF-kEa" secondAttribute="trailing" id="Wa7-VL-7aj"/>
                                     <constraint firstItem="9Gj-e4-N76" firstAttribute="centerY" secondItem="mF9-lG-KfK" secondAttribute="centerY" id="YxU-ot-0ho"/>
-                                    <constraint firstItem="dPf-fa-tJ6" firstAttribute="leading" secondItem="9Gj-e4-N76" secondAttribute="trailing" id="bwu-W4-ul6"/>
                                     <constraint firstItem="MB6-uF-kEa" firstAttribute="top" secondItem="mF9-lG-KfK" secondAttribute="top" constant="3" id="e6y-c8-2cC"/>
                                     <constraint firstItem="z7L-h6-k2g" firstAttribute="top" secondItem="mF9-lG-KfK" secondAttribute="top" id="fXO-Lr-dGd"/>
                                     <constraint firstItem="MB6-uF-kEa" firstAttribute="leading" secondItem="z7L-h6-k2g" secondAttribute="trailing" constant="5" id="jHW-HV-Xb9"/>
                                     <constraint firstAttribute="bottom" secondItem="z7L-h6-k2g" secondAttribute="bottom" id="kWG-5s-u4X"/>
+                                    <constraint firstAttribute="trailing" secondItem="9cg-L3-e0k" secondAttribute="trailing" id="lD2-eQ-RQg"/>
                                     <constraint firstItem="BoP-rH-Rzx" firstAttribute="trailing" secondItem="MB6-uF-kEa" secondAttribute="trailing" id="lbQ-Mf-Lgp"/>
+                                    <constraint firstItem="9cg-L3-e0k" firstAttribute="top" secondItem="mF9-lG-KfK" secondAttribute="top" id="lmc-H4-Yke"/>
                                     <constraint firstItem="BoP-rH-Rzx" firstAttribute="bottom" secondItem="MB6-uF-kEa" secondAttribute="bottom" id="lxF-D5-S56"/>
-                                    <constraint firstItem="dPf-fa-tJ6" firstAttribute="top" secondItem="mF9-lG-KfK" secondAttribute="top" id="m8L-Dn-zew"/>
                                     <constraint firstItem="BoP-rH-Rzx" firstAttribute="top" secondItem="MB6-uF-kEa" secondAttribute="top" id="o90-Rm-3Ap"/>
                                 </constraints>
                             </view>
@@ -876,6 +908,7 @@
                         <outlet property="Button_CancelEdit" destination="FxY-Jp-ayQ" id="9pR-FG-oZv"/>
                         <outlet property="Button_EditMessage" destination="0tr-Uw-8C5" id="4Nx-Rm-De9"/>
                         <outlet property="addFileButtonAction" destination="O4f-k1-wWi" id="FER-yR-nCo"/>
+                        <outlet property="aiBtn" destination="dIS-BA-DHu" id="6Lv-QN-TbY"/>
                         <outlet property="attachmentViewHeightConstraint" destination="pgf-Nr-FPJ" id="cSh-s9-ssC"/>
                         <outlet property="backgroundImageView" destination="w9H-w1-3as" id="Txc-gK-NJn"/>
                         <outlet property="backgroundView" destination="iY7-TW-jT1" id="8hh-0z-nHZ"/>
@@ -908,12 +941,13 @@
                         <outlet property="takeOverButtonContainer" destination="Fyf-AZ-Veq" id="hnx-zF-NSJ"/>
                         <outlet property="takeOverButtonHeightConstraint" destination="YxK-62-f2F" id="Jwz-RP-Twx"/>
                         <outlet property="textViewBgView" destination="mF9-lG-KfK" id="1B4-1h-FbT"/>
+                        <outlet property="undoBtn" destination="HDU-N5-jKn" id="SHc-BR-02l"/>
                         <outlet property="view_Navigation" destination="cOV-hT-gb9" id="dpx-mH-35z"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="U0d-rH-Odq" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="748" y="849"/>
+            <point key="canvasLocation" x="748" y="848.72563718140941"/>
         </scene>
         <!--Channel Info-->
         <scene sceneID="G5J-Tc-zB9">
@@ -2418,6 +2452,7 @@
         <image name="broadcastIcon" width="25.5" height="19.5"/>
         <image name="cancel_icon" width="16" height="16"/>
         <image name="checked" width="22" height="17"/>
+        <image name="fluent_pen-sparkle-48-filled" width="32" height="32"/>
         <image name="makePayment" width="45" height="45"/>
         <image name="mic" width="36" height="36"/>
         <image name="moreOptions" width="24" height="24"/>
@@ -2425,15 +2460,16 @@
         <image name="noChats" width="210" height="157"/>
         <image name="tag" width="20" height="20"/>
         <image name="tick_green" width="42.5" height="42.5"/>
+        <image name="undo" width="32" height="32"/>
         <image name="whiteBackButton" width="8" height="12"/>
         <systemColor name="opaqueSeparatorColor">
-            <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemRedColor">
-            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

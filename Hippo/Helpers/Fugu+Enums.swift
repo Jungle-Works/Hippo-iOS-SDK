@@ -399,12 +399,13 @@ enum FuguEndPoints: String {
     case searchAddress = "https://nominatim-api-live.jungleworks.com/search"
     case statsUpdate = "api/users/updateUserToChannel"
     case promotionalPopUp = "api/broadcast/getUserToCampaign"
-
+    static let generateContent = "api/chat/generateContent"
 //    case promotionalPopUp = "api/broadcast/getUserCampaign"
     
 }
 
 enum AgentEndPoints: String {
+    static let generateContent = "api/chat/generateContent"
     case conversationUnread = "api/conversation/getAgentTotalUnreadCount"
     case getAgentLoginInfo = "api/agent/getAgentLoginInfo"
     case loginViaAuthToken = "api/agent/v1/agentLoginViaAuthToken"

@@ -588,7 +588,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
             self?.refreshControl.endRefreshing()
             resetPushCount()
             pushTotalUnreadCount()
-            
+            print("allconv \(String(describing: result.conversations))")
             guard result.isSuccessful else {
                 let errorMessage = result.error?.localizedDescription ?? HippoStrings.somethingWentWrong
                 self?.showErrorMessageInTopErrorLabel(withMessage: errorMessage)

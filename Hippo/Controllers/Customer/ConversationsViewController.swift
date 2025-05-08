@@ -35,6 +35,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
 
     // MARK: -  IBOutlets
     @IBOutlet weak var backgroundImageView: UIImageView!
+   
     @IBOutlet weak var pleaseSelectOptionView: UIView!
     @IBOutlet weak var pleaseSelectOptionLabel: UILabel!
     @IBOutlet weak var audioCAllButtonWidthConstraint: NSLayoutConstraint!
@@ -134,7 +135,6 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     //    let height: CGFloat = 175//125//250
     //    var actionSheetTitleArr = ["Photo & Video Library","Camera","Document"]
     //    var actionSheetImageArr = ["Library","Camera","Library"]
-    
     var hieghtOfNavigationBar: CGFloat = 0
     var messageInEditing : HippoMessage?
     var editingMessageIndex : IndexPath?

@@ -1527,7 +1527,6 @@ extension HippoConversationViewController {
         channel?.send(message: message, completion: { [weak self] in
             //TODO: Reload Table View Cell
             self?.tableViewChat.reloadData()
-            
             if self?.shouldScrollToBottomWhenStatusUpdatedOf(message: message) == true {
                 self?.newScrollToBottom(animated: true)
             }

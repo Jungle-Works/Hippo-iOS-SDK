@@ -1172,6 +1172,7 @@ struct WhatsappWidgetConfig{
     public func setStrings(stringsObject: HippoStrings) {
         HippoConfig.shared.strings = stringsObject
     }
+  
     
     public func managePromotionOrP2pCount(_ userInfo: [String:Any], isOpenendFromPush: Bool = false){
         if userInfo["is_announcement_push"] as? Bool == true, let channel_id = userInfo["channel_id"] as? Int{
