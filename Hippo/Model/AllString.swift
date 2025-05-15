@@ -428,6 +428,9 @@ class AllString{
         if let hippo_ongoing = response["hippo_ongoing"] as? String{
             HippoStrings.ongoing_call = hippo_ongoing
         }
+        if let hippo_shared_media = response["hippo_shared_media"] as? String{
+            HippoStrings.sharedMediaTitle = hippo_shared_media
+        }
         if let hippo_paid = response["hippo_paid"] as? String{
             HippoStrings.paymentPaid = hippo_paid
         }

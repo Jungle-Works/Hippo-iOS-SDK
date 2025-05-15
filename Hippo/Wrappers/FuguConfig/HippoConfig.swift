@@ -42,12 +42,12 @@ struct SERVERS {
     static let liveUrl = "https://api.hippochat.io/"
     static let liveFaye = "https://event.hippochat.io"//"https://socketv2.hippochat.io/faye"//
     
-    static let betaUrl = "https://hippog-server.fuguchat.com:3003/"
-    static let betaFaye = "https://hippog-server.fuguchat.com:3003/"
+    static let betaUrl = "https://hippog-server.hippochat.io:3003/"
+    static let betaFaye = "https://hippog-server.hippochat.io:3003/"
     //3002 - for notp
     //3003 = for create ticket // https://api-graviton-multiple.fuguchat.com:3003/
-    static let devUrl = ["https://api-graviton-multiple.fuguchat.com:3002/", "https://api-graviton-multiple.fuguchat.com:3003/", "https://api-graviton-multiple.fuguchat.com:3004/"]
-    static let devFaye = ["https://api-graviton-multiple.fuguchat.com:3002/", "https://api-graviton-multiple.fuguchat.com:3003/", "https://api-graviton-multiple.fuguchat.com:3004/"]
+    static let devUrl = ["https://api-graviton-multiple-fugu.hippochat.io:3002/", "https://api-graviton-multiple-fugu.hippochat.io:3003/", "https://api-graviton-multiple-fugu.hippochat.io:3004/"]
+    static let devFaye = ["https://api-graviton-multiple-fugu.hippochat.io:3002/", "https://api-graviton-multiple-fugu.hippochat.io:3003/", "https://api-graviton-multiple-fugu.hippochat.io:3004/"]
 }
 
 struct BotAction {

@@ -126,7 +126,7 @@ public class HippoStrings {
     static var shareVideoUrl = "Share Video Call Link"
     static var sentACallInvite = "Sent a Call Invite"
     static var recievedACallInvite = "Recieved a Call Invite"
-    static var sharedMediaTitle = "Shared Media"
+    static var sharedMediaTitle = "Shared Media".localized
     
     /// Agent sdk
     static var thanksForFeedback = "Thank you for your comments!".localized

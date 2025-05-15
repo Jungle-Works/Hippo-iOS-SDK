@@ -73,7 +73,7 @@ open class WhatsappLoginButton: UIButton, onVerifyWaidDelegate {
         }
     }
 
-    @objc private func buttonClicked(){
+    @objc func buttonClicked(){
         self.delegate?.didTapOnButton()
 
         if isWhatsAppEnabled{
