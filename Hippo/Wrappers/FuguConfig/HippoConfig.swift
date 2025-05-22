@@ -146,7 +146,7 @@ struct WhatsappWidgetConfig{
     internal var agentDetail: AgentDetail?
     public var strings = HippoStrings()
     private(set) public var newConversationButtonBorderWidth: Float = 0.0
-    
+    var processedMessageMUIDs = Set<String>()
     private(set) public var isSuggestionNeeded = false
     private(set) public var maxSuggestionCount = 10
     private(set) public var questions = [String: Int]()//Dictionary<String, Int>()
@@ -207,7 +207,7 @@ struct WhatsappWidgetConfig{
     var supportChatFilter : [SupportFilter]?
     
     public var hideTabbar : ((Bool)->())?
-    
+    public var localUnreadCount = 0
     internal let powererdByColor = #colorLiteral(red: 0.4980392157, green: 0.4980392157, blue: 0.4980392157, alpha: 1)
     internal let FuguColor = #colorLiteral(red: 0.3843137255, green: 0.4901960784, blue: 0.8823529412, alpha: 1)
     internal let poweredByFont: UIFont = UIFont.regular(ofSize: 10.0)
@@ -263,7 +263,9 @@ struct WhatsappWidgetConfig{
         FuguNetworkHandler.shared.fuguConnectionChangesStartNotifier()
         CallManager.shared.initCallClientIfPresent()
     }
-    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
     //MARK:- Function to pass Deep link Dic
     //Function is called on click of deep link form promotion view controller
     func getDeepLinkData(_ data : [String : Any]){
@@ -382,6 +384,27 @@ struct WhatsappWidgetConfig{
         }
     }
     
+    
+   public func updateUnreadCount(completion: @escaping (Int) -> Void) {
+       FuguConversation.getAllConversationFromServer(config: AllConversationsConfig.defaultConfig) { result in
+           guard result.isSuccessful else {
+               let errorMessage = result.error?.localizedDescription ?? HippoStrings.somethingWentWrong
+               print(errorMessage)
+               completion(0) // Return 0 in case of error
+               return
+           }
+
+           if let conversations = result.conversations {
+               let totalUnreadCount = conversations.reduce(0) { $0 + ($1.unreadCount ?? 0) }
+               completion(totalUnreadCount)
+               self.localUnreadCount = totalUnreadCount
+               HippoConfig.shared.sendUnreadCount(totalUnreadCount)
+           } else {
+               completion(0)
+           }
+       }
+   }
+    
     func getAllStrings(){
         AllString.getAllStrings{(error,response) in
             self.HippoLanguageChanged?(error)
@@ -402,6 +425,12 @@ struct WhatsappWidgetConfig{
     }
     
     public func updateUserDetail(isOpenedFromPush: Bool = false, userDetail: HippoUserDetail, completion: @escaping (Bool) -> Void) {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(appWillEnterForeground),
+            name: UIApplication.willEnterForegroundNotification,
+            object: nil
+        )
         self.userDetail = userDetail
         self.appUserType = .customer
         AgentDetail.agentLoginData = nil
@@ -413,6 +442,13 @@ struct WhatsappWidgetConfig{
             self.setLanguage(self.userDetail?.selectedlanguage ?? "en")
         }
     }
+    
+    @objc private func appWillEnterForeground() {
+        updateUnreadCount(completion: { count in
+            print("unread count \(count)")
+        })
+    }
+
     
     public func enableBroadcast() {
         isBroadcastEnabled = true
