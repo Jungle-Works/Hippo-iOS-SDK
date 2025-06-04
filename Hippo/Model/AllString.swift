@@ -648,7 +648,9 @@ class AllString{
         if let hippo_message_not_allow = response["hippo_message_not_allow"] as? String{
             HippoStrings.donotAllowPersonalInfo = hippo_message_not_allow
         }
-
+        if let hippo_day_ago = response["hippo_day_ago"] as? String{
+            HippoStrings.daysAgo = hippo_day_ago
+        }
         if let hippo_Thankyou_Feedback = response["hippo_Thankyou_Feedback"] as? String{
             HippoStrings.thanksForFeedback = hippo_Thankyou_Feedback
         }
