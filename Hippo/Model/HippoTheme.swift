@@ -57,7 +57,7 @@ public struct ConversationListTheme {
     open var backgroundColor = UIColor.white //#colorLiteral(red: 0.9725490196, green: 0.9764705882, blue: 1, alpha: 1)
     open var infoIconTintColor = #colorLiteral(red: 0.3843137255, green: 0.4901960784, blue: 0.8823529412, alpha: 1)
     open var headerBackgroundColor = UIColor.white
-    open var headerTextColor = #colorLiteral(red: 0.9882352941, green: 0.9882352941, blue: 0.9882352941, alpha: 1)//UIColor.black
+    open var headerTextColor = UIColor.black
   
     
     open var unreadCountColor : UIColor = UIColor(red: 244/255, green: 64/255, blue: 67/255, alpha: 1.0)//UIColor(red: 91/255, green: 159/255, blue: 13/255, alpha: 1.0)
