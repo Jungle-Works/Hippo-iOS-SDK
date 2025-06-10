@@ -636,7 +636,7 @@ struct WhatsappWidgetConfig{
     // MARK: - Function to open whatsapp
     func openWhatsappIfEnabled(){
         guard let whatsappData = HippoConfig.shared.whatsappWidgetConfig else {return}
-        let message = whatsappData.defaultMessage
+        let message = whatsappData.defaultUserReply
         let number = whatsappData.whatsappContactNumber
         
         let txtAppend = message.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
