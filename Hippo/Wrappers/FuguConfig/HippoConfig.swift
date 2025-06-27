@@ -1223,7 +1223,8 @@ struct WhatsappWidgetConfig{
             }else{
                 let visibleController = getLastVisibleController()
                 if let promotionVC = visibleController as? PromotionsViewController {
-                    promotionVC.getDataOrUpdateAnnouncement([channel_id], isforReadMore: false, isOpenedFromPush: isOpenendFromPush)
+                  //  promotionVC.getDataOrUpdateAnnouncement([channel_id], isforReadMore: false, isOpenedFromPush: isOpenendFromPush)
+                    promotionVC.callGetAnnouncementsApi()
                 }
                 HippoNotification.removeAllAnnouncementNotification()
             }
