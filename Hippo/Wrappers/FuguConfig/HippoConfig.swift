@@ -310,8 +310,8 @@ struct WhatsappWidgetConfig{
         CallManager.shared.joinCallLink(customerName: currentUserName(), customerImage: currentUserImage() ?? "", url: url, isInviteEnabled: BussinessProperty.current.isCallInviteEnabled ?? false,callType: callType)
     }
     
-    public func hitStatsApi(userInfo : [String : Any]?, sendSessionTym: Bool = false, sendSeen: Bool = false, completion: ((Bool) -> Void)? = nil){
-        HippoUserDetail.hitStatsAPi(pushContent: userInfo, sendSessionTym: sendSessionTym) 
+    public func hitStatsApi(userInfo : [String : Any]?, sendSessionTym: Bool = false, sendSeen: Bool = false,channelId:Int = 0, completion: ((Bool) -> Void)? = nil){
+        HippoUserDetail.hitStatsAPi(pushContent: userInfo, sendSessionTym: sendSessionTym, channelId: channelId)
     }
     
     internal func setAgentStoredData() {
@@ -1212,6 +1212,7 @@ struct WhatsappWidgetConfig{
     
     public func managePromotionOrP2pCount(_ userInfo: [String:Any], isOpenendFromPush: Bool = false){
         if userInfo["is_announcement_push"] as? Bool == true, let channel_id = userInfo["channel_id"] as? Int{
+         HippoConfig.shared.hitStatsApi(userInfo: userInfo, sendSessionTym: false, channelId: channel_id)
             if !(getLastVisibleController() is PromotionsViewController){
                 if var channelArr = UserDefaults.standard.value(forKey: DefaultName.announcementUnreadCount.rawValue) as? [String]{
                     if !channelArr.contains(String(channel_id)){

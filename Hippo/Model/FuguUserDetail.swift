@@ -589,8 +589,9 @@ public class UserTag: NSObject {
         }
         
         let params = getParamsForStats(from: pushContent, sendSessionTym: sendSessionTym, linkClicked: linkClicked, channelId: channelId, actionType: actionType)
-        
+        print(params, FuguEndPoints.statsUpdate.rawValue)
         HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: FuguEndPoints.statsUpdate.rawValue) { (response, error, _, statusCode) in
+            print(response)
             if let responseDict = response as? [String: Any],
                let statusCode = responseDict["statusCode"] as? Int,
                let data = responseDict["data"] as? [String: Any], statusCode == 200 {
@@ -621,12 +622,21 @@ public class UserTag: NSObject {
             let sessionTym = Int(Date().timeIntervalSince(HippoConfig.shared.sessionStartTime ?? Date()))
             HippoConfig.shared.log.debug(("session tym ----->>>>>>>>", sessionTym, "\n channel id - \(HippoConfig.shared.tempChannelId ?? 0)"), level: .info)
             params["ctr_session_time"] = "\(sessionTym)"
+           
         }else{
-            if actionType != 2{
-                let date = "\(Date())"
-                params["open_links"] = [["time": date, "link": linkClicked ?? ""]]
+            if linkClicked != nil{
+                if actionType != 2{
+                    let date = "\(Date())"
+                    params["open_links"] = [["time": date, "link": linkClicked ?? ""]]
+                }
+                params["is_clicked"] = 1
+            }else{
+                let timestampInSeconds = Int(Date().timeIntervalSince1970)
+                params["ctr_session_time"] = "\(timestampInSeconds)"
+                params["is_delivered"] = 1
+                params["channel_id"] = channelId
             }
-            params["is_clicked"] = 1
+           
         }
         
         return params
