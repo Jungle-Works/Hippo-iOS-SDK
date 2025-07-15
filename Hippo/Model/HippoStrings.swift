@@ -230,7 +230,9 @@ public class HippoStrings {
     static var requiredField = "Field is required"
     static var enterValidEmail = "Enter valid email"
     static var more = "more"
-
+    static var preview = "Preview"
+    static var slideToCancel = "Slide to cancel"
+    static var pleaseSelectAnOption = "Please select an option"
     static var meeting = "Meeting"
     static var businessMeet = "Business Meet"
     static var joinCallNow = "Join Call Now"

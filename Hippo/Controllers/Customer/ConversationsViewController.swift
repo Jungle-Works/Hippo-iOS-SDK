@@ -171,6 +171,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         messageTextView.text = preMessage
         button_Recording.recordView = viewRecord
         viewRecord.delegate = self
+        viewRecord.slideToCancelText = HippoStrings.slideToCancel
         button_Recording.buttonTouched = {[weak self]() in
             DispatchQueue.main.async {
                 self?.messageTextView.resignFirstResponder()
@@ -190,7 +191,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         view_Navigation.call_button.addTarget(self, action: #selector(audiCallButtonClicked(_:)), for: .touchUpInside)
         view_Navigation.video_button.addTarget(self, action: #selector(videoButtonClicked(_:)), for: .touchUpInside)
         handleInfoIcon()
-        pleaseSelectOptionLabel.text = HippoProperty.current.pleaseSelectOptionText ?? "Please select an option"
+        pleaseSelectOptionLabel.text = HippoProperty.current.pleaseSelectOptionText ?? HippoStrings.pleaseSelectAnOption
         collectionViewOptions?.delegate = self
         collectionViewOptions?.dataSource = self
         customTableView.isScrollEnabled = false//true
@@ -731,7 +732,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     
     @IBAction func openSharedMedia(_ sender: Any) {
         let storyboard = UIStoryboard(name: "AgentSdk", bundle: FuguFlowManager.bundle)
-        let alert = UIAlertController(title: nil, message: "Please select an option", preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: nil, message: HippoStrings.pleaseSelectAnOption, preferredStyle: .actionSheet)
         
         alert.addAction(UIAlertAction(title: HippoStrings.sharedMediaTitle, style: UIAlertAction.Style.default, handler: { _ in
             if let vc = storyboard.instantiateViewController(withIdentifier: "SharedMediaViewController") as? SharedMediaViewController{

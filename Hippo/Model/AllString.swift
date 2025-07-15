@@ -422,6 +422,9 @@ class AllString{
         if response["hippo_notifications_deleted"] is String{
             
         }
+        if let no_data_found = response["fugu_no_data_found"] as? String{
+            HippoStrings.noDataFound = no_data_found
+        }  
         if response["hippo_notifications_title"] is String{
             
         }
@@ -523,6 +526,8 @@ class AllString{
         }
         if let hippo_submit = response["hippo_submit"] as? String{
             HippoStrings.submit = hippo_submit
+            HippoStrings.send = hippo_submit
+            HippoStrings.sendTitle = hippo_submit
         }
         if response["hippo_tap_to_retry"] is String{
             
@@ -580,8 +585,8 @@ class AllString{
         if let hippo_you = response["hippo_you"] as? String{
             HippoStrings.you = hippo_you
         }
-        if response["hippo_you_have_no_chats"] is String{
-            
+        if let hippo_you_have_no_chats =  response["hippo_you_have_no_chats"] as? String{
+            HippoStrings.noChatInCatagory = hippo_you_have_no_chats
         }
         if response["hippo_you_missed_a"] is String{
             
@@ -676,6 +681,16 @@ class AllString{
         if let hippo_message_deleted = response["hippo_message_deleted"] as? String{
             HippoStrings.deleteMessage = hippo_message_deleted
         }
+        if let hippo_minimum_Multiselection = response["hippo_minimum_Multiselection"] as? String{
+            HippoStrings.pleaseSelectAnOption = hippo_minimum_Multiselection
+        }
+        if let hippo_preview = response["hippo_preview"] as? String{
+            HippoStrings.preview = hippo_preview
+        }
+        if let hippo_slide_to_cancel = response["hippo_slide_to_cancel"] as? String{
+            HippoStrings.slideToCancel = hippo_slide_to_cancel
+        }
+
     }
     
     class func agentParsing(_ response: [String: Any]){
@@ -1704,7 +1719,7 @@ class AllString{
             HippoStrings.filter = filter
         }
         
-        if let no_data_found = response["no_data_found"] as? String{
+        if let no_data_found = response["fugu_no_data_found"] as? String{
             HippoStrings.noDataFound = no_data_found
         }
         

@@ -19,6 +19,7 @@ class PreviewViewController: UIViewController {
         }
     }
     
+    @IBOutlet weak var sendBtn: UIButton!
     @IBOutlet var imageView_Preview : UIImageView!
     @IBOutlet var label_Placeholder : UILabel!{
         didSet{
@@ -40,15 +41,15 @@ class PreviewViewController: UIViewController {
         HippoKeyboardManager.shared.enable = true
         viewNavigation.leftButton.addTarget(self, action: #selector(action_BackBtn), for: .touchUpInside)
         textView_PrivateNotes.textContainerInset = UIEdgeInsets(top: 16, left: 0, bottom: 0, right: 0)
-        
+        sendBtn.setTitle(HippoStrings.send, for: .normal)
         if fileType == .document{
             imageView_Preview.contentMode = .center
             imageView_Preview.image = UIImage(named: "defaultDoc", in: FuguFlowManager.bundle, compatibleWith: nil)
-            viewNavigation.title = "Document"
+            viewNavigation.title = HippoStrings.document
             lblDocumentName.text = path?.lastPathComponent
         }else{
             imageView_Preview.image = image
-            viewNavigation.title = "Preview"
+            viewNavigation.title = HippoStrings.preview 
             imageView_Preview.contentMode = .scaleAspectFit
         }
         
