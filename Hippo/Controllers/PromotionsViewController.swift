@@ -239,7 +239,9 @@ class PromotionsViewController: UIViewController {
         //        } else {
         _ = self.navigationController?.dismiss(animated: true, completion: nil)
         //        }
-        
+        HippoConfig.shared.getUnreadAnnouncementCount(completion: { count in
+            HippoConfig.shared.delegate?.hippoAnnouncementCustomerUnreadCount(count)
+        })
         let json = PromotionCellDataModel.getJsonFromAnnouncementArr(self.data)
         self.savePromotionsInCache(json)
     }

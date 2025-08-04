@@ -203,11 +203,11 @@ struct WhatsappWidgetConfig{
     public var HippoLanguageChanged : ((Error?)->())?
     public var HippoSessionStatus: ((GroupCallStatus)->())?
     public var announcementUnreadCount : ((Int)->())?
-    
     var supportChatFilter : [SupportFilter]?
     
     public var hideTabbar : ((Bool)->())?
     public var localUnreadCount = 0
+    public var localAnnouncementUnreadCount = 0
     internal let powererdByColor = #colorLiteral(red: 0.4980392157, green: 0.4980392157, blue: 0.4980392157, alpha: 1)
     internal let FuguColor = #colorLiteral(red: 0.3843137255, green: 0.4901960784, blue: 0.8823529412, alpha: 1)
     internal let poweredByFont: UIFont = UIFont.regular(ofSize: 10.0)
@@ -440,7 +440,12 @@ struct WhatsappWidgetConfig{
                 self.userDetail?.selectedlanguage = BussinessProperty.current.buisnessLanguageArr?.filter{$0.is_default == true}.first?.lang_code
             }
             self.setLanguage(self.userDetail?.selectedlanguage ?? "en")
+            HippoConfig.shared.getUnreadAnnouncementCount(completion: { count in
+                print("announcement unread count \(count)")
+                
+            })
         }
+       
     }
     
     @objc private func appWillEnterForeground() {
@@ -1208,10 +1213,22 @@ struct WhatsappWidgetConfig{
     public func setStrings(stringsObject: HippoStrings) {
         HippoConfig.shared.strings = stringsObject
     }
-  
+    
+    
+    public func getUnreadAnnouncementCount(completion: @escaping (Int) -> Void){
+        HippoUserDetail.getUnreadAnnouncementCount(completion: { count in
+            self.localAnnouncementUnreadCount = count
+            HippoConfig.shared.delegate?.hippoAnnouncementCustomerUnreadCount(count)
+        })
+    }
     
     public func managePromotionOrP2pCount(_ userInfo: [String:Any], isOpenendFromPush: Bool = false){
         if userInfo["is_announcement_push"] as? Bool == true, let channel_id = userInfo["channel_id"] as? Int{
+            if HippoConfig.shared.appUserType == .customer{
+                HippoConfig.shared.localAnnouncementUnreadCount += 1
+                HippoConfig.shared.delegate?.hippoAnnouncementCustomerUnreadCount(HippoConfig.shared.localAnnouncementUnreadCount)
+            }
+            
          HippoConfig.shared.hitStatsApi(userInfo: userInfo, sendSessionTym: false, channelId: channel_id)
             if !(getLastVisibleController() is PromotionsViewController){
                 if var channelArr = UserDefaults.standard.value(forKey: DefaultName.announcementUnreadCount.rawValue) as? [String]{

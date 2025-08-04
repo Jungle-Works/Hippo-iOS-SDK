@@ -51,7 +51,7 @@ public protocol HippoDelegate: class {
     func sendp2pUnreadCount(unreadCount : Int, channelId : Int)
     func chatListButtonAction()
     func passSecurityCheckError(error : String)
-    
+    func hippoAnnouncementCustomerUnreadCount(_ totalCount: Int)
     #if canImport(HippoCallClient)
      func loadCallPresenterView(request: CallPresenterRequest) -> CallPresenter?
     #endif

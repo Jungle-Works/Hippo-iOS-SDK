@@ -794,6 +794,39 @@ public class UserTag: NSObject {
             //            completion?(success)
         }
     }
+    
+   class public func getUnreadAnnouncementCount(completion: @escaping (Int) -> Void){
+        if HippoConfig.shared.appSecretKey.isEmpty {
+            completion(0)
+            return
+            
+        }
+        var params: [String: Any] = [
+            "app_secret_key": HippoConfig.shared.appSecretKey,
+            "device_type" : Device_Type_iOS
+        ]
+        
+        if let savedUserId = HippoUserDetail.fuguEnUserID {
+            params["en_user_id"] = savedUserId
+        }
+        
+        print(params, FuguEndPoints.getUnreadAnnouncementCount)
+        HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: FuguEndPoints.getUnreadAnnouncementCount) { (response, error, _, statusCode) in
+          
+            if let responseDict = response as? [String: Any],
+               let statusCode = responseDict["statusCode"] as? Int,
+               let data = responseDict["data"] as? [String: Any], statusCode == 200 {
+                let count = data["unread_count"] as? Int ?? 0
+                print("unread_count\(count)")
+                completion(count)
+               
+            }else {
+                print("unread_count error")
+                completion(0)
+                HippoConfig.shared.log.debug((error, statusCode), level: .error)
+            }
+        }
+    }
 }
 
 

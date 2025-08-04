@@ -400,6 +400,7 @@ enum FuguEndPoints: String {
     case statsUpdate = "api/users/updateUserToChannel"
     case promotionalPopUp = "api/broadcast/getUserToCampaign"
     static let generateContent = "api/chat/generateContent"
+    static let getUnreadAnnouncementCount = "api/broadcast/getUnreadAnnouncementCount"
 //    case promotionalPopUp = "api/broadcast/getUserCampaign"
     
 }
