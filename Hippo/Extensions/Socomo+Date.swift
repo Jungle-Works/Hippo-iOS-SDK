@@ -49,7 +49,7 @@ extension Date {
             case let difference where (difference > 1 && difference < 8):
                 return "\(dateDifference) \(HippoStrings.daysAgo)"
             default:
-                formatter.dateFormat = "d/MM/yyyy"
+                formatter.dateFormat = "MM/d/yyyy"
                 return formatter.string(from: self)
             }
         }

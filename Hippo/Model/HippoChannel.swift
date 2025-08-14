@@ -703,6 +703,11 @@ class HippoChannel {
                             self?.signalReceivedFromPeer?(messageDict)
                             CallManager.shared.voipNotificationRecieved(payloadDict: messageDict)
                         }
+                    }else{
+                        DispatchQueue.main.async {
+                            self?.signalReceivedFromPeer?(messageDict)
+                            CallManager.shared.voipNotificationRecieved(payloadDict: messageDict)
+                        }
                     }
                     return
                 }
