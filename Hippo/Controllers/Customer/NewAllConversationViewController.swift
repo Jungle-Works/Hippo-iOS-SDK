@@ -31,7 +31,8 @@ class NewAllConversationViewController: UIViewController, NewChatSentDelegate {
     @IBOutlet weak var view_NewConversationBtn : UIView!
     @IBOutlet weak var otherBottomLineView: UIView!
     @IBOutlet weak var newConversationButton: UIButton!
-    
+    var informationView: InformationView?
+    var tableViewDefaultText: String = ""
     let refreshControl = UIRefreshControl()
     var arrayOfFullConversation = [FuguConversation]()
     var arrayOfConversation = [FuguConversation]()
@@ -221,14 +222,38 @@ class NewAllConversationViewController: UIViewController, NewChatSentDelegate {
             }else if self?.conversationChatType == .closeChat{
                 self?.view_NewConversationBtn.isHidden = true
             }else{}
-            
+            if result.conversations?.count == 0 {
+                self?.closedConversationArr.removeAll()
+                self?.ongoingConversationArr.removeAll()
+                if HippoConfig.shared.theme.shouldShowBtnOnChatList == true{
+                    self?.noConversationFound(true,HippoConfig.shared.theme.noOpenAndcloseChatError == nil ? HippoStrings.noChatStarted : HippoConfig.shared.theme.noOpenAndcloseChatError ?? "")
+                }
+                if HippoConfig.shared.shouldOpenDefaultChannel{
+                    self?.openDefaultChannel()
+                    return
+                }
+            }
         }
     }
+    
+    func openDefaultChannel() {
+        HippoConfig.shared.notifyDidLoad()
+        let conVC = ConversationsViewController.getWith(chatAttributes: FuguNewChatAttributes.defaultChat)
+        self.navigationController?.setViewControllers([conVC], animated: false)
+    }
+    
     
     func showOpenChatData(){
         self.arrayOfConversation.removeAll()
         self.arrayOfConversation = self.ongoingConversationArr
         self.tableView.reloadData()
+        if ongoingConversationArr.count == 0 && closedConversationArr.count == 0 && HippoConfig.shared.theme.shouldShowBtnOnChatList == true{
+            self.noConversationFound(true,HippoConfig.shared.theme.noOpenAndcloseChatError == nil ? HippoStrings.noChatStarted : HippoConfig.shared.theme.noOpenAndcloseChatError ?? "")
+        }else if ongoingConversationArr.count == 0 && closedConversationArr.count == 0{
+            self.noConversationFound(false,HippoConfig.shared.theme.noOpenAndcloseChatError == nil ? HippoStrings.noChatStarted : HippoConfig.shared.theme.noOpenAndcloseChatError ?? "")
+        }else{
+            self.noConversationFound(false,HippoConfig.shared.theme.noChatUnderCatagoryError == nil ? HippoStrings.noChatInCatagory : HippoConfig.shared.theme.noChatUnderCatagoryError ?? "")
+        }
         if self.arrayOfConversation.count > 0{
             self.tableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: .top, animated: true)
         }
@@ -238,10 +263,16 @@ class NewAllConversationViewController: UIViewController, NewChatSentDelegate {
         self.arrayOfConversation.removeAll()
         self.arrayOfConversation = self.closedConversationArr
         self.tableView.reloadData()
+        if ongoingConversationArr.count == 0 && closedConversationArr.count == 0 && HippoConfig.shared.theme.shouldShowBtnOnChatList == true{
+            self.noConversationFound(true,HippoConfig.shared.theme.noOpenAndcloseChatError == nil ? HippoStrings.noChatStarted : HippoConfig.shared.theme.noOpenAndcloseChatError ?? "")
+        }else if ongoingConversationArr.count == 0 && closedConversationArr.count == 0{
+            self.noConversationFound(false,HippoConfig.shared.theme.noOpenAndcloseChatError == nil ? HippoStrings.noChatStarted : HippoConfig.shared.theme.noOpenAndcloseChatError ?? "")
+        }else{
+            self.noConversationFound(false,HippoConfig.shared.theme.noChatUnderCatagoryError == nil ? HippoStrings.noChatInCatagory : HippoConfig.shared.theme.noChatUnderCatagoryError ?? "")
+        }
         if self.arrayOfConversation.count > 0{
             self.tableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: .top, animated: true)
         }
-      
     }
     
     func filterConversationArr(conversationArr:[FuguConversation]){
@@ -261,12 +292,12 @@ class NewAllConversationViewController: UIViewController, NewChatSentDelegate {
         }else{}
         
         if ongoingConversationArr.count == 0 && closedConversationArr.count == 0 && HippoConfig.shared.theme.shouldShowBtnOnChatList == true{
-//            self.noConversationFound(true,HippoConfig.shared.theme.noOpenAndcloseChatError == nil ? HippoStrings.noChatStarted : HippoConfig.shared.theme.noOpenAndcloseChatError ?? "")
+            self.noConversationFound(true,HippoConfig.shared.theme.noOpenAndcloseChatError == nil ? HippoStrings.noChatStarted : HippoConfig.shared.theme.noOpenAndcloseChatError ?? "")
         }else if ongoingConversationArr.count == 0 && closedConversationArr.count == 0{
-//            self.noConversationFound(false,HippoConfig.shared.theme.noOpenAndcloseChatError == nil ? HippoStrings.noChatStarted : HippoConfig.shared.theme.noOpenAndcloseChatError ?? "")
+            self.noConversationFound(false,HippoConfig.shared.theme.noOpenAndcloseChatError == nil ? HippoStrings.noChatStarted : HippoConfig.shared.theme.noOpenAndcloseChatError ?? "")
         }else{
             
-//            self.noConversationFound(false,HippoConfig.shared.theme.noChatUnderCatagoryError == nil ? HippoStrings.noChatInCatagory : HippoConfig.shared.theme.noChatUnderCatagoryError ?? "")
+            self.noConversationFound(false,HippoConfig.shared.theme.noChatUnderCatagoryError == nil ? HippoStrings.noChatInCatagory : HippoConfig.shared.theme.noChatUnderCatagoryError ?? "")
         }
         
     }
@@ -319,6 +350,33 @@ class NewAllConversationViewController: UIViewController, NewChatSentDelegate {
     @objc func refresh(_ refreshControl: UIRefreshControl) {
         getAllConversations()
     }
+    
+    func noConversationFound(_ shouldShowBtn : Bool, _ errorMessage : String){
+        guard isPutUserFailed == false else {return}
+        tableViewDefaultText = ""
+        if self.arrayOfConversation.count <= 0{
+            if informationView == nil {
+                informationView = InformationView.loadView(self.tableView.bounds)
+            }
+            self.informationView?.informationLabel.text = errorMessage
+            self.informationView?.informationImageView.image = HippoConfig.shared.theme.noChatImage
+            self.informationView?.isButtonInfoHidden = !shouldShowBtn
+            self.informationView?.button_Info.setTitle(HippoConfig.shared.theme.chatListRetryBtnText == nil ? HippoStrings.retry : HippoConfig.shared.theme.chatListRetryBtnText, for: .normal)
+            
+            self.informationView?.isHidden = false
+            self.tableView.addSubview(informationView!)
+            tableView.layoutSubviews()
+        }else{
+            for view in tableView.subviews{
+                if view is InformationView{
+                    view.removeFromSuperview()
+                }
+            }
+            tableView.layoutSubviews()
+            self.informationView?.isHidden = true
+        }
+         self.tableView.reloadData()
+   }
     
     @IBAction func backButtonAction(_ sender: UIButton) {
 //        saveConversationsInCache()
@@ -430,7 +488,7 @@ extension NewAllConversationViewController: UITableViewDelegate, UITableViewData
         footerLabel.numberOfLines = 0
         footerLabel.font = UIFont.regular(ofSize: 16.0)
         
-//        footerLabel.text = tableViewDefaultText
+        footerLabel.text = tableViewDefaultText
         
         footerView.addSubview(footerLabel)
         
