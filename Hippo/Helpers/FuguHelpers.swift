@@ -383,7 +383,13 @@ func subscribeMarkConversation(){
     
 }
 
+func getAnnouncementCountNew() -> Int {
+   return UserDefaults.standard.integer(forKey: "announcement_unread_count")
+}
 
+func setAnnouncementCount(_ count: Int) {
+   UserDefaults.standard.set(count, forKey: "announcement_unread_count")
+}
 
 
 func removeChannelForUnreadCount(_ channelId : Int){

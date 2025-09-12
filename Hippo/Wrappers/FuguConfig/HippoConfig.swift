@@ -44,12 +44,12 @@ struct SERVERS {
     static let liveUrl = "https://api.hippochat.io/"
     static let liveFaye = "https://event.hippochat.io"//"https://socketv2.hippochat.io/faye"//
 
-    static let betaUrl = "https://hippog-server.fuguchat.com:3003/"
-    static let betaFaye = "https://hippog-server.fuguchat.com:3003/"
+    static let betaUrl = "https://hippog-server.hippochat.io:3003/"
+    static let betaFaye = "https://hippog-server.hippochat.io:3003/"
     //3002 - for notp
     //3003 = for create ticket // https://api-graviton-multiple.fuguchat.com:3003/
-    static let devUrl = ["https://api-graviton-multiple.fuguchat.com:3002/", "https://api-graviton-multiple.fuguchat.com:3003/", "https://api-graviton-multiple.fuguchat.com:3004/"]
-    static let devFaye = ["https://api-graviton-multiple.fuguchat.com:3002/", "https://api-graviton-multiple.fuguchat.com:3003/", "https://api-graviton-multiple.fuguchat.com:3004/"]
+    static let devUrl = ["https://api-graviton-multiple-fugu.hippochat.io:3002/", "https://api-graviton-multiple-fugu.hippochat.io:3003/", "https://api-graviton-multiple-fugu.hippochat.io:3004/"]
+    static let devFaye = ["https://api-graviton-multiple-fugu.hippochat.io:3002/", "https://api-graviton-multiple-fugu.hippochat.io:3003/", "https://api-graviton-multiple-fugu.hippochat.io:3004/"]
 }
 
 struct BotAction {
@@ -206,9 +206,9 @@ struct WhatsappWidgetConfig{
     public var HippoLanguageChanged : ((Error?)->())?
     public var HippoSessionStatus: ((GroupCallStatus)->())?
     public var announcementUnreadCount : ((Int)->())?
-    
+    public var whatsappSecretKey: String = ""
     var supportChatFilter : [SupportFilter]?
-    
+    public var localAnnouncementUnreadCount = 0
     public var hideTabbar : ((Bool)->())?
     
     internal let powererdByColor = #colorLiteral(red: 0.4980392157, green: 0.4980392157, blue: 0.4980392157, alpha: 1)
@@ -405,6 +405,10 @@ struct WhatsappWidgetConfig{
                 self.userDetail?.selectedlanguage = BussinessProperty.current.buisnessLanguageArr?.filter{$0.is_default == true}.first?.lang_code
             }
             self.setLanguage(self.userDetail?.selectedlanguage ?? "en")
+            HippoConfig.shared.getUnreadAnnouncementCount(completion: { count in
+                          print("announcement unread count \(count)")
+                          
+                      })
         }
     }
     
@@ -1118,8 +1122,20 @@ struct WhatsappWidgetConfig{
         HippoConfig.shared.strings = stringsObject
     }
     
+    public func getUnreadAnnouncementCount(completion: @escaping (Int) -> Void){
+           HippoUserDetail.getUnreadAnnouncementCount(completion: { count in
+               self.localAnnouncementUnreadCount = count
+               HippoConfig.shared.delegate?.hippoAnnouncementCustomerUnreadCount(count)
+           })
+       }
+    
     public func managePromotionOrP2pCount(_ userInfo: [String:Any]){
         if userInfo["is_announcement_push"] as? Bool == true, let channel_id = userInfo["channel_id"] as? Int{
+            if HippoConfig.shared.appUserType == .customer{
+                         HippoConfig.shared.localAnnouncementUnreadCount += 1
+                         HippoConfig.shared.delegate?.hippoAnnouncementCustomerUnreadCount(HippoConfig.shared.localAnnouncementUnreadCount)
+                     }
+                     
             if !(getLastVisibleController() is PromotionsViewController){
                 if var channelArr = UserDefaults.standard.value(forKey: DefaultName.announcementUnreadCount.rawValue) as? [String]{
                     if !channelArr.contains(String(channel_id)){

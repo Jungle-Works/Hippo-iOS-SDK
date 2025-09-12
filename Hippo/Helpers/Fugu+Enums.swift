@@ -399,6 +399,8 @@ enum FuguEndPoints: String {
     case searchAddress = "https://nominatim-api-live.jungleworks.com/search"
     case statsUpdate = "api/users/updateUserToChannel"
     case promotionalPopUp = "api/broadcast/getUserToCampaign"
+    case getUnreadAnnouncementCount = "api/broadcast/getUnreadAnnouncementCount"
+      
 }
 
 enum AgentEndPoints: String {
@@ -445,7 +447,8 @@ enum AgentEndPoints: String {
     case getChannelIds = "api/channel/getChannels"
     case search = "api/v2/conversation/search"
     case customAttributes = "api/business/getCustomAttributes"
-    
+    case generateQrCode = "api/business/generateQrCode"
+    case getUpdateOTPStatus = "api/business/getAndUpdateOtpStatus"
     // MARK:-Tags Endpoints
     case getAllTags = "api/tags/getTags"
     case createTags = "api/tags/createTags"

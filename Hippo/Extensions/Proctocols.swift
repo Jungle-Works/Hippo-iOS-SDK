@@ -35,6 +35,7 @@ extension CaseCountable where Self : RawRepresentable, Self.RawValue == Int {
 
 
 public protocol HippoDelegate: class {
+    func hippoAnnouncementCustomerUnreadCount(_ totalCount: Int)
     func hippoUnreadCount(_ totalCount: Int)
     func hippoUserUnreadCount(_ usersCount: [String: Int])    
     func hippoDeinit()

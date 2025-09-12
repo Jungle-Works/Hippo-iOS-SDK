@@ -612,11 +612,18 @@ public class UserTag: NSObject {
             print("session tym ----->>>>>>>>", sessionTym, "\n channel id - \(HippoConfig.shared.tempChannelId ?? 0)")
             params["ctr_session_time"] = "\(sessionTym)"
         }else{
-            if actionType != 2{
-                let date = "\(Date())"
-                params["open_links"] = [["time": date, "link": linkClicked ?? ""]]
+            if linkClicked != nil{
+                if actionType != 2{
+                    let date = "\(Date())"
+                    params["open_links"] = [["time": date, "link": linkClicked ?? ""]]
+                }
+                params["is_clicked"] = 1
+            }else{
+                let timestampInSeconds = Int(Date().timeIntervalSince1970)
+                params["ctr_session_time"] = "\(timestampInSeconds)"
+                params["is_delivered"] = 1
+                params["channel_id"] = channelId
             }
-            params["is_clicked"] = 1
         }
         
         return params
@@ -774,6 +781,39 @@ public class UserTag: NSObject {
     //            let tempStatusCode = statusCode ?? 0
     //            let success = (200 <= tempStatusCode) && (300 > tempStatusCode)
     //            completion?(success)
+            }
+        }
+    
+    class public func getUnreadAnnouncementCount(completion: @escaping (Int) -> Void){
+            if HippoConfig.shared.appSecretKey.isEmpty {
+                completion(0)
+                return
+                
+            }
+            var params: [String: Any] = [
+                "app_secret_key": HippoConfig.shared.appSecretKey,
+                "device_type" : Device_Type_iOS
+            ]
+            
+            if let savedUserId = HippoUserDetail.fuguEnUserID {
+                params["en_user_id"] = savedUserId
+            }
+            
+            print(params, FuguEndPoints.getUnreadAnnouncementCount)
+        HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: FuguEndPoints.getUnreadAnnouncementCount.rawValue) { (response, error, _, statusCode) in
+              
+                if let responseDict = response as? [String: Any],
+                   let statusCode = responseDict["statusCode"] as? Int,
+                   let data = responseDict["data"] as? [String: Any], statusCode == 200 {
+                    let count = data["unread_count"] as? Int ?? 0
+                    print("unread_count\(count)")
+                    completion(count)
+                   
+                }else {
+                    print("unread_count error")
+                    completion(0)
+                    HippoConfig.shared.log.debug((error, statusCode), level: .error)
+                }
             }
         }
 }
