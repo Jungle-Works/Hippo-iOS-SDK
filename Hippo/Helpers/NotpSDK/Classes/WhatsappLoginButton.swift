@@ -141,7 +141,7 @@ open class WhatsappLoginButton: UIButton, onVerifyWaidDelegate {
         layer.masksToBounds = true
     }
 
-    func checkWaidExistsAndVerified (){
+    public func checkWaidExistsAndVerified (){
 
         let waIdExists = NotpHelper.checkValueExists(forKey: NotpHelper.waidDefaultKey);
         if (waIdExists){
