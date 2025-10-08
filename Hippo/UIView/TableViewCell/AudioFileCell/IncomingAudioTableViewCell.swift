@@ -28,7 +28,6 @@ class IncomingAudioTableViewCell: AudioTableViewCell {
         self.cellIdentifier = message.fileUrl ?? ""
         
         setTime()
-        
         senderNameLabel.text = message.senderFullName
         updateUI()
     }

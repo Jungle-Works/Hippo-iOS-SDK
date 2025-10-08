@@ -22,7 +22,7 @@ class IncomingVideoTableViewCell: VideoTableViewCell {
         
         senderNameLabel.font = HippoConfig.shared.theme.senderNameFont
         senderNameLabel.textColor = HippoConfig.shared.theme.senderNameColor
-        
+        messageView.textColor = HippoConfig.shared.theme.incomingMsgColor
         //      addTapGestureInNameLabel()
     }
     
@@ -44,7 +44,7 @@ class IncomingVideoTableViewCell: VideoTableViewCell {
         super.intalizeCell(with: message, isIncomingView: true)
         
         self.senderNameLabel.text = message.senderFullName
-        
+        self.messageView.text = message.message
         message.statusChanged = { [weak self] in
             DispatchQueue.main.async {
                 self?.setCellWith(message: message)

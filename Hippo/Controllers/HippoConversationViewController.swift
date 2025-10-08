@@ -974,31 +974,6 @@ extension HippoConversationViewController: PickerHelperDelegate {
                 showAlert(title: "", message: HippoStrings.somethingWentWrong, actionComplete: nil)
                 return
             }
-//            let filePathUrl = URL(fileURLWithPath: filePath)
-//            var msg: HippoMessage?
-//
-//            self.sendSelectedDocumentWith(filePath: filePathUrl.path, fileName: filePathUrl.lastPathComponent, messageType: .attachment, fileType: FileType.video, getMsgBack: { [weak self] message in
-//                msg = message
-//
-//            })
-//
-//            guard let vc = UIStoryboard(name: "FuguUnique", bundle: FuguFlowManager.bundle).instantiateViewController(withIdentifier: "PreviewViewController") as? PreviewViewController else {
-//                return
-//            }
-//            vc.fileType = .document
-//            vc.path = filePathUrl
-//            self.navigationController?.present(vc, animated: true, completion: nil)
-//
-////            vc.sendBtnTapped = {[weak self](message) in
-////                self?.sendSelectedDocumentWith(messageStr: message, filePath: filePathUrl.path, fileName: filePathUrl.lastPathComponent, messageType: message?.isEmpty ?? true ? .attachment : .normal, fileType: FileType.video)
-////            }
-//
-//            vc.sendBtnTapped = {[weak self] (message) in
-//                        msg?.message = message ?? ""
-//                        msg?.type =  message?.isEmpty ?? true ? .attachment : .normal
-//                        self?.UploadAndSendMessage(message: msg!)
-//                    }
-            
             let filePathUrl = URL(fileURLWithPath: filePath)
             sendSelectedDocumentWith(filePath: filePathUrl.path, fileName: filePathUrl.lastPathComponent, messageType: .attachment, fileType: FileType.video)
         }

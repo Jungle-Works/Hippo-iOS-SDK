@@ -13,7 +13,7 @@ class MessageTableViewCell: UITableViewCell {
     
     @IBOutlet weak var sourceIcon: UIImageView!
     @IBOutlet weak var timeLabel: UILabel!
-    
+    @IBOutlet weak var messageView: UITextView!
     @IBOutlet weak var senderImageView: UIImageView!
     
     @IBOutlet weak var senderImageTraillingConstaints: NSLayoutConstraint!

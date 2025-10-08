@@ -12,7 +12,8 @@ import AVFoundation
 class VideoTableViewCell: MessageTableViewCell {
    
    // MARK: - IBOutlets
-   @IBOutlet weak var viewFrameImageView: UIImageView!
+   
+    @IBOutlet weak var viewFrameImageView: UIImageView!
    @IBOutlet weak var messageBackgroundView: UIView!
    @IBOutlet weak var downloadButton: UIButton!
    @IBOutlet weak var playButton: UIButton!
