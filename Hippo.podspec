@@ -12,12 +12,12 @@ Pod::Spec.new do |s|
   s.author             = { 'Vishal Jhanjhri' => 'jhanjhri.vishal@gmail.com' }
   
   s.source       = { :git => 'https://github.com/Jungle-Works/Hippo-iOS-SDK.git', :tag => s.version }
-  s.ios.deployment_target = '12.0'
+  s.ios.deployment_target = '15.1'
   s.source_files = 'Hippo/**/*.{h,m,swift,xib,storyboard}'
   s.exclude_files = 'Classes/Exclude'
   s.static_framework = false
   
-  s.swift_version = '4.2'
+  s.swift_version = '5.0'
   
   s.resource_bundles = {
     
@@ -28,7 +28,7 @@ Pod::Spec.new do |s|
   s.resources = ['Hippo/*.xcassets']
   
   s.dependency 'Socket.IO-Client-Swift'
-  s.dependency 'CropViewController'
+  s.dependency 'CropViewController', '2.7.4'
   s.dependency 'DropDown'
   
   s.default_subspec = 'Chat'
