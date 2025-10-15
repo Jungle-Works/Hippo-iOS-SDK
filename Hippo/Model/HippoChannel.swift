@@ -697,17 +697,20 @@ class HippoChannel {
                 guard let message = HippoMessage.createMessage(rawMessage: messageDict, chatType: chatType) else {
                     return
                 }
-                if message.type == .call {
-                    if versionCode < 350 && HippoConfig.shared.appUserType == .agent{
-                        DispatchQueue.main.async {
-                            self?.signalReceivedFromPeer?(messageDict)
-                            CallManager.shared.voipNotificationRecieved(payloadDict: messageDict)
+                if messageDict.isEmpty == false{
+                    if message.type == .call {
+                        if versionCode < 350 && HippoConfig.shared.appUserType == .agent{
+                            DispatchQueue.main.async {
+                                self?.signalReceivedFromPeer?(messageDict)
+                                CallManager.shared.voipNotificationRecieved(payloadDict: messageDict)
+                            }
+                        }else{
+                            DispatchQueue.main.async {
+                                self?.signalReceivedFromPeer?(messageDict)
+                                CallManager.shared.voipNotificationRecieved(payloadDict: messageDict)
+                            }
                         }
-                    }else{
-                        DispatchQueue.main.async {
-                            self?.signalReceivedFromPeer?(messageDict)
-                            CallManager.shared.voipNotificationRecieved(payloadDict: messageDict)
-                        }
+                        return
                     }
                     return
                 }
