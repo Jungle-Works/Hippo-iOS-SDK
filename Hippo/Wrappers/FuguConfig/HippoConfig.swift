@@ -578,13 +578,13 @@ struct WhatsappWidgetConfig{
         checker.presentFlutterChatsViewController()
     }
     
-    public func createTicket(ticketData: CreateTicketDataModel?) {
-        HippoConfig.shared.customer_name = ticketData?.customer_name
-        HippoConfig.shared.customer_email = ticketData?.customer_email
-        HippoConfig.shared.subject = ticketData?.subject
-        HippoConfig.shared.issueDescription = ticketData?.issueDescription
-        HippoConfig.shared.userTags = ticketData?.userTags ?? []
-        HippoConfig.shared.attachments = ticketData?.attachments ?? []
+    public func createTicket() {
+//        HippoConfig.shared.customer_name = ticketData?.customer_name
+//        HippoConfig.shared.customer_email = ticketData?.customer_email
+//        HippoConfig.shared.subject = ticketData?.subject
+//        HippoConfig.shared.issueDescription = ticketData?.issueDescription
+//        HippoConfig.shared.userTags = ticketData?.userTags ?? []
+//        HippoConfig.shared.attachments = ticketData?.attachments ?? []
         checker.presentTicketController()
     }
     

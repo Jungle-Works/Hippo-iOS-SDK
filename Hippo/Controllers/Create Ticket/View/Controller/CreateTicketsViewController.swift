@@ -61,10 +61,10 @@ class CreateTicketsViewController: UIViewController{
         self.activityIndicator.startAnimating()
         self.activityIndicator.isHidden = false
         self.tableView.isUserInteractionEnabled = false
-        attachments = HippoConfig.shared.attachments
-        for i in 0..<HippoConfig.shared.attachments.count{
-            attachmentData.append(["path": HippoConfig.shared.attachments[i].path, "type":HippoConfig.shared.attachments[i].type, "name": HippoConfig.shared.attachments[i].name])
-        }
+//        attachments = HippoConfig.shared.attachments
+//        for i in 0..<HippoConfig.shared.attachments.count{
+//            attachmentData.append(["path": HippoConfig.shared.attachments[i].path, "type":HippoConfig.shared.attachments[i].type, "name": HippoConfig.shared.attachments[i].name])
+//        }
    
     }
     
@@ -117,6 +117,7 @@ class CreateTicketsViewController: UIViewController{
         self.createTicketDataModel.priority = ""
         self.attachments.removeAll()
         self.attachmentData.removeAll()
+        HippoConfig.shared.attachments.removeAll()
 //        self.userTags.removeAll()
         self.tableView.reloadData()
         
