@@ -52,8 +52,9 @@ class AIMessageCrafterViewController: UIViewController, UITableViewDelegate, UIT
         tableView.delegate = self
         tableView.dataSource = self
         isModalInPresentation = true
-        let bundle = FuguFlowManager.bundle
-        tableView.register(UINib(nibName: "AiMessageTableViewCell", bundle: bundle), forCellReuseIdentifier: "AiMessageTableViewCell")
+        let bundle = Bundle(for: AiMessageTableViewCell.self)
+        let nib = UINib(nibName: "AiMessageTableViewCell", bundle: bundle)
+        tableView.register(nib, forCellReuseIdentifier: "AiMessageTableViewCell")
         tableView.backgroundColor = .white
         }
     
