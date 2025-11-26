@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = 'Hippo'
-  s.version      = '2.1.68'
+  s.version      = '2.1.69'
   s.summary      = 'Now add Agent in app for quick support.'
   s.homepage     = 'https://github.com/Jungle-Works/Hippo-iOS-SDK'
   s.documentation_url = 'https://github.com/Jungle-Works/Hippo-iOS-SDK'
@@ -23,7 +23,6 @@ Pod::Spec.new do |s|
   s.resources = ['Hippo/*.xcassets']
 
   s.dependency 'Socket.IO-Client-Swift'
-  s.dependency 'CropViewController'
 
   s.default_subspec = 'Chat'
 

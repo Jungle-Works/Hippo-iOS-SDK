@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import CropViewController
 
 class PreviewViewController: UIViewController {
     
@@ -37,7 +36,7 @@ class PreviewViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+       
         HippoKeyboardManager.shared.enable = true
         viewNavigation.leftButton.addTarget(self, action: #selector(action_BackBtn), for: .touchUpInside)
         textView_PrivateNotes.textContainerInset = UIEdgeInsets(top: 16, left: 0, bottom: 0, right: 0)
@@ -54,7 +53,7 @@ class PreviewViewController: UIViewController {
         }
         
         lblDocumentName.isHidden = !(fileType == .document)
-        btnEdit.isHidden = (fileType == .document)
+        btnEdit.isHidden = true//(fileType == .document)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -100,25 +99,25 @@ extension PreviewViewController{
     }
     
     @IBAction func btnEditTapped(_ sender: Any) {
-        self.presentCropViewController()
+//        self.presentCropViewController()
     }
     
-    func presentCropViewController() {
-        guard let image = image else {return}
-        let cropViewController = CropViewController(image: image)
-        cropViewController.delegate = self
-        cropViewController.modalPresentationStyle = .fullScreen
-        let nav = UINavigationController(rootViewController: cropViewController)
-        present(nav, animated: true, completion: nil)
-    }
+//    func presentCropViewController() {
+//        guard let image = image else {return}
+//        let cropViewController = CropViewController(image: image)
+//        cropViewController.delegate = self
+//        cropViewController.modalPresentationStyle = .fullScreen
+//        let nav = UINavigationController(rootViewController: cropViewController)
+//        present(nav, animated: true, completion: nil)
+//    }
     
 }
 
-extension PreviewViewController : CropViewControllerDelegate{
-    func cropViewController(_ cropViewController: CropViewController, didCropToImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
-        // 'image' is the newly cropped version of the original image
-        self.image = image
-        imageView_Preview.image = image
-        self.dismiss(animated: true, completion: nil)
-    }
-}
+//extension PreviewViewController : CropViewControllerDelegate{
+//    func cropViewController(_ cropViewController: CropViewController, didCropToImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
+//        // 'image' is the newly cropped version of the original image
+//        self.image = image
+//        imageView_Preview.image = image
+//        self.dismiss(animated: true, completion: nil)
+//    }
+//}
