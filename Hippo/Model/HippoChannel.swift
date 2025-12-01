@@ -712,7 +712,6 @@ class HippoChannel {
                         }
                         return
                     }
-                    return
                 }
                 let error = messageDict["error"] as? [String:Any]
                 let userIdReceivedInSocket = messageDict["user_id"] as? Int

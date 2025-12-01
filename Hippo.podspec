@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = 'Hippo'
-  s.version      = '2.1.69'
+  s.version      = '2.1.70'
   s.summary      = 'Now add Agent in app for quick support.'
   s.homepage     = 'https://github.com/Jungle-Works/Hippo-iOS-SDK'
   s.documentation_url = 'https://github.com/Jungle-Works/Hippo-iOS-SDK'
@@ -13,17 +13,24 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '15.1'
   s.swift_version = '5.0'
 
-  
-  s.source_files = 'Hippo/**/*.{h,m,swift,xib,storyboard}'
-  s.exclude_files = 'Classes/Exclude'
-  s.static_framework = false
+  # Framework should be static (correct)
+  s.static_framework = true
 
-  s.resource_bundles = { 'Hippo' => ['Hippo/*.{lproj,storyboard,xcassets,gif}','Hippo/Assets/**/*.imageset','Hippo/UIView/TableViewCell/**/*.xib','Hippo/UIView/CollectionViewCells/**/*.xib','Hippo/UIView/CustomViews/**/*.xib','Hippo/InternalClasses/Views/**/*.xib','Hippo/InternalClasses/Module/**/*.xib', 'Hippo/**/*.gif','Hippo/**/*.wav','Hippo/Language/**/*.strings', 'Hippo/**/*.js','README.md'] }
+  # Only code files
+  s.source_files = 'Hippo/**/*.{swift,h,m}'
 
-  s.resources = ['Hippo/*.xcassets']
+  # All resources in a single well-structured bundle
+  s.resource_bundles = {
+    'Hippo' => [
+      'Hippo/**/*.{storyboard,xib,xcassets,strings,gif,wav,js}',
+      'Hippo/**/*.lproj'
+    ]
+  }
+
+  # REMOVE resources section — it causes duplicate bundles
+  # s.resources = ['Hippo/*.xcassets']
 
   s.dependency 'Socket.IO-Client-Swift'
-
   s.default_subspec = 'Chat'
 
   s.subspec 'Chat' do |chat|
