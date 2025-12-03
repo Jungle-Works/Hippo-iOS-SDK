@@ -8,30 +8,24 @@
 
 import UIKit
 
-
-// MARK: - Struct
 struct AIChatOption {
     let label: String
     let value: Int
 }
 
-// MARK: - AIMessageCrafterViewController
-
 class AIMessageCrafterViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    // MARK: - outlets
     @IBOutlet weak var tableView: UITableView!
-    
-    
-    // MARK: - Variables
     
     var message = ""
     var channelId = 0
     var selectedLanguage = "English"
+    
     var viewModel = AiMessageViewModel()
     var closeCallback: ((String)->())?
     var callback: ((String)->())?
     var summaryCallback: ((String)->())?
+    
     private let options: [AIChatOption] = [
         AIChatOption(label: "Translate to...", value: 7),
         AIChatOption(label: "More concise", value: 3),
@@ -42,111 +36,128 @@ class AIMessageCrafterViewController: UIViewController, UITableViewDelegate, UIT
         AIChatOption(label: "Expand", value: 6),
         AIChatOption(label: "Fix grammar & spelling", value: 8),
         AIChatOption(label: "Summarize Conversation", value: 9)
-      //  ,AIChatOption(label: "Summarize Ticket", value: 10)
     ]
-    
-    // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         tableView.delegate = self
         tableView.dataSource = self
-        isModalInPresentation = true
+        
         let bundle = Bundle(for: AiMessageTableViewCell.self)
         let nib = UINib(nibName: "AiMessageTableViewCell", bundle: bundle)
         tableView.register(nib, forCellReuseIdentifier: "AiMessageTableViewCell")
+        
         tableView.backgroundColor = .white
-        }
-    
-    // MARK: - TableView DataSource
+        isModalInPresentation = true
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return options.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "AiMessageTableViewCell", for: indexPath) as! AiMessageTableViewCell
-        cell.setData(value: options[indexPath.row].value)
-        cell.optionLabel?.text = options[indexPath.row].label
-        if self.message.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || !hasMoreThanThreeLetters(self.message) {
-            cell.languageButton.isUserInteractionEnabled = false
-        } else {
+        
+        let item = options[indexPath.row]
+        cell.optionLabel.text = item.label
+        cell.setData(value: item.value)
+        
+        let validMessage = hasMoreThanThreeLetters(message)
+        
+        if item.value == 7 {   // Translate cell
+            cell.languageButton.alpha = validMessage ? 1.0 : 0.4
+            cell.languageButton.tag = validMessage ? 1 : 0
+            
             cell.languageButton.isUserInteractionEnabled = true
+            
+            cell.callback = { lang in
+                self.selectedLanguage = lang
+            }
         }
-        cell.callback = { language in
-            print(language)
-            self.selectedLanguage = language
-            self.generateContent(contentType: 7, message: self.message, language: language)
-        }
+        
         cell.selectionStyle = .none
         return cell
     }
     
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row == 0 {
+        
+        let option = options[indexPath.row]
+        
+        // For ANY action except translate, message must be valid
+        if option.value != 7 {
+            if message.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                showAlert(title: "", message: "Message is empty", actionComplete: nil)
+                return
+            }
+            if !hasMoreThanThreeLetters(message) {
+                showAlert(title: "", message: "Message should be more than 3 letters", actionComplete: nil)
+                return
+            }
+        }
+        
+        // Option 1: Translate → use selectedLanguage
+        if option.value == 7 {
+            generateContent(contentType: 7, message: message, language: selectedLanguage)
             return
         }
-        if indexPath.row == options.count - 1 {
-            let selectedOption = options[indexPath.row]
-            self.generateContent(contentType: selectedOption.value, message: self.message, language: self.selectedLanguage)
+        
+        // Option 2: Summarize → custom handling
+        if option.value == 9 {
+            generateContent(contentType: 9, message: message, language: selectedLanguage)
             return
         }
-
-        if message.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            self.showAlert(title: "", message: "Message is empty", actionComplete: nil)
-            return
-        } else if !hasMoreThanThreeLetters(message) {
-            self.showAlert(title: "", message: "Message should be more than 3 letters", actionComplete: nil)
-            return
-        }
-        let selectedOption = options[indexPath.row]
-        self.generateContent(contentType: selectedOption.value, message: self.message, language: self.selectedLanguage)
-
+        
+        // Other AI operations
+        generateContent(contentType: option.value,
+                        message: message,
+                        language: selectedLanguage)
     }
     
-    // MARK: - Api
-    
-    func generateContent(contentType: Int, message:String, language:String){
+    func generateContent(contentType: Int, message: String, language: String) {
+        
         let loader = UIActivityIndicatorView(style: .large)
-            loader.center = self.view.center
-            loader.startAnimating()
-            self.view.addSubview(loader)
+        loader.center = view.center
+        loader.startAnimating()
+        view.addSubview(loader)
+        
+        viewModel.generateContent(contentType: contentType, message: message, language: language, channelId: channelId) { success, newMessage in
             
-        viewModel.generateContent(contentType: contentType, message:message, language:language, channelId: channelId) { success, newMessage in
             loader.stopAnimating()
+            loader.removeFromSuperview()
+            
             if contentType == 1 {
-                self.showAlert(title: "", message: "Your tone of message is \(newMessage)") {action in 
-                      self.closeCallback?("")
-                      self.dismiss(animated: true, completion: nil)
-                  }
-                   
-            } else if contentType == 9 {
-                self.summaryCallback?(newMessage)
-                self.dismiss(animated: true, completion: nil)
-            } else{
-                if success {
-                    self.callback?(newMessage)
-                    self.dismiss(animated: true, completion: nil)
-                } else {
-                    self.showAlert(title: "", message: "\(newMessage)", actionComplete: nil)
+                self.showAlert(title: "", message: "Your tone of message is \(newMessage)") { _ in
+                    self.closeCallback?("")
+                    self.dismiss(animated: true)
                 }
+                return
+            }
+            
+            if contentType == 9 {
+                self.summaryCallback?(newMessage)
+                self.dismiss(animated: true)
+                return
+            }
+            
+            if success {
+                self.callback?(newMessage)
+                self.dismiss(animated: true)
+            } else {
+                self.showAlert(title: "", message: newMessage, actionComplete: nil)
             }
         }
     }
     
+    
     func hasMoreThanThreeLetters(_ text: String) -> Bool {
-        let letters = text.filter { $0.isLetter }
-        return letters.count > 3
+        return text.filter { $0.isLetter }.count > 3
     }
-    
-    
-    // MARK: - Actions
     
     @IBAction func closeButtonTapped(_ sender: UIButton) {
-        self.closeCallback?("")
-        dismiss(animated: true, completion: nil)
+        closeCallback?("")
+        dismiss(animated: true)
     }
 }
-
-
-

@@ -282,7 +282,7 @@ class AgentConversationViewController: HippoConversationViewController {
             undoBtn.tintColor = HippoConfig.shared.theme.customColorforIcons
     
         }
-        //  aiBtn.isHidden = true
+          aiBtn.isHidden = true
         undoBtn.isHidden = true
     }
     
@@ -1522,7 +1522,7 @@ extension AgentConversationViewController {
         //        let isForwardSlashAllowed =  Business.shared.properties.isForwardSlashAllowed
         //        let isForwardSlashAllowed =  false
         addFileButtonAction.isHidden = isPrivate
-        aiBtn.isHidden = isPrivate
+        aiBtn.isHidden = true//isPrivate
         //        cannedButton.isHidden = isPrivate || config.shouldHideBottonButtons()
         //        botButton.isHidden = isPrivate || config.shouldHideBottonButtons()
         let isBotButtonHidden = isPrivate || self.messageSendingViewConfig.shouldHideBottonButtons()
