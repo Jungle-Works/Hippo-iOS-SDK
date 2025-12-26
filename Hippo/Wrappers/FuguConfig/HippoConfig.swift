@@ -1214,7 +1214,19 @@ struct WhatsappWidgetConfig{
         HippoConfig.shared.strings = stringsObject
     }
     
+    public func fetchChatUnreadCount(channelId: Int? = nil, completion: @escaping (Int) -> Void){
+        HippoUserDetail.fetchChatUnreadCount(channelId: channelId,completion: { count in
+            completion(count)
+        })
+    }
+
     
+    public func fetchAgentChatUnreadCount(channelId: Int? = nil, completion: @escaping (Int) -> Void){
+        HippoUserDetail.fetchAgentChatUnreadCount(channelId: channelId,completion: { count in
+            completion(count)
+        })
+    }
+
     public func getUnreadAnnouncementCount(completion: @escaping (Int) -> Void){
         HippoUserDetail.getUnreadAnnouncementCount(completion: { count in
             self.localAnnouncementUnreadCount = count

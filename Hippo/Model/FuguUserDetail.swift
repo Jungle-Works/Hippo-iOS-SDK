@@ -827,6 +827,65 @@ public class UserTag: NSObject {
             }
         }
     }
+    
+    
+    class public func fetchChatUnreadCount(channelId: Int? = nil,completion: @escaping (Int) -> Void){
+         if HippoConfig.shared.appSecretKey.isEmpty {
+             completion(0)
+             return
+             
+         }
+         var params: [String: Any] = [
+             "app_secret_key": HippoConfig.shared.appSecretKey,
+             "channel_id" : channelId ?? 0
+         ]
+         
+         if let savedUserId = HippoUserDetail.fuguEnUserID {
+             params["en_user_id"] = savedUserId
+         }
+         
+         print(params, FuguEndPoints.fetchChatUnreadCount)
+        HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: FuguEndPoints.fetchChatUnreadCount.rawValue) { (response, error, _, statusCode) in
+           
+             if let responseDict = response as? [String: Any],
+                let statusCode = responseDict["statusCode"] as? Int,
+                let data = responseDict["data"] as? [String: Any], statusCode == 200 {
+                 let count = data["count"] as? Int ?? 0
+                 print("chat unread count\(count)")
+                 completion(count)
+                
+             }else {
+                 print("unread_count error")
+                 completion(0)
+                 HippoConfig.shared.log.debug((error, statusCode), level: .error)
+             }
+         }
+     }
+    
+    class public func fetchAgentChatUnreadCount(channelId: Int? = nil,completion: @escaping (Int) -> Void){
+       
+        let params: [String: Any] = [
+             "access_token": HippoConfig.shared.agentDetail?.fuguToken ?? "",
+             "channel_id" : channelId ?? 0
+         ]
+         
+        print(params, AgentEndPoints.fetchChatUnreadCount)
+        HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: AgentEndPoints.fetchChatUnreadCount.rawValue) { (response, error, _, statusCode) in
+           
+             if let responseDict = response as? [String: Any],
+                let statusCode = responseDict["statusCode"] as? Int,
+                let data = responseDict["data"] as? [String: Any], statusCode == 200 {
+                 let count = data["count"] as? Int ?? 0
+                 print("chat agent unread count\(count)")
+                 completion(count)
+                
+             }else {
+                 print("unread_count error")
+                 completion(0)
+                 HippoConfig.shared.log.debug((error, statusCode), level: .error)
+             }
+         }
+     }
 }
 
 

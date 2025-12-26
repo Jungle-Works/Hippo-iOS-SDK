@@ -401,6 +401,7 @@ enum FuguEndPoints: String {
     case promotionalPopUp = "api/broadcast/getUserToCampaign"
     static let generateContent = "api/chat/generateContent"
     static let getUnreadAnnouncementCount = "api/broadcast/getUnreadAnnouncementCount"
+    case fetchChatUnreadCount = "api/conversation/fetchChatUnreadCount"
 //    case promotionalPopUp = "api/broadcast/getUserCampaign"
     
 }
@@ -458,6 +459,7 @@ enum AgentEndPoints: String {
     case assignTags = "api/tags/assignTagsToChannel"
     case assignTagsV2 = "api/tags/v2/assignTagsToChannel"
     case getCannedMessages = "api/business/getCannedMessages"
+    case fetchChatUnreadCount = "api/conversation/fetchChatUnreadCount"
 }
 
 struct MultiLanguageMsg{
