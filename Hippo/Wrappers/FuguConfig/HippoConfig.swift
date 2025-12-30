@@ -1221,8 +1221,8 @@ struct WhatsappWidgetConfig{
     }
 
     
-    public func fetchAgentChatUnreadCount(channelId: Int? = nil, completion: @escaping (Int) -> Void){
-        HippoUserDetail.fetchAgentChatUnreadCount(channelId: channelId,completion: { count in
+    public func fetchAgentChatUnreadCount(transactionId: String? = nil, completion: @escaping (Int) -> Void){
+        HippoUserDetail.fetchAgentChatUnreadCount(transactionId: transactionId,completion: { count in
             completion(count)
         })
     }

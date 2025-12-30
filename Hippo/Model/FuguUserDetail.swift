@@ -862,11 +862,11 @@ public class UserTag: NSObject {
          }
      }
     
-    class public func fetchAgentChatUnreadCount(channelId: Int? = nil,completion: @escaping (Int) -> Void){
+    class public func fetchAgentChatUnreadCount(transactionId: String? = nil,completion: @escaping (Int) -> Void){
        
         let params: [String: Any] = [
              "access_token": HippoConfig.shared.agentDetail?.fuguToken ?? "",
-             "channel_id" : channelId ?? 0
+             "transaction_id" : transactionId ?? ""
          ]
          
         print(params, AgentEndPoints.fetchChatUnreadCount)
