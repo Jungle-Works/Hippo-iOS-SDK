@@ -174,8 +174,28 @@ class FuguConversation: HippoConversation {
         }
        // return arrayOfConversation
         // ✅ SORT BY CHANNEL PRIORITY
-        return arrayOfConversation.sorted {
-            ($0.channelPriority ?? Int.max) < ($1.channelPriority ?? Int.max)
+        return arrayOfConversation.sorted { a, b in
+
+            let aIsChannel = (a.channelId == nil || (a.channelId ?? 0) <= 0)
+            let bIsChannel = (b.channelId == nil || (b.channelId ?? 0) <= 0)
+
+            // ✅ Both are channel conversations → sort by priority
+            if aIsChannel && bIsChannel {
+                return (a.channelPriority ?? Int.max) < (b.channelPriority ?? Int.max)
+            }
+
+            // ✅ Only A is channel → A comes first
+            if aIsChannel && !bIsChannel {
+                return true
+            }
+
+            // ✅ Only B is channel → B comes first
+            if !aIsChannel && bIsChannel {
+                return false
+            }
+
+            // ✅ Both are normal conversations → keep original order
+            return false
         }
     }
     
