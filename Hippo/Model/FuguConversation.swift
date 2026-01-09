@@ -17,6 +17,7 @@ class FuguConversation: HippoConversation {
     var message_sub_type : Int?
     var original_transaction_id : String?
     var channelType: Int?
+    var channelPriority: Int?
     
     init?(channelId: Int, unreadCount: Int, lastMessage: HippoMessage, labelID: Int?) {
         guard channelId > 0 else {
@@ -77,6 +78,10 @@ class FuguConversation: HippoConversation {
             self.channelImage = channel_image
         }
         
+        if let channelPriority = conversationDict["channel_priority"] as? Int {
+            self.channelPriority = channelPriority
+        }
+        
         if let message = HippoMessage.init(convoDict: conversationDict) {
             self.lastMessage = message
         } else if let message = HippoMessage(dict: conversationDict) {
@@ -110,7 +115,7 @@ class FuguConversation: HippoConversation {
         let params = getParamsToGetAllConversation(config: config)
         
         HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: FuguEndPoints.API_GET_CONVERSATIONS.rawValue) { (responseObject, error, tag, statusCode) in
-            
+            print(responseObject as Any)
             guard let unwrappedStatusCode = statusCode,
                   let response = responseObject as? [String: Any],
                   let data = response["data"] as? [String: Any],
@@ -161,17 +166,17 @@ class FuguConversation: HippoConversation {
     
     static func getConversationArrayFrom(json: [[String: Any]]) -> [FuguConversation] {
         var arrayOfConversation = [FuguConversation]()
-        
+
         for rawConversation in json {
             if let conversation = FuguConversation(conversationDict: rawConversation) {
-                if (conversation.unreadCount ?? 0) > 0 {
-//                    conversation.channelStatus = .open
-                }
                 arrayOfConversation.append(conversation)
             }
         }
-        
-        return arrayOfConversation
+       // return arrayOfConversation
+        // ✅ SORT BY CHANNEL PRIORITY
+        return arrayOfConversation.sorted {
+            ($0.channelPriority ?? Int.max) < ($1.channelPriority ?? Int.max)
+        }
     }
     
     static func getJsonFrom(conversations: [FuguConversation]) -> [[String: Any]] {
