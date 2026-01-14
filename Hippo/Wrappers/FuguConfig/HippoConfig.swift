@@ -1219,37 +1219,52 @@ struct WhatsappWidgetConfig{
     }
     
     
-    func reportIncomingCallOnCallKit(userInfo: [String : Any], completion: @escaping () -> Void){
+    func reportIncomingCallOnCallKit(
+        userInfo: [String : Any],
+        completion: @escaping () -> Void
+    ) {
+
     #if canImport(HippoCallClient)
-        enableAudioSession()
-        
-        if let uuid = userInfo["muid"] as? String, let isVideo = userInfo["call_type"] as? String == "AUDIO" ? false : true{
-            if HippoCallClient.shared.checkIfUserIsBusy(newCallUID: uuid) {
-                completion()
-                return
-            }
-            
-            guard let UUID = UUID(uuidString: uuid) else {
-                completion()
-                return
-            }
-            
-            guard let peer = HippoUser(json: userInfo) else {
-                completion()
-                return
-            }
-            
-            let callType = isVideo ? Call.CallType.video : Call.CallType.audio
-            
-            let request = PresentCallRequest(peer: peer, callType: callType, callUUID: "\(UUID)")
-            
-            CallKitManager.shared.reportIncomingCallWith(request: request, completion: completion)
+
+        guard
+            let uuidString = userInfo["muid"] as? String,
+            let uuid = UUID(uuidString: uuidString),
+            let peer = HippoUser(json: userInfo)
+        else {
+            completion()
+            return
         }
-        
+
+        let isVideo = (userInfo["call_type"] as? String) != "AUDIO"
+        let callType: Call.CallType = isVideo ? .video : .audio
+
+        let request = PresentCallRequest(
+            peer: peer,
+            callType: callType,
+            callUUID: uuid.uuidString
+        )
+
+        // ✅ MUST be synchronous
+        CallKitManager.shared.reportIncomingCallWith(
+            request: request
+        ) {
+            completion()
+        }
+
+        // ✅ Busy handling AFTER reporting
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
+            if HippoCallClient.shared.checkIfUserIsBusy(newCallUID: uuidString) {
+                CallKitManager.shared.endCall(uuid: uuid)
+            }
+        }
+
     #else
-        print("cannot import HippoCallClient")
+        completion()
     #endif
     }
+
+
+
     
     func enableAudioSession(){
         do{

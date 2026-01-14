@@ -41,27 +41,35 @@ class CallKitManager: NSObject, CXProviderDelegate {
     }
     
     // MARK: - Methods
-    func reportIncomingCallWith(request: PresentCallRequest, completion: @escaping () -> Void) {
-        
+    func reportIncomingCallWith(
+        request: PresentCallRequest,
+        completion: @escaping () -> Void
+    ) {
+
+        guard let uuid = UUID(uuidString: request.callUuid) else {
+            completion()
+            return
+        }
+
         let update = CXCallUpdate()
         update.remoteHandle = CXHandle(type: .generic, value: request.peer.name)
-        update.hasVideo = request.callType == .video ? true : false
+        update.localizedCallerName = request.peer.name
+        update.hasVideo = request.callType == .video
         update.supportsDTMF = false
         update.supportsHolding = false
-        update.supportsUngrouping = false
         update.supportsGrouping = false
-        update.localizedCallerName = request.peer.name
-        
-        provider.reportNewIncomingCall(with: UUID(uuidString: request.callUuid) ?? UUID(),  update: update) {(error) in
-            guard error == nil else {
-                print("Call Kit Error in starting call -> \(error.debugDescription)")
-                completion()
-                return
+        update.supportsUngrouping = false
+
+        provider.reportNewIncomingCall(with: uuid, update: update) { error in
+            if let error = error {
+                os_log(.error, "❌ CallKit incoming error: %{public}@", error.localizedDescription)
             }
             completion()
         }
-        HippoCallClient.shared.updateProviderInJitsi(with: self.provider)
+
+        HippoCallClient.shared.updateProviderInJitsi(with: provider)
     }
+
     
     func startNewOutgoingCall(request: PresentCallRequest, completion: @escaping (Bool) -> Void) {
         if #available(iOS 12.0, *) {
@@ -86,6 +94,20 @@ class CallKitManager: NSObject, CXProviderDelegate {
         HippoCallClient.shared.updateProviderInJitsi(with: self.provider)
     }
     
+  
+    func endCall(uuid: UUID) {
+        let endAction = CXEndCallAction(call: uuid)
+        let transaction = CXTransaction(action: endAction)
+
+        callKitController.request(transaction) { error in
+            if let error = error {
+                os_log(.error, "❌ End call failed: %{public}@", error.localizedDescription)
+            }
+        }
+    }
+
+
+
     // MARK: - CXProviderDelegate
     func provider(_ provider: CXProvider, perform action: CXEndCallAction) {
         HippoCallClient.shared.actionFromCallKit(isAnswered: false, completion: { _ in })
@@ -93,14 +115,9 @@ class CallKitManager: NSObject, CXProviderDelegate {
     }
     
     func provider(_ provider: CXProvider, perform action: CXAnswerCallAction) {
-        HippoCallClient.shared.actionFromCallKit(isAnswered: true) { status in
-            if status{
-                action.fulfill()
-            }else{
-                action.fail()
-            }
+        HippoCallClient.shared.actionFromCallKit(isAnswered: true) { success in
+            success ? action.fulfill() : action.fail()
         }
-        action.fulfill()
     }
     
     func providerDidReset(_ provider: CXProvider) {}

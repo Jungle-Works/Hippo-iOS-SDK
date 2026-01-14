@@ -190,7 +190,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         configureChatScreen()
         setThemeForBusiness()
         HippoConfig.shared.notifyDidLoad()
-        
+                  
         guard channel != nil else {
             if createConversationOnStart {
                 
@@ -3334,17 +3334,21 @@ extension ConversationsViewController: HippoChannelDelegate {
     }
     
     func deleteTypingLabelSection() {
-        guard isTypingLabelHidden, isTypingSectionPresent() else {
-            return
+        DispatchQueue.main.async {
+            guard !self.isTypingLabelHidden, self.isTypingSectionPresent() else {
+                return
+            }
+            let section = self.tableViewChat.numberOfSections - 1
+            guard section >= 0, section < self.tableViewChat.numberOfSections else {
+                return
+            }
+            self.isTypingLabelHidden = true
+            self.tableViewChat.performBatchUpdates({
+                self.tableViewChat.deleteSections(IndexSet(integer: section), with: .none)
+            })
         }
-        if tableViewChat.numberOfSections == 1{
-            return
-        }
-        
-        let typingSectionIndex = IndexSet([tableViewChat.numberOfSections - 1])
-        tableViewChat.deleteSections(typingSectionIndex, with: .none)
     }
-    
+
     func isTypingSectionPresent() -> Bool {
         return self.messagesGroupedByDate.count < tableViewChat.numberOfSections
     }
