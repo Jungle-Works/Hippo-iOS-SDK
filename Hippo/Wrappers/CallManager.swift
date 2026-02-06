@@ -299,6 +299,10 @@ class CallManager {
 
 #if canImport(HippoCallClient)
 extension CallManager: HippoCallClientDelegate {
+    func didReceiveCallSignalType(_ type: JitsiCallSignal.JitsiSignalType) {
+        HippoConfig.shared.delegate?.didReceiveCallSignalType(type)
+    }
+
     func callStarted(isCallStarted: Bool) {
          HippoConfig.shared.jitsiOngoingCall = isCallStarted
     }

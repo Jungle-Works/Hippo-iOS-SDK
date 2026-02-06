@@ -55,6 +55,7 @@ public protocol HippoDelegate: class {
     
     #if canImport(HippoCallClient)
      func loadCallPresenterView(request: CallPresenterRequest) -> CallPresenter?
+    func didReceiveCallSignalType(_ type: JitsiCallSignal.JitsiSignalType)
     #endif
 }
 
