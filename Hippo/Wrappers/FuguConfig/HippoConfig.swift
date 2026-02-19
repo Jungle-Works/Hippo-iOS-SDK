@@ -798,6 +798,10 @@ struct WhatsappWidgetConfig{
         }
     }
     
+    public func joinVideoSdkCallByMeetingID(){
+      HippoCallClient.shared.joinCall()
+    }
+    
     public func startCall(data: PeerToPeerChat, callType: CallType, completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
         guard FuguNetworkHandler.shared.isNetworkConnected else {
             completion(false, HippoError.networkError)
