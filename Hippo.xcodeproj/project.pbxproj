@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 77;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -2858,7 +2858,6 @@
 				};
 			};
 			buildConfigurationList = 717BE16E1EC1BE11003EA321 /* Build configuration list for PBXProject "Hippo" */;
-			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -2869,6 +2868,7 @@
 				ar,
 			);
 			mainGroup = 717BE16A1EC1BE11003EA321;
+			preferredProjectObjectVersion = 77;
 			productRefGroup = 717BE1741EC1BE11003EA321 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -3010,15 +3010,12 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Hippo/Pods-Hippo-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Socket.IO-Client-Swift/SocketIO.framework",
-				"${BUILT_PRODUCTS_DIR}/Starscream/Starscream.framework",
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Hippo/Pods-Hippo-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SocketIO.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Starscream.framework",
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Hippo/Pods-Hippo-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -3527,7 +3524,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -3544,8 +3542,11 @@
 				DEVELOPMENT_TEAM = 9BMB7KMY7Q;
 				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/Hippo/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = Clicklabs.hippo.SDKDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -3568,8 +3569,11 @@
 				DEVELOPMENT_TEAM = 9BMB7KMY7Q;
 				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/Hippo/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = Clicklabs.hippo.SDKDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
