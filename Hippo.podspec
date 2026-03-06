@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name         = 'Hippo'
-    s.version      = '2.1.59'
+    s.version      = '2.1.60'
     s.summary      = 'Now add Agent in app for quick support.'
     s.homepage     = 'https://github.com/Jungle-Works/Hippo-iOS-SDK'
     s.documentation_url = 'https://github.com/Jungle-Works/Hippo-iOS-SDK'
@@ -12,19 +12,13 @@ Pod::Spec.new do |s|
     s.source       = { :git => 'https://github.com/Jungle-Works/Hippo-iOS-SDK.git', :tag => s.version }
     s.source_files = 'Hippo/**/*.{swift,h,m}'
     s.exclude_files = 'Classes/Exclude'
-    s.platform = :ios, '15.6'
+   
     s.static_framework = false
 
-    s.platform = :ios, '15.6'
+    s.ios.deployment_target = '13.0'
     s.swift_version = '5.9'
 
-    s.pod_target_xcconfig = {
-      'IPHONEOS_DEPLOYMENT_TARGET' => '15.6'
-    }
-
-    s.user_target_xcconfig = {
-      'IPHONEOS_DEPLOYMENT_TARGET' => '15.6'
-    }
+    
     s.resource_bundles = {
         'Hippo' => [
             'Hippo/*.{lproj,storyboard,xcassets,gif}',
