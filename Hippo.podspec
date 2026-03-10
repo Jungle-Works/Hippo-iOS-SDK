@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name         = 'Hippo'
-    s.version      = '2.1.60'
+    s.version      = '2.1.61'
     s.summary      = 'Now add Agent in app for quick support.'
     s.homepage     = 'https://github.com/Jungle-Works/Hippo-iOS-SDK'
     s.documentation_url = 'https://github.com/Jungle-Works/Hippo-iOS-SDK'
@@ -15,7 +15,7 @@ Pod::Spec.new do |s|
    
     s.static_framework = false
 
-    s.ios.deployment_target = '13.0'
+    s.ios.deployment_target = '15.6'
     s.swift_version = '5.9'
 
     
@@ -25,7 +25,7 @@ Pod::Spec.new do |s|
             'Hippo/Assets/**/*.imageset',
             'Hippo/UIView/TableViewCell/**/*.xib',
             'Hippo/UIView/CollectionViewCells/**/*.xib',
-            'Hippo/UIView/CustomViews/**/*.xib',
+            'Hippo/UIView/CustomViews/**/*.xib',  
             'Hippo/InternalClasses/Views/**/*.xib',
             'Hippo/InternalClasses/Module/**/*.xib',
             'Hippo/**/*.gif',
@@ -38,7 +38,7 @@ Pod::Spec.new do |s|
 
     s.resources = ['Hippo/*.xcassets']
     
-    s.dependency 'Socket.IO-Client-Swift', '~> 16.1'
+#    s.dependency 'Socket.IO-Client-Swift', '~> 16.1.1'
     s.dependency 'CropViewController'
     s.dependency 'DropDown'
 
