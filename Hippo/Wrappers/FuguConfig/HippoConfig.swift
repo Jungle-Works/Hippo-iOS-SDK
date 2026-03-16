@@ -802,6 +802,10 @@ struct WhatsappWidgetConfig{
         HippoCallClient.shared.joinCall(transaction_id: transaction_id)
     }
     
+    public func endVideoCall(){
+        HippoCallClient.shared.endVideoCall()
+    }
+    
     public func startCall(data: PeerToPeerChat, callType: CallType, completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
         guard FuguNetworkHandler.shared.isNetworkConnected else {
             completion(false, HippoError.networkError)
