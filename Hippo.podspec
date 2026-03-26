@@ -30,7 +30,7 @@ Pod::Spec.new do |s|
             'Hippo/InternalClasses/Module/**/*.xib',
             'Hippo/**/*.gif',
             'Hippo/**/*.wav',
-            'Hippo/Language/**/*.strings',
+            'Hippo/Language/**/*.strings',   
             'Hippo/**/*.js',
             'README.md'
         ]

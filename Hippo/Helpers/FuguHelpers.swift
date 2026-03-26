@@ -901,3 +901,4 @@ func currentUserType() -> UserType {
         return UserType.customer
     }
 }
+

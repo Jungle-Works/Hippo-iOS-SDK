@@ -798,8 +798,8 @@ struct WhatsappWidgetConfig{
         }
     }
     
-    public func joinVideoSdkCallByMeetingID(transaction_id: String){
-        HippoCallClient.shared.joinCall(transaction_id: transaction_id)
+    public func joinVideoSdkCallByMeetingID(transaction_id: String, meetingDuration: TimeInterval = 0 * 60){
+        HippoCallClient.shared.joinCall(transaction_id: transaction_id, meetingDuration: meetingDuration)
     }
     
     public func endVideoCall(){
