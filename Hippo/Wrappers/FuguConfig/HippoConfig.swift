@@ -39,8 +39,8 @@ enum PrivateSocketKeys: String {
 
 
 struct SERVERS {
-    static let liveUrl = "https://api.hippochat.io/"
-    static let liveFaye = "https://event.hippochat.io"//"https://socketv2.hippochat.io/faye"//
+    static let liveUrl = "https://migration-test-api.hippochat.io/"
+    static let liveFaye = "https://migration-test-api.hippochat.io"//"https://socketv2.hippochat.io/faye"//
     
     static let betaUrl = "https://hippog-server.hippochat.io:3003/"
     static let betaFaye = "https://hippog-server.hippochat.io:3003/"
