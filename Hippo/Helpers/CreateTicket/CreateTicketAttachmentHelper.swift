@@ -71,6 +71,10 @@ class CreateTicketAttachmentHelper {
 
 }
 extension CreateTicketAttachmentHelper: PickerHelperDelegate  {
+    func sendLocationClicked() {
+        
+    }
+    
     func payOptionClicked() {
         
     }

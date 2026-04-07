@@ -9,7 +9,6 @@
 import UIKit
 import Photos
 
-
 class LeadDataTextfield: UITextField {
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
         return false
@@ -760,8 +759,8 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         closeKeyBoard()
         actionSheetTitleArr.removeAll()
         actionSheetImageArr.removeAll()
-        actionSheetTitleArr = [HippoStrings.photoLibrary,HippoStrings.camera,HippoStrings.document]
-        actionSheetImageArr = ["Library","Camera","Library"]
+        actionSheetTitleArr = [HippoStrings.photoLibrary,HippoStrings.camera,HippoStrings.document,"Send Current Location"]
+        actionSheetImageArr = ["Library","Camera","Library","location"]
         heightForActionSheet = CGFloat((actionSheetTitleArr.count * 60))
         isProceedToPayActionSheet = false
         self.openCustomSheet()
@@ -4018,4 +4017,3 @@ extension ConversationsViewController : RecordViewDelegate {
     }
     
 }
-

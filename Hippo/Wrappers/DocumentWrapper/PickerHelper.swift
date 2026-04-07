@@ -12,6 +12,7 @@ protocol PickerHelperDelegate: CoreDocumentPickerDelegate, CoreMediaSelectorDele
     func payOptionClicked()
     func shareVideoUrlClicked()
     func shareAudioUrlClicked()
+    func sendLocationClicked()
 }
 extension PickerHelperDelegate {
     func shareVideoUrlClicked(){}
@@ -153,6 +154,8 @@ class PickerHelper {
             self.documentPicker = CoreDocumentPicker(controller: self.currentViewController)
             self.documentPicker?.delegate = self.delegate
             self.documentPicker?.presentIn(viewController: self.currentViewController, completion: nil)
+        case "Send Current Location":
+            self.delegate?.sendLocationClicked()  
         default :
             print("default")
         }

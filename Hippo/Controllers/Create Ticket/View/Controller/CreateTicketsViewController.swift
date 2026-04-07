@@ -443,6 +443,10 @@ extension UITextField {
 //MARK: - ImagePicker Delegates
 
 extension CreateTicketsViewController: PickerHelperDelegate  {
+    func sendLocationClicked() {
+        
+    }
+    
     func payOptionClicked() {
         
     }

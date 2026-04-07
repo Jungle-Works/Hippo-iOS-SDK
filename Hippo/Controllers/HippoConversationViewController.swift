@@ -9,6 +9,7 @@ import UIKit
 import Photos
 import QuickLook
 import SafariServices
+import CoreLocation
 
 #if canImport(HippoCallClient)
 import HippoCallClient
@@ -28,6 +29,7 @@ class HippoConversationViewController: UIViewController {
     var forceHideActionButton: Bool = false
     var botGroupID: Int?
     
+    var locationManager: CLLocationManager?
     
     var storeRequest: MessageStore.messageRequest?
     var storeResponse: MessageStore.ChannelMessagesResult?
@@ -908,6 +910,31 @@ extension HippoConversationViewController {
 
 
 extension HippoConversationViewController: PickerHelperDelegate {
+    func sendLocationMessage(lat: Double, lng: Double) {
+
+        let mapUrl = "https://maps.google.com/?q=\(lat),\(lng)"
+
+        let message = HippoMessage(
+            message: "Current Location\n\(mapUrl)",
+            type: .normal,
+            uniqueID: String.generateUniqueId(),
+            chatType: channel?.chatDetail?.chatType
+        )
+
+        channel?.unsentMessages.append(message)
+        addMessageToUIBeforeSending(message: message)
+        sendMessage(message: message)
+    }
+    func getCurrentLocationAndSend() {
+
+        locationManager = CLLocationManager()
+        locationManager?.delegate = self
+        locationManager?.requestWhenInUseAuthorization()
+        locationManager?.startUpdatingLocation()
+    }
+    func sendLocationClicked() {
+        getCurrentLocationAndSend()
+    }
     func shareVideoUrlClicked() {
         let shareUrlHelper = ShareUrlHelper()
         let link = shareUrlHelper.createLink(callType: CallType.video)
@@ -2314,3 +2341,21 @@ extension HippoConversationViewController{
 //        isCannedBtnClicked = false
 //    }
 //
+extension HippoConversationViewController: CLLocationManagerDelegate {
+
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+
+        guard let location = locations.last else { return }
+
+        let lat = location.coordinate.latitude
+        let lng = location.coordinate.longitude
+
+        manager.stopUpdatingLocation()
+
+        sendLocationMessage(lat: lat, lng: lng)
+    }
+
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("Location failed:", error)
+    }
+}
