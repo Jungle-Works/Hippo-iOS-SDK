@@ -30,7 +30,7 @@ class HippoConversationViewController: UIViewController {
     var botGroupID: Int?
     
     var locationManager: CLLocationManager?
-    
+    var hasSentLocation = false
     var storeRequest: MessageStore.messageRequest?
     var storeResponse: MessageStore.ChannelMessagesResult?
     var isFirstResponseComplete: Bool = false
@@ -930,7 +930,7 @@ extension HippoConversationViewController: PickerHelperDelegate {
         locationManager = CLLocationManager()
         locationManager?.delegate = self
         locationManager?.requestWhenInUseAuthorization()
-        locationManager?.startUpdatingLocation()
+        locationManager?.requestLocation()
     }
     func sendLocationClicked() {
         getCurrentLocationAndSend()
@@ -2342,17 +2342,19 @@ extension HippoConversationViewController{
 //    }
 //
 extension HippoConversationViewController: CLLocationManagerDelegate {
-
+  
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard !hasSentLocation,
+              let location = locations.last else { return }
 
-        guard let location = locations.last else { return }
+        hasSentLocation = true
 
         let lat = location.coordinate.latitude
         let lng = location.coordinate.longitude
 
-        manager.stopUpdatingLocation()
-
         sendLocationMessage(lat: lat, lng: lng)
+
+        manager.stopUpdatingLocation()
     }
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
