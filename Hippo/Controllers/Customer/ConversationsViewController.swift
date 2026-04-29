@@ -166,7 +166,9 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         }else{
             hideWallet()
         }
-        
+        let swipeGesture = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(handleSwipe))
+        swipeGesture.edges = .left
+        view.addGestureRecognizer(swipeGesture)
         messageTextView.text = preMessage
         button_Recording.recordView = viewRecord
         viewRecord.delegate = self
@@ -612,6 +614,11 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         }
         NotificationCenter.default.addObserver(self, selector: #selector(putUserSuccess), name: .putUserSuccess, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(putUserFail), name: .putUserFailure, object: nil)
+    }
+    @objc func handleSwipe(_ gesture: UIScreenEdgePanGestureRecognizer) {
+        if gesture.state == .recognized {
+            backButtonClicked()
+        }
     }
     @objc func putUserSuccess() {
         stopLoaderAnimation()

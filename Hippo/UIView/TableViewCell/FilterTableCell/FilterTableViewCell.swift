@@ -57,7 +57,6 @@ extension FilterTableViewCell {
         filterLabel.text = textleadingSpace + (cellInfo.nameOfField)
         
         if cellInfo.selected == true {
-//            filterLabel.font = UIFont.boldProximaNova(withSize: 19)
             filterLabel.font = UIFont.bold(ofSize: 19)//UIFont.boldSystemFont(ofSize: 19)
 //            filterLabel.textColor = .darkColor
 //            tickImageView.image = HippoImage.current.multipleAgentSelected
@@ -66,7 +65,6 @@ extension FilterTableViewCell {
             tickImageView.tintColor = HippoConfig.shared.theme.checkBoxActiveTintColor
 //            tickImageView.image = #imageLiteral(resourceName: "checkbox_active_icon")
         } else {
-//            filterLabel.font = UIFont.regularProximaNova(withSize: 19)
             filterLabel.font = UIFont.regular(ofSize: 19)
 //            filterLabel.textColor = .dirtyPurple
 //            tickImageView.image = #imageLiteral(resourceName: "checkbox_inactive_icon")
@@ -106,11 +104,9 @@ extension FilterTableViewCell {
 //        }
 //
 //        if selectedAgents.contains(agentId) {
-//            filterLabel.font = UIFont.boldProximaNova(withSize: 19)
 //            filterLabel.textColor = .darkColor
 //            tickImageView.image = #imageLiteral(resourceName: "checkbox_active_icon")
 //        } else {
-//            filterLabel.font = UIFont.regularProximaNova(withSize: 19)
 //            filterLabel.textColor = .dirtyPurple
 //            tickImageView.image = #imageLiteral(resourceName: "checkbox_inactive_icon")
 //        }
@@ -128,11 +124,9 @@ extension FilterTableViewCell {
 //        filterLabel.text = "  " + (channelObject.channelName ?? "")
 //
 //        if selectedChannels.contains(channelId) {
-//            filterLabel.font = UIFont.boldProximaNova(withSize: 19)
 //            filterLabel.textColor = .darkColor
 //            tickImageView.image = #imageLiteral(resourceName: "checkbox_active_icon")
 //        } else {
-//            filterLabel.font = UIFont.regularProximaNova(withSize: 19)
 //            filterLabel.textColor = .dirtyPurple
 //            tickImageView.image = #imageLiteral(resourceName: "checkbox_inactive_icon")
 //        }
@@ -154,11 +148,9 @@ extension FilterTableViewCell {
 ////        }
 //
 //        if selectedTags.contains(tagId) {
-//            filterLabel.font = UIFont.boldProximaNova(withSize: 19)
 //            filterLabel.textColor = .darkColor
 //            tickImageView.image = #imageLiteral(resourceName: "checkbox_active_icon")
 //        } else {
-//            filterLabel.font = UIFont.regularProximaNova(withSize: 19)
 //            filterLabel.textColor = .dirtyPurple
 //            tickImageView.image = #imageLiteral(resourceName: "checkbox_inactive_icon")
 //        }
@@ -174,12 +166,11 @@ extension FilterTableViewCell {
         filterLabel.text = "  Select All"
         
         if isSelected {
-//            filterLabel.font = UIFont.boldProximaNova(withSize: 19)
             filterLabel.font = UIFont.bold(ofSize: 19)//UIFont.boldSystemFont(ofSize: 19)
             filterLabel.textColor = .darkColor
             tickImageView.image = #imageLiteral(resourceName: "checkbox_active_icon")
         } else {
-//            filterLabel.font = UIFont.regularProximaNova(withSize: 19)
+
             filterLabel.font = UIFont.regular(ofSize: 19)
             filterLabel.textColor = .dirtyPurple
             tickImageView.image = #imageLiteral(resourceName: "checkbox_inactive_icon")

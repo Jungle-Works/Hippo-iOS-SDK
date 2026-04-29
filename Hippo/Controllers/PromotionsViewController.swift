@@ -224,6 +224,15 @@ class PromotionsViewController: UIViewController {
                                                                         width: navigationBar.bounds.width,
                                                                         height: navigationBar.layer.shadowRadius)).cgPath
         
+        let swipeGesture = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(handleSwipe))
+        swipeGesture.edges = .left
+        view.addGestureRecognizer(swipeGesture)
+        
+    }
+    @objc func handleSwipe(_ gesture: UIScreenEdgePanGestureRecognizer) {
+        if gesture.state == .recognized {
+            backButtonClicked()
+        }
     }
     
     @objc func backButtonClicked() {

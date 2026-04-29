@@ -33,7 +33,6 @@ class So_UIImageView: UIImageView {
         set {
             self.image = self.image?.withRenderingMode(.alwaysTemplate)
             self.tintColor = newValue
-            //self.font = UIFont.boldProximaNova(withSize: newValue)
         }
         get {
             return .clear

@@ -69,10 +69,8 @@ class AiMessageTableViewCell: UITableViewCell {
         languageButton.layer.cornerRadius = 4
         languageButton.layer.borderWidth = 1
         languageButton.layer.borderColor = UIColor.systemGray4.cgColor
-//        languageButton.titleLabel?.font = UIFont.regularProximaNova(withSize: 12)
 //        languageButton.setTitleColor(HippoTheme.theme.label.primary, for: .normal)
 //        self.titleLabel.font = UIFont.mediumMontserrat(withSize: 17)
-//        self.optionLabel.font = UIFont.regularProximaNova(withSize: 14)
 //        self.optionLabel.textColor = HippoTheme.theme.label.secondary
         icon.image = HippoConfig.shared.theme.sparkle
         if let tintColor = HippoConfig.shared.theme.sendBtnIconTintColor {
