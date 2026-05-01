@@ -19,10 +19,6 @@ enum ConversationChatType {
 class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     
     // MARK: - IBOutlets
-    private var panGesture: UIPanGestureRecognizer!
-    private var touchStartX: CGFloat = 0
-    private var touchStartY: CGFloat = 0
-
     @IBOutlet weak var newConversationBiutton: UIButton!
     @IBOutlet var showConversationsTableView: UITableView!{
         didSet{
@@ -169,55 +165,15 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         //        self.tabBarController?.tabBar.layer.zPosition = -1
     }
     private func setupCustomSwipeGesture() {
-           panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
-           panGesture.delegate = self
-           // Higher priority than interactivePopGestureRecognizer
-           panGesture.cancelsTouchesInView = false
-           view.addGestureRecognizer(panGesture)
-       }
-
-       // MARK: - Gesture Handler
-
-       @objc private func handlePan(_ gesture: UIPanGestureRecognizer) {
-           let location = gesture.location(in: view)
-           let velocity = gesture.velocity(in: view)
-           let translation = gesture.translation(in: view)
-
-           switch gesture.state {
-           case .began:
-               touchStartX = location.x
-               touchStartY = location.y
-
-           case .changed:
-               // Optional: add real-time visual feedback here
-               break
-
-           case .ended, .cancelled:
-               let deltaX = translation.x
-               let deltaY = translation.y
-               let minSwipeDistance: CGFloat = 50
-               let maxVerticalRatio: CGFloat = 0.6   // horizontal must dominate
-
-               let isHorizontalEnough = abs(deltaX) > abs(deltaY) * (1 / maxVerticalRatio)
-               let isFastEnough = abs(velocity.x) > 200  // px/sec
-
-               if deltaX < -minSwipeDistance && isHorizontalEnough {
-                   handleLeftSwipe()
-               } else if deltaX > minSwipeDistance && isHorizontalEnough {
-                   handleRightSwipe()
-               }
-
-           default:
-               break
-           }
-   }
-    
-    private func handleLeftSwipe() {
-        // your logic here
+        let swipeGesture = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(handleSwipe))
+        swipeGesture.edges = .left
+        view.addGestureRecognizer(swipeGesture)
     }
 
-    private func handleRightSwipe() {
-        self.dismiss(animated: true)
+    @objc func handleSwipe(_ gesture: UIScreenEdgePanGestureRecognizer) {
+        if gesture.state == .recognized {
+            backButtonClicked(self)
+        }
     }
     
     func handleIntialCustomerForm() -> Bool {
@@ -1191,24 +1147,9 @@ extension AllConversationsViewController{
 extension AllConversationsViewController: UIGestureRecognizerDelegate {
 
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        // Block system pop on this screen (it's ROOT, nothing to pop to)
         if gestureRecognizer == navigationController?.interactivePopGestureRecognizer {
             return false
         }
-        
-        // For our custom pan — only begin if gesture is horizontal
-        if let pan = gestureRecognizer as? UIPanGestureRecognizer {
-            let velocity = pan.velocity(in: view)
-            return abs(velocity.x) > abs(velocity.y)
-        }
         return true
-    }
-
-    func gestureRecognizer(
-        _ gestureRecognizer: UIGestureRecognizer,
-        shouldRecognizeSimultaneouslyWith other: UIGestureRecognizer
-    ) -> Bool {
-        // Allow pan to coexist with table view scrolling
-        return other is UIPanGestureRecognizer
     }
 }

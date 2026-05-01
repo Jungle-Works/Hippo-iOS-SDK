@@ -46,7 +46,7 @@ class NewAllConversationViewController: UIViewController, NewChatSentDelegate {
     override func viewDidLoad() {
         addObservers()
         setViewUI()
-       
+        setupSwipeGesture()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -62,6 +62,10 @@ class NewAllConversationViewController: UIViewController, NewChatSentDelegate {
         UIView.animate(withDuration: 0.2, delay: 0, options: [.curveEaseOut], animations: {
             self.updateNewConversationBtnUI(isSelected: true)
         })
+    }
+    
+    override func viewDidAppear(_ animated: Bool){
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = false //disable
     }
     
     func addObservers() {
@@ -378,6 +382,18 @@ class NewAllConversationViewController: UIViewController, NewChatSentDelegate {
          self.tableView.reloadData()
    }
     
+    private func setupSwipeGesture() {
+        let swipeGesture = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(handleSwipe))
+        swipeGesture.edges = .left
+        view.addGestureRecognizer(swipeGesture)
+    }
+
+    @objc func handleSwipe(_ gesture: UIScreenEdgePanGestureRecognizer) {
+        if gesture.state == .recognized {
+            backButtonAction(UIButton())
+        }
+    }
+
     @IBAction func backButtonAction(_ sender: UIButton) {
 //        saveConversationsInCache()
         HippoConfig.shared.notifiyDeinit()
@@ -517,5 +533,14 @@ extension NewAllConversationViewController: UITableViewDelegate, UITableViewData
             pushTotalUnreadCount()
             tableView.reloadRows(at: [indexPath], with: .none)
         }
+    }
+}
+extension NewAllConversationViewController: UIGestureRecognizerDelegate {
+
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        if gestureRecognizer == navigationController?.interactivePopGestureRecognizer {
+            return false
+        }
+        return true
     }
 }
