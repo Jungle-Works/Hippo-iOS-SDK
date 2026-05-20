@@ -532,7 +532,7 @@ class AgentConversationViewController: HippoConversationViewController {
         let unsentCache = FuguDefaults.object(forKey: "StoredUnsendMessages") as? [String: Any] ?? [:]
         //        print(unsentCache ?? [:])
         let value = (unsentCache["\(channelId)"]) ?? ""
-        return value as! String
+        return value as? String ?? ""
     }
     
     func setUpLastUnsendMessage(message:String){
@@ -2324,7 +2324,7 @@ extension AgentConversationViewController {
             return false
         }
         
-        if lastVisibleIndexPath.section == (messagesGroupedByDate.count - 1) && lastVisibleIndexPath.row < (messagesGroupedByDate.last!.count - 1) {
+        if lastVisibleIndexPath.section == (messagesGroupedByDate.count - 1) && lastVisibleIndexPath.row < ((messagesGroupedByDate.last?.count ?? 0) - 1) {
             return false
         }
         

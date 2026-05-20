@@ -66,22 +66,21 @@ class OutgoingDocumentTableViewCell: DocumentTableViewCell {
     
     override func updateUIAccordingToFileDownloadStatus() {
         updateUIAccordingToStatus()
-        if message!.status != .none && message?.wasMessageSendingFailed == false {
+        if message?.status != .none && message?.wasMessageSendingFailed == false {
             super.updateUIAccordingToFileDownloadStatus()
         }
     }
     
     func updateUIAccordingToStatus() {
+        guard let message = message else { return }
         retryButton.setTitleColor(.themeColor, for: .normal)
         retryButton.isHidden = true
-        
-        //      forwardButtonView.isHidden = message!.status == .none
-        
-        switch message!.status {
-        case .none where message!.isFileUploading && !message!.wasMessageSendingFailed:
+
+        switch message.status {
+        case .none where message.isFileUploading && !message.wasMessageSendingFailed:
             tickImage.image = HippoConfig.shared.theme.unsentMessageIcon
             activityIndicator.startAnimating()
-        case .none where message!.wasMessageSendingFailed:
+        case .none where message.wasMessageSendingFailed:
             tickImage.image = HippoConfig.shared.theme.unsentMessageIcon
             activityIndicator.stopAnimating()
             retryButton.setTitle("", for: .normal)
@@ -120,21 +119,20 @@ class OutgoingDocumentTableViewCell: DocumentTableViewCell {
         activityIndicator.color = HippoConfig.shared.theme.outgoingMsgColor
     }
     override func bgViewTaped() {
-        guard !retryButton.isHidden else {
+        guard let message = message, !retryButton.isHidden else {
             return
         }
-        switch message!.status {
+        switch message.status {
         case .none:
-            delegate?.retryUploadFor(message: message!)
+            delegate?.retryUploadFor(message: message)
         default:
             super.bgViewTaped()
         }
-        if message?.senderFullName ?? "" != HippoConfig.shared.agentDetail?.fullName ?? ""{
-            setCellWith(message: message!, comingFrom: message?.senderFullName ?? "")
-        }else{
-            setCellWith(message: message!, comingFrom: "You")
+        if message.senderFullName ?? "" != HippoConfig.shared.agentDetail?.fullName ?? "" {
+            setCellWith(message: message, comingFrom: message.senderFullName ?? "")
+        } else {
+            setCellWith(message: message, comingFrom: "You")
         }
-
     }
     
 }
@@ -184,7 +182,8 @@ class DocumentTableViewCell: MessageTableViewCell {
     }
     
     @objc func bgViewTaped() {
-        actionDelegate?.performActionAccordingToStatusOf(message: message!, inCell: self)
+        guard let message = message else { return }
+        actionDelegate?.performActionAccordingToStatusOf(message: message, inCell: self)
         updateUI()
     }
     func updateDataInView() {
@@ -208,12 +207,12 @@ class DocumentTableViewCell: MessageTableViewCell {
     }
     
     func updateUIAccordingToFileDownloadStatus() {
-        guard message!.fileUrl != nil else {
+        guard let message = message, let fileUrl = message.fileUrl else {
             return
         }
-        
-        let isFileBeingDownloaded = DownloadManager.shared.isFileBeingDownloadedWith(url: message!.fileUrl!)
-        let isFileDownLoaded = DownloadManager.shared.isFileDownloadedWith(url: message!.fileUrl!)
+
+        let isFileBeingDownloaded = DownloadManager.shared.isFileBeingDownloadedWith(url: fileUrl)
+        let isFileDownLoaded = DownloadManager.shared.isFileDownloadedWith(url: fileUrl)
         
         retryButton.setTitle("", for: .normal)
         retryButton.setImage(nil, for: .normal)

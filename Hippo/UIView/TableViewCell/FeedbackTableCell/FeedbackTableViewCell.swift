@@ -127,7 +127,7 @@ class FeedbackTableViewCell: MessageTableViewCell {
         titleLabel.text = HippoStrings.ratingReview
 
         
-        if params.messageObject!.is_rating_given {
+        if params.messageObject?.is_rating_given == true {
             //  completionView.isHidden = false
             submitButton.isHidden = true
             cellTextView.isEditable = false
@@ -172,7 +172,7 @@ class FeedbackTableViewCell: MessageTableViewCell {
         titleLabel.text = HippoStrings.ratingReview
         placeholderLabel.text = HippoStrings.writeReview
         
-        if params.messageObject!.is_rating_given {
+        if params.messageObject?.is_rating_given == true {
             //completionView.isHidden = false
             submitButton.isHidden = true
             cellTextView.isEditable = false

@@ -1209,9 +1209,9 @@ extension HippoConversationViewController {
         let imageData: Data?
         
         #if swift(>=4.2)
-        let imageSize = confirmedImage.jpegData(compressionQuality: 1)!.count
+        let imageSize = confirmedImage.jpegData(compressionQuality: 1)?.count ?? 0
         #else
-        let imageSize = UIImageJPEGRepresentation(confirmedImage, 1)!.count
+        let imageSize = UIImageJPEGRepresentation(confirmedImage, 1)?.count ?? 0
         #endif
         
         print(imageSize)
@@ -1367,7 +1367,7 @@ extension HippoConversationViewController {
     }
     
     func getCacheDirectoryUrlForFileWith(name: String) -> URL {
-        let cacheDirectoryPath = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first!.path
+        let cacheDirectoryPath = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first?.path ?? NSTemporaryDirectory()
         var fileUrl = URL.init(fileURLWithPath: cacheDirectoryPath)
         fileUrl.appendPathComponent(name)
         return fileUrl
@@ -1418,7 +1418,7 @@ extension HippoConversationViewController {
 //            //
 //            //            if countOfDateGroupedArrayBeforeUpdate == self.messagesGroupedByDate.count {
 //            //
-//            //                let currentLastSectionRows = self.messagesGroupedByDate.last!.count
+//            //                let currentLastSectionRows = self.messagesGroupedByDate.last?.count ?? 0
 //            //
 //            //                if previousLastSectionRows != currentLastSectionRows {
 //            //                    let lastIndexPath = IndexPath(row: currentLastSectionRows - 1, section: self.messagesGroupedByDate.count - 1)
@@ -1441,7 +1441,7 @@ extension HippoConversationViewController {
             var previousLastSectionRows = 0
 
             if countOfDateGroupedArrayBeforeUpdate > 0 {
-                previousLastSectionRows = self.messagesGroupedByDate.last!.count
+                previousLastSectionRows = self.messagesGroupedByDate.last?.count ?? 0
             }
 
             // beginUpdates must come BEFORE the data model change so UITableView
@@ -1459,7 +1459,7 @@ extension HippoConversationViewController {
 
             if countOfDateGroupedArrayBeforeUpdate == self.messagesGroupedByDate.count {
 
-                let currentLastSectionRows = self.messagesGroupedByDate.last!.count
+                let currentLastSectionRows = self.messagesGroupedByDate.last?.count ?? 0
 
                 if previousLastSectionRows != currentLastSectionRows {
                     let lastIndexPath = IndexPath(row: currentLastSectionRows - 1, section: self.messagesGroupedByDate.count - 1)

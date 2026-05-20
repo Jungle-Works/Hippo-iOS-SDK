@@ -309,10 +309,10 @@ class PromotionsViewController: UIViewController {
                         self.states.removeAll()
                     }
                     
-                    for item in arr{
-                        let i = item as! [String:Any]
-                        let dataNew = PromotionCellDataModel(dict:i)
-                        self.data.append(dataNew!)
+                    for item in arr {
+                        guard let i = item as? [String: Any],
+                              let dataNew = PromotionCellDataModel(dict: i) else { continue }
+                        self.data.append(dataNew)
                         self.states.append(true)
                     }
                     

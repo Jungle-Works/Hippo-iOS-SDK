@@ -2942,7 +2942,7 @@ extension ConversationsViewController {
             return false
         }
         
-        if lastVisibleIndexPath.section == (messagesGroupedByDate.count - 1) && lastVisibleIndexPath.row < (messagesGroupedByDate.last!.count - 1) {
+        if lastVisibleIndexPath.section == (messagesGroupedByDate.count - 1) && lastVisibleIndexPath.row < ((messagesGroupedByDate.last?.count ?? 0) - 1) {
             return false
         }
         
