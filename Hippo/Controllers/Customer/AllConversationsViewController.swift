@@ -353,6 +353,10 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         //  title = config.title ?? HippoConfig.shared.theme.headerText
     }
     
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+
     func addObservers() {
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: HippoVariable.willResignActiveNotification, object: nil)

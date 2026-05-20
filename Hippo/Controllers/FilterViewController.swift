@@ -800,14 +800,18 @@ extension FilterViewController: SearchBarDelegate {
         case .channels:
             updateApplyButton(hide: true)
             timer?.invalidate()
-            timer = Timer.scheduledTimer(timeInterval: 0.6, target: self, selector: #selector(searchChannel), userInfo: nil, repeats: false)
+            timer = Timer.scheduledTimer(withTimeInterval: 0.6, repeats: false) { [weak self] _ in
+                self?.searchChannel()
+            }
         case .labels:
             filterLabels(with: searchText)
         case .agents:
             filterAgents(with: searchText)
         case .people:
             timer?.invalidate()
-            timer = Timer.scheduledTimer(timeInterval: 0.6, target: self, selector: #selector(searchPeople), userInfo: nil, repeats: false)
+            timer = Timer.scheduledTimer(withTimeInterval: 0.6, repeats: false) { [weak self] _ in
+                self?.searchPeople()
+            }
         case .status, .chatType, .date:
             return
         }

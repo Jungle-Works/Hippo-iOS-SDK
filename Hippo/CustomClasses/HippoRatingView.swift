@@ -21,7 +21,7 @@ import UIKit
     
     // MARK: Properties
     
-    var delegate: FloatRatingViewDelegate?
+    weak var delegate: FloatRatingViewDelegate?
     
     /// Array of empty image views
     private var emptyImageViews: [UIImageView] = []

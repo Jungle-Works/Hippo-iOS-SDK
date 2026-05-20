@@ -100,6 +100,11 @@ class HippoConversationViewController: UIViewController {
     @IBOutlet weak var view_Navigation : NavigationBarChat!
     @IBOutlet weak var height_errorView : NSLayoutConstraint!
     
+    deinit {
+        timer.invalidate()
+        NotificationCenter.default.removeObserver(self)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         recordingHelper.delegate = self
@@ -108,7 +113,7 @@ class HippoConversationViewController: UIViewController {
         //        tableViewChat.backgroundView = UIImageView(image: UIImage(named: "background"))
         
         removeNotificationsFromNotificationCenter(channelId: channelId)
-        registerFayeNotification()
+        // registerFayeNotification is called in viewWillAppear — don't register here too or socket observers fire twice on first load
     }
     
     

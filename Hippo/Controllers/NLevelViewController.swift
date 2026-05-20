@@ -49,6 +49,7 @@ class NLevelViewController: UIViewController {
     }
     
     deinit {
+        NotificationCenter.default.removeObserver(self)
         if !HippoSupportList.currentPathArray.isEmpty {
             HippoSupportList.currentPathArray.removeLast()
         }

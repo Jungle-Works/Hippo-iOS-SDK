@@ -153,6 +153,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     
     
     deinit {
+        timer.invalidate()
         HippoChannel.botMessageMUID = nil
         NotificationCenter.default.removeObserver(self)
         HippoConfig.shared.notifiyDeinit()
@@ -441,7 +442,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     
     override  func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
+        timer.invalidate()
     }
     
     override func didSetChannel() {
@@ -3071,7 +3072,9 @@ extension ConversationsViewController: UITextViewDelegate {
         placeHolderLabel.textColor = #colorLiteral(red: 0.2862745098, green: 0.2862745098, blue: 0.2862745098, alpha: 0.8)
         textInTextField = textView.text
         textViewBgView.backgroundColor = .white
-        timer = Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(self.watcherOnTextView), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(withTimeInterval: 3.0, repeats: true) { [weak self] _ in
+            self?.watcherOnTextView()
+        }
         
         return true
     }

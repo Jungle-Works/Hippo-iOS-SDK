@@ -81,8 +81,11 @@ class AudioPlayerManager {
     }
     func startTimer() {
         disableTimer()
-        DispatchQueue.main.async {
-            self.timer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(self.timerCall), userInfo: nil, repeats: true)
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { [weak self] _ in
+                self?.timerCall()
+            }
         }
     }
     func disableTimer() {
