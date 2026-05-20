@@ -478,11 +478,6 @@ func pushTotalUnreadCount() {
         }
     }
     
-    if noDataFound{
-        let allConversationObj = AllConversationsViewController()
-        allConversationObj.getAllConversations()
-        return
-    }
 }
 
 func updateStoredUnreadCountFor(toIncreaseCount : Bool = false, with userInfo: [String: Any]) {

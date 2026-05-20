@@ -192,7 +192,7 @@ class NewAllConversationViewController: UIViewController, NewChatSentDelegate {
     
     func getAllConversations() {
         arrayOfConversation = []
-        
+        tableView.reloadData()
         FuguConversation.getAllConversationFromServer(config: config) { [weak self] (result) in
             self?.refreshControl.endRefreshing()
             resetPushCount()
