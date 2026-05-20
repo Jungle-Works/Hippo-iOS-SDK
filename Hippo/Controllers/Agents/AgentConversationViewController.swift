@@ -231,7 +231,7 @@ class AgentConversationViewController: HippoConversationViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
+        timer.invalidate()
         if messageTextView.isFirstResponder {
             messageTextView.resignFirstResponder()
             //            self.bottomSpaceOfFooterView.constant = 0
@@ -2451,7 +2451,9 @@ extension AgentConversationViewController: UITextViewDelegate {
         textViewBgView.backgroundColor = isPrivate ? HippoConfig.shared.theme.privateNoteChatBoxColor : UIColor.white
         //        messageTextView.tintColor = isPrivate ? UIColor(red: 0/255, green: 122/255, blue: 255/255, alpha: 1) : UIColor.black
         //        bottomContentView.backgroundColor = .white
-        timer = Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(self.watcherOnTextView), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(withTimeInterval: 3.0, repeats: true) { [weak self] _ in
+            self?.watcherOnTextView()
+        }
         
         return true
     }

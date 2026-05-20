@@ -15,7 +15,7 @@ class ActionTableDataSource: NSObject, UITableViewDataSource {
         case headerMessage = 0
         case buttons = 1
     }
-    var delegate: ActionTableProtocol?
+    weak var delegate: ActionTableProtocol?
     var message: HippoActionMessage?
     
     init(message: HippoActionMessage, delegate: ActionTableProtocol) {

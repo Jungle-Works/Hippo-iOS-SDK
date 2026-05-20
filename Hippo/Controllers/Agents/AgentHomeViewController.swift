@@ -162,6 +162,7 @@ class AgentHomeViewController: HippoHomeViewController {
     }
 
     deinit {
+        NotificationCenter.default.removeObserver(self)
         HippoConfig.shared.log.debug("-------\nERROR\nDeinit AgentHome\n--------", level: .info)
     }
     

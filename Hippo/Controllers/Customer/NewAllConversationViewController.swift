@@ -68,6 +68,10 @@ class NewAllConversationViewController: UIViewController, NewChatSentDelegate {
         navigationController?.interactivePopGestureRecognizer?.isEnabled = false //disable
     }
     
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+
     func addObservers() {
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: HippoVariable.willResignActiveNotification, object: nil)
