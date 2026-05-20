@@ -1434,40 +1434,46 @@ extension HippoConversationViewController {
 //        
 //    }
     func updateMessagesArrayLocallyForUIUpdation(_ messageDict: HippoMessage) {
-            
-            DispatchQueue.main.async {
-                
-                let countOfDateGroupedArrayBeforeUpdate = self.messagesGroupedByDate.count
-                var previousLastSectionRows = 0
-                
-                if countOfDateGroupedArrayBeforeUpdate > 0 {
-                    previousLastSectionRows = self.messagesGroupedByDate.last!.count
-                }
-                
-                self.updateMessagesGroupedByDate([messageDict])
-                
-                if self.messagesGroupedByDate.count == 0 {
-                    return
-                }
-                self.tableViewChat.beginUpdates()
-                
-                if countOfDateGroupedArrayBeforeUpdate == self.messagesGroupedByDate.count {
-                    
-                    let currentLastSectionRows = self.messagesGroupedByDate.last!.count
-                    
-                    if previousLastSectionRows != currentLastSectionRows {
-                        let lastIndexPath = IndexPath(row: currentLastSectionRows - 1, section: self.messagesGroupedByDate.count - 1)
-                        self.tableViewChat.insertRows(at: [lastIndexPath], with: .none)
-                    }
-                    
-                } else {
-                    let newSectionsOfTableView = IndexSet([self.messagesGroupedByDate.count - 1])
-                    self.tableViewChat.insertSections(newSectionsOfTableView, with: .none)
-                }
-                self.tableViewChat.endUpdates()
+
+        DispatchQueue.main.async {
+
+            let countOfDateGroupedArrayBeforeUpdate = self.messagesGroupedByDate.count
+            var previousLastSectionRows = 0
+
+            if countOfDateGroupedArrayBeforeUpdate > 0 {
+                previousLastSectionRows = self.messagesGroupedByDate.last!.count
             }
-            
+
+            // beginUpdates must come BEFORE the data model change so UITableView
+            // snapshots the old section count. Updating the model first causes
+            // UIKit to see N+1 sections at beginUpdates and then count +1 again
+            // from insertSections, expecting N+2 but finding N+1 → crash.
+            self.tableViewChat.beginUpdates()
+
+            self.updateMessagesGroupedByDate([messageDict])
+
+            if self.messagesGroupedByDate.count == 0 {
+                self.tableViewChat.endUpdates()
+                return
+            }
+
+            if countOfDateGroupedArrayBeforeUpdate == self.messagesGroupedByDate.count {
+
+                let currentLastSectionRows = self.messagesGroupedByDate.last!.count
+
+                if previousLastSectionRows != currentLastSectionRows {
+                    let lastIndexPath = IndexPath(row: currentLastSectionRows - 1, section: self.messagesGroupedByDate.count - 1)
+                    self.tableViewChat.insertRows(at: [lastIndexPath], with: .none)
+                }
+
+            } else {
+                let newSectionsOfTableView = IndexSet([self.messagesGroupedByDate.count - 1])
+                self.tableViewChat.insertSections(newSectionsOfTableView, with: .none)
+            }
+            self.tableViewChat.endUpdates()
         }
+
+    }
 
     func openQuicklookFor(fileURL: String, fileName: String) {
         //        if message?.type == .embeddedVideoUrl{
