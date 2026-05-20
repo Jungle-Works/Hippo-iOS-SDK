@@ -31,7 +31,7 @@ class MediaWebViewController: UIViewController {
     func downloadAndSaveFile() {
        // startLoading()
 
-        let documentsPath =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.path
+        guard let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.path else { return }
 
         var documentUrl = URL.init(fileURLWithPath: documentsPath)
         documentUrl.appendPathComponent(config.title)

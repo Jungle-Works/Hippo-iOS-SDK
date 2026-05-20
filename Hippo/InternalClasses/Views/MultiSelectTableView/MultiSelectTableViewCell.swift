@@ -79,9 +79,8 @@ class MultiSelectTableViewCell: UITableViewCell {
     }
     
     func getTimeString() -> String {
-        guard message != nil else { return "" }
-        let timeOfMessage = changeDateToParticularFormat(message!.creationDateTime, dateFormat: "h:mm a", showInFormat: true)
-        return timeOfMessage
+        guard let message = message else { return "" }
+        return changeDateToParticularFormat(message.creationDateTime, dateFormat: "h:mm a", showInFormat: true)
     }
     
     func setTime() {
@@ -279,51 +278,41 @@ extension MultiSelectTableViewCell : UITableViewDelegate
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        if indexPath.section == 1 && message?.customAction?.isReplied == 0
-        {
-            let cell = multiselectTableView.cellForRow(at: indexPath) as! MultipleSelectTableViewCell
-            
-            let button = message?.customAction?.buttonsArray![indexPath.row]
-           
-            if (message?.customAction!.maxSelection)! > 1
-            {
-//                let arr = message?.customAction?.buttonsArray as! [MultiselectButtons]
-//                var selectedButtonsArr = arr.filter { $0.status == true }
-//                print(selectedButtonsArr.count)
-                var selectedButtonsArr = [MultiselectButtons]()
-                if let arr = message?.customAction?.buttonsArray as? [MultiselectButtons]{
-                    selectedButtonsArr = arr.filter { $0.status == true }
-                }
-
-                if selectedButtonsArr.count < (message?.customAction!.maxSelection)!
-                {
-                    button?.status = !button!.status!
-                    message?.customAction?.buttonsArray![indexPath.row] = button!
-                    cell.set(button: button!)
-                }
-                
-                if selectedButtonsArr.contains(button!) && selectedButtonsArr.count >= (message?.customAction!.maxSelection)!
-                {
-                    button?.status = !button!.status!
-                    message?.customAction?.buttonsArray![indexPath.row] = button!
-                    cell.set(button: button!)
-                }
-                
-            }else {
-                button?.status = !button!.status!
-                message?.customAction?.buttonsArray![indexPath.row] = button!
-                
-                for item in message?.customAction?.buttonsArray ?? [] {
-                    if item != button {
-                       item.status = false
-                    }
-                }
-                 cell.set(button: button!)
-            }
-            
-            tableView.reloadData()
+        guard indexPath.section == 1,
+              message?.customAction?.isReplied == 0,
+              let customAction = message?.customAction,
+              let buttonsArray = customAction.buttonsArray,
+              indexPath.row < buttonsArray.count,
+              let cell = multiselectTableView.cellForRow(at: indexPath) as? MultipleSelectTableViewCell else {
+            return
         }
+
+        let button = buttonsArray[indexPath.row]
+        let maxSelection = customAction.maxSelection
+
+        if maxSelection > 1 {
+            let selectedButtonsArr = buttonsArray.filter { $0.status == true }
+
+            if selectedButtonsArr.count < maxSelection {
+                button.status = !(button.status ?? false)
+                customAction.buttonsArray?[indexPath.row] = button
+                cell.set(button: button)
+            } else if selectedButtonsArr.contains(button) {
+                button.status = !(button.status ?? false)
+                customAction.buttonsArray?[indexPath.row] = button
+                cell.set(button: button)
+            }
+        } else {
+            button.status = !(button.status ?? false)
+            customAction.buttonsArray?[indexPath.row] = button
+
+            for item in buttonsArray where item != button {
+                item.status = false
+            }
+            cell.set(button: button)
+        }
+
+        tableView.reloadData()
 //        else if indexPath.section == 0
 //        {
 //            let cell = multiselectTableView.cellForRow(at: indexPath) as! MultiSelectHeaderTableViewCell

@@ -166,7 +166,7 @@ class AudioTableViewCell: MessageTableViewCell {
     
     func updateLabels() {
         DispatchQueue.main.async {
-            self.fileName.text = self.message!.fileName
+            self.fileName.text = self.message?.fileName
 
             guard AudioPlayerManager.shared.tag == self.cellIdentifier else {
                 self.totalTimeLabel.text = ""

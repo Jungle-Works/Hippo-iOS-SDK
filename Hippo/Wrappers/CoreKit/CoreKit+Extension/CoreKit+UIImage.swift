@@ -11,24 +11,23 @@ import UIKit
 
 public extension UIImage {
     func rotateCameraImageToProperOrientation(maxResolution: CGFloat) -> UIImage {
-        let imgRef = self.cgImage
-        
-        let width = CGFloat(imgRef!.width)
-        let height = CGFloat(imgRef!.height)
-        
+        guard let imgRef = self.cgImage else { return self }
+
+        let width = CGFloat(imgRef.width)
+        let height = CGFloat(imgRef.height)
+
         var bounds = CGRect.init(x: 0, y: 0, width: width, height: height)
         var scaleRatio: CGFloat = 1
-        
+
         if width > maxResolution || height > maxResolution {
-            
             scaleRatio = min(maxResolution / bounds.size.width, maxResolution / bounds.size.height)
             bounds.size.height *= scaleRatio
             bounds.size.width *= scaleRatio
         }
-        
+
         var transform = CGAffineTransform.identity
         let orient = self.imageOrientation
-        let imageSize = CGSize(width: imgRef!.width, height: imgRef!.height)
+        let imageSize = CGSize(width: imgRef.width, height: imgRef.height)
         
         switch self.imageOrientation {
             
@@ -88,29 +87,26 @@ public extension UIImage {
         }
         
         UIGraphicsBeginImageContext(bounds.size)
-        let context = UIGraphicsGetCurrentContext()
-        
-        
-        if orient == .right || orient == .left {
-            
-            context!.scaleBy(x: -scaleRatio, y: scaleRatio)
-            context!.translateBy(x: -height, y: 0)
-            
-        } else {
-            
-            context!.scaleBy(x: scaleRatio, y: -scaleRatio)
-            context!.translateBy(x: 0, y: -height)
-            
+        guard let context = UIGraphicsGetCurrentContext() else {
+            UIGraphicsEndImageContext()
+            return self
         }
-        
-        context?.concatenate(transform)
-        
-        context?.draw(imgRef!, in: CGRect.init(x: 0, y: 0, width: width, height: height))
-        
+
+        if orient == .right || orient == .left {
+            context.scaleBy(x: -scaleRatio, y: scaleRatio)
+            context.translateBy(x: -height, y: 0)
+        } else {
+            context.scaleBy(x: scaleRatio, y: -scaleRatio)
+            context.translateBy(x: 0, y: -height)
+        }
+
+        context.concatenate(transform)
+        context.draw(imgRef, in: CGRect(x: 0, y: 0, width: width, height: height))
+
         let imageCopy = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        
-        return imageCopy!
+
+        return imageCopy ?? self
     }
     
 }

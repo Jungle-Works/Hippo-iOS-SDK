@@ -25,11 +25,8 @@ class MessageTableViewCell: UITableViewCell {
     }
     
     func getTimeString() -> String {
-        guard message != nil else {
-            return ""
-        }
-        let timeOfMessage = changeDateToParticularFormat(message!.creationDateTime, dateFormat: "h:mm a", showInFormat: true)
-        return timeOfMessage
+        guard let message = message else { return "" }
+        return changeDateToParticularFormat(message.creationDateTime, dateFormat: "h:mm a", showInFormat: true)
     }
     func setTime() {
         let timeOfMessage = getTimeString()

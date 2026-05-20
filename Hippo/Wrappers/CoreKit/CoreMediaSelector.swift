@@ -203,9 +203,9 @@ public class CoreMediaSelector: NSObject, UINavigationControllerDelegate, UIImag
         }
         
         #if swift(>=4.2)
-            let size = originalImage.jpegData(compressionQuality: 1.0)!.count
+            let size = originalImage.jpegData(compressionQuality: 1.0)?.count ?? 0
         #else
-            let size =  UIImageJPEGRepresentation(originalImage, 1.0)!.count
+            let size = UIImageJPEGRepresentation(originalImage, 1.0)?.count ?? 0
         #endif
         let compressionQuality: CGFloat
         

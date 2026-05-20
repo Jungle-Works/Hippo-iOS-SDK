@@ -89,16 +89,17 @@ public class CoreDocumentPicker: NSObject, UIDocumentPickerDelegate {
     }
     
     public func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
-        guard CoreKit.shared.filesConfig.checkForDataSelectionLimit(url: urls.first!) == true else {
+        guard let firstURL = urls.first else { return }
+        guard CoreKit.shared.filesConfig.checkForDataSelectionLimit(url: firstURL) == true else {
             DispatchQueue.main.async {
                 self.delegate?.fileSelectedWithBiggerSize(maxSizeAllowed: CoreFilesConfig.maxSizeAllowedToUploadInMB)
             }
             return
         }
-        
+
         DispatchQueue.main.async {
             self.picker.dismiss(animated: true, completion: nil)
-            self.delegate?.didPickDocumentWith(url: urls.first!)
+            self.delegate?.didPickDocumentWith(url: firstURL)
         }
     }
     
