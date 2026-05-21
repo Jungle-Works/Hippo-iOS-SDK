@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol AgentProfilePresenterDelegate: class {
+protocol AgentProfilePresenterDelegate: AnyObject {
     func profileUpdated()
 }
 class AgentProfilePresenter {

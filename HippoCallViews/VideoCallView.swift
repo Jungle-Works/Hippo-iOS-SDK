@@ -16,13 +16,7 @@ import HippoCallClient
 
 extension UIView {
     class var safeAreaInsetsForAllOS: UIEdgeInsets {
-        var insets: UIEdgeInsets
-        if #available(iOS 11.0, *) {
-            insets = UIApplication.shared.keyWindow?.safeAreaInsets ?? UIEdgeInsets()
-        } else {
-            insets = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
-        }
-        return insets
+        return UIApplication.shared.currentKeyWindow?.safeAreaInsets ?? UIEdgeInsets()
     }
     static var safeAreaInsetOfKeyWindow: UIEdgeInsets {
         return safeAreaInsetsForAllOS
@@ -919,7 +913,7 @@ class VideoCallView: UIView {
         localVideoView.backgroundColor = .clear
         
         UIView.animate(withDuration: 0.5, animations: {
-            self.frame = UIApplication.shared.keyWindow!.bounds
+            self.frame = UIApplication.shared.currentKeyWindow?.bounds ?? self.frame
             self.layoutIfNeeded()
         }) { (_) in
             self.setUIWhenCallConnected()
@@ -975,10 +969,10 @@ class VideoCallView: UIView {
                 break
             }
         }
-        guard let keyWindow = UIApplication.shared.keyWindow else {
+        guard let keyWindow = UIApplication.shared.currentKeyWindow else {
             return view
         }
-        
+
         keyWindow.endEditing(true)
         view.frame = keyWindow.bounds
         keyWindow.addSubview(view)

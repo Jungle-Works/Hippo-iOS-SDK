@@ -8,7 +8,7 @@
 
 import UIKit
 //import Kingfisher
-protocol SelectImageViewControllerDelegate: class {
+protocol SelectImageViewControllerDelegate: AnyObject {
     func selectImageVC(_ selectedImageVC: SelectImageViewController, selectedImage: UIImage)
     func goToConversationViewController()
 }
@@ -86,7 +86,7 @@ class SelectImageViewController: UIViewController {
 //import FuguShare
 //import SZMentionsSwift
 //
-//protocol SelectImageViewControllerDelegate: class {
+//protocol SelectImageViewControllerDelegate: AnyObject {
 //    func selectImageVC(_ selectedImageVC: SelectImageViewController, selectedImage: UIImage, info: FuguImageInfo, gifData: Data?)
 //}
 //

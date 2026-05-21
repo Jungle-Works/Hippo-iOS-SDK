@@ -7,7 +7,7 @@
 //
 
 import UIKit
-protocol SelfMessageDelegate: class {
+protocol SelfMessageDelegate: AnyObject {
    func cancelMessage(message: HippoMessage)
    func retryMessageUpload(message: HippoMessage)
 }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol  AddLabelProtocol: class {
+protocol  AddLabelProtocol: AnyObject {
     func addLabelAction(tagsArray: [TagDetail])
     func cancelAction()
 }

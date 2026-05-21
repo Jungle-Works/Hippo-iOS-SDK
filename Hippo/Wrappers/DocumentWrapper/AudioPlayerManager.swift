@@ -12,7 +12,7 @@ import NotificationCenter
 import AVFoundation
 
 
-protocol AudioPlayerManagerDelegate: class {
+protocol AudioPlayerManagerDelegate: AnyObject {
     func timer(_ player: AVAudioPlayer)
     func playerEnded(_ player: AVAudioPlayer)
 }

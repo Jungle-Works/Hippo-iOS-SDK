@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol VideoCallMessageTableViewCellDelegate: class {
+protocol VideoCallMessageTableViewCellDelegate: AnyObject {
     func callAgainButtonPressed(callType: CallType)
 }
 

@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol RecentSearchedProtocol: class {
+protocol RecentSearchedProtocol: AnyObject {
     func cancelTapped()
 }
 

@@ -15,7 +15,7 @@ class LeadDataTextfield: UITextField {
     }
 }
 
-protocol NewChatSentDelegate: class {
+protocol NewChatSentDelegate: AnyObject {
     func updateConversationWith(conversationObj: FuguConversation)
 }
 
@@ -570,7 +570,6 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     }
     
     func prepareSuggestionUI() {
-        let theme = HippoConfig.shared.theme
         self.suggestionContainerView.addSubview(suggestionCollectionView)
         suggestionCollectionView.backgroundColor = .clear//theme.themeColor
         let bundle = FuguFlowManager.bundle
@@ -804,7 +803,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         
         HippoConfig.shared.HideJitsiView()
         self.customTableView.reloadData()
-        let window = UIApplication.shared.windows.first
+        let window = UIApplication.shared.currentKeyWindow
         transparentView.backgroundColor = UIColor.black.withAlphaComponent(0.9)
         let screenSize = UIScreen.main.bounds.size
         transparentView.frame = CGRect(x: 0, y: 0, width: screenSize.width, height: screenSize.height)
@@ -2757,12 +2756,7 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                                                                   showInFormat: false).capitalized
                 }
             }
-#if swift(>=4.0)
-            let widthIs: CGFloat = CGFloat(dateLabel.text!.boundingRect(with: dateLabel.frame.size, options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: dateLabel.font], context: nil).size.width) + 10
-            
-#else
-            let widthIs: CGFloat = CGFloat(dateLabel.text!.boundingRect(with: dateLabel.frame.size, options: .usesLineFragmentOrigin, attributes: [NSFontAttributeName: dateLabel.font], context: nil).size.width) + 10
-#endif
+            let widthIs: CGFloat = CGFloat((dateLabel.text ?? "").boundingRect(with: dateLabel.frame.size, options: .usesLineFragmentOrigin, attributes: [.font: dateLabel.font as Any], context: nil).size.width) + 10
             let dateLabelHeight = CGFloat(24)
             dateLabel.frame = CGRect(x: (UIScreen.main.bounds.size.width / 2) - (widthIs/2), y: (labelBgView.frame.height - dateLabelHeight)/2, width: widthIs + 10, height: dateLabelHeight)
             labelBgView.addSubview(dateLabel)

@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol ImageCellDelegate: class {
+protocol ImageCellDelegate: AnyObject {
     func reloadCell(withIndexPath indexPath: IndexPath)
     func retryUploadForImage(message: HippoMessage)
     func showImageFor(message: HippoMessage)

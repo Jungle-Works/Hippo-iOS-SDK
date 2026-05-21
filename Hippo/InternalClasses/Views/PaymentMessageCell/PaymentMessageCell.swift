@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol PaymentMessageCellDelegate: class {
+protocol PaymentMessageCellDelegate: AnyObject {
     func cellButtonPressed(message: HippoMessage, card: HippoCard)
 }
 

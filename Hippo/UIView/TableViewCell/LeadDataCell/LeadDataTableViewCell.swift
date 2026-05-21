@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol LeadDataCellDelegate: class {
+protocol LeadDataCellDelegate: AnyObject {
     func didTapSend(withReply reply: String, cell: LeadDataTableViewCell)
     func enableError(isEnabled: Bool, cell: LeadDataTableViewCell, text: String?)
     func textfieldShouldBeginEditing(textfield: UITextField)

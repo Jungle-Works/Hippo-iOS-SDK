@@ -97,7 +97,7 @@ import UIKit
   let KingfisherErrorStatusCodeKey = "statusCode"
 
 /// Protocol of `ImageDownloader`.
-  protocol ImageDownloaderDelegate: class {
+  protocol ImageDownloaderDelegate: AnyObject {
     /**
     Called when the `ImageDownloader` object successfully downloaded an image from specified URL.
     
@@ -144,7 +144,7 @@ extension ImageDownloaderDelegate {
 }
 
 /// Protocol indicates that an authentication challenge could be handled.
-  protocol AuthenticationChallengeResponsable: class {
+  protocol AuthenticationChallengeResponsable: AnyObject {
     /**
      Called when an session level authentication challenge is received.
      This method provide a chance to handle and response to the authentication challenge before downloading could start.

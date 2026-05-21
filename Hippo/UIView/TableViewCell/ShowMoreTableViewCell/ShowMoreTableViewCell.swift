@@ -9,7 +9,7 @@
 import UIKit
 //import Kingfisher
 
-protocol ShowMoreTableViewCellDelegate: class {
+protocol ShowMoreTableViewCellDelegate: AnyObject {
     func buttonClicked(with form: PaymentField)
     func savePaymentPlanClicked(shouldSavePlan : Bool)
 }

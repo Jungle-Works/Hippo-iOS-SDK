@@ -298,7 +298,7 @@ extension CallManager: HippoCallClientDelegate {
     func shareUrlApiCall(url : String) {
         let shareUrlHelper = ShareUrlHelper()
         shareUrlHelper.shareUrlApiCall(url: url) { (url) in
-            if let view = UIApplication.shared.windows.first?.subviews.last {
+            if let view = UIApplication.shared.currentKeyWindow?.subviews.last {
                 let text = url
                 
                 // set up activity view controller

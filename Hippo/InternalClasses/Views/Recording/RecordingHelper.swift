@@ -10,7 +10,7 @@
 
 import AVFoundation
 
-protocol RecordingHelperDelegate : class{
+protocol RecordingHelperDelegate : AnyObject{
     func recordingFinished(url: URL)
 }
 

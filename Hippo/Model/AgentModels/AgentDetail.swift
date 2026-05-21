@@ -393,7 +393,7 @@ extension AgentDetail {
         do {
             let jsonData = try JSONSerialization.data(withJSONObject: deviceDetails, options: .prettyPrinted)
             
-            var service = (NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue)! ) as String
+            var service = String(data: jsonData, encoding: .utf8) ?? ""
             service = service.replacingOccurrences(of: "\n", with: "")
             service = service.replacingOccurrences(of: "\\", with: "")
             

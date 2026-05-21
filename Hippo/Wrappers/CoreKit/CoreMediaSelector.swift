@@ -31,7 +31,7 @@ public enum SelectImageError: LocalizedError {
     }
 }
 
-public protocol CoreMediaSelectorDelegate: class {
+public protocol CoreMediaSelectorDelegate: AnyObject {
     func imageViewPickerDidFinish(mediaSelector: CoreMediaSelector, with result: CoreMediaSelector.Result)
     func imagePickingError(mediaSelector: CoreMediaSelector, error: Error)
 }

@@ -43,7 +43,7 @@ class SearchAdressVM {
                 return
             }
             
-            let jsonData = self.jsonToNSData(json: data)
+            let jsonData = self.jsonData(json: data)
             let address = try? JSONDecoder().decode([Address].self, from: jsonData ?? Data())
             self.addressArr = [Address]()
             self.addressArr = address
@@ -53,7 +53,7 @@ class SearchAdressVM {
     }
     
     // Convert from JSON to nsdata
-    private func jsonToNSData(json: Any) -> Data?{
+    private func jsonData(json: Any) -> Data?{
         do {
             return try JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
         } catch let myJSONError {

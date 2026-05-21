@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol PaymentItemDescriptionCellDelegate: class {
+protocol PaymentItemDescriptionCellDelegate: AnyObject {
      func updateHeightFor(_ cell: PaymentItemDescriptionCell)
      func cancelButtonClicked(item: PaymentItem)
      func itemPriceUpdated()
@@ -174,8 +174,6 @@ class PaymentItemDescriptionCell: UITableViewCell,UIPickerViewDelegate,UIPickerV
         pickerView = UIPickerView()
         pickerView?.delegate = self
         pickerView?.dataSource = self
-        pickerView?.showsSelectionIndicator = true
-        
         let toolBar = UIToolbar()
         toolBar.barStyle = UIBarStyle.default
         toolBar.isTranslucent = true
@@ -283,7 +281,7 @@ extension PaymentItemDescriptionCell: UITextFieldDelegate {
             let numberOfDots = newText.components(separatedBy: ".").count - 1
 
             let numberOfDecimalDigits: Int
-            if let dotIndex = newText.index(of: ".") {
+            if let dotIndex = newText.firstIndex(of: ".") {
                 numberOfDecimalDigits = newText.distance(from: dotIndex, to: newText.endIndex) - 1
             } else {
                 numberOfDecimalDigits = 0

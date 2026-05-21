@@ -34,7 +34,7 @@ extension CaseCountable where Self : RawRepresentable, Self.RawValue == Int {
 }
 
 
-public protocol HippoDelegate: class {
+public protocol HippoDelegate: AnyObject {
     func hippoUnreadCount(_ totalCount: Int)
     func hippoUserUnreadCount(_ usersCount: [String: Int])    
     func hippoDeinit()
@@ -85,16 +85,16 @@ extension HippoDelegate {
     }
 }
 
-protocol RetryMessageUploadingDelegate: class {
+protocol RetryMessageUploadingDelegate: AnyObject {
     func retryUploadFor(message: HippoMessage)
     func cancelImageUploadFor(message: HippoMessage)
 }
 
-protocol DocumentTableViewCellDelegate: class {
+protocol DocumentTableViewCellDelegate: AnyObject {
     func performActionAccordingToStatusOf(message: HippoMessage, inCell cell: DocumentTableViewCell)
 }
 
-protocol VideoTableViewCellDelegate: class {
+protocol VideoTableViewCellDelegate: AnyObject {
     func downloadFileIn(message: HippoMessage)
     func openFileIn(message: HippoMessage)
 }

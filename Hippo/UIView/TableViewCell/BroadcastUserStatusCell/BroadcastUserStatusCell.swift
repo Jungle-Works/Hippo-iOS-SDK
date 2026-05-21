@@ -7,7 +7,7 @@
 //
 
 import UIKit
-protocol BroadcastUserStatusCellDelegate: class {
+protocol BroadcastUserStatusCellDelegate: AnyObject {
     func openChatButtonClickedFor(user: CustomerInfo)
 }
 

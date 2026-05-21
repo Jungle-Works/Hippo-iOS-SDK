@@ -10,7 +10,7 @@
 import UIKit
 
 
-protocol FeedbackTableViewCellDelegate: class {
+protocol FeedbackTableViewCellDelegate: AnyObject {
     func submitButtonClicked(with data: FeedbackParams)
     func updateHeightForCell(at data: FeedbackParams, textView: UITextView)
     func cellTextViewBeginEditing(textView: UITextView, data: FeedbackParams)

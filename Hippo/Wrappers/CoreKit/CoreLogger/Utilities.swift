@@ -25,12 +25,12 @@
 internal extension String {
     /// The last path component of the receiver.
     var lastPathComponent: String {
-        return NSString(string: self).lastPathComponent
+        return URL(fileURLWithPath: self).lastPathComponent
     }
-    
+
     /// A new string made by deleting the extension from the receiver.
     var stringByDeletingPathExtension: String {
-        return NSString(string: self).deletingPathExtension
+        return URL(fileURLWithPath: self).deletingPathExtension().lastPathComponent
     }
     
     /**

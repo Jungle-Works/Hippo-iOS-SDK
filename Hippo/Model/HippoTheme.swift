@@ -362,10 +362,10 @@ public struct ConversationListTheme {
 
 
 extension UIFont {
-    open class func regular(ofSize size: CGFloat) -> UIFont {
-        return UIFont(name:  HippoFont.regularFont , size: size) ?? UIFont.systemFont(ofSize: size)
+    public class func regular(ofSize size: CGFloat) -> UIFont {
+        return UIFont(name: HippoFont.regularFont, size: size) ?? UIFont.systemFont(ofSize: size)
     }
-    open class func bold(ofSize size: CGFloat) -> UIFont{
-        return UIFont(name:  HippoFont.boldFont , size: size) ?? UIFont.boldSystemFont(ofSize: size)
+    public class func bold(ofSize size: CGFloat) -> UIFont {
+        return UIFont(name: HippoFont.boldFont, size: size) ?? UIFont.boldSystemFont(ofSize: size)
     }
 }

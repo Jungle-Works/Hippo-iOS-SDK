@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol AgentHomeCollectionViewCellDelegate: class {
+protocol AgentHomeCollectionViewCellDelegate: AnyObject {
     func moveToConversationWith(_ conversationObject: AgentConversation)
     func placholderButtonClicked()
 }

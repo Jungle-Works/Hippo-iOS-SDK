@@ -8,7 +8,7 @@
 
 import UIKit
 
-//protocol PromotionTableViewCellDelegate: class {
+//protocol PromotionTableViewCellDelegate: AnyObject {
 //    func readmoreClicked(data: PromotionCellDataModel)
 //}
 

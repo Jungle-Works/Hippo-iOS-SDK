@@ -7,9 +7,9 @@
 //
 
 import UIKit
-import MobileCoreServices
+import UniformTypeIdentifiers
 
-public protocol CoreDocumentPickerDelegate: class {
+public protocol CoreDocumentPickerDelegate: AnyObject {
     func didPickDocumentWith(url: URL)
     func fileSelectedWithBiggerSize(maxSizeAllowed: UInt)
 }
@@ -24,34 +24,23 @@ public class CoreDocumentPicker: NSObject, UIDocumentPickerDelegate {
     public init(controller: UIViewController) {
         currentController = controller
         
-        var documentType = [String]()
-        
+        var contentTypes = [UTType]()
+
         if CoreKit.shared.filesConfig.enabledFileTypes.contains(.document) {
-            documentType = [kUTTypePDF, kUTTypeText, kUTTypeZipArchive, kUTTypeCommaSeparatedText, kUTTypePresentation, kUTTypeSpreadsheet] as [String]
-            documentType.append("public.data")
+            contentTypes += [.pdf, .text, .zip, .commaSeparatedText, .presentation, .spreadsheet, .data]
         }
-        
         if CoreKit.shared.filesConfig.enabledFileTypes.contains(.audio) {
-            documentType.append(kUTTypeAudio as String)
-            documentType.append(kUTTypeMP3 as String)
-            documentType.append(kUTTypeMIDIAudio as String)
-            documentType.append(kUTTypeMPEG4Audio as String)
-            documentType.append(kUTTypeAppleProtectedMPEG4Audio as String)
-            documentType.append(kUTTypeWaveformAudio as String)
-            documentType.append("public.audio")
+            contentTypes += [.audio, .mp3, .midi, .mpeg4Audio, .wav]
+            if let aac = UTType("public.aac-audio") { contentTypes.append(aac) }
         }
-        
         if CoreKit.shared.filesConfig.enabledFileTypes.contains(.video) {
-            documentType.append(kUTTypeMovie as String)
+            contentTypes.append(.movie)
         }
         if CoreKit.shared.filesConfig.enabledFileTypes.contains(.other) {
-            documentType.append("public.source-code")
-            documentType.append("public.item")
-            documentType.append(" public.script")
-            documentType.append("public.executable")
-            documentType.append("public.font")
+            contentTypes += [.sourceCode, .item, .executable, .font]
+            if let script = UTType("public.script") { contentTypes.append(script) }
         }
-        picker = UIDocumentPickerViewController.init(documentTypes: documentType, in: .import)
+        picker = UIDocumentPickerViewController(forOpeningContentTypes: contentTypes, asCopy: true)
         super.init()
         
         picker.delegate = self

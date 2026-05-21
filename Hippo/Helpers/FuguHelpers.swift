@@ -769,7 +769,7 @@ func getLastVisibleController(ofParent parent: UIViewController? = nil) -> UIVie
             return vc
         }
     } else {
-        if let rootVC = UIApplication.shared.windows.first?.rootViewController {
+        if let rootVC = UIApplication.shared.currentKeyWindow?.rootViewController {
             return getLastVisibleController(ofParent: rootVC)
         } else {
             return nil
@@ -778,14 +778,8 @@ func getLastVisibleController(ofParent parent: UIViewController? = nil) -> UIVie
 }
 
 func parseDeviceToken(deviceToken: Data) -> String? {
-    let tokenData = NSData(data: deviceToken)
-    let trimEnds = tokenData.description.trimmingCharacters(in: CharacterSet(charactersIn: "<>"))
-    let pushToken: String = trimEnds.replacingOccurrences(of: " ", with: "")
-    
-    if pushToken.isEmpty || pushToken.contains("{")  {
-        return deviceToken.reduce("", {$0 + String(format: "%02X", $1)})
-    }
-    return pushToken
+    let pushToken = deviceToken.map { String(format: "%02X", $0) }.joined()
+    return pushToken.isEmpty ? nil : pushToken
 }
 
 func updateDeviceToken(deviceToken: String) {

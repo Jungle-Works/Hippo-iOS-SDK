@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol CardListCellDelegate: class {
+protocol CardListCellDelegate: AnyObject {
     func labelContainerClicked(card: MessageCard)
     func readmoreClicked(card: MessageCard)
 }
