@@ -144,9 +144,9 @@ class HippoNotification {
     
     class func showLocalNotificationForVoip(_ userData : [String: Any]){
         let content = UNMutableNotificationContent() // Содержимое уведомления
-        if let data = (userData["aps"] as? NSDictionary)?.value(forKey: "alert") as? NSDictionary{
-            content.title = "[Voip]" + (data.value(forKey: "title") as? String ?? "")
-            content.body = data.value(forKey: "body") as? String ?? ""
+        if let data = (userData["aps"] as? [String: Any])?["alert"] as? [String: Any] {
+            content.title = "[Voip]" + (data["title"] as? String ?? "")
+            content.body = data["body"] as? String ?? ""
             content.sound = UNNotificationSound.default
         }
         let identifier = "Voip Notification"

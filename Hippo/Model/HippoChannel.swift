@@ -27,7 +27,7 @@ struct HippoChannelCreationResult {
     }
 }
 
-protocol HippoChannelDelegate: class {
+protocol HippoChannelDelegate: AnyObject {
     func newMessageReceived(newMessage: HippoMessage)
     func typingMessageReceived(newMessage: HippoMessage)
     func sendingFailedFor(message: HippoMessage)

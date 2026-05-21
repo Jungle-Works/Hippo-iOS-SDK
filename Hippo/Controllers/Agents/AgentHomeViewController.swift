@@ -704,27 +704,17 @@ extension AgentHomeViewController: UITableViewDelegate, UITableViewDataSource {
         
     }
 
-    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-//        var deleteAction = UITableViewRowAction(style: .default, title: "End chat") { (action, indexpath) in
-//            self.updateChannelStatus(for: indexPath.row)
-//        }
-//        return [deleteAction]
-        
-        if let status = conversationList[indexPath.row].status {
-            if status == 1{
-                let deleteAction = UITableViewRowAction(style: .default, title: HippoStrings.closeChat) { (action, indexpath) in
-                    self.showOptionAlert(title: "", message: HippoStrings.closeChatPopup, preferredStyle: .alert, successButtonName: HippoStrings.yes, successComplete: { (_) in
-                        self.updateChannelStatus(for: indexPath.row)
-                    }, failureButtonName: HippoStrings.no.capitalized, failureComplete: nil)
-                }
-                return [deleteAction]
-            }else if status == 2{
-
-                return nil
-            }
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        guard let status = conversationList[indexPath.row].status, status == 1 else {
             return nil
         }
-        return nil
+        let closeAction = UIContextualAction(style: .destructive, title: HippoStrings.closeChat) { [weak self] _, _, done in
+            self?.showOptionAlert(title: "", message: HippoStrings.closeChatPopup, preferredStyle: .alert, successButtonName: HippoStrings.yes, successComplete: { _ in
+                self?.updateChannelStatus(for: indexPath.row)
+            }, failureButtonName: HippoStrings.no.capitalized, failureComplete: nil)
+            done(true)
+        }
+        return UISwipeActionsConfiguration(actions: [closeAction])
     }
 
     func updateChannelStatus(for row: Int) {

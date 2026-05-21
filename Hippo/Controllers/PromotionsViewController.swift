@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol PromotionCellDelegate : class {
+protocol PromotionCellDelegate : AnyObject {
     //func getActionData(data:PromotionCellDataModel, viewController : UIViewController)
     func setData(data:PromotionCellDataModel)
     var cellIdentifier : String { get  }
@@ -237,7 +237,7 @@ class PromotionsViewController: UIViewController {
     
     @objc func backButtonClicked() {
         
-        if let navigationController = UIApplication.shared.windows.first?.rootViewController as? UINavigationController{
+        if let navigationController = UIApplication.shared.currentKeyWindow?.rootViewController as? UINavigationController {
             if let tabBarController = navigationController.viewControllers[0] as? UITabBarController{
                 tabBarController.selectedIndex = 0
             }

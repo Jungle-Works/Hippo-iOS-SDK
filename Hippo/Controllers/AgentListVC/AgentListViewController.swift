@@ -202,18 +202,15 @@ extension AgentListViewController {
         searchBar.backgroundImage = UIImage()
         
         
-        let textFieldInsideSearchBar = searchBar.value(forKey: "searchField") as? UITextField
-        textFieldInsideSearchBar?.backgroundColor = HippoConfig.shared.theme.searchBarBackgroundColor//HippoConfig.shared.theme.backgroundColor//
-        
+        searchBar.searchTextField.backgroundColor = HippoConfig.shared.theme.searchBarBackgroundColor
+
         titleSearchBar.sizeToFit()
         titleSearchBar.placeholder = HippoStrings.search
-        titleSearchBar.barTintColor = HippoConfig.shared.theme.searchBarBackgroundColor//HippoConfig.shared.theme.backgroundColor//
+        titleSearchBar.barTintColor = HippoConfig.shared.theme.searchBarBackgroundColor
         titleSearchBar.returnKeyType = .done
         titleSearchBar.delegate = self
         titleSearchBar.frame = searchBar.frame
-        
-        let textFieldInsideSearchBar1 = titleSearchBar.value(forKey: "searchField") as? UITextField
-        textFieldInsideSearchBar1?.backgroundColor = HippoConfig.shared.theme.searchBarBackgroundColor//HippoConfig.shared.theme.backgroundColor//
+        titleSearchBar.searchTextField.backgroundColor = HippoConfig.shared.theme.searchBarBackgroundColor
     }
     
 }

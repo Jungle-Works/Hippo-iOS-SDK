@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol LeadTableViewCellDelegate: class {
+protocol LeadTableViewCellDelegate: AnyObject {
     func cellUpdated(for cell: LeadTableViewCell, data: [FormData], isSkipAction: Bool)
     func sendReply(forCell cell: LeadTableViewCell, data: [FormData])
     func textfieldShouldBeginEditing(textfield: UITextField)

@@ -7,7 +7,7 @@
 //
 
 import UIKit
-protocol SearchBarDelegate: class {
+protocol SearchBarDelegate: AnyObject {
     func searchBarDidChange(searchText: String)
 }
 
@@ -38,9 +38,8 @@ class SearchBarHeaderView: UIView {
         searchBar.tintColor = theme.searchBarBackgroundColor
         searchBar.barTintColor = theme.searchBarBackgroundColor
         
-        let textFieldInsideSearchBar = searchBar.value(forKey: "searchField") as? UITextField
-        textFieldInsideSearchBar?.textColor = theme.headerTextColor
-        textFieldInsideSearchBar?.tintColor = theme.headerTextColor
+        searchBar.searchTextField.textColor = theme.headerTextColor
+        searchBar.searchTextField.tintColor = theme.headerTextColor
     }
 }
 

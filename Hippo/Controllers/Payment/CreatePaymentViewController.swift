@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol CreatePaymentDelegate: class {
+protocol CreatePaymentDelegate: AnyObject {
     func sendMessage(for store: PaymentStore)
     func backButtonPressed(shouldUpdate: Bool)
     func paymentCardPayment(isSuccessful: Bool)

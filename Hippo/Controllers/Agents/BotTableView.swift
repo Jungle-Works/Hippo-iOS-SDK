@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol BotTableDelegate: class {
+protocol BotTableDelegate: AnyObject {
     
     func sendButtonClicked(with object: BotAction?, customObj: CustomBot?)
 }

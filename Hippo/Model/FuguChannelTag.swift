@@ -167,6 +167,6 @@ extension Array where Element: Storing {
     }
 }
 
-protocol Storing: class {
+protocol Storing: AnyObject {
     func getJsonToStore() -> [String: Any]?
 }

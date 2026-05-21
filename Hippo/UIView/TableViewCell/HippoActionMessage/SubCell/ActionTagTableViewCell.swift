@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol ActionTagProtocol: class {
+protocol ActionTagProtocol: AnyObject {
     func tagClicked(_ title: String, tagView: TagView, sender: TagListView)
 }
 

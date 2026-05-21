@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol PaymentMessageListDelegate: class {
+protocol PaymentMessageListDelegate: AnyObject {
     func cellSelected(card: HippoCard)
 }
 

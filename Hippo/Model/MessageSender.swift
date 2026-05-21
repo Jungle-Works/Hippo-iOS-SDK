@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol MessageSenderDelegate: class {
+protocol MessageSenderDelegate: AnyObject {
     func messageSent(message: HippoMessage)
     func messageExpired(message: HippoMessage)
     func duplicateMuidOf(message: HippoMessage)

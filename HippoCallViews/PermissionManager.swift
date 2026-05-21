@@ -126,13 +126,7 @@ class PermissionManager {
     }
     class func getLastVisibleController(ofParent parent: UIViewController? = nil) -> UIViewController? {
         if let vc = parent {
-            #if swift(>=4.2)
-                let childVC = vc.children.first
-            #else
-                let childVC = vc.childViewControllers.first
-            #endif
-            
-            
+            let childVC = vc.children.first
             if let tab = vc as? UITabBarController, let selected = tab.selectedViewController {
                 return getLastVisibleController(ofParent: selected)
             } else if let nav = vc as? UINavigationController, let top = nav.topViewController {
@@ -145,11 +139,11 @@ class PermissionManager {
                 return vc
             }
         } else {
-            if let rootVC = UIApplication.shared.keyWindow?.rootViewController {
-                return getLastVisibleController(ofParent: rootVC)
-            } else {
-                return nil
-            }
+            let keyWindow = UIApplication.shared.connectedScenes
+                .compactMap { $0 as? UIWindowScene }
+                .flatMap { $0.windows }
+                .first { $0.isKeyWindow }
+            return keyWindow.flatMap { getLastVisibleController(ofParent: $0.rootViewController) }
         }
     }
     
@@ -170,5 +164,14 @@ class PermissionManager {
             return true
         }
     }
-    
+
+}
+
+extension UIApplication {
+    var currentKeyWindow: UIWindow? {
+        connectedScenes
+            .compactMap { $0 as? UIWindowScene }
+            .flatMap { $0.windows }
+            .first { $0.isKeyWindow }
+    }
 }

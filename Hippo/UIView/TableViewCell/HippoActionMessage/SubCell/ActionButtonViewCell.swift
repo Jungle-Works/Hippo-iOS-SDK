@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol ActionButtonViewCellDelegate: class {
+protocol ActionButtonViewCellDelegate: AnyObject {
     func buttonClick(buttonInfo: HippoActionButton)
     func buttonClick(buttonInfo: HippoCard)
 }

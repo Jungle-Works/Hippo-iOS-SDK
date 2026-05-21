@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol submitButtonTableViewDelegate : class {
+protocol submitButtonTableViewDelegate : AnyObject {
     
     func submitButtonPressed(hippoMessage:HippoMessage)
     

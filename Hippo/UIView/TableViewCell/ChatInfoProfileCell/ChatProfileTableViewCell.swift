@@ -7,7 +7,7 @@
 //
 
 import UIKit
-protocol ChatProfileCellDelegate: class {
+protocol ChatProfileCellDelegate: AnyObject {
     func editProfileButtonClicked()
 }
 class ChatProfileTableViewCell: UITableViewCell {

@@ -276,7 +276,7 @@ class AudioCallView: UIView {
         let endColor =  UIColor.init(hex: 0x804F48).cgColor// light red
         gradientLayer?.colors = [endColor ,startColor]
         gradientLayer?.locations = [0.0,1.0]
-        gradientLayer?.frame = (UIApplication.shared.keyWindow?.frame)!
+        gradientLayer?.frame = UIApplication.shared.currentKeyWindow?.frame ?? bounds
         let startPoint = CGPoint(x: 0.0, y: 1.0)
         let endPoint = CGPoint(x: 0.20, y: 0.5)
         gradientLayer?.startPoint = startPoint
@@ -287,7 +287,7 @@ class AudioCallView: UIView {
     
     
     func updateUI() {
-        let width = UIApplication.shared.keyWindow?.frame.width
+        let width = UIApplication.shared.currentKeyWindow?.frame.width
         
         if let someWidth  = width, someWidth <= 320 {
             disbottomConstant.constant = 32
@@ -602,7 +602,7 @@ extension AudioCallView {
         delegate?.pipMode(for: false)
         
         self.frame = previousFrame
-        self.gradientLayer?.frame = (UIApplication.shared.keyWindow?.frame)!
+        self.gradientLayer?.frame = UIApplication.shared.currentKeyWindow?.frame ?? bounds
         for view in subviews {
             view.isHidden = false
         }

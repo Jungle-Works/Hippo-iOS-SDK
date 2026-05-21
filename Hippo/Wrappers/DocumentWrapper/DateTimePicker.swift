@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol DateTimePickerDelegate : class {
+protocol DateTimePickerDelegate : AnyObject {
     func dateSelected(selectedDate : String)
 }
 

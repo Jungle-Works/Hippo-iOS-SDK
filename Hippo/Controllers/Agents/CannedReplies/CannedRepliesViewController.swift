@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-protocol CannedRepliesVCDelegate: class {
+protocol CannedRepliesVCDelegate: AnyObject {
     func cannedMessage(_ cannedMessageVC: CannedRepliesViewController, cannedObject: CannedReply)
     func cannedClosed()
 }

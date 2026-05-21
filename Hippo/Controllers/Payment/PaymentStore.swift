@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol PaymentStoreDelegate: class {
+protocol PaymentStoreDelegate: AnyObject {
     func dataUpdate()
 }
 

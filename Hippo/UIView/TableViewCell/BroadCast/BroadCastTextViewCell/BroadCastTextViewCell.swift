@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol BroadCastTextViewCellDelegate: class {
+protocol BroadCastTextViewCellDelegate: AnyObject {
     func textViewTextChanged(newText: String)
 }
 

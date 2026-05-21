@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol OutgoingShareUrlDelegate: class {
+protocol OutgoingShareUrlDelegate: AnyObject {
     func openJitsiUrl(url: String)
 }
 

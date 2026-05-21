@@ -10,7 +10,7 @@ import UIKit
 import Photos
 //import SZMentionsSwift
 
-protocol AgentChatDeleagate: class {
+protocol AgentChatDeleagate: AnyObject {
     func updateConversationWith(channelId: Int, lastMessage: HippoMessage, unreadCount: Int)
 }
 
@@ -501,7 +501,7 @@ class AgentConversationViewController: HippoConversationViewController {
     }
     
     func addBotActionView(with botArray: [BotAction], customBot: [CustomBot]?) {
-        guard let window = UIApplication.shared.windows.first else {
+        guard let window = UIApplication.shared.currentKeyWindow else {
             return
         }
         if botArray.isEmpty {
@@ -2209,12 +2209,7 @@ extension AgentConversationViewController: UITableViewDelegate, UITableViewDataS
                                                               showInFormat: false).capitalized
             }
         }
-        var widthIs: CGFloat = 0
-#if swift(>=4.0)
-        widthIs = CGFloat(dateLabel.text!.boundingRect(with: dateLabel.frame.size, options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: dateLabel.font], context: nil).size.width) + 10
-#else
-        widthIs = CGFloat(dateLabel.text!.boundingRect(with: dateLabel.frame.size, options: .usesLineFragmentOrigin, attributes: [NSFontAttributeName: dateLabel.font], context: nil).size.width) + 10
-#endif
+        let widthIs: CGFloat = CGFloat((dateLabel.text ?? "").boundingRect(with: dateLabel.frame.size, options: .usesLineFragmentOrigin, attributes: [.font: dateLabel.font as Any], context: nil).size.width) + 10
         let dateLabelHeight = CGFloat(24)
         dateLabel.frame = CGRect(x: (UIScreen.main.bounds.size.width / 2) - (widthIs/2), y: (labelBgView.frame.height - dateLabelHeight)/2, width: widthIs + 10, height: dateLabelHeight)
         labelBgView.addSubview(dateLabel)

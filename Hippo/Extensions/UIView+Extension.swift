@@ -47,23 +47,13 @@ extension UIView {
     }
     
     class var tableAutoDimensionHeight: CGFloat {
-        #if swift(>=4.2)
         return UITableView.automaticDimension
-        #else
-        return UITableViewAutomaticDimension
-        #endif
     }
-    
+
     class var safeAreaInsetsForAllOS: UIEdgeInsets {
-        var insets: UIEdgeInsets
-        if #available(iOS 11.0, *) {
-            insets = UIApplication.shared.windows.first?.safeAreaInsets ?? UIEdgeInsets()
-        } else {
-            insets = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
-        }
-        return insets
+        return UIApplication.shared.currentKeyWindow?.safeAreaInsets ?? UIEdgeInsets()
     }
-    
+
     static var safeAreaInsetOfKeyWindow: UIEdgeInsets {
         return safeAreaInsetsForAllOS
     }
@@ -398,5 +388,14 @@ extension UIBarButtonItem {
     //            self.setBackgroundImage(colorImage, for: forState, barMetrics: .default)
     //        }
     //    }
-    
+
+}
+
+extension UIApplication {
+    var currentKeyWindow: UIWindow? {
+        connectedScenes
+            .compactMap { $0 as? UIWindowScene }
+            .flatMap { $0.windows }
+            .first { $0.isKeyWindow }
+    }
 }

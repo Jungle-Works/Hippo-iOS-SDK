@@ -17,7 +17,7 @@ import HippoCallClient
 import JitsiMeetSDK
 #endif
 
-public protocol HippoMessageRecievedDelegate: class {
+public protocol HippoMessageRecievedDelegate: AnyObject {
     func hippoMessageRecievedWith(response: [String: Any], viewController: UIViewController)
 }
 

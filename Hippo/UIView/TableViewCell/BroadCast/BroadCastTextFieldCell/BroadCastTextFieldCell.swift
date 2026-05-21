@@ -106,8 +106,6 @@ class BroadCastTextFieldCell: UITableViewCell {
         pickerView?.dataSource = self
         
         
-        pickerView?.showsSelectionIndicator = true
-        
         let toolBar = UIToolbar()
         toolBar.barStyle = UIBarStyle.default
         toolBar.isTranslucent = true

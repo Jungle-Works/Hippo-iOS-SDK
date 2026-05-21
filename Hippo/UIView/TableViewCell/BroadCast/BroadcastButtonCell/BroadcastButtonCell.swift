@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol BroadcastButtonCellDelegate: class {
+protocol BroadcastButtonCellDelegate: AnyObject {
     func previousMessageButtonClicked()
     func sendButtonClicked()
 }

@@ -48,7 +48,7 @@ class SelectPresciptionViewModel{
             
             if let businessTemplate = (((responseObject as? [String : Any])?["data"] as? [String : Any])?["business_templates"] as? [[String : Any]]){
                 for template in businessTemplate{
-                    let data = self.jsonToNSData(json: template)
+                    let data = self.jsonData(json: template)
                     let template = try? JSONDecoder().decode(Template.self, from: data ?? Data())
                     self.templateArr.append(template ?? Template())
                 }
@@ -73,7 +73,7 @@ class SelectPresciptionViewModel{
             
             HippoConfig.shared.log.debug("\(responseObject ?? [:])", level: .response)
             if let response = responseObject as? [String : Any], let data = response["data"] as? [String : Any]{
-                let data = self.jsonToNSData(json: data)
+                let data = self.jsonData(json: data)
                 let result = try? JSONDecoder().decode(UploadResult.self, from: data ?? Data())
                 self.pdfUploaded?(nil, result)
             }
@@ -92,7 +92,7 @@ class SelectPresciptionViewModel{
     }
     
     // Convert from JSON to nsdata
-    func jsonToNSData(json: Any) -> Data?{
+    func jsonData(json: Any) -> Data?{
         do {
             return try JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
         } catch let myJSONError {

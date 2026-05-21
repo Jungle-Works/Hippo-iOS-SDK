@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol PaymentPlansViewDelegate: class {
+protocol PaymentPlansViewDelegate: AnyObject {
     func plansUpdated()
 //    func startLoaderAnimation()
 //    func stopLoaderAnimation()

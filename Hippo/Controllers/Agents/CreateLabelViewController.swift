@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol CreateLabelDelegate: class {
+protocol CreateLabelDelegate: AnyObject {
     func createnewLabel(tagDetail: TagDetail, use: Bool)
     //    func useNewCreatedLabel(tagDetail: TagDetail, appendToExisting: Bool, updateSortedData: Bool)
 }

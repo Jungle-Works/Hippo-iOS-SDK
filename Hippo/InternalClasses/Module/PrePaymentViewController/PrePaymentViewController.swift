@@ -59,13 +59,8 @@ class PrePaymentViewController: UIViewController {
     
     private func initalizeWebView() {
         let webConfiguration = WKWebViewConfiguration()
-        if #available(iOS 10.0, *) {
-            webConfiguration.ignoresViewportScaleLimits = false
-        }
-        var height : CGFloat = 0.0
-        if #available(iOS 11.0, *) {
-            height = UIApplication.shared.delegate?.window??.safeAreaInsets.top ?? 0.0
-        }
+        webConfiguration.ignoresViewportScaleLimits = false
+        let height = UIApplication.shared.currentKeyWindow?.safeAreaInsets.top ?? 0.0
         
         webView = WKWebView(frame: CGRect(x: 0, y: height + navigationBar.frame.size.height + 10, width: self.view.bounds.width, height: self.view.bounds.height - (height + navigationBar.frame.size.height + 10)), configuration: webConfiguration)
         webView.uiDelegate = self
@@ -135,7 +130,7 @@ class PrePaymentViewController: UIViewController {
 extension PrePaymentViewController{
     func addTransparentView(){
       
-        let window = UIApplication.shared.windows.first
+        let window = UIApplication.shared.currentKeyWindow
         transparentView.backgroundColor = UIColor.black.withAlphaComponent(0.9)
         let screenSize = UIScreen.main.bounds.size
         transparentView.frame = CGRect(x: 0, y: 0, width: screenSize.width, height: screenSize.height)

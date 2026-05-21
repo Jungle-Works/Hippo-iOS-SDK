@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol  ChatInfoTagDelegate: class {
+protocol  ChatInfoTagDelegate: AnyObject {
     func addNewTag()
 }
 

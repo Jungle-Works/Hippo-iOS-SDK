@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol ActionTableViewDelegate: class {
+protocol ActionTableViewDelegate: AnyObject {
     func performActionFor(selectionId: String, message: HippoMessage)
 }
 
