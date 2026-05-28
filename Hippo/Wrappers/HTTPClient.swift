@@ -151,7 +151,12 @@ class HTTPClient {
         }
         
         additionalParams += para ?? [:]
-        
+
+        if HippoConfig.shared.apiLogging == 1 {
+            print("[HippoSDK] ▶ REQUEST  \(baseUrl)\(extendedUrl)")
+            print("[HippoSDK]   Params : \(additionalParams)")
+        }
+
         var newExtendedURL = extendedUrl
         
         switch enCodingType {
@@ -222,7 +227,12 @@ class HTTPClient {
         
         //appending parameters
         additionalParams += para ?? [:]
-        
+
+        if HippoConfig.shared.apiLogging == 1 {
+            print("[HippoSDK] ▶ MULTIPART REQUEST  \(baseUrl)\(extendedUrl)")
+            print("[HippoSDK]   Params : \(additionalParams)  Files : \(fileList.count)")
+        }
+
         let timeout: Double = 30 + Double(15 * (fileList.count))
         var mutableRequest = HTTPClient.createRequestWith(method: method, timeout: timeout, baseUrl: baseUrl, extendedUrl: extendedUrl, contentType: "multipart/form-data; boundary=\(boundary)")
         
@@ -327,6 +337,11 @@ class HTTPClient {
                         statusCode = httpUrlResponce.statusCode
                     }
                     
+                    if HippoConfig.shared.apiLogging == 1 {
+                        print("[HippoSDK] ◀ RESPONSE  \(urlResponse?.url?.absoluteString ?? "NO URL")")
+                        print("[HippoSDK]   StatusCode : \(statusCode)")
+                    }
+
                     if SERVERS.devUrl.contains(HippoConfig.shared.baseUrl){
                         sendCurl(request: request, code: statusCode)
                     }

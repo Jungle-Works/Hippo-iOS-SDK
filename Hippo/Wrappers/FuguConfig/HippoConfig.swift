@@ -147,6 +147,7 @@ struct WhatsappWidgetConfig{
     internal var jitsiOngoingCall : Bool?
     internal var agentDetail: AgentDetail?
     public var strings = HippoStrings()
+    internal var apiLogging: Int = 1
     private(set) public var newConversationButtonBorderWidth: Float = 0.0
     var processedMessageMUIDs = Set<String>()
     private(set) public var isSuggestionNeeded = false
@@ -330,6 +331,10 @@ struct WhatsappWidgetConfig{
     
     public func setHippoDelegate(delegate: HippoDelegate?) {
         self.delegate = delegate
+    }
+
+    public func setSmartChatOrderConfig(_ config: SmartChatOrderConfig) {
+        HippoProperty.current.smartChatOrderConfig = config
     }
     
     @available(*, deprecated, renamed: "setCustomisedHippoTheme", message: "This class will no longer be available, To Continue migrate to setCustomisedHippoTheme")

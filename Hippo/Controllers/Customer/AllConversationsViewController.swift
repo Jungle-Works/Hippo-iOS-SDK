@@ -70,10 +70,11 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         setupCustomSwipeGesture()
         if config.shouldUseCache {
             //self.arrayOfConversation = fetchAllConversationCache()
-            arrayOfFullConversation = fetchAllConversationCache()
-            let fetchAllConversationCacheData = fetchAllConversationCache()
-            if !fetchAllConversationCacheData.isEmpty{
-                self.filterConversationArr(conversationArr: fetchAllConversationCacheData)
+            let cached = fetchAllConversationCache()
+            let sortedCache = applySorting(cached)
+            arrayOfFullConversation = sortedCache
+            if !sortedCache.isEmpty {
+                self.filterConversationArr(conversationArr: sortedCache)
             }
         }
         if let labelId = HippoProperty.current.openLabelIdOnHome, labelId > 0 {
@@ -203,9 +204,11 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
                 return
             }
             //self?.arrayOfConversation = self?.fetchAllConversationCache() ?? []
-            let fetchAllConversationCacheData = self?.fetchAllConversationCache() ?? []
-            if !fetchAllConversationCacheData.isEmpty{
-                self?.filterConversationArr(conversationArr: fetchAllConversationCacheData)
+            let cached = self?.fetchAllConversationCache() ?? []
+            let sortedCache = self?.applySorting(cached) ?? cached
+            self?.arrayOfFullConversation = sortedCache
+            if !sortedCache.isEmpty {
+                self?.filterConversationArr(conversationArr: sortedCache)
             }
             
             self?.isPutUserFailed = !success
@@ -628,11 +631,11 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
             }
             
             
-            self?.arrayOfConversation = conversation
-            self?.arrayOfFullConversation = conversation
-            let conversationData = conversation
-            if !conversationData.isEmpty{
-                self?.filterConversationArr(conversationArr: conversationData)
+            let sorted = self?.applySorting(conversation) ?? conversation
+            self?.arrayOfConversation = sorted
+            self?.arrayOfFullConversation = sorted
+            if !sorted.isEmpty {
+                self?.filterConversationArr(conversationArr: sorted)
             }
             
             if self?.conversationChatType == .openChat{
@@ -755,6 +758,11 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         }else{
             self.height_ErrorLabel?.constant = 20
         }
+    }
+
+    private func applySorting(_ conversations: [FuguConversation]) -> [FuguConversation] {
+        guard let config = HippoProperty.current.smartChatOrderConfig else { return conversations }
+        return ConversationSorter.sort(conversations, config: config)
     }
     
     func updateBottomLabel() {
