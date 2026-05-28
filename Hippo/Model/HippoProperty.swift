@@ -34,6 +34,7 @@ class HippoProperty: NSObject {
     //Properties
     var ticketCustomAttributes: [String: Any]?
     var showMessageSourceIcon: Bool = false
+    var smartChatOrderConfig: SmartChatOrderConfig?
     private(set) var isPaymentRequestEnabled: Bool = false    
     
     func updatePaymentRequestStatus(enable: Bool) {
