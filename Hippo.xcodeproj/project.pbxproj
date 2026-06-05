@@ -39,7 +39,6 @@
 		19E72FF1267C8233006C8EF6 /* record_start.wav in Resources */ = {isa = PBXBuildFile; fileRef = 19E72FEE267C8233006C8EF6 /* record_start.wav */; };
 		19E72FF2267C8233006C8EF6 /* record_error.wav in Resources */ = {isa = PBXBuildFile; fileRef = 19E72FEF267C8233006C8EF6 /* record_error.wav */; };
 		19E72FF3267C8233006C8EF6 /* record_finished.wav in Resources */ = {isa = PBXBuildFile; fileRef = 19E72FF0267C8233006C8EF6 /* record_finished.wav */; };
-		47B12417C887BBD208902F39 /* Pods_Hippo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C0A922564912516EF04B93F /* Pods_Hippo.framework */; };
 		6B1011F2248128D2007FC8EC /* loader.gif in Resources */ = {isa = PBXBuildFile; fileRef = 6B1011F1248128D2007FC8EC /* loader.gif */; };
 		6B3C8F8C258A3D920086BD7F /* SupportChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B3C8F8B258A3D920086BD7F /* SupportChatViewController.swift */; };
 		6B3C8F8E258A3FAA0086BD7F /* SupportChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B3C8F8D258A3FAA0086BD7F /* SupportChatViewModel.swift */; };
@@ -66,6 +65,22 @@
 		6BE70B19259C3F8700ECA4FC /* FillPresciptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BE70B18259C3F8700ECA4FC /* FillPresciptionViewController.swift */; };
 		6BFC612625405EE9008BE42F /* SocketClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BFC612525405EE9008BE42F /* SocketClient.swift */; };
 		6BFF4B2024ED0F4E0062E6F7 /* HippoNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BFF4B1F24ED0F4E0062E6F7 /* HippoNotificationService.swift */; };
+		9180B4A32FCD6A4F00AB17AA /* ImageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9180B4972FCD6A4F00AB17AA /* ImageCollectionViewCell.xib */; };
+		9180B4A42FCD6A4F00AB17AA /* DescriptionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9180B4932FCD6A4F00AB17AA /* DescriptionTableViewCell.xib */; };
+		9180B4A52FCD6A4F00AB17AA /* DropDownTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9180B4952FCD6A4F00AB17AA /* DropDownTableViewCell.xib */; };
+		9180B4A62FCD6A4F00AB17AA /* TagsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9180B4992FCD6A4F00AB17AA /* TagsTableViewCell.xib */; };
+		9180B4A72FCD6A4F00AB17AA /* UploadCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9180B49D2FCD6A4F00AB17AA /* UploadCollectionViewCell.xib */; };
+		9180B4A82FCD6A4F00AB17AA /* AttachmentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9180B4912FCD6A4F00AB17AA /* AttachmentTableViewCell.xib */; };
+		9180B4A92FCD6A4F00AB17AA /* TextFieldsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9180B49B2FCD6A4F00AB17AA /* TextFieldsTableViewCell.xib */; };
+		9180B4AA2FCD6A4F00AB17AA /* DropDownTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180B4942FCD6A4F00AB17AA /* DropDownTableViewCell.swift */; };
+		9180B4AB2FCD6A4F00AB17AA /* UploadCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180B49C2FCD6A4F00AB17AA /* UploadCollectionViewCell.swift */; };
+		9180B4AC2FCD6A4F00AB17AA /* AttachmentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180B4902FCD6A4F00AB17AA /* AttachmentTableViewCell.swift */; };
+		9180B4AD2FCD6A4F00AB17AA /* CreateTicketsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180B49F2FCD6A4F00AB17AA /* CreateTicketsViewController.swift */; };
+		9180B4AE2FCD6A4F00AB17AA /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180B4962FCD6A4F00AB17AA /* ImageCollectionViewCell.swift */; };
+		9180B4AF2FCD6A4F00AB17AA /* DescriptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180B4922FCD6A4F00AB17AA /* DescriptionTableViewCell.swift */; };
+		9180B4B02FCD6A4F00AB17AA /* TextFieldsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180B49A2FCD6A4F00AB17AA /* TextFieldsTableViewCell.swift */; };
+		9180B4B12FCD6A4F00AB17AA /* CreateTicketDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180B48E2FCD6A4F00AB17AA /* CreateTicketDataModel.swift */; };
+		9180B4B22FCD6A4F00AB17AA /* TagsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180B4982FCD6A4F00AB17AA /* TagsTableViewCell.swift */; };
 		C9B77E6121A01B060092848D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9B77D7A21A01B060092848D /* Assets.xcassets */; };
 		C9B77E6321A01B060092848D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9B77D7C21A01B060092848D /* LaunchScreen.storyboard */; };
 		C9B77E6421A01B060092848D /* Montserrat-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = C9B77D7E21A01B060092848D /* Montserrat-Medium.otf */; };
@@ -458,6 +473,7 @@
 		D8F6D2E824195E5E00B168C5 /* AgentHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F6D2E424195E5C00B168C5 /* AgentHomeViewController.swift */; };
 		D8F6D2EE24195E9500B168C5 /* AllConversationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F6D2EB24195E9400B168C5 /* AllConversationsViewController.swift */; };
 		D8F6D2EF24195E9500B168C5 /* ConversationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F6D2EC24195E9400B168C5 /* ConversationsViewController.swift */; };
+		F15D52FE26D21B8BBDE7ACD8 /* Pods_Hippo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1CE5F2C9844389A10230390 /* Pods_Hippo.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -523,10 +539,23 @@
 		6BE70B18259C3F8700ECA4FC /* FillPresciptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FillPresciptionViewController.swift; sourceTree = "<group>"; };
 		6BFC612525405EE9008BE42F /* SocketClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketClient.swift; sourceTree = "<group>"; };
 		6BFF4B1F24ED0F4E0062E6F7 /* HippoNotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HippoNotificationService.swift; sourceTree = "<group>"; };
-		6F7645C36ABF77183FAD526B /* Pods-Hippo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hippo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Hippo/Pods-Hippo.debug.xcconfig"; sourceTree = "<group>"; };
 		717BE1731EC1BE11003EA321 /* Hippo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hippo.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		73C5DC7752C82068B4CD5EB2 /* Pods-Hippo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hippo.release.xcconfig"; path = "Pods/Target Support Files/Pods-Hippo/Pods-Hippo.release.xcconfig"; sourceTree = "<group>"; };
-		8C0A922564912516EF04B93F /* Pods_Hippo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Hippo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9180B48E2FCD6A4F00AB17AA /* CreateTicketDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTicketDataModel.swift; sourceTree = "<group>"; };
+		9180B4902FCD6A4F00AB17AA /* AttachmentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentTableViewCell.swift; sourceTree = "<group>"; };
+		9180B4912FCD6A4F00AB17AA /* AttachmentTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AttachmentTableViewCell.xib; sourceTree = "<group>"; };
+		9180B4922FCD6A4F00AB17AA /* DescriptionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionTableViewCell.swift; sourceTree = "<group>"; };
+		9180B4932FCD6A4F00AB17AA /* DescriptionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DescriptionTableViewCell.xib; sourceTree = "<group>"; };
+		9180B4942FCD6A4F00AB17AA /* DropDownTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropDownTableViewCell.swift; sourceTree = "<group>"; };
+		9180B4952FCD6A4F00AB17AA /* DropDownTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DropDownTableViewCell.xib; sourceTree = "<group>"; };
+		9180B4962FCD6A4F00AB17AA /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
+		9180B4972FCD6A4F00AB17AA /* ImageCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageCollectionViewCell.xib; sourceTree = "<group>"; };
+		9180B4982FCD6A4F00AB17AA /* TagsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsTableViewCell.swift; sourceTree = "<group>"; };
+		9180B4992FCD6A4F00AB17AA /* TagsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TagsTableViewCell.xib; sourceTree = "<group>"; };
+		9180B49A2FCD6A4F00AB17AA /* TextFieldsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldsTableViewCell.swift; sourceTree = "<group>"; };
+		9180B49B2FCD6A4F00AB17AA /* TextFieldsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextFieldsTableViewCell.xib; sourceTree = "<group>"; };
+		9180B49C2FCD6A4F00AB17AA /* UploadCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadCollectionViewCell.swift; sourceTree = "<group>"; };
+		9180B49D2FCD6A4F00AB17AA /* UploadCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UploadCollectionViewCell.xib; sourceTree = "<group>"; };
+		9180B49F2FCD6A4F00AB17AA /* CreateTicketsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTicketsViewController.swift; sourceTree = "<group>"; };
 		C9B77D7A21A01B060092848D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C9B77D7D21A01B060092848D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C9B77D7E21A01B060092848D /* Montserrat-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Medium.otf"; sourceTree = "<group>"; };
@@ -565,6 +594,7 @@
 		C9FB6F9421EE10CD00B72CEA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C9FB6F9621EE10CD00B72CEA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C9FB6F9A21EE10CD00B72CEA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CE8ADEFCE8E92480D1F48384 /* Pods-Hippo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hippo.debug.xcconfig"; path = "Target Support Files/Pods-Hippo/Pods-Hippo.debug.xcconfig"; sourceTree = "<group>"; };
 		D830D80F247DE90200EDC774 /* AgentListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgentListViewController.swift; sourceTree = "<group>"; };
 		D830D812247DE9F300EDC774 /* AgentListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AgentListTableViewCell.xib; sourceTree = "<group>"; };
 		D830D813247DE9F400EDC774 /* AgentListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgentListTableViewCell.swift; sourceTree = "<group>"; };
@@ -978,7 +1008,8 @@
 		D8F6D2EA24195E9200B168C5 /* CheckIntializationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckIntializationViewController.swift; sourceTree = "<group>"; };
 		D8F6D2EB24195E9400B168C5 /* AllConversationsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllConversationsViewController.swift; sourceTree = "<group>"; };
 		D8F6D2EC24195E9400B168C5 /* ConversationsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationsViewController.swift; sourceTree = "<group>"; };
-		E0E4A9E31B1EC7F72EC2F38D /* Pods_Fugu.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Fugu.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E908F22D6068F7FEFC7054C7 /* Pods-Hippo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hippo.release.xcconfig"; path = "Target Support Files/Pods-Hippo/Pods-Hippo.release.xcconfig"; sourceTree = "<group>"; };
+		F1CE5F2C9844389A10230390 /* Pods_Hippo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Hippo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -986,22 +1017,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				47B12417C887BBD208902F39 /* Pods_Hippo.framework in Frameworks */,
+				F15D52FE26D21B8BBDE7ACD8 /* Pods_Hippo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0DC6F74BF9725EE6841BA0D8 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				E0E4A9E31B1EC7F72EC2F38D /* Pods_Fugu.framework */,
-				8C0A922564912516EF04B93F /* Pods_Hippo.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		190671822652A04900DC00C7 /* Encryption */ = {
 			isa = PBXGroup;
 			children = (
@@ -1132,15 +1154,6 @@
 			path = Sounds;
 			sourceTree = "<group>";
 		};
-		2147B1B6158113464954FE5C /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				6F7645C36ABF77183FAD526B /* Pods-Hippo.debug.xcconfig */,
-				73C5DC7752C82068B4CD5EB2 /* Pods-Hippo.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		2B6220C42451650B0002752F /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
@@ -1162,6 +1175,14 @@
 				6B3C8F8D258A3FAA0086BD7F /* SupportChatViewModel.swift */,
 			);
 			name = "Recovered References";
+			sourceTree = "<group>";
+		};
+		6B3DACF66CEEAA4388718274 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F1CE5F2C9844389A10230390 /* Pods_Hippo.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		6B417114259B504C007B2A16 /* EPresciption */ = {
@@ -1256,9 +1277,9 @@
 				C9F6D48F21C8B71B00EA23E6 /* README.md */,
 				C9B77CF521A01B050092848D /* Hippo */,
 				717BE1741EC1BE11003EA321 /* Products */,
-				2147B1B6158113464954FE5C /* Pods */,
-				0DC6F74BF9725EE6841BA0D8 /* Frameworks */,
 				2B6220C42451650B0002752F /* Recovered References */,
+				75441C249EAC2531CCAB528B /* Pods */,
+				6B3DACF66CEEAA4388718274 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1268,6 +1289,70 @@
 				717BE1731EC1BE11003EA321 /* Hippo.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		75441C249EAC2531CCAB528B /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				CE8ADEFCE8E92480D1F48384 /* Pods-Hippo.debug.xcconfig */,
+				E908F22D6068F7FEFC7054C7 /* Pods-Hippo.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		9180B48F2FCD6A4F00AB17AA /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				9180B48E2FCD6A4F00AB17AA /* CreateTicketDataModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		9180B49E2FCD6A4F00AB17AA /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				9180B4902FCD6A4F00AB17AA /* AttachmentTableViewCell.swift */,
+				9180B4912FCD6A4F00AB17AA /* AttachmentTableViewCell.xib */,
+				9180B4922FCD6A4F00AB17AA /* DescriptionTableViewCell.swift */,
+				9180B4932FCD6A4F00AB17AA /* DescriptionTableViewCell.xib */,
+				9180B4942FCD6A4F00AB17AA /* DropDownTableViewCell.swift */,
+				9180B4952FCD6A4F00AB17AA /* DropDownTableViewCell.xib */,
+				9180B4962FCD6A4F00AB17AA /* ImageCollectionViewCell.swift */,
+				9180B4972FCD6A4F00AB17AA /* ImageCollectionViewCell.xib */,
+				9180B4982FCD6A4F00AB17AA /* TagsTableViewCell.swift */,
+				9180B4992FCD6A4F00AB17AA /* TagsTableViewCell.xib */,
+				9180B49A2FCD6A4F00AB17AA /* TextFieldsTableViewCell.swift */,
+				9180B49B2FCD6A4F00AB17AA /* TextFieldsTableViewCell.xib */,
+				9180B49C2FCD6A4F00AB17AA /* UploadCollectionViewCell.swift */,
+				9180B49D2FCD6A4F00AB17AA /* UploadCollectionViewCell.xib */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		9180B4A02FCD6A4F00AB17AA /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				9180B49F2FCD6A4F00AB17AA /* CreateTicketsViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		9180B4A12FCD6A4F00AB17AA /* View */ = {
+			isa = PBXGroup;
+			children = (
+				9180B49E2FCD6A4F00AB17AA /* Cells */,
+				9180B4A02FCD6A4F00AB17AA /* Controller */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		9180B4A22FCD6A4F00AB17AA /* Create Ticket */ = {
+			isa = PBXGroup;
+			children = (
+				9180B48F2FCD6A4F00AB17AA /* Model */,
+				9180B4A12FCD6A4F00AB17AA /* View */,
+			);
+			path = "Create Ticket";
 			sourceTree = "<group>";
 		};
 		C936006722EEC5EA00A6C291 /* TableViewCell */ = {
@@ -2016,6 +2101,7 @@
 		C9B77DAD21A01B060092848D /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				9180B4A22FCD6A4F00AB17AA /* Create Ticket */,
 				1967A6FB2670F52E0010613D /* SharedMediaController */,
 				6BBBEA8124991C5900C3E1CE /* Popup */,
 				D88B900024657E2400E3093F /* FilterViewController.swift */,
@@ -2824,11 +2910,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 717BE1851EC1BE11003EA321 /* Build configuration list for PBXNativeTarget "Hippo" */;
 			buildPhases = (
-				778DA9DBA8B35F32864A747E /* [CP] Check Pods Manifest.lock */,
+				A1B42178094BFB5CADA298FC /* [CP] Check Pods Manifest.lock */,
 				717BE16F1EC1BE11003EA321 /* Sources */,
 				717BE1701EC1BE11003EA321 /* Frameworks */,
 				717BE1711EC1BE11003EA321 /* Resources */,
-				75B9B621D9B333A4B27D8547 /* [CP] Embed Pods Frameworks */,
+				CE57C841122F8A22BA77A184 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -2884,6 +2970,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D8F6D02F2418FAA100B168C5 /* InformationView.xib in Resources */,
+				9180B4A82FCD6A4F00AB17AA /* AttachmentTableViewCell.xib in Resources */,
 				D8F6D17224194EB100B168C5 /* ChatProfileTableViewCell.xib in Resources */,
 				C9B77ED121A01B070092848D /* IQKeyboardManager.bundle in Resources */,
 				D8F6D18C24194F9300B168C5 /* BroadCastTitleCell.xib in Resources */,
@@ -2896,6 +2983,11 @@
 				D8F6D10A241949C100B168C5 /* BotOutgoingMessageTableViewCell.xib in Resources */,
 				1967A7072670F5440010613D /* SharedMediaCell.xib in Resources */,
 				D8F6CFFF2418F9CF00B168C5 /* AgentProfileViewController.xib in Resources */,
+				9180B4A32FCD6A4F00AB17AA /* ImageCollectionViewCell.xib in Resources */,
+				9180B4A42FCD6A4F00AB17AA /* DescriptionTableViewCell.xib in Resources */,
+				9180B4A52FCD6A4F00AB17AA /* DropDownTableViewCell.xib in Resources */,
+				9180B4A62FCD6A4F00AB17AA /* TagsTableViewCell.xib in Resources */,
+				9180B4A72FCD6A4F00AB17AA /* UploadCollectionViewCell.xib in Resources */,
 				D8F6D1B22419510F00B168C5 /* TitilliumWeb-LightItalic.ttf in Resources */,
 				D8F6D15A24194D8600B168C5 /* OutgoingVideoTableViewCell.xib in Resources */,
 				D8F6D0EC241947E100B168C5 /* ActionTableView.xib in Resources */,
@@ -2907,6 +2999,7 @@
 				D8F6D1022419496900B168C5 /* IncomingImageCell.xib in Resources */,
 				D8F6D14624194CD200B168C5 /* ImageTableViewCell.xib in Resources */,
 				D8F6D0F72419486300B168C5 /* ActionTagTableViewCell.xib in Resources */,
+				9180B4A92FCD6A4F00AB17AA /* TextFieldsTableViewCell.xib in Resources */,
 				D8F6D10E241949EC00B168C5 /* IncomingDocumentTableViewCell.xib in Resources */,
 				D8F6D1B52419510F00B168C5 /* TitilliumWeb-ExtraLightItalic.ttf in Resources */,
 				D8CD683024866EC7000F4097 /* SZMentionsSwift.podspec in Resources */,
@@ -3005,7 +3098,29 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		75B9B621D9B333A4B27D8547 /* [CP] Embed Pods Frameworks */ = {
+		A1B42178094BFB5CADA298FC /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Hippo-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CE57C841122F8A22BA77A184 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -3023,24 +3138,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Hippo/Pods-Hippo-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		778DA9DBA8B35F32864A747E /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Hippo-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -3320,6 +3417,15 @@
 				D8F6D1FA2419547C00B168C5 /* HippoSupportList.swift in Sources */,
 				197C5A46269F021900B96804 /* SearchAdressVM.swift in Sources */,
 				D8F6D1FF2419547C00B168C5 /* PushInfo.swift in Sources */,
+				9180B4AA2FCD6A4F00AB17AA /* DropDownTableViewCell.swift in Sources */,
+				9180B4AB2FCD6A4F00AB17AA /* UploadCollectionViewCell.swift in Sources */,
+				9180B4AC2FCD6A4F00AB17AA /* AttachmentTableViewCell.swift in Sources */,
+				9180B4AD2FCD6A4F00AB17AA /* CreateTicketsViewController.swift in Sources */,
+				9180B4AE2FCD6A4F00AB17AA /* ImageCollectionViewCell.swift in Sources */,
+				9180B4AF2FCD6A4F00AB17AA /* DescriptionTableViewCell.swift in Sources */,
+				9180B4B02FCD6A4F00AB17AA /* TextFieldsTableViewCell.swift in Sources */,
+				9180B4B12FCD6A4F00AB17AA /* CreateTicketDataModel.swift in Sources */,
+				9180B4B22FCD6A4F00AB17AA /* TagsTableViewCell.swift in Sources */,
 				D88B20D724619F90007FD382 /* KingfisherManager.swift in Sources */,
 				D8F6D0852419000100B168C5 /* LoggerConfig.swift in Sources */,
 				D830D810247DE90300EDC774 /* AgentListViewController.swift in Sources */,
@@ -3534,7 +3640,7 @@
 		};
 		717BE1861EC1BE11003EA321 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6F7645C36ABF77183FAD526B /* Pods-Hippo.debug.xcconfig */;
+			baseConfigurationReference = CE8ADEFCE8E92480D1F48384 /* Pods-Hippo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -3560,7 +3666,7 @@
 		};
 		717BE1871EC1BE11003EA321 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 73C5DC7752C82068B4CD5EB2 /* Pods-Hippo.release.xcconfig */;
+			baseConfigurationReference = E908F22D6068F7FEFC7054C7 /* Pods-Hippo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;

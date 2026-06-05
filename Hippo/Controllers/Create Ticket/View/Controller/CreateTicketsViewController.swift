@@ -75,11 +75,43 @@ class CreateTicketsViewController: UIViewController{
     //MARK: - Custom Funcs
     
     func tableViewSetUp() {
-        tableView.register(UINib(nibName: "TextFieldsTableViewCell", bundle: Bundle(for: TextFieldsTableViewCell.self)), forCellReuseIdentifier: "TextFieldsTableViewCell")
-        tableView.register(UINib(nibName: "DropDownTableViewCell", bundle: Bundle(for: DropDownTableViewCell.self)), forCellReuseIdentifier: "DropDownTableViewCell")
-        tableView.register(UINib(nibName: "AttachmentTableViewCell", bundle: Bundle(for: AttachmentTableViewCell.self)), forCellReuseIdentifier: "AttachmentTableViewCell")
-        tableView.register(UINib(nibName: "DescriptionTableViewCell", bundle: Bundle(for: DescriptionTableViewCell.self)), forCellReuseIdentifier: "DescriptionTableViewCell")
-        tableView.register(UINib(nibName: "TagsTableViewCell", bundle: Bundle(for: TagsTableViewCell.self)), forCellReuseIdentifier: "TagsTableViewCell")
+//        tableView.register(UINib(nibName: "TextFieldsTableViewCell", bundle: Bundle(for: TextFieldsTableViewCell.self)), forCellReuseIdentifier: "TextFieldsTableViewCell")
+//        tableView.register(UINib(nibName: "DropDownTableViewCell", bundle: Bundle(for: DropDownTableViewCell.self)), forCellReuseIdentifier: "DropDownTableViewCell")
+//        tableView.register(UINib(nibName: "AttachmentTableViewCell", bundle: Bundle(for: AttachmentTableViewCell.self)), forCellReuseIdentifier: "AttachmentTableViewCell")
+//        tableView.register(UINib(nibName: "DescriptionTableViewCell", bundle: Bundle(for: DescriptionTableViewCell.self)), forCellReuseIdentifier: "DescriptionTableViewCell")
+//        tableView.register(UINib(nibName: "TagsTableViewCell", bundle: Bundle(for: TagsTableViewCell.self)), forCellReuseIdentifier: "TagsTableViewCell")
+        tableView.register(
+            UINib(
+                nibName: "TextFieldsTableViewCell",
+                bundle: FuguFlowManager.bundle
+            ),
+            forCellReuseIdentifier: "TextFieldsTableViewCell"
+        )
+        
+        tableView.register(
+            UINib(nibName: "DropDownTableViewCell",
+                  bundle: FuguFlowManager.bundle),
+            forCellReuseIdentifier: "DropDownTableViewCell"
+        )
+
+        tableView.register(
+            UINib(nibName: "AttachmentTableViewCell",
+                  bundle: FuguFlowManager.bundle),
+            forCellReuseIdentifier: "AttachmentTableViewCell"
+        )
+
+        tableView.register(
+            UINib(nibName: "DescriptionTableViewCell",
+                  bundle: FuguFlowManager.bundle),
+            forCellReuseIdentifier: "DescriptionTableViewCell"
+        )
+
+        tableView.register(
+            UINib(nibName: "TagsTableViewCell",
+                  bundle: FuguFlowManager.bundle),
+            forCellReuseIdentifier: "TagsTableViewCell"
+        )
+        
         
         tableView.tableFooterView = UIView()
     }

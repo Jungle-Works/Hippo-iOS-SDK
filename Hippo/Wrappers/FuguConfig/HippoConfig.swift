@@ -147,7 +147,7 @@ struct WhatsappWidgetConfig{
     internal var jitsiOngoingCall : Bool?
     internal var agentDetail: AgentDetail?
     public var strings = HippoStrings()
-    internal var apiLogging: Int = 1
+    internal var apiLogging: Int = 0
     private(set) public var newConversationButtonBorderWidth: Float = 0.0
     var processedMessageMUIDs = Set<String>()
     private(set) public var isSuggestionNeeded = false

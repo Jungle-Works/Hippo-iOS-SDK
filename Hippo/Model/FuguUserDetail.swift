@@ -462,8 +462,12 @@ public class UserTag: NSObject {
         
         BussinessProperty.current.updateData(loginData: userDetailData)
 
-        if let configDict = userDetailData["smart_chat_order_config"] as? [String: Any],
-           let parsedConfig = SmartChatOrderConfig.parse(from: configDict) {
+
+        if let jsonString = userDetailData["smart_chat_order_config"] as? String,
+           let data = jsonString.data(using: .utf8),
+           let config = try? JSONSerialization.jsonObject(with: data) as? [String: Any] {
+
+            let parsedConfig = SmartChatOrderConfig.parse(from: config)
             HippoProperty.current.smartChatOrderConfig = parsedConfig
         }
 
