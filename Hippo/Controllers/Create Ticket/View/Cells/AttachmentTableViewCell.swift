@@ -34,8 +34,8 @@ class AttachmentTableViewCell: UITableViewCell {
     
     func reload(){
        
-        collectionView.register(UINib(nibName: "ImageCollectionViewCell", bundle:  Bundle(for: ImageCollectionViewCell.self)), forCellWithReuseIdentifier: "ImageCollectionViewCell")
-        collectionView.register(UINib(nibName: "UploadCollectionViewCell", bundle:  Bundle(for: UploadCollectionViewCell.self)), forCellWithReuseIdentifier: "UploadCollectionViewCell")
+        collectionView.register(UINib(nibName: "ImageCollectionViewCell", bundle:  FuguFlowManager.bundle), forCellWithReuseIdentifier: "ImageCollectionViewCell")
+        collectionView.register(UINib(nibName: "UploadCollectionViewCell", bundle:  FuguFlowManager.bundle), forCellWithReuseIdentifier: "UploadCollectionViewCell")
         
         collectionView.dataSource = self
         collectionView.delegate = self
