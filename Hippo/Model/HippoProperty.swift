@@ -25,7 +25,7 @@ class HippoProperty: NSObject {
     
     var skipBot: Bool?
     var skipBotReason: String?
-    
+    var smartChatOrderConfig: SmartChatOrderConfig?
     
     //Properties
     var ticketCustomAttributes: [String: Any]?

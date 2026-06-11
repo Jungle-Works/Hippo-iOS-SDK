@@ -459,6 +459,13 @@ public class UserTag: NSObject {
         
         BussinessProperty.current.updateData(loginData: userDetailData)
         
+        if let jsonString = userDetailData["smart_chat_order_config"] as? String,
+           let data = jsonString.data(using: .utf8),
+           let config = try? JSONSerialization.jsonObject(with: data) as? [String: Any] {
+
+            let parsedConfig = SmartChatOrderConfig.parse(from: config)
+            HippoProperty.current.smartChatOrderConfig = parsedConfig
+        }
         
         if let in_app_support_panel_version = userDetailData["in_app_support_panel_version"] as? Int, in_app_support_panel_version > HippoSupportList.currentFAQVersion, isFaqEnabled {
             HippoSupportList.getListForBusiness(completion: { (success, list) in

@@ -318,6 +318,10 @@ struct WhatsappWidgetConfig{
         self.delegate = delegate
     }
     
+    public func setSmartChatOrderConfig(_ config: SmartChatOrderConfig) {
+        HippoProperty.current.smartChatOrderConfig = config
+    }
+    
     @available(*, deprecated, renamed: "setCustomisedHippoTheme", message: "This class will no longer be available, To Continue migrate to setCustomisedHippoTheme")
     public func setCustomisedFuguTheme(theme: HippoTheme) {
         self.theme = theme
