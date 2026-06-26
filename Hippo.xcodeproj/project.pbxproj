@@ -65,6 +65,15 @@
 		6BE70B19259C3F8700ECA4FC /* FillPresciptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BE70B18259C3F8700ECA4FC /* FillPresciptionViewController.swift */; };
 		6BFC612625405EE9008BE42F /* SocketClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BFC612525405EE9008BE42F /* SocketClient.swift */; };
 		6BFF4B2024ED0F4E0062E6F7 /* HippoNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BFF4B1F24ED0F4E0062E6F7 /* HippoNotificationService.swift */; };
+		91370FF42FEE919900E28810 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 91370FF12FEE919900E28810 /* LICENSE */; };
+		91370FF52FEE919900E28810 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 91370FF22FEE919900E28810 /* README.md */; };
+		91370FF62FEE919900E28810 /* DropDownCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 91370FEA2FEE919900E28810 /* DropDownCell.xib */; };
+		91370FF72FEE919900E28810 /* DPDConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91370FE62FEE919900E28810 /* DPDConstants.swift */; };
+		91370FF82FEE919900E28810 /* DropDownCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91370FEE2FEE919900E28810 /* DropDownCell.swift */; };
+		91370FF92FEE919900E28810 /* DropDown+Appearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91370FED2FEE919900E28810 /* DropDown+Appearance.swift */; };
+		91370FFA2FEE919900E28810 /* DPDUIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91370FE82FEE919900E28810 /* DPDUIView+Extension.swift */; };
+		91370FFB2FEE919900E28810 /* DropDown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91370FEC2FEE919900E28810 /* DropDown.swift */; };
+		91370FFC2FEE919900E28810 /* DPDKeyboardListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91370FE72FEE919900E28810 /* DPDKeyboardListener.swift */; };
 		9180B4A32FCD6A4F00AB17AA /* ImageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9180B4972FCD6A4F00AB17AA /* ImageCollectionViewCell.xib */; };
 		9180B4A42FCD6A4F00AB17AA /* DescriptionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9180B4932FCD6A4F00AB17AA /* DescriptionTableViewCell.xib */; };
 		9180B4A52FCD6A4F00AB17AA /* DropDownTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9180B4952FCD6A4F00AB17AA /* DropDownTableViewCell.xib */; };
@@ -540,6 +549,15 @@
 		6BFC612525405EE9008BE42F /* SocketClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketClient.swift; sourceTree = "<group>"; };
 		6BFF4B1F24ED0F4E0062E6F7 /* HippoNotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HippoNotificationService.swift; sourceTree = "<group>"; };
 		717BE1731EC1BE11003EA321 /* Hippo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hippo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		91370FE62FEE919900E28810 /* DPDConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DPDConstants.swift; sourceTree = "<group>"; };
+		91370FE72FEE919900E28810 /* DPDKeyboardListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DPDKeyboardListener.swift; sourceTree = "<group>"; };
+		91370FE82FEE919900E28810 /* DPDUIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DPDUIView+Extension.swift"; sourceTree = "<group>"; };
+		91370FEA2FEE919900E28810 /* DropDownCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DropDownCell.xib; sourceTree = "<group>"; };
+		91370FEC2FEE919900E28810 /* DropDown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropDown.swift; sourceTree = "<group>"; };
+		91370FED2FEE919900E28810 /* DropDown+Appearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DropDown+Appearance.swift"; sourceTree = "<group>"; };
+		91370FEE2FEE919900E28810 /* DropDownCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropDownCell.swift; sourceTree = "<group>"; };
+		91370FF12FEE919900E28810 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		91370FF22FEE919900E28810 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		9180B48E2FCD6A4F00AB17AA /* CreateTicketDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTicketDataModel.swift; sourceTree = "<group>"; };
 		9180B4902FCD6A4F00AB17AA /* AttachmentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentTableViewCell.swift; sourceTree = "<group>"; };
 		9180B4912FCD6A4F00AB17AA /* AttachmentTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AttachmentTableViewCell.xib; sourceTree = "<group>"; };
@@ -1298,6 +1316,86 @@
 				E908F22D6068F7FEFC7054C7 /* Pods-Hippo.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		91370FE22FEE919900E28810 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		91370FE32FEE919900E28810 /* TOCropViewController */ = {
+			isa = PBXGroup;
+			children = (
+				91370FE22FEE919900E28810 /* Resources */,
+			);
+			path = TOCropViewController;
+			sourceTree = "<group>";
+		};
+		91370FE42FEE919900E28810 /* Objective-C */ = {
+			isa = PBXGroup;
+			children = (
+				91370FE32FEE919900E28810 /* TOCropViewController */,
+			);
+			path = "Objective-C";
+			sourceTree = "<group>";
+		};
+		91370FE52FEE919900E28810 /* CropViewController */ = {
+			isa = PBXGroup;
+			children = (
+				91370FE42FEE919900E28810 /* Objective-C */,
+			);
+			path = CropViewController;
+			sourceTree = "<group>";
+		};
+		91370FE92FEE919900E28810 /* helpers */ = {
+			isa = PBXGroup;
+			children = (
+				91370FE62FEE919900E28810 /* DPDConstants.swift */,
+				91370FE72FEE919900E28810 /* DPDKeyboardListener.swift */,
+				91370FE82FEE919900E28810 /* DPDUIView+Extension.swift */,
+			);
+			path = helpers;
+			sourceTree = "<group>";
+		};
+		91370FEB2FEE919900E28810 /* resources */ = {
+			isa = PBXGroup;
+			children = (
+				91370FEA2FEE919900E28810 /* DropDownCell.xib */,
+			);
+			path = resources;
+			sourceTree = "<group>";
+		};
+		91370FEF2FEE919900E28810 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				91370FEC2FEE919900E28810 /* DropDown.swift */,
+				91370FED2FEE919900E28810 /* DropDown+Appearance.swift */,
+				91370FEE2FEE919900E28810 /* DropDownCell.swift */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		91370FF02FEE919900E28810 /* DropDown */ = {
+			isa = PBXGroup;
+			children = (
+				91370FE92FEE919900E28810 /* helpers */,
+				91370FEB2FEE919900E28810 /* resources */,
+				91370FEF2FEE919900E28810 /* src */,
+			);
+			path = DropDown;
+			sourceTree = "<group>";
+		};
+		91370FF32FEE919900E28810 /* DropDown */ = {
+			isa = PBXGroup;
+			children = (
+				91370FE52FEE919900E28810 /* CropViewController */,
+				91370FF02FEE919900E28810 /* DropDown */,
+				91370FF12FEE919900E28810 /* LICENSE */,
+				91370FF22FEE919900E28810 /* README.md */,
+			);
+			path = DropDown;
 			sourceTree = "<group>";
 		};
 		9180B48F2FCD6A4F00AB17AA /* Model */ = {
@@ -2163,6 +2261,7 @@
 		C9B77DC321A01B060092848D /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				91370FF32FEE919900E28810 /* DropDown */,
 				190671822652A04900DC00C7 /* Encryption */,
 				19AE5329266F596400342DA0 /* ShareUrl */,
 				192D0AA325F68F8E0065C828 /* CreateTicket */,
@@ -3087,6 +3186,9 @@
 				D8F6D18924194F7600B168C5 /* BroadcastAgentCell.xib in Resources */,
 				D8F6D14224194CB300B168C5 /* SenderNameTableCell.xib in Resources */,
 				D8F6D0CF2419467600B168C5 /* ProfileDetailCell.xib in Resources */,
+				91370FF42FEE919900E28810 /* LICENSE in Resources */,
+				91370FF52FEE919900E28810 /* README.md in Resources */,
+				91370FF62FEE919900E28810 /* DropDownCell.xib in Resources */,
 				D8F6D0CA2419466200B168C5 /* ProfileNameCell.xib in Resources */,
 				D8F6D05C2418FCD200B168C5 /* README.rst in Resources */,
 				D8F6D17724194ED700B168C5 /* OutgoingVideoCallMessageTableViewCell.xib in Resources */,
@@ -3489,6 +3591,12 @@
 				D8F6D2C824195D9200B168C5 /* HippoDataCollectorController.swift in Sources */,
 				D8F6D0492418FC4400B168C5 /* ParallaxHeaderMode.swift in Sources */,
 				199B7DF7267B608200B571B1 /* RecordingHelper.swift in Sources */,
+				91370FF72FEE919900E28810 /* DPDConstants.swift in Sources */,
+				91370FF82FEE919900E28810 /* DropDownCell.swift in Sources */,
+				91370FF92FEE919900E28810 /* DropDown+Appearance.swift in Sources */,
+				91370FFA2FEE919900E28810 /* DPDUIView+Extension.swift in Sources */,
+				91370FFB2FEE919900E28810 /* DropDown.swift in Sources */,
+				91370FFC2FEE919900E28810 /* DPDKeyboardListener.swift in Sources */,
 				D8F6D0742418FF8600B168C5 /* CoreFilesConfig.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

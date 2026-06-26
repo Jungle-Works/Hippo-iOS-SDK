@@ -752,7 +752,7 @@ extension DropDown {
 	
 	fileprivate func fittingWidth() -> CGFloat {
 		if templateCell == nil {
-			templateCell = (cellNib.instantiate(withOwner: nil, options: nil)[0] as! DropDownCell)
+			templateCell = (cellNib.instantiate(withOwner: nil, options: nil)[0] as? DropDownCell)
 		}
 		
 		var maxWidth: CGFloat = 0
