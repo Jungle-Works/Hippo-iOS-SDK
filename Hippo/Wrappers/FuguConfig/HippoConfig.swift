@@ -186,7 +186,10 @@ struct WhatsappWidgetConfig{
         }
     }
     
-    var deviceKey : String = ""
+    var deviceKey: String {
+        get { return UserDefaults.standard.string(forKey: Hippo_Device_Key) ?? "" }
+        set { UserDefaults.standard.set(newValue, forKey: Hippo_Device_Key) }
+    }
     var serverTimeDifference : Int = 0
     public var appName: String = ""
     internal var appUserType = AppUserType.customer

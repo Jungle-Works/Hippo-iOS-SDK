@@ -6,6 +6,9 @@
 //
 
 import UIKit
+import os.log
+
+private let channelLog = OSLog(subsystem: "com.hippo.sdk", category: "Socket")
 
 public enum GroupCallStatus{
     case missed
@@ -32,14 +35,50 @@ extension HippoChannel: SignalingClient {
             completion(true)
             return
         }
-        
+
         guard !isSubscribed() else {
             completion(false)
             return
         }
-        
-        subscribeChannel { (success) in
+
+        // Socket not yet connected — observe socketConnected, then subscribe the channel.
+        // subscribe(completion:) silently drops its completion argument, so we can't rely
+        // on subscribeChannel to call back. Instead: connect → wait for the notification →
+        // subscribe with ACK → call completion.
+        var didComplete = false
+        var observer: NSObjectProtocol?
+
+        let finish: (Bool) -> Void = { success in
+            guard !didComplete else { return }
+            didComplete = true
+            if let obs = observer {
+                NotificationCenter.default.removeObserver(obs)
+                observer = nil
+            }
+            os_log("[connectClient] socket ready, delivering queued signal (success=%{public}@)", log: channelLog, type: .default, "\(success)")
             completion(success)
+        }
+
+        observer = NotificationCenter.default.addObserver(
+            forName: .socketConnected,
+            object: nil,
+            queue: .main
+        ) { [weak self] _ in
+            guard let self = self else { finish(false); return }
+            SocketClient.shared.subscribeSocketChannel(channel: self.id.description) { (_, success) in
+                finish(success)
+            }
+        }
+
+        // Kick off connection — if socket is already connecting this is a no-op effectively
+        SocketClient.shared.connect()
+
+        // 15-second timeout so completion is never permanently lost
+        DispatchQueue.main.asyncAfter(deadline: .now() + 15) {
+            if !didComplete {
+                os_log("[connectClient] TIMEOUT — socket never connected, signal dropped", log: channelLog, type: .error)
+            }
+            finish(false)
         }
     }
     

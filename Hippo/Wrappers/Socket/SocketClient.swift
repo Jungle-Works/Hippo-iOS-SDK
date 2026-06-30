@@ -8,6 +8,9 @@
 
 import Foundation
 import SocketIO
+import os.log
+
+private let socketLog = OSLog(subsystem: "com.hippo.sdk", category: "Socket")
 
 class SocketClient: NSObject {
     
@@ -55,14 +58,23 @@ class SocketClient: NSObject {
     // MARK: Init
     private override init() {
         super.init()
+        let keyStatus = HippoConfig.shared.deviceKey.isEmpty ? "EMPTY" : "SET"
+        let uidStatus = currentEnUserId().isEmpty ? "EMPTY" : "SET"
+        os_log("[SocketClient] init — userType=%{public}@, deviceKey=%{public}@, enUserId=%{public}@",
+               log: socketLog, type: .default,
+               "\(currentUserType())", keyStatus, uidStatus)
         if currentUserType() == .customer && HippoConfig.shared.deviceKey == ""{
+            os_log("[SocketClient] ABORTED — deviceKey is empty, socket not created", log: socketLog, type: .error)
             return
         }else if currentEnUserId() == ""{
+            os_log("[SocketClient] ABORTED — enUserId is empty, socket not created", log: socketLog, type: .error)
             return
         }else if currentUserType() == .agent && HippoConfig.shared.agentDetail?.fuguToken ?? "" == ""{
+            os_log("[SocketClient] ABORTED — agent fuguToken is empty, socket not created", log: socketLog, type: .error)
             return
         }
-        
+
+        os_log("[SocketClient] INITIALIZING — credentials valid, calling socketSetup()", log: socketLog, type: .default)
         addObserver()
         deinitializeListeners()
         manager = nil
@@ -114,6 +126,7 @@ class SocketClient: NSObject {
 
     private func initListeners(){
         onConnectCallBack = { [weak self] (arr, ack) in
+            os_log("[SocketClient] CONNECTED — posting .socketConnected", log: socketLog, type: .default)
             NotificationCenter.default.post(name: .socketConnected, object: nil)
             if let userChannelId = HippoUserDetail.HippoUserChannelId, currentUserType() == .customer, self?.isChannelSubscribed(channel: userChannelId) == false{
                 SocketClient.shared.subscribeSocketChannel(channel: userChannelId)
