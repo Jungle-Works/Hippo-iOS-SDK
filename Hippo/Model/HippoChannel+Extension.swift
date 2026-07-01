@@ -32,14 +32,18 @@ extension HippoChannel: SignalingClient {
     
     func connectClient(completion: @escaping (Bool) -> Void) {
         guard !isConnected() else {
+            os_log("[connectClient] already connected — delivering signal immediately", log: channelLog, type: .default)
             completion(true)
             return
         }
 
-        guard !isSubscribed() else {
-            completion(false)
-            return
-        }
+        // NOTE: isSubscribed() is NOT checked here intentionally.
+        // On locked screen / background, the socket disconnects but subscribedChannel
+        // still shows stale "true" entries. Returning false there would cause sendJitsiObject
+        // to fire on a dead socket and silently drop the REJECT/HUNGUP signal.
+        // We always go through the full reconnect path when socket is not connected.
+
+        os_log("[connectClient] socket not connected — waiting for reconnect to deliver signal", log: channelLog, type: .default)
 
         // Socket not yet connected — observe socketConnected, then subscribe the channel.
         // subscribe(completion:) silently drops its completion argument, so we can't rely
@@ -70,8 +74,16 @@ extension HippoChannel: SignalingClient {
             }
         }
 
-        // Kick off connection — if socket is already connecting this is a no-op effectively
-        SocketClient.shared.connect()
+        // Only connect if not already in the process of connecting.
+        // SocketClient.connect() creates a brand-new SocketClient, which tears down the
+        // previous socket (triggering onDisconnectCallBack → another connect() → storm).
+        let status = SocketClient.shared.socket?.status
+        if status != .connected && status != .connecting {
+            os_log("[connectClient] kicking off socket connect (status=%{public}@)", log: channelLog, type: .default, "\(String(describing: status))")
+            SocketClient.shared.connect()
+        } else {
+            os_log("[connectClient] socket already connecting/connected, not re-creating", log: channelLog, type: .default)
+        }
 
         // 15-second timeout so completion is never permanently lost
         DispatchQueue.main.asyncAfter(deadline: .now() + 15) {
