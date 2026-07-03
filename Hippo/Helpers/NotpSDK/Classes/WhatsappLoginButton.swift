@@ -190,9 +190,21 @@ open class WhatsappLoginButton: UIButton, onVerifyWaidDelegate {
             }
         }
 
-        var params = [String : Any]()
-        params = ["app_secret_key":HippoConfig.shared.whatsappSecretKey,
-                  "get_session": true, "device_type": 2, "redirect_uri":redirectURI] as [String : Any]
+        var params: [String: Any] = [
+            "get_session": true,
+            "device_type": 2,
+            "redirect_uri":redirectURI
+        ]
+
+        if HippoConfig.shared.resellerToken.isEmpty == false && HippoConfig.shared.referenceId > 0 {
+            params["reference_id"] = HippoConfig.shared.referenceId
+            params["reseller_token"] = HippoConfig.shared.resellerToken
+        }
+        
+        if HippoConfig.shared.whatsappSecretKey.isEmpty == false{
+            params["app_secret_key"] = HippoConfig.shared.whatsappSecretKey
+        }
+        
         print(params)
         HTTPClient.makeConcurrentConnectionWith(method: .POST, showActivityIndicator: true, para: params, extendedUrl: AgentEndPoints.generateQrCode.rawValue) { (response, error, _, statusCode) in
             print("generateQrCode \(String(describing: response))")

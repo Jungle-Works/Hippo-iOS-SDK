@@ -147,7 +147,7 @@ struct WhatsappWidgetConfig{
     internal var jitsiOngoingCall : Bool?
     internal var agentDetail: AgentDetail?
     public var strings = HippoStrings()
-    internal var apiLogging: Int = 0
+    public var apiLogging: Int = 0
     private(set) public var newConversationButtonBorderWidth: Float = 0.0
     var processedMessageMUIDs = Set<String>()
     private(set) public var isSuggestionNeeded = false
@@ -193,8 +193,8 @@ struct WhatsappWidgetConfig{
     var serverTimeDifference : Int = 0
     public var appName: String = ""
     internal var appUserType = AppUserType.customer
-    internal var resellerToken = ""
-    internal var referenceId = -1
+    public var resellerToken = ""
+    public var referenceId = -1
     internal var appType: String?
     internal var offering: Int = 0
     internal var credentialType = FuguCredentialType.defaultType
