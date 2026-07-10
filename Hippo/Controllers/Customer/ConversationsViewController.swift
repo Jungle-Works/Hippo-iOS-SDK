@@ -3900,6 +3900,7 @@ extension ConversationsViewController: UIGestureRecognizerDelegate {
     }
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         guard gestureRecognizer.isEqual(self.navigationController?.interactivePopGestureRecognizer) else{ return true }
+        guard (self.navigationController?.viewControllers.count ?? 0) > 1 else { return false }
         messageTextView.resignFirstResponder()
         channel?.send(message: HippoMessage.stopTyping, completion: {})
         let rawLabelID = self.labelId == -1 ? nil : self.labelId

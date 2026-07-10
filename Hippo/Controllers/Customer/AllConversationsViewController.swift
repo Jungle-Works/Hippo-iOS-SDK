@@ -88,8 +88,8 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         
         self.openChatButton.titleLabel?.font = UIFont.bold(ofSize: 15)
         self.closeChatButton.titleLabel?.font = UIFont.regular(ofSize: 15)
-        self.openChatButton.setTitle(HippoProperty.current.currentBtnText ?? HippoStrings.ongoing, for: .normal)
-        self.closeChatButton.setTitle(HippoProperty.current.pastBtnText ?? HippoStrings.past, for: .normal)
+        self.openChatButton.setTitle(HippoStrings.ongoing ?? HippoProperty.current.currentBtnText, for: .normal)
+        self.closeChatButton.setTitle(HippoStrings.past ?? HippoProperty.current.pastBtnText, for: .normal)
         
         self.bottomLineView.backgroundColor = HippoConfig.shared.theme.themeColor
         
@@ -401,7 +401,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
             // width_NewConversation.constant = 210
             let chatImage = UIImage(named: "chat", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
             self.newConversationBiutton.setImage(chatImage, for: .normal)
-            self.newConversationBiutton.setTitle("  " + (HippoProperty.current.newConverstationButtonTitle ?? HippoConfig.shared.strings.newConversation), for: .normal)
+            self.newConversationBiutton.setTitle("  " + ((HippoConfig.shared.strings.newConversation ?? HippoStrings.newConversation)), for: .normal)
             self.newConversationBiutton.tintColor = HippoConfig.shared.theme.customColorforNewConversation
             self.newConversationBiutton.backgroundColor = HippoConfig.shared.theme.themeColor
         }else{
