@@ -307,8 +307,17 @@ struct WhatsappWidgetConfig{
     }
     
     public func callMissedFromUser(userInfo : [String : Any]){
-        if userInfo["notification_type"] as? Int == NotificationType.call.rawValue{
+        let notificationType = userInfo["notification_type"] as? Int
+        if notificationType == NotificationType.call.rawValue{
             CallManager.shared.voipNotificationRecieved(payloadDict: userInfo)
+        } else if notificationType == NotificationType.missedCall.rawValue {
+            // "Missed call" push — caller's call ended before we joined it.
+            CallManager.shared.handleCallCancelledPush(payloadDict: userInfo)
+        } else if notificationType == NotificationType.jitsiCallSignal.rawValue,
+                  userInfo["video_call_type"] as? String == "HUNGUP_CONFERENCE" {
+            // Caller hung up while we were still connecting to the Jitsi room —
+            // this arrives as a push (not the live Faye socket) when we're mid-connect.
+            CallManager.shared.handleCallCancelledPush(payloadDict: userInfo)
         }
     }
     

@@ -240,6 +240,16 @@ class CallManager {
         #endif
     }
     
+    // Handles a push that reports a call ended before it was answered (missed call,
+    // or caller hung up while we were still connecting) so a stuck Jitsi connecting
+    // view can be dismissed even though no live Faye signal arrived for it.
+    func handleCallCancelledPush(payloadDict: [String: Any]) {
+        #if canImport(HippoCallClient)
+        let muid = payloadDict["muid"] as? String
+        HippoCallClient.shared.handleCallCancelledPush(muid: muid)
+        #endif
+    }
+
     func passAppSecret(key: String){
         
         #if canImport(HippoCallClient)

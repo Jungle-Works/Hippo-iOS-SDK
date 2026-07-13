@@ -288,6 +288,8 @@ enum NotificationType: Int {
     case call = 14
     case messageModified = 24
     case channelRefresh = 17
+    case jitsiCallSignal = 20
+    case missedCall = 23
     
     var isNotificationTypeHandled: Bool {
         switch self {
