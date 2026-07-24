@@ -109,6 +109,7 @@ public class UserTag: NSObject {
     var userChannel: String?
     var listener : SocketListner?
     var userIdenficationSecret : String?
+    var appType: String?
     var fetchAnnouncementsUnreadCount: Bool?
     var callAudioTypeorNot : String?
     var redirectToWhatsapp: Bool = false
@@ -181,9 +182,10 @@ public class UserTag: NSObject {
     // MARK: - Intializer
     override init() {}
     
-    public init(fullName: String, email: String, phoneNumber: String, userUniqueKey: String, addressAttribute: HippoAttributes? = nil, customAttributes: [String: Any]? = nil, userTags: [UserTag]? = nil, userImage: String? = nil, userIdenficationSecret: String? = nil, selectedlanguage : String? = nil, getPaymentGateways: Bool = true, fetchAnnouncementsUnreadCount: Bool = false, redirectToWhatsapp: Bool = false) {
+    public init(fullName: String, email: String, phoneNumber: String, userUniqueKey: String, addressAttribute: HippoAttributes? = nil, customAttributes: [String: Any]? = nil, userTags: [UserTag]? = nil, userImage: String? = nil, userIdenficationSecret: String? = nil, selectedlanguage : String? = nil, getPaymentGateways: Bool = true, fetchAnnouncementsUnreadCount: Bool = false, redirectToWhatsapp: Bool = false, appType: String? = nil) {
         super.init()
         self.userIdenficationSecret = userIdenficationSecret
+        self.appType = appType?.trimWhiteSpacesAndNewLine()
         self.fullName = fullName.trimWhiteSpacesAndNewLine()
         self.email = email.trimWhiteSpacesAndNewLine()
         self.phoneNumber = phoneNumber.trimWhiteSpacesAndNewLine()
