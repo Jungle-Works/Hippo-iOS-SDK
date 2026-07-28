@@ -147,7 +147,7 @@ struct WhatsappWidgetConfig{
     internal var jitsiOngoingCall : Bool?
     internal var agentDetail: AgentDetail?
     public var strings = HippoStrings()
-    public var apiLogging: Int = 0
+    public var apiLogging: Int = 1
     private(set) public var newConversationButtonBorderWidth: Float = 0.0
     var processedMessageMUIDs = Set<String>()
     private(set) public var isSuggestionNeeded = false
@@ -1112,6 +1112,15 @@ struct WhatsappWidgetConfig{
             UserDefaults.standard.set(defaultLang, forKey: DefaultName.selectedLanguage.rawValue)
             getAllStrings()
         }
+    }
+
+    /// Persists a language code without validating it against the business's supported
+    /// language list, and without triggering `getAllStrings()`. Use this when the language
+    /// needs to be set before the SDK is initialized (e.g. for the standalone WhatsApp/QR
+    /// login flow), since `setLanguage` depends on `BussinessProperty.current.buisnessLanguageArr`,
+    /// which is only populated after login.
+    public func setLanguageWithoutValidation(_ code: String) {
+        UserDefaults.standard.set(code, forKey: DefaultName.selectedLanguage.rawValue)
     }
     
     // MARK: - Helpers

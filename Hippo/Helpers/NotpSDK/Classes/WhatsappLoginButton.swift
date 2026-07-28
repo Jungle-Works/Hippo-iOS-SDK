@@ -204,7 +204,12 @@ open class WhatsappLoginButton: UIButton, onVerifyWaidDelegate {
         if HippoConfig.shared.whatsappSecretKey.isEmpty == false{
             params["app_secret_key"] = HippoConfig.shared.whatsappSecretKey
         }
-        
+
+        let languageCode = getCurrentLanguageLocale()
+        if languageCode.isEmpty == false {
+            params["lang"] = languageCode
+        }
+
         print(params)
         HTTPClient.makeConcurrentConnectionWith(method: .POST, showActivityIndicator: true, para: params, extendedUrl: AgentEndPoints.generateQrCode.rawValue) { (response, error, _, statusCode) in
             print("generateQrCode \(String(describing: response))")
