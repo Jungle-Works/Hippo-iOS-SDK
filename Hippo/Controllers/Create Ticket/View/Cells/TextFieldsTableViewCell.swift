@@ -11,29 +11,29 @@ import UIKit
 
 class TextFieldsTableViewCell: UITableViewCell {
 
-
+    @IBOutlet var fieldLabel: UILabel!
     @IBOutlet var textField: UITextField!
-   
+
     var callBack : ((String)->())?
     var imageName = ""
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
-        textField.layer.cornerRadius = 6
+        textField.layer.cornerRadius = 8
         textField.layer.borderWidth = 1
         textField.layer.borderColor = UIColor(red: 223/255, green: 230/255, blue: 236/255, alpha: 1).cgColor
-        textField.setRightPaddingPoints(10)
+        textField.setLeftPaddingPoints(12)
+        textField.setRightPaddingPoints(12)
         textField.tintColor = .darkGray
         textField.backgroundColor = .white
+
+        fieldLabel.styleAsFieldLabel()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
-    
+
     @IBAction func textField(_ sender: UITextField) {
         callBack?(textField.text ?? "")
     }
@@ -47,12 +47,11 @@ enum Direction {
     case Right
 }
 
-// add image to textfield
 func withImage(direction: Direction, image: UIImage, colorSeparator: UIColor, colorBorder: UIColor){
-    let mainView = UIView(frame: CGRect(x: 0, y: 0, width: 50, height: 45))
+    let mainView = UIView(frame: CGRect(x: 0, y: 0, width: 50, height: 44))
     mainView.layer.cornerRadius = 5
 
-    let view = UIView(frame: CGRect(x: 0, y: 0, width: 50, height: 45))
+    let view = UIView(frame: CGRect(x: 0, y: 0, width: 50, height: 44))
     view.backgroundColor = .white
     view.clipsToBounds = true
     view.layer.cornerRadius = 5
@@ -69,20 +68,20 @@ func withImage(direction: Direction, image: UIImage, colorSeparator: UIColor, co
     seperatorView.backgroundColor = colorSeparator
     mainView.addSubview(seperatorView)
 
-    if(Direction.Left == direction){ // image left
-        seperatorView.frame = CGRect(x: 45, y: 0, width: 5, height: 45)
+    if(Direction.Left == direction){
+        seperatorView.frame = CGRect(x: 45, y: 0, width: 5, height: 44)
         self.leftViewMode = .always
         self.leftView = mainView
-    } else { // image right
-        seperatorView.frame = CGRect(x: 0, y: 0, width: 5, height: 45)
+    } else {
+        seperatorView.frame = CGRect(x: 0, y: 0, width: 5, height: 44)
         self.rightViewMode = .always
         self.rightView = mainView
     }
     mainView.isUserInteractionEnabled = false
     self.layer.borderColor = colorBorder.cgColor
     self.layer.borderWidth = CGFloat(1.0)
-    self.layer.cornerRadius = 5
-    
+    self.layer.cornerRadius = 8
+
 }
 
 }

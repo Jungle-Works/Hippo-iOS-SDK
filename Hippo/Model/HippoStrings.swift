@@ -16,7 +16,7 @@ public class HippoStrings {
     static var continue_to_whatsapp = "Continue with WhatsApp".localized
     static var ongoing = "Current".localized
     static var past = "Past".localized
-    open var newConversation = "New Conversation".localized
+    open var newConversation = "Create Conversation".localized
     static var noNetworkConnection = "No internet connected".localized
     static var connected = "Connected".localized
     static var somethingWentWrong = "Something went wrong. Please try again".localized
@@ -132,7 +132,7 @@ public class HippoStrings {
     static var thanksForFeedback = "Thank you for your comments!".localized
     static var closed = "Closed".localized
     static var openChat = "Open Chats".localized
-    static var newConversation = "New Conversation".localized
+    static var newConversation = "Create Conversation".localized
     static var actions = "Actions".localized
     static var closeChat = "Close Chat".localized
     static var closeChats = "Close Chats".localized

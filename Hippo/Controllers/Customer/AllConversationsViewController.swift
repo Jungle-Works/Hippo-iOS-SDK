@@ -39,7 +39,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     @IBOutlet weak var closeChatButton: UIButton!
     @IBOutlet weak var bottomLineView: UIView!
     @IBOutlet weak var buttonContainerViewHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var bottomViewLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var bottomViewLeadingConstraint: NSLayoutConstraint! // retained for storyboard connection; no longer driven by animation code (pill tab replaced it)
     @IBOutlet weak var width_NewConversation : NSLayoutConstraint!
     @IBOutlet weak var view_NewConversationBtn : UIView!
     @IBOutlet weak var height_ErrorLabel : NSLayoutConstraint!
@@ -58,6 +58,8 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     var conversationChatType: ConversationChatType = .openChat
     var shouldHideBackBtn : Bool = false
     var isPutUserFailed = false
+    private var selectionPillView = UIView()
+    private var pillFrameSet = false
     
     // MARK: - LIFECYCLE
     override func viewDidLoad() {
@@ -99,6 +101,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
             getAllConversations()
         }
         
+        view_NavigationBar.titleLabel.textAlignment = .left
         view_NavigationBar.title = config.title ?? HippoConfig.shared.theme.headerText
         view_NavigationBar.isLeftButtonHidden = shouldHideBackBtn
         view_NavigationBar.leftButton.addTarget(self, action: #selector(backButtonAction(_:)), for: .touchUpInside)
@@ -152,6 +155,28 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     
     override func viewWillLayoutSubviews() {
         self.setUpTabBar()
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        // Expand button to full width minus 16pt margins on each side
+        width_NewConversation.constant = view.bounds.width - 32
+        // Add 16pt horizontal padding to the tab container via its superview constraints
+        for constraint in buttonContainerView.superview?.constraints ?? [] {
+            if (constraint.firstItem as? UIView) == buttonContainerView {
+                if constraint.firstAttribute == .leading { constraint.constant = 16 }
+                else if constraint.firstAttribute == .trailing { constraint.constant = -16 }
+                else if constraint.firstAttribute == .top { constraint.constant = 16 }
+            } else if (constraint.secondItem as? UIView) == buttonContainerView {
+                if constraint.secondAttribute == .leading { constraint.constant = -16 }
+                else if constraint.secondAttribute == .trailing { constraint.constant = 16 }
+                else if constraint.secondAttribute == .top { constraint.constant = -16 }
+            }
+        }
+        // Position the selection pill once layout bounds are available
+        guard !pillFrameSet, buttonContainerView.bounds.width > 0 else { return }
+        pillFrameSet = true
+        animateBottomLineView()
     }
     
     func setUpTabBar(){
@@ -272,7 +297,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         // newConversationBiutton.setTitleColor(theme.themeTextcolor, for: .normal)
         newConversationBiutton.backgroundColor = theme.themeColor
         view_NewConversationBtn.backgroundColor = theme.themeColor
-        view_NewConversationBtn.layer.cornerRadius = newConversationBiutton.bounds.height / 2
+        view_NewConversationBtn.layer.cornerRadius = 8
         //view_NewConversationBtn.layer.borderWidth = CGFloat(HippoConfig.shared.newConversationButtonBorderWidth)
         //view_NewConversationBtn.layer.borderColor = theme.themeTextcolor.cgColor
         view_NewConversationBtn.layer.masksToBounds = true
@@ -283,15 +308,32 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         //    newConversationBiutton.isHidden = HippoConfig.shared.isNewConversationButtonHidden
         //    newConversationBiutton.isHidden = !HippoProperty.current.enableNewConversationButton
         
-        showConversationsTableView.contentInset.bottom = 70
         //    addLogoutButton()
-        
+
         //poweredByFuguLabel.attributedText = attributedStringForLabelForTwoStrings("Runs on ", secondString: "Hippo", colorOfFirstString: HippoConfig.shared.powererdByColor, colorOfSecondString: HippoConfig.shared.FuguColor, fontOfFirstString: HippoConfig.shared.poweredByFont, fontOfSecondString: HippoConfig.shared.FuguStringFont, textAlighnment: .center, dateAlignment: .center)
-        
+
         //    let tap = UITapGestureRecognizer(target: self, action: #selector(self.openFuguChatWebLink(_:)))
         //    poweredByFuguLabel.addGestureRecognizer(tap)
-        
+
         //    updateBottomLabel()
+
+        //Pill tab styling
+        buttonContainerView.backgroundColor = UIColor(red: 235/255, green: 235/255, blue: 235/255, alpha: 1)
+        buttonContainerView.layer.cornerRadius = 10
+        buttonContainerView.layer.masksToBounds = true
+        selectionPillView.backgroundColor = .white
+        buttonContainerView.insertSubview(selectionPillView, at: 0)
+        bottomLineView.isHidden = true
+
+        // Initial tab title colors
+        openChatButton.setTitleColor(.black, for: .normal)
+        closeChatButton.setTitleColor(UIColor(white: 0.5, alpha: 1), for: .normal)
+
+        // Light gray background — cell bgViews stay white for card-on-gray look
+        view.backgroundColor = .white
+        buttonContainerView.superview?.backgroundColor = .white
+        showConversationsTableView.separatorStyle = .singleLine
+        showConversationsTableView.separatorColor = UIColor(white: 0.93, alpha: 1)
     }
     //    updateBottomLabel()
     
@@ -399,16 +441,14 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     func updateNewConversationBtnUI(isSelected : Bool){
         if isSelected{
             // width_NewConversation.constant = 210
-            let chatImage = UIImage(named: "chat", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
-            self.newConversationBiutton.setImage(chatImage, for: .normal)
-            self.newConversationBiutton.setTitle("  " + (HippoProperty.current.newConverstationButtonTitle ?? HippoConfig.shared.strings.newConversation), for: .normal)
+            self.newConversationBiutton.setImage(nil, for: .normal)
+            self.newConversationBiutton.setTitle(HippoProperty.current.newConverstationButtonTitle ?? HippoConfig.shared.strings.newConversation, for: .normal)
             self.newConversationBiutton.tintColor = HippoConfig.shared.theme.customColorforNewConversation
             self.newConversationBiutton.backgroundColor = HippoConfig.shared.theme.themeColor
         }else{
             //  width_NewConversation.constant = 50
-            let chatImage = UIImage(named: "chat", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
             self.newConversationBiutton.tintColor = HippoConfig.shared.theme.customColorforNewConversation
-            self.newConversationBiutton.setImage(chatImage, for: .normal)
+            self.newConversationBiutton.setImage(nil, for: .normal)
             self.newConversationBiutton.setTitle("", for: .normal)
             self.newConversationBiutton.backgroundColor = HippoConfig.shared.theme.themeColor
         }
@@ -500,6 +540,8 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         }
         self.openChatButton.titleLabel?.font = UIFont.bold(ofSize: 15)
         self.closeChatButton.titleLabel?.font = UIFont.regular(ofSize: 15)
+        self.openChatButton.setTitleColor(.black, for: .normal)
+        self.closeChatButton.setTitleColor(UIColor(white: 0.5, alpha: 1), for: .normal)
         //        self.newConversationBiutton.isHidden = false
         self.view_NewConversationBtn.isHidden = !HippoProperty.current.enableNewConversationButton
         conversationChatType = .openChat
@@ -512,8 +554,10 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         guard conversationChatType != .closeChat else {
             return
         }
-        self.openChatButton.titleLabel?.font = UIFont.regular(ofSize: 16)
-        self.closeChatButton.titleLabel?.font = UIFont.bold(ofSize: 16)
+        self.openChatButton.titleLabel?.font = UIFont.regular(ofSize: 15)
+        self.closeChatButton.titleLabel?.font = UIFont.bold(ofSize: 15)
+        self.openChatButton.setTitleColor(UIColor(white: 0.5, alpha: 1), for: .normal)
+        self.closeChatButton.setTitleColor(.black, for: .normal)
         self.view_NewConversationBtn.isHidden = true
         conversationChatType = .closeChat
         animateBottomLineView()
@@ -569,11 +613,13 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     }
     
     func animateBottomLineView() {
-        let leading = conversationChatType == .openChat ? 0 : openChatButton.bounds.width
-        bottomViewLeadingConstraint.constant = leading
-        UIView.animate(withDuration: 0.4) {
-            self.buttonContainerView.layoutIfNeeded()
-        }
+        let pillX: CGFloat = conversationChatType == .openChat ? 3 : openChatButton.bounds.width + 3
+        let pillW = openChatButton.bounds.width - 6
+        let pillH = buttonContainerView.bounds.height - 6
+        selectionPillView.layer.cornerRadius = 8
+        UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseInOut, animations: {
+            self.selectionPillView.frame = CGRect(x: pillX, y: 3, width: pillW, height: pillH)
+        })
     }
     
     @objc func headerEmptyAction(_ sender: UITapGestureRecognizer) {
@@ -707,6 +753,8 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
             //self.navigationItem.rightBarButtonItem?.tintColor = .clear
             if informationView == nil {
                 informationView = InformationView.loadView(self.showConversationsTableView.bounds)
+            } else {
+                informationView?.frame = self.showConversationsTableView.bounds
             }
             self.informationView?.informationLabel.text = errorMessage
             //self.showConversationsTableView.isHidden = true
@@ -1092,20 +1140,6 @@ struct AllConversationsConfig {
     }
 }
 
-extension AllConversationsViewController: UIScrollViewDelegate {
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        UIView.animate(withDuration: 0.2) {
-            self.view_NewConversationBtn.alpha = 0
-        }
-    }
-    
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        UIView.animate(withDuration: 0.5) {
-            self.view_NewConversationBtn.alpha = 1
-        }
-    }
-    
-}
 
 
 

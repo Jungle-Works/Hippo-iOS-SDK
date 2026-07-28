@@ -29,7 +29,6 @@ class CreateTicketsViewController: UIViewController{
     //MARK: - IbOutlets
     
     @IBOutlet weak var navBar: NavigationBar!
-    @IBOutlet weak var createTicketBtn: UIButton!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
@@ -57,7 +56,6 @@ class CreateTicketsViewController: UIViewController{
         self.tableViewSetUp()
         self.createSuperArray()
         self.setUpViewWithNav()
-        self.createTicketBtn.layer.cornerRadius = 6
         self.activityIndicator.startAnimating()
         self.activityIndicator.isHidden = false
         self.tableView.isUserInteractionEnabled = false
@@ -111,8 +109,9 @@ class CreateTicketsViewController: UIViewController{
                   bundle: FuguFlowManager.bundle),
             forCellReuseIdentifier: "TagsTableViewCell"
         )
-        
-        
+
+        tableView.register(PriorityChipsTableViewCell.self, forCellReuseIdentifier: "PriorityChipsTableViewCell")
+
         tableView.tableFooterView = UIView()
     }
     
@@ -124,9 +123,16 @@ class CreateTicketsViewController: UIViewController{
     }
     
     func setUpViewWithNav() {
+        navBar.titleLabel.textAlignment = .left
         navBar.title = HippoConfig.shared.theme.createTicketText
+        navBar.leftButton.setImage(HippoConfig.shared.theme.leftBarButtonImage, for: .normal)
+        navBar.leftButton.tintColor = .black
+        navBar.image_back.isHidden = true
         navBar.leftButton.addTarget(self, action: #selector(backButtonClicked), for: .touchUpInside)
-        navBar.rightButton.isHidden = true
+        navBar.rightButton.setTitle("Save", for: .normal)
+        navBar.rightButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
+        navBar.rightButton.setTitleColor(HippoConfig.shared.theme.themeColor, for: .normal)
+        navBar.rightButton.addTarget(self,action: #selector(createTicketPressed),for: .touchUpInside)
         navBar.layer.masksToBounds = false
         navBar.layer.shadowRadius = 2.0
         navBar.layer.shadowOpacity = 0.5
@@ -202,11 +208,11 @@ class CreateTicketsViewController: UIViewController{
         print(params)
         activityIndicator.isHidden = false
         activityIndicator.startAnimating()
-        createTicketBtn.isUserInteractionEnabled = false
+        navBar.rightButton.isUserInteractionEnabled = false
         HTTPClient.makeConcurrentConnectionWith(method: .POST, showActivityIndicator: true, para: params, extendedUrl: AgentEndPoints.createTicket.rawValue) { (response, error, _, statusCode) in
             self.activityIndicator.stopAnimating()
             self.activityIndicator.isHidden = true
-            self.createTicketBtn.isUserInteractionEnabled = true
+            self.navBar.rightButton.isUserInteractionEnabled = true
             if error == nil{
                 if let messageDict = ((response) as? [String:Any]){
                     if let data = messageDict["data"] as? [String:Any]{
@@ -264,7 +270,8 @@ extension CreateTicketsViewController: UITableViewDelegate, UITableViewDataSourc
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "TextFieldsTableViewCell", for: indexPath) as? TextFieldsTableViewCell else {
                 return UITableViewCell()
             }
-            cell.textField.withImage(direction: .Left, image: UIImage(named: "user", in: FuguFlowManager.bundle, compatibleWith: nil) ?? UIImage(), colorSeparator: .clear, colorBorder: UIColor(red: 223/255, green: 230/255, blue: 236/255, alpha: 1))
+            cell.fieldLabel.text = "Full name"
+            
             cell.textField.placeholder = "Enter Name"
             if HippoConfig.shared.customer_name != ""{
                 cell.textField.text = HippoConfig.shared.customer_name
@@ -273,18 +280,15 @@ extension CreateTicketsViewController: UITableViewDelegate, UITableViewDataSourc
                 cell.textField.text = self.createTicketDataModel.customer_name
             }
             cell.callBack = { text in
-                
                 self.createTicketDataModel.customer_name = text
-                
             }
-            
             return cell
+
         case .customerEmail:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "TextFieldsTableViewCell", for: indexPath) as? TextFieldsTableViewCell else {
                 return UITableViewCell()
             }
-            cell.textField.withImage(direction: .Left, image: UIImage(named: "envelope", in: FuguFlowManager.bundle, compatibleWith: nil) ?? UIImage(), colorSeparator: UIColor.clear, colorBorder: UIColor(red: 223/255, green: 230/255, blue: 236/255, alpha: 1))
-            
+            cell.fieldLabel.text = "Email"
             cell.textField.placeholder = "Enter Email"
             if HippoConfig.shared.customer_email != ""{
                 cell.textField.text = HippoConfig.shared.customer_email
@@ -296,25 +300,22 @@ extension CreateTicketsViewController: UITableViewDelegate, UITableViewDataSourc
                 self.createTicketDataModel.customer_email = text
             }
             return cell
-            
+
         case .subject:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "TextFieldsTableViewCell", for: indexPath) as? TextFieldsTableViewCell else {
                 return UITableViewCell()
             }
-            
-            cell.textField.withImage(direction: .Left, image: UIImage(named: "subject", in: FuguFlowManager.bundle, compatibleWith: nil) ?? UIImage(), colorSeparator: UIColor.clear, colorBorder: UIColor(red: 223/255, green: 230/255, blue: 236/255, alpha: 1))
-           
+            cell.fieldLabel.text = "Subject"
+            cell.textField.placeholder = "Briefly, what's the problem?"
             if HippoConfig.shared.subject != ""{
                 cell.textField.text = HippoConfig.shared.subject
                 self.createTicketDataModel.subject = HippoConfig.shared.subject
             }else{
                 cell.textField.text = self.createTicketDataModel.subject
             }
-            
             cell.callBack = { text in
                 self.createTicketDataModel.subject = text
             }
-            cell.textField.placeholder = "Enter Subject"
             return cell
             
             
@@ -346,16 +347,15 @@ extension CreateTicketsViewController: UITableViewDelegate, UITableViewDataSourc
             return cell
             
         case .priority:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "DropDownTableViewCell", for: indexPath) as? DropDownTableViewCell else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "PriorityChipsTableViewCell", for: indexPath) as? PriorityChipsTableViewCell else {
                 return UITableViewCell()
             }
-            cell.issuesDropDownTf.text = ""
-            cell.arrayOfItms = priority
-            cell.issuesDropDownTf.placeholder = "Select Priority"
-            cell.callBack = { text in
-                
-                self.createTicketDataModel.priority = text
-                
+            if !priority.isEmpty {
+                cell.priorities = priority
+            }
+            cell.selectedPriority = createTicketDataModel.priority ?? ""
+            cell.callBack = { selected in
+                self.createTicketDataModel.priority = selected
             }
             return cell
         case .tags:
