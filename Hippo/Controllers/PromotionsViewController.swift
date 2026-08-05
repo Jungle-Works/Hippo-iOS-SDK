@@ -56,7 +56,11 @@ class PromotionsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-      
+
+        if #available(iOS 13.0, *) {
+            self.view.overrideUserInterfaceStyle = .light
+        }
+
         FuguNetworkHandler.shared.fuguConnectionChangesStartNotifier()
         
         if shouldUseCache {
