@@ -22,8 +22,7 @@ class AttachmentTableViewCell: UITableViewCell {
     var deleteCallBack: ((Int)->())?
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
-        
+        addAttachmentBtn.setTitleColor(UIColor(red: 0.2, green: 0.2, blue: 0.2, alpha: 1), for: .normal)
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -70,13 +69,7 @@ extension AttachmentTableViewCell: UICollectionViewDataSource, UICollectionViewD
 //            } else {
 //                // Fallback on earlier versions
 //            }
-            if #available(iOS 13.0, *) {
-                cell.dashedView.layer.borderColor = UIColor.placeholderText.cgColor
-            } else {
-                // Fallback on earlier versions
-            }
-            cell.dashedView.layer.borderWidth = 1
-            cell.dashedView.layer.cornerRadius = 6
+            // border/cornerRadius set in UploadCollectionViewCell.awakeFromNib
            
             return cell
         }else{
@@ -132,10 +125,7 @@ extension AttachmentTableViewCell: UICollectionViewDataSource, UICollectionViewD
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let yourWidth = collectionView.bounds.width/3.0
-        let yourHeight = 100.0
-
-        return CGSize(width: yourWidth, height: yourHeight)
+        return CGSize(width: 100, height: 100)
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {

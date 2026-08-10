@@ -281,7 +281,8 @@ class HTTPClient {
         var mutableRequest = URLRequest(url: url)
         mutableRequest.timeoutInterval = timeout
         mutableRequest.httpMethod = method.rawValue
-        
+        mutableRequest.httpShouldHandleCookies = false
+
         mutableRequest.setValue(contentType, forHTTPHeaderField: "Content-Type")
         return mutableRequest
     }
@@ -340,6 +341,10 @@ class HTTPClient {
                     if HippoConfig.shared.apiLogging == 1 {
                         print("[HippoSDK] ◀ RESPONSE  \(urlResponse?.url?.absoluteString ?? "NO URL")")
                         print("[HippoSDK]   StatusCode : \(statusCode)")
+                        if let httpUrlResponce = urlResponse as? HTTPURLResponse {
+                            print("[HippoSDK]   Headers : \(httpUrlResponce.allHeaderFields)")
+                        }
+                        print("[HippoSDK]   Body : \(responseObject ?? [:])")
                     }
 
                     if SERVERS.devUrl.contains(HippoConfig.shared.baseUrl){

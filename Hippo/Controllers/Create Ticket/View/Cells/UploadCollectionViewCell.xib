@@ -35,14 +35,6 @@
                             <constraint firstItem="qwR-tC-rFB" firstAttribute="centerX" secondItem="4Sn-Gl-uLu" secondAttribute="centerX" id="eiO-nK-ykV"/>
                             <constraint firstAttribute="height" constant="100" id="oVp-9Q-naj"/>
                         </constraints>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                <real key="value" value="0.0"/>
-                            </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                <real key="value" value="0.0"/>
-                            </userDefinedRuntimeAttribute>
-                        </userDefinedRuntimeAttributes>
                     </view>
                 </subviews>
             </view>

@@ -284,11 +284,15 @@ extension AgentDetail {
             let authToken = HippoConfig.shared.agentDetail?.oAuthToken
             let app_type = HippoConfig.shared.agentDetail?.app_type ?? AgentDetail.defaultAppType
             let attributes = HippoConfig.shared.agentDetail?.customAttributes
-            
+            let previousAppSecretKey = HippoConfig.shared.agentDetail?.appSecrectKey
+
             let detail = AgentDetail(dict: data)
             detail.oAuthToken = authToken ?? detail.fuguToken
             detail.app_type = app_type
             detail.customAttributes = attributes
+            if detail.appSecrectKey.isEmpty {
+                detail.appSecrectKey = previousAppSecretKey ?? ""
+            }
             HippoConfig.shared.agentDetail = detail
             
             if let online_status = data["online_status"] as? String, let status = AgentStatus.init(rawValue: online_status) {

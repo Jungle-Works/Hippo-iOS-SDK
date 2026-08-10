@@ -12,23 +12,23 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ImageCollectionViewCell" id="gTV-IL-0wX" customClass="ImageCollectionViewCell" customModule="Hippo" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="121" height="120"/>
+            <rect key="frame" x="0.0" y="0.0" width="76" height="76"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="121" height="120"/>
+                <rect key="frame" x="0.0" y="0.0" width="76" height="76"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="99E-3N-GB3">
-                        <rect key="frame" x="10.666666666666664" y="10" width="100" height="100"/>
+                        <rect key="frame" x="0.0" y="0.0" width="76" height="76"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholderImg" translatesAutoresizingMaskIntoConstraints="NO" id="UA3-DC-Hwc">
-                                <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="UA3-DC-Hwc">
+                                <rect key="frame" x="0.0" y="0.0" width="76" height="76"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GIf-Dg-ArZ">
-                                <rect key="frame" x="76" y="4" width="20" height="20"/>
+                                <rect key="frame" x="48" y="4" width="24" height="24"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="20" id="VhT-za-die"/>
-                                    <constraint firstAttribute="height" constant="20" id="pkI-oA-dOk"/>
+                                    <constraint firstAttribute="width" constant="24" id="VhT-za-die"/>
+                                    <constraint firstAttribute="height" constant="24" id="pkI-oA-dOk"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -44,27 +44,22 @@
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="UA3-DC-Hwc" secondAttribute="trailing" id="8N1-V7-nwg"/>
                             <constraint firstItem="UA3-DC-Hwc" firstAttribute="leading" secondItem="99E-3N-GB3" secondAttribute="leading" id="Agc-rf-Obv"/>
-                            <constraint firstAttribute="width" constant="100" id="L5L-bg-GtH"/>
-                            <constraint firstItem="UA3-DC-Hwc" firstAttribute="trailing" secondItem="GIf-Dg-ArZ" secondAttribute="trailing" constant="4" id="QqW-Kf-5Zc"/>
-                            <constraint firstAttribute="height" constant="100" id="dp1-us-0Qj"/>
+                            <constraint firstItem="GIf-Dg-ArZ" firstAttribute="trailing" secondItem="99E-3N-GB3" secondAttribute="trailing" constant="-4" id="QqW-Kf-5Zc"/>
                             <constraint firstItem="UA3-DC-Hwc" firstAttribute="top" secondItem="99E-3N-GB3" secondAttribute="top" id="ncg-i2-7Hj"/>
-                            <constraint firstItem="GIf-Dg-ArZ" firstAttribute="top" secondItem="UA3-DC-Hwc" secondAttribute="top" constant="4" id="oEz-dp-1kp"/>
+                            <constraint firstItem="GIf-Dg-ArZ" firstAttribute="top" secondItem="99E-3N-GB3" secondAttribute="top" constant="4" id="oEz-dp-1kp"/>
                             <constraint firstAttribute="bottom" secondItem="UA3-DC-Hwc" secondAttribute="bottom" id="oh7-DK-Ebe"/>
                         </constraints>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                <real key="value" value="6"/>
-                            </userDefinedRuntimeAttribute>
-                        </userDefinedRuntimeAttributes>
                     </view>
                 </subviews>
             </view>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <constraints>
-                <constraint firstItem="99E-3N-GB3" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="TDt-F9-U7J"/>
-                <constraint firstItem="99E-3N-GB3" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="WYB-en-Nbl"/>
+                <constraint firstItem="99E-3N-GB3" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="TDt-F9-U7J"/>
+                <constraint firstItem="99E-3N-GB3" firstAttribute="trailing" secondItem="gTV-IL-0wX" secondAttribute="trailing" id="WYB-en-Nbl"/>
+                <constraint firstItem="99E-3N-GB3" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="TOP-F9-aa1"/>
+                <constraint firstItem="99E-3N-GB3" firstAttribute="bottom" secondItem="gTV-IL-0wX" secondAttribute="bottom" id="BOT-en-bb2"/>
             </constraints>
-            <size key="customSize" width="121" height="120"/>
+            <size key="customSize" width="76" height="76"/>
             <connections>
                 <outlet property="crossBtn" destination="GIf-Dg-ArZ" id="dur-iU-9F7"/>
                 <outlet property="dashedView" destination="99E-3N-GB3" id="IZE-79-5Bf"/>
@@ -75,6 +70,5 @@
     </objects>
     <resources>
         <image name="cancels" width="50" height="50"/>
-        <image name="placeholderImg" width="167" height="178"/>
     </resources>
 </document>
