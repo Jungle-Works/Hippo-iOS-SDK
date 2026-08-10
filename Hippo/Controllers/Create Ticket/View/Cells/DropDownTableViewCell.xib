@@ -11,74 +11,92 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DropDownTableViewCell" rowHeight="66" id="KGk-i7-Jjw" customClass="DropDownTableViewCell" customModule="Hippo" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="323" height="66"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="DropDownTableViewCell" id="KGk-i7-Jjw" customClass="DropDownTableViewCell" customModule="Hippo" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="84"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="323" height="66"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="84"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rJW-BY-nQT">
-                        <rect key="frame" x="16" y="6" width="291" height="50"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Group" translatesAutoresizingMaskIntoConstraints="NO" id="SDK-GRP-LB-a01">
+                        <rect key="frame" x="16" y="10" width="343" height="18"/>
+                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="13"/>
+                        <color key="textColor" red="0.2" green="0.2" blue="0.2" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SDK-GRP-BG-a01">
+                        <rect key="frame" x="16" y="32" width="343" height="44"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                <real key="value" value="6"/>
+                                <real key="value" value="8"/>
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </view>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chevron-up-down" translatesAutoresizingMaskIntoConstraints="NO" id="Def-b9-BPw">
-                        <rect key="frame" x="277" y="21" width="20" height="20"/>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chevron-up-down" translatesAutoresizingMaskIntoConstraints="NO" id="SDK-GRP-IMG-a01">
+                        <rect key="frame" x="329" y="43" width="20" height="20"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="20" id="HQb-mA-a7g"/>
-                            <constraint firstAttribute="height" constant="20" id="PEp-WK-5aL"/>
+                            <constraint firstAttribute="width" constant="20" id="SDK-IMG-W-a01"/>
+                            <constraint firstAttribute="height" constant="20" id="SDK-IMG-H-a01"/>
                         </constraints>
                     </imageView>
                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="247" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fEL-AA-5l2" customClass="CustomUITextField" customModule="Hippo" customModuleProvider="target">
-                        <rect key="frame" x="16" y="6" width="291" height="50"/>
+                        <rect key="frame" x="16" y="32" width="343" height="44"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="50" id="3TO-Yv-oqX"/>
+                            <constraint firstAttribute="height" constant="44" id="3TO-Yv-oqX"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <textInputTraits key="textInputTraits"/>
                         <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="color" keyPath="arrowColor">
-                                <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="number" keyPath="arrowSize">
-                                <real key="value" value="10"/>
-                            </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="number" keyPath="_cornerRadius">
-                                <real key="value" value="6"/>
+                                <real key="value" value="8"/>
                             </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                <color key="value" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="value" white="0.87" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                 <real key="value" value="1"/>
                             </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                <real key="value" value="6"/>
+                                <real key="value" value="8"/>
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </textField>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " lineBreakMode="tailTruncation" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="ERR-GRP-LB-a01">
+                        <rect key="frame" x="16" y="80" width="343" height="16"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="16" id="ERR-GRP-H-a01"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" red="0.90196078431372551" green="0.09803921568627451" blue="0.29411764705882354" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <color key="backgroundColor" red="0.97254902119999997" green="0.97647058959999999" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="fEL-AA-5l2" secondAttribute="bottom" constant="6" id="6Wo-sr-UHe"/>
-                    <constraint firstAttribute="trailing" secondItem="fEL-AA-5l2" secondAttribute="trailing" constant="16" id="99t-oO-V3b"/>
-                    <constraint firstItem="Def-b9-BPw" firstAttribute="centerY" secondItem="fEL-AA-5l2" secondAttribute="centerY" id="Ba0-JR-F2h"/>
-                    <constraint firstItem="fEL-AA-5l2" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="6" id="DbX-WS-nWK"/>
-                    <constraint firstItem="fEL-AA-5l2" firstAttribute="leading" secondItem="rJW-BY-nQT" secondAttribute="leading" id="SYr-yG-TcN"/>
-                    <constraint firstItem="Def-b9-BPw" firstAttribute="trailing" secondItem="fEL-AA-5l2" secondAttribute="trailing" constant="-10" id="aBv-ht-q1q"/>
-                    <constraint firstItem="fEL-AA-5l2" firstAttribute="trailing" secondItem="rJW-BY-nQT" secondAttribute="trailing" id="ace-tw-AMv"/>
-                    <constraint firstItem="fEL-AA-5l2" firstAttribute="top" secondItem="rJW-BY-nQT" secondAttribute="top" id="dPh-qe-nKg"/>
+                    <constraint firstItem="SDK-GRP-LB-a01" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="SDK-GRP-LT-a01"/>
+                    <constraint firstItem="SDK-GRP-LB-a01" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="SDK-GRP-LL-a01"/>
+                    <constraint firstAttribute="trailing" secondItem="SDK-GRP-LB-a01" secondAttribute="trailing" constant="16" id="SDK-GRP-LR-a01"/>
+                    <constraint firstItem="fEL-AA-5l2" firstAttribute="top" secondItem="SDK-GRP-LB-a01" secondAttribute="bottom" constant="4" id="SDK-GRP-FT-a01"/>
                     <constraint firstItem="fEL-AA-5l2" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="hsr-pc-D3H"/>
-                    <constraint firstItem="fEL-AA-5l2" firstAttribute="bottom" secondItem="rJW-BY-nQT" secondAttribute="bottom" id="mpo-Aq-9FF"/>
+                    <constraint firstAttribute="trailing" secondItem="fEL-AA-5l2" secondAttribute="trailing" constant="16" id="99t-oO-V3b"/>
+                    <constraint firstItem="SDK-GRP-BG-a01" firstAttribute="top" secondItem="fEL-AA-5l2" secondAttribute="top" id="SDK-BG-T-a01"/>
+                    <constraint firstItem="SDK-GRP-BG-a01" firstAttribute="leading" secondItem="fEL-AA-5l2" secondAttribute="leading" id="SDK-BG-L-a01"/>
+                    <constraint firstItem="SDK-GRP-BG-a01" firstAttribute="trailing" secondItem="fEL-AA-5l2" secondAttribute="trailing" id="SDK-BG-R-a01"/>
+                    <constraint firstItem="SDK-GRP-BG-a01" firstAttribute="bottom" secondItem="fEL-AA-5l2" secondAttribute="bottom" id="SDK-BG-B-a01"/>
+                    <constraint firstItem="SDK-GRP-IMG-a01" firstAttribute="centerY" secondItem="fEL-AA-5l2" secondAttribute="centerY" id="SDK-IMG-CY-a01"/>
+                    <constraint firstItem="SDK-GRP-IMG-a01" firstAttribute="trailing" secondItem="fEL-AA-5l2" secondAttribute="trailing" constant="-10" id="SDK-IMG-TR-a01"/>
+                    <constraint firstItem="ERR-GRP-LB-a01" firstAttribute="top" secondItem="fEL-AA-5l2" secondAttribute="bottom" constant="4" id="ERR-GRP-T-a01"/>
+                    <constraint firstItem="ERR-GRP-LB-a01" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="ERR-GRP-L-a01"/>
+                    <constraint firstAttribute="trailing" secondItem="ERR-GRP-LB-a01" secondAttribute="trailing" constant="16" id="ERR-GRP-R-a01"/>
+                    <constraint firstAttribute="bottom" secondItem="ERR-GRP-LB-a01" secondAttribute="bottom" constant="8" id="SDK-GRP-FB-a01"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="errorLabel" destination="ERR-GRP-LB-a01" id="ERR-GRP-OT-a01"/>
+                <outlet property="errorLabelHeightConstraint" destination="ERR-GRP-H-a01" id="ERR-GRP-HT-a01"/>
+                <outlet property="fieldLabel" destination="SDK-GRP-LB-a01" id="SDK-GRP-LB-OT-a01"/>
                 <outlet property="issuesDropDownTf" destination="fEL-AA-5l2" id="xMe-Jt-lLS"/>
             </connections>
             <point key="canvasLocation" x="235.87786259541983" y="30.281690140845072"/>

@@ -117,7 +117,9 @@ class PickerHelper {
 //            if CoreKit.shared.filesConfig.enabledFileTypes.contains(.document) || CoreKit.shared.filesConfig.enabledFileTypes.contains(.other) {            actionSheet.addAction(documentAction)
 //            }
 //        }
-        actionSheet.addAction(documentAction)
+        if !isCreateTicket {
+            actionSheet.addAction(documentAction)
+        }
 
         actionSheet.addAction(cancelAction)
 

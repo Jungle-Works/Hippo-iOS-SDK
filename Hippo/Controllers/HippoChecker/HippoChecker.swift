@@ -53,6 +53,7 @@ class HippoChecker {
     }
     
     func presentTicketController(){
+        AgentDetail.setAgentStoredData()
         FuguFlowManager.shared.presentTicketPushController()
     }
     

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CropViewController
 
 class PreviewViewController: UIViewController {
     
@@ -53,7 +54,7 @@ class PreviewViewController: UIViewController {
         }
         
         lblDocumentName.isHidden = !(fileType == .document)
-        btnEdit.isHidden = true//(fileType == .document)
+        btnEdit.isHidden = (fileType == .document)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -99,25 +100,28 @@ extension PreviewViewController{
     }
     
     @IBAction func btnEditTapped(_ sender: Any) {
-//        self.presentCropViewController()
+        self.presentCropViewController()
     }
-    
-//    func presentCropViewController() {
-//        guard let image = image else {return}
-//        let cropViewController = CropViewController(image: image)
-//        cropViewController.delegate = self
-//        cropViewController.modalPresentationStyle = .fullScreen
-//        let nav = UINavigationController(rootViewController: cropViewController)
-//        present(nav, animated: true, completion: nil)
-//    }
-    
+
+    func presentCropViewController() {
+        guard let image = image else {return}
+        let cropViewController = CropViewController(image: image)
+        cropViewController.delegate = self
+        cropViewController.modalPresentationStyle = .fullScreen
+        present(cropViewController, animated: true, completion: nil)
+    }
+
 }
 
-//extension PreviewViewController : CropViewControllerDelegate{
-//    func cropViewController(_ cropViewController: CropViewController, didCropToImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
-//        // 'image' is the newly cropped version of the original image
-//        self.image = image
-//        imageView_Preview.image = image
-//        self.dismiss(animated: true, completion: nil)
-//    }
-//}
+extension PreviewViewController : CropViewControllerDelegate{
+    func cropViewController(_ cropViewController: CropViewController, didCropToImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
+        // 'image' is the newly cropped version of the original image
+        self.image = image
+        imageView_Preview.image = image
+        cropViewController.dismiss(animated: true, completion: nil)
+    }
+
+    func cropViewController(_ cropViewController: CropViewController, didFinishCancelled cancelled: Bool) {
+        cropViewController.dismiss(animated: true, completion: nil)
+    }
+}

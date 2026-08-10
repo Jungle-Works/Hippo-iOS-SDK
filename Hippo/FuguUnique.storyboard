@@ -2948,46 +2948,13 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="GBN-Ul-YUK">
-                                <rect key="frame" x="0.0" y="210" width="414" height="532"/>
+                                <rect key="frame" x="0.0" y="210" width="414" height="618"/>
                                 <color key="backgroundColor" red="0.97254902119999997" green="0.97647058959999999" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <connections>
                                     <outlet property="dataSource" destination="yn2-YR-vKH" id="GFq-Xc-7XN"/>
                                     <outlet property="delegate" destination="yn2-YR-vKH" id="0lk-YU-YU5"/>
                                 </connections>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xeR-j7-aT2">
-                                <rect key="frame" x="0.0" y="752" width="414" height="56"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wdh-D4-Jrq">
-                                        <rect key="frame" x="16" y="4" width="382" height="48"/>
-                                        <color key="backgroundColor" red="0.13725490200000001" green="0.26274509800000001" blue="0.58823529409999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
-                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                        <state key="normal" title="Create Ticket">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                <real key="value" value="6"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                <color key="value" red="0.1764705882" green="0.1764705882" blue="0.1764705882" alpha="1" colorSpace="calibratedRGB"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="createTicketPressed:" destination="yn2-YR-vKH" eventType="touchUpInside" id="TJO-1w-drx"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="wdh-D4-Jrq" secondAttribute="bottom" constant="4" id="0mg-wZ-y7b"/>
-                                    <constraint firstItem="wdh-D4-Jrq" firstAttribute="leading" secondItem="xeR-j7-aT2" secondAttribute="leading" constant="16" id="Ggj-EY-v31"/>
-                                    <constraint firstItem="wdh-D4-Jrq" firstAttribute="top" secondItem="xeR-j7-aT2" secondAttribute="top" constant="4" id="OWF-hq-ebr"/>
-                                    <constraint firstAttribute="height" constant="56" id="TCr-H3-ggK"/>
-                                    <constraint firstAttribute="trailing" secondItem="wdh-D4-Jrq" secondAttribute="trailing" constant="16" id="vxm-2K-2y1"/>
-                                </constraints>
-                            </view>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="8EC-8p-P04">
                                 <rect key="frame" x="188.5" y="429.5" width="37" height="37"/>
                             </activityIndicatorView>
@@ -2998,21 +2965,17 @@
                             <constraint firstItem="8EC-8p-P04" firstAttribute="centerY" secondItem="2FC-K0-129" secondAttribute="centerY" id="2gN-JK-Exc"/>
                             <constraint firstItem="GBN-Ul-YUK" firstAttribute="top" secondItem="T97-CV-yeC" secondAttribute="bottom" constant="10" id="73E-YD-M5s"/>
                             <constraint firstItem="8EC-8p-P04" firstAttribute="centerX" secondItem="2FC-K0-129" secondAttribute="centerX" id="HpF-uQ-1rO"/>
-                            <constraint firstItem="Phk-Jb-CXA" firstAttribute="trailing" secondItem="xeR-j7-aT2" secondAttribute="trailing" id="UEs-d9-CTm"/>
                             <constraint firstItem="T97-CV-yeC" firstAttribute="top" secondItem="Phk-Jb-CXA" secondAttribute="top" id="bRR-9z-FEW"/>
-                            <constraint firstItem="xeR-j7-aT2" firstAttribute="top" secondItem="GBN-Ul-YUK" secondAttribute="bottom" constant="10" id="hHv-0A-e28"/>
                             <constraint firstItem="T97-CV-yeC" firstAttribute="leading" secondItem="Phk-Jb-CXA" secondAttribute="leading" id="rQc-g9-q5b"/>
                             <constraint firstItem="Phk-Jb-CXA" firstAttribute="trailing" secondItem="GBN-Ul-YUK" secondAttribute="trailing" id="tmc-9s-aD8"/>
                             <constraint firstItem="T97-CV-yeC" firstAttribute="trailing" secondItem="Phk-Jb-CXA" secondAttribute="trailing" id="vG8-64-P17"/>
-                            <constraint firstItem="xeR-j7-aT2" firstAttribute="leading" secondItem="Phk-Jb-CXA" secondAttribute="leading" id="wqK-HD-BPV"/>
+                            <constraint firstItem="Phk-Jb-CXA" firstAttribute="bottom" secondItem="GBN-Ul-YUK" secondAttribute="bottom" id="yEd-oB-HBI"/>
                             <constraint firstItem="GBN-Ul-YUK" firstAttribute="leading" secondItem="Phk-Jb-CXA" secondAttribute="leading" id="yzM-AU-zMu"/>
-                            <constraint firstItem="Phk-Jb-CXA" firstAttribute="bottom" secondItem="xeR-j7-aT2" secondAttribute="bottom" constant="20" id="zcg-Td-sg9"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="R8V-6z-YcS"/>
                     <connections>
                         <outlet property="activityIndicator" destination="8EC-8p-P04" id="uNl-no-VgS"/>
-                        <outlet property="createTicketBtn" destination="wdh-D4-Jrq" id="OW0-aT-r6s"/>
                         <outlet property="navBar" destination="T97-CV-yeC" id="sce-0v-nXb"/>
                         <outlet property="tableView" destination="GBN-Ul-YUK" id="hjG-6z-hdd"/>
                     </connections>
