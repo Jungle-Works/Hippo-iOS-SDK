@@ -62,6 +62,31 @@ class LeadTableViewCell: MessageTableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        guard HippoConfig.shared.appUserType == .customer else { return }
+        // Deferred a run-loop turn on purpose — same reason as every other revamped cell:
+        // CAShapeLayer.path is a one-shot bounds snapshot, and this cell's height (driven by
+        // the nested tableView's content) can take more than one Auto Layout pass to settle.
+        // Bottom-left radius is half the others, forming the received-bubble tail.
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.bgView.applyCornerRadii(topLeft: 10, topRight: 10, bottomLeft: 5, bottomRight: 10)
+            self.tableView.applyCornerRadii(topLeft: 10, topRight: 10, bottomLeft: 5, bottomRight: 10)
+        }
+    }
+
+    override func setSenderImageView() {
+        // No avatar on bot-form rows in the revamped customer thread, same as every other
+        // received cell. Shared with the agent screen, so gate on appUserType rather than
+        // forking a Customer-only subclass just for this.
+        guard HippoConfig.shared.appUserType == .customer else {
+            super.setSenderImageView()
+            return
+        }
+        hideSenderImageView()
+    }
     
     //MARK: Actions
     @IBAction func skipButtonClicked(_ sender: Any) {
@@ -92,10 +117,11 @@ class LeadTableViewCell: MessageTableViewCell {
     private func setup() {
         self.tableView.register(UINib(nibName: leadCellIdentifier, bundle: FuguFlowManager.bundle), forCellReuseIdentifier: leadCellIdentifier)
         self.tableView.register(UINib(nibName: "UrlTableCell", bundle: FuguFlowManager.bundle), forCellReuseIdentifier: "UrlTableCell")
-        
-        tableView.layer.cornerRadius = 10
-        
-        tableView.backgroundColor = HippoConfig.shared.theme.gradientBackgroundColor //.clear
+
+        let isCustomer = HippoConfig.shared.appUserType == .customer
+        let colorConfig = HippoConfig.shared.colorConfig
+
+        tableView.backgroundColor  = isCustomer ? colorConfig.hippoReceiver :  HippoConfig.shared.theme.gradientBackgroundColor
         
         tableView.layer.borderWidth = HippoConfig.shared.theme.chatBoxBorderWidth
         tableView.layer.borderColor = HippoConfig.shared.theme.chatBoxBorderColor.cgColor//HippoConfig.shared.theme.gradientTopColor.cgColor
@@ -103,15 +129,22 @@ class LeadTableViewCell: MessageTableViewCell {
         self.tableView.delegate = self
         
         bgView.backgroundColor = HippoConfig.shared.theme.incomingChatBoxColor//HippoConfig.shared.theme.gradientBackgroundColor //
-        bgView.layer.cornerRadius = 10
         bgView.layer.masksToBounds = true
-        
-        tableView.layer.cornerRadius = 10
-        if #available(iOS 11.0, *) {
-            tableView.layer.maskedCorners = [.layerMaxXMinYCorner,.layerMinXMaxYCorner,.layerMaxXMaxYCorner]
-            bgView.layer.maskedCorners = [.layerMaxXMinYCorner,.layerMinXMaxYCorner,.layerMaxXMaxYCorner]
+
+        if isCustomer {
+            // Customer received rows use mixed per-corner radii (bottom-left half the others,
+            // forming the tail) via applyCornerRadii in layoutSubviews — CACornerMask only
+            // supports one uniform radius, not a smaller one on a single corner. Zero the
+            // uniform radius so it doesn't additionally clip inside the shape mask's corners.
+            bgView.layer.cornerRadius = 0
+            tableView.layer.cornerRadius = 0
         } else {
-            // Fallback on earlier versions
+            bgView.layer.cornerRadius = 10
+            tableView.layer.cornerRadius = 10
+            if #available(iOS 11.0, *) {
+                tableView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+                bgView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+            }
         }
     }
     

@@ -470,7 +470,10 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
             if let tintColor = HippoConfig.shared.theme.sendBtnIconTintColor {
                 sendMessageButton.imageView?.tintColor = tintColor
             }else{
-                sendMessageButton.imageView?.tintColor = HippoConfig.shared.theme.customColorforIcons
+                // sendBtnIcon is a single template-rendered asset (circle + triangle baked
+                // into one shape), so this tint paints the whole button — reads the accent
+                // token instead of the legacy green customColorforIcons.
+                sendMessageButton.imageView?.tintColor = HippoConfig.shared.colorConfig.hippoAccent
             }
             sendMessageButton.setImage(HippoConfig.shared.theme.sendBtnIcon, for: .normal)
             sendMessageButton.setTitle("", for: .normal)
@@ -481,13 +484,13 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
             if let tintColor = HippoConfig.shared.theme.addBtnTintColor {
                 addFileButtonAction.imageView?.tintColor = tintColor
             }else{
-                addFileButtonAction.imageView?.tintColor = HippoConfig.shared.theme.customColorforIcons
+                addFileButtonAction.imageView?.tintColor = HippoConfig.shared.colorConfig.hippoAccent
             }
             addFileButtonAction.setImage(HippoConfig.shared.theme.addButtonIcon, for: .normal)
             addFileButtonAction.setTitle("", for: .normal)
         } else { addFileButtonAction.setTitle("ADD", for: .normal) }
         button_Recording.setImage(UIImage(systemName: "mic")?.withRenderingMode(.alwaysTemplate), for: .normal)
-        button_Recording.tintColor = HippoConfig.shared.theme.customColorforIcons
+        button_Recording.tintColor = HippoConfig.shared.colorConfig.hippoAccent
        
         handleBackButton()
         if let businessName = userDetailData["business_name"] as? String, label.isEmpty {
@@ -1115,9 +1118,10 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         }
     }
     
-    func disableSendingReply(withOutUpdate: Bool = false) {
+    func disableSendingReply(withOutUpdate: Bool = false, message: String? = nil) {
         self.pleaseSelectOptionView.isHidden = false
         self.pleaseSelectOptionLabel.isHidden = false
+        self.pleaseSelectOptionLabel.text = message ?? (HippoProperty.current.pleaseSelectOptionText ?? HippoStrings.pleaseSelectAnOption)
         if !withOutUpdate {
             self.channel?.isSendingDisabled = true
         }
@@ -1316,7 +1320,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
             keepTableViewWhereItWasBeforeReload(oldContentHeight: contentHeightBeforeNewMessages, oldYOffset: contentOffsetBeforeNewMessages)
         }
         if result.isSendingDisabled || forceDisableReply {
-            disableSendingReply()
+            disableSendingReply(message: HippoStrings.cannotReplyToConversation)
         }
         
         if checkIfShouldDisableReplyForCreateTicket(messages: messages) {
@@ -1365,8 +1369,8 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         //image icon name = tiny-video-symbol
         
         if isDirectCallingEnabledFor(type: .video) {
-            
-            view_Navigation.video_button.tintColor = HippoConfig.shared.theme.headerTextColor
+
+            view_Navigation.video_button.tintColor = HippoConfig.shared.colorConfig.hippoAccent
             view_Navigation.video_button.isEnabled = true
             view_Navigation.video_button.setImage(HippoConfig.shared.theme.videoCallIcon, for: .normal)
             view_Navigation.video_button.isHidden = false
@@ -1382,7 +1386,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         //image icon name = audioCallIcon
         
         if isDirectCallingEnabledFor(type: .audio) {
-            view_Navigation.call_button.tintColor = HippoConfig.shared.theme.headerTextColor
+            view_Navigation.call_button.tintColor = HippoConfig.shared.colorConfig.hippoAccent
             view_Navigation.call_button.isEnabled = true
             view_Navigation.call_button.setImage(HippoConfig.shared.theme.audioCallIcon, for: .normal)
             view_Navigation.call_button.isHidden = false
@@ -1835,7 +1839,19 @@ extension ConversationsViewController {
         //        self.messageTextView.textAlignment = .left
         self.messageTextView.font = HippoConfig.shared.theme.typingTextFont
         self.messageTextView.textColor = HippoConfig.shared.theme.typingTextColor
-        self.messageTextView.backgroundColor = .clear
+        // Rounded pill fill on the text field itself only — textViewBgView spans the whole
+        // composer row (media + mic buttons included), so it can't be the rounded element.
+        // No textContainerInset change: placeHolderLabel is pinned to messageTextView's
+        // leading edge by a fixed storyboard constant (independent of the inset), so padding
+        // added here would only widen the gap between real typed text and the placeholder.
+        self.messageTextView.backgroundColor = HippoConfig.shared.colorConfig.hippoSurfaceInput
+        self.messageTextView.layer.cornerRadius = 18
+        // placeHolderLabel is a sibling that sits behind messageTextView in the storyboard's
+        // subview order — with a .clear text view background that was invisible, but the
+        // opaque pill fill above now paints over it. Bring it back in front; the real typed
+        // text is unaffected since that's drawn inside messageTextView's own layer.
+        self.messageTextView.superview?.bringSubviewToFront(self.placeHolderLabel)
+        self.messageTextView.clipsToBounds = true
         self.messageTextView.tintColor = HippoConfig.shared.theme.messageTextViewTintColor//
         
         placeHolderLabel.text = HippoConfig.shared.theme.messagePlaceHolderText == nil ? HippoStrings.messagePlaceHolderText : HippoConfig.shared.theme.messagePlaceHolderText
@@ -1848,7 +1864,7 @@ extension ConversationsViewController {
 
         
         if (channel != nil && channel?.isSendingDisabled == true) || forceDisableReply {
-            disableSendingReply()
+            disableSendingReply(message: HippoStrings.cannotReplyToConversation)
         }
         
         self.newConversationCountButton.roundCorner(cornerRect: [.topLeft, .bottomLeft], cornerRadius: 5)
@@ -2317,8 +2333,9 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                         //
                     case MessageType.imageFile:
                         if isOutgoingMsg == true {
+                            let outgoingImageIdentifier = HippoConfig.shared.appUserType == .customer ? "CustomerOutgoingImageCell" : "OutgoingImageCell"
                             guard
-                                let cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingImageCell", for: indexPath) as? OutgoingImageCell
+                                let cell = tableView.dequeueReusableCell(withIdentifier: outgoingImageIdentifier, for: indexPath) as? OutgoingImageCell
                             else {
                                 let cell = UITableViewCell()
                                 cell.backgroundColor = .clear
@@ -2333,7 +2350,8 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                             cell.configureCellOfOutGoingImageCell(resetProperties: true, chatMessageObject: message, indexPath: indexPath)
                             return cell
                         } else {
-                            guard let cell = tableView.dequeueReusableCell(withIdentifier: "IncomingImageCell", for: indexPath) as? IncomingImageCell
+                            let incomingImageIdentifier = HippoConfig.shared.appUserType == .customer ? "CustomerIncomingImageCell" : "IncomingImageCell"
+                            guard let cell = tableView.dequeueReusableCell(withIdentifier: incomingImageIdentifier, for: indexPath) as? IncomingImageCell
                             else {
                                 let cell = UITableViewCell()
                                 cell.backgroundColor = .clear
@@ -2357,7 +2375,8 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                         //                print("-----\(cell.alertContainer.bounds.height)")
                         return cell
                     case .botText:
-                        guard let cell = tableView.dequeueReusableCell(withIdentifier: "SupportMessageTableViewCell", for: indexPath) as? SupportMessageTableViewCell
+                        let botTextIdentifier = HippoConfig.shared.appUserType == .customer ? "CustomerSupportMessageTableViewCell" : "SupportMessageTableViewCell"
+                        guard let cell = tableView.dequeueReusableCell(withIdentifier: botTextIdentifier, for: indexPath) as? SupportMessageTableViewCell
                         else {
                             let cell = UITableViewCell()
                             cell.backgroundColor = .clear
@@ -2386,7 +2405,8 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                         return cell.configureCellOfSupportIncomingCell(resetProperties: true, attributedString: incomingAttributedString, channelId: channel.id, chatMessageObject: message)
                     case .call:
                         if isOutgoingMsg {
-                            guard let cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingVideoCallMessageTableViewCell", for: indexPath) as? OutgoingVideoCallMessageTableViewCell else {
+                            let outgoingCallIdentifier = HippoConfig.shared.appUserType == .customer ? "CustomerOutgoingVideoCallMessageTableViewCell" : "OutgoingVideoCallMessageTableViewCell"
+                            guard let cell = tableView.dequeueReusableCell(withIdentifier: outgoingCallIdentifier, for: indexPath) as? OutgoingVideoCallMessageTableViewCell else {
                                 let cell = UITableViewCell()
                                 cell.backgroundColor = .clear
                                 return cell
@@ -2394,11 +2414,12 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                             let peerName = channel?.chatDetail?.peerName ?? "   "
                             let isCallingEnabled = isDirectCallingEnabledFor(type: message.callType)
                             cell.setCellWith(message: message, otherUserName: peerName, isCallingEnabled: isCallingEnabled)
-                            
+
                             cell.delegate = self
                             return cell
                         } else {
-                            guard let cell = tableView.dequeueReusableCell(withIdentifier: "IncomingVideoCallMessageTableViewCell", for: indexPath) as? IncomingVideoCallMessageTableViewCell else {
+                            let incomingCallIdentifier = HippoConfig.shared.appUserType == .customer ? "CustomerIncomingVideoCallMessageTableViewCell" : "IncomingVideoCallMessageTableViewCell"
+                            guard let cell = tableView.dequeueReusableCell(withIdentifier: incomingCallIdentifier, for: indexPath) as? IncomingVideoCallMessageTableViewCell else {
                                 let cell = UITableViewCell()
                                 cell.backgroundColor = .clear
                                 return cell
@@ -2442,12 +2463,14 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                                 cell.delegate = self
                                 return cell
                             case .audio:
-                                let cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingAudioTableViewCell", for: indexPath) as! OutgoingAudioTableViewCell
+                                let outgoingAudioIdentifier = HippoConfig.shared.appUserType == .customer ? "CustomerOutgoingAudioTableViewCell" : "OutgoingAudioTableViewCell"
+                                let cell = tableView.dequeueReusableCell(withIdentifier: outgoingAudioIdentifier, for: indexPath) as! OutgoingAudioTableViewCell
                                 cell.setData(message: message)
                                 cell.delegate = self
                                 return cell
                             default:
-                                let cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingDocumentTableViewCell") as! OutgoingDocumentTableViewCell
+                                let outgoingDocumentIdentifier = HippoConfig.shared.appUserType == .customer ? "CustomerOutgoingDocumentTableViewCell" : "OutgoingDocumentTableViewCell"
+                                let cell = tableView.dequeueReusableCell(withIdentifier: outgoingDocumentIdentifier) as! OutgoingDocumentTableViewCell
                                 cell.messageLongPressed = {[weak self](message) in
                                     DispatchQueue.main.async {
                                         self?.longPressOnMessage(message: message, indexPath: indexPath)
@@ -2467,12 +2490,14 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                                 cell.delegate = self
                                 return cell
                             case .audio:
-                                let cell = tableView.dequeueReusableCell(withIdentifier: "IncomingAudioTableViewCell", for: indexPath) as! IncomingAudioTableViewCell
+                                let incomingAudioIdentifier = HippoConfig.shared.appUserType == .customer ? "CustomerIncomingAudioTableViewCell" : "IncomingAudioTableViewCell"
+                                let cell = tableView.dequeueReusableCell(withIdentifier: incomingAudioIdentifier, for: indexPath) as! IncomingAudioTableViewCell
                                 cell.setData(message: message)
                                 return cell
-                                
+
                             default:
-                                let cell = tableView.dequeueReusableCell(withIdentifier: "IncomingDocumentTableViewCell") as! IncomingDocumentTableViewCell
+                                let incomingDocumentIdentifier = HippoConfig.shared.appUserType == .customer ? "CustomerIncomingDocumentTableViewCell" : "IncomingDocumentTableViewCell"
+                                let cell = tableView.dequeueReusableCell(withIdentifier: incomingDocumentIdentifier) as! IncomingDocumentTableViewCell
                                 cell.setCellWith(message: message)
                                 cell.actionDelegate = self
                                 cell.nameLabel.isHidden = false
@@ -2965,8 +2990,9 @@ extension ConversationsViewController {
     func getCellForMessageWithAttachment(tableView: UITableView, isOutgoingMessage: Bool, message: HippoMessage, indexPath: IndexPath) -> UITableViewCell{
         if message.documentType == .image {
             if isOutgoingMessage {
+                let outgoingImageIdentifier = HippoConfig.shared.appUserType == .customer ? "CustomerOutgoingImageCell" : "OutgoingImageCell"
                 guard
-                    let cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingImageCell", for: indexPath) as? OutgoingImageCell
+                    let cell = tableView.dequeueReusableCell(withIdentifier: outgoingImageIdentifier, for: indexPath) as? OutgoingImageCell
                 else {
                     let cell = UITableViewCell()
                     cell.backgroundColor = .clear
@@ -2981,7 +3007,8 @@ extension ConversationsViewController {
                 cell.configureCellOfOutGoingImageCell(resetProperties: true, chatMessageObject: message, indexPath: indexPath)
                 return cell
             }else {
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: "IncomingImageCell", for: indexPath) as? IncomingImageCell
+                let incomingImageIdentifier = HippoConfig.shared.appUserType == .customer ? "CustomerIncomingImageCell" : "IncomingImageCell"
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: incomingImageIdentifier, for: indexPath) as? IncomingImageCell
                 else {
                     let cell = UITableViewCell()
                     cell.backgroundColor = .clear
@@ -3005,12 +3032,14 @@ extension ConversationsViewController {
                     cell.delegate = self
                     return cell
                 case .audio:
-                    let cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingAudioTableViewCell", for: indexPath) as! OutgoingAudioTableViewCell
+                    let outgoingAudioIdentifier = HippoConfig.shared.appUserType == .customer ? "CustomerOutgoingAudioTableViewCell" : "OutgoingAudioTableViewCell"
+                    let cell = tableView.dequeueReusableCell(withIdentifier: outgoingAudioIdentifier, for: indexPath) as! OutgoingAudioTableViewCell
                     cell.setData(message: message)
                     cell.delegate = self
                     return cell
                 default:
-                    let cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingDocumentTableViewCell") as! OutgoingDocumentTableViewCell
+                    let outgoingDocumentIdentifier = HippoConfig.shared.appUserType == .customer ? "CustomerOutgoingDocumentTableViewCell" : "OutgoingDocumentTableViewCell"
+                    let cell = tableView.dequeueReusableCell(withIdentifier: outgoingDocumentIdentifier) as! OutgoingDocumentTableViewCell
                     cell.messageLongPressed = {[weak self](message) in
                         DispatchQueue.main.async {
                             self?.longPressOnMessage(message: message, indexPath: indexPath)
@@ -3030,12 +3059,14 @@ extension ConversationsViewController {
                     cell.delegate = self
                     return cell
                 case .audio:
-                    let cell = tableView.dequeueReusableCell(withIdentifier: "IncomingAudioTableViewCell", for: indexPath) as! IncomingAudioTableViewCell
+                    let incomingAudioIdentifier = HippoConfig.shared.appUserType == .customer ? "CustomerIncomingAudioTableViewCell" : "IncomingAudioTableViewCell"
+                    let cell = tableView.dequeueReusableCell(withIdentifier: incomingAudioIdentifier, for: indexPath) as! IncomingAudioTableViewCell
                     cell.setData(message: message)
                     return cell
-                    
+
                 default:
-                    let cell = tableView.dequeueReusableCell(withIdentifier: "IncomingDocumentTableViewCell") as! IncomingDocumentTableViewCell
+                    let incomingDocumentIdentifier = HippoConfig.shared.appUserType == .customer ? "CustomerIncomingDocumentTableViewCell" : "IncomingDocumentTableViewCell"
+                    let cell = tableView.dequeueReusableCell(withIdentifier: incomingDocumentIdentifier) as! IncomingDocumentTableViewCell
                     cell.setCellWith(message: message)
                     cell.actionDelegate = self
                     cell.nameLabel.isHidden = false
@@ -3207,7 +3238,7 @@ extension ConversationsViewController: HippoChannelDelegate {
         
         if channel?.chatDetail?.disableReply == true{
             //disableSendingReply(withOutUpdate: true)
-            disableSendingReply()
+            disableSendingReply(message: HippoStrings.cannotReplyToConversation)
         }
         
         setTitleForCustomNavigationBar()

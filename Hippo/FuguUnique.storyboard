@@ -1410,7 +1410,7 @@
                                     <constraint firstItem="zoG-Rh-t49" firstAttribute="leading" secondItem="FQc-qg-FUN" secondAttribute="trailing" constant="5" id="CX3-7W-vqF"/>
                                     <constraint firstItem="mDW-au-gnL" firstAttribute="leading" secondItem="HOO-xV-gYe" secondAttribute="leading" id="Djv-zP-iq7"/>
                                     <constraint firstItem="JIA-bQ-6Q1" firstAttribute="bottom" secondItem="5wO-zE-y4K" secondAttribute="bottom" id="GVt-8w-4nO"/>
-                                    <constraint firstItem="5wO-zE-y4K" firstAttribute="top" secondItem="HOO-xV-gYe" secondAttribute="top" constant="3" id="IXD-pd-vcQ"/>
+                                    <constraint firstItem="5wO-zE-y4K" firstAttribute="top" secondItem="HOO-xV-gYe" secondAttribute="top" constant="8" id="IXD-pd-vcQ"/>
                                     <constraint firstItem="JIA-bQ-6Q1" firstAttribute="leading" secondItem="5wO-zE-y4K" secondAttribute="leading" id="LxZ-1t-V2c"/>
                                     <constraint firstAttribute="bottom" secondItem="bsk-G0-oNk" secondAttribute="bottom" id="NsQ-wl-HCf"/>
                                     <constraint firstItem="zoG-Rh-t49" firstAttribute="leading" secondItem="5wO-zE-y4K" secondAttribute="trailing" constant="5" id="PKi-eo-Gh9"/>
@@ -1421,7 +1421,7 @@
                                     <constraint firstAttribute="height" relation="lessThanOrEqual" constant="150" id="f5B-b0-hAO"/>
                                     <constraint firstItem="bsk-G0-oNk" firstAttribute="top" secondItem="HOO-xV-gYe" secondAttribute="top" id="gMy-v5-ejf"/>
                                     <constraint firstItem="zoG-Rh-t49" firstAttribute="leading" secondItem="JIA-bQ-6Q1" secondAttribute="trailing" id="hTA-dP-x8X"/>
-                                    <constraint firstAttribute="bottom" secondItem="5wO-zE-y4K" secondAttribute="bottom" constant="3" id="k2x-cM-F5N"/>
+                                    <constraint firstAttribute="bottom" secondItem="5wO-zE-y4K" secondAttribute="bottom" constant="8" id="k2x-cM-F5N"/>
                                     <constraint firstItem="FQc-qg-FUN" firstAttribute="centerY" secondItem="5wO-zE-y4K" secondAttribute="centerY" id="vFt-K7-aVp"/>
                                 </constraints>
                             </view>

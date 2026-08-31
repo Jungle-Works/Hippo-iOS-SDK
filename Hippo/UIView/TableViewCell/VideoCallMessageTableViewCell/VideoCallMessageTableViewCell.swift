@@ -85,7 +85,7 @@ class IncomingVideoCallMessageTableViewCell: VideoCallMessageTableViewCell {
             
             messageBackgroundView.backgroundColor = HippoConfig.shared.theme.missedCallColor
             callAgainButton.setTitle(HippoStrings.callback, for: .normal)
-            phoneIcon.image = UIImage(named: "missed")
+            phoneIcon.image = UIImage(named: "missed", in: FuguFlowManager.bundle, compatibleWith: nil)
             phoneIcon.tintColor = UIColor.white
             
             
@@ -96,7 +96,7 @@ class IncomingVideoCallMessageTableViewCell: VideoCallMessageTableViewCell {
             
             callAgainButton.setTitle(HippoStrings.callAgain, for: .normal)
             
-            phoneIcon.image = UIImage(named: "incomming")
+            phoneIcon.image = UIImage(named: "incomming", in: FuguFlowManager.bundle, compatibleWith: nil)
         }
         
         messageLabel.textColor = UIColor.white
@@ -141,7 +141,7 @@ class OutgoingVideoCallMessageTableViewCell: VideoCallMessageTableViewCell {
         if message.isMissedCall {
            
             callAgainButton.setTitle(HippoStrings.callback, for: .normal)
-            phoneIcon.image = UIImage(named: "missed")
+            phoneIcon.image = UIImage(named: "missed", in: FuguFlowManager.bundle, compatibleWith: nil)
             phoneIcon.tintColor = UIColor.black
             
             
@@ -149,7 +149,7 @@ class OutgoingVideoCallMessageTableViewCell: VideoCallMessageTableViewCell {
            // messageLabel.textColor = HippoConfig.shared.theme.outgoingMsgColor
             callAgainButton.setTitle(HippoStrings.callAgain, for: .normal)
             
-            phoneIcon.image = UIImage(named: "outgoing")
+            phoneIcon.image = UIImage(named: "outgoing", in: FuguFlowManager.bundle, compatibleWith: nil)
             phoneIcon.tintColor = UIColor.black
         }
         

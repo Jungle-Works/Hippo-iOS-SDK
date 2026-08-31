@@ -69,6 +69,12 @@ class ActionTableView: MessageTableViewCell {
         tableView.register(UINib(nibName: "ActionTagTableViewCell", bundle: FuguFlowManager.bundle), forCellReuseIdentifier: "ActionTagTableViewCell")
         tableView.register(UINib(nibName: "SelfMessageTableViewCell", bundle: FuguFlowManager.bundle), forCellReuseIdentifier: "SelfMessageTableViewCell")
         tableView.register(UINib(nibName: "SupportMessageTableViewCell", bundle: FuguFlowManager.bundle), forCellReuseIdentifier: "SupportMessageTableViewCell")
+        // ActionTableDataSource dequeues these Customer-prefixed identifiers for the customer
+        // app (reply-preview rows inside an action/bot message) but this table never
+        // registered them — only the outer chat table did — causing an unrecoverable
+        // "unable to dequeue a cell" crash the first time a customer reply preview rendered.
+        tableView.register(UINib(nibName: "CustomerSelfMessageTableViewCell", bundle: FuguFlowManager.bundle), forCellReuseIdentifier: "CustomerSelfMessageTableViewCell")
+        tableView.register(UINib(nibName: "CustomerSupportMessageTableViewCell", bundle: FuguFlowManager.bundle), forCellReuseIdentifier: "CustomerSupportMessageTableViewCell")
         tableView.register(UINib(nibName: "OutgoingImageCell", bundle: FuguFlowManager.bundle), forCellReuseIdentifier: "OutgoingImageCell")
         tableView.register(UINib(nibName: "OutgoingDocumentTableViewCell", bundle: FuguFlowManager.bundle), forCellReuseIdentifier: "OutgoingDocumentTableViewCell")
         tableView.register(UINib(nibName: "OutgoingVideoTableViewCell", bundle: FuguFlowManager.bundle), forCellReuseIdentifier: "OutgoingVideoTableViewCell")

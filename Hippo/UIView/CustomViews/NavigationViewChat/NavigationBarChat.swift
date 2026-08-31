@@ -156,7 +156,18 @@ final class NavigationBarChat: UIView {
      
      func showProfileImage() {
          image_profile.isHidden = false
-         image_profile.layer.cornerRadius = 8//image_profile.frame.size.height/2
+         layoutIfNeeded()
+         if HippoConfig.shared.appUserType == .customer {
+             // Full circle with a thin border, matching the revamped customer thread's avatar
+             // treatment elsewhere - layoutIfNeeded() above first so bounds are already
+             // resolved, since image_profile has no fixed size constraint (only a 1:1 aspect
+             // ratio) to compute a radius from ahead of layout.
+             image_profile.layer.cornerRadius = image_profile.bounds.height / 2
+             image_profile.layer.borderWidth = 1
+             image_profile.layer.borderColor = HippoConfig.shared.colorConfig.hippoBorder.cgColor
+         } else {
+             image_profile.layer.cornerRadius = 8
+         }
          image_profile.layer.masksToBounds = true
          layoutIfNeeded()
      }
@@ -168,7 +179,8 @@ final class NavigationBarChat: UIView {
     
     func setNameAsTitle(_ name: String?) {
         if let parsedName = name {
-            self.image_profile.setTextInImage(string: parsedName, color: UIColor.lightGray, circular: false)
+            let isCircular = HippoConfig.shared.appUserType == .customer
+            self.image_profile.setTextInImage(string: parsedName, color: UIColor.lightGray, circular: isCircular)
         } else {
           self.image_profile.image = HippoConfig.shared.theme.placeHolderImage
         }

@@ -142,12 +142,13 @@ struct WhatsappWidgetConfig{
     internal var ticketDetails = HippoTicketAtrributes(categoryName: "")
     public var whatsappSecretKey: String = ""
     public var theme = HippoTheme.defaultTheme()
+    public var colorConfig = HippoColorConfig()
     internal var userDetail: HippoUserDetail?
     internal var jitsiUrl : String?
     internal var jitsiOngoingCall : Bool?
     internal var agentDetail: AgentDetail?
     public var strings = HippoStrings()
-    public var apiLogging: Int = 0
+    public var apiLogging: Int = 1
     private(set) public var newConversationButtonBorderWidth: Float = 0.0
     var processedMessageMUIDs = Set<String>()
     private(set) public var isSuggestionNeeded = false
@@ -344,6 +345,10 @@ struct WhatsappWidgetConfig{
     
     public func setCustomisedHippoTheme(theme: HippoTheme) {
         self.theme = theme
+    }
+
+    public func setCustomisedColorConfig(_ config: HippoColorConfig) {
+        self.colorConfig = config
     }
     
     public func setCredential(withAppSecretKey appSecretKey: String, appType: String? = nil, offering: Int = 0) {
@@ -1530,7 +1535,7 @@ struct WhatsappWidgetConfig{
                 conVC.label = channelName
                 //                conVC.navigationTitleLabel?.text = channelName
                 if isSendingDisabled {
-                    conVC.disableSendingReply()
+                    conVC.disableSendingReply(message: HippoStrings.cannotReplyToConversation)
                 }
                 conVC.getMessagesBasedOnChannel(fromMessage: 1, pageEnd: nil, completion: {(_) in
                     conVC.enableSendingNewMessages()
@@ -1543,7 +1548,7 @@ struct WhatsappWidgetConfig{
                 conVC.labelId = labelId
                 //                conVC.navigationTitleLabel?.text = channelName
                 if isSendingDisabled {
-                    conVC.disableSendingReply()
+                    conVC.disableSendingReply(message: HippoStrings.cannotReplyToConversation)
                 }
                 conVC.fetchMessagesFrom1stPage()
             }

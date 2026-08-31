@@ -182,10 +182,10 @@ class HTTPClient {
         case .url:
             break
         }
-        
+
         //DataTask
         let dataTask = HTTPClient.performDataTaskWith(request: mutableRequest, showAlert: showAlert, showAlertInDefaultCase: showAlertInDefaultCase, showActivityIndicator: showActivityIndicator, callback: callback, extendedUrl: extendedUrl)
-        
+
         dataTask.resume()
         
         return dataTask

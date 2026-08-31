@@ -308,19 +308,27 @@ class HippoConversationViewController: UIViewController {
     func tableViewSetUp() {
         tableViewChat.contentInset.bottom = 3
         
-        tableViewChat.backgroundColor = HippoConfig.shared.theme.backgroundColor
+        // Customer chat thread reads the surface-background token; agent chat (this
+        // controller is shared between both) keeps the legacy theme colour untouched.
+        tableViewChat.backgroundColor = HippoConfig.shared.appUserType == .customer
+            ? HippoConfig.shared.colorConfig.hippoSurfaceBackground
+            : HippoConfig.shared.theme.backgroundColor
         
         let bundle = FuguFlowManager.bundle
         
         tableViewChat.register(UINib(nibName: "SelfMessageTableViewCell", bundle: bundle), forCellReuseIdentifier: "SelfMessageTableViewCell")
+        tableViewChat.register(UINib(nibName: "CustomerSelfMessageTableViewCell", bundle: bundle), forCellReuseIdentifier: "CustomerSelfMessageTableViewCell")
         tableViewChat.register(UINib(nibName: "PaymentMessageCell", bundle: bundle), forCellReuseIdentifier: "PaymentMessageCell")
-        
+
         tableViewChat.register(UINib(nibName: "MultiSelectTableViewCell", bundle: bundle), forCellReuseIdentifier: "MultiSelectTableViewCell")
-        
+
         tableViewChat.register(UINib(nibName: "SupportMessageTableViewCell", bundle: bundle), forCellReuseIdentifier: "SupportMessageTableViewCell")
+        tableViewChat.register(UINib(nibName: "CustomerSupportMessageTableViewCell", bundle: bundle), forCellReuseIdentifier: "CustomerSupportMessageTableViewCell")
         
         tableViewChat.register(UINib(nibName: "OutgoingImageCell", bundle: bundle), forCellReuseIdentifier: "OutgoingImageCell")
         tableViewChat.register(UINib(nibName: "IncomingImageCell", bundle: bundle), forCellReuseIdentifier: "IncomingImageCell")
+        tableViewChat.register(UINib(nibName: "CustomerOutgoingImageCell", bundle: bundle), forCellReuseIdentifier: "CustomerOutgoingImageCell")
+        tableViewChat.register(UINib(nibName: "CustomerIncomingImageCell", bundle: bundle), forCellReuseIdentifier: "CustomerIncomingImageCell")
         tableViewChat.register(UINib(nibName: "ActionableMessageTableViewCell", bundle: bundle), forCellReuseIdentifier: "ActionableMessageTableViewCell")
         
         tableViewChat.register(UINib(nibName: "BotOutgoingMessageTableViewCell", bundle: bundle), forCellReuseIdentifier: "BotOutgoingMessageTableViewCell")
@@ -330,12 +338,18 @@ class HippoConversationViewController: UIViewController {
         tableViewChat.register(UINib(nibName: "AssignedAgentTableViewCell", bundle: bundle), forCellReuseIdentifier: "AssignedAgentTableViewCell")
         
         tableViewChat.register(UINib(nibName: "OutgoingVideoCallMessageTableViewCell", bundle: bundle), forCellReuseIdentifier: "OutgoingVideoCallMessageTableViewCell")
+        tableViewChat.register(UINib(nibName: "CustomerOutgoingVideoCallMessageTableViewCell", bundle: bundle), forCellReuseIdentifier: "CustomerOutgoingVideoCallMessageTableViewCell")
         tableViewChat.register(UINib(nibName: "IncomingVideoCallMessageTableViewCell", bundle: bundle), forCellReuseIdentifier: "IncomingVideoCallMessageTableViewCell")
+        tableViewChat.register(UINib(nibName: "CustomerIncomingVideoCallMessageTableViewCell", bundle: bundle), forCellReuseIdentifier: "CustomerIncomingVideoCallMessageTableViewCell")
         
         tableViewChat.register(UINib(nibName: "OutgoingDocumentTableViewCell", bundle: bundle), forCellReuseIdentifier: "OutgoingDocumentTableViewCell")
+        tableViewChat.register(UINib(nibName: "CustomerOutgoingDocumentTableViewCell", bundle: bundle), forCellReuseIdentifier: "CustomerOutgoingDocumentTableViewCell")
         tableViewChat.register(UINib(nibName: "IncomingDocumentTableViewCell", bundle: bundle), forCellReuseIdentifier: "IncomingDocumentTableViewCell")
+        tableViewChat.register(UINib(nibName: "CustomerIncomingDocumentTableViewCell", bundle: bundle), forCellReuseIdentifier: "CustomerIncomingDocumentTableViewCell")
         tableViewChat.register(UINib(nibName: "OutgoingAudioTableViewCell", bundle: bundle), forCellReuseIdentifier: "OutgoingAudioTableViewCell")
+        tableViewChat.register(UINib(nibName: "CustomerOutgoingAudioTableViewCell", bundle: bundle), forCellReuseIdentifier: "CustomerOutgoingAudioTableViewCell")
         tableViewChat.register(UINib(nibName: "IncomingAudioTableViewCell", bundle: bundle), forCellReuseIdentifier: "IncomingAudioTableViewCell")
+        tableViewChat.register(UINib(nibName: "CustomerIncomingAudioTableViewCell", bundle: bundle), forCellReuseIdentifier: "CustomerIncomingAudioTableViewCell")
         tableViewChat.register(UINib(nibName: "IncomingVideoTableViewCell", bundle: bundle), forCellReuseIdentifier: "IncomingVideoTableViewCell")
         tableViewChat.register(UINib(nibName: "OutgoingVideoTableViewCell", bundle: bundle), forCellReuseIdentifier: "OutgoingVideoTableViewCell")
         
@@ -344,6 +358,8 @@ class HippoConversationViewController: UIViewController {
         tableViewChat.register(UINib(nibName: "SearchAgentTableViewCell", bundle: bundle), forCellReuseIdentifier: "SearchAgentTableViewCell")
         tableViewChat.register(UINib(nibName: "OutgoingShareUrlCell", bundle: bundle), forCellReuseIdentifier: "OutgoingShareUrlCell")
         tableViewChat.register(UINib(nibName: "IncomingShareUrlCell", bundle: bundle), forCellReuseIdentifier: "IncomingShareUrlCell")
+        tableViewChat.register(UINib(nibName: "CustomerOutgoingShareUrlCell", bundle: bundle), forCellReuseIdentifier: "CustomerOutgoingShareUrlCell")
+        tableViewChat.register(UINib(nibName: "CustomerIncomingShareUrlCell", bundle: bundle), forCellReuseIdentifier: "CustomerIncomingShareUrlCell")
     }
     
     func registerNotificationWhenAppEntersForeground() {
@@ -1842,16 +1858,18 @@ extension HippoConversationViewController: CreatePaymentDelegate {
 
 extension HippoConversationViewController {
     func getNormalMessageTableViewCell(tableView: UITableView, isOutgoingMessage: Bool, message: HippoMessage, indexPath: IndexPath, comingFrom: String) -> UITableViewCell {
+        let isCustomer = HippoConfig.shared.appUserType == .customer
         switch isOutgoingMessage {
         case false:
             if message.message_sub_type == 1 {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "IncomingShareUrlCell", for: indexPath) as! OutgoingShareUrlCell
+                let incomingShareUrlIdentifier = isCustomer ? "CustomerIncomingShareUrlCell" : "IncomingShareUrlCell"
+                let cell = tableView.dequeueReusableCell(withIdentifier: incomingShareUrlIdentifier, for: indexPath) as! OutgoingShareUrlCell
                 cell.delegate = self
                 return cell.configureCellOfShareUrlCell(isIncoming: true, resetProperties: true, chatMessageObject: message, indexPath: indexPath)
-                
+
             }else {
-                
-                let cell = tableView.dequeueReusableCell(withIdentifier: "SupportMessageTableViewCell", for: indexPath) as! SupportMessageTableViewCell
+                let identifier = isCustomer ? "CustomerSupportMessageTableViewCell" : "SupportMessageTableViewCell"
+                let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! SupportMessageTableViewCell
                 let bottomSpace = getBottomSpaceOfMessageAt(indexPath: indexPath, message: message)
                 cell.updateBottomConstraint(bottomSpace)
                 let incomingAttributedString = Helper.getIncomingAttributedStringWithLastUserCheck(chatMessageObject: message)
@@ -1859,12 +1877,14 @@ extension HippoConversationViewController {
             }
         case true:
             if message.message_sub_type == 1 {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingShareUrlCell", for: indexPath) as! OutgoingShareUrlCell
+                let outgoingShareUrlIdentifier = isCustomer ? "CustomerOutgoingShareUrlCell" : "OutgoingShareUrlCell"
+                let cell = tableView.dequeueReusableCell(withIdentifier: outgoingShareUrlIdentifier, for: indexPath) as! OutgoingShareUrlCell
                 cell.delegate = self
                 return cell.configureCellOfShareUrlCell(isIncoming: false, resetProperties: true, chatMessageObject: message, indexPath: indexPath)
-                
+
             }else {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "SelfMessageTableViewCell", for: indexPath) as! SelfMessageTableViewCell
+                let identifier = isCustomer ? "CustomerSelfMessageTableViewCell" : "SelfMessageTableViewCell"
+                let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! SelfMessageTableViewCell
                 cell.delegate = self
                 let bottomSpace = getBottomSpaceOfMessageAt(indexPath: indexPath, message: message)
                 cell.updateBottomConstraint(bottomSpace)

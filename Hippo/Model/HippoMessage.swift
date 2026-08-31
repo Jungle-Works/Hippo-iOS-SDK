@@ -194,7 +194,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
                 height += card.cardHeight
             }
 //            return height + 5
-            return height + 9
+            return height + 40
         case .multipleSelect :
             guard let action = customAction else {
                 return 0.01
