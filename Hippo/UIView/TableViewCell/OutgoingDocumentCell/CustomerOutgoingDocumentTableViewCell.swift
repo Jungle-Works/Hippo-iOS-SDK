@@ -14,6 +14,11 @@ class CustomerOutgoingDocumentTableViewCell: OutgoingDocumentTableViewCell {
 
     @IBOutlet weak var docImageBadgeView: UIView!
 
+    /// Set to the message's file URL when a tap kicks off a fresh download, so that
+    /// fileDownloadCompleted(_:) can open the file automatically once it lands instead
+    /// of making the user tap the card a second time. Cleared on reuse and after it fires.
+    private var pendingOpenFileUrl: String?
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Badge is a fixed 44x44 in the xib - hardcoded radius avoids depending on bounds
@@ -24,11 +29,43 @@ class CustomerOutgoingDocumentTableViewCell: OutgoingDocumentTableViewCell {
         docImageBadgeView.backgroundColor = UIColor(white: 0.9, alpha: 1.0)
     }
 
+    override func intalizeCell(with message: HippoMessage, isIncomingView: Bool) {
+        // Cell is being handed a (possibly different) message - drop any stale
+        // "open when the download finishes" intent from the previous binding.
+        pendingOpenFileUrl = nil
+        super.intalizeCell(with: message, isIncomingView: isIncomingView)
+    }
+
+    override func fileDownloadCompleted(_ notification: Notification) {
+        // super stops the spinner and unhides docImage via updateUIAccordingToFileDownloadStatus().
+        super.fileDownloadCompleted(notification)
+
+        guard let url = notification.userInfo?[DownloadManager.urlUserInfoKey] as? String,
+              url == pendingOpenFileUrl,
+              let message = message,
+              message.fileUrl == url,
+              DownloadManager.shared.isFileDownloadedWith(url: url) else {
+            return
+        }
+        // The download this cell's tap started has landed - open it now. Going back
+        // through performActionAccordingToStatusOf keeps the "already downloaded ->
+        // QuickLook" branch as the single place that opens files.
+        pendingOpenFileUrl = nil
+        actionDelegate?.performActionAccordingToStatusOf(message: message, inCell: self)
+    }
+
     override func updateUIAccordingToFileDownloadStatus() {
         super.updateUIAccordingToFileDownloadStatus()
         // The whole card is already tap-to-download via bgViewTaped(); no separate
         // button needed on the customer screen.
         retryButton.isHidden = true
+
+        // activityIndicator is centred on docImageBadgeView, directly over docImage — hide the
+        // file icon while the spinner is running so the two don't render on top of each other,
+        // and bring it back once the download finishes (or hasn't started yet).
+        if let fileUrl = message?.fileUrl {
+            docImage.isHidden = DownloadManager.shared.isFileBeingDownloadedWith(url: fileUrl)
+        }
     }
 
     override func setUIAccordingToTheme() {
@@ -74,6 +111,13 @@ class CustomerOutgoingDocumentTableViewCell: OutgoingDocumentTableViewCell {
         case .none:
             delegate?.retryUploadFor(message: message)
         default:
+            // If the file isn't cached yet this tap starts a download - remember to
+            // auto-open it when fileDownloadCompleted(_:) fires. If it's already
+            // downloaded, performActionAccordingToStatusOf opens it right here.
+            if let fileUrl = message.fileUrl,
+               !DownloadManager.shared.isFileDownloadedWith(url: fileUrl) {
+                pendingOpenFileUrl = fileUrl
+            }
             actionDelegate?.performActionAccordingToStatusOf(message: message, inCell: self)
             updateUI()
         }
