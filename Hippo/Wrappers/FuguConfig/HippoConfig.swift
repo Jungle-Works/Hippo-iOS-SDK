@@ -162,7 +162,11 @@ struct WhatsappWidgetConfig{
     public var isPaymentRequestEnabled: Bool {
         return HippoProperty.current.isPaymentRequestEnabled
     }
-    
+
+    public var isAiBotEnabled: Bool {
+        return BussinessProperty.current.isAiBotEnabled ?? false
+    }
+
     internal var groupCallData: [String : Any] {
         get {
             guard let groupCallData = UserDefaults.standard.value(forKey: Fugu_groupCallData) as? [String : Any] else {

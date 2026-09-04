@@ -399,6 +399,7 @@ enum FuguEndPoints: String {
     case searchAddress = "https://nominatim-api-live.jungleworks.com/search"
     case statsUpdate = "api/users/updateUserToChannel"
     case promotionalPopUp = "api/broadcast/getUserToCampaign"
+    case getConfiguration = "api/business/v2/getConfiguration"
     static let generateContent = "api/chat/generateContent"
     static let getUnreadAnnouncementCount = "api/broadcast/getUnreadAnnouncementCount"
     case fetchChatUnreadCount = "api/conversation/fetchChatUnreadCount"
@@ -460,6 +461,7 @@ enum AgentEndPoints: String {
     case assignTagsV2 = "api/tags/v2/assignTagsToChannel"
     case getCannedMessages = "api/business/getCannedMessages"
     case fetchChatUnreadCount = "api/conversation/fetchChatUnreadCount"
+    case getConfiguration = "api/business/v2/getConfiguration"
 }
 
 struct MultiLanguageMsg{

@@ -470,20 +470,7 @@ extension PromotionsViewController: UITableViewDelegate,UITableViewDataSource
             //cell.descriptionLabel.numberOfLines = 2
             let values = data[indexPath.row]
             let croppedDescription = values.description?.count ?? 0 > 150 ? String(values.description?.prefix(150) ?? "") : values.description ?? ""
-            let titleAttrs: [NSAttributedString.Key: Any] = [
-                .foregroundColor: UIColor.black,
-                .font: HippoConfig.shared.theme.promotionTitle
-            ]
-            let titleWithDot = NSMutableAttributedString()
-            if values.seenStatus == 0 {
-                let dotAttrs: [NSAttributedString.Key: Any] = [
-                    .foregroundColor: UIColor(red: 22/255, green: 68/255, blue: 153/255, alpha: 1.0),
-                    .font: UIFont.systemFont(ofSize: 10)
-                ]
-                titleWithDot.append(NSMutableAttributedString(string: "● ", attributes: dotAttrs))
-            }
-            titleWithDot.append(NSAttributedString(string: values.title ?? "", attributes: titleAttrs))
-            cell.promotionTitle.attributedText = titleWithDot
+            cell.promotionTitle.text = values.title ?? ""
             cell.fullDescriptionLabel.attributedText = NSAttributedString(string:  values.description ?? "")
             cell.descriptionLabel.attributedText = NSAttributedString(string:  croppedDescription)
             cell.descriptionLabel.dataDetectorTypes = UIDataDetectorTypes.all

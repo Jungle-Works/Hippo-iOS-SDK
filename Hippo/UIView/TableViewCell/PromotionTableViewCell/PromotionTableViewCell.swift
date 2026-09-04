@@ -34,11 +34,13 @@ class PromotionTableViewCell: UITableViewCell {
     var data: PromotionCellDataModel?
     var previewImage : (()->())?
 //    weak var delegate: PromotionTableViewCellDelegate?
-    
+    private var newBadgeView: UIView!
+
     override func awakeFromNib() {
         super.awakeFromNib()
         self.setUpUI()
-        
+        self.setUpNewBadge()
+
         // Initialization code
     }
 
@@ -71,11 +73,62 @@ class PromotionTableViewCell: UITableViewCell {
         dateTimeLabel.font = HippoConfig.shared.theme.dateTimeFontSize
         dateTimeLabel.textColor = UIColor(red: 113/255, green: 113/255, blue: 113/255, alpha: 1.0)
     }
-    
+
+    private func setUpNewBadge() {
+        guard let stack = promotionTitle.superview as? UIStackView else { return }
+
+        let pill = UIView()
+        pill.translatesAutoresizingMaskIntoConstraints = false
+        pill.backgroundColor = UIColor(red: 231/255, green: 239/255, blue: 253/255, alpha: 1.0)
+        pill.layer.cornerRadius = 10
+        pill.layer.masksToBounds = true
+
+        let dotLabel = UILabel()
+        dotLabel.translatesAutoresizingMaskIntoConstraints = false
+        dotLabel.text = "●"
+        dotLabel.font = UIFont.systemFont(ofSize: 10)
+        dotLabel.textColor = UIColor(red: 22/255, green: 68/255, blue: 153/255, alpha: 1.0)
+
+        let newLabel = UILabel()
+        newLabel.translatesAutoresizingMaskIntoConstraints = false
+        newLabel.text = "New"
+        newLabel.font = UIFont.boldSystemFont(ofSize: 12)
+        newLabel.textColor = UIColor(red: 22/255, green: 68/255, blue: 153/255, alpha: 1.0)
+
+        let innerStack = UIStackView(arrangedSubviews: [dotLabel, newLabel])
+        innerStack.axis = .horizontal
+        innerStack.spacing = 4
+        innerStack.alignment = .center
+        innerStack.translatesAutoresizingMaskIntoConstraints = false
+
+        pill.addSubview(innerStack)
+        NSLayoutConstraint.activate([
+            innerStack.leadingAnchor.constraint(equalTo: pill.leadingAnchor, constant: 8),
+            innerStack.trailingAnchor.constraint(equalTo: pill.trailingAnchor, constant: -8),
+            innerStack.topAnchor.constraint(equalTo: pill.topAnchor, constant: 3),
+            innerStack.bottomAnchor.constraint(equalTo: pill.bottomAnchor, constant: -3)
+        ])
+
+        let container = UIView()
+        container.translatesAutoresizingMaskIntoConstraints = false
+        container.backgroundColor = .clear
+        container.addSubview(pill)
+        NSLayoutConstraint.activate([
+            pill.leadingAnchor.constraint(equalTo: container.leadingAnchor),
+            pill.topAnchor.constraint(equalTo: container.topAnchor),
+            pill.bottomAnchor.constraint(equalTo: container.bottomAnchor),
+            pill.trailingAnchor.constraint(lessThanOrEqualTo: container.trailingAnchor)
+        ])
+
+        stack.insertArrangedSubview(container, at: 0)
+        newBadgeView = container
+    }
+
     func set(data: PromotionCellDataModel){
-        
+
         self.data = data
-        
+        newBadgeView.isHidden = data.seenStatus != 0
+
         if data.imageUrlString.isEmpty{
             self.promotionImage?.isHidden = true
             self.imageHeightConstraint.constant = 0

@@ -370,6 +370,7 @@ class HippoChannel {
             requestParam["bot_form_muid"] = parsedBotMessageMUID
         }
         
+        requestParam["is_ai_conversation"] = BussinessProperty.current.isAiBotEnabled ?? false ? "true" : "false"
         //requestParam["initiate_bot_group_id"] = 569
         
         HippoConfig.shared.log.debug("API_CREATE_CONVERSATION.....\(requestParam)", level: .request)

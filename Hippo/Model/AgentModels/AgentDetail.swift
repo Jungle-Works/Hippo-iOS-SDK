@@ -307,7 +307,9 @@ extension AgentDetail {
             
             if let businessProperty = data["business_property"] as? [String: Any] {
                 BussinessProperty.current.isCallInviteEnabled = Bool.parse(key: "is_call_invite_enabled", json: businessProperty)
-                
+                BussinessProperty.current.isAiBotEnabled = Bool.parse(key: "is_ai_bot_enabled", json: businessProperty)
+                HippoUserDetail.fetchBusinessConfiguration()
+
                 BussinessProperty.current.editDeleteExpiryTime = CGFloat(Int.parse(values: businessProperty, key: "edit_delete_message_duration") ?? 0)
             
                 BussinessProperty.current.encodeToHTMLEntities = Bool.parse(key: "encode_to_html_entites", json: businessProperty)

@@ -410,7 +410,9 @@ public class UserTag: NSObject {
         
         
         BussinessProperty.current.isCallInviteEnabled = Bool.parse(key: "is_call_invite_enabled", json: userDetailData)
-        
+        BussinessProperty.current.isAiBotEnabled = Bool.parse(key: "is_ai_bot_enabled", json: userDetailData)
+        fetchBusinessConfiguration()
+
         if let automationEnabled = Int.parse(values: userDetailData, key: "is_automation_client"){
             BussinessProperty.current.isAutomationEnabled = automationEnabled
         }else{
@@ -669,16 +671,50 @@ public class UserTag: NSObject {
             "start_offset" : 0,
             "end_offset" : 10
         ]
-        
+
         if currentUserType() == .agent{
             params["access_token"] = HippoConfig.shared.agentDetail?.fuguToken
         }else{
             params["app_secret_key"] = HippoConfig.shared.appSecretKey
         }
-        
+
         return params
     }
-    
+
+    class func fetchBusinessConfiguration(completion: ((Bool) -> Void)? = nil) {
+        let params = getParamsForBusinessConfiguration()
+        let endPointName = currentUserType() == .agent ? AgentEndPoints.getConfiguration.rawValue : FuguEndPoints.getConfiguration.rawValue
+
+        HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: endPointName) { (responseObject, error, tag, statusCode) in
+            guard let unwrappedStatusCode = statusCode, error == nil, unwrappedStatusCode == STATUS_CODE_SUCCESS, let response = responseObject as? [String: Any], let data = response["data"] as? [String: Any] else {
+                HippoConfig.shared.log.debug("BusinessConfiguration fetch failed. statusCode: \(String(describing: statusCode)), error: \(String(describing: error)), response: \(String(describing: responseObject))", level: .error)
+                completion?(false)
+                return
+            }
+
+            HippoConfig.shared.log.trace("BusinessConfiguration Response: \(data)", level: .response)
+            BussinessProperty.current.isAiBotEnabled = Bool.parse(key: "is_ai_bot_enabled", json: data)
+            HippoConfig.shared.log.trace("BusinessConfiguration isAiBotEnabled parsed: \(String(describing: BussinessProperty.current.isAiBotEnabled)), key present: \(data["is_ai_bot_enabled"] != nil)", level: .response)
+            completion?(true)
+        }
+    }
+
+    private class func getParamsForBusinessConfiguration() -> [String: Any] {
+        var params: [String: Any] = [
+            "en_user_id": currentEnUserId(),
+            "device_type": Device_Type_iOS,
+            "lang": getCurrentLanguageLocale()
+        ]
+
+        if currentUserType() == .agent {
+            params["access_token"] = HippoConfig.shared.agentDetail?.fuguToken
+        } else {
+            params["app_secret_key"] = HippoConfig.shared.appSecretKey
+        }
+
+        return params
+    }
+
     private class func decodeJson(from data: Any) -> PromotionalPopUpData? {
         
         let decoder = JSONDecoder()
