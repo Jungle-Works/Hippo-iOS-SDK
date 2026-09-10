@@ -1339,7 +1339,7 @@
                                         <rect key="frame" x="40" y="3" width="324" height="52"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="VHi-nK-oPf"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="42" id="VHi-nK-oPf"/>
                                         </constraints>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>

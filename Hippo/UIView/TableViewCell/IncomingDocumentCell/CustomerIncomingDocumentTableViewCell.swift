@@ -14,6 +14,30 @@ class CustomerIncomingDocumentTableViewCell: IncomingDocumentTableViewCell {
 
     @IBOutlet weak var docImageBadgeView: UIView!
 
+    // MARK: Caption layout
+    //
+    // The xib pins the file badge to the bubble's vertical centre and never links
+    // the caption textView's bottom to the bubble, so a file received *with* a
+    // caption grows the textView outside the rounded bubble and the text is
+    // clipped. Toggled on only when a caption is present: pin the bubble bottom
+    // below the caption, and switch the badge from centre- to top-aligned so a
+    // long caption doesn't leave a gap above the icon. Same as the sent doc cell.
+
+    /// The xib's `badge.centerY == bgView.centerY` constraint, found at runtime so it
+    /// can be swapped out for `badgeTopConstraint` while a caption is showing. Held
+    /// strongly - deactivating it removes it from its view, and a weak ref would let
+    /// it deallocate so it could never be reactivated when the cell is reused.
+    private var badgeCenterYConstraint: NSLayoutConstraint?
+
+    private lazy var badgeTopConstraint: NSLayoutConstraint =
+        docImageBadgeView.topAnchor.constraint(equalTo: bgView.topAnchor, constant: 12)
+
+    private lazy var bubbleBottomBelowCaptionConstraint: NSLayoutConstraint = {
+        let c = bgView.bottomAnchor.constraint(greaterThanOrEqualTo: textView.bottomAnchor, constant: 10)
+        c.priority = .required
+        return c
+    }()
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Badge is a fixed 44x44 in the xib - hardcoded radius avoids depending on bounds
@@ -22,6 +46,35 @@ class CustomerIncomingDocumentTableViewCell: IncomingDocumentTableViewCell {
         docImageBadgeView.layer.cornerRadius = 22
         docImageBadgeView.clipsToBounds = true
         docImageBadgeView.backgroundColor = UIColor(white: 0.9, alpha: 1.0)
+
+        badgeCenterYConstraint = bgView.constraints.first { c in
+            (c.firstItem === docImageBadgeView && c.firstAttribute == .centerY && c.secondItem === bgView)
+                || (c.secondItem === docImageBadgeView && c.secondAttribute == .centerY && c.firstItem === bgView)
+        }
+    }
+
+    /// Grow the bubble to contain the caption (and move the badge to the top) when
+    /// there is one; restore the centred, caption-free layout when there isn't.
+    private func applyCaptionLayout(hasCaption: Bool) {
+        badgeCenterYConstraint?.isActive = !hasCaption
+        badgeTopConstraint.isActive = hasCaption
+        bubbleBottomBelowCaptionConstraint.isActive = hasCaption
+        setNeedsLayout()
+    }
+
+    override func setCellWith(message: HippoMessage) {
+        super.setCellWith(message: message)
+
+        // super already toggles constraintHeightTextView / sets textView.text off
+        // `message.message != ""`; layer the "like the image cell" bits on top.
+        let hasCaption = !message.message.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+        textView.isHidden = !hasCaption
+        if hasCaption {
+            textView.text = "\(message.message)\n"
+        } else {
+            constraintHeightTextView.isActive = true
+        }
+        applyCaptionLayout(hasCaption: hasCaption)
     }
 
     override func updateUIAccordingToFileDownloadStatus() {
@@ -55,6 +108,11 @@ class CustomerIncomingDocumentTableViewCell: IncomingDocumentTableViewCell {
         docName.textColor = colorConfig.hippoTextPrimary
         fileSizeLabel.textColor = colorConfig.hippoTextMuted
         nameLabel.textColor = colorConfig.hippoTextMuted
+        // Caption colour matches the received text bubble / image-cell caption
+        // (CustomerIncomingImageCell uses hippoTextPrimary); the xib leaves it at
+        // the default label colour.
+        textView.textColor = colorConfig.hippoTextPrimary
+        textView.tintColor = colorConfig.hippoTextPrimary
         activityIndicator.tintColor = colorConfig.hippoTextMuted
         activityIndicator.color = colorConfig.hippoTextMuted
     }

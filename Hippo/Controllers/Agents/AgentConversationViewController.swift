@@ -3071,11 +3071,9 @@ extension AgentConversationViewController : RecordViewDelegate {
     }
     
     func onFinished(duration: CGFloat) {
-        if duration > 0.0 {
-            recordingHelper.finishRecording(success: true)
-        }else {
-            recordingHelper.finishRecording(success: false)
-        }
+        // The gesture completed (finger lifted, not swiped to cancel) — hand off to
+        // RecordingHelper, which rejects clips shorter than 1s via recordingTooShort().
+        recordingHelper.finishRecording(success: true)
         recordingView.isHidden = true
     }
     

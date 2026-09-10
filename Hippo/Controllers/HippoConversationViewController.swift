@@ -313,6 +313,13 @@ class HippoConversationViewController: UIViewController {
         tableViewChat.backgroundColor = HippoConfig.shared.appUserType == .customer
             ? HippoConfig.shared.colorConfig.hippoSurfaceBackground
             : HippoConfig.shared.theme.backgroundColor
+
+        // Root view shows through in the bottom safe-area strip (and the whole
+        // composer slot when the composer is hidden for a bot chat) - paint it the
+        // same colour as the thread so that strip doesn't read as a white bar.
+        if HippoConfig.shared.appUserType == .customer {
+            view.backgroundColor = HippoConfig.shared.colorConfig.hippoSurfaceBackground
+        }
         
         let bundle = FuguFlowManager.bundle
         
@@ -592,7 +599,14 @@ class HippoConversationViewController: UIViewController {
         //            navigationView = NavigationTitleView.loadView(rectForNavigationTitle, delegate: self)
         //            titleForNavigation = navigationView
         //        }
-        if let chatType = channel?.chatDetail?.chatType, (chatType == .other || chatType == .o2o){
+        if HippoConfig.shared.appUserType == .customer {
+            // Customer thread always shows an avatar in the header — the peer's photo
+            // if there is one, otherwise the name-initial circle (e.g. "V" for
+            // Visitor). chat_type isn't always parsed on the customer side, so don't
+            // gate on it here.
+            let title: String? = channel?.chatDetail?.channelName ?? label
+            view_Navigation.setData(imageUrl: userImage, name: title)
+        } else if let chatType = channel?.chatDetail?.chatType, (chatType == .other || chatType == .o2o){
             let title: String? = channel?.chatDetail?.channelName ?? label
             view_Navigation.setData(imageUrl: userImage, name: title)
         } else if labelId > 0, channel == nil {
@@ -912,6 +926,10 @@ class HippoConversationViewController: UIViewController {
 extension HippoConversationViewController: RecordingHelperDelegate {
     func recordingFinished(url: URL) {
         sendSelectedDocumentWith(filePath: url.path, fileName: url.lastPathComponent, messageType: .attachment, fileType: FileType.audio)
+    }
+
+    func recordingTooShort() {
+        showAlertWith(message: HippoStrings.recordingTooShort, action: nil)
     }
 }
 

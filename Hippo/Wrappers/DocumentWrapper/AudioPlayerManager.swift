@@ -57,11 +57,39 @@ class AudioPlayerManager: NSObject {
         audioPlayer?.isMeteringEnabled = true
         delegate?.playerEnded(audioPlayer!)
     }
+    /// Puts the process-wide audio session into a state where playback is actually
+    /// audible, and must run before every `AVAudioPlayer.play()` here.
+    ///
+    /// `AVAudioSession` is shared by the whole app and keeps whatever category was
+    /// last set for the lifetime of the process. `RecordingHelper.startRecording()`
+    /// leaves it on `.playAndRecord` and then calls `setActive(false)` when the
+    /// recording finishes; a Hippo call leaves it on `.playAndRecord`/`.videoChat`.
+    /// `.playAndRecord` routes output to the receiver (earpiece) unless the speaker
+    /// is explicitly requested, so playing a voice note straight afterwards runs the
+    /// player - and the progress timer - with nothing coming out of the speaker.
+    /// Killing the app "fixed" it only because a fresh process starts on the default
+    /// `.soloAmbient` category again.
+    ///
+    /// `.playback` is the right category here: it routes to the speaker on its own
+    /// and, unlike `.playAndRecord`, does not need microphone permission - incoming
+    /// voice notes have to play for users who never granted the mic.
+    private func activatePlaybackSession() {
+        let session = AVAudioSession.sharedInstance()
+        do {
+            try session.setCategory(.playback, mode: .default)
+            try session.setActive(true)
+        } catch {
+            // Better to attempt playback on the existing category than to bail out.
+            HippoConfig.shared.log.debug(("could not activate playback audio session", error), level: .error)
+        }
+    }
+
     func play() {
         guard audioPlayer != nil else {
             startNewPlayer()
             return
         }
+        activatePlaybackSession()
         audioPlayer?.play()
         startTimer()
     }
@@ -107,15 +135,39 @@ class AudioPlayerManager: NSObject {
                 delegate?.playbackFailed()
                 return
         }
-        do {
-            audioPlayer = try AVAudioPlayer(contentsOf: url)
-            audioPlayer?.delegate = self
-            audioPlayer?.play()
-            startTimer()
-        } catch let error {
-            print(error)
+        guard let player = AudioPlayerManager.makePlayer(for: url) else {
             delegate?.playbackFailed()
+            return
         }
+        activatePlaybackSession()
+        audioPlayer = player
+        audioPlayer?.delegate = self
+        audioPlayer?.play()
+        startTimer()
+    }
+
+    /// `AVAudioPlayer(contentsOf:)` alone infers the format from the file extension,
+    /// which fails for cached audio with a missing/misleading extension and for raw
+    /// ADTS `.aac` (recorded by our own RecordingHelper, and common from other
+    /// clients). Retry with explicit `fileTypeHint`s — m4a, ADTS aac, then mp3 —
+    /// before giving up.
+    static func makePlayer(for url: URL) -> AVAudioPlayer? {
+        if let player = try? AVAudioPlayer(contentsOf: url) {
+            return player
+        }
+        let hints: [String] = [
+            AVFileType.m4a.rawValue,        // AAC in an MP4 container
+            "public.aac-audio",             // raw ADTS .aac (AVFileType has no constant)
+            AVFileType.mp3.rawValue,
+            AVFileType.wav.rawValue,
+            AVFileType.caf.rawValue
+        ]
+        for hint in hints {
+            if let player = try? AVAudioPlayer(contentsOf: url, fileTypeHint: hint) {
+                return player
+            }
+        }
+        return nil
     }
     func startTimer() {
         disableTimer()

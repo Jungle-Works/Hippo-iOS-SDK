@@ -8,6 +8,7 @@
 
 import UIKit
 import Photos
+import AVFoundation
 
 class LeadDataTextfield: UITextField {
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
@@ -112,6 +113,16 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     @IBOutlet private var button_Recording : RecordButton!
     @IBOutlet private var viewRecord : RecordView!
     @IBOutlet private var stackViewButton : UIStackView!
+
+    // MARK: Voice recording (tap-to-toggle) - see the extension near the bottom of this file.
+    var voiceRecordingState: VoiceRecordingState = .idle
+    private var recordingElapsedTimer: Timer?
+    private var recordingStartDate: Date?
+    lazy var recordingBar: RecordingBarView = {
+        let bar = RecordingBarView()
+        bar.isHidden = true
+        return bar
+    }()
     @IBOutlet var buttonCalendar : UIButton!{
         didSet{
             buttonCalendar.imageView?.tintColor = HippoConfig.shared.theme.themeColor
@@ -127,6 +138,13 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     
     var suggestionCollectionView = SuggestionView()
     var suggestionList: [String] = []
+
+    /// Drives the composer's height so it grows with typed lines between a 42pt
+    /// floor and an 80pt cap; past the cap the text view stays at 80pt and scrolls
+    /// its content instead of collapsing.
+    private var composerHeightConstraint: NSLayoutConstraint?
+    private let composerMinHeight: CGFloat = 42
+    private let composerMaxHeight: CGFloat = 80
     
     var transparentView = UIView()
     var lineLabel = UILabel()
@@ -162,6 +180,10 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     // MARK: - LIFECYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Captured before anything below can create a channel: `createConversationOnStart`
+        // creates one inside this very method, so "does a channel exist now" is not a
+        // usable answer to "did the user open a new chat".
+        openedAsNewConversation = (channel == nil)
         if HippoConfig.shared.isFromPantherFirstChat == true{
             showWallet()
         }else{
@@ -171,15 +193,16 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         swipeGesture.edges = .left
         view.addGestureRecognizer(swipeGesture)
         messageTextView.text = preMessage
+        updateComposerHeight()
+        // Voice messages are tap-to-toggle now, not hold-to-record: disable
+        // iRecordView's press/pan gestures and drive RecordingHelper from a
+        // plain tap on the mic button. viewRecord (the slide-to-cancel overlay)
+        // stays hidden for good.
         button_Recording.recordView = viewRecord
-        viewRecord.delegate = self
-        viewRecord.slideToCancelText = HippoStrings.slideToCancel
-        button_Recording.buttonTouched = {[weak self]() in
-            DispatchQueue.main.async {
-                self?.messageTextView.resignFirstResponder()
-                self?.addRecordView()
-            }
-        }
+        button_Recording.listenForRecord = false
+        viewRecord.isHidden = true
+        button_Recording.addTarget(self, action: #selector(micButtonTapped), for: .touchUpInside)
+        setupRecordingBar()
         if preMessage.isEmpty{
             button_Recording.isHidden = !HippoConfig.shared.isRecordingButtonEnabled
             sendMessageButton.isEnabled = false
@@ -305,18 +328,88 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         
     }
     
-    func addRecordView() {
-        viewRecord.isHidden = false
-    }
-    
-    
+    /// One-time wiring for the nav bar's overflow menu. Visibility is deliberately
+    /// not set here - it changes over the screen's life and is owned by
+    /// `updateInfoIconVisibility()`. Calling this more than once would stack a
+    /// duplicate `addTarget` on the button.
     func handleInfoIcon() {
         setTitleButton()
-        view_Navigation.info_button.isHidden = false
         view_Navigation.info_button.setImage(HippoConfig.shared.theme.informationIcon, for: .normal)
         view_Navigation.info_button.addTarget(self, action:  #selector(openSharedMedia), for: UIControl.Event.touchUpInside)
         view_Navigation.info_button.tintColor = HippoConfig.shared.theme.headerTextColor
         view_Navigation.info_button.isEnabled = true
+        updateInfoIconVisibility()
+    }
+
+    /// Insets that put the composer's text where the pill's shape says it should be,
+    /// on both axes.
+    ///
+    /// Horizontally, two things have to move together: `messageTextView` draws typed
+    /// text at `textContainerInset.left + textContainer.lineFragmentPadding`, while
+    /// `placeHolderLabel` is a sibling pinned to the text view's leading edge by a
+    /// storyboard constraint. Shifting only one makes the placeholder and the text
+    /// the user types start at different x positions.
+    ///
+    /// Vertically, the caret and glyphs are centred by deriving the inset from the
+    /// font rather than hard-coding one: a single line then sits dead centre in the
+    /// `composerMinHeight` pill, matching `placeHolderLabel`'s own centreY
+    /// constraint, and multi-line growth keeps the same top gap.
+    private func applyComposerTextInsets() {
+        let horizontalPadding: CGFloat = 9
+
+        messageTextView.textContainerInset.left = horizontalPadding
+        messageTextView.textContainerInset.right = horizontalPadding
+
+        // `contentInset` shifts content on top of `textContainerInset` but is invisible
+        // to `sizeThatFits`, so the two disagree about where a line sits. Vertical
+        // placement is owned by `textContainerInset` alone.
+        messageTextView.contentInset.top = 0
+        messageTextView.contentInset.bottom = 0
+
+        let lineHeight = (messageTextView.font ?? UIFont.systemFont(ofSize: 15)).lineHeight
+        let verticalInset = max(0, (composerMinHeight - lineHeight) / 2)
+        messageTextView.textContainerInset.top = verticalInset
+        messageTextView.textContainerInset.bottom = verticalInset
+
+        // Where glyphs actually land, which is what the placeholder has to match.
+        let textLeadingInset = horizontalPadding + messageTextView.textContainer.lineFragmentPadding
+
+        let placeholderLeading = messageTextView.superview?.constraints.first { constraint in
+            constraint.firstItem === placeHolderLabel
+                && constraint.firstAttribute == .leading
+                && constraint.secondItem === messageTextView
+        }
+        placeholderLeading?.constant = textLeadingInset
+    }
+
+    /// True when this screen was opened as a brand-new chat rather than on an
+    /// existing conversation - the default channel for a first-timer, the New
+    /// Conversation button, or any `createConversationOnStart` entry.
+    private var openedAsNewConversation = false
+
+    /// The menu only makes sense once there is a real conversation behind it - its
+    /// Shared Media option is keyed on `channelId`, and there is nothing shared yet
+    /// on a chat the user hasn't spoken in.
+    ///
+    /// A channel alone is not enough: `createConversationOnStart` creates one during
+    /// `viewDidLoad`, before the user has typed a word. So for a screen opened as a
+    /// new chat the menu stays hidden until the user actually sends something; a
+    /// screen opened on an existing conversation shows it right away.
+    func updateInfoIconVisibility() {
+        let isRealConversation = channelId > 0
+            && (!openedAsNewConversation || threadContainsMyMessage())
+        view_Navigation.info_button.isHidden = !isRealConversation
+    }
+
+    /// Whether the loaded thread carries a message sent by this user. Bot and agent
+    /// messages don't count - they arrive on a new chat before the user has engaged.
+    private func threadContainsMyMessage() -> Bool {
+        for group in messagesGroupedByDate.reversed() {
+            for message in group.reversed() where message.senderId == getSavedUserId {
+                return true
+            }
+        }
+        return false
     }
     
     override func startEditing(with message : HippoMessage, indexPath : IndexPath){
@@ -365,7 +458,6 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         super.viewWillAppear(animated)
         HippoConfig.shared.hideTabbar?(true)
         tableViewChat.contentInset.top = 12
-        messageTextView.contentInset.top = 8
         self.navigationController?.isNavigationBarHidden = true
         tableViewChat.allowsSelection = false
         checkNetworkConnection()
@@ -376,6 +468,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         
         handleVideoIcon()
         handleAudioIcon()
+        updateInfoIconVisibility()
         HippoConfig.shared.notifyDidLoad()
         
 
@@ -443,6 +536,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     override  func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         timer.invalidate()
+        cancelVoiceRecording()
     }
     
     override func didSetChannel() {
@@ -489,7 +583,19 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
             addFileButtonAction.setImage(HippoConfig.shared.theme.addButtonIcon, for: .normal)
             addFileButtonAction.setTitle("", for: .normal)
         } else { addFileButtonAction.setTitle("ADD", for: .normal) }
-        button_Recording.setImage(UIImage(systemName: "mic")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        // Bundled mic glyph (Assets.xcassets/FileIcons/mic.imageset). Its asset is
+        // 36pt vs the add-file icon's 25pt, so scale it down to match; template-
+        // rendered so it still takes the accent tint.
+        let addIconSize = HippoConfig.shared.theme.addButtonIcon?.size
+            ?? addFileButtonAction.currentImage?.size
+            ?? CGSize(width: 25, height: 25)
+        // Mic reads a touch small next to the add-file glyph - bump it 4pt.
+        let micTarget = CGSize(width: addIconSize.width + 4, height: addIconSize.height + 4)
+        let micIcon = UIImage(named: "mic", in: FuguFlowManager.bundle, compatibleWith: nil)?
+            .aspectFitted(to: micTarget)
+            .withRenderingMode(.alwaysTemplate)
+        button_Recording.setImage(micIcon, for: .normal)
+        button_Recording.imageView?.contentMode = .scaleAspectFit
         button_Recording.tintColor = HippoConfig.shared.colorConfig.hippoAccent
        
         handleBackButton()
@@ -574,6 +680,8 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     
     func prepareSuggestionUI() {
         self.suggestionContainerView.addSubview(suggestionCollectionView)
+        // Blend the suggestion strip into the chat thread rather than the composer bar.
+        self.suggestionContainerView.backgroundColor = HippoConfig.shared.colorConfig.hippoSurfaceBackground
         suggestionCollectionView.backgroundColor = .clear//theme.themeColor
         let bundle = FuguFlowManager.bundle
         suggestionCollectionView.register(UINib(nibName: "SuggestionCell", bundle: bundle) , forCellWithReuseIdentifier: "SuggestionCell")
@@ -677,7 +785,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
             disableSendingReply(withOutUpdate: true)
             break
         case .numberKeyboard:
-            enableSendingReply(withOutUpdate: true)
+            showComposerIfAllowed()
             messageTextView.keyboardType = .decimalPad
             break
         case .defaultKeyboard :
@@ -691,7 +799,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
                         }
                     }
                 }else{
-                    enableSendingReply(withOutUpdate: true)
+                    showComposerIfAllowed()
                 }
             }
 
@@ -740,17 +848,20 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     }
     
     @IBAction func openSharedMedia(_ sender: Any) {
-        let storyboard = UIStoryboard(name: "AgentSdk", bundle: FuguFlowManager.bundle)
-        let alert = UIAlertController(title: nil, message: HippoStrings.pleaseSelectAnOption, preferredStyle: .actionSheet)
-        
-        alert.addAction(UIAlertAction(title: HippoStrings.sharedMediaTitle, style: UIAlertAction.Style.default, handler: { _ in
-            if let vc = storyboard.instantiateViewController(withIdentifier: "SharedMediaViewController") as? SharedMediaViewController{
-                vc.channelId = self.channelId
-                self.navigationController?.pushViewController(vc, animated: true)
-            }
-        }))
-        alert.addAction(UIAlertAction(title: HippoStrings.cancel, style: .cancel, handler: nil))
-        self.present(alert, animated: true, completion: nil)
+        OptionsBottomSheetViewController.present(
+            from: self,
+            title: "Select an option".localized,
+            options: [
+                BottomSheetOption(title: HippoStrings.sharedMediaTitle) { [weak self] in
+                    guard let self = self else { return }
+                    let storyboard = UIStoryboard(name: "AgentSdk", bundle: FuguFlowManager.bundle)
+                    if let vc = storyboard.instantiateViewController(withIdentifier: "SharedMediaViewController") as? SharedMediaViewController {
+                        vc.channelId = self.channelId
+                        self.navigationController?.pushViewController(vc, animated: true)
+                    }
+                }
+            ]
+        )
     }
     
     
@@ -851,16 +962,17 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     }
     
     @IBAction func sendMessageButtonAction(_ sender: UIButton) {
-        
-        self.sendMessageButton.isHidden = true
-        self.button_Recording.isHidden = false
-        
-        if HippoConfig.shared.isRecordingButtonEnabled == false{
-            self.button_Recording.isHidden = true
-            self.sendMessageButton.isHidden = false
-            self.sendMessageButton.isEnabled = false
+
+        // While recording, the send button means "send the voice message".
+        if voiceRecordingState == .recording {
+            finishVoiceRecordingAndSend()
+            return
         }
-        
+
+        // The field is about to be cleared as part of sending, so reset the
+        // composer buttons to the empty-field state.
+        updateInputButtonsForText(hasText: false)
+
         if let message = messagesGroupedByDate.last?.last as? HippoActionMessage {
             if message.type == .dateTime {
                 sendDateMessage()
@@ -887,7 +999,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         }
         self.sendMessage(message: message)
         messageTextView.text = ""
-        
+        updateComposerHeight()
     }
     
     private func sendDateMessage() {
@@ -917,6 +1029,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
             }
             self.sendMessage(message: message)
             messageTextView.text = ""
+            updateComposerHeight()
             //                responseMessage?.userType = .customer
             //                responseMessage?.creationDateTime = self.creationDateTime
             //                responseMessage?.status = status
@@ -992,6 +1105,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
                     self?.addMessageToUIBeforeSending(message: message)
                 } else {
                     self?.messageTextView.text = ""
+                    self?.updateComposerHeight()
                 }
                 
                 if !isReplyMessageSent {
@@ -1036,6 +1150,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     override func addMessageToUIBeforeSending(message: HippoMessage) {
         self.updateMessagesArrayLocallyForUIUpdation(message)
         self.messageTextView.text = ""
+        self.updateComposerHeight()
         self.newScrollToBottom(animated: false)
     }
     
@@ -1155,6 +1270,95 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         self.pleaseSelectOptionView.isHidden = true
         self.pleaseSelectOptionLabel.isHidden = true
     }
+
+    /// True while an unanswered bot widget (lead form / create ticket) owns the
+    /// input. Sticky on purpose: a channel-update or typing push may set it, but
+    /// only a real message push is allowed to clear it.
+    var isBotInputMode = false
+
+    /// Message types whose widget owns the input while it still has unanswered
+    /// questions - 17 (lead form) and 29 (create ticket).
+    private var botInputMessageTypes: [MessageType] {
+        return [.leadForm, .createTicket]
+    }
+
+    /// Entry point for every socket push on this channel.
+    ///
+    /// A push with no `message_type` key is not a message push (read receipt,
+    /// channel ping) and must leave the composer exactly as the last
+    /// message-bearing push left it. The check is for key *presence* - defaulting
+    /// a missing key to 0 would make a receipt look like "some other message" and
+    /// re-open the composer on top of a live form.
+    func updateComposerVisibility(forSocketPush dict: [String: Any]) {
+        guard let rawMessageType = dict["message_type"] as? Int else {
+            return
+        }
+        let messageType = MessageType(rawValue: rawMessageType) ?? .none
+        let isTyping = (dict["is_typing"] as? Int ?? 0) != 0
+        // `type` 100 is a channel-update push. It echoes the previous message's
+        // message_type and races with the real widget push, so it may hide the
+        // composer but must never re-show it. Same for typing indicators.
+        let isChannelUpdate = (dict["type"] as? Int) == 100
+
+        if botInputMessageTypes.contains(messageType) {
+            isBotInputMode = true
+        } else if !isTyping, !isChannelUpdate {
+            isBotInputMode = isLatestMessageActiveBotForm()
+        }
+
+        showComposerIfAllowed()
+    }
+
+    /// The single funnel every "show the composer" has to go through. Scattered
+    /// unconditional shows are what let a late REST response force the composer
+    /// back open over a live bot form.
+    func showComposerIfAllowed() {
+        // A hard block (chat closed, reply disabled) always wins.
+        guard !isReplyHardDisabled else {
+            return
+        }
+
+        if isBotInputMode || isLatestMessageActiveBotForm() {
+            isBotInputMode = true
+            hideComposerForBotInput()
+            return
+        }
+
+        enableSendingReply(withOutUpdate: true)
+    }
+
+    private var isReplyHardDisabled: Bool {
+        return forceDisableReply
+            || (channel?.isSendingDisabled ?? false)
+            || (channel?.chatDetail?.disableReply ?? false)
+    }
+
+    /// Hides the composer *without* setting `channel.isSendingDisabled`. That flag
+    /// gates `HippoChannel.sendMessage`, so setting it here would silently drop the
+    /// widget's own answer while the composer is hidden.
+    private func hideComposerForBotInput() {
+        disableSendingReply(withOutUpdate: true, message: "")
+        pleaseSelectOptionView.isHidden = true
+        pleaseSelectOptionLabel.isHidden = true
+    }
+
+    /// Walks the thread backwards to the newest message and reports whether it is a
+    /// bot widget still waiting on answers. Date separators are section boundaries
+    /// in `messagesGroupedByDate`, not rows, so there is nothing to skip here.
+    func isLatestMessageActiveBotForm() -> Bool {
+        for group in messagesGroupedByDate.reversed() {
+            for message in group.reversed() {
+                guard botInputMessageTypes.contains(message.type) else {
+                    return false
+                }
+                let questionCount = message.content.questionsArray.count
+                let answeredCount = message.content.values.count
+                return questionCount == 0 || answeredCount < questionCount
+            }
+        }
+        return false
+    }
+
     func getLastMessage() -> HippoMessage? {
         
         for groupedMessages in messagesGroupedByDate.reversed() {
@@ -1288,6 +1492,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         setTitleForCustomNavigationBar()
         handleVideoIcon()
         handleAudioIcon()
+        updateInfoIconVisibility()
         if HippoConfig.shared.isFromPantherCallBtn == true{
             HippoConfig.shared.isFromPantherCallBtn = false
             startAudioCall()
@@ -1327,7 +1532,9 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
             button_Recording.isEnabled = false
             disableSendingNewMessages()
         }
-        
+
+        showComposerIfAllowed()
+
         if let message = messages.last {
             if message.type == .dateTime {
                 self.updateUIForCalendar(message: message)
@@ -1672,18 +1879,49 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         return (isFormPresent && botMessageMUID.isEmpty) || isDefaultChannel()
     }
     
+    /// Single source of truth for the mic vs. send button swap in the composer.
+    /// Derives visibility from whether the field has text so callers that are not
+    /// text-input events (e.g. a received message re-enabling the composer) can't
+    /// desync the two buttons. Pass `hasText` when the textview's own text is not
+    /// yet updated (e.g. from `shouldChangeTextIn`).
+    func updateInputButtonsForText(hasText: Bool? = nil) {
+        // Recording owns the button layout while it's active - don't let text or
+        // incoming-message events flip mic/send back.
+        if voiceRecordingState == .recording {
+            button_Recording.isHidden = true
+            sendMessageButton.isHidden = false
+            sendMessageButton.isEnabled = true
+            return
+        }
+
+        let hasText = hasText ?? messageTextView.hasText
+
+        if messageInEditing != nil {
+            button_Recording.isHidden = true
+            sendMessageButton.isHidden = true
+            sendMessageButton.isEnabled = hasText
+            return
+        }
+
+        guard HippoConfig.shared.isRecordingButtonEnabled else {
+            button_Recording.isHidden = true
+            sendMessageButton.isHidden = false
+            sendMessageButton.isEnabled = hasText
+            return
+        }
+
+        sendMessageButton.isHidden = !hasText
+        sendMessageButton.isEnabled = hasText
+        button_Recording.isHidden = hasText
+    }
+
     func enableSendingNewMessages() {
         addFileButtonAction.isUserInteractionEnabled = true
         messageTextView.isEditable = true
         messageTextView.isUserInteractionEnabled = true
-        button_Recording.isHidden = false
         button_Recording.isEnabled = true
-        
-        if HippoConfig.shared.isRecordingButtonEnabled == false{
-            self.button_Recording.isHidden = true
-            self.sendMessageButton.isHidden = false
-            self.sendMessageButton.isEnabled = false
-        }
+
+        updateInputButtonsForText()
     }
     
     func disableSendingNewMessages() {
@@ -1711,6 +1949,11 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
             channel?.subscribe()
         }
         setTitleForCustomNavigationBar()
+        // The chat just became a real conversation, so the menu can appear. Handled
+        // here rather than only in the get-messages response because
+        // `shouldHitGetMessagesAfterCreateConversation()` skips that call for some
+        // new-chat paths.
+        updateInfoIconVisibility()
         
         let (sentMessage, unsentMessage) = getMessageFromGrouped(messages: messagesGroupedByDate)
         channel?.sentMessages = sentMessage
@@ -1797,6 +2040,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
 extension ConversationsViewController : SearchAddressControllerProtocol {
     func addressSelected(address: Address) {
         messageTextView.text = address.address ?? ""
+        updateComposerHeight()
         sendMessageButton.isEnabled = true
         sendMessageButton.isHidden = false
         button_Recording.isHidden = true
@@ -1841,11 +2085,9 @@ extension ConversationsViewController {
         self.messageTextView.textColor = HippoConfig.shared.theme.typingTextColor
         // Rounded pill fill on the text field itself only — textViewBgView spans the whole
         // composer row (media + mic buttons included), so it can't be the rounded element.
-        // No textContainerInset change: placeHolderLabel is pinned to messageTextView's
-        // leading edge by a fixed storyboard constant (independent of the inset), so padding
-        // added here would only widen the gap between real typed text and the placeholder.
         self.messageTextView.backgroundColor = HippoConfig.shared.colorConfig.hippoSurfaceInput
         self.messageTextView.layer.cornerRadius = 18
+        self.applyComposerTextInsets()
         // placeHolderLabel is a sibling that sits behind messageTextView in the storyboard's
         // subview order — with a .clear text view background that was invisible, but the
         // opaque pill fill above now paints over it. Bring it back in front; the real typed
@@ -1853,7 +2095,23 @@ extension ConversationsViewController {
         self.messageTextView.superview?.bringSubviewToFront(self.placeHolderLabel)
         self.messageTextView.clipsToBounds = true
         self.messageTextView.tintColor = HippoConfig.shared.theme.messageTextViewTintColor//
-        
+
+        // Auto-growing composer: scrolling stays off so the intrinsic content size
+        // drives height between the 42pt floor and the 120pt cap; no scroll bars.
+        self.messageTextView.isScrollEnabled = false
+        self.messageTextView.showsVerticalScrollIndicator = false
+        self.messageTextView.showsHorizontalScrollIndicator = false
+        if composerHeightConstraint == nil {
+            // Required: this is the single source of truth for the pill height, so it
+            // must never be the constraint UIKit breaks when the layout gets tight
+            // (that was the "collapse back to 42pt" bug once scrolling kicked in).
+            let heightC = messageTextView.heightAnchor.constraint(equalToConstant: composerMinHeight)
+            heightC.priority = .required
+            heightC.isActive = true
+            composerHeightConstraint = heightC
+        }
+        updateComposerHeight()
+
         placeHolderLabel.text = HippoConfig.shared.theme.messagePlaceHolderText == nil ? HippoStrings.messagePlaceHolderText : HippoConfig.shared.theme.messagePlaceHolderText
         
         errorLabel.text = ""
@@ -1937,6 +2195,7 @@ extension ConversationsViewController {
     
     func configureFooterView() {
         textViewBgView.backgroundColor = .white
+        relaxComposerTopAnchors()
         if isObserverAdded == false {
             textViewBgView.layoutIfNeeded()
             let inputView = FrameObserverAccessaryView(frame: textViewBgView.bounds)
@@ -1954,7 +2213,49 @@ extension ConversationsViewController {
             isObserverAdded = true
         }
     }
-    
+
+    /// The composer (`textViewBgView`) is pinned in the storyboard at BOTH ends:
+    /// its top to the message-list chain (`= WCe/seperatorView.bottom`, required) and
+    /// its bottom, via `textViewBottomConstraint`, to the fixed bottom layout guide.
+    /// When the keyboard raises the bottom pin and the table can't shrink enough to
+    /// compensate, the composer gets crushed instead of translated — UIKit breaks
+    /// `messageTextView`'s `height >= 50` and the input pill collapses (observed:
+    /// 42pt -> 26.67pt on keyboard open).
+    ///
+    /// Dropping the top pins below required lets the composer stay content-sized
+    /// (honouring `height >= 50`) and bottom-anchored, so it floats up above the
+    /// keyboard rather than being compressed. 999 keeps them effective in every
+    /// non-conflicting state (normal docking below the list).
+    /// Resizes `messageTextView` to fit its content, clamped to
+    /// `composerMinHeight...composerMaxHeight`. Once the text needs more than the
+    /// cap, scrolling is turned on so the overflow stays reachable.
+    func updateComposerHeight() {
+        guard let heightC = composerHeightConstraint else { return }
+        let width = messageTextView.bounds.width
+        guard width > 0 else { return }
+        let fitting = messageTextView.sizeThatFits(CGSize(width: width, height: .greatestFiniteMagnitude)).height
+        let clamped = min(max(composerMinHeight, ceil(fitting)), composerMaxHeight)
+        // Once the content is taller than the cap, hold the pill at the cap and let
+        // the text view scroll — new lines push older text up instead of resizing.
+        messageTextView.isScrollEnabled = fitting > composerMaxHeight
+        if abs(heightC.constant - clamped) > 0.5 {
+            heightC.constant = clamped
+            view.layoutIfNeeded()
+        }
+        if messageTextView.isScrollEnabled {
+            messageTextView.scrollRangeToVisible(messageTextView.selectedRange)
+        }
+    }
+
+    private func relaxComposerTopAnchors() {
+        guard let host = textViewBgView.superview else { return }
+        for constraint in host.constraints where constraint.priority == .required
+            && constraint.firstAttribute == .top
+            && (constraint.firstItem as? UIView) === textViewBgView {
+            constraint.priority = UILayoutPriority(999)
+        }
+    }
+
     
     func shouldShiftUpWithThis(newOffsetY: CGFloat) -> Bool {
         let tableHeight = tableViewChat.frame.height
@@ -2662,7 +2963,9 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                         case .video:
                             return 234
                         default:
-                            return 80
+                            // A file sent with a caption has to self-size so the
+                            // caption isn't clipped - same as .imageFile above.
+                            return message.message.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? 80 : UITableView.automaticDimension
                         }
                         
                     case MessageType.actionableMessage, MessageType.hippoPay:
@@ -3117,16 +3420,8 @@ extension ConversationsViewController: UITextViewDelegate {
     }
     
     func textViewDidChange(_ textView: UITextView) {
-        if textView.text.isEmpty {
-            button_Recording.isHidden = false
-            sendMessageButton.isHidden = true
-            
-            if HippoConfig.shared.isRecordingButtonEnabled == false{
-                self.button_Recording.isHidden = true
-                self.sendMessageButton.isHidden = false
-                self.sendMessageButton.isEnabled = false
-            }
-        }
+        updateComposerHeight()
+        updateInputButtonsForText(hasText: !textView.text.isEmpty)
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
@@ -3157,21 +3452,8 @@ extension ConversationsViewController: UITextViewDelegate {
             }
         }
         
-        self.sendMessageButton.isEnabled = !(newText == "")
-        self.sendMessageButton.isHidden = (newText == "")
-        self.button_Recording.isHidden = !(newText == "")
-        
-        if HippoConfig.shared.isRecordingButtonEnabled == false{
-            self.button_Recording.isHidden = true
-            self.sendMessageButton.isHidden = false
-            self.sendMessageButton.isEnabled = true
-        }
-        
-        if let _ = self.messageInEditing{
-            self.button_Recording.isHidden = true
-            self.sendMessageButton.isHidden = true
-        }
-        
+        updateInputButtonsForText(hasText: newText != "")
+
         return true
     }
 }
@@ -3228,6 +3510,10 @@ extension ConversationsViewController: ImageCellDelegate {
 }
 
 extension ConversationsViewController: HippoChannelDelegate {
+    func socketPushReceived(dict: [String: Any]) {
+        updateComposerVisibility(forSocketPush: dict)
+    }
+
     func closeChatActionFromRefreshChannel() {
         self.backButtonClicked()
     }
@@ -3240,10 +3526,13 @@ extension ConversationsViewController: HippoChannelDelegate {
             //disableSendingReply(withOutUpdate: true)
             disableSendingReply(message: HippoStrings.cannotReplyToConversation)
         }
-        
+
+        showComposerIfAllowed()
+
         setTitleForCustomNavigationBar()
         handleAudioIcon()
         handleVideoIcon()
+        updateInfoIconVisibility()
         tableViewChat.reloadData()
     }
     
@@ -3389,8 +3678,11 @@ extension ConversationsViewController: HippoChannelDelegate {
             self.isFirst = true
             self.disableSendingReply(withOutUpdate: true)
         }
+
+        showComposerIfAllowed()
+        updateInfoIconVisibility()
     }
-    
+
     func getMessageForQuickReply(messages: [HippoMessage]) -> HippoMessage? {
         var quickReplyMessage: HippoMessage?
         for message in messages.reversed() {
@@ -3481,6 +3773,7 @@ extension ConversationsViewController : DateTimePickerDelegate{
         sendMessageButton.isHidden = false
         button_Recording.isHidden = true
         self.messageTextView.text = selectedDate
+        updateComposerHeight()
         sendMessageButton.isEnabled = true
     }
 }
@@ -3993,6 +4286,7 @@ extension ConversationsViewController{
         self.Button_CancelEdit.isHidden = true
         self.Button_EditMessage.isHidden = true
         self.messageTextView.text = ""
+        self.updateComposerHeight()
         self.tableViewChat.deselectRow(at: editingMessageIndex ?? IndexPath(), animated: true)
         self.messageTextView.resignFirstResponder()
     }
@@ -4028,27 +4322,120 @@ extension ConversationsViewController{
     
 }
 
-extension ConversationsViewController : RecordViewDelegate {
-    
-    func onStart() {
-        recordingHelper.startRecording()
+// MARK: - Voice recording (tap the mic to start, tap send to send, tap trash to discard)
+
+extension ConversationsViewController {
+
+    enum VoiceRecordingState {
+        case idle
+        case recording
     }
-    
-    func onCancel() {
-        recordingHelper.finishRecording(success: false)
+
+    private func setupRecordingBar() {
+        guard recordingBar.superview == nil else { return }
+        textViewBgView.addSubview(recordingBar)
+        NSLayoutConstraint.activate([
+            recordingBar.leadingAnchor.constraint(equalTo: textViewBgView.leadingAnchor),
+            recordingBar.topAnchor.constraint(equalTo: textViewBgView.topAnchor),
+            recordingBar.bottomAnchor.constraint(equalTo: textViewBgView.bottomAnchor),
+            recordingBar.trailingAnchor.constraint(equalTo: stackViewButton.leadingAnchor, constant: -4),
+        ])
+        recordingBar.onTrashTapped = { [weak self] in self?.cancelVoiceRecording() }
     }
-    
-    func onFinished(duration: CGFloat) {
-        if duration > 0.0 {
-            recordingHelper.finishRecording(success: true)
-        }else {
-            recordingHelper.finishRecording(success: false)
+
+    @objc func micButtonTapped() {
+        guard voiceRecordingState == .idle else { return }
+        requestMicPermission { [weak self] granted in
+            guard let self = self else { return }
+            guard granted else { self.showMicPermissionDeniedAlert(); return }
+            self.beginVoiceRecording()
         }
-        viewRecord.isHidden = true
     }
-    
-    func onAnimationEnd() {
-        viewRecord.isHidden = true
+
+    private func beginVoiceRecording() {
+        setupRecordingBar()
+        messageTextView.resignFirstResponder()
+        guard recordingHelper.startRecording() else { return }
+        voiceRecordingState = .recording
+
+        // Swap the composer into the recording layout.
+        recordingBar.backgroundColor = textViewBgView.backgroundColor ?? .white
+        textViewBgView.bringSubviewToFront(recordingBar)
+        recordingBar.isHidden = false
+        recordingBar.reset()
+        addFileButtonAction.isHidden = true
+        messageTextView.isHidden = true
+        placeHolderLabel.isHidden = true
+        button_Recording.isHidden = true
+        sendMessageButton.isHidden = false
+        sendMessageButton.isEnabled = true
+
+        recordingStartDate = Date()
+        recordingElapsedTimer?.invalidate()
+        recordingElapsedTimer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: true) { [weak self] _ in
+            guard let self = self, let start = self.recordingStartDate else { return }
+            self.recordingBar.setElapsed(Date().timeIntervalSince(start))
+        }
     }
-    
+
+    private func finishVoiceRecordingAndSend() {
+        guard voiceRecordingState == .recording else { return }
+        endRecordingTimers()
+        // RecordingHelper sends via recordingFinished(url:), or shows the
+        // "too short" alert via recordingTooShort() for clips under 1s.
+        recordingHelper.finishRecording(success: true)
+        exitVoiceRecordingUI()
+    }
+
+    func cancelVoiceRecording() {
+        guard voiceRecordingState == .recording else { return }
+        endRecordingTimers()
+        recordingHelper.finishRecording(success: false)
+        exitVoiceRecordingUI()
+    }
+
+    private func endRecordingTimers() {
+        recordingElapsedTimer?.invalidate()
+        recordingElapsedTimer = nil
+        recordingStartDate = nil
+        recordingBar.stopDotBlink()
+    }
+
+    private func exitVoiceRecordingUI() {
+        voiceRecordingState = .idle
+        recordingBar.isHidden = true
+        addFileButtonAction.isHidden = false
+        messageTextView.isHidden = false
+        placeHolderLabel.isHidden = messageTextView.hasText
+        updateInputButtonsForText()
+    }
+
+    private func requestMicPermission(_ completion: @escaping (Bool) -> Void) {
+        let session = AVAudioSession.sharedInstance()
+        switch session.recordPermission {
+        case .granted:
+            completion(true)
+        case .denied:
+            completion(false)
+        case .undetermined:
+            session.requestRecordPermission { granted in
+                DispatchQueue.main.async { completion(granted) }
+            }
+        @unknown default:
+            completion(false)
+        }
+    }
+
+    private func showMicPermissionDeniedAlert() {
+        let alert = UIAlertController(title: nil,
+                                     message: HippoStrings.microphoneAccessMessage,
+                                     preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: HippoStrings.cancel, style: .cancel))
+        alert.addAction(UIAlertAction(title: HippoStrings.openSettings, style: .default) { _ in
+            if let url = URL(string: UIApplication.openSettingsURLString) {
+                UIApplication.shared.open(url)
+            }
+        })
+        present(alert, animated: true)
+    }
 }

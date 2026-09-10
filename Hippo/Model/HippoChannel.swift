@@ -34,6 +34,13 @@ protocol HippoChannelDelegate: AnyObject {
     func cancelSendingMessage(message: HippoMessage, errorMessage: String?,errorCode : SocketClient.SocketError?)
     func channelDataRefreshed()
     func closeChatActionFromRefreshChannel()
+    /// Raw socket push for this channel, delivered before any notification_type
+    /// routing so that channel-update pushes are seen too. Optional.
+    func socketPushReceived(dict: [String: Any])
+}
+
+extension HippoChannelDelegate {
+    func socketPushReceived(dict: [String: Any]) {}
 }
 struct CreateConversationWithLabelId {
     var replyMessage: HippoMessage?
@@ -691,6 +698,13 @@ class HippoChannel {
                 }
                 
                 HippoConfig.shared.log.trace("Active channel Recieveddddd -\(self?.id ?? 0000) >>>>> \(messageDict)", level: .socket)
+
+                // Composer visibility is decided from the raw push, before
+                // notification_type routing drops channel-update pushes below.
+                DispatchQueue.main.async {
+                    self?.delegate?.socketPushReceived(dict: messageDict)
+                }
+
                 guard let weakSelf = self, weakSelf.handleByNotification(dict: messageDict) else {
                     return
                 }

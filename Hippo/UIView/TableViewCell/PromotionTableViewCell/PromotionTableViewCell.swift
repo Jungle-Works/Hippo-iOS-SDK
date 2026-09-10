@@ -83,11 +83,16 @@ class PromotionTableViewCell: UITableViewCell {
         pill.layer.cornerRadius = 10
         pill.layer.masksToBounds = true
 
-        let dotLabel = UILabel()
-        dotLabel.translatesAutoresizingMaskIntoConstraints = false
-        dotLabel.text = "●"
-        dotLabel.font = UIFont.systemFont(ofSize: 10)
-        dotLabel.textColor = UIColor(red: 22/255, green: 68/255, blue: 153/255, alpha: 1.0)
+        let dotSize: CGFloat = 6
+        let dotView = UIView()
+        dotView.translatesAutoresizingMaskIntoConstraints = false
+        dotView.backgroundColor = UIColor(red: 22/255, green: 68/255, blue: 153/255, alpha: 1.0)
+        dotView.layer.cornerRadius = dotSize / 2
+        dotView.layer.masksToBounds = true
+        NSLayoutConstraint.activate([
+            dotView.widthAnchor.constraint(equalToConstant: dotSize),
+            dotView.heightAnchor.constraint(equalToConstant: dotSize)
+        ])
 
         let newLabel = UILabel()
         newLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -95,7 +100,7 @@ class PromotionTableViewCell: UITableViewCell {
         newLabel.font = UIFont.boldSystemFont(ofSize: 12)
         newLabel.textColor = UIColor(red: 22/255, green: 68/255, blue: 153/255, alpha: 1.0)
 
-        let innerStack = UIStackView(arrangedSubviews: [dotLabel, newLabel])
+        let innerStack = UIStackView(arrangedSubviews: [dotView, newLabel])
         innerStack.axis = .horizontal
         innerStack.spacing = 4
         innerStack.alignment = .center

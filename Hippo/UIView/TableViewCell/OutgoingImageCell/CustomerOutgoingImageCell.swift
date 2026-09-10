@@ -11,6 +11,24 @@ import UIKit
 
 class CustomerOutgoingImageCell: OutgoingImageCell {
 
+    // `setTime()` is a real (overridable) `MessageTableViewCell` method that
+    // `configureCellOfOutGoingImageCell()` calls near its end — crucially AFTER
+    // `setupBoxBackground()` has repainted the legacy grey. Re-applying the accent
+    // palette here means it lands on every (re)configure without waiting for a
+    // layout pass, which is why the card used to stay grey until a scroll.
+    override func setTime() {
+        super.setTime()
+        applyRevampColors()
+    }
+
+    private func applyRevampColors() {
+        let colorConfig = HippoConfig.shared.colorConfig
+        mainContentView.backgroundColor = colorConfig.hippoAccent
+        shadowView.backgroundColor = colorConfig.hippoAccent
+        textView.textColor = colorConfig.hippoOnAccent
+        timeLabel.textColor = colorConfig.hippoOnAccent
+    }
+
     override func layoutSubviews() {
         super.layoutSubviews()
         // Deferred a run-loop turn on purpose — same reason as the other revamped cells:
@@ -33,15 +51,8 @@ class CustomerOutgoingImageCell: OutgoingImageCell {
             self.shadowView.applyCornerRadii(topLeft: 10, topRight: 10, bottomLeft: 10, bottomRight: 10)
         }
 
-        // Card + border-shadow read the accent token, not the legacy grey
-        // outgoingChatBoxColor/chatBoxBorderColor. setupBoxBackground(messageType:) and
-        // adjustShadow() are declared in an extension on the base class, so they can't be
-        // overridden — layoutSubviews() runs after every configure instead (same seam the
-        // caption-height fix above already relies on).
-        let colorConfig = HippoConfig.shared.colorConfig
-        mainContentView.backgroundColor = colorConfig.hippoAccent
-        shadowView.backgroundColor = colorConfig.hippoAccent
-        textView.textColor = colorConfig.hippoOnAccent
-        timeLabel.textColor = colorConfig.hippoOnAccent
+        // Belt-and-braces: also re-assert the palette after every layout pass
+        // (covers scroll/reuse and the deferred adjustShadow() from super).
+        applyRevampColors()
     }
 }

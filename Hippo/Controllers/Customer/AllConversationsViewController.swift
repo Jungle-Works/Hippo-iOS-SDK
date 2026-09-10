@@ -59,7 +59,27 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     var shouldHideBackBtn : Bool = false
     var isPutUserFailed = false
     private var selectionPillView = UIView()
-    private var pillFrameSet = false
+
+    // Covers the list while the first putUser / getConversation round-trip is in
+    // flight, so a new user never sees the empty list flash before being moved
+    // into the default chat screen.
+    private var didFinishInitialLoad = false
+    private var initialLoaderTimeout: DispatchWorkItem?
+    private lazy var initialLoaderView: UIView = {
+        let container = UIView()
+        container.backgroundColor = .systemBackground
+        container.translatesAutoresizingMaskIntoConstraints = false
+
+        let spinner = UIActivityIndicatorView(style: .large)
+        spinner.translatesAutoresizingMaskIntoConstraints = false
+        spinner.startAnimating()
+        container.addSubview(spinner)
+        NSLayoutConstraint.activate([
+            spinner.centerXAnchor.constraint(equalTo: container.centerXAnchor),
+            spinner.centerYAnchor.constraint(equalTo: container.centerYAnchor)
+        ])
+        return container
+    }()
     
     // MARK: - LIFECYCLE
     override func viewDidLoad() {
@@ -94,7 +114,8 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         self.closeChatButton.setTitle(HippoProperty.current.pastBtnText ?? HippoStrings.past, for: .normal)
         
         self.bottomLineView.backgroundColor = HippoConfig.shared.theme.themeColor
-        
+
+        showInitialLoader()
         if HippoUserDetail.fuguUserID == nil {
             putUserDetails()
         } else {
@@ -144,7 +165,13 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
             self.updateNewConversationBtnUI(isSelected: true)
         })
     }
-    
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        // Backstop: never let the initial loader outlive this screen.
+        hideInitialLoader()
+    }
+
 //    override func viewWillDisappear(_ animated: Bool) {
 //        if HippoConfig.shared.shouldOpenDefaultChannel{
 //            navigationController?.interactivePopGestureRecognizer?.isEnabled = false
@@ -173,10 +200,11 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
                 else if constraint.secondAttribute == .top { constraint.constant = -16 }
             }
         }
-        // Position the selection pill once layout bounds are available
-        guard !pillFrameSet, buttonContainerView.bounds.width > 0 else { return }
-        pillFrameSet = true
-        animateBottomLineView()
+        // Keep the selection pill tracking the tab buttons on EVERY layout pass.
+        // Doing it once (old `pillFrameSet` guard) captured the buttons before they
+        // were sized to their final half-widths, so the pill was oversized until a
+        // tab tap re-ran animateBottomLineView().
+        positionSelectionPill(animated: false)
     }
     
     func setUpTabBar(){
@@ -219,8 +247,9 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     func putUserDetails() {
         HippoUserDetail.getUserDetailsAndConversation(completion: { [weak self] (success, error) in
             guard success else {
+                self?.hideInitialLoader()
                 let errorMessage = error?.localizedDescription ?? HippoStrings.somethingWentWrong
-                
+
                 //self?.tableViewDefaultText = errorMessage + "\n Please tap to retry."
                 self?.noConversationFound(false, errorMessage)
                 self?.isPutUserFailed = !success
@@ -246,17 +275,21 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
             }else{}
             
             if let result = self?.handleIntialCustomerForm(), result {
+                self?.hideInitialLoader()
                 return
             } else if self?.arrayOfConversation.count == 0 {
                 if HippoConfig.shared.shouldOpenDefaultChannel{
                     self?.openDefaultChannel()
                     return
                 }
-                
+
+                self?.hideInitialLoader()
                 if self?.ongoingConversationArr.count == 0 && self?.closedConversationArr.count == 0 && HippoConfig.shared.theme.shouldShowBtnOnChatList == true{ self?.noConversationFound(true,HippoConfig.shared.theme.noOpenAndcloseChatError == nil ? HippoStrings.noChatStarted : HippoConfig.shared.theme.noOpenAndcloseChatError ?? "")
                 }else if self?.ongoingConversationArr.count == 0 && self?.closedConversationArr.count == 0{ self?.noConversationFound(false,HippoConfig.shared.theme.noOpenAndcloseChatError == nil ? HippoStrings.noChatStarted : HippoConfig.shared.theme.noOpenAndcloseChatError ?? "")
                 }else{ self?.noConversationFound(false,HippoConfig.shared.theme.noChatUnderCatagoryError == nil ? HippoStrings.noChatInCatagory : HippoConfig.shared.theme.noChatUnderCatagoryError ?? "")
                 }
+            } else {
+                self?.hideInitialLoader()
             }
         })
         
@@ -613,13 +646,24 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     }
     
     func animateBottomLineView() {
+        positionSelectionPill(animated: true)
+    }
+
+    private func positionSelectionPill(animated: Bool) {
+        guard openChatButton.bounds.width > 0, buttonContainerView.bounds.height > 0 else { return }
         let pillX: CGFloat = conversationChatType == .openChat ? 3 : openChatButton.bounds.width + 3
         let pillW = openChatButton.bounds.width - 6
         let pillH = buttonContainerView.bounds.height - 6
         selectionPillView.layer.cornerRadius = 8
-        UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseInOut, animations: {
-            self.selectionPillView.frame = CGRect(x: pillX, y: 3, width: pillW, height: pillH)
-        })
+        let targetFrame = CGRect(x: pillX, y: 3, width: pillW, height: pillH)
+        guard selectionPillView.frame != targetFrame else { return }
+        if animated {
+            UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseInOut) {
+                self.selectionPillView.frame = targetFrame
+            }
+        } else {
+            selectionPillView.frame = targetFrame
+        }
     }
     
     @objc func headerEmptyAction(_ sender: UITapGestureRecognizer) {
@@ -651,6 +695,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     func getAllConversations() {
         
         if HippoConfig.shared.appSecretKey.isEmpty {
+            hideInitialLoader()
             arrayOfConversation = []
             showConversationsTableView?.reloadData()
             showErrorMessageInTopErrorLabel(withMessage: "Invalid app secret key")
@@ -663,6 +708,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
             pushTotalUnreadCount()
             print("allconv \(String(describing: result.conversations))")
             guard result.isSuccessful else {
+                self?.hideInitialLoader()
                 let errorMessage = result.error?.localizedDescription ?? HippoStrings.somethingWentWrong
                 self?.showErrorMessageInTopErrorLabel(withMessage: errorMessage)
                 return
@@ -701,9 +747,11 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
                     return
                 }
             }
+
+            self?.hideInitialLoader()
         }
     }
-    
+
     //    func getVideoSdkToken(){
     //        FuguConversation.getVideoSdkToken(config: config){[weak self] (result) in
     //            print(result)
@@ -787,7 +835,40 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         let conVC = ConversationsViewController.getWith(chatAttributes: FuguNewChatAttributes.defaultChat)
         self.navigationController?.setViewControllers([conVC], animated: false)
     }
-    
+
+    // MARK: - Initial load overlay
+
+    private func showInitialLoader() {
+        guard !didFinishInitialLoad, initialLoaderView.superview == nil else { return }
+        view.addSubview(initialLoaderView)
+        NSLayoutConstraint.activate([
+            initialLoaderView.topAnchor.constraint(equalTo: view.topAnchor),
+            initialLoaderView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            initialLoaderView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            initialLoaderView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
+
+        let timeout = DispatchWorkItem { [weak self] in
+            guard let self = self, !self.didFinishInitialLoad else { return }
+            self.hideInitialLoader()
+            self.showErrorMessageInTopErrorLabel(withMessage: HippoStrings.somethingWentWrong)
+        }
+        initialLoaderTimeout = timeout
+        DispatchQueue.main.asyncAfter(deadline: .now() + 8, execute: timeout)
+    }
+
+    private func hideInitialLoader() {
+        didFinishInitialLoad = true
+        initialLoaderTimeout?.cancel()
+        initialLoaderTimeout = nil
+        guard initialLoaderView.superview != nil else { return }
+        UIView.animate(withDuration: 0.2, animations: {
+            self.initialLoaderView.alpha = 0
+        }, completion: { _ in
+            self.initialLoaderView.removeFromSuperview()
+        })
+    }
+
     func showErrorMessageInTopErrorLabel(withMessage message: String) {
         if FuguNetworkHandler.shared.isNetworkConnected == false {
             return

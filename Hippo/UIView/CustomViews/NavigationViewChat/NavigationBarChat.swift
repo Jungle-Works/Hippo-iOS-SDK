@@ -51,6 +51,10 @@ final class NavigationBarChat: UIView {
     }
     
     @IBOutlet weak var info_button : UIButton!
+
+    /// Set once a real profile photo has loaded, so a later re-layout doesn't matter
+    /// and a failed load keeps the initials avatar.
+    private var hasRemoteProfileImage = false
     
    // @IBOutlet weak var descLabel : UILabel!
     
@@ -132,20 +136,64 @@ final class NavigationBarChat: UIView {
         }
 
     func setData(imageUrl: String?, name: String?) {
+        hasRemoteProfileImage = false
         showProfileImage()
-        setNameAsTitle(name)
-        
-        guard let url = URL(string: imageUrl ?? "") else {
+        // Fixed-size render — independent of the view's bounds, which are often still
+        // .zero when setData() runs from viewWillAppear (that's why the old
+        // bounds-based setTextInImage produced nothing for the visitor header).
+        image_profile.contentMode = .scaleAspectFit
+        image_profile.image = NavigationBarChat.initialsImage(for: name)
+
+        // `URL(string: "")` is NOT nil, so the old guard fell through for a visitor
+        // with no photo and handed Kingfisher an empty URL — which wiped the image.
+        let trimmed = imageUrl?.trimWhiteSpacesAndNewLine() ?? ""
+        guard !trimmed.isEmpty, let url = URL(string: trimmed), url.host != nil else {
             return
         }
-        
+
         image_profile.contentMode = .scaleAspectFill
-        image_profile.kf.setImage(with: url, placeholder: nil,  completionHandler: {(_, error, _, _) in
-            guard let parsedError = error else {
-                return
+        image_profile.kf.setImage(with: url, placeholder: image_profile.image,  completionHandler: { [weak self] (image, error, _, _) in
+            if error == nil, image != nil {
+                self?.hasRemoteProfileImage = true
+            } else if let parsedError = error {
+                print(parsedError.localizedDescription)
             }
-            print(parsedError.localizedDescription)
         })
+    }
+
+    /// A 35pt circular avatar with the first letter of `name` — a bounds-free
+    /// replacement for `UIImageView.setTextInImage`, which needs the view laid out.
+    static func initialsImage(for name: String?) -> UIImage {
+        let side: CGFloat = 35
+        let trimmed = name?.trimWhiteSpacesAndNewLine() ?? ""
+        let letter = trimmed.isEmpty ? "?" : String(trimmed.first!).uppercased()
+        // Same per-initial pastel the conversation list uses (FuguHelpers.material /
+        // getColor), so the header avatar matches the list avatar.
+        let fill = UIColor.hexStringToUIColor(hex: material[getColor(char: letter)])
+        let renderer = UIGraphicsImageRenderer(size: CGSize(width: side, height: side))
+        return renderer.image { ctx in
+            let rect = CGRect(x: 0, y: 0, width: side, height: side)
+            fill.setFill()
+            ctx.cgContext.fillEllipse(in: rect)
+            let attrs: [NSAttributedString.Key: Any] = [
+                .font: UIFont.regular(ofSize: 16),
+                .foregroundColor: UIColor.white
+            ]
+            let ts = (letter as NSString).size(withAttributes: attrs)
+            (letter as NSString).draw(in: CGRect(x: (side - ts.width) / 2,
+                                                 y: (side - ts.height) / 2,
+                                                 width: ts.width,
+                                                 height: ts.height),
+                                      withAttributes: attrs)
+        }
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        if HippoConfig.shared.appUserType == .customer, image_profile.bounds.height > 1 {
+            image_profile.layer.cornerRadius = image_profile.bounds.height / 2
+            image_profile.layer.masksToBounds = true
+        }
     }
     
     

@@ -127,6 +127,9 @@ public class HippoStrings {
     static var sentACallInvite = "Sent a Call Invite"
     static var recievedACallInvite = "Recieved a Call Invite"
     static var sharedMediaTitle = "Shared Media".localized
+    static var recordingTooShort = "Recording is too short.".localized
+    static var microphoneAccessMessage = "Enable microphone access in Settings to record voice messages.".localized
+    static var openSettings = "Settings".localized
     
     /// Agent sdk
     static var thanksForFeedback = "Thank you for your comments!".localized

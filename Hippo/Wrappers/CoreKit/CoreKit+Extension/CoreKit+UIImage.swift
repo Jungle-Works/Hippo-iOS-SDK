@@ -10,6 +10,20 @@ import UIKit
 
 
 public extension UIImage {
+
+    /// Returns a copy scaled down to fit inside `boundingSize` while keeping the
+    /// aspect ratio. Never scales up. Used to normalise glyph sizes across
+    /// buttons whose source assets were authored at different point sizes.
+    func aspectFitted(to boundingSize: CGSize) -> UIImage {
+        guard size.width > 0, size.height > 0 else { return self }
+        let scale = min(boundingSize.width / size.width, boundingSize.height / size.height, 1)
+        guard scale < 1 else { return self }
+        let target = CGSize(width: (size.width * scale).rounded(), height: (size.height * scale).rounded())
+        let renderer = UIGraphicsImageRenderer(size: target)
+        let scaled = renderer.image { _ in draw(in: CGRect(origin: .zero, size: target)) }
+        return scaled.withRenderingMode(renderingMode)
+    }
+
     func rotateCameraImageToProperOrientation(maxResolution: CGFloat) -> UIImage {
         guard let imgRef = self.cgImage else { return self }
 

@@ -26,7 +26,30 @@ class OutgoingVideoTableViewCell: VideoTableViewCell {
         longPressGesture.minimumPressDuration = 0.3
         messageBackgroundView?.addGestureRecognizer(longPressGesture)
         nameLbl.font = HippoConfig.shared.theme.broadcastTitleInfoFont
-        // Initialization code
+
+        // Revamped customer thread: sent video bubble reads the accent token, matching
+        // the sent text/image bubbles instead of the legacy grey outgoingChatBoxColor.
+        if HippoConfig.shared.appUserType == .customer {
+            let colorConfig = HippoConfig.shared.colorConfig
+            messageBackgroundView.backgroundColor = colorConfig.hippoAccent
+            messageBackgroundView.layer.borderWidth = 0
+            timeLabel.textColor = colorConfig.hippoOnAccent
+            // Per-corner radii replace the uniform chatBoxCornerRadius; applied in
+            // layoutSubviews once bounds are final (CAShapeLayer path is a one-shot snapshot).
+            messageBackgroundView.layer.cornerRadius = 0
+            viewFrameImageView.layer.cornerRadius = 0
+        }
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        guard HippoConfig.shared.appUserType == .customer else { return }
+        // Same shape as the sent text bubble: three 10pt corners, bottom-right tucked to 5pt.
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.messageBackgroundView.applyCornerRadii(topLeft: 10, topRight: 10, bottomLeft: 10, bottomRight: 5)
+            self.viewFrameImageView.applyCornerRadii(topLeft: 10, topRight: 10, bottomLeft: 10, bottomRight: 5)
+        }
     }
    
     @objc func longPressGestureFired(sender: UIGestureRecognizer) {

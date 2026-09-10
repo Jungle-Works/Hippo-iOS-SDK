@@ -19,6 +19,31 @@ class CustomerOutgoingDocumentTableViewCell: OutgoingDocumentTableViewCell {
     /// of making the user tap the card a second time. Cleared on reuse and after it fires.
     private var pendingOpenFileUrl: String?
 
+    // MARK: Caption layout
+    //
+    // The xib pins the file badge to the bubble's vertical centre and never links
+    // the caption textView's bottom to the bubble, so a file sent *with* a caption
+    // grows the textView outside the rounded bubble and the text is clipped. These
+    // constraints are toggled on only when a caption is present: pin the bubble
+    // bottom below the caption, and switch the badge from centre- to top-aligned so
+    // a long caption doesn't leave a gap above the icon. Mirrors how the image cell
+    // keeps its caption inside the bubble.
+
+    /// The xib's `badge.centerY == bgView.centerY` constraint, found at runtime so it
+    /// can be swapped out for `badgeTopConstraint` while a caption is showing. Held
+    /// strongly - deactivating it removes it from its view, and a weak ref would let
+    /// it deallocate so it could never be reactivated when the cell is reused.
+    private var badgeCenterYConstraint: NSLayoutConstraint?
+
+    private lazy var badgeTopConstraint: NSLayoutConstraint =
+        docImageBadgeView.topAnchor.constraint(equalTo: bgView.topAnchor, constant: 12)
+
+    private lazy var bubbleBottomBelowCaptionConstraint: NSLayoutConstraint = {
+        let c = bgView.bottomAnchor.constraint(greaterThanOrEqualTo: textView.bottomAnchor, constant: 10)
+        c.priority = .required
+        return c
+    }()
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Badge is a fixed 44x44 in the xib - hardcoded radius avoids depending on bounds
@@ -27,6 +52,38 @@ class CustomerOutgoingDocumentTableViewCell: OutgoingDocumentTableViewCell {
         docImageBadgeView.layer.cornerRadius = 22
         docImageBadgeView.clipsToBounds = true
         docImageBadgeView.backgroundColor = UIColor(white: 0.9, alpha: 1.0)
+
+        badgeCenterYConstraint = bgView.constraints.first { c in
+            (c.firstItem === docImageBadgeView && c.firstAttribute == .centerY && c.secondItem === bgView)
+                || (c.secondItem === docImageBadgeView && c.secondAttribute == .centerY && c.firstItem === bgView)
+        }
+    }
+
+    /// Grow the bubble to contain the caption (and move the badge to the top) when
+    /// there is one; restore the centred, caption-free layout when there isn't.
+    private func applyCaptionLayout(hasCaption: Bool) {
+        badgeCenterYConstraint?.isActive = !hasCaption
+        badgeTopConstraint.isActive = hasCaption
+        bubbleBottomBelowCaptionConstraint.isActive = hasCaption
+        setNeedsLayout()
+    }
+
+    override func setCellWith(message: HippoMessage, comingFrom: String) {
+        super.setCellWith(message: message, comingFrom: comingFrom)
+
+        // super already toggles constraintHeightTextView / sets textView.text off
+        // `message.message != ""`; layer the "like the image cell" bits on top:
+        // hide the textView entirely when blank, and give a real caption a trailing
+        // newline so the time + tick that sit bottom-right don't collide with the
+        // last line.
+        let hasCaption = !message.message.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+        textView.isHidden = !hasCaption
+        if hasCaption {
+            textView.text = "\(message.message)\n"
+        } else {
+            constraintHeightTextView.isActive = true
+        }
+        applyCaptionLayout(hasCaption: hasCaption)
     }
 
     override func intalizeCell(with message: HippoMessage, isIncomingView: Bool) {
@@ -85,6 +142,11 @@ class CustomerOutgoingDocumentTableViewCell: OutgoingDocumentTableViewCell {
         docName.textColor = colorConfig.hippoOnAccent
         fileSizeLabel.textColor = colorConfig.hippoOnAccent
         nameLabel.textColor = colorConfig.hippoOnAccent
+        // Caption sits on the accent bubble - same white-on-accent as the image
+        // cell's caption (CustomerOutgoingImageCell.applyRevampColors). The xib
+        // leaves it at the default label colour, which reads dark on the bubble.
+        textView.textColor = colorConfig.hippoOnAccent
+        textView.tintColor = colorConfig.hippoOnAccent
         activityIndicator.tintColor = colorConfig.hippoOnAccent
         activityIndicator.color = colorConfig.hippoOnAccent
     }

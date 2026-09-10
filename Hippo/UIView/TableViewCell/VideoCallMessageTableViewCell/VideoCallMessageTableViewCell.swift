@@ -171,21 +171,22 @@ class OutgoingVideoCallMessageTableViewCell: VideoCallMessageTableViewCell {
 
 extension HippoMessage {
     func getVideoCallMessage(otherUserName: String) -> String {
-        let callTypeString = getCallTypeString()
-        
-        if let activeVideoCallID = CallManager.shared.findActiveCallUUID(), messageUniqueID == activeVideoCallID {
-            return "\(HippoStrings.ongoing_call) \(callTypeString) \(HippoStrings.call)"
+        // Collapse the "<missed> <type> <call>" template, dropping the type word (and
+        // its space) when the medium is unknown — e.g. the conversation list, whose
+        // payload has no call_type.
+        func joined(_ parts: String...) -> String {
+            parts.filter { !$0.trimWhiteSpacesAndNewLine().isEmpty }.joined(separator: " ")
         }
-       // let tempOtherUser = otherUserName.isEmpty ? "Other user" : otherUserName
-        
+        let callTypeString = isCallTypeKnown ? getCallTypeString() : ""
+
+        if let activeVideoCallID = CallManager.shared.findActiveCallUUID(), messageUniqueID == activeVideoCallID {
+            return joined(HippoStrings.ongoing_call, callTypeString, HippoStrings.call)
+        }
+
         if isMissedCall {
-            if isSentByMe() {
-                return "\(HippoStrings.missed) \(callTypeString) \(HippoStrings.call)"//"\(tempOtherUser) missed a \(callTypeString) call with you"
-            } else {
-                return "\(HippoStrings.missed) \(callTypeString) \(HippoStrings.call)"//"You missed a \(callTypeString) call with \(senderFullName)"
-            }
+            return joined(HippoStrings.missed, callTypeString, HippoStrings.call)
         } else {
-            return "\(HippoStrings.the) \(callTypeString) \(HippoStrings.callEnded)."
+            return joined(HippoStrings.the, callTypeString, HippoStrings.callEnded) + "."
         }
     }
     

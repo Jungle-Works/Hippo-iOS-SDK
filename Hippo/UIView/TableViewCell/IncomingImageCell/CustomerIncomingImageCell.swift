@@ -16,6 +16,31 @@ class CustomerIncomingImageCell: IncomingImageCell {
     // content size, silently padding the bubble's bottom.
     @IBOutlet weak var captionHeightConstraint: NSLayoutConstraint!
 
+    override func intalizeCell(with message: HippoMessage, isIncomingView: Bool) {
+        super.intalizeCell(with: message, isIncomingView: isIncomingView)
+        // configureIncomingCell() calls this, then setupBoxBackground() (legacy grey)
+        // AFTER it, with no guaranteed layout pass on an async re-config — so the
+        // receiver card/border only appeared after a scroll forced layoutSubviews.
+        // Schedule that pass now.
+        setNeedsLayout()
+    }
+
+    // `setTime()` runs near the end of configureIncomingCell(), after
+    // setupBoxBackground()'s legacy grey — re-assert the receiver palette there so
+    // it lands immediately instead of only after a scroll.
+    override func setTime() {
+        super.setTime()
+        applyRevampColors()
+    }
+
+    private func applyRevampColors() {
+        let colorConfig = HippoConfig.shared.colorConfig
+        mainContentView.backgroundColor = colorConfig.hippoReceiver
+        shadowView.backgroundColor = colorConfig.hippoBorder
+        textView.textColor = colorConfig.hippoTextPrimary
+        timeLabel.textColor = colorConfig.hippoTextMuted
+    }
+
     override func layoutSubviews() {
         // configureIncomingCell(...) is declared in a class extension on IncomingImageCell,
         // so it uses static dispatch and can't be overridden here — toggle the caption
@@ -42,15 +67,9 @@ class CustomerIncomingImageCell: IncomingImageCell {
             self.shadowView.applyCornerRadii(topLeft: 10, topRight: 10, bottomLeft: 10, bottomRight: 10)
         }
 
-        // Card reads the receiver token; the shadow-view border keeps a subtle hippoBorder
-        // stroke, matching the received text bubble. setupBoxBackground(messageType:) runs
-        // earlier (during configureIncomingCell), so layoutSubviews() re-applying it here —
-        // same seam the caption-height fix above already relies on — is what wins.
-        let colorConfig = HippoConfig.shared.colorConfig
-        mainContentView.backgroundColor = colorConfig.hippoReceiver
-        shadowView.backgroundColor = colorConfig.hippoBorder
-        textView.textColor = colorConfig.hippoTextPrimary
-        timeLabel.textColor = colorConfig.hippoTextMuted
+        // Belt-and-braces: re-assert the palette after every layout pass too
+        // (scroll/reuse, and the deferred adjustShadow() from super).
+        applyRevampColors()
     }
 
     override func setSenderImageView() {

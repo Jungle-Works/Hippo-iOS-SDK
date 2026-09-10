@@ -165,7 +165,9 @@ extension CustomerAudioWaveCapable where Self: AudioTableViewCell {
     func probeLocalDuration() -> TimeInterval? {
         guard let localPathString = DownloadManager.shared.getLocalPathOf(url: cellIdentifier),
               let url = URL(string: localPathString) else { return nil }
-        return (try? AVAudioPlayer(contentsOf: url))?.duration
+        // Same fallback ladder as playback — a bare AVAudioPlayer(contentsOf:) can't
+        // open a .aac (ADTS) or extension-less cached file.
+        return AudioPlayerManager.makePlayer(for: url)?.duration
     }
 
     /// Shrinks the play/pause glyph inside `controlButton` without touching the fixed-size
