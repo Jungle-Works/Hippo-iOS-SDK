@@ -20,6 +20,10 @@ class PaymentMessageCell: UITableViewCell {
     @IBOutlet weak var tableView: UITableView!{
         didSet{
             tableView.layer.cornerRadius = 6
+            // cornerRadius alone only draws the curve — it doesn't clip content to it. Without
+            // this, the last row's flat rectangular corners (the "Proceed to Pay" button) sit
+            // right where the table's own rounded corner should be and visibly overflow past it.
+            tableView.clipsToBounds = true
         }
     }
     
@@ -39,7 +43,12 @@ class PaymentMessageCell: UITableViewCell {
     private func setTheme() {
         nameLbl.font = HippoConfig.shared.theme.broadcastTitleInfoFont
         backgroundColor = .clear
-        tableView.backgroundColor = HippoConfig.shared.theme.outgoingChatBoxColor//.clear
+        // Panel reads the surface-background token on the customer screen — otherwise it and
+        // the white plan cards inside it (CustomerPaymentCardCell) are both near-white with no
+        // visible boundary between them. Agent keeps the legacy colour.
+        tableView.backgroundColor = HippoConfig.shared.appUserType == .customer
+            ? HippoConfig.shared.colorConfig.hippoReceiver
+            : HippoConfig.shared.theme.outgoingChatBoxColor
         tableView.separatorStyle = .none
         selectionStyle = .none
     }
@@ -64,6 +73,15 @@ extension PaymentMessageCell {
         }else{
             nameLbl.text = "You"
         }
+        // This cell has one layout for every payment message - there's no separate sent/
+        // received variant to key off of, and isSentByMe() doesn't reliably match anyway
+        // (these are bot/agent-originated even when the name above resolves to the
+        // customer's own, via the agentDetail-is-nil quirk). Identity row is redundant in
+        // the revamped customer thread regardless of whose name it would show - hide it
+        // outright, matching every other cell's dropped avatar/name row.
+        let hideName = HippoConfig.shared.appUserType == .customer
+        nameView.isHidden = hideName
+        nameLbl.isHidden = hideName
         self.message = message
         let cards = (message.cards) ?? []
         self.datasource.update(cards: cards)

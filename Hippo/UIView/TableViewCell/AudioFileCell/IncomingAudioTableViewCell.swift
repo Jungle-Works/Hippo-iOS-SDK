@@ -156,10 +156,19 @@ class AudioTableViewCell: MessageTableViewCell {
             
             let totalTime = round(AudioPlayerManager.shared.audioPlayer?.duration ?? 1)
             let completedTime = round(AudioPlayerManager.shared.audioPlayer?.currentTime ?? 0)
-            
+
+            // totalTime can be 0 right as playback starts (duration not yet settled) or for a
+            // corrupt/zero-length file — completedTime / 0 is NaN (or Infinity), and assigning
+            // that to a constraint constant crashes with NSInternalInconsistencyException.
+            guard totalTime > 0 else {
+                self.progressViewWidthConstraint.constant = 0
+                self.layoutIfNeeded()
+                return
+            }
+
             let ratio = completedTime / totalTime
             self.progressViewWidthConstraint.constant = CGFloat(ratio * Double(self.fullLengthLineview.frame.width))
-            
+
             self.layoutIfNeeded()
         }
     }
@@ -228,21 +237,16 @@ class AudioTableViewCell: MessageTableViewCell {
     }
     
     @IBAction func controlButtonAction(_ sender: Any) {
-        if message?.fileSize?.contains("KB") != true {
-            showErrorToast(message: "File size is too small to play!")
-            return
-        }
-
         guard isFileDownloaded() else {
             self.startDownloading()
             return
         }
-        
+
         if AudioPlayerManager.shared.tag == cellIdentifier {
             AudioPlayerManager.shared.delegate = self
 
             if AudioPlayerManager.shared.audioPlayer?.isPlaying == true {
-                AudioPlayerManager.shared.stop()
+                AudioPlayerManager.shared.pause()
             } else if AudioPlayerManager.shared.audioPlayer?.isPlaying == false {
                 AudioPlayerManager.shared.play()
             }
@@ -265,10 +269,15 @@ extension AudioTableViewCell: AudioPlayerManagerDelegate {
     func playerEnded(_ player: AVAudioPlayer) {
         updateUI()
     }
-    
-    func timer(_ player: AVAudioPlayer) {
+
+    @objc func timer(_ player: AVAudioPlayer) {
         self.updateLabels()
         self.updateProgressBarView()
+    }
+
+    func playbackFailed() {
+        showErrorToast(message: "Unable to play this file.")
+        updateUI()
     }
 }
 

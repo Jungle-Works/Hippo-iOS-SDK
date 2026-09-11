@@ -17,7 +17,8 @@ class SharedMediaCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        imageViewMedia.layer.cornerRadius = 10
+        imageViewMedia.layer.masksToBounds = true
     }
 
 }

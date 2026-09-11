@@ -24,17 +24,17 @@ public struct ConversationListTheme {
     public var timeTheme: HippoLabelTheme
     
     static func normalTheme() -> ConversationListTheme {
-        let titleTheme: HippoLabelTheme = HippoLabelTheme(textColor: .black, textFont: UIFont.bold(ofSize: 15))
+        let titleTheme: HippoLabelTheme = HippoLabelTheme(textColor: .black, textFont: UIFont.regular(ofSize: 15))
         let lastMessageTheme: HippoLabelTheme = HippoLabelTheme(textColor: UIColor(red: 152/255 , green: 173/255, blue: 176/255, alpha: 1.0), textFont: UIFont.regular(ofSize: 14.0))
         let timeTheme: HippoLabelTheme = HippoLabelTheme(textColor: UIColor(red: 152/255 , green: 173/255, blue: 176/255, alpha: 1.0), textFont: UIFont.regular(ofSize: 12.0))
         return ConversationListTheme(titleTheme: titleTheme, lastMessageTheme: lastMessageTheme, timeTheme: timeTheme)
     }
-    
+
     static func unReadTheme() -> ConversationListTheme {
         let titleTheme: HippoLabelTheme = HippoLabelTheme(textColor: .black, textFont: UIFont.bold(ofSize: 15.0))
-        let lastMessageTheme: HippoLabelTheme = HippoLabelTheme(textColor: UIColor(red: 74/255 , green: 74/255, blue: 74/255, alpha: 1.0), textFont: UIFont.regular(ofSize: 14.0))
+        let lastMessageTheme: HippoLabelTheme = HippoLabelTheme(textColor: UIColor(red: 74/255 , green: 74/255, blue: 74/255, alpha: 1.0), textFont: UIFont.bold(ofSize: 14.0))
         let timeTheme: HippoLabelTheme = HippoLabelTheme(textColor: UIColor(red: 74/255 , green: 74/255, blue: 74/255, alpha: 1.0), textFont: UIFont.regular(ofSize: 12.0))
-        
+
         return ConversationListTheme(titleTheme: titleTheme, lastMessageTheme: lastMessageTheme, timeTheme: timeTheme)
     }
 }
@@ -61,7 +61,7 @@ public struct ConversationListTheme {
   
     
     open var unreadCountColor : UIColor = UIColor(red: 244/255, green: 64/255, blue: 67/255, alpha: 1.0)//UIColor(red: 91/255, green: 159/255, blue: 13/255, alpha: 1.0)
-    open var themeColor: UIColor = UIColor(red: 91/255, green: 159/255, blue: 13/255, alpha: 1.0)//.white//UIColor(red: 109/255, green: 212/255, blue: 0/255, alpha: 1)//
+    open var themeColor: UIColor = UIColor(red: 22/255, green: 68/255, blue: 153/255, alpha: 1.0)//.white//UIColor(red: 109/255, green: 212/255, blue: 0/255, alpha: 1)//
     open var recievingBubbleColor : UIColor = UIColor(red: 225/255, green: 240/255, blue: 255/255, alpha: 1.0)
     
     open var themeTextcolor: UIColor = .black//.white//UIColor(red: 109/255, green: 212/255, blue: 0/255, alpha: 1)//
@@ -80,7 +80,7 @@ public struct ConversationListTheme {
     open var informationIcon: UIImage? = UIImage(named: "dots", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     open var audioCallIcon: UIImage? = UIImage(named: "call", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     open var videoCallIcon: UIImage? = UIImage(named: "video", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
-    open var noChatImage : UIImage? = UIImage(named: "noChats", in: FuguFlowManager.bundle, compatibleWith: nil)
+    open var noChatImage : UIImage? = UIImage(named: "noChat", in: FuguFlowManager.bundle, compatibleWith: nil)
     open var emplyAddressImage : UIImage? = UIImage(named: "emplyAddress", in: FuguFlowManager.bundle, compatibleWith: nil)
     open var noPrescription : UIImage? = UIImage(named: "emptyprescription", in: FuguFlowManager.bundle, compatibleWith: nil)
     open var paymentIcon: UIImage? = UIImage(named: "makePayment", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysOriginal)

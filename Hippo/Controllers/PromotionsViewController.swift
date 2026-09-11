@@ -74,8 +74,9 @@ class PromotionsViewController: UIViewController {
         self.setUpViewWithNav()
         
         setupRefreshController()
-        promotionsTableView.backgroundColor = HippoConfig.shared.theme.promotionBackgroundColor
-        
+        promotionsTableView.backgroundColor = UIColor(red: 242/255, green: 242/255, blue: 242/255, alpha: 1.0)
+        promotionsTableView.separatorStyle = .none
+
         promotionsTableView.register(UINib(nibName: "PromotionTableViewCell", bundle: FuguFlowManager.bundle), forCellReuseIdentifier: "PromotionTableViewCell")
         promotionsTableView.rowHeight = UITableView.automaticDimension
         promotionsTableView.estimatedRowHeight = 50
@@ -213,11 +214,15 @@ class PromotionsViewController: UIViewController {
     
     func setUpViewWithNav() {
    
+        navigationBar.titleLabel.textAlignment = .left
         navigationBar.title = HippoConfig.shared.theme.promotionsAnnouncementsHeaderText
+        navigationBar.leftButton.setImage(HippoConfig.shared.theme.leftBarButtonImage, for: .normal)
+        navigationBar.leftButton.tintColor = .black
+        navigationBar.image_back.isHidden = true
         navigationBar.leftButton.addTarget(self, action: #selector(backButtonClicked), for: .touchUpInside)
         navigationBar.rightButton.setTitle(HippoStrings.clearAll, for: .normal)
         navigationBar.rightButton.titleLabel?.font = UIFont.regular(ofSize: 14)
-        navigationBar.rightButton.setTitleColor(UIColor(red: 95/255, green: 95/255, blue: 95/255, alpha: 1.0), for: .normal)
+        navigationBar.rightButton.setTitleColor(HippoConfig.shared.theme.themeColor, for: .normal)
         navigationBar.rightButton.addTarget(self, action: #selector(deleteAllAnnouncementsButtonClicked), for: .touchUpInside)
         navigationBar.view.layer.shadowOffset = CGSize(width: 0.0, height: 0.5)
         navigationBar.view.layer.shadowRadius = 2.0
@@ -473,7 +478,7 @@ extension PromotionsViewController: UITableViewDelegate,UITableViewDataSource
             //cell.descriptionLabel.numberOfLines = 2
             let values = data[indexPath.row]
             let croppedDescription = values.description?.count ?? 0 > 150 ? String(values.description?.prefix(150) ?? "") : values.description ?? ""
-            cell.promotionTitle.attributedText = NSAttributedString(string:  values.title ?? "")
+            cell.promotionTitle.text = values.title ?? ""
             cell.fullDescriptionLabel.attributedText = NSAttributedString(string:  values.description ?? "")
             cell.descriptionLabel.attributedText = NSAttributedString(string:  croppedDescription)
             cell.descriptionLabel.dataDetectorTypes = UIDataDetectorTypes.all

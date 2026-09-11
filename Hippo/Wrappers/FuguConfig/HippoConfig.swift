@@ -142,6 +142,7 @@ struct WhatsappWidgetConfig{
     internal var ticketDetails = HippoTicketAtrributes(categoryName: "")
     public var whatsappSecretKey: String = ""
     public var theme = HippoTheme.defaultTheme()
+    public var colorConfig = HippoColorConfig()
     internal var userDetail: HippoUserDetail?
     internal var jitsiUrl : String?
     internal var jitsiOngoingCall : Bool?
@@ -161,7 +162,11 @@ struct WhatsappWidgetConfig{
     public var isPaymentRequestEnabled: Bool {
         return HippoProperty.current.isPaymentRequestEnabled
     }
-    
+
+    public var isAiBotEnabled: Bool {
+        return BussinessProperty.current.isAiBotEnabled ?? false
+    }
+
     internal var groupCallData: [String : Any] {
         get {
             guard let groupCallData = UserDefaults.standard.value(forKey: Fugu_groupCallData) as? [String : Any] else {
@@ -356,6 +361,10 @@ struct WhatsappWidgetConfig{
     
     public func setCustomisedHippoTheme(theme: HippoTheme) {
         self.theme = theme
+    }
+
+    public func setCustomisedColorConfig(_ config: HippoColorConfig) {
+        self.colorConfig = config
     }
     
     public func setCredential(withAppSecretKey appSecretKey: String, appType: String? = nil, offering: Int = 0) {
@@ -1551,7 +1560,7 @@ struct WhatsappWidgetConfig{
                 conVC.label = channelName
                 //                conVC.navigationTitleLabel?.text = channelName
                 if isSendingDisabled {
-                    conVC.disableSendingReply()
+                    conVC.disableSendingReply(message: HippoStrings.cannotReplyToConversation)
                 }
                 conVC.getMessagesBasedOnChannel(fromMessage: 1, pageEnd: nil, completion: {(_) in
                     conVC.enableSendingNewMessages()
@@ -1564,7 +1573,7 @@ struct WhatsappWidgetConfig{
                 conVC.labelId = labelId
                 //                conVC.navigationTitleLabel?.text = channelName
                 if isSendingDisabled {
-                    conVC.disableSendingReply()
+                    conVC.disableSendingReply(message: HippoStrings.cannotReplyToConversation)
                 }
                 conVC.fetchMessagesFrom1stPage()
             }

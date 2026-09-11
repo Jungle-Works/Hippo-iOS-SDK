@@ -13,7 +13,7 @@
 "Unable to connect to the internet" = "غير قادر على الاتصال بالانترنت";
 "No Internet Connection \nTap to retry" = "اتصال لا الإنترنت \ nTap لإعادة المحاولة";
 "Something went wrong \nTap to retry" = "حدث خطأ \ nTap لإعادة المحاولة";
-"New Conversation" = "محاورة جديدة";
+"Create Conversation" = "محاورة جديدة";
 "Loading..." = "جار التحميل...";
 "Runs on" = "يعمل على";
 "Hippo" = "فرس النهر";

@@ -51,10 +51,11 @@ class FeedbackTableViewCell: MessageTableViewCell {
     @IBOutlet weak var alertContainer: UIView!
     @IBOutlet weak var submitButton: UIButton! {
         didSet {
+            let colorConfig = HippoConfig.shared.colorConfig
             submitButton.titleLabel?.font = UIFont.bold(ofSize: 16.0)
             submitButton.setTitle(HippoStrings.submit, for: .normal)
-            submitButton.setTitleColor(.white, for: .normal)
-            submitButton.backgroundColor = HippoConfig.shared.theme.themeColor
+            submitButton.setTitleColor(colorConfig.hippoOnAccent, for: .normal)
+            submitButton.backgroundColor = colorConfig.hippoAccent
             submitButton.layer.cornerRadius = 6
         }
     }
@@ -250,11 +251,12 @@ class FeedbackTableViewCell: MessageTableViewCell {
         cellTextView.layer.masksToBounds = true
         cellTextView.delegate = self
         cellTextView.flashScrollIndicators()
-        alertContainer.layer.borderColor = UIColor(red: 242/255, green: 245/255, blue: 248/255, alpha: 1.0).cgColor //HippoConfig.shared.theme.gradientTopColor.cgColor //
+        // Render the feedback card as a receiver-side bubble.
+        alertContainer.backgroundColor = HippoConfig.shared.colorConfig.hippoReceiver
+        alertContainer.layer.borderColor = HippoConfig.shared.colorConfig.hippoReceiver.cgColor
         alertContainer.layer.borderWidth = 5
         alertContainer.layer.masksToBounds = true
         alertContainer.layer.cornerRadius = 10
-        //        alertContainer.backgroundColor = HippoConfig.shared.theme.gradientBackgroundColor
         //        if #available(iOS 11.0, *) {
         //            alertContainer.layer.maskedCorners = [.layerMaxXMinYCorner,.layerMinXMaxYCorner,.layerMaxXMaxYCorner]
         //        } else {
@@ -269,15 +271,25 @@ class FeedbackTableViewCell: MessageTableViewCell {
         self.removeFromSuperview()
     }
     
+    // Feedback cell is always rendered on the receiver side; never show the
+    // sender profile icon for it.
+    override func setSenderImageView() {
+        hideSenderImageView()
+    }
+
+    // With the profile icon gone the leading inset is 10pt (see the xib);
+    // keep the trailing inset the same so the card isn't shoved to the left.
+    private static let feedbackHorizontalInset: CGFloat = 10
+
     override func hideSenderImageView() {
         super.hideSenderImageView()
-        feedbackTrailingconstraint.constant = 80
+        feedbackTrailingconstraint.constant = FeedbackTableViewCell.feedbackHorizontalInset
         layoutIfNeeded()
     }
-    
+
     override func showSenderImageView() {
         super.showSenderImageView()
-        feedbackTrailingconstraint.constant = 80
+        feedbackTrailingconstraint.constant = FeedbackTableViewCell.feedbackHorizontalInset
         layoutIfNeeded()
     }
 }

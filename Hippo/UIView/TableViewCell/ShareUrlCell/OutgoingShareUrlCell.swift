@@ -12,7 +12,7 @@ protocol OutgoingShareUrlDelegate: AnyObject {
     func openJitsiUrl(url: String)
 }
 
-final class OutgoingShareUrlCell: MessageTableViewCell {
+class OutgoingShareUrlCell: MessageTableViewCell {
 
     //MARK:- IBOutlets
     @IBOutlet weak var nameLbl: UILabel!
@@ -20,8 +20,8 @@ final class OutgoingShareUrlCell: MessageTableViewCell {
     @IBOutlet private weak var labelHeading : UILabel!
     @IBOutlet private weak var labelBusinessName : UILabel!
     @IBOutlet private weak var imageVideoIcon : UIImageView!
-    @IBOutlet private weak var shadowView: So_UIView!
-    @IBOutlet private weak var mainContentView: UIView!
+    @IBOutlet weak var shadowView: So_UIView!
+    @IBOutlet weak var mainContentView: UIView!
     @IBOutlet private weak var readUnreadImageView: So_UIImageView!
     @IBOutlet private weak var buttonJoinCall: UIButton!
     @IBOutlet private weak var viewUpper: UIView!

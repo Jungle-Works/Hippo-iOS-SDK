@@ -121,7 +121,10 @@ extension SharedMediaViewController {
             }
             self.informationView?.informationLabel.text = errorMessage
             //self.showConversationsTableView.isHidden = true
-            self.informationView?.informationImageView.image = nil
+            // Show the same empty-state logo as the chat list / support chat empty
+            // states instead of a blank 120pt gap above the label.
+            self.informationView?.informationImageView.contentMode = .scaleAspectFit
+            self.informationView?.informationImageView.image = HippoConfig.shared.theme.noChatImage
             self.informationView?.isButtonInfoHidden = !shouldShowBtn
             self.informationView?.button_Info.setTitle(HippoConfig.shared.theme.chatListRetryBtnText == nil ? HippoStrings.retry : HippoConfig.shared.theme.chatListRetryBtnText, for: .normal)
             

@@ -365,6 +365,8 @@ class NewAllConversationViewController: UIViewController, NewChatSentDelegate {
         if self.arrayOfConversation.count <= 0{
             if informationView == nil {
                 informationView = InformationView.loadView(self.tableView.bounds)
+            } else {
+                informationView?.frame = self.tableView.bounds
             }
             self.informationView?.informationLabel.text = errorMessage
             self.informationView?.informationImageView.image = HippoConfig.shared.theme.noChatImage

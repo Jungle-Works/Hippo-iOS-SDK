@@ -204,8 +204,9 @@ class MessageStore {
         
         let endPage = requestParam.pageEnd == nil ? requestParam.pageStart + iOSPageLimit : requestParam.pageEnd!
         params["page_end"] = endPage
-        
-        
+
+      //  params["channel_attributes"] = "{\"is_ai_conversation\": \(BussinessProperty.current.isAiBotEnabled == true)}"
+
 //        print("=====> Param \(params)")
         return params
     }

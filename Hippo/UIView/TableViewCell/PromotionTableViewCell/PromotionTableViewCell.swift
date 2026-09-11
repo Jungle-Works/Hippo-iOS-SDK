@@ -34,11 +34,13 @@ class PromotionTableViewCell: UITableViewCell {
     var data: PromotionCellDataModel?
     var previewImage : (()->())?
 //    weak var delegate: PromotionTableViewCellDelegate?
-    
+    private var newBadgeView: UIView!
+
     override func awakeFromNib() {
         super.awakeFromNib()
         self.setUpUI()
-        
+        self.setUpNewBadge()
+
         // Initialization code
     }
 
@@ -49,33 +51,89 @@ class PromotionTableViewCell: UITableViewCell {
     }
     
     func setUpUI(){
-        bgView.layer.borderWidth = HippoConfig.shared.theme.chatBoxBorderWidth
-        bgView.layer.borderColor = HippoConfig.shared.theme.chatBoxBorderColor.cgColor
+        bgView.layer.borderWidth = 0
         bgView.layer.cornerRadius = 10
         bgView.layer.masksToBounds = true
-        //bgView.clipsToBounds = true
         bgView.backgroundColor = UIColor.white
-        
-         promotionTitle.font = HippoConfig.shared.theme.promotionTitle
-        //promotionTitle.textColor = HippoConfig.shared.theme.titleTextColor
-        promotionTitle.textColor = .black//HippoConfig.shared.theme.conversationTitleColor.withAlphaComponent(1)
-          
-        descriptionLabel.textColor = UIColor(red: 90/255, green: 90/255, blue: 90/255, alpha: 1.0) //.darkText//HippoConfig.shared.theme.descriptionTextColor
+
+        promotionTitle.font = HippoConfig.shared.theme.promotionTitle
+        promotionTitle.textColor = .black
+
+        let zeroPadding = UIEdgeInsets(top: 0, left: 0, bottom: 4, right: 0)
+        descriptionLabel.textContainerInset = zeroPadding
+        descriptionLabel.textContainer.lineFragmentPadding = 0
+        descriptionLabel.textColor = UIColor(red: 90/255, green: 90/255, blue: 90/255, alpha: 1.0)
         descriptionLabel.font = HippoConfig.shared.theme.descriptionFont
-//        descriptionLabel.font = UIFont.boldSystemFont(ofSize: 11)
-//        descriptionLabel.numberOfLines = 2
-        
-        fullDescriptionLabel.textColor = UIColor(red: 90/255, green: 90/255, blue: 90/255, alpha: 1.0)//HippoConfig.shared.theme.descriptionTextColor
+
+        fullDescriptionLabel.textContainerInset = zeroPadding
+        fullDescriptionLabel.textContainer.lineFragmentPadding = 0
+        fullDescriptionLabel.textColor = UIColor(red: 90/255, green: 90/255, blue: 90/255, alpha: 1.0)
         fullDescriptionLabel.font = HippoConfig.shared.theme.descriptionFont
-        
+
         dateTimeLabel.font = HippoConfig.shared.theme.dateTimeFontSize
-        dateTimeLabel.textColor = UIColor(red: 113/255, green: 113/255, blue: 113/255, alpha: 1.0) //HippoConfig.shared.theme.descriptionTextColor//incomingMsgDateTextColor//
+        dateTimeLabel.textColor = UIColor(red: 113/255, green: 113/255, blue: 113/255, alpha: 1.0)
     }
-    
+
+    private func setUpNewBadge() {
+        guard let stack = promotionTitle.superview as? UIStackView else { return }
+
+        let pill = UIView()
+        pill.translatesAutoresizingMaskIntoConstraints = false
+        pill.backgroundColor = UIColor(red: 231/255, green: 239/255, blue: 253/255, alpha: 1.0)
+        pill.layer.cornerRadius = 10
+        pill.layer.masksToBounds = true
+
+        let dotSize: CGFloat = 6
+        let dotView = UIView()
+        dotView.translatesAutoresizingMaskIntoConstraints = false
+        dotView.backgroundColor = UIColor(red: 22/255, green: 68/255, blue: 153/255, alpha: 1.0)
+        dotView.layer.cornerRadius = dotSize / 2
+        dotView.layer.masksToBounds = true
+        NSLayoutConstraint.activate([
+            dotView.widthAnchor.constraint(equalToConstant: dotSize),
+            dotView.heightAnchor.constraint(equalToConstant: dotSize)
+        ])
+
+        let newLabel = UILabel()
+        newLabel.translatesAutoresizingMaskIntoConstraints = false
+        newLabel.text = "New"
+        newLabel.font = UIFont.boldSystemFont(ofSize: 12)
+        newLabel.textColor = UIColor(red: 22/255, green: 68/255, blue: 153/255, alpha: 1.0)
+
+        let innerStack = UIStackView(arrangedSubviews: [dotView, newLabel])
+        innerStack.axis = .horizontal
+        innerStack.spacing = 4
+        innerStack.alignment = .center
+        innerStack.translatesAutoresizingMaskIntoConstraints = false
+
+        pill.addSubview(innerStack)
+        NSLayoutConstraint.activate([
+            innerStack.leadingAnchor.constraint(equalTo: pill.leadingAnchor, constant: 8),
+            innerStack.trailingAnchor.constraint(equalTo: pill.trailingAnchor, constant: -8),
+            innerStack.topAnchor.constraint(equalTo: pill.topAnchor, constant: 3),
+            innerStack.bottomAnchor.constraint(equalTo: pill.bottomAnchor, constant: -3)
+        ])
+
+        let container = UIView()
+        container.translatesAutoresizingMaskIntoConstraints = false
+        container.backgroundColor = .clear
+        container.addSubview(pill)
+        NSLayoutConstraint.activate([
+            pill.leadingAnchor.constraint(equalTo: container.leadingAnchor),
+            pill.topAnchor.constraint(equalTo: container.topAnchor),
+            pill.bottomAnchor.constraint(equalTo: container.bottomAnchor),
+            pill.trailingAnchor.constraint(lessThanOrEqualTo: container.trailingAnchor)
+        ])
+
+        stack.insertArrangedSubview(container, at: 0)
+        newBadgeView = container
+    }
+
     func set(data: PromotionCellDataModel){
-        
+
         self.data = data
-        
+        newBadgeView.isHidden = data.seenStatus != 0
+
         if data.imageUrlString.isEmpty{
             self.promotionImage?.isHidden = true
             self.imageHeightConstraint.constant = 0
@@ -84,9 +142,8 @@ class PromotionTableViewCell: UITableViewCell {
             self.imageHeightConstraint.constant = self.promotionImage.frame.size.width / 2.5
             self.promotionImage?.isHidden = false
             let url = URL(string: data.imageUrlString)
-                self.promotionImage.kf.setImage(with: url, placeholder: HippoConfig.shared.theme.placeHolderImage, options: nil, progressBlock: nil)
-            self.constraint_timeLabelBottom.constant = 7
-            //}
+            self.promotionImage.kf.setImage(with: url, placeholder: HippoConfig.shared.theme.placeHolderImage, options: nil, progressBlock: nil)
+            self.constraint_timeLabelBottom.constant = 4
         }
 //        self.promotionTitle.text = data.title//"This is a new tittle"
        
@@ -98,18 +155,9 @@ class PromotionTableViewCell: UITableViewCell {
         
        // self.descriptionLabel.backgroundColor = UIColor.blue
         
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
-        dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
-        let date = dateFormatter.date(from: data.createdAt)
-        
-//        let dateFormatter2 = DateFormatter()
-//        dateFormatter2.dateFormat = "dd MMM,yy h:mm a"
-//        dateFormatter2.locale = Locale.current
-//        dateFormatter2.timeZone = TimeZone.current
-//        let timeOfMessage = dateFormatter2.string(from: date ?? Date())
-        
-        
+        let iso8601Formatter = ISO8601DateFormatter()
+        iso8601Formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+        let date = iso8601Formatter.date(from: data.createdAt)
         dateTimeLabel.text = date?.toString ?? ""
     
 

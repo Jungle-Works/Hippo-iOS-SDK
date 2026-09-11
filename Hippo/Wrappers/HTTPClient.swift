@@ -182,10 +182,10 @@ class HTTPClient {
         case .url:
             break
         }
-        
+
         //DataTask
         let dataTask = HTTPClient.performDataTaskWith(request: mutableRequest, showAlert: showAlert, showAlertInDefaultCase: showAlertInDefaultCase, showActivityIndicator: showActivityIndicator, callback: callback, extendedUrl: extendedUrl)
-        
+
         dataTask.resume()
         
         return dataTask
@@ -341,10 +341,6 @@ class HTTPClient {
                     if HippoConfig.shared.apiLogging == 1 {
                         print("[HippoSDK] ◀ RESPONSE  \(urlResponse?.url?.absoluteString ?? "NO URL")")
                         print("[HippoSDK]   StatusCode : \(statusCode)")
-                        if let httpUrlResponce = urlResponse as? HTTPURLResponse {
-                            print("[HippoSDK]   Headers : \(httpUrlResponce.allHeaderFields)")
-                        }
-                        print("[HippoSDK]   Body : \(responseObject ?? [:])")
                     }
 
                     if SERVERS.devUrl.contains(HippoConfig.shared.baseUrl){

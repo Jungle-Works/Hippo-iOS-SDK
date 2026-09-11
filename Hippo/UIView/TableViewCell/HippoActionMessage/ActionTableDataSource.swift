@@ -81,13 +81,16 @@ class ActionTableDataSource: NSObject, UITableViewDataSource {
     }
     
     func getNormalMessageTableViewCell(tableView: UITableView, isOutgoingMessage: Bool, message: HippoMessage, indexPath: IndexPath) -> UITableViewCell {
+        let isCustomer = HippoConfig.shared.appUserType == .customer
         switch isOutgoingMessage {
         case false:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "SupportMessageTableViewCell", for: indexPath) as! SupportMessageTableViewCell
+            let identifier = isCustomer ? "CustomerSupportMessageTableViewCell" : "SupportMessageTableViewCell"
+            let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! SupportMessageTableViewCell
             let incomingAttributedString = Helper.getIncomingAttributedStringWithLastUserCheck(chatMessageObject: message)
             return cell.configureCellOfSupportIncomingCell(resetProperties: true, attributedString: incomingAttributedString, channelId: -1, chatMessageObject: message)
         case true:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "SelfMessageTableViewCell", for: indexPath) as! SelfMessageTableViewCell
+            let identifier = isCustomer ? "CustomerSelfMessageTableViewCell" : "SelfMessageTableViewCell"
+            let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! SelfMessageTableViewCell
 //            cell.delegate = self
 //            return cell.configureIncomingMessageCell(resetProperties: true, chatMessageObject: message, indexPath: indexPath, comingFrom: "")
             if message.senderFullName != HippoConfig.shared.agentDetail?.fullName ?? ""{
