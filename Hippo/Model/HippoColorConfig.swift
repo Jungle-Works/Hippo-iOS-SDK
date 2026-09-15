@@ -31,6 +31,11 @@ import UIKit
 
     // MARK: - Icon-pair tokens (settable)
 
+    /// Tint for the chat screen's own action glyphs (add-attachment, mic, audio/video call).
+    /// Deliberately one knob so those icons stay in step; defaults to black rather than the
+    /// accent, which is what the revamped composer/header design calls for.
+    private var hippoIconAccentHex: String?
+
     private var hippoIconPrimaryHex: String?
     private var hippoIconPrimarySurfaceHex: String?
     private var hippoIconSecondaryHex: String?
@@ -62,6 +67,7 @@ import UIKit
     /// Alpha-first ARGB default (`#660F1420`), matching the Android token verbatim.
     public var hippoScrim: UIColor { Self.parseOr(hippoScrimHex, "#660F1420") }
 
+    public var hippoIconAccent: UIColor { Self.parseOr(hippoIconAccentHex, "#000000") }
     public var hippoIconPrimary: UIColor { Self.parseOr(hippoIconPrimaryHex, "#FFFFFF") }
     public var hippoIconPrimarySurface: UIColor { Self.parseOr(hippoIconPrimarySurfaceHex, "#33FFFFFF") }
     public var hippoIconSecondary: UIColor { Self.parseOr(hippoIconSecondaryHex, "#5F6368") }
@@ -201,6 +207,7 @@ import UIKit
         @discardableResult public func hippoWarning(_ hex: String) -> Builder { config.hippoWarningHex = hex; return self }
         @discardableResult public func hippoScrim(_ hex: String) -> Builder { config.hippoScrimHex = hex; return self }
 
+        @discardableResult public func hippoIconAccent(_ hex: String) -> Builder { config.hippoIconAccentHex = hex; return self }
         @discardableResult public func hippoIconPrimary(_ hex: String) -> Builder { config.hippoIconPrimaryHex = hex; return self }
         @discardableResult public func hippoIconPrimarySurface(_ hex: String) -> Builder { config.hippoIconPrimarySurfaceHex = hex; return self }
         @discardableResult public func hippoIconSecondary(_ hex: String) -> Builder { config.hippoIconSecondaryHex = hex; return self }

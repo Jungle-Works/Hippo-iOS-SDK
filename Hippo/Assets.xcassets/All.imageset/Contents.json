@@ -1,17 +1,15 @@
 {
   "images" : [
     {
-      "filename" : "Empty States-selection (2) 2.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "Empty States-selection (2) 1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "Empty States-selection (2).png",
+      "filename" : "All@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

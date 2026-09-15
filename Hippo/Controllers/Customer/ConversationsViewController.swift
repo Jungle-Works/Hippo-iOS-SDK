@@ -334,9 +334,9 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     /// duplicate `addTarget` on the button.
     func handleInfoIcon() {
         setTitleButton()
-        view_Navigation.info_button.setImage(HippoConfig.shared.theme.informationIcon, for: .normal)
+        view_Navigation.info_button.setImage(HippoConfig.shared.theme.mediaIcon, for: .normal)
         view_Navigation.info_button.addTarget(self, action:  #selector(openSharedMedia), for: UIControl.Event.touchUpInside)
-        view_Navigation.info_button.tintColor = HippoConfig.shared.theme.headerTextColor
+        view_Navigation.info_button.tintColor = HippoConfig.shared.colorConfig.hippoIconAccent
         view_Navigation.info_button.isEnabled = true
         updateInfoIconVisibility()
     }
@@ -575,11 +575,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         
         if HippoConfig.shared.theme.addButtonIcon != nil {
             
-            if let tintColor = HippoConfig.shared.theme.addBtnTintColor {
-                addFileButtonAction.imageView?.tintColor = tintColor
-            }else{
-                addFileButtonAction.imageView?.tintColor = HippoConfig.shared.colorConfig.hippoAccent
-            }
+            addFileButtonAction.imageView?.tintColor = HippoConfig.shared.colorConfig.hippoIconAccent
             addFileButtonAction.setImage(HippoConfig.shared.theme.addButtonIcon, for: .normal)
             addFileButtonAction.setTitle("", for: .normal)
         } else { addFileButtonAction.setTitle("ADD", for: .normal) }
@@ -596,7 +592,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
             .withRenderingMode(.alwaysTemplate)
         button_Recording.setImage(micIcon, for: .normal)
         button_Recording.imageView?.contentMode = .scaleAspectFit
-        button_Recording.tintColor = HippoConfig.shared.colorConfig.hippoAccent
+        button_Recording.tintColor = HippoConfig.shared.colorConfig.hippoIconAccent
        
         handleBackButton()
         if let businessName = userDetailData["business_name"] as? String, label.isEmpty {
@@ -848,20 +844,13 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     }
     
     @IBAction func openSharedMedia(_ sender: Any) {
-        OptionsBottomSheetViewController.present(
-            from: self,
-            title: "Select an option".localized,
-            options: [
-                BottomSheetOption(title: HippoStrings.sharedMediaTitle) { [weak self] in
-                    guard let self = self else { return }
-                    let storyboard = UIStoryboard(name: "AgentSdk", bundle: FuguFlowManager.bundle)
-                    if let vc = storyboard.instantiateViewController(withIdentifier: "SharedMediaViewController") as? SharedMediaViewController {
-                        vc.channelId = self.channelId
-                        self.navigationController?.pushViewController(vc, animated: true)
-                    }
-                }
-            ]
-        )
+        // Shared Media is the only option here, so open it directly instead of
+        // routing through a single-row bottom sheet.
+        let storyboard = UIStoryboard(name: "AgentSdk", bundle: FuguFlowManager.bundle)
+        if let vc = storyboard.instantiateViewController(withIdentifier: "SharedMediaViewController") as? SharedMediaViewController {
+            vc.channelId = self.channelId
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
     }
     
     
@@ -881,7 +870,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         actionSheetTitleArr.removeAll()
         actionSheetImageArr.removeAll()
         actionSheetTitleArr = [HippoStrings.photoLibrary,HippoStrings.camera,HippoStrings.document,"Send Current Location"]
-        actionSheetImageArr = ["Library","Camera","Library","location"]
+        actionSheetImageArr = ["Gallery","Camera","Media","location"]
         heightForActionSheet = CGFloat((actionSheetTitleArr.count * 60))
         isProceedToPayActionSheet = false
         self.openCustomSheet()
@@ -1577,7 +1566,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         
         if isDirectCallingEnabledFor(type: .video) {
 
-            view_Navigation.video_button.tintColor = HippoConfig.shared.colorConfig.hippoAccent
+            view_Navigation.video_button.tintColor = HippoConfig.shared.colorConfig.hippoIconAccent
             view_Navigation.video_button.isEnabled = true
             view_Navigation.video_button.setImage(HippoConfig.shared.theme.videoCallIcon, for: .normal)
             view_Navigation.video_button.isHidden = false
@@ -1593,7 +1582,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         //image icon name = audioCallIcon
         
         if isDirectCallingEnabledFor(type: .audio) {
-            view_Navigation.call_button.tintColor = HippoConfig.shared.colorConfig.hippoAccent
+            view_Navigation.call_button.tintColor = HippoConfig.shared.colorConfig.hippoIconAccent
             view_Navigation.call_button.isEnabled = true
             view_Navigation.call_button.setImage(HippoConfig.shared.theme.audioCallIcon, for: .normal)
             view_Navigation.call_button.isHidden = false
@@ -2577,7 +2566,9 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                     cell.settingImage.image = nil
                 }
             }else{
-                cell.settingImage.tintColor = .black
+                // Attachment-sheet glyphs (Gallery / Camera / Media / location) ride the
+                // same icon token as the composer and header icons.
+                cell.settingImage.tintColor = HippoConfig.shared.colorConfig.hippoIconAccent
                 let renderingMode: UIImage.RenderingMode = isProceedToPayActionSheet == true ? .alwaysOriginal : .alwaysTemplate
                 if let img = UIImage(named: actionSheetImageArr[indexPath.row], in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(renderingMode){
                     cell.settingImage.image = img

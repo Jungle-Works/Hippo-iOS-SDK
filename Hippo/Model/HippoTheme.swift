@@ -78,9 +78,11 @@ public struct ConversationListTheme {
     open var sparkle: UIImage? = UIImage(named: "ph_sparkle-fill", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     open var undo: UIImage? = UIImage(named: "undo", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     open var informationIcon: UIImage? = UIImage(named: "dots", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+    open var mediaIcon: UIImage? = UIImage(named: "Gallery", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     open var audioCallIcon: UIImage? = UIImage(named: "call", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     open var videoCallIcon: UIImage? = UIImage(named: "video", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     open var noChatImage : UIImage? = UIImage(named: "noChat", in: FuguFlowManager.bundle, compatibleWith: nil)
+    open var noMediaImage : UIImage? = UIImage(named: "noMedia", in: FuguFlowManager.bundle, compatibleWith: nil)
     open var emplyAddressImage : UIImage? = UIImage(named: "emplyAddress", in: FuguFlowManager.bundle, compatibleWith: nil)
     open var noPrescription : UIImage? = UIImage(named: "emptyprescription", in: FuguFlowManager.bundle, compatibleWith: nil)
     open var paymentIcon: UIImage? = UIImage(named: "makePayment", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysOriginal)
@@ -159,7 +161,6 @@ public struct ConversationListTheme {
     open var moreOptionsBtnTintColor: UIColor?
     open var moreOptionsIconsTintColor = UIColor.black
     open var moreOptionsTitlesTintColor = UIColor.black
-    open var addBtnTintColor: UIColor?
     
     open var actionButtonIcon: UIImage? = UIImage(named: "optionIcons", in: FuguFlowManager.bundle, compatibleWith: nil)
     open var actionButtonIconTintColor: UIColor?

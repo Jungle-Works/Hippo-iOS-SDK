@@ -1015,7 +1015,7 @@ extension AgentConversationViewController {
     func handleInfoIcon() {
         setTitleButton()
         view_Navigation.info_button.isHidden = false
-        view_Navigation.info_button.setImage(HippoConfig.shared.theme.informationIcon, for: .normal)
+        view_Navigation.info_button.setImage(HippoConfig.shared.theme.mediaIcon, for: .normal)
         view_Navigation.info_button.addTarget(self, action:  #selector(infoButtonClicked), for: UIControl.Event.touchUpInside)
         view_Navigation.info_button.tintColor = HippoConfig.shared.theme.headerTextColor
         view_Navigation.info_button.isEnabled = true
