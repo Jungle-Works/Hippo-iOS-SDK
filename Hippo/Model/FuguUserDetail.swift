@@ -747,7 +747,8 @@ public class UserTag: NSObject {
         
         FuguDefaults.removeObject(forKey: DefaultKey.myChatConversations)
         FuguDefaults.removeObject(forKey: DefaultKey.allChatConversations)
-        FuguDefaults.removeObject(forKey: DefaultKey.allChatConversations)
+        FuguDefaults.removeObject(forKey: DefaultKey.p2pChatConversations)
+        FuguDefaults.removeObject(forKey: DefaultKey.supportChatConversations)
         
         FuguDefaults.removeObject(forKey: DefaultName.conversationData.rawValue)
         FuguDefaults.removeObject(forKey: DefaultName.appointmentData.rawValue)

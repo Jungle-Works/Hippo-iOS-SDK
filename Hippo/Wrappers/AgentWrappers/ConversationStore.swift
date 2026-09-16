@@ -13,72 +13,113 @@ class ConversationStore {
     
     var myChats = [AgentConversation]()
     var allChats = [AgentConversation]()
-    var o2oChats = [AgentConversation]()
+    var p2pChats = [AgentConversation]()
+    var supportChats = [AgentConversation]()
     var activeDirectChats = [AgentConversation]()
     var isMoreMyChatToLoad = false
     var isMoreAllChatToLoad = false
-    var isMoreo2oChatToLoad = false
+    var isMorep2pChatToLoad = false
+    var isMoreSupportChatToLoad = false
     
     var channelUnreadHashMap: [Int: AgentConversation] = [:]
     
+    func conversations(for type: ConversationType) -> [AgentConversation] {
+        switch type {
+        case .myChat:
+            return myChats
+        case .allChat:
+            return allChats
+        case .p2pChat:
+            return p2pChats
+        case .supportChat:
+            return supportChats
+        case .historyChat:
+            return []
+        }
+    }
+    
+    func isMoreToLoad(for type: ConversationType) -> Bool {
+        switch type {
+        case .myChat:
+            return isMoreMyChatToLoad
+        case .allChat:
+            return isMoreAllChatToLoad
+        case .p2pChat:
+            return isMorep2pChatToLoad
+        case .supportChat:
+            return isMoreSupportChatToLoad
+        case .historyChat:
+            return false
+        }
+    }
     
     func clearData() {
         myChats.removeAll()
         allChats.removeAll()
+        p2pChats.removeAll()
+        supportChats.removeAll()
         activeDirectChats.removeAll()
         isMoreMyChatToLoad = false
         isMoreAllChatToLoad = false
+        isMorep2pChatToLoad = false
+        isMoreSupportChatToLoad = false
         channelUnreadHashMap.removeAll()
     }
     
     func storeConversationToCache() {
-        var myChatsJson = [[String: Any]]()
-        var allChatsJson = [[String: Any]]()
-        var o2oChatsJson = [[String: Any]]()
-        
-        for each in myChats {
-            let json = each.getJsonToStore()
-            myChatsJson.append(json)
-        }
-        for each in allChats {
-            let json = each.getJsonToStore()
-            allChatsJson.append(json)
-        }
-        for each in o2oChats {
-            let json = each.getJsonToStore()
-            o2oChatsJson.append(json)
+        func json(of conversations: [AgentConversation]) -> [[String: Any]] {
+            return conversations.map { $0.getJsonToStore() }
         }
         
-        FuguDefaults.set(value: myChatsJson, forKey: DefaultKey.myChatConversations)
-        FuguDefaults.set(value: allChatsJson, forKey: DefaultKey.allChatConversations)
-        FuguDefaults.set(value: o2oChatsJson, forKey: DefaultKey.o2oChatConversations)
+        FuguDefaults.set(value: json(of: myChats), forKey: DefaultKey.myChatConversations)
+        FuguDefaults.set(value: json(of: allChats), forKey: DefaultKey.allChatConversations)
+        FuguDefaults.set(value: json(of: p2pChats), forKey: DefaultKey.p2pChatConversations)
+        FuguDefaults.set(value: json(of: supportChats), forKey: DefaultKey.supportChatConversations)
     }
     
     func fetchAllCachedConversation() {
         loadCacheForMyChat()
         loadCacheForAllChat()
-        loadCacheForO2OChat()
+        loadCacheForP2PChat()
+        loadCacheForSupportChat()
+    }
+    
+    private func cachedConversations(forKey key: String) -> [AgentConversation]? {
+        guard let json = FuguDefaults.object(forKey: key) as? [[String: Any]] else {
+            return nil
+        }
+        return AgentConversation.getConversationArray(jsonArray: json)
     }
     
     func loadCacheForMyChat() {
-        guard let myChatsJson = FuguDefaults.object(forKey: DefaultKey.myChatConversations) as? [[String: Any]] else {
+        guard let cached = cachedConversations(forKey: DefaultKey.myChatConversations) else {
             return
         }
-        self.myChats = AgentConversation.getConversationArray(jsonArray: myChatsJson)
+        self.myChats = cached
     }
     
     func loadCacheForAllChat() {
-        guard let allChatsJson = FuguDefaults.object(forKey: DefaultKey.allChatConversations) as? [[String: Any]] else {
+        guard let cached = cachedConversations(forKey: DefaultKey.allChatConversations) else {
             return
         }
-         self.allChats = AgentConversation.getConversationArray(jsonArray: allChatsJson)
+        self.allChats = cached
     }
     
-    func loadCacheForO2OChat() {
-        guard let o2oChatJson = FuguDefaults.object(forKey: DefaultKey.o2oChatConversations) as? [[String: Any]] else {
+    func loadCacheForP2PChat() {
+        guard let cached = cachedConversations(forKey: DefaultKey.p2pChatConversations) else {
             return
         }
-         self.o2oChats = AgentConversation.getConversationArray(jsonArray: o2oChatJson)
+        self.p2pChats = cached
+    }
+    
+    func loadCacheForSupportChat() {
+        guard let cached = cachedConversations(forKey: DefaultKey.supportChatConversations) else {
+            return
+        }
+        // Support rows always carry the support channel type; the cache round-trip
+        // must not lose it or AgentHomeConversationCell renders them as normal chats.
+        cached.forEach { $0.channel_type = channelType.SUPPORT_CHAT_CHANNEL.rawValue }
+        self.supportChats = cached
     }
 }
 

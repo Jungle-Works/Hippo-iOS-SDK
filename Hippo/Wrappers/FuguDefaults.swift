@@ -25,7 +25,8 @@ struct DefaultKey {
     static let myChatConversations = "Agent_My_Chat_Data"
     static let allChatConversations = "Agent_All_chat_Data"
     static let AgentsList = "Hippo_agent_data"
-    static let o2oChatConversations = "Agent_O2O_Chat_Data"
+    static let p2pChatConversations = "Agent_P2P_Chat_Data"
+    static let supportChatConversations = "Agent_Support_Chat_Data"
     static let tagsList = "Hippo_tags_details"
     static let channelDetails = "Hippo_channel_details"
 }

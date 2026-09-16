@@ -167,6 +167,7 @@ public class HippoStrings {
     static var mentionedYou = "mentioned you".localized
     static var missedCallFrom = "you missed call from".localized
     static var allChats = "All Chats".localized
+    static var p2pChats = "P2P Chats".localized
     static var text = "Text".localized
     static var internalNotes = "Internal Notes".localized
     static var bot = "Bot".localized

@@ -354,6 +354,8 @@ public struct ConversationListTheme {
     open var takeOverButtonText : String?
     open var myChatBtnText : String?
     open var allChatBtnText : String?
+    open var p2pChatBtnText : String?
+    open var supportChatBtnText : String?
     open var messagePlaceHolderText : String?
     open var noOpenAndcloseChatError : String?
     open var noChatUnderCatagoryError : String?

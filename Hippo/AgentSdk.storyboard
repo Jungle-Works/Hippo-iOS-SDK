@@ -5,6 +5,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="Scroll view layout guides" minToolsVersion="11.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -99,49 +100,76 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gh1-0d-ONf">
                                 <rect key="frame" x="0.0" y="60" width="375" height="50"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="6y9-R5-kY2">
+                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tsv-00-a01">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zhx-lP-gGW">
-                                                <rect key="frame" x="0.0" y="0.0" width="125" height="50"/>
-                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
-                                                <state key="normal" title="MY CHATS">
-                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="myChatButtonClicked:" destination="x6x-BZ-uyM" eventType="touchUpInside" id="bh5-Ci-gph"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oeT-9b-4N7">
-                                                <rect key="frame" x="125" y="0.0" width="125" height="50"/>
-                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
-                                                <state key="normal" title="ALL CHATS">
-                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="allChatButtonClicked:" destination="x6x-BZ-uyM" eventType="touchUpInside" id="hm3-9F-Pkv"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mh1-oC-zzc">
-                                                <rect key="frame" x="250" y="0.0" width="125" height="50"/>
-                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
-                                                <state key="normal" title="O2O Chats">
-                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="o2oChatButtonClicked:" destination="x6x-BZ-uyM" eventType="touchUpInside" id="F0N-6k-fni"/>
-                                                </connections>
-                                            </button>
+                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="6y9-R5-kY2">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zhx-lP-gGW">
+                                                    <rect key="frame" x="0.0" y="0.0" width="125" height="50"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                                                    <state key="normal" title="MY CHATS">
+                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="myChatButtonClicked:" destination="x6x-BZ-uyM" eventType="touchUpInside" id="bh5-Ci-gph"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oeT-9b-4N7">
+                                                    <rect key="frame" x="125" y="0.0" width="125" height="50"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                                                    <state key="normal" title="ALL CHATS">
+                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="allChatButtonClicked:" destination="x6x-BZ-uyM" eventType="touchUpInside" id="hm3-9F-Pkv"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mh1-oC-zzc">
+                                                    <rect key="frame" x="250" y="0.0" width="125" height="50"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                                                    <state key="normal" title="P2P Chats">
+                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="p2pChatButtonClicked:" destination="x6x-BZ-uyM" eventType="touchUpInside" id="F0N-6k-fni"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Spt-00-b01">
+                                                    <rect key="frame" x="375" y="0.0" width="125" height="50"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                                                    <state key="normal" title="Support Chats">
+                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="supportChatButtonClicked:" destination="x6x-BZ-uyM" eventType="touchUpInside" id="Spt-ac-001"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                        </stackView>
+                                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sKH-xj-haV">
+                                            <rect key="frame" x="0.0" y="47" width="125" height="3"/>
+                                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="125" id="3si-qz-HXY"/>
+                                                <constraint firstAttribute="height" constant="3" id="Lq2-1p-8hv"/>
+                                            </constraints>
+                                        </view>
                                         </subviews>
-                                    </stackView>
-                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sKH-xj-haV">
-                                        <rect key="frame" x="0.0" y="47" width="125" height="3"/>
-                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="125" id="3si-qz-HXY"/>
-                                            <constraint firstAttribute="height" constant="3" id="Lq2-1p-8hv"/>
+                                            <constraint firstItem="6y9-R5-kY2" firstAttribute="leading" secondItem="Tsv-cl-g01" secondAttribute="leading" id="Cn2-00-001"/>
+                                            <constraint firstItem="6y9-R5-kY2" firstAttribute="top" secondItem="Tsv-cl-g01" secondAttribute="top" id="Cn2-00-002"/>
+                                            <constraint firstItem="Tsv-cl-g01" firstAttribute="bottom" secondItem="6y9-R5-kY2" secondAttribute="bottom" id="Cn2-00-003"/>
+                                            <constraint firstItem="Tsv-cl-g01" firstAttribute="trailing" secondItem="6y9-R5-kY2" secondAttribute="trailing" id="Cn2-00-004"/>
+                                            <constraint firstItem="6y9-R5-kY2" firstAttribute="height" secondItem="Tsv-fl-g01" secondAttribute="height" id="Cn2-00-005"/>
+                                            <constraint firstItem="6y9-R5-kY2" firstAttribute="width" relation="greaterThanOrEqual" secondItem="Tsv-fl-g01" secondAttribute="width" id="Cn2-00-006"/>
+                                            <constraint firstItem="sKH-xj-haV" firstAttribute="leading" secondItem="Tsv-cl-g01" secondAttribute="leading" id="ddw-ZD-F7b"/>
+                                            <constraint firstItem="Tsv-cl-g01" firstAttribute="bottom" secondItem="sKH-xj-haV" secondAttribute="bottom" id="pwN-d7-Gcd"/>
                                         </constraints>
-                                    </view>
+                                        <viewLayoutGuide key="contentLayoutGuide" id="Tsv-cl-g01"/>
+                                        <viewLayoutGuide key="frameLayoutGuide" id="Tsv-fl-g01"/>
+                                    </scrollView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VDL-lC-a20">
                                         <rect key="frame" x="0.0" y="49.5" width="375" height="0.5"/>
                                         <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -153,13 +181,11 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="VDL-lC-a20" firstAttribute="leading" secondItem="Gh1-0d-ONf" secondAttribute="leading" id="Ekz-4v-adE"/>
-                                    <constraint firstItem="6y9-R5-kY2" firstAttribute="leading" secondItem="Gh1-0d-ONf" secondAttribute="leading" id="LYc-0j-m8o"/>
+                                    <constraint firstItem="Tsv-00-a01" firstAttribute="leading" secondItem="Gh1-0d-ONf" secondAttribute="leading" id="LYc-0j-m8o"/>
                                     <constraint firstAttribute="trailing" secondItem="VDL-lC-a20" secondAttribute="trailing" id="T0d-NL-Nbu"/>
-                                    <constraint firstItem="6y9-R5-kY2" firstAttribute="top" secondItem="Gh1-0d-ONf" secondAttribute="top" id="Zvz-Km-wk9"/>
-                                    <constraint firstItem="sKH-xj-haV" firstAttribute="leading" secondItem="Gh1-0d-ONf" secondAttribute="leading" id="ddw-ZD-F7b"/>
-                                    <constraint firstAttribute="bottom" secondItem="6y9-R5-kY2" secondAttribute="bottom" id="e1H-oc-Zin"/>
-                                    <constraint firstAttribute="bottom" secondItem="sKH-xj-haV" secondAttribute="bottom" id="pwN-d7-Gcd"/>
-                                    <constraint firstAttribute="trailing" secondItem="6y9-R5-kY2" secondAttribute="trailing" id="s1f-vh-Pcb"/>
+                                    <constraint firstItem="Tsv-00-a01" firstAttribute="top" secondItem="Gh1-0d-ONf" secondAttribute="top" id="Zvz-Km-wk9"/>
+                                    <constraint firstAttribute="bottom" secondItem="Tsv-00-a01" secondAttribute="bottom" id="e1H-oc-Zin"/>
+                                    <constraint firstAttribute="trailing" secondItem="Tsv-00-a01" secondAttribute="trailing" id="s1f-vh-Pcb"/>
                                     <constraint firstAttribute="height" constant="50" id="upG-tD-tjE"/>
                                     <constraint firstAttribute="bottom" secondItem="VDL-lC-a20" secondAttribute="bottom" id="wew-w7-Msb"/>
                                 </constraints>
@@ -317,7 +343,10 @@
                         <outlet property="loaderImage" destination="F3C-jv-Sxi" id="jaZ-T4-okD"/>
                         <outlet property="myChatButton" destination="Zhx-lP-gGW" id="Mgm-he-Et7"/>
                         <outlet property="noChatsFoundImageView" destination="93u-rW-Bn3" id="PgB-ay-11R"/>
-                        <outlet property="o2oChatButton" destination="mh1-oC-zzc" id="1b4-KS-OOm"/>
+                        <outlet property="p2pChatButton" destination="mh1-oC-zzc" id="1b4-KS-OOm"/>
+                        <outlet property="supportChatButton" destination="Spt-00-b01" id="Spt-ol-001"/>
+                        <outlet property="tabScrollView" destination="Tsv-00-a01" id="Tsv-ol-001"/>
+                        <outlet property="tabStackView" destination="6y9-R5-kY2" id="Tsv-ol-002"/>
                         <outlet property="paginationActivityLoader" destination="UGf-TV-CXo" id="fMo-QR-Jwb"/>
                         <outlet property="tableView" destination="Nwe-Em-gil" id="1vG-yf-Spd"/>
                         <outlet property="view_NavigationBar" destination="qOb-Xv-lEG" id="fNo-4N-75n"/>

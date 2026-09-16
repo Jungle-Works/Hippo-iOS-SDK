@@ -351,7 +351,8 @@ enum ActionType: Int {
 enum ConversationType {
     case myChat
     case allChat
-    case o2oChat
+    case p2pChat
+    case supportChat
     case historyChat
 }
 

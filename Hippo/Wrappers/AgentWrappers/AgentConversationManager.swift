@@ -40,8 +40,12 @@ struct GetConversationRequestParam {
         return GetConversationRequestParam(pageStart: 1, pageEnd: nil, showLoader: false, type: .searchUser, identifier: String.generateUniqueId())
     }
     
-    static var o2oDefaultRequest: GetConversationRequestParam {
-        return GetConversationRequestParam(pageStart: 1, pageEnd: nil, showLoader: false, type: .o2oChat, identifier: String.generateUniqueId())
+    static var p2pDefaultRequest: GetConversationRequestParam {
+        return GetConversationRequestParam(pageStart: 1, pageEnd: nil, showLoader: false, type: .p2pChat, identifier: String.generateUniqueId())
+    }
+    
+    static var supportDefaultRequest: GetConversationRequestParam {
+        return GetConversationRequestParam(pageStart: 1, pageEnd: nil, showLoader: false, type: .supportChat, identifier: String.generateUniqueId())
     }
     
     static var historyDefaultRequest: GetConversationRequestParam{
@@ -57,8 +61,10 @@ struct GetConversationRequestParam {
             return RequestIdenfier.getMyConversationIdentfier
         case .searchUser:
             return RequestIdenfier.getAllConversationIdentfier
-        case .o2oChat:
-            return RequestIdenfier.geto2oChatConversationIdentfier
+        case .p2pChat:
+            return RequestIdenfier.getp2pChatConversationIdentfier
+        case .supportChat:
+            return RequestIdenfier.getSupportChatConversationIdentfier
         case .historyChat:
             return RequestIdenfier.getHistoryConversationIdentfier
         }
@@ -67,7 +73,8 @@ struct GetConversationRequestParam {
         case myChat
         case allChat
         case searchUser
-        case o2oChat
+        case p2pChat
+        case supportChat
         case historyChat
         
         init(conversationType: ConversationType) {
@@ -76,10 +83,22 @@ struct GetConversationRequestParam {
                 self = .allChat
             case .myChat:
                 self = .myChat
-            case .o2oChat:
-                self = .o2oChat
+            case .p2pChat:
+                self = .p2pChat
+            case .supportChat:
+                self = .supportChat
             case .historyChat:
                 self = .historyChat
+            }
+        }
+        
+        /// Support chats come from a different endpoint than the other tabs.
+        var endPoint: String {
+            switch self {
+            case .supportChat:
+                return AgentEndPoints.getAgentSupportChannelListing.rawValue
+            case .myChat, .allChat, .searchUser, .p2pChat, .historyChat:
+                return AgentEndPoints.getConversation.rawValue
             }
         }
     }
@@ -95,7 +114,8 @@ class AgentConversationManager {
     static var isAllChatInProgress = false
     static var isMyChatInProgress = false
     static var isLoginInProgess = false
-    static var iso2oChatInProgress = false
+    static var isp2pChatInProgress = false
+    static var isSupportChatInProgress = false
     static let maxPageSize = 20//30
     
     static var allChatHttpRequest: URLSessionDataTask?
@@ -143,18 +163,32 @@ class AgentConversationManager {
             }
         }
         
-        if !iso2oChatInProgress{
-            if BussinessProperty.current.hideo2oChat ?? false{
-                return
-            }
-            
-            iso2oChatInProgress = true
-            
-            getConversations(with: .o2oDefaultRequest) { (result) in
-                iso2oChatInProgress = false
-            }
+        // P2P and Support chats are fetched lazily when their tab is first
+        // selected — see AgentHomeViewController.fetchInitialDataIfRequired().
+    }
+    
+    class func getP2PChats(completion: (() -> Void)? = nil) {
+        guard !isp2pChatInProgress else {
+            completion?()
+            return
         }
-        
+        isp2pChatInProgress = true
+        getConversations(with: .p2pDefaultRequest) { (_) in
+            isp2pChatInProgress = false
+            completion?()
+        }
+    }
+    
+    class func getSupportChats(completion: (() -> Void)? = nil) {
+        guard !isSupportChatInProgress else {
+            completion?()
+            return
+        }
+        isSupportChatInProgress = true
+        getConversations(with: .supportDefaultRequest) { (_) in
+            isSupportChatInProgress = false
+            completion?()
+        }
     }
     
     class func getHistoryChats(pageNum: Int, showLoader: Bool = false, visitorId: Int, excludedChannelId: [Int]? = nil, completion: @escaping ((_ result: AgentGetConversationFromServerResult) -> ())){
@@ -244,7 +278,7 @@ class AgentConversationManager {
             return
         }
 
-        HTTPClient.shared.makeSingletonConnectionWith(method: .POST, identifier: request.apiRequestIdentifier, para: params, extendedUrl: AgentEndPoints.getConversation.rawValue) { (responseObject, error, tag, statusCode) in
+        HTTPClient.shared.makeSingletonConnectionWith(method: .POST, identifier: request.apiRequestIdentifier, para: params, extendedUrl: request.type.endPoint) { (responseObject, error, tag, statusCode) in
             
             
             let response = ServerResponse(statusCode: statusCode, responseObj: responseObject, tag: tag, error: error)
@@ -305,13 +339,25 @@ class AgentConversationManager {
             }
         case .searchUser:
             break
-        case .o2oChat:
-            iso2oChatInProgress = false
-            ConversationStore.shared.isMoreo2oChatToLoad = isMoreToLoad
+        case .p2pChat:
+            isp2pChatInProgress = false
+            ConversationStore.shared.isMorep2pChatToLoad = isMoreToLoad
             if request.pageStart == 1 {
-                ConversationStore.shared.o2oChats = conversations
+                ConversationStore.shared.p2pChats = conversations
             } else {
-                ConversationStore.shared.o2oChats.append(contentsOf: conversations)
+                ConversationStore.shared.p2pChats.append(contentsOf: conversations)
+            }
+            
+        case .supportChat:
+            isSupportChatInProgress = false
+            ConversationStore.shared.isMoreSupportChatToLoad = isMoreToLoad
+            // The support endpoint does not set chat_type/channel_type on its rows;
+            // AgentHomeConversationCell branches on SUPPORT_CHAT_CHANNEL to render them.
+            conversations.forEach { $0.channel_type = channelType.SUPPORT_CHAT_CHANNEL.rawValue }
+            if request.pageStart == 1 {
+                ConversationStore.shared.supportChats = conversations
+            } else {
+                ConversationStore.shared.supportChats.append(contentsOf: conversations)
             }
             
         case .historyChat:
@@ -327,7 +373,7 @@ class AgentConversationManager {
         return isConversationApiOnGoing() || isLoginInProgess
     }
     class func isConversationApiOnGoing() -> Bool {
-        return isMyChatInProgress || isAllChatInProgress
+        return isMyChatInProgress || isAllChatInProgress || isp2pChatInProgress || isSupportChatInProgress
     }
     
     class func getConversationForSearchUser(completion: @escaping ((_ result: AgentGetConversationFromServerResult) -> Void)) {
@@ -567,6 +613,15 @@ extension AgentConversationManager {
         guard var dict = generateDefaultParam(with: request) else {
             return nil
         }
+        
+        // The support endpoint takes its own filter set (driven by
+        // SupportChatFilterViewController) and ignores the agent/label/date
+        // filters that FilterManager builds for the other tabs.
+        if request.type == .supportChat {
+            dict.appendDictionary(other: supportChatFilterParams())
+            return dict
+        }
+        
         dict["channel_status"] = FilterManager.shared.selectedChatStatus
         
         
@@ -614,6 +669,43 @@ extension AgentConversationManager {
         return dict
     }
     
+    /// Filter params for the support-chat tab, driven by the selections made in
+    /// SupportChatFilterViewController. Mirrors SupportChatViewModel's param builder.
+    fileprivate static func supportChatFilterParams() -> [String: Any] {
+        guard let filters = HippoConfig.shared.supportChatFilter else {
+            return [:]
+        }
+        var params = [String: Any]()
+        
+        let selectedType = filters.first(where: { $0.type == .type })?
+            .value?.first(where: { $0.isSelected == true })
+        switch selectedType?.value {
+        case HippoStrings.myChatsOnly:
+            params["fetch_my_chats_only"] = true
+        case HippoStrings.unassignedChats:
+            params["fetch_unassigned_chats"] = true
+        case HippoStrings.mySupportChats:
+            params["fetch_my_support_chats"] = true
+        default:
+            break
+        }
+        
+        let statusValues = filters.first(where: { $0.type == .status })?.value ?? []
+        var channelStatus = [Int]()
+        if statusValues.first(where: { $0.value == HippoStrings.openChat })?.isSelected ?? false {
+            channelStatus.append(ChatStatus.open.rawValue)
+        }
+        if statusValues.first(where: { $0.value == HippoStrings.closedChat })?.isSelected ?? false {
+            channelStatus.append(ChatStatus.close.rawValue)
+        }
+        if channelStatus.isEmpty {
+            channelStatus.append(ChatStatus.open.rawValue)
+        }
+        params["channel_status"] = channelStatus
+        
+        return params
+    }
+    
     fileprivate static func parsedChatTypes(request: GetConversationRequestParam) -> [String: Any] {
         var chatJson = [String: Any]()
         
@@ -623,10 +715,10 @@ extension AgentConversationManager {
             chatJson["fetch_my_chats"] = true
         case (.allChat, _):
             chatJson["fetch_all_chats"] = true
-        case (.searchUser, _), (.historyChat, _):
+        case (.searchUser, _), (.historyChat, _), (.supportChat, _):
             print(request.type)
-        case (.o2oChat, _):
-            chatJson["fetch_o2o_chats"] = true
+        case (.p2pChat, _):
+            chatJson["fetch_p2p_chats"] = true
         default:
             break
         }
