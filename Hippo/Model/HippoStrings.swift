@@ -127,6 +127,15 @@ public class HippoStrings {
     static var sentACallInvite = "Sent a Call Invite"
     static var recievedACallInvite = "Recieved a Call Invite"
     static var sharedMediaTitle = "Shared Media".localized
+    static var sharedMediaTabMedia = "Media".localized
+    static var sharedMediaTabDocs = "Docs".localized
+    static var sharedMediaNoMedia = "No media shared yet".localized
+    static var sharedMediaNoDocs = "No documents shared yet".localized
+    static var sharedMediaVoiceMessage = "Voice message".localized
+    static var sharedMediaAudioFile = "Audio file".localized
+    static var sharedMediaGenericDocument = "Document".localized
+    /// "%@" is the uppercased file extension, e.g. "PDF document".
+    static var sharedMediaDocumentFormat = "%@ document".localized
     static var recordingTooShort = "Recording is too short.".localized
     static var microphoneAccessMessage = "Enable microphone access in Settings to record voice messages.".localized
     static var openSettings = "Settings".localized

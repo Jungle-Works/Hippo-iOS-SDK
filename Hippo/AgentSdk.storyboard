@@ -1526,11 +1526,21 @@
                                     <constraint firstAttribute="height" constant="50" id="ou0-ww-FLa"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tb1-Mx-Qa9" customClass="SharedMediaTabBar" customModule="Hippo" customModuleProvider="target">
+                                <rect key="frame" x="16" y="82" width="343" height="42"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="42" id="Tb5-Mx-Qa9"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="AA0-op-l15"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="WP1-HI-rnc" firstAttribute="top" secondItem="uRB-Xi-7fF" secondAttribute="bottom" id="HMQ-bp-d0Q"/>
+                            <constraint firstItem="WP1-HI-rnc" firstAttribute="top" secondItem="Tb1-Mx-Qa9" secondAttribute="bottom" constant="16" id="HMQ-bp-d0Q"/>
+                            <constraint firstItem="Tb1-Mx-Qa9" firstAttribute="top" secondItem="uRB-Xi-7fF" secondAttribute="bottom" constant="12" id="Tb2-Mx-Qa9"/>
+                            <constraint firstItem="Tb1-Mx-Qa9" firstAttribute="leading" secondItem="AA0-op-l15" secondAttribute="leading" constant="16" id="Tb3-Mx-Qa9"/>
+                            <constraint firstItem="AA0-op-l15" firstAttribute="trailing" secondItem="Tb1-Mx-Qa9" secondAttribute="trailing" constant="16" id="Tb4-Mx-Qa9"/>
                             <constraint firstItem="uRB-Xi-7fF" firstAttribute="trailing" secondItem="AA0-op-l15" secondAttribute="trailing" id="OhQ-Bb-iFN"/>
                             <constraint firstItem="WP1-HI-rnc" firstAttribute="leading" secondItem="AA0-op-l15" secondAttribute="leading" id="TVA-Ks-h6a"/>
                             <constraint firstItem="AA0-op-l15" firstAttribute="bottom" secondItem="WP1-HI-rnc" secondAttribute="bottom" id="VKy-xR-BfG"/>
@@ -1541,6 +1551,7 @@
                     </view>
                     <connections>
                         <outlet property="collectionView" destination="WP1-HI-rnc" id="sML-5K-5Ih"/>
+                        <outlet property="tabBar" destination="Tb1-Mx-Qa9" id="Tb6-Mx-Qa9"/>
                         <outlet property="viewNavigationBar" destination="uRB-Xi-7fF" id="Yst-Id-HTg"/>
                     </connections>
                 </viewController>

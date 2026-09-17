@@ -83,6 +83,7 @@ public struct ConversationListTheme {
     open var videoCallIcon: UIImage? = UIImage(named: "video", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     open var noChatImage : UIImage? = UIImage(named: "noChat", in: FuguFlowManager.bundle, compatibleWith: nil)
     open var noMediaImage : UIImage? = UIImage(named: "noMedia", in: FuguFlowManager.bundle, compatibleWith: nil)
+    open var noDocsImage : UIImage? = UIImage(named: "noDocs", in: FuguFlowManager.bundle, compatibleWith: nil)
     open var emplyAddressImage : UIImage? = UIImage(named: "emplyAddress", in: FuguFlowManager.bundle, compatibleWith: nil)
     open var noPrescription : UIImage? = UIImage(named: "emptyprescription", in: FuguFlowManager.bundle, compatibleWith: nil)
     open var paymentIcon: UIImage? = UIImage(named: "makePayment", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysOriginal)
