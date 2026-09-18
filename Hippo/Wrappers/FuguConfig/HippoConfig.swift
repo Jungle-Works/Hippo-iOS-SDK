@@ -1359,6 +1359,19 @@ struct WhatsappWidgetConfig{
                 return
             }
 
+            // A push for a call that already ended here must never become a new CallKit
+            // call. checkIfUserIsBusy above only knows the call in progress, and
+            // hasActiveCallForUUID below only knows the CXCall we just ended, so after a
+            // teardown both wave this muid through — and the repeated START_CONFERENCE_IOS
+            // the caller sends for up to 60s, or the backend's call-ended push, lands
+            // squarely in that window. The resulting CXCall is dropped by
+            // startReceivedCall on idForHungUpSent, so nothing is left to end it and the
+            // call screen stays up.
+            if HippoCallClient.shared.isCallAlreadyFinished(uid: uuid) {
+                completion()
+                return
+            }
+
             guard let UUID = UUID(uuidString: uuid) else {
                 completion()
                 return
@@ -1676,6 +1689,26 @@ extension HippoConfig{
         #if canImport(JitsiMeetSDK)
         HippoCallClient.shared.keyWindowChangedFromParent()
         #endif
+    }
+
+    /// Seconds to wait on the "Connecting..." screen before giving the call up.
+    /// Defaults to 30. `0` waits forever (the pre-existing behaviour).
+    ///
+    /// On timeout the call is hung up, the call view is dismissed, and the delegate
+    /// receives `hippoCallStateChanged(.timedOut)`.
+    public var callConnectTimeout: TimeInterval {
+        get {
+            #if canImport(HippoCallClient)
+            return HippoCallClient.shared.callConnectTimeout
+            #else
+            return 0
+            #endif
+        }
+        set {
+            #if canImport(HippoCallClient)
+            HippoCallClient.shared.callConnectTimeout = newValue
+            #endif
+        }
     }
 }
 extension HippoConfig {

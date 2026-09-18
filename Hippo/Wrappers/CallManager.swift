@@ -300,6 +300,10 @@ extension CallManager: HippoCallClientDelegate {
     func callStarted(isCallStarted: Bool) {
          HippoConfig.shared.jitsiOngoingCall = isCallStarted
     }
+
+    func callStateChanged(_ state: HippoCallState) {
+        HippoConfig.shared.delegate?.hippoCallStateChanged(state)
+    }
     
     func loadCallPresenterView(request: CallPresenterRequest) -> CallPresenter? {
         return HippoConfig.shared.notifyCallRequest(request)

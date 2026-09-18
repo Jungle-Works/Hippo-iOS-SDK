@@ -54,8 +54,21 @@ public protocol HippoDelegate: AnyObject {
     func hippoAnnouncementCustomerUnreadCount(_ totalCount: Int)
     #if canImport(HippoCallClient)
      func loadCallPresenterView(request: CallPresenterRequest) -> CallPresenter?
+     /// Called on the main thread whenever the current call changes state
+     /// (`.connecting` / `.connected` / `.timedOut` / `.ended`).
+     ///
+     /// `.timedOut` means the call sat on the "Connecting..." screen past
+     /// `HippoConfig.shared.callConnectTimeout` and has already been torn down.
+     func hippoCallStateChanged(_ state: HippoCallState)
     #endif
 }
+
+#if canImport(HippoCallClient)
+public extension HippoDelegate {
+    /// Optional: host apps that do not care about call state need not implement it.
+    func hippoCallStateChanged(_ state: HippoCallState) {}
+}
+#endif
 
 extension HippoDelegate {
     
