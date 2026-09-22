@@ -948,7 +948,6 @@ struct WhatsappWidgetConfig{
     private func findChannelAndStartCall(data: PeerToPeerChat, callType: CallType, completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
         let uuid: String = String.uuid()
         let peer = User(name: data.peerName, imageURL: data.otherUserImage?.absoluteString, userId: -222)
-        CallManager.shared.startConnection(peerUser: peer, muid: uuid, callType: callType, completion: { success in })
         
         let attributes = FuguNewChatAttributes(transactionId: data.uniqueChatId ?? "", userUniqueKey: data.userUniqueId, otherUniqueKey: data.idsOfPeers, tags: nil, channelName: data.channelName, preMessage: "", groupingTag: nil)
         
