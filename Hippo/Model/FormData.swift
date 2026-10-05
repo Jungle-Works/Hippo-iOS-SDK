@@ -11,6 +11,10 @@ import UIKit
 class FormData: NSObject {
     var title = ""
     var value = ""
+    /// What the user typed but hasn't successfully submitted (e.g. an invalid email), kept
+    /// so a reload while the validation error shows doesn't wipe the field. `value` stays
+    /// the submitted answer only.
+    var draftValue = ""
     var isCompleted = true
     var isShow = false
     var isErrorEnabled = false

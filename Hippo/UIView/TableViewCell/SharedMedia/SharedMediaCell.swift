@@ -23,6 +23,15 @@ class SharedMediaCell: UICollectionViewCell {
     @IBOutlet weak var imageViewMedia : UIImageView!
     @IBOutlet weak var buttonPlay : UIButton!
 
+    /// Shown while the full-size file downloads ahead of opening it in Quick Look.
+    private let downloadIndicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView(style: .medium)
+        indicator.color = .white
+        indicator.hidesWhenStopped = true
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        return indicator
+    }()
+
     override func awakeFromNib() {
         super.awakeFromNib()
 
@@ -42,6 +51,12 @@ class SharedMediaCell: UICollectionViewCell {
                             for: .normal)
         buttonPlay.tintColor = .white
         buttonPlay.isUserInteractionEnabled = false
+
+        contentView.addSubview(downloadIndicator)
+        NSLayoutConstraint.activate([
+            downloadIndicator.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            downloadIndicator.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+        ])
     }
 
     override func prepareForReuse() {
@@ -50,6 +65,7 @@ class SharedMediaCell: UICollectionViewCell {
         imageViewMedia.image = nil
         imageViewMedia.tintColor = nil
         buttonPlay.isHidden = true
+        downloadIndicator.stopAnimating()
     }
 
     // MARK: Configuration
@@ -57,8 +73,14 @@ class SharedMediaCell: UICollectionViewCell {
     func configure(with item: ShareMediaModel) {
         let colorConfig = HippoConfig.shared.colorConfig
         let isVideo = item.fileType == .video
+        let isDownloading = item.openURL.map { DownloadManager.shared.isFileBeingDownloadedWith(url: $0) } ?? false
 
-        buttonPlay.isHidden = !isVideo
+        buttonPlay.isHidden = !isVideo || isDownloading
+        if isDownloading {
+            downloadIndicator.startAnimating()
+        } else {
+            downloadIndicator.stopAnimating()
+        }
         contentView.backgroundColor = isVideo ? Self.videoBackground
                                               : colorConfig.hippoSurfaceInput
         imageViewMedia.contentMode = .scaleAspectFill

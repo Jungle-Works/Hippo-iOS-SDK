@@ -145,7 +145,11 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     private var composerHeightConstraint: NSLayoutConstraint?
     private let composerMinHeight: CGFloat = 42
     private let composerMaxHeight: CGFloat = 80
-    
+
+    /// How much of `tableViewChat.contentInset.bottom` is currently padding for the
+    /// composer/keyboard covering the table - see `updateChatInsetForComposerOverlap()`.
+    private var composerOverlapInset: CGFloat = 0
+
     var transparentView = UIView()
     var lineLabel = UILabel()
     var customTableView = UITableView()
@@ -870,7 +874,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         actionSheetTitleArr.removeAll()
         actionSheetImageArr.removeAll()
         actionSheetTitleArr = [HippoStrings.photoLibrary,HippoStrings.camera,HippoStrings.document,"Send Current Location"]
-        actionSheetImageArr = ["Gallery","Camera","Media","location"]
+        actionSheetImageArr = ["AttachGallery","Camera","Media","location"]
         heightForActionSheet = CGFloat((actionSheetTitleArr.count * 60))
         isProceedToPayActionSheet = false
         self.openCustomSheet()
@@ -989,6 +993,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         self.sendMessage(message: message)
         messageTextView.text = ""
         updateComposerHeight()
+        updateInputButtonsForText()
     }
     
     private func sendDateMessage() {
@@ -1019,6 +1024,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
             self.sendMessage(message: message)
             messageTextView.text = ""
             updateComposerHeight()
+            updateInputButtonsForText()
             //                responseMessage?.userType = .customer
             //                responseMessage?.creationDateTime = self.creationDateTime
             //                responseMessage?.status = status
@@ -1095,6 +1101,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
                 } else {
                     self?.messageTextView.text = ""
                     self?.updateComposerHeight()
+                    self?.updateInputButtonsForText()
                 }
                 
                 if !isReplyMessageSent {
@@ -1140,6 +1147,8 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         self.updateMessagesArrayLocallyForUIUpdation(message)
         self.messageTextView.text = ""
         self.updateComposerHeight()
+        // Text was just cleared (also for media sends) - swap send back to mic.
+        self.updateInputButtonsForText()
         self.newScrollToBottom(animated: false)
     }
     
@@ -1367,27 +1376,6 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         return nil
     }
     
-    
-    override func adjustChatWhenKeyboardIsOpened(withHeight keyboardHeight: CGFloat) {
-        // TODO: - Refactor
-        guard tableViewChat.contentSize.height + keyboardHeight > FUGU_SCREEN_HEIGHT - hieghtOfNavigationBar else {
-            return
-        }
-        
-        let diff = ((tableViewChat.contentSize.height + keyboardHeight) - (FUGU_SCREEN_HEIGHT - hieghtOfNavigationBar))
-        
-        let keyboardHeightNew = keyboardHeight - textViewBgView.frame.height - UIView.safeAreaInsetOfKeyWindow.bottom
-        
-        let mini = min(diff, keyboardHeightNew)
-        
-        var newOffSetY = tableViewChat.contentOffset.y + mini
-        if !shouldShiftUpWithThis(newOffsetY: newOffSetY) {
-            newOffSetY = getMaxScrollableOffset()
-        }
-        
-        let newOffSet = CGPoint(x: 0, y: newOffSetY)
-        tableViewChat.setContentOffset(newOffSet, animated: false)
-    }
     
     //    override func checkNetworkConnection() {
     //        errorLabel.backgroundColor = UIColor.red
@@ -2145,29 +2133,11 @@ extension ConversationsViewController {
             return
         }
         
-        //Delayed so that tableview gets correct touch event to run didselect
-        let currentOffsetY = self.tableViewChat.contentOffset.y
-        var newOffsetY = max(0, currentOffsetY - self.getKeyboardHeight())
-        
+        //Delayed so that tableview gets correct touch event to run didselect.
+        //The table offset follows the keyboard via updateChatInsetForComposerOverlap().
         fuguDelay(0.1) {
             self.messageTextView.resignFirstResponder()
-            
-            if !self.shouldShiftUpWithThis(newOffsetY: newOffsetY) {
-                newOffsetY = self.getMaxScrollableOffset()
-            }
-            
-            let newOffset = CGPoint(x: 0, y: newOffsetY)
-            self.tableViewChat.setContentOffset(newOffset, animated: true)
         }
-    }
-    
-    func getKeyboardHeight() -> CGFloat {
-        let screenHeight = backgroundView.bounds.height
-        let tableViewEnd = tableViewChat.frame.maxY + UIView.safeAreaInsetOfKeyWindow.bottom
-        
-        let keyboardHeight = screenHeight - tableViewEnd - textViewBgView.frame.height
-        
-        return messageTextView.isFirstResponder ? keyboardHeight : 0
     }
     
     func getLastVisibleYCoordinateOfTableView() -> CGFloat {
@@ -2196,8 +2166,9 @@ extension ConversationsViewController {
                 let value = FUGU_SCREEN_HEIGHT - keyboardFrame.minY - UIView.safeAreaInsetOfKeyWindow.bottom
                 let maxValue = max(0, value)
                 self?.textViewBottomConstraint.constant = maxValue
-                
+
                 self?.view.layoutIfNeeded()
+                self?.updateChatInsetForComposerOverlap()
             }
             isObserverAdded = true
         }
@@ -2230,10 +2201,37 @@ extension ConversationsViewController {
         if abs(heightC.constant - clamped) > 0.5 {
             heightC.constant = clamped
             view.layoutIfNeeded()
+            updateChatInsetForComposerOverlap()
         }
         if messageTextView.isScrollEnabled {
             messageTextView.scrollRangeToVisible(messageTextView.selectedRange)
         }
+    }
+
+    /// `tableViewChat`'s bottom is pinned (through the suggestion stack and the fixed
+    /// 58pt "please select an option" strip) to the screen bottom, not to the
+    /// composer. So when the keyboard lifts the composer — or the composer grows for
+    /// multi-line text — the table keeps its full height and its last rows end up
+    /// behind the composer and keyboard.
+    ///
+    /// Pad the table's bottom inset by exactly that overlap so its scrollable area
+    /// ends at the composer's top edge, and move the offset by the same amount so
+    /// whatever was visible at the bottom stays visible (keyboard up and down).
+    func updateChatInsetForComposerOverlap() {
+        guard isViewLoaded, textViewBgView.superview === tableViewChat.superview else { return }
+        let overlap = textViewBgView.isHidden ? 0 : max(0, tableViewChat.frame.maxY - textViewBgView.frame.minY)
+        let delta = overlap - composerOverlapInset
+        guard abs(delta) > 0.5 else { return }
+        composerOverlapInset = overlap
+
+        tableViewChat.contentInset.bottom += delta
+        tableViewChat.verticalScrollIndicatorInsets.bottom += delta
+
+        let insets = tableViewChat.adjustedContentInset
+        let minOffsetY = -insets.top
+        let maxOffsetY = max(minOffsetY, tableViewChat.contentSize.height + insets.bottom - tableViewChat.bounds.height)
+        let newOffsetY = min(max(tableViewChat.contentOffset.y + delta, minOffsetY), maxOffsetY)
+        tableViewChat.contentOffset = CGPoint(x: tableViewChat.contentOffset.x, y: newOffsetY)
     }
 
     private func relaxComposerTopAnchors() {
@@ -2245,24 +2243,6 @@ extension ConversationsViewController {
         }
     }
 
-    
-    func shouldShiftUpWithThis(newOffsetY: CGFloat) -> Bool {
-        let tableHeight = tableViewChat.frame.height
-        let tableContentHeight = tableViewChat.contentSize.height
-        
-        return newOffsetY + tableHeight < tableContentHeight + 10
-    }
-    
-    func getMaxScrollableOffset() -> CGFloat {
-        let tableHeight = tableViewChat.frame.height
-        let tableContentHeight = tableViewChat.contentSize.height
-        
-        if tableContentHeight > tableHeight {
-            return tableContentHeight - tableHeight + 3
-        } else {
-            return 0
-        }
-    }
     
     
     
@@ -2952,7 +2932,10 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                     case .attachment:
                         switch message.concreteFileType! {
                         case .video:
-                            return 234
+                            // A received video's caption sits on its own line under the
+                            // video (IncomingVideoTableViewCell), so it self-sizes.
+                            let hasCaption = !message.message.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+                            return hasCaption && !isSentByMe(senderId: message.senderId) ? UITableView.automaticDimension : 234
                         default:
                             // A file sent with a caption has to self-size so the
                             // caption isn't clipped - same as .imageFile above.
@@ -3108,9 +3091,13 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
         var count = 0
         var buttonAction: [FormData] = []
         var announcementHeight = 0
+        var errorRowCount = 0
         for lead in message.leadsDataArray {
             if lead.isShow  && lead.type != .button {
                 count += 1
+                if lead.isErrorEnabled {
+                    errorRowCount += 1
+                }
             }
             if lead.type == .button {
                 buttonAction.append(lead)
@@ -3141,6 +3128,8 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                 }
             }
         }
+        // Matches LeadTableViewCell's per-row error padding, so the error line isn't clipped.
+        height += LeadDataTableViewCell.errorHeight * CGFloat(errorRowCount)
         let buttonHeight: CGFloat = CGFloat(buttonAction.count * 30)
         let skipButtonHeight: CGFloat = message.shouldShowSkipButton() ? LeadTableViewCell.skipButtonHeightConstant : 0
         if height > 0 {

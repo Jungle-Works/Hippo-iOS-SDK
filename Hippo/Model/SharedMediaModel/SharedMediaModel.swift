@@ -72,6 +72,32 @@ extension ShareMediaModel {
         }
     }
 
+    /// The full-size file a tap downloads and opens. Images (and legacy attachments
+    /// with no `document_type`) may only carry `image_url`.
+    var openURL: String? {
+        let candidate = (fileType == .image || fileType == nil) ? (image_url ?? url) : url
+        guard let candidate = candidate, !candidate.isEmpty else { return nil }
+        return candidate
+    }
+
+    /// Name to save the download under. Quick Look picks its viewer from the file
+    /// extension, so images and videos get one even when `file_name` lacks it.
+    var downloadFileName: String {
+        if let name = file_name, !(name as NSString).pathExtension.isEmpty {
+            return name
+        }
+        let fromURL = openURL.flatMap { URL(string: $0)?.lastPathComponent } ?? ""
+        if !(fromURL as NSString).pathExtension.isEmpty {
+            return fromURL
+        }
+        let base = file_name.flatMap { $0.isEmpty ? nil : $0 } ?? (fromURL.isEmpty ? "media" : fromURL)
+        switch fileType {
+        case .image, nil: return base + ".jpg"
+        case .video: return base + ".mp4"
+        default: return base
+        }
+    }
+
     /// Uppercased extension for the badge and subtitle, e.g. "PDF". Nil when the
     /// filename carries no extension at all.
     var fileExtension: String? {
@@ -103,11 +129,25 @@ extension ShareMediaModel {
         return Date(timeIntervalSince1970: seconds)
     }
 
-    /// Filenames come back as UUIDs, so the caption the sender typed is the only
-    /// human-written text available. Falls back to a label built from the type.
+    /// Documents show their real file name (e.g. "Invoice March.pdf"). Some senders upload
+    /// under a generated muid-based name, which isn't worth showing - for those, and for
+    /// audio, the sender's caption is used, falling back to a label built from the type.
     var displayTitle: String {
+        if fileType == .document, let name = readableFileName {
+            return name
+        }
         let caption = (message ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
         return caption.isEmpty ? typeLabel : caption
+    }
+
+    /// `file_name` when a person chose it; nil when it's empty or generated - i.e. it
+    /// starts with a UUID ("dc320e7d-7453-42be-a961-a3abe1823020.1788865049163.pdf").
+    private var readableFileName: String? {
+        guard let name = file_name?.trimmingCharacters(in: .whitespacesAndNewlines), !name.isEmpty else {
+            return nil
+        }
+        let uuidPrefix = String(name.prefix(Self.muidUUIDLength))
+        return UUID(uuidString: uuidPrefix) == nil ? name : nil
     }
 
     private var typeLabel: String {

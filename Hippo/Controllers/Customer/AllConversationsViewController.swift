@@ -42,6 +42,16 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
     @IBOutlet weak var bottomViewLeadingConstraint: NSLayoutConstraint! // retained for storyboard connection; no longer driven by animation code (pill tab replaced it)
     @IBOutlet weak var width_NewConversation : NSLayoutConstraint!
     @IBOutlet weak var view_NewConversationBtn : UIView!
+    /// List bottom pinned 10pt above the new-conversation button (storyboard). Strong, since
+    /// it's deactivated whenever the button is hidden and must survive that.
+    @IBOutlet var tableBottomToNewConversationButton: NSLayoutConstraint!
+    /// Used instead of the above while the button is hidden: the list's bottom edge stops
+    /// `listBottomPadding` above the safe area, so rows never run under the home indicator /
+    /// rounded screen corners.
+    private static let listBottomPadding: CGFloat = 0
+    private lazy var tableBottomToSafeArea: NSLayoutConstraint =
+        showConversationsTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor,
+                                                           constant: -Self.listBottomPadding)
     @IBOutlet weak var height_ErrorLabel : NSLayoutConstraint!
     @IBOutlet weak var view_NavigationBar : NavigationBar!
     
@@ -268,11 +278,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
             self?.isPutUserFailed = !success
             self?.showConversationsTableView.reloadData()
             
-            if self?.conversationChatType == .openChat{
-                self?.view_NewConversationBtn.isHidden = !HippoProperty.current.enableNewConversationButton
-            }else if self?.conversationChatType == .closeChat{
-                self?.view_NewConversationBtn.isHidden = true
-            }else{}
+            self?.updateNewConversationButtonVisibility()
             
             if let result = self?.handleIntialCustomerForm(), result {
                 self?.hideInitialLoader()
@@ -313,11 +319,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         let theme = HippoConfig.shared.theme
         
         //    newConversationBiutton.isEnabled = HippoProperty.current.enableNewConversationButton
-        if self.conversationChatType == .openChat{
-            view_NewConversationBtn.isHidden = !HippoProperty.current.enableNewConversationButton
-        }else if self.conversationChatType == .closeChat{
-            view_NewConversationBtn.isHidden = true
-        }else{}
+        updateNewConversationButtonVisibility()
         
         
         //    DispatchQueue.main.async {
@@ -339,7 +341,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         self.updateNewConversationBtnUI(isSelected: false)
         newConversationBiutton.setTitleColor(theme.customColorforNewConversation, for: .normal)
         //    newConversationBiutton.isHidden = HippoConfig.shared.isNewConversationButtonHidden
-        //    newConversationBiutton.isHidden = !HippoProperty.current.enableNewConversationButton
+        //    newConversationBiutton.isHidden = !HippoProperty.current.shouldShowNewConversationButton
         
         //    addLogoutButton()
 
@@ -576,8 +578,8 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         self.openChatButton.setTitleColor(.black, for: .normal)
         self.closeChatButton.setTitleColor(UIColor(white: 0.5, alpha: 1), for: .normal)
         //        self.newConversationBiutton.isHidden = false
-        self.view_NewConversationBtn.isHidden = !HippoProperty.current.enableNewConversationButton
         conversationChatType = .openChat
+        updateNewConversationButtonVisibility()
         animateBottomLineView()
         //getAllConversations()
         self.showOpenChatData()
@@ -591,8 +593,8 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         self.closeChatButton.titleLabel?.font = UIFont.bold(ofSize: 15)
         self.openChatButton.setTitleColor(UIColor(white: 0.5, alpha: 1), for: .normal)
         self.closeChatButton.setTitleColor(.black, for: .normal)
-        self.view_NewConversationBtn.isHidden = true
         conversationChatType = .closeChat
+        updateNewConversationButtonVisibility()
         animateBottomLineView()
         //        getAllConversations()
         self.showcloseChatData()
@@ -645,6 +647,25 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         
     }
     
+    /// Re-applies the new-conversation button rule; also called when getConfiguration lands
+    /// after this screen is already visible. The button only ever shows on the open tab.
+    /// With it hidden, the list is re-pinned from above the button to the bottom safe area,
+    /// so the button's space doesn't stay empty.
+    func updateNewConversationButtonVisibility() {
+        guard isViewLoaded else { return }
+        let isHidden = conversationChatType != .openChat
+            || !HippoProperty.current.shouldShowNewConversationButton
+        view_NewConversationBtn.isHidden = isHidden
+        // Deactivate before activating so the two bottom pins never fight.
+        if isHidden {
+            tableBottomToNewConversationButton.isActive = false
+            tableBottomToSafeArea.isActive = true
+        } else {
+            tableBottomToSafeArea.isActive = false
+            tableBottomToNewConversationButton.isActive = true
+        }
+    }
+
     func animateBottomLineView() {
         positionSelectionPill(animated: true)
     }
@@ -730,11 +751,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
                 self?.filterConversationArr(conversationArr: sorted)
             }
             
-            if self?.conversationChatType == .openChat{
-                self?.view_NewConversationBtn.isHidden = !HippoProperty.current.enableNewConversationButton
-            }else if self?.conversationChatType == .closeChat{
-                self?.view_NewConversationBtn.isHidden = true
-            }else{}
+            self?.updateNewConversationButtonVisibility()
             
             if result.conversations?.count == 0 {
                 self?.closedConversationArr.removeAll()

@@ -40,10 +40,35 @@ class VideoTableViewCell: MessageTableViewCell {
       messageBackgroundView.backgroundColor = HippoConfig.shared.theme.outgoingChatBoxColor
       messageBackgroundView.layer.borderWidth = HippoConfig.shared.theme.chatBoxBorderWidth
       messageBackgroundView.layer.borderColor = HippoConfig.shared.theme.chatBoxBorderColor.cgColor
-      
+
+      // Revamped customer thread: no grey chip behind the file size - the xib gives the
+      // label's container a 30% black fill. Agent screen keeps it.
+      if HippoConfig.shared.appUserType == .customer {
+         sizeLabel.superview?.backgroundColor = .clear
+      }
+
       addNotificationObservers()
    }
    
+   /// The xibs centre the download/upload/play overlays on the whole bubble. Once a caption
+   /// makes the bubble taller, that centre lands in the caption - so re-pin every overlay
+   /// centred on the bubble to the video thumbnail instead.
+   func centerOverlaysOnThumbnail() {
+      guard let bubble = messageBackgroundView, let thumbnail = viewFrameImageView else { return }
+      let bubbleCentering = bubble.constraints.filter { constraint in
+         let isCentering = constraint.firstAttribute == .centerX || constraint.firstAttribute == .centerY
+         return isCentering && constraint.secondItem === bubble && constraint.firstItem !== thumbnail
+      }
+      for constraint in bubbleCentering {
+         guard let overlay = constraint.firstItem as? UIView else { continue }
+         constraint.isActive = false
+         let anchor = constraint.firstAttribute == .centerX
+            ? overlay.centerXAnchor.constraint(equalTo: thumbnail.centerXAnchor)
+            : overlay.centerYAnchor.constraint(equalTo: thumbnail.centerYAnchor)
+         anchor.isActive = true
+      }
+   }
+
    func addNotificationObservers() {
       NotificationCenter.default.addObserver(self, selector: #selector(fileDownloadCompleted(_:)), name: Notification.Name.fileDownloadCompleted, object: nil)
    }

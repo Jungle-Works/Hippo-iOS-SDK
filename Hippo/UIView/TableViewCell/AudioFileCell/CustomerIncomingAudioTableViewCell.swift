@@ -68,6 +68,7 @@ class CustomerIncomingAudioTableViewCell: IncomingAudioTableViewCell, CustomerAu
         let colorConfig = HippoConfig.shared.colorConfig
         bgView.backgroundColor = colorConfig.hippoReceiver
         fileName.textColor = colorConfig.hippoTextPrimary
+        timeLabel.textColor = colorConfig.hippoTextMuted
     }
 
     override func fileDownloadCompleted(_ notification: Notification) {

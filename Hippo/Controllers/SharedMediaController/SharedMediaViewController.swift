@@ -43,6 +43,8 @@ final class SharedMediaViewController: UIViewController {
     var channelId : Int?
     var downloadingDoc = [String:String]()
     var qldataSource: HippoQLDataSource?
+    /// Backs the swipeable Quick Look viewer opened from the Media tab.
+    private var mediaGallery: SharedMediaGalleryDataSource?
     private var informationView: InformationView?
     /// Set when the request itself failed, which is offered a retry — as opposed to a
     /// channel that genuinely has no attachments.
@@ -79,6 +81,7 @@ final class SharedMediaViewController: UIViewController {
             return
         }
         refreshRow(for: url)
+        mediaGallery?.downloadFinished(url: url)
 
         // Only jump into the preview for the file the user actually tapped; a
         // download kicked off from the row's own button just settles in place.
@@ -180,7 +183,7 @@ final class SharedMediaViewController: UIViewController {
 
     /// Reloads just the row whose download state changed, rather than the whole list.
     private func refreshRow(for url: String) {
-        guard let index = visibleItems.firstIndex(where: { $0.url == url }) else { return }
+        guard let index = visibleItems.firstIndex(where: { $0.openURL == url }) else { return }
         collectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
     }
 }
@@ -273,19 +276,15 @@ extension SharedMediaViewController: UICollectionViewDelegate,UICollectionViewDa
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let item = visibleItems[indexPath.item]
 
-        if item.fileType == nil || item.fileType == .image {
-            guard let originalUrl = item.image_url ?? item.url, !originalUrl.isEmpty else {
-                return
-            }
-            let showImageVC = ShowImageViewController.getFor(imageUrlString: originalUrl)
-            // Was being set on `self`, so the presented controller never actually got
-            // the full-screen style.
-            showImageVC.modalPresentationStyle = .overFullScreen
-            self.present(showImageVC, animated: true, completion: nil)
+        // Photos and videos open together so the viewer can swipe between them.
+        if selectedTab == .media {
+            openMediaGallery(startingAt: indexPath.item)
             return
         }
 
-        guard let url = item.url else {
+        // Images, videos, audio and documents all open in the native Quick Look
+        // viewer once downloaded.
+        guard let url = item.openURL else {
             showAlert(title: "", message: HippoStrings.somethingWentWrong, actionComplete: nil)
             return
         }
@@ -297,15 +296,26 @@ extension SharedMediaViewController: UICollectionViewDelegate,UICollectionViewDa
         openFile(url: url, name: item.file_name ?? "")
     }
 
+    private func openMediaGallery(startingAt index: Int) {
+        let gallery = SharedMediaGalleryDataSource(items: visibleItems)
+        let qlPreview = QLPreviewController()
+        gallery.controller = qlPreview
+        mediaGallery = gallery
+        qlPreview.dataSource = gallery
+        qlPreview.delegate = gallery
+        qlPreview.currentPreviewItemIndex = index
+        qlPreview.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(qlPreview, animated: true)
+    }
+
     private func startDownload(for item: ShareMediaModel, openWhenDone: Bool) {
-        guard let url = item.url,
+        guard let url = item.openURL,
               !DownloadManager.shared.isFileBeingDownloadedWith(url: url) else { return }
 
-        let name = item.file_name ?? ""
         if openWhenDone {
-            downloadingDoc[url] = name
+            downloadingDoc[url] = item.file_name ?? ""
         }
-        DownloadManager.shared.downloadFileWith(url: url, name: name)
+        DownloadManager.shared.downloadFileWith(url: url, name: item.downloadFileName)
         refreshRow(for: url)
     }
 
@@ -376,5 +386,73 @@ extension SharedMediaViewController: UICollectionViewDelegateFlowLayout{
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return selectedTab == .media ? Grid.spacing : 0
+    }
+}
+
+// MARK: - Media gallery
+
+/// Quick Look data source for the Media tab: every photo and video in the tab, so the
+/// viewer swipes between them. Quick Look only previews local files, so each item is
+/// downloaded when Quick Look first asks for it (the current one and its neighbours);
+/// until it lands, the grid's cached thumbnail stands in and is swapped out after.
+final class SharedMediaGalleryDataSource: NSObject, QLPreviewControllerDataSource, QLPreviewControllerDelegate {
+
+    private let items: [ShareMediaModel]
+    weak var controller: QLPreviewController?
+
+    init(items: [ShareMediaModel]) {
+        self.items = items
+    }
+
+    func numberOfPreviewItems(in controller: QLPreviewController) -> Int {
+        return items.count
+    }
+
+    func previewController(_ controller: QLPreviewController, previewItemAt index: Int) -> QLPreviewItem {
+        let item = items[index]
+        let title = item.file_name
+        guard let url = item.openURL else {
+            return QuickLookItem(previewItemURL: nil, previewItemTitle: title)
+        }
+        if DownloadManager.shared.isFileDownloadedWith(url: url),
+           let localPath = DownloadManager.shared.getLocalPathOf(url: url) {
+            return QuickLookItem(previewItemURL: URL(fileURLWithPath: localPath), previewItemTitle: title)
+        }
+        DownloadManager.shared.downloadFileWith(url: url, name: item.downloadFileName)
+        return QuickLookItem(previewItemURL: placeholderURL(for: item), previewItemTitle: title)
+    }
+
+    /// Swaps a placeholder for the real file once its download lands.
+    func downloadFinished(url: String) {
+        guard let controller = controller,
+              let index = items.firstIndex(where: { $0.openURL == url }) else { return }
+        if index == controller.currentPreviewItemIndex {
+            controller.refreshCurrentPreviewItem()
+        } else {
+            // A neighbour Quick Look already preloaded with its placeholder.
+            let current = controller.currentPreviewItemIndex
+            controller.reloadData()
+            controller.currentPreviewItemIndex = current
+        }
+    }
+
+    /// The tile's thumbnail from the image cache, written to a temp file. Same URL the
+    /// grid cell loads, so it is normally already in memory.
+    private func placeholderURL(for item: ShareMediaModel) -> URL? {
+        let thumbnail = item.fileType == .video ? item.thumbnail_url
+                                                : (item.thumbnail_url ?? item.image_url ?? item.url)
+        guard let key = thumbnail.flatMap({ URL(string: $0)?.absoluteString }),
+              let image = ImageCache.default.retrieveImageInMemoryCache(forKey: key),
+              let data = image.jpegData(compressionQuality: 0.8) else {
+            return nil
+        }
+        let fileURL = FileManager.default.temporaryDirectory
+            .appendingPathComponent("hippo-media-placeholder-\(abs(key.hashValue)).jpg")
+        do {
+            try data.write(to: fileURL, options: .atomic)
+            return fileURL
+        } catch {
+            return nil
+        }
     }
 }

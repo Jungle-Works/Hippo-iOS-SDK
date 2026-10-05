@@ -53,10 +53,10 @@ class CustomerOutgoingVideoCallMessageTableViewCell: OutgoingVideoCallMessageTab
         nameView.isHidden = true
         nameLbl.isHidden = true
 
-        // phoneIcon.image is loaded plain (no .alwaysTemplate) by the base class, so a raster
-        // asset with its own baked-in colour ignores tintColor entirely — force template mode
-        // so the icon-pair tokens below actually reach the glyph.
-        phoneIcon.image = phoneIcon.image?.withRenderingMode(.alwaysTemplate)
+        // Video calls get the video glyphs (the base class always loads the voice set,
+        // which the agent screen keeps). Template-rendered so the icon-pair tokens below
+        // reach the glyph rather than the asset's baked-in colour.
+        phoneIcon.image = message.callIcon(message.isMissedCall ? .missed : .outgoing)
 
         let colorConfig = HippoConfig.shared.colorConfig
         messageBackgroundView.backgroundColor = colorConfig.hippoAccentSubtle2

@@ -127,9 +127,13 @@ public class HippoStrings {
     static var sentACallInvite = "Sent a Call Invite"
     static var recievedACallInvite = "Recieved a Call Invite"
     static var sharedMediaTitle = "Shared Media".localized
+    /// Backend key: media_txt
     static var sharedMediaTabMedia = "Media".localized
+    /// Backend key: docs_txt
     static var sharedMediaTabDocs = "Docs".localized
+    /// Backend key: hippo_no_media
     static var sharedMediaNoMedia = "No media shared yet".localized
+    /// Backend key: hippo_no_documents
     static var sharedMediaNoDocs = "No documents shared yet".localized
     static var sharedMediaVoiceMessage = "Voice message".localized
     static var sharedMediaAudioFile = "Audio file".localized
@@ -139,6 +143,11 @@ public class HippoStrings {
     static var recordingTooShort = "Recording is too short.".localized
     static var microphoneAccessMessage = "Enable microphone access in Settings to record voice messages.".localized
     static var openSettings = "Settings".localized
+    static var photoLibraryAccessMessage = "Enable photo access in Settings to share photos and videos.".localized
+    static var cameraAccessMessage = "Enable camera access in Settings to take photos and videos.".localized
+    static var locationAccessMessage = "Enable location access in Settings to share your current location.".localized
+    static var fetchingLocation = "Getting your location…".localized
+    static var locationUnavailable = "Couldn't get your location. Please try again.".localized
     
     /// Agent sdk
     static var thanksForFeedback = "Thank you for your comments!".localized

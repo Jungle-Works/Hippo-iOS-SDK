@@ -19,7 +19,9 @@ class BussinessProperty: NSObject {
     var showCustomerChatHistory: Bool?
     var isAgentToCustomerChatEnable: Bool?
     var isAiBotEnabled: Bool?
-    
+    /// `allow_new_conversation` from getConfiguration. nil until the config has been fetched.
+    var allowNewConversation: Bool?
+
     var hideAllChat: Bool? {
         get {
             

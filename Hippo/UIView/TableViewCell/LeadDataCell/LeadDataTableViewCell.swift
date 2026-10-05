@@ -33,6 +33,9 @@ enum CreateTicketFields: Int {
 class LeadDataTableViewCell: UITableViewCell{
     
     static let rowHeight: CGFloat = 90.0
+    /// Extra room a row needs while its validation error is showing, so the error line
+    /// isn't clipped by the bubble's bottom edge.
+    static let errorHeight: CGFloat = 16.0
     fileprivate enum TextfieldType: String {
         case string = "string"
         case phone = "phone"
@@ -97,7 +100,7 @@ class LeadDataTableViewCell: UITableViewCell{
     
     func setData(data: FormData) {
         titleLabel.text = data.title
-        valueTextfield.text = data.value
+        valueTextfield.text = data.value.isEmpty ? data.draftValue : data.value
         valueTextfield.placeholder = data.paramId == CreateTicketFields.attachments.rawValue ? "Click to upload file" : data.title
         self.buttonSend.setTitle(nil, for: .normal)
         DispatchQueue.main.async {
@@ -135,6 +138,7 @@ class LeadDataTableViewCell: UITableViewCell{
             }
         }
         if data.isErrorEnabled {
+            labelValidationError.text = data.errorMessage
             labelValidationError.isHidden = false
         } else {
             labelValidationError.isHidden = true

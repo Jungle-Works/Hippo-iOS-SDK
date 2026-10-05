@@ -697,6 +697,11 @@ public class UserTag: NSObject {
             HippoConfig.shared.log.trace("BusinessConfiguration Response: \(data)", level: .response)
             BussinessProperty.current.isAiBotEnabled = Bool.parse(key: "is_ai_bot_enabled", json: data)
             HippoConfig.shared.log.trace("BusinessConfiguration isAiBotEnabled parsed: \(String(describing: BussinessProperty.current.isAiBotEnabled)), key present: \(data["is_ai_bot_enabled"] != nil)", level: .response)
+            BussinessProperty.current.allowNewConversation = Bool.parse(key: "allow_new_conversation", json: data)
+            DispatchQueue.main.async {
+                // The list screen may already be showing by the time this lands.
+                (getLastVisibleController() as? AllConversationsViewController)?.updateNewConversationButtonVisibility()
+            }
             completion?(true)
         }
     }
@@ -759,7 +764,8 @@ public class UserTag: NSObject {
         HippoConfig.shared.groupCallData.removeAll()
         HippoProperty.current = HippoProperty()
         BussinessProperty.current.isAutomationEnabled = nil
-        
+        BussinessProperty.current.allowNewConversation = nil
+
         //FuguConfig.shared.deviceToken = ""
         HippoConfig.shared.appSecretKey = ""
         HippoConfig.shared.resellerToken = ""

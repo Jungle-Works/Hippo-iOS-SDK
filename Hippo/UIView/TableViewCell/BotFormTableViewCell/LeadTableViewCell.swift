@@ -227,6 +227,19 @@ extension LeadTableViewCell: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let height = baseHeightForRow(at: indexPath)
+        let data = filterFileArray[indexPath.section]
+        // Uploaded-attachment rows never show the validation label - only the input row does.
+        let isAttachmentUrlRow = data.paramId == CreateTicketFields.attachments.rawValue
+            && !data.attachmentUrl.isEmpty
+            && indexPath.row != data.attachmentUrl.count
+        // Customer-facing only: the agent screen's lead form keeps its original sizing.
+        guard HippoConfig.shared.appUserType == .customer,
+              data.isShow, data.isErrorEnabled, !isAttachmentUrlRow else { return height }
+        return height + LeadDataTableViewCell.errorHeight
+    }
+
+    private func baseHeightForRow(at indexPath: IndexPath) -> CGFloat {
         if filterFileArray[indexPath.section].isShow {
             if indexPath.section == 0 {
                 if self.filterFileArray[indexPath.section].isCompleted {
@@ -272,7 +285,8 @@ extension LeadTableViewCell: LeadDataCellDelegate {
         }
         let section = indexPath.section
         filterFileArray[section].isErrorEnabled = isEnabled
-        cell.labelValidationError.text = text
+        filterFileArray[section].errorMessage = text ?? ""
+        filterFileArray[section].draftValue = isEnabled ? (cell.valueTextfield.text ?? "") : ""
         self.tableView.reloadData()
         self.delegate?.cellUpdated(for: self, data: filterFileArray, isSkipAction: false)
     }

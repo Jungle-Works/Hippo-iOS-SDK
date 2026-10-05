@@ -30,7 +30,21 @@ class HippoConversationViewController: UIViewController {
     var botGroupID: Int?
     
     var locationManager: CLLocationManager?
-    var hasSentLocation = false
+    /// True between asking for location permission and the user answering.
+    var awaitingLocationPermission = false
+    /// The system permission prompt makes the app inactive; answering it fires
+    /// didBecomeActive, whose full message refresh wiped a location sent in that moment.
+    /// Set while our prompt is up so that one refresh is skipped - nothing was missed,
+    /// the app never left the foreground.
+    var skipRefreshForLocationPrompt = false
+    var locationPromptBackgroundObserver: NSObjectProtocol?
+    /// True from the moment a location fix is requested until it's sent or fails - extra
+    /// taps on "Send Current Location" in between are ignored.
+    var isFetchingLocation = false
+    /// Most accurate fix seen so far; sent if the time limit hits before a good one arrives.
+    var bestLocationSoFar: CLLocation?
+    var locationTimeoutWork: DispatchWorkItem?
+    var locationLoaderView: UIView?
     var storeRequest: MessageStore.messageRequest?
     var storeResponse: MessageStore.ChannelMessagesResult?
     var isFirstResponseComplete: Bool = false
@@ -398,6 +412,15 @@ class HippoConversationViewController: UIViewController {
         reloadVisibleCellsToStartActivityIndicator()
         removeNotificationsFromNotificationCenter(channelId: channelId)
         
+        if skipRefreshForLocationPrompt {
+            // Back from our location permission prompt, not from the background.
+            skipRefreshForLocationPrompt = false
+            if let observer = locationPromptBackgroundObserver {
+                NotificationCenter.default.removeObserver(observer)
+                locationPromptBackgroundObserver = nil
+            }
+            return
+        }
         recreateRequestIfRequired()
     }
     
@@ -964,12 +987,130 @@ extension HippoConversationViewController: PickerHelperDelegate {
         addMessageToUIBeforeSending(message: message)
         sendMessage(message: message)
     }
-    func getCurrentLocationAndSend() {
+    /// A map link only needs street-level accuracy. Asking for "best" made iOS hold out for
+    /// a precise GPS fix - commonly 10-15s, longer indoors - with nothing on screen.
+    static let locationAccuracy: CLLocationAccuracy = kCLLocationAccuracyHundredMeters
+    /// A fix iOS already has is reused if it's at least this fresh.
+    static let maxCachedLocationAge: TimeInterval = 120
+    /// Hard cap on the wait: after this, send the best fix so far (or say it failed).
+    static let locationTimeout: TimeInterval = 8
 
-        locationManager = CLLocationManager()
-        locationManager?.delegate = self
-        locationManager?.requestWhenInUseAuthorization()
-        locationManager?.requestLocation()
+    func getCurrentLocationAndSend() {
+        guard !isFetchingLocation else { return }
+
+        let manager = CLLocationManager()
+        locationManager = manager
+        manager.delegate = self
+        manager.desiredAccuracy = Self.locationAccuracy
+        switch manager.authorizationStatus {
+        case .authorizedWhenInUse, .authorizedAlways:
+            beginLocationFetch(with: manager)
+        case .notDetermined:
+            // The fetch starts from locationManagerDidChangeAuthorization once the user
+            // answers - starting now would fail before they've tapped Allow.
+            awaitingLocationPermission = true
+            skipRefreshForLocationPrompt = true
+            // A real trip to the background while the prompt is up still needs the refresh.
+            locationPromptBackgroundObserver = NotificationCenter.default.addObserver(
+                forName: HippoVariable.didEnterBackgroundNotification, object: nil, queue: .main) { [weak self] _ in
+                    self?.skipRefreshForLocationPrompt = false
+                }
+            manager.requestWhenInUseAuthorization()
+        default:
+            PickerHelper.showAccessDeniedAlert(message: HippoStrings.locationAccessMessage, in: self)
+        }
+    }
+
+    func beginLocationFetch(with manager: CLLocationManager) {
+        // Instant path: iOS often already holds a recent, good-enough fix.
+        if let cached = manager.location, isUsable(cached) {
+            sendLocationMessage(lat: cached.coordinate.latitude, lng: cached.coordinate.longitude)
+            return
+        }
+
+        isFetchingLocation = true
+        bestLocationSoFar = nil
+        showLocationLoader()
+        // Continuous updates (not requestLocation) so the first usable fix can be taken
+        // as soon as it arrives instead of waiting for iOS's own one-shot to settle.
+        manager.startUpdatingLocation()
+
+        let timeout = DispatchWorkItem { [weak self] in
+            guard let self = self, self.isFetchingLocation else { return }
+            if let best = self.bestLocationSoFar {
+                self.finishLocationFetch(sending: best)
+            } else {
+                self.failLocationFetch()
+            }
+        }
+        locationTimeoutWork = timeout
+        DispatchQueue.main.asyncAfter(deadline: .now() + Self.locationTimeout, execute: timeout)
+    }
+
+    func isUsable(_ location: CLLocation) -> Bool {
+        location.horizontalAccuracy >= 0
+            && location.horizontalAccuracy <= Self.locationAccuracy
+            && abs(location.timestamp.timeIntervalSinceNow) <= Self.maxCachedLocationAge
+    }
+
+    func finishLocationFetch(sending location: CLLocation) {
+        endLocationFetch()
+        sendLocationMessage(lat: location.coordinate.latitude, lng: location.coordinate.longitude)
+    }
+
+    func failLocationFetch() {
+        endLocationFetch()
+        showAlert(title: "", message: HippoStrings.locationUnavailable, actionComplete: nil)
+    }
+
+    /// Stops updates and the timer and clears the loader, so the next tap starts fresh.
+    func endLocationFetch() {
+        isFetchingLocation = false
+        bestLocationSoFar = nil
+        locationTimeoutWork?.cancel()
+        locationTimeoutWork = nil
+        locationManager?.stopUpdatingLocation()
+        hideLocationLoader()
+    }
+
+    func showLocationLoader() {
+        guard locationLoaderView == nil else { return }
+        let container = UIView()
+        container.translatesAutoresizingMaskIntoConstraints = false
+        container.backgroundColor = UIColor.black.withAlphaComponent(0.75)
+        container.layer.cornerRadius = 12
+
+        let spinner = UIActivityIndicatorView(style: .medium)
+        spinner.color = .white
+        spinner.startAnimating()
+
+        let label = UILabel()
+        label.text = HippoStrings.fetchingLocation
+        label.textColor = .white
+        label.font = UIFont.regular(ofSize: 14)
+
+        let stack = UIStackView(arrangedSubviews: [spinner, label])
+        stack.axis = .horizontal
+        stack.spacing = 10
+        stack.alignment = .center
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        container.addSubview(stack)
+        view.addSubview(container)
+
+        NSLayoutConstraint.activate([
+            stack.topAnchor.constraint(equalTo: container.topAnchor, constant: 14),
+            stack.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: -14),
+            stack.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 18),
+            stack.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -18),
+            container.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            container.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+        locationLoaderView = container
+    }
+
+    func hideLocationLoader() {
+        locationLoaderView?.removeFromSuperview()
+        locationLoaderView = nil
     }
     func sendLocationClicked() {
         getCurrentLocationAndSend()
@@ -1041,7 +1182,23 @@ extension HippoConversationViewController: PickerHelperDelegate {
                 return
             }
             let filePathUrl = URL(fileURLWithPath: filePath)
-            sendSelectedDocumentWith(filePath: filePathUrl.path, fileName: filePathUrl.lastPathComponent, messageType: .attachment, fileType: FileType.video)
+            // Customer: preview first so a caption can go with the video, as with photos.
+            // Agent: unchanged - sends straight away.
+            guard HippoConfig.shared.appUserType == .customer,
+                  let vc = UIStoryboard(name: "FuguUnique", bundle: FuguFlowManager.bundle).instantiateViewController(withIdentifier: "PreviewViewController") as? PreviewViewController else {
+                sendSelectedDocumentWith(filePath: filePathUrl.path, fileName: filePathUrl.lastPathComponent, messageType: .attachment, fileType: FileType.video)
+                return
+            }
+            vc.fileType = .video
+            vc.path = filePathUrl
+            self.navigationController?.present(vc, animated: true, completion: nil)
+
+            vc.sendBtnTapped = { [weak self] (message, _) in
+                let caption = message ?? ""
+                // Same convention as captioned documents: .normal when there's text.
+                self?.sendSelectedDocumentWith(messageStr: caption, filePath: filePathUrl.path, fileName: filePathUrl.lastPathComponent, messageType: caption.isEmpty ? .attachment : .normal, fileType: FileType.video)
+                HippoConfig.shared.UnhideJitsiView()
+            }
         }
         
     }
@@ -2393,20 +2550,44 @@ extension HippoConversationViewController{
 extension HippoConversationViewController: CLLocationManagerDelegate {
   
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard !hasSentLocation,
-              let location = locations.last else { return }
+        guard manager === locationManager, isFetchingLocation else { return }
+        for location in locations where location.horizontalAccuracy >= 0 {
+            if isUsable(location) {
+                finishLocationFetch(sending: location)
+                return
+            }
+            if bestLocationSoFar == nil || location.horizontalAccuracy < bestLocationSoFar!.horizontalAccuracy {
+                bestLocationSoFar = location
+            }
+        }
+    }
 
-        hasSentLocation = true
-
-        let lat = location.coordinate.latitude
-        let lng = location.coordinate.longitude
-
-        sendLocationMessage(lat: lat, lng: lng)
-
-        manager.stopUpdatingLocation()
+    /// Fires right after a manager is created (with the current status) and again when the
+    /// user answers the prompt. Only `.notDetermined` -> answer is handled here; an
+    /// already-decided status is handled in getCurrentLocationAndSend().
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        guard manager === locationManager, awaitingLocationPermission else { return }
+        switch manager.authorizationStatus {
+        case .authorizedWhenInUse, .authorizedAlways:
+            awaitingLocationPermission = false
+            beginLocationFetch(with: manager)
+        case .denied, .restricted:
+            awaitingLocationPermission = false
+            PickerHelper.showAccessDeniedAlert(message: HippoStrings.locationAccessMessage, in: self)
+        default:
+            break
+        }
     }
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("Location failed:", error)
+        guard manager === locationManager, isFetchingLocation else { return }
+        // locationUnknown is transient - iOS keeps trying, and the timeout still applies.
+        if (error as? CLError)?.code == .locationUnknown { return }
+        if (error as? CLError)?.code == .denied {
+            endLocationFetch()
+            PickerHelper.showAccessDeniedAlert(message: HippoStrings.locationAccessMessage, in: self)
+            return
+        }
+        failLocationFetch()
     }
 }

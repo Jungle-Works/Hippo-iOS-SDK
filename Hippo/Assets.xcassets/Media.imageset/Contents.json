@@ -1,12 +1,12 @@
 {
   "images" : [
     {
-      "filename" : "Media@3x 2.png",
+      "filename" : "Media.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "Media@3x 1.png",
+      "filename" : "Media@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },

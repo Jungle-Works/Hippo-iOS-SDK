@@ -197,6 +197,24 @@ extension HippoMessage {
         
         return (dateComponentFormatter.string(from: duration) ?? "") + " \(HippoStrings.at)"
     }
+    enum CallIconKind {
+        case incoming, outgoing, missed
+    }
+    
+    /// Call-log glyph for this message (customer-facing call cards): the video set for a
+    /// known video call, otherwise the voice set (also the fallback when the payload has
+    /// no call_type). Template-rendered so the card's call-icon colour tokens tint it.
+    func callIcon(_ kind: CallIconKind) -> UIImage? {
+        let isVideo = isCallTypeKnown && callType == .video
+        let name: String
+        switch kind {
+        case .incoming: name = isVideo ? "incommingVideoCall" : "incomming"
+        case .outgoing: name = isVideo ? "outgoingVideoCall" : "outgoing"
+        case .missed:   name = isVideo ? "missedVideoCall" : "missed"
+        }
+        return UIImage(named: name, in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+    }
+    
     func getCallTypeString() -> String {
         switch callType {
         case .video:
