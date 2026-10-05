@@ -3,16 +3,21 @@
 //  Hippo
 //
 //  Customer-only variant of IncomingDocumentTableViewCell. The revamped file card
-//  (bigger badge-backed icon, file size/type aligned under the filename, no download
-//  button) is unconditional here since this class is only ever dequeued for the
-//  customer app.
+//  (bigger badge-backed icon, file size/type aligned under the filename, download
+//  states drawn in the badge - see CustomerDocumentDownloadCapable) is unconditional
+//  here since this class is only ever dequeued for the customer app.
 //
 
 import UIKit
 
-class CustomerIncomingDocumentTableViewCell: IncomingDocumentTableViewCell {
+class CustomerIncomingDocumentTableViewCell: IncomingDocumentTableViewCell, CustomerDocumentDownloadCapable {
 
     @IBOutlet weak var docImageBadgeView: UIView!
+
+    var pendingOpenFileUrl: String?
+    var progressRing: DownloadProgressRingView?
+    var isDownloadStateApplicable: Bool { true }
+    private var containerTapAdded = false
 
     // MARK: Caption layout
     //
@@ -40,6 +45,9 @@ class CustomerIncomingDocumentTableViewCell: IncomingDocumentTableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        installProgressRing()
+        NotificationCenter.default.addObserver(self, selector: #selector(fileDownloadProgressed(_:)), name: .fileDownloadProgress, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(fileDownloadFailed(_:)), name: .fileDownloadFailed, object: nil)
         // Badge is a fixed 44x44 in the xib - hardcoded radius avoids depending on bounds
         // being resolved by Auto Layout yet at awakeFromNib time. Full circle, half the
         // fixed size, matching the call icon badge.
@@ -82,13 +90,48 @@ class CustomerIncomingDocumentTableViewCell: IncomingDocumentTableViewCell {
         // The whole card is already tap-to-download via bgViewTaped(); no separate
         // button needed on the customer screen.
         retryButton.isHidden = true
+        applyDownloadState()
+    }
 
-        // activityIndicator is centred on docImageBadgeView, directly over docImage — hide the
-        // file icon while the spinner is running so the two don't render on top of each other,
-        // and bring it back once the download finishes (or hasn't started yet).
-        if let fileUrl = message?.fileUrl {
-            docImage.isHidden = DownloadManager.shared.isFileBeingDownloadedWith(url: fileUrl)
-        }
+    override func setDocIconAccordingToFileType() {
+        super.setDocIconAccordingToFileType()
+        overlayDownloadIcon()
+    }
+
+    override func intalizeCell(with message: HippoMessage, isIncomingView: Bool) {
+        // Drop a stale "open when the download finishes" intent from a previous binding.
+        clearPendingOpenIfRebound(to: message)
+        super.intalizeCell(with: message, isIncomingView: isIncomingView)
+    }
+
+    override func addGestureToContainer() {
+        // intalizeCell adds a tap recognizer on every bind, so a reused cell fired
+        // bgViewTaped several times per tap - a second firing would undo a cancel by
+        // restarting the download. One recognizer per cell.
+        guard !containerTapAdded else { return }
+        containerTapAdded = true
+        super.addGestureToContainer()
+    }
+
+    override func bgViewTaped() {
+        // × on a running download - cancelling resets the card via .fileDownloadFailed.
+        guard !cancelDownloadIfInProgress() else { return }
+        // Not cached yet: this tap starts the download - open it once it lands.
+        armOpenAfterDownloadIfNeeded()
+        super.bgViewTaped()
+    }
+
+    override func fileDownloadCompleted(_ notification: Notification) {
+        super.fileDownloadCompleted(notification)
+        openIfPendingDownloadLanded(notification)
+    }
+
+    @objc private func fileDownloadProgressed(_ notification: Notification) {
+        handleDownloadProgress(notification)
+    }
+
+    @objc private func fileDownloadFailed(_ notification: Notification) {
+        handleDownloadFailed(notification)
     }
 
     override func setUIAccordingToTheme() {

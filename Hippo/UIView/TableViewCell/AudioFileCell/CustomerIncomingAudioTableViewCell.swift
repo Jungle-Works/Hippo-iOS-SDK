@@ -2,9 +2,9 @@
 //  CustomerIncomingAudioTableViewCell.swift
 //  Hippo
 //
-//  Customer-only variant of IncomingAudioTableViewCell. The revamped bubble (per-corner radii,
-//  wave row, auto-download, no sender-name row) is unconditional here since this class is only
-//  ever dequeued for the customer app — no appUserType branching needed inside it.
+//  Customer-only variant of IncomingAudioTableViewCell. The revamped bubble (per-corner radii, wave
+//  row, download button + progress ring, no sender-name row) is unconditional here since this class
+//  is only ever dequeued for the customer app — no appUserType branching needed inside it.
 //
 
 import UIKit
@@ -23,17 +23,20 @@ class CustomerIncomingAudioTableViewCell: IncomingAudioTableViewCell, CustomerAu
     var durationLabel: UILabel?
     var probedTotalDuration: TimeInterval?
     var pendingAutoPlay = false
+    var progressRing: DownloadProgressRingView?
 
     var waveActiveColor: UIColor { HippoConfig.shared.colorConfig.hippoIconSecondary }
     var waveInactiveColor: UIColor { HippoConfig.shared.colorConfig.hippoIconSecondarySurface }
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        // downloadButtonView is a fixed 40x40 in the xib (bumped from 36x36 to match the
-        // sender-side badge) - hardcoded radius avoids depending on bounds being resolved by
-        // Auto Layout yet. Same circular badge as the file icon, coloured with the receiver
-        // icon-pair surface token.
-        downloadButtonView.layer.cornerRadius = 20
+        NotificationCenter.default.addObserver(self, selector: #selector(fileDownloadProgressed(_:)), name: .fileDownloadProgress, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(fileDownloadFailed(_:)), name: .fileDownloadFailed, object: nil)
+        // downloadButtonView is a fixed 44x44 in the xib - same size as the file card's
+        // icon badge so the two download buttons match. Hardcoded radius avoids depending
+        // on bounds being resolved by Auto Layout yet. Coloured with the receiver icon-pair
+        // surface token.
+        downloadButtonView.layer.cornerRadius = 22
         downloadButtonView.clipsToBounds = true
         downloadButtonView.backgroundColor = HippoConfig.shared.colorConfig.hippoIconSecondarySurface
         controlButton.tintColor = HippoConfig.shared.colorConfig.hippoIconSecondary
@@ -54,6 +57,8 @@ class CustomerIncomingAudioTableViewCell: IncomingAudioTableViewCell, CustomerAu
         installWaveRowIfNeeded()
         prepareForNewMessage()
         refreshWaveRow()
+        applyDownloadState()
+        applyControlIconSizing()
     }
 
     override func setUIAccordingToTheme() {
@@ -82,13 +87,28 @@ class CustomerIncomingAudioTableViewCell: IncomingAudioTableViewCell, CustomerAu
         refreshWaveRow()
     }
 
+    @objc private func fileDownloadProgressed(_ notification: Notification) {
+        handleDownloadProgress(notification)
+    }
+
+    @objc private func fileDownloadFailed(_ notification: Notification) {
+        handleDownloadFailed(notification)
+    }
+
     override func updateButtonAccordingToStatus() {
         super.updateButtonAccordingToStatus()
-        suppressDownloadIcon()
+        applyDownloadState()
         applyControlIconSizing()
     }
 
+    override func updateDownloadProgressView() {
+        super.updateDownloadProgressView()
+        // super restarts the spinner on every updateUI(); the ring replaces it here.
+        applyDownloadState()
+    }
+
     @IBAction override func controlButtonAction(_ sender: Any) {
+        guard !cancelDownloadIfInProgress() else { return }
         markAutoPlayIfNeeded()
         super.controlButtonAction(sender)
     }

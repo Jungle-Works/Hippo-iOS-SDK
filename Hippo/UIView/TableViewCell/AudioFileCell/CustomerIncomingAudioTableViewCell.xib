@@ -129,9 +129,9 @@
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstItem="Ufb-m3-a5j" firstAttribute="leading" secondItem="hpN-qS-Wtt" secondAttribute="leading" id="27A-rn-pCP"/>
-                                                    <constraint firstAttribute="width" constant="40" id="2EL-BY-hrT"/>
+                                                    <constraint firstAttribute="width" constant="44" id="2EL-BY-hrT"/>
                                                     <constraint firstAttribute="trailing" secondItem="p5V-Po-zR1" secondAttribute="trailing" id="445-Mn-Oog"/>
-                                                    <constraint firstAttribute="height" constant="40" id="5Ca-M6-uld"/>
+                                                    <constraint firstAttribute="height" constant="44" id="5Ca-M6-uld"/>
                                                     <constraint firstItem="p5V-Po-zR1" firstAttribute="top" secondItem="hpN-qS-Wtt" secondAttribute="top" id="CJ9-B1-mcW"/>
                                                     <constraint firstItem="Ufb-m3-a5j" firstAttribute="top" secondItem="hpN-qS-Wtt" secondAttribute="top" id="Cto-SC-0Vf"/>
                                                     <constraint firstAttribute="trailing" secondItem="Ufb-m3-a5j" secondAttribute="trailing" id="H55-Cb-4KK"/>

@@ -15,6 +15,11 @@
 import UIKit
 import AVFoundation
 
+/// Centre glyph while a download is running - tapping the button then cancels it.
+private let downloadCancelIcon = UIImage(systemName: "xmark",
+                                         withConfiguration: UIImage.SymbolConfiguration(pointSize: 12, weight: .bold))?
+    .withRenderingMode(.alwaysTemplate)
+
 protocol CustomerAudioWaveCapable: AnyObject {
     var controlsStackView: UIStackView! { get }
     var downloadButtonView: UIView! { get }
@@ -25,14 +30,15 @@ protocol CustomerAudioWaveCapable: AnyObject {
     var waveView: AudioWaveView? { get set }
     var durationLabel: UILabel? { get set }
     var probedTotalDuration: TimeInterval? { get set }
+    /// Ring on the edge of `downloadButtonView` while the audio file downloads.
+    var progressRing: DownloadProgressRingView? { get set }
 
     /// Icon-pair tokens for this cell's side — primary for outgoing, secondary for incoming.
     var waveActiveColor: UIColor { get }
     var waveInactiveColor: UIColor { get }
 
-    /// Set when a tap arrives before the file is local, so playback can start on its own once
-    /// the download this tap kicked off finishes — the button no longer distinguishes
-    /// "download" from "play", so one tap has to do both.
+    /// Set when a tap on the download button starts a download, so playback starts on its
+    /// own once that download finishes - no second tap on play needed.
     var pendingAutoPlay: Bool { get set }
 }
 
@@ -51,6 +57,18 @@ extension CustomerAudioWaveCapable where Self: AudioTableViewCell {
         fileInfoContainerView?.isHidden = true
 
         stack.insertArrangedSubview(button, at: 0)
+
+        let ring = DownloadProgressRingView()
+        ring.translatesAutoresizingMaskIntoConstraints = false
+        ring.isHidden = true
+        button.addSubview(ring)
+        NSLayoutConstraint.activate([
+            ring.topAnchor.constraint(equalTo: button.topAnchor),
+            ring.bottomAnchor.constraint(equalTo: button.bottomAnchor),
+            ring.leadingAnchor.constraint(equalTo: button.leadingAnchor),
+            ring.trailingAnchor.constraint(equalTo: button.trailingAnchor)
+        ])
+        progressRing = ring
 
         let wave = AudioWaveView()
         wave.translatesAutoresizingMaskIntoConstraints = false
@@ -109,12 +127,58 @@ extension CustomerAudioWaveCapable where Self: AudioTableViewCell {
         controlButtonAction(self)
     }
 
-    /// Call from `updateButtonAccordingToStatus()` after `super` — the badge's spinner already
-    /// communicates "downloading"; the button itself should only ever read as play/pause, never
-    /// show the base class's separate "download" icon.
-    func suppressDownloadIcon() {
-        guard controlButton.currentImage === HippoConfig.shared.theme.downloadIcon else { return }
-        controlButton.setImage(HippoConfig.shared.theme.playIcon, for: .normal)
+    /// Call from `updateButtonAccordingToStatus()` and `updateDownloadProgressView()` after
+    /// `super`. Not downloaded: the base class already shows the download icon - just dim the
+    /// wave. Downloading: swap the base class's spinner for the progress ring and show × in
+    /// the button (tap cancels). Downloaded: nothing to do, the base class shows play/pause.
+    func applyDownloadState() {
+        guard waveRowInstalled else { return }
+        waveView?.alpha = isFileDownloaded() ? 1 : 0.45
+
+        guard isFileBeingDownloaded() else {
+            progressRing?.reset()
+            progressRing?.isHidden = true
+            return
+        }
+        activityIndicator.stopAnimating()
+        activityIndicator.isHidden = true
+        controlButton.isHidden = false
+        controlButton.setImage(downloadCancelIcon, for: .normal)
+        controlButton.imageEdgeInsets = .zero
+
+        guard let ring = progressRing else { return }
+        ring.color = controlButton.tintColor
+        ring.isHidden = false
+        if let progress = DownloadManager.shared.downloadProgressFor(url: cellIdentifier) {
+            ring.setProgress(progress)
+        } else {
+            ring.setIndeterminate()
+        }
+    }
+
+    /// Call from `controlButtonAction(_:)` first - returns true (and the caller should stop)
+    /// when the tap was the × on a running download.
+    func cancelDownloadIfInProgress() -> Bool {
+        guard isFileBeingDownloaded() else { return false }
+        pendingAutoPlay = false
+        // Ends in a `.fileDownloadFailed` notification, which resets the button.
+        DownloadManager.shared.cancelDownloadWith(url: cellIdentifier)
+        return true
+    }
+
+    /// Call from the cell's `.fileDownloadProgress` observer.
+    func handleDownloadProgress(_ notification: Notification) {
+        guard let url = notification.userInfo?[DownloadManager.urlUserInfoKey] as? String,
+              url == cellIdentifier else { return }
+        applyDownloadState()
+    }
+
+    /// Call from the cell's `.fileDownloadFailed` observer (also fired on cancel).
+    func handleDownloadFailed(_ notification: Notification) {
+        guard let url = notification.userInfo?[DownloadManager.urlUserInfoKey] as? String,
+              url == cellIdentifier else { return }
+        pendingAutoPlay = false
+        updateUI()
     }
 
     func seek(toFraction fraction: CGFloat) {
@@ -184,6 +248,12 @@ extension CustomerAudioWaveCapable where Self: AudioTableViewCell {
         let currentImage = controlButton.currentImage
         let isPlayIcon = currentImage === theme.playIcon
         let isPauseIcon = currentImage === theme.pauseIcon
+        if currentImage === theme.downloadIcon {
+            // Drawn at its own size, not shrunk: the file card shows this same asset
+            // unscaled, and downscaling thins its strokes so the two stop matching.
+            controlButton.imageEdgeInsets = .zero
+            return
+        }
         guard isPlayIcon || isPauseIcon else { return }
 
         let targetSize = CGSize(width: 14, height: 14)

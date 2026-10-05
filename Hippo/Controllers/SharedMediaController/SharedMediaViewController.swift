@@ -42,6 +42,9 @@ final class SharedMediaViewController: UIViewController {
 
     var channelId : Int?
     var downloadingDoc = [String:String]()
+    /// Video whose download was started by tapping its tile - opened in the gallery
+    /// once it lands, the same "download then play" flow as chat audio.
+    private var pendingOpenVideoURL: String?
     var qldataSource: HippoQLDataSource?
     /// Backs the swipeable Quick Look viewer opened from the Media tab.
     private var mediaGallery: SharedMediaGalleryDataSource?
@@ -74,6 +77,32 @@ final class SharedMediaViewController: UIViewController {
 
     func addNotificationObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(fileDownloadCompleted(_:)), name: Notification.Name.fileDownloadCompleted, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(fileDownloadProgressed(_:)), name: .fileDownloadProgress, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(fileDownloadFailed(_:)), name: .fileDownloadFailed, object: nil)
+    }
+
+    @objc private func fileDownloadProgressed(_ notification: Notification) {
+        guard let url = notification.userInfo?[DownloadManager.urlUserInfoKey] as? String else { return }
+        updateMediaTileInPlace(for: url)
+    }
+
+    /// Also fired when a download is cancelled.
+    @objc private func fileDownloadFailed(_ notification: Notification) {
+        guard let url = notification.userInfo?[DownloadManager.urlUserInfoKey] as? String else { return }
+        if pendingOpenVideoURL == url {
+            pendingOpenVideoURL = nil
+        }
+        downloadingDoc[url] = nil
+        refreshRow(for: url)
+    }
+
+    /// Progress ticks repaint the visible tile directly - reloading the item would
+    /// reset and re-fetch its thumbnail on every percent.
+    private func updateMediaTileInPlace(for url: String) {
+        guard selectedTab == .media,
+              let index = visibleItems.firstIndex(where: { $0.openURL == url }),
+              let cell = collectionView.cellForItem(at: IndexPath(item: index, section: 0)) as? SharedMediaCell else { return }
+        cell.updateDownloadState(for: visibleItems[index])
     }
 
     @objc func fileDownloadCompleted(_ notification: Notification) {
@@ -82,6 +111,17 @@ final class SharedMediaViewController: UIViewController {
         }
         refreshRow(for: url)
         mediaGallery?.downloadFinished(url: url)
+
+        if url == pendingOpenVideoURL {
+            pendingOpenVideoURL = nil
+            // Only if the user is still looking at the grid - don't yank them out of a
+            // gallery or another screen they've moved to meanwhile.
+            if navigationController?.topViewController === self, selectedTab == .media,
+               let index = visibleItems.firstIndex(where: { $0.openURL == url }) {
+                openMediaGallery(startingAt: index)
+            }
+            return
+        }
 
         // Only jump into the preview for the file the user actually tapped; a
         // download kicked off from the row's own button just settles in place.
@@ -278,6 +318,13 @@ extension SharedMediaViewController: UICollectionViewDelegate,UICollectionViewDa
 
         // Photos and videos open together so the viewer can swipe between them.
         if selectedTab == .media {
+            // A video that isn't on the device yet would open blank in Quick Look -
+            // the tile's download button handles it instead.
+            if item.fileType == .video, let url = item.openURL,
+               !DownloadManager.shared.isFileDownloadedWith(url: url) {
+                toggleVideoDownload(for: item, url: url)
+                return
+            }
             openMediaGallery(startingAt: indexPath.item)
             return
         }
@@ -296,14 +343,37 @@ extension SharedMediaViewController: UICollectionViewDelegate,UICollectionViewDa
         openFile(url: url, name: item.file_name ?? "")
     }
 
+    /// Download button tap starts the download (and opens the video when it lands);
+    /// tapping again while it runs cancels it.
+    private func toggleVideoDownload(for item: ShareMediaModel, url: String) {
+        if DownloadManager.shared.isFileBeingDownloadedWith(url: url) {
+            pendingOpenVideoURL = nil
+            // Ends in .fileDownloadFailed, which resets the tile.
+            DownloadManager.shared.cancelDownloadWith(url: url)
+            return
+        }
+        pendingOpenVideoURL = url
+        DownloadManager.shared.downloadFileWith(url: url, name: item.downloadFileName)
+        updateMediaTileInPlace(for: url)
+    }
+
     private func openMediaGallery(startingAt index: Int) {
-        let gallery = SharedMediaGalleryDataSource(items: visibleItems)
+        // Videos not on the device are left out so swiping never lands on a blank page;
+        // photos stay, since their cached thumbnail stands in until the full file loads.
+        let isOpenable: (ShareMediaModel) -> Bool = { item in
+            guard item.fileType == .video else { return true }
+            return item.openURL.map { DownloadManager.shared.isFileDownloadedWith(url: $0) } ?? false
+        }
+        let galleryItems = visibleItems.filter(isOpenable)
+        let galleryIndex = visibleItems[..<index].filter(isOpenable).count
+
+        let gallery = SharedMediaGalleryDataSource(items: galleryItems)
         let qlPreview = QLPreviewController()
         gallery.controller = qlPreview
         mediaGallery = gallery
         qlPreview.dataSource = gallery
         qlPreview.delegate = gallery
-        qlPreview.currentPreviewItemIndex = index
+        qlPreview.currentPreviewItemIndex = galleryIndex
         qlPreview.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(qlPreview, animated: true)
     }

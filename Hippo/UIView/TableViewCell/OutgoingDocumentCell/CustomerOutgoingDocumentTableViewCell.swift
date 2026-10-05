@@ -3,21 +3,27 @@
 //  Hippo
 //
 //  Customer-only variant of OutgoingDocumentTableViewCell. The revamped file card
-//  (bigger badge-backed icon, file size/type aligned under the filename, no download
-//  button) is unconditional here since this class is only ever dequeued for the
-//  customer app.
+//  (bigger badge-backed icon, file size/type aligned under the filename, download
+//  states drawn in the badge - see CustomerDocumentDownloadCapable) is unconditional
+//  here since this class is only ever dequeued for the customer app.
 //
 
 import UIKit
 
-class CustomerOutgoingDocumentTableViewCell: OutgoingDocumentTableViewCell {
+class CustomerOutgoingDocumentTableViewCell: OutgoingDocumentTableViewCell, CustomerDocumentDownloadCapable {
 
     @IBOutlet weak var docImageBadgeView: UIView!
 
-    /// Set to the message's file URL when a tap kicks off a fresh download, so that
-    /// fileDownloadCompleted(_:) can open the file automatically once it lands instead
-    /// of making the user tap the card a second time. Cleared on reuse and after it fires.
-    private var pendingOpenFileUrl: String?
+    var pendingOpenFileUrl: String?
+    var progressRing: DownloadProgressRingView?
+    private var containerTapAdded = false
+
+    /// Mirrors OutgoingDocumentTableViewCell.updateUIAccordingToFileDownloadStatus(): while
+    /// the send is pending or failed the badge belongs to the upload state.
+    var isDownloadStateApplicable: Bool {
+        guard let message = message else { return false }
+        return message.status != .none && !message.wasMessageSendingFailed
+    }
 
     // MARK: Caption layout
     //
@@ -46,6 +52,9 @@ class CustomerOutgoingDocumentTableViewCell: OutgoingDocumentTableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        installProgressRing()
+        NotificationCenter.default.addObserver(self, selector: #selector(fileDownloadProgressed(_:)), name: .fileDownloadProgress, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(fileDownloadFailed(_:)), name: .fileDownloadFailed, object: nil)
         // Badge is a fixed 44x44 in the xib - hardcoded radius avoids depending on bounds
         // being resolved by Auto Layout yet at awakeFromNib time. Full circle, half the
         // fixed size, matching the call icon badge.
@@ -87,28 +96,32 @@ class CustomerOutgoingDocumentTableViewCell: OutgoingDocumentTableViewCell {
     }
 
     override func intalizeCell(with message: HippoMessage, isIncomingView: Bool) {
-        // Cell is being handed a (possibly different) message - drop any stale
-        // "open when the download finishes" intent from the previous binding.
-        pendingOpenFileUrl = nil
+        // Drop a stale "open when the download finishes" intent from a previous binding -
+        // but not when bgViewTaped() re-binds this same file right after arming it.
+        clearPendingOpenIfRebound(to: message)
         super.intalizeCell(with: message, isIncomingView: isIncomingView)
     }
 
-    override func fileDownloadCompleted(_ notification: Notification) {
-        // super stops the spinner and unhides docImage via updateUIAccordingToFileDownloadStatus().
-        super.fileDownloadCompleted(notification)
+    override func addGestureToContainer() {
+        // intalizeCell adds a tap recognizer on every bind (and bgViewTaped re-binds), so one
+        // tap fired bgViewTaped several times - harmless before, but now a second firing
+        // would undo a cancel by restarting the download. One recognizer per cell.
+        guard !containerTapAdded else { return }
+        containerTapAdded = true
+        super.addGestureToContainer()
+    }
 
-        guard let url = notification.userInfo?[DownloadManager.urlUserInfoKey] as? String,
-              url == pendingOpenFileUrl,
-              let message = message,
-              message.fileUrl == url,
-              DownloadManager.shared.isFileDownloadedWith(url: url) else {
-            return
-        }
-        // The download this cell's tap started has landed - open it now. Going back
-        // through performActionAccordingToStatusOf keeps the "already downloaded ->
-        // QuickLook" branch as the single place that opens files.
-        pendingOpenFileUrl = nil
-        actionDelegate?.performActionAccordingToStatusOf(message: message, inCell: self)
+    override func fileDownloadCompleted(_ notification: Notification) {
+        super.fileDownloadCompleted(notification)
+        openIfPendingDownloadLanded(notification)
+    }
+
+    @objc private func fileDownloadProgressed(_ notification: Notification) {
+        handleDownloadProgress(notification)
+    }
+
+    @objc private func fileDownloadFailed(_ notification: Notification) {
+        handleDownloadFailed(notification)
     }
 
     override func updateUIAccordingToFileDownloadStatus() {
@@ -116,13 +129,12 @@ class CustomerOutgoingDocumentTableViewCell: OutgoingDocumentTableViewCell {
         // The whole card is already tap-to-download via bgViewTaped(); no separate
         // button needed on the customer screen.
         retryButton.isHidden = true
+        applyDownloadState()
+    }
 
-        // activityIndicator is centred on docImageBadgeView, directly over docImage — hide the
-        // file icon while the spinner is running so the two don't render on top of each other,
-        // and bring it back once the download finishes (or hasn't started yet).
-        if let fileUrl = message?.fileUrl {
-            docImage.isHidden = DownloadManager.shared.isFileBeingDownloadedWith(url: fileUrl)
-        }
+    override func setDocIconAccordingToFileType() {
+        super.setDocIconAccordingToFileType()
+        overlayDownloadIcon()
     }
 
     override func setUIAccordingToTheme() {
@@ -173,13 +185,12 @@ class CustomerOutgoingDocumentTableViewCell: OutgoingDocumentTableViewCell {
         case .none:
             delegate?.retryUploadFor(message: message)
         default:
+            // × on a running download - cancelling resets the card via .fileDownloadFailed.
+            if cancelDownloadIfInProgress() { return }
             // If the file isn't cached yet this tap starts a download - remember to
             // auto-open it when fileDownloadCompleted(_:) fires. If it's already
             // downloaded, performActionAccordingToStatusOf opens it right here.
-            if let fileUrl = message.fileUrl,
-               !DownloadManager.shared.isFileDownloadedWith(url: fileUrl) {
-                pendingOpenFileUrl = fileUrl
-            }
+            armOpenAfterDownloadIfNeeded()
             actionDelegate?.performActionAccordingToStatusOf(message: message, inCell: self)
             updateUI()
         }
