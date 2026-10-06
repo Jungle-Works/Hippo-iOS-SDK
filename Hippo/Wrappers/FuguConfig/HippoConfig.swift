@@ -451,6 +451,7 @@ struct WhatsappWidgetConfig{
             object: nil
         )
         self.userDetail = userDetail
+        HippoUserDetail.cacheCallIdentity(of: userDetail)
         self.appUserType = .customer
         AgentDetail.agentLoginData = nil
         HippoUserDetail.getUserDetailsAndConversation(isOpenedFromPush: isOpenedFromPush) { (status, error) in

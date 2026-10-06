@@ -172,6 +172,33 @@ public class UserTag: NSObject {
         }
     }
     
+    // Name/photo persisted at login so a call answered from a killed state (VoIP push
+    // relaunch, no login flow) shows the real customer instead of "Visitor".
+    private static let callerNameKey = "Hippo_Cached_Full_Name"
+    private static let callerImageKey = "Hippo_Cached_User_Image"
+
+    static func cacheCallIdentity(of detail: HippoUserDetail) {
+        let defaults = UserDefaults.standard
+        defaults.set(detail.fullName, forKey: callerNameKey)
+        defaults.set(detail.userImage?.absoluteString, forKey: callerImageKey)
+    }
+
+    static func restoredFromCallIdentityCache() -> HippoUserDetail {
+        let detail = HippoUserDetail()
+        let defaults = UserDefaults.standard
+        detail.fullName = defaults.string(forKey: callerNameKey)
+        if let image = defaults.string(forKey: callerImageKey) {
+            detail.userImage = URL(string: image)
+        }
+        return detail
+    }
+
+    static func clearCallIdentityCache() {
+        let defaults = UserDefaults.standard
+        defaults.removeObject(forKey: callerNameKey)
+        defaults.removeObject(forKey: callerImageKey)
+    }
+
     static func isValidDetails() -> Bool {
         let appSecretKey = HippoConfig.shared.appSecretKey
         let enUserID = fuguEnUserID?.trimWhiteSpacesAndNewLine() ?? ""
@@ -374,6 +401,18 @@ public class UserTag: NSObject {
     }
     
     class func handlePutUserResponse(userDetailData: [String : Any],completion: FuguUserDetailCallback? = nil) {
+        // The server's name/photo are what this user is known by. The app may have passed
+        // an empty name (it then shows as "Visitor" in calls) and no photo at all.
+        if let userDetail = HippoConfig.shared.userDetail {
+            if let serverName = (userDetailData["full_name"] as? String)?.trimWhiteSpacesAndNewLine(), !serverName.isEmpty {
+                userDetail.fullName = serverName
+            }
+            if let serverImage = (userDetailData["user_image"] as? String)?.trimWhiteSpacesAndNewLine(), let url = URL(string: serverImage), !serverImage.isEmpty {
+                userDetail.userImage = url
+            }
+            HippoUserDetail.cacheCallIdentity(of: userDetail)
+        }
+
         if let jitsiUrl = userDetailData["jitsi_url"] as? String{
             HippoConfig.shared.jitsiUrl = jitsiUrl
         }
@@ -762,6 +801,7 @@ public class UserTag: NSObject {
         defaults.removeObject(forKey: Hippo_User_Channel_Id)
         defaults.removeObject(forKey: FUGU_USER_ID)
         defaults.removeObject(forKey: Fugu_en_user_id)
+        HippoUserDetail.clearCallIdentityCache()
         defaults.synchronize()
         completion?(true)
     }
