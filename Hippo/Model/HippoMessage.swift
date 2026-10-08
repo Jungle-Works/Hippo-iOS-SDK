@@ -1027,6 +1027,15 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         return unhandledMimeType.contains(parsedType)
     }
     
+    /// The bot form field the user should answer next: the first shown field that isn't
+    /// completed. Built from the server's `values` (FormData.getArray) and kept current by
+    /// local submits, so it's right both before and after the server echoes the form back.
+    /// nil when every field is answered.
+    var nextFormFieldIndex: Int? {
+        guard type == .leadForm || type == .createTicket else { return nil }
+        return leadsDataArray.firstIndex(where: { $0.isShow && !$0.isCompleted })
+    }
+
     func shouldShowSkipButton() -> Bool {
         var isAllFieldCompleted: Bool = true
         

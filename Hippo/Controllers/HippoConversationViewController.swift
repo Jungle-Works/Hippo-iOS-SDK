@@ -133,6 +133,7 @@ class HippoConversationViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        navigationController?.setToolbarHidden(true, animated: false)  // see viewDidAppear
         //        checkNetworkConnection()
         
         
@@ -144,6 +145,12 @@ class HippoConversationViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        // QLPreviewController (pushed with hidesBottomBarWhenPushed) turns the navigation toolbar
+        // on, and the pop transition restores it as visible *after* viewWillAppear - so hide it
+        // again once the transition is done. A visible toolbar, even empty, adds 49pt to the
+        // bottom safe area of every screen in this stack (the list's Create Conversation button
+        // moved up by exactly that).
+        navigationController?.setToolbarHidden(true, animated: false)
     }
     
     

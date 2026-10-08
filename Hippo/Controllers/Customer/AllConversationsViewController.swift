@@ -163,6 +163,9 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         HippoConfig.shared.hideTabbar?(false)
         //  self.navigationController?.setTheme()
         self.navigationController?.isNavigationBarHidden = true
+        // Backstop for a toolbar left on by a QuickLook preview further up the stack - it would
+        // raise the bottom layout guide the Create Conversation button is pinned to.
+        self.navigationController?.setToolbarHidden(true, animated: false)
         self.setUpTabBar()
         
         //        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
@@ -315,7 +318,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         updateErrorLabelView(isHiding: true)
         refreshControl.addTarget(self, action: #selector(refresh(_:)), for: .valueChanged)
         setTableView()
-        showConversationsTableView.backgroundView = refreshControl
+        showConversationsTableView.refreshControl = refreshControl
         let theme = HippoConfig.shared.theme
         
         //    newConversationBiutton.isEnabled = HippoProperty.current.enableNewConversationButton
@@ -828,15 +831,10 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
             self.informationView?.button_Info.setTitle(HippoConfig.shared.theme.chatListRetryBtnText == nil ? HippoStrings.retry : HippoConfig.shared.theme.chatListRetryBtnText, for: .normal)
             
             self.informationView?.isHidden = false
-            self.showConversationsTableView.addSubview(informationView!)
-            showConversationsTableView.layoutSubviews()
+            // backgroundView stays pinned while the table bounces; a plain subview would scroll with it.
+            self.showConversationsTableView.backgroundView = informationView
         }else{
-            for view in showConversationsTableView.subviews{
-                if view is InformationView{
-                    view.removeFromSuperview()
-                }
-            }
-            showConversationsTableView.layoutSubviews()
+            self.showConversationsTableView.backgroundView = nil
             self.informationView?.isHidden = true
             //self.navigationItem.rightBarButtonItem?.tintColor = HippoConfig.shared.theme.logoutButtonTintColor ?? HippoConfig.shared.theme.headerTextColor
         }

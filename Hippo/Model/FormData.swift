@@ -237,6 +237,24 @@ class FormData: NSObject {
     }
     
     
+    /// How a bot-form field is answered. `data_type` alone can't tell menus apart (Group Type /
+    /// Priority come as "string"), so the ticket `params_id` decides.
+    enum FieldKind {
+        case text        // typed - gets the keyboard
+        case menu        // pick from a list (issue type / priority) - no keyboard
+        case attachment  // file picker
+    }
+
+    var fieldKind: FieldKind {
+        if paramId == CreateTicketFields.attachments.rawValue || dataType.lowercased() == "attachment" {
+            return .attachment
+        }
+        if paramId == CreateTicketFields.issueType.rawValue || paramId == CreateTicketFields.priority.rawValue {
+            return .menu
+        }
+        return .text
+    }
+
     enum FormDataType: String {
         case none = ""
         case textfield = "TEXTFIELD"

@@ -14,7 +14,9 @@ class CustomerIncomingImageCell: IncomingImageCell {
     // Forces the (rarely-shown) caption textView to zero height when there's no caption —
     // without this, an empty UITextView still reports its font's line-height as intrinsic
     // content size, silently padding the bubble's bottom.
-    @IBOutlet weak var captionHeightConstraint: NSLayoutConstraint!
+    // Strong: a deactivated constraint isn't retained by any view, so a weak outlet would
+    // go nil the first time a caption is shown and could never be re-activated on reuse.
+    @IBOutlet var captionHeightConstraint: NSLayoutConstraint!
 
     override func intalizeCell(with message: HippoMessage, isIncomingView: Bool) {
         super.intalizeCell(with: message, isIncomingView: isIncomingView)
@@ -41,11 +43,13 @@ class CustomerIncomingImageCell: IncomingImageCell {
         timeLabel.textColor = colorConfig.hippoTextMuted
     }
 
-    override func layoutSubviews() {
-        // configureIncomingCell(...) is declared in a class extension on IncomingImageCell,
-        // so it uses static dispatch and can't be overridden here — toggle the caption
-        // height constraint from layoutSubviews instead, which runs after every configure.
+    // Must happen at configure time: a self-sizing row is measured before layoutSubviews,
+    // so toggling there left the caption at 0pt height and clipped it off.
+    override func captionVisibilityDidChange() {
         captionHeightConstraint?.isActive = textView.isHidden
+    }
+
+    override func layoutSubviews() {
         super.layoutSubviews()
         // Deferred a run-loop turn on purpose — same reason as the other revamped cells:
         // CAShapeLayer.path is a one-shot bounds snapshot, and this card's height can take

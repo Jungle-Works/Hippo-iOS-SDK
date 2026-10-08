@@ -150,6 +150,11 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     /// composer/keyboard covering the table - see `updateChatInsetForComposerOverlap()`.
     private var composerOverlapInset: CGFloat = 0
 
+    /// The bot form the user is filling in. While set, every chat reload re-focuses its next
+    /// field (see focusActiveFormField). Cleared when the user dismisses the keyboard by
+    /// tapping the chat, starts typing in the composer, or the form is finished.
+    private weak var activeFormMessage: HippoMessage?
+
     var transparentView = UIView()
     var lineLabel = UILabel()
     var customTableView = UITableView()
@@ -1232,13 +1237,16 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     }
     
     func disableSendingReply(withOutUpdate: Bool = false, message: String? = nil) {
+        setComposerAreaCollapsed(false)
         self.pleaseSelectOptionView.isHidden = false
         self.pleaseSelectOptionLabel.isHidden = false
         self.pleaseSelectOptionLabel.text = message ?? (HippoProperty.current.pleaseSelectOptionText ?? HippoStrings.pleaseSelectAnOption)
         if !withOutUpdate {
             self.channel?.isSendingDisabled = true
         }
-        self.view.endEditing(true)
+        // Only the composer is being hidden. view.endEditing would also close a bot form
+        // field's keyboard - and this runs on every socket push while a form is active.
+        self.messageTextView.resignFirstResponder()
         self.textViewBottomConstraint.constant = 0
         self.textViewBottomConstraint.constant = -self.textViewBgView.frame.height
         self.textViewBgView.isHidden = true
@@ -1262,6 +1270,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         }
         //        self.textViewBottomConstraint.constant = self.textViewBgView.frame.height
         self.textViewBgView.isHidden = false
+        setComposerAreaCollapsed(false)
         DispatchQueue.main.async {
             self.view.layoutIfNeeded()
         }
@@ -1338,6 +1347,26 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         disableSendingReply(withOutUpdate: true, message: "")
         pleaseSelectOptionView.isHidden = true
         pleaseSelectOptionLabel.isHidden = true
+        setComposerAreaCollapsed(true)
+    }
+
+    /// The storyboard's fixed 58pt height on the "please select an option" bar. It sits between
+    /// the message list and the bottom guide with required constraints, so hiding it still
+    /// reserves its space. Held strongly so its original constant can be restored.
+    private lazy var pleaseSelectOptionHeightConstraint: NSLayoutConstraint? =
+        pleaseSelectOptionView.constraints.first { $0.firstAttribute == .height && $0.secondItem == nil }
+    private lazy var pleaseSelectOptionDefaultHeight: CGFloat = pleaseSelectOptionHeightConstraint?.constant ?? 58
+
+    /// Collapsed while a bot form owns the input (no composer, no bar): the list runs down
+    /// to the bottom instead of leaving an empty band with a separator line above it.
+    private func setComposerAreaCollapsed(_ collapsed: Bool) {
+        _ = pleaseSelectOptionDefaultHeight
+        pleaseSelectOptionHeightConstraint?.constant = collapsed ? 0 : pleaseSelectOptionDefaultHeight
+        seperatorView.isHidden = collapsed
+        DispatchQueue.main.async {
+            self.view.layoutIfNeeded()
+            self.updateChatInsetForComposerOverlap()
+        }
     }
 
     /// Walks the thread backwards to the newest message and reports whether it is a
@@ -1525,6 +1554,8 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         if request.pageStart == 1, request.pageEnd == nil {
             newScrollToBottom(animated: true)
             sendReadAllNotification()
+            // Chat opened on an unfinished bot form - put the user on its next field.
+            activateFormIfLastMessage(getLastMessage())
         }
         
         willPaginationWork = result.isMoreDataToLoad
@@ -2127,7 +2158,14 @@ extension ConversationsViewController {
     }
     
     @objc func dismissKeyboard(sender: UIGestureRecognizer) {
-        
+        // This recognizer sits on the whole table with cancelsTouchesInView = false, so it also
+        // fires for taps on controls inside cells - e.g. a bot form's submit arrow, where closing
+        // the keyboard would undo the move to the next field. Leave those taps to the control.
+        if tapLandedOnControl(sender) {
+            return
+        }
+        activeFormMessage = nil
+
         guard messageTextView.isFirstResponder else {
             self.view.endEditing(true)//
             return
@@ -2140,6 +2178,15 @@ extension ConversationsViewController {
         }
     }
     
+    private func tapLandedOnControl(_ gesture: UIGestureRecognizer) -> Bool {
+        var view = tableViewChat.hitTest(gesture.location(in: tableViewChat), with: nil)
+        while let current = view, current !== tableViewChat {
+            if current is UIControl { return true }
+            view = current.superview
+        }
+        return false
+    }
+
     func getLastVisibleYCoordinateOfTableView() -> CGFloat {
         let tableViewHeight = tableViewChat.frame.height
         let tableViewYOffset = tableViewChat.contentOffset.y
@@ -2163,12 +2210,17 @@ extension ConversationsViewController {
             messageTextView.inputAccessoryView = inputView
             
             inputView.changeKeyboardFrame { [weak self] (keyboardVisible, keyboardFrame) in
+                guard let self = self else { return }
                 let value = FUGU_SCREEN_HEIGHT - keyboardFrame.minY - UIView.safeAreaInsetOfKeyWindow.bottom
                 let maxValue = max(0, value)
-                self?.textViewBottomConstraint.constant = maxValue
+                // Keep whatever sits just above the composer there while the keyboard
+                // opens or closes, however the table's frame/insets end up changing.
+                let gapToBottom = self.chatDistanceFromBottom()
+                self.textViewBottomConstraint.constant = maxValue
 
-                self?.view.layoutIfNeeded()
-                self?.updateChatInsetForComposerOverlap()
+                self.view.layoutIfNeeded()
+                self.updateChatInsetForComposerOverlap()
+                self.restoreChatDistanceFromBottom(gapToBottom)
             }
             isObserverAdded = true
         }
@@ -2231,6 +2283,22 @@ extension ConversationsViewController {
         let minOffsetY = -insets.top
         let maxOffsetY = max(minOffsetY, tableViewChat.contentSize.height + insets.bottom - tableViewChat.bounds.height)
         let newOffsetY = min(max(tableViewChat.contentOffset.y + delta, minOffsetY), maxOffsetY)
+        tableViewChat.contentOffset = CGPoint(x: tableViewChat.contentOffset.x, y: newOffsetY)
+    }
+
+    /// How far the visible area is from the end of the chat content (0 = at the bottom).
+    private func chatDistanceFromBottom() -> CGFloat {
+        let insets = tableViewChat.adjustedContentInset
+        let maxOffsetY = max(-insets.top, tableViewChat.contentSize.height + insets.bottom - tableViewChat.bounds.height)
+        return max(0, maxOffsetY - tableViewChat.contentOffset.y)
+    }
+
+    private func restoreChatDistanceFromBottom(_ distance: CGFloat) {
+        let insets = tableViewChat.adjustedContentInset
+        let minOffsetY = -insets.top
+        let maxOffsetY = max(minOffsetY, tableViewChat.contentSize.height + insets.bottom - tableViewChat.bounds.height)
+        let newOffsetY = min(max(maxOffsetY - distance, minOffsetY), maxOffsetY)
+        guard abs(newOffsetY - tableViewChat.contentOffset.y) > 0.5 else { return }
         tableViewChat.contentOffset = CGPoint(x: tableViewChat.contentOffset.x, y: newOffsetY)
     }
 
@@ -3376,6 +3444,7 @@ extension ConversationsViewController: UITextViewDelegate {
         }
         
         self.addRemoveShadowInTextView(toAdd: true)
+        activeFormMessage = nil
         
         placeHolderLabel.textColor = #colorLiteral(red: 0.2862745098, green: 0.2862745098, blue: 0.2862745098, alpha: 0.8)
         textInTextField = textView.text
@@ -3513,7 +3582,8 @@ extension ConversationsViewController: HippoChannelDelegate {
         handleAudioIcon()
         handleVideoIcon()
         updateInfoIconVisibility()
-        tableViewChat.reloadData()
+        // The server echo of a bot form lands here with freshly parsed fields.
+        reloadChatKeepingFormFocus()
     }
     
     func cancelSendingMessage(message: HippoMessage, errorMessage: String?,errorCode : SocketClient.SocketError?) {
@@ -3647,6 +3717,12 @@ extension ConversationsViewController: HippoChannelDelegate {
         
         if message.type == MessageType.leadForm {
             self.replaceLastQuickReplyIncaseofBotForm()
+        }
+        if message.type == .leadForm || message.type == .createTicket {
+            // Queued after updateMessagesArrayLocallyForUIUpdation's async insert.
+            DispatchQueue.main.async {
+                self.activateFormIfLastMessage(self.getLastMessage())
+            }
         }
         
         if message.type == MessageType.createTicket{
@@ -3840,10 +3916,12 @@ extension ConversationsViewController: LeadTableViewCellDelegate {
             return
         }
         
-        popover = LCPopover(for: sender, title: "") { tuple in
+        popover = LCPopover(for: sender, title: "") { [weak self] tuple in
             // Use of the selected tuple
             guard let value = tuple else { return }
             sender.text = value
+            // Picking an option answers the menu field - submit it and move on.
+            self?.formFieldCell(containing: sender)?.submitAnswer()
         }
         
         guard let popover = popover else {
@@ -3925,15 +4003,24 @@ extension ConversationsViewController: LeadTableViewCellDelegate {
     }
     
     func cellUpdated(for cell: LeadTableViewCell, data: [FormData], isSkipAction: Bool) {
-        guard let indexPath = self.tableViewChat.indexPath(for: cell) else {
+        guard let indexPath = formIndexPath(for: cell) else {
             return
         }
         guard indexPath.section < self.messagesGroupedByDate.count else {
             return
         }
-        messagesGroupedByDate[indexPath.section][indexPath.row].leadsDataArray = data
-        DispatchQueue.main.async {
-            self.tableViewChat.reloadData()
+        let message = messagesGroupedByDate[indexPath.section][indexPath.row]
+        message.leadsDataArray = data
+        activeFormMessage = isSkipAction ? nil : message
+        if isSkipAction {
+            DispatchQueue.main.async {
+                self.reloadChatKeepingFormFocus()
+            }
+        } else {
+            // Synchronous on purpose: the form's own reload has just taken focus off the field.
+            // Re-focusing in the same run-loop turn keeps the keyboard up; deferring it let the
+            // keyboard start to close before the next field took over.
+            reloadChatKeepingFormFocus()
         }
         var count = 0
         for message in data {
@@ -3947,14 +4034,167 @@ extension ConversationsViewController: LeadTableViewCellDelegate {
         
     }
     
+    // MARK: Bot form focus
+    //
+    // The next field to answer is derived from the form data (HippoMessage.nextFormFieldIndex:
+    // first shown, uncompleted field), not remembered in a cell - so it survives every reload,
+    // including the server echo that rebuilds the form's fields.
+
+    /// Full reload (always resizes the form row correctly), then puts the user back on the
+    /// active form's next field. Text being typed is saved first so a reload can't wipe it.
+    func reloadChatKeepingFormFocus() {
+        let answerBeingEdited = answeredFormFieldBeingEdited()
+        saveTypedFormDraft()
+        tableViewChat.reloadData()
+        // Re-bind the visible cells now: sendReply / cellUpdated look the form up from its cell,
+        // and right after reloadData a cell has no index path until the next layout.
+        tableViewChat.layoutIfNeeded()
+        if let edit = answerBeingEdited, restoreEditOfAnsweredField(edit) {
+            return
+        }
+        focusActiveFormField()
+    }
+
+    /// An answered, editable field (pencil) the user is changing right now, with what they've
+    /// typed - so a reload (e.g. from a socket push) doesn't throw them to the next field.
+    private func answeredFormFieldBeingEdited() -> (message: HippoMessage, section: Int, text: String)? {
+        for case let formCell as LeadTableViewCell in tableViewChat.visibleCells {
+            for case let fieldCell as LeadDataTableViewCell in formCell.tableView.visibleCells
+            where fieldCell.valueTextfield.isFirstResponder {
+                guard let message = formCell.message,
+                      let data = fieldCell.boundData, data.isCompleted,
+                      let section = formCell.filterFileArray.firstIndex(where: { $0 === data }) else { return nil }
+                return (message, section, fieldCell.valueTextfield.text ?? "")
+            }
+        }
+        return nil
+    }
+
+    private func restoreEditOfAnsweredField(_ edit: (message: HippoMessage, section: Int, text: String)) -> Bool {
+        guard let indexPath = indexPathOfMessage(edit.message),
+              let formCell = tableViewChat.cellForRow(at: indexPath) as? LeadTableViewCell,
+              let fieldCell = formCell.fieldCell(forSection: edit.section),
+              let data = fieldCell.boundData, data.isCompleted, data.shouldBeEditable else { return false }
+        fieldCell.valueTextfield.text = edit.text
+        if edit.text != data.value {
+            // After setData's deferred styling, which would put the pencil back.
+            DispatchQueue.main.async { [weak fieldCell] in
+                guard let fieldCell = fieldCell, fieldCell.boundData === data else { return }
+                fieldCell.showSubmitIcon()
+            }
+        }
+        if !fieldCell.valueTextfield.isFirstResponder {
+            fieldCell.valueTextfield.becomeFirstResponder()
+        }
+        return true
+    }
+
+    /// Makes `message` the active form if it's the last message and still has a field to
+    /// answer, then focuses that field - for a form that just arrived or was loaded with the chat.
+    func activateFormIfLastMessage(_ message: HippoMessage?) {
+        guard let message = message, message === getLastMessage(), message.nextFormFieldIndex != nil else { return }
+        activeFormMessage = message
+        DispatchQueue.main.async {
+            self.focusActiveFormField()
+        }
+    }
+
+    /// Text field -> keyboard. Menu -> option list, no keyboard. Attachment -> keyboard closed,
+    /// user taps it. Each is scrolled into view; nothing left to answer -> keyboard closed.
+    func focusActiveFormField() {
+        guard let message = activeFormMessage, let indexPath = indexPathOfMessage(message) else { return }
+        guard let next = message.nextFormFieldIndex else {
+            activeFormMessage = nil
+            view.endEditing(true)
+            return
+        }
+        tableViewChat.layoutIfNeeded()
+        if tableViewChat.cellForRow(at: indexPath) == nil {
+            tableViewChat.scrollToRow(at: indexPath, at: .bottom, animated: false)
+            tableViewChat.layoutIfNeeded()
+        }
+        guard let formCell = tableViewChat.cellForRow(at: indexPath) as? LeadTableViewCell,
+              let fieldCell = formCell.fieldCell(forSection: next) else { return }
+
+        switch message.leadsDataArray[next].fieldKind {
+        case .text:
+            // Scroll first, then focus: the keyboard manager lifts the field above the keyboard.
+            scrollFormFieldIntoView(fieldCell, animated: false)
+            if !fieldCell.valueTextfield.isFirstResponder {
+                fieldCell.valueTextfield.becomeFirstResponder()
+            }
+        case .menu:
+            scrollFormFieldIntoView(fieldCell, animated: true)
+            guard !(presentedViewController is LCPopover) else { return }
+            view.endEditing(true)
+            // After the scroll and any closing popover settle - a popover can't present over
+            // another one. Focusing a menu field loads its options and shows the list.
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) { [weak self, weak fieldCell] in
+                guard let self = self, let fieldCell = fieldCell, fieldCell.window != nil,
+                      self.activeFormMessage === message, self.presentedViewController == nil,
+                      !fieldCell.valueTextfield.isFirstResponder else { return }
+                fieldCell.valueTextfield.becomeFirstResponder()
+            }
+        case .attachment:
+            view.endEditing(true)
+            scrollFormFieldIntoView(fieldCell, animated: true)
+        }
+    }
+
+    private func scrollFormFieldIntoView(_ fieldCell: UIView, animated: Bool) {
+        let rect = fieldCell.convert(fieldCell.bounds, to: tableViewChat).insetBy(dx: 0, dy: -12)
+        tableViewChat.scrollRectToVisible(rect, animated: animated)
+    }
+
+    /// Copies what the user is typing into the field's draftValue, which LeadDataTableViewCell
+    /// shows after a reload.
+    private func saveTypedFormDraft() {
+        guard let message = activeFormMessage, let next = message.nextFormFieldIndex,
+              let indexPath = indexPathOfMessage(message),
+              let formCell = tableViewChat.cellForRow(at: indexPath) as? LeadTableViewCell,
+              let fieldCell = formCell.fieldCell(forSection: next),
+              fieldCell.valueTextfield.isFirstResponder else { return }
+        message.leadsDataArray[next].draftValue = fieldCell.valueTextfield.text ?? ""
+    }
+
+    /// Where a form cell's message is. Falls back to the cell's bound message when the table
+    /// can't place the cell (e.g. between a reload and the next layout) - otherwise a submit
+    /// could be dropped without ever reaching the server.
+    private func formIndexPath(for cell: LeadTableViewCell) -> IndexPath? {
+        if let indexPath = tableViewChat.indexPath(for: cell) {
+            return indexPath
+        }
+        guard let message = cell.message else { return nil }
+        return indexPathOfMessage(message)
+    }
+
+    private func indexPathOfMessage(_ message: HippoMessage) -> IndexPath? {
+        for (section, messages) in messagesGroupedByDate.enumerated() {
+            if let row = messages.firstIndex(where: { $0 === message || ($0.messageUniqueID != nil && $0.messageUniqueID == message.messageUniqueID) }) {
+                return IndexPath(row: row, section: section)
+            }
+        }
+        return nil
+    }
+
+    private func formFieldCell(containing view: UIView) -> LeadDataTableViewCell? {
+        var current = view.superview
+        while let candidate = current {
+            if let cell = candidate as? LeadDataTableViewCell { return cell }
+            current = candidate.superview
+        }
+        return nil
+    }
+
     func sendReply(forCell cell: LeadTableViewCell, data: [FormData]) {
-        guard let indexPath = self.tableViewChat.indexPath(for: cell) else {
+        guard let indexPath = formIndexPath(for: cell) else {
             return
         }
         guard indexPath.section < self.messagesGroupedByDate.count else {
             return
         }
         let message = messagesGroupedByDate[indexPath.section][indexPath.row]
+        print("[BotForm] sendReply resolved form=\(message.messageUniqueID ?? "nil") type=\(message.type.rawValue) cellForm=\(cell.message?.messageUniqueID ?? "nil")")
         
         ///*change editable status if we are sending description*/
         if message.type == .createTicket{
@@ -4024,11 +4264,12 @@ extension ConversationsViewController: LeadTableViewCellDelegate {
             let isReplyMessageSent = result?.isReplyMessageSent ?? false
             
             if !isReplyMessageSent {
+                print("[BotForm] sendFormValues form=\(message.messageUniqueID ?? "nil") type=\(message.type.rawValue) values=\(message.leadsDataArray.prefix(while: { !$0.value.isEmpty }).map { $0.value })")
                 self?.channel?.sendFormValues(message: message, completion: {
                     message.botFormMessageUniqueID =  nil
-                    cell.checkAndDisableSkipButton()
-                    
-                    self?.cellUpdated(for: cell, data: data, isSkipAction: false)
+                    // Don't go through `cell` here: by the time the ack arrives it may have been
+                    // reused for another form. The reload re-applies Skip visibility from data.
+                    self?.reloadChatKeepingFormFocus()
                     
                     if message.type == .createTicket{
                         var arrayOfMessages: [String] = []

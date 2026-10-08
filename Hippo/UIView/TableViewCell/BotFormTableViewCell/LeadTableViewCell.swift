@@ -163,6 +163,20 @@ class LeadTableViewCell: MessageTableViewCell {
         skipButtonContainter.isHidden = true
         self.delegate?.cellUpdated(for: self, data: filterFileArray, isSkipAction: true)
     }
+    /// The laid-out cell for a form field, so the chat can focus / scroll to it. Forces a
+    /// layout pass first: after a reload the inner table may not have created the row yet.
+    func fieldCell(forSection section: Int) -> LeadDataTableViewCell? {
+        guard section < filterFileArray.count, filterFileArray[section].isShow else { return nil }
+        layoutIfNeeded()
+        tableView.layoutIfNeeded()
+        return tableView.cellForRow(at: IndexPath(row: 0, section: section)) as? LeadDataTableViewCell
+    }
+
+    private func questionCountText() -> String {
+        let shown = filterFileArray.filter { $0.isShow }.count
+        return "(\(shown) of \(filterFileArray.count))"
+    }
+
     func checkAndDisableSkipButton() {
         guard let message = message else {
             return
@@ -205,13 +219,7 @@ extension LeadTableViewCell: UITableViewDataSource, UITableViewDelegate {
             cell.setData(data: filterFileArray[indexPath.section])
             if indexPath.section == 0 {
                 cell.labelNoOfQuestions.isHidden = false
-                var count = 1
-                for lead in filterFileArray {
-                    if lead.isShow {
-                        cell.labelNoOfQuestions.text = "(\(count) of \(filterFileArray.count))"
-                        count += 1
-                    }
-                }
+                cell.labelNoOfQuestions.text = questionCountText()
                 cell.constraintViewTop.constant = 8
             } else {
                 cell.labelNoOfQuestions.isHidden = true
@@ -284,10 +292,16 @@ extension LeadTableViewCell: LeadDataCellDelegate {
             return
         }
         let section = indexPath.section
+        let wasEnabled = filterFileArray[section].isErrorEnabled
         filterFileArray[section].isErrorEnabled = isEnabled
         filterFileArray[section].errorMessage = text ?? ""
         filterFileArray[section].draftValue = isEnabled ? (cell.valueTextfield.text ?? "") : ""
+        // Called with false at the start of every valid submit. Reloading the chat here would
+        // rebind form cells mid-submit (with two forms on screen, this cell can come back
+        // showing the other form), so leave the chat refresh to didTapSend(withReply:).
+        guard isEnabled || wasEnabled else { return }
         self.tableView.reloadData()
+        guard isEnabled else { return }
         self.delegate?.cellUpdated(for: self, data: filterFileArray, isSkipAction: false)
     }
     
@@ -299,15 +313,29 @@ extension LeadTableViewCell: LeadDataCellDelegate {
         self.delegate?.textfieldShouldEndEditing(textfield: textfield)
     }
     
-    func didTapSend(withReply reply: String, cell: LeadDataTableViewCell) {
+    func didTapSend(withReply reply: String, cell: LeadDataTableViewCell, data: FormData?) {
         
-        guard let index = filterFileArray.enumerated().filter({$0.element.isShow}).last.map({ $0.offset }) else { return  }
+        guard let lastShown = filterFileArray.enumerated().filter({$0.element.isShow}).last.map({ $0.offset }) else { return  }
+        // The submitted field, not "the last shown one": an answered, editable field (pencil)
+        // can be re-submitted, and saving that into the last field duplicated the value there.
+        let index = data.flatMap { submitted in filterFileArray.firstIndex(where: { $0 === submitted }) } ?? lastShown
+
+        if filterFileArray[index].isCompleted {
+            // Editing an answer already given: update it and re-send the form's values. No other
+            // field is completed or opened. Let go of the field so the chat moves focus back to
+            // the next unanswered one.
+            filterFileArray[index].value = reply
+            cell.valueTextfield.resignFirstResponder()
+            self.tableView.reloadData()
+            self.delegate?.sendReply(forCell: self, data: filterFileArray)
+            self.delegate?.cellUpdated(for: self, data: filterFileArray, isSkipAction: false)
+            return
+        }
         
-//        guard let indexPath: IndexPath = self.tableView.indexPath(for: cell) else {
-//            return
-//        }
         let indexPath: IndexPath = IndexPath(row: 0, section: index)
-        if cell.paramId == CreateTicketFields.attachments.rawValue && filterFileArray[indexPath.section].attachmentUrl.count == 0 {
+        // From the form data, not `cell`: the field cell may have been reused by a reload.
+        let isAttachmentField = filterFileArray[index].fieldKind == .attachment
+        if isAttachmentField && filterFileArray[indexPath.section].attachmentUrl.count == 0 {
             self.enableError(isEnabled: true, cell: cell, text: HippoStrings.requiredField)
             return
         }
@@ -317,10 +345,15 @@ extension LeadTableViewCell: LeadDataCellDelegate {
         }
         
         filterFileArray[indexPath.section].isCompleted = true
-        filterFileArray[indexPath.section].value = cell.paramId == CreateTicketFields.attachments.rawValue ? getDataForAttachments(data: filterFileArray[indexPath.section].attachmentUrl) : reply
+        filterFileArray[indexPath.section].value = isAttachmentField ? getDataForAttachments(data: filterFileArray[indexPath.section].attachmentUrl) : reply
         filterFileArray[indexPath.section].attachmentUrl.removeAll()
         self.tableView.reloadData()
+        print("[BotForm] submit form=\(message?.messageUniqueID ?? "nil") type=\(message?.type.rawValue ?? -1) field=\(index) value=\(filterFileArray[index].value)")
+        // Send first, while this cell is still bound to this form. cellUpdated reloads the chat,
+        // which can rebind the cell to another form when more than one is on screen.
         self.delegate?.sendReply(forCell: self, data: filterFileArray)
+        // Resize the chat row and move to the next field (cellUpdated -> focusActiveFormField).
+        self.delegate?.cellUpdated(for: self, data: filterFileArray, isSkipAction: false)
     }
     
     

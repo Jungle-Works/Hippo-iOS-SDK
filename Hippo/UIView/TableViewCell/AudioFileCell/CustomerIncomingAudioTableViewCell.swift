@@ -25,6 +25,17 @@ class CustomerIncomingAudioTableViewCell: IncomingAudioTableViewCell, CustomerAu
     var pendingAutoPlay = false
     var progressRing: DownloadProgressRingView?
 
+    /// Text sent along with the audio file (e.g. from the web dashboard). The xib has no
+    /// caption view, so it's added to the bubble's vertical stack, between the controls row
+    /// and the time row. Hidden when empty, so captionless audio keeps its layout.
+    private lazy var captionLabel: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 0
+        label.isHidden = true
+        return label
+    }()
+    private var captionInstalled = false
+
     var waveActiveColor: UIColor { HippoConfig.shared.colorConfig.hippoIconSecondary }
     var waveInactiveColor: UIColor { HippoConfig.shared.colorConfig.hippoIconSecondarySurface }
 
@@ -54,11 +65,29 @@ class CustomerIncomingAudioTableViewCell: IncomingAudioTableViewCell, CustomerAu
 
     override func setData(message: HippoMessage) {
         super.setData(message: message)
+        // Set here, not in layoutSubviews: the self-sizing row is measured right after configure.
+        applyCaption(message.message)
         installWaveRowIfNeeded()
         prepareForNewMessage()
         refreshWaveRow()
         applyDownloadState()
         applyControlIconSizing()
+    }
+
+    private func applyCaption(_ text: String) {
+        if !captionInstalled,
+           let bubbleStack = controlsStackView.superview as? UIStackView,
+           let controlsIndex = bubbleStack.arrangedSubviews.firstIndex(of: controlsStackView) {
+            bubbleStack.insertArrangedSubview(captionLabel, at: controlsIndex + 1)
+            bubbleStack.setCustomSpacing(6, after: controlsStackView)
+            captionInstalled = true
+        }
+        let caption = text.trimmingCharacters(in: .whitespacesAndNewlines)
+        captionLabel.text = caption
+        // Same 14pt system font as the document/video/image captions (set in their xibs).
+        captionLabel.font = UIFont.systemFont(ofSize: 14)
+        captionLabel.textColor = HippoConfig.shared.colorConfig.hippoTextPrimary
+        captionLabel.isHidden = caption.isEmpty
     }
 
     override func setUIAccordingToTheme() {

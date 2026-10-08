@@ -55,6 +55,9 @@ class NewAllConversationViewController: UIViewController, NewChatSentDelegate {
         checkNetworkConnection()
         HippoConfig.shared.hideTabbar?(false)
         self.navigationController?.isNavigationBarHidden = true
+        // Backstop for a toolbar left on by a QuickLook preview further up the stack - it would
+        // raise the bottom layout guide the Create Conversation button is pinned to.
+        self.navigationController?.setToolbarHidden(true, animated: false)
         
         if #available(iOS 13.0, *) {
             self.view.overrideUserInterfaceStyle = .light
@@ -136,7 +139,7 @@ class NewAllConversationViewController: UIViewController, NewChatSentDelegate {
         refreshControl.addTarget(self, action: #selector(refresh(_:)), for: .valueChanged)
         setTableView()
         setNavigation()
-        tableView.backgroundView = refreshControl
+        tableView.refreshControl = refreshControl
         let theme = HippoConfig.shared.theme
         updateNewConversationButtonVisibility()
         newConversationButton.backgroundColor = theme.themeColor
@@ -374,15 +377,10 @@ class NewAllConversationViewController: UIViewController, NewChatSentDelegate {
             self.informationView?.button_Info.setTitle(HippoConfig.shared.theme.chatListRetryBtnText == nil ? HippoStrings.retry : HippoConfig.shared.theme.chatListRetryBtnText, for: .normal)
             
             self.informationView?.isHidden = false
-            self.tableView.addSubview(informationView!)
-            tableView.layoutSubviews()
+            // backgroundView stays pinned while the table bounces; a plain subview would scroll with it.
+            self.tableView.backgroundView = informationView
         }else{
-            for view in tableView.subviews{
-                if view is InformationView{
-                    view.removeFromSuperview()
-                }
-            }
-            tableView.layoutSubviews()
+            self.tableView.backgroundView = nil
             self.informationView?.isHidden = true
         }
          self.tableView.reloadData()

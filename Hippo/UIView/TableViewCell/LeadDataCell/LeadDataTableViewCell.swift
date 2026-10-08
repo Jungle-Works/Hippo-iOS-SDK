@@ -9,7 +9,8 @@
 import UIKit
 
 protocol LeadDataCellDelegate: AnyObject {
-    func didTapSend(withReply reply: String, cell: LeadDataTableViewCell)
+    /// `data` is the field being submitted, captured before anything can rebind this cell.
+    func didTapSend(withReply reply: String, cell: LeadDataTableViewCell, data: FormData?)
     func enableError(isEnabled: Bool, cell: LeadDataTableViewCell, text: String?)
     func textfieldShouldBeginEditing(textfield: UITextField)
     func textfieldShouldEndEditing(textfield: UITextField)
@@ -48,6 +49,16 @@ class LeadDataTableViewCell: UITableViewCell{
     var attachmentClicked: (()->())?
     
     weak var delegate: LeadDataCellDelegate?
+
+    /// Typed, menu (issue type / priority) or attachment - see FormData.fieldKind.
+    private(set) var fieldKind: FormData.FieldKind = .text
+    /// The field this cell is currently showing - see setData's deferred styling.
+    private(set) weak var boundData: FormData?
+    /// True while an answered-but-editable field shows the pencil. Typing swaps it for the
+    /// arrow (comparing button images never matched: the icon is set as a template copy).
+    private var showsEditIcon = false
+    private lazy var defaultCursorTint: UIColor? = valueTextfield.tintColor
+
     @IBOutlet weak var buttonSend: UIButton!
     @IBOutlet weak var valueTextfield: UITextField!
     @IBOutlet weak var titleLabel: UILabel!
@@ -78,6 +89,13 @@ class LeadDataTableViewCell: UITableViewCell{
 
     
     @IBAction func didTapSend(_ sender: UIButton) {
+        // Pencil on an answered field: start editing it. Submitting happens from the arrow
+        // that replaces the pencil once the value changes.
+        if showsEditIcon {
+            valueTextfield.becomeFirstResponder()
+            return
+        }
+        let submittedData = boundData
         guard let text = self.valueTextfield.text else {
             self.delegate?.enableError(isEnabled: true, cell: self, text: HippoStrings.requiredField)
             return
@@ -91,9 +109,22 @@ class LeadDataTableViewCell: UITableViewCell{
             return
         }
         self.delegate?.enableError(isEnabled: false, cell: self, text: nil)
-        self.delegate?.didTapSend(withReply: text, cell: self)
+        self.delegate?.didTapSend(withReply: text, cell: self, data: submittedData)
     }
     
+    /// Swaps an editable answer's pencil for the submit arrow - once the user has changed it.
+    func showSubmitIcon() {
+        showsEditIcon = false
+        let image = UIImage(named: "next_dark_icon", in: FuguFlowManager.bundle, compatibleWith: nil)
+        buttonSend.setImage(image?.withRenderingMode(.alwaysTemplate), for: .normal)
+        buttonSend.tintColor = UIColor.white
+    }
+
+    /// Submits the current value, same as tapping the arrow - used when a menu option is picked.
+    func submitAnswer() {
+        didTapSend(buttonSend)
+    }
+
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
@@ -103,7 +134,13 @@ class LeadDataTableViewCell: UITableViewCell{
         valueTextfield.text = data.value.isEmpty ? data.draftValue : data.value
         valueTextfield.placeholder = data.paramId == CreateTicketFields.attachments.rawValue ? "Click to upload file" : data.title
         self.buttonSend.setTitle(nil, for: .normal)
+        boundData = data
         DispatchQueue.main.async {
+            // Cells are reused across rows on every reload. Without this check a block queued
+            // while this cell showed an answered field ran after it was rebound to the field
+            // being typed in, and its isUserInteractionEnabled = false took the keyboard away.
+            guard self.boundData === data else { return }
+            self.showsEditIcon = data.isCompleted && data.shouldBeEditable
             if data.isCompleted && data.shouldBeEditable{
                 self.buttonSend.isUserInteractionEnabled = true
                 self.valueTextfield.isUserInteractionEnabled = true
@@ -146,6 +183,17 @@ class LeadDataTableViewCell: UITableViewCell{
         setTextFieldType(data: data)
         self.dataType = data.dataType
         self.paramId = data.paramId
+        applyFieldKind(data.fieldKind)
+    }
+
+    /// Menu fields pick from a popover list, so they get an empty input view (no keyboard)
+    /// and a hidden cursor; typed fields get the normal keyboard back on reuse.
+    private func applyFieldKind(_ kind: FormData.FieldKind) {
+        _ = defaultCursorTint
+        fieldKind = kind
+        let isMenu = kind == .menu
+        valueTextfield.inputView = isMenu ? UIView() : nil
+        valueTextfield.tintColor = isMenu ? .clear : defaultCursorTint
         
     }
     
@@ -161,6 +209,8 @@ class LeadDataTableViewCell: UITableViewCell{
         case .email:
             self.valueTextfield.keyboardType = .emailAddress
         }
+        // Return submits the answer, same as the arrow button.
+        self.valueTextfield.returnKeyType = .next
     }
     
     func isValidData(dataType: String, data: String) -> Bool {
@@ -226,24 +276,30 @@ extension LeadDataTableViewCell: UITextFieldDelegate {
         self.delegate?.textfieldShouldBeginEditing(textfield: textField)
         return true
     }
+
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        // Moving straight from one field to the next runs the old field's didEndEditing
+        // (which disables the keyboard manager) after this field's shouldBeginEditing.
+        if fieldKind == .text {
+            HippoKeyboardManager.shared.enable = true
+        }
+    }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         HippoKeyboardManager.shared.enable = false
         self.delegate?.textfieldShouldEndEditing(textfield: textField)
     }
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
+        didTapSend(buttonSend)
+        return false
     }
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
         let type = TextfieldType(rawValue: dataType)  ?? .string
         switch type {
         case .email, .name:
-            if self.buttonSend.imageView?.image == HippoConfig.shared.theme.editIcon{
-                let image = UIImage(named: "next_dark_icon", in: FuguFlowManager.bundle, compatibleWith: nil)
-                self.buttonSend.setImage(image!.withRenderingMode(.alwaysTemplate), for: .normal)
-                self.buttonSend.tintColor = UIColor.white
+            if showsEditIcon {
+                showSubmitIcon()
             }
             return true
         case .phone:
