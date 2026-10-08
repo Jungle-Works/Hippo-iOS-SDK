@@ -197,7 +197,7 @@ extension OutgoingImageCell {
         self.setTime()
         timeLabel.textColor = HippoConfig.shared.theme.outgoingMsgDateTextColor//UIColor.white
         
-        textView.text = message?.message
+        textView.text = "\(message?.message ?? "")\n"
         
         if (message?.message.isEmpty ?? true) || (message?.type == .imageFile && message?.message.lowercased() == "image"){
             textView.isHidden = true

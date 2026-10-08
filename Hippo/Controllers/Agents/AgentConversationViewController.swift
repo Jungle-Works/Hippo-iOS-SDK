@@ -1015,7 +1015,7 @@ extension AgentConversationViewController {
     func handleInfoIcon() {
         setTitleButton()
         view_Navigation.info_button.isHidden = false
-        view_Navigation.info_button.setImage(HippoConfig.shared.theme.informationIcon, for: .normal)
+        view_Navigation.info_button.setImage(HippoConfig.shared.theme.mediaIcon, for: .normal)
         view_Navigation.info_button.addTarget(self, action:  #selector(infoButtonClicked), for: UIControl.Event.touchUpInside)
         view_Navigation.info_button.tintColor = HippoConfig.shared.theme.headerTextColor
         view_Navigation.info_button.isEnabled = true
@@ -3071,11 +3071,9 @@ extension AgentConversationViewController : RecordViewDelegate {
     }
     
     func onFinished(duration: CGFloat) {
-        if duration > 0.0 {
-            recordingHelper.finishRecording(success: true)
-        }else {
-            recordingHelper.finishRecording(success: false)
-        }
+        // The gesture completed (finger lifted, not swiped to cancel) — hand off to
+        // RecordingHelper, which rejects clips shorter than 1s via recordingTooShort().
+        recordingHelper.finishRecording(success: true)
         recordingView.isHidden = true
     }
     

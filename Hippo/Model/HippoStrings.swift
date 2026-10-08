@@ -16,7 +16,7 @@ public class HippoStrings {
     static var continue_to_whatsapp = "Continue with WhatsApp".localized
     static var ongoing = "Current".localized
     static var past = "Past".localized
-    open var newConversation = "New Conversation".localized
+    open var newConversation = "Create Conversation".localized
     static var noNetworkConnection = "No internet connected".localized
     static var connected = "Connected".localized
     static var somethingWentWrong = "Something went wrong. Please try again".localized
@@ -127,12 +127,33 @@ public class HippoStrings {
     static var sentACallInvite = "Sent a Call Invite"
     static var recievedACallInvite = "Recieved a Call Invite"
     static var sharedMediaTitle = "Shared Media".localized
+    /// Backend key: media_txt
+    static var sharedMediaTabMedia = "Media".localized
+    /// Backend key: docs_txt
+    static var sharedMediaTabDocs = "Docs".localized
+    /// Backend key: hippo_no_media
+    static var sharedMediaNoMedia = "No media shared yet".localized
+    /// Backend key: hippo_no_documents
+    static var sharedMediaNoDocs = "No documents shared yet".localized
+    static var sharedMediaVoiceMessage = "Voice message".localized
+    static var sharedMediaAudioFile = "Audio file".localized
+    static var sharedMediaGenericDocument = "Document".localized
+    /// "%@" is the uppercased file extension, e.g. "PDF document".
+    static var sharedMediaDocumentFormat = "%@ document".localized
+    static var recordingTooShort = "Recording is too short.".localized
+    static var microphoneAccessMessage = "Enable microphone access in Settings to record voice messages.".localized
+    static var openSettings = "Settings".localized
+    static var photoLibraryAccessMessage = "Enable photo access in Settings to share photos and videos.".localized
+    static var cameraAccessMessage = "Enable camera access in Settings to take photos and videos.".localized
+    static var locationAccessMessage = "Enable location access in Settings to share your current location.".localized
+    static var fetchingLocation = "Getting your location…".localized
+    static var locationUnavailable = "Couldn't get your location. Please try again.".localized
     
     /// Agent sdk
     static var thanksForFeedback = "Thank you for your comments!".localized
     static var closed = "Closed".localized
     static var openChat = "Open Chats".localized
-    static var newConversation = "New Conversation".localized
+    static var newConversation = "Create Conversation".localized
     static var actions = "Actions".localized
     static var closeChat = "Close Chat".localized
     static var closeChats = "Close Chats".localized
@@ -234,6 +255,7 @@ public class HippoStrings {
     static var preview = "Preview"
     static var slideToCancel = "Slide to cancel"
     static var pleaseSelectAnOption = "Please select an option"
+    static var cannotReplyToConversation = "You cannot reply to this conversation".localized
     static var meeting = "Meeting"
     static var businessMeet = "Business Meet"
     static var joinCallNow = "Join Call Now"

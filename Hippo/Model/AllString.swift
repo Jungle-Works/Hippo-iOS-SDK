@@ -58,6 +58,19 @@ class AllString{
     }
     
     class func customerParsing(_ response: [String : Any]){
+        // Shared media screen tabs
+        if let media_txt = response["media_txt"] as? String, !media_txt.isEmpty {
+            HippoStrings.sharedMediaTabMedia = media_txt
+        }
+        if let docs_txt = response["docs_txt"] as? String, !docs_txt.isEmpty {
+            HippoStrings.sharedMediaTabDocs = docs_txt
+        }
+        if let hippo_no_media = response["hippo_no_media"] as? String, !hippo_no_media.isEmpty {
+            HippoStrings.sharedMediaNoMedia = hippo_no_media
+        }
+        if let hippo_no_documents = response["hippo_no_documents"] as? String, !hippo_no_documents.isEmpty {
+            HippoStrings.sharedMediaNoDocs = hippo_no_documents
+        }
         if response["app_guarantee"] is String{
             
         }
@@ -694,6 +707,19 @@ class AllString{
     }
     
     class func agentParsing(_ response: [String: Any]){
+        // Shared media screen tabs
+        if let media_txt = response["media_txt"] as? String, !media_txt.isEmpty {
+            HippoStrings.sharedMediaTabMedia = media_txt
+        }
+        if let docs_txt = response["docs_txt"] as? String, !docs_txt.isEmpty {
+            HippoStrings.sharedMediaTabDocs = docs_txt
+        }
+        if let hippo_no_media = response["hippo_no_media"] as? String, !hippo_no_media.isEmpty {
+            HippoStrings.sharedMediaNoMedia = hippo_no_media
+        }
+        if let hippo_no_documents = response["hippo_no_documents"] as? String, !hippo_no_documents.isEmpty {
+            HippoStrings.sharedMediaNoDocs = hippo_no_documents
+        }
         if let hippo_message_deleted = response["hippo_message_deleted"] as? String{
             HippoStrings.deleteMessage = hippo_message_deleted
         }

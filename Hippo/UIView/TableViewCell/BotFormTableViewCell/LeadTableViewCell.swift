@@ -62,6 +62,31 @@ class LeadTableViewCell: MessageTableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        guard HippoConfig.shared.appUserType == .customer else { return }
+        // Deferred a run-loop turn on purpose — same reason as every other revamped cell:
+        // CAShapeLayer.path is a one-shot bounds snapshot, and this cell's height (driven by
+        // the nested tableView's content) can take more than one Auto Layout pass to settle.
+        // Bottom-left radius is half the others, forming the received-bubble tail.
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.bgView.applyCornerRadii(topLeft: 10, topRight: 10, bottomLeft: 5, bottomRight: 10)
+            self.tableView.applyCornerRadii(topLeft: 10, topRight: 10, bottomLeft: 5, bottomRight: 10)
+        }
+    }
+
+    override func setSenderImageView() {
+        // No avatar on bot-form rows in the revamped customer thread, same as every other
+        // received cell. Shared with the agent screen, so gate on appUserType rather than
+        // forking a Customer-only subclass just for this.
+        guard HippoConfig.shared.appUserType == .customer else {
+            super.setSenderImageView()
+            return
+        }
+        hideSenderImageView()
+    }
     
     //MARK: Actions
     @IBAction func skipButtonClicked(_ sender: Any) {
@@ -92,10 +117,11 @@ class LeadTableViewCell: MessageTableViewCell {
     private func setup() {
         self.tableView.register(UINib(nibName: leadCellIdentifier, bundle: FuguFlowManager.bundle), forCellReuseIdentifier: leadCellIdentifier)
         self.tableView.register(UINib(nibName: "UrlTableCell", bundle: FuguFlowManager.bundle), forCellReuseIdentifier: "UrlTableCell")
-        
-        tableView.layer.cornerRadius = 10
-        
-        tableView.backgroundColor = HippoConfig.shared.theme.gradientBackgroundColor //.clear
+
+        let isCustomer = HippoConfig.shared.appUserType == .customer
+        let colorConfig = HippoConfig.shared.colorConfig
+
+        tableView.backgroundColor  = isCustomer ? colorConfig.hippoReceiver :  HippoConfig.shared.theme.gradientBackgroundColor
         
         tableView.layer.borderWidth = HippoConfig.shared.theme.chatBoxBorderWidth
         tableView.layer.borderColor = HippoConfig.shared.theme.chatBoxBorderColor.cgColor//HippoConfig.shared.theme.gradientTopColor.cgColor
@@ -103,15 +129,22 @@ class LeadTableViewCell: MessageTableViewCell {
         self.tableView.delegate = self
         
         bgView.backgroundColor = HippoConfig.shared.theme.incomingChatBoxColor//HippoConfig.shared.theme.gradientBackgroundColor //
-        bgView.layer.cornerRadius = 10
         bgView.layer.masksToBounds = true
-        
-        tableView.layer.cornerRadius = 10
-        if #available(iOS 11.0, *) {
-            tableView.layer.maskedCorners = [.layerMaxXMinYCorner,.layerMinXMaxYCorner,.layerMaxXMaxYCorner]
-            bgView.layer.maskedCorners = [.layerMaxXMinYCorner,.layerMinXMaxYCorner,.layerMaxXMaxYCorner]
+
+        if isCustomer {
+            // Customer received rows use mixed per-corner radii (bottom-left half the others,
+            // forming the tail) via applyCornerRadii in layoutSubviews — CACornerMask only
+            // supports one uniform radius, not a smaller one on a single corner. Zero the
+            // uniform radius so it doesn't additionally clip inside the shape mask's corners.
+            bgView.layer.cornerRadius = 0
+            tableView.layer.cornerRadius = 0
         } else {
-            // Fallback on earlier versions
+            bgView.layer.cornerRadius = 10
+            tableView.layer.cornerRadius = 10
+            if #available(iOS 11.0, *) {
+                tableView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+                bgView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+            }
         }
     }
     
@@ -130,6 +163,20 @@ class LeadTableViewCell: MessageTableViewCell {
         skipButtonContainter.isHidden = true
         self.delegate?.cellUpdated(for: self, data: filterFileArray, isSkipAction: true)
     }
+    /// The laid-out cell for a form field, so the chat can focus / scroll to it. Forces a
+    /// layout pass first: after a reload the inner table may not have created the row yet.
+    func fieldCell(forSection section: Int) -> LeadDataTableViewCell? {
+        guard section < filterFileArray.count, filterFileArray[section].isShow else { return nil }
+        layoutIfNeeded()
+        tableView.layoutIfNeeded()
+        return tableView.cellForRow(at: IndexPath(row: 0, section: section)) as? LeadDataTableViewCell
+    }
+
+    private func questionCountText() -> String {
+        let shown = filterFileArray.filter { $0.isShow }.count
+        return "(\(shown) of \(filterFileArray.count))"
+    }
+
     func checkAndDisableSkipButton() {
         guard let message = message else {
             return
@@ -172,13 +219,7 @@ extension LeadTableViewCell: UITableViewDataSource, UITableViewDelegate {
             cell.setData(data: filterFileArray[indexPath.section])
             if indexPath.section == 0 {
                 cell.labelNoOfQuestions.isHidden = false
-                var count = 1
-                for lead in filterFileArray {
-                    if lead.isShow {
-                        cell.labelNoOfQuestions.text = "(\(count) of \(filterFileArray.count))"
-                        count += 1
-                    }
-                }
+                cell.labelNoOfQuestions.text = questionCountText()
                 cell.constraintViewTop.constant = 8
             } else {
                 cell.labelNoOfQuestions.isHidden = true
@@ -194,6 +235,19 @@ extension LeadTableViewCell: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let height = baseHeightForRow(at: indexPath)
+        let data = filterFileArray[indexPath.section]
+        // Uploaded-attachment rows never show the validation label - only the input row does.
+        let isAttachmentUrlRow = data.paramId == CreateTicketFields.attachments.rawValue
+            && !data.attachmentUrl.isEmpty
+            && indexPath.row != data.attachmentUrl.count
+        // Customer-facing only: the agent screen's lead form keeps its original sizing.
+        guard HippoConfig.shared.appUserType == .customer,
+              data.isShow, data.isErrorEnabled, !isAttachmentUrlRow else { return height }
+        return height + LeadDataTableViewCell.errorHeight
+    }
+
+    private func baseHeightForRow(at indexPath: IndexPath) -> CGFloat {
         if filterFileArray[indexPath.section].isShow {
             if indexPath.section == 0 {
                 if self.filterFileArray[indexPath.section].isCompleted {
@@ -238,9 +292,16 @@ extension LeadTableViewCell: LeadDataCellDelegate {
             return
         }
         let section = indexPath.section
+        let wasEnabled = filterFileArray[section].isErrorEnabled
         filterFileArray[section].isErrorEnabled = isEnabled
-        cell.labelValidationError.text = text
+        filterFileArray[section].errorMessage = text ?? ""
+        filterFileArray[section].draftValue = isEnabled ? (cell.valueTextfield.text ?? "") : ""
+        // Called with false at the start of every valid submit. Reloading the chat here would
+        // rebind form cells mid-submit (with two forms on screen, this cell can come back
+        // showing the other form), so leave the chat refresh to didTapSend(withReply:).
+        guard isEnabled || wasEnabled else { return }
         self.tableView.reloadData()
+        guard isEnabled else { return }
         self.delegate?.cellUpdated(for: self, data: filterFileArray, isSkipAction: false)
     }
     
@@ -252,15 +313,29 @@ extension LeadTableViewCell: LeadDataCellDelegate {
         self.delegate?.textfieldShouldEndEditing(textfield: textfield)
     }
     
-    func didTapSend(withReply reply: String, cell: LeadDataTableViewCell) {
+    func didTapSend(withReply reply: String, cell: LeadDataTableViewCell, data: FormData?) {
         
-        guard let index = filterFileArray.enumerated().filter({$0.element.isShow}).last.map({ $0.offset }) else { return  }
+        guard let lastShown = filterFileArray.enumerated().filter({$0.element.isShow}).last.map({ $0.offset }) else { return  }
+        // The submitted field, not "the last shown one": an answered, editable field (pencil)
+        // can be re-submitted, and saving that into the last field duplicated the value there.
+        let index = data.flatMap { submitted in filterFileArray.firstIndex(where: { $0 === submitted }) } ?? lastShown
+
+        if filterFileArray[index].isCompleted {
+            // Editing an answer already given: update it and re-send the form's values. No other
+            // field is completed or opened. Let go of the field so the chat moves focus back to
+            // the next unanswered one.
+            filterFileArray[index].value = reply
+            cell.valueTextfield.resignFirstResponder()
+            self.tableView.reloadData()
+            self.delegate?.sendReply(forCell: self, data: filterFileArray)
+            self.delegate?.cellUpdated(for: self, data: filterFileArray, isSkipAction: false)
+            return
+        }
         
-//        guard let indexPath: IndexPath = self.tableView.indexPath(for: cell) else {
-//            return
-//        }
         let indexPath: IndexPath = IndexPath(row: 0, section: index)
-        if cell.paramId == CreateTicketFields.attachments.rawValue && filterFileArray[indexPath.section].attachmentUrl.count == 0 {
+        // From the form data, not `cell`: the field cell may have been reused by a reload.
+        let isAttachmentField = filterFileArray[index].fieldKind == .attachment
+        if isAttachmentField && filterFileArray[indexPath.section].attachmentUrl.count == 0 {
             self.enableError(isEnabled: true, cell: cell, text: HippoStrings.requiredField)
             return
         }
@@ -270,10 +345,15 @@ extension LeadTableViewCell: LeadDataCellDelegate {
         }
         
         filterFileArray[indexPath.section].isCompleted = true
-        filterFileArray[indexPath.section].value = cell.paramId == CreateTicketFields.attachments.rawValue ? getDataForAttachments(data: filterFileArray[indexPath.section].attachmentUrl) : reply
+        filterFileArray[indexPath.section].value = isAttachmentField ? getDataForAttachments(data: filterFileArray[indexPath.section].attachmentUrl) : reply
         filterFileArray[indexPath.section].attachmentUrl.removeAll()
         self.tableView.reloadData()
+        print("[BotForm] submit form=\(message?.messageUniqueID ?? "nil") type=\(message?.type.rawValue ?? -1) field=\(index) value=\(filterFileArray[index].value)")
+        // Send first, while this cell is still bound to this form. cellUpdated reloads the chat,
+        // which can rebind the cell to another form when more than one is on screen.
         self.delegate?.sendReply(forCell: self, data: filterFileArray)
+        // Resize the chat row and move to the next field (cellUpdated -> focusActiveFormField).
+        self.delegate?.cellUpdated(for: self, data: filterFileArray, isSkipAction: false)
     }
     
     

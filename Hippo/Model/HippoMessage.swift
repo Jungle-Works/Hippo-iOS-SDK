@@ -103,6 +103,9 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
     
     var callDurationInSeconds: TimeInterval?
     var callType = CallType.video
+    /// False when the source payload (e.g. the conversation-list last message) gave
+    /// no `call_type` — the preview then omits the "video"/"voice" word.
+    var isCallTypeKnown = true
     var messageSource: IntegrationSource = .normal
     var customAction :CustomAction?
     var fileUrl: String?
@@ -194,7 +197,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
                 height += card.cardHeight
             }
 //            return height + 5
-            return height + 9
+            return height + 40
         case .multipleSelect :
             guard let action = customAction else {
                 return 0.01
@@ -511,8 +514,17 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         let senderFullName = (convoDict["last_sent_by_full_name"] as? String) ?? ""
         self.senderFullName = senderFullName//.formatName()
         self.callDurationInSeconds = convoDict["video_call_duration"] as? Double
-        if let rawCallType = convoDict["call_type"] as? String, let callType = CallType(rawValue: rawCallType.uppercased()) {
+        // The getAllConversations last-message payload carries no `call_type` for a
+        // call (its `message` is a constant "Video call will be supported soon."
+        // regardless of medium), so `callType` would always default to .video and
+        // every preview read "video". Only trust it when the key is actually present;
+        // otherwise mark the medium unknown so the preview drops the "video"/"voice"
+        // word instead of guessing wrong.
+        let rawCallType = (convoDict["call_type"] as? String) ?? (convoDict["last_call_type"] as? String)
+        if let rawCallType = rawCallType, let callType = CallType(rawValue: rawCallType.uppercased()) {
             self.callType = callType
+        } else if self.type == .call {
+            self.isCallTypeKnown = false
         }
         
         if let rawStatus = convoDict["last_message_status"] as? Int, let status = ReadUnReadStatus(rawValue: rawStatus) {
@@ -1015,6 +1027,15 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         return unhandledMimeType.contains(parsedType)
     }
     
+    /// The bot form field the user should answer next: the first shown field that isn't
+    /// completed. Built from the server's `values` (FormData.getArray) and kept current by
+    /// local submits, so it's right both before and after the server echoes the form back.
+    /// nil when every field is answered.
+    var nextFormFieldIndex: Int? {
+        guard type == .leadForm || type == .createTicket else { return nil }
+        return leadsDataArray.firstIndex(where: { $0.isShow && !$0.isCompleted })
+    }
+
     func shouldShowSkipButton() -> Bool {
         var isAllFieldCompleted: Bool = true
         

@@ -80,6 +80,8 @@ class FuguConversation: HippoConversation {
         
         if let channelPriority = conversationDict["channel_priority"] as? Int {
             self.channelPriority = channelPriority
+        } else if let channelPriority = (conversationDict["channel_priority"] as? String).flatMap(Int.init) {
+            self.channelPriority = channelPriority
         }
         
         if let message = HippoMessage.init(convoDict: conversationDict) {
@@ -106,6 +108,11 @@ class FuguConversation: HippoConversation {
         
         params["default_message"] = defaultMessage ?? ""
         params["channel_image"] = channelImage ?? ""
+        // Kept so the cached list (shown before the server responds) sorts by the same
+        // channel priority as the fresh one.
+        if let channelPriority = channelPriority {
+            params["channel_priority"] = channelPriority
+        }
         
         return params
     }

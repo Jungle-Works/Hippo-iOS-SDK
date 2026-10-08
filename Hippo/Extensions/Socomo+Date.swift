@@ -18,9 +18,8 @@ extension Date {
         return Int64(self.timeIntervalSince1970 * 1000)
     }
     
-    var toString: String {
+    public var toString: String {
         let formatter = DateFormatter()
-        formatter.dateFormat = "d MMM yyyy, hh:mm a"
         formatter.locale = Locale(identifier: "en_US_POSIX")
         formatter.timeZone = TimeZone.current
         
@@ -36,22 +35,8 @@ extension Date {
             formatter.dateFormat = "h:mm a"
             return formatter.string(from: self)
         default:
-            let calendar = NSCalendar.current
-            let dateOfMsg = calendar.startOfDay(for: self)
-            let currentDate = calendar.startOfDay(for: Date())
-            
-            let dateDifference = calendar.dateComponents([.day], from: dateOfMsg, to: currentDate).day ?? -1
-            
-            switch dateDifference {
-            case 1:
-                //formatter.dateFormat = "hh:mm a"
-                return HippoStrings.yesterday
-            case let difference where (difference > 1 && difference < 8):
-                return "\(dateDifference) \(HippoStrings.daysAgo)"
-            default:
-                formatter.dateFormat = "MM/d/yyyy"
-                return formatter.string(from: self)
-            }
+            formatter.dateFormat = "d MMM"
+            return formatter.string(from: self)
         }
     }
     

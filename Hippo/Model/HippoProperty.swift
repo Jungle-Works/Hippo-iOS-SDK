@@ -59,6 +59,13 @@ class HippoProperty: NSObject {
     class func setNewConversationButton(enable: Bool) {
         current.enableNewConversationButton = enable
     }
+
+    /// The business's `allow_new_conversation` setting decides once getConfiguration has
+    /// answered; until then (or if the key is missing) fall back to the integrator's
+    /// `HippoChat.setNewConversationButton(enable:)` value.
+    var shouldShowNewConversationButton: Bool {
+        return BussinessProperty.current.allowNewConversation ?? enableNewConversationButton
+    }
     
     class func setNewConversationButtonTitle(title: String, currentText: String?, pastText: String?, pleaseSelectOption: String?) {
         current.newConverstationButtonTitle = title

@@ -67,6 +67,10 @@ class IncomingImageCell: MessageTableViewCell {
 //        }
     }
     
+    /// Called by configureIncomingCell() right after the caption is shown/hidden, before
+    /// the table measures the row - subclasses update caption-dependent constraints here.
+    func captionVisibilityDidChange() { }
+
     func adjustShadow() {
         shadowView.layoutIfNeeded()
         shadowView.clipsToBounds = true
@@ -145,13 +149,14 @@ extension IncomingImageCell {
             })
         }
         
-        textView.text = message?.message
+        textView.text = "\(message?.message ?? "")\n"
         
         if (message?.message.isEmpty ?? true) || (message?.type == .imageFile && message?.message.lowercased() == "image"){
             textView.isHidden = true
         }else{
             textView.isHidden = false
         }
+        captionVisibilityDidChange()
         
 //        textView.isHidden = message?.message ?? "" == "" ? true : false
         

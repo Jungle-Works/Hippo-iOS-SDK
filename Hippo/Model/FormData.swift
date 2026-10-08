@@ -11,6 +11,10 @@ import UIKit
 class FormData: NSObject {
     var title = ""
     var value = ""
+    /// What the user typed but hasn't successfully submitted (e.g. an invalid email), kept
+    /// so a reload while the validation error shows doesn't wipe the field. `value` stays
+    /// the submitted answer only.
+    var draftValue = ""
     var isCompleted = true
     var isShow = false
     var isErrorEnabled = false
@@ -233,6 +237,24 @@ class FormData: NSObject {
     }
     
     
+    /// How a bot-form field is answered. `data_type` alone can't tell menus apart (Group Type /
+    /// Priority come as "string"), so the ticket `params_id` decides.
+    enum FieldKind {
+        case text        // typed - gets the keyboard
+        case menu        // pick from a list (issue type / priority) - no keyboard
+        case attachment  // file picker
+    }
+
+    var fieldKind: FieldKind {
+        if paramId == CreateTicketFields.attachments.rawValue || dataType.lowercased() == "attachment" {
+            return .attachment
+        }
+        if paramId == CreateTicketFields.issueType.rawValue || paramId == CreateTicketFields.priority.rawValue {
+            return .menu
+        }
+        return .text
+    }
+
     enum FormDataType: String {
         case none = ""
         case textfield = "TEXTFIELD"

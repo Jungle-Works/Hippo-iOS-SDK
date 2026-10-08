@@ -55,6 +55,9 @@ class NewAllConversationViewController: UIViewController, NewChatSentDelegate {
         checkNetworkConnection()
         HippoConfig.shared.hideTabbar?(false)
         self.navigationController?.isNavigationBarHidden = true
+        // Backstop for a toolbar left on by a QuickLook preview further up the stack - it would
+        // raise the bottom layout guide the Create Conversation button is pinned to.
+        self.navigationController?.setToolbarHidden(true, animated: false)
         
         if #available(iOS 13.0, *) {
             self.view.overrideUserInterfaceStyle = .light
@@ -136,13 +139,9 @@ class NewAllConversationViewController: UIViewController, NewChatSentDelegate {
         refreshControl.addTarget(self, action: #selector(refresh(_:)), for: .valueChanged)
         setTableView()
         setNavigation()
-        tableView.backgroundView = refreshControl
+        tableView.refreshControl = refreshControl
         let theme = HippoConfig.shared.theme
-         if self.conversationChatType == .openChat{
-            view_NewConversationBtn.isHidden = !HippoProperty.current.enableNewConversationButton
-        }else if self.conversationChatType == .closeChat{
-            view_NewConversationBtn.isHidden = true
-        }else{}
+        updateNewConversationButtonVisibility()
         newConversationButton.backgroundColor = theme.themeColor
         view_NewConversationBtn.backgroundColor = theme.themeColor
         view_NewConversationBtn.layer.cornerRadius = newConversationButton.bounds.height / 2
@@ -151,7 +150,6 @@ class NewAllConversationViewController: UIViewController, NewChatSentDelegate {
         newConversationButton.isSelected = false
         self.updateNewConversationBtnUI(isSelected: false)
         newConversationButton.setTitleColor(theme.customColorforNewConversation, for: .normal)
-        tableView.contentInset.bottom = 70
         //Configuring SwitchButton
         if let whatsappData = HippoConfig.shared.whatsappWidgetConfig, whatsappData.whatsappEnabledForAll == 1{
             view_NavigationBar.whtsappBtn.isHidden = false
@@ -162,6 +160,15 @@ class NewAllConversationViewController: UIViewController, NewChatSentDelegate {
     // MARK: - Action for whatsapp open button
     @objc func btnWhatsappTapped(){
         HippoConfig.shared.openWhatsappIfEnabled()
+    }
+    
+    /// Shows the floating "new conversation" button only on the open-chats tab (when the
+    /// business allows it). The list keeps 70pt of bottom room only while the button is
+    /// visible, so with it hidden the last rows scroll right down to the bottom edge.
+    func updateNewConversationButtonVisibility() {
+        let isHidden = conversationChatType != .openChat || !HippoProperty.current.shouldShowNewConversationButton
+        view_NewConversationBtn.isHidden = isHidden
+        tableView.contentInset.bottom = isHidden ? 0 : 70
     }
     
     func updateNewConversationBtnUI(isSelected : Bool){
@@ -225,11 +232,7 @@ class NewAllConversationViewController: UIViewController, NewChatSentDelegate {
             }
             
             self?.tableView.reloadData()
-            if self?.conversationChatType == .openChat{
-                self?.view_NewConversationBtn.isHidden = !HippoProperty.current.enableNewConversationButton
-            }else if self?.conversationChatType == .closeChat{
-                self?.view_NewConversationBtn.isHidden = true
-            }else{}
+            self?.updateNewConversationButtonVisibility()
             if result.conversations?.count == 0 {
                 self?.closedConversationArr.removeAll()
                 self?.ongoingConversationArr.removeAll()
@@ -365,6 +368,8 @@ class NewAllConversationViewController: UIViewController, NewChatSentDelegate {
         if self.arrayOfConversation.count <= 0{
             if informationView == nil {
                 informationView = InformationView.loadView(self.tableView.bounds)
+            } else {
+                informationView?.frame = self.tableView.bounds
             }
             self.informationView?.informationLabel.text = errorMessage
             self.informationView?.informationImageView.image = HippoConfig.shared.theme.noChatImage
@@ -372,15 +377,10 @@ class NewAllConversationViewController: UIViewController, NewChatSentDelegate {
             self.informationView?.button_Info.setTitle(HippoConfig.shared.theme.chatListRetryBtnText == nil ? HippoStrings.retry : HippoConfig.shared.theme.chatListRetryBtnText, for: .normal)
             
             self.informationView?.isHidden = false
-            self.tableView.addSubview(informationView!)
-            tableView.layoutSubviews()
+            // backgroundView stays pinned while the table bounces; a plain subview would scroll with it.
+            self.tableView.backgroundView = informationView
         }else{
-            for view in tableView.subviews{
-                if view is InformationView{
-                    view.removeFromSuperview()
-                }
-            }
-            tableView.layoutSubviews()
+            self.tableView.backgroundView = nil
             self.informationView?.isHidden = true
         }
          self.tableView.reloadData()
@@ -443,8 +443,8 @@ class NewAllConversationViewController: UIViewController, NewChatSentDelegate {
         }
         self.openChatButton.titleLabel?.font = UIFont.bold(ofSize: 15)
         self.closeChatButton.titleLabel?.font = UIFont.regular(ofSize: 15)
-        self.view_NewConversationBtn.isHidden = !HippoProperty.current.enableNewConversationButton
         conversationChatType = .openChat
+        updateNewConversationButtonVisibility()
         otherBottomLineView.backgroundColor = .clear
         bottomLineView.backgroundColor = HippoConfig.shared.theme.themeColor
         self.showOpenChatData()
@@ -456,8 +456,8 @@ class NewAllConversationViewController: UIViewController, NewChatSentDelegate {
         }
         self.openChatButton.titleLabel?.font = UIFont.regular(ofSize: 16)
         self.closeChatButton.titleLabel?.font = UIFont.bold(ofSize: 16)
-        self.view_NewConversationBtn.isHidden = true
         conversationChatType = .closeChat
+        updateNewConversationButtonVisibility()
         bottomLineView.backgroundColor = .clear
         otherBottomLineView.backgroundColor = HippoConfig.shared.theme.themeColor
         self.showcloseChatData()
