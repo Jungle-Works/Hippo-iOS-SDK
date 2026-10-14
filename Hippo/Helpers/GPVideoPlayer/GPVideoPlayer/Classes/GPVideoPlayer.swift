@@ -72,7 +72,7 @@ public class GPVideoPlayer: UIView {
     
     //MARK: Public Methods
     public class func initialize(with frame: CGRect) -> GPVideoPlayer? {
-        let bundle = Bundle(for: GPVideoPlayer.self)
+        let bundle = FuguFlowManager.bundle ?? Bundle(for: GPVideoPlayer.self)
         let view = bundle.loadNibNamed(Constants.nibName, owner: self, options: nil)?.first as? GPVideoPlayer
         view?.frame = frame
         return view

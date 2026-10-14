@@ -104,7 +104,7 @@ extension CannedRepliesViewController {
         setupNavigationBar()
         tableViewCannedMessage.delegate = self
         tableViewCannedMessage.dataSource = self
-        tableViewCannedMessage.register(UINib(nibName: "CannedMessageTableViewCell", bundle: Bundle(for: CannedMessageTableViewCell.self)), forCellReuseIdentifier: "CannedMessageTableViewCell")
+        tableViewCannedMessage.register(UINib(nibName: "CannedMessageTableViewCell", bundle: FuguFlowManager.bundle), forCellReuseIdentifier: "CannedMessageTableViewCell")
     }
 
     func setupNavigationBar() {

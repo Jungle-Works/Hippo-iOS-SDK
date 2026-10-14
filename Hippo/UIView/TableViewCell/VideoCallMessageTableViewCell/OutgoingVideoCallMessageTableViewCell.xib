@@ -72,7 +72,11 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="incomming" translatesAutoresizingMaskIntoConstraints="NO" id="4Dd-MG-9Ys">
-                                <rect key="frame" x="3" y="33" width="12" height="12"/>
+                                <rect key="frame" x="3" y="34" width="10" height="10"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="10" id="ogI-h1-cIc"/>
+                                    <constraint firstAttribute="width" constant="10" id="ogI-w1-cIc"/>
+                                </constraints>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

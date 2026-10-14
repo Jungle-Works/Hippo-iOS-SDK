@@ -44,7 +44,7 @@ class AIMessageCrafterViewController: UIViewController, UITableViewDelegate, UIT
         tableView.delegate = self
         tableView.dataSource = self
         
-        let bundle = Bundle(for: AiMessageTableViewCell.self)
+        let bundle = FuguFlowManager.bundle
         let nib = UINib(nibName: "AiMessageTableViewCell", bundle: bundle)
         tableView.register(nib, forCellReuseIdentifier: "AiMessageTableViewCell")
         
