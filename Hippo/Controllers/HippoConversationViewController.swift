@@ -68,7 +68,13 @@ class HippoConversationViewController: UIViewController {
     var isObserverAdded = false
     var isGettingMessageViaPaginationInProgress = false
     var actionableMessageRightMargin: CGFloat = 60
-    var messagesGroupedByDate: [[HippoMessage]] = []
+    var messagesGroupedByDate: [[HippoMessage]] = [] {
+        didSet { botComposerStateMayHaveChanged() }
+    }
+
+    /// Called whenever the message list changes; the customer chat uses it to switch the input bar
+    /// between text, a bot picker button ("Select date") and the "Choose an option above" lock.
+    @objc dynamic func botComposerStateMayHaveChanged() {}
     
     var messageArrayCount: Int { return channel?.messages.count ?? 0 }
     var channel: HippoChannel! { didSet { didSetChannel() } }
@@ -133,6 +139,12 @@ class HippoConversationViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        if BotPaymentCardCell.isAnyProcessing {
+            // Back from the payment page: the card leaves "Processing"; the server marks it paid.
+            BotPaymentCardCell.paymentEnded()
+            tableViewChat?.reloadData()
+            botComposerStateMayHaveChanged()
+        }
         navigationController?.setToolbarHidden(true, animated: false)  // see viewDidAppear
         //        checkNetworkConnection()
         
@@ -361,6 +373,9 @@ class HippoConversationViewController: UIViewController {
         
         tableViewChat.register(UINib(nibName: "BotOutgoingMessageTableViewCell", bundle: bundle), forCellReuseIdentifier: "BotOutgoingMessageTableViewCell")
         tableViewChat.register(UINib(nibName: "LeadTableViewCell", bundle: bundle), forCellReuseIdentifier: "LeadTableViewCell")
+        tableViewChat.register(BotFormCardCell.self, forCellReuseIdentifier: BotFormCardCell.identifier)
+        tableViewChat.register(BotVideoCardCell.self, forCellReuseIdentifier: BotVideoCardCell.identifier)
+        tableViewChat.register(BotPaymentCardCell.self, forCellReuseIdentifier: BotPaymentCardCell.identifier)
         tableViewChat.register(UINib(nibName: "FeedbackTableViewCell", bundle: bundle), forCellReuseIdentifier: "FeedbackTableViewCell")
         
         tableViewChat.register(UINib(nibName: "AssignedAgentTableViewCell", bundle: bundle), forCellReuseIdentifier: "AssignedAgentTableViewCell")
@@ -1264,7 +1279,25 @@ extension HippoConversationViewController: SelectImageViewControllerDelegate {
 }
 
 extension HippoConversationViewController {
-    
+
+    /// The bot's open file question (type 28), if any. The bot may send more messages right
+    /// after it (e.g. a sample image), so look back past its messages and stop at the first
+    /// one the user sent.
+    func openBotFileQuestion() -> HippoActionMessage? {
+        for group in messagesGroupedByDate.reversed() {
+            for message in group.reversed() {
+                // Check the question first: a saved / reloaded type 28 carries the user's own id
+                // (its JSON is the reply payload), so it would look "sent by me".
+                if message.type == .botAttachment {
+                    guard let question = message as? HippoActionMessage, question.responseMessage == nil else { return nil }
+                    return question
+                }
+                if message.isSentByMe() { return nil }
+            }
+        }
+        return nil
+    }
+
     func sendSelectedDocumentWith(messageStr: String? = "", filePath: String, fileName: String, messageType: MessageType, fileType: FileType, getMsgBack: ((HippoMessage) -> Void)? = nil) {
         guard doesFileExistsAt(filePath: filePath) else {
             return
@@ -1273,9 +1306,10 @@ extension HippoConversationViewController {
         let uniqueName = DownloadManager.generateNameWhichDoestNotExistInCacheDirectoryWith(name: fileName)
         saveDocumentInCacheDirectoryWith(name: uniqueName, orignalFilePath: filePath)
         
-        if let message = messagesGroupedByDate.last?.last as? HippoActionMessage, message.type == .botAttachment {
+        if let message = openBotFileQuestion() {
             message.fileName = uniqueName
             message.localImagePath = getCacheDirectoryUrlForFileWith(name: uniqueName).path
+            showBotFileAnswerWhileUploading(message, localPath: message.localImagePath ?? filePath, fileName: uniqueName)
             self.UploadAndSendMessage(message: message)
         }else {
             let message = HippoMessage(message: messageStr ?? "", type: messageStr == "" ? messageType : .normal, uniqueID: generateUniqueId(), imageUrl: nil, thumbnailUrl: nil, localFilePath: filePath, chatType: channel?.chatDetail?.chatType)
@@ -1459,9 +1493,9 @@ extension HippoConversationViewController {
     }
     
     func imageSelectedToSendWith(messageStr : String? = "", localPath: String, imageSize: CGSize) {
-        if let message = messagesGroupedByDate.last?.last as? HippoActionMessage, message.type == .botAttachment {
+        if let message = openBotFileQuestion() {
             message.localImagePath = localPath
-            message.selectBtnWith(btnId: "")
+            showBotFileAnswerWhileUploading(message, localPath: localPath, fileName: localPath.fileName())
             PrepareUploadAndSendImage(message: message)
         }else {
             let message = HippoMessage(message: messageStr ?? "", type: messageStr?.isEmpty ?? true ? .imageFile : .normal, uniqueID: generateUniqueId(), localFilePath: localPath, chatType: channel?.chatDetail?.chatType)
@@ -1474,6 +1508,30 @@ extension HippoConversationViewController {
         }
     }
     
+    /// Bot file question: show the picked file as the answer straight away (from the local copy),
+    /// so the bubble is drawn at full size now instead of growing in pieces after the upload.
+    func showBotFileAnswerWhileUploading(_ question: HippoActionMessage, localPath: String, fileName: String) {
+        question.contentValues = getBotAttachmentContent(path: localPath, thumnailUrl: "", name: fileName)
+        question.selectBtnWith(btnId: "")
+        question.responseMessage?.localImagePath = localPath
+        question.responseMessage?.isFileUploading = true
+        // The question is already on screen, so adding it again won't redraw its row - do it here.
+        DispatchQueue.main.async {
+            self.tableViewChat.reloadData()
+            self.newScrollToBottom(animated: true)
+            // Question answered: the input bar stops treating it as open (mic back).
+            self.botComposerStateMayHaveChanged()
+        }
+    }
+
+    /// Upload failed: take the preview answer back off, so the question is open again for a retry.
+    func clearBotFileAnswer(_ question: HippoActionMessage) {
+        question.contentValues = []
+        question.responseMessage = nil
+        question.setHeight()
+        botComposerStateMayHaveChanged()
+    }
+
     func getBotAttachmentContent(path: String, thumnailUrl: String, name: String) -> [[String : Any]]{
         var dic = [[String : Any]]()
         var dateDic = [String : Any]()
@@ -1530,15 +1588,25 @@ extension HippoConversationViewController {
                 }else{
                     message.wasMessageSendingFailed = true
                 }
+                if let question = message as? HippoActionMessage, question.type == .botAttachment {
+                    self?.clearBotFileAnswer(question)
+                }
                 self?.tableViewChat.reloadData()
                 completion(false)
                 return
             }
-            
+
             if message.type == .botAttachment {
-       
+                // Swap the local preview for the uploaded file, keeping the local copy for display
+                // so the bubble doesn't flash while the remote file loads.
+                let localPreview = (message as? HippoActionMessage)?.responseMessage?.localImagePath
                 message.contentValues = self?.getBotAttachmentContent(path: result.fileUrl ?? "", thumnailUrl: result.imageThumbnailUrl ?? "", name: result.fileUrl?.fileName() ?? "") ?? [[String : Any]]()
                 (message as? HippoActionMessage)?.selectBtnWith(btnId: "")
+                (message as? HippoActionMessage)?.responseMessage?.localImagePath = localPreview
+                // The answer's height is final now: redraw the row instead of waiting for the socket echo.
+                DispatchQueue.main.async {
+                    self?.tableViewChat.reloadData()
+                }
             }else {
                 message.wasMessageSendingFailed = false
                 message.imageUrl = result.imageUrl
@@ -1777,8 +1845,24 @@ extension HippoConversationViewController {
             
             if let lastCell = self.getLastMessageIndexPath() {
                 self.scroll(toIndexPath: lastCell, animated: animated)
+                // scrollToRow lands on the rows' estimated heights; once self-sizing rows
+                // measure taller the end can sit behind the composer / keyboard. Finish at
+                // the real end after layout settles.
+                DispatchQueue.main.asyncAfter(deadline: .now() + (animated ? 0.35 : 0.05)) {
+                    self.settleChatAtEnd(animated: animated)
+                }
             }
         }
+    }
+
+    /// Scrolls to the true end of the chat (content inset included), after laying out.
+    func settleChatAtEnd(animated: Bool) {
+        guard tableViewChat.numberOfSections > 0 else { return }
+        tableViewChat.layoutIfNeeded()
+        let insets = tableViewChat.adjustedContentInset
+        let maxOffsetY = max(-insets.top, tableViewChat.contentSize.height + insets.bottom - tableViewChat.bounds.height)
+        guard abs(tableViewChat.contentOffset.y - maxOffsetY) > 1 else { return }
+        tableViewChat.setContentOffset(CGPoint(x: tableViewChat.contentOffset.x, y: maxOffsetY), animated: animated)
     }
     
     func presentPlansVc() {
@@ -1976,6 +2060,8 @@ extension HippoConversationViewController: ActionTableViewDelegate {
         }
         customMessage.selectBtnWith(btnId: selectionId)
         tableViewChat.reloadData()
+        // Answered: drop the "Choose an option above" lock straight away.
+        botComposerStateMayHaveChanged()
         
         let replyMessage = botGroupID != nil ? customMessage : nil
         if replyMessage?.messageUniqueID == nil {
@@ -2217,6 +2303,10 @@ extension HippoConversationViewController: PaymentMessageCellDelegate {
     }
     
     func initatePayment(for url: URL) {
+        // The payment card shows "Processing payment…" and the composer "Payment in progress".
+        BotPaymentCardCell.paymentStarted()
+        tableViewChat.reloadData()
+        botComposerStateMayHaveChanged()
         let config = WebViewConfig(url: url, title: HippoStrings.payment)
         let vc = PrePaymentViewController.getNewInstance(config: config)
         vc.isComingForPayment = true
@@ -2290,20 +2380,36 @@ extension HippoConversationViewController: PaymentMessageCellDelegate {
             HippoConfig.shared.log.error("cannot find selected card.... Please select the card", level: .error)
             return
         }
+        // A gateway is chosen: the payment card shows "Processing payment…" (as on Android).
+        BotPaymentCardCell.paymentStarted()
+        tableViewChat.reloadData()
+        botComposerStateMayHaveChanged()
         HippoConfig.shared.delegate?.startLoading(message: "Redirecting to payment...")
         PaymentStore.generatePaymentUrl(channelId: channelId, message: message, selectedCard: selectedCard, selectedPaymentGateway: selectedPaymentGateway) { (success, data) in
             HippoConfig.shared.delegate?.stopLoading()
             guard success, let result = data else {
+                // The payment could not start: the card leaves "Processing".
+                BotPaymentCardCell.paymentEnded()
+                self.tableViewChat.reloadData()
+                self.botComposerStateMayHaveChanged()
                 return
             }
             if let razorPayDic = RazorPayData().getRazorPayDic(result){
                 if razorPayDic.amount != nil{
+                    // Razorpay checkout is switched off (initatePayment is empty): don't leave the
+                    // card on "Processing".
+                    BotPaymentCardCell.paymentEnded()
+                    self.tableViewChat.reloadData()
+                    self.botComposerStateMayHaveChanged()
                     self.initatePayment(for: razorPayDic)
                     return
                 }
             }
             
             guard let paymentUrl = result["payment_url"] as? String else {
+                BotPaymentCardCell.paymentEnded()
+                self.tableViewChat.reloadData()
+                self.botComposerStateMayHaveChanged()
                 return
             }
             HippoConfig.shared.log.debug("Response --\(result)", level: .response)
@@ -2323,6 +2429,8 @@ extension HippoConversationViewController: submitButtonTableViewDelegate {
             
             self.sendMessage(message: hippoMessage)
             self.tableViewChat.reloadData()
+            // The card is answered: hand the input bar back.
+            self.botComposerStateMayHaveChanged()
         }
     }
     

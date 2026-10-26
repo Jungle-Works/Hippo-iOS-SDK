@@ -21,6 +21,9 @@ class HippoCellDetail: NSObject {
     var headerHeight: CGFloat = 0
     var actionHeight: CGFloat?
     var responseHeight: CGFloat = 0
+    /// Customer button messages (type 20) keep their chips after a pick, with the answer
+    /// bubble below them - both rows count towards the cell height.
+    var stacksResponseUnderActions: Bool = false
     
     
     private var totalHeight: CGFloat? = nil
@@ -47,7 +50,11 @@ class HippoCellDetail: NSObject {
         height += additionalContentHeight
         height += padding
         height += headerHeight
-        height += actionHeight ?? responseHeight
+        if stacksResponseUnderActions {
+            height += (actionHeight ?? 0) + responseHeight
+        } else {
+            height += actionHeight ?? responseHeight
+        }
         
         return height
     }

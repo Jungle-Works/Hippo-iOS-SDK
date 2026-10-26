@@ -918,6 +918,13 @@ class HippoChannel {
             if let oldActionMessage = oldMessage as? HippoActionMessage, let newActionMessage = newMessage as? HippoActionMessage {
                 oldActionMessage.updateObject(with: newActionMessage)
             }
+        case .leadForm where oldMessage.hasSameFormProgress(as: newMessage):
+            // Echo of a form we already show (e.g. our own submit coming back over the socket).
+            // Keep the current field objects and skip the chat reload: a reload takes the
+            // keyboard off the field and puts it back, which flickers the keyboard.
+            let fields = oldMessage.leadsDataArray
+            oldMessage.updateObject(with: newMessage)
+            oldMessage.leadsDataArray = fields
         case .feedback, .leadForm:
             oldMessage.updateObject(with: newMessage)
             delegate?.channelDataRefreshed()
@@ -1021,8 +1028,12 @@ class HippoChannel {
 //                    }
 //                    return
 //                }
-        if isSendingDisabled && !(message.type == .feedback){
-            HippoConfig.shared.log.debug("----sending is disabled", level: .warning)
+        // disable_reply only blocks the free-text composer. Answers to the bot's own widgets
+        // must still go out: get_messages returns disable_reply = true while a bot is running,
+        // so after reopening the chat a multiselect submit was dropped here and the bot stalled.
+        let isBotWidgetAnswer = message.type == .feedback || message.type == .multipleSelect
+        if isSendingDisabled && !isBotWidgetAnswer {
+            HippoConfig.shared.log.trace("-->\(id) == NOT SENT, sending is disabled == type=\(message.type.rawValue) muid=\(message.messageUniqueID ?? "nil")", level: .socket)
             return
         }
         

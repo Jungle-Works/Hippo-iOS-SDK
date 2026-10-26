@@ -12,6 +12,18 @@ import UIKit
 
 class CustomerSelfMessageTableViewCell: SelfMessageTableViewCell {
 
+    /// Link preview card above the text, for a message with a link.
+    private lazy var linkPreview = BubbleLinkPreview(bubble: bgView, textView: selfMessageTextView)
+
+    override func configureIncomingMessageCell(resetProperties: Bool, chatMessageObject: HippoMessage, indexPath: IndexPath, comingFrom: String) -> SelfMessageTableViewCell {
+        let cell = super.configureIncomingMessageCell(resetProperties: resetProperties, chatMessageObject: chatMessageObject, indexPath: indexPath, comingFrom: comingFrom)
+        let text = chatMessageObject.messageState == .MessageDeleted ? nil : chatMessageObject.message
+        linkPreview.bind(messageText: text, sent: true) { [weak self] in
+            self?.relayoutEnclosingTableRow()
+        }
+        return cell
+    }
+
     override func layoutSubviews() {
         super.layoutSubviews()
         // Deferred a run-loop turn on purpose. CAShapeLayer.path is a
@@ -65,6 +77,12 @@ class CustomerSelfMessageTableViewCell: SelfMessageTableViewCell {
         // accent's luminance — matches the design's fixed light-on-accent treatment.
         selfMessageTextView.textColor = .white
         timeLabel.textColor = .white
+        // Detected emails / links / phone numbers: same white as the text, underlined (Android's
+        // setLinkTextColor(onAccent) on the sent bubble) - the system blue is unreadable on accent.
+        selfMessageTextView.linkTextAttributes = [
+            .foregroundColor: UIColor.white,
+            .underlineStyle: NSUnderlineStyle.single.rawValue
+        ]
 
         // "You deleted this message" reads as a system note, not real message content —
         // italicise it, matching common chat-app convention.

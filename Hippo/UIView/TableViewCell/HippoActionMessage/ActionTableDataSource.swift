@@ -14,6 +14,8 @@ class ActionTableDataSource: NSObject, UITableViewDataSource {
     enum ActionTableSections: Int, CaseCountable {
         case headerMessage = 0
         case buttons = 1
+        /// Customer button messages: the answer bubble under the (kept) chips.
+        case response = 2
     }
     weak var delegate: ActionTableProtocol?
     var message: HippoActionMessage?
@@ -32,7 +34,17 @@ class ActionTableDataSource: NSObject, UITableViewDataSource {
         guard message != nil else {
             return 0
         }
-        return (message?.type == .dateTime || message?.type == .address || message?.type == .botAttachment) && message?.responseMessage == nil ? ActionTableSections.count - 1 : ActionTableSections.count
+        guard let message = message else { return 0 }
+        let isAnswerType = message.type == .dateTime || message.type == .address || message.type == .botAttachment
+        if isAnswerType {
+            // Question only, then the answer once there is one.
+            return message.responseMessage == nil ? 1 : 2
+        }
+        // Revamped customer chips stay visible after a pick, with the answer below them.
+        if message.usesRevampedChips && message.responseMessage != nil {
+            return 3
+        }
+        return 2
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -42,7 +54,7 @@ class ActionTableDataSource: NSObject, UITableViewDataSource {
         switch sectionValue {
         case .headerMessage:
             return 1
-        case .buttons:
+        case .buttons, .response:
             return 1 //message.buttons?.count ?? 0
         }
     }
@@ -60,10 +72,17 @@ class ActionTableDataSource: NSObject, UITableViewDataSource {
 //            cell = cellForIndex
             let isOutgoingMessage = HippoConfig.shared.appUserType == .agent
             cell = getNormalMessageTableViewCell(tableView: tableView, isOutgoingMessage: isOutgoingMessage, message: message, indexPath: indexPath)
+        case .response:
+            guard let responseMessage = message.responseMessage else { return UITableView.defaultCell() }
+            cell = getNormalMessageTableViewCell(tableView: tableView, isOutgoingMessage: HippoConfig.shared.appUserType != .agent, message: responseMessage, indexPath: indexPath)
         case .buttons:
-            if let responseMessage = message.responseMessage {
+            if let responseMessage = message.responseMessage, !message.usesRevampedChips {
                 let isOutgoingMessage = HippoConfig.shared.appUserType != .agent
-                if message.responseMessage?.type == .imageFile {
+                if message.usesAddressAnswerBubble {
+                    let addressCell = tableView.dequeueReusableCell(withIdentifier: BotAddressAnswerCell.identifier, for: indexPath) as! BotAddressAnswerCell
+                    addressCell.set(message: message)
+                    cell = addressCell
+                } else if message.responseMessage?.type == .imageFile {
                     cell = getImageCell(tableView: tableView, isOutgoingMessage: isOutgoingMessage, message: responseMessage, indexPath: indexPath)
                 }else if message.responseMessage?.type == .attachment {
                     cell = getAttachmentCell(tableView: tableView, isOutgoingMessage: isOutgoingMessage, message: responseMessage, indexPath: indexPath)
@@ -104,14 +123,19 @@ class ActionTableDataSource: NSObject, UITableViewDataSource {
     func getImageCell(tableView: UITableView, isOutgoingMessage: Bool, message: HippoMessage, indexPath: IndexPath) -> UITableViewCell {
         
         if isOutgoingMessage == true {
+            let isCustomer = HippoConfig.shared.appUserType == .customer
+            // Same themed cell as an image the customer sends in the chat.
             guard
-                let cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingImageCell", for: indexPath) as? OutgoingImageCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: isCustomer ? "CustomerOutgoingImageCell" : "OutgoingImageCell", for: indexPath) as? OutgoingImageCell
             else {
                 let cell = UITableViewCell()
                 cell.backgroundColor = .clear
                 return cell
             }
-//            cell.configureCellOfOutGoingImageCell(resetProperties: true, chatMessageObject: message, indexPath: indexPath)
+            if isCustomer {
+                cell.configureCellOfOutGoingImageCell(resetProperties: true, chatMessageObject: message, indexPath: indexPath)
+                return cell
+            }
             if message.senderFullName != HippoConfig.shared.agentDetail?.fullName ?? ""{
                 cell.configureCellOfOutGoingImageCell(resetProperties: true, chatMessageObject: message, indexPath: indexPath,comingFrom: message.senderFullName)
             }else{
@@ -142,12 +166,15 @@ class ActionTableDataSource: NSObject, UITableViewDataSource {
                 cell.delegate = getLastVisibleController() as? ConversationsViewController
                 return cell
             case .audio:
-                let cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingAudioTableViewCell", for: indexPath) as! OutgoingAudioTableViewCell
+                let audioIdentifier = HippoConfig.shared.appUserType == .customer ? "CustomerOutgoingAudioTableViewCell" : "OutgoingAudioTableViewCell"
+                let cell = tableView.dequeueReusableCell(withIdentifier: audioIdentifier, for: indexPath) as! OutgoingAudioTableViewCell
                 cell.setData(message: message)
                 cell.delegate = getLastVisibleController() as? ConversationsViewController
                 return cell
             default:
-                let cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingDocumentTableViewCell") as! OutgoingDocumentTableViewCell
+                // Same themed cell as a file the customer sends in the chat.
+                let documentIdentifier = HippoConfig.shared.appUserType == .customer ? "CustomerOutgoingDocumentTableViewCell" : "OutgoingDocumentTableViewCell"
+                let cell = tableView.dequeueReusableCell(withIdentifier: documentIdentifier) as! OutgoingDocumentTableViewCell
                cell.messageLongPressed = { (message) in
                    
                }

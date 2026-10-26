@@ -76,8 +76,14 @@ class ActionTableView: MessageTableViewCell {
         tableView.register(UINib(nibName: "CustomerSelfMessageTableViewCell", bundle: FuguFlowManager.bundle), forCellReuseIdentifier: "CustomerSelfMessageTableViewCell")
         tableView.register(UINib(nibName: "CustomerSupportMessageTableViewCell", bundle: FuguFlowManager.bundle), forCellReuseIdentifier: "CustomerSupportMessageTableViewCell")
         tableView.register(UINib(nibName: "OutgoingImageCell", bundle: FuguFlowManager.bundle), forCellReuseIdentifier: "OutgoingImageCell")
+        // Customer answers to a bot file question use the same themed cells as the chat.
+        tableView.register(UINib(nibName: "CustomerOutgoingImageCell", bundle: FuguFlowManager.bundle), forCellReuseIdentifier: "CustomerOutgoingImageCell")
+        tableView.register(UINib(nibName: "CustomerOutgoingDocumentTableViewCell", bundle: FuguFlowManager.bundle), forCellReuseIdentifier: "CustomerOutgoingDocumentTableViewCell")
+        tableView.register(UINib(nibName: "CustomerOutgoingAudioTableViewCell", bundle: FuguFlowManager.bundle), forCellReuseIdentifier: "CustomerOutgoingAudioTableViewCell")
+        tableView.register(UINib(nibName: "OutgoingAudioTableViewCell", bundle: FuguFlowManager.bundle), forCellReuseIdentifier: "OutgoingAudioTableViewCell")
         tableView.register(UINib(nibName: "OutgoingDocumentTableViewCell", bundle: FuguFlowManager.bundle), forCellReuseIdentifier: "OutgoingDocumentTableViewCell")
         tableView.register(UINib(nibName: "OutgoingVideoTableViewCell", bundle: FuguFlowManager.bundle), forCellReuseIdentifier: "OutgoingVideoTableViewCell")
+        tableView.register(BotAddressAnswerCell.self, forCellReuseIdentifier: BotAddressAnswerCell.identifier)
         
         
     }
@@ -142,6 +148,8 @@ extension ActionTableView: UITableViewDelegate {
             return (message.cellDetail?.headerHeight ?? 0.01) + 6
         case .buttons:
             return message.cellDetail?.actionHeight ?? message.cellDetail?.responseHeight ?? 0.01
+        case .response:
+            return message.cellDetail?.responseHeight ?? 0.01
         }
     }
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {

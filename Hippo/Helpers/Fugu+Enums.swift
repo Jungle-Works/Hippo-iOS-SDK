@@ -259,6 +259,31 @@ enum responseKeyboardType: String{
     case none = "NONE"
     case numberKeyboard = "NUMBER"
     case defaultKeyboard = "DEFAULT"
+    /// Bot URL question: URL keyboard, answer must be an http(s) link before it is sent.
+    case url = "URL"
+    /// Bot phone question: phone keypad.
+    case phone = "PHONE"
+    /// Bot email question: email keyboard.
+    case email = "EMAIL"
+
+    /// The bot's input_type. Phone and email arrive under several names (PHONE, PHONE_NUMBER,
+    /// MOBILE, TELEPHONE / EMAIL, EMAIL_ADDRESS), so match by word; anything unknown is text.
+    init(inputType: String) {
+        let t = inputType.uppercased()
+        if t == "NONE" {
+            self = .none
+        } else if t == "NUMBER" || t == "NUMERIC" || t == "DIGITS" {
+            self = .numberKeyboard
+        } else if t == "URL" {
+            self = .url
+        } else if t.contains("PHONE") || t.contains("MOBILE") || t.contains("TEL") {
+            self = .phone
+        } else if t.contains("MAIL") {
+            self = .email
+        } else {
+            self = .defaultKeyboard
+        }
+    }
 }
 
 

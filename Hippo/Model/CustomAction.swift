@@ -44,10 +44,56 @@ class CustomAction: NSObject {
     
 
     
+    /// Customer select cards (design 04/05) get the revamped card: eyebrow + question header,
+    /// tinted option rows, Submit with a live count, "Submitted" once answered.
+    static var usesRevampedCard: Bool {
+        return HippoConfig.shared.appUserType == .customer
+    }
+
+    /// Card's left margin: lined up with the bot's text bubbles in the revamped customer thread
+    /// (no avatar), avatar space otherwise. MultiSelectTableViewCell lays the card out with it.
+    static var cardLeading: CGFloat {
+        return usesRevampedCard ? 10 : 35 + 10
+    }
+
+    var isMultiSelect: Bool {
+        return maxSelection > 1
+    }
+
+    /// "SELECT ONE" / "SELECT ALL THAT APPLY" above the question, as one attributed string so the
+    /// header cell and the height calculation share it.
+    func revampedHeaderText(question: String) -> NSAttributedString {
+        let colors = HippoConfig.shared.colorConfig
+        let eyebrow = (isMultiSelect ? HippoStrings.selectAllThatApply : HippoStrings.selectOne).uppercased()
+        let eyebrowStyle = NSMutableParagraphStyle()
+        eyebrowStyle.paragraphSpacing = 6
+        let out = NSMutableAttributedString(string: eyebrow + "\n", attributes: [
+            .font: UIFont.systemFont(ofSize: 11.5, weight: .semibold),
+            .foregroundColor: colors.hippoTextMuted,
+            .kern: 0.4,
+            .paragraphStyle: eyebrowStyle])
+        let questionStyle = NSMutableParagraphStyle()
+        questionStyle.lineSpacing = 2
+        out.append(NSAttributedString(string: question, attributes: [
+            .font: UIFont.systemFont(ofSize: 15, weight: .medium),
+            .foregroundColor: colors.hippoTextPrimary,
+            .paragraphStyle: questionStyle]))
+        return out
+    }
+
     @discardableResult
     func calculateHeightForMessage(message:String) -> CGFloat
     {
-        let width:CGFloat = windowScreenWidth - 35 - 10 - 60 - 5 - 5 - 10 - 10
+        if CustomAction.usesRevampedCard {
+            let width: CGFloat = windowScreenWidth - CustomAction.cardLeading - 60 - 5 - 5 - 10 - 10
+            let size = revampedHeaderText(question: message).boundingRect(
+                with: CGSize(width: width, height: .greatestFiniteMagnitude),
+                options: [.usesLineFragmentOrigin, .usesFontLeading], context: nil).size
+            let h = ceil(size.height) + 25
+            self.messageHeight = h
+            return h
+        }
+        let width:CGFloat = windowScreenWidth - CustomAction.cardLeading - 60 - 5 - 5 - 10 - 10
         let attributedString = NSMutableAttributedString(string: message)
         
         let range = NSRange.init(location: 0, length: attributedString.length)
@@ -111,7 +157,8 @@ class MultiselectButtons: NSObject {
         }
         self.btnId = id
         self.btnTitle = String.parse(values: dict, key: "btn_title")
-        self.status = Bool.parse(key: "status", json: dict)
+        // Missing "status" = not selected (the option rows unwrap it).
+        self.status = Bool.parse(key: "status", json: dict) ?? false
         
         super.init()
         self.calculateHeightForButtons(btnTitle:self.btnTitle ?? "")
@@ -135,7 +182,7 @@ class MultiselectButtons: NSObject {
     @discardableResult
     func calculateHeightForButtons(btnTitle:String) -> CGFloat
     {
-        let width:CGFloat = windowScreenWidth - 35 - 10 - 60 - 10 - 10 - 22 - 5 - 10 - 5
+        let width:CGFloat = windowScreenWidth - CustomAction.cardLeading - 60 - 10 - 10 - 22 - 5 - 10 - 5
         let attributedString = NSMutableAttributedString(string: btnTitle)
         
         let range = NSRange.init(location: 0, length: attributedString.length)

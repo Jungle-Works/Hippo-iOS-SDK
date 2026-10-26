@@ -146,6 +146,9 @@ func getColor(char: String) -> Int {
 
 func convertDateTimeToUTC(date: Date? = nil) -> String {
     let formatterUTC = DateFormatter()
+    // Fixed locale: on a 12-hour device the user's setting otherwise rewrites "HH" and the
+    // server got "T7:19:48" instead of "T07:19:48".
+    formatterUTC.locale = Locale(identifier: "en_US_POSIX")
     formatterUTC.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
     formatterUTC.timeZone = TimeZone(secondsFromGMT: 0)
     

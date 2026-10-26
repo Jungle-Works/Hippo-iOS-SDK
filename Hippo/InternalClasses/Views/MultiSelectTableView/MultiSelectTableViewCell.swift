@@ -40,7 +40,9 @@ class MultiSelectTableViewCell: UITableViewCell {
         super.awakeFromNib()
         
         bgViewTrailingConstraint.constant = 60
-        bgViewLeadingConstraint.constant = 35 + 10
+        // Revamped customer thread shows no bot avatar, so the card lines up with the bot's text
+        // bubbles instead of leaving the avatar's space empty - as on Android.
+        bgViewLeadingConstraint.constant = CustomAction.cardLeading
         setTheme()
         setupTableView()
         // Initialization code
@@ -54,7 +56,19 @@ class MultiSelectTableViewCell: UITableViewCell {
     
     private func setTheme() {
         backgroundColor = .clear
-        
+        if CustomAction.usesRevampedCard {
+            // Card: surface fill, hairline border, 16pt corners.
+            let colors = HippoConfig.shared.colorConfig
+            bgView.backgroundColor = colors.hippoSurface
+            bgView.layer.cornerRadius = 16
+            bgView.layer.borderWidth = 1
+            bgView.layer.borderColor = colors.hippoBorder.cgColor
+            multiselectTableView.separatorStyle = .none
+            multiselectTableView.backgroundColor = .clear
+            moveTimeToHeader()
+            return
+        }
+
         bgView.backgroundColor = HippoConfig.shared.theme.incomingChatBoxColor
         multiselectTableView.separatorStyle = .none
         bgView.layer.cornerRadius = 10
@@ -65,6 +79,30 @@ class MultiSelectTableViewCell: UITableViewCell {
         
     }
     
+    /// Bottom gap under the footer (Submit / "Submitted"), read by the row height too.
+    static func revampedBottomPadding(answered: Bool) -> CGFloat {
+        return answered ? 6 : 2
+    }
+
+    private var tableBottomToCard: NSLayoutConstraint?
+
+    /// As on Android: the time sits top right, on the "SELECT ONE" line, and the card ends just
+    /// under Submit (12pt with the footer row's own 10pt) instead of carrying the time below it.
+    private func moveTimeToHeader() {
+        let timeConstraints = bgView.constraints.filter { $0.firstItem === timeLabel || $0.secondItem === timeLabel }
+        NSLayoutConstraint.deactivate(timeConstraints)
+        timeLabel.translatesAutoresizingMaskIntoConstraints = false
+        let bottom = multiselectTableView.bottomAnchor.constraint(equalTo: bgView.bottomAnchor, constant: -MultiSelectTableViewCell.revampedBottomPadding(answered: false))
+        tableBottomToCard = bottom
+        NSLayoutConstraint.activate([
+            bottom,
+            timeLabel.trailingAnchor.constraint(equalTo: bgView.trailingAnchor, constant: -16),
+            // Header cell: 10pt inset, eyebrow line ~16pt tall.
+            timeLabel.centerYAnchor.constraint(equalTo: multiselectTableView.topAnchor, constant: 20)
+        ])
+        bgView.bringSubviewToFront(timeLabel)
+    }
+
     private func setupTableView() {
         multiselectTableView.register(UINib(nibName: "MultipleSelectTableViewCell", bundle: FuguFlowManager.bundle), forCellReuseIdentifier: "MultipleSelectTableViewCell")
         
@@ -87,11 +125,17 @@ class MultiSelectTableViewCell: UITableViewCell {
         let timeOfMessage = getTimeString()
         timeLabel.text = timeOfMessage
         timeLabel.font = HippoConfig.shared.theme.dateTimeFontSize
-        timeLabel.textColor = HippoConfig.shared.theme.incomingMsgDateTextColor
+        timeLabel.textColor = CustomAction.usesRevampedCard ? HippoConfig.shared.colorConfig.hippoTextMuted
+            : HippoConfig.shared.theme.incomingMsgDateTextColor
     }
     
     func setName()
     {
+        // Revamped customer thread shows no sender identity on bot rows.
+        if CustomAction.usesRevampedCard {
+            self.nameLabel.text = ""
+            return
+        }
         self.nameLabel.text = message?.senderFullName
         
         self.nameLabel.font = HippoConfig.shared.theme.senderNameFont
@@ -124,6 +168,10 @@ extension MultiSelectTableViewCell
         
         setName()
         setTime()
+        if CustomAction.usesRevampedCard {
+            timeLabel.font = UIFont.systemFont(ofSize: 11)
+            tableBottomToCard?.constant = -MultiSelectTableViewCell.revampedBottomPadding(answered: message.customAction?.isReplied == 1)
+        }
         
         self.bgViewHeightConstraint.constant = message.calculatedHeight ?? 0
         self.layoutIfNeeded()
@@ -141,6 +189,14 @@ extension MultiSelectTableViewCell
             selectedButtonsArr = arr.filter { $0.status == true }
         }
         
+    if CustomAction.usesRevampedCard {
+        // Submit is only enabled once max(1, min_selection) options are picked.
+        if selectedButtonsArr.count >= max(1, message?.customAction?.minSelection ?? 1) {
+            message?.customAction?.isReplied = 1
+            submitButtonDelegate?.submitButtonPressed(hippoMessage: message!)
+        }
+        return
+    }
     if message?.customAction?.minSelection == 0 
     {
         showAlertWith(message: HippoStrings.noMinSelection, action: nil)
@@ -168,6 +224,10 @@ extension MultiSelectTableViewCell
 extension MultiSelectTableViewCell: UITableViewDataSource
 {
     func numberOfSections(in tableView: UITableView) -> Int {
+        // Revamped card always has a footer: Submit while open, "Submitted" once answered.
+        if CustomAction.usesRevampedCard {
+            return 3
+        }
         if message?.customAction?.isReplied == 0
         {
             return 3
@@ -198,7 +258,11 @@ extension MultiSelectTableViewCell: UITableViewDataSource
             }
             
             cell.selectionStyle = .none
-            cell.descriptionLabel.text = message?.message
+            if CustomAction.usesRevampedCard, let action = message?.customAction {
+                cell.descriptionLabel.attributedText = action.revampedHeaderText(question: message?.message ?? "")
+            } else {
+                cell.descriptionLabel.text = message?.message
+            }
             cell.backgroundColor = .clear
             
             return cell
@@ -211,8 +275,15 @@ extension MultiSelectTableViewCell: UITableViewDataSource
             }
             let b = buttons[indexPath.row]
             cell.set(button: b)
+            if CustomAction.usesRevampedCard {
+                cell.applyRevampedStyle(button: b, answered: message?.customAction?.isReplied == 1)
+            }
             
             return cell
+        }
+        else if indexPath.section == 2 && CustomAction.usesRevampedCard
+        {
+            return revampedFooterCell(tableView: tableView, indexPath: indexPath)
         }
         else if indexPath.section == 2
         {
@@ -273,6 +344,9 @@ extension MultiSelectTableViewCell : UITableViewDelegate
         if indexPath.section == 0 {
             return message?.customAction?.messageHeight ?? 0.01
         }
+        if CustomAction.usesRevampedCard {
+            return message?.customAction?.isReplied == 1 ? 34 : 61
+        }
         
         return 50
     }
@@ -327,3 +401,93 @@ extension MultiSelectTableViewCell : UITableViewDelegate
     
 }
 
+
+// MARK: - Revamped footer (design 04/05)
+
+extension MultiSelectTableViewCell {
+
+    private static let countLabelTag = 7301
+
+    /// Open: Submit (full width for single select; count + compact Submit for multi select),
+    /// enabled once min_selection is met. Answered: a read-only "Submitted" line with a lock.
+    func revampedFooterCell(tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
+        let colors = HippoConfig.shared.colorConfig
+        guard let action = message?.customAction else { return UITableView.defaultCell() }
+
+        if action.isReplied == 1 {
+            let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
+            cell.backgroundColor = .clear
+            cell.selectionStyle = .none
+            let lock = NSTextAttachment()
+            lock.image = UIImage(systemName: "lock")?.withTintColor(colors.hippoTextMuted, renderingMode: .alwaysOriginal)
+            lock.bounds = CGRect(x: 0, y: -2, width: 12, height: 13)
+            let text = NSMutableAttributedString(attachment: lock)
+            text.append(NSAttributedString(string: "  " + HippoStrings.submitted, attributes: [
+                .font: UIFont.systemFont(ofSize: 12.5, weight: .medium),
+                .foregroundColor: colors.hippoTextMuted]))
+            cell.textLabel?.attributedText = text
+            cell.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: .greatestFiniteMagnitude)
+            return cell
+        }
+
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "ActionButtonViewCell", for: indexPath) as? ActionButtonViewCell else {
+            return UITableView.defaultCell()
+        }
+        cell.selectionStyle = .none
+        cell.backgroundColor = .clear
+        let selectedCount = (action.buttonsArray ?? []).filter { $0.status == true }.count
+        let minNeeded = max(1, action.minSelection)
+        let canSubmit = selectedCount >= minNeeded
+
+        let button = cell.cellButton!
+        button.setTitle(HippoStrings.submit, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .semibold)
+        button.layer.borderWidth = 0
+        button.layer.cornerRadius = 12
+        button.backgroundColor = canSubmit ? colors.hippoAccent : colors.hippoAccentSubtle
+        button.setTitleColor(colors.hippoOnAccent, for: .normal)
+        button.setTitleColor(colors.hippoAccent.withAlphaComponent(0.5), for: .disabled)
+        button.isEnabled = canSubmit
+        button.alpha = 1
+        button.removeTarget(nil, action: nil, for: .touchUpInside)
+        button.addTarget(self, action: #selector(submitButtonClicked), for: .touchUpInside)
+        button.isHidden = self.isAgent
+
+        var countLabel = cell.contentView.viewWithTag(MultiSelectTableViewCell.countLabelTag) as? UILabel
+        if action.isMultiSelect {
+            // Count on the left, compact Submit on the right.
+            cell.buttonLeadingConstraint.constant = max(12, bgView.bounds.width > 0 ? bgView.bounds.width - 12 - 120 : 140)
+            cell.buttonTrailingConstraint.constant = 12
+            if countLabel == nil {
+                let label = UILabel()
+                label.tag = MultiSelectTableViewCell.countLabelTag
+                label.translatesAutoresizingMaskIntoConstraints = false
+                cell.contentView.addSubview(label)
+                NSLayoutConstraint.activate([
+                    label.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor, constant: 18),
+                    label.centerYAnchor.constraint(equalTo: button.centerYAnchor),
+                    label.trailingAnchor.constraint(lessThanOrEqualTo: button.leadingAnchor, constant: -8)
+                ])
+                countLabel = label
+            }
+            countLabel?.isHidden = false
+            countLabel?.font = UIFont.systemFont(ofSize: 13, weight: .medium)
+            if selectedCount == 0 {
+                countLabel?.text = minNeeded > 1 ? String(format: HippoStrings.selectAtLeastN, minNeeded) : HippoStrings.selectAtLeastOne
+                countLabel?.textColor = colors.hippoTextMuted
+            } else if action.maxSelection > 0 {
+                countLabel?.text = String(format: HippoStrings.nOfMaxSelected, selectedCount, action.maxSelection)
+                countLabel?.textColor = colors.hippoTextPrimary
+            } else {
+                countLabel?.text = String(format: HippoStrings.nSelected, selectedCount)
+                countLabel?.textColor = colors.hippoTextPrimary
+            }
+        } else {
+            // Single select: full-width Submit.
+            cell.buttonLeadingConstraint.constant = 12
+            cell.buttonTrailingConstraint.constant = 12
+            countLabel?.isHidden = true
+        }
+        return cell
+    }
+}

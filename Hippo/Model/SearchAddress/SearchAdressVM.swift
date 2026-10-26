@@ -26,10 +26,12 @@ class SearchAdressVM {
     }
     private var addressArr : [Address]?
     var responseRecieved : (()->())?
+    /// The visitor's position, when known: search results are biased to it.
+    var bias : (lat: Double, lng: Double)?
     
     private func getAddress() {
         
-        let params = ["text" : searchText ?? "", "currentlatitude" : 0, "currentlongitude" : 0, "skip_cache" : 0, "fm_token" : "e07a4b30-524a-11ea-ad3a-9bfad3330c22", "offering" : 2] as [String : Any]
+        let params = ["text" : searchText ?? "", "currentlatitude" : bias?.lat ?? 0, "currentlongitude" : bias?.lng ?? 0, "skip_cache" : 0, "fm_token" : "e07a4b30-524a-11ea-ad3a-9bfad3330c22", "offering" : 2] as [String : Any]
         
         HTTPClient.makeConcurrentConnectionWith(method: .GET, enCodingType: .url, para: params,baseUrl: FuguEndPoints.searchAddress.rawValue, extendedUrl: "") { (response, error, _, statusCode) in
             
@@ -40,6 +42,8 @@ class SearchAdressVM {
             }
             
             guard let response = response as? [String : Any], let data = response["data"] as? [[String : Any]] else {
+                self.addressArr = nil
+                self.responseRecieved?()
                 return
             }
             

@@ -12,6 +12,9 @@ import UIKit
 
 class CustomerSupportMessageTableViewCell: SupportMessageTableViewCell {
 
+    /// Link preview card above the text, for a message with a link.
+    private lazy var linkPreview = BubbleLinkPreview(bubble: bgView, textView: supportMessageTextView)
+
     override func layoutSubviews() {
         super.layoutSubviews()
         // See CustomerSelfMessageTableViewCell for why this is deferred a
@@ -54,6 +57,10 @@ class CustomerSupportMessageTableViewCell: SupportMessageTableViewCell {
 
     override func configureCellOfSupportIncomingCell(resetProperties: Bool, attributedString: NSMutableAttributedString, channelId: Int, chatMessageObject: HippoMessage) -> SupportMessageTableViewCell {
         let cell = super.configureCellOfSupportIncomingCell(resetProperties: resetProperties, attributedString: attributedString, channelId: channelId, chatMessageObject: chatMessageObject)
+        let text = chatMessageObject.messageState == .MessageDeleted ? nil : chatMessageObject.message
+        linkPreview.bind(messageText: text, sent: false) { [weak self] in
+            self?.relayoutEnclosingTableRow()
+        }
 
         // "X deleted this message" reads as a system note, not real message content —
         // italicise it, matching common chat-app convention. The base text comes from

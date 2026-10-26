@@ -38,10 +38,46 @@ class ActionTagTableViewCell: UITableViewCell {
     func setupCell(message: HippoActionMessage)  {
         self.message = message
         let buttons: [HippoActionButton] = message.buttons ?? []
+        let revamped = message.usesRevampedChips
+        if revamped {
+            // Size first: TagListView reads these when it creates each chip.
+            buttonTagView.textFont = HippoActionMessage.chipFont
+            buttonTagView.paddingX = HippoActionMessage.chipPaddingX
+            buttonTagView.paddingY = (HippoActionMessage.chipHeight - HippoActionMessage.chipFont.pointSize) / 2
+            buttonTagView.marginX = HippoActionMessage.chipGap
+            buttonTagView.marginY = HippoActionMessage.chipGap
+            buttonTagView.buttonBorderWidth = 0
+        } else {
+            setUI()
+        }
         buttonTagView.removeAllTags()
-        buttonTagView.addTags(buttons)
-        timeLabel.text = changeDateToParticularFormat(message.creationDateTime, dateFormat: "h:mm a", showInFormat: true)
+        let tagViews = buttonTagView.addTags(buttons)
+        if revamped {
+            styleRevampedChips(tagViews, selectedId: message.selectedBtnId)
+        }
+        // Once answered, the time sits in the answer bubble below the chips.
+        let answered = revamped && !message.selectedBtnId.isEmpty
+        timeLabel.text = answered ? "" : changeDateToParticularFormat(message.creationDateTime, dateFormat: "h:mm a", showInFormat: true)
+        timeLabel.textColor = HippoConfig.shared.colorConfig.hippoTextMuted
         self.layoutIfNeeded()
+    }
+
+    /// Customer quick replies (design 03): accent-tinted chips; after a pick the chosen chip is filled
+    /// with the accent and every chip is locked. Unchosen chips keep their normal look (no fade).
+    private func styleRevampedChips(_ tagViews: [TagView], selectedId: String) {
+        let colors = HippoConfig.shared.colorConfig
+        let locked = !selectedId.isEmpty
+        for tag in tagViews {
+            let chosen = locked && (tag.detail as? HippoActionButton)?.id == selectedId
+            tag.cornerRadiu = 12
+            tag.hippoBorderWidth = 0
+            tag.layer.borderWidth = 0
+            tag.tagBackgroundColor = chosen ? colors.hippoAccent : colors.hippoAccentSubtle
+            tag.textColor = chosen ? colors.hippoOnAccent : colors.hippoAccent
+            tag.highlightedBackgroundColor = chosen ? colors.hippoAccent : colors.hippoAccentSubtle2
+            tag.textFont = chosen ? UIFont.systemFont(ofSize: 14.5, weight: .semibold) : HippoActionMessage.chipFont
+            tag.isUserInteractionEnabled = !locked
+        }
     }
 }
 
