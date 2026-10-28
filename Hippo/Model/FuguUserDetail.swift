@@ -717,6 +717,10 @@ public class UserTag: NSObject {
             params["access_token"] = HippoConfig.shared.agentDetail?.fuguToken
         }else{
             params["app_secret_key"] = HippoConfig.shared.appSecretKey
+
+            if let appType = HippoConfig.shared.userDetail?.appType, appType.isEmpty == false {
+                params["app_type"] = appType
+            }
         }
 
         return params
