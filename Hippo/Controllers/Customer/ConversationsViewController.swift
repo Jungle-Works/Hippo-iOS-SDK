@@ -325,6 +325,10 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
                 }
             } else {
                 fetchMessagesFrom1stPage()
+                // No channel and no label: nothing to load, the chat starts empty.
+                if !isDefaultChannel() {
+                    markEmptyChatStateReady()
+                }
             }
             return
         }
@@ -397,6 +401,12 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     /// existing conversation - the default channel for a first-timer, the New
     /// Conversation button, or any `createConversationOnStart` entry.
     private var openedAsNewConversation = false
+
+    /// Empty conversation state (HippoConfig.setEmptyChatState). Nil when the host app set no text.
+    private var emptyChatStateView: UIStackView?
+    /// True once we know whether the chat has messages: the server answered, or there is
+    /// no channel to load yet. Stops an existing chat flashing the empty state while loading.
+    private var emptyChatStateReady = false
 
     /// The menu only makes sense once there is a real conversation behind it - its
     /// Shared Media option is keyed on `channelId`, and there is nothing shared yet
@@ -774,6 +784,10 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
                 })
             } else {
                 fetchMessagesFrom1stPage()
+                // No channel and no label: nothing to load, the chat starts empty.
+                if !isDefaultChannel() {
+                    markEmptyChatStateReady()
+                }
             }
             return
         }
@@ -1572,6 +1586,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         let contentOffsetBeforeNewMessages = tableViewChat.contentOffset.y
         let contentHeightBeforeNewMessages = tableViewChat.contentSize.height
         tableViewChat.reloadData()
+        markEmptyChatStateReady()
 
         if request.pageStart > 1 {
             keepTableViewWhereItWasBeforeReload(oldContentHeight: contentHeightBeforeNewMessages, oldYOffset: contentOffsetBeforeNewMessages)
@@ -2177,6 +2192,7 @@ extension ConversationsViewController {
             backgroundImageView.image = HippoConfig.shared.theme.chatbackgroundImage
             backgroundImageView.contentMode = .scaleToFill
         }
+        setUpEmptyChatState()
         //        self.messageTextView.textAlignment = .left
         self.messageTextView.font = HippoConfig.shared.theme.typingTextFont
         self.messageTextView.textColor = HippoConfig.shared.theme.typingTextColor
@@ -3787,7 +3803,65 @@ extension ConversationsViewController: HippoChannelDelegate {
             if self?.isViewLoaded == true, self?.textViewBgView != nil {
                 self?.updateInputButtonsForText()
             }
+            self?.updateEmptyChatState()
         }
+    }
+
+    /// Builds the empty-state view from HippoConfig and centres it over the message list.
+    /// Text is required; the image is only shown alongside text. With no text nothing is
+    /// added (the old blank screen).
+    private func setUpEmptyChatState() {
+        guard emptyChatStateView == nil,
+              let text = HippoConfig.shared.emptyChatText, !text.isEmpty,
+              let container = tableViewChat.superview else { return }
+
+        let stack = UIStackView()
+        stack.axis = .vertical
+        stack.alignment = .center
+        stack.spacing = 8
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        // Taps pass through to the table (keyboard dismiss etc.).
+        stack.isUserInteractionEnabled = false
+        stack.isHidden = true
+
+        if let image = HippoConfig.shared.emptyChatImage {
+            let imageView = UIImageView(image: image)
+            imageView.contentMode = .scaleAspectFit
+            imageView.translatesAutoresizingMaskIntoConstraints = false
+            imageView.widthAnchor.constraint(lessThanOrEqualToConstant: 64).isActive = true
+            imageView.heightAnchor.constraint(lessThanOrEqualToConstant: 64).isActive = true
+            imageView.isAccessibilityElement = false
+            stack.addArrangedSubview(imageView)
+        }
+
+        let label = UILabel()
+        label.text = text
+        label.numberOfLines = 0
+        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 14)
+        label.textColor = HippoConfig.shared.colorConfig.hippoTextMuted
+        stack.addArrangedSubview(label)
+
+        container.insertSubview(stack, aboveSubview: tableViewChat)
+        NSLayoutConstraint.activate([
+            stack.centerXAnchor.constraint(equalTo: tableViewChat.centerXAnchor),
+            stack.centerYAnchor.constraint(equalTo: tableViewChat.centerYAnchor),
+            stack.leadingAnchor.constraint(greaterThanOrEqualTo: tableViewChat.leadingAnchor, constant: 40),
+            stack.trailingAnchor.constraint(lessThanOrEqualTo: tableViewChat.trailingAnchor, constant: -40)
+        ])
+        emptyChatStateView = stack
+    }
+
+    private func markEmptyChatStateReady() {
+        emptyChatStateReady = true
+        updateEmptyChatState()
+    }
+
+    /// Shows the empty state only for a loaded chat with no messages.
+    private func updateEmptyChatState() {
+        guard let emptyView = emptyChatStateView else { return }
+        let hasMessages = messagesGroupedByDate.contains { !$0.isEmpty }
+        emptyView.isHidden = !(emptyChatStateReady && !hasMessages)
     }
 
     private func refreshBotComposerOverlay() {

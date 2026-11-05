@@ -248,6 +248,9 @@ struct WhatsappWidgetConfig{
     var sessionStartTime: Date?
     var tempChannelId: Int?
     private(set) public var isRecordingButtonEnabled: Bool = true
+    // Empty conversation state; nothing is shown unless the host app sets the text.
+    private(set) public var emptyChatText: String?
+    private(set) public var emptyChatImage: UIImage?
     var botButtonActionCallBack: ((Any) -> Void)?
     public var newChatCallback: ((Int) -> (Int?, Bool?))?
     var isPopUpCalledBeforeCaching = false
@@ -848,6 +851,18 @@ struct WhatsappWidgetConfig{
     
     public func configureRecordingButtonOnChatScreen(is enabled: Bool){
         self.isRecordingButtonEnabled = enabled
+    }
+
+    /// Shows an image and text in the middle of a conversation that has no messages yet.
+    /// It hides by itself once the conversation has a message.
+    /// The image is only shown when text is set too.
+    ///
+    /// - Parameters:
+    ///   - text: text to show; nil or empty turns the empty state off.
+    ///   - image: image shown above the text; leave out for text only.
+    public func setEmptyChatState(text: String?, image: UIImage? = nil) {
+        self.emptyChatText = text
+        self.emptyChatImage = image
     }
     
     
