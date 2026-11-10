@@ -55,7 +55,22 @@ class P2PUnreadData {
         }
         return ""
     }
-    
+
+    /**
+        * Sets the saved count for a channel to 0 and tells the app.
+        * Used when the chat was opened without a transaction id (e.g. from a notification).
+        * Keeps the saved id and muid, because later updates compare against them.
+    */
+    func clearCount(channelId : Int){
+        guard channelId > 0 else { return }
+        let transactionId = getTransactionId(with: channelId)
+        guard !transactionId.isEmpty, var data = getData(with: transactionId) else { return }
+        guard (data.count ?? 0) != 0 else { return }
+        data.count = 0
+        p2pChannelCount[transactionId] = data
+        HippoConfig.shared.sendp2pUnreadCount(0, channelId)
+    }
+
 }
 
 struct P2PData {

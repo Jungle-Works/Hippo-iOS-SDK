@@ -439,15 +439,22 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     }
     
     func clearp2pdata(){
-        if self.channel?.chatDetail?.chatType == .p2p{
-            // * save data for p2punread count if transaction id is saved in local
-            if let data = P2PUnreadData.shared.getData(with: self.directChatDetail?.transactionId ?? ""){
-                let id = ((self.directChatDetail?.transactionId ?? "") + "-" + (self.directChatDetail?.otherUniqueKey?.first ?? ""))
-                if data.id == id{
-                    P2PUnreadData.shared.updateChannelId(transactionId: self.directChatDetail?.transactionId ?? "", channelId: self.channelId, count: 0, otherUserUniqueKey: self.directChatDetail?.otherUniqueKey?.first)
-                }
+        // Opened from the chat bubble: we know the transaction id.
+        if let transactionId = directChatDetail?.transactionId, !transactionId.isEmpty,
+           channel?.chatDetail?.chatType == .p2p,
+           let data = P2PUnreadData.shared.getData(with: transactionId) {
+            let otherKey = directChatDetail?.otherUniqueKey?.first
+            let savedChannelId = data.channelId ?? -1
+            // Skip if a push switched this screen to a different chat.
+            if data.id == transactionId + "-" + (otherKey ?? ""),
+               savedChannelId < 0 || savedChannelId == channelId {
+                P2PUnreadData.shared.updateChannelId(transactionId: transactionId, channelId: channelId, count: 0, otherUserUniqueKey: otherKey)
+                return
             }
         }
+        // Opened from a notification (no directChatDetail): look up by channel id.
+        // P2PUnreadData only holds p2p chats, so no chat type check is needed here.
+        P2PUnreadData.shared.clearCount(channelId: channelId)
     }
     
     //    @objc func handlePanGesture(_ sender: UIPanGestureRecognizer) {

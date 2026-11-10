@@ -183,15 +183,14 @@ extension UnreadCount {
         let data = P2PUnreadData.shared.getData(with: request.uniqueChatId ?? "")
         if let p2pdata = data{
             let id = ((request.uniqueChatId ?? "") + "-" + (request.idsOfPeers.first ?? ""))
-            if ((p2pdata.id ?? "") == id){
-                if (p2pdata.channelId ?? -1) > 0{
-                    //if channel id is greater than 0
-                    HippoConfig.shared.sendp2pUnreadCount(p2pdata.count ?? 0, p2pdata.channelId ?? -1)
-                    return
-                }else{
-                    callback(HippoError.general, nil)
-                    return
-                }
+            // Use the saved value only when it has a real channel id.
+            // A saved -1/-2 means the chat didn't exist or the last fetch failed,
+            // so ask the server again (the chat may exist now).
+            if (p2pdata.id ?? "") == id, (p2pdata.channelId ?? -1) > 0 {
+                let count = p2pdata.count ?? 0
+                HippoConfig.shared.sendp2pUnreadCount(count, p2pdata.channelId ?? -1)
+                callback(nil, count)
+                return
             }
         }
         

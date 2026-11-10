@@ -1311,18 +1311,8 @@ struct WhatsappWidgetConfig{
                 HippoNotification.removeAllAnnouncementNotification()
             }
         }else{
-            if let data = P2PUnreadData.shared.getData(with: userInfo["chat_transaction_id"] as? String ?? ""), let otherUserUniqueKey = ((userInfo["user_unique_key"] as? [String])?.filter{$0 != HippoConfig.shared.userDetail?.userUniqueKey}.first){
-                if (data.channelId ?? -1) < 0, otherUserUniqueKey != ""{
-                    let id = ((userInfo["chat_transaction_id"] as? String ?? "") + "-" + otherUserUniqueKey)
-                    if data.id == id{
-                        P2PUnreadData.shared.updateChannelId(transactionId: userInfo["chat_transaction_id"] as? String ?? "", channelId: userInfo["channel_id"] as? Int ?? -1, count: 1, muid: userInfo["muid"] as? String ?? "", otherUserUniqueKey: otherUserUniqueKey)
-                        
-                    }
-                }else if (data.channelId ?? -1) < 0{
-                    P2PUnreadData.shared.updateChannelId(transactionId: userInfo["chat_transaction_id"] as? String ?? "", channelId: userInfo["channel_id"] as? Int ?? -1, count: 1, muid: userInfo["muid"] as? String ?? "", otherUserUniqueKey: nil)
-                }
-            }
-            
+            updateP2PCountFromPush(userInfo)
+
             if currentUserType() == .customer{
                 if let vc = getLastVisibleController() as? AllConversationsViewController{
                     vc.updateChannelsWithrespectToPush(pushInfo: userInfo)
@@ -1333,6 +1323,33 @@ struct WhatsappWidgetConfig{
             }
         }
     }
+
+    /// Adds 1 to the saved p2p count when a chat push arrives.
+    /// Before, the count was only set (to 1) when the channel id wasn't known yet,
+    /// so messages that arrived in the background were never counted.
+    private func updateP2PCountFromPush(_ userInfo: [String: Any]) {
+        let transactionId = userInfo["chat_transaction_id"] as? String ?? ""
+        let pushChannelId = userInfo["channel_id"] as? Int ?? -1
+        guard !transactionId.isEmpty, pushChannelId > 0,
+              pushChannelId != getCurrentChannelId(),
+              let data = P2PUnreadData.shared.getData(with: transactionId) else { return }
+
+        // Payloads have used both key names.
+        let peerKeys = (userInfo["user_unique_keys"] ?? userInfo["user_unique_key"]) as? [String]
+        let myKey = HippoConfig.shared.userDetail?.userUniqueKey
+        var otherKey = peerKeys?.first { $0 != myKey } ?? ""
+        if otherKey.isEmpty, let savedId = data.id, savedId.hasPrefix(transactionId + "-") {
+            // Keep the saved id so later updates still match.
+            otherKey = String(savedId.dropFirst(transactionId.count + 1))
+        }
+        guard data.id == transactionId + "-" + otherKey else { return }
+
+        let savedChannelId = data.channelId ?? -1
+        let newCount = savedChannelId < 0 ? 1 : (data.count ?? 0) + 1
+        // updateChannelId skips the push if the live connection already counted the same muid.
+        P2PUnreadData.shared.updateChannelId(transactionId: transactionId, channelId: pushChannelId, count: newCount, muid: userInfo["muid"] as? String, otherUserUniqueKey: otherKey)
+    }
+
     public func showNotification(userInfo: [String: Any]) -> Bool {
         let notificationType = Int.parse(values: userInfo, key: "notification_type") ?? -1
         
