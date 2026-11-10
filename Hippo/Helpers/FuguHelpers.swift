@@ -335,9 +335,25 @@ func subscribeCustomerUserChannel(userChannelId: String) {
                 }
                 if notificationType == NotificationType.message.rawValue && messageDict["channel_id"] as? Int != HippoConfig.shared.getCurrentChannelId(){
                     if let channelId = messageDict["channel_id"] as? Int, let otherUserUniqueKey = ((messageDict["user_unique_keys"] as? [String])?.filter{$0 != HippoConfig.shared.userDetail?.userUniqueKey}.first){
-                        let transactionId = P2PUnreadData.shared.getTransactionId(with: channelId)
+                        var transactionId = P2PUnreadData.shared.getTransactionId(with: channelId)
+                        if transactionId.isEmpty {
+                            // First message of a new chat: the saved entry still has channelId -1/-2,
+                            // so the lookup by channel id finds nothing.
+                            if let fromMessage = messageDict["chat_transaction_id"] as? String, !fromMessage.isEmpty {
+                                transactionId = fromMessage
+                            } else {
+                                let pending = P2PUnreadData.shared.pendingTransactionIds(otherUserUniqueKey: otherUserUniqueKey)
+                                if pending.count == 1 {
+                                    transactionId = pending[0]
+                                } else if pending.count > 1 {
+                                    // Several jobs with this person are waiting for a first message and we
+                                    // can't tell which one this is: ask the server for each instead of guessing.
+                                    P2PUnreadData.shared.refreshFromServer(transactionIds: pending, otherUserUniqueKey: otherUserUniqueKey)
+                                }
+                            }
+                        }
                         if let data = P2PUnreadData.shared.getData(with: transactionId) , data.id == (transactionId + "-" + otherUserUniqueKey) {
-                            let unreadCount = (data.count ?? 0) + 1
+                            let unreadCount = (data.channelId ?? -1) > 0 ? (data.count ?? 0) + 1 : 1
                             P2PUnreadData.shared.updateChannelId(transactionId: transactionId, channelId: channelId, count: unreadCount,muid: messageDict["muid"] as? String ,otherUserUniqueKey: otherUserUniqueKey)
                         }
                     }
