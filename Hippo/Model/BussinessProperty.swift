@@ -19,18 +19,22 @@ class BussinessProperty: NSObject {
     var showCustomerChatHistory: Bool?
     var isAgentToCustomerChatEnable: Bool?
     var videoSdkRecordingEnabled:Bool?
+    var isAiBotEnabled: Bool?
+    /// `allow_new_conversation` from getConfiguration. nil until the config has been fetched.
+    var allowNewConversation: Bool?
+
     var hideAllChat: Bool? {
-         get {
-             
-             guard let hideAllChat = UserDefaults.standard.value(forKey: UserDefaultkeys.hideAllChat) as? Bool else {
-                 return nil
-             }
-             return hideAllChat
-         }
-         set {
-             UserDefaults.standard.set(newValue, forKey: UserDefaultkeys.hideAllChat)
-         }
-     }
+        get {
+            
+            guard let hideAllChat = UserDefaults.standard.value(forKey: UserDefaultkeys.hideAllChat) as? Bool else {
+                return nil
+            }
+            return hideAllChat
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: UserDefaultkeys.hideAllChat)
+        }
+    }
     
     var isAutomationEnabled: Int? {
         get {
@@ -44,19 +48,19 @@ class BussinessProperty: NSObject {
         }
     }
     
-    var hideo2oChat: Bool? {
-         get {
-             
-             guard let hideo2oChat = UserDefaults.standard.value(forKey: UserDefaultkeys.hideO2OChat) as? Bool else {
-                 return nil
-             }
-             return hideo2oChat
-         }
-         set {
-             UserDefaults.standard.set(newValue, forKey: UserDefaultkeys.hideO2OChat)
-         }
-     }
     
+    var hideo2oChat: Bool? {
+        get {
+            
+            guard let hideo2oChat = UserDefaults.standard.value(forKey: UserDefaultkeys.hideO2OChat) as? Bool else {
+                return nil
+            }
+            return hideo2oChat
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: UserDefaultkeys.hideO2OChat)
+        }
+    }
     
     var botImageUrl: String? {
         get {
@@ -129,7 +133,7 @@ class BussinessProperty: NSObject {
             UserDefaults.standard.set(newValue, forKey: UserDefaultkeys.audioCallStatus)
         }
     }
-
+    
     var hideCallIconOnNavigationForCustomer: Bool {
         get {
             guard let status = UserDefaults.standard.value(forKey: UserDefaultkeys.hideCallIconOnNavigationForCustomer) as? Bool else {

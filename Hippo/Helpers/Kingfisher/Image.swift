@@ -519,7 +519,7 @@ extension Kingfisher where Base: Image {
             
             let w = Int(size.width)
             let h = Int(size.height)
-            let rowBytes = Int(CGFloat(cgImage.bytesPerRow))
+            let _ = Int(CGFloat(cgImage.bytesPerRow))
             
             func createEffectBuffer(_ context: CGContext) -> vImage_Buffer {
                 let data = context.data

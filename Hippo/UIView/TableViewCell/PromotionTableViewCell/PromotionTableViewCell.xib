@@ -91,11 +91,11 @@
                             <constraint firstItem="WhG-y0-qES" firstAttribute="top" secondItem="Xud-Uu-5dH" secondAttribute="top" constant="15" id="77e-BE-OLr"/>
                             <constraint firstItem="B24-ZH-lMi" firstAttribute="leading" secondItem="Xud-Uu-5dH" secondAttribute="leading" constant="10" id="Gd7-eX-5J8"/>
                             <constraint firstAttribute="trailing" secondItem="WhG-y0-qES" secondAttribute="trailing" constant="15" id="KPC-fg-yDN"/>
-                            <constraint firstAttribute="bottom" secondItem="B24-ZH-lMi" secondAttribute="bottom" constant="15" id="Ort-tg-0bd"/>
-                            <constraint firstItem="Fcn-By-Hj8" firstAttribute="top" secondItem="WhG-y0-qES" secondAttribute="bottom" constant="10" id="RZD-eq-Pqh"/>
+                            <constraint firstAttribute="bottom" secondItem="Fcn-By-Hj8" secondAttribute="bottom" constant="12" id="Ort-tg-0bd"/>
+                            <constraint firstItem="B24-ZH-lMi" firstAttribute="top" secondItem="WhG-y0-qES" secondAttribute="bottom" constant="8" id="RZD-eq-Pqh"/>
                             <constraint firstItem="0ey-sI-pmH" firstAttribute="leading" secondItem="B24-ZH-lMi" secondAttribute="leading" id="Zuj-3Y-VNH"/>
                             <constraint firstItem="0ey-sI-pmH" firstAttribute="bottom" secondItem="B24-ZH-lMi" secondAttribute="bottom" id="fdH-kt-VUx"/>
-                            <constraint firstItem="B24-ZH-lMi" firstAttribute="top" secondItem="Fcn-By-Hj8" secondAttribute="bottom" constant="7" id="iSY-uc-gbl"/>
+                            <constraint firstItem="Fcn-By-Hj8" firstAttribute="top" secondItem="B24-ZH-lMi" secondAttribute="bottom" constant="4" id="iSY-uc-gbl"/>
                             <constraint firstItem="Fcn-By-Hj8" firstAttribute="leading" secondItem="WhG-y0-qES" secondAttribute="leading" id="kC6-l5-ZfG"/>
                             <constraint firstAttribute="trailing" secondItem="B24-ZH-lMi" secondAttribute="trailing" constant="10" id="lXU-Eb-wX2"/>
                             <constraint firstItem="0ey-sI-pmH" firstAttribute="top" secondItem="B24-ZH-lMi" secondAttribute="top" id="pQX-2h-Z9Q"/>

@@ -8,7 +8,7 @@
 
 import UIKit
 //import Kingfisher
-protocol SelectImageViewControllerDelegate: class {
+protocol SelectImageViewControllerDelegate: AnyObject {
     func selectImageVC(_ selectedImageVC: SelectImageViewController, selectedImage: UIImage)
     func goToConversationViewController()
 }
@@ -33,7 +33,6 @@ class SelectImageViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         selectImageView.image = nil
-        print("view will disappear ")
     }
     
     @IBAction func cancelButton(_ sender: Any) {
@@ -87,7 +86,7 @@ class SelectImageViewController: UIViewController {
 //import FuguShare
 //import SZMentionsSwift
 //
-//protocol SelectImageViewControllerDelegate: class {
+//protocol SelectImageViewControllerDelegate: AnyObject {
 //    func selectImageVC(_ selectedImageVC: SelectImageViewController, selectedImage: UIImage, info: FuguImageInfo, gifData: Data?)
 //}
 //

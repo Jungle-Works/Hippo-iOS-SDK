@@ -8,7 +8,7 @@
 
 import UIKit
 
-@objc protocol NavigationTitleViewDelegate: class {
+@objc protocol NavigationTitleViewDelegate: AnyObject {
     func backButtonClicked()
     @objc optional func titleClicked()
     @objc optional func imageIconClicked()

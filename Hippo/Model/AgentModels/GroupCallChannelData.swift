@@ -162,9 +162,6 @@ extension GroupCallChannel: SignalingClient {
   
         send(dict: fayeDict) { (success, error)  in
             completion(success,error)
-            print(success)
-            print(error)
-            
         }
     }
     

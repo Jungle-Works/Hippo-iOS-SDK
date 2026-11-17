@@ -7,7 +7,8 @@
 //
 
 import Foundation
-protocol CreateTicketAttachmentHelperDelegate: class {
+
+protocol CreateTicketAttachmentHelperDelegate: AnyObject {
     func imagePickingError(mediaSelector: CoreMediaSelector, error: Error)
     func fileSelectedWithBiggerSize(maxSizeAllowed: UInt)
 }
@@ -18,6 +19,8 @@ class CreateTicketAttachmentHelper {
     
     weak var delegate : CreateTicketAttachmentHelperDelegate?
     var urlUploaded: ((TicketUrl)->())?
+    /// Upload failed for the file with this name.
+    var uploadFailed: ((String)->())?
     var openAttachment: Bool?{
         didSet{
             handleAttachmentButtonClicked()
@@ -46,7 +49,7 @@ class CreateTicketAttachmentHelper {
              completion(false)
              return
          }
-         let ticketUrl = TicketUrl(name: message.fileName ?? "", url: message.fileUrl, isUploaded: false)
+         let ticketUrl = TicketUrl(name: message.fileName ?? "", url: message.fileUrl, isUploaded: false, size: nil)
          self.urlUploaded?(ticketUrl)
 
          let request = FileUploader.RequestParams(path: message.localImagePath!, mimeType: message.mimeType ?? "application/octet-stream", fileName: message.fileName ?? "")
@@ -59,10 +62,11 @@ class CreateTicketAttachmentHelper {
          FileUploader.uploadFileWith(request: request, completion: {[weak self] (result) in
            
              guard result.isSuccessful else {
+                 self?.uploadFailed?(message.fileName ?? "")
                  completion(false)
                  return
              }
-             let ticketUrl = TicketUrl(name: message.fileName ?? "", url: result.fileUrl, isUploaded: true)
+             let ticketUrl = TicketUrl(name: message.fileName ?? "", url: result.fileUrl, isUploaded: true, size: fileSize)
              self?.urlUploaded?(ticketUrl)
              completion(true)
          })
@@ -70,6 +74,10 @@ class CreateTicketAttachmentHelper {
 
 }
 extension CreateTicketAttachmentHelper: PickerHelperDelegate  {
+    func sendLocationClicked() {
+        
+    }
+    
     func payOptionClicked() {
         
     }
@@ -84,7 +92,6 @@ extension CreateTicketAttachmentHelper: PickerHelperDelegate  {
     }
     
     func imageViewPickerDidFinish(mediaSelector: CoreMediaSelector, with result: CoreMediaSelector.Result) {
-        print(result)
         guard result.isSuccessful else {
             
             return
@@ -108,8 +115,6 @@ extension CreateTicketAttachmentHelper: PickerHelperDelegate  {
     }
     
     func didPickDocumentWith(url: URL) {
-        print(url)
-        
         sendSelectedDocumentWith(filePath: url.path, fileName: url.lastPathComponent, messageType: .attachment, fileType: .document)
     }
     
@@ -117,9 +122,7 @@ extension CreateTicketAttachmentHelper: PickerHelperDelegate  {
         var imageExtention: String = ".jpg"
         let imageData: Data?
         
-        let imageSize =  confirmedImage.jpegData(compressionQuality: 1)!.count
-        print(imageSize)
-        
+        let imageSize =  confirmedImage.jpegData(compressionQuality: 1)!.count        
         let compressionRate = getCompressonRateForImageWith(size: imageSize)
         
         switch mediaType {
@@ -206,4 +209,8 @@ struct TicketUrl{
     var name : String?
     var url : String?
     var isUploaded : Bool?
+    /// Readable size ("1.2 MB"), when known.
+    var size : String?
+    /// The upload failed; the form offers a retry.
+    var isFailed : Bool = false
 }

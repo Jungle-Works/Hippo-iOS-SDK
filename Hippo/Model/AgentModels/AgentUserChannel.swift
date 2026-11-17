@@ -9,7 +9,7 @@
 import Foundation
 import NotificationCenter
 
-protocol AgentUserChannelDelegate: class {
+protocol AgentUserChannelDelegate: AnyObject {
     func newConversationRecieved(_ newConversation: AgentConversation, channelID: Int)
     func readAllNotificationFor(channelID: Int)
 }

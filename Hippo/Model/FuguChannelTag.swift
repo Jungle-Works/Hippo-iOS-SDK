@@ -28,6 +28,7 @@ class TagDetail: NSObject, Copying {
         
         searchableString = tagName?.lowercased() ?? ""
     }
+    
     required init(original: TagDetail) {
         tagId = original.tagId
         tagName = original.tagName
@@ -166,6 +167,6 @@ extension Array where Element: Storing {
     }
 }
 
-protocol Storing: class {
+protocol Storing: AnyObject {
     func getJsonToStore() -> [String: Any]?
 }

@@ -38,7 +38,14 @@ class ConversationView: UITableViewCell {
         leadingConstraintOfLastMessage?.constant = 0
         msgStatusImageView?.image = nil
     }
-    
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        channelImageView.layer.cornerRadius = channelImageView.frame.height / 2
+        channelImageView.layer.borderWidth = 0.5
+        channelImageView.layer.borderColor = UIColor(white: 0.93, alpha: 1).cgColor
+    }
+
     deinit {}
     
     override func setSelected(_ selected: Bool,
@@ -53,12 +60,11 @@ extension ConversationView {
         selectionStyle = .none
         backgroundColor = .clear
         selectionView?.backgroundColor = .clear
-        
+
         headingLabel.text = ""
         chatTextLabel.text = ""
         timeLabel.text = ""
         channelImageView.layer.masksToBounds = true
-        channelImageView.layer.cornerRadius = 5
         channelImageView.contentMode = .scaleAspectFill
         
         placeHolderImageButton?.isHidden = true
@@ -119,7 +125,7 @@ extension ConversationView {
             //         timeLabel.font = UIFont(name:"HelveticaNeue-Bold", size: 12.0)
               
             unreadCountLabel.text = "  \(unreadCount)  "
-            view_Unread.backgroundColor = HippoConfig.shared.theme.unreadCountColor
+            view_Unread.backgroundColor = HippoConfig.shared.theme.themeColor
                 //#colorLiteral(red: 0.8666666667, green: 0.09019607843, blue: 0.1176470588, alpha: 1).withAlphaComponent(isThisChatOpened(opened: isOpened))
             view_Unread.layer.cornerRadius = view_Unread.frame.size.height/2
             unreadCountLabel.textColor = UIColor.white
@@ -149,7 +155,7 @@ extension ConversationView {
             let channelNameInitials = conersationObj.label?.trimWhiteSpacesAndNewLine()
             let color = conersationObj.channelBackgroundColor
             let imageViewNew = UIImageView.init(frame: channelImageView.frame)
-            imageViewNew.setTextInImage(string: channelNameInitials, color: color, circular: false, textAttributes: nil)
+            imageViewNew.setTextInImage(string: channelNameInitials, color: color, circular: true, textAttributes: nil)
             channelImageView.kf.setImage(with: url, placeholder: imageViewNew.image, options: nil, progressBlock: nil, completionHandler: nil)
         }else{
             let channelName = conersationObj.label
@@ -159,8 +165,8 @@ extension ConversationView {
             placeHolderImageButton?.backgroundColor = .lightGray
             let channelNameInitials = channelName?.trimWhiteSpacesAndNewLine()
             let color = conersationObj.channelBackgroundColor
-            channelImageView.setTextInImage(string: channelNameInitials, color: color, circular: false, textAttributes: nil)
-            
+            channelImageView.setTextInImage(string: channelNameInitials, color: color, circular: true, textAttributes: nil)
+
         }
             
         

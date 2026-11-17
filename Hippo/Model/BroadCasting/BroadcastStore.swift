@@ -8,7 +8,7 @@
 import Foundation
 
 
-protocol BroadcastStoreDelegate: class {
+protocol BroadcastStoreDelegate: AnyObject {
     func broadcastsUpdated(broadcasts: [BroadcastInfo])
     func showPaginationLoader()
     func hideLoader()

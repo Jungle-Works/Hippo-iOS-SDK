@@ -141,7 +141,7 @@ open class WhatsappLoginButton: UIButton, onVerifyWaidDelegate {
         layer.masksToBounds = true
     }
 
-    func checkWaidExistsAndVerified (){
+    public func checkWaidExistsAndVerified (){
 
         let waIdExists = NotpHelper.checkValueExists(forKey: NotpHelper.waidDefaultKey);
         if (waIdExists){
@@ -190,9 +190,26 @@ open class WhatsappLoginButton: UIButton, onVerifyWaidDelegate {
             }
         }
 
-        var params = [String : Any]()
-        params = ["app_secret_key":HippoConfig.shared.whatsappSecretKey,
-                  "get_session": true, "device_type": 2, "redirect_uri":redirectURI] as [String : Any]
+        var params: [String: Any] = [
+            "get_session": true,
+            "device_type": 2,
+            "redirect_uri":redirectURI
+        ]
+
+        if HippoConfig.shared.resellerToken.isEmpty == false && HippoConfig.shared.referenceId > 0 {
+            params["reference_id"] = HippoConfig.shared.referenceId
+            params["reseller_token"] = HippoConfig.shared.resellerToken
+        }
+        
+        if HippoConfig.shared.whatsappSecretKey.isEmpty == false{
+            params["app_secret_key"] = HippoConfig.shared.whatsappSecretKey
+        }
+
+        let languageCode = getCurrentLanguageLocale()
+        if languageCode.isEmpty == false {
+            params["lang"] = languageCode
+        }
+
         print(params)
         HTTPClient.makeConcurrentConnectionWith(method: .POST, showActivityIndicator: true, para: params, extendedUrl: AgentEndPoints.generateQrCode.rawValue) { (response, error, _, statusCode) in
             print("generateQrCode \(String(describing: response))")

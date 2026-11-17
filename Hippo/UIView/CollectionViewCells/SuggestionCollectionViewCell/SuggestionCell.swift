@@ -21,24 +21,28 @@ class SuggestionCell: UICollectionViewCell {
         }
     }
 
+    private let colorConfig = HippoConfig.shared.colorConfig
+
     func prepareCellWith(title: String) {
         self.titleLabel.text = title
         layoutIfNeeded()
-        containerView.backgroundColor = theme.themeColor
-        containerView.layer.borderColor = theme.themeTextcolor.cgColor
-        containerView.layer.borderWidth = 1.0
-        containerView.layer.cornerRadius = containerView.frame.height/2
-        titleLabel.textColor = theme.themeTextcolor
+        applyChipStyle()
     }
-    
+
     func prepareCellUI() {
         layoutIfNeeded()
         DispatchQueue.main.async {
-            self.containerView.backgroundColor = self.theme.themeColor
-            self.containerView.layer.borderColor = self.theme.themeTextcolor.cgColor
-            self.containerView.layer.borderWidth = 1.0
-            self.containerView.layer.cornerRadius = self.containerView.frame.height/2
-            self.titleLabel.textColor = self.theme.themeTextcolor
+            self.applyChipStyle()
         }
+    }
+
+    // White pill on the chat-background strip: surface fill, hairline border,
+    // accent-coloured label.
+    private func applyChipStyle() {
+        containerView.backgroundColor = colorConfig.hippoSurface
+        containerView.layer.borderColor = colorConfig.hippoBorder.cgColor
+        containerView.layer.borderWidth = 1.0
+        containerView.layer.cornerRadius = containerView.frame.height / 2
+        titleLabel.textColor = colorConfig.hippoAccent
     }
 }

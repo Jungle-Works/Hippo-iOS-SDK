@@ -47,64 +47,56 @@ extension UIView {
     }
     
     class var tableAutoDimensionHeight: CGFloat {
-        #if swift(>=4.2)
         return UITableView.automaticDimension
-        #else
-        return UITableViewAutomaticDimension
-        #endif
     }
-    class var safeAreaInsetsForAllOS: UIEdgeInsets {
-        var insets: UIEdgeInsets
-        if #available(iOS 11.0, *) {
-            insets = UIApplication.shared.windows.first?.safeAreaInsets ?? UIEdgeInsets()
-        } else {
-            insets = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
-        }
-        return insets
-    }
-   static var safeAreaInsetOfKeyWindow: UIEdgeInsets {
-      return safeAreaInsetsForAllOS
-   }
-    
-   // MARK: - Rotation Animation
-   private var rotationAnimationKey: String {
-      return "FuguRotationAnimation"
-   }
-   
-   func startRotationAnimation() {
-      isHidden = false
-      
-      guard !isRotationAnimationAlreadyHappning() else {
-         return
-      }
-      
-      UIView.animate(withDuration: 1) {
-         let rotationAnimation = self.getRotationAnimation()
-         self.layer.add(rotationAnimation, forKey: self.rotationAnimationKey)
-      }
 
-   }
-   
-   
-   func stopRotationAnimation() {
-      if isRotationAnimationAlreadyHappning() {
-         layer.removeAnimation(forKey: rotationAnimationKey)
-      }
-      isHidden = true
-   }
-   
-   private func isRotationAnimationAlreadyHappning() -> Bool {
-      return layer.animation(forKey: rotationAnimationKey) != nil
-   }
-   
-   private func getRotationAnimation() -> CABasicAnimation {
-      let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation")
-      rotationAnimation.fromValue = 0.0
-      rotationAnimation.toValue = Float(.pi * 2.0)
-      rotationAnimation.duration = 1
-      rotationAnimation.repeatCount = Float.infinity
-      return rotationAnimation
-   }
+    class var safeAreaInsetsForAllOS: UIEdgeInsets {
+        return UIApplication.shared.currentKeyWindow?.safeAreaInsets ?? UIEdgeInsets()
+    }
+
+    static var safeAreaInsetOfKeyWindow: UIEdgeInsets {
+        return safeAreaInsetsForAllOS
+    }
+    
+    // MARK: - Rotation Animation
+    private var rotationAnimationKey: String {
+        return "FuguRotationAnimation"
+    }
+    
+    func startRotationAnimation() {
+        isHidden = false
+        
+        guard !isRotationAnimationAlreadyHappning() else {
+            return
+        }
+        
+        UIView.animate(withDuration: 1) {
+            let rotationAnimation = self.getRotationAnimation()
+            self.layer.add(rotationAnimation, forKey: self.rotationAnimationKey)
+        }
+        
+    }
+    
+    
+    func stopRotationAnimation() {
+        if isRotationAnimationAlreadyHappning() {
+            layer.removeAnimation(forKey: rotationAnimationKey)
+        }
+        isHidden = true
+    }
+    
+    private func isRotationAnimationAlreadyHappning() -> Bool {
+        return layer.animation(forKey: rotationAnimationKey) != nil
+    }
+    
+    private func getRotationAnimation() -> CABasicAnimation {
+        let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation")
+        rotationAnimation.fromValue = 0.0
+        rotationAnimation.toValue = Float(.pi * 2.0)
+        rotationAnimation.duration = 1
+        rotationAnimation.repeatCount = Float.infinity
+        return rotationAnimation
+    }
     
     func roundCorner(cornerRect: UIRectCorner, cornerRadius: CGFloat, strokeColor: UIColor? = .clear) {
         let maskPath = UIBezierPath(roundedRect: bounds, byRoundingCorners: cornerRect, cornerRadii: CGSize(width: cornerRadius, height: cornerRadius))
@@ -123,6 +115,29 @@ extension UIView {
         self.layer.addSublayer(frameLayer)
     }
     
+    /// Masks each corner to its own radius. `CALayer.cornerRadius` +
+    /// `maskedCorners` only supports one radius shared by every masked
+    /// corner, so mixed per-corner radii need a manual path mask instead.
+    func applyCornerRadii(topLeft: CGFloat, topRight: CGFloat, bottomLeft: CGFloat, bottomRight: CGFloat) {
+        let rect = bounds
+        guard rect.width > 0, rect.height > 0 else { return }
+
+        let path = UIBezierPath()
+        path.move(to: CGPoint(x: rect.minX, y: rect.minY + topLeft))
+        path.addArc(withCenter: CGPoint(x: rect.minX + topLeft, y: rect.minY + topLeft), radius: topLeft, startAngle: .pi, endAngle: -.pi / 2, clockwise: true)
+        path.addLine(to: CGPoint(x: rect.maxX - topRight, y: rect.minY))
+        path.addArc(withCenter: CGPoint(x: rect.maxX - topRight, y: rect.minY + topRight), radius: topRight, startAngle: -.pi / 2, endAngle: 0, clockwise: true)
+        path.addLine(to: CGPoint(x: rect.maxX, y: rect.maxY - bottomRight))
+        path.addArc(withCenter: CGPoint(x: rect.maxX - bottomRight, y: rect.maxY - bottomRight), radius: bottomRight, startAngle: 0, endAngle: .pi / 2, clockwise: true)
+        path.addLine(to: CGPoint(x: rect.minX + bottomLeft, y: rect.maxY))
+        path.addArc(withCenter: CGPoint(x: rect.minX + bottomLeft, y: rect.maxY - bottomLeft), radius: bottomLeft, startAngle: .pi / 2, endAngle: .pi, clockwise: true)
+        path.close()
+
+        let mask = CAShapeLayer()
+        mask.path = path.cgPath
+        layer.mask = mask
+    }
+
     func showShadow(shadowColor: UIColor = .gray, shadowSideAngles: ShadowSideView) {
         var shadowFrame = bounds
         if shadowSideAngles.isAllSide() == false {
@@ -150,13 +165,13 @@ extension UIView {
         layer.shadowRadius = 4
         layer.shadowPath = maskPath.cgPath
     }
-
+    
     func addBottomShadow() {
         layer.shadowOffset = CGSize(width: 0.0, height: 1.0)
         layer.shadowRadius = 3.0
         layer.shadowOpacity = 0.5
         layer.masksToBounds = false
-        layer.shadowPath = UIBezierPath(rect: CGRect(x: 0, y: bounds.maxY - layer.shadowRadius, width: UIScreen.main.bounds.width, height: layer.shadowRadius)).cgPath
+        layer.shadowPath = UIBezierPath(rect: CGRect(x: 0, y: bounds.maxY - layer.shadowRadius, width: FUGU_SCREEN_WIDTH, height: layer.shadowRadius)).cgPath
         
     }
     
@@ -182,15 +197,15 @@ extension UIView {
         }
     }
     
-//    @IBInspectable var cornerRadius: CGFloat {
-//        get {
-//            return layer.cornerRadius
-//        }
-//        set {
-//            layer.cornerRadius = newValue
-//            layer.masksToBounds = newValue > 0
-//        }
-//    }
+    //    @IBInspectable var cornerRadius: CGFloat {
+    //        get {
+    //            return layer.cornerRadius
+    //        }
+    //        set {
+    //            layer.cornerRadius = newValue
+    //            layer.masksToBounds = newValue > 0
+    //        }
+    //    }
 }
 
 extension TagListView {
@@ -262,7 +277,7 @@ extension UIViewController {
         }
         return vc
     }
-
+    
     func showAlert(_ inController: UIViewController? = getLastVisibleController(), buttonTitle: String = HippoStrings.ok, title: String?, message: String, preferredStyle: UIAlertController.Style = .alert, actionComplete: ((_ action: UIAlertAction) -> Void)?) {
         let alertMessageController = UIAlertController(title: title, message: message, preferredStyle: preferredStyle)
         
@@ -386,17 +401,26 @@ extension UIButton {
 
 extension UIBarButtonItem {
     
-//    func setBackgroundColor(color: UIColor, forState: UIControl.State) {
-//        //        self.clipsToBounds = true  // add this to maintain corner radius
-//        UIGraphicsBeginImageContext(CGSize(width: 1, height: 1))
-//        if let context = UIGraphicsGetCurrentContext() {
-//            context.setFillColor(color.cgColor)
-//            context.fill(CGRect(x: 0, y: 0, width: 1, height: 1))
-//            let colorImage = UIGraphicsGetImageFromCurrentImageContext()
-//            UIGraphicsEndImageContext()
-//            //            self.setBackgroundImage(colorImage, for: forState)
-//            self.setBackgroundImage(colorImage, for: forState, barMetrics: .default)
-//        }
-//    }
-    
+    //    func setBackgroundColor(color: UIColor, forState: UIControl.State) {
+    //        //        self.clipsToBounds = true  // add this to maintain corner radius
+    //        UIGraphicsBeginImageContext(CGSize(width: 1, height: 1))
+    //        if let context = UIGraphicsGetCurrentContext() {
+    //            context.setFillColor(color.cgColor)
+    //            context.fill(CGRect(x: 0, y: 0, width: 1, height: 1))
+    //            let colorImage = UIGraphicsGetImageFromCurrentImageContext()
+    //            UIGraphicsEndImageContext()
+    //            //            self.setBackgroundImage(colorImage, for: forState)
+    //            self.setBackgroundImage(colorImage, for: forState, barMetrics: .default)
+    //        }
+    //    }
+
+}
+
+extension UIApplication {
+    var currentKeyWindow: UIWindow? {
+        connectedScenes
+            .compactMap { $0 as? UIWindowScene }
+            .flatMap { $0.windows }
+            .first { $0.isKeyWindow }
+    }
 }

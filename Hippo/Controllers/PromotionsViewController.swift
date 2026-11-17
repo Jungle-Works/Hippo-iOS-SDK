@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol PromotionCellDelegate : class {
+protocol PromotionCellDelegate : AnyObject {
     //func getActionData(data:PromotionCellDataModel, viewController : UIViewController)
     func setData(data:PromotionCellDataModel)
     var cellIdentifier : String { get  }
@@ -52,10 +52,15 @@ class PromotionsViewController: UIViewController {
     var shouldFetchData = true
     var previousPage = 0
     var showMoreIndex : IndexPath?
+    var isSendOpenened = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
-      
+
+        if #available(iOS 13.0, *) {
+            self.view.overrideUserInterfaceStyle = .light
+        }
+
         FuguNetworkHandler.shared.fuguConnectionChangesStartNotifier()
         
         if shouldUseCache {
@@ -69,19 +74,21 @@ class PromotionsViewController: UIViewController {
         self.setUpViewWithNav()
         
         setupRefreshController()
-        promotionsTableView.backgroundColor = HippoConfig.shared.theme.promotionBackgroundColor
-        
+        promotionsTableView.backgroundColor = UIColor(red: 242/255, green: 242/255, blue: 242/255, alpha: 1.0)
+        promotionsTableView.separatorStyle = .none
+
         promotionsTableView.register(UINib(nibName: "PromotionTableViewCell", bundle: FuguFlowManager.bundle), forCellReuseIdentifier: "PromotionTableViewCell")
         promotionsTableView.rowHeight = UITableView.automaticDimension
         promotionsTableView.estimatedRowHeight = 50
         if let c = customCell {
             promotionsTableView.register(UINib(nibName: c.cellIdentifier, bundle: c.bundle), forCellReuseIdentifier: c.cellIdentifier)
         }
+        
         if !(HippoConfig.shared.isOpenedFromPush ?? false){
             self.callGetAnnouncementsApi()
             HippoNotification.removeAllAnnouncementNotification()
         }else{
-            refreshData()
+            refreshData(isOpenedFromPush: HippoConfig.shared.isOpenedFromPush ?? false)
             HippoConfig.shared.isOpenedFromPush = false
         }
     }
@@ -103,12 +110,12 @@ class PromotionsViewController: UIViewController {
         }
     }
     
-    func refreshData(){
-        getDataOrUpdateAnnouncement(HippoNotification.promotionPushDic.map{$0.value.channelID}, isforReadMore: false)
+    func refreshData(isOpenedFromPush: Bool){
+        getDataOrUpdateAnnouncement(HippoNotification.promotionPushDic.map{$0.value.channelID}, isforReadMore: false, isOpenedFromPush: isOpenedFromPush)
         HippoNotification.promotionPushDic.removeAll()
     }
     
-    func getDataOrUpdateAnnouncement(_ channelIdArr : [Int], isforReadMore : Bool, indexRow : Int? = nil){
+    func getDataOrUpdateAnnouncement(_ channelIdArr : [Int], isforReadMore : Bool, indexRow : Int? = nil, isOpenedFromPush: Bool = false){
         var params = [String : Any]()
         if currentUserType() == .customer{
             params = ["app_secret_key" : HippoConfig.shared.appSecretKey, "channel_ids" : channelIdArr, "en_user_id" : currentEnUserId(), "offering" : HippoConfig.shared.offering, "device_type": Device_Type_iOS] as [String : Any]
@@ -117,9 +124,34 @@ class PromotionsViewController: UIViewController {
                     params["user_identification_secret"] = userIdenficationSecret
                 }
             }
+            
+            if isOpenedFromPush{
+                params["seen_status"] = 1
+                params["app_opened_through_push"] = 1
+                HippoConfig.shared.sessionStartTime = Date()
+            }
+            
+            if var channelArr = params["channel_ids"] as? [Int], !channelArr.contains(HippoConfig.shared.tempChannelId ?? 0){
+                channelArr.append(HippoConfig.shared.tempChannelId ?? 0)
+                params["channel_ids"] = channelArr
+            }
+            
         }else{
             params = ["access_token" : HippoConfig.shared.agentDetail?.fuguToken ?? "", "channel_ids" : channelIdArr, "user_id" : currentUserId()] as [String : Any]
+            
+            if isOpenedFromPush{
+                params["seen_status"] = 1
+                params["app_opened_through_push"] = 1
+                HippoConfig.shared.sessionStartTime = Date()
+            }
+            
+            if var channelArr = params["channel_ids"] as? [Int], !channelArr.contains(HippoConfig.shared.tempChannelId ?? 0){
+                channelArr.append(HippoConfig.shared.tempChannelId ?? 0)
+                params["channel_ids"] = channelArr
+            }
         }
+        
+        HippoConfig.shared.log.debug(("params sent in announcments ---------->>>>>>>>>>>>>", params), level: .info)
         
         HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: FuguEndPoints.getAndUpdateAnnouncement.rawValue) { (response, error, _, statusCode) in
             if let response = response as? [String : Any], let data = response["data"] as? [[String : Any]]{
@@ -134,7 +166,7 @@ class PromotionsViewController: UIViewController {
                         }
                         self.data.insert(announcement, at: 0)
                         self.states.insert(true, at: 0)
-                    }
+                     }
                 }
                 let channelIdArr = self.data.map{String($0.channelID)}
                 if let channelArr = UserDefaults.standard.value(forKey: DefaultName.announcementUnreadCount.rawValue) as? [String]{
@@ -182,11 +214,15 @@ class PromotionsViewController: UIViewController {
     
     func setUpViewWithNav() {
    
+        navigationBar.titleLabel.textAlignment = .left
         navigationBar.title = HippoConfig.shared.theme.promotionsAnnouncementsHeaderText
+        navigationBar.leftButton.setImage(HippoConfig.shared.theme.leftBarButtonImage, for: .normal)
+        navigationBar.leftButton.tintColor = .black
+        navigationBar.image_back.isHidden = true
         navigationBar.leftButton.addTarget(self, action: #selector(backButtonClicked), for: .touchUpInside)
         navigationBar.rightButton.setTitle(HippoStrings.clearAll, for: .normal)
         navigationBar.rightButton.titleLabel?.font = UIFont.regular(ofSize: 14)
-        navigationBar.rightButton.setTitleColor(UIColor(red: 95/255, green: 95/255, blue: 95/255, alpha: 1.0), for: .normal)
+        navigationBar.rightButton.setTitleColor(HippoConfig.shared.theme.themeColor, for: .normal)
         navigationBar.rightButton.addTarget(self, action: #selector(deleteAllAnnouncementsButtonClicked), for: .touchUpInside)
         navigationBar.view.layer.shadowOffset = CGSize(width: 0.0, height: 0.5)
         navigationBar.view.layer.shadowRadius = 2.0
@@ -197,11 +233,20 @@ class PromotionsViewController: UIViewController {
                                                                         width: navigationBar.bounds.width,
                                                                         height: navigationBar.layer.shadowRadius)).cgPath
         
+        let swipeGesture = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(handleSwipe))
+        swipeGesture.edges = .left
+        view.addGestureRecognizer(swipeGesture)
+        
+    }
+    @objc func handleSwipe(_ gesture: UIScreenEdgePanGestureRecognizer) {
+        if gesture.state == .recognized {
+            backButtonClicked()
+        }
     }
     
     @objc func backButtonClicked() {
         
-        if let navigationController = UIApplication.shared.windows.first?.rootViewController as? UINavigationController{
+        if let navigationController = UIApplication.shared.currentKeyWindow?.rootViewController as? UINavigationController {
             if let tabBarController = navigationController.viewControllers[0] as? UITabBarController{
                 tabBarController.selectedIndex = 0
             }
@@ -213,8 +258,8 @@ class PromotionsViewController: UIViewController {
         _ = self.navigationController?.dismiss(animated: true, completion: nil)
         //        }
         HippoConfig.shared.getUnreadAnnouncementCount(completion: { count in
-                   HippoConfig.shared.delegate?.hippoAnnouncementCustomerUnreadCount(count)
-               })
+            HippoConfig.shared.delegate?.hippoAnnouncementCustomerUnreadCount(count)
+        })
         let json = PromotionCellDataModel.getJsonFromAnnouncementArr(self.data)
         self.savePromotionsInCache(json)
     }
@@ -243,15 +288,19 @@ class PromotionsViewController: UIViewController {
         //   }, failureButtonName: "NO", failureComplete: nil)
     }
     
-    func getAnnouncements(endOffset:Int,startOffset:Int) {
+    func getAnnouncements(endOffset:Int, startOffset:Int) {
         var params = [String : Any]()
         if currentUserType() == .customer{
-            params = ["end_offset":"\(endOffset)","start_offset":"\(startOffset)","en_user_id":HippoUserDetail.fuguEnUserID ?? "","app_secret_key":HippoConfig.shared.appSecretKey, "offering" : HippoConfig.shared.offering, "device_type": Device_Type_iOS]
-            
+            params = ["end_offset":"\(endOffset)", "start_offset":"\(startOffset)", "en_user_id":HippoUserDetail.fuguEnUserID ?? "", "app_secret_key":HippoConfig.shared.appSecretKey, "offering" : HippoConfig.shared.offering, "device_type": Device_Type_iOS]
+
             if let userIdenficationSecret = HippoConfig.shared.userDetail?.userIdenficationSecret{
                 if userIdenficationSecret.trimWhiteSpacesAndNewLine().isEmpty == false {
                     params["user_identification_secret"] = userIdenficationSecret
                 }
+            }
+
+            if let appType = HippoConfig.shared.userDetail?.appType, appType.isEmpty == false {
+                params["app_type"] = appType
             }
         }else{
             params = ["end_offset":"\(endOffset)","start_offset":"\(startOffset)","user_id": "\(currentUserId())" ,"access_token":HippoConfig.shared.agentDetail?.fuguToken ?? ""]
@@ -264,7 +313,7 @@ class PromotionsViewController: UIViewController {
             if error == nil{
                 self.refreshControl.endRefreshing()
                 let r = response as? NSDictionary
-                if let arr = r!["data"] as? NSArray{
+                if let arr = r?["data"] as? NSArray{
                     if arr.count == 0{
                         self.shouldFetchData = false
                     }
@@ -273,10 +322,10 @@ class PromotionsViewController: UIViewController {
                         self.states.removeAll()
                     }
                     
-                    for item in arr{
-                        let i = item as! [String:Any]
-                        let dataNew = PromotionCellDataModel(dict:i)
-                        self.data.append(dataNew!)
+                    for item in arr {
+                        guard let i = item as? [String: Any],
+                              let dataNew = PromotionCellDataModel(dict: i) else { continue }
+                        self.data.append(dataNew)
                         self.states.append(true)
                     }
                     
@@ -337,9 +386,9 @@ class PromotionsViewController: UIViewController {
             self.channelIdsArr.insert(data[indexPath.row].channelID, at: 0)
             if currentUserType() == .customer{
                 params = ["app_secret_key":HippoConfig.shared.appSecretKey,
-                    "en_user_id":HippoUserDetail.fuguEnUserID ?? "",
-                    "channel_ids":self.channelIdsArr,
-                    "delete_all_announcements":isDeleteAllStatus] as [String : Any]
+                          "en_user_id":HippoUserDetail.fuguEnUserID ?? "",
+                          "channel_ids":self.channelIdsArr,
+                          "delete_all_announcements":isDeleteAllStatus] as [String : Any]
             }else{
                 params = ["access_token": HippoConfig.shared.agentDetail?.fuguToken ?? "",
                           "user_id": "\(currentUserId())",
@@ -429,7 +478,7 @@ extension PromotionsViewController: UITableViewDelegate,UITableViewDataSource
             //cell.descriptionLabel.numberOfLines = 2
             let values = data[indexPath.row]
             let croppedDescription = values.description?.count ?? 0 > 150 ? String(values.description?.prefix(150) ?? "") : values.description ?? ""
-            cell.promotionTitle.attributedText = NSAttributedString(string:  values.title ?? "")
+            cell.promotionTitle.text = values.title ?? ""
             cell.fullDescriptionLabel.attributedText = NSAttributedString(string:  values.description ?? "")
             cell.descriptionLabel.attributedText = NSAttributedString(string:  croppedDescription)
             cell.descriptionLabel.dataDetectorTypes = UIDataDetectorTypes.all
@@ -470,7 +519,7 @@ extension PromotionsViewController: UITableViewDelegate,UITableViewDataSource
         //let values = data[row]
         let indexpath = IndexPath(row: row, section: 0)
         
-        guard let cell = self.promotionsTableView.cellForRow(at: indexpath) as? PromotionTableViewCell else { return }
+        guard let _ = self.promotionsTableView.cellForRow(at: indexpath) as? PromotionTableViewCell else { return }
         if states[row] == true{
             states[row] = false
             UIView.setAnimationsEnabled(false)
@@ -486,6 +535,7 @@ extension PromotionsViewController: UITableViewDelegate,UITableViewDataSource
             states[row] = true
             UIView.setAnimationsEnabled(false)
             self.promotionsTableView.beginUpdates()
+            
             self.promotionsTableView.reloadRows(at: [indexpath], with: .none)
 
             self.promotionsTableView.layoutIfNeeded()
@@ -503,12 +553,10 @@ extension PromotionsViewController: UITableViewDelegate,UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let promotionData = data[indexPath.row] as? PromotionCellDataModel{
-            if let deepLink = promotionData.deepLink as? String{
-                if deepLink == "3x67AU1"{
-                    HippoConfig.shared.getDeepLinkData(promotionData.customAttributeData ?? [String : Any]())
-                }
-            }
+        let promotionData = data[indexPath.row]
+        let deepLink = promotionData.deepLink
+        if deepLink == "3x67AU1"{
+            HippoConfig.shared.getDeepLinkData(promotionData.customAttributeData ?? [String : Any]())
         }
     }
     

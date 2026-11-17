@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol PaymentPlansViewDelegate: class {
+protocol PaymentPlansViewDelegate: AnyObject {
     func plansUpdated()
 //    func startLoaderAnimation()
 //    func stopLoaderAnimation()
@@ -207,7 +207,6 @@ extension PaymentPlansViewController: UITableViewDelegate {
 extension PaymentPlansViewController: CreatePaymentDelegate {
     func sendMessage(for store: PaymentStore) {
         //code
-        print("")
     }
     func backButtonPressed(shouldUpdate: Bool) {
         if channelId != nil, store.plans.isEmpty {

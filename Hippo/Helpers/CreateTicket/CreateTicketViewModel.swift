@@ -46,7 +46,7 @@ class CreateTicketVM{
         HTTPClient.makeConcurrentConnectionWith(method: .POST, enCodingType: .json, para: param, extendedUrl: FuguEndPoints.searchErp.rawValue) {[weak self](responseObject, error, tag, statusCode) in
             
             guard let unwrappedStatusCode = statusCode, error == nil, unwrappedStatusCode == STATUS_CODE_SUCCESS, error == nil  else {
-                print("Error",error ?? "")
+                HippoConfig.shared.log.debug(error ?? "", level: .error)
                 return
             }
             
@@ -54,9 +54,12 @@ class CreateTicketVM{
                 return
             }
             var dataArr = [String]()
-            for value in results{
-                dataArr.append(value["value"] as? String ?? "")
-            }
+            
+           dataArr = results.map({$0["label"] as? String ?? ""})
+            
+//            for value in results{
+//                dataArr.append(value["label"] as? String ?? "")
+//            }
             
             if text == "" && type == .issueType{
                 self?.initialIssueTypeData = dataArr
@@ -88,7 +91,7 @@ class CreateTicketVM{
         }
         HTTPClient.makeConcurrentConnectionWith(method: .POST, enCodingType: .json, para: param, extendedUrl: FuguEndPoints.checkAndCreateCustomer.rawValue){[weak self](responseObject, error, tag, statusCode) in
             guard let unwrappedStatusCode = statusCode, error == nil, unwrappedStatusCode == STATUS_CODE_SUCCESS, error == nil  else {
-                print("Error",error ?? "")
+                HippoConfig.shared.log.debug(error ?? "", level: .error)
                 return
             }
             guard let response = responseObject as? [String : Any], let data = response["data"] as? [String : Any] else{

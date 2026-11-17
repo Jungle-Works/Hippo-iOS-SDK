@@ -33,6 +33,7 @@ class CustomTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
     }
     
     
@@ -43,7 +44,6 @@ class CustomTableViewCell: UITableViewCell {
         contentView.addSubview(backView)
         backView.addSubview(settingImage)
         backView.addSubview(lbl)
-        // Configure the view for the selected state
     }
     
 }

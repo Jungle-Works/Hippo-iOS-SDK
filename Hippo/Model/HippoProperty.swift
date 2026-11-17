@@ -18,6 +18,10 @@ class HippoProperty: NSObject {
     var paymentPlanType : [Int] = [PaymentPlanType.agentPlan.rawValue]
     private(set) var newConversationButtonTags: [String] = []
     private(set) var enableNewConversationButton: Bool = false
+    private(set) var newConverstationButtonTitle: String? = HippoConfig.shared.strings.newConversation
+    private(set) var currentBtnText: String? = HippoStrings.ongoing
+    private(set) var pastBtnText: String? = HippoStrings.past
+    private(set) var pleaseSelectOptionText: String? = HippoStrings.pleaseSelectAnOption
     private(set) var newconversationBotGroupId: String? = nil
 
     private(set) var openLabelIdOnHome: Int?
@@ -53,6 +57,20 @@ class HippoProperty: NSObject {
     }
     class func setNewConversationButton(enable: Bool) {
         current.enableNewConversationButton = enable
+    }
+
+    /// The business's `allow_new_conversation` setting decides once getConfiguration has
+    /// answered; until then (or if the key is missing) fall back to the integrator's
+    /// `HippoChat.setNewConversationButton(enable:)` value.
+    var shouldShowNewConversationButton: Bool {
+        return BussinessProperty.current.allowNewConversation ?? enableNewConversationButton
+    }
+    
+    class func setNewConversationButtonTitle(title: String, currentText: String?, pastText: String?, pleaseSelectOption: String?) {
+        current.newConverstationButtonTitle = title
+        current.currentBtnText = currentText
+        current.pastBtnText = pastText
+        current.pleaseSelectOptionText = pleaseSelectOption
     }
     
     class func setNewConversationBotGroupId(botGroupId: String?) {

@@ -8,9 +8,7 @@
 
 import UIKit
 import Photos
-#if canImport(HippoCallClient)
-import HippoCallClient
-#endif
+import AVFoundation
 
 class LeadDataTextfield: UITextField {
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
@@ -18,25 +16,30 @@ class LeadDataTextfield: UITextField {
     }
 }
 
-protocol NewChatSentDelegate: class {
+protocol NewChatSentDelegate: AnyObject {
     func updateConversationWith(conversationObj: FuguConversation)
 }
-
 
 class ConversationsViewController: HippoConversationViewController {//}, UIGestureRecognizerDelegate {
     
     //MARK: Constants
     var createConversationOnStart = false
     var hideBackButton: Bool = false
-    
+    var isFirst : Bool = false
+    /// input_type of the newest bot message (URL answers are checked before sending).
+    var botInputKeyboard: responseKeyboardType = .defaultKeyboard
     var consultNowInfoDict = [String: Any]()
     var isComingFromConsultNowButton = false
     var createTicketVM = CreateTicketVM()
     var popover : LCPopover?
     var original_transaction_id : String?
-    
+    var preMessage = ""
+
     // MARK: -  IBOutlets
     @IBOutlet weak var backgroundImageView: UIImageView!
+   
+    @IBOutlet weak var pleaseSelectOptionView: UIView!
+    @IBOutlet weak var pleaseSelectOptionLabel: UILabel!
     @IBOutlet weak var audioCAllButtonWidthConstraint: NSLayoutConstraint!
     @IBOutlet var backgroundView: UIView!
     @IBOutlet var navigationBackgroundView: UIView!
@@ -112,8 +115,16 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     @IBOutlet private var button_Recording : RecordButton!
     @IBOutlet private var viewRecord : RecordView!
     @IBOutlet private var stackViewButton : UIStackView!
-    
-    
+
+    // MARK: Voice recording (tap-to-toggle) - see the extension near the bottom of this file.
+    var voiceRecordingState: VoiceRecordingState = .idle
+    private var recordingElapsedTimer: Timer?
+    private var recordingStartDate: Date?
+    lazy var recordingBar: RecordingBarView = {
+        let bar = RecordingBarView()
+        bar.isHidden = true
+        return bar
+    }()
     @IBOutlet var buttonCalendar : UIButton!{
         didSet{
             buttonCalendar.imageView?.tintColor = HippoConfig.shared.theme.themeColor
@@ -122,17 +133,36 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     }
     
     
+    @IBOutlet weak var okBtn: UIButton!
+    @IBOutlet weak var firstLineLbl: UILabel!
+    @IBOutlet weak var walletBgView: UIView!
+    @IBOutlet weak var secondLineLbl: UILabel!
     
     var suggestionCollectionView = SuggestionView()
     var suggestionList: [String] = []
-    
+
+    /// Drives the composer's height so it grows with typed lines between a 42pt
+    /// floor and an 80pt cap; past the cap the text view stays at 80pt and scrolls
+    /// its content instead of collapsing.
+    private var composerHeightConstraint: NSLayoutConstraint?
+    private let composerMinHeight: CGFloat = 42
+    private let composerMaxHeight: CGFloat = 80
+
+    /// How much of `tableViewChat.contentInset.bottom` is currently padding for the
+    /// composer/keyboard covering the table - see `updateChatInsetForComposerOverlap()`.
+    private var composerOverlapInset: CGFloat = 0
+
+    /// The bot form the user is filling in. While set, every chat reload re-focuses its next
+    /// field (see focusActiveFormField). Cleared when the user dismisses the keyboard by
+    /// tapping the chat, starts typing in the composer, or the form is finished.
+    private weak var activeFormMessage: HippoMessage?
+
     var transparentView = UIView()
     var lineLabel = UILabel()
     var customTableView = UITableView()
     //    let height: CGFloat = 175//125//250
     //    var actionSheetTitleArr = ["Photo & Video Library","Camera","Document"]
     //    var actionSheetImageArr = ["Library","Camera","Library"]
-    
     var hieghtOfNavigationBar: CGFloat = 0
     var messageInEditing : HippoMessage?
     var editingMessageIndex : IndexPath?
@@ -152,6 +182,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     
     
     deinit {
+        timer.invalidate()
         HippoChannel.botMessageMUID = nil
         NotificationCenter.default.removeObserver(self)
         HippoConfig.shared.notifiyDeinit()
@@ -160,27 +191,50 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     // MARK: - LIFECYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
-        button_Recording.recordView = viewRecord
-        viewRecord.delegate = self
-        button_Recording.buttonTouched = {[weak self]() in
-            DispatchQueue.main.async {
-                self?.addRecordView()
-            }
+        // Captured before anything below can create a channel: `createConversationOnStart`
+        // creates one inside this very method, so "does a channel exist now" is not a
+        // usable answer to "did the user open a new chat".
+        openedAsNewConversation = (channel == nil)
+        if HippoConfig.shared.isFromPantherFirstChat == true{
+            showWallet()
+        }else{
+            hideWallet()
         }
-        
-        button_Recording.isHidden = HippoConfig.shared.disableRecordingButton ?? false
+        let swipeGesture = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(handleSwipe))
+        swipeGesture.edges = .left
+        view.addGestureRecognizer(swipeGesture)
+        messageTextView.text = preMessage
+        updateComposerHeight()
+        // Voice messages are tap-to-toggle now, not hold-to-record: disable
+        // iRecordView's press/pan gestures and drive RecordingHelper from a
+        // plain tap on the mic button. viewRecord (the slide-to-cancel overlay)
+        // stays hidden for good.
+        button_Recording.recordView = viewRecord
+        button_Recording.listenForRecord = false
+        viewRecord.isHidden = true
+        button_Recording.addTarget(self, action: #selector(micButtonTapped), for: .touchUpInside)
+        setupRecordingBar()
+        if preMessage.isEmpty{
+            button_Recording.isHidden = !HippoConfig.shared.isRecordingButtonEnabled
+            sendMessageButton.isEnabled = false
+        }else{
+            self.sendMessageButton.isHidden = false
+            self.sendMessageButton.isEnabled = true
+            self.button_Recording.isHidden = true
+        }
+//        button_Recording.isHidden = !HippoConfig.shared.isRecordingButtonEnabled
         
         view_Navigation.call_button.addTarget(self, action: #selector(audiCallButtonClicked(_:)), for: .touchUpInside)
         view_Navigation.video_button.addTarget(self, action: #selector(videoButtonClicked(_:)), for: .touchUpInside)
         handleInfoIcon()
-        
+        pleaseSelectOptionLabel.text = HippoProperty.current.pleaseSelectOptionText ?? HippoStrings.pleaseSelectAnOption
         collectionViewOptions?.delegate = self
         collectionViewOptions?.dataSource = self
         customTableView.isScrollEnabled = false//true
         customTableView.separatorStyle = .none
-        customTableView.backgroundColor = .white
         customTableView.delegate = self
         customTableView.dataSource = self
+        customTableView.backgroundColor = .white
         customTableView.register(CustomTableViewCell.self, forCellReuseIdentifier: "CustomTableViewCell")
         
         self.setTitleForCustomNavigationBar()
@@ -190,10 +244,13 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         configureChatScreen()
         setThemeForBusiness()
         HippoConfig.shared.notifyDidLoad()
-                  
+
+        pleaseSelectOptionView.isHidden = true
+        pleaseSelectOptionLabel.isHidden = true
+        //Commented because we dont want to hit api just after 
         guard channel != nil else {
             if createConversationOnStart {
-                
+
                 if directChatDetail != nil {
                     //                    HippoChannel.get(withFuguChatAttributes: directChatDetail!) { [weak self] (r) in
                     HippoChannel.get(withFuguChatAttributes: directChatDetail!, isComingFromConsultNow: isComingFromConsultNowButton, methodIsOnlyCallForChannelAvailableInLocalOrNot: true) { [weak self] (r) in
@@ -268,6 +325,10 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
                 }
             } else {
                 fetchMessagesFrom1stPage()
+                // No channel and no label: nothing to load, the chat starts empty.
+                if !isDefaultChannel() {
+                    markEmptyChatStateReady()
+                }
             }
             return
         }
@@ -282,18 +343,94 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         
     }
     
-    func addRecordView() {
-        viewRecord.isHidden = false
-    }
-    
-    
+    /// One-time wiring for the nav bar's overflow menu. Visibility is deliberately
+    /// not set here - it changes over the screen's life and is owned by
+    /// `updateInfoIconVisibility()`. Calling this more than once would stack a
+    /// duplicate `addTarget` on the button.
     func handleInfoIcon() {
         setTitleButton()
-        view_Navigation.info_button.isHidden = false
-        view_Navigation.info_button.setImage(HippoConfig.shared.theme.informationIcon, for: .normal)
+        view_Navigation.info_button.setImage(HippoConfig.shared.theme.mediaIcon, for: .normal)
         view_Navigation.info_button.addTarget(self, action:  #selector(openSharedMedia), for: UIControl.Event.touchUpInside)
-        view_Navigation.info_button.tintColor = HippoConfig.shared.theme.headerTextColor
+        view_Navigation.info_button.tintColor = HippoConfig.shared.colorConfig.hippoIconAccent
         view_Navigation.info_button.isEnabled = true
+        updateInfoIconVisibility()
+    }
+
+    /// Insets that put the composer's text where the pill's shape says it should be,
+    /// on both axes.
+    ///
+    /// Horizontally, two things have to move together: `messageTextView` draws typed
+    /// text at `textContainerInset.left + textContainer.lineFragmentPadding`, while
+    /// `placeHolderLabel` is a sibling pinned to the text view's leading edge by a
+    /// storyboard constraint. Shifting only one makes the placeholder and the text
+    /// the user types start at different x positions.
+    ///
+    /// Vertically, the caret and glyphs are centred by deriving the inset from the
+    /// font rather than hard-coding one: a single line then sits dead centre in the
+    /// `composerMinHeight` pill, matching `placeHolderLabel`'s own centreY
+    /// constraint, and multi-line growth keeps the same top gap.
+    private func applyComposerTextInsets() {
+        let horizontalPadding: CGFloat = 9
+
+        messageTextView.textContainerInset.left = horizontalPadding
+        messageTextView.textContainerInset.right = horizontalPadding
+
+        // `contentInset` shifts content on top of `textContainerInset` but is invisible
+        // to `sizeThatFits`, so the two disagree about where a line sits. Vertical
+        // placement is owned by `textContainerInset` alone.
+        messageTextView.contentInset.top = 0
+        messageTextView.contentInset.bottom = 0
+
+        let lineHeight = (messageTextView.font ?? UIFont.systemFont(ofSize: 15)).lineHeight
+        let verticalInset = max(0, (composerMinHeight - lineHeight) / 2)
+        messageTextView.textContainerInset.top = verticalInset
+        messageTextView.textContainerInset.bottom = verticalInset
+
+        // Where glyphs actually land, which is what the placeholder has to match.
+        let textLeadingInset = horizontalPadding + messageTextView.textContainer.lineFragmentPadding
+
+        let placeholderLeading = messageTextView.superview?.constraints.first { constraint in
+            constraint.firstItem === placeHolderLabel
+                && constraint.firstAttribute == .leading
+                && constraint.secondItem === messageTextView
+        }
+        placeholderLeading?.constant = textLeadingInset
+    }
+
+    /// True when this screen was opened as a brand-new chat rather than on an
+    /// existing conversation - the default channel for a first-timer, the New
+    /// Conversation button, or any `createConversationOnStart` entry.
+    private var openedAsNewConversation = false
+
+    /// Empty conversation state (HippoConfig.setEmptyChatState). Nil when the host app set no text.
+    private var emptyChatStateView: UIStackView?
+    /// True once we know whether the chat has messages: the server answered, or there is
+    /// no channel to load yet. Stops an existing chat flashing the empty state while loading.
+    private var emptyChatStateReady = false
+
+    /// The menu only makes sense once there is a real conversation behind it - its
+    /// Shared Media option is keyed on `channelId`, and there is nothing shared yet
+    /// on a chat the user hasn't spoken in.
+    ///
+    /// A channel alone is not enough: `createConversationOnStart` creates one during
+    /// `viewDidLoad`, before the user has typed a word. So for a screen opened as a
+    /// new chat the menu stays hidden until the user actually sends something; a
+    /// screen opened on an existing conversation shows it right away.
+    func updateInfoIconVisibility() {
+        let isRealConversation = channelId > 0
+            && (!openedAsNewConversation || threadContainsMyMessage())
+        view_Navigation.info_button.isHidden = !isRealConversation
+    }
+
+    /// Whether the loaded thread carries a message sent by this user. Bot and agent
+    /// messages don't count - they arrive on a new chat before the user has engaged.
+    private func threadContainsMyMessage() -> Bool {
+        for group in messagesGroupedByDate.reversed() {
+            for message in group.reversed() where message.senderId == getSavedUserId {
+                return true
+            }
+        }
+        return false
     }
     
     override func startEditing(with message : HippoMessage, indexPath : IndexPath){
@@ -302,15 +439,22 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     }
     
     func clearp2pdata(){
-        if self.channel?.chatDetail?.chatType == .p2p{
-            // * save data for p2punread count if transaction id is saved in local
-            if let data = P2PUnreadData.shared.getData(with: self.directChatDetail?.transactionId ?? ""){
-                let id = ((self.directChatDetail?.transactionId ?? "") + "-" + (self.directChatDetail?.otherUniqueKey?.first ?? ""))
-                if data.id == id{
-                    P2PUnreadData.shared.updateChannelId(transactionId: self.directChatDetail?.transactionId ?? "", channelId: self.channelId, count: 0, otherUserUniqueKey: self.directChatDetail?.otherUniqueKey?.first)
-                }
+        // Opened from the chat bubble: we know the transaction id.
+        if let transactionId = directChatDetail?.transactionId, !transactionId.isEmpty,
+           channel?.chatDetail?.chatType == .p2p,
+           let data = P2PUnreadData.shared.getData(with: transactionId) {
+            let otherKey = directChatDetail?.otherUniqueKey?.first
+            let savedChannelId = data.channelId ?? -1
+            // Skip if a push switched this screen to a different chat.
+            if data.id == transactionId + "-" + (otherKey ?? ""),
+               savedChannelId < 0 || savedChannelId == channelId {
+                P2PUnreadData.shared.updateChannelId(transactionId: transactionId, channelId: channelId, count: 0, otherUserUniqueKey: otherKey)
+                return
             }
         }
+        // Opened from a notification (no directChatDetail): look up by channel id.
+        // P2PUnreadData only holds p2p chats, so no chat type check is needed here.
+        P2PUnreadData.shared.clearCount(channelId: channelId)
     }
     
     //    @objc func handlePanGesture(_ sender: UIPanGestureRecognizer) {
@@ -342,7 +486,6 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         super.viewWillAppear(animated)
         HippoConfig.shared.hideTabbar?(true)
         tableViewChat.contentInset.top = 12
-        messageTextView.contentInset.top = 8
         self.navigationController?.isNavigationBarHidden = true
         tableViewChat.allowsSelection = false
         checkNetworkConnection()
@@ -353,7 +496,10 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         
         handleVideoIcon()
         handleAudioIcon()
+        updateInfoIconVisibility()
         HippoConfig.shared.notifyDidLoad()
+        
+
         
         if #available(iOS 13.0, *) {
             self.view.overrideUserInterfaceStyle = .light
@@ -371,6 +517,11 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         HippoConfig.shared.notifyDidLoad()
         
         textViewBgView.isUserInteractionEnabled = shouldEnableMessageSendingView()
+        // Coming back to the chat: an open bot file question keeps its composer (no mic).
+        if isBotAskingForFile {
+            setUIForBotAttachment()
+        }
+        updateInputButtonsForText()
     }
     
     override func viewWillLayoutSubviews() {
@@ -393,10 +544,10 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
             return
         }
         
-        self.seperatorView.isHidden = true
-        self.seperatorView.backgroundColor = #colorLiteral(red: 0.8941176471, green: 0.8941176471, blue: 0.9294117647, alpha: 1)
+//        self.seperatorView.isHidden = true
+//        self.seperatorView.backgroundColor = #colorLiteral(red: 0.8941176471, green: 0.8941176471, blue: 0.9294117647, alpha: 1)
         if toAdd {
-            self.seperatorView.isHidden = false
+//            self.seperatorView.isHidden = false
         }
     }
     
@@ -411,18 +562,19 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
             if let inImageCell = cell as? IncomingImageCell, !inImageCell.customIndicator.isHidden {
                 inImageCell.startIndicatorAnimation()
             }
-            
         }
+        
     }
     
     override  func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
+        timer.invalidate()
+        cancelVoiceRecording()
     }
     
     override func didSetChannel() {
         channel?.delegate = self
-        if !channel.isSubscribed(){
+        if !(channel?.isSubscribed() ?? false){
             channel?.subscribe()
         }
     }
@@ -445,7 +597,10 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
             if let tintColor = HippoConfig.shared.theme.sendBtnIconTintColor {
                 sendMessageButton.imageView?.tintColor = tintColor
             }else{
-                sendMessageButton.imageView?.tintColor = HippoConfig.shared.theme.themeColor
+                // sendBtnIcon is a single template-rendered asset (circle + triangle baked
+                // into one shape), so this tint paints the whole button — reads the accent
+                // token instead of the legacy green customColorforIcons.
+                sendMessageButton.imageView?.tintColor = HippoConfig.shared.colorConfig.hippoAccent
             }
             sendMessageButton.setImage(HippoConfig.shared.theme.sendBtnIcon, for: .normal)
             sendMessageButton.setTitle("", for: .normal)
@@ -453,16 +608,25 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         
         if HippoConfig.shared.theme.addButtonIcon != nil {
             
-            if let tintColor = HippoConfig.shared.theme.addBtnTintColor {
-                addFileButtonAction.imageView?.tintColor = tintColor
-            }else{
-                addFileButtonAction.imageView?.tintColor = HippoConfig.shared.theme.themeColor
-            }
+            addFileButtonAction.imageView?.tintColor = HippoConfig.shared.colorConfig.hippoIconAccent
             addFileButtonAction.setImage(HippoConfig.shared.theme.addButtonIcon, for: .normal)
             addFileButtonAction.setTitle("", for: .normal)
         } else { addFileButtonAction.setTitle("ADD", for: .normal) }
-        
-        
+        // Bundled mic glyph (Assets.xcassets/FileIcons/mic.imageset). Its asset is
+        // 36pt vs the add-file icon's 25pt, so scale it down to match; template-
+        // rendered so it still takes the accent tint.
+        let addIconSize = HippoConfig.shared.theme.addButtonIcon?.size
+            ?? addFileButtonAction.currentImage?.size
+            ?? CGSize(width: 25, height: 25)
+        // Mic reads a touch small next to the add-file glyph - bump it 4pt.
+        let micTarget = CGSize(width: addIconSize.width + 4, height: addIconSize.height + 4)
+        let micIcon = UIImage(named: "mic", in: FuguFlowManager.bundle, compatibleWith: nil)?
+            .aspectFitted(to: micTarget)
+            .withRenderingMode(.alwaysTemplate)
+        button_Recording.setImage(micIcon, for: .normal)
+        button_Recording.imageView?.contentMode = .scaleAspectFit
+        button_Recording.tintColor = HippoConfig.shared.colorConfig.hippoIconAccent
+       
         handleBackButton()
         if let businessName = userDetailData["business_name"] as? String, label.isEmpty {
             label = businessName
@@ -544,9 +708,10 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     }
     
     func prepareSuggestionUI() {
-        let theme = HippoConfig.shared.theme
         self.suggestionContainerView.addSubview(suggestionCollectionView)
-        suggestionCollectionView.backgroundColor = theme.themeColor
+        // Blend the suggestion strip into the chat thread rather than the composer bar.
+        self.suggestionContainerView.backgroundColor = HippoConfig.shared.colorConfig.hippoSurfaceBackground
+        suggestionCollectionView.backgroundColor = .clear//theme.themeColor
         let bundle = FuguFlowManager.bundle
         suggestionCollectionView.register(UINib(nibName: "SuggestionCell", bundle: bundle) , forCellWithReuseIdentifier: "SuggestionCell")
         suggestionCollectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -590,6 +755,11 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         NotificationCenter.default.addObserver(self, selector: #selector(putUserSuccess), name: .putUserSuccess, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(putUserFail), name: .putUserFailure, object: nil)
     }
+    @objc func handleSwipe(_ gesture: UIScreenEdgePanGestureRecognizer) {
+        if gesture.state == .recognized {
+            backButtonClicked()
+        }
+    }
     @objc func putUserSuccess() {
         stopLoaderAnimation()
         setThemeForBusiness()
@@ -621,6 +791,10 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
                 })
             } else {
                 fetchMessagesFrom1stPage()
+                // No channel and no label: nothing to load, the chat starts empty.
+                if !isDefaultChannel() {
+                    markEmptyChatStateReady()
+                }
             }
             return
         }
@@ -637,68 +811,108 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         stopLoaderAnimation()
     }
     
-    func setKeyboardType(message:HippoMessage)
-    {
-        
+    func setKeyboardType(message:HippoMessage){
+        botInputKeyboard = message.keyboardType
+        if botInputKeyboard != .url {
+            showBotInputError(false)
+        }
+        messageTextView.autocapitalizationType = .sentences
+        messageTextView.autocorrectionType = .default
         switch message.keyboardType {
         case .none:
-            disableSendingReply(withOutUpdate: true)
+            // As on Android: input_type "none" no longer hides the composer behind the old
+            // "Please select an option" bar. An unanswered button question locks it instead
+            // ("Choose an option above", refreshBotComposerOverlay).
+            showComposerIfAllowed()
+            messageTextView.keyboardType = .default
             break
         case .numberKeyboard:
-            enableSendingReply(withOutUpdate: true)
+            showComposerIfAllowed()
             messageTextView.keyboardType = .decimalPad
-            
             break
         case .defaultKeyboard :
-            enableSendingReply(withOutUpdate: true)
+            if let lastMessage = getLastMessage(){
+                if isFirst == false{
+                    if lastMessage.type == MessageType.consent{
+                        // Locked by the "Choose an option above" pill, not hidden.
+                        isFirst = true
+                    }
+                }else{
+                    showComposerIfAllowed()
+                }
+            }
+
             messageTextView.keyboardType = .default
-            
             break
-        default:
-            enableSendingReply(withOutUpdate: true)
-            messageTextView.keyboardType = .default
-            
+        case .url:
+            showComposerIfAllowed()
+            messageTextView.keyboardType = .URL
+            messageTextView.autocapitalizationType = .none
+            messageTextView.autocorrectionType = .no
+        case .phone:
+            showComposerIfAllowed()
+            messageTextView.keyboardType = .phonePad
+        case .email:
+            showComposerIfAllowed()
+            messageTextView.keyboardType = .emailAddress
+            messageTextView.autocapitalizationType = .none
+            messageTextView.autocorrectionType = .no
         }
         
         messageTextView.reloadInputViews()
+        updateInputButtonsForText()
     }
     
+    func hideWallet(){
+        okBtn.isHidden = true
+        firstLineLbl.isHidden = true
+        walletBgView.isHidden = true
+        secondLineLbl.isHidden = true
+    }
+    
+    func showWallet(){
+        okBtn.isHidden = false
+        firstLineLbl.isHidden = false
+        walletBgView.isHidden = false
+        secondLineLbl.isHidden = false
+        self.firstLineLbl.font = HippoConfig.shared.theme.typingTextFont
+        self.secondLineLbl.font = HippoConfig.shared.theme.typingTextFont
+        walletBgView.layer.cornerRadius = 20
+        okBtn.layer.cornerRadius = 6
+       
+    }
     
     // MARK: - UIButton Actions
+    @IBAction func wallectOkPressed(_ sender: Any) {
+        hideWallet()
+    }
     
     @IBAction func actionButtonClicked(_ sender: Any) {
         //        presentActionsForCustomer(sender: self.view)
     }
     
     @IBAction func audiCallButtonClicked(_ sender: Any) {
-        
-        //        startAudioCall()
         startAudioCall(transactionId: self.original_transaction_id)
     }
     
     @IBAction func videoButtonClicked(_ sender: Any) {
-        
-        //        startVideoCall()
         startVideoCall(transactionId: self.original_transaction_id)
     }
     
     @IBAction func openSharedMedia(_ sender: Any) {
+        // Shared Media is the only option here, so open it directly instead of
+        // routing through a single-row bottom sheet.
         let storyboard = UIStoryboard(name: "AgentSdk", bundle: FuguFlowManager.bundle)
-        let alert = UIAlertController(title: nil, message: "Please select an option", preferredStyle: .actionSheet)
-        
-        alert.addAction(UIAlertAction(title: HippoStrings.sharedMediaTitle, style: UIAlertAction.Style.default, handler: { _ in
-            if let vc = storyboard.instantiateViewController(withIdentifier: "SharedMediaViewController") as? SharedMediaViewController{
-                vc.channelId = self.channelId
-                self.navigationController?.pushViewController(vc, animated: true)
-            }
-        }))
-        alert.addAction(UIAlertAction(title: HippoStrings.cancel, style: .cancel, handler: nil))
-        self.present(alert, animated: true, completion: nil)
+        if let vc = storyboard.instantiateViewController(withIdentifier: "SharedMediaViewController") as? SharedMediaViewController {
+            vc.channelId = self.channelId
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
     }
     
     
     @IBAction func addAttachmentButtonAction(_ sender: UIButton) {
         attachmentViewHeightConstraint.constant = attachmentViewHeightConstraint.constant == 128 ? 0 : 128
+        
     }
     
     @IBAction func addImagesButtonAction(_ sender: UIButton) {
@@ -711,8 +925,8 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         closeKeyBoard()
         actionSheetTitleArr.removeAll()
         actionSheetImageArr.removeAll()
-        actionSheetTitleArr = [HippoStrings.photoLibrary,HippoStrings.camera,HippoStrings.document]
-        actionSheetImageArr = ["Library","Camera","Library"]
+        actionSheetTitleArr = [HippoStrings.photoLibrary,HippoStrings.camera,HippoStrings.document,"Send Current Location"]
+        actionSheetImageArr = ["AttachGallery","Camera","Media","location"]
         heightForActionSheet = CGFloat((actionSheetTitleArr.count * 60))
         isProceedToPayActionSheet = false
         self.openCustomSheet()
@@ -729,13 +943,11 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     //MARK:- IBAction for retryBtn on label
     @IBAction func retryLabelButtonTapped(_ sender: Any) {
         chatScreenTableViewTopConstraint.constant = 0
-        
         retryLoader.isHidden = false
         labelViewRetryButton.isHidden = true
         fuguDelay(2.0) {
             self.fetchMessagesFrom1stPage()
         }
-        
     }
     
     func buttonClickedOnNetworkOff() {
@@ -749,14 +961,12 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     override func openCustomSheet(){
         
         HippoConfig.shared.HideJitsiView()
-        
         self.customTableView.reloadData()
-        let window = UIApplication.shared.windows.first
+        let window = UIApplication.shared.currentKeyWindow
         transparentView.backgroundColor = UIColor.black.withAlphaComponent(0.9)
         let screenSize = UIScreen.main.bounds.size
         transparentView.frame = CGRect(x: 0, y: 0, width: screenSize.width, height: screenSize.height)
         window?.addSubview(transparentView)
-        
         customTableView.frame = CGRect(x: 0, y: screenSize.height, width: screenSize.width, height: heightForActionSheet)
         customTableView.layer.cornerRadius = 10
         if #available(iOS 11.0, *) {
@@ -765,7 +975,6 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
             //Fallback on earlier versions
         }
         window?.addSubview(customTableView)
-        
         lineLabel.frame = CGRect(x: (screenSize.width/2) - ((screenSize.width/5)/2) , y: screenSize.height, width: screenSize.width/5, height: 6)
         lineLabel.backgroundColor = .white
         lineLabel.layer.masksToBounds = true
@@ -798,16 +1007,17 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     }
     
     @IBAction func sendMessageButtonAction(_ sender: UIButton) {
-        
-        self.sendMessageButton.isHidden = true
-        self.button_Recording.isHidden = false
-        
-        if let recordButtonDisabled = HippoConfig.shared.disableRecordingButton, recordButtonDisabled{
-            self.button_Recording.isHidden = true
-            self.sendMessageButton.isHidden = false
-            self.sendMessageButton.isEnabled = false
+
+        // While recording, the send button means "send the voice message".
+        if voiceRecordingState == .recording {
+            finishVoiceRecordingAndSend()
+            return
         }
-        
+
+        // The field is about to be cleared as part of sending, so reset the
+        // composer buttons to the empty-field state.
+        updateInputButtonsForText(hasText: false)
+
         if let message = messagesGroupedByDate.last?.last as? HippoActionMessage {
             if message.type == .dateTime {
                 sendDateMessage()
@@ -817,6 +1027,16 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
                 return
             }
         }
+
+        let typed = messageTextView.text ?? ""
+        if botInputKeyboard == .url, !typed.trimWhiteSpacesAndNewLine().isEmpty, !BotUrl.isValid(typed) {
+            // Bot asked for a URL: keep the text so it can be fixed, and say what is wrong.
+            updateInputButtonsForText(hasText: true)
+            showBotInputError(true)
+            return
+        }
+        showBotInputError(false)
+        
         self.sendMessageButtonAction(messageTextStr: messageTextView.text)
     }
     
@@ -833,9 +1053,9 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         }
         self.sendMessage(message: message)
         messageTextView.text = ""
-        
+        updateComposerHeight()
+        updateInputButtonsForText()
     }
-    
     
     private func sendDateMessage() {
         if channel != nil, !channel.isSubscribed()  {
@@ -864,6 +1084,8 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
             }
             self.sendMessage(message: message)
             messageTextView.text = ""
+            updateComposerHeight()
+            updateInputButtonsForText()
             //                responseMessage?.userType = .customer
             //                responseMessage?.creationDateTime = self.creationDateTime
             //                responseMessage?.status = status
@@ -874,6 +1096,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         }
     }
     
+
     
     func sendMessageButtonAction(messageTextStr: String){
         if storeResponse?.restrictPersonalInfo ?? false && channel?.chatDetail?.chatType == .other{
@@ -938,6 +1161,8 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
                     self?.addMessageToUIBeforeSending(message: message)
                 } else {
                     self?.messageTextView.text = ""
+                    self?.updateComposerHeight()
+                    self?.updateInputButtonsForText()
                 }
                 
                 if !isReplyMessageSent {
@@ -982,6 +1207,9 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     override func addMessageToUIBeforeSending(message: HippoMessage) {
         self.updateMessagesArrayLocallyForUIUpdation(message)
         self.messageTextView.text = ""
+        self.updateComposerHeight()
+        // Text was just cleared (also for media sends) - swap send back to mic.
+        self.updateInputButtonsForText()
         self.newScrollToBottom(animated: false)
     }
     
@@ -990,8 +1218,9 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     @IBAction func backButtonAction(_ sender: UIButton) {
         backButtonClicked()
     }
+    
     func setThemeForBusiness() {
-        let isMultiChannelLabelMapping = BussinessProperty.current.multiChannelLabelMapping && !forceHideActionButton
+        //        let isMultiChannelLabelMapping = BussinessProperty.current.multiChannelLabelMapping && !forceHideActionButton
         
         //   actionButton.title = nil
         //        actionButton.image = isMultiChannelLabelMapping ? HippoConfig.shared.theme.actionButtonIcon : nil
@@ -1063,11 +1292,17 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         }
     }
     
-    func disableSendingReply(withOutUpdate: Bool = false) {
+    func disableSendingReply(withOutUpdate: Bool = false, message: String? = nil) {
+        setComposerAreaCollapsed(false)
+        self.pleaseSelectOptionView.isHidden = false
+        self.pleaseSelectOptionLabel.isHidden = false
+        self.pleaseSelectOptionLabel.text = message ?? (HippoProperty.current.pleaseSelectOptionText ?? HippoStrings.pleaseSelectAnOption)
         if !withOutUpdate {
             self.channel?.isSendingDisabled = true
         }
-        self.view.endEditing(true)
+        // Only the composer is being hidden. view.endEditing would also close a bot form
+        // field's keyboard - and this runs on every socket push while a form is active.
+        self.messageTextView.resignFirstResponder()
         self.textViewBottomConstraint.constant = 0
         self.textViewBottomConstraint.constant = -self.textViewBgView.frame.height
         self.textViewBgView.isHidden = true
@@ -1075,6 +1310,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
             self.view.layoutIfNeeded()
         }
     }
+    
     
     func enableSendingReply(withOutUpdate: Bool = false) {
         if !withOutUpdate {
@@ -1090,10 +1326,133 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         }
         //        self.textViewBottomConstraint.constant = self.textViewBgView.frame.height
         self.textViewBgView.isHidden = false
+        setComposerAreaCollapsed(false)
         DispatchQueue.main.async {
             self.view.layoutIfNeeded()
         }
+        self.pleaseSelectOptionView.isHidden = true
+        self.pleaseSelectOptionLabel.isHidden = true
     }
+
+    /// True while an unanswered bot widget (lead form / create ticket) owns the
+    /// input. Sticky on purpose: a channel-update or typing push may set it, but
+    /// only a real message push is allowed to clear it.
+    var isBotInputMode = false
+
+    /// Top of the keyboard (screen points) while a bot form field has it and the composer is
+    /// hidden. nil otherwise. Feeds the chat's bottom inset so the form stays above the keyboard.
+    var formKeyboardTop: CGFloat?
+
+    /// True while the plus button is hidden because the bot asked for a link.
+    var addFileHiddenForBotURL = false
+
+    /// Message types whose widget owns the input while it still has unanswered
+    /// questions - 17 (lead form) and 29 (create ticket).
+    private var botInputMessageTypes: [MessageType] {
+        return [.leadForm, .createTicket]
+    }
+
+    /// Entry point for every socket push on this channel.
+    ///
+    /// A push with no `message_type` key is not a message push (read receipt,
+    /// channel ping) and must leave the composer exactly as the last
+    /// message-bearing push left it. The check is for key *presence* - defaulting
+    /// a missing key to 0 would make a receipt look like "some other message" and
+    /// re-open the composer on top of a live form.
+    func updateComposerVisibility(forSocketPush dict: [String: Any]) {
+        guard let rawMessageType = dict["message_type"] as? Int else {
+            return
+        }
+        let messageType = MessageType(rawValue: rawMessageType) ?? .none
+        let isTyping = (dict["is_typing"] as? Int ?? 0) != 0
+        // `type` 100 is a channel-update push. It echoes the previous message's
+        // message_type and races with the real widget push, so it may hide the
+        // composer but must never re-show it. Same for typing indicators.
+        let isChannelUpdate = (dict["type"] as? Int) == 100
+
+        if botInputMessageTypes.contains(messageType) {
+            isBotInputMode = true
+        } else if !isTyping, !isChannelUpdate {
+            isBotInputMode = isLatestMessageActiveBotForm()
+        }
+
+        showComposerIfAllowed()
+    }
+
+    /// The single funnel every "show the composer" has to go through. Scattered
+    /// unconditional shows are what let a late REST response force the composer
+    /// back open over a live bot form.
+    func showComposerIfAllowed() {
+        // A hard block (chat closed, reply disabled) always wins.
+        guard !isReplyHardDisabled else {
+            return
+        }
+
+        if isBotInputMode || isLatestMessageActiveBotForm() {
+            isBotInputMode = true
+            hideComposerForBotInput()
+            return
+        }
+
+        enableSendingReply(withOutUpdate: true)
+    }
+
+    private var isReplyHardDisabled: Bool {
+        return forceDisableReply
+            || (channel?.isSendingDisabled ?? false)
+            || (channel?.chatDetail?.disableReply ?? false)
+    }
+
+    /// Hides the composer *without* setting `channel.isSendingDisabled`. That flag
+    /// gates `HippoChannel.sendMessage`, so setting it here would silently drop the
+    /// widget's own answer while the composer is hidden.
+    private func hideComposerForBotInput() {
+        disableSendingReply(withOutUpdate: true, message: "")
+        pleaseSelectOptionView.isHidden = true
+        pleaseSelectOptionLabel.isHidden = true
+        setComposerAreaCollapsed(true)
+    }
+
+    /// The storyboard's fixed 58pt height on the "please select an option" bar. It sits between
+    /// the message list and the bottom guide with required constraints, so hiding it still
+    /// reserves its space. Held strongly so its original constant can be restored.
+    private lazy var pleaseSelectOptionHeightConstraint: NSLayoutConstraint? =
+        pleaseSelectOptionView.constraints.first { $0.firstAttribute == .height && $0.secondItem == nil }
+    private lazy var pleaseSelectOptionDefaultHeight: CGFloat = pleaseSelectOptionHeightConstraint?.constant ?? 58
+
+    /// Collapsed while a bot form owns the input (no composer, no bar): the list runs down
+    /// to the bottom instead of leaving an empty band with a separator line above it.
+    private func setComposerAreaCollapsed(_ collapsed: Bool) {
+        _ = pleaseSelectOptionDefaultHeight
+        pleaseSelectOptionHeightConstraint?.constant = collapsed ? 0 : pleaseSelectOptionDefaultHeight
+        seperatorView.isHidden = collapsed
+        DispatchQueue.main.async {
+            self.view.layoutIfNeeded()
+            self.updateChatInsetForComposerOverlap()
+        }
+    }
+
+    /// Walks the thread backwards to the newest message and reports whether it is a
+    /// bot widget still waiting on answers. Date separators are section boundaries
+    /// in `messagesGroupedByDate`, not rows, so there is nothing to skip here.
+    func isLatestMessageActiveBotForm() -> Bool {
+        for group in messagesGroupedByDate.reversed() {
+            for message in group.reversed() {
+                guard botInputMessageTypes.contains(message.type) else {
+                    return false
+                }
+                // A lead form the visitor skipped is finished even with steps unanswered.
+                if message.type == .leadForm && message.isSkipEvent {
+                    return false
+                }
+                let questionCount = message.content.questionsArray.count
+                let answeredCount = message.content.values.count
+                return questionCount == 0 || answeredCount < questionCount
+            }
+        }
+        return false
+    }
+
     func getLastMessage() -> HippoMessage? {
         
         for groupedMessages in messagesGroupedByDate.reversed() {
@@ -1113,28 +1472,6 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         return nil
     }
     
-    
-    override func adjustChatWhenKeyboardIsOpened(withHeight keyboardHeight: CGFloat) {
-        // TODO: - Refactor
-        guard tableViewChat.contentSize.height + keyboardHeight > UIScreen.main.bounds.height - hieghtOfNavigationBar else {
-            print("return****")
-            return
-        }
-        
-        let diff = ((tableViewChat.contentSize.height + keyboardHeight) - (UIScreen.main.bounds.height - hieghtOfNavigationBar))
-        
-        let keyboardHeightNew = keyboardHeight - textViewBgView.frame.height - UIView.safeAreaInsetOfKeyWindow.bottom
-        
-        let mini = min(diff, keyboardHeightNew)
-        
-        var newOffSetY = tableViewChat.contentOffset.y + mini
-        if !shouldShiftUpWithThis(newOffsetY: newOffSetY) {
-            newOffSetY = getMaxScrollableOffset()
-        }
-        
-        let newOffSet = CGPoint(x: 0, y: newOffSetY)
-        tableViewChat.setContentOffset(newOffSet, animated: false)
-    }
     
     //    override func checkNetworkConnection() {
     //        errorLabel.backgroundColor = UIColor.red
@@ -1165,6 +1502,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
     }
     
     // MARK: - SERVER HIT
+
     override func getMessagesBasedOnChannel(fromMessage pageStart: Int, pageEnd: Int?, completion: ((_ success: Bool) -> Void)?) {
         guard channel != nil else {
             completion?(false)
@@ -1227,7 +1565,14 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         setTitleForCustomNavigationBar()
         handleVideoIcon()
         handleAudioIcon()
-        
+        updateInfoIconVisibility()
+        if HippoConfig.shared.isFromPantherCallBtn == true{
+            HippoConfig.shared.isFromPantherCallBtn = false
+            startAudioCall()
+           
+        }else{
+            
+        }
         if request.pageStart == 1 && messages.count > 0 {
             filterMessages(newMessagesHashMap: newMessagesHashMap, lastMessage: messages.last!)
         } else if messages.count > 0 {
@@ -1243,30 +1588,34 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         {
             self.setKeyboardType(message: messages.last!)
         }
-        
-        
+
+
         let contentOffsetBeforeNewMessages = tableViewChat.contentOffset.y
         let contentHeightBeforeNewMessages = tableViewChat.contentSize.height
         tableViewChat.reloadData()
-        
+        markEmptyChatStateReady()
+
         if request.pageStart > 1 {
             keepTableViewWhereItWasBeforeReload(oldContentHeight: contentHeightBeforeNewMessages, oldYOffset: contentOffsetBeforeNewMessages)
         }
         if result.isSendingDisabled || forceDisableReply {
-            disableSendingReply()
+            disableSendingReply(message: HippoStrings.cannotReplyToConversation)
         }
         
         if checkIfShouldDisableReplyForCreateTicket(messages: messages) {
             button_Recording.isEnabled = false
             disableSendingNewMessages()
         }
-        
+
+        showComposerIfAllowed()
+
         if let message = messages.last {
             if message.type == .dateTime {
                 self.updateUIForCalendar(message: message)
             }else if message.type == .address {
                 setUIForAddress()
-            }else if message.type == .botAttachment {
+            }else if isBotAskingForFile {
+                // Also when the bot sent something (e.g. an image) after its file question.
                 setUIForBotAttachment()
             }
         }
@@ -1274,6 +1623,8 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         if request.pageStart == 1, request.pageEnd == nil {
             newScrollToBottom(animated: true)
             sendReadAllNotification()
+            // Chat opened on an unfinished bot form - put the user on its next field.
+            activateFormIfLastMessage(getLastMessage())
         }
         
         willPaginationWork = result.isMoreDataToLoad
@@ -1302,8 +1653,8 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         //image icon name = tiny-video-symbol
         
         if isDirectCallingEnabledFor(type: .video) {
-            
-            view_Navigation.video_button.tintColor = .black//HippoConfig.shared.theme.headerTextColor
+
+            view_Navigation.video_button.tintColor = HippoConfig.shared.colorConfig.hippoIconAccent
             view_Navigation.video_button.isEnabled = true
             view_Navigation.video_button.setImage(HippoConfig.shared.theme.videoCallIcon, for: .normal)
             view_Navigation.video_button.isHidden = false
@@ -1319,7 +1670,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         //image icon name = audioCallIcon
         
         if isDirectCallingEnabledFor(type: .audio) {
-            view_Navigation.call_button.tintColor = .black//HippoConfig.shared.theme.headerTextColor
+            view_Navigation.call_button.tintColor = HippoConfig.shared.colorConfig.hippoIconAccent
             view_Navigation.call_button.isEnabled = true
             view_Navigation.call_button.setImage(HippoConfig.shared.theme.audioCallIcon, for: .normal)
             view_Navigation.call_button.isHidden = false
@@ -1393,8 +1744,9 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         channel = nil
         messagesGroupedByDate = []
         labelId = -1
-        tableViewChat.reloadData()
-        
+        DispatchQueue.main.async {
+            self.tableViewChat.reloadData()
+        }
         directChatDetail = FuguNewChatAttributes.defaultChat
         label = (userDetailData["business_name"] as? String) ?? HippoStrings.support
         userImage = nil
@@ -1525,9 +1877,9 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
             disableSendingNewMessages()
             //         return
         }
-        
-        startLoaderAnimation()
-        
+        if !isDefaultChannel() {
+            startLoaderAnimation()
+        }
         if HippoConfig.shared.appSecretKey.isEmpty {
             return
         }
@@ -1593,6 +1945,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
             callback(sucess)
         }
     }
+    
     func shouldHitGetMessagesAfterCreateConversation() -> Bool {
         let formCount = channel?.messages.filter({ (h) -> Bool in
             return (h.type == MessageType.leadForm || h.type == MessageType.createTicket || h.type == .consent)
@@ -1602,18 +1955,94 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         let botMessageMUID = HippoChannel.botMessageMUID ?? ""
         return (isFormPresent && botMessageMUID.isEmpty) || isDefaultChannel()
     }
+    
+    /// Single source of truth for the mic vs. send button swap in the composer.
+    /// Derives visibility from whether the field has text so callers that are not
+    /// text-input events (e.g. a received message re-enabling the composer) can't
+    /// desync the two buttons. Pass `hasText` when the textview's own text is not
+    /// yet updated (e.g. from `shouldChangeTextIn`).
+    func updateInputButtonsForText(hasText: Bool? = nil) {
+        // Recording owns the button layout while it's active - don't let text or
+        // incoming-message events flip mic/send back.
+        if voiceRecordingState == .recording {
+            button_Recording.isHidden = true
+            sendMessageButton.isHidden = false
+            sendMessageButton.isEnabled = true
+            return
+        }
+
+        let hasText = hasText ?? messageTextView.hasText
+
+        if messageInEditing != nil {
+            button_Recording.isHidden = true
+            sendMessageButton.isHidden = true
+            sendMessageButton.isEnabled = hasText
+            return
+        }
+
+        applyBotQuestionAddFileRule()
+
+        guard HippoConfig.shared.isRecordingButtonEnabled else {
+            button_Recording.isHidden = true
+            sendMessageButton.isHidden = false
+            sendMessageButton.isEnabled = hasText
+            return
+        }
+
+        // Bot asked for a file: no mic - the send button sits in its place (the file itself
+        // comes from the plus button).
+        if isBotAskingForFile {
+            button_Recording.isHidden = true
+            sendMessageButton.isHidden = false
+            sendMessageButton.isEnabled = hasText
+            return
+        }
+
+        // Bot asked for a link: a voice note is not an answer, so no mic.
+        if isBotAskingForURL {
+            button_Recording.isHidden = true
+            sendMessageButton.isHidden = !hasText
+            sendMessageButton.isEnabled = hasText
+            return
+        }
+
+        sendMessageButton.isHidden = !hasText
+        sendMessageButton.isEnabled = hasText
+        button_Recording.isHidden = hasText
+    }
+
+    /// The bot's file question (type 28) is still open. The bot can send more messages right
+    /// after it (e.g. a sample image, type 10), so look back past the bot's own messages and
+    /// stop at the first one the user sent.
+    var isBotAskingForFile: Bool {
+        return openBotFileQuestion() != nil
+    }
+
+    /// The newest message is a bot question that wants a link (input_type URL).
+    var isBotAskingForURL: Bool {
+        guard let last = messagesGroupedByDate.last?.last else { return false }
+        return last.keyboardType == .url && !last.isSentByMe()
+    }
+
+    /// Plus (media picker) is hidden while the bot waits for a link, and shown again after.
+    /// Only undoes its own hide, so the calendar / recording states keep theirs.
+    private func applyBotQuestionAddFileRule() {
+        if isBotAskingForURL {
+            addFileButtonAction.isHidden = true
+            addFileHiddenForBotURL = true
+        } else if addFileHiddenForBotURL {
+            addFileHiddenForBotURL = false
+            addFileButtonAction.isHidden = false
+        }
+    }
+
     func enableSendingNewMessages() {
         addFileButtonAction.isUserInteractionEnabled = true
         messageTextView.isEditable = true
         messageTextView.isUserInteractionEnabled = true
-        button_Recording.isHidden = false
         button_Recording.isEnabled = true
-        
-        if let recordButtonDisabled = HippoConfig.shared.disableRecordingButton, recordButtonDisabled{
-            self.button_Recording.isHidden = true
-            self.sendMessageButton.isHidden = false
-            self.sendMessageButton.isEnabled = false
-        }
+
+        updateInputButtonsForText()
     }
     
     func disableSendingNewMessages() {
@@ -1641,13 +2070,19 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
             channel?.subscribe()
         }
         setTitleForCustomNavigationBar()
+        // The chat just became a real conversation, so the menu can appear. Handled
+        // here rather than only in the get-messages response because
+        // `shouldHitGetMessagesAfterCreateConversation()` skips that call for some
+        // new-chat paths.
+        updateInfoIconVisibility()
         
         let (sentMessage, unsentMessage) = getMessageFromGrouped(messages: messagesGroupedByDate)
         channel?.sentMessages = sentMessage
         channel?.unsentMessages = unsentMessage
         self.updateMessagesInLocalArrays(messages: [])
-        tableViewChat.reloadData()
-        
+        DispatchQueue.main.async {
+            self.tableViewChat.reloadData()
+        }
         sendReadAllNotification()
         
         stopLoaderAnimation()
@@ -1688,6 +2123,7 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         vc.directChatDetail = chatAttributes
         vc.label = chatAttributes.channelName ?? ""
         vc.original_transaction_id = chatAttributes.transactionId
+        vc.preMessage = chatAttributes.preMessage
         return vc
         
         /* testing:
@@ -1721,12 +2157,12 @@ class ConversationsViewController: HippoConversationViewController {//}, UIGestu
         return vc
     }
 }
+
 extension ConversationsViewController : SearchAddressControllerProtocol {
     func addressSelected(address: Address) {
         messageTextView.text = address.address ?? ""
-        sendMessageButton.isEnabled = true
-        sendMessageButton.isHidden = false
-        button_Recording.isHidden = true
+        updateComposerHeight()
+        updateInputButtonsForText()
         var dic = [[String : Any]]()
         let obj = ["address": address.address ?? "", "latitude": address.lat ?? 0.0, "longitude": address.lng ?? 0.0] as [String : Any]
         dic.append(obj)
@@ -1763,12 +2199,39 @@ extension ConversationsViewController {
             backgroundImageView.image = HippoConfig.shared.theme.chatbackgroundImage
             backgroundImageView.contentMode = .scaleToFill
         }
+        setUpEmptyChatState()
         //        self.messageTextView.textAlignment = .left
         self.messageTextView.font = HippoConfig.shared.theme.typingTextFont
         self.messageTextView.textColor = HippoConfig.shared.theme.typingTextColor
-        self.messageTextView.backgroundColor = .clear
+        // Rounded pill fill on the text field itself only — textViewBgView spans the whole
+        // composer row (media + mic buttons included), so it can't be the rounded element.
+        self.messageTextView.backgroundColor = HippoConfig.shared.colorConfig.hippoSurfaceInput
+        self.messageTextView.layer.cornerRadius = 18
+        self.applyComposerTextInsets()
+        // placeHolderLabel is a sibling that sits behind messageTextView in the storyboard's
+        // subview order — with a .clear text view background that was invisible, but the
+        // opaque pill fill above now paints over it. Bring it back in front; the real typed
+        // text is unaffected since that's drawn inside messageTextView's own layer.
+        self.messageTextView.superview?.bringSubviewToFront(self.placeHolderLabel)
+        self.messageTextView.clipsToBounds = true
         self.messageTextView.tintColor = HippoConfig.shared.theme.messageTextViewTintColor//
-        
+
+        // Auto-growing composer: scrolling stays off so the intrinsic content size
+        // drives height between the 42pt floor and the 120pt cap; no scroll bars.
+        self.messageTextView.isScrollEnabled = false
+        self.messageTextView.showsVerticalScrollIndicator = false
+        self.messageTextView.showsHorizontalScrollIndicator = false
+        if composerHeightConstraint == nil {
+            // Required: this is the single source of truth for the pill height, so it
+            // must never be the constraint UIKit breaks when the layout gets tight
+            // (that was the "collapse back to 42pt" bug once scrolling kicked in).
+            let heightC = messageTextView.heightAnchor.constraint(equalToConstant: composerMinHeight)
+            heightC.priority = .required
+            heightC.isActive = true
+            composerHeightConstraint = heightC
+        }
+        updateComposerHeight()
+
         placeHolderLabel.text = HippoConfig.shared.theme.messagePlaceHolderText == nil ? HippoStrings.messagePlaceHolderText : HippoConfig.shared.theme.messagePlaceHolderText
         
         errorLabel.text = ""
@@ -1776,10 +2239,10 @@ extension ConversationsViewController {
             errorLabelTopConstraint.constant = -20
         }
         
-        sendMessageButton.isEnabled = false
+
         
         if (channel != nil && channel?.isSendingDisabled == true) || forceDisableReply {
-            disableSendingReply()
+            disableSendingReply(message: HippoStrings.cannotReplyToConversation)
         }
         
         self.newConversationCountButton.roundCorner(cornerRect: [.topLeft, .bottomLeft], cornerRadius: 5)
@@ -1807,37 +2270,35 @@ extension ConversationsViewController {
     }
     
     @objc func dismissKeyboard(sender: UIGestureRecognizer) {
-        
+        // This recognizer sits on the whole table with cancelsTouchesInView = false, so it also
+        // fires for taps on controls inside cells - e.g. a bot form's submit arrow, where closing
+        // the keyboard would undo the move to the next field. Leave those taps to the control.
+        if tapLandedOnControl(sender) {
+            return
+        }
+        activeFormMessage = nil
+
         guard messageTextView.isFirstResponder else {
             self.view.endEditing(true)//
             return
         }
         
-        //Delayed so that tableview gets correct touch event to run didselect
-        let currentOffsetY = self.tableViewChat.contentOffset.y
-        var newOffsetY = max(0, currentOffsetY - self.getKeyboardHeight())
-        
+        //Delayed so that tableview gets correct touch event to run didselect.
+        //The table offset follows the keyboard via updateChatInsetForComposerOverlap().
         fuguDelay(0.1) {
             self.messageTextView.resignFirstResponder()
-            
-            if !self.shouldShiftUpWithThis(newOffsetY: newOffsetY) {
-                newOffsetY = self.getMaxScrollableOffset()
-            }
-            
-            let newOffset = CGPoint(x: 0, y: newOffsetY)
-            self.tableViewChat.setContentOffset(newOffset, animated: true)
         }
     }
     
-    func getKeyboardHeight() -> CGFloat {
-        let screenHeight = backgroundView.bounds.height
-        let tableViewEnd = tableViewChat.frame.maxY + UIView.safeAreaInsetOfKeyWindow.bottom
-        
-        let keyboardHeight = screenHeight - tableViewEnd - textViewBgView.frame.height
-        
-        return messageTextView.isFirstResponder ? keyboardHeight : 0
+    private func tapLandedOnControl(_ gesture: UIGestureRecognizer) -> Bool {
+        var view = tableViewChat.hitTest(gesture.location(in: tableViewChat), with: nil)
+        while let current = view, current !== tableViewChat {
+            if current is UIControl { return true }
+            view = current.superview
+        }
+        return false
     }
-    
+
     func getLastVisibleYCoordinateOfTableView() -> CGFloat {
         let tableViewHeight = tableViewChat.frame.height
         let tableViewYOffset = tableViewChat.contentOffset.y
@@ -1852,6 +2313,7 @@ extension ConversationsViewController {
     
     func configureFooterView() {
         textViewBgView.backgroundColor = .white
+        relaxComposerTopAnchors()
         if isObserverAdded == false {
             textViewBgView.layoutIfNeeded()
             let inputView = FrameObserverAccessaryView(frame: textViewBgView.bounds)
@@ -1860,34 +2322,120 @@ extension ConversationsViewController {
             messageTextView.inputAccessoryView = inputView
             
             inputView.changeKeyboardFrame { [weak self] (keyboardVisible, keyboardFrame) in
-                let value = UIScreen.main.bounds.height - keyboardFrame.minY - UIView.safeAreaInsetOfKeyWindow.bottom
+                guard let self = self else { return }
+                let value = FUGU_SCREEN_HEIGHT - keyboardFrame.minY - UIView.safeAreaInsetOfKeyWindow.bottom
                 let maxValue = max(0, value)
-                self?.textViewBottomConstraint.constant = maxValue
-                
-                self?.view.layoutIfNeeded()
+                // Keep whatever sits just above the composer there while the keyboard
+                // opens or closes, however the table's frame/insets end up changing.
+                let gapToBottom = self.chatDistanceFromBottom()
+                self.textViewBottomConstraint.constant = maxValue
+
+                self.view.layoutIfNeeded()
+                self.updateChatInsetForComposerOverlap()
+                self.restoreChatDistanceFromBottom(gapToBottom)
             }
+            // The accessory view above only reports the composer's own keyboard. A bot form
+            // field's keyboard is tracked here, so the chat shrinks above it the same way.
+            NotificationCenter.default.addObserver(self, selector: #selector(formKeyboardWillChange(_:)),
+                                                   name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(formKeyboardWillChange(_:)),
+                                                   name: UIResponder.keyboardWillHideNotification, object: nil)
             isObserverAdded = true
         }
     }
-    
-    
-    func shouldShiftUpWithThis(newOffsetY: CGFloat) -> Bool {
-        let tableHeight = tableViewChat.frame.height
-        let tableContentHeight = tableViewChat.contentSize.height
-        
-        return newOffsetY + tableHeight < tableContentHeight + 10
-    }
-    
-    func getMaxScrollableOffset() -> CGFloat {
-        let tableHeight = tableViewChat.frame.height
-        let tableContentHeight = tableViewChat.contentSize.height
-        
-        if tableContentHeight > tableHeight {
-            return tableContentHeight - tableHeight + 3
-        } else {
-            return 0
+
+    /// The composer (`textViewBgView`) is pinned in the storyboard at BOTH ends:
+    /// its top to the message-list chain (`= WCe/seperatorView.bottom`, required) and
+    /// its bottom, via `textViewBottomConstraint`, to the fixed bottom layout guide.
+    /// When the keyboard raises the bottom pin and the table can't shrink enough to
+    /// compensate, the composer gets crushed instead of translated — UIKit breaks
+    /// `messageTextView`'s `height >= 50` and the input pill collapses (observed:
+    /// 42pt -> 26.67pt on keyboard open).
+    ///
+    /// Dropping the top pins below required lets the composer stay content-sized
+    /// (honouring `height >= 50`) and bottom-anchored, so it floats up above the
+    /// keyboard rather than being compressed. 999 keeps them effective in every
+    /// non-conflicting state (normal docking below the list).
+    /// Resizes `messageTextView` to fit its content, clamped to
+    /// `composerMinHeight...composerMaxHeight`. Once the text needs more than the
+    /// cap, scrolling is turned on so the overflow stays reachable.
+    func updateComposerHeight() {
+        guard let heightC = composerHeightConstraint else { return }
+        let width = messageTextView.bounds.width
+        guard width > 0 else { return }
+        let fitting = messageTextView.sizeThatFits(CGSize(width: width, height: .greatestFiniteMagnitude)).height
+        let clamped = min(max(composerMinHeight, ceil(fitting)), composerMaxHeight)
+        // Once the content is taller than the cap, hold the pill at the cap and let
+        // the text view scroll — new lines push older text up instead of resizing.
+        messageTextView.isScrollEnabled = fitting > composerMaxHeight
+        if abs(heightC.constant - clamped) > 0.5 {
+            heightC.constant = clamped
+            view.layoutIfNeeded()
+            updateChatInsetForComposerOverlap()
+        }
+        if messageTextView.isScrollEnabled {
+            messageTextView.scrollRangeToVisible(messageTextView.selectedRange)
         }
     }
+
+    /// `tableViewChat`'s bottom is pinned (through the suggestion stack and the fixed
+    /// 58pt "please select an option" strip) to the screen bottom, not to the
+    /// composer. So when the keyboard lifts the composer — or the composer grows for
+    /// multi-line text — the table keeps its full height and its last rows end up
+    /// behind the composer and keyboard.
+    ///
+    /// Pad the table's bottom inset by exactly that overlap so its scrollable area
+    /// ends at the composer's top edge, and move the offset by the same amount so
+    /// whatever was visible at the bottom stays visible (keyboard up and down).
+    func updateChatInsetForComposerOverlap() {
+        guard isViewLoaded, textViewBgView.superview === tableViewChat.superview else { return }
+        var overlap: CGFloat = 0
+        if !textViewBgView.isHidden {
+            overlap = max(0, tableViewChat.frame.maxY - textViewBgView.frame.minY)
+        } else if let keyboardTop = formKeyboardTop, let host = tableViewChat.superview {
+            // Composer hidden (bot form open) but a form field has the keyboard up.
+            let top = host.convert(CGPoint(x: 0, y: keyboardTop), from: nil).y
+            overlap = max(0, tableViewChat.frame.maxY - top)
+        }
+        let delta = overlap - composerOverlapInset
+        guard abs(delta) > 0.5 else { return }
+        composerOverlapInset = overlap
+
+        tableViewChat.contentInset.bottom += delta
+        tableViewChat.verticalScrollIndicatorInsets.bottom += delta
+
+        let insets = tableViewChat.adjustedContentInset
+        let minOffsetY = -insets.top
+        let maxOffsetY = max(minOffsetY, tableViewChat.contentSize.height + insets.bottom - tableViewChat.bounds.height)
+        let newOffsetY = min(max(tableViewChat.contentOffset.y + delta, minOffsetY), maxOffsetY)
+        tableViewChat.contentOffset = CGPoint(x: tableViewChat.contentOffset.x, y: newOffsetY)
+    }
+
+    /// How far the visible area is from the end of the chat content (0 = at the bottom).
+    private func chatDistanceFromBottom() -> CGFloat {
+        let insets = tableViewChat.adjustedContentInset
+        let maxOffsetY = max(-insets.top, tableViewChat.contentSize.height + insets.bottom - tableViewChat.bounds.height)
+        return max(0, maxOffsetY - tableViewChat.contentOffset.y)
+    }
+
+    private func restoreChatDistanceFromBottom(_ distance: CGFloat) {
+        let insets = tableViewChat.adjustedContentInset
+        let minOffsetY = -insets.top
+        let maxOffsetY = max(minOffsetY, tableViewChat.contentSize.height + insets.bottom - tableViewChat.bounds.height)
+        let newOffsetY = min(max(maxOffsetY - distance, minOffsetY), maxOffsetY)
+        guard abs(newOffsetY - tableViewChat.contentOffset.y) > 0.5 else { return }
+        tableViewChat.contentOffset = CGPoint(x: tableViewChat.contentOffset.x, y: newOffsetY)
+    }
+
+    private func relaxComposerTopAnchors() {
+        guard let host = textViewBgView.superview else { return }
+        for constraint in host.constraints where constraint.priority == .required
+            && constraint.firstAttribute == .top
+            && (constraint.firstItem as? UIView) === textViewBgView {
+            constraint.priority = UILayoutPriority(999)
+        }
+    }
+
     
     
     
@@ -1915,12 +2463,11 @@ extension ConversationsViewController {
     func updateTopBottomSpace(cell: UITableViewCell, indexPath: IndexPath) {
         
         let topConstraint = getTopDistanceOfCell(atIndexPath: indexPath)
-        if let editedCell = cell as? SelfMessageTableViewCell {
+        if let _ = cell as? SelfMessageTableViewCell {
             //editedCell.topConstraint.constant = topConstraint
-        } else if let editedCell = cell as? SupportMessageTableViewCell {
+        } else if let _ = cell as? SupportMessageTableViewCell {
             //editedCell.topConstraint.constant = topConstraint
-        }
-        else if let editedCell = cell as? IncomingImageCell {
+        }else if let editedCell = cell as? IncomingImageCell {
             editedCell.topConstraint.constant = topConstraint + 2
         } else if let editedCell = cell as? OutgoingImageCell {
             editedCell.topConstraint.constant = topConstraint + 2
@@ -2002,15 +2549,13 @@ extension ConversationsViewController {
         let availableBoxSize = CGSize(width: availableWidthSpace,
                                       height: CGFloat.greatestFiniteMagnitude)
         
-        
-        
         var cellTotalHeight: CGFloat = 5 + 2.5 + 3.5 + 12 + 7 + 23
         
         if isOutgoingMsg == true {
             
             let messageString = chatMessageObject.message
             
-        #if swift(>=4.0)
+#if swift(>=4.0)
             var attributes: [NSAttributedString.Key: Any]?
             attributes = [NSAttributedString.Key.font: HippoConfig.shared.theme.inOutChatTextFont]
             
@@ -2018,7 +2563,7 @@ extension ConversationsViewController {
                 cellTotalHeight += messageString.boundingRect(with: availableBoxSize, options: .usesLineFragmentOrigin, attributes: attributes, context: nil).size.height
             }
             
-        #else
+#else
             var attributes: [String: Any]?
             if let applicableFont = HippoConfig.shared.theme.inOutChatTextFont {
                 attributes = [NSFontAttributeName: applicableFont]
@@ -2027,7 +2572,7 @@ extension ConversationsViewController {
             if messageString.isEmpty == false {
                 cellTotalHeight += messageString.boundingRect(with: availableBoxSize, options: .usesLineFragmentOrigin, attributes: attributes, context: nil).size.height
             }
-        #endif
+#endif
             
         } else {
             let incomingAttributedString = Helper.getIncomingAttributedStringWithLastUserCheck(chatMessageObject: chatMessageObject)
@@ -2049,10 +2594,9 @@ extension ConversationsViewController {
     //            }
     //        }
     //    }
-    
     func scrollTableViewToBottom(_ animation: Bool = false) {
         
-        DispatchQueue.main.async {
+        fuguDelay(0.0) {
             
             var numberOfSections = -1
             if self.tableViewChat.numberOfSections > 1 {
@@ -2061,9 +2605,7 @@ extension ConversationsViewController {
                 numberOfSections = self.tableViewChat.numberOfSections
             }
             
-            guard numberOfSections > 0 else {
-                return
-            }
+            guard numberOfSections > 0 else { return }
             
             if self.messagesGroupedByDate.count > 0, let lastIndex = self.messagesGroupedByDate.last, lastIndex.count > 0 {
                 
@@ -2131,7 +2673,6 @@ extension ConversationsViewController {
             }
             showHideActivityIndicator(hide: false)
             isGettingMessageViaPaginationInProgress = true
-            
             self.getMessagesBasedOnChannel(fromMessage: self.channel.sentMessages.count + 1, pageEnd: nil, completion: { [weak self]  (success) in
                 self?.showHideActivityIndicator(hide: true)
                 self?.isGettingMessageViaPaginationInProgress = false
@@ -2198,7 +2739,9 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                     cell.settingImage.image = nil
                 }
             }else{
-                cell.settingImage.tintColor = .black
+                // Attachment-sheet glyphs (Gallery / Camera / Media / location) ride the
+                // same icon token as the composer and header icons.
+                cell.settingImage.tintColor = HippoConfig.shared.colorConfig.hippoIconAccent
                 let renderingMode: UIImage.RenderingMode = isProceedToPayActionSheet == true ? .alwaysOriginal : .alwaysTemplate
                 if let img = UIImage(named: actionSheetImageArr[indexPath.row], in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(renderingMode){
                     cell.settingImage.image = img
@@ -2226,10 +2769,10 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                     do {
                         try cell.gifImageView.image = UIImage.gif(data: Data(contentsOf: URL(fileURLWithPath: getImagePath)))
                     } catch let error {
-                        print("image decoding error --", error)
+                        HippoConfig.shared.log.debug(("-------\nERROR\nimage decoding error\n--------" , error), level: .error)
                     }
                     
-//                    cell.gifImageView.image = UIImage.animatedImageWithData(try! Data(contentsOf: URL(fileURLWithPath: getImagePath)))!
+                    //                    cell.gifImageView.image = UIImage.animatedImageWithData(try! Data(contentsOf: URL(fileURLWithPath: getImagePath)))!
                 }
                 
                 return cell
@@ -2242,7 +2785,7 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                     let isOutgoingMsg = isSentByMe(senderId: message.senderId) && messageType != .card
                     
                     guard messageType.isMessageTypeHandled() && !message.isInValidMessage() else {
-                        return getNormalMessageTableViewCell(tableView: tableView, isOutgoingMessage: isOutgoingMsg, message: message, indexPath: indexPath)
+                        return getNormalMessageTableViewCell(tableView: tableView, isOutgoingMessage: isOutgoingMsg, message: message, indexPath: indexPath, comingFrom: "")
                     }
                     
                     switch messageType {
@@ -2255,8 +2798,9 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                         //
                     case MessageType.imageFile:
                         if isOutgoingMsg == true {
+                            let outgoingImageIdentifier = HippoConfig.shared.appUserType == .customer ? "CustomerOutgoingImageCell" : "OutgoingImageCell"
                             guard
-                                let cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingImageCell", for: indexPath) as? OutgoingImageCell
+                                let cell = tableView.dequeueReusableCell(withIdentifier: outgoingImageIdentifier, for: indexPath) as? OutgoingImageCell
                             else {
                                 let cell = UITableViewCell()
                                 cell.backgroundColor = .clear
@@ -2271,7 +2815,8 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                             cell.configureCellOfOutGoingImageCell(resetProperties: true, chatMessageObject: message, indexPath: indexPath)
                             return cell
                         } else {
-                            guard let cell = tableView.dequeueReusableCell(withIdentifier: "IncomingImageCell", for: indexPath) as? IncomingImageCell
+                            let incomingImageIdentifier = HippoConfig.shared.appUserType == .customer ? "CustomerIncomingImageCell" : "IncomingImageCell"
+                            guard let cell = tableView.dequeueReusableCell(withIdentifier: incomingImageIdentifier, for: indexPath) as? IncomingImageCell
                             else {
                                 let cell = UITableViewCell()
                                 cell.backgroundColor = .clear
@@ -2295,7 +2840,8 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                         //                print("-----\(cell.alertContainer.bounds.height)")
                         return cell
                     case .botText:
-                        guard let cell = tableView.dequeueReusableCell(withIdentifier: "SupportMessageTableViewCell", for: indexPath) as? SupportMessageTableViewCell
+                        let botTextIdentifier = HippoConfig.shared.appUserType == .customer ? "CustomerSupportMessageTableViewCell" : "SupportMessageTableViewCell"
+                        guard let cell = tableView.dequeueReusableCell(withIdentifier: botTextIdentifier, for: indexPath) as? SupportMessageTableViewCell
                         else {
                             let cell = UITableViewCell()
                             cell.backgroundColor = .clear
@@ -2306,6 +2852,11 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                         let incomingAttributedString = message.attributtedMessage.attributedMessageString
                         return cell.configureCellOfSupportIncomingCell(resetProperties: true, attributedString: incomingAttributedString, channelId: channel?.id ?? labelId, chatMessageObject: message)
                     case .leadForm, .createTicket:
+                        if HippoConfig.shared.appUserType == .customer,
+                           let cell = tableView.dequeueReusableCell(withIdentifier: BotFormCardCell.identifier, for: indexPath) as? BotFormCardCell {
+                            cell.bind(message: message, ticketId: message.type == .createTicket ? ticketIdAfter(indexPath) : nil, host: self)
+                            return cell
+                        }
                         guard let cell = tableView.dequeueReusableCell(withIdentifier: "LeadTableViewCell", for: indexPath) as? LeadTableViewCell else {
                             return UITableViewCell()
                         }
@@ -2324,7 +2875,8 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                         return cell.configureCellOfSupportIncomingCell(resetProperties: true, attributedString: incomingAttributedString, channelId: channel.id, chatMessageObject: message)
                     case .call:
                         if isOutgoingMsg {
-                            guard let cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingVideoCallMessageTableViewCell", for: indexPath) as? OutgoingVideoCallMessageTableViewCell else {
+                            let outgoingCallIdentifier = HippoConfig.shared.appUserType == .customer ? "CustomerOutgoingVideoCallMessageTableViewCell" : "OutgoingVideoCallMessageTableViewCell"
+                            guard let cell = tableView.dequeueReusableCell(withIdentifier: outgoingCallIdentifier, for: indexPath) as? OutgoingVideoCallMessageTableViewCell else {
                                 let cell = UITableViewCell()
                                 cell.backgroundColor = .clear
                                 return cell
@@ -2332,11 +2884,12 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                             let peerName = channel?.chatDetail?.peerName ?? "   "
                             let isCallingEnabled = isDirectCallingEnabledFor(type: message.callType)
                             cell.setCellWith(message: message, otherUserName: peerName, isCallingEnabled: isCallingEnabled)
-                            
+
                             cell.delegate = self
                             return cell
                         } else {
-                            guard let cell = tableView.dequeueReusableCell(withIdentifier: "IncomingVideoCallMessageTableViewCell", for: indexPath) as? IncomingVideoCallMessageTableViewCell else {
+                            let incomingCallIdentifier = HippoConfig.shared.appUserType == .customer ? "CustomerIncomingVideoCallMessageTableViewCell" : "IncomingVideoCallMessageTableViewCell"
+                            guard let cell = tableView.dequeueReusableCell(withIdentifier: incomingCallIdentifier, for: indexPath) as? IncomingVideoCallMessageTableViewCell else {
                                 let cell = UITableViewCell()
                                 cell.backgroundColor = .clear
                                 return cell
@@ -2379,14 +2932,21 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                                 cell.retryDelegate = self
                                 cell.delegate = self
                                 return cell
+                            case .audio:
+                                let outgoingAudioIdentifier = HippoConfig.shared.appUserType == .customer ? "CustomerOutgoingAudioTableViewCell" : "OutgoingAudioTableViewCell"
+                                let cell = tableView.dequeueReusableCell(withIdentifier: outgoingAudioIdentifier, for: indexPath) as! OutgoingAudioTableViewCell
+                                cell.setData(message: message)
+                                cell.delegate = self
+                                return cell
                             default:
-                                let cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingDocumentTableViewCell") as! OutgoingDocumentTableViewCell
+                                let outgoingDocumentIdentifier = HippoConfig.shared.appUserType == .customer ? "CustomerOutgoingDocumentTableViewCell" : "OutgoingDocumentTableViewCell"
+                                let cell = tableView.dequeueReusableCell(withIdentifier: outgoingDocumentIdentifier) as! OutgoingDocumentTableViewCell
                                 cell.messageLongPressed = {[weak self](message) in
                                     DispatchQueue.main.async {
                                         self?.longPressOnMessage(message: message, indexPath: indexPath)
                                     }
                                 }
-                                cell.setCellWith(message: message)
+                                cell.setCellWith(message: message, comingFrom: message.senderFullName)
                                 cell.actionDelegate = self
                                 cell.delegate = self
                                 cell.nameLabel.isHidden = true
@@ -2399,8 +2959,15 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                                 cell.setCellWith(message: message)
                                 cell.delegate = self
                                 return cell
+                            case .audio:
+                                let incomingAudioIdentifier = HippoConfig.shared.appUserType == .customer ? "CustomerIncomingAudioTableViewCell" : "IncomingAudioTableViewCell"
+                                let cell = tableView.dequeueReusableCell(withIdentifier: incomingAudioIdentifier, for: indexPath) as! IncomingAudioTableViewCell
+                                cell.setData(message: message)
+                                return cell
+
                             default:
-                                let cell = tableView.dequeueReusableCell(withIdentifier: "IncomingDocumentTableViewCell") as! IncomingDocumentTableViewCell
+                                let incomingDocumentIdentifier = HippoConfig.shared.appUserType == .customer ? "CustomerIncomingDocumentTableViewCell" : "IncomingDocumentTableViewCell"
+                                let cell = tableView.dequeueReusableCell(withIdentifier: incomingDocumentIdentifier) as! IncomingDocumentTableViewCell
                                 cell.setCellWith(message: message)
                                 cell.actionDelegate = self
                                 cell.nameLabel.isHidden = false
@@ -2422,6 +2989,12 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                         cell.set(message: message)
                         return cell
                     case .paymentCard:
+                        if HippoConfig.shared.appUserType == .customer,
+                           let cell = tableView.dequeueReusableCell(withIdentifier: BotPaymentCardCell.identifier, for: indexPath) as? BotPaymentCardCell {
+                            cell.delegate = self
+                            cell.set(message: message)
+                            return cell
+                        }
                         guard let cell = tableView.dequeueReusableCell(withIdentifier: "PaymentMessageCell", for: indexPath) as? PaymentMessageCell else {
                             return UITableView.defaultCell()
                         }
@@ -2439,7 +3012,11 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                         return cell
                         
                     case .embeddedVideoUrl :
-                        
+                        if HippoConfig.shared.appUserType == .customer,
+                           let cell = tableView.dequeueReusableCell(withIdentifier: BotVideoCardCell.identifier, for: indexPath) as? BotVideoCardCell {
+                            cell.set(message: message)
+                            return cell
+                        }
                         let cell = tableView.dequeueReusableCell(withIdentifier: "IncomingVideoTableViewCell", for: indexPath) as! IncomingVideoTableViewCell
                         cell.setCellWith(message: message)
                         cell.delegate = self
@@ -2449,7 +3026,7 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                         if ((message.fileUrl != nil || (message.isMessageWithImage ?? false) && messageType == .normal) && message.messageState != .MessageDeleted) {
                             return self.getCellForMessageWithAttachment(tableView: tableView, isOutgoingMessage: isOutgoingMsg, message: message, indexPath: indexPath)
                         }
-                        return getNormalMessageTableViewCell(tableView: tableView, isOutgoingMessage: isOutgoingMsg, message: message, indexPath: indexPath)
+                        return getNormalMessageTableViewCell(tableView: tableView, isOutgoingMessage: isOutgoingMsg, message: message, indexPath: indexPath, comingFrom: "")
                     }
                 }
             default:
@@ -2491,7 +3068,7 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                 self.attachmentButtonclickedOfCustomSheet(self.view, openType: actionSheetTitleArr[indexPath.row])
             }
             
-        }else{}
+        }
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -2514,7 +3091,6 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
         if tableView == customTableView{
             return 50
         }else{
-            
             
             switch indexPath.section {
             case let typingSection where typingSection == self.messagesGroupedByDate.count && !isTypingLabelHidden:
@@ -2558,15 +3134,23 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                         if message.content.questionsArray.count == 0 {
                             return 0.001
                         }
+                        if HippoConfig.shared.appUserType == .customer {
+                            return UITableView.automaticDimension
+                        }
                         //TODO: Change it later on
                         //let count = chatMessageObject.content.values.count == chatMessageObject.content.questionsArray.count ? chatMessageObject.content.values.count : chatMessageObject.content.values.count + 1
                         return getHeightForLeadFormCell(message: message)
                     case .attachment:
                         switch message.concreteFileType! {
                         case .video:
-                            return 234
+                            // A received video's caption sits on its own line under the
+                            // video (IncomingVideoTableViewCell), so it self-sizes.
+                            let hasCaption = !message.message.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+                            return hasCaption && !isSentByMe(senderId: message.senderId) ? UITableView.automaticDimension : 234
                         default:
-                            return 80
+                            // A file sent with a caption has to self-size so the
+                            // caption isn't clipped - same as .imageFile above.
+                            return message.message.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? 80 : UITableView.automaticDimension
                         }
                         
                     case MessageType.actionableMessage, MessageType.hippoPay:
@@ -2579,7 +3163,9 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                         //                    }
                         //   rowHeight += 7 //Height for bottom view
                         return UIView.tableAutoDimensionHeight
+                        
                     case .consent, .dateTime, .address, .botAttachment:
+                        //return UIView.tableAutoDimensionHeight
                         return ((message.cellDetail?.cellHeight ?? 0.01) + 20)
                     case MessageType.call:
                         return UIView.tableAutoDimensionHeight
@@ -2589,11 +3175,11 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                         }
                         return 230
                     case .paymentCard:
-                        return message.calculatedHeight ?? 0.1
+                        return HippoConfig.shared.appUserType == .customer ? UITableView.automaticDimension : (message.calculatedHeight ?? 0.1)
                     case .multipleSelect:
                         return message.calculatedHeight ?? 0.01
                     case .embeddedVideoUrl:
-                        return 234
+                        return HippoConfig.shared.appUserType == .customer ? UITableView.automaticDimension : 234
                     default:
                         return 0.01
                         
@@ -2629,6 +3215,8 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                 case .actionableMessage, .hippoPay:
                     
                     return 100
+                case .leadForm, .createTicket where HippoConfig.shared.appUserType == .customer:
+                    return message.content.questionsArray.isEmpty ? 0.001 : 260
                 default:
                     return self.tableView(tableView, heightForRowAt: indexPath)
                 }
@@ -2638,6 +3226,7 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
             }
         }
     }
+    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if tableView == customTableView{
             return 10
@@ -2682,12 +3271,7 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                                                                   showInFormat: false).capitalized
                 }
             }
-#if swift(>=4.0)
-            let widthIs: CGFloat = CGFloat(dateLabel.text!.boundingRect(with: dateLabel.frame.size, options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: dateLabel.font], context: nil).size.width) + 10
-            
-#else
-            let widthIs: CGFloat = CGFloat(dateLabel.text!.boundingRect(with: dateLabel.frame.size, options: .usesLineFragmentOrigin, attributes: [NSFontAttributeName: dateLabel.font], context: nil).size.width) + 10
-#endif
+            let widthIs: CGFloat = CGFloat((dateLabel.text ?? "").boundingRect(with: dateLabel.frame.size, options: .usesLineFragmentOrigin, attributes: [.font: dateLabel.font as Any], context: nil).size.width) + 10
             let dateLabelHeight = CGFloat(24)
             dateLabel.frame = CGRect(x: (UIScreen.main.bounds.size.width / 2) - (widthIs/2), y: (labelBgView.frame.height - dateLabelHeight)/2, width: widthIs + 10, height: dateLabelHeight)
             labelBgView.addSubview(dateLabel)
@@ -2720,9 +3304,13 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
         var count = 0
         var buttonAction: [FormData] = []
         var announcementHeight = 0
+        var errorRowCount = 0
         for lead in message.leadsDataArray {
             if lead.isShow  && lead.type != .button {
                 count += 1
+                if lead.isErrorEnabled {
+                    errorRowCount += 1
+                }
             }
             if lead.type == .button {
                 buttonAction.append(lead)
@@ -2753,6 +3341,8 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                 }
             }
         }
+        // Matches LeadTableViewCell's per-row error padding, so the error line isn't clipped.
+        height += LeadDataTableViewCell.errorHeight * CGFloat(errorRowCount)
         let buttonHeight: CGFloat = CGFloat(buttonAction.count * 30)
         let skipButtonHeight: CGFloat = message.shouldShowSkipButton() ? LeadTableViewCell.skipButtonHeightConstant : 0
         if height > 0 {
@@ -2834,13 +3424,7 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
                             let heightOfContent = headerText.height(withConstrainedWidth: (itemWidthConstant), font: descriptionFont!)
                             cellHeight += max(heightOfContent, heightOFPriceLabel)
                             cellHeight += marginBetweenHeaderAndDescription + margin
-                            print("$$$$$$$---\(max(heightOfContent, heightOFPriceLabel))")
-                        } else {
-                            print("$$$$$$$---2")
                         }
-                        
-                    } else {
-                        print("$$$$$$$")
                     }
                 }
             }
@@ -2874,7 +3458,7 @@ extension ConversationsViewController {
             return false
         }
         
-        if lastVisibleIndexPath.section == (messagesGroupedByDate.count - 1) && lastVisibleIndexPath.row < (messagesGroupedByDate.last!.count - 1) {
+        if lastVisibleIndexPath.section == (messagesGroupedByDate.count - 1) && lastVisibleIndexPath.row < ((messagesGroupedByDate.last?.count ?? 0) - 1) {
             return false
         }
         
@@ -2902,8 +3486,9 @@ extension ConversationsViewController {
     func getCellForMessageWithAttachment(tableView: UITableView, isOutgoingMessage: Bool, message: HippoMessage, indexPath: IndexPath) -> UITableViewCell{
         if message.documentType == .image {
             if isOutgoingMessage {
+                let outgoingImageIdentifier = HippoConfig.shared.appUserType == .customer ? "CustomerOutgoingImageCell" : "OutgoingImageCell"
                 guard
-                    let cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingImageCell", for: indexPath) as? OutgoingImageCell
+                    let cell = tableView.dequeueReusableCell(withIdentifier: outgoingImageIdentifier, for: indexPath) as? OutgoingImageCell
                 else {
                     let cell = UITableViewCell()
                     cell.backgroundColor = .clear
@@ -2918,7 +3503,8 @@ extension ConversationsViewController {
                 cell.configureCellOfOutGoingImageCell(resetProperties: true, chatMessageObject: message, indexPath: indexPath)
                 return cell
             }else {
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: "IncomingImageCell", for: indexPath) as? IncomingImageCell
+                let incomingImageIdentifier = HippoConfig.shared.appUserType == .customer ? "CustomerIncomingImageCell" : "IncomingImageCell"
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: incomingImageIdentifier, for: indexPath) as? IncomingImageCell
                 else {
                     let cell = UITableViewCell()
                     cell.backgroundColor = .clear
@@ -2941,14 +3527,21 @@ extension ConversationsViewController {
                     cell.retryDelegate = self
                     cell.delegate = self
                     return cell
+                case .audio:
+                    let outgoingAudioIdentifier = HippoConfig.shared.appUserType == .customer ? "CustomerOutgoingAudioTableViewCell" : "OutgoingAudioTableViewCell"
+                    let cell = tableView.dequeueReusableCell(withIdentifier: outgoingAudioIdentifier, for: indexPath) as! OutgoingAudioTableViewCell
+                    cell.setData(message: message)
+                    cell.delegate = self
+                    return cell
                 default:
-                    let cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingDocumentTableViewCell") as! OutgoingDocumentTableViewCell
+                    let outgoingDocumentIdentifier = HippoConfig.shared.appUserType == .customer ? "CustomerOutgoingDocumentTableViewCell" : "OutgoingDocumentTableViewCell"
+                    let cell = tableView.dequeueReusableCell(withIdentifier: outgoingDocumentIdentifier) as! OutgoingDocumentTableViewCell
                     cell.messageLongPressed = {[weak self](message) in
                         DispatchQueue.main.async {
                             self?.longPressOnMessage(message: message, indexPath: indexPath)
                         }
                     }
-                    cell.setCellWith(message: message)
+                    cell.setCellWith(message: message, comingFrom: message.senderFullName)
                     cell.actionDelegate = self
                     cell.delegate = self
                     cell.nameLabel.isHidden = true
@@ -2961,8 +3554,15 @@ extension ConversationsViewController {
                     cell.setCellWith(message: message)
                     cell.delegate = self
                     return cell
+                case .audio:
+                    let incomingAudioIdentifier = HippoConfig.shared.appUserType == .customer ? "CustomerIncomingAudioTableViewCell" : "IncomingAudioTableViewCell"
+                    let cell = tableView.dequeueReusableCell(withIdentifier: incomingAudioIdentifier, for: indexPath) as! IncomingAudioTableViewCell
+                    cell.setData(message: message)
+                    return cell
+
                 default:
-                    let cell = tableView.dequeueReusableCell(withIdentifier: "IncomingDocumentTableViewCell") as! IncomingDocumentTableViewCell
+                    let incomingDocumentIdentifier = HippoConfig.shared.appUserType == .customer ? "CustomerIncomingDocumentTableViewCell" : "IncomingDocumentTableViewCell"
+                    let cell = tableView.dequeueReusableCell(withIdentifier: incomingDocumentIdentifier) as! IncomingDocumentTableViewCell
                     cell.setCellWith(message: message)
                     cell.actionDelegate = self
                     cell.nameLabel.isHidden = false
@@ -2989,11 +3589,14 @@ extension ConversationsViewController: UITextViewDelegate {
         }
         
         self.addRemoveShadowInTextView(toAdd: true)
+        activeFormMessage = nil
         
         placeHolderLabel.textColor = #colorLiteral(red: 0.2862745098, green: 0.2862745098, blue: 0.2862745098, alpha: 0.8)
         textInTextField = textView.text
         textViewBgView.backgroundColor = .white
-        timer = Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(self.watcherOnTextView), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(withTimeInterval: 3.0, repeats: true) { [weak self] _ in
+            self?.watcherOnTextView()
+        }
         
         return true
     }
@@ -3011,29 +3614,21 @@ extension ConversationsViewController: UITextViewDelegate {
     }
     
     func textViewDidChange(_ textView: UITextView) {
-        if textView.text.isEmpty {
-            button_Recording.isHidden = false
-            sendMessageButton.isHidden = true
-        }
+        // Editing a rejected URL answer clears the error until the next send.
+        showBotInputError(false)
+        updateComposerHeight()
+        updateInputButtonsForText(hasText: !textView.text.isEmpty)
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text.trimWhiteSpacesAndNewLine() == ""{
-            button_Recording.isHidden = false
-            sendMessageButton.isHidden = true
-            
-            if let recordButtonDisabled = HippoConfig.shared.disableRecordingButton, recordButtonDisabled{
-                self.button_Recording.isHidden = true
-                self.sendMessageButton.isHidden = false
-                self.sendMessageButton.isEnabled = false
-            }
+            self.sendMessageButton.isEnabled = false
         }
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         
-        let newText = ((textView.text as NSString?)?.replacingCharacters(in: range,
-                                                                         with: text))!
+        let newText = ((textView.text as NSString?)?.replacingCharacters(in: range, with: text))!
         if newText.trimmingCharacters(in: .whitespacesAndNewlines).count == 0 {
             if text == "\n" {
                 textView.resignFirstResponder()
@@ -3053,21 +3648,8 @@ extension ConversationsViewController: UITextViewDelegate {
             }
         }
         
-        self.sendMessageButton.isEnabled = !(newText == "")
-        self.sendMessageButton.isHidden = (newText == "")
-        self.button_Recording.isHidden = !(newText == "")
-        
-        if let recordButtonDisabled = HippoConfig.shared.disableRecordingButton, recordButtonDisabled{
-            self.button_Recording.isHidden = true
-            self.sendMessageButton.isHidden = false
-            self.sendMessageButton.isEnabled = true
-        }
-        
-        if let _ = self.messageInEditing{
-            self.button_Recording.isHidden = true
-            self.sendMessageButton.isHidden = true
-        }
-        
+        updateInputButtonsForText(hasText: newText != "")
+
         return true
     }
 }
@@ -3124,6 +3706,10 @@ extension ConversationsViewController: ImageCellDelegate {
 }
 
 extension ConversationsViewController: HippoChannelDelegate {
+    func socketPushReceived(dict: [String: Any]) {
+        updateComposerVisibility(forSocketPush: dict)
+    }
+
     func closeChatActionFromRefreshChannel() {
         self.backButtonClicked()
     }
@@ -3134,13 +3720,17 @@ extension ConversationsViewController: HippoChannelDelegate {
         
         if channel?.chatDetail?.disableReply == true{
             //disableSendingReply(withOutUpdate: true)
-            disableSendingReply()
+            disableSendingReply(message: HippoStrings.cannotReplyToConversation)
         }
-        
+
+        showComposerIfAllowed()
+
         setTitleForCustomNavigationBar()
         handleAudioIcon()
         handleVideoIcon()
-        tableViewChat.reloadData()
+        updateInfoIconVisibility()
+        // The server echo of a bot form lands here with freshly parsed fields.
+        reloadChatKeepingFormFocus()
     }
     
     func cancelSendingMessage(message: HippoMessage, errorMessage: String?,errorCode : SocketClient.SocketError?) {
@@ -3173,6 +3763,190 @@ extension ConversationsViewController: HippoChannelDelegate {
         
     }
     
+    // MARK: - Bot input bar overlay (design 01 / 04 / 05)
+
+    private static let botComposerOverlayTag = 0xB07C
+    private static let botInputErrorTag = 0xB07D
+
+    /// Tinted strip just above the input bar: "Please enter a valid URL starting with http:// or https://".
+    func showBotInputError(_ show: Bool) {
+        guard isViewLoaded, let bar = textViewBgView, let host = bar.superview else { return }
+        let existing = host.viewWithTag(ConversationsViewController.botInputErrorTag) as? BotInputErrorStrip
+        guard show else {
+            existing?.isHidden = true
+            return
+        }
+        let strip: BotInputErrorStrip
+        if let existing = existing {
+            strip = existing
+        } else {
+            strip = BotInputErrorStrip()
+            strip.tag = ConversationsViewController.botInputErrorTag
+            strip.translatesAutoresizingMaskIntoConstraints = false
+            host.addSubview(strip)
+            NSLayoutConstraint.activate([
+                strip.leadingAnchor.constraint(equalTo: bar.leadingAnchor, constant: 12),
+                strip.trailingAnchor.constraint(equalTo: bar.trailingAnchor, constant: -12),
+                strip.bottomAnchor.constraint(equalTo: bar.topAnchor, constant: -6)
+            ])
+        }
+        strip.setURLMessage()
+        host.bringSubviewToFront(strip)
+        strip.isHidden = false
+    }
+
+    private var botComposerOverlay: BotComposerOverlay? {
+        return textViewBgView?.viewWithTag(ConversationsViewController.botComposerOverlayTag) as? BotComposerOverlay
+    }
+
+    /// Over the whole input bar: "Select date / time" button while a date question is open, and
+    /// a locked "Choose an option above" pill while a select card waits for Submit.
+    @objc override func botComposerStateMayHaveChanged() {
+        DispatchQueue.main.async { [weak self] in
+            self?.refreshBotComposerOverlay()
+            self?.refreshRecentTicketForm()
+            // Any change to the message list: re-apply the mic / plus rules for the newest
+            // message (URL question = text field + send only), however the message arrived.
+            if self?.isViewLoaded == true, self?.textViewBgView != nil {
+                self?.updateInputButtonsForText()
+            }
+            self?.updateEmptyChatState()
+        }
+    }
+
+    /// Builds the empty-state view from HippoConfig and centres it over the message list.
+    /// Text is required; the image is only shown alongside text. With no text nothing is
+    /// added (the old blank screen).
+    private func setUpEmptyChatState() {
+        guard emptyChatStateView == nil,
+              let text = HippoConfig.shared.emptyChatText, !text.isEmpty,
+              let container = tableViewChat.superview else { return }
+
+        let stack = UIStackView()
+        stack.axis = .vertical
+        stack.alignment = .center
+        stack.spacing = 8
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        // Taps pass through to the table (keyboard dismiss etc.).
+        stack.isUserInteractionEnabled = false
+        stack.isHidden = true
+
+        if let image = HippoConfig.shared.emptyChatImage {
+            let imageView = UIImageView(image: image)
+            imageView.contentMode = .scaleAspectFit
+            imageView.translatesAutoresizingMaskIntoConstraints = false
+            imageView.widthAnchor.constraint(lessThanOrEqualToConstant: 64).isActive = true
+            imageView.heightAnchor.constraint(lessThanOrEqualToConstant: 64).isActive = true
+            imageView.isAccessibilityElement = false
+            stack.addArrangedSubview(imageView)
+        }
+
+        let label = UILabel()
+        label.text = text
+        label.numberOfLines = 0
+        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 14)
+        label.textColor = HippoConfig.shared.colorConfig.hippoTextMuted
+        stack.addArrangedSubview(label)
+
+        container.insertSubview(stack, aboveSubview: tableViewChat)
+        NSLayoutConstraint.activate([
+            stack.centerXAnchor.constraint(equalTo: tableViewChat.centerXAnchor),
+            stack.centerYAnchor.constraint(equalTo: tableViewChat.centerYAnchor),
+            stack.leadingAnchor.constraint(greaterThanOrEqualTo: tableViewChat.leadingAnchor, constant: 40),
+            stack.trailingAnchor.constraint(lessThanOrEqualTo: tableViewChat.trailingAnchor, constant: -40)
+        ])
+        emptyChatStateView = stack
+    }
+
+    private func markEmptyChatStateReady() {
+        emptyChatStateReady = true
+        updateEmptyChatState()
+    }
+
+    /// Shows the empty state only for a loaded chat with no messages.
+    private func updateEmptyChatState() {
+        guard let emptyView = emptyChatStateView else { return }
+        let hasMessages = messagesGroupedByDate.contains { !$0.isEmpty }
+        emptyView.isHidden = !(emptyChatStateReady && !hasMessages)
+    }
+
+    private func refreshBotComposerOverlay() {
+        guard isViewLoaded, textViewBgView != nil, HippoConfig.shared.appUserType == .customer else { return }
+        let last = messagesGroupedByDate.last?.last
+        var mode: BotComposerOverlay.Mode = .hidden
+        if let last = last {
+            switch last.type {
+            case .dateTime:
+                if let action = last as? HippoActionMessage, action.responseMessage == nil {
+                    let kind = last.actionableMessage?.botResponseType
+                    let title = kind == .time ? HippoStrings.selectTime
+                        : kind == .dateTime ? HippoStrings.selectDateTime : HippoStrings.selectDate
+                    mode = .picker(title: title, icon: UIImage(systemName: kind == .time ? "clock" : "calendar", withConfiguration: UIImage.SymbolConfiguration(pointSize: 16, weight: .semibold)))
+                }
+            case .paymentCard:
+                // An unpaid payment card locks the composer until it is paid.
+                if !BotPaymentCardCell.isPaid(last), !BotPaymentCardCell.plans(last).isEmpty {
+                    mode = .locked(text: BotPaymentCardCell.isProcessing(last) ? HippoStrings.payInProgress : HippoStrings.payCompleteAbove)
+                }
+            case .address:
+                // Address question: "Select location" opens the location picker.
+                if let action = last as? HippoActionMessage, action.responseMessage == nil {
+                    // Same outlined pin as Android (hippo_ic_loc_pin), 19pt like its composer icon.
+                    mode = .picker(title: HippoStrings.locSelect, icon: BotLocationIcon.pin(size: 19))
+                }
+            case .consent:
+                // Bot buttons (type 20) waiting for a tap lock the composer, as on Android.
+                if let action = last as? HippoActionMessage, action.responseMessage == nil,
+                   action.selectedBtnId.isEmpty, !(action.buttons ?? []).isEmpty {
+                    mode = .locked(text: HippoStrings.chooseOptionAbove)
+                }
+            case .multipleSelect:
+                if last.customAction?.isReplied == 0 {
+                    mode = .locked(text: HippoStrings.chooseOptionAbove)
+                }
+            case .leadForm, .createTicket:
+                // An open lead / ticket form: its own fields take the answers.
+                if !last.content.questionsArray.isEmpty, !BotFormSpec(message: last, confirmed: []).isComplete {
+                    mode = .locked(text: HippoStrings.formCompleteAbove)
+                }
+            default:
+                break
+            }
+        }
+        if case .hidden = mode {
+            botComposerOverlay?.isHidden = true
+            return
+        }
+        let overlay: BotComposerOverlay
+        if let existing = botComposerOverlay {
+            overlay = existing
+        } else {
+            overlay = BotComposerOverlay()
+            overlay.tag = ConversationsViewController.botComposerOverlayTag
+            overlay.translatesAutoresizingMaskIntoConstraints = false
+            textViewBgView.addSubview(overlay)
+            NSLayoutConstraint.activate([
+                overlay.leadingAnchor.constraint(equalTo: textViewBgView.leadingAnchor),
+                overlay.trailingAnchor.constraint(equalTo: textViewBgView.trailingAnchor),
+                overlay.topAnchor.constraint(equalTo: textViewBgView.topAnchor),
+                overlay.bottomAnchor.constraint(equalTo: textViewBgView.bottomAnchor)
+            ])
+            overlay.onTap = { [weak self] in
+                guard let self = self else { return }
+                if self.messagesGroupedByDate.last?.last?.type == .address {
+                    self.openSearchAddress()
+                } else {
+                    self.actionCalendar()
+                }
+            }
+        }
+        messageTextView.resignFirstResponder()
+        overlay.apply(mode)
+        textViewBgView.bringSubviewToFront(overlay)
+        overlay.isHidden = false
+    }
+
     private func updateUIForCalendar(message : HippoMessage) {
         buttonCalendar.isHidden = false
         addFileButtonAction.isHidden = true
@@ -3192,22 +3966,50 @@ extension ConversationsViewController: HippoChannelDelegate {
         addFileButtonAction.isEnabled = true
         self.messageTextView.isUserInteractionEnabled = false
         self.placeHolderLabel.text = HippoStrings.chooseFile
+        updateInputButtonsForText()
     }
     
     @IBAction func actionCalendar() {
-        let dateTimePicker = UIStoryboard(name: "FuguUnique", bundle: FuguFlowManager.bundle).instantiateViewController(withIdentifier: "DateTimePicker") as! DateTimePicker
-        if let message = self.messagesGroupedByDate.last?.last {
-            dateTimePicker.message = message
-        }
-        dateTimePicker.modalPresentationStyle = .overFullScreen
-        dateTimePicker.delegate = self
-        self.present(dateTimePicker, animated: true, completion: nil)
+        guard let message = self.messagesGroupedByDate.last?.last as? HippoActionMessage,
+              message.type == .dateTime, message.responseMessage == nil else { return }
+        messageTextView.resignFirstResponder()
+        let sheet = BotDateTimeSheet(spec: BotDateTimeSpec(message: message))
+        sheet.delegate = self
+        self.present(sheet, animated: false, completion: nil)
     }
     
     private func openSearchAddress() {
-        let vc = SearchAddressController.getNewInstance()
-        vc.delegate = self
-        self.navigationController?.pushViewController(vc, animated: true)
+        guard let question = messagesGroupedByDate.last?.last as? HippoActionMessage,
+              question.type == .address, question.responseMessage == nil else { return }
+        messageTextView.resignFirstResponder()
+        let picker = BotLocationPickerController()
+        // One tap in the picker sends the address - no extra Send step.
+        picker.onPick = { [weak self] address in self?.sendBotAddress(address) }
+        present(picker, animated: true)
+    }
+
+    /// Sends the picked place as the answer to the open address question (message_type 25).
+    private func sendBotAddress(_ address: Address) {
+        guard let question = messagesGroupedByDate.last?.last as? HippoActionMessage,
+              question.type == .address, question.responseMessage == nil,
+              let text = address.address?.trimWhiteSpacesAndNewLine(), !text.isEmpty else { return }
+        if channel != nil, !channel.isSubscribed() {
+            channel.subscribe()
+        }
+        question.contentValues = [["address": text, "latitude": address.lat ?? 0.0, "longitude": address.lng ?? 0.0]]
+        question.selectBtnWith(btnId: "")
+        tableViewChat.reloadData()
+        sendMessage(message: question)
+        messageTextView.text = ""
+        updateComposerHeight()
+        // Answered: the composer goes back to text straight away; the server echo confirms it.
+        buttonCalendar.isHidden = true
+        addFileButtonAction.isHidden = false
+        addFileButtonAction.isEnabled = true
+        placeHolderLabel.text = HippoStrings.messagePlaceHolderText
+        updateInputButtonsForText()
+        botComposerStateMayHaveChanged()
+        newScrollToBottom(animated: true)
     }
     
     func newMessageReceived(newMessage message: HippoMessage) {
@@ -3218,7 +4020,9 @@ extension ConversationsViewController: HippoChannelDelegate {
             addFileButtonAction.isEnabled = true
             placeHolderLabel.text = HippoStrings.messagePlaceHolderText
         }
-        
+        // A typing event or receipt must not bring back the plus / mic during a file or link question.
+        updateInputButtonsForText()
+
         guard !isSentByMe(senderId: message.senderId) || message.type.isBotMessage  else {
             HippoConfig.shared.log.debug("Yahaa se nahi nikla", level: .custom)
             return
@@ -3261,6 +4065,14 @@ extension ConversationsViewController: HippoChannelDelegate {
         
         if !message.is_rating_given || message.type == .hippoPay || message.type == .paymentCard {
             updateMessagesArrayLocallyForUIUpdation(message)
+            // Now the newest message: set mic / plus for what the bot is asking.
+            // A bot message right after a file question (e.g. a sample image) keeps it open.
+            if message.type != .botAttachment, isBotAskingForFile {
+                setUIForBotAttachment()
+            }
+            updateInputButtonsForText()
+            // Newest message in view: just above the keyboard when it is open (the chat's
+            // bottom inset already ends at the composer / keyboard), else at the bottom.
             newScrollToBottom(animated: true)
         }
         //TODO: - Scrolling Logic
@@ -3275,13 +4087,27 @@ extension ConversationsViewController: HippoChannelDelegate {
         if message.type == MessageType.leadForm {
             self.replaceLastQuickReplyIncaseofBotForm()
         }
-        if message.type == MessageType.createTicket {
+        if message.type == .leadForm || message.type == .createTicket {
+            // Queued after updateMessagesArrayLocallyForUIUpdation's async insert.
+            DispatchQueue.main.async {
+                self.activateFormIfLastMessage(self.getLastMessage())
+            }
+        }
+        
+        if message.type == MessageType.createTicket{
             button_Recording.isEnabled = false
             disableSendingNewMessages()
         }
         
-        
+        if message.type == MessageType.consent{
+            // Locked by the "Choose an option above" pill, not hidden.
+            self.isFirst = true
+        }
+
+        showComposerIfAllowed()
+        updateInfoIconVisibility()
     }
+
     func getMessageForQuickReply(messages: [HippoMessage]) -> HippoMessage? {
         var quickReplyMessage: HippoMessage?
         for message in messages.reversed() {
@@ -3334,21 +4160,17 @@ extension ConversationsViewController: HippoChannelDelegate {
     }
     
     func deleteTypingLabelSection() {
-        DispatchQueue.main.async {
-            guard !self.isTypingLabelHidden, self.isTypingSectionPresent() else {
-                return
-            }
-            let section = self.tableViewChat.numberOfSections - 1
-            guard section >= 0, section < self.tableViewChat.numberOfSections else {
-                return
-            }
-            self.isTypingLabelHidden = true
-            self.tableViewChat.performBatchUpdates({
-                self.tableViewChat.deleteSections(IndexSet(integer: section), with: .none)
-            })
+        guard isTypingLabelHidden, isTypingSectionPresent() else {
+            return
         }
+        if tableViewChat.numberOfSections == 1{
+            return
+        }
+        
+        let typingSectionIndex = IndexSet([tableViewChat.numberOfSections - 1])
+        tableViewChat.deleteSections(typingSectionIndex, with: .none)
     }
-
+    
     func isTypingSectionPresent() -> Bool {
         return self.messagesGroupedByDate.count < tableViewChat.numberOfSections
     }
@@ -3369,12 +4191,32 @@ extension ConversationsViewController: HippoChannelDelegate {
     //    }
     
 }
+
+extension ConversationsViewController: BotDateTimeSheetDelegate {
+    /// Sheet confirmed: send the answer straight away, then hand the composer back.
+    func botDateTimePicked(_ value: String) {
+        guard let question = messagesGroupedByDate.last?.last as? HippoActionMessage,
+              question.type == .dateTime, question.responseMessage == nil else { return }
+        messageTextView.text = value
+        sendDateMessage()
+        if question.responseMessage != nil {
+            // Answered: the composer goes back to text straight away.
+            buttonCalendar.isHidden = true
+            addFileButtonAction.isHidden = false
+            addFileButtonAction.isEnabled = true
+            placeHolderLabel.text = HippoStrings.messagePlaceHolderText
+        }
+        botComposerStateMayHaveChanged()
+    }
+}
+
 extension ConversationsViewController : DateTimePickerDelegate{
     func dateSelected(selectedDate: String) {
         sendMessageButton.isEnabled = true
         sendMessageButton.isHidden = false
         button_Recording.isHidden = true
         self.messageTextView.text = selectedDate
+        updateComposerHeight()
         sendMessageButton.isEnabled = true
     }
 }
@@ -3461,10 +4303,12 @@ extension ConversationsViewController: LeadTableViewCellDelegate {
             return
         }
         
-        popover = LCPopover(for: sender, title: "") { tuple in
+        popover = LCPopover(for: sender, title: "") { [weak self] tuple in
             // Use of the selected tuple
             guard let value = tuple else { return }
             sender.text = value
+            // Picking an option answers the menu field - submit it and move on.
+            self?.formFieldCell(containing: sender)?.submitAnswer()
         }
         
         guard let popover = popover else {
@@ -3511,6 +4355,14 @@ extension ConversationsViewController: LeadTableViewCellDelegate {
                 self?.tableViewChat.reloadData()
             }
         }
+        attachmentObj.uploadFailed = {[weak self](name) in
+            DispatchQueue.main.async {
+                if let i = data.attachmentUrl.firstIndex(where: { $0.name == name && $0.isUploaded != true }) {
+                    data.attachmentUrl[i].isFailed = true
+                }
+                self?.tableViewChat.reloadData()
+            }
+        }
         attachmentObj.openAttachment = true
     }
     
@@ -3546,15 +4398,24 @@ extension ConversationsViewController: LeadTableViewCellDelegate {
     }
     
     func cellUpdated(for cell: LeadTableViewCell, data: [FormData], isSkipAction: Bool) {
-        guard let indexPath = self.tableViewChat.indexPath(for: cell) else {
+        guard let indexPath = formIndexPath(for: cell) else {
             return
         }
         guard indexPath.section < self.messagesGroupedByDate.count else {
             return
         }
-        messagesGroupedByDate[indexPath.section][indexPath.row].leadsDataArray = data
-        DispatchQueue.main.async {
-            self.tableViewChat.reloadData()
+        let message = messagesGroupedByDate[indexPath.section][indexPath.row]
+        message.leadsDataArray = data
+        activeFormMessage = isSkipAction ? nil : message
+        if isSkipAction {
+            DispatchQueue.main.async {
+                self.reloadChatKeepingFormFocus()
+            }
+        } else {
+            // Synchronous on purpose: the form's own reload has just taken focus off the field.
+            // Re-focusing in the same run-loop turn keeps the keyboard up; deferring it let the
+            // keyboard start to close before the next field took over.
+            reloadChatKeepingFormFocus()
         }
         var count = 0
         for message in data {
@@ -3562,21 +4423,192 @@ extension ConversationsViewController: LeadTableViewCellDelegate {
                 count += 1
             }
         }
-        guard let cell = cell.tableView.cellForRow(at: IndexPath(row: 0, section: count - 1)) as? LeadDataTableViewCell, !isSkipAction else {
+        guard let _ = cell.tableView.cellForRow(at: IndexPath(row: 0, section: count - 1)) as? LeadDataTableViewCell, !isSkipAction else {
             return
         }
         
     }
     
+    // MARK: Bot form focus
+    //
+    // The next field to answer is derived from the form data (HippoMessage.nextFormFieldIndex:
+    // first shown, uncompleted field), not remembered in a cell - so it survives every reload,
+    // including the server echo that rebuilds the form's fields.
+
+    /// Full reload (always resizes the form row correctly), then puts the user back on the
+    /// active form's next field. Text being typed is saved first so a reload can't wipe it.
+    func reloadChatKeepingFormFocus() {
+        let answerBeingEdited = answeredFormFieldBeingEdited()
+        saveTypedFormDraft()
+        tableViewChat.reloadData()
+        // Re-bind the visible cells now: sendReply / cellUpdated look the form up from its cell,
+        // and right after reloadData a cell has no index path until the next layout.
+        tableViewChat.layoutIfNeeded()
+        if let edit = answerBeingEdited, restoreEditOfAnsweredField(edit) {
+            return
+        }
+        focusActiveFormField()
+    }
+
+    /// An answered, editable field (pencil) the user is changing right now, with what they've
+    /// typed - so a reload (e.g. from a socket push) doesn't throw them to the next field.
+    private func answeredFormFieldBeingEdited() -> (message: HippoMessage, section: Int, text: String)? {
+        for case let formCell as LeadTableViewCell in tableViewChat.visibleCells {
+            for case let fieldCell as LeadDataTableViewCell in formCell.tableView.visibleCells
+            where fieldCell.valueTextfield.isFirstResponder {
+                guard let message = formCell.message,
+                      let data = fieldCell.boundData, data.isCompleted,
+                      let section = formCell.filterFileArray.firstIndex(where: { $0 === data }) else { return nil }
+                return (message, section, fieldCell.valueTextfield.text ?? "")
+            }
+        }
+        return nil
+    }
+
+    private func restoreEditOfAnsweredField(_ edit: (message: HippoMessage, section: Int, text: String)) -> Bool {
+        guard let indexPath = indexPathOfMessage(edit.message),
+              let formCell = tableViewChat.cellForRow(at: indexPath) as? LeadTableViewCell,
+              let fieldCell = formCell.fieldCell(forSection: edit.section),
+              let data = fieldCell.boundData, data.isCompleted, data.shouldBeEditable else { return false }
+        fieldCell.valueTextfield.text = edit.text
+        if edit.text != data.value {
+            // After setData's deferred styling, which would put the pencil back.
+            DispatchQueue.main.async { [weak fieldCell] in
+                guard let fieldCell = fieldCell, fieldCell.boundData === data else { return }
+                fieldCell.showSubmitIcon()
+            }
+        }
+        if !fieldCell.valueTextfield.isFirstResponder {
+            fieldCell.valueTextfield.becomeFirstResponder()
+        }
+        return true
+    }
+
+    /// Makes `message` the active form if it's the last message and still has a field to
+    /// answer, then focuses that field - for a form that just arrived or was loaded with the chat.
+    func activateFormIfLastMessage(_ message: HippoMessage?) {
+        guard let message = message, message === getLastMessage(), message.nextFormFieldIndex != nil else { return }
+        activeFormMessage = message
+        DispatchQueue.main.async {
+            self.focusActiveFormField()
+        }
+    }
+
+    /// Text field -> keyboard. Menu -> option list, no keyboard. Attachment -> keyboard closed,
+    /// user taps it. Each is scrolled into view; nothing left to answer -> keyboard closed.
+    func focusActiveFormField() {
+        guard let message = activeFormMessage, let indexPath = indexPathOfMessage(message) else { return }
+        guard let next = message.nextFormFieldIndex else {
+            activeFormMessage = nil
+            view.endEditing(true)
+            return
+        }
+        tableViewChat.layoutIfNeeded()
+        if tableViewChat.cellForRow(at: indexPath) == nil {
+            tableViewChat.scrollToRow(at: indexPath, at: .bottom, animated: false)
+            tableViewChat.layoutIfNeeded()
+        }
+        if let cardCell = tableViewChat.cellForRow(at: indexPath) as? BotFormCardCell {
+            // Bottom of the card (the open step) above the keyboard / composer.
+            tableViewChat.scrollToRow(at: indexPath, at: .bottom, animated: false)
+            if cardCell.card.currentStepTakesKeyboard {
+                cardCell.card.focusCurrentField()
+            } else {
+                view.endEditing(true)
+            }
+            DispatchQueue.main.async {
+                self.keepActiveFormStepVisible(animated: true)
+            }
+            return
+        }
+        guard let formCell = tableViewChat.cellForRow(at: indexPath) as? LeadTableViewCell,
+              let fieldCell = formCell.fieldCell(forSection: next) else { return }
+
+        switch message.leadsDataArray[next].fieldKind {
+        case .text:
+            // Scroll first, then focus: the keyboard manager lifts the field above the keyboard.
+            scrollFormFieldIntoView(fieldCell, animated: false)
+            if !fieldCell.valueTextfield.isFirstResponder {
+                fieldCell.valueTextfield.becomeFirstResponder()
+            }
+        case .menu:
+            scrollFormFieldIntoView(fieldCell, animated: true)
+            guard !(presentedViewController is LCPopover) else { return }
+            view.endEditing(true)
+            // After the scroll and any closing popover settle - a popover can't present over
+            // another one. Focusing a menu field loads its options and shows the list.
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) { [weak self, weak fieldCell] in
+                guard let self = self, let fieldCell = fieldCell, fieldCell.window != nil,
+                      self.activeFormMessage === message, self.presentedViewController == nil,
+                      !fieldCell.valueTextfield.isFirstResponder else { return }
+                fieldCell.valueTextfield.becomeFirstResponder()
+            }
+        case .attachment:
+            view.endEditing(true)
+            scrollFormFieldIntoView(fieldCell, animated: true)
+        }
+    }
+
+    private func scrollFormFieldIntoView(_ fieldCell: UIView, animated: Bool) {
+        let rect = fieldCell.convert(fieldCell.bounds, to: tableViewChat).insetBy(dx: 0, dy: -12)
+        tableViewChat.scrollRectToVisible(rect, animated: animated)
+    }
+
+    /// Copies what the user is typing into the field's draftValue, which LeadDataTableViewCell
+    /// shows after a reload.
+    private func saveTypedFormDraft() {
+        guard let message = activeFormMessage, let next = message.nextFormFieldIndex,
+              let indexPath = indexPathOfMessage(message),
+              let formCell = tableViewChat.cellForRow(at: indexPath) as? LeadTableViewCell,
+              let fieldCell = formCell.fieldCell(forSection: next),
+              fieldCell.valueTextfield.isFirstResponder else { return }
+        message.leadsDataArray[next].draftValue = fieldCell.valueTextfield.text ?? ""
+    }
+
+    /// Where a form cell's message is. Falls back to the cell's bound message when the table
+    /// can't place the cell (e.g. between a reload and the next layout) - otherwise a submit
+    /// could be dropped without ever reaching the server.
+    private func formIndexPath(for cell: LeadTableViewCell) -> IndexPath? {
+        if let indexPath = tableViewChat.indexPath(for: cell) {
+            return indexPath
+        }
+        guard let message = cell.message else { return nil }
+        return indexPathOfMessage(message)
+    }
+
+    private func indexPathOfMessage(_ message: HippoMessage) -> IndexPath? {
+        for (section, messages) in messagesGroupedByDate.enumerated() {
+            if let row = messages.firstIndex(where: { $0 === message || ($0.messageUniqueID != nil && $0.messageUniqueID == message.messageUniqueID) }) {
+                return IndexPath(row: row, section: section)
+            }
+        }
+        return nil
+    }
+
+    private func formFieldCell(containing view: UIView) -> LeadDataTableViewCell? {
+        var current = view.superview
+        while let candidate = current {
+            if let cell = candidate as? LeadDataTableViewCell { return cell }
+            current = candidate.superview
+        }
+        return nil
+    }
+
     func sendReply(forCell cell: LeadTableViewCell, data: [FormData]) {
-        guard let indexPath = self.tableViewChat.indexPath(for: cell) else {
+        guard let indexPath = formIndexPath(for: cell) else {
             return
         }
         guard indexPath.section < self.messagesGroupedByDate.count else {
             return
         }
         let message = messagesGroupedByDate[indexPath.section][indexPath.row]
-        
+        print("[BotForm] sendReply resolved form=\(message.messageUniqueID ?? "nil") type=\(message.type.rawValue) cellForm=\(cell.message?.messageUniqueID ?? "nil")")
+        sendFormReply(message: message, data: data)
+    }
+
+    /// Sends the form's values (the whole list, as the protocol expects). A ticket's description
+    /// also creates the ERP customer the ticket is raised for.
+    func sendFormReply(message: HippoMessage, data: [FormData]) {
         ///*change editable status if we are sending description*/
         if message.type == .createTicket{
             if let index = data.lastIndex(where: {$0.isCompleted == true}), index < data.count , data[index].paramId == CreateTicketFields.description.rawValue{
@@ -3586,20 +4618,20 @@ extension ConversationsViewController: LeadTableViewCellDelegate {
                 if index == message.content.questionsArray.count - 1{
                     // if description is last question wait for creating customer before publishing
                     self.createCustomer(shouldWaitForData: true, data: data){(status) in
-                        self.startSendingLeadForm(forCell: cell, message: message, data: data)
+                        self.startSendingLeadForm(message: message, data: data)
                     }
                 }else{
                     //call api in background thread
                     self.createCustomer(shouldWaitForData: false, data: data){(status) in
-                        self.startSendingLeadForm(forCell: cell, message: message, data: data)
+                        self.startSendingLeadForm(message: message, data: data)
                     }
                 }
                 
             }else{
-                self.startSendingLeadForm(forCell: cell, message: message, data: data)
+                self.startSendingLeadForm(message: message, data: data)
             }
         }else{
-            self.startSendingLeadForm(forCell: cell, message: message, data: data)
+            self.startSendingLeadForm(message: message, data: data)
         }
         
     }
@@ -3628,7 +4660,7 @@ extension ConversationsViewController: LeadTableViewCellDelegate {
         }
     }
     
-    private func startSendingLeadForm(forCell cell: LeadTableViewCell, message: HippoMessage, data: [FormData]){
+    private func startSendingLeadForm(message: HippoMessage, data: [FormData]){
         message.content.erpCustomerName = self.createTicketVM.customerName
         message.leadsDataArray = data
         HippoChannel.botMessageMUID = message.messageUniqueID ?? String.generateUniqueId()
@@ -3645,11 +4677,16 @@ extension ConversationsViewController: LeadTableViewCellDelegate {
             let isReplyMessageSent = result?.isReplyMessageSent ?? false
             
             if !isReplyMessageSent {
+                print("[BotForm] sendFormValues form=\(message.messageUniqueID ?? "nil") type=\(message.type.rawValue) values=\(message.leadsDataArray.prefix(while: { !$0.value.isEmpty }).map { $0.value })")
                 self?.channel?.sendFormValues(message: message, completion: {
                     message.botFormMessageUniqueID =  nil
-                    cell.checkAndDisableSkipButton()
-                    
-                    self?.cellUpdated(for: cell, data: data, isSkipAction: false)
+                    // Submitting already reloaded the form (cellUpdated) and a successful ack
+                    // changes nothing on screen. Reloading again here only flickered the keyboard.
+                    // Don't go through `cell` here: by the time the ack arrives it may have been
+                    // reused for another form. The reload re-applies Skip visibility from data.
+                    if message.wasMessageSendingFailed {
+                        self?.reloadChatKeepingFormFocus()
+                    }
                     
                     if message.type == .createTicket{
                         var arrayOfMessages: [String] = []
@@ -3680,7 +4717,7 @@ extension ConversationsViewController: BotOtgoingMessageCellDelegate {
         }
         switch indexPath.section {
         case let chatSection where chatSection < self.messagesGroupedByDate.count:
-            var messagesArray = messagesGroupedByDate[chatSection]
+            let messagesArray = messagesGroupedByDate[chatSection]
             let chat = messagesArray[indexPath.row]
             chat.selectedActionId = chat.content.actionId[index]
             self.sendQuickMessage(shouldSendButtonTitle: true, chat: chat, buttonIndex: index)
@@ -3709,11 +4746,10 @@ extension ConversationsViewController: BotOtgoingMessageCellDelegate {
                 self?.channel?.sendFormValues(message: chat, completion: {
                     chat.isQuickReplyEnabled = false
                     self?.tableViewChat.reloadData()
-                    
+
                 })
             }
         }
-        
     }
     
     func sendQuickReplyMessage(with message: String) {
@@ -3817,35 +4853,6 @@ extension ConversationsViewController {
             HippoConfig.shared.delegate?.hippoUserLogOut()
         }
     }
-    
-    func fetchAllConversationCache() -> [FuguConversation] {
-        guard let convCache = FuguDefaults.object(forKey: DefaultName.conversationData.rawValue) as? [[String: Any]] else {
-            return []
-        }
-        
-        let arrayOfConversation = FuguConversation.getConversationArrayFrom(json: convCache)
-        return arrayOfConversation
-    }
-    
-    func shouldEnableMessageSendingView() -> Bool{
-        guard HippoConfig.shared.newChatCallback != nil && (self.channelId <= 0 && self.labelId != -1) else {return true}
-        let alreadyActiveChannel = getAlreadyCreatedChannels()
-        
-        if let (maxChats, _) = HippoConfig.shared.newChatCallback?(alreadyActiveChannel), let maxChats = maxChats{
-            if maxChats <= alreadyActiveChannel {
-                return false
-            }
-        }
-        return true
-    }
-    
-    func getAlreadyCreatedChannels() -> Int{
-        let convo = fetchAllConversationCache()
-        let count = convo.filter { con in
-            return con.channelStatus.rawValue == 1 && !((con.channelId ?? 0) <= 0 && con.labelId != nil)
-        }
-        return count.count
-    }
 }
 
 extension ConversationsViewController: UIGestureRecognizerDelegate {
@@ -3855,6 +4862,7 @@ extension ConversationsViewController: UIGestureRecognizerDelegate {
     }
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         guard gestureRecognizer.isEqual(self.navigationController?.interactivePopGestureRecognizer) else{ return true }
+        guard (self.navigationController?.viewControllers.count ?? 0) > 1 else { return false }
         messageTextView.resignFirstResponder()
         channel?.send(message: HippoMessage.stopTyping, completion: {})
         let rawLabelID = self.labelId == -1 ? nil : self.labelId
@@ -3907,7 +4915,6 @@ extension ConversationsViewController{
         self.Button_EditMessage.isHidden = false
         self.messageTextView.text = message.message
         self.messageTextView.becomeFirstResponder()
-        
     }
     
     func messageEditingStopped(){
@@ -3918,32 +4925,486 @@ extension ConversationsViewController{
         self.Button_CancelEdit.isHidden = true
         self.Button_EditMessage.isHidden = true
         self.messageTextView.text = ""
+        self.updateComposerHeight()
         self.tableViewChat.deselectRow(at: editingMessageIndex ?? IndexPath(), animated: true)
         self.messageTextView.resignFirstResponder()
+        // Back from editing: mic / plus follow the open bot question again (none for a URL one).
+        updateInputButtonsForText()
+    }
+    
+    func fetchAllConversationCache() -> [FuguConversation] {
+        guard let convCache = FuguDefaults.object(forKey: DefaultName.conversationData.rawValue) as? [[String: Any]] else {
+            return []
+        }
+        
+        let arrayOfConversation = FuguConversation.getConversationArrayFrom(json: convCache)
+        return arrayOfConversation
+    }
+    
+    func shouldEnableMessageSendingView() -> Bool{
+        guard HippoConfig.shared.newChatCallback != nil && (self.channelId <= 0 && self.labelId != -1) else {return true}
+        let alreadyActiveChannel = getAlreadyCreatedChannels()
+        
+        if let (maxChats, _) = HippoConfig.shared.newChatCallback?(alreadyActiveChannel), let maxChats = maxChats{
+            if maxChats <= alreadyActiveChannel {
+                return false
+            }
+        }
+        return true
+    }
+    
+    func getAlreadyCreatedChannels() -> Int{
+        let convo = fetchAllConversationCache()
+        let count = convo.filter { con in
+            return con.channelStatus.rawValue == 1 && !((con.channelId ?? 0) <= 0 && con.labelId != nil)
+        }
+        return count.count
     }
     
 }
-extension ConversationsViewController : RecordViewDelegate {
-    
-    func onStart() {
-        recordingHelper.startRecording()
+
+// MARK: - Voice recording (tap the mic to start, tap send to send, tap trash to discard)
+
+extension ConversationsViewController {
+
+    enum VoiceRecordingState {
+        case idle
+        case recording
     }
-    
-    func onCancel() {
-        recordingHelper.finishRecording(success: false)
+
+    private func setupRecordingBar() {
+        guard recordingBar.superview == nil else { return }
+        textViewBgView.addSubview(recordingBar)
+        NSLayoutConstraint.activate([
+            recordingBar.leadingAnchor.constraint(equalTo: textViewBgView.leadingAnchor),
+            recordingBar.topAnchor.constraint(equalTo: textViewBgView.topAnchor),
+            recordingBar.bottomAnchor.constraint(equalTo: textViewBgView.bottomAnchor),
+            recordingBar.trailingAnchor.constraint(equalTo: stackViewButton.leadingAnchor, constant: -4),
+        ])
+        recordingBar.onTrashTapped = { [weak self] in self?.cancelVoiceRecording() }
     }
-    
-    func onFinished(duration: CGFloat) {
-        if duration > 0.0 {
-            recordingHelper.finishRecording(success: true)
-        }else {
-            recordingHelper.finishRecording(success: false)
+
+    @objc func micButtonTapped() {
+        guard voiceRecordingState == .idle else { return }
+        requestMicPermission { [weak self] granted in
+            guard let self = self else { return }
+            guard granted else { self.showMicPermissionDeniedAlert(); return }
+            self.beginVoiceRecording()
         }
-        viewRecord.isHidden = true
     }
-    
-    func onAnimationEnd() {
-        viewRecord.isHidden = true
+
+    private func beginVoiceRecording() {
+        setupRecordingBar()
+        messageTextView.resignFirstResponder()
+        guard recordingHelper.startRecording() else { return }
+        voiceRecordingState = .recording
+
+        // Swap the composer into the recording layout.
+        recordingBar.backgroundColor = textViewBgView.backgroundColor ?? .white
+        textViewBgView.bringSubviewToFront(recordingBar)
+        recordingBar.isHidden = false
+        recordingBar.reset()
+        addFileButtonAction.isHidden = true
+        messageTextView.isHidden = true
+        placeHolderLabel.isHidden = true
+        button_Recording.isHidden = true
+        sendMessageButton.isHidden = false
+        sendMessageButton.isEnabled = true
+
+        recordingStartDate = Date()
+        recordingElapsedTimer?.invalidate()
+        recordingElapsedTimer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: true) { [weak self] _ in
+            guard let self = self, let start = self.recordingStartDate else { return }
+            self.recordingBar.setElapsed(Date().timeIntervalSince(start))
+        }
     }
-    
+
+    private func finishVoiceRecordingAndSend() {
+        guard voiceRecordingState == .recording else { return }
+        endRecordingTimers()
+        // RecordingHelper sends via recordingFinished(url:), or shows the
+        // "too short" alert via recordingTooShort() for clips under 1s.
+        recordingHelper.finishRecording(success: true)
+        exitVoiceRecordingUI()
+    }
+
+    func cancelVoiceRecording() {
+        guard voiceRecordingState == .recording else { return }
+        endRecordingTimers()
+        recordingHelper.finishRecording(success: false)
+        exitVoiceRecordingUI()
+    }
+
+    private func endRecordingTimers() {
+        recordingElapsedTimer?.invalidate()
+        recordingElapsedTimer = nil
+        recordingStartDate = nil
+        recordingBar.stopDotBlink()
+    }
+
+    private func exitVoiceRecordingUI() {
+        voiceRecordingState = .idle
+        recordingBar.isHidden = true
+        addFileButtonAction.isHidden = false
+        messageTextView.isHidden = false
+        placeHolderLabel.isHidden = messageTextView.hasText
+        updateInputButtonsForText()
+    }
+
+    private func requestMicPermission(_ completion: @escaping (Bool) -> Void) {
+        let session = AVAudioSession.sharedInstance()
+        switch session.recordPermission {
+        case .granted:
+            completion(true)
+        case .denied:
+            completion(false)
+        case .undetermined:
+            session.requestRecordPermission { granted in
+                DispatchQueue.main.async { completion(granted) }
+            }
+        @unknown default:
+            completion(false)
+        }
+    }
+
+    private func showMicPermissionDeniedAlert() {
+        let alert = UIAlertController(title: nil,
+                                     message: HippoStrings.microphoneAccessMessage,
+                                     preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: HippoStrings.cancel, style: .cancel))
+        alert.addAction(UIAlertAction(title: HippoStrings.openSettings, style: .default) { _ in
+            if let url = URL(string: UIApplication.openSettingsURLString) {
+                UIApplication.shared.open(url)
+            }
+        })
+        present(alert, animated: true)
+    }
+}
+
+
+// MARK: - BotComposerOverlay
+
+/// Covers the chat input bar for bot questions: a tappable accent pill ("📅 Select date") or a
+/// locked muted pill ("🔒 Choose an option above"). Colours follow HippoColorConfig.
+final class BotComposerOverlay: UIView {
+
+    enum Mode {
+        case hidden
+        case picker(title: String, icon: UIImage?)
+        case locked(text: String)
+    }
+
+    var onTap: (() -> Void)?
+    private let pill = UIButton(type: .system)
+    private var tappable = false
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        pill.translatesAutoresizingMaskIntoConstraints = false
+        pill.layer.cornerRadius = 14
+        pill.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .semibold)
+        pill.addTarget(self, action: #selector(tapped), for: .touchUpInside)
+        addSubview(pill)
+        NSLayoutConstraint.activate([
+            pill.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12),
+            pill.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12),
+            pill.centerYAnchor.constraint(equalTo: centerYAnchor),
+            pill.heightAnchor.constraint(equalToConstant: 44)
+        ])
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    func apply(_ mode: Mode) {
+        let colors = HippoConfig.shared.colorConfig
+        backgroundColor = colors.hippoSurface
+        switch mode {
+        case .hidden:
+            isHidden = true
+        case .picker(let title, let icon):
+            tappable = true
+            pill.backgroundColor = colors.hippoAccentSubtle
+            pill.tintColor = colors.hippoAccent
+            pill.setTitleColor(colors.hippoAccent, for: .normal)
+            pill.setImage(icon, for: .normal)
+            pill.setTitle("  " + title, for: .normal)
+            pill.contentHorizontalAlignment = .center
+            pill.contentEdgeInsets = .zero
+        case .locked(let text):
+            tappable = false
+            pill.backgroundColor = colors.hippoSurfaceInput
+            pill.tintColor = colors.hippoTextMuted
+            pill.setTitleColor(colors.hippoTextMuted, for: .normal)
+            pill.titleLabel?.font = UIFont.systemFont(ofSize: 14.5, weight: .regular)
+            pill.setImage(UIImage(systemName: "lock", withConfiguration: UIImage.SymbolConfiguration(pointSize: 13, weight: .regular)), for: .normal)
+            pill.setTitle("  " + text, for: .normal)
+            pill.contentHorizontalAlignment = .leading
+            pill.contentEdgeInsets = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+        }
+        if case .picker = mode {
+            pill.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .semibold)
+        }
+    }
+
+    @objc private func tapped() {
+        if tappable { onTap?() }
+    }
+}
+
+/// Error strip shown above the composer when a bot URL answer is rejected: error colour at
+/// ~10% over the surface, an error-coloured icon and the hint.
+final class BotInputErrorStrip: UIView {
+
+    private let icon = UIImageView()
+    private let label = UILabel()
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        layer.cornerRadius = 12
+        icon.image = UIImage(systemName: "exclamationmark.circle", withConfiguration: UIImage.SymbolConfiguration(pointSize: 14, weight: .semibold))
+        icon.setContentHuggingPriority(.required, for: .horizontal)
+        label.numberOfLines = 0
+        let row = UIStackView(arrangedSubviews: [icon, label])
+        row.spacing = 8
+        row.alignment = .center
+        row.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(row)
+        NSLayoutConstraint.activate([
+            row.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12),
+            row.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12),
+            row.topAnchor.constraint(equalTo: topAnchor, constant: 9),
+            row.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -9)
+        ])
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    func setURLMessage() {
+        let colors = HippoConfig.shared.colorConfig
+        let error = colors.hippoError
+        backgroundColor = BotInputErrorStrip.blend(error.withAlphaComponent(0.1), over: colors.hippoSurface)
+        icon.tintColor = error
+        let regular = UIFont.systemFont(ofSize: 13)
+        let bold = UIFont.systemFont(ofSize: 13, weight: .semibold)
+        let text = NSMutableAttributedString(string: HippoStrings.botInvalidUrlPrefix + " ", attributes: [.font: regular, .foregroundColor: error])
+        text.append(NSAttributedString(string: "http://", attributes: [.font: bold, .foregroundColor: error]))
+        text.append(NSAttributedString(string: " " + HippoStrings.botInvalidUrlOr + " ", attributes: [.font: regular, .foregroundColor: error]))
+        text.append(NSAttributedString(string: "https://", attributes: [.font: bold, .foregroundColor: error]))
+        label.attributedText = text
+    }
+
+    private static func blend(_ top: UIColor, over bottom: UIColor) -> UIColor {
+        var tr: CGFloat = 0, tg: CGFloat = 0, tb: CGFloat = 0, ta: CGFloat = 0
+        var br: CGFloat = 0, bg: CGFloat = 0, bb: CGFloat = 0, ba: CGFloat = 0
+        top.getRed(&tr, green: &tg, blue: &tb, alpha: &ta)
+        bottom.getRed(&br, green: &bg, blue: &bb, alpha: &ba)
+        return UIColor(red: tr * ta + br * (1 - ta), green: tg * ta + bg * (1 - ta), blue: tb * ta + bb * (1 - ta), alpha: 1)
+    }
+}
+
+/// URL answers for bot questions: a single http(s) link with a host, nothing else around it.
+enum BotUrl {
+    static func isValid(_ text: String) -> Bool {
+        let t = text.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !t.isEmpty, t.rangeOfCharacter(from: .whitespacesAndNewlines) == nil else { return false }
+        let lower = t.lowercased()
+        guard lower.hasPrefix("http://") || lower.hasPrefix("https://") else { return false }
+        guard let host = URL(string: t)?.host, host.contains("."), !host.hasPrefix("."), !host.hasSuffix(".") else { return false }
+        guard let detector = try? NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue) else { return true }
+        let range = NSRange(t.startIndex..., in: t)
+        return detector.firstMatch(in: t, options: [], range: range)?.range == range
+    }
+}
+
+// MARK: - Bot form card (customer lead / ticket forms)
+extension ConversationsViewController: BotFormCardHost {
+
+    func botForm(submit value: String, at index: Int, of message: HippoMessage) {
+        let data = message.leadsDataArray
+        guard index < data.count else { return }
+        let field = data[index]
+        let wasCompleted = field.isCompleted
+        field.value = value
+        field.draftValue = ""
+        field.isErrorEnabled = false
+        field.isCompleted = true
+        field.isShow = true
+        field.attachmentUrl.removeAll()
+        if !wasCompleted, index + 1 < data.count {
+            data[index + 1].isShow = true
+        }
+        activeFormMessage = message
+        sendFormReply(message: message, data: data)
+        botComposerStateMayHaveChanged()
+    }
+
+    func botForm(pickAttachmentAt index: Int, of message: HippoMessage) {
+        guard index < message.leadsDataArray.count else { return }
+        view.endEditing(true)
+        actionAttachmentClick(data: message.leadsDataArray[index])
+    }
+
+    func botFormLoadOptions(group: Bool, completion: @escaping ([String]) -> Void) {
+        let type: ErpSearchType = group ? .issueType : .issuePriority
+        var finished = false
+        createTicketVM.searchDataUpdated = { [weak self] updated in
+            guard updated == type, !finished, let self = self else { return }
+            finished = true
+            let options = group ? self.createTicketVM.initialIssueTypeData : self.createTicketVM.initialPriorityData
+            DispatchQueue.main.async { completion(options) }
+        }
+        createTicketVM.erpSearch(type: type, text: "")
+        // The search API has no failure callback: give up after a while.
+        DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
+            guard !finished else { return }
+            finished = true
+            completion([])
+        }
+    }
+
+    func botFormNeedsLayout(_ cell: BotFormCardCell) {
+        UIView.performWithoutAnimation {
+            tableViewChat.beginUpdates()
+            tableViewChat.endUpdates()
+        }
+        // The card grew or shrank (next step, error, file added): keep its open step in view.
+        DispatchQueue.main.async {
+            if cell.card.hasFocusedField {
+                self.keepActiveFormStepVisible(animated: true)
+            } else if let indexPath = self.tableViewChat.indexPath(for: cell), indexPath == self.getLastMessageIndexPath() {
+                self.settleChatAtEnd(animated: true)
+            }
+        }
+    }
+
+    func botFormFieldWillFocus() {
+        if messageTextView.isFirstResponder {
+            messageTextView.resignFirstResponder()
+        }
+        // The chat makes room for the keyboard itself (formKeyboardWillChange); shifting the
+        // whole screen as well would hide new messages and the next field behind the keyboard.
+        HippoKeyboardManager.shared.enable = false
+    }
+
+    /// Keyboard for a bot form field: lift the composer (and with it the chat's bottom edge)
+    /// above the keyboard, then keep the open step - or the newest message - in view.
+    @objc func formKeyboardWillChange(_ note: Notification) {
+        // A sheet on top (date & time, location) owns its own keyboard.
+        guard isViewLoaded, view.window != nil, presentedViewController == nil,
+              !messageTextView.isFirstResponder else { return }
+        guard let frame = (note.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
+        let hiding = note.name == UIResponder.keyboardWillHideNotification
+        let newKeyboardTop: CGFloat? = hiding || frame.minY >= FUGU_SCREEN_HEIGHT ? nil : frame.minY
+        let duration = note.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double ?? 0.25
+
+        if textViewBgView.isHidden {
+            // A lead / ticket form hides the composer, so there is nothing to lift. Make room
+            // for the keyboard on the chat itself, or the open field sits behind it.
+            guard newKeyboardTop != formKeyboardTop else { return }
+            formKeyboardTop = newKeyboardTop
+            UIView.animate(withDuration: duration) {
+                self.updateChatInsetForComposerOverlap()
+            }
+        } else {
+            // The form may have finished (composer back) while its keyboard was up: drop that inset.
+            let hadFormInset = formKeyboardTop != nil
+            formKeyboardTop = nil
+            let value = hiding ? 0 : max(0, FUGU_SCREEN_HEIGHT - frame.minY - UIView.safeAreaInsetOfKeyWindow.bottom)
+            guard hadFormInset || abs(textViewBottomConstraint.constant - value) > 0.5 else { return }
+            UIView.animate(withDuration: duration) {
+                self.textViewBottomConstraint.constant = value
+                self.view.layoutIfNeeded()
+                self.updateChatInsetForComposerOverlap()
+            }
+        }
+        if !hiding {
+            keepActiveFormStepVisible(animated: true)
+        }
+    }
+
+    /// While a form field has the keyboard: the form card's bottom (its open step) just above
+    /// the composer, or the chat's end when the form is the last row.
+    func keepActiveFormStepVisible(animated: Bool) {
+        guard let cell = tableViewChat.visibleCells.compactMap({ $0 as? BotFormCardCell }).first(where: { $0.card.hasFocusedField }),
+              let indexPath = tableViewChat.indexPath(for: cell) else { return }
+        if indexPath == getLastMessageIndexPath() {
+            settleChatAtEnd(animated: animated)
+        } else {
+            tableViewChat.scrollToRow(at: indexPath, at: .bottom, animated: animated)
+        }
+    }
+
+    func botFormFieldDidEnd() {
+        HippoKeyboardManager.shared.enable = false
+    }
+
+    /// Skip on a lead form the bot allows skipping: same request as the old lead form's Skip
+    /// (is_skip_event), then the card closes as "Skipped" and the composer comes back.
+    func botFormSkip(_ message: HippoMessage) {
+        guard message.type == .leadForm, message.isSkipBotEnabled, !message.isSkipEvent else { return }
+        message.isSkipBotEnabled = false
+        message.isSkipEvent = true
+        activeFormMessage = nil
+        let replyMessage = botGroupID != nil ? message : nil
+        if replyMessage?.messageUniqueID == nil {
+            replyMessage?.messageUniqueID = String.generateUniqueId()
+        }
+        createChannelIfRequiredAndContinue(replyMessage: replyMessage) { (_, result) in
+            let isReplyMessageSent = result?.isReplyMessageSent ?? false
+            if !isReplyMessageSent {
+                self.channel?.sendFormValues(message: message, completion: {})
+            }
+        }
+        tableViewChat.reloadData()
+        isBotInputMode = isLatestMessageActiveBotForm()
+        showComposerIfAllowed()
+        botComposerStateMayHaveChanged()
+    }
+
+    /// The ticket id from the bot's reply after a ticket form ("Your Ticket has been raised. Use
+    /// Ticket id <b>44608</b> for reference"), looking at the next few messages. nil when the reply
+    /// hasn't arrived or the ticket failed.
+    func ticketIdAfter(_ indexPath: IndexPath) -> String? {
+        let all = messagesGroupedByDate.flatMap { $0 }
+        let before = messagesGroupedByDate.prefix(indexPath.section).reduce(0) { $0 + $1.count }
+        let position = before + indexPath.row
+        guard position < all.count else { return nil }
+        let regex = try? NSRegularExpression(pattern: "ticket\\s*id\\s*:?\\s*(?:<[^>]+>\\s*)*#?\\s*([A-Za-z0-9-]+)", options: .caseInsensitive)
+        var i = position + 1
+        while i < all.count && i <= position + 4 {
+            let m = all[i]
+            if m.type == .leadForm || m.type == .createTicket { return nil }
+            let text = m.message
+            if !text.isEmpty, let regex = regex,
+               let match = regex.firstMatch(in: text, range: NSRange(text.startIndex..., in: text)),
+               let range = Range(match.range(at: 1), in: text) {
+                return String(text[range])
+            }
+            i += 1
+        }
+        return nil
+    }
+
+    /// A ticket form's card depends on later bot replies (the ticket id): rebind the nearest one.
+    func refreshRecentTicketForm() {
+        guard HippoConfig.shared.appUserType == .customer else { return }
+        var seen = 0
+        for (section, group) in messagesGroupedByDate.enumerated().reversed() {
+            for (row, m) in group.enumerated().reversed() {
+                seen += 1
+                if seen > 6 { return }
+                guard m.type == .createTicket else { continue }
+                let indexPath = IndexPath(row: row, section: section)
+                if let cell = tableViewChat.cellForRow(at: indexPath) as? BotFormCardCell {
+                    cell.bind(message: m, ticketId: ticketIdAfter(indexPath), host: self)
+                    botFormNeedsLayout(cell)
+                }
+                return
+            }
+        }
+    }
 }

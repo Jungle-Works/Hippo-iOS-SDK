@@ -165,16 +165,21 @@ extension OfferPopUpVC {
     }
     
     func getDataToSendCallBackIfExists(for buttonTag: Int, for buttonNumber: Int) -> [String: Any]? {
-        guard let rawData = rawData else {return nil}
-        guard let data = rawData["data"] as? [[String: Any]] else {return nil}
-        guard data.indices.contains(buttonTag) else {return nil}
-        guard let attr = data[buttonTag]["custom_attributes"] as? [String:Any] else {return nil}
-        guard let buttonData = attr["buttons"] as? [[String: Any]] else {return nil}
-        guard buttonData.indices.contains(buttonNumber) else {return nil}
+        guard let rawData = rawData, let data = rawData["data"] as? [[String: Any]], data.indices.contains(buttonTag), let attr = data[buttonTag]["custom_attributes"] as? [String:Any], let buttonData = attr["buttons"] as? [[String: Any]], buttonData.indices.contains(buttonNumber) else {return nil}
         let selectedButton = buttonData[buttonNumber]
-        guard let actionType = selectedButton["action_type"] as? Int, actionType == 2 else {return nil}
-        guard let callBackData = selectedButton["callback_data"] as? [String: Any] else {return nil}
+        guard let actionType = selectedButton["action_type"] as? Int, actionType == 2, let callBackData = selectedButton["callback_data"] as? [String: Any] else {return nil}
         return callBackData
+        
+//        guard let rawData = rawData else {return nil}
+//        guard let data = rawData["data"] as? [[String: Any]] else {return nil}
+//        guard data.indices.contains(buttonTag) else {return nil}
+//        guard let attr = data[buttonTag]["custom_attributes"] as? [String:Any] else {return nil}
+//        guard let buttonData = attr["buttons"] as? [[String: Any]] else {return nil}
+//        guard buttonData.indices.contains(buttonNumber) else {return nil}
+//        let selectedButton = buttonData[buttonNumber]
+//        guard let actionType = selectedButton["action_type"] as? Int, actionType == 2 else {return nil}
+//        guard let callBackData = selectedButton["callback_data"] as? [String: Any] else {return nil}
+//        return callBackData
         
 //        ((((((rawData as! [String: Any])["data"] as! [[String: Any]]).first as! [String : Any])["custom_attributes"] as! [String: Any])["buttons"] as! [[String: Any]]).first!)["callback_data"]
     }

@@ -259,6 +259,31 @@ enum responseKeyboardType: String{
     case none = "NONE"
     case numberKeyboard = "NUMBER"
     case defaultKeyboard = "DEFAULT"
+    /// Bot URL question: URL keyboard, answer must be an http(s) link before it is sent.
+    case url = "URL"
+    /// Bot phone question: phone keypad.
+    case phone = "PHONE"
+    /// Bot email question: email keyboard.
+    case email = "EMAIL"
+
+    /// The bot's input_type. Phone and email arrive under several names (PHONE, PHONE_NUMBER,
+    /// MOBILE, TELEPHONE / EMAIL, EMAIL_ADDRESS), so match by word; anything unknown is text.
+    init(inputType: String) {
+        let t = inputType.uppercased()
+        if t == "NONE" {
+            self = .none
+        } else if t == "NUMBER" || t == "NUMERIC" || t == "DIGITS" {
+            self = .numberKeyboard
+        } else if t == "URL" {
+            self = .url
+        } else if t.contains("PHONE") || t.contains("MOBILE") || t.contains("TEL") {
+            self = .phone
+        } else if t.contains("MAIL") {
+            self = .email
+        } else {
+            self = .defaultKeyboard
+        }
+    }
 }
 
 
@@ -288,6 +313,8 @@ enum NotificationType: Int {
     case call = 14
     case messageModified = 24
     case channelRefresh = 17
+    case jitsiCallSignal = 20
+    case missedCall = 23
     
     var isNotificationTypeHandled: Bool {
         switch self {
@@ -349,7 +376,8 @@ enum ActionType: Int {
 enum ConversationType {
     case myChat
     case allChat
-    case o2oChat
+    case p2pChat
+    case supportChat
     case historyChat
 }
 
@@ -400,10 +428,13 @@ enum FuguEndPoints: String {
     case statsUpdate = "api/users/updateUserToChannel"
     case promotionalPopUp = "api/broadcast/getUserToCampaign"
     case getUnreadAnnouncementCount = "api/broadcast/getUnreadAnnouncementCount"
-      
+    case getConfiguration = "api/business/v2/getConfiguration"
+    static let generateContent = "api/chat/generateContent"
+    case fetchChatUnreadCount = "api/conversation/fetchChatUnreadCount"
 }
 
 enum AgentEndPoints: String {
+    static let generateContent = "api/chat/generateContent"
     case conversationUnread = "api/conversation/getAgentTotalUnreadCount"
     case getAgentLoginInfo = "api/agent/getAgentLoginInfo"
     case loginViaAuthToken = "api/agent/v1/agentLoginViaAuthToken"
@@ -415,7 +446,7 @@ enum AgentEndPoints: String {
     case getUnreadCount = "api/conversation/get_customer_unread_count"
 //    case getUnreadCount = "api/conversation/getUnreadCount"
     case createConversation = "api/conversation/createConversation"
-    
+    case createTicket = "api/ticketing/activities"
     //Broadcasting
     case getGroupingTag = "api/broadcast/getGroupingTag"
     case sendBroadcastMessage = "api/broadcast/sendBroadcastMessage"
@@ -454,6 +485,9 @@ enum AgentEndPoints: String {
     case createTags = "api/tags/createTags"
     case assignTags = "api/tags/assignTagsToChannel"
     case assignTagsV2 = "api/tags/v2/assignTagsToChannel"
+    case getCannedMessages = "api/business/getCannedMessages"
+    case fetchChatUnreadCount = "api/conversation/fetchChatUnreadCount"
+    case getConfiguration = "api/business/v2/getConfiguration"
 }
 
 struct MultiLanguageMsg{

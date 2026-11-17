@@ -46,7 +46,7 @@ class AgentChatHistoryVC: HippoHomeViewController {
     
     
     deinit {
-        print("Deinit Agent History view controller.....")
+        HippoConfig.shared.log.debug("-------\nERROR\nDeinit Agent History view controller.....\n--------", level: .info)
     }
     
     class func getController() -> AgentChatHistoryVC? {
@@ -110,7 +110,7 @@ extension AgentChatHistoryVC {
         let page = isFrstPage ? 1 : pageNum+20
         AgentConversationManager.getHistoryChats(pageNum: page, showLoader: isFrstPage, visitorId: visitorId, excludedChannelId: self.excludedChannelid) { [weak self] (result) in
             guard result.isSuccessful else{
-                print(result.error ?? "")
+                HippoConfig.shared.log.debug(result.error, level: .error)
                 self?.refreshControl.endRefreshing()
                 return
             }

@@ -373,13 +373,10 @@ class AudioCallPresenter: NSObject, CallPresenter, CXProviderDelegate {
     
     // MARK: - InCall View
     func loadInCallView(with delay: Double = 0.0) {
-        guard let keyWindow = UIApplication.shared.keyWindow else {
+        guard let keyWindow = UIApplication.shared.currentKeyWindow, inCallView == nil else {
             return
         }
-        guard inCallView == nil else {
-            return
-        }
-        
+
         inCallView = AudioCallView.get()
         inCallView?.frame = keyWindow.bounds
         inCallView?.delegate = self

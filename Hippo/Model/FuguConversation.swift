@@ -17,6 +17,7 @@ class FuguConversation: HippoConversation {
     var message_sub_type : Int?
     var original_transaction_id : String?
     var channelType: Int?
+    var channelPriority: Int?
     
     init?(channelId: Int, unreadCount: Int, lastMessage: HippoMessage, labelID: Int?) {
         guard channelId > 0 else {
@@ -79,6 +80,13 @@ class FuguConversation: HippoConversation {
         if let channel_type = conversationDict["channel_type"] as? Int {
             self.channelType = channel_type
         }
+        
+        if let channelPriority = conversationDict["channel_priority"] as? Int {
+            self.channelPriority = channelPriority
+        } else if let channelPriority = (conversationDict["channel_priority"] as? String).flatMap(Int.init) {
+            self.channelPriority = channelPriority
+        }
+        
         if let message = HippoMessage.init(convoDict: conversationDict) {
             self.lastMessage = message
         } else if let message = HippoMessage(dict: conversationDict) {
@@ -103,6 +111,11 @@ class FuguConversation: HippoConversation {
         
         params["default_message"] = defaultMessage ?? ""
         params["channel_image"] = channelImage ?? ""
+        // Kept so the cached list (shown before the server responds) sorts by the same
+        // channel priority as the fresh one.
+        if let channelPriority = channelPriority {
+            params["channel_priority"] = channelPriority
+        }
         
         return params
     }
@@ -112,17 +125,20 @@ class FuguConversation: HippoConversation {
         let params = getParamsToGetAllConversation(config: config)
         
         HTTPClient.makeConcurrentConnectionWith(method: .POST, para: params, extendedUrl: FuguEndPoints.API_GET_CONVERSATIONS.rawValue) { (responseObject, error, tag, statusCode) in
-            
+            print(responseObject as Any)
             guard let unwrappedStatusCode = statusCode,
-                let response = responseObject as? [String: Any],
-                let data = response["data"] as? [String: Any],
-                let conversationArrayJson = data["conversation_list"] as? [[String: Any]],
-                unwrappedStatusCode == STATUS_CODE_SUCCESS else {
+                  let response = responseObject as? [String: Any],
+                  let data = response["data"] as? [String: Any],
+                  let conversationArrayJson = data["conversation_list"] as? [[String: Any]],
+                  unwrappedStatusCode == STATUS_CODE_SUCCESS else {
+                if  statusCode != 400{
                     let result = GetConversationFromServerResult(isSuccessful: false, error: error, conversations: nil)
-                    
                     completion(result)
-                print(result)
                     return
+                }else{
+                    return
+                }
+               
             }
             
             FuguDefaults.set(value: conversationArrayJson, forKey: DefaultName.conversationData.rawValue)
@@ -131,9 +147,10 @@ class FuguConversation: HippoConversation {
             if let lastVisibleController = getLastVisibleController() as? ConversationsViewController, let channelId = lastVisibleController.channel?.id {
                 lastVisibleController.clearUnreadCountForChannel(id: channelId)
             }
-
+            
             let result = GetConversationFromServerResult(isSuccessful: true, error: HippoError.general, conversations: arrayOfConversation)
             completion(result)
+            print("allconv \(String(describing: result.conversations))")
         }
     }
     
@@ -198,17 +215,37 @@ class FuguConversation: HippoConversation {
     
     static func getConversationArrayFrom(json: [[String: Any]]) -> [FuguConversation] {
         var arrayOfConversation = [FuguConversation]()
-        
+
         for rawConversation in json {
             if let conversation = FuguConversation(conversationDict: rawConversation) {
-                if (conversation.unreadCount ?? 0) > 0 {
-//                    conversation.channelStatus = .open
-                }
                 arrayOfConversation.append(conversation)
             }
         }
-        
-        return arrayOfConversation
+       // return arrayOfConversation
+        // ✅ SORT BY CHANNEL PRIORITY
+        return arrayOfConversation.sorted { a, b in
+
+            let aIsChannel = (a.channelId == nil || (a.channelId ?? 0) <= 0)
+            let bIsChannel = (b.channelId == nil || (b.channelId ?? 0) <= 0)
+
+            // ✅ Both are channel conversations → sort by priority
+            if aIsChannel && bIsChannel {
+                return (a.channelPriority ?? Int.max) < (b.channelPriority ?? Int.max)
+            }
+
+            // ✅ Only A is channel → A comes first
+            if aIsChannel && !bIsChannel {
+                return true
+            }
+
+            // ✅ Only B is channel → B comes first
+            if !aIsChannel && bIsChannel {
+                return false
+            }
+
+            // ✅ Both are normal conversations → keep original order
+            return false
+        }
     }
     
     static func getJsonFrom(conversations: [FuguConversation]) -> [[String: Any]] {

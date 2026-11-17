@@ -12,6 +12,7 @@ import UIKit
 struct HippoResource {
     let url: URL
 }
+
 extension HippoResource: Resource {
     var cacheKey: String {
         return url.absoluteString

@@ -11,7 +11,7 @@
 "Unable to connect to the internet" = "Incapaz de conectarse a Internet";
 "No Internet Connection \nTap to retry" = "Conexión a Internet No \ NTAP de reintento";
 "Something went wrong \nTap to retry" = "Algo salió mal \ NTAP de reintento";
-"New Conversation" = "Nueva Conversación";
+"Create Conversation" = "Nueva Conversación";
 "Loading..." = "Cargando...";
 "Runs on" = "Se ejecuta en";
 "Hippo" = "Hipopótamo";
@@ -225,7 +225,7 @@
 "No Internet Connection \nTap to retry" = "Sin conexión a Internet \n TAP de reintento";
 "Something went wrong \nTap to retry" = "Algo salió mal \n TAP de reintento";
 "New Conversation" = "Nueva conversación";
-"New Conversations" = "Nuevas Conversaciones";
+"Create Conversation" = "Nuevas Conversaciones";
 "Powered by Fugu" = "Desarrollado por Fugu";
 "Refresh" = "Actualizar";
 "Forgot Password?" = "¿Se te olvidó tu contraseña?";

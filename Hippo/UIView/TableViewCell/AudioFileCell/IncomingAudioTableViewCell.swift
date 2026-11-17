@@ -28,7 +28,6 @@ class IncomingAudioTableViewCell: AudioTableViewCell {
         self.cellIdentifier = message.fileUrl ?? ""
         
         setTime()
-        
         senderNameLabel.text = message.senderFullName
         updateUI()
     }
@@ -157,17 +156,26 @@ class AudioTableViewCell: MessageTableViewCell {
             
             let totalTime = round(AudioPlayerManager.shared.audioPlayer?.duration ?? 1)
             let completedTime = round(AudioPlayerManager.shared.audioPlayer?.currentTime ?? 0)
-            
+
+            // totalTime can be 0 right as playback starts (duration not yet settled) or for a
+            // corrupt/zero-length file — completedTime / 0 is NaN (or Infinity), and assigning
+            // that to a constraint constant crashes with NSInternalInconsistencyException.
+            guard totalTime > 0 else {
+                self.progressViewWidthConstraint.constant = 0
+                self.layoutIfNeeded()
+                return
+            }
+
             let ratio = completedTime / totalTime
             self.progressViewWidthConstraint.constant = CGFloat(ratio * Double(self.fullLengthLineview.frame.width))
-            
+
             self.layoutIfNeeded()
         }
     }
     
     func updateLabels() {
         DispatchQueue.main.async {
-            self.fileName.text = self.message!.fileName
+            self.fileName.text = self.message?.fileName
 
             guard AudioPlayerManager.shared.tag == self.cellIdentifier else {
                 self.totalTimeLabel.text = ""
@@ -229,17 +237,16 @@ class AudioTableViewCell: MessageTableViewCell {
     }
     
     @IBAction func controlButtonAction(_ sender: Any) {
-        
         guard isFileDownloaded() else {
             self.startDownloading()
             return
         }
-        
+
         if AudioPlayerManager.shared.tag == cellIdentifier {
             AudioPlayerManager.shared.delegate = self
 
             if AudioPlayerManager.shared.audioPlayer?.isPlaying == true {
-                AudioPlayerManager.shared.stop()
+                AudioPlayerManager.shared.pause()
             } else if AudioPlayerManager.shared.audioPlayer?.isPlaying == false {
                 AudioPlayerManager.shared.play()
             }
@@ -262,9 +269,43 @@ extension AudioTableViewCell: AudioPlayerManagerDelegate {
     func playerEnded(_ player: AVAudioPlayer) {
         updateUI()
     }
-    
-    func timer(_ player: AVAudioPlayer) {
+
+    @objc func timer(_ player: AVAudioPlayer) {
         self.updateLabels()
         self.updateProgressBarView()
+    }
+
+    func playbackFailed() {
+        showErrorToast(message: "Unable to play this file.")
+        updateUI()
+    }
+}
+
+
+extension UITableViewCell {
+    func showErrorToast(message: String, duration: TimeInterval = 2.0) {
+        let toastLabel = UILabel(frame: CGRect(x: self.contentView.frame.size.width / 2 - 150,
+                                               y: self.contentView.frame.size.height / 2,
+                                               width: 300,
+                                               height: 40))
+        toastLabel.backgroundColor = UIColor.red.withAlphaComponent(0.8)
+        toastLabel.textColor = UIColor.white
+        toastLabel.textAlignment = .center
+        toastLabel.font = UIFont.systemFont(ofSize: 13, weight: .bold)
+        toastLabel.text = message
+        toastLabel.alpha = 0.0
+        toastLabel.clipsToBounds = true
+
+        self.contentView.addSubview(toastLabel)
+
+        UIView.animate(withDuration: 0.5, animations: {
+            toastLabel.alpha = 1.0
+        }) { _ in
+            UIView.animate(withDuration: 0.5, delay: duration, options: .curveEaseOut, animations: {
+                toastLabel.alpha = 0.0
+            }) { _ in
+                toastLabel.removeFromSuperview()
+            }
+        }
     }
 }

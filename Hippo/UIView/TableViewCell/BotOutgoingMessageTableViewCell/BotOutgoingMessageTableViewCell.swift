@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol BotOtgoingMessageCellDelegate: class {
+protocol BotOtgoingMessageCellDelegate: AnyObject {
     func didTapQuickReply(atIndex index: Int, forCell cell: BotOutgoingMessageTableViewCell)
 }
 

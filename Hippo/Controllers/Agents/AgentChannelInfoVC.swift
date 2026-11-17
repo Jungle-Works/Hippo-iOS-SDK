@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol ChatInfoDelegate: class {
+protocol ChatInfoDelegate: AnyObject {
     func backButtonAction(tagsArray: [TagDetail])
 }
 
@@ -49,7 +49,9 @@ class ChannelInfoViewController: UIViewController {
         intilizeChatInfoController()
         addChatInfoView()
     }
+
     
+
 }
 
 extension ChannelInfoViewController{

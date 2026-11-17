@@ -31,7 +31,7 @@ public enum SelectImageError: LocalizedError {
     }
 }
 
-public protocol CoreMediaSelectorDelegate: class {
+public protocol CoreMediaSelectorDelegate: AnyObject {
     func imageViewPickerDidFinish(mediaSelector: CoreMediaSelector, with result: CoreMediaSelector.Result)
     func imagePickingError(mediaSelector: CoreMediaSelector, error: Error)
 }
@@ -195,19 +195,17 @@ public class CoreMediaSelector: NSObject, UINavigationControllerDelegate, UIImag
         picker.mediaTypes = allowedTypes
         picker.delegate = self
     }
-    
-    //MARK: --
-    
-    
+
+    // MARK: -
     private func compressImage(originalImage: UIImage) -> (UIImage?, Error?) {
         guard CoreKit.shared.filesConfig.enableResizingImage else {
             return (originalImage, nil)
         }
         
         #if swift(>=4.2)
-            let size = originalImage.jpegData(compressionQuality: 1.0)!.count
+            let size = originalImage.jpegData(compressionQuality: 1.0)?.count ?? 0
         #else
-            let size =  UIImageJPEGRepresentation(originalImage, 1.0)!.count
+            let size = UIImageJPEGRepresentation(originalImage, 1.0)?.count ?? 0
         #endif
         let compressionQuality: CGFloat
         

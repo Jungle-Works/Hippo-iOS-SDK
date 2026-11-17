@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol BotTableDelegate: class {
+protocol BotTableDelegate: AnyObject {
     
     func sendButtonClicked(with object: BotAction?, customObj: CustomBot?)
 }
@@ -225,7 +225,6 @@ extension BotTableView: UITableViewDelegate, UITableViewDataSource, UISearchBarD
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("You tapped cell number \(indexPath.row).")
         selectedBotAction = indexPath.section == 0 ? filterListArray[indexPath.row] : filterCustomBots[indexPath.row]
     }
     

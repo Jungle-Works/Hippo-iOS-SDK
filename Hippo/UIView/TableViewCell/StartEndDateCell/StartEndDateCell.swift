@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol StartEndDateCellDelegate: class {
+protocol StartEndDateCellDelegate: AnyObject {
     func startDateValueChanged(_ sender: UIDatePicker)
     func endDateValueChanged(_ sender: UIDatePicker)
 }
