@@ -162,6 +162,8 @@ public struct ConversationListTheme {
     open var moreOptionsBtnTintColor: UIColor?
     open var moreOptionsIconsTintColor = UIColor.black
     open var moreOptionsTitlesTintColor = UIColor.black
+    @available(*, deprecated, message: "No longer used by the revamped chat screen; kept for source compatibility.")
+    open var addBtnTintColor: UIColor?
     
     open var actionButtonIcon: UIImage? = UIImage(named: "optionIcons", in: FuguFlowManager.bundle, compatibleWith: nil)
     open var actionButtonIconTintColor: UIColor?
